@@ -9,20 +9,20 @@ class Versioneers::ScreenshotsVersioneer
   DELETE = Versions::ScreenshotsVersion::ACTIONS[:delete]
 
   def upload image, author
-    screenshot = build_screenshot image
+    art = build_art image, author
 
-    if screenshot.save
+    if art.save
       version = find_version(author, UPLOAD) || build_version(author, UPLOAD)
-      version.item_diff[KEY] << screenshot.id
+      add_art version, art.id
       version.save
     end
 
-    [screenshot, version]
+    [art, version]
   end
 
-  def delete screenshot_id, author
+  def delete art_id, author
     version = find_version(author, DELETE) || build_version(author, DELETE)
-    version.item_diff[KEY] << screenshot_id
+    add_art version, art_id
     version.save
     version
   end
@@ -39,7 +39,11 @@ class Versioneers::ScreenshotsVersioneer
 
 private
 
-  def build_screenshot image
+  def add_art version, art_id
+    version.item_diff[KEY] << art_id
+  end
+
+  def build_art image, author
     item.screenshots.build(
       image: image,
       position: DEFAULT_POSITION,

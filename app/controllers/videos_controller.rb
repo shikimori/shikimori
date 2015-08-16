@@ -1,5 +1,5 @@
 class VideosController < ShikimoriController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     @entry = Anime.find params[:id]
@@ -25,6 +25,7 @@ class VideosController < ShikimoriController
   end
 
 private
+
   def video_params
     params
       .require(:video)

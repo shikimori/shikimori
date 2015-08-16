@@ -12,6 +12,9 @@ FactoryGirl.define do
   factory :screenshots_version, parent: :version, class: 'Versions::ScreenshotsVersion' do
   end
 
+  factory :video_version, parent: :version, class: 'Versions::VideoVersion' do
+  end
+
   factory :version_anime_video, parent: :version do
     item_type AnimeVideo.name
     state :auto_accepted

@@ -6,10 +6,8 @@ FactoryGirl.define do
     url 'http://youtube.com/watch?v=VdwKZ6JDENc'
     kind Video::OP
 
-    after :build do |v|
-      #v.stub :check_youtube_existence
-      #v.stub :fetch_vk_details
-      v.stub :suggest_acception
+    trait :uploaded do
+      state 'uploaded'
     end
 
     trait :confirmed do
@@ -18,12 +16,6 @@ FactoryGirl.define do
 
     trait :deleted do
       state 'deleted'
-    end
-
-    trait :with_suggest do
-      after :build do |v|
-        v.unstub :suggest_acception
-      end
     end
 
     #trait :with_http_request do

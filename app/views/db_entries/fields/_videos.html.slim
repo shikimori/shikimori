@@ -3,7 +3,7 @@
   /.subheadline Добавление нового ролика
   .subcontent.item-content-editor.m30
 .block
-  = simple_form_for Video.new, remote: true, authenticity_token: true, html: { 'data-type' => :json } do |f|
+  = simple_form_for [@resource, Video.new], remote: true, authenticity_token: true, html: { 'data-type' => :json } do |f|
     .block
       = f.input :url, hint: Video::SAVEABLE_HOSTINGS.join(', ')
       = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false

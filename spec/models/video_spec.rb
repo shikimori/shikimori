@@ -12,38 +12,6 @@ describe Video do
     #it { should validate_presence_of :hosting }
   end
 
-  context 'hooks' do
-    describe 'suggest_acception' do
-      it :uploaded do
-        expect {
-          create :video, :with_suggest
-        }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Pending), :count).by 1
-      end
-
-      it :confirmed do
-        expect {
-          create :video, :with_suggest, state: 'confirmed'
-        }.to change(UserChange.where(action: UserChange::VideoUpload, status: UserChangeStatus::Taken), :count).by 1
-      end
-    end
-
-    describe 'suggest_deletion' do
-      it :confirmed do
-        video = create :video, state: 'confirmed'
-        expect {
-          video.suggest_deletion create(:user)
-        }.to change(UserChange.where(action: UserChange::VideoDeletion), :count).by 1
-      end
-
-      it :uploaded do
-        video = create :video
-        expect {
-          video.suggest_deletion create(:user)
-        }.to_not change(UserChange, :count)
-      end
-    end
-  end
-
   describe 'validations' do
     describe 'normalize' do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }

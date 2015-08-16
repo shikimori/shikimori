@@ -16,6 +16,7 @@ class DbEntriesController < ShikimoriController
 
   def edit_field
     noindex
+    page_title i18n_t('entry_edit')
     @field = params[:field]
 
     # TODO: удалить после выпиливания UserChange

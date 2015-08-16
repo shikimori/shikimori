@@ -505,10 +505,6 @@ Site::Application.routes.draw do
       post :increment, on: :member
     end
 
-    # удаление скриншота
-    #delete 'screenshot/:id' => 'screenshots#destroy', as: 'screenshot'
-    delete 'video/:id' => 'videos#destroy', as: 'video'
-
     resources :animes, only: [:edit, :update] do
       concerns :db_entry, fields: /description|russian|name|kind|episodes|rating|screenshots|videos|torrents_name|tags/
 
@@ -517,7 +513,7 @@ Site::Application.routes.draw do
       resources :screenshots, only: [:create, :destroy] do
         post :reposition, on: :collection
       end
-      resources :videos, only: [:create]
+      resources :videos, only: [:create, :destroy]
     end
 
     resources :mangas, only: [:edit, :update] do
