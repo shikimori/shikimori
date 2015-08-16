@@ -52,7 +52,7 @@ class MessageDecorator < BaseDecorator
         end
 
       else
-        h.get_message_body object
+        h.get_message_body(object).html_safe
     end
   end
 
