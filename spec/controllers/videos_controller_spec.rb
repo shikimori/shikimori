@@ -1,5 +1,5 @@
 describe VideosController do
-  include_context :authenticated, :user_changes_moderator
+  include_context :authenticated, :versions_moderator
 
   let(:anime) { create :anime }
   let(:url) { 'http://youtube.com/watch?v=l1YX30AmYsA' }

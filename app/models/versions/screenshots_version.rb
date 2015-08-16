@@ -68,6 +68,6 @@ private
     Screenshot
       .includes(:anime)
       .where(id: ids)
-      .sort_by {|v| ids.index v.id }
+      .sort_by {|v| Array(ids).index v.id }
   end
 end

@@ -388,54 +388,6 @@ describe AnimeVideo do
         its(:author) { should eq author }
       end
     end
-
-    describe '#moderated_update' do
-      let(:video) { create :anime_video, episode: 1 }
-      let(:params) { {episode: 2} }
-
-      context 'without_current_user' do
-        let(:moderated_update) { video.moderated_update params }
-
-        it { expect(moderated_update).to be_truthy }
-        it { moderated_update; expect(video.reload.episode).to eq 2 }
-
-        context 'check_versions' do
-          before { moderated_update }
-          subject { Version.last }
-          let(:diff_hash) {{ 'episode' => [1,2] }}
-
-          it { should_not be_nil }
-          its(:item_id) { should eq video.id }
-          its(:item_diff) { should eq diff_hash }
-          its(:item_type) { should eq video.class.name }
-        end
-      end
-
-      context 'with_current_user' do
-        let(:current_user) { create :user, :user }
-        let(:moderated_update) { video.moderated_update params, current_user }
-        before { moderated_update }
-        subject { Version.last }
-
-        its(:user_id) { should eq current_user.id }
-      end
-    end
-
-    describe '#versions' do
-      let(:video) { create :anime_video, episode: 1 }
-      let(:update_params_1) {{ episode: 2 }}
-      let(:update_params_2) {{ episode: 3 }}
-      let(:last_diff_hash) {{ 'episode' => [2,3] }}
-      before do
-        video.moderated_update update_params_1
-        video.moderated_update update_params_2
-      end
-
-      subject { video.reload.versions }
-      it { should_not be_blank }
-      it { should have(2).items }
-      it { expect(subject.last.item_diff).to eq last_diff_hash }
-    end
   end
 
   describe 'permissions' do

@@ -19,15 +19,6 @@ class DbEntriesController < ShikimoriController
     page_title i18n_t('entry_edit')
     @field = params[:field]
 
-    # TODO: удалить после выпиливания UserChange
-    @user_change = UserChange.new(
-      model: @resource.object.class.name,
-      item_id: @resource.id,
-      column: @page,
-      source: @resource.source,
-      value: @resource[@page],
-      action: params[:page] == 'screenshots' ? UserChange::ScreenshotsPosition : nil
-    )
     render template: 'db_entries/edit_field'
   end
 

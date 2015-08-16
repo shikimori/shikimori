@@ -5,7 +5,7 @@
 
     .buttons
       a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
-      - if current_user.user_changes_moderator?
+      - if current_user.versions_moderator?
         = f.submit t('actions.apply'), class: 'apply', name: 'apply'
       - else
         = f.button :magic_submit

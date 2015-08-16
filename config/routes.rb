@@ -75,19 +75,6 @@ Site::Application.routes.draw do
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
   namespace :moderation do
-    # TODO: выпилить после мигарции на versions
-    resources :user_changes, only: [:show, :index, :create] do
-      collection do
-        get '(/page/:page)' => :index, as: :index
-      end
-
-      member do
-        get :tooltip
-        post :take
-        post :deny
-      end
-    end
-
     resources :versions, only: [:show, :index, :create, :destroy] do
       collection do
         get '(/page/:page)' => :index, as: :index

@@ -84,7 +84,7 @@ shared_examples :db_entry_controller do |entry_name|
       end
 
       context 'moderator' do
-        include_context :authenticated, :user_changes_moderator
+        include_context :authenticated, :versions_moderator
         before { make_request }
 
         it do
@@ -100,7 +100,7 @@ shared_examples :db_entry_controller do |entry_name|
       let(:apply) { }
       let(:take) { 'Take' }
 
-      include_context :authenticated, :user_changes_moderator
+      include_context :authenticated, :versions_moderator
       before { make_request }
 
       it do

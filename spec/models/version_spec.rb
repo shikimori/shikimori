@@ -167,7 +167,7 @@ describe Version do
     let(:version) { build_stubbed :version }
 
     context 'user_chagnes_moderator' do
-      subject { Ability.new build_stubbed(:user, :user_changes_moderator) }
+      subject { Ability.new build_stubbed(:user, :versions_moderator) }
       it { is_expected.to be_able_to :manage, version }
     end
 

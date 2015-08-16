@@ -25,7 +25,7 @@ class VersionsView < ViewObjectBase
 
   def moderators
     User
-      .where(id: User::UserChangesModerators - User::Admins)
+      .where(id: User::VersionsModerators - User::Admins)
       .sort_by { |v| v.nickname.downcase }
   end
 

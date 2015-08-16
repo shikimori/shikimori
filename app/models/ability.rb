@@ -13,7 +13,7 @@ class Ability
       contests_moderator_ability if @user.contests_moderator?
       reviews_moderator_ability if @user.reviews_moderator?
       video_moderator_ability if @user.video_moderator?
-      user_changes_moderator_ability if @user.user_changes_moderator?
+      versions_moderator_ability if @user.versions_moderator?
       admin_ability if @user.admin?
     end
   end
@@ -191,7 +191,7 @@ class Ability
     end
   end
 
-  def user_changes_moderator_ability
+  def versions_moderator_ability
     can :manage, Version
   end
 

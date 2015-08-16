@@ -23,18 +23,6 @@ class UserChange < ActiveRecord::Base
   #validates_presence_of :column
   #validates_presence_of :value
 
-  class << self
-    # число не принятых изменений
-    def pending_count
-      UserChange.where(status: UserChangeStatus::Pending).count
-    end
-
-    # есть ли не прнятые изменения
-    def has_changes?
-      pending_count > 0
-    end
-  end
-
   def reason= value
     if !value || value.size <= MAXIMUM_REASON_SIZE
       super

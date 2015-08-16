@@ -4,7 +4,7 @@ span.item-content-editor-buttons
     - unless defined?(save_to_all) && save_to_all
       span.control.item-save Сохранить
     - if user_signed_in? && \
-          (current_user.user_changes_moderator? || \
+          (current_user.versions_moderator? || \
             (defined?(save_to_all) && save_to_all) || \
             (defined?(item) && item && item.respond_to?(:can_be_edited_by?) && item.can_be_edited_by?(current_user)))
       span.control.item-apply Применить

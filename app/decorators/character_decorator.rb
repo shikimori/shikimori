@@ -19,11 +19,6 @@ class CharacterDecorator < PersonDecorator
     @cosplay ||= AniMangaPresenter::CosplayPresenter.new object, h
   end
 
-  # презентер пользовательских изменений
-  def changes
-    AniMangaDecorator::ChangesDecorator.new object
-  end
-
   def animes limit = nil
     decorated_entries object.animes.limit(limit)
   end

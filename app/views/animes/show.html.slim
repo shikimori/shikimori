@@ -119,7 +119,7 @@
             .russian itemprop="description"
               = @resource.description_html
 
-        = render 'blocks/source', entry: @resource, authors: @resource.versions.authors, field: 'description', default_source: @resource.mal_url
+        = render 'blocks/source', entry: @resource, authors: @resource.versions.authors(:description), field: 'description', default_source: @resource.mal_url
 
   - if user_signed_in?
     = render 'resources'

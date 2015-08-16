@@ -10,7 +10,7 @@ class Versions::VideoVersion < Version
   end
 
   def video
-    @video ||= Video.find item_diff[KEY].first
+    @video ||= Video.find_by id: item_diff[KEY].first
   end
 
   def apply_changes

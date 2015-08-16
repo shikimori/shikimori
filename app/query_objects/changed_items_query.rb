@@ -3,10 +3,12 @@ class ChangedItemsQuery
   pattr_initialize :klass
 
   def fetch_ids
-    UserChange
-      .where(model: klass.name, column: 'description')
-      .where(status: [UserChangeStatus::Accepted, UserChangeStatus::Taken])
+    Version
+      .where("(item_diff->>:field) is not null", field: 'description')
+      .where(item_type: klass.name)
+      .where(state: [:accepted, :taken])
       .pluck(:item_id)
       .uniq
+      .sort
   end
 end

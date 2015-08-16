@@ -1,4 +1,4 @@
-/= cache [version, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?, I18n.locale] do
+/= cache [version, user_signed_in? && current_user.versions_moderator?, current_user && current_user.admin?, I18n.locale] do
 div
   .b-log_entry
     span.id-label #
@@ -75,7 +75,7 @@ div
             = version.reason
 
         - if version.kind_of? Versions::VideoVersion
-          = render version.video
+          = render "versions/video", version: version
         - elsif version.kind_of? Versions::ScreenshotsVersion
           = render "versions/screenshots_#{version.action}", version: version
         - else

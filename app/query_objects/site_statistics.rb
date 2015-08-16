@@ -38,8 +38,8 @@ class SiteStatistics
     User.where(id: [2,11,19,861,950,1945,864,6452,28133]).order(:id)
   end
 
-  def user_changes_moderators
-    User.where(id: User::UserChangesModerators - User::Admins)
+  def versions_moderators
+    User.where(id: User::VersionsModerators - User::Admins)
   end
 
   def forum_moderators
@@ -52,12 +52,12 @@ class SiteStatistics
 
   def translators
     User
-      .joins(:user_changes)
+      .joins(:versions)
       .where.not(id: [1, User::GuestID] + BotsService.posters)
-      .where(user_changes: { status: [UserChangeStatus::Accepted, UserChangeStatus::Taken] })
+      .where(versions: { state: [:accepted, :taken] })
       .group('users.id')
-      .having("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) > 10")
-      .order("sum(case when user_changes.status='#{UserChangeStatus::Accepted}' then 7 else 1 end) desc")
+      .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
+      .order("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) desc")
       .limit(104)
       #.select("users.*, sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) as points")
       #.each {|v| v.nickname = v.points.to_i.to_s }

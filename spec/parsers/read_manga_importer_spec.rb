@@ -14,12 +14,19 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
     end
 
     describe 'ids' do
-      let!(:user_change) { }
-      before { importer.import ids: [identifier] }
-      it { expect(manga.reload.description).to be_present }
+      context 'not changed manga' do
+        before { importer.import ids: [identifier] }
 
-      context 'user changed manga' do
-        let!(:user_change) { create :user_change, item_id: manga.id, model: Manga.name, column: 'description', status: UserChangeStatus::Taken }
+        it do
+          expect(manga.reload.description).to be_present
+          expect(manga.description).to_not eq description
+        end
+      end
+
+      context 'changed manga' do
+        let!(:version) { create :version, item: manga, item_diff: { 'description': ['1','2'] }, state: :taken }
+        before { importer.import ids: [identifier] }
+
         it { expect(manga.reload.description).to eq description }
       end
     end

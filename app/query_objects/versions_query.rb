@@ -12,9 +12,9 @@ class VersionsQuery < QueryObjectBase
       .decorate
   end
 
-  def authors
+  def authors field
     query
-      .where("(item_diff->>:field) is not null", field: 'description')
+      .where("(item_diff->>:field) is not null", field: field)
       .where(state: :accepted)
       .except(:order)
       .order(created_at: :asc)

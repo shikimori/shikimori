@@ -83,7 +83,7 @@
             .russian itemprop="description"
               = @resource.description_html
 
-        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:description, false), field: 'description', default_source: @resource.mal_url }
+        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.versions.authors(:description), field: 'description', default_source: @resource.mal_url }
 
   - if @resource.animes(7).any?
     .subheadline.m10

@@ -1,6 +1,6 @@
 describe Moderation::VersionsController do
   include_context :back_redirect
-  include_context :authenticated, :user_changes_moderator
+  include_context :authenticated, :versions_moderator
 
   let(:version) { create :version, item: anime, item_diff: { russian: ['a', 'bbb'] }, state: state, user: author }
   let(:author) { user }

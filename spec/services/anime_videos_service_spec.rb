@@ -62,7 +62,6 @@ describe AnimeVideosService do
 
         expect(video).to have_attributes video_params.except(:author_name)
         expect(video.author_name).to eq video_params[:author_name]
-        expect(video.versions).to have(1).item
       end
     end
 

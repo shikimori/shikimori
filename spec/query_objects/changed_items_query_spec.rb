@@ -1,11 +1,16 @@
 describe ChangedItemsQuery do
   let(:query) { ChangedItemsQuery.new Anime }
-  let!(:user_change_1) { create :user_change, item_id: 1, model: Manga.name, column: 'description', status: UserChangeStatus::Taken }
-  let!(:user_change_2) { create :user_change, item_id: 2, model: Anime.name, column: 'description', status: UserChangeStatus::Taken }
-  let!(:user_change_3) { create :user_change, item_id: 3, model: Character.name, column: 'description', status: UserChangeStatus::Taken }
-  let!(:user_change_4) { create :user_change, item_id: 4, model: Anime.name, column: 'description', status: UserChangeStatus::Accepted }
-  let!(:user_change_5) { create :user_change, item_id: 5, model: Anime.name, column: 'description', status: UserChangeStatus::Rejected }
-  let!(:user_change_6) { create :user_change, item_id: 4, model: Anime.name, column: 'russian', status: UserChangeStatus::Accepted }
+  let(:item_1) { create :manga, id: 1 }
+  let(:item_2) { create :anime, id: 2 }
+  let(:item_3) { create :character, id: 3 }
+  let(:item_4) { create :anime, id: 4 }
+  let(:item_5) { create :anime, id: 5 }
+  let!(:version_1) { create :version, item: item_1, item_diff: { 'description' => ['1','2'] }, state: :taken }
+  let!(:version_2) { create :version, item: item_2, item_diff: { 'description' => ['1','2'] }, state: :taken }
+  let!(:version_3) { create :version, item: item_3, item_diff: { 'description' => ['1','2'] }, state: :taken }
+  let!(:version_4) { create :version, item: item_4, item_diff: { 'description' => ['1','2'] }, state: :accepted }
+  let!(:version_5) { create :version, item: item_5, item_diff: { 'description' => ['1','2'] }, state: :rejected }
+  let!(:version_6) { create :version, item: item_4, item_diff: { 'russian' => ['1','2'] }, state: :accepted }
 
   it { expect(query.fetch_ids).to eq [2, 4] }
 end

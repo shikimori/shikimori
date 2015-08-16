@@ -1,4 +1,4 @@
-= cache [user_change, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?] do
+= cache [user_change, user_signed_in? && current_user.versions_moderator?, current_user && current_user.admin?] do
   .b-log_entry
     span.id-label #
     span = user_change.id
@@ -52,7 +52,7 @@
           - if user_change.column == 'torrents_name' && user_signed_in? && !current_user.admin?
             p эту правку посмотрит morr
 
-          - elsif user_signed_in? && current_user.user_changes_moderator?
+          - elsif user_signed_in? && current_user.versions_moderator?
             - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
               a.b-tooltipped.unprocessed[
                 href="#{take_moderation_user_change_url user_change, is_applied: true}"
@@ -74,7 +74,7 @@
               title="Отменить правку и послать пользователю уведомление об этом"
               data-reason-prompt="Сообщение автору правки с причиной отказа (заполнять не обязательно)"
             ] отклонить
-          - if user_signed_in? && (current_user.user_changes_moderator? || current_user.id == user_change.user_id)
+          - if user_signed_in? && (current_user.versions_moderator? || current_user.id == user_change.user_id)
             a.b-tooltipped.unprocessed[
               href="#{deny_moderation_user_change_url user_change, is_deleted: true}"
               data-method="post"

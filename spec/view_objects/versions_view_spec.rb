@@ -6,10 +6,12 @@ describe VersionsView do
   let!(:version_3) { create :version, state: 'accepted', created_at: 3.minutes.ago }
   let!(:version_4) { create :version, state: 'deleted', created_at: 4.minutes.ago }
 
-  let!(:moderator) { create :user, :user_changes_moderator }
+  let!(:moderator) { create :user, :versions_moderator }
 
-  it { expect(view.processed).to have(3).items }
-  it { expect(view.postloader?).to eq false }
-  it { expect(view.pending).to have(1).item }
-  it { expect(view.moderators).to eq [moderator] }
+  it do
+    expect(view.processed).to have(3).items
+    expect(view.postloader?).to eq false
+    expect(view.pending).to have(1).item
+    expect(view.moderators).to eq [moderator]
+  end
 end

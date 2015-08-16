@@ -45,8 +45,8 @@ FactoryGirl.define do
       id User::VideoModerators.last
     end
 
-    trait :user_changes_moderator do
-      id User::UserChangesModerators.last
+    trait :versions_moderator do
+      id User::VersionsModerators.last
     end
 
     trait :banhammer do

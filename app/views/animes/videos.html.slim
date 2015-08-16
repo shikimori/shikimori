@@ -5,4 +5,4 @@
   .cc.m10
     = render @resource.videos
 
-  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.changes.authors(:video), field: 'video' }, formats: :html
+  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.versions.authors(:videos), field: 'video' }, formats: :html

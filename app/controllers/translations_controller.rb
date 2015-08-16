@@ -30,9 +30,10 @@ class TranslationsController < ShikimoriController
 
   # хеш со ждущими модерации аниме
   def self.pending_animes
-    UserChange
-      .where(status: UserChangeStatus::Pending)
-      .where(model: Anime.name)
+    Version
+      .where(state: :pending)
+      .where("(item_diff->>:field) is not null", field: 'description')
+      .where(item_type: Anime.name)
       .includes(:user)
       .each_with_object({}) {|v,memo| memo[v.item_id] = v }
   end

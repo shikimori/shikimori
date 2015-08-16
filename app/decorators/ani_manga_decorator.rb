@@ -67,11 +67,6 @@ class AniMangaDecorator < DbEntryDecorator
     thread
   end
 
-  # TODO: удалить после миграции на Version
-  def changes
-    ChangesDecorator.new object
-  end
-
   # объект с ролями аниме
   def roles
     RolesDecorator.new object
