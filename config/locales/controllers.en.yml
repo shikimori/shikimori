@@ -13,7 +13,17 @@ en:
     achievements: Achievements
     ban_history: Ban history
     users: Users
+  achievements_controller:
+    <<: *profiles_controller
+  dialogs_controller:
+    <<: *profiles_controller
+  messages_controller:
+    <<: *profiles_controller
+  user_history_controller:
+    <<: *profiles_controller
   user_preferences_controller:
+    <<: *profiles_controller
+  user_rates_controller:
     <<: *profiles_controller
   animes_collection_controller: &animes_collection_controller
     order:
