@@ -42,4 +42,22 @@ describe Versions::VideoVersion do
     let(:version) { build :video_version }
     it { expect{version.rollback_changes}.to raise_error NotImplementedError }
   end
+
+  describe '#cleanup' do
+    let(:video) { create :video }
+    let(:version) { build :video_version,
+      item_diff: { action: action, videos: [video.id] } }
+
+    before { version.cleanup }
+
+    context 'upload' do
+      let(:action) { 'upload' }
+      it { expect{video.reload}.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'delete' do
+      let(:action) { 'delete' }
+      it { expect(video.reload).to be_persisted }
+    end
+  end
 end

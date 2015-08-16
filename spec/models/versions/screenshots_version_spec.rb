@@ -88,4 +88,30 @@ describe Versions::ScreenshotsVersion do
     let(:version) { build :screenshots_version }
     it { expect{version.rollback_changes}.to raise_error NotImplementedError }
   end
+
+  describe '#cleanup' do
+    let(:screenshot) { create :screenshot }
+    let(:version) { build :screenshots_version,
+      item_diff: { action: action, screenshots: screenshots } }
+
+    before { version.cleanup }
+
+    context 'upload' do
+      let(:action) { 'upload' }
+      let(:screenshots) { [screenshot.id] }
+      it { expect{screenshot.reload}.to raise_error ActiveRecord::RecordNotFound }
+    end
+
+    context 'reposition' do
+      let(:action) { 'reposition' }
+      let(:screenshots) { [[screenshot.id], [screenshot.id]] }
+      it { expect(screenshot.reload).to be_persisted }
+    end
+
+    context 'delete' do
+      let(:action) { 'delete' }
+      let(:screenshots) { [screenshot.id] }
+      it { expect(screenshot.reload).to be_persisted }
+    end
+  end
 end

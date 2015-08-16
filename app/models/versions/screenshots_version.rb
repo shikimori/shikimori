@@ -41,6 +41,10 @@ class Versions::ScreenshotsVersion < Version
     raise NotImplementedError
   end
 
+  def cleanup
+    screenshots.each(&:destroy) if action == ACTIONS[:upload]
+  end
+
 private
 
   def upload_screenshots

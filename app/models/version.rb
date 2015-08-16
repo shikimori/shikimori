@@ -44,6 +44,10 @@ class Version < ActiveRecord::Base
     after_transition [:pending, :auto_accepted] => [:rejected] do |version, transition|
       version.notify_rejection transition.args.second
     end
+
+    after_transition :pending => :deleted do |version, transition|
+      version.cleanup if version.respond_to? :cleanup
+    end
   end
 
   class << self

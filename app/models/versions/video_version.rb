@@ -29,6 +29,10 @@ class Versions::VideoVersion < Version
     raise NotImplementedError
   end
 
+  def cleanup
+    video.destroy if action == ACTIONS[:upload]
+  end
+
 private
 
   def upload_video
