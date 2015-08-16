@@ -21,6 +21,7 @@ class TorrentsController < ShikimoriController
           return
       end
       added = parser.grab_page URI.decode(params[:torrent]['url']), anime.id
+
     else
       unless params[:torrent]['link'] =~ URI::regexp
         redirect_to :back, alert: 'Link должен быть корректным URI'
