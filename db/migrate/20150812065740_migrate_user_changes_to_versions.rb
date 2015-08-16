@@ -2,7 +2,8 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
   def up
     #UserChange.
       #where(column: %w{description tags russian torrents_name screenshots video}).
-      #each do |user_change|
+      #find_each do |user_change|
+        #ap user_change.id
         #next if user_change.prior.blank? && user_change.value.blank?
 
         #version = Version.create(

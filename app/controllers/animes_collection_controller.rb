@@ -224,7 +224,7 @@ private
 
       # TODO: удалить released_at после 01.05.2014
       when 'released_on', 'released_at'
-        i18n_t 'order.by_release_date'
+        i18n_t 'order.by_released_date'
 
       when 'id'
         i18n_t 'order.by_add_date'
