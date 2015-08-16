@@ -1,6 +1,12 @@
 class Versioneers::FieldsVersioneer
   pattr_initialize :item
 
+  SPLITTED_DATE_FIELD = /
+    (?<field> [\w_-]+ )
+    \( (?<index>[1-3]i) \)
+    $
+  /mix
+
   def premoderate params, author=nil, reason=nil
     create_version params, author, reason
   end
@@ -25,12 +31,26 @@ private
   end
 
   def changes new_values
-    new_values.each_with_object({}) do |(field, new_value), memo|
+    convert_dates(new_values).each_with_object({}) do |(field, new_value), memo|
       memo[field.to_s] = [item[field], new_value] if item[field] != new_value
     end
   end
 
   def version_klass diff
     diff['description'] ? Versions::DescriptionVersion : Version
+  end
+
+  def convert_dates hash
+    hash.each_with_object({}) do |(key,value),memo|
+      if key =~ SPLITTED_DATE_FIELD
+        memo[$~[:field]] ||= Date.new(
+          hash[$~[:field] + '(1i)'].to_i,
+          hash[$~[:field] + '(2i)'].to_i,
+          hash[$~[:field] + '(3i)'].to_i
+        )
+      else
+        memo[key] = value
+      end
+    end
   end
 end

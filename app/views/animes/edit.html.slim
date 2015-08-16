@@ -19,6 +19,22 @@
           .value = @resource.kind_text
           a.edit href="#{@resource.edit_field_url :kind}" = t 'actions.edit'
 
+        - if @resource.manga?
+          li
+            .field = @resource.class.human_attribute_name :status
+            .value = @resource.status
+            a.edit href="#{@resource.edit_field_url :status}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :aired_on
+          .value = formatted_date @resource.aired_on, true
+          a.edit href="#{@resource.edit_field_url :aired_on}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :released_on
+          .value = formatted_date @resource.released_on, true
+          a.edit href="#{@resource.edit_field_url :released_on}" = t 'actions.edit'
+
         - if @resource.anime?
           li
             .field = @resource.class.human_attribute_name :episodes
@@ -33,7 +49,7 @@
 
           li
             .field = @resource.class.human_attribute_name :chapters
-            .value = @resource.volumes
+            .value = @resource.chapters
             a.edit href="#{@resource.edit_field_url :chapters}" = t 'actions.edit'
 
         - if @resource.anime?
@@ -41,11 +57,6 @@
             .field = @resource.class.human_attribute_name :rating
             .value = @resource.rating_text
             a.edit href="#{@resource.edit_field_url :rating}" = t 'actions.edit'
-
-        li
-          .field = @resource.class.human_attribute_name :genres
-          .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
@@ -74,12 +85,17 @@
             .value.under_development = t('under_development').downcase
             /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
-          li
-            .field = @resource.class.human_attribute_name :tags
-            .value = @resource.tags
-            a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+        li
+          .field = @resource.class.human_attribute_name :tags
+          .value = @resource.tags
+          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
 
-        - if user_signed_in? && current_user.admin?
+        li
+          .field = @resource.class.human_attribute_name :genres
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
+
+        - if user_signed_in? && current_user.admin? && @resource.anime?
           li
             .field = @resource.class.human_attribute_name :torrents_name
             .value = @resource.torrents_name

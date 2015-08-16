@@ -25,13 +25,24 @@ describe Versioneers::FieldsVersioneer do
       expect(version.moderator).to be_nil
     end
 
-    describe 'description change' do
+    describe 'description change', :focus do
       let(:changes) {{ description: 'zzz', source: '7' }}
 
       it do
         expect(version).to be_persisted
         expect(version).to be_pending
         expect(version.class).to eq Versions::DescriptionVersion
+      end
+    end
+
+    describe 'date change', :focus do
+      let(:anime) { create :anime, aired_on: '2007-03-02' }
+      let(:changes) {{ 'aired_on(3i)' => '5', 'aired_on(2i)' => '4', 'aired_on(1i)' => '2008' }}
+
+      it do
+        expect(version).to be_persisted
+        expect(version).to be_pending
+        expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '2008-04-05']
       end
     end
   end

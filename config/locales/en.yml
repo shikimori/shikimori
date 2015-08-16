@@ -8,6 +8,7 @@ en:
 
     attributes:
       anime: &anime_attributes
+        aired_on: Start date
         cosplay: Cosplay
         description: Description
         duration: Episode duration
@@ -17,6 +18,7 @@ en:
         name: Name
         poster: Poster
         rating: Rating
+        released_on: End date
         russian: Russian name
         score: Score
         screenshots: Screenshots

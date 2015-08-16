@@ -8,6 +8,7 @@ ru:
 
     attributes:
       anime: &anime_attributes
+        aired_on: Дата начала показа
         cosplay: Косплей
         description: Описание
         duration: Длительность эпизода
@@ -17,6 +18,7 @@ ru:
         name: Английское название
         poster: Постер
         rating: Рейтинг
+        released_on: Дата конца показа
         russian: Русское название
         score: Рейтинг
         screenshots: Кадры
