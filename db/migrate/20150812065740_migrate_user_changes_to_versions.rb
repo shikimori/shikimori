@@ -16,7 +16,7 @@ class MigrateUserChangesToVersions < ActiveRecord::Migration
           #created_at: user_change.created_at,
           #type: pick_type(user_change)
         #)
-      #end
+      #end;
   end
 
   def down

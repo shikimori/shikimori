@@ -83,10 +83,6 @@
         .mod-block
           span Форум:
           a href="#{moderation_abuse_requests_url}" title="Модерация форума" #{AbuseRequest.pending.count}
-      - if current_user.user_changes_moderator? && UserChange.has_changes?
-        .mod-block
-          span Правки:
-          a href="#{moderation_user_changes_url}" title="Модерация переводов" #{UserChange.pending_count}
       - if current_user.user_changes_moderator? && Version.has_changes?
         .mod-block
           span Правки:
