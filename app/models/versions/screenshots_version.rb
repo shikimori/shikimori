@@ -11,11 +11,15 @@ class Versions::ScreenshotsVersion < Version
   end
 
   def screenshots
-    ids = action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
-    @screenshots ||= Screenshot
-      .includes(:anime)
-      .where(id: ids)
-      .sort_by {|v| ids.index v.id }
+    @screenshots ||= fetch_screenshots(
+      action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
+    )
+  end
+
+  def screenshots_prior
+    @screenshots_prior ||= fetch_screenshots(
+      action == ACTIONS[:reposition] ? item_diff[KEY][0] : raise(NotImplementedError)
+    )
   end
 
   def apply_changes
@@ -54,5 +58,12 @@ private
         position: index || Versioneers::ScreenshotsVersioneer::DEFAULT_POSITION
       )
     end
+  end
+
+  def fetch_screenshots ids
+    Screenshot
+      .includes(:anime)
+      .where(id: ids)
+      .sort_by {|v| ids.index v.id }
   end
 end

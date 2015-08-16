@@ -20,6 +20,22 @@ describe Versions::ScreenshotsVersion do
     end
   end
 
+  describe '#screenshots_prior' do
+    let(:screenshot) { create :screenshot }
+
+    context 'upload or delete' do
+      let(:version) { build :screenshots_version,
+        item_diff: { screenshots: [screenshot.id] } }
+      it { expect{version.screenshots_prior}.to raise_error NotImplementedError }
+    end
+
+    context 'reposition' do
+      let(:version) { build :screenshots_version,
+        item_diff: { action: 'reposition', screenshots: [[screenshot.id], [0]] } }
+      it { expect(version.screenshots_prior).to eq [screenshot] }
+    end
+  end
+
   describe '#apply_changes' do
     let(:version) { build :screenshots_version, item_diff: item_diff }
 
