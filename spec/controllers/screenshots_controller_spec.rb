@@ -21,7 +21,7 @@ describe ScreenshotsController do
     before { delete :destroy, id: screenshot.id }
 
     context 'uploaded screenshot' do
-      let(:status) { Screenshot::Uploaded }
+      let(:status) { Screenshot::UPLOADED }
 
       it do
         expect(assigns :screenshot).to be_destroyed

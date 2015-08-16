@@ -11,21 +11,46 @@ class Versions::ScreenshotsVersion < Version
   end
 
   def screenshots
-    @screenshots ||= Screenshot.where id: item_diff[KEY]
+    @screenshots ||= Screenshot.where(
+      id: action == ACTIONS[:reposition] ? item_diff[KEY][1] : item_diff[KEY]
+    )
   end
 
-  #item_diff: {
-    #action: 'upload',
-    #ids: [...]
-  #}
+  def apply_changes
+    case action
+      when ACTIONS[:upload]
+        upload_screenshots
 
-  #item_diff: {
-    #action: 'position',
-    #ids: [[...], [...]]
-  #}
+      when ACTIONS[:reposition]
+        reposition_screenshots
 
-  #item_diff: {
-    #action: 'delete',
-    #ids: [...]
-  #}
+      when ACTIONS[:delete]
+        delete_screenshots
+
+      else raise ArgumentError, "unknown action: #{action}"
+    end
+  end
+
+  def rollback_changes
+    raise NotImplementedError
+  end
+
+private
+
+  def upload_screenshots
+    screenshots.each(&:mark_accepted)
+  end
+
+  def delete_screenshots
+    screenshots.each(&:mark_deleted)
+  end
+
+  def reposition_screenshots
+    screenshots.each do |screenshot|
+      index = item_diff[KEY][1].index(screenshot.id)
+      screenshot.update(
+        position: index || Versioneers::ScreenshotsVersioneer::DEFAULT_POSITION
+      )
+    end
+  end
 end

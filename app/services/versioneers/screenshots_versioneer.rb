@@ -2,6 +2,7 @@ class Versioneers::ScreenshotsVersioneer
   pattr_initialize :item
 
   KEY = Versions::ScreenshotsVersion::KEY
+  DEFAULT_POSITION = 99999
 
   UPLOAD = Versions::ScreenshotsVersion::ACTIONS[:upload]
   REPOSITION = Versions::ScreenshotsVersion::ACTIONS[:reposition]
@@ -41,9 +42,9 @@ private
   def build_screenshot image
     item.screenshots.build(
       image: image,
-      position: 99999,
+      position: DEFAULT_POSITION,
       url: rand,
-      status: Screenshot::Uploaded
+      status: Screenshot::UPLOADED
     )
   end
 

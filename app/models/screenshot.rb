@@ -1,7 +1,7 @@
 # скриншоты, имеющие status не отображаются. это или только загруженные, или
 class Screenshot < ActiveRecord::Base
-  Uploaded = 'uploaded'
-  Deleted = 'deleted'
+  UPLOADED = 'uploaded'
+  DELETED = 'deleted'
 
   belongs_to :anime
 
@@ -24,5 +24,15 @@ class Screenshot < ActiveRecord::Base
     else
       Digest::SHA1.hexdigest("#{anime_id}:#{url}")
     end
+  end
+
+  # пометка скриншота удалённым
+  def mark_deleted
+    update_attribute :status, DELETED
+  end
+
+  # пометка скриншота принятм
+  def mark_accepted
+    update_attribute :status, nil
   end
 end

@@ -13,11 +13,11 @@ class Recommendations::Normalizations::NormalizationBase
   end
 
   #def score score, user_id, ratings
-    #raise NotImplemented
+    #raise NotImplementedError
   #end
 
   #def restore_score score, user_id, ratings
-    #raise NotImplemented
+    #raise NotImplementedError
   #end
 
   # mean, используемый для приведения реокмендованной оценке к 10 бальной шкале

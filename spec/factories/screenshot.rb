@@ -4,5 +4,9 @@ FactoryGirl.define do
     anime { build_stubbed :anime }
     url { rand }
     position { rand * 1_000_000 }
+
+    trait :uploaded do
+      status Screenshot::UPLOADED
+    end
   end
 end

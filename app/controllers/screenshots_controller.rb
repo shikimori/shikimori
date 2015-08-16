@@ -19,7 +19,7 @@ class ScreenshotsController < ShikimoriController
   def destroy
     @screenshot = Screenshot.find(params[:id])
 
-    if @screenshot.status == Screenshot::Uploaded
+    if @screenshot.status == Screenshot::UPLOADED
       @screenshot.destroy
       render json: { notice: i18n_t('screenshot_deleted') }
     else

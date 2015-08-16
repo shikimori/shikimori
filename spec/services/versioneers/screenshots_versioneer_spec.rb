@@ -15,7 +15,7 @@ describe Versioneers::ScreenshotsVersioneer do
     context 'wo existing version' do
       it do
         expect(screenshot).to be_persisted
-        expect(screenshot.status).to eq Screenshot::Uploaded
+        expect(screenshot.status).to eq Screenshot::UPLOADED
         expect(anime.screenshots).to eq [screenshot]
 
         expect(version).to be_persisted
@@ -45,7 +45,7 @@ describe Versioneers::ScreenshotsVersioneer do
 
         it do
           expect(screenshot).to be_persisted
-          expect(screenshot.status).to eq Screenshot::Uploaded
+          expect(screenshot.status).to eq Screenshot::UPLOADED
           expect(anime.screenshots).to eq [screenshot]
 
           expect(version).to be_persisted
