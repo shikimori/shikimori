@@ -173,7 +173,7 @@ class ProfileStats
 
   def social_activity?
     comments_count > 0 || comments_reviews_count > 0 || reviews_count > 0 ||
-      content_changes_count > 0 || videos_changes_count > 0
+      versions_count > 0 || videos_changes_count > 0
   end
 
   def comments_count
@@ -188,8 +188,8 @@ class ProfileStats
     @user.reviews.count
   end
 
-  def content_changes_count
-    @user.user_changes.where(status: [UserChangeStatus::Taken, UserChangeStatus::Accepted]).count
+  def versions_count
+    @user.versions.where(state: [:taken, :accepted]).count
   end
 
   def videos_changes_count

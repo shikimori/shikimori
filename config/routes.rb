@@ -671,7 +671,7 @@ Site::Application.routes.draw do
         scope 'comments' do
           get 'reviews(/page/:page)' => :comments_reviews, as: :comments_reviews
         end
-        get 'changes(/page/:page)' => :changes, as: :changes
+        get 'versions(/page/:page)' => :versions, as: :versions
         get 'videos(/page/:page)' => :videos, as: :videos
       end
 

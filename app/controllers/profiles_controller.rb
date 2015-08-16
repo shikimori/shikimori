@@ -78,11 +78,11 @@ class ProfilesController < ShikimoriController
     page_title i18n_t 'summaries'
   end
 
-  def changes
+  def versions
     noindex
     @collection = postload_paginate(params[:page], 30) do
-      @resource.user_changes.order(id: :desc)
-    end
+      @resource.versions.order(id: :desc)
+    end.map(&:decorate)
 
     page_title i18n_t 'content_changes'
   end

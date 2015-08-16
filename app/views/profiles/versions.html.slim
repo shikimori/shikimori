@@ -2,8 +2,8 @@
   h2.subheadline = @page_title.last
   div
     - if @collection.any?
-      = render @collection
+      = render partial: 'versions/version', collection: @collection
       - if @add_postloader
-        = render 'blocks/postloader', url: changes_profile_url(page: @page+1)
+        = render 'blocks/postloader', url: versions_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет правок контента

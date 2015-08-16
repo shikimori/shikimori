@@ -195,9 +195,9 @@
           div: a href="#{comments_reviews_profile_url @resource}"
             = "#{@resource.stats.comments_reviews_count} #{i18n_i 'summary', @resource.stats.comments_reviews_count}"
 
-        - if @resource.stats.content_changes_count > 0
-          div: a href="#{changes_profile_url @resource}"
-            = "#{@resource.stats.content_changes_count} #{i18n_i 'content_change', @resource.stats.content_changes_count}"
+        - if @resource.stats.versions_count > 0
+          div: a href="#{versions_profile_url @resource}"
+            = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
         - if I18n.russian? && @resource.stats.videos_changes_count > 0
           div: a href="#{videos_profile_url @resource}"
