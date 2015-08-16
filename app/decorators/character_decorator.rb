@@ -1,6 +1,4 @@
 class CharacterDecorator < PersonDecorator
-  include Translation
-
   instance_cache :seyu, :changes, :all_animes, :all_mangas, :cosplay?
   instance_cache :limited_animes, :limited_mangas
 
@@ -40,6 +38,7 @@ class CharacterDecorator < PersonDecorator
   end
 
 private
+
   def decorated_entries query
     query
       .decorate

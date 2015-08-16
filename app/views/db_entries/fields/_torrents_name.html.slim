@@ -1,0 +1,10 @@
+= simple_form_for resource.object do |f|
+  = f.input :torrents_name
+  = render 'versions/reason'
+
+  .buttons
+    a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+    - if current_user.user_changes_moderator?
+      = f.submit t('actions.apply'), class: 'apply', name: 'apply'
+    - else
+      = f.button :magic_submit

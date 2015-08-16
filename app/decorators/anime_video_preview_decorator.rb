@@ -1,7 +1,4 @@
-class AnimeVideoPreviewDecorator < Draper::Decorator
-  include Translation
-  delegate_all
-
+class AnimeVideoPreviewDecorator < BaseDecorator
   def name
     if object.russian && I18n.russian?
       "#{object.russian} / #{object.name}"

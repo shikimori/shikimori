@@ -1,0 +1,85 @@
+/= cache [version, user_signed_in? && current_user.user_changes_moderator?, current_user && current_user.admin?, I18n.locale] do
+div
+  .b-log_entry
+    span.id-label #
+    span = version.id
+    span.date
+      = version.created_at.strftime('%d.%m.%Y')
+
+    .b-user16
+      a href="#{profile_url version.user}" title=version.user.nickname
+        img[
+          src="#{version.user.avatar_url 16}"
+          srcset="#{version.user.avatar_url 32} 2x"
+          alt=version.user.nickname
+          title=version.user.nickname
+        ]
+        span = version.user.nickname
+
+    span.column
+      = version.changed_fields.join ', '
+
+    span.id
+      - if version.item
+        = render version.item_template, version: version
+      - else
+        = t("deleted.#{version.item_type.underscore}").downcase
+
+    span.state class="#{version.state.downcase}"
+      = version.human_state_name
+
+    - if version.moderator.present?
+      span
+        = version.moderator.nickname
+
+    .spoiler.collapse
+      span.action.half-hidden style="display: none;" = t '.show'
+    .collapsed.spoiler = t '.show_changes'
+
+    .spoiler.target style="display: none;"
+      - if can?(:manage, version) || can?(:destroy, version)
+        .moderation
+          - if can?(:manage, version)
+            - if version.can_accept?
+              a.b-tooltipped.unprocessed[
+                href="#{accept_moderation_version_url version}"
+                data-method="POST"
+                data-direction="top"
+                title="#{t '.accept_changes'}"
+              ] = t '.accept'
+
+            - if version.can_reject?
+              a.b-tooltipped.unprocessed.user_change-deny[
+                data-href="#{reject_moderation_version_url version}"
+                data-method="POST"
+                data-direction="top"
+                title="#{t '.reject_changes'}"
+                data-reason-prompt="#{t '.reject_reason'}"
+              ] = t '.reject'
+
+          - if can?(:destroy, version) && version.can_to_deleted?
+            a.b-tooltipped.unprocessed[
+              href="#{moderation_version_url version}"
+              data-method="DELETE"
+              data-direction="top"
+              data-confirm="#{t '.delete_changes'}?"
+              title="#{t '.delete_changes'}"
+            ] = t '.delete'
+
+      .clearfix
+
+      .change-details
+        - if version.reason.present?
+          .reason class="#{:m15 unless version.item_diff.keys.one?}"
+            span #{Version.human_attribute_name :reason}:
+            = version.reason
+
+        - if version.kind_of? Versions::VideoVersion
+          = render version.video
+        - elsif version.kind_of? Versions::ScreenshotsVersion
+          = render "versions/screenshots_#{version.action}", version: version
+        - else
+          - version.item_diff.each do |field, (old_value, new_value)|
+            = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?
+
+      span.closing

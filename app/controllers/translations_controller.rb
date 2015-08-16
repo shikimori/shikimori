@@ -111,6 +111,12 @@ private
       .where.not(rating: :g)
       .limit(15)
 
+    @groups['Зима 2016'] = translatable
+      .where(AniMangaSeason.query_for('winter_2016'))
+      .where.not(id: added_ids)
+      .where('score > 0 or ranked > 0')
+      .where.not(id: TRANSLATE_IGNORES)
+
     @groups['Осень 2015'] = translatable
       .where(AniMangaSeason.query_for('fall_2015'))
       .where.not(id: added_ids)

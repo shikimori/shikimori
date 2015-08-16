@@ -10,7 +10,6 @@
               title="Комментировать"
               data-direction="top"
             ]
-          /a.edit href="#{edit_character_url @resource}" title="Редактировать персонажа"
 
           - if @resource.main_role?(:producer) || @resource.producer_favoured?
             a.fav-add.b-tooltipped.unprocessed[
@@ -99,6 +98,11 @@
               data-kind="person"
               data-direction="top"
             ]
+          a.edit.b-tooltipped.unprocessed[
+            href="#{@resource.edit_url}"
+            title="Редактировать человека"
+            data-direction="top"
+          ]
 
     .c-about
       .cc
@@ -109,11 +113,8 @@
               - if @resource.credentials?
                 = info_line 'По-английски', @resource.name
                 = info_line 'По-японски', @resource.japanese
-                = info_line 'Дата рождения', formatted_date(@resource.birthday, true) if @resource.birthday
-                = info_line 'Сайт' do
-                  - if @resource.website_host.present?
-                    a href="#{@resource.website}" rel="nofollow"
-                      = @resource.website_host
+                = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
+                = info_line Person.human_attribute_name(:website), @resource.website_html
 
         .c-info-right
           .subheadline Роли в #{@resource.occupation.downcase.sub 'манга', 'манге'}

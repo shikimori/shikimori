@@ -1,5 +1,6 @@
 describe AnimesController do
   let(:anime) { create :anime }
+  include_examples :db_entry_controller, :anime
 
   describe '#show' do
     let(:anime) { create :anime, :with_thread }
@@ -139,49 +140,6 @@ describe AnimesController do
   describe '#episode_torrents' do
     before { get :episode_torrents, id: anime.to_param }
     it { expect(response).to have_http_status :success }
-  end
-
-  describe '#edit' do
-    context 'guest' do
-      let(:page) { nil }
-      before { get :edit, id: anime.to_param }
-      it { expect(response).to redirect_to new_user_session_url }
-    end
-
-    context 'authenticated' do
-      include_context :authenticated, :user
-      before { get :edit, id: anime.to_param, page: page }
-
-      describe 'description' do
-        let(:page) { nil }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'russian' do
-        let(:page) { 'russian' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'video' do
-        let(:page) { 'video' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'screenshots' do
-        let(:page) { 'screenshots' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'torrents_name' do
-        let(:page) { 'torrents_name' }
-        it { expect(response).to have_http_status :success }
-      end
-
-      describe 'tags' do
-        let(:page) { 'tags' }
-        it { expect(response).to have_http_status :success }
-      end
-    end
   end
 
   describe '#autocomplete' do

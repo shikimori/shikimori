@@ -13,6 +13,7 @@ class Ability
       contests_moderator_ability if @user.contests_moderator?
       reviews_moderator_ability if @user.reviews_moderator?
       video_moderator_ability if @user.video_moderator?
+      user_changes_moderator_ability if @user.user_changes_moderator?
       admin_ability if @user.admin?
     end
   end
@@ -41,6 +42,11 @@ class Ability
     can [:new, :create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
+
+    can [:create], Version do |version|
+      version.user_id == User::GuestID
+    end
+    can [:show, :tooltip], Version
   end
 
   def user_ability
@@ -159,6 +165,10 @@ class Ability
     can [:destroy], AnimeVideo do |anime_video|
       !@user.banned? && (anime_video.uploader == @user && anime_video.created_at > 1.week.ago)
     end
+
+    can [:create, :destroy], Version do |version|
+      version.user_id == @user.id
+    end
   end
 
   def moderator_ability
@@ -179,6 +189,10 @@ class Ability
     can [:new, :create, :edit, :update], AnimeVideo do |anime_video|
       !@user.banned? && !anime_video.banned? && !anime_video.copyrighted?
     end
+  end
+
+  def user_changes_moderator_ability
+    can :manage, Version
   end
 
   def admin_ability

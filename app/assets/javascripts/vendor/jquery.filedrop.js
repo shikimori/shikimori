@@ -31,6 +31,7 @@
  *  3) в функцию drop (108 строка) добавлен вызов afterAll()
  *  4) добавлена функция not_files (488 строка), проверяющая эвент на filedrag. эта функция вставлена во многие обработчики
  *  5) добавлены IF с проверкой на opts.fallback_id для убирания warning'ов (83,94,199 строки)
+ *  6) добавлен хак для возможности загружать файлы с chrome chrome's download bar (593)
  *
  */
 
@@ -89,8 +90,17 @@
       });
     }
 
-    this.on('drop', drop).on('dragstart', opts.dragStart).on('dragenter', dragEnter).on('dragover', dragOver).on('dragleave', dragLeave);
-    $(document).on('drop', docDrop).on('dragenter', docEnter).on('dragover', docOver).on('dragleave', docLeave);
+    this
+      .on('drop', drop)
+      .on('dragstart', opts.dragStart)
+      .on('dragenter', dragEnter)
+      .on('dragover', dragOver)
+      .on('dragleave', dragLeave);
+    $(document)
+      .on('drop', docDrop)
+      .on('dragenter', docEnter)
+      .on('dragover', docOver)
+      .on('dragleave', docLeave);
 
     if (opts.fallback_id) {
       this.on('click', function(e){
@@ -108,6 +118,7 @@
     }
 
     function drop(e, custom_files) {
+      //console.log('drop')
       if( opts.drop.call(this, e) === false ) return false;
       if(!custom_files && (!e.dataTransfer || not_files(e))) {
         afterAll();
@@ -518,6 +529,7 @@
     }
 
     function dragEnter(e) {
+      //console.log('dragEnter')
       if (not_files(e)) {
         return;
       }
@@ -528,6 +540,14 @@
     }
 
     function dragOver(e) {
+      //console.log('dragOver')
+      // Makes it possible to drag files from chrome's download bar
+      // http://stackoverflow.com/questions/19526430/drag-and-drop-file-uploads-from-chrome-downloads-bar
+      // Try is required to prevent bug in Internet Explorer 11 (SCRIPT65535 exception)
+      var efct;
+      try { efct = e.dataTransfer.effectAllowed; } catch (_error) {}
+      e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+
       if (not_files(e)) {
         return;
       }
@@ -539,12 +559,14 @@
     }
 
     function dragLeave(e) {
+      //console.log('dragLeave')
       clearTimeout(doc_leave_timer);
       opts.dragLeave.call(this, e);
       e.stopPropagation();
     }
 
     function docDrop(e) {
+      //console.log('docDrop')
       if (not_files(e)) {
         return;
       }
@@ -555,6 +577,7 @@
     }
 
     function docEnter(e) {
+      //console.log('docEnter')
       if (not_files(e)) {
         return;
       }
@@ -566,6 +589,11 @@
     }
 
     function docOver(e) {
+      //console.log('docOver')
+      var efct;
+      try { efct = e.dataTransfer.effectAllowed; } catch (_error) {}
+      e.dataTransfer.dropEffect = 'move' === efct || 'linkMove' === efct ? 'move' : 'copy';
+
       if (not_files(e)) {
         return;
       }
@@ -577,6 +605,7 @@
     }
 
     function docLeave(e) {
+      //console.log('docLeave')
       doc_leave_timer = setTimeout((function(_this) {
         return function() {
           opts.docLeave.call(_this, e);

@@ -55,7 +55,7 @@ module UserNotifications
   def unread_news
     ignored_ids = cached_ignores.map(&:target_id) << 0
     @unread_news ||= Message.where(to_id: id)
-        .where(kind: [MessageType::Anons, MessageType::Ongoing, MessageType::Episode, MessageType::Released, MessageType::SiteNews])
+        .where(kind: MessagesQuery::NEWS_KINDS)
         .where(read: false)
         .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count
@@ -65,11 +65,7 @@ module UserNotifications
   def unread_notifications
     ignored_ids = cached_ignores.map(&:target_id) << 0
     @unread_notifications ||= Message.where(to_id: id)
-        .where(kind: [
-          MessageType::FriendRequest, MessageType::GroupRequest, MessageType::Notification, MessageType::ProfileCommented,
-          MessageType::QuotedByUser, MessageType::SubscriptionCommented, MessageType::NicknameChanged,
-          MessageType::Banned, MessageType::Warned
-        ])
+        .where(kind: MessagesQuery::NOTIFICATION_KINDS)
         .where(read: false)
         .where.not(from_id: ignored_ids, to_id: ignored_ids)
         .count

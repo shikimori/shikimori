@@ -3,18 +3,34 @@ require 'sidekiq/web'
 Site::Application.routes.draw do
   ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
 
+  concern :db_entry do |options|
+    member do
+      get :comments
+      get :favoured
+      get :tooltip
+      get 'edit/:field' => :edit_field, as: :edit_field, field: options[:fields]
+      get 'versions/page/:page' => :versions, as: :versions
+    end
+  end
+  concern :autocompletable do
+    get :autocomplete, on: :collection, format: :json
+  end
+  concern :searcheable do
+    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection, constraints: { page: /\d+/ }
+  end
+
   devise_for :users, controllers: {
     omniauth_callbacks: 'users/omniauth_callbacks',
     registrations: 'users/registrations',
     passwords: 'users/passwords'
   }
 
-  resources :animes, only: [] do
-    get :autocomplete, on: :collection, format: :json
-  end
-  resources :mangas, only: [] do
-    get :autocomplete, on: :collection, format: :json
-  end
+  resources :animes, only: [], concerns: [:autocompletable]
+  resources :mangas, only: [], concerns: [:autocompletable]
+  resources :characters, only: [], concerns: [:autocompletable]
+  resources :people, only: [], concerns: [:autocompletable]
+  resources :seyu, only: [], concerns: [:autocompletable]
+  resources :users, only: [], concerns: [:autocompletable]
 
   # site pages
   resources :pages, path: '/', only: [] do
@@ -59,6 +75,7 @@ Site::Application.routes.draw do
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
   namespace :moderation do
+    # TODO: выпилить после мигарции на versions
     resources :user_changes, only: [:show, :index, :create] do
       collection do
         get '(/page/:page)' => :index, as: :index
@@ -68,6 +85,19 @@ Site::Application.routes.draw do
         get :tooltip
         post :take
         post :deny
+      end
+    end
+
+    resources :versions, only: [:show, :index, :create, :destroy] do
+      collection do
+        get '(/page/:page)' => :index, as: :index
+      end
+
+      member do
+        get :tooltip
+        post :accept
+        post :take
+        post :reject
       end
     end
 
@@ -235,13 +265,8 @@ Site::Application.routes.draw do
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
-    #scope page: 'online_video' do
-      #resources :animes, only: [:show]
-    #end
-
     scope 'animes/:anime_id', module: 'anime_online' do
       get '' => redirect {|params, request| "#{request.url}/video_online" }
-      #get '' => 'anime_videos#index'
 
       resources :video_online, controller: 'anime_videos', except: [:show] do
         member do
@@ -352,9 +377,7 @@ Site::Application.routes.draw do
         get '/page/:page', action: :index, as: :page
       end
 
-      resources :group_roles, only: [:create, :destroy] do
-        get :autocomplete, on: :collection, format: :json
-      end
+      resources :group_roles, only: [:create, :destroy], concerns: [:autocompletable]
       resources :group_invites, only: [:create]
     end
 
@@ -392,9 +415,7 @@ Site::Application.routes.draw do
     end
 
     # картинки с danbooru
-    resources :danbooru, only: [] do
-      get :autocomplete, on: :collection, format: :json
-
+    resources :danbooru, only: [], concerns: [:autocompletable] do
       constraints url: /.*/ do
         get 'yandere/:url' => :yandere, on: :collection
       end
@@ -456,10 +477,8 @@ Site::Application.routes.draw do
 
           get :art
           get :images
-          get :favoured
           get :clubs
 
-          get :comments
           scope 'comments' do
             get :reviews
           end
@@ -472,12 +491,6 @@ Site::Application.routes.draw do
 
           # инфо по торрентам эпизодов
           get :episode_torrents
-          # тултип
-          get :tooltip
-          # редактирование
-          patch 'apply'
-
-          get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|screenshots|video|torrents_name|tags/
 
           get 'cosplay/:anything' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
         end
@@ -492,70 +505,53 @@ Site::Application.routes.draw do
       post :increment, on: :member
     end
 
-    # удаление скриншота
-    delete 'screenshot/:id' => 'screenshots#destroy', as: 'screenshot'
-    delete 'video/:id' => 'videos#destroy', as: 'video'
+    resources :animes, only: [:edit, :update] do
+      concerns :db_entry, fields: /description|russian|name|kind|episodes|rating|screenshots|videos|torrents_name|tags/
 
-    resources :animes do
-      member do
-        post 'torrent' => 'torrents#create'
-        #get ':type.rss' => 'animes#rss', as: 'rss', constraints: { type: /torrents|torrents_480p|torrents_720p|torrents_1080p/ }
-        #get 'subtitles/:group.rss' => 'animes#rss', as: 'subtitles', type: 'subtitles'
+      post 'torrent' => 'torrents#create', on: :member
 
-        resource :screenshots, only: [:create]
-        resource :videos, only: [:create]
+      resources :screenshots, only: [:create, :destroy] do
+        post :reposition, on: :collection
       end
+      resources :videos, only: [:create, :destroy]
     end
 
-    resources :characters, only: [:show] do
+    resources :mangas, only: [:edit, :update] do
+      concerns :db_entry, fields: /name|russian|description|kind|rating|tags|volumes|chapters/
+    end
+
+    resources :characters, only: [:show, :edit, :update] do
+      concerns :db_entry, fields: /name|russian|japanese|description|tags|japanese/
+      concerns :searcheable
+
       member do
         get :seyu
         get :animes
         get :mangas
-        get :comments
         get :art
         get :images
         get 'cosplay(/page/:page)' => :cosplay, as: :cosplay
-        get :favoured
         get :clubs
-
-        get :tooltip
-
-        get 'edit(/:page)' => :edit, as: :edit, page: /description|russian|tags/
-      end
-      collection do
-        get :autocomplete, format: :json
-        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
 
-    resources :people, only: [:show] do
+    resources :people, only: [:show, :edit, :update] do
+      concerns :db_entry, fields: /name|russian|japanese|website|birthday/
+      concerns :searcheable
+
       member do
         get 'time' => redirect {|params, request| request.url.sub('/time', '') } # редирект со старых урлов
         get 'works(order-by/:order_by)' => :works, order_by: /date/, as: :works
-        get :comments
-        get :favoured
-        get :tooltip
-      end
-      collection do
-        get 'autocomplete(/:kind)' => :autocomplete, as: :autocomplete, format: :json
-        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
       end
     end
-    get "producers/search/:search(/page/:page)" => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
-    get "mangakas/search/:search(/page/:page)" => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
+    get 'producers/search/:search(/page/:page)' => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
+    get 'mangakas/search/:search(/page/:page)' => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
 
-    resources :seyu, only: [:show] do
-      member do
-        get :roles
-        get :favoured
-        get :comments
-        get :tooltip
-      end
-      collection do
-        get :autocomplete, format: :json
-        get 'search/:search(/page/:page)' => :index, as: :search, constraints: { page: /\d+/ }
-      end
+    resources :seyu, only: [:show, :edit, :update] do
+      concerns :db_entry, fields: /name|russian|japanese|website|birthday/
+      concerns :searcheable
+
+      get :roles, on: :member
     end
     #get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
     #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
@@ -563,9 +559,8 @@ Site::Application.routes.draw do
 
     # голосования
     resources :contests do
-      collection do
-        get :current
-      end
+      get :current, on: :collection
+
       member do
         post :start
         post :build
@@ -582,10 +577,8 @@ Site::Application.routes.draw do
       end
 
       resources :contest_suggestions, path: 'suggestions', only: [:show, :create, :destroy]
-      resources :contest_matches, path: 'matches' do
-        member do
-          post 'vote/:variant' => 'contest_matches#vote', as: 'vote'
-        end
+      resources :contest_matches, path: 'matches', only: [] do
+        post 'vote/:variant' => 'contest_matches#vote', as: 'vote', on: :member
       end
     end
 
@@ -648,9 +641,6 @@ Site::Application.routes.draw do
     # users
     get 'users(/:similar/:klass/(:threshold))(/search/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
     post 'users/search' => 'users#search', as: :users_search
-    resource :users, only: [] do
-      get :autocomplete, on: :collection, format: :json
-    end
 
     # messages edit & rss & email bounce
     # create & preview урлы объявлены выше, глобально

@@ -1,7 +1,4 @@
 class UserDecorator < BaseDecorator
-  include Translation
-
-  delegate_all
   instance_cache :is_friended?, :mutual_friended?, :history
 
   def self.model_name

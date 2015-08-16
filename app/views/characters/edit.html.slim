@@ -1,15 +1,54 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-support.mobile-landscape
-    a class="#{:selected if @page == 'description'}" href="#{edit_character_url @resource}" Описание
-    a class="#{:selected if @page == 'russian'}" href="#{edit_character_url @resource, page: :russian}" Русское название
-    a class="#{:selected if @page == 'tags'}" href="#{edit_character_url @resource, :tags}" Тег имиджборд
-
   h2.subheadline.m10 = @page_title.last
 
-  .block.edit-page class="#{@page}"
-    = render "animes/edit/#{@page}", resource: @resource, user_change: @user_change
+  .block.cc-2
+    .c-column.m0
+      ul.b-list
+        li
+          .field = Character.human_attribute_name :name
+          .value = @resource.name
+          a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
 
-  - if @resource.changes[@page.to_sym].any?
-    .subheadline История правок
+        li
+          .field = Character.human_attribute_name :russian
+          .value = @resource.russian
+          a.edit href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
+
+        li
+          .field = Character.human_attribute_name :japanese
+          .value = @resource.japanese
+          a.edit href="#{@resource.edit_field_url :japanese}" = t 'actions.edit'
+
+    .c-column.m0
+      ul.b-list
+        li
+          .field = Character.human_attribute_name :poster
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+
+        li
+          .field = Character.human_attribute_name :description
+          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+
+        li
+          .field = Character.human_attribute_name :cosplay
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+
+        li
+          .field = Character.human_attribute_name :tags
+          .value = @resource.tags
+          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+
+  - if @resource.desynced.any?
     .block
-      = render @resource.changes[@page.to_sym]
+      b Desynced:
+      span  #{@resource.desynced.join(', ')}
+
+  - if @resource.versions_page.first.any?
+    .subheadline = t '.changes_history'
+    .block
+      = render partial: 'versions/version', collection: @resource.versions_page.first
+
+      - if @resource.versions_page.second
+        = render 'blocks/postloader', url: @resource.next_versions_page

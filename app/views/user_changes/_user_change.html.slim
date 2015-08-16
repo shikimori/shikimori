@@ -16,7 +16,7 @@
       - if user_change.item
         a.bubbled href="#{url_for user_change.item}" = user_change.item.name
       - else
-        = t "Deleted.#{user_change.model}"
+        = t "deleted.#{user_change.model}"
 
     - if user_change.screenshots?
       - if user_change.action == UserChange::ScreenshotsPosition

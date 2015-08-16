@@ -1,19 +1,99 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-support.mobile-landscape
-    a class="#{:selected if @page == 'description'}" href="#{@resource.edit_url}" Описание
-    a class="#{:selected if @page == 'russian'}" href="#{@resource.edit_url :russian}" Русское название
-    - if @resource.anime?
-      a class="#{:selected if @page == 'screenshots'}" href="#{@resource.edit_url :screenshots}" Кадры
-      a class="#{:selected if @page == 'video'}" href="#{@resource.edit_url :video}" Видео
-    a class="#{:selected if @page == 'tags'}" href="#{@resource.edit_url :tags}" Тег имиджборд
-    - if @resource.anime? && current_user.admin?
-      a class="#{:selected if @page == 'torrents_name'}" href="#{@resource.edit_url :torrents_name}" Название на торрентах
   h2.subheadline.m10 = @page_title.last
 
-  .block.edit-page class="#{@page}"
-    = render "animes/edit/#{@page}", resource: @resource, user_change: @user_change
+  .block.cc-2
+    .c-column.m0
+      ul.b-list
+        li
+          .field = @resource.class.human_attribute_name :name
+          .value = @resource.name
+          a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
 
-  - if @resource.changes[@page.to_sym].any?
-    .subheadline История правок
+        li
+          .field = @resource.class.human_attribute_name :russian
+          .value = @resource.russian
+          a.edit href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :kind
+          .value = @resource.kind_text
+          a.edit href="#{@resource.edit_field_url :kind}" = t 'actions.edit'
+
+        - if @resource.anime?
+          li
+            .field = @resource.class.human_attribute_name :episodes
+            .value = @resource.episodes
+            a.edit href="#{@resource.edit_field_url :episodes}" = t 'actions.edit'
+
+        - else
+          li
+            .field = @resource.class.human_attribute_name :volumes
+            .value = @resource.volumes
+            a.edit href="#{@resource.edit_field_url :volumes}" = t 'actions.edit'
+
+          li
+            .field = @resource.class.human_attribute_name :chapters
+            .value = @resource.volumes
+            a.edit href="#{@resource.edit_field_url :chapters}" = t 'actions.edit'
+
+        - if @resource.anime?
+          li
+            .field = @resource.class.human_attribute_name :rating
+            .value = @resource.rating_text
+            a.edit href="#{@resource.edit_field_url :rating}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :genres
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
+
+    .c-column.m0
+      ul.b-list
+        li
+          .field = @resource.class.human_attribute_name :poster
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :description
+          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+
+        - if @resource.anime?
+          li
+            .field = @resource.class.human_attribute_name :screenshots
+            .value #{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}
+            a.edit href="#{@resource.edit_field_url :screenshots}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :videos
+          .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
+          a.edit href="#{@resource.edit_field_url :videos}" = t 'actions.edit'
+
+        li
+          .field = Anime.human_attribute_name :cosplay
+          .value.under_development = t('under_development').downcase
+          /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+
+        li
+          .field = @resource.class.human_attribute_name :tags
+          .value = @resource.tags
+          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+
+        - if user_signed_in? && current_user.admin?
+          li
+            .field = @resource.class.human_attribute_name :torrents_name
+            .value = @resource.torrents_name
+            a.edit href="#{@resource.edit_field_url :torrents_name}" = t 'actions.edit'
+
+  - if @resource.desynced.any?
     .block
-      = render @resource.changes[@page.to_sym]
+      b Desynced:
+      span  #{@resource.desynced.join(', ')}
+
+  - if @resource.versions_page.first.any?
+    .subheadline = t '.changes_history'
+    .block
+      = render partial: 'versions/version', collection: @resource.versions_page.first
+
+      - if @resource.versions_page.second
+        = render 'blocks/postloader', url: @resource.next_versions_page

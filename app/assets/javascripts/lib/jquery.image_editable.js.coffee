@@ -29,7 +29,6 @@
             $root
               .removeClass('deletable')
               .addClass('deleted')
-
           false
 
         # восстановление удалённого

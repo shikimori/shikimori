@@ -1,5 +1,7 @@
 class AnimeVideoDecorator < BaseDecorator
-  include Translation
+  def name
+    "episode ##{episode} #{h.localized_name anime}"
+  end
 
   def views_count
     if watch_view_count && watch_view_count > 0
@@ -33,6 +35,10 @@ class AnimeVideoDecorator < BaseDecorator
 
   def player_url
     url
+  end
+
+  def video_url
+    h.play_video_online_index_url anime, episode, id, domain: AnimeOnlineDomain.host(anime), subdomain: false
   end
 
   def in_list?
@@ -79,9 +85,13 @@ class AnimeVideoDecorator < BaseDecorator
     anime.duration * 60000 / 3 if anime.duration > 0
   end
 
-  private
+  def versions
+    @versions ||= VersionsQuery.new(object).all
+  end
 
-  def flash_player_html(url)
+private
+
+  def flash_player_html url
     h.content_tag(:object) do
       h.content_tag(:param, name: 'movie', value: "#{url}") {} +
       h.content_tag(:param, name: 'allowFullScreen', value: 'true') {} +

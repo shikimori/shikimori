@@ -9,7 +9,7 @@ module MalDeployer
       deploy_studios entry, data[:entry][:studios]
     end
     if data[:entry].include?(:publishers) && !entry.desynced.include?('publishers')
-      deploy_publishers entry, data[:entry][:publishers] 
+      deploy_publishers entry, data[:entry][:publishers]
     end
 
     deploy_related entry, data[:entry][:related] if data[:entry].include? :related

@@ -63,6 +63,9 @@
     &.accepted
       color: $green
 
+    &.auto_accepted
+      color: $gray-color-2
+
     &.taken
       color: $blue
 
@@ -72,12 +75,34 @@
     &.deleted
       color: $red
 
-  .reason
-    padding-left: 5px
+  .change-details
+    margin-top: 5px
+    margin-left: 5px
 
-    span
-      color: $gray-color
-      padding-right: 5px
+    .reason
+      margin-bottom: 3px
+
+      span
+        color: $gray-color-2
+
+    ul.diff
+      margin-bottom: 15px
+
+      li
+        margin-bottom: 3px
+
+        span
+          color: $gray-color-2
+          padding-right: 5px
+
+      del.diffmod
+        color: $red
+
+      ins.diffmod
+        color: $green
+
+      ins.diffins
+        color: $green
 
   &.video
     position: relative

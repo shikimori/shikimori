@@ -145,7 +145,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
     let(:video) { assigns :video }
 
-    before { patch :update, anime_id: anime.to_param, id: anime_video.id, anime_video: video_params }
+    before { patch :update,
+      anime_id: anime.to_param,
+      id: anime_video.id,
+      anime_video: video_params,
+      reason: 'test'
+    }
 
     context 'valid params' do
       let(:kind) { 'fandub' }

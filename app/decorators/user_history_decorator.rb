@@ -1,8 +1,4 @@
-class UserHistoryDecorator < Draper::Decorator
-  include Translation
-
-  delegate_all
-
+class UserHistoryDecorator < BaseDecorator
   WATCHED = {
     UserHistoryAction::Episodes => 'watched_episodes',
     UserHistoryAction::Volumes => 'read_volumes',

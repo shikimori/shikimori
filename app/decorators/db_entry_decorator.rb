@@ -1,6 +1,4 @@
 class DbEntryDecorator < BaseDecorator
-  include Translation
-
   instance_cache :description_mal, :description_html, :main_thread, :preview_thread
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
@@ -106,6 +104,26 @@ class DbEntryDecorator < BaseDecorator
   # добавившие в избранное
   def all_favoured
     FavouritesQuery.new.favoured_by object, 2000
+  end
+
+  def versions
+    VersionsQuery.new object
+  end
+
+  def versions_page
+    versions.postload (h.params[:page] || 1).to_i, 15
+  end
+
+  def url subdomain=true
+    h.send "#{klass_lower}_url", object, subdomain: subdomain
+  end
+
+  def edit_url
+    h.send "edit_#{klass_lower}_url", object
+  end
+
+  def edit_field_url field
+    h.send "edit_field_#{klass_lower}_url", object, field: field
   end
 
 private

@@ -1,0 +1,5 @@
+.b-input.string.optional
+  label.string.optional.control-label for="reason"
+    = Version.human_attribute_name :reason
+  input.string.optional type="text" value="#{params[:reason]}" name="reason" id="reason"
+  span.hint = t 'simple_form.hints.version.reason'

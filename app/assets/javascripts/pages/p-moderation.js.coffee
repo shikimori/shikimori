@@ -5,6 +5,17 @@ $comment = (node) ->
 $moderation = (node) ->
   $(node).closest('.b-abuse_request').find('.b-request_resolution .moderation')
 
+$ ->
+  # вопрос о причине отказа для правки
+  $(document.body).on 'click', '.user_change-deny', (e) ->
+    href = $(@).data('href')
+    reason = prompt $(@).data('reason-prompt')
+
+    if reason == null
+      false
+    else
+      $(@).attr href: "#{href}?reason=#{reason}"
+
 @on 'page:load', 'bans_index', 'abuse_requests_index', 'user_changes_index', 'review_index', 'anime_video_reports_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
@@ -17,16 +28,6 @@ $moderation = (node) ->
   $('.p-anime_video_reports .collapsed').on 'click', ->
     $iframe = $('iframe', $(@).parent())
     $iframe.attr src: $iframe.data('url')
-
-  # вопрос о причине отказа для правки
-  $('.user_change-deny').on 'click', (e) ->
-    href = $(@).data('href')
-    reason = prompt $(@).data('reason-prompt')
-
-    if reason == null
-      false
-    else
-      $(@).attr href: "#{href}?reason=#{reason}"
 
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента

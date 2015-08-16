@@ -23,6 +23,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def edit
     page_title 'Изменение видео'
+    @video = @video.decorate
   end
 
   def create
@@ -42,7 +43,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
   def update
     @video = AnimeVideosService
       .new(current_user.video_moderator? ? moderator_update_params : update_params)
-      .update(@video, current_user)
+      .update(@video, current_user, params[:reason])
+      .decorate
 
     if @video.valid?
       redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео изменено'

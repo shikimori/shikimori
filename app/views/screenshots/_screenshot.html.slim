@@ -7,10 +7,21 @@ a.c-screenshot.b-image[
     .mobile-edit
     .controls
       .delete title="Удалить кадр"
-      .confirm title="Подтвердить удаление" data-remote="true" data-action="#{screenshot_url screenshot}" data-method="delete" data-type="json"
+      .confirm[
+        title="Подтвердить удаление"
+        data-remote="true"
+        data-action="#{anime_screenshot_url screenshot.anime_id, screenshot}"
+        data-method="delete"
+        data-type="json"
+      ]
       .cancel title="Отменить удаление"
       /.restore title="Восстановить удалённое"
     .move-controls
       .move-left title="Переместить влево"
       .move-right title="Переместить вправо"
-  img src="#{cdn_image screenshot, :x166}" srcset="#{cdn_image screenshot, :x332}" title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{screenshot.anime.kind_text}" data-id="#{screenshot.id}"
+  img[
+    src="#{cdn_image screenshot, :x166}"
+    srcset="#{cdn_image screenshot, :x332}"
+    title="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{localized_name screenshot.anime}" alt="Кадр #{screenshot_counter+1 if defined? screenshot_counter} из #{screenshot.anime.kind_text}"
+    data-id="#{screenshot.id}"
+  ]

@@ -43,6 +43,10 @@ describe Anime do
     it { should have_many :episode_notifications }
   end
 
+  describe 'validations' do
+    it { is_expected.to validate_presence_of :name }
+  end
+
   context 'hooks' do
     it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
   end

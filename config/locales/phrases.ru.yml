@@ -2,6 +2,7 @@ ru:
   actions:
     accept: Принять
     apply: Применить
+    apply: Принять
     ban_user: Забанить пользователя
     cancel: Отмена
     create: Создать
@@ -10,8 +11,21 @@ ru:
     quote: Цитировать
     reject: Отклонить
     reply: Ответить
+    take: Взять
+    upload: Загрузить
     upload: Загрузить
     upload_image: Загрузить изображение
+  anime_list: Список аниме
+  back: назад
+  back_to_page: Назад на страницу
+  changes_not_saved: Изменения не сохранены!
+  changes_saved: Изменения сохранены
+  deleted:
+    anime: Deleted anime
+    character: Deleted character
+    manga: Deleted manga
+    review: Deleted review
+    anime_video: Deleted video
   anime_list: Список аниме
   back: назад
   back_to_page: Назад на страницу
@@ -38,5 +52,6 @@ ru:
   switch_to_manga: переключиться на мангу
   this_action_cant_be_undone: Это действие необратимо!
   username: Имя пользователя
+  under_development: В разработке
   users: Пользователи
   yes_i_confirm: Да, подтверждаю

@@ -6,6 +6,7 @@ module MessagesHelper # для truncate в messages helper
     klass.send :include, ActionView::Helpers::SanitizeHelper
   end
 
+  # TODO: перенести в MessageDecorator#generate_body
   def get_message_body message
     #Rails.logger.info message.to_yaml
     case message.kind

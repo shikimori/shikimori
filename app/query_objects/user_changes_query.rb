@@ -1,3 +1,4 @@
+# TODO: удалить после миграция UserChange на Version
 class UserChangesQuery
   def initialize entry, field
     @entry = entry
@@ -22,6 +23,7 @@ class UserChangesQuery
   end
 
 private
+
   def video_presence_filter
     if @field.to_sym == :video
       {

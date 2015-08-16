@@ -1,16 +1,17 @@
-# TODO: добавить метод для премодерации. @blackchestnut
+# TODO: заменено на Versioneer. После проверки, что всё правильно работает,
+# удалить этот файл
 class ActiveRecord::Base
   module ClassMethod
-    def diff(*attrs)
+    def diff *attrs
       self.diff_attrs = attrs
     end
   end
 
   class_attribute :diff_attrs
 
-  def moderated_update params, user=nil
+  def moderated_update params, user=nil, reason=nil
     diff_hash = diff params
-    create_version(diff_hash, user) unless diff_hash.blank?
+    create_version diff_hash, user, reason unless diff_hash.blank?
     update params
   end
 
@@ -43,7 +44,7 @@ class ActiveRecord::Base
   end
 
   def versions
-    Version.where(item_id: self.id, item_type: self.class.name).order(:id)
+    Version.where(item: self).order(:id)
   end
 
 private
@@ -60,13 +61,14 @@ private
     end
   end
 
-  def create_version diff_hash, user
+  def create_version diff_hash, user, reason
     Version.create(
       item_type: self.class.name,
       item_id: id,
       user_id: user.try(:id),
-      state: :accepted_pending,
+      state: :auto_accepted,
       item_diff: diff_hash,
+      reason: reason
     )
   end
 end

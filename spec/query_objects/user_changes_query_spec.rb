@@ -1,3 +1,4 @@
+# TODO: удалить после миграция UserChange на Version
 describe UserChangesQuery do
   let(:user) { create :user }
   let(:user2) { create :user }

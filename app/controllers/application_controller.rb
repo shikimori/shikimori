@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   helper_method :adaptivity_class
   helper_method :shikimori?, :anime_online?, :manga_online?
   helper_method :turbolinks_request?
-  helper_method :base_controller_name
+  helper_method :base_controller_names
   helper_method :ignore_copyright?
 
   helper_method :i18n_i, :i18n_io, :i18n_a
@@ -112,9 +112,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def base_controller_name
-    name = self.class.superclass.name.to_underscore.sub(/_controller$/, '')
-    name if name != 'application' && name != 'shikimori'
+  def base_controller_names
+    superclass_name = 'p-' + self.class.superclass.name.to_underscore
+      .sub(/_controller$/, '')
+      .sub(/^p-application$/, '')
+      .sub(/^p-shikimori$/, '')
+    db_name = 'p-db_entries' if kind_of?(DbEntriesController)
+
+    [superclass_name, db_name].compact.flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
   end
 
 private

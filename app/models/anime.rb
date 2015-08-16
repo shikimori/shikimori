@@ -4,6 +4,7 @@
 class Anime < DbEntry
   include AniManga
 
+  DESYNCABLE = %w{name kind episodes rating}
   EXCLUDED_ONGOINGS = [966,1199,1960,2406,4459,6149,7511,7643,8189,8336,8631,8687,9943,9947,10506,10797,10995,12393,13165,13433,13457,13463,15111,15749,16908,18227,18845,18941,19157,19445,19825,20261,21447,21523,24403,24969,24417,24835,25503,27687,26453,26163,27519,30131,29361,27785,29099,28247,28887,30144,29865,29722,29846,30342,30411,30470,30417,30232,30892,30989,31071,30777,31078]
 
   ADULT_RATING = 'rx'
@@ -108,6 +109,7 @@ class Anime < DbEntry
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
   enumerize :rating, in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx], predicates: { prefix: true }
 
+  validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :check_status

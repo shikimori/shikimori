@@ -13,7 +13,7 @@
             = authors.size > 1 ? 'Авторы:' : 'Автор:'
           - else
             = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
-        - authors.reverse.each do |author|
+        - authors.each do |author|
           .b-user16
             a href="#{profile_url author}" title="#{author.nickname}"
               img src="#{author.avatar_url 16}" srcset="#{author.avatar_url 32} 2x" alt="#{author.nickname}"

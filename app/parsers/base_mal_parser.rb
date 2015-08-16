@@ -173,6 +173,7 @@ class BaseMalParser < SiteParserWithCache
   end
 
 private
+
   # получение страницы MAL
   def get(url, required_text=['MyAnimeList.net</title>', '</html>'])
     content = super(url, required_text)

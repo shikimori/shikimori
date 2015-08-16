@@ -1,0 +1,8 @@
+.screenshots-compare
+  .after
+    p Стало
+    = render partial: 'screenshots/screenshot', collection: version.screenshots
+
+  .before
+    p Было
+    = render partial: 'screenshots/screenshot', collection: version.screenshots_prior

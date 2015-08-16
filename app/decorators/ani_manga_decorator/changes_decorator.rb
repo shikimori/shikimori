@@ -1,3 +1,4 @@
+# TODO: удалить после миграция UserChange на Version
 class AniMangaDecorator::ChangesDecorator < BaseDecorator
   def [](field)
     @changes ||= {}

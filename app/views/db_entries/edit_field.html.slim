@@ -1,0 +1,10 @@
+= render layout: 'page' do
+  h2.subheadline.m10 = @page_title.last
+
+  .block.edit-page class="#{@field}"
+    = render "db_entries/fields/#{@field}", resource: @resource, user_change: @user_change
+
+  - if @resource.versions[@field.to_sym].any?
+    .subheadline История правок
+    .block
+      = render partial: 'versions/version', collection: @resource.versions[@field.to_sym]

@@ -1,7 +1,7 @@
 # скриншоты, имеющие status не отображаются. это или только загруженные, или
 class Screenshot < ActiveRecord::Base
-  Uploaded = 'uploaded'
-  Deleted = 'deleted'
+  UPLOADED = 'uploaded'
+  DELETED = 'deleted'
 
   belongs_to :anime
 
@@ -11,7 +11,7 @@ class Screenshot < ActiveRecord::Base
 
   #validates_presence_of :anime # ну что за хрень с валидациями??
   validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }
-  validates :url, presence: true
+  validates :url, :anime, presence: true
 
   def access_token
     # для пары аниме по кривому адресу лежат
@@ -26,49 +26,9 @@ class Screenshot < ActiveRecord::Base
     end
   end
 
-  def can_be_uploaded_by? user
-    true
-  end
-
-  # направление скриншота на модерацию
-  def suggest_acception user
-    data = {
-      model: Anime.name,
-      item_id: anime_id,
-      column: 'screenshots',
-      action: UserChange::ScreenshotsUpload,
-      user_id: user.id
-    }
-    change = UserChange
-      .where(status: UserChangeStatus::Pending)
-      .where(data)
-      .first || UserChange.new(data)
-
-    change.value = change.value.blank? ? id : "#{change.value},#{id}"
-    change.save!
-  end
-
-  # напреление скриншота на удаление
-  def suggest_deletion user
-    data = {
-      model: Anime.name,
-      item_id: self.anime_id,
-      column: 'screenshots',
-      action: UserChange::ScreenshotsDeletion,
-      user_id: user.id
-    }
-    change = UserChange
-      .where(status: UserChangeStatus::Pending)
-      .where(data)
-      .first || UserChange.new(data)
-
-    change.value = change.value.blank? ? id : "#{change.value},#{id}"
-    change.save!
-  end
-
   # пометка скриншота удалённым
   def mark_deleted
-    update_attribute :status, Deleted
+    update_attribute :status, DELETED
   end
 
   # пометка скриншота принятм

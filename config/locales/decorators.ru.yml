@@ -51,7 +51,7 @@ ru:
     offline: онлайн %{time_ago}%{ago}
     ago: назад
     registration_formats:
-      full: &full_date '%e %B %Y г.'
+      full: '%e %B %Y г.'
       month_year: '%d %B %Y г.'
       year: '%Y г.'
   user_history_decorator:
@@ -95,3 +95,17 @@ ru:
       high: высокая совместимость
       full: полная совместимость
     member_since: на сайте с
+  message_decorator:
+    version_accepted: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] принята.
+    version_rejected: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена.
+    version_rejected_with_reason: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине: [quote=%{moderator}]%{reason}[/quote]
+  version_decorator:
+    field_name:
+      screenshots_upload: Загрузка кадров
+      screenshots_delete: Удаление кадров
+      screenshots_reposition: Порядов кадров
+      video_upload: Загрузка видео
+      video_delete: Удаление видео

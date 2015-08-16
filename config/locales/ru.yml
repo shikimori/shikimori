@@ -8,15 +8,39 @@ ru:
 
     attributes:
       anime: &anime_attributes
-        kind: Тип
-        episodes: Эпизоды
+        cosplay: Косплей
+        description: Описание
         duration: Длительность эпизода
-        status: Статус
+        episodes: Эпизоды
+        genres: Жанры
+        kind: Тип
+        name: Английское название
+        poster: Постер
+        rating: Рейтинг
+        russian: Русское название
         score: Рейтинг
+        screenshots: Кадры
+        source: Источник описания
+        status: Статус
+        tags: Тег имиджборд
+        torrents_name: Название на торрентах
+        videos: Видео
       manga:
         <<: *anime_attributes
         volumes: Тома
         chapters: Главы
+      character: &character_attributes
+        cosplay: Косплей
+        description: Описание
+        japanese: Японское имя
+        name: Английское имя
+        poster: Постер
+        russian: Русское имя
+        tags: Тег имиджборд
+      person:
+        <<: *character_attributes
+        birthday: Дата рождения
+        website: Сайт
       contest:
         title: Название
         description: Описание
@@ -115,6 +139,7 @@ ru:
         kind: Тип видео
         state: Статус
         author_name: Автор (озвучки,субтитров)
+        anime_video_author_id: Автор (озвучки,субтитров)
       video:
         url: Ссылка
         kind: Тип
@@ -141,9 +166,12 @@ ru:
         linked: Связанное
         posters: Постеры
         section_id: Раздел
+      # TODO: удалить после удаления модели
       user_change:
         source: Источник
         reason: Комментарий для модератора
+      version:
+        reason: Причина правки
       anime_video_report:
         kind: Причина
         message: Сообщение модератору
@@ -196,6 +224,14 @@ ru:
           wrong: не к этому аниме
           banned: banned
           copyrighted: copyrighted
+      version:
+        states:
+          pending: ожидает рассмотрения
+          accepted: принято
+          auto_accepted: принято автоматически
+          taken: взято
+          rejected: отклонено
+          deleted: удалено
 
   enumerize:
     user:
@@ -249,6 +285,7 @@ ru:
         r_plus: R+
         rx: Rx
         hint:
+          none: Нет рейтинга
           g: G - Нет возрастных ограничений
           pg: PG - Рекомендуется присутствие родителей
           pg_13: PG-13 - Детям до 13 лет просмотр не желателен
@@ -318,7 +355,7 @@ ru:
     anime_video_report:
       kind:
         uploaded: новое видео
-        broken: видео не работет
+        broken: видео не работает
         wrong: видео не к тому аниме
     user_history_action:
       action:

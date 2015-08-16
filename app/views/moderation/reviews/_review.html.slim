@@ -22,7 +22,7 @@
       - if review.target
         a.bubbled href="#{url_for review.target}" = review.target.name
       - else
-        = t "Deleted.#{review.model}"
+        = t "deleted.#{review.model}"
     span.state class="#{review.state}"
       = review.human_state_name
     - if review.approver.present?

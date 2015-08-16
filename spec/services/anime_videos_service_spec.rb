@@ -42,15 +42,17 @@ describe AnimeVideosService do
     context 'invalid video' do
       let(:kind) {  }
 
-      it { expect(video).to_not be_valid }
-      it { expect(video).to_not be_persisted }
+      it do
+        expect(video).to_not be_valid
+        expect(video).to_not be_persisted
+      end
     end
   end
 
   describe '#update' do
     let(:video_params) {{ kind: kind, author_name: 'test', episode: 3 }}
     let(:anime_video) { create :anime_video }
-    subject(:video) { service.update anime_video, nil }
+    subject(:video) { service.update anime_video, nil, nil }
 
     context 'valid video' do
       let(:kind) { 'subtitles' }

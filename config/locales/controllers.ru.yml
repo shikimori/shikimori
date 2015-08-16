@@ -50,3 +50,33 @@ ru:
   group_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
+  moderation/versions_controller:
+    content_change: 'Изменения контента #%{version_id} от пользователя %{author}'
+    content_changes: Изменения контента
+    changes_accepted: Изменения приняты
+    changes_rejected: Изменения отклонены
+    changes_deleted: Изменения удалены
+    changes_failed: Невозможно применить изменения
+  animes_controller: &animes_controller
+    changes_pending: Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
+    changes_accepted: &changes_accepted Изменения сохранены
+    changes_taken: *changes_accepted
+    entry_edit: Редактирование аниме
+    edit: Редактирование
+  mangas_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование манги
+  characters_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование персонажа
+  people_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование человека
+  seyu_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование сэйю
+  screenshots_controller: &screenshots_controller
+    pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
+    screenshot_deleted: Скриншот удалён
+  videos_controller:
+    pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!

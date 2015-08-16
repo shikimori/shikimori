@@ -10,12 +10,11 @@ class Video < ActiveRecord::Base
   validates :anime_id, :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url,
     case_sensitive: true,
-    scope: [:anime_id, :state],
+    scope: [:anime_id],
     conditions: -> { where.not state: :deleted }
 
   before_create :check_url
   before_create :check_hosting
-  after_create :suggest_acception
 
   scope :youtube, -> { where hosting: :youtube }
 
@@ -31,9 +30,7 @@ class Video < ActiveRecord::Base
   default_scope -> { order kind: :desc, name: :asc }
 
   state_machine :state, initial: :uploaded do
-    state :uploaded do
-
-    end
+    state :uploaded
     state :confirmed
     state :deleted
 
@@ -59,21 +56,8 @@ class Video < ActiveRecord::Base
     self[:url]
   end
 
-  # напреление видео на удаление
-  def suggest_deletion user
-    return unless confirmed?
-
-    UserChange.create(
-      action: UserChange::VideoDeletion,
-      column: 'video',
-      item_id: anime_id,
-      model: Anime.name,
-      user_id: user.id,
-      value: id
-    )
-  end
-
 private
+
   def check_url
     if hosting.present?
       true
@@ -90,18 +74,5 @@ private
       self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'
       false
     end
-  end
-
-  # направление видео на модерацию
-  def suggest_acception
-    UserChange.create(
-      action: UserChange::VideoUpload,
-      column: 'video',
-      item_id: anime_id,
-      model: Anime.name,
-      user_id: uploader_id,
-      value: id,
-      status: uploaded? ? UserChangeStatus::Pending : UserChangeStatus::Taken
-    )
   end
 end

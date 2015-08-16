@@ -36,12 +36,11 @@ ru:
     edit:
       account:
         change_email_and_password: Изменить email и пароль
-        under_development: В разработке
         connected_accounts: Подключенные сервисы
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
         not_connected_accounts: Неподключенные сервисы
-        under_development: В разработке
+        username: Имя пользователя
 
       profile:
         display_activity_graph_since: Отображать график активности начиная с даты

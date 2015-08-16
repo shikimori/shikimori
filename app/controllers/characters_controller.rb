@@ -1,6 +1,5 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
-  before_action :authenticate_user!, only: [:edit]
   skip_before_action :role_redirect
 
   before_action { page_title 'Персонажи' }
@@ -80,16 +79,9 @@ class CharactersController < PeopleController
 
   def edit
     noindex
-    page_title 'Редактирование'
-    @page = params[:page] || 'description'
+    page_title i18n_t('entry_edit')
 
-    @user_change = UserChange.new(
-      model: @resource.object.class.name,
-      item_id: @resource.id,
-      column: @page,
-      source: @resource.source,
-      value: @resource[@page]
-    )
+    @page = params[:page]
   end
 
   def autocomplete
@@ -97,6 +89,13 @@ class CharactersController < PeopleController
   end
 
 private
+
+  def update_params
+    params
+      .require(:character)
+      .permit(:russian, :tags, :description, :source, *Character::DESYNCABLE)
+  end
+
   def search_title
     'Поиск персонажей'
   end

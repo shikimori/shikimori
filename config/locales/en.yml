@@ -8,15 +8,39 @@ en:
 
     attributes:
       anime: &anime_attributes
-        kind: Type
-        episodes: Episodes
+        cosplay: Cosplay
+        description: Description
         duration: Episode duration
-        status: Status
+        episodes: Episodes
+        genres: Genres
+        kind: Type
+        name: Name
+        poster: Poster
+        rating: Rating
+        russian: Russian name
         score: Score
+        screenshots: Screenshots
+        source: Description source
+        status: Status
+        tags: Imageboards tag
+        torrents_name: Torrents name
+        videos: Videos
       manga:
         <<: *anime_attributes
         volumes: Volumes
         chapters: Chapters
+      character: &character_attributes
+        cosplay: Cosplay
+        description: Description
+        japanese: Japanese name
+        name: Name
+        poster: Poster
+        russian: Russian name
+        tags: Imageboards tag
+      person:
+        <<: *character_attributes
+        birthday: Birthday
+        website: Website
       contest:
         title: Title
         description: Description
@@ -115,8 +139,9 @@ en:
         kind: Video Type
         state: Status
         author_name: Author (dubbing, subtitles)
+        anime_video_author_id: Author (dubbing, subtitles)
       video:
-        url: Link
+        url: Url
         kind: Type
         name: Name
       group:
@@ -141,9 +166,12 @@ en:
         linked: Linked
         posters: Posters
         section_id: Section
+      # TODO: удалить после удаления модели
       user_change:
         source: Source
         reason: Message to moderators
+      version:
+        reason: Change reason
       anime_video_report:
         kind: Reason
         message: Message to moderators
@@ -196,6 +224,14 @@ en:
           wrong: wrong anime
           banned: banned
           copyrighted: copyrighted
+      version:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          auto_accepted: accepted automatically
+          taken: taken
+          rejected: rejected
+          deleted: deleted
 
   enumerize:
     user:
@@ -249,6 +285,7 @@ en:
         r_plus: R+
         rx: Rx
         hint:
+          none: No rating
           g: G - All ages
           pg: PG - Children
           pg_13: PG-13 - Teens 13 or older

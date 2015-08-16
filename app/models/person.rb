@@ -1,4 +1,6 @@
 class Person < DbEntry
+  DESYNCABLE = %w{name japanese website birthday}
+
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles
   has_many :mangas, -> { order :id }, through: :person_roles
@@ -24,10 +26,6 @@ class Person < DbEntry
   #def producer? role
     #role.include?('Director')
   #end
-
-  def russian
-    nil
-  end
 
   def source
     nil

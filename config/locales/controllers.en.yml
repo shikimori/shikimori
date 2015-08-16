@@ -50,3 +50,34 @@ en:
   group_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
+  moderation/versions_controller:
+    content_change: 'Content change #%{version_id} by %{author}'
+    content_changes: Content changes
+    changes_accepted: Changes accepted
+    changes_rejected: Changes rejected
+    changes_deleted: Changes deleted
+    changes_failed: These changes cannot be applied
+  animes_controller: &animes_controller
+    changes_pending: Content changes have been saved successfully and will be moderated soon. Thanks!
+    changes_accepted: &changes_accepted Content changes have been applied successfully.
+    changes_taken: *changes_accepted
+    entry_edit: Edit Anime
+    edit: Edit
+  mangas_controller:
+    <<: *animes_controller
+    entry_edit: Edit Manga
+  characters_controller:
+    <<: *animes_controller
+    entry_edit: Edit Character
+  people_controller:
+    <<: *animes_controller
+    entry_edit: Edit Person
+  seyu_controller:
+    <<: *animes_controller
+    entry_edit: Edit Seyu
+  screenshots_controller:
+    pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+    screenshot_deleted: Screenshot deleted
+  videos_controller:
+    pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+

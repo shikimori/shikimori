@@ -1,4 +1,4 @@
-# TODO: рефакторинг. перевод на на state_machine, использовать STI, разные классы для правок текста, видео, скриншотов
+# TODO: заменено на VersionsController. Удалить, мигрировав данные на versions.
 class UserChange < ActiveRecord::Base
   # TODO: rename to "Contribution"
   ScreenshotsPosition = "screenshots_position"

@@ -1,5 +1,5 @@
 $(document).on 'click', '.collapse', (e, custom) ->
-  is_hide = $(@).children('.action').html().match(/свернуть/)
+  is_hide = $(@).children('.action').html().match(/свернуть|спрятать|collapse|hide/)
   $(@).toggleClass 'triggered', is_hide
 
   # блок-заглушка, в которую сворачивается контент
@@ -35,15 +35,22 @@ $(document).on 'click', '.collapse', (e, custom) ->
         $action.show()
 
     if is_hide
-      $action.html().replace('свернуть', 'развернуть')
+      $action.html()
+        .replace('свернуть', 'развернуть')
+        .replace('спрятать', 'показать')
+        .replace('hide', 'show')
     else
-      $action.html().replace('развернуть', 'свернуть')
+      $action.html()
+        .replace('развернуть', 'свернуть')
+        .replace('показать', 'спрятать')
+        .replace('show', 'hide')
 
   unless custom
     id = $(@).attr('id')
     if id && id != '' && id.indexOf('-') != -1
       name = id.split('-').slice(1).join("-") + ";"
       collapses = $.cookie('collapses') || ''
+
       if is_hide && collapses.indexOf(name) == -1
         $.cookie "collapses", collapses + name,
           expires: 730
