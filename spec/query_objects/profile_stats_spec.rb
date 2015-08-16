@@ -228,13 +228,13 @@ describe ProfileStats do
   end
 
   describe '#content_changes_count' do
-    let!(:user_change_1) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
-    let!(:user_change_2) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Accepted }
-    let!(:user_change_3) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Pending }
-    let!(:user_change_4) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Rejected }
-    let!(:user_change_5) { create :user_change, user: user, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Deleted }
-    let!(:user_change_6) { create :user_change, item_id: anime.id, model: Anime.name, status: UserChangeStatus::Taken }
-    subject { stats.content_changes_count }
+    let!(:version_1) { create :version, user: user, item: anime, state: :taken }
+    let!(:version_2) { create :version, user: user, item: anime, state: :accepted }
+    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
+    let!(:version_4) { create :version, user: user, item: anime, state: :rejected }
+    let!(:version_5) { create :version, user: user, item: anime, state: :deleted }
+    let!(:version_6) { create :version, item: anime, state: :taken }
+    subject { stats.versions_count }
 
     it { should eq 2 }
   end
