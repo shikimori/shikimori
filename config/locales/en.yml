@@ -140,8 +140,8 @@ en:
         episode: Episode
         kind: Video Type
         state: Status
-        author_name: Author (dubbing, subtitles)
-        anime_video_author_id: Author (dubbing, subtitles)
+        author_name: Author
+        anime_video_author_id: Author
       video:
         url: Url
         kind: Type

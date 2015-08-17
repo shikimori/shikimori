@@ -140,8 +140,8 @@ ru:
         episode: Эпизод
         kind: Тип видео
         state: Статус
-        author_name: Автор (озвучки,субтитров)
-        anime_video_author_id: Автор (озвучки,субтитров)
+        author_name: Автор
+        anime_video_author_id: Автор
       video:
         url: Ссылка
         kind: Тип

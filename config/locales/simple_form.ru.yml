@@ -30,6 +30,9 @@ ru:
       user:
         nickname: Логин (никнейм)
         avatar: Аватар (160x160)
+      anime_video:
+        author_name: Автор (озвучки,субтитров)
+        anime_video_author_id: Автор (озвучки,субтитров)
 
     placeholders:
       topic:
