@@ -7,6 +7,8 @@ class AnimeProfileSerializer < AnimeSerializer
 
   has_many :genres
   has_many :studios
+  has_many :videos
+  has_many :screenshots
 
   has_one :user_rate
 
@@ -24,5 +26,13 @@ class AnimeProfileSerializer < AnimeSerializer
 
   def description
     object.description || object[:description_mal]
+  end
+
+  def videos
+    object.videos 2
+  end
+
+  def screenshots
+    object.videos 2
   end
 end
