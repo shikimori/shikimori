@@ -3,11 +3,13 @@ class Api::V1::ClubsController < Api::V1::ApiController
 
   before_action :fetch_club, except: :index
 
+  LIMIT = 30
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/clubs', 'List clubs'
   def index
     page = [params[:page].to_i, 1].max
-    limit = [[params[:limit].to_i, 1].max, 30].min
+    limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
     @collection = ClubsQuery.new.fetch page, limit
 
@@ -17,7 +19,11 @@ class Api::V1::ClubsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/clubs/:id', 'Show a club'
   def show
-    respond_with @club, serializer: GroupProfileSerializer
+    if @collection
+      respond_with @collection, each_serializer: GroupProfileSerializer
+    else
+      respond_with @club, serializer: GroupProfileSerializer
+    end
   end
 
   api :GET, "/clubs/:id/animes", "Show club's animes"
@@ -46,7 +52,14 @@ class Api::V1::ClubsController < Api::V1::ApiController
   end
 
 private
+
   def fetch_club
-    @club = Group.find(params[:id]).decorate
+    ids = params[:id].split(',')
+
+    if ids.one?
+      @club = Group.find(params[:id]).decorate
+    else
+      @collection = Group.where(id: ids).limit(LIMIT).decorate
+    end
   end
 end
