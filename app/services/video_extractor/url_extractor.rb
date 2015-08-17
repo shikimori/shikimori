@@ -38,10 +38,12 @@ private
   def parsed_url
     if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       $1.sub(/&(amp;)?hd=\d/, '')
-    elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
-      $1
-    elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
-      $1
+    #elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
+      #$1
+    #elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
+      #$1
+    elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(?<hash>#{CONTENT})}
+      "http://myvi.tv/embed/html/#{$~[:hash]}"
     elsif html =~ %r{(#{HTTP}api.video.mail.ru/videos#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
