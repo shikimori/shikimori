@@ -1,5 +1,5 @@
 class Moderation::VersionsController < ShikimoriController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index]
 
   before_action { page_title i18n_t('content_changes') }
 

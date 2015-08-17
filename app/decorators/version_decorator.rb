@@ -53,4 +53,14 @@ class VersionDecorator < BaseDecorator
       value
     end
   end
+
+  def cache_key
+    [
+      object,
+      h.user_signed_in? && h.current_user.versions_moderator?,
+      h.user_signed_in? && h.current_user.video_moderator?,
+      h.current_user && h.current_user.admin?,
+      I18n.locale
+    ]
+  end
 end

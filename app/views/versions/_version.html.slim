@@ -1,5 +1,4 @@
-/= cache [version, user_signed_in? && current_user.versions_moderator?, current_user && current_user.admin?, I18n.locale] do
-div
+= cache version.cache_key, expires_in: 2.weeks do
   .b-log_entry.unprocessed
     span.id-label #
     span = version.id
