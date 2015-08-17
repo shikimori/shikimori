@@ -94,7 +94,7 @@ describe AnimeVideoReport do
     end
   end
 
-  describe 'doubles' do
+  describe '#doubles' do
     let!(:report) { create :anime_video_report, anime_video: anime_video, state: state_1 }
     let(:state_1) { 'rejected' }
     let(:anime_video) { create :anime_video }
