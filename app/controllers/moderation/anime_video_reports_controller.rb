@@ -23,12 +23,13 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
   end
 
   def accept
-    @resource.accept! current_user
+    @resource.accept! current_user if @resource.can_accept?
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def accept_edit
-    @resource.accept_only! current_user
+    @resource.accept_only! current_user if @resource.can_accept_only?
+
     redirect_to edit_video_online_url(
       @resource.anime_video.anime_id,
       @resource.anime_video,
@@ -37,17 +38,17 @@ class Moderation::AnimeVideoReportsController < ShikimoriController
   end
 
   def reject
-    @resource.reject! current_user
+    @resource.reject! current_user if @resource.can_reject?
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def work
-    @resource.work!
+    @resource.work! if @resource.can_work?
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
   def cancel
-    @resource.cancel! current_user
+    @resource.cancel! current_user if @resource.can_cancel?
     redirect_to_back_or_to moderation_anime_video_reports_url
   end
 
