@@ -3,7 +3,7 @@ class VideoExtractor::UrlExtractor
   CONTENT = /[^" ><\n]+/.source
   PARAM = /[^" ><&\n]+/.source
 
-  pattr_inialize :content
+  pattr_initialize :content
 
   def extract
     if parsed_url
