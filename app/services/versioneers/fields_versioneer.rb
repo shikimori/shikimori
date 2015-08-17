@@ -32,7 +32,7 @@ private
 
   def changes new_values
     convert_dates(new_values).each_with_object({}) do |(field, new_value), memo|
-      memo[field.to_s] = [item[field], new_value] if item[field] != new_value
+      memo[field.to_s] = [item[field], new_value] if item[field].to_s != new_value.to_s
     end
   end
 

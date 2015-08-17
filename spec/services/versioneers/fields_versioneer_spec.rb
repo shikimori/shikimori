@@ -25,13 +25,21 @@ describe Versioneers::FieldsVersioneer do
       expect(version.moderator).to be_nil
     end
 
-    describe 'description change', :focus do
+    describe 'description change' do
       let(:changes) {{ description: 'zzz', source: '7' }}
 
       it do
         expect(version).to be_persisted
         expect(version).to be_pending
         expect(version.class).to eq Versions::DescriptionVersion
+      end
+    end
+
+    describe 'nil -> "" change' do
+      let(:changes) {{ name: 'zzz', source: '' }}
+
+      it do
+        expect(version.item_diff).to eq 'name' => ['test', 'zzz']
       end
     end
 
