@@ -79,7 +79,8 @@ a.entry.rel[
     - if user_signed_in?
       a.entry href='/s/79042-Pravila-sayta' title='Правила сайта' Правила сайта
       a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title='Часто задаваемые вопросы' FAQ
-      a.entry href='#{moderation_bans_url}' title='Журнал модерации' Журнал модерации
+      a.entry href='#{moderation_versions_url}' title='Журнал модерации контента' Журнал модерации контента
+      a.entry href='#{moderation_bans_url}' title='Журнал модерации форума' Журнал модерации форума
     - if user_signed_in?
         a.entry class="#{:active if params[:controller] == 'translations'}" href="#{translations_url}" title="Аниме без описаний" Аниме без описаний
         a.entry href="http://shikimori.org/api/doc" API

@@ -52,7 +52,7 @@ ru:
     you_have_left_club: Вы покинули клуб "%{club_name}"
   moderation/versions_controller:
     content_change: 'Изменения контента #%{version_id} от пользователя %{author}'
-    content_changes: Изменения контента
+    content_changes: Журнал модерации контента
     changes_accepted: Изменения приняты
     changes_rejected: Изменения отклонены
     changes_deleted: Изменения удалены

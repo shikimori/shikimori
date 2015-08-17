@@ -4,7 +4,7 @@ class Moderation::BansController < ShikimoriController
   layout false, only: [:new]
 
   def index
-    @page_title = 'Журнал модерации'
+    @page_title = 'Журнал модерации форума'
 
     @moderators = User.where(id: User::Moderators - User::Admins).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
