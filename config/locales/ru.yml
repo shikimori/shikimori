@@ -214,7 +214,7 @@ ru:
           finished: завершено
       review:
         states:
-          pending: ожидает рассмотрения
+          pending: ожидает модерации
           accepted: принято
           rejected: отклонено
       anime_video:
@@ -228,7 +228,7 @@ ru:
           copyrighted: copyrighted
       version:
         states:
-          pending: ожидает рассмотрения
+          pending: ожидает модерации
           accepted: принято
           auto_accepted: принято автоматически
           taken: взято

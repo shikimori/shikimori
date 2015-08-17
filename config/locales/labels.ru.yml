@@ -111,7 +111,7 @@ ru:
       volumes: Тома
       days: Дни
   UserChangeStatus:
-    Pending: ожидает рассмотрения
+    Pending: ожидает модерации
     Accepted: принято
     Taken: взято
     Rejected: отклонено

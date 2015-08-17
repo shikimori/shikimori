@@ -15,7 +15,7 @@
     input type="file" multiple="multiple"
     p.thank-you Спасибо! Загруженное будет проверено модератором. О результатах проверки вам придёт уведомление.
 
-- if @resource.screenshots.any? || @resource.versions[:screenshots].any?
+- if @resource.screenshots.any?# || @resource.versions[:screenshots].any?
   .block.screenshots-positioner
     .subheadline Изменение порядка кадров, удаление кадров
     /p По наведению на кадр появится крестик, нажав на который, можно удалить картинку.
