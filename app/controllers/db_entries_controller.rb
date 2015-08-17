@@ -24,12 +24,7 @@ class DbEntriesController < ShikimoriController
 
   def update
     version = Versioneers::FieldsVersioneer.new(@resource.object).premoderate(update_params, current_user, params[:reason])
-
-    if version.persisted? && can?(:manage, version)
-      version.accept current_user if params[:apply]
-      version.take current_user if params[:take]
-    end
-
+    version.accept current_user if version.persisted? && can?(:manage, version)
     redirect_to @resource.edit_url, notice: i18n_t("changes_#{version.state}")
   end
 end

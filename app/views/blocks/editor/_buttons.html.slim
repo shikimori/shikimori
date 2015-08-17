@@ -9,13 +9,6 @@ span.item-content-editor-buttons
             (defined?(item) && item && item.respond_to?(:can_be_edited_by?) && item.can_be_edited_by?(current_user)))
       span.control.item-apply Применить
 
-      /= form_tag apply_path, :method => :patch do
-        /span.control.item-apply
-          /- if defined?(save_to_all) && save_to_all
-            /= 'Сохранить'
-          /- else
-            /= defined?(change_icon_only) && change_icon_only ? '' : t('actions.apply')
-
         = text_area_tag "#{item_name}[#{defined?(field) ? field : 'description'}]", '', :style => 'display: none'
         - if defined?(with_source)
           = text_field_tag "#{item_name}[source]", '', :style => 'display: none'

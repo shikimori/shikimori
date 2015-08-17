@@ -49,14 +49,12 @@ shared_examples :db_entry_controller do |entry_name|
 
   describe '#update' do
     let(:make_request) { patch :update,
-      { id: entry.id, apply: apply, take: take }.merge(entry_name => changes) }
+      { id: entry.id }.merge(entry_name => changes) }
     let(:changes) {{ russian: 'test' }}
     let(:role) { :user }
 
-    describe 'save' do
+    describe 'common user' do
       include_context :authenticated, :user
-      let(:apply) { }
-      let(:take) { }
       before { make_request }
 
       it do
@@ -67,46 +65,14 @@ shared_examples :db_entry_controller do |entry_name|
       end
     end
 
-    describe 'apply' do
-      let(:apply) { 'Apply' }
-      let(:take) { }
-
-      context 'common user' do
-        include_context :authenticated, :user
-        before { make_request }
-
-        it do
-          expect(resource).to_not have_attributes changes
-          expect(resource.versions[:russian]).to have(1).item
-          expect(resource.versions[:russian].first).to be_pending
-          expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
-        end
-      end
-
-      context 'moderator' do
-        include_context :authenticated, :versions_moderator
-        before { make_request }
-
-        it do
-          expect(resource).to have_attributes changes
-          expect(resource.versions[:russian]).to have(1).item
-          expect(resource.versions[:russian].first).to be_accepted
-          expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
-        end
-      end
-    end
-
-    describe 'take' do
-      let(:apply) { }
-      let(:take) { 'Take' }
-
+    describe 'moderator' do
       include_context :authenticated, :versions_moderator
       before { make_request }
 
       it do
         expect(resource).to have_attributes changes
         expect(resource.versions[:russian]).to have(1).item
-        expect(resource.versions[:russian].first).to be_taken
+        expect(resource.versions[:russian].first).to be_accepted
         expect(response).to redirect_to send("edit_#{entry_name}_url", entry)
       end
     end
