@@ -22,50 +22,54 @@
         = report.approver.nickname
 
     .spoiler.collapse
-      span.action.half-hidden развернуть
-    .collapsed.spoiler подробности
-    .spoiler.target.info
+      span.action.half-hidden style="display: none;" = t '.show'
+    .collapsed.spoiler = t '.show_changes'
+
+    .spoiler.target style="display: none;"
       - if user_signed_in? && current_user.video_moderator?
-        - if report.pending?
-          span.moderation
-            a href="#{reject_moderation_anime_video_report_url(report.id)}" отклонить
-            a href="#{accept_moderation_anime_video_report_url(report.id)}" подтвердить
+        .moderation
+          - if report.pending?
             a.accept_edit href="#{accept_edit_moderation_anime_video_report_url(report.id)}"
               | подтвердить и редактировать
-        - else
-          span.moderation
+            a href="#{accept_moderation_anime_video_report_url(report.id)}" подтвердить
+            a href="#{reject_moderation_anime_video_report_url(report.id)}" отклонить
+          - else
             a href="#{cancel_moderation_anime_video_report_url report.id}" отменить
-      p
-        span ID:
-        span = report.anime_video.id
-      p
-        span Url:
-        a href="#{report.anime_video.url}" = report.anime_video.url
-      p
-        span Эпизод:
-        span = report.anime_video.episode
-      p
-        span Тип:
-        span = report.anime_video.kind
 
-      - if report.anime_video.author
-        p
-          span Автор:
-          span = report.anime_video.author.name.to_s.html_safe
+      .change-details
+        ul.diff
+          li
+            span ID:
+            = report.anime_video.id
+          li
+            span Url:
+            a href="#{report.anime_video.url}" = report.anime_video.url
 
-      - if report.user_agent.present?
-        p
-          span user_agent:
-          span = report.user_agent
+          li
+            span Эпизод:
+            = report.anime_video.episode
+          li
+            span Тип:
+            = report.anime_video.kind
 
-      - if report.message.present?
-        p
-          span Комментарий:
-          span = report.message
+          - if report.anime_video.author
+            li
+              span Автор:
+              = report.anime_video.author.name.to_s.html_safe
 
-      - if report.doubles > 0
-        p
-          span Повторных жалоб:
-          span = report.doubles
+          - if report.user_agent.present?
+            li
+              span USER_AGENT:
+              = report.user_agent
 
-      = report.anime_video.decorate.player_html
+          - if report.message.present?
+            li
+              span Комментарий:
+              = report.message
+
+          - if report.doubles > 0
+            li
+              span Повторных жалоб:
+              = report.doubles
+
+      .player data-html="#{'' + report.anime_video.decorate.player_html}"

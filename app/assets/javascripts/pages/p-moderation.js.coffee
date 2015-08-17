@@ -14,9 +14,12 @@ $moderation = (node) ->
     $comment(@).shiki()._reload()
     $moderation(@).hide()
 
-  $('.p-anime_video_reports .collapsed').on 'click', ->
-    $iframe = $('iframe', $(@).parent())
-    $iframe.attr src: $iframe.data('url')
+  $('.p-anime_video_reports').on 'click', '.collapsed', ->
+    $player = $(@).parent().find('.player')
+    if $player.data 'html'
+      $player
+        .html($player.data 'html')
+        .data(html: '')
 
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента
