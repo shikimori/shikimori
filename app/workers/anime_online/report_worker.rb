@@ -8,7 +8,7 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     /\n\nДанная видеозапись скрыта настройками приватности и недоступна для просмотра.\n\n/i,
     /\n\nThis video is protected by privacy settings.\n\n/i,
     /\n\nВидеозапись была помечена модераторами сайта как «Материал для взрослых»./i,
-    /\n\nThis video was marked as Adult.Embedding adult videos is not allowed by VK.\n\n/i
+    /\n\nThis video was marked as Adult.Embedding adult videos/i
   ]
   SIBNET_BROKEN_TEXTS = ["Ошибка обработки видео", "Îøèáêà îáðàáîòêè âèäåî"]
 
@@ -17,16 +17,18 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     return unless report.pending?
 
     if report.broken?
-      if video_broken?(report.anime_video)
-        report.accept!(approver)
+      if video_broken? report.anime_video
+        report.accept! approver
+
       elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
-        report.accept!(approver)
+        report.accept! approver
+
       elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
-        report.reject!(approver)
+        report.reject! approver
       end
 
     elsif report.uploaded?
-      report.accept!(approver) if AnimeOnline::Uploaders.trusted?(report.user_id)
+      report.accept! approver if AnimeOnline::Uploaders.trusted?(report.user_id)
     end
 
     report

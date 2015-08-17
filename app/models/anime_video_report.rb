@@ -20,9 +20,14 @@ class AnimeVideoReport < ActiveRecord::Base
   def doubles state=nil
     reports = AnimeVideoReport
       .where(anime_video_id: anime_video_id)
-      .where('id != ?', id)
-    reports = reports.where(state: state) if state
-    reports.count
+      .where.not(id: id)
+
+    if state
+      reports.where! 'state = :state and user_id != :guest_id',
+        state: state, guest_id: User::GuestID
+    end
+
+    reports.size
   end
 
   state_machine :state, initial: :pending do
@@ -101,6 +106,7 @@ class AnimeVideoReport < ActiveRecord::Base
   end
 
 private
+
   def auto_check
     AnimeOnline::ReportWorker.delay_for(10.seconds).perform_async id
   end

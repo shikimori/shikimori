@@ -113,7 +113,8 @@ describe AnimeVideoReport do
     end
 
     context 'with_double' do
-      before { create :anime_video_report, anime_video: anime_video, state: state_1 }
+      before { create :anime_video_report, anime_video: anime_video, state: state_1, user: user }
+      let(:user) { build_stubbed :user }
 
       context 'without_state' do
         it { should eq 1 }
@@ -129,7 +130,15 @@ describe AnimeVideoReport do
 
         context 'eq_state' do
           let(:state_2) { state_1 }
-          it { should eq 1 }
+
+          context 'guest report' do
+            let(:user) { build_stubbed :user, id: User::GuestID }
+            it { should eq 0 }
+          end
+
+          context 'user report' do
+            it { should eq 1 }
+          end
         end
       end
     end
