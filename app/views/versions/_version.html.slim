@@ -1,6 +1,6 @@
 /= cache [version, user_signed_in? && current_user.versions_moderator?, current_user && current_user.admin?, I18n.locale] do
 div
-  .b-log_entry
+  .b-log_entry.unprocessed
     span.id-label #
     span = version.id
     span.date
@@ -43,27 +43,27 @@ div
             - if version.can_accept?
               a.b-tooltipped.unprocessed[
                 href="#{accept_moderation_version_url version}"
-                data-method="POST"
-                data-direction="top"
                 title="#{t '.accept_changes'}"
+                data-direction="top"
+                data-method="POST"
               ] = t '.accept'
 
             - if version.can_reject?
               a.b-tooltipped.unprocessed.user_change-deny[
+                title="#{t '.reject_changes'}"
+                data-direction="top"
                 data-href="#{reject_moderation_version_url version}"
                 data-method="POST"
-                data-direction="top"
-                title="#{t '.reject_changes'}"
                 data-reason-prompt="#{t '.reject_reason'}"
               ] = t '.reject'
 
           - if can?(:destroy, version) && version.can_to_deleted?
             a.b-tooltipped.unprocessed[
               href="#{moderation_version_url version}"
-              data-method="DELETE"
-              data-direction="top"
-              data-confirm="#{t '.delete_changes'}?"
               title="#{t '.delete_changes'}"
+              data-confirm="#{t '.delete_changes'}?"
+              data-direction="top"
+              data-method="DELETE"
             ] = t '.delete'
 
       .clearfix

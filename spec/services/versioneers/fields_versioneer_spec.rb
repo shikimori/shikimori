@@ -35,7 +35,7 @@ describe Versioneers::FieldsVersioneer do
       end
     end
 
-    describe 'date change', :focus do
+    describe 'date change' do
       let(:anime) { create :anime, aired_on: '2007-03-02' }
       let(:changes) {{ 'aired_on(3i)' => '5', 'aired_on(2i)' => '4', 'aired_on(1i)' => '2008' }}
 

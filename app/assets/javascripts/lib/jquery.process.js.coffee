@@ -81,6 +81,19 @@
     $posters.removeClass('unprocessed').find('img').imagesLoaded ->
       $posters.align_posters()
 
+  # блоки модерации
+  $with('.b-log_entry.unprocessed', $root)
+    .removeClass('unprocessed')
+    # вопрос о причине отказа для правки
+    .on 'click', '.user_change-deny', (e) ->
+      href = $(@).data('href')
+      reason = prompt $(@).data('reason-prompt')
+
+      if reason == null
+        false
+      else
+        $(@).attr href: "#{href}?reason=#{reason}"
+
 # поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
 $with = (selector, $root) ->
   if $root.is(selector)
