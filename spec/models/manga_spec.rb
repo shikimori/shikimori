@@ -36,6 +36,11 @@ describe Manga do
     it { is_expected.to validate_presence_of :name }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in :doujin, :manga, :manhua, :manhwa, :novel, :one_shot }
+    it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
+  end
+
   describe 'scopes' do
     before do
       [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|

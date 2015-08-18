@@ -1,6 +1,10 @@
 class Genre < ActiveRecord::Base
-  # Relations
   has_and_belongs_to_many :animes
+  has_and_belongs_to_many :mangas
+
+  validates :name, presence: true
+
+  enumerize :kind, in: [:anime, :manga], predicates: true
 
   HentaiID = 12
   YaoiID = 33
