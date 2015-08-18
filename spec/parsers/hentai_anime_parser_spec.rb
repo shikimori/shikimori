@@ -50,7 +50,7 @@ describe HentaiAnimeParser, vcr: { cassette_name: 'hentai_anime_parser' } do
         subject { videos.first }
 
         its(:episode) { should eq episode }
-        its(:url) { should eq 'http://myvi.ru/ru/flash/player/o60C2X-c5hk7ZKz6EIv8Ka1FJ5DesnXP70C53LXNFUfg1' }
+        its(:url) { should eq 'http://myvi.tv/embed/html/o60C2X-c5hk7ZKz6EIv8Ka1FJ5DesnXP70C53LXNFUfg1' }
         its(:kind) { should eq :unknown }
         its(:language) { should eq :russian }
         its(:source) { should eq 'http://hentai-anime.ru/sextra_credit/series1' }

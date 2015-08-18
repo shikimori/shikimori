@@ -54,7 +54,7 @@ describe AnimeSpiritParser, vcr: { cassette_name: 'anime_spirit_parser' } do
 
           its(:episode) { should eq 1 }
           its(:source) { should eq link }
-          its(:url) { should eq 'http://myvi.ru/ru/flash/player/pre/oSTs693yvbob77Dom0Toa_b5OpvotLMAYhUh18hYP2b0euHBvbNKtSE2BVqVmcTiO0' }
+          its(:url) { should eq 'http://myvi.tv/embed/html/oSTs693yvbob77Dom0Toa_b5OpvotLMAYhUh18hYP2b0euHBvbNKtSE2BVqVmcTiO0' }
           its(:kind) { should eq :subtitles }
           its(:author) { should be nil }
         end
