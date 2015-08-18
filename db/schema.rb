@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818095943) do
+ActiveRecord::Schema.define(version: 20150818103658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,7 +111,7 @@ ActiveRecord::Schema.define(version: 20150818095943) do
     t.text     "english"
     t.text     "japanese"
     t.text     "synonyms"
-    t.integer  "score",                          default: 0,     null: false
+    t.decimal  "score",                          default: 0.0,   null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.datetime "created_at"
@@ -464,6 +464,7 @@ ActiveRecord::Schema.define(version: 20150818095943) do
     t.integer  "position"
     t.integer  "seo",                     default: 99
     t.text     "description"
+    t.string   "kind",                                 null: false
   end
 
   create_table "genres_mangas", id: false, force: :cascade do |t|
@@ -589,7 +590,7 @@ ActiveRecord::Schema.define(version: 20150818095943) do
     t.text     "japanese"
     t.text     "synonyms"
     t.string   "russian",            limit: 255
-    t.integer  "score",                                                  default: 0,     null: false
+    t.decimal  "score",                                                  default: 0.0,   null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.string   "rating",             limit: 255
