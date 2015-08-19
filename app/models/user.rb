@@ -184,6 +184,10 @@ class User < ActiveRecord::Base
     BotsService.posters.include? self.id
   end
 
+  def censored?
+    CensoredAvatarIds.include?(id)
+  end
+
   # last online time from memcached/or from database
   def last_online_at
     cached = Rails.cache.read(self.last_online_cache_key)
