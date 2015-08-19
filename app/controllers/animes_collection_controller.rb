@@ -156,7 +156,7 @@ private
     else
       entries = ds
         .where(id: params[:ids_with_sort].keys)
-        .where.not(kind: [:special, :music])
+        .where("#{klass.name.tableize}.kind not in (?)", [:special, :music])
         .select("#{klass.name.tableize}.id")
         .to_a
       total_pages = (entries.size * 1.0 / entries_per_page).ceil

@@ -16,7 +16,7 @@ class Manga < DbEntry
   attr_accessor :in_list
 
   # Relations
-  has_and_belongs_to_many :genres, -> { where kind: :manga }
+  has_and_belongs_to_many :genres
   has_and_belongs_to_many :publishers
 
   has_many :person_roles, dependent: :destroy

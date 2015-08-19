@@ -113,17 +113,17 @@ private
 
       case type
         when 'tv_13', '!tv_13'
-          query = "(kind = 'tv' and episodes != 0 and episodes <= 16) or (kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
+          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'tv'
 
         when 'tv_24', '!tv_24'
-          query = "(kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
+          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'tv'
 
         when 'tv_48', '!tv_48'
-          query = "(kind = 'tv' and episodes != 0 and episodes >= 29) or (kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
+          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 29) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
           @query = @query.where(with_bang ? "not(#{query})" : query)
           with_bang ? nil : 'tv'
 
@@ -134,8 +134,8 @@ private
 
     types = bang_split raw_types
 
-    @query = @query.where(kind: types[:include]) if types[:include].any?
-    @query = @query.where.not(kind: types[:exclude]) if types[:exclude].any?
+    @query = @query.where("#{@klass.table_name}.kind in (?)", types[:include]) if types[:include].any?
+    @query = @query.where("#{@klass.table_name}.kind not in (?)", types[:exclude]) if types[:exclude].any?
   end
 
   # включение цензуры
@@ -156,7 +156,7 @@ private
   # отключение выборки по музыке
   def disable_music!
     unless @type =~ /music/ || mylist? || userlist?
-      @query = @query.where.not(kind: :music)
+      @query = @query.where("#{@klass.table_name}.kind != ?", :music)
     end
   end
 
