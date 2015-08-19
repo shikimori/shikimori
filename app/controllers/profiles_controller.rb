@@ -163,6 +163,7 @@ private
     @user = @resource
 
     page_title @resource.nickname
+    raise AgeRestricted if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
   end
 
   def set_breadcrumbs
