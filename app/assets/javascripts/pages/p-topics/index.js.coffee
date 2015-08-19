@@ -1,7 +1,7 @@
 @on 'page:load', 'topics_index', ->
   $('.b-show_more').show_more()
 
-  $banner = $('.naruto')
+  $banner = $('.naruto,.titans')
 
   # скрыть
   $('.delete', $banner).on 'click', ->

@@ -14,6 +14,22 @@
         /srcset="http://moe.shikimori.org/images/user_image/original/40225/95247.jpg 2x"
       /]
 
+.block.titans[
+    class="#{:deleted if cookies['landing_titans_hidden'] == 'true'}"
+    data-cookie-name="landing_titans_hidden"
+  ]
+  .controls
+    .delete title="Спрятать баннер"
+    .confirm title="Подтверждаю"
+    .cancel title="#{t 'actions.cancel'}"
+
+  a href="http://shikimori.org/animes/16498-shingeki-no-kyojin"
+    center
+      img[
+        src="https://s3.amazonaws.com/uploads.hipchat.com/397488/2428199/D92RcwnH5IcFtqL/attackontitan1_banner1_240x400.jpg"
+        srcset="https://s3.amazonaws.com/uploads.hipchat.com/397488/2428199/KbHT5nxIle2Uutb/attackontitan1_banner1_480x800.jpg 2x"
+      ]
+
 .block.forum
   .subheadline-buttons
     - if user_signed_in? && can?(:new, Topic.new(user: current_user))
