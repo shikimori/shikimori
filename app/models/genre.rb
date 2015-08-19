@@ -12,12 +12,6 @@ class Genre < ActiveRecord::Base
   ShounenAiID = 28
   ShoujoAiID = 26
 
-  Merged = {
-    45 => 41
-  }
-
-  ThrillerDupID = 45
-
   MiscGenresPosition = 10000000
 
   MainGenres = [
@@ -56,12 +50,7 @@ class Genre < ActiveRecord::Base
     MainGenres.include?(self.english)
   end
 
-  # возвращет все id, связанные с текущим
-  def self.related(id)
-    Merged.map { |k,v| k == id ? v : (v == id ? k : nil) }.compact << id
-  end
-
-  def format_for_title(types, rus_var)
+  def format_for_title types, rus_var
     case self.english
       when 'Magic'        then "#{types} про магию"
       when 'Space'        then "#{types} про космос"

@@ -11,7 +11,7 @@ class AniMangaQuery
   }
   DefaultOrder = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
-    'male' => [Genre::YaoiID, Genre::ShounenAiID],
+    'male' => [Genre::YaoiID, Genre::ShounenAiID].flatten,
     'female' => [Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID],
     '' => [Genre::YaoiID, Genre::ShounenAiID, Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
   }

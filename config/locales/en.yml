@@ -320,6 +320,10 @@ en:
           manhwa: Manhwa
           novel: Novel
           one_shot: One Shot
+    genre:
+      kind:
+        anime: Anime
+        manga: Manga
     contest:
       strategy_type:
         double_elimination: Double elimination

@@ -21,7 +21,7 @@ class Anime < DbEntry
 
   attr_accessor :in_list
 
-  has_and_belongs_to_many :genres
+  has_and_belongs_to_many :genres#, -> { where kind: :anime }
   has_and_belongs_to_many :studios
 
   has_many :person_roles, dependent: :destroy

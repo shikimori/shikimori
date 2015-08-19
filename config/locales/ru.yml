@@ -320,6 +320,10 @@ ru:
           manhwa: Манхва
           novel: Новелла
           one_shot: Ваншот
+    genre:
+      kind:
+        anime: Аниме
+        manga: Манга
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

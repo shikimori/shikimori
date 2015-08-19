@@ -7,23 +7,17 @@ describe BaseMalParser do
     p
   }
 
-  describe 'load' do
-    it 'genres' do
-      genre = FactoryGirl.create :genre
-      expect(parser.genres.size).to eq(1)
-      expect(parser.genres[genre.id].name).to eq genre.name
-    end
+  describe '#load' do
+    let!(:anime_genre) { create :genre, kind: 'anime' }
+    let!(:manga_genre) { create :genre, kind: 'manga' }
+    let!(:studio) { create :studio }
+    let!(:publisher) { create :publisher }
 
-    it 'studios' do
-      studio = FactoryGirl.create :studio
-      expect(parser.studios.size).to eq(1)
-      expect(parser.studios[studio.id].name).to eq studio.name
-    end
-
-    it 'publishers' do
-      publisher = FactoryGirl.create :publisher
-      expect(parser.publishers.size).to eq(1)
-      expect(parser.publishers[publisher.id].name).to eq publisher.name
+    it do
+      expect(parser.genres['anime']).to eq anime_genre.mal_id => anime_genre
+      expect(parser.genres['manga']).to eq manga_genre.mal_id => manga_genre
+      expect(parser.studios).to eq studio.id => studio
+      expect(parser.publishers).to eq publisher.id => publisher
     end
   end
 

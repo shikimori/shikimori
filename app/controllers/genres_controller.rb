@@ -3,7 +3,8 @@ class GenresController < ShikimoriController
 
   def index
     noindex && nofollow
-    @collection = Genre.order(:position, :name)
+    @kind = params[:kind] || 'anime'
+    @collection = Genre.where(kind: @kind).order(:position, :name)
   end
 
   def edit
