@@ -1,6 +1,5 @@
 header.head.misc
-  h1
-    = @page_title.last
+  h1 = @page_title.last
 
   - if @klass == Anime
     a.misc href="#{recommendations_manga_url}" = t 'switch_to_manga'

@@ -69,8 +69,8 @@ describe AniMangaQuery do
     end
 
     context 'censored' do
-      let(:hentai) { create :genre, id: Genre::HentaiID }
-      let(:yaoi) { create :genre, id: Genre::YaoiID }
+      let(:hentai) { create :genre, id: Genre::HENTAI_IDS.first }
+      let(:yaoi) { create :genre, id: Genre::YAOI_IDS.first }
       let(:porn) { create :studio }
 
       let!(:anime_1) { create :anime, censored: true, genres: [yaoi, hentai], studios: [porn] }
@@ -97,10 +97,10 @@ describe AniMangaQuery do
           expect(fetch search: 'test').to have(3).items
         end
         it 'yaoi' do
-          expect(fetch genre: "#{Genre::YaoiID}").to have(2).items
+          expect(fetch genre: "#{Genre::YAOI_IDS.first}").to have(2).items
         end
         it 'hentai' do
-          expect(fetch genre: "#{Genre::HentaiID}").to have(1).item
+          expect(fetch genre: "#{Genre::HENTAI_IDS.first}").to have(1).item
         end
         #it 'publisher' do
           #fetch(publisher: '1').should have(3).items
@@ -346,11 +346,11 @@ describe AniMangaQuery do
       let!(:anime_shounen_ai) { create :anime, id: 5, genres: [shounen_ai] }
       let!(:anime_shoujo_ai) { create :anime, id: 6, genres: [shoujo_ai] }
 
-      let(:yaoi) { create :genre, id: Genre::YaoiID }
-      let(:yuri) { create :genre, id: Genre::YuriID }
-      let(:hentai) { create :genre, id: Genre::HentaiID }
-      let(:shounen_ai) { create :genre, id: Genre::ShounenAiID }
-      let(:shoujo_ai) { create :genre, id: Genre::ShoujoAiID }
+      let(:yaoi) { create :genre, id: Genre::YAOI_IDS.sample }
+      let(:yuri) { create :genre, id: Genre::YURI_IDS.sample }
+      let(:hentai) { create :genre, id: Genre::HENTAI_IDS.sample }
+      let(:shounen_ai) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
+      let(:shoujo_ai) { create :genre, id: Genre::SHOUJO_AI_IDS.sample }
 
       let(:options) {{ exclude_ai_genres: true }}
 

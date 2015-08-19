@@ -41,15 +41,22 @@ module MalDeployer
   # загрузка привязанных жанров
   def deploy_genres entry, entry_genres
     return if entry_genres.empty?
+    kind = entry.class.name.downcase
+
     # добавление новых жанров
-    (entry_genres.map {|v| v[:id] } - self.genres.keys).map do |genre_id|
-      entry_genres.select {|v| v[:id] == genre_id }.first
-    end.each do |genre|
-      self.genres[genre[:id]] = Genre.find_or_create_by(id: genre[:id], name: genre[:name])
-      print "added genre #{genre[:name]}\n" unless Rails.env.test?
-    end
+    entry_genres
+      .select { |genre| !self.genres[kind][genre[:mal_id]] }
+      .each do |genre|
+        self.genres[kind][genre[:mal_id]] = Genre.find_or_create_by(
+          mal_id: genre[:mal_id],
+          name: genre[:name],
+          kind: kind,
+        )
+        print "added #{kind} genre #{genre[:name]}\n" unless Rails.env.test?
+      end
+
     # и привязка всех жанров элемента к элементу
-    entry.genres = entry_genres.map {|v| self.genres[v[:id]] }
+    entry.genres = entry_genres.map {|v| self.genres[kind][v[:mal_id]] }
   end
 
   # загрузка привязанных студий

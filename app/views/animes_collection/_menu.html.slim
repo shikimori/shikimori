@@ -122,11 +122,14 @@
     .subheadline Жанр
     = text_spoiler 'Показать список' do
       ul.block-list.genres.anime-params.m10
-        - @genres.sort_by {|v| [v.position, localized_name(v)] }.each do |genre|
-          - next if genre.id == Genre::ThrillerDupID
+        - @genres.sort_by {|v| [v.position || v.id, localized_name(v)] }.each do |genre|
           - next if genre.censored? && !user_signed_in?
-          li class="genre-#{genre.to_param} #{:m10 if genre.position % 10 == 0}"
+          li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"
             input type="checkbox" autocomplete="off"
             = localized_name genre
             - if genre.description.present?
-              span.b-question.bubbled title="#{genre.description}" data-predelay="150" data-href="#{tooltip_genre_url genre, subdomain: false}"
+              span.b-question.bubbled[
+                title="#{genre.description}"
+                data-predelay="150"
+                data-href="#{tooltip_genre_url genre, subdomain: false}"
+              ]

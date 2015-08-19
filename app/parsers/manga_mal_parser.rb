@@ -9,7 +9,7 @@ class MangaMalParser < BaseMalParser
   # сохранение уже импортированных данных
   def deploy entry, data
     ## для хентая ставим флаг censored
-    entry.censored = true if data[:entry][:genres].any? {|v| [Genre::HentaiID, Genre::YaoiID].include? v[:id] }
+    entry.censored = data[:entry][:genres].any? { |genre| Genre::CENSORED_IDS.include? genre[:id] }
     ## то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
     #data[:entry].delete(:status) if entry.released? &&
                                     #data[:entry][:status] == 'ongoing' &&
@@ -65,13 +65,25 @@ class MangaMalParser < BaseMalParser
     entry[:released_on] = dates.size == 2 ? dates[1] : nil
     entry[:aired_on] = dates[0]
 
-    entry[:genres] = parse_line("Genres", content, true).map {|v|
-                       v.match(/genre\[\]=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil
-                     }.select {|v| v != nil }
+    entry[:genres] = parse_line("Genres", content, true)
+      .map do |line|
+        {
+          mal_id: $1.to_i,
+          name: $2,
+          kind: 'manga',
+        } if line.match /genre\[\]=(\d+).*>(.*)<\/a>/
+      end
+      .select(&:present?)
 
-    entry[:authors] = parse_line("Authors", content, false).split('),').map {|v|
-                       v.match(/people\/(\d+).*>(.*)<\/a> \(([^\)]*)\)?/) ? {id: $1.to_i, name: $2, role: $3} : nil
-                     }.select {|v| v != nil }
+    entry[:authors] = parse_line("Authors", content, false).split('),')
+      .map do |line|
+        {
+          id: $1.to_i,
+          name: $2,
+          role: $3,
+        } if line.match /people\/(\d+).*>(.*)<\/a> \(([^\)]*)\)?/
+      end
+      .select(&:present?)
 
     publisher = parse_line("Serialization", content, false).
                   match(/mid=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil

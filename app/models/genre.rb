@@ -1,18 +1,23 @@
 class Genre < ActiveRecord::Base
-  # Relations
   has_and_belongs_to_many :animes
+  has_and_belongs_to_many :mangas
 
-  HentaiID = 12
-  YaoiID = 33
-  YuriID = 34
-  ShounenAiID = 28
-  ShoujoAiID = 26
+  validates :name, presence: true
 
-  Merged = {
-    45 => 41
-  }
+  enumerize :kind, in: [:anime, :manga], predicates: true
 
-  ThrillerDupID = 45
+  Merged = {}
+
+  DOUJINSHI_IDS = [61]
+
+  HENTAI_IDS = [12,59] + DOUJINSHI_IDS
+  YAOI_IDS = [33,65]
+  YURI_IDS = [34,75]
+
+  SHOUNEN_AI_IDS = [28,55]
+  SHOUJO_AI_IDS = [26,73]
+
+  CENSORED_IDS = HENTAI_IDS + YAOI_IDS + YURI_IDS
 
   MiscGenresPosition = 10000000
 
@@ -52,12 +57,7 @@ class Genre < ActiveRecord::Base
     MainGenres.include?(self.english)
   end
 
-  # возвращет все id, связанные с текущим
-  def self.related(id)
-    Merged.map { |k,v| k == id ? v : (v == id ? k : nil) }.compact << id
-  end
-
-  def format_for_title(types, rus_var)
+  def format_for_title types, rus_var
     case self.english
       when 'Magic'        then "#{types} про магию"
       when 'Space'        then "#{types} про космос"
@@ -104,6 +104,11 @@ class Genre < ActiveRecord::Base
   end
 
   def censored?
-    id == HentaiID || id == YaoiID || id == YuriID
+    CENSORED_IDS.include? id
+  end
+
+  # возвращет все id, связанные с текущим
+  def self.related id
+    [id]
   end
 end

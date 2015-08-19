@@ -1,24 +1,33 @@
 header.head
   h1 Жанры
-  .notice Список всех жанров аниме и манги
+  - if @kind == 'anime'
+    a.misc href="#{index_genres_url kind: 'manga'}" = t 'switch_to_manga'
+  - else
+    a.misc href="#{index_genres_url kind: 'anime'}" = t 'switch_to_anime'
+
+  .notice Список всех жанров сайта
 
 table.b-table
   tr
     - if user_signed_in? && current_user.moderator?
-      th ID
-    th Название
-    th По русски
+      th style="padding: 0 10px 0 0" ID
+      th style="padding: 0 10px 0 0; white-space: nowrap;" MAL ID
+    th style="padding: 0 10px" Название
+    th style="padding: 0 10px; white-space: nowrap;" По русски
+    th style="padding: 0 20px 0 10px" Тип
     /th Position
     /th Seo
-    th width="600" Описание
+    th width="99%" Описание
 
   - @collection.each do |genre|
     tr
       - if user_signed_in? && current_user.moderator?
-        td
-          a href="#{edit_genre_path genre}" = genre.id
-      td = genre.name
-      td = genre.russian
+        td style="padding: 0 10px 0 0"
+          a.b-link href="#{edit_genre_path genre}" = genre.id
+        td style="padding: 0 10px 0 0" = genre.mal_id
+      td style="padding: 0 10px; white-space: nowrap;"  = genre.name
+      td style="padding: 0 10px; white-space: nowrap;"  = genre.russian
+      td style="padding: 0 20px 0 10px"  = genre.kind_text
       /td = genre.position
       /td = genre.seo
       td == BbCodeFormatter.instance.format_description genre.description, genre

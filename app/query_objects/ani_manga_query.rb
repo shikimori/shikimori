@@ -11,9 +11,9 @@ class AniMangaQuery
   }
   DefaultOrder = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
-    'male' => [Genre::YaoiID, Genre::ShounenAiID],
-    'female' => [Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID],
-    '' => [Genre::YaoiID, Genre::ShounenAiID, Genre::HentaiID, Genre::ShoujoAiID, Genre::YuriID]
+    'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
+    'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
+    '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
   }
 
   def initialize klass, params, user=nil
@@ -144,9 +144,9 @@ private
     ratings = bang_split @rating.split(',') if @rating
 
     rx = ratings && ratings[:include].include?(Anime::ADULT_RATING)
-    hentai = genres && genres[:include].include?(Genre::HentaiID)
-    yaoi = genres && genres[:include].include?(Genre::YaoiID)
-    yuri = genres && genres[:include].include?(Genre::YuriID)
+    hentai = genres && (genres[:include] & Genre::HENTAI_IDS).any?
+    yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
+    yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
     unless rx || hentai || yaoi || yuri || mylist? || userlist? || uncensored? || search? || @publisher || @studio
       @query = @query.where(censored: false)

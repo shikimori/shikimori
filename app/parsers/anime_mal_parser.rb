@@ -18,9 +18,7 @@ class AnimeMalParser < BaseMalParser
   # сохранение уже импортированных данных
   def deploy entry, data
     # для хентая ставим флаг censored
-    if data[:entry][:genres].any? {|v| v[:id] == Genre::HentaiID || v[:id] == Genre::YaoiID || v[:id] == Genre::YuriID }
-      entry.censored = true
-    end
+    entry.censored =  data[:entry][:genres].any? { |genre| Genre::CENSORED_IDS.include? genre[:id] }
     # то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
     data[:entry].delete(:status) if entry.released? &&
                                     data[:entry][:status] == 'ongoing' &&
@@ -66,12 +64,25 @@ class AnimeMalParser < BaseMalParser
     entry[:released_on] = dates.size == 2 ? dates[1] : nil
     entry[:aired_on] = dates[0]
 
-    entry[:genres] = parse_line("Genres", content, true).map {|v|
-                        v.match(/genre\[\]=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil
-                      }.select {|v| v != nil }
-    entry[:studios] = parse_line("Producers", content, true).map {|v|
-                        v.match(/p=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil
-                      }.select {|v| v != nil }
+    entry[:genres] = parse_line("Genres", content, true)
+      .map do |line|
+        {
+          mal_id: $1.to_i,
+          name: $2,
+          kind: 'anime',
+        } if line.match /genre\[\]=(\d+).*>(.*)<\/a>/
+      end
+      .select(&:present?)
+
+    entry[:studios] = parse_line("Producers", content, true)
+      .map do |line|
+        {
+          id: $1.to_i,
+          name: $2
+        } if line.match /p=(\d+).*>(.*)<\/a>/
+      end
+      .select(&:present?)
+
     entry[:duration] = parse_line("Duration", content, false)
     entry[:duration] = (entry[:duration].match(/(\d+) hr./) ? $1.to_i*60 : 0) +
                         (entry[:duration].match(/(\d+) min./) ? $1.to_i : 0)

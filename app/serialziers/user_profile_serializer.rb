@@ -16,21 +16,21 @@ class UserProfileSerializer < UserSerializer
       full_statuses: object.stats.full_statuses,
       scores: {
         anime: object.stats.scores(:anime),
-        manga: object.stats.scores(:manga)
+        manga: object.stats.scores(:manga),
       },
       types: {
         anime: object.stats.types(:anime),
-        manga: object.stats.types(:manga)
+        manga: object.stats.types(:manga),
       },
       ratings: {
         anime: object.stats.ratings(:anime),
       },
       has_anime?: object.stats.anime?,
       has_manga?: object.stats.manga?,
-      genres: object.stats.genres,
-      studios: object.stats.studios,
-      publishers: object.stats.publishers,
-      activity: object.stats.activity(26)
+      genres: [],#object.stats.genres,
+      studios: [],#object.stats.studios,
+      publishers: [],#object.stats.publishers,
+      activity: object.stats.activity(26),
     }
   end
 

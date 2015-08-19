@@ -13,23 +13,20 @@ class BaseMalParser < SiteParserWithCache
   end
 
   def genres
-    @genres ||= Genre.all.inject({}) do |rez,v|
-      rez[v.id] = v
-      rez
+    @genres ||= Genre.all.each_with_object({'anime' => {}, 'manga' => {}}) do |genre, memo|
+      memo[genre.kind][genre.mal_id] = genre
     end
   end
 
   def studios
-    @studios ||= Studio.all.inject({}) do |rez,v|
-      rez[v.id] = v
-      rez
+    @studios ||= Studio.all.each_with_object({}) do |studio, memo|
+      memo[studio.id] = studio
     end
   end
 
   def publishers
-    @publishers ||= Publisher.all.inject({}) do |rez,v|
-      rez[v.id] = v
-      rez
+    @publishers ||= Publisher.all.each_with_object({}) do |publisher, memo|
+      memo[publisher.id] = publisher
     end
   end
 

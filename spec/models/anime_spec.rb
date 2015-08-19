@@ -47,6 +47,12 @@ describe Anime do
     it { is_expected.to validate_presence_of :name }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in :tv, :movie, :ova, :ona, :special, :music }
+    it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
+    it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
+  end
+
   context 'hooks' do
     it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
   end
