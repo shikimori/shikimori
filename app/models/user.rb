@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
   MINIMUM_LIFE_INTERVAL = 1.day
 
+  CensoredAvatarIds = Set.new [4357, 24433, 48544]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
@@ -123,8 +125,6 @@ class User < ActiveRecord::Base
   enumerize :language, in: [:russian, :english], default: :russian
 
   accepts_nested_attributes_for :preferences
-
-  CensoredAvatarIds = Set.new [4357, 24433]
 
   def self.new_with_session(params, session)
     super.tap do |user|
