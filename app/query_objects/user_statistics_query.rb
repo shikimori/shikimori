@@ -1,7 +1,7 @@
 class UserStatisticsQuery
   attr_reader :anime_rates, :anime_valuable_rates
   attr_reader :manga_rates, :manga_valuable_rates
-  attr_reader :genres, :studios, :publishers
+  #attr_reader :genres, :studios, :publishers
 
   # стандартный формат дат для сравнения
   DateFormat = "%Y-%m-%d"
@@ -11,7 +11,7 @@ class UserStatisticsQuery
     @preferences = user.preferences
 
     @seasons = AniMangaSeason.catalog_seasons
-    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
+    #@genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
 
     @anime_rates = @user
       .anime_rates

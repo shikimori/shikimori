@@ -36,7 +36,7 @@ describe MalDeployer do
       end
 
       it 'sets censored for hentai' do
-        data[:entry][:genres] = [{id: Genre::HentaiID, name: 'Hentai', kind: kind, mal_id: Genre::HentaiID}]
+        data[:entry][:genres] = [{id: Genre::HENTAI_IDS.sample, name: 'Hentai', kind: kind, mal_id: Genre::HENTAI_IDS.sample}]
         expect(entry.censored).not_to eq true
         parser.deploy(entry, data)
         expect(entry.censored).to eq true

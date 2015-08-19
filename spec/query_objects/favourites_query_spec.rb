@@ -51,7 +51,7 @@ describe FavouritesQuery do
       end
 
       context 'anime in genres excluded by sex' do
-        let(:anime_2) { create :anime, genres: [create(:genre, id: Genre::ShounenAiID)] }
+        let(:anime_2) { create :anime, genres: [create(:genre, id: Genre::SHOUNEN_AI_IDS.sample)] }
         it { expect(query.global_top Anime, 100, user_4).to eq [anime_1] }
       end
     end
