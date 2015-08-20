@@ -89,7 +89,7 @@ module MalDeployer
 
   # загрузка привязки похожих элементов
   def deploy_recommendations entry, recommendations
-    return if recommendations.empty?
+    return if recommendations.none?
     klass = Object.const_get("Similar#{type.camelize}")
     klass.where(src_id: entry.id).delete_all
 
@@ -104,6 +104,8 @@ module MalDeployer
 
   # загрузка связанных элементов
   def deploy_related entry, related
+    return if related.none?
+
     # похожие элементы
     klass = Object.const_get("Related#{type.camelize}")
     klass.where(source_id: entry.id).delete_all
@@ -128,6 +130,8 @@ module MalDeployer
 
   # загрузка привязок к персонажам
   def deploy_characters entry, characters
+    return if characters.none?
+
     # сперва удаляем все старые записи, затем создаём новые привязки
     PersonRole.where("#{type}_id = ? and character_id is not null", entry.id).delete_all
     time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
@@ -142,6 +146,8 @@ module MalDeployer
 
   # загрузка привязок к людям
   def deploy_people entry, people
+    return if people.none?
+
     # сперва удаляем все старые записи, затем создаём новые привязки
     PersonRole.where("#{type}_id = ? and person_id is not null", entry.id).delete_all
     time = DateTime.now.strftime('%Y-%m-%d %H:%M:%S')
