@@ -1,6 +1,11 @@
 class ChronologyQuery
   pattr_initialize :entry
 
+  IGNORED_IN_RELATIONS = {
+    anime: [],
+    manga: [81927],
+  }
+
   def fetch
     future = DateTime.now + 10.years
 
@@ -70,6 +75,8 @@ private
   end
 
   def banned? source_id, relation
+    return true if IGNORED_IN_RELATIONS[anime? ? :anime : :manga].include?(source_id)
+
     item_relations = if anime?
       relations.anime(source_id)
     else

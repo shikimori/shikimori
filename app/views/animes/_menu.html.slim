@@ -68,12 +68,13 @@
       .block
         .subheadline На других сайтах
         ul.block-list.sites
-          li
-            a href="#{resource.mal_url}"
-              - if @klass != Manga && average_score(resource.mal_scores).to_f > 0
-                span.right = average_score(resource.mal_scores)
-              img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
-              | MyAnimeList
+          - if ru_content?
+            li
+              a href="#{resource.mal_url}"
+                - if @klass != Manga && average_score(resource.mal_scores).to_f > 0
+                  span.right = average_score(resource.mal_scores)
+                img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
+                | MyAnimeList
 
           - if resource.respond_to?(:ani_db_id) && resource.ani_db_id != 0
             li

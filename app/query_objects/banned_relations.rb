@@ -23,6 +23,7 @@ class BannedRelations
   end
 
 private
+
   def process_cache key
     cache[key].each_with_object({}) do |ids, memo|
       ids.each do |id|
