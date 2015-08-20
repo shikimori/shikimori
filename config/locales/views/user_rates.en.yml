@@ -1,5 +1,7 @@
 en:
   user_rates:
+    edit:
+      remove_from_my_list: Remove from My List
     user_rate:
       add_to_list: Add to My List
       remove_from_my_list: Remove from My List

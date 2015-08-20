@@ -1,5 +1,7 @@
 ru:
   user_rates:
+    edit:
+      remove_from_my_list: Удалить из списка
     user_rate:
       add_to_list: Добавить в список
       remove_from_my_list: Удалить из списка
