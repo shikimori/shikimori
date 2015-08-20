@@ -5,7 +5,17 @@ $comment = (node) ->
 $moderation = (node) ->
   $(node).closest('.b-abuse_request').find('.b-request_resolution .moderation')
 
-@on 'page:load', 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', 'anime_video_reports_index', ->
+# раскрытие информации о загрузке видео
+@on 'page:load', 'anime_video_reports_index', 'profiles_videos', ->
+  $('.l-page').on 'click', '.b-log_entry.video .collapsed', ->
+    $player = $(@).parent().find('.player')
+
+    if $player.data 'html'
+      $player
+        .html($player.data 'html')
+        .data(html: '')
+
+@on 'page:load', 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
@@ -13,13 +23,6 @@ $moderation = (node) ->
   $('.moderation .take, .moderation .deny').on 'ajax:success', ->
     $comment(@).shiki()._reload()
     $moderation(@).hide()
-
-  $('.p-anime_video_reports').on 'click', '.collapsed', ->
-    $player = $(@).parent().find('.player')
-    if $player.data 'html'
-      $player
-        .html($player.data 'html')
-        .data(html: '')
 
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента

@@ -31,6 +31,11 @@ ru:
           one: правка контента
           few: правки контента
           many: правок контента
+      video_change:
+        subjective:
+          one: правка видео
+          few: правки видео
+          many: правок видео
       record:
         subjective:
           one: запись

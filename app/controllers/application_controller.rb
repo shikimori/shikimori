@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   helper_method :json?
   helper_method :domain_folder
   helper_method :adaptivity_class
-  helper_method :shikimori?, :anime_online?, :manga_online?
+  helper_method :ru_content?, :shikimori?, :anime_online?, :manga_online?
   helper_method :turbolinks_request?
   helper_method :base_controller_names
   helper_method :ignore_copyright?
@@ -75,6 +75,11 @@ class ApplicationController < ActionController::Base
   def url_params merged=nil
     cloned_params = params.clone.except(:action, :controller).symbolize_keys
     merged ? cloned_params.merge(merged) : cloned_params
+  end
+
+  # находимся ли сейчас на домене шикимори?
+  def ru_content?
+    ShikimoriDomain::RU_HOST == request.host
   end
 
   # находимся ли сейчас на домене шикимори?

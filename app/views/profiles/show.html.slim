@@ -199,9 +199,9 @@
           div: a href="#{versions_profile_url @resource}"
             = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
-        - if I18n.russian? && @resource.stats.videos_changes_count > 0
+        - if ru_content? && @resource.stats.videos_changes_count > 0
           div: a href="#{videos_profile_url @resource}"
-            = "#{@resource.stats.videos_changes_count} #{Russian.p @resource.stats.videos_changes_count, 'правка', 'правки', 'правок'} видео"
+            = "#{@resource.stats.videos_changes_count} #{i18n_i 'video_change', @resource.stats.videos_changes_count}"
 
         - if @resource.stats.comments_count > 0
           div: a href="#{comments_profile_url @resource}"
