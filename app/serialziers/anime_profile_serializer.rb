@@ -33,6 +33,6 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def screenshots
-    object.videos 2
+    object.screenshots 2
   end
 end
