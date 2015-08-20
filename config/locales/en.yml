@@ -38,6 +38,7 @@ en:
         name: Name
         poster: Poster
         russian: Russian name
+        source: Description source
         tags: Imageboards tag
       person:
         <<: *character_attributes

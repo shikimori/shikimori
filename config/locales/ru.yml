@@ -38,6 +38,7 @@ ru:
         name: Английское имя
         poster: Постер
         russian: Русское имя
+        source: Источник описания
         tags: Тег имиджборд
       person:
         <<: *character_attributes
