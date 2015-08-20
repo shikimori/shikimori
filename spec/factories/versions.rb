@@ -4,6 +4,26 @@ FactoryGirl.define do
     user nil
     state :pending
     item_diff name: ['a', 'b']
+
+    trait :pending do
+      state :pending
+    end
+
+    trait :accepted do
+      state :accepted
+    end
+
+    trait :taken do
+      state :taken
+    end
+
+    trait :rejected do
+      state :rejected
+    end
+
+    trait :deleted do
+      state :deleted
+    end
   end
 
   factory :description_version, parent: :version, class: 'Versions::DescriptionVersion' do

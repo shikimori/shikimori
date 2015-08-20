@@ -15,11 +15,12 @@ class VersionsQuery < QueryObjectBase
   def authors field
     query
       .where("(item_diff->>:field) is not null", field: field)
+      .where(state_condition field)
       .where(state: :accepted)
       .except(:order)
       .order(created_at: :asc)
       .map(&:user)
-      .uniq
+      .uniq { |user| user.bot? ? 'bot' : user }
   end
 
   def [] field
@@ -35,5 +36,14 @@ private
       .where.not(state: :deleted)
       .includes(:user, :moderator)
       .order(created_at: :desc)
+  end
+
+  def state_condition field
+    if field.to_sym == :screenshots || field.to_sym == :videos
+      "(item_diff->>'action') in (
+        #{Version.sanitize Versions::ScreenshotsVersion::ACTIONS[:upload]},
+        #{Version.sanitize Versions::VideoVersion::ACTIONS[:upload]}
+      )"
+    end
   end
 end
