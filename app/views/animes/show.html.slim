@@ -102,7 +102,7 @@
                   a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
     .c-description
-      .subheadline.m5 = t '.description'
+      .subheadline.m5 = Anime.human_attribute_name(:description)
       .block
         meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
         meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
