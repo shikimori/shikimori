@@ -48,11 +48,12 @@
 
               - if @resource.tags.present? || @resource.cosplay?
                 .additional-links
-                  - if @resource.cosplay?
-                    span.linkeable data-href="#{cosplay_character_url @resource}" Косплей
+                  .line-container
+                    - if @resource.cosplay?
+                      span.linkeable data-href="#{cosplay_character_url @resource}" Косплей
 
-                  - if @resource.tags.present?
-                    span.linkeable data-href="#{art_character_url @resource}" Арт с имиджборд
+                    - if @resource.tags.present?
+                      span.linkeable data-href="#{art_character_url @resource}" Арт с имиджборд
 
         - if @resource.seyu.present?
           .c-info-right
