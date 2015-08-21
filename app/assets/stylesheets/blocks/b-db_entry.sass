@@ -75,20 +75,23 @@
 
     .additional-links
       +clear_left
-      margin-top: 10px
+      margin-top: 20px
 
       .key
         float: left
         color: $gray-color-2
 
-      &>.link, &>a
-        +comma_separated(0)
-        +link
-        float: left
-        margin-left: 5px
+      .line-container
+        +clear_left
 
-        &:first-child
-          margin-left: 0
+        &>.link, &>a
+          +comma_separated(0)
+          +link
+          float: left
+          margin-left: 5px
+
+          &:first-child
+            margin-left: 0
 
   &>.c-description
     +block
