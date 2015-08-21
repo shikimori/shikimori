@@ -50,12 +50,14 @@ class BbCodes::EntriesTag
       if is_wall
         "<div class='cc-#{columns}-g0 align-posters unprocessed' data-columns='#{columns}'>#{entries_html.join ''}</div>"
       else
-        "<div class='cc-#{columns} m0'>#{entries_html.join ''}</div>"
+        ratio_type = [Character, Person].include?(type_to_klass($~[:type])) ? " data-ratio_type='person'" :''
+        "<div class='cc-#{columns} m0 to-process' data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join ''}</div>"
       end
     end
   end
 
 private
+
   def entry_to_html entry, cover_title, cover_notice
     name = entry.class.name.downcase
 

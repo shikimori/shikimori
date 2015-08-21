@@ -10,7 +10,7 @@ describe BbCodes::EntriesTag do
         let(:anime_2) { create :anime }
         let(:text) { "[animes ids=#{anime_1.id},#{anime_2.id}]" }
 
-        it('has default number of columns') { expect(html).to include "<div class='cc-#{BbCodes::EntriesTag::DEFAULT_COLUMNS} m0'>" }
+        it('has default number of columns') { expect(html).to include "<div class='cc-#{BbCodes::EntriesTag::DEFAULT_COLUMNS} " }
         it('has entries') { expect(html.scan('b-catalog_entry')).to have(2).items }
 
         context 'max entries limit' do
@@ -50,7 +50,7 @@ describe BbCodes::EntriesTag do
       let(:anime) { create :anime }
       let(:text) { "[animes ids=#{anime.id} columns=4]" }
 
-      it { expect(html).to include "<div class='cc-4 m0'" }
+      it { expect(html).to include "<div class='cc-4 " }
     end
 
     describe 'cover_notice' do
