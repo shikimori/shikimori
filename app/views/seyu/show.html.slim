@@ -56,7 +56,7 @@
     .c-description.m0
       .subheadline.m10
         .linkeable data-href="#{roles_seyu_url @resource}" Лучшие роли
-      .c-characters
+      .c-characters.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.best_roles
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0

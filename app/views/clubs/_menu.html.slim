@@ -6,15 +6,24 @@
 
   = render 'clubs/actions', resource: resource
 
-  - [[resource.animes, i18n_i('anime'), :animes_club_url],
-     [resource.mangas, i18n_i('manga'), :mangas_club_url],
-     [resource.characters, i18n_i('character', :other), :characters_club_url]].each do |collection, name, url_builder|
-    - if collection.any?
-      .block
-        .subheadline: a href=send(url_builder, resource) title=name
-          = name
-        .cc-4a
-          = render collection, cover_by: :image_link
+  - if resource.animes.any?
+    = render 'clubs/menu_linked_entries',
+      collection: resource.animes,
+      url: animes_club_url(resource),
+      name: i18n_i('anime')
+
+  - if resource.mangas.any?
+    = render 'clubs/menu_linked_entries',
+      collection: resource.mangas,
+      url: mangas_club_url(resource),
+      name: i18n_i('manga')
+
+  - if resource.animes.any?
+    = render 'clubs/menu_linked_entries',
+      collection: resource.characters,
+      url: characters_club_url(resource),
+      name: i18n_i('character'),
+      ratio_type: 'person'
 
   - if resource.members.any?
     .subheadline.m10

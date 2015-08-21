@@ -13,7 +13,7 @@
         $root = $(@)
 
         unless resize_binded
-          $(document).on 'resize:throttled orientationchange', handle_resize
+          $(document).on 'resize:debounced orientationchange', handle_resize
           resize_binded = true
 
         columns = $root.data 'columns'

@@ -1,5 +1,5 @@
 = render layout: 'page' do
   .block.m0
     h2.subheadline.m10 = @page_title.last
-    .cc-5
+    .cc-5.to-process data-dynamic="cutted_covers"
       = render @resource.animes

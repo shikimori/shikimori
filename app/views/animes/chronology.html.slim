@@ -6,11 +6,12 @@
   .subheadline-buttons
     span.item-list_switcher class="#{:selected if cookies['related_view'] != 'posters'}" data-name="related_view" data-value="list"
     span.item-posters_switcher class="#{:selected if cookies['related_view'] == 'posters'}" data-name="related_view" data-value="posters"
-  .subheadline.m5 = @page_title.last
 
   - if cookies['related_view'] == 'posters'
-    .cc-5
+    .subheadline.m10 = @page_title.last
+    .cc-5.to-process data-dynamic="cutted_covers"
       = render @resource.chronology, cover_notice: :year_kind
   - else
+    .subheadline.m5 = @page_title.last
     div
       = render partial: 'animes/relation_note', collection: @resource.chronology

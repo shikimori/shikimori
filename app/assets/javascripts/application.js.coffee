@@ -55,7 +55,7 @@ $ =>
     $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()
 
   # отдельный эвент для ресайзов и скрола
-  $(window).on 'resize', $.throttle(750, -> $(document.body).trigger 'resize:throttled')
+  $(window).on 'resize', $.debounce(500, -> $(document.body).trigger 'resize:debounced')
   $(window).on 'scroll', $.throttle(750, -> $(document.body).trigger 'scroll:throttled')
 
 $(document).on 'page:restore', (e, is_dom_content_loaded) ->

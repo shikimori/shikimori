@@ -18,8 +18,10 @@
 #= require packery
 
 #= require_tree ./vendor
-#= require ./lib/shiki_view
-#= require ./lib/shiki_editable
+#= require processors/base_processor
+#= require_tree ./processors
+#= require lib/shiki_view
+#= require lib/shiki_editable
 #= require_tree ./lib
 #= require_tree ./blocks
 

@@ -2,11 +2,17 @@
   - if @resource.roles.main_characters.any?
     .block.m0
       h2.subheadline.m10 = t '.main_characters'
-      .cc.eight-characters
+      .cc.eight-characters.to-process[
+        data-dynamic="cutted_covers" 
+        data-ratio_type="person"
+      ]
         = render @resource.roles.main_characters
 
   - if @resource.roles.supporting_characters.any?
     .block.m0
       h2.subheadline.m10 = t '.supporting_characters'
-      .cc.eight-characters
+      .cc.eight-characters.to-process[
+        data-dynamic="cutted_covers"
+        data-ratio_type="person"
+      ]
         = render @resource.roles.supporting_characters

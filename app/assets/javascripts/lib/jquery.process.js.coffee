@@ -6,8 +6,11 @@
 ) jQuery
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
+# TODO: переписать всю тут имеющееся на dynamic_element
 @process_current_dom = (root = document.body) ->
   $root = $(root)
+
+  $with('.to-process', $root).dynamic_element()
 
   $with('time', $root).livetime()
 

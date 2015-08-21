@@ -62,7 +62,7 @@
                 | Сэйю <span>#{@resource.seyu.size}</span>
               /- else
                 | Сэйю
-            .cc.m0
+            .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
               = render @resource.seyu.take(3)
 
     .c-description
@@ -88,13 +88,13 @@
   - if @resource.animes(7).any?
     .subheadline.m10
       .linkeable data-href="#{animes_character_url @resource}" Анимеграфия
-    .cc.m0
+    .cc.m0.to-process data-dynamic="cutted_covers"
       = render @resource.animes(7)
 
   - if @resource.mangas(7).any?
     .subheadline.m10
       .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
-    .cc.m0
+    .cc.m0.to-process data-dynamic="cutted_covers"
       = render @resource.mangas(7)
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
