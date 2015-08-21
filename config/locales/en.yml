@@ -10,7 +10,7 @@ en:
       anime: &anime_attributes
         aired_on: Start date
         cosplay: Cosplay
-        description: Description
+        description: Synopsis
         duration: Episode duration
         episodes: Episodes
         genres: Genres
@@ -33,7 +33,7 @@ en:
         chapters: Chapters
       character: &character_attributes
         cosplay: Cosplay
-        description: Description
+        description: Synopsis
         japanese: Japanese name
         name: Name
         poster: Poster
@@ -46,7 +46,7 @@ en:
         website: Website
       contest:
         title: Title
-        description: Description
+        description: Synopsis
         matches_per_round: Matches per round
         match_duration: Match duration
         matches_interval: Round interval
