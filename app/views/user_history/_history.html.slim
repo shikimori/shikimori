@@ -5,7 +5,7 @@
     .history-interval
       - history.each do |entry|
         - next if entry.target_type && entry.target.nil?
-        p
+        p data-id="#{entry.id}"
           span.date
             = entry.time_ago interval
           - if entry.target

@@ -46,16 +46,24 @@ module Translation
 
   # только для глаголов
   def i18n_v key, count = 1
-    I18n.russian? ?  I18n.t("verbs.#{key}.#{count_key count}") : key
+    I18n.russian? ?
+      I18n.t("verbs.#{key}.#{count_key count}") :
+      I18n.t("verbs.#{key}.#{count_key count}", default: key.gsub(/_/, ' '))
   end
 
   # слова из phrases.*.yml переводятся напрямую через I18n
+
+  RU_COUNT_KEYS_TO_EN = {
+    one: :one,
+    few: :other,
+    many: :other
+  }
 
   def count_key count
     if count.kind_of? Integer
       I18n.russian? ? ru_count_key(count) : en_count_key(count)
     else
-      count
+      I18n.russian? ? count : RU_COUNT_KEYS_TO_EN[count] || count
     end
   end
 

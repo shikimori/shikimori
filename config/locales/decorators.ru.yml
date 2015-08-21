@@ -81,6 +81,7 @@ ru:
     watched_two_episodes: '%{watched} %{number_first}%{suffix} и %{number_second}%{suffix} %{division}'
     watched_three_episodes: '%{watched} %{number_first}%{suffix}, %{number_second}%{suffix} и %{number_third}%{suffix} %{division}'
     watched_episodes_range: '%{watched} с %{number_first}%{suffix_first} по %{number_last}%{suffix_last} %{division}'
+    watched_first_episodes: '%{watched} %{number}%{suffix} %{division}'
   user_profile_decorator:
     <<: *user_decorator
     male: муж

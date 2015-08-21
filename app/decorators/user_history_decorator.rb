@@ -121,7 +121,7 @@ private
         suffix: suffix
 
     elsif episodes.first == 1
-      i18n_t 'watched_one_episode',
+      i18n_t 'watched_first_episodes',
         watched: i18n_v(WATCHED[division], episodes.last),
         number: episodes.last,
         division: i18n_i(EPISODES[division], episodes.last),

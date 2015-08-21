@@ -80,7 +80,8 @@ en:
     watched_one_episode: '%{watched} %{division} %{number}'
     watched_two_episodes: '%{watched} %{number_first} and %{number_second} %{division}'
     watched_three_episodes: '%{watched} %{number_first}, %{number_second} and %{number_third} %{division}'
-    watched_episodes_range: '%{watched} %{number_first}-%{number_last} %{division}'
+    watched_episodes_range: '%{watched} %{division} %{number_first}-%{number_last}'
+    watched_first_episodes: '%{watched} %{number} %{division}'
   user_profile_decorator:
     <<: *user_decorator
     male: male

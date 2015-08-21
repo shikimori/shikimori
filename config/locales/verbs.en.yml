@@ -1,2 +1,14 @@
 en:
   verbs:
+    watched_episodes:
+      zero: watched
+      one: watched
+      other: watched
+    read_volumes:
+      zero: read
+      one: read
+      other: read
+    read_chapters:
+      zero: read
+      one: read
+      other: read
