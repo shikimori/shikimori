@@ -8,6 +8,7 @@ class @CuttedCovers extends BaseProcessor
   GLOBAL_HANDLER = false
 
   recalc_styles = ->
+    $('#injectCSSContainer').empty()
     $('.d-cutted_covers').each ->
       $(@).data(CLASS_NAME).inject_css()
 
