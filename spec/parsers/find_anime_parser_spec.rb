@@ -144,7 +144,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
 
     describe 'mismatch' do
       let(:text) { 'mismatch' }
-      specify { expect{subject}.to raise_error }
+      specify { expect{subject}.to raise_error RuntimeError, "unexpected russian kind: 'mismatch'" }
     end
   end
 

@@ -79,10 +79,10 @@ class FindAnimeParser < ReadMangaParser
   def parse_chapter node, total_episodes=1
     {
       episode: node.text.match(/Серия (\d+)/) ?
-                 node.text.match(/Серия (\d+)/)[1].to_i :
-                 (node.text.match(/Фильм полностью/) ?
-                   (total_episodes > 5 ? 0 : 1) :
-                   nil),
+        node.text.match(/Серия (\d+)/)[1].to_i :
+        (node.text.match(/Фильм полностью/) ?
+          (total_episodes > 5 ? 0 : 1) :
+          nil),
       url: "http://#{domain}#{node.attr 'href'}?mature=1"
     }
   end
