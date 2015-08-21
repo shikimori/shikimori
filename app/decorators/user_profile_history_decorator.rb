@@ -6,7 +6,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, :v2, :formatted, object, h.russian_names_key] do
+    @formatted ||= Rails.cache.fetch [:history, :v2, :formatted, object, h.russian_names_key, I18n.locale] do
       grouped_history
         .map {|group,entries| format_entries entries }
         .compact
