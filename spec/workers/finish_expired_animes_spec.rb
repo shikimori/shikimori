@@ -1,6 +1,9 @@
 describe FinishExpiredAnimes do
   let(:job) { FinishExpiredAnimes.new }
 
+  before { Timecop.freeze '2015-06-18' }
+  after { Timecop.return }
+
   describe '#perform' do
     let(:interval) { FinishExpiredAnimes::EXPIRE_INTERVAL.ago }
 

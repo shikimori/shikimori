@@ -13,14 +13,14 @@ private
   def expired_anonses
     Anime
       .where(status: :anons)
-      .where('aired_on is not null and aired_on < ?', EXPIRE_INTERVAL.ago)
+      .where('aired_on is not null and aired_on < ?', EXPIRE_INTERVAL.ago.to_date)
       .select {|v| v.aired_on.day != 1 }
   end
 
   def expired_ongoings
     Anime
       .where(status: :ongoing)
-      .where('released_on is not null and released_on < ?', EXPIRE_INTERVAL.ago)
+      .where('released_on is not null and released_on < ?', EXPIRE_INTERVAL.ago.to_date)
       .select {|v| v.released_on.day != 1 }
   end
 end
