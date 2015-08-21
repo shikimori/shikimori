@@ -188,7 +188,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    celluloid (0.16.1)
+    celluloid (0.16.0)
       timers (~> 4.0.0)
     chronic (0.10.2)
     chunky_png (1.3.4)
@@ -611,7 +611,7 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     timecop (0.8.0)
-    timers (4.0.2)
+    timers (4.0.1)
       hitimes
     tins (0.13.2)
     truncate_html (0.9.3)
@@ -780,4 +780,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.10.5
+   1.10.6
