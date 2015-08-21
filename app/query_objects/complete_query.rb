@@ -9,6 +9,7 @@ module CompleteQuery
   end
 
 private
+
   # выборка с учётом порядка search_queries
   def search_order query
     matched = search_queries.each_with_index.inject("<--!-->") do |memo, pair|
@@ -38,7 +39,7 @@ private
       "#{table_field} ilike #{sanitize "%#{@search}%"}",
       (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join(' ')}"}" : nil),
       (@search.include?(' ') ? "#{table_field} ilike #{sanitize "#{@search.split(' ').reverse.join('% ')}"}" : nil),
-    ]
+    ].compact.map { |condition| "#{table_field} != '' and (#{condition})" }
   end
 
   def sanitize query

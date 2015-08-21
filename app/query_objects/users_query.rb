@@ -27,6 +27,7 @@ class UsersQuery
   end
 
 private
+
   # ключи, по которым будет вестись поиск
   def search_fields term
     [:nickname]
