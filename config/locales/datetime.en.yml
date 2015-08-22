@@ -1,4 +1,10 @@
 en:
+  date:
+    formats:
+      date: '%B %e, %Y'
+      date_short: '%b %e, %Y'
+      month_year: '%B %Y'
+
   #time:
     #formats:
       #momentjs: '%Y-%m-%d %H:%M:%S'

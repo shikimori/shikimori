@@ -37,12 +37,12 @@ module ApplicationHelper
       if date.day == 1 && date.month == 1
         "#{date.year}"
       elsif fix_1_1 && date.day == 1
-        I18n.l date, format: '%B %Y'
+        I18n.l date, format: :month_year
       else
-        I18n.l(date, format: short_month ? '%e %b %Y' : '%e %B %Y').strip
+        I18n.l(date, format: short_month ? :date_short : :date).strip
       end
     else
-      I18n.l(date, format: '%e %B %Y').strip
+      I18n.l(date, format: :date).strip
     end
   end
 

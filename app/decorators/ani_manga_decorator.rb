@@ -156,26 +156,32 @@ class AniMangaDecorator < DbEntryDecorator
     if released?
       if released_on && aired_on && released_on.year != aired_on.year
         # в 2011-2012 гг.
-        parts << i18n_t('datetime.release_dates.in_years', from_date: aired_on.year, to_date: released_on.year)
+        parts << i18n_t('datetime.release_dates.in_years',
+          from_date: aired_on.year, to_date: released_on.year)
       else
         if released_on
           # 2 марта 2011
-          parts << i18n_t('datetime.release_dates.date', date: h.formatted_date(released_on, true))
+          parts << i18n_t('datetime.release_dates.date',
+            date: h.formatted_date(released_on, true))
         else
           # с 1 марта 2011
-          parts << i18n_t('datetime.release_dates.since_date', date: h.formatted_date(aired_on, true))
+          parts << i18n_t('datetime.release_dates.since_date',
+            date: h.formatted_date(aired_on, true))
         end
       end
 
     elsif anons?
-      parts << i18n_t('datetime.release_dates.for_date', date: h.formatted_date(aired_on, true)) if aired_on
+      parts << i18n_t('datetime.release_dates.for_date',
+        date: h.formatted_date(aired_on, true)) if aired_on
 
     else # ongoings
-      parts << i18n_t('datetime.release_dates.since_date', date: h.formatted_date(aired_on, true, true)) if aired_on
-      parts << i18n_t('datetime.release_dates.till_date', date: h.formatted_date(released_on, true, true)) if released_on
+      parts << i18n_t('datetime.release_dates.since_date',
+        date: h.formatted_date(aired_on, true, true)) if aired_on
+      parts << i18n_t('datetime.release_dates.till_date',
+        date: h.formatted_date(released_on, true, true)) if released_on
     end
 
-    parts.join(' ').downcase.html_safe if parts.any?
+    parts.join(' ').html_safe if parts.any?
   end
 
   def release_date_tooltip
@@ -183,10 +189,12 @@ class AniMangaDecorator < DbEntryDecorator
     return if released_on.day == 1 || released_on.month == 1 || aired_on.day == 1 || aired_on.month == 1
     return unless released?
 
-    i18n_t('datetime.release_dates.since_till_date',
+    text = i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),
       to_date: h.formatted_date(released_on, true, false)
-    ).capitalize
+    )
+
+    I18n.russian? ? text.capitalize : text
   end
 
 private
