@@ -72,6 +72,10 @@ module UserNotifications
   end
 
   def notify_bounced_email
+    if notifications & PRIVATE_MESSAGES_TO_EMAIL == PRIVATE_MESSAGES_TO_EMAIL
+      update notifications: notifications - PRIVATE_MESSAGES_TO_EMAIL
+    end
+
     Message.create_wo_antispam!(
       from_id: BotsService.get_poster.id,
       to_id: id,
