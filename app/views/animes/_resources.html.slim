@@ -62,7 +62,10 @@
     - if @resource.screenshots(5).any?
       .c-screenshots
         .subheadline.m10
-          span.linkeable data-href="#{@resource.screenshots_url}" = t '.screenshots'
+          - if ignore_copyright?
+            span.linkeable data-href="#{@resource.screenshots_url}" = t '.screenshots'
+          - else
+            = t '.screenshots'
         .cc
           = render @resource.screenshots(5)
 
