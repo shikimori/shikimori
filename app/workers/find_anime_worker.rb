@@ -1,8 +1,10 @@
 class FindAnimeWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  unique_args: -> (args) { args },
-                  retry: false
+  sidekiq_options
+    unique: true,
+    queue: :anime_online_parsers,
+    unique_args: -> (args) { args },
+    retry: false
 
   def perform mode
     case mode.to_sym
