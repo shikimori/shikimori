@@ -36,7 +36,7 @@ class AnimesController < DbEntriesController
   end
 
   def files
-    return redirect_to @resource.url, status: 301 unless ignore_copyright?
+    return redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
 
     noindex
     page_title 'Файлы'
@@ -50,7 +50,9 @@ class AnimesController < DbEntriesController
   end
 
   def screenshots
-    return redirect_to @resource.url, status: 301 if @resource.screenshots.none? || !ignore_copyright?
+    unless @resource.screenshots.any? && user_signed_in? && ignore_copyright?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title 'Кадры'

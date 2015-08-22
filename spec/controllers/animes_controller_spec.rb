@@ -47,10 +47,19 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#screenshots' do
+  describe '#files' do
     let!(:screenshot) { create :screenshot, anime: anime }
-    before { get :screenshots, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
+
+    context 'authenticated' do
+      include_context :authenticated, :user
+      before { get :screenshots, id: anime.to_param }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'guest' do
+      before { get :screenshots, id: anime.to_param }
+      it { expect(response).to redirect_to anime_url(anime) }
+    end
   end
 
   describe '#videos' do
