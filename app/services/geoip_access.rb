@@ -19,7 +19,6 @@ class GeoipAccess
     'EE', # Estonia
     'KG', # Kyrgyzstan
     'UZ', # Uzbekistan
-    'IL', # Israel
     'LT', # Lithuania
     'RO', # Romania
     'TJ', # Tajikistan

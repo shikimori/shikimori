@@ -13,6 +13,8 @@ production:
   - slow_parsers
   - torrents_parsers
   - [critical, 6]
+  - anime_online_parsers
+  - manga_online_parsers
 
 :limits:
   cpu_intensive: 2
