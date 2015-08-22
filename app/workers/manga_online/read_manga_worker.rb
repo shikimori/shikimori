@@ -13,6 +13,7 @@ class MangaOnline::ReadMangaWorker
   end
 
 private
+
   def mangas_for_import
     #NOTE: Лимит оставил, чтобы проверить сначала все ли правильно загрузилось на продакшене.
     Manga
