@@ -181,7 +181,8 @@ class AniMangaDecorator < DbEntryDecorator
         date: h.formatted_date(released_on, true, true)) if released_on
     end
 
-    parts.join(' ').html_safe if parts.any?
+    text = parts.join(' ').html_safe
+    I18n.russian? ? text.downcase : text if text.present?
   end
 
   def release_date_tooltip
@@ -193,7 +194,6 @@ class AniMangaDecorator < DbEntryDecorator
       from_date: h.formatted_date(aired_on, true, false),
       to_date: h.formatted_date(released_on, true, false)
     )
-
     I18n.russian? ? text.capitalize : text
   end
 
