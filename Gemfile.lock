@@ -566,6 +566,8 @@ GEM
       redis-namespace (~> 1.5, >= 1.5.2)
     sidekiq-limit_fetch (2.4.2)
       sidekiq (>= 2.6.5, < 4.0)
+    sidekiq-statistic (1.0.0)
+      sidekiq (~> 3.3, >= 3.3.4)
     sidekiq-unique-jobs (3.0.14)
       sidekiq (>= 2.6)
     simple_form (3.1.0)
@@ -756,6 +758,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch
+  sidekiq-statistic
   sidekiq-unique-jobs
   simple_form
   simple_form-magic_submit!
