@@ -1,8 +1,10 @@
 class SubtitlesImporter
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  unique_args: -> (args) { args },
-                  retry: 1
+  sidekiq_options(
+    unique: true,
+    unique_args: -> (args) { args },
+    retry: 1
+  )
 
   def perform mode
     case mode.to_sym

@@ -1,8 +1,10 @@
 class ImagesVerifier
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  queue: :slow_parsers,
-                  retry: false
+  sidekiq_options(
+    unique: true,
+    queue: :slow_parsers,
+    retry: false
+  )
 
   def perform
     Anime.find_each {|v| check_image v }

@@ -1,9 +1,11 @@
 class WikipediaImporter
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  unique_args: -> (args) { args },
-                  queue: :slow_parsers,
-                  dead: false
+  sidekiq_options(
+    unique: true,
+    unique_args: -> (args) { args },
+    queue: :slow_parsers,
+    dead: false
+  )
   sidekiq_retry_in { 60 * 60 * 24 }
 
   def perform options={}

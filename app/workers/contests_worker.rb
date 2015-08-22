@@ -1,7 +1,10 @@
 class ContestsWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  retry: true
+  sidekiq_options(
+    unique: true,
+    retry: true,
+    dead: false
+  )
 
   def perform
     ContestUserVote

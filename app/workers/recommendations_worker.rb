@@ -1,9 +1,11 @@
 class RecommendationsWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  unique_args: -> (args) { args.first },
-                  queue: :cpu_intensive,
-                  retry: false
+  sidekiq_options(
+    unique: true,
+    unique_args: -> (args) { args.first },
+    queue: :cpu_intensive,
+    retry: false
+  )
 
   def perform user_id, type, metric, threshold, cache_key, user_list_cache_key
     Rails.cache.fetch cache_key, expires_in: 2.weeks do

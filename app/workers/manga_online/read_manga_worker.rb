@@ -1,8 +1,10 @@
 class MangaOnline::ReadMangaWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  queue: :slow_parsers,
-                  retry: false
+  sidekiq_options(
+    unique: true,
+    queue: :manga_online_parsers,
+    retry: false
+  )
 
   def perform
     mangas_for_import.each do |manga|
