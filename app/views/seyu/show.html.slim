@@ -1,40 +1,47 @@
 = render layout: 'page' do
   .b-db_entry
-    .c-image
-      center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
+    .c-image.cc
+      .c-poster
+        center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
 
-      - if user_signed_in?
-        .icon-actions
-          - unless current_user.banned?
-            a.new_comment.b-tooltipped.unprocessed[
-              title="Комментировать"
-              data-direction="top"
-            ]
-          a.fav-add.b-tooltipped.unprocessed[
-            href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-            style="#{'display: none;' if @resource.seyu_favoured?}"
-            title="Добавить в избранное"
-            data-remote="true"
-            data-method="post"
-            data-type="json"
-            data-kind="seyu"
-            data-direction="top"
-          ]
-          a.fav-remove.b-tooltipped.unprocessed[
-            href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-            style="#{'display: none;' unless @resource.seyu_favoured?}"
-            title="Удалить из избранного"
-            data-kind="seyu"
-            data-remote="true"
-            data-method="delete"
-            data-type="json"
-            data-direction="top"
-          ]
-          a.edit.b-tooltipped.unprocessed[
-            href="#{@resource.edit_url}"
-            title="Редактировать сэйю"
-            data-direction="top"
-          ]
+      .c-actions
+        a.new_comment.b-tooltipped.unprocessed.to-process[
+          title="#{t '.actions.comment'}"
+          data-direction="top"
+          data-text="#{t '.actions.comment'}"
+          data-dynamic="authorized"
+        ]
+        a.fav-add.b-tooltipped.unprocessed.to-process[
+          href="#{favourites_seyu_url @resource.object.class.name, @resource}"
+          style="#{'display: none;' if @resource.seyu_favoured?}"
+          title="#{t '.actions.add_to_favorites'}"
+          data-remote="true"
+          data-method="post"
+          data-type="json"
+          data-kind="seyu"
+          data-direction="top"
+          data-text="#{t '.actions.add_to_favorites'}"
+          data-dynamic="authorized"
+        ]
+        a.fav-remove.b-tooltipped.unprocessed.to-process[
+          href="#{favourites_seyu_url @resource.object.class.name, @resource}"
+          style="#{'display: none;' unless @resource.seyu_favoured?}"
+          title="#{t '.actions.remove_from_favorites'}"
+          data-kind="seyu"
+          data-remote="true"
+          data-method="delete"
+          data-type="json"
+          data-direction="top"
+          data-text="#{t '.actions.remove_from_favorites'}"
+          data-dynamic="authorized"
+        ]
+        a.edit.b-tooltipped.unprocessed.to-process[
+          href="#{@resource.edit_url}"
+          title="#{t '.actions.edit'}"
+          data-direction="top"
+          data-text="#{t '.actions.edit'}"
+          data-dynamic="authorized"
+        ]
 
     .c-about
       .cc

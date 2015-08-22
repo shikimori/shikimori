@@ -29,8 +29,7 @@ en:
         review: Write review
         add_to_favorites: Add to Favorite
         remove_from_favorites: Remove from Favorite
-        edit_anime: Edit Anime
-        edit_manga: Edit Manga
+        edit: Edit
       main_characters: Main Characters
       supporting_characters: Supporting Characters
       linked_directly: Linked Directly

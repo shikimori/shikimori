@@ -90,6 +90,8 @@ jQuery(function ($) {
                             }
                             if ('errors' in errors) {
                               errors = errors.errors;
+                            } else if ('error' in errors) {
+                              errors = [errors.error];
                             }
                             if (Object.size(errors)) {
                                 if (Object.isArray(errors)) {

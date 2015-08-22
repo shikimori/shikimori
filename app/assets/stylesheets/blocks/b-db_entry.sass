@@ -1,3 +1,4 @@
+@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
@@ -17,9 +18,6 @@
       +column_b(1)
     +iphone-landscape
       +column_b(2)
-
-    img
-      max-width: 100%
 
   &>.c-about
     // дополнительные стили для gte_ipad определены ниже
@@ -59,6 +57,42 @@
   .x1000 &>.c-description
     +gte_ipad
       margin-left: 32.5%
+
+
+  &>.c-image
+    img
+      max-width: 100%
+
+    +iphone-portrait
+      .c-poster
+        +column(2, 1/2, 7%)
+
+      .c-actions
+        +column(2, 1/2, 7%)
+
+        &>a
+          display: table
+          margin-bottom: 10px
+          margin-right: 0
+          text-align: left
+          width: auto
+          height: auto
+
+          &:before
+            float: left
+            display: table-cell
+            vertical-align: middle
+            width: 20px
+
+          &:after
+            color: #123
+            content: attr(data-text)
+            display: table-cell
+            font-size: 18px
+            line-height: 1.3
+            padding-left: 10px
+            vertical-align: middle
+            word-break: break-word
 
   &>.c-about
     z-index: 1 // без этого нижний блок с description перекрывает текущий

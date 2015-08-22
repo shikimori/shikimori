@@ -19,7 +19,7 @@ ru:
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
-  animes:
+  animes: &animes
     page:
       information: Информация
       all_summaries: Все отзывы
@@ -29,8 +29,7 @@ ru:
         review: Написать обзор
         add_to_favorites: Добавить в избранное
         remove_from_favorites: Удалить из избранного
-        edit_anime: Редактировать аниме
-        edit_manga: Редактировать мангу
+        edit: Редактировать
       main_characters: Главные герои
       supporting_characters: Второстепенные персонажи
       linked_directly: Напрямую

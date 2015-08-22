@@ -18,27 +18,31 @@ $icon_mobile_size: 30px
   //+responsive(narrow-phone)
     margin-left: $icon_mobile_size
 
-  &:before
-    content: $content
+  &:before, &:after
     cursor: pointer
     display: inline-block
-    font-family: 'shikimori'
     font-size: $font-size
     line-height: $icon_desktop_size
-    text-align: center
-    width: $icon_desktop_size
 
     // For safety - reset parent styles, that can break glyph codes
     font-variant: normal
     text-transform: none
 
+  &:before
+    content: $content
+    font-family: 'shikimori'
+    text-align: center
+    width: $icon_desktop_size
+
   +lte_ipad
     white-space: nowrap
     //margin-bottom: 10px
 
-    &:before
+    &:before, &:after
       font-size: 22px
       line-height: $icon_mobile_size
+
+    &:before
       width: $icon_mobile_size
 
 =menu_icon($content)
@@ -83,10 +87,6 @@ $icon_mobile_size: 30px
 
   &:after
     content: $content
-    display: inline-block
-    font-size: 22px
-    line-height: $icon_mobile_size
-    margin-left: 11px
 
 =icon_action($content)
   +link_color(#444444)
@@ -102,13 +102,19 @@ $icon_mobile_size: 30px
   &.selected
     +link_color($link)
 
-  &:before
-    content: $content
+  &:before, &:after
     display: inline-block
-    font-family: 'shikimori'
     font-size: 18px
     line-height: $icon_mobile_size
-    text-align: center
+
+    // For safety - reset parent styles, that can break glyph codes
+    font-variant: normal
+    text-transform: none
 
     +iphone
       font-size: 22px
+
+  &:before
+    content: $content
+    font-family: 'shikimori'
+    text-align: center
