@@ -198,7 +198,7 @@ module MalDeployer
     return true unless entry.image.exists?
     return true unless ImageChecker.new(entry.image.path).valid?
 
-    interval = if (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.ongoing.any?)
+    interval = if (entry.respond_to?(:ongoing?) && entry.ongoing?) || (entry.kind_of?(Character) && entry.animes.where(status: :ongoing).any?)
       2.weeks
     elsif entry.respond_to?(:latest?) && entry.latest?
       3.months
