@@ -13,6 +13,7 @@ class AnimeDecorator < AniMangaDecorator
 
   # видео
   def videos limit=nil
+    return [] if Copyright::VIDEOS.include?(id) || !h.ignore_copyright?
     (@videos ||= {})[limit] ||= if object.respond_to? :videos
       object.videos.limit limit
     else

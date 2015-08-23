@@ -59,7 +59,9 @@ class AnimesController < DbEntriesController
   end
 
   def videos
-    return redirect_to @resource.url, status: 301 if @resource.videos.none?
+    unless @resource.videos.any? && user_signed_in? && ignore_copyright?
+      return redirect_to @resource.url, status: 301
+    end
 
     noindex
     page_title 'Видео'

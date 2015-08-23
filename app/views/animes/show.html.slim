@@ -101,7 +101,7 @@
                 = render 'mangas/publishers_info', entry: @resource
 
           - if @resource.anime? && !@resource.anons? && ignore_copyright?
-            - if user_signed_in? || (!user_signed_in? && !Copyright::POSSIBLE_WATCH_ONLINE.include?(@resource.id))
+            - if user_signed_in? || (!user_signed_in? && !Copyright::DAISUKI_COPYRIGHTED.include?(@resource.id))
               .block
                 - if @resource.anime_videos?
                   .watch-online.subheadline.blue

@@ -2,6 +2,7 @@
 module Copyright
   # by Hetzner abuse team
   SCREENSHOTS = [28215,23587]
+  VIDEOS = SCREENSHOTS
 
   # http://www.daisuki.net/anime/
   DAISUKI_COPYRIGHTED = [

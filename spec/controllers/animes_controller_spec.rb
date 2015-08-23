@@ -47,7 +47,7 @@ describe AnimesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#files' do
+  describe '#screenshots' do
     let!(:screenshot) { create :screenshot, anime: anime }
 
     context 'authenticated' do
@@ -64,8 +64,17 @@ describe AnimesController do
 
   describe '#videos' do
     let!(:video) { create :video, :confirmed, anime: anime }
-    before { get :videos, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
+
+    context 'authenticated' do
+      include_context :authenticated, :user
+      before { get :videos, id: anime.to_param }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'guest' do
+      before { get :videos, id: anime.to_param }
+      it { expect(response).to redirect_to anime_url(anime) }
+    end
   end
 
   describe '#related' do
