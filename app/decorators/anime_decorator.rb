@@ -3,6 +3,7 @@ class AnimeDecorator < AniMangaDecorator
 
   # скриншоты
   def screenshots limit=nil
+    return [] if Copyright::SCREENSHOTS.include?(id)
     (@screenshots ||= {})[limit] ||= if object.respond_to? :screenshots
       object.screenshots.limit limit
     else
