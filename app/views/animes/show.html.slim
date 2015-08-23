@@ -101,13 +101,14 @@
                 = render 'mangas/publishers_info', entry: @resource
 
           - if @resource.anime? && !@resource.anons? && ignore_copyright?
-            .block
-              - if @resource.anime_videos?
-                .watch-online.subheadline.blue
-                  span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
-              - elsif user_signed_in? && current_user.day_registered?
-                .watch-online.subheadline.blue
-                  a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
+            - if user_signed_in? || (!user_signed_in? && !Copyright::POSSIBLE_WATCH_ONLINE.include?(@resource.id))
+              .block
+                - if @resource.anime_videos?
+                  .watch-online.subheadline.blue
+                    span.linkeable data-href="#{@resource.video_online_url}" Смотреть онлайн
+                - elsif user_signed_in? && current_user.day_registered?
+                  .watch-online.subheadline.blue
+                    a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
 
     .c-description
       .subheadline.m5 = Anime.human_attribute_name(:description)

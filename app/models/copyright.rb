@@ -2,4 +2,5 @@
 module Copyright
   # by Hetzner abuse team
   SCREENSHOTS = [28215,23587]
+  POSSIBLE_WATCH_ONLINE = [28215,23587]
 end
