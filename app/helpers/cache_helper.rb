@@ -10,22 +10,16 @@ module CacheHelper
   end
 
   def russian_names_key
-    if user_signed_in? && current_user.preferences.russian_names? && I18n.russian?
-      'rus'
-    else
-      "eng_#{I18n.locale}"
-    end
+    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
   end
 
   def russian_genres_key
-    if user_signed_in? && current_user.preferences.russian_genres? && I18n.russian?
-      'rus'
-    else
-      "eng_#{I18n.locale}"
-    end
+    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_genres? : true}"
   end
 
   def social_key
-    !user_signed_in? || current_user.preferences.show_social_buttons? ? 'social' : 'no_social'
+    !user_signed_in? || current_user.preferences.show_social_buttons? ?
+      'social' :
+      'no_social'
   end
 end
