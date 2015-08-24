@@ -126,6 +126,11 @@ describe Comment do
           it { expect(comment.html_body).to_not include 'width=' }
           it { expect(comment.html_body).to_not include 'height=' }
         end
+
+        describe 'image' do
+          let(:body) { '[image=149374 9999x9999]' }
+          it { expect(comment.html_body).to eq '[image=149374]' }
+        end
       end
     end
 
