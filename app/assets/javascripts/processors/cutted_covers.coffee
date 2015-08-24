@@ -1,7 +1,8 @@
 class @CuttedCovers extends BaseProcessor
   @PRIOR_ID = 0
   @RATIO =
-    entry: 229.0 / 156.0
+    #entry: 229.0 / 156.0
+    entry: 318.0 / 225.0
     person: 194.0 / 125.0
 
   @CLASS_NAME = 'd-cutted_covers'
