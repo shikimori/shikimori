@@ -56,6 +56,20 @@
                 data-reason-prompt="#{t '.reject_reason'}"
               ] = t '.reject'
 
+          - if version.can_accept_taken?
+              a.b-tooltipped.unprocessed[
+                href="#{accept_taken_moderation_version_url version}"
+                data-direction="top"
+                data-method="POST"
+              ] = t '.accepted_to_taken'
+
+          - if version.can_take_accepted?
+              a.b-tooltipped.unprocessed[
+                href="#{take_accepted_moderation_version_url version}"
+                data-direction="top"
+                data-method="POST"
+              ] = t '.taken_to_accepted'
+
           - if can?(:destroy, version) && version.can_to_deleted?
             a.b-tooltipped.unprocessed[
               href="#{moderation_version_url version}"

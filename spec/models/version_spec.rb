@@ -86,6 +86,16 @@ describe Version do
         end
       end
     end
+
+    describe '#accept_taken' do
+      let(:state) { :taken }
+      it { expect(version).to_not be_can_accept_taken }
+    end
+
+    describe '#take_accepted' do
+      let(:state) { :accepted }
+      it { expect(version).to_not be_can_take_accepted }
+    end
   end
 
   describe 'class methods' do

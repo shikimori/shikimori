@@ -1,4 +1,18 @@
 describe Versions::DescriptionVersion do
+  describe 'state_machine' do
+    let(:version) { build_stubbed :description_version, state }
+
+    describe '#accept_taken' do
+      let(:state) { :taken }
+      it { expect(version).to be_can_accept_taken }
+    end
+
+    describe '#take_accepted' do
+      let(:state) { :accepted }
+      it { expect(version).to be_can_take_accepted }
+    end
+  end
+
   describe '#fix_state' do
     let(:version) { create :description_version, state: state, item_diff: { description: [old,new] } }
     before { version.fix_state }

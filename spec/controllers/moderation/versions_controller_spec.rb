@@ -56,6 +56,26 @@ describe Moderation::VersionsController do
     end
   end
 
+  describe '#accept_taken' do
+    let(:version) { create :description_version, :taken, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
+    before { post :accept_taken, id: version.id }
+
+    it do
+      expect(resource).to be_accepted
+      expect(response).to redirect_to back_url
+    end
+  end
+
+  describe '#take_accepted' do
+    let(:version) { create :description_version, :accepted, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
+    before { post :take_accepted, id: version.id }
+
+    it do
+      expect(resource).to be_taken
+      expect(response).to redirect_to back_url
+    end
+  end
+
   describe '#destroy' do
     let(:make_request) { delete :destroy, id: version.id }
 

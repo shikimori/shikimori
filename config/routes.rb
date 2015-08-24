@@ -89,6 +89,8 @@ Site::Application.routes.draw do
         post :accept
         post :take
         post :reject
+        post :accept_taken
+        post :take_accepted
       end
     end
 

@@ -22,6 +22,9 @@ class Version < ActiveRecord::Base
     event(:reject) { transition [:pending, :auto_accepted] => :rejected }
     event(:to_deleted) { transition :pending => :deleted }
 
+    event(:accept_taken) { transition :taken => :accepted, if: :takeable? }
+    event(:take_accepted) { transition :accepted => :taken, if: :takeable? }
+
     before_transition :pending => [:accepted, :auto_accepted, :taken] do |version, transition|
       version.apply_changes ||
         raise(StateMachine::InvalidTransition.new version, transition.machine, transition.event)
@@ -110,5 +113,9 @@ class Version < ActiveRecord::Base
       linked: self,
       body: reason
     ) unless user_id == moderator_id
+  end
+
+  def takeable?
+    false
   end
 end

@@ -16,7 +16,6 @@ class Moderation::VersionsController < ShikimoriController
     @versions = VersionsView.new
   end
 
-  # применение предложенного пользователем изменения
   def accept
     transition :accept, 'changes_accepted'
   end
@@ -27,6 +26,14 @@ class Moderation::VersionsController < ShikimoriController
 
   def reject
     transition :reject, 'changes_rejected'
+  end
+
+  def accept_taken
+    transition :accept_taken, 'changes_accepted'
+  end
+
+  def take_accepted
+    transition :take_accepted, 'changes_accepted'
   end
 
   def destroy

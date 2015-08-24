@@ -5,6 +5,7 @@ ru:
       accept_changes: Принять правку
       accept_with_author: Принять с добавлением пользователя в авторы
       accept_wo_author: Принять без добавлениея пользователя в авторы
+      accepted_to_taken: принято → взято
       delete: удалить
       delete_changes: Удалить правку
       reject: отклонить
@@ -13,6 +14,8 @@ ru:
       show: показать
       show_changes: показать правку
       take: взять
+      take_changes: Взять правку
+      taken_to_accepted: взято → принято
 
     text_diff:
       before: До изменения
