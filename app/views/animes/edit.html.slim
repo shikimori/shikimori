@@ -4,10 +4,11 @@
   .block.cc-2
     .c-column.m0
       ul.b-list
-        li
-          .field = @resource.class.human_attribute_name :name
-          .value = @resource.name
-          a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
+        - if can? :significant_change, Version
+          li
+            .field = @resource.class.human_attribute_name :name
+            .value = @resource.name
+            a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :russian
@@ -90,10 +91,11 @@
           .value = @resource.tags
           a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
 
-        li
-          .field = @resource.class.human_attribute_name :genres
-          .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
+        - if can? :significant_change, Version
+          li
+            .field = @resource.class.human_attribute_name :genres
+            .value.under_development = t('under_development').downcase
+            /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
 
         - if user_signed_in? && current_user.admin? && @resource.anime?
           li

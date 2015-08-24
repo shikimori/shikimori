@@ -4,10 +4,11 @@
   .block.cc-2
     .c-column.m0
       ul.b-list
-        li
-          .field = Character.human_attribute_name :name
-          .value = @resource.name
-          a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
+        - if can? :significant_change, Version
+          li
+            .field = Character.human_attribute_name :name
+            .value = @resource.name
+            a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :russian

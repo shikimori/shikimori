@@ -19,12 +19,22 @@ class DbEntriesController < ShikimoriController
     page_title i18n_t('entry_edit')
     @field = params[:field]
 
+    authorize! :significant_change, Version if significant_fields.include?(@field)
+
     render template: 'db_entries/edit_field'
   end
 
   def update
+    authorize! :significant_change, Version if (update_params.keys & significant_fields).any?
+
     version = Versioneers::FieldsVersioneer.new(@resource.object).premoderate(update_params, current_user, params[:reason])
     version.accept current_user if version.persisted? && can?(:manage, version)
     redirect_to @resource.edit_url, notice: i18n_t("changes_#{version.state}")
+  end
+
+private
+
+  def significant_fields
+    @resource.object.class::SIGNIFICANT_FIELDS
   end
 end

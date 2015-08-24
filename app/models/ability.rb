@@ -46,6 +46,7 @@ class Ability
     can [:create], Version do |version|
       version.user_id == User::GuestID
     end
+    cannot [:significant_change], Version
     can [:show, :tooltip], Version
   end
 
@@ -169,6 +170,7 @@ class Ability
     can [:create, :destroy], Version do |version|
       version.user_id == @user.id
     end
+    cannot [:significant_change], Version
   end
 
   def moderator_ability

@@ -1,5 +1,6 @@
 class DbEntry < ActiveRecord::Base
   self.abstract_class = true
+  SIGNIFICANT_FIELDS = %w{name genres}
 
   def self.inherited klass
     super
