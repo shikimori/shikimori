@@ -93,10 +93,10 @@ header.head
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.selected #{@statistics.comments_count}
-      .subheadline = i18n_i 'comments', :few
+      .subheadline = i18n_i 'comment', :few
       .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 
-.subheadline.m3 = i18n_i 'comments', :few
+.subheadline.m3 = i18n_i 'comment', :few
 div
   .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
     = render 'topics/comments', topic: @topic
