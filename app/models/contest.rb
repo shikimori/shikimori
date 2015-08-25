@@ -4,8 +4,10 @@ class Contest < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :title, :user, :started_on, :user_vote_key, :strategy_type, :member_type, presence: true
-  validates :matches_interval, :match_duration, :matches_per_round, numericality: { greater_than: 0 }, presence: true
+  validates :title, :user, :started_on, :user_vote_key, :strategy_type, :member_type,
+    presence: true
+  validates :matches_interval, :match_duration, :matches_per_round,
+    numericality: { greater_than: 0 }, presence: true
 
   enumerize :member_type, in: [:anime, :character], predicates: true
   enumerize :strategy_type, in: [:double_elimination, :play_off, :swiss], predicates: true
@@ -126,18 +128,15 @@ public
   def defeated_by entry, round
     @defeated ||= {}
     @defeated["#{entry.id}-#{round.id}"] ||= ContestMatch
-        .where(round_id: rounds.map(&:id).select {|v| v <= round.id })
-        .where(state: 'finished')
-        .where(winner_id: entry.id)
-        .includes(:left, :right)
-        .order(:id)
-        .map { |vote|
-          if vote.winner_id == vote.left_id
-            vote.right
-          else
-            vote.left
-          end
-        }.compact
+      .where(
+        round_id: rounds.map(&:id).select {|v| v <= round.id },
+        state: 'finished',
+        winner_id: entry.id
+      )
+      .includes(:left, :right)
+      .order(:id)
+      .map { |vote| vote.winner_id == vote.left_id ? vote.right : vote.left }
+      .compact
   end
 
   # для урлов
@@ -181,6 +180,7 @@ public
   end
 
 private
+
   def update_permalink
     self.permalink = title.permalinked if changes.include? :title
   end

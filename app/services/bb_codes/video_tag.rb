@@ -23,6 +23,7 @@ class BbCodes::VideoTag
   end
 
 private
+
   def to_html url
     video = Video.new url: url
 

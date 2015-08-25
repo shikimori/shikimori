@@ -385,6 +385,12 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
       it { should include "<div class=\"b-replies single\"" }
     end
 
+    describe '[contest_round]' do
+      let(:text) { "[contest_round=#{round.id}]" }
+      let!(:round) { create :contest_round }
+      it { should include "Раунд ##{round.id}" }
+    end
+
     describe '[quote]' do
       context 'simple' do
         let(:text) { '[quote]test[/quote]zz' }

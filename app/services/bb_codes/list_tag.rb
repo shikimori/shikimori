@@ -18,6 +18,7 @@ class BbCodes::ListTag
   end
 
 private
+
   def format_lists text
     text.gsub LIST_REGEXP do
       items = $~[:ul].gsub(LIST_ITEM_REGEXP) do |match|

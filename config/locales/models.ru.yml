@@ -1,4 +1,6 @@
 ru:
+  contest_round:
+    title: 'Раунд #%{number}%{additional}'
   ban:
     warn_message: предупреждение. %{reason}.
     ban_message: бан на %{duration}. %{reason}.

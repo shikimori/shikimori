@@ -14,3 +14,5 @@ en:
   bb_codes/replies_tag:
     reply: 'Reply: '
     replies: 'Replies: '
+  bb_codes/contest_round_tag:
+    finished: has finished

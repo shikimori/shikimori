@@ -14,3 +14,5 @@ ru:
   bb_codes/replies_tag:
     reply: 'Ответ: '
     replies: 'Ответы: '
+  bb_codes/contest_round_tag:
+    finished: завершён

@@ -16,7 +16,8 @@ class BbCodeFormatter
     BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
-    BbCodes::ListTag, BbCodes::H3Tag, BbCodes::RepliesTag
+    BbCodes::ListTag, BbCodes::H3Tag, BbCodes::RepliesTag,
+    BbCodes::ContestRoundTag
   ]
 
   default_url_options[:host] ||= if Rails.env.development?

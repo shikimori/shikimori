@@ -2,11 +2,6 @@ class ApplicationController < ActionController::Base
   include Translation
 
   #include Mobylette::RespondToMobileRequests
-  LOCALES = {
-    'russian' => :ru,
-    'english' => :en
-  }
-
   protect_from_forgery with: :exception
 
   layout :set_layout
@@ -154,7 +149,7 @@ private
 
   def set_locale
     I18n.locale = params[:locale] ||
-      (LOCALES[current_user.language] if user_signed_in?) ||
+      (I18n::LOCALES[current_user.language] if user_signed_in?) ||
       I18n.default_locale
   end
 

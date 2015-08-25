@@ -1,4 +1,6 @@
 class ContestRound < ActiveRecord::Base
+  include Translation
+
   # стартовая группа
   S = 'S'
   # ни разу не проигравшая группа
@@ -34,6 +36,8 @@ class ContestRound < ActiveRecord::Base
     end
 
     after_transition started: :finished do |round, transition|
+      NotificationsService.new(round).round_finished
+
       if round.next_round
         round.next_round.start!
         round.strategy.advance_members round.next_round, round
@@ -44,8 +48,12 @@ class ContestRound < ActiveRecord::Base
   end
 
   # название раунда
-  def title(short=false)
-    "#{short ? '' : 'Раунд '}#{number}#{'a' if additional}"
+  def title short=false
+    if short
+      "#{number}#{'a' if additional}"
+    else
+      i18n_t 'title', number: number, additional: additional ? 'a' : ''
+    end
   end
 
   def to_param

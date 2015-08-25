@@ -1,4 +1,6 @@
 en:
+  contest_round:
+    title: 'Round #%{number}%{additional}'
   ban:
     warn_message: warned. %{reason}.
     ban_message: banned on %{duration}. %{reason}.

@@ -187,6 +187,7 @@ module CommentHelper
     end
   end
 
+  # TODO: refactor to bbcode class
   @@type_matchers = {
     Anime => [/(\[anime(?:=(\d+))?\]([^\[]*?)\[\/anime\])/, :tooltip_anime_url],
     Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
