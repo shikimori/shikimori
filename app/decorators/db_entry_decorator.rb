@@ -24,7 +24,7 @@ class DbEntryDecorator < BaseDecorator
 
   def description_html
     if description.present?
-      Rails.cache.fetch [:description, h.russian_names_key, object] do
+      Rails.cache.fetch [:description, h.russian_names_key, object, I18n.locale] do
         BbCodeFormatter.instance.format_description description, object
       end
     else
@@ -124,6 +124,10 @@ class DbEntryDecorator < BaseDecorator
 
   def edit_field_url field
     h.send "edit_field_#{klass_lower}_url", object, field: field
+  end
+
+  def next_versions_page
+    h.send "versions_#{klass_lower}_url", object, page: (h.params[:page] || 1).to_i + 1
   end
 
 private
