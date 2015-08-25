@@ -29,7 +29,10 @@
         .b-options-floated.count
           = resource.members.size
         .subheadline.m10 Номинанты
-        .cc-4a
+        .cc-4a.to-process[
+          data-dynamic="cutted_covers"
+          data-ratio_type="#{resource.member_type == 'character' ? 'person' : 'entry'}"
+        ]
           = render resource.members, cover_by: :image_link
 
     - unless resource.proposing? || resource.swiss?
