@@ -72,11 +72,6 @@ describe User do
       #user.history.first.action.should eq UserHistoryAction::Registration
     #end
 
-    describe '#fix_nickname' do
-      let(:user) { create :user, nickname: '#[test]%&?+' }
-      it { expect(user.nickname).to eq 'test' }
-    end
-
     describe '#log_nickname_change' do
       let(:user) { create :user }
       after { user.update nickname: 'test' }
@@ -85,6 +80,11 @@ describe User do
   end
 
   describe 'instance methods' do
+    describe '#nickname=' do
+      let(:user) { create :user, nickname: '#[test]%&?+' }
+      it { expect(user.nickname).to eq 'test' }
+    end
+
     describe '#can_post' do
       before { user.read_only_at = read_only_at }
       subject { user.can_post? }

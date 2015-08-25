@@ -106,8 +106,6 @@ class User < ActiveRecord::Base
   validates :email, presence: true, if: -> { persisted? && changes['email'] }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
-  before_validation :fix_nickname, if: -> { changes['nickname'] }
-  before_save :fix_nickname, if: -> { changes['nickname'] }
   before_update :log_nickname_change, if: -> { changes['nickname'] }
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
@@ -127,18 +125,19 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :preferences
 
-  def self.new_with_session(params, session)
-    super.tap do |user|
-      if data = session[:omniauth]
-        user.user_tokens.build(provider: data['provider'], uid: data['uid'])
-      end
-    end
-  end
-
   # allows for account creation from twitter & fb
   # allows saves w/o password
   def password_required?
     (!persisted? && user_tokens.empty?) || password.present? || password_confirmation.present?
+  end
+
+  # зачистка никнейма от запрещённых символов
+  def nickname= value
+    super value
+      .gsub(/[%&#\/\\?+><\]\[:,]+/, '')
+      .gsub(/[[:space:]]+/, ' ')
+      .strip
+      .gsub(/^\.$/, 'точка')
   end
 
   # allows for account creation from twitter
@@ -321,6 +320,7 @@ class User < ActiveRecord::Base
   end
 
 private
+
   # создание первой записи в историю - о регистрации на сайте
   def create_history_entry
     history.create! action: UserHistoryAction::Registration
@@ -329,15 +329,6 @@ private
   # запоминаем предыдущие никнеймы пользователя
   def log_nickname_change
     UserNicknameChange.create user: self, value: changes['nickname'][0]
-  end
-
-  # зачистка никнейма от запрещённых символов
-  def fix_nickname
-    self.nickname = nickname
-      .gsub(/[%&#\/\\?+><\]\[:,]+/, '')
-      .gsub(/[[:space:]]+/, ' ')
-      .strip
-      .gsub(/^\.$/, 'точка')
   end
 
   # создание послерегистрационного приветственного сообщения пользователю
