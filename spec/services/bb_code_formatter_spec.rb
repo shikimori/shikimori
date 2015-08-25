@@ -387,7 +387,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
 
     describe '[contest_round]' do
       let(:text) { "[contest_round=#{round.id}]" }
-      let!(:round) { create :contest_round }
+      let!(:round) { create :contest_round, number: 1, additional: false }
       it { should include "Раунд ##{round.id}" }
     end
 
