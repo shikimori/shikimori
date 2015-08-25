@@ -106,7 +106,8 @@ class User < ActiveRecord::Base
   validates :email, presence: true, if: -> { persisted? && changes['email'] }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
-  before_save :fix_nickname
+  before_validation :fix_nickname, if: -> { changes['nickname'] }
+  before_save :fix_nickname, if: -> { changes['nickname'] }
   before_update :log_nickname_change, if: -> { changes['nickname'] }
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.

@@ -11,6 +11,7 @@ class NameValidator < ActiveModel::EachValidator
   end
 
 private
+
   def presence record, value, klass, field
     query = if record.kind_of? klass
       klass.where.not(id: record.id)
