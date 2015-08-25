@@ -5,7 +5,10 @@
     = contest.uncertain_suggestions.any? ? 'Вероятные номинанты' : 'Номинанты'
   .proposing
     - if contest.certain_suggestions.any?
-      = render partial: 'suggestion', collection: contest.certain_suggestions, locals: { contest: contest }
+      = render partial: 'private_suggestion',
+        collection: contest.certain_suggestions,
+        as: :suggestion,
+        locals: { contest: contest }
     - else
       p нет вариантов
 
@@ -15,4 +18,7 @@
       = contest.uncertain_suggestions.size
     .subheadline Номинанты под вопросом
     .proposing
-      = render partial: 'suggestion', collection: contest.uncertain_suggestions, locals: { contest: contest }
+      = render partial: 'private_suggestion',
+        collection: contest.uncertain_suggestions,
+        as: :suggestion,
+        locals: { contest: contest }

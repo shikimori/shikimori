@@ -118,6 +118,9 @@ class ContestDecorator < DbEntryDecorator
   def suggestions
     object.suggestions.includes(:item).by_votes.sort_by {|v| [-v.votes, v.item.name] }
   end
+  def unordered_suggestions
+    suggestions.sort_by {|v| v.item.name }
+  end
   def median_votes
     suggestions.size > 10 ? suggestions[suggestions.size/2].votes : 0
   end

@@ -1,0 +1,7 @@
+.variant.suggestion
+  a.bubbled href="#{url_for suggestion.item}"
+    = localized_name suggestion.item
+
+  - unless suggestion.respond_to? :votes
+    span.b-bracket-actions
+      span.delete data-method="delete" data-action="#{contest_contest_suggestion_url contest, suggestion}" удалить

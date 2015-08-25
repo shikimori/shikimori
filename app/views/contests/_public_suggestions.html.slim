@@ -1,0 +1,13 @@
+.block
+  .b-options-floated.count
+    = contest.suggestions.size
+  .subheadline Номинанты
+
+  .proposing
+    - if contest.suggestions.any?
+      = render partial: 'public_suggestion',
+        collection: contest.unordered_suggestions,
+        as: :suggestion,
+        locals: { contest: contest }
+    - else
+      p нет вариантов
