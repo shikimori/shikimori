@@ -21,11 +21,11 @@ en:
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   deleted:
-    anime: Удалённое аниме
-    character: Удалённый персонаж
-    manga: Удалённая манга
-    review: Удалённая рецензия
-    anime_video: Удалённое видео
+    anime: Deleted anime
+    character: Deleted character
+    manga: Deleted manga
+    review: Deleted review
+    anime_video: Deleted video
   anime_list: Anime List
   back: back
   back_to_page: Back to page
@@ -39,6 +39,7 @@ en:
   manga_list: Manga List
   mangaka: Mangaka
   news: News
+  comments: Comments
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications

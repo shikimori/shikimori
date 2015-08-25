@@ -25,27 +25,27 @@ header.head
 
       /*.headline.m20 Участники проекта*/
       .members-block
-        .subheadline.red.m5 Модерация
+        .subheadline.red.m5 = t '.moderation'
         .members-block.left
-          p Форум
+          p = t '.moderation_forum'
           = render @statistics.forum_moderators, content_by: :avatar
 
         .members-block.left
-          p Контент
+          p = t '.moderation_content'
           = render @statistics.versions_moderators, content_by: :avatar
 
         .members-block.left
-          p Опросы
+          p = t '.moderation_contests'
           = render @statistics.contest_moderators, content_by: :avatar
 
         .members-block
-          p Косплей
+          p = t '.moderation_cosplay'
           = render @statistics.cosplay_moderators, content_by: :avatar
 
         .clearfix
 
       .members-block
-        .subheadline.blue.m10 Переводы текстов, описания и правки
+        .subheadline.blue.m10 = t '.content_changes'
         = render @statistics.translators, content_by: :avatar
         .clearfix
 
@@ -55,48 +55,48 @@ header.head
         .clearfix
 
       .members-block
-        .subheadline.green.m10 Рецензии
+        .subheadline.green.m10 = i18n_i 'Review', :few
         = render @statistics.reviewers, content_by: :avatar
         .clearfix
 
       .members-block
-        .subheadline.pink.m10 Видео контент
+        .subheadline.pink.m10 = t '.video_content'
         = render @statistics.top_video_contributors, content_by: :avatar
         .clearfix
 
       .members-block
         .members-block.left
-          .subheadline.orange.m10 Отдельная помощь и идеи
+          .subheadline.orange.m10 = t '.special_thanks'
           = render @statistics.thanks_to, content_by: :avatar
 
         .members-block.left
-          .subheadline.m10 Android клиент
+          .subheadline.m10 = t '.android_developer'
           = render @statistics.android, content_by: :avatar
 
         .members-block.left
-          .subheadline.m10 Автор
+          .subheadline.m10 = t '.website_developer'
           = render @statistics.developers, content_by: :avatar
         .clearfix
 
-  .subheadline Посещаемость
+  .subheadline = t '.community'
   .block.traffic-chart data-stats="#{@statistics.traffic.to_json}"
 
   .cc.block
     .c-chart
       .b-options-floated
-        span Всего:&nbsp;&nbsp;
+        span #{t '.total'}:&nbsp;&nbsp;
         a.selected #{@statistics.users_count}
       .subheadline = t :users
       .block.users-chart data-stats="#{@statistics.users.to_json}"
 
     .c-chart
       .b-options-floated
-        span Всего:&nbsp;&nbsp;
+        span #{t '.total'}:&nbsp;&nbsp;
         a.selected #{@statistics.comments_count}
-      .subheadline Комментарии
+      .subheadline = i18n_i 'comments', :few
       .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 
-.subheadline.m3 Комментарии
+.subheadline.m3 = i18n_i 'comments', :few
 div
   .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
     = render 'topics/comments', topic: @topic
