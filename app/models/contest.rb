@@ -27,6 +27,7 @@ class Contest < ActiveRecord::Base
     dependent: :destroy
 
 private
+
   has_many :animes, -> { order :name },
     through: :links,
     source: :linked,
@@ -38,6 +39,7 @@ private
     source_type: Character.name
 
 public
+
   has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
 
   before_save :update_permalink
@@ -91,8 +93,7 @@ public
       contest.rounds.first.start!
     end
     after_transition started: :finished do |contest, transition|
-      contest.update_attribute :finished_on, Time.zone.today
-      User.update_all contest.user_vote_key => false
+      FinalizeContest.perform_async contest.id
     end
   end
 
@@ -116,7 +117,7 @@ public
   end
 
   # наступил следующий день. обновление состояний голосований
-  def process!
+  def progress!
     started = current_round.matches.select(&:can_start?).each(&:start!)
     finished = current_round.matches.select(&:can_finish?).each(&:finish!)
     round = current_round.finish! if current_round.can_finish?

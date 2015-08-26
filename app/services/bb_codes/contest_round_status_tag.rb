@@ -1,10 +1,10 @@
-class BbCodes::ContestRoundTag
+class BbCodes::ContestRoundStatusTag
   include Singleton
   include Translation
 
   REGEXP = /
     \[
-      contest_round=(?<id>\d+)
+      contest_round_status=(?<id>\d+)
     \]
   /xi
 

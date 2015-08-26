@@ -1,9 +1,12 @@
-class ContestsWorker
+# TODO: specs
+class ProgressContests
   include Sidekiq::Worker
+
   sidekiq_options(
     unique: true,
     retry: true,
-    dead: false
+    dead: false,
+    queue: :high_priority
   )
 
   def perform
@@ -17,7 +20,7 @@ class ContestsWorker
       ip_cleanup match
     end
 
-    Contest.where(state: 'started').each(&:process!)
+    Contest.where(state: 'started').each(&:progress!)
   end
 
 private

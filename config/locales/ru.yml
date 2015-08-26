@@ -2,8 +2,9 @@ ru:
   activerecord:
     models:
       anime: Аниме
-      manga: Манга
       character: Персонаж
+      contest: Опрос
+      manga: Манга
       user: Пользователь
 
     attributes:

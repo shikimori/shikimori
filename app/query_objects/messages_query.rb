@@ -20,6 +20,7 @@ class MessagesQuery < QueryObjectBase
     MessageType::Warned,
     MessageType::VersionAccepted,
     MessageType::VersionRejected,
+    MessageType::ContestFinished,
   ]
 
   def query

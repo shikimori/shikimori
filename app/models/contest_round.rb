@@ -36,11 +36,10 @@ class ContestRound < ActiveRecord::Base
     end
 
     after_transition started: :finished do |round, transition|
-      NotificationsService.new(round).round_finished
-
       if round.next_round
         round.next_round.start!
         round.strategy.advance_members round.next_round, round
+        NotificationsService.new(round).round_finished
       else
         round.contest.finish!
       end

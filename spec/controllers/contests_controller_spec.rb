@@ -58,7 +58,7 @@ describe ContestsController do
         contest.start!
         contest.rounds.each do |round|
           contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
-          contest.process!
+          contest.progress!
           contest.reload
         end
 

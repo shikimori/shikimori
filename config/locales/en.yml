@@ -2,8 +2,9 @@ en:
   activerecord:
     models:
       anime: Anime
-      manga: Manga
       character: Character
+      contest: Contest
+      manga: Manga
       user: User
 
     attributes:

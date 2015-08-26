@@ -20,7 +20,7 @@ end;
 # заполнение контеста голосами пользователей
 ###########################
 Contest.last.current_round.matches.each {|match| (rand*200).to_i.times { match.votes.create(user_id: users.sample.id, item_id: (rand > 0.5 ? match.left_id : match.right_id), ip: users.sample.current_sign_in_ip) rescue nil } }
-Contest.last.process!
+Contest.last.progress!
 
 ###########################
 # сконвертить по быстрому первые пять скриноштов аниме

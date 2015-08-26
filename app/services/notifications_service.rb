@@ -24,14 +24,53 @@ class NotificationsService
   end
 
   def round_finished
-    comment = Comment.new(
+    create_comment Comment.new(
       user: target.contest.user,
       commentable: target.contest.thread,
-      body: "[contest_round=#{target.id}]"
+      body: "[contest_round_status=#{target.id}]"
     )
+  end
 
+  def contest_finished
+    voter_ids = target
+      .rounds
+      .joins(matches: :votes)
+      .select('distinct(user_id) as voter_id')
+      .except(:order)
+      .map(&:voter_id)
+
+    create_messages voter_ids,
+      kind: MessageType::ContestFinished,
+      from: target.user,
+      linked: target,
+      body: nil
+
+    create_comment Comment.new(
+      user: target.user,
+      commentable: target.thread,
+      body: "[contest_status=#{target.id}]"
+    )
+  end
+
+private
+
+  def create_comment comment
     Comment.wo_antispam do
-      FayeService.new(target.contest.user, nil).create comment
+      FayeService.new(comment.user, nil).create comment
     end
+  end
+
+  def create_messages user_ids, kind:, from:, linked:, body:
+    messages = user_ids.map do |user_id|
+      Message.new(
+        from: from,
+        to_id: user_id,
+        body: body,
+        kind: kind,
+        linked: linked,
+      )
+    end
+
+    messages.each_slice(1000) { |slice| Message.import slice }
   end
 end

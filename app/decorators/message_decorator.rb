@@ -51,6 +51,9 @@ class MessageDecorator < BaseDecorator
           )
         end
 
+      when MessageType::ContestFinished
+        BbCodeFormatter.instance.format_comment "[contest_status=#{linked_id}]"
+
       else
         h.get_message_body(object).html_safe
     end

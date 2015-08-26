@@ -23,6 +23,14 @@ FactoryGirl.define do
       state 'proposing'
     end
 
+    trait :started do
+      state 'started'
+    end
+
+    trait :finished do
+      state 'finished'
+    end
+
     after :build do |contest|
       contest.stub :generate_thread
       contest.stub :update_permalink

@@ -386,9 +386,15 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     end
 
     describe '[contest_round]' do
-      let(:text) { "[contest_round=#{round.id}]" }
+      let(:text) { "[contest_round_status=#{round.id}]" }
       let!(:round) { create :contest_round, number: 1, additional: false }
-      it { should include "Раунд ##{round.number}" }
+      it { should include round.title }
+    end
+
+    describe '[contest]' do
+      let(:text) { "[contest_status=#{contest.id}]" }
+      let!(:contest) { create :contest }
+      it { should include contest.name }
     end
 
     describe '[quote]' do

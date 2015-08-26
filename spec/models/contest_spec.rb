@@ -2,20 +2,20 @@ require 'cancan/matchers'
 
 describe Contest do
   describe 'relations' do
-    it { should belong_to :user }
-    it { should have_many :links }
-    it { should have_many :rounds }
-    it { should have_many :suggestions }
-    it { should have_one :thread }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :links }
+    it { is_expected.to have_many :rounds }
+    it { is_expected.to have_many :suggestions }
+    it { is_expected.to have_one :thread }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :title }
-    it { should validate_presence_of :user }
-    it { should validate_presence_of :strategy_type }
-    it { should validate_presence_of :member_type }
-    it { should validate_presence_of :started_on }
-    it { should validate_presence_of :user_vote_key }
+    it { is_expected.to validate_presence_of :title }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :strategy_type }
+    it { is_expected.to validate_presence_of :member_type }
+    it { is_expected.to validate_presence_of :started_on }
+    it { is_expected.to validate_presence_of :user_vote_key }
   end
 
   describe 'state machine' do
@@ -30,24 +30,25 @@ describe Contest do
 
     describe 'can_propose?' do
       subject { contest.can_propose? }
-      it { should be_truthy }
+      it { is_expected.to be_truthy }
     end
 
-    describe 'can_start?' do
+    describe '#can_start?' do
       subject { contest.can_start? }
+
       context 'normal count' do
         before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       context 'Contest::MINIMUM_MEMBERS' do
         before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
 
       context 'Contest::MAXIMUM_MEMBERS' do
         before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -101,23 +102,11 @@ describe Contest do
     end
 
     context 'after finished' do
-      [:can_vote_1, :can_vote_2, :can_vote_3].each do |user_vote_key|
-        describe user_vote_key do
-          before do
-            create :user, user_vote_key => true
-            create :user, user_vote_key => true
+      let(:contest) { create :contest, :started }
+      before { allow(FinalizeContest).to receive :perform_async }
+      before { contest.finish }
 
-            contest.update_attribute :user_vote_key, user_vote_key
-            contest.start!
-            allow(contest).to receive(:can_finish?).and_return true
-            contest.finish!
-            contest.reload
-          end
-
-          it { expect(User.all.none? {|v| v.can_vote?(contest) }).to be true }
-          it { expect(contest.finished_on).to eq Time.zone.today }
-        end
-      end
+      it { expect(FinalizeContest).to have_received(:perform_async).with contest.id }
     end
   end
 
@@ -150,26 +139,26 @@ describe Contest do
       it { expect(contest.suggestions).to eq [contest_suggestion_2] }
     end
 
-    describe '#process!' do
+    describe '#progress!' do
       let(:contest) { create :contest, :with_5_members }
       let(:round) { contest.current_round }
       before { contest.start! }
 
       it 'starts matches' do
         round.matches.last.state = 'created'
-        contest.process!
+        contest.progress!
         expect(round.matches.last.started?).to be_truthy
       end
 
       it 'finishes matches' do
         round.matches.last.finished_on = Time.zone.yesterday
-        contest.process!
+        contest.progress!
         expect(round.matches.last.finished?).to be_truthy
       end
 
       it 'finishes round' do
         round.matches.each {|v| v.finished_on = Time.zone.yesterday }
-        contest.process!
+        contest.progress!
         expect(round.finished?).to be_truthy
       end
 
@@ -177,7 +166,7 @@ describe Contest do
         before do
           @updated_at = contest.updated_at = DateTime.now - 1.day
           round.matches.each { |v| v.finished_on = Time.zone.yesterday }
-          contest.process!
+          contest.progress!
         end
 
         it { expect(contest.updated_at).not_to eq @updated_at }
@@ -186,7 +175,7 @@ describe Contest do
       context 'nothing was changed' do
         before do
           @updated_at = contest.updated_at = DateTime.now - 1.day
-          contest.process!
+          contest.progress!
         end
 
         it { expect(contest.updated_at).to eq @updated_at }
@@ -243,23 +232,23 @@ describe Contest do
 
       describe 'can_vote_1' do
         let(:vote_key) { 'can_vote_1' }
-        it { should eq 'can_vote_1' }
+        it { is_expected.to eq 'can_vote_1' }
       end
 
       describe 'can_vote_2' do
         let(:vote_key) { 'can_vote_2' }
-        it { should eq 'can_vote_2' }
+        it { is_expected.to eq 'can_vote_2' }
       end
 
       describe 'can_vote_3' do
         let(:vote_key) { 'can_vote_3' }
-        it { should eq 'can_vote_3' }
+        it { is_expected.to eq 'can_vote_3' }
       end
 
       describe 'wrong key' do
         let(:vote_key) { 'can_vote_2' }
         before { contest.user_vote_key = 'login' }
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
     end
 
@@ -268,12 +257,12 @@ describe Contest do
 
       context 'double_elimination' do
         let(:strategy_type) { :double_elimination }
-        its(:strategy) { should be_kind_of Contest::DoubleEliminationStrategy }
+        its(:strategy) { is_expected.to be_kind_of Contest::DoubleEliminationStrategy }
       end
 
       context 'play_off' do
         let(:strategy_type) { :play_off }
-        its(:strategy) { should be_kind_of Contest::PlayOffStrategy }
+        its(:strategy) { is_expected.to be_kind_of Contest::PlayOffStrategy }
       end
     end
 
@@ -283,12 +272,12 @@ describe Contest do
 
       context Anime do
         let(:member_type) { :anime }
-        it { should eq Anime }
+        it { is_expected.to eq Anime }
       end
 
       context Character do
         let(:member_type) { :character }
-        it { should eq Character }
+        it { is_expected.to eq Character }
       end
     end
   end
@@ -299,31 +288,31 @@ describe Contest do
 
       context 'nothing' do
         let!(:contest) { create :contest }
-        it { should eq [] }
+        it { is_expected.to eq [] }
       end
 
       context 'finished not so long ago' do
         let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 6.days }
-        it { should eq [contest.id] }
+        it { is_expected.to eq [contest.id] }
 
         context 'new one started' do
           let!(:contest2) { create :contest, state: 'started' }
-          it { should eq [contest.id, contest2.id] }
+          it { is_expected.to eq [contest.id, contest2.id] }
 
           context 'and one more started' do
             let!(:contest3) { create :contest, state: 'started' }
-            it { should eq [contest.id, contest2.id, contest3.id] }
+            it { is_expected.to eq [contest.id, contest2.id, contest3.id] }
           end
         end
       end
 
       context 'finished long ago' do
         let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 9.days }
-        it { should be_empty }
+        it { is_expected.to be_empty }
 
         context 'new one started' do
           let!(:contest) { contest = create :contest, state: 'started' }
-          it { should eq [contest.id] }
+          it { is_expected.to eq [contest.id] }
         end
       end
     end
@@ -334,19 +323,19 @@ describe Contest do
 
     context 'contests_moderator' do
       subject { Ability.new build_stubbed(:user, :contests_moderator) }
-      it { should be_able_to :manage, contest }
+      it { is_expected.to be_able_to :manage, contest }
     end
 
     context 'guest' do
       subject { Ability.new nil }
-      it { should be_able_to :see_contest, contest }
-      it { should_not be_able_to :manage, contest }
+      it { is_expected.to be_able_to :see_contest, contest }
+      it { is_expected.to_not be_able_to :manage, contest }
     end
 
     context 'user' do
       subject { Ability.new build_stubbed(:user, :user) }
-      it { should be_able_to :see_contest, contest }
-      it { should_not be_able_to :manage, contest }
+      it { is_expected.to be_able_to :see_contest, contest }
+      it { is_expected.to_not be_able_to :manage, contest }
     end
   end
 end

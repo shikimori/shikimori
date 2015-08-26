@@ -40,11 +40,30 @@ describe NotificationsService do
   describe '#round_finished' do
     let(:contest) { create :contest, :with_generated_thread }
     let(:round) { create :contest_round, contest: contest }
-
     let(:target) { round }
 
     before { service.round_finished }
 
     it { expect(contest.thread.comments).to have(1).item }
+  end
+
+  describe '#contest_finished' do
+    let(:contest) { create :contest, :with_generated_thread }
+    let!(:round) { create :contest_round, contest: contest }
+    let!(:match) { create :contest_match, round: round }
+    let!(:user_vote) { create :contest_user_vote, match: match, user: user_1, item_id: 1, ip: '1' }
+
+    let(:target) { contest }
+
+    let!(:user_1) { create :user }
+    let!(:user_2) { create :user }
+
+    before { service.contest_finished }
+
+    it do
+      expect(contest.thread.comments).to have(1).item
+      expect(user_1.messages).to have(1).item
+      expect(user_2.messages).to be_empty
+    end
   end
 end

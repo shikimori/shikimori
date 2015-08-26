@@ -33,6 +33,8 @@ class MessageType
   # уведомление о принятии/отказе правки
   VersionAccepted = 'VersionAccepted'
   VersionRejected = 'VersionRejected'
+  # уведомление о завершении опроса
+  ContestFinished = 'ContestFinished'
 
   RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
   ANIME_RELATED = [Anons, Ongoing, Released, Episode]
