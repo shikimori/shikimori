@@ -22,8 +22,9 @@ class User
     VideoModerators = (Admins + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 23616, 25082]).uniq
     # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
     # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア, 4792 - artemeliy, 19638 - milaha007, 10342 - gazig
-    # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge, 28601 - Ankalimon, 24518 - Tasogare_Seibei, 5019 - fen1kcs
-    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601, 24518, 5019]).uniq
+    # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge, 28601 - Ankalimon, 24518 - Tasogare_Seibei, 5019 - fen1kcs, 40713 - Sawansa,
+    # 16178 - Vika Filippova
+    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601, 24518, 5019, 40713, 16178]).uniq
 
     # администратор ли пользователь?
     def admin?
@@ -80,7 +81,7 @@ class User
       Translators.include? self.id
     end
 
-    # пользователь, за которым не проверяем залитое виде?
+    # пользователь, за которым не проверяем залитое видео?
     def trusted_video_uploader?
       TrustedVideoUploaders.include? self.id
     end
