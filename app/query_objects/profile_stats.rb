@@ -9,7 +9,7 @@ class ProfileStats
     @user = user
     @current_user = current_user
 
-    @stats = Rails.cache.fetch [:stats, :v7, @user] do
+    @stats = Rails.cache.fetch [:stats, @user.cache_key] do
       UserStatisticsQuery.new @user
     end
   end

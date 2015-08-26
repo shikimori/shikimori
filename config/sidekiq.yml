@@ -8,12 +8,12 @@ production:
   :concurrency: 12
 
 :queues:
+  - [high_priority, 3]
+  - [critical, 6]
   - default
   - cpu_intensive
   - slow_parsers
   - torrents_parsers
-  - high_priority
-  - [critical, 6]
   - anime_online_parsers
   - manga_online_parsers
 

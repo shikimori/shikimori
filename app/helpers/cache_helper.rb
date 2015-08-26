@@ -10,7 +10,7 @@ module CacheHelper
   end
 
   def russian_names_key
-    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_names? : false}"
+    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_names? : true}"
   end
 
   def russian_genres_key

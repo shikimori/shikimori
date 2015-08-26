@@ -1,17 +1,19 @@
-# TODO: выпилить ключ :time в хеше, он не актуален, т.к. всё кешируется
 class UserProfileHistoryDecorator < Draper::Decorator
   delegate_all
-
   LIMIT = 4
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, :v2, :formatted, object, h.russian_names_key, I18n.locale] do
+    @formatted ||= Rails.cache.fetch [:history, h.russian_names_key, object.cache_key] do
       grouped_history
-        .map {|group,entries| format_entries entries }
+        .map { |group,entries| format_entries entries }
         .compact
         .each do |entry|
-          entry[:reversed_action] = entry[:action].split(/(?<!\d[йяюо]), (?!\d)/).reverse.join(', ').gsub(/<.*?>/, '')
+          entry[:reversed_action] = entry[:action]
+            .split(/(?<!\d[йяюо]), (?!\d)/)
+            .reverse
+            .join(', ')
+            .gsub(/<.*?>/, '')
         end
     end
   end
@@ -21,6 +23,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
   end
 
 private
+
   # история
   def history
     @history ||= all_history
@@ -30,7 +33,7 @@ private
 
   def grouped_history
     history
-      .group_by {|v| "#{v.target_id || v.action[0]}_#{v.updated_at.strftime "%d-%m-%y"}" }
+      .group_by { |v| "#{v.target_id || v.action[0]}_#{v.updated_at.strftime "%d-%m-%y"}" }
       .take(LIMIT)
   end
 
@@ -47,6 +50,7 @@ private
         short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
+
     elsif [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport].include? entry.action
       {
         image: '/assets/blocks/history/mal.png',
@@ -57,6 +61,7 @@ private
         short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
+
     elsif [UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport].include? entry.action
       {
         image: '/assets/blocks/history/anime-planet.jpg',
@@ -67,8 +72,10 @@ private
         short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         special?: true
       }
+
     elsif entry.target.nil?
       nil
+
     else
       {
         image: ImageUrlGenerator.instance.url(entry.target, :x48),
