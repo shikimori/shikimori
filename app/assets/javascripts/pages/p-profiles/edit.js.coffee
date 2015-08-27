@@ -53,7 +53,7 @@
   if $('.edit-page.misc, .edit-page.list').exists()
     # восстановление залокированных рекомендаций
     # выбор варианта
-    $('.profile-action .controls .link').on 'click', ->
+    $('.profile-action .controls .b-js-link').on 'click', ->
       type = $(@).data 'type'
       $(@).closest('.controls')
         .hide()
@@ -79,7 +79,7 @@
 
     # nickname changes cleanup
     # выбор варианта
-    $('.nickname-changes .controls .link').on 'click', ->
+    $('.nickname-changes .controls .b-js-link').on 'click', ->
       $('.nickname-changes .controls').hide()
       $('.nickname-changes .form').show()
 
@@ -108,37 +108,35 @@
 
     # экспорт списка
     $("#export_phase .control").on "click", ->
-      $this = $(this)
+      $this = $(@)
       $.flash
         notice: "Начинается загрузка файла... Этот файл можно импортировать в MAL на странице http://myanimelist.net/import.php"
         removeTimer: 10000
 
       $("#shade").trigger "click"
-      _.delay (->
-        location.href = $this.data("target")
-      ), 250
+      (-> location.href = $this.data("target")).delay 250
 
       $("#export_phase .cancel").trigger 'click'
 
     # выбор откуда импортировать: myanimelist.net или anime-planet.com
     $("#import_phase_1 .control").on "click", ->
-      $("#import_service_name").html $(this).attr("title")
-      $("#to_final_step").data "final-step", $(this).data("final-step")
+      $("#import_service_name").html $(@).attr("title")
+      $("#to_final_step").data "final-step", $(@).data("final-step")
       $("#import_phase_1").hide()
       $("#import_phase_2").show()
 
 
     # выбор типа импорта: аниме или манга
     $("#import_phase_2 .control").on "click", ->
-      $("#import_form [name=klass]").val $(this).data("klass")
-      $("#import_anime_planet_status").html $(this).data("anime-planet-status")
+      $("#import_form [name=klass]").val $(@).data("klass")
+      $("#import_anime_planet_status").html $(@).data("anime-planet-status")
       $("#import_phase_2").hide()
       $("#import_phase_3").show()
 
 
     # выбор типа импорта: полный или частичный
     $("#import_phase_3 .control").on "click", ->
-      $("#import_form [name=rewrite]").val $(this).data("rewrite")
+      $("#import_form [name=rewrite]").val $(@).data("rewrite")
       $("#import_phase_3").hide()
       if $("#to_final_step").data("final-step").match(/xml/)
         $("#import_xml").show()
@@ -150,11 +148,11 @@
     # переход на завершающую стадию импорта после указания логина в системе
     $("#import_phase_4 #to_final_step").on "click", ->
       $("#import_form [name=login]").val $("#import_form #import_login").val()
-      if $(this).data("final-step").match(/mal/)
+      if $(@).data("final-step").match(/mal/)
         fetch_list()
       else
         $("#import_phase_4").hide()
-        $("#" + $(this).data("final-step")).show()
+        $("#" + $(@).data("final-step")).show()
 
 
     # попытка импорта напрямую, минуя yql
@@ -165,36 +163,31 @@
 
     # импорт XML списка
     $("#import_xml .submit").on "click", ->
-      $(this).parents("form").submit()
-      _.delay (->
+      $(@).closest("form").submit()
+      (->
         $.flash
           notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
           removeTimer: 300000
-
-      ), 250
+      ).delay 250
 
 
     # выбор типа импорта с anime-planet: полный или частичный
     $("#import_anime_planet .control").on "click", ->
-      $this = $(this)
+      $this = $(@)
       $("#import_form [name=wont_watch_strategy]").val $this.data("wont-watch-strategy")
       $.flash
         notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
         removeTimer: 300000
 
-      _.delay (->
-        $this.parents("form").submit()
-      ), 250
+      (-> $this.closest("form").submit()).delay 250
 
     $("#import_form .submit.import").on "click", ->
-      $this = $(this)
+      $this = $(@)
       $.flash
         notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
         removeTimer: 300000
 
-      _.delay (->
-        $this.parents("form").submit()
-      ), 250
+      (-> $this.closest("form").submit()).delay 250
 
     $("#import_phase_2 form").on "submit", ->
       $.cursorMessage()

@@ -1,0 +1,7 @@
+en:
+  db_entries:
+    fields:
+      genres:
+        up: move up
+        down: move down
+        remove: remove

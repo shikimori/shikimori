@@ -167,12 +167,18 @@
       +iphone_portrait
         margin-bottom: 10px
 
-    .unpreview.link, .cancel, .hide
-      +link
+    .unpreview, .cancel, .hide
       font-size: 13px
+      margin-left: 0
+
+    .unpreview
+      +link
+
+    .unpreview:not(.link), .cancel, .hide
+      +js-link
 
     .about-bb_codes
-      +link_js
+      +link
       float: right
       margin-top: 4px
       font-size: 11px
@@ -182,7 +188,7 @@
       display: none
 
     .unpreview
-      display: none
+      display: none!important
 
   &.previewed
     .editor-controls
@@ -201,7 +207,7 @@
 
     footer
       .unpreview
-        display: inline
+        display: inline-block !important
 
       .cancel, .button.preview
         display: none

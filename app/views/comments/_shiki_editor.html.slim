@@ -137,15 +137,15 @@ footer
     - if comment.persisted?
       = f.button :magic_submit
       .button.preview data-preview_url="#{preview_url}" = t '.preview'
-      .unpreview.link = t '.back_to_editing'
+      .unpreview = t '.back_to_editing'
       .cancel = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
-      .unpreview.link = t '.back_to_editing'
+      .unpreview = t '.back_to_editing'
       .button.preview data-preview_url="#{preview_url}" = t '.preview'
       .hide = t '.hide'
 
   - else
     .button.preview data-preview_url="#{preview_url}" = t '.preview'
-    .button.unpreview = t '.back_to_editing'
+    .unpreview = t '.back_to_editing'

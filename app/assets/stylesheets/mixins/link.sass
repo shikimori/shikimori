@@ -3,14 +3,14 @@
 
 /* цвет, становящийся ссылковым по наведению
 =link_color($color: $link)
-  +transition(color 0.2s ease)
+  //+transition(color 0.2s ease)
   color: $color
 
   &:hover
-    color: $link_hover
+    color: $link-hover
 
   &:active
-    color: $link_active
+    color: $link-active
 
 /* голубая ссылка без подчёркивания
 =link($color: $link)
@@ -19,6 +19,10 @@
 
   &:hover
     text-decoration: underline
+    border-bottom-color: $link-border-hover
+
+  &:active
+    border-bottom-color: $link-border-active
 
 /* голубая ссылка аяксового действия
 //=ajax_link
@@ -28,10 +32,10 @@
   cursor: pointer
 
   //&:hover
-    border-bottom-color: $link_hover
+    border-bottom-color: $link-3
 
   //&:actibe
-    border-bottom-color: $link_active
+    border-bottom-color: $link-2
 
 
 /* голубая ссылка с подчёркиванием
@@ -39,8 +43,16 @@
   +link
   text-decoration: underline
 
-=link_js
+=js-link
   +link
-  border-bottom: 1px dotted $link_hover_light
+  border-bottom: 1px dotted $link-border
+  display: inline-block
+  line-height: 1
+
   &:hover
     text-decoration: none !important
+    border-bottom-color: $link-border-hover
+
+  &:active
+    text-decoration: none !important
+    border-bottom-color: $link-border-active

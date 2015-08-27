@@ -1,21 +1,20 @@
 .mischeadline = t '.list_import_export'
 #import_form
   #import-export
-    p
-      p#to_import.control data-next-step="import_phase_1"
-        span.link = t '.import_list'
-      p#to_export.control data-next-step="export_phase"
-        span.link = t '.export_list'
+    #to_import.control data-next-step="import_phase_1"
+      .b-js-link = t '.import_list'
+    #to_export.control data-next-step="export_phase"
+      .b-js-link = t '.export_list'
 
   #export_phase
     p = t '.what_to_export'
     p
       span#anime.control data-target="#{export_profile_user_rates_url @resource, :anime}"
-        span.link = i18n_i 'Anime', 1, :accusative
+        span.b-js-link = i18n_i 'Anime', 1, :accusative
       span#manga.control data-target="#{export_profile_user_rates_url @resource, :manga}"
-        span.link = i18n_i 'Manga', 1, :accusative
+        span.b-js-link = i18n_i 'Manga', 1, :accusative
       span.cancel
-        span.link = t 'actions.cancel'
+        span.b-js-link = t 'actions.cancel'
 
   #import_phase_1
     p = t '.what_to_import'
@@ -23,11 +22,11 @@
       /span#myanimelist.control data-final-step="import_mal" title="myanimelist.net"
         span.link MyAnimeList
       span#xml.control data-final-step="import_xml"
-        span.link MyAnimeList-XML
+        span.b-js-link MyAnimeList-XML
       span#anime_planet.control data-final-step="import_anime_planet" title="anime-planet.com"
-        span.link AnimePlanet
+        span.b-js-link AnimePlanet
       span.cancel
-        span.link = t 'actions.cancel'
+        span.b-js-link = t 'actions.cancel'
     /img src="/images/import/myanimelist.gif" id="myanimelist" alt="myanimelist.net" title="myanimelist.net" data-final-step="import_mal"
     /img src="/images/import/anime-planet.png" id="anime_planet" alt="anime-planet.com" title="anime-planet.com" data-final-step="import_anime_planet"
 
@@ -35,21 +34,21 @@
     p = t '.what_to_import'
     p
       span#anime.control data-klass="anime" data-anime-planet-status="Watch"
-        span.link = i18n_i 'Anime', 1, :accusative
+        span.b-js-link = i18n_i 'Anime', 1, :accusative
       span#manga.control data-klass="manga" data-anime-planet-status="Read"
-        span.link = i18n_i 'Manga', 1, :accusative
+        span.b-js-link = i18n_i 'Manga', 1, :accusative
       span.cancel
-        span.link = t 'actions.cancel'
+        span.b-js-link = t 'actions.cancel'
 
   #import_phase_3
     p = t '.replace_existing_records', domain: Site::DOMAIN
     p
       span#partial_import.control data-rewrite="0"
-        span.link = t '.no_import_new_records'
+        span.b-js-link = t '.no_import_new_records'
       span#full_import.control data-rewrite="1"
-        span.link = t '.yes_full_import'
+        span.b-js-link = t '.yes_full_import'
       span.cancel
-        span.link = t 'actions.cancel'
+        span.b-js-link = t 'actions.cancel'
 
   #import_phase_4
     p.m5
@@ -60,11 +59,11 @@
       = text_field_tag 'import[login]', @resource.nickname, class: :common
     p.form-buttons
       span#to_final_step.control.submit
-        span.link = t '.import'
+        span.b-js-link = t '.import'
       span#direct_mal.control
-        span.link = t '.try_something_else'
+        span.b-js-link = t '.try_something_else'
       span.cancel.control
-        span.link = t 'actions.cancel'
+        span.b-js-link = t 'actions.cancel'
 
   #import_xml
     = form_tag import_profile_user_rates_url(@resource.object), multipart: true do
@@ -79,9 +78,9 @@
         = file_field_tag :file, class: :common
       p.form-buttons
         span#to_final_step.control.submit
-          span.link = t '.import'
+          span.b-js-link = t '.import'
         span class="cancel control"
-          span.link = t 'actions.cancel'
+          span.b-js-link = t 'actions.cancel'
 
   #import_mal
     = form_tag import_profile_user_rates_url(@resource.object) do
@@ -96,9 +95,9 @@
       = hidden_field_tag :list_type, :mal
       p.form-buttons
         span.import.submit.control
-          span.link = t '.import'
+          span.b-js-link = t '.import'
         span.cancel.control
-          span.link = t 'actions.cancel'
+          span.b-js-link = t 'actions.cancel'
 
   #import_anime_planet
     = form_tag import_profile_user_rates_url(@resource.object) do
@@ -115,6 +114,6 @@
         | (#{t '.there_is_no_such_status_on_shikimori'})?
       p.form-buttons
         span#nil.control data-wont-watch-strategy=""
-          span.link = t '.do_not_import'
+          span.b-js-link = t '.do_not_import'
         span#dropped.control data-wont-watch-strategy="dropped"
-          span.link = t '.import_as_dropped'
+          span.b-js-link = t '.import_as_dropped'

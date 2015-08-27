@@ -71,15 +71,15 @@
           - if ru_content?
             li
               a href="#{resource.mal_url}"
-                - if @klass != Manga && average_score(resource.mal_scores).to_f > 0
-                  span.right = average_score(resource.mal_scores)
+                /- if @klass != Manga && average_score(resource.mal_scores).to_f > 0
+                  /span.right = average_score(resource.mal_scores)
                 img.site-icon src="/images/favicons/myanimelist.ico" title="MyAnimeList"
                 | MyAnimeList
 
           - if resource.respond_to?(:ani_db_id) && resource.ani_db_id != 0
             li
               a href="#{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=#{resource.ani_db_id}"}"
-                - if average_score(resource.ani_db_scores).to_f > 0
+                /- if average_score(resource.ani_db_scores).to_f > 0
                   span.right = average_score(resource.ani_db_scores)
                 img.site-icon src="/images/favicons/anidb.ico" title="AniDb"
                 | AniDb
@@ -87,7 +87,7 @@
           - if resource.respond_to?(:world_art_id) && resource.world_art_id != 0
             li
               a href="#{"http://www.world-art.ru/animation/animation.php?id=#{resource.world_art_id}"}"
-                - if average_score(resource.world_art_scores).to_f > 0
+                /- if average_score(resource.world_art_scores).to_f > 0
                   span.right = average_score(resource.world_art_scores)
                 img.site-icon src="/images/favicons/world-art.ico" title="WorldArt"
                 | WorldArt

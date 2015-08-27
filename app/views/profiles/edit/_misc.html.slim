@@ -12,8 +12,8 @@
 .profile-action.block
   .mischeadline = t '.anime_manga_recommendations'
   .controls
-    p.link data-type='anime' = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
-    p.link data-type='manga' = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
+    div: .b-js-link data-type='anime' = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
+    div: .b-js-link data-type='manga' = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
 
   .form.anime
     p
@@ -26,7 +26,7 @@
       data-type='json'
       data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
   .form.manga
     p
@@ -39,11 +39,11 @@
       data-type='json'
       data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
 .nickname-changes
   .controls
-    p.link = t '.clear_history_of_nickname_changes'
+    div: .b-js-link = t '.clear_history_of_nickname_changes'
 
   .form
     p
@@ -56,4 +56,4 @@
       data-type='json'
       data-confirm="#{t '.sure_to_clear_history_of_nickname_changes'}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'

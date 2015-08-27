@@ -1,0 +1,39 @@
+.cc-genres
+  .c-current_genres
+    .m5: b Привязанные жанры
+    .cc-1
+      - @resource.genres.each do |genre|
+        .c-column.genre id="#{genre.id}"
+          .name = localized_name genre
+          .b-js-actions
+            .b-js-link.up = t '.up'
+            .b-js-link.down = t '.down'
+            .b-js-link.remove = t '.remove'
+
+  .c-all_genres
+    .m5: b Все жанры
+    .cc-3
+      - Genre.where(kind: @resource.object.class.name.downcase).sort_by { |v| localized_name v }.each do |genre|
+        - next if @resource.genres.include? genre
+        .c-column.genre id="#{genre.id}"
+          .name = localized_name genre
+          .b-js-actions
+            .b-js-link.up = t '.up'
+            .b-js-link.down = t '.down'
+            .b-js-link.remove = t '.remove'
+
+  /= simple_form_for [@resource, Video.new] do |f|
+    /.block
+      /= f.input :url, hint: Video::SAVEABLE_HOSTINGS.join(', ')
+      /= f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
+      /= f.input :name
+
+    /.buttons
+      /a.cancel href="#{resource.url}" = t 'actions.cancel'
+      /= f.button :magic_submit
+
+/- if @resource.videos.any?# || @resource.versions[:videos].any?
+  /.block.videos-deleter
+    /.subheadline.m10 Изменение видео роликов
+    /.cc
+      /= render @resource.videos, edition: true

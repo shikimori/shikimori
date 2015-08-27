@@ -16,19 +16,29 @@ $text_margin: 0px
 
   &:hover
     .expand
-      +opacity(1)
+      //+opacity(1)
       &:after
         content: '↓'
 
   .expand
     +link_color
-    +opacity(0.4)
+    //+opacity(0.4)
     +transition(none)
     cursor: pointer
     font-size: 11px
-    line-height: 1
+    line-height: 1.3
     margin-top: $text_margin
     text-align: center
+
+    span
+      border-bottom: 1px dotted $link-border
+      display: inline-block
+
+    &:hover span
+      border-bottom-color: $link-border-hover
+
+    &:active span
+      border-bottom-color: $link-border-active
 
     &:after
       content: '↑'

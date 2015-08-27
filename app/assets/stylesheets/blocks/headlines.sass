@@ -36,10 +36,10 @@ header.head
         width: 35px
 
       &:hover:after
-        border-bottom: 1px solid $link_hover
+        border-bottom: 1px solid $link-3
 
   .misc, a.edit
-    color: $gray-color
+    color: $gray-2
     display: inline-block
     font-family: $font-family
     font-size: 11px
@@ -89,23 +89,23 @@ header.head
 
     &:before
       +transition(color, 0.2s)
-      color: $gray-color
+      color: $gray-2
       content: "\e81c"
       font-family: "shikimori"
       position: absolute
       right: 10px
 
     &:hover
-      color: $link_hover
+      color: $link-3
 
       &:before
-        color: $link_hover
+        color: $link-3
 
     &:active
-      color: $link_active
+      color: $link-2
 
       &:before
-        color: $link_active
+        color: $link-2
 
 .midheadline
   @extend .headline

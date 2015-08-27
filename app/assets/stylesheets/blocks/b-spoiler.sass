@@ -8,9 +8,10 @@ $border_color: #ffb3b3
 
   label
     +link_color
-    //+link_color($link_hover_light)
+    //+link_color($link-4)
     cursor: pointer
-    border-bottom: 1px dashed $link
+    border-bottom-style: dashed
+    border-bottom-width: 1px
     font-size: 12px
     letter-spacing: 0.5px
 
@@ -28,8 +29,12 @@ $border_color: #ffb3b3
       .inner-prgrph
         cursor: pointer
 
+    &:hover
+      .before, .after
+        color: $link-3
+
     .before, .after
-      color: $link_hover_light
+      color: $link-4
       cursor: pointer
       display: inline
       font-size: 10px

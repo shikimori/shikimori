@@ -13,9 +13,9 @@
             .css(height: collapsed_height)
 
           html = if without_shade
-            '<div class="b-height_shortener" style="margin-bottom: '+margin_bottom+'px"><div class="expand">развернуть</div></div>'
+            '<div class="b-height_shortener" style="margin-bottom: '+margin_bottom+'px"><div class="expand"><span>развернуть</span></div></div>'
           else
-            '<div class="b-height_shortener" style="margin-bottom: '+margin_bottom+'px"><div class="shade"></div><div class="expand">развернуть...</div></div>'
+            '<div class="b-height_shortener" style="margin-bottom: '+margin_bottom+'px"><div class="shade"></div><div class="expand"><span>развернуть...</span></div></div>'
 
           $(html)
             .insertAfter($root)

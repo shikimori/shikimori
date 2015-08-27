@@ -4,7 +4,7 @@
 @import mixins/responsive
 
 .b-options-floated
-  color: #acb1b4
+  //color: #acb1b4
   font-size: 11px
   line-height: 12px
   margin-top: 6px
@@ -15,11 +15,11 @@
     line-height: $line_height
 
   // страница персонажа - переключение типов
-  a,.link
+  a, .link
     //+link_color(#acb1b4)
     +link
     +dash_separated
-    color: inherit
+    //color: inherit
     cursor: pointer
     display: inline
 
@@ -33,7 +33,7 @@
   // список пользователя
   .action
     //+link_color(#123)
-    +link
+    +js-link
     +transition(color, 0.2s)
     cursor: pointer
 
@@ -42,8 +42,8 @@
 
     &:hover
       color: #123
-      cursor: default
-      text-decoration: none
+      //cursor: default
+      //text-decoration: none
 
     &.always-active
       +link_color(#123)
@@ -72,7 +72,7 @@
 
   // страница контестов - options-floated, отображающий количество участников
   &.count
-    color: $gray-color-2
+    color: $gray-3
 
   // страница db_entry - кнопки действия
   &.c-actions

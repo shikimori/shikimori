@@ -1,0 +1,7 @@
+ru:
+  db_entries:
+    fields:
+      genres:
+        up: вверх
+        down: вниз
+        remove: удалить

@@ -2,20 +2,18 @@
   a.bubbled href="#{url_for suggestion.item}"
     = localized_name suggestion.item
 
-  - if suggestion.respond_to? :votes
-    span.b-bracket-details.show.ajaxable data-href="#{contest_contest_suggestion_url contest, suggestion}"
-      = suggestion.votes
-      span
-        = Russian.p suggestion.votes, 'голос', 'голоса', 'голосов'
-    span.b-bracket-details.hide скрыть
+  span.b-bracket-details.show.ajaxable data-href="#{contest_contest_suggestion_url contest, suggestion}"
+    = suggestion.votes
+    span
+      = Russian.p suggestion.votes, 'голос', 'голоса', 'голосов'
+  span.b-bracket-details.hide скрыть
 
-    - unless contest.members.include? suggestion.item
-      span.b-bracket-actions.hidden
-        span.take data-id="#{suggestion.item.id}" data-text="#{suggestion.item.name}" взять
+  - unless contest.members.include? suggestion.item
+    span.b-js-actions
+      span.b-js-link.take[
+        data-id="#{suggestion.item.id}"
+        data-text="#{suggestion.item.name}"
+      ] взять
 
-    .voters-container
-      .ajax-loading.vk-like.left title="#{t 'loading'}"
-
-  - else
-    span.b-bracket-actions
-      span.delete data-method="delete" data-action="#{contest_contest_suggestion_url contest, suggestion}" удалить
+  .voters-container
+    .ajax-loading.vk-like.left title="#{t 'loading'}"

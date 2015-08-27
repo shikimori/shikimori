@@ -32,7 +32,7 @@
     .b-input.string.optional
       label.string.optional.control-label for="topic_linked"
         = t 'activerecord.attributes.topic.linked'
-        .cleanup очистить
+        .b-js-action.cleanup очистить
       input.string.optional#topic_linked[
         type="text"
         data-anime-placeholder="Название аниме"
@@ -49,7 +49,7 @@
         a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
     .topic-link
       - if topic.linked.present?
-        a.bubbled href="#{url_for topic.linked}" title="#{topic.linked.name}"
+        a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
           = topic.linked.name
 
   .topic_posters

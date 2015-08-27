@@ -37,14 +37,14 @@
           .subheadline Действия
           .contest_actions
             - if contest.object.can_propose?
-              a.action href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
+              .m3: a.b-js-link href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
 
             - if contest.can_stop_propose?
-              a.action href="#{cleanup_suggestions_contest_url contest}" data-method="post" Очистить голоса пользователей от накруток
-              a.action href="#{stop_propose_contest_url contest}" data-method="post" Остановить приём кандидатов от пользователей
+              .m3: a.b-js-link href="#{cleanup_suggestions_contest_url contest}" data-method="post" Очистить голоса пользователей от накруток
+              .m3: a.b-js-link href="#{stop_propose_contest_url contest}" data-method="post" Остановить приём кандидатов от пользователей
 
             - if contest.can_start?
-              a.action href="#{build_contest_url contest}"  data-method="post"
+              .m3: a.b-js-link href="#{build_contest_url contest}"  data-method="post"
                 - if contest.rounds.empty?
                   | Сгенерировать голосования
                 - else

@@ -11,8 +11,8 @@
 .profile-action
   .mischeadline = t '.my_list_scores'
   .controls
-    p.link data-type='anime' = t '.reset_scores', kind: i18n_i(:anime, 1, :genitive)
-    p.link data-type='manga' = t '.reset_scores', kind: i18n_i(:manga, 1, :genitive)
+    div: .b-js-link data-type='anime' = t '.reset_scores', kind: i18n_i(:anime, 1, :genitive)
+    div: .b-js-link data-type='manga' = t '.reset_scores', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
@@ -29,7 +29,7 @@
       data-type='json'
       data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
   .form.manga
     p
@@ -46,13 +46,13 @@
       data-type='json'
       data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
 .profile-action
   .mischeadline = t '.my_list_history'
   .controls
-    p.link data-type='anime' = t '.remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
-    p.link data-type='manga' = t '.remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
+    div: .b-js-link data-type='anime' = t '.remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
+    div: .b-js-link data-type='manga' = t '.remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
@@ -65,7 +65,7 @@
       data-type='json'
       data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
   .form.manga
     p
@@ -78,13 +78,13 @@
       data-type='json'
       data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
 .profile-action
   .mischeadline = t '.my_list_contents'
   .controls
-    p.link data-type='anime' = t '.clear_list_completely', kind: i18n_i(:anime, 1, :genitive)
-    p.link data-type='manga' = t '.clear_list_completely', kind: i18n_i(:manga, 1, :genitive)
+    div: .b-js-link data-type='anime' = t '.clear_list_completely', kind: i18n_i(:anime, 1, :genitive)
+    div: .b-js-link data-type='manga' = t '.clear_list_completely', kind: i18n_i(:manga, 1, :genitive)
 
   .form.anime
     p
@@ -100,7 +100,7 @@
       data-type='json'
       data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'
 
   .form.manga
     p
@@ -116,4 +116,4 @@
       data-type='json'
       data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
     ] = t 'yes_i_confirm'
-    span.link.cancel = t 'actions.cancel'
+    span.b-js-link.cancel = t 'actions.cancel'

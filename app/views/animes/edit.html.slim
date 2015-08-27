@@ -94,8 +94,8 @@
         - if can? :significant_change, Version
           li
             .field = @resource.class.human_attribute_name :genres
-            .value.under_development = t('under_development').downcase
-            /a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
+            /.value.under_development = t('under_development').downcase
+            a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
 
         - if user_signed_in? && current_user.admin? && @resource.anime?
           li

@@ -500,7 +500,7 @@ Site::Application.routes.draw do
     end
 
     resources :animes, only: [:edit, :update] do
-      concerns :db_entry, fields: /description|russian|name|kind|episodes|rating|screenshots|videos|torrents_name|tags|aired_on|released_on/
+      concerns :db_entry, fields: /description|russian|name|kind|episodes|rating|screenshots|videos|torrents_name|tags|aired_on|released_on|genres/
 
       post 'torrent' => 'torrents#create', on: :member
 
@@ -511,7 +511,7 @@ Site::Application.routes.draw do
     end
 
     resources :mangas, only: [:edit, :update] do
-      concerns :db_entry, fields: /name|russian|description|kind|rating|tags|volumes|chapters|aired_on|released_on|status/
+      concerns :db_entry, fields: /name|russian|description|kind|rating|tags|volumes|chapters|aired_on|released_on|status|genres/
     end
 
     resources :characters, only: [:show, :edit, :update] do

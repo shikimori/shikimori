@@ -57,7 +57,7 @@
 
   .delete, .confirm, .cancel, .move-left, .move-right, .mobile-edit//, .restore
     +transition(background 0.25s ease)
-    background: $link_hover
+    background: $link-3
     color: white
     cursor: pointer
     display: inline-block
@@ -66,10 +66,10 @@
     z-index: 999
 
     &:hover
-      background-color: $link_hover_light
+      background-color: $link-4
 
     &:active
-      background-color: $link_active
+      background-color: $link-2
 
   .delete
     +icon('\e813', 12px)

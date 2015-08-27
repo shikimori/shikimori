@@ -43,3 +43,37 @@
         $('.b-gallery').shiki().refresh()
 
     $('.b-gallery').imageboard()
+
+  if $('.edit-page.genres').exists()
+    $current_genres = $('.c-current_genres').children().last()
+    $all_genres = $('.c-all_genres').children().last()
+
+    $current_genres.on 'click', '.remove', ->
+      $(@).closest('.genre')
+        .detach()
+        .appendTo($all_genres)
+        .yellowFade()
+
+    $current_genres.on 'click', '.up', ->
+      $genre = $(@).closest('.genre')
+      $prior = $genre.prev()
+
+      $genre
+        .detach()
+        .insertBefore($prior)
+        .yellowFade()
+
+    $current_genres.on 'click', '.down', ->
+      $genre = $(@).closest('.genre')
+      $next = $genre.next()
+
+      $genre
+        .detach()
+        .insertAfter($next)
+        .yellowFade()
+
+    $all_genres.on 'click', '.name', ->
+      $(@).closest('.genre')
+        .detach()
+        .appendTo($current_genres)
+        .yellowFade()

@@ -18,11 +18,11 @@
       url: mangas_club_url(resource),
       name: i18n_i('manga')
 
-  - if resource.animes.any?
+  - if resource.characters.any?
     = render 'clubs/menu_linked_entries',
       collection: resource.characters,
       url: characters_club_url(resource),
-      name: i18n_i('character'),
+      name: i18n_i('character', :other),
       ratio_type: 'person'
 
   - if resource.members.any?
