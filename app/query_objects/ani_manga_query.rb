@@ -437,7 +437,7 @@ private
         '(case when popularity=0 then 999999 else popularity end)'
 
       when 'ranked'
-        '(case when ranked=0 then 999999 else ranked end)'
+        '(case when ranked=0 then 999999 else ranked end), score desc'
 
       # TODO: удалить released_at и released после 01.05.2014
       when 'released_on', 'released_at', 'released'
