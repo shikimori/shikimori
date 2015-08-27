@@ -47,7 +47,13 @@
       color: $link
 
     .trigger-arrow
-      +link_color($gray-2)
+      color: $gray-2
+
+      &:hover
+        color: $link-3
+
+      &:active
+        color: $link-2
 
     .edit
       +menu_icon('\e824')
