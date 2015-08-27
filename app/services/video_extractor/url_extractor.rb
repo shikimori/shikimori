@@ -40,7 +40,7 @@ private
       #$1
     #elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
       #$1
-    elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(?<hash>#{CONTENT})}
+    elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
       "http://myvi.tv/embed/html/#{$~[:hash]}"
     elsif html =~ %r{(#{HTTP}api.video.mail.ru/videos#{CONTENT})}
       $1

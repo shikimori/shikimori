@@ -86,6 +86,11 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://myvi.tv/embed/html/o2uWMvJRKqAyXG2EJUGGwUUKZwjleODmTYy0zGlks1-J5IO6Aexc_mKSgpudtZ7Zn0' }
     end
 
+    describe 'myvi_7' do
+      let(:html) { 'http://myvi.ru/player/embed/html/preloader.swf?id=ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
+      it { should eq 'http://myvi.tv/embed/html/ooS23CgoxYNdHcm9FqwDb664Lbqhd1v7gyl7jDKc3O1xQ3-g0VOYjzoru3F35w6Ia0' }
+    end
+
     describe 'mail_ru_1' do
       let(:html) { "<iframe src=\"http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
       it { should eq 'http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
