@@ -60,6 +60,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
 private
+
   def cache_key
     Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"
   end

@@ -313,7 +313,10 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        a href="#{feed_profile_url @resource}" title="#{t 'profiles_controller.feed'}"
+        - if @resource.preview_thread.comments.any?
+          a href="#{feed_profile_url @resource}" title="#{t 'profiles_controller.feed'}"
+            = t 'profiles_controller.feed'
+        - else
           = t 'profiles_controller.feed'
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
