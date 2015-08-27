@@ -14,8 +14,10 @@
     .m5: b Все жанры
     .cc-3
       - Genre.where(kind: @resource.object.class.name.downcase).sort_by { |v| localized_name v }.each do |genre|
-        - next if @resource.genres.include? genre
-        .c-column.genre id="#{genre.id}"
+        .c-column.genre[
+          id="#{genre.id}"
+          class="#{:included if @resource.genres.include? genre}"
+        ]
           .name = localized_name genre
           .b-js-actions
             .b-js-link.up = t '.up'

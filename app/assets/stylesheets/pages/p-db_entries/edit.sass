@@ -1,59 +1,26 @@
-@import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
 @import globals/variables
-@import mixins/column
 @import mixins/link
 
-.p-db_entries-edit_field
-  p.warning
-    color: $red
-    margin-bottom: $block_offset / 2
+.p-db_entries-edit
+  .b-list
+    .field
+      display: inline-block
+      color: $gray-3
 
-  .screenshots-uploader
-    .cc
-      min-height: 19px
+      &:after
+        content: ':'
 
-      .move-controls
-        display: none !important
+    .value
+      display: inline-block
+      margin-left: 5px
 
-  .screenshots-positioner
-    +clearfix
+      &.under_development
+        font-size: 11px
 
-    .cc
-      clear: right
-      margin-bottom: 20px
-
-  .cc-genres
-    &>.c-current_genres
-      +column(2)
-
-    &>.c-all_genres
-      +column(2)
-
-      .genre .name
-        +js-link
-
-      .b-js-actions
-        display: none
-
-    .genre
-      margin-bottom: 3px
-
-      &:first-child .up
-        display: none
-
-      &:last-child .down
-        display: none
-
-      .name
-        line-height: 1.3
-        display: inline-block
-
-  //.all-genres
-    //.c-column
-      //line-height: $line-height
-
-      //.genre
-        //+js-link
-        //display: inline-block
-        //line-height: 1.3
+    .edit
+      +link
+      display: inline-block
+      font-size: 11px
+      margin-left: 5px
+      text-transform: lowercase
