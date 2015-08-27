@@ -1,7 +1,8 @@
 = cache version.cache_key, expires_in: 2.weeks do
   .b-log_entry.unprocessed
     span.id-label #
-    span = version.id
+    span
+      a href="#{moderation_version_url version}" = version.id
     span.date
       = version.created_at.strftime('%d.%m.%Y')
 
