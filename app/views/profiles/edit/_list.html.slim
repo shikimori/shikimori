@@ -22,7 +22,7 @@
             kind_genitive: i18n_i(:anime, 1, :genitive),
             kind_subjective: i18n_i(:anime, 1, :subjective),
             gender: 'neuter'
-    a.control[
+    a.b-js-link.control[
       href="#{reset_api_user_rates_url :anime}"
       data-method='delete'
       data-remote='true'
@@ -39,7 +39,7 @@
             kind_genitive: i18n_i(:manga, 1, :genitive),
             kind_subjective: i18n_i(:manga, 1, :subjective),
             gender: 'female'
-    a.control[
+    a.b-js-link.control[
       href="#{reset_api_user_rates_url :manga}"
       data-method='delete'
       data-remote='true'
@@ -58,7 +58,7 @@
     p
       span.warn = t 'this_action_cant_be_undone'
       span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
-    a.control[
+    a.b-js-link.control[
       href="#{reset_profile_user_history_index_url @resource, :anime}"
       data-method='delete'
       data-remote='true'
@@ -71,7 +71,7 @@
     p
       span.warn = t 'this_action_cant_be_undone'
       span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
-    a.control[
+    a.b-js-link.control[
       href="#{reset_profile_user_history_index_url @resource, :manga}"
       data-method='delete'
       data-remote='true'
@@ -93,7 +93,7 @@
         = t '.confirm_to_clear_list_completely',
             kind_genitive: i18n_i(:anime, 1, :genitive),
             kind_dative: i18n_i(:anime, 1, :dative)
-    a.control[
+    a.b-js-link.control[
       href="#{cleanup_api_user_rates_url :anime}"
       data-method='delete'
       data-remote='true'
@@ -109,7 +109,7 @@
         = t '.confirm_to_clear_list_completely',
             kind_genitive: i18n_i(:manga, 1, :genitive),
             kind_dative: i18n_i(:manga, 1, :dative)
-    a.control[
+    a.b-js-link.control[
       href="#{cleanup_api_user_rates_url :manga}"
       data-method='delete'
       data-remote='true'

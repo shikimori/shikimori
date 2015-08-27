@@ -87,10 +87,12 @@ $default-image-active-background: #adadad
 =link-color($color)
   +transition(color, 0.2s)
   color: $color
+
   &:hover
-    color: $link-3
+    color: $link-hover
+
   &:active
-    color: $link-2
+    color: $link-active
 
 =link_color_hover_underlined($color)
   +link-color($color)

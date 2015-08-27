@@ -31,12 +31,13 @@ header.head
         content: attr(data-text)
         font-size: 9px
         position: absolute
-        text-align: center
-        top: -9px
-        width: 35px
+        //text-align: center
+        //top: -9px
+        //width: 35px
+        margin: -9px 0 0 4px
 
       &:hover:after
-        border-bottom: 1px solid $link-3
+        border-bottom: 1px solid $link-border-hover
 
   .misc, a.edit
     color: $gray-2
@@ -81,14 +82,15 @@ header.head
 
   &>a
     +ellipsis
-    +transition(color, 0.2s)
-    color: #123
+    //+transition(color, 0.2s)
+    +link
+    //color: #123
     display: block
     text-decoration: none
     padding-right: 20px
 
     &:before
-      +transition(color, 0.2s)
+      //+transition(color, 0.2s)
       color: $gray-2
       content: "\e81c"
       font-family: "shikimori"
@@ -96,16 +98,16 @@ header.head
       right: 10px
 
     &:hover
-      color: $link-3
+      //color: $link-hover
 
       &:before
-        color: $link-3
+        color: $link-hover
 
     &:active
-      color: $link-2
+      //color: $link-active
 
       &:before
-        color: $link-2
+        color: $link-active
 
 .midheadline
   @extend .headline

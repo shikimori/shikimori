@@ -19,7 +19,7 @@
     p
       span.warn = t 'this_action_cant_be_undone'
       span = t '.confirm_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)
-    a.control[
+    a.b-js-link.control[
       href="#{cleanup_recommendation_ignores_path target_type: :anime}"
       data-method='delete'
       data-remote='true'
@@ -32,7 +32,7 @@
     p
       span.warn = t 'this_action_cant_be_undone'
       span = t '.confirm_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)
-    a.control[
+    a.b-js-link.control[
       href="#{cleanup_recommendation_ignores_path target_type: :manga}"
       data-method='delete'
       data-remote='true'
@@ -49,7 +49,7 @@
     p
       span.warn = t 'this_action_cant_be_undone'
       span = t '.confirm_to_clear_history_of_nickname_changes'
-    a.control[
+    a.b-js-link.control[
       href="#{cleanup_api_nickname_changes_url}"
       data-method='delete'
       data-remote='true'

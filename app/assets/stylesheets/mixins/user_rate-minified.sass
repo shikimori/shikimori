@@ -18,5 +18,17 @@
         font-size: 13px
         width: 20px !important
 
+      &:hover
+        .plus::before, .edit::before, .trigger-arrow::before
+          color: $link-3
+
+      &:active
+        .plus::before, .edit::before, .trigger-arrow::before
+          color: $link-2
+
+      //.plus::before, .edit::before, .trigger-arrow::before
+        //font-size: 13px
+        //width: 20px !important
+
   .rate-edit, .rate-show
     display: none
