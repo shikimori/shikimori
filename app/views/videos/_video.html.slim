@@ -1,5 +1,5 @@
 a.c-video.b-video.unprocessed[
-    class="#{video.hosting} #{"entry-#{video_counter+1}" if local_assigns[:video_counter]} #{:fixed if !local_assigns[:video_counter]}"
+    class="#{video.hosting} #{"entry-#{video_counter+1}" if defined? video_counter} #{:fixed unless defined? video_counter}"
     href="#{video.url}"
     data-href="#{video.player_url}"
   ]
@@ -14,7 +14,7 @@ a.c-video.b-video.unprocessed[
   - if video.name.present?
     span.name title="#{video.name}" = video.name
   span.marker
-    - if local_assigns[:video_counter] || local_assigns[:show_kind]
+    - if defined?(video_counter) || defined?(show_kind)
       = video.kind
     - else
       = video.hosting
