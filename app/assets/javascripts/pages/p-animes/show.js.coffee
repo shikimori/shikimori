@@ -8,6 +8,7 @@
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()
+    $('.b-show_more').show_more()
 
   # клик по загрузке других названий
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->

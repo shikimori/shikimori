@@ -72,7 +72,10 @@
     - if @resource.videos(5).any?
       .c-videos
         .subheadline.m10
-          span.linkeable data-href="#{@resource.videos_url}" = t '.videos'
+          - if user_signed_in?
+            span.linkeable data-href="#{@resource.videos_url}" = t '.videos'
+          - else
+            = t '.videos'
         .cc
           = render @resource.videos(5)
 

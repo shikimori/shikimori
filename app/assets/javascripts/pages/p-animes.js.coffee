@@ -2,6 +2,7 @@
 
 @on 'page:load', '.animes', '.mangas', ->
   init_animes_menu()
+  $('.b-show_more').show_more()
 
   # переключалка между видом списком и видом с постерами
   $('.item-list_switcher, .item-posters_switcher').on 'click', ->
@@ -16,8 +17,6 @@
   $("#rates_statuses_stats").bar
     title: (entry, percent) -> if percent > 15 then entry.value else ''
     no_data: ($chart) -> $chart.html "<p class='b-nothing_here'>Нет данных</p>"
-
-  $('.b-show_more').show_more()
 
   @init_history.delay() if USER_SIGNED_IN && DAY_REGISTERED && IGNORE_COPYRIGHT
 
