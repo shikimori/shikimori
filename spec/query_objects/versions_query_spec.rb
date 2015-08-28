@@ -30,29 +30,29 @@ describe VersionsQuery do
       let!(:pending) { create :version, item: anime }
       let!(:deleted) { create :version, item: anime, state: 'deleted' }
 
-      it { expect(query.by_field :name).to eq [pending] }
+      it { expect(query.by_field :russian).to eq [pending] }
     end
 
     describe 'another entry' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) { create :version, item: build_stubbed(:anime) }
 
-      it { expect(query.by_field :name).to eq [version_1] }
+      it { expect(query.by_field :russian).to eq [version_1] }
     end
 
     describe 'another field' do
       let!(:version_1) { create :version, item: anime }
       let!(:version_2) { create :version, item: anime,
-        item_diff: { 'russian' => [] } }
+        item_diff: { 'name' => ['a','b'] } }
 
-      it { expect(query.by_field :name).to eq [version_1] }
+      it { expect(query.by_field :russian).to eq [version_1] }
     end
 
     describe 'ordering' do
       let!(:version_1) { create :version, item: anime, created_at: 2.days.ago }
       let!(:version_2) { create :version, item: anime, created_at: 1.day.ago }
 
-      it { expect(query.by_field :name).to eq [version_2, version_1] }
+      it { expect(query.by_field :russian).to eq [version_2, version_1] }
     end
   end
 

@@ -3,6 +3,9 @@
 class AnimeVideo < ActiveRecord::Base
   extend Enumerize
 
+  # для Versions
+  SIGNIFICANT_FIELDS = []
+
   belongs_to :anime
   belongs_to :author, class_name: AnimeVideoAuthor.name, foreign_key: :anime_video_author_id
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
