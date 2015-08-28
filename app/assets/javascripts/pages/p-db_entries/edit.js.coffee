@@ -75,7 +75,10 @@
 
     $all_genres.on 'click', '.name', ->
       $genre = $(@).closest('.genre')
-      return if $genre.hasClass 'included'
+
+      if $genre.hasClass 'included'
+        $current_genres.find("##{$genre.attr 'id'} .remove").click()
+        return
 
       $genre.clone()
         .appendTo($current_genres)

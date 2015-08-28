@@ -51,16 +51,19 @@ en:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
   moderation/versions_controller:
-    content_change: 'Content change #%{version_id} by %{author}'
+    content_change: 'Content change #%{version_id}'
     content_changes: Content changes
     changes_accepted: Changes accepted
     changes_rejected: Changes rejected
     changes_deleted: Changes deleted
     changes_failed: These changes cannot be applied
+    version_pending: &version_pending Content changes have been saved successfully and will be moderated soon. Thanks!
+    version_accepted: &version_accepted Content changes have been applied successfully.
+    version_taken: *version_accepted
   animes_controller: &animes_controller
-    changes_pending: Content changes have been saved successfully and will be moderated soon. Thanks!
-    changes_accepted: &changes_accepted Content changes have been applied successfully.
-    changes_taken: *changes_accepted
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
     entry_edit: Edit Anime
     edit: Edit
   mangas_controller:

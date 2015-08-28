@@ -107,4 +107,50 @@ describe Moderation::VersionsController do
       end
     end
   end
+
+  describe '#create' do
+    let(:make_request) { post :create, version: params }
+    let(:params) {{
+      item_id: anime.id,
+      item_type: Anime.name,
+      item_diff: changes,
+      user_id: user.id,
+      reason: 'test'
+    }}
+    let(:role) { :user }
+
+    describe 'common user' do
+      include_context :authenticated, :user
+
+      context 'common change' do
+        before { make_request }
+        let(:changes) {{ 'russian' => ['fofofo', 'zxcvbnn'] }}
+
+        it do
+          expect(resource).to be_persisted
+          expect(resource).to have_attributes params
+          expect(resource).to be_pending
+          expect(response).to redirect_to back_url
+        end
+      end
+
+      context 'significant change' do
+        let(:changes) {{ 'name' => ['fofofo', 'zxcvbnn'] }}
+        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      end
+    end
+
+    describe 'moderator' do
+      include_context :authenticated, :versions_moderator
+      let(:changes) {{ 'russian' => [nil, 'zxcvbnn'] }}
+      before { make_request }
+
+      it do
+        expect(resource).to be_persisted
+        expect(resource).to have_attributes params
+        expect(resource).to be_accepted
+        expect(response).to redirect_to back_url
+      end
+    end
+  end
 end

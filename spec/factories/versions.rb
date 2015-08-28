@@ -3,7 +3,7 @@ FactoryGirl.define do
     item { build_stubbed :anime }
     user nil
     state :pending
-    item_diff name: ['a', 'b']
+    item_diff russian: ['a', 'b']
 
     trait :pending do
       state :pending
@@ -33,6 +33,9 @@ FactoryGirl.define do
   end
 
   factory :video_version, parent: :version, class: 'Versions::VideoVersion' do
+  end
+
+  factory :genres_version, parent: :version, class: 'Versions::GenresVersion' do
   end
 
   factory :version_anime_video, parent: :version do

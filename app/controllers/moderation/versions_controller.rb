@@ -5,7 +5,7 @@ class Moderation::VersionsController < ShikimoriController
 
   def show
     noindex
-    page_title i18n_t('content_change', version_id: @resource.id, author: @resource.user.nickname)
+    page_title i18n_t('content_change', version_id: @resource.id)
   end
 
   def tooltip
@@ -40,6 +40,16 @@ class Moderation::VersionsController < ShikimoriController
     transition :to_deleted, 'changes_deleted'
   end
 
+  def create
+    if @resource.save
+      @resource.accept current_user if can? :manage, @resource
+      redirect_to :back, notice: i18n_t("version_#{@resource.state}")
+
+    else
+      redirect_to :back, alert: @resource.errors.full_messages
+    end
+  end
+
 private
 
   def transition action, success_message
@@ -48,5 +58,24 @@ private
 
   rescue StateMachine::InvalidTransition
     redirect_to_back_or_to moderation_versions_url, alert: i18n_t('changes_failed')
+  end
+
+  def create_params
+    params
+      .require(:version)
+      .permit(
+        :item_id,
+        :item_type,
+        :user_id,
+        :reason,
+        item_diff: (
+          [:russian] +
+          Anime::DESYNCABLE +
+          Manga::DESYNCABLE +
+          Character::DESYNCABLE +
+          Person::DESYNCABLE +
+          DbEntry::SIGNIFICANT_FIELDS
+        ).uniq.each_with_object({}) { |v,memo| memo[v] = [] }
+      )
   end
 end

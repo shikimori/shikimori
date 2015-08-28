@@ -17,7 +17,7 @@ class GenresController < ShikimoriController
     @resource = Genre.find params[:id]
 
     if @resource.update genre_params
-      redirect_to genres_url, notice: 'Описание жанра обновлено'
+      redirect_to index_genres_url(kind: @resource.kind), notice: 'Описание жанра обновлено'
     else
       render action: 'edit'
     end
@@ -29,6 +29,7 @@ class GenresController < ShikimoriController
   end
 
 private
+
   def genre_params
     if current_user.admin?
       params.require(:genre).permit(:name, :russian, :position, :seo, :description)

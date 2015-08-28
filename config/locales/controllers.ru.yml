@@ -51,16 +51,19 @@ ru:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
   moderation/versions_controller:
-    content_change: 'Изменения контента #%{version_id} от пользователя %{author}'
+    content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
     changes_accepted: Изменения приняты
     changes_rejected: Изменения отклонены
     changes_deleted: Изменения удалены
     changes_failed: Невозможно применить изменения
+    version_pending: &version_pending Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
+    version_accepted: &version_accepted Изменения сохранены
+    version_taken: *version_accepted
   animes_controller: &animes_controller
-    changes_pending: Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
-    changes_accepted: &changes_accepted Изменения сохранены
-    changes_taken: *changes_accepted
+    version_pending: *version_pending
+    version_accepted: *version_accepted
+    version_taken: *version_accepted
     entry_edit: Редактирование аниме
     edit: Редактирование
   mangas_controller:

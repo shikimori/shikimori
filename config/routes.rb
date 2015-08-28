@@ -433,8 +433,11 @@ Site::Application.routes.draw do
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
     resources :genres, only: [:index, :edit, :update] do
-      get ':kind' => :index, as: :index, on: :collection, kind: /anime|manga/
       get :tooltip, on: :member
+
+      collection do
+        get ':kind' => :index, as: :index, kind: /anime|manga/
+      end
     end
 
     # tags

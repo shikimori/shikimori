@@ -185,11 +185,21 @@ describe Version do
       subject { Ability.new nil }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user_id: User::GuestID }
+        let(:version) { build_stubbed :version, user_id: User::GuestID,
+          item_diff: item_diff }
+        let(:item_diff) {{ russian: ['a','b'] }}
+
+        describe 'common change'do
+          it { is_expected.to be_able_to :create, version }
+        end
+
+        describe 'significant change' do
+          let(:item_diff) {{ name: ['a','b'] }}
+          it { is_expected.to_not be_able_to :create, version }
+        end
 
         it { is_expected.to be_able_to :show, version }
         it { is_expected.to be_able_to :tooltip, version }
-        it { is_expected.to be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
       end
@@ -208,11 +218,20 @@ describe Version do
       subject { Ability.new user }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user: user }
+        let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
+        let(:item_diff) {{ russian: ['a','b'] }}
+
+        describe 'common change'do
+          it { is_expected.to be_able_to :create, version }
+        end
+
+        describe 'significant change' do
+          let(:item_diff) {{ name: ['a','b'] }}
+          it { is_expected.to_not be_able_to :create, version }
+        end
 
         it { is_expected.to be_able_to :show, version }
         it { is_expected.to be_able_to :tooltip, version }
-        it { is_expected.to be_able_to :create, version }
         it { is_expected.to be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
       end

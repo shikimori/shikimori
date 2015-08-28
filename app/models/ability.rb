@@ -44,7 +44,9 @@ class Ability
     end
 
     can [:create], Version do |version|
-      version.user_id == User::GuestID
+      version.user_id == User::GuestID && (
+        version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
+      ).none?
     end
     cannot [:significant_change], Version
     can [:show, :tooltip], Version
@@ -168,7 +170,9 @@ class Ability
     end
 
     can [:create, :destroy], Version do |version|
-      version.user_id == @user.id
+      version.user_id == @user.id && (
+        version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
+      ).none?
     end
     cannot [:significant_change], Version
   end

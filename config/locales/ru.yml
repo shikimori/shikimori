@@ -176,6 +176,7 @@ ru:
         reason: Комментарий для модератора
       version:
         reason: Причина правки
+        item_diff: Список изменений
       anime_video_report:
         kind: Причина
         message: Сообщение модератору

@@ -14,13 +14,12 @@ describe GenresController do
 
   describe '#update' do
     before { patch :update, id: genre.id, genre: { description: 'new description' } }
-    it { expect(response).to redirect_to genres_url }
+    it { expect(response).to redirect_to index_genres_url(kind: :anime) }
     it { expect(genre.reload.description).to eq 'new description' }
   end
 
   describe '#tooltip' do
     before { get :tooltip, id: genre }
-
     it { expect(response).to have_http_status :success }
   end
 end

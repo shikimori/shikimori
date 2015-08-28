@@ -176,6 +176,7 @@ en:
         reason: Message to moderators
       version:
         reason: Change reason
+        changes: Changes list
       anime_video_report:
         kind: Reason
         message: Message to moderators
