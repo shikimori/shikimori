@@ -2,6 +2,8 @@ en:
   db_entries:
     fields:
       genres:
-        up: move up
+        all_genres: All Genres
+        current_genres: Current Genres
         down: move down
         remove: remove
+        up: move up

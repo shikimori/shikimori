@@ -2,6 +2,8 @@ ru:
   db_entries:
     fields:
       genres:
-        up: вверх
+        all_genres: Все жанры
+        current_genres: Привязанные жанры
         down: вниз
         remove: удалить
+        up: вверх
