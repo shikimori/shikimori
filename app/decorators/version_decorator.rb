@@ -49,6 +49,8 @@ class VersionDecorator < BaseDecorator
   def field_value field, value
     if field.to_s == 'anime_video_author_id'
       AnimeVideoAuthor.find_by(id: value).try :name
+    elsif field.to_s == 'genres'
+      genres value
     else
       value
     end
@@ -63,5 +65,14 @@ class VersionDecorator < BaseDecorator
       (h.current_user.id == object.user_id if h.user_signed_in?),
       I18n.locale
     ]
+  end
+
+  def genres ids
+    Genre
+      .where(id: ids)
+      .sort_by { |genre| ids.index genre.id }
+      .map { |genre| h.localized_name genre }
+      .join(', ')
+
   end
 end

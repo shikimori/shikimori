@@ -16,8 +16,9 @@ en:
       take: take
       take_changes: Take changes
       taken_to_accepted: taken → accepted
-
-    text_diff:
+    text_diff: &text_diff
       before: Before change
       after: After change
       change: Change
+    versions:
+      <<: *text_diff

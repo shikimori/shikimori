@@ -92,6 +92,8 @@
           = render "versions/video", version: version
         - elsif version.kind_of? Versions::ScreenshotsVersion
           = render "versions/screenshots_#{version.action}", version: version
+        /- elsif version.kind_of? Versions::GenresVersion
+          /= render "versions/genres", version: version
         - else
           - version.item_diff.each do |field, (old_value, new_value)|
             = render version.changes_tempalte(field), version: version, field: field, only_one: version.item_diff.keys.one?

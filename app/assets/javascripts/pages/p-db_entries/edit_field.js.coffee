@@ -85,3 +85,15 @@
         .yellowFade()
 
       $genre.addClass('included')
+
+    $('form.new_version').on 'submit', ->
+      $item_diff = $('.item_diff')
+
+      new_ids = $current_genres
+        .children()
+        .map -> parseInt @id
+        .toArray()
+      current_ids = $item_diff.data('current_ids')
+
+      diff = genres: [current_ids, new_ids]
+      $item_diff.find('input').val JSON.stringify(diff)

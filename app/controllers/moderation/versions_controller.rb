@@ -1,6 +1,5 @@
 class Moderation::VersionsController < ShikimoriController
   load_and_authorize_resource except: [:index]
-
   before_action { page_title i18n_t('content_changes') }
 
   def show
@@ -46,7 +45,7 @@ class Moderation::VersionsController < ShikimoriController
       redirect_to :back, notice: i18n_t("version_#{@resource.state}")
 
     else
-      redirect_to :back, alert: @resource.errors.full_messages
+      redirect_to :back, alert: @resource.errors.full_messages.join(', ')
     end
   end
 
@@ -63,19 +62,11 @@ private
   def create_params
     params
       .require(:version)
-      .permit(
-        :item_id,
-        :item_type,
-        :user_id,
-        :reason,
-        item_diff: (
-          [:russian] +
-          Anime::DESYNCABLE +
-          Manga::DESYNCABLE +
-          Character::DESYNCABLE +
-          Person::DESYNCABLE +
-          DbEntry::SIGNIFICANT_FIELDS
-        ).uniq.each_with_object({}) { |v,memo| memo[v] = [] }
+      .permit(:type, :item_id, :item_type, :user_id, :reason)
+      .merge(
+        item_diff: params[:version][:item_diff].kind_of?(String) ?
+          JSON.parse(params[:version][:item_diff], symbolize_names: true) :
+          params[:version][:item_diff]
       )
   end
 end
