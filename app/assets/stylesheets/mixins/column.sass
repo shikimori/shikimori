@@ -2,6 +2,10 @@
 @import mixins/responsive
 @import mixins/block
 
+=cc
+  +block
+  +clear_left
+
 =column($columns, $column_size: 1/$columns, $gutter: 4%)
   @if $columns == 1
     $gutter: 0%
