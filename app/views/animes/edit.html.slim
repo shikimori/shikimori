@@ -4,104 +4,108 @@
   .block.cc-2
     .c-column.m0
       ul.b-list
-        - if can? :significant_change, Version
-          li
-            .field = @resource.class.human_attribute_name :name
-            .value = @resource.name
-            a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
+        li
+          .field = @resource.class.human_attribute_name :name
+          .value = @resource.name
+          - if can? :significant_change, Version
+            a.b-js-action href="#{@resource.edit_field_url :name}" = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
 
         li
           .field = @resource.class.human_attribute_name :russian
           .value = @resource.russian
-          a.edit href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :kind
           .value = @resource.kind_text
-          a.edit href="#{@resource.edit_field_url :kind}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :kind}" = t 'actions.edit'
 
         - if @resource.manga?
           li
             .field = @resource.class.human_attribute_name :status
             .value = @resource.status
-            a.edit href="#{@resource.edit_field_url :status}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :status}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :aired_on
           .value = formatted_date @resource.aired_on, true
-          a.edit href="#{@resource.edit_field_url :aired_on}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :aired_on}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :released_on
           .value = formatted_date @resource.released_on, true
-          a.edit href="#{@resource.edit_field_url :released_on}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :released_on}" = t 'actions.edit'
 
         - if @resource.anime?
           li
             .field = @resource.class.human_attribute_name :episodes
             .value = @resource.episodes
-            a.edit href="#{@resource.edit_field_url :episodes}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :episodes}" = t 'actions.edit'
 
         - else
           li
             .field = @resource.class.human_attribute_name :volumes
             .value = @resource.volumes
-            a.edit href="#{@resource.edit_field_url :volumes}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :volumes}" = t 'actions.edit'
 
           li
             .field = @resource.class.human_attribute_name :chapters
             .value = @resource.chapters
-            a.edit href="#{@resource.edit_field_url :chapters}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :chapters}" = t 'actions.edit'
 
         - if @resource.anime?
           li
             .field = @resource.class.human_attribute_name :rating
             .value = @resource.rating_text
-            a.edit href="#{@resource.edit_field_url :rating}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :rating}" = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
         li
           .field = @resource.class.human_attribute_name :poster
           .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+          /a.b-js-action href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :description
-          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :description}" = t 'actions.edit'
 
         - if @resource.anime? && !Copyright::SCREENSHOTS.include?(@resource.id)
           li
             .field = @resource.class.human_attribute_name :screenshots
             .value #{@resource.screenshots.size} #{i18n_i 'screenshot', @resource.screenshots.size}
-            a.edit href="#{@resource.edit_field_url :screenshots}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :screenshots}" = t 'actions.edit'
 
           li
             .field = @resource.class.human_attribute_name :videos
             .value #{@resource.videos.size} #{i18n_i 'video', @resource.videos.size}
-            a.edit href="#{@resource.edit_field_url :videos}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :videos}" = t 'actions.edit'
 
           li
             .field = Anime.human_attribute_name :cosplay
             .value.under_development = t('under_development').downcase
-            /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+            /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
         li
           .field = @resource.class.human_attribute_name :tags
           .value = @resource.tags
-          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
 
-        - if can? :significant_change, Version
-          li
-            .field = @resource.class.human_attribute_name :genres
-            /.value.under_development = t('under_development').downcase
-            a.edit href="#{@resource.edit_field_url :genres}" = t 'actions.edit'
+        li
+          .field = @resource.class.human_attribute_name :genres
+          .value = @resource.genres.map { |v| localized_name v }.join(', ')
+          - if can? :significant_change, Version
+            a.b-js-action href="#{@resource.edit_field_url :genres}" = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
 
         - if user_signed_in? && current_user.admin? && @resource.anime?
           li
             .field = @resource.class.human_attribute_name :torrents_name
             .value = @resource.torrents_name
-            a.edit href="#{@resource.edit_field_url :torrents_name}" = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :torrents_name}" = t 'actions.edit'
 
   - if @resource.desynced.any?
     .block

@@ -4,42 +4,44 @@
   .block.cc-2
     .c-column.m0
       ul.b-list
-        - if can? :significant_change, Version
-          li
-            .field = Character.human_attribute_name :name
-            .value = @resource.name
-            a.edit href="#{@resource.edit_field_url :name}" = t 'actions.edit'
+        li
+          .field = Character.human_attribute_name :name
+          .value = @resource.name
+          - if can? :significant_change, Version
+            a.b-js-action href="#{@resource.edit_field_url :name}" = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
 
         li
           .field = Character.human_attribute_name :russian
           .value = @resource.russian
-          a.edit href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
           .value = @resource.japanese
-          a.edit href="#{@resource.edit_field_url :japanese}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :japanese}" = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
         li
           .field = Character.human_attribute_name :poster
           .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+          /a.b-js-action href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description
-          a.edit href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :description}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :cosplay
           .value.under_development = t('under_development').downcase
-          /a.edit href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
+          /a.b-js-action href="#{@resource.edit_field_url :cosplay}" = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
-          a.edit href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
 
   - if @resource.desynced.any?
     .block
