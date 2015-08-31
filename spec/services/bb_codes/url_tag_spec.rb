@@ -25,6 +25,16 @@ describe BbCodes::UrlTag do
         let(:url) { 'http://shikimori.org/%D0%92%D0%B8%D0%BD%D0%BD%D0%B8' }
         it { should eq "<a class=\"b-link\" href=\"#{url}\">/Винни</a>" }
       end
+
+      context 'webm url tag' do
+        let(:url) { "http://html5demos.com/assets/dizzy.webm" }
+        it { should eq "[video]http://html5demos.com/assets/dizzy.webm[/video]" }
+      end
+
+      context 'webm url' do
+        let(:text) { 'http://html5demos.com/assets/dizzy.webm' }
+        it { should eq "[video]http://html5demos.com/assets/dizzy.webm[/video]" }
+      end
     end
 
     context 'with text' do

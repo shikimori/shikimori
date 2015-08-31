@@ -20,24 +20,35 @@ class BbCodes::UrlTag
 
   def format text
     text.gsub REGEXP do
-      url = if $~[:url].starts_with? '/'
-        $~[:url]
-      else
-        $~[:url].with_http
-      end
+      url = match_url $~[:url]
+      text = match_text $~[:text], url
 
-      text = if $~[:text]
-        $~[:text]
-      else
-        if url.without_http =~ /(\w+\.)?shikimori.\w+\/(?<path>.+)/
-          "/#{$~[:path]}"
-        else
-          url.size > MAX_SHORT_URL_SIZE ? url.extract_domain : url.without_http
-        end
-      end
+      url.ends_with?('.webm') ? video_bb_code(url) : link_tag(url, text)
+    end
+  end
 
-      decoded_text = URI.decode text
-      "<a class=\"b-link\" href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
+private
+
+  def link_tag url, text
+    decoded_text = URI.decode text
+    "<a class=\"b-link\" href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
+  end
+
+  def video_bb_code url
+    "[video]#{url}[/video]"
+  end
+
+  def match_url url
+    url.starts_with?('/') ? url : url.with_http
+  end
+
+  def match_text text, url
+    return text if text
+
+    if url.without_http =~ /(\w+\.)?shikimori.\w+\/(?<path>.+)/
+      "/#{$~[:path]}"
+    else
+      url.size > MAX_SHORT_URL_SIZE ? url.extract_domain : url.without_http
     end
   end
 end
