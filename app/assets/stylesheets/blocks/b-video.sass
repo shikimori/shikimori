@@ -2,6 +2,7 @@
 @import globals/variables
 @import mixins/image_editable
 @import mixins/media_marker
+@import mixins/link
 
 .b-video
   +image_editable
@@ -27,6 +28,9 @@
     &.dailymotion
       height: $media_height
 
+  a.video-link
+    cursor: zoom-in !important
+
   .name
     +media_marker
     //+opacity(0.85)
@@ -36,6 +40,7 @@
     top: 0
 
   .marker
+    +link
     +media_marker
     //+opacity(0.85)
 

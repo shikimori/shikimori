@@ -234,18 +234,18 @@ describe BbCodeFormatter do
 
     describe '[vkontakte]', vcr: { cassette_name: 'bb_code_formatter' } do
       let(:text) { "http://vk.com/video98023184_165811692" }
-      it { should include '<a class="c-video b-video unprocessed vk' }
+      it { should include '<div class="c-video b-video unprocessed vk' }
     end
 
     describe '[youtube]', vcr: { cassette_name: 'bb_code_formatter' } do
       context 'direct link' do
         let(:text) { "https://www.youtube.com/watch?v=og2a5lngYeQ" }
-        it { should include '<a class="c-video b-video unprocessed youtube' }
+        it { should include '<div class="c-video b-video unprocessed youtube' }
       end
 
       context 'link with &' do
         let(:text) { "https://www.youtube.com/watch?feature=player_embedded&v=aX9j5KokIeE" }
-        it { should include '<a class="c-video b-video unprocessed youtube' }
+        it { should include '<div class="c-video b-video unprocessed youtube' }
       end
     end
 
@@ -395,6 +395,13 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
       let(:text) { "[contest_status=#{contest.id}]" }
       let!(:contest) { create :contest }
       it { should include contest.name }
+    end
+
+    describe '[html5_video]' do
+      let(:text) { "[html5_video]#{url}[/html5_video]" }
+      let(:url) { 'http://html5demos.com/assets/dizzy.webm' }
+
+      it { should include "data-video=\"#{url}\"" }
     end
 
     describe '[quote]' do

@@ -28,12 +28,12 @@ describe BbCodes::UrlTag do
 
       context 'webm url tag' do
         let(:url) { "http://html5demos.com/assets/dizzy.webm" }
-        it { should eq "[video]http://html5demos.com/assets/dizzy.webm[/video]" }
+        it { should eq "[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]" }
       end
 
       context 'webm url' do
         let(:text) { 'http://html5demos.com/assets/dizzy.webm' }
-        it { should eq "[video]http://html5demos.com/assets/dizzy.webm[/video]" }
+        it { should eq "[html5_video]http://html5demos.com/assets/dizzy.webm[/html5_video]" }
       end
     end
 

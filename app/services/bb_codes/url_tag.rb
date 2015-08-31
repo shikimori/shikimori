@@ -35,7 +35,7 @@ private
   end
 
   def video_bb_code url
-    "[video]#{url}[/video]"
+    "[html5_video]#{url}[/html5_video]"
   end
 
   def match_url url

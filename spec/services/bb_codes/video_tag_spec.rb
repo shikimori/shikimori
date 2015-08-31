@@ -15,7 +15,7 @@ describe BbCodes::VideoTag do
 
       context 'with time' do
         let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
-        it { should include "<a class=\"c-video b-video unprocessed youtube" }
+        it { should include "<div class=\"c-video b-video unprocessed youtube" }
         it { should include "data-href=\"http://youtube.com/embed/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
       end
 
@@ -42,13 +42,13 @@ describe BbCodes::VideoTag do
 
       context 'without text' do
         let(:text) { "http://vk.com/video#{oid}_#{vid}" }
-        it { should include "<a class=\"c-video b-video unprocessed vk" }
+        it { should include "<div class=\"c-video b-video unprocessed vk" }
         it { should include "data-href=\"https://vk.com/video_ext.php?oid=#{oid}&amp;id=#{vid}&amp;hash=#{hash2}\" href=\"http://vk.com/video#{oid}_#{vid}\"" }
       end
 
       context 'width text' do
         let(:text) { "zzz http://vk.com/video#{oid}_#{vid}" }
-        it { should include 'zzz <a class="' }
+        it { should include 'zzz <div class="' }
       end
 
       context 'private video' do
@@ -60,56 +60,56 @@ describe BbCodes::VideoTag do
     context 'open_graph', vcr: { cassette_name: 'video_tag' } do
       context 'coub' do
         let(:text) { 'http://coub.com/view/bqn2pda' }
-        it { should include "<a class=\"c-video b-video unprocessed coub" }
+        it { should include "<div class=\"c-video b-video unprocessed coub" }
       end
 
       context 'twitch' do
         let(:text) { 'http://www.twitch.tv/joindotared/c/3661348' }
-        it { should include "<a class=\"c-video b-video unprocessed twitch" }
+        it { should include "<div class=\"c-video b-video unprocessed twitch" }
       end
 
       context 'rutube' do
         let(:text) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
-        it { should include "<a class=\"c-video b-video unprocessed rutube" }
+        it { should include "<div class=\"c-video b-video unprocessed rutube" }
       end
 
       context 'vimeo' do
         let(:text) { 'http://vimeo.com/85212054' }
-        it { should include "<a class=\"c-video b-video unprocessed vimeo" }
+        it { should include "<div class=\"c-video b-video unprocessed vimeo" }
       end
 
       context 'myvi' do
         let(:text) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
-        it { should include "<a class=\"c-video b-video unprocessed myvi" }
+        it { should include "<div class=\"c-video b-video unprocessed myvi" }
       end
 
       context 'sibnet' do
         let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
-        it { should include "<a class=\"c-video b-video unprocessed sibnet" }
+        it { should include "<div class=\"c-video b-video unprocessed sibnet" }
       end
 
       context 'yandex' do
         let(:text) { 'http://video.yandex.ru/users/allod2008/view/78' }
-        it { should include "<a class=\"c-video b-video unprocessed yandex" }
+        it { should include "<div class=\"c-video b-video unprocessed yandex" }
       end
 
       context 'dailymotion' do
         context 'common url' do
           let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
-          it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
+          it { should include "<div class=\"c-video b-video unprocessed dailymotion" }
           it { should match /\A<.*>\Z/ }
         end
 
         context 'special url' do
           let(:text) { "http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms" }
-          it { should include "<a class=\"c-video b-video unprocessed dailymotion" }
-          it { should match %r{</a>$} }
+          it { should include "<div class=\"c-video b-video unprocessed dailymotion" }
+          it { should match %r{</div>$} }
         end
       end
 
       context 'sibnet' do
         let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
-        it { should include "<a class=\"c-video b-video unprocessed sibnet" }
+        it { should include "<div class=\"c-video b-video unprocessed sibnet" }
       end
     end
   end
