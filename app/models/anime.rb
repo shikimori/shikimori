@@ -115,7 +115,7 @@ class Anime < DbEntry
   before_save :check_status
   after_save :update_news
 
-  def episodes=
+  def episodes= value
     value.blank? ? super(0) : super(value)
   end
 
