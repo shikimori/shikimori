@@ -115,6 +115,10 @@ class Anime < DbEntry
   before_save :check_status
   after_save :update_news
 
+  def episodes=
+    value.blank? ? super(0) : super(value)
+  end
+
   def latest?
     ongoing? || anons? || (aired_on && aired_on > 1.year.ago)
   end

@@ -96,6 +96,14 @@ class Manga < DbEntry
     self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
   end
 
+  def volumes= value
+    value.blank? ? super(0) : super(value)
+  end
+
+  def chapters= value
+    value.blank? ? super(0) : super(value)
+  end
+
   # имя сайта ридманги
   def read_manga_name
     read_manga_id.starts_with?(ReadMangaImporter::Prefix) ? 'ReadManga' : 'AdultManga'
