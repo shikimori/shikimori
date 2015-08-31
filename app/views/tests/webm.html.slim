@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title WebM player test
+    = stylesheet_link_tag :application, media: 'all'
+    = javascript_include_tag :core
+    = javascript_include_tag :application
+    = stylesheet_link_tag 'tests/webm'
+    = javascript_include_tag 'tests/webm'
+  body
+    h1 WebM player test
+
+    img.webm[
+      src="http://shikimori.dev/assets/globals/html5_video.jpg"
+      srcset="http://shikimori.dev/assets/globals/html5_video@2x.jpg 2x"
+      data-video="http://html5demos.com/assets/dizzy.webm"
+    ]

@@ -404,6 +404,7 @@ Site::Application.routes.draw do
       get :momentjs
       get :border
       get 'd3/:anime_id' => :d3, as: :d3
+      get :webm
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end
 

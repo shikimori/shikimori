@@ -22,6 +22,10 @@ class TestsController < ShikimoriController
   def momentjs
   end
 
+  def webm
+    render :webm, layout: false
+  end
+
   #def d3_data
     #query = ChronologyQuery.new(Anime.find params[:anime_id])
     #@entries = query.fetch
