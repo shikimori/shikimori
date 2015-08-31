@@ -54,8 +54,11 @@ en:
         reason: &optional Optional
       anime: &anime_hints
         source: *optional
+        episodes: It must be "0" for ongoings with an unknown total number of episodes
       manga:
         <<: *anime_hints
+        volumes: It must be "0" for ongoings with an unknown total number of volumes
+        chapters: It must be "0" for ongoings with an unknown total number of chapters
 
     magic_submit:
       users:

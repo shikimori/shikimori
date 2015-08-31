@@ -54,8 +54,11 @@ ru:
         reason: &optional Не обязательно
       anime: &anime_hints
         source: *optional
+        episodes: Для онгоингов с неизвестным числом эпизодов ставьте "0"
       manga:
         <<: *anime_hints
+        volumes: Для онгоингов с неизвестным числом томов должно быть "0"
+        chapters: Для онгоингов с неизвестным числом глав должно быть "0"
 
     magic_submit:
       users:
