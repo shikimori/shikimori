@@ -182,7 +182,7 @@ private
     if @resource
       # все страницы, кроме animes#show
       if (params[:action] != 'show' || params[:controller] == 'reviews')
-        breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url
+        breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url(false)
       end
 
       if params[:action] == 'edit_field' && params[:field].present?

@@ -1,0 +1,20 @@
+.b-video_player.copyrighted
+  .player-area
+    iframe src="#{Copyright::IVI_RU_PLAYERS[@resource.id]}"
+
+  .cc-player_controls.cc-2a
+    /.c-column
+      .cc-options
+        .c-buttons.cc-3a
+          - if user_signed_in?
+            - if @video.in_list?
+              a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
+                .icon
+                .label Просмотрено
+            - else
+              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}" data-increment_text="Просмотрено"
+                .icon
+                .label В мой список
+
+  p.about-copyright Прочие варианты видео, а так же загрузка новых видео
+    для этого аниме отключены по требованию правообладателя.

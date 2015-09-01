@@ -8,6 +8,14 @@
 @import mixins/link
 
 .b-video_player
+  &.copyrighted
+    .cc-player_controls
+      margin-bottom: 15px
+
+    .about-copyright
+      font-size: 13px
+      color: $red
+
   .player-area
     iframe
       border: none

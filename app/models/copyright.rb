@@ -24,4 +24,12 @@ module Copyright
     18679, # Kill la Kill
     20973, # World Conquest Zvezda Plot
   ]
+
+  # http://antipiracy.ivi.ru/Starz_Media_prizrak_gorod_mechty.pdf
+  IVI_RU_COPYRIGHTED = [
+    801 # Ghost in the Shell: Stand Alone Complex 2nd GIG
+  ]
+  IVI_RU_PLAYERS = {
+    801 => 'http://www.ivi.ru/external/seriesembed/?compilationId=7561'
+  }
 end
