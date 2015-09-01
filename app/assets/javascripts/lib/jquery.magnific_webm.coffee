@@ -29,13 +29,17 @@
 
         $close = $frame.find('.mfp-close').hide()
         $loading = $("<div class='b-fancy_loader' />").appendTo($video_container)
+        loaded = false
 
         $video
-          .on 'loadedmetadata', ->
+          .one 'loadedmetadata play playing canplay', ->
+            return if loaded
+
             $close.show()
             $video_container
               .empty()
               .append($video)
+            loaded = true
 
           .on 'error', (e) ->
             $video_container
