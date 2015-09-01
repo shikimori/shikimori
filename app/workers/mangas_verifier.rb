@@ -33,7 +33,7 @@ class MangasVerifier
   def bad_descriptions
     @bad_descriptions ||= Manga
       .where(BAD_DESCRIPTIONS.join(' or '))
-      .where.not(id: [2423])
+      .where.not(id: [2423, 25252])
       .where.not(id: ChangedItemsQuery.new(Manga).fetch_ids)
       .pluck(:id)
   end
