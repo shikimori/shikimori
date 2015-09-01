@@ -13,18 +13,18 @@ Sidekiq.configure_server do |config|
   config.error_handlers << Proc.new {|e,ctx_hash| NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{ctx_hash.to_json}\n#{e.backtrace.join("\n")}" }
 end
 
-module Sidekiq::Extensions::PostmarkHandler
-  def perform yml
-    super
+#module Sidekiq::Extensions::PostmarkHandler
+  #def perform yml
+    #super
 
-  rescue Postmark::InvalidMessageError => e
-    target, method_name, args = YAML.load yml
-    case method_name.to_sym
-      when :private_message_email then args.first.to.notify_bounced_email
-      when :reset_password_instructions then args.first.notify_bounced_email
-      else raise
-    end
-  end
-end
+  #rescue Postmark::InvalidMessageError => e
+    #target, method_name, args = YAML.load yml
+    #case method_name.to_sym
+      #when :private_message_email then args.first.to.notify_bounced_email
+      #when :reset_password_instructions then args.first.notify_bounced_email
+      #else raise
+    #end
+  #end
+#end
 
-Sidekiq::Extensions::DelayedMailer.send :prepend, Sidekiq::Extensions::PostmarkHandler
+#Sidekiq::Extensions::DelayedMailer.send :prepend, Sidekiq::Extensions::PostmarkHandler
