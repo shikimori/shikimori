@@ -1,11 +1,21 @@
-.mfp-webm
-  width: auto
-  max-width: 100%
-  height: auto
-  display: block
-  line-height: 0
-  -webkit-box-sizing: border-box
-  -moz-box-sizing: border-box
-  box-sizing: border-box
-  padding: 40px 0 40px
-  margin: 0 auto
+.mfp-webm-holder
+  &.loaded
+    .mfp-close, .mfp-webm
+      display: block
+
+    .b-fancy_loader
+      display: none
+
+  .mfp-close, .mfp-webm
+    display: none
+
+  .mfp-webm
+    width: auto
+    max-width: 100%
+    display: none
+    line-height: 0
+    -webkit-box-sizing: border-box
+    -moz-box-sizing: border-box
+    box-sizing: border-box
+    padding: 40px 0 40px
+    margin: 0 auto

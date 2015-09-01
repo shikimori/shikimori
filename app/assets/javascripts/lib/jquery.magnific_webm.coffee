@@ -1,5 +1,15 @@
 (($) ->
   NS = 'webm'
+  VOLUME_KEY = 'video_volume'
+
+  FRAME_HTML = '<div class="mfp-figure mfp-webm-holder mfp-image-holder">'+
+    '<button title="Close (Esc)" type="button" class="mfp-close">×</button>'+
+    '<figure>'+
+      '<div class="mfp-img">'+
+        '<div class="b-fancy_loader"></div>' +
+      '</div>'+
+    '</figure>'+
+  '</div>'
 
   $.magnificPopup.registerModule NS,
     options:
@@ -11,40 +21,29 @@
         @types.push NS
 
       getWebm: (item) ->
-        $video = $("<video>").attr(
+        $html = $(FRAME_HTML)
+        $video_container = $html.find('.mfp-img')
+
+        $video = $('<video>').attr(
           class: 'mfp-webm'
           src: item.el.data('video')
           controls: 'controls'
           autoplay: true
           #preload: 'none'
         )
+        $video[0].volume = $.sessionStorage.get(VOLUME_KEY) || 1
 
-        $frame = $('<div class="mfp-figure mfp-image-holder">'+
-            '<button title="Close (Esc)" type="button" class="mfp-close">×</button>'+
-            '<figure>'+
-              '<div class="mfp-img"></div>'+
-            '</figure>'+
-          '</div>')
-        $video_container = $frame.find('.mfp-img')
+        $video.appendTo($video_container)
 
-        $close = $frame.find('.mfp-close').hide()
-        $loading = $("<div class='b-fancy_loader' />").appendTo($video_container)
         loaded = false
-
         $video
-          .appendTo($video_container)
-          .hide()
           .one 'loadedmetadata play playing canplay', ->
             return if loaded
-
-            $loading.remove()
-            $video.show()
-            $close.show()
             loaded = true
+            $html.addClass 'loaded'
 
           .on 'error', (e) ->
-            $loading.remove()
-            $video_container.append('<p style="color: #fff;">broken video link</p>')
+            $video_container.html('<p style="color: #fff;">broken video link</p>')
 
           .on 'click', ->
             if @paused
@@ -53,7 +52,9 @@
               @pause()
             false
 
-        @appendContent $frame
+          .on 'volumechange', (e) ->
+            $.sessionStorage.set VOLUME_KEY, @volume
 
+        @appendContent $html
         @updateStatus 'ready'
 ) jQuery

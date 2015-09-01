@@ -179,6 +179,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery-bridget'
   #gem 'rails-assets-moment'
   gem 'rails-assets-packery', '1.3.2'
+  gem 'rails-assets-jQuery-Storage-API'
+
   # когда в master вольют https://github.com/dimsemenov/Magnific-Popup/pull/394 , то строку ниже заменить на её комментарий
   gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup', когда в нём пофиксят турболинки
 end

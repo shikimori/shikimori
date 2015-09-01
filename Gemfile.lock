@@ -468,6 +468,8 @@ GEM
     rails-assets-get-size (1.2.2)
       rails-assets-get-style-property (~> 1.0)
     rails-assets-get-style-property (1.0.4)
+    rails-assets-jQuery-Storage-API (1.7.4)
+      rails-assets-jquery (>= 1.4)
     rails-assets-jquery (2.1.4)
     rails-assets-jquery-bridget (1.1.0)
       rails-assets-jquery (>= 1.4.2, < 3)
@@ -729,6 +731,7 @@ DEPENDENCIES
   rails
   rails-assets-eventEmitter!
   rails-assets-eventie!
+  rails-assets-jQuery-Storage-API!
   rails-assets-jquery!
   rails-assets-jquery-bridget!
   rails-assets-packery (= 1.3.2)!

@@ -6,6 +6,7 @@
 #= require eventie
 #= require eventEmitter
 #= require magnific-popup
+#= require jQuery-Storage-API
 
 # dependencies for packery
 #= require jquery-bridget
