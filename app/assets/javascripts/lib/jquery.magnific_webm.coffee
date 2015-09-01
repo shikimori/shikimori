@@ -32,19 +32,19 @@
         loaded = false
 
         $video
+          .appendTo($video_container)
+          .hide()
           .one 'loadedmetadata play playing canplay', ->
             return if loaded
 
+            $loading.remove()
+            $video.show()
             $close.show()
-            $video_container
-              .empty()
-              .append($video)
             loaded = true
 
           .on 'error', (e) ->
-            $video_container
-              .empty()
-              .append('<p style="color: #fff;">broken video link</p>')
+            $loading.remove()
+            $video_container.append('<p style="color: #fff;">broken video link</p>')
 
           .on 'click', ->
             if @paused
