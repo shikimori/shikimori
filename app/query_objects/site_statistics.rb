@@ -31,7 +31,7 @@ class SiteStatistics
   end
 
   def android
-    User.where(id: 1897)
+    User.where(id: [1897, 35934])
   end
 
   def thanks_to
@@ -91,6 +91,7 @@ class SiteStatistics
   end
 
 private
+
   def by_class klass, interval
     start_date = Time.zone.today - interval
 
