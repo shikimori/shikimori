@@ -1,4 +1,4 @@
-- if AnimeOnline::AdsPolicy.show_ad? request.host, current_user
+- if AnimeOnline::AdsPolicy.show_ad? request.host, current_user, @resource
   .ads_container
     = render partial: 'anime_online/blocks/ads_728x90'
 
