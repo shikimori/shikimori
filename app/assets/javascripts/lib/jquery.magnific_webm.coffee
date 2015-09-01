@@ -25,15 +25,22 @@
               '<div class="mfp-img"></div>'+
             '</figure>'+
           '</div>')
+        $video_container = $frame.find('.mfp-img')
 
         $close = $frame.find('.mfp-close').hide()
-        $loading = $("<div class='b-fancy_loader' />").appendTo($frame.find('.mfp-img'))
+        $loading = $("<div class='b-fancy_loader' />").appendTo($video_container)
 
         $video
           .on 'loadedmetadata', ->
-            $loading.remove()
-            $video.appendTo($frame.find('.mfp-img'))
             $close.show()
+            $video_container
+              .empty()
+              .append($video)
+
+          .on 'error', (e) ->
+            $video_container
+              .empty()
+              .append('<p style="color: #fff;">broken video link</p>')
 
           .on 'click', ->
             if @paused
