@@ -26,8 +26,15 @@
             '</figure>'+
           '</div>')
 
+        $close = $frame.find('.mfp-close').hide()
+        $loading = $("<div class='b-fancy_loader' />").appendTo($frame.find('.mfp-img'))
+
         $video
-          .appendTo($frame.find('.mfp-img'))
+          .on 'loadedmetadata', ->
+            $loading.remove()
+            $video.appendTo($frame.find('.mfp-img'))
+            $close.show()
+
           .on 'click', ->
             if @paused
               @play()
