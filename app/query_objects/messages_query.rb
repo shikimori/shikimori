@@ -6,7 +6,8 @@ class MessagesQuery < QueryObjectBase
     MessageType::Ongoing,
     MessageType::Episode,
     MessageType::Released,
-    MessageType::SiteNews
+    MessageType::SiteNews,
+    MessageType::ContestFinished
   ]
   NOTIFICATION_KINDS = [
     MessageType::FriendRequest,
@@ -20,7 +21,6 @@ class MessagesQuery < QueryObjectBase
     MessageType::Warned,
     MessageType::VersionAccepted,
     MessageType::VersionRejected,
-    MessageType::ContestFinished,
   ]
 
   def query

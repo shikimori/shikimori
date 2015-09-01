@@ -9,7 +9,7 @@ xml.rss version: "2.0" do
       xml.item do
         xml.title message[:title]
         xml.description (message[:image_url] ? "<img src=\"#{message[:image_url]}\" alt=\"#{message[:linked_name]}\" title=\"#{message[:linked_name]}\" style=\"float: right;\" style=\"max-height: 140;\" />" : '') +
-            format_rss_urls(get_message_body(message[:entry]))
+            format_rss_urls(message[:entry].generate_body)
         xml.pubDate message[:pubDate]
         xml.link message[:link]
         xml.guid message[:guid]

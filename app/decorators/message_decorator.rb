@@ -10,6 +10,8 @@ class MessageDecorator < BaseDecorator
   def url
     if kind == MessageType::Episode
       linked.linked.decorate.url
+    elsif kind == MessageType::ContestFinished
+      h.contest_url linked
     elsif MessagesQuery::NEWS_KINDS.include?(kind)
       h.topic_url linked
     else

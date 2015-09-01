@@ -123,7 +123,7 @@ class MessagesController < ProfilesController
     @messages = raw_messages.map do |message|
       linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
       {
-        entry: message,
+        entry: message.decorate,
         guid: message.guid,
         image_url: linked && linked.image.exists? ? 'http://shikimori.org' + linked.image.url(:preview, false) : nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
