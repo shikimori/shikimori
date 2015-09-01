@@ -15,7 +15,7 @@
           class: 'mfp-webm'
           src: item.el.data('video')
           controls: 'controls'
-          #autoplay: false
+          autoplay: true
           #preload: 'none'
         )
 
