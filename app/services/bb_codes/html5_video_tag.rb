@@ -10,6 +10,11 @@ class BbCodes::Html5VideoTag
 
   DEFAULT_THUMBNAIL_NORMAL = '/assets/globals/html5_video.png'
   DEFAULT_THUMBNAIL_RETINA = '/assets/globals/html5_video@2x.png'
+  RETRY_OPTIONS = {
+    tries: 2,
+    on: [ActiveRecord::RecordNotUnique],
+    sleep: 1,
+  }
 
   def format text
     text.gsub REGEXP do
@@ -21,7 +26,9 @@ class BbCodes::Html5VideoTag
 private
 
   def html_tag url
-    webm_video = WebmVideo.find_or_create_by url: url
+    webm_video = Retryable.retryable(RETRY_OPTIONS) do
+      WebmVideo.find_or_create_by url: url
+    end
 
     <<-end
 <div class="b-video fixed">
