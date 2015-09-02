@@ -2,7 +2,7 @@ class Banhammer
   vattr_initialize :comment
 
   Z = '[!@#$%&*^]'
-  X = '[\s.,-:?!)(]'
+  X = '[\s.,-:?!)(\]\[]'
   TAG = '(?: \[ [^\]]+  \] )?'
 
   SYNONYMS = {
@@ -228,7 +228,8 @@ class Banhammer
     (?:#{X}|\A|^)
       (?:
         #{Z}{1,12} |
-        her
+        her |
+        eba
       )
     (?:#{X}|\Z|$)
   /mix
