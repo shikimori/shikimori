@@ -1,3 +1,7 @@
+# ffmpeg надо собрать с поддержкой vp9
+#   http://wiki.webmproject.org/ffmpeg/building-with-libvpx
+# конфигурить с такими параметрами:
+#   ./configure --enable-libvpx --enable-libvorbis --enable-gnutls --enable-network --enable-protocol=http --enable-protocol=https
 class WebmThumbnail
   include Sidekiq::Worker
 
