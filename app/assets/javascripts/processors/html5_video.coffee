@@ -11,12 +11,11 @@ class @Html5Video extends BaseProcessor
   _replace_image: (attempt=1) ->
     thumbnail = new Image
     thumbnail.src = @$node.data('src')
-    thumbnail.srcset = @$node.data('srcset')
 
     imagesLoaded(thumbnail)
       .on 'done', =>
-        @node.src = thumbnail.src
-        @node.srcset = thumbnail.srcset
+        @node.src = @$node.data('src')
+        @node.srcset = @$node.data('srcset')
       .on 'fail', =>
         if attempt <= 3
           (=> @_replace_image attempt+1).delay(30000 * (attempt+1))
