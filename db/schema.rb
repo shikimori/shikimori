@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150826195608) do
+ActiveRecord::Schema.define(version: 20150901220720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1065,5 +1065,18 @@ ActiveRecord::Schema.define(version: 20150826195608) do
   add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
   add_index "votes", ["voteable_id"], name: "index_votes_on_voteable_id", using: :btree
   add_index "votes", ["voteable_type"], name: "index_votes_on_voteable_type", using: :btree
+
+  create_table "webm_videos", force: :cascade do |t|
+    t.string   "url",                    limit: 1024, null: false
+    t.string   "state",                               null: false
+    t.string   "thumbnail_file_name"
+    t.string   "thumbnail_content_type"
+    t.integer  "thumbnail_file_size"
+    t.datetime "thumbnail_updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "webm_videos", ["url"], name: "index_webm_videos_on_url", unique: true, using: :btree
 
 end

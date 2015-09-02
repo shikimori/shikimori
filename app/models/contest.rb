@@ -67,18 +67,12 @@ public
     state :started
     state :finished
 
-    event :propose do
-      transition created: :proposing
-    end
-    event :stop_propose do
-      transition proposing: :created
-    end
+    event(:propose) { transition created: :proposing }
+    event(:stop_propose) { transition proposing: :created }
     event :start do
       transition [:created, :proposing] => :started, :if => lambda { |contest| contest.links.count >= MINIMUM_MEMBERS && contest.links.count <= MAXIMUM_MEMBERS } # && Contest.all.none?(&:started?)
     end
-    event :finish do
-      transition started: :finished
-    end
+    event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
       contest.send :generate_thread unless contest.thread

@@ -47,6 +47,7 @@ set :linked_dirs, %w{
   public/images/studio
   public/images/user
   public/images/user_image
+  public/images/webm_video
 }
 
 def shell_exec command
