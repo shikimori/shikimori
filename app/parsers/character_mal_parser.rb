@@ -32,7 +32,8 @@ class CharacterMalParser < BaseMalParser
     doc = Nokogiri::HTML(content)
 
     # общие данные
-    title_doc = doc.css("#horiznav_nav + .normal_header")
+    title_doc = doc.css(".breadcrumb + .normal_header")
+
     if title_doc.text.match(/^(.*?) ?\((.*)\)$/)
       entry[:name] = cleanup($1)
       entry[:japanese] = cleanup($2)

@@ -174,6 +174,7 @@ module MalFetcher
   end
 
 private
+
   def cleanup text
     (text || '')
       .gsub(/<br>/, '<br />')
@@ -214,7 +215,18 @@ private
   end
 
   def parse_synopsis(content)
-    content.match(/Synopsis<\/h2>([\s\S]*?)(?=<\/td>|<h2)/) ? cleanup($1) : ""
+    content.match(/
+      Synopsis<\/h2>
+        (?:
+          <span\sitemprop="description">
+            (?<text> [\s\S]*? )
+          <\/span>
+          |
+          (?<text> [\s\S]*? )
+        )
+
+      (?: <\/td>|<h2 )
+    /mix) ? cleanup($~[:text]) : ""
   end
 
   def parse_line(line_name, content, multiple_results)
