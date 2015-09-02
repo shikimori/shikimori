@@ -11,6 +11,5 @@ class @Html5Video extends BaseProcessor
     thumbnail.srcset = @$node.data('srcset')
 
     imagesLoaded(thumbnail).on 'done', =>
-      console.log 'thumbnail done!'
       @node.src = thumbnail.src
       @node.srcset = thumbnail.srcset
