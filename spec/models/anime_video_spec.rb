@@ -252,14 +252,24 @@ describe AnimeVideo do
     describe '#url=' do
       let(:video) { build :anime_video, url: url }
 
-      context 'normal url' do
-        let(:url) { 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
-        it { expect(video.url).to eq url }
+      describe 'new record' do
+        context 'normal url' do
+          let(:url) { 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
+          it { expect(video.url).to eq url }
+        end
+
+        context 'url w/o http' do
+          let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
+          it { expect(video.url).to eq "http://#{url}" }
+        end
       end
 
-      context 'url w/o http' do
-        let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
-        it { expect(video.url).to eq "http://#{url}" }
+      describe 'persisted video' do
+        let(:video) { build_stubbed :anime_video, url: url }
+        let(:url) { 'http://rutube.ru/video/ef370e68cd9687a30ea67a68658c6ef8/?ref=logo' }
+        before { video.url = '<iframe width="720" height="405" src="//rutube.ru/play/embed/3599097" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
+
+        it { expect(video.url).to eq 'http://rutube.ru/play/embed/3599097' }
       end
     end
 

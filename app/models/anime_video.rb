@@ -65,7 +65,11 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def url= value
-    self[:url] = value.present? ? value.with_http : value
+    if persisted?
+      super VideoExtractor::UrlExtractor.new(value).extract
+    else
+      super value.present? ? value.with_http : value
+    end
   end
 
   def hosting
