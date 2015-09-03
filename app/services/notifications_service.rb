@@ -3,6 +3,20 @@ class NotificationsService
 
   pattr_initialize :target
 
+  def user_registered
+    Message.create_wo_antispam!(
+      from_id: User::Cosplayer_ID,
+      to: target,
+      kind: MessageType::Notification,
+      body: "Добро пожаловать.
+[url=http://#{Site::DOMAIN}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
+Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{to_param}/edit]настройках профиля[/url]. Там же можно изменить свой никнейм.
+Перед постингом на форуме рекомендуем ознакомиться с [url=http://#{Site::DOMAIN}/s/79042-Pravila-sayta]правилами сайта[/url].
+
+Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
+    )
+  end
+
   def nickname_changed friend, old_nickname, new_nickname
     return if friend.notifications & User::NICKNAME_CHANGE_NOTIFICATIONS == 0
 

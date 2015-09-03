@@ -1,13 +1,17 @@
 describe NotificationsService do
   let(:service) { NotificationsService.new target }
 
+  describe '#user_registered' do
+    let(:target) { build_stubbed :user }
+    let!(:sender) { create :user, id: User::Cosplayer_ID }
+    it { expect{service.user_registered}.to change(target.messages, :count).by 1 }
+  end
+
   describe '#nickname_changed' do
-    let(:user) { create :user }
+    let(:target) { create :user }
     let(:friend) { create :user, notifications: notifiactions }
     let(:old_nickname) { 'old_nick' }
     let(:new_nickname) { 'new_nick' }
-
-    let(:target) { user }
 
     subject(:notify) { service.nickname_changed friend, old_nickname, new_nickname }
 
@@ -38,9 +42,8 @@ describe NotificationsService do
   end
 
   describe '#round_finished' do
+    let(:target) { create :contest_round, contest: contest }
     let(:contest) { create :contest, :with_generated_thread }
-    let(:round) { create :contest_round, contest: contest }
-    let(:target) { round }
 
     before { service.round_finished }
 
@@ -48,12 +51,10 @@ describe NotificationsService do
   end
 
   describe '#contest_finished' do
-    let(:contest) { create :contest, :with_generated_thread }
-    let!(:round) { create :contest_round, contest: contest }
+    let(:target) { create :contest, :with_generated_thread }
+    let!(:round) { create :contest_round, contest: target }
     let!(:match) { create :contest_match, round: round }
     let!(:user_vote) { create :contest_user_vote, match: match, user: user_1, item_id: 1, ip: '1' }
-
-    let(:target) { contest }
 
     let!(:user_1) { create :user }
     let!(:user_2) { create :user }
@@ -61,7 +62,7 @@ describe NotificationsService do
     before { service.contest_finished }
 
     it do
-      expect(contest.thread.comments).to have(1).item
+      expect(target.thread.comments).to have(1).item
       expect(user_1.messages).to have(1).item
       expect(user_2.messages).to be_empty
     end

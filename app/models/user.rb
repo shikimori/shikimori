@@ -181,7 +181,7 @@ class User < ActiveRecord::Base
 
   # бот ли пользователь
   def bot?
-    BotsService.posters.include? self.id
+    BotsService.posters.include?(id) || id == Cosplayer_ID
   end
 
   def censored?
@@ -333,17 +333,7 @@ private
 
   # создание послерегистрационного приветственного сообщения пользователю
   def send_welcome_message
-    Message.create!(
-      from_id: 1,
-      to_id: self.id,
-      kind: MessageType::Notification,
-      body: "Добро пожаловать.
-[url=http://#{Site::DOMAIN}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url] находятся ответы на наиболее часто задаваемые вопросы.
-Импортировать список аниме и манги из [url=http://myanimelist.net]myanimelist.net[/url] или [url=http://anime-planet.com]anime-planet.com[/url] можно в [url=/#{to_param}/edit]настройках профиля[/url]. Там же можно изменить свой никнейм.
-Перед постингом на форуме рекомендуем ознакомиться с [url=http://#{Site::DOMAIN}/s/79042-Pravila-sayta]правилами сайта[/url].
-
-Если возникнут вопросы или пожелания - пишите, мы постараемся вам ответить."
-    )
+    NotificationsService.new(self).user_registered
   end
 
   def twitter_client
