@@ -47,6 +47,7 @@ ru:
     <<: *topic_decorator
   user_decorator: &user_decorator
     always_online: всегда на сайте
+    always_online_bot: всегда на сайте (бот)
     online: сейчас на сайте
     offline: онлайн %{time_ago}%{ago}
     ago: назад

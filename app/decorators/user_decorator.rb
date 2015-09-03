@@ -31,8 +31,10 @@ class UserDecorator < BaseDecorator
   end
 
   def last_online
-    if object.admin? || object.banhammer? || object.bot?
+    if object.admin?
       i18n_t 'always_online'
+    elsif object.banhammer? || object.bot?
+      i18n_t 'always_online_bot'
     elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GuestID
       i18n_t 'online'
     else

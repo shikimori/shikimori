@@ -47,6 +47,7 @@ en:
     <<: *topic_decorator
   user_decorator: &user_decorator
     always_online: always online
+    always_online_bot: always online (bot)
     online: online
     offline: last online %{time_ago}%{ago}
     ago: ago

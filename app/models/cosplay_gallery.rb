@@ -98,6 +98,7 @@ class CosplayGallery < ActiveRecord::Base
   end
 
 private
+
   def sync_thread
     thread.update_attribute :title, name if thread.title != name
   end

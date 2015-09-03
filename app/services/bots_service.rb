@@ -1,3 +1,4 @@
+# TODO: refactor
 class BotsService
   @@mutex = Mutex.new
 
