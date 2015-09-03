@@ -1,20 +1,23 @@
-class AniMangaDecorator::RolesDecorator < BaseDecorator
+class RolesQuery < BaseDecorator
+  prepend ActiveCacher.instance
   instance_cache :main_people, :main_characters, :supporting_characters, :people
 
   IMPORTANT_ROLES = ['Director', 'Original Creator', 'Story & Art', 'Story', 'Art']
 
+  pattr_initialize :entry
+
   # есть ли хоть какие-то роли?
   def any?
-    object.person_roles.any?
+    entry.person_roles.any?
   end
 
   # главные участники проекта
   def main_people
-    object
+    entry
       .person_roles.directors
       .references(:people)
       .where.not(people: { name: nil })
-        .select { |v| !(v.role.split(',') & IMPORTANT_ROLES).empty? }
+        .select { |v| !(v.role.split(/, */) & IMPORTANT_ROLES).empty? }
         .uniq { |v| v.person.name }
         .map {|v| RoleEntry.new v.person, v.role }
         .sort_by(&:formatted_role)
@@ -22,7 +25,7 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
 
   # все участники проекта
   def people
-    object
+    entry
       .person_roles.people
       .map {|v| RoleEntry.new v.person, v.role }
       .sort_by do |v|
@@ -53,8 +56,9 @@ class AniMangaDecorator::RolesDecorator < BaseDecorator
   #end
 
 private
+
   def characters role
-    object
+    entry
       .person_roles.send(role)
       .includes(:character)
       .references(:character)

@@ -69,7 +69,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # объект с ролями аниме
   def roles
-    RolesDecorator.new object
+    RolesQuery.new object
   end
 
   # презентер связанных аниме
