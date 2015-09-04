@@ -21,14 +21,14 @@ header.head
           div title="#{t '.edited_videos_journal'}"
             = t '.edited_videos_journal'
 
-  - if ru_content?
-    .c-column
-      .subheadline.m10 = t '.content'
+  .c-column
+    .subheadline.m10 = t '.content'
 
-      ul.b-list
-        li
-          a.b-link href="#{translations_url}" title="#{'.anime_descriptions'}"
-            = t '.anime_descriptions'
+    ul.b-list
+      li
+        a.b-link href="#{translations_url}" title="#{'.anime_descriptions'}"
+          = t '.anime_descriptions'
+      - if ru_content?
         li
           div title="#{'.missing_videos'}"
             = t '.missing_videos'
