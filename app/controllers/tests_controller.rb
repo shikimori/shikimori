@@ -26,6 +26,11 @@ class TestsController < ShikimoriController
     render :webm, layout: false
   end
 
+  def vk_video
+    @video = AnimeVideo.find(846660).decorate
+    render :vk_video, layout: false
+  end
+
   #def d3_data
     #query = ChronologyQuery.new(Anime.find params[:anime_id])
     #@entries = query.fetch
