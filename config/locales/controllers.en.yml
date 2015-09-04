@@ -50,7 +50,7 @@ en:
   group_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
-  moderation/versions_controller:
+  moderations/versions_controller:
     content_change: 'Content change #%{version_id}'
     content_changes: Content changes
     changes_accepted: Changes accepted

@@ -1,0 +1,34 @@
+header.head
+  h1 = @page_title.last
+  p.notice  = t '.header_notice'
+
+.cc-2
+  .c-column
+    .subheadline.m10 = t '.moderation'
+
+    ul.b-list
+      li
+        a.b-link href="#{moderations_versions_url}" title="#{t '.versions_journal'}"
+          = t '.versions_journal'
+      li
+        a.b-link href="#{moderations_bans_url}" title="#{t '.forum_journal'}"
+          = t '.forum_journal'
+      - if ru_content?
+        li
+          a.b-link href="#{moderations_anime_video_reports_url}" title="#{t '.uploaded_videos_journal'}"
+            = t '.uploaded_videos_journal'
+        li
+          div title="#{t '.edited_videos_journal'}"
+            = t '.edited_videos_journal'
+
+  - if ru_content?
+    .c-column
+      .subheadline.m10 = t '.content'
+
+      ul.b-list
+        li
+          a.b-link href="#{translations_url}" title="#{'.anime_descriptions'}"
+            = t '.anime_descriptions'
+        li
+          div title="#{'.missing_videos'}"
+            = t '.missing_videos'

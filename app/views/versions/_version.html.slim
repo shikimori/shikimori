@@ -2,7 +2,7 @@
   .b-log_entry.unprocessed
     span.id-label #
     span
-      a href="#{moderation_version_url version}" = version.id
+      a href="#{moderations_version_url version}" = version.id
     span.date
       = version.created_at.strftime('%d.%m.%Y')
 
@@ -42,7 +42,7 @@
           - if can?(:manage, version)
             - if version.can_accept?
               a.b-tooltipped.unprocessed[
-                href="#{accept_moderation_version_url version}"
+                href="#{accept_moderations_version_url version}"
                 title="#{t '.accept_changes'}"
                 data-direction="top"
                 data-method="POST"
@@ -52,28 +52,28 @@
               a.b-tooltipped.unprocessed.user_change-deny[
                 title="#{t '.reject_changes'}"
                 data-direction="top"
-                data-href="#{reject_moderation_version_url version}"
+                data-href="#{reject_moderations_version_url version}"
                 data-method="POST"
                 data-reason-prompt="#{t '.reject_reason'}"
               ] = t '.reject'
 
           - if version.can_accept_taken?
               a.b-tooltipped.unprocessed[
-                href="#{accept_taken_moderation_version_url version}"
+                href="#{accept_taken_moderations_version_url version}"
                 data-direction="top"
                 data-method="POST"
               ] = t '.accepted_to_taken'
 
           - if version.can_take_accepted?
               a.b-tooltipped.unprocessed[
-                href="#{take_accepted_moderation_version_url version}"
+                href="#{take_accepted_moderations_version_url version}"
                 data-direction="top"
                 data-method="POST"
               ] = t '.taken_to_accepted'
 
           - if can?(:destroy, version) && version.can_to_deleted?
             a.b-tooltipped.unprocessed[
-              href="#{moderation_version_url version}"
+              href="#{moderations_version_url version}"
               title="#{t '.delete_changes'}"
               data-confirm="#{t '.delete_changes'}?"
               data-direction="top"

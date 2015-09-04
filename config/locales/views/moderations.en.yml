@@ -1,0 +1,16 @@
+en:
+  moderations:
+    show:
+      header_notice: Moderation journals
+      moderation: Moderation
+      content: Site content
+      versions_journal: Content changes journal
+      forum_journal: Forum moderation journal
+      uploaded_videos_journal: Uploaded videos journal
+      edited_videos_journal: Edited videos journal
+      animes: Animes w/o description
+      missing_videos: Missing videos
+    anime_video_reports:
+      report:
+        show: show
+        show_changes: show details

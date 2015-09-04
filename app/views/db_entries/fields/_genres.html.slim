@@ -26,7 +26,7 @@
 
 .cc-2
   .c-column
-    = simple_form_for [:moderation, Version.new(item: @resource, user_id: current_user.id)] do |f|
+    = simple_form_for [:moderations, Version.new(item: @resource, user_id: current_user.id)] do |f|
       .block
         = f.input :type, as: :hidden, input_html: { value: Versions::GenresVersion.name }
         = f.input :item_id, as: :hidden

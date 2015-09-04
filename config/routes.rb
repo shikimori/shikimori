@@ -53,9 +53,9 @@ Site::Application.routes.draw do
 
   # комментарии
   resources :comments do
-    resources :bans, only: [:new], controller: 'moderation/bans'
-    resources :abuse_requests, controller: 'moderation/abuse_requests', only: [] do
-      resources :bans, only: [:new], controller: 'moderation/bans'
+    resources :bans, only: [:new], controller: 'moderations/bans'
+    resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
+      resources :bans, only: [:new], controller: 'moderations/bans'
 
       collection do
         post :abuse
@@ -74,7 +74,7 @@ Site::Application.routes.draw do
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
-  namespace :moderation do
+  namespace :moderations do
     resources :user_changes, only: [:show] do
       get :tooltip, on: :member
     end
@@ -399,6 +399,8 @@ Site::Application.routes.draw do
         get :tableau
       end
     end
+
+    resource :moderations, only: [:show]
 
     resource :tests, only: [:show] do
       get :momentjs

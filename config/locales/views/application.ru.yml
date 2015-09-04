@@ -18,5 +18,6 @@ ru:
         favourite_recommendations: Избранное
         community_recommendations: От сообщества
         personalized_recommendations: Персонализированное
+        moderations_content: Модерация и контент
       anime_online:
         <<: *shikimori

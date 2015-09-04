@@ -18,5 +18,6 @@ en:
         favourite_recommendations: Favorite
         community_recommendations: From the Community
         personalized_recommendations: Personalized
+        moderations_content: Moderation
       anime_online:
         <<: *shikimori

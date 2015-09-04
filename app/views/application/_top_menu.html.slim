@@ -78,22 +78,22 @@
       - if current_user.moderator? && (AbuseRequest.has_abuses? || AbuseRequest.has_changes?)
         .mod-block
           span Форум:
-          a href="#{moderation_bans_url}" title="Модерация жалоб" #{AbuseRequest.abuses.count + AbuseRequest.pending.count}
+          a href="#{moderations_bans_url}" title="Модерация жалоб" #{AbuseRequest.abuses.count + AbuseRequest.pending.count}
       - elsif current_user.abuse_requests_moderator? && AbuseRequest.has_changes?
         .mod-block
           span Форум:
-          a href="#{moderation_abuse_requests_url}" title="Модерация форума" #{AbuseRequest.pending.count}
+          a href="#{moderations_abuse_requests_url}" title="Модерация форума" #{AbuseRequest.pending.count}
       - if current_user.versions_moderator? && Version.has_changes?
         .mod-block
           span Правки:
-          a href="#{moderation_versions_url}" title="Модерация пользовательских правок" #{Version.pending_count}
+          a href="#{moderations_versions_url}" title="Модерация пользовательских правок" #{Version.pending_count}
       /- if current_user.reviews_moderator? && Review.has_changes?
         .mod-block
           span Рецензии:
-          a href="#{moderation_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
+          a href="#{moderations_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
       - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
         - unless current_user.id == User::Morr_ID && AnimeVideoReport.pending.count < 1000
           .mod-block
             span Видео:
-            a href="#{moderation_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
+            a href="#{moderations_anime_video_reports_url}" title="Модерация видео" #{AnimeVideoReport.pending.count}
 

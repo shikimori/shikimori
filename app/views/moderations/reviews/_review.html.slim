@@ -1,0 +1,36 @@
+.b-log_entry
+  - if review.pending?
+    .moderation
+      a.accept href="#{accept_moderations_review_path review}" data-method="post" принять
+      a.reject href="#{reject_moderations_review_path review}" data-method="post" переместить в оффтопик
+
+  .info
+    span.id-label #
+    span
+      a href="#{url_for [review.entry, review]}" = review.id
+    span.date
+      = review.created_at.strftime '%d.%m.%Y'
+
+    .b-user16
+      a href="#{profile_url review.user}" title="#{review.user.nickname}"
+        img[
+          src="#{review.user.avatar_url 16}"
+          srcset="#{review.user.avatar_url 32} 2x"
+          alt="#{review.user.nickname}"
+          title="#{review.user.nickname}"
+        ]
+        span = review.user.nickname
+
+    span.column
+      = review.target_type
+    span.id
+      - if review.target
+        a.bubbled href="#{url_for review.target}" = review.target.name
+      - else
+        = t "deleted.#{review.model}"
+    span.state class="#{review.state}"
+      = review.human_state_name
+    - if review.approver.present?
+      span = review.approver.nickname
+    span.date
+      = review.votes_text

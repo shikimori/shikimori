@@ -55,20 +55,20 @@
           - elsif user_signed_in? && current_user.versions_moderator?
             - unless ['tags', 'russian', 'screenshots', 'torrents_name' ,'video'].include? user_change.column
               a.b-tooltipped.unprocessed[
-                href="#{take_moderation_user_change_url user_change, is_applied: true}"
+                href="#{take_moderations_user_change_url user_change, is_applied: true}"
                 data-method="post"
                 data-direction="top"
                 title="Применить правку"
               ] принять
 
             a.b-tooltipped.unprocessed[
-              href="#{take_moderation_user_change_url user_change}"
+              href="#{take_moderations_user_change_url user_change}"
               data-method="post"
               data-direction="top"
               title="Применить правку, но НЕ учтывать пользователя среди авторов"
             ] взять
             a.b-tooltipped.unprocessed.user_change-deny[
-              data-href="#{deny_moderation_user_change_url user_change}"
+              data-href="#{deny_moderations_user_change_url user_change}"
               data-method="post"
               data-direction="top"
               title="Отменить правку и послать пользователю уведомление об этом"
@@ -76,7 +76,7 @@
             ] отклонить
           - if user_signed_in? && (current_user.versions_moderator? || current_user.id == user_change.user_id)
             a.b-tooltipped.unprocessed[
-              href="#{deny_moderation_user_change_url user_change, is_deleted: true}"
+              href="#{deny_moderations_user_change_url user_change, is_deleted: true}"
               data-method="post"
               data-direction="top"
               title="Отменить правку и не посылать пользователю уведомление об этом"

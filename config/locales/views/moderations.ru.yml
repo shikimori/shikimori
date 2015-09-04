@@ -1,0 +1,16 @@
+ru:
+  moderations:
+    show:
+      header_notice: Журналы модерации и информация о контенте сайта
+      moderation: Модерация
+      content: Контент
+      versions_journal: Журнал изменений контента
+      forum_journal: Журнал модерации форума
+      uploaded_videos_journal: Журнал новых видео
+      edited_videos_journal: Журнал изменений видео
+      anime_descriptions: Аниме без описаний
+      missing_videos: Потерянные видео
+    anime_video_reports:
+      report:
+        show: показать
+        show_changes: показать правку

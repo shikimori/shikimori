@@ -37,6 +37,7 @@ class GeoipAccess
   end
 
 private
+
   def ask_geoip ip
     %x{geoiplookup #{ip}}
       .fix_encoding[/GeoIP Country Edition: (\w+)/, 1] || 'hz'

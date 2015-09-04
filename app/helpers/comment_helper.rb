@@ -193,8 +193,8 @@ module CommentHelper
     Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
     Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
     Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
-    UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderation_user_change_url],
-    Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderation_version_url],
+    UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderations_user_change_url],
+    Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
@@ -282,9 +282,9 @@ module CommentHelper
             end
 
             url = if entry.kind_of? UserChange
-              moderation_user_change_url entry
+              moderations_user_change_url entry
             elsif entry.kind_of? Version
-              moderation_version_url entry
+              moderations_version_url entry
             elsif entry.kind_of? Group
               club_url entry
             elsif entry.kind_of? AnimeVideo

@@ -20,7 +20,7 @@ class VersionsView < ViewObjectBase
   end
 
   def next_page_url
-    h.index_moderation_versions_url page: page+1
+    h.index_moderations_versions_url page: page+1
   end
 
   def moderators

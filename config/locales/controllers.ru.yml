@@ -50,7 +50,7 @@ ru:
   group_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
-  moderation/versions_controller:
+  moderations/versions_controller:
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
     changes_accepted: Изменения приняты

@@ -46,6 +46,7 @@ a.entry.rel[
         class="#{:selected if params[:controller] == 'recommendations'}"
         href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
       ] = t '.personalized_recommendations'
+
 - else
   a.entry[
     class="#{:selected if params[:controller] == 'recommendations'}"
@@ -69,20 +70,37 @@ a.entry.rel[
     ] = t '.clubs'
 
 .entry[
-    class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
-  ]
+  class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
+]
   .submenu-toggler
   .submenu-activator = t '.info'
   .submenu
-    a.entry class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}" href="#{anime_history_url}" title="Индустрия аниме" data-no-turbolink="true" Индустрия аниме
-    a.entry class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}" href="#{about_pages_url}" title="О сайте" data-no-turbolink="true" О сайте
+    a.entry[
+      class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}"
+      href="#{anime_history_url}"
+      title="Индустрия аниме"
+      data-no-turbolink="true"
+    ] Индустрия аниме
+    a.entry[
+      class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}"
+      href="#{about_pages_url}"
+      title="О сайте"
+      data-no-turbolink="true"
+    ] О сайте
     - if user_signed_in?
-      a.entry href='/s/79042-Pravila-sayta' title='Правила сайта' Правила сайта
-      a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title='Часто задаваемые вопросы' FAQ
-      a.entry href='#{moderation_versions_url}' title='Журнал модерации контента' Журнал модерации контента
-      a.entry href='#{moderation_bans_url}' title='Журнал модерации форума' Журнал модерации форума
-    - if user_signed_in?
-        a.entry class="#{:active if params[:controller] == 'translations'}" href="#{translations_url}" title="Аниме без описаний" Аниме без описаний
-        a.entry href="http://shikimori.org/api/doc" API
+      a.entry href="/s/79042-Pravila-sayta" title="Правила сайта" Правила сайта
+      a.entry href="/s/85018-FAQ-Chasto-zadavaemye-voprosy" title="Часто задаваемые вопросы" FAQ
+      a.entry[
+        href="#{moderations_url}"
+        title="#{t '.moderations_content'}"
+      ] = t '.moderations_content'
+      /a.entry href='#{moderations_versions_url}' title='Журнал модерации контента' Журнал модерации контента
+      /a.entry href='#{moderations_bans_url}' title='Журнал модерации форума' Журнал модерации форума
+      /a.entry[
+        /class="#{:active if params[:controller] == 'translations'}"
+        /href="#{translations_url}"
+        /title="Аниме без описаний"
+      /] Аниме без описаний
+      a.entry href="http://shikimori.org/api/doc" API
     /- if user_signed_in? && current_user.cosplay_moderator?
         a.entry class="#{:active if params[:controller] == 'cosplay'}" href="#{mod_cosplay_index_url}" title="Косплей" Косплей
