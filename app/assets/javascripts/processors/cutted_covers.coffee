@@ -18,7 +18,7 @@ class @CuttedCovers extends BaseProcessor
     $(document).on 'resize:debounced orientationchange', recalc_styles
 
   initialize: ->
-    @$poster = @$ '.b-catalog_entry:first-child .image-decor'
+    @_fetch_poster()
     @collection_id = "cutted_covers_#{@_increment_id()}"
     @ratio_type = @_node_ratio @node
 
@@ -31,6 +31,8 @@ class @CuttedCovers extends BaseProcessor
     bind_hanler() unless CuttedCovers.GLOBAL_HANDLER
 
   inject_css: =>
+    @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
+
     $.injectCSS(
       "##{@collection_id}": {
         '.image-cutter': {
@@ -45,3 +47,6 @@ class @CuttedCovers extends BaseProcessor
 
   _node_ratio: (node) ->
     @node.attributes['data-ratio_type']?.value || 'entry'
+
+  _fetch_poster: ->
+    @$poster = @$ '.b-catalog_entry:first-child .image-decor'
