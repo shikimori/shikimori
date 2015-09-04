@@ -155,4 +155,10 @@ class RecommendationsController < AnimesCollectionController
       memo[user_id] = sampler.rmse user_id, @threshold
     end
   end
+
+private
+
+  def collection_url_method
+    :recommendations_url
+  end
 end

@@ -45,10 +45,10 @@ class AnimesCollectionController < ShikimoriController
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
   rescue BadStatusError
-    redirect_to send("#{klass.table_name}_url", url_params(status: nil)), status: 301
+    redirect_to send(collection_url_method, url_params(status: nil)), status: 301
 
   rescue BadSeasonError
-    redirect_to send("#{klass.table_name}_url", url_params(season: nil)), status: 301
+    redirect_to send(collection_url_method, url_params(season: nil)), status: 301
 
   rescue ForceRedirect => e
     redirect_to e.url, status: 301
@@ -79,7 +79,7 @@ private
     @entry_data = {}
 
     if params[:type] =~ /[A-Z -]/
-      raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(type: params[:type].downcase.sub(/ |-/, '_')))
+      raise ForceRedirect, collection_url(type: params[:type].downcase.sub(/ |-/, '_'))
     end
     [:genre, :studio, :publisher].each do |kind|
       if params[kind]
@@ -92,12 +92,12 @@ private
         filter_klass = kind.to_s.capitalize.constantize
         all_param_ids.each do |id|
           if filter_klass::Merged.include? id
-            raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(kind.to_sym => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)))
+            raise ForceRedirect, collection_url(kind.to_sym => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s))
           end
         end
 
         next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data.first.to_param
-        raise ForceRedirect, self.send("#{klass.table_name}_url", url_params.merge(kind.to_sym => all_entry_data.first.to_param))
+        raise ForceRedirect, collection_url(kind.to_sym => all_entry_data.first.to_param)
       end
     end
     build_page_title @entry_data
@@ -258,5 +258,13 @@ private
 
   def filtered_params
     params.except :format, :exclude_ids, :ids_with_sort, :template, :is_adult, :exclude_ai_genres
+  end
+
+  def collection_url changed_params
+    send collection_url_method, filtered_params.merge(changed_params).symbolize_keys
+  end
+
+  def collection_url_method
+    "#{klass.table_name}_url"
   end
 end
