@@ -8,6 +8,8 @@ describe VersionsView do
 
   let!(:moderator) { create :user, :versions_moderator }
 
+  before { view.h.params[:type] = 'content' }
+
   it do
     expect(view.processed).to have(3).items
     expect(view.postloader?).to eq false

@@ -27,14 +27,18 @@ header.head
         top: -32px
 
       &:after
-        //left: 5px
         content: attr(data-text)
         font-size: 9px
         position: absolute
         //text-align: center
         //top: -9px
         //width: 35px
+
+      .locale-ru &:after
         margin: -9px 0 0 4px
+
+      .locale-en &:after
+        margin: -9px 0 0 7px
 
       &:hover:after
         border-bottom: 1px solid $link-border-hover

@@ -86,7 +86,7 @@
       - if current_user.versions_moderator? && Version.has_changes?
         .mod-block
           span Правки:
-          a href="#{moderations_versions_url}" title="Модерация пользовательских правок" #{Version.pending_count}
+          a href="#{moderations_versions_url type: :content}" title="Модерация пользовательских правок" #{Version.pending_count}
       /- if current_user.reviews_moderator? && Review.has_changes?
         .mod-block
           span Рецензии:

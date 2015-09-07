@@ -79,20 +79,19 @@ Site::Application.routes.draw do
       get :tooltip, on: :member
     end
 
+    resources :versions, only: [:show] do
+      member do
+        get :tooltip
+        post :accept
+        post :take
+        post :reject
+        post :accept_taken
+        post :take_accepted
+      end
+    end
     scope ':type/', type: /content|anime_video/ do
-      resources :versions, only: [:show, :index, :create, :destroy] do
-        collection do
-          get '(/page/:page)' => :index, as: :index
-        end
-
-        member do
-          get :tooltip
-          post :accept
-          post :take
-          post :reject
-          post :accept_taken
-          post :take_accepted
-        end
+      resources :versions, only: [:index, :create, :destroy] do
+        get '(/page/:page)' => :index, as: :index, on: :collection
       end
     end
 

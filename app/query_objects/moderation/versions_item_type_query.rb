@@ -2,7 +2,7 @@ class Moderation::VersionsItemTypeQuery
   pattr_initialize :type
 
   def result
-    case type.to_sym
+    case type.try :to_sym
       when :anime_video
         Version.where(item_type: AnimeVideo.name)
 
