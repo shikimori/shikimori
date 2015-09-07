@@ -4,7 +4,6 @@ describe User do
   describe 'relations' do
     it { should have_one :preferences }
 
-    it { should have_many :user_changes }
     it { should have_many :versions }
 
     it { should have_many :anime_rates }

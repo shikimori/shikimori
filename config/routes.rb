@@ -75,10 +75,6 @@ Site::Application.routes.draw do
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
   namespace :moderations do
-    resources :user_changes, only: [:show] do
-      get :tooltip, on: :member
-    end
-
     resources :versions, only: [:show] do
       member do
         get :tooltip

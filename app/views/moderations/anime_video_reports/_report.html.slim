@@ -1,4 +1,4 @@
-= cache [report, user_signed_in? && current_user.video_moderator?] do
+= cache [report, user_signed_in? && current_user.video_moderator?, I18n.locale] do
   .b-log_entry.video
     span.id-label #
     span: a target='_blank' href="#{play_video_online_index_url report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, :all, subdomain: :play}"
@@ -15,7 +15,7 @@
       = link_to report.anime_video.anime.name, play_video_online_index_url(report.anime_video.anime_id, report.anime_video.episode, report.anime_video.id, subdomain: :play), class: 'bubbled', 'data-href' => tooltip_anime_url(report.anime_video.anime)
 
     span.state class="#{report.state.downcase}"
-      = t "UserChangeStatus.#{report.state.capitalize}"
+      = report.human_state_name
 
     - if report.approver.present?
       span

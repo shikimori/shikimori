@@ -170,10 +170,6 @@ en:
         linked: Linked
         posters: Posters
         section_id: Section
-      # TODO: удалить после удаления модели
-      user_change:
-        source: Source
-        reason: Message to moderators
       version:
         reason: Change reason
         changes: Changes list
@@ -234,6 +230,13 @@ en:
           pending: awaiting moderation
           accepted: accepted
           auto_accepted: accepted automatically
+          taken: taken
+          rejected: rejected
+          deleted: deleted
+      anime_video_report:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
           taken: taken
           rejected: rejected
           deleted: deleted

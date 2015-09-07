@@ -110,12 +110,6 @@ ru:
       chapters: Главы
       volumes: Тома
       days: Дни
-  UserChangeStatus:
-    Pending: ожидает модерации
-    Accepted: принято
-    Taken: взято
-    Rejected: отклонено
-    Deleted: удалено
   Torrents:
     torrents_480p: Эпизоды 480p
     torrents_720p: HD Эпизоды 720p

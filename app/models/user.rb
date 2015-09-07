@@ -62,7 +62,6 @@ class User < ActiveRecord::Base
   has_many :group_roles, dependent: :destroy
   has_many :groups, through: :group_roles
 
-  has_many :user_changes, dependent: :destroy
   has_many :versions, dependent: :destroy
 
   has_many :subscriptions, dependent: :destroy

@@ -59,8 +59,6 @@ class SiteStatistics
       .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
       .order("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) desc")
       .limit(104)
-      #.select("users.*, sum(if(user_changes.status='#{UserChangeStatus::Accepted}',7,1)) as points")
-      #.each {|v| v.nickname = v.points.to_i.to_s }
   end
 
   def reviewers

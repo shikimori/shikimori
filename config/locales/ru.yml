@@ -170,10 +170,6 @@ ru:
         linked: Связанное
         posters: Постеры
         section_id: Раздел
-      # TODO: удалить после удаления модели
-      user_change:
-        source: Источник
-        reason: Комментарий для модератора
       version:
         reason: Причина правки
         item_diff: Список изменений
@@ -234,6 +230,13 @@ ru:
           pending: ожидает модерации
           accepted: принято
           auto_accepted: принято автоматически
+          taken: взято
+          rejected: отклонено
+          deleted: удалено
+      anime_video_report:
+        states:
+          pending: ожидает модерации
+          accepted: принято
           taken: взято
           rejected: отклонено
           deleted: удалено

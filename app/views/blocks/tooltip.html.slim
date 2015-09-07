@@ -6,14 +6,8 @@
 
   .person-block class="#{person_tooltip_class @resource}"
     .tooltip
-      - if @resource.kind_of? UserChange
-        = render partial: 'moderations/user_changes/tooltip'
-      - else
-        == person_tooltip_text @resource, @resource.kind_of?(Character)
+      == person_tooltip_text @resource, @resource.kind_of?(Character)
 
 - else
-  - if @resource.kind_of? UserChange
-    = render partial: 'moderations/user_changes/tooltip', locals: { no_format: true }
-  - else
-   = cache ['tooltip', @resource], expires_in: 2.weeks
-     == person_tooltip_text @resource, @resource.kind_of?(Character), true
+  = cache ['tooltip', @resource], expires_in: 2.weeks
+    == person_tooltip_text @resource, @resource.kind_of?(Character), true

@@ -3,7 +3,7 @@ class ProfileStats
   include Translation
 
   instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time
-  instance_cache :comments_count, :comments_reviews_count, :reviews_count, :user_changes_count, :uploaded_videos_count
+  instance_cache :comments_count, :comments_reviews_count, :reviews_count, :uploaded_videos_count
 
   def initialize user, current_user
     @user = user

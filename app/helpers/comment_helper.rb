@@ -5,7 +5,7 @@ module CommentHelper
   #include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :user_change, :version, :anime_video, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
+  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :version, :anime_video, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -193,7 +193,6 @@ module CommentHelper
     Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
     Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
     Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
-    UserChange => [/(\[user_change(?:=(\d+))?\]([^\[]*?)\[\/user_change\])/, :tooltip_moderations_user_change_url],
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
@@ -281,9 +280,7 @@ module CommentHelper
               " class=\"b-link\""
             end
 
-            url = if entry.kind_of? UserChange
-              moderations_user_change_url entry
-            elsif entry.kind_of? Version
+            url = if entry.kind_of? Version
               moderations_version_url entry
             elsif entry.kind_of? Group
               club_url entry
