@@ -19,12 +19,12 @@ describe Moderations::VersionsController do
 
   describe '#index' do
     describe 'html' do
-      before { get :index }
+      before { get :index, type: 'content' }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'json' do
-      before { get :index, page: 2, format: :json }
+      before { get :index, type: 'content', page: 2, format: :json }
       it { expect(response).to have_http_status :success }
     end
   end

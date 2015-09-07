@@ -75,7 +75,7 @@ Site::Application.routes.draw do
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
   namespace :moderations do
-    resources :versions, only: [:show] do
+    resources :versions, only: [:show, :create, :destroy] do
       member do
         get :tooltip
         post :accept
@@ -86,7 +86,7 @@ Site::Application.routes.draw do
       end
     end
     scope ':type/', type: /content|anime_video/ do
-      resources :versions, only: [:index, :create, :destroy] do
+      resources :versions, only: [:index] do
         get '(/page/:page)' => :index, as: :index, on: :collection
       end
     end
