@@ -1,5 +1,5 @@
 describe Moderation::ProcessedVersionsQuery do
-  let(:query) { Moderation::ProcessedVersionsQuery.new }
+  let(:query) { Moderation::ProcessedVersionsQuery.new 'content' }
 
   let(:user) { create :user }
   let!(:version_1) { create :version, state: 'taken', updated_at: 1.minute.ago }

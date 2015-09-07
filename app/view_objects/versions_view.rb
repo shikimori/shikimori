@@ -11,7 +11,7 @@ class VersionsView < ViewObjectBase
   end
 
   def pending
-    Version
+    Moderation::VersionsItemTypeQuery.new(h.params[:type]).result
       .includes(:user, :moderator)
       .where(state: :pending)
       .order(:created_at)
@@ -32,6 +32,8 @@ class VersionsView < ViewObjectBase
 private
 
   def processed_query
-    Moderation::ProcessedVersionsQuery.new.postload page, per_page_limit
+    Moderation::ProcessedVersionsQuery
+      .new(h.params[:type])
+      .postload page, per_page_limit
   end
 end

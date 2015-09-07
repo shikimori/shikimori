@@ -1,9 +1,10 @@
 class Moderation::ProcessedVersionsQuery < QueryObjectBase
+  pattr_initialize :type
 
 private
 
   def query
-    Version
+    Moderation::VersionsItemTypeQuery.new(type).result
       .includes(:user, :moderator)
       .where.not(state: :pending)
       .order(updated_at: :desc)
