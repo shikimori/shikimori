@@ -68,7 +68,7 @@ describe AbuseRequest do
   describe 'instance methods' do
     describe '#reason=' do
       let(:abuse_request) { build :abuse_request, reason: 'a' * 3000 }
-      it { expect(abuse_request.reason).to have(UserChange::MAXIMUM_REASON_SIZE).items }
+      it { expect(abuse_request.reason).to have(AbuseRequest::MAXIMUM_REASON_SIZE).items }
     end
 
     describe '#punishable?' do
