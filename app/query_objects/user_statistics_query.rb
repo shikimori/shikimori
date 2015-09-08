@@ -1,4 +1,7 @@
 class UserStatisticsQuery
+  prepend ActiveCacher.instance
+  instance_cache :activity_stats
+
   attr_reader :anime_rates, :anime_valuable_rates
   attr_reader :manga_rates, :manga_valuable_rates
   #attr_reader :genres, :studios, :publishers
@@ -50,45 +53,38 @@ class UserStatisticsQuery
 
   # статистика активности просмотра аниме / чтения манги
   def by_activity(intervals)
-    ##[
-      ##{type: :anime, rates: @anime_rates, histories: @anime_history},
-      ##{type: :manga, rates: @manga_rates, histories: @manga_history}
-    ##].each_with_object({}) do |stat, rez|
-      ##rez[stat[:type]] = compute_by_activity stat[:type].to_s, stat[:rates], stat[:histories], intervals
-    ##end
-    #{
-      #stats: compute_by_activity(@anime_rates, @manga_rates, @anime_history, @manga_history, intervals)
-    #}
-    compute_by_activity(@anime_rates, @manga_rates, @anime_history, @manga_history, intervals)
+    @by_activity ||= {}
+    @by_activity[intervals] ||= compute_by_activity *activity_stats, intervals
   end
 
-  # вычисление статистики активности просмотра аниме / чтения манги
-  def compute_by_activity(anime_rates, manga_rates, anime_histories, manga_histories, intervals)
-    histories = anime_histories + manga_histories
-    rates = anime_rates + manga_rates
-    return {} if histories.empty?
+  def activity_stats
+    histories = @anime_history + @manga_history
+    rates = @anime_rates + @manga_rates
+
+    rates_cache = rates.each_with_object({}) do |rate, rez|
+      rez["#{rate.target_id}#{rate.target_type}"] = rate
+    end
+    cache_keys = Set.new rates_cache.keys
 
     # минимальная дата старта статистики
-    Rails.logger.info '1'
     histories.select! { |v| v.created_at >= @preferences.statistics_start_on } if @preferences.statistics_start_on
-    Rails.logger.info '2'
 
     # добавленные аниме
     added = histories.select { |v| v.action == UserHistoryAction::Add }.uniq { |v| [v.target_id, v.target_type] }
-    Rails.logger.info '3'
     # удаляем все добавленыне
     histories.delete_if { |v| v.action == UserHistoryAction::Add }
-    Rails.logger.info '4'
+    # кеш для быстрой проверки наличия в истории
+    present_histories = histories.each_with_object({}) do |v, rez|
+      rez["#{v.target_id}#{v.target_type}"] = true
+    end
     # возвращаем добавленные назад, если у добавленных нет ни ожной записи в истории,
     # но в тоже время у добавленных есть потраченное на просмотр время
-    #added = added
-      #.select { |v| histories.none? { |h| h.target_id == v.target_id && h.target_type == v.target_type } }
-      #.each do |history|
-        #rate = rates.find { |v| v.target_id == history.target_id && v.target_type == history.target_type }
-        #history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
-      #end
-    Rails.logger.info '5'
-    #histories = histories + added
+    added = added.select { |v| !present_histories["#{v.target_id}#{v.target_type}"] }
+    added.each do |history|
+      rate = rates_cache["#{history.target_id}#{history.target_type}"]
+      history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
+    end
+    histories = histories + added
 
     imported = Set.new histories
       .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
@@ -97,21 +93,29 @@ class UserStatisticsQuery
       .values.flatten
       .map(&:id)
 
-    cache = rates.each_with_object({}) do |v, rez|
+    # переписываем rates_cache на нужный нам формат данных
+    rates_cache = rates.each_with_object(rates_cache) do |v, rez|
       rez["#{v.target_id}#{v.target_type}"] = {
         duration: v[:duration],
         completed: 0,
         episodes: v[:entry_episodes] > 0 ? v[:entry_episodes] : v[:entry_episodes_aired]
       }
     end
-    cache_keys = Set.new cache.keys
 
     # исключаем импортированное
     histories = histories.select { |v| !imported.include?(v.id) }
     # исключаем то, для чего rates нет, т.е. впоследствии удалённое из списка
     histories = histories.select { |v| cache_keys.include?("#{v.target_id}#{v.target_type}") }
-    return {} if histories.empty?
 
+    [
+      rates,
+      histories,
+      rates_cache
+    ]
+  end
+
+  # вычисление статистики активности просмотра аниме / чтения манги
+  def compute_by_activity rates, histories, rates_cache, intervals
     start_date = histories.map { |v| v.created_at }.min.to_datetime.beginning_of_day
     end_date = histories.map { |v| v.updated_at }.max.to_datetime.end_of_day
 
@@ -132,7 +136,7 @@ class UserStatisticsQuery
       #1/0 if z.any? && z.first.id != 3585457 && z.first.id != 3585459
 
       history.each do |entry|
-        cached = cache["#{entry.target_id}#{entry.target_type}"]
+        cached = rates_cache["#{entry.target_id}#{entry.target_type}"]
 
         # запись о начале пересмотра - сбрасывем счётчик
         if entry.action == UserHistoryAction::Status && entry.value.to_i == UserRate.status_id(:rewatching)
