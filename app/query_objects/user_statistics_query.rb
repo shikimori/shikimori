@@ -116,6 +116,8 @@ class UserStatisticsQuery
 
   # вычисление статистики активности просмотра аниме / чтения манги
   def compute_by_activity rates, histories, rates_cache, intervals
+    return {} if histories.none?
+
     start_date = histories.map { |v| v.created_at }.min.to_datetime.beginning_of_day
     end_date = histories.map { |v| v.updated_at }.max.to_datetime.end_of_day
 
