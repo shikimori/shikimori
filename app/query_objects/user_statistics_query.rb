@@ -69,21 +69,26 @@ class UserStatisticsQuery
     return {} if histories.empty?
 
     # минимальная дата старта статистики
+    Rails.logger.info '1'
     histories.select! { |v| v.created_at >= @preferences.statistics_start_on } if @preferences.statistics_start_on
+    Rails.logger.info '2'
 
     # добавленные аниме
     added = histories.select { |v| v.action == UserHistoryAction::Add }.uniq { |v| [v.target_id, v.target_type] }
+    Rails.logger.info '3'
     # удаляем все добавленыне
     histories.delete_if { |v| v.action == UserHistoryAction::Add }
+    Rails.logger.info '4'
     # возвращаем добавленные назад, если у добавленных нет ни ожной записи в истории,
     # но в тоже время у добавленных есть потраченное на просмотр время
-    added = added
-      .select { |v| histories.none? { |h| h.target_id == v.target_id && h.target_type == v.target_type } }
-      .each do |history|
-        rate = rates.find { |v| v.target_id == history.target_id && v.target_type == history.target_type }
-        history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
-      end
-    histories = histories + added
+    #added = added
+      #.select { |v| histories.none? { |h| h.target_id == v.target_id && h.target_type == v.target_type } }
+      #.each do |history|
+        #rate = rates.find { |v| v.target_id == history.target_id && v.target_type == history.target_type }
+        #history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
+      #end
+    Rails.logger.info '5'
+    #histories = histories + added
 
     imported = Set.new histories
       .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
