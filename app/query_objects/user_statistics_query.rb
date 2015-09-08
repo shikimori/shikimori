@@ -25,7 +25,7 @@ class UserStatisticsQuery
       .history
       .where(target_type: Anime.name)
       .where("action in (?) or (action = ? and value in (?))",
-              [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore],
+              [UserHistoryAction::Episodes, UserHistoryAction::CompleteWithScore, UserHistoryAction::Add],
               UserHistoryAction::Status,
               [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
     #@imports = @user.history.where(action: [UserHistoryAction::MalAnimeImport, UserHistoryAction::ApAnimeImport, UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport])
@@ -43,7 +43,7 @@ class UserStatisticsQuery
       .history
       .where(target_type: Manga.name)
       .where("action in (?) or (action = ? and value in (?))",
-              [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore],
+              [UserHistoryAction::Chapters, UserHistoryAction::CompleteWithScore, UserHistoryAction::Add],
               UserHistoryAction::Status,
               [UserRate.statuses[:completed].to_s, UserRate.statuses[:rewatching].to_s])
   end
@@ -71,15 +71,28 @@ class UserStatisticsQuery
     # минимальная дата старта статистики
     histories.select! { |v| v.created_at >= @preferences.statistics_start_on } if @preferences.statistics_start_on
 
+    # добавленные аниме
+    added = histories.select { |v| v.action == UserHistoryAction::Add }.uniq { |v| [v.target_id, v.target_type] }
+    # удаляем все добавленыне
+    histories.delete_if { |v| v.action == UserHistoryAction::Add }
+    # возвращаем добавленные назад, если у добавленных нет ни ожной записи в истории,
+    # но в тоже время у добавленных есть потраченное на просмотр время
+    added = added
+      .select { |v| histories.none? { |h| h.target_id == v.target_id && h.target_type == v.target_type } }
+      .each do |history|
+        rate = rates.find { |v| v.target_id == history.target_id && v.target_type == history.target_type }
+        history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
+      end
+    histories = histories + added
+
     imported = Set.new histories
-      .select {|v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
-      .group_by {|v| v.updated_at.strftime DateFormat }
-      .select {|k,v| v.size > 15 }
+      .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
+      .group_by { |v| v.updated_at.strftime DateFormat }
+      .select { |k, v| v.size > 15 }
       .values.flatten
       .map(&:id)
 
-    # заполняем кеш начальными данными
-    cache = rates.each_with_object({}) do |v,rez|
+    cache = rates.each_with_object({}) do |v, rez|
       rez["#{v.target_id}#{v.target_type}"] = {
         duration: v[:duration],
         completed: 0,
