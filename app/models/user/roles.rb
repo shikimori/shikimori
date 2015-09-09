@@ -23,8 +23,8 @@ class User
     # 16750 - hichigo shirosaki, 16774 - torch8870, 10026 - Johnny_W, 20455 - Doflein, 10026 - Black_Heart, 12023 - Wooterland,
     # 8237 - AmahiRazu, 17423 - Ryhiy, 11834 - .ptax.log, 21347 - アナスタシア, 4792 - artemeliy, 19638 - milaha007, 10342 - gazig
     # 20483 - Крипке, 16858 - ✿Yuki Yu✿, 34724 - Edge, 28601 - Ankalimon, 24518 - Tasogare_Seibei, 5019 - fen1kcs, 40713 - Sawansa,
-    # 16178 - Vika Filippova, 17532 - MeTroScreaM
-    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601, 24518, 5019, 40713, 16178, 17532]).uniq
+    # 16178 - Vika Filippova, 17532 - MeTroScreaM, 33635 - Tedeika, 44418 - Zuten, 15511 - Peoplearestrong
+    TrustedVideoUploaders = (Admins + VideoModerators + [16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347, 4792, 10342, 20483, 16858, 34724, 28601, 24518, 5019, 40713, 16178, 17532, 33635, 44418, 15511]).uniq
 
     # администратор ли пользователь?
     def admin?
