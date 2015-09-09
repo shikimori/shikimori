@@ -15,7 +15,7 @@ common: &default_settings
   # You must specify the license key associated with your New Relic
   # account.  This key binds your Agent's data to your account in the
   # New Relic service.
-  license_key: '93c6115c1b341f6ce4f9b34eaaa5e10522a54618'
+  license_key: '96aadc3e667e43378baca33badac5cee6c7ffccf'
 
   # Agent Enabled (Ruby/Rails Only)
   # Use this setting to force the agent to run or not run.
@@ -168,7 +168,7 @@ common: &default_settings
     # To stop specific errors from reporting to New Relic, set this property
     # to comma-separated values.  Default is to ignore routing errors,
     # which are how 404's get triggered.
-    ignore_errors: "ActionController::RoutingError,Sinatra::NotFound,NotFound,Unauthorized,Forbidden"
+    ignore_errors: "ActionController::RoutingError,Sinatra::NotFound,NotFound,Unauthorized,Forbidden,CanCan::AccessDenied,AgeRestricted,ActionController::InvalidAuthenticityToken,ActionController::UnknownFormat,ActiveRecord::RecordNotFound,Unicorn::ClientShutdown,MismatchedEntries"
 
   # If you're interested in capturing memcache keys as though they
   # were SQL uncomment this flag. Note that this does increase
