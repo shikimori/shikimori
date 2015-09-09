@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901220720) do
+ActiveRecord::Schema.define(version: 20150909223154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,9 +173,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
     t.datetime "updated_at",       null: false
   end
 
-  add_index "bans", ["abuse_request_id"], name: "index_bans_on_abuse_request_id", using: :btree
-  add_index "bans", ["comment_id"], name: "index_bans_on_comment_id", using: :btree
-  add_index "bans", ["moderator_id"], name: "index_bans_on_moderator_id", using: :btree
   add_index "bans", ["user_id"], name: "index_bans_on_user_id", using: :btree
 
   create_table "blob_datas", force: :cascade do |t|
@@ -207,7 +204,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
     t.text     "desynced",                       default: [], null: false, array: true
   end
 
-  add_index "characters", ["japanese"], name: "index_characters_on_japanese", using: :btree
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
 
   create_table "comment_views", force: :cascade do |t|
@@ -316,8 +312,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
     t.string   "member_type",          limit: 255, default: "anime"
   end
 
-  add_index "contests", ["updated_at"], name: "index_contests_on_updated_at", using: :btree
-
   create_table "cosplay_galleries", force: :cascade do |t|
     t.string   "cos_rain_id",          limit: 255
     t.string   "target",               limit: 255
@@ -358,7 +352,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
   end
 
   add_index "cosplay_images", ["cosplay_gallery_id", "deleted"], name: "i_cosplay_images_gallery_id_deleted", using: :btree
-  add_index "cosplay_images", ["url"], name: "index_cosplay_images_on_url", using: :btree
 
   create_table "cosplayers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -483,7 +476,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
   end
 
   add_index "group_bans", ["group_id", "user_id"], name: "index_group_bans_on_group_id_and_user_id", unique: true, using: :btree
-  add_index "group_bans", ["group_id"], name: "index_group_bans_on_group_id", using: :btree
   add_index "group_bans", ["user_id"], name: "index_group_bans_on_user_id", using: :btree
 
   create_table "group_invites", force: :cascade do |t|
@@ -574,8 +566,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "manga_pages", ["manga_chapter_id"], name: "index_manga_pages_on_manga_chapter_id", using: :btree
 
   create_table "mangas", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -770,7 +760,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
 
   add_index "screenshots", ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true, using: :btree
   add_index "screenshots", ["anime_id"], name: "index_screenshots_on_anime_id", using: :btree
-  add_index "screenshots", ["status"], name: "index_screenshots_on_status", using: :btree
 
   create_table "sections", force: :cascade do |t|
     t.integer  "position"
@@ -855,7 +844,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
   end
 
   add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context", using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 255
@@ -1034,7 +1022,6 @@ ActiveRecord::Schema.define(version: 20150901220720) do
 
   add_index "versions", ["created_at"], name: "index_versions_on_created_at", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
-  add_index "versions", ["moderator_id"], name: "index_versions_on_moderator_id", using: :btree
   add_index "versions", ["state"], name: "index_versions_on_state", using: :btree
 
   create_table "videos", force: :cascade do |t|
