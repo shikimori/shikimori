@@ -180,6 +180,7 @@ en:
     errors:
       messages:
         taken: Already Taken
+        invalid_transition: cannot transition
       models:
         comments:
           not_a_moderator: 'Cannot touch [ban] tags'
@@ -240,6 +241,11 @@ en:
           taken: taken
           rejected: rejected
           deleted: deleted
+
+  activemodel:
+    errors:
+      messages:
+        invalid_transition: cannot transition
 
   enumerize:
     user:

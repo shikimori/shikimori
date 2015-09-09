@@ -180,6 +180,7 @@ ru:
     errors:
       messages:
         taken: уже используется
+        invalid_transition: cannot transition
       models:
         comments:
           not_a_moderator: '[ban] теги трогать нельзя'
@@ -240,6 +241,11 @@ ru:
           taken: взято
           rejected: отклонено
           deleted: удалено
+
+  activemodel:
+    errors:
+      messages:
+        invalid_transition: cannot transition
 
   enumerize:
     user:
