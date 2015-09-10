@@ -1,0 +1,23 @@
+en:
+  contests:
+    index:
+      create_new_contest: Create new contest
+      list_of_all_contests: List of all contests
+
+    form:
+      common: Common
+      user_vote_key_hint: >
+        Don't run multiple polls with the same key simultaneously.
+        Or else menu checkmark wouldn't work as expected.
+      duration: Duration
+      matches_per_round_swiss_hint: >
+        For swiss system pick this number so that each round is divided into three equal blocks at most.
+        For instance this is 12 for 72 participants and 10 for 60 participants.
+      polls_will_be_reshuffled: Polls will be reshuffled if these parameters are changed.
+      status: Status
+      actions: Actions
+      accept_candidates: Accept candidates from users
+      cleanup_candidates: Cleanup candidates to prevent cheating
+      stop_accepting_candidates: Stop accepting candidates from users
+      generate_polls: Generate polls
+      shuffle_polls: Shuffle polls

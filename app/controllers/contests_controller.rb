@@ -5,19 +5,19 @@ class ContestsController < ShikimoriController
   before_action :resource_redirect, if: -> { @resource }
 
   before_action :set_breadcrumbs
-  before_action { page_title 'Опросы' }
+  before_action { page_title i18n_t :contests }
 
   def current
     if user_signed_in?
-      redirect_to Contest.current.select {|v| current_user.can_vote?(v) }.first || Contest.current.last || root_url
+      redirect_to Contest.current.select { |v| current_user.can_vote?(v) }.first || Contest.current.last || root_url
     else
       redirect_to Contest.current.last || root_url
     end
   end
 
   def index
-    keywords 'аниме опросы турниры голосования'
-    description 'Аниме опросы и турниры сайта'
+    keywords i18n_t :index_keywords
+    description i18n_t :index_description
 
     @collection_groups = @collection
       .includes(rounds: :matches)
@@ -29,19 +29,21 @@ class ContestsController < ShikimoriController
     noindex if params[:round] || params[:vote]
     redirect_to edit_contest_url(@resource) and return if @resource.created?
 
-    keywords 'аниме опрос турнир голосование ' + @resource.title
-    description 'Примите участие в аниме-турнире на нашем сайте и внесите свой вклад в голосование, мы хотим определить ' + Unicode::downcase(@resource.title) + '.'
+    keywords i18n_t :show_keywords, title: @resource.title
+    description i18n_t :show_description, title: Unicode::downcase(@resource.title)
 
     page_title @resource.displayed_round.title if params[:round]
   end
 
   # проголосовавшие в раунде
   def users
-    redirect_to contest_url(@resource) unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
+    unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
+      redirect_to contest_url(@resource)
+    end
     noindex
 
     page_title @resource.displayed_round.title
-    page_title 'Голоса'
+    page_title i18n_t :votes
   end
 
   # TODO: удалить после 05.2015
@@ -58,17 +60,17 @@ class ContestsController < ShikimoriController
     noindex
 
     page_title @resource.title
-    page_title 'Турнирная сетка'
+    page_title i18n_t :tournament_bracket
 
     @blank_layout = true
   end
 
   def edit
-    page_title 'Изменение опроса'
+    page_title i18n_t :edit_contest
   end
 
   def new
-    page_title 'Новый опрос'
+    page_title i18n_t :new_contest
 
     @resource ||= Contest.new.decorate
     @resource.started_on ||= Date.today + 1.day
@@ -82,7 +84,7 @@ class ContestsController < ShikimoriController
     @resource.user_id = current_user.id
 
     if @resource.save
-      redirect_to edit_contest_url(@resource), notice: 'Опрос создан'
+      redirect_to edit_contest_url(@resource), notice: i18n_t(:contest_created)
     else
       new
       render :new

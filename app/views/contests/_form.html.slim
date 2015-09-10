@@ -1,56 +1,82 @@
 = simple_form_for contest, html: { class: "b-form block edit contest #{contest.strategy_type}" } do |f|
   - if contest.errors.any?
     .b-errors
-      .subheadline Ошибки
+      .subheadline = i18n_i 'error', :other
       .block
         == contest.errors.full_messages.join('<br>')
 
-  .subheadline Общее
+  .subheadline = t '.common'
   .block
     = f.input :description, as: :hidden
     = f.input :title
-    = f.input :member_type, as: :select, collection: Contest.member_type.options, include_blank: false, disabled: contest.persisted?
-    = f.input :strategy_type, as: :select, collection: Contest.strategy_type.options, include_blank: false, disabled: contest.started? || contest.finished?
-    = f.input :user_vote_key, as: :select, collection: [:can_vote_1, :can_vote_2, :can_vote_3], include_blank: false, hint: 'Не должно быть голосований, запущенных в одно время с одинаковым ключём. Иначе галочка в меню будет неправильно работать.'
+    = f.input :member_type,
+        as: :select,
+        collection: Contest.member_type.options,
+        include_blank: false,
+        disabled: contest.persisted?
+    = f.input :strategy_type,
+        as: :select,
+        collection: Contest.strategy_type.options,
+        include_blank: false,
+        disabled: contest.started? || contest.finished?
+    = f.input :user_vote_key,
+        as: :select,
+        collection: [:can_vote_1, :can_vote_2, :can_vote_3],
+        include_blank: false,
+        hint: t('.user_vote_key_hint')
 
   .cc-2
     .c-column
-      .subheadline Длительность
-      = f.input :matches_per_round, disabled: contest.started? || contest.finished?,
-        hint: (contest.swiss? ? 'Для швейцарской системы эту цифру желательно подобрать таким образом, чтобы каждый раунд разбивался не более, чем на три равных блока. Для 72 участников это будет 12, для 60 - 10.' : ''),
-        input_html: { min: 1 }
-      = f.input :suggestions_per_user, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
-      = f.input :matches_interval, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
-      = f.input :match_duration, disabled: contest.started? || contest.finished?, input_html: { min: 1 }
-      = f.input :started_on, disabled: contest.started? || contest.finished?, start_year: [contest.started_on.year, Date.today.year].min, end_year: [contest.started_on.year, Date.today.year + 1].max
+      .subheadline = t '.duration'
+      = f.input :matches_per_round,
+          disabled: contest.started? || contest.finished?,
+          hint: (contest.swiss? ? t('.matches_per_round_swiss_hint') : ''),
+          input_html: { min: 1 }
+      = f.input :suggestions_per_user,
+          disabled: contest.started? || contest.finished?,
+          input_html: { min: 1 }
+      = f.input :matches_interval,
+          disabled: contest.started? || contest.finished?,
+          input_html: { min: 1 }
+      = f.input :match_duration,
+          disabled: contest.started? || contest.finished?,
+          input_html: { min: 1 }
+      = f.input :started_on,
+          disabled: contest.started? || contest.finished?,
+          start_year: [contest.started_on.year, Date.today.year].min,
+          end_year: [contest.started_on.year, Date.today.year + 1].max
 
       - if contest.rounds.any?
-        span.action-misc При изменении этих параметров голосования будут перетасованы.
+        span.action-misc = t '.polls_will_be_reshuffled'
 
     .c-column
       - if contest.persisted?
-        .subheadline Статус
+        .subheadline = t '.status'
         .block
           p.m5 = t("Contest.#{contest.state}")
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
-          .subheadline Действия
+          .subheadline = t '.actions'
           .contest_actions
             - if contest.object.can_propose?
-              .m3: a.b-js-link href="#{propose_contest_url contest}" data-method="post" Начать приём кандидатов от пользователей
+              a.action href="#{propose_contest_url contest}" data-method='post' = t '.accept_candidates'
 
             - if contest.can_stop_propose?
-              .m3: a.b-js-link href="#{cleanup_suggestions_contest_url contest}" data-method="post" Очистить голоса пользователей от накруток
-              .m3: a.b-js-link href="#{stop_propose_contest_url contest}" data-method="post" Остановить приём кандидатов от пользователей
+              a.action href="#{cleanup_suggestions_contest_url contest}" data-method='post' = t '.cleanup_candidates'
+              a.action href="#{stop_propose_contest_url contest}" data-method='post' = t '.stop_accepting_candidates'
 
             - if contest.can_start?
-              .m3: a.b-js-link href="#{build_contest_url contest}"  data-method="post"
+              a.action href="#{build_contest_url contest}"  data-method='post'
                 - if contest.rounds.empty?
-                  | Сгенерировать голосования
+                  = t '.generate_polls'
                 - else
-                  | Перетасовать голосования
+                  = t '.shuffle_polls'
               - if contest.can_start? & contest.rounds.any?
-                a.action href="#{start_contest_url contest}" data-method="post" data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!" Запустить турнир
+                a.action[
+                  href="#{start_contest_url contest}"
+                  data-method='post'
+                  data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!"
+                ] Запустить турнир
               span.action-misc Действия перезагружают страницу без сохранения прочих изменений.
 
               - if contest.links.count < Contest::MINIMUM_MEMBERS
