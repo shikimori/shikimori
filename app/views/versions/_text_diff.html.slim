@@ -1,7 +1,7 @@
 ul.diff class="#{field}"
   - unless local_assigns[:only_one]
     li.field-name
-      = version.item.class.human_attribute_name field
+      = version.item_type.constantize.human_attribute_name field
 
   li.old-value
     span #{t '.before'}:
