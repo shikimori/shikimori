@@ -2,6 +2,7 @@ class RecentVideosQuery < QueryObjectBase
   pattr_initialize :is_adult
 
 private
+
   def query
     EpisodeNotification
       .where(id: episode_ids)

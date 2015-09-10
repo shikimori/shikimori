@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910103008) do
+ActiveRecord::Schema.define(version: 20150910192930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20150910103008) do
   end
 
   add_index "abuse_requests", ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, using: :btree
+  add_index "abuse_requests", ["state", "kind"], name: "index_abuse_requests_on_state_and_kind", using: :btree
 
   create_table "anime_calendars", force: :cascade do |t|
     t.integer  "anime_id"
@@ -226,6 +227,7 @@ ActiveRecord::Schema.define(version: 20150910103008) do
     t.boolean  "offtopic",                    default: false
   end
 
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
   add_index "comments", ["created_at"], name: "index_comments_on_created_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
@@ -312,6 +314,8 @@ ActiveRecord::Schema.define(version: 20150910103008) do
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
   end
+
+  add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
 
   create_table "cosplay_galleries", force: :cascade do |t|
     t.string   "cos_rain_id",          limit: 255
@@ -404,6 +408,7 @@ ActiveRecord::Schema.define(version: 20150910103008) do
   end
 
   add_index "entries", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
+  add_index "entries", ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
   add_index "entries", ["type", "comments_count", "updated_at"], name: "i_entries_type_comments_count_updated_at", using: :btree
   add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
@@ -713,8 +718,6 @@ ActiveRecord::Schema.define(version: 20150910103008) do
     t.integer  "manga_id"
   end
 
-  add_index "related_animes", ["source_id"], name: "index_related_animes_on_source_id", using: :btree
-
   create_table "related_mangas", force: :cascade do |t|
     t.integer  "source_id"
     t.integer  "anime_id"
@@ -724,6 +727,8 @@ ActiveRecord::Schema.define(version: 20150910103008) do
     t.datetime "updated_at"
   end
 
+  add_index "related_mangas", ["source_id", "anime_id"], name: "index_related_mangas_on_source_id_and_anime_id", using: :btree
+  add_index "related_mangas", ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
   add_index "related_mangas", ["source_id"], name: "index_related_mangas_on_source_id", using: :btree
 
   create_table "review_views", id: false, force: :cascade do |t|
