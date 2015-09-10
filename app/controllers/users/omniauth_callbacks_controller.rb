@@ -14,6 +14,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
 private
+
   def omniauthorize_additional_account
     return false unless user_signed_in?
 

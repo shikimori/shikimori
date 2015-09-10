@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909223154) do
+ActiveRecord::Schema.define(version: 20150910103008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20150909223154) do
   end
 
   add_index "anime_video_reports", ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state", using: :btree
+  add_index "anime_video_reports", ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state", using: :btree
 
   create_table "anime_videos", force: :cascade do |t|
     t.integer  "anime_id"
@@ -372,6 +373,7 @@ ActiveRecord::Schema.define(version: 20150909223154) do
   end
 
   add_index "danbooru_tags", ["name", "kind"], name: "index_danbooru_tags_on_name_and_kind", using: :btree
+  add_index "danbooru_tags", ["name"], name: "index_danbooru_tags_on_name", using: :btree
 
   create_table "devices", force: :cascade do |t|
     t.integer  "user_id",                null: false
@@ -546,6 +548,8 @@ ActiveRecord::Schema.define(version: 20150909223154) do
     t.datetime "image_updated_at"
   end
 
+  add_index "images", ["owner_type", "owner_id"], name: "index_images_on_owner_type_and_owner_id", using: :btree
+
   create_table "manga_chapters", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.string   "url",        limit: 255
@@ -709,6 +713,8 @@ ActiveRecord::Schema.define(version: 20150909223154) do
     t.integer  "manga_id"
   end
 
+  add_index "related_animes", ["source_id"], name: "index_related_animes_on_source_id", using: :btree
+
   create_table "related_mangas", force: :cascade do |t|
     t.integer  "source_id"
     t.integer  "anime_id"
@@ -717,6 +723,8 @@ ActiveRecord::Schema.define(version: 20150909223154) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "related_mangas", ["source_id"], name: "index_related_mangas_on_source_id", using: :btree
 
   create_table "review_views", id: false, force: :cascade do |t|
     t.integer "user_id"
@@ -968,6 +976,8 @@ ActiveRecord::Schema.define(version: 20150909223154) do
     t.string   "nickname",   limit: 255
   end
 
+  add_index "user_tokens", ["user_id"], name: "index_user_tokens_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255
     t.string   "encrypted_password",     limit: 128
@@ -1023,6 +1033,7 @@ ActiveRecord::Schema.define(version: 20150909223154) do
   add_index "versions", ["created_at"], name: "index_versions_on_created_at", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["state"], name: "index_versions_on_state", using: :btree
+  add_index "versions", ["user_id", "state"], name: "index_versions_on_user_id_and_state", using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.string   "name",        limit: 255
