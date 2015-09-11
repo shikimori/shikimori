@@ -50,6 +50,10 @@ en:
           female: female
 
     hints:
+      user:
+        nickname: Case sensitive
+        password: Case sensitive
+        email: Case sensitive
       version:
         reason: &optional Optional
       anime: &anime_hints

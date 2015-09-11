@@ -50,6 +50,10 @@ ru:
           female: жен.
 
     hints:
+      user:
+        nickname: Чувствителен к регистру
+        password: Чувствителен к регистру
+        email: Чувствителен к регистру
       version:
         reason: &optional Не обязательно
       anime: &anime_hints
