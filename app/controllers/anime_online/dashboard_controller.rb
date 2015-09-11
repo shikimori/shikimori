@@ -3,7 +3,7 @@ class AnimeOnline::DashboardController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = 8
 
-    @recent_videos, @add_postloader = Rails.cache.fetch [:recent_videos, EpisodeNotification.last] do
+    @recent_videos, @add_postloader = Rails.cache.fetch [:recent_videos, is_adult, EpisodeNotification.last] do
       RecentVideosQuery.new(is_adult).postload(@page, @limit)
     end
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
@@ -18,7 +18,7 @@ class AnimeOnline::DashboardController < ShikimoriController
         .order(score: :desc)
         .limit(15).decorate
 
-      @contributors = Rails.cache.fetch :video_contributors, expires_in: 2.days do
+      @contributors = Rails.cache.fetch [:video_contributors, is_adult], expires_in: 2.days do
         AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)
       end
       @seasons = AniMangaSeason.menu_seasons
