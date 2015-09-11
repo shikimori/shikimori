@@ -8,9 +8,8 @@ class UserlistComparerController < ShikimoriController
 
   def show
     noindex && nofollow
-    @klass = Object.const_get(params[:list_type].downcase.capitalize)
+    @klass = params[:list_type].downcase.capitalize.constantize
     params[:klass] = @klass
-
 
     @cache_key = "#{@user_1.cache_key}_#{@user_2.cache_key}_list_comparer_#{Digest::MD5.hexdigest(params.to_yaml)}"
     @entries = Rails.cache.fetch("#{@cache_key}_data", expires_in: 10.minutes) do
@@ -21,9 +20,7 @@ class UserlistComparerController < ShikimoriController
     @page_title = "Сравнение списка #{@klass == Anime ? 'аниме' : 'манги'} #{@user_1.nickname} и #{@user_2.nickname}"
 
     # для левого меню
-    @genres, @studios, @publishers = Rails.cache.fetch('genres_studios_publishers', expires_in: 30.minutes) do
-      [Genre.order(:position).all, Studio.all, Publisher.all]
-    end
+    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch @klass
 
     respond_to do |format|
       format.html { render }
