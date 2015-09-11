@@ -40,6 +40,7 @@ module Site
     config.middleware.insert 0, 'Rack::UTF8Sanitizer'
     config.middleware.insert 0, 'ProxyTest'
     config.middleware.use 'Rack::JSONP'
+    config.middleware.use 'Rack::Attack'
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do

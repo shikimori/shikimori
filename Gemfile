@@ -25,6 +25,7 @@ gem 'rmagick', require: 'rmagick', github: 'gemhome/rmagick', branch: 'master' #
 gem 'unicorn'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
+gem 'rack-attack'
 
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'

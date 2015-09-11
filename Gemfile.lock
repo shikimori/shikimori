@@ -480,6 +480,8 @@ GEM
     rabl (0.11.6)
       activesupport (>= 2.3.14)
     rack (1.6.4)
+    rack-attack (4.3.0)
+      rack
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
       rack (~> 1.4)
@@ -774,6 +776,7 @@ DEPENDENCIES
   pry-stack_explorer
   quiet_assets
   rabl
+  rack-attack
   rack-contrib
   rack-cors
   rack-utf8_sanitizer
