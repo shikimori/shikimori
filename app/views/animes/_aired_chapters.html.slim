@@ -1,4 +1,5 @@
 - if entry.respond_to?(counter) && (entry[counter] > 1 || (entry[counter_aired] > 0 && !entry.released?))
   = info_line field_label do
-    = entry[counter_aired] != entry[counter] && entry.ongoing? ? "#{entry[counter_aired]} / "  : ''
+    - if counter.to_sym == :episodes
+      = entry[counter_aired] != entry[counter] && entry.ongoing? ? "#{entry[counter_aired]} / "  : ''
     = entry[counter] == 0 ? '?' : entry[counter]
