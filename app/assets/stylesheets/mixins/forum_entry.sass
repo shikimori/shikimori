@@ -89,62 +89,63 @@ $aside_width: 280px
 
   // раскрытое меню в мобильной версии
   &.aside-expanded
-    &>.item-mobile
-      display: none
+    +lte_ipad
+      &>.item-mobile
+        display: none
 
-    &>.inner
-      margin-left: -$aside_width
-      overflow: visible
-      position: relative
+      &>.inner
+        margin-left: -$aside_width
+        overflow: visible
+        position: relative
 
-      aside.buttons
-        display: block
-        margin-right: -$aside_width - $block_offset * 3
-        margin-top: -6px
-        padding-top: 5px
-        width: $aside_width
+        aside.buttons
+          display: block
+          margin-right: -$aside_width - $block_offset * 3
+          margin-top: -6px
+          padding-top: 5px
+          width: $aside_width
 
-        .main-controls
-          .item-reply
-            +icon_expandable('Ответить')
-          .item-edit
-            +icon_expandable('Редактировать')
-          .item-delete
-            +icon_expandable('Удалить')
-          .item-moderation
-            +icon_expandable('На модерацию')
-          .item-cancel
-            +icon_expandable('Отмена')
+          .main-controls
+            .item-reply
+              +icon_expandable('Ответить')
+            .item-edit
+              +icon_expandable('Редактировать')
+            .item-delete
+              +icon_expandable('Удалить')
+            .item-moderation
+              +icon_expandable('На модерацию')
+            .item-cancel
+              +icon_expandable('Отмена')
 
-          .item-request-confirm
-            +icon_expandable('Принять')
-          .item-request-reject
-            +icon_expandable('Отклонить')
+            .item-request-confirm
+              +icon_expandable('Принять')
+            .item-request-reject
+              +icon_expandable('Отклонить')
 
-        .delete-controls
-          .item-delete-confirm
-            +icon_expandable('Удалить')
-          .item-delete-cancel
-            +icon_expandable('Отмена')
+          .delete-controls
+            .item-delete-confirm
+              +icon_expandable('Удалить')
+            .item-delete-cancel
+              +icon_expandable('Отмена')
 
-        .moderation-controls
-          .item-ban
-            +icon_expandable('Забанить')
-          .item-abuse
-            +icon_expandable('Нарушение правил')
-          .item-spoiler
-            +icon_expandable('Это спойлер')
-          .item-review
-            +icon_expandable('Это отзыв')
-            &.selected
-              color: $green
-              &:after
-                content: 'Это не отзыв'
-          .item-offtopic
-            +icon_expandable('Это оффтопик')
-            &.selected
-              color: $red
-              &:after
-                content: 'Это не оффтопик'
-          .item-moderation-cancel
-            +icon_expandable('Отмена')
+          .moderation-controls
+            .item-ban
+              +icon_expandable('Забанить')
+            .item-abuse
+              +icon_expandable('Нарушение правил')
+            .item-spoiler
+              +icon_expandable('Это спойлер')
+            .item-review
+              +icon_expandable('Это отзыв')
+              &.selected
+                color: $green
+                &:after
+                  content: 'Это не отзыв'
+            .item-offtopic
+              +icon_expandable('Это оффтопик')
+              &.selected
+                color: $red
+                &:after
+                  content: 'Это не оффтопик'
+            .item-moderation-cancel
+              +icon_expandable('Отмена')
