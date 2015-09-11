@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910192930) do
+ActiveRecord::Schema.define(version: 20150910202437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 20150910192930) do
   add_index "animes", ["name"], name: "index_animes_on_name", using: :btree
   add_index "animes", ["russian"], name: "index_animes_on_russian", using: :btree
   add_index "animes", ["score"], name: "index_animes_on_score", using: :btree
+  add_index "animes", ["status", "score", "kind"], name: "anime_online_dashboard_query", using: :btree
 
   create_table "animes_genres", id: false, force: :cascade do |t|
     t.integer "anime_id"
@@ -227,7 +228,6 @@ ActiveRecord::Schema.define(version: 20150910192930) do
     t.boolean  "offtopic",                    default: false
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
   add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
   add_index "comments", ["created_at"], name: "index_comments_on_created_at", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
@@ -455,6 +455,8 @@ ActiveRecord::Schema.define(version: 20150910192930) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "friend_links", ["src_id"], name: "index_friend_links_on_src_id", using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string   "name",        limit: 255
