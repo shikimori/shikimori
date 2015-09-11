@@ -175,10 +175,16 @@ class AniMangaDecorator < DbEntryDecorator
         date: h.formatted_date(aired_on, true)) if aired_on
 
     else # ongoings
-      parts << i18n_t('datetime.release_dates.since_date',
-        date: h.formatted_date(aired_on, true, true)) if aired_on
-      parts << i18n_t('datetime.release_dates.till_date',
-        date: h.formatted_date(released_on, true, true)) if released_on
+      if aired_on && released_on
+        parts << i18n_t('datetime.release_dates.since_till_date',
+          from_date: h.formatted_date(aired_on, true, true),
+          to_date: h.formatted_date(released_on, true, true))
+      else
+        parts << i18n_t('datetime.release_dates.since_date',
+          date: h.formatted_date(aired_on, true, true)) if aired_on
+        parts << i18n_t('datetime.release_dates.till_date',
+          date: h.formatted_date(released_on, true, true)) if released_on
+      end
     end
 
     text = parts.join(' ').html_safe

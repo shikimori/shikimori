@@ -82,7 +82,7 @@ describe AniMangaDecorator do
         let(:aired_on) { '02-02-2011' }
         let(:released_on) { '03-03-2012' }
 
-        its(:release_date_text) { is_expected.to eq 'с 2 февр. 2011 г. до 3 марта 2012 г.' }
+        its(:release_date_text) { is_expected.to eq 'с 2 февр. 2011 г. по 3 марта 2012 г.' }
         its(:release_date_tooltip) { is_expected.to be_nil }
       end
 
