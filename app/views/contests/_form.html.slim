@@ -75,38 +75,52 @@
                 a.action[
                   href="#{start_contest_url contest}"
                   data-method='post'
-                  data-confirm="Вы уверены? После запуска ничего изменить уже будет нельзя!"
-                ] Запустить турнир
-              span.action-misc Действия перезагружают страницу без сохранения прочих изменений.
+                  data-confirm=t('.sure_to_start_contest')
+                ] = t '.start_contest'
+              span.action-misc = t '.actions_reload_page'
 
               - if contest.links.count < Contest::MINIMUM_MEMBERS
-                span.action-misc.warn Для старта должно быть минимум #{Contest::MINIMUM_MEMBERS} аниме
+                span.action-misc.warn = t '.minimum_anime_needed_for_start', min_members: Contest::MINIMUM_MEMBERS
               - elsif contest.links.count > Contest::MAXIMUM_MEMBERS
-                span.action-misc.warn Для старта должно быть максимум #{Contest::MAXIMUM_MEMBERS} аниме
+                span.action-misc.warn = t '.maximum_anime_needed_for_start', max_members: Contest::MAXIMUM_MEMBERS
               /- elsif Contest.all.any?(&:started?)
                 span.action-misc.warn Для старта не должно быть других запущенных опросов
 
-              span.action-misc.warn После старта ничего изменить будет нельзя!
+              span.action-misc.warn = t '.you_cannot_change_anything_after_start'
 
             /- if contest.can_finish?
               /a.action href="#{finish_contest_url(contest)}" data-confirm="Вы уверены?" Остановить
               /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
 
       - if contest.rounds.any?
-        .subheadline Турнирная сетка
+        .subheadline = t '.tournament_bracket'
         .block_m.grid
-          a href="#{grid_contest_url contest}" title="Турнирная сетка" Перейти →
+          a href="#{grid_contest_url contest}" title=t('.tournament_bracket') = "#{t 'goto'} →"
 
   - if contest.persisted?
     - if contest.created? || contest.proposing?
       .block
         - if contest.anime?
-          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Название аниме" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_animes_url}"
+          input.member-suggest.subheadline-input.downgrade_landscape [
+            type='text'
+            placeholder=t('anime_title')
+            data-variant_name='contest[member_ids][]'
+            data-autocomplete="#{autocomplete_animes_url}"
+          ]
         - else
-          input.member-suggest.subheadline-input.downgrade_landscape type="text" placeholder="Имя персонажа" data-variant_name="contest[member_ids][]" data-autocomplete="#{autocomplete_characters_url}"
+          input.member-suggest.subheadline-input.downgrade_landscape [
+            type='text'
+            placeholder=t('character_name')
+            data-variant_name='contest[member_ids][]'
+            data-autocomplete="#{autocomplete_characters_url}"
+          ]
 
-        /input.member-suggest.suggest.subheadline-input.common type="text" data-member_type="#{contest.member_type}" data-autocomplete="#{contest.anime? ? autocomplete_animes_url : autocomplete_characters_url}"
-        .subheadline #{contest.anime? ? 'Аниме' : 'Персонажи'}
+        /input.member-suggest.suggest.subheadline-input.common [
+          type='text'
+          data-member_type="#{contest.member_type}"
+          data-autocomplete="#{contest.anime? ? autocomplete_animes_url : autocomplete_characters_url}"
+          ]
+        .subheadline = contest.anime? ? i18n_i('Anime') : i18n_i('Character', :other)
 
         = hidden_field_tag 'contest[member_ids][]', ''
         .variants
@@ -133,10 +147,10 @@
                   span.item-delete удалить
 
         p
-          | Итого:&nbsp;
+          = "#{t 'Total'}:&nbsp;".html_safe
           span.members_count = contest.members.count
           | &nbsp;
-          span.members_count_label = Russian.p contest.members.count, 'участник', 'участника', 'участников'
+          span.members_count_label = i18n_i 'member', contest.members.count
 
     - if contest.suggestions.any?
       .suggestions

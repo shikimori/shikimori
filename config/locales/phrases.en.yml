@@ -16,8 +16,10 @@ en:
     upload: Upload
     upload_image: Upload image
   anime_list: Anime List
+  anime_title: Anime title
   back: back
   back_to_page: Back to page
+  character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   deleted:
@@ -32,6 +34,7 @@ en:
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   female: female
+  goto: Goto
   image_uploaded: Image uploaded
   loading: Loading...
   mail: Mail
@@ -52,6 +55,7 @@ en:
   switch_to_anime: switch to anime
   switch_to_manga: switch to manga
   this_action_cant_be_undone: This action can't be undone!
+  total: Total
   username: User name
   under_development: Under development
   users: Users

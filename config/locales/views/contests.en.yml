@@ -21,3 +21,10 @@ en:
       stop_accepting_candidates: Stop accepting candidates from users
       generate_polls: Generate polls
       shuffle_polls: Shuffle polls
+      sure_to_start_contest: Are you sure? You cannot change anything after you start the contest!
+      start_contest: Start contest
+      actions_reload_page: Actions reload page without saving other changes.
+      minimum_anime_needed_for_start: You've got to select %{min_members} anime at least to start the contest
+      maximum_anime_needed_for_start: You've got to select %{max_members} anime at most to start the contest
+      you_cannot_change_anything_after_start: You cannot change anything after you start the contest
+      tournament_bracket: Tournament bracket

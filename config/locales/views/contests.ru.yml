@@ -22,3 +22,10 @@ ru:
       stop_accepting_candidates: Остановить приём кандидатов от пользователей
       generate_polls: Сгенерировать голосования
       shuffle_polls: Перетасовать голосования
+      sure_to_start_contest: Вы уверены? После запуска ничего изменить уже будет нельзя!
+      start_contest: Запустить турнир
+      actions_reload_page: Действия перезагружают страницу без сохранения прочих изменений.
+      minimum_anime_needed_for_start: Для старта должно быть минимум %{min_members} аниме
+      maximum_anime_needed_for_start: Для старта должно быть максимум %{max_members} аниме
+      you_cannot_change_anything_after_start: После старта ничего изменить будет нельзя!
+      tournament_bracket: Турнирная сетка
