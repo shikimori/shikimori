@@ -53,7 +53,7 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
 gem 'pghero'
-gem 'sidekiq'
+gem 'sidekiq', '3.4.2'
 gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
 gem 'sinatra', '>= 1.3.0', require: nil
@@ -138,6 +138,7 @@ group :test, :development do
   gem 'rb-fchange', require: false
 
   gem 'listen', github: 'morr/listen'
+  gem 'celluloid', '0.16' # нельзя обновляться, мой фиксенный listen зависит от него
   gem 'rspec'
   gem 'rspec-core'
   gem 'rspec-expectations'
