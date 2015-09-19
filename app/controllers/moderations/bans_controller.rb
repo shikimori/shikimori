@@ -1,5 +1,5 @@
 # TODO: переделать авторизацию на cancancan
-class Moderations::BansController < ShikimoriController
+class Moderations::BansController < ModerationsController
   before_filter :authenticate_user!, except: [:index]
   layout false, only: [:new]
 

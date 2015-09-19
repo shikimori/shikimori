@@ -1,6 +1,7 @@
 header.head
   h1 = @page_title.last
   p.notice Список правок контента сайта пользователями
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .subheadline.m10 Инструкция
 .b-brief

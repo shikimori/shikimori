@@ -17,6 +17,14 @@ FactoryGirl.define do
       state 'uploaded'
     end
 
+    trait :subtitles do
+      kind :subtitles
+    end
+
+    trait :fandub do
+      kind :fandub
+    end
+
     trait :with_notification do
       #after(:create) { |video| video.send(:create_episode_notificaiton) }
       after(:build) { |video| video.unstub :create_episode_notificaiton }

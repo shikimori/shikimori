@@ -15,7 +15,7 @@ class AnimeOnline::DashboardController < ShikimoriController
         .where.not(rating: 'G - All Ages')
         .where('score < 9.9')
         .where(is_adult ? AnimeVideo::XPLAY_CONDITION : { kind: :tv, censored: false })
-        .order(score: :desc)
+        .order(AniMangaQuery.order_sql 'ranked', Anime)
         .limit(15).decorate
 
       @contributors = Rails.cache.fetch [:video_contributors, is_adult], expires_in: 2.days do

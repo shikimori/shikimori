@@ -113,13 +113,13 @@ class ApplicationController < ActionController::Base
   end
 
   def base_controller_names
-    superclass_name = 'p-' + self.class.superclass.name.to_underscore
+    superclass_name = ('p-' + self.class.superclass.name.to_underscore)
       .sub(/_controller$/, '')
-      .sub(/^p-application$/, '')
-      .sub(/^p-shikimori$/, '')
+      .sub(/^p-application/, '')
+      .sub(/^p-shikimori/, '')
     db_name = 'p-db_entries' if kind_of?(DbEntriesController)
 
-    [superclass_name, db_name].compact.flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
+    [superclass_name, db_name].select(&:present?).flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
   end
 
 private

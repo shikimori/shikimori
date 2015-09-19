@@ -1,5 +1,5 @@
 # TODO: переделать авторизацию на cancancan
-class Moderations::ReviewsController < ShikimoriController
+class Moderations::ReviewsController < ModerationsController
   before_filter :authenticate_user!
   before_filter :check_permissions
   PENDING_PER_PAGE = 15

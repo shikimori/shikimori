@@ -1,0 +1,39 @@
+header.head
+  h1 = @page_title.last
+  p.notice #{Moderation::MissingVideosQuery::LIMIT} аниме, отсортированных по рейтингу,
+    у которых пропущены видео.
+  p.notice Иногда может показывать, что присутствуют только 1-3 серии из 13-26,
+    в таком случае это скорее всего означает что присутствующие серии
+    не от того аниме (ошибчно автоматически были импортированны не от того аниме
+    с другого сайта). Подобные неправильные серии нужно удалить.
+  p.notice Отображённый список кешируется сайтом. Обновляется раз в 10 минут.
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+- if @collection
+  .subheadline.m10 = t '.videos'
+  ul.b-list.cc-3a
+    - @collection.each do |entry|
+      li.c-column.m0.missing-video
+        a.bubbled.b-link[
+          href="#{anime_url entry.anime}"
+        ] = localized_name entry.anime
+        .details
+          span = entry.present_episodes
+          | /
+          span = entry.total_episodes
+
+- else
+  .subheadline.m10 = t '.video_types'
+  ul.b-list
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :all}" = t '.all'
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :vk}" = t '.vk'
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :vk_subbed}" = t '.vk_subbed'
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :vk_dubbed}" = t '.vk_dubbed'
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :subbed}" = t '.subbed'
+    li
+      a.b-link href="#{missing_videos_moderations_url kind: :dubbed}" = t '.dubbed'

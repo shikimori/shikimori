@@ -10,6 +10,15 @@ en:
       edited_videos_journal: Edited videos journal
       animes: Animes w/o description
       missing_videos: Missing videos
+    missing_videos:
+      video_types: Video types
+      videos: Videos
+      all: Any missing videos
+      vk: vk.com videos
+      vk_subbed: vk.com videos with subtitles
+      vk_dubbed: vk.com dubbed videos
+      subbed: Videos with subtitles
+      dubbed: Dubbed videos
     anime_video_reports:
       report:
         show: show

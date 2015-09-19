@@ -1,4 +1,4 @@
-class Moderations::AnimeVideoReportsController < ShikimoriController
+class Moderations::AnimeVideoReportsController < ModerationsController
   load_and_authorize_resource
 
   def index

@@ -388,8 +388,8 @@ Site::Application.routes.draw do
 
         get :user_agreement
 
-        get "site-news" => :news, kind: 'site', format: :rss
-        get "anime-news" => :news, kind: 'anime', format: :rss
+        get 'site-news' => :news, kind: 'site', format: :rss
+        get 'anime-news' => :news, kind: 'anime', format: :rss
 
         get :disabled_registration
         get :disabled_openid
@@ -397,7 +397,11 @@ Site::Application.routes.draw do
       end
     end
 
-    resource :moderations, only: [:show]
+    resource :moderations, only: [:show] do
+      collection do
+        get 'missing_videos(/:kind)' => :missing_videos, kind: /all|vk|vk_subbed|vk_dubbed|subbed|dubbed/, as: :missing_videos
+      end
+    end
 
     resource :tests, only: [:show] do
       get :momentjs

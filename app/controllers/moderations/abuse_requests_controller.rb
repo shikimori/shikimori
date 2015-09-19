@@ -1,5 +1,5 @@
 # TODO: переделать авторизацию на cancancan
-class Moderations::AbuseRequestsController < ShikimoriController
+class Moderations::AbuseRequestsController < ModerationsController
   include MessagesHelper # для работы хелпера format_linked_name
 
   before_filter :authenticate_user!, only: [:index, :take, :deny, :offtopic, :review, :spoiler, :abuse]

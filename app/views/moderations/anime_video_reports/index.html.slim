@@ -1,6 +1,7 @@
 header.head
   h1 = @page_title
   p.notice Загрузки видео пользователями и жалобы пользователей на сломанные видео
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .subheadline.m10 Инструкция
 .b-brief

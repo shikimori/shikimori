@@ -11,4 +11,18 @@ describe ModerationsController do
       it { expect(response).to be_success }
     end
   end
+
+  describe '#missing_videos' do
+    include_context :authenticated, :user
+
+    describe 'no kind' do
+      before { get :missing_videos }
+      it { expect(response).to be_success }
+    end
+
+    describe 'all' do
+      before { get :missing_videos, kind: :all }
+      it { expect(response).to be_success }
+    end
+  end
 end
