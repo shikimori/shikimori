@@ -3,7 +3,7 @@ class AnimeOnline::DashboardController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = 8
 
-    @recent_videos, @add_postloader = Rails.cache.fetch [:recent_videos, is_adult, EpisodeNotification.last] do
+    @recent_videos, @add_postloader = Rails.cache.fetch [:recent_videos, is_adult, EpisodeNotification.last, @page, @limit] do
       RecentVideosQuery.new(is_adult).postload(@page, @limit)
     end
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
