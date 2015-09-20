@@ -126,6 +126,7 @@ class Group < ActiveRecord::Base
     else
       members << user
     end
+  rescue PG::UniqueViolation
   end
 
   def leave user
