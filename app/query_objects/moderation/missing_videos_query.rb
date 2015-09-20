@@ -5,7 +5,19 @@ class Moderation::MissingVideosQuery
   instance_cache :missing_videos
 
   LIMIT = 300
-  MISSING_VIDEOS_QUERY = <<-eos
+
+  MISSING_EPISODES_QUERY = <<-sql
+    select
+      distinct(episode), anime_id
+    from
+      anime_videos
+    where
+      episode != 0
+      and (state = 'working' or state = 'uploaded')
+      and kind != 'raw'
+sql
+
+  MISSING_VIDEOS_QUERY = <<-sql
     select
       count(working_videos.episode) as present_episodes,
       (
@@ -16,15 +28,7 @@ class Moderation::MissingVideosQuery
       animes.id as anime_id
     from animes
     left join (
-      select
-        distinct(episode), anime_id
-      from
-        anime_videos
-      where
-        episode != 0
-        and (state = 'working' or state = 'uploaded')
-        and kind != 'raw'
-        %s
+      #{MISSING_EPISODES_QUERY} %s
     ) working_videos on animes.id = working_videos.anime_id
     where
       ranked != 0
@@ -42,7 +46,7 @@ class Moderation::MissingVideosQuery
           else max(animes.episodes_aired) end
       )
     limit #{LIMIT}
-eos
+sql
 
   CONDITIONS_BY_KIND = {
     all: '',
@@ -53,7 +57,7 @@ eos
     vk_dubbed: "and (url like 'https://vk.com/%' or url like 'http://vk.com/%') and kind = 'fandub'"
   }
 
-  def fetch
+  def animes
     Anime
       .where(id: missing_videos.keys)
       .order(:ranked)
@@ -63,19 +67,29 @@ eos
       end
   end
 
+  def episodes anime
+    total_episodes = anime.released? || anime.episodes_aired.zero? ?
+      anime.episodes : anime.episodes_aired
+    present_episodes = execute(
+      MISSING_EPISODES_QUERY + condition + " and anime_id=#{Anime.sanitize anime.id} "
+    ).map { |v| v['episode'].to_i }
+
+    (1..total_episodes).to_a - present_episodes
+  end
+
 private
 
   def missing_videos
-    Anime.connection
-      .execute(query)
-      .each_with_object({}) do |row, memo|
-        memo[row['anime_id'].to_i] = OpenStruct.new row
-      end
+    execute(MISSING_VIDEOS_QUERY % condition).each_with_object({}) do |row, memo|
+      memo[row['anime_id'].to_i] = OpenStruct.new row
+    end
   end
 
-  def query
-    MISSING_VIDEOS_QUERY % [
-      CONDITIONS_BY_KIND[kind.to_sym] || raise(ArgumentError, "unexpected kind: #{kind}")
-    ]
+  def execute query
+    ActiveRecord::Base.connection.execute(query).to_a
+  end
+
+  def condition
+    CONDITIONS_BY_KIND[kind.to_sym] || raise(ArgumentError, "unexpected kind: #{kind}")
   end
 end

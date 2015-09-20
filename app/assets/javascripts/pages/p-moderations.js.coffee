@@ -15,6 +15,7 @@ $moderation = (node) ->
         .html($player.data 'html')
         .data(html: '')
 
+# страницы модерации
 @on 'page:load', 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
@@ -55,3 +56,19 @@ $moderation = (node) ->
       $comment(@).shiki()._reload()
       $(@).closest('.ban-form').empty()
       $moderation(@).find('.moderation-buttons').hide()
+
+# информация о пропущенных видео
+@on 'page:load', 'moderations_missing_videos', ->
+
+  $('.missing-video .show-details').on 'click', ->
+    $(@).parent()
+      .find('.details')
+      .toggleClass('hidden')
+    false
+
+  $('.missing-video .show-details').one 'click', ->
+    $.get $(@).data('episodes_url'), (html) =>
+      $(@).parent()
+        .find('.details')
+        .html(html)
+    false

@@ -399,7 +399,10 @@ Site::Application.routes.draw do
 
     resource :moderations, only: [:show] do
       collection do
-        get 'missing_videos(/:kind)' => :missing_videos, kind: /all|vk|vk_subbed|vk_dubbed|subbed|dubbed/, as: :missing_videos
+        scope kind: /all|vk|vk_subbed|vk_dubbed|subbed|dubbed/ do
+          get 'missing_videos(/:kind)' => :missing_videos, as: :missing_videos
+          get 'missing_videos/:kind/episodes/:anime_id' => :missing_episodes, as: :missing_episodes
+        end
       end
     end
 

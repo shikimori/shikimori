@@ -25,4 +25,12 @@ describe ModerationsController do
       it { expect(response).to be_success }
     end
   end
+
+  describe '#missing_episodes' do
+    include_context :authenticated, :user
+    let(:anime) { create :anime }
+    before { get :missing_episodes, kind: :all, anime_id: anime.id }
+
+    it { expect(response).to be_success }
+  end
 end
