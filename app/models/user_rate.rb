@@ -152,8 +152,11 @@ private
       UserHistory.add user, target, UserHistoryAction::Status, self[:status], UserRate.statuses[changes['status'].first]
     end
 
-    if (changes['episodes'] || changes['volumes'] || changes['chapters']) &&
-        (!changes['status'] || changes['status'] == ['planned', 'watching'])
+    if (
+        (anime? && changes['episodes']) ||
+        (manga? && changes['volumes']) ||
+        (manga? && changes['chapters'])
+      ) && (!changes['status'] || changes['status'] == ['planned', 'watching'])
 
       counter = if anime?
         'episodes'
