@@ -17,19 +17,26 @@ class AnimeVideoDecorator < BaseDecorator
       if url.size > 30
         flash_player_html("http://rutube.ru/player.swf?hash=#{$1}")
       else
-        h.content_tag(
-          :iframe,
+        h.content_tag(:iframe,
           src: "http://rutube.ru/play/embed/#{$1}",
           frameborder: '0',
           webkitAllowFullScreen: 'true',
           mozallowfullscreen: 'true',
+          scrolling: 'no',
           allowfullscreen: 'true'
         ) {}
       end
-    elsif hosting == 'youtube.com' && url=~ /youtube\.com\/embed\/(.*)/
-      h.content_tag(:iframe, src: url, frameborder: '0', allowfullscreen: true) {}
+    #elsif hosting == 'youtube.com' && url=~ /youtube\.com\/embed\/(.*)/
+      #h.content_tag(:iframe, src: url, frameborder: '0', allowfullscreen: true) {}
     else
-      h.content_tag(:iframe, src: url) {}
+      h.content_tag(:iframe,
+        src: url,
+        frameborder: '0',
+        webkitAllowFullScreen: 'true',
+        mozallowfullscreen: 'true',
+        scrolling: 'no',
+        allowfullscreen: 'true'
+      ) {}
     end
   end
 

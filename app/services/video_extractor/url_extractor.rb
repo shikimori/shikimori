@@ -55,9 +55,9 @@ private
     elsif html =~ %r{#{HTTP}rutube.ru/tracks/#{PARAM}\.html\?v=(#{PARAM})}
       "http://video.rutube.ru/#{$1}"
     elsif html =~ %r{(#{HTTP}video.sibnet.ru/shell#{CONTENT})}
-      $1
+      $1.sub /shell\.swf\?/, 'shell.php?'
     elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).(?:mp4|flv)}
-      "http://video.sibnet.ru/shell.swf?videoid=#{$1.sub(/\.(flv|mp4)\?.*/, '')}"
+      "http://video.sibnet.ru/shell.php?videoid=#{$1.sub(/\.(flv|mp4)\?.*/, '')}"
     elsif html =~ %r{(#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}

@@ -143,17 +143,17 @@ describe VideoExtractor::UrlExtractor do
 
     describe 'sibnet_2' do
       let(:html) { "http://data10.video.sibnet.ru/13/88/40/1388407.flv" }
-      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=1388407' }
+      it { should eq 'http://video.sibnet.ru/shell.php?videoid=1388407' }
     end
 
     describe 'sibnet_3' do
       let(:html) { "http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0" }
-      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=710879' }
+      it { should eq 'http://video.sibnet.ru/shell.php?videoid=710879' }
     end
 
     describe 'sibnet_4' do
       let(:html) { "http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000" }
-      it { should eq 'http://video.sibnet.ru/shell.swf?videoid=1224221' }
+      it { should eq 'http://video.sibnet.ru/shell.php?videoid=1224221' }
     end
 
     describe 'kiwi_1' do
