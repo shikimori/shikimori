@@ -11,6 +11,7 @@ class AnimeVideoUrlValidator < UrlValidator
     duplicate = AnimeVideo
       .where(anime_id: record.anime_id)
       .where(url: ["http://#{link}", "https://#{link}"])
+      .where(state: [:working, :uploaded])
       .first
 
     if duplicate
