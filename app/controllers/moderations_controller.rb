@@ -6,6 +6,14 @@ class ModerationsController < ShikimoriController
   def show
   end
 
+  def missing_screenshots
+    page_title t("moderations.missing_screenshots.title")
+
+    @collection = Rails.cache.fetch :missing_screenshots, expires_in: 10.minutes do
+      Moderation::MissingScreenshotsQuery.new.fetch
+    end
+  end
+
   def missing_videos
     page_title t('moderations.show.missing_videos')
 

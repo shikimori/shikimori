@@ -1,0 +1,14 @@
+header.head
+  h1 = @page_title.last
+  p.notice Здесь отображены #{Moderation::MissingScreenshotsQuery::LIMIT} наиболее популярных аниме,
+    у которых отсутствуют кадры.
+  p.notice Отображённый список кешируется сайтом. Обновляется раз в 10 минут.
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.subheadline.m10 = t '.animes'
+ul.b-list.cc-3
+  - @collection.each do |anime|
+    li.c-column.m0
+      a.bubbled.b-link[
+        href="#{anime_url anime}"
+      ] = localized_name anime

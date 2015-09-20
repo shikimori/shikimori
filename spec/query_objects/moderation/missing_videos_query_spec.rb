@@ -3,6 +3,7 @@ describe Moderation::MissingVideosQuery do
 
   describe '#animes & #episodes' do
     let!(:anime) { create :anime, :released, episodes: 2, score: 8 }
+    let!(:user_rate) { create :user_rate, target: anime }
 
     context 'all' do
       let(:kind) { 'all' }
@@ -29,6 +30,11 @@ describe Moderation::MissingVideosQuery do
         let!(:anime_video) { }
         it { expect(query.animes).to be_empty }
         it { expect(query.episodes anime).to eq [1,2] }
+      end
+
+      context 'no rates' do
+        let!(:user_rate) { }
+        it { expect(query.animes).to be_empty }
       end
     end
 

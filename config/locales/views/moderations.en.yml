@@ -8,8 +8,12 @@ en:
       forum_journal: Forum moderation journal
       uploaded_videos_journal: Uploaded videos journal
       edited_videos_journal: Edited videos journal
-      animes: Animes w/o description
+      missing_descriptions: Animes w/o description
+      missing_screenshots: Animes w/o screenshots
       missing_videos: Missing videos
+    missing_screenshots:
+      title: Missing Screenshots
+      animes: Animes
     missing_videos:
       video_types: Video types
       videos: Videos

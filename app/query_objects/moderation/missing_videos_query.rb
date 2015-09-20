@@ -17,6 +17,31 @@ class Moderation::MissingVideosQuery
       and kind != 'raw'
 sql
 
+  ANIME_CONDITION = <<-sql
+    animes.id in (
+      select
+        animes.id
+      from
+        animes
+      inner join user_rates
+        on user_rates.target_id = animes.id
+          and user_rates.target_type = 'Anime'
+      where
+        animes.score > 6.5
+        and animes.rating != 'g'
+        and animes.rating != 'rx'
+        and (
+          animes.status = 'ongoing'
+          or animes.status = 'released'
+        )
+        and animes.ranked != 0
+      group by
+        animes.id
+      having
+        count(*) > #{Rails.env.test? ? 0 : (User.count / 1000.0).to_i}
+    )
+sql
+
   MISSING_VIDEOS_QUERY = <<-sql
     select
       count(working_videos.episode) as present_episodes,
@@ -31,11 +56,7 @@ sql
       #{MISSING_EPISODES_QUERY} %s
     ) working_videos on animes.id = working_videos.anime_id
     where
-      ranked != 0
-      and score > 6.5
-      and rating != 'g'
-      and rating != 'rx'
-      and (animes.status = 'ongoing' or animes.status = 'released')
+      #{ANIME_CONDITION}
     group by
       animes.id
     having

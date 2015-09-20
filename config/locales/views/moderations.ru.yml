@@ -8,8 +8,12 @@ ru:
       forum_journal: Журнал модерации форума
       uploaded_videos_journal: Журнал новых видео
       edited_videos_journal: Журнал изменений видео
-      anime_descriptions: Аниме без описаний
+      missing_descriptions: Аниме без описаний
+      missing_screenshots: Аниме без кадров
       missing_videos: Отсутствующие видео
+    missing_screenshots:
+      title: Аниме без кадров
+      animes: Аниме
     missing_videos:
       video_types: Типы видео
       videos: Видео
