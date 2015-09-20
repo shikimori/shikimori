@@ -64,7 +64,7 @@ describe AnimeSpiritParser, vcr: { cassette_name: 'anime_spirit_parser' } do
           its(:author) { should eq 'JAM & Kiara_Laine' }
           its(:episode) { should eq 13 }
           its(:kind) { should eq :fandub }
-          its(:url) { should eq 'http://video.sibnet.ru/shell.swf?videoid=710879' }
+          its(:url) { should eq 'http://video.sibnet.ru/shell.php?videoid=710879' }
         end
       end
     end

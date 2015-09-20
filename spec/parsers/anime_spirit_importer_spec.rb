@@ -18,7 +18,7 @@ describe AnimeSpiritImporter, vcr: { cassette_name: 'anime_spirit_parser' } do
       end
 
       context 'with_videos' do
-        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://video.sibnet.ru/shell.swf?videoid=506340', source: 'http://www.animespirit.ru/anime/141-burn-up-razgon.html' }
+        let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://video.sibnet.ru/shell.php?videoid=506340', source: 'http://www.animespirit.ru/anime/141-burn-up-razgon.html' }
         it { expect{subject}.to change(videos, :count).by 3 }
       end
     end
