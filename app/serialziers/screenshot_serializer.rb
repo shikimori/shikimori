@@ -6,6 +6,6 @@ class ScreenshotSerializer < ActiveModel::Serializer
   end
 
   def preview
-    object.image.url :preview
+    object.image.url :x332
   end
 end
