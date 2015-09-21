@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910202437) do
+ActiveRecord::Schema.define(version: 20150921220154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20150910202437) do
     t.string   "reason"
   end
 
-  add_index "abuse_requests", ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, using: :btree
+  add_index "abuse_requests", ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)", using: :btree
   add_index "abuse_requests", ["state", "kind"], name: "index_abuse_requests_on_state_and_kind", using: :btree
 
   create_table "anime_calendars", force: :cascade do |t|
