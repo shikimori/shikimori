@@ -52,7 +52,7 @@ class TorrentsMatcher
   def name_variants agains='', options={}
     names = [anime.torrents_name || anime.name]
     unless options[:only_name] || anime.torrents_name
-      unless anime.special?
+      unless anime.kind_special?
         names.concat(anime.english) unless !anime.english || anime.english.empty?
         names.concat(anime.synonyms) unless !anime.synonyms || anime.synonyms.empty?
       end

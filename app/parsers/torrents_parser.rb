@@ -167,7 +167,7 @@ class TorrentsParser
       .where('anime_calendars.episode = 1 and anime_calendars.start_at < now()')
       .to_a
 
-    anons.delete_if { |v| v.ona? && v.anime_calendars.empty? }
+    anons.delete_if { |v| v.kind_ona? && v.anime_calendars.empty? }
 
     released = Anime
       .where('released_on >= ?', 2.weeks.ago)
@@ -175,7 +175,7 @@ class TorrentsParser
       .to_a
 
     (ongoings + anons + released).select do |v|
-      !v.special? && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
+      !v.kind_special? && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
     end
   end
 
