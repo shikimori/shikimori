@@ -162,7 +162,7 @@ private
         }
       end
     end
-    @tv = @animes.select(&:tv?)
+    @tv = @animes.select(&:kind_tv?)
   end
 
   # выборка статистики

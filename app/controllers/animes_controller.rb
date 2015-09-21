@@ -165,8 +165,8 @@ private
   def set_breadcrumbs
     if @resource.anime?
       breadcrumb 'Список аниме', animes_url
-      breadcrumb 'Сериалы', animes_url(type: @resource.kind) if @resource.anime? && @resource.tv?
-      breadcrumb 'Полнометражные', animes_url(type: @resource.kind) if @resource.anime? && @resource.movie?
+      breadcrumb 'Сериалы', animes_url(type: @resource.kind) if @resource.anime? && @resource.kind_tv?
+      breadcrumb 'Полнометражные', animes_url(type: @resource.kind) if @resource.anime? && @resource.kind_movie?
     else
       breadcrumb 'Список манги', mangas_url
     end

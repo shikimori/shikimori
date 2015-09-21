@@ -28,7 +28,7 @@ class AnimeHistoryService
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.map do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
-      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.music?)
+      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.kind_music?)
       # протухшие новости тоже не нужны
       next if entry.created_at + NewsExpireIn < DateTime.now
 

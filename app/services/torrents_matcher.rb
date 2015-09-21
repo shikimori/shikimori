@@ -61,7 +61,7 @@ class TorrentsMatcher
     end
 
     names = names.select {|v| v =~ / \(?(?:ova|tv|special|ona)\)?$/i } if names.any? {|v| v =~ / \(?(?:ova|tv|special|ona)\)?$/i }
-    names << anime.name + ' tv' if anime.name.match(':') && anime.tv? && !anime.name.downcase.include?('tv') && agains.downcase.include?('tv')
+    names << anime.name + ' tv' if anime.name.match(':') && anime.kind_tv? && !anime.name.downcase.include?('tv') && agains.downcase.include?('tv')
     # случай, когда название содержит (tv)
     names << anime.name.sub(/\(tv\)/i, '').strip if anime.name.downcase.include? '(tv)'
     # тире воспринимаем так же, как пробел

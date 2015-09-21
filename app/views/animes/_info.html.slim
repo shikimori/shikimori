@@ -11,7 +11,7 @@
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
     = info_line Anime.human_attribute_name(:duration) do
-      span itemprop="#{entry.movie? ? 'duration' : ''}"
+      span itemprop="#{entry.kind_movie? ? 'duration' : ''}"
         = humanize_minutes entry.duration
 
   = render 'animes/aired_chapters',

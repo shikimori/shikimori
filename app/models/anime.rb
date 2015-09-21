@@ -105,7 +105,7 @@ class Anime < DbEntry
     path: ":rails_root/public/images/anime/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
-  enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: true
+  enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: { prefix: true }
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
   enumerize :rating, in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx], predicates: { prefix: true }
 
@@ -126,7 +126,7 @@ class Anime < DbEntry
   def adult?
     censored || ADULT_RATING == rating || (
       SUB_ADULT_RATING == rating &&
-      ((ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || special?)
+      ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
     )
   end
 

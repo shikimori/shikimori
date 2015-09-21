@@ -5,7 +5,7 @@
   - if @resource.russian
     meta itemprop="alternativeHeadline" content="#{@resource.russian}"
 
-  - if @resource.anime? && @resource.movie? && (@resource.aired_on || @resource.released_on)
+  - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
     meta itemprop="datePublished" content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
   - elsif @resource.anime?
     - if @resource.aired_on
