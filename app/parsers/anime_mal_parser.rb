@@ -18,7 +18,8 @@ class AnimeMalParser < BaseMalParser
   # сохранение уже импортированных данных
   def deploy entry, data
     # для хентая ставим флаг censored
-    entry.censored = data[:entry][:genres].any? { |genre| Genre::CENSORED_IDS.include? genre[:mal_id] }
+    entry.censored = data[:entry][:rating] == 'rx' ||
+      data[:entry][:genres].any? { |genre| Genre::CENSORED_IDS.include? genre[:mal_id] }
     # то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
     data[:entry].delete(:status) if entry.released? &&
                                     data[:entry][:status] == 'ongoing' &&
