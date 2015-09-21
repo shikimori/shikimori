@@ -55,7 +55,7 @@ class Version < ActiveRecord::Base
 
   class << self
     def pending_count
-      Version.where(state: :pending).size
+      Version.where(state: :pending).where.not(item_type: AnimeVideo.name).size
     end
 
     def has_changes?
