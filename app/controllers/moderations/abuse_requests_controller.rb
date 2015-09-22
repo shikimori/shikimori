@@ -67,7 +67,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   def deny
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless @request.can_process? current_user
-    #@request.reject! current_user
+    @request.reject! current_user
 
     render json: {}
   end

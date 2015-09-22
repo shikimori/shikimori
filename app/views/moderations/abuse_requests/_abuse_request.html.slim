@@ -50,7 +50,7 @@
               data-method="post"
               data-remote="true"
             ] = t '.reject'
-            /.ban-form
+            .ban-form
           - else
             a.take[
               href="#{take_moderations_abuse_request_path abuse_request}"
@@ -62,6 +62,7 @@
               method="post"
               data-remote="true"
             ] = t '.reject'
+        .ban-form
   - else
     span.resolution class="#{abuse_request.state}"
       = abuse_request.human_state_name

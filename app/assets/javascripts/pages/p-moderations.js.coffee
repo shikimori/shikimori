@@ -20,41 +20,8 @@ $moderation = (node) ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
-  ## NOTE: порядок следования функций ajax:success важен
-  ## редактирвоание коммента
-  #$(document.body).on 'ajax:success', '.shiki-editor', (e, data) ->
-    #$(".comment-#{data.id}").replaceWith data.html
-
-  ## принятие или отказ запроса
-  #$(document.body).on 'ajax:success', '.request-control .take, .request-control .deny', ->
-    #reload $comment(@)
-
-  # кнопка бана или предупреждения
-  $('.moderation .ban, .moderation .warn').on 'ajax:success', (e, html) ->
-    $moderation(@).find('.moderation-buttons').hide()
-
-    $form = $(@).closest('.b-abuse_request').find('.ban-form')
-    $form.html html
-    if $(@).hasClass 'warn'
-      $form.find('#ban_duration').val '0m'
-
-      if $(@).closest('.b-abuse_request').find('.b-spoiler_marker').length
-        $form.find('#ban_reason').val 'спойлеры'
-
-    # закрытие формы бана
-    $('.cancel', $form).on 'click', ->
-      $moderation(@).find('.moderation-buttons').show()
-      $(@).closest('.ban-form').empty()
-
-    # сабмит формы бана пользователю
-    $form.on 'ajax:success', (e) ->
-      $comment(@).shiki()._reload()
-      $(@).closest('.ban-form').empty()
-      $moderation(@).find('.moderation-buttons').hide()
-
 # информация о пропущенных видео
 @on 'page:load', 'moderations_missing_videos', ->
-
   $('.missing-video .show-details').on 'click', ->
     $(@).parent()
       .find('.details')

@@ -1,9 +1,12 @@
 @import compass/css3/opacity
 @import mixins/brackets_surrounded
 @import mixins/clear_left
+@import mixins/clear_right
 @import mixins/column
+@import mixins/link
 
 .b-abuse_request
+  +clear_right
   &.ajax_request
     +opacity(0.4)
 
@@ -27,6 +30,18 @@
     +brackets_surrounded
     font-size: 11px
     color: $orange
+
+  .ban-form
+    background-color: #e8ebef
+    display: none
+    float: right
+    padding: 10px
+
+    input[type=text]
+      width: 143px
+
+    .cancel
+      +js-link
 
   //+clear_left
   //border-top: 1px dashed #ddd
