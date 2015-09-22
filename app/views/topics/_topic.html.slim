@@ -33,11 +33,12 @@
             - if topic.generated_news?
               .b-anime_status_tag class="#{topic.action}" = topic.action_text
 
-            a href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
-            time[
-              itemprop="commentTime"
-              datetime="#{topic.created_at.iso8601}"
-            ] = l topic.created_at, format: '%e %B %Y'
+            a.name href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
+            span.time
+              time[
+                itemprop="commentTime"
+                datetime="#{topic.created_at.iso8601}"
+              ] = l topic.created_at, format: '%e %B %Y'
 
         - if topic.review? && topic.linked.votes_count > 0
           p.votes-count

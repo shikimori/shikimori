@@ -11,7 +11,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
 
-  has_many :abuse_requests, dependent: :destroy
+  has_many :abuse_requests, -> { order :id }, dependent: :destroy
+  has_many :bans, -> { order :id }
 
   has_many :messages, -> { where linked_type: Comment.name },
     foreign_key: :linked_id,

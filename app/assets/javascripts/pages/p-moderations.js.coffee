@@ -20,11 +20,6 @@ $moderation = (node) ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
-  # принятие или отказ запроса
-  $('.moderation .take, .moderation .deny').on 'ajax:success', ->
-    $comment(@).shiki()._reload()
-    $moderation(@).hide()
-
   ## NOTE: порядок следования функций ajax:success важен
   ## редактирвоание коммента
   #$(document.body).on 'ajax:success', '.shiki-editor', (e, data) ->

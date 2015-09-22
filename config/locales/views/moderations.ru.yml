@@ -27,3 +27,14 @@ ru:
       report:
         show: показать
         show_changes: показать правку
+    abuse_requests:
+      abuse_request:
+        accept: принять
+        actions: действия
+        ban: забанить
+        for_reason: по причине
+        old_comment: старый комментарий
+        reject: отклонить
+        show: показать
+        to: на
+        warn: предупредить

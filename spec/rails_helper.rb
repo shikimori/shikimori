@@ -6,6 +6,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'draper/test/rspec_integration'
 require 'factory_girl_rails'
+require 'factory_girl-seeds'
 require 'paperclip/matchers'
 require 'shoulda/matchers'
 require 'sidekiq/testing'
@@ -71,5 +72,12 @@ RSpec.configure do |config|
       allow_any_instance_of(FayePublisher).to receive :publish_data
       #allow_any_instance_of(Faye::Client).to receive :publish
     #end
+  end
+
+  config.before :suite do
+    id = 78643875
+    FactoryGirl::SeedGenerator.create :user, id: id
+    FactoryGirl::SeedGenerator.create :offtopic_section, id: id
+    FactoryGirl::SeedGenerator.create :topic, id: id
   end
 end

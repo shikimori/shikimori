@@ -27,3 +27,14 @@ en:
       report:
         show: show
         show_changes: show details
+    abuse_requests:
+      abuse_request:
+        accept: accept
+        actions: actions
+        ban: ban
+        for_reason: for reason
+        old_comment: old comment
+        reject: reject
+        show: show
+        to: to
+        warn: warn

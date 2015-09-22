@@ -6,6 +6,7 @@ en:
       contest: Contest
       manga: Manga
       user: User
+      comment: Comment
 
     attributes:
       anime: &anime_attributes
@@ -234,6 +235,11 @@ en:
           taken: taken
           rejected: rejected
           deleted: deleted
+      abuse_request:
+        states:
+          pending: awaiting moderation
+          accepted: accepted
+          rejected: rejected
       anime_video_report:
         states:
           pending: awaiting moderation

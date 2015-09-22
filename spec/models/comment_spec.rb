@@ -5,6 +5,7 @@ describe Comment do
     it { should have_many :messages }
     it { should have_many :views }
     it { should have_many :abuse_requests }
+    it { should have_many :bans }
   end
 
   describe 'validations' do

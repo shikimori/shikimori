@@ -50,5 +50,7 @@ FactoryGirl.define do
       permalink 'reviews'
       name 'Рецензии'
     end
+
+    factory :offtopic_section, traits: [:offtopic]
   end
 end

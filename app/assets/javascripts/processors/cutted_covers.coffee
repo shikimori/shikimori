@@ -1,4 +1,4 @@
-class @CuttedCovers extends BaseProcessor
+class @CuttedCovers extends View
   @PRIOR_ID = 0
   @RATIO =
     #entry: 229.0 / 156.0

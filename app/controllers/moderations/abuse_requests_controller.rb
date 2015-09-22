@@ -2,7 +2,7 @@
 class Moderations::AbuseRequestsController < ModerationsController
   include MessagesHelper # для работы хелпера format_linked_name
 
-  before_filter :authenticate_user!, only: [:index, :take, :deny, :offtopic, :review, :spoiler, :abuse]
+  before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :review, :spoiler, :abuse]
 
   def index
     raise Forbidden unless current_user.abuse_requests_moderator?
@@ -24,6 +24,10 @@ class Moderations::AbuseRequestsController < ModerationsController
 
       @moderators = User.where(id: User::AbuseRequestsModerators - User::Admins).sort_by { |v| v.nickname.downcase }
     end
+  end
+
+  def show
+    @resource = AbuseRequest.find params[:id]
   end
 
   def offtopic
@@ -63,7 +67,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   def deny
     @request = AbuseRequest.find params[:id]
     raise Forbidden unless @request.can_process? current_user
-    @request.reject! current_user
+    #@request.reject! current_user
 
     render json: {}
   end

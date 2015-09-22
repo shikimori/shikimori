@@ -6,15 +6,7 @@
     span.date
       = version.created_at.strftime('%d.%m.%Y')
 
-    .b-user16
-      a href="#{profile_url version.user}" title=version.user.nickname
-        img[
-          src="#{version.user.avatar_url 16}"
-          srcset="#{version.user.avatar_url 32} 2x"
-          alt=version.user.nickname
-          title=version.user.nickname
-        ]
-        span = version.user.nickname
+    = render 'users/user_16', user: version.user
 
     span.column
       = version.changed_fields.join ', '

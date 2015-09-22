@@ -1,19 +1,45 @@
+@import compass/css3/opacity
+@import mixins/brackets_surrounded
 @import mixins/clear_left
 @import mixins/column
 
 .b-abuse_request
-  +clear_left
-  border-top: 1px dashed #ddd
-  padding-top: 5px
+  &.ajax_request
+    +opacity(0.4)
 
-  &:first-child
-    border-top: none
+  .marker
+    float: none !important
+    margin: 4px 7px 0 5px !important
+    display: inline-block !important
+    vertical-align: top
 
-  .b-comment
-    +column(2, 7/10)
+  .reason
+    color: $gray-2
 
-  .b-request_resolution
-    +column(2, 3/10)
-    margin-top: -2px
-    border-left: 1px dashed #999
-    padding-left: 20px
+  .resolution
+    &.accepted
+      color: $green
+
+    &.rejected
+      color: $red
+
+  .outdated
+    +brackets_surrounded
+    font-size: 11px
+    color: $orange
+
+  //+clear_left
+  //border-top: 1px dashed #ddd
+  //padding-top: 5px
+
+  //&:first-child
+    //border-top: none
+
+  //.b-comment
+    //+column(2, 7/10)
+
+  //.b-request_resolution
+    //+column(2, 3/10)
+    //margin-top: -2px
+    //border-left: 1px dashed #999
+    //padding-left: 20px

@@ -51,7 +51,7 @@ $aside_width: 280px
         font-size: 13px
         line-height: 1
 
-        a
+        a.name
           +link
           font-weight: bold
 
@@ -62,11 +62,14 @@ $aside_width: 280px
           font-size: 11px
           padding-left: 10px
 
-          +lte_ipad
+        +lte_ipad
+          .time
             display: block
             padding-top: 3px
-            padding-left: 0
+
+          time
             line-height: $line_height
+            padding-left: 0
 
     .was_updated
       +link_color($gray-2)

@@ -1,4 +1,4 @@
-class @Html5Video extends BaseProcessor
+class @Html5Video extends View
   initialize: ->
     @$node.magnificPopup
       preloader: false

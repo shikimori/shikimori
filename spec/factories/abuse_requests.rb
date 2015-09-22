@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :abuse_request do
-    user
-    comment
+    user { seed :user }
+    comment { seed :comment }
     approver nil
     kind 'offtopic'
     state 'pending'
@@ -9,11 +9,11 @@ FactoryGirl.define do
 
     factory :accepted_abuse_request do
       state 'accepted'
-      approver factory: :user
+      approver { seed :user }
     end
     factory :rejected_abuse_request do
       state 'rejected'
-      approver factory: :user
+      approver { seed :user }
     end
   end
 end

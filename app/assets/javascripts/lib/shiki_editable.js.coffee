@@ -127,20 +127,9 @@ class @ShikiEditable extends ShikiView
 
   # замена объекта другим объектом
   _replace: (html) ->
-    $replaced = $(html)
-    @$root.replaceWith($replaced)
-
-    $replaced.process()
+    $replaced = super html
     $replaced["shiki_#{@_type()}"]()
-    $replaced.yellowFade()
-
     window.faye_loader.apply() if @_type() == 'topic'
-
-  # перезагрузка содержимого
-  _reload: =>
-    @$root.addClass 'ajax:request'
-    $.get @_reload_url(), (response) =>
-      @_replace response
 
   # url перезагрузки содержимого
   _reload_url: =>

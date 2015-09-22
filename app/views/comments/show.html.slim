@@ -1,1 +1,20 @@
-= render partial: 'comments/comment', layout: false, object: @comment, formats: :html
+- if request.xhr?
+  = render partial: 'comments/comment', layout: false, object: @comment, formats: :html
+- else
+  .subheadline.m10 = i18n_i 'comment', :one
+  .block
+    = render partial: 'comments/comment', layout: false, object: @comment, formats: :html
+
+  .subheadline.h10 = i18n_i 'abuse_request', :other
+  .block
+    - if @comment.abuse_requests.any?
+      = render partial: 'moderations/abuse_requests/abuse_request', collection: @comment.abuse_requests
+    - else
+      .b-nothing_here = t '.no_abuse_requests'
+
+  .subheadline.h10 = i18n_i 'ban', :other
+  .block
+    - if @comment.bans.any?
+      = render partial: 'moderations/bans/ban', collection: @comment.bans
+    - else
+      .b-nothing_here = t '.no_bans'

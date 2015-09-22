@@ -6,6 +6,7 @@ ru:
       contest: Опрос
       manga: Манга
       user: Пользователь
+      comment: Комментарий
 
     attributes:
       anime: &anime_attributes
@@ -234,6 +235,11 @@ ru:
           taken: взято
           rejected: отклонено
           deleted: удалено
+      abuse_request:
+        states:
+          pending: ожидает модерации
+          accepted: принято
+          rejected: отклонено
       anime_video_report:
         states:
           pending: ожидает модерации

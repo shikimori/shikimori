@@ -86,6 +86,13 @@ class @ShikiComment extends ShikiEditable
       @$('.b-replies').remove()
       $(data.replies_html).appendTo(@$body).process()
 
+    # хештег со ссылкой на комментарий
+    @$('.hash').one 'mouseover', ->
+      $node = $(@)
+      $node
+        .attr(href: $node.data('url'))
+        .change_tag('a')
+
   # пометка комментария маркером (оффтопик/отзыв)
   mark: (kind, value) ->
     @$(".item-#{kind}").toggleClass('selected', value)

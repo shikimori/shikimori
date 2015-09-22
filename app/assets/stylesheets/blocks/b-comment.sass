@@ -2,3 +2,22 @@
 
 .b-comment
   +shiki_comment
+
+  header
+    .hash
+      +link($gray-2)
+      font-size: 11px
+      margin-left: 6px
+      vertical-align: middle
+      display: none
+
+    a.hash
+      color: $gray-2
+
+  &:hover
+    header .hash
+      display: inline
+
+  +lte_ipad
+    header .hash
+      display: inline

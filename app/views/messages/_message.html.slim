@@ -86,13 +86,14 @@
         - if message.generated_news?
           .b-anime_status_tag class="#{message.linked.action}" = message.linked.action_text
 
-        a href="#{message.url}" title="#{message.title}"
+        a.name href="#{message.url}" title="#{message.title}"
           = message.title
 
         - if message.persisted?
-          time[
-            datetime="#{message.created_at.iso8601}"
-          ] = l message.created_at, format: '%e %B %Y'
+          span.time
+            time[
+              datetime="#{message.created_at.iso8601}"
+            ] = l message.created_at, format: '%e %B %Y'
 
     .body
       - if message.generated_news?

@@ -47,7 +47,7 @@
           span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
             img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
           .name-date
-            a href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
+            a.name href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
               /- if comment.respond_to?(:topic_url)
               - if comment.kind_of?(SolitaryCommentDecorator)
                 = comment.topic_name
@@ -55,10 +55,12 @@
                 = comment.user.nickname
 
             - if comment.persisted?
-              time[
-                itemprop="commentTime"
-                datetime="#{comment.created_at.iso8601}"
-              ] = l comment.created_at, format: '%e %B %Y'
+              span.time
+                time[
+                  itemprop="commentTime"
+                  datetime="#{comment.created_at.iso8601}"
+                ] = l comment.created_at, format: '%e %B %Y'
+                span.hash data-url="#{comment_url comment}" #
 
       .body itemprop="commentText"
         = comment.html_body

@@ -1,4 +1,4 @@
-class @AuthorizedAction extends BaseProcessor
+class @AuthorizedAction extends View
   @PHRASE =
     ru: "Для этого действия вам необходима регистрация на сайте."
     en: "You need to sign in or sign up to perform this action."

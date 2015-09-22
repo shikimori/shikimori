@@ -160,6 +160,7 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
+  gem 'factory_girl-seeds', require: false
   gem 'shoulda-matchers', require: false
   gem 'timecop'
   gem 'vcr'

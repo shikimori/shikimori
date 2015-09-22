@@ -8,6 +8,7 @@
           when 'cutted_covers' then new CuttedCovers(@)
           when 'authorized' then new AuthorizedAction(@)
           when 'html5_video' then new Html5Video(@)
+          when 'abuse_request' then new AbuseRequest(@)
           else
             console.error "unexpected processor: #{processor}"
 ) jQuery

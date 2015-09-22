@@ -271,6 +271,8 @@ GEM
     execjs (2.6.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
+    factory_girl-seeds (1.1.0)
+      factory_girl
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
@@ -696,6 +698,7 @@ DEPENDENCIES
   devise-async
   draper
   enumerize
+  factory_girl-seeds
   factory_girl_rails
   faye
   faye-redis

@@ -11,10 +11,7 @@
   span = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
 
-  .b-user16
-    a href="#{profile_url ban.user}" title="#{ban.user.nickname}"
-      img src="#{ban.user.avatar_url 16}" srcset="#{ban.user.avatar_url 32} 2x" alt="#{ban.user.nickname}" title="#{ban.user.nickname}"
-      span = ban.user.nickname
+  = render 'users/user_16', user: ban.user
 
   - if ban.warning?
     span.duration-warning предупреждение

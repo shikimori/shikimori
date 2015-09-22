@@ -20,10 +20,12 @@
 #= require packery
 
 #= require_tree ./vendor
-#= require processors/base_processor
-#= require_tree ./processors
+
+#= require lib/view
 #= require lib/shiki_view
 #= require lib/shiki_editable
+
+#= require_tree ./processors
 #= require_tree ./lib
 #= require_tree ./blocks
 

@@ -12,7 +12,7 @@ FactoryGirl.define do
     notifications User::DEFAULT_NOTIFICATIONS
 
     after :build do |user|
-      user.stub :ensure_api_access_token
+      user.class.skip_callback :save, :before, :ensure_api_access_token
     end
 
     trait :preferences do

@@ -94,7 +94,7 @@ Site::Application.routes.draw do
     resources :bans, only: [:create, :index] do
       get '/page/:page', action: :index, as: :page, on: :collection
     end
-    resources :abuse_requests, only: [:index] do
+    resources :abuse_requests, only: [:index, :show] do
       get '/page/:page', action: :index, as: :page, on: :collection
 
       member do

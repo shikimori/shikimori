@@ -9,7 +9,7 @@ class ModerationsController < ShikimoriController
   def missing_screenshots
     page_title t("moderations.missing_screenshots.title")
 
-    @collection = Rails.cache.fetch :missing_screenshots, expires_in: 10.minutes do
+    @collection = Rails.cache.fetch :missing_screenshots, expires_in: 1.hour do
       Moderation::MissingScreenshotsQuery.new.fetch
     end
   end
@@ -20,7 +20,7 @@ class ModerationsController < ShikimoriController
     if params[:kind]
       breadcrumb t('moderations.show.missing_videos'), missing_videos_moderations_url
       page_title t("moderations.missing_videos.#{params[:kind]}")
-      @collection = Rails.cache.fetch [:missing_videos, params[:kind]], expires_in: 10.minutes do
+      @collection = Rails.cache.fetch [:missing_videos, params[:kind]], expires_in: 1.hour do
         Moderation::MissingVideosQuery.new(params[:kind]).animes
       end
     end

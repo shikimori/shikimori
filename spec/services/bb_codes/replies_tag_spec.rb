@@ -22,4 +22,3 @@ describe BbCodes::RepliesTag do
     end
   end
 end
-

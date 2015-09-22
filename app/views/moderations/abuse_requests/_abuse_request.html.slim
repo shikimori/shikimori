@@ -1,43 +1,112 @@
-.b-abuse_request
-  = render 'comments/comment.html', comment: SolitaryCommentDecorator.new(abuse_request.comment)
+.b-log_entry.b-abuse_request.to-process[
+  data-dynamic="abuse_request"
+  data-url="#{moderations_abuse_request_url abuse_request}"
+]
+  span.id-label #
+  span = abuse_request.id
+  span.date
+    = abuse_request.created_at.strftime('%d.%m.%Y')
 
-  .b-request_resolution
-    .info
-      .b-user16
-        a href="#{profile_url abuse_request.user}" title="#{abuse_request.user.nickname}"
-          img.avatar src="#{abuse_request.user.avatar_url 16}" srcset="#{abuse_request.user.avatar_url 32} 2x" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
-          span = abuse_request.user.nickname
+  = render 'users/user_16', user: abuse_request.user
 
-      span
-        = abuse_request.value ? (abuse_request.user.female? ? 'отметила' : 'отметил') : (abuse_request.user.female? ? 'сняла' : 'снял')
-      .marker class="b-#{abuse_request.kind}_marker"
-        /- unless abuse_request.offtopic?
-          span class="b-#{abuse_request.kind}_marker"
-            /= abuse_request.kind_text
-      - if abuse_request.reason.present?
-        p.abuse-reason 
-          span Причина:
-          = abuse_request.reason
+  .marker class="b-#{abuse_request.kind}_marker"
+  span = t '.to'
 
-    - if abuse_request.pending?
-      .moderation
-        - if abuse_request.punishable?
-          .moderation-buttons
-            span.deny.button data-action="#{deny_moderations_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
-            span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
+  = render 'users/user_16', user: abuse_request.comment.user
+
+  - if abuse_request.reason.present?
+    span = t '.for_reason'
+    span.reason = abuse_request.reason
+
+  span
+    == format_linked_name abuse_request.comment.commentable_id, abuse_request.comment.commentable_type, abuse_request.comment.id
+
+  - if abuse_request.pending?
+    - if abuse_request.comment.created_at < 1.week.ago
+      span.outdated = t '.old_comment'
+
+    - if user_signed_in? && current_user.moderator?
+      .spoiler.collapse
+        span.action.half-hidden style="display: none;" = t '.show'
+      .collapsed.spoiler = t '.actions'
+      .spoiler.target style="display: none;"
+        .moderation
+          - if abuse_request.punishable?
+            a.warn[
+              data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
+              data-method="get"
+              data-type="html"
+              data-remote="true"
+            ] = t '.warn'
             - unless abuse_request.spoiler?
-              span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
-            - if abuse_request.comment.created_at < DateTime.now - 1.week
-              p.outdated комментарий создан давно
-          .ban-form
-        - else
-          .moderation-buttons
-            span.take.button data-action="#{take_moderations_abuse_request_path abuse_request}" method="post" data-remote="true" принять
-            span.deny.button data-action="#{deny_moderations_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
-    - else
-      .resolution
-        - if abuse_request.accepted?
-          span style="color: green;" принято
-        - else
-          span style="color: red;"  отклонено
-        span #{abuse_request.approver.nickname}
+              a.ban[
+                href="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
+                data-method="get"
+                data-type="html"
+                data-remote="true"
+              ] = t '.ban'
+            a.deny[
+              href="#{deny_moderations_abuse_request_path abuse_request}"
+              data-method="post"
+              data-remote="true"
+            ] = t '.reject'
+            /.ban-form
+          - else
+            a.take[
+              href="#{take_moderations_abuse_request_path abuse_request}"
+              method="post"
+              data-remote="true"
+            ] = t '.accept'
+            a.deny[
+              href="#{deny_moderations_abuse_request_path abuse_request}"
+              method="post"
+              data-remote="true"
+            ] = t '.reject'
+  - else
+    span.resolution class="#{abuse_request.state}"
+      = abuse_request.human_state_name
+    = render 'users/user_16', user: abuse_request.approver
+
+/.b-abuse_request
+  /= render 'comments/comment.html', comment: SolitaryCommentDecorator.new(abuse_request.comment)
+
+  /.b-request_resolution
+    /.info
+      /.b-user16
+        /a href="#{profile_url abuse_request.user}" title="#{abuse_request.user.nickname}"
+          /img.avatar src="#{abuse_request.user.avatar_url 16}" srcset="#{abuse_request.user.avatar_url 32} 2x" alt="#{abuse_request.user.nickname}" title="#{abuse_request.user.nickname}"
+          /span = abuse_request.user.nickname
+
+      /span
+        /= abuse_request.value ? (abuse_request.user.female? ? 'отметила' : 'отметил') : (abuse_request.user.female? ? 'сняла' : 'снял')
+      /.marker class="b-#{abuse_request.kind}_marker"
+        //- unless abuse_request.offtopic?
+          /span class="b-#{abuse_request.kind}_marker"
+            //= abuse_request.kind_text
+      /- if abuse_request.reason.present?
+        /p.abuse-reason 
+          /span Причина:
+          /= abuse_request.reason
+
+    /- if abuse_request.pending?
+      /.moderation
+        /- if abuse_request.punishable?
+          /.moderation-buttons
+            /span.deny.button data-action="#{deny_moderations_abuse_request_path abuse_request}" data-method="post" data-remote="true" нет&nbsp;нарушения
+            /span.warn.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" предупредить
+            /- unless abuse_request.spoiler?
+              /span.ban.button data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}" data-method="get" data-type="html" data-remote="true" забанить
+            /- if abuse_request.comment.created_at < DateTime.now - 1.week
+              /p.outdated комментарий создан давно
+          /.ban-form
+        /- else
+          /.moderation-buttons
+            /span.take.button data-action="#{take_moderations_abuse_request_path abuse_request}" method="post" data-remote="true" принять
+            /span.deny.button data-action="#{deny_moderations_abuse_request_path abuse_request}" method="post" data-remote="true" отклонить
+    /- else
+      /.resolution
+        /- if abuse_request.accepted?
+          /span style="color: green;" принято
+        /- else
+          /span style="color: red;"  отклонено
+        /span #{abuse_request.approver.nickname}

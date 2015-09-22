@@ -204,6 +204,12 @@ ru:
           few: бана
           many: банов
           other: баны
+      abuse_request:
+        subjective:
+          one: жалоба
+          few: жалобы
+          many: жалоб
+          other: жалобы
       action:
         subjective:
           one: действие
