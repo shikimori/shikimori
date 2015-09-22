@@ -9,19 +9,22 @@ class PagesController < ShikimoriController
   respond_to :html, except: [:news]
   respond_to :rss, only: [:news]
 
+  ONGOINGS_TOPIC_ID = 94879
+  ABOUT_TOPIC_ID = 84739
+
   # график онгоингов
   def ongoings
     @page_title = 'Календарь онгоингов'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = Topic.find(94879).decorate
+    @topic = Topic.find(ONGOINGS_TOPIC_ID).decorate
   end
 
   # о сайте
   def about
     @page_title = 'О сайте'
     @statistics = SiteStatistics.new
-    @topic = Topic.find(84739).decorate
+    @topic = Topic.find(ABOUT_TOPIC_ID).decorate
   end
 
   # rss с новостями

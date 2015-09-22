@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
-    user
-    commentable {|v| FactoryGirl.create(:topic, user: v.user) }
+    user { seed :user }
+    commentable { seed :topic }
     sequence(:body) { |n| "comment_body_#{n}" }
     offtopic false
     review false

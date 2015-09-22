@@ -23,13 +23,13 @@ describe TopicsController do
     context 'no section' do
       before { get :index }
       it { expect(response).to have_http_status :success }
-      it { expect(assigns :topics).to have(3).items }
+      it { expect(assigns :topics).to have(4).items }
     end
 
     context 'Section::static[:all]' do
       before { get :index, section: Section::static[:all].permalink }
       it { expect(response).to have_http_status :success }
-      it { expect(assigns :topics).to have(3).items }
+      it { expect(assigns :topics).to have(4).items }
     end
 
     context 'section' do

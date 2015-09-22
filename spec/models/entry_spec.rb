@@ -1,10 +1,10 @@
 describe Entry do
   describe 'relations' do
-    it { should belong_to :section }
-    it { should belong_to :linked }
-    it { should belong_to :user }
-    it { should have_many :views }
-    it { should have_many :messages }
+    it { is_expected.to belong_to :section }
+    it { is_expected.to belong_to :linked }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :views }
+    it { is_expected.to have_many :messages }
   end
 
   context 'hooks' do
@@ -63,12 +63,12 @@ describe Entry do
       it 'updated_at is set to created_at of last comment' do
         first = second = third = nil
         Comment.wo_antispam do
-          first = create :comment, commentable: entry, created_at: DateTime.now - 2.days, body: 'first'
-          second = create :comment, commentable: entry, created_at: DateTime.now - 1.day, body: 'second'
-          third = create :comment, commentable: entry, created_at: DateTime.now - 30.minutes, body: 'third'
+          first = create :comment, commentable: entry, created_at: 2.days.ago, body: 'first'
+          second = create :comment, commentable: entry, created_at: 1.day.ago, body: 'second'
+          third = create :comment, commentable: entry, created_at: 30.minutes.ago, body: 'third'
         end
         third.destroy
-        expect(Entry.last.updated_at.to_i).to eq(second.created_at.to_i)
+        expect(first.commentable.reload.updated_at.to_i).to eq(second.created_at.to_i)
       end
     end
 

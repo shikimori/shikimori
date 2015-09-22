@@ -8,5 +8,9 @@ FactoryGirl.define do
     factory :review_comment, class: 'ReviewComment' do
       type 'ReviewComment'
     end
+
+    after :build do |topic|
+      topic.class.skip_callback :create, :before, :check_antispam
+    end
   end
 end

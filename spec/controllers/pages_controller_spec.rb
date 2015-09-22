@@ -2,50 +2,39 @@ describe PagesController do
   let(:user) { create :user }
 
   describe 'ongoings' do
-    before do
-      create :anime, :ongoing
-      create :anime, :anons
-      create :topic, :with_section, id: 94879
-      get :ongoings
-    end
+    let!(:ongoing) { create :anime, :ongoing }
+    let!(:anons) { create :anime, :anons }
+    let!(:topic) { create :topic, id: PagesController::ONGOINGS_TOPIC_ID }
+    before { get :ongoings }
 
     it { expect(response).to have_http_status :success }
-
-    describe 'signed_in user' do
-      before do
-        sign_in user
-        get :ongoings
-      end
-
-      it { expect(response).to have_http_status :success }
-    end
   end
 
   describe 'news' do
     let(:section) { create :section, permalink: 'a' }
 
     context 'common' do
-      before do
-        create :topic, broadcast: true, section: section
-        create :topic, broadcast: true, section: section
-        get :news, kind: 'site', format: 'rss'
-      end
+      let!(:topic_1) { create :topic, broadcast: true, section: section }
+      let!(:topic_2) { create :topic, broadcast: true, section: section }
+      before { get :news, kind: 'site', format: 'rss' }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/rss+xml' }
-      it { expect(assigns(:topics).size).to eq(2) }
+      it do
+        expect(assigns :topics).to have(2).items
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/rss+xml'
+      end
     end
 
     context 'anime' do
-      before do
-        create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons
-        create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons
-        get :news, kind: 'anime', format: 'rss'
-      end
+      let!(:news_1) { create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons }
+      let!(:news_2) { create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons }
+      before { get :news, kind: 'anime', format: 'rss' }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/rss+xml' }
-      it { expect(assigns(:topics).size).to eq(2) }
+      it do
+        expect(assigns :topics).to have(2).items
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/rss+xml'
+      end
     end
   end
 
@@ -92,12 +81,11 @@ describe PagesController do
     end
 
     context 'admin' do
-      before do
-        allow_any_instance_of(PagesController).to receive(:`).and_return ''
-        allow($redis).to receive(:info).and_return('db0' => '=,')
-        sign_in create :user, id: 1
-        get :admin_panel
-      end
+      include_context :authenticated, :admin
+
+      before { allow_any_instance_of(PagesController).to receive(:`).and_return '' }
+      before { allow($redis).to receive(:info).and_return('db0' => '=,') }
+      before { get :admin_panel }
 
       it { expect(response).to have_http_status :success }
     end
@@ -116,7 +104,9 @@ describe PagesController do
   describe 'tableau' do
     before { get :tableau }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
   end
 end
