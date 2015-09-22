@@ -11,6 +11,29 @@
           = render 'dialogs/postloader', url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page+1)
         = render @collection
 
+      - if @dialog.target_user.admin?
+        .admin-message
+          .subheadline.red Перед тем, как мне написать
+          ul.b-list
+            li Обращайтесь на "ты".
+            li
+              ' Не забудьте прочитать первый пост в
+              a.b-link href="http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy" теме часто задаваемых вопросов
+              | .
+            li
+              ' Если у вас вопрос по работе сайта, то попробуйте сначала спросить в
+              a.b-link href="http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy" топике часто задаваемых вопросов
+              ' . Только если не получили ответа там, то пишите мне.
+            li
+              ' Сообщения об ошибках, если они не блокируют работу с сайтом, пишите в
+              a.b-link href="http://shikimori.org/s/102-Tema-ob-oshibkah" топик ошибок.
+            li
+              ' Предложения по улучшению сайта пишите в
+              a.b-link href="http://shikimori.org/s/10586-Pozhelaniya-po-saytu" топик идей.
+            li
+              ' Жалобы о несправедливых банах игнорируются (кроме ошибок алгоритмов автобана за мат).
+          p Отвечать могу очень долго. Или вообще никогда.
+
       .editor-container
         .subheadline.m10 Ваше сообщение
         = render partial: 'comments/form', locals: { comment: @dialog.new_message(@replied_message) }
