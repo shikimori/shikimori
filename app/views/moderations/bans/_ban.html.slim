@@ -1,12 +1,4 @@
 .b-log_entry
-  .moderator
-    a.nickname.short href="#{profile_url ban.moderator}" title="#{ban.moderator.nickname}"
-      = ban.moderator.nickname
-
-    - if ban.abuse_request
-      a.abuser href="#{profile_url ban.abuse_request.user}"
-        = ban.abuse_request.user.nickname
-
   span.id-label #
   span = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
@@ -14,19 +6,22 @@
   = render 'users/user_16', user: ban.user
 
   - if ban.warning?
-    span.duration-warning предупреждение
+    span.duration-warning = t '.warning'
   - else
-    span.duration-ban бан
-    span на
+    span.duration-ban = t '.ban'
+    span = t '.ban_on'
     span.duration #{ban.duration.humanize}
 
+  span = t '.from'
+  = render 'users/user_16', user: ban.moderator
+  - if ban.abuse_request
+    span: a.abuser href="#{profile_url ban.abuse_request.user}"
+      = ban.abuse_request.user.nickname
+
+  span = t '.for'
+  span.reason = BbCodeFormatter.instance.format_comment(ban.reason)
+
   - if ban.comment_id && ban.comment
-    span за комментарий
     == format_linked_name ban.comment.commentable_id, ban.comment.commentable_type, ban.comment.id
   - elsif ban.comment_id
-    span за удалённый комментарий
-
-  = spoiler 'подробности', display: 'inline' do
-    .b-quote
-      .quoteable причина
-      = ban.reason
+    span = t '.for_deleted_comment'

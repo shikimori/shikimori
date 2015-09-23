@@ -1,5 +1,5 @@
 header.head
-  h1 = @page_title
+  h1 = @page_title.last
   p.notice Список пометок комментариев сайта пользователями
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

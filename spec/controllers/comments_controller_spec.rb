@@ -5,19 +5,23 @@ describe CommentsController do
   let(:comment2) { create :comment, commentable: topic, user: user }
   before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
 
-  describe '#show' do
+  describe '#show', :focus do
     context 'html' do
       before { get :show, id: comment.id }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'text/html' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'text/html'
+      end
     end
 
     context 'html' do
       before { get :show, id: comment.id, format: 'json' }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
     end
   end
 
@@ -28,17 +32,21 @@ describe CommentsController do
       let(:comment_params) {{ commentable_id: topic.id, commentable_type: topic.class.name, body: 'x'*Comment::MIN_REVIEW_SIZE, offtopic: true, review: true }}
       before { post :create, comment: comment_params }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      it { expect(assigns(:comment)).to be_persisted }
-      it { expect(assigns(:comment)).to have_attributes(comment_params) }
+      it do
+        expect(assigns(:comment)).to be_persisted
+        expect(assigns(:comment)).to have_attributes(comment_params)
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
     end
 
     context 'failure' do
       before { post :create, comment: { body: 'test', offtopic: false, review: false } }
 
-      it { expect(response).to have_http_status 422 }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status 422
+        expect(response.content_type).to eq 'application/json'
+      end
     end
   end
 
@@ -56,9 +64,11 @@ describe CommentsController do
     context 'success' do
       before { make_request }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      specify { expect(assigns(:comment).body).to eq 'testzxc' }
+      it do
+        expect(assigns(:comment).body).to eq 'testzxc'
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
     end
 
     context 'forbidden' do
@@ -73,8 +83,10 @@ describe CommentsController do
 
     context 'success' do
       before { make_request }
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
     end
 
     context 'forbidden' do

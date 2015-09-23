@@ -11,7 +11,10 @@ header.head
         a.b-link href="#{index_moderations_versions_url type: :content}" title="#{t '.versions_journal'}"
           = t '.versions_journal'
       li
-        a.b-link href="#{moderations_bans_url}" title="#{t '.forum_journal'}"
+        a.b-link href="#{moderations_bans_url}" title="#{t '.bans_journal'}"
+          = t '.bans_journal'
+      li
+        a.b-link href="#{moderations_abuse_requests_url}" title="#{t '.forum_journal'}"
           = t '.forum_journal'
       - if ru_content?
         li

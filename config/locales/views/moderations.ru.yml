@@ -1,16 +1,17 @@
 ru:
   moderations:
     show:
-      header_notice: Журналы модерации и информация о контенте сайта
-      moderation: Модерация
+      bans_journal: Журнал банов
       content: Контент
-      versions_journal: Журнал изменений контента
-      forum_journal: Журнал модерации форума
-      uploaded_videos_journal: Журнал новых видео
       edited_videos_journal: Журнал изменений видео
+      forum_journal: Журнал модерации форума
+      header_notice: Журналы модерации и информация о контенте сайта
       missing_descriptions: Аниме без описаний
       missing_screenshots: Аниме без кадров
       missing_videos: Отсутствующие видео
+      moderation: Модерация
+      uploaded_videos_journal: Журнал новых видео
+      versions_journal: Журнал изменений контента
     missing_screenshots:
       title: Аниме без кадров
       animes: Аниме
@@ -38,3 +39,11 @@ ru:
         show: показать
         to: на
         warn: предупредить
+    bans:
+      ban:
+        ban: бан
+        ban_on: на
+        for: за
+        for_deleted_comment: за удалённый комментарий
+        from: от
+        warning: предупреждение
