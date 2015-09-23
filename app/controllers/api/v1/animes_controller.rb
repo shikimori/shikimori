@@ -3,8 +3,6 @@ class Api::V1::AnimesController < Api::V1::ApiController
 
   before_action :fetch_resource, except: [:index]
 
-  serialization_scope :current_user
-
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/animes', 'List animes'
   def index
