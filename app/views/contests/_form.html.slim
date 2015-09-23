@@ -59,20 +59,20 @@
           .subheadline = t '.actions'
           .contest_actions
             - if contest.object.can_propose?
-              a.action href="#{propose_contest_url contest}" data-method='post' = t '.accept_candidates'
+              div: a.b-js-link href="#{propose_contest_url contest}" data-method='post' = t '.accept_candidates'
 
             - if contest.can_stop_propose?
-              a.action href="#{cleanup_suggestions_contest_url contest}" data-method='post' = t '.cleanup_candidates'
-              a.action href="#{stop_propose_contest_url contest}" data-method='post' = t '.stop_accepting_candidates'
+              div: a.b-js-link href="#{cleanup_suggestions_contest_url contest}" data-method='post' = t '.cleanup_candidates'
+              div: a.b-js-link href="#{stop_propose_contest_url contest}" data-method='post' = t '.stop_accepting_candidates'
 
             - if contest.can_start?
-              a.action href="#{build_contest_url contest}"  data-method='post'
+              div: a.b-js-link href="#{build_contest_url contest}"  data-method='post'
                 - if contest.rounds.empty?
                   = t '.generate_polls'
                 - else
                   = t '.shuffle_polls'
               - if contest.can_start? & contest.rounds.any?
-                a.action[
+                div: a.b-js-link[
                   href="#{start_contest_url contest}"
                   data-method='post'
                   data-confirm=t('.sure_to_start_contest')

@@ -1,8 +1,8 @@
 ru:
   contests:
     index:
-      create_new_contest: Создать новый опрос
-      list_of_all_contests: Список всех опросов сайта
+      create_new_contest: Создать новый турнир
+      list_of_all_contests: Список всех турниров сайта
 
     form:
       common: Общее
@@ -29,3 +29,17 @@ ru:
       maximum_anime_needed_for_start: Для старта должно быть максимум %{max_members} аниме
       you_cannot_change_anything_after_start: После старта ничего изменить будет нельзя!
       tournament_bracket: Турнирная сетка
+
+    private_suggestion:
+      hide: скрыть
+      take: взять
+
+    private_suggestions:
+      likely_candidates: Вероятные кандидаты
+      candidates: Кандидаты
+      no_candidates: нет кандидатов
+      unlikely_candidates: Кандидаты под вопросом
+
+    index:
+      create_new_contest: Создать новый турнир
+      list_of_all_site_contests: Список всех турниров сайта

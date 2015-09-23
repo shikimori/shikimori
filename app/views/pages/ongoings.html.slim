@@ -9,7 +9,7 @@ header.head.m15
   .block.m0
     - if index == -1
       .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
-        span.action свернуть
+        span.action = t 'collapse'
     .headline.m10 class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
       = index == -1 ? "Уже должно было выйти" : date_title_for_ongoing(index)
     .collapsed.tiny ...

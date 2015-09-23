@@ -28,3 +28,17 @@ en:
       maximum_anime_needed_for_start: You've got to select %{max_members} anime at most to start the contest
       you_cannot_change_anything_after_start: You cannot change anything after you start the contest
       tournament_bracket: Tournament bracket
+
+    private_suggestion:
+      hide: hide
+      take: take
+
+    private_suggestions:
+      likely_candidates: Likely candidates
+      candidates: Candidates
+      no_candidates: no candidates
+      unlikely_candidates: Unlikely candidates
+
+    index:
+      create_new_contest: Create new contest
+      list_of_all_site_contests: List of all site contests

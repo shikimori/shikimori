@@ -154,7 +154,7 @@ private
 
   # хлебные крошки
   def set_breadcrumbs
-    breadcrumb 'Опросы', contests_url
+    breadcrumb i18n_t('contests'), contests_url
     breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'edit' && !@resource.created?
     breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'grid' && !@resource.created?
     breadcrumb @resource.title, contest_url(@resource) if params[:round].present?

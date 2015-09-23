@@ -22,6 +22,7 @@ ru:
   character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
+  collapse: свернуть
   deleted:
     anime: Удалённое аниме
     character: Удалённый персонаж

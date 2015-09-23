@@ -252,6 +252,11 @@ ru:
           few: обсуждения
           many: обсуждений
           other: обсуждения
+      vote:
+        subjective:
+          one: голос
+          few: голоса
+          many: голосов
 
       datetime:
         second:

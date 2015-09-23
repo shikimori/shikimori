@@ -22,6 +22,7 @@ en:
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
+  collapse: collapse
   deleted:
     anime: Deleted anime
     character: Deleted character

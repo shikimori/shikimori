@@ -52,9 +52,9 @@ ru:
     you_have_left_club: Вы покинули клуб "%{club_name}"
   contests_controller:
     contests: Опросы
-    new_contest: Новый опрос
-    edit_contest: Изменение опроса
-    contest_created: Опрос создан
+    new_contest: Новый турнир
+    edit_contest: Изменение турнира
+    contest_created: Турнир создан
     votes: Голоса
     tournament_bracket: Турнирная сетка
     index_keywords: аниме опросы турниры голосования

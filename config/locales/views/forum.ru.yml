@@ -12,7 +12,7 @@ ru:
       show_more: '+ показать ещё'
       sticked_topics: Прикреплённое
       to_clubs: К клубам
-      to_contests: К опросам
+      to_contests: К турнирам
       to_news: К новостям
       to_reviews: К рецензиям
       user_review: 'Рецензия %{author}'

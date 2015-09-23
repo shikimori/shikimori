@@ -3,7 +3,7 @@
     header class="status-#{UserRate.statuses[status]}"
       a name="#{UserRate.statuses[status]}"
       .b-options-floated.collapse id="collapse-#{UserRate.statuses[status]}"
-        span.action свернуть (#{list.size})
+        span.action #{t 'collapse'} (#{list.size})
       .subheadline
         = UserRate.status_name status, @resource.list.klass.name
       .collapsed.tiny ...
