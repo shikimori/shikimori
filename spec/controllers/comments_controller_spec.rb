@@ -1,11 +1,11 @@
 describe CommentsController do
   let(:user) { create :user, :user }
-  let(:topic) { create :entry, user: user }
+  let(:topic) { seed :topic }
   let(:comment) { create :comment, commentable: topic, user: user }
   let(:comment2) { create :comment, commentable: topic, user: user }
   before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
 
-  describe '#show', :focus do
+  describe '#show' do
     context 'html' do
       before { get :show, id: comment.id }
 
@@ -15,7 +15,7 @@ describe CommentsController do
       end
     end
 
-    context 'html' do
+    context 'json' do
       before { get :show, id: comment.id, format: 'json' }
 
       it do
@@ -29,7 +29,7 @@ describe CommentsController do
     before { sign_in user }
 
     context 'success' do
-      let(:comment_params) {{ commentable_id: topic.id, commentable_type: topic.class.name, body: 'x'*Comment::MIN_REVIEW_SIZE, offtopic: true, review: true }}
+      let(:comment_params) {{ commentable_id: topic.id, commentable_type: 'Entry', body: 'x'*Comment::MIN_REVIEW_SIZE, offtopic: true, review: true }}
       before { post :create, comment: comment_params }
 
       it do
@@ -97,8 +97,9 @@ describe CommentsController do
 
   describe '#fetch' do
     let(:user) { build_stubbed :user }
+    let(:topic) { create :entry, user: user }
 
-    it 'works' do
+    it do
       get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: topic.id, skip: 1, limit: 10
       expect(response).to be_success
     end
