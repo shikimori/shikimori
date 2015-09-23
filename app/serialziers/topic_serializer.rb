@@ -1,6 +1,6 @@
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :title, :body, :html_body, :created_at, :comments_count, :section, :user, :type, :linked_id, :linked_type, :linked
-  attributes :viewed?, :last_comment_viewed?
+  attributes :viewed?, :last_comment_viewed
 
   def section
     SectionSerializer.new object.section
@@ -20,7 +20,7 @@ class TopicSerializer < ActiveModel::Serializer
     end
   end
 
-  def last_comment_viewed?
+  def last_comment_viewed
     object.comments.last.try(:viewed?)
   end
 end

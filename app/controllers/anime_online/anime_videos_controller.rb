@@ -68,10 +68,7 @@ class AnimeOnline::AnimeVideosController < AnimesController
     @user_rate = @anime.rates.find_by(user_id: current_user.id) ||
       @anime.rates.build(user: current_user)
 
-    Retryable.retryable tries: 2, on: [PG::TRDeadlockDetected], sleep: 1 do
-      @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
-    end
-
+    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
     render nothing: true
   end
 

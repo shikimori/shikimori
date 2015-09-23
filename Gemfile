@@ -38,11 +38,9 @@ gem 'rs_russian'
 gem 'metrika'
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
-#gem 'simple_form-magic_submit', path: '/Users/morr/Develop/simple_form-magic_submit/'
-gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
+gem 'active_model_serializers', '0.9.2' # 0.9.3 не ставить! ждать релиза 0.10
 gem 'virtus'
 
-#gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
 gem 'devise'
 gem 'devise-async' # асинхронная отсылка писем для devise
