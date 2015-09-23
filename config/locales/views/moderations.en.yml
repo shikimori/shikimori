@@ -42,7 +42,7 @@ en:
     bans:
       ban:
         ban: ban
-        banned_on: "on"
+        banned_on: "on" # не убирать кавычки
         for: for
         for_deleted_comment: for deleted comment
         warning: warning

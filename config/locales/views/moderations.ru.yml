@@ -42,7 +42,7 @@ ru:
     bans:
       ban:
         ban: бан
-        banned_on: "на"
+        banned_on: на
         for: за
         for_deleted_comment: за удалённый комментарий
         warning: предупреждение
