@@ -19,6 +19,7 @@ class AniMangaDecorator < DbEntryDecorator
       .wo_empty_generated
       .includes(:section)
       .limit(TopicsPerPage)
+      .order(:updated_at)
       .map { |topic| format_menu_topic topic, :updated_at }
   end
 
@@ -28,6 +29,7 @@ class AniMangaDecorator < DbEntryDecorator
       .news
       .includes(:section)
       .limit(NewsPerPage)
+      .order(:created_at)
       .map { |topic| format_menu_topic topic, :created_at }
   end
 

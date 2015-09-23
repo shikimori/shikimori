@@ -80,7 +80,7 @@ class Entry < ActiveRecord::Base
   # колбек, срабатываемый при добавлении коммента
   def comment_added comment
     self.updated_at = Time.zone.now
-    self.created_at = self.updated_at if self.comments_count == 1
+    self.created_at = self.updated_at if self.comments_count == 1 && !generated_news?
     self.save
   end
 
