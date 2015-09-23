@@ -1,4 +1,10 @@
 .b-log_entry
+  .moderator
+    = render 'users/user_16', user: ban.moderator
+    - if ban.abuse_request
+      span: a.abuser href="#{profile_url ban.abuse_request.user}"
+        = ban.abuse_request.user.nickname
+
   span.id-label #
   span = ban.id
   span.date = ban.created_at.strftime('%d.%m.%Y')
@@ -9,14 +15,8 @@
     span.duration-warning = t '.warning'
   - else
     span.duration-ban = t '.ban'
-    span = t '.ban_on'
+    span = t '.banned_on'
     span.duration #{ban.duration.humanize}
-
-  span = t '.from'
-  = render 'users/user_16', user: ban.moderator
-  - if ban.abuse_request
-    span: a.abuser href="#{profile_url ban.abuse_request.user}"
-      = ban.abuse_request.user.nickname
 
   span = t '.for'
   span.reason = BbCodeFormatter.instance.format_comment(ban.reason)

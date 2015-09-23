@@ -42,8 +42,7 @@ en:
     bans:
       ban:
         ban: ban
-        ban_on: on
+        banned_on: "on"
         for: for
         for_deleted_comment: for deleted comment
-        from: from
         warning: warning
