@@ -2,7 +2,7 @@
 class UserProfileSerializer < UserSerializer
   attributes :name, :sex, :full_years, :last_online, :last_online_at, :website, :location, :last_online_at
   attributes :banned?, :about, :about_html, :common_info, :last_online, :show_comments?
-  attributes :in_friends, :is_ignored
+  attributes :in_friends?, :is_ignored
 
   attributes :stats
 
@@ -34,7 +34,7 @@ class UserProfileSerializer < UserSerializer
     }
   end
 
-  def in_friends
+  def in_friends?
     object.is_friended?
   end
 
