@@ -36,6 +36,7 @@ en:
         for_reason: for reason
         old_comment: old comment
         reject: reject
+        remove: remove
         show: show
         to: to
         warn: warn
