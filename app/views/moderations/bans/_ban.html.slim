@@ -1,4 +1,4 @@
-.b-log_entry
+.b-ban.b-log_entry
   .moderator
     = render 'users/user_16', user: ban.moderator
     - if ban.abuse_request
@@ -22,6 +22,8 @@
   span.reason = BbCodeFormatter.instance.format_comment(ban.reason)
 
   - if ban.comment_id && ban.comment
-    == format_linked_name ban.comment.commentable_id, ban.comment.commentable_type, ban.comment.id
+    span == format_linked_name ban.comment.commentable_id, ban.comment.commentable_type, ban.comment.id
+    span: a.b-link.comment-hash href="#{comment_url ban.comment}" #
+
   - elsif ban.comment_id
     span = t '.for_deleted_comment'

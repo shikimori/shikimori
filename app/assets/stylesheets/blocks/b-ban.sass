@@ -1,0 +1,34 @@
+@import mixins/bracket_details
+@import mixins/date
+@import mixins/link
+
+.b-ban
+  .duration-ban
+    color: $red
+
+  .duration-warning
+    color: $orange
+
+  .duration-ban, .duration-warning
+    display: inline-block
+
+  .duration
+    +date
+
+  .moderator
+    position: absolute
+    right: 0
+    text-align: right
+
+  .abuser
+    +bracket_details
+    +link
+    padding-left: 0
+    &:hover
+      text-decoration: underline !important
+
+  .duration + .moderator, .duration-warning + .moderator
+    padding-left: 0
+
+  .comment-hash
+    color: $gray-2
