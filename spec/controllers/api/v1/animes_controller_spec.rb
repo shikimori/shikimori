@@ -21,6 +21,8 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :show, id: anime.id, format: :json }
 
     it do
+      expect(json).to have_key :description_html
+      expect(json).to have_key :videos
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end
