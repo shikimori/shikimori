@@ -24,6 +24,8 @@
   span
     == format_linked_name abuse_request.comment.commentable_id, abuse_request.comment.commentable_type, abuse_request.comment.id
 
+  span: a.b-link.comment href="#{comment_url abuse_request.comment}" #
+
   - if abuse_request.pending?
     - if abuse_request.comment.created_at < 1.week.ago
       span.outdated = t '.old_comment'
