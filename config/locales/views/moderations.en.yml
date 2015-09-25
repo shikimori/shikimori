@@ -29,6 +29,8 @@ en:
         show: show
         show_changes: show details
     abuse_requests:
+      index:
+        expand_all: :moderations.bans.index.expand_all
       abuse_request:
         accept: accept
         actions: actions
@@ -41,6 +43,8 @@ en:
         to: to
         warn: warn
     bans:
+      index:
+        expand_all: expand all
       ban:
         ban: ban
         banned_on: "on" # не убирать кавычки

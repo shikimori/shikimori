@@ -29,6 +29,8 @@ ru:
         show: показать
         show_changes: показать правку
     abuse_requests:
+      index:
+        expand_all: :moderations.bans.index.expand_all
       abuse_request:
         accept: принять
         actions: действия
@@ -41,6 +43,8 @@ ru:
         to: на
         warn: предупредить
     bans:
+      index:
+        expand_all: раскрыть всё
       ban:
         ban: бан
         banned_on: на

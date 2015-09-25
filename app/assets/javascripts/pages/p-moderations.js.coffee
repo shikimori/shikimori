@@ -20,6 +20,10 @@ $moderation = (node) ->
   # сокращение высоты инструкции
   $('.b-brief').check_height(150)
 
+  $('.expand-all').on 'click', ->
+    $(@).parent().next().next().find('.collapsed.spoiler:visible').click()
+    $(@).remove()
+
 # информация о пропущенных видео
 @on 'page:load', 'moderations_missing_videos', ->
   $('.missing-video .show-details').on 'click', ->
