@@ -119,6 +119,7 @@ class TopicDecorator < BaseDecorator
   def comments
     comments = object
       .comments
+      .includes(:user)
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
