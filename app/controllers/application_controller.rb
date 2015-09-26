@@ -132,7 +132,7 @@ private
       )
       false
     else
-      'application'
+      Rails.env.development? && params[:no_layout] ? false : 'application'
     end
   rescue URI::InvalidURIError
     'application'
