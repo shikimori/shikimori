@@ -116,4 +116,24 @@ class ProfileStats
     comments_count > 0 || comments_reviews_count > 0 || reviews_count > 0 ||
       versions_count > 0 || videos_changes_count > 0
   end
+
+  def comments_count
+    Comment.where(user_id: user.id).count
+  end
+
+  def comments_reviews_count
+    Comment.where(user_id: user.id, review: true).count
+  end
+
+  def reviews_count
+    user.reviews.count
+  end
+
+  def versions_count
+    user.versions.where(state: [:taken, :accepted]).count
+  end
+
+  def videos_changes_count
+    AnimeVideoReport.where(user: user).where.not(state: 'rejected').count
+  end
 end

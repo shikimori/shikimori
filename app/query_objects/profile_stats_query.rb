@@ -1,6 +1,8 @@
 class ProfileStatsQuery
   prepend ActiveCacher.instance
 
+  vattr_initialize :user
+
   instance_cache :stats
   instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time,
     :spent_time, :comments_count, :comments_reviews_count,
@@ -14,16 +16,10 @@ class ProfileStatsQuery
     :statuses,
     :full_statuses,
     :anime_ratings,
-    :comments_count,
-    :comments_reviews_count,
-    :reviews_count,
-    :versions_count,
-    :videos_changes_count,
     :anime?,
     :manga?,
+    :user,
   ]
-
-  pattr_initialize :user
 
   def to_hash
     stats_hash = STAT_FIELDS.each_with_object({}) do |method, memo|
@@ -84,26 +80,6 @@ class ProfileStatsQuery
   end
 
   def manga_statuses
-  end
-
-  def comments_count
-    Comment.where(user_id: @user.id).count
-  end
-
-  def comments_reviews_count
-    Comment.where(user_id: @user.id, review: true).count
-  end
-
-  def reviews_count
-    @user.reviews.count
-  end
-
-  def versions_count
-    @user.versions.where(state: [:taken, :accepted]).count
-  end
-
-  def videos_changes_count
-    AnimeVideoReport.where(user: @user).where.not(state: 'rejected').count
   end
 
   def anime?
