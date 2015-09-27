@@ -3,7 +3,8 @@ require_dependency 'studio'
 require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
-  instance_cache :all_compatibility, :friends, :ignored?, :stats, :nickname_changes, :clubs, :favourites
+  instance_cache :all_compatibility, :friends, :ignored?, :stats,
+    :nickname_changes, :clubs, :favourites
 
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
@@ -39,7 +40,9 @@ class UserProfileDecorator < UserDecorator
   end
 
   def stats
-    ProfileStats.new object, h.current_user
+    Rails.cache.fetch [:profile_stats, object] do
+      ProfileStats.new ProfileStatsQuery.new(object).to_hash
+    end
   end
 
   def list

@@ -130,6 +130,7 @@ module ActiveCacher
   end
 
 private
+
   def cache_key_object
     respond_to?(:object) ? object : self
   end

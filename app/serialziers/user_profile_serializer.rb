@@ -1,10 +1,9 @@
 # TODO: выпилить anime_statuses, :manga_statuses
 class UserProfileSerializer < UserSerializer
-  attributes :name, :sex, :full_years, :last_online, :last_online_at, :website, :location, :last_online_at
-  attributes :banned?, :about, :about_html, :common_info, :last_online, :show_comments?
-  attributes :in_friends, :is_ignored
-
-  attributes :stats
+  attributes :name, :sex, :full_years, :last_online, :last_online_at,
+    :website, :location, :last_online_at, :banned?, :about, :about_html,
+    :common_info, :last_online, :show_comments?, :in_friends, :is_ignored,
+    :stats
 
   def website
     (object.object.website || '').sub(/^https?:\/\//, '')
@@ -23,7 +22,7 @@ class UserProfileSerializer < UserSerializer
         manga: object.stats.types(:manga),
       },
       ratings: {
-        anime: object.stats.ratings(:anime),
+        anime: object.stats.anime_ratings,
       },
       has_anime?: object.stats.anime?,
       has_manga?: object.stats.manga?,

@@ -43,6 +43,6 @@
           - if params[:list_type] == 'anime'
             .ratings.block
               .subheadline Рейтинги
-              #ratings data-stats="#{@resource.stats.ratings(params[:list_type]).to_json}" data-bar="horizontal"
+              #ratings data-stats="#{@resource.stats.anime_ratings.to_json}" data-bar="horizontal"
 
         = render 'animes_collection/menu', social: true, klass: @resource.list.klass, in_user_profile: true
