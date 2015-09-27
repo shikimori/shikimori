@@ -21,15 +21,15 @@
 
   .bar
     - if graph[:completed_percent] > 1
-      .first style="width: #{graph[:completed_percent]}%;" title="#{graph[:completed]} #{UserRate.status_name(:completed, class_name).downcase}"
+      .first style="width: #{graph[:completed_percent]}%;"
         == graph[:completed_percent] > 2.5 ? graph[:completed] : '&nbsp;'
 
     - if graph[:incompleted_percent] > 1
-      .second style="width: #{graph[:incompleted_percent]}%" title="#{graph[:incompleted]} не #{UserRate.status_name(:completed, class_name).downcase}"
+      .second style="width: #{graph[:incompleted_percent]}%"
         == graph[:incompleted_percent] > 2.5 ? graph[:incompleted] : '&nbsp;'
 
     - if graph[:dropped_percent] > 1
-      .third style="width: #{graph[:dropped_percent]}%;" title="#{graph[:dropped]} #{UserRate.status_name(:dropped, class_name).downcase}"
+      .third style="width: #{graph[:dropped_percent]}%;"
         == graph[:dropped_percent] > 2.5 ? graph[:dropped] : '&nbsp;'
 
   .stat_names
