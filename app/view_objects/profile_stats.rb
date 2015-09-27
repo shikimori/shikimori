@@ -24,15 +24,15 @@ class ProfileStats
   end
 
   def list_counts list_type
-    @list_counts[list_type]
+    @list_counts[list_type.to_sym]
   end
 
   def scores list_type
-    @scores[list_type]
+    @scores[list_type.to_sym]
   end
 
   def types list_type
-    @types[list_type]
+    @types[list_type.to_sym]
   end
 
   def spent_time_percent
