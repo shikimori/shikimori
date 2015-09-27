@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921220154) do
+ActiveRecord::Schema.define(version: 20150927142053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -280,7 +280,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
   end
 
   add_index "contest_suggestions", ["contest_id"], name: "index_contest_suggestions_on_contest_id", using: :btree
-  add_index "contest_suggestions", ["item_id"], name: "index_contest_suggestions_on_item_id", using: :btree
   add_index "contest_suggestions", ["user_id"], name: "index_contest_suggestions_on_user_id", using: :btree
 
   create_table "contest_user_votes", force: :cascade do |t|
@@ -376,9 +375,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.boolean  "ambiguous"
   end
 
-  add_index "danbooru_tags", ["name", "kind"], name: "index_danbooru_tags_on_name_and_kind", using: :btree
-  add_index "danbooru_tags", ["name"], name: "index_danbooru_tags_on_name", using: :btree
-
   create_table "devices", force: :cascade do |t|
     t.integer  "user_id",                null: false
     t.string   "token",      limit: 255, null: false
@@ -409,7 +405,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
 
   add_index "entries", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
   add_index "entries", ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
-  add_index "entries", ["type", "comments_count", "updated_at"], name: "i_entries_type_comments_count_updated_at", using: :btree
   add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
@@ -565,8 +560,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.datetime "updated_at"
   end
 
-  add_index "manga_chapters", ["manga_id"], name: "index_manga_chapters_on_manga_id", using: :btree
-
   create_table "manga_pages", force: :cascade do |t|
     t.string   "url",                limit: 255
     t.integer  "number"
@@ -620,7 +613,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
   add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree
   add_index "mangas", ["name"], name: "index_mangas_on_name", using: :btree
   add_index "mangas", ["russian"], name: "index_mangas_on_russian", using: :btree
-  add_index "mangas", ["score"], name: "index_mangas_on_score", using: :btree
 
   create_table "mangas_publishers", id: false, force: :cascade do |t|
     t.integer "manga_id"
@@ -707,7 +699,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.string  "target_type", limit: 255
   end
 
-  add_index "recommendation_ignores", ["target_id", "target_type"], name: "index_recommendation_ignores_on_target_id_and_target_type", using: :btree
   add_index "recommendation_ignores", ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true, using: :btree
   add_index "recommendation_ignores", ["user_id"], name: "index_recommendation_ignores_on_user_id", using: :btree
 
@@ -729,9 +720,7 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.datetime "updated_at"
   end
 
-  add_index "related_mangas", ["source_id", "anime_id"], name: "index_related_mangas_on_source_id_and_anime_id", using: :btree
   add_index "related_mangas", ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
-  add_index "related_mangas", ["source_id"], name: "index_related_mangas_on_source_id", using: :btree
 
   create_table "review_views", id: false, force: :cascade do |t|
     t.integer "user_id"
@@ -858,8 +847,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id", using: :btree
-
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 255
   end
@@ -879,9 +866,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.string   "action",      limit: 255
     t.string   "reason"
   end
-
-  add_index "user_changes", ["status", "model", "item_id"], name: "i_user_changes", using: :btree
-  add_index "user_changes", ["status"], name: "index_user_changes_on_status", using: :btree
 
   create_table "user_histories", force: :cascade do |t|
     t.integer  "user_id"
@@ -913,7 +897,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
   end
 
   add_index "user_images", ["linked_id", "linked_type"], name: "index_user_images_on_linked_id_and_linked_type", using: :btree
-  add_index "user_images", ["user_id"], name: "index_user_images_on_user_id", using: :btree
 
   create_table "user_nickname_changes", force: :cascade do |t|
     t.integer  "user_id"
@@ -1037,7 +1020,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
     t.datetime "updated_at"
   end
 
-  add_index "versions", ["created_at"], name: "index_versions_on_created_at", using: :btree
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   add_index "versions", ["state"], name: "index_versions_on_state", using: :btree
   add_index "versions", ["user_id", "state"], name: "index_versions_on_user_id_and_state", using: :btree
@@ -1057,7 +1039,6 @@ ActiveRecord::Schema.define(version: 20150921220154) do
   end
 
   add_index "videos", ["anime_id"], name: "index_videos_on_anime_id", using: :btree
-  add_index "videos", ["state"], name: "index_videos_on_state", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.boolean  "voting",                    default: false
