@@ -52,6 +52,7 @@ module Clockwork
   every 1.day, 'daily.log-stuff', at: '03:00' do
     ImportListWorker.perform_async source: :latest, hours_limit: 24*7
     SubtitlesImporter.perform_async :ongoings
+    ImagesVerifier.perform_async
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do
@@ -83,7 +84,5 @@ module Clockwork
     ImportListWorker.perform_async pages_limit: 100
     ImportListWorker.perform_async pages_limit: 100, type: Manga.name
     PeopleJobsActualzier.perform_async
-
-    ImagesVerifier.perform_async
   end
 end
