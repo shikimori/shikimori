@@ -20,7 +20,7 @@ class ImagesVerifier
     puts "reloading #{entry.class.name.downcase} #{entry.to_param} image..."
     ImageReloader.new(entry).perform
 
-  rescue EmptyContent
+  rescue EmptyContent, NoMethodError
     puts "empty content for #{entry.class.name.downcase} #{entry.to_param}"
   end
 end
