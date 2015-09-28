@@ -14,8 +14,9 @@
 
   - if user_signed_in? && contest.displayed_round.started?
     p.warning
-      span.red-warning Внимание!
-      | &nbsp;Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
+      span.red-warning = t '.warning'
+      | &nbsp;
+      = t '.warning-text'
 
   .match-container data-id="#{params[:match_id]}"
     .ajax-loading.vk-like title="#{t 'loading'}"
@@ -28,7 +29,7 @@
     .c-column
       .b-options-floated
           span.selected = contest.displayed_round.title
-      .subheadline В этом раунде
+      .subheadline = t '.in_this_round'
       .block
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
 
@@ -42,6 +43,6 @@
           .b-options-floated
             span.linkeable data-href="#{round_contest_url contest, round: contest.prior_round}" title="#{contest.prior_round.title}"
               = contest.prior_round.title
-          .subheadline В прошлом раунде
+          .subheadline = t '.in_previous_round'
           .block
             = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.prior_round)

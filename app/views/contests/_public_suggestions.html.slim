@@ -1,7 +1,7 @@
 .block
   .b-options-floated.count
     = contest.suggestions.size
-  .subheadline Номинанты
+  .subheadline = t '.candidates'
 
   .proposing
     - if contest.suggestions.any?
@@ -10,4 +10,4 @@
         as: :suggestion,
         locals: { contest: contest }
     - else
-      p нет вариантов
+      p = t '.no_candidates'

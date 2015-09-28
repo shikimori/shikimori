@@ -56,7 +56,6 @@ en:
     edit_contest: Edit contest
     contest_created: Contest created
     votes: Votes
-    tournament_bracket: Tournament bracket
     index_keywords: anime contests tournaments polls
     index_description: Anime contests and tournaments of the site
     show_keywords: anime contest tournament poll %{title}

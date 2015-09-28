@@ -93,9 +93,9 @@
               /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
 
       - if contest.rounds.any?
-        .subheadline = t '.tournament_bracket'
+        .subheadline = t 'tournament_bracket'
         .block_m.grid
-          a href="#{grid_contest_url contest}" title=t('.tournament_bracket') = "#{t 'goto'} →"
+          a href="#{grid_contest_url contest}" title=t('tournament_bracket') = "#{t 'goto'} →"
 
   - if contest.persisted?
     - if contest.created? || contest.proposing?

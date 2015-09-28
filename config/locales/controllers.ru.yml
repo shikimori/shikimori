@@ -56,7 +56,6 @@ ru:
     edit_contest: Изменение турнира
     contest_created: Турнир создан
     votes: Голоса
-    tournament_bracket: Турнирная сетка
     index_keywords: аниме опросы турниры голосования
     index_description: Аниме опросы и турниры сайта
     show_keywords: аниме опрос турнир голосование %{title}

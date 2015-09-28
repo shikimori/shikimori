@@ -2,7 +2,7 @@ header.head.misc
   h1
     a.back[
       href="#{contest_url @resource}"
-      title="Назад на страницу опроса"
+      title=t('.back_to_contest_page')
       data-text="#{t 'back'}"
     ]
     = @page_title.last
@@ -28,7 +28,7 @@ header.head.misc
       .left-border
 
     .winners
-      .group-title Победители (W)
+      .group-title = t '.winners'
       - @resource.rounds.each do |round|
         - next if round.additional?
         .round class="round-#{round.number} round-#{round.additional ? 'a' : 'n'}"
@@ -42,7 +42,7 @@ header.head.misc
     - if @resource.strategy.with_additional_rounds?
       .clearfix.m30
       .losers
-        .group-title Проигравшие (L)
+        .group-title = t '.losers'
         - @resource.rounds.each do |round|
           .round class="round-#{round.number} round-#{round.additional ? 'a' : 'n'}"
             .title

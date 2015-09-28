@@ -43,6 +43,7 @@ ru:
   manga_list: Список манги
   mangaka: Мангака
   news: Новости
+  no: нет
   no_comments: Нет комментариев
   nothing_found: Ничего нет.
   notifications: Уведомления
@@ -51,10 +52,12 @@ ru:
   producer: Режиссёр
   settings: Настройки
   seyu: Сэйю
+  share: Рассказать друзьям
   shikimori: Шикимори
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
   this_action_cant_be_undone: Это действие необратимо!
+  tournament_bracket: Турнирная сетка
   total: Итого
   username: Имя пользователя
   under_development: В разработке

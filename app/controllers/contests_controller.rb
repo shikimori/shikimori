@@ -60,7 +60,7 @@ class ContestsController < ShikimoriController
     noindex
 
     page_title @resource.title
-    page_title i18n_t :tournament_bracket
+    page_title t 'tournament_bracket'
 
     @blank_layout = true
   end

@@ -44,6 +44,7 @@ en:
   mangaka: Mangaka
   news: News
   comments: Comments
+  no: no
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications
@@ -52,10 +53,12 @@ en:
   producer: Director
   settings: Settings
   seyu: Seyu
+  share: Share
   shikimori: Shikimori
   switch_to_anime: switch to anime
   switch_to_manga: switch to manga
   this_action_cant_be_undone: This action can't be undone!
+  tournament_bracket: Tournament bracket
   total: Total
   username: User name
   under_development: Under development

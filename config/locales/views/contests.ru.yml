@@ -28,13 +28,12 @@ ru:
       minimum_anime_needed_for_start: Для старта должно быть минимум %{min_members} аниме
       maximum_anime_needed_for_start: Для старта должно быть максимум %{max_members} аниме
       you_cannot_change_anything_after_start: После старта ничего изменить будет нельзя!
-      tournament_bracket: Турнирная сетка
 
     private_suggestion:
       hide: скрыть
       take: взять
 
-    private_suggestions:
+    private_suggestions: &private_suggestions
       likely_candidates: Вероятные кандидаты
       candidates: Кандидаты
       no_candidates: нет кандидатов
@@ -43,3 +42,57 @@ ru:
     index:
       create_new_contest: Создать новый турнир
       list_of_all_site_contests: Список всех турниров сайта
+
+    page: &page
+      back_to_contest_page: Назад на страницу опроса
+      edit_contest: Изменить опрос
+      anime_contest: Аниме турнир
+      discussion: Обсуждение
+      votes_for: Голоса за %{name}
+      no_voters: Нет проголосовавших.
+      abstainers: Воздержавшиеся
+
+    show:
+      <<: *page
+
+    edit:
+      <<: *page
+
+    users:
+      <<: *page
+
+    round:
+      warning: Внимание!
+      warning-text: Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
+      in_this_round: В этом раунде
+      in_previous_round: В прошлом раунде
+
+    rating:
+      rating: Рейтинг
+
+    menu:
+      edit_contest: Изменить опрос
+      contest_status: Статус турнира
+      contest_results: Результаты опроса
+      contest_type: Условия турнира
+      voters: Участники
+      candidates: Кандидаты
+
+    proposing:
+      anime_title: Название аниме
+      character_name: Имя персонажа
+      your_candidates_more: Ваши кандидаты (ещё %{proposals_left})
+      your_candidates: Ваши кандидаты
+      no_candidates: нет кандидатов
+
+    public_suggestions:
+      <<: *private_suggestions
+
+    results:
+      place: место
+      competitors: Соперники
+
+    grid:
+      <<: *page
+      winners: Победители (W)
+      losers: Проигравшие (L)

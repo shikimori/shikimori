@@ -3,7 +3,7 @@ header.head
     - unless @resource.created?
       a.back[
         href="#{contest_url @resource}"
-        title="Назад на страницу опроса"
+        title=t('.back_to_contest_page')
         data-text="#{t 'back'}"
       ]
     = @page_title.last
