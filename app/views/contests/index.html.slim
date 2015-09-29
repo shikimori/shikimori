@@ -2,13 +2,14 @@ header.head.misc
   h1
     = @page_title.last
   - if can? :create, Contest.new
-    = link_to 'создать', new_contest_url, title: 'Создать новый опрос', class: 'misc'
-  p.notice.clearfix Список всех опросов сайта
+    a.misc href="#{new_contest_url}" title="#{t '.create_new_contest'}"
+      = t('actions.create').downcase
+  p.notice.clearfix = t '.list_of_all_site_contests'
 
 .contests
   - @collection_groups.each do |state, group|
     .block
-      .subheadline  = t("activerecord.state_machines.contest.states.#{state}").capitalize
+      .subheadline = t("activerecord.state_machines.contest.states.#{state}").capitalize
       - group.each_with_index do |contest, index|
         .contest
           | #{index + 1}.

@@ -4,4 +4,7 @@
 
   - unless suggestion.respond_to? :votes
     span.b-js-actions
-      span.b-js-link.delete data-method="delete" data-action="#{contest_contest_suggestion_url contest, suggestion}" удалить
+      span.b-js-link.delete [
+        data-method='delete'
+        data-action="#{contest_contest_suggestion_url contest, suggestion}"
+      ] = t('actions.delete').downcase

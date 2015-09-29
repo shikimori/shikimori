@@ -10,18 +10,18 @@
 
         - if contest.can_propose?
           input.item-suggest.suggest.subheadline-input.common[
-            type="text"
+            type='text'
             data-member_type="#{contest.member_type}"
             data-autocomplete="#{contest.suggestion_url}"
-            placeholder="#{contest.anime? ? 'Название аниме' : 'Имя персонажа'}"
+            placeholder="#{contest.anime? ? t('.anime_title') : t('.character_name')}"
           ]
 
         .block
           .subheadline
             - if contest.can_propose?
-              | Ваши номинанты (ещё #{contest.proposals_left})
+              = t '.your_candidates_more', proposals_left: contest.proposals_left
             - else
-              | Ваши номинанты
+              = t '.your_candidates'
           .own-nominants
             - if contest.user_suggestions.any?
               = render partial: 'contests/public_suggestion',
@@ -29,4 +29,4 @@
                 as: :suggestion,
                 locals: { contest: contest }
             - else
-              p нет вариантов
+              p = t '.no_candidates'

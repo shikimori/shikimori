@@ -252,6 +252,16 @@ ru:
           few: обсуждения
           many: обсуждений
           other: обсуждения
+      vote:
+        subjective:
+          one: голос
+          few: голоса
+          many: голосов
+      site_user:
+        subjective:
+          one: пользователь сайта
+          few: пользователя сайта
+          many: пользователей сайта
 
       datetime:
         second:

@@ -2,7 +2,7 @@
   .b-options-floated.count
     = contest.certain_suggestions.size
   .subheadline
-    = contest.uncertain_suggestions.any? ? 'Вероятные номинанты' : 'Номинанты'
+    = contest.uncertain_suggestions.any? ? t('.likely_candidates') : t('.candidates')
   .proposing
     - if contest.certain_suggestions.any?
       = render partial: 'private_suggestion',
@@ -10,13 +10,13 @@
         as: :suggestion,
         locals: { contest: contest }
     - else
-      p нет вариантов
+      p = t '.no_candidates'
 
 - if contest.uncertain_suggestions.any?
   .block
     .b-options-floated.count
       = contest.uncertain_suggestions.size
-    .subheadline Номинанты под вопросом
+    .subheadline = t '.unlikely_candidates'
     .proposing
       = render partial: 'private_suggestion',
         collection: contest.uncertain_suggestions,

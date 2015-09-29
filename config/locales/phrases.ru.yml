@@ -16,10 +16,13 @@ ru:
     upload: Загрузить
     upload_image: Загрузить изображение
   anime_list: Список аниме
+  anime_title: Название аниме
   back: назад
   back_to_page: Назад на страницу
+  character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
+  collapse: свернуть
   deleted:
     anime: Удалённое аниме
     character: Удалённый персонаж
@@ -32,6 +35,7 @@ ru:
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   female: жен.
+  goto: Перейти
   image_uploaded: Изображение загружено
   loading: Загрузка...
   mail: Почта
@@ -39,6 +43,7 @@ ru:
   manga_list: Список манги
   mangaka: Мангака
   news: Новости
+  no: нет
   no_comments: Нет комментариев
   nothing_found: Ничего нет.
   notifications: Уведомления
@@ -47,10 +52,13 @@ ru:
   producer: Режиссёр
   settings: Настройки
   seyu: Сэйю
+  share: Рассказать друзьям
   shikimori: Шикимори
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
   this_action_cant_be_undone: Это действие необратимо!
+  tournament_bracket: Турнирная сетка
+  total: Итого
   username: Имя пользователя
   under_development: В разработке
   users: Пользователи

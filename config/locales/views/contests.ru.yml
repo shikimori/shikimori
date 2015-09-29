@@ -1,0 +1,98 @@
+ru:
+  contests:
+    index:
+      create_new_contest: Создать новый турнир
+      list_of_all_contests: Список всех турниров сайта
+
+    form:
+      common: Общее
+      user_vote_key_hint: >
+        Не должно быть голосований, запущенных в одно время с одинаковым ключём.
+        Иначе галочка в меню будет неправильно работать.
+      duration: Длительность
+      matches_per_round_swiss_hint: >
+        Для швейцарской системы эту цифру желательно подобрать таким образом,
+        чтобы каждый раунд разбивался не более, чем на три равных блока.
+        Для 72 участников это будет 12, для 60 - 10.
+      polls_will_be_reshuffled: При изменении этих параметров голосования будут перетасованы.
+      status: Статус
+      actions: Действия
+      accept_candidates: Начать приём кандидатов от пользователей
+      cleanup_candidates: Очистить голоса пользователей от накруток
+      stop_accepting_candidates: Остановить приём кандидатов от пользователей
+      generate_polls: Сгенерировать голосования
+      shuffle_polls: Перетасовать голосования
+      sure_to_start_contest: Вы уверены? После запуска ничего изменить уже будет нельзя!
+      start_contest: Запустить турнир
+      actions_reload_page: Действия перезагружают страницу без сохранения прочих изменений.
+      minimum_anime_needed_for_start: Для старта должно быть минимум %{min_members} аниме
+      maximum_anime_needed_for_start: Для старта должно быть максимум %{max_members} аниме
+      you_cannot_change_anything_after_start: После старта ничего изменить будет нельзя!
+
+    private_suggestion:
+      hide: скрыть
+      take: взять
+
+    private_suggestions: &private_suggestions
+      likely_candidates: Вероятные кандидаты
+      candidates: Кандидаты
+      no_candidates: нет кандидатов
+      unlikely_candidates: Кандидаты под вопросом
+
+    index:
+      create_new_contest: Создать новый турнир
+      list_of_all_site_contests: Список всех турниров сайта
+
+    page: &page
+      back_to_contest_page: Назад на страницу опроса
+      edit_contest: Изменить опрос
+      anime_contest: Аниме турнир
+      discussion: Обсуждение
+      votes_for: Голоса за %{name}
+      no_voters: Нет проголосовавших.
+      abstainers: Воздержавшиеся
+
+    show:
+      <<: *page
+
+    edit:
+      <<: *page
+
+    users:
+      <<: *page
+
+    round:
+      warning: Внимание!
+      warning-text: Если вы не смотрели хотя бы один из вариантов, то мы рекомендуем вам воздержаться от голосования по данной паре. Это повысит объективность результатов опроса.
+      in_this_round: В этом раунде
+      in_previous_round: В прошлом раунде
+
+    rating:
+      rating: Рейтинг
+
+    menu:
+      edit_contest: Изменить опрос
+      contest_status: Статус турнира
+      contest_results: Результаты опроса
+      contest_type: Условия турнира
+      voters: Участники
+      candidates: Кандидаты
+
+    proposing:
+      anime_title: Название аниме
+      character_name: Имя персонажа
+      your_candidates_more: Ваши кандидаты (ещё %{proposals_left})
+      your_candidates: Ваши кандидаты
+      no_candidates: нет кандидатов
+
+    public_suggestions:
+      <<: *private_suggestions
+
+    results:
+      place: место
+      competitors: Соперники
+
+    grid:
+      <<: *page
+      winners: Победители (W)
+      losers: Проигравшие (L)

@@ -50,6 +50,18 @@ en:
   group_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
+  contests_controller:
+    contests: Contests
+    new_contest: New contest
+    edit_contest: Edit contest
+    contest_created: Contest created
+    votes: Votes
+    index_keywords: anime contests tournaments polls
+    index_description: Anime contests and tournaments of the site
+    show_keywords: anime contest tournament poll %{title}
+    show_description: >
+      Take part in anime tournament on our site and
+      make your contribution to the poll, we want to determine %{title}.
   moderations/versions_controller:
     content_change: 'Content change #%{version_id}'
     content_changes: Content changes

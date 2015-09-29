@@ -3,24 +3,24 @@
   div
     .block
       .b-options-floated.count = @resource.left_voters.size
-      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.left}
+      .subheadline.m10 t '.votes_for', name: localized_name(@resource.displayed_match.left)
       - if @resource.left_voters.any?
         = render @resource.left_voters, content_by: :avatar_fixed_margin
       - else
-        p Нет проголосовавших.
+        p = t '.no_voters'
 
     .block
       .b-options-floated.count
         = @resource.right_voters.size
-      .subheadline.m10 Голоса за #{localized_name @resource.displayed_match.right}
+      .subheadline.m10 t '.votes_for', name: localized_name(@resource.displayed_match.right)
       - if @resource.right_voters.any?
         = render @resource.right_voters, content_by: :avatar_fixed_margin
       - else
-        p Нет проголосовавших.
+        p = t '.no_voters'
 
     - if @resource.refrained_voters.any?
       .block
         .b-options-floated.count
           = @resource.refrained_voters.size
-        .subheadline.m10 Воздержавшиеся
+        .subheadline.m10 = t '.abstainers'
         = render @resource.refrained_voters, content_by: :avatar_fixed_margin

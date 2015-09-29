@@ -1,0 +1,97 @@
+en:
+  contests:
+    index:
+      create_new_contest: Create new contest
+      list_of_all_contests: List of all contests
+
+    form:
+      common: Common
+      user_vote_key_hint: >
+        Don't run multiple polls with the same key simultaneously.
+        Or else menu checkmark wouldn't work as expected.
+      duration: Duration
+      matches_per_round_swiss_hint: >
+        For swiss system pick this number so that each round is divided into three equal blocks at most.
+        For instance this is 12 for 72 participants and 10 for 60 participants.
+      polls_will_be_reshuffled: Polls will be reshuffled if these parameters are changed.
+      status: Status
+      actions: Actions
+      accept_candidates: Accept candidates from users
+      cleanup_candidates: Cleanup candidates to prevent cheating
+      stop_accepting_candidates: Stop accepting candidates from users
+      generate_polls: Generate polls
+      shuffle_polls: Shuffle polls
+      sure_to_start_contest: Are you sure? You cannot change anything after you start the contest!
+      start_contest: Start contest
+      actions_reload_page: Actions reload page without saving other changes.
+      minimum_anime_needed_for_start: You've got to select %{min_members} anime at least to start the contest
+      maximum_anime_needed_for_start: You've got to select %{max_members} anime at most to start the contest
+      you_cannot_change_anything_after_start: You cannot change anything after you start the contest
+
+    private_suggestion:
+      hide: hide
+      take: take
+
+    private_suggestions: &private_suggestions
+      likely_candidates: Likely candidates
+      candidates: Candidates
+      no_candidates: no candidates
+      unlikely_candidates: Unlikely candidates
+
+    index:
+      create_new_contest: Create new contest
+      list_of_all_site_contests: List of all site contests
+
+    page: &page
+      back_to_contest_page: Back to contest page
+      edit_contest: Edit contest
+      anime_contest: Anime contest
+      discussion: Discussion
+      votes_for: Votes for %{name}
+      no_voters: No voters.
+      abstainers: Abstainers
+
+    show:
+      <<: *page
+
+    edit:
+      <<: *page
+
+    users:
+      <<: *page
+
+    round:
+      warning: Warning!
+      warning-text: If you have not watched at least one of the candidates please abstain from voting. It will help to increase the overall objectivity of the poll.
+      in_this_round: In this round
+      in_previous_round: In previous round
+
+    rating:
+      rating: Rating
+
+    menu:
+      edit_contest: Edit contest
+      contest_status: Contest status
+      contest_results: Contest results
+      contest_type: Contest type
+      voters: Voters
+      candidates: Candidates
+
+    proposing:
+      anime_title: Anime title
+      character_name: Character name
+      your_candidates_more: Your candidates (%{proposals_left} more)
+      your_candidates: Your candidates
+      no_candidates: no candidates
+
+    public_suggestions:
+      <<: *private_suggestions
+
+    results:
+      place: place
+      competitors: Competitors
+
+    grid:
+      <<: *page
+      winners: Winners (W)
+      losers: Losers (L)

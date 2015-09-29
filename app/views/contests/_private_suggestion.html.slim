@@ -4,16 +4,15 @@
 
   span.b-bracket-details.show.ajaxable data-href="#{contest_contest_suggestion_url contest, suggestion}"
     = suggestion.votes
-    span
-      = Russian.p suggestion.votes, 'голос', 'голоса', 'голосов'
-  span.b-bracket-details.hide скрыть
+    span = i18n_i 'vote', suggestion.votes
+  span.b-bracket-details.hide = t '.hide'
 
   - unless contest.members.include? suggestion.item
     span.b-js-actions
       span.b-js-link.take[
         data-id="#{suggestion.item.id}"
         data-text="#{suggestion.item.name}"
-      ] взять
+      ] = t '.take'
 
   .voters-container
     .ajax-loading.vk-like.left title="#{t 'loading'}"

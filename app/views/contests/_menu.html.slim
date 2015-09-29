@@ -5,44 +5,45 @@
       ul.block-list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry
-            a href="#{edit_club_url resource}" Изменить опрос
+            / TODO почему тут было edit_club_url?
+            a href="#{edit_contest_url resource}" = t '.edit_contest'
 
   .block
-    .subheadline.m5 Статус турнира
+    .subheadline.m5 = t '.contest_status'
     p = resource.status
     - if (resource.finished? && !resource.showing_results?) || params[:controller] != 'contests'
-      a.results href="#{contest_url resource}" title="Результаты опроса" К результатам →
+      a.results href="#{contest_url resource}" title=t('.contest_results') = "#{t '.to_results'} →"
 
   .block
-    .subheadline.m5 Условия турнира
+    .subheadline.m5 = t '.contest_type'
     p = resource.strategy_type.text
 
   - cache ['uniq-voters', resource] do
     - if resource.uniq_voters > 0
       .block
-        .subheadline.m5 Участники
-        p #{resource.uniq_voters} #{Russian.p resource.uniq_voters, 'пользователь', 'пользователя', 'пользователей'} сайта
+        .subheadline.m5 = t '.voters'
+        p #{resource.uniq_voters} #{i18n_i 'site_user', resource.uniq_voters}
 
   - cache ['nominants', resource, russian_names_key, social_key] do
     - unless resource.proposing?
       .block
         .b-options-floated.count
           = resource.members.size
-        .subheadline.m10 Номинанты
+        .subheadline.m10 = t '.candidates'
         .cc-4a.to-process[
-          data-dynamic="cutted_covers"
+          data-dynamic='cutted_covers'
           data-ratio_type="#{resource.member_type == 'character' ? 'person' : 'entry'}"
         ]
           = render resource.members, cover_by: :image_link
 
     - unless resource.proposing? || resource.swiss?
       .block.grid
-        .subheadline.m5 Турнирная сетка
-        a href="#{grid_contest_url resource}" title="Турнирная сетка" Перейти →
+        .subheadline.m5 = t 'tournament_bracket'
+        a href="#{grid_contest_url resource}" title=t('tournament_bracket') = "#{t 'goto'} →"
 
     - if show_social?
       .menu-right
-        .subheadline.m15 Рассказать друзьям
+        .subheadline.m15 = t 'share'
         .block.addthis_toolbox.addthis_default_style.addthis_32x32_style
           a.addthis_button_vk
           a.addthis_button_facebook

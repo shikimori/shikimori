@@ -50,6 +50,18 @@ ru:
   group_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
+  contests_controller:
+    contests: Опросы
+    new_contest: Новый турнир
+    edit_contest: Изменение турнира
+    contest_created: Турнир создан
+    votes: Голоса
+    index_keywords: аниме опросы турниры голосования
+    index_description: Аниме опросы и турниры сайта
+    show_keywords: аниме опрос турнир голосование %{title}
+    show_description: >
+      Примите участие в аниме-турнире на нашем сайте и
+      внесите свой вклад в голосование, мы хотим определить %{title}.
   moderations/versions_controller:
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
