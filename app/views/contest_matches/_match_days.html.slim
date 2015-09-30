@@ -1,10 +1,10 @@
 - matches.each do |date, group|
   .match-day
     .date
-      span.from с
-      = group.first.started_on.strftime '%d.%m.%Y'
-      span.to по
-      = group.first.finished_on.strftime '%d.%m.%Y'
+      span.from = t '.from'
+      = l group.first.started_on, format: :date_short
+      span.to = t '.till'
+      = l group.first.finished_on, format: :date_short
 
     - group.each do |match|
       span.group #{match.group}

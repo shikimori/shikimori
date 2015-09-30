@@ -1,0 +1,20 @@
+en:
+  contest_matches:
+    losers:
+      beaten: Beaten
+
+    match_days:
+      from: from
+      till: till
+
+    show:
+      candidates_not_selected: Candidates have not been selected yet
+      click_candidate: Click one of the candidates
+      your_vote_counted: Your vote is counted!
+      you_have_abstained_from_voting: You have abstained from voting
+      abstain_from_voting: Abstain from voting
+      to_the_next_pair: To the next pair
+      thank_you_for_participation: That's all for today! Thank you for your participation!
+      voting_finished: Voting finished
+      voting_has_not_begun_yet: Voting has not begun yet
+      for: for

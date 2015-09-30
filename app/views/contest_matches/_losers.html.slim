@@ -1,5 +1,5 @@
 - if losers.any?
   .losers
-    .subheadline Побеждены
+    .subheadline = t '.beaten'
     .cc-4a
       = render losers, cover_by: :image_link

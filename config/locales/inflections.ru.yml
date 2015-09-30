@@ -262,6 +262,11 @@ ru:
           one: пользователь сайта
           few: пользователя сайта
           many: пользователей сайта
+      vote:
+        subjective:
+          one: голос
+          few: голоса
+          many: голосов
 
       datetime:
         second:
