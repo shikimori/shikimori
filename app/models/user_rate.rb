@@ -6,7 +6,7 @@ class UserRate < ActiveRecord::Base
 
   MAXIMUM_TEXT_SIZE = 2048
 
-  enum status: { planned: 0, watching: 1, completed: 2, rewatching: 9, on_hold: 3, dropped: 4 }
+  enum status: { planned: 0, watching: 1, rewatching: 9, completed: 2, on_hold: 3, dropped: 4 }
 
   belongs_to :target, polymorphic: true
   belongs_to :anime, class_name: Anime.name, foreign_key: :target_id

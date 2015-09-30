@@ -61,6 +61,7 @@ class UserLibraryView < ViewObjectBase
   end
 
 private
+
   def truncated_list
     list = {}
     from = limit * (page - 1)
