@@ -1,4 +1,5 @@
-class UserListDecorator < BaseDecorator
+class UserLibraryView < ViewObjectBase
+  pattr_initialize :user
   instance_cache :full_list, :truncated_list, :total_stats, :klass, :page
 
   ENTRIES_PER_PAGE = 400
@@ -21,7 +22,7 @@ class UserListDecorator < BaseDecorator
   end
 
   def counts
-    object.stats.list_counts anime? ? :anime : :manga
+    user.stats.list_counts anime? ? :anime : :manga
   end
 
   def add_postloader?
@@ -55,7 +56,7 @@ class UserListDecorator < BaseDecorator
   def full_list
     Rails.cache.fetch cache_key do
       UserListQuery
-        .new(klass, object, h.params.clone.merge(with_censored: true)).fetch
+        .new(klass, user, h.params.clone.merge(with_censored: true)).fetch
     end
   end
 
@@ -126,7 +127,7 @@ private
     [
       :user_list,
       :v4,
-      object,
+      user,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
       h.user_signed_in? ? h.current_user.preferences.russian_names? : false
     ]

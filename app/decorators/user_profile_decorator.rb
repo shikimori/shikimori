@@ -46,7 +46,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def list
-    UserListDecorator.new self
+    UserLibraryView.new self
   end
 
   #def full_counts

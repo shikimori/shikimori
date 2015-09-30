@@ -15,7 +15,7 @@ class UserRatesController < ProfilesController
   def index
     noindex
     @page = (params[:page] || 1).to_i
-    @limit = UserListDecorator::ENTRIES_PER_PAGE
+    @limit = UserLibraryView::ENTRIES_PER_PAGE
     @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch params[:list_type].capitalize.constantize
 
     page_title t("#{params[:list_type]}_list")
