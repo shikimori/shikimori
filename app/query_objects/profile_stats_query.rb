@@ -4,9 +4,7 @@ class ProfileStatsQuery
   vattr_initialize :user
 
   instance_cache :stats
-  instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time,
-    :spent_time, :comments_count, :comments_reviews_count,
-    :reviews_count, :uploaded_videos_count
+  instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time
 
   STAT_FIELDS = [
     :graph_statuses,

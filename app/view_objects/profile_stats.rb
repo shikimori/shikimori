@@ -1,6 +1,7 @@
 class ProfileStats
   include Translation
   include Virtus.model
+  prepend ActiveCacher.instance
 
   ProfileStatsQuery::STAT_FIELDS.each do |field|
     attribute field.to_s.sub(/\?/, '')
@@ -10,6 +11,9 @@ class ProfileStats
   attribute :list_counts
   attribute :scores
   attribute :types
+
+  instance_cache :comments_count, :comments_reviews_count, :reviews_count,
+    :versions_count, :videos_changes_count
 
   def anime?
     anime
