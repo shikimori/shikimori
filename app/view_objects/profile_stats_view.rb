@@ -1,4 +1,4 @@
-class ProfileStats
+class ProfileStatsView
   include Translation
   include Virtus.model
   prepend ActiveCacher.instance

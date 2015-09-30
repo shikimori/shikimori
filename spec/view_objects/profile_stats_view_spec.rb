@@ -1,7 +1,7 @@
-describe ProfileStats do
+describe ProfileStatsView do
   let(:user) { create :user }
 
-  let(:stats) { ProfileStats.new spent_time: spent_time,
+  let(:stats) { ProfileStatsView.new spent_time: spent_time,
     anime_spent_time: anime_spent_time, manga_spent_time: manga_spent_time,
     user: user }
   let(:anime_spent_time) { }
