@@ -159,17 +159,21 @@ describe ProfilesController do
         context 'common change' do
           let(:update_params) {{ nickname: 'morr' }}
 
-          it { expect(response).to redirect_to edit_profile_url(resource, page: 'account') }
-          it { expect(resource.nickname).to eq 'morr' }
-          it { expect(resource.errors).to be_empty }
+          it do
+            expect(resource.nickname).to eq 'morr'
+            expect(resource.errors).to be_empty
+            expect(response).to redirect_to edit_profile_url(resource, page: 'account')
+          end
         end
 
         context 'association change' do
           let(:user_2) { create :user }
           let(:update_params) {{ ignored_user_ids: [user_2.id] }}
 
-          it { expect(resource.ignores?(user_2)).to be true }
-          it { expect(resource.errors).to be_empty }
+          it do
+            expect(resource.ignores?(user_2)).to be true
+            expect(resource.errors).to be_empty
+          end
         end
 
         context 'password change' do
@@ -177,16 +181,20 @@ describe ProfilesController do
             let(:user) { create :user, password: '1234' }
             let(:update_params) {{ current_password: '1234', password: 'yhn' }}
 
-            it { expect(resource.valid_password?('yhn')).to be true }
-            it { expect(resource.errors).to be_empty }
+            it do
+              expect(resource.valid_password?('yhn')).to be true
+              expect(resource.errors).to be_empty
+            end
           end
 
           context 'when current password is not set' do
             let(:user) { create :user, :without_password }
             let(:update_params) {{ password: 'yhn' }}
 
-            it { expect(resource.valid_password?('yhn')).to be true }
-            it { expect(resource.errors).to be_empty }
+            it do
+              expect(resource.valid_password?('yhn')).to be true
+              expect(resource.errors).to be_empty
+            end
           end
         end
       end
@@ -196,8 +204,10 @@ describe ProfilesController do
         let(:update_params) {{ nickname: user_2.nickname }}
         before { make_request }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(resource.errors).to_not be_empty }
+        it do
+          expect(resource.errors).to_not be_empty
+          expect(response).to have_http_status :success
+        end
       end
     end
 

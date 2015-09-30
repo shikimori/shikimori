@@ -193,7 +193,7 @@ private
       if @resource.encrypted_password.present?
         @resource.update_with_password password_params
       else
-        @resource.update password_params
+        @resource.update password_params.except('current_password')
       end
     else
       params = update_params[:nickname].blank? ? update_params.merge(nickname: @resource.nickname) : update_params
