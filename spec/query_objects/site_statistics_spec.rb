@@ -22,7 +22,12 @@ describe SiteStatistics do
 
       its(:users_count) { is_expected.to eq seed(:user).id }
       its(:users) { is_expected.to have_at_least(180).items }
-      it { expect(query.users.last).to eq(date: Time.zone.yesterday.to_s, count: 2) }
+      it do
+        expect(query.users.last).to eq(
+          date: Time.zone.yesterday.to_s,
+          count: 3
+        )
+      end
     end
   end
 end
