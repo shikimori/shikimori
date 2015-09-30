@@ -2,15 +2,21 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :set_omniauth_data
 
   def twitter
-    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    end
   end
 
   def vkontakte
-    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    end
   end
 
   def facebook
-    omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
+    end
   end
 
 private
