@@ -1,0 +1,20 @@
+ru:
+  contest_matches:
+    losers:
+      beaten: Побеждены
+
+    match_days:
+      from: с
+      till: по
+
+    show:
+      candidates_not_selected: Номинанты ещё не определены
+      click_candidate: Кликните по одному из двух вариантов
+      your_vote_counted: Ваш голос учтён!
+      you_have_abstained_from_voting: Вы воздержались в этом голосовании
+      abstain_from_voting: Воздержаться
+      to_the_next_pair: К следующей паре
+      thank_you_for_participation: На сегодня всё! Спасибо за участие!
+      voting_finished: Голосование завершено
+      voting_has_not_begun_yet: Голосование ещё не началось
+      for: за

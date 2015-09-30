@@ -1,15 +1,24 @@
 - cache @match.show_cache_key, expires_in: 1.hour do
-  .contest-match data-id="#{@match.id}" data-state="#{@match.state}" data-voted="#{@match.started? ? @match.voted_for : (@match.finished? ? (@match.winner_id == @match.left_id ? 'left' : 'right') : nil)}"
+  .contest-match [
+    data-id="#{@match.id}"
+    data-state="#{@match.state}"
+    data-voted="#{@match.started? ? @match.voted_for : (@match.finished? ? (@match.winner_id == @match.left_id ? 'left' : 'right') : nil)}"
+  ]
     .prev-match
     .next-match
     .current-match
       - if @match.right.nil? && @match.left.nil?
         .vs.empty
-          p.help Номинанты ещё не определены
+          p.help = t '.candidates_not_selected'
 
       - elsif @match.right && @match.left
         .match-members
-          .match-member data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
+          .match-member [
+            data-variant='left'
+            data-type='json'
+            data-method='post'
+            data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
+          ]
             - if @match.contest.anime?
               = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
             - else
@@ -17,23 +26,32 @@
           .vs
             div vs
             - if @match.started?
-              p.help Кликните по одному из двух вариантов
-              p.help.success Ваш голос учтён!
-              p.help.refrained Вы воздержались в этом голосовании
-              span.refrain data-type="json" data-method="post" data-remote="true" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'none'}"
-                | Воздержаться
-              p.next К следующей паре
-              p.finish На сегодня всё! Спасибо за участие!
+              p.help = t '.click_candidate'
+              p.help.success = t '.your_vote_counted'
+              p.help.refrained = t '.you_have_abstained_from_voting'
+              span.refrain [
+                data-type='json'
+                data-method='post'
+                data-remote='true'
+                data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'none'}"
+              ] = t '.abstain_from_voting'
+              p.next = t '.to_the_next_pair'
+              p.finish = t '.thank_you_for_participation'
 
             - elsif @match.finished?
-              p.help.success Голосование завершено
-              p.help.refrained Голосование завершено
+              p.help.success = t '.voting_finished'
+              p.help.refrained = t '.voting_finished'
               .refrain
 
             - else
-              p.help Голосование ещё не началось
+              p.help = t '.voting_has_not_begun_yet'
 
-          .match-member data-variant="right" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
+          .match-member [
+            data-variant='right'
+            data-type='json'
+            data-method='post'
+            data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
+          ]
             - if @match.contest.anime?
               = render partial: 'animes/anime', object: @match.right, locals: { cover_notice: :studio, content_by: :none }
             - else
@@ -46,14 +64,19 @@
 
         - if @match.finished?
           a.votes-percents href="#{round_match_users_contest_url @match.contest, round: @match.round, match_id: @match.id}"
-            .left-part title="#{@match.left_votes} #{Russian.p @match.left_votes, 'голос', 'голоса', 'голосов'} за &ldquo;#{@match.left.name}&rdquo;"
+            .left-part title="#{@match.left_votes} #{i18n_i 'vote', @match.left_votes} #{t '.for'} &ldquo;#{@match.left.name}&rdquo;"
               span #{@match.left_percent}% (#{@match.left_votes})
               .right-part style="width: #{[[@match.right_votes.to_f / ([@match.left_votes + @match.right_votes, 1].max) * 100 - 0.75, 4].max, 95].min}%" title="#{@match.right_votes} #{Russian.p @match.right_votes, 'голос', 'голоса', 'голосов'} за &ldquo;#{@match.right.name}&rdquo;"
                 span #{@match.right_percent}% (#{@match.right_votes})
 
       - else
         .match-members
-          .match-member.voted.centered data-variant="left" data-type="json" data-method="post" data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}" 
+          .match-member.voted.centered [
+            data-variant='left'
+            data-type='json'
+            data-method='post'
+            data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
+          ]
             - if @match.contest.anime?
               = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
             - else

@@ -1,8 +1,9 @@
 en:
   date:
     formats:
-      date: '%B %e, %Y'
-      date_short: '%b %e, %Y'
+      date_human: '%B %e, %Y'
+      date_human_short: '%b %e, %Y'
+      date_short: '%d.%m.%Y'
       month_year: '%B %Y'
 
   #time:
