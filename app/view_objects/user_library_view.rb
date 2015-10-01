@@ -111,7 +111,7 @@ private
       stats[:episodes] = data.sum(&:episodes)
     else
       stats[:chapters] = data.sum(&:chapters)
-      stats[:volumes] = data.sum(&:volumes) if preferences.volumes_in_manga?
+      stats[:volumes] = data.sum(&:volumes) if user.preferences.volumes_in_manga?
     end
     stats[:days] = (data.sum do |v|
       if anime?
