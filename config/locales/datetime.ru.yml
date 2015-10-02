@@ -1,13 +1,14 @@
 ru:
   date:
-    formats:
+    formats: &date_formats
       date_human: '%e %B %Y'
       date_human_short: '%e %b %Y'
       date_short: '%d.%m.%Y'
       month_year: '%B %Y'
 
-  #time:
-    #formats:
+  time:
+    formats:
+      <<: *date_formats
       #momentjs: '%Y-%m-%d %H:%M:%S'
 
   datetime:
