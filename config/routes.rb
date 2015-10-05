@@ -244,6 +244,16 @@ Site::Application.routes.draw do
       resources :stats, only: [] do
         get :active_users, on: :collection
       end
+
+      resources :constants do
+        collection do
+          get :anime
+          get :manga
+          get :user_rate
+          get :club
+          get :smileys
+        end
+      end
     end
   end
 

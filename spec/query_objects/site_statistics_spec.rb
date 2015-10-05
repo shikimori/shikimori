@@ -25,7 +25,7 @@ describe SiteStatistics do
       it do
         expect(query.users.last).to eq(
           date: Time.zone.yesterday.to_s,
-          count: 3
+          count: 2
         )
       end
     end
