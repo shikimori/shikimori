@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :message do
-    association :from, factory: :user
-    association :to, factory: :user
+    from { seed :user }
+    to { seed :user }
+
     read false
 
     kind MessageType::Private

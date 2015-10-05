@@ -176,7 +176,7 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :messages, only: [:create, :update, :destroy] do
+      resources :messages, only: [:show, :create, :update, :destroy] do
         collection do
           post :mark_read
           post :delete_all

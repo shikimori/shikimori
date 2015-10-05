@@ -1,6 +1,21 @@
 describe Api::V1::MessagesController, :show_in_doc do
   include_context :authenticated, :user
 
+  describe '#show' do
+    let(:make_request) { get :show, id: message.id, format: :json }
+
+    describe 'has access' do
+      before { make_request }
+      let(:message) { create :message, from: user }
+      it { expect(response).to have_http_status :success }
+    end
+
+    describe 'no access' do
+      let(:message) { create :message }
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+  end
+
   describe '#create' do
     let(:params) {{ kind: MessageType::Private, from_id: user.id, to_id: user.id, body: 'test' }}
     before { post :create, message: params, format: :json }

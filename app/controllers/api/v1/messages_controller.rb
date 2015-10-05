@@ -4,6 +4,12 @@ class Api::V1::MessagesController < Api::V1::ApiController
   respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/messages/:id', 'Show a message'
+  def show
+    respond_with @resource.decorate
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/messages', 'Create a message'
   param :message, Hash do
     param :body, :undef
