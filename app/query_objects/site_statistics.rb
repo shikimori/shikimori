@@ -45,7 +45,7 @@ class SiteStatistics
   end
 
   def retired_moderators
-    User.where(id: [942]).order(:id) # 942 - Иштаран, 2033 - zmej1987
+    User.where(id: [942, 2033]).order(:id) # 942 - Иштаран, 2033 - zmej1987
   end
 
   def forum_moderators
