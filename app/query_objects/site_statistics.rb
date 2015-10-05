@@ -107,6 +107,11 @@ private
       statistics[date.to_s] = entries_by_date[date.to_s] || 0
       date += 1.day
     end
-    statistics.map {|k,v| {date: k, count: v} }
+    statistics.map do |k, v|
+      {
+        date: k,
+        count: v
+      }
+    end
   end
 end
