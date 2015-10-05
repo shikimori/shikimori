@@ -2,6 +2,8 @@ class SiteStatistics
   METRIKA_MONTHS = 18
   CLASS_MONTHS = 6
 
+  USERS_LIMIT = 31
+
   def traffic
     YandexMetrika.new.traffic_for_months METRIKA_MONTHS
   end
@@ -62,7 +64,7 @@ class SiteStatistics
       .group('users.id')
       .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
       .order("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) desc")
-      .limit(104)
+      .limit(USERS_LIMIT * 4)
   end
 
   def reviewers
@@ -70,7 +72,7 @@ class SiteStatistics
       .joins(:reviews)
       .group('users.id')
       .order('count(reviews.id) desc')
-      .limit(26)
+      .limit(USERS_LIMIT)
   end
 
   def newsmakers
@@ -83,13 +85,13 @@ class SiteStatistics
     newsmarker_ids = anime_newsmakers
         .sort_by {|k,v| -v }
         .map(&:first)
-        .take(26)
+        .take(USERS_LIMIT)
 
     User.where(id: newsmarker_ids).sort_by {|v| newsmarker_ids.index(v.id) }
   end
 
   def top_video_contributors
-    AnimeOnline::Contributors.top(52)
+    AnimeOnline::Contributors.top(USERS_LIMIT * 2)
   end
 
 private
