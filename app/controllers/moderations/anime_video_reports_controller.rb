@@ -3,7 +3,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def index
     @page_title = 'Модерация видео'
-    @moderators = User.where(id: User::VideoModerators)
+    @moderators = User.where(id: User::VideoModerators - User::Admins)
     @processed = postload_paginate(params[:page], 20) do
       AnimeVideoReport.includes(:user, anime_video: :author).processed
     end

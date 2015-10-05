@@ -7,7 +7,7 @@ header.head
   h1 #{@page_title}
   p.notice Немного о самом сайте и список особо отличившихся людей
 
-= cache [:about_block, Date.today, I18n.locale] do
+= cache [:about_block, :v2, Date.today, I18n.locale] do
   .b-brief
     .description
       p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопросы:
