@@ -3,10 +3,10 @@ li
     span.entry.linkeable[
         class="#{'person-tooltip' if topic[:tooltip]}"
         title="#{topic[:title]}"
-        data-local-tooltip="true"
-        data-do-not-use-title="true"
-        data-offset-left-right="42"
-        data-place-to-left="true"
+        data-local-tooltip='true'
+        data-do-not-use-title='true'
+        data-offset-left-right='42'
+        data-place-to-left='true'
         data-href="#{topic[:url]}"
       ]
       span.date
@@ -18,7 +18,7 @@ li
         = render 'blocks/tooltip'
 
   - else
-    a.entry href="#{topic[:url]}" itemprop="discussionUrl"
+    a.entry href="#{topic[:url]}" itemprop='discussionUrl'
       span.date
         = topic[:date]
       span.name

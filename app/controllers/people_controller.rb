@@ -36,7 +36,7 @@ class PeopleController < DbEntriesController
   def favoured
     noindex
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
-    page_title 'В избранном'
+    page_title t 'in_favourites'
   end
 
   def tooltip

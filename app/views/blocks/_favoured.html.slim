@@ -2,8 +2,8 @@
   .b-favoured
     .subheadline.m10
       - if defined?(url) && favoured.size == DbEntryDecorator::MAX_FAVOURITES
-        .linkeable data-href="#{url}" В избранном
+        .linkeable data-href="#{url}" = t 'in_favourites'
       - else
-        | В избранном
+        = t 'in_favourites'
     .cc
       = render partial: 'users/user', collection: favoured, locals: { content_by: :avatar }
