@@ -37,6 +37,7 @@ ru:
   female: жен.
   goto: Перейти
   image_uploaded: Изображение загружено
+  in_favourites: В избранном
   loading: Загрузка...
   mail: Почта
   male: муж.
@@ -52,7 +53,7 @@ ru:
   producer: Режиссёр
   settings: Настройки
   seyu: Сэйю
-  share: Рассказать друзьям
+  share: Поделиться
   shikimori: Шикимори
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу

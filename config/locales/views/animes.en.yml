@@ -19,6 +19,7 @@ en:
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
+
   animes: &animes
     page:
       information: Information
@@ -37,6 +38,16 @@ en:
       franchise: Franchise
       changes_history: Changes history
       moderators_only: for moderators only
+
+    menu:
+      scores: Scores
+      in_users_lists: In users' lists
+      in_friends_lists: In friends' lists
+      many_users_have_it_in_their_lists: '%{user_count} users have it in their lists'
+      one_user_has_it_in_his_list: One user has it in his list
+      show_all: + show all
+      hide: hide
+      on_other_sites: on other sites
 
     resources:
       staff: Staff

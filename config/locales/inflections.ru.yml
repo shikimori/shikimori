@@ -267,6 +267,16 @@ ru:
           one: голос
           few: голоса
           many: голосов
+      person:
+        genitive:
+          one: человека
+          few: человек
+          many: человек
+      forum:
+        subjective:
+          one: форум
+          few: форума
+          many: форумов
 
       datetime:
         second:
