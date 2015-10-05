@@ -106,6 +106,16 @@ describe VideoExtractor::UrlExtractor do
       it { should eq 'http://img.mail.ru/r/video2/player_v2.swf?par=http://video.mail.ru/mail/ol4ik87.87/1123/$3816' }
     end
 
+    describe 'mail_ru_4' do
+      let(:html) { '<iframe src="https://videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html" width="626" height="367" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>' }
+      it { should eq 'https://videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
+    end
+
+    describe 'mail_ru_5' do
+      let(:html) { 'http://my.mail.ru/mail/allenwolker91/video/11052/11071.html' }
+      it { should eq 'https://videoapi.my.mail.ru/videos/embed/mail/allenwolker91/11052/11071.html' }
+    end
+
     describe 'rutube_1' do
       let(:html) { "<iframe type=\"text/html\" width=\"730\" height=\"480\" src=\"http://rutube.ru/video/embed/6504640\" frameborder=\"0\"></iframe>" }
       it { should eq 'http://rutube.ru/video/embed/6504640' }

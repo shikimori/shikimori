@@ -42,10 +42,12 @@ private
       #$1
     elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
       "http://myvi.tv/embed/html/#{$~[:hash]}"
-    elsif html =~ %r{(#{HTTP}api.video.mail.ru/videos#{CONTENT})}
+    elsif html =~ %r{(#{HTTP}(api.video|videoapi.my).mail.ru/videos#{CONTENT})}
       $1
     elsif html =~ %r{(#{HTTP}img.mail.ru/r/video2/player_v2.swf\?#{CONTENT})}
       $1
+    elsif html =~ %r{(#{HTTP}my.mail.ru/mail/(?<user>#{PARAM})/video/(?<ids>#{PARAM}/#{PARAM}).html)}
+      "https://videoapi.my.mail.ru/videos/embed/mail/#{$~[:user]}/#{$~[:ids]}.html"
     elsif html =~ %r{movieSrc=(#{CONTENT})"}
       "http://api.video.mail.ru/videos/embed/#{$1.sub(/&autoplay=\d/, '')}.html"
     elsif html =~ %r{(#{HTTP}rutube.ru/(?:video/embed|embed)#{CONTENT})}
