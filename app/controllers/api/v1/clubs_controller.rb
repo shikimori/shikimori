@@ -51,6 +51,20 @@ class Api::V1::ClubsController < Api::V1::ApiController
     respond_with @club.all_images
   end
 
+  api :POST, '/clubs/:id/join', 'Join a club'
+  def join
+    authorize! :join, @club
+    @club.join current_user
+    head 200
+  end
+
+  api :POST, '/clubs/:id/leave', 'Leave a club'
+  def leave
+    authorize! :leave, @club
+    @club.leave current_user
+    head 200
+  end
+
 private
 
   def fetch_club

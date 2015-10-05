@@ -1,4 +1,6 @@
 describe Api::V1::ClubsController, :show_in_doc do
+  let(:club) { create :group }
+
   describe '#index' do
     let(:user) { create :user }
     let(:club_1) { create :group, :with_thread }
@@ -33,7 +35,6 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#animes' do
-    let(:club) { create :group }
     before { club.animes << create(:anime) }
     before { get :animes, id: club.id, format: :json }
 
@@ -41,7 +42,6 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#mangas' do
-    let(:club) { create :group }
     before { club.mangas << create(:manga) }
     before { get :mangas, id: club.id, format: :json }
 
@@ -49,7 +49,6 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#characters' do
-    let(:club) { create :group }
     before { club.characters << create(:character) }
     before { get :characters, id: club.id, format: :json }
 
@@ -57,7 +56,6 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#members' do
-    let(:club) { create :group }
     before { club.members << create(:user) }
     before { get :members, id: club.id, format: :json }
 
@@ -65,10 +63,30 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#images' do
-    let(:club) { create :group }
     before { club.images << create(:image, uploader: build_stubbed(:user), owner: club) }
     before { get :images, id: club.id, format: :json }
 
     it { expect(response).to have_http_status :success }
+  end
+
+  describe '#join' do
+    include_context :authenticated, :user
+    before { post :join, id: club.id, format: :json }
+
+    it do
+      expect(club.joined? user).to be true
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#leave' do
+    include_context :authenticated, :user
+    let!(:group_role) { create :group_role, group: club, user: user }
+    before { post :leave, id: club.id, format: :json }
+
+    it do
+      expect(club.joined? user).to be false
+      expect(response).to have_http_status :success
+    end
   end
 end

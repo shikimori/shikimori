@@ -175,6 +175,9 @@ Site::Application.routes.draw do
           get :mangas
           get :characters
           get :images
+
+          post :join
+          post :leave
         end
       end
 
