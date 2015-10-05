@@ -10,9 +10,9 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :index, page: 1, limit: 1, type: 'TV', season: '2014', genre: genre.id.to_s, studio: studio.id.to_s, duration: 'F', rating: 'r', search: 'Te', order: 'ranked', mylist: '1', format: :json }
 
     it do
+      expect(collection).to have(1).item
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(1).item
     end
   end
 
@@ -34,9 +34,9 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :similar, id: anime.id, format: :json }
 
     it do
+      expect(collection).to have(1).item
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(1).item
     end
   end
 
@@ -49,9 +49,9 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :roles, id: anime.id, format: :json }
 
     it do
+      expect(collection).to have(2).items
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(2).items
     end
   end
 
@@ -61,9 +61,9 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :related, id: anime.id, format: :json }
 
     it do
+      expect(collection).to have(1).item
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(1).item
     end
   end
 
@@ -85,9 +85,21 @@ describe Api::V1::AnimesController, :show_in_doc do
     before { get :screenshots, id: anime.id, format: :json }
 
     it do
+      expect(collection).to have(1).item
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#search' do
+    let!(:anime_1) { create :anime, name: 'asdf' }
+    let!(:anime_2) { create :anime, name: 'zxcv' }
+    before { get :search, q: 'asd', format: :json }
+
+    it do
       expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
     end
   end
 end

@@ -12,4 +12,11 @@ class Api::V1::PeopleController < Api::V1::ApiController
       respond_with PersonDecorator.new(person), serializer: PersonProfileSerializer
     end
   end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/people/search'
+  def search
+    @collection = PeopleQuery.new(search: params[:q]).complete
+    respond_with @collection, each_serializer: PersonSerializer
+  end
 end

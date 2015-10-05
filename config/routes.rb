@@ -135,6 +135,7 @@ Site::Application.routes.draw do
           get :screenshots
           get :franchise
         end
+        get :search, on: :collection
       end
       resource :calendar, only: [:show]
       resources :mangas, only: [:show, :index] do
@@ -144,13 +145,18 @@ Site::Application.routes.draw do
           get :related
           get :franchise
         end
+        get :search, on: :collection
       end
 
       resources :devices, only: [:create, :index, :destroy] do
         get :test, on: :member
       end
-      resources :characters, only: [:show]
-      resources :people, only: [:show]
+      resources :characters, only: [:show] do
+        get :search, on: :collection
+      end
+      resources :people, only: [:show] do
+        get :search, on: :collection
+      end
 
       resources :studios, only: [:index]
       resources :genres, only: [:index]

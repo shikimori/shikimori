@@ -1,6 +1,6 @@
 class Api::V1::MangasController < Api::V1::ApiController
   respond_to :json
-  before_action :fetch_resource, except: [:index]
+  before_action :fetch_resource, except: [:index, :search]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/mangas', 'List mangas'
@@ -51,7 +51,19 @@ class Api::V1::MangasController < Api::V1::ApiController
     respond_with @resource, serializer: FranchiseSerializer
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/mangas/search'
+  def search
+    @collection = AniMangaQuery.new(
+      Manga,
+      { search: params[:q] },
+      current_user
+    ).complete
+    respond_with @collection, each_serializer: MangaSerializer
+  end
+
 private
+
   def cache_key
     Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"
   end

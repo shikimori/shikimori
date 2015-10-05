@@ -76,4 +76,16 @@ describe Api::V1::MangasController, :show_in_doc do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#search' do
+    let!(:manga_1) { create :manga, name: 'asdf' }
+    let!(:manga_2) { create :manga, name: 'zxcv' }
+    before { get :search, q: 'asd', format: :json }
+
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class Api::V1::AnimesController < Api::V1::ApiController
   respond_to :json
 
-  before_action :fetch_resource, except: [:index]
+  before_action :fetch_resource, except: [:index, :search]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/animes', 'List animes'
@@ -57,6 +57,17 @@ class Api::V1::AnimesController < Api::V1::ApiController
   api :GET, '/animes/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/animes/search'
+  def search
+    @collection = AniMangaQuery.new(
+      Anime,
+      { search: params[:q] },
+      current_user
+    ).complete
+    respond_with @collection, each_serializer: AnimeSerializer
   end
 
 private
