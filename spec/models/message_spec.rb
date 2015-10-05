@@ -161,7 +161,7 @@ describe Message do
 
   describe 'instance methods' do
     describe '#delete_by' do
-      let(:message) { create :message }
+      let(:message) { create :message, to: build_stubbed(:user), from: build_stubbed(:user) }
       before { message.delete_by user }
 
       context 'private message' do
