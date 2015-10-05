@@ -46,7 +46,7 @@ Site::Application.routes.draw do
     end
   end
 
-  resources :user_images, only: [:create]
+  resources :user_images, only: [:create] # TODO: remove after 01.01.2016
   resources :messages, only: [:create] do
     post :preview, on: :collection
   end
@@ -165,6 +165,8 @@ Site::Application.routes.draw do
       resources :sections, only: [:index]
       resources :topics, only: [:index, :show]
       resources :comments, only: [:show, :index, :create, :update, :destroy]
+
+      resources :user_images, only: [:create]
 
       resources :clubs, only: [:show, :index] do
         member do

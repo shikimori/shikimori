@@ -1,3 +1,4 @@
+# TODO: remove after 01.01.2016
 class UserImagesController < ShikimoriController
   before_filter :authenticate_user!
 

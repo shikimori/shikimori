@@ -17,6 +17,7 @@ class UserImage < ActiveRecord::Base
   before_create :set_dimentions
 
 private
+
   def set_dimentions
     geometry = Paperclip::Geometry.from_file image.queued_for_write[:original] || image.path
     self.width = geometry.width.to_i

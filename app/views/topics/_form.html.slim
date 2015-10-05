@@ -57,7 +57,7 @@
       label.string.optional.control-label for="topic_linked"
         = t 'activerecord.attributes.topic.posters'
     .wall-ids
-    .drag-here-placeholder data-upload_url="#{user_images_url linked_type: AnimeNews.name}"
+    .drag-here-placeholder data-upload_url="#{api_user_images_url linked_type: AnimeNews.name}"
       p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
       = render 'blocks/upload_progress'
       .b-shiki_wall.unprocessed
