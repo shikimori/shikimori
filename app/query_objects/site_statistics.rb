@@ -42,6 +42,10 @@ class SiteStatistics
     User.where(id: User::VersionsModerators - User::Admins)
   end
 
+  def retired_moderators
+    User.where(id: [942]).order(:id) # 942 - Иштаран
+  end
+
   def forum_moderators
     User.where(id: User::Moderators - User::Admins)
   end

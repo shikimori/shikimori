@@ -38,13 +38,15 @@ header.head
           p = t '.moderation_contests'
           = render @statistics.contest_moderators, content_by: :avatar
 
-        .members-block
+        .members-block.left
           p = t '.moderation_cosplay'
           = render @statistics.cosplay_moderators, content_by: :avatar
 
-        .clearfix
+        .members-block.left
+          p = t '.retired_moderators'
+          = render @statistics.retired_moderators, content_by: :avatar
 
-      .members-block
+      .members-block.clearfix
         .subheadline.blue.m10 = t '.content_changes'
         = render @statistics.translators, content_by: :avatar
         .clearfix
