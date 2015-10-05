@@ -5,7 +5,7 @@ class ImportAnimeCalendars
   FIXES = YAML.load_file(Rails.root.join 'config/animecalendar.yml')
 
   def perform
-    calendars = match parse calendars_data
+    calendars = match exclude parse calendars_data
     import calendars
     process_results calendars
   end
@@ -53,6 +53,10 @@ private
         calendar[:anime] = match_anime calendar[:title]
       end
     end
+  end
+
+  def exclude calendars
+    calendars.select { |calendar| calendar[:start_at] >= Time.zone.now }
   end
 
   def parse i_calendars
