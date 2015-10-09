@@ -2,7 +2,7 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
-  before_action { page_title i18n_t 'profile' }
+  before_action { page_title i18n_t('profile') }
 
   def show
     if user_signed_in? && current_user.id == @resource.id
@@ -13,25 +13,25 @@ class ProfilesController < ShikimoriController
   def friends
     noindex
     redirect_to @resource.url if @resource.friends.none?
-    page_title i18n_t 'friends'
+    page_title i18n_t('friends')
   end
 
   def clubs
     noindex
     redirect_to @resource.url if @resource.clubs.none?
-    page_title i18n_t 'clubs'
+    page_title i18n_i('Club', :other)
   end
 
   def favourites
     noindex
     redirect_to @resource.url if @resource.favourites.none?
-    page_title i18n_t 'favorites'
+    page_title i18n_t('favorites')
   end
 
   def feed
     noindex
     redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
-    page_title i18n_t 'feed'
+    page_title i18n_t('feed')
   end
 
   #def stats
@@ -48,7 +48,7 @@ class ProfilesController < ShikimoriController
       TopicDecorator.new review.thread
     end
 
-    page_title i18n_t 'reviews'
+    page_title i18n_t('reviews')
   end
 
   def comments
@@ -63,7 +63,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }
 
-    page_title i18n_t 'comments'
+    page_title i18n_t('comments')
   end
 
   def comments_reviews
@@ -75,7 +75,7 @@ class ProfilesController < ShikimoriController
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }
 
-    page_title i18n_t 'summaries'
+    page_title i18n_t('summaries')
   end
 
   def versions
@@ -84,7 +84,7 @@ class ProfilesController < ShikimoriController
       @resource.versions.order(id: :desc)
     end.map(&:decorate)
 
-    page_title i18n_t 'content_changes'
+    page_title i18n_t('content_changes')
   end
 
   def videos
@@ -96,17 +96,17 @@ class ProfilesController < ShikimoriController
         .order(id: :desc)
     end
 
-    page_title i18n_t 'video_uploads_and_changes'
+    page_title i18n_t('video_uploads_and_changes')
   end
 
   def achievements
-    page_title i18n_t 'achievements'
+    page_title i18n_t('achievements')
   end
 
   def ban
     noindex
     @ban = Ban.new user_id: @resource.id
-    page_title i18n_t 'ban_history'
+    page_title i18n_t('ban_history')
   end
 
   def edit

@@ -74,7 +74,7 @@
               = render @resource.seyu.take(3)
 
     .c-description
-      .subheadline.m5 Описание
+      .subheadline.m5 = t 'Description'
       .block
         meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
         meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
@@ -95,20 +95,20 @@
 
   - if @resource.animes(7).any?
     .subheadline.m10
-      .linkeable data-href="#{animes_character_url @resource}" Анимеграфия
+      .linkeable data-href="#{animes_character_url @resource}" = t 'animegraphy'
     .cc.m0.to-process data-dynamic="cutted_covers"
       = render @resource.animes(7)
 
   - if @resource.mangas(7).any?
     .subheadline.m10
-      .linkeable data-href="#{mangas_character_url @resource}" Мангаграфия
+      .linkeable data-href="#{mangas_character_url @resource}" = t 'mangagraphy'
     .cc.m0.to-process data-dynamic="cutted_covers"
       = render @resource.mangas(7)
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3
       - if @resource.preview_thread.comments_count > 0
-        .linkeable data-href="#{comments_character_url @resource}" Обсуждение
+        .linkeable data-href="#{comments_character_url @resource}" = i18n_i 'Discussion'
       - else
         | Обсуждение
     div
