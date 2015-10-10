@@ -109,5 +109,4 @@ ru:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
 
   characters_controller:
-    imageboard_art: Арт с имиджборд
     search_characters: Поиск персонажей

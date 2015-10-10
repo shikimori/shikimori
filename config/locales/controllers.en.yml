@@ -109,5 +109,4 @@ en:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
 
   characters_controller:
-    imageboard_art: Imageboard art
     search_characters: Search characters

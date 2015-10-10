@@ -7,77 +7,77 @@
       .c-actions
         a.new_comment.b-tooltipped.unprocessed.to-process[
           title="#{t '.actions.comment'}"
-          data-direction="top"
+          data-direction='top'
           data-text="#{t '.actions.comment'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.fav-add.b-tooltipped.unprocessed.to-process[
           href="#{favourites_url @resource.object.class.name, @resource}"
           style="#{'display: none;' if @resource.favoured?}"
           title="#{t '.actions.add_to_favorites'}"
-          data-remote="true"
-          data-method="post"
-          data-type="json"
-          data-kind=""
-          data-direction="top"
+          data-remote='true'
+          data-method='post'
+          data-type='json'
+          data-kind=''
+          data-direction='top'
           data-text="#{t '.actions.add_to_favorites'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.fav-remove.b-tooltipped.unprocessed.to-process[
           href="#{favourites_url @resource.object.class.name, @resource}"
           style="#{'display: none;' unless @resource.favoured?}"
           title="#{t '.actions.remove_from_favorites'}"
-          data-remote="true"
-          data-method="delete"
-          data-type="json"
-          data-kind=""
-          data-direction="top"
+          data-remote='true'
+          data-method='delete'
+          data-type='json'
+          data-kind=''
+          data-direction='top'
           data-text="#{t '.actions.remove_from_favorites'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.edit.b-tooltipped.unprocessed.to-process[
           href="#{@resource.edit_url}"
           title="#{t '.actions.edit'}"
-          data-direction="top"
+          data-direction='top'
           data-text="#{t '.actions.edit'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
 
     .c-about
       .cc
         - if @resource.credentials?
           .c-info-left
-            .subheadline Имена
+            .subheadline = t '.names'
             .b-entry-info
-              = info_line 'По-русски', @resource.russian
-              = info_line 'По-японски', @resource.japanese
-              = info_line 'Прочие', @resource.altname
+              = info_line t('.in_russian'), @resource.russian
+              = info_line t('.in_japanese'), @resource.japanese
+              = info_line t('.other')', @resource.altname
 
               - if @resource.tags.present? || @resource.cosplay?
                 .additional-links
                   .line-container
                     - if @resource.cosplay?
-                      span.linkeable data-href="#{cosplay_character_url @resource}" Косплей
+                      span.linkeable data-href="#{cosplay_character_url @resource}" = t 'cosplay'
 
                     - if @resource.tags.present?
-                      span.linkeable data-href="#{art_character_url @resource}" Арт с имиджборд
+                      span.linkeable data-href="#{art_character_url @resource}" = t 'imageboard_art'
 
         - if @resource.seyu.present?
           .c-info-right
             .subheadline.m10
-              .linkeable href="#{seyu_character_url @resource}" = t :seyu
+              .linkeable href="#{seyu_character_url @resource}" = t 'seyu'
               /- if @resource.seyu.size > 3
                 | Сэйю <span>#{@resource.seyu.size}</span>
               /- else
                 | Сэйю
-            .cc.m0.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+            .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
               = render @resource.seyu.take(3)
 
     .c-description
-      .subheadline.m5 = t 'Description'
+      .subheadline.m5 = i18n_i 'Description'
       .block
-        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
-        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+        meta itemprop='image' content="#{{attachment_url @resource.image, :original, false}}"
+        meta itemprop='thumbnailUrl' content="#{{attachment_url @resource.image, :x64, false}}"
 
         .m20
           / .text должен быть вложен в блок с отступом, иначе при сокращении
@@ -88,7 +88,7 @@
                 | [<span>eng</span>]
               .english
                 = @resource.description_mal
-            .russian itemprop="description"
+            .russian itemprop='description'
               = @resource.description_html
 
         = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.versions.authors(:description), field: 'description', default_source: @resource.mal_url }
@@ -96,13 +96,13 @@
   - if @resource.animes(7).any?
     .subheadline.m10
       .linkeable data-href="#{animes_character_url @resource}" = t 'animegraphy'
-    .cc.m0.to-process data-dynamic="cutted_covers"
+    .cc.m0.to-process data-dynamic='cutted_covers'
       = render @resource.animes(7)
 
   - if @resource.mangas(7).any?
     .subheadline.m10
       .linkeable data-href="#{mangas_character_url @resource}" = t 'mangagraphy'
-    .cc.m0.to-process data-dynamic="cutted_covers"
+    .cc.m0.to-process data-dynamic='cutted_covers'
       = render @resource.mangas(7)
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
@@ -110,7 +110,7 @@
       - if @resource.preview_thread.comments_count > 0
         .linkeable data-href="#{comments_character_url @resource}" = i18n_i 'Discussion'
       - else
-        | Обсуждение
+        = i18n_i 'Discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }

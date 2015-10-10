@@ -8,3 +8,9 @@ ru:
         edit: Редактировать
       changes_history: История правок
       moderators_only: только для модераторов
+
+    show:
+      names: Имена
+      in_russian: По-русски
+      in_japanese: По-японски
+      other: Прочие

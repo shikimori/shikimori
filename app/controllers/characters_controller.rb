@@ -44,7 +44,7 @@ class CharactersController < PeopleController
   end
 
   def art
-    page_title i18n_t('imageboard_art')
+    page_title t('imageboard_art')
   end
 
   def images
