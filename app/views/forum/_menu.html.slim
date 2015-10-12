@@ -107,7 +107,7 @@
 - cache [:site_block, :groups, I18n.locale, presenter.groups_key], expires_in: 6.hours do
   .block.groups
     h2.subheadline.m13
-      a href="#{clubs_url}" title="#{t '.to_clubs'}" = t '.clubs'
+      a href="#{clubs_url}" title="#{t '.to_clubs'}" = i18n_i 'Club', :other
     ul
       - presenter.groups.each do |entry|
         li.entry

@@ -9,9 +9,9 @@
   .block
     .subheadline.m10
       - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-        .linkeable data-href="#{clubs_character_url(resource)}" Клубы
+        .linkeable data-href="#{clubs_character_url(resource)}" = i18n_i 'Club', :other
       - else
-        | Клубы
+        = i18n_i 'Club', :other
 
     .b-clubs.one-line
       = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }

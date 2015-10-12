@@ -92,6 +92,7 @@ en:
   characters_controller:
     <<: *animes_controller
     entry_edit: Edit Character
+    search_characters: Search characters
 
   people_controller:
     <<: *animes_controller
@@ -107,6 +108,3 @@ en:
 
   videos_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
-
-  characters_controller:
-    search_characters: Search characters

@@ -96,6 +96,7 @@ ru:
   people_controller:
     <<: *animes_controller
     entry_edit: Редактирование человека
+    search_characters: Поиск персонажей
 
   seyu_controller:
     <<: *animes_controller
@@ -107,6 +108,3 @@ ru:
 
   videos_controller:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
-
-  characters_controller:
-    search_characters: Поиск персонажей
