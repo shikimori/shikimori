@@ -1,6 +1,9 @@
 describe ImportAnimeCalendars do
   let(:worker) { ImportAnimeCalendars.new }
 
+  before { Timecop.freeze '2015-06-01' }
+  after { Timecop.return }
+
   describe '#perform', :vcr do
     let!(:ongoing) { create :anime, :ongoing, name: 'Fairy Tail' }
     let!(:anons) { create :anime, :anons, name: 'Prison School' }
