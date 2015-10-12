@@ -28,6 +28,6 @@ module Viewable
   end
 
   def viewed?
-    self[:viewed].nil? || (created_at + 1.month < Time.zone.today) ? true : self[:viewed]
+    self[:viewed].nil? || (created_at + 2.weeks < Time.zone.today) ? true : self[:viewed]
   end
 end

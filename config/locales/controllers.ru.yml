@@ -92,11 +92,11 @@ ru:
   characters_controller:
     <<: *animes_controller
     entry_edit: Редактирование персонажа
+    search_characters: Поиск персонажей
 
   people_controller:
     <<: *animes_controller
     entry_edit: Редактирование человека
-    search_characters: Поиск персонажей
 
   seyu_controller:
     <<: *animes_controller
