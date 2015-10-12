@@ -1,6 +1,6 @@
 en:
   characters:
-    page:
+    page: &page
       actions:
         comment: Comment
         add_to_favorites: Add to Favorite
@@ -8,9 +8,10 @@ en:
         edit: Edit
       changes_history: Changes history
       moderators_only: for moderators only
-
-    show:
       names: Names
       in_russian: In Russian
       in_japanese: In Japanese
       other: Other
+
+    show:
+      <<: *page
