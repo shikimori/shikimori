@@ -17,12 +17,14 @@ ru:
     upload_image: Загрузить изображение
   anime_list: Список аниме
   anime_title: Название аниме
+  animegraphy: Анимеграфия
   back: назад
   back_to_page: Назад на страницу
   character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   collapse: свернуть
+  cosplay: Косплей
   deleted:
     anime: Удалённое аниме
     character: Удалённый персонаж
@@ -35,13 +37,16 @@ ru:
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
   female: жен.
+  gallery: Галерея
   goto: Перейти
   image_uploaded: Изображение загружено
+  imageboard_art: Арт с имиджборд
   in_favourites: В избранном
   loading: Загрузка...
   mail: Почта
   male: муж.
   manga_list: Список манги
+  mangagraphy: Мангаграфия
   mangaka: Мангака
   news: Новости
   no: нет

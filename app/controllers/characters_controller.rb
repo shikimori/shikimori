@@ -2,7 +2,7 @@
 class CharactersController < PeopleController
   skip_before_action :role_redirect
 
-  before_action { page_title 'Персонажи' }
+  before_action { page_title i18n_i('Character', :other) }
 
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,
@@ -28,14 +28,14 @@ class CharactersController < PeopleController
   def animes
     noindex
     redirect_to @resource.url, status: 301 if @resource.animes.none?
-    page_title 'Анимеграфия'
+    page_title t('animegraphy')
   end
 
   # вся манга персонажа
   def mangas
     noindex
     redirect_to @resource.url, status: 301 if @resource.mangas.none?
-    page_title 'Мангаграфия'
+    page_title t('mangagraphy')
   end
 
   # TODO: удалить после 05.2015
@@ -44,7 +44,7 @@ class CharactersController < PeopleController
   end
 
   def art
-    page_title 'Арт с имиджборд'
+    page_title t('imageboard_art')
   end
 
   def images
@@ -59,19 +59,19 @@ class CharactersController < PeopleController
 
     redirect_to @resource.url, status: 301 if @collection.none?
 
-    page_title 'Косплей'
+    page_title t('cosplay')
   end
 
   def favoured
     noindex
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
-    page_title t 'in_favourites'
+    page_title t('in_favourites')
   end
 
   def clubs
     noindex
     redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
-    page_title 'Клубы'
+    page_title i18n_i('Club', :other)
   end
 
   def tooltip
@@ -97,7 +97,7 @@ private
   end
 
   def search_title
-    'Поиск персонажей'
+    i18n_t('search_characters')
   end
 
   def search_url *args

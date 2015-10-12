@@ -2,7 +2,6 @@ ru:
   profiles_controller: &profiles_controller
     profile: Профиль
     friends: Друзья
-    clubs: Клубы
     favorites: Избранное
     feed: Лента
     reviews: Рецензии
@@ -13,6 +12,7 @@ ru:
     achievements: Достижения
     ban_history: История банов
     users: Пользователи
+
   achievements_controller:
     <<: *profiles_controller
   dialogs_controller:
@@ -25,6 +25,7 @@ ru:
     <<: *profiles_controller
   user_rates_controller:
     <<: *profiles_controller
+
   animes_collection_controller: &animes_collection_controller
     order:
       in_alphabetical_order: в алфавитном порядке
@@ -32,13 +33,14 @@ ru:
       by_ranking: по рейтингу
       by_released_date: по дате выхода
       by_add_date: по дате добавления
+
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Персонализированные рекомендации
     what_anime_to_watch: Какие аниме посмотреть
     what_manga_to_read: Какую мангу почитать
+
   clubs_controller:
-    clubs: Клубы
     new_club: Новый клуб
     club_created: Клуб создан
     edit_club: Изменение клуба
@@ -47,9 +49,11 @@ ru:
     club_manga: Манга клуба
     club_characters: Персонажи клуба
     club_images: Картинки клуба
+
   group_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
+
   contests_controller:
     contests: Опросы
     new_contest: Новый турнир
@@ -62,6 +66,7 @@ ru:
     show_description: >
       Примите участие в аниме-турнире на нашем сайте и
       внесите свой вклад в голосование, мы хотим определить %{title}.
+
   moderations/versions_controller:
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
@@ -72,26 +77,34 @@ ru:
     version_pending: &version_pending Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
     version_accepted: &version_accepted Изменения сохранены
     version_taken: *version_accepted
+
   animes_controller: &animes_controller
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
     entry_edit: Редактирование аниме
     edit: Редактирование
+
   mangas_controller:
     <<: *animes_controller
     entry_edit: Редактирование манги
+
   characters_controller:
     <<: *animes_controller
     entry_edit: Редактирование персонажа
+
   people_controller:
     <<: *animes_controller
     entry_edit: Редактирование человека
+    search_characters: Поиск персонажей
+
   seyu_controller:
     <<: *animes_controller
     entry_edit: Редактирование сэйю
+
   screenshots_controller: &screenshots_controller
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
     screenshot_deleted: Скриншот удалён
+
   videos_controller:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!

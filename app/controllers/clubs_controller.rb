@@ -5,7 +5,7 @@ class ClubsController < ShikimoriController
   before_action :resource_redirect, if: :resource_id
 
   before_action :set_breadcrumbs
-  before_action { page_title i18n_t 'clubs' }
+  before_action { page_title i18n_i('Club', :other) }
 
   def index
     noindex
@@ -20,7 +20,7 @@ class ClubsController < ShikimoriController
   end
 
   def new
-    page_title i18n_t 'new_club'
+    page_title i18n_t('new_club')
     @resource = @resource.decorate
   end
 
@@ -36,7 +36,7 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    page_title i18n_t 'edit_club'
+    page_title i18n_t('edit_club')
   end
 
   def update
@@ -55,7 +55,7 @@ class ClubsController < ShikimoriController
 
   def members
     noindex
-    page_title i18n_t 'club_members'
+    page_title i18n_t('club_members')
   end
 
   # TODO: удалить после 05.2015
@@ -67,24 +67,24 @@ class ClubsController < ShikimoriController
   def animes
     noindex
     redirect_to club_url(@resource) if @resource.animes.none?
-    page_title i18n_t 'club_anime'
+    page_title i18n_t('club_anime')
   end
 
   def mangas
     noindex
     redirect_to club_url(@resource) if @resource.mangas.none?
-    page_title i18n_t 'club_manga'
+    page_title i18n_t('club_manga')
   end
 
   def characters
     noindex
     redirect_to club_url(@resource) if @resource.characters.none?
-    page_title i18n_t 'club_characters'
+    page_title i18n_t('club_characters')
   end
 
   def images
     noindex
-    page_title i18n_t 'club_images'
+    page_title i18n_t('club_images')
   end
 
   def upload

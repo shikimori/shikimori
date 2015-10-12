@@ -92,7 +92,7 @@ class SitemapController < ShikimoriController
       ['Аниме форум', section_url(:a)],
       #['Форум', forums_url],
       #['Блоги', blogs_url],
-      ['Клубы', clubs_url],
+      [i18n_i('Club', :other), clubs_url],
       ['Рецензии и обзоры', section_url(:reviews)],
       ['Турниры и голосования', contests_url],
       ['Новости', section_url(:news)]

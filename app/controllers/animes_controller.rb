@@ -134,7 +134,7 @@ class AnimesController < DbEntriesController
     return redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
 
     noindex
-    page_title 'Клубы'
+    page_title i18n_i('Club', :other)
   end
 
   def resources

@@ -419,7 +419,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb 'Клубы', clubs_url
+    breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
   end
 end

@@ -17,12 +17,14 @@ en:
     upload_image: Upload image
   anime_list: Anime List
   anime_title: Anime title
+  animegraphy: Animegraphy
   back: back
   back_to_page: Back to page
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   collapse: collapse
+  cosplay: Cosplay
   deleted:
     anime: Deleted anime
     character: Deleted character
@@ -35,13 +37,16 @@ en:
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
   female: female
+  gallery: Gallery
   goto: Goto
   image_uploaded: Image uploaded
+  imageboard_art: Imageboard art
   in_favourites: In favourites
   loading: Loading...
   mail: Mail
   male: male
   manga_list: Manga List
+  mangagraphy: Mangagraphy
   mangaka: Mangaka
   news: News
   comments: Comments

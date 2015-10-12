@@ -67,7 +67,7 @@ a.entry.rel[
       class="#{:active if params[:controller] == 'groups'}"
       href="#{clubs_url}"
       title="#{t '.clubs'}"
-    ] = t '.clubs'
+    ] = i18n_i 'Club', :other
 
 .entry[
   class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
