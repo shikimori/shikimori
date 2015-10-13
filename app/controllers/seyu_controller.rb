@@ -1,5 +1,5 @@
 class SeyuController < PeopleController
-  before_action { page_title 'Сейю' }
+  before_action { page_title t('seyu') }
 
   def show
     @itemtype = @resource.itemtype
@@ -7,7 +7,7 @@ class SeyuController < PeopleController
 
   def roles
     noindex
-    page_title 'Роли в аниме'
+    page_title t('roles_in_anime')
   end
 
 private
@@ -21,7 +21,7 @@ private
   end
 
   def search_title
-    'Поиск сэйю'
+    i18n_t 'search_seyu'
   end
 
   def search_url *args

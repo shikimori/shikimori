@@ -82,25 +82,26 @@ en:
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
-    entry_edit: Edit Anime
+    entry_edit: Edit anime
     edit: Edit
 
   mangas_controller:
     <<: *animes_controller
-    entry_edit: Edit Manga
+    entry_edit: Edit manga
 
   characters_controller:
     <<: *animes_controller
-    entry_edit: Edit Character
+    entry_edit: Edit character
     search_characters: Search characters
 
   people_controller:
     <<: *animes_controller
-    entry_edit: Edit Person
+    entry_edit: Edit person
 
   seyu_controller:
     <<: *animes_controller
-    entry_edit: Edit Seyu
+    entry_edit: Edit seyu
+    search_seyu: Search seyu
 
   screenshots_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!

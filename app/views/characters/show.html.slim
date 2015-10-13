@@ -49,8 +49,8 @@
           .c-info-left
             .subheadline = t '.names'
             .b-entry-info
-              = info_line t('.in_russian'), @resource.russian
-              = info_line t('.in_japanese'), @resource.japanese
+              = info_line t('in_russian'), @resource.russian
+              = info_line t('in_japanese'), @resource.japanese
               = info_line t('.other'), @resource.altname
 
               - if @resource.tags.present? || @resource.cosplay?
