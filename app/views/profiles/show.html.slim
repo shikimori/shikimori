@@ -279,9 +279,9 @@
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
               a href="#{clubs_profile_url @resource}" title="#{t 'profiles_controller.clubs'}"
-                = t 'profiles_controller.clubs'
+                = i18n_i 'Club', :other
             - else
-              = t 'profiles_controller.clubs'
+              = i18n_i 'Club', :other
           .b-clubs.one-line
             - if @resource.clubs.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
