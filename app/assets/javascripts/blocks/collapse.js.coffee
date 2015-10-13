@@ -39,11 +39,13 @@ $(document).on 'click', '.collapse', (e, custom) ->
         .replace('свернуть', 'развернуть')
         .replace('спрятать', 'показать')
         .replace('hide', 'show')
+        .replace('collapse', 'expand')
     else
       $action.html()
         .replace('развернуть', 'свернуть')
         .replace('показать', 'спрятать')
         .replace('show', 'hide')
+        .replace('expand', 'collapse')
 
   unless custom
     id = $(@).attr('id')
