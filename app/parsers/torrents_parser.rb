@@ -219,10 +219,16 @@ class TorrentsParser
       .select { |v| v[:episodes].any? }
       .sort_by { |v| v[:episodes].min }
       .each do |entry|
-        # для онгоингов при нахождении более одного эпизода, игнорируем подобные находки
+        next if entry[:episodes].none?
+
+        # для онгоингов и анонсов при нахождении более одного эпизода, игнорируем подобные находки
+        episdoes_diff = [
+          entry[:episodes].min - anime.episodes_aired,
+          entry[:episodes].max - anime.episodes_aired
+        ].max
         next if entry[:episodes].none? ||
-          (anime.ongoing? && (entry[:episodes].min - anime.episodes_aired) > 1 &&
-            !(entry[:episodes].max == 2 && anime.episodes_aired == 0))
+          ((anime.ongoing? || anime.anons?) && episdoes_diff > 1 &&
+            !(entry[:episodes].max > 1 && anime.episodes_aired == 0)) ||
 
         entry[:episodes].each do |episode|
           next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode
