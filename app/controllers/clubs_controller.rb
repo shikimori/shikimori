@@ -109,7 +109,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb i18n_t('clubs'), clubs_url
+    breadcrumb i18n_i('Club', :other), clubs_url
 
     if resource_id.present? && params[:action] != 'show'
       breadcrumb @resource.name, club_url(@resource)
