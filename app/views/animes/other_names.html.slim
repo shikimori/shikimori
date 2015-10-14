@@ -1,8 +1,8 @@
-= info_line 'По-японски' do
+= info_line t('in_japanese') do
   - if @resource.japanese.present?
     span itemprop="alternativeHeadline" == @resource.japanese.join(', ')
 
-= info_line 'По-английски' do
+= info_line t('in_english') do
   - if @resource.english.present?
     span itemprop="alternativeHeadline" == @resource.english.join(', ')
 

@@ -22,7 +22,6 @@ en:
 
   animes: &animes
     page:
-      information: Information
       all_summaries: All summaries
       all_comments: All comments
       actions:

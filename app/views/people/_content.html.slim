@@ -18,13 +18,13 @@
 
     .text itemprop="description"
       - if @resource.credentials?
-        = info_line 'По-японски', @resource.japanese
+        = info_line t('in_japanese'), @resource.japanese
         = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
         = info_line Person.human_attribute_name(:website), @resource.website_html
 
     - if person.main_role?(:seyu)
       .line
-        .key Лучшие роли:&nbsp;
+        .key #{t 'best_roles'}:&nbsp;
       .cc-4a.best-works
         = render person.best_roles.take(4), cover_by: :image_link
 

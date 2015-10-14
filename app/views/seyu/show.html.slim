@@ -7,68 +7,68 @@
       .c-actions
         a.new_comment.b-tooltipped.unprocessed.to-process[
           title="#{t '.actions.comment'}"
-          data-direction="top"
+          data-direction='top'
           data-text="#{t '.actions.comment'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.fav-add.b-tooltipped.unprocessed.to-process[
           href="#{favourites_seyu_url @resource.object.class.name, @resource}"
           style="#{'display: none;' if @resource.seyu_favoured?}"
           title="#{t '.actions.add_to_favorites'}"
-          data-remote="true"
-          data-method="post"
-          data-type="json"
-          data-kind="seyu"
-          data-direction="top"
+          data-remote='true'
+          data-method='post'
+          data-type='json'
+          data-kind='seyu'
+          data-direction='top'
           data-text="#{t '.actions.add_to_favorites'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.fav-remove.b-tooltipped.unprocessed.to-process[
           href="#{favourites_seyu_url @resource.object.class.name, @resource}"
           style="#{'display: none;' unless @resource.seyu_favoured?}"
           title="#{t '.actions.remove_from_favorites'}"
-          data-kind="seyu"
-          data-remote="true"
-          data-method="delete"
-          data-type="json"
-          data-direction="top"
+          data-kind='seyu'
+          data-remote='true'
+          data-method='delete'
+          data-type='json'
+          data-direction='top'
           data-text="#{t '.actions.remove_from_favorites'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
         a.edit.b-tooltipped.unprocessed.to-process[
           href="#{@resource.edit_url}"
           title="#{t '.actions.edit'}"
-          data-direction="top"
+          data-direction='top'
           data-text="#{t '.actions.edit'}"
-          data-dynamic="authorized"
+          data-dynamic='authorized'
         ]
 
     .c-about
       .cc
         - if @resource.credentials?
           .c-info-left
-            .subheadline Информация
+            .subheadline = t 'information'
             .b-entry-info
-              = info_line 'По-английски', @resource.name
-              = info_line 'По-японски', @resource.japanese
+              = info_line t('in_english'), @resource.name
+              = info_line t('in_japanese'), @resource.japanese
               = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
               = info_line Person.human_attribute_name(:website), @resource.website_html
 
         .c-info-right
-          .subheadline Роли в аниме
+          .subheadline = t 'roles_in_anime'
           .b-entry-info
             - @resource.groupped_roles.each do |role,times|
               = info_line role, times
 
     .c-description.m0
       .subheadline.m10
-        .linkeable data-href="#{roles_seyu_url @resource}" Лучшие роли
-      .c-characters.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        .linkeable data-href="#{roles_seyu_url @resource}" = t 'best_roles'
+      .c-characters.to-process data-dynamic='cutted_covers' data-ratio_type='person'
         = render @resource.best_roles
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3
-      .linkeable data-href="#{comments_seyu_url @resource}" Обсуждение
+      .linkeable data-href="#{comments_seyu_url @resource}" = i18n_i 'Discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
         = render 'topics/comments', topic: @resource.preview_thread

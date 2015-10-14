@@ -20,6 +20,7 @@ en:
   animegraphy: Animegraphy
   back: back
   back_to_page: Back to page
+  best_roles: Best roles
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
@@ -41,7 +42,11 @@ en:
   goto: Goto
   image_uploaded: Image uploaded
   imageboard_art: Imageboard art
+  in_english: In English
   in_favourites: In favourites
+  in_japanese: In Japanese
+  in_russian: In Russian
+  information: Information
   loading: Loading...
   mail: Mail
   male: male
@@ -57,6 +62,7 @@ en:
   out_of: out of
   person: Person
   producer: Director
+  roles_in_anime: Roles in anime
   settings: Settings
   seyu: Seyu
   share: Share

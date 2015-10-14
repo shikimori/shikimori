@@ -22,7 +22,6 @@ ru:
 
   animes: &animes
     page:
-      information: Информация
       all_summaries: Все отзывы
       all_comments: Все комментарии
       actions:

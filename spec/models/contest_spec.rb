@@ -164,7 +164,7 @@ describe Contest do
 
       context 'something was changed' do
         before do
-          @updated_at = contest.updated_at = DateTime.now - 1.day
+          @updated_at = contest.updated_at = Time.zone.now - 1.day
           round.matches.each { |v| v.finished_on = Time.zone.yesterday }
           contest.progress!
         end
@@ -174,7 +174,7 @@ describe Contest do
 
       context 'nothing was changed' do
         before do
-          @updated_at = contest.updated_at = DateTime.now - 1.day
+          @updated_at = contest.updated_at = Time.zone.now - 1.day
           contest.progress!
         end
 
@@ -311,7 +311,7 @@ describe Contest do
         it { is_expected.to be_empty }
 
         context 'new one started' do
-          let!(:contest) { contest = create :contest, state: 'started' }
+          let!(:contest) { create :contest, state: 'started' }
           it { is_expected.to eq [contest.id] }
         end
       end

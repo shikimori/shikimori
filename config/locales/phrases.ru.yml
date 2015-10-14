@@ -20,6 +20,7 @@ ru:
   animegraphy: Анимеграфия
   back: назад
   back_to_page: Назад на страницу
+  best_roles: Лучшие роли
   character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
@@ -41,7 +42,11 @@ ru:
   goto: Перейти
   image_uploaded: Изображение загружено
   imageboard_art: Арт с имиджборд
+  in_english: По-английски
   in_favourites: В избранном
+  in_japanese: По-японски
+  in_russian: По-русски
+  information: Информация
   loading: Загрузка...
   mail: Почта
   male: муж.
@@ -56,6 +61,7 @@ ru:
   out_of: из
   person: Человек
   producer: Режиссёр
+  roles_in_anime: Роли в аниме
   settings: Настройки
   seyu: Сэйю
   share: Поделиться
