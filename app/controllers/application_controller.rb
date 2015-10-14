@@ -38,31 +38,52 @@ class ApplicationController < ActionController::Base
   }
 
   def runtime_error e
-    #ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? current_user.nickname : nil })
     Honeybadger.notify(e) if defined?(Honeybadger)
 
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
+    #raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
+
+    with_json_response = self.kind_of?(Api::V1::ApiController) || json?
 
     if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
       @page_title = 'Страница не найдена'
       @sub_layout = nil
-      render 'pages/page404.html', layout: false, status: 404
+
+      if with_json_response
+        render json: { message: 'page not found', code: 404 }, status: 404
+      else
+        render 'pages/page404.html', layout: false, status: 404
+      end
 
     elsif e.is_a?(AgeRestricted)
       render 'pages/age_restricted', layout: nil#, status: 404
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
-      render text: e.message, status: 403
+      if with_json_response
+        render json: { message: e.message, code: 403 }, status: 403
+      else
+        render text: e.message, status: 403
+      end
 
     elsif e.is_a?(StatusCodeError)
       render json: {}, status: e.status
 
     else
-      @page_title = 'Ошибка'
-      render 'pages/page503.html', layout: false, status: 503
+      if self.kind_of?(Api::V1::ApiController) || json?
+        render(
+          json: {
+            code: 503,
+            message: e.message,
+            backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
+          },
+          status: 503
+        )
+      else
+        @page_title = 'Ошибка'
+        render 'pages/page503.html', layout: false, status: 503
+      end
     end
   end
 
