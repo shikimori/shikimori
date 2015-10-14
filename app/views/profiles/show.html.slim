@@ -278,7 +278,7 @@
         .c-column.m0
           .subheadline.m10
             - if @resource.clubs.any? && @resource.clubs.size > 4
-              a href="#{clubs_profile_url @resource}" title="#{t 'profiles_controller.clubs'}"
+              a href="#{clubs_profile_url @resource}" title="#{i18n_i 'Club', :other}"
                 = i18n_i 'Club', :other
             - else
               = i18n_i 'Club', :other
