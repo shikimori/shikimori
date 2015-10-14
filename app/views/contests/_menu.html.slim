@@ -12,7 +12,8 @@
     .subheadline.m5 = t '.contest_status'
     p = resource.status
     - if (resource.finished? && !resource.showing_results?) || params[:controller] != 'contests'
-      a.results href="#{contest_url resource}" title=t('.contest_results') = "#{t '.to_results'} →"
+      a.results href="#{contest_url resource}" title=t('.contest_results')
+        = "#{t '.to_results'} →"
 
   .block
     .subheadline.m5 = t '.contest_type'

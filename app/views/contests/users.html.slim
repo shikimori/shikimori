@@ -3,7 +3,10 @@
   div
     .block
       .b-options-floated.count = @resource.left_voters.size
-      .subheadline.m10 t '.votes_for', name: localized_name(@resource.displayed_match.left)
+      .subheadline.m10
+        == t '.votes_for',
+          name: link_to(localized_name(@resource.displayed_match.left),
+            url_for(@resource.displayed_match.left))
       - if @resource.left_voters.any?
         = render @resource.left_voters, content_by: :avatar_fixed_margin
       - else
@@ -12,7 +15,10 @@
     .block
       .b-options-floated.count
         = @resource.right_voters.size
-      .subheadline.m10 t '.votes_for', name: localized_name(@resource.displayed_match.right)
+      .subheadline.m10
+        == t '.votes_for',
+          name: link_to(localized_name(@resource.displayed_match.right),
+            url_for(@resource.displayed_match.right))
       - if @resource.right_voters.any?
         = render @resource.right_voters, content_by: :avatar_fixed_margin
       - else

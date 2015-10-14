@@ -76,6 +76,7 @@ en:
       contest_type: Contest type
       voters: Voters
       candidates: Candidates
+      to_results: To results
 
     proposing:
       anime_title: Anime title
