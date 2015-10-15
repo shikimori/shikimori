@@ -1,7 +1,13 @@
 = render layout: 'page' do
   .b-options-floated.mobile-support
-    a class="#{:selected unless params[:order_by] == 'date'}" href="#{works_person_url @resource}" По рейтингу
-    a class="#{:selected if params[:order_by] == 'date'}" href="#{works_person_url @resource, order_by: 'date'}" По дате выхода
+    a[
+      class="#{:selected unless params[:order_by] == 'date'}"
+      href="#{works_person_url @resource}"
+    ] = t 'by.ranked'
+    a[
+      class="#{:selected if params[:order_by] == 'date'}"
+      href="#{works_person_url @resource, order_by: 'date'}"
+    ] = t 'by.aired_on'
 
   .subheadline.m10 = @page_title.last
   .cc-5.to-process data-dynamic="cutted_covers"

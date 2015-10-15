@@ -15,12 +15,19 @@ en:
     take: Take
     upload: Upload
     upload_image: Upload image
+  by:
+    ranked: By rank
+    kind: By type
+    popularity: By popularity
+    name: In alphabetical order
+    aired_on: By release date
   anime_list: Anime List
   anime_title: Anime title
   animegraphy: Animegraphy
   back: back
   back_to_page: Back to page
   best_roles: Best roles
+  best_works: Best works
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved

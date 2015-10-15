@@ -1,25 +1,36 @@
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
     a href="#{person_url person}" title="#{localized_name person}"
-      img.image src="#{person.image.url :preview}" srcset="#{person.image.url :original} 2x" alt="#{localized_name person}"
+      img.image[
+        src="#{person.image.url :preview}"
+        srcset="#{person.image.url :original} 2x"
+        alt="#{localized_name person}"
+      ]
 
   .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
-    .line itemprop="name"
+    .line itemprop='name'
       .data.name
         - if !defined?(cover_by) || cover_by != :link
-          a.data.name href="#{person_url person}" title="#{localized_name person}" itemprop="name"
-            = localized_name person
+          a.data.name[
+            href="#{person_url person}"
+            title="#{localized_name person}"
+            itemprop='name'
+          ] = localized_name person
+
         - else
-          .linkeable.name data-href="#{person_url person}" data-title="#{localized_name person}"
-            = localized_name person
+          .linkeable.name[
+            data-href="#{person_url person}"
+            data-title="#{localized_name person}"
+          ] = localized_name person
 
         .job-title
           = person.job_title
 
-    .text itemprop="description"
+    .text itemprop='description'
       - if @resource.credentials?
         = info_line t('in_japanese'), @resource.japanese
-        = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
+        - if @resource.birthday
+          = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true)
         = info_line Person.human_attribute_name(:website), @resource.website_html
 
     - if person.main_role?(:seyu)
@@ -30,6 +41,6 @@
 
     - else
       .line.works
-        .key Лучшие работы:&nbsp;
+        .key #{t 'best_works'}:&nbsp;
       .cc-4a.best-works
         = render person.best_works.take(4), cover_by: :image_link

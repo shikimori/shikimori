@@ -24,7 +24,7 @@ class PeopleController < DbEntriesController
 
   def works
     noindex
-    page_title 'Участие в проектах'
+    page_title i18n_t('participation_in_projects')
   end
 
   # TODO: удалить после 05.2015
@@ -57,11 +57,11 @@ private
 
   def search_title
     if params[:kind] == 'producer'
-      'Поиск режиссёров'
+      i18n_t 'search_producers'
     elsif params[:kind] == 'mangaka'
-      'Поиск мангак'
+      i18n_t 'search_mangakas'
     else
-      'Поиск людей'
+      i18n_t 'search_people'
     end
   end
 

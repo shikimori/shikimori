@@ -8,3 +8,9 @@ ru:
         edit: Редактировать
       changes_history: История правок
       moderators_only: только для модераторов
+
+    index:
+      search_results_for_query: Результат поиска по запросу "%{query}"
+      positions_in_anime: Роли в аниме
+      positions_in_manga: Роли в манге
+      positions_in_anime_manga: Роли в аниме и манге

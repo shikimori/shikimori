@@ -100,6 +100,10 @@ en:
   people_controller:
     <<: *animes_controller
     entry_edit: Edit person
+    participation_in_projects: Participation in projects
+    search_producers: Search producers
+    search_mangakas: Search mangakas
+    search_people: Search people
 
   seyu_controller:
     <<: *animes_controller

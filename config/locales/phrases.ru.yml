@@ -15,12 +15,19 @@ ru:
     upload: Загрузить
     upload: Загрузить
     upload_image: Загрузить изображение
+  by:
+    ranked: По рейтингу
+    kind: По типу
+    popularity: По популярности
+    name: По алфавиту
+    aired_on: По дате выхода
   anime_list: Список аниме
   anime_title: Название аниме
   animegraphy: Анимеграфия
   back: назад
   back_to_page: Назад на страницу
   best_roles: Лучшие роли
+  best_works: Лучшие работы
   character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
@@ -56,7 +63,7 @@ ru:
   news: Новости
   no: нет
   no_comments: Нет комментариев
-  nothing_found: Ничего нет.
+  nothing_found: Ничего не найдено.
   notifications: Уведомления
   out_of: из
   person: Человек
