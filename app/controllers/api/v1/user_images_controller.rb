@@ -1,4 +1,4 @@
-class Api::V1::UserImagesController < ShikimoriController
+class Api::V1::UserImagesController < Api::V1::ApiController
   before_filter :authenticate_user!
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
