@@ -1,8 +1,6 @@
 / специальная вёрстка отображения отдельного сезона:
 / каталог разбит на куски по kind, каждый кусок отображается с заголовков
 
-- content_by = user_signed_in? || turbolinks_request? ? :inline_tooltip : :tooltip
-
 - if @render_by_kind
   - if @entries.none? && @current_page == 1
     .b-nothing_here Ничего нет
@@ -15,17 +13,17 @@
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
+          = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
 
 - else
   .cc-entries
     - if @entries.none? && @current_page == 1
       .b-nothing_here Ничего нет
     - else
-      = render @entries, cover_notice: :year_kind, content_by: content_by
+      = render @entries, cover_notice: :year_kind, content_by: :tooltip
 
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
