@@ -143,17 +143,17 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 5
-        expect(anime.episodes_aired).to eq 6
+        expect{subject}.to change(AnimeNews, :count).by 0
+        expect(anime.episodes_aired).to eq episodes_aired
       end
     end
 
     describe 'interval intersect' do
-      let(:episodes_aired) { 4 }
+      let(:episodes_aired) { 5 }
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 2
+        expect{subject}.to change(AnimeNews, :count).by 1
         expect(anime.episodes_aired).to eq 6
       end
     end
