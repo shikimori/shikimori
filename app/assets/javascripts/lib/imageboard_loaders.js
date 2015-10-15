@@ -132,7 +132,7 @@ function camo_url(image, image_url, tags) {
     .replace(/ /g, '__')
     .replace(/$/, extension);
 
-  return camo_base_url + "?filename=" + encodeURIComponent(filename) +
+  return camo_base_url + "?filename=" + filename +
     "&url=" + image_url;
 }
 
