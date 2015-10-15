@@ -1,5 +1,3 @@
-var CAMO_URL = "http://shikimori.org/camo?url="
-
 function ImagesLoader(options) {
   // базовый урл борды
   var base_url = options.base_url;
@@ -15,7 +13,7 @@ function ImagesLoader(options) {
   var is_loading = false;
 
   // обработка полученных от удалённой галереи данных
-  function extract_images(data) {
+  function extract_images(data, tags) {
     if (data && 'posts' in data) {
       data = {json: data.posts.post};
     }
@@ -44,10 +42,10 @@ function ImagesLoader(options) {
 
     return _.map(images, function(image) {
       return {
-        preview_url: (options.preview_url_builder || preview_url_builder)(image),
+        preview_url: (options.preview_url_builder || preview_url_builder)(image, tags),
         preview_width: image.preview_width,
         preview_height: image.preview_height,
-        url: (options.image_url_builder || image_url_builder)(image),
+        url: (options.image_url_builder || image_url_builder)(image, tags),
         md5: image.md5,
         tags: image.tags
       };
@@ -60,11 +58,11 @@ function ImagesLoader(options) {
   };
 
   // построитель урла к картинке
-  var image_url_builder = function(image) {
-    return CAMO_URL + image.file_url;
+  var image_url_builder = function(image, tags) {
+    return camo_url(image, image.file_url, tags);
   };
 
-  var preview_url_builder = function(image) {
+  var preview_url_builder = function(image, tags) {
     return image.preview_url.indexOf('http') == 0 ? image.preview_url : base_url + image.preview_url;
   }
 
@@ -85,7 +83,7 @@ function ImagesLoader(options) {
 
       if (options.local_load) {
         $.getJSON('/danbooru/yandere/'+Base64.encode(url)).success(function(data) {
-          images = extract_images(data);
+          images = extract_images(data, tags);
           page += 1;
           is_loading = false;
 
@@ -99,7 +97,7 @@ function ImagesLoader(options) {
 
       } else {
         $['yql' + options.data_format](url, function(data) {
-          images = extract_images(data);
+          images = extract_images(data, tags);
           page += 1;
           is_loading = false;
 
@@ -125,6 +123,19 @@ function ImagesLoader(options) {
   }
 };
 
+function camo_url(image, image_url, tags) {
+  var camo_base_url = "http://shikimori.org/camo";
+  var extension = '.' + image_url.replace(/.*\./, '');
+  var filename = (tags + '_' + image.width + 'x' + image.height + '_' +
+      image.author + '_' + image.id)
+    .replace(/^_/, '')
+    .replace(/ /g, '__')
+    .replace(/$/, extension);
+
+  return camo_base_url + "?filename=" + encodeURIComponent(filename) +
+    "&url=" + image_url;
+}
+
 function SafebooruLoader(forbidden_tags) {
   return new ImagesLoader({
     base_url: 'http://safebooru.org',
@@ -132,7 +143,8 @@ function SafebooruLoader(forbidden_tags) {
     forbidden_tags: forbidden_tags,
     name: 'Safebooru',
     remote_url_builder: function(base_url, page, limit, tags) {
-      return base_url + '/index.php?page=dapi&s=post&q=index&pid=' + (page-1) + '&limit=' + limit + '&tags=' + tags;
+      return base_url + '/index.php?page=dapi&s=post&q=index&pid=' + (page-1) +
+        '&limit=' + limit + '&tags=' + tags;
     },
     image_url_builder: function(image) {
       return image.file_url;
@@ -146,11 +158,11 @@ function DanbooruLoader(forbidden_tags) {
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
     name: 'Danbooru',
-    image_url_builder: function(image) {
-      return CAMO_URL + BASE_URL + image.file_url;
+    image_url_builder: function(image, tags) {
+      return camo_url(image, BASE_URL + image.file_url, tags);
     },
-    preview_url_builder: function(image) {
-      return CAMO_URL + BASE_URL + image.preview_url;
+    preview_url_builder: function(image, tags) {
+      return camo_url(image, BASE_URL + image.preview_url);
     }
   });
 }
@@ -169,8 +181,8 @@ function KonachanLoader(forbidden_tags) {
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
     name: 'Konachan',
-    preview_url_builder: function(image) {
-      return CAMO_URL + image.preview_url;
+    preview_url_builder: function(image, tags) {
+      return camo_url(image, image.preview_url, tags);
     }
   });
 }
