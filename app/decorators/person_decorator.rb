@@ -107,13 +107,13 @@ class PersonDecorator < DbEntryDecorator
 
   def occupation
     if has_anime? && has_manga?
-      i18n_t 'occupation.anime_manga'
+      :anime_manga
     elsif has_anime?
-      i18n_t 'occupation.anime'
+      :anime
     elsif has_manga?
-      i18n_t 'occupation.manga'
+      :manga
     else
-      i18n_t 'occupation.projects'
+      raise ArgumentError, "Unknown occupation for #{self.class.name} #{to_param}"
     end
   end
 

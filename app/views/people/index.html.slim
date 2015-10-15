@@ -2,10 +2,10 @@ header.head
   h1
     = @page_title.last
 
-  p.notice На данной странице отображён результат поиска по запросу "#{@page_title.last}"
+  p.notice = t '.search_results_for_query', query: params[:search]
 
 - if @collection.empty?
-  p Ничего не найдено.
+  p = t 'nothing_found'
 
 .cc-8
   = render @collection

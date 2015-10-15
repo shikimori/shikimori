@@ -48,14 +48,16 @@
     .block
       .subheadline Сортировка
       ul.block-list.orders.anime-params.subcontent
-        li.order-by-ranked По рейтингу
-        li.order-by-kind.hidden По типу
-        li.order-by-popularity По популярности
-        li.order-by-russian style="#{'display: none' unless user_signed_in? && current_user.preferences.russian_names?}"
-          | По алфавиту
-        li.order-by-name style="#{'display: none' if user_signed_in? && current_user.preferences.russian_names?}"
-          | По алфавиту
-        li.order-by-aired_on По дате выхода
+        li.order-by-ranked = t 'by.ranked'
+        li.order-by-kind.hidden = t 'by.kind'
+        li.order-by-popularity = t 'by.popularity'
+        li.order-by-russian[
+          style="#{'display: none' unless user_signed_in? && current_user.preferences.russian_names?}"
+        ] = t 'by.name'
+        li.order-by-name[
+          style="#{'display: none' if user_signed_in? && current_user.preferences.russian_names?}"
+        ] = t 'by.name'
+        li.order-by-aired_on = t 'by.aired_on'
 
         / используется в профиле пользователя
         - if defined?(in_user_profile)

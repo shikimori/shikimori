@@ -97,6 +97,10 @@ ru:
   people_controller:
     <<: *animes_controller
     entry_edit: Редактирование человека
+    participation_in_projects: Участие в проектах
+    search_producers: Поиск режиссёров
+    search_mangakas: Поиск мангак
+    search_people: Поиск людей
 
   seyu_controller:
     <<: *animes_controller

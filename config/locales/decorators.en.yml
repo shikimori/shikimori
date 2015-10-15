@@ -34,11 +34,6 @@ en:
       anime_manga_projects_participant: Anime & Manga projects participant
       anime_projects_participant: Anime projects participant
       manga_projects_participant: Manga projects participant
-    occupation:
-      anime_manga: Anime & Manga
-      anime: Anime
-      manga: Manga
-      projects: Projects
   seyu_decorator:
     <<: *person_decorator
   topic_decorator: &topic_decorator
