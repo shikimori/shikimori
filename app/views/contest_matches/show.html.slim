@@ -19,10 +19,7 @@
             data-method='post'
             data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
           ]
-            - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
-            - else
-              = render partial: 'characters/character', object: @match.left, locals: { content_by: :none }
+            = render @match.left, cover_notice: :studio, content_by: :none
           .vs
             div vs
             - if @match.started?
@@ -52,15 +49,16 @@
             data-method='post'
             data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'right'}"
           ]
-            - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.right, locals: { cover_notice: :studio, content_by: :none }
-            - else
-              = render partial: 'characters/character', object: @match.right, locals: { content_by: :none }
+            = render @match.right, cover_notice: :studio, content_by: :none
 
-        - if @match.round.number > 1 && (@match.contest.defeated_by(@match.left, @match.round) + @match.contest.defeated_by(@match.right, @match.round)).any?
-          .match-losers.cc
-            = render partial: 'contest_matches/losers', object: @match.contest.defeated_by(@match.left, @match.round.prior_round), locals: { position: 'left' }
-            = render partial: 'contest_matches/losers', object: @match.contest.defeated_by(@match.right, @match.round.prior_round), locals: { position: 'right' }
+        - if @match.round.number > 1 && (@match.defeated_by(@match.left, @match.round) + @match.defeated_by(@match.right, @match.round)).any?
+          .match-losers.cc.to-process data-dynamic="cutted_covers"
+            = render partial: 'contest_matches/losers',
+              object: @match.defeated_by(@match.left, @match.round.prior_round),
+              locals: { position: 'left' }
+            = render partial: 'contest_matches/losers',
+              object: @match.defeated_by(@match.right, @match.round.prior_round),
+              locals: { position: 'right' }
 
         - if @match.finished?
           a.votes-percents href="#{round_match_users_contest_url @match.contest, round: @match.round, match_id: @match.id}"
@@ -77,11 +75,10 @@
             data-method='post'
             data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
           ]
-            - if @match.contest.anime?
-              = render partial: 'animes/anime', object: @match.left, locals: { cover_notice: :studio, content_by: :none }
-            - else
-              = render partial: 'characters/character', object: @match.left, locals: { content_by: :none }
+            = render @match.left, cover_notice: :studio, content_by: :none
 
-        - if @match.contest.defeated_by(@match.left, @match.round).any?
+        - if @match.defeated_by(@match.left, @match.round).any?
           .match-losers
-            = render 'contest_matches/losers', losers: @match.contest.defeated_by(@match.left, @match.round), position: 'center'
+            = render 'contest_matches/losers',
+              losers: @match.defeated_by(@match.left, @match.round),
+              position: 'center'

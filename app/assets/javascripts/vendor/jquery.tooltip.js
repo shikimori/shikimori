@@ -242,6 +242,8 @@
         }
         // tip not initialized yet
         if (!tip) {
+          var remote_url = trigger.data('tooltip_url') || trigger.data('href');
+
           // data-tooltip
           if (tipAttr) {
             tip = $(tipAttr);
@@ -251,15 +253,20 @@
             tip = $(conf.tip).eq(0);
 
           // remote tooltip
-          } else if (!trigger.data('local-tooltip') && (trigger.data('tooltip_url') || trigger.data('href') || trigger.attr('href'))) {
+          } else if ((remote_url || trigger.attr('href')) && !trigger.data('local-tooltip')) {
             tip = $(conf.defaultTemplate)
               .addClass(conf.tipClass)
               .css('z-index', parseInt(trigger.parents('.tooltip').css('z-index')) || 1)
-              .hide()
-              .appendTo(document.body);
+              .hide();
+
+            if (trigger.data('insert-tooltip-after')) {
+              tip.insertAfter(trigger);
+            } else {
+              tip.appendTo(document.body);
+            }
 
             _.delay(function() {
-              tooltip_url = trigger.data('tooltip_url') || trigger.data('href') || trigger.attr('href').replace(/(\?|$)/, '/tooltip$1')
+              tooltip_url = remote_url || trigger.attr('href').replace(/(\?|$)/, '/tooltip$1')
               tip.find('.tooltip-details').load(tooltip_url, function() {
                 // если есть только картинка, то ставим класс tooltip-image
                 var $this = $(this);

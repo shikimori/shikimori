@@ -4,7 +4,7 @@
 .b-catalog_entry-tooltip
   .entry-tooltip_container
     - if local_assigns[:with_image]
-      a href="#{anime.url}" title="#{localized_name anime}"
+      a.image-link href="#{anime.url}" title="#{localized_name anime}"
         img.image src="#{cdn_image anime, :preview}" srcset="#{cdn_image anime, :original} 2x" alt="#{localized_name anime}"
 
     .inner class="#{:offset if local_assigns[:with_image]}"
@@ -68,8 +68,13 @@
 
       = info_line i18n_io('Genre', anime.main_genres.one? ? :one : :few) do
         - anime.main_genres.each do |genre|
-          .linkeable.tag temprop="genre" class="#{:bubbled if genre.description}" data-predelay="250" data-tooltip_url="#{tooltip_genre_url genre, subdomain: false}" data-href="#{anime.catalog_url genre: genre.to_param}"
-            = localized_name genre
+          .linkeable.tag[
+            temprop="genre"
+            class="#{:bubbled if genre.description}"
+            data-predelay="250"
+            data-tooltip_url="#{tooltip_genre_url genre, subdomain: false}"
+            data-href="#{anime.catalog_url genre: genre.to_param}"
+          ] = localized_name genre
 
       - if anime.with_score?
         .rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]

@@ -120,7 +120,8 @@ module AniMangaDecorator::UrlHelpers
   end
 
   def video_online_url
-    h.play_video_online_index_url object, episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false
+    h.play_video_online_index_url object,
+      episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false
   end
 
   def upload_first_video_online_url
@@ -133,5 +134,10 @@ module AniMangaDecorator::UrlHelpers
       domain: AnimeOnlineDomain::HOST,
       subdomain: false
     )
+  end
+
+  def tooltip_url minified = false
+    h.send "tooltip_#{klass_lower}_url", object,
+      minified: minified ? :minified : nil, subdomain: false
   end
 end

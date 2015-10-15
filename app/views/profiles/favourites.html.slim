@@ -3,40 +3,40 @@
     .block.m0
       .subheadline.m10 Аниме
       .cc.to-process data-dynamic="cutted_covers"
-        = render @resource.fav_animes
+        = render @resource.fav_animes.decorate
 
   - if @resource.fav_mangas.any?
     .block.m0
       .subheadline.m10 Манга
       .cc.to-process data-dynamic="cutted_covers"
-        = render @resource.fav_mangas
+        = render @resource.fav_mangas.decorate
 
   - if @resource.fav_characters.any?
     .block.m0
       .subheadline.m10 Герои
       .cc.to-process data-dynamic="cutted_covers" data-ratio_type="character"
-        = render @resource.fav_characters
+        = render @resource.fav_characters.decorate
 
   - if @resource.fav_seyu.any?
     .block.m0
       .subheadline.m10 Сэйю
       .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_seyu
+        = render @resource.fav_seyu.decorate
 
   - if @resource.fav_producers.any?
     .block.m0
       .subheadline.m10 Режиссёры
       .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_producers
+        = render @resource.fav_producers.decorate
 
   - if @resource.fav_mangakas.any?
     .block.m0
       .subheadline.m10 Мангаки
       .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_mangakas
+        = render @resource.fav_mangakas.decorate
 
   - if @resource.fav_persons.any?
     .block.m0
       .subheadline.m10 Прочие люди
       .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-        = render @resource.fav_persons
+        = render @resource.fav_persons.decorate

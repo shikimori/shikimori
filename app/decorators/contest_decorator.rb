@@ -1,7 +1,8 @@
 class ContestDecorator < DbEntryDecorator
-  instance_cache :displayed_round, :prior_round, :nearby_rounds, :displayed_match
-  instance_cache :left_voters, :right_voters, :uniq_voters, :refrained_voters, :suggestions
-  instance_cache :median_votes, :user_suggestions, :matches_with_associations, :rounds
+  instance_cache :members, :displayed_round, :prior_round, :nearby_rounds,
+    :displayed_match, :left_voters, :right_voters, :uniq_voters,
+    :refrained_voters, :suggestions, :median_votes, :user_suggestions,
+    :matches_with_associations, :rounds
 
   # текущий раунд
   def displayed_round
@@ -182,7 +183,12 @@ class ContestDecorator < DbEntryDecorator
     end
   end
 
+  def members
+    object.members.decorate
+  end
+
 private
+
   def matches_with_associations
     object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
   end

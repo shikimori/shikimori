@@ -32,6 +32,7 @@ class GroupDecorator < DbEntryDecorator
       .animes
       .order(:ranked)
       .uniq(&:id)
+      .map(&:decorate)
   end
 
   def animes
@@ -46,6 +47,7 @@ class GroupDecorator < DbEntryDecorator
       .mangas
       .order(:ranked)
       .uniq(&:id)
+      .map(&:decorate)
   end
 
   def mangas

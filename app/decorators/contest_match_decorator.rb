@@ -1,5 +1,13 @@
-class ContestMatchDecorator < Draper::Decorator
-  delegate_all
+class ContestMatchDecorator < BaseDecorator
+  instance_cache :left, :right
+
+  def left
+    object.left.decorate
+  end
+
+  def right
+    object.right.decorate
+  end
 
   def show_cache_key
     ['contests/match', object, object.voted_for, h.russian_names_key]
@@ -49,5 +57,10 @@ class ContestMatchDecorator < Draper::Decorator
 
   def voted_for_class
     !finished? && voted_for.present? ? "voted-#{voted_for}" : nil
+  end
+
+  def defeated_by entry, round
+    @defeated ||= {}
+    @defeated["#{entry.id}-#{round.id}"] ||= contest.defeated_by(entry, round).map(&:decorate)
   end
 end

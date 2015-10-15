@@ -13,17 +13,23 @@
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
+          = render @entries[data[:kind]],
+            cover_notice: :studio,
+            content_by: :mini_tooltip
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
-          = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
+          = render @entries[data[:kind]],
+            cover_notice: :studio,
+            content_by: :mini_tooltip
 
 - else
   .cc-entries
     - if @entries.none? && @current_page == 1
       .b-nothing_here Ничего нет
     - else
-      = render @entries, cover_notice: :year_kind, content_by: :tooltip
+      = render @entries,
+        cover_notice: :year_kind,
+        content_by: :mini_tooltip
 
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?

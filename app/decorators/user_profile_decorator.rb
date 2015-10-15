@@ -188,6 +188,7 @@ class UserProfileDecorator < UserDecorator
       .sort_by do |fav|
         [fav.class.name == Manga.name ? Anime.name : fav.class.name, fav.name]
       end
+      .map(&:decorate)
   end
 
   # полный топик

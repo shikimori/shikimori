@@ -65,7 +65,7 @@ private
     h.controller.render_to_string(
       partial: "#{name.pluralize}/#{name}",
       locals: {
-        "#{name}".to_sym => entry,
+        "#{name}".to_sym => entry.decorate,
         cover_title: cover_title,
         cover_notice: cover_notice
       },
