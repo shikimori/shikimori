@@ -5,8 +5,6 @@ class Moderations::AbuseRequestsController < ModerationsController
   before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :review, :spoiler, :abuse]
 
   def index
-    #raise Forbidden unless current_user.abuse_requests_moderator?
-
     @processed = postload_paginate(params[:page], 25) do
       AbuseRequest
         .where(kind: ['review', 'offtopic'])

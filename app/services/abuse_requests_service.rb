@@ -46,11 +46,11 @@ private
   end
 
   def allowed_review_change?
-    @comment.user_id == @reporter.id || @reporter.abuse_requests_moderator?
+    @comment.user_id == @reporter.id || @reporter.moderator?
   end
 
   def allowed_offtopic_change?
-   @reporter.abuse_requests_moderator? || (
+   @reporter.moderator? || (
         @comment.can_be_edited_by?(@reporter) &&
         (!@comment.offtopic? || @comment.can_cancel_offtopic?(@reporter))
       )

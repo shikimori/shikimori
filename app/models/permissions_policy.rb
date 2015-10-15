@@ -37,7 +37,7 @@ module PermissionsPolicy
     end
 
     def can_cancel_offtopic?(user)
-      can_be_deleted_by?(user) || user.abuse_requests_moderator?
+      can_be_deleted_by?(user) || user.moderator?
     end
   end
 
@@ -93,12 +93,6 @@ module PermissionsPolicy
       else
         raise ArgumentError, linked.comment_policy
       end
-    end
-  end
-
-  module AbuseRequestPermissions
-    def can_process?(user)
-      user.abuse_requests_moderator?
     end
   end
 end
