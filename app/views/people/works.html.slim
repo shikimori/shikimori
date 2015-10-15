@@ -4,5 +4,5 @@
     a class="#{:selected if params[:order_by] == 'date'}" href="#{works_person_url @resource, order_by: 'date'}" По дате выхода
 
   .subheadline.m10 = @page_title.last
-  .cc-5
+  .cc-5.to-process data-dynamic="cutted_covers"
     = render @resource.works, cover_notice: :role

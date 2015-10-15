@@ -304,6 +304,9 @@ Site::Application.routes.draw do
   end
 
   constraints ShikimoriDomain do
+    # main page
+    resource :dashboards, only: [:show]
+
     # форум
     root to: 'topics#index'
     get '/', to: 'topics#index', as: :forum

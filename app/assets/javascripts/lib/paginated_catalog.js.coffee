@@ -203,8 +203,8 @@ class @PaginatedCatalog
       .html(data.content)
       .process()
 
-    $('.head.ajaxable h1').html data.title
-    $('.head.ajaxable .notice').html data.notice
+    $('.head h1').html data.title
+    $('.head .notice').html data.notice
 
     @$link_current.html data.current_page
     @$link_total.html data.total_pages

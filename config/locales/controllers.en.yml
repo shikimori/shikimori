@@ -1,4 +1,7 @@
 en:
+  dashboards_controller:
+    h1_header: Anime and manga encyclopedia
+
   profiles_controller: &profiles_controller
     profile: Profile
     friends: Friends
@@ -100,8 +103,8 @@ en:
 
   seyu_controller:
     <<: *animes_controller
-    entry_edit: Edit seyu
-    search_seyu: Search seyu
+    entry_edit: Edit seiyu
+    search_seyu: Search seiyu
 
   screenshots_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!

@@ -1,4 +1,7 @@
 ru:
+  dashboards_controller:
+    h1_header: Энциклопедия аниме и манги
+
   profiles_controller: &profiles_controller
     profile: Профиль
     friends: Друзья
