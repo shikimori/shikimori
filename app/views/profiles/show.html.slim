@@ -146,28 +146,28 @@
         span.friend-action[
           style="#{'display: none;' if @resource.is_friended?}"
           data-remote="true"
-          data-action="#{friend_add_url @resource.id}"
+          data-action="#{api_friend_url @resource.id}"
           data-method="post"
           data-type="json"
         ] = t '.add_to_friends'
         span.friend-action[
           style="#{'display: none;' unless @resource.is_friended?}"
           data-remote="true"
-          data-action="#{friend_remove_url @resource.id}"
+          data-action="#{api_friend_url @resource.id}"
           data-method="delete"
           data-type="json"
         ] = t '.remove_from_friends'
         span.ignore-action[
           style="#{'display: none;' if @resource.ignored?}"
           data-remote="true"
-          data-action="#{ignore_add_url @resource.id}"
+          data-action="#{api_ignore_url @resource.id}"
           data-method="post"
           data-type="json"
         ] = t '.add_to_ignored'
         span.ignore-action[
           style="#{'display: none;' unless @resource.ignored?}"
           data-remote="true"
-          data-action="#{ignore_remove_url @resource.id}"
+          data-action="#{api_ignore_url @resource.id}"
           data-method="delete"
           data-type="json"
         ] = t '.remove_from_ignored'
