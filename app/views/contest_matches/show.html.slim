@@ -72,17 +72,18 @@
                 span #{@match.right_percent}% (#{@match.right_votes})
 
       - else
-        .match-members
-          .match-member.voted.centered [
-            data-variant='left'
-            data-type='json'
-            data-method='post'
-            data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
-          ]
-            = render @match.left, cover_notice: :studio, content_by: :none
+        center
+          .match-members
+            .match-member.voted [
+              data-variant='left'
+              data-type='json'
+              data-method='post'
+              data-action="#{vote_contest_contest_match_url contest_id: @match.round.contest_id, id: @match.id, variant: 'left'}"
+            ]
+              = render @match.left, cover_notice: :studio, content_by: :none
 
-        - if @match.defeated_by(@match.left, @match.round).any?
-          .match-losers
-            = render 'contest_matches/losers',
-              losers: @match.defeated_by(@match.left, @match.round),
-              position: 'center'
+          - if @match.defeated_by(@match.left, @match.round).any?
+            .match-losers
+              = render 'contest_matches/losers',
+                losers: @match.defeated_by(@match.left, @match.round),
+                position: 'center'

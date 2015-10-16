@@ -7,9 +7,6 @@
 @import mixins/link
 @import mixins/responsive
 
-$horizontal-offset: 90px
-$centered-block-offset: 283.5px
-
 .p-contests .contest-match
   +block_m
   position: relative
@@ -25,8 +22,6 @@ $centered-block-offset: 283.5px
       width: 50px
       padding-top: 15%
     +iphone_portrait
-      //width: 35px
-      //padding-top: 13%
       width: 59px
       padding-top: 325px
 
@@ -67,21 +62,21 @@ $centered-block-offset: 283.5px
           width: 33.333%
           float: left
 
-      .b-catalog_entry
-        width: 100%
-        +gte_ipad
-          max-width: 160px
+        &>.b-catalog_entry
+          width: 100%
+          +gte_ipad
+            max-width: 160px
 
       .vs + .match-member
         &>.b-catalog_entry
           float: right
 
-  //.b-catalog_entry
-    float: left
-    margin-right: 0
+    center
+      .match-members .match-member,
+      .match-losers .losers
+        float: none
 
   .match-member
-    //+opacity(0.4)
     +transition(opacity 0.3s ease)
 
     &.voted, &.hovered
@@ -89,11 +84,6 @@ $centered-block-offset: 283.5px
 
     &.unvoted, &.unhovered
       +opacity(0.4)
-
-    //&:first-child
-      margin-left: $horizontal-offset
-      &.centered
-        margin-left: $centered-block-offset
 
   .vs
     color: darken($gray-3, 10%)
@@ -106,8 +96,6 @@ $centered-block-offset: 283.5px
       font-size: 46px
       margin-top: 11%
     +iphone_portrait
-      //font-size: 30px
-      //margin-top: 13%
       font-size: 66px
       margin-bottom: 25px
       margin-top: -5px
@@ -157,42 +145,11 @@ $centered-block-offset: 283.5px
 
       .b-catalog_entry
         margin-bottom: 5px !important
-    //+clearfix
-    //margin: -5px $horizontal-offset 15px
-
-    //.left-part
-      //float: left
-      //width: 170px
-
-    //.right-part
-      //float: right
-      //width: 170px
-
-    //.center-part
-      //margin-left: $centered-block-offset - $horizontal-offset
-      //width: 170px
-
-    //.title
-      //color: #333
-      //margin-bottom: 3px
-
-    //a
-      //float: left
-      //margin: 0 8px 5px 0
-
-      //&:nth-child(4n)
-        //margin-right: 0
-
-      //img
-        //+image-selectable-decor
-        //padding: 1px
-        //width: 34px
 
   .votes-percents
     +text-field
     display: block
     line-height: 18px
-    //margin: 0 $horizontal-offset
     padding: 0
 
     .left-part
@@ -207,8 +164,10 @@ $centered-block-offset: 283.5px
 
       &:hover
         background-color: #79a9cf
+
         .right-part
           background-color: #edacd9
+
           &:before
             border-right: 30px solid #edacd9
 
