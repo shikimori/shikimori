@@ -2,11 +2,11 @@ class ContestMatchDecorator < BaseDecorator
   instance_cache :left, :right
 
   def left
-    object.left.decorate
+    object.left.decorate if object.left
   end
 
   def right
-    object.right.decorate
+    object.right.decorate if object.right
   end
 
   def show_cache_key
