@@ -2,7 +2,9 @@ module Translation
   # перевод фраз из декораторов, сервисов и т.д.
   def i18n_t key, options = {}
     yield options if block_given?
-    I18n.t! "#{self.class.name.underscore}.#{key}", options
+
+    klass = self.class == Class ? self : self.class
+    I18n.t! "#{klass.name.underscore}.#{key}", options
 
   rescue I18n::MissingTranslationData
     I18n.t key, options
