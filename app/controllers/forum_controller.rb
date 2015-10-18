@@ -149,8 +149,8 @@ private
   # прикреплённые топики на форуме
   def sticked_topics
     rules = [
-      { url: '/s/79042-Pravila-sayta', title: 'Правила сайта', description: 'Что не стоит делать на сайте' },
-      { url: '/s/85018-FAQ-Chasto-zadavaemye-voprosy', title: 'FAQ', description: 'Часто задаваемые вопросы' },
+      { url: '/s/79042-Pravila-sayta', title: "#{t 'site_rules'}", description: 'Что не стоит делать на сайте' },
+      { url: '/s/85018-FAQ-Chasto-zadavaemye-voprosy', title: 'FAQ', description: "#{t 'faq'}" },
       { url: '/s/103553-Opisaniya-zhanrov', title: 'Описания жанров', description: 'Для желающих помочь сайту' },
       { url: '/s/10586-Pozhelaniya-po-saytu', title: 'Идеи и предложения', description: 'Было бы неплохо реализовать это...' },
       { url: '/s/102-Tema-ob-oshibkah', title: 'Ошибки', description: 'Топик о любых проблемах на сайте' }

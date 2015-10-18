@@ -22,7 +22,7 @@ class PagesController < ShikimoriController
 
   # о сайте
   def about
-    @page_title = 'О сайте'
+    @page_title = t 'about_site'
     @statistics = SiteStatistics.new
     @topic = Topic.find(ABOUT_TOPIC_ID).decorate
   end

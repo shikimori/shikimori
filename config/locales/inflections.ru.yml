@@ -282,8 +282,15 @@ ru:
       studio:
         subjective:
           one: студия
-          few: форума
-          many: форумов
+          few: студии
+          many: студий
+          other: студии
+      ongoing:
+        subjective:
+          one: онгоинг
+          few: онгоинга
+          many: онгоингов
+          other: онгоинги
 
       datetime:
         second:

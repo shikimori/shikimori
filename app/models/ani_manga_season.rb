@@ -86,6 +86,7 @@ class AniMangaSeason
         when /^([a-z]+)_(\d+)$/
           year = $2.to_i
           season = $1
+
           case season
             when 'winter'
               "зимы #{year}"

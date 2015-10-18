@@ -21,6 +21,8 @@ ru:
     popularity: По популярности
     name: По алфавиту
     aired_on: По дате выхода
+  about_site: О сайте
+  anime_industry: Индустрия аниме
   anime_list: Список аниме
   anime_title: Название аниме
   animegraphy: Анимеграфия
@@ -28,6 +30,7 @@ ru:
   back_to_page: Назад на страницу
   best_roles: Лучшие роли
   best_works: Лучшие работы
+  calendar: Календарь
   character_name: Имя персонажа
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
@@ -44,6 +47,7 @@ ru:
   back_to_page: Назад на страницу
   changes_not_saved: Изменения не сохранены!
   changes_saved: Изменения сохранены
+  faq: Часто задаваемые вопросы
   female: жен.
   gallery: Галерея
   goto: Перейти
@@ -73,6 +77,7 @@ ru:
   seyu: Сэйю
   share: Поделиться
   shikimori: Шикимори
+  site_rules: Правила сайта
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
   this_action_cant_be_undone: Это действие необратимо!

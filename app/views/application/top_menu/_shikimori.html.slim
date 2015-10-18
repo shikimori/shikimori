@@ -2,12 +2,22 @@
   .submenu-toggler
   a href="#{animes_url}" title="#{Anime.model_name.human}" = Anime.model_name.human
   .submenu
-    a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
+    a.entry[
+      href="#{animes_url type: nil, status: 'ongoing'}"
+      title="#{t '.currently_airing'}"
+    ] = i18n_i 'Ongoing', :other
     - AniMangaSeason.menu_seasons.each do |season, short_title, full_title|
-      a.entry href="#{animes_url type: nil, season: season}" title="#{full_title}" = short_title
-    a.entry href="#{studios_url}" title="Студии" Студии
+      a.entry[
+        href="#{animes_url type: nil, season: season}"
+        title="#{full_title}"
+      ] = short_title
+    a.entry href="#{studios_url}" title="#{i18n_i 'Studio', :other}" = i18n_i 'Studio', :other
 
-a.entry.calendar class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}" href="#{ongoings_pages_url}" title="Календарь"
+a.entry.calendar[
+  class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}"
+  href="#{ongoings_pages_url}"
+  title="#{t 'calendar'}"
+]
 
 a.entry[
   class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
@@ -51,8 +61,8 @@ a.entry.rel[
   a.entry[
     class="#{:selected if params[:controller] == 'recommendations'}"
     href="#{recommendations_favourites_anime_url}"
-    title="Какие аниме посмотреть"
-  ] Какие аниме посмотреть
+    title="#{t '.what_anime_to_watch'}"
+  ] = t '.what_anime_to_watch'
 
 .entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
   .submenu-toggler
@@ -78,18 +88,18 @@ a.entry.rel[
     a.entry[
       class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}"
       href="#{anime_history_url}"
-      title="Индустрия аниме"
+      title="${t 'anime_industry'}"
       data-no-turbolink="true"
-    ] Индустрия аниме
+    ] = t 'anime_industry'
     a.entry[
       class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}"
       href="#{about_pages_url}"
-      title="О сайте"
-      data-no-turbolink="true"
-    ] О сайте
+      title="#{t 'about_site'}"
+      data-no-turbolink='true'
+    ] = t 'about_site'
     - if user_signed_in?
-      a.entry href="/s/79042-Pravila-sayta" title="Правила сайта" Правила сайта
-      a.entry href="/s/85018-FAQ-Chasto-zadavaemye-voprosy" title="Часто задаваемые вопросы" FAQ
+      a.entry href='/s/79042-Pravila-sayta' title="#{t 'site_rules'}" = t 'site_rules'
+      a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title="#{t 'faq'}" FAQ
       a.entry[
         href="#{moderations_url}"
         title="#{t '.moderations_content'}"
