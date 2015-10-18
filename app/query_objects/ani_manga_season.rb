@@ -114,27 +114,6 @@ class AniMangaSeason
       end
     end
 
-    def catalog_seasons
-      month = Time.zone.now.beginning_of_month
-      [
-        date_to_season(month + 3.months),
-        date_to_season(month),
-        date_to_season(month - 3.months),
-        date_to_season(month - 6.months),
-        month.year.to_s,
-        (month.year - 1).to_s,
-      ].map do |season|
-        [season, catalog_to_s(season)]
-      end + [
-        ["#{month.year-3}_#{month.year - 2}", "#{month.year-3}-#{month.year - 2}"],
-        ["#{month.year-8}_#{month.year - 4}", "#{month.year-8}-#{month.year - 4}"],
-        ["2000_#{month.year - 9}", "2000-#{month.year - 9}"],
-        ['199x', '90е годы'],
-        ['198x', '80е годы'],
-        ['ancient', 'более старые']
-      ]
-    end
-
     def menu_seasons
       month = Time.zone.now.beginning_of_month
       [
@@ -150,19 +129,6 @@ class AniMangaSeason
     end
 
   private
-    def catalog_to_s season
-      if season =~ /^\d+$/
-        "#{season} год"
-      elsif season =~ /spring/
-        season.sub 'spring_', 'Весна '
-      elsif season =~ /summer/
-        season.sub 'summer_', 'Лето '
-      elsif season =~ /fall/
-        season.sub 'fall_', 'Осень '
-      elsif season =~ /winter/
-        season.sub 'winter_', 'Зима '
-      end
-    end
 
     def menu_to_s season, is_short
       if season =~ /^\d+$/

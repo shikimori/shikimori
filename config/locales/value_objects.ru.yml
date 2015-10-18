@@ -1,0 +1,10 @@
+ru:
+  season_pair:
+    seasons:
+      winter: Зима %{year}
+      spring: Весна %{year}
+      summer: Лето %{year}
+      fall: Осень %{year}
+    year: '%{year} год'
+    decade: '%{decade}0е годы'
+    ancient: более старые

@@ -1,0 +1,10 @@
+en:
+  season_pair:
+    seasons:
+      winter: Winter %{year}
+      spring: Spring %{year}
+      summer: Summer %{year}
+      fall: Fall %{year}
+    year: '%{year}'
+    decade: '%{decade}0s'
+    ancient: older

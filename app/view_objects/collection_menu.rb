@@ -22,6 +22,26 @@ class CollectionMenu < ViewObjectBase
     @publishers || load_associations.third
   end
 
+  def seasons
+    month = Time.zone.now.beginning_of_month
+    Hash[
+      [
+        SeasonPair.new(month + 3.months).season_year,
+        SeasonPair.new(month).season_year,
+        SeasonPair.new(month - 3.months).season_year,
+        SeasonPair.new(month - 6.months).season_year,
+        SeasonPair.new(month).year,
+        SeasonPair.new(month - 1.year).year,
+        SeasonPair.new(month - 2.years).years(2),
+        SeasonPair.new(month - 4.years).years(5),
+        SeasonPair.new(month - 9.years).years(7),
+        SeasonPair.new(Date.parse '1995-01-01').decade,
+        SeasonPair.new(Date.parse '1985-01-01').decade,
+        SeasonPair.new(nil).ancient
+      ]
+    ]
+  end
+
 private
 
   def load_associations

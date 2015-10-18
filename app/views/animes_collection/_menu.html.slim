@@ -91,7 +91,7 @@
   .block
     .subheadline Сезон
     ul.block-list.seasons.anime-params
-      - AniMangaSeason.catalog_seasons.each do |(season,title)|
+      - menu.seasons.each do |season, title|
         li class="season-#{season}"
           input type="checkbox" autocomplete="off"
           = title
