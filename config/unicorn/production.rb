@@ -26,9 +26,8 @@ stdout_path "#{shared_path}/log/unicorn.log"
 # Set master PID location
 pid "#{shared_path}/tmp/pids/unicorn.pid"
 
-# combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
-# http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
 preload_app true
+
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
@@ -45,6 +44,11 @@ before_exec do |server|
 end
 
 before_fork do |server, worker|
+  #Signal.trap 'TERM' do
+    #puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
+    #Process.kill 'QUIT', Process.pid
+  #end
+
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.connection.disconnect!
 
@@ -76,6 +80,10 @@ before_fork do |server, worker|
 end
 
 after_fork do |server, worker|
+  #Signal.trap 'TERM' do
+    #puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
+  #end
+
   # per-process listener ports for debugging/admin/migrations
   # addr = "127.0.0.1:#{9293 + worker.nr}"
   # server.listen(addr, tries: -1, delay: 5, tcp_nopush: true)

@@ -41,6 +41,8 @@ module Site
     config.middleware.insert 0, 'ProxyTest'
     config.middleware.use 'Rack::JSONP'
     config.middleware.use 'Rack::Attack'
+    # TODO: remove after timeout test finish (27-10-2015)
+    config.middleware.use 'LogBeforeTimeout'
 
     config.middleware.insert_before 0, 'Rack::Cors' do
       allow do
