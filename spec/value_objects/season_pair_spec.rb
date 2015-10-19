@@ -8,6 +8,6 @@ describe SeasonPair do
   it { expect(pair.season_year).to eq ['fall_2015', 'Осень 2015'] }
   it { expect(pair.year).to eq ['2015', '2015 год'] }
   it { expect(pair.years(5)).to eq ['2011_2015', '2011-2015'] }
-  it { expect(pair.decade).to eq ['201x', '10е годы'] }
-  it { expect(pair.ancient).to eq ['ancient', 'более старые'] }
+  it { expect(pair.decade).to eq ['201x', '2010е годы'] }
+  it { expect(pair.ancient).to eq ['ancient', 'Более старые'] }
 end

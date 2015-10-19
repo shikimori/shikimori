@@ -1,10 +1,27 @@
 en:
   season_pair:
-    seasons:
+    season:
       winter: Winter %{year}
       spring: Spring %{year}
       summer: Summer %{year}
       fall: Fall %{year}
     year: '%{year}'
     decade: '%{decade}0s'
-    ancient: older
+    ancient: Older
+
+  menu_season_pair:
+    short:
+      season :
+        winter: Winter Season
+        spring: Spring Season
+        summer: Summer Season
+        fall: Fall Season
+      year: '%{year}'
+
+    full:
+      season:
+        winter: Winter Season %{year}
+        spring: Spring Season %{year}
+        summer: Summer Season %{year}
+        fall: Fall Season %{year}
+      year: Anime %{year}

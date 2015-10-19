@@ -6,7 +6,7 @@ class SeasonPair
   def season_year
     [
       "#{extract_season date}_#{extract_year date}",
-      i18n_t("seasons.#{extract_season date}", year: extract_year(date))
+      i18n_t("season.#{extract_season date}", year: extract_year(date))
     ]
   end
 
@@ -32,7 +32,7 @@ class SeasonPair
 
     [
       year.sub(/\d$/, 'x'),
-      i18n_t('decade', decade: year[2])
+      i18n_t('decade', decade: year[0..2])
     ]
   end
 

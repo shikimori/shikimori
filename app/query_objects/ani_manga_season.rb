@@ -12,7 +12,7 @@ class AniMangaSeason
           season = $1
           date_from = nil
           date_to = nil
-          additional = ""
+          additional = ''
           case season
             when 'winter'
               date_from = Date.new(year-1, 12) - 8.days
@@ -111,49 +111,6 @@ class AniMangaSeason
 
         when /^\d{2}(\d)x$/
           i18n_t 'of.decade', decade: $1
-      end
-    end
-
-    def menu_seasons
-      month = Time.zone.now.beginning_of_month
-      [
-        (month + 2.months).year.to_s,
-        (month + 2.months).year == month.year ? (month.year - 1).to_s : month.year.to_s,
-        date_to_season(month + 3.months),
-        date_to_season(month),
-        date_to_season(month - 3.months),
-        date_to_season(month - 6.months),
-      ].map do |season|
-        [season, menu_to_s(season, true), menu_to_s(season, false)]
-      end
-    end
-
-  private
-
-    def menu_to_s season, is_short
-      if season =~ /^\d+$/
-        is_short ? "#{season} год" : "Аниме #{season} года"
-      elsif season =~ /spring_(?<year>\d+)/
-        is_short ? 'Весенний сезон' : "Весенний сезон #{$~[:year]} года"
-      elsif season =~ /summer_(?<year>\d+)/
-        is_short ? 'Летний сезон' : "Летний сезон #{$~[:year]} года"
-      elsif season =~ /fall_(?<year>\d+)/
-        is_short ? 'Осенний сезон' : "Осенний сезон #{$~[:year]} года"
-      elsif season =~ /winter_(?<year>\d+)/
-        is_short ? 'Зимний сезон' : "Зимний сезон #{$~[:year]} года"
-      end
-    end
-
-    def date_to_season date
-      "#{month_to_string date.month}_#{date.month == 12 ? date.year + 1 : date.year}"
-    end
-
-    def month_to_string month
-      case month
-        when 1,2,12 then 'winter'
-        when 3,4,5 then 'spring'
-        when 6,7,8 then 'summer'
-        else 'fall'
       end
     end
   end

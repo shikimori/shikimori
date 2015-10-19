@@ -10,7 +10,7 @@ describe CollectionMenu do
     it { expect(menu.sorted_genres).to eq [genre_1, genre_2] }
   end
 
-  describe '#seasons',:focus do
+  describe '#seasons' do
     subject { menu.seasons }
 
     it do
