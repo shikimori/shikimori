@@ -1,0 +1,11 @@
+@import mixins/responsive
+
+.p-dashboards-show
+  .ongoings
+    +iphone_landscape
+      .item-4, .item-5
+        display: none
+
+    +iphone_portrait
+      .item-3, .item-4, .item-5
+        display: none

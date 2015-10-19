@@ -1,5 +1,4 @@
 class AbuseRequest < ActiveRecord::Base
-  include PermissionsPolicy
   extend Enumerize
 
   MAXIMUM_REASON_SIZE = 255

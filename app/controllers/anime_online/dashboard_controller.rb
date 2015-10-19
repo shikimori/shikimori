@@ -9,14 +9,7 @@ class AnimeOnline::DashboardController < ShikimoriController
     @recent_videos = @recent_videos.map {|v| AnimeWithEpisode.new v.anime.decorate, v }
 
     unless json?
-      @ongoings = Anime
-        .includes(:genres)
-        .where(status: :ongoing)
-        .where.not(rating: 'G - All Ages')
-        .where('score < 9.9')
-        .where(is_adult ? AnimeVideo::XPLAY_CONDITION : { kind: :tv, censored: false })
-        .order(AniMangaQuery.order_sql 'ranked', Anime)
-        .limit(15).decorate
+      @ongoings = OngoingsQuery.new(is_adult).fetch(15).decorate
 
       @contributors = Rails.cache.fetch [:video_contributors, is_adult], expires_in: 2.days do
         AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)

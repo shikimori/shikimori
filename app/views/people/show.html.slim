@@ -140,17 +140,19 @@
                 = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
                 = info_line Person.human_attribute_name(:website), @resource.website_html
 
-        .c-info-right
-          .subheadline = t ".positions_in_#{@resource.occupation}"
-          .b-entry-info
-            - @resource.groupped_roles.each do |role,times|
-              = info_line role, times
+        - if @resource.groupped_roles.any?
+          .c-info-right
+            .subheadline = t ".positions_in_#{@resource.occupation}"
+            .b-entry-info
+              - @resource.groupped_roles.each do |role,times|
+                = info_line role, times
 
-    .c-description.m0
-      .subheadline.m10
-        .linkeable data-href="#{works_person_url @resource}" = t 'best_works'
-      .c-works
-        = render @resource.best_works, cover_notice: :role
+    - if @resource.best_works.any?
+      .c-description.m0
+        .subheadline.m10
+          .linkeable data-href="#{works_person_url @resource}" = t 'best_works'
+        .c-works
+          = render @resource.best_works, cover_notice: :role
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3

@@ -1,3 +1,13 @@
-header.head
-  h1
+/header.head
+  /h1
     = @page_title.last
+
+.headline.blue Сейчас на экранах
+.cc-8.ongoings.cc-similar.to-process data-dynamic="cutted_covers"
+  = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
+
+.cc-2
+  .c-column
+    .headline.green Лучшие аниме
+    .cc-4.favourite.cc-similar.to-process data-dynamic="cutted_covers"
+      = render @view.favourites, cover_notice: :studio, content_by: :mini_tooltip
