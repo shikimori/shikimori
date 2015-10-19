@@ -17,7 +17,6 @@ ru:
         summer: Летний сезон
         fall: Осенний сезон
       year: '%{year} год'
-
     full:
       season:
         winter: Зимний сезон %{year} года

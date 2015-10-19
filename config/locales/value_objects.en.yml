@@ -17,7 +17,6 @@ en:
         summer: Summer Season
         fall: Fall Season
       year: '%{year}'
-
     full:
       season:
         winter: Winter Season %{year}

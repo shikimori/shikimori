@@ -14,3 +14,24 @@ en:
       total: Total
       video_content: Video content
       website_developer: Website developer
+    feedback:
+      title: Message to administration
+      text: >-
+        [p]
+        Have an interesting idea?
+        Or you don't like or miss anything here?
+        Tell us about it in [url=http://shikimori.org/s/10586-Pozhelaniya-po-saytu]the topic of ideas and suggestions[/url].
+        [/p]
+        [p]
+        Or maybe something has gone wrong and you want to inform us about it?
+        Please leave your comments in
+        [url=http://shikimori.org/s/102-Tema-ob-oshibkah]the topic about errors[/url].
+        [/p]
+        [p]
+        Or maybe you just want to say or ask anything? Please read
+        [url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]the topic about frequently asked questions[/url]
+        and ask your question there if you cannot find the answer.
+        [/p]
+        [p]
+        Or fill in the form below and maybe we will answer you. Somewhen )
+        [/p]

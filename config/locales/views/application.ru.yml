@@ -1,5 +1,8 @@
 ru:
   application:
+    aside:
+      report_error: Сообщить об ошибке
+
     top_menu:
       sign_out: Выход
       sign_in: Вход
@@ -22,3 +25,6 @@ ru:
         what_anime_to_watch: Какие аниме посмотреть
       anime_online:
         <<: *shikimori
+
+    footer:
+      sitemap: карта сайта
