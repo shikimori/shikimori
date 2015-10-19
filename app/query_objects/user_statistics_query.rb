@@ -13,9 +13,6 @@ class UserStatisticsQuery
     @user = user
     @preferences = user.preferences
 
-    @seasons = AniMangaSeason.catalog_seasons
-    #@genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch
-
     @anime_rates = @user
       .anime_rates
       .joins('join animes on animes.id = target_id')
