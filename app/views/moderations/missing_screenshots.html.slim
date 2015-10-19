@@ -5,7 +5,7 @@ header.head
   p.notice Отображённый список кешируется сайтом. Обновляется раз в час.
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-.subheadline.m10 = t '.animes'
+.subheadline = t '.animes'
 ul.b-list.cc-3
   - @collection.each do |anime|
     li.c-column.m0

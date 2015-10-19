@@ -4,37 +4,53 @@ header.head
 
 .cc-2
   .c-column
-    .subheadline.m10 = t '.moderation'
+    .subheadline = t '.moderation'
 
     ul.b-list
       li
-        a.b-link href="#{index_moderations_versions_url type: :content}" title="#{t '.versions_journal'}"
-          = t '.versions_journal'
+        a.b-link[
+          href="#{index_moderations_versions_url type: :content}"
+          title="#{t '.versions_journal'}"
+        ] = t '.versions_journal'
       li
-        a.b-link href="#{moderations_bans_url}" title="#{t '.bans_journal'}"
-          = t '.bans_journal'
+        a.b-link[
+          href="#{moderations_bans_url}"
+          title="#{t '.bans_journal'}"
+        ] = t '.bans_journal'
       li
-        a.b-link href="#{moderations_abuse_requests_url}" title="#{t '.forum_journal'}"
-          = t '.forum_journal'
+        a.b-link[
+          href="#{moderations_abuse_requests_url}"
+          title="#{t '.forum_journal'}"
+        ] = t '.forum_journal'
       - if ru_content?
         li
-          a.b-link href="#{moderations_anime_video_reports_url}" title="#{t '.uploaded_videos_journal'}"
-            = t '.uploaded_videos_journal'
+          a.b-link[
+            href="#{moderations_anime_video_reports_url}"
+            title="#{t '.uploaded_videos_journal'}"
+          ] = t '.uploaded_videos_journal'
         li
-          a href="#{index_moderations_versions_url type: :anime_video}" title="#{t '.edited_videos_journal'}"
-            = t '.edited_videos_journal'
+          a[
+            href="#{index_moderations_versions_url type: :anime_video}"
+            title="#{t '.edited_videos_journal'}"
+          ] = t '.edited_videos_journal'
 
   - if ru_content?
     .c-column
-      .subheadline.m10 = t '.content'
+      .subheadline = t '.content'
 
       ul.b-list
         li
-          a.b-link href="#{translations_url}" title="#{'.missing_descriptions'}"
-            = t '.missing_descriptions'
+          a.b-link[
+            href="#{translations_url}"
+            title="#{'.missing_descriptions'}"
+          ] = t '.missing_descriptions'
         li
-          a.b-link href="#{missing_screenshots_moderations_url}" title="#{'.missing_screenshots'}"
-            = t '.missing_screenshots'
+          a.b-link[
+            href="#{missing_screenshots_moderations_url}"
+            title="#{'.missing_screenshots'}"
+          ] = t '.missing_screenshots'
         li
-          a.b-link href="#{missing_videos_moderations_url}" title="#{'.missing_videos'}"
-            = t '.missing_videos'
+          a.b-link[
+            href="#{missing_videos_moderations_url}"
+            title="#{'.missing_videos'}"
+          ] = t '.missing_videos'

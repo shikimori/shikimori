@@ -77,10 +77,10 @@ header.head
     .name Название аниме, становящаеся ссылкой с подсказкой
     .example
       .textarea
-        | [Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]
+        | [Psycho-Pass], [Наруто], [Watashitachi no Shiawase na Jikan], [Holo]
     .result
       - cache [:demo, :highlight, :v1] do
-        = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Психо-паспорт], [Watashitachi no Shiawase na Jikan], [Holo]'
+        = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Наруто], [Watashitachi no Shiawase na Jikan], [Holo]'
     .notice
       | Всё, что нужно для того, чтобы название стало ссылкой, это записать название в квадратных скобках. Вот так: [Русское или английское название].
       br

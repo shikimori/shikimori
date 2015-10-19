@@ -11,7 +11,7 @@ header.head
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 - if @collection
-  .subheadline.m10 = t '.videos'
+  .subheadline = t '.videos'
   ul.b-list.cc-3
     - @collection.each do |entry|
       li.c-column.m0.missing-video
@@ -28,7 +28,7 @@ header.head
           .ajax-loading.vk-like.left title="#{t 'loading'}"
 
 - else
-  .subheadline.m10 = t '.video_types'
+  .subheadline = t '.video_types'
   ul.b-list
     li
       a.b-link href="#{missing_videos_moderations_url kind: :all}" = t '.all'
