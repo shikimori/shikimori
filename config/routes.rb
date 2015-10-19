@@ -39,7 +39,7 @@ Site::Application.routes.draw do
       get :page404
       get :page503
       get :raise_exception
-      get :timeout_90s
+      get :timeout_120s
 
       get :bb_codes
       get :feedback

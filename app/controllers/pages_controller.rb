@@ -157,8 +157,8 @@ class PagesController < ShikimoriController
   def bb_codes
   end
 
-  def timeout_90s
-    sleep 91
+  def timeout_120s
+    sleep 120
     render json: 'ok'
   end
 end
