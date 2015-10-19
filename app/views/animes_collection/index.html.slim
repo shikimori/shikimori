@@ -11,17 +11,17 @@ header.head
 
 .menu-slide-outer
   .menu-slide-inner
-    section.l-content.to-process data-dynamic="cutted_covers"
+    section.l-content.to-process data-dynamic='cutted_covers'
       - if @entries.any?
         = render 'entries'
       - else
-        p.b-nothing_here Ничего не найдено.
+        p.b-nothing_here = t 'nothing_found'
 
     aside.l-menu
       - if user_signed_in? || turbolinks_request?
-        = render 'menu', social: true, klass: klass
+        = render 'menu', social: true, menu: @menu
       - else
-        .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_url", rating: params[:rating], subdomain: false}"
+        .postloaded data-href="#{@menu.url}"
           .ajax-loading title="#{t 'loading'}"
 
 - if user_signed_in? && !current_user.preferences.postload_in_catalog

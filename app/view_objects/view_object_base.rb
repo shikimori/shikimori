@@ -1,5 +1,7 @@
 class ViewObjectBase
   include Draper::ViewHelpers
+  include Translation
+
   prepend ActiveCacher.instance
   extend DslAttribute
 

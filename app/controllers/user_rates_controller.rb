@@ -1,7 +1,3 @@
-require_dependency 'genre'
-require_dependency 'studio'
-require_dependency 'publisher'
-
 # TODO: refactor list import into service object
 class UserRatesController < ProfilesController
   load_and_authorize_resource except: [:index, :export, :import]
@@ -16,7 +12,7 @@ class UserRatesController < ProfilesController
     noindex
     @page = (params[:page] || 1).to_i
     @limit = UserLibraryView::ENTRIES_PER_PAGE
-    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch params[:list_type].capitalize.constantize
+    @menu = CollectionMenu.new @resource.list.klass
 
     page_title t("#{params[:list_type]}_list")
   end

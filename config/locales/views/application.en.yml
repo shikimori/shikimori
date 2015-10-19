@@ -1,5 +1,8 @@
 en:
   application:
+    aside:
+      report_error: Report an error
+
     top_menu:
       sign_in: Sign In
       sign_out: Sign Out
@@ -18,5 +21,10 @@ en:
         community_recommendations: From the Community
         personalized_recommendations: Personalized
         moderations_content: Moderation
+        currently_airing: Currently Airing
+        what_anime_to_watch: What anime I should watch next
       anime_online:
         <<: *shikimori
+
+    footer:
+      sitemap: sitemap

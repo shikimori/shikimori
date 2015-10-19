@@ -21,6 +21,8 @@ en:
     popularity: By popularity
     name: In alphabetical order
     aired_on: By release date
+  about_site: About site
+  anime_industry: Anime industry
   anime_list: Anime List
   anime_title: Anime title
   animegraphy: Animegraphy
@@ -28,9 +30,11 @@ en:
   back_to_page: Back to page
   best_roles: Best roles
   best_works: Best works
+  calendar: Calendar
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
+  faq: Frequently asked questions
   collapse: collapse
   cosplay: Cosplay
   deleted:
@@ -74,6 +78,7 @@ en:
   seyu: Seiyu
   share: Share
   shikimori: Shikimori
+  site_rules: Site rules
   switch_to_anime: switch to anime
   switch_to_manga: switch to manga
   this_action_cant_be_undone: This action can't be undone!

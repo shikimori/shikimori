@@ -40,8 +40,8 @@ en:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
-    what_anime_to_watch: What anime I should watch
-    what_manga_to_read: What manga I should read
+    what_anime_to_watch: What anime I should watch next
+    what_manga_to_read: What manga I should read next
 
   clubs_controller:
     new_club: New club

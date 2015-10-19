@@ -108,9 +108,9 @@ header.head.misc
 
       .l-menu
         - if user_signed_in? || turbolinks_request?
-            = render 'animes_collection/menu', klass: klass
+            = render 'animes_collection/menu', menu: @menu
         - else
-            .postloaded data-href="#{self.send "menu_#{klass.name.tableize}_path", rating: params[:rating]}"
+            .postloaded data-href="#{@menu.url}"
               .ajax-loading title="#{t 'loading'}"
 
   - if user_signed_in? && !current_user.preferences.postload_in_catalog

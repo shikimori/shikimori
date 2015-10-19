@@ -17,4 +17,7 @@ header.head
       = render 'table'
 
     aside.l-menu
-      = render 'animes_collection/menu', in_lists_comparsion: true, custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]], klass: @klass
+      = render 'animes_collection/menu',
+        menu: @menu,
+        in_lists_comparison: true,
+        custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]]

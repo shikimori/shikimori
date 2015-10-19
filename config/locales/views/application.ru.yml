@@ -1,5 +1,8 @@
 ru:
   application:
+    aside:
+      report_error: Сообщить об ошибке
+
     top_menu:
       sign_out: Выход
       sign_in: Вход
@@ -18,5 +21,10 @@ ru:
         community_recommendations: От сообщества
         personalized_recommendations: Персонализированное
         moderations_content: Модерация и контент
+        currently_airing: Сейчас выходит
+        what_anime_to_watch: Какие аниме посмотреть
       anime_online:
         <<: *shikimori
+
+    footer:
+      sitemap: карта сайта

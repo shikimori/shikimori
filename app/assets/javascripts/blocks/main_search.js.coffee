@@ -18,7 +18,7 @@ $(document).on 'page:load', ->
     .data
       type: type
       autocomplete: searcheables[type].autocomplete
-    .attr(placeholder: searcheables[type].title)
+    .attr(placeholder: TRANSLATIONS[LOCALE][type])
     .completable($('.b-main_search .suggest-placeholder'))
 
     .on 'autocomplete:success', (e, entry) ->
@@ -44,7 +44,7 @@ $(document).on 'page:load', ->
 
     $search
       .data(type: type)
-      .attr(placeholder: searcheables[type].title)
+      .attr(placeholder: TRANSLATIONS[LOCALE][type])
       .data(autocomplete: searcheables[type].autocomplete)
       .trigger('flushCache')
       .focus()
@@ -77,60 +77,71 @@ $(document).on 'page:load', ->
     $main_search.removeClass 'hovered'
   , 250
 
+TRANSLATIONS =
+  ru:
+    animes: 'Поиск по аниме...'
+    mangas: 'Поиск по манге...'
+    characters: 'Поиск по персонажам...'
+    seyu: 'Поиск по сэйю...'
+    producers: 'Поиск по режиссёрам...'
+    mangakas: 'Поиск по мангакам...'
+    people: 'Поиск по всем людям...'
+    users: 'Поиск по пользователям...'
+  en:
+    animes: 'Anime search...'
+    mangas: 'Manga search...'
+    characters: 'Character search...'
+    seyu: 'Seyu search...'
+    producers: 'Producer search...'
+    mangakas: 'Mangaka search...'
+    people: 'Person search...'
+    users: 'User search...'
 
 # конфигурация автодополнений
 searcheables =
   animes:
-    title: "Поиск по аниме..."
     autocomplete: "/animes/autocomplete/"
     phrase: "/animes/search/[phrase]"
     id: "/animes/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
   mangas:
-    title: "Поиск по манге..."
     autocomplete: "/mangas/autocomplete/"
     phrase: "/mangas/search/[phrase]"
     id: "/mangas/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
   characters:
-    title: "Поиск по персонажам..."
     autocomplete: "/characters/autocomplete/"
     phrase: "/characters/search/[phrase]"
     id: "/characters/[id]"
     regexp: /^\/characters\/(.*?)/
 
   seyu:
-    title: "Поиск по сэйю..."
     autocomplete: "/people/autocomplete/seyu/"
     phrase: "/seyu/search/[phrase]"
     id: "/seyu/[id]"
     regexp: /^\/seyu\/(.*?)/
 
   producers:
-    title: "Поиск по режиссёрам..."
     autocomplete: "/people/autocomplete/producer/"
     phrase: "/producers/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/producer\/(.*?)/
 
   mangakas:
-    title: "Поиск по мангакам..."
     autocomplete: "/people/autocomplete/mangaka/"
     phrase: "/mangakas/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/mangaka\/(.*?)/
 
   people:
-    title: "Поиск по всем людям..."
     autocomplete: "/people/autocomplete/"
     phrase: "/people/search/[phrase]"
     id: "/person/[id]"
     regexp: /^\/people\/(.*?)/
 
   users:
-    title: "Поиск по пользователям..."
     autocomplete: "/users/autocomplete/"
     phrase: "/users/search/[phrase]"
     id: "/[id]"

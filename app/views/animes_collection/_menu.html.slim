@@ -1,22 +1,22 @@
-.b-collection-filters class="#{klass == Anime ? 'anime' : 'manga'}-params-controls"
+.b-collection-filters class="#{menu.klass.name.downcase}-params-controls"
   - if defined?(in_user_profile)
-    = render 'animes_collection/mylist', klass: klass
+    = render 'animes_collection/mylist', klass: menu.klass
 
   .block
     .subheadline = Anime.human_attribute_name(:status)
     ul.block-list.statuses.anime-params
-      - klass.status.values.each do |status|
+      - menu.klass.status.values.each do |status|
         li class="status-#{status}"
           input type="checkbox" autocomplete="off"
-          = t ".#{klass.name.downcase}.status.#{status}"
+          = t ".#{menu.klass.name.downcase}.status.#{status}"
       li class="status-latest"
         input type="checkbox" autocomplete="off"
-          = t ".#{klass.name.downcase}.status.latest"
+          = t ".#{menu.klass.name.downcase}.status.latest"
 
   .block
     .subheadline = Anime.human_attribute_name(:kind)
     ul.block-list.types.anime-params
-      - klass.kind.options.each do |title,kind|
+      - menu.klass.kind.options.each do |title,kind|
         li class="type-#{kind}"
           input type="checkbox" autocomplete="off"
           = title
@@ -34,7 +34,7 @@
             input type="checkbox" autocomplete="off"
               = t ".anime.kind.tv_48"
 
-  - if defined?(social) && show_social?
+  - if show_social?
     .addthis_toolbox.addthis_default_style
       a.addthis_button_vk
       a.addthis_button_facebook
@@ -44,42 +44,41 @@
       a.addthis_button_odnoklassniki_ru
       a.addthis_button_compact
 
-  - unless defined?(in_recommendations)
-    .block
-      .subheadline Сортировка
-      ul.block-list.orders.anime-params.subcontent
-        li.order-by-ranked = t 'by.ranked'
-        li.order-by-kind.hidden = t 'by.kind'
-        li.order-by-popularity = t 'by.popularity'
-        li.order-by-russian[
-          style="#{'display: none' unless user_signed_in? && current_user.preferences.russian_names?}"
-        ] = t 'by.name'
-        li.order-by-name[
-          style="#{'display: none' if user_signed_in? && current_user.preferences.russian_names?}"
-        ] = t 'by.name'
-        li.order-by-aired_on = t 'by.aired_on'
+  .block
+    .subheadline Сортировка
+    ul.block-list.orders.anime-params.subcontent
+      li.order-by-ranked = t 'by.ranked'
+      li.order-by-kind.hidden = t 'by.kind'
+      li.order-by-popularity = t 'by.popularity'
+      li.order-by-russian[
+        style="#{'display: none' unless user_signed_in? && current_user.preferences.russian_names?}"
+      ] = t 'by.name'
+      li.order-by-name[
+        style="#{'display: none' if user_signed_in? && current_user.preferences.russian_names?}"
+      ] = t 'by.name'
+      li.order-by-aired_on = t 'by.aired_on'
 
-        / используется в профиле пользователя
-        - if defined?(in_user_profile)
-          li.order-by-my style="display: none" По оценке
-          li.order-by-rate_id По дате добавления
-          - if klass == Anime
-            li.order-by-episodes style="display: none" По числу эпизодов
-          - else
-            li.order-by-chapters style="display: none" По числу глав
-            li.order-by-volumes style="display: none" По числу томов
-          li.order-by-status style="display: none" По статусу
+      / используется в профиле пользователя
+      - if defined?(in_user_profile)
+        li.order-by-my style="display: none" По оценке
+        li.order-by-rate_id По дате добавления
+        - if menu.klass == Anime
+          li.order-by-episodes style="display: none" По числу эпизодов
         - else
-          li.order-by-id По дате добавления
+          li.order-by-chapters style="display: none" По числу глав
+          li.order-by-volumes style="display: none" По числу томов
+        li.order-by-status style="display: none" По статусу
+      - else
+        li.order-by-id По дате добавления
 
-        / используется в userlist comparer
-        - if defined?(custom_sorts) && !custom_sorts.empty?
-          - custom_sorts.each do |name, title|
-            li class="order-by-#{name}"
-              = title
+      / используется в userlist comparer
+      - if defined?(custom_sorts) && !custom_sorts.empty?
+        - custom_sorts.each do |name, title|
+          li class="order-by-#{name}"
+            = title
 
-  - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparsion)
-    = render 'animes_collection/mylist', klass: klass
+  - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparison)
+    = render 'animes_collection/mylist', klass: menu.klass
 
   .block.hidden
     .subheadline Студия
@@ -92,12 +91,12 @@
   .block
     .subheadline Сезон
     ul.block-list.seasons.anime-params
-      - AniMangaSeason.catalog_seasons.each do |(season,title)|
+      - menu.seasons.each do |season, title|
         li class="season-#{season}"
           input type="checkbox" autocomplete="off"
           = title
 
-  - if klass == Anime
+  - if menu.klass == Anime
     .block.durations
       .subheadline Эпизод
       ul.block-list.durations.anime-params
@@ -124,7 +123,7 @@
     .subheadline Жанр
     = text_spoiler 'Показать список' do
       ul.block-list.genres.anime-params.m10
-        - @genres.sort_by {|v| [v.position || v.id, localized_name(v)] }.each do |genre|
+        - menu.sorted_genres.each do |genre|
           - next if genre.censored? && !user_signed_in?
           li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"
             input type="checkbox" autocomplete="off"

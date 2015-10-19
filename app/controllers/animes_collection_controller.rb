@@ -56,7 +56,7 @@ class AnimesCollectionController < ShikimoriController
 
   # меню каталога аниме/манги
   def menu
-    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch klass
+    @menu = CollectionMenu.new klass
   end
 
 private
@@ -69,12 +69,12 @@ private
   # окружение страниц
   def build_background
     @current_page = params_page
-    @genres, @studios, @publishers = AniMangaAssociationsQuery.new.fetch klass
+    @menu = CollectionMenu.new klass
 
     all_data = {
-      genre: @genres,
-      publisher: @publishers,
-      studio: @studios
+      genre: @menu.genres,
+      publisher: @menu.publishers,
+      studio: @menu.studios
     }
     @entry_data = {}
 

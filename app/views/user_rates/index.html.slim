@@ -45,4 +45,4 @@
               .subheadline Рейтинги
               #ratings data-stats="#{@resource.stats.anime_ratings.to_json}" data-bar="horizontal"
 
-        = render 'animes_collection/menu', social: true, klass: @resource.list.klass, in_user_profile: true
+        = render 'animes_collection/menu', menu: @menu, in_user_profile: true

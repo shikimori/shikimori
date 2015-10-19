@@ -4,18 +4,18 @@ html
     = render 'application/head'
   / refactor to LayoutView view object. put top_menu to LayoutView
   body[
-      class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{user_signed_in? ? current_user.preferences.body_width : 'x1200'} locale-#{I18n.locale}"
-      id="#{controller_name}_#{action_name}"
-      style="#{body_background unless @blank_layout}"
-      data-env="#{Rails.env}"
-      data-user-signed-in="#{user_signed_in?}"
-      data-day-registered="#{user_signed_in? && current_user.day_registered?}"
-      data-ignore-copyright="#{ignore_copyright?}"
-      data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
-      data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
-      data-locale="#{I18n.locale}"
-      data-server-time="#{Time.zone.now.iso8601}"
-    ]
+    class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{user_signed_in? ? current_user.preferences.body_width : 'x1200'} locale-#{I18n.locale}"
+    id="#{controller_name}_#{action_name}"
+    style="#{body_background unless @blank_layout}"
+    data-env="#{Rails.env}"
+    data-user-signed-in="#{user_signed_in?}"
+    data-day-registered="#{user_signed_in? && current_user.day_registered?}"
+    data-ignore-copyright="#{ignore_copyright?}"
+    data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
+    data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
+    data-locale="#{I18n.locale}"
+    data-server-time="#{Time.zone.now.iso8601}"
+  ]
     .turbolinks
 
     - if defined?(notice) && notice
@@ -56,6 +56,10 @@ html
 
     .b-feedback
       .hover-activator
-      span.marker-positioner data-remote="true" data-action="#{feedback_pages_url}" data-type="html"
-        .marker-text
+      span.marker-positioner[
+        data-remote='true'
+        data-action="#{feedback_pages_url}"
+        data-type='html'
+      ]
+        .marker-text data-text="#{t 'application.aside.report_error'}"
     = yield :tail

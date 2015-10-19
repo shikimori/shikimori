@@ -63,7 +63,7 @@ $feedback_color_to: #4b80c0
         +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%), lighten($feedback_color_to, 1%))
 
       &:after
-        content: 'Сообщить об ошибке'
+        content: attr(data-text)
         color: #fff
 
     &:hover
