@@ -1,11 +1,17 @@
+@import mixins/column
 @import mixins/responsive
 
 .p-dashboards-show
-  .ongoings
-    +iphone_landscape
+  .cc-ongoings
+    +cc
+
+    .c-column
+      +column(8, 1/8, 1%)
+
+    //+iphone_landscape
       .item-4, .item-5
         display: none
 
-    +iphone_portrait
+    //+iphone_portrait
       .item-3, .item-4, .item-5
         display: none

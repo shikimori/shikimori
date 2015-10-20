@@ -3,22 +3,18 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
 
   # связанные аниме
   def related
-    all
-      .map {|v| RelatedEntry.new (v.anime || v.manga).decorate, v.relation }
-      #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
+    entries = all.map do |v|
+      RelatedEntry.new (v.anime || v.manga).decorate, v.relation
+    end
+    #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
+
+    ApplyInList.new(h.current_user).call entries
   end
 
   # похожие аниме
   def similar
     if h.user_signed_in?
-      rates = h.current_user.send("#{object.class.name.downcase}_rates")
-        .where(target_id: similar_entries.map(&:id))
-        .select(:target_id, :status)
-
-      similar_entries.each do |entry|
-        entry.in_list = rates.find {|v| v.target_id == entry.id }.try(:status)
-      end
-
+      ApplyInList.new(h.current_user).call similar_entries
     else
       similar_entries
     end
@@ -36,7 +32,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
 
   # одно ли что-либо, кроме адаптаций?
   def chronology?
-    related.any? {|v| v.relation.downcase != 'adaptation' }
+    related.any? { |v| v.relation.downcase != 'adaptation' }
   end
 
   # достаточно ли большое число связанных аниме?
@@ -62,7 +58,7 @@ private
     object
       .similar
       .includes(:dst)
-      .select {|v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
-      .map {|v| v.dst.decorate }
+      .select { |v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
+      .map { |v| v.dst.decorate }
   end
 end
