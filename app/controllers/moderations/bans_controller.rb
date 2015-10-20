@@ -4,6 +4,7 @@ class Moderations::BansController < ModerationsController
   layout false, only: [:new]
 
   def index
+    noindex && nofollow
     page_title t('moderations.show.bans_journal')
     @moderators = User.where(id: User::Moderators - User::Admins).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
@@ -18,7 +19,6 @@ class Moderations::BansController < ModerationsController
   end
 
   def new
-    noindex
     @comment = Comment.find params[:comment_id]
     @abuse_request = AbuseRequest.find params[:abuse_request_id] if params[:abuse_request_id]
     @ban = Ban.new comment_id: @comment.id, user_id: @comment.user_id, abuse_request_id: params[:abuse_request_id]
@@ -33,6 +33,7 @@ class Moderations::BansController < ModerationsController
   end
 
 private
+
   def ban_params
     params
       .require(:ban)

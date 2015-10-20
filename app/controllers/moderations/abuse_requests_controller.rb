@@ -55,7 +55,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   # принятие запроса
   def take
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless @request.can_process? current_user
+    raise Forbidden unless current_user.moderator?
     @request.take! current_user
 
     render json: {}
@@ -64,7 +64,7 @@ class Moderations::AbuseRequestsController < ModerationsController
   # отказ запроса
   def deny
     @request = AbuseRequest.find params[:id]
-    raise Forbidden unless @request.can_process? current_user
+    raise Forbidden unless current_user.moderator?
     @request.reject! current_user
 
     render json: {}
