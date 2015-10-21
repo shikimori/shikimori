@@ -1,17 +1,49 @@
 @import mixins/column
 @import mixins/responsive
+@import mixins/menu-blocks
+
 
 .p-dashboards-show
   .cc-ongoings
     +cc
 
     .c-column
-      +column(8, 1/8, 1%)
+      +gt_laptop
+        +column(8, 1/8, 1%)
 
-    //+iphone_landscape
-      .item-4, .item-5
-        display: none
+      +laptop
+        +column(7, 1/7, 1.5%)
+        &.item-7
+          display: none
 
-    //+iphone_portrait
-      .item-3, .item-4, .item-5
-        display: none
+      +ipad
+        +column(6)
+        &.item-6, &.item-7
+          display: none
+
+      +iphone_landscape
+        +column(3)
+        &.item-3, &.item-4, &.item-5, &.item-6, &.item-7
+          display: none
+
+      +iphone_portrait
+        +block
+        +column(2)
+        &.item-4, &.item-5, &.item-6, &.item-7
+          display: none
+
+  .cc-links
+    +cc
+
+    .c-zz
+      +column(5, 2/5)
+
+    .c-animes
+      +column(5)
+
+      .season
+        +menu-block-with-text-link
+
+
+    .c-xx
+      +column(5, 2/5)

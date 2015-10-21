@@ -12,11 +12,15 @@ describe DashboardView do
     it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
   end
 
-  describe 'favourites' do
-    let!(:user) { create :user, fav_animes: [anime_1] }
-    let!(:anime_1) { create :anime }
-    let!(:anime_2) { create :anime }
-
-    it { expect(view.favourites).to eq [anime_1] }
+  describe '#seasons' do
+    it { expect(view.seasons).to eq TopMenu.new.seasons }
   end
+
+  #describe 'favourites' do
+    #let!(:user) { create :user, fav_animes: [anime_1] }
+    #let!(:anime_1) { create :anime }
+    #let!(:anime_2) { create :anime }
+
+    #it { expect(view.favourites).to eq [anime_1] }
+  #end
 end

@@ -31,6 +31,9 @@ class TestsController < ShikimoriController
     render :vk_video, layout: false
   end
 
+  def colors
+  end
+
   #def d3_data
     #query = ChronologyQuery.new(Anime.find params[:anime_id])
     #@entries = query.fetch

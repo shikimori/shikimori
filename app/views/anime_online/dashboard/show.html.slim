@@ -43,6 +43,9 @@
       .midheadline.skyblue.m10 Сезоны аниме
       .block
         - @seasons.each do |season, short_title, full_title|
-          a.season href="#{animes_url type: nil, season: season}" title="#{full_title}"
+          a.season[
+            href="#{animes_url type: nil, season: season}"
+            title="#{full_title}"
+          ]
             span.title = short_title
             span.notice = full_title

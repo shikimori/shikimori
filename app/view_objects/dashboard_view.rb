@@ -11,9 +11,13 @@ class DashboardView < ViewObjectBase
     )
   end
 
-  def favourites
-    all_favourites.take(TAKE_LIMIT / 2).sort_by(&:ranked)
+  def seasons
+    TopMenu.new.seasons
   end
+
+  #def favourites
+    #all_favourites.take(TAKE_LIMIT / 2).sort_by(&:ranked)
+  #end
 
 private
 
@@ -24,10 +28,10 @@ private
       .shuffle
   end
 
-  def all_favourites
-    Anime
-      .where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
-      .decorate
-      .shuffle
-  end
+  #def all_favourites
+    #Anime
+      #.where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
+      #.decorate
+      #.shuffle
+  #end
 end

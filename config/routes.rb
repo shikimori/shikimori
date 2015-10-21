@@ -427,6 +427,7 @@ Site::Application.routes.draw do
       get 'd3/:anime_id' => :d3, as: :d3
       get :webm
       get :vk_video
+      get :colors
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end
 

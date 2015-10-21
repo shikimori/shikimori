@@ -19,8 +19,8 @@ en:
       year: '%{year}'
     full:
       season:
-        winter: Winter Season %{year}
-        spring: Spring Season %{year}
-        summer: Summer Season %{year}
-        fall: Fall Season %{year}
+        winter: Winter %{year} Anime
+        spring: Spring %{year} Anime
+        summer: Summer %{year} Anime
+        fall: Fall %{year} Anime
       year: Anime %{year}
