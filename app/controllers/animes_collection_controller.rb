@@ -18,7 +18,7 @@ class AnimesCollectionController < ShikimoriController
     if params[:search]
       noindex && nofollow
       raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/ && censored_forbidden?
-      @page_title = "Поиск “#{SearchHelper.unescape params[:search]}”"
+      @page_title = i18n_t 'search', search: SearchHelper.unescape(params[:search])
     end
 
     # для сезонов без пагинации

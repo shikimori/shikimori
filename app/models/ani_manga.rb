@@ -192,7 +192,14 @@ module AniManga
     end
 
     def rus_var(klass, types)
-      klass == Anime || (types && (types.include?(',') || types.include?('овел') || types.include?('ovel')))
+      klass == Anime ||
+        (
+          types &&
+            (
+              types.include?(',') ||
+              types.include?('novel')
+            )
+        )
     end
   end
 end

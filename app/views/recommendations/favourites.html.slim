@@ -9,7 +9,7 @@ header.head.ajaxable
 
   .notice
     p = t '.here_we_have_put_together',
-          kind: (@klass == Anime ? i18n_i('the_best_anime', 1, :genitive) : i18n_i('the_best_manga', 1, :genitive))
+          kind: (@klass == Anime ? i18n_i('best_anime', 1, :genitive) : i18n_i('best_manga', 1, :genitive))
     - if @klass == Anime
       p
         = t '.not_interested'

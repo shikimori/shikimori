@@ -146,13 +146,18 @@ ru:
           few: чтениям
           many: чтениям
           other: чтениям
-      the_best_anime:
+      best_anime:
+        subjective:
+          one: лучшее аниме
+          few: лучших аниме
+          many: лучших аниме
+          other: лучшие аниме
         genitive:
           one: лучшего аниме
           few: лучших аниме
           many: лучших аниме
           other: лучших аниме
-      the_best_manga:
+      best_manga:
         genitive:
           one: лучшей манги
           few: лучших манг
@@ -285,12 +290,29 @@ ru:
           few: студии
           many: студий
           other: студии
+        genitive:
+          one: студии
+          few: студий
+          many: студий
+          other: студии
       ongoing:
         subjective:
           one: онгоинг
           few: онгоинга
           many: онгоингов
           other: онгоинги
+      publisher:
+        genitive:
+          one: издателя
+          few: издателей
+          many: издателей
+          other: издатели
+      genre:
+        genitive:
+          one: жанра
+          few: жанров
+          many: жанров
+          other: жанры
 
       datetime:
         second:

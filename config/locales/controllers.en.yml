@@ -30,6 +30,7 @@ en:
     <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
+    search: Search "%{search}"
     order:
       in_alphabetical_order: in alphabetical order
       by_popularity: by popularity
