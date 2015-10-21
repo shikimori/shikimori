@@ -8,10 +8,10 @@
 - tooltipped = content_by == :tooltip || content_by == :mini_tooltip
 
 article.c-column.b-catalog_entry[
-  class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:tooltipped if content_by == :inline_tooltip || content_by == :mini_tooltip} #{:cc if content_by == :block} #{anime.in_list} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
+  class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:tooltipped if content_by == :inline_tooltip || content_by == :mini_tooltip} #{:cc if content_by == :block} #{anime.rate.status if anime.kind_of?(RatedEntry) && anime.rate} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
   id="#{anime.id}"
   itemscope itemtype="#{{anime.itemtype}}"
-  data-rate-status="#{anime.in_list}"
+  data-rate-status="#{anime.rate.status if anime.kind_of?(RatedEntry) && anime.rate}"
 ]
   meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
   meta itemprop="thumbnailUrl" content="#{{attachment_url anime.image, :x48, false}}"

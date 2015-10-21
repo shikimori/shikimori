@@ -3,7 +3,9 @@
 
   div
     - if @resource.showing_results?
-      = render 'results', contest: @resource
+      = render 'results',
+        contest: @resource,
+        view: Contests::ResultsView.new(@resource)
     - elsif @resource.proposing?
       = render 'proposing', contest: @resource
     - else

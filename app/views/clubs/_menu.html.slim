@@ -1,33 +1,37 @@
 .b-clubs-menu
   - if resource.logo.exists?
     .b-menu_logo
-      center: a href=resource.url title=resource.name
-        img src=resource.logo.url(:main) alt=resource.name title=resource.name
+      center: a href="#{resource.url}" title="#{resource.name}"
+        img[
+          src="#{resource.logo.url :main}"
+          alt="#{resource.name}"
+          title="#{resource.name}"
+        ]
 
   = render 'clubs/actions', resource: resource
 
   - if resource.animes.any?
     = render 'clubs/menu_linked_entries',
-      collection: resource.animes,
+      collection: resource.menu_animes,
       url: animes_club_url(resource),
       name: i18n_i('anime')
 
   - if resource.mangas.any?
     = render 'clubs/menu_linked_entries',
-      collection: resource.mangas,
+      collection: resource.menu_mangas,
       url: mangas_club_url(resource),
       name: i18n_i('manga')
 
   - if resource.characters.any?
     = render 'clubs/menu_linked_entries',
-      collection: resource.characters,
+      collection: resource.menu_characters,
       url: characters_club_url(resource),
       name: i18n_i('character', :other),
       ratio_type: 'person'
 
   - if resource.members.any?
     .subheadline.m10
-      span.linkeable data-href=members_club_url(resource)
+      span.linkeable data-href="#{members_club_url resource}"
         = i18n_i 'member', :other
     .cc.members
       = render resource.members, content_by: :avatar

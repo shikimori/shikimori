@@ -24,7 +24,7 @@ private
       :comments_in_profile, :statistics_start_on,
       :page_background, :page_border, :body_background, :about_on_top, :about,
       :show_hentai_images, :show_social_buttons, :show_smileys, :menu_contest,
-      :russian_genres, :russian_names, :mylist_in_catalog, :postload_in_catalog,
+      :russian_genres, :russian_names, :postload_in_catalog,
       :list_privacy, :volumes_in_manga,
       :is_comments_auto_collapsed, :is_comments_auto_loaded, :body_width
     )

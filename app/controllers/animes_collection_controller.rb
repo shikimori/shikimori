@@ -137,10 +137,8 @@ private
   # выборка из датасорса без пагинации
   def fetch_wo_pagination(query)
     entries = AniMangaQuery.new(klass, params).order(query)
-      .decorate
-      .to_a
 
-    apply_in_list(entries)
+    ApplyRatedEntries.new(current_user).call(entries)
       .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
   end
 
@@ -179,20 +177,7 @@ private
     end
     build_pagination_links entries, total_pages
 
-    apply_in_list(entries).map(&:decorate)
-  end
-
-  # присоединение параметра в списке ли пользователя элемент?
-  def apply_in_list entries
-    return entries unless user_signed_in? && current_user.preferences.mylist_in_catalog?
-
-    rates = current_user.send("#{klass.name.downcase}_rates")
-      .where(target_id: entries.map(&:id))
-      .select(:target_id, :status)
-
-    entries.each do |entry|
-      entry.in_list = rates.find {|v| v.target_id == entry.id }.try(:status)
-    end
+    ApplyRatedEntries.new(current_user).call(entries)
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент

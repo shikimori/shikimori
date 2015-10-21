@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927142053) do
+ActiveRecord::Schema.define(version: 20151021053230) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
@@ -921,7 +920,6 @@ ActiveRecord::Schema.define(version: 20150927142053) do
     t.boolean "russian_names",                          default: true
     t.boolean "about_on_top",                           default: false
     t.boolean "russian_genres",                         default: true,     null: false
-    t.boolean "mylist_in_catalog",                      default: true,     null: false
     t.boolean "menu_contest",                           default: true,     null: false
     t.string  "page_background",            limit: 255
     t.boolean "page_border",                            default: false

@@ -5,7 +5,6 @@
       ul.block-list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry
-            / TODO почему тут было edit_club_url?
             a href="#{edit_contest_url resource}" = t '.edit_contest'
 
   .block
@@ -34,8 +33,7 @@
         .cc-4a.to-process[
           data-dynamic='cutted_covers'
           data-ratio_type="#{resource.member_type == 'character' ? 'person' : 'entry'}"
-        ]
-          = render resource.members, cover_by: :image_link
+        ] = render resource.members, cover_by: :image_link
 
     - unless resource.proposing? || resource.swiss?
       .block.grid

@@ -21,7 +21,7 @@
 
     - if user_signed_in?
       = render 'user_rates/user_rate',
-        user_rate: relation_note.rate || relation_note.rates.build(user_id: current_user.try(:id)),
+        user_rate: relation_note.current_rate || relation_note.rates.build(user_id: current_user.try(:id)),
         entry: relation_note,
         button_only: true,
         minified: true
