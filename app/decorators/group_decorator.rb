@@ -1,5 +1,5 @@
 class GroupDecorator < DbEntryDecorator
-  VisibleEntries = 12
+  MENU_ENTRIES = 12
 
   rails_cache :all_members, :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
@@ -27,47 +27,36 @@ class GroupDecorator < DbEntryDecorator
     all_members.take 12
   end
 
-  def all_animes
-    object
-      .animes
-      .order(:ranked)
-      .uniq(&:id)
-      .map(&:decorate)
-  end
-
   def animes
-    all_animes
-      .shuffle
-      .take(VisibleEntries)
-      .sort_by(&:ranked)
-  end
-
-  def all_mangas
-    object
-      .mangas
-      .order(:ranked)
-      .uniq(&:id)
-      .map(&:decorate)
+    ApplyRatedEntries.new(h.current_user).call(all_animes)
   end
 
   def mangas
-    all_mangas
-      .shuffle
-      .take(VisibleEntries)
-      .sort_by(&:ranked)
-  end
-
-  def all_characters
-    object
-      .characters
-      .order(:name)
-      .uniq(&:id)
+    ApplyRatedEntries.new(h.current_user).call(all_mangas)
   end
 
   def characters
     all_characters
+  end
+
+  def menu_animes
+    all_animes
       .shuffle
-      .take(VisibleEntries)
+      .take(MENU_ENTRIES)
+      .sort_by(&:ranked)
+  end
+
+  def menu_mangas
+    all_mangas
+      .shuffle
+      .take(MENU_ENTRIES)
+      .sort_by(&:ranked)
+  end
+
+  def menu_characters
+    all_characters
+      .shuffle
+      .take(MENU_ENTRIES)
       .sort_by(&:name)
   end
 
@@ -108,10 +97,23 @@ class GroupDecorator < DbEntryDecorator
   end
 
 private
+
   def all_images
     return [] unless display_images?
     object
       .images
       .order(created_at: :desc)
+  end
+
+  def all_animes
+    object.animes.order(:ranked).uniq(&:id)
+  end
+
+  def all_mangas
+    object.mangas.order(:ranked).uniq(&:id)
+  end
+
+  def all_characters
+    object.characters.order(:name).uniq(&:id)
   end
 end

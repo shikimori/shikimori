@@ -1,5 +1,5 @@
-describe ApplyRate do
-  let(:service) { ApplyRate.new user }
+describe ApplyRatedEntries do
+  let(:service) { ApplyRatedEntries.new user }
 
   let(:user) { seed :user }
   let!(:anime_1) { create :anime }
@@ -12,15 +12,15 @@ describe ApplyRate do
     let(:result) { service.call collection }
 
     it do
-      expect(result.first).to be_kind_of RateEntry
-      expect(result.second).to be_kind_of RateEntry
+      expect(result.first).to be_kind_of RatedEntry
+      expect(result.second).to be_kind_of RatedEntry
 
       expect(result.first.rate).to eq nil
       expect(result.second.rate).to have_attributes(
-        id: rate.id,
-        target_id: rate.target_id,
-        status: rate.status,
-        score: rate.score
+        id: rate_2.id,
+        target_id: rate_2.target_id,
+        status: rate_2.status,
+        score: rate_2.score
       )
     end
   end

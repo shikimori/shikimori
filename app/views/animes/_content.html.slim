@@ -5,17 +5,26 @@
   .entry-tooltip_container
     - if local_assigns[:with_image]
       a.image-link href="#{anime.url}" title="#{localized_name anime}"
-        img.image src="#{cdn_image anime, :preview}" srcset="#{cdn_image anime, :original} 2x" alt="#{localized_name anime}"
+        img.image[
+          src="#{cdn_image anime, :preview}"
+          srcset="#{cdn_image anime, :original} 2x"
+          alt="#{localized_name anime}"
+        ]
 
     .inner class="#{:offset if local_assigns[:with_image]}"
       - if content_title != :none
         .line itemprop="name"
           - if !defined?(cover_by) || cover_by != :link
-            a.data.name href="#{anime.url}" title="#{localized_name anime}" itemprop="name"
-              = localized_name anime
+            a.data.name[
+              href="#{anime.url}"
+              title="#{localized_name anime}"
+              itemprop="name"
+            ] = localized_name anime
           - else
-            .linkeable.name data-href="#{anime.url}" data-title="#{localized_name anime}"
-              = localized_name anime
+            .linkeable.name[
+              data-href="#{anime.url}"
+              data-title="#{localized_name anime}"
+            ] = localized_name anime
 
       - if content_text != :none
         .text itemprop="description"
@@ -89,4 +98,7 @@
         .data
 
   div class="#{'flexible-button' if !local_assigns[:with_image] && !local_assigns[:no_flexible_button]}"
-    = render 'user_rates/user_rate', user_rate: anime.rate || anime.rates.build(user_id: current_user.try(:id)), entry: anime, button_only: true
+    = render 'user_rates/user_rate',
+      user_rate: (anime.rate if anime.kind_of?(RatedEntry)) || anime.current_rate || anime.rates.build(user_id: current_user.try(:id)),
+      entry: anime,
+      button_only: true

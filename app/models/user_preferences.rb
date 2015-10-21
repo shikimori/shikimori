@@ -42,10 +42,6 @@ class UserPreferences < ActiveRecord::Base
     about_on_top
   end
 
-  def mylist_in_catalog?
-    mylist_in_catalog
-  end
-
   def menu_contest?
     menu_contest
   end

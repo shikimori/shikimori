@@ -7,7 +7,7 @@ class AniMangaDecorator < DbEntryDecorator
   VISIBLE_RELATED = 7
 
   instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :cosplay?
-  instance_cache :is_favoured, :favoured, :rate, :changes, :versions, :versions_page
+  instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :preview_reviews_thread, :main_reviews_thread
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
@@ -48,8 +48,8 @@ class AniMangaDecorator < DbEntryDecorator
     CosplayGalleriesQuery.new(object).fetch(1,1).any?
   end
 
-  # добавлено ли в список текущего пользователя?
-  def rate
+  # анмие в списке пользователя
+  def current_rate
     rates.where(user_id: h.current_user.id).decorate.first if h.user_signed_in?
   end
 
@@ -131,7 +131,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # полная хронология аниме
   def chronology
-    ApplyInList.new(h.current_user).call(
+    ApplyRatedEntries.new(h.current_user).call(
       ChronologyQuery.new(object).fetch.map(&:decorate)
     )
   end

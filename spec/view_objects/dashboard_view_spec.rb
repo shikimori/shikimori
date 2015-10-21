@@ -1,6 +1,8 @@
 describe DashboardView do
   let(:view) { DashboardView.new }
 
+  before { view.h.request.env['warden'] ||= WardenStub.new }
+
   describe '#ongoings' do
     let!(:anons) { create :anime, :anons }
     let!(:released) { create :anime, :released }

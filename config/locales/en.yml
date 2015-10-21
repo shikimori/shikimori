@@ -135,7 +135,6 @@ en:
         list_privacy: Can See My Lists
         #russian_genres: Anime Genres in Russian
         #russian_names: Anime and Manga Titles in Russian
-        mylist_in_catalog: Highlight Anime from My Lists
         postload_in_catalog: Autoload Pages in Anime Catalog
         volumes_in_manga: Show Manga Volumes
       anime_video:

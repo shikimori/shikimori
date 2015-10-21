@@ -1,9 +1,9 @@
-class ApplyRate
+class ApplyRatedEntries
   pattr_initialize :user
 
   def call entries
     entries.map do |entry|
-      RateEntry.new entry, match(entries, entry)
+      RatedEntry.new entry, match(entries, entry)
     end
   end
 
@@ -16,9 +16,8 @@ private
 
   def rates entries
     @rates ||= {}
-    @rates[klass(entries.first)] = user.send(rates_relation entries.first)
+    @rates[klass(entries.first)] ||= user.send(rates_relation entries.first)
       .where(target_id: entries.map(&:id))
-      .select(:id, :target_id, :status, :score)
       .to_a
   end
 

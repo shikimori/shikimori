@@ -6,7 +6,9 @@ class DashboardView < ViewObjectBase
   #preload :all_ongoings, :all_favourites
 
   def ongoings
-    all_ongoings.take(TAKE_LIMIT).sort_by(&:ranked)
+    ApplyRatedEntries.new(h.current_user).call(
+      all_ongoings.take(TAKE_LIMIT).sort_by(&:ranked)
+    )
   end
 
   def favourites

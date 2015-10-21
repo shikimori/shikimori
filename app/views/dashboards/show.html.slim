@@ -4,8 +4,8 @@
 
 .midheadline.blue Сейчас на экранах
 .cc-ongoings.to-process data-dynamic="cutted_covers"
-  /= render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
-  = render @view.ongoings, cover_notice: :studio
+  = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
+  /= render @view.ongoings, cover_notice: :studio
 
 /.cc-2
   .c-column

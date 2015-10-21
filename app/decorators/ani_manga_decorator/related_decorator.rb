@@ -8,13 +8,13 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     end
     #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
 
-    ApplyInList.new(h.current_user).call entries
+    ApplyRatedEntries.new(h.current_user).call entries
   end
 
   # похожие аниме
   def similar
     if h.user_signed_in?
-      ApplyInList.new(h.current_user).call similar_entries
+      ApplyRatedEntries.new(h.current_user).call similar_entries
     else
       similar_entries
     end
