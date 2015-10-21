@@ -6,9 +6,12 @@ class TorrentsMatcher
   # и все спец слова
   # TODO: вынести из класса
   def matches_for title, options={ only_name: false, exact_name: false }
-    title = title.gsub('​', '').gsub('_', ' ')
+    title = title.gsub('​', '').gsub('_', ' ').gsub('꞉', ':')
+
     if options[:exact_name] || anime.torrents_name.present?
-      return title.downcase.include?((anime.torrents_name || name).downcase)
+      fixed_title = title.downcase.gsub(/[- :_]/, '')
+      fixed_name = (anime.torrents_name || name).downcase.gsub(/[- :_]/, '')
+      return fixed_title.include? fixed_name
     end
 
     name_variants(title, options).any? do |query|
