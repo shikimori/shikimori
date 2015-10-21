@@ -18,19 +18,19 @@
   </div>
 </div>'
 
-$.tools.tooltip.addEffect 'opacity', (done) ->
-  @getTip()
-    .css(opacity: 1)
-    .show()
-    .animate(top: '-=14', 500, 'easeOutCirc', done)
+#$.tools.tooltip.addEffect 'opacity', (done) ->
+  #@getTip()
+    #.css(opacity: 1)
+    #.show()
+    #.animate(top: '-=14', 500, 'easeOutCirc', done)
 
-, (done) ->
-  @getTip().animate opacity: 0, top: '+=14', 250, 'easeInCirc', ->
-    $(@).hide()
-    done.call()
+#, (done) ->
+  #@getTip().animate opacity: 0, top: '+=14', 250, 'easeInCirc', ->
+    #$(@).hide()
+    #done.call()
 
 @tooltip_options =
-  effect: 'opacity'
+  #effect: 'opacity'
   delay: 150
   predelay: 250
   position: 'top right'
