@@ -36,7 +36,7 @@ class GroupDecorator < DbEntryDecorator
   end
 
   def characters
-    all_characters
+    all_characters.map(&:decorate)
   end
 
   def menu_animes
@@ -44,6 +44,7 @@ class GroupDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:ranked)
+      .map(&:decorate)
   end
 
   def menu_mangas
@@ -51,6 +52,7 @@ class GroupDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:ranked)
+      .map(&:decorate)
   end
 
   def menu_characters
@@ -58,6 +60,7 @@ class GroupDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:name)
+      .map(&:decorate)
   end
 
   def images limit = 999
