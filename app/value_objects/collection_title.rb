@@ -2,29 +2,58 @@ class CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
-  instance_cache :type_text
+  instance_cache :types_text
+  instance_cache :fancy?
 
-  def initialize klass:, user:, season:, type:, genres:, studios:, publishers:
+  def initialize klass:, user:, season:, type:, status:, genres:, studios:, publishers:
     @klass = klass
     @user = user
+
     @seasons = (season || '').split(',')
     @types = (type || '').gsub(/-/, ' ').split(',').select { |v| !v.starts_with? '!' }
-    @genres = genres.to_a
-    @studios = studios.to_a
-    @publishers = publishers.to_a
+    @statuses = (status || '').split(',')
+    @genres = Array genres
+    @studios = Array studios
+    @publishers = Array publishers
   end
 
   def title
-    title = "
-      #{genre_text || type_text}
-      #{studios_text}
-      #{publishers_text}
-      #{genre_text}
-      #{seasons_text}
-    "
+    if fancy?
+      fancy_title
+    else
+      composite_title
+    end
+  end
 
-    if title == Anime.model_name.human
-      i18n_i('best_anime', :other)
+  def fancy_title
+    if genre?
+      genre_text true
+    elsif season?
+      season_text true
+    ...
+    end
+  end
+
+  def genre_text
+    if is_fancy
+      'Романтические аниме про любовь'
+    else
+      "жанра(ов) #{localized_name(genre).to_sentence}"
+    end
+  end
+
+  def composite_title
+    title = [
+      statuses_text,
+      types_text,
+      studios_text,
+      publishers_text,
+      genres_text,
+      seasons_text
+    ].compact.join(' ')
+
+    if title == Anime.model_name.human && user.nil?
+      i18n_i('Best_anime', :other)
     else
       title
     end
@@ -32,9 +61,22 @@ class CollectionTitle
 
 private
 
-  attr_reader :klass, :user, :seasons, :types, :genres, :studios, :publishers
+  attr_reader :klass, :user
+  attr_reader :seasons, :types, :statuses, :genres, :studios, :publishers
 
-  def type_text
+  def fancy?
+    (seasons + types + statuses + genres + studios + publishers).one?
+  end
+
+  def statuses_text
+    return if statuses.empty?
+
+    statuses
+      .map { |status| i18n_t "status.#{klass.name.downcase}.#{status}"}
+      .to_sentence
+  end
+
+  def types_text
     return klass.model_name.human if types.empty?
 
     types.map do |type|
@@ -43,48 +85,48 @@ private
     end.to_sentence
   end
 
-  def genre_text
-    return unless genres.one?
-    genres.first.format_for_title type_text, rus_var(type_text)
-  end
+  #def genre_text
+    #return unless genres.one?
+    #genres.first.format_for_title types_text, rus_var(types_text)
+  #end
 
   def genres_text
-    return if genres.one?
+    return unless genres.many?
 
     list = genres
       .map { |genre| UsersHelper.localized_name genre, user }
       .to_sentence
-    " #{i18n_i 'genre', genres.count, :genitive} #{list}"
+    "#{i18n_i 'genre', genres.count, :genitive} #{list}"
   end
 
   def studios_text
     return if studios.empty?
 
-    studios_list = studios.map(&:name).to_sentence
-    " #{i18n_i 'studio', studios.count, :genitive} #{studios_list}"
+    list = studios.map(&:name).to_sentence
+    "#{i18n_i 'studio', studios.count, :genitive} #{list}"
   end
 
   def publishers_text
     return if publishers.empty?
 
     publishers_list = publishers.map(&:name).to_sentence
-    " #{i18n_i 'publisher', publishers.count, :genitive} #{publishers_list}"
+    "#{i18n_i 'publisher', publishers.count, :genitive} #{publishers_list}"
   end
 
   def seasons_text
-    return if seasons.many?
-    " #{AniMangaSeason.title_for seasons.first, klass}"
+    return unless seasons.one?
+    "#{AniMangaSeason.title_for seasons.first, klass}"
   end
 
   # TODO refactor or remove
-  def rus_var type_text
-    klass == Anime ||
-      (
-        types &&
-        (
-          types.include?(',') ||
-          types.include?('novel')
-        )
-      )
-  end
+  #def rus_var types_text
+    #klass == Anime ||
+      #(
+        #types &&
+        #(
+          #types.include?(',') ||
+          #types.include?('novel')
+        #)
+      #)
+  #end
 end

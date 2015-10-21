@@ -24,3 +24,16 @@ ru:
         summer: Летний сезон %{year} года
         fall: Осенний сезон %{year} года
       year: Аниме %{year} года
+
+  collection_title:
+    status:
+      anime:
+        anons: Анонсированные аниме
+        ongoing: Выходящие сейчас аниме
+        released: Вышедшие аниме
+        latest: Недавно вышедшие аниме
+      manga:
+        anons: Анонсированная манга
+        ongoing: Выходящая сейчас манга
+        released: Вышедшая манга
+        latest: Недавно вышедшая манга
