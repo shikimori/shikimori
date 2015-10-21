@@ -11,7 +11,7 @@ class MangaProfileSerializer < MangaSerializer
   has_one :user_rate
 
   def user_rate
-    object.rate
+    object.current_rate
   end
 
   def thread_id
