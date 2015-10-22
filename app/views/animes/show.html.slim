@@ -155,4 +155,5 @@
         = i18n_io @resource.comment_reviews? ? 'Summary' : 'Comment', :few
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+        / Topics::Comments.new topic, true
         = render 'topics/comments', topic: @resource.preview_reviews_thread

@@ -16,6 +16,10 @@ describe DashboardView do
     it { expect(view.seasons).to eq TopMenu.new.seasons }
   end
 
+  describe '#reviews' do
+    pending
+  end
+
   #describe 'favourites' do
     #let!(:user) { create :user, fav_animes: [anime_1] }
     #let!(:anime_1) { create :anime }

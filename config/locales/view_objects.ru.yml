@@ -4,3 +4,7 @@ ru:
       anime: Время за аниме
       manga: Время за мангой
       anime_manga: Время за аниме и мангой
+  topics/comments:
+    show_comments: Показать %{comment_word}
+    hide_comments: Скрыть %{comment_word}
+    load_comments: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}

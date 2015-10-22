@@ -23,14 +23,12 @@ class TopicsController < ForumController
   # главная страница сайта и форум
   def index
     @page = (params[:page] || 1).to_i
+    @limit = topics_limit
 
-    topics = TopicsQuery
+    topics, @add_postloader = TopicsQuery
       .new(@section, current_user, @linked)
-      .fetch(@page, topics_limit)
-      .to_a
-
-    @add_postloader = topics.size >= topics_limit
-    @topics = topics.take(topics_limit).map {|v| TopicDecorator.new v }
+      .postload(@page, @limit)
+    @collection = topics.map { |topic| Topics::Preview.new topic }
 
     super
 
@@ -40,7 +38,10 @@ class TopicsController < ForumController
 
   # страница топика форума
   def show
-    @topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
+    #@topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
+    @topic = Entry.with_viewed(current_user).find(params[:id])
+    @view = Topics::View.new @topic
+
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
     raise AgeRestricted if @topic.linked && @topic.linked.try(:censored?) && censored_forbidden?
@@ -130,6 +131,7 @@ class TopicsController < ForumController
   end
 
 private
+
   def topic_params
     allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
        [:text, :title, :linked_id, :linked_type]

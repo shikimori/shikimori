@@ -1,28 +1,30 @@
-- if user_signed_in? && current_user.ignores?(topic.user)
-  = render partial: 'blocks/ignored', object: topic
+- if view.ignored?
+  = render partial: 'blocks/ignored', object: view.topic
+- elsif view.review_preview?
+  = render 'topics/review_preview', view: view, review: view.topic.linked
 - else
   article.b-topic.shiki-object.unprocessed[
-      id="#{topic.id}"
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-cosplay' if topic.cosplay?} #{'b-generated_news' if topic.generated_news?}"
-      data-user_id="#{topic.user.id}"
-      data-user_nickname="#{topic.user.nickname}"
-      data-generated="#{topic.generated?}"
-      data-faye="#{topic.faye_channel}"
-      data-appear_type="entry"
-    ]
-    a name="topic-#{topic.id}"
+    id="#{view.topic.id}"
+    class="#{view.css_classes.join ' '}"
+    data-user_id="#{view.topic.user.id}"
+    data-user_nickname="#{view.topic.user.nickname}"
+    data-generated="#{view.topic.generated?}"
+    data-faye="#{view.faye_channel}"
+    data-appear_type="entry"
+  ]
+    a name="topic-#{view.topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
-    - if topic.show_body?
+    - if view.show_body?
       .inner
         - if user_signed_in?
           span.item-mobile title="Действия"
 
         aside.markers
-          - unless topic.viewed?
+          - unless view.topic.viewed?
             p.b-new_marker новое
 
         - if user_signed_in?
-          = render partial: 'topics/buttons', locals: { topic: topic }
+          = render 'topics/buttons', view: view
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
@@ -49,12 +51,20 @@
         .body
           - if topic.generated_news?
             = render topic.linked.decorate,
-              cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
+              cover_title: :none,
+              cover_notice: :none,
+              content_by: :block,
+              content_title: :none,
+              content_text: :none
+
           - elsif topic.cosplay?
-            = render partial: 'cosplay_galleries/topic_info', locals: { topic: topic, gallery: topic.linked }
+            = render 'cosplay_galleries/topic_info', topic: topic, gallery: topic.linked
+
           - else
             - if topic.review?
-              = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
+              = render 'reviews/votes',
+                review: topic.linked,
+                with_music: topic.linked.entry.kind_of?(Anime)
             = topic.html_body
 
         footer
@@ -90,4 +100,4 @@
       - unless topic.viewed?
         .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{api_appears_url}"
 
-    = render partial: 'topics/comments', locals: { topic: topic }
+    = render 'topics/comments', view: view.comments

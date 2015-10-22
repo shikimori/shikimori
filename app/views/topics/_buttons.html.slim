@@ -4,30 +4,30 @@ aside.buttons
     /span.item-reply title="#{t topic.generated? ? 'Написать' : :reply}"
     span.item-reply title="#{t 'actions.reply'}"
 
-    - if topic.object.kind_of?(GroupComment) && current_user.subscribed?(topic.object)
+    - if view.topic.kind_of?(GroupComment) && view.subscribed?
       span[
-          class="item-subscribe #{:selected if current_user.subscribed? topic.object}"
+          class="item-subscribe #{:selected if view.subscribed?}"
           title="Подписаться на топик"
           data-type="json"
-          data-action="#{subscribe_url type: topic.class.name, id: topic.id}"
-          data-method="#{current_user.subscribed?(topic.object) ? :delete : :post}"
+          data-action="#{view.urls.subscribe_url}"
+          data-method="#{view.subscribed? ? :delete : :post}"
           data-remote="true"
         ]
 
-    - if can? :edit, topic
+    - if can? :edit, view.topic
       a.item-edit.short[
-        href="#{topic.edit_url}"
+        href="#{view.urls.edit_url}"
         title="#{t 'actions.edit'}"
       ]
 
-    - if can? :destroy, topic
+    - if can? :destroy, view.topic
       span.item-delete.short title="#{t 'actions.delete'}"
     span.item-cancel title="#{t 'actions.cancel'}"
 
-  - if can? :destroy, topic
+  - if can? :destroy, view.topic
     .delete-controls
       span.item-delete-confirm[
-        action="#{topic.destroy_url}"
+        action="#{view.urls.destroy_url}"
         data-type="json"
         data-remote="true"
         data-method="delete"

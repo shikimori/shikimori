@@ -12,6 +12,6 @@
 
 = render layout: 'topics/page' do |f|
   .b-forum.unprocessed data-faye="#{@faye_subscriptions if user_signed_in?}"
-    = render partial: 'topics/topic', collection: @topics
+    = render partial: 'topics/topic', collection: @collection, as: :view
     - if @add_postloader
       = render 'blocks/postloader', filter: 'b-topic', url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]), next_url: section_url(page: @page+1, section: @section[:permalink]), prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink]) : nil

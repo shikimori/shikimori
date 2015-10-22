@@ -15,6 +15,10 @@ class DashboardView < ViewObjectBase
     TopMenu.new.seasons
   end
 
+  def reviews
+    all_reviews.sort_by { |v| v.topic.created_at }.reverse().take(4)
+  end
+
   #def favourites
     #all_favourites.take(TAKE_LIMIT / 2).sort_by(&:ranked)
   #end
@@ -28,10 +32,22 @@ private
       .shuffle
   end
 
+  def all_reviews
+    topics = TopicsQuery
+      .new(reviews_section, h.current_user, nil)
+      .fetch(1, 12)
+      .map { |v| Topics::Preview.new v }
+      .shuffle
+  end
+
   #def all_favourites
     #Anime
       #.where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
       #.decorate
       #.shuffle
   #end
+
+  def reviews_section
+    Section.find_by_permalink('reviews')
+  end
 end

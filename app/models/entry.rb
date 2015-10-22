@@ -136,6 +136,11 @@ class Entry < ActiveRecord::Base
     self.class == CosplayComment
   end
 
+  # по опросу ли данный топик
+  def contest?
+    self.class == ContestComment
+  end
+
   def user_image_ids(value=self.value)
     (value || '').split(',').map(&:to_i).select { |v| v > 0 }
   end
