@@ -49,16 +49,6 @@ class TopicDecorator < BaseDecorator
     preview? || !generated? || contest? || review?
   end
 
-  # показывать ли автора в header блоке
-  def show_author_in_header?
-    !generated_news?
-  end
-
-  # показывать ли автора в footer блоке
-  def show_author_in_footer?
-    preview? && (news? || review?) && (!show_author_in_header? || avatar != user.avatar_url(48))
-  end
-
   # тег топика
   def tag
     return nil if linked.nil? || review? || contest?

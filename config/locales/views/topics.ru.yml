@@ -1,4 +1,5 @@
 ru:
   topics:
-    review_preview:
-      from: от
+    reviews:
+      single_lined:
+        from: от

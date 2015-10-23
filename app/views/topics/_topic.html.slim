@@ -1,11 +1,13 @@
 - if view.ignored?
   = render partial: 'blocks/ignored', object: view.topic
-- elsif view.review_preview?
-  = render 'topics/review_preview', view: view, review: view.topic.linked
+
+- elsif view.try :single_lined_preview?
+  = render 'topics/reviews/single_lined', view: view, review: view.topic.linked
+
 - else
   article.b-topic.shiki-object.unprocessed[
     id="#{view.topic.id}"
-    class="#{view.css_classes.join ' '}"
+    class="#{view.container_class}"
     data-user_id="#{view.topic.user.id}"
     data-user_nickname="#{view.topic.user.nickname}"
     data-generated="#{view.topic.generated?}"
@@ -28,7 +30,7 @@
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
-          - if topic.show_author_in_header?
+          - if view.author_in_header?
             span.linkeable data-href="#{view.urls.topic_url}"
               img[
                 src="#{view.poster false}"
@@ -36,60 +38,66 @@
                 alt="#{view.topic_title}"
               ]
           .name-date
-            - if topic.generated_news?
-              .b-anime_status_tag class="#{topic.action}" = topic.action_text
+            - if view.topic.generated_news?
+              .b-anime_status_tag class="#{view.topic.action}"
+                = view.topic.action_text
 
             a.name[
               href="#{view.urls.topic_url}"
-              title="#{topic.topic_title}"
+              title="#{view.topic_title}"
             ] = view.topic_title
             span.time
               time[
                 itemprop="commentTime"
-                datetime="#{topic.created_at.iso8601}"
-              ] = l topic.created_at, format: '%e %B %Y'
+                datetime="#{view.topic.created_at.iso8601}"
+              ] = l view.topic.created_at, format: '%e %B %Y'
 
-        - if topic.review? && topic.linked.votes_count > 0
-          p.votes-count
-            = topic.linked.votes_text
-            - if topic.linked.rejected?
-              span.warn перенесено в оффтоп
+        - if view.try :vote_results?
+          = render 'topics/reviews/results', review: view.topic.linked
 
         .body
-          - if topic.generated_news?
-            = render topic.linked.decorate,
-              cover_title: :none,
-              cover_notice: :none,
-              content_by: :block,
-              content_title: :none,
-              content_text: :none
+          = view.render_body
 
-          - elsif topic.cosplay?
-            = render 'cosplay_galleries/topic_info', topic: topic, gallery: topic.linked
-
-          - else
-            - if topic.review?
-              = render 'reviews/votes',
-                review: topic.linked,
-                with_music: topic.linked.entry.kind_of?(Anime)
-            = topic.html_body
-
-        footer
+        / footer
           - if user_signed_in?
-            - if topic.review? && topic.linked.user_id != current_user.id
+            - if view.topic.review? && view.topic.linked.user_id != current_user.id
               .voteable
                 span Эта рецензия полезна?
-                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+                .vote.yes[
+                  class="#{:selected if view.topic.linked.voted_yes? current_user}"
+                  data-remote="true"
+                  action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}"
+                  data-type="json"
+                  data-method="post"
+                ] Да
+                .vote.no[
+                  class="#{:selected if topic.linked.voted_no? current_user}"
+                  data-remote="true"
+                  action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}"
+                  data-type="json"
+                  data-method="post"
+                ] Нет
             - elsif topic.cosplay?
               .voteable
                 span Тебе нравится?
-                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+                .vote.yes[
+                  class="#{:selected if topic.linked.voted_yes? current_user}"
+                  data-remote="true"
+                  action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}"
+                  data-type="json"
+                  data-method="post"
+                ] Да
+                .vote.no[
+                  class="#{:selected if topic.linked.voted_no? current_user}"
+                  data-remote="true"
+                  action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}"
+                  data-type="json"
+                  data-method="post"
+                ] Нет
 
-          p.tags
+          / p.tags
             - if user_signed_in?
-              - if topic.tag.present? && !topic.news? && !topic.review?
+              - if topic.tag.present? && !tview.opic.news? && !view.topic.review?
                 span.tag
                   a title="#{topic.tag}" href="#{subsection_url topic}" = topic.tag
               span.tag
@@ -99,12 +107,13 @@
                 span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
               span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
 
-          - if topic.show_author_in_footer?
-            a.b-user16 href="#{profile_url topic.user}" title="#{topic.user.nickname}"
-              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
-              span = topic.user.nickname
+          / - if topic.author_in_footer?
+            = render 'users/user_16', user: view.topic.user
 
-      - unless topic.viewed?
-        .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{api_appears_url}"
+      - unless view.topic.viewed?
+        .appear-marker[
+          class="appear-topic-#{view.topic.id}"
+          data-appear_url="#{api_appears_url}"
+        ]
 
     = render 'topics/comments', view: view.comments

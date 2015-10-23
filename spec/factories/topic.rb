@@ -9,6 +9,14 @@ FactoryGirl.define do
       type 'ReviewComment'
     end
 
+    factory :cosplay_comment, class: 'CosplayComment' do
+      type 'CosplayComment'
+    end
+
+    factory :anime_news, class: 'AnimeNews' do
+      type 'AnimeNews'
+    end
+
     after :build do |topic|
       topic.class.skip_callback :create, :before, :check_antispam
     end

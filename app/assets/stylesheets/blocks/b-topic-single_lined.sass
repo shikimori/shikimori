@@ -1,0 +1,89 @@
+@import compass/typography/text/ellipsis
+@import globals/variables
+
+.b-topic-single_lined
+  &>.inner
+    min-height: 45px
+
+  .info
+    font-size: 12px
+    line-height: 1
+    margin-top: 5px
+
+    .from, .author, .time, .additional
+      display: inline-block
+      vertical-align: middle
+
+    .from
+      // color: $gray-3
+
+    .author
+      padding: 0 5px
+
+    .time
+      color: $date
+
+    .additional
+      margin-left: 15px
+      padding-left: 14px
+      border-left: 1px solid #acb1b4
+
+      .comments, .likes
+        display: inline-block
+        color: #333
+
+        &:before
+          display: inline-block
+          font-family: 'shikimori'
+          font-size: 14px
+          padding-right: 5px
+          text-align: center
+
+      .comments
+        &:before
+          content: '\e80e'
+
+      .likes
+        margin-left: 15px
+        &:before
+          content: '\e819'
+
+
+  // .info
+    // line-height: $line-height
+
+    // &.first
+      // margin-top: 4px
+
+    // &.last
+      // margin-top: 17px
+
+    // .from
+      // color: $gray-3
+      // padding-right: 5px
+
+    // .time
+      // +ellipsis
+      // color: $gray-3
+      // display: inline
+
+    // .comments, .likes
+      // display: inline-block
+      // color: $gray-3
+
+      // &:before
+        // display: inline-block
+        // font-family: 'shikimori'
+        // font-size: 15px
+        // padding-right: 5px
+        // text-align: center
+
+    // .comments
+      // &:before
+        // content: '\e80e'
+
+    // .likes
+      // margin-left: 15px
+
+      // &:before
+        // content: '\e819'

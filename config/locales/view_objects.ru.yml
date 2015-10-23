@@ -6,11 +6,11 @@ ru:
       anime_manga: Время за аниме и мангой
   topics/view: &topics
     title:
-      review:
-        anime: Обзор аниме &laquo;%{target_name}&raquo;
-        manga: Обзор манги &laquo;%{target_name}&raquo;
-  topics/preview:
+  topics/review_view:
     <<: *topics
+    title:
+      anime: Обзор аниме &laquo;%{target_name}&raquo;
+      manga: Обзор манги &laquo;%{target_name}&raquo;
   topics/comments:
     show_comments: Показать %{comment_word}
     hide_comments: Скрыть %{comment_word}

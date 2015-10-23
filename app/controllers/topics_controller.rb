@@ -28,19 +28,22 @@ class TopicsController < ForumController
     topics, @add_postloader = TopicsQuery
       .new(@section, current_user, @linked)
       .postload(@page, @limit)
-    @collection = topics.map { |topic| Topics::Preview.new topic }
+
+    @collection = topics.map do |topic|
+      Topics::Factory.new(true).build topic, @section.permalink
+    end
 
     super
 
     # редирект на топик, если топик в подфоруме единственный
-    redirect_to topic_url(@topics.first, params[:format]) and return if @linked && @topics.size == 1
+    redirect_to topic_url(@collection.first, params[:format]) and return if @linked && @collection.one?
   end
 
   # страница топика форума
   def show
     #@topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
     @topic = Entry.with_viewed(current_user).find(params[:id])
-    @view = Topics::View.new @topic
+    @view = Topics::Factory.new(false).build @topic
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @topic.generated? && @topic.comments_count.zero?

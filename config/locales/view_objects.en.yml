@@ -6,9 +6,11 @@ en:
       anime_manga: Time spent on anime and manga
   topics/view: &topics
     title:
-      review:
-        anime: Anime %{target_name} review
-        manga: Manga %{target_name} review
+  topics/review_view:
+    <<: *topics
+    title:
+      anime: Anime %{target_name} review
+      manga: Manga %{target_name} review
   topics/preview:
     <<: *topics
   topics/comments: &topics
