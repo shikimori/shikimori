@@ -2,7 +2,7 @@ class Topics::Urls < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
   # адрес заголовка топика
-  def url
+  def topic_url
     is_preview ? h.topic_url(topic) : h.profile_url(topic.user)
   end
 

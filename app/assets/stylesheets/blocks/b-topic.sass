@@ -7,8 +7,6 @@
 @import mixins/responsive
 @import mixins/tag
 
-$comments_left_margin: 24px
-
 .b-topic
   +block
   +forum_entry
@@ -18,33 +16,6 @@ $comments_left_margin: 24px
   &:first-child
     border-top: none
     padding-top: 0 !important
-
-  &.preview
-    margin-bottom: 35px
-
-    &:last-child
-      margin-bottom: 0
-
-    &>.b-comments
-      margin-left: $comments_left_margin
-
-      // в превью топика первый комментарий отобразим с дефолтным отступом и бордером
-      .b-comment:first-child
-        padding-top: 5px
-        border-top-width: 1px
-
-    // блок шики-эдитора
-    &>.editor-container
-      display: none
-
-      .hide
-        display: inline-block
-
-    &>.inner
-      &>.body, &>footer
-        margin-left: 58px
-        +iphone
-          margin-left: 42px
 
   // заигноренный топик
   &.b-comment-info
@@ -129,13 +100,6 @@ $comments_left_margin: 24px
 
   &>.b-comments
     margin-top: 5px
-
-    // комментарии на странице комментариев к аниме/манге/персонажу (тут между заголовком и началом комментариев ничего нет)
-    //&:first-child
-      //margin-top: 0
-
-      //.comments-loader, .comments-hider
-        //margin-top: 0
 
     .b-comment:first-child
       border-top-width: 1px

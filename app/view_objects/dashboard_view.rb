@@ -2,7 +2,7 @@ class DashboardView < ViewObjectBase
   FETCH_LIMIT = 24
   TAKE_LIMIT = 8
 
-  instance_cache :ongoings, :favourites
+  instance_cache :ongoings, :favourites, :reviews
   #preload :all_ongoings, :all_favourites
 
   def ongoings
@@ -16,7 +16,7 @@ class DashboardView < ViewObjectBase
   end
 
   def reviews
-    all_reviews.sort_by { |v| v.topic.created_at }.reverse().take(4)
+    all_reviews.take(4).sort_by { |v| -v.topic.id }
   end
 
   #def favourites

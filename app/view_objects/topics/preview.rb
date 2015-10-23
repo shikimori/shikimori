@@ -6,7 +6,7 @@ class Topics::Preview < Topics::View
   end
 
   def css_classes
-    super.push 'preview'
+    super.push 'b-topic-preview'
   end
 
   def show_body?

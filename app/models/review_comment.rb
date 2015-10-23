@@ -1,7 +1,7 @@
 class ReviewComment < AniMangaComment
-  def to_s
-    title
-  end
+  # def to_s
+    # title
+  # end
 
   # текст топика
   #def text

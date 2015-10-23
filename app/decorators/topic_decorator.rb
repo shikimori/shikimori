@@ -2,61 +2,42 @@ class TopicDecorator < BaseDecorator
   instance_cache :comments
 
   # имя топика
-  def display_title
-    if !preview?
-      user.nickname
-    elsif generated_news? || object.class == AniMangaComment
-      h.localized_name object.linked
-    elsif contest? || object.respond_to?(:title)
-      object.title
-    else
-      object.name
-    end
-  end
-
-  def body
-    if review?
-      linked.text
-    else
-      object.body
-    end
-  end
-
-  # текст топика
-  def html_body
-    Rails.cache.fetch [object, linked, h.russian_names_key, 'body'], expires_in: 2.weeks do
-      if review?
-        BbCodeFormatter.instance.format_description linked.text, linked
-      else
-        BbCodeFormatter.instance.format_comment object.body
-      end
-    end
-  end
+  # def display_title
+    # if !preview?
+      # user.nickname
+    # elsif generated_news? || object.class == AniMangaComment
+      # h.localized_name object.linked
+    # elsif contest? || object.respond_to?(:title)
+      # object.title
+    # else
+      # object.name
+    # end
+  # end
 
   # картинка топика(аватарка автора)
-  def avatar
-    if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
-      ImageUrlGenerator.instance.url linked, :x48
-    elsif special? && linked.respond_to?(:logo)
-      ImageUrlGenerator.instance.url linked, :x48
-    elsif review?
-      ImageUrlGenerator.instance.url linked.target, :x48
-    else
-      user.avatar_url(48)
-    end
-  end
+  # def avatar
+    # if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
+      # ImageUrlGenerator.instance.url linked, :x48
+    # elsif special? && linked.respond_to?(:logo)
+      # ImageUrlGenerator.instance.url linked, :x48
+    # elsif review?
+      # ImageUrlGenerator.instance.url linked.target, :x48
+    # else
+      # user.avatar_url(48)
+    # end
+  # end
 
-  def avatar2x
-    if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
-      ImageUrlGenerator.instance.url linked, :x96
-    elsif special? && linked.respond_to?(:logo)
-      ImageUrlGenerator.instance.url linked, :x96
-    elsif review?
-      ImageUrlGenerator.instance.url linked.target, :x96
-    else
-      user.avatar_url(80)
-    end
-  end
+  # def avatar2x
+    # if special? && linked.respond_to?(:image) && !(news? && !generated? && !preview?)
+      # ImageUrlGenerator.instance.url linked, :x96
+    # elsif special? && linked.respond_to?(:logo)
+      # ImageUrlGenerator.instance.url linked, :x96
+    # elsif review?
+      # ImageUrlGenerator.instance.url linked.target, :x96
+    # else
+      # user.avatar_url(80)
+    # end
+  # end
 
   # надо ли свёртывать длинный контент топика?
   def should_shorten?

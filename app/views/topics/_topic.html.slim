@@ -29,13 +29,20 @@
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
           - if topic.show_author_in_header?
-            span.linkeable data-href="#{topic.url}"
-              img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
+            span.linkeable data-href="#{view.urls.topic_url}"
+              img[
+                src="#{view.poster false}"
+                srcset="#{view.poster true} 2x"
+                alt="#{view.topic_title}"
+              ]
           .name-date
             - if topic.generated_news?
               .b-anime_status_tag class="#{topic.action}" = topic.action_text
 
-            a.name href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
+            a.name[
+              href="#{view.urls.topic_url}"
+              title="#{topic.topic_title}"
+            ] = view.topic_title
             span.time
               time[
                 itemprop="commentTime"
