@@ -237,7 +237,7 @@ module CommentHelper
             review = Review.find($2)
             text.gsub!($1, "<a class=\"b-link\" href=\"#{url_for [review.target, review]}\" title=\"Обзор #{review.target.name} от #{review.user.nickname}\">#{$3}</a>")
           rescue
-            text
+            text.gsub! $1, "<b>#{$3}</b>"
           end
 
         elsif klass == User
