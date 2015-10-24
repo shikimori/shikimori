@@ -11,4 +11,8 @@ describe Genre do
   describe 'enumerize' do
     it { is_expected.to enumerize(:kind).in :anime, :manga }
   end
+
+  describe '#title' do
+    # TODO
+  end
 end

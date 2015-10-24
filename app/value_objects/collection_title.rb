@@ -2,7 +2,6 @@ class CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
-  instance_cache :types_text
   instance_cache :fancy?
 
   def initialize klass:, user:, season:, type:, status:, genres:, studios:, publishers:
@@ -26,11 +25,10 @@ class CollectionTitle
   end
 
   def fancy_title
-    if genre?
-      genre_text true
-    elsif season?
-      season_text true
-    ...
+    if genres.any?
+
+    else
+      composite_title
     end
   end
 
@@ -44,8 +42,7 @@ class CollectionTitle
 
   def composite_title
     title = [
-      statuses_text,
-      types_text,
+      statuses_text || types_text,
       studios_text,
       publishers_text,
       genres_text,
@@ -122,10 +119,10 @@ private
   #def rus_var types_text
     #klass == Anime ||
       #(
-        #types &&
+        #types_text &&
         #(
-          #types.include?(',') ||
-          #types.include?('novel')
+          #types_text.include?(',') ||
+          #types_text.include?('novel')
         #)
       #)
   #end

@@ -1,4 +1,6 @@
 class Genre < ActiveRecord::Base
+  include Translation
+
   has_and_belongs_to_many :animes
   has_and_belongs_to_many :mangas
 
@@ -93,6 +95,18 @@ class Genre < ActiveRecord::Base
       when 'Yuri'         then "Юри #{Unicode.downcase types}"
       else "#{types} жанра #{self.russian || self.name}"
     end
+  end
+
+  # TODO default_title
+  # TODO вызывать только когда один жанр (fancy_title) или всегда?
+  #      если жанров может быть много, то надо продумать русский
+  #      перевод default_title
+  def title ru_case: :subjective, user: nil
+    key = english.parameterize.underscore
+    name = UsersHelper.localized_name self, user
+
+    i18n_t "title.#{ru_case}.#{kind}.#{key}", kind: kind,
+      default: i18n_i('default_title', kind: kind, name: name)
   end
 
   def english
