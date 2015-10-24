@@ -1,7 +1,7 @@
 describe Topics::Factory do
   describe '.build' do
     let(:factory) { Topics::Factory.new is_preview }
-    subject(:view) { factory.build topic, section }
+    subject(:view) { factory.build topic }
 
     let(:section) { nil }
     let(:is_preview) { false }
@@ -20,14 +20,7 @@ describe Topics::Factory do
 
     context 'review' do
       let(:topic) { build :review_comment }
-
       it { expect(view).to be_a Topics::ReviewView }
-      it { expect(view.is_single_lined).to eq false }
-
-      context 'reviews section' do
-        let(:section) { Topics::Factory::REVIEWS_SECTION }
-        it { expect(view.is_single_lined).to eq true }
-      end
     end
 
     context 'cosplay' do

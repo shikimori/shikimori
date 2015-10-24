@@ -30,7 +30,7 @@ class TopicsController < ForumController
       .postload(@page, @limit)
 
     @collection = topics.map do |topic|
-      Topics::Factory.new(true).build topic, @section.permalink
+      Topics::Factory.new(true).build topic
     end
 
     super
@@ -41,7 +41,6 @@ class TopicsController < ForumController
 
   # страница топика форума
   def show
-    #@topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
     @topic = Entry.with_viewed(current_user).find(params[:id])
     @view = Topics::Factory.new(false).build @topic
 

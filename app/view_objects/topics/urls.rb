@@ -3,7 +3,11 @@ class Topics::Urls < ViewObjectBase
 
   # адрес заголовка топика
   def topic_url
-    is_preview ? h.topic_url(topic) : h.profile_url(topic.user)
+    if is_preview
+      h.topic_url topic
+    else
+      h.profile_url topic.user
+    end
   end
 
   # адрес текста топика

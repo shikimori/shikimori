@@ -5,7 +5,7 @@
 - has_overall = review.overall.present? && !review.overall.zero?
 
 - if defined?(in_edit) || has_storyline || has_characters || has_animation || has_music || has_overall
-  .votes
+  .review-stars
     - if defined?(in_edit) || has_storyline
       p.title Сюжет
       = render partial: 'blocks/rate', locals: { score: review.storyline || 0, input_selector: ('#review_storyline' if defined?(in_edit)) }

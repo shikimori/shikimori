@@ -1,11 +1,9 @@
 class Topics::Factory
-  REVIEWS_SECTION = 'reviews'
-
   pattr_initialize :is_preview
 
-  def build entry, section = nil
+  def build entry
     if entry.review?
-      Topics::ReviewView.new entry, @is_preview, section == REVIEWS_SECTION
+      Topics::ReviewView.new entry, @is_preview, false
 
     elsif entry.cosplay?
       Topics::CosplayView.new entry, @is_preview

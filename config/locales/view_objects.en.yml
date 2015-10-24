@@ -9,8 +9,8 @@ en:
   topics/review_view:
     <<: *topics
     title:
-      anime: Anime %{target_name} review
-      manga: Manga %{target_name} review
+      anime: Anime &laquo;%{target_name}&raquo; review
+      manga: Manga &laquo;%{target_name}&raquo; review
   topics/preview:
     <<: *topics
   topics/comments: &topics

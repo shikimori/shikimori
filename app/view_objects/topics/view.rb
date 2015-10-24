@@ -8,7 +8,11 @@ class Topics::View < ViewObjectBase
   end
 
   def container_class css = ''
-    [css, ('b-topic-preview' if is_preview)].compact.join ' '
+    [
+      css,
+      ('b-topic-preview' if is_preview),
+      (:preview if is_preview),
+    ].compact.join ' '
   end
 
   def show_body?

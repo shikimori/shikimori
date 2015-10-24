@@ -23,6 +23,7 @@ class @ShikiTopic extends ShikiEditable
 
     @is_preview = @$root.hasClass('preview')
     @is_cosplay = @$root.hasClass('b-cosplay')
+    @is_review = @$root.hasClass('b-review')
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -250,7 +251,12 @@ class @ShikiTopic extends ShikiEditable
 
   # проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
   _check_height: =>
-    @$body.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
+    if @is_review
+      image_height = @$('.review-entry_cover img').height()
+      if image_height > 0
+        @$('.body-truncated-inner').check_height image_height, false, image_height - 12
+    else
+      @$body.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
 
   _type: -> 'topic'
   _type_label: -> 'Топик'

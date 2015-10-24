@@ -1,10 +1,77 @@
+@import compass/typography/text/ellipsis
 @import globals/variables
 @import mixins/clear_right
-@import mixins/responsive
 @import mixins/link
+@import mixins/responsive
 
 .b-review
-  .votes-count
+  &.preview > .inner
+    min-height: 45px
+
+    .body
+      margin-left: 0
+
+    .review-status_line
+      font-size: 12px
+      line-height: 1
+      margin-top: 5px
+
+      .from, .author, .time, .additional
+        display: inline-block
+        // vertical-align: middle
+
+      .author
+        padding-left: 5px
+
+        .b-user16 img
+          margin-top: 1px
+
+      .time
+        color: $date
+
+      .additional
+        margin-left: 15px
+        padding-left: 14px
+        border-left: 1px solid #acb1b4
+
+        .comments, .likes
+          display: inline-block
+          color: #333
+
+          &:before
+            display: inline-block
+            font-family: 'shikimori'
+            font-size: 14px
+            padding-right: 5px
+            text-align: center
+
+        .comments
+          &:before
+            content: '\e80e'
+
+        .likes
+          margin-left: 15px
+
+          span
+            color: $gray
+
+          &:before
+            content: '\e819'
+
+    .review-entry_cover
+      .b-catalog_entry
+        float: left
+        margin-top: 10px
+        width: 115px
+
+    .body-truncated
+      // +ellipsis
+      margin-top: 10px
+      margin-left: 130px
+      // max-height: 162px
+      // white-space: normal
+
+  .review-votes_count
     color: $gray-3
     font-size: 11px
     line-height: 1.4
@@ -14,34 +81,34 @@
       padding-left: 5px
       color: $red
 
-  .body
-    +clear_right
+  // .body
+    // +clear_right
 
-    .b-user16
-      margin-left: 20px
-      margin-right: 0
+    // .b-user16
+      // margin-left: 20px
+      // margin-right: 0
 
-    .votes
-      float: right
-      margin-left: 20px
-      margin-top: 8px
-      position: relative // без height-shortener для рецензий некорректно отрабатывает
-      width: 227px
+  .review-stars
+    float: right
+    margin-left: 20px
+    margin-top: 8px
+    position: relative // без height-shortener для рецензий некорректно отрабатывает
+    width: 227px
 
-      +iphone_portrait
-        margin-top: 20px
-        width: 270px
-        float: none
-        margin-left: 0
+    +iphone_portrait
+      margin-top: 20px
+      width: 270px
+      float: none
+      margin-left: 0
 
-      &>.title
-        color: #123
-        font-size: 12px
-        font-weight: bold
-        line-height: 0.5
+    &>.title
+      color: #123
+      font-size: 12px
+      font-weight: bold
+      line-height: 0.5
 
-      .b-rate
-        margin-bottom: 10px
+    .b-rate
+      margin-bottom: 10px
 
-        &:last-child
-          margin-bottom: 20px
+      &:last-child
+        margin-bottom: 20px

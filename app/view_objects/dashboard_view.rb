@@ -2,8 +2,8 @@ class DashboardView < ViewObjectBase
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
 
-  TOPICS_FETCH = 9
-  TOPICS_TAKE = 3
+  TOPICS_FETCH = 12
+  TOPICS_TAKE = 4
 
   instance_cache :ongoings, :favourites, :reviews
   #preload :all_ongoings, :all_favourites

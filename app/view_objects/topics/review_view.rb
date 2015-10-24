@@ -1,8 +1,8 @@
 class Topics::ReviewView < Topics::View
-  vattr_initialize :topic, :is_preview, :is_single_lined
+  vattr_initialize :topic, :is_preview, :is_mini
 
   def container_class
-    super 'b-review'
+    super "b-review #{:mini if is_mini}"
   end
 
   def show_body?
@@ -10,24 +10,22 @@ class Topics::ReviewView < Topics::View
   end
 
   def topic_title
-    return super unless is_preview
-
-    i18n_t(
-      "title.#{topic.linked.target_type.downcase}",
-      target_name: h.h(h.localized_name(topic.linked.target))
-    ).html_safe
+    if is_preview
+      i18n_t(
+        "title.#{topic.linked.target_type.downcase}",
+        target_name: h.h(h.localized_name(topic.linked.target))
+      ).html_safe
+    else
+      super
+    end
   end
 
   def render_body
-    render_stars + super
+    render_results + render_stars + super
   end
 
   def vote_results?
     topic.linked.votes_count > 0
-  end
-
-  def single_lined_preview?
-    is_preview && is_single_lined
   end
 
   def html_body
@@ -38,6 +36,18 @@ class Topics::ReviewView < Topics::View
     end
   end
 
+  def html_body_truncated
+    if is_preview
+      h.truncate_html(html_body,
+        length: 500,
+        separator: ' ',
+        word_boundary: /\S[\.\?\!<>]/
+      ).html_safe
+    else
+      html_body
+    end
+  end
+
 private
 
   def body
@@ -45,9 +55,11 @@ private
   end
 
   def render_stars
-    h.render('reviews/stars',
-      review: topic.linked,
+    h.render 'reviews/stars', review: topic.linked,
       with_music: topic.linked.entry.kind_of?(Anime)
-    )
+  end
+
+  def render_results
+    h.render 'topics/reviews/votes_count', review: topic.linked
   end
 end

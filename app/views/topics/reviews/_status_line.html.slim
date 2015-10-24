@@ -1,0 +1,17 @@
+.review-status_line
+  span.from = t '.from'
+  span.author
+    = render 'users/user_16', user: view.topic.user
+  / a.b-link.author[
+    href="#{profile_url view.topic.user}"
+    title="#{view.topic.user.nickname}"
+  / ] = view.topic.user.nickname
+  span.time
+    time[
+      itemprop="commentTime"
+      datetime="#{view.topic.created_at.iso8601}"
+    ] = l view.topic.created_at, format: '%e %B %Y'
+
+  span.additional
+    span.comments = view.topic.comments_count
+    span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}

@@ -1,8 +1,8 @@
 - if view.ignored?
   = render partial: 'blocks/ignored', object: view.topic
 
-- elsif view.try :single_lined_preview?
-  = render 'topics/reviews/single_lined', view: view, review: view.topic.linked
+- elsif view.topic.review? && view.is_preview
+  = render 'topics/reviews/preview', view: view
 
 - else
   article.b-topic.shiki-object.unprocessed[
@@ -51,9 +51,6 @@
                 itemprop="commentTime"
                 datetime="#{view.topic.created_at.iso8601}"
               ] = l view.topic.created_at, format: '%e %B %Y'
-
-        - if view.try :vote_results?
-          = render 'topics/reviews/results', review: view.topic.linked
 
         .body
           = view.render_body

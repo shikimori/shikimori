@@ -1,5 +1,6 @@
 article.b-topic.b-topic-single_lined.hiki-object.unprocessed[
   id="#{view.topic.id}"
+  class="#{view.container_class}"
   data-user_id="#{view.topic.user.id}"
   data-user_nickname="#{view.topic.user.nickname}"
   data-generated="#{view.topic.generated?}"
@@ -22,12 +23,12 @@ article.b-topic.b-topic-single_lined.hiki-object.unprocessed[
 
       /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
       header
-        span.linkeable data-href="#{view.urls.topic_url}"
-          img[
-            src="#{view.poster false}"
-            srcset="#{view.poster true} 2x"
-            alt="#{view.topic_title}"
-          ]
+        / span.linkeable data-href="#{view.urls.topic_url}"
+          / img[
+            / src="#{view.poster false}"
+            / srcset="#{view.poster true} 2x"
+            / alt="#{view.topic_title}"
+          / ]
         .name-date
           / - if topic.generated_news?
             .b-anime_status_tag class="#{topic.action}" = topic.action_text
@@ -37,21 +38,15 @@ article.b-topic.b-topic-single_lined.hiki-object.unprocessed[
             title="#{view.topic_title}"
           ] = view.topic_title
 
-      .info
-        span.from = t '.from'
-        a.b-link.author[
-          href="#{profile_url view.topic.user}"
-          title="#{view.topic.user.nickname}"
-        ] = view.topic.user.nickname
-        span.time
-          time[
-            itemprop="commentTime"
-            datetime="#{view.topic.created_at.iso8601}"
-          ] = l view.topic.created_at, format: '%e %B %Y'
+      .body
+        = render 'topics/reviews/status_line', view: view
 
-        span.additional
-          span.comments = view.topic.comments_count
-          span.likes #{view.topic.linked.votes_for} / #{view.topic.linked.votes_count}
+        - unless view.is_mini
+          = render 'topics/reviews/entry_cover', view: view,
+            entry: view.topic.linked.target.decorate
+          .body-truncated
+            .body-truncated-inner
+              = view.html_body_truncated
 
 
       / .info.first
