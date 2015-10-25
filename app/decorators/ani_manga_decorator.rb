@@ -55,20 +55,12 @@ class AniMangaDecorator < DbEntryDecorator
 
   # основной топик
   def preview_summaries_thread
-    if summaries?
-      Topics::SummariesView.new thread, true
-    else
-      preview_thread
-    end
+    summaries_view true
   end
 
   # полный топик отзывов
   def main_summaries_thread
-    if summaries?
-      Topics::SummariesView.new thread, false
-    else
-      main_thread
-    end
+    summaries_view false
   end
 
   # объект с ролями аниме
@@ -225,5 +217,12 @@ private
 
   def rates_query
     UserRatesQuery.new(object, h.current_user)
+  end
+
+  def summaries_view is_preview
+    view = Topics::Factory.new(is_preview).build thread
+    view.comments.summary_new_comment = true
+    view.comments.summaries_query = summaries?
+    view
   end
 end

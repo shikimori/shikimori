@@ -1,5 +1,6 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview
+
   delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
   instance_cache :comments, :urls
 
@@ -48,11 +49,7 @@ class Topics::View < ViewObjectBase
   end
 
   def comments
-    Topics::Comments.new(
-      topic: topic,
-      only_summaries: false,
-      is_preview: is_preview
-    )
+    Topics::Comments.new topic, is_preview
   end
 
   def urls

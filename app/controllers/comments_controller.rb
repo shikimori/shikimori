@@ -118,6 +118,7 @@ class CommentsController < ShikimoriController
   end
 
 private
+
   def prepare_edition
     Rails.logger.info params.to_yaml
     @comment = Comment.find(params[:id]).decorate if params[:id]
