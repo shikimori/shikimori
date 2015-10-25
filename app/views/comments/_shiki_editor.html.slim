@@ -61,23 +61,32 @@ aside.buttons
 .links.hidden-block
   p
     = label_tag :link_type_url do
-      = radio_button_tag 'link_type', :url, false, 'data-placeholder' => 'Введите адрес страницы...'
+      = radio_button_tag 'link_type', :url, false,
+        'data-placeholder' => 'Введите адрес страницы...'
       span ссылка
 
     = label_tag :link_type_anime do
-      = radio_button_tag 'link_type', :anime, false, 'data-placeholder' => 'Введите название аниме...', 'data-autocomplete' => autocomplete_animes_url
+      = radio_button_tag 'link_type', :anime, false,
+        'data-placeholder' => 'Введите название аниме...',
+        'data-autocomplete' => autocomplete_animes_url
       span аниме
 
     = label_tag :link_type_manga do
-      = radio_button_tag 'link_type', :manga, false, 'data-placeholder' => 'Введите название манги...', 'data-autocomplete' => autocomplete_mangas_url
+      = radio_button_tag 'link_type', :manga, false,
+        'data-placeholder' => 'Введите название манги...',
+        'data-autocomplete' => autocomplete_mangas_url
       span манга
 
     = label_tag :link_type_character do
-      = radio_button_tag 'link_type', :character, false, 'data-placeholder' => 'Введите имя персонажа...', 'data-autocomplete' => autocomplete_characters_url
+      = radio_button_tag 'link_type', :character, false,
+        'data-placeholder' => 'Введите имя персонажа...',
+        'data-autocomplete' => autocomplete_characters_url
       span персонаж
 
     = label_tag :link_type_person do
-      = radio_button_tag 'link_type', :person, false, 'data-placeholder' => 'Введите имя человека...', 'data-autocomplete' => autocomplete_people_url
+      = radio_button_tag 'link_type', :person, false,
+        'data-placeholder' => 'Введите имя человека...',
+        'data-autocomplete' => autocomplete_people_url
       span человек
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
@@ -88,7 +97,9 @@ aside.buttons
   p
     = label_tag :image_value do
       | Вставка изображения:
-    = text_field_tag 'image_value', '', class: 'link-value', placeholder: 'Введите адрес картинки...'
+    = text_field_tag 'image_value', '',
+      class: 'link-value',
+      placeholder: 'Введите адрес картинки...'
 
     span.button.ok data-type="images" OK
 
@@ -96,7 +107,10 @@ aside.buttons
   p
     = label_tag :image_value do
       | Цитирование пользователя:
-    = text_field_tag 'quote_value', '', class: 'link-value ac_input', placeholder: 'Введите имя пользователя...', 'data-autocomplete' => autocomplete_users_url
+    = text_field_tag 'quote_value', '',
+      class: 'link-value ac_input',
+      placeholder: 'Введите имя пользователя...',
+      'data-autocomplete' => autocomplete_users_url
 
     span.button.ok data-type="quotes" OK
 
@@ -111,6 +125,7 @@ aside.buttons
         = f.input :commentable_type, as: :hidden
         = f.input :offtopic, as: :hidden
         = f.input :review, as: :hidden
+
       - elsif f.object.kind_of? Message
         = f.input :kind, as: :hidden
         = f.input :from_id, as: :hidden
@@ -131,7 +146,10 @@ aside.buttons
   .preview
 
 footer
-  a.about-bb_codes href="#{bb_codes_pages_url}" target="_blank" = t '.bb_codes_guide'
+  a.about-bb_codes[
+    href="#{bb_codes_pages_url}"
+    target="_blank"
+  ] = t '.bb_codes_guide'
 
   - if defined?(f)
     - if comment.persisted?

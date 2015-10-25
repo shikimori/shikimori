@@ -3,7 +3,7 @@ class Topics::Comments < ViewObjectBase
 
   instance_cache :comments
 
-  def initialize topic:, only_summaries:, is_preview:
+  def initialize topic:, is_preview:, only_summaries:
     @topic = topic
     @only_summaries = only_summaries
     @is_preview = is_preview

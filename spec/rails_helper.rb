@@ -78,6 +78,7 @@ RSpec.configure do |config|
     id = 78643875
     FactoryGirl::SeedGenerator.create :user, id: id
     FactoryGirl::SeedGenerator.create :offtopic_section, id: id
+    FactoryGirl::SeedGenerator.create :reviews_section, id: DbEntryThread::SectionIDs['Review']
     FactoryGirl::SeedGenerator.create :topic, id: id
   end
 end
