@@ -4,18 +4,38 @@
 @import mixins/responsive
 @import mixins/link
 
-$feedback_height: 140px
+$feedback_ru_height: 140px
+$feedback_en_height: 105px
 $feedback_width: 25px
 $feedback_top: 270px
 
 $feedback_color_from: #6a95ca
 $feedback_color_to: #4b80c0
 
+.locale-ru
+  .b-feedback
+    &>.hover-activator
+      height: $feedback_ru_height
+    &>.marker-positioner
+      height: $feedback_ru_height
+      &>.marker-text
+        margin-top: $feedback_ru_height
+        width: $feedback_ru_height
+
+.locale-en
+  .b-feedback
+    &>.hover-activator
+      height: $feedback_en_height
+    &>.marker-positioner
+      height: $feedback_en_height
+      &>.marker-text
+        margin-top: $feedback_en_height
+        width: $feedback_en_height
+
 .b-feedback
   &>.hover-activator
     background: #4b80c0
     display: none
-    height: $feedback_height
     left: 0
     position: fixed
     top: $feedback_top
@@ -31,12 +51,10 @@ $feedback_color_to: #4b80c0
   &>.marker-positioner
     cursor: pointer
     display: none
-    height: $feedback_height
     left: 0
     position: fixed
     text-align: center
     top: $feedback_top
-    width: $feedback_width
     z-index: 0
 
     +responsive(desktop)
@@ -50,11 +68,9 @@ $feedback_color_to: #4b80c0
       font-size: 12px
       height: $feedback_width
       line-height: $line_height
-      margin-top: $feedback_height
       padding: 3px 8px
       transform-origin: left top
       white-space: nowrap
-      width: $feedback_height
 
       &:hover
         +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
