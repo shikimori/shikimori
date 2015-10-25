@@ -115,8 +115,14 @@
     .c-description
       .subheadline.m5 = Anime.human_attribute_name(:description)
       .block
-        meta itemprop="image" content="#{{attachment_url @resource.image, :original, false}}"
-        meta itemprop="thumbnailUrl" content="#{{attachment_url @resource.image, :x64, false}}"
+        meta[
+          itemprop="image"
+          content="#{{attachment_url @resource.image, :original, false}}"
+        ]
+        meta[
+          itemprop="thumbnailUrl"
+          content="#{{attachment_url @resource.image, :x64, false}}"
+        ]
 
         .m20
           / .text должен быть вложен в блок с отступом, иначе при сокращении
@@ -130,7 +136,11 @@
             .russian itemprop="description"
               = @resource.description_html
 
-        = render 'blocks/source', entry: @resource, authors: @resource.versions.authors(:description), field: 'description', default_source: @resource.mal_url
+        = render 'blocks/source',
+          entry: @resource,
+          authors: @resource.versions.authors(:description),
+          field: 'description',
+          default_source: @resource.mal_url
 
   - if user_signed_in?
     = render 'resources'
@@ -154,5 +164,5 @@
       .subheadline.m3
         = i18n_io @resource.summaries? ? 'Summary' : 'Comment', :few
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
+      .b-topic.unprocessed data-faye="#{@resource.preview_summaries_thread.faye_channel}"
         = render 'topics/comments', view: @resource.preview_summaries_thread.comments

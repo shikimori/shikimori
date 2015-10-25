@@ -72,7 +72,7 @@ class DbEntryDecorator < BaseDecorator
 
   # превью топика
   def preview_thread
-  Topics::Factory.new(false).build thread
+    Topics::Factory.new(true).build thread
   end
 
   # связанные клубы

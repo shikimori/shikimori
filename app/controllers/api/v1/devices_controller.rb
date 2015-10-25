@@ -37,6 +37,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
 private
+
   def device_params
     params.require(:device).permit :user_id, :platform, :token, :name
   end

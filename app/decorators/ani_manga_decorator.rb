@@ -55,12 +55,20 @@ class AniMangaDecorator < DbEntryDecorator
 
   # основной топик
   def preview_summaries_thread
-    Topics::SummariesView.new thread, true
+    if summaries?
+      Topics::SummariesView.new thread, true
+    else
+      preview_thread
+    end
   end
 
   # полный топик отзывов
   def main_summaries_thread
-    Topics::SummariesView.new thread, false
+    if summaries?
+      Topics::SummariesView.new thread, false
+    else
+      main_thread
+    end
   end
 
   # объект с ролями аниме
@@ -80,12 +88,12 @@ class AniMangaDecorator < DbEntryDecorator
 
   # число отзывов
   def summaries_count
-    object.thread.comments.summaries.count
+    @summaries_count ||= object.thread.comments.summaries.count
   end
 
   # есть ли отзывы?
   def summaries?
-    @summaries ||= summaries_count > 0
+    summaries_count > 0
   end
 
   # оценки друзей
