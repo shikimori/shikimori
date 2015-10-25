@@ -136,11 +136,11 @@ describe AnimesController do
     it { expect(response).to redirect_to section_topic_url(id: anime.thread, section: section, linked: anime) }
   end
 
-  describe '#reviews' do
+  describe '#summaries' do
     let!(:section) { create :section, :anime }
     let(:anime) { create :anime, :with_thread }
     let!(:comment) { create :comment, :review, commentable: anime.thread }
-    before { get :reviews, id: anime.to_param }
+    before { get :summaries, id: anime.to_param }
 
     it { expect(response).to have_http_status :success }
   end
