@@ -1,7 +1,7 @@
 require 'cancan/matchers'
 
 describe Api::V1::DevicesController, :show_in_doc do
-  before { sign_in user }
+  include_context :authenticated, :user
   let(:user) { create :user, :user }
 
   describe '#index' do
@@ -11,19 +11,32 @@ describe Api::V1::DevicesController, :show_in_doc do
 
     it do
       expect(assigns(:devices)).to have(1).item
-      expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
     end
   end
 
   describe '#create' do
-    let(:device) {{ user_id: user.id, token: 'test', platform: 'ios', name: 'test'}}
-    before { post :create, device: device, format: :json }
+    let(:params) {{ user_id: user.id, token: 'test', platform: 'ios', name: 'test'}}
+    before { post :create, device: params, format: :json }
 
     it do
       expect(assigns :device).to be_persisted
-      expect(response).to have_http_status :created
+      expect(assigns :device).to have_attributes params
       expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :created
+    end
+  end
+
+  describe '#update' do
+    let(:device) { create :device, user: user }
+    let(:params) {{ token: 'test zxc' }}
+    before { patch :update, id: device.id, device: params, format: :json }
+
+    it do
+      expect(assigns :device).to have_attributes params
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
     end
   end
 
@@ -33,8 +46,8 @@ describe Api::V1::DevicesController, :show_in_doc do
 
     it do
       expect(assigns :device).to be_destroyed
-      expect(response).to have_http_status :no_content
       expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :no_content
     end
   end
 

@@ -149,7 +149,7 @@ Site::Application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :devices, only: [:create, :index, :destroy] do
+      resources :devices, only: [:create, :update, :index, :destroy] do
         get :test, on: :member
       end
       resources :characters, only: [:show] do

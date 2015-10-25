@@ -30,6 +30,17 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :PATCH, '/devices/:id', 'Update a device'
+  api :PUT, '/devices/:id', 'Update a device'
+  param :device, Hash do
+    param :token, :undef
+  end
+  def update
+    @device.update device_params
+    respond_with @device, location: nil
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/devices/:id', 'Destroy a device'
   def destroy
     @device.destroy

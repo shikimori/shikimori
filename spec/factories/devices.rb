@@ -2,8 +2,9 @@
 
 FactoryGirl.define do
   factory :device do
-    token "MyString"
+    token '11111111111111111111111111111111111111'
+    name 'Nexus One'
     platform :ios
-    user
+    user { seed :user }
   end
 end
