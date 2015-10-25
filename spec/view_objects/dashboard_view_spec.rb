@@ -12,7 +12,8 @@ describe DashboardView do
   end
 
   describe '#seasons' do
-    it { expect(view.seasons).to eq TopMenu.new.seasons }
+    it { expect(view.seasons.last).to eq TopMenu.new.seasons.last }
+    it { expect(view.seasons).to have(5).items }
   end
 
   describe '#reviews' do

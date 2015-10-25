@@ -3,6 +3,10 @@ class Topics::Factory
 
   pattr_initialize :is_preview
 
+  def find entry_id
+    build Entry.find(entry_id)
+  end
+
   def build entry, section = nil
     if entry.review?
       if section == REVIEWS_SECTION

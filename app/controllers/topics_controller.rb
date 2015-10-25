@@ -36,7 +36,7 @@ class TopicsController < ForumController
     super
 
     # редирект на топик, если топик в подфоруме единственный
-    redirect_to topic_url(@collection.first, params[:format]) and return if @linked && @collection.one?
+    redirect_to topic_url(topics.first, params[:format]) and return if @linked && @collection.one?
   end
 
   # страница топика форума
@@ -104,7 +104,7 @@ class TopicsController < ForumController
 
   # html код для тултипа
   def tooltip
-    topic = TopicDecorator.new Entry.find(params[:id])
+    topic = Topics::Factory.new(true).find params[:id]
 
     # превью топика отображается в формате комментария
     render partial: 'comments/comment', layout: false, object: topic, formats: :html
@@ -115,21 +115,18 @@ class TopicsController < ForumController
     topics = Entry
       .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
-      .map {|v| TopicDecorator.new v }
-      .each {|v| v.preview_mode! }
+      .map { |topic| Topics::Factory.new(true).build topic }
 
-    render partial: 'topics/topic', collection: topics, layout: false, formats: :html
+    render partial: 'topics/topic', collection: topics, as: :view, layout: false, formats: :html
   end
 
   # подгружаемое через ajax тело топика
   def reload
-    topic = TopicDecorator.new Entry.with_viewed(current_user).find(params[:id])
-    if params[:is_preview] == 'true'
-      topic.preview_mode!
-    else
-      topic.topic_mode!
-    end
-    render partial: 'topics/topic', object: topic
+    topic = Entry.with_viewed(current_user).find params[:id]
+    view = Topics::Factory.new(params[:is_preview] == 'true').build topic
+
+    # render 'topics/topic', view: view
+    render partial: 'topics/topic', object: view, as: :view
   end
 
 private

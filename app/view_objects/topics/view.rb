@@ -1,6 +1,6 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview
-  delegate :comments_count, to: :topic
+  delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
   instance_cache :comments, :urls
 
   def ignored?
@@ -98,11 +98,10 @@ class Topics::View < ViewObjectBase
     # end
   # end
 
-private
+  # для совместимости с комментариями для рендера тултипа
+  def offtopic?; false; end
 
-  def body
-    topic.body
-  end
+private
 
   def body_cache_key
     [topic, topic.linked, h.russian_names_key, 'body']

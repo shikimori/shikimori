@@ -2,8 +2,6 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
-  before_action :set_title
-
   def show
     if user_signed_in? && current_user.id == @resource.id
       MessagesService.new(@resource.object).read_messages(kind: MessageType::ProfileCommented)
@@ -45,7 +43,7 @@ class ProfilesController < ShikimoriController
     end
 
     @collection = collection.map do |review|
-      TopicDecorator.new review.thread
+      Topics::ReviewView.new review.thread, true, true
     end
 
     page_title i18n_t('reviews')
@@ -168,11 +166,9 @@ private
   def set_breadcrumbs
     breadcrumb t('users'), users_url
     breadcrumb @resource.nickname, @resource.url
-  end
 
-  def set_title
     page_title i18n_t 'profile'
-    page_title @resource.nickname
+    page_title (@resource || @user).nickname
   end
 
   def update_params

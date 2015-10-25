@@ -61,7 +61,7 @@ class Topics::ReviewView < Topics::View
 private
 
   def body
-    linked.text
+    topic.linked.text
   end
 
   def render_stars

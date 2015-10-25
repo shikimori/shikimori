@@ -101,4 +101,4 @@ header.head
 .subheadline.m3 = i18n_i 'comment', :few
 div
   .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
-    = render 'topics/comments', topic: @topic
+    = render 'topics/comments', view: @topic.comments

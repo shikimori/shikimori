@@ -22,20 +22,29 @@ describe TopicsController do
 
     context 'no section' do
       before { get :index }
-      it { expect(response).to have_http_status :success }
-      it { expect(assigns :topics).to have(4).items }
+
+      it do
+        expect(collection).to have(4).items
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'Section::static[:all]' do
       before { get :index, section: Section::static[:all].permalink }
-      it { expect(response).to have_http_status :success }
-      it { expect(assigns :topics).to have(4).items }
+
+      it do
+        expect(collection).to have(4).items
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'section' do
       before { get :index, section: anime_section.to_param }
-      it { expect(response).to have_http_status :success }
-      it { expect(assigns :topics).to have(2).items }
+
+      it do
+        expect(collection).to have(2).items
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'subsection' do
@@ -47,8 +56,11 @@ describe TopicsController do
       context 'multiple topics' do
         let!(:anime_topic2) { create :topic, section: anime_section, user: user, linked: anime }
         before { get :index, section: anime_section.to_param, linked: anime.to_param }
-        it { expect(response).to have_http_status :success }
-        it { expect(assigns :topics).to have(2).items }
+
+        it do
+          expect(collection).to have(2).items
+          expect(response).to have_http_status :success
+        end
       end
     end
   end
@@ -112,15 +124,21 @@ describe TopicsController do
 
       context 'invalid params' do
         before { post :create, section: anime_section.to_param, topic: { user_id: user.id, section_id: anime_section.id } }
-        it { expect(response).to have_http_status :success }
-        it { expect(assigns(:topic)).to_not be_valid }
+
+        it do
+          expect(assigns(:topic)).to_not be_valid
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'valid params' do
         let(:text) { 'test' }
         before { post :create, section: anime_section.to_param, topic: topic_params }
-        it { expect(response).to redirect_to section_topic_url(section: resource.section, id: resource, linked: resource.linked) }
-        it { expect(resource).to have_attributes topic_params }
+
+        it do
+          expect(resource).to have_attributes topic_params
+          expect(response).to redirect_to section_topic_url(section: resource.section, id: resource, linked: resource.linked)
+        end
       end
     end
   end
@@ -137,14 +155,20 @@ describe TopicsController do
 
       context 'vlid_params params' do
         before { post :update, id: topic.id, topic: { user_id: user.id, title: '' } }
-        it { expect(response).to have_http_status :success }
-        it { expect(assigns(:resource)).to_not be_valid }
+        it do
+          expect(resource).to_not be_valid
+          expect(response).to have_http_status :success
+        end
       end
 
       context 'valid params' do
         before { post :update, section: anime_section.to_param, id: topic.id, topic: topic_params }
-        it { expect(response).to redirect_to section_topic_url(section: resource.section, id: resource, linked: resource.linked) }
-        it { expect(resource).to have_attributes topic_params }
+
+        it do
+          expect(resource).to have_attributes topic_params
+          expect(response).to redirect_to section_topic_url(
+            section: resource.section, id: resource, linked: resource.linked)
+        end
       end
     end
   end
@@ -158,8 +182,10 @@ describe TopicsController do
       before { sign_in user }
       before { post :destroy, id: topic.id }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
     end
   end
 

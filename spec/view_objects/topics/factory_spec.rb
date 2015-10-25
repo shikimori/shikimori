@@ -1,6 +1,25 @@
 describe Topics::Factory do
-  describe '.build' do
-    let(:factory) { Topics::Factory.new is_preview }
+  let(:factory) { Topics::Factory.new is_preview }
+
+  describe '#find' do
+    let(:topic) { create :topic }
+    subject(:view) { factory.find topic.id }
+
+    context 'common topic' do
+      context 'not preview' do
+        let(:is_preview) { false }
+        it { expect(view).to be_a Topics::View }
+        it { expect(view.is_preview).to eq false }
+      end
+
+      context 'preview' do
+        let(:is_preview) { true }
+        it { expect(view.is_preview).to eq true }
+      end
+    end
+  end
+
+  describe '#build' do
     subject(:view) { factory.build topic }
 
     let(:section) { nil }

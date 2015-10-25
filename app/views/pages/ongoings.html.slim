@@ -27,4 +27,4 @@ header.head.m15
 .subheadline.m3 Обсуждение
 div
   .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
-    = render 'topics/comments', topic: @topic
+    = render 'topics/comments', view: @topic.comments

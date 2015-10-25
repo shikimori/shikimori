@@ -9,10 +9,10 @@ class Api::V1::TopicsController < Api::V1::ApiController
 
     @section = Section.find_by_permalink params[:section]
     @topics = TopicsQuery
-      .new(@section, current_user)
+      .new(@section, current_user, nil)
       .fetch(@page, @limit)
       .includes(:section, :user)
-      .map {|v| TopicDecorator.new v }
+      .map { |topic| Topics::Factory.new(true).build topic }
 
     respond_with @topics, each_serializer: TopicSerializer
   end
@@ -20,7 +20,7 @@ class Api::V1::TopicsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/topics/:id', 'Show a topic'
   def show
-    @topic = TopicDecorator.new Entry.find(params[:id])
+    @topic = Topics::Factory.new(true).find params[:id]
     respond_with @topic, serializer: TopicSerializer
   end
 end

@@ -17,14 +17,14 @@ class PagesController < ShikimoriController
     @page_title = 'Календарь онгоингов'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = Topic.find(ONGOINGS_TOPIC_ID).decorate
+    @topic = Topics::Factory.new(false).find ONGOINGS_TOPIC_ID
   end
 
   # о сайте
   def about
     @page_title = t 'about_site'
     @statistics = SiteStatistics.new
-    @topic = Topic.find(ABOUT_TOPIC_ID).decorate
+    @topic = Topics::Factory.new(false).find ABOUT_TOPIC_ID
   end
 
   # rss с новостями
@@ -127,11 +127,11 @@ class PagesController < ShikimoriController
       @sidkiq_stats = Sidekiq::Stats.new
       @sidkiq_enqueued = Sidekiq::Queue
         .all
-        .map {|queue| page "queue:#{queue.name}", queue.name, 100 }
-        .map {|data| data.third }
+        .map { |queue| page "queue:#{queue.name}", queue.name, 100 }
+        .map { |data| data.third }
         .flatten
-        .map {|v| JSON.parse v }
-        .sort_by {|v| Time.at v['enqueued_at'] }
+        .map { |v| JSON.parse v }
+        .sort_by { |v| Time.at v['enqueued_at'] }
 
       @sidkiq_busy = Sidekiq::Workers.new.to_a.map {|v| v[2]['payload'] }.sort_by {|v| Time.at v['enqueued_at'] }
 

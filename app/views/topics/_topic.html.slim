@@ -8,8 +8,8 @@
   article.b-topic.shiki-object.unprocessed[
     id="#{view.topic.id}"
     class="#{view.container_class}"
-    data-user_id="#{view.topic.user.id}"
-    data-user_nickname="#{view.topic.user.nickname}"
+    data-user_id="#{view.user.id}"
+    data-user_nickname="#{view.user.nickname}"
     data-generated="#{view.topic.generated?}"
     data-faye="#{view.faye_channel}"
     data-appear_type="entry"
@@ -49,8 +49,8 @@
             span.time
               time[
                 itemprop="commentTime"
-                datetime="#{view.topic.created_at.iso8601}"
-              ] = l view.topic.created_at, format: '%e %B %Y'
+                datetime="#{view.created_at.iso8601}"
+              ] = l view.created_at, format: '%e %B %Y'
 
         .body
           .body-inner
@@ -76,7 +76,7 @@
               span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
 
           / - if topic.author_in_footer?
-            = render 'users/user_16', user: view.topic.user
+            = render 'users/user_16', user: view.user
 
       - unless view.topic.viewed?
         .appear-marker[
