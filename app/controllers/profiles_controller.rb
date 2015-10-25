@@ -2,7 +2,7 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
-  before_action { page_title i18n_t('profile') }
+  before_action :set_title
 
   def show
     if user_signed_in? && current_user.id == @resource.id
@@ -30,7 +30,7 @@ class ProfilesController < ShikimoriController
 
   def feed
     noindex
-    redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
+    redirect_to @resource.url if !@resource.show_comments? || @resource.main_comments.comments_count.zero?
     page_title i18n_t('feed')
   end
 
@@ -66,7 +66,7 @@ class ProfilesController < ShikimoriController
     page_title i18n_t('comments')
   end
 
-  def comments_reviews
+  def summaries
     noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
@@ -162,13 +162,17 @@ private
     @resource = UserProfileDecorator.new user
     @user = @resource
 
-    page_title @resource.nickname
     raise AgeRestricted if @resource.respond_to?(:censored?) && @resource.censored? && censored_forbidden?
   end
 
   def set_breadcrumbs
     breadcrumb t('users'), users_url
     breadcrumb @resource.nickname, @resource.url
+  end
+
+  def set_title
+    page_title i18n_t 'profile'
+    page_title @resource.nickname
   end
 
   def update_params

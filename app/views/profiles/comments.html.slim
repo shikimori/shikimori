@@ -1,8 +1,8 @@
 = render layout: 'page' do
   /.b-options-floated.mobile-support
-    a href="#{comments_reviews_profile_url @resource}"
+    a href="#{summaries_profile_url @resource}"
       | Отзывы
-      span.brackets = @resource.stats.comments_reviews_count
+      span.brackets = @resource.stats.summaries_count
     span.link.selected
       | Комментарии
       span.brackets = @resource.stats.comments_count

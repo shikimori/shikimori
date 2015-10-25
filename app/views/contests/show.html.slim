@@ -1,5 +1,9 @@
 = render layout: 'page' do
-  img#social_image src="/images/static/contest.jpg" alt=t('.anime_contest') title=t('.anime_contest')
+  img#social_image[
+    src="/images/static/contest.jpg"
+    alt="#{t '.anime_contest'}"
+    title="#{t '.anime_contest'}"
+  ]
 
   div
     - if @resource.showing_results?
@@ -14,7 +18,9 @@
   - if user_signed_in? || @resource.thread.comments_count > 0
     - if @resource.thread.comments_count > 0
       .subheadline.m3
-        .linkeable data-href="#{comments_contest_url @resource}" = t '.discussion'
+        .linkeable[
+          data-href="#{comments_contest_url @resource}"
+        ] = t '.discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
+        = render 'topics/comments', view: @resource.preview_thread.comments

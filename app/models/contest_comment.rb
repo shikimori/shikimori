@@ -8,9 +8,9 @@ class ContestComment < AniMangaComment
     "Опрос \"#{linked.title}\""
   end
 
-  def to_s
-    title
-  end
+  # def to_s
+    # title
+  # end
 
   def generated?
     true

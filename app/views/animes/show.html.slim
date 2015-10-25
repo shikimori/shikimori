@@ -140,19 +140,19 @@
 
   - if user_signed_in? || @resource.comments_count > 0
     .b-options-floated.mobile-support
-      - if @resource.comment_reviews? && @resource.comments_count != @resource.comment_reviews_count
-        span.linkeable data-href="#{@resource.comments_reviews_url}"
+      - if @resource.summaries? && @resource.comments_count != @resource.summaries_count
+        span.linkeable data-href="#{@resource.summaries_url}"
           = t '.all_summaries'
-          span.brackets = @resource.comment_reviews_count
+          span.brackets = @resource.summaries_count
 
       - if @resource.comments_count > 0
-        span.linkeable data-href="#{@resource.comments_all_url}"
+        span.linkeable data-href="#{@resource.comments_url}"
           = t '.all_comments'
           span.brackets = @resource.comments_count
 
     - if @resource.comments_count > 0
       .subheadline.m3
-        = i18n_io @resource.comment_reviews? ? 'Summary' : 'Comment', :few
+        = i18n_io @resource.summaries? ? 'Summary' : 'Comment', :few
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render 'topics/comments', topic: @resource.preview_reviews_thread
+        = render 'topics/comments', view: @resource.preview_summaries_thread.comments

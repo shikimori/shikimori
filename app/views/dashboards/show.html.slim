@@ -22,8 +22,10 @@
           span.title = short_title
           span.notice = full_title
 
-  .c-xx
-    .midheadline.green Реценции
+  .c-reviews
+    .midheadline.green Аниме обзоры
+    .b-forum.unprocessed
+      = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
 
 /.cc-2

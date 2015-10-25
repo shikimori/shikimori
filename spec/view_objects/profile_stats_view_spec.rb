@@ -173,11 +173,11 @@ describe ProfileStatsView do
     it { should eq 2 }
   end
 
-  describe '#comments_reviews_count' do
+  describe '#summaries_count' do
     let(:topic) { create :topic, user: user }
     let!(:comment) { create :comment, :review, user: user, commentable: topic }
     let!(:comment_2) { create :comment, user: user, commentable: topic }
-    subject { stats.comments_reviews_count }
+    subject { stats.summaries_count }
 
     it { should eq 1 }
   end

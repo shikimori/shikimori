@@ -7,15 +7,15 @@ class ReviewsController < AnimesController
 
   # один обзор
   def show
-    @topic = TopicDecorator.new @review.thread
+    @topic = Topics::ReviewView.new @review.thread, false, false
   end
 
   # обзоры аниме или манги
   def index
-    @reviews = ReviewsQuery
+    @collection = ReviewsQuery
       .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
-        TopicDecorator.new review.thread
+        Topics::ReviewView.new review.thread, true, true
       end
   end
 

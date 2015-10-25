@@ -1,21 +1,21 @@
 .b-comments
-  - if topic.folded?
-    .comments-hider Скрыть #{topic.reviews_only? ? 'отзывы' : 'комментарии'}
+  - if view.folded?
+    .comments-hider = view.hide_comments_text
     .comments-collapser = t 'collapse'
-    .comments-expander Показать комментарии
+    .comments-expander = view.show_comments_text
     .comments-loader.click-loader[
-        data-href-template="#{topic.comments_url}"
-        data-skip="#{topic.comments_limit}" data-limit="#{topic.fold_limit}"
-        data-count="#{topic.folded_comments}"
+        data-href-template="#{view.fetch_url}"
+        data-skip="#{view.comments_limit}" data-limit="#{view.fold_limit}"
+        data-count="#{view.folded_comments}"
       ]
-      .text = topic.show_hidden_comments_text
+      .text = view.load_comments_text
 
-  - if topic.comments.any?
-    = render partial: 'comments/comment', collection: topic.comments
+  - if view.comments.any?
+    = render partial: 'comments/comment', collection: view.comments
   - else
     p.no_comments = t 'no_comments'
 
 - if user_signed_in?
   .editor-container
     .subheadline.m10 Ваш комментарий
-    = render 'comments/form', comment: topic.new_comment
+    = render 'comments/form', comment: view.new_comment

@@ -13,8 +13,14 @@ article.c-column.b-catalog_entry[
   itemscope itemtype="#{{anime.itemtype}}"
   data-rate-status="#{anime.rate.status if anime.kind_of?(RatedEntry) && anime.rate}"
 ]
-  meta itemprop="image" content="#{{attachment_url anime.image, :original, false}}"
-  meta itemprop="thumbnailUrl" content="#{{attachment_url anime.image, :x48, false}}"
+  meta[
+    itemprop="image"
+    content="#{{attachment_url anime.image, :original, false}}"
+  ]
+  meta[
+    itemprop="thumbnailUrl"
+    content="#{{attachment_url anime.image, :x48, false}}"
+  ]
 
   - if cover_by == :link || cover_by == :image_link
     a.cover[

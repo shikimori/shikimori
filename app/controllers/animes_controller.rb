@@ -89,17 +89,12 @@ class AnimesController < DbEntriesController
     @blank_layout = true
   end
 
-  #def recent
-    #1/0
-  #end
-
-  # TODO: удалить после 05.2015
   def comments
     return redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
   end
 
   def reviews
-    return redirect_to @resource.url, status: 301 if @resource.comment_reviews_count.zero?
+    return redirect_to @resource.url, status: 301 if @resource.summaries_count.zero?
     page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
     #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end

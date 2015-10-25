@@ -28,7 +28,7 @@ class ForumController < ShikimoriController
 
   def show
     #@h1 = @topic.linked && @topic.class != AnimeNews ? @topic.linked.name : @topic.title
-    @h1 = @topic.object.title
+    @h1 = @topic.title
     @page_title = @topic.linked && @topic.linked.respond_to?(:name) ?
       [@section[:meta_title], @topic.linked.name, @topic.to_s] :
       [@section[:meta_title], @h1]

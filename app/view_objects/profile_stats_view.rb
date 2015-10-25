@@ -12,7 +12,7 @@ class ProfileStatsView
   attribute :scores
   attribute :types
 
-  instance_cache :comments_count, :comments_reviews_count, :reviews_count,
+  instance_cache :comments_count, :summaries_count, :reviews_count,
     :versions_count, :videos_changes_count
 
   def anime?
@@ -117,7 +117,7 @@ class ProfileStatsView
   end
 
   def social_activity?
-    comments_count > 0 || comments_reviews_count > 0 || reviews_count > 0 ||
+    comments_count > 0 || summaries_count > 0 || reviews_count > 0 ||
       versions_count > 0 || videos_changes_count > 0
   end
 
@@ -125,8 +125,8 @@ class ProfileStatsView
     Comment.where(user_id: user.id).count
   end
 
-  def comments_reviews_count
-    Comment.where(user_id: user.id, review: true).count
+  def summaries_count
+    Comment.summaries.where(user_id: user.id).count
   end
 
   def reviews_count

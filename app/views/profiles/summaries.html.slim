@@ -2,7 +2,7 @@
   .b-options-floated.mobile-support
     span.link.selected
       | Отзывы
-      span.brackets = @resource.stats.comments_reviews_count
+      span.brackets = @resource.stats.summaries_count
 
     a href="#{comments_profile_url @resource}"
       | Комментарии
@@ -13,6 +13,6 @@
     - if @collection.any?
       = render @collection
       - if @add_postloader
-        = render 'blocks/postloader', filter: 'b-comment', url: comments_reviews_profile_url(page: @page+1)
+        = render 'blocks/postloader', filter: 'b-comment', url: summaries_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет отзывов

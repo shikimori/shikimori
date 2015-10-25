@@ -1,4 +1,4 @@
-- cache [topic, topic.preview?, gallery, russian_names_key] do
+- cache [view.topic, view.is_preview, gallery, russian_names_key] do
   .cosplay-info
     .line
       .key = gallery.cosplayers.one? ? 'Косплеит' : 'Косплеят'
@@ -30,12 +30,12 @@
             a.bubbled href="#{manga_url manga}"
               = localized_name manga
 
-    - if topic.preview? && gallery.images.size > CosplayComment::IMAGES_IN_PREVIEW
+    - if view.is_preview && gallery.images.size > CosplayComment::IMAGES_IN_PREVIEW
       .line
         .key В галерее
         .value #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
 
-  - if topic.preview?
-    = BbCodeFormatter.instance.format_comment topic.preview_wall
+  - if view.is_preview
+    = BbCodeFormatter.instance.format_comment view.topic.preview_wall
   - else
-    = render topic.linked
+    = render view.topic.linked

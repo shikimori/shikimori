@@ -23,7 +23,7 @@ class Comment < ActiveRecord::Base
   validates_length_of :body, minimum: 2, maximum: 10000
 
   # scopes
-  scope :reviews, -> { where review: true }
+  scope :summaries, -> { where review: true }
 
   # callbacks
   before_validation :clean

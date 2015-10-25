@@ -1,0 +1,52 @@
+article.b-topic.b-topic-single_lined.hiki-object.unprocessed[
+  id="#{view.topic.id}"
+  class="#{view.container_class}"
+  data-user_id="#{view.topic.user.id}"
+  data-user_nickname="#{view.topic.user.nickname}"
+  data-generated="#{view.topic.generated?}"
+  data-faye="#{view.faye_channel}"
+  data-appear_type="entry"
+]
+  a name="topic-#{view.topic.id}"
+  / класс нужен из-за проверки высоты и для отображения кнопок по hover
+  - if view.show_body?
+    .inner
+      - if user_signed_in? && !view.is_mini
+        span.item-mobile title="Действия"
+
+      aside.markers
+        - unless view.topic.viewed?
+          p.b-new_marker новое
+
+      - if user_signed_in? && !view.is_mini
+        = render 'topics/buttons', view: view
+
+      header
+        .name-date
+          - if view.action_tag
+            .b-anime_status_tag class="review"
+              = view.action_tag
+
+          a.name[
+            href="#{view.urls.topic_url}"
+            title="#{view.topic_title}"
+          ] = view.topic_title
+
+      .body
+        = render 'topics/reviews/status_line', view: view
+
+        = render 'topics/reviews/entry_cover', view: view,
+          entry: view.topic.linked.target.decorate
+
+        .body-truncated
+          .body-truncated-inner
+            = view.html_body_truncated
+
+    - unless view.topic.viewed?
+      .appear-marker[
+        class="appear-topic-#{view.topic.id}"
+        data-appear_url="#{api_appears_url}"
+      ]
+
+  - unless view.is_mini
+    = render 'topics/comments', view: view.comments

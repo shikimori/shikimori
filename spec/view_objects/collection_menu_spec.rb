@@ -1,17 +1,17 @@
 describe CollectionMenu do
-  let(:menu) { CollectionMenu.new Anime }
-  before { menu.h.controller.request.env['warden'] ||= WardenStub.new }
+  include_context :view_object_warden_stub
+  let(:view) { CollectionMenu.new Anime }
 
   describe '#sorted_genres' do
     let!(:genre_1) { create :genre, position: 1, kind: :anime }
     let!(:genre_2) { create :genre, position: 2, kind: :anime }
     let!(:genre_3) { create :genre, position: 3, kind: :manga }
 
-    it { expect(menu.sorted_genres).to eq [genre_1, genre_2] }
+    it { expect(view.sorted_genres).to eq [genre_1, genre_2] }
   end
 
   describe '#seasons' do
-    subject { menu.seasons }
+    subject { view.seasons }
 
     it do
       is_expected.to eq(

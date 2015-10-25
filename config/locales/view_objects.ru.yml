@@ -4,3 +4,15 @@ ru:
       anime: Время за аниме
       manga: Время за мангой
       anime_manga: Время за аниме и мангой
+  # topics/view: &topics
+  # topics/review_view:
+    # <<: *topics
+    # title:
+      # anime: Обзор аниме &laquo;%{target_name}&raquo;
+      # manga: Обзор манги &laquo;%{target_name}&raquo;
+  topics/comments: &comments
+    show_comments: Показать %{comment_word}
+    hide_comments: Скрыть %{comment_word}
+    load_comments: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
+  topics/proxy_comments:
+    <<: *comments

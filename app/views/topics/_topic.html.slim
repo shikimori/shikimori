@@ -1,78 +1,71 @@
-- if user_signed_in? && current_user.ignores?(topic.user)
-  = render partial: 'blocks/ignored', object: topic
+- if view.ignored?
+  = render partial: 'blocks/ignored', object: view.topic
+
+- elsif view.topic.review? && view.is_preview
+  = render 'topics/reviews/preview', view: view
+
 - else
   article.b-topic.shiki-object.unprocessed[
-      id="#{topic.id}"
-      class="#{:preview if topic.preview?} #{'b-review' if topic.review?} #{'b-cosplay' if topic.cosplay?} #{'b-generated_news' if topic.generated_news?}"
-      data-user_id="#{topic.user.id}"
-      data-user_nickname="#{topic.user.nickname}"
-      data-generated="#{topic.generated?}"
-      data-faye="#{topic.faye_channel}"
-      data-appear_type="entry"
-    ]
-    a name="topic-#{topic.id}"
+    id="#{view.topic.id}"
+    class="#{view.container_class}"
+    data-user_id="#{view.topic.user.id}"
+    data-user_nickname="#{view.topic.user.nickname}"
+    data-generated="#{view.topic.generated?}"
+    data-faye="#{view.faye_channel}"
+    data-appear_type="entry"
+  ]
+    a name="topic-#{view.topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
-    - if topic.show_body?
+    - if view.show_body?
       .inner
         - if user_signed_in?
           span.item-mobile title="Действия"
 
         aside.markers
-          - unless topic.viewed?
+          - unless view.topic.viewed?
             p.b-new_marker новое
 
         - if user_signed_in?
-          = render partial: 'topics/buttons', locals: { topic: topic }
+          = render 'topics/buttons', view: view
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
-          - if topic.show_author_in_header?
-            span.linkeable data-href="#{topic.url}"
-              img src="#{topic.avatar}" srcset="#{topic.avatar2x} 2x" alt="#{topic.display_title}"
+          - if view.author_in_header?
+            span.linkeable data-href="#{view.urls.topic_url}"
+              img[
+                src="#{view.poster false}"
+                srcset="#{view.poster true} 2x"
+                alt="#{view.topic_title}"
+              ]
           .name-date
-            - if topic.generated_news?
-              .b-anime_status_tag class="#{topic.action}" = topic.action_text
+            - if view.action_tag
+              .b-anime_status_tag class="#{view.topic.action}"
+                = view.action_tag
 
-            a.name href="#{topic.url}" title="#{topic.display_title}" = topic.display_title
+            a.name[
+              href="#{view.urls.topic_url}"
+              title="#{view.topic_title}"
+            ] = view.topic_title
             span.time
               time[
                 itemprop="commentTime"
-                datetime="#{topic.created_at.iso8601}"
-              ] = l topic.created_at, format: '%e %B %Y'
-
-        - if topic.review? && topic.linked.votes_count > 0
-          p.votes-count
-            = topic.linked.votes_text
-            - if topic.linked.rejected?
-              span.warn перенесено в оффтоп
+                datetime="#{view.topic.created_at.iso8601}"
+              ] = l view.topic.created_at, format: '%e %B %Y'
 
         .body
-          - if topic.generated_news?
-            = render topic.linked.decorate,
-              cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
-          - elsif topic.cosplay?
-            = render partial: 'cosplay_galleries/topic_info', locals: { topic: topic, gallery: topic.linked }
-          - else
-            - if topic.review?
-              = render partial: 'reviews/votes', locals: { review: topic.linked, with_music: topic.linked.entry.kind_of?(Anime) }
-            = topic.html_body
+          .body-inner
+            = view.render_body
 
         footer
           - if user_signed_in?
-            - if topic.review? && topic.linked.user_id != current_user.id
-              .voteable
-                span Эта рецензия полезна?
-                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
-            - elsif topic.cosplay?
-              .voteable
-                span Тебе нравится?
-                .vote.yes class="#{:selected if topic.linked.voted_yes? current_user}" data-remote="true" action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Да
-                .vote.no class="#{:selected if topic.linked.voted_no? current_user}" data-remote="true" action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}" data-type="json" data-method="post" Нет
+            - if view.topic.review?
+              = render 'topics/reviews/footer_vote', view: view
+            - elsif view.topic.cosplay?
+              = render 'topics/cosplay/footer_vote', view: view
 
-          p.tags
+          / p.tags
             - if user_signed_in?
-              - if topic.tag.present? && !topic.news? && !topic.review?
+              - if topic.tag.present? && !tview.opic.news? && !view.topic.review?
                 span.tag
                   a title="#{topic.tag}" href="#{subsection_url topic}" = topic.tag
               span.tag
@@ -82,12 +75,13 @@
                 span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
               span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
 
-          - if topic.show_author_in_footer?
-            a.b-user16 href="#{profile_url topic.user}" title="#{topic.user.nickname}"
-              img src="#{topic.user.avatar_url 16}" srcset="#{topic.user.avatar_url 32} 2x" alt="#{topic.user.nickname}"
-              span = topic.user.nickname
+          / - if topic.author_in_footer?
+            = render 'users/user_16', user: view.topic.user
 
-      - unless topic.viewed?
-        .appear-marker class="appear-topic-#{topic.id}" data-appear_url="#{api_appears_url}"
+      - unless view.topic.viewed?
+        .appear-marker[
+          class="appear-topic-#{view.topic.id}"
+          data-appear_url="#{api_appears_url}"
+        ]
 
-    = render partial: 'topics/comments', locals: { topic: topic }
+    = render 'topics/comments', view: view.comments

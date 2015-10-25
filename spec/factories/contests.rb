@@ -1,10 +1,13 @@
 FactoryGirl.define do
   factory :contest do
     title "MyString"
-    user
+    user { seed :user }
+
     member_type { [:anime, :character].sample }
     strategy_type :double_elimination
+
     started_on Date.today
+
     matches_per_round 999
     match_duration 1
     matches_interval 1

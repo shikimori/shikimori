@@ -5,14 +5,6 @@ class AnimeNews < DbEntryThread
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { 'text' }
 
-  def action_text
-    if episode?
-      "#{super} #{value}"
-    else
-      super
-    end
-  end
-
   # получение названия для новости
   def generate_title(anime)
     service = AnimeHistoryService.new

@@ -6,10 +6,10 @@ class AniMangaDecorator < DbEntryDecorator
   NewsPerPage = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :comment_reviews_count, :cosplay?
+  instance_cache :topics, :news, :reviews, :reviews_count, :summaries_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
-  instance_cache :preview_reviews_thread, :main_reviews_thread
+  instance_cache :preview_summaries_thread, :main_summaries_thread
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
@@ -54,19 +54,13 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # основной топик
-  def preview_reviews_thread
-    thread = TopicDecorator.new object.thread
-    thread.reviews_only! if comment_reviews?
-    thread.preview_mode!
-    thread
+  def preview_summaries_thread
+    Topics::SummariesView.new thread, true
   end
 
   # полный топик отзывов
-  def main_reviews_thread
-    thread = TopicDecorator.new object.thread
-    thread.reviews_only!
-    thread.topic_mode!
-    thread
+  def main_summaries_thread
+    Topics::SummariesView.new thread, false
   end
 
   # объект с ролями аниме
@@ -85,13 +79,13 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # число отзывов
-  def comment_reviews_count
-    object.thread.comments.reviews.count
+  def summaries_count
+    object.thread.comments.summaries.count
   end
 
   # есть ли отзывы?
-  def comment_reviews?
-    @comment_reviews ||= comment_reviews_count > 0
+  def summaries?
+    @summaries ||= summaries_count > 0
   end
 
   # оценки друзей

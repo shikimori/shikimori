@@ -1,7 +1,6 @@
 describe DashboardView do
+  include_context :view_object_warden_stub
   let(:view) { DashboardView.new }
-
-  before { view.h.request.env['warden'] ||= WardenStub.new }
 
   describe '#ongoings' do
     let!(:anons) { create :anime, :anons }
@@ -14,6 +13,10 @@ describe DashboardView do
 
   describe '#seasons' do
     it { expect(view.seasons).to eq TopMenu.new.seasons }
+  end
+
+  describe '#reviews' do
+    pending
   end
 
   #describe 'favourites' do

@@ -112,6 +112,11 @@ class Entry < ActiveRecord::Base
   end
 
   # сгенерированный ли топик
+  def topic?
+    self.class == Topic
+  end
+
+  # сгенерированный ли топик
   def generated?
     generated
   end
@@ -134,6 +139,11 @@ class Entry < ActiveRecord::Base
   # топик ли это косплей?
   def cosplay?
     self.class == CosplayComment
+  end
+
+  # по опросу ли данный топик
+  def contest?
+    self.class == ContestComment
   end
 
   def user_image_ids(value=self.value)

@@ -26,4 +26,4 @@
 
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
+        = render 'topics/comments', view: @resource.preview_thread.comments
