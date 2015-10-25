@@ -43,7 +43,7 @@ class Topics::View < ViewObjectBase
         (topic.review? ? topic.linked.target : topic.linked), is_2x ? :x96 : :x48
       )
     else
-      topic.user.avatar_url(is_2x ? 80 : 48)
+      topic.user.avatar_url is_2x ? 80 : 48
     end
   end
 
