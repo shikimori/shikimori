@@ -17,7 +17,8 @@ describe Api::V1::DevicesController, :show_in_doc do
   end
 
   describe '#create' do
-    before { post :create, device: { user_id: user.id, token: 'test', platform: 'ios', name: 'test'}, format: :json }
+    let(:device) {{ user_id: user.id, token: 'test', platform: 'ios', name: 'test'}}
+    before { post :create, device: device, format: :json }
 
     it do
       expect(assigns :device).to be_persisted

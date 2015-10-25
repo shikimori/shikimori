@@ -13,7 +13,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   end
 
   def test
-    gcm = GCM.new(Rails.env.production? ? 'AIzaSyC81xkpbxSs8G-gHFJD0JWEAw4oC9VeRTE' : 'AIzaSyB_9gYngdl16dHtTyqywxwjSZOtdYVC6Yk')
+    gcm = GCM.new Rails.application.secrets.gcm[:token]
     respond_with gcm.send_notification([@device.token], data: JSON.parse(params[:data]))
   end
 
