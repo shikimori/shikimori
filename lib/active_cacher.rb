@@ -127,6 +127,10 @@ module ActiveCacher
         end
       end
     end
+
+    target.send :define_singleton_method, :inherited do |subclass|
+      subclass.send :prepend, ActiveCacher.instance
+    end
   end
 
 private
