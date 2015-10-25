@@ -42,7 +42,7 @@ class CollectionTitle
     ].compact.join(' ')
 
     if title == Anime.model_name.human && user.nil?
-      i18n_i('Best_anime', :other)
+      i18n_i 'Best_anime', :other
     else
       title
     end
