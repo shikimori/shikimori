@@ -66,4 +66,4 @@
       .subheadline.m3 = i18n_io 'Comment', :few
       div
         .b-topic.unprocessed data-faye="#{@player.episode_thread.faye_channel}"
-          = render 'topics/comments', topic: @player.episode_thread
+          = render 'topics/comments', view: @player.episode_thread.comments
