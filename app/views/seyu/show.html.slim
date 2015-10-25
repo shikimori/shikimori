@@ -68,7 +68,9 @@
 
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3
-      .linkeable data-href="#{comments_seyu_url @resource}" = i18n_i 'Discussion'
+      .linkeable[
+        data-href="#{comments_seyu_url @resource}"
+      ] = i18n_i 'Discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render 'topics/comments', topic: @resource.preview_thread
+        = render 'topics/comments', view: @resource.preview_thread.comments

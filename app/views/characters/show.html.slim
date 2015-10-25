@@ -57,10 +57,14 @@
                 .additional-links
                   .line-container
                     - if @resource.cosplay?
-                      span.linkeable data-href="#{cosplay_character_url @resource}" = t 'cosplay'
+                      span.linkeable[
+                        data-href="#{cosplay_character_url @resource}"
+                      ] = t 'cosplay'
 
                     - if @resource.tags.present?
-                      span.linkeable data-href="#{art_character_url @resource}" = t 'imageboard_art'
+                      span.linkeable[
+                        data-href="#{art_character_url @resource}"
+                      ] = t 'imageboard_art'
 
         - if @resource.seyu.present?
           .c-info-right
@@ -76,8 +80,14 @@
     .c-description
       .subheadline.m5 = i18n_i 'Description'
       .block
-        meta itemprop='image' content="#{{attachment_url @resource.image, :original, false}}"
-        meta itemprop='thumbnailUrl' content="#{{attachment_url @resource.image, :x64, false}}"
+        meta[
+          itemprop='image'
+          content="#{{attachment_url @resource.image, :original, false}}"
+        ]
+        meta[
+          itemprop='thumbnailUrl'
+          content="#{{attachment_url @resource.image, :x64, false}}"
+        ]
 
         .m20
           / .text должен быть вложен в блок с отступом, иначе при сокращении
@@ -91,7 +101,11 @@
             .russian itemprop='description'
               = @resource.description_html
 
-        = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.versions.authors(:description), field: 'description', default_source: @resource.mal_url }
+        = render 'blocks/source',
+          entry: @resource,
+          authors: @resource.versions.authors(:description),
+          field: 'description',
+          default_source: @resource.mal_url
 
   - if @resource.animes(7).any?
     .subheadline.m10
@@ -108,9 +122,11 @@
   - if user_signed_in? || @resource.preview_thread.comments_count > 0
     .subheadline.m3
       - if @resource.preview_thread.comments_count > 0
-        .linkeable data-href="#{comments_character_url @resource}" = i18n_i 'Discussion'
+        .linkeable[
+          data-href="#{comments_character_url @resource}"
+        ] = i18n_i 'Discussion'
       - else
         = i18n_i 'Discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
+        = render 'topics/comments', view: @resource.preview_thread.comments

@@ -316,8 +316,8 @@ Site::Application.routes.draw do
     # seo redirects
     get 'r' => redirect('/reviews')
     constraints other: /.*/  do
-      get 'r/:other' => redirect { |params,request| "/reviews/#{params[:other]}" }
-      get 'person/:other' => redirect { |params,request| "/people/#{params[:other]}" }
+      get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
+      get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
 
     #constraints section: Section::VARIANTS do
@@ -469,11 +469,11 @@ Site::Application.routes.draw do
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/ do
-      get ':kind/season/planned:other' => redirect { |params,request| "/#{params[:kind]}/status/planned#{params[:other]}" }
-      get ':kind/season/ongoing:other' => redirect { |params,request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
-      get ':kind/season/latest:other' => redirect { |params,request| "/#{params[:kind]}/status/latest#{params[:other]}" }
+      get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/planned#{params[:other]}" }
+      get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
+      get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
       constraints type: /Anime|translation_planned/ do
-        get ':kind/type/:type:other' => redirect { |params,request| "/#{params[:kind]}#{params[:other]}" }
+        get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
       end
     end
 
@@ -500,9 +500,11 @@ Site::Application.routes.draw do
           get :images
           get :clubs
 
-          scope 'comments' do
-            get :reviews
-          end
+          get :summaries
+
+          # TODO: удалить после 2016-01-01
+          get 'comments/reviews' => redirect { |params, request| request.url.sub 'comments/reviews', 'summaries' }
+
 
           get :other_names # другие названия
           get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
@@ -513,7 +515,7 @@ Site::Application.routes.draw do
           # инфо по торрентам эпизодов
           get :episode_torrents
 
-          get 'cosplay/:anything' => redirect { |params,request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
+          get 'cosplay/:anything' => redirect { |params, request| "/#{kind}/#{params[:id]}/cosplay" }, anything: /.*/
         end
 
         # обзоры
@@ -690,7 +692,7 @@ Site::Application.routes.draw do
         get 'reviews(/page/:page)' => :reviews, as: :reviews
         get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
         scope 'comments' do
-          get 'reviews(/page/:page)' => :comments_reviews, as: :comments_reviews
+          get 'reviews(/page/:page)' => :summaries, as: :summaries
         end
         get 'versions(/page/:page)' => :versions, as: :versions
         get 'videos(/page/:page)' => :videos, as: :videos

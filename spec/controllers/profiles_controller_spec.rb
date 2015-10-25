@@ -65,9 +65,9 @@ describe ProfilesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#comments_reviews' do
+  describe '#summaries' do
     let!(:comment) { create :comment, user: user, commentable: user, review: true }
-    before { get :comments_reviews, id: user.to_param }
+    before { get :summaries, id: user.to_param }
     it { expect(response).to have_http_status :success }
   end
 

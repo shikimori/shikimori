@@ -191,9 +191,9 @@
           div: a href="#{reviews_profile_url @resource}"
             = "#{@resource.stats.reviews_count} #{i18n_i 'review', @resource.stats.reviews_count}"
 
-        - if @resource.stats.comments_reviews_count > 0
-          div: a href="#{comments_reviews_profile_url @resource}"
-            = "#{@resource.stats.comments_reviews_count} #{i18n_i 'summary', @resource.stats.comments_reviews_count}"
+        - if @resource.stats.summaries_count > 0
+          div: a href="#{summaries_profile_url @resource}"
+            = "#{@resource.stats.summaries_count} #{i18n_i 'summary', @resource.stats.summaries_count}"
 
         - if @resource.stats.versions_count > 0
           div: a href="#{versions_profile_url @resource}"

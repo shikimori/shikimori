@@ -186,6 +186,11 @@ private
 
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
-    create_thread! linked: self, section_id: Section::CONTESTS_ID, user: user
+    create_thread!(
+      linked: self,
+      section_id: Section::CONTESTS_ID,
+      user: user,
+      generated: true
+    )
   end
 end

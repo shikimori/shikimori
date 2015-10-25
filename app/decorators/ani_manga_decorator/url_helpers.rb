@@ -110,12 +110,12 @@ module AniMangaDecorator::UrlHelpers
   end
 
   # урл страницы с отзывами
-  def comments_reviews_url
-    h.send "reviews_#{klass_lower}_url", object
+  def summaries_url
+    h.send "summaries_#{klass_lower}_url", object
   end
 
   # урл страницы со всеми комментариями
-  def comments_all_url
+  def comments_url
     h.send "comments_#{klass_lower}_url", object
   end
 

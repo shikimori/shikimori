@@ -1,6 +1,6 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview
-
+  delegate :comments_count, to: :topic
   instance_cache :comments, :urls
 
   def ignored?
@@ -64,7 +64,7 @@ class Topics::View < ViewObjectBase
   end
 
   def subscribed?
-    current_user.subscribed? topic
+    h.current_user.subscribed? topic
   end
 
   def author_in_header?

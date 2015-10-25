@@ -66,7 +66,7 @@ class ProfilesController < ShikimoriController
     page_title i18n_t('comments')
   end
 
-  def comments_reviews
+  def summaries
     noindex
     collection = postload_paginate(params[:page], 20) do
       Comment

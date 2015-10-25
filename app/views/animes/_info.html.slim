@@ -54,7 +54,7 @@
       span.other-names.click-loader data-href="#{entry.other_names_url}"
         span ···
 
-  - if entry.comments_count > 0 || entry.comment_reviews_count > 0 || entry.reviews_count > 0
+  - if entry.comments_count > 0 || entry.summaries_count > 0 || entry.reviews_count > 0
     .additional-links
       .line-container
         .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
@@ -62,12 +62,12 @@
           span.linkeable data-href="#{entry.reviews_url}"
             = "#{entry.reviews_count} #{i18n_i 'review', entry.reviews_count}"
 
-        - if entry.comment_reviews_count > 0
-          span.linkeable data-href="#{entry.comments_reviews_url}"
-            = "#{entry.comment_reviews_count} #{i18n_i 'summary', entry.comment_reviews_count}"
+        - if entry.summaries_count > 0
+          span.linkeable data-href="#{entry.summaries_url}"
+            = "#{entry.summaries_count} #{i18n_i 'summary', entry.summaries_count}"
 
-        - if entry.comments_count > 0 && entry.comments_count != entry.comment_reviews_count
-          span.linkeable data-href="#{entry.comments_all_url}"
+        - if entry.comments_count > 0 && entry.comments_count != entry.summaries_count
+          span.linkeable data-href="#{entry.comments_url}"
             = "#{entry.comments_count} #{i18n_i 'comment', entry.comments_count}"
 
       - if entry.files? || entry.tags.present? || entry.cosplay?

@@ -2,12 +2,12 @@
   .b-options-floated.mobile-support
     span.link.selected
       | Все отзывы
-      span.brackets = @resource.comment_reviews_count
+      span.brackets = @resource.summaries_count
 
-    a href="#{@resource.comments_all_url}"
+    a href="#{@resource.comments_url}"
       | Все комментарии
       span.brackets = @resource.comments_count
   .subheadline.m3 = @page_title.last
   div
     .b-topic.unprocessed
-      = render partial: 'topics/comments', locals: { topic: @resource.main_reviews_thread }
+      = render 'topics/comments', view: @resource.main_summaries_thread.comments

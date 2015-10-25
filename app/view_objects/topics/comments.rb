@@ -17,7 +17,7 @@ class Topics::Comments < ViewObjectBase
   # число свёрнутых комментариев
   def folded_comments
     if only_summaries
-      topic.comments.reviews.size - comments_limit
+      topic.comments.summaries.size - comments_limit
     else
       topic.comments_count - comments_limit
     end
@@ -49,7 +49,7 @@ class Topics::Comments < ViewObjectBase
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
-    (only_summaries ? comments.reviews : comments)
+    (only_summaries ? comments.summaries : comments)
       .decorate
       .to_a
       .reverse
