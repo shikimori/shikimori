@@ -11,6 +11,9 @@ class Topics::Factory
         Topics::ReviewView.new entry, @is_preview, false
       end
 
+    elsif entry.contest?
+      Topics::ContestView.new entry, @is_preview
+
     elsif entry.cosplay?
       Topics::CosplayView.new entry, @is_preview
 

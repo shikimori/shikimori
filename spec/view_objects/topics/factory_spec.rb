@@ -28,6 +28,11 @@ describe Topics::Factory do
       it { expect(view).to be_a Topics::CosplayView }
     end
 
+    context 'contest' do
+      let(:topic) { build :contest_comment, linked: build_stubbed(:contest) }
+      it { expect(view).to be_a Topics::ContestView }
+    end
+
     context 'anime news' do
       context 'generated' do
         let(:topic) { build :anime_news, generated: true }

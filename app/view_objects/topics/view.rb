@@ -25,7 +25,7 @@ class Topics::View < ViewObjectBase
   def topic_title
     if !is_preview
       topic.user.nickname
-    elsif topic.topic?
+    elsif topic.topic? || topic.linked_id.nil?
       topic.title
     else
       h.localized_name topic.linked
@@ -81,6 +81,22 @@ class Topics::View < ViewObjectBase
       BbCodeFormatter.instance.format_comment topic.body
     end
   end
+
+  # # надо ли свёртывать длинный контент топика?
+  # def should_shorten?
+    # !news? || (news? && generated?) || (news? && object.body !~ /\[wall\]/)
+  # end
+
+  # # тег топика
+  # def tag
+    # return nil if linked.nil? || review? || contest?
+
+    # if linked.kind_of? Review
+      # h.localized_name linked.target
+    # else
+      # h.localized_name linked if linked.respond_to?(:name) && linked.respond_to?(:russian)
+    # end
+  # end
 
 private
 

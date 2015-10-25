@@ -256,7 +256,7 @@ class @ShikiTopic extends ShikiEditable
       if image_height > 0
         @$('.body-truncated-inner').check_height image_height, false, image_height
     else
-      @$body.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
+      @$('.body-inner').check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
 
   _type: -> 'topic'
   _type_label: -> 'Топик'

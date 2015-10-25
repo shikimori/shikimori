@@ -53,7 +53,8 @@
               ] = l view.topic.created_at, format: '%e %B %Y'
 
         .body
-          = view.render_body
+          .body-inner
+            = view.render_body
 
         footer
           - if user_signed_in?
