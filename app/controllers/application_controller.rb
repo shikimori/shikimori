@@ -75,6 +75,7 @@ class ApplicationController < ActionController::Base
         render(
           json: {
             code: 503,
+            exception: e.class.name,
             message: e.message,
             backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
           },
