@@ -7,6 +7,7 @@ ru:
     ban_message: бан на %{duration}. %{reason}.
 
   genre:
+    default_title: '%{kind} жанра %{name}'
     title:
       common: &common
         magic: '%{kind} про магию'
@@ -40,7 +41,7 @@ ru:
       subjective:
         anime: &subjective_anime
           <<: *common
-          comedy: комедии аниме
+          comedy: аниме комедии
           romance: романтические аниме
           historical: исторические аниме
           supernatural: сверхъестественные аниме

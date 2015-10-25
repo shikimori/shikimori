@@ -59,6 +59,7 @@ class Genre < ActiveRecord::Base
     MainGenres.include?(self.english)
   end
 
+  # TODO remove
   def format_for_title types, rus_var
     case self.english
       when 'Magic'        then "#{types} про магию"
@@ -97,16 +98,17 @@ class Genre < ActiveRecord::Base
     end
   end
 
-  # TODO default_title
-  # TODO вызывать только когда один жанр (fancy_title) или всегда?
-  #      если жанров может быть много, то надо продумать русский
-  #      перевод default_title
+  # TODO spec
   def title ru_case: :subjective, user: nil
     key = english.parameterize.underscore
     name = UsersHelper.localized_name self, user
+    kind = self.kind.capitalize.constantize.model_name.human
 
-    i18n_t "title.#{ru_case}.#{kind}.#{key}", kind: kind,
-      default: i18n_i('default_title', kind: kind, name: name)
+    i18n_t(
+      "title.#{ru_case}.#{self.kind}.#{key}",
+      kind: kind,
+      default: i18n_t('default_title', kind: kind, name: name)
+    ).capitalize
   end
 
   def english

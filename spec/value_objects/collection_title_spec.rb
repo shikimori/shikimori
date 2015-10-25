@@ -13,12 +13,12 @@ describe CollectionTitle do
   end
   let(:klass) { Anime }
   let(:user) { nil }
-  let(:season) { }
-  let(:type) { }
-  let(:status) { }
-  let(:genres) { }
-  let(:studios) { }
-  let(:publishers) { }
+  let(:season) {}
+  let(:type) {}
+  let(:status) {}
+  let(:genres) {}
+  let(:studios) {}
+  let(:publishers) {}
 
   subject(:title) { collection_title.title }
 
@@ -55,12 +55,12 @@ describe CollectionTitle do
   describe 'status' do
     context 'anons' do
       let(:status) { 'anons' }
-      it { is_expected.to eq 'Аниме анонсы' }
+      it { is_expected.to eq 'Анонсы аниме' }
     end
 
-    context 'ongoing',:focus do
+    context 'ongoing' do
       let(:status) { 'ongoing' }
-      it { is_expected.to eq 'Аниме онгоинги' }
+      it { is_expected.to eq 'Онгоинги аниме' }
     end
 
     context 'released' do
@@ -84,16 +84,19 @@ describe CollectionTitle do
   end
 
   describe 'genres' do
+    let(:genres) { build :genre, name: name, kind: klass.name.downcase }
+    let(:klass) { Anime }
+
     context 'magic' do
-      let(:genres) { build :genre, name: 'Magic' }
+      let(:name) { 'Magic' }
       it { is_expected.to eq 'Аниме про магию' }
     end
 
     context 'comedy' do
-      let(:genres) { build :genre, name: 'Comedy' }
+      let(:name) { 'Comedy' }
 
       context 'anime' do
-        it { is_expected.to eq 'Комедийные аниме' }
+        it { is_expected.to eq 'Аниме комедии' }
       end
 
       context 'manga' do
@@ -103,8 +106,8 @@ describe CollectionTitle do
     end
 
     context 'romance' do
-      let(:genres) { build :genre, name: 'Romance' }
-      it { is_expected.to eq 'Романтические аниме про любовь' }
+      let(:name) { 'Romance' }
+      it { is_expected.to eq 'Романтические аниме' }
     end
   end
 

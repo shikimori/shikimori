@@ -34,12 +34,28 @@ class String
     Unicode.capitalize self
   end
 
+  def upcase
+    if encoding.name != 'ASCII-8BIT'
+      Unicode.upcase self
+    else
+      Unicode.upcase self.fix_encoding
+    end
+  end
+
   def downcase
     if encoding.name != 'ASCII-8BIT'
       Unicode.downcase self
     else
       Unicode.downcase self.fix_encoding
     end
+  end
+
+  def first_upcase
+    self.slice(0,1).upcase + self.slice(1..-1)
+  end
+
+  def first_downcase
+    self.slice(0,1).downcase + self.slice(1..-1)
   end
 
   def to_underscore!
