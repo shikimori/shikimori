@@ -182,7 +182,8 @@ private
 
   # был ли запущен поиск, и найден ли при этом один элемент
   def one_found_redirect_check
-    if params[:search] && @entries.count == 1 && @current_page == 1 && !json?
+    if params[:search] && @entries.kind_of?(Array) &&
+        @entries.count == 1 && @current_page == 1 && !json?
       raise ForceRedirect, url_for(@entries.first)
     end
   end
