@@ -2,8 +2,8 @@ class DashboardView < ViewObjectBase
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
 
-  TOPICS_FETCH = 12
-  TOPICS_TAKE = 4
+  TOPICS_FETCH = 10
+  TOPICS_TAKE = 1
 
   instance_cache :ongoings, :favourites, :reviews
   #preload :all_ongoings, :all_favourites
@@ -15,7 +15,10 @@ class DashboardView < ViewObjectBase
   end
 
   def seasons
-    TopMenu.new.seasons
+    TopMenu.new.seasons.select do |year, _, _|
+      year.to_i != Time.zone.now.year + 1 &&
+        year.to_i != Time.zone.now.year - 1
+    end
   end
 
   def reviews

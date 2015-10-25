@@ -2,22 +2,32 @@ class Topics::ReviewView < Topics::View
   vattr_initialize :topic, :is_preview, :is_mini
 
   def container_class
-    super "b-review #{:mini if is_mini}"
+    super "b-review #{:mini if is_mini}".strip
   end
 
   def show_body?
     true
   end
 
+  def action_tag
+    i18n_i 'review', :one if is_preview
+  end
+
   def topic_title
-    if is_preview
-      i18n_t(
-        "title.#{topic.linked.target_type.downcase}",
-        target_name: h.h(h.localized_name(topic.linked.target))
-      ).html_safe
+    if !is_preview
+      topic.user.nickname
     else
-      super
+      h.localized_name topic.linked.target
     end
+    # if is_preview
+      # h.localized_name topic.linked.target
+      # # i18n_t(
+        # # "title.#{topic.linked.target_type.downcase}",
+        # # target_name: h.h(h.localized_name(topic.linked.target))
+      # # ).html_safe
+    # else
+      # super
+    # end
   end
 
   def render_body

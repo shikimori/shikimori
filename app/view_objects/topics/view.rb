@@ -15,25 +15,21 @@ class Topics::View < ViewObjectBase
     ].compact.join ' '
   end
 
+  def action_tag
+  end
+
   def show_body?
     is_preview || !topic.generated? || topic.contest?
   end
 
   def topic_title
-    if is_preview
+    if !is_preview
+      topic.user.nickname
+    elsif topic.topic?
       topic.title
     else
-      topic.user.nickname
+      h.localized_name topic.linked
     end
-    # if !preview?
-      # user.nickname
-    # elsif topic.generated_news? || object.class == AniMangaComment
-      # h.localized_name object.linked
-    # elsif contest? || object.respond_to?(:title)
-      # object.title
-    # else
-      # object.name
-    # end
   end
 
   def render_body
@@ -75,10 +71,10 @@ class Topics::View < ViewObjectBase
     true
   end
 
-  def author_in_footer?
-    is_preview && (topic.news? || topic.review?) &&
-      (!author_in_header? || poster(false) != user.avatar_url(48))
-  end
+  # def author_in_footer?
+    # is_preview && (topic.news? || topic.review?) &&
+      # (!author_in_header? || poster(false) != user.avatar_url(48))
+  # end
 
   def html_body
     Rails.cache.fetch body_cache_key, expires_in: 2.weeks do

@@ -30,7 +30,7 @@ class TopicsController < ForumController
       .postload(@page, @limit)
 
     @collection = topics.map do |topic|
-      Topics::Factory.new(true).build topic
+      Topics::Factory.new(true).build topic, @section.permalink
     end
 
     super

@@ -4,15 +4,12 @@ en:
       anime: Time spent on anime
       manga: Time spent on manga
       anime_manga: Time spent on anime and manga
-  topics/view: &topics
-    title:
-  topics/review_view:
-    <<: *topics
-    title:
-      anime: Anime &laquo;%{target_name}&raquo; review
-      manga: Manga &laquo;%{target_name}&raquo; review
-  topics/preview:
-    <<: *topics
+  # topics/view: &topics
+  # topics/review_view:
+    # <<: *topics
+    # title:
+      # anime: Anime &laquo;%{target_name}&raquo; review
+      # manga: Manga &laquo;%{target_name}&raquo; review
   topics/comments: &topics
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}

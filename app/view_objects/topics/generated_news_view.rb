@@ -3,6 +3,15 @@ class Topics::GeneratedNewsView < Topics::View
     super 'b-generated_news'
   end
 
+  def action_tag
+    if topic.episode?
+      "#{topic.action_text} #{topic.value}"
+    else
+      topic.action_text
+    end
+  end
+
+
   def render_body
     render_linked
   end

@@ -112,6 +112,11 @@ class Entry < ActiveRecord::Base
   end
 
   # сгенерированный ли топик
+  def topic?
+    self.class == Topic
+  end
+
+  # сгенерированный ли топик
   def generated?
     generated
   end

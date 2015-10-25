@@ -38,9 +38,9 @@
                 alt="#{view.topic_title}"
               ]
           .name-date
-            - if view.topic.generated_news?
+            - if view.action_tag
               .b-anime_status_tag class="#{view.topic.action}"
-                = view.topic.action_text
+                = view.action_tag
 
             a.name[
               href="#{view.urls.topic_url}"
@@ -55,42 +55,12 @@
         .body
           = view.render_body
 
-        / footer
+        footer
           - if user_signed_in?
-            - if view.topic.review? && view.topic.linked.user_id != current_user.id
-              .voteable
-                span Эта рецензия полезна?
-                .vote.yes[
-                  class="#{:selected if view.topic.linked.voted_yes? current_user}"
-                  data-remote="true"
-                  action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}"
-                  data-type="json"
-                  data-method="post"
-                ] Да
-                .vote.no[
-                  class="#{:selected if topic.linked.voted_no? current_user}"
-                  data-remote="true"
-                  action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}"
-                  data-type="json"
-                  data-method="post"
-                ] Нет
-            - elsif topic.cosplay?
-              .voteable
-                span Тебе нравится?
-                .vote.yes[
-                  class="#{:selected if topic.linked.voted_yes? current_user}"
-                  data-remote="true"
-                  action="#{vote_yes_url id: topic.linked.id, type: topic.linked.class.name}"
-                  data-type="json"
-                  data-method="post"
-                ] Да
-                .vote.no[
-                  class="#{:selected if topic.linked.voted_no? current_user}"
-                  data-remote="true"
-                  action="#{vote_no_url id: topic.linked.id, type: topic.linked.class.name}"
-                  data-type="json"
-                  data-method="post"
-                ] Нет
+            - if view.topic.review?
+              = render 'topics/reviews/footer_vote', view: view
+            - elsif view.topic.cosplay?
+              = render 'topics/cosplay/footer_vote', view: view
 
           / p.tags
             - if user_signed_in?

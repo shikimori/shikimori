@@ -254,7 +254,7 @@ class @ShikiTopic extends ShikiEditable
     if @is_review
       image_height = @$('.review-entry_cover img').height()
       if image_height > 0
-        @$('.body-truncated-inner').check_height image_height, false, image_height - 12
+        @$('.body-truncated-inner').check_height image_height, false, image_height
     else
       @$body.check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
 
