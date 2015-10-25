@@ -54,7 +54,7 @@ describe TopicsController do
   end
 
   describe '#show' do
-    context 'no linked', :focus do
+    context 'no linked' do
       before { get :show, id: topic.to_param, section: anime_section.to_param }
       it { expect(response).to have_http_status :success }
     end
