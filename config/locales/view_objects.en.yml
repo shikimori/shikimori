@@ -10,7 +10,9 @@ en:
     # title:
       # anime: Anime &laquo;%{target_name}&raquo; review
       # manga: Manga &laquo;%{target_name}&raquo; review
-  topics/comments: &topics
+  topics/comments: &comments
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}
     load_comments: Display %{comment_count} %{out_of_total_comments} %{comment_word}
+  topics/proxy_comments:
+    <<: *comments

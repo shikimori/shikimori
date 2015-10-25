@@ -30,7 +30,7 @@ class ProfilesController < ShikimoriController
 
   def feed
     noindex
-    redirect_to @resource.url if !@resource.show_comments? || @resource.main_thread.comments.count.zero?
+    redirect_to @resource.url if !@resource.show_comments? || @resource.main_comments.comments_count.zero?
     page_title i18n_t('feed')
   end
 

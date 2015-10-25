@@ -10,7 +10,9 @@ ru:
     # title:
       # anime: Обзор аниме &laquo;%{target_name}&raquo;
       # manga: Обзор манги &laquo;%{target_name}&raquo;
-  topics/comments:
+  topics/comments: &comments
     show_comments: Показать %{comment_word}
     hide_comments: Скрыть %{comment_word}
     load_comments: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
+  topics/proxy_comments:
+    <<: *comments

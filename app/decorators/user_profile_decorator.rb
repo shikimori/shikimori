@@ -4,7 +4,8 @@ require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
-    :nickname_changes, :clubs, :favourites
+    :nickname_changes, :clubs, :favourites,
+    :main_comments, :preview_comments
 
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
@@ -191,18 +192,20 @@ class UserProfileDecorator < UserDecorator
       .map(&:decorate)
   end
 
-  # полный топик
-  def main_thread
-    thread = TopicProxyDecorator.new object
-    thread.topic_mode!
-    thread
+  def main_comments
+    Topics::ProxyComments.new(
+      topic: object,
+      only_summaries: false,
+      is_preview: false
+    )
   end
 
-  # превью топика
-  def preview_thread
-    thread = TopicProxyDecorator.new object
-    thread.preview_mode!
-    thread
+  def preview_comments
+    Topics::ProxyComments.new(
+      topic: object,
+      only_summaries: false,
+      is_preview: true
+    )
   end
 
   def unconnected_providers

@@ -59,7 +59,7 @@ class Topics::Comments < ViewObjectBase
   def fetch_url
     h.fetch_comments_url(
       comment_id: comments.first.id,
-      topic_type: Entry.name,
+      topic_type: topic_type,
       topic_id: topic.id,
       skip: 'SKIP',
       limit: fold_limit,
@@ -103,5 +103,10 @@ private
   def comment_word num
     word = only_summaries ? 'summary' : 'comment'
     i18n_i word, num, :accusative
+  end
+
+  # # для адреса подгрузки комментариев
+  def topic_type
+    Entry.name
   end
 end

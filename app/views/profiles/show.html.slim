@@ -313,11 +313,11 @@
   - if @resource.show_comments?
     .block
       .subheadline.m3
-        - if @resource.preview_thread.comments.any?
+        - if @resource.preview_comments.comments_count > 0
           a href="#{feed_profile_url @resource}" title="#{t 'profiles_controller.feed'}"
             = t 'profiles_controller.feed'
         - else
           = t 'profiles_controller.feed'
       div
-        .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-          = render partial: 'topics/comments', locals: { topic: @resource.preview_thread }
+        .b-topic.unprocessed data-faye="#{@resource.preview_comments.faye_channel}"
+          = render 'topics/comments', view: @resource.preview_comments

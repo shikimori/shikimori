@@ -1,5 +1,5 @@
 = render layout: 'page' do
   .subheadline.m3 = @page_title.last
   div
-    .b-topic.unprocessed data-faye="#{@resource.main_thread.faye_channel}"
-      = render partial: 'topics/comments', locals: { topic: @resource.main_thread }
+    .b-topic.unprocessed data-faye="#{@resource.main_comments.faye_channel}"
+      = render 'topics/comments', view: @resource.main_comments

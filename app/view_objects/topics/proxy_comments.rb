@@ -1,18 +1,14 @@
 # используется для отображения комментариев во вьюшках, где
 # требуется наличие объекта-топика, но у комментируемой сущности
-# нет топиков, а есть лишь комментарии (например модель User)
-class TopicProxyDecorator < TopicDecorator
-  def linked
-    object
+# нет топиков, а есть лишь комментарии (например, в модели User)
+class Topics::ProxyComments < Topics::Comments
+  def comments_count
+    model.comments.count
   end
 
   # число свёрнутых комментариев
   def folded_comments
-    if reviews_only?
-      super
-    else
-      object.comments.count - comments_limit
-    end
+    comments_count - comments_limit
   end
 
   def faye_channel
@@ -20,12 +16,17 @@ class TopicProxyDecorator < TopicDecorator
   end
 
   def comments_limit
-    preview? ? 7 : fold_limit
+    is_preview ? 7 : fold_limit
   end
 
 private
-  # для адреса подгрузки комментариев
+
+  # # для адреса подгрузки комментариев
   def topic_type
-    User.name
+    model.class.name
+  end
+
+  def model
+    topic
   end
 end
