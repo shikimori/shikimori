@@ -193,19 +193,11 @@ class UserProfileDecorator < UserDecorator
   end
 
   def main_comments
-    Topics::ProxyComments.new(
-      topic: object,
-      only_summaries: false,
-      is_preview: false
-    )
+    Topics::ProxyComments.new object, false
   end
 
   def preview_comments
-    Topics::ProxyComments.new(
-      topic: object,
-      only_summaries: false,
-      is_preview: true
-    )
+    Topics::ProxyComments.new object, true
   end
 
   def unconnected_providers
