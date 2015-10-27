@@ -24,3 +24,25 @@ en:
         summer: Summer %{year} Anime
         fall: Fall %{year} Anime
       year: Anime %{year}
+
+  collection_title:
+    status:
+      anime:
+        one_type: &anime_one_type
+          anons: Upcoming anime
+          ongoing: Anime ongoings
+          released: Released anime
+          latest: Latest anime
+        many_types:
+          <<: *anime_one_type
+      manga:
+        one_type:
+          anons: Upcoming %{type}
+          ongoing: '%{type} ongoings'
+          released: Released %{type}
+          latest: Latest %{type}
+        many_types:
+          anons: Upcoming manga
+          ongoing: Manga ongoings
+          released: Released manga
+          latest: Latest manga

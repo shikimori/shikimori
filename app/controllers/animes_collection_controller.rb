@@ -193,7 +193,17 @@ private
   end
 
   def build_page_title entry_data
-    @page_title ||= klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
+    @page_title ||= CollectionTitle.new(
+      klass: klass,
+      user: current_user,
+      season: params[:season],
+      type: params[:type],
+      status: params[:status],
+      genres: entry_data[:genre],
+      studios: entry_data[:studio],
+      publishers: entry_data[:publisher]
+    ).title
+    #@page_title ||= klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
   end
 
   def build_page_description entry_data
