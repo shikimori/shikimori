@@ -42,14 +42,14 @@ ru:
         anime: &subjective_anime
           <<: *common
           comedy: аниме комедии
-          romance: романтические аниме
+          romance: романтические аниме про любовь
           historical: исторические аниме
           supernatural: сверхъестественные аниме
           kids: детские %{kind}
         manga: &subjective_manga
           <<: *common
           comedy: комедийная манга
-          romance: романтическая манга
+          romance: романтическая манга про любовь
           historical: историческая манга
           supernatural: сверхъестественная манга
           kids: детская %{kind}
@@ -58,14 +58,14 @@ ru:
         anime:
           <<: *subjective_anime
           comedy: комедийных аниме
-          romance: романтических аниме
+          romance: романтических аниме про любовь
           historical: исторических аниме
           supernatural: сверхъестественных аниме
           kids: детских %{kind}
         manga:
           <<: *subjective_manga
           comedy: комедийной манги
-          romance: романтической манги
+          romance: романтической манги про любовь
           historical: исторической манги
           supernatural: сверхъестественной манги
           kids: детской %{kind}

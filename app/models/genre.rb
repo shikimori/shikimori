@@ -98,7 +98,6 @@ class Genre < ActiveRecord::Base
     end
   end
 
-  # TODO spec
   def title ru_case: :subjective, user: nil
     key = english.parameterize.underscore
     name = UsersHelper.localized_name self, user
