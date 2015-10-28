@@ -27,8 +27,10 @@
 
   - unless entry.status.blank?
     = info_line Anime.human_attribute_name(:status) do
-      span.b-anime_status_tag class="#{entry.status.downcase.gsub ' ', '_'}"
-        = entry.status_text.downcase
+      span.b-anime_status_tag[
+        class="#{entry.status.downcase.gsub ' ', '_'}"
+        data-text="#{entry.status_text.downcase}"
+      ]
       | &nbsp;
 
       - if entry.release_date_tooltip

@@ -5,9 +5,15 @@
   - if comment.new_record?
     aside.markers
       - if comment.kind_of?(Comment) && comment.commentable.class == AniMangaComment
-        .b-review_marker.active class="#{:off unless comment.review?}"
+        .b-review_marker.active[
+          class="#{:off unless comment.review?}"
+          data-text="#{t 'markers.summary'}"
+        ]
       - if comment.respond_to? :offtopic?
-        .b-offtopic_marker.active class="#{:off unless comment.offtopic?}"
+        .b-offtopic_marker.active[
+          class="#{:off unless comment.offtopic?}"
+          data-text="#{t 'markers.offtopic'}"
+        ]
 
 aside.buttons
   .editor-controls
