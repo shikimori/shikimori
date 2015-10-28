@@ -13,6 +13,12 @@ class Topics::ReviewView < Topics::View
     i18n_i 'review', :one if is_preview
   end
 
+  def offtopic_tag
+    if topic.linked.rejected?
+      I18n.t 'enumerize.abuse_request.kind.offtopic'
+    end
+  end
+
   def topic_title
     if !is_preview
       topic.user.nickname

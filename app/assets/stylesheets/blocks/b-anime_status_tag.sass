@@ -1,25 +1,21 @@
 @import globals/variables
+@import mixins/static_marker
 
 .b-anime_status_tag
-  color: #FFF
-  display: inline-block
-  font-family: Arial
-  font-weight: normal
-  line-height: 1
-  padding: 2px 5px
-
   &.released
-    background: $released_tag
+    +static_marker(white, $released_tag)
 
   &.anons
-    background: $anons_tag
+    +static_marker(white, $anons_tag)
 
   &.ongoing
-    background: $ongoing_tag
+    +static_marker(white, $ongoing_tag)
 
   &.episode
-    // background: $gray-2
-    background: #90d5ec
+    +static_marker(#123, #e8ebf0)
 
   &.review
-    background: #c09eda
+    +static_marker(white, #c09eda)
+
+  &.offtopic
+    +static_marker(#f58ebb, #fdebf3)
