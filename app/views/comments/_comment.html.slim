@@ -22,6 +22,7 @@
               style="#{'display: none;' unless comment.review?}"
               title="Снять метку отзыва"
               data-action="#{review_comment_abuse_requests_url comment}"
+              data-text="#{t 'markers.summary'}"
               data-method="post"
               data-type="json"
               data-remote="true"
@@ -31,12 +32,13 @@
             style="#{'display: none;' unless comment.offtopic?}"
             title="Снять метку оффтопика"
             data-action="#{offtopic_comment_abuse_requests_url comment}"
+            data-text="#{t 'markers.offtopic'}"
             data-method="post"
             data-type="json"
             data-remote="true"
           ]
           - unless comment.viewed?
-            .b-new_marker.active
+            .b-new_marker.active data-text="#{t 'markers.new'}"
 
         - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
           - if current_user.moderator?

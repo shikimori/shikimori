@@ -16,7 +16,7 @@ article.b-topic.b-topic-single_lined.shiki-object.unprocessed[
 
       aside.markers
         - unless view.topic.viewed?
-          p.b-new_marker новое
+          p.b-new_marker data-text="#{t 'markers.new'}"
 
       - if user_signed_in? && !view.is_mini
         = render 'topics/buttons', view: view

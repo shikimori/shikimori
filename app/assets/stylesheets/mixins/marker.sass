@@ -1,14 +1,13 @@
 @import globals/variables
 @import mixins/static_marker
 
-=marker($content, $width, $color, $hover_color, $active_color)
+=marker($width, $color, $hover_color, $active_color)
   +static_marker(white, $color)
   float: right
   margin: 1px 0 0 15px
   width: $width
 
   &:before
-    content: $content
     font-size: 11px
     line-height: 1.2
     padding: 0

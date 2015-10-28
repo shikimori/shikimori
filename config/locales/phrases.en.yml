@@ -59,6 +59,12 @@ en:
   in_russian: In Russian
   information: Information
   loading: Loading...
+  markers:
+    abuse: abuse
+    new: new
+    offtopic: offtopic
+    spoiler: spoiler
+    summary: summary
   mail: Mail
   male: male
   manga_list: Manga List

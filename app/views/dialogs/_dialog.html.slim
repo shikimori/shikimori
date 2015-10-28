@@ -3,7 +3,7 @@
     span.item-mobile title="Действия"
     aside.markers
       - unless dialog.read
-        .b-new_marker.active
+        .b-new_marker.active data-text="#{t 'markers.new'}"
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user

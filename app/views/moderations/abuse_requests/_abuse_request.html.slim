@@ -12,7 +12,10 @@
   - unless abuse_request.value
     span.remove
       = t '.remove'
-  .marker class="b-#{abuse_request.kind}_marker"
+  .marker[
+    class="b-#{abuse_request.kind}_marker"
+    data-text="#{t "markers.#{abuse_request.kind.sub 'review', 'summary'}"}"
+  ]
   span = t '.to'
 
   = render 'users/user_16', user: abuse_request.comment.user

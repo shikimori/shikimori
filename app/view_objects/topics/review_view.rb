@@ -15,7 +15,7 @@ class Topics::ReviewView < Topics::View
 
   def offtopic_tag
     if topic.linked.rejected?
-      I18n.t 'enumerize.abuse_request.kind.offtopic'
+      I18n.t 'markers.offtopic'
     end
   end
 

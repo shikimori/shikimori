@@ -59,6 +59,12 @@ ru:
   in_russian: По-русски
   information: Информация
   loading: Загрузка...
+  markers:
+    abuse: жалоба
+    new: новое
+    offtopic: оффтоп
+    spoiler: спойлер
+    summary: отзыв
   mail: Почта
   male: муж.
   manga_list: Список манги

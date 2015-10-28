@@ -353,7 +353,7 @@ en:
     abuse_request:
       kind:
         offtopic: offtopic
-        review: review
+        review: summary
         spoiler: spoiler
         abuse: abuse
     anime_news:
