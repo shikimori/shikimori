@@ -24,8 +24,11 @@ private
           query.where.not type: GroupComment.name
         end
 
-      when Section::static[:feed].permalink
-        query.where id: user_subscription_ids
+      when 'reviews'
+        query
+          .where(section_id: @section.id)
+          .except(:order)
+          .order(created_at: :desc)
 
       when Section::static[:news].permalink
         query.where type: [AnimeNews.name, MangaNews.name]
