@@ -175,7 +175,7 @@ DEFAULT_LIST_SORT = "ranked"
 
     # формирование строки урла по выбранным элементам
     compile: ->
-      @last_compiled = base_path + _.map(data, (values, key) -> #.replace('/order-by/ranked', '');
+      filters = _.map data, (values, key) -> #.replace('/order-by/ranked', '');
         if _.isArray(values)
           if values.length
             "/#{key}/#{values.join ','}"
@@ -183,8 +183,8 @@ DEFAULT_LIST_SORT = "ranked"
             null
         else
           "/#{key}/#{values}"
-      ).join("")
-      @last_compiled
+
+      @last_compiled = base_path + filters.join("") + location.search
 
     last_compiled: null
 
@@ -198,7 +198,8 @@ DEFAULT_LIST_SORT = "ranked"
       parts = url
         .replace("#{location.protocol}//#{location.hostname}", '')
         .replace(":#{location.port}", '')
-        .replace(base_path, "")
+        .replace(base_path, '')
+        .replace(/\?.*/, '')
         .match(/[\w\-]+\/[^\/]+/g)
 
       _.each parts || [], (match) =>
