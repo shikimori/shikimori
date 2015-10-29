@@ -96,9 +96,9 @@ class ContestsController < ShikimoriController
       @resource.links = []
       params[:contest][:member_ids]
         .map(&:to_i)
-        .select {|v| v != 0 }
-        .each do |v|
-          @resource.members << @resource.member_klass.find(v)
+        .select { |member_id| member_id != 0 }
+        .each do |member_id|
+          @resource.object.members << @resource.member_klass.find(member_id)
         end
     end
 
