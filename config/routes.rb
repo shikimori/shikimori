@@ -399,7 +399,7 @@ Site::Application.routes.draw do
         get :ongoings
         get :about
 
-        get :user_agreement
+        get :terms
         get :privacy
 
         get 'site-news' => :news, kind: 'site', format: :rss

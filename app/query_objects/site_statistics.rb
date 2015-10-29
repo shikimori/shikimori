@@ -17,7 +17,7 @@ class SiteStatistics
   end
 
   def comments_count
-    Comment.last.id
+    Comment.last.try(:id)
   end
 
   def users_count

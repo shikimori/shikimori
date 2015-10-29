@@ -116,3 +116,7 @@ en:
 
   videos_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
+
+  pages_controller:
+    privacy_policy: Privacy policy
+    terms_of_service: Terms of service

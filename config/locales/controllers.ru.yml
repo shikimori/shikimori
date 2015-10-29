@@ -116,3 +116,7 @@ ru:
 
   videos_controller:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
+
+  pages_controller:
+    privacy_policy: Политика конфиденциальности
+    terms_of_service: Пользовательское соглашение

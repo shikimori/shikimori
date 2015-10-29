@@ -48,12 +48,14 @@ class PagesController < ShikimoriController
   end
 
   # пользовательское соглашение
-  def user_agreement
-    @page_title = 'Пользовательское соглашение'
+  def terms
+    noindex
+    page_title i18n_t('terms_of_service')
   end
 
   def privacy
-    @page_title = 'Privacy'
+    noindex
+    page_title i18n_t('privacy_policy')
   end
 
   # 404 страница

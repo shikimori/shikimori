@@ -38,8 +38,13 @@ describe PagesController do
     end
   end
 
-  describe 'user_agreement' do
-    before { get :user_agreement }
+  describe '#terms' do
+    before { get :terms }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#privacy' do
+    before { get :privacy }
     it { expect(response).to have_http_status :success }
   end
 
@@ -60,11 +65,6 @@ describe PagesController do
       get :feedback
     end
 
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe 'user_agent' do
-    before { get :user_agent }
     it { expect(response).to have_http_status :success }
   end
 
@@ -91,13 +91,9 @@ describe PagesController do
     end
   end
 
-  describe 'about' do
-    before { get :user_agent }
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe 'welcome_gallery' do
-    before { get :user_agent }
+  describe 'about', :vcr do
+    let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
+    before { get :about }
     it { expect(response).to have_http_status :success }
   end
 
