@@ -27,4 +27,6 @@ ru:
         <<: *shikimori
 
     footer:
-      sitemap: карта сайта
+      terms: Соглашение
+      privacy: Конфиденциальность
+      sitemap: Карта сайта

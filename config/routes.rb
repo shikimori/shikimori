@@ -35,7 +35,7 @@ Site::Application.routes.draw do
   # site pages
   resources :pages, path: '/', only: [] do
     collection do
-      get :user_agent
+      get :privacy
       get :page404
       get :page503
       get :raise_exception
@@ -400,6 +400,7 @@ Site::Application.routes.draw do
         get :about
 
         get :user_agreement
+        get :privacy
 
         get 'site-news' => :news, kind: 'site', format: :rss
         get 'anime-news' => :news, kind: 'anime', format: :rss

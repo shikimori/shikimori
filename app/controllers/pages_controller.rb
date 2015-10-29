@@ -52,6 +52,10 @@ class PagesController < ShikimoriController
     @page_title = 'Пользовательское соглашение'
   end
 
+  def privacy
+    @page_title = 'Privacy'
+  end
+
   # 404 страница
   def page404
     @page_title = "Страница не найдена"

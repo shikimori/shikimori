@@ -1,36 +1,37 @@
-- content_for :head do
-  = stylesheet_link_tag :sitemap
-
 header.head
   h1
     = @page_title
   p.notice На данной странице представлены основные разделы сайта
 
-.sitemap
-  .subheadline Общее
-  .block.m30
-    - @sections.each do |title, url|
-      p
-        = link_to title, url
+.cc-2
+  .c-column
+    .subheadline Общее
+    ul.block.b-list
+      - @sections.each do |title, url|
+        li
+          a.b-link href="#{url}" title="#{title}" = title
 
-  .left-block
-    .subheadline Список аниме
-    .m30
+    h2.subheadline Аниме
+    ul.block.b-list
       - @anime_sections.each do |title, url|
-        p
-          = link_to title, url
+        li
+          a.b-link href="#{url}" title="#{title}" = title
 
-    .subheadline Список манги
-    - @manga_sections.each do |title, url|
-      p
-        = link_to title, url
 
-  .left-block
+    h2.subheadline Манга
+    ul.block.b-list
+      - @manga_sections.each do |title, url|
+        li
+          a.b-link href="#{url}" title="#{title}" = title
+
+  .c-column
     .subheadline Жанры аниме
-    - @anime_genres.each do |title, url|
-      p
-        = link_to title, url
+    ul.block.b-list
+      - @anime_genres.each do |title, url|
+        li
+          a.b-link href="#{url}" title="#{title}" = title
 
-    - @anime_misc_genres.each do |title, url|
-      p
-        = link_to title, url
+    ul.block.b-list
+      - @anime_misc_genres.each do |title, url|
+        li
+          a.b-link href="#{url}" title="#{title}" = title

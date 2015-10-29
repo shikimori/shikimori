@@ -1,5 +1,7 @@
 - if shikimori?
-  .sitemap
+  .links
+    a href="#{user_agreement_pages_url}" title="#{t '.terms'}" = t '.terms'
+    a href="#{privacy_pages_url}" title="#{t '.privacy'}" = t '.privacy'
     a href="#{sitemap_url}" title="#{t '.sitemap'}" = t '.sitemap'
 .copyright
   |&copy; #{Site::DOMAIN}&nbsp;

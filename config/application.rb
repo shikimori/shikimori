@@ -10,6 +10,7 @@ module Site
   DOMAIN = 'shikimori.org'
   NAME = 'Шикимори'
   STATIC_SUBDOMAINS = ['nyaa', 'kawai', 'moe', 'desu', 'dere']
+  EMAIL = 'mail@shikimori.org'
 
   class Application < Rails::Application
 

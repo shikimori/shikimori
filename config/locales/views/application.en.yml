@@ -27,4 +27,6 @@ en:
         <<: *shikimori
 
     footer:
-      sitemap: sitemap
+      terms: Terms
+      privacy: Privacy
+      sitemap: Sitemap
