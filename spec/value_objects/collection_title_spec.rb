@@ -41,14 +41,21 @@ describe CollectionTitle do
   end
 
   describe 'type' do
-    context 'tv' do
-      let(:type) { 'tv' }
-      it { is_expected.to eq 'Аниме сериалы' }
+    context 'one type' do
+      context 'tv' do
+        let(:type) { 'tv' }
+        it { is_expected.to eq 'Аниме сериалы' }
+      end
+
+      context 'movie' do
+        let(:type) { 'movie' }
+        it { is_expected.to eq 'Полнометражные аниме' }
+      end
     end
 
-    context 'movie' do
-      let(:type) { 'movie' }
-      it { is_expected.to eq 'Полнометражные аниме' }
+    context 'many types' do
+      let(:type) { 'tv,movie' }
+      it { is_expected.to eq 'Сериалы и Фильмы' }
     end
   end
 
@@ -107,7 +114,7 @@ describe CollectionTitle do
 
     context 'romance' do
       let(:name) { 'Romance' }
-      it { is_expected.to eq 'Романтические аниме' }
+      it { is_expected.to eq 'Романтические аниме про любовь' }
     end
   end
 

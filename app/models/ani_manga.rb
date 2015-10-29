@@ -58,27 +58,6 @@ module AniManga
   end
 
   module ClassMethods
-    def title_for season, type, genres, studios, publishers
-      types = type ? type.gsub(/-/, ' ').split(',').select {|v| !v.starts_with? '!' } : nil
-
-      type_name = type && types.any? ?
-        types.map {|v| I18n.t "enumerize.#{self.name.downcase}.kind.plural.#{v}", default: self.model_name.human }
-          .join(types.count == 2 ? ' и ' : ', ') :
-        self.model_name.human
-
-      genre_name = !genres.nil? && genres.count == 1 ? genres.first.format_for_title(type_name, self.rus_var(self, type_name)) : nil
-
-      title = "%s%s%s%s%s" % [
-          genre_name || type_name,
-          studios.nil? || studios.empty? ? "" : (studios.count > 1 ? " студий " : " студии ") + studios.map(&:name).join(studios.count == 2 ? ' и ' : ', '),
-          publishers.nil? || publishers.empty? ? "" : (publishers.count > 1 ? " издателей " : " издателя ") + publishers.map(&:name).join(publishers.count == 2 ? ' и ' : ', '),
-          genres.nil? || genres.empty? || !genre_name.nil? ? "" : " жанров " + genres.map(&:russian).join(genres.count == 2 ? ' и ' : ', '),
-          !season.blank? && !season.include?(',') ? " #{AniMangaSeason.title_for(season, self)}" : ""
-        ]
-
-      title == 'Аниме' ? 'Лучшие аниме' : title
-    end
-
     def keywords_for(season, type, genres, studios, publishers)
       keywords = []
       case type

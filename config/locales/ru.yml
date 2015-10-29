@@ -279,23 +279,34 @@ ru:
         ova: OVA
         special: Спешл
         plural:
-          movie: Полнометражные аниме
-          music: Аниме клипы
-          ona: ONA
-          ova/ona: OVA/ONA
-          ova: OVA
-          special: Спешиалы
-          tv: Аниме сериалы
-          tv_13: Короткие аниме сериалы
-          tv_24: Средние аниме сериалы
-          tv_48: Длинные аниме сериалы
+          long:
+            movie: Полнометражные аниме
+            music: Аниме клипы
+            ona: ONA
+            ova/ona: OVA/ONA
+            ova: OVA
+            special: Спешиалы
+            tv: Аниме сериалы
+            tv_13: Короткие аниме сериалы
+            tv_24: Средние аниме сериалы
+            tv_48: Длинные аниме сериалы
+          short:
+            movie: Фильмы
+            music: Клипы
+            ona: ONA
+            ova: OVA
+            special: Спешлы
+            tv: Сериалы
+            tv_13: Короткие сериалы
+            tv_24: Средние сериалы
+            tv_48: Длинные сериалы
         short:
-          tv: Сериал
           movie: Фильм
           music: Клип
           ona: ONA
           ova: OVA
           special: Спешл
+          tv: Сериал
       rating:
         g: G
         pg: PG
@@ -325,12 +336,15 @@ ru:
         novel: Новелла
         one_shot: Ваншот
         plural:
-          doujin: Додзинси
-          manga: Манга
-          manhua: Маньхуа
-          manhwa: Манхва
-          novel: Новеллы
-          one_shot: Ваншоты
+          long: &long
+            doujin: Додзинси
+            manga: Манга
+            manhua: Маньхуа
+            manhwa: Манхва
+            novel: Новеллы
+            one_shot: Ваншоты
+          short:
+            <<: *long
         short:
           doujin: Додзинси
           manga: Манга

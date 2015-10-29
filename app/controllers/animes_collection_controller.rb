@@ -203,7 +203,6 @@ private
       studios: entry_data[:studio],
       publishers: entry_data[:publisher]
     ).title
-    #@page_title ||= klass.title_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
   end
 
   def build_page_description entry_data

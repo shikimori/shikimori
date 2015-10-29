@@ -69,8 +69,10 @@ private
     klass_key = klass.name.downcase
     type_count_key = types.one? ? 'one_type' : 'many_types'
 
-    i18n_t "status.#{klass_key}.#{type_count_key}.#{status}",
-      type: type_text(types.first)
+    i18n_t(
+      "status.#{klass_key}.#{type_count_key}.#{status}",
+        type: type_text(types.first)
+    ).downcase
   end
 
   def types_text
@@ -101,19 +103,25 @@ private
     list = genres
       .map { |genre| UsersHelper.localized_name genre, user }
       .to_sentence
+      .downcase
     "#{i18n_i 'genre', genres.count, :genitive} #{list}"
   end
 
   def seasons_text
-    return unless seasons.one?
-    "#{AniMangaSeason.title_for seasons.first, klass}"
+    return if seasons.empty?
+
+    seasons
+      .map { |season| "#{AniMangaSeason.title_for season, klass}" }
+      .to_sentence
   end
 
   def type_text type
+    form = types.many? ? 'short' : 'long'
+
     if type.present?
-      I18n.t "enumerize.#{klass.name.downcase}.kind.plural.#{type}"
+      I18n.t "enumerize.#{klass.name.downcase}.kind.plural.#{form}.#{type}"
     else
       klass.model_name.human
-    end.downcase
+    end
   end
 end

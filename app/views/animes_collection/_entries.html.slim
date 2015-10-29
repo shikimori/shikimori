@@ -9,7 +9,7 @@
       - next unless @entries[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "enumerize.#{@klass.name.downcase}.kind.plural.#{data[:kind]}"
+        = t "enumerize.#{@klass.name.downcase}.kind.plural.long.#{data[:kind]}"
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
