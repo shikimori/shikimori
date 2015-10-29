@@ -123,7 +123,7 @@ class ContestDecorator < DbEntryDecorator
     suggestions.sort_by {|v| v.item.name }
   end
   def median_votes
-    suggestions.size > 10 ? suggestions[suggestions.size/2].votes : 0
+    suggestions.size > 10 ? suggestions[suggestions.size/3].votes : 0
   end
   def certain_suggestions
     suggestions.select {|v| v.votes > median_votes }
