@@ -401,6 +401,7 @@ Site::Application.routes.draw do
 
         get :terms
         get :privacy
+        get :user_agent
 
         get 'site-news' => :news, kind: 'site', format: :rss
         get 'anime-news' => :news, kind: 'anime', format: :rss

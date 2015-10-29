@@ -97,6 +97,11 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe 'user_agent' do
+    before { get :user_agent }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe 'tableau' do
     before { get :tableau }
 
