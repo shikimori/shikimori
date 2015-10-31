@@ -35,12 +35,15 @@
       tbody
         - list.entries.each_with_index do |user_rate, index|
           tr.unprocessed.selectable[
-              class="#{:editable if @resource.own_profile?}"
-              data-remote="#{true if @resource.own_profile?}"
-              data-action="#{edit_api_user_rate_path user_rate if @resource.own_profile?}"
-              data-type="html"
-              data-rate_url="#{api_user_rate_path user_rate}" data-title="#{user_rate.target_name}"
-            ]
+            class="#{:editable if @resource.own_profile?}"
+            data-remote="#{true if @resource.own_profile?}"
+            data-action="#{edit_api_user_rate_path user_rate if @resource.own_profile?}"
+            data-type="html"
+            data-rate_url="#{api_user_rate_path user_rate}"
+            data-id="#{user_rate.target_id}"
+            data-title="#{user_rate.target_name}"
+            data-text="#{user_rate.text}"
+          ]
             td.index
               span
                 = list.index + index
