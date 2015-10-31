@@ -53,13 +53,14 @@ filter = ->
   # разворачивание свёрнутых элементов
   filter_value = $('.filter input').val().toLowerCase()
   $entries = $('tr.selectable')
-  list_cache.each (index, block) ->
+  list_cache.each (block) ->
     visible = false
     num = 0
 
     while num < block.rows.length
       entry = block.rows[num]
-      if entry.title.indexOf(filter_value) >= 0
+      if entry.title.indexOf(filter_value) != -1 ||
+          entry.text.indexOf(filter_value) != -1
         visible = true
 
         if entry.display != ''
@@ -77,18 +78,21 @@ filter = ->
 
 # кеширование всех строчек списка для производительности
 update_list_cache = ->
-  list_cache = $('table').map ->
-    $table = $(@)
-    rows = $table.find('tr.selectable').map(->
-      node: @
-      title: String($(@).data('title')).toLowerCase()
-      display: @style.display
-    ).toArray()
+  list_cache = $('table')
+    .map ->
+      $table = $(@)
+      rows = $table.find('tr.selectable').map(->
+        node: @
+        target_id: $(@).data('target_id')
+        title: String($(@).data('title')).toLowerCase()
+        text: String($(@).data('text') || '').toLowerCase()
+        display: @style.display
+      ).toArray()
 
-    $nodes: $table
-    rows: rows
-    toggable: !$table.next('.b-postloader').length
-
+      $nodes: $table
+      rows: rows
+      toggable: !$table.next('.b-postloader').length
+    .toArray()
 
 # обработчики для списка
 apply_list_handlers = ($root) ->
@@ -131,11 +135,22 @@ apply_list_handlers = ($root) ->
       $('.current-value[data-field=chapters]', $tr).html data.chapters
       $('.current-value[data-field=volumes]', $tr).html data.volumes
       $('.current-value[data-field=episodes]', $tr).html data.episodes
-      $('.rate-text', $tr).html if data.text_html then "<div>#{data.text_html}</div>" else ''
+
+      rate_text = "<div>#{data.text_html}</div>" if data.text_html
+
+      $('.rate-text', $tr).html rate_text || ''
       if data.rewatches > 0
-        $('.rewatches', $tr).html(if data.anime then "#{data.rewatches} #{p data.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}")
+        rewatches_text = if data.anime then "#{data.rewatches} #{p data.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}"
+        $('.rewatches', $tr).html rewatches_text
       else
         $('.rewatches', $tr).html ''
+
+      # обновляем текст в кеше
+      list_cache.each (cache_block) ->
+        cache_entry = cache_block.rows.find (row) ->
+          row.target_id == data.anime?.id || row.target_id == data.manga?.id
+
+        cache_entry.text = data.text if cache_entry
 
     # удаление из списка
     $('.remove', $form).on 'ajax:success', (e, data) ->
