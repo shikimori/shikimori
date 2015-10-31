@@ -53,12 +53,8 @@ module AniManga
     score > 1.0 && score < 9.9 && !anons?
   end
 
-  def rus_var(types)
-    self.class.rus_var(self.class, types)
-  end
-
   module ClassMethods
-    def keywords_for(season, type, genres, studios, publishers)
+    def keywords_for season, type, genres, studios, publishers
       keywords = []
       case type
         when 'tv'
@@ -89,96 +85,6 @@ module AniManga
       keywords << "список каталог база"
 
       keywords.join ' '
-    end
-
-    def description_for season, type, genres, studios, publishers
-      type_text_prefix = rus_var(self, type) ? 'всех ' : 'всей  '
-      type_text = case type
-        when 'tv'
-          'аниме сериалов'
-
-        when 'tv_13'
-          'аниме сериалов длительностью до 16 эпизодов'
-
-        when 'tv_24'
-          'аниме сериалов длительностью до 28 эпизодов'
-
-        when 'tv_48'
-          'аниме сериалов длительностью более 28 эпизодов'
-
-        when 'novel'
-          'визуальных новелл'
-
-        when 'movie'
-          'полнометражных аниме'
-
-        else
-          self == Anime ? 'аниме' : 'манги'
-      end
-      if genres
-        if genres.length == 1
-          type_text = Unicode.downcase(genres.first.format_for_title(type_text, nil))
-        else
-          type_text += ' жанров '+(genres.count == 2 ? genres.map(&:russian).join(' и ') : genres.map(&:russian).join(', '))
-        end
-      end
-
-      prefix = ""
-      postfix = " с фильтрацией по жанрам и датам"
-      season_text = case season
-        when 'ongoing'
-          type_text_prefix = nil
-          prefix = " онгоингов "
-          ""
-
-        when 'planned'
-          type_text_prefix = nil
-          prefix = (rus_var(self, type) ? " анонсированных " : " анонсированной ")
-          ""
-
-        when 'latest'
-          prefix = rus_var(self, type) ? " недавно вышедших " : " недавно вышедшей "
-          type_text_prefix = nil
-          ""
-
-        when /^([a-z]+)_(\d+)$/
-          type_text_prefix = nil
-          if self == Anime
-            return [nil, AniMangaSeason.anime_season_title(season), postfix]
-          else
-            " #{AniMangaSeason.title_for(season, self)}"
-          end
-
-        when /^(\d+)$/
-          type_text_prefix = nil
-          year = $1.to_i
-          if DateTime.now.year < year
-            ", запланированных к показу в #{year} году, "
-          elsif DateTime.now.year == year
-            " #{year} года, #{rus_var(self, type) ? 'которые' : 'которая'} уже #{rus_var(self, type) ? 'вышли' : 'вышла'} или ещё только #{rus_var(self, type) ? 'выйдут' : 'выйдет'}, "
-          else
-            ", #{rus_var(self, type) ? 'вышедших' : 'вышедшей'} в #{year} году, "
-          end
-
-        else
-          ""
-      end
-
-      studio_text = studios.nil? || studios.empty? ? nil : (studios.count > 1 ? " студий " : " студии ") + (studios.count == 2 ? studios.map(&:name).join(' и ') : studios.map(&:name).join(', '))
-      publisher_text = publishers.nil? || publishers.empty? ? nil : (publishers.count > 1 ? " издателей " : " издателя ") + (publishers.count == 2 ? publishers.map(&:name).join(' и ') : publishers.map(&:name).join(', '))
-
-      ["Список", "#{prefix}#{type_text_prefix}#{type_text}#{studio_text}#{publisher_text}#{season_text}", postfix]
-    end
-
-    def rus_var(klass, types)
-      klass == Anime ||
-        (
-          types &&
-            (
-              types.include?(',') ||
-              types.include?('novel')
-            )
-        )
     end
   end
 end

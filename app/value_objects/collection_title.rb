@@ -2,8 +2,6 @@ class CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
-  instance_cache :fancy?
-
   def initialize klass:, user:, season:, type:, status:, genres:, studios:, publishers:
     @klass = klass
     @user = user
@@ -21,6 +19,7 @@ class CollectionTitle
     is_capitalized ? title.first_upcase : title
   end
 
+  # 'отображена'? (вместо 'отображены')
   def manga_conjugation_variant?
     if statuses_text.present?
       /#{Manga.model_name.human}/i === title
