@@ -16,12 +16,9 @@ class CollectionTitle
     @seasons = (season || '').split(',')
   end
 
-  def title
-    if fancy?
-      fancy_title
-    else
-      composite_title
-    end.first_upcase
+  def title is_capitalized = true
+    title = fancy? ? fancy_title : composite_title
+    is_capitalized ? title.first_upcase : title
   end
 
   def manga_conjugation_variant?

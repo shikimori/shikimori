@@ -29,23 +29,23 @@ ru:
     status:
       anime:
         one_type: &anime_one_type
-          anons: Анонсы аниме
-          ongoing: Онгоинги аниме
-          released: Вышедшие аниме
-          latest: Недавно вышедшие аниме
+          anons: анонсы аниме
+          ongoing: онгоинги аниме
+          released: вышедшие аниме
+          latest: недавно вышедшие аниме
         many_types:
           <<: *anime_one_type
       manga:
         one_type:
-          anons: Анонсы %{type}
-          ongoing: Онгоинги %{type}
-          released: Вышедшие %{type}
-          latest: Недавно вышедшие %{type}
+          anons: анонсы %{type}
+          ongoing: онгоинги %{type}
+          released: вышедшие %{type}
+          latest: недавно вышедшие %{type}
         many_types:
-          anons: Анонсы манги
-          ongoing: Онгоинги манги
-          released: Вышедшая манга
-          latest: Недавно вышедшая манга
+          anons: анонсы манги
+          ongoing: онгоинги манги
+          released: вышедшая манга
+          latest: недавно вышедшая манга
 
     kind:
       anime:
@@ -55,7 +55,7 @@ ru:
           ona: ONA
           ova/ona: OVA/ONA
           ova: OVA
-          special: Спешиалы
+          special: Спешлы
           tv: Аниме сериалы
           tv_13: Короткие аниме сериалы
           tv_24: Средние аниме сериалы
@@ -66,7 +66,7 @@ ru:
           ona: ONA
           ova/ona: OVA/ONA
           ova: OVA
-          special: Спешиалы
+          special: Спешлы
           tv: Сериалы
           tv_13: Короткие сериалы
           tv_24: Средние сериалы

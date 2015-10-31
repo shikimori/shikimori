@@ -36,10 +36,10 @@ class AnimesCollectionController < ShikimoriController
       noindex and nofollow
     end
 
-    @description = [] if params_page > 1 && !turbolinks_request?
+    @description = '' if params_page > 1 && !turbolinks_request?
     @title_notice = "" if params_page > 1 && !turbolinks_request?
 
-    description @description.join(' ')
+    description @description
     keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
     raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
@@ -100,8 +100,10 @@ private
         raise ForceRedirect, collection_url(kind.to_sym => all_entry_data.first.to_param)
       end
     end
-    build_page_title @entry_data
-    build_page_description @entry_data
+
+    @page_title = build_page_title @entry_data
+    @title_notice = build_page_description @entry_data
+    @description = @page_title
   end
 
   # постраничное разбитие коллекции
@@ -193,11 +195,11 @@ private
   end
 
   def build_page_title entry_data
-    @page_title ||= collection_title(entry_data).title
+    collection_title(entry_data).title
   end
 
   def build_page_description entry_data
-    title = collection_title(entry_data).title
+    title = collection_title(entry_data).title false
 
     if collection_title(entry_data).manga_conjugation_variant?
       i18n_t 'description.manga_variant',
@@ -236,7 +238,7 @@ private
         i18n_t 'order.by_popularity'
       when 'ranked'
         i18n_t 'order.by_ranking'
-      when 'released_on', 'released_at'
+      when 'released_on', 'released_at', 'aired_on'
         i18n_t 'order.by_released_date'
       when 'id'
         i18n_t 'order.by_add_date'

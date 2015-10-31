@@ -28,7 +28,7 @@ ru:
       #tv: TV Сериалы
       #movie: Полнометражные фильмы
       #OVA/ONA: OVA / ONA
-      #special: Спешиалы
+      #special: Спешлы
       #music: Клипы
     #Short:
       #Movie: Фильм
@@ -42,7 +42,7 @@ ru:
       #Music: Клипы
       #ONA: ONA
       #OVA: OVA
-      #Special: Спешиалы
+      #Special: Спешлы
       #TV: Аниме сериалы
       #TV 13: Односезонные аниме сериалы
       #TV 24: Двухсезонные аниме сериалы
@@ -104,7 +104,7 @@ ru:
       movie: Фильмы
       ova: OVA
       ona: ONA
-      special: Спешиалы
+      special: Спешлы
       music: Клипы
       episodes: Эпизоды
       chapters: Главы

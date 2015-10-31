@@ -29,23 +29,23 @@ en:
     status:
       anime:
         one_type: &anime_one_type
-          anons: Upcoming anime
-          ongoing: Anime ongoings
-          released: Released anime
-          latest: Latest anime
+          anons: upcoming anime
+          ongoing: anime ongoings
+          released: released anime
+          latest: latest anime
         many_types:
           <<: *anime_one_type
       manga:
         one_type:
-          anons: Upcoming %{type}
+          anons: upcoming %{type}
           ongoing: '%{type} ongoings'
-          released: Released %{type}
-          latest: Latest %{type}
+          released: released %{type}
+          latest: latest %{type}
         many_types:
-          anons: Upcoming manga
-          ongoing: Manga ongoings
-          released: Released manga
-          latest: Latest manga
+          anons: upcoming manga
+          ongoing: manga ongoings
+          released: released manga
+          latest: latest manga
 
     kind:
       anime:
