@@ -37,6 +37,10 @@ en:
       by_ranking: by ranking
       by_released_date: by release date
       by_add_date: by date when added on site
+    description:
+      manga_variant: &manga_variant |
+        This page contains search results for %{title} sorted %{order_name}
+      non_manga_variant: *manga_variant
 
   recommendations_controller:
     <<: *animes_collection_controller

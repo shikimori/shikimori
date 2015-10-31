@@ -24,6 +24,19 @@ class CollectionTitle
     end.first_upcase
   end
 
+  def manga_conjugation_variant?
+    if statuses_text.present?
+      /#{Manga.model_name.human}/i === title
+    else # types_text
+      !types.many? && /#{Manga.model_name.human}/i === title
+    end
+  end
+
+private
+
+  attr_reader :klass, :user
+  attr_reader :seasons, :types, :statuses, :genres, :studios, :publishers
+
   def fancy_title
     if genres.present?
       genres.first.title user: user
@@ -48,11 +61,6 @@ class CollectionTitle
     end
   end
 
-private
-
-  attr_reader :klass, :user
-  attr_reader :seasons, :types, :statuses, :genres, :studios, :publishers
-
   def fancy?
     (seasons + types + statuses + genres + studios + publishers).one?
   end
@@ -66,13 +74,18 @@ private
   end
 
   def status_text status
-    klass_key = klass.name.downcase
-    type_count_key = types.one? ? 'one_type' : 'many_types'
-
     i18n_t(
-      "status.#{klass_key}.#{type_count_key}.#{status}",
+      "status.#{klass.name.downcase}.#{type_count_key}.#{status}",
         type: type_text(types.first)
     ).downcase
+  end
+
+  def type_count_key
+    if types.one?
+      types.first == 'manga' ? :many_types : :one_type
+    else
+      :many_types
+    end
   end
 
   def types_text
@@ -119,7 +132,7 @@ private
     form = types.many? ? 'short' : 'long'
 
     if type.present?
-      I18n.t "enumerize.#{klass.name.downcase}.kind.plural.#{form}.#{type}"
+      i18n_t "kind.#{klass.name.downcase}.#{form}.#{type}"
     else
       klass.model_name.human
     end

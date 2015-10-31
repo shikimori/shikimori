@@ -29,7 +29,7 @@ header.head.ajaxable
       - next unless @entries[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "enumerize.#{@klass.name.downcase}.kind.plural.long.#{data[:kind]}"
+        = t "collection_title.kind.#{@klass.name.downcase}.long.#{data[:kind]}"
 
       .to-process data-dynamic='cutted_covers'
         - if klass == Anime

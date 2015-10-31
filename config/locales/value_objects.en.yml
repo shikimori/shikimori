@@ -46,3 +46,29 @@ en:
           ongoing: Manga ongoings
           released: Released manga
           latest: Latest manga
+
+    kind:
+      anime:
+        long: &anime_long
+          movie: Movies
+          music: Music
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Specials
+          tv: TV Series
+          tv_13: Short TV Series
+          tv_24: Average TV Series
+          tv_48: Long TV Series
+        short:
+          <<: *anime_long
+      manga:
+        long: &manga_long
+          doujin: Doujin
+          manga: Manga
+          manhua: Manhua
+          manhwa: Manhwa
+          novel: Novels
+          one_shot: One Shots
+        short:
+          <<: *manga_long

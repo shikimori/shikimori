@@ -278,28 +278,6 @@ en:
         ona: ONA
         ova: OVA
         special: Special
-        plural:
-          long:
-            movie: Movies
-            music: Music
-            ona: ONA
-            ova/ona: OVA/ONA
-            ova: OVA
-            special: Specials
-            tv: TV Series
-            tv_13: Short TV Series
-            tv_24: Average TV Series
-            tv_48: Long TV Series
-          short:
-            movie: Movies
-            music: Music
-            ona: ONA
-            ova: OVA
-            special: Specials
-            tv: TV Series
-            tv_13: Short TV Series
-            tv_24: Average TV Series
-            tv_48: Long TV Series
         short:
           movie: Movie
           music: Music
@@ -335,16 +313,6 @@ en:
         manhwa: Manhwa
         novel: Novel
         one_shot: One Shot
-        plural:
-          long: &long
-            doujin: Doujin
-            manga: Manga
-            manhua: Manhua
-            manhwa: Manhwa
-            novel: Novels
-            one_shot: One Shots
-          short:
-            <<: *long
         short:
           doujin: Doujin
           manga: Manga

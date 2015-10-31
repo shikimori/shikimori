@@ -193,54 +193,19 @@ private
   end
 
   def build_page_title entry_data
-    @page_title ||= CollectionTitle.new(
-      klass: klass,
-      user: current_user,
-      season: params[:season],
-      type: params[:type],
-      status: params[:status],
-      genres: entry_data[:genre],
-      studios: entry_data[:studio],
-      publishers: entry_data[:publisher]
-    ).title
+    @page_title ||= collection_title(entry_data).title
   end
 
   def build_page_description entry_data
-    order_name = case params[:order] || AniMangaQuery::DefaultOrder
-      when 'name'
-        i18n_t 'order.in_alphabetical_order'
+    title = collection_title(entry_data).title
 
-      when 'popularity'
-        i18n_t 'order.by_popularity'
-
-      when 'ranked'
-        i18n_t 'order.by_ranking'
-
-      # TODO: удалить released_at после 01.05.2014
-      when 'released_on', 'released_at'
-        i18n_t 'order.by_released_date'
-
-      when 'id'
-        i18n_t 'order.by_add_date'
-    end
-    @description = klass.description_for params[:season], params[:type], entry_data[:genre], entry_data[:studio], entry_data[:publisher]
-
-    order_word = if klass == Anime && @description[0].nil?
-      'отсортированный'
-    elsif klass == Anime || (params[:type] && !params[:type].include?(',') && params[:type].include?('ovel'))
-      'отсортированных'
+    if collection_title(entry_data).manga_conjugation_variant?
+      i18n_t 'description.manga_variant',
+        title: title, order_name: order_name
     else
-      'отсортированной'
+      i18n_t 'description.non_manga_variant',
+        title: title, order_name: order_name
     end
-
-    @title_notice = "На данной странице отображен #{@description[0].nil? ? '' : 'список'} #{@description[1]}, #{order_word} #{order_name}".sub(/,,|, ,| ,/, ',')
-
-    #if entry_data[:genre].present? && entry_data[:genre].one? && entry_data[:genre].first.description.present? &&
-        #entry_data[:studio].blank? && entry_data[:publisher].blank? &&
-        #params[:season].blank? && params[:type].blank? && params[:status].blank? &&
-        #params[:order].blank? && params[:rating].blank?
-      #@title_notice = BbCodeFormatter.instance.format_description(entry_data[:genre].first.description, entry_data[:genre].first).gsub('div', 'p')
-    #end
   end
 
   # число аниме/манги на странице
@@ -260,5 +225,34 @@ private
 
   def collection_url_method
     "#{klass.table_name}_url"
+  end
+
+  # TODO: удалить released_at после 01.05.2014
+  def order_name
+    case params[:order] || AniMangaQuery::DefaultOrder
+      when 'name'
+        i18n_t 'order.in_alphabetical_order'
+      when 'popularity'
+        i18n_t 'order.by_popularity'
+      when 'ranked'
+        i18n_t 'order.by_ranking'
+      when 'released_on', 'released_at'
+        i18n_t 'order.by_released_date'
+      when 'id'
+        i18n_t 'order.by_add_date'
+    end
+  end
+
+  def collection_title entry_data
+    @collection_title ||= CollectionTitle.new(
+      klass: klass,
+      user: current_user,
+      season: params[:season],
+      type: params[:type],
+      status: params[:status],
+      genres: entry_data[:genre],
+      studios: entry_data[:studio],
+      publishers: entry_data[:publisher]
+    )
   end
 end

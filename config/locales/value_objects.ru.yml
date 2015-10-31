@@ -46,3 +46,38 @@ ru:
           ongoing: Онгоинги манги
           released: Вышедшая манга
           latest: Недавно вышедшая манга
+
+    kind:
+      anime:
+        long:
+          movie: Полнометражные аниме
+          music: Аниме клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешиалы
+          tv: Аниме сериалы
+          tv_13: Короткие аниме сериалы
+          tv_24: Средние аниме сериалы
+          tv_48: Длинные аниме сериалы
+        short:
+          movie: Фильмы
+          music: Клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешиалы
+          tv: Сериалы
+          tv_13: Короткие сериалы
+          tv_24: Средние сериалы
+          tv_48: Длинные сериалы
+      manga:
+        long: &manga_long
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Новеллы
+          one_shot: Ваншоты
+        short:
+          <<: *manga_long
