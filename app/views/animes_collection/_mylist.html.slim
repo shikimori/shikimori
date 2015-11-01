@@ -1,6 +1,6 @@
 .block.anime-params-block.mylist-block
   span.filter.block-filter.item-sign
-  .subheadline Список
+  .subheadline = i18n_i('list').capitalize
   ul.block-list.mylist.anime-params
     - UserRate.statuses.each do |name,id|
       li class="mylist-#{id}"

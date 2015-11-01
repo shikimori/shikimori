@@ -1,8 +1,17 @@
 .pagination
-  a.link.link-prev class="#{:disabled if @prev_page.blank?}" href="#{@prev_page}" ←  Назад
+  a.link.link-prev[
+    class="#{:disabled if @prev_page.blank?}"
+    href="#{@prev_page}"
+  ] = "← #{t 'pagination.back'}"
+
   .no-hover
-    span.link-title Страница
+    span.link-title data-text="#{i18n_i('page', :other).capitalize}"
+      = i18n_i('page', :other).capitalize
     span.link-current = params[:page] || 1
     span из
     span.link-total = @total_pages || 1
-  a.link.link-next class="#{:disabled if @next_page.blank?}" href="#{@next_page}" Вперед →
+
+  a.link.link-next[
+    class="#{:disabled if @next_page.blank?}"
+    href="#{@next_page}"
+  ] = "#{t 'pagination.next'} →"

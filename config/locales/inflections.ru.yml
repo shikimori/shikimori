@@ -308,11 +308,40 @@ ru:
           many: издателей
           other: издатели
       genre:
+        subjective:
+          one: жанр
+          few: жанра
+          many: жанров
+          other: жанры
         genitive:
           one: жанра
           few: жанров
           many: жанров
           other: жанры
+      page:
+        subjective:
+          one: страница
+          few: страницы
+          many: страниц
+          other: страницы
+      sorting:
+        subjective:
+          one: сортировка
+          few: сортировки
+          many: сортировок
+          other: сортировки
+      season:
+        subjective:
+          one: сезон
+          few: сезона
+          many: сезонов
+          other: сезоны
+      list:
+        subjective:
+          one: список
+          few: списка
+          many: списков
+          other: списки
 
       datetime:
         second:
