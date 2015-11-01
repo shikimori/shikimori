@@ -1,4 +1,4 @@
-article.b-topic.b-topic-single_lined.shiki-object.unprocessed[
+article.b-topic.shiki-object.unprocessed[
   id="#{view.topic.id}"
   class="#{view.container_class}"
   data-user_id="#{view.user.id}"
@@ -11,21 +11,21 @@ article.b-topic.b-topic-single_lined.shiki-object.unprocessed[
   / класс нужен из-за проверки высоты и для отображения кнопок по hover
   - if view.show_body?
     .inner
-      - if view.show_actions?
+      - if user_signed_in? && !view.is_mini
         span.item-mobile title="Действия"
 
       aside.markers
         - unless view.topic.viewed?
           p.b-new_marker data-text="#{t 'markers.new'}"
 
-        - if view.show_actions?
-          = render 'topics/buttons', view: view
+      - if user_signed_in? && !view.is_mini
+        = render 'topics/buttons', view: view
 
       header
         .name-date
-          - if view.action_tag
+          / - if view.action_tag
             .b-anime_status_tag.review data-text="#{view.action_tag}"
-          - if view.offtopic_tag
+          / - if view.offtopic_tag
             .b-anime_status_tag.offtopic data-text="#{view.offtopic_tag}"
 
           a.name[
@@ -35,8 +35,6 @@ article.b-topic.b-topic-single_lined.shiki-object.unprocessed[
 
       .body
         = render 'topics/status_line', view: view
-        = render 'topics/reviews/entry_cover', view: view,
-          entry: view.topic.linked.target.decorate
 
         .body-truncated
           .body-truncated-inner

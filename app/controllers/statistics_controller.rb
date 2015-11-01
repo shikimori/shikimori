@@ -19,7 +19,7 @@ class StatisticsController < ShikimoriController
         [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
       end
 
-    @topic = Topics::Factory.new(false).build Topic.find(81906)
+    @topic = Topics::Factory.new(false, false).build Topic.find(81906)
   end
 
 private

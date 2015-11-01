@@ -220,7 +220,7 @@ private
   end
 
   def summaries_view is_preview
-    view = Topics::Factory.new(is_preview).build thread
+    view = Topics::Factory.new(is_preview, false).build thread
     view.comments.summary_new_comment = true
     view.comments.summaries_query = summaries?
     view

@@ -25,12 +25,14 @@ class TopicsController < ForumController
     @page = (params[:page] || 1).to_i
     @limit = topics_limit
 
-    topics, @add_postloader = TopicsQuery
-      .new(@section, current_user, @linked)
+    topics, @add_postloader = TopicsQuery.new(current_user)
+      .by_section(@section)
+      .by_linked(@linked)
       .postload(@page, @limit)
+      .result
 
     @collection = topics.map do |topic|
-      Topics::Factory.new(true).build topic, @section.permalink
+      Topics::Factory.new(true, @section.permalink == 'reviews').build topic
     end
 
     super
@@ -42,7 +44,7 @@ class TopicsController < ForumController
   # страница топика форума
   def show
     @topic = Entry.with_viewed(current_user).find(params[:id])
-    @view = Topics::Factory.new(false).build @topic
+    @view = Topics::Factory.new(false, false).build @topic
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
@@ -104,7 +106,7 @@ class TopicsController < ForumController
 
   # html код для тултипа
   def tooltip
-    topic = Topics::Factory.new(true).find params[:id]
+    topic = Topics::Factory.new(true, false).find params[:id]
 
     # превью топика отображается в формате комментария
     render partial: 'comments/comment', layout: false, object: topic, formats: :html
@@ -115,7 +117,7 @@ class TopicsController < ForumController
     topics = Entry
       .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
-      .map { |topic| Topics::Factory.new(true).build topic }
+      .map { |topic| Topics::Factory.new(true, false).build topic }
 
     render partial: 'topics/topic', collection: topics, as: :view, layout: false, formats: :html
   end
@@ -123,7 +125,7 @@ class TopicsController < ForumController
   # подгружаемое через ajax тело топика
   def reload
     topic = Entry.with_viewed(current_user).find params[:id]
-    view = Topics::Factory.new(params[:is_preview] == 'true').build topic
+    view = Topics::Factory.new(params[:is_preview] == 'true', false).build topic
 
     # render 'topics/topic', view: view
     render partial: 'topics/topic', object: view, as: :view

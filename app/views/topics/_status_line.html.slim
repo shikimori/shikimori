@@ -1,11 +1,7 @@
-.review-status_line
+.status-line
   span.from = t '.from'
   span.author
     = render 'users/user_16', user: view.user
-  / a.b-link.author[
-    href="#{profile_url view.user}"
-    title="#{view.user.nickname}"
-  / ] = view.user.nickname
   span.time
     time[
       itemprop="commentTime"
@@ -14,4 +10,6 @@
 
   span.additional
     span.comments = view.topic.comments_count
-    span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}
+
+    - if view.topic.review?
+      span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}

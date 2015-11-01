@@ -51,7 +51,8 @@ FactoryGirl.define do
       name 'Рецензии'
     end
 
-    factory :offtopic_section, traits: [:offtopic]
+    factory :anime_section, traits: [:anime]
     factory :reviews_section, traits: [:reviews]
+    factory :offtopic_section, traits: [:offtopic]
   end
 end

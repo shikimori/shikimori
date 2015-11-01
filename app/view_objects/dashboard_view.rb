@@ -2,7 +2,7 @@ class DashboardView < ViewObjectBase
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
 
-  TOPICS_FETCH = 10
+  TOPICS_FETCH = 3
   TOPICS_TAKE = 1
 
   instance_cache :ongoings, :favourites, :reviews
@@ -24,8 +24,23 @@ class DashboardView < ViewObjectBase
   def reviews
     all_reviews
       .take(TOPICS_TAKE)
-      .sort_by { |topic| -topic.id }
-      .map { |topic| Topics::ReviewView.new topic, true, true }
+      .sort_by { |view| -view.topic.id }
+  end
+
+  def users_news
+    TopicsQuery.new(h.current_user)
+      .by_section(news_section)
+      .where(generated: false)
+      .limit(5)
+      .as_views(true, true)
+  end
+
+  def generated_news
+    TopicsQuery.new(h.current_user)
+      .by_section(news_section)
+      .where(generated: true)
+      .limit(10)
+      .as_views(true, true)
   end
 
   #def favourites
@@ -42,9 +57,10 @@ private
   end
 
   def all_reviews
-    topics = TopicsQuery
-      .new(reviews_section, h.current_user, nil)
-      .fetch(1, TOPICS_FETCH)
+    TopicsQuery.new(h.current_user)
+      .by_section(reviews_section)
+      .limit(TOPICS_FETCH)
+      .as_views(true, true)
       .shuffle
   end
 
@@ -57,5 +73,9 @@ private
 
   def reviews_section
     Section.find_by_permalink('reviews')
+  end
+
+  def news_section
+    Section.static[:news]
   end
 end

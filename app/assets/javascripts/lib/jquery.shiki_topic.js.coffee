@@ -21,7 +21,7 @@ class @ShikiTopic extends ShikiEditable
     @$comments_collapser = @$('.comments-collapser')
     @$comments_expander = @$('.comments-expander')
 
-    @is_preview = @$root.hasClass('preview')
+    @is_preview = @$root.hasClass('b-topic-preview')
     @is_cosplay = @$root.hasClass('b-cosplay')
     @is_review = @$root.hasClass('b-review')
 
@@ -263,4 +263,4 @@ class @ShikiTopic extends ShikiEditable
 
   # url перезагрузки содержимого
   _reload_url: =>
-    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@$root.hasClass 'preview'}"
+    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"

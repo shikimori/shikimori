@@ -1,5 +1,5 @@
 class Topics::View < ViewObjectBase
-  vattr_initialize :topic, :is_preview
+  vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
   instance_cache :comments, :urls
@@ -12,11 +12,15 @@ class Topics::View < ViewObjectBase
     [
       css,
       ('b-topic-preview' if is_preview),
-      (:preview if is_preview),
+      (:mini if is_mini),
     ].compact.join ' '
   end
 
   def action_tag
+  end
+
+  def show_actions?
+    h.user_signed_in? && !is_mini
   end
 
   def show_body?
@@ -94,6 +98,18 @@ class Topics::View < ViewObjectBase
       # h.localized_name linked if linked.respond_to?(:name) && linked.respond_to?(:russian)
     # end
   # end
+
+  def html_body_truncated
+    if is_preview
+      h.truncate_html(html_body,
+        length: 500,
+        separator: ' ',
+        word_boundary: /\S[\.\?\!<>]/
+      ).html_safe
+    else
+      html_body
+    end
+  end
 
   # для совместимости с комментариями для рендера тултипа
   def offtopic?; false; end

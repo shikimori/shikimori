@@ -23,7 +23,61 @@ $comments_left_margin: 24px
     .hide
       display: inline-block
 
+  &.mini > .inner > .body
+    margin-left: 0
+
   &>.inner
+    .status-line
+      font-size: 12px
+      line-height: 1
+      margin-top: 5px
+
+      .from, .author, .time, .additional
+        display: inline-block
+        // vertical-align: middle
+
+      .author
+        padding-left: 5px
+
+        .b-user16 img
+          margin-top: 1px
+
+      .time
+        color: $date
+
+      .additional
+        margin-left: 15px
+        padding-left: 14px
+        border-left: 1px solid #acb1b4
+
+        .comments, .likes
+          display: inline-block
+          color: #333
+
+          &:before
+            display: inline-block
+            font-family: 'shikimori'
+            font-size: 14px
+            padding-right: 5px
+            text-align: center
+
+        .comments
+          &:before
+            content: '\e80e'
+
+        .likes
+          margin-left: 15px
+
+          span
+            color: $gray
+
+          &:before
+            content: '\e819'
+
+    &>header
+      .b-anime_status_tag
+        margin-right: 10px
+
     &>.body, &>footer
       margin-left: 58px
       +iphone

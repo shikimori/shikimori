@@ -4,6 +4,9 @@
 - elsif view.topic.review? && view.is_preview
   = render 'topics/reviews/preview', view: view
 
+/ - elsif view.is_mini
+  = render 'topics/mini', view: view
+
 - else
   article.b-topic.shiki-object.unprocessed[
     id="#{view.topic.id}"
@@ -18,14 +21,14 @@
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
     - if view.show_body?
       .inner
-        - if user_signed_in?
+        - if view.show_actions?
           span.item-mobile title="Действия"
 
         aside.markers
           - unless view.topic.viewed?
             p.b-new_marker data-text="#{t 'markers.new'}"
 
-        - if user_signed_in?
+        - if view.show_actions?
           = render 'topics/buttons', view: view
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
@@ -86,4 +89,5 @@
           data-appear_url="#{api_appears_url}"
         ]
 
-    = render 'topics/comments', view: view.comments
+    - unless view.is_mini
+      = render 'topics/comments', view: view.comments

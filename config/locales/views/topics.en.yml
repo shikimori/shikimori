@@ -1,5 +1,4 @@
 en:
   topics:
-    reviews:
-      status_line:
-        from: from
+    status_line:
+      from: from
