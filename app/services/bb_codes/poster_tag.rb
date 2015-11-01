@@ -27,7 +27,8 @@ private
   end
 
   def html_for_image user_image
-    "<img class=\"b-poster\" src=\"#{user_image.image.url :original, false}\" \
+    url = ImageUrlGenerator.instance.url user_image, :original
+    "<img class=\"b-poster\" src=\"#{url}\" \
 data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\" />"
   end
 end
