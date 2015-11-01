@@ -10,9 +10,86 @@ en:
     # title:
       # anime: Anime &laquo;%{target_name}&raquo; review
       # manga: Manga &laquo;%{target_name}&raquo; review
+
   topics/comments: &comments
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}
     load_comments: Display %{comment_count} %{out_of_total_comments} %{comment_word}
+
   topics/proxy_comments:
     <<: *comments
+
+  titles/collection_title:
+    status:
+      anime:
+        one_type: &anime_one_type
+          anons: upcoming anime
+          ongoing: anime ongoings
+          released: released anime
+          latest: latest anime
+        many_types:
+          <<: *anime_one_type
+      manga:
+        one_type:
+          anons: upcoming %{type}
+          ongoing: '%{type} ongoings'
+          released: released %{type}
+          latest: latest %{type}
+        many_types:
+          anons: upcoming manga
+          ongoing: manga ongoings
+          released: released manga
+          latest: latest manga
+    kind:
+      anime:
+        long: &anime_long
+          movie: Movies
+          music: Music
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Specials
+          tv: TV Series
+          tv_13: Short TV Series
+          tv_24: Average TV Series
+          tv_48: Long TV Series
+        short:
+          <<: *anime_long
+      manga:
+        long: &manga_long
+          doujin: Doujin
+          manga: Manga
+          manhua: Manhua
+          manhwa: Manhwa
+          novel: Novels
+          one_shot: One Shots
+        short:
+          <<: *manga_long
+    of_genres: of %{genres} %{list}
+
+  titles/season_title:
+    winter_season: winter %{year} season
+    fall_season: fall %{year} season
+    summer_season: summer %{year} season
+    spring_season: spring %{year} season
+    planned: planned
+    old: old
+    latest_anime: latest anime
+    latest_manga: latest manga
+    winters_year: winters %{year}
+    falls_year: falls %{year}
+    summers_year: summers %{year}
+    springs_year: springs %{year}
+    of:
+      year: '%{year}'
+      years: '%{from}-%{to}'
+      decade: '%{decade}s'
+
+  titles/anime_keywords:
+    type:
+      tv: anime TV series
+      novel: visual novels
+      movie: anime movie
+      anime: anime
+      manga: manga
+    other: list catalogue catalog base

@@ -2,7 +2,18 @@ describe String do
   subject { 'тЕст' }
 
   its(:capitalize) { should eq 'Тест' }
+  its(:upcase) { should eq 'ТЕСТ' }
   its(:downcase) { should eq 'тест' }
+
+  describe '#first_downcase' do
+    let(:string) { 'Реклама ВКонтакте' }
+    it { expect(string.first_downcase).to eq 'реклама ВКонтакте' }
+  end
+
+  describe '#first_upcase' do
+    let(:string) { 'реклама ВКонтакте' }
+    it { expect(string.first_upcase).to eq 'Реклама ВКонтакте' }
+  end
 
   describe '#with_http' do
     subject { string.with_http }

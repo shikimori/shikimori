@@ -30,12 +30,17 @@ en:
     <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
+    search: Search "%{search}"
     order:
       in_alphabetical_order: in alphabetical order
       by_popularity: by popularity
       by_ranking: by ranking
       by_released_date: by release date
       by_add_date: by date when added on site
+    description:
+      manga_variant: &manga_variant |
+        This page contains search results for %{title} sorted %{order_name}
+      non_manga_variant: *manga_variant
 
   recommendations_controller:
     <<: *animes_collection_controller

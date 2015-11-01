@@ -1,8 +1,6 @@
 class AniMangaSeason
-  extend Translation
-
   class << self
-    def query_for season, klass=Anime
+    def sql_for season, klass=Anime
       case season
         when 'ancient'
           "aired_on <= '%s 00:00:00'" % Date.new(1980)
@@ -47,70 +45,6 @@ class AniMangaSeason
 
         else
           raise BadSeasonError, "unknown season '#{season}'"
-      end
-    end
-
-    def anime_season_title season_text
-      season_text =~ /^([a-z]+)_(\d+)$/
-
-      year = $2.to_i
-      season = $1
-
-      case season
-        when 'winter'
-          i18n_t 'winter_season', year: year
-
-        when 'spring'
-          i18n_t 'spring_season', year: year
-
-        when 'summer'
-          i18n_t 'summer_season', year: year
-
-        when 'fall'
-          i18n_t 'fall_season', year: year
-      end
-    end
-
-    def title_for season_text, klass
-      case season_text
-        when 'ongoing'
-          i18n_i 'ongoing', :other
-
-        when 'latest'
-          i18n_t "latest_#{klass.downcase}"
-
-        when 'planned'
-          i18n_t 'planned'
-
-        when 'ancient'
-          i18n_t 'old'
-
-        when /^([a-z]+)_(\d+)$/
-          year = $2.to_i
-          season = $1
-
-          case season
-            when 'winter'
-              i18n_t 'winters_year', year: year
-
-            when 'spring'
-              i18n_t 'springs_year', year: year
-
-            when 'summer'
-              i18n_t 'summers_year', year: year
-
-            when 'fall'
-              i18n_t 'falls_year', year: year
-          end
-
-        when /^(\d+)$/
-          i18n_t 'of.year', year: $1
-
-        when /^(\d+)_(\d+)$/
-          i18n_t 'of.years', from: $1, to: $2
-
-        when /^\d{2}(\d)x$/
-          i18n_t 'of.decade', decade: $1
       end
     end
   end

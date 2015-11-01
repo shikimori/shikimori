@@ -30,12 +30,18 @@ ru:
     <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
+    search: Поиск “%{search}”
     order:
       in_alphabetical_order: в алфавитном порядке
       by_popularity: по популярности
       by_ranking: по рейтингу
       by_released_date: по дате выхода
       by_add_date: по дате добавления
+    description:
+      manga_variant: |
+        На данной странице отображена %{title}, отсортированная %{order_name}
+      non_manga_variant: |
+        На данной странице отображены %{title}, отсортированные %{order_name}
 
   recommendations_controller:
     <<: *animes_collection_controller

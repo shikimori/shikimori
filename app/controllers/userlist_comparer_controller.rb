@@ -19,7 +19,7 @@ class UserlistComparerController < ShikimoriController
 
     @page_title = "Сравнение списка #{@klass == Anime ? 'аниме' : 'манги'} #{@user_1.nickname} и #{@user_2.nickname}"
 
-    @menu = CollectionMenu.new @klass
+    @menu = Menus::CollectionMenu.new @klass
 
     respond_to do |format|
       format.html { render }

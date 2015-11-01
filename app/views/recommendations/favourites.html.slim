@@ -9,7 +9,7 @@ header.head.ajaxable
 
   .notice
     p = t '.here_we_have_put_together',
-          kind: (@klass == Anime ? i18n_i('the_best_anime', 1, :genitive) : i18n_i('the_best_manga', 1, :genitive))
+          kind: (@klass == Anime ? i18n_i('best_anime', 1, :genitive) : i18n_i('best_manga', 1, :genitive))
     - if @klass == Anime
       p
         = t '.not_interested'
@@ -29,7 +29,7 @@ header.head.ajaxable
       - next unless @entries[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "enumerize.#{@klass.name.downcase}.kind.plural.#{data[:kind]}"
+        = t "collection_title.kind.#{@klass.name.downcase}.long.#{data[:kind]}"
 
       .to-process data-dynamic='cutted_covers'
         - if klass == Anime

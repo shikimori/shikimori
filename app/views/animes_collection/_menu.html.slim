@@ -7,10 +7,10 @@
     ul.block-list.statuses.anime-params
       - menu.klass.status.values.each do |status|
         li class="status-#{status}"
-          input type="checkbox" autocomplete="off"
+          input type='checkbox' autocomplete='off'
           = t ".#{menu.klass.name.downcase}.status.#{status}"
-      li class="status-latest"
-        input type="checkbox" autocomplete="off"
+      li class='status-latest'
+        input type='checkbox' autocomplete='off'
           = t ".#{menu.klass.name.downcase}.status.latest"
 
   .block
@@ -18,21 +18,21 @@
     ul.block-list.types.anime-params
       - menu.klass.kind.options.each do |title,kind|
         li class="type-#{kind}"
-          input type="checkbox" autocomplete="off"
+          input type='checkbox' autocomplete='off'
           = title
 
         - if kind == 'tv'
           li.type-tv_13.sub
-            input type="checkbox" autocomplete="off"
-              = t ".anime.kind.tv_13"
+            input type='checkbox' autocomplete='off'
+              = t '.anime.kind.tv_13'
 
           li.type-tv_24.sub
-            input type="checkbox" autocomplete="off"
-              = t ".anime.kind.tv_24"
+            input type='checkbox' autocomplete='off'
+              = t '.anime.kind.tv_24'
 
           li.type-tv_48.sub
-            input type="checkbox" autocomplete="off"
-              = t ".anime.kind.tv_48"
+            input type='checkbox' autocomplete='off'
+              = t '.anime.kind.tv_48'
 
   - if show_social?
     .addthis_toolbox.addthis_default_style
@@ -45,7 +45,7 @@
       a.addthis_button_compact
 
   .block
-    .subheadline Сортировка
+    .subheadline = i18n_i('sorting').capitalize
     ul.block-list.orders.anime-params.subcontent
       li.order-by-ranked = t 'by.ranked'
       li.order-by-kind.hidden = t 'by.kind'
@@ -60,16 +60,16 @@
 
       / используется в профиле пользователя
       - if defined?(in_user_profile)
-        li.order-by-my style="display: none" По оценке
-        li.order-by-rate_id По дате добавления
+        li.order-by-my style="display: none" = t 'by.score'
+        li.order-by-rate_id = t 'by.date_added'
         - if menu.klass == Anime
-          li.order-by-episodes style="display: none" По числу эпизодов
+          li.order-by-episodes style="display: none" = t 'by.number_of_episodes'
         - else
-          li.order-by-chapters style="display: none" По числу глав
-          li.order-by-volumes style="display: none" По числу томов
-        li.order-by-status style="display: none" По статусу
+          li.order-by-chapters style="display: none" = t 'by.number_of_chapters'
+          li.order-by-volumes style="display: none" = t 'by.number_of_volumes'
+        li.order-by-status style="display: none" = t 'by.status'
       - else
-        li.order-by-id По дате добавления
+        li.order-by-id = t 'by.date_added'
 
       / используется в userlist comparer
       - if defined?(custom_sorts) && !custom_sorts.empty?
@@ -81,15 +81,15 @@
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block.hidden
-    .subheadline Студия
+    .subheadline = i18n_i('studio').capitalize
     ul.block-list.studios.anime-params
 
   .block.hidden
-    .subheadline Издатель
+    .subheadline = i18n_i('publisher').capitalize
     ul.block-list.publishers.anime-params
 
   .block
-    .subheadline Сезон
+    .subheadline = i18n_i('season').capitalize
     ul.block-list.seasons.anime-params
       - menu.seasons.each do |season, title|
         li class="season-#{season}"
@@ -98,7 +98,7 @@
 
   - if menu.klass == Anime
     .block.durations
-      .subheadline Эпизод
+      .subheadline = i18n_i('episode').capitalize
       ul.block-list.durations.anime-params
         - AniMangaQuery::Durations.keys.each do |v|
           li class="duration-#{v}"
@@ -120,8 +120,8 @@
             ]
 
   .block.genres
-    .subheadline Жанр
-    = text_spoiler 'Показать список' do
+    .subheadline = i18n_i('genre', :other).capitalize
+    = text_spoiler t('.show_list') do
       ul.block-list.genres.anime-params.m10
         - menu.sorted_genres.each do |genre|
           - next if genre.censored? && !user_signed_in?

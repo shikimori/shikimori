@@ -24,3 +24,62 @@ ru:
         summer: Летний сезон %{year} года
         fall: Осенний сезон %{year} года
       year: Аниме %{year} года
+
+  titles/collection_title:
+    status:
+      anime:
+        one_type: &anime_one_type
+          anons: анонсы аниме
+          ongoing: онгоинги аниме
+          released: вышедшие аниме
+          latest: недавно вышедшие аниме
+        many_types:
+          <<: *anime_one_type
+      manga:
+        one_type:
+          anons: анонсы %{type}
+          ongoing: онгоинги %{type}
+          released: вышедшие %{type}
+          latest: недавно вышедшие %{type}
+        many_types:
+          anons: анонсы манги
+          ongoing: онгоинги манги
+          released: вышедшая манга
+          latest: недавно вышедшая манга
+
+    kind:
+      anime:
+        long:
+          movie: Полнометражные аниме
+          music: Аниме клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Аниме сериалы
+          tv_13: Короткие аниме сериалы
+          tv_24: Средние аниме сериалы
+          tv_48: Длинные аниме сериалы
+        short:
+          movie: Фильмы
+          music: Клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Сериалы
+          tv_13: Короткие сериалы
+          tv_24: Средние сериалы
+          tv_48: Длинные сериалы
+      manga:
+        long: &manga_long
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Новеллы
+          one_shot: Ваншоты
+        short:
+          <<: *manga_long
+
+    of_genres: '%{genres} %{list}'

@@ -16,11 +16,20 @@ en:
     upload: Upload
     upload_image: Upload image
   by:
-    ranked: By rank
-    kind: By type
-    popularity: By popularity
-    name: In alphabetical order
     aired_on: By release date
+    date_added: By date added
+    kind: By type
+    name: In alphabetical order
+    number_of_chapters: By number of chapters
+    number_of_episodes: By number of episodes
+    number_of_volumes: By number of volumes
+    popularity: By popularity
+    ranked: By rank
+    score: By score
+    status: By status
+  pagination:
+    back: Back
+    next: Next
   about_site: About site
   anime_industry: Anime industry
   anime_list: Anime List

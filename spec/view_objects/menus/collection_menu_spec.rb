@@ -1,6 +1,6 @@
-describe CollectionMenu do
+describe Menus::CollectionMenu do
   include_context :view_object_warden_stub
-  let(:view) { CollectionMenu.new Anime }
+  let(:view) { Menus::CollectionMenu.new Anime }
 
   describe '#sorted_genres' do
     let!(:genre_1) { create :genre, position: 1, kind: :anime }

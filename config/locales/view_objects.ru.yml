@@ -10,9 +10,95 @@ ru:
     # title:
       # anime: Обзор аниме &laquo;%{target_name}&raquo;
       # manga: Обзор манги &laquo;%{target_name}&raquo;
+
   topics/comments: &comments
     show_comments: Показать %{comment_word}
     hide_comments: Скрыть %{comment_word}
     load_comments: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
+
   topics/proxy_comments:
     <<: *comments
+
+  titles/collection_title:
+    status:
+      anime:
+        one_type: &anime_one_type
+          anons: анонсы аниме
+          ongoing: онгоинги аниме
+          released: вышедшие аниме
+          latest: недавно вышедшие аниме
+        many_types:
+          <<: *anime_one_type
+      manga:
+        one_type:
+          anons: анонсы %{type}
+          ongoing: онгоинги %{type}
+          released: вышедшие %{type}
+          latest: недавно вышедшие %{type}
+        many_types:
+          anons: анонсы манги
+          ongoing: онгоинги манги
+          released: вышедшая манга
+          latest: недавно вышедшая манга
+    kind:
+      anime:
+        long:
+          movie: Полнометражные аниме
+          music: Аниме клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Аниме сериалы
+          tv_13: Короткие аниме сериалы
+          tv_24: Средние аниме сериалы
+          tv_48: Длинные аниме сериалы
+        short:
+          movie: Фильмы
+          music: Клипы
+          ona: ONA
+          ova/ona: OVA/ONA
+          ova: OVA
+          special: Спешлы
+          tv: Сериалы
+          tv_13: Короткие сериалы
+          tv_24: Средние сериалы
+          tv_48: Длинные сериалы
+      manga:
+        long: &manga_long
+          doujin: Додзинси
+          manga: Манга
+          manhua: Маньхуа
+          manhwa: Манхва
+          novel: Новеллы
+          one_shot: Ваншоты
+        short:
+          <<: *manga_long
+    of_genres: '%{genres} %{list}'
+
+  titles/season_title:
+    winter_season: зимний аниме сезон %{year} года
+    fall_season: осенний аниме сезон %{year} года
+    summer_season: летний аниме сезон %{year} года
+    spring_season: весенний аниме сезон %{year} года
+    planned: анонсы
+    old: древности
+    latest_anime: последние аниме
+    latest_manga: последняя манга
+    winters_year: зимы %{year}
+    falls_year: осени %{year}
+    summers_year: лета %{year}
+    springs_year: весны %{year}
+    of:
+      year: '%{year} года'
+      years: '%{from}-%{to} годов'
+      decade: '%{decade}0х годов'
+
+  titles/anime_keywords:
+    type:
+      tv: аниме сериалы
+      novel: визуальные новеллы
+      movie: полнометражные аниме
+      anime: аниме анимэ
+      manga: манга
+    other: список каталог база

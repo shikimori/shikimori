@@ -1,4 +1,4 @@
-class TopMenu < ViewObjectBase
+class Menus::TopMenu < ViewObjectBase
   def seasons
     month = Time.zone.now.beginning_of_month
     # + 1.month since 12th month belongs to the next year in SeasonPair

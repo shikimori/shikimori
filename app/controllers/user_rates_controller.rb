@@ -12,16 +12,19 @@ class UserRatesController < ProfilesController
     noindex
     @page = (params[:page] || 1).to_i
     @limit = UserLibraryView::ENTRIES_PER_PAGE
-    @menu = CollectionMenu.new @resource.list.klass
+    @menu = Menus::CollectionMenu.new @resource.list.klass
 
     page_title t("#{params[:list_type]}_list")
   end
 
   def create
     if (@user_rate.save rescue PG::Error)
-      render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+      render partial: 'user_rate',
+        locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+        formats: :html
     else
-      render json: @user_rate.errors.full_messages, status: :unprocessable_entity
+      render json: @user_rate.errors.full_messages,
+        status: :unprocessable_entity
     end
   end
 
@@ -30,9 +33,12 @@ class UserRatesController < ProfilesController
 
   def update
     if @user_rate.update update_params
-      render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+      render partial: 'user_rate',
+        locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+        formats: :html
     else
-      render json: @user_rate.errors.full_messages, status: :unprocessable_entity
+      render json: @user_rate.errors.full_messages,
+        status: :unprocessable_entity
     end
   end
 
@@ -43,12 +49,16 @@ class UserRatesController < ProfilesController
       @user_rate.update chapters: @user_rate.chapters + 1
     end
 
-    render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    render partial: 'user_rate',
+      locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+      formats: :html
   end
 
   def destroy
     @user_rate.destroy!
-    render partial: 'user_rate', locals: { user_rate: @user_rate.decorate, entry: @user_rate.target }, formats: :html
+    render partial: 'user_rate',
+      locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+      formats: :html
   end
 
   def export
@@ -63,6 +73,7 @@ class UserRatesController < ProfilesController
 
     response.headers['Content-Description'] = 'File Transfer'
     response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml"
+
     render :export, formats: :xml
   end
 

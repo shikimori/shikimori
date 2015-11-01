@@ -1,6 +1,53 @@
 en:
   contest_round:
     title: 'Round #%{number}%{additional}'
+
   ban:
     warn_message: warned. %{reason}.
     ban_message: banned on %{duration}. %{reason}.
+
+  genre:
+    default_title: '%{name} %{kind}'
+    title:
+      common: &common
+        magic: '%{kind} about magic'
+        space: '%{kind} about space'
+        demons: '%{kind} about demons'
+        vampire: '%{kind} about vampires'
+        mystery: '%{kind} about mysteries'
+        school: '%{kind} about school'
+        police: '%{kind} about police'
+        sports: '%{kind} about sport'
+        games: '%{kind} about games'
+        martial_arts: '%{kind} about martial arts'
+        sumurai: '%{kind} about samurais'
+        adventure: '%{kind} about adventures'
+        drama: drama %{kind}
+        horror: horror %{kind}
+        sci-fi: sci-fi %{kind}
+        comedy: comedy %{kind}
+        romance: romance %{kind}
+        historical: historical %{kind}
+        supernatural: supernatural %{kind}
+        yaoi: yaoi %{kind}
+        kids: kids %{kind}
+        mecha: mecha %{kind}
+        shounen: shounen %{kind}
+        shounen_ai: shounen-ai %{kind}
+        seinen: seinen %{kind}
+        shoujo: shoujo %{kind}
+        shoujo_ai: shoujo-ai %{kind}
+        josei: josei %{kind}
+        fantasy: fantasy %{kind}
+        thriller: thriller %{kind}
+        echi: echi %{kind}
+        yuri: yuri %{kind}
+
+      subjective: &subjective
+        anime:
+          <<: *common
+        manga:
+          <<: *common
+
+      genitive:
+        <<: *subjective

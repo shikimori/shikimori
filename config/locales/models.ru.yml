@@ -1,6 +1,71 @@
 ru:
   contest_round:
     title: 'Раунд #%{number}%{additional}'
+
   ban:
     warn_message: предупреждение. %{reason}.
     ban_message: бан на %{duration}. %{reason}.
+
+  genre:
+    default_title: '%{kind} жанра %{name}'
+    title:
+      common: &common
+        magic: '%{kind} про магию'
+        space: '%{kind} про космос'
+        demons: '%{kind} про демонов'
+        vampire: '%{kind} про вампиров'
+        mystery: '%{kind} о мистике'
+        school: '%{kind} про школу'
+        police: '%{kind} про полицию'
+        sports: '%{kind} про спорт'
+        games: '%{kind} про игры'
+        martial_arts: '%{kind} про боевые искусства'
+        sumurai: '%{kind} про самураев'
+        adventure: '%{kind} о приключениях'
+        drama: '%{kind} в жанре драма'
+        horror: '%{kind} в жанре ужасы'
+        sci-fi: '%{kind} в жанре фантастика'
+        yaoi: '%{kind} яой'
+        mecha: меха %{kind}
+        shounen: сёнен %{kind}
+        shounen_ai: сёнен-Ай %{kind}
+        seinen: сэйнэн %{kind}
+        shoujo: сёдзё %{kind}
+        shoujo_ai: сёдзё-Ай %{kind}
+        josei: дзёсэй %{kind}
+        fantasy: фэнтези %{kind}
+        thriller: триллер %{kind}
+        echi: этти %{kind}
+        yuri: юри %{kind}
+
+      subjective:
+        anime: &subjective_anime
+          <<: *common
+          comedy: комедийные аниме
+          romance: романтические аниме про любовь
+          historical: исторические аниме
+          supernatural: сверхъестественные аниме
+          kids: детские %{kind}
+        manga: &subjective_manga
+          <<: *common
+          comedy: комедийная манга
+          romance: романтическая манга про любовь
+          historical: историческая манга
+          supernatural: сверхъестественная манга
+          kids: детская %{kind}
+
+      genitive:
+        anime:
+          <<: *subjective_anime
+          comedy: комедийных аниме
+          romance: романтических аниме про любовь
+          historical: исторических аниме
+          supernatural: сверхъестественных аниме
+          kids: детских %{kind}
+        manga:
+          <<: *subjective_manga
+          comedy: комедийной манги
+          romance: романтической манги про любовь
+          historical: исторической манги
+          supernatural: сверхъестественной манги
+          kids: детской %{kind}

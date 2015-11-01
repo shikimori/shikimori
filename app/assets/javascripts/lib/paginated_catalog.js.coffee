@@ -59,7 +59,7 @@ class @PaginatedCatalog
   # загружена следующая страница при скролле вниз
   _page_loaded_by_scroll: (e, $content, data) =>
     @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.current_page)
-    @$link_title.html "Страницы"
+    @$link_title.html @$link_title.data('text')
     @$link_total.html data.total_pages
 
     @$link_prev.attr

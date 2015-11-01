@@ -1,4 +1,4 @@
-class CollectionMenu < ViewObjectBase
+class Menus::CollectionMenu < ViewObjectBase
   vattr_initialize :klass
   instance_cache :load_associations
 

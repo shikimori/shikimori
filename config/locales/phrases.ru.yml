@@ -16,11 +16,20 @@ ru:
     upload: Загрузить
     upload_image: Загрузить изображение
   by:
-    ranked: По рейтингу
-    kind: По типу
-    popularity: По популярности
-    name: По алфавиту
     aired_on: По дате выхода
+    date_added: По дате добавления
+    kind: По типу
+    name: По алфавиту
+    number_of_chapters: По числу глав
+    number_of_episodes: По числу эпизодов
+    number_of_volumes: По числу томов
+    popularity: По популярности
+    ranked: По рейтингу
+    score: По оценке
+    status: По статусу
+  pagination:
+    back: Назад
+    next: Вперед
   about_site: О сайте
   anime_industry: Индустрия аниме
   anime_list: Список аниме

@@ -19,6 +19,7 @@ en:
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
+    show_list: Show list
 
   animes: &animes
     page:
