@@ -44,9 +44,9 @@ class AnimesCollectionController < ShikimoriController
       klass: klass,
       season: params[:season],
       type: params[:type],
-      genre: @entry_data[:genre],
-      studio: @entry_data[:studio],
-      publisher: @entry_data[:publisher]
+      genres: @entry_data[:genre],
+      studios: @entry_data[:studio],
+      publishers: @entry_data[:publisher]
     ).keywords
 
     raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
