@@ -41,7 +41,7 @@ ru:
       subjective:
         anime: &subjective_anime
           <<: *common
-          comedy: аниме комедии
+          comedy: комедийные аниме
           romance: романтические аниме про любовь
           historical: исторические аниме
           supernatural: сверхъестественные аниме

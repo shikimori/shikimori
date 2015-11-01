@@ -10,9 +10,29 @@ en:
     # title:
       # anime: Anime &laquo;%{target_name}&raquo; review
       # manga: Manga &laquo;%{target_name}&raquo; review
+
   topics/comments: &comments
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}
     load_comments: Display %{comment_count} %{out_of_total_comments} %{comment_word}
+
   topics/proxy_comments:
     <<: *comments
+
+  titles/season_title:
+    winter_season: winter %{year} season
+    fall_season: fall %{year} season
+    summer_season: summer %{year} season
+    spring_season: spring %{year} season
+    planned: planned
+    old: old
+    latest_anime: latest anime
+    latest_manga: latest manga
+    winters_year: winters %{year}
+    falls_year: falls %{year}
+    summers_year: summers %{year}
+    springs_year: springs %{year}
+    of:
+      year: '%{year}'
+      years: '%{from}-%{to}'
+      decade: '%{decade}s'

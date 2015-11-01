@@ -1,6 +1,6 @@
-describe CollectionTitle do
+describe Titles::CollectionTitle do
   let(:collection_title) do
-    CollectionTitle.new(
+    Titles::CollectionTitle.new(
       klass: klass,
       user: user,
       season: season,
@@ -56,7 +56,7 @@ describe CollectionTitle do
 
       context 'many types' do
         let(:type) { 'tv,movie' }
-        it { is_expected.to eq 'Сериалы и Фильмы' }
+        it { is_expected.to eq 'Сериалы и фильмы' }
       end
     end
 
@@ -104,7 +104,7 @@ describe CollectionTitle do
         let(:name) { 'Comedy' }
 
         context 'anime' do
-          it { is_expected.to eq 'Аниме комедии' }
+          it { is_expected.to eq 'Комедийные аниме' }
         end
 
         context 'manga' do

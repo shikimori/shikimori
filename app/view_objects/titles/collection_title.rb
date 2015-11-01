@@ -1,4 +1,4 @@
-class CollectionTitle
+class Titles::CollectionTitle
   include Translation
   prepend ActiveCacher.instance
 
@@ -62,7 +62,7 @@ private
   end
 
   def statuses_text
-    return if statuses.empty?
+    return if statuses.none?
 
     statuses
       .map { |status| status_text status }
@@ -85,7 +85,7 @@ private
   end
 
   def types_text
-    return klass.model_name.human if types.empty?
+    return klass.model_name.human if types.none?
 
     types
       .map { |type| type_text type }
@@ -93,44 +93,52 @@ private
   end
 
   def studios_text
-    return if studios.empty?
+    return if studios.none?
 
     list = studios.map(&:name).to_sentence
     "#{i18n_i 'studio', studios.count, :genitive} #{list}"
   end
 
   def publishers_text
-    return if publishers.empty?
+    return if publishers.none?
 
     publishers_list = publishers.map(&:name).to_sentence
     "#{i18n_i 'publisher', publishers.count, :genitive} #{publishers_list}"
   end
 
   def genres_text
-    return unless genres.many?
+    return if genres.none?
 
     list = genres
       .map { |genre| UsersHelper.localized_name genre, user }
       .to_sentence
       .downcase
-    "#{i18n_i 'genre', genres.count, :genitive} #{list}"
+
+    of_genres = i18n_i 'genre', genres.count, :genitive
+    i18n_t 'of_genres', genres: of_genres, list: list
   end
 
   def seasons_text
-    return if seasons.empty?
+    return if seasons.none?
 
     seasons
-      .map { |season| "#{AniMangaSeason.title_for season, klass}" }
+      .map { |season| "#{Titles::SeasonTitle.new(klass, season).title}" }
       .to_sentence
   end
 
   def type_text type
     form = types.many? ? 'short' : 'long'
 
-    if type.present?
+    text = if type.present?
       i18n_t "kind.#{klass.name.downcase}.#{form}.#{type}"
     else
       klass.model_name.human
     end
+
+    text
+      .downcase
+      .gsub(/\bona\b/i, 'ONA')
+      .gsub(/\bova\b/i, 'OVA')
+      .gsub(/\btv\b/i, 'TV')
   end
 end

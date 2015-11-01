@@ -25,7 +25,7 @@ ru:
         fall: Осенний сезон %{year} года
       year: Аниме %{year} года
 
-  collection_title:
+  titles/collection_title:
     status:
       anime:
         one_type: &anime_one_type
@@ -81,3 +81,5 @@ ru:
           one_shot: Ваншоты
         short:
           <<: *manga_long
+
+    of_genres: '%{genres} %{list}'

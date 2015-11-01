@@ -246,7 +246,7 @@ private
   end
 
   def collection_title entry_data
-    @collection_title ||= CollectionTitle.new(
+    @collection_title ||= Titles::CollectionTitle.new(
       klass: klass,
       user: current_user,
       season: params[:season],

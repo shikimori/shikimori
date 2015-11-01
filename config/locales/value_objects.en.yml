@@ -25,7 +25,7 @@ en:
         fall: Fall %{year} Anime
       year: Anime %{year}
 
-  collection_title:
+  titles/collection_title:
     status:
       anime:
         one_type: &anime_one_type
@@ -72,3 +72,5 @@ en:
           one_shot: One Shots
         short:
           <<: *manga_long
+
+    of_genres: of %{genres} %{list}

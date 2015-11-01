@@ -69,7 +69,9 @@ module AniManga
         else
           keywords << (self == Anime ? 'аниме анимэ' : 'манга')
       end
-      keywords << AniMangaSeason.title_for(season, self) if season
+
+      keywords << Titles::SeasonTitle.new(self, season).title if season
+
       if genres
         keywords << 'жанр'
         keywords << genres.map {|v| "#{v.english} #{v.russian}" }.join(' ')

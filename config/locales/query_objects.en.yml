@@ -1,18 +1,1 @@
 en:
-  ani_manga_season:
-    winter_season: winter %{year} season
-    fall_season: fall %{year} season
-    summer_season: summer %{year} season
-    spring_season: spring %{year} season
-    planned: planned
-    old: old
-    latest_anime: latest anime
-    latest_manga: latest manga
-    winters_year: winters %{year}
-    falls_year: falls %{year}
-    summers_year: summers %{year}
-    springs_year: springs %{year}
-    of:
-      year: '%{year}'
-      years: '%{from}-%{to}'
-      decade: '%{decade}s'
