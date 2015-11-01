@@ -1,6 +1,10 @@
 class Topics::GeneratedNewsView < Topics::View
   def container_class
-    super 'b-generated_news'
+    super 'b-generated_news-topic'
+  end
+
+  def minified?
+    false
   end
 
   def action_tag
@@ -10,7 +14,6 @@ class Topics::GeneratedNewsView < Topics::View
       topic.action_text
     end
   end
-
 
   def render_body
     render_linked

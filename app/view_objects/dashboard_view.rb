@@ -10,7 +10,8 @@ class DashboardView < ViewObjectBase
 
   def ongoings
     ApplyRatedEntries.new(h.current_user).call(
-      all_ongoings.take(ONGOINGS_TAKE).sort_by(&:ranked)
+      all_ongoings
+        .shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
     )
   end
 
@@ -23,11 +24,10 @@ class DashboardView < ViewObjectBase
 
   def reviews
     all_reviews
-      .take(TOPICS_TAKE)
-      .sort_by { |view| -view.topic.id }
+      .shuffle.take(TOPICS_TAKE).sort_by { |view| -view.topic.id }
   end
 
-  def users_news
+  def user_news
     TopicsQuery.new(h.current_user)
       .by_section(news_section)
       .where(generated: false)
@@ -53,7 +53,6 @@ private
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
       .decorate
-      .shuffle
   end
 
   def all_reviews
@@ -61,7 +60,6 @@ private
       .by_section(reviews_section)
       .limit(TOPICS_FETCH)
       .as_views(true, true)
-      .shuffle
   end
 
   #def all_favourites

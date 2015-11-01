@@ -18,6 +18,9 @@ class Topics::Factory
     elsif entry.generated_news?
       Topics::GeneratedNewsView.new entry, @is_preview, @is_mini
 
+    elsif entry.news?
+      Topics::NewsView.new entry, @is_preview, @is_mini
+
     else
       Topics::View.new entry, @is_preview, @is_mini
     end

@@ -8,6 +8,10 @@ class Topics::View < ViewObjectBase
     h.user_signed_in? && h.current_user.ignores?(topic.user)
   end
 
+  def minified?
+    is_mini
+  end
+
   def container_class css = ''
     [
       css,

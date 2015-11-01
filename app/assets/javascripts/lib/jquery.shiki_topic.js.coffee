@@ -22,8 +22,8 @@ class @ShikiTopic extends ShikiEditable
     @$comments_expander = @$('.comments-expander')
 
     @is_preview = @$root.hasClass('b-topic-preview')
-    @is_cosplay = @$root.hasClass('b-cosplay')
-    @is_review = @$root.hasClass('b-review')
+    @is_cosplay = @$root.hasClass('b-cosplay-topic')
+    @is_review = @$root.hasClass('b-review-topic')
 
     if @is_preview
       @$body.imagesLoaded @_check_height

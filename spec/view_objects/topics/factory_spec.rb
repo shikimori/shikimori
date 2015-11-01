@@ -1,5 +1,7 @@
 describe Topics::Factory do
-  let(:factory) { Topics::Factory.new is_preview }
+  let(:factory) { Topics::Factory.new is_preview, is_mini }
+  let(:is_preview) { false }
+  let(:is_mini) { false }
 
   describe '#find' do
     let(:topic) { create :topic }
@@ -23,7 +25,6 @@ describe Topics::Factory do
     subject(:view) { factory.build topic }
 
     let(:section) { nil }
-    let(:is_preview) { false }
 
     context 'common topic' do
       let(:topic) { build :entry }

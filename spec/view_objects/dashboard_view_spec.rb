@@ -21,9 +21,9 @@ describe DashboardView do
     it { expect(view.reviews).to have(1).item }
   end
 
-  describe '#users_news' do
+  describe '#user_news' do
     let!(:anime_news) { create :anime_news, generated: false }
-    it { expect(view.anime_news).to have(1).item }
+    it { expect(view.user_news).to have(1).item }
   end
 
   describe '#generated_news' do

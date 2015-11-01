@@ -1,0 +1,25 @@
+- if view.author_in_header?
+  span.linkeable data-href="#{view.urls.topic_url}"
+    img[
+      src="#{view.poster false}"
+      srcset="#{view.poster true} 2x"
+      alt="#{view.topic_title}"
+    ]
+
+.name-date
+  - if view.action_tag
+    .b-anime_status_tag[
+      class="#{view.topic.action}"
+      data-text="#{view.action_tag}"
+    ]
+
+  a.name[
+    href="#{view.urls.topic_url}"
+    title="#{view.topic_title}"
+  ] = view.topic_title
+
+  span.time
+    time[
+      itemprop="commentTime"
+      datetime="#{view.created_at.iso8601}"
+    ] = l view.created_at, format: '%e %B %Y'

@@ -1,6 +1,10 @@
 class Topics::ReviewView < Topics::View
   def container_class
-    super 'b-review'
+    super 'b-review-topic'
+  end
+
+  def minified?
+    is_preview || is_mini
   end
 
   def show_body?

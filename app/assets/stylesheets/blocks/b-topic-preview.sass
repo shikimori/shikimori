@@ -23,8 +23,9 @@ $comments_left_margin: 24px
     .hide
       display: inline-block
 
-  &.mini > .inner > .body
-    margin-left: 0
+  &.mini > .inner
+    &>.body, &>footer
+      margin-left: 0
 
   &>.inner
     .status-line
@@ -35,6 +36,9 @@ $comments_left_margin: 24px
       .from, .author, .time, .additional
         display: inline-block
         // vertical-align: middle
+
+      .b-link
+        padding: 0 5px
 
       .author
         padding-left: 5px
