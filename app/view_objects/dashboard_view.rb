@@ -15,7 +15,7 @@ class DashboardView < ViewObjectBase
   end
 
   def seasons
-    TopMenu.new.seasons.select do |year, _, _|
+    Menus::TopMenu.new.seasons.select do |year, _, _|
       year.to_i != Time.zone.now.year + 1 &&
         year.to_i != Time.zone.now.year - 1
     end

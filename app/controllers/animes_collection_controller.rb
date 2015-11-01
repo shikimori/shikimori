@@ -40,7 +40,15 @@ class AnimesCollectionController < ShikimoriController
     @title_notice = "" if params_page > 1 && !turbolinks_request?
 
     description @description
-    keywords klass.keywords_for(params[:season], params[:type], @entry_data[:genre], @entry_data[:studio], @entry_data[:publisher])
+    keywords Titles::AnimeKeywords.new(
+      klass: klass,
+      season: params[:season],
+      type: params[:type],
+      genre: @entry_data[:genre],
+      studio: @entry_data[:studio],
+      publisher: @entry_data[:publisher]
+    ).keywords
+
     raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
@@ -56,7 +64,7 @@ class AnimesCollectionController < ShikimoriController
 
   # меню каталога аниме/манги
   def menu
-    @menu = CollectionMenu.new klass
+    @menu = Menus::CollectionMenu.new klass
   end
 
 private
@@ -69,7 +77,7 @@ private
   # окружение страниц
   def build_background
     @current_page = params_page
-    @menu = CollectionMenu.new klass
+    @menu = Menus::CollectionMenu.new klass
 
     all_data = {
       genre: @menu.genres,

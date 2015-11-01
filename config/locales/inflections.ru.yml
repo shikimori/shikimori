@@ -302,6 +302,11 @@ ru:
           many: онгоингов
           other: онгоинги
       publisher:
+        subjective:
+          one: издатель
+          few: издателя
+          many: издателей
+          other: издатели
         genitive:
           one: издателя
           few: издателей

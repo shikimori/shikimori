@@ -12,7 +12,7 @@ class UserRatesController < ProfilesController
     noindex
     @page = (params[:page] || 1).to_i
     @limit = UserLibraryView::ENTRIES_PER_PAGE
-    @menu = CollectionMenu.new @resource.list.klass
+    @menu = Menus::CollectionMenu.new @resource.list.klass
 
     page_title t("#{params[:list_type]}_list")
   end

@@ -1,5 +1,5 @@
-describe TopMenu do
-  let(:menu) { TopMenu.new }
+describe Menus::TopMenu do
+  let(:menu) { Menus::TopMenu.new }
 
   describe '#seasons' do
     subject { menu.seasons }

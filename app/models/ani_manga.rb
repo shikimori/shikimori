@@ -1,10 +1,6 @@
 module AniManga
   OngoingToReleasedDays = 2
 
-  def self.included klass
-    klass.extend ClassMethods
-  end
-
   def year
     aired_on ? aired_on.year : nil
   end
@@ -51,42 +47,5 @@ module AniManga
   # есть ли оценка?
   def with_score?
     score > 1.0 && score < 9.9 && !anons?
-  end
-
-  module ClassMethods
-    def keywords_for season, type, genres, studios, publishers
-      keywords = []
-      case type
-        when 'tv'
-          keywords << 'аниме сериалы'
-
-        when 'novel'
-          keywords << 'визуальные новеллы'
-
-        when 'movie'
-          keywords << 'полнометражные аниме'
-
-        else
-          keywords << (self == Anime ? 'аниме анимэ' : 'манга')
-      end
-
-      keywords << Titles::SeasonTitle.new(self, season).title if season
-
-      if genres
-        keywords << 'жанр'
-        keywords << genres.map {|v| "#{v.english} #{v.russian}" }.join(' ')
-      end
-      if studios
-        keywords << 'студия'
-        keywords << studios.map(&:name).join(' ')
-      end
-      if publishers
-        keywords << 'издатель'
-        keywords << publishers.map(&:name).join(' ')
-      end
-      keywords << "список каталог база"
-
-      keywords.join ' '
-    end
   end
 end
