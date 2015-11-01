@@ -45,6 +45,8 @@
               = view.render_body
 
         footer
+          = view.html_footer
+
           - if user_signed_in?
             - if view.topic.review? && !view.minified?
               = render 'topics/reviews/footer_vote', view: view

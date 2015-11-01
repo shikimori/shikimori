@@ -10,4 +10,8 @@ class Topics::NewsView < Topics::View
   def topic_title
     topic.title
   end
+
+  def html_footer
+    BbCodeFormatter.instance.format_comment topic.appended_text
+  end
 end

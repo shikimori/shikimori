@@ -1,12 +1,11 @@
 describe Api::V1::SectionsController, :show_in_doc do
   describe '#index' do
-    let!(:section) { create :section }
-
     before { get :index, format: :json }
 
     it do
-      expect(response).to have_http_status :success
+      expect(collection).to have(5).items
       expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
     end
   end
 end

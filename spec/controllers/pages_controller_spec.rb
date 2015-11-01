@@ -94,7 +94,11 @@ describe PagesController do
 
   describe 'about', :vcr do
     let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
+    before { Timecop.freeze '2015-11-02' }
+    after { Timecop.return }
+
     before { get :about }
+
     it { expect(response).to have_http_status :success }
   end
 

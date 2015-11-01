@@ -2,6 +2,15 @@ class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
 
+  # классы, которые не отображаются на общем форуме, пока у них нет комментарив
+  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
+  # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
+  SpecialInnerTypes = ['AnimeNews', 'MangaNews']
+  # все производные классы
+  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
+
+  NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
+
   # для совместимости с comment
   attr_accessor :topic_name, :topic_url
 
@@ -20,15 +29,6 @@ class Entry < ActiveRecord::Base
   before_update :unclaim_images
   before_destroy :destroy_images
   after_save :claim_images
-
-  # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
-
-  # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
-  SpecialInnerTypes = ['AnimeNews', 'MangaNews']
-
-  # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
 
   # видимые топики
   #scope :wo_empty_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
@@ -168,10 +168,16 @@ class Entry < ActiveRecord::Base
 
   # оригинальный текст без сгенерированных автоматом тегов
   def original_text
-    (text || '').sub(/[\n\r]*\[wall[\s\S]*/, '')
+    news? ? (text || '').sub(NEWS_WALL, '') : text
+  end
+
+  # сгенерированные автоматом теги
+  def appended_text
+    news? ? text[NEWS_WALL] : nil
   end
 
 private
+
   # проверка, что linked при его наличии нужного типа
   def validates_linked
     return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest|CosplayGallery)$/
@@ -185,17 +191,18 @@ private
     images = user_images
 
     if images.any?
-      self.text = self.text.sub(/[\r\n]*\[wall[\s\S]*/, '') + "\n[wall]" + images.map do |image|
+      bb_images = images.map do |image|
         "[url=#{image.image.url :original, false}][poster]#{image.image.url :preview, false}[/poster][/url]"
-      end.join('') + "[/wall]"
+      end
+      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
     end
   end
 
   # пометка картинок на принадлежность текущему топику
   def claim_images
     UserImage
-      .where(id: user_image_ids, linked_id: nil, linked_type: self.class.name)
-      .update_all(linked_id: id, linked_type: self.class.name)
+      .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
+      .update_all(linked_id: id, linked_type: Entry.name)
   end
 
   # удаление более неиспользуемых картинок
@@ -203,14 +210,16 @@ private
     if changes['value'].present? && !generated?
       unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
 
-      UserImage.where(id: unused_ids, linked_id: id, linked_type: self.class.name).destroy_all
+      UserImage
+        .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
+        .destroy_all
     end
   end
 
   # полное удаление всех картинок
   def destroy_images
     user_images
-      .select {|v| v.linked_id == id && v.linked_type == self.class.name }
+      .select {|v| v.linked_id == id && v.linked_type == Entry.name }
       .each(&:destroy)
   end
 end

@@ -83,7 +83,7 @@ class Topics::View < ViewObjectBase
 
   def html_body
     Rails.cache.fetch body_cache_key, expires_in: 2.weeks do
-      BbCodeFormatter.instance.format_comment topic.body
+      BbCodeFormatter.instance.format_comment topic_body
     end
   end
 
@@ -115,6 +115,9 @@ class Topics::View < ViewObjectBase
     end
   end
 
+  def html_footer
+  end
+
   # для совместимости с комментариями для рендера тултипа
   def offtopic?; false; end
 
@@ -122,5 +125,9 @@ private
 
   def body_cache_key
     [topic, topic.linked, h.russian_names_key, 'body']
+  end
+
+  def topic_body
+    topic.original_text
   end
 end

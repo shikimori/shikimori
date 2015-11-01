@@ -8,4 +8,3 @@ class Api::V1::SectionsController < Api::V1::ApiController
     respond_with @collection
   end
 end
-

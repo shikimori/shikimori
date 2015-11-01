@@ -9,9 +9,9 @@
           new ShikiWall($root).mason()
 
           # перенос стены из .body в footer
-          $footer = $root.closest('.body').siblings('footer')
-          if $footer.exists()
-            $root.prependTo $footer
+          # $footer = $root.closest('.body').siblings('footer')
+          # if $footer.exists()
+            # $root.prependTo $footer
 )(jQuery)
 
 wall_id = 0

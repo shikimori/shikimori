@@ -1,5 +1,4 @@
 describe ReviewsController do
-  before { create :section, :anime }
   let(:anime) { create :anime }
   let(:review) { create :review, user: user, target: anime }
 
