@@ -68,8 +68,7 @@ class Review < ActiveRecord::Base
     FayeService
       .new(user, '')
       .create(ReviewComment.new(
-        linked_id: self.id,
-        linked_type: self.class.name,
+        linked: self,
         user: user,
         title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
         created_at: created_at,
@@ -95,9 +94,7 @@ class Review < ActiveRecord::Base
   end
 
   def to_offtopic!
-    thread.class.record_timestamps = false
     thread.update_column :section_id, Section::OFFTOPIC_ID
-    thread.class.record_timestamps = true
   end
 
   def self.has_changes?

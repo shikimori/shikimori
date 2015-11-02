@@ -1,7 +1,6 @@
 require 'singleton'
 
-# Обработчик текста ббкодами
-# todo: отрефакторить comments хелперы и вынести всё сюда
+# TODO: отрефакторить comments хелперы и вынести всё сюда
 class BbCodeFormatter
   include Singleton
 

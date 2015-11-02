@@ -25,20 +25,23 @@ describe Review do
   end
 
   context 'scopes' do
-    let(:user) { build_stubbed :user }
+    let(:user) { seed :user }
 
     describe 'pending' do
       subject { Review.pending }
       let!(:review1) { create :review, state: :pending }
-      let!(:review2) { create :review, state: :accepted, approver: user }
+      let!(:review2) { create :review, state: :accepted,
+        user: build_stubbed(:user), approver: user }
       it { should eq [review1] }
     end
 
     describe 'visible' do
       subject { Review.visible.order(:id) }
       let!(:review1) { create :review, state: :pending }
-      let!(:review2) { create :review, state: :accepted, approver: user }
-      let!(:review3) { create :review, state: :rejected, approver: user }
+      let!(:review2) { create :review, state: :accepted,
+        user: build_stubbed(:user), approver: user }
+      let!(:review3) { create :review, state: :rejected,
+        user: build_stubbed(:user), approver: user }
       it { should eq [review1, review2] }
     end
   end
