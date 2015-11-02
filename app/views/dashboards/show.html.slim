@@ -29,11 +29,11 @@
       = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
 h2.midheadline.green Лента
-.cc-21_3
-  .c-column.user-news
+.cc-news
+  .c-user_news
     = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
-  .c-column.generated-news
+  .c-generated_news
     = render partial: 'topics/topic', collection: @view.generated_news, as: :view
 
 /.cc-2

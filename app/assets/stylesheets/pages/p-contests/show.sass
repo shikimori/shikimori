@@ -1,3 +1,6 @@
+@import mixins/column
+@import mixins/clear_left
+@import mixins/responsive
 @import globals/variables
 
 .p-contests-show
@@ -17,3 +20,25 @@
   .b-catalog_entry
     .cover .title
       text-align: left
+
+  .cc-round_stats
+    +clear_left
+
+    &>.c-column
+      +gte_ipad
+        &:first-child
+          +column_b(2, 1/3)
+        &:last-child
+          +column_bm(2, 2/3)
+      +iphone_landscape
+        &:first-child
+          +column_b(2, 1/3)
+        &:last-child
+          +column_bm(2, 2/3)
+
+      +iphone_portrait
+        +column_bm(1)
+
+      &:first-child:last-child
+        +column_bm(1)
+
