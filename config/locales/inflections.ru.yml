@@ -93,13 +93,13 @@ ru:
         subjective:
           one: манга
           few: манги
-          many: манги
+          many: манг
           other: манги
         dative:
           one: манге
           few: мангам
           many: мангам
-          other: мангам
+          other: манги
         genitive:
           one: манги
           few: манги

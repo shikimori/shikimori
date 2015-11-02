@@ -103,40 +103,48 @@ class UserRatesController < ProfilesController
       )
     end
 
-    message = []
+    messages = []
 
     if @added.size > 0
       items = klass.where(id: @added).select([:id, :name])
-      if klass == Manga
-        message << "В ваш список #{Russian.p(@added.size, 'импортирована', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'манга', 'манги', 'манги')}:"
-      else
-        message << "В ваш список #{Russian.p(@added.size, 'импортировано', 'импортированы', 'импортированы')} #{@added.size} #{Russian.p(@added.size, 'аниме', 'аниме', 'аниме')}:"
-      end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
-      message << ''
+
+      messages << i18n_t("messages.imported.#{klass.name.underscore}", count: @added.size)
+      messages = messages +
+        items
+          .sort_by { |v| v.name }
+          .map { |v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
+      messages << ''
     end
 
     if @updated.size > 0
       items = klass.where(id: @updated).select([:id, :name])
-      if klass == Manga
-        message << "В вашем списке #{Russian.p(@updated.size, 'обновлена', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'манга', 'манги', 'манги')}:"
-      else
-        message << "В вашем списке #{Russian.p(@updated.size, 'обновлено', 'обновлены', 'обновлены')} #{@updated.size} #{Russian.p(@updated.size, 'аниме', 'аниме', 'аниме')}:"
-      end
-      message = message + items.sort_by {|v| v.name }.map {|v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
-      message << ''
+
+      messages << i18n_t("messages.updated.#{klass.name.underscore}", count: @updated.size)
+      messages = messages +
+        items
+          .sort_by { |v| v.name }
+          .map { |v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
+      messages << ''
     end
 
     if @not_imported.size > 0
-      message << "Не удалось импортировать (распознать) #{@not_imported.size} #{klass == Manga ? Russian.p(@not_imported.size, 'мангу', 'манги', 'манги') : 'аниме'}. Пожалуйста, добавьте их в свой список самостоятельно:"
-      message = message + @not_imported.sort
+      not_imported_message = [
+        i18n_t("messages.not_imported.#{klass.name.underscore}", count: @not_imported.size),
+        i18n_t("messages.not_imported.#{klass.name.underscore}.add_manually")
+      ].join(' ')
+      messages << not_imported_message
+      messages = messages + @not_imported.sort
     end
-    message << "Ничего нового не импортировано." if message.empty?
+
+    messages << i18n_t('messages.nothing_imported') if messages.empty?
 
     poster = BotsService.get_poster
-    messages = message.each_slice(400).to_a.reverse
-    messages.each_with_index do |message,index|
-      message = ['(продолжение предыдущего сообщения)<br>'] + message if index != messages.size - 1
+    messages = messages.each_slice(400).to_a.reverse
+    messages.each_with_index do |message, index|
+      if index != messages.size - 1
+        message = [i18n_t('messages.continuation_of_previous_message')] + message
+      end
+
       Message.create!(
         from_id: poster.id,
         to_id: @resource.id,
@@ -152,7 +160,7 @@ class UserRatesController < ProfilesController
     if Rails.env.production?
       #ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
       Honeybadger.notify(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
-      redirect_to :back, alert: 'Произошла ошибка. Возможно, некорректный формат файла.'
+      redirect_to :back, alert: i18n_t('error_incorrect_file_format')
     else
       raise
     end
