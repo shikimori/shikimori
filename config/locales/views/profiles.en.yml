@@ -32,6 +32,8 @@ en:
       errors: Errors
       to_anime: to anime
       to_manga: to manga
+      search_by_name: Search by name...
+      nothing_here: Nothing here
 
     edit:
       account:

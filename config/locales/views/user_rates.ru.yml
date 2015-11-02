@@ -8,13 +8,6 @@ ru:
       remove_from_my_list: Удалить из списка
       please_sign_in: Это действие требует <a href=\"%{url}\">регистрации</a> на сайте.
 
-    page: &page
-      search_by_name: Поиск по названию...
-      nothing_here: Ничего нет
-
-    index:
-      <<: *page
-
     list_page: &list_page
       order_by:
         name: Упорядочить по названию
