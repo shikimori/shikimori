@@ -9,7 +9,8 @@
 
 .cc-links
   .c-zz
-    .midheadline.orange Новости
+    .midheadline.red zzz
+    / = render partial: 'topics/topic', collection: @view.news, as: :view
 
   .c-animes
     .midheadline.pink Сезоны аниме
@@ -23,10 +24,17 @@
           span.notice = full_title
 
   .c-reviews
-    .midheadline.green Аниме обзоры
-    .b-forum.unprocessed
+    h2.midheadline.magenta Аниме обзоры
+    div
       = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
+h2.midheadline.green Лента новостей
+.cc-news
+  .c-user_news
+    = render partial: 'topics/topic', collection: @view.user_news, as: :view
+
+  .c-generated_news
+    = render partial: 'topics/topic', collection: @view.generated_news, as: :view
 
 /.cc-2
   .c-column

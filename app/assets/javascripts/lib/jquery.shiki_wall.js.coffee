@@ -8,10 +8,6 @@
         $root.removeClass('unprocessed').imagesLoaded ->
           new ShikiWall($root).mason()
 
-          # перенос стены из .body в footer
-          $footer = $root.closest('.body').siblings('footer')
-          if $footer.exists()
-            $root.prependTo $footer
 )(jQuery)
 
 wall_id = 0
@@ -36,21 +32,22 @@ class @ShikiWall
     @direction = ShikiCluster.HORIZONTAL
     @margin = 4
 
-  each: (func) -> _(@images).each func
-  select: (func) -> _(@images).select func
-  map: (func) -> _(@images).map func
-  positioned: -> @select (v) -> v.positioned
+  each: (func) -> @images.each func
+  filter: (func) -> @images.filter func
+  map: (func) -> @images.map func
+  positioned: -> @filter (v) -> v.positioned
 
   mason: ->
     @each (image) => image.normalize @max_width, @max_height
     @each (image) => @_put image, true
     @each (image) => image.apply()
 
-    width = _(@map (v) -> v.left + v.width).max()
-    height = _(@map (v) -> v.top + v.height).max()
+    width = (@map (v) -> v.left + v.width).max()
+    height = (@map (v) -> v.top + v.height).max()
+
     @$wall.css
-      width: _([width, @max_width]).min()
-      height: _([height, @max_height]).min()
+      width: ([width, @max_width]).min()
+      height: ([height, @max_height]).min()
 
   _put: (image, post_process) ->
     left = _([0].concat _(@positioned()).map (v) -> v.left + v.width).max() + @margin

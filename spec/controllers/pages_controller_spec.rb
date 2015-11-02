@@ -1,4 +1,5 @@
 describe PagesController do
+  include_context :seeds
   let(:user) { create :user }
 
   describe 'ongoings' do
@@ -11,11 +12,9 @@ describe PagesController do
   end
 
   describe 'news' do
-    let(:section) { create :section, permalink: 'a' }
-
     context 'common' do
-      let!(:topic_1) { create :topic, broadcast: true, section: section }
-      let!(:topic_2) { create :topic, broadcast: true, section: section }
+      let!(:topic_1) { create :topic, broadcast: true, section: anime_section }
+      let!(:topic_2) { create :topic, broadcast: true, section: anime_section }
       before { get :news, kind: 'site', format: 'rss' }
 
       it do
@@ -26,8 +25,10 @@ describe PagesController do
     end
 
     context 'anime' do
-      let!(:news_1) { create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons }
-      let!(:news_2) { create :anime_news, generated: false, section: section, linked: create(:anime), action: AnimeHistoryAction::Anons }
+      let!(:news_1) { create :anime_news, generated: false, section: anime_section,
+        linked: create(:anime), action: AnimeHistoryAction::Anons }
+      let!(:news_2) { create :anime_news, generated: false, section: anime_section,
+        linked: create(:anime), action: AnimeHistoryAction::Anons }
       before { get :news, kind: 'anime', format: 'rss' }
 
       it do
@@ -93,7 +94,11 @@ describe PagesController do
 
   describe 'about', :vcr do
     let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
+    before { Timecop.freeze '2015-11-02' }
+    after { Timecop.return }
+
     before { get :about }
+
     it { expect(response).to have_http_status :success }
   end
 

@@ -7,6 +7,7 @@ FactoryGirl.define do
 
     factory :review_comment, class: 'ReviewComment' do
       type 'ReviewComment'
+      section { seed :reviews_section }
     end
 
     factory :cosplay_comment, class: 'CosplayComment' do
@@ -19,6 +20,7 @@ FactoryGirl.define do
 
     factory :anime_news, class: 'AnimeNews' do
       type 'AnimeNews'
+      section { seed :anime_section }
     end
 
     after :build do |topic|

@@ -1,0 +1,34 @@
+@import mixins/link
+@import mixins/comma_separated
+
+.b-cosplay-topic
+  &>.inner
+    &>.body, &>footer
+      margin-left: 0 !important
+
+    .cosplay-info
+      margin-bottom: $block_offset / 2
+
+      .line
+        line-height: $line-height
+
+        .key
+          // color: $gray-3
+          //color: #444
+          //font-weight: bold
+          display: inline
+
+        .value
+          display: inline
+          padding-left: 6px
+
+          a
+            +link
+            +comma_separated
+
+          .cosplayer
+            +comma_separated(4px)
+            display: inline
+
+    .b-cosplay_gallery .b-gallery
+      margin-bottom: 0

@@ -8,9 +8,8 @@ describe Entry do
   end
 
   context 'hooks' do
-    let(:user) { create :user }
-    let(:images) { create_list :user_image, 4, user: user, linked_type: 'Entry' }
-    let(:entry) { create :entry, text: 'text', user: user, value: "#{images[0].id},#{images[1].id}" }
+    let!(:images) { create_list :user_image, 4, linked_type: Entry.name }
+    let!(:entry) { create :anime_news, text: 'text', value: "#{images[0].id},#{images[1].id}" }
 
     describe 'append_wall' do
       it 'wall tag is appended' do
@@ -19,22 +18,19 @@ describe Entry do
     end
 
     describe 'destroy_images' do
-      before { entry }
       it 'all images are destroyed' do
         expect{entry.destroy}.to change(UserImage, :count).by -2
       end
     end
 
     describe 'claim_images' do
-      before { entry }
       it 'all images are claimed' do
         expect(images[0].reload.linked).to eq entry
       end
     end
 
     describe 'unclaim_images' do
-      let(:entry) { create :entry, text: 'text', user: user, value: "#{images[0].id},#{images[1].id},#{images[2].id},#{images[3].id}" }
-      before { entry }
+      let!(:entry) { create :anime_news, text: 'text', value: "#{images[0].id},#{images[1].id},#{images[2].id},#{images[3].id}" }
 
       it 'unused images are destroyed' do
         expect {
@@ -84,6 +80,22 @@ describe Entry do
       it 'true' do
         create :comment_view, comment: @comment, user: user2
         expect(entry.comments(user2).first.viewed?).to be_truthy
+      end
+    end
+
+    describe '#original_text & #appended_text' do
+      context 'entry' do
+        let(:entry) { build :entry, text: 'test[wall][/wall]' }
+
+        it { expect(entry.original_text).to eq entry.text }
+        it { expect(entry.appended_text).to be_nil }
+      end
+
+      context 'news' do
+        let(:entry) { build :anime_news, text: 'test[wall][/wall]' }
+
+        it { expect(entry.original_text).to eq 'test' }
+        it { expect(entry.appended_text).to eq '[wall][/wall]' }
       end
     end
   end

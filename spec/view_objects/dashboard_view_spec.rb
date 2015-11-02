@@ -17,7 +17,18 @@ describe DashboardView do
   end
 
   describe '#reviews' do
-    pending
+    let!(:review) { create :review }
+    it { expect(view.reviews).to have(1).item }
+  end
+
+  describe '#user_news' do
+    let!(:anime_news) { create :anime_news, generated: false }
+    it { expect(view.user_news).to have(1).item }
+  end
+
+  describe '#generated_news' do
+    let!(:anime_news) { create :anime_news, generated: true }
+    it { expect(view.generated_news).to have(1).item }
   end
 
   #describe 'favourites' do

@@ -21,7 +21,7 @@
   .match-container data-id="#{params[:match_id]}"
     .ajax-loading.vk-like title="#{t 'loading'}"
 
-  .cc-2_3
+  .cc-round_stats
     - if contest.displayed_round.finished?
       .c-column
         = render 'rating', contest: contest, round: contest.displayed_round
@@ -35,7 +35,7 @@
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
     - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
-      .cc-2_3
+      .cc-round_stats
         .c-column
           = render 'rating', contest: contest, round: contest.prior_round
 

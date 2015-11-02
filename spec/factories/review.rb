@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :review do
     association :target, factory: :anime
-    user
+    user { seed :user }
 
     text { 's' * Review::MINIMUM_LENGTH }
     overall 1

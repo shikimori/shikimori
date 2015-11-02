@@ -1,31 +1,28 @@
 class Topics::Factory
-  REVIEWS_SECTION = 'reviews'
-
-  pattr_initialize :is_preview
+  pattr_initialize :is_preview, :is_mini
 
   def find entry_id
     build Entry.find(entry_id)
   end
 
-  def build entry, section = nil
+  def build entry
     if entry.review?
-      if section == REVIEWS_SECTION
-        Topics::ReviewView.new entry, true, true
-      else
-        Topics::ReviewView.new entry, @is_preview, false
-      end
+      Topics::ReviewView.new entry, @is_preview, @is_mini
 
     elsif entry.contest?
-      Topics::ContestView.new entry, @is_preview
+      Topics::ContestView.new entry, @is_preview, @is_mini
 
     elsif entry.cosplay?
-      Topics::CosplayView.new entry, @is_preview
+      Topics::CosplayView.new entry, @is_preview, @is_mini
 
     elsif entry.generated_news?
-      Topics::GeneratedNewsView.new entry, @is_preview
+      Topics::GeneratedNewsView.new entry, @is_preview, @is_mini
+
+    elsif entry.news?
+      Topics::NewsView.new entry, @is_preview, @is_mini
 
     else
-      Topics::View.new entry, @is_preview
+      Topics::View.new entry, @is_preview, @is_mini
     end
   end
 end

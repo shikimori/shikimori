@@ -21,9 +21,9 @@ class @ShikiTopic extends ShikiEditable
     @$comments_collapser = @$('.comments-collapser')
     @$comments_expander = @$('.comments-expander')
 
-    @is_preview = @$root.hasClass('preview')
-    @is_cosplay = @$root.hasClass('b-cosplay')
-    @is_review = @$root.hasClass('b-review')
+    @is_preview = @$root.hasClass('b-topic-preview')
+    @is_cosplay = @$root.hasClass('b-cosplay-topic')
+    @is_review = @$root.hasClass('b-review-topic')
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -59,7 +59,7 @@ class @ShikiTopic extends ShikiEditable
         @_hide_editor()
 
     # голосование за/против рецензии
-    @$('.voteable .vote').on 'ajax:before', ->
+    @$('.footer-vote .vote').on 'ajax:before', ->
       $(@).addClass('selected')
       $(@).siblings('.vote').removeClass('selected')
 
@@ -263,4 +263,4 @@ class @ShikiTopic extends ShikiEditable
 
   # url перезагрузки содержимого
   _reload_url: =>
-    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@$root.hasClass 'preview'}"
+    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"

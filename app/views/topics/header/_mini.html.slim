@@ -1,0 +1,13 @@
+.name-date
+  - if view.action_tag
+    .b-anime_status_tag[
+      class="#{view.action_tag.type}"
+      data-text="#{view.action_tag.text}"
+    ]
+  - if view.try :offtopic_tag
+    .b-anime_status_tag.offtopic data-text="#{view.offtopic_tag}"
+
+  a.name[
+    href="#{view.urls.topic_url}"
+    title="#{view.topic_title}"
+  ] = view.topic_title

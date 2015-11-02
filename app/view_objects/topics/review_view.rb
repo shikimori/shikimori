@@ -1,8 +1,10 @@
 class Topics::ReviewView < Topics::View
-  vattr_initialize :topic, :is_preview, :is_mini
-
   def container_class
-    super "b-review #{:mini if is_mini}".strip
+    super 'b-review-topic'
+  end
+
+  def minified?
+    is_preview || is_mini
   end
 
   def show_body?
@@ -10,7 +12,10 @@ class Topics::ReviewView < Topics::View
   end
 
   def action_tag
-    i18n_i 'review', :one if is_preview
+    OpenStruct.new(
+      type: 'review',
+      text: i18n_i('review', :one)
+    ) if is_preview
   end
 
   def offtopic_tag
@@ -49,18 +54,6 @@ class Topics::ReviewView < Topics::View
       BbCodeFormatter.instance.format_description(
         topic.linked.text, topic.linked
       )
-    end
-  end
-
-  def html_body_truncated
-    if is_preview
-      h.truncate_html(html_body,
-        length: 500,
-        separator: ' ',
-        word_boundary: /\S[\.\?\!<>]/
-      ).html_safe
-    else
-      html_body
     end
   end
 

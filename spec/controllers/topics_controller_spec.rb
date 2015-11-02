@@ -1,6 +1,5 @@
 describe TopicsController do
-  let!(:anime_section) { create :section, id: 1, permalink: 'a', name: 'Аниме' }
-  let!(:offtopic_section) { create :section, :offtopic }
+  include_context :seeds
 
   let(:user) { create :user, :user, :day_registered }
   let(:anime) { create :anime }
@@ -8,8 +7,7 @@ describe TopicsController do
   let!(:topic) { create :topic, section: anime_section, user: user }
   let(:anime_topic) { create :topic, section: anime_section, user: user, linked: anime }
 
-  let(:section2) { create :section, id: 4, permalink: 's', name: 'Сайт' }
-  let(:topic2) { create :topic, section: section2, user: user }
+  let(:topic2) { create :topic, section: offtopic_section, user: user }
 
   before do
     Topic.antispam = false

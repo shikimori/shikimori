@@ -17,14 +17,14 @@ class PagesController < ShikimoriController
     @page_title = 'Календарь онгоингов'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = Topics::Factory.new(false).find ONGOINGS_TOPIC_ID
+    @topic = Topics::Factory.new(false, false).find ONGOINGS_TOPIC_ID
   end
 
   # о сайте
   def about
     @page_title = t 'about_site'
     @statistics = SiteStatistics.new
-    @topic = Topics::Factory.new(false).find ABOUT_TOPIC_ID
+    @topic = Topics::Factory.new(false, false).find ABOUT_TOPIC_ID
   end
 
   # rss с новостями
@@ -60,13 +60,13 @@ class PagesController < ShikimoriController
 
   # 404 страница
   def page404
-    @page_title = "Страница не найдена"
+    @page_title = 'Страница не найдена'
     render 'pages/page404', layout: false, status: 404, formats: :html
   end
 
   # страница с ошибкой
   def page503
-    @page_title = "Ошибка"
+    @page_title = 'Ошибка'
     render 'pages/page503', layout: false, status: 503, formats: :html
   end
 

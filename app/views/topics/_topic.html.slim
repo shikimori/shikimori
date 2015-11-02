@@ -1,9 +1,6 @@
 - if view.ignored?
   = render partial: 'blocks/ignored', object: view.topic
 
-- elsif view.topic.review? && view.is_preview
-  = render 'topics/reviews/preview', view: view
-
 - else
   article.b-topic.shiki-object.unprocessed[
     id="#{view.topic.id}"
@@ -18,49 +15,40 @@
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
     - if view.show_body?
       .inner
-        - if user_signed_in?
+        - if view.show_actions?
           span.item-mobile title="Действия"
 
         aside.markers
           - unless view.topic.viewed?
             p.b-new_marker data-text="#{t 'markers.new'}"
 
-        - if user_signed_in?
+        - if view.show_actions?
           = render 'topics/buttons', view: view
 
         /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
-          - if view.author_in_header?
-            span.linkeable data-href="#{view.urls.topic_url}"
-              img[
-                src="#{view.poster false}"
-                srcset="#{view.poster true} 2x"
-                alt="#{view.topic_title}"
-              ]
-          .name-date
-            - if view.action_tag
-              .b-anime_status_tag[
-                class="#{view.topic.action}"
-                data-text="#{view.action_tag}"
-              ]
-
-            a.name[
-              href="#{view.urls.topic_url}"
-              title="#{view.topic_title}"
-            ] = view.topic_title
-            span.time
-              time[
-                itemprop="commentTime"
-                datetime="#{view.created_at.iso8601}"
-              ] = l view.created_at, format: '%e %B %Y'
+          = render "topics/header/#{view.minified? ? :mini : :common}", view: view
 
         .body
-          .body-inner
-            = view.render_body
+          - if view.minified?
+            = render 'topics/status_line', view: view
+            - if view.topic.review?
+              = render 'topics/reviews/entry_cover', view: view,
+                entry: view.topic.linked.target.decorate
+
+            .body-truncated
+              .body-truncated-inner
+                = view.html_body_truncated
+
+          - else
+            .body-inner
+              = view.render_body
 
         footer
+          = view.html_footer
+
           - if user_signed_in?
-            - if view.topic.review?
+            - if view.topic.review? && !view.minified?
               = render 'topics/reviews/footer_vote', view: view
             - elsif view.topic.cosplay?
               = render 'topics/cosplay/footer_vote', view: view
@@ -86,4 +74,5 @@
           data-appear_url="#{api_appears_url}"
         ]
 
-    = render 'topics/comments', view: view.comments
+    - unless view.is_mini
+      = render 'topics/comments', view: view.comments

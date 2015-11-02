@@ -1,9 +1,10 @@
 describe Api::V1::TopicsController, :show_in_doc do
-  describe '#index' do
-    let(:section) { create :section }
-    let!(:topic) { create :entry, section: section, text: 'test [spoiler=спойлер]test[/spoiler] test' }
+  include_context :seeds
 
-    before { get :index, section: section.permalink, format: :json }
+  describe '#index' do
+    let!(:topic) { create :entry, section: anime_section, text: 'test [spoiler=спойлер]test[/spoiler] test' }
+
+    before { get :index, section: anime_section.permalink, format: :json }
 
     it do
       expect(response).to have_http_status :success

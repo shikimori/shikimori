@@ -1,0 +1,23 @@
+.status-line
+  span.from = t '.from'
+  span.author
+    = render 'users/user_16', user: view.user
+
+  - if view.topic.news? && view.topic.linked
+    span.about = t '.about'
+    a.b-link.bubbled[
+      href="#{view.topic.linked.decorate.url}"
+      title="#{localized_name view.topic.linked}"
+    ] = localized_name view.topic.linked
+
+  span.time
+    time[
+      itemprop="commentTime"
+      datetime="#{view.created_at.iso8601}"
+    ] = l view.created_at, format: '%e %B %Y'
+
+  span.additional
+    span.comments = view.topic.comments_count
+
+    - if view.topic.review?
+      span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}
