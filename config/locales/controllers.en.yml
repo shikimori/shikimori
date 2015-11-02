@@ -28,6 +28,39 @@ en:
     <<: *profiles_controller
   user_rates_controller:
     <<: *profiles_controller
+    messages:
+      imported:
+        anime:
+          one: 'One anime has been imported into your anime list:'
+          few: '%{count} anime have been imported into your anime list'
+          many: '%{count} anime have been imported into your anime list'
+        manga:
+          one: 'One manga has been imported into your manga list:'
+          few: '%{count} mangas have been imported into your manga list'
+          many: '%{count} mangas have been imported into your manga list'
+      updated:
+        anime:
+          one: 'One anime has been updated in your anime list:'
+          few: '%{count} anime have been updated in your anime list'
+          many: '%{count} anime have been updated in your anime list'
+        manga:
+          one: 'One manga has been updated in your manga list:'
+          few: '%{count} mangas have been updated in your manga list'
+          many: '%{count} mangas have been updated in your manga list'
+      not_imported:
+        anime:
+          add_manually: 'Please, add them to your anime list manually:'
+          one: 'Couldn''t import (parse) one anime.'
+          one: 'Couldn''t import (parse) %{count} anime.'
+          one: 'Couldn''t import (parse) %{count} anime.'
+        manga:
+          add_manually: 'Please, add them to your manga list manually'
+          one: 'Couldn''t import (parse) one manga.'
+          one: 'Couldn''t import (parse) %{count} mangas.'
+          one: 'Couldn''t import (parse) %{count} mangas.'
+      nothing_imported: Nothing imported.
+      continuation_of_previous_message: (continuation of previous message)<br>
+    error_incorrect_file_format: Import error. Maybe incorrect file format.
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"
