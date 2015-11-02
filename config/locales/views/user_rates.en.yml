@@ -2,7 +2,27 @@ en:
   user_rates:
     edit:
       remove_from_my_list: Remove from My List
+
     user_rate:
       add_to_list: Add to My List
       remove_from_my_list: Remove from My List
       please_sign_in: This action requires <a href=\"%{url}\">registration</a>.
+
+    page: &page
+      search_by_name: Search by name...
+      nothing_here: Nothing here
+
+    index:
+      <<: *page
+
+    list_page: &list_page
+      order_by:
+        name: Sort by name
+        score: Sort by score
+        episodes: Sort by number of episodes
+        chapters: Sort by number of chapters
+        volumes: Sort by number of volumes
+        kind: Sort by type
+
+    user_rates:
+      <<: *list_page

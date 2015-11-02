@@ -45,7 +45,7 @@
       a.addthis_button_compact
 
   .block
-    .subheadline = i18n_i('sorting').capitalize
+    .subheadline = i18n_i 'Sorting'
     ul.block-list.orders.anime-params.subcontent
       li.order-by-ranked = t 'by.ranked'
       li.order-by-kind.hidden = t 'by.kind'
@@ -81,15 +81,15 @@
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block.hidden
-    .subheadline = i18n_i('studio').capitalize
+    .subheadline = i18n_i 'Studio'
     ul.block-list.studios.anime-params
 
   .block.hidden
-    .subheadline = i18n_i('publisher').capitalize
+    .subheadline = i18n_i 'Publisher'
     ul.block-list.publishers.anime-params
 
   .block
-    .subheadline = i18n_i('season').capitalize
+    .subheadline = i18n_i 'Season'
     ul.block-list.seasons.anime-params
       - menu.seasons.each do |season, title|
         li class="season-#{season}"
@@ -98,7 +98,7 @@
 
   - if menu.klass == Anime
     .block.durations
-      .subheadline = i18n_i('episode').capitalize
+      .subheadline = i18n_i 'Episode'
       ul.block-list.durations.anime-params
         - AniMangaQuery::Durations.keys.each do |v|
           li class="duration-#{v}"
@@ -120,7 +120,7 @@
             ]
 
   .block.genres
-    .subheadline = i18n_i('genre', :other).capitalize
+    .subheadline = i18n_i 'Genre', :other
     = text_spoiler t('.show_list') do
       ul.block-list.genres.anime-params.m10
         - menu.sorted_genres.each do |genre|

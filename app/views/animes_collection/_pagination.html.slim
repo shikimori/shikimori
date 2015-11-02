@@ -5,8 +5,8 @@
   ] = "← #{t 'pagination.back'}"
 
   .no-hover
-    span.link-title data-text="#{i18n_i('page', :other).capitalize}"
-      = i18n_i('page', :other).capitalize
+    span.link-title data-text="#{i18n_i 'Page', :other}"
+      = i18n_i 'Page', :other
     span.link-current = params[:page] || 1
     span из
     span.link-total = @total_pages || 1

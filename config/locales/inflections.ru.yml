@@ -48,11 +48,13 @@ ru:
           one: просмотр
           few: просмотра
           many: просмотров
+          other: просмотры
       episode:
         subjective:
           one: эпизод
           few: эпизода
           many: эпизодов
+          other: эпизоды
       volume:
         subjective:
           one: том
@@ -353,6 +355,48 @@ ru:
           few: новости
           many: новостей
           other: новости
+      score:
+        subjective:
+          one: оценка
+          few: оценок
+          many: оценок
+          other: оценки
+      kind:
+        subjective:
+          one: тип
+          few: типов
+          many: типов
+          other: типы
+      rating:
+        subjective:
+          one: рейтинг
+          few: рейтинга
+          many: рейтингов
+          other: рейтинги
+      name:
+        subjective:
+          one: название
+          few: названия
+          many: названий
+          other: названия
+      anons:
+        subjective:
+          one: анонс
+          few: анонса
+          many: анонсов
+          other: анонсы
+      rewatch:
+        subjective:
+          one: повторный просмотр
+          few: повторных просмотра
+          many: повторных просмотров
+          other: повторные просмотры
+      reread:
+        subjective:
+          one: повторное прочтение
+          few: повторных прочтения
+          many: повторных прочтений
+          other: повторные прочтения
 
       datetime:
         second:
