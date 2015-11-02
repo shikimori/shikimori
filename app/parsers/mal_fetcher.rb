@@ -68,7 +68,7 @@ module MalFetcher
     people = {}
 
     doc = Nokogiri::HTML(content)
-    characters_doc = doc.css("div#content table > tr > td > div > table")
+    characters_doc = doc.css("div#content table > tr > td > table")
     staff_doc = characters_doc.pop unless content.include?('Add staff</a> for this anime') || content.include?('Edit Manga Information')
 
     characters_doc.each do |character_doc|

@@ -50,13 +50,26 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data).to include(:released_on)
     expect(data).to include(:aired_on)
 
-    expect(data[:genres]).not_to be_empty
-    expect(data[:studios]).not_to be_empty
+    expect(data[:genres]).to eq [
+      { mal_id: 1, name: 'Action', kind: 'anime' },
+      { mal_id: 2, name: 'Adventure', kind: 'anime' },
+      { mal_id: 4, name: 'Comedy', kind: 'anime' },
+      { mal_id: 8, name: 'Drama', kind: 'anime' },
+      { mal_id: 24, name: 'Sci-Fi', kind: 'anime' },
+      { mal_id: 29, name: 'Space', kind: 'anime' }
+    ]
+
+    expect(data[:studios]).to eq [
+      { id: 14, name: 'Sunrise' },
+      { id: 23, name: 'Bandai Visual' },
+      { id: 102, name: 'FUNimation Entertainment' },
+      { id: 233, name: 'Bandai Entertainment' }
+    ]
     expect(data).to include(:duration)
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
-    expect(data[:ranked]).to eq 20
+    expect(data[:ranked]).to eq 21
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
@@ -66,13 +79,13 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
   it 'correct synopsis' do
     data = parser.fetch_entry_data(21039)
-    expect(data[:description_mal]).to eq 'Continuation of <em>Gatchaman Crowds</em> series.'
+    expect(data[:description_mal]).to eq 'A year has passed since the &quot;Tachikawa Incident&quot; in summer 2015. CROWDS, the system that turns the mentality of humans into physical form that Berg Katze gave to Rui Ninomiya after extracting his NOTE, has spread among the public. Prime Minister Sugayama backs the plan, but not everyone agrees with his policy. A mysterious organization attacks Sugayama\'s vehicle, marking the start of a series of new conflicts.'
   end
 
   it 'correct score & ranked' do
     data = parser.fetch_entry_data(31143)
-    expect(data[:ranked]).to eq 0
-    expect(data[:score]).to eq 0
+    expect(data[:ranked]).to eq 5723
+    expect(data[:score]).to eq 6.22
   end
 
   it 'fetches anime related' do
@@ -84,8 +97,8 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
   it 'fetches anime characters' do
     characters, people = parser.fetch_entry_characters(anime_id)
-    expect(characters.size).to be >= 29
-    expect(people.size).to be >= 38
+    expect(characters).to have_at_least(29).items
+    expect(people).to have_at_least(38).items
   end
 
   it 'fetches anime recommendations' do

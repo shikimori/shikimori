@@ -71,7 +71,7 @@ class MangaMalParser < BaseMalParser
           mal_id: $1.to_i,
           name: $2,
           kind: 'manga',
-        } if line.match /genre\[\]=(\d+).*>(.*)<\/a>/
+        } if line.match /genre\/(\d+).*>(.*)<\/a>/
       end
       .select(&:present?)
 
@@ -85,9 +85,15 @@ class MangaMalParser < BaseMalParser
       end
       .select(&:present?)
 
-    publisher = parse_line("Serialization", content, false).
-                  match(/mid=(\d+).*>(.*)<\/a>/) ? {id: $1.to_i, name: $2} : nil
-    entry[:publishers] = [publisher] if publisher
+    entry[:publishers] = parse_line("Serialization", content, true)
+      .map do |line|
+        {
+          id: $1.to_i,
+          name: $2
+        } if line =~ /magazine\/(\d+).*>(.*)<\/a>/
+      end
+      .select(&:present?)
+
 
     #entry[:rating] = parse_line("Rating", content, false)
     entry[:score] = parse_score(content)

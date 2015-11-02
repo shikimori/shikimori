@@ -144,7 +144,7 @@ class BaseMalParser < SiteParserWithCache
       next unless content
       doc = Nokogiri::HTML(content)
 
-      doc.css("div#content > div > table tr").each do |tr|
+      doc.css("div#content > table tr").each do |tr|
         next unless tr.css('.normal_header').size.zero?
         tds = tr.css('td')
         entry = {}

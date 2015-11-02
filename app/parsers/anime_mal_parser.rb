@@ -72,7 +72,7 @@ class AnimeMalParser < BaseMalParser
           mal_id: $1.to_i,
           name: $2,
           kind: 'anime',
-        } if line.match /genre\[\]=(\d+).*>(.*)<\/a>/
+        } if line =~ /genre\/(\d+).*>(.*)<\/a>/
       end
       .select(&:present?)
 
@@ -81,14 +81,14 @@ class AnimeMalParser < BaseMalParser
         {
           id: $1.to_i,
           name: $2
-        } if line.match /p=(\d+).*>(.*)<\/a>/
+        } if line =~ /producer\/(\d+).*>(.*)<\/a>/
       end
       .select(&:present?)
 
     entry[:duration] = parse_line("Duration", content, false)
     entry[:duration] = (entry[:duration].match(/(\d+) hr./) ? $1.to_i*60 : 0) +
                         (entry[:duration].match(/(\d+) min./) ? $1.to_i : 0)
-    entry[:rating] = RATINGS[parse_line("Rating", content, false)]
+    entry[:rating] = RATINGS[CGI::unescapeHTML(parse_line 'Rating', content, false)]
 
     entry[:score] = parse_score(content)
     entry[:ranked] = parse_ranked(content)
