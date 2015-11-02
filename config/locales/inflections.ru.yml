@@ -60,11 +60,13 @@ ru:
           one: том
           few: тома
           many: томов
+          other: тома
       chapter:
         subjective:
           one: глава
           few: главы
           many: глав
+          other: главы
       years_old:
         subjective:
           one: год
