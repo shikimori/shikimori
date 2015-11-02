@@ -24,7 +24,6 @@ ru:
       anime:
         one_type: &anime_one_type
           anons: анонсы аниме
-          planned: анонсы аниме
           ongoing: онгоинги аниме
           released: вышедшие аниме
           latest: недавно вышедшие аниме
@@ -33,13 +32,11 @@ ru:
       manga:
         one_type:
           anons: анонсы %{type}
-          planned: анонсы %{type}
           ongoing: онгоинги %{type}
           released: вышедшие %{type}
           latest: недавно вышедшие %{type}
         many_types:
           anons: анонсы манги
-          planned: анонсы манги
           ongoing: онгоинги манги
           released: вышедшая манга
           latest: недавно вышедшая манга

@@ -471,7 +471,7 @@ Site::Application.routes.draw do
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/ do
-      get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/planned#{params[:other]}" }
+      get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
       get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
       get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
       constraints type: /Anime|translation_planned/ do
