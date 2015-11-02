@@ -77,43 +77,38 @@
     .footer-vote
       color: #123
       display: inline-block
+      float: right
+      font-size: 16px
       line-height: $line_height
-      font-size: 22px
 
       +iphone_portrait
         &>span
           display: block
 
       .vote
-        +link_color(#123)
+        color: $gray-1
         cursor: pointer
         display: inline-block
-        margin-left: 30px
+        margin-left: 20px
 
         &:before
           font-family: 'shikimori'
-          padding-right: 5px
+          padding-right: 7px
 
         &.yes
-          color: $green
           +iphone_portrait
             margin-left: 0
 
           &:before
-            content: '\e844'
-          &:hover
-            color: darken($green, 10%)
+            content: '\e82f'
+          &.selected, &:hover
+            color: $green
 
         &.no
-          color: $red
-
           &:before
-            content: '\e845'
-          &:hover
-            color: darken($red, 15%)
-
-        &.deselected
-          color: $gray-1
+            content: '\e82e'
+          &.selected, &:hover
+            color: $red
 
   &>.b-comments
     margin-top: 5px

@@ -27,7 +27,7 @@ class TopicsQuery < ChainableQueryBase
         order created_at: :desc
 
       when Section.static[:news].permalink
-        where type: [AnimeNews.name, MangaNews.name]
+        where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
 
       else
         where section_id: section.id

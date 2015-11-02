@@ -7,6 +7,13 @@ class Topics::CosplayView < Topics::View
     h.render 'topics/cosplay/info', view: self, gallery: topic.linked
   end
 
+  def action_tag
+    OpenStruct.new(
+      type: 'cosplay',
+      text: h.t('cosplay').downcase
+    )
+  end
+
   def topic_title
     if !is_preview
       topic.user.nickname

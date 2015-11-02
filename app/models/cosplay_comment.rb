@@ -10,12 +10,12 @@ class CosplayComment < AniMangaComment
     title
   end
 
-
   def preview_wall
     "[wall]#{images_bb_codes}[/wall]"
   end
 
 private
+
   def images_bb_codes
     linked.images.limit(IMAGES_IN_PREVIEW).each.map do |image|
       "[url=#{ImageUrlGenerator.instance.url image, :original}][img]#{ImageUrlGenerator.instance.url image, :preview}[/img][/url]"

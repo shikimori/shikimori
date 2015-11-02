@@ -29,7 +29,7 @@ class DashboardView < ViewObjectBase
 
   def user_news
     TopicsQuery.new(h.current_user)
-      .by_section(news_section)
+      .by_section(Section.static[:news])
       .where(generated: false)
       .limit(5)
       .as_views(true, true)
@@ -37,7 +37,7 @@ class DashboardView < ViewObjectBase
 
   def generated_news
     TopicsQuery.new(h.current_user)
-      .by_section(news_section)
+      .by_section(Section.static[:news])
       .where(generated: true)
       .limit(10)
       .as_views(true, true)
@@ -71,9 +71,5 @@ private
 
   def reviews_section
     Section.find_by_permalink('reviews')
-  end
-
-  def news_section
-    Section.static[:news]
   end
 end

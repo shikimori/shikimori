@@ -16,6 +16,9 @@ class Topics::NewsView < Topics::View
   end
 
   def action_tag
-    i18n_i 'news', :one
+    OpenStruct.new(
+      type: 'news',
+      text: i18n_i('news', :one)
+    )
   end
 end

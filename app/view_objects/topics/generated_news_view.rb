@@ -8,11 +8,12 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def action_tag
-    if topic.episode?
-      "#{topic.action_text} #{topic.value}"
-    else
-      topic.action_text
-    end
+    OpenStruct.new(
+      type: topic.action,
+      text: topic.episode? ?
+        "#{topic.action_text} #{topic.value}" :
+        topic.action_text
+    )
   end
 
   def render_body

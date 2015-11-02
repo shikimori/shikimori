@@ -12,7 +12,10 @@ class Topics::ReviewView < Topics::View
   end
 
   def action_tag
-    i18n_i 'review', :one if is_preview
+    OpenStruct.new(
+      type: 'review',
+      text: i18n_i('review', :one)
+    ) if is_preview
   end
 
   def offtopic_tag

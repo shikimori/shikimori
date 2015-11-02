@@ -2,7 +2,7 @@ class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
   delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
-  instance_cache :comments, :urls
+  instance_cache :comments, :urls, :action_tag
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
