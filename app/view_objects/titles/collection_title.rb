@@ -6,12 +6,12 @@ class Titles::CollectionTitle
     @klass = klass
     @user = user
 
-    @statuses = (status || '').split(',')
-    @types = (type || '').gsub(/-/, ' ').split(',').select { |v| !v.starts_with? '!' }
+    @statuses = parse_param status
+    @types = parse_param type
     @studios = Array studios
     @publishers = Array publishers
     @genres = Array genres
-    @seasons = (season || '').split(',')
+    @seasons = parse_param season
   end
 
   def title is_capitalized = true
@@ -140,5 +140,9 @@ private
       .gsub(/\bona\b/i, 'ONA')
       .gsub(/\bova\b/i, 'OVA')
       .gsub(/\btv\b/i, 'TV')
+  end
+
+  def parse_param param
+    (param || '').gsub(/-/, ' ').split(',').select { |v| !v.starts_with? '!' }
   end
 end
