@@ -74,41 +74,42 @@
             color: inherit !important
             text-decoration: inherit
 
-    .footer-vote
-      color: #123
+  .footer-vote
+    color: #123
+    display: inline-block
+    float: right
+    font-size: 14px
+    line-height: $line_height
+    margin-top: 10px
+
+    +iphone_portrait
+      &>span
+        display: block
+
+    .vote
+      color: $gray-1
+      cursor: pointer
       display: inline-block
-      float: right
-      font-size: 16px
-      line-height: $line_height
+      margin-left: 20px
 
-      +iphone_portrait
-        &>span
-          display: block
+      &:before
+        font-family: 'shikimori'
+        padding-right: 7px
 
-      .vote
-        color: $gray-1
-        cursor: pointer
-        display: inline-block
-        margin-left: 20px
+      &.yes
+        +iphone_portrait
+          margin-left: 0
 
         &:before
-          font-family: 'shikimori'
-          padding-right: 7px
+          content: '\e82f'
+        &.selected, &:hover
+          color: $green
 
-        &.yes
-          +iphone_portrait
-            margin-left: 0
-
-          &:before
-            content: '\e82f'
-          &.selected, &:hover
-            color: $green
-
-        &.no
-          &:before
-            content: '\e82e'
-          &.selected, &:hover
-            color: $red
+      &.no
+        &:before
+          content: '\e82e'
+        &.selected, &:hover
+          color: $red
 
   &>.b-comments
     margin-top: 5px
