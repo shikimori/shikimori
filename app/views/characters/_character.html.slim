@@ -6,8 +6,14 @@ article.c-column.b-catalog_entry.c-character[
     class="entry-#{character.id} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{character_counter if defined? character_counter}"
     itemscope itemtype="http://schema.org/Person"
   ]
-  meta itemprop="image" content="#{{attachment_url character.image, :original, false}}"
-  meta itemprop="thumbnailUrl" content="#{{attachment_url character.image, :x48, false}}"
+  meta[
+    itemprop="image"
+    content="#{{meta_image_url character.image, :original, false}}"
+  ]
+  meta[
+    itemprop="thumbnailUrl"
+    content="#{{meta_image_url character.image, :x48, false}}"
+  ]
 
   a.cover[
     class="#{'anime-tooltip' if content_by == :tooltip}"

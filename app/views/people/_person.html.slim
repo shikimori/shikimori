@@ -7,15 +7,21 @@ article.c-column.b-catalog_entry.c-person[
     itemscope itemtype='http://schema.org/Person'
     itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
   ]
-  meta itemprop='image' content="#{{attachment_url person.image, :original, false}}"
-  meta itemprop='thumbnailUrl' content="#{{attachment_url person.image, :x48, false}}"
+  meta[
+    itemprop='image'
+    content="#{{meta_image_url person.image, :original, false}}"
+  ]
+  meta[
+    itemprop='thumbnailUrl'
+    content="#{{meta_image_url person.image, :x48, false}}"
+  ]
 
   a.cover[
-      class="#{'anime-tooltip' if content_by == :tooltip}"
-      href="#{person_url person}"
-      data-tooltip_url="#{tooltip_person_url person, subdomain: false}"
-      data-delay='150'
-    ]
+    class="#{'anime-tooltip' if content_by == :tooltip}"
+    href="#{person_url person}"
+    data-tooltip_url="#{tooltip_person_url person, subdomain: false}"
+    data-delay='150'
+  ]
     span.image-decor
       span.image-cutter
         img src="#{cdn_image person, :preview}" srcset="#{cdn_image person, :original} 2x" alt="#{localized_name person}" title="#{localized_name person}"

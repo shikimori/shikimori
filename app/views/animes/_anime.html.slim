@@ -15,11 +15,11 @@ article.c-column.b-catalog_entry[
 ]
   meta[
     itemprop="image"
-    content="#{{attachment_url anime.image, :original, false}}"
+    content="#{{meta_image_url anime.image, :original, false}}"
   ]
   meta[
     itemprop="thumbnailUrl"
-    content="#{{attachment_url anime.image, :x48, false}}"
+    content="#{{meta_image_url anime.image, :x48, false}}"
   ]
 
   - if cover_by == :link || cover_by == :image_link

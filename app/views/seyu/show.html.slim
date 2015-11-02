@@ -2,7 +2,11 @@
   .b-db_entry
     .c-image.cc
       .c-poster
-        center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
+        center: img[
+          src="#{cdn_image @resource, :original}"
+          title="#{localized_name @resource}"
+          alt="#{localized_name @resource}"
+        ]
 
       .c-actions
         a.new_comment.b-tooltipped.unprocessed.to-process[

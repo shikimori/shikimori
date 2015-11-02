@@ -17,7 +17,11 @@
     .c-image
       .cc.block
         .c-poster
-          center: img src="#{attachment_url @resource.image}" title="#{localized_name @resource}" alt="#{localized_name @resource}"
+          center: img[
+            src="#{cdn_image @resource, :original}"
+            title="#{localized_name @resource}"
+            alt="#{localized_name @resource}"
+          ]
 
         .c-actions
           a.new_comment.b-tooltipped.unprocessed.to-process[
@@ -117,11 +121,11 @@
       .block
         meta[
           itemprop="image"
-          content="#{{attachment_url @resource.image, :original, false}}"
+          content="#{{meta_image_url @resource.image, :original, false}}"
         ]
         meta[
           itemprop="thumbnailUrl"
-          content="#{{attachment_url @resource.image, :x64, false}}"
+          content="#{{meta_image_url @resource.image, :x64, false}}"
         ]
 
         .m20

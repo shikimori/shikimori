@@ -4,17 +4,30 @@
 
   - elsif !@itemtype
     .b-menu_logo
-      center: a href="#{resource.url params[:action] != 'index'}" title="#{localized_name resource}"
-        img src="#{attachment_url resource.image}" title="#{localized_name resource}" alt="#{localized_name resource}"
+      center: a[
+        href="#{resource.url params[:action] != 'index'}"
+        title="#{localized_name resource}"
+      ]
+        img[
+          src="#{cdn_image resource, :original}"
+          title="#{localized_name resource}"
+          alt="#{localized_name resource}"
+        ]
 
   - if resource.with_score?
     .block
       .subheadline = t '.scores'
-      #rates_scores_stats data-stats="#{resource.rates_scores_stats.to_json}" data-bar='horizontal'
+      #rates_scores_stats[
+        data-stats="#{resource.rates_scores_stats.to_json}"
+        data-bar='horizontal'
+      ]
 
   .block
     .subheadline = t '.in_users_lists'
-    #rates_statuses_stats data-stats="#{resource.rates_statuses_stats.to_json}" data-bar='horizontal'
+    #rates_statuses_stats[
+      data-stats="#{resource.rates_statuses_stats.to_json}"
+      data-bar='horizontal'
+    ]
     - unless resource.rates_size.zero?
       .total-rates
         - if resource.rates_size > 1

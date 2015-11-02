@@ -4,7 +4,7 @@
       .c-poster
         center
           img[
-            src="#{attachment_url @resource.image}"
+            src="#{cdn_image @resource, :original}"
             title="#{localized_name @resource}"
             alt="#{localized_name @resource}"
           ]

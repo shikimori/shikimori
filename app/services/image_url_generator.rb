@@ -9,7 +9,7 @@ class ImageUrlGenerator
     UserImage => false
   }
 
-  def url entry, image_size
+  def url entry, image_size, with_timestamp = nil
     entry_method = IMAGE_METHODS.find { |klass,method| entry.kind_of? klass }
     only_path = ONLY_PATH.include?(entry.class) ? ONLY_PATH[entry.class] : true
 
