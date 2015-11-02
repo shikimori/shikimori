@@ -21,7 +21,7 @@ class ImageUrlGenerator
 
     if Rails.env.production?
       "http://#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
-    elsif Rails.env.test? || File.exists?(image_file_path)
+    elsif Rails.env.test? || (image_file_path && File.exists?(image_file_path))
       image_url_path
     else
       "http://#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
