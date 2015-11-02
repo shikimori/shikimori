@@ -347,6 +347,12 @@ ru:
           few: списка
           many: списков
           other: списки
+      news:
+        subjective:
+          one: новость
+          few: новости
+          many: новостей
+          other: новости
 
       datetime:
         second:
