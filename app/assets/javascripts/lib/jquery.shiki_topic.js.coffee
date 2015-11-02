@@ -59,9 +59,9 @@ class @ShikiTopic extends ShikiEditable
         @_hide_editor()
 
     # голосование за/против рецензии
-    @$('.voteable .vote').on 'ajax:before', ->
-      $(@).addClass('selected')
-      $(@).siblings('.vote').removeClass('selected')
+    @$('.footer-vote .vote').on 'ajax:before', ->
+      $(@).removeClass('deselected').addClass('selected')
+      $(@).siblings('.vote').removeClass('selected').addClass('deselected')
 
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>

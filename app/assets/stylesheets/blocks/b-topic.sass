@@ -3,7 +3,7 @@
 @import compass/utilities/general/clearfix
 @import mixins/block
 @import mixins/forum_entry
-@import mixins/plashka
+@import mixins/link
 @import mixins/responsive
 @import mixins/tag
 
@@ -74,29 +74,46 @@
             color: inherit !important
             text-decoration: inherit
 
-    .voteable
+    .footer-vote
       color: #123
       display: inline-block
       line-height: $line_height
+      font-size: 22px
+
+      +iphone_portrait
+        &>span
+          display: block
 
       .vote
         +link_color(#123)
         cursor: pointer
         display: inline-block
-        margin-left: 14px
+        margin-left: 30px
 
         &:before
           font-family: 'shikimori'
           padding-right: 5px
 
-        &.yes:before
-          content: '\e844'
+        &.yes
+          color: $green
+          +iphone_portrait
+            margin-left: 0
 
-        &.no:before
-          content: '\e845'
+          &:before
+            content: '\e844'
+          &:hover
+            color: darken($green, 10%)
 
-        &.selected
-          color: $link-4
+        &.no
+          color: $red
+
+          &:before
+            content: '\e845'
+          &:hover
+            color: darken($red, 15%)
+
+        &.deselected
+          color: $gray-1
 
   &>.b-comments
     margin-top: 5px

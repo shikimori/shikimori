@@ -1,14 +1,14 @@
-.voteable
+.footer-vote
   span Тебе нравится?
   .vote.yes[
-    class="#{:selected if view.topic.linked.voted_yes? current_user}"
+    class="#{:selected if view.topic.linked.voted_yes? current_user} #{:deselected if view.topic.linked.voted_no? current_user}"
     data-remote="true"
     action="#{vote_yes_url id: view.topic.linked.id, type: view.topic.linked.class.name}"
     data-type="json"
     data-method="post"
   ] Да
   .vote.no[
-    class="#{:selected if view.topic.linked.voted_no? current_user}"
+    class="#{:selected if view.topic.linked.voted_no? current_user} #{:deselected if view.topic.linked.voted_yes? current_user}"
     data-remote="true"
     action="#{vote_no_url id: view.topic.linked.id, type: view.topic.linked.class.name}"
     data-type="json"
