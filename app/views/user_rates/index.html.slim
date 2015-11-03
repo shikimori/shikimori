@@ -42,24 +42,24 @@
         .block.mini-charts
           .scores.block
             .subheadline = i18n_i 'Score', :other
-              #scores[
-                data-stats="#{@resource.stats.scores(params[:list_type]).to_json}"
-                data-bar="horizontal"
-              ]
+            #scores[
+              data-stats="#{@resource.stats.scores(params[:list_type]).to_json}"
+              data-bar="horizontal"
+            ]
 
           .types.block
             .subheadline = i18n_i 'Kind', :other
-              #types[
-                data-stats="#{@resource.stats.types(params[:list_type]).to_json}"
-                data-bar="horizontal"
-              ]
+            #types[
+              data-stats="#{@resource.stats.types(params[:list_type]).to_json}"
+              data-bar="horizontal"
+            ]
 
           - if params[:list_type] == 'anime'
             .ratings.block
               .subheadline = i18n_i 'Rating', :other
-                #ratings[
-                  data-stats="#{@resource.stats.anime_ratings.to_json}"
-                  data-bar="horizontal"
-                ]
+              #ratings[
+                data-stats="#{@resource.stats.anime_ratings.to_json}"
+                data-bar="horizontal"
+              ]
 
         = render 'animes_collection/menu', menu: @menu, in_user_profile: true
