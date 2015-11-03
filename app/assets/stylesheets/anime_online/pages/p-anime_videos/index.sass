@@ -7,7 +7,12 @@
 .p-anime_videos-index
   .ads_container
     margin: -6px 0 6px 0
-    max-width: 728px
+
+    +iphone
+      max-width: 100%
+
+    +gte_ipad
+      max-width: 728px
 
   .b-nothing_here
     margin-left: 0
