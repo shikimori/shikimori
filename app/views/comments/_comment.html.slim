@@ -1,5 +1,6 @@
 - if user_signed_in? && comment.persisted? && current_user.ignores?(comment.user)
   = render partial: 'blocks/ignored', object: comment
+
 - else
   .b-comment.shiki-object.unprocessed[
       id="#{comment.id}"

@@ -106,10 +106,11 @@ class TopicsController < ForumController
 
   # html код для тултипа
   def tooltip
-    topic = Topics::Factory.new(true, false).find params[:id]
+    topic = Topics::Factory.new(true, true).find params[:id]
 
     # превью топика отображается в формате комментария
-    render partial: 'comments/comment', layout: false, object: topic, formats: :html
+    # render partial: 'comments/comment', layout: false, object: topic, formats: :html
+    render partial: 'topics/topic', object: topic, as: :view, layout: false, formats: :html
   end
 
   # выбранные топики
