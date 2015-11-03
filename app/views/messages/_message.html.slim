@@ -57,12 +57,25 @@
             - if message.kind == MessageType::Private
               span.item-quote title="#{t 'actions.quote'}"
               - if local_assigns[:reply_as_link]
-                a.item-reply href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}" title="#{t 'actions.reply'}"
+                a.item-reply[
+                  href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}"
+                  title="#{t 'actions.reply'}"
+                ]
               - else
-                span.item-reply data-action="#{message_url message}" data-type="json" data-remote="true" title="#{t 'actions.reply'}"
+                span.item-reply[
+                  data-action="#{message_url message}"
+                  data-type="json"
+                  data-remote="true"
+                  title="#{t 'actions.reply'}"
+                ]
 
             - if can?(:edit, message) && message.kind == MessageType::Private
-              span.item-edit data-action="#{edit_message_url message}" data-type="html" data-remote="true" title="#{t 'actions.edit'}"
+              span.item-edit[
+                data-action="#{edit_message_url message}"
+                data-type="html"
+                data-remote="true"
+                title="#{t 'actions.edit'}"
+              ]
             - if can? :destroy, message
               span.item-delete title="#{t 'actions.delete'}"
 
@@ -82,7 +95,11 @@
     header
       - unless message.generated_news?
         span.linkeable data-href="#{message.url}"
-          img src="#{message.image}" srcset="#{message.image_2x} 2x" alt="#{message.title}"
+          img[
+            src="#{message.image}"
+            srcset="#{message.image_2x} 2x"
+            alt="#{message.title}"
+          ]
       .name-date
         - if message.generated_news?
           .b-anime_status_tag[
@@ -101,13 +118,18 @@
 
     .body
       - if message.generated_news?
-        = render message.linked.linked.decorate,
-          cover_title: :none, cover_notice: :none, content_by: :block, content_title: :none, content_text: :none
+        .b-catalog-entry-embedded
+          = render message.linked.linked.decorate,
+            cover_title: :none,
+            cover_notice: :none,
+            content_by: :block,
+            content_title: :none,
+            content_text: :none
       - else
         = message.generate_body
 
       - if message.kind == MessageType::SiteNews && message.linked
-        = link_to 'к новости→', topic_url(message.linked), class: 'right to-entry b-link'
+        a.right.to-entry.b-link href="#{topic_url message.linked}" к новости→
 
       - if !message.read && message.to == current_user
         .appear-marker[

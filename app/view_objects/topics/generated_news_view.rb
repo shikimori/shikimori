@@ -17,7 +17,7 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def render_body
-    render_linked
+    "<div class='b-catalog-entry-embedded'>#{render_linked}</div>"
   end
 
   def author_in_header?
