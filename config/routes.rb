@@ -474,7 +474,7 @@ Site::Application.routes.draw do
       get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
       get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
       get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
-      get ':kind(:other)/planned(:other2)' => redirect { |params, request| "#{params[:kind]}#{params[:other]}/anons#{params[:other2]}" }
+      get ':kind(:other)planned(:other2)' => redirect { |params, request| "#{params[:kind]}#{params[:other]}anons#{params[:other2]}" }
       constraints type: /Anime|translation_planned/ do
         get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
       end
