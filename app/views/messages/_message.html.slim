@@ -101,10 +101,10 @@
             alt="#{message.title}"
           ]
       .name-date
-        - if message.generated_news?
+        - if message.action_tag
           .b-anime_status_tag[
-            class="#{message.linked.action}"
-            data-text="#{message.linked.action_text}"
+            class="#{message.action_tag.type}"
+            data-text="#{message.action_tag.text}"
           ]
 
         a.name href="#{message.url}" title="#{message.title}"

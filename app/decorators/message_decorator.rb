@@ -1,4 +1,6 @@
 class MessageDecorator < BaseDecorator
+  instance_cache :action_tag
+
   def image
     anime_related? ? anime.image.url(:x48) : from.avatar_url(48)
   end
@@ -25,6 +27,15 @@ class MessageDecorator < BaseDecorator
 
   def generated_news?
     linked.respond_to?(:generated_news?) && linked.generated_news?
+  end
+
+  def action_tag
+    OpenStruct.new(
+      type: linked.action,
+      text: linked.action == 'episode' ?
+        "#{linked.action_text} #{linked.value}" :
+        linked.action_text
+    ) if generated_news?
   end
 
   def generate_body
