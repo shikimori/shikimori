@@ -9,11 +9,13 @@
 
 .cc-links
   .c-zz
-    .midheadline.orange Опросы
+    .midheadline.orange
+      h2 Опросы
+      a.b-link href="#{contests_url}" title="Все опросы" все опросы
     .block
       = render 'dashboards/contests', collection: @view.contests
 
-    .midheadline.red Мой список
+    .midheadline.red.m15 Мой список
     div
       - if user_signed_in?
         = render 'dashboards/my_rates'
@@ -32,13 +34,19 @@
           span.notice = full_title
 
   .c-reviews
-    h2.midheadline.magenta Новые обзоры
+    .midheadline.magenta
+      h2 Новые обзоры
+      a.b-link href="#{section_url :reviews}" title="Все обзоры" все обзоры
+
     div
       = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
 .cc-news
   .c-user_news
-    h2.midheadline Лента новостей
+    .midheadline
+      h2 Лента новостей
+      a.b-link href="#{section_url :news}" title="Все новости" все новости
+
     div
       = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
