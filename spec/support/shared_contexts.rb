@@ -17,5 +17,6 @@ shared_context :seeds do
   let(:offtopic_section) { seed :offtopic_section }
   let(:reviews_section) { seed :reviews_section }
   let(:anime_section) { seed :anime_section }
+  let(:contests_section) { seed :contests_section }
   let(:seeded_offtopic_topic) { seed :topic }
 end

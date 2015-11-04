@@ -1,0 +1,21 @@
+- if current_user.history.any?
+  - current_user.history.formatted.take(2).each do |entry|
+    .user-rate
+      a href="#{entry[:url]}" title="#{entry[:name]}"
+        .image-name
+          img[
+            src="#{entry[:image]}"
+            srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
+            alt="#{entry[:name]}"
+            title="#{entry[:name]}"
+          ]
+          span.title
+            == entry[:name]
+        span.misc title="#{entry[:reversed_action]}"
+          = entry[:reversed_action]
+        time.misc.date[
+          datetime="#{entry[:created_at].iso8601}"
+          data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
+        ] = l entry[:created_at], format: '%e %B %Y'
+- else
+  | нет истории. текст о том, что надо бы добавить что-то в свой список

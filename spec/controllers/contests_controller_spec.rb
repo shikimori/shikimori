@@ -1,6 +1,6 @@
 describe ContestsController do
-  let(:user) { create :user, :admin }
-  before { sign_in user }
+  include_context :seeds
+  include_context :authenticated, :admin
 
   let(:contest) { create :contest, user: user }
 
@@ -99,13 +99,12 @@ describe ContestsController do
   end
 
   describe '#comments' do
-    let!(:section) { create :section, :contest }
     let!(:contest) { create :contest, :with_thread, user: user }
     before { contest.send :generate_thread }
     let!(:comment) { create :comment, commentable: contest.thread }
     before { get :comments, id: contest.to_param }
 
-    it { expect(response).to redirect_to section_topic_url(id: contest.thread, section: section) }
+    it { expect(response).to redirect_to section_topic_url(id: contest.thread, section: contests_section) }
   end
 
   describe '#new' do

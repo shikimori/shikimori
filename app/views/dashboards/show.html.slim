@@ -10,9 +10,15 @@
 .cc-links
   .c-zz
     .midheadline.orange Опросы
-    / = render partial: 'topics/topic', collection: @view.news, as: :view
+    .block
+      = render 'dashboards/contests', collection: @view.contests
 
-    .midheadline.red Мой список / друзья (регистрация)
+    .midheadline.red Мой список
+    div
+      - if user_signed_in?
+        = render 'dashboards/my_rates'
+      - else
+        | призыв зарегистрироваться
 
   .c-animes
     .midheadline.green Сезоны аниме

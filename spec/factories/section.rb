@@ -54,5 +54,6 @@ FactoryGirl.define do
     factory :anime_section, traits: [:anime]
     factory :reviews_section, traits: [:reviews]
     factory :offtopic_section, traits: [:offtopic]
+    factory :contests_section, traits: [:contest]
   end
 end

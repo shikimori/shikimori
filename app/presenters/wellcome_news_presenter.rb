@@ -1,4 +1,5 @@
 # для блока новостей справа на главной странице
+# TODO: remove
 class WellcomeNewsPresenter < LazyPresenter
   lazy_loaded :ongoings, :news, :mylist
 

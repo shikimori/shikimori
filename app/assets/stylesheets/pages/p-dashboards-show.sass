@@ -43,6 +43,9 @@
       .season
         +menu-block-with-text-link
 
+        a:after
+          right: 2px
+
     .c-reviews
       +column(3, 2/5)
 
@@ -66,3 +69,24 @@
 
       .name-date a
         font-size: 14px !important
+
+  .contest
+    +menu-block-with-text-link
+
+    a
+      +ellipsis
+
+      &:after
+        right: 2px
+
+    .finished
+      color: $gray-1
+
+    .started
+      color: $gray-3
+
+    .can-vote
+      color: #307a3d
+
+  .user-rate
+    +menu-block-with-image

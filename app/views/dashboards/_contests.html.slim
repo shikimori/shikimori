@@ -1,0 +1,24 @@
+- collection.each do |contest|
+  a.contest href="#{contest_url contest}" title="#{contest.title}"
+    span.title = contest.title
+    span.notice
+      - if contest.finished?
+        | Голосование завершено #{contest.finished_on.strftime '%d.%m.%Y'}
+
+      - elsif user_signed_in?
+        - if current_user.can_vote? contest
+          span.can-vote Проголосуйте
+          |  за номинантов!
+
+        - else
+          - if contest.proposing?
+            | Предложите своих номинантов
+
+          - elsif contest.started_on > Date.today
+            | Голосование ещё не началось
+
+          - else
+            | Вы уже проголосовали
+
+      - else
+        | Зарегистрируйтесь для участия

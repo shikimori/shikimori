@@ -5,7 +5,7 @@ class DashboardView < ViewObjectBase
   TOPICS_FETCH = 3
   TOPICS_TAKE = 1
 
-  instance_cache :ongoings, :favourites, :reviews
+  instance_cache :ongoings, :favourites, :reviews, :contests
   #preload :all_ongoings, :all_favourites
 
   def ongoings
@@ -48,6 +48,10 @@ class DashboardView < ViewObjectBase
   #def favourites
     #all_favourites.take(ONGOINGS_TAKE / 2).sort_by(&:ranked)
   #end
+
+  def contests
+    Contest.current
+  end
 
 private
 
