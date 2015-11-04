@@ -83,6 +83,11 @@ class ChainableQueryBase
     self
   end
 
+  def order! *args
+    except :order
+    order *args
+  end
+
   def limit *args
     @relation = @relation.limit *args
     self

@@ -19,5 +19,5 @@
   span.additional
     span.comments = view.topic.comments_count
 
-    - if view.topic.review?
+    - if view.topic.review? || view.topic.cosplay?
       span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}

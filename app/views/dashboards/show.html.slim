@@ -13,7 +13,7 @@
     / = render partial: 'topics/topic', collection: @view.news, as: :view
 
   .c-animes
-    .midheadline.pink Сезоны аниме
+    .midheadline.green Сезоны аниме
     div
       - @view.seasons.each do |season, short_title, full_title|
         a.season[
@@ -24,17 +24,20 @@
           span.notice = full_title
 
   .c-reviews
-    h2.midheadline.magenta Аниме обзоры
+    h2.midheadline.magenta Новые обзоры
     div
       = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
-h2.midheadline.green Лента новостей
 .cc-news
   .c-user_news
-    = render partial: 'topics/topic', collection: @view.user_news, as: :view
+    h2.midheadline Лента новостей
+    div
+      = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
   .c-generated_news
-    = render partial: 'topics/topic', collection: @view.generated_news, as: :view
+    h2.midheadline.yellow Обновления сайта
+    div
+      = render partial: 'topics/topic', collection: @view.generated_news, as: :view
 
 /.cc-2
   .c-column

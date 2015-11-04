@@ -31,6 +31,7 @@ class DashboardView < ViewObjectBase
     TopicsQuery.new(h.current_user)
       .by_section(Section.static[:news])
       .where(generated: false)
+      .order!(created_at: :desc)
       .limit(5)
       .as_views(true, true)
   end
@@ -39,6 +40,7 @@ class DashboardView < ViewObjectBase
     TopicsQuery.new(h.current_user)
       .by_section(Section.static[:news])
       .where(generated: true)
+      .order!(created_at: :desc)
       .limit(10)
       .as_views(true, true)
   end

@@ -23,8 +23,7 @@ class TopicsQuery < ChainableQueryBase
 
       when 'reviews'
         where section_id: section.id
-        except :order
-        order created_at: :desc
+        order! created_at: :desc
 
       when Section.static[:news].permalink
         where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
