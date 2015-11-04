@@ -9,8 +9,10 @@
 
 .cc-links
   .c-zz
-    .midheadline.red zzz
+    .midheadline.orange Опросы
     / = render partial: 'topics/topic', collection: @view.news, as: :view
+
+    .midheadline.red Мой список / друзья (регистрация)
 
   .c-animes
     .midheadline.green Сезоны аниме
@@ -35,6 +37,7 @@
       = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
   .c-generated_news
+    div style="width: 240px; height: 400px; margin: 0 auto 30px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
     h2.midheadline.yellow Обновления сайта
     div
       = render partial: 'topics/topic', collection: @view.generated_news, as: :view

@@ -41,7 +41,7 @@ class DashboardView < ViewObjectBase
       .by_section(Section.static[:news])
       .where(generated: true)
       .order!(created_at: :desc)
-      .limit(10)
+      .limit(8)
       .as_views(true, true)
   end
 
