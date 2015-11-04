@@ -13,9 +13,5 @@
             == entry[:name]
         span.misc title="#{entry[:reversed_action]}"
           = entry[:reversed_action]
-        time.misc.date[
-          datetime="#{entry[:created_at].iso8601}"
-          data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
-        ] = l entry[:created_at], format: '%e %B %Y'
 - else
   | нет истории. текст о том, что надо бы добавить что-то в свой список

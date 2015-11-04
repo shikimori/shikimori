@@ -2,25 +2,63 @@
   /h1
     = @page_title.last
 
-.midheadline.blue Сейчас на экранах
+.midheadline Сейчас на экранах
 .cc-ongoings.to-process data-dynamic="cutted_covers"
   = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
   /= render @view.ongoings, cover_notice: :studio
 
-.cc-links
-  .c-zz
+.cc-first
+  .c-reviews
     .midheadline.orange
-      h2 Опросы
+      h2 = t '.contests'
       a.b-link href="#{contests_url}" title="Все опросы" все опросы
     .block
       = render 'dashboards/contests', collection: @view.contests
 
+  .c-recommendations
+    .midheadline.blue = t '.recommendations'
+    div
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{recommendations_favourites_anime_url}"
+      ] = t '.favourite_recommendations'
+    div
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{RecommendationsController::TOPIC_URL}"
+      ] = t '.community_recommendations'
+    div
+      a.entry[
+        class="#{:selected if params[:controller] == 'recommendations'}"
+        href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
+      ] = t '.personalized_recommendations'
+
+  .c-my_list
     .midheadline.red.m15 Мой список
     div
       - if user_signed_in?
         = render 'dashboards/my_rates'
       - else
         | призыв зарегистрироваться
+
+.cc-second
+  .c-zz
+    .midheadline.purple
+      h2 Форум
+      a.b-link href="#{root_url}" title="Общий форум" общий
+    / .midheadline.orange
+      / h2 Опросы
+      / a.b-link href="#{contests_url}" title="Все опросы" все опросы
+    / .block
+      / = render 'dashboards/contests', collection: @view.contests
+
+    / .midheadline.red.m15 Мой список
+    / div
+      / - if user_signed_in?
+        / = render 'dashboards/my_rates'
+      / - else
+        / | призыв зарегистрироваться
+
 
   .c-animes
     .midheadline.green Сезоны аниме

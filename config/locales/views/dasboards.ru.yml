@@ -1,0 +1,8 @@
+ru:
+  dashboards:
+    show:
+      contests: Опросы
+      recommendations: Рекомендации
+      favourite_recommendations: Избранное
+      community_recommendations: От сообщества
+      personalized_recommendations: Персонализированное

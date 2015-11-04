@@ -47,7 +47,19 @@
         &.item-4, &.item-5, &.item-6, &.item-7
           display: none
 
-  .cc-links
+  .cc-first
+    +cc
+
+    .c-reviews
+      +column(3, 1/4)
+
+    .c-recommendations
+      +column(3, 2/4)
+
+    .c-my_list
+      +column(3, 1/4)
+
+  .cc-second
     +cc
 
     .c-zz
@@ -106,3 +118,8 @@
 
   .user-rate
     +menu-block-with-image
+    min-height: 42px
+
+    img
+      max-height: 40px
+      margin-bottom: 0
