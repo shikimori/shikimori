@@ -14,6 +14,7 @@ en:
       total: Total
       video_content: Video content
       website_developer: Website developer
+
     feedback:
       title: Message to administration
       text: >-
@@ -35,3 +36,11 @@ en:
         [p]
         Or fill in the form below and maybe we will answer you. Somewhen )
         [/p]
+
+    ongoings:
+      notice:
+        - This section shows all currently airing and upcoming anime.
+        - Release dates of new episodes are either retrieved from
+          <a href="http://animecalendar.net/">animecalendar.net</a>
+          or calculated based on release dates of previous episodes.
+      currently_airing: Currently airing

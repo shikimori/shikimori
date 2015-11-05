@@ -156,6 +156,6 @@ en:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
 
   pages_controller:
-    calendar_of_ongoings: Calendar of ongoings
+    calendar_of_ongoings: Calendar of currently airing and upcoming anime
     privacy_policy: Privacy policy
     terms_of_service: Terms of service
