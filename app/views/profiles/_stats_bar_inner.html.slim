@@ -1,26 +1,24 @@
 .bar
-  - if graph[:completed_percent] > 1
-    .first style="width: #{graph[:completed_percent]}%;"
-      == graph[:completed_percent] > 2.5 ? graph[:completed] : '&nbsp;'
+  - if stats_bar.completed_percent > 1
+    .first style="width: #{stats_bar.completed_percent}%;"
+      == stats_bar.completed_percent > 2.5 ? stats_bar.completed : '&nbsp;'
 
-  - if graph[:incompleted_percent] > 1
-    .second style="width: #{graph[:incompleted_percent]}%"
-      == graph[:incompleted_percent] > 2.5 ? graph[:incompleted] : '&nbsp;'
+  - if stats_bar.incompleted_percent > 1
+    .second style="width: #{stats_bar.incompleted_percent}%"
+      == stats_bar.incompleted_percent > 2.5 ? stats_bar.incompleted : '&nbsp;'
 
-  - if graph[:dropped_percent] > 1
-    .third style="width: #{graph[:dropped_percent]}%;"
-      == graph[:dropped_percent] > 2.5 ? graph[:dropped] : '&nbsp;'
+  - if stats_bar.dropped_percent > 1
+    .third style="width: #{stats_bar.dropped_percent}%;"
+      == stats_bar.dropped_percent > 2.5 ? stats_bar.dropped : '&nbsp;'
 
 .stat_names
-  - stats.select {|v| v[:size] != 0 }.each do |stat|
+  - stats_bar.lists_stats.select(&:any?).each do |list_stats|
     .stat_name
       - if can? :access_list, user
-        a href="#{profile_user_rates_url user, list_type: class_name.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
-          = UserRate.status_name(stat[:name], class_name).capitalize
-          | &nbsp;
-          span.size = stat[:size]
+        a href="#{list_stats.url}"
+          ' #{list_stats.localized_name}
+          span.size = list_stats.size
 
       - else
-        = UserRate.status_name(stat[:name], class_name).capitalize
-        | &nbsp;
-        span.size = stat[:size]
+        ' #{list_stats.localized_name}
+        span.size = list_stats.size

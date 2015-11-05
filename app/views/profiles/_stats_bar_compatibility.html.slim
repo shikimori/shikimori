@@ -1,7 +1,7 @@
-span.text class="#{@resource.compatibility_class class_name}"
-  = @resource.compatibility_text class_name
+span.text class="#{user.compatibility_class class_name}"
+  = user.compatibility_text class_name
 
-- if @resource.compatibility(class_name) > 0
+- if user.compatibility(class_name) > 0
   span.text &nbsp;
   span.rate
-    = @resource.compatibility(class_name)
+    = user.compatibility(class_name)

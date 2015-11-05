@@ -9,7 +9,10 @@ shared_context :back_redirect do
 end
 
 shared_context :view_object_warden_stub do
-  before { view.h.request.env['warden'] ||= WardenStub.new }
+  before do
+    view.h.request.env['warden'] ||= WardenStub.new
+    allow(view.h).to receive(:current_user).and_return user.decorate
+  end
 end
 
 shared_context :seeds do

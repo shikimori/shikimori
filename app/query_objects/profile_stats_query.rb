@@ -4,10 +4,12 @@ class ProfileStatsQuery
   vattr_initialize :user
 
   instance_cache :stats
-  instance_cache :graph_statuses, :anime_spent_time, :manga_spent_time, :spent_time
+  instance_cache :anime_spent_time, :manga_spent_time, :spent_time
+
+  delegate :stats_bars, to: :stats
 
   STAT_FIELDS = [
-    :graph_statuses,
+    :stats_bars,
     :anime_spent_time,
     :manga_spent_time,
     :spent_time,
@@ -42,10 +44,6 @@ class ProfileStatsQuery
         manga: types(:manga)
       },
     )
-  end
-
-  def graph_statuses
-    stats.by_statuses
   end
 
   #def graph_time
@@ -106,9 +104,9 @@ class ProfileStatsQuery
 
   def list_counts list_type
     if list_type.to_sym == :anime
-      stats.statuses stats.anime_rates, true
+      stats.anime_statuses true
     else
-      stats.statuses stats.manga_rates, true
+      stats.manga_statuses true
     end
   end
 

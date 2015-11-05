@@ -71,7 +71,7 @@
       border: 1px solid rgba(144, 213, 236, 0.45)
       padding: 5px 10px 8px
 
-      &>.title
+      &>.title, .anime>.title, .manga>.title
         margin-bottom: 2px
         font-weight: bold
 
@@ -87,6 +87,9 @@
 
         &:hover .title
           text-decoration: underline
+
+        .title
+          display: inline
 
         .note
           color: $gray-3

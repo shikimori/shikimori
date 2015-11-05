@@ -36,6 +36,10 @@ describe DashboardView do
     it { expect(view.contests).to have(1).item }
   end
 
+  describe '#lists_stats' do
+    it { expect(view.list_stats).to have(5).items }
+  end
+
   #describe 'favourites' do
     #let!(:user) { create :user, fav_animes: [anime_1] }
     #let!(:anime_1) { create :anime }

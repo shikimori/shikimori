@@ -1,16 +1,31 @@
-.title Мой список аниме
-.m20
-  - view.list_stats.each do |stat|
-    .list-stat
-      .value
-        = stat.value
-      a.b-link href="#{stat.url}"
-        = stat.localized_name
+.anime
+  .title Мой список аниме
+  .m20
+    - view.list_counts(:anime).each do |stat|
+      .list-stat
+        .value
+          = stat.size
+        a.b-link href="#{stat.url}"
+          = stat.localized_name
 
-.title Последние изменения
-- current_user.history.formatted.take(2).each do |entry|
+.manga.hidden
+  .title Мой список манги
+  .m20
+    - view.list_counts(:manga).each do |stat|
+      .list-stat
+        .value
+          = stat.size
+        a.b-link href="#{stat.url}"
+          = stat.localized_name
+
+.title История
+- view.history.each do |entry|
   .list-change
-    a href="#{entry[:url]}" title="#{entry[:name]}"
+    a[
+      class="#{:bubbled unless entry[:special?]}"
+      href="#{entry[:url]}"
+      title="#{entry[:name]}"
+    ]
       .title == entry[:name]
       .note
         = entry[:reversed_action]

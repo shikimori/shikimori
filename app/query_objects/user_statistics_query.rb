@@ -214,71 +214,44 @@ class UserStatisticsQuery
   end
 
   def anime_statuses is_full
-    statuses @anime_rates, is_full
+    statuses @anime_rates, is_full, Anime.name
   end
 
   def manga_statuses is_full
-    statuses @manga_rates, is_full
+    statuses @manga_rates, is_full, Manga.name
   end
 
-  def statuses rates, is_full
+  def statuses rates, is_full, type
     UserRate.statuses.map do |status_name, status_id|
       next if !is_full && status_name == 'rewatching'
-      {
-        id: status_id,
-        grouped_id: !is_full && status_name == 'watching' ? "#{status_id},#{UserRate.statuses.find {|k,v| k == 'rewatching'}.second}" : status_id,
+      rewatching_id = UserRate.statuses.find {|k,v| k == 'rewatching'}.second
+
+      Profiles::ListStats.new(
+        grouped_id: !is_full && status_name == 'watching' ?
+          "#{status_id},#{rewatching_id}" :
+          status_id,
         name: status_name,
         size: !is_full && status_name == 'watching' ?
-          rates.select {|v| v.watching? || v.rewatching? }.size :
-          rates.select {|v| v.status == status_name }.size
-      }
+          rates.select { |v| v.watching? || v.rewatching? }.size :
+          rates.select { |v| v.status == status_name }.size,
+        type: type
+      )
     end.compact
   end
 
   # статистика по статусам аниме и манги в списке пользователя
-  def by_statuses
-    data = [
-      @preferences.anime_in_profile? ? [Anime.name, anime_statuses(false)] : nil,
-      @preferences.manga_in_profile? ? [Manga.name, manga_statuses(false)] : nil
-    ].compact
+  def stats_bars
+    lists = [
+      ([Anime.name, anime_statuses(false)] if @preferences.anime_in_profile?),
+      ([Manga.name, manga_statuses(false)] if @preferences.manga_in_profile?)
+    ]
 
-    data = data.map do |klass,stat|
-      total = stat.sum { |v| v[:size] }
-      completed = stat.select { |v| v[:id] == UserRate.statuses[:completed] }.sum { |v| v[:size] }
-      dropped = stat.select { |v| v[:id] == UserRate.statuses[:dropped] }.sum { |v| v[:size] }
-      incompleted = stat.select { |v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum { |v| v[:size] }
-
-      [
-        klass,
-        stat,
-        {
-          total: total,
-
-          completed: completed,
-          dropped: dropped,
-          incompleted: incompleted,
-
-          completed_percent: completed * 100.0 / total,
-          dropped_percent: dropped * 100.0 / total,
-          incompleted_percent: incompleted * 100.0 / total,
-        }
-      ]
-    end
-
-    data = data.select do |klass, stat, graph|
-      stat.any? { |v| v[:size] > 0 }
-    end
-
-    data.each do |klass, stat, graph|
-      other_stat = data.select { |_klass, _stat, _graph| _klass != klass }
-
-      graph[:scale] = if data.size == 1 || other_stat.sum { |_klass, _stat, _graph| _graph[:total] } == 0
-        1.0
-      else
-        other_total = other_stat[0][2][:total]
-        [other_total > 0 ? graph[:total]*1.0 / other_total : 0, 1.0].min
+    lists
+      .compact
+      .map do |type, lists_stats|
+        Profiles::StatsBar.new type: type, lists_stats: lists_stats
       end
-    end
+      .select(&:any?)
   end
 
   # выборка статистики по категориям в списке пользователя

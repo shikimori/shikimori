@@ -1,26 +1,27 @@
-.b-stat_bar class="#{class_name.downcase}"
-  - if @resource.own_profile?
+.b-stats_bar class="#{stats_bar.type.downcase}"
+  - if user.own_profile?
     .compatibility
-      a href="#{users_url similar: 'similar', klass: class_name.downcase}"
+      a href="#{users_url similar: 'similar', klass: stats_bar.type.downcase}"
         = t '.similar_users'
 
-  - elsif @resource.compatibility(class_name)
+  - elsif user.compatibility stats_bar.type
     .compatibility
-      - if can? :access_list, @resource
-        a href="#{userlist_comparer_path user_1: current_user, user_2: @resource, list_type: class_name.downcase}"
-          = render 'profiles/stats_bar_compatibility', class_name: class_name
+      - if can? :access_list, user
+        a href="#{userlist_comparer_path user_1: current_user, user_2: user, list_type: stats_bar.type.downcase}"
+          = render 'profiles/stats_bar_compatibility',
+            class_name: stats_bar.type,
+            user: user
+
       - else
         span.link-replacement
-          = render 'profiles/stats_bar_compatibility', class_name: class_name
+          = render 'profiles/stats_bar_compatibility',
+            class_name: stats_bar.type,
+            user: user
 
-  - if can? :access_list, @resource
-    a.title href="#{profile_user_rates_url @resource, list_type: class_name.downcase}"
-      = t "#{class_name.downcase}_list"
+  - if can? :access_list, user
+    a.title href="#{profile_user_rates_url user, list_type: stats_bar.type.downcase}"
+      = t "#{stats_bar.type.downcase}_list"
   - else
-    .title = t "#{class_name.downcase}_list"
+    .title = t "#{stats_bar.type.downcase}_list"
 
-  = render 'profiles/stats_bar_inner',
-    class_name: class_name,
-    stats: stats,
-    graph: graph,
-    user: @resource
+  = render 'profiles/stats_bar_inner', stats_bar: stats_bar, user: user

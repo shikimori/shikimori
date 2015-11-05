@@ -15,7 +15,12 @@
           .entry
             a href="#{entry[:url]}" title="#{entry[:name]}"
               .image-name
-                img src="#{entry[:image]}" srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}" alt="#{entry[:name]}" title="#{entry[:name]}"
+                img[
+                  src="#{entry[:image]}"
+                  srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
+                  alt="#{entry[:name]}"
+                  title="#{entry[:name]}"
+                ]
                 span.title
                   == entry[:name]
               span.misc title="#{entry[:reversed_action]}"
@@ -181,8 +186,8 @@
 
   .c-info
     .c-lists-info
-      - @resource.stats.graph_statuses.each do |class_name, stats, graph|
-        = render 'stats_bar', class_name: class_name, stats: stats, graph: graph
+      - @resource.stats.stats_bars.each do |stats_bar|
+        = render 'stats_bar', stats_bar: stats_bar, user: @resource
 
     - if @resource.stats.social_activity?
       .c-additionals
@@ -210,7 +215,7 @@
 .profile-content
   .cc-2.block
     .c-column.c-left
-      .lifetime.b-stat_bar
+      .lifetime.b-stats_bar
         .title
           - if @resource.stats.spent_time.days > 0
             .value.b-tooltipped.unprocessed[

@@ -6,7 +6,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
   def formatted
     @formatted ||= Rails.cache.fetch [:history, h.russian_names_key, object.cache_key] do
       grouped_history
-        .map { |group,entries| format_entries entries }
+        .map { |_, entries| format_entries entries }
         .compact
         .each do |entry|
           entry[:reversed_action] = entry[:action]
