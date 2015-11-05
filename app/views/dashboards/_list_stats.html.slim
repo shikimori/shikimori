@@ -7,7 +7,7 @@
       a.b-link href="#{stat.url}"
         = stat.localized_name
 
-.title История
+.title Последние изменения
 - current_user.history.formatted.take(2).each do |entry|
   .list-change
     a href="#{entry[:url]}" title="#{entry[:name]}"
