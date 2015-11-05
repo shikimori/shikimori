@@ -5,6 +5,7 @@
 #= require pages/p-recommendations-index
 
 #= require_directory ./pages/p-db_entries
+#= require pages/p-dashboards
 #= require pages/p-seyu
 #= require pages/p-people
 #= require pages/p-characters

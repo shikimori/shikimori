@@ -243,10 +243,10 @@ class UserStatisticsQuery
     ].compact
 
     data = data.map do |klass,stat|
-      total = stat.sum {|v| v[:size] }
-      completed = stat.select {|v| v[:id] == UserRate.statuses[:completed] }.sum {|v| v[:size] }
-      dropped = stat.select {|v| v[:id] == UserRate.statuses[:dropped] }.sum {|v| v[:size] }
-      incompleted = stat.select {|v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum {|v| v[:size] }
+      total = stat.sum { |v| v[:size] }
+      completed = stat.select { |v| v[:id] == UserRate.statuses[:completed] }.sum { |v| v[:size] }
+      dropped = stat.select { |v| v[:id] == UserRate.statuses[:dropped] }.sum { |v| v[:size] }
+      incompleted = stat.select { |v| v[:id] != UserRate.statuses[:completed] && v[:id] != UserRate.statuses[:dropped] }.sum { |v| v[:size] }
 
       [
         klass,
@@ -265,14 +265,14 @@ class UserStatisticsQuery
       ]
     end
 
-    data = data.select do |klass,stat,graph|
-      stat.any? {|v| v[:size] > 0 }
+    data = data.select do |klass, stat, graph|
+      stat.any? { |v| v[:size] > 0 }
     end
 
-    data.each do |klass,stat,graph|
-      other_stat = data.select { |_klass,_stat,_graph| _klass != klass }
+    data.each do |klass, stat, graph|
+      other_stat = data.select { |_klass, _stat, _graph| _klass != klass }
 
-      graph[:scale] = if data.size == 1 || other_stat.sum {|_klass,_stat,_graph| _graph[:total] } == 0
+      graph[:scale] = if data.size == 1 || other_stat.sum { |_klass, _stat, _graph| _graph[:total] } == 0
         1.0
       else
         other_total = other_stat[0][2][:total]

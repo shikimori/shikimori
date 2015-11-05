@@ -1,4 +1,5 @@
 @import mixins/block
+@import mixins/brackets_surrounded
 @import mixins/dash_separated
 @import mixins/hover_underlined
 @import mixins/link
@@ -56,3 +57,17 @@ $bar_height: 13px
 
     .third
       background: #aaa
+
+  .stat_names
+    font-size: 11px
+    line-height: $line-height
+
+    .stat_name
+      +dash_separated
+      display: inline-block
+
+      a
+        +link(#123)
+
+      .size
+        +brackets_surrounded

@@ -30,6 +30,12 @@ class UserDecorator < BaseDecorator
     UserProfileHistoryDecorator.new object
   end
 
+  def stats
+    Rails.cache.fetch [:profile_stats, object] do
+      ProfileStatsView.new ProfileStatsQuery.new(object).to_hash
+    end
+  end
+
   def last_online
     if object.admin?
       i18n_t 'always_online'

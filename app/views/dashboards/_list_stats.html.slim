@@ -1,0 +1,34 @@
+.title Мой список аниме
+.m20
+  - view.list_stats.each do |stat|
+    .list-stat
+      .value
+        = stat.value
+      a.b-link href="#{stat.url}"
+        = stat.localized_name
+
+.title История
+- current_user.history.formatted.take(2).each do |entry|
+  .list-change
+    a href="#{entry[:url]}" title="#{entry[:name]}"
+      .title == entry[:name]
+      .note
+        = entry[:reversed_action]
+
+/ - if current_user.history.any?
+  / - current_user.history.formatted.take(2).each do |entry|
+    / .user-rate
+      / a href="#{entry[:url]}" title="#{entry[:name]}"
+        / .image-name
+          / img[
+            / src="#{entry[:image]}"
+            / srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
+            / alt="#{entry[:name]}"
+            / title="#{entry[:name]}"
+          / ]
+          / span.title
+            / == entry[:name]
+        / span.misc title="#{entry[:reversed_action]}"
+          / = entry[:reversed_action]
+/ - else
+  / | нет истории. текст о том, что надо бы добавить что-то в свой список

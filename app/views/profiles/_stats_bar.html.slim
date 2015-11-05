@@ -19,29 +19,8 @@
   - else
     .title = t "#{class_name.downcase}_list"
 
-  .bar
-    - if graph[:completed_percent] > 1
-      .first style="width: #{graph[:completed_percent]}%;"
-        == graph[:completed_percent] > 2.5 ? graph[:completed] : '&nbsp;'
-
-    - if graph[:incompleted_percent] > 1
-      .second style="width: #{graph[:incompleted_percent]}%"
-        == graph[:incompleted_percent] > 2.5 ? graph[:incompleted] : '&nbsp;'
-
-    - if graph[:dropped_percent] > 1
-      .third style="width: #{graph[:dropped_percent]}%;"
-        == graph[:dropped_percent] > 2.5 ? graph[:dropped] : '&nbsp;'
-
-  .stat_names
-    - stats.select {|v| v[:size] != 0 }.each do |stat|
-      .stat_name
-        - if can? :access_list, @resource
-          a href="#{profile_user_rates_url @resource, list_type: class_name.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
-            = UserRate.status_name(stat[:name], class_name).capitalize
-            | &nbsp;
-            span.size = stat[:size]
-        - else
-          = UserRate.status_name(stat[:name], class_name).capitalize
-          | &nbsp;
-          span.size = stat[:size]
-
+  = render 'profiles/stats_bar_inner',
+    class_name: class_name,
+    stats: stats,
+    graph: graph,
+    user: @resource

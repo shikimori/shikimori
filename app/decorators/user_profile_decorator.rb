@@ -40,12 +40,6 @@ class UserProfileDecorator < UserDecorator
     (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
   end
 
-  def stats
-    Rails.cache.fetch [:profile_stats, object] do
-      ProfileStatsView.new ProfileStatsQuery.new(object).to_hash
-    end
-  end
-
   def list
     UserLibraryView.new self
   end

@@ -25,10 +25,22 @@ class ProfileStatsQuery
     end
 
     stats_hash.merge(
-      activity: { 26 => activity(26), 34 => activity(34) },
-      list_counts: { anime: list_counts(:anime), manga: list_counts(:manga) },
-      scores: { anime: scores(:anime), manga: scores(:manga) },
-      types: { anime: types(:anime), manga: types(:manga) },
+      activity: {
+        26 => activity(26),
+        34 => activity(34)
+      },
+      list_counts: {
+        anime: list_counts(:anime),
+        manga: list_counts(:manga)
+      },
+      scores: {
+        anime: scores(:anime),
+        manga: scores(:manga)
+      },
+      types: {
+        anime: types(:anime),
+        manga: types(:manga)
+      },
     )
   end
 

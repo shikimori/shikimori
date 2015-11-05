@@ -38,6 +38,7 @@
   function simple_bar($chart, options) {
     $chart.addClass('bar simple '+options.type);
 
+    var field = options.field || 'value';
     var stats = $chart.data('stats');
     var intervals_count = $chart.data('intervals_count');
 
@@ -48,11 +49,11 @@
       return;
     }
 
-    var maximum = _.max(stats, function(v,k) { return v.value; }).value;
+    var maximum = _.max(stats, function(v,k) { return v[field]; })[field];
     var flattened = false;
 
     if ($chart.data('flattened')) {
-      var values = _.select(_.map(stats, function(v,k) { return v.value; }),
+      var values = _.select(_.map(stats, function(v,k) { return v[field]; }),
         function(v) { return v > 0 && v != maximum; }
       );
       var average =  _.reduce(values, function(memo, num){ return memo + num; }, 0) / values.length;
@@ -79,19 +80,19 @@
 
     if (options.filter) {
       stats = stats.filter(function(entry) {
-        var percent = parseInt(entry.value / maximum * 100 * 100) * 0.01;
+        var percent = parseInt(entry[field] / maximum * 100 * 100) * 0.01;
         return options.filter(entry, percent);
       });
     }
 
     stats.each(function(entry, index) {
-      var percent = parseInt(entry.value / maximum * 100 * 100) * 0.01;
+      var percent = parseInt(entry[field] / maximum * 100 * 100) * 0.01;
       if (flattened) {
         percent *= 0.9;
 
         // до 90% обычная шкала, а затем в зависимости от приближения к максимальному значению
         if (percent > 100) {
-          percent = 90 + entry.value * 10.0 / original_maximum;
+          percent = 90 + entry[field] * 10.0 / original_maximum;
         }
       }
 
@@ -111,9 +112,9 @@
       } else {
         var x_axis = entry.name;
       }
-      var title = options.title ? options.title(entry, percent) : entry.value;
-      if ((percent > 15) || (percent > 10 && entry.value < 100) || (percent > 5 && entry.value < 10)) {
-        var value = entry.value;
+      var title = options.title ? options.title(entry, percent) : entry[field];
+      if ((percent > 15) || (percent > 10 && entry[field] < 100) || (percent > 5 && entry[field] < 10)) {
+        var value = entry[field];
       } else {
         var value = '';
       }
@@ -124,8 +125,8 @@
         + "><div class='x_label'>" + x_axis
         + "</div><div class='bar-container'><div class='bar " + color
         + (percent > 0 ? ' min' : '') + "' style='" + dimension+ ": "
-        + percent + "%'" + " title='" + (title || entry.value) + "'>"
-        + "<div class='value" + (percent < 10 ? " narrow" : "") + (entry.value > 99 ? " mini" : "") + "'>"
+        + percent + "%'" + " title='" + (title || entry[field]) + "'>"
+        + "<div class='value" + (percent < 10 ? " narrow" : "") + (entry[field] > 99 ? " mini" : "") + "'>"
         + value + "</div>"
         + "</div></div></div>"
       );

@@ -53,6 +53,25 @@ class DashboardView < ViewObjectBase
     Contest.current
   end
 
+  def list_stats
+    h.current_user.stats.list_counts(:anime).map do |stat|
+      OpenStruct.new(
+        name: stat[:name],
+        localized_name: UserRate.status_name(stat[:name], Anime.name).capitalize,
+        url: h.profile_user_rates_url(
+          h.current_user,
+          list_type: 'anime',
+          mylist: stat[:grouped_id]
+        ),
+        value: stat[:size]
+      )
+    end
+  end
+
+  # def stats
+    # UserProfileDecorator.new(h.current_user.object).stats
+  # end
+
 private
 
   def all_ongoings
