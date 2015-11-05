@@ -1,0 +1,35 @@
+en:
+  page404:
+    title: Page not found
+    text:
+      <p>Most likely you are here because of a typo in page url.</p>
+      <p>
+        Try <a href='/'>to go back</a>
+        or contact site administration.
+      </p>
+
+  page503:
+    title: Nooooooooooooo
+    text:
+      <p>Something has gone wrong. But maybe we are fixing it now.</p>
+      <p>
+        Try <a onclick='location.reload();'>to reload page</a>
+        or contact site administration.
+      </p>
+
+  age_restricted:
+    warning: Warning!<br>Adult content
+    title:
+      This page contains adult material not intended to be
+      viewed by persons under the age of 18<br>(21 in some areas).
+    text: |
+      <p>Are you over 18?</p>
+      <p>
+        <span class='confirm' onclick="$.cookie('%{cookie}', true, {expires: 9999, path: '/'}); location.reload()">
+          Yes
+        </span>
+        &nbsp;&nbsp;&nbsp;
+        <a href='%{root_url}'>
+          No
+        </a>
+      </p>

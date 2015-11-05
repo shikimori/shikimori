@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title 404
+
+    link[
+      href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic'
+      rel='stylesheet'
+      type='text/css'
+    ]
+    = stylesheet_link_tag 'page404'
+
+  body
+    .dialog
+      p.error-404 404
+      h1 = t 'page404.title'
+      == t 'page404.text'
+
+      img.image[
+        src='/images/static/404.jpg'
+        srcset='/images/static/404@2x.jpg 2x'
+      ]

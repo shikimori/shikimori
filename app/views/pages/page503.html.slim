@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title 500
+
+    link[
+      href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic'
+      rel='stylesheet'
+      type='text/css'
+    ]
+    = stylesheet_link_tag 'page503'
+
+  body
+    .dialog
+      p.error-500 500
+      h1 = t 'page503.title'
+      == t 'page503.text'
+
+      img.image[
+        src='/images/static/503.jpg'
+        srcset='/images/static/503@2x.jpg 2x'
+      ]

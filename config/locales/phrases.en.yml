@@ -27,9 +27,6 @@ en:
     ranked: By rank
     score: By score
     status: By status
-  pagination:
-    back: Back
-    next: Next
   about_site: About site
   anime_industry: Anime industry
   anime_list: Anime List
@@ -43,7 +40,6 @@ en:
   character_name: Character name
   changes_not_saved: Changes not saved!
   changes_saved: Changes saved
-  faq: Frequently asked questions
   collapse: collapse
   cosplay: Cosplay
   deleted:
@@ -52,11 +48,8 @@ en:
     manga: Deleted manga
     review: Deleted review
     anime_video: Deleted video
-  anime_list: Anime List
-  back: back
-  back_to_page: Back to page
-  changes_not_saved: Changes not saved!
-  changes_saved: Changes saved
+  error: error
+  faq: Frequently asked questions
   female: female
   gallery: Gallery
   goto: Goto
@@ -86,6 +79,9 @@ en:
   nothing_found: Nothing found.
   notifications: Notifications
   out_of: out of
+  pagination:
+    back: Back
+    next: Next
   person: Person
   producer: Director
   roles_in_anime: Roles in anime

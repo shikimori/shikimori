@@ -19,7 +19,7 @@ ru:
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
-    show_list: Показать список
+      show_list: Показать список
 
   animes: &animes
     page:
