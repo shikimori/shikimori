@@ -18,7 +18,7 @@ class AnimesCollectionController < ShikimoriController
     if params[:search]
       noindex && nofollow
       raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/ && censored_forbidden?
-      @page_title = i18n_t 'search', search: SearchHelper.unescape(params[:search])
+      page_title i18n_t('search', search: SearchHelper.unescape(params[:search]))
     end
 
     # для сезонов без пагинации
@@ -109,9 +109,11 @@ private
       end
     end
 
-    @page_title = build_page_title @entry_data
-    @title_notice = build_page_description @entry_data
-    @description = @page_title
+    if params[:controller] == 'animes_collection'
+      page_title build_page_title(@entry_data)
+      @title_notice = build_page_description @entry_data
+      @description = @page_title.last
+    end
   end
 
   # постраничное разбитие коллекции
