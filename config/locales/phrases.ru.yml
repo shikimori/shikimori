@@ -27,9 +27,6 @@ ru:
     ranked: По рейтингу
     score: По оценке
     status: По статусу
-  pagination:
-    back: Назад
-    next: Вперед
   about_site: О сайте
   anime_industry: Индустрия аниме
   anime_list: Список аниме
@@ -51,11 +48,7 @@ ru:
     manga: Удалённая манга
     review: Удалённая рецензия
     anime_video: Удалённое видео
-  anime_list: Список аниме
-  back: назад
-  back_to_page: Назад на страницу
-  changes_not_saved: Изменения не сохранены!
-  changes_saved: Изменения сохранены
+  error: Ошибка
   faq: Часто задаваемые вопросы
   female: жен.
   gallery: Галерея
@@ -85,6 +78,9 @@ ru:
   nothing_found: Ничего не найдено.
   notifications: Уведомления
   out_of: из
+  pagination:
+    back: Назад
+    next: Вперед
   person: Человек
   producer: Режиссёр
   roles_in_anime: Роли в аниме

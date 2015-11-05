@@ -25,10 +25,30 @@ class ApplicationController < ActionController::Base
 
   helper_method :i18n_i, :i18n_io, :i18n_a
 
+  NOT_FOUND_ERRORS = [
+    ActionController::RoutingError,
+    ActiveRecord::RecordNotFound,
+    AbstractController::ActionNotFound,
+    ActionController::UnknownFormat,
+    NotFound
+  ]
+
+  RUNTIME_ERRORS = [
+    AbstractController::Error,
+    ActionController::InvalidAuthenticityToken,
+    ActionView::MissingTemplate,
+    ActionView::Template::Error,
+    Exception,
+    PG::Error,
+    Encoding::CompatibilityError,
+    NoMethodError,
+    StandardError,
+    SyntaxError,
+    CanCan::AccessDenied
+  ] + NOT_FOUND_ERRORS
+
   unless Rails.env.test?
-    rescue_from AbstractController::ActionNotFound, AbstractController::Error, ActionController::InvalidAuthenticityToken,
-      ActionController::RoutingError, ActionView::MissingTemplate, ActionView::Template::Error, Exception, PG::Error,
-      Encoding::CompatibilityError, NoMethodError, StandardError, SyntaxError, CanCan::AccessDenied, with: :runtime_error
+    rescue_from *RUNTIME_ERRORS, with: :runtime_error
   else
     rescue_from StatusCodeError, with: :runtime_error
   end
@@ -47,18 +67,17 @@ class ApplicationController < ActionController::Base
 
     with_json_response = self.kind_of?(Api::V1::ApiController) || json?
 
-    if [ActionController::RoutingError, ActiveRecord::RecordNotFound, AbstractController::ActionNotFound, ActionController::UnknownFormat, NotFound].include?(e.class)
-      @page_title = 'Страница не найдена'
+    if NOT_FOUND_ERRORS.include? e.class
       @sub_layout = nil
 
       if with_json_response
-        render json: { message: 'page not found', code: 404 }, status: 404
+        render json: { message: t('.page_not_found'), code: 404 }, status: 404
       else
-        render 'pages/page404.html', layout: false, status: 404
+        render 'pages/page404', layout: false, status: 404
       end
 
     elsif e.is_a?(AgeRestricted)
-      render 'pages/age_restricted', layout: nil#, status: 404
+      render 'pages/age_restricted', layout: false
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       if with_json_response
@@ -82,7 +101,7 @@ class ApplicationController < ActionController::Base
           status: 503
         )
       else
-        @page_title = 'Ошибка'
+        @page_title = t '.error'
         render 'pages/page503.html', layout: false, status: 503
       end
     end

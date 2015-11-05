@@ -1,0 +1,27 @@
+doctype html
+html
+  head
+    meta name='robots' content='noindex, nofollow'
+
+    link[
+      href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic'
+      rel='stylesheet'
+      type='text/css'
+    ]
+    = stylesheet_link_tag 'age_restricted'
+    = javascript_include_tag 'jquery'
+    = javascript_include_tag 'vendor/jquery.cookie'
+
+  body
+    .p-age_restricted
+      .dialog
+        p.age-restricted-warning == t 'age_restricted.warning'
+        h1 == t 'age_restricted.title'
+        == t 'age_restricted.text',
+          cookie: ShikimoriController::COOKIE_AGE_OVER_18,
+          root_url: root_url
+
+        img.image[
+          src='/images/static/restricted.jpg'
+          srcset='/images/static/restricted@2x.jpg 2x'
+        ]
