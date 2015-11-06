@@ -1,6 +1,9 @@
+@import compass/typography/text/ellipsis
 @import mixins/column
-@import mixins/responsive
+@import mixins/link
 @import mixins/menu-blocks
+@import mixins/responsive
+@import mixins/selected
 
 .p-dashboards-show
   .midheadline
@@ -21,6 +24,7 @@
 
   .cc-ongoings
     +cc
+    margin-bottom: $block-offset * 2
 
     .c-column
       +gt_laptop
@@ -47,23 +51,9 @@
         &.item-4, &.item-5, &.item-6, &.item-7
           display: none
 
-  .cc-first
-    +cc
-
-    .c-contests
-      +column(3, 4/12)
-
-    .c-recommendations
-      +column(3, 3/12)
-
-      .entry
-        font-weight: bold
-
-    .c-zz
-      +column(3, 5/12)
-
   .cc-second
     +cc
+    margin-bottom: $block-offset * 2
 
     .c-my_list
       +column(3, 3/12)
@@ -89,6 +79,7 @@
           text-decoration: underline
 
         .title
+          +ellipsis
           display: inline
 
         .note
@@ -96,8 +87,21 @@
           font-size: 11px
           line-height: 1.4
 
-    .c-reviews
+    .c-content
       +column(3, 5/12)
+
+      .options
+        margin-bottom: 5px
+        margin-top: -3px
+
+        .option
+          +js-link
+          font-weight: bold
+          display: inline-block
+          margin-right: 22px
+
+          &.selected
+            +selected
 
     .c-forum
       +column(3, 4/12)

@@ -5,6 +5,8 @@ class DashboardView < ViewObjectBase
   TOPICS_FETCH = 3
   TOPICS_TAKE = 1
 
+  DISPLAYED_HISTORY = 2
+
   instance_cache :ongoings, :favourites, :reviews, :contests
   #preload :all_ongoings, :all_favourites
 
@@ -54,11 +56,11 @@ class DashboardView < ViewObjectBase
   end
 
   def list_counts kind
-    h.current_user.stats.list_counts(kind)
+    h.current_user.stats.list_counts kind
   end
 
   def history
-    h.current_user.history.formatted.take(2)
+    h.current_user.history.formatted.take DISPLAYED_HISTORY
   end
 
 private

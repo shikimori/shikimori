@@ -28,7 +28,7 @@
 
     .c-column
       .b-options-floated
-          span.selected = contest.displayed_round.title
+        span = contest.displayed_round.title
       .subheadline = t '.in_this_round'
       .block
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)

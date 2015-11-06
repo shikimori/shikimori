@@ -26,7 +26,8 @@
       href="#{entry[:url]}"
       title="#{entry[:name]}"
     ]
-      .title == entry[:name]
+      .title
+        == truncate entry[:name], length: 32, omission: '…'
       .note
         = entry[:reversed_action]
 

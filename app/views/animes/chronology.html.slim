@@ -13,6 +13,6 @@
       = render @resource.chronology, cover_notice: :year_kind, content_by: :mini_tooltip
 
   - else
-    .subheadline.m5 = @page_title.last
+    .subheadline.m10 = @page_title.last
     div
       = render partial: 'animes/relation_note', collection: @resource.chronology

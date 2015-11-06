@@ -74,10 +74,15 @@
           / span.title = short_title
           / span.notice = full_title
 
-  .c-reviews
+  .c-content
+    .options
+      .option.selected Рецензии
+      .option Каталог аниме
+      .option Каталог манги
+
     .midheadline.magenta
-      h2 Новые аниме обзоры
-      a.b-link href="#{section_url :reviews}" title="Все обзоры" все обзоры
+      h2 Рецензии
+      a.b-link href="#{section_url :reviews}" title="Все рецензии" все рецензии
 
     div
       = render partial: 'topics/topic', collection: @view.reviews, as: :view
@@ -108,10 +113,10 @@
       = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
   .c-generated_news
-    h2.midheadline.red.m15 Спонсоры
-    div style="width: 240px; height: 400px; margin: 0 auto 45px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+    .midheadline.red.m15 Спонсоры
+    div style="width: 240px; height: 400px; margin: 0 auto 60px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    h2.midheadline.yellow Обновления сайта
+    .midheadline.yellow Обновления сайта
     div
       = render partial: 'topics/topic', collection: @view.generated_news, as: :view
 
