@@ -53,7 +53,7 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
 gem 'pghero'
-gem 'sidekiq', '3.4.2'
+gem 'sidekiq'
 gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
 gem 'sinatra', '>= 1.3.0', require: nil
