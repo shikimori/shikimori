@@ -1,5 +1,7 @@
 describe DashboardView do
   include_context :view_object_warden_stub
+
+  let(:user) { seed :user }
   let(:view) { DashboardView.new }
 
   describe '#ongoings' do
@@ -36,8 +38,13 @@ describe DashboardView do
     it { expect(view.contests).to have(1).item }
   end
 
-  describe '#lists_stats' do
-    it { expect(view.list_stats).to have(5).items }
+  describe '#lists_counts' do
+    it { expect(view.list_counts(:anime)).to have(6).items }
+  end
+
+  describe '#history' do
+    let!(:user_history) { create :user_history, user: user, target: create(:anime) }
+    it { expect(view.history).to have(1).item }
   end
 
   #describe 'favourites' do
