@@ -15,7 +15,7 @@
   - stats_bar.lists_stats.select(&:any?).each do |list_stats|
     .stat_name
       - if can? :access_list, user
-        a href="#{list_stats.url}"
+        a href="#{profile_user_rates_url user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
           ' #{list_stats.localized_name}
           span.size = list_stats.size
 

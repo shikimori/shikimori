@@ -15,17 +15,6 @@ class Profiles::ListStats < ViewObjectBase
     UserRate.status_name(name, type).capitalize
   end
 
-  def url
-    h.profile_user_rates_url(
-      h.current_user,
-      list_type: 'anime',
-      mylist: grouped_id,
-      type: nil,
-      studio: nil,
-      publisher: nil
-    )
-  end
-
   def any?
     size > 0
   end

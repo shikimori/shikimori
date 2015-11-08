@@ -4,24 +4,24 @@
       | Мой список аниме
       .switch манги
     .m20
-      - view.list_counts(:anime).each do |stat|
+      - view.list_counts(:anime).each do |list_stats|
         .list-stat
           .value
-            = stat.size
-          a.b-link href="#{stat.url}"
-            = stat.localized_name
+            = list_stats.size
+          a.b-link href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+            = list_stats.localized_name
 
   .list-type.hidden
     .title
       | Мой список манги
       .switch аниме
     .m20
-      - view.list_counts(:manga).each do |stat|
+      - view.list_counts(:manga).each do |list_stats|
         .list-stat
           .value
-            = stat.size
-          a.b-link href="#{stat.url}"
-            = stat.localized_name
+            = list_stats.size
+          a.b-link href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+            = list_stats.localized_name
 
   .history
     .title История
