@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  include AntiImageExploit
+
   belongs_to :uploader, class_name: User.name, foreign_key: :uploader_id
   belongs_to :owner, polymorphic: true, touch: true
 
@@ -26,12 +28,8 @@ class Image < ActiveRecord::Base
     "#{id}-#{updated_at.to_i}"
   end
 
-  def geometry(style=:main)
-    @geometry ||= {}
-    @geometry[style] ||= Paperclip::Geometry.from_file(image.path(style))
-  end
-
 private
+
   def reprocess_image
     image.reprocess!
     FileUtils.cp(image.path(:main), image.path(:original))

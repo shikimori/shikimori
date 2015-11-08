@@ -30,4 +30,3 @@ module Paperclip::HasAttachedFile::WithoutSpoofingCheck
   end
 end
 Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
-Paperclip.options[:use_exif_orientation] = false

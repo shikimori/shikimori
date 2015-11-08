@@ -278,10 +278,11 @@ class @ShikiEditor extends ShikiView
 
     .on 'upload:success', (e, data, file_num) =>
       file_text = file_text_placeholder.replace('@', file_num)
-      unless @$textarea.val().indexOf(file_text) is -1
-        @$textarea.val @$textarea.val().replace(file_text, "[image=#{data.id}]")
-      else
+      if @$textarea.val().indexOf(file_text) == -1
         @$textarea.insertAtCaret '', "[image=#{data.id}]"
+      else
+        text = if data.id then "[image=#{data.id}]" else ''
+        @$textarea.val @$textarea.val().replace file_text, text
       @$textarea.focus()
 
     .on 'upload:failed', (e, response, file_num) =>
