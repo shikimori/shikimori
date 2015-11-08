@@ -1,8 +1,8 @@
 class StudiosController < ShikimoriController
   # список студий
   def index
-    @page_title = 'Аниме студии'
-    @description = 'Список наиболее крупных студий, занимающихся созданием аниме; отсортировано по объёму работ.'
+    @page_title = i18n_t 'page_title'
+    @description = i18n_t 'description'
     set_meta_tags description: @description
 
     @collection = Studio
