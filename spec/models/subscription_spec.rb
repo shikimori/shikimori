@@ -1,7 +1,7 @@
 describe Subscription do
-  it { should belong_to :user }
-  it { should belong_to :target }
+  it { is_expected.to belong_to :user }
+  it { is_expected.to belong_to :target }
 
-  it { should validate_presence_of :user }
-  it { should validate_presence_of :target }
+  it { is_expected.to validate_presence_of :user }
+  it { is_expected.to validate_presence_of :target }
 end
