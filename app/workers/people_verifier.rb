@@ -1,7 +1,9 @@
 class PeopleVerifier
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  retry: false
+  sidekiq_options(
+    unique: :until_executed,
+    retry: false
+  )
 
   def perform
     PersonMalParser.import bad_entries if bad_entries.any?

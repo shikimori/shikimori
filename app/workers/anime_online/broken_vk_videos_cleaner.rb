@@ -1,7 +1,9 @@
 class AnimeOnline::BrokenVkVideosCleaner
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  retry: false
+  sidekiq_options(
+    unique: :until_executed,
+    retry: false
+  )
 
   def perform
     videos.find_each(batch_size: 500) do |video|

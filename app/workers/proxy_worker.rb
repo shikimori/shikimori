@@ -1,6 +1,6 @@
 class ProxyWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true
+  sidekiq_options unique: :until_executed
 
   def perform is_api
     if is_api

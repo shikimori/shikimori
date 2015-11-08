@@ -1,7 +1,7 @@
 class SakuhindbImporter
   include Sidekiq::Worker
   sidekiq_options(
-    unique: true,
+    unique: :until_executed,
     unique_args: -> (args) { args },
     dead: false
   )

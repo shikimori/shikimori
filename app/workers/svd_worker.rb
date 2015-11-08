@@ -1,6 +1,10 @@
 class SvdWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true, dead: false, queue: :cpu_intensive
+  sidekiq_options(
+    unique: :until_executed,
+    dead: false,
+    queue: :cpu_intensive
+  )
   sidekiq_retry_in { 60 * 60 * 24 }
 
   def perform kind, scale, normalization

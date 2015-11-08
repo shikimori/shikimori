@@ -1,7 +1,7 @@
 class HistoryWorker
   include Sidekiq::Worker
   sidekiq_options(
-    unique: true,
+    unique: :until_executed,
     queue: :cpu_intensive
   )
 

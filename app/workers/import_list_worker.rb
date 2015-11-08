@@ -1,7 +1,9 @@
 class ImportListWorker
   include Sidekiq::Worker
-  sidekiq_options unique: true,
-                  unique_args: -> (args) { args }
+  sidekiq_options(
+    unique: :until_executed,
+    unique_args: -> (args) { args }
+  )
 
   def perform options
     options = HashWithIndifferentAccess.new options

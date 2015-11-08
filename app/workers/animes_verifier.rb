@@ -1,6 +1,10 @@
 class AnimesVerifier
   include Sidekiq::Worker
-  sidekiq_options unique: true, dead: false, unique_job_expiration: 60 * 60 * 24 * 30
+  sidekiq_options(
+    unique: :until_executed,
+    dead: false,
+    unique_job_expiration: 60 * 60 * 24 * 30
+  )
   sidekiq_retry_in { 60 * 60 * 24 }
 
   def perform

@@ -1,7 +1,7 @@
 class AdultMangaWorker
   include Sidekiq::Worker
   sidekiq_options(
-    unique: true,
+    unique: :until_executed,
     queue: :manga_online_parsers,
     retry: 1
   )

@@ -3,7 +3,7 @@ class ProgressContests
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: true,
+    unique: :until_executed,
     retry: true,
     dead: false,
     queue: :high_priority

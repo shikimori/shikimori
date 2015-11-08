@@ -1,7 +1,7 @@
 # загрузка новых тегов с DanbooruJob
 class DanbooruTagsImporter
   include Sidekiq::Worker
-  sidekiq_options unique: true
+  sidekiq_options unique: :until_executed
 
   def perform
     DanbooruImporter.new.do_import
