@@ -1,10 +1,13 @@
 ru:
   date:
     formats: &date_formats
-      date_human: '%e %B %Y'
-      date_human_short: '%e %b %Y'
-      date_short: '%d.%m.%Y'
-      month_year: '%B %Y'
+      human: '%e %B %Y'
+      human_short: '%e %b %Y'
+      short: '%d.%m.%Y'
+      day_month_human: '%e %B'
+      month_year_human: '%B %Y'
+      ongoing: '%A, %e %B %Y'
+      ongoing_short: '%A, %e %B'
 
   time:
     formats:

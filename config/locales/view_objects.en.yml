@@ -24,7 +24,7 @@ en:
       anime:
         one_type: &anime_one_type
           anons: upcoming anime
-          ongoing: anime ongoings
+          ongoing: airing anime
           released: released anime
           latest: latest anime
         many_types:
@@ -32,12 +32,12 @@ en:
       manga:
         one_type:
           anons: upcoming %{type}
-          ongoing: '%{type} ongoings'
+          ongoing: ongoing %{type}
           released: released %{type}
           latest: latest %{type}
         many_types:
           anons: upcoming manga
-          ongoing: manga ongoings
+          ongoing: ongoing manga
           released: released manga
           latest: latest manga
     kind:
