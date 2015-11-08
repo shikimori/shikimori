@@ -60,13 +60,13 @@ class PagesController < ShikimoriController
 
   # 404 страница
   def page404
-    @page_title = i18n_t 'page_not_found'
+    @page_title = t 'page_not_found'
     render 'pages/page404', layout: false, status: 404, formats: :html
   end
 
   # страница с ошибкой
   def page503
-    @page_title = i18n_t 'error'
+    @page_title = t 'error'
     render 'pages/page503', layout: false, status: 503, formats: :html
   end
 

@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
+    # raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
 
     with_json_response = self.kind_of?(Api::V1::ApiController) || json?
 
@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
       @sub_layout = nil
 
       if with_json_response
-        render json: { message: t('.page_not_found'), code: 404 }, status: 404
+        render json: { message: t('page_not_found'), code: 404 }, status: 404
       else
         render 'pages/page404', layout: false, status: 404
       end
@@ -101,7 +101,7 @@ class ApplicationController < ActionController::Base
           status: 503
         )
       else
-        @page_title = t '.error'
+        @page_title = t 'error'
         render 'pages/page503.html', layout: false, status: 503
       end
     end
