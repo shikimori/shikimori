@@ -69,12 +69,12 @@ describe AnimeVideoReport do
   describe 'callbacks' do
     describe 'after_create' do
       describe '#auto_check' do
-        before { allow(AnimeOnline::ReportWorker).to receive(:delay_for).and_return task_double }
+        before { allow(AnimeOnline::ReportWorker).to receive(:perform_in).and_return task_double }
 
         let!(:report) { create :anime_video_report, :with_video, :with_user }
         let(:task_double) { double perform_async: nil }
 
-        it { expect(AnimeOnline::ReportWorker).to have_received(:delay_for).with(10.seconds) }
+        it { expect(AnimeOnline::ReportWorker).to have_received(:perform_in).with(10.seconds) }
         it { expect(task_double).to have_received(:perform_async).with report.id }
       end
 

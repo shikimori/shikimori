@@ -10,7 +10,7 @@ describe EmailNotifier do
   describe '#private_message' do
     let(:mailer_double) { double private_message_email: nil }
 
-    before { allow(ShikiMailer).to receive(:delay_for).and_return mailer_double }
+    before { allow(ShikiMailer).to receive(:perform_in).and_return mailer_double }
     before { notifier.private_message message }
 
     context 'target user allowed private emails' do
@@ -20,18 +20,18 @@ describe EmailNotifier do
 
       context 'target user is online' do
         let(:last_online_at) { Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL + 1.second }
-        it { expect(ShikiMailer).to have_received(:delay_for).with(EmailNotifier::ONLINE_USER_MESSAGE_DELAY) }
+        it { expect(ShikiMailer).to have_received(:perform_in).with(EmailNotifier::ONLINE_USER_MESSAGE_DELAY) }
       end
 
       context 'taget user is not online' do
         let(:last_online_at) { Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL - 1.second }
-        it { expect(ShikiMailer).to have_received(:delay_for).with(EmailNotifier::OFFLINE_USER_MESSAGE_DELAY) }
+        it { expect(ShikiMailer).to have_received(:perform_in).with(EmailNotifier::OFFLINE_USER_MESSAGE_DELAY) }
       end
     end
 
     context 'target user did not allow private emails' do
       let(:notifications) { 0 }
-      it { expect(ShikiMailer).to_not have_received(:delay_for) }
+      it { expect(ShikiMailer).to_not have_received(:perform_in) }
     end
   end
 end

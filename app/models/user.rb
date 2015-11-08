@@ -362,17 +362,6 @@ private
   end
 
   def check_ban
-    ProlongateBan.delay_for(10.seconds).perform_async id
+    ProlongateBan.perform_in(10.seconds).perform_async id
   end
 end
-
-    #if h.user_signed_in? && h.current_user.id == id
-      #true
-    #elsif preferences.list_privacy_owner? || (!h.user_signed_in? && preferences.list_privacy_users?)
-      #false
-    #elsif preferences.list_privacy_friends? && !mutual_friended?
-      #false
-    #else
-      #true
-    #end
-

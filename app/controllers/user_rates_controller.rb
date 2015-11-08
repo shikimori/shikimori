@@ -148,7 +148,7 @@ class UserRatesController < ProfilesController
       Message.create!(
         from_id: poster.id,
         to_id: @resource.id,
-        kind: MessageType::Private,
+        kind: MessageType::Notification,
         body: message.join('<br>')
       )
       sleep(1)
