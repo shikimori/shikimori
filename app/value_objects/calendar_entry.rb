@@ -55,6 +55,7 @@ class CalendarEntry < SimpleDelegator
   end
 
 private
+
   # вычисление среднего интервала между выходами серий
   def episode_average_interval
     times = []

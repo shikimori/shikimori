@@ -1,0 +1,42 @@
+@import compass/typography/text/ellipsis
+@import globals/variables
+@import mixins/link
+
+.p-dashboards .user_list
+  background: #e9f7fb
+  border: 1px solid rgba(144, 213, 236, 0.45)
+  padding: 5px 10px 8px
+
+  .list-type > .title,
+  .history > .title
+    margin-bottom: 2px
+    font-weight: bold
+
+    .switch
+      +js-link
+      display: inline-block
+      font-size: 11px
+      font-weight: normal
+      margin-left: 6px
+
+  .list-stat
+    .value
+      float: right
+
+  .list-change
+    margin-bottom: 5px
+
+    &:last-child
+      margin-bottom: 0
+
+    &:hover .title
+      text-decoration: underline
+
+    .title
+      +ellipsis
+      display: inline
+
+    .note
+      color: $gray-3
+      font-size: 11px
+      line-height: 1.4

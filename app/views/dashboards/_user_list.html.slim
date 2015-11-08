@@ -1,0 +1,56 @@
+.user_list
+  .list-type
+    .title
+      | Мой список аниме
+      .switch манги
+    .m20
+      - view.list_counts(:anime).each do |stat|
+        .list-stat
+          .value
+            = stat.size
+          a.b-link href="#{stat.url}"
+            = stat.localized_name
+
+  .list-type.hidden
+    .title
+      | Мой список манги
+      .switch аниме
+    .m20
+      - view.list_counts(:manga).each do |stat|
+        .list-stat
+          .value
+            = stat.size
+          a.b-link href="#{stat.url}"
+            = stat.localized_name
+
+  .history
+    .title История
+    - view.history.each do |entry|
+      .list-change
+        a[
+          class="#{:bubbled unless entry[:special?]}"
+          href="#{entry[:url]}"
+          title="#{entry[:name]}"
+        ]
+          .title
+            == truncate entry[:name], length: 32, omission: '…'
+          .note
+            = entry[:reversed_action]
+
+  / - if current_user.history.any?
+    / - current_user.history.formatted.take(2).each do |entry|
+      / .user-rate
+        / a href="#{entry[:url]}" title="#{entry[:name]}"
+          / .image-name
+            / img[
+              / src="#{entry[:image]}"
+              / srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
+              / alt="#{entry[:name]}"
+              / title="#{entry[:name]}"
+            / ]
+            / span.title
+              / == entry[:name]
+          / span.misc title="#{entry[:reversed_action]}"
+            / = entry[:reversed_action]
+  / - else
+    / | нет истории. текст о том, что надо бы добавить что-то в свой список
