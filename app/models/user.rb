@@ -367,7 +367,7 @@ private
   end
 
   # for AntiImageExploit
-  def anti_image_exploit
+  def anti_image_exploit_name
     :avatar
   end
 end
