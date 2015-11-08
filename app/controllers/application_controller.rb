@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    # raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
+    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
 
     with_json_response = self.kind_of?(Api::V1::ApiController) || json?
 
