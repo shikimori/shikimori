@@ -72,7 +72,7 @@ class ProfileStatsView
   end
 
   def spent_time_in_words
-    I18n.spent_time spent_time, false
+    SpentTimeView.new(spent_time).text
   end
 
   def spent_time_in_days

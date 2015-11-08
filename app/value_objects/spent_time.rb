@@ -13,25 +13,13 @@ class SpentTime
     days / 180
   end
 
-  #def months_6_part
-    #((days % 365) / 180).to_i
-  #end
-
   def months_3
     days / 90
   end
 
-  #def months_3_part
-    #((days % 365 % 180) / 90).to_i
-  #end
-
   def months
     days / 30
   end
-
-  #def months_part
-    #((days % 365 % 90) / 30).to_i
-  #end
 
   def months_part
     ((days % 365) / 30).to_i
