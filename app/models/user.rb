@@ -362,6 +362,6 @@ private
   end
 
   def check_ban
-    ProlongateBan.perform_in(10.seconds).perform_async id
+    ProlongateBan.perform_in 10.seconds, id
   end
 end

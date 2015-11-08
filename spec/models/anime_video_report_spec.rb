@@ -74,8 +74,7 @@ describe AnimeVideoReport do
         let!(:report) { create :anime_video_report, :with_video, :with_user }
         let(:task_double) { double perform_async: nil }
 
-        it { expect(AnimeOnline::ReportWorker).to have_received(:perform_in).with(10.seconds) }
-        it { expect(task_double).to have_received(:perform_async).with report.id }
+        it { expect(AnimeOnline::ReportWorker).to have_received(:perform_in).with 10.seconds, report.id }
       end
 
       describe '#auto_accept' do

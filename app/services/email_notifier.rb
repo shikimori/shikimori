@@ -8,7 +8,7 @@ class EmailNotifier
     return if notifications_disabled?(message.to)
 
     ShikiMailer
-      .perform_in(delay_interval(message.to))
+      .delay_for(delay_interval(message.to))
       .private_message_email(message)
   end
 
