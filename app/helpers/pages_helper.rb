@@ -19,11 +19,13 @@ module PagesHelper
     date = DateTime.now + days.days
 
     if days == 0
-      Russian::strftime date, 'Сегодня, %e %B'
+      today = t 'datetime.intervals.today'
+      day_month_format = t 'date.formats.day_month_human'
+      l date, format: "#{today}, #{day_month_format}"
     elsif date.year == DateTime.now.year
-      Russian::strftime date, '%A, %e %B'
+      l date, format: :ongoing_short
     else
-      Russian::strftime date, '%A, %e %B %Y'
+      l date, format: :ongoing
     end
   end
 

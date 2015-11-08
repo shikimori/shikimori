@@ -1,10 +1,13 @@
 en:
   date:
     formats: &date_formats
-      date_human: '%B %e, %Y'
-      date_human_short: '%b %e, %Y'
-      date_short: '%d.%m.%Y'
-      month_year: '%B %Y'
+      human: '%B %e, %Y'
+      human_short: '%b %e, %Y'
+      short: '%d.%m.%Y'
+      day_month_human: '%B %e'
+      month_year_human: '%B %Y'
+      ongoing: '%A, %B %e, %Y'
+      ongoing_short: '%A, %B %e, %Y'
 
   time:
     formats:
