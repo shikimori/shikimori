@@ -5,7 +5,7 @@ header.head
     = @description
 
 .block
-  = cache "studios_index_block_#{Date.today.strftime '%Y-%m-%d'}" do
+  = cache "studios_index_block_#{I18n.locale}_#{Date.today.strftime '%Y-%m-%d'}" do
     - @collection.select(&:real?).each do |studio|
       .studio
         - if studio.image.exists?
@@ -17,8 +17,8 @@ header.head
         a.name href="#{animes_url studio: studio}" title="#{studio.name}"
           = studio.name
         .animes
-          | Аниме создано:&nbsp;
+          | #{t '.anime_produced'}:&nbsp;
           span.num #{studio.animes_count}
         .years
-          | За период:&nbsp;
+          | #{t '.over_the_period'}:&nbsp;
           span.num #{studio.min_year.year}-#{[DateTime.now.year, studio.max_year.year].min}
