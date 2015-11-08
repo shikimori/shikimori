@@ -46,15 +46,6 @@ GIT
       thor (>= 0.13.6)
 
 GIT
-  remote: git://github.com/morr/listen.git
-  revision: 7d9441b09a49fa6c8c2e9c6473b2251964e25bac
-  specs:
-    listen (2.7.11)
-      celluloid (>= 0.15.2)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-
-GIT
   remote: git://github.com/morr/simple_form-magic_submit.git
   revision: 4664eceee4b5de020741ac77abf93e32aa2d400b
   specs:
@@ -170,8 +161,7 @@ GEM
       debug_inspector (>= 0.0.1)
     browser (1.0.1)
     builder (3.2.2)
-    byebug (5.0.0)
-      columnize (= 0.9.0)
+    byebug (8.0.1)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -209,7 +199,6 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     colorize (0.7.7)
-    columnize (0.9.0)
     compass (1.0.3)
       chunky_png (~> 1.2)
       compass-core (~> 1.0.2)
@@ -326,6 +315,7 @@ GEM
       guard (~> 2.0)
       guard-compat (~> 1.1)
       spring
+    hashdiff (0.2.3)
     hashie (3.4.3)
     hike (1.2.3)
     hiredis (0.5.2)
@@ -355,6 +345,9 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
+    listen (3.0.4)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
     lograge (0.3.4)
       actionpack (>= 3)
       activesupport (>= 3)
@@ -411,7 +404,7 @@ GEM
     omniauth-twitter (1.2.1)
       json (~> 1.3)
       omniauth-oauth (~> 1.1)
-    omniauth-vkontakte (1.3.5)
+    omniauth-vkontakte (1.3.6)
       multi_json
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
@@ -426,12 +419,12 @@ GEM
     pg (0.18.3)
     pghero (1.1.3)
       activerecord
-    pry (0.10.1)
+    pry (0.10.3)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.2.0)
-      byebug (~> 5.0)
+    pry-byebug (3.3.0)
+      byebug (~> 8.0)
       pry (~> 0.10)
     pry-rails (0.3.4)
       pry (>= 0.9.10)
@@ -528,7 +521,7 @@ GEM
     request_store (1.2.0)
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
-    retryable (2.0.2)
+    retryable (2.0.3)
     rs_russian (0.9.0)
       activesupport (>= 3.0.0, < 5.0.0)
       i18n (>= 0.6.0, < 0.8.0)
@@ -571,8 +564,8 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     shellany (0.0.1)
-    shoulda-matchers (2.8.0)
-      activesupport (>= 3.0.0)
+    shoulda-matchers (3.0.1)
+      activesupport (>= 4.0.0)
     sidekiq (3.4.2)
       celluloid (~> 0.16.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -581,7 +574,7 @@ GEM
       redis-namespace (~> 1.5, >= 1.5.2)
     sidekiq-limit_fetch (2.4.2)
       sidekiq (>= 2.6.5, < 4.0)
-    sidekiq-unique-jobs (3.0.15)
+    sidekiq-unique-jobs (4.0.8)
       sidekiq (>= 2.6)
     simple_form (3.2.0)
       actionpack (~> 4.0)
@@ -648,10 +641,11 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.3)
       rack (>= 1.0)
-    webmock (1.21.0)
+    webmock (1.22.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-    websocket-driver (0.6.2)
+      hashdiff
+    websocket-driver (0.6.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
     whenever (0.9.4)
@@ -688,7 +682,7 @@ DEPENDENCIES
   capistrano-git-submodule-strategy
   capistrano-rails
   capybara
-  celluloid (= 0.16)
+  celluloid
   clockwork!
   coffee-rails
   colorize
@@ -718,7 +712,6 @@ DEPENDENCIES
   icalendar
   jbuilder
   letter_opener
-  listen!
   lograge
   mactag
   magnific-popup-rails!

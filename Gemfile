@@ -137,8 +137,7 @@ group :test, :development do
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
 
-  gem 'listen', github: 'morr/listen'
-  gem 'celluloid', '0.16' # нельзя обновляться, мой фиксенный listen зависит от него
+  gem 'celluloid'
   gem 'rspec'
   gem 'rspec-core'
   gem 'rspec-expectations'
