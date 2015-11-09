@@ -173,6 +173,7 @@ gem 'clockwork', require: false, github: 'zph/clockwork', branch: 'master' # TOD
 
 gem 'faye'
 gem 'faye-redis'
+gem 'faye-websocket', '0.10.0' # не обновлять до 0.10.1 - ломается faye
 gem 'thin'
 
 # assets

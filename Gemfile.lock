@@ -295,7 +295,7 @@ GEM
       em-hiredis (>= 0.2.0)
       eventmachine (>= 0.12.0)
       multi_json (>= 1.0.0)
-    faye-websocket (0.10.1)
+    faye-websocket (0.10.0)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     ffi (1.9.10)
@@ -713,6 +713,7 @@ DEPENDENCIES
   factory_girl_rails
   faye
   faye-redis
+  faye-websocket (= 0.10.0)
   foreman!
   gcm
   guard
