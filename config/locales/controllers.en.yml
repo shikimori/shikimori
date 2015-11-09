@@ -59,7 +59,7 @@ en:
           few: 'Couldn''t import (parse) %{count} mangas.'
 
       nothing_imported: Nothing imported.
-      continuation_of_previous_message: (continuation of previous message)<br>
+      continuation_of_previous_message: (continuation of previous message)
     error_incorrect_file_format: Import error. Maybe incorrect file format.
 
   animes_collection_controller: &animes_collection_controller

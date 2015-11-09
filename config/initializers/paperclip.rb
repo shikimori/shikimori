@@ -31,7 +31,8 @@ module Paperclip::HasAttachedFile::WithoutSpoofingCheck
 end
 Paperclip::HasAttachedFile.send :prepend, Paperclip::HasAttachedFile::WithoutSpoofingCheck
 
-# c 46 строки хак от эксплойта, вешающего сервер из-за загружаемой картинки размером 10000000x10000000
+# c 46 строки хак от эксплойта, вешающего сервер из-за загружаемой картинки
+# размером 225000x225000. нужно обязательно отключить use_exif_orientation
 Paperclip.options[:use_exif_orientation] = false
 module Paperclip
   class GeometryDetector

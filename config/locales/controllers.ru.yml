@@ -59,7 +59,7 @@ ru:
           few: 'Не удалось импортировать (распознать) %{count} манги.'
           many: 'Не удалось импортировать (распознать) %{count} манг.'
       nothing_imported: Ничего нового не импортировано.
-      continuation_of_previous_message: (продолжение предыдущего сообщения)<br>
+      continuation_of_previous_message: (продолжение предыдущего сообщения)
     error_incorrect_file_format: Произошла ошибка. Возможно, некорректный формат файла.
 
   animes_collection_controller: &animes_collection_controller

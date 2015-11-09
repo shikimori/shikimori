@@ -112,7 +112,7 @@ class UserRatesController < ProfilesController
       messages = messages +
         items
           .sort_by { |v| v.name }
-          .map { |v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
+          .map { |v| "[#{v.class.name.downcase}]#{v.id}[/#{v.class.name.downcase}]" }
       messages << ''
     end
 
@@ -123,7 +123,7 @@ class UserRatesController < ProfilesController
       messages = messages +
         items
           .sort_by { |v| v.name }
-          .map { |v| "<a class=\"bubbled\" href=\"#{url_for v}\">#{v.name}</a>" }
+          .map { |v| "[#{v.class.name.downcase}]#{v.id}[/#{v.class.name.downcase}]" }
       messages << ''
     end
 
@@ -139,7 +139,7 @@ class UserRatesController < ProfilesController
     messages << i18n_t('messages.nothing_imported') if messages.empty?
 
     poster = BotsService.get_poster
-    messages = messages.each_slice(400).to_a.reverse
+    messages = messages.each_slice(100).to_a.reverse
     messages.each_with_index do |message, index|
       if index != messages.size - 1
         message = [i18n_t('messages.continuation_of_previous_message')] + message
@@ -149,12 +149,12 @@ class UserRatesController < ProfilesController
         from_id: poster.id,
         to_id: @resource.id,
         kind: MessageType::Notification,
-        body: message.join('<br>')
+        body: message.join("\n")
       )
       sleep(1)
     end
 
-    redirect_to profile_dialogs_url(@resource)
+    redirect_to index_profile_messages_url(@resource, :notifications)
 
   rescue Exception => e
     if Rails.env.production?
