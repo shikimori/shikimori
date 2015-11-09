@@ -1,6 +1,4 @@
 class Image < ActiveRecord::Base
-  include AntiImageExploit
-
   belongs_to :uploader, class_name: User.name, foreign_key: :uploader_id
   belongs_to :owner, polymorphic: true, touch: true
 

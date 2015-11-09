@@ -1,5 +1,4 @@
 class CosplayImage < ActiveRecord::Base
-  include AntiImageExploit
   PositionStep = 10
 
   belongs_to :gallery, class_name: 'CosplayGallery', foreign_key: :cosplay_gallery_id

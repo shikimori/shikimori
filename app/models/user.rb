@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   include Commentable
   include User::Roles
   include User::TokenAuthenticatable
-  include AntiImageExploit
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
@@ -364,10 +363,5 @@ private
 
   def check_ban
     ProlongateBan.perform_in 10.seconds, id
-  end
-
-  # for AntiImageExploit
-  def anti_image_exploit_name
-    :avatar
   end
 end

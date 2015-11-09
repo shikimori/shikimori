@@ -1,6 +1,4 @@
 class UserImage < ActiveRecord::Base
-  include AntiImageExploit
-
   belongs_to :user
   belongs_to :linked, polymorphic: true
 

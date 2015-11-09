@@ -1,7 +1,5 @@
 # скриншоты, имеющие status не отображаются. это или только загруженные, или
 class Screenshot < ActiveRecord::Base
-  include AntiImageExploit
-
   UPLOADED = 'uploaded'
   DELETED = 'deleted'
 
