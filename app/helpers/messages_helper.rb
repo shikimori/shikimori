@@ -84,9 +84,11 @@ module MessagesHelper # для truncate в messages helper
         if target.animes.empty?
           linked_type
         else
-          url = cosplay_anime_url(target.animes.first, character: :all,
-                                                       gallery: target,
-                                                       only_path: false)
+          url = cosplay_anime_url(
+            target.animes.first, character: :all,
+            gallery: target,
+            only_path: false
+          )
           'в комментариях к косплею <!--%s-->.' % [target.target]
         end
 

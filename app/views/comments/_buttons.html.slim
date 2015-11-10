@@ -22,7 +22,7 @@ aside.buttons
     span.item-moderation title="Пожаловаться"
     span.item-cancel title="#{t 'actions.cancel'}"
 
-  - if comment.can_be_deleted_by?(current_user) && comment.respond_to?(:commentable)
+  - if comment.can_be_deleted_by?(current_user) && comment.kind_of?(Comment)
     .delete-controls
       span.item-delete-confirm[
         title="#{t 'actions.delete'}"
@@ -73,7 +73,7 @@ aside.buttons
       data-direction="top"
     ]
 
-    - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+    - if comment.kind_of?(Comment) && comment.commentable_type == AniMangaComment.name
       span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
         title="Отзыв"

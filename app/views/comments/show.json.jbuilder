@@ -1,5 +1,5 @@
-json.id @comment.id
-#json.body @comment.body
-json.offtopic @comment.offtopic?
-json.user @comment.user.nickname
+json.id @view.comment.id
+#json.body @view.comment.body
+json.offtopic @view.comment.offtopic?
+json.user @view.comment.user.nickname
 json.kind 'comment'

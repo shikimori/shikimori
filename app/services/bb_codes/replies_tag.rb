@@ -15,7 +15,7 @@ class BbCodes::RepliesTag
   def format text
     text.gsub REGEXP do |matched|
       ids = comment_ids $~[:ids].split(',')
-      replies = ids.map {|id| "[comment=#{id}][/comment]" }.join(', ')
+      replies = ids.map { |id| "[comment=#{id}][/comment]" }.join(', ')
 
       "<div class=\"b-replies#{' single' if ids.one?}\" " +
         "data-reply-text=\"#{i18n_t 'reply'}\" " +

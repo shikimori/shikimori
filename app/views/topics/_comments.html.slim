@@ -4,10 +4,10 @@
     .comments-collapser = t 'collapse'
     .comments-expander = view.show_comments_text
     .comments-loader.click-loader[
-        data-href-template="#{view.fetch_url}"
-        data-skip="#{view.comments_limit}" data-limit="#{view.fold_limit}"
-        data-count="#{view.folded_comments}"
-      ]
+      data-href-template="#{view.fetch_url}"
+      data-skip="#{view.comments_limit}" data-limit="#{view.fold_limit}"
+      data-count="#{view.folded_comments}"
+    ]
       .text = view.load_comments_text
 
   - if view.comments.any?

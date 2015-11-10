@@ -1,4 +1,4 @@
-class SolitaryCommentDecorator < BaseDecorator
+class SolitaryCommentDecorator < CommentDecorator
   def topic_name
     ("<span class='normal'>#{formatted.match(/^(.*?)</)[1]}" +
       "</span> #{h.sanitize formatted.match(/>(.*?)</)[1]}").html_safe
@@ -9,6 +9,7 @@ class SolitaryCommentDecorator < BaseDecorator
   end
 
 private
+
   def formatted
     h.format_linked_name commentable_id, commentable_type, id
   end

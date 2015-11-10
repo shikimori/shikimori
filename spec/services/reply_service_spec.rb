@@ -3,6 +3,15 @@ describe ReplyService do
   let(:comment) { create :comment, body: body }
   let(:replied_comment) { create :comment }
 
+  describe '#reply_ids' do
+    let(:body) { "[replies=#{reply_1.id},#{reply_3.id},#{reply_2.id}]" }
+    let!(:reply_1) { build_stubbed :comment }
+    let!(:reply_2) { build_stubbed :comment }
+    let!(:reply_3) { build_stubbed :comment }
+
+    it { expect(service.reply_ids).to eq [reply_1.id, reply_3.id, reply_2.id] }
+  end
+
   describe '#append_reply' do
     before { allow(service.send :faye).to receive :set_replies }
     before { service.append_reply replied_comment }

@@ -99,7 +99,7 @@ class Comment < ActiveRecord::Base
   def remove_replies
     notified_comments = []
 
-    ExtractQuoted.new(body).perform.each do |(quoted_comment,_)|
+    ExtractQuoted.new(body).perform.each do |(quoted_comment, _)|
       if quoted_comment && !notified_comments.include?(quoted_comment.id)
         notified_comments << quoted_comment.id
         ReplyService.new(quoted_comment).remove_reply self

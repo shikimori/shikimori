@@ -4,7 +4,7 @@
 - if defined?(f)
   - if comment.new_record?
     aside.markers
-      - if comment.kind_of?(Comment) && comment.commentable.class == AniMangaComment
+      - if comment.kind_of?(Comment) && comment.commentable_type == AniMangaComment.name
         .b-review_marker.active[
           class="#{:off unless comment.review?}"
           data-text="#{t 'markers.summary'}"

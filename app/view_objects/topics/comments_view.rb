@@ -1,4 +1,4 @@
-class Topics::Comments < ViewObjectBase
+class Topics::CommentsView < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
   attr_accessor :summaries_query

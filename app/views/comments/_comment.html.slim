@@ -17,7 +17,7 @@
           span.item-mobile title="Действия"
 
         aside.markers
-          - if comment.respond_to?(:commentable) && comment.commentable.class == AniMangaComment
+          - if comment.kind_of?(Comment) && comment.commentable_type == AniMangaComment.name
             .b-review_marker[
               class="#{:active if user_signed_in?}"
               style="#{'display: none;' unless comment.review?}"
@@ -44,7 +44,7 @@
         - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
           - if current_user.moderator?
             aside.moderation-ban
-          = render partial: 'comments/buttons', locals: { comment: comment }
+          = render 'comments/buttons', comment: comment
 
       / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
       - if comment.user

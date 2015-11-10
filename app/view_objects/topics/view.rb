@@ -57,7 +57,7 @@ class Topics::View < ViewObjectBase
   end
 
   def comments
-    Topics::Comments.new topic, is_preview
+    Topics::CommentsView.new topic, is_preview
   end
 
   def urls

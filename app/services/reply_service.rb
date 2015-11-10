@@ -2,8 +2,12 @@
 class ReplyService
   pattr_initialize :comment
 
+  def reply_ids
+    extract_replies[1]
+  end
+
   def append_reply replied_comment
-    current_tag, ids, brs = curernt_replies
+    current_tag, ids, brs = extract_replies
 
     new_body = if current_tag.present?
       new_ids = (ids + [replied_comment.id]).sort.uniq
@@ -16,7 +20,7 @@ class ReplyService
   end
 
   def remove_reply replied_comment
-    current_tag, ids, brs = curernt_replies
+    current_tag, ids, brs = extract_replies
     return unless current_tag || ids
 
     new_ids = ids - [replied_comment.id]
@@ -40,8 +44,14 @@ private
     faye.set_replies comment
   end
 
-  def curernt_replies
-    [$~[:tag], $~[:ids].split(',').map(&:to_i), $~[:brs]] if comment.body =~ BbCodes::RepliesTag::REGEXP
+  def extract_replies
+    if comment.body =~ BbCodes::RepliesTag::REGEXP
+      [
+        $~[:tag],
+        $~[:ids].split(',').map(&:to_i),
+        $~[:brs]
+      ]
+    end
   end
 
   def faye

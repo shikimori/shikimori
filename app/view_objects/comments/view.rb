@@ -1,0 +1,41 @@
+class Comments::View < ViewObjectBase
+  vattr_initialize :comment
+
+  delegate :bans, :abuse_requests, :user, to: :comment
+  instance_cache :decorated_comment, :replies, :reply_ids
+
+  def decorated_comment
+    SolitaryCommentDecorator.new comment
+  end
+
+  def replies
+    Comment
+      .where(id: reply_ids)
+      .includes(:user)
+      .decorate
+      .sort_by { |v| reply_ids.index v.id }
+  end
+
+  # Topics::CommentsView compatibility
+  def folded?
+    false
+  end
+
+  def comments
+    replies
+  end
+
+  def new_comment
+    Comment.new(
+      user: h.current_user,
+      commentable_id: comment.commentable_id,
+      commentable_type: comment.commentable_type,
+    )
+  end
+
+private
+
+  def reply_ids
+    ReplyService.new(comment).reply_ids
+  end
+end
