@@ -1,5 +1,7 @@
 describe Menus::CollectionMenu do
   include_context :view_object_warden_stub
+
+  let(:user) { seed :user }
   let(:view) { Menus::CollectionMenu.new Anime }
 
   describe '#sorted_genres' do

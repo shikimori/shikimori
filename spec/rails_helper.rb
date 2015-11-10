@@ -61,12 +61,15 @@ RSpec.configure do |config|
 
   #config.infer_base_class_for_anonymous_controllers = false
 
+  # config.include self, type: :serializer, file_path: %r(spec/validators)
+
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller
   config.include JsonResponse, type: :controller
   config.include ControllerResource, type: :controller
   config.include ActionView::TestCase::Behavior, type: :decorator
   config.include Paperclip::Shoulda::Matchers
+  config.include Shoulda::Matchers::ActiveModel, type: :validator
 
   config.before :suite do
     DatabaseCleaner.strategy = :transaction

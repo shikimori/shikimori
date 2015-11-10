@@ -1,4 +1,4 @@
-describe AnimeVideoUrlValidator do
+describe AnimeVideoUrlValidator, type: :validator do
   class ValidatorTest
     include ActiveModel::Model
     attr_accessor :anime_id

@@ -108,7 +108,7 @@ describe UserRatesController do
         let(:rewrite) { false }
 
         it 'imports data' do
-          expect(response).to redirect_to profile_dialogs_url(user)
+          expect(response).to redirect_to index_profile_messages_url(user, :notifications)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns :updated).to be_empty
@@ -119,7 +119,7 @@ describe UserRatesController do
         let(:rewrite) { true }
 
         it 'imports data' do
-          expect(response).to redirect_to profile_dialogs_url(user)
+          expect(response).to redirect_to index_profile_messages_url(user, :notifications)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns(:updated).size).to eq(1)
@@ -135,7 +135,7 @@ describe UserRatesController do
       before { post :import, profile_id: user.to_param, klass: 'anime', rewrite: true, list_type: :anime_planet, login: 'shikitest' }
 
       it 'imports data' do
-        expect(response).to redirect_to profile_dialogs_url(user)
+        expect(response).to redirect_to index_profile_messages_url(user, :notifications)
         expect(user.reload.anime_rates.size).to eq(2)
 
         expect(assigns(:added).size).to eq(2)
@@ -173,7 +173,7 @@ describe UserRatesController do
       before { post :import, profile_id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml }
 
       it 'imports data' do
-        expect(response).to redirect_to profile_dialogs_url(user)
+        expect(response).to redirect_to index_profile_messages_url(user, :notifications)
         expect(user.reload.manga_rates.size).to eq(1)
 
         expect(assigns(:added).size).to eq(1)

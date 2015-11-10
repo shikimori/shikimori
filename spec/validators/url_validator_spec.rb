@@ -9,7 +9,7 @@ class UrlValidatable
   end
 end
 
-describe UrlValidator do
+describe UrlValidator, type: :validator do
   subject { UrlValidatable.new url: '' }
 
   context 'valid' do

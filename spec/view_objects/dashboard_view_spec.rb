@@ -7,8 +7,9 @@ describe DashboardView do
   describe '#ongoings' do
     let!(:anons) { create :anime, :anons }
     let!(:released) { create :anime, :released }
-    let!(:ongoing_1) { create :anime, :ongoing, ranked: 10 }
-    let!(:ongoing_2) { create :anime, :ongoing, ranked: 5 }
+    let!(:ongoing_1) { create :anime, :ongoing, ranked: 10, score: 8 }
+    let!(:ongoing_2) { create :anime, :ongoing, ranked: 5, score: 8 }
+    let!(:ongoing_3) { create :anime, :ongoing, ranked: 5, score: 7 }
 
     it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
   end
