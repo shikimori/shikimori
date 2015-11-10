@@ -3,9 +3,13 @@ class SeasonPair
 
   pattr_initialize :date
 
+  def to_s
+    "#{extract_season date}_#{extract_year date}"
+  end
+
   def season_year
     [
-      "#{extract_season date}_#{extract_year date}",
+      to_s,
       i18n_t("season.#{extract_season date}", year: extract_year(date))
     ]
   end

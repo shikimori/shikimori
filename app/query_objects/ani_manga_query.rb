@@ -217,10 +217,10 @@ private
     return if @season.blank?
     seasons = bang_split(@season.split(','))
 
-    query = seasons[:include].map {|v| AniMangaSeason.sql_for(v, @klass) }
+    query = seasons[:include].map {|v| AnimeSeasonQuery.new(v, @klass).to_sql }
     @query = @query.where(query.join(" OR ")) unless query.empty?
 
-    query = seasons[:exclude].map {|v| "NOT (#{AniMangaSeason.sql_for(v, @klass)})" }
+    query = seasons[:exclude].map {|v| "NOT (#{AnimeSeasonQuery.new(v, @klass).to_sql})" }
     @query = @query.where(query.join(" AND ")) unless query.empty?
   end
 

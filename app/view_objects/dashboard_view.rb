@@ -66,8 +66,13 @@ class DashboardView < ViewObjectBase
 private
 
   def all_ongoings
+    this_season = AnimeSeasonQuery.new(SeasonPair.new(Time.zone.today).to_s, Anime).to_sql
+    prior_season = AnimeSeasonQuery.new(SeasonPair.new(3.month.ago).to_s, Anime).to_sql
+
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
+      .where("(#{this_season}) OR (#{prior_season})")
+      .where('score > 7.5')
       .decorate
   end
 

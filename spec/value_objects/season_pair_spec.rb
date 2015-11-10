@@ -5,6 +5,7 @@ describe SeasonPair do
   before { Timecop.freeze '2015-10-15' }
   after { Timecop.return }
 
+  it { expect(pair.to_s).to eq 'fall_2015' }
   it { expect(pair.season_year).to eq ['fall_2015', 'Осень 2015'] }
   it { expect(pair.year).to eq ['2015', '2015 год'] }
   it { expect(pair.years(5)).to eq ['2011_2015', '2011-2015'] }

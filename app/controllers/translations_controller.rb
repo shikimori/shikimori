@@ -113,61 +113,61 @@ private
       .limit(15)
 
     @groups['Зима 2016'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2016'))
+      .where(AnimeSeasonQuery.new('winter_2016', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Осень 2015'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2015'))
+      .where(AnimeSeasonQuery.new('fall_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Лето 2015'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2015'))
+      .where(AnimeSeasonQuery.new('summer_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Весна 2015'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2015'))
+      .where(AnimeSeasonQuery.new('spring_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Зима 2015'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2015'))
+      .where(AnimeSeasonQuery.new('winter_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Осень 2014'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2014'))
+      .where(AnimeSeasonQuery.new('fall_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Лето 2014'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2014'))
+      .where(AnimeSeasonQuery.new('summer_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Весна 2014'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2014'))
+      .where(AnimeSeasonQuery.new('spring_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Зима 2014'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2014'))
+      .where(AnimeSeasonQuery.new('winter_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
       .where.not(id: TRANSLATE_IGNORES)
 
     @groups['Фильмы этого года'] = Anime
-      .where(AniMangaSeason.sql_for(DateTime.now.year.to_s))
+      .where(AnimeSeasonQuery.new(DateTime.now.year.to_s, Anime).to_sql)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
       .where('score >= 7.5 or status = ?', :anons)
@@ -191,139 +191,6 @@ private
       .where.not(id: TRANSLATE_IGNORES)
       .where(censored: false)
       .order(:ranked)
-
-    @groups['Осень 2013'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2013'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Лето 2013'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2013'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Весна 2013'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2013'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Зима 2013'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2013'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Осень 2012'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2012'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Лето 2012'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2012'))
-      .where.not(id: added_ids)
-      .where.not(id: [13409, 14093])
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(40)
-
-    @groups['Весна 2012'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2012'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Зима 2012'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2012'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Осень 2011'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2011'))
-      .where.not(id: added_ids)
-      .where.not(id: [11385])
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Лето 2011'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2011'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(30)
-
-    @groups['Весна 2011'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2011'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(25)
-
-    @groups['Весна 2010'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2010'))
-      .where.not(id: added_ids)
-      .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
-      .limit(18)
-
-    @groups['Лето 2010'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2010'))
-      .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
-      .where.not(ranked: 0)
-      .limit(10)
-
-    @groups['Весна 2010'] = translatable
-      .where(AniMangaSeason.sql_for('spring_2010'))
-      .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
-      .where('score > 0 or ranked > 0')
-      .limit(10)
-
-    @groups['Зима 2010'] = translatable
-      .where(AniMangaSeason.sql_for('winter_2010'))
-      .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
-      .where('score > 0 or ranked > 0')
-      .limit(9)
-
-    @groups['Весна 2009'] = translatable
-      .where(AniMangaSeason.sql_for('fall_2009'))
-      .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
-      .where('score > 0 or ranked > 0')
-      .limit(12)
-
-    @groups['Лето 2009'] = translatable
-      .where(AniMangaSeason.sql_for('summer_2009'))
-      .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
-      .where('score > 0 or ranked > 0')
-      .limit(12)
-
-    @groups['Фильмы прошлых лет'] = Anime
-      .where(AniMangaSeason.sql_for("#{DateTime.now.year-3}_#{DateTime.now.year-1}"))
-      .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where.not(id: added_ids)
-      .where.not(rating: :g)
-      .where('score >= 7.5')
-      .where.not(id: TRANSLATE_IGNORES)
-      .where(kind: :movie)
-      .where(censored: false)
-      .order(:ranked)
-      .limit(45)
 
     @groups['В избранном у пользователей'] = Anime
       .where(id: FavouritesQuery.new.top_favourite_ids(Anime, 300))
