@@ -11,7 +11,13 @@
       .text = view.load_comments_text
 
   - if view.comments.any?
-    = render partial: 'comments/comment', collection: view.comments
+    - if view.cached_comments?
+      - cache view.comments_cache_key do
+        = render partial: 'comments/comment', collection: view.comments
+
+    - else
+      = render partial: 'comments/comment', collection: view.comments
+
   - else
     p.no_comments = t 'no_comments'
 

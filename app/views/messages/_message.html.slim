@@ -69,13 +69,20 @@
                   title="#{t 'actions.reply'}"
                 ]
 
-            - if can?(:edit, message) && message.kind == MessageType::Private
-              span.item-edit[
-                data-action="#{edit_message_url message}"
-                data-type="html"
-                data-remote="true"
-                title="#{t 'actions.edit'}"
+              - if can? :edit, message
+                span.item-edit[
+                  data-action="#{edit_message_url message}"
+                  data-type="html"
+                  data-remote="true"
+                  title="#{t 'actions.edit'}"
+                ]
+
+            - elsif message.kind == MessageType::QuotedByUser
+              a.item-reply[
+                href="#{reply_comment_url message.linked}"
+                title="#{t 'actions.reply'}"
               ]
+
             - if can? :destroy, message
               span.item-delete title="#{t 'actions.delete'}"
 

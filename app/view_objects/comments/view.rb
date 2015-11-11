@@ -1,5 +1,5 @@
 class Comments::View < ViewObjectBase
-  vattr_initialize :comment
+  vattr_initialize :comment, :is_reply
 
   delegate :bans, :abuse_requests, :user, to: :comment
   instance_cache :decorated_comment, :replies, :reply_ids
@@ -30,11 +30,17 @@ class Comments::View < ViewObjectBase
       user: h.current_user,
       commentable_id: comment.commentable_id,
       commentable_type: comment.commentable_type,
-      # body: "[comment=#{comment.id}]#{comment.user.nickname}[/comment], "
+      body: is_reply ?
+        "[comment=#{comment.id}]#{comment.user.nickname}[/comment], " :
+        ''
     )
   end
 
-  def replies_cache_key
+  def cached_comments?
+    true
+  end
+
+  def comments_cache_key
     [
       comment,
       :replies,

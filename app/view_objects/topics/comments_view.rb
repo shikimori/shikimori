@@ -95,6 +95,10 @@ class Topics::CommentsView < ViewObjectBase
     )
   end
 
+  def cached_comments?
+    false
+  end
+
 private
 
   def comment_word num

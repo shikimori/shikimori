@@ -30,7 +30,6 @@
     .block
       / .b-options-floated.count = @view.replies.size
       .subheadline.m3 = t '.replies'
-      div
-        - cache @view.replies_cache_key do
-          .b-topic
-            = render 'topics/comments', view: @view
+      .block
+        .b-topic
+          = render 'topics/comments', view: @view
