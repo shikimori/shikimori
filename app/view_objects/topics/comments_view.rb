@@ -42,7 +42,7 @@ class Topics::CommentsView < ViewObjectBase
   def comments
     comments = topic
       .comments
-      .includes(:user)
+      .includes(:user, :commentable)
       .with_viewed(h.current_user)
       .limit(comments_limit)
 

@@ -2,6 +2,7 @@ describe Comment do
   describe 'relations' do
     it { should belong_to :user }
     it { should belong_to :commentable }
+    it { should belong_to :topic }
     it { should have_many :messages }
     it { should have_many :views }
     it { should have_many :abuse_requests }

@@ -39,6 +39,8 @@ Site::Application.configure do
     Pry.config.editor = 'mvim'
   end
 
+  # config.active_record.logger = ActiveSupport::Logger.new('log/sql.log')
+
   #if defined? Rails::Console
     #ActiveRecord::Base.logger = Logger.new(STDOUT)
     ###ActiveRecord::Base.logger.level = 3
@@ -46,11 +48,6 @@ Site::Application.configure do
     #ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
     #Dalli.logger = Logger.new(STDOUT)
   #end
-
-  if defined? SqlLogging
-    SqlLogging::Statistics.show_top_sql_queries = false
-    SqlLogging::Statistics.show_sql_backtrace = false
-  end
 
   Slim::Engine.set_options pretty: false
 
@@ -60,9 +57,9 @@ Site::Application.configure do
     # If this value is true, not format on cached query
     config.ignore_cached_query = false
     # If query duration is under this value, not format
-    config.query_duration_threshold = 4.0
+    config.query_duration_threshold = 8.0
     # If key count of parameters is under this value, not format
-    config.params_key_count_threshold = 2
+    config.params_key_count_threshold = 4
     # If this value is true, nested Hash parameter is formatted coercively in any situation
     config.force_on_nested_params = false
   end

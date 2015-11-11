@@ -11,7 +11,7 @@ class Comments::View < ViewObjectBase
   def replies
     Comment
       .where(id: reply_ids)
-      .includes(:user)
+      .includes(:user, :commentable)
       .decorate
       .sort_by { |v| reply_ids.index v.id }
   end

@@ -11,11 +11,12 @@
       .text = view.load_comments_text
 
   - if view.comments.any?
-    - if view.cached_comments?
-      - cache view.comments_cache_key do
-        = render partial: 'comments/comment', collection: view.comments
+    = render partial: 'comments/comment', collection: view.comments
+    / - if view.cached_comments?
+      / - cache view.comments_cache_key do
+        / = render partial: 'comments/comment', collection: view.comments
 
-    - else
+    / - else
       = render partial: 'comments/comment', collection: view.comments
 
   - else

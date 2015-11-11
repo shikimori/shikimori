@@ -73,7 +73,7 @@ aside.buttons
       data-direction="top"
     ]
 
-    - if comment.kind_of?(Comment) && comment.commentable_type == AniMangaComment.name
+    - if comment.kind_of?(Comment) && comment.commentable.kind_of?(AniMangaComment)
       span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
         title="Отзыв"

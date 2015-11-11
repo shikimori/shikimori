@@ -10,6 +10,9 @@ class Comment < ActiveRecord::Base
   # assiciations
   belongs_to :user
   belongs_to :commentable, polymorphic: true
+  belongs_to :topic,
+    class_name: Entry.name,
+    foreign_key: :commentable_id
 
   has_many :abuse_requests, -> { order :id }, dependent: :destroy
   has_many :bans, -> { order :id }

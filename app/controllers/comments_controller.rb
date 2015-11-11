@@ -6,7 +6,7 @@ class CommentsController < ShikimoriController
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
   def show
-    comment = Comment.find params[:id]
+    comment = Comment.find(params[:id])#.decorate
     @view = Comments::View.new comment, false
 
     respond_to do |format|
