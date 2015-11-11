@@ -33,6 +33,15 @@ class Comments::View < ViewObjectBase
     )
   end
 
+  def replies_cache_key
+    [
+      comment,
+      :replies,
+      h.russian_names_key,
+      Digest::MD5.hexdigest(replies.map(&:cache_key).join(' '))
+    ]
+  end
+
 private
 
   def reply_ids
