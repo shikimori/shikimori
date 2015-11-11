@@ -21,7 +21,7 @@ class ReplyService
 
   def remove_reply replied_comment
     current_tag, ids, brs = extract_replies
-    return unless current_tag || ids
+    return unless current_tag || ids.any?
 
     new_ids = ids - [replied_comment.id]
 
@@ -51,6 +51,8 @@ private
         $~[:ids].split(',').map(&:to_i),
         $~[:brs]
       ]
+    else
+      [nil, [], nil]
     end
   end
 
