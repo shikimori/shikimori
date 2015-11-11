@@ -4,6 +4,7 @@ en:
       no_bans: No bans
       no_abuse_requests: No abuse requests
       user_comment: '%{user}comment'
+      replies: Replies
     shiki_editor:
       preview: Preview
       bb_codes_guide: BBCode Guide

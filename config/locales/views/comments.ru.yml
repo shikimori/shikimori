@@ -4,6 +4,7 @@ ru:
       no_bans: Нет банов
       no_abuse_requests: Нет жалоб
       user_comment: Комментарий %{user}
+      replies: Ответы
     shiki_editor:
       preview: Предпросмотр
       bb_codes_guide: справка по бб-кодам

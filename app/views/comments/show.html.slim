@@ -27,11 +27,10 @@
           - else
             .b-nothing_here = t '.no_bans'
 
-    - if @view.replies.any?
-      .block
-        .b-options-floated.count = @view.replies.size
-        .subheadline.m3 Ответы
-        div
-          - cache @view.replies_cache_key do
-            .b-topic
-              = render 'topics/comments', view: @view
+    .block
+      / .b-options-floated.count = @view.replies.size
+      .subheadline.m3 = t '.replies'
+      div
+        - cache @view.replies_cache_key do
+          .b-topic
+            = render 'topics/comments', view: @view
