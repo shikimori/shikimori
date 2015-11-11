@@ -15,13 +15,13 @@ class Moderations::ReviewsController < ModerationsController
         .order(created_at: :desc)
     end
 
-    if user_signed_in? && current_user.moderator?
-      @pending = Review
-        .where(state: 'pending')
-        .includes(:user, :approver, :target)
-        .order(created_at: :desc)
-        .limit(PENDING_PER_PAGE)
-    end
+    # if user_signed_in? && current_user.reviews_moderator?
+    @pending = Review
+      .where(state: 'pending')
+      .includes(:user, :approver, :target)
+      .order(created_at: :desc)
+      .limit(PENDING_PER_PAGE)
+    # end
   end
 
   def accept

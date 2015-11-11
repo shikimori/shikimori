@@ -33,6 +33,12 @@ header.head
             href="#{index_moderations_versions_url type: :anime_video}"
             title="#{t '.edited_videos_journal'}"
           ] = t '.edited_videos_journal'
+      - if user_signed_in? && current_user.reviews_moderator?
+        li
+          a.b-link[
+            href="#{moderations_reviews_url}"
+            title="#{t '.reviews_journal'}"
+          ] = t '.reviews_journal'
 
   - if ru_content?
     .c-column

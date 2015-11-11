@@ -17,7 +17,7 @@ header.head
   .block
     - if @pending.any?
       = render partial: 'moderations/reviews/review', collection: @pending
-      - if @pending.size == Moderation::ReviewsController::PENDING_PER_PAGE
+      - if @pending.size == Moderations::ReviewsController::PENDING_PER_PAGE
         .m5
         .b-nothing_here Это ещё не всё. Прочие рецензии будут доступны после принятия отображённых выше.
     - else
