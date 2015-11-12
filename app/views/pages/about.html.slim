@@ -87,14 +87,14 @@ header.head
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
-        a.selected #{@statistics.users_count}
+        a.b-link #{@statistics.users_count}
       .subheadline = t :users
       .block.users-chart data-stats="#{@statistics.users.to_json}"
 
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
-        a.selected #{@statistics.comments_count}
+        a.b-link #{@statistics.comments_count}
       .subheadline = i18n_i 'comment', :few
       .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 

@@ -98,6 +98,10 @@ class ChainableQueryBase
     self
   end
 
+  def size
+    relation.size
+  end
+
 private
 
   def collection_filter &block

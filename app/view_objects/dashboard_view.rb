@@ -63,6 +63,27 @@ class DashboardView < ViewObjectBase
     h.current_user.history.formatted.take DISPLAYED_HISTORY
   end
 
+  def forums
+    Section.visible.map do |section|
+      OpenStruct.new(
+        name: section.name,
+        url: h.section_url(section),
+        size: TopicsQuery.new(h.current_user).by_section(section).size
+      )
+    end
+    # [
+      # 'Аниме',
+      # 'Манга',
+      # 'Визуальные новеллы',
+      # 'Игры',
+      # 'Новости',
+      # 'Рецензии',
+      # 'Опросы',
+      # 'Сайт',
+      # 'Оффтопик'
+    # ]
+  end
+
 private
 
   def all_ongoings

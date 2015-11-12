@@ -80,28 +80,46 @@
       .option Каталог аниме
       .option Каталог манги
 
-    .midheadline.magenta
-      h2 Рецензии
-      a.b-link href="#{section_url :reviews}" title="Все рецензии" все рецензии
+    .slides
+      .slide
+        .midheadline.magenta
+          h2 Рецензии
+          a.b-link href="#{section_url :reviews}" title="Все рецензии" все рецензии
 
-    div
-      = render partial: 'topics/topic', collection: @view.reviews, as: :view
+        div
+          = render partial: 'topics/topic', collection: @view.reviews, as: :view
+
+      .slide.hidden
+        .midheadline.pink
+          h2 Каталог аниме
+        div
+          - @view.seasons.each do |season, short_title, full_title|
+            div: a.b-link[
+              href="#{animes_url type: nil, season: season}"
+              title="#{full_title}"
+            ]
+              span.title = short_title
+              span.notice = full_title
+
+      .slide.hidden
+        .midheadline.red
+          h2 Каталог манги
 
   .c-forum
-    .midheadline.green
-      h2 Форум
-      a.b-link href="#{root_url}" title="Общий форум" общий
-    .block
-      div fofofofofofofofofofofofofofofofofof
-      div fofofofofofofofofofofofofofofofofof
-      div fofofofofofofofofofofofofofofofofof
+    .forums.block
+      a.title href="#{root_url}" Форум
+      .block
+        - @view.forums.each do |forum|
+          .section
+            a.link href="#{forum.url}" = forum.name
+            .threads #{forum.size} топиков
 
-    .midheadline.blue.m5
-      h2 = t '.contests'
-      a.b-link href="#{contests_url}" title="Все опросы" все опросы
-    .block
-      = render 'dashboards/contests', collection: @view.contests
-
+    .contests.block
+      .midheadline.blue.m5
+        h2 = t '.contests'
+        a.b-link href="#{contests_url}" title="Все опросы" все опросы
+      .block
+        = render 'dashboards/contests', collection: @view.contests
 
 .cc-news
   .c-user_news
@@ -113,7 +131,7 @@
       = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
   .c-generated_news
-    .midheadline.red.m15 Спонсоры
+    .midheadline.gray.m15 Спонсоры
     div style="width: 240px; height: 400px; margin: 0 auto 60px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
     .midheadline.yellow Обновления сайта

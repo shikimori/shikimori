@@ -8,7 +8,7 @@
     .block
       = render 'comments/comment', comment: @view.decorated_comment , formats: :html
 
-    .cc-2.block
+    .cc-2
       .c-column
         .subheadline.h10 = i18n_i 'abuse_request', :other
         .block
@@ -20,7 +20,7 @@
 
       .c-column
         .subheadline.h10 = i18n_i 'ban', :other
-        .block
+        .block_m
           - if @view.bans.any?
             = render partial: 'moderations/bans/ban',
               collection: @view.bans

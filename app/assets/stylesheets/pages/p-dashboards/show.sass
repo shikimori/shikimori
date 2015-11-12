@@ -4,6 +4,7 @@
 @import mixins/menu-blocks
 @import mixins/responsive
 @import mixins/selected
+@import mixins/marker
 
 .p-dashboards-show
   .midheadline
@@ -59,7 +60,7 @@
       +column(3, 3/12)
 
     .c-content
-      +column(3, 5/12)
+      +column(3, 6/12)
 
       .options
         margin-bottom: 5px
@@ -75,7 +76,7 @@
             +selected
 
     .c-forum
-      +column(3, 4/12)
+      +column(3, 3/12)
 
   .cc-news
     +clear_left
@@ -102,7 +103,45 @@
         .name-date a
           font-size: 14px !important
 
-  .contest
+  .forums
+    &>.title
+      background: #345
+      border: 0
+      color: #fff
+      cursor: pointer
+      display: block
+      font-size: 20px
+      font-weight: bold
+      line-height: 1
+      margin-bottom: 10px
+      padding: 10px 0
+      text-align: center
+
+      &:hover
+        background: $link-hover
+
+      &:active
+        background: $link-active
+
+    .section
+      line-height: 1.45
+
+      .link
+        +link//(#123)
+        font-size: 13px
+        font-weight: bold
+
+      .threads
+        padding-left: 5px
+        color: $gray-2
+        font-size: 12px
+        display: inline
+
+        &:before
+          content: '/'
+          padding-right: 5px
+
+  .contests .contest
     +menu-block-with-text-link
 
     a
