@@ -80,22 +80,37 @@ class ProfileStatsView
     manga_days = manga_spent_time.days > 10 ? manga_spent_time.days.to_i : manga_spent_time.days.round(1)
     total_days = spent_time.days > 10 ? spent_time.days.to_i : spent_time.days.round(1)
 
-    days_text = "Всего #{total_days.zero? ? 0 : total_days} " +
-      Russian.p(total_days, 'день', 'дня', 'дней', 'дней')
-
     if anime_spent_time.days >= 0.5 && manga_spent_time.days >= 0.5
-      "#{days_text}: " +
-        "#{anime_days} #{Russian.p(anime_days, 'день', 'дня', 'дней', 'дней')} аниме" +
-        " и #{manga_days} #{Russian.p(manga_days, 'день', 'дня', 'дней', 'дней')} манга"
+      i18n_t(
+        'spent_time_in_days.anime_manga',
+        total_days_count: (total_days.zero? ? 0 : total_days),
+        total_days: i18n_t('day', count: total_days),
+        anime_days_count: anime_days,
+        anime_days: i18n_t('day', count: anime_days),
+        manga_days_count: manga_days,
+        manga_days: i18n_t('day', count: manga_days)
+      )
 
     elsif anime_spent_time.days >= 1
-      "#{days_text} аниме"
+      i18n_t(
+        'spent_time_in_days.anime',
+        anime_days_count: anime_days,
+        anime_days: i18n_t('day', count: anime_days)
+      )
 
     elsif manga_spent_time.days >= 1
-      "#{days_text} манга"
+      i18n_t(
+        'spent_time_in_days.manga',
+        manga_days_count: manga_days,
+        manga_days: i18n_t('day', count: manga_days)
+      )
 
     else
-      days_text
+      i18n_t(
+        'spent_time_in_days.default',
+        total_days_count: (total_days.zero? ? 0 : total_days),
+        total_days: i18n_t('day', count: total_days)
+      )
     end
   end
 

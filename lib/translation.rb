@@ -62,7 +62,7 @@ module Translation
   }
 
   def count_key count
-    if count.kind_of? Integer
+    if count.kind_of?(Integer) || count.kind_of?(Float)
       I18n.russian? ? ru_count_key(count) : en_count_key(count)
     else
       I18n.russian? ? count : RU_COUNT_KEYS_TO_EN[count] || count

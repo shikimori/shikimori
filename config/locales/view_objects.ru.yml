@@ -4,6 +4,20 @@ ru:
       anime: Время за аниме
       manga: Время за мангой
       anime_manga: Время за аниме и мангой
+    day:
+      one: день
+      few: дня
+      many: дней
+      other: дней
+    spent_time_in_days:
+      default: Всего %{total_days_count} %{total_days}
+      anime_manga: >-
+        Всего %{total_days_count} %{total_days}:
+        %{anime_days_count} %{anime_days} аниме и
+        %{manga_days_count} %{manga_days} манги
+      anime: '%{anime_days_count} %{anime_days} аниме'
+      manga: '%{manga_days_count} %{manga_days} манги'
+
   # topics/view: &topics
   # topics/review_view:
     # <<: *topics
