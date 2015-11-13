@@ -1,6 +1,12 @@
 class FranchiseSerializer < ActiveModel::Serializer
   attributes :links, :nodes
 
+  def default_url_options
+    {
+      host: Draper::ViewContext.current.request.host
+    }
+  end
+
   def links
     all_links.map do |link|
       {
@@ -17,7 +23,7 @@ class FranchiseSerializer < ActiveModel::Serializer
       {
         id: entry.id,
         date: (entry.aired_on || Time.zone.now).to_time.to_i,
-        name: UsersHelper.localized_name(entry, current_user),
+        name: UsersHelper.localized_name(entry, scope),
         image_url: ImageUrlGenerator.instance.url(entry, :x96),
         url: url_for(entry),
         year: entry.aired_on.try(:year),
