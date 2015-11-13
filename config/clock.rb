@@ -68,6 +68,10 @@ module Clockwork
     CharactersImporter.perform_async
   end
 
+  every 1.day, 'daily.characters', at: '05:00' do
+    CommentViewsCleaner.perform_async
+  end
+
   every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
     FindAnimeWorker.perform_async :first_page
   end
