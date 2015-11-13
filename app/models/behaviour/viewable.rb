@@ -1,6 +1,8 @@
 module Viewable
   extend ActiveSupport::Concern
 
+  INTERVAL = 1.week
+
   included do
     klass_name = (self.respond_to?(:base_class) ? base_class.name : name)
     view_klass = Object.const_get(klass_name + 'View')
@@ -28,6 +30,6 @@ module Viewable
   end
 
   def viewed?
-    self[:viewed].nil? || (created_at + 2.weeks < Time.zone.today) ? true : self[:viewed]
+    self[:viewed].nil? || (created_at + INTERVAL < Time.zone.today) ? true : self[:viewed]
   end
 end
