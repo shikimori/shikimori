@@ -16,7 +16,7 @@ private
     names = calendars.map {|v| v[:title] }.uniq
     imported = filter(calendars).map {|v| v[:title] }.uniq
 
-    Rails.cache.write 'calendar_unrecognized', (names - imported)
+    Rails.cache.write 'calendar_unrecognized', (names - imported - FIXES[:ignores])
 
     { imported: imported, unrecognized: names - imported - FIXES[:ignores] }
   end
