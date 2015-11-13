@@ -91,7 +91,7 @@ describe ClubsController do
 
         it do
           expect(club.reload.group_roles_count).to eq 2
-          expect(club.admins).to eq [user, user_2]
+          expect(club.admins.sort_by(&:id)).to eq [user, user_2].sort_by(&:id)
           expect(resource.name).to eq 'newnewtest'
           expect(resource).to be_valid
           expect(response).to redirect_to edit_club_url(resource)
