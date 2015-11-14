@@ -14,6 +14,8 @@
           - else
             span Эпизод
             b  ##{@video.episode}
+          .video-link
+            a href="#{@video.url}" target="_blank" ссылка
         a.c-control.next href="#{@player.next_url}"
           .icon
           .label Следующий

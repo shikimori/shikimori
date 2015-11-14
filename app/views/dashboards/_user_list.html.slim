@@ -24,7 +24,9 @@
             = list_stats.localized_name
 
   .history
-    .title История
+    .title
+      | История
+      a.link href="#{profile_list_history_url current_user}" вся
     - view.history.each do |entry|
       .list-change
         a[
