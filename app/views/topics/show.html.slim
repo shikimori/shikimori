@@ -1,5 +1,7 @@
 - content_for :head do
-  = auto_discovery_link_tag :rss, section_topic_url(section: @topic.section, linked: @topic.linked, topic: @topic, format: :rss), title: 'Комментарии топика'
+  = auto_discovery_link_tag :rss,
+    url_for(params.merge format: :rss),
+    title: 'Комментарии топика'
 
 = render layout: 'topics/page' do |f|
   = render 'topics/topic', view: @view
