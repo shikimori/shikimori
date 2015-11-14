@@ -3,6 +3,7 @@
 @import compass/utilities/general/clearfix
 @import globals
 @import mixins/forum_entry
+@import mixins/frame_form
 @import mixins/responsive
 
 $comment_border: 1px dashed #ddd
@@ -19,6 +20,7 @@ $comment_border: 1px dashed #ddd
     margin-bottom: 0
 
   aside.moderation-ban
+    +frame-form
     margin: 20px 0 15px 15px
     display: none
 

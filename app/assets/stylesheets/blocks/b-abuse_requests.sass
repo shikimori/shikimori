@@ -3,6 +3,7 @@
 @import mixins/clear_left
 @import mixins/clear_right
 @import mixins/column
+@import mixins/frame_form
 @import mixins/link
 
 .b-abuse_request
@@ -36,10 +37,9 @@
     color: $orange
 
   .ban-form
-    background-color: #e8ebef
+    +frame-form
     display: none
     float: right
-    padding: 10px
 
     input[type=text]
       width: 143px

@@ -3,6 +3,7 @@
 @import compass/utilities/general/clearfix
 @import mixins/block
 @import mixins/forum_entry
+@import mixins/frame_form
 @import mixins/link
 @import mixins/responsive
 @import mixins/tag
@@ -75,9 +76,9 @@
             text-decoration: inherit
 
   .footer-vote
+    +frame_form
     color: #123
     display: inline-block
-    float: right
     font-size: 14px
     line-height: $line_height
     margin-top: 10px
