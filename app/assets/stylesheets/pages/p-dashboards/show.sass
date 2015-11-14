@@ -105,7 +105,8 @@
 
   .forums
     &>.title
-      background: #345
+      +transition(background-color 0.25s ease)
+      background-color: #345
       border: 0
       color: #fff
       cursor: pointer
@@ -118,10 +119,10 @@
       text-align: center
 
       &:hover
-        background: $link-3
+        background-color: $link-3
 
       &:active
-        background: $link-2
+        background-color: $link-2
 
     .section
       line-height: 1.45
