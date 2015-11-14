@@ -112,7 +112,8 @@ class User < ActiveRecord::Base
   after_create :create_preferences!, unless: :preferences
   after_create :check_ban
   # personal message from me
-  after_create :send_welcome_message unless Rails.env.test?
+  after_create :send_wellcome_message unless Rails.env.test?
+  after_create :grab_avatar unless Rails.env.test?
 
   scope :suspicious, -> {
     where('sign_in_count < 7')
@@ -298,14 +299,11 @@ class User < ActiveRecord::Base
   end
 
   def avatar_url size
-    if avatar.exists?
-      if CensoredAvatarIds.include?(id)
-        "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
-      else
-        ImageUrlGenerator.instance.url self, "x#{size}".to_sym
-      end
+    if censored?
+      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" %
+        [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
     else
-      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest(email.downcase), size]
+      ImageUrlGenerator.instance.url self, "x#{size}".to_sym
     end
   end
 
@@ -331,25 +329,16 @@ private
   end
 
   # создание послерегистрационного приветственного сообщения пользователю
-  def send_welcome_message
+  def send_wellcome_message
     NotificationsService.new(self).user_registered
   end
 
-  def twitter_client
-    TwitterOAuth::Client.new(
-      consumer_key: ::TWITTER_CONSUMER_KEY,
-      consumer_secret: ::TWITTER_SECRET_KEY,
-      token: user_tokens.twitter.token,
-      secret: user_tokens.twitter.secret
-    )
-  end
+  def grab_avatar
+    return if avatar.exists?
+    gravatar_url = "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" %
+      [Digest::MD5.hexdigest(email.downcase), 160]
 
-  def truncated_message_with_url message="", url="", length=140
-    if message.size + url.size > 140
-      message[0..(136-url.size)] + "..." + url
-    else
-      message + " " + url
-    end
+    update avatar: open(gravatar_url)
   end
 
   def cached_ignores
