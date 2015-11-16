@@ -34,6 +34,8 @@ ru:
       to_manga: к манге
       search_by_name: Поиск по названию...
       nothing_here: Ничего нет
+      banned: '@{m:Забанен|f:Забанена}'
+      ban_removal: Время снятия бана %{date}.
 
     edit:
       account:

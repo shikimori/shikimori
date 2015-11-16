@@ -34,6 +34,8 @@ en:
       to_manga: to manga
       search_by_name: Search by name...
       nothing_here: Nothing here
+      banned: Banned
+      ban_removal: Ban will be removed at %{date}.
 
     edit:
       account:

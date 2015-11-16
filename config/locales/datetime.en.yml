@@ -1,6 +1,7 @@
 en:
   date:
     formats: &date_formats
+      full: '%d.%m.%Y %H:%M'
       human: '%B %e, %Y'
       human_short: '%b %e, %Y'
       short: '%d.%m.%Y'

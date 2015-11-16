@@ -44,6 +44,7 @@
         TRANSLATIONS[LOCALE]['hour']['one'],
         TRANSLATIONS[LOCALE]['hour']['few'],
         TRANSLATIONS[LOCALE]['hour']['many']
+
       day_word = if days == Math.round(days)
         p entry.value,
           TRANSLATIONS[LOCALE]['day']['one'],
@@ -53,7 +54,6 @@
         TRANSLATIONS[LOCALE]['day']['many']
 
       date_format = if LOCALE == 'en' then 'MMMM D' else 'D MMMM'
-
       from_date = moment(entry.dates.from).format date_format
       to_date = moment(entry.dates.to).format date_format
 

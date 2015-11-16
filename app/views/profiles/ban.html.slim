@@ -1,8 +1,8 @@
 = render layout: 'page' do
   - if @resource.read_only_at && @resource.banned?
     .errors.block
-      .subheadline.red Забанен#{'а' if @resource.female?}
-      p Время снятия бана #{@resource.read_only_at.strftime '%H:%M %d.%m.%Y'}
+      .subheadline.red = t '.banned', gender: @resource.sex
+      p = t '.ban_removal', date: l(@resource.read_only_at, format: :full)
 
   - if user_signed_in? && current_user.moderator?
     .block
