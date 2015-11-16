@@ -3,6 +3,7 @@ en:
     accept: Accept
     apply: Apply
     apply: Apply
+    ban: Ban
     ban_user: Ban User
     cancel: Cancel
     create: Create
@@ -27,6 +28,9 @@ en:
     ranked: By rank
     score: By score
     status: By status
+  answers:
+    'no': нет
+    'yes': да
   about_site: About site
   anime_industry: Anime industry
   anime_list: Anime List
@@ -34,6 +38,7 @@ en:
   animegraphy: Animegraphy
   back: back
   back_to_page: Back to page
+  ban_history: Ban history
   best_roles: Best roles
   best_works: Best works
   calendar: Calendar
@@ -74,7 +79,6 @@ en:
   mangaka: Mangaka
   news: News
   comments: Comments
-  no: no
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications

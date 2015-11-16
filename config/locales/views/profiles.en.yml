@@ -36,6 +36,10 @@ en:
       nothing_here: Nothing here
       banned: Banned
       ban_removal: Ban will be removed at %{date}.
+      ban_warning_for_moderator: >
+        Use this page only if you cannot ban a user by comment.
+        E.g. when a comment has been removed.
+        In all other cases ban users in forum itself.
 
     edit:
       account:

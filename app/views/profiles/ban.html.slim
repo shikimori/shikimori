@@ -7,13 +7,13 @@
   - if user_signed_in? && current_user.moderator?
     .block
       .subheadline = @page_title.last
-      p Данной страницей следует пользоваться только в случае невозможности бана по комментарию. Например, если комментарий удалён. Во всех остальных ситуациях баньте через форум в самом комментарии.
+      p = t '.ban_warning_for_moderator'
       = render template: 'moderations/bans/new', locals: { ban_in_profile: true }
 
   .block
-    .subheadline История банов
+    .subheadline = t 'ban_history'
     .bans
       - if @resource.bans.any?
         = render partial: 'moderations/bans/ban', collection: @resource.bans.reverse
       - else
-        p.b-nothing_here Нет
+        p.b-nothing_here = t('answers.no').capitalize

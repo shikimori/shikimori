@@ -13,7 +13,6 @@ ru:
     content_changes: Правки контента
     video_uploads_and_changes: Видео загрузки и правки
     achievements: Достижения
-    ban_history: История банов
     users: Пользователи
 
   achievements_controller:

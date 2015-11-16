@@ -13,7 +13,6 @@ en:
     content_changes: Content changes
     video_uploads_and_changes: Video uploads and changes
     achievements: Achievements
-    ban_history: Ban history
     users: Users
 
   achievements_controller:
