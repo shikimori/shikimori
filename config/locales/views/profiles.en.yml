@@ -40,6 +40,8 @@ en:
         Use this page only if you cannot ban a user by comment.
         E.g. when a comment has been removed.
         In all other cases ban users in forum itself.
+      unread_messages: unread messages sorted by newest first
+      no_messages: No messages
 
     edit:
       account:

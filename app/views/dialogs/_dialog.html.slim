@@ -1,13 +1,20 @@
-.b-dialog.shiki-object.unprocessed id="#{dialog.target_user.id}" data-message_id="#{dialog.message.id}" data-appear_url="#{mark_read_messages_url}"
+.b-dialog.shiki-object.unprocessed[
+  id="#{dialog.target_user.id}"
+  data-message_id="#{dialog.message.id}"
+  data-appear_url="#{mark_read_messages_url}"
+]
   .inner.check_height
-    span.item-mobile title="Действия"
+    span.item-mobile title="#{i18n_i 'Action', :other}"
     aside.markers
       - unless dialog.read
         .b-new_marker.active data-text="#{t 'markers.new'}"
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user
-          a.item-reply href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}" title="#{t 'actions.reply'}"
+          a.item-reply[
+            href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}"
+            title="#{t 'actions.reply'}"
+          ]
         span.item-delete title="#{t 'actions.delete'}"
         span.item-cancel title="#{t 'actions.cancel'}"
 
@@ -23,7 +30,12 @@
 
     header
       span.linkeable data-href="#{profile_url dialog.target_user}"
-        img src="#{dialog.target_user.avatar_url 48}" srcset="#{dialog.target_user.avatar_url 80} 2x" alt="#{dialog.target_user.nickname}"
+        img[
+          src="#{dialog.target_user.avatar_url 48}"
+          srcset="#{dialog.target_user.avatar_url 80} 2x"
+          alt="#{dialog.target_user.nickname}"
+        ]
+
       .name-date
         a.name href="#{profile_url dialog.target_user}"
           = dialog.target_user.nickname
@@ -32,12 +44,14 @@
           datetime="#{dialog.created_at.iso8601}"
         ] = l dialog.created_at, format: '%e %B %Y'
 
-        a.to_dialog href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
-          | <<< перейти к диалогу
+        a.to_dialog[
+          href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"
+        ]
+          ' <<<
+          = t '.go_to_conversation'
 
     .body
       - if dialog.my_message?
         = render dialog.message
-
       - else
         = dialog.html_body
