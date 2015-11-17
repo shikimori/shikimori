@@ -72,7 +72,7 @@ module Clockwork
     CommentViewsCleaner.perform_async
   end
 
-  every 1.day, 'daily.vacuum', at: '05:15' do
+  every 1.week, 'weekly.vacuum', at: '05:15' do
     VacuumDb.perform_async
   end
 
