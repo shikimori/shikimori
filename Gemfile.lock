@@ -75,6 +75,14 @@ GIT
     will_paginate (3.0.4)
 
 GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 8d31f7ee8c0ea3ed83ab871765f1444291278b41
+  branch: 0-8-stable
+  specs:
+    active_model_serializers (0.8.3)
+      activemodel (>= 3.0)
+
+GIT
   remote: git://github.com/zph/clockwork.git
   revision: ac95a6c6b11527bf11c6970f2c1865004cc2559f
   branch: master
@@ -108,8 +116,6 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    active_model_serializers (0.9.3)
-      activemodel (>= 3.2)
     active_record_query_trace (1.5.2)
     activejob (4.2.5)
       activesupport (= 4.2.5)
@@ -670,7 +676,7 @@ PLATFORMS
 
 DEPENDENCIES
   actionpack-action_caching
-  active_model_serializers
+  active_model_serializers!
   active_record_query_trace
   activerecord-import
   acts-as-taggable-on

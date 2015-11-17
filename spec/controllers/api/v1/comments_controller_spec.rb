@@ -7,6 +7,7 @@ describe Api::V1::CommentsController do
     before { get :show, id: comment.id, format: :json }
 
     it do
+      expect(json).to have_key :user
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end
