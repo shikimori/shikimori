@@ -1,0 +1,13 @@
+ru:
+  dashboards:
+    show:
+      contests: Опросы
+      reviews: Рецензии
+      anime: Аниме
+      manga: Манга
+      recommended:
+        title: Рекомендации
+        favourite: Избранное
+        by_community: От сообщества
+        personalized: Персонализированные
+      forum: Форум

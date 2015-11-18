@@ -1,0 +1,83 @@
+@import compass/css3/transition
+@import globals/variables
+
+=link_button_icon($icon)
+  &:before
+    content: $icon
+    font-family: 'shikimori'
+    font-weight: normal
+    padding-right: 8px
+
+.b-link_button
+  background-color: #eeeef1
+  border: 1px solid darken(#eeeef1, 3%)
+  border: 0
+  color: #123
+  cursor: pointer
+  display: block
+  font-size: 15px
+  font-weight: bold
+  line-height: 1
+  margin-bottom: 10px
+  padding: 9px 0
+  text-align: center
+
+  &:hover
+    // background-color: #B11C2F
+    // border-color: darken(#B11C2F, 3%)
+    background-color: $link-3
+    border-color: darken($link-3, 2%)
+    color: #fff
+    text-decoration: none
+
+  &:active
+    // background-color: lighten(#B11C2F, 5%)
+    // border-color: darken(lighten(#B11C2F, 5%), 3%)
+    background-color: $link-2
+    border-color: darken($link-4, 2%)
+    color: #fff
+
+  &.dark
+    +transition(background-color 0.25s ease, border-color 0.25s ease)
+    background-color: #345
+    border-color: darken(#345, 3%)
+    color: #fff
+
+    &:hover
+      background-color: $link-3
+      border-color: darken($link-3, 2%)
+      color: #fff
+
+    &:active
+      background-color: $link-2
+      border-color: darken($link-4, 2%)
+      color: #fff
+
+  &.maxi
+    font-size: 20px
+
+  // dashboard show page
+  &.favourite
+    +link_button_icon('\e840')
+
+  &.by_community
+    +link_button_icon('\e80e')
+
+  &.personalized
+    +link_button_icon('\e82f')
+
+  &.winter
+    +link_button_icon('\e84a')
+
+  &.spring
+    +link_button_icon('\e848')
+
+  &.summer
+    +link_button_icon('\e835')
+
+  &.fall
+    +link_button_icon('\e834')
+
+  // anime page
+  &.watch-online
+    +link_button_icon('\e831')

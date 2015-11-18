@@ -14,9 +14,9 @@ describe DashboardView do
     it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
   end
 
-  describe '#seasons' do
+  describe '#animes' do
     it { expect(view.seasons.last).to eq Menus::TopMenu.new.seasons.last }
-    it { expect(view.seasons).to have(5).items }
+    it { expect(view.seasons).to have(4).items }
   end
 
   describe '#reviews' do

@@ -17,11 +17,15 @@ class DashboardView < ViewObjectBase
     )
   end
 
-  def seasons
-    Menus::TopMenu.new.seasons.select do |year, _, _|
-      year.to_i != Time.zone.now.year + 1 &&
-        year.to_i != Time.zone.now.year - 1
-    end
+  def animes
+    month = Time.zone.now.beginning_of_month
+
+    [
+      SeasonPair.new(month + 3.months).season_year,
+      SeasonPair.new(month).season_year,
+      SeasonPair.new(month - 3.months).season_year,
+      SeasonPair.new(month - 6.months).season_year
+    ]
   end
 
   def reviews

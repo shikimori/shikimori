@@ -19,10 +19,6 @@
     .c-videos
       +block_m
 
-  //&.x1000 .cc.no-video
-    .entry-5
-      display: none
-
   .cc.one-video
     +gte_ipad
       .c-screenshots
@@ -114,19 +110,8 @@
       min-height: 14px
 
   .watch-online
-    +ellipsis
-    text-align: center
-
-    +gte_ipad
-      font-size: 13px
-      line-height: $line_height
-      margin: 6px 0 10px 0
-
-    span, a
-      +link
-      +gte_ipad
-        &:before
-          line-height: 20px
+    max-width: 230px
+    margin: 0 auto
 
   .c-info-right .b-rate
     margin: 0 auto

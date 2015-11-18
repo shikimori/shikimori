@@ -1,0 +1,13 @@
+en:
+  dashboards:
+    show:
+      contests: Contests
+      reviews: Reviews
+      anime: Anime
+      manga: Mangas
+      recommended:
+        title: Recommended
+        favourite: Favorite
+        by_community: By Community
+        personalized: Personalized
+      forum: Forum

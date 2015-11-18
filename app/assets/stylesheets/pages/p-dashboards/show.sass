@@ -103,42 +103,25 @@
         .name-date a
           font-size: 14px !important
 
+  .slides .reviews
+    .b-catalog_entry
+      margin-bottom: 0 !important
+
   .forums
-    &>.title
-      +transition(background-color 0.25s ease)
-      background-color: #345
-      border: 0
-      color: #fff
-      cursor: pointer
-      display: block
-      font-size: 20px
-      font-weight: bold
-      line-height: 1
-      margin-bottom: 10px
-      padding: 10px 0
-      text-align: center
-
-      &:hover
-        background-color: $link-3
-
-      &:active
-        background-color: $link-2
-
     .section
-      line-height: 1.45
-
       .link
         +link//(#123)
         font-size: 13px
         font-weight: bold
 
       .threads
-        padding-left: 5px
         color: $gray-2
+        float: right
         font-size: 12px
-        display: inline
+        // padding-left: 5px
+        // display: inline
 
-        &:before
+        // &:before
           content: '/'
           padding-right: 5px
 
