@@ -149,18 +149,18 @@ describe ProfileStatsView do
 
     context '10.50 days' do
       let(:anime_interval) { 10.5 }
-      it { should eq 'Всего 10 дней аниме' }
+      it { should eq '10 дней аниме' }
     end
 
     context '3 weeks' do
       let(:anime_interval) { 0 }
       let(:manga_interval) { 21 }
-      it { should eq 'Всего 21 день манги' }
+      it { should eq '21 день манги' }
     end
 
     context '1.25 years' do
       let(:anime_interval) { 365 * 1.25 }
-      it { should eq 'Всего 456 дней аниме' }
+      it { should eq '456 дней аниме' }
     end
   end
 
