@@ -16,7 +16,7 @@
 
   (->
     # клик по смотреть онлайн
-    $('.watch-online a').on 'click', ->
+    $('.watch-online').on 'click', ->
       episode = parseInt($('.b-user_rate .current-episodes').html())
       total_episodes = parseInt($('.b-user_rate .total-episodes').html()) || 9999
       watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
