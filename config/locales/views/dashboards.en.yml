@@ -1,13 +1,18 @@
 en:
   dashboards:
     show:
-      contests: Contests
+      currently_airing: Currently Airing
       reviews: Reviews
+      all_reviews: all reviews
       anime: Anime
       manga: Mangas
+      anime_seasons: Seasons
+      all_seasons: all
       recommended:
         title: Recommended
         favourite: Favorite
         by_community: By Community
         personalized: Personalized
       forum: Forum
+      contests: Contests
+      all_contests: all contests

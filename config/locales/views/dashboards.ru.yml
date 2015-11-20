@@ -1,13 +1,18 @@
 ru:
   dashboards:
     show:
-      contests: Опросы
+      currently_airing: Сейчас на экранах
       reviews: Рецензии
+      all_reviews: все рецензии
       anime: Аниме
       manga: Манга
+      anime_seasons: Сезоны
+      all_seasons: все
       recommended:
         title: Рекомендации
         favourite: Избранное
         by_community: От сообщества
         personalized: Персонализированные
       forum: Форум
+      contests: Опросы
+      all_contests: все опросы

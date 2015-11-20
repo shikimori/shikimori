@@ -288,6 +288,11 @@ ru:
           one: форум
           few: форума
           many: форумов
+      topic:
+        subjective:
+          one: топик
+          few: топика
+          many: топиков
       studio:
         subjective:
           one: студия

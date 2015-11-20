@@ -1,4 +1,4 @@
-.midheadline Сейчас на экранах
+.midheadline = t '.currently_airing'
 .cc-ongoings.to-process data-dynamic="cutted_covers"
   = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
 
@@ -20,14 +20,22 @@
       .slide.reviews
         .midheadline.magenta
           h2 = t '.reviews'
-          a.b-link href="#{section_url :reviews}" title="Все рецензии" все рецензии
+          a.b-link[
+            href="#{section_url :reviews}"
+            title="#{t '.all_reviews'}"
+          ] = t '.all_reviews'
         div
           = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
       .slide.anime.hidden
         .cc-2a
-          .c-column
-            .midheadline.magenta  = t '.anime'
+          .c-column.m0
+            .midheadline.magenta
+              = t '.anime_seasons'
+              a.b-link href="#{animes_url}" = t '.all_seasons'
+            a.b-link_button[
+              href="zz"
+            ] Currently Airing
             - @view.animes.each do |season, title|
               a.b-link_button[
                 class="#{season.split('_').first}"
@@ -44,8 +52,13 @@
               href="#{RecommendationsController::TOPIC_URL}"
             ] = t '.recommended.by_community'
             a.b-link_button.personalized[
-              href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
+              href="#{recommendations_url klass: 'anime'}"
             ] = t '.recommended.personalized'
+
+            a.b-link_button[
+              href="zz"
+              style="margin-top: 51px"
+            ] Anime Studios
 
       .slide.manga.hidden
         .midheadline.red
@@ -58,12 +71,15 @@
         - @view.forums.each do |forum|
           .section
             a.link href="#{forum.url}" = forum.name
-            .threads #{forum.size} топиков
+            .threads #{forum.size} #{i18n_i 'topic', forum.size}
 
     .contests.block
       .midheadline.green.m5
         h2 = t '.contests'
-        a.b-link href="#{contests_url}" title="Все опросы" все опросы
+        a.b-link[
+          href="#{contests_url}"
+          title="#{t '.all_contests'}"
+        ] = t '.all_contests'
       .block
         = render 'dashboards/contests', collection: @view.contests
 
