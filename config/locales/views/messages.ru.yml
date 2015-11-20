@@ -1,0 +1,9 @@
+ru:
+  messages:
+    feed:
+      rss:
+        title: Уведомления %{nickname} / Шикимори
+        description: Уведомления для пользователя %{nickname} на Шикимори
+
+    message:
+      to_topic: к новости→

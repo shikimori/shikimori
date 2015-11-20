@@ -1,0 +1,9 @@
+en:
+  messages:
+    feed:
+      rss:
+        title: Notifications %{nickname} / Shikimori
+        description: Notifications for Shikimori user %{nickname}
+
+    message:
+      to_topic: to topic→

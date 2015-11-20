@@ -399,6 +399,12 @@ ru:
           few: повторных прочтения
           many: повторных прочтений
           other: повторные прочтения
+      site:
+        subjective:
+          one: сайт
+          few: сайта
+          many: сайтов
+          other: сайты
 
       datetime:
         second:
@@ -418,13 +424,13 @@ ru:
             one: час
             few: часа
             many: часов
-            other: часа
+            other: часы
         day:
           subjective:
             one: день
             few: дня
             many: дней
-            other: дня
+            other: дни
         week:
           subjective:
             one: неделя
@@ -436,13 +442,13 @@ ru:
             one: месяц
             few: месяца
             many: месяцев
-            other: месяца
+            other: месяцы
         year:
           subjective:
             one: год
             few: года
             many: лет
-            other: года
+            other: годы
 
     ordinal:
       episode:

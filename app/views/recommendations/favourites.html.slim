@@ -15,12 +15,16 @@ header.head.ajaxable
         = t '.not_interested'
         '
         == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
+
     p
-      == t '.get_personalized_recommendations',
-        preference_type: (@klass == Anime ? i18n_a(:viewing, :few, :genitive) : i18n_a(:reading, :few, :genitive)),
-        kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive)),
-        user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
-        url: recommendations_url(klass: @klass.name.downcase)
+      - if @klass == Anime
+        == t '.get_personalized_anime_recommendations',
+          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
+          url: recommendations_url(klass: @klass.name.downcase)
+      - else
+        == t '.get_personalized_manga_recommendations',
+          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
+          url: recommendations_url(klass: @klass.name.downcase)
 
 .block
   - if @entries.any?

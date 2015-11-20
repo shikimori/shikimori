@@ -104,7 +104,7 @@ class ProfilesController < ShikimoriController
   def ban
     noindex
     @ban = Ban.new user_id: @resource.id
-    page_title i18n_t('ban_history')
+    page_title t('ban_history')
   end
 
   def edit

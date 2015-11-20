@@ -1,8 +1,8 @@
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title "Уведомления #{@user.nickname} / Шикимори"
-    xml.description "Уведомления для пользователя #{@user.nickname} на Шикимори"
+    xml.title t '.rss.title', nickname: @user.nickname
+    xml.description t '.rss.description', nickname: @user.nickname
     xml.link messages_url(type: :notifications)
 
     @messages.each do |message|

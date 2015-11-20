@@ -40,9 +40,30 @@
     title: (entry) ->
       days = date_diff entry.dates.from, entry.dates.to
 
-      "#{entry.value} #{p entry.value, 'час', 'часа', 'часов'} с " +
-        "#{moment(entry.dates.from).format('DD MMMM')} по #{moment(entry.dates.to).format('DD MMMM')} " +
-        if days == Math.round(days) then "(#{days} #{p days, 'день', 'дня', 'дней'})" else "(#{days} дня)"
+      hour_word = p entry.value,
+        TRANSLATIONS[LOCALE]['hour']['one'],
+        TRANSLATIONS[LOCALE]['hour']['few'],
+        TRANSLATIONS[LOCALE]['hour']['many']
+
+      day_word = if days == Math.round(days)
+        p entry.value,
+          TRANSLATIONS[LOCALE]['day']['one'],
+          TRANSLATIONS[LOCALE]['day']['few'],
+          TRANSLATIONS[LOCALE]['day']['many']
+      else
+        TRANSLATIONS[LOCALE]['day']['many']
+
+      date_format = if LOCALE == 'en' then 'MMMM D' else 'D MMMM'
+      from_date = moment(entry.dates.from).format date_format
+      to_date = moment(entry.dates.to).format date_format
+
+      t TRANSLATIONS, 'title',
+        hours: entry.value,
+        hour_word: hour_word,
+        from_date: from_date,
+        to_date: to_date,
+        days: days,
+        day_word: day_word
 
     x_axis: (entry, index, stats, options) ->
       # пропуск, пока индекс меньше следующего_допустимого
@@ -75,3 +96,27 @@
 date_diff = (date_earlier, date_later) ->
   one_day = 1000 * 60 * 60 * 24
   Math.round((date_later.getTime() - date_earlier.getTime()) / one_day * 10) / 10
+
+TRANSLATIONS =
+  ru:
+    hour:
+      one: 'час'
+      few: 'часа'
+      many: 'часов'
+    day:
+      one: 'день'
+      few: 'дня'
+      many: 'дней'
+    title:
+      '%{hours} %{hour_word} с %{from_date} по %{to_date} (%{days} %{day_word})'
+  en:
+    hour:
+      one: 'hour'
+      few: 'hours'
+      many: 'hours'
+    day:
+      one: 'day'
+      few: 'days'
+      many: 'days'
+    title:
+      '%{hours} %{hour_word} since %{from_date} till %{to_date} (%{days} %{day_word})'

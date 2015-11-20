@@ -1,7 +1,7 @@
 ru:
   application:
     aside:
-      report_error: Сообщить об ошибке
+      report_bug: Сообщить об ошибке
 
     top_menu:
       sign_out: Выход

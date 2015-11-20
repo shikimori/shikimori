@@ -1,7 +1,7 @@
 en:
   application:
     aside:
-      report_error: Report an error
+      report_bug: Report a bug
 
     top_menu:
       sign_in: Sign In

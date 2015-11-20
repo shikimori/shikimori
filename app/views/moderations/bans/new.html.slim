@@ -6,7 +6,7 @@
   = f.input :duration, as: :string, input_html: { value: @ban.suggest_duration }
   = f.input :reason, as: :string
 
-  = f.submit 'Забанить', class: 'button submit'
+  = f.submit t('actions.ban'), class: 'button submit'
   - if defined? ban_in_profile
     a.cancel href="#{profile_url @ban.user}" = t 'actions.cancel'
   - else

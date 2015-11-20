@@ -1,7 +1,7 @@
 = render layout: 'characters/page' do
   .subheadline-buttons
     a.item-edit href="#{@resource.edit_field_url :tags}"
-  .b-options-floated.mobile-support.r-edit = @resource.tags || t('no')
+  .b-options-floated.mobile-support.r-edit = @resource.tags || t('answers.no')
   .subheadline.m10 = @page_title.last
 
   .b-gallery [

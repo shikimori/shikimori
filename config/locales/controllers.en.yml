@@ -13,15 +13,27 @@ en:
     content_changes: Content changes
     video_uploads_and_changes: Video uploads and changes
     achievements: Achievements
-    ban_history: Ban history
     users: Users
 
   achievements_controller:
     <<: *profiles_controller
   dialogs_controller:
     <<: *profiles_controller
+    conversation_removed: Conversation removed
   messages_controller:
     <<: *profiles_controller
+    site_news: Site news
+    private_messages: Private messages
+    site_notifications: Site notifications
+    message:
+      created: Message created
+      not_created: Message not created
+      updated: Message updated
+      not_updated: Messaged not updated
+      removed: Message removed
+    messages:
+      read: Messages marked as read
+      removed: Messages removed
   user_history_controller:
     <<: *profiles_controller
   user_preferences_controller:

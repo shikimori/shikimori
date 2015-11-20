@@ -3,17 +3,32 @@
 = render layout: 'page' do
   - unless @messages_type == :private
     .messages-action
-      a href="#{read_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела прочитанными?" Прочитать всё
-      a href="#{delete_all_profile_messages_url @resource, messages_type: @messages_type}" data-method="post" data-confirm="Пометить все сообщения этого раздела?" Удалить всё
+      a[
+        href="#{read_all_profile_messages_url @resource, messages_type: @messages_type}"
+        data-method='post'
+        data-confirm="#{t '.confirm_mark_as_read'}"
+      ] = t '.mark_as_read'
+
+      a[
+        href="#{delete_all_profile_messages_url @resource, messages_type: @messages_type}"
+        data-method='post'
+        data-confirm="#{t '.confirm_remove_all'}"
+      ] = t '.remove_all'
+
   = render 'dialogs/navigation'
+
   .subheadline
     = @page_title.last
+
   .block
-    .b-topic.unprocessed data-no-faye="true"
+    .b-topic.unprocessed data-no-faye='true'
       .b-comments
         - if @collection.any?
           = render @collection, reply_as_link: @messages_type == :private
+
           - if @add_postloader
-            = render 'blocks/postloader', filter: 'b-message', url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)
+            = render 'blocks/postloader',
+              filter: 'b-message',
+              url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)
         - else
-          p.no_comments Нет сообщений
+          p.b-nothing_here = t '.no_messages'

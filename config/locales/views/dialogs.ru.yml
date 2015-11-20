@@ -1,0 +1,7 @@
+ru:
+  dialogs:
+    dialog:
+      go_to_conversation: перейти к диалогу
+
+    postloader:
+      load_older_messages: Загрузить предыдущую переписку

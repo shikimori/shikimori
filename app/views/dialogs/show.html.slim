@@ -1,39 +1,29 @@
 = render layout: 'page' do
   = render 'navigation'
-  .subheadline Диалог с #{render 'users/user_16', user: @dialog.target_user}
+
+  .subheadline
+    == t '.conversation_with_user',
+      user: (render 'users/user_16', user: @dialog.target_user)
+
   .block
     .b-topic.shiki-object.unprocessed[
         data-faye="#{@dialog.faye_channel}"
-        data-appear_type="message"
+        data-appear_type='message'
       ]
       .b-comments
         - if @add_postloader
-          = render 'dialogs/postloader', url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page+1)
+          = render 'dialogs/postloader',
+            url: show_profile_dialog_url(@dialog.user, @dialog.target_user.to_param, page: @page+1)
+
         = render @collection
 
       - if @dialog.target_user.admin?
         .admin-message
-          .subheadline.red Перед тем, как мне написать
+          .subheadline.red = t '.before_you_message_me'
           ul.b-list
-            li Обращайтесь на "ты".
-            li
-              ' Не забудьте прочитать первый пост в
-              a.b-link href="http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy" теме часто задаваемых вопросов
-              | .
-            li
-              ' Если у вас вопрос по работе сайта, то попробуйте сначала спросить в
-              a.b-link href="http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy" топике часто задаваемых вопросов
-              ' . Только если не получили ответа там, то пишите мне.
-            li
-              ' Сообщения об ошибках, если они не блокируют работу с сайтом, пишите в
-              a.b-link href="http://shikimori.org/s/102-Tema-ob-oshibkah" топик ошибок.
-            li
-              ' Предложения по улучшению сайта пишите в
-              a.b-link href="http://shikimori.org/s/10586-Pozhelaniya-po-saytu" топик идей.
-            li
-              ' Жалобы о несправедливых банах игнорируются (кроме ошибок алгоритмов автобана за мат).
-          p Отвечать могу очень долго. Или вообще никогда.
+            == t '.admin_message'
+          p = t '.admin_message_postscriptum'
 
       .editor-container
-        .subheadline.m10 Ваше сообщение
+        .subheadline.m10 = t '.your_message'
         = render partial: 'comments/form', locals: { comment: @dialog.new_message(@replied_message) }

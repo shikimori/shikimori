@@ -22,7 +22,11 @@ en:
       here_we_have_put_together: Here we've put together a list of %{kind} according to shikimori users' preferences.
       not_interested: Still not interested?
       pick_anime_to_your_liking: Pick anime to your liking by genre in <span class='linkeable' data-href='%{url}'>"selected and yummy animes"</span> topic on our forum.
-      get_personalized_recommendations: >
-        And if you want to get personalized recommendations based on your %{kind} preferences
-        @{not_signed_in:sign up, populate %{kind} list and}
+      get_personalized_anime_recommendations: >
+        And if you want to get personalized recommendations based on your viewing preferences
+        @{not_signed_in:sign up, populate anime list and}
+        visit <span class='linkeable' data-href='%{url}'>personalized recommendations</span> page.
+      get_personalized_manga_recommendations: >
+        And if you want to get personalized recommendations based on your reading preferences
+        @{not_signed_in:sign up, populate manga list and}
         visit <span class='linkeable' data-href='%{url}'>personalized recommendations</span> page.

@@ -4,6 +4,19 @@ en:
       anime: Time spent on anime
       manga: Time spent on manga
       anime_manga: Time spent on anime and manga
+    day:
+      one: day
+      few: days
+      many: days
+      other: days
+    spent_time_in_days:
+      default: '%{total_days_count} %{total_days} total'
+      anime_manga: >-
+        %{total_days_count} %{total_days} total:
+        %{anime_days_count} %{anime_days} of anime and
+        %{manga_days_count} %{manga_days} of manga
+      anime: '%{anime_days_count} %{anime_days} of anime'
+      manga: '%{manga_days_count} %{manga_days} of manga'
   # topics/view: &topics
   # topics/review_view:
     # <<: *topics

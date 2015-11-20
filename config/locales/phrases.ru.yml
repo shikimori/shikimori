@@ -3,6 +3,7 @@ ru:
     accept: Принять
     apply: Применить
     apply: Принять
+    ban: Забанить
     ban_user: Забанить пользователя
     cancel: Отмена
     create: Создать
@@ -27,6 +28,9 @@ ru:
     ranked: По рейтингу
     score: По оценке
     status: По статусу
+  answers:
+    'no': нет
+    'yes': да
   about_site: О сайте
   anime_industry: Индустрия аниме
   anime_list: Список аниме
@@ -34,6 +38,7 @@ ru:
   animegraphy: Анимеграфия
   back: назад
   back_to_page: Назад на страницу
+  ban_history: История банов
   best_roles: Лучшие роли
   best_works: Лучшие работы
   calendar: Календарь
@@ -73,7 +78,6 @@ ru:
   mangagraphy: Мангаграфия
   mangaka: Мангака
   news: Новости
-  no: нет
   no_comments: Нет комментариев
   nothing_found: Ничего не найдено.
   notifications: Уведомления

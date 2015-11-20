@@ -35,7 +35,7 @@ class DialogsController < ProfilesController
   def destroy
     Dialog.new(@resource, Message.find(params[:id])).destroy
 
-    render json: { notice: 'Диалог удалён' }
+    render json: { notice: i18n_t('conversation_removed') }
   end
 
 private
