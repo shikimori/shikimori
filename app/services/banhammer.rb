@@ -234,7 +234,8 @@ class Banhammer
       (?:
         #{Z}{1,12} |
         her |
-        eba
+        eba |
+        на!
       )
     (?:#{X}|\Z|$)
   /mix
