@@ -10,7 +10,7 @@ ru:
       banned: '@{f:забанена|m:забанен}'
       my_bans: Мои баны
       my_mail: Почта
-      my_profile_settings: Настройки профиля
+      my_profile_settings: Настройки
       no_clubs: Не состоит ни в одном из клубов
       no_favourite: Список избранного пуст
       no_friends: Нет друзей
