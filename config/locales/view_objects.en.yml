@@ -3,7 +3,7 @@ en:
     time_spent:
       anime: Time spent on anime
       manga: Time spent on manga
-      anime_manga: Time spent on anime and manga
+      anime_manga: Time spent<span class="long-line"> on anime and manga</span>
     day:
       one: day
       few: days
