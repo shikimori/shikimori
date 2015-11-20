@@ -399,6 +399,12 @@ ru:
           few: повторных прочтения
           many: повторных прочтений
           other: повторные прочтения
+      site:
+        subjective:
+          one: сайт
+          few: сайта
+          many: сайтов
+          other: сайты
 
       datetime:
         second:

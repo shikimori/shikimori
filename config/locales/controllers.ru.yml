@@ -19,8 +19,21 @@ ru:
     <<: *profiles_controller
   dialogs_controller:
     <<: *profiles_controller
+    conversation_removed: Диалог удалён
   messages_controller:
     <<: *profiles_controller
+    site_news: Новости сайта
+    private_messages: Личные сообщения
+    site_notifications: Уведомления сайта
+    message:
+      created: Сообщение создано
+      not_created: Сообщение не создано
+      updated: Сообщение изменено
+      not_updated: Сообщение не изменено
+      removed: Сообщение удалено
+    messages:
+      read: Сообщения прочитаны
+      removed: Сообщения удалены
   user_history_controller:
     <<: *profiles_controller
   user_preferences_controller:

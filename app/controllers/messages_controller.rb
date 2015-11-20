@@ -22,7 +22,7 @@ class MessagesController < ProfilesController
     @collection, @add_postloader = MessagesQuery.new(@resource, @messages_type).postload @page, @limit
     @collection = @collection.map(&:decorate)
 
-    page_title @messages_type == :news ? ('Новости сайта') : (@messages_type == :private ? 'Личные сообщения' : 'Уведомления сайта')
+    page_title localized_page_title
   end
 
   def show
@@ -40,24 +40,28 @@ class MessagesController < ProfilesController
   def create
     if faye.create @resource
       @resource = @resource.decorate
-      render :create, notice: 'Сообщение создано'
+      render :create, notice: i18n_t('message.created')
     else
-      render json: @resource.errors.full_messages, status: :unprocessable_entity, notice: 'Сообщение не создано'
+      render json: @resource.errors.full_messages,
+        status: :unprocessable_entity,
+        notice: i18n_t('message.not_created')
     end
   end
 
   def update
     if faye.update @resource, update_params
       @resource = @resource.decorate
-      render :create, notice: 'Сообщение изменено'
+      render :create, notice: i18n_t('message.updated')
     else
-      render json: @resource.errors.full_messages, status: :unprocessable_entity, notice: 'Сообщение не изменено'
+      render json: @resource.errors.full_messages,
+        status: :unprocessable_entity,
+        notice: i18n_t('message.not_updated')
     end
   end
 
   def destroy
     faye.destroy @resource
-    render json: { notice: 'Сообщение удалено' }
+    render json: { notice: i18n_t('message.removed') }
   end
 
   def mark_read
@@ -74,12 +78,14 @@ class MessagesController < ProfilesController
 
   def read_all
     MessagesService.new(current_user).read_messages type: @messages_type
-    redirect_to index_profile_messages_url(current_user, @messages_type), notice: 'Сообщения прочитаны'
+    redirect_to index_profile_messages_url(current_user, @messages_type),
+      notice: i18n_t('messages.read')
   end
 
   def delete_all
     MessagesService.new(current_user).delete_messages type: @messages_type
-    redirect_to index_profile_messages_url(current_user, @messages_type), notice: 'Сообщения удалены'
+    redirect_to index_profile_messages_url(current_user, @messages_type),
+      notice: i18n_t('messages.removed')
   end
 
   def chosen
@@ -129,7 +135,7 @@ class MessagesController < ProfilesController
         link: linked ? url_for(linked) : messages_url(type: :notifications),
         linked_name: linked ? linked.name : nil,
         pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),
-        title: linked ? linked.name : 'Сайт'
+        title: linked ? linked.name : i18n_i('Site')
       }
     end
     response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
@@ -154,6 +160,16 @@ class MessagesController < ProfilesController
   end
 
 private
+
+  def localized_page_title
+    if @messages_type == :news
+      i18n_t '.site_news'
+    elsif @messages_type == :private
+      i18n_t '.private_messages'
+    else
+      i18n_t '.site_notifications'
+    end
+  end
 
   def faye
     FayeService.new current_user || User.find(User::GuestID), faye_token

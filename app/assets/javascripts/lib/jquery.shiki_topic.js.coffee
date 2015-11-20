@@ -45,7 +45,7 @@ class @ShikiTopic extends ShikiEditable
       .on 'ajax:success', (e, response) =>
         $new_comment = $(response.html)
 
-        @$('.b-comments').find('.no_comments').remove()
+        @$('.b-comments').find('.b-nothing_here').remove()
         if @$editor.is(':last-child')
           @$('.b-comments').append $new_comment
         else

@@ -42,6 +42,43 @@ en:
         In all other cases ban users in forum itself.
       unread_messages: unread messages sorted by newest first
       no_messages: No messages
+      mark_as_read: Mark all messages as read
+      remove_all: Remove all messages
+      no_messages: No messages
+      confirm_mark_as_read: Mark all messages as read?
+      confirm_remove_all: Remove all messages?
+      conversation_with_user: Conversation with %{user}
+      before_you_message_me: Before you message me
+      admin_message: >-
+        <li>
+          Don't forget to read the first post in
+          <a class='b-link' href='http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy'>
+            FAQ topic</a>.
+        </li>
+        <li>
+          If you have any questions about the site ask them in
+          <a class='b-link' href='http://shikimori.org/s/85018-faq-chasto-zadavaemye-voprosy'>
+            FAQ topic</a> first.
+          Contact me only if you couldn't get an answer there.
+        </li>
+        <li>
+          Report any non-critical bugs in
+          <a class='b-link' href='http://shikimori.org/s/102-Tema-ob-oshibkah'>
+            the topic about bugs</a>.
+        </li>
+        <li>
+          Suggest you ideas about how to improve the site in
+          <a class='b-link' href='http://shikimori.org/s/10586-Pozhelaniya-po-saytu'>
+            the topic about ideas</a>.
+        </li>
+        <li>
+          All complaints about unfair bans are ignored
+          (except for autoban algorithm errors).
+        </li>
+      admin_message_postscriptum:
+        Don't expect me to reply to your question quickly -
+        it might take a long time.
+      your_message: Your message
 
     edit:
       account:
