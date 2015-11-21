@@ -178,3 +178,12 @@ ru:
     description:
       Список наиболее крупных студий, занимающихся созданием аниме;
       отсортировано по объёму работ.
+
+  reviews_controller:
+    new_review: Новый обзор
+    edit_review: Изменение обзора
+    review:
+      created: Рецензия создана
+      updated: Рецензия изменена
+      removed: Рецензия удалена
+    review_by: Рецензия от %{nickname}

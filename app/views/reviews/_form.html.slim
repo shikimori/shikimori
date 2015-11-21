@@ -5,11 +5,11 @@
 
   - if review.errors.any?
     .b-errors
-      .subheadline Ошибки
+      .subheadline = i18n_i 'Error', :other
       .block
         == review.errors.full_messages.join('<br>')
 
-  .subheadline = review.id ? 'Изменение обзора' : 'Новый обзор'
+  .subheadline = @page_title.last
 
   .b-brief.b-review-topic
     .body

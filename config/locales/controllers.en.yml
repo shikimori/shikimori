@@ -176,3 +176,12 @@ en:
     page_title: Anime studios
     description:
       List of major anime studios sorted by volume of media produced.
+
+  reviews_controller:
+    new_review: New review
+    edit_review: Edit review
+    review:
+      created: Review created
+      updated: Review updated
+      removed: Review removed
+    review_by: Review by %{nickname}

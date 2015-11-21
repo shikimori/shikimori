@@ -38,6 +38,8 @@ en:
       franchise: Franchise
       changes_history: Changes history
       moderators_only: for moderators only
+      create_review: Create review
+      no_reviews: No reviews
 
     menu:
       scores: Scores

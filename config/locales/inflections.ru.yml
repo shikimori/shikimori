@@ -26,6 +26,7 @@ ru:
           one: рецензия
           few: рецензии
           many: рецензиий
+          other: рецензии
       content_change:
         subjective:
           one: правка контента

@@ -20,16 +20,19 @@ class ReviewsController < AnimesController
   end
 
   def new
-    page_title 'Новый обзор'
+    page_title i18n_t('new_review')
   end
 
   def edit
-    page_title 'Изменение обзора'
+    page_title i18n_t('edit_review')
   end
 
   def create
     if @review.save
-      redirect_to send("#{resource_klass.name.downcase}_review_path", @resource, @review), notice: 'Рецензия создана'
+      redirect_to(
+        send("#{resource_klass.name.downcase}_review_path", @resource, @review),
+        notice: i18n_t('review.created')
+      )
     else
       new
       render :new
@@ -38,7 +41,10 @@ class ReviewsController < AnimesController
 
   def update
     if @review.update review_params
-      redirect_to send("#{resource_klass.name.downcase}_review_path", @resource, @review), notice: 'Рецензия изменена'
+      redirect_to(
+        send("#{resource_klass.name.downcase}_review_path", @resource, @review),
+        notice: i18n_t('review.updated')
+      )
     else
       edit
       render :edit
@@ -47,7 +53,7 @@ class ReviewsController < AnimesController
 
   def destroy
     @review.destroy
-    render json: { notice: 'Рецензия удалена' }
+    render json: { notice: i18n_t('review.removed') }
   end
 
 private
@@ -73,10 +79,16 @@ private
   end
 
   def add_breadcrumbs
-    breadcrumb 'Рецензии', send("#{resource_klass.name.downcase}_reviews_url", @resource)
+    breadcrumb(
+      i18n_i('Review', :other),
+      send("#{resource_klass.name.downcase}_reviews_url", @resource)
+    )
 
     if @review && @review.persisted? && params[:action] != 'show'
-      breadcrumb "Рецензия от #{@review.user.nickname}", send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
+      breadcrumb(
+        i18n_t('review_by', nickname: @review.user.nickname),
+        send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
+      )
       @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource, @review)
     else
       @back_url = send("#{resource_klass.name.downcase}_reviews_url", @resource)
@@ -84,8 +96,10 @@ private
   end
 
   def add_title
-    page_title 'Рецензии'
-    page_title "Рецензия от #{@review.user.nickname}" if params[:action] == 'show'
+    page_title i18n_i('Review', :other)
+    if params[:action] == 'show'
+      page_title i18n_t('review_by', nickname: @review.user.nickname)
+    end
   end
 
   def actualize_resource
