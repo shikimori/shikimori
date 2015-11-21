@@ -1,0 +1,21 @@
+en:
+  reviews:
+    form:
+      introduction: >-
+        <p>
+        A review is a genre of journalism and art criticism
+        that contains a short critical evaluation and (optionally)
+        a rating of some work.
+        </p>
+        <p>
+        It's very important that we can properly describe our impressions
+        and thougts and thusly inform other users about the quality of
+        %{kind}. Also there are some unspoken rules that might help you
+        to write a valuable review that you won't feel ashamed of once you
+        decide to show it to other people.
+        </p>
+        <p>
+        Before you start find a few minutes to read the following
+        guidelines that will help you to write a competent and
+        professional-looking review:
+        </p>
