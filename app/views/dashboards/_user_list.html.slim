@@ -1,32 +1,34 @@
 .user_list
   .list-type
     .title
-      | Мой список аниме
-      .switch манги
+      = t '.my_anime_list'
+      .switch = t '.to_manga'
     .m20
       - view.list_counts(:anime).each do |list_stats|
         .list-stat
           .value
             = list_stats.size
-          a.b-link href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
-            = list_stats.localized_name
+          a.b-link[
+            href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+           ] = list_stats.localized_name
 
   .list-type.hidden
     .title
-      | Мой список манги
-      .switch аниме
+      = t '.my_manga_list'
+      .switch = t '.to_anime'
     .m20
       - view.list_counts(:manga).each do |list_stats|
         .list-stat
           .value
             = list_stats.size
-          a.b-link href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
-            = list_stats.localized_name
+          a.b-link[
+            href="#{profile_user_rates_url current_user, list_type: list_stats.type.downcase, mylist: list_stats.grouped_id}"
+          ] = list_stats.localized_name
 
   .history
     .title
-      | История
-      a.link href="#{profile_list_history_url current_user}" вся
+      = t '.my_history'
+      a.link href="#{profile_list_history_url current_user}" = t '.all_history'
     - view.history.each do |entry|
       .list-change
         a[

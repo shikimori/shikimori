@@ -16,3 +16,11 @@ en:
       forum: Forum
       contests: Contests
       all_contests: all contests
+
+    user_list:
+      my_anime_list: My Anime List
+      my_manga_list: My Manga List
+      to_anime: anime
+      to_manga: manga
+      my_history: My History
+      all_history: all
