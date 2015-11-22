@@ -73,11 +73,11 @@ class ApplicationController < ActionController::Base
       if with_json_response
         render json: { message: t('page_not_found'), code: 404 }, status: 404
       else
-        render 'pages/page404', layout: false, status: 404
+        render 'pages/page404', layout: false, status: 404, formats: :html
       end
 
     elsif e.is_a?(AgeRestricted)
-      render 'pages/age_restricted', layout: false
+      render 'pages/age_restricted', layout: false, formats: :html
 
     elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
       if with_json_response
@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
         )
       else
         @page_title = t 'error'
-        render 'pages/page503.html', layout: false, status: 503
+        render 'pages/page503.html', layout: false, status: 503, formats: :html
       end
     end
   end
