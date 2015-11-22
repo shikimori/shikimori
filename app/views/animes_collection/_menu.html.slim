@@ -3,15 +3,12 @@
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block
-    .subheadline = Anime.human_attribute_name(:status)
+    .subheadline = Anime.human_attribute_name :status
     ul.block-list.statuses.anime-params
-      - menu.klass.status.values.each do |status|
-        li class="status-#{status}"
-          input type='checkbox' autocomplete='off'
-          = t ".#{menu.klass.name.downcase}.status.#{status}"
-      li class='status-latest'
-        input type='checkbox' autocomplete='off'
-          = t ".#{menu.klass.name.downcase}.status.latest"
+      - menu.statuses.each do |status|
+        li class="status-#{status.text}"
+          input type="checkbox" autocomplete="off"
+          = status.catalog_title
 
   .block
     .subheadline = Anime.human_attribute_name(:kind)

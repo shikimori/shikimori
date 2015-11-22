@@ -5,8 +5,8 @@ ru:
         status: &anime_statuses
           anons: Анонсировано
           ongoing: Сейчас выходит
-          released: Вышло
-          latest: Недавно вышло
+          released: Вышедшее
+          latest: Недавно вышедшее
         kind:
           tv_13: Короткие
           tv_24: Средние

@@ -1,78 +1,33 @@
 class StatusTitle
   include Translation
-  pattr_initialize :status
-
-      # - menu.klass.status.values.each do |status|
-        # li class="status-#{status}"
-          # input type='checkbox' autocomplete='off'
-          # = t ".#{menu.klass.name.downcase}.status.#{status}"
-      # li class='status-latest'
-        # input type='checkbox' autocomplete='off'
-          # = t ".#{menu.klass.name.downcase}.status.latest"
-
+  pattr_initialize :status, :klass
 
   def text
-    status
+    status.to_s
   end
 
-  # def url_params
-    # { type: nil, season: text }
-  # end
+  def url_params
+    { type: nil, status: text }
+  end
 
-  # def catalog_title
-    # localize :catalog
-  # end
+  def catalog_title
+    I18n.t "animes_collection.menu.#{klass_key}.status.#{status}"
+  end
 
-  # def short_title
-    # localize :short
-  # end
+  def short_title
+    # I18n.t "enumerize.#{klass_key}.status.#{status}"
+    i18n_t "#{klass_key}.#{status}"
+  end
 
-  # def full_title
-    # localize :full
-  # end
+  def full_title
+    I18n.t(
+      "titles/collection_title.status.#{klass_key}.many_types.#{status}"
+    ).first_upcase
+  end
 
-# private
+private
 
-  # def localize key
-    # case format
-      # when :season_year
-        # i18n_t "#{key}.season.#{season}", year: year
-
-      # when :year
-        # i18n_t "#{key}.year", year: year
-
-      # when YEARS_INTERVAL
-        # "#{year_from}-#{year_to}"
-
-      # when :decade
-        # i18n_t "#{key}.decade", decade: year[0..2]
-
-      # when :ancient
-        # i18n_t "#{key}.ancient"
-
-      # else
-        # fail ArgumentError, "unexpected format #{format}"
-    # end
-  # end
-
-  # def season
-    # case date.month
-      # when 1,2,12 then 'winter'
-      # when 3,4,5 then 'spring'
-      # when 6,7,8 then 'summer'
-      # else 'fall'
-    # end
-  # end
-
-  # def year
-    # (date.month == 12 ? date.year + 1 : date.year).to_s
-  # end
-
-  # def year_to
-    # year if format =~ YEARS_INTERVAL
-  # end
-
-  # def year_from
-    # year.to_i - $~[:years].to_i + 1 if format =~ YEARS_INTERVAL
-  # end
+  def klass_key
+    klass.name.underscore
+  end
 end

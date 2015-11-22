@@ -22,6 +22,15 @@ class Menus::CollectionMenu < ViewObjectBase
     @publishers || load_associations.third
   end
 
+  def statuses
+    [
+      StatusTitle.new(:anons, klass),
+      StatusTitle.new(:ongoing, klass),
+      StatusTitle.new(:released, klass),
+      StatusTitle.new(:latest, klass),
+    ]
+  end
+
   def seasons
     [
       SeasonTitle.new(3.months.from_now, :season_year),

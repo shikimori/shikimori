@@ -2,11 +2,6 @@
   .submenu-toggler
   a href="#{animes_url}" title="#{Anime.model_name.human}" = Anime.model_name.human
   .submenu
-    a.entry[
-      href="#{animes_url type: nil, status: 'ongoing'}"
-      title="#{t '.currently_airing'}"
-    ] = i18n_i 'Ongoing', :other
-
     - menu.seasons.each do |season|
       a.entry[
         href="#{animes_url season.url_params}"

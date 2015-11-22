@@ -5,6 +5,7 @@ class Menus::TopMenu < ViewObjectBase
     is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
+      StatusTitle.new(:ongoing, Anime),
       SeasonTitle.new(month + 2.months, :year),
       SeasonTitle.new(is_still_this_year ? 1.year.ago : month, :year),
       SeasonTitle.new(month + 3.months, :season_year),

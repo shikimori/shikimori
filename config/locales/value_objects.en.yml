@@ -23,3 +23,15 @@ en:
         summer: Summer %{year} Anime
         fall: Fall %{year} Anime
       year: Anime %{year}
+
+  status_title:
+    anime:
+      anons: Planned
+      ongoing: Airing
+      released: Released
+      latest: Aired recently
+    manga:
+      anons: Planned
+      ongoing: Publishing
+      released: Released
+      latest: Published recently

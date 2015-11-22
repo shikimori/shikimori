@@ -12,6 +12,15 @@ describe Menus::CollectionMenu do
     it { expect(view.sorted_genres).to eq [genre_1, genre_2] }
   end
 
+  describe '#statuses' do
+    it do
+      expect(view.statuses.first).to be_kind_of StatusTitle
+      expect(view.statuses.map(&:text)).to eq %w(
+        anons ongoing released latest
+      )
+    end
+  end
+
   describe '#seasons' do
     before { Timecop.freeze '2015-10-11' }
     after { Timecop.return }

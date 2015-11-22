@@ -23,3 +23,15 @@ ru:
         summer: Летний сезон %{year} года
         fall: Осенний сезон %{year} года
       year: Аниме %{year} года
+
+  status_title:
+    anime:
+      anons: Анонсы
+      ongoing: Онгоинги
+      released: Вышедшее
+      latest: Недавно вышедшее
+    manga:
+      anons: Анонсы
+      ongoing: Выходящее
+      released: Вышедшее
+      latest: Недавно вышедшее
