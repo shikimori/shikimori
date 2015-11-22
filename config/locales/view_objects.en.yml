@@ -90,7 +90,7 @@ en:
           <<: *manga_long
     of_genres: of %{genres} %{list}
 
-  titles/season_title:
+  titles/localize_season_text:
     winter_season: winter %{year} season
     fall_season: fall %{year} season
     summer_season: summer %{year} season

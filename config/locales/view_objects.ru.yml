@@ -90,7 +90,7 @@ ru:
           <<: *manga_long
     of_genres: '%{genres} %{list}'
 
-  titles/season_title:
+  titles/localize_season_text:
     winter_season: зимний аниме сезон %{year} года
     fall_season: осенний аниме сезон %{year} года
     summer_season: летний аниме сезон %{year} года
