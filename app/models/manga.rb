@@ -79,8 +79,8 @@ class Manga < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
-    url: "/images/manga/:style/:id.:extension",
-    path: ":rails_root/public/images/manga/:style/:id.:extension",
+    url: '/images/manga/:style/:id.:extension',
+    path: ':rails_root/public/images/manga/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind, in: [:doujin, :manga, :manhua, :manhwa, :novel, :one_shot], predicates: { prefix: true }

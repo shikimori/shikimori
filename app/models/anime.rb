@@ -99,8 +99,8 @@ class Anime < DbEntry
       #original: " -gravity center -crop '225x310+0+0'",
       #preview: " -gravity center -crop '160x220+0+0'"
     #},
-    url: "/images/anime/:style/:id.:extension",
-    path: ":rails_root/public/images/anime/:style/:id.:extension",
+    url: '/images/anime/:style/:id.:extension',
+    path: ':rails_root/public/images/anime/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: { prefix: true }

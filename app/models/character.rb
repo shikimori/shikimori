@@ -16,8 +16,8 @@ class Character < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
-    url: "/images/character/:style/:id.:extension",
-    path: ":rails_root/public/images/character/:style/:id.:extension",
+    url: '/images/character/:style/:id.:extension',
+    path: ':rails_root/public/images/character/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
