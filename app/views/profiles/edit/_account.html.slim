@@ -30,23 +30,35 @@
         = f.input :avatar
         .avatar-edit
           - if @resource.avatar.exists?
-            img src="#{@resource.avatar_url}" alt="#{@resource.nickname}" title="#{@resource.nickname}"
-            .b-js-action.avatar-delete удалить
+            img[
+              src="#{@resource.avatar_url}"
+              alt="#{@resource.nickname}"
+              title="#{@resource.nickname}"
+            ]
 
       - if @resource.user_tokens.any?
         .block
           .subheadline = t '.connected_accounts'
           .value.oauth.remove
             - @resource.user_tokens.each do |token|
-              a.b-oauth_token class="#{token.provider}" href="#{user_token_url token}" data-method="delete" data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?" title="Отключить авторизацию через #{token.provider.to_s.titleize}"
+              a.b-oauth_token[
+                class="#{token.provider}"
+                href="#{user_token_url token}"
+                data-method="delete"
+                data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?"
+                title="Отключить авторизацию через #{token.provider.to_s.titleize}"
+              ]
 
       - if @resource.unconnected_providers.any?
         .block
           .subheadline = t '.not_connected_accounts'
           .value.oauth.add
             - @resource.unconnected_providers.each do |provider|
-              a.b-oauth_token class="#{provider}" href="#{user_omniauth_authorize_url provider}" title="Подключить авторизацию через #{provider.to_s.titleize}"
-
+              a.b-oauth_token[
+                class="#{provider}"
+                href="#{user_omniauth_authorize_url provider}"
+                title="Подключить авторизацию через #{provider.to_s.titleize}"
+              ]
 
       input.ignore-suggest.subheadline-input.downgrade_landscape[
         type="text"
