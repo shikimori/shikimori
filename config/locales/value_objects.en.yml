@@ -1,15 +1,14 @@
 en:
-  season_pair:
-    season:
-      winter: Winter %{year}
-      spring: Spring %{year}
-      summer: Summer %{year}
-      fall: Fall %{year}
-    year: '%{year}'
-    decade: '%{decade}0s'
-    ancient: Older
-
-  menu_season_pair:
+  season_title:
+    catalog:
+      season:
+        winter: Winter %{year}
+        spring: Spring %{year}
+        summer: Summer %{year}
+        fall: Fall %{year}
+      year: '%{year}'
+      decade: '%{decade}0s'
+      ancient: Older
     short:
       season :
         winter: Winter Season

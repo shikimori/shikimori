@@ -1,4 +1,4 @@
-class Titles::SeasonTitle
+class Titles::LocalizeSeasonText
   include Translation
 
   pattr_initialize :klass, :season_text

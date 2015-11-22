@@ -6,16 +6,23 @@ en:
       all_reviews: all reviews
       anime: Anime
       manga: Mangas
-      anime_seasons: Seasons
-      all_seasons: all
+      forum: Forum
+      contests: Contests
+      all_contests: all contests
+
+    animes:
+      title: Anime
+      all_anime: all anime
       recommended:
         title: Recommended
         favourite: Favorite
         by_community: By Community
         personalized: Personalized
-      forum: Forum
-      contests: Contests
-      all_contests: all contests
+      others: Others
+
+    mangas:
+      title: Mangas
+      all_manga: all manga
 
     user_list:
       my_anime_list: My Anime List

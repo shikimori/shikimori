@@ -17,14 +17,24 @@ class DashboardView < ViewObjectBase
     )
   end
 
-  def animes
+  def anime_seasons
+    [
+      SeasonTitle.new(3.months.from_now, :season_year),
+      SeasonTitle.new(Time.zone.now, :season_year),
+      SeasonTitle.new(3.months.ago, :season_year),
+      SeasonTitle.new(6.months.ago, :season_year)
+    ]
+  end
+
+  def anime_others
     month = Time.zone.now.beginning_of_month
+    # + 1.month since 12th month belongs to the next year in SeasonTitle
+    is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
-      SeasonPair.new(month + 3.months).season_year,
-      SeasonPair.new(month).season_year,
-      SeasonPair.new(month - 3.months).season_year,
-      SeasonPair.new(month - 6.months).season_year
+      SeasonTitle.new(month + 2.months, :year),
+      SeasonTitle.new(is_still_this_year ? 1.year.ago : month, :year),
+      SeasonTitle.new(is_still_this_year ? 2.years.ago : 1.year.ago, :year),
     ]
   end
 
@@ -91,8 +101,15 @@ class DashboardView < ViewObjectBase
 private
 
   def all_ongoings
-    this_season = AnimeSeasonQuery.new(SeasonPair.new(Time.zone.today).to_s, Anime).to_sql
-    prior_season = AnimeSeasonQuery.new(SeasonPair.new(3.month.ago).to_s, Anime).to_sql
+    this_season = AnimeSeasonQuery.new(
+      SeasonTitle.new(Time.zone.now, :season_year).text,
+      Anime
+    ).to_sql
+
+    prior_season = AnimeSeasonQuery.new(
+      SeasonTitle.new(3.month.ago, :season_year).text,
+      Anime
+    ).to_sql
 
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)

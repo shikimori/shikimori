@@ -6,16 +6,23 @@ ru:
       all_reviews: все рецензии
       anime: Аниме
       manga: Манга
-      anime_seasons: Сезоны
-      all_seasons: все
+      forum: Форум
+      contests: Опросы
+      all_contests: все опросы
+
+    animes:
+      title: Аниме
+      all_anime: все аниме
       recommended:
         title: Рекомендации
         favourite: Избранное
         by_community: От сообщества
         personalized: Персонализированные
-      forum: Форум
-      contests: Опросы
-      all_contests: все опросы
+      others: Прочее
+
+    mangas:
+      title: Манга
+      all_manga: вся манга
 
     user_list:
       my_anime_list: Мой список аниме

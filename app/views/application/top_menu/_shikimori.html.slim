@@ -6,12 +6,17 @@
       href="#{animes_url type: nil, status: 'ongoing'}"
       title="#{t '.currently_airing'}"
     ] = i18n_i 'Ongoing', :other
-    - menu.seasons.each do |season, short_title, full_title|
+
+    - menu.seasons.each do |season|
       a.entry[
-        href="#{animes_url type: nil, season: season}"
-        title="#{full_title}"
-      ] = short_title
-    a.entry href="#{studios_url}" title="#{i18n_i 'Studio', :other}" = i18n_i 'Studio', :other
+        href="#{animes_url season.url_params}"
+        title="#{season.full_title}"
+      ] = season.short_title
+
+    a.entry[
+      href="#{studios_url}"
+      title="#{i18n_i 'Studio', :other}"
+    ] = i18n_i 'Studio', :other
 
 a.entry.calendar[
   class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}"
@@ -37,7 +42,11 @@ a.entry.rel[
 - if user_signed_in?
   .entry
     - if current_user.show_contest_link?
-      a.contest href="#{current_contests_url}" title="#{t '.current_contest'}" data-count="#{current_user.unvoted_contests}"
+      a.contest[
+        href="#{current_contests_url}"
+        title="#{t '.current_contest'}"
+        data-count="#{current_user.unvoted_contests}"
+      ]
     a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
 
   .entry class="#{:selected if params[:controller] == 'recommendations'}"

@@ -27,42 +27,13 @@
         div
           = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
-      .slide.anime.hidden
-        .cc-2a
-          .c-column.m0
-            .midheadline.magenta
-              = t '.anime_seasons'
-              a.b-link href="#{animes_url}" = t '.all_seasons'
-            a.b-link_button[
-              href="zz"
-            ] Currently Airing
-            - @view.animes.each do |season, title|
-              a.b-link_button[
-                class="#{season.split('_').first}"
-                href="#{animes_url type: nil, season: season}"
-                title="#{title}"
-              ] = title
+      .slide.animes.hidden
+        = render 'dashboards/animes'
 
-          .c-column
-            .midheadline.purple = t '.recommended.title'
-            a.b-link_button.favourite[
-              href="#{recommendations_favourites_anime_url}"
-            ] = t '.recommended.favourite'
-            a.b-link_button.by_community[
-              href="#{RecommendationsController::TOPIC_URL}"
-            ] = t '.recommended.by_community'
-            a.b-link_button.personalized[
-              href="#{recommendations_url klass: 'anime'}"
-            ] = t '.recommended.personalized'
-
-            a.b-link_button[
-              href="zz"
-              style="margin-top: 51px"
-            ] Anime Studios
-
-      .slide.manga.hidden
+      .slide.mangas.hidden
         .midheadline.red
-          h2 Каталог манги
+          = t '.manga'
+          a.b-link href="#{animes_url}" = t '.all_manga'
 
   .c-forum
     .forums.block

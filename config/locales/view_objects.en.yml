@@ -17,6 +17,7 @@ en:
         %{manga_days_count} %{manga_days} of manga
       anime: '%{anime_days_count} %{anime_days} of anime'
       manga: '%{manga_days_count} %{manga_days} of manga'
+
   # topics/view: &topics
   # topics/review_view:
     # <<: *topics
@@ -68,6 +69,15 @@ en:
           tv_48: Long TV Series
         short:
           <<: *anime_long
+
+
+
+
+
+
+
+
+
       manga:
         long: &manga_long
           doujin: Doujin
@@ -106,3 +116,13 @@ en:
       anime: anime
       manga: manga
     other: list catalogue catalog base
+
+  titles/generate_season:
+    season:
+      winter: Winter %{year}
+      spring: Spring %{year}
+      summer: Summer %{year}
+      fall: Fall %{year}
+    year: '%{year}'
+    decade: '%{decade}0s'
+    ancient: Older

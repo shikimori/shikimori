@@ -23,22 +23,19 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def seasons
-    month = Time.zone.now.beginning_of_month
-    Hash[
-      [
-        SeasonPair.new(month + 3.months).season_year,
-        SeasonPair.new(month).season_year,
-        SeasonPair.new(month - 3.months).season_year,
-        SeasonPair.new(month - 6.months).season_year,
-        SeasonPair.new(month).year,
-        SeasonPair.new(month - 1.year).year,
-        SeasonPair.new(month - 2.years).years(2),
-        SeasonPair.new(month - 4.years).years(5),
-        SeasonPair.new(month - 9.years).years(7),
-        SeasonPair.new(Date.parse '1995-01-01').decade,
-        SeasonPair.new(Date.parse '1985-01-01').decade,
-        SeasonPair.new(nil).ancient
-      ]
+    [
+      SeasonTitle.new(3.months.from_now, :season_year),
+      SeasonTitle.new(Time.zone.now, :season_year),
+      SeasonTitle.new(3.months.ago, :season_year),
+      SeasonTitle.new(6.months.ago, :season_year),
+      SeasonTitle.new(Time.zone.now, :year),
+      SeasonTitle.new(1.year.ago, :year),
+      SeasonTitle.new(2.years.ago, :years_2),
+      SeasonTitle.new(4.years.ago, :years_5),
+      SeasonTitle.new(9.years.ago, :years_7),
+      SeasonTitle.new(Date.parse('1995-01-01'), :decade),
+      SeasonTitle.new(Date.parse('1985-01-01'), :decade),
+      SeasonTitle.new(nil, :ancient)
     ]
   end
 

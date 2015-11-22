@@ -91,10 +91,10 @@
   .block
     .subheadline = i18n_i 'Season'
     ul.block-list.seasons.anime-params
-      - menu.seasons.each do |season, title|
-        li class="season-#{season}"
+      - menu.seasons.each do |season|
+        li class="season-#{season.text}"
           input type="checkbox" autocomplete="off"
-          = title
+          = season.catalog_title
 
   - if menu.klass == Anime
     .block.durations

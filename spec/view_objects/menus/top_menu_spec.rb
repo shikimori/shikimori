@@ -1,18 +1,15 @@
 describe Menus::TopMenu do
-  let(:menu) { Menus::TopMenu.new }
+  let(:view) { Menus::TopMenu.new }
 
   describe '#seasons' do
-    subject { menu.seasons }
+    before { Timecop.freeze '2015-10-11' }
+    after { Timecop.return }
+
     it do
-      is_expected.to eq(
-        [
-          ['2016', '2016 год', 'Аниме 2016 года'],
-          ['2015', '2015 год', 'Аниме 2015 года'],
-          ['winter_2016', 'Зимний сезон', 'Зимний сезон 2016 года'],
-          ['fall_2015', 'Осенний сезон', 'Осенний сезон 2015 года'],
-          ['summer_2015', 'Летний сезон', 'Летний сезон 2015 года'],
-          ['spring_2015', 'Весенний сезон', 'Весенний сезон 2015 года']
-        ]
+      expect(view.seasons.first).to be_kind_of SeasonTitle
+      expect(view.seasons.map(&:text)).to eq %w(
+        2016 2015
+        winter_2016 fall_2015 summer_2015 spring_2015
       )
     end
   end

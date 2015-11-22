@@ -14,8 +14,12 @@ describe DashboardView do
     it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
   end
 
-  describe '#animes' do
-    it { expect(view.animes).to have(4).items }
+  describe '#anime_seasons' do
+    it { expect(view.anime_seasons).to have(4).items }
+  end
+
+  describe '#anime_others' do
+    it { expect(view.anime_others).to have(3).items }
   end
 
   describe '#reviews' do
