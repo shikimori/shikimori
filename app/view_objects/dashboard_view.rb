@@ -32,6 +32,7 @@ class DashboardView < ViewObjectBase
     is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
+      StatusTitle.new(:anons, Anime),
       SeasonTitle.new(month + 2.months, :year),
       SeasonTitle.new(is_still_this_year ? 1.year.ago : month, :year),
       SeasonTitle.new(is_still_this_year ? 2.years.ago : 1.year.ago, :year),

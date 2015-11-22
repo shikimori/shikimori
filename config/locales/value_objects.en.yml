@@ -6,7 +6,7 @@ en:
         spring: Spring %{year}
         summer: Summer %{year}
         fall: Fall %{year}
-      year: '%{year}'
+      year: '%{year} year'
       decade: '%{decade}0s'
       ancient: Older
     short:
@@ -15,7 +15,7 @@ en:
         spring: Spring Season
         summer: Summer Season
         fall: Fall Season
-      year: '%{year}'
+      year: '%{year} year'
     full:
       season:
         winter: Winter %{year} Anime

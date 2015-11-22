@@ -15,11 +15,13 @@ describe DashboardView do
   end
 
   describe '#anime_seasons' do
+    it { expect(view.anime_seasons.first).to be_kind_of SeasonTitle }
     it { expect(view.anime_seasons).to have(4).items }
   end
 
   describe '#anime_others' do
-    it { expect(view.anime_others).to have(3).items }
+    it { expect(view.anime_others.first).to be_kind_of StatusTitle }
+    it { expect(view.anime_others).to have(4).items }
   end
 
   describe '#reviews' do
