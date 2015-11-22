@@ -17,7 +17,7 @@
           span.item-mobile title="Действия"
 
         aside.markers
-          - if comment.kind_of?(Comment) && comment.commentable.kind_of?(AniMangaComment)
+          - if comment.kind_of?(Comment) && comment.commentable.instance_of?(AniMangaComment)
             .b-review_marker[
               class="#{:active if user_signed_in?}"
               style="#{'display: none;' unless comment.review?}"
