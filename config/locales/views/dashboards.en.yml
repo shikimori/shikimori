@@ -9,6 +9,10 @@ en:
       forum: Forum
       contests: Contests
       all_contests: all contests
+      news_feed: News Feed
+      all_news: all news
+      sponsors: Sponsors
+      anime_updates: Anime Updates
 
     animes:
       title: Anime

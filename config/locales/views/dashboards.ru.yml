@@ -9,6 +9,10 @@ ru:
       forum: Форум
       contests: Опросы
       all_contests: все опросы
+      news_feed: Лента новостей
+      all_news: Все новости
+      sponsors: Спонсоры
+      anime_updates: Обновления аниме
 
     animes:
       title: Аниме

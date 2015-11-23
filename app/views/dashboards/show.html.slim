@@ -58,23 +58,19 @@
 .cc-news
   .c-user_news
     .midheadline.orange
-      h2 Лента новостей
-      a.b-link href="#{section_url :news}" title="Все новости" все новости
+      h2 = t '.news_feed'
+      a.b-link[
+        href="#{section_url :news}"
+        title="#{t '.all_news'}"
+      ] = t '.all_news'
 
     div
       = render partial: 'topics/topic', collection: @view.user_news, as: :view
 
   .c-generated_news
-    .midheadline.gray.m15 Спонсоры
+    .midheadline.gray.m15 = t '.sponsors'
     div style="width: 240px; height: 400px; margin: 0 auto 60px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    .midheadline.yellow Обновления сайта
+    .midheadline.yellow = t '.anime_updates'
     div
       = render partial: 'topics/topic', collection: @view.generated_news, as: :view
-
-/.cc-2
-  .c-column
-    .midheadline.green.m10 Лучшие аниме
-    .cc-4.favourite.to-process data-dynamic="cutted_covers"
-      /= render @view.favourites, cover_notice: :studio, content_by: :mini_tooltip
-      = render @view.favourites, cover_notice: :studio
