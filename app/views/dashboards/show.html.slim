@@ -3,37 +3,38 @@
   = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
 
 .cc-second
-  .c-my_list
-    - if user_signed_in?
-      = render 'dashboards/user_list', view: @view
+  .cc-inner
+    .c-content
+      .options
+        .option.selected = t '.reviews'
+        .option = t '.anime'
+        .option = t '.manga'
 
-    - else
-      | призыв зарегистрироваться
+      .slides
+        .slide.reviews
+          .midheadline.magenta
+            h2 = t '.reviews'
+            a.b-link[
+              href="#{section_url :reviews}"
+              title="#{t '.all_reviews'}"
+            ] = t '.all_reviews'
+          div
+            = render partial: 'topics/topic', collection: @view.reviews, as: :view
 
-  .c-content
-    .options
-      .option.selected = t '.reviews'
-      .option = t '.anime'
-      .option = t '.manga'
+        .slide.animes.hidden
+          = render 'dashboards/animes'
 
-    .slides
-      .slide.reviews
-        .midheadline.magenta
-          h2 = t '.reviews'
-          a.b-link[
-            href="#{section_url :reviews}"
-            title="#{t '.all_reviews'}"
-          ] = t '.all_reviews'
-        div
-          = render partial: 'topics/topic', collection: @view.reviews, as: :view
+        .slide.mangas.hidden
+          .midheadline.red
+            = t '.manga'
+            a.b-link href="#{animes_url}" = t '.all_manga'
 
-      .slide.animes.hidden
-        = render 'dashboards/animes'
+    .c-my_list
+      - if user_signed_in?
+        = render 'dashboards/user_list', view: @view
 
-      .slide.mangas.hidden
-        .midheadline.red
-          = t '.manga'
-          a.b-link href="#{animes_url}" = t '.all_manga'
+      - else
+        | призыв зарегистрироваться
 
   .c-forum
     .forums.block

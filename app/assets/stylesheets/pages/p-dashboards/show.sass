@@ -27,7 +27,12 @@
 
   .cc-ongoings
     +cc
-    margin-bottom: $block-offset * 2
+
+    +gte_ipad
+      margin-bottom: $block-offset * 2
+
+    +iphone
+      margin-bottom: $block-offset
 
     .c-column
       +gt_laptop
@@ -49,46 +54,72 @@
           display: none
 
       +iphone_portrait
-        +block
         +column(2)
-        &.item-4, &.item-5, &.item-6, &.item-7
+        &.item-2, &.item-3, &.item-4, &.item-5, &.item-6, &.item-7
           display: none
 
   .cc-second
     +cc
-    margin-bottom: $block-offset * 2
 
-    .c-my_list
-      +column(3, 3/12)
+    +gte_ipad
+      margin-bottom: $block-offset * 2
 
-    .c-content
-      +column(3, 6/12)
+      .cc-inner
+        +cc
+        +column(3, 3/4)
 
-      .options
-        margin-bottom: 5px
-        margin-top: -3px
+        .c-content
+          float: right
+          padding-left: 5.5%
+          width: 66.6666%
 
-        .option
-          +js-link
-          font-weight: bold
-          display: inline-block
-          margin-right: 22px
+        .c-my_list
+          width: 33.3333%
+          float: left
 
-          &.selected
-            +selected
+      .c-forum
+        +column(3, 1/4)
 
-    .c-forum
-      +column(3, 3/12)
+    +iphone
+      margin-bottom: $block-offset
+
+      .c-content
+        +column(1)
+        margin-bottom: $block-offset
+
+    +iphone_landscape
+      .c-my_list
+        +column(2)
+        margin-right: 4% !important
+
+      .c-forum
+        +column(2)
+
+    +iphone_portrait
+      .c-my_list
+        +column_bm(1)
+
+      .c-forum
+        +column(1)
 
   .cc-news
     +clear_left
 
     .c-user_news
-      +column_bm(2, 2/3, 6%)
+      +gte_ipad
+        +column_bm(2, 2/3, 6%)
+
+      +iphone
+        +column_bm(1, 1)
 
       .b-topic
         border-top-width: 5px
-        margin-bottom: $block-offset * 2
+
+        +gte_ipad
+          margin-bottom: $block-offset * 2
+
+        +iphone
+          margin-bottom: $block-offset
 
         &:last-child
           margin-bottom: 0
@@ -97,7 +128,11 @@
           font-size: 16px !important
 
     .c-generated_news
-      +column_b(2, 1/3, 6%)
+      +gte_ipad
+        +column_b(2, 1/3, 6%)
+
+      +iphone
+        display: none
 
       .b-topic
         border-top-color: #ccc
@@ -105,9 +140,23 @@
         .name-date a
           font-size: 14px !important
 
-  .slides .reviews
-    .b-catalog_entry
-      margin-bottom: 0 !important
+  .c-content
+    .options
+      margin-bottom: 5px
+      margin-top: -3px
+
+      .option
+        +js-link
+        font-weight: bold
+        display: inline-block
+        margin-right: 22px
+
+        &.selected
+          +selected
+
+    .slides .reviews
+      .b-catalog_entry
+        margin-bottom: 0 !important
 
   .forums
     .section
