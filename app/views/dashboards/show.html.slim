@@ -25,9 +25,7 @@
           = render 'dashboards/animes'
 
         .slide.mangas.hidden
-          .midheadline.red
-            = t '.manga'
-            a.b-link href="#{animes_url}" = t '.all_manga'
+          = render 'dashboards/mangas'
 
     .c-my_list
       - if user_signed_in?

@@ -17,7 +17,7 @@ ru:
     animes:
       title: Аниме
       all_anime: все аниме
-      recommended:
+      recommended: &anime_recommended
         title: Рекомендации
         favourite: Избранное
         by_community: От сообщества
@@ -27,6 +27,8 @@ ru:
     mangas:
       title: Манга
       all_manga: вся манга
+      recommended:
+        <<: *anime_recommended
 
     user_list:
       my_anime_list: Мой список аниме

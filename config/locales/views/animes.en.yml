@@ -18,7 +18,7 @@ en:
       manga:
         status:
           <<: *anime_statuses
-          ongoing: Сейчас издаётся
+          ongoing: Publishing
       show_list: Show list
 
   animes: &animes

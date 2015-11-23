@@ -14,14 +14,16 @@ describe DashboardView do
     it { expect(view.ongoings).to eq [ongoing_2, ongoing_1] }
   end
 
-  describe '#anime_seasons' do
-    it { expect(view.anime_seasons.first).to be_kind_of SeasonTitle }
-    it { expect(view.anime_seasons).to have(4).items }
+  describe '#db_seasons' do
+    it { expect(view.db_seasons(Anime).first).to be_kind_of StatusTitle }
+    it { expect(view.db_seasons(Anime).last).to be_kind_of SeasonTitle }
+    it { expect(view.db_seasons(Anime)).to have(5).items }
   end
 
-  describe '#anime_others' do
-    it { expect(view.anime_others.first).to be_kind_of StatusTitle }
-    it { expect(view.anime_others).to have(4).items }
+  describe '#db_others' do
+    it { expect(view.db_others(Anime).first).to be_kind_of StatusTitle }
+    it { expect(view.db_others(Anime).last).to be_kind_of SeasonTitle }
+    it { expect(view.db_others(Anime)).to have(4).items }
   end
 
   describe '#reviews' do

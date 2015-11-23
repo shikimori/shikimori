@@ -15,9 +15,9 @@ en:
       anime_updates: Anime Updates
 
     animes:
-      title: Anime
+      title: Animes
       all_anime: all anime
-      recommended:
+      recommended: &anime_recommended
         title: Recommended
         favourite: Favorite
         by_community: By Community
@@ -27,6 +27,8 @@ en:
     mangas:
       title: Mangas
       all_manga: all manga
+      recommended:
+        <<: *anime_recommended
 
     user_list:
       my_anime_list: My Anime List

@@ -17,8 +17,9 @@ class DashboardView < ViewObjectBase
     )
   end
 
-  def anime_seasons
+  def db_seasons klass
     [
+      StatusTitle.new(:ongoing, klass),
       SeasonTitle.new(3.months.from_now, :season_year),
       SeasonTitle.new(Time.zone.now, :season_year),
       SeasonTitle.new(3.months.ago, :season_year),
@@ -26,13 +27,13 @@ class DashboardView < ViewObjectBase
     ]
   end
 
-  def anime_others
+  def db_others klass
     month = Time.zone.now.beginning_of_month
     # + 1.month since 12th month belongs to the next year in SeasonTitle
     is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
-      StatusTitle.new(:anons, Anime),
+      StatusTitle.new(:anons, klass),
       SeasonTitle.new(month + 2.months, :year),
       SeasonTitle.new(is_still_this_year ? 1.year.ago : month, :year),
       SeasonTitle.new(is_still_this_year ? 2.years.ago : 1.year.ago, :year),
