@@ -3,7 +3,7 @@ class SeasonTitle
 
   YEARS_INTERVAL = /years_(?<years>\d)/
 
-  pattr_initialize :date, :format
+  pattr_initialize :date, :format, :klass
 
   def text
     case format
@@ -48,19 +48,19 @@ private
   def localize key
     case format
       when :season_year
-        i18n_t "#{key}.season.#{season}", year: year
+        i18n_t "#{klass.name.downcase}.#{key}.season.#{season}", year: year
 
       when :year
-        i18n_t "#{key}.year", year: year
+        i18n_t "#{klass.name.downcase}.#{key}.year", year: year
 
       when YEARS_INTERVAL
         "#{year_from}-#{year_to}"
 
       when :decade
-        i18n_t "#{key}.decade", decade: year[0..2]
+        i18n_t "#{klass.name.downcase}.#{key}.decade", decade: year[0..2]
 
       when :ancient
-        i18n_t "#{key}.ancient"
+        i18n_t "#{klass.name.downcase}.#{key}.ancient"
 
       else
         fail ArgumentError, "unexpected format #{format}"

@@ -1,28 +1,38 @@
 en:
   season_title:
-    catalog:
-      season:
-        winter: Winter %{year}
-        spring: Spring %{year}
-        summer: Summer %{year}
-        fall: Fall %{year}
-      year: '%{year} year'
-      decade: '%{decade}0s'
-      ancient: Older
-    short:
-      season :
-        winter: Winter Season
-        spring: Spring Season
-        summer: Summer Season
-        fall: Fall Season
-      year: '%{year} year'
-    full:
-      season:
-        winter: Winter %{year} Anime
-        spring: Spring %{year} Anime
-        summer: Summer %{year} Anime
-        fall: Fall %{year} Anime
-      year: Anime %{year}
+    anime: &anime_titles
+      catalog:
+        season:
+          winter: Winter %{year}
+          spring: Spring %{year}
+          summer: Summer %{year}
+          fall: Fall %{year}
+        year: '%{year} year'
+        decade: '%{decade}0s'
+        ancient: Older
+      short:
+        season :
+          winter: Winter Season
+          spring: Spring Season
+          summer: Summer Season
+          fall: Fall Season
+        year: '%{year} year'
+      full:
+        season:
+          winter: Winter %{year} Anime
+          spring: Spring %{year} Anime
+          summer: Summer %{year} Anime
+          fall: Fall %{year} Anime
+        year: Anime %{year}
+    manga:
+      <<: *anime_titles
+      full:
+        season:
+          winter: Winter %{year} Manga
+          spring: Spring %{year} Manga
+          summer: Summer %{year} Manga
+          fall: Fall %{year} Manga
+        year: Manga %{year}
 
   status_title:
     anime:

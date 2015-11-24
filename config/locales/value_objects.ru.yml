@@ -1,28 +1,38 @@
 ru:
   season_title:
-    catalog:
-      season:
-        winter: Зима %{year}
-        spring: Весна %{year}
-        summer: Лето %{year}
-        fall: Осень %{year}
-      year: '%{year} год'
-      decade: '%{decade}0е годы'
-      ancient: Более старые
-    short:
-      season:
-        winter: Зимний сезон
-        spring: Весенний сезон
-        summer: Летний сезон
-        fall: Осенний сезон
-      year: '%{year} год'
-    full:
-      season:
-        winter: Зимний сезон %{year} года
-        spring: Весенний сезон %{year} года
-        summer: Летний сезон %{year} года
-        fall: Осенний сезон %{year} года
-      year: Аниме %{year} года
+    anime: &anime_titles
+      catalog:
+        season:
+          winter: Зима %{year}
+          spring: Весна %{year}
+          summer: Лето %{year}
+          fall: Осень %{year}
+        year: '%{year} год'
+        decade: '%{decade}0е годы'
+        ancient: Более старые
+      short:
+        season:
+          winter: Зимний сезон
+          spring: Весенний сезон
+          summer: Летний сезон
+          fall: Осенний сезон
+        year: '%{year} год'
+      full:
+        season:
+          winter: Зимний сезон %{year} года
+          spring: Весенний сезон %{year} года
+          summer: Летний сезон %{year} года
+          fall: Осенний сезон %{year} года
+        year: Аниме %{year} года
+    manga:
+      <<: *anime_titles
+      full:
+        season:
+          winter: Зимний сезон %{year} года
+          spring: Весенний сезон %{year} года
+          summer: Летний сезон %{year} года
+          fall: Осенний сезон %{year} года
+        year: Манга %{year} года
 
   status_title:
     anime:

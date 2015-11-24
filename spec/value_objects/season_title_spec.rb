@@ -1,5 +1,5 @@
 describe SeasonTitle do
-  let(:title) { SeasonTitle.new date, format }
+  let(:title) { SeasonTitle.new date, format, Anime }
 
   let(:date) { Date.parse '2015-10-15' }
 

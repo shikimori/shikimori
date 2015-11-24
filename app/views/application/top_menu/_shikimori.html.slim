@@ -1,8 +1,11 @@
 .entry class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
   .submenu-toggler
-  a href="#{animes_url}" title="#{Anime.model_name.human}" = Anime.model_name.human
+  a[
+    href="#{animes_url}"
+    title="#{Anime.model_name.human}"
+  ] = Anime.model_name.human
   .submenu
-    - menu.seasons.each do |season|
+    - menu.seasons(Anime).each do |season|
       a.entry[
         href="#{animes_url season.url_params}"
         title="#{season.full_title}"
@@ -19,11 +22,18 @@ a.entry.calendar[
   title="#{t 'calendar'}"
 ]
 
-a.entry[
-  class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
-  href="#{mangas_url}"
-  title="#{Manga.model_name.human}"
-] = Manga.model_name.human
+.entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
+  .submenu-toggler
+  a[
+    href="#{animes_url}"
+    title="#{Manga.model_name.human}"
+  ] = Manga.model_name.human
+  .submenu
+    - menu.seasons(Manga).each do |season|
+      a.entry[
+        href="#{mangas_url season.url_params}"
+        title="#{season.full_title}"
+      ] = season.short_title
 
 a.entry.rel[
   href="#{section_url :news}"

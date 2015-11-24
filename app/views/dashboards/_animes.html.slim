@@ -2,7 +2,7 @@
   .c-column.m0
     .midheadline.pink
       = t '.title'
-      a.b-link href="#{animes_url}" = t '.all_anime'
+      a.b-link href="#{animes_url}" = t '.all_animes'
 
     - @view.db_seasons(Anime).each do |season|
       a.b-link_button[
