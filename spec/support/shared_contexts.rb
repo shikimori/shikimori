@@ -13,6 +13,13 @@ shared_context :view_object_warden_stub do
     view.h.request.env['warden'] ||= WardenStub.new
     allow(view.h).to receive(:current_user).and_return user.decorate
   end
+
+  after do
+    view.h.request.env['warden'] = nil
+    view.h.instance_variable_set '@current_user', nil
+    view.h.controller.instance_variable_set '@current_user', nil
+    view.h.controller.instance_variable_set '@decorated_current_user', nil
+  end
 end
 
 shared_context :seeds do

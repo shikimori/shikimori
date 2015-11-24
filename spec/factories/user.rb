@@ -15,12 +15,6 @@ FactoryGirl.define do
       user.class.skip_callback :save, :before, :ensure_api_access_token
     end
 
-    trait :preferences do
-      after :create do |user|
-        FactoryGirl.create :user_preferences, user: user
-      end
-    end
-
     trait :user do
       sequence :id, 23456789
     end

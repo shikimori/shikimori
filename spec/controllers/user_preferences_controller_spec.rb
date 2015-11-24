@@ -1,5 +1,5 @@
 describe UserPreferencesController do
-  let(:user) { create :user, :preferences }
+  let(:user) { seed :user }
 
   describe '#update' do
     let(:make_request) { patch :update, profile_id: user.to_param, page: 'profile', user: user_params, user_preferences: preferences_params }
