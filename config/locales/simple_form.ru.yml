@@ -78,9 +78,13 @@ ru:
 
       devise:
         sessions:
-          new:
+          new: &sign_in
             submit: Войти
             disable_with: Вход&#133;
+
+      dashboards:
+        show:
+          <<: *sign_in
 
       group_invite: &send
         submit: Отправить

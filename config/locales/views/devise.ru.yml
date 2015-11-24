@@ -1,0 +1,16 @@
+ru:
+  devise:
+    common: &common
+      sign_up: Зарегистрировать новый аккаунт
+      forgot_password: Забыли пароль?
+
+    sessions:
+      form:
+        <<: *common
+        errors: Ошибки
+
+    social:
+      social_networks: Вход через социальные сети
+      twitter: Вход через Twitter
+      facebook: Вход через Facebook
+      vkontakte: Вход через Вконтакте

@@ -29,10 +29,12 @@
 
     .c-my_list
       - if user_signed_in?
-        = render 'dashboards/user_list', view: @view
+        .user_list
+          = render 'dashboards/user_list', view: @view
 
       - else
-        | призыв зарегистрироваться
+        .sign_in
+          = render 'devise/sessions/form', resource: User.new
 
   .c-forum
     .forums.block

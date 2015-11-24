@@ -1,0 +1,10 @@
+.social
+  p.m5 = t '.social_networks'
+
+  div
+    - (I18n.russian? ? [:vkontakte, :facebook, :twitter] : [:facebook, :twitter, :vkontakte]).each do |network|
+      a.b-oauth_token[
+        class="#{network}"
+        href="#{user_omniauth_authorize_url network}"
+        title="#{t ".#{network}"}"
+      ]

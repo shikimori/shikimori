@@ -2,12 +2,12 @@ header.head.m15
   h1 Регистрация
   p.notice На данной странице вы сможете зарегистрироваться на нашем сайте.
 
-= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { multipart: true }) do |f|
-  - if resource.errors.any?
+= simple_form_for(resource, as: :user, url: registration_path(:user), html: { multipart: true }) do |f|
+  - if f.object.errors.any?
     .b-errors
       .subheadline Ошибки
       .block
-        == resource.errors.full_messages.join('<br>')
+        == f.object.errors.full_messages.join('<br>')
 
   .block
     = f.input :nickname, input_html: { autofocus: true }
@@ -19,10 +19,4 @@ header.head.m15
     a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
     a.cancel href="#{new_user_password_url}" Забыли пароль?
 
-  .social
-    p.m5 Через социальные сети
-
-    div
-      a.b-oauth_token.vkontakte href="#{user_omniauth_authorize_url :vkontakte}" title="Регистрация через Вконтакте"
-      a.b-oauth_token.facebook href="#{user_omniauth_authorize_url :facebook}" title="Регистрация через Вконтакте"
-      a.b-oauth_token.twitter href="#{user_omniauth_authorize_url :twitter}" title="Регистрация через Вконтакте"
+  = render 'devise/social'

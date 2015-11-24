@@ -1,0 +1,16 @@
+en:
+  devise:
+    common: &common
+      sign_up: Register new account
+      forgot_password: Forgot your password?
+
+    sessions:
+      form:
+        <<: *common
+        errors: Errors
+
+    social:
+      social_networks: Sign in with social networks
+      twitter: Sign in with Twitter
+      facebook: Sign in with Facebook
+      vkontakte: Sign in with vk.com

@@ -78,9 +78,13 @@ en:
 
       devise:
         sessions:
-          new:
+          new: &sign_in
             submit: Login
             disable_with: Logging in&#133;
+
+      dashboards:
+        show:
+          <<: *sign_in
 
       group_invite: &send
         submit: Send
