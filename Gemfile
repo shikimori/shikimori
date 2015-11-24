@@ -9,6 +9,7 @@ gem 'pg'
 # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'dalli'
 gem 'redis'
+gem 'redis-namespace'
 
 gem 'slim-rails'
 gem 'coffee-rails'
