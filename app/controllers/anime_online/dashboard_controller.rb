@@ -14,7 +14,7 @@ class AnimeOnline::DashboardController < ShikimoriController
       @contributors = Rails.cache.fetch [:video_contributors, is_adult], expires_in: 2.days do
         AnimeOnline::Contributors.top(20, is_adult).map(&:decorate)
       end
-      @seasons = Menus::TopMenu.new.seasons
+      @seasons = Menus::TopMenu.new.seasons Anime
       @seasons.delete_at(2)
     end
   end
