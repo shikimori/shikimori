@@ -32,20 +32,24 @@
       .midheadline.magenta.m10 Топ участников
       .block
         .c-contributors
-          = render partial: 'users/user', collection: @contributors[0..7], locals: { content_by: :named_avatar }
+          = render partial: 'users/user',
+            collection: @contributors[0..7],
+            locals: { content_by: :named_avatar }
         p.b-show_more + показать ещё
         .b-show_more-more
           .c-contributors
-            = render partial: 'users/user', collection: @contributors[8..-1], locals: { content_by: :named_avatar }
+            = render partial: 'users/user',
+              collection: @contributors[8..-1],
+              locals: { content_by: :named_avatar }
           .hide-more
             | &mdash; спрятать
 
       .midheadline.skyblue.m10 Сезоны аниме
       .block
-        - @seasons.each do |season, short_title, full_title|
+        - @seasons.each do |season|
           a.season[
-            href="#{animes_url type: nil, season: season}"
-            title="#{full_title}"
+            href="#{animes_url season.url_params}"
+            title="#{season.full_title}"
           ]
-            span.title = short_title
-            span.notice = full_title
+            span.title = season.short_title
+            span.notice = season.full_title
