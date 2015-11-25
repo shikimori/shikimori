@@ -1,0 +1,31 @@
+en:
+  users:
+    index:
+      by:
+        anime: by anime
+        manga: by manga
+      list_of_similar_users: list of similar users
+      list_of_watched_anime: 'List of watched anime:'
+      list_of_read_manga: 'List of read manga:'
+      notice:
+        similar_users: >-
+          This page allows to find users with similar tastes.
+        search_user: >-
+          This page displays search results for query %{query}.
+        all_users: >-
+          This page displays all users sorted by their last visit date.
+      searching_for_similar_users: >-
+        Searching for similar users.
+        Please wait - it might take some time.
+      cant_find_similar_users: >-
+        We couldn't find similar users!
+      meet_following_requirements: >-
+        To be able to search for similar users
+        make sure you meet the following requirements:
+      similar_users_requirements:
+        anime:
+          - you are registered on the site
+          - you have at least 20-30 watched and scored enries in your anime list
+        manga:
+          - you are registered on the site
+          - you have at least 20-30 read and scored enries in your manga list

@@ -411,6 +411,12 @@ ru:
           few: сайта
           many: сайтов
           other: сайты
+      user:
+        subjective:
+          one: пользователь
+          few: пользователя
+          many: пользователей
+          other: пользователи
 
       datetime:
         second:
