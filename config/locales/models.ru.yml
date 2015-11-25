@@ -14,7 +14,6 @@ ru:
         space: '%{kind} про космос'
         demons: '%{kind} про демонов'
         vampire: '%{kind} про вампиров'
-        mystery: '%{kind} о мистике'
         school: '%{kind} про школу'
         police: '%{kind} про полицию'
         sports: '%{kind} про спорт'
@@ -42,6 +41,7 @@ ru:
         anime: &subjective_anime
           <<: *common
           comedy: комедийные аниме
+          mystery: детективные аниме
           romance: романтические аниме про любовь
           historical: исторические аниме
           supernatural: сверхъестественные аниме
@@ -49,6 +49,7 @@ ru:
         manga: &subjective_manga
           <<: *common
           comedy: комедийная манга
+          mystery: детективная манга
           romance: романтическая манга про любовь
           historical: историческая манга
           supernatural: сверхъестественная манга
@@ -58,6 +59,7 @@ ru:
         anime:
           <<: *subjective_anime
           comedy: комедийных аниме
+          mystery: детективных аниме
           romance: романтических аниме про любовь
           historical: исторических аниме
           supernatural: сверхъестественных аниме
@@ -65,6 +67,7 @@ ru:
         manga:
           <<: *subjective_manga
           comedy: комедийной манги
+          mystery: детективной манги
           romance: романтической манги про любовь
           historical: исторической манги
           supernatural: сверхъестественной манги

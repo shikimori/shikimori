@@ -36,7 +36,7 @@ class SitemapController < ShikimoriController
       ['Аниме драма', animes_url(genre: '8-Drama')],
       ['Аниме гарем', animes_url(genre: '35-Harem')],
       ['Аниме комедия', animes_url(genre: '4-Comedy')],
-      ['Аниме мистика', animes_url(genre: '7-Mystery')],
+      ['Детективные аниме', animes_url(genre: '7-Mystery')],
       ['Аниме приключения', animes_url(genre: '2-Adventure')],
       ['Аниме про вампиров', animes_url(genre: '32-Vampire')],
       ['Аниме про демонов', animes_url(genre: '6-Demons')],
