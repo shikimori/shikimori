@@ -29,3 +29,19 @@ shikimori_test=# CREATE EXTENSION unaccent;
 ```
 shikimori_production=# CREATE EXTENSION unaccent;
 ```
+
+# ban tor
+```bash
+sudo su
+ipset -N tor2 iphash
+wget -q "https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=8.8.8.8" -O -|sed '/^#/d' |while read IP
+do
+  ipset -q -A tor2 $IP
+done
+# swap existing list to the new one
+ipset swap tor tor2
+ipset destroy tor2
+
+sudo iptables -D INPUT -m set --match-set tor src -j DROP
+sudo iptables -A INPUT -m set --match-set tor src -j DROP
+```
