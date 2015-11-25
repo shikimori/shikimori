@@ -3,12 +3,12 @@
 
 - else
   .b-comment.shiki-object.unprocessed[
-      id="#{comment.id}"
-      itemprop="comment" itemscope="itemscope"
-      itemtype="http://schema.org/UserComments"
-      data-user_id="#{comment.user.try :id}"
-      data-user_nickname="#{comment.user.try :nickname}"
-    ]
+    id="#{comment.id}"
+    itemprop="comment" itemscope="itemscope"
+    itemtype="http://schema.org/UserComments"
+    data-user_id="#{comment.user.try :id}"
+    data-user_nickname="#{comment.user.try :nickname}"
+  ]
     a name="comment-#{comment.id}"
     / класс нужен из-за проверки высоты
     .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
@@ -50,11 +50,15 @@
       - if comment.user
         header
           span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
-            img src="#{comment.user.avatar_url 48}" srcset="#{comment.user.avatar_url 80} 2x" alt="#{comment.user.nickname}"
+            img[
+              src="#{comment.user.avatar_url 48}"
+              srcset="#{comment.user.avatar_url 80} 2x"
+              alt="#{comment.user.nickname}"
+            ]
           .name-date
             a.name href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
               /- if comment.respond_to?(:topic_url)
-              - if comment.kind_of?(SolitaryCommentDecorator)
+              - if comment.kind_of? SolitaryCommentDecorator
                 = comment.topic_name
               - else
                 = comment.user.nickname

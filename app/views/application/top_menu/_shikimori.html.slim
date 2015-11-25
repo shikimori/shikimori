@@ -25,7 +25,7 @@ a.entry.calendar[
 .entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
   .submenu-toggler
   a[
-    href="#{animes_url}"
+    href="#{mangas_url}"
     title="#{Manga.model_name.human}"
   ] = Manga.model_name.human
   .submenu

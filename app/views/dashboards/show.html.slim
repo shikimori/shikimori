@@ -1,4 +1,10 @@
-.midheadline = t '.currently_airing'
+.midheadline
+  = t '.currently_airing'
+  a.b-link[
+    href="#{contests_url}"
+    title="#{t '.all_contests'}"
+  ] = t '.mangas'
+
 .cc-ongoings.to-process data-dynamic="cutted_covers"
   = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
 
@@ -7,8 +13,8 @@
     .c-content
       .options
         .option.selected = t '.reviews'
-        .option = t '.anime'
-        .option = t '.manga'
+        .option = t '.animes'
+        .option = t '.mangas'
 
       .slides
         .slide.reviews
