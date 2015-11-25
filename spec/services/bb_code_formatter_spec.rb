@@ -264,6 +264,11 @@ describe BbCodeFormatter do
       it { should eq '<hr>' }
     end
 
+    describe '[br]' do
+      let(:text) { '[br]' }
+      it { should eq '<br>' }
+    end
+
     describe '[p]' do
       let(:text) { '[p]test[/p]' }
       it { should eq '<div class="prgrph">test</div>' }

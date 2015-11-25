@@ -1,13 +1,13 @@
 - content_for :head do
-  link rel="canonical" href="#{{section_url :reviews}}"
+  link rel='canonical' href="#{{section_url :reviews}}"
 
 = render layout: 'animes/page' do |f|
   - if user_signed_in?
     .subheadline-buttons
-      a.item-new-review href="#{@resource.new_review_url}" title="Написать обзор"
+      a.item-new-review href="#{@resource.new_review_url}" title="#{t '.create_review'}"
   .subheadline = @page_title.last
   - if @collection.any?
-    .b-forum data-no-faye="true"
+    .b-forum data-no-faye='true'
       = render partial: 'topics/topic', collection: @collection, as: :view
   - else
-    p.b-nothing-here Нет рецензий
+    p.b-nothing-here = t '.no_reviews'

@@ -97,6 +97,9 @@ en:
   site_rules: Site rules
   switch_to_anime: switch to anime
   switch_to_manga: switch to manga
+  this:
+    anime: this anime
+    manga: this manga
   this_action_cant_be_undone: This action can't be undone!
   tournament_bracket: Tournament bracket
   total: Total

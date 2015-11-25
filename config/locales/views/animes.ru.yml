@@ -38,6 +38,8 @@ ru:
       franchise: Франшиза
       changes_history: История правок
       moderators_only: только для модераторов
+      create_review: Написать обзор
+      no_reviews: Нет рецензий
 
     menu:
       scores: Оценки людей

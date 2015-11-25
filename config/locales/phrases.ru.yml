@@ -96,6 +96,9 @@ ru:
   site_rules: Правила сайта
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
+  this:
+    anime: данное аниме
+    manga: данная манга
   this_action_cant_be_undone: Это действие необратимо!
   tournament_bracket: Турнирная сетка
   total: Итого
