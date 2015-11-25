@@ -1,5 +1,5 @@
-describe Titles::LocalizeSeasonText do
-  let(:season_title) { Titles::LocalizeSeasonText.new klass, season_text }
+describe Titles::LocalizedSeasonText do
+  let(:season_title) { Titles::LocalizedSeasonText.new klass, season_text }
 
   describe '#title' do
     subject { season_title.title }

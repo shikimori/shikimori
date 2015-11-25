@@ -69,15 +69,6 @@ en:
           tv_48: Long TV Series
         short:
           <<: *anime_long
-
-
-
-
-
-
-
-
-
       manga:
         long: &manga_long
           doujin: Doujin
@@ -90,7 +81,7 @@ en:
           <<: *manga_long
     of_genres: of %{genres} %{list}
 
-  titles/localize_season_text:
+  titles/localized_season_text:
     winter_season: winter %{year} season
     fall_season: fall %{year} season
     summer_season: summer %{year} season
@@ -99,10 +90,10 @@ en:
     old: old
     latest_anime: latest anime
     latest_manga: latest manga
-    winters_year: winters %{year}
-    falls_year: falls %{year}
-    summers_year: summers %{year}
-    springs_year: springs %{year}
+    winter_year: Winter %{year}
+    fall_year: Fall %{year}
+    summer_year: Summer %{year}
+    spring_year: Spring %{year}
     of:
       year: '%{year}'
       years: '%{from}-%{to}'

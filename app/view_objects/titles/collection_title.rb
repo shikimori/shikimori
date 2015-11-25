@@ -122,7 +122,7 @@ private
     return if seasons.none?
 
     seasons
-      .map { |season| "#{Titles::LocalizeSeasonText.new(klass, season).title}" }
+      .map { |season| "#{Titles::LocalizedSeasonText.new(klass, season).title}" }
       .to_sentence
   end
 
