@@ -20,7 +20,7 @@
       = render partial: 'comments/comment', collection: view.comments
 
   - else
-    p.no_comments = t 'no_comments'
+    p.b-nothing_here = t 'no_comments'
 
 - if user_signed_in?
   .editor-container
