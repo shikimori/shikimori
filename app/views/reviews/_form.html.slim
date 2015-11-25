@@ -11,22 +11,12 @@
 
   .subheadline = @page_title.last
 
-  .b-brief.b-review-topic
+  .b-review-topic.block
     .body
-      == t '.introduction', kind: "#{resource.anime? ? t('this.anime') : t('this.manga')}"
-
+      = BbCodeFormatter.instance.format_comment t '.introduction',
+        kind: "#{resource.anime? ? t('this.anime') : t('this.manga')}"
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
-      ul.b-list
-        == t '.guidelines'
-
-      p Для успешного оформления, есть несколько хитростей, которые мы не забудем для вас упомянуть:
-      ul.b-list
-        li: p Проверьте вашу рецензию на правописание, всем нравится правильный русский язык.
-        li: p Постарайтесь не открывать важные моменты, не портите другим ожидание.
-        li: p Постарайтесь, отделять каждую тематику, писать абзацами.
-
-      p Теперь, сложив все пункты вместе и хорошенько всё оформив, у вас будет отличная рецензия!
-      p <span style="color: #ff4136; font-size: 12px;">новое</span> Добавлена возможность создавать видеообзоры без текста тегом [youtube]youtube url[/youtube].
+      = BbCodeFormatter.instance.format_comment t '.guidelines'
 
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: review.text, field_name: 'review[text]'
