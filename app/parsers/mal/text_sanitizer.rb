@@ -34,6 +34,7 @@ private
       .gsub(%r(<strong>(.*?)</strong>)mix, '[b]\1[/b]')
       .gsub(%r(<b>(.*?)</b>)mix, '[b]\1[/b]')
       .gsub(%r(<i>(.*?)</i>)mix, '[i]\1[/i]')
+      .gsub(%r(<em>(.*?)</em>)mix, '[i]\1[/i]')
       .gsub(%r(<img \s class="userimg" \s data-src="(.*?)">)mix,
         '[img]\1[/img]')
       .gsub(

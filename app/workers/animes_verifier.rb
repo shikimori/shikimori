@@ -14,7 +14,6 @@ class AnimesVerifier
 
   BAD_MAL_DESCRIPTIONS = [
     '%meta property%',
-    '%Source: %',
     '%<script%',
     '%<span%',
     '%<div%',

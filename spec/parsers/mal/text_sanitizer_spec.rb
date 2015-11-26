@@ -9,6 +9,7 @@ describe Mal::TextSanitizer do
         it { expect(parser.call '&amp;').to eq '&' }
         it { expect(parser.call '&quot;').to eq '"' }
         it { expect(parser.call '&#039;').to eq "'" }
+        it { expect(parser.call '&hellip;').to eq "…" }
       end
 
       context 'bad html' do
@@ -48,6 +49,7 @@ describe Mal::TextSanitizer do
       it { expect(parser.call '<strong>a</strong>').to eq '[b]a[/b]' }
       it { expect(parser.call '<b>a</b>').to eq '[b]a[/b]' }
       it { expect(parser.call '<i>a</i>').to eq '[i]a[/i]' }
+      it { expect(parser.call '<em>a</em>').to eq '[i]a[/i]' }
       it { expect(parser.call 'a<br>b').to eq 'a[br]b' }
 
       context '[anime]' do

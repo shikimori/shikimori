@@ -79,7 +79,13 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
   it 'correct synopsis' do
     data = parser.fetch_entry_data(21039)
-    expect(data[:description_mal]).to eq 'A year has passed since the &quot;Tachikawa Incident&quot; in summer 2015. CROWDS, the system that turns the mentality of humans into physical form that Berg Katze gave to Rui Ninomiya after extracting his NOTE, has spread among the public. Prime Minister Sugayama backs the plan, but not everyone agrees with his policy. A mysterious organization attacks Sugayama\'s vehicle, marking the start of a series of new conflicts.'
+    expect(data[:description_mal]).to eq "A year has passed since the \
+\"Tachikawa Incident\" in summer 2015. CROWDS, the system that turns the \
+mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
+after extracting his NOTE, has spread among the public. Prime Minister \
+Sugayama backs the plan, but not everyone agrees with his policy. A \
+mysterious organization attacks Sugayama's vehicle, marking the start of a \
+series of new conflicts. [br][source]ANN[/source]"
   end
 
   it 'correct score & ranked' do

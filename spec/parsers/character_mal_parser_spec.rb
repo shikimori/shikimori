@@ -56,7 +56,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
       Oomori Hayase, whom she is in a romantic relationship with. She is the \
       aggressive and socially hostile half of the couple. When embarrassed by \
       Oomori, she often attacks her physically but she controls herself to \
-      the point of never actually doing physical damage.\n\nHer clothing \
+      the point of never actually doing physical damage.[br][br]Her clothing \
       styles are a reference to the La Croix designs from \
       [manga=6236]Alice Quartet[/manga].".squeeze(' ')
     )
