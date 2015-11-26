@@ -111,17 +111,22 @@ private
 
   def fix_tags text
     text
-      .gsub(%r{<span \s style=".*">(.*?)</span>}mix, '\1')
+      .gsub(%r(<span \s style=".*">(.*?)</span>)mix, '\1')
       .strip
   end
 
-  # TODO
   def fix_phrases text
     text
       .gsub(%r(<(?:strong|b)>Note:</(?:strong|b)>.*)mix, '')
       .gsub(/no synopsis (?:information)? has been added[\s\S]*/i, '')
       .gsub(/no biography written[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
+      .gsub(/no summary yet[\s\S]*/i, '')
+      .gsub(%r(
+        <a [^>]*? href="http://myanimelist.net/[^"]*?/moreinfo" [^>]*? >
+          (.*?)
+        </a>)mix, '\1'
+      )
       .strip
       # .gsub(/=Tricks=[\s\S]*/i, '')
       # .strip

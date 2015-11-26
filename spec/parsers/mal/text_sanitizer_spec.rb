@@ -34,13 +34,18 @@ describe Mal::TextSanitizer do
 
       context 'phrases' do
         context 'note' do
-          let(:text) { "<br />\<b>Note:</b>zzz.<!--size--></span><br /><br />" }
+          let(:text) { "<br /><b>Note:</b>zzz.<!--size--></span><br /><br />" }
           it { is_expected.to eq '' }
         end
 
         context 'no text' do
-          let(:text) { "No synopsis information has been added to this title." }
+          let(:text) { 'No synopsis information has been added to this title.' }
           it { is_expected.to eq '' }
+        end
+
+        context 'moreinfo linkes' do
+          let(:text) { '<a href="http://myanimelist.net/z/-/moreinfo">x</a>' }
+          it { is_expected.to eq 'x' }
         end
       end
     end
