@@ -85,8 +85,8 @@ a.entry.rel[
     a.entry[
       class="#{:active if params[:controller] == 'users'}"
       href="#{users_url}"
-      title="#{t :users}"
-    ] = t :users
+      title="#{i18n_i 'User', :other}"
+    ] = i18n_i 'User', :other
     a.entry[
       class="#{:active if params[:controller] == 'groups'}"
       href="#{clubs_url}"

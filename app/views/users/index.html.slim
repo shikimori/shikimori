@@ -9,29 +9,33 @@ header.head.misc
 
   - if params[:similar]
     - if @klass == Anime
-      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" по манге
+      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" = t '.by.manga'
     - else
-      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" по аниме
+      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" = t '.by.anime'
   - elsif user_signed_in?
-    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" список похожих
+    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" = t '.list_of_similar_users'
 
   - if params[:similar]
     .b-header_filters
       .filter-line
-        span.title Список #{@klass == Anime ? 'просмотренного' : 'прочитанного'}:
+        span.title = @klass == Anime ? t('.list_of_watched_anime') : t('.list_of_read_manga')
         - UsersController::THRESHOLDS.each do |threshold|
-          a class="#{:current if @threshold == threshold}" href="#{users_url similar: 'similar', threshold: threshold}" #{threshold}+
+          a[
+            class="#{:current if @threshold == threshold}"
+            href="#{users_url similar: 'similar', threshold: threshold}"
+          ] #{threshold}+
+
   p.notice
     - if params[:similar]
-      | На данной странице сайт автоматически подбирает пользователей c близкими вам вкусами.
+      = t '.notice.similar_users'
     - elsif params[:search]
-      | На данной странице отображён результат поиска пользователя по запросу "#{params[:search]}"
+      = t '.notice.search_user', query: params[:search]
     - else
-      | В данном разделе представлены все пользователи сайта, отсортированные по дате последнего захода на сайт
+      = t '.notice.all_users'
 
 .ajax
   - if params[:similar] && @similar_ids.nil?
-    p.pending Ищем похожих на вас пользователей. Пожалуйста, подождите, процесс может занять некоторое время.
+    p.pending = t '.searching_for_similar_users'
     .ajax-loading.vk-like.left title="#{t 'loading'}"
     .clearfix
 
@@ -40,16 +44,14 @@ header.head.misc
       .comment-block
         .description
           p.m3
-            span.fail Невозможно подобрать похожих пользователей.
-            span &nbsp;Для отображения похожих на вас пользователей необходимо выполнение двух условий:
-          ul.m10
-            li
-              p регистрация на сайте;
-            li
-              - if @klass == Anime
-                p наличие в вашем списке аниме 20-30 просмотренных и оценённых тайтлов;
-              - else
-                p наличие в вашем списке манги 20-30 прочитанных и оценённых произведений;
+            span.fail = t '.cant_find_similar_users'
+            | &nbsp;
+            span = t '.meet_following_requirements'
+
+          ul.b-list.m10
+            - t(".similar_users_requirements.#{@klass.name.downcase}").each do |requirement|
+              li : p = requirement
+
   - else
     = render @collection, content_by: :detailed
 

@@ -164,7 +164,7 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb t('users'), users_url
+    breadcrumb i18n_i('User', :other), users_url
     breadcrumb @resource.nickname, @resource.url
 
     page_title i18n_t 'profile'

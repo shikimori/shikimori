@@ -5,10 +5,16 @@
     data-appear-top-offset="900"
   ]
   - if defined?(prev_url) && prev_url.present?
-    a.prev href="#{prev_url.sub /.json$/, ''}" rel="prev" ← Назад
+    a.prev[
+      href="#{prev_url.sub /.json$/, ''}"
+      rel='prev'
+    ] = "← #{t 'pagination.back'}"
 
   - if defined?(next_url) && next_url.present?
-    a.next href="#{url.sub /.json$/, ''}" rel="next" Вперед →
+    a.next[
+      href="#{url.sub /.json$/, ''}"
+      rel='next'
+    ] = "#{t 'pagination.next'} →"
 
   - if defined? block_text
     = block_text

@@ -187,3 +187,6 @@ ru:
       updated: Рецензия изменена
       removed: Рецензия удалена
     review_by: Рецензия от %{nickname}
+
+  users_controller:
+    similar_users: Похожие пользователи

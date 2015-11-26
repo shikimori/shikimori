@@ -16,7 +16,7 @@ class UsersController < ShikimoriController
         return
       end
 
-      @page_title = 'Похожие пользователи'
+      @page_title = i18n_t 'similar_users'
       @similar_ids = SimilarUsersFetcher.new(user_signed_in? ? current_user.object : nil, @klass, @threshold).fetch
 
       if @similar_ids
@@ -30,7 +30,7 @@ class UsersController < ShikimoriController
       @add_postloader = @similar_ids && @similar_ids.any? && @page * USERS_PER_PAGE < SimilarUsersService::ResultsLimit
 
     else
-      @page_title = t(:users)
+      @page_title = i18n_i 'User', :other
       @collection = postload_paginate(params[:page], USERS_PER_PAGE) do
         if params[:search].present?
           UsersQuery.new(params).search
