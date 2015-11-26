@@ -48,4 +48,30 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
       }.to change(PersonRole, :count).by_at_least(8)
     end
   end
+
+  it 'correct synopsis' do
+    data = parser.fetch_entry_data(87143)
+    expect(data[:description_mal]).to eq(
+      "One of Kinana and Sumi's next door neighbors. She lives together with \
+      Oomori Hayase, whom she is in a romantic relationship with. She is the \
+      aggressive and socially hostile half of the couple. When embarrassed by \
+      Oomori, she often attacks her physically but she controls herself to \
+      the point of never actually doing physical damage.\n\nHer clothing \
+      styles are a reference to the La Croix designs from \
+      [manga=6236]Alice Quartet[/manga].".squeeze(' ')
+    )
+  end
+
+  it 'correct synopsis' do
+    data = parser.fetch_entry_data(25023)
+
+    expect(data[:description_mal]).to eq(
+      "Harui Kaho is a classmate of \
+      [character=21782]Kitagawa Mimi[/character]. There was once a time \
+      where Kaho did not go to school for a while. Mimi decided to visit her \
+      and found out that she was in love and was afraid to go out because of \
+      acne problems. With Mimi's help, Kaho was able to cure her \
+      acne and meet her date once again.".squeeze(' ')
+    )
+  end
 end

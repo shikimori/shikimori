@@ -34,20 +34,21 @@ class DbEntryDecorator < BaseDecorator
 
   def description_mal
     if object.respond_to?(:description_mal) && object.description_mal.present?
-      text = BbCodeFormatter.instance
-        .spoiler_to_html(object.description_mal)
-        .gsub(/^\(?Source:.*/, '')
-        .gsub(/\n/, "<br />")
-        .strip
+      BbCodeFormatter.instance.format_comment object.description_mal
+      # text = BbCodeFormatter.instance
+        # .spoiler_to_html(object.description_mal)
+        # .gsub(/^\(?Source:.*/, '')
+        # .gsub(/\n/, "<br />")
+        # .strip
 
-      text = BbCodes::PTag.instance.format(
-        BbCodeFormatter.instance.paragraphs(text)
-      ).html_safe
+      # text = BbCodes::PTag.instance.format(
+        # BbCodeFormatter.instance.paragraphs(text)
+      # ).html_safe
 
-      Nokogiri::HTML::DocumentFragment
-        .parse(text)
-        .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
-        .html_safe
+      # Nokogiri::HTML::DocumentFragment
+        # .parse(text)
+        # .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
+        # .html_safe
     else
       "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
     end
