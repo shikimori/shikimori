@@ -29,7 +29,7 @@ private
 
   def season_keywords
     return if season.blank?
-    Titles::LocalizeSeasonText.new(self, season).title
+    Titles::LocalizedSeasonText.new(self, season).title
   end
 
   def type_keywords

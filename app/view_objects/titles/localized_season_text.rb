@@ -1,4 +1,4 @@
-class Titles::LocalizeSeasonText
+class Titles::LocalizedSeasonText
   include Translation
 
   pattr_initialize :klass, :season_text
@@ -23,16 +23,16 @@ class Titles::LocalizeSeasonText
 
         case season
           when 'winter'
-            i18n_t 'winters_year', year: year
+            i18n_t 'winter_year', year: year
 
           when 'spring'
-            i18n_t 'springs_year', year: year
+            i18n_t 'spring_year', year: year
 
           when 'summer'
-            i18n_t 'summers_year', year: year
+            i18n_t 'summer_year', year: year
 
           when 'fall'
-            i18n_t 'falls_year', year: year
+            i18n_t 'fall_year', year: year
         end
 
       when /^(\d+)$/
