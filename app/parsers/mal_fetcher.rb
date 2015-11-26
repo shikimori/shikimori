@@ -175,30 +175,6 @@ module MalFetcher
 
 private
 
-  def cleanup text
-    (text || '')
-      .gsub(/<br>/, '<br />')
-      .gsub(/\r\n/, '<br />')
-      .gsub(/<br \/>(<br \/>)?(\(|\[)?source[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)?\[written[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)?(\(|- ?)?from[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)?Taken from[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)?\(description from[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)?\(adapted from[\s\S]*/i, '')
-      .gsub(/<br \/>(<br \/>)<strong>Note:<\/strong><br \/>[\s\S]*/i, '')
-      .gsub(/=Tricks=[\s\S]*/i, '')
-      .gsub(/No synopsis has been added for this .*? yet[\s\S]*/i, '')
-      .gsub(/No biography written.[\s\S]*/i, '')
-      .gsub(/No summary yet.[\s\S]*/i, '')
-      .strip
-      .gsub(/(<br \/>)+$/m, '')
-      .gsub(/(<br \/?>){2}+/m, '<br />')
-      .gsub(/<div class="spoiler[\s\S]*?(<br? \/?>|value="Hide spoiler">)/, '[spoiler]')
-      .gsub(/(?:<!--spoiler[\s\S]*?|<\/span>)<\/div>(?:<br \/>)?/, '[/spoiler]')
-      .gsub(/<div class=\"border_top\"[\s\S]*<\/div>/, '') # Naruto: Shippuuden (id: 1735)
-      .strip
-  end
-
   def parse_block(entry, key, regexp, content)
     entry[key] = {}
     if content.match(regexp)
@@ -226,7 +202,7 @@ private
         )
 
       (?: <\/td>|<h2 )
-    /mix) ? cleanup($~[:text]) : ""
+    /mix) ? Mal::TextSanitizer.new($~[:text]).call : ""
   end
 
   def parse_line(line_name, content, multiple_results)
@@ -279,5 +255,33 @@ private
         .map { |link| $1.to_i if link.attr('href') =~ /(\d+)/ }
         .compact
     end
+  end
+
+  def cleanup text
+    (text || '')
+      .gsub('&amp;#039;', "'")
+      .gsub(/<br>/, '<br />')
+      .gsub(/\r\n/, '<br />')
+      .gsub(/[\n\r]/, '<br />')
+      .gsub(/<br \/>(<br \/>)?(\(|\[)?source[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\[written[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?(\(|- ?)?from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?Taken from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\(description from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)?\(adapted from[\s\S]*/i, '')
+      .gsub(/<br \/>(<br \/>)<strong>Note:<\/strong><br \/>[\s\S]*/i, '')
+      .gsub(/=Tricks=[\s\S]*/i, '')
+      .gsub(/No synopsis has been added for this .*? yet[\s\S]*/i, '')
+      .gsub(/No biography written.[\s\S]*/i, '')
+      .gsub(/No summary yet.[\s\S]*/i, '')
+      .strip
+      .gsub(/(<br \/>)+$/m, '')
+      .gsub(/(<br \/?>){2}+/m, '<br />')
+      .gsub(/<div class="spoiler[\s\S]*?(<br? \/?>|value="Hide spoiler">)/, '[spoiler]')
+      .gsub(/(?:<!--spoiler[\s\S]*?|<\/span>)<\/div>(?:<br \/>)?/, '[/spoiler]')
+      .gsub(/<div class=\"border_top\"[\s\S]*<\/div>/, '') # Naruto: Shippuuden (id: 1735)
+      .gsub(/<!--.*?-->/mix, '') # <!-- comment -->
+      .gsub(%r{<span style=\"font-size: 90%;\"><b>Note:</b>.*</span>}, '')
+      .strip
   end
 end
