@@ -13,8 +13,8 @@ class AnimesVerifier
   dsl_attribute :ignore_ids, []
 
   BAD_MAL_DESCRIPTIONS = [
-    '%myanimelist%',
     '%meta property%',
+    '%Source: %',
     '%<script%',
     '%<span%',
     '%<div%',
@@ -25,7 +25,9 @@ class AnimesVerifier
     '%<b>%',
     '%<i>%',
     '%<strong>%',
-    '%http://%'
+    '%<img%',
+    '%<a %',
+    '%"http://%'
   ]
   BAD_DESCRIPTIONS = BAD_MAL_DESCRIPTIONS + [
     '%adultmanga%',

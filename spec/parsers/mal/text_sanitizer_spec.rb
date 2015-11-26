@@ -5,6 +5,12 @@ describe Mal::TextSanitizer do
 
   describe '#call' do
     describe '#cleanup' do
+      describe '#specials' do
+        it { expect(parser.call '&amp;').to eq '&' }
+        it { expect(parser.call '&quot;').to eq '"' }
+        it { expect(parser.call '&#039;').to eq "'" }
+      end
+
       context 'bad html' do
         it { expect(parser.call "<html><body><div>aaa").to eq '<div>aaa</div>' }
       end
@@ -28,6 +34,11 @@ describe Mal::TextSanitizer do
       context 'phrases' do
         context 'note' do
           let(:text) { "<br />\<b>Note:</b>zzz.<!--size--></span><br /><br />" }
+          it { is_expected.to eq '' }
+        end
+
+        context 'no text' do
+          let(:text) { "No synopsis information has been added to this title." }
           it { is_expected.to eq '' }
         end
       end
@@ -60,7 +71,7 @@ describe Mal::TextSanitizer do
       end
 
       context '[center]' do
-        let(:text) { "aaa <div style=\"text-align: center;\">ccc<!--center-->\n?</div>bbb" }
+        let(:text) { "aaa <div style=\"text-align: center;\">ccc<!--center-->\n</div>bbb" }
         it { is_expected.to eq 'aaa [center]ccc[/center]bbb' }
       end
 
@@ -68,13 +79,59 @@ describe Mal::TextSanitizer do
         let(:text) { "aaa <div class=\"spoiler\"><input type=\"button\" class=\"button\" onClick=\"this.nextSibling.nextSibling.style.display='inline-block';this.style.display='none';\" value=\"Show spoiler\"> <span class=\"spoiler_content\" style=\"display:none\"><input type=\"button\" class=\"button\" onClick=\"this.parentNode.style.display='none';this.parentNode.parentNode.childNodes[0].style.display='inline-block';\" value=\"Hide spoiler\"><br>ccc<!--spoiler--></span>\n</div><br />\nbbb" }
         it { is_expected.to eq 'aaa [br][spoiler][br]ccc[/spoiler][br]bbb' }
       end
+
+      context '[source]' do
+        let(:url) { 'http://onepiece.wikia.com/wiki/Shyarly' }
+
+        context 'source link' do
+          let(:text) { "aa\n\n(Source: <!--link--><a href=\"#{url}\">#{url}</a>)" }
+          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+        end
+
+        context 'source link quoted' do
+          let(:text) { "aa\n\n(Source: \"<!--link--><a href=\"#{url}\">#{url}</a>\")" }
+          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+        end
+
+        context 'last link' do
+          let(:text) { "aa\n\n(<!--link--><a href=\"#{url}\">#{url}</a>)" }
+          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+        end
+
+        context 'last link with aftertext' do
+          let(:text) { "aa\n\n<!--link--><a href=\"#{url}\">#{url}</a>fofofo" }
+          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+        end
+
+        context 'broken link' do
+          let(:text) { "aa\n\n(Source: <a href=\"#{url}\" target=\"_blank\"><a href=\"#{url}\" target=\"_blank\">#{url}</a></a>)" }
+          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+        end
+
+        context 'source text' do
+          let(:text) { "aa\n\n(Source: zxc)" }
+          it { is_expected.to eq "aa[br][source]zxc[/source]" }
+        end
+
+        context 'source text quoted ' do
+          let(:text) { "aa\n\n(Source: \"zxc\")" }
+          it { is_expected.to eq "aa[br][source]zxc[/source]" }
+        end
+      end
+
+      context '[img]' do
+        let(:text) { "aa<img class=\"userimg\" data-src=\"http://static.tvtropes.org/pmwiki/pub/images/shirou_3881.png\">bb" }
+        it { is_expected.to eq 'aa[img]http://static.tvtropes.org/pmwiki/pub/images/shirou_3881.png[/img]bb' }
+      end
+
+      context '[right]' do
+        let(:text) { "aa<div style=\"text-align: right;\">ccc<!--right-->\n</div>bb" }
+        it { is_expected.to eq 'aa[right]ccc[/right]bb' }
+      end
     end
 
-    describe '#specials' do
-      it { expect(parser.call '&amp;#039;').to eq "'" }
+    describe '#comments' do
       it { expect(parser.call 'aaa<!-- bbb -->ccc').to eq "aaaccc" }
     end
-
- # &quot;Tooka Yatogami&quot;
   end
 end
