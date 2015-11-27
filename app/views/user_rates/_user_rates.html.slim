@@ -12,49 +12,41 @@
       thead
         tr
           th.index #
-          - if user_signed_in? && current_user.preferences.russian_names?
-            th.name.order-control[
-              class="#{:active if params[:order] == 'russian'}"
-              data-order='russian'
-              title="#{t '.order_by.name'}"
-            ] = i18n_i 'Name'
-
-          - else
-            th.name.order-control[
-              class="#{:active if params[:order] == 'name'}"
-              data-order='name'
-              title="#{t '.order_by.name'}"
-            ] = i18n_i 'Name'
+          th.name.order-control[
+            class="#{:active if @resource.list.sort_order == 'name' || @resource.list.sort_order == 'russian'}"
+            data-order='name'
+            title="#{t '.order_by.name'}"
+          ] = i18n_i 'Name'
 
           th.num.order-control[
-            class="#{:active if params[:order] == 'my'}"
+            class="#{:active if @resource.list.sort_order == 'my'}"
             data-order='my'
             title="#{t '.order_by.score'}"
           ] = i18n_i 'Score'
 
           - if @resource.list.anime?
             th.num.order-control[
-              class="#{:active if params[:order] == 'episodes'}"
+              class="#{:active if @resource.list.sort_order == 'episodes'}"
               data-order='episodes'
               title="#{t '.order_by.episodes'}"
             ] = i18n_i 'Episode', :other
 
           - else
             th.num.order-control[
-              class="#{:active if params[:order] == 'chapters'}"
+              class="#{:active if @resource.list.sort_order == 'chapters'}"
               data-order='chapters'
               title="#{t '.order_by.chapters'}"
             ] = i18n_i 'Chapter', :other
 
             - if @resource.preferences.volumes_in_manga?
               th.num.order-control[
-                class="#{:active if params[:order] == 'volumes'}"
+                class="#{:active if @resource.list.sort_order == 'volumes'}"
                 data-order='volumes'
                 title="#{t '.order_by.volumes'}"
               ] = i18n_i 'Volume', :other
 
           th.num.order-control[
-            class="#{:active if params[:order] == 'kind'}"
+            class="#{:active if @resource.list.sort_order == 'kind'}"
             data-order='kind'
             title="#{t '.order_by.kind'}"
           ] = i18n_i 'Kind'

@@ -11,7 +11,9 @@ end
 shared_context :view_object_warden_stub do
   before do
     view.h.request.env['warden'] ||= WardenStub.new
-    allow(view.h).to receive(:current_user).and_return user.decorate
+    allow(view.h).to receive(:current_user).and_return(
+      user ? user.decorate : nil
+    )
   end
 
   after do

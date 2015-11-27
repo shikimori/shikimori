@@ -122,7 +122,10 @@ class User < ActiveRecord::Base
       .where('users.id not in (select distinct(user_id) from user_rates)')
   }
 
-  enumerize :language, in: [:russian, :english], default: :russian
+  enumerize :language,
+    in: [:russian, :english],
+    default: :russian,
+    predicates: true
 
   accepts_nested_attributes_for :preferences
 

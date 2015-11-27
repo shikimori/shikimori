@@ -32,16 +32,16 @@ class UserLibraryView < ViewObjectBase
 
   def total_stats
     stats = full_list
-      .map {|k,v| list_stats v, false }
+      .map { |_, v| list_stats v, false }
       .each_with_object({}) do |data, memo|
-        data.each do |k,v|
+        data.each do |k, v|
           memo[k] ||= 0
           memo[k] += v
         end
       end
 
     stats[:days] = stats[:days].round(2) if stats[:days]
-    stats.delete_if {|k,v| !(v > 0) }
+    stats.delete_if { |_, v| !(v > 0) }
     stats
   end
 
@@ -55,9 +55,16 @@ class UserLibraryView < ViewObjectBase
 
   def full_list
     Rails.cache.fetch cache_key do
-      UserListQuery
-        .new(klass, user, h.params.clone.merge(with_censored: true)).fetch
+      UserListQuery.new(
+        klass,
+        user,
+        h.params.merge(with_censored: true, order: sort_order)
+      ).fetch
     end
+  end
+
+  def sort_order
+    Animes::SortField.new('name', h).field
   end
 
 private
@@ -96,16 +103,16 @@ private
   # аггрегированная статистика по данным
   def list_stats data, reduce=true
     stats = {
-      tv: data.sum {|v| v.target.anime? && v.target.kind_tv? ? 1 : 0 },
-      movie: data.sum {|v| v.target.anime? && v.target.kind_movie? ? 1 : 0 },
-      ova: data.sum {|v| v.target.anime? && (v.target.kind_ova? || v.target.kind_ona?) ? 1 : 0 },
-      special: data.sum {|v| v.target.anime? && v.target.kind_special? ? 1 : 0 },
-      music: data.sum {|v| v.target.anime? && v.target.kind_music? ? 1 : 0 },
+      tv: data.sum { |v| v.target.anime? && v.target.kind_tv? ? 1 : 0 },
+      movie: data.sum { |v| v.target.anime? && v.target.kind_movie? ? 1 : 0 },
+      ova: data.sum { |v| v.target.anime? && (v.target.kind_ova? || v.target.kind_ona?) ? 1 : 0 },
+      special: data.sum { |v| v.target.anime? && v.target.kind_special? ? 1 : 0 },
+      music: data.sum { |v| v.target.anime? && v.target.kind_music? ? 1 : 0 },
 
-      manga: data.sum {|v| v.target.manga? && (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0 },
-      oneshot: data.sum {|v| v.target.manga? && v.target.kind_one_shot? ? 1 : 0 },
-      novel: data.sum {|v| v.target.manga? && v.target.kind_novel? ? 1 : 0 },
-      doujin: data.sum {|v| v.target.manga? && v.target.kind_doujin? ? 1 : 0 }
+      manga: data.sum { |v| v.target.manga? && (v.target.kind_manga? || v.target.kind_manhwa? || v.target.kind_manhua?) ? 1 : 0 },
+      oneshot: data.sum { |v| v.target.manga? && v.target.kind_one_shot? ? 1 : 0 },
+      novel: data.sum { |v| v.target.manga? && v.target.kind_novel? ? 1 : 0 },
+      doujin: data.sum { |v| v.target.manga? && v.target.kind_doujin? ? 1 : 0 }
     }
     if anime?
       stats[:episodes] = data.sum(&:episodes)
@@ -121,16 +128,17 @@ private
       end
     end.to_f / 60 / 24).round(2)
 
-    reduce ? stats.select { |k,v| v > 0 }.to_hash : stats
+    reduce ? stats.select { |_, v| v > 0 }.to_hash : stats
   end
 
   def cache_key
     [
       :user_list,
-      :v4,
+      :v5,
       user,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
-      h.user_signed_in? ? h.current_user.preferences.russian_names? : false
+      sort_order
+      # h.user_signed_in? ? h.current_user.preferences.russian_names? : false
     ]
   end
 

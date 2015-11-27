@@ -41,6 +41,7 @@ class AniMangaQuery
 
     @user = user
 
+    #TODO: remove all after ||
     @order = params[:order] || (@search.blank? ? DefaultOrder : nil)
   end
 

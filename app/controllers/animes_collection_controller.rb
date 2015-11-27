@@ -2,6 +2,7 @@
 class AnimesCollectionController < ShikimoriController
   helper_method :klass, :entries_per_page
   caches_action :index, :menu, CacheHelper.cache_settings
+  before_action :set_order
 
   # страница каталога аниме/манги
   def index
@@ -241,7 +242,7 @@ private
 
   # TODO: удалить released_at после 01.05.2014
   def order_name
-    case params[:order] || AniMangaQuery::DefaultOrder
+    case params[:order]
       when 'name'
         i18n_t 'order.in_alphabetical_order'
       when 'popularity'
@@ -266,5 +267,9 @@ private
       studios: entry_data[:studio],
       publishers: entry_data[:publisher]
     )
+  end
+
+  def set_order
+    params[:order] = Animes::SortField.new('ranked', view_context).field
   end
 end
