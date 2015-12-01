@@ -25,7 +25,11 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def description
-    object.description || object[:description_en]
+    if scope.h.ru_domain?
+      object[:description_ru] || object[:description_en]
+    else
+      object[:description_en]
+    end
   end
 
   def videos
