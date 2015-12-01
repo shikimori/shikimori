@@ -13,7 +13,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
     data = parser.fetch_entry_data(character_id)
     expect(data[:name]).to eq('Charlotte Dunois')
     expect(data[:fullname]).to eq('Charlotte "Charles, Charl" Dunois')
-    expect(data[:description_mal]).to include('[spoiler]')
+    expect(data[:description_en]).to include('[spoiler]')
 
     expect(data[:seyu].size).to eq(2)
     expect(data[:seyu].first).to eq({ role: 'Japanese', id: 185 })
@@ -51,7 +51,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
 
   it 'correct synopsis' do
     data = parser.fetch_entry_data(87143)
-    expect(data[:description_mal]).to eq(
+    expect(data[:description_en]).to eq(
       "One of Kinana and Sumi's next door neighbors. She lives together with \
 Oomori Hayase, whom she is in a romantic relationship with. She is the \
 aggressive and socially hostile half of the couple. When embarrassed by \
@@ -65,7 +65,7 @@ styles are a reference to the La Croix designs from \
   it 'correct synopsis' do
     data = parser.fetch_entry_data(25023)
 
-    expect(data[:description_mal]).to eq(
+    expect(data[:description_en]).to eq(
       "Harui Kaho is a classmate of \
 [character=21782]Kitagawa Mimi[/character]. There was once a time \
 where Kaho did not go to school for a while. Mimi decided to visit her \

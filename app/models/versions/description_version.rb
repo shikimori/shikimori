@@ -9,7 +9,7 @@ class Versions::DescriptionVersion < Version
 private
 
   def measure_changes
-    MeasureChanges.new item_diff['description'][0], item_diff['description'][1]
+    MeasureChanges.new item_diff['description_ru'][0], item_diff['description_ru'][1]
   end
 
   def takeable?

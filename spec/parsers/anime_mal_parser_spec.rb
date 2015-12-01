@@ -38,7 +38,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:name]).to eq 'Cowboy Bebop'
     expect(data[:kind]).to eq 'tv'
     expect(data[:status]).to eq 'released'
-    expect(data[:description_mal]).to be_present
+    expect(data[:description_en]).to be_present
     expect(data[:related]).not_to be_empty
     expect(data).to include(:english)
     expect(data).to include(:synonyms)
@@ -79,7 +79,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
   it 'correct synopsis' do
     data = parser.fetch_entry_data(21039)
-    expect(data[:description_mal]).to eq "A year has passed since the \
+    expect(data[:description_en]).to eq "A year has passed since the \
 \"Tachikawa Incident\" in summer 2015. CROWDS, the system that turns the \
 mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
 after extracting his NOTE, has spread among the public. Prime Minister \

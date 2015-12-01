@@ -22,7 +22,7 @@ header.head
           href="#{moderations_abuse_requests_url}"
           title="#{t '.forum_journal'}"
         ] = t '.forum_journal'
-      - if ru_content?
+      - if ru_domain?
         li
           a.b-link[
             href="#{moderations_anime_video_reports_url}"
@@ -40,7 +40,7 @@ header.head
             title="#{t '.reviews_journal'}"
           ] = t '.reviews_journal'
 
-  - if ru_content?
+  - if ru_domain?
     .c-column
       .subheadline = t '.content'
 

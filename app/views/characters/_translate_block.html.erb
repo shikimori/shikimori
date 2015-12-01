@@ -1,5 +1,5 @@
 <% translate_block.each_with_index do |character,k| %>
-  <p class="<%='translated' unless (character.description == nil || character.description == '' || character.description == character.description_mal) && !@changes.include?(character.id) %>">
+  <p class="<%='translated' unless (character.description == nil || character.description == '' || character.description == character.description_en) && !@changes.include?(character.id) %>">
     <%=k+1 %>. <%=link_to character.name.html_safe, character_url(character) %>
   </p>
 <% end %>

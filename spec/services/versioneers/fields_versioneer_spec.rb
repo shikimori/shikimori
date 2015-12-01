@@ -26,7 +26,7 @@ describe Versioneers::FieldsVersioneer do
     end
 
     describe 'description change' do
-      let(:changes) {{ description: 'zzz', source: '7' }}
+      let(:changes) {{ description_ru: 'zzz', source: '7' }}
 
       it do
         expect(version).to be_persisted

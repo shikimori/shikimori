@@ -9,7 +9,7 @@ header.head
     .animes
       h3 = name
       - animes.each_with_index do |anime,k|
-        - no_description = anime.description == nil || anime.description == '' || anime.description == anime.description_mal
+        - no_description = anime.description_ru.blank? || anime.description_ru == anime.description_en
 
         p class="#{:translated unless (anime.too_short? || no_description) && !@changes.include?(anime.id)}"
           | #{k+1}.
@@ -17,7 +17,7 @@ header.head
           a.bubbled class="#{anime.kind}" href="#{anime_url anime}" data-href="#{respond_to?("tooltip_#{anime.class.name.downcase}_url") ? send("tooltip_#{anime.class.name.downcase}_url", anime) : ''}"
             = localized_name anime
 
-          - if TranslationsController::TRANSLATE_ME.include?(anime.id) && !@changes.include?(anime.id) && (anime.description == nil || anime.description == '' || anime.description == anime.description_mal)
+          - if TranslationsController::TRANSLATE_ME.include?(anime.id) && !@changes.include?(anime.id) && (anime.description_ru == nil || anime.description_ru == '' || anime.description_ru == anime.description_en)
             span style="font-size:9px; color: red;" это в первую очередь
 
           - if anime.too_short? && !no_description

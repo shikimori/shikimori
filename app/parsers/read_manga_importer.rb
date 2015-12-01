@@ -11,7 +11,7 @@ class ReadMangaImporter
   end
 
   # импорт по страницам или по id в базу
-  def import(options = {})
+  def import options = {}
     options[:pages] = 0..(@parser.fetch_pages_num - 1) unless options[:pages] || options[:id]
 
     print "preparing mangas for import...\n" if Rails.env != 'test'
@@ -23,7 +23,7 @@ class ReadMangaImporter
     print "preparing import entries for import...\n" if Rails.env != 'test'
     import_data = prepare_import_data(
         options[:ids] ?
-          Array(options[:ids]).map {|id| @parser.fetch_entry id } :
+          Array(options[:ids]).map { |id| @parser.fetch_entry id } :
           @parser.fetch_pages(options[:pages])
       )
     print "fetched #{import_data.size} entries\n" if Rails.env != 'test'
@@ -35,7 +35,7 @@ class ReadMangaImporter
   # выборка из базы того, куда импортироватьс
   def prepare_db_data
     all_mangas = Manga
-      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description, :read_manga_scores, :read_manga_id, :source, :kind])
+      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :read_manga_scores, :read_manga_id, :source, :kind])
       .order(:kind)
       .all
 
@@ -67,17 +67,27 @@ class ReadMangaImporter
 
     import_data.each do |import_entry|
       db_data.each do |db_entry|
-        if entries_matched?(import_entry, db_entry)
-          unless import_entry[:description].blank? || ids_with_description.include?(db_entry[:id]) || import_entry[:description].length < 60
-            db_entry[:entry].description = import_entry[:description]
+        if entries_matched? import_entry, db_entry
+          unless import_entry[:description_ru].blank? ||
+              ids_with_description.include?(db_entry[:id]) ||
+              import_entry[:description_ru].length < 60
+            db_entry[:entry].description_ru = import_entry[:description_ru]
             db_entry[:entry].source = import_entry[:source]
           end
-          if import_entry[:russian].present? && db_entry[:entry].russian.blank? && db_entry[:entry].name != import_entry[:russian] && import_entry[:russian] =~ /[А-я]/
+
+          if import_entry[:russian].present? &&
+              db_entry[:entry].russian.blank? &&
+              db_entry[:entry].name != import_entry[:russian] &&
+              import_entry[:russian] =~ /[А-я]/
             db_entry[:entry].russian = import_entry[:russian]
           end
+
+          if db_entry[:entry].read_manga_scores.to_s != import_entry[:score].to_s
+            db_entry[:entry].read_manga_scores = import_entry[:score]
+          end
+
           db_entry[:entry].read_manga_id = self.class::Prefix+import_entry[:id]
-          db_entry[:entry].read_manga_scores = import_entry[:score] if db_entry[:entry].read_manga_scores.to_s != import_entry[:score].to_s
-          db_entry[:entry].save(validate: false) if db_entry[:entry].changes.any?
+          db_entry[:entry].save validate: false if db_entry[:entry].changes.any?
 
           matched += 1
           break
@@ -92,7 +102,8 @@ class ReadMangaImporter
   def entries_matched? import_entry, db_entry
     link = ReadMangaImportData::CustomLinks[import_entry[:id]]
 
-    !(self.class::Prefix == AdultMangaImporter::Prefix && import_entry[:kind] == :one_shot && db_entry[:entry].manga?) && # адалт ваншоты с мангами не матчим
+    !(self.class::Prefix == AdultMangaImporter::Prefix &&
+      import_entry[:kind] == :one_shot && db_entry[:entry].manga?) && # адалт ваншоты с мангами не матчим
       (!link && (import_entry[:names] & db_entry[:names]).any?) || (link && link == db_entry[:id])
   end
 end

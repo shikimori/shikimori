@@ -14,7 +14,7 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
       its(:names) { should eq ["Вторжение Гигантов", "Attack on Titan", "Shingeki no Kyojin", "Вторжение Титанов", "Атака Гигантов", "進撃の巨人"] }
       its(:russian) { should eq 'Вторжение Гигантов' }
       its(:score) { should be_within(1).of 9 }
-      its(:description) { should be_present }
+      its(:description_ru) { should be_present }
       its(:source) { should eq '© Hollow, http://world-art.ru' }
 
       its(:videos) { should have(26).items }

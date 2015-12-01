@@ -59,7 +59,7 @@ describe VersionsQuery do
   describe '#authors' do
     let(:author_1) { create :user }
     let(:author_2) { create :user }
-    let(:diff) {{ description: ['a','b'] }}
+    let(:diff) {{ description_ru: ['a','b'] }}
 
     describe 'accepted' do
       let!(:pending) { create :version, item_diff: diff, item: anime }
@@ -70,7 +70,7 @@ describe VersionsQuery do
       let!(:deleted) { create :version, state: 'deleted', item_diff: diff,
         item: anime }
 
-      it { expect(query.authors :description).to eq [author_1] }
+      it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'another entry' do
@@ -79,7 +79,7 @@ describe VersionsQuery do
       let!(:accepted_2) { create :version, :accepted, user: author_2,
         item_diff: diff, item: build_stubbed(:anime) }
 
-      it { expect(query.authors :description).to eq [author_1] }
+      it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'another field' do
@@ -88,7 +88,7 @@ describe VersionsQuery do
       let!(:accepted_2) { create :version, :accepted, user: author_2,
         item_diff: { name: [1,2] }, item: anime }
 
-      it { expect(query.authors :description).to eq [author_1] }
+      it { expect(query.authors :description_ru).to eq [author_1] }
     end
 
     describe 'ordering' do
@@ -97,7 +97,7 @@ describe VersionsQuery do
       let!(:accepted_2) { create :version, :accepted, user: author_2,
         item_diff: diff, item: anime, created_at: 1.day.ago }
 
-      it { expect(query.authors :description).to eq [author_1, author_2] }
+      it { expect(query.authors :description_ru).to eq [author_1, author_2] }
     end
 
     context 'screenshots' do

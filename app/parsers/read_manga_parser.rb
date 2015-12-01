@@ -83,8 +83,8 @@ class ReadMangaParser < SiteParserWithCache
     entry[:source] = find_source(lines, url) || url
     entry[:read_first_url] = extract_read_first_url doc
 
-    entry[:description] = build_description lines, entry[:id]
-    return nil if moved_entry? entry[:description]
+    entry[:description_ru] = build_description lines, entry[:id]
+    return nil if moved_entry? entry[:description_ru]
 
     extract_additional entry, doc
 

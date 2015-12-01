@@ -37,7 +37,9 @@ private
   end
 
   def version_klass diff
-    diff['description'] ? Versions::DescriptionVersion : Version
+    diff['description_ru'] || diff['description_en'] ?
+      Versions::DescriptionVersion :
+      Version
   end
 
   def convert_dates hash

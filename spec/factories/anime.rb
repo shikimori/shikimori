@@ -3,8 +3,8 @@ FactoryGirl.define do
     sequence(:name) { |n| "anime_#{n}" }
     sequence(:ranked)
     #sequence(:russian) { |n| "russian_anime_#{n}" }
-    description ''
-    description_mal ''
+    description_ru ''
+    description_en ''
     duration 0
     score 1
     mal_scores [1,1,1,1,1,1,1,1,1,1]

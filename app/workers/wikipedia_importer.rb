@@ -126,11 +126,11 @@ class WikipediaImporter
         #end
 
         if names_matched?(db_char, ambiguous_names[0], wiki_char, ambiguous_names[1])
-          db_char.description = wiki_char[:description]
+          db_char.description_ru = wiki_char[:description_ru]
           db_char.russian = wiki_char[:russian].sub('Сяна', 'Шана')
           db_char.japanese = wiki_char[:japanese] if !db_char[:japanese] && wiki_char[:japanese]
 
-          raise "bad description for #{db_char[:id]}-#{db_char[:name]}: \n#{wiki_char[:description]}" if wiki_char[:description] =~ /\*\*|\{\{|\}\}/
+          raise "bad description for #{db_char[:id]}-#{db_char[:name]}: \n#{wiki_char[:description_ru]}" if wiki_char[:description_ru] =~ /\*\*|\{\{|\}\}/
           if db_char.changes.any?
             db_char.source = wiki_char[:source]
             db_char.save
@@ -355,9 +355,16 @@ class WikipediaImporter
         chars[char[:russian]] = char
       else
         entry = chars[char[:russian]]
-        entry[:description] = char[:description] if char[:description].length > entry[:description].length
-        entry[:japanese] = char[:japanese] if !entry.include?(:japanese) && char.include?(:japanese)
-        entry[:english] = char[:english] if !entry.include?(:english) && char.include?(:english)
+
+        if char[:description_ru].length > entry[:description_ru].length
+          entry[:description_ru] = char[:description_ru]
+        end
+        if !entry.include?(:japanese) && char.include?(:japanese)
+          entry[:japanese] = char[:japanese]
+        end
+        if !entry.include?(:english) && char.include?(:english)
+          entry[:english] = char[:english]
+        end
       end
     end
     chars.values

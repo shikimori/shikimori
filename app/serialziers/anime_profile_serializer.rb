@@ -25,7 +25,7 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def description
-    object.description || object[:description_mal]
+    object.description || object[:description_en]
   end
 
   def videos

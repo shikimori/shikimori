@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :character do
     sequence(:name) { |n| "character_#{n}" }
     sequence(:russian) { |n| "персонаж_#{n}" }
-    description ''
-    description_mal ''
+    description_ru ''
+    description_en ''
 
     after :build do |character|
       character.stub :generate_thread

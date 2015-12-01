@@ -6,7 +6,10 @@
     meta itemprop="alternativeHeadline" content="#{@resource.russian}"
 
   - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
-    meta itemprop="datePublished" content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
+    meta[
+      itemprop="datePublished"
+      content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
+    ]
   - elsif @resource.anime?
     - if @resource.aired_on
       meta itemprop="startDate" content="#{@resource.aired_on.to_s}"
@@ -83,7 +86,11 @@
 
         .c-info-right
           - if @resource.with_score?
-            .block[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+            .block[
+              itemscope
+              itemprop="aggregateRating"
+              itemtype="http://schema.org/AggregateRating"
+            ]
               .subheadline.m5 = Anime.human_attribute_name(:score)
               .scores
                 meta itemprop="bestRating" content="10"
@@ -113,12 +120,14 @@
                   span.linkeable.b-link_button.dark.watch-online[
                     data-href="#{@resource.video_online_url}"
                   ] Смотреть онлайн
+
                 - elsif user_signed_in? && current_user.day_registered?
-                  .watch-online.subheadline.blue
-                    a href="#{@resource.upload_first_video_online_url}" Нет видео. Загрузить
+                  a.b-link_button.dark.upload-video[
+                    href="#{@resource.upload_first_video_online_url}"
+                  ] Нет видео. Загрузить
 
     .c-description
-      .subheadline.m5 = Anime.human_attribute_name(:description)
+      .subheadline.m5 = Anime.human_attribute_name :description
       .block
         meta[
           itemprop="image"
@@ -133,11 +142,11 @@
           / .text должен быть вложен в блок с отступом, иначе при сокращении
           / длинного текста между height shortener и текстом будет отступ
           .text
-            - if @resource.show_mal_description?
+            - if @resource.show_en_description?
               .lang-trigger
                 | [<span>eng</span>]
               .english
-                = @resource.description_mal
+                = @resource.description_en
             .russian itemprop="description"
               = @resource.description_html
 
