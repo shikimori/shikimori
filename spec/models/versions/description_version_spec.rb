@@ -14,42 +14,57 @@ describe Versions::DescriptionVersion do
   end
 
   describe '#fix_state' do
-    let(:version) { create :description_version, state: state, item_diff: { description_ru: [old,new] } }
+    let(:version) { create :description_version, state: state,
+      item_diff: item_diff }
     before { version.fix_state }
 
-    context 'accepted' do
-      let(:state) { 'accepted' }
+    context 'description_ru' do
+      let(:item_diff) {{ description_ru: [old, new] }}
 
-      context 'big changes' do
-        let(:old) { 'aaaaaaa aaa' }
-        let(:new) { 'aaaaaaa bbb' }
+      context 'accepted' do
+        let(:state) { 'accepted' }
 
-        it { expect(version).to be_accepted }
+        context 'big changes' do
+          let(:old) { 'aaaaaaa aaa' }
+          let(:new) { 'aaaaaaa bbb' }
+
+          it { expect(version).to be_accepted }
+        end
+
+        context 'small changes' do
+          let(:old) { 'aaaaaaaa aa' }
+          let(:new) { 'aaaaaaaa bb' }
+
+          it { expect(version).to be_taken }
+        end
       end
 
-      context 'small changes' do
-        let(:old) { 'aaaaaaaa aa' }
-        let(:new) { 'aaaaaaaa bb' }
+      context 'taken' do
+        let(:state) { 'taken' }
 
-        it { expect(version).to be_taken }
+        context 'big changes' do
+          let(:old) { 'aaaaaaa aaa' }
+          let(:new) { 'aaaaaaa bbb' }
+
+          it { expect(version).to be_accepted }
+        end
+
+        context 'small changes' do
+          let(:old) { 'aaaaaaaa aa' }
+          let(:new) { 'aaaaaaaa bb' }
+          it { expect(version).to be_taken }
+        end
       end
     end
 
-    context 'taken' do
-      let(:state) { 'taken' }
+    context 'description_en' do
+      let(:item_diff) {{ description_en: [old, new] }}
+      let(:state) { 'accepted' }
 
-      context 'big changes' do
-        let(:old) { 'aaaaaaa aaa' }
-        let(:new) { 'aaaaaaa bbb' }
+      let(:old) { 'aaaaaaaa aa' }
+      let(:new) { 'aaaaaaaa bb' }
 
-        it { expect(version).to be_accepted }
-      end
-
-      context 'small changes' do
-        let(:old) { 'aaaaaaaa aa' }
-        let(:new) { 'aaaaaaaa bb' }
-        it { expect(version).to be_taken }
-      end
+      it { expect(version).to be_taken }
     end
   end
 end

@@ -88,10 +88,17 @@
           .value.under_development = t('under_development').downcase
           /a.b-js-action href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
 
+        - if ru_domain?
+          li
+            .field = @resource.class.human_attribute_name :description_ru
+            a.b-js-action[
+              href="#{@resource.edit_field_url :description_ru}"
+            ] = t 'actions.edit'
+
         li
-          .field = @resource.class.human_attribute_name :description_ru
+          .field = @resource.class.human_attribute_name :description_en
           a.b-js-action[
-            href="#{@resource.edit_field_url :description_ru}"
+            href="#{@resource.edit_field_url :description_en}"
           ] = t 'actions.edit'
 
         - if @resource.anime? && !Copyright::SCREENSHOTS.include?(@resource.id)

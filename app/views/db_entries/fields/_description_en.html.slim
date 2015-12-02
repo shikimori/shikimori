@@ -1,12 +1,10 @@
-p.warning Перед внесением изменений обязательно ознакомьтесь с <a href="http://#{Site::DOMAIN}/clubs/2-Perevody">правилами</a>.
-
 = simple_form_for resource.object do |f|
   .b-shiki_editor.unprocessed.block[
       data-target_id="#{@resource.id}"
       data-target_type="#{@resource.object.class.name}"
     ]
-    = render 'comments/shiki_editor', text: resource.description,
-      field_name: "#{@resource.object.class.name.downcase}[description]"
+    = render 'comments/shiki_editor', text: resource.description_en,
+      field_name: "#{@resource.object.class.name.downcase}[description_en]"
 
   = f.input :source
   = render 'versions/reason'
