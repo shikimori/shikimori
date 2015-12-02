@@ -2,57 +2,57 @@ require 'cancan/matchers'
 
 describe User do
   describe 'relations' do
-    it { should have_one :preferences }
+    it { is_expected.to have_one :preferences }
 
-    it { should have_many :versions }
+    it { is_expected.to have_many :versions }
 
-    it { should have_many :anime_rates }
-    it { should have_many :manga_rates }
+    it { is_expected.to have_many :anime_rates }
+    it { is_expected.to have_many :manga_rates }
 
-    it { should have_many :history }
-    it { should have_many :subscriptions }
+    it { is_expected.to have_many :history }
+    it { is_expected.to have_many :subscriptions }
 
-    it { should have_many :friend_links }
-    it { should have_many :friends }
+    it { is_expected.to have_many :friend_links }
+    it { is_expected.to have_many :friends }
 
-    it { should have_many :favourites }
-    it { should have_many :fav_animes }
-    it { should have_many :fav_mangas }
-    it { should have_many :fav_people }
-    it { should have_many :fav_seyu }
-    it { should have_many :fav_producers }
-    it { should have_many :fav_mangakas }
-    it { should have_many :fav_characters }
+    it { is_expected.to have_many :favourites }
+    it { is_expected.to have_many :fav_animes }
+    it { is_expected.to have_many :fav_mangas }
+    it { is_expected.to have_many :fav_people }
+    it { is_expected.to have_many :fav_seyu }
+    it { is_expected.to have_many :fav_producers }
+    it { is_expected.to have_many :fav_mangakas }
+    it { is_expected.to have_many :fav_characters }
 
-    it { should have_many :abuse_requests }
-    it { should have_many :messages }
-    it { should have_many :comments }
+    it { is_expected.to have_many :abuse_requests }
+    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many :comments }
 
-    it { should have_many :reviews }
-    it { should have_many :votes }
+    it { is_expected.to have_many :reviews }
+    it { is_expected.to have_many :votes }
 
-    it { should have_many :ignores }
-    it { should have_many :ignored_users }
+    it { is_expected.to have_many :ignores }
+    it { is_expected.to have_many :ignored_users }
 
-    it { should have_many :group_roles }
-    it { should have_many :groups }
+    it { is_expected.to have_many :group_roles }
+    it { is_expected.to have_many :groups }
 
-    it { should have_many :entry_views }
+    it { is_expected.to have_many :entry_views }
 
-    it { should have_many :contest_user_votes }
+    it { is_expected.to have_many :contest_user_votes }
 
-    it { should have_many :nickname_changes }
-    it { should have_many :recommendation_ignores }
+    it { is_expected.to have_many :nickname_changes }
+    it { is_expected.to have_many :recommendation_ignores }
 
-    it { should have_many :bans }
-    it { should have_many :group_bans }
+    it { is_expected.to have_many :bans }
+    it { is_expected.to have_many :group_bans }
 
-    it { should have_many :devices }
+    it { is_expected.to have_many :devices }
 
-    it { should have_many :user_tokens }
-    it { should have_many :user_images }
+    it { is_expected.to have_many :user_tokens }
+    it { is_expected.to have_many :user_images }
 
-    it { should have_many :anime_video_reports }
+    it { is_expected.to have_many :anime_video_reports }
   end
 
   describe 'enumerize' do
@@ -67,8 +67,8 @@ describe User do
     it { expect(user.preferences).to be_persisted }
 
     #it 'creates registration history entry' do
-      #user.history.should have(1).item
-      #user.history.first.action.should eq UserHistoryAction::Registration
+      #user.history.is_expected.to have(1).item
+      #user.history.first.action.is_expected.to eq UserHistoryAction::Registration
     #end
 
     describe '#log_nickname_change' do
@@ -80,7 +80,7 @@ describe User do
 
   describe 'instance methods' do
     describe '#nickname=' do
-      let(:user) { create :user, nickname: '#[test]%&?+' }
+      let(:user) { create :user, nickname: '#[test]%&?+@' }
       it { expect(user.nickname).to eq 'test' }
     end
 
@@ -90,17 +90,17 @@ describe User do
 
       context 'no ban' do
         let(:read_only_at) { nil }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       context 'expired ban' do
         let(:read_only_at) { Time.zone.now - 1.second }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       context 'valid ban' do
         let(:read_only_at) { Time.zone.now + 1.seconds }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -218,16 +218,16 @@ describe User do
       let(:read_only_at) { nil }
       subject { create(:user, read_only_at: read_only_at).banned? }
 
-      it { should be_falsy }
+      it { is_expected.to be_falsy }
 
       describe 'true' do
         let(:read_only_at) { DateTime.now + 1.hour }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       describe 'false' do
         let(:read_only_at) { DateTime.now - 1.second }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -237,11 +237,11 @@ describe User do
 
       context 'friended' do
         let(:user) { build_stubbed :user, friend_links: [build_stubbed(:friend_link, dst: user_2)] }
-        it { should be true }
+        it { is_expected.to be true }
       end
 
       context 'not friended' do
-        it { should be false }
+        it { is_expected.to be false }
       end
     end
 
@@ -292,21 +292,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
       end
 
@@ -315,21 +315,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
       end
 
@@ -338,21 +338,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
       end
 
@@ -361,21 +361,21 @@ describe User do
 
         context 'owner' do
           let(:user) { profile }
-          it { should be_able_to :access_list, profile }
+          it { is_expected.to be_able_to :access_list, profile }
         end
 
         context 'friend' do
           let(:profile) { build_stubbed :user, :user, friend_links: [friend_link], preferences: preferences }
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
 
         context 'user' do
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
 
         context 'guest' do
           let(:user) { nil }
-          it { should_not be_able_to :access_list, profile }
+          it { is_expected.to_not be_able_to :access_list, profile }
         end
       end
     end
@@ -385,16 +385,16 @@ describe User do
 
       context 'owner' do
         let(:user) { profile }
-        it { should be_able_to :access_messages, profile }
+        it { is_expected.to be_able_to :access_messages, profile }
       end
 
       context 'user' do
-        it { should_not be_able_to :access_messages, profile }
+        it { is_expected.to_not be_able_to :access_messages, profile }
       end
 
       context 'guest' do
         let(:user) { nil }
-        it { should_not be_able_to :access_messages, profile }
+        it { is_expected.to_not be_able_to :access_messages, profile }
       end
     end
 
@@ -403,24 +403,24 @@ describe User do
 
       context 'own profile' do
         let(:user) { profile }
-        it { should be_able_to :edit, profile }
-        it { should be_able_to :update, profile }
+        it { is_expected.to be_able_to :edit, profile }
+        it { is_expected.to be_able_to :update, profile }
       end
 
       context 'admin' do
         let(:user) { build_stubbed :user, id: User::Admins.first }
-        it { should be_able_to :edit, profile }
-        it { should be_able_to :update, profile }
+        it { is_expected.to be_able_to :edit, profile }
+        it { is_expected.to be_able_to :update, profile }
       end
 
       context 'user' do
-        it { should_not be_able_to :edit, profile }
-        it { should_not be_able_to :update, profile }
+        it { is_expected.to_not be_able_to :edit, profile }
+        it { is_expected.to_not be_able_to :update, profile }
       end
 
       context 'guest' do
-        it { should_not be_able_to :edit, profile }
-        it { should_not be_able_to :update, profile }
+        it { is_expected.to_not be_able_to :edit, profile }
+        it { is_expected.to_not be_able_to :update, profile }
       end
     end
   end

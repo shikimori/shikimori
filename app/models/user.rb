@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
   # зачистка никнейма от запрещённых символов
   def nickname= value
     super value
-      .gsub(/[%&#\/\\?+><\]\[:,]+/, '')
+      .gsub(/[%&#\/\\?+><\]\[:,@]+/, '')
       .gsub(/[[:space:]]+/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
