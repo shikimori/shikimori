@@ -92,24 +92,8 @@
           itemprop='thumbnailUrl'
           content="#{{meta_image_url @resource.image, :x64, false}}"
         ]
+        = render 'blocks/description', resource: @resource
 
-        .m20
-          / .text должен быть вложен в блок с отступом, иначе при сокращении
-          / длинного текста между height shortener и текстом будет отступ
-          .text
-            - if @resource.show_en_description?
-              .lang-trigger
-                | [<span>eng</span>]
-              .english
-                = @resource.description_en
-            .russian itemprop='description'
-              = @resource.description_html
-
-        = render 'blocks/source',
-          entry: @resource,
-          authors: @resource.versions.authors(:description),
-          field: 'description',
-          default_source: @resource.mal_url
 
   - if @resource.animes(7).any?
     .subheadline.m10

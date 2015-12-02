@@ -129,32 +129,7 @@
     .c-description
       .subheadline.m5 = Anime.human_attribute_name :description
       .block
-        meta[
-          itemprop="image"
-          content="#{{meta_image_url @resource.image, :original, false}}"
-        ]
-        meta[
-          itemprop="thumbnailUrl"
-          content="#{{meta_image_url @resource.image, :x64, false}}"
-        ]
-
-        .m20
-          / .text должен быть вложен в блок с отступом, иначе при сокращении
-          / длинного текста между height shortener и текстом будет отступ
-          .text
-            - if @resource.show_en_description?
-              .lang-trigger
-                | [<span>eng</span>]
-              .english
-                = @resource.description_en
-            .russian itemprop="description"
-              = @resource.description_html
-
-        = render 'blocks/source',
-          entry: @resource,
-          authors: @resource.versions.authors(:description),
-          field: 'description',
-          default_source: @resource.mal_url
+        = render 'blocks/description', resource: @resource
 
   - if user_signed_in?
     = render 'resources'

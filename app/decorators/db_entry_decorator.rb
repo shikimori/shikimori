@@ -1,7 +1,7 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_en, :description_html, :main_thread, :preview_thread
-  instance_cache :linked_clubs, :all_linked_clubs
-  instance_cache :favoured, :favoured?, :all_favoured
+  instance_cache :description_ru, :description_en, :description_html,
+    :main_thread, :preview_thread, :linked_clubs, :all_linked_clubs,
+    :favoured, :favoured?, :all_favoured
 
   MAX_CLUBS = 4
   MAX_FAVOURITES = 12
@@ -18,13 +18,16 @@ class DbEntryDecorator < BaseDecorator
     object.source
   end
 
-  def show_en_description?
-    h.ru_domain? && h.user_signed_in? && object.respond_to?(:description_en) &&
-      object.description_en.present? && object.description_ru.present?
+  def description_en?
+    object.description_en.present?
+  end
+
+  def description_ru?
+    h.ru_domain? && object.description_ru.present?
   end
 
   def description_html
-    if description_ru.present? && h.ru_domain?
+    if description_ru?
       description_ru
     else
       description_en
@@ -123,12 +126,13 @@ class DbEntryDecorator < BaseDecorator
 private
 
   def headline_array
-    if I18n.russian?
-      if !h.user_signed_in? || (h.user_signed_in? && !h.current_user.preferences.russian_names?)
-        [name, russian].select(&:present?).compact
-      else
+    if h.ru_domain?
+      if !h.user_signed_in? || (I18n.russian? && h.current_user.preferences.russian_names?)
         [russian, name].select(&:present?).compact
+      else
+        [name, russian].select(&:present?).compact
       end
+
     else
       [name]
     end

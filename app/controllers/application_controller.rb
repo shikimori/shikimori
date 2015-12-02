@@ -191,7 +191,7 @@ private
   def set_locale
     I18n.locale = params[:locale] ||
       (I18n::LOCALES[current_user.language] if user_signed_in?) ||
-      I18n.default_locale
+      (ru_domain? ? :ru : :en)
   end
 
   def default_url_options options = {}

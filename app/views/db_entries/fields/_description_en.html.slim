@@ -1,10 +1,10 @@
 = simple_form_for resource.object do |f|
   .b-shiki_editor.unprocessed.block[
-      data-target_id="#{@resource.id}"
-      data-target_type="#{@resource.object.class.name}"
+      data-target_id="#{resource.id}"
+      data-target_type="#{resource.object.class.name}"
     ]
-    = render 'comments/shiki_editor', text: resource.description_en,
-      field_name: "#{@resource.object.class.name.downcase}[description_en]"
+    = render 'comments/shiki_editor', text: resource.object.description_en,
+      field_name: "#{resource.object.class.name.downcase}[description_en]"
 
   = f.input :source
   = render 'versions/reason'

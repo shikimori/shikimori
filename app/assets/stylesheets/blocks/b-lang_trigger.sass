@@ -1,0 +1,22 @@
+@import mixins/link
+
+.b-lang_trigger
+  color: #678
+  float: right
+  font-size: 11px
+  line-height: 20px
+  margin: -2px 0 5px 15px
+  padding: 0
+
+  &:before
+    content: '['
+
+  &:after
+    content: ']'
+
+  span
+    +js-link
+
+
+.b-lang_trigger + .english
+  display: none

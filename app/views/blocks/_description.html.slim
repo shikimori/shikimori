@@ -1,0 +1,32 @@
+- cache [ru_domain?, I18n.locale, resource.object, :description] do
+  - if ru_domain?
+    - if user_signed_in? && resource.description_en?
+      .b-lang_trigger: span eng
+      .english: .text
+        = resource.description_en
+
+        = render 'blocks/source',
+          entry: resource,
+          authors: resource.versions.authors(:description_en),
+          field: 'description',
+          default_source: resource.mal_url
+
+    .russian
+      .text itemprop="description"
+        = resource.description_html
+
+      = render 'blocks/source',
+        entry: resource,
+        authors: resource.versions.authors(:description_ru),
+        field: 'description',
+        default_source: resource.mal_url
+
+  - else
+    .text itemprop="description"
+      = resource.description_html
+
+    = render 'blocks/source',
+      entry: resource,
+      authors: resource.versions.authors(:description_en),
+      field: 'description',
+      default_source: resource.mal_url

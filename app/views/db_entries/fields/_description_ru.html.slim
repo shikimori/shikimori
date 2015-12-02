@@ -2,11 +2,11 @@ p.warning Перед внесением изменений обязательн�
 
 = simple_form_for resource.object do |f|
   .b-shiki_editor.unprocessed.block[
-      data-target_id="#{@resource.id}"
-      data-target_type="#{@resource.object.class.name}"
+      data-target_id="#{resource.id}"
+      data-target_type="#{resource.object.class.name}"
     ]
-    = render 'comments/shiki_editor', text: resource.description_ru,
-      field_name: "#{@resource.object.class.name.downcase}[description_ru]"
+    = render 'comments/shiki_editor', text: resource.object.description_ru,
+      field_name: "#{resource.object.class.name.downcase}[description_ru]"
 
   = f.input :source
   = render 'versions/reason'

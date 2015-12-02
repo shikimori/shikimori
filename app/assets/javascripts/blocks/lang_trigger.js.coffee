@@ -1,6 +1,6 @@
 $(document).on 'page:load', ->
   # переключение языка описания
-  $('.lang-trigger').on 'click', ->
+  $('.b-lang_trigger').on 'click', ->
     $english = $('.english')
     if $english.is(':visible')
       $english.hide()
