@@ -204,7 +204,7 @@
           div: a href="#{versions_profile_url @resource}"
             = "#{@resource.stats.versions_count} #{i18n_i 'content_change', @resource.stats.versions_count}"
 
-        - if ru_content? && @resource.stats.videos_changes_count > 0
+        - if ru_domain? && @resource.stats.videos_changes_count > 0
           div: a href="#{videos_profile_url @resource}"
             = "#{@resource.stats.videos_changes_count} #{i18n_i 'video_change', @resource.stats.videos_changes_count}"
 

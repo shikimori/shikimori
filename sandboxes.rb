@@ -205,7 +205,7 @@ def dump(ids)
   Anime.where(id: ids).all.map do |anime|
     {
       id: anime.id,
-      attributes: anime.attributes.except('description','id','description_html', 'russian'),
+      attributes: anime.attributes.except('description_ru','id','description_html', 'russian'),
       genres: anime.genres.pluck(:id)
     }
   end.to_json

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126121304) do
+ActiveRecord::Schema.define(version: 20151127234259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,8 +105,8 @@ ActiveRecord::Schema.define(version: 20151126121304) do
 
   create_table "animes", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.text     "description"
-    t.text     "description_mal"
+    t.text     "description_ru"
+    t.text     "description_en"
     t.string   "kind",               limit: 255
     t.integer  "episodes",                       default: 0,     null: false
     t.integer  "duration"
@@ -191,8 +191,8 @@ ActiveRecord::Schema.define(version: 20151126121304) do
     t.string   "name",               limit: 255
     t.string   "japanese",           limit: 255
     t.string   "fullname",           limit: 255
-    t.text     "description"
-    t.text     "description_mal"
+    t.text     "description_ru"
+    t.text     "description_en"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name",    limit: 255
@@ -572,8 +572,8 @@ ActiveRecord::Schema.define(version: 20151126121304) do
 
   create_table "mangas", force: :cascade do |t|
     t.string   "name",               limit: 255
-    t.text     "description"
-    t.text     "description_mal"
+    t.text     "description_ru"
+    t.text     "description_en"
     t.string   "kind",               limit: 255
     t.integer  "volumes",                                                default: 0,     null: false
     t.integer  "volumes_aired",                                          default: 0,     null: false

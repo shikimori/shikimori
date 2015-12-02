@@ -87,7 +87,7 @@
       .block
         .subheadline = t '.on_other_sites'
         ul.block-list.sites
-          - if ru_content?
+          - if ru_domain?
             li
               a href="#{resource.mal_url}"
                 /- if @klass != Manga && average_score(resource.mal_scores).to_f > 0

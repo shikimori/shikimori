@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :json?
   helper_method :domain_folder
   helper_method :adaptivity_class
-  helper_method :ru_content?, :shikimori?, :anime_online?, :manga_online?
+  helper_method :ru_domain?, :shikimori?, :anime_online?, :manga_online?
   helper_method :turbolinks_request?
   helper_method :base_controller_names
   helper_method :ignore_copyright?
@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
   end
 
   # находимся ли сейчас на домене шикимори?
-  def ru_content?
+  def ru_domain?
     ShikimoriDomain::RU_HOST == request.host
   end
 

@@ -108,7 +108,7 @@ class WikipediaParser < SiteParserWithCache
         chars.each do |char|
           if char[:russian] == h_char[:russian]
             is_exist = true
-            char[:description] = h_char[:description] if h_char[:description]
+            char[:description_ru] = h_char[:description_ru] if h_char[:description_ru]
             char[:english] = h_char[:english] if h_char[:english]
             char[:japanese] = h_char[:japanese] if h_char[:japanese]
             char[:source] = url.sub('action=edit&', '')
@@ -180,16 +180,16 @@ class WikipediaParser < SiteParserWithCache
       end
 
 #debugger if char[:russian] == 'Инуяся'
-      char[:description] = cleanup_description(text, char)
+      char[:description_ru] = cleanup_description(text, char)
 
       begin
         r = Regexp.new("^(?:\\[\\[)?#{char[:russian]}(?:\\]\\])?\n(?:\s|\n)*")
-        char[:description].sub!(r, '')
+        char[:description_ru].sub!(r, '')
       rescue
       end
-      char[:description].sub!(/\s* ,? \s* \( .*? \) \s* \n /x, '')
+      char[:description_ru].sub!(/\s* ,? \s* \( .*? \) \s* \n /x, '')
       begin
-        char[:description].sub!(Regexp.new("^(#{char[:russian].gsub(' ', ' \\s+ ')}) \\s* \\( .*? \\)", Regexp::EXTENDED), '\1')
+        char[:description_ru].sub!(Regexp.new("^(#{char[:russian].gsub(' ', ' \\s+ ')}) \\s* \\( .*? \\)", Regexp::EXTENDED), '\1')
       rescue
       end
 
@@ -223,7 +223,7 @@ class WikipediaParser < SiteParserWithCache
       {
         russian: cleanup_name(traits['имя']),
         japanese: traits['кандзи'],
-        description: traits['описание']
+        description_ru: traits['описание']
       }
     end
   end
@@ -247,22 +247,22 @@ class WikipediaParser < SiteParserWithCache
         russian: cleanup_name($1 || $3 || $5 || $7)
       }
 
-      char[:description] = cleanup_description(regexp == CharacterDetailedRegexp ? $9 : $5, char)
+      char[:description_ru] = cleanup_description(regexp == CharacterDetailedRegexp ? $9 : $5, char)
 
-      # перенос куска в header из description
-      if char[:description] =~ /^ (\s* \( \{\{ .*? \}\} .*? \) \s*)+ ([\s\S]*) /x
+      # перенос куска в header из description_ru
+      if char[:description_ru] =~ /^ (\s* \( \{\{ .*? \}\} .*? \) \s*)+ ([\s\S]*) /x
         if header
           header += $1
         else
           header = $1
         end
-        char[:description] = $2
+        char[:description_ru] = $2
       end
 
       fill_character_english(char, header)
       fill_character_japanese(char, header)
 
-      next if char[:description].blank?
+      next if char[:description_ru].blank?
       next if char[:russian] == 'Сэйю'
 
       characters << char

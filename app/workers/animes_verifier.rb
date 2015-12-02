@@ -65,7 +65,7 @@ private
     @bad_descriptions ||= klass
       .where(
         BAD_DESCRIPTIONS
-          .map { |v| "description ilike '#{v}'" }
+          .map { |v| "description_ru ilike '#{v}'" }
           .join(' or ')
       )
       .where.not(id: ignore_ids)
@@ -77,7 +77,7 @@ private
     @bad_mal_descriptions ||= klass
       .where(
         BAD_MAL_DESCRIPTIONS
-          .map { |v| "description_mal ilike '#{v}'" }
+          .map { |v| "description_en ilike '#{v}'" }
           .join(' or ')
       )
       .pluck(:id)

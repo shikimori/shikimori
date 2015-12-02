@@ -72,7 +72,7 @@ class Version < ActiveRecord::Base
   end
 
   def apply_changes
-    item_diff.each do |(field,changes)|
+    item_diff.each do |(field, changes)|
       changes[0] = current_value field
       item.send "#{field}=", changes.second
 

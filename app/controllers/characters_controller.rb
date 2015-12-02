@@ -93,7 +93,11 @@ private
   def update_params
     params
       .require(:character)
-      .permit(:russian, :tags, :description, :source, *Character::DESYNCABLE)
+      .permit(
+        :russian, :tags, :source,
+        :description_ru, :description_en,
+        *Character::DESYNCABLE
+      )
   end
 
   def search_title

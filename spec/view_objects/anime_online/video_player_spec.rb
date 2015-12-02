@@ -2,20 +2,6 @@ describe AnimeOnline::VideoPlayer do
   let(:decorator) { AnimeOnline::VideoPlayer.new anime }
   let(:anime) { build :anime }
 
-  #describe 'description' do
-    #let(:anime) { build :anime, description: 'test' }
-    #subject { decorator.description }
-
-    #context 'first_episode' do
-      #it { should eq BbCodeFormatter.instance.format_description('test', anime) }
-    #end
-
-    #context 'second_episode' do
-      #before { allow_any_instance_of(AnimeOnline::VideoPlayer).to receive(:current_episode).and_return 2 }
-      #it { should eq BbCodeFormatter.instance.format_description('test', anime) }
-    #end
-  #end
-
   #describe '#watch_increment_delay' do
     #let(:anime) { build :anime, duration: duration }
     #subject { decorator.watch_increment_delay }

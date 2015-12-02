@@ -4,13 +4,15 @@ class Contest < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :title, :user, :started_on, :user_vote_key, :strategy_type, :member_type,
-    presence: true
+  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
+    :member_type, presence: true
   validates :matches_interval, :match_duration, :matches_per_round,
     numericality: { greater_than: 0 }, presence: true
 
   enumerize :member_type, in: [:anime, :character], predicates: true
-  enumerize :strategy_type, in: [:double_elimination, :play_off, :swiss], predicates: true
+  enumerize :strategy_type,
+    in: [:double_elimination, :play_off, :swiss],
+    predicates: true
   delegate :total_rounds, :results, to: :strategy
 
   has_many :links,
@@ -174,14 +176,20 @@ public
     member_type.classify.constantize
   end
 
+  # для совместимости с DbEntry
+  def description_ru
+    description
+  end
+
 private
 
+  # TODO: remove field permalink
   def update_permalink
     self.permalink = title.permalinked if changes.include? :title
   end
 
   def sync_thread
-    thread.update_attribute(:title, title) if thread && thread.title != title
+    thread.update title: title if thread && thread.title != title
   end
 
   # создание AniMangaComment для элемента сразу после создания

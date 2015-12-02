@@ -364,7 +364,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
   | киридзи  = Акуа
   | описание = DESCRIPTION
   | сэйю     = {{nl|Мэгуми|Тоёгути}}
-}}")).to eq [{russian: 'Аква', japanese: 'アクア', description: 'DESCRIPTION'}]
+}}")).to eq [{russian: 'Аква', japanese: 'アクア', description_ru: 'DESCRIPTION'}]
       end
 
       it 'extracts full name' do
@@ -373,7 +373,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
  | имя      = Луиза (полное имя Кирхе [[Екатерина II|Луиза Фредерика фон Анхальт-Цербст]])
  | описание = DESCRIPTION
  | сэйю     = {{nl|Нанако|Иноуэ}}
-}}")).to eq [{russian: 'Луиза Фредерика фон Анхальт-Цербст', japanese: nil, description: 'DESCRIPTION'}]
+}}")).to eq [{russian: 'Луиза Фредерика фон Анхальт-Цербст', japanese: nil, description_ru: 'DESCRIPTION'}]
       end
     end
 
@@ -389,7 +389,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
 
   === Орихимэ Иноуэ ===", WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Рукия Кучики',
-            description: "Девушка-проводник душ, которая была отправлена патрулировать родной город Ичиго и защищать жителей от пустых, а также отправлять души умерших в [[Блич#Мир|Сообщество душ]] ([[загробный мир]]), совершая обряд погребения души. Несмотря на то что она выглядит, как [[подросток]], ей в действительности более 150-ти лет. По ряду обстоятельств Рукия вынуждена передать свою духовную энергию Ичиго и вести жизнь обычного человека, находясь в гигае («временном теле»), которое проводники душ используют в экстренных ситуациях. После утраты сил она способна лишь на мелкие заклинания. Рукии нравится жить в мире людей, она обладает странноватым чувством юмора и сварливым характером, любит объяснять всё в виде собственноручно нарисованных [[комикс]]ов. Рукия является первым персонажем, придуманным автором."
+            description_ru: "Девушка-проводник душ, которая была отправлена патрулировать родной город Ичиго и защищать жителей от пустых, а также отправлять души умерших в [[Блич#Мир|Сообщество душ]] ([[загробный мир]]), совершая обряд погребения души. Несмотря на то что она выглядит, как [[подросток]], ей в действительности более 150-ти лет. По ряду обстоятельств Рукия вынуждена передать свою духовную энергию Ичиго и вести жизнь обычного человека, находясь в гигае («временном теле»), которое проводники душ используют в экстренных ситуациях. После утраты сил она способна лишь на мелкие заклинания. Рукии нравится жить в мире людей, она обладает странноватым чувством юмора и сварливым характером, любит объяснять всё в виде собственноручно нарисованных [[комикс]]ов. Рукия является первым персонажем, придуманным автором."
           }
         ]
       end
@@ -399,7 +399,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Карин Куросаки',
             japanese: '黒崎 夏梨',
-            description: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
+            description_ru: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
           }
         ]
       end
@@ -409,7 +409,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Test',
             japanese: '黒崎 夏梨',
-            description: "Zzz."
+            description_ru: "Zzz."
           }
         ]
       end
@@ -420,7 +420,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
             russian: 'Карин Куросаки',
             japanese: '黒崎 夏梨',
             english: 'Kurosaki Karin',
-            description: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
+            description_ru: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
           }
         ]
       end
@@ -431,7 +431,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
             russian: 'Карин Куросаки',
             japanese: '黒崎 夏梨',
             english: 'Love',
-            description: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
+            description_ru: "Дочь Иссина, сестра-[[близнец]] Юдзу, младше Ичиго на четыре года."
           }
         ]
       end
@@ -442,7 +442,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
             russian: 'Луиза',
             japanese: 'ルイズ',
             english: 'Louise',
-            description: "Главная героиня"
+            description_ru: "Главная героиня"
           }
         ]
       end
@@ -452,7 +452,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Лелуш Ламперуж',
             japanese: 'ルルーシュ・ランペルージ',
-            description: "Test"
+            description_ru: "Test"
           }
         ]
       end
@@ -462,7 +462,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Лелуш Ламперуж',
             japanese: 'ルルーシュ・ランペルージ',
-            description: "[list]\n[*] Возраст: I арка - 17 лет, II арка - 18 лет\n[*] Национальность - британец\n[/list]\nTest"
+            description_ru: "[list]\n[*] Возраст: I арка - 17 лет, II арка - 18 лет\n[*] Национальность - британец\n[/list]\nTest"
           }
         ]
       end
@@ -472,7 +472,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Чарльз ди Британия',
             japanese: 'シャルル・ジ・ブリタニア',
-            description: 'Test'
+            description_ru: 'Test'
           }
         ]
       end
@@ -482,7 +482,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Нагато',
             japanese: '永田',
-            description: 'Test'
+            description_ru: 'Test'
           }
         ]
       end
@@ -492,7 +492,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Нагато',
             japanese: '永田',
-            description: 'Лучшая подружка Араси.'
+            description_ru: 'Лучшая подружка Араси.'
           }
         ]
       end
@@ -502,7 +502,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
                               WikipediaParser::CharacterDetailedRegexp)).to eq [{
             russian: 'Симазаки',
             japanese: '島崎',
-            description: 'Test'
+            description_ru: 'Test'
           }
         ]
       end
@@ -513,7 +513,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
         expect(parser.extract_by_header("=== Ю Канда ===\n {{нихонго|'''Ю Канда'''|神田 ユウ|Канда Ю:}} — парень 18 лет, который имеет очень сложный характер.")).to eq [{
             russian: 'Ю Канда',
             japanese: '神田 ユウ',
-            description: 'Парень 18 лет, который имеет очень сложный характер.'
+            description_ru: 'Парень 18 лет, который имеет очень сложный характер.'
           }
         ]
       end
@@ -522,7 +522,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
         expect(parser.extract_by_header("=== '''Ю Канда''' ===\n {{нихонго|'''Ю Канда'''|神田 ユウ|Канда Ю:}} — парень 18 лет, который имеет очень сложный характер.")).to eq [{
             russian: 'Ю Канда',
             japanese: '神田 ユウ',
-            description: 'Парень 18 лет, который имеет очень сложный характер.'
+            description_ru: 'Парень 18 лет, который имеет очень сложный характер.'
           }
         ]
       end
@@ -531,7 +531,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
         expect(parser.extract_by_header("=== [[Ю Канда]] ===\n {{нихонго|'''Ю Канда'''|神田 ユウ|Канда Ю:}} — парень 18 лет, который имеет очень сложный характер.")).to eq [{
             russian: 'Ю Канда',
             japanese: '神田 ユウ',
-            description: 'Парень 18 лет, который имеет очень сложный характер.'
+            description_ru: 'Парень 18 лет, который имеет очень сложный характер.'
           }
         ]
       end
@@ -542,7 +542,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
 Алма Карма был единственным Вторым Экзорцистом, успешно созданным по Программе Искусственных Апостолов, за исключением Ю Канды.")).to eq [{
             russian: 'Алма Карма',
             japanese: 'アルマ カルマ',
-            description: "Алма Карма был единственным Вторым Экзорцистом, успешно созданным по Программе Искусственных Апостолов, за исключением Ю Канды."
+            description_ru: "Алма Карма был единственным Вторым Экзорцистом, успешно созданным по Программе Искусственных Апостолов, за исключением Ю Канды."
           }
         ]
       end
@@ -553,7 +553,7 @@ describe WikipediaParser, vcr: { cassette_name: 'wikipedia' } do
 ZXC")).to eq [{
             russian: 'Бак Чан',
             japanese: 'バク・チャン',
-            description: 'ZXC'
+            description_ru: 'ZXC'
           }
         ]
       end
@@ -563,7 +563,7 @@ ZXC")).to eq [{
 {{нихонго|''Комуи Ли''|コムイ・リー|Комуи Ри:}} ({{Китайский||李盖梅||Ли Гаймэй}}，''в тайваньском переводе'' 科穆伊·李 или 考姆伊) — старший брат Линали Ли.")).to eq [{
             russian: 'Комуи Ли',
             japanese: 'コムイ・リー',
-            description: 'Комуи Ли - старший брат Линали Ли.'
+            description_ru: 'Комуи Ли - старший брат Линали Ли.'
           }
         ]
       end
@@ -572,7 +572,7 @@ ZXC")).to eq [{
         expect(parser.extract_by_header("==== Бодзо ====\n: Возраст: неизвестен\n: Род занятий: маг\n{{nihongo|Бодзо|ボゾ}} — присутствует только в аниме.")).to eq [{
             russian: 'Бодзо',
             japanese: 'ボゾ',
-            description: "[list]\n[*] Возраст: неизвестен\n[*] Род занятий: маг\n[/list]\nПрисутствует только в аниме."
+            description_ru: "[list]\n[*] Возраст: неизвестен\n[*] Род занятий: маг\n[/list]\nПрисутствует только в аниме."
           }
         ]
       end

@@ -4,7 +4,7 @@ class ChangedItemsQuery
 
   def fetch_ids
     Version
-      .where("(item_diff->>:field) is not null", field: 'description')
+      .where("(item_diff->>:field) is not null", field: 'description_ru')
       .where(item_type: klass.name)
       .where(state: [:accepted, :taken])
       .pluck(:item_id)

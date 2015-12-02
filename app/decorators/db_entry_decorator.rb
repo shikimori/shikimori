@@ -1,5 +1,5 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_mal, :description_html, :main_thread, :preview_thread
+  instance_cache :description_en, :description_html, :main_thread, :preview_thread
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
 
@@ -18,37 +18,30 @@ class DbEntryDecorator < BaseDecorator
     object.source
   end
 
-  def show_mal_description?
-    h.user_signed_in? && object.respond_to?(:description_mal) && object.description_mal.present? && description.present?
+  def show_en_description?
+    h.ru_domain? && h.user_signed_in? && object.respond_to?(:description_en) &&
+      object.description_en.present? && object.description_ru.present?
   end
 
   def description_html
-    if description.present?
-      Rails.cache.fetch [:description, h.russian_names_key, object, I18n.locale] do
-        BbCodeFormatter.instance.format_description description, object
-      end
+    if description_ru.present? && h.ru_domain?
+      description_ru
     else
-      description_mal
+      description_en
     end
   end
 
-  def description_mal
-    if object.respond_to?(:description_mal) && object.description_mal.present?
-      BbCodeFormatter.instance.format_comment object.description_mal
-      # text = BbCodeFormatter.instance
-        # .spoiler_to_html(object.description_mal)
-        # .gsub(/^\(?Source:.*/, '')
-        # .gsub(/\n/, "<br />")
-        # .strip
+  def description_ru
+    Rails.cache.fetch [:descrption, h.russian_names_key, object, I18n.locale] do
+      BbCodeFormatter.instance.format_description object.description_ru, object
+    end
+  end
 
-      # text = BbCodes::PTag.instance.format(
-        # BbCodeFormatter.instance.paragraphs(text)
-      # ).html_safe
-
-      # Nokogiri::HTML::DocumentFragment
-        # .parse(text)
-        # .to_html(save_with: Nokogiri::XML::Node::SaveOptions::AS_HTML | Nokogiri::XML::Node::SaveOptions::NO_DECLARATION)
-        # .html_safe
+  def description_en
+    if object.respond_to?(:description_en) && object.description_en.present?
+      Rails.cache.fetch [:descrption_en, h.russian_names_key, object, I18n.locale] do
+        BbCodeFormatter.instance.format_comment object.description_en
+      end
     else
       "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
     end

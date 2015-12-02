@@ -82,7 +82,7 @@
               = render @resource.seyu.take(3)
 
     .c-description
-      .subheadline.m5 = i18n_i 'Description'
+      .subheadline.m5 = Character.human_attribute_name :description
       .block
         meta[
           itemprop='image'
@@ -97,11 +97,11 @@
           / .text должен быть вложен в блок с отступом, иначе при сокращении
           / длинного текста между height shortener и текстом будет отступ
           .text
-            - if @resource.show_mal_description?
+            - if @resource.show_en_description?
               .lang-trigger
                 | [<span>eng</span>]
               .english
-                = @resource.description_mal
+                = @resource.description_en
             .russian itemprop='description'
               = @resource.description_html
 

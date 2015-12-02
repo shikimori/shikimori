@@ -1,7 +1,7 @@
 class Animes::SortField
   pattr_initialize :default, :view_context
 
-  delegate :ru_content?, :current_user, to: :view_context
+  delegate :ru_domain?, :current_user, to: :view_context
 
   def field
     if order == 'russian' || order == 'name'
@@ -18,7 +18,7 @@ private
   end
 
   def localized_name_field
-    if ru_content? && russian_names?
+    if ru_domain? && russian_names?
       'russian'
     else
       'name'

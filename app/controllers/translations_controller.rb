@@ -16,12 +16,10 @@ class TranslationsController < ShikimoriController
         def anime.too_short?
           (ongoing? || anons? || latest?) && score > 7 && kind_tv? &&
             !rating_g? &&
-            (description || '').size < 450 &&
-            description != description_mal &&
-            description != 'У этого аниме пока ещё нет описания.'
+            (description_ru || '').size < 450
         end
 
-        anime[:description].blank? || anime.too_short? || anime.description == anime.description_mal
+        anime.description_ru.blank? || anime.too_short?
       end
 
       [key, filtered]
@@ -32,10 +30,10 @@ class TranslationsController < ShikimoriController
   def self.pending_animes
     Version
       .where(state: :pending)
-      .where("(item_diff->>:field) is not null", field: 'description')
+      .where("(item_diff->>:field) is not null", field: 'description_ru')
       .where(item_type: Anime.name)
       .includes(:user)
-      .each_with_object({}) {|v,memo| memo[v.item_id] = v }
+      .each_with_object({}) { |v, memo| memo[v.item_id] = v }
   end
 
 private

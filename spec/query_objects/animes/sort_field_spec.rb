@@ -4,7 +4,7 @@ describe Animes::SortField do
   let(:default) { :zz }
   let(:view_context) do
     double(
-      ru_content?: ru_content,
+      ru_domain?: ru_domain,
       user_signed_id?: user.present?,
       current_user: user,
       params: { order: order }
@@ -13,7 +13,7 @@ describe Animes::SortField do
 
   let(:user) { create :user, language: language }
   let(:language) { :russian }
-  let(:ru_content) { true }
+  let(:ru_domain) { true }
 
   describe '#field' do
     context 'order not set' do
@@ -30,7 +30,7 @@ describe Animes::SortField do
       let(:order) { 'name' }
 
       context 'english domain' do
-        let(:ru_content) { false }
+        let(:ru_domain) { false }
 
         context 'guest' do
           let(:user) { nil }
@@ -62,7 +62,7 @@ describe Animes::SortField do
       end
 
       context 'russian domain' do
-        let(:ru_content) { true }
+        let(:ru_domain) { true }
 
         context 'guest' do
           let(:user) { nil }

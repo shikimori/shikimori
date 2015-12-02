@@ -35,7 +35,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
   it 'fetches manga data' do
     data = parser.fetch_entry_data(manga_id)
     expect(data[:name]).to eq('Yokohama Kaidashi Kikou')
-    expect(data).to include(:description_mal)
+    expect(data).to include(:description_en)
     expect(data[:related]).not_to be_empty
     expect(data).to include(:english)
     expect(data).to include(:synonyms)

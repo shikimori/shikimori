@@ -46,7 +46,7 @@ class CharacterMalParser < BaseMalParser
     entry[:fullname] = cleanup(doc.css("h1").text.gsub("  ", " "))
 
     description_doc = doc.css('#content > table > tr > td:nth-child(2)')
-    entry[:description_mal] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
+    entry[:description_en] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
       Mal::TextSanitizer.new($1).call
     else
       ""

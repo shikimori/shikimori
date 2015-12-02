@@ -19,7 +19,7 @@
         <div class="character">
           <img class="avatar" src="<%=character.image.url(:preview) %>" title="<%=character.name %>" name="<%=character.name %>" />
           <h2><%=character.fullname %> (<%=character.japanese %>)</h2>
-          <p><%=raw truncate(character.description || character.description_mal, length: 330, separator: ' ') %></p>
+          <p><%=raw truncate(character.description || character.description_en, length: 330, separator: ' ') %></p>
         </div>
       <% end %>
     </div>

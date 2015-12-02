@@ -41,7 +41,7 @@ class MangaMalParser < BaseMalParser
 
     entry[:name] = parse_h1(content)
     entry[:id] = id
-    entry[:description_mal] = parse_synopsis(content)
+    entry[:description_en] = parse_synopsis(content)
 
     #parse_block(entry, :related, /Related Manga?<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
