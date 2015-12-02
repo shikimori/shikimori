@@ -8,19 +8,25 @@
           .field = Character.human_attribute_name :name
           .value = @resource.name
           - if can? :significant_change, Version
-            a.b-js-action href="#{@resource.edit_field_url :name}" = t '.moderators_only'
+            a.b-js-action[
+              href="#{@resource.edit_field_url :name}"
+            ] = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'
 
         li
           .field = Character.human_attribute_name :russian
           .value = @resource.russian
-          a.b-js-action href="#{@resource.edit_field_url :russian}" = t 'actions.edit'
+          a.b-js-action[
+            href="#{@resource.edit_field_url :russian}"
+          ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
           .value = @resource.japanese
-          a.b-js-action href="#{@resource.edit_field_url :japanese}" = t 'actions.edit'
+          a.b-js-action[
+            href="#{@resource.edit_field_url :japanese}"
+          ] = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
@@ -30,8 +36,10 @@
           /a.b-js-action href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
 
         li
-          .field = Character.human_attribute_name :description
-          a.b-js-action href="#{@resource.edit_field_url :description}" = t 'actions.edit'
+          .field = Character.human_attribute_name :description_ru
+          a.b-js-action[
+            href="#{@resource.edit_field_url :description_ru}"
+          ] = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :cosplay
@@ -41,7 +49,9 @@
         li
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
-          a.b-js-action href="#{@resource.edit_field_url :tags}" = t 'actions.edit'
+          a.b-js-action[
+            href="#{@resource.edit_field_url :tags}"
+          ] = t 'actions.edit'
 
   - if @resource.desynced.any?
     .block
@@ -51,7 +61,8 @@
   - if @resource.versions_page.first.any?
     .subheadline = t '.changes_history'
     .block
-      = render partial: 'versions/version', collection: @resource.versions_page.first
+      = render partial: 'versions/version',
+        collection: @resource.versions_page.first
 
       - if @resource.versions_page.second
         = render 'blocks/postloader', url: @resource.next_versions_page

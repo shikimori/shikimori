@@ -10,24 +10,42 @@
   .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
     .line itemprop="name"
       - if !defined?(cover_by) || cover_by != :link
-        a.data.name href="#{character_url character}" title="#{localized_name character}" itemprop="name"
-          = localized_name character
+        a.data.name[
+          href="#{character_url character}"
+          title="#{localized_name character}"
+          itemprop="name"
+        ] = localized_name character
+
       - else
-        .linkeable.name data-href="#{character_url character}" data-title="#{localized_name character}"
-          = localized_name character
+        .linkeable.name[
+          data-href="#{character_url character}"
+          data-title="#{localized_name character}"
+        ] = localized_name character
 
     - if character.best_works.any?
       .additional-images
         .link
           .title = character.best_works.first.object.class.model_name.human
-          a.bubbled href="#{url_for character.best_works.first}" title="#{character.best_works.first.name}"
-            img src="#{cdn_image character.best_works.first, :x48}" srcset="#{cdn_image character.best_works.first, :x96} 2x"
+          a.bubbled[
+            href="#{url_for character.best_works.first}"
+            title="#{character.best_works.first.name}"
+          ]
+            img[
+              src="#{cdn_image character.best_works.first, :x48}"
+              srcset="#{cdn_image character.best_works.first, :x96} 2x"
+            ]
 
         - if character.seyu.any?
           .link
             .title = t 'seyu'
-            a.bubbled href="#{seyu_url character.seyu.first}" title="#{character.seyu.first.name}"
-              img src="#{cdn_image character.seyu.first, :x48}" srcset="#{cdn_image character.seyu.first, :x96} 2x"
+            a.bubbled[
+              href="#{seyu_url character.seyu.first}"
+              title="#{character.seyu.first.name}"
+            ]
+              img[
+                src="#{cdn_image character.seyu.first, :x48}"
+                srcset="#{cdn_image character.seyu.first, :x96} 2x"
+              ]
 
     .text itemprop="description"
       = character.decorate.description_html_truncated 250

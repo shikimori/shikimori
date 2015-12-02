@@ -22,7 +22,9 @@ class Api::V1::AnimesController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/animes/:id', 'Show an anime'
   def show
-    respond_with @resource, serializer: AnimeProfileSerializer
+    respond_with @resource,
+      serializer: AnimeProfileSerializer,
+      scope: view_context
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME

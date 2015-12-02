@@ -14,7 +14,7 @@ describe Versions::DescriptionVersion do
   end
 
   describe '#fix_state' do
-    let(:version) { create :description_version, state: state, item_diff: { description: [old,new] } }
+    let(:version) { create :description_version, state: state, item_diff: { description_ru: [old,new] } }
     before { version.fix_state }
 
     context 'accepted' do

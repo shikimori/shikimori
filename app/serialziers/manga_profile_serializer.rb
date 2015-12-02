@@ -1,9 +1,9 @@
 class MangaProfileSerializer < MangaSerializer
-  attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on
-  attributes :volumes, :chapters, :score, :description, :description_html
-  attributes :favoured?, :anons?, :ongoing?, :thread_id
-  attributes :read_manga_id, :myanimelist_id
-  attributes :rates_scores_stats, :rates_statuses_stats
+  attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on,
+    :volumes, :chapters, :score, :description, :description_html,
+    :favoured?, :anons?, :ongoing?, :thread_id,
+    :read_manga_id, :myanimelist_id,
+    :rates_scores_stats, :rates_statuses_stats
 
   has_many :genres
   has_many :publishers
@@ -20,5 +20,13 @@ class MangaProfileSerializer < MangaSerializer
 
   def myanimelist_id
     object.id
+  end
+
+  def description
+    if scope.ru_domain?
+      object[:description_ru] || object[:description_en]
+    else
+      object[:description_en]
+    end
   end
 end

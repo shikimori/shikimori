@@ -11,7 +11,7 @@ class CharacterProfileSerializer < CharacterSerializer
   end
 
   def description
-    if scope.h.ru_domain?
+    if scope.ru_domain?
       object[:description_ru] || object[:description_en]
     else
       object[:description_en]

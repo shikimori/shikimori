@@ -119,13 +119,15 @@ describe ContestsController do
 
   describe '#update' do
     context 'when success' do
-      let(:attr) do
+      let :attr do
         contest.attributes.except(
           'id', 'user_id', 'state', 'created_at',
           'updated_at', 'permalink', 'finished_on'
         )
       end
-      before { patch :update, id: contest.id, contest: params.merge(description: 'zxc') }
+      before do
+        patch :update, id: contest.id, contest: attr.merge(description: 'zxc')
+      end
 
       it { expect(response).to redirect_to edit_contest_url(assigns :resource) }
       it { expect(resource.description).to eq 'zxc' }

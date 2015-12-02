@@ -133,8 +133,14 @@ class Group < ActiveRecord::Base
     member_roles.where(user: user).destroy_all
   end
 
+  # для совместимости с DbEntry
+  def description_ru
+    description
+  end
+
 private
-  # TODO: удалить поле permalink
+
+  # TODO: remove field permalink
   def update_permalink
     self.permalink = self.name.permalinked if self.changes.include? :name
   end

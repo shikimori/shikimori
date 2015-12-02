@@ -4,7 +4,9 @@ class Api::V1::CharactersController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/characters/:id', 'Show a character'
   def show
-    respond_with CharacterDecorator.find(params[:id]), serializer: CharacterProfileSerializer
+    respond_with CharacterDecorator.find(params[:id]),
+      serializer: CharacterProfileSerializer,
+      scope: view_context
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME

@@ -154,7 +154,11 @@ private
   def update_params
     params
       .require(:anime)
-      .permit(:russian, :torrents_name, :tags, :description, :source, *Anime::DESYNCABLE)
+      .permit(
+        :russian, :torrents_name, :tags, :source,
+        :description_ru, :description_en,
+        *Anime::DESYNCABLE
+      )
   end
 
   def set_breadcrumbs

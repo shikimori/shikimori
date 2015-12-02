@@ -1,9 +1,9 @@
 class AnimeProfileSerializer < AnimeSerializer
-  attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on, :released_on
-  attributes :episodes, :episodes_aired, :duration, :score, :description, :description_html
-  attributes :favoured?, :anons?, :ongoing?, :thread_id
-  attributes :world_art_id, :myanimelist_id, :ani_db_id
-  attributes :rates_scores_stats, :rates_statuses_stats
+  attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on,
+    :released_on, :episodes, :episodes_aired, :duration, :score, :description,
+    :description_html, :favoured?, :anons?, :ongoing?, :thread_id,
+    :world_art_id, :myanimelist_id, :ani_db_id,
+    :rates_scores_stats, :rates_statuses_stats
 
   has_many :genres
   has_many :studios
@@ -25,7 +25,7 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def description
-    if scope.h.ru_domain?
+    if scope.ru_domain?
       object[:description_ru] || object[:description_en]
     else
       object[:description_en]
