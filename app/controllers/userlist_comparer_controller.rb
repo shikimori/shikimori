@@ -25,7 +25,13 @@ class UserlistComparerController < ShikimoriController
     respond_to do |format|
       format.html { render }
       format.json {
-        render json: { content: render_to_string(partial: 'userlist_comparer/table.html', layout: false, formats: :html) }
+        render json: {
+          content: render_to_string(
+            partial: 'userlist_comparer/table.html',
+            layout: false,
+            formats: :html
+          )
+        }
       }
     end
   end

@@ -1,0 +1,17 @@
+en:
+  userlist_comparer:
+    show:
+      list_comparison:
+        anime: Anime list comparison
+        manga: Manga list comparison
+      notice_1: >-
+        This page displays user's lists of %{user_1} and %{user_2}.
+        <span style="background: #f2fff2; padding: 0 2px;">Green</span>
+        color means that scores match,
+        <span style="background: #fff2f2; padding: 0 2px;">red</span>
+        color means that scores differ.
+        More saturated color means greater
+        <span style="background: #e6ffe6; padding: 0 2px;">likeness</span>
+        or
+        <span style="background: #ffe6e6; padding: 0 2px;">difference</span>
+        in scores.

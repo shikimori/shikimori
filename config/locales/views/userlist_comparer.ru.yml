@@ -1,0 +1,18 @@
+ru:
+  userlist_comparer:
+    show:
+      list_comparison:
+        anime: Сравнение списка аниме
+        manga: Сравнение списка манги
+      notice_1: >-
+        На данной странице сравниваются списки пользователей
+        %{user_1} и %{user_2}.
+        <span style="background: #f2fff2; padding: 0 2px;">Зёленый</span>
+        цвет означает совпадение оценок, а
+        <span style="background: #fff2f2; padding: 0 2px;">красный</span>
+        - различие.
+        Чем насыщенней цвет, тем сильнее
+        <span style="background: #e6ffe6; padding: 0 2px;">сходство</span>
+        или
+        <span style="background: #ffe6e6; padding: 0 2px;">различие</span>
+        в оценках.

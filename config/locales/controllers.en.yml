@@ -194,4 +194,4 @@ en:
       anime: Anime list comparison of users %{user_1} and %{user_2}
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
-      Cannot compare users' lists - user %{user} not found
+      Cannot compare user's lists - user %{user} not found
