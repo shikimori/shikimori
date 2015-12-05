@@ -2,12 +2,12 @@ class SitemapController < ShikimoriController
   def index
     if params[:format] == 'xml'
       @animes = Anime
-        .where("description != '' or description is not null")
+        .where("description_ru != '' and description_ru is not null")
         .where("source = '' or source is null")
         .where.not(kind: :special)
         .order(updated_at: :desc)
       @mangas = Manga
-        .where("description != '' or description is not null")
+        .where("description_ru != '' or description_ru is not null")
         .where("source = '' or source is null")
         .order(updated_at: :desc)
     end
