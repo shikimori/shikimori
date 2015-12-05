@@ -7,7 +7,7 @@ header.head
   h1 #{@page_title}
   p.notice Немного о самом сайте и список особо отличившихся людей
 
-= cache [:about_block, :v3, Date.today, I18n.locale] do
+= cache [Time.zone.now, :about_block, :v3, Date.today, I18n.locale] do
   .b-brief
     .description
       p.m3 У многих из увлёкшихся мангой и японской анимацией рано или поздно возникают вопросы:
@@ -88,17 +88,17 @@ header.head
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.b-link #{@statistics.users_count}
-      .subheadline = t :users
+      .subheadline = i18n_i 'User', :other
       .block.users-chart data-stats="#{@statistics.users.to_json}"
 
     .c-chart
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.b-link #{@statistics.comments_count}
-      .subheadline = i18n_i 'comment', :few
+      .subheadline = i18n_i 'Comment', :few
       .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 
-.subheadline.m3 = i18n_i 'comment', :few
+.subheadline.m3 = i18n_i 'Comment', :few
 div
   .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
     = render 'topics/comments', view: @topic.comments
