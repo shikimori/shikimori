@@ -35,8 +35,8 @@ class DashboardView < ViewObjectBase
     [
       StatusTitle.new(:anons, klass),
       SeasonTitle.new(month + 2.months, :year, klass),
-      SeasonTitle.new(is_still_this_year ? 1.year.ago : month, :year, klass),
-      SeasonTitle.new(is_still_this_year ? 2.years.ago : 1.year.ago, :year, klass),
+      SeasonTitle.new(is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass),
+      SeasonTitle.new(is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass),
     ]
   end
 
