@@ -1,12 +1,11 @@
 header.head
-  h1
-    span Сравнение списка #{@klass == Anime ? 'аниме' : 'манги' }
+  h1 = t ".list_comparison.#{@klass.name.downcase}"
   p.notice
-    span На данной странице сравниваются списки пользователей <a href="#{profile_url @user_1}">#{@user_1.nickname}</a> и <a href="#{profile_url @user_2}">#{@user_2.nickname}</a>.&nbsp;
-    span <span style="background: #f2fff2; padding: 0 2px;">Зёленый</span> цвет означает совпадение оценок, а <span style="background: #fff2f2; padding: 0 2px;">красный</span> - различие.&nbsp;
-    span Чем насыщененй цвет, тем сильнее <span style="background: #e6ffe6 padding: 0 2px;">сходство</span> или <span style="background: #ffe6e6 padding: 0 2px;">различие</span> в оценках.
-  p.notice <span style="color: red">Важно!</span> Оценки сравниваются не по прямому совпадению цифр, а с учётом усреднённых оценок, которые ставит каждый пользователь. Поэтому в некоторых случаях оценки 6 и 8 могут отображаться как сильно совпадающие, а оценки 8 и 8 как сильно различающиеся.
-
+    == t '.notice_1',
+      user_1: "<a href=\"#{profile_url @user_1}\">#{@user_1.nickname}</a>",
+      user_2: "<a href=\"#{profile_url @user_2}\">#{@user_2.nickname}</a>"
+  p.notice
+    == t '.notice_2'
 
 .menu-toggler
   .toggler
@@ -20,4 +19,7 @@ header.head
       = render 'animes_collection/menu',
         menu: @menu,
         in_lists_comparison: true,
-        custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]]
+        custom_sorts: [\
+          [:user_1, t('.by_user_score', user: @user_1.nickname)],
+          [:user_2, t('.by_user_score', user: @user_2.nickname)]\
+        ]

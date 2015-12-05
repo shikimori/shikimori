@@ -17,14 +17,21 @@ class UserlistComparerController < ShikimoriController
       @entries = ListCompareService.fetch(@user_1, @user_2, params)
     end
 
-    @page_title = "Сравнение списка #{@klass == Anime ? 'аниме' : 'манги'} #{@user_1.nickname} и #{@user_2.nickname}"
+    @page_title = i18n_t "page_title.#{@klass.name.downcase}",
+      user_1: @user_1.nickname, user_2: @user_2.nickname
 
     @menu = Menus::CollectionMenu.new @klass
 
     respond_to do |format|
       format.html { render }
       format.json {
-        render json: { content: render_to_string(partial: 'userlist_comparer/table.html', layout: false, formats: :html) }
+        render json: {
+          content: render_to_string(
+            partial: 'userlist_comparer/table.html',
+            layout: false,
+            formats: :html
+          )
+        }
       }
     end
   end
@@ -37,7 +44,9 @@ private
 
     if @user_1.blank? || @user_2.blank?
       blank_user = @user_1.blank? ? params[:user_1] : params[:user_2]
-      redirect_to :root, alert: "Невозможно сравнить списки, пользователь #{ERB::Util.html_escape blank_user} не найден"
+      alert = i18n_t 'fetch_users_alert', user: ERB::Util.html_escape(blank_user)
+
+      redirect_to :root, alert: alert
     end
   end
 

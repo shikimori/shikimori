@@ -1,0 +1,24 @@
+en:
+  userlist_comparer:
+    show:
+      list_comparison:
+        anime: Anime list comparison
+        manga: Manga list comparison
+      notice_1: >-
+        This page displays user's lists of %{user_1} and %{user_2}.
+        <span style="background: #f2fff2; padding: 0 2px;">Green</span>
+        color means that scores match,
+        <span style="background: #fff2f2; padding: 0 2px;">red</span>
+        color means that scores differ.
+        More saturated color means greater
+        <span style="background: #e6ffe6; padding: 0 2px;">likeness</span>
+        or
+        <span style="background: #ffe6e6; padding: 0 2px;">difference</span>
+        in scores.
+      notice_2: >-
+        <span style="color: red">Important!</span>
+        Score proximity is calculated not by directly comparing score values
+        but based on averaged scores from all users.
+        That is why in some cases scores 6 and 8 might be displayed as
+        matching whereas scores 8 and 8 - as differing.
+      by_user_score: By %{user}'s score

@@ -190,3 +190,10 @@ ru:
 
   users_controller:
     similar_users: Похожие пользователи
+
+  userlist_comparer_controller:
+    page_title:
+      anime: Сравнение списка аниме %{user_1} и %{user_2}
+      manga: Сравнение списка манги %{user_1} и %{user_2}
+    fetch_users_alert:
+      Невозможно сравнить списки - пользователь %{user} не найден
