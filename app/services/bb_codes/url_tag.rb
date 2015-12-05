@@ -30,8 +30,10 @@ class BbCodes::UrlTag
 private
 
   def link_tag url, text
-    decoded_text = URI.decode text
-    "<a class=\"b-link\" href=\"#{url}\">#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
+    decoded_text = URI.decode text rescue Encoding::CompatibilityError
+    decoded_text ||= text
+    "<a class=\"b-link\" href=\"#{url}\">\
+#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
   end
 
   def video_bb_code url
