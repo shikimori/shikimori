@@ -98,7 +98,7 @@
             = t ".anime.duration.#{v}"
 
     .block.ratings
-      .subheadline = Anime.human_attribute_name :score
+      .subheadline = i18n_i 'Rating'
       ul.block-list.ratings.anime-params
         - Anime.rating.options.each do |title,rating|
           - next if rating == 'none'

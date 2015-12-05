@@ -4,7 +4,8 @@ header.head
     == t '.notice_1',
       user_1: "<a href=\"#{profile_url @user_1}\">#{@user_1.nickname}</a>",
       user_2: "<a href=\"#{profile_url @user_2}\">#{@user_2.nickname}</a>"
-  p.notice <span style="color: red">Важно!</span> Оценки сравниваются не по прямому совпадению цифр, а с учётом усреднённых оценок, которые ставит каждый пользователь. Поэтому в некоторых случаях оценки 6 и 8 могут отображаться как сильно совпадающие, а оценки 8 и 8 как сильно различающиеся.
+  p.notice
+    == t '.notice_2'
 
 .menu-toggler
   .toggler
@@ -18,4 +19,7 @@ header.head
       = render 'animes_collection/menu',
         menu: @menu,
         in_lists_comparison: true,
-        custom_sorts: [[:user_1, "По оценке #{@user_1.nickname}"], [:user_2, "По оценке #{@user_2.nickname}"]]
+        custom_sorts: [\
+          [:user_1, t('.by_user_score', user: @user_1.nickname)],
+          [:user_2, t('.by_user_score', user: @user_2.nickname)]\
+        ]
