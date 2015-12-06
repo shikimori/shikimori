@@ -1,5 +1,5 @@
 @on 'page:load', '.db_entries-edit_field', ->
-  if $('.edit-page.description').exists()
+  if $('.edit-page.description_ru, .edit-page.description_en').exists()
     $editor = $('.b-shiki_editor')
     $editor
       .shiki_editor()
