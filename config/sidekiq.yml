@@ -17,6 +17,7 @@ production:
   - anime_online_parsers
   - manga_online_parsers
   - webm_thumbnails
+  - similar_users
 
 :limits:
   cpu_intensive: 2
@@ -25,3 +26,4 @@ production:
   anime_online_parsers: 1
   manga_online_parsers: 1
   webm_thumbnails: 1
+  similar_users: 1
