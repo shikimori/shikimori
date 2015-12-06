@@ -14,7 +14,11 @@
           href="#{profile_url user, subdomain: false}"
           title="#{user.nickname}"
         ]
-          img.image src="#{user.avatar_url 73}" srcset="#{user.avatar_url 148} 2x" alt="#{user.nickname}"
+          img.image[
+            src="#{user.avatar_url 73}"
+            srcset="#{user.avatar_url 148} 2x"
+            alt="#{user.nickname}"
+          ]
 
       p.last-online
         = user.last_online
