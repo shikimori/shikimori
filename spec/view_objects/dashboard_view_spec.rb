@@ -20,6 +20,15 @@ describe DashboardView do
     it { expect(view.db_seasons(Anime)).to have(5).items }
   end
 
+  describe '#manga_kinds' do
+    it do
+      expect(view.manga_kinds.first).to be_kind_of Titles::KindTitle
+      expect(view.manga_kinds.map(&:text)).to eq %w(
+        manga manhwa manhua novel one_shot doujin
+      )
+    end
+  end
+
   describe '#db_others' do
     it { expect(view.db_others(Anime).first).to be_kind_of Titles::StatusTitle }
     it { expect(view.db_others(Anime).last).to be_kind_of Titles::SeasonTitle }

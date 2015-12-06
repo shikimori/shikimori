@@ -83,7 +83,7 @@ class Manga < DbEntry
     path: ':rails_root/public/images/manga/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
-  enumerize :kind, in: [:doujin, :manga, :manhua, :manhwa, :novel, :one_shot], predicates: { prefix: true }
+  enumerize :kind, in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin], predicates: { prefix: true }
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
   validates :name, presence: true

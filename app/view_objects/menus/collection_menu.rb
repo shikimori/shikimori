@@ -22,6 +22,10 @@ class Menus::CollectionMenu < ViewObjectBase
     @publishers || load_associations.third
   end
 
+  def kinds
+    klass.kind.values.map { |kind| Titles::KindTitle.new kind, klass }
+  end
+
   def statuses
     [
       Titles::StatusTitle.new(:anons, klass),

@@ -27,6 +27,10 @@ class DashboardView < ViewObjectBase
     ]
   end
 
+  def manga_kinds
+    Manga.kind.values.map { |kind| Titles::KindTitle.new kind, Manga }
+  end
+
   def db_others klass
     month = Time.zone.now.beginning_of_month
     # + 1.month since 12th month belongs to the next year in Titles::SeasonTitle
@@ -34,10 +38,11 @@ class DashboardView < ViewObjectBase
 
     [
       Titles::StatusTitle.new(:anons, klass),
+      (Titles::StatusTitle.new(:ongoing, klass) if klass == Manga),
       Titles::SeasonTitle.new(month + 2.months, :year, klass),
       Titles::SeasonTitle.new(is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass),
       Titles::SeasonTitle.new(is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass),
-    ]
+    ].compact
   end
 
   def reviews

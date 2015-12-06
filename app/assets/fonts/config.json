@@ -157,6 +157,12 @@
       "src": "fontawesome"
     },
     {
+      "uid": "9755f76110ae4d12ac5f9466c9152031",
+      "css": "book",
+      "code": 59446,
+      "src": "fontawesome"
+    },
+    {
       "uid": "823a9e02e643318116fea40a00190e4e",
       "css": "asterisk",
       "code": 59408,
@@ -226,6 +232,12 @@
       "uid": "2626e3a1bbcd90e45849af3b58a1d594",
       "css": "trash",
       "code": 59413,
+      "src": "entypo"
+    },
+    {
+      "uid": "1189604bf305b6b03a74685ce60e6632",
+      "css": "doc-text-1",
+      "code": 59452,
       "src": "entypo"
     },
     {

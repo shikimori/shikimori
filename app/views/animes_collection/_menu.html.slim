@@ -13,10 +13,10 @@
   .block
     .subheadline = Anime.human_attribute_name(:kind)
     ul.block-list.types.anime-params
-      - menu.klass.kind.options.each do |title,kind|
-        li class="type-#{kind}"
+      - menu.kinds.each do |kind|
+        li class="type-#{kind.text}"
           input type='checkbox' autocomplete='off'
-          = title
+          = kind.title
 
         - if kind == 'tv'
           li.type-tv_13.sub

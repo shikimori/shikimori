@@ -4,12 +4,12 @@
       = t '.title'
       a.b-link href="#{animes_url}" = t '.all_mangas'
 
-    - @view.db_seasons(Anime).each do |season|
+    - @view.manga_kinds[0..-2].each do |season|
       a.b-link_button[
-        class="#{season.text.split('_').first}"
+        class="#{season.text}"
         href="#{mangas_url season.url_params}"
-        title="#{season.full_title}"
-      ] = season.short_title
+        title="#{season.title}"
+      ] = season.title
 
   .c-column
     .midheadline.purple = t '.recommended.title'
@@ -21,6 +21,13 @@
     a.b-link_button.personalized[
       href="#{recommendations_url klass: 'manga'}"
     ] = t '.recommended.personalized'
+
+    - @view.manga_kinds[-1..-1].each do |season|
+      a.b-link_button[
+        class="#{season.text}"
+        href="#{mangas_url season.url_params}"
+        title="#{season.title}"
+      ] = season.title
 
 .others
   .note #{t '.others'}:

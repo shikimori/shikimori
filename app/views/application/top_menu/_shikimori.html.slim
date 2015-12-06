@@ -5,7 +5,7 @@
     title="#{Anime.model_name.human}"
   ] = Anime.model_name.human
   .submenu
-    - menu.seasons(Anime).each do |season|
+    - menu.anime_seasons.each do |season|
       a.entry[
         href="#{animes_url season.url_params}"
         title="#{season.full_title}"
@@ -29,11 +29,11 @@ a.entry.calendar[
     title="#{Manga.model_name.human}"
   ] = Manga.model_name.human
   .submenu
-    - menu.seasons(Manga).each do |season|
+    - menu.manga_kinds.each do |kind|
       a.entry[
-        href="#{mangas_url season.url_params}"
-        title="#{season.full_title}"
-      ] = season.short_title
+        href="#{mangas_url kind.url_params}"
+        title="#{kind.title}"
+      ] = kind.title
 
 a.entry.rel[
   href="#{section_url :news}"
