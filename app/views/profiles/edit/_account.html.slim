@@ -19,7 +19,7 @@
 
     .c-column.block_m
       .block
-        = f.input :language, include_blank: false, hint: "#{t 'under_development'}"
+        = f.input :language, include_blank: false
 
         - if I18n.russian?
           = f.simple_fields_for :preferences do |fp|
