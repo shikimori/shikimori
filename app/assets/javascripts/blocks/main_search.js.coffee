@@ -22,11 +22,14 @@ $(document).on 'page:load', ->
     .completable($('.b-main_search .suggest-placeholder'))
 
     .on 'autocomplete:success', (e, entry) ->
-      type = $search.data('type')
+      type = $search.data 'type'
+      marker = $main_search.data 'marker'
+
       if type == 'users'
         document.location.href = "/#{search_escape entry.name}"
       else
-        document.location.href = searcheables[type].id.replace('[id]', entry.id)
+        document.location.href =
+          searcheables[type].id.replace('[id]', "#{marker}#{entry.id}")
 
     .on 'autocomplete:text', (e, text) ->
       type = $search.data('type')

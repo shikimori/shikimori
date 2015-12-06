@@ -58,7 +58,7 @@
         span#sign_in
 
   .menu.menu-search
-    .b-main_search.entry
+    .b-main_search.entry data-marker="#{CopyrightedIds::MARKER}"
       .input
         input value="#{SearchHelper.unescape params[:search]}" data-type="#{manga_online? ? 'mangas' : 'animes'}"
         .suggest-placeholder

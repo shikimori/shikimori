@@ -1,11 +1,12 @@
 class CopyrightedIds
   include Singleton
 
+  MARKER = 'z'
   CONFIG_PATH = Rails.root.join 'config/copyrighted_ids.yml'
 
   def change id, type
     if ids[type.to_sym] && ids[type.to_sym].include?(id.to_s)
-      change "z#{id}", type
+      change "#{MARKER}#{id}", type
     else
       id
     end
@@ -17,7 +18,7 @@ class CopyrightedIds
     if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id)
       nil
     else
-      cleaned_id.gsub(/^z+/, '').to_i
+      cleaned_id.gsub(/^#{MARKER}+/, '').to_i
     end
   end
 
