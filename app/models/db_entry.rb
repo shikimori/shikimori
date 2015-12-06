@@ -22,7 +22,9 @@ class DbEntry < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-#{name.permalinked}"
+    # change ids to new ones because of google bans
+    changed_id = CopyrightedIds.instance.change id, self.class.name.downcase
+    "#{changed_id}-#{name.permalinked}"
   end
 
   # аниме ли это?

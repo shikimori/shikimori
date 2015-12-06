@@ -3,7 +3,9 @@ class ShikimoriController < ApplicationController
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
   def fetch_resource
-    @resource ||= resource_klass.find(resource_id)
+    @resource ||= resource_klass.find(
+      CopyrightedIds.instance.restore(resource_id, resource_klass.name.downcase)
+    )
     @resource = @resource.decorate
     instance_variable_set "@#{resource_klass.name.downcase}", @resource
 

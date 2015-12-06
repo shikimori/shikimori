@@ -42,7 +42,7 @@
               data-text="#{t '.actions.review'}"
             ]
           a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_url @resource.object.class.name, @resource}"
+            href="#{favourites_url @resource.object.class.name, @resource.id}"
             style="#{'display: none;' if @resource.favoured?}"
             title="#{t '.actions.add_to_favorites'}"
             data-remote="true"
@@ -54,7 +54,7 @@
             data-text="#{t '.actions.add_to_favorites'}"
           ]
           a.fav-remove.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_url @resource.object.class.name, @resource}"
+            href="#{favourites_url @resource.object.class.name, @resource.id}"
             style="#{'display: none;' unless @resource.favoured?}"
             title="#{t '.actions.remove_from_favorites'}"
             data-remote="true"
