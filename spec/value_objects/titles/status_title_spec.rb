@@ -1,5 +1,5 @@
-describe StatusTitle do
-  let(:title) { StatusTitle.new status, Anime }
+describe Titles::StatusTitle do
+  let(:title) { Titles::StatusTitle.new status, Anime }
 
   describe 'ongoing' do
     let(:status) { :ongoing }

@@ -14,7 +14,7 @@ describe Menus::CollectionMenu do
 
   describe '#statuses' do
     it do
-      expect(view.statuses.first).to be_kind_of StatusTitle
+      expect(view.statuses.first).to be_kind_of Titles::StatusTitle
       expect(view.statuses.map(&:text)).to eq %w(
         anons ongoing released latest
       )
@@ -26,7 +26,7 @@ describe Menus::CollectionMenu do
     after { Timecop.return }
 
     it do
-      expect(view.seasons.first).to be_kind_of SeasonTitle
+      expect(view.seasons.first).to be_kind_of Titles::SeasonTitle
       expect(view.seasons.map(&:text)).to eq %w(
         winter_2016 fall_2015 summer_2015 spring_2015
         2015 2014

@@ -15,14 +15,14 @@ describe DashboardView do
   end
 
   describe '#db_seasons' do
-    it { expect(view.db_seasons(Anime).first).to be_kind_of StatusTitle }
-    it { expect(view.db_seasons(Anime).last).to be_kind_of SeasonTitle }
+    it { expect(view.db_seasons(Anime).first).to be_kind_of Titles::StatusTitle }
+    it { expect(view.db_seasons(Anime).last).to be_kind_of Titles::SeasonTitle }
     it { expect(view.db_seasons(Anime)).to have(5).items }
   end
 
   describe '#db_others' do
-    it { expect(view.db_others(Anime).first).to be_kind_of StatusTitle }
-    it { expect(view.db_others(Anime).last).to be_kind_of SeasonTitle }
+    it { expect(view.db_others(Anime).first).to be_kind_of Titles::StatusTitle }
+    it { expect(view.db_others(Anime).last).to be_kind_of Titles::SeasonTitle }
     it { expect(view.db_others(Anime)).to have(4).items }
   end
 

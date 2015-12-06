@@ -6,8 +6,8 @@ describe Menus::TopMenu do
     after { Timecop.return }
 
     it do
-      expect(view.seasons(Anime).first).to be_kind_of StatusTitle
-      expect(view.seasons(Anime).second).to be_kind_of SeasonTitle
+      expect(view.seasons(Anime).first).to be_kind_of Titles::StatusTitle
+      expect(view.seasons(Anime).second).to be_kind_of Titles::SeasonTitle
       expect(view.seasons(Anime).map(&:text)).to eq %w(
         ongoing
         2016 2015

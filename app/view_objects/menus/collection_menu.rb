@@ -24,27 +24,27 @@ class Menus::CollectionMenu < ViewObjectBase
 
   def statuses
     [
-      StatusTitle.new(:anons, klass),
-      StatusTitle.new(:ongoing, klass),
-      StatusTitle.new(:released, klass),
-      StatusTitle.new(:latest, klass),
+      Titles::StatusTitle.new(:anons, klass),
+      Titles::StatusTitle.new(:ongoing, klass),
+      Titles::StatusTitle.new(:released, klass),
+      Titles::StatusTitle.new(:latest, klass),
     ]
   end
 
   def seasons
     [
-      SeasonTitle.new(3.months.from_now, :season_year, klass),
-      SeasonTitle.new(Time.zone.now, :season_year, klass),
-      SeasonTitle.new(3.months.ago, :season_year, klass),
-      SeasonTitle.new(6.months.ago, :season_year, klass),
-      SeasonTitle.new(Time.zone.now, :year, klass),
-      SeasonTitle.new(1.year.ago, :year, klass),
-      SeasonTitle.new(2.years.ago, :years_2, klass),
-      SeasonTitle.new(4.years.ago, :years_5, klass),
-      SeasonTitle.new(9.years.ago, :years_7, klass),
-      SeasonTitle.new(Date.parse('1995-01-01'), :decade, klass),
-      SeasonTitle.new(Date.parse('1985-01-01'), :decade, klass),
-      SeasonTitle.new(nil, :ancient, klass)
+      Titles::SeasonTitle.new(3.months.from_now, :season_year, klass),
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, klass),
+      Titles::SeasonTitle.new(3.months.ago, :season_year, klass),
+      Titles::SeasonTitle.new(6.months.ago, :season_year, klass),
+      Titles::SeasonTitle.new(Time.zone.now, :year, klass),
+      Titles::SeasonTitle.new(1.year.ago, :year, klass),
+      Titles::SeasonTitle.new(2.years.ago, :years_2, klass),
+      Titles::SeasonTitle.new(4.years.ago, :years_5, klass),
+      Titles::SeasonTitle.new(9.years.ago, :years_7, klass),
+      Titles::SeasonTitle.new(Date.parse('1995-01-01'), :decade, klass),
+      Titles::SeasonTitle.new(Date.parse('1985-01-01'), :decade, klass),
+      Titles::SeasonTitle.new(nil, :ancient, klass)
     ]
   end
 

@@ -1,4 +1,4 @@
-class StatusTitle
+class Titles::StatusTitle
   include Translation
   pattr_initialize :status, :klass
 

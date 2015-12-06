@@ -1,5 +1,5 @@
 en:
-  season_title:
+  titles/season_title:
     anime: &anime_titles
       catalog:
         season:
@@ -34,7 +34,7 @@ en:
           fall: Fall %{year} Manga
         year: Manga %{year}
 
-  status_title:
+  titles/status_title:
     anime:
       anons: Planned
       ongoing: Airing

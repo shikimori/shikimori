@@ -19,24 +19,24 @@ class DashboardView < ViewObjectBase
 
   def db_seasons klass
     [
-      StatusTitle.new(:ongoing, klass),
-      SeasonTitle.new(3.months.from_now, :season_year, klass),
-      SeasonTitle.new(Time.zone.now, :season_year, klass),
-      SeasonTitle.new(3.months.ago, :season_year, klass),
-      SeasonTitle.new(6.months.ago, :season_year, klass)
+      Titles::StatusTitle.new(:ongoing, klass),
+      Titles::SeasonTitle.new(3.months.from_now, :season_year, klass),
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, klass),
+      Titles::SeasonTitle.new(3.months.ago, :season_year, klass),
+      Titles::SeasonTitle.new(6.months.ago, :season_year, klass)
     ]
   end
 
   def db_others klass
     month = Time.zone.now.beginning_of_month
-    # + 1.month since 12th month belongs to the next year in SeasonTitle
+    # + 1.month since 12th month belongs to the next year in Titles::SeasonTitle
     is_still_this_year = (month + 2.months + 1.month).year == month.year
 
     [
-      StatusTitle.new(:anons, klass),
-      SeasonTitle.new(month + 2.months, :year, klass),
-      SeasonTitle.new(is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass),
-      SeasonTitle.new(is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass),
+      Titles::StatusTitle.new(:anons, klass),
+      Titles::SeasonTitle.new(month + 2.months, :year, klass),
+      Titles::SeasonTitle.new(is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass),
+      Titles::SeasonTitle.new(is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass),
     ]
   end
 
@@ -104,12 +104,12 @@ private
 
   def all_ongoings
     this_season = AnimeSeasonQuery.new(
-      SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
+      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
       Anime
     ).to_sql
 
     prior_season = AnimeSeasonQuery.new(
-      SeasonTitle.new(3.month.ago, :season_year, Anime).text,
+      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text,
       Anime
     ).to_sql
 

@@ -1,5 +1,5 @@
 ru:
-  season_title:
+  titles/season_title:
     anime: &anime_titles
       catalog:
         season:
@@ -34,7 +34,7 @@ ru:
           fall: Осенний сезон %{year} года
         year: Манга %{year} года
 
-  status_title:
+  titles/status_title:
     anime:
       anons: Анонсы
       ongoing: Онгоинги

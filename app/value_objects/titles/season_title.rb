@@ -1,4 +1,4 @@
-class SeasonTitle
+class Titles::SeasonTitle
   include Translation
 
   YEARS_INTERVAL = /years_(?<years>\d)/
