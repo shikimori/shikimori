@@ -18,7 +18,15 @@ describe Animes::SortField do
   describe '#field' do
     context 'order not set' do
       let(:order) { nil }
-      it { expect(query.field).to eq default }
+
+      context 'default name or russian' do
+        let(:default) { 'name' }
+        it { expect(query.field).to eq 'russian' }
+      end
+
+      context 'other default' do
+        it { expect(query.field).to eq default }
+      end
     end
 
     context 'some field' do

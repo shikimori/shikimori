@@ -4,7 +4,7 @@ class Animes::SortField
   delegate :ru_domain?, :current_user, to: :view_context
 
   def field
-    if order == 'russian' || order == 'name'
+    if localized_name_field?
       localized_name_field
     else
       order || default
@@ -23,6 +23,11 @@ private
     else
       'name'
     end
+  end
+
+  def localized_name_field?
+    order == 'russian' || order == 'name' ||
+      (order.nil? && (default == 'russian' || default == 'name'))
   end
 
   def russian_names?
