@@ -12,6 +12,7 @@ class Recommendations::Fetcher < UserDataFetcherBase
   end
 
 private
+
   def job
     RecommendationsWorker
   end

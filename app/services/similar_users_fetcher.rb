@@ -1,11 +1,12 @@
 class SimilarUsersFetcher < UserDataFetcherBase
-  def initialize(user, klass, threshold)
+  def initialize user, klass, threshold
     @user = user
     @klass = klass
     @threshold = threshold
   end
 
 private
+
   def job
     SimilarUsersWorker
   end
@@ -15,6 +16,6 @@ private
   end
 
   def cache_key
-    "#{super}_#{@threshold}_#{SimilarUsersService::ResultsLimit}"
+    "#{super}_#{@threshold}_#{SimilarUsersService::MAXIMUM_RESULTS}"
   end
 end

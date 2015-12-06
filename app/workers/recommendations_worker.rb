@@ -14,6 +14,7 @@ class RecommendationsWorker
   end
 
 private
+
   def fetch user_id, klass, metric, threshold, user_list_cache_key
     rates_fetcher = Recommendations::RatesFetcher.new klass
 

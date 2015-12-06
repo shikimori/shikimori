@@ -1,4 +1,4 @@
-# NOTE: в конфиге мемкеша должна быть опция -I 16M
+# NOTE: в конфиге мемкеша должна быть опция -I 32M
 # иначе кеш оценок пользователей не влезет в мемкеш!
 class Recommendations::RatesFetcher
   MinimumScores = 20
@@ -48,6 +48,7 @@ class Recommendations::RatesFetcher
   end
 
 private
+
   # выборка всех оценок из базы
   def fetch_rates klass
     data = {}
@@ -74,7 +75,15 @@ private
   end
 
   def cache_key
-    "raw_user_rates_#{@klass.name}_#{MinimumScores}_#{@by_user}_#{@with_deletion}_" +
-      "#{@user_ids}_#{@user_cache_key}_#{@target_ids}"
+    [
+      :raw_user_rates,
+      @klass.name,
+      MinimumScores,
+      @by_user,
+      @with_deletion,
+      @user_ids,
+      @user_cache_key,
+      @target_ids
+    ].join '_'
   end
 end

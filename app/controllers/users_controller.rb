@@ -27,7 +27,7 @@ class UsersController < ShikimoriController
         @collection = User.where(id: ids).sort_by {|v| ids.index v.id }
       end
 
-      @add_postloader = @similar_ids && @similar_ids.any? && @page * USERS_PER_PAGE < SimilarUsersService::ResultsLimit
+      @add_postloader = @similar_ids && @similar_ids.any? && @page * USERS_PER_PAGE < SimilarUsersService::MAXIMUM_RESULTS
 
     else
       @page_title = i18n_i 'User', :other

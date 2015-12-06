@@ -15,6 +15,7 @@ class SimilarUsersWorker
   end
 
 private
+
   def fetch user, klass, threshold
     SimilarUsersService.new(user, klass, threshold).fetch
   end
