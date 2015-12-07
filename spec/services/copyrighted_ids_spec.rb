@@ -22,7 +22,8 @@ describe CopyrightedIds do
       end
 
       context 'original' do
-        it { expect(service.restore '145-neo-ranga', :anime).to be_nil }
+        let!(:anime) { create :anime, id: 145 }
+        it { expect{service.restore '145-neo-ranga', :anime}.to raise_error CopyrightedResource }
       end
     end
 

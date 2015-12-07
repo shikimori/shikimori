@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title 404
+
+    link[
+      href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic'
+      rel='stylesheet'
+      type='text/css'
+    ]
+    = stylesheet_link_tag 'page404'
+
+  body
+    .dialog
+      p.error-404 302
+      h1 = t 'page_moved.title'
+      == t 'page_moved.text', url: url_for(@resource)
+
+      img.image[
+        src='/images/static/page_moved.jpg'
+        srcset='/images/static/page_moved@2x.jpg 2x'
+      ]

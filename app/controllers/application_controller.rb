@@ -89,6 +89,10 @@ class ApplicationController < ActionController::Base
     elsif e.is_a?(StatusCodeError)
       render json: {}, status: e.status
 
+    elsif e.is_a?(CopyrightedResource)
+      @resource = e.resource
+      render 'pages/page_moved.html', layout: false, status: 404, formats: :html
+
     else
       if self.kind_of?(Api::V1::ApiController) || json?
         render(

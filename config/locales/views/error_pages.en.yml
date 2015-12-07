@@ -17,6 +17,12 @@ en:
         or contact site administration.
       </p>
 
+  page_moved:
+    title: Page moved
+    text:
+      <p>This page is no longer exists.</p>
+      <p>Old page can be accessed by the <a href="%{url}">new link</a>.</p>
+
   age_restricted:
     warning: Warning!<br>Adult content
     title:

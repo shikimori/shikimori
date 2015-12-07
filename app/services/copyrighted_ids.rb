@@ -16,13 +16,17 @@ class CopyrightedIds
     cleaned_id = id.to_s.gsub(/-.*$/, '')
 
     if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id)
-      nil
+      fail CopyrightedResource, copyrighted_resource(type, cleaned_id)
     else
       cleaned_id.gsub(/^#{MARKER}+/, '').to_i
     end
   end
 
 private
+
+  def copyrighted_resource type, id
+     type.to_s.capitalize.constantize.find(id)
+  end
 
   def ids
     @ids ||= yaml.each_with_object({}) do |(type, ids), memo|
