@@ -90,7 +90,8 @@ class ApplicationController < ActionController::Base
       render json: {}, status: e.status
 
     elsif e.is_a?(CopyrightedResource)
-      @resource = e.resource
+      resource = e.resource
+      @new_url = url_for params.merge(resource_id_key => resource.to_param)
       render 'pages/page_moved.html', layout: false, status: 404, formats: :html
 
     else

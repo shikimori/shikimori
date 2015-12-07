@@ -18,14 +18,18 @@ class CopyrightedIds
     if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id)
       fail CopyrightedResource, copyrighted_resource(type, cleaned_id)
     else
-      cleaned_id.gsub(/^#{MARKER}+/, '').to_i
+      restore_id cleaned_id
     end
   end
 
 private
 
   def copyrighted_resource type, id
-     type.to_s.capitalize.constantize.find(id)
+     type.to_s.capitalize.constantize.find(restore_id id)
+  end
+
+  def restore_id id
+    id.gsub(/^#{MARKER}+/, '').to_i
   end
 
   def ids

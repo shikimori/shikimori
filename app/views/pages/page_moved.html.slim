@@ -14,7 +14,7 @@ html
     .dialog
       p.error-404 302
       h1 = t 'page_moved.title'
-      == t 'page_moved.text', url: url_for(@resource)
+      == t 'page_moved.text', url: @new_url
 
       img.image[
         src='/images/static/page_moved.jpg'
