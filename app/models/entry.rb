@@ -81,7 +81,8 @@ class Entry < ActiveRecord::Base
   def comment_added comment
     self.updated_at = Time.zone.now
     # TODO: why?????????????
-    # self.created_at = self.updated_at if self.comments_count == 1 && !generated_news?
+    # because automatically generated topics have no created_at
+    self.created_at ||= self.updated_at if self.comments_count == 1 && !generated_news?
     self.save
   end
 
