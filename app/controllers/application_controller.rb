@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted)
+    raise e if remote_addr == '127.0.0.1' && !e.is_a?(AgeRestricted) && !e.is_a?(CopyrightedResource)
 
     with_json_response = self.kind_of?(Api::V1::ApiController) || json?
 
@@ -92,7 +92,12 @@ class ApplicationController < ActionController::Base
     elsif e.is_a?(CopyrightedResource)
       resource = e.resource
       @new_url = url_for params.merge(resource_id_key => resource.to_param)
-      render 'pages/page_moved.html', layout: false, status: 404, formats: :html
+
+      if params[:format] == 'rss'
+        redirect_to @new_url, status: 301
+      else
+        render 'pages/page_moved.html', layout: false, status: 404, formats: :html
+      end
 
     else
       if self.kind_of?(Api::V1::ApiController) || json?

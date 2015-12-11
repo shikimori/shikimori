@@ -179,4 +179,9 @@ private
       'o' => rules,
     }[@section.permalink] || []
   end
+
+  # for copyrighted redirects
+  def resource_id_key
+    :linked
+  end
 end
