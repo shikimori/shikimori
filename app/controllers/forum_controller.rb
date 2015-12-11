@@ -116,10 +116,21 @@ private
         #@topic.linked
       #else
       @linked = case @section.permalink
-        when 'a' then Anime.find(params[:linked].to_i)
-        when 'm' then Manga.find(params[:linked].to_i)
-        when 'c' then Character.find(params[:linked].to_i)
-        when 'g' then Group.find(params[:linked].to_i)
+        when 'a'
+          id = CopyrightedIds.instance.restore params[:linked], 'anime'
+          Anime.find id
+
+        when 'm'
+          id = CopyrightedIds.instance.restore params[:linked], 'manga'
+          Manga.find id
+
+        when 'c'
+          id = CopyrightedIds.instance.restore params[:linked], 'character'
+          Character.find id
+
+        when 'g'
+          Group.find(params[:linked].to_i)
+
         #when 'reviews' then Review.find(params[:linked].to_i)
         else nil
       end
