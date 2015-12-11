@@ -310,12 +310,14 @@ Site::Application.routes.draw do
 
   constraints ShikimoriDomain do
     # main page
-    resource :dashboards, only: [:show]
+    # resource :dashboards, only: [:show]
+    root to: 'dashboards#show'
+    get '/', to: 'dashboards#show', as: :new_session
 
     # форум
-    root to: 'topics#index'
-    get '/', to: 'topics#index', as: :forum
-    get '/', to: 'topics#index', as: :new_session
+    # root to: 'topics#index'
+    # get '/', to: 'topics#index', as: :forum
+    # get '/', to: 'topics#index', as: :new_session
 
     # seo redirects
     get 'r' => redirect('/reviews')
@@ -327,15 +329,10 @@ Site::Application.routes.draw do
     #constraints section: Section::VARIANTS do
     constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/, format: /html|json|rss/ do
       get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
-      #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
-
       get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
-      #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
-        #get ':section(/s-:linked)/:id' => 'topics#show', as: name
-      #end
       get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
     end
-    resources :topics, only: [:create, :update, :destroy, :edit] do
+    resources :topics, only: [:index, :create, :update, :destroy, :edit] do
       get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
     end
 

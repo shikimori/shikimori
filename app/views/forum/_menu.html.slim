@@ -31,78 +31,78 @@
           /srcset="https://s3.amazonaws.com/uploads.hipchat.com/397488/2428199/KbHT5nxIle2Uutb/attackontitan1_banner1_480x800.jpg 2x"
         /]
 
-.block.forum
-  .subheadline-buttons
-    - if user_signed_in? && can?(:new, Topic.new(user: current_user))
-      a.new-topic href="#{@forum_view.new_topic_url}" title="#{t '.create_topic'}"
-  .subheadline.m5 = t '.forum'
-  div
-    - @sections.each do |section|
-      a.section href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
-        span.title = section[:name_short] || section[:name]
-        span.notice = section[:description]
+/ .block.forum
+  / .subheadline-buttons
+    / - if user_signed_in? && can?(:new, Topic.new(user: current_user))
+      / a.new-topic href="#{@forum_view.new_topic_url}" title="#{t '.create_topic'}"
+  / .subheadline.m5 = t '.forum'
+  / div
+    / - @sections.each do |section|
+      / a.section href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+        / span.title = section[:name_short] || section[:name]
+        / span.notice = section[:description]
 
-      /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
-        /= section[:name_short] || section[:name]
+      / /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
+        / /= section[:name_short] || section[:name]
 
-- if presenter.news.any?
-  .block.news
-    h2.subheadline.m13
-      a[
-        href="#{section_url :news}"
-        title="#{t '.to_news'}"
-      ] = t :news
-    ul
-      = render partial: 'forum/news_block', collection: presenter.news, as: :entry, formats: :html
+/ - if presenter.news.any?
+  / .block.news
+    / h2.subheadline.m13
+      / a[
+        / href="#{section_url :news}"
+        / title="#{t '.to_news'}"
+      / ] = t :news
+    / ul
+      / = render partial: 'forum/news_block', collection: presenter.news, as: :entry, formats: :html
 
-- cache [:site_block,
-         :contests,
-         I18n.locale,
-         presenter.contests_key,
-         user_signed_in? ? current_user.can_vote_1? : 'guest',
-         user_signed_in? ? current_user.can_vote_2? : 'guest',
-         user_signed_in? ? current_user.can_vote_3? : 'guest'], expires_in: 6.hours do
-  - if presenter.contests.any?
-    .block.contests
-      h2.subheadline.m8
-        a[
-          href="#{contests_url}"
-          title="#{t '.to_contests'}"
-        ] = t '.contests'
-      div
-        - presenter.contests.each do |contest|
-          a.contest href="#{contest_url contest}" title="#{contest.title}"
-            span.title = contest.title
-            span.notice
-              == presenter.contest_notice contest, user_signed_in?, current_user
+/ - cache [:site_block,
+         / :contests,
+         / I18n.locale,
+         / presenter.contests_key,
+         / user_signed_in? ? current_user.can_vote_1? : 'guest',
+         / user_signed_in? ? current_user.can_vote_2? : 'guest',
+         / user_signed_in? ? current_user.can_vote_3? : 'guest'], expires_in: 6.hours do
+  / - if presenter.contests.any?
+    / .block.contests
+      / h2.subheadline.m8
+        / a[
+          / href="#{contests_url}"
+          / title="#{t '.to_contests'}"
+        / ] = t '.contests'
+      / div
+        / - presenter.contests.each do |contest|
+          / a.contest href="#{contest_url contest}" title="#{contest.title}"
+            / span.title = contest.title
+            / span.notice
+              / == presenter.contest_notice contest, user_signed_in?, current_user
       /a.b-show_more href="#{contests_url}" title="Все опросы" все опросы
 
-- cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
-  - if presenter.reviews.any?
-    .block.reviews
-      h2.subheadline.m13
-        a[
-          href="#{section_url :reviews}"
-          title="#{t '.to_reviews'}"
-        ] = t '.reviews'
-      ul
-        - presenter.reviews.each do |entry|
-          li.entry
-            a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
-              .image-name
-                img[
-                  src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
-                  srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
-                  alt="#{localized_name entry.target}"
-                  title="#{localized_name entry.target}"
-                ]
-                span.title
-                  == entry.target.name
-              span.misc
-                = t '.user_review', author: entry.user.nickname
-              time.misc.date[
-                datetime="#{entry.created_at.iso8601}"
-              ] = l entry.created_at, format: '%e %B %Y'
+/ - cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
+  / - if presenter.reviews.any?
+    / .block.reviews
+      / h2.subheadline.m13
+        / a[
+          / href="#{section_url :reviews}"
+          / title="#{t '.to_reviews'}"
+        / ] = t '.reviews'
+      / ul
+        / - presenter.reviews.each do |entry|
+          / li.entry
+            / a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
+              / .image-name
+                / img[
+                  / src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
+                  / srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
+                  / alt="#{localized_name entry.target}"
+                  / title="#{localized_name entry.target}"
+                / ]
+                / span.title
+                  / == entry.target.name
+              / span.misc
+                / = t '.user_review', author: entry.user.nickname
+              / time.misc.date[
+                / datetime="#{entry.created_at.iso8601}"
+              / ] = l entry.created_at, format: '%e %B %Y'
 
 - cache [:site_block, :groups, I18n.locale, presenter.groups_key], expires_in: 6.hours do
   .block.groups
@@ -144,30 +144,30 @@
             span.notice = topic[:description]
         .hide-more #{{t '.hide'}}
 
-- if user_signed_in?
-  - cache [:site_block, :user_history, current_user], expires_in: 6.hours do
-    - if current_user.history.any?
-      .block.mylist
-        h2.subheadline.m13 = t '.my_list'
-        ul
-          - current_user.history.formatted.take(2).each do |entry|
-            li.entry
-              a href="#{entry[:url]}" title="#{entry[:name]}"
-                .image-name
-                  img[
-                    src="#{entry[:image]}"
-                    srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
-                    alt="#{entry[:name]}"
-                    title="#{entry[:name]}"
-                  ]
-                  span.title
-                    == entry[:name]
-                span.misc title="#{entry[:reversed_action]}"
-                  = entry[:reversed_action]
-                time.misc.date[
-                  datetime="#{entry[:created_at].iso8601}"
-                  data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
-                ] = l entry[:created_at], format: '%e %B %Y'
+/ - if user_signed_in?
+  / - cache [:site_block, :user_history, current_user], expires_in: 6.hours do
+    / - if current_user.history.any?
+      / .block.mylist
+        / h2.subheadline.m13 = t '.my_list'
+        / ul
+          / - current_user.history.formatted.take(2).each do |entry|
+            / li.entry
+              / a href="#{entry[:url]}" title="#{entry[:name]}"
+                / .image-name
+                  / img[
+                    / src="#{entry[:image]}"
+                    / srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
+                    / alt="#{entry[:name]}"
+                    / title="#{entry[:name]}"
+                  / ]
+                  / span.title
+                    / == entry[:name]
+                / span.misc title="#{entry[:reversed_action]}"
+                  / = entry[:reversed_action]
+                / time.misc.date[
+                  / datetime="#{entry[:created_at].iso8601}"
+                  / data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
+                / ] = l entry[:created_at], format: '%e %B %Y'
 
 /.block.seasons
   h2.subheadline.m8 Сезоны аниме
