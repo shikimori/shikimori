@@ -75,7 +75,11 @@
 
   .c-generated_news
     .midheadline.gray.m15 = t '.sponsors'
-    div style="width: 240px; height: 400px; margin: 0 auto 60px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+    .container
+      - if Rails.env.production?
+        = render 'dashboards/ad'
+      - else
+        div style="width: 240px; height: 400px; margin: 0 auto 60px; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
     .midheadline.yellow = t '.anime_updates'
     div
