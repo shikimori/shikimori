@@ -17,3 +17,10 @@
       .removeClass('hidden')
         .siblings()
         .addClass('hidden')
+
+  $('.cc-news').imagesLoaded ->
+    $user_news = $('.c-user_news')
+    $generated_news = $('.c-generated_news')
+    height = $user_news.outerHeight()
+
+    $generated_news.check_height height, false, height
