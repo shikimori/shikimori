@@ -1,18 +1,19 @@
 en:
   dashboards:
     show:
-      currently_airing: Currently Airing
-      reviews: Reviews
-      all_reviews: all reviews
-      animes: Animes
-      mangas: Mangas
-      forum: Forum
-      contests: Contests
       all_contests: all contests
-      news_feed: News Feed
       all_news: all news
-      sponsors: Sponsors
+      all_reviews: all reviews
       anime_updates: Anime Updates
+      animes: Animes
+      contests: Contests
+      currently_airing: Currently Airing
+      forum: Forum
+      mangas: Mangas
+      news_feed: News Feed
+      other: Other
+      reviews: Reviews
+      sponsors: Sponsors
 
     animes:
       title: Animes

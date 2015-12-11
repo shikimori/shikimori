@@ -283,7 +283,7 @@ Site::Application.routes.draw do
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     scope 'animes/:anime_id', module: 'anime_online' do
-      get '' => redirect {|params, request| "#{request.url}/video_online" }
+      get '' => redirect { |params, request| "#{request.url}/video_online" }
 
       resources :video_online, controller: 'anime_videos', except: [:show] do
         member do
@@ -398,7 +398,8 @@ Site::Application.routes.draw do
     resources :images, only: [:destroy]
 
     # statistics
-    get 'anime-history' => 'statistics#index', as: :anime_history
+    get 'anime-history' => redirect('/anime-industry')
+    get 'anime-industry' => 'statistics#index', as: :anime_statistics
 
     # site pages
     resources :pages, path: '/', only: [] do

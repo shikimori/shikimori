@@ -17,6 +17,7 @@
         .option.selected = t '.reviews'
         .option = t '.animes'
         .option = t '.mangas'
+        .option = t '.other'
 
       .slides
         .slide.reviews
@@ -36,6 +37,12 @@
 
         .slide.mangas.hidden
           = render 'dashboards/mangas'
+
+        .slide.hidden
+          .midheadline: h2 = t '.other'
+          ul.b-list
+            - @view.pages.each do |url, title|
+              li: a.b-link href="#{url}" title="#{title}" = title
 
     .c-my_list
       - if user_signed_in?

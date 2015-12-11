@@ -35,49 +35,6 @@ a.entry.calendar[
         title="#{kind.title}"
       ] = kind.title
 
-/ a.entry.rel[
-  / href="#{section_url :news}"
-  / title="#{t '.news'}"
-/ ] = t '.news'
-/ a.entry.rel[
-  / href="#{section_url :reviews}"
-  / title="#{t '.reviews'}"
-/ ] = t '.reviews'
-
-/ - if user_signed_in?
-  / .entry
-    / - if current_user.show_contest_link?
-      / a.contest[
-        / href="#{current_contests_url}"
-        / title="#{t '.current_contest'}"
-        / data-count="#{current_user.unvoted_contests}"
-      / ]
-    / a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
-
-  / .entry class="#{:selected if params[:controller] == 'recommendations'}"
-    / .submenu-toggler
-    / .submenu-activator = t '.recommendations'
-    / .submenu
-      / a.entry[
-        / class="#{:selected if params[:controller] == 'recommendations'}"
-        / href="#{recommendations_favourites_anime_url}"
-      / ] = t '.favourite_recommendations'
-      / a.entry[
-        / class="#{:selected if params[:controller] == 'recommendations'}"
-        / href="#{RecommendationsController::TOPIC_URL}"
-      / ] = t '.community_recommendations'
-      / a.entry[
-        / class="#{:selected if params[:controller] == 'recommendations'}"
-        / href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
-      / ] = t '.personalized_recommendations'
-
-/ - else
-  / a.entry[
-    / class="#{:selected if params[:controller] == 'recommendations'}"
-    / href="#{recommendations_favourites_anime_url}"
-    / title="#{t '.what_anime_to_watch'}"
-  / ] = t '.what_anime_to_watch'
-
 .entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
   .submenu-toggler
   .submenu-activator = t '.community'
@@ -92,39 +49,3 @@ a.entry.calendar[
       href="#{clubs_url}"
       title="#{i18n_i 'Club', :other}"
     ] = i18n_i 'Club', :other
-
-.entry[
-  class="#{:selected if (params[:controller] == 'pages' && params[:action] == 'about') || (params[:controller] == 'statistics' && params[:action] == 'index')}"
-]
-  .submenu-toggler
-  .submenu-activator = t '.info'
-  .submenu
-    a.entry[
-      class="#{:active if params[:controller] == 'statistics' && params[:action] == 'index'}"
-      href="#{anime_history_url}"
-      title="${t 'anime_industry'}"
-      data-no-turbolink="true"
-    ] = t 'anime_industry'
-    a.entry[
-      class="#{:active if params[:controller] == 'pages' && params[:action] == 'about'}"
-      href="#{about_pages_url}"
-      title="#{t 'about_site'}"
-      data-no-turbolink='true'
-    ] = t 'about_site'
-    - if user_signed_in?
-      a.entry href='/s/79042-Pravila-sayta' title="#{t 'site_rules'}" = t 'site_rules'
-      a.entry href='/s/85018-FAQ-Chasto-zadavaemye-voprosy' title="#{t 'faq'}" FAQ
-      a.entry[
-        href="#{moderations_url}"
-        title="#{t '.moderations_content'}"
-      ] = t '.moderations_content'
-      /a.entry href='#{moderations_versions_url}' title='Журнал модерации контента' Журнал модерации контента
-      /a.entry href='#{moderations_bans_url}' title='Журнал модерации форума' Журнал модерации форума
-      /a.entry[
-        /class="#{:active if params[:controller] == 'translations'}"
-        /href="#{translations_url}"
-        /title="Аниме без описаний"
-      /] Аниме без описаний
-      a.entry href="http://shikimori.org/api/doc" API
-    /- if user_signed_in? && current_user.cosplay_moderator?
-        a.entry class="#{:active if params[:controller] == 'cosplay'}" href="#{mod_cosplay_index_url}" title="Косплей" Косплей
