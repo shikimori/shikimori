@@ -1,9 +1,9 @@
 .midheadline
   = t '.currently_airing'
-  a.b-link[
-    href="#{contests_url}"
-    title="#{t '.all_contests'}"
-  ] = t '.mangas'
+  / a.b-link[
+    / href="#{contests_url}"
+    / title="#{t '.all_contests'}"
+  / ] = t '.mangas'
 
 .cc-ongoings.to-process data-dynamic="cutted_covers"
   = render @view.ongoings,

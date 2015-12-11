@@ -21,6 +21,14 @@
   $('.cc-news').imagesLoaded ->
     $user_news = $('.c-user_news')
     $generated_news = $('.c-generated_news')
-    height = $user_news.outerHeight()
 
-    $generated_news.check_height height, false, height
+    align_blocks $user_news, $generated_news
+
+align_blocks = ($user_news, $generated_news) ->
+  $topics = $generated_news.find('.b-topic')
+
+  height = $user_news.outerHeight()
+
+  if $topics.length && height < $generated_news.outerHeight()
+    $topics.last().remove()
+    align_blocks $user_news, $generated_news
