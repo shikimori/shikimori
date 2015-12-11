@@ -23,7 +23,8 @@ describe CopyrightedIds do
         it do
           expect(
             service.restore "#{CopyrightedIds::MARKER}145-neo-ranga", :anime
-          ).to eq 145 }
+          ).to eq 145
+        end
       end
 
       context 'original' do
