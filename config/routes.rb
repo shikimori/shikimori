@@ -32,7 +32,6 @@ Site::Application.routes.draw do
   resources :seyu, only: [], concerns: [:autocompletable]
   resources :users, only: [], concerns: [:autocompletable]
 
-  # site pages
   resources :pages, path: '/', only: [] do
     collection do
       get :privacy
@@ -129,6 +128,7 @@ Site::Application.routes.draw do
     end
   end
 
+  # api
   apipie
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
@@ -261,6 +261,7 @@ Site::Application.routes.draw do
       end
     end
   end
+  # /api
 
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
@@ -309,15 +310,8 @@ Site::Application.routes.draw do
   end
 
   constraints ShikimoriDomain do
-    # main page
-    # resource :dashboards, only: [:show]
     root to: 'dashboards#show'
     get '/', to: 'dashboards#show', as: :new_session
-
-    # форум
-    # root to: 'topics#index'
-    # get '/', to: 'topics#index', as: :forum
-    # get '/', to: 'topics#index', as: :new_session
 
     # seo redirects
     get 'r' => redirect('/reviews')
@@ -325,15 +319,27 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
-
-    #constraints section: Section::VARIANTS do
     constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/, format: /html|json|rss/ do
-      get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
-      get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
-      get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
+      get ':section(/s-:linked)/new' => redirect { |params, request| "/forum#{request.path}" }
+      get ':section(/s-:linked)(/p-:page)' => redirect { |params, request| "/forum#{request.path}" }
+      get ':section(/s-:linked)/:id' => redirect { |params, request| "/forum#{request.path}" }
     end
-    resources :topics, only: [:index, :create, :update, :destroy, :edit] do
-      get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+    # /seo redirects
+
+    scope :forum do
+      resources :topics, except: [:index, :show, :new] do
+        get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+      end
+      get '/' => 'topics#index',  as: :forum
+      scope(
+        ':section(/s-:linked)',
+        section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/,
+        format: /html|json|rss/
+      ) do
+        get '(/p-:page)' => 'topics#index', as: :section
+        get '/:id' => 'topics#show',  as: :section_topic
+        get '/new' => 'topics#new', as: :new_topic
+      end
     end
 
     get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
@@ -436,17 +442,14 @@ Site::Application.routes.draw do
 
     # картинки с danbooru
     resources :danbooru, only: [], concerns: [:autocompletable] do
-      constraints url: /.*/ do
-        get 'yandere/:url' => :yandere, on: :collection
-      end
+      get 'yandere/:url' => :yandere, url: /.*/, on: :collection
     end
 
     # cosplay
     constraints id: /\d[^\/]*?/ do
       resources :cosplay, path: '/cosplay' do
-        collection do
-          get :mod
-        end
+        get :mod, on: :collection
+
         resources :cosplay_galleries, path: '', controller: 'cosplay' do
           get :delete
           get :undelete
@@ -461,10 +464,7 @@ Site::Application.routes.draw do
 
     resources :genres, only: [:index, :edit, :update] do
       get :tooltip, on: :member
-
-      collection do
-        get ':kind' => :index, as: :index, kind: /anime|manga/
-      end
+      get ':kind' => :index, as: :index, kind: /anime|manga/, on: :collection
     end
 
     # tags
@@ -480,6 +480,7 @@ Site::Application.routes.draw do
         get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
       end
     end
+    # /seo redirects
 
     # аниме и манга
     ['animes', 'mangas'].each do |kind|

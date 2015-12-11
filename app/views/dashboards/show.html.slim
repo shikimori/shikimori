@@ -6,7 +6,9 @@
   ] = t '.mangas'
 
 .cc-ongoings.to-process data-dynamic="cutted_covers"
-  = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
+  = render @view.ongoings,
+    cover_notice: :studio,
+    content_by: :mini_tooltip
 
 .cc-second
   .cc-inner
@@ -25,7 +27,9 @@
               title="#{t '.all_reviews'}"
             ] = t '.all_reviews'
           div
-            = render partial: 'topics/topic', collection: @view.reviews, as: :view
+            = render partial: 'topics/topic',
+              collection: @view.reviews,
+              as: :view
 
         .slide.animes.hidden
           = render 'dashboards/animes'
@@ -44,7 +48,7 @@
 
   .c-forum
     .forums.block
-      a.b-link_button.maxi.dark href="#{topics_url}" = t '.forum'
+      a.b-link_button.maxi.dark href="#{forum_url}" = t '.forum'
       .block
         - @view.forums.each do |forum|
           .section
@@ -71,7 +75,9 @@
       ] = t '.all_news'
 
     div
-      = render partial: 'topics/topic', collection: @view.user_news, as: :view
+      = render partial: 'topics/topic',
+        collection: @view.user_news,
+        as: :view
 
   .c-generated_news
     .midheadline.gray.m15 = t '.sponsors'

@@ -35,48 +35,48 @@ a.entry.calendar[
         title="#{kind.title}"
       ] = kind.title
 
-a.entry.rel[
-  href="#{section_url :news}"
-  title="#{t '.news'}"
-] = t '.news'
-a.entry.rel[
-  href="#{section_url :reviews}"
-  title="#{t '.reviews'}"
-] = t '.reviews'
+/ a.entry.rel[
+  / href="#{section_url :news}"
+  / title="#{t '.news'}"
+/ ] = t '.news'
+/ a.entry.rel[
+  / href="#{section_url :reviews}"
+  / title="#{t '.reviews'}"
+/ ] = t '.reviews'
 
-- if user_signed_in?
-  .entry
-    - if current_user.show_contest_link?
-      a.contest[
-        href="#{current_contests_url}"
-        title="#{t '.current_contest'}"
-        data-count="#{current_user.unvoted_contests}"
-      ]
-    a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
+/ - if user_signed_in?
+  / .entry
+    / - if current_user.show_contest_link?
+      / a.contest[
+        / href="#{current_contests_url}"
+        / title="#{t '.current_contest'}"
+        / data-count="#{current_user.unvoted_contests}"
+      / ]
+    / a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
 
-  .entry class="#{:selected if params[:controller] == 'recommendations'}"
-    .submenu-toggler
-    .submenu-activator = t '.recommendations'
-    .submenu
-      a.entry[
-        class="#{:selected if params[:controller] == 'recommendations'}"
-        href="#{recommendations_favourites_anime_url}"
-      ] = t '.favourite_recommendations'
-      a.entry[
-        class="#{:selected if params[:controller] == 'recommendations'}"
-        href="#{RecommendationsController::TOPIC_URL}"
-      ] = t '.community_recommendations'
-      a.entry[
-        class="#{:selected if params[:controller] == 'recommendations'}"
-        href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
-      ] = t '.personalized_recommendations'
+  / .entry class="#{:selected if params[:controller] == 'recommendations'}"
+    / .submenu-toggler
+    / .submenu-activator = t '.recommendations'
+    / .submenu
+      / a.entry[
+        / class="#{:selected if params[:controller] == 'recommendations'}"
+        / href="#{recommendations_favourites_anime_url}"
+      / ] = t '.favourite_recommendations'
+      / a.entry[
+        / class="#{:selected if params[:controller] == 'recommendations'}"
+        / href="#{RecommendationsController::TOPIC_URL}"
+      / ] = t '.community_recommendations'
+      / a.entry[
+        / class="#{:selected if params[:controller] == 'recommendations'}"
+        / href="#{cookies[RecommendationsController::COOKIE_NAME] || recommendations_url(klass: 'anime')}"
+      / ] = t '.personalized_recommendations'
 
-- else
-  a.entry[
-    class="#{:selected if params[:controller] == 'recommendations'}"
-    href="#{recommendations_favourites_anime_url}"
-    title="#{t '.what_anime_to_watch'}"
-  ] = t '.what_anime_to_watch'
+/ - else
+  / a.entry[
+    / class="#{:selected if params[:controller] == 'recommendations'}"
+    / href="#{recommendations_favourites_anime_url}"
+    / title="#{t '.what_anime_to_watch'}"
+  / ] = t '.what_anime_to_watch'
 
 .entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
   .submenu-toggler
