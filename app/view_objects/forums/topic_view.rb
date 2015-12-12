@@ -1,4 +1,4 @@
-class ForumView < ViewObjectBase
+class Forums::TopicView < Forums::BaseView
   pattr_initialize :resource
   instance_cache :section, :linked, :new_topic_section
 
@@ -11,20 +11,46 @@ class ForumView < ViewObjectBase
   def section
     if h.params[:section]
       Section.find_by_permalink(h.params[:section])
-    else
+    elsif resource
       resource.section
+    else
+      Section.static[:all]
     end
   end
 
   def linked
     case section.permalink
-      when 'a' then Anime.find h.params[:linked]
-      when 'm' then Manga.find h.params[:linked]
-      when 'c' then Character.find h.params[:linked]
-      when 'g' then Group.find h.params[:linked]
-      when 'reviews' then Review.find h.params[:linked]
-      else nil
+      when 'a'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'anime'
+        Anime.find id
+
+      when 'm'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'manga'
+        Manga.find id
+
+      when 'c'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'character'
+        Character.find id
+
+      when 'g'
+        Group.find(params[:linked].to_i)
+
+      when 'reviews'
+        Review.find h.params[:linked]
+
+      else
+        nil
+
     end if h.params[:linked]
+  end
+
+  def add_postloader?
+  end
+
+  def next_page_url
+  end
+
+  def next_page_url
   end
 
 private

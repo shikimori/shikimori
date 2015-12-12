@@ -86,10 +86,16 @@ class DashboardView < ViewObjectBase
 
   def forums
     Section.visible.map do |section|
+      size = TopicsQuery
+        .new(h.current_user)
+        .by_section(section)
+        .where('comments_count > 0')
+        .size
+
       OpenStruct.new(
         name: section.name,
         url: h.section_url(section),
-        size: TopicsQuery.new(h.current_user).by_section(section).size
+        size: size
       )
     end
     # [

@@ -319,7 +319,7 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
-    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/, format: /html|json|rss/ do
+    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news|games|vn/, format: /html|json|rss/ do
       get ':section(/s-:linked)/new' => redirect { |params, request| "/forum#{request.path}" }
       get ':section(/s-:linked)(/p-:page)' => redirect { |params, request| "/forum#{request.path}" }
       get ':section(/s-:linked)/:id' => redirect { |params, request| "/forum#{request.path}" }
@@ -333,7 +333,7 @@ Site::Application.routes.draw do
       get '/' => 'topics#index',  as: :forum
       scope(
         ':section(/s-:linked)',
-        section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/,
+        section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news|games|vn/,
         format: /html|json|rss/
       ) do
         get '(/p-:page)' => 'topics#index', as: :section

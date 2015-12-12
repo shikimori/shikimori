@@ -2,6 +2,9 @@ en:
   dashboards_controller:
     h1_header: Anime and manga encyclopedia
 
+  topics_controller:
+    forum: Forum
+
   profiles_controller: &profiles_controller
     profile: Profile
     friends: Friends

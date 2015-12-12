@@ -1,47 +1,20 @@
 # TODO: выпилить ForumController
-class TopicsController < ForumController
+class TopicsController < ShikimoriController
   include TopicsHelper
 
   load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
-  before_action :build_forum
   before_action :set_breadcrumbs, only: [:show, :edit, :new]
 
-  #caches_action :index,
-    #cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
-
-  #caches_action :show,
-    #cache_path: proc {
-      #topic = Entry.find params[:id]
-      #Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{topic.updated_at}|#{topic.linked ? topic.linked.updated_at : ''}|#{json?}"
-    #},
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
-
-  # главная страница сайта и форум
   def index
-    @page = (params[:page] || 1).to_i
-    @limit = topics_limit
-
-    topics, @add_postloader = TopicsQuery.new(current_user)
-      .by_section(@section)
-      .by_linked(@linked)
-      .postload(@page, @limit)
-      .result
-
-    @collection = topics.map do |topic|
-      Topics::Factory.new(true, @section.permalink == 'reviews').build topic
-    end
-
-    super
+    @view = Forums::SectionView.new
 
     # редирект на топик, если топик в подфоруме единственный
-    redirect_to topic_url(topics.first, params[:format]) and return if @linked && @collection.one?
+    if @view.linked && @view.topics.one?
+      redirect_to topic_url(@view.topics.first, params[:format])
+    end
   end
 
-  # страница топика форума
   def show
     @topic = Entry.with_viewed(current_user).find(params[:id])
     @view = Topics::Factory.new(false, false).build @topic
@@ -57,14 +30,11 @@ class TopicsController < ForumController
       )
       return redirect_to topic_url(@topic), status: 301
     end
-
-    super
   end
 
   # создание нового топика
   def new
     noindex
-    super
   end
 
   # создание топика
@@ -81,21 +51,20 @@ class TopicsController < ForumController
 
   # редактирование топика
   def edit
-    super
   end
 
   # редактирование топика
   def update
-    @resource.class.record_timestamps = false
-    @resource.user_image_ids = (params[:wall] || []).uniq
+    @resource.class.wo_timestamps do
+      @resource.user_image_ids = (params[:wall] || []).uniq
 
-    if faye.update @resource, topic_params
-      redirect_to topic_url(@resource), notice: 'Топик изменён'
-    else
-      edit
-      render :edit
+      if faye.update @resource, topic_params
+        redirect_to topic_url(@resource), notice: 'Топик изменён'
+      else
+        edit
+        render :edit
+      end
     end
-    @topic.class.record_timestamps = true
   end
 
   # удаление топика
@@ -144,18 +113,10 @@ private
     params.require(:topic).permit(*allowed_params)
   end
 
-  # количество отображаемых топиков
-  def topics_limit
-    params[:format] == 'rss' ? 30 : 8
-  end
-
-  def build_forum
-    @forum_view = ForumView.new @resource
-  end
-
   def set_breadcrumbs
-    breadcrumb 'Форум', root_url
-    breadcrumb @forum_view.section.name, section_url(@forum_view.section)
+    1/0
+    breadcrumb t('.forum'), forum_url
+    breadcrumb @view.section.name, section_url(@forum_view.section)
     breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource) if params[:action] == 'edit'
   end
 
