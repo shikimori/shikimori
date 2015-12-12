@@ -1,7 +1,7 @@
 class ModerationsController < ShikimoriController
   before_action :authenticate_user!
-  before_action { breadcrumb t('application.top_menu.shikimori.moderations_content'), moderations_url }
-  before_action { page_title t('application.top_menu.shikimori.moderations_content') }
+  before_action { breadcrumb t('moderations.title'), moderations_url }
+  before_action { page_title t('moderations.title') }
 
   def show
   end

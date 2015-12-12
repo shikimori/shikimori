@@ -120,6 +120,9 @@ en:
       Take part in anime tournament on our site and
       make your contribution to the poll, we want to determine %{title}.
 
+  moderations:
+   title: Moderation
+
   moderations/versions_controller:
     content_change: 'Content change #%{version_id}'
     content_changes: Content changes

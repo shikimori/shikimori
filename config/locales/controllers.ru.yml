@@ -121,6 +121,9 @@ ru:
       Примите участие в аниме-турнире на нашем сайте и
       внесите свой вклад в голосование, мы хотим определить %{title}.
 
+  moderations:
+   title: Модерация и контент
+
   moderations/versions_controller:
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
