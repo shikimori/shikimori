@@ -327,7 +327,7 @@ Site::Application.routes.draw do
     # /seo redirects
 
     scope :forum do
-      resources :topics, except: [:index, :show, :new] do
+      resources :topics, except: [:index, :show] do
         get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
       end
       get '/' => 'topics#index',  as: :forum
@@ -338,7 +338,6 @@ Site::Application.routes.draw do
       ) do
         get '(/p-:page)' => 'topics#index', as: :section
         get '/:id' => 'topics#show',  as: :section_topic
-        get '/new' => 'topics#new', as: :new_topic
       end
     end
 

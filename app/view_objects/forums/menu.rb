@@ -1,4 +1,5 @@
 class Forums::Menu < ViewObjectBase
+  pattr_initialize :section, :linked
   instance_cache :clubs, :reviews
 
   def clubs
@@ -45,5 +46,13 @@ class Forums::Menu < ViewObjectBase
         description: 'Топик о любых проблемах на сайте'
       )
     ]
+  end
+
+  def new_topic_url
+    h.new_topic_url section, linked,
+      'topic[user_id]' => h.current_user.id,
+      'topic[section_id]' => section.id,
+      'topic[linked_id]' => linked ? linked.id : nil,
+      'topic[linked_type]' => linked ? linked.class.name : nil
   end
 end

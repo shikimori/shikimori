@@ -22,7 +22,7 @@ class Forums::BaseView < ViewObjectBase
   # end
 
   def menu
-    Forums::Menu.new
+    Forums::Menu.new section, linked
   end
 
   def linked

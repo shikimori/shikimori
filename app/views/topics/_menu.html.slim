@@ -17,13 +17,17 @@
 / - cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
 
 .block
+  a.b-link_button.maxi.dark.create-topic[
+    href="#{menu.new_topic_url}"
+  ] = t '.create_topic'
+
+.block
   .subheadline.gray.m10 = t 'sponsors'
   .container
     / - if Rails.env.production?
       / = render 'dashboards/ad'
     / - else
     div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
-
 
 .block.reviews
   h2.subheadline.m13
