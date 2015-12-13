@@ -18,6 +18,10 @@ FactoryGirl.define do
       type 'ContestComment'
     end
 
+    factory :club_comment, class: 'GroupComment' do
+      type 'GroupComment'
+    end
+
     factory :anime_news, class: 'AnimeNews' do
       type 'AnimeNews'
       section { seed :anime_section }

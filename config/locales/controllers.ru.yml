@@ -3,7 +3,7 @@ ru:
     h1_header: Энциклопедия аниме и манги
 
   topics_controller:
-    forum: Форум
+    title: Форум Шикимори
 
   profiles_controller: &profiles_controller
     profile: Профиль

@@ -1,5 +1,7 @@
 class Forums::BaseView < ViewObjectBase
   attr_implement :section
+  instance_cache :menu
+
   # pattr_initialize :resource
   # instance_cache :section, :linked, :new_topic_section
 
@@ -18,6 +20,10 @@ class Forums::BaseView < ViewObjectBase
       # Section.static[:all]
     # end
   # end
+
+  def menu
+    Forums::Menu.new
+  end
 
   def linked
     case section.permalink

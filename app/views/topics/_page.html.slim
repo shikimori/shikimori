@@ -65,9 +65,9 @@ header.head
           = render 'contests/menu', resource: @topic.linked.decorate
 
         - elsif @topic.linked.kind_of? CosplayGallery
-          = render 'forum/menu', presenter: @news
+          = render 'menu', menu: @view.menu
 
-        - else raise "unknown linked: #{@linekd.class}"
+        - else raise "unknown linked: #{@view.linked.class}"
 
       - else
-        / = render 'forum/menu', presenter: @news
+        = render 'menu', menu: @view.menu

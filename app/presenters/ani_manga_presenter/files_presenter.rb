@@ -1,4 +1,4 @@
-class AniMangaPresenter::FilesPresenter < BasePresenter
+class AniMangaPresenter::FilesPresenter
   def search_phrases
     @search_phrases ||= ([
       entry.torrents_name,
@@ -74,6 +74,7 @@ class AniMangaPresenter::FilesPresenter < BasePresenter
   end
 
 private
+
   def significant_torrents
     (groupped_torrents[:torrents_1080p] || []) +
         (groupped_torrents[:torrents_720p] || []) +

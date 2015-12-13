@@ -35,10 +35,19 @@ a.entry.calendar[
         title="#{kind.title}"
       ] = kind.title
 
-.entry class="#{:selected if params[:controller] == 'users' || params[:controller] == 'groups'}"
+.entry class="#{:selected if params[:controller] == 'topics' || params[:controller] == 'groups' || params[:controller] == 'groups'}"
   .submenu-toggler
-  .submenu-activator = t '.community'
+  a[
+    class="#{:active if params[:controller] == 'topics'}"
+    href="#{forum_url}"
+    title="#{t '.community'}"
+  ] = t '.community'
   .submenu
+    a.entry[
+      class="#{:active if params[:controller] == 'topics'}"
+      href="#{forum_url}"
+      title="#{t 'forum'}"
+    ] = t 'forum'
     a.entry[
       class="#{:active if params[:controller] == 'users'}"
       href="#{users_url}"

@@ -5,12 +5,10 @@
 .p-topics .l-menu
   .calendar .entry,
   .reviews .entry,
-  .news .entry,
-  .groups .entry,
-  .mylist .entry
+  .clubs .entry,
     +menu-block-with-image
 
-  .naruto, .titans
+  .naruto
     +image_editable
 
     img
@@ -19,44 +17,9 @@
     &.deleted
       display: none
 
-  .groups .entry img
+  .clubs .entry img
     width: 35px
     height: 35px
-
-  .seasons .season,
-  .forum .section
-    +menu-block-with-text-link
-
-  .forum .new-topic
-    +icon_button("\e83d")
-
-  .contests
-    +clearfix
-
-    margin-bottom: 25px
-
-    .contest
-      +menu-block-with-text-link
-
-      a
-        +ellipsis
-        max-width: 195px
-
-        &:after
-          position: absolute
-          right: 10px
-
-      .finished
-        color: $gray-1
-
-      .started
-        color: $gray-3
-
-      .can-vote
-        color: #307a3d
-
-    .show-more
-      float: right
 
   .b-clubs-menu, .b-contests-menu
     .actions

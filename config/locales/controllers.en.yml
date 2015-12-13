@@ -3,7 +3,7 @@ en:
     h1_header: Anime and manga encyclopedia
 
   topics_controller:
-    forum: Forum
+    title: Shikimori Forum
 
   profiles_controller: &profiles_controller
     profile: Profile

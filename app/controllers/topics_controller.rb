@@ -114,8 +114,8 @@ private
   end
 
   def set_breadcrumbs
-    page_title i18n_t('forum')
-    breadcrumb i18n_t('forum'), forum_url
+    page_title i18n_t('title')
+    breadcrumb t('forum'), forum_url
     # breadcrumb @view.section.name, section_url(@forum_view.section)
     # breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource) if params[:action] == 'edit'
   end

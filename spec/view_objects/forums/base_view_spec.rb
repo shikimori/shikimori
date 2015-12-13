@@ -7,6 +7,10 @@ describe Forums::BaseView do
 
   before { allow(view.h).to receive(:params).and_return params }
 
+  describe '#menu' do
+    it { expect(view.menu).to be_kind_of Forums::Menu }
+  end
+
   describe '#linked' do
     before { allow(view).to receive_message_chain(:section, :permalink)
       .and_return permalink }
