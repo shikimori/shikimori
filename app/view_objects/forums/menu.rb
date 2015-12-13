@@ -1,10 +1,19 @@
 class Forums::Menu < ViewObjectBase
-  instance_cache :clubs
+  instance_cache :clubs, :reviews
 
   def clubs
     GroupComment
       .includes(:linked)
       .order(updated_at: :desc)
+      .limit(3)
+  end
+
+  def reviews
+    @reviews ||= Review
+      .where('created_at >= ?',  2.weeks.ago)
+      .visible
+      .includes(:user, :target, thread: [:section])
+      .order(created_at: :desc)
       .limit(3)
   end
 

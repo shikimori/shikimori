@@ -66,11 +66,11 @@
           - else
             span.misc = t '.new_club'
 
-.block.seasons
+.block.sticked-topics
   h2.subheadline.m8 = t '.sticked_topics'
   div
     - menu.sticked_topics.take(3).each do |topic|
-      a.season href="#{topic.url}"
+      a.topic href="#{topic.url}"
         span.title = topic.title
         span.notice = topic.description
   - if menu.sticked_topics.size > 3
@@ -78,7 +78,7 @@
     .b-show_more-more
       span
       - menu.sticked_topics.slice(3, 99).each do |topic|
-        a.season href="#{topic.url}"
+        a.topic href="#{topic.url}"
           span.title = topic.title
           span.notice = topic.description
       .hide-more #{{t '.hide'}}
