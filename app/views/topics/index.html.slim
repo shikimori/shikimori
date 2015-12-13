@@ -1,21 +1,29 @@
 - content_for :head do
-  - if @add_postloader
-    link rel="next" href="#{{section_url page: @page+1, section: @section[:permalink], linked: params[:linked]}}"
-  - if @page != 1
-    link rel="prev" href="#{{section_url page: @page == 2 ? nil : @page-1, section: @section[:permalink], linked: params[:linked]}}"
+  - if @view.next_page_url
+    link[
+      rel="next"
+      href="#{{@view.next_page_url}}"
+    ]
+  - if @view.prev_page_url
+    link[
+      rel="prev"
+      href="#{{@view.prev_page_url}}"
+    ]
 
-  = auto_discovery_link_tag :rss, section_url(section: @section[:permalink], format: :rss), title: 'Топики раздела'
+  = auto_discovery_link_tag :rss,
+    section_url(section: @view.section[:permalink], format: :rss),
+    title: 'Топики раздела'
 
-  - if @section[:id] == 'all'
-    = auto_discovery_link_tag :rss, "http://feeds.feedburner.com/shikimori/anime", title: 'Новости аниме'
-    = auto_discovery_link_tag :rss, "http://feeds.feedburner.com/shikimori/site", title: 'Новости сайта'
+  / - if @view.section[:id] == 'all'
+    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
+    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
 
 = render layout: 'topics/page' do |f|
-  .b-forum.unprocessed data-faye="#{@faye_subscriptions if user_signed_in?}"
-    = render partial: 'topics/topic', collection: @collection, as: :view
+  .b-forum.unprocessed data-faye="#{@view.faye_subscriptions.to_json if user_signed_in?}"
+    = render partial: 'topics/topic', collection: @view.topics, as: :view
 
-    - if @add_postloader
+    - if @view.next_page_url
       = render 'blocks/postloader',
         filter: 'b-topic',
-        next_url: section_url(page: @page+1, section: @section[:permalink], linked: params[:linked]),
-        prev_url: @page > 1 ? section_url(page: @page-1, section: @section[:permalink], linked: params[:linked]) : nil
+        next_url: @view.next_page_url,
+        prev_url: @view.prev_page_url
