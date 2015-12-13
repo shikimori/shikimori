@@ -15,33 +15,41 @@
       /]
 
 / - cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
-- if menu.reviews.any?
-  .block.reviews
-    h2.subheadline.m13
-      a[
-        href="#{section_url :reviews}"
-        title="#{t '.to_reviews'}"
-      ] = t '.reviews'
-    ul
-      - menu.reviews.each do |entry|
-        li.entry
-          a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
-            .image-name
-              img[
-                src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
-                srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
-                alt="#{localized_name entry.target}"
-                title="#{localized_name entry.target}"
-              ]
-              span.title
-                == entry.target.name
-            span.misc
-              = t '.user_review', author: entry.user.nickname
-            time.misc.date[
-              datetime="#{entry.created_at.iso8601}"
-            ] = l entry.created_at, format: '%e %B %Y'
 
-/ - cache [:site_block, :groups, I18n.locale, presenter.groups_key], expires_in: 6.hours do
+.block
+  .subheadline.gray.m10 = t 'sponsors'
+  .container
+    / - if Rails.env.production?
+      / = render 'dashboards/ad'
+    / - else
+    div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+
+
+.block.reviews
+  h2.subheadline.m13
+    a[
+      href="#{section_url :reviews}"
+      title="#{t '.to_reviews'}"
+    ] = t '.reviews'
+  ul
+    - menu.reviews.each do |entry|
+      li.entry
+        a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
+          .image-name
+            img[
+              src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
+              srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
+              alt="#{localized_name entry.target}"
+              title="#{localized_name entry.target}"
+            ]
+            span.title
+              == entry.target.name
+          span.misc
+            = t '.user_review', author: entry.user.nickname
+          time.misc.date[
+            datetime="#{entry.created_at.iso8601}"
+          ] = l entry.created_at, format: '%e %B %Y'
+
 .block.clubs
   h2.subheadline.m13
     a[
