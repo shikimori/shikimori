@@ -3,35 +3,60 @@
 @import mixins/responsive
 @import mixins/retina
 
-.l-menu
-  +gte_ipad
-    +column(2, 22/100, 3%)
-  +ipad
-    +column(2, 23/100, 3%)
-  +iphone-landscape
-    +column(2, 32/100, 3%)
-  +iphone-portrait
-    +column(2, 41.5/100, 3%)
+.menu-slide-outer
+  &.x199
+    .l-menu
+      +gt_ipad
+        +column(2, 22/100, 3%)
+      +ipad
+        +column(2, 23/100, 3%)
+      +iphone-landscape
+        +column(2, 32/100, 3%)
+      +iphone-portrait
+        +column(2, 41.5/100, 3%)
 
-.l-content
-  +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
-  +gte_ipad
-    +column(2, 78/100, 3%)
-  +ipad
-    +column(2, 77/100, 3%)
-  +iphone-landscape
-    +column(2, 67/100, 3%)
-  +iphone-portrait
-    +column(2, 58.5/100, 3%)
+    .l-content
+      +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
+      +gt_ipad
+        +column(2, 78/100, 3%)
+      +ipad
+        +column(2, 77/100, 3%)
+      +iphone-landscape
+        +column(2, 67/100, 3%)
+      +iphone-portrait
+        +column(2, 58.5/100, 3%)
+
+  &.x240
+    .l-menu
+      +gt_ipad
+        +column(2, 0.2625, 3%)
+      +ipad-landscape
+        +column(2, 0.2625, 3%)
+      +ipad-portrait
+        +column(2, 0.25, 3%)
+      +iphone-landscape
+        +column(2, 32/100, 3%)
+      +iphone-portrait
+        +column(2, 41.5/100, 3%)
+
+    .l-content
+      +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
+      +gt_ipad
+        +column(2, 0.7375, 3%)
+      +ipad-landscape
+        +column(2, 0.7375, 3%)
+      +ipad-portrait
+        +column(2, 0.75, 3%)
+      +iphone-landscape
+        +column(2, 67/100, 3%)
+      +iphone-portrait
+        +column(2, 58.5/100, 3%)
 
 .l-top_menu, .menu-slide-outer
   &:after
     clear: both
     display: block
     content: ' '
-
-//.l-footer, .l-menu, .l-page > .head, .l-page > .pagination
-  margin-right: 15px
 
 .l-page
   &.menu-expanded .l-content
@@ -47,21 +72,26 @@
       width: 100%
       overflow: hidden
 
-  .menu-slide-inner
-    //+iphone
-      +transition(width 0.5s ease)
+  .menu-slide-outer
+    &.x199 .menu-slide-inner
+      +iphone-landscape
+        width: 152.5%
+      +iphone-portrait
+        width: 175%
+      +ipad-portrait
+        width: 132%
 
-    +iphone-landscape
-      width: 152.5%
-
-    +iphone-portrait
-      width: 175%
-
-    +ipad
-      width: 132%
+    &.x240 .menu-slide-inner
+      +iphone-landscape
+        width: 152.5%
+      +iphone-portrait
+        width: 175%
+      +ipad-portrait
+        width: 135%
 
 .l-page
   $toggler_height: 60px
+
   .menu-toggler
     cursor: pointer
     height: $toggler_height
@@ -76,6 +106,9 @@
       width: 26px
 
     +gt_ipad
+      display: none
+
+    +ipad-landscape
       display: none
 
     .toggler
