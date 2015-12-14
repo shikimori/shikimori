@@ -6,10 +6,10 @@ ru:
       # forum: Форум
       hide: '&mdash; спрятать'
       # my_list: Мой список
-      # new_club: Создан новый клуб
+      new_club: Создан новый клуб
       reviews: Рецензии
-      # show_more: '+ показать ещё'
-      # sticked_topics: Прикреплённое
+      show_more: '+ показать ещё'
+      sticked_topics: Прикреплённое
       to_clubs: К клубам
       # to_contests: К турнирам
       # to_news: К новостям

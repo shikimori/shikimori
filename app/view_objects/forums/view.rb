@@ -1,5 +1,5 @@
-class Forums::SectionView < Forums::BaseView
-  instance_cache :fetch_topics, :section
+class Forums::View < ViewObjectBase
+  instance_cache :fetch_topics, :section, :menu, :linked
 
   def section
     Section.find_by_permalink h.params[:section]
@@ -37,6 +37,36 @@ class Forums::SectionView < Forums::BaseView
       else
         ["section-#{section.id}"]
     end
+  end
+
+  def menu
+    Forums::Menu.new section, linked
+  end
+
+  def linked
+    case section.permalink
+      when 'a'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'anime'
+        Anime.find id
+
+      when 'm'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'manga'
+        Manga.find id
+
+      when 'c'
+        id = CopyrightedIds.instance.restore h.params[:linked], 'character'
+        Character.find id
+
+      when 'g'
+        Group.find h.params[:linked].to_i
+
+      when 'reviews'
+        Review.find h.params[:linked]
+
+      else
+        nil
+
+    end if h.params[:linked]
   end
 
 private

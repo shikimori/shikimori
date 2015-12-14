@@ -329,18 +329,29 @@ Site::Application.routes.draw do
       get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
       get '/:id' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
     end
+    scope 'forum/o(/s-:linked)', format: /html|json|rss/ do
+      get '/new' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
+      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
+      get '/:id' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
+    end
+    scope 'forum/s(/s-:linked)', format: /html|json|rss/ do
+      get '/new' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
+      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
+      get '/:id' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
+    end
     # /seo redirects
 
     scope :forum do
-      resources :topics, except: [:index, :show] do
+      resources :topics, except: [:index, :show, :new] do
         get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
       end
       get '/' => 'topics#index',  as: :forum
       scope(
         '(/:section)(/s-:linked)',
-        section: /animanga|s|f|o|g|reviews|cosplay|v|news|games|vn/,
+        section: /animanga|site|offtopic|g|reviews|cosplay|v|news|games|vn/,
         format: /html|json|rss/
       ) do
+        get '/new' => 'topics#new', as: :new_topic
         get '(/p-:page)' => 'topics#index', as: :section
         get '/:id' => 'topics#show',  as: :section_topic
       end

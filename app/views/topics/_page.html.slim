@@ -19,7 +19,7 @@ header.head
 
   /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
 
-.menu-slide-outer.x240
+.menu-slide-outer class="#{@topic && @topic.linked ? :x199 : :x240}"
   /- if defined?(@gallery)
     - if user_signed_in?
       = render partial: 'forum/gallery', formats: :html

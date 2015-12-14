@@ -4,6 +4,7 @@ ru:
 
   topics_controller:
     title: Форум Шикимори
+    new_topic: Новый топик
 
   profiles_controller: &profiles_controller
     profile: Профиль

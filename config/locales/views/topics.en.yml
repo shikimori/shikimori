@@ -6,10 +6,10 @@ en:
       # forum: Forum
       hide: '&mdash; hide'
       # my_list: My List
-      # new_club: New club
+      new_club: New club
       reviews: Reviews
-      # show_more: '+ show more'
-      # sticked_topics: Sticked Topics
+      show_more: '+ show more'
+      sticked_topics: Sticked Topics
       to_clubs: To Clubs
       # to_contests: To Contests
       # to_news: To News

@@ -4,9 +4,9 @@ class Section < ActiveRecord::Base
 
   before_create :set_permalink
 
-  VARIANTS = /animanga|s|f|o|g|reviews|v|news/
+  VARIANTS = /animanga|site|offtopic|g|reviews|v|news/
   # разделы, в которые можно создавать топики из интерфейса
-  PUBLIC_SECTIONS = %w{ o animanga s }
+  PUBLIC_SECTIONS = %w{ offtopic animanga site }
 
   ANIME_NEWS_ID = 1
   GROUPS_ID = 10

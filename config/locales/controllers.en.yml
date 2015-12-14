@@ -4,6 +4,7 @@ en:
 
   topics_controller:
     title: Shikimori Forum
+    new_topic: New topic
 
   profiles_controller: &profiles_controller
     profile: Profile

@@ -9,8 +9,8 @@ class CombineAnimeRelatedSectionsToOneSection < ActiveRecord::Migration
     )
     Section.find(17).update position: 5
     Section.find(16).update position: 6
-    Section.find(4).update position: 7
-    Section.find(8).update position: 8
+    Section.find(4).update position: 7, permalink: 'site'
+    Section.find(8).update position: 8, permalink: 'offtopic'
   end
 
   def down

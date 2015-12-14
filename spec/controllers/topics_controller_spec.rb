@@ -15,23 +15,23 @@ describe TopicsController do
     Section.instance_variable_set :@real, nil
   end
 
-  describe '#index' do
+  describe '#index', :focus do
     before { anime_topic && topic2 }
 
     context 'no section' do
       before { get :index }
 
       it do
-        expect(collection).to have(4).items
+        expect(assigns(:view).topics).to have(4).items
         expect(response).to have_http_status :success
       end
     end
 
-    context 'Section::static[:all]' do
-      before { get :index, section: Section::static[:all].permalink }
+    context 'offtopic' do
+      before { get :index, section: seed(:offtopic_section).permalink }
 
       it do
-        expect(collection).to have(4).items
+        expect(assigns(:view).topics).to have(2).items
         expect(response).to have_http_status :success
       end
     end
@@ -40,7 +40,7 @@ describe TopicsController do
       before { get :index, section: anime_section.to_param }
 
       it do
-        expect(collection).to have(2).items
+        expect(assigns(:view).topics).to have(2).items
         expect(response).to have_http_status :success
       end
     end
@@ -48,7 +48,7 @@ describe TopicsController do
     context 'subsection' do
       context 'one topic' do
         before { get :index, section: anime_section.to_param, linked: anime.to_param }
-        it { expect(response).to redirect_to topic_url(anime_topic) }
+        it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
       end
 
       context 'multiple topics' do
@@ -56,7 +56,7 @@ describe TopicsController do
         before { get :index, section: anime_section.to_param, linked: anime.to_param }
 
         it do
-          expect(collection).to have(2).items
+          expect(assigns(:view).topics).to have(2).items
           expect(response).to have_http_status :success
         end
       end

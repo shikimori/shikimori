@@ -1,23 +1,21 @@
-# TODO: выпилить ForumController
 class TopicsController < ShikimoriController
   include TopicsHelper
 
   load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
+  before_action :set_view
   before_action :set_breadcrumbs
 
   def index
-    @view = Forums::SectionView.new
-
     # редирект на топик, если топик в подфоруме единственный
-    if @view.linked && @view.topics.one?
-      redirect_to topic_url(@view.topics.first, params[:format])
+    if params[:linked] && @view.topics.one?
+      redirect_to UrlGenerator.instance.topic_url(@view.topics.first, params[:format])
     end
   end
 
   def show
     @topic = Entry.with_viewed(current_user).find(params[:id])
-    @view = Topics::Factory.new(false, false).build @topic
+    @topic_view = Topics::Factory.new(false, false).build @topic
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
@@ -28,13 +26,14 @@ class TopicsController < ShikimoriController
           @topic.to_param != params[:id] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
         )
       )
-      return redirect_to topic_url(@topic), status: 301
+      return redirect_to UrlGenerator.instance.topic_url(@topic), status: 301
     end
   end
 
   # создание нового топика
   def new
     noindex
+    page_title i18n_t('new_topic')
   end
 
   # создание топика
@@ -113,11 +112,25 @@ private
     params.require(:topic).permit(*allowed_params)
   end
 
+  def set_view
+    @view = Forums::View.new
+  end
+
   def set_breadcrumbs
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
-    # breadcrumb @view.section.name, section_url(@forum_view.section)
-    # breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource) if params[:action] == 'edit'
+
+    if @resource && @resource.persisted?
+      page_title @resource.section.name
+      breadcrumb @resource.section.name, section_url(@resource.section)
+    elsif @view.section
+      page_title @view.section.name
+      breadcrumb @view.section.name, section_url(@view.section) if params[:action] != 'index'
+    end
+    page_title @resource.title if @resource && @resource.persisted?
+    if params[:action] == 'edit' || params[:action] == 'update'
+      breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource)
+    end
   end
 
   def faye
