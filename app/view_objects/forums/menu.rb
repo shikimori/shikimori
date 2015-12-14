@@ -49,10 +49,11 @@ class Forums::Menu < ViewObjectBase
   end
 
   def new_topic_url
-    h.new_topic_url section, linked,
+    h.new_topic_url(
       'topic[user_id]' => h.current_user.id,
       'topic[section_id]' => section.id,
       'topic[linked_id]' => linked ? linked.id : nil,
       'topic[linked_type]' => linked ? linked.class.name : nil
+    )
   end
 end
