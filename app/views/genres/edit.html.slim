@@ -1,7 +1,6 @@
 header.head
-  h1 #{@resource.name} / #{@resource.russian}
-  .notice Edit genre
-
+  h1 = @page_title.last
+  .notice = t '.notice'
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = simple_form_for @resource do |f|

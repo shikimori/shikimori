@@ -462,7 +462,9 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    resources :sections, only: [:index, :edit, :update]
+    resources :sections, only: [:index, :edit] do
+      patch :update, on: :member, as: :update
+    end
     resources :genres, only: [:index, :edit, :update] do
       get :tooltip, on: :member
     end

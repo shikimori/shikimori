@@ -1,0 +1,10 @@
+en:
+  genres:
+    index: &index
+      genres: Genres
+      notice: List of all site genres
+    edit: &edit
+      <<: *index
+      notice: Edit genre
+    update:
+      <<: *edit

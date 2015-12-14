@@ -1,0 +1,10 @@
+en:
+  sections:
+    index: &index
+      sections: Forum Sections
+      notice: List of all forum sections
+    edit: &edit
+      <<: *index
+      notice: Edit section
+    update:
+      <<: *edit

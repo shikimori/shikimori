@@ -4,7 +4,10 @@ describe GenresController do
 
   describe '#index' do
     before { get :index }
-    it { expect(response).to have_http_status :success }
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have(1).item
+    end
   end
 
   describe '#edit' do

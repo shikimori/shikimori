@@ -72,4 +72,4 @@
         collection: @resource.versions_page.first
 
       - if @resource.versions_page.second
-        = render 'blocks/postloader', url: @resource.next_versions_page
+        = render 'blocks/postloader', next_url: @resource.next_versions_page

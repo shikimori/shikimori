@@ -4,6 +4,6 @@
     - if @collection.any?
       = render partial: 'versions/version', collection: @collection
       - if @add_postloader
-        = render 'blocks/postloader', url: versions_profile_url(page: @page+1)
+        = render 'blocks/postloader', next_url: versions_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет правок контента

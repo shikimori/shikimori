@@ -28,4 +28,4 @@ header.head
   .block
     = render partial: 'moderations/reviews/review', collection: @processed
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { url: page_moderations_reviews_url(page: @page+1) }
+      = render 'blocks/postloader', next_url: page_moderations_reviews_url(page: @page+1)

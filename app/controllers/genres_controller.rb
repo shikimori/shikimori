@@ -1,7 +1,6 @@
-class GenresController < ShikimoriController
+class GenresController < ModerationsController
   load_and_authorize_resource
-  # before_action :authenticate_user!, except: [:index, :tooltip]
-  before_action :set_breadcrumbs, except: :index
+  before_action :set_breadcrumbs, except: [:tooltip]
 
   def index
     @collection = @collection.order(:kind, :position, :name)
@@ -12,7 +11,7 @@ class GenresController < ShikimoriController
 
   def update
     if @resource.update genre_params
-      redirect_to genres_url, notice: 'Genre updated'
+      redirect_to genres_url
     else
       render action: 'edit'
     end
@@ -33,6 +32,9 @@ private
   end
 
   def set_breadcrumbs
-    breadcrumb 'Genres', genres_url
+    page_title t('.genres')
+    page_title "#{@resource.name} / #{@resource.russian}" if @resource
+
+    breadcrumb t('.genres'), genres_url if @resource
   end
 end

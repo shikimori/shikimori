@@ -1,0 +1,10 @@
+ru:
+  sections:
+    index: &index
+      sections: Разделы форума
+      notice: Список всех разделов форума сайта
+    edit: &edit
+      <<: *index
+      notice: Редактирование раздела
+    update:
+      <<: *edit

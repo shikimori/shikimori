@@ -1,22 +1,18 @@
 header.head
-  h1 Жанры
-  / - if @kind == 'anime'
-    / a.misc href="#{index_genres_url kind: 'manga'}" = t 'switch_to_manga'
-  / - else
-    / a.misc href="#{index_genres_url kind: 'anime'}" = t 'switch_to_anime'
-
-  .notice Список всех жанров сайта
+  h1 = @page_title.last
+  .notice = t '.notice'
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 table.b-table.b-editable_grid
   thead
     tr
-      th Position
+      th = Genre.human_attribute_name :position
       - if can? :manage, Genre
         th ID
         th MAL_ID
       th Name EN
       th Name RU
-      th Type
+      th = Genre.human_attribute_name :type
       th.text Description RU
       - if can? :edit, Genre
         th.actions Actions

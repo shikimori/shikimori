@@ -30,4 +30,4 @@ header.head
     .subheadline История
     .block
       = render partial: 'moderations/abuse_requests/abuse_request', collection: @processed
-      = render partial: 'blocks/postloader', locals: { url: page_moderations_abuse_requests_url(page: @page+1) }
+      = render partial: 'blocks/postloader', locals: { next_url: page_moderations_abuse_requests_url(page: @page+1) }
