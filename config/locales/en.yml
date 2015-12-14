@@ -3,10 +3,12 @@ en:
     models:
       anime: Anime
       character: Character
-      contest: Contest
-      manga: Manga
-      user: User
       comment: Comment
+      contest: Contest
+      genre: Genre
+      manga: Manga
+      section: Section
+      user: User
 
     attributes:
       anime: &anime_attributes
@@ -64,6 +66,8 @@ en:
       ban:
         reason: Reason
         duration: Duration
+      genre:
+        description: Description
       user:
         avatar: Avatar
         birth_on: Birthday

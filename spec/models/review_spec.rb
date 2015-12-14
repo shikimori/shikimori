@@ -2,25 +2,25 @@ require 'cancan/matchers'
 
 describe Review do
   describe 'relations' do
-    it { should belong_to :target }
-    it { should belong_to :user }
-    it { should belong_to :approver }
-    it { should have_one :thread }
+    it { is_expected.to belong_to :target }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :approver }
+    it { is_expected.to have_one :thread }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :user }
-    it { should validate_presence_of :target }
-    #it { should validate_length_of(:text).is_at_least Review::MINIMUM_LENGTH }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :target }
+    #it { is_expected.to validate_length_of(:text).is_at_least Review::MINIMUM_LENGTH }
 
     context 'accepted' do
       subject { build :review, state: 'accepted' }
-      it { should validate_presence_of :approver }
+      it { is_expected.to validate_presence_of :approver }
     end
 
     context 'rejected' do
       subject { build :review, state: 'rejected' }
-      it { should validate_presence_of :approver }
+      it { is_expected.to validate_presence_of :approver }
     end
   end
 
@@ -32,7 +32,7 @@ describe Review do
       let!(:review1) { create :review, state: :pending }
       let!(:review2) { create :review, state: :accepted,
         user: build_stubbed(:user), approver: user }
-      it { should eq [review1] }
+      it { is_expected.to eq [review1] }
     end
 
     describe 'visible' do
@@ -42,7 +42,7 @@ describe Review do
         user: build_stubbed(:user), approver: user }
       let!(:review3) { create :review, state: :rejected,
         user: build_stubbed(:user), approver: user }
-      it { should eq [review1, review2] }
+      it { is_expected.to eq [review1, review2] }
     end
   end
 
@@ -60,12 +60,12 @@ describe Review do
 
     describe 'accept' do
       before { review.accept user }
-      its(:approver) { should eq user }
+      its(:approver) { is_expected.to eq user }
     end
 
     describe 'reject' do
       before { review.reject user }
-      its(:approver) { should eq user }
+      its(:approver) { is_expected.to eq user }
     end
   end
 
@@ -88,43 +88,44 @@ describe Review do
       let(:review) { build_stubbed :review, user: user }
 
       context 'not banned' do
-        it { should be_able_to :manage, review }
+        it { is_expected.to be_able_to :manage, review }
       end
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
-        it { should_not be_able_to :manage, review }
+        it { is_expected.to_not be_able_to :manage, review }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :banned }
-        it { should_not be_able_to :manage, review }
+        it { is_expected.to_not be_able_to :manage, review }
       end
     end
 
     context 'reviews moderator' do
       let(:user) { build_stubbed :user, :reviews_moderator }
-      it { should be_able_to :manage, review }
+      it { is_expected.to be_able_to :manage, review }
     end
 
     context 'forum moderator' do
-      let(:user) { build_stubbed :user, :reviews_moderator }
-      it { should be_able_to :manage, review }
+      let(:user) { build_stubbed :user, :moderator }
+      it { is_expected.to be_able_to :manage, review }
     end
 
     context 'user' do
-      it { should be_able_to :read, review }
-      it { should_not be_able_to :new, review }
-      it { should_not be_able_to :edit, review }
-      it { should_not be_able_to :destroy, review }
+      it { is_expected.to be_able_to :read, review }
+      it { is_expected.to_not be_able_to :new, review }
+      it { is_expected.to_not be_able_to :edit, review }
+      it { is_expected.to_not be_able_to :destroy, review }
     end
 
     context 'guest' do
       let(:user) { nil }
-      it { should be_able_to :read, review }
-      it { should_not be_able_to :new, review }
-      it { should_not be_able_to :edit, review }
-      it { should_not be_able_to :destroy, review }
+
+      it { is_expected.to be_able_to :read, review }
+      it { is_expected.to_not be_able_to :new, review }
+      it { is_expected.to_not be_able_to :edit, review }
+      it { is_expected.to_not be_able_to :destroy, review }
     end
   end
 end

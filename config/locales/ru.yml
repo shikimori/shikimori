@@ -3,10 +3,12 @@ ru:
     models:
       anime: Аниме
       character: Персонаж
-      contest: Опрос
-      manga: Манга
-      user: Пользователь
       comment: Комментарий
+      contest: Опрос
+      genre: Жанр
+      manga: Манга
+      section: Раздел
+      user: Пользователь
 
     attributes:
       anime: &anime_attributes
@@ -64,6 +66,8 @@ ru:
       ban:
         reason: Причина
         duration: Срок
+      genre:
+        description: Описание
       user:
         avatar: Аватар
         birth_on: Дата рождения

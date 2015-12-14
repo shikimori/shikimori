@@ -1,6 +1,6 @@
 describe GenresController do
+  include_context :authenticated, :admin
   let!(:genre) { create :genre }
-  before { sign_in create(:user, id: 1) }
 
   describe '#index' do
     before { get :index }
@@ -13,9 +13,13 @@ describe GenresController do
   end
 
   describe '#update' do
-    before { patch :update, id: genre.id, genre: { description: 'new description' } }
-    it { expect(response).to redirect_to index_genres_url(kind: :anime) }
-    it { expect(genre.reload.description).to eq 'new description' }
+    let(:params) {{ description: 'new description' }}
+    before { patch :update, id: genre.id, genre: params }
+
+    it do
+      expect(response).to redirect_to genres_url
+      expect(resource).to have_attributes params
+    end
   end
 
   describe '#tooltip' do

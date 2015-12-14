@@ -1,18 +1,26 @@
-.subheadline = @resource.name
+header.head
+  h1 #{@resource.name} / #{@resource.russian}
+  .notice Edit genre
+
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = simple_form_for @resource do |f|
   - if @resource.errors.any?
     .errors
-      .subheadline.red Ошибки
+      .subheadline.red Errors
       .subcontent
         == @resource.errors.full_messages.join('<br>')
       div
+  - else
+      .subheadline = Genre.model_name.human
 
-  - if current_user.admin?
-    = f.input :name
-    = f.input :russian
-    = f.input :position
-    = f.input :seo
-  = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
-  = f.submit 'Сохранить'
+  .block
+    - if can? :manage, Genre
+      = f.input :name
+      = f.input :russian
+      = f.input :position
+      = f.input :seo
+    = f.input :description, input_html: { style: 'height: 196px; width: 600px;' }
+
+  = f.button :magic_submit
   = link_to t('actions.cancel'), genres_path, class: 'cancel'

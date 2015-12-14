@@ -50,6 +50,7 @@ class Ability
     end
     cannot [:significant_change], Version
     can [:show, :tooltip], Version
+    can :tooltip, Genre
   end
 
   def user_ability
@@ -175,10 +176,12 @@ class Ability
       ).none?
     end
     cannot [:significant_change], Version
+    can :read, Genre
   end
 
   def moderator_ability
     can :manage, [Topic, AnimeNews, MangaNews, Review]
+    can [:edit, :update], [Genre]
   end
 
   def contests_moderator_ability
