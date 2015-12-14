@@ -62,6 +62,11 @@ describe Mal::TextSanitizer do
         it { is_expected.to eq '[anime=1]zzz[/anime]' }
       end
 
+      context '[anime] with nofollow' do
+        let(:text) { "<a href=\"http://myanimelist.net/anime.php?id=1\" rel=\"nofollow\">zzz</a>" }
+        it { is_expected.to eq '[anime=1]zzz[/anime]' }
+      end
+
       context '[manga]' do
         let(:text) { "<a href=\"http://myanimelist.net/manga.php?id=1\">zzz</a>" }
         it { is_expected.to eq '[manga=1]zzz[/manga]' }
@@ -83,8 +88,15 @@ describe Mal::TextSanitizer do
       end
 
       context '[spoiler]' do
-        let(:text) { "aaa <div class=\"spoiler\"><input type=\"button\" class=\"button\" onClick=\"this.nextSibling.nextSibling.style.display='inline-block';this.style.display='none';\" value=\"Show spoiler\"> <span class=\"spoiler_content\" style=\"display:none\"><input type=\"button\" class=\"button\" onClick=\"this.parentNode.style.display='none';this.parentNode.parentNode.childNodes[0].style.display='inline-block';\" value=\"Hide spoiler\"><br>ccc<!--spoiler--></span>\n</div><br />\nbbb" }
-        it { is_expected.to eq 'aaa [br][spoiler][br]ccc[/spoiler][br]bbb' }
+        context 'old' do
+          let(:text) { "aaa <div class=\"spoiler\"><input type=\"button\" class=\"button\" onClick=\"this.nextSibling.nextSibling.style.display='inline-block';this.style.display='none';\" value=\"Show spoiler\"> <span class=\"spoiler_content\" style=\"display:none\"><input type=\"button\" class=\"button\" onClick=\"this.parentNode.style.display='none';this.parentNode.parentNode.childNodes[0].style.display='inline-block';\" value=\"Hide spoiler\"><br>ccc<!--spoiler--></span>\n</div><br />\nbbb" }
+          it { is_expected.to eq 'aaa [br][spoiler][br]ccc[/spoiler][br]bbb' }
+        end
+
+        context 'new' do
+          let(:text) { "aaa <div class=\"spoiler\"><input type=\"button\" class=\"button\" onClick=\"this.nextSibling.nextSibling.style.display='inline-block';this.style.display='none';\" value=\"Show spoiler\"> <span class=\"spoiler_content\" style=\"display:none\"><input type=\"button\" class=\"button\" onClick=\"this.parentNode.style.display='none';this.parentNode.parentNode.childNodes[0].style.display='inline-block';\" value=\"Hide spoiler\"><br>ccc</span>\n</div><br />\nbbb" }
+          it { is_expected.to eq 'aaa [br][spoiler][br]ccc[/spoiler][br]bbb' }
+        end
       end
 
       context '[source]' do

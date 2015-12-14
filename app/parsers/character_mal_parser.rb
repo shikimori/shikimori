@@ -55,7 +55,8 @@ class CharacterMalParser < BaseMalParser
     img_doc = doc.css("td.borderClass > div > img")
 
     if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
-      entry[:img] = doc.css("td.borderClass > div > a > img").first.attr(:src)
+      entry[:img] = doc.css('td.borderClass').first()
+        .css('> div > a > img').first.try(:attr, :src)
     else
       entry[:img] = img_doc.first.attr(:src)
     end

@@ -61,15 +61,15 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
     expect(data[:studios]).to eq [
       { id: 14, name: 'Sunrise' },
-      { id: 23, name: 'Bandai Visual' },
-      { id: 102, name: 'FUNimation Entertainment' },
-      { id: 233, name: 'Bandai Entertainment' }
+      # { id: 23, name: 'Bandai Visual' },
+      # { id: 102, name: 'FUNimation Entertainment' },
+      # { id: 233, name: 'Bandai Entertainment' }
     ]
     expect(data).to include(:duration)
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
-    expect(data[:ranked]).to eq 21
+    expect(data[:ranked]).to eq 22
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
@@ -90,8 +90,8 @@ series of new conflicts. [br][source]ANN[/source]"
 
   it 'correct score & ranked' do
     data = parser.fetch_entry_data(31143)
-    expect(data[:ranked]).to eq 5723
-    expect(data[:score]).to eq 6.22
+    expect(data[:ranked]).to eq 5967
+    expect(data[:score]).to eq 6.11
   end
 
   it 'fetches anime related' do

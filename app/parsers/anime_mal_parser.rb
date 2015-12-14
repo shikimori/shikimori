@@ -19,7 +19,7 @@ class AnimeMalParser < BaseMalParser
   def deploy entry, data
     # для хентая ставим флаг censored
     entry.censored = data[:entry][:rating] == 'rx' ||
-      data[:entry][:genres].any? { |genre| Genre::CENSORED_IDS.include? genre[:mal_id] }
+      data[:entry][:genres].any? { |v| Genre::CENSORED_IDS.include? v[:mal_id] }
     # то, что стоит релизом, не сбрасывать назад в онгоинг при ипорте
     data[:entry].delete(:status) if entry.released? &&
                                     data[:entry][:status] == 'ongoing' &&
@@ -76,7 +76,7 @@ class AnimeMalParser < BaseMalParser
       end
       .select(&:present?)
 
-    entry[:studios] = parse_line("Producers", content, true)
+    entry[:studios] = parse_line("Studios", content, true)
       .map do |line|
         {
           id: $1.to_i,

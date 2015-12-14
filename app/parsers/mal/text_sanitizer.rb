@@ -46,12 +46,12 @@ private
 
   def bb_entry text
     text.gsub %r(
-      <a\shref="http://myanimelist.net/(?<type>anime|manga|character|people)
+      <a \s href="http://myanimelist.net/(?<type>anime|manga|character|people)
         (?:
           .php\?id=(?<id>\d+) |
           / (?<id>\d+) / \w+
         )
-      ">
+      " (?: \s rel="nofollow")?>
         (?<name>[^<]+)
       </a>
     )mix do
@@ -72,7 +72,7 @@ private
     text.gsub %r(
       (?: <div \s class="spoiler .*? value="Hide \s spoiler"> )
         ( .*? )
-      (?: <!--spoiler-->(?:</span>)?\n?</div> )
+      (?: </span>\n?</div> )
     )mix, '[br][spoiler]\1[/spoiler]'
   end
 

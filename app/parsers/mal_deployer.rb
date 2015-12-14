@@ -194,7 +194,7 @@ module MalDeployer
 
   # надо ли загружать картинку?
   def reload_image? entry, data
-    return false if Rails.env.test? || data[:entry][:img].include?('na_series.gif') || data[:entry][:img].include?('na.gif')
+    return false if Rails.env.test? || !data[:entry][:img] || data[:entry][:img].include?('na_series.gif') || data[:entry][:img].include?('na.gif')
     return true unless entry.image.exists?
     return true unless ImageChecker.new(entry.image.path).valid?
 

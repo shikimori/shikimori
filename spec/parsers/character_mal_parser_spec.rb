@@ -5,12 +5,13 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   let(:parser) { CharacterMalParser.new }
   let(:character_id) { 35662 }
 
-  it 'have correct type' do
+  it 'has correct type' do
     expect(parser.instance_eval { type }).to eq('character')
   end
 
   it 'fetches character data' do
     data = parser.fetch_entry_data(character_id)
+
     expect(data[:name]).to eq('Charlotte Dunois')
     expect(data[:fullname]).to eq('Charlotte "Charles, Charl" Dunois')
     expect(data[:description_en]).to include('[spoiler]')
@@ -23,6 +24,11 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
 
   it 'fetches the whole entry' do
     expect(parser.fetch_entry(character_id)).to have(1).item
+  end
+
+  it 'has correct image' do
+    data = parser.fetch_entry_data 135627
+    expect(data[:img]).to be_nil
   end
 
   describe 'import' do
