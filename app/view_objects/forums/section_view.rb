@@ -2,7 +2,7 @@ class Forums::SectionView < Forums::BaseView
   instance_cache :fetch_topics, :section
 
   def section
-    Section.find_by_permalink h.params[:section] || 'all'
+    Section.find_by_permalink h.params[:section]
   end
 
   def topics
@@ -26,8 +26,8 @@ class Forums::SectionView < Forums::BaseView
   end
 
   def faye_subscriptions
-    case section.permalink
-      when Section::static[:all].permalink
+    case section && section.permalink
+      when nil
         Section.real.map {|v| "section-#{v.id}" } +
           h.current_user.groups.map { |v| "group-#{v.id}" }
 
@@ -44,7 +44,7 @@ private
   def page_url page
     h.section_url(
       page: page,
-      section: section[:permalink],
+      section: section.try(:permalink),
       linked: h.params[:linked]
     )
   end
@@ -63,7 +63,7 @@ private
     collection = topics.map do |topic|
       Topics::Factory.new(
         true,
-        section.permalink == 'reviews'
+        section && section.permalink == 'reviews'
       ).build topic
     end
 

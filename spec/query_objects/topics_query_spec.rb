@@ -12,8 +12,8 @@ describe TopicsQuery do
     let!(:topic_1) { create :entry, section: anime_section, updated_at: 1.day.ago }
     let!(:topic_2) { create :entry, section: offtopic_section, updated_at: 2.days.ago }
 
-    context 'special section: all' do
-      before { query.by_section Section.static[:all] }
+    context 'special section: nil' do
+      before { query.by_section nil }
       it { is_expected.to eq [seeded_offtopic_topic, topic_1, topic_2] }
     end
 

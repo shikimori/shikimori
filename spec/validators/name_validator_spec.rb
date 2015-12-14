@@ -47,7 +47,6 @@ describe NameValidator, type: :validator do
         is_expected.to_not allow_value('mangas').for :name
         is_expected.to_not allow_value('reviews').for :name
         is_expected.to_not allow_value('contests').for :name
-        is_expected.to_not allow_value('all').for :name
       end
 
       describe 'message' do

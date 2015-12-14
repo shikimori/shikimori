@@ -11,7 +11,7 @@
     ]
 
   = auto_discovery_link_tag :rss,
-    section_url(section: @view.section[:permalink], format: :rss),
+    section_url(section: @view.section.try(:permalink), format: :rss),
     title: 'Топики раздела'
 
   / - if @view.section[:id] == 'all'

@@ -319,10 +319,15 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
-    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news|games|vn/, format: /html|json|rss/ do
-      get ':section(/s-:linked)/new' => redirect { |params, request| "/forum#{request.path}" }
-      get ':section(/s-:linked)(/p-:page)' => redirect { |params, request| "/forum#{request.path}" }
-      get ':section(/s-:linked)/:id' => redirect { |params, request| "/forum#{request.path}" }
+    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
+      get ':section(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
+      get ':section(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
+      get ':section(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
+    end
+    scope 'forum/:section(/s-:linked)', section: /a|m|c|p/, format: /html|json|rss/ do
+      get '/new' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
+      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
+      get '/:id' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
     end
     # /seo redirects
 
@@ -332,8 +337,8 @@ Site::Application.routes.draw do
       end
       get '/' => 'topics#index',  as: :forum
       scope(
-        ':section(/s-:linked)',
-        section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news|games|vn/,
+        '(/:section)(/s-:linked)',
+        section: /animanga|s|f|o|g|reviews|cosplay|v|news|games|vn/,
         format: /html|json|rss/
       ) do
         get '(/p-:page)' => 'topics#index', as: :section

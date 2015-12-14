@@ -1,4 +1,6 @@
-class AniMangaPresenter::FilesPresenter
+class AniMangaDecorator::Files
+  pattr_initialize :entry
+
   def search_phrases
     @search_phrases ||= ([
       entry.torrents_name,

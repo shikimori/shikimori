@@ -2,7 +2,7 @@ class NameValidator < ActiveModel::EachValidator
   def validate_each record, attribute, value
     return unless value.kind_of? String
 
-    is_taken = value =~ /\A(?:#{Section::VARIANTS}|animes|mangas|all|contests|users)\Z/ ||
+    is_taken = value =~ /\A(?:#{Section::VARIANTS}|animes|mangas|contests|users)\Z/ ||
       presence(record, value, Group, :name) || presence(record, value, User, :nickname)
 
     if is_taken
@@ -11,6 +11,7 @@ class NameValidator < ActiveModel::EachValidator
   end
 
 private
+
   def presence record, value, klass, field
     query = if record.kind_of? klass
       klass.where.not(id: record.id)

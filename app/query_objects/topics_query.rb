@@ -10,8 +10,8 @@ class TopicsQuery < ChainableQueryBase
   end
 
   def by_section section
-    case section.permalink
-      when Section.static[:all].permalink
+    case section && section.permalink
+      when nil
         if @user
           where(
             "type != ? or (type = ? and #{Entry.table_name}.id in (?))",

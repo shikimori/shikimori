@@ -8,11 +8,17 @@ describe Forums::SectionView do
   before { allow(view.h).to receive(:params).and_return params }
 
   describe '#section' do
-    it do
-      expect(view.section).to have_attributes(
-        id: nil,
-        permalink: 'all'
-      )
+    context 'offtopic' do
+      let(:params) {{ section: 'o' }}
+      it do
+        expect(view.section).to have_attributes(
+          permalink: 'o'
+        )
+      end
+    end
+
+    context 'all' do
+      it { expect(view.section).to be_nil }
     end
   end
 
@@ -51,7 +57,7 @@ describe Forums::SectionView do
       before { allow(view).to receive(:add_postloader?).and_return true }
 
       it do
-        expect(view.next_page_url).to eq 'http://test.host/forum/all/s-zz/p-2'
+        expect(view.next_page_url).to eq 'http://test.host/forum/s-zz/p-2'
         expect(view.prev_page_url).to be_nil
       end
     end
@@ -60,7 +66,7 @@ describe Forums::SectionView do
       let(:params) {{ section: 'all', page: 2 }}
       it do
         expect(view.next_page_url).to be_nil
-        expect(view.prev_page_url).to eq 'http://test.host/forum/all/p-1'
+        expect(view.prev_page_url).to eq 'http://test.host/forum/p-1'
       end
     end
   end

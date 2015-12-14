@@ -6,9 +6,9 @@ header.head
 table.b-table.b-editable_grid
   thead
     tr
+      th = Section.human_attribute_name :position
       th = Section.human_attribute_name :id
       th = Section.human_attribute_name :name
-      th = Section.human_attribute_name :position
       th = Section.human_attribute_name :permalink
       th = Section.human_attribute_name :is_visible
       td.text
@@ -17,9 +17,9 @@ table.b-table.b-editable_grid
   tbody
     - @collection.each do |section|
       tr
+        td = section.position
         td = section.id
         td = section.name
-        td = section.position
         td = section.permalink
         td = section.is_visible
         td.text
