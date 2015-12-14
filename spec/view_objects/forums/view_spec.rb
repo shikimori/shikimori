@@ -53,11 +53,11 @@ describe Forums::View do
 
   describe '#next_page_url & #prev_page_url' do
     context 'first page' do
-      let(:params) {{ section: 'all', linked: 'zz' }}
+      let(:params) {{ section: 'all', linked_type: 'xx', linked_id: 'zz' }}
       before { allow(view).to receive(:add_postloader?).and_return true }
 
       it do
-        expect(view.next_page_url).to eq 'http://test.host/forum/s-zz/p-2'
+        expect(view.next_page_url).to eq 'http://test.host/forum/xx-zz/p-2'
         expect(view.prev_page_url).to be_nil
       end
     end
@@ -83,7 +83,7 @@ describe Forums::View do
   describe '#linked' do
     before { allow(view).to receive_message_chain(:section, :permalink)
       .and_return permalink }
-    let(:params) {{ linked: entry.id }}
+    let(:params) {{ linked_type: entry.class.name.downcase, linked_id: entry.id }}
 
     context 'a' do
       let(:permalink) { 'a' }

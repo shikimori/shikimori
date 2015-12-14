@@ -16,7 +16,8 @@ Site::Application.routes.draw do
     get :autocomplete, on: :collection, format: :json
   end
   concern :searcheable do
-    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection, constraints: { page: /\d+/ }
+    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection,
+      constraints: { page: /\d+/ }
   end
 
   devise_for :users, controllers: {
@@ -347,12 +348,13 @@ Site::Application.routes.draw do
       end
       get '/' => 'topics#index',  as: :forum
       scope(
-        '(/:section)(/s-:linked)',
+        '(/:section)(/:linked_type-:linked_id)',
         section: /animanga|site|offtopic|g|reviews|cosplay|v|news|games|vn/,
+        linked_type: /anime|manga|character|group|review/,
         format: /html|json|rss/
       ) do
         get '/new' => 'topics#new', as: :new_topic
-        get '(/p-:page)' => 'topics#index', as: :section
+        get '(/p-:page)' => 'topics#index', as: :section_topics
         get '/:id' => 'topics#show',  as: :section_topic
       end
     end

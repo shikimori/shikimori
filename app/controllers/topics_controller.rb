@@ -8,26 +8,35 @@ class TopicsController < ShikimoriController
 
   def index
     # редирект на топик, если топик в подфоруме единственный
-    if params[:linked] && @view.topics.one?
-      redirect_to UrlGenerator.instance.topic_url(@view.topics.first, params[:format])
+    if params[:linked_id] && @view.topics.one?
+      return redirect_to UrlGenerator.instance.topic_url(
+        @view.topics.first.topic, params[:format]), status: 301
+    end
+
+    # редирект, исправляющий linked
+    if params[:linked_id] && @view.linked.to_param != params[:linked_id]
+      return redirect_to UrlGenerator.instance.section_url(
+        @view.section, @view.linked), status: 301
     end
   end
 
   def show
-    @topic = Entry.with_viewed(current_user).find(params[:id])
-    @topic_view = Topics::Factory.new(false, false).build @topic
+    @topic_view = Topics::Factory.new(false, false).build @resource
 
     # новости аниме без комментариев поисковым системам не скармливаем
-    noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
-    raise AgeRestricted if @topic.linked && @topic.linked.try(:censored?) && censored_forbidden?
+    noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
+    raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
 
-    if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
-        !@topic.news? && !@topic.review? && (
-          @topic.to_param != params[:id] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
-        )
-      )
-      return redirect_to UrlGenerator.instance.topic_url(@topic), status: 301
-    end
+    # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
+        # !@resource.news? && !@resource.review? && (
+          # @resource.to_param != params[:id] ||
+          # @resource.section.permalink != params[:section] ||
+          # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
+            # !@resource.kind_of?(ContestComment))
+        # )
+      # )
+      # return redirect_to UrlGenerator.instance.topic_url(@resource), status: 301
+    # end
   end
 
   # создание нового топика
@@ -54,16 +63,16 @@ class TopicsController < ShikimoriController
 
   # редактирование топика
   def update
-    @resource.class.wo_timestamps do
-      @resource.user_image_ids = (params[:wall] || []).uniq
+    @resource.class.record_timestamps = false
+    @resource.user_image_ids = (params[:wall] || []).uniq
 
-      if faye.update @resource, topic_params
-        redirect_to topic_url(@resource), notice: 'Топик изменён'
-      else
-        edit
-        render :edit
-      end
+    if faye.update @resource, topic_params
+      redirect_to topic_url(@resource), notice: 'Топик изменён'
+    else
+      edit
+      render :edit
     end
+    @topic.class.record_timestamps = true
   end
 
   # удаление топика
@@ -78,7 +87,13 @@ class TopicsController < ShikimoriController
 
     # превью топика отображается в формате комментария
     # render partial: 'comments/comment', layout: false, object: topic, formats: :html
-    render partial: 'topics/topic', object: topic, as: :view, layout: false, formats: :html
+    render(
+      partial: 'topics/topic',
+      object: topic,
+      as: :view,
+      layout: false,
+      formats: :html
+    )
   end
 
   # выбранные топики
@@ -88,7 +103,13 @@ class TopicsController < ShikimoriController
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::Factory.new(true, false).build topic }
 
-    render partial: 'topics/topic', collection: topics, as: :view, layout: false, formats: :html
+    render(
+      partial: 'topics/topic',
+      collection: topics,
+      as: :view,
+      layout: false,
+      formats: :html
+    )
   end
 
   # подгружаемое через ajax тело топика
@@ -114,6 +135,10 @@ private
 
   def set_view
     @view = Forums::View.new
+
+    if params[:action] == 'show'
+      @resource = Entry.with_viewed(current_user).find(params[:id])
+    end
   end
 
   def set_breadcrumbs
@@ -122,14 +147,25 @@ private
 
     if @resource && @resource.persisted?
       page_title @resource.section.name
-      breadcrumb @resource.section.name, section_url(@resource.section)
+      breadcrumb @resource.section.name, section_topics_url(@resource.section)
+
+      if @view.linked
+        breadcrumb(
+          UsersHelper.localized_name(@view.linked, current_user),
+          UrlGenerator.instance.section_url(@view.section, @view.linked)
+        )
+      end
+
+      page_title @resource.title
+      if params[:action] == 'edit' || params[:action] == 'update'
+        breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource)
+      end
+
     elsif @view.section
       page_title @view.section.name
-      breadcrumb @view.section.name, section_url(@view.section) if params[:action] != 'index'
-    end
-    page_title @resource.title if @resource && @resource.persisted?
-    if params[:action] == 'edit' || params[:action] == 'update'
-      breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource)
+      if params[:action] != 'index'
+        breadcrumb @view.section.name, section_topics_url(@view.section)
+      end
     end
   end
 

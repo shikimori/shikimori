@@ -44,38 +44,22 @@ class Forums::View < ViewObjectBase
   end
 
   def linked
-    case section.permalink
-      when 'a'
-        id = CopyrightedIds.instance.restore h.params[:linked], 'anime'
-        Anime.find id
-
-      when 'm'
-        id = CopyrightedIds.instance.restore h.params[:linked], 'manga'
-        Manga.find id
-
-      when 'c'
-        id = CopyrightedIds.instance.restore h.params[:linked], 'character'
-        Character.find id
-
-      when 'g'
-        Group.find h.params[:linked].to_i
-
-      when 'reviews'
-        Review.find h.params[:linked]
-
-      else
-        nil
-
-    end if h.params[:linked]
+    h.params[:linked_type].capitalize.constantize.find(
+      CopyrightedIds.instance.restore(
+        h.params[:linked_id],
+        h.params[:linked_type]
+      )
+    ) if h.params[:linked_id]
   end
 
 private
 
   def page_url page
-    h.section_url(
+    h.section_topics_url(
       page: page,
       section: section.try(:permalink),
-      linked: h.params[:linked]
+      linked_id: h.params[:linked_id],
+      linked_type: h.params[:linked_type]
     )
   end
 

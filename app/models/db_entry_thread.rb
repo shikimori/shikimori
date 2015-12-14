@@ -37,7 +37,7 @@ class DbEntryThread < Topic
 
   # раздел топика
   def section
-    if news?
+    if news? && action != 'episode'
       Section::static[:news]
     else
       super
@@ -45,6 +45,7 @@ class DbEntryThread < Topic
   end
 
 private
+
   def sync
   end
 end
