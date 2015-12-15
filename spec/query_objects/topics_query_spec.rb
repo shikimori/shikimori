@@ -9,7 +9,7 @@ describe TopicsQuery do
   end
 
   describe '#by_section' do
-    let!(:topic_1) { create :entry, section: anime_section, updated_at: 1.day.ago }
+    let!(:topic_1) { create :entry, section: animanga_section, updated_at: 1.day.ago }
     let!(:topic_2) { create :entry, section: offtopic_section, updated_at: 2.days.ago }
 
     context 'special section: nil' do
@@ -32,17 +32,17 @@ describe TopicsQuery do
     end
 
     context 'specific section' do
-      before { query.by_section anime_section }
+      before { query.by_section animanga_section }
       it { is_expected.to eq [topic_1] }
     end
   end
 
   describe '#by_linked' do
     let(:linked) { create :anime }
-    let!(:topic_1) { create :entry, linked: linked, section: anime_section }
-    let!(:topic_2) { create :entry, section: anime_section }
+    let!(:topic_1) { create :entry, linked: linked, section: animanga_section }
+    let!(:topic_2) { create :entry, section: animanga_section }
 
-    before { query.by_section anime_section }
+    before { query.by_section animanga_section }
     before { query.by_linked linked }
 
     it { is_expected.to eq [topic_1] }

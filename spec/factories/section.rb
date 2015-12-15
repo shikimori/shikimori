@@ -6,25 +6,13 @@ FactoryGirl.define do
 
     trait :offtopic do
       id (Random.rand * 100_000).to_i
-      permalink 'o'
+      permalink 'offtopic'
     end
 
-    trait :anime do
+    trait :animanga do
       id { DbEntryThread::SectionIDs['Anime'] }
-      permalink 'a'
-      name 'Аниме'
-    end
-
-    trait :character do
-      id { DbEntryThread::SectionIDs['Character'] }
-      permalink 'c'
-      name 'Персонажи'
-    end
-
-    trait :person do
-      id { DbEntryThread::SectionIDs['Person'] }
-      permalink 'p'
-      name 'Люди'
+      permalink 'animanga'
+      name 'Аниме и манга'
     end
 
     trait :contest do
@@ -51,7 +39,7 @@ FactoryGirl.define do
       name 'Рецензии'
     end
 
-    factory :anime_section, traits: [:anime]
+    factory :animanga_section, traits: [:animanga]
     factory :reviews_section, traits: [:reviews]
     factory :offtopic_section, traits: [:offtopic]
     factory :contests_section, traits: [:contest]

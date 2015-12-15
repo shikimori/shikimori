@@ -4,8 +4,8 @@ describe TopicsController do
   let(:user) { create :user, :user, :day_registered }
   let(:anime) { create :anime }
 
-  let!(:topic) { create :topic, section: anime_section, user: user }
-  let(:anime_topic) { create :topic, section: anime_section,
+  let!(:topic) { create :topic, section: animanga_section, user: user }
+  let(:anime_topic) { create :topic, section: animanga_section,
     user: user, linked: anime }
 
   let(:topic2) { create :topic, section: offtopic_section, user: user }
@@ -38,7 +38,7 @@ describe TopicsController do
     end
 
     context 'section' do
-      before { get :index, section: anime_section.to_param }
+      before { get :index, section: animanga_section.to_param }
 
       context 'no linked' do
         it do
@@ -48,9 +48,9 @@ describe TopicsController do
       end
 
       context 'with linked' do
-        let!(:anime_topic_2) { create :topic, section: anime_section,
+        let!(:anime_topic_2) { create :topic, section: animanga_section,
           user: user, linked: anime }
-        before { get :index, section: anime_section.to_param,
+        before { get :index, section: animanga_section.to_param,
           linked_id: linked_id, linked_type: 'anime' }
 
         context 'valid linked' do
@@ -64,22 +64,22 @@ describe TopicsController do
         context 'invalid linked' do
           let(:linked_id) { anime.to_param[0..-2] }
           it { expect(response).to redirect_to UrlGenerator.instance
-            .section_url(anime_section, anime) }
+            .section_url(animanga_section, anime) }
         end
       end
     end
 
     context 'subsection' do
       context 'one topic' do
-        before { get :index, section: anime_section.to_param,
+        before { get :index, section: animanga_section.to_param,
           linked_type: 'anime', linked_id: anime.to_param }
         it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
       end
 
       context 'multiple topics' do
-        let!(:anime_topic2) { create :topic, section: anime_section,
+        let!(:anime_topic2) { create :topic, section: animanga_section,
           user: user, linked: anime }
-        before { get :index, section: anime_section.to_param, linked: anime.to_param }
+        before { get :index, section: animanga_section.to_param, linked: anime.to_param }
 
         it do
           expect(assigns(:view).topics).to have_at_least(2).items
@@ -91,40 +91,45 @@ describe TopicsController do
 
   describe '#show' do
     context 'no linked' do
-      before { get :show, id: topic.to_param, section: anime_section.to_param }
+      before { get :show, id: topic.to_param, section: animanga_section.to_param }
       it { expect(response).to have_http_status :success }
     end
 
+    context 'wrong to_param' do
+      before { get :show, id: topic.to_param[0..-2], section: animanga_section.to_param }
+      it { expect(response).to redirect_to UrlGenerator.instance.topic_url(topic) }
+    end
+
     context 'missing linked' do
-      before { get :show, id: anime_topic.to_param, section: anime_section.to_param }
+      before { get :show, id: anime_topic.to_param, section: animanga_section.to_param }
       it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
     end
 
     context 'wrong linked' do
       before { get :show, id: anime_topic.to_param,
-        section: anime_section.to_param,
+        section: animanga_section.to_param,
         linked_type: 'anime', linked_id: "#{anime.to_param}test" }
       it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
     end
 
     context 'with linked' do
       before { get :show, id: anime_topic.to_param,
-        section: anime_section.to_param,
-        linked_id: 'anime', linked_type: anime.to_param }
+        section: animanga_section.to_param,
+        linked_type: 'anime', linked_id: anime.to_param }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#new' do
     context 'guest' do
-      let(:make_request) { get :new, section: anime_section.to_param }
+      let(:make_request) { get :new, section: animanga_section.to_param }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
-      let(:params) {{ user_id: user.id, section_id: anime_section.id }}
+      let(:params) {{ user_id: user.id, section_id: animanga_section.id }}
       before { sign_in user }
-      before { get :new, section: anime_section.to_param, topic: paras }
+      before { get :new, section: animanga_section.to_param, topic: params }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -144,10 +149,10 @@ describe TopicsController do
   end
 
   describe '#create' do
-    let(:topic_params) {{ user_id: user.id, section_id: anime_section.id, title: 'title', text: 'text', linked_id: anime.id, linked_type: Anime.name }}
+    let(:topic_params) {{ user_id: user.id, section_id: animanga_section.id, title: 'title', text: 'text', linked_id: anime.id, linked_type: Anime.name }}
 
     context 'guest' do
-      let(:make_request) { post :create, section: anime_section.to_param, topic: topic_params }
+      let(:make_request) { post :create, section: animanga_section.to_param, topic: topic_params }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
 
@@ -155,7 +160,8 @@ describe TopicsController do
       before { sign_in user }
 
       context 'invalid params' do
-        before { post :create, section: anime_section.to_param, topic: { user_id: user.id, section_id: anime_section.id } }
+        let(:params) {{ user_id: user.id, section_id: animanga_section.id }}
+        before { post :create, section: animanga_section.to_param, topic: params }
 
         it do
           expect(assigns(:topic)).to_not be_valid
@@ -165,11 +171,11 @@ describe TopicsController do
 
       context 'valid params' do
         let(:text) { 'test' }
-        before { post :create, section: anime_section.to_param, topic: topic_params }
+        before { post :create, section: animanga_section.to_param, topic: topic_params }
 
         it do
           expect(resource).to have_attributes topic_params
-          expect(response).to redirect_to section_topic_url(section: resource.section, id: resource, linked: resource.linked)
+          expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end
     end
@@ -178,7 +184,7 @@ describe TopicsController do
   describe '#update' do
     let(:params) {{
       user_id: user.id,
-      section_id: anime_section.id,
+      section_id: animanga_section.id,
       title: 'title',
       text: 'text',
       linked_id: anime.id,
@@ -186,7 +192,7 @@ describe TopicsController do
     }}
 
     context 'guest' do
-      let(:make_request) { post :update, section: anime_section.to_param,
+      let(:make_request) { post :update, section: animanga_section.to_param,
         id: topic.id, topic: params }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
@@ -205,13 +211,12 @@ describe TopicsController do
       end
 
       context 'valid params' do
-        before { post :update, section: anime_section.to_param,
+        before { post :update, section: animanga_section.to_param,
           id: topic.id, topic: params }
 
         it do
           expect(resource).to have_attributes params
-          expect(response).to redirect_to section_topic_url(
-            section: resource.section, id: resource, linked: resource.linked)
+          expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end
     end

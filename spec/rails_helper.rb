@@ -89,7 +89,7 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :user, id: id
     FactoryGirl::SeedGenerator.create :offtopic_section, id: id
     FactoryGirl::SeedGenerator.create :reviews_section, id: DbEntryThread::SectionIDs['Review']
-    FactoryGirl::SeedGenerator.create :anime_section, id: DbEntryThread::SectionIDs['Anime']
+    FactoryGirl::SeedGenerator.create :animanga_section, id: DbEntryThread::SectionIDs['Anime']
     FactoryGirl::SeedGenerator.create :contests_section, id: DbEntryThread::SectionIDs['Contest']
     FactoryGirl::SeedGenerator.create :topic, id: id
   end

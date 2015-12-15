@@ -134,7 +134,7 @@ describe AnimesController do
 
     it do
       expect(response).to redirect_to section_topic_url(
-        id: anime.thread, section: seed(:anime_section), linked: anime)
+        id: anime.thread, section: seed(:animanga_section), linked: anime)
     end
   end
 

@@ -24,7 +24,7 @@ FactoryGirl.define do
 
     factory :anime_news, class: 'AnimeNews' do
       type 'AnimeNews'
-      section { seed :anime_section }
+      section { seed :animanga_section }
     end
 
     after :build do |topic|

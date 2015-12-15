@@ -21,22 +21,16 @@ class TopicsController < ShikimoriController
   end
 
   def show
-    @topic_view = Topics::Factory.new(false, false).build @resource
+    if params[:id] != @resource.to_param ||
+        (@resource.linked && params[:linked_id] != @resource.linked.to_param)
+      return redirect_to UrlGenerator.instance.topic_url @resource
+    end
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
     raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
 
-    # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
-        # !@resource.news? && !@resource.review? && (
-          # @resource.to_param != params[:id] ||
-          # @resource.section.permalink != params[:section] ||
-          # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
-            # !@resource.kind_of?(ContestComment))
-        # )
-      # )
-      # return redirect_to UrlGenerator.instance.topic_url(@resource), status: 301
-    # end
+    @topic_view = Topics::Factory.new(false, false).build @resource
   end
 
   # создание нового топика

@@ -94,7 +94,7 @@ class DashboardView < ViewObjectBase
 
       OpenStruct.new(
         name: section.name,
-        url: h.section_url(section),
+        url: h.section_topics_url(section),
         size: size
       )
     end
