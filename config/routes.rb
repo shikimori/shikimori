@@ -325,20 +325,25 @@ Site::Application.routes.draw do
       get ':section(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
       get ':section(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
     end
-    scope 'forum/:section(/s-:linked)', section: /a|m|c|p/, format: /html|json|rss/ do
-      get '/new' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
-      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
-      get '/:id' => redirect { |_, request| request.path.gsub(/\/(a|m|c|p)(\/|$)/, '/animanga\2') }
-    end
-    scope 'forum/o(/s-:linked)', format: /html|json|rss/ do
-      get '/new' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
-      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
-      get '/:id' => redirect { |_, request| request.path.gsub(/\/o(\/|$)/, '/offtopic\2') }
-    end
-    scope 'forum/s(/s-:linked)', format: /html|json|rss/ do
-      get '/new' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
-      get '(/p-:page)' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
-      get '/:id' => redirect { |_, request| request.path.gsub(/\/s(\/|$)/, '/site\2') }
+    {
+      o: [:offtopic, :s],
+      s: [:site, :s],
+      g: [:clubs, :s],
+      v: [:contests, :s],
+      a: [:animanga, :anime],
+      m: [:animanga, :manga],
+      c: [:animanga, :character],
+      p: [:animanga, :person]
+    }.each do |old_path, (new_path, linked)|
+      scope "forum/#{old_path}(/s-:linked)", format: /html|json|rss/ do
+        ['/new', '(/p-:page)', '/:id'].each do |path|
+          get path => redirect { |_, request|
+            request.path
+              .gsub(%r(/#{old_path}(/|$)), "/#{new_path}" + '\1')
+              .gsub(%r(/s-), "/#{linked}-")
+          }
+        end
+      end
     end
     # /seo redirects
 
@@ -349,8 +354,8 @@ Site::Application.routes.draw do
       get '/' => 'topics#index',  as: :forum
       scope(
         '(/:section)(/:linked_type-:linked_id)',
-        section: /animanga|site|offtopic|g|reviews|cosplay|v|news|games|vn/,
-        linked_type: /anime|manga|character|group|review/,
+        section: /animanga|site|offtopic|clubs|reviews|cosplay|contests|news|games|vn/,
+        linked_type: /anime|manga|character|person|group/,
         format: /html|json|rss/
       ) do
         get '/new' => 'topics#new', as: :new_topic

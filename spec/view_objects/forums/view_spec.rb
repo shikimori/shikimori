@@ -9,10 +9,10 @@ describe Forums::View do
 
   describe '#section' do
     context 'offtopic' do
-      let(:params) {{ section: 'o' }}
+      let(:params) {{ section: 'offtopic' }}
       it do
         expect(view.section).to have_attributes(
-          permalink: 'o'
+          permalink: 'offtopic'
         )
       end
     end

@@ -21,9 +21,9 @@ class TopicsController < ShikimoriController
   end
 
   def show
-    if params[:id] != @resource.to_param ||
-        (@resource.linked && params[:linked_id] != @resource.linked.to_param)
-      return redirect_to UrlGenerator.instance.topic_url @resource
+    expected_url = UrlGenerator.instance.topic_url @resource
+    if request.url != expected_url
+      return redirect_to expected_url, status: 301
     end
 
     # новости аниме без комментариев поисковым системам не скармливаем
@@ -31,6 +31,17 @@ class TopicsController < ShikimoriController
     raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
 
     @topic_view = Topics::Factory.new(false, false).build @resource
+
+    # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
+        # !@resource.news? && !@resource.review? && (
+          # @resource.to_param != params[:id] ||
+          # @resource.section.permalink != params[:section] ||
+          # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
+            # !@resource.kind_of?(ContestComment))
+        # )
+      # )
+      # return redirect_to UrlGenerator.instance.topic_url(@resource), status: 301
+    # end
   end
 
   # создание нового топика
@@ -157,8 +168,12 @@ private
 
     elsif @view.section
       page_title @view.section.name
-      if params[:action] != 'index'
+      if params[:action] != 'index' || @view.linked
         breadcrumb @view.section.name, section_topics_url(@view.section)
+      end
+
+      if @view.linked
+        page_title UsersHelper.localized_name(@view.linked, current_user)
       end
     end
   end
