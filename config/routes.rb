@@ -338,6 +338,7 @@ Site::Application.routes.draw do
       scope "forum/#{old_path}(/s-:linked)", format: /html|json|rss/ do
         ['/new', '(/p-:page)', '/:id'].each do |path|
           get path => redirect { |_, request|
+            1/0
             request.path
               .gsub(%r(/#{old_path}(/|$)), "/#{new_path}" + '\1')
               .gsub(%r(/s-), "/#{linked}-")

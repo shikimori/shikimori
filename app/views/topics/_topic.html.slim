@@ -32,6 +32,7 @@
         .body
           - if view.minified?
             = render 'topics/status_line', view: view
+
             - if view.topic.review?
               = render 'topics/reviews/entry_cover', view: view,
                 entry: view.topic.linked.target.decorate

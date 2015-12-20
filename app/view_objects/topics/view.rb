@@ -47,7 +47,8 @@ class Topics::View < ViewObjectBase
 
   # картинка топика(аватарка автора)
   def poster is_2x
-    if topic.linked && is_preview
+    # последнее условие для пользовательских топиков об аниме
+    if topic.linked && is_preview && !topic.instance_of?(Topic)
       ImageUrlGenerator.instance.url(
         (topic.review? ? topic.linked.target : topic.linked), is_2x ? :x96 : :x48
       )

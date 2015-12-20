@@ -51,6 +51,8 @@ class Forums::Menu < ViewObjectBase
   def new_topic_url
     h.new_topic_url(
       section: section,
+      linked_id: h.params[:linked_id],
+      linked_type: h.params[:linked_type],
       'topic[user_id]' => h.current_user.id,
       'topic[section_id]' => section ? section.id : nil,
       'topic[linked_id]' => linked ? linked.id : nil,

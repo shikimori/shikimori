@@ -45,6 +45,17 @@ header.head
       = yield
 
     aside.l-menu.ajax-opacity
+      - unless ['new', 'create'].include? params[:action]
+        .block
+          - if user_signed_in?
+            a.b-link_button.dark.create-topic[
+              href="#{@view.menu.new_topic_url}"
+            ] = t '.create_topic'
+          - else
+            a.b-link_button.dark.create-topic.to-process[
+              data-dynamic="authorized"
+            ] = t '.create_topic'
+
       - if @resource && @resource.linked
         - if @resource.linked.kind_of?(Anime) || @resource.linked.kind_of?(Manga)
           = render 'animes/menu', resource: @resource.linked.decorate

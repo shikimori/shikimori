@@ -17,16 +17,6 @@
 / - cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
 
 .block
-  - if user_signed_in?
-    a.b-link_button.dark.create-topic[
-      href="#{menu.new_topic_url}"
-    ] = t '.create_topic'
-  - else
-    a.b-link_button.dark.create-topic.to-process[
-      data-dynamic="authorized"
-    ] = t '.create_topic'
-
-.block
   .subheadline.gray.m10 = t 'sponsors'
   .container
     / - if Rails.env.production?
