@@ -7,7 +7,8 @@ class UserStatisticsQuery
   #attr_reader :genres, :studios, :publishers
 
   # стандартный формат дат для сравнения
-  DateFormat = "%Y-%m-%d"
+  DATE_FORMAT = "%Y-%m-%d"
+  DAY_INTERVAL = 60*60*24
 
   def initialize user
     @user = user
@@ -85,7 +86,7 @@ class UserStatisticsQuery
 
     imported = Set.new histories
       .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
-      .group_by { |v| v.updated_at.strftime DateFormat }
+      .group_by { |v| v.updated_at.strftime DATE_FORMAT }
       .select { |k, v| v.size > 15 }
       .values.flatten
       .map(&:id)
@@ -115,10 +116,17 @@ class UserStatisticsQuery
   def compute_by_activity rates, histories, rates_cache, intervals
     return {} if histories.none?
 
+    # cleanup rates_cache because compute_by_activity is called twice
+    rates_cache.each { |k, v| v[:completed] = 0 }
+
     start_date = histories.map { |v| v.created_at }.min.to_datetime.beginning_of_day
     end_date = histories.map { |v| v.updated_at }.max.to_datetime.end_of_day
 
-    distance = [(end_date.to_i - start_date.to_i) / intervals, 86400].max
+    # не меньше суток
+    distance = [(end_date.to_i - start_date.to_i) / intervals, DAY_INTERVAL].max
+    # if distance < DAY_INTERVAL * 7
+      # distance = distance - distance % DAY_INTERVAL
+    # end
 
     0.upto(intervals).map do |num|
       from = start_date + (distance*num).seconds
