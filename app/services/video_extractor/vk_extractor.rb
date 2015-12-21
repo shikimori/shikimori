@@ -1,5 +1,3 @@
-#class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
-#class VideoExtractor::VkExtractor < VideoExtractor::OpenGraphExtractor
 class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://vk.com/video-?(\d+)_(\d+)(?:\?[\w=+%&]+)?

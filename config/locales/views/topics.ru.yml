@@ -1,5 +1,11 @@
 ru:
   topics:
+    header:
+      common:
+        about: о
+    status_line:
+      from: от
+      about: о
     menu:
       # contests: Опросы
       create_topic: Создать тему

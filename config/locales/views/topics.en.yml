@@ -1,5 +1,11 @@
 en:
   topics:
+    header:
+      common:
+        about: about
+    status_line:
+      from: from
+      about: about
     menu:
       # contests: Contests
       create_topic: Create a Topic

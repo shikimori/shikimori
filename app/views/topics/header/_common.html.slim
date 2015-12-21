@@ -18,6 +18,14 @@
     title="#{view.topic_title}"
   ] = view.topic_title
 
+  - if view.topic.linked && view.topic.instance_of?(Topic)
+    span.about
+      span = t '.about'
+      a.b-link.bubbled[
+        href="#{view.topic.linked.decorate.url}"
+        title="#{localized_name view.topic.linked}"
+      ] = localized_name view.topic.linked
+
   span.time
     time[
       itemprop="commentTime"
