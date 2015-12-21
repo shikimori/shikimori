@@ -150,7 +150,7 @@ private
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 
-    if @resource
+    if @resource && @resource.section
       page_title @resource.section.name
       breadcrumb @resource.section.name, section_topics_url(@resource.section)
 
