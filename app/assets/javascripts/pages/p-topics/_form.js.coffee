@@ -1,4 +1,4 @@
-@on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', 'topics_index', ->
+@on 'page:load', 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   if $('.b-animes-menu').exists()
     init_animes_menu()
   else
