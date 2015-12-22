@@ -34,7 +34,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
       if params[:continue] == 'true'
         redirect_to next_video_url(@video), notice: "Эпизод #{@video.episode} добавлен"
       else
-        redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео добавлено'
+        redirect_to play_video_online_index_url(
+          @anime, @video.episode, @video.id), notice: 'Видео добавлено'
       end
     else
       render :new
@@ -48,7 +49,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
       .decorate
 
     if @video.valid?
-      redirect_to play_video_online_index_url(@anime.id, @video.episode, @video.id), notice: 'Видео изменено'
+      redirect_to play_video_online_index_url(
+        @anime, @video.episode, @video.id), notice: 'Видео изменено'
     else
       page_title 'Изменение видео'
       render :edit
@@ -57,7 +59,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def destroy
     @resource.destroy
-    redirect_to play_video_online_index_url(@anime.id, @resource.episode), notice: 'Видео удалено'
+    redirect_to play_video_online_index_url(
+      @anime, @resource.episode), notice: 'Видео удалено'
   end
 
   def help
