@@ -16,7 +16,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         it { expect(response).to have_http_status :success }
 
         context 'without current_video' do
-          let(:make_request) { get :index, anime_id: anime.to_param, episode: anime_video.episode, video_id: anime_video.id + 1 }
+          let(:make_request) { get :index, anime_id: anime.to_param,
+            episode: anime_video.episode, video_id: anime_video.id + 1 }
           it { expect(response).to have_http_status :success }
         end
       end
@@ -35,7 +36,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
       before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
       before { @request.host = domain }
-      before { get :index, anime_id: anime.to_param, episode: episode, video_id: video_id, domain: 'play' }
+      before { get :index, anime_id: anime.to_param, episode: episode,
+        video_id: video_id, domain: 'play' }
 
       context 'with redirect' do
         let(:episode) { 2 }
@@ -45,14 +47,18 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           let(:adult) { true }
           let(:domain) { 'play.shikimori.org' }
 
-          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
+          it { expect(response).to redirect_to(play_video_online_index_url anime,
+            episode: episode, video_id: video_id,
+            domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
         end
 
         context 'adult domain' do
           let(:adult) { false }
           let(:domain) { 'xplay.shikimori.org' }
 
-          it { expect(response).to redirect_to(play_video_online_index_url anime, episode: episode, video_id: video_id, domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
+          it { expect(response).to redirect_to(play_video_online_index_url anime,
+            episode: episode, video_id: video_id,
+            domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
         end
       end
 
@@ -75,18 +81,28 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   end
 
   describe '#new' do
-    before { get :new, anime_id: anime.to_param, anime_video: { anime_id: @resource, state: 'uploaded' } }
+    let(:params) {{ anime_id: @resource, state: 'uploaded' }}
+    before { get :new, anime_id: anime.to_param, anime_video: params }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
     let!(:guest) { create :user, :guest }
-    let(:video_params) {{ state: 'uploaded', kind: kind, author_name: 'test', episode: 3, url: 'https://vk.com/video-16326869_166521208', source: 'test', anime_id: anime.id }}
+    let(:video_params) {{
+      state: 'uploaded',
+      kind: kind,
+      author_name: 'test',
+      episode: 3,
+      url: 'https://vk.com/video-16326869_166521208',
+      source: 'test',
+      anime_id: anime.id
+    }}
     let(:continue) { '' }
 
     let(:created_video) { assigns :video }
 
-    before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
+    before { post :create, anime_id: anime.to_param, anime_video: video_params,
+      continue: continue }
 
     context 'valid params' do
       let(:kind) { 'fandub' }
