@@ -112,8 +112,10 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           expect(created_video).to be_valid
           expect(created_video).to be_persisted
           expect(created_video).to have_attributes video_params.except(:url)
-          expect(created_video.url).to eq VideoExtractor::UrlExtractor.new(video_params[:url]).extract
-          expect(response).to redirect_to play_video_online_index_url(anime.id, created_video.episode, created_video.id)
+          expect(created_video.url).to eq VideoExtractor::UrlExtractor
+            .new(video_params[:url]).extract
+          expect(response).to redirect_to play_video_online_index_url(
+            anime, created_video.episode, created_video.id)
         end
       end
 
@@ -173,7 +175,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       it do
         expect(video).to be_valid
         expect(video).to have_attributes video_params
-        expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode, video.id)
+        expect(response).to redirect_to play_video_online_index_url(
+          anime, video.episode, video.id)
       end
     end
 
@@ -250,7 +253,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
     it do
       expect(resource).to be_destroyed
-      expect(response).to redirect_to play_video_online_index_url(anime.id, video.episode)
+      expect(response).to redirect_to play_video_online_index_url(
+        anime, video.episode)
     end
   end
 end
