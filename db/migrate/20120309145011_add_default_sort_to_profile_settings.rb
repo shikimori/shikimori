@@ -1,6 +1,6 @@
 class AddDefaultSortToProfileSettings < ActiveRecord::Migration
   def self.up
-    add_column :profile_settings, :default_sort, :string, :default => ProfileSettings::DefaultSort, :null => false
+    add_column :profile_settings, :default_sort, :string, default: 'name', null: false
   end
 
   def self.down

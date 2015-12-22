@@ -19,11 +19,11 @@ ru:
       manga: '%{manga_days_count} %{manga_days} манги'
 
   # topics/view: &topics
-  # topics/review_view:
+  topics/review_view:
     # <<: *topics
-    # title:
-      # anime: Обзор аниме &laquo;%{target_name}&raquo;
-      # manga: Обзор манги &laquo;%{target_name}&raquo;
+    title:
+      anime: Обзор аниме &laquo;%{target_name}&raquo;
+      manga: Обзор манги &laquo;%{target_name}&raquo;
 
   topics/comments_view: &comments
     show_comments: Показать %{comment_word}

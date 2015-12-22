@@ -1,29 +1,31 @@
 FactoryGirl.define do
   factory :section do
     sequence(:name) { |n| "section_#{n}" }
-    permalink :o
+    permalink :offtopic
     position 0
 
     trait :offtopic do
       id (Random.rand * 100_000).to_i
       permalink 'offtopic'
+      is_visible true
     end
 
     trait :animanga do
       id { DbEntryThread::SectionIDs['Anime'] }
       permalink 'animanga'
       name 'Аниме и манга'
+      is_visible true
     end
 
     trait :contest do
       id { DbEntryThread::SectionIDs['Contest'] }
-      permalink 'v'
-      name 'Люди'
+      permalink 'contests'
+      name 'Опросы'
     end
 
     trait :club do
       id { DbEntryThread::SectionIDs['Group'] }
-      permalink 'g'
+      permalink 'clubs'
       name 'Клубы'
     end
 

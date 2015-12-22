@@ -30,8 +30,6 @@ class TopicsController < ShikimoriController
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
     raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
 
-    @topic_view = Topics::Factory.new(false, false).build @resource
-
     # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
         # !@resource.news? && !@resource.review? && (
           # @resource.to_param != params[:id] ||
@@ -143,6 +141,7 @@ private
 
     if params[:action] == 'show'
       @resource = Entry.with_viewed(current_user).find(params[:id])
+      @topic_view = Topics::Factory.new(false, false).build @resource if @resource
     end
   end
 
@@ -161,10 +160,11 @@ private
         )
       end
 
-      page_title @resource.title
-      if params[:action] == 'edit' || params[:action] == 'update'
-        breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource)
-      end
+      page_title @topic_view ? @topic_view.topic_title : @resource.title
+      breadcrumb(
+        @topic_view ? @topic_view.topic_title : @resource.title,
+        UrlGenerator.instance.topic_url(@resource)
+      ) if params[:action] == 'edit' || params[:action] == 'update'
 
     elsif @view.section
       page_title @view.section.name

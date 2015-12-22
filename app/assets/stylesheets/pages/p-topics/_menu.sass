@@ -1,8 +1,20 @@
 @import mixins/icons
 @import mixins/image_editable
+@import mixins/link
 @import mixins/menu-blocks
 
 .p-topics .l-menu
+  .section
+    .link
+      +link
+      font-size: 13px
+      font-weight: bold
+
+    .threads
+      color: $gray-2
+      float: right
+      font-size: 12px
+
   .calendar .entry,
   .reviews .entry,
   .clubs .entry,

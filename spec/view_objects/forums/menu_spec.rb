@@ -8,6 +8,10 @@ describe Forums::Menu do
     it { expect(view.clubs).to eq [club_comment] }
   end
 
+  describe '#forums' do
+    it { expect(view.forums).to be_kind_of Forums::List }
+  end
+
   describe '#reviews' do
     let!(:review) { create :review }
     it { expect(view.reviews).to eq [review] }

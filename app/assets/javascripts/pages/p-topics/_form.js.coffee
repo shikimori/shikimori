@@ -1,3 +1,9 @@
+@on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', 'topics_index', ->
+  if $('.b-animes-menu').exists()
+    init_animes_menu()
+  else
+    $('.b-show_more').show_more()
+
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $('.b-form.edit_topic, .b-form.new_topic')
   $topic_linked = $('#topic_linked', $form)

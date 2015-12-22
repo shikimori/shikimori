@@ -1,3 +1,5 @@
+- linked = @view.linked || (@resource && @resource.linked)
+
 .menu-toggler
   .toggler
 
@@ -19,7 +21,7 @@ header.head
 
   /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
 
-.menu-slide-outer class="#{@resource && @resource.linked ? :x199 : :x240}"
+.menu-slide-outer class="#{linked ? :x199 : :x240}"
   /- if defined?(@gallery)
     - if user_signed_in?
       = render partial: 'forum/gallery', formats: :html
@@ -56,29 +58,35 @@ header.head
               data-dynamic="authorized"
             ] = t '.create_topic'
 
-      - if @resource && @resource.linked
-        - if @resource.linked.kind_of?(Anime) || @resource.linked.kind_of?(Manga)
-          = render 'animes/menu', resource: @resource.linked.decorate
+          - @view.menu.forums.each do |forum|
+            .section
+              a.link href="#{forum.url}" = forum.name
+              .threads #{forum.size} #{i18n_i 'topic', forum.size}
 
-        - elsif @resource.linked.kind_of? Review
-          = render 'animes/menu', resource: @resource.linked.target.decorate
 
-        - elsif @resource.linked.kind_of? Character
-          = render 'characters/menu', resource: @resource.linked.decorate
+      - if linked
+        - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
+          = render 'animes/menu', resource: linked.decorate
 
-        - elsif @resource.linked.kind_of? Person
-          = render 'people/menu', resource: @resource.linked.decorate
+        - elsif linked.kind_of? Review
+          = render 'animes/menu', resource: linked.target.decorate
 
-        - elsif @resource.linked.kind_of? Group
-          = render 'clubs/menu', resource: @resource.linked.decorate
+        - elsif linked.kind_of? Character
+          = render 'characters/menu', resource: linked.decorate
 
-        - elsif @resource.linked.kind_of? Contest
-          = render 'contests/menu', resource: @resource.linked.decorate
+        - elsif linked.kind_of? Person
+          = render 'people/menu', resource: linked.decorate
 
-        - elsif @resource.linked.kind_of? CosplayGallery
+        - elsif linked.kind_of? Group
+          = render 'clubs/menu', resource: linked.decorate
+
+        - elsif linked.kind_of? Contest
+          = render 'contests/menu', resource: linked.decorate
+
+        - elsif linked.kind_of? CosplayGallery
           = render 'menu', menu: @view.menu
 
-        - else raise "unknown linked: #{@view.linked.class}"
+        - else raise "unknown linked: #{linked.class}"
 
       - else
         = render 'menu', menu: @view.menu

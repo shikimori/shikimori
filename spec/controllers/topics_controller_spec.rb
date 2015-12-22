@@ -12,6 +12,7 @@ describe TopicsController do
 
   before do
     Topic.antispam = false
+    Section.instance_variable_set :@static, nil
     Section.instance_variable_set :@with_aggregated, nil
     Section.instance_variable_set :@real, nil
   end

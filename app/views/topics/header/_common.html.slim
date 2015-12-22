@@ -1,9 +1,9 @@
 - if view.author_in_header?
-  span.linkeable data-href="#{view.urls.topic_url}"
+  span.linkeable data-href="#{view.urls.poster_url}"
     img[
       src="#{view.poster false}"
       srcset="#{view.poster true} 2x"
-      alt="#{view.topic_title}"
+      alt="#{view.poster_title}"
     ]
 
 .name-date
@@ -14,17 +14,25 @@
     ]
 
   a.name[
-    href="#{view.urls.topic_url}"
-    title="#{view.topic_title}"
-  ] = view.topic_title
+    href="#{view.urls.poster_url}"
+    title="#{view.poster_title}"
+  ] = view.poster_title
 
-  - if view.topic.linked && view.topic.instance_of?(Topic)
+  - if view.topic.linked && (view.topic.instance_of?(Topic) || (view.topic.news? && !view.topic.generated_news?))
     span.about
       span = t '.about'
       a.b-link.bubbled[
         href="#{view.topic.linked.decorate.url}"
         title="#{localized_name view.topic.linked}"
       ] = localized_name view.topic.linked
+
+  - elsif view.topic.review?
+    span.about
+      span = t '.about'
+      a.b-link.bubbled[
+        href="#{view.topic.linked.target.decorate.url}"
+        title="#{localized_name view.topic.linked.target}"
+      ] = localized_name view.topic.linked.target
 
   span.time
     time[

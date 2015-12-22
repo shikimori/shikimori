@@ -9,6 +9,10 @@ class Forums::Menu < ViewObjectBase
       .limit(3)
   end
 
+  def forums
+    Forums::List.new
+  end
+
   def reviews
     @reviews ||= Review
       .where('created_at >= ?',  2.weeks.ago)

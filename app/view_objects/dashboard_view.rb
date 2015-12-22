@@ -7,7 +7,7 @@ class DashboardView < ViewObjectBase
 
   DISPLAYED_HISTORY = 2
 
-  instance_cache :ongoings, :favourites, :reviews, :contests
+  instance_cache :ongoings, :favourites, :reviews, :contests, :forums
   #preload :all_ongoings, :all_favourites
 
   def ongoings
@@ -85,30 +85,7 @@ class DashboardView < ViewObjectBase
   end
 
   def forums
-    Section.visible.map do |section|
-      size = TopicsQuery
-        .new(h.current_user)
-        .by_section(section)
-        .where('comments_count > 0')
-        .size
-
-      OpenStruct.new(
-        name: section.name,
-        url: h.section_topics_url(section),
-        size: size
-      )
-    end
-    # [
-      # 'Аниме',
-      # 'Манга',
-      # 'Визуальные новеллы',
-      # 'Игры',
-      # 'Новости',
-      # 'Рецензии',
-      # 'Опросы',
-      # 'Сайт',
-      # 'Оффтопик'
-    # ]
+    Forums::List.new
   end
 
   def pages

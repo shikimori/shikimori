@@ -31,11 +31,18 @@ class Topics::View < ViewObjectBase
     is_preview || !topic.generated? || topic.contest?
   end
 
-  def topic_title
+  def poster_title
     if !is_preview
       topic.user.nickname
-    elsif topic.topic? || topic.linked_id.nil?
+    else
+      topic_title
+    end
+  end
+
+  def topic_title
+    if topic.topic? || topic.linked_id.nil?
       topic.title
+
     else
       h.localized_name topic.linked
     end

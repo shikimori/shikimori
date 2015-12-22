@@ -26,19 +26,13 @@ class Topics::ReviewView < Topics::View
 
   def topic_title
     if !is_preview
-      topic.user.nickname
+      i18n_t(
+        "title.#{topic.linked.target_type.downcase}",
+        target_name: h.h(h.localized_name(topic.linked.target))
+      ).html_safe
     else
       h.localized_name topic.linked.target
     end
-    # if is_preview
-      # h.localized_name topic.linked.target
-      # # i18n_t(
-        # # "title.#{topic.linked.target_type.downcase}",
-        # # target_name: h.h(h.localized_name(topic.linked.target))
-      # # ).html_safe
-    # else
-      # super
-    # end
   end
 
   def render_body
