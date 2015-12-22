@@ -1,4 +1,5 @@
 describe ClubsController do
+  include_context :seeds
   let(:club) { create :group }
 
   describe '#index' do
@@ -136,12 +137,12 @@ describe ClubsController do
   end
 
   describe '#comments' do
-    let!(:section) { create :section, :club }
     let(:club) { create :group, :with_thread }
     let!(:comment) { create :comment, commentable: club.thread }
     before { get :comments, id: club.to_param }
 
-    it { expect(response).to redirect_to section_topic_url(id: club.thread, section: section, linked: club) }
+    it { expect(response).to redirect_to UrlGenerator.instance
+      .topic_url(club.thread) }
   end
 
   describe '#animes' do

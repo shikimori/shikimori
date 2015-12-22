@@ -153,7 +153,7 @@ private
   def generate_thread
     create_thread!(
       linked: self,
-      section_id: Section::GROUPS_ID,
+      forum_id: Forum::GROUPS_ID,
       title: name,
       generated: true
     )

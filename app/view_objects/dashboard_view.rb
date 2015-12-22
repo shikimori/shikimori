@@ -52,7 +52,7 @@ class DashboardView < ViewObjectBase
 
   def user_news
     TopicsQuery.new(h.current_user)
-      .by_section(Section.static[:news])
+      .by_forum(Forum.static[:news])
       .where(generated: false)
       .order!(created_at: :desc)
       .limit(5)
@@ -61,7 +61,7 @@ class DashboardView < ViewObjectBase
 
   def generated_news
     TopicsQuery.new(h.current_user)
-      .by_section(Section.static[:news])
+      .by_forum(Forum.static[:news])
       .where(generated: true)
       .order!(created_at: :desc)
       .limit(15)
@@ -121,7 +121,7 @@ private
 
   def all_reviews
     TopicsQuery.new(h.current_user)
-      .by_section(reviews_section)
+      .by_forum(reviews_forum)
       .limit(TOPICS_FETCH)
       .as_views(true, true)
   end
@@ -133,7 +133,7 @@ private
       #.shuffle
   #end
 
-  def reviews_section
-    Section.find_by_permalink('reviews')
+  def reviews_forum
+    Forum.find_by_permalink('reviews')
   end
 end

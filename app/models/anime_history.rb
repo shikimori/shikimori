@@ -75,7 +75,7 @@ class AnimeHistory < ActiveRecord::Base
     end
 
     topic, comment = Topic.custom_create({title: subject,
-                                          section_id: Section::ANIME_NEWS_ID,
+                                          forum_id: Forum::ANIME_NEWS_ID,
                                           created_at: self.created_at},
                                          {body: body,
                                           created_at: self.created_at},

@@ -58,13 +58,13 @@
             - if user_signed_in?
               - if topic.tag.present? && !tview.opic.news? && !view.topic.review?
                 span.tag
-                  a title="#{topic.tag}" href="#{subsection_url topic}" = topic.tag
+                  a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
               span.tag
-                a title="#{topic.section.name}" href="#{section_url topic.section}" = topic.section.name
+                a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
             - else
               - if topic.tag.present? && !topic.news? && !topic.review?
-                span.tag title="#{topic.tag}" data-href="#{subsection_url topic}" = topic.tag
-              span.tag title="#{topic.section.name}" data-href="#{section_url topic.section}" = topic.section.name
+                span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
+              span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
 
           / - if topic.author_in_footer?
             = render 'users/user_16', user: view.user

@@ -5,9 +5,9 @@ describe Forums::List do
   let(:view) { Forums::List.new }
 
   before do
-    Section.instance_variable_set :@static, nil
-    Section.instance_variable_set :@with_aggregated, nil
-    Section.instance_variable_set :@real, nil
+    Forum.instance_variable_set :@static, nil
+    Forum.instance_variable_set :@with_aggregated, nil
+    Forum.instance_variable_set :@real, nil
   end
 
   describe '#to_a' do

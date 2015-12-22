@@ -1,6 +1,6 @@
 module TopicsHelper
-  def subsection_url topic
-    section_url section: topic.section, linked: topic.linked
+  def subforum_url topic
+    forum_url forum: topic.forum, linked: topic.linked
   end
 
   def topic_url topic, format = nil

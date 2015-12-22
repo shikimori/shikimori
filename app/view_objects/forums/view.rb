@@ -1,8 +1,8 @@
 class Forums::View < ViewObjectBase
-  instance_cache :fetch_topics, :section, :menu, :linked
+  instance_cache :fetch_topics, :forum, :menu, :linked
 
-  def section
-    Section.find_by_permalink h.params[:section]
+  def forum
+    Forum.find_by_permalink h.params[:forum]
   end
 
   def topics
@@ -26,21 +26,21 @@ class Forums::View < ViewObjectBase
   end
 
   def faye_subscriptions
-    case section && section.permalink
+    case forum && forum.permalink
       when nil
-        Section.real.map {|v| "section-#{v.id}" } +
+        Forum.real.map {|v| "forum-#{v.id}" } +
           h.current_user.groups.map { |v| "group-#{v.id}" }
 
-      #when Section::static[:feed].permalink
+      #when Forum::static[:feed].permalink
         #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
 
       else
-        ["section-#{section.id}"]
+        ["forum-#{forum.id}"]
     end
   end
 
   def menu
-    Forums::Menu.new section, linked
+    Forums::Menu.new forum, linked
   end
 
   def linked
@@ -55,9 +55,9 @@ class Forums::View < ViewObjectBase
 private
 
   def page_url page
-    h.section_topics_url(
+    h.forum_topics_url(
       page: page,
-      section: section.try(:permalink),
+      forum: forum.try(:permalink),
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type]
     )
@@ -69,7 +69,7 @@ private
 
   def fetch_topics
     topics, add_postloader = TopicsQuery.new(h.current_user)
-      .by_section(section)
+      .by_forum(forum)
       .by_linked(linked)
       .postload(page, limit)
       .result
@@ -77,7 +77,7 @@ private
     collection = topics.map do |topic|
       Topics::Factory.new(
         true,
-        section && section.permalink == 'reviews'
+        forum && forum.permalink == 'reviews'
       ).build topic
     end
 

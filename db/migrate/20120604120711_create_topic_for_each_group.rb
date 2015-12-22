@@ -12,7 +12,7 @@ class CreateTopicForEachGroup < ActiveRecord::Migration
       # fix owner
       group.update_attribute(:owner_id, group.admins.first.id)
       # create topic
-      topic = GroupComment.create!(linked: group, created_at: group.created_at, updated_at: group.updated_at, section: section, user: group.owner)
+      topic = GroupComment.create!(linked: group, created_at: group.created_at, updated_at: group.updated_at, forum: section, user: group.owner)
       # subscribe members to topic
       group.members.each do |user|
         user.subscribe(topic)

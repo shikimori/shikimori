@@ -1,7 +1,7 @@
-class SectionSerializer < ActiveModel::Serializer
+class ForumSerializer < ActiveModel::Serializer
   attributes :id, :position, :name, :permalink, :url
 
   def url
-    section_path object
+    forum_path object
   end
 end

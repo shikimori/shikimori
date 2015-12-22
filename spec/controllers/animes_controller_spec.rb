@@ -132,10 +132,8 @@ describe AnimesController do
     let(:comment) { create :comment, commentable: anime.thread }
     before { get :comments, id: anime.to_param }
 
-    it do
-      expect(response).to redirect_to section_topic_url(
-        id: anime.thread, section: seed(:animanga_section), linked: anime)
-    end
+    it { expect(response).to redirect_to UrlGenerator.instance
+      .topic_url(anime.thread) }
   end
 
   describe '#summaries' do

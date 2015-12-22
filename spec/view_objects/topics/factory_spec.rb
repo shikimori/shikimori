@@ -24,8 +24,6 @@ describe Topics::Factory do
   describe '#build' do
     subject(:view) { factory.build topic }
 
-    let(:section) { nil }
-
     context 'common topic' do
       let(:topic) { build :entry }
 

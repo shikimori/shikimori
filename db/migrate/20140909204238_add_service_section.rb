@@ -1,7 +1,7 @@
 class AddServiceSection < ActiveRecord::Migration
   def up
     Section.create!(
-      id: DbEntryThread::SectionIDs[Person.name],
+      id: DbEntryThread::FORUM_IDS[Person.name],
       position: 4,
       name: 'Авторы аниме и манги',
       description: 'Обсуждение авторов аниме и манги.',

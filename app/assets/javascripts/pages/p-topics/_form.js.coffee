@@ -9,14 +9,14 @@
   $topic_linked = $('#topic_linked', $form)
 
   # переключение раздела
-  $('#topic_section_id', $form).on 'change', ->
+  $('#topic_forum_id', $form).on 'change', ->
     $topic_linked
       .data autocomplete: $topic_linked.data("#{linked_type().toLowerCase()}-autocomplete")
       .attr placeholder: $topic_linked.data("#{linked_type().toLowerCase()}-placeholder")
       .trigger('flushCache')
 
   $('.b-shiki_editor', $form).shiki_editor()
-  $('#topic_section_id', $form).trigger('change')
+  $('#topic_forum_id', $form).trigger('change')
 
   # сброс привязанного к топику
   $('.topic_linked .cleanup', $form).on 'click', ->
@@ -86,9 +86,9 @@ reset_wall = ($wall) ->
   $wall.addClass('unprocessed').shiki_wall()
 
 linked_type = ->
-  if $('#topic_section_id').val() == '7'
+  if $('#topic_forum_id').val() == '7'
     'Character'
-  else if $('#topic_section_id').val() == '6'
+  else if $('#topic_forum_id').val() == '6'
     'Manga'
   else
     'Anime'

@@ -15,7 +15,7 @@ class SitemapController < ShikimoriController
     @page_title = 'Карта сайта'
     @last_animepage_change = DateTime.parse('2011-06-05 15:12:43')
 
-    @anime_sections = [
+    @anime_forums = [
       #['Последние аниме', animes_url(season: 'latest')],
       ['Каталог аниме', animes_url],
       ['Аниме сериалы', animes_url(type: :tv)],
@@ -83,20 +83,14 @@ class SitemapController < ShikimoriController
       ['Сёдзё-Ай аниме', animes_url(genre: '26-Shoujo-Ai')],
       ['Триллер аниме', animes_url(genre: '41-Thriller')]
     ]
-    @manga_sections = [
+    @manga_forums = [
       ['Каталог манги', mangas_url]
     ]
-    @sections = [
+    @forums = [
       ['Аниме студии', studios_url],
       ['График онгоингов', ongoings_pages_url],
-      ['Аниме форум', section_url(:a)],
-      #['Форум', forums_url],
-      #['Блоги', blogs_url],
-      [i18n_i('Club', :other), clubs_url],
-      ['Рецензии и обзоры', section_url(:reviews)],
       ['Турниры и голосования', contests_url],
-      ['Новости', section_url(:news)]
-    ]
+    ] + Forums::List.new.to_a.map { |v| [v.name, v.url] }
 
     if params[:format] == 'xml'
       File.open('public/sitemap.xml', 'w') {|v| v.write(render_to_string 'index.xml.builder') }

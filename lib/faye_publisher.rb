@@ -69,7 +69,7 @@ private
     }
 
     mixed_channels = channels + subscribed_channels(topic) +
-      ["#{@namespace}/section-#{topic.section_id}", "#{@namespace}/topic-#{topic.id}"]
+      ["#{@namespace}/section-#{topic.forum_id}", "#{@namespace}/topic-#{topic.id}"]
 
     publish_data data, mixed_channels
   end
@@ -140,8 +140,8 @@ private
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
       mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
-    elsif topic.respond_to? :section_id
-      mixed_channels += ["#{@namespace}/section-#{topic.section_id}"]
+    elsif topic.respond_to? :forum_id
+      mixed_channels += ["#{@namespace}/section-#{topic.forum_id}"]
     end
 
     mixed_channels

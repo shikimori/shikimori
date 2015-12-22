@@ -23,18 +23,18 @@ module Routing
       profile_url topic, subdomain: false
 
     elsif topic.kind_of?(ContestComment) || (topic.news? && topic.action != 'episode') || topic.review?
-      section_topic_url(
+      forum_topic_url(
         id: topic,
-        section: topic.section,
+        forum: topic.forum,
         linked: nil,
         format: format,
         subdomain: false
       )
 
     else
-      section_topic_url(
+      forum_topic_url(
         id: topic,
-        section: topic.section,
+        forum: topic.forum,
         linked_type: topic.linked.class.name.downcase,
         linked_id: topic.linked.to_param,
         format: format,
@@ -43,13 +43,13 @@ module Routing
     end
   end
 
-  def section_url section, linked = nil
+  def forum_url forum, linked = nil
     if linked
-      section_topics_url section,
+      forum_topics_url forum,
         linked_id: linked.to_param,
         linked_type: linked.class.name.downcase
     else
-      section_topics_url section
+      forum_topics_url forum
     end
   end
 end

@@ -1,16 +1,16 @@
 class DbEntryThread < Topic
-  SectionIDs = {
+  FORUM_IDS = {
     'Anime' => 1,
     'Manga' => 1,
     'Character' => 1,
     'Person' => 1,
-    'Group' => Section::GROUPS_ID,
+    'Group' => Forum::GROUPS_ID,
     'Review' => 12,
-    'Contest' => Section::CONTESTS_ID,
-    'CosplayGallery' => Section::COSPLAY_ID
+    'Contest' => Forum::CONTESTS_ID,
+    'CosplayGallery' => Forum::COSPLAY_ID
   }
 
-  attr_defaults section_id: -> { SectionIDs[linked_type] }
+  attr_defaults forum_id: -> { FORUM_IDS[linked_type] }
   attr_defaults user_id: -> { BotsService.get_poster.id }
 
   before_save :sync
@@ -38,7 +38,7 @@ class DbEntryThread < Topic
   # раздел топика
   def section
     if news? && action != 'episode'
-      Section::static[:news]
+      Forum::static[:news]
     else
       super
     end

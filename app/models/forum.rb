@@ -1,5 +1,5 @@
 # TODO: если жалоб пользователей на удаление Feed не будет, то выпилить этот раздел с логикой подписок на топики совсем
-class Section < ActiveRecord::Base
+class Forum < ActiveRecord::Base
   has_many :topics, dependent: :destroy
 
   before_create :set_permalink
@@ -26,7 +26,7 @@ class Section < ActiveRecord::Base
   class << self
     def static
       @static ||= {
-        news: Section.new(
+        news: Forum.new(
           position: 3,
           name: 'Новости',
           permalink: 'news',
@@ -36,7 +36,7 @@ class Section < ActiveRecord::Base
           meta_description: 'Новости аниме и манги на шикимори.',
           is_visible: true
         ),
-        # all: Section.new(
+        # all: Forum.new(
           # position: -2,
           # # name: 'Аниме и манга',
           # # description: 'Все активные топики сайта.',
@@ -46,7 +46,7 @@ class Section < ActiveRecord::Base
           # # meta_description: 'Шикимори - энциклопедия аниме и манги, площадка для дискуссий на анимешные темы.',
           # is_visible: false
         # ),
-        # feed: Section.new(
+        # feed: Forum.new(
           # position: -3,
           # name: 'Лента',
           # description: 'Топики, где я участвую в обсуждении, или за которыми я слежу.',

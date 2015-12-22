@@ -87,10 +87,19 @@ RSpec.configure do |config|
   config.before :suite do
     id = 78643875
     FactoryGirl::SeedGenerator.create :user, id: id
-    FactoryGirl::SeedGenerator.create :offtopic_section, id: id
-    FactoryGirl::SeedGenerator.create :reviews_section, id: DbEntryThread::SectionIDs['Review']
-    FactoryGirl::SeedGenerator.create :animanga_section, id: DbEntryThread::SectionIDs['Anime']
-    FactoryGirl::SeedGenerator.create :contests_section, id: DbEntryThread::SectionIDs['Contest']
+
+    FactoryGirl::SeedGenerator.create :offtopic_forum, id: id
+    FactoryGirl::SeedGenerator.create :reviews_forum,
+      id: DbEntryThread::FORUM_IDS['Review']
+    FactoryGirl::SeedGenerator.create :animanga_forum,
+      id: DbEntryThread::FORUM_IDS['Anime']
+    FactoryGirl::SeedGenerator.create :contests_forum,
+      id: DbEntryThread::FORUM_IDS['Contest']
+    FactoryGirl::SeedGenerator.create :clubs_forum,
+      id: DbEntryThread::FORUM_IDS['Group']
+    FactoryGirl::SeedGenerator.create :cosplay_forum,
+      id: DbEntryThread::FORUM_IDS['CosplayGallery']
+
     FactoryGirl::SeedGenerator.create :topic, id: id
   end
 end

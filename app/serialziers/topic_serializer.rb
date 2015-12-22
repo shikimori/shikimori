@@ -1,10 +1,10 @@
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :topic_title, :body, :html_body, :created_at, :comments_count
-  attributes :section, :user, :type, :linked_id, :linked_type, :linked
+  attributes :forum, :user, :type, :linked_id, :linked_type, :linked
   attributes :viewed?, :last_comment_viewed
 
-  def section
-    SectionSerializer.new object.topic.section
+  def forum
+    ForumSerializer.new object.topic.forum
   end
 
   def type

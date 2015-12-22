@@ -108,7 +108,7 @@ private
     create_thread!(
       user_id: User::Cosplayer_ID,
       linked: self,
-      section_id: Section::COSPLAY_ID,
+      forum_id: Forum::COSPLAY_ID,
       title: title
     )
   end

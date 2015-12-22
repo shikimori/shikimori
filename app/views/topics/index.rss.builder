@@ -1,9 +1,9 @@
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title @section[:name]
-    xml.description @section[:description]
-    xml.link section_url(section: @section[:permalink])
+    xml.title @forum[:name]
+    xml.description @forum[:description]
+    xml.link forum_url(forum: @forum[:permalink])
 
     @collection.each do |view|
       xml.item do

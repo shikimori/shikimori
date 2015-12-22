@@ -6,13 +6,13 @@
 header.head
   h1
     = @page_title.last
-    / = @h1 || @section.name
+    / = @h1 || @forum.name
 
   - if @breadcrumbs
     = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
   / - else
     .notice
-      = @notice || @section.description
+      = @notice || @forum.description
 
   /- if params[:page] != 'cosplay'
   /- else
@@ -32,17 +32,17 @@ header.head
   .menu-slide-inner
     .l-content
       /.forum-nav
-        /nav.sections
+        /nav.forums
           /- if user_signed_in?
-            /a data-section="new" class="control section-new section-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url section: @section[:permalink], linked: @linked}"
-          /- @sections.each do |section|
-            /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
-              /= section[:name_short] || section[:name]
+            /a data-forum="new" class="control forum-new forum-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url forum: @forum[:permalink], linked: @linked}"
+          /- @forums.each do |forum|
+            /a data-forum="#{forum[:permalink]}" class="control forum-#{forum[:permalink]}#{' selected' if params[:forum] == forum[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{forum[:permalink] == 'all' ? forum_url : forum_url(forum[:permalink])}"
+              /= forum[:name_short] || forum[:name]
 
         /h1.title
-          /= @h1 || @section.name.sub(/^Все$/, 'Обсуждения')
+          /= @h1 || @forum.name.sub(/^Все$/, 'Обсуждения')
         /p.notice
-          /= @notice || @section.description
+          /= @notice || @forum.description
 
       = yield
 
@@ -59,7 +59,7 @@ header.head
             ] = t '.create_topic'
 
           - @view.menu.forums.each do |forum|
-            .section
+            .forum
               a.link href="#{forum.url}" = forum.name
               .threads #{forum.size} #{i18n_i 'topic', forum.size}
 

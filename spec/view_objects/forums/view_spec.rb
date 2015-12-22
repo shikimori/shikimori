@@ -7,18 +7,18 @@ describe Forums::View do
 
   before { allow(view.h).to receive(:params).and_return params }
 
-  describe '#section' do
+  describe '#forum' do
     context 'offtopic' do
-      let(:params) {{ section: 'offtopic' }}
+      let(:params) {{ forum: 'offtopic' }}
       it do
-        expect(view.section).to have_attributes(
+        expect(view.forum).to have_attributes(
           permalink: 'offtopic'
         )
       end
     end
 
     context 'all' do
-      it { expect(view.section).to be_nil }
+      it { expect(view.forum).to be_nil }
     end
   end
 
@@ -53,7 +53,7 @@ describe Forums::View do
 
   describe '#next_page_url & #prev_page_url' do
     context 'first page' do
-      let(:params) {{ section: 'all', linked_type: 'xx', linked_id: 'zz' }}
+      let(:params) {{ forum: 'all', linked_type: 'xx', linked_id: 'zz' }}
       before { allow(view).to receive(:add_postloader?).and_return true }
 
       it do
@@ -63,7 +63,7 @@ describe Forums::View do
     end
 
     context 'second page' do
-      let(:params) {{ section: 'all', page: 2 }}
+      let(:params) {{ forum: 'all', page: 2 }}
       it do
         expect(view.next_page_url).to be_nil
         expect(view.prev_page_url).to eq 'http://test.host/forum/p-1'
@@ -73,7 +73,7 @@ describe Forums::View do
 
   describe '#faye_subscriptions' do
     it { expect(view.faye_subscriptions)
-      .to eq Section.real.map { |v| "section-#{v.id}" } }
+      .to eq Forum.real.map { |v| "forum-#{v.id}" } }
   end
 
   describe '#menu' do
@@ -81,7 +81,7 @@ describe Forums::View do
   end
 
   describe '#linked' do
-    before { allow(view).to receive_message_chain(:section, :permalink)
+    before { allow(view).to receive_message_chain(:forum, :permalink)
       .and_return permalink }
     let(:params) {{ linked_type: entry.class.name.downcase, linked_id: entry.id }}
 

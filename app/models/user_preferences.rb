@@ -1,4 +1,3 @@
-# настройки профиля пользователя
 class UserPreferences < ActiveRecord::Base
   extend Enumerize
 

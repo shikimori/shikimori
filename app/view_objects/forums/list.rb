@@ -4,26 +4,26 @@ class Forums::List  < ViewObjectBase
   instance_cache :all
 
   def each
-    sections.each { |section| yield section }
+    forums.each { |forum| yield forum }
   end
 
 private
 
-  def sections
-    Rails.cache.fetch([:sections, Entry.last.id], expires_in: 2.weeks) { all }
+  def forums
+    Rails.cache.fetch([:forums, Entry.last.id], expires_in: 2.weeks) { all }
   end
 
   def all
-    Section.visible.map do |section|
+    Forum.visible.map do |forum|
       size = TopicsQuery
         .new(h.current_user)
-        .by_section(section)
+        .by_forum(forum)
         .where('comments_count > 0')
         .size
 
       OpenStruct.new(
-        name: section.name,
-        url: h.section_topics_url(section),
+        name: forum.name,
+        url: h.forum_topics_url(forum),
         size: size
       )
     end

@@ -1,7 +1,10 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
+  ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\
+(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
+(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)\
+(/order-by/:order)(/page/:page)(.:format)"
 
   concern :db_entry do |options|
     member do
@@ -168,7 +171,7 @@ Site::Application.routes.draw do
       resources :genres, only: [:index]
       resources :publishers, only: [:index]
 
-      resources :sections, only: [:index]
+      resources :forums, only: [:index]
       resources :topics, only: [:index, :show]
       resources :comments, only: [:show, :index, :create, :update, :destroy]
 
@@ -320,10 +323,10 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
-    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
-      get ':section(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
-      get ':section(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
-      get ':section(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
+    constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
+      get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
+      get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
+      get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
     end
     {
       o: [:offtopic, :s],
@@ -353,14 +356,14 @@ Site::Application.routes.draw do
       end
       get '/' => 'topics#index',  as: :forum
       scope(
-        '(/:section)(/:linked_type-:linked_id)',
-        section: /animanga|site|offtopic|clubs|reviews|cosplay|contests|news|games|vn/,
+        '(/:forum)(/:linked_type-:linked_id)',
+        forum: /animanga|site|offtopic|clubs|reviews|cosplay|contests|news|games|vn/,
         linked_type: /anime|manga|character|person|group/,
         format: /html|json|rss/
       ) do
         get '/new' => 'topics#new', as: :new_topic
-        get '(/p-:page)' => 'topics#index', as: :section_topics
-        get '/:id' => 'topics#show',  as: :section_topic
+        get '(/p-:page)' => 'topics#index', as: :forum_topics
+        get '/:id' => 'topics#show',  as: :forum_topic
       end
     end
 
@@ -485,7 +488,7 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    resources :sections, only: [:index, :edit] do
+    resources :forums, only: [:index, :edit] do
       patch :update, on: :member, as: :update
     end
     resources :genres, only: [:index, :edit, :update] do
@@ -549,7 +552,7 @@ Site::Application.routes.draw do
         end
 
         # обзоры
-        resources :reviews, type: kind.singularize.capitalize
+        resources :reviews, type: kind.singularize.capitalize, except: [:show]
       end
     end
 

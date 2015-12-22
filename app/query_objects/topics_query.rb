@@ -1,5 +1,5 @@
 class TopicsQuery < ChainableQueryBase
-  # pattr_initialize :section, :user, :linked
+  # pattr_initialize :forum, :user, :linked
   pattr_initialize :user
 
   def initialize user
@@ -9,8 +9,8 @@ class TopicsQuery < ChainableQueryBase
     @relation = except_hentai @relation
   end
 
-  def by_section section
-    case section && section.permalink
+  def by_forum forum
+    case forum && forum.permalink
       when nil
         if @user
           where(
@@ -22,17 +22,17 @@ class TopicsQuery < ChainableQueryBase
         end
 
       when 'reviews'
-        where section_id: section.id
+        where forum_id: forum.id
         order! created_at: :desc
 
-      when Section.static[:news].permalink
+      when Forum.static[:news].permalink
         where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
 
       else
-        where section_id: section.id
+        where forum_id: forum.id
     end
 
-    except_generated section
+    except_generated forum
 
     self
   end
@@ -54,12 +54,12 @@ private
   def prepare_query
     Entry
       .with_viewed(@user)
-      .includes(:section, :user)
+      .includes(:forum, :user)
       .order_default
   end
 
-  def except_generated section
-    @relation = if section && section.permalink == 'news'
+  def except_generated forum
+    @relation = if forum && forum.permalink == 'news'
       @relation.wo_episodes
     else
       @relation.wo_empty_generated

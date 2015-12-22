@@ -7,7 +7,7 @@ en:
       contest: Contest
       genre: Genre
       manga: Manga
-      section: Section
+      forum: Forum
       user: User
 
     attributes:
@@ -177,7 +177,7 @@ en:
         type: Type
         linked: Linked
         posters: Posters
-        section_id: Section
+        forum_id: Section
       version:
         reason: Change reason
         changes: Changes list

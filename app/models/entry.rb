@@ -14,11 +14,11 @@ class Entry < ActiveRecord::Base
   # для совместимости с comment
   attr_accessor :topic_name, :topic_url
 
-  belongs_to :section
+  belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user
 
-  validates :section, presence: true unless Rails.env.test?
+  validates :forum, presence: true unless Rails.env.test?
 
   has_many :messages, -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
@@ -135,7 +135,7 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment# && section_id != Section::OFFTOPIC_ID
+    self.class == ReviewComment# && forum_id != Forum::OFFTOPIC_ID
   end
 
   # топик ли это косплей?

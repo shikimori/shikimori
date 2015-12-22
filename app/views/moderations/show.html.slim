@@ -66,9 +66,9 @@ header.head
               href="#{genres_url}"
               title="#{'.genres'}"
             ] = t '.genres'
-        - if can? :manage, Section
+        - if can? :manage, Forum
           li
             a.b-link[
-              href="#{sections_url}"
-              title="#{'.sections'}"
-            ] = t '.sections'
+              href="#{forums_url}"
+              title="#{'.forums'}"
+            ] = t '.forums'

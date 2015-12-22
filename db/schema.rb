@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214083330) do
+ActiveRecord::Schema.define(version: 20151222065116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -387,7 +387,7 @@ ActiveRecord::Schema.define(version: 20151214083330) do
     t.string   "title",          limit: 255
     t.string   "permalink",      limit: 255
     t.integer  "user_id"
-    t.integer  "section_id"
+    t.integer  "forum_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type",           limit: 255
@@ -442,6 +442,21 @@ ActiveRecord::Schema.define(version: 20151214083330) do
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
   add_index "favourites", ["linked_type", "linked_id"], name: "i_linked", using: :btree
   add_index "favourites", ["user_id"], name: "index_favourites_on_user_id", using: :btree
+
+  create_table "forums", force: :cascade do |t|
+    t.integer  "position"
+    t.string   "name",             limit: 255
+    t.string   "description",      limit: 255
+    t.string   "permalink",        limit: 255
+    t.integer  "topics_count",                 default: 0
+    t.integer  "posts_count",                  default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "meta_title",       limit: 255
+    t.string   "meta_keywords",    limit: 255
+    t.string   "meta_description", limit: 255
+    t.boolean  "is_visible"
+  end
 
   create_table "friend_links", force: :cascade do |t|
     t.integer  "src_id"
@@ -763,21 +778,6 @@ ActiveRecord::Schema.define(version: 20151214083330) do
 
   add_index "screenshots", ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true, using: :btree
   add_index "screenshots", ["anime_id"], name: "index_screenshots_on_anime_id", using: :btree
-
-  create_table "sections", force: :cascade do |t|
-    t.integer  "position"
-    t.string   "name",             limit: 255
-    t.string   "description",      limit: 255
-    t.string   "permalink",        limit: 255
-    t.integer  "topics_count",                 default: 0
-    t.integer  "posts_count",                  default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "meta_title",       limit: 255
-    t.string   "meta_keywords",    limit: 255
-    t.string   "meta_description", limit: 255
-    t.boolean  "is_visible"
-  end
 
   create_table "similar_animes", force: :cascade do |t|
     t.integer  "src_id"

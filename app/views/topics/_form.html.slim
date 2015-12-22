@@ -18,15 +18,17 @@
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
   .m20
-    = f.input :section_id, as: :select, include_blank: false,
-      collection: Section.public,
+    = f.input :forum_id, as: :select, include_blank: false,
+      collection: Forum.public,
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
   .m20
     = f.input :title
 
   .b-shiki_editor.unprocessed.block
-    = render 'comments/shiki_editor', text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip, field_name: 'topic[text]'
+    = render 'comments/shiki_editor',
+      text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
+      field_name: 'topic[text]'
 
   .topic_linked
     .b-input.string.optional
@@ -61,7 +63,9 @@
       p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
       = render 'blocks/upload_progress'
       .b-shiki_wall.unprocessed
-        = render partial: 'images/image', collection: topic.user_images, locals: { topic_poster_edit: true }
+        = render partial: 'images/image',
+          collection: topic.user_images,
+          locals: { topic_poster_edit: true }
       input type="file" multiple="multiple"
 
   .buttons

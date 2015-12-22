@@ -1,5 +1,5 @@
 class Forums::Menu < ViewObjectBase
-  pattr_initialize :section, :linked
+  pattr_initialize :forum, :linked
   instance_cache :clubs, :reviews
 
   def clubs
@@ -17,7 +17,7 @@ class Forums::Menu < ViewObjectBase
     @reviews ||= Review
       .where('created_at >= ?',  2.weeks.ago)
       .visible
-      .includes(:user, :target, thread: [:section])
+      .includes(:user, :target, thread: [:forum])
       .order(created_at: :desc)
       .limit(3)
   end
@@ -54,11 +54,11 @@ class Forums::Menu < ViewObjectBase
 
   def new_topic_url
     h.new_topic_url(
-      section: section,
+      forum: forum,
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type],
       'topic[user_id]' => h.current_user.id,
-      'topic[section_id]' => section ? section.id : nil,
+      'topic[forum_id]' => forum ? forum.id : nil,
       'topic[linked_id]' => linked ? linked.id : nil,
       'topic[linked_type]' => linked ? linked.class.name : nil
     )

@@ -8,41 +8,41 @@ describe TopicsQuery do
     it { is_expected.to eq [seeded_offtopic_topic] }
   end
 
-  describe '#by_section' do
-    let!(:topic_1) { create :entry, section: animanga_section, updated_at: 1.day.ago }
-    let!(:topic_2) { create :entry, section: offtopic_section, updated_at: 2.days.ago }
+  describe '#by_forum' do
+    let!(:topic_1) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
+    let!(:topic_2) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
 
-    context 'special section: nil' do
-      before { query.by_section nil }
+    context 'special forum: nil' do
+      before { query.by_forum nil }
       it { is_expected.to eq [seeded_offtopic_topic, topic_1, topic_2] }
     end
 
-    context 'special section: reviews' do
+    context 'special forum: reviews' do
       let!(:review) { create :review }
-      before { query.by_section reviews_section }
+      before { query.by_forum reviews_forum }
 
       it { is_expected.to eq [review.thread] }
     end
 
-    context 'special section: news' do
+    context 'special forum: news' do
       let!(:news_topic) { create :anime_news }
-      before { query.by_section Section.static[:news] }
+      before { query.by_forum Forum.static[:news] }
 
       it { is_expected.to eq [news_topic] }
     end
 
-    context 'specific section' do
-      before { query.by_section animanga_section }
+    context 'specific forum' do
+      before { query.by_forum animanga_forum }
       it { is_expected.to eq [topic_1] }
     end
   end
 
   describe '#by_linked' do
     let(:linked) { create :anime }
-    let!(:topic_1) { create :entry, linked: linked, section: animanga_section }
-    let!(:topic_2) { create :entry, section: animanga_section }
+    let!(:topic_1) { create :entry, linked: linked, forum: animanga_forum }
+    let!(:topic_2) { create :entry, forum: animanga_forum }
 
-    before { query.by_section animanga_section }
+    before { query.by_forum animanga_forum }
     before { query.by_linked linked }
 
     it { is_expected.to eq [topic_1] }

@@ -27,13 +27,16 @@
 .block2.reviews
   h2.midheadline.m13
     a[
-      href="#{section_topics_url :reviews}"
+      href="#{forum_topics_url :reviews}"
       title="#{t '.to_reviews'}"
     ] = t '.reviews'
   ul
     - menu.reviews.each do |entry|
       li.entry
-        a href="#{section_topic_url section: entry.thread.section, id: entry.thread}" title="#{entry.thread.title}"
+        a[
+          href="#{forum_topic_url forum: entry.thread.forum, id: entry.thread}"
+          title="#{entry.thread.title}"
+        ]
           .image-name
             img[
               src="#{ImageUrlGenerator.instance.url entry.target, :x48}"

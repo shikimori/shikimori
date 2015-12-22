@@ -7,20 +7,20 @@ header.head
   .c-column
     .subheadline Общее
     ul.block.b-list
-      - @sections.each do |title, url|
+      - @forums.each do |title, url|
         li
           a.b-link href="#{url}" title="#{title}" = title
 
     h2.subheadline Аниме
     ul.block.b-list
-      - @anime_sections.each do |title, url|
+      - @anime_forums.each do |title, url|
         li
           a.b-link href="#{url}" title="#{title}" = title
 
 
     h2.subheadline Манга
     ul.block.b-list
-      - @manga_sections.each do |title, url|
+      - @manga_forums.each do |title, url|
         li
           a.b-link href="#{url}" title="#{title}" = title
 

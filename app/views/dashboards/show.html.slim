@@ -24,7 +24,7 @@
           .midheadline.magenta
             h2 = t '.reviews'
             a.b-link[
-              href="#{section_topics_url :reviews}"
+              href="#{forum_topics_url :reviews}"
               title="#{t '.all_reviews'}"
             ] = t '.all_reviews'
           div
@@ -58,7 +58,7 @@
       a.b-link_button.maxi.dark href="#{forum_url}" = t 'forum'
       .block
         - @view.forums.each do |forum|
-          .section
+          .forum
             a.link href="#{forum.url}" = forum.name
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
 
@@ -77,7 +77,7 @@
     .midheadline.orange
       h2 = t '.news_feed'
       a.b-link[
-        href="#{section_topics_url :news}"
+        href="#{forum_topics_url :news}"
         title="#{t '.all_news'}"
       ] = t '.all_news'
 

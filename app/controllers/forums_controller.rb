@@ -1,4 +1,4 @@
-class SectionsController < ModerationsController
+class ForumsController < ModerationsController
   load_and_authorize_resource
   before_action :set_breadcrumbs
 
@@ -11,7 +11,7 @@ class SectionsController < ModerationsController
 
   def update
     if @resource.update update_params
-      redirect_to sections_url
+      redirect_to forums_url
     else
       render action: 'edit'
     end
@@ -20,12 +20,12 @@ class SectionsController < ModerationsController
 private
 
   def update_params
-    params.require(:section).permit(:position, :permalink, :is_visible)
+    params.require(:forum).permit(:position, :permalink, :is_visible)
   end
 
   def set_breadcrumbs
-    page_title t('.sections')
+    page_title t('.forums')
     page_title @resource.name if @resource
-    breadcrumb t('.sections'), sections_url if @resource
+    breadcrumb t('.forums'), forums_url if @resource
   end
 end

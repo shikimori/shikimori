@@ -196,7 +196,7 @@ private
   def generate_thread
     create_thread!(
       linked: self,
-      section_id: Section::CONTESTS_ID,
+      forum_id: Forum::CONTESTS_ID,
       user: user,
       generated: true
     )

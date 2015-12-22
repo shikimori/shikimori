@@ -13,8 +13,8 @@ describe PagesController do
 
   describe 'news' do
     context 'common' do
-      let!(:topic_1) { create :topic, broadcast: true, section: animanga_section }
-      let!(:topic_2) { create :topic, broadcast: true, section: animanga_section }
+      let!(:topic_1) { create :topic, broadcast: true, forum: animanga_forum }
+      let!(:topic_2) { create :topic, broadcast: true, forum: animanga_forum }
       before { get :news, kind: 'site', format: 'rss' }
 
       it do
@@ -25,9 +25,9 @@ describe PagesController do
     end
 
     context 'anime' do
-      let!(:news_1) { create :anime_news, generated: false, section: animanga_section,
+      let!(:news_1) { create :anime_news, generated: false, forum: animanga_forum,
         linked: create(:anime), action: AnimeHistoryAction::Anons }
-      let!(:news_2) { create :anime_news, generated: false, section: animanga_section,
+      let!(:news_2) { create :anime_news, generated: false, forum: animanga_forum,
         linked: create(:anime), action: AnimeHistoryAction::Anons }
       before { get :news, kind: 'anime', format: 'rss' }
 

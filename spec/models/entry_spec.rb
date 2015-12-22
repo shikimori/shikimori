@@ -1,6 +1,6 @@
 describe Entry do
   describe 'relations' do
-    it { is_expected.to belong_to :section }
+    it { is_expected.to belong_to :forum }
     it { is_expected.to belong_to :linked }
     it { is_expected.to belong_to :user }
     it { is_expected.to have_many :views }

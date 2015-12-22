@@ -6,11 +6,11 @@ class MigrateNews < ActiveRecord::Migration
     Message.record_timestamps = false
 
     # site news migration
-    Entry.where(:section_id => 6).includes(:comment_threads).all.each do |topic|
+    Entry.where(:forum_id => 6).includes(:comment_threads).all.each do |topic|
       topic.type = Topic.name
       topic.processed = true
       topic.text = topic.comment_threads.last.body
-      topic.section_id = 4
+      topic.forum_id = 4
 
       topic.save
       topic.comment_threads.last.destroy
@@ -19,7 +19,7 @@ class MigrateNews < ActiveRecord::Migration
 
     messages = Message.where('anime_history_id is not null').all.group_by {|v| v.anime_history_id }
 
-    Entry.where(:section_id => 2).where('anime_history_id is not null').includes(:comment_threads).all.each do |topic|
+    Entry.where(:forum_id => 2).where('anime_history_id is not null').includes(:comment_threads).all.each do |topic|
       history = topic.anime_history
 
       topic.type = AnimeNews.name
@@ -28,7 +28,7 @@ class MigrateNews < ActiveRecord::Migration
       topic.linked_id = history.anime_id
       topic.linked_type = Anime.name
       topic.value = history.value
-      topic.section_id = 1
+      topic.forum_id = 1
       topic.text = topic.comment_threads.last.body.gsub(/\[\/?poster\]|\[url=[^\]]+\]\[img class=image-poster\].*$|#info/, '').gsub(/\n ?/, ' ')
       topic.processed = history.processed
 
@@ -52,7 +52,7 @@ class MigrateNews < ActiveRecord::Migration
                                :action => history.action,
                                :linked_id => history.anime_id,
                                :value => history.value,
-                               :section_id => 1,
+                               :forum_id => 1,
                                :linked_type => Anime.name)
 
       if messages.include?(history.id)

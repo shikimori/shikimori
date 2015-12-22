@@ -1,26 +1,26 @@
-describe SectionsController do
+describe ForumsController do
   include_context :authenticated, :admin
-  let(:section) { seed :offtopic_section }
+  let(:forum) { seed :offtopic_forum }
 
   describe '#index' do
     before { get :index }
     it do
       expect(response).to have_http_status :success
-      expect(collection).to have(4).items
+      expect(collection).to have_at_least(6).items
     end
   end
 
   describe '#edit' do
-    before { get :edit, id: section.id }
+    before { get :edit, id: forum.id }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:params) {{ position: 5 }}
-    before { patch :update, id: section.id, section: params }
+    before { patch :update, id: forum.id, forum: params }
 
     it do
-      expect(response).to redirect_to sections_url
+      expect(response).to redirect_to forums_url
       expect(resource).to have_attributes params
     end
   end

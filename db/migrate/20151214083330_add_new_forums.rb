@@ -1,6 +1,6 @@
 class AddNewForums < ActiveRecord::Migration
   def up
-    Section.create(
+    Forum.create(
       id: 16,
       name: 'Игры',
       permalink: 'games',
@@ -11,7 +11,7 @@ class AddNewForums < ActiveRecord::Migration
       meta_description: '',
       is_visible: true
     )
-    Section.create(
+    Forum.create(
       id: 17,
       name: 'Визуальные новеллы',
       permalink: 'vn',
@@ -25,7 +25,7 @@ class AddNewForums < ActiveRecord::Migration
   end
 
   def down
-    Section.find(16).destroy
-    Section.find(17).destroy
+    Forum.find(16).destroy
+    Forum.find(17).destroy
   end
 end

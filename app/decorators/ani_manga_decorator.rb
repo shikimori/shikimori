@@ -17,7 +17,7 @@ class AniMangaDecorator < DbEntryDecorator
     object
       .topics
       .wo_empty_generated
-      .includes(:section)
+      .includes(:forum)
       .limit(TopicsPerPage)
       .order(:updated_at)
       .map { |topic| format_menu_topic topic, :updated_at }
@@ -27,7 +27,7 @@ class AniMangaDecorator < DbEntryDecorator
   def news
     object
       .news
-      .includes(:section)
+      .includes(:forum)
       .limit(NewsPerPage)
       .order(:created_at)
       .map { |topic| format_menu_topic topic, :created_at }

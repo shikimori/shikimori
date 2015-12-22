@@ -15,8 +15,8 @@ class TopicsController < ShikimoriController
 
     # редирект, исправляющий linked
     if params[:linked_id] && @view.linked.to_param != params[:linked_id]
-      return redirect_to UrlGenerator.instance.section_url(
-        @view.section, @view.linked), status: 301
+      return redirect_to UrlGenerator.instance.forum_url(
+        @view.forum, @view.linked), status: 301
     end
   end
 
@@ -33,7 +33,7 @@ class TopicsController < ShikimoriController
     # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
         # !@resource.news? && !@resource.review? && (
           # @resource.to_param != params[:id] ||
-          # @resource.section.permalink != params[:section] ||
+          # @resource.forum.permalink != params[:forum] ||
           # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
             # !@resource.kind_of?(ContestComment))
         # )
@@ -130,7 +130,7 @@ private
     allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
        [:text, :title, :linked_id, :linked_type]
     else
-       [:user_id, :section_id, :text, :title, :type, :linked_id, :linked_type]
+       [:user_id, :forum_id, :text, :title, :type, :linked_id, :linked_type]
     end
 
     params.require(:topic).permit(*allowed_params)
@@ -149,14 +149,14 @@ private
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 
-    if @resource && @resource.section
-      page_title @resource.section.name
-      breadcrumb @resource.section.name, section_topics_url(@resource.section)
+    if @resource && @resource.forum
+      page_title @resource.forum.name
+      breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
 
       if @view.linked
         breadcrumb(
           UsersHelper.localized_name(@view.linked, current_user),
-          UrlGenerator.instance.section_url(@view.section, @view.linked)
+          UrlGenerator.instance.forum_url(@view.forum, @view.linked)
         )
       end
 
@@ -166,10 +166,10 @@ private
         UrlGenerator.instance.topic_url(@resource)
       ) if params[:action] == 'edit' || params[:action] == 'update'
 
-    elsif @view.section
-      page_title @view.section.name
+    elsif @view.forum
+      page_title @view.forum.name
       if params[:action] != 'index' || @view.linked
-        breadcrumb @view.section.name, section_topics_url(@view.section)
+        breadcrumb @view.forum.name, forum_topics_url(@view.forum)
       end
 
       if @view.linked

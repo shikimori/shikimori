@@ -7,7 +7,7 @@ ru:
       contest: Опрос
       genre: Жанр
       manga: Манга
-      section: Раздел
+      forum: Раздел
       user: Пользователь
 
     attributes:
@@ -177,7 +177,7 @@ ru:
         type: Тип
         linked: Связанное
         posters: Постеры
-        section_id: Раздел
+        forum_id: Раздел
       version:
         reason: Причина правки
         item_diff: Список изменений

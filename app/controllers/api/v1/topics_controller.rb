@@ -7,11 +7,11 @@ class Api::V1::TopicsController < Api::V1::ApiController
     @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
 
-    @section = Section.find_by_permalink params[:section]
+    @forum = Forum.find_by_permalink params[:forum]
     @topics = TopicsQuery.new(current_user)
-      .by_section(@section)
+      .by_forum(@forum)
       .paginate(@page, @limit)
-      .includes(:section, :user)
+      .includes(:forum, :user)
       .as_views(true, false)
 
     respond_with @topics, each_serializer: TopicSerializer

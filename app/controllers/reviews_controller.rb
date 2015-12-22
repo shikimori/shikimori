@@ -5,10 +5,6 @@ class ReviewsController < AnimesController
   before_action :add_title
   before_action :add_breadcrumbs, except: [:index]
 
-  # один обзор
-  def show
-    @topic = Topics::ReviewView.new @review.thread, false, false
-  end
 
   # обзоры аниме или манги
   def index
@@ -30,7 +26,7 @@ class ReviewsController < AnimesController
   def create
     if @review.save
       redirect_to(
-        send("#{resource_klass.name.downcase}_review_path", @resource, @review),
+        UrlGenerator.instance.topic_url(@review.thread),
         notice: i18n_t('review.created')
       )
     else
@@ -42,7 +38,7 @@ class ReviewsController < AnimesController
   def update
     if @review.update review_params
       redirect_to(
-        send("#{resource_klass.name.downcase}_review_path", @resource, @review),
+        UrlGenerator.instance.topic_url(@review.thread),
         notice: i18n_t('review.updated')
       )
     else

@@ -3,7 +3,7 @@ header.head
   .notice = t '.notice'
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-= simple_form_for @resource, url: update_section_url(@resource.id) do |f|
+= simple_form_for @resource, url: update_forum_url(@resource.id) do |f|
   - if @resource.errors.any?
     .errors
       .subheadline.red Errors
@@ -11,7 +11,7 @@ header.head
         == @resource.errors.full_messages.join('<br>')
       div
   - else
-      .subheadline = Section.model_name.human
+      .subheadline = Forum.model_name.human
 
   .block
     = f.input :name
@@ -20,4 +20,4 @@ header.head
     = f.input :is_visible
 
   = f.button :magic_submit
-  = link_to t('actions.cancel'), sections_path, class: 'cancel'
+  = link_to t('actions.cancel'), forums_path, class: 'cancel'
