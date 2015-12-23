@@ -9,6 +9,10 @@ class Forums::Menu < ViewObjectBase
       .limit(3)
   end
 
+  def changeable_forums?
+    h.user_signed_in? && h.params[:action] == 'index' && h.params[:forum].nil?
+  end
+
   def forums
     Forums::List.new
   end

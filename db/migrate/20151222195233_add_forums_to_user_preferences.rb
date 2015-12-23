@@ -6,14 +6,7 @@ class AddForumsToUserPreferences < ActiveRecord::Migration
       :text,
       null: false,
       array: true,
-      default: %w(
-        animanga
-        news
-        vn
-        games
-        site
-        offtopic
-      )
+      default: %w(1 news 17 16 4 8)
     )
   end
 end

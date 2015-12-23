@@ -1,12 +1,22 @@
+@on 'page:load', 'topics_index', ->
+  $('form.edit_user_preferences')
+    .on 'change', 'input', ->
+      $(@).closest('form').submit()
+
+    .on 'ajax:before', ->
+      $('.forums .ajax-loading').show()
+      $('.forums .reload').hide()
+
+    .on 'ajax:complete', ->
+      $('.forums .ajax-loading').hide()
+      $('.forums .reload').show()
+
 @on 'page:load', 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   if $('.b-animes-menu').exists()
     init_animes_menu()
   else
     $('.b-show_more').show_more()
 
-
-  $('form.edit_user_preferences input').on 'change', ->
-    $(@).closest('form').submit()
 
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $('.b-form.edit_topic, .b-form.new_topic')

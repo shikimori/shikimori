@@ -48,7 +48,7 @@ header.head
 
     aside.l-menu.ajax-opacity
       - unless ['new', 'create'].include? params[:action]
-        .block
+        .forums
           - if user_signed_in?
             a.b-link_button.dark.create-topic[
               href="#{@view.menu.new_topic_url}"
@@ -58,28 +58,31 @@ header.head
               data-dynamic="authorized"
             ] = t '.create_topic'
 
-          - if user_signed_in?
+          - if @view.menu.changeable_forums?
             = simple_form_for current_user.preferences,
                 url: profile_user_preferences_url(current_user),
                 remote: true do |f|
               - @view.menu.forums.each do |forum|
                 .forum
-                  - if current_user.preferences.forums.include?(forum.permalink)
+                  - if current_user.preferences.forums.include?(forum.id.to_s)
                     input[
                       type="checkbox"
                       name="user_preferences[forums][]"
-                      value="#{forum.permalink}"
+                      value="#{forum.id}"
                       checked
                     ]
                   - else
                     input[
                       type="checkbox"
                       name="user_preferences[forums][]"
-                      value="#{forum.permalink}"
+                      value="#{forum.id}"
                     ]
 
                   a.link href="#{forum.url}" = forum.name
                   .threads #{forum.size} #{i18n_i 'topic', forum.size}
+              .ajax-loading.vk-like
+              a.reload href="#{forum_url}" = t '.reload_forum'
+
           - else
             - @view.menu.forums.each do |forum|
               .forum

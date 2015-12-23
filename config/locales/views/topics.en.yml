@@ -6,9 +6,11 @@ en:
     status_line:
       from: from
       about: about
-    menu:
+    page:
+      reload_forum: reload forum
       # contests: Contests
       create_topic: Create a Topic
+    menu:
       # forum: Forum
       hide: '&mdash; hide'
       # my_list: My List

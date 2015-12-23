@@ -24,7 +24,7 @@ private
       OpenStruct.new(
         name: forum.name,
         url: h.forum_topics_url(forum),
-        permalink: forum.permalink,
+        id: forum.id || forum.permalink,
         size: size
       )
     end
