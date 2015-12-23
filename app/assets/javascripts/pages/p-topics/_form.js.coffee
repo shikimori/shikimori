@@ -4,6 +4,10 @@
   else
     $('.b-show_more').show_more()
 
+
+  $('form.edit_user_preferences input').on 'change', ->
+    $(@).closest('form').submit()
+
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $('.b-form.edit_topic, .b-form.new_topic')
   $topic_linked = $('#topic_linked', $form)

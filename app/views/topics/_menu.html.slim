@@ -24,33 +24,34 @@
     / - else
     div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-.block2.reviews
-  h2.midheadline.m13
-    a[
-      href="#{forum_topics_url :reviews}"
-      title="#{t '.to_reviews'}"
-    ] = t '.reviews'
-  ul
-    - menu.reviews.each do |entry|
-      li.entry
-        a[
-          href="#{forum_topic_url forum: entry.thread.forum, id: entry.thread}"
-          title="#{entry.thread.title}"
-        ]
-          .image-name
-            img[
-              src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
-              srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
-              alt="#{localized_name entry.target}"
-              title="#{localized_name entry.target}"
-            ]
-            span.title
-              == entry.target.name
-          span.misc
-            = t '.user_review', author: entry.user.nickname
-          time.misc.date[
-            datetime="#{entry.created_at.iso8601}"
-          ] = l entry.created_at, format: '%e %B %Y'
+- if menu.reviews.any?
+  .block2.reviews
+    h2.midheadline.m13
+      a[
+        href="#{forum_topics_url :reviews}"
+        title="#{t '.to_reviews'}"
+      ] = t '.reviews'
+    ul
+      - menu.reviews.each do |entry|
+        li.entry
+          a[
+            href="#{forum_topic_url forum: entry.thread.forum, id: entry.thread}"
+            title="#{entry.thread.title}"
+          ]
+            .image-name
+              img[
+                src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
+                srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
+                alt="#{localized_name entry.target}"
+                title="#{localized_name entry.target}"
+              ]
+              span.title
+                == entry.target.name
+            span.misc
+              = t '.user_review', author: entry.user.nickname
+            time.misc.date[
+              datetime="#{entry.created_at.iso8601}"
+            ] = l entry.created_at, format: '%e %B %Y'
 
 .block2.clubs
   h2.midheadline.m13
