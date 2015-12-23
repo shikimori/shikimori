@@ -13,10 +13,7 @@ class TopicsQuery < ChainableQueryBase
     case forum && forum.permalink
       when nil
         if @user
-          where(
-            "type != ? or (type = ? and #{Entry.table_name}.id in (?))",
-              GroupComment.name, GroupComment.name, user_subscription_ids
-          )
+          user_forums
         else
           where_not type: GroupComment.name
         end
@@ -25,8 +22,8 @@ class TopicsQuery < ChainableQueryBase
         where forum_id: forum.id
         order! created_at: :desc
 
-      when Forum.static[:news].permalink
-        where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
+      # when Forum.static[:news].permalink
+        # where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
 
       else
         where forum_id: forum.id
@@ -72,9 +69,21 @@ private
       .where('animes.id is null or animes.censored=false')
   end
 
-  def user_subscription_ids
-    Subscription
-      .where(user_id: user.id, target_type: Entry::Types)
-      .pluck(:target_id)
+  # def user_subscription_ids
+    # Subscription
+      # .where(user_id: user.id, target_type: Entry::Types)
+      # .pluck(:target_id)
+  # end
+
+  def user_forums
+    where(
+      "forum_id in (:user_forums) or
+        type = :review_comment or
+        (type = :group_comment and #{Entry.table_name}.linked_id in (:user_clubs))",
+        user_forums: @user.preferences.forums.map(&:to_i),
+        review_comment: ReviewComment.name,
+        group_comment: GroupComment.name,
+        user_clubs: @user.group_roles.pluck(:group_id)
+    )
   end
 end

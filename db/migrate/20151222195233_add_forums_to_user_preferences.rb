@@ -6,7 +6,7 @@ class AddForumsToUserPreferences < ActiveRecord::Migration
       :text,
       null: false,
       array: true,
-      default: %w(1 news 17 16 4 8)
+      default: Forums::List.new.map(&:id)
     )
   end
 end

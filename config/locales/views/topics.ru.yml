@@ -7,9 +7,10 @@ ru:
       from: от
       about: о
     page:
-      reload_forum: reload forum
+      reload_forum: обновить форум
       # contests: Опросы
       create_topic: Создать тему
+      no_topics: Нет топиков
     menu:
       # forum: Форум
       hide: '&mdash; спрятать'

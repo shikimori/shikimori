@@ -62,6 +62,7 @@ header.head
             = simple_form_for current_user.preferences,
                 url: profile_user_preferences_url(current_user),
                 remote: true do |f|
+              input type="hidden" name="user_preferences[forums][]" value=""
               - @view.menu.forums.each do |forum|
                 .forum
                   - if current_user.preferences.forums.include?(forum.id.to_s)

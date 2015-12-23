@@ -7,9 +7,10 @@ en:
       from: from
       about: about
     page:
-      reload_forum: reload forum
+      reload_forum: refresh forum
       # contests: Contests
       create_topic: Create a Topic
+      no_topics: No topics
     menu:
       # forum: Forum
       hide: '&mdash; hide'

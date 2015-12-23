@@ -11,6 +11,6 @@ describe Forums::List do
   end
 
   describe '#to_a' do
-    it { expect(view.to_a).to have(3).items }
+    it { expect(view.to_a).to have(2).items }
   end
 end

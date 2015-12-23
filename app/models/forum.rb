@@ -26,16 +26,16 @@ class Forum < ActiveRecord::Base
   class << self
     def static
       @static ||= {
-        news: Forum.new(
-          position: 3,
-          name: 'Новости',
-          permalink: 'news',
-          description: 'Новости аниме и манги.',
-          meta_title: 'Новости аниме и манги',
-          meta_keywords: 'аниме, манга, новости, события',
-          meta_description: 'Новости аниме и манги на шикимори.',
-          is_visible: true
-        ),
+        # news: Forum.new(
+          # position: 3,
+          # name: 'Новости',
+          # permalink: 'news',
+          # description: 'Новости аниме и манги.',
+          # meta_title: 'Новости аниме и манги',
+          # meta_keywords: 'аниме, манга, новости, события',
+          # meta_description: 'Новости аниме и манги на шикимори.',
+          # is_visible: true
+        # ),
         # all: Forum.new(
           # position: -2,
           # # name: 'Аниме и манга',
