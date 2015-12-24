@@ -1,6 +1,6 @@
 require 'cancan/matchers'
 
-describe Group do
+describe Club do
   describe 'relations' do
     it { should have_many :member_roles }
     it { should have_many :members }
@@ -31,7 +31,7 @@ describe Group do
   end
 
   describe 'callbacks' do
-    let(:club) { build :group, :with_owner_join }
+    let(:club) { build :club, :with_owner_join }
     before { club.save }
     it { expect(club.joined? club.owner).to be true }
   end
@@ -41,58 +41,58 @@ describe Group do
 
     describe '#ban' do
       let(:user) { create :user }
-      let(:group) { create :group }
-      before { group.ban user }
+      let(:club) { create :club }
+      before { club.ban user }
 
-      it { expect(group.banned? user).to be true }
+      it { expect(club.banned? user).to be true }
     end
 
     describe '#join' do
       let(:user) { create :user }
-      let(:group) { create :group }
-      before { group.join user }
+      let(:club) { create :club }
+      before { club.join user }
 
-      it { expect(group.reload.group_roles_count).to eq 1 }
-      it { expect(group.joined? user).to be true }
+      it { expect(club.reload.club_roles_count).to eq 1 }
+      it { expect(club.joined? user).to be true }
 
       context 'user' do
-        it { expect(group.admin? user).to be_falsy }
+        it { expect(club.admin? user).to be_falsy }
       end
 
       context 'club_owner' do
-        let(:group) { create :group, owner: user }
-        it { expect(group.admin? user).to be_truthy }
+        let(:club) { create :club, owner: user }
+        it { expect(club.admin? user).to be_truthy }
       end
 
       describe '#leave' do
-        before { group.reload.leave user }
+        before { club.reload.leave user }
 
-        it { expect(group.joined? user).to be false }
-        it { expect(group.reload.group_roles_count).to be_zero }
+        it { expect(club.joined? user).to be false }
+        it { expect(club.reload.club_roles_count).to be_zero }
       end
     end
 
     describe '#member_role' do
       let(:user) { build_stubbed :user }
-      let(:group) { build_stubbed :group, member_roles: [group_role] }
-      let(:group_role) { build_stubbed :group_role, user: user }
-      subject { group.member_role user }
+      let(:club) { build_stubbed :club, member_roles: [club_role] }
+      let(:club_role) { build_stubbed :club_role, user: user }
+      subject { club.member_role user }
 
-      it { should eq group_role }
+      it { should eq club_role }
     end
 
     describe '#joined?' do
-      let(:group) { build_stubbed :group }
+      let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
-      subject { group.joined? user }
+      subject { club.joined? user }
 
       context "owner" do
-        let(:group) { build_stubbed :group, owner: user }
+        let(:club) { build_stubbed :club, owner: user }
         it { should be false }
       end
 
       context 'admin' do
-        let(:group) { build_stubbed :group, member_roles: [build_stubbed(:group_role, :member, user: user)] }
+        let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :member, user: user)] }
         it { should be true }
       end
 
@@ -102,17 +102,17 @@ describe Group do
     end
 
     describe '#admin?' do
-      let(:group) { build_stubbed :group }
+      let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
-      subject { group.admin? user }
+      subject { club.admin? user }
 
       context 'just owner' do
-        let(:group) { build_stubbed :group, owner: user }
+        let(:club) { build_stubbed :club, owner: user }
         it { should be false }
       end
 
       context 'is admin' do
-        let(:group) { build_stubbed :group, member_roles: [build_stubbed(:group_role, :admin, user: user)] }
+        let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :admin, user: user)] }
         it { should be true }
       end
 
@@ -122,12 +122,12 @@ describe Group do
     end
 
     describe '#owner?' do
-      let(:group) { build_stubbed :group }
+      let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
-      subject { group.owner? user }
+      subject { club.owner? user }
 
       context 'is owner' do
-        let(:group) { build_stubbed :group, owner: user }
+        let(:club) { build_stubbed :club, owner: user }
         it { should be true }
       end
 
@@ -137,12 +137,12 @@ describe Group do
     end
 
     describe '#invited?' do
-      let(:group) { build_stubbed :group }
+      let(:club) { build_stubbed :club }
       let(:user) { build_stubbed :user }
-      subject { group.invited? user }
+      subject { club.invited? user }
 
       context 'invited' do
-        let(:group) { build_stubbed :group, invites: [build_stubbed(:group_invite, dst: user)] }
+        let(:club) { build_stubbed :club, invites: [build_stubbed(:club_invite, dst: user)] }
         it { should be true }
       end
 
@@ -153,14 +153,14 @@ describe Group do
   end
 
   describe 'permissions' do
-    let(:club) { build_stubbed :group, join_policy: join_policy }
+    let(:club) { build_stubbed :club, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user, :day_registered }
     let(:join_policy) { :free_join }
     subject { Ability.new user }
 
     context 'club owner' do
-      let(:group_role) { build_stubbed :group_role, :admin, user: user }
-      let(:club) { build_stubbed :group, owner: user, join_policy: join_policy, member_roles: [group_role] }
+      let(:club_role) { build_stubbed :club_role, :admin, user: user }
+      let(:club) { build_stubbed :club, owner: user, join_policy: join_policy, member_roles: [club_role] }
       it { should be_able_to :see_club, club }
 
       context 'newly registered' do
@@ -203,8 +203,8 @@ describe Group do
     end
 
     context 'club administrator' do
-      let(:group_role) { build_stubbed :group_role, :admin, user: user }
-      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy }
+      let(:club_role) { build_stubbed :club_role, :admin, user: user }
+      let(:club) { build_stubbed :club, member_roles: [club_role], join_policy: join_policy }
 
       it { should be_able_to :see_club, club }
 
@@ -238,20 +238,20 @@ describe Group do
     end
 
     context 'club member' do
-      let(:group_role) { build_stubbed :group_role, user: user }
-      let(:club) { build_stubbed :group, member_roles: [group_role], join_policy: join_policy, upload_policy: upload_policy, display_images: display_images }
-      let(:upload_policy) { GroupUploadPolicy::ByMembers }
+      let(:club_role) { build_stubbed :club_role, user: user }
+      let(:club) { build_stubbed :club, member_roles: [club_role], join_policy: join_policy, upload_policy: upload_policy, display_images: display_images }
+      let(:upload_policy) { ClubUploadPolicy::ByMembers }
       let(:display_images) { true }
       it { should be_able_to :leave, club }
 
       describe 'upload' do
         context 'by_staff' do
-          let(:upload_policy) { GroupUploadPolicy::ByStaff }
+          let(:upload_policy) { ClubUploadPolicy::ByStaff }
           it { should_not be_able_to :upload, club }
         end
 
         context 'by_members' do
-          let(:upload_policy) { GroupUploadPolicy::ByMembers }
+          let(:upload_policy) { ClubUploadPolicy::ByMembers }
 
           context 'display_images' do
             it { should be_able_to :upload, club }

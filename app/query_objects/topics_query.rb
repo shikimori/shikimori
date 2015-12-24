@@ -14,7 +14,7 @@ class TopicsQuery < ChainableQueryBase
         if @user
           user_forums
         else
-          where_not type: GroupComment.name
+          where_not type: ClubComment.name
         end
 
       when 'reviews'
@@ -73,13 +73,13 @@ private
       forum_id in (:user_forums) or
       type = :review_comment or
       (
-        type = :group_comment and
+        type = :club_comment and
         #{Entry.table_name}.linked_id in (:user_clubs)
       )",
       user_forums: @user.preferences.forums.map(&:to_i),
       review_comment: ReviewComment.name,
-      group_comment: GroupComment.name,
-      user_clubs: @user.group_roles.pluck(:group_id)
+      club_comment: ClubComment.name,
+      user_clubs: @user.club_roles.pluck(:club_id)
     )
   end
 end

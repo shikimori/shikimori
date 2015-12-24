@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224060019) do
+ActiveRecord::Schema.define(version: 20151224102932) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,65 @@ ActiveRecord::Schema.define(version: 20151224060019) do
   end
 
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
+
+  create_table "club_bans", force: :cascade do |t|
+    t.integer  "club_id",    null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "club_bans", ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true, using: :btree
+  add_index "club_bans", ["user_id"], name: "index_club_bans_on_user_id", using: :btree
+
+  create_table "club_invites", force: :cascade do |t|
+    t.integer  "club_id"
+    t.integer  "src_id"
+    t.integer  "dst_id"
+    t.string   "status",     limit: 255, default: "Pending"
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "club_invites", ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true, using: :btree
+
+  create_table "club_links", force: :cascade do |t|
+    t.integer  "club_id"
+    t.integer  "linked_id"
+    t.string   "linked_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "club_roles", force: :cascade do |t|
+    t.string   "role",       limit: 255, default: "member"
+    t.integer  "user_id"
+    t.integer  "club_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "club_roles", ["user_id", "club_id"], name: "uniq_user_in_group", unique: true, using: :btree
+
+  create_table "clubs", force: :cascade do |t|
+    t.string   "name",              limit: 255
+    t.integer  "join_policy",                   default: 1,           null: false
+    t.integer  "owner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "description"
+    t.string   "logo_file_name",    limit: 255
+    t.string   "logo_content_type", limit: 255
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "upload_policy",     limit: 255, default: "ByMembers"
+    t.integer  "club_roles_count",              default: 0
+    t.string   "permalink",         limit: 255
+    t.boolean  "display_images",                default: true
+    t.integer  "comment_policy",                default: 1,           null: false
+    t.boolean  "is_censored",                   default: false,       null: false
+  end
 
   create_table "comment_views", force: :cascade do |t|
     t.integer "user_id"
@@ -485,65 +544,6 @@ ActiveRecord::Schema.define(version: 20151224060019) do
   end
 
   add_index "genres_mangas", ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
-
-  create_table "group_bans", force: :cascade do |t|
-    t.integer  "group_id",   null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_bans", ["group_id", "user_id"], name: "index_group_bans_on_group_id_and_user_id", unique: true, using: :btree
-  add_index "group_bans", ["user_id"], name: "index_group_bans_on_user_id", using: :btree
-
-  create_table "group_invites", force: :cascade do |t|
-    t.integer  "group_id"
-    t.integer  "src_id"
-    t.integer  "dst_id"
-    t.string   "status",     limit: 255, default: "Pending"
-    t.integer  "message_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_invites", ["group_id", "dst_id", "status"], name: "uniq_group_invites", unique: true, using: :btree
-
-  create_table "group_links", force: :cascade do |t|
-    t.integer  "group_id"
-    t.integer  "linked_id"
-    t.string   "linked_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "group_roles", force: :cascade do |t|
-    t.string   "role",       limit: 255, default: "member"
-    t.integer  "user_id"
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "group_roles", ["user_id", "group_id"], name: "uniq_user_in_group", unique: true, using: :btree
-
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.integer  "join_policy",                   default: 1,           null: false
-    t.integer  "owner_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.string   "logo_file_name",    limit: 255
-    t.string   "logo_content_type", limit: 255
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
-    t.string   "upload_policy",     limit: 255, default: "ByMembers"
-    t.integer  "group_roles_count",             default: 0
-    t.string   "permalink",         limit: 255
-    t.boolean  "display_images",                default: true
-    t.integer  "comment_policy",                default: 1,           null: false
-    t.boolean  "is_censored",                   default: false,       null: false
-  end
 
   create_table "ignores", force: :cascade do |t|
     t.integer  "user_id"

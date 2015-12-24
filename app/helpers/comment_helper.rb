@@ -5,7 +5,7 @@ module CommentHelper
   #include AniMangaHelper
 
   SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :group, :contest, :mention, :version, :anime_video, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
+  ComplexBbCodes = [:moderator, :smileys, :club, :contest, :mention, :version, :anime_video, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -200,7 +200,7 @@ module CommentHelper
     Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/entry\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
-    Group => [/(\[group(?:=(\d+))?\]([^\[]*?)\[\/group\])/, nil],
+    Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
     Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }
@@ -282,7 +282,7 @@ module CommentHelper
 
             url = if entry.kind_of? Version
               moderations_version_url entry
-            elsif entry.kind_of? Group
+            elsif entry.kind_of? Club
               club_url entry
             elsif entry.kind_of? AnimeVideo
               entry.video_url

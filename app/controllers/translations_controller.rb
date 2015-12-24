@@ -280,7 +280,7 @@ private
   end
 
   def fetch_club
-    @club = Group.find(2)
+    @club = Club.find(2)
   end
 
   def set_breadcrumbs

@@ -9,10 +9,10 @@ describe Api::V1::UserImagesController do
 
     context 'authenticated' do
       include_context :authenticated, :user
-      let(:group) { create :group }
+      let(:club) { create :club }
 
       describe 'upload test' do
-        before { post :create, model: group.class.name, id: group.id, image: image }
+        before { post :create, model: club.class.name, id: club.id, image: image }
 
         it do
           expect(json).to have_key :id

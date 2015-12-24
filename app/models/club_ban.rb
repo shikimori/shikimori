@@ -1,23 +1,23 @@
-class GroupBan < ActiveRecord::Base
-  belongs_to :group
+class ClubBan < ActiveRecord::Base
+  belongs_to :club
   belongs_to :user
 
-  validates :group, :user, presence: true
+  validates :club, :user, presence: true
 
   after_create :leave_club
   after_create :delete_invites
 
 private
   def leave_club
-    group.leave user
+    club.leave user
   end
 
   def delete_invites
-    group.invites
+    club.invites
       .where(src: user)
       .delete_all
 
-    group.invites
+    club.invites
       .where(dst: user)
       .delete_all
   end

@@ -20,7 +20,7 @@ en:
       anime_manga_character: Anime & Manga Character
   contest_decorator:
     <<: *db_entry_decorator
-  group_decorator:
+  club_decorator:
     <<: *db_entry_decorator
   manga_decorator:
     <<: *ani_manga_decorator

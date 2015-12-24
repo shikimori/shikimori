@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :group_role do
-    group
+  factory :club_role do
+    club
     user
     role :member
 

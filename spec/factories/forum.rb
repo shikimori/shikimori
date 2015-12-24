@@ -24,7 +24,7 @@ FactoryGirl.define do
     end
 
     trait :club do
-      id { DbEntryThread::FORUM_IDS['Group'] }
+      id { DbEntryThread::FORUM_IDS['Club'] }
       permalink 'clubs'
       name 'Клубы'
     end

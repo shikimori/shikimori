@@ -59,8 +59,8 @@ class User < ActiveRecord::Base
   has_many :ignores, dependent: :destroy
   has_many :ignored_users, through: :ignores, source: :target
 
-  has_many :group_roles, dependent: :destroy
-  has_many :groups, through: :group_roles
+  has_many :club_roles, dependent: :destroy
+  has_many :clubs, through: :club_roles
 
   has_many :versions, dependent: :destroy
 
@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   has_many :recommendation_ignores, dependent: :destroy
 
   has_many :bans, dependent: :destroy
-  has_many :group_bans, dependent: :destroy
+  has_many :club_bans, dependent: :destroy
 
   has_many :devices, dependent: :destroy
 

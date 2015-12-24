@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :group_link do
-    group nil
+  factory :club_link do
+    club nil
     linked nil
 
     trait :anime do

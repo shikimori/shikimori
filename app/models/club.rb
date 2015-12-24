@@ -1,16 +1,15 @@
-# TODO: переименовать в Club
 # TODO: удалить поле permalinked
-class Group < ActiveRecord::Base
-  has_many :member_roles, class_name: GroupRole.name, dependent: :destroy
+class Club < ActiveRecord::Base
+  has_many :member_roles, class_name: ClubRole.name, dependent: :destroy
   has_many :members, through: :member_roles, source: :user
 
-  #has_many :moderator_roles, -> { where role: GroupRole::Moderator }, class_name: GroupRole.name
+  #has_many :moderator_roles, -> { where role: ClubRole::Moderator }, class_name: ClubRole.name
   #has_many :moderators, through: :moderator_roles, source: :user
 
-  has_many :admin_roles, -> { where role: :admin }, class_name: GroupRole.name
+  has_many :admin_roles, -> { where role: :admin }, class_name: ClubRole.name
   has_many :admins, through: :admin_roles, source: :user
 
-  has_many :links, class_name: GroupLink.name, dependent: :destroy
+  has_many :links, class_name: ClubLink.name, dependent: :destroy
 
   has_many :animes, -> { order :ranked },
     through: :links,
@@ -31,8 +30,8 @@ class Group < ActiveRecord::Base
 
   belongs_to :owner, class_name: User.name, foreign_key: :owner_id
 
-  has_many :invites, class_name: GroupInvite.name, dependent: :destroy
-  has_many :bans, dependent: :destroy, class_name: GroupBan.name
+  has_many :invites, class_name: ClubInvite.name, dependent: :destroy
+  has_many :bans, dependent: :destroy, class_name: ClubBan.name
   has_many :banned_users, through: :bans, source: :user
 
   has_many :topics, -> { order updated_at: :desc },
@@ -40,8 +39,8 @@ class Group < ActiveRecord::Base
     as: :linked,
     dependent: :destroy
 
-  has_one :thread, -> { where linked_type: Group.name },
-    class_name: GroupComment.name,
+  has_one :thread, -> { where linked_type: Club.name },
+    class_name: ClubComment.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -108,7 +107,7 @@ class Group < ActiveRecord::Base
 
   # число участников группы
   def members_count
-    group_roles_count
+    club_roles_count
   end
 
   # отображать ли картинки в группе?
@@ -149,13 +148,13 @@ private
     thread.update_attribute :title, name if thread.title != name
   end
 
-  # создание GroupComment для элемента сразу после создания
+  # создание ClubComment для элемента сразу после создания
   def generate_thread
     FayeService
       .new(owner, '')
-      .create(GroupComment.new(
+      .create(ClubComment.new(
         linked: self,
-        forum_id: Forum::GROUPS_ID,
+        forum_id: Forum::CLUBS_ID,
         title: name,
         created_at: created_at,
         updated_at: updated_at,

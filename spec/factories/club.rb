@@ -1,15 +1,15 @@
 FactoryGirl.define do
-  factory :group do
+  factory :club do
     sequence(:name) { |n| "club_#{n}" }
     join_policy :free_join
 
     association :owner, factory: :user
     description ''
 
-    after :build do |group|
-      group.stub :generate_thread
-      group.stub :sync_thread
-      group.stub :join_owner
+    after :build do |club|
+      club.stub :generate_thread
+      club.stub :sync_thread
+      club.stub :join_owner
     end
 
     trait :free_join do
@@ -21,38 +21,38 @@ FactoryGirl.define do
     end
 
     trait :linked_anime do
-      after :build do |group|
-        FactoryGirl.create :group_link, :anime, group: group
+      after :build do |club|
+        FactoryGirl.create :club_link, :anime, club: club
       end
     end
 
     trait :linked_manga do
-      after :build do |group|
-        FactoryGirl.create :group_link, :manga, group: group
+      after :build do |club|
+        FactoryGirl.create :club_link, :manga, club: club
       end
     end
 
     trait :linked_character do
-      after :build do |group|
-        FactoryGirl.create :group_link, :character, group: group
+      after :build do |club|
+        FactoryGirl.create :club_link, :character, club: club
       end
     end
 
     trait :with_member do
-      after :build do |group|
-        FactoryGirl.create :group_role, group: group
+      after :build do |club|
+        FactoryGirl.create :club_role, club: club
       end
     end
 
     trait :with_thread do
-      after :build do |group|
-        group.unstub :generate_thread
+      after :build do |club|
+        club.unstub :generate_thread
       end
     end
 
     trait :with_owner_join do
-      after :build do |group|
-        group.unstub :join_owner
+      after :build do |club|
+        club.unstub :join_owner
       end
     end
 

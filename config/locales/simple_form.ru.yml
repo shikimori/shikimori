@@ -86,7 +86,7 @@ ru:
         show:
           <<: *sign_in
 
-      group_invite: &send
+      club_invite: &send
         submit: Отправить
         disable_with: Отправка&#133;
 

@@ -1,4 +1,4 @@
-class GroupSerializer < ActiveModel::Serializer
+class ClubSerializer < ActiveModel::Serializer
   attributes :id, :name, :logo, :is_censored, :join_policy, :comment_policy
 
   def logo

@@ -86,7 +86,7 @@ en:
         show:
           <<: *sign_in
 
-      group_invite: &send
+      club_invite: &send
         submit: Send
         disable_with: Sending&#133;
 

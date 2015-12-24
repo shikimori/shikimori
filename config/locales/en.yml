@@ -156,7 +156,7 @@ en:
         url: Url
         kind: Type
         name: Name
-      group:
+      club:
         name: Name
         display_images: Show Images
         join_policy: Terms of Joining
@@ -167,9 +167,9 @@ en:
         comment_policy: Comments Policy
         comment_policies:
           free_comment: Unrestricted
-          members_comment: Group Members Only
+          members_comment: Club Members Only
         is_censored: Contains adult content (18+)
-      group_invite:
+      club_invite:
         dst: User
       topic:
         title: Title
@@ -196,7 +196,7 @@ en:
           in_club_black_list: You're banned in this club. Commenting is disabled
         messages:
           ignored: You can't send messages to this user
-        group_invite:
+        club_invite:
           attributes:
             base:
               banned: User is banned in this club. Invitation is forbidden

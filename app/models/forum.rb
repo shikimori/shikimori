@@ -9,7 +9,7 @@ class Forum < ActiveRecord::Base
   PUBLIC_SECTIONS = %w{ offtopic animanga site }
 
   ANIME_NEWS_ID = 1
-  GROUPS_ID = 10
+  CLUBS_ID = 10
   OFFTOPIC_ID = 8
   CONTESTS_ID = 13
   COSPLAY_ID = 15

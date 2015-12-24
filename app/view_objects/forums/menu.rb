@@ -3,7 +3,7 @@ class Forums::Menu < ViewObjectBase
   instance_cache :clubs, :reviews
 
   def clubs
-    GroupComment
+    ClubComment
       .includes(:linked)
       .order(updated_at: :desc)
       .limit(3)

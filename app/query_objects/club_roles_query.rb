@@ -1,4 +1,4 @@
-class GroupRolesQuery
+class ClubRolesQuery
   pattr_initialize :club
 
   def complete phrase

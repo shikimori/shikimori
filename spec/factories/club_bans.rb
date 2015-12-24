@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :group_ban do
-    group nil
+  factory :club_ban do
+    club nil
     user nil
   end
 end

@@ -138,7 +138,7 @@ private
       ["#{@namespace}/#{topic_type}-#{topic.id}"]
 
     # уведомление в открытые разделы
-    if topic.kind_of? GroupComment
+    if topic.kind_of? ClubComment
       mixed_channels += ["#{@namespace}/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
       mixed_channels += ["#{@namespace}/forum-#{topic.forum_id}"]

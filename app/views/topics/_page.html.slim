@@ -104,7 +104,7 @@ header.head
         - elsif linked.kind_of? Person
           = render 'people/menu', resource: linked.decorate
 
-        - elsif linked.kind_of? Group
+        - elsif linked.kind_of? Club
           = render 'clubs/menu', resource: linked.decorate
 
         - elsif linked.kind_of? Contest

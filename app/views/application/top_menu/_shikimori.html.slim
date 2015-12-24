@@ -35,7 +35,7 @@ a.entry.calendar[
         title="#{kind.title}"
       ] = kind.title
 
-.entry class="#{:selected if params[:controller] == 'topics' || params[:controller] == 'groups' || params[:controller] == 'groups'}"
+.entry class="#{:selected if params[:controller] == 'topics' || params[:controller] == 'users' || params[:controller] == 'clubs'}"
   .submenu-toggler
   a[
     class="#{:active if params[:controller] == 'topics'}"
@@ -54,7 +54,7 @@ a.entry.calendar[
       title="#{i18n_i 'User', :other}"
     ] = i18n_i 'User', :other
     a.entry[
-      class="#{:active if params[:controller] == 'groups'}"
+      class="#{:active if params[:controller] == 'clubs'}"
       href="#{clubs_url}"
       title="#{i18n_i 'Club', :other}"
     ] = i18n_i 'Club', :other

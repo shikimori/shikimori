@@ -4,6 +4,7 @@ class LstParser
   end
 
 private
+
   def parse_group group
     group.strip.split(/[\r\n]+/).map { |v| v.sub(/ #.*/, '').strip }
   end

@@ -15,7 +15,7 @@ class MessageType
   # запрос на добавление в друзья
   FriendRequest = 'FriendRequest'
   # пришлашение в клуб
-  GroupRequest = 'GroupRequest'
+  ClubRequest = 'ClubRequest'
   # новость сайта
   SiteNews = 'SiteNews'
   # прокомментирован профиль
@@ -36,6 +36,6 @@ class MessageType
   # уведомление о завершении опроса
   ContestFinished = 'ContestFinished'
 
-  RESPONSE_REQUIRED = [FriendRequest, GroupRequest]
+  RESPONSE_REQUIRED = [FriendRequest, ClubRequest]
   ANIME_RELATED = [Anons, Ongoing, Released, Episode]
 end

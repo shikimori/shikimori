@@ -6,7 +6,7 @@ header.head.m15
     - t('.notice').each do |sentence|
       p == sentence
 
-- @ongoings.each do |index,group|
+- @ongoings.each do |index, group|
   .block.m0
     - if index == -1
       .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
@@ -15,7 +15,9 @@ header.head.m15
       = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
     .collapsed.tiny ...
     .cc-entries
-      = render partial: 'animes/anime', collection: group, locals: { cover_notice: :next_episode, content_by: :tooltip }
+      = render partial: 'animes/anime',
+        collection: group,
+        locals: { cover_notice: :next_episode, content_by: :tooltip }
 
 .subheadline.m3 = i18n_i 'Discussion'
 div

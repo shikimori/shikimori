@@ -3,7 +3,7 @@ class NameValidator < ActiveModel::EachValidator
     return unless value.kind_of? String
 
     is_taken = value =~ /\A(?:#{Forum::VARIANTS}|animes|mangas|contests|users)\Z/ ||
-      presence(record, value, Group, :name) || presence(record, value, User, :nickname)
+      presence(record, value, Club, :name) || presence(record, value, User, :nickname)
 
     if is_taken
       record.errors[attribute] << (options[:message] || I18n.t('activerecord.errors.messages.taken'))

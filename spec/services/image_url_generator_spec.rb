@@ -26,7 +26,7 @@ describe ImageUrlGenerator do
       end
 
       context 'club' do
-        let(:entry) { build_stubbed :group, :with_logo, id: 2 }
+        let(:entry) { build_stubbed :club, :with_logo, id: 2 }
         let(:image_size) { :x96 }
         it { should eq "http://moe.shikimori.org/images/group/x96/2.jpg?#{timestamp}" }
       end

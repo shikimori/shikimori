@@ -108,7 +108,7 @@ ru:
     club_characters: Персонажи клуба
     club_images: Картинки клуба
 
-  group_roles_controller:
+  club_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
 

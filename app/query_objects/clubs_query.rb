@@ -1,11 +1,11 @@
 class ClubsQuery < QueryObjectBase
 private
   def query
-    Group
+    Club
       .joins(:member_roles, :thread)
       .preload(:owner, :thread)
-      .group('groups.id, entries.updated_at')
-      .having('count(group_roles.id) > 0')
+      .group('clubs.id, entries.updated_at')
+      .having('count(club_roles.id) > 0')
       .order('entries.updated_at desc, id')
   end
 end

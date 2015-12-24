@@ -3,11 +3,11 @@ class Entry < ActiveRecord::Base
   include Viewable
 
   # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
+  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'ClubComment']
   # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
   SpecialInnerTypes = ['AnimeNews', 'MangaNews']
   # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
+  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'ClubComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 
@@ -182,7 +182,7 @@ private
 
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest|CosplayGallery)$/
+    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Club|Review|Contest|CosplayGallery)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end

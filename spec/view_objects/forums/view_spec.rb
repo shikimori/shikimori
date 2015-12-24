@@ -86,30 +86,28 @@ describe Forums::View do
       .and_return permalink }
     let(:params) {{ linked_type: entry.class.name.downcase, linked_id: entry.id }}
 
-    context 'a' do
-      let(:permalink) { 'a' }
-      let(:entry) { create :anime }
+    context 'animanga' do
+      let(:permalink) { 'animanga' }
 
-      it { expect(view.linked).to eq entry }
+      context 'anime' do
+        let(:entry) { create :anime }
+        it { expect(view.linked).to eq entry }
+      end
+
+      context 'manga' do
+        let(:entry) { create :manga }
+        it { expect(view.linked).to eq entry }
+      end
+
+      context 'character' do
+        let(:entry) { create :character }
+        it { expect(view.linked).to eq entry }
+      end
     end
 
-    context 'm' do
-      let(:permalink) { 'm' }
-      let(:entry) { create :manga }
-
-      it { expect(view.linked).to eq entry }
-    end
-
-    context 'c' do
-      let(:permalink) { 'c' }
-      let(:entry) { create :character }
-
-      it { expect(view.linked).to eq entry }
-    end
-
-    context 'g' do
-      let(:permalink) { 'g' }
-      let(:entry) { create :group }
+    context 'clubs' do
+      let(:permalink) { 'clubs' }
+      let(:entry) { create :club }
 
       it { expect(view.linked).to eq entry }
     end

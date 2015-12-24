@@ -8,11 +8,11 @@ describe UserImagesController do
     end
 
     context 'user' do
-      let(:group) { create :group }
+      let(:club) { create :club }
 
       before do
         sign_in create(:user)
-        post :create, model: group.class.name, id: group.id, image: image
+        post :create, model: club.class.name, id: club.id, image: image
       end
 
       it { expect(response).to have_http_status :success }
@@ -20,7 +20,7 @@ describe UserImagesController do
 
       it 'creates new image' do
         expect {
-          post :create, linked_type: group.class.name, linked_id: group.id, image: image
+          post :create, linked_type: club.class.name, linked_id: club.id, image: image
         }.to change(UserImage, :count).by 1
       end
 

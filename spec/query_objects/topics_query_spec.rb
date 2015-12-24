@@ -12,8 +12,8 @@ describe TopicsQuery do
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
     let!(:review) { create :review, updated_at: 10.days.ago }
-    let!(:joined_club) { create :group, :with_thread, updated_at: 15.days.ago }
-    let!(:other_club) { create :group, :with_thread, updated_at: 20.days.ago }
+    let!(:joined_club) { create :club, :with_thread, updated_at: 15.days.ago }
+    let!(:other_club) { create :club, :with_thread, updated_at: 20.days.ago }
 
     context 'not specified: default' do
       before do

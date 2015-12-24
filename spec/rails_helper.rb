@@ -96,7 +96,7 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :contests_forum,
       id: DbEntryThread::FORUM_IDS['Contest']
     FactoryGirl::SeedGenerator.create :clubs_forum,
-      id: DbEntryThread::FORUM_IDS['Group']
+      id: DbEntryThread::FORUM_IDS['Club']
     FactoryGirl::SeedGenerator.create :cosplay_forum,
       id: DbEntryThread::FORUM_IDS['CosplayGallery']
 

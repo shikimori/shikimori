@@ -1,11 +1,11 @@
 describe ClubsController do
   include_context :seeds
-  let(:club) { create :group }
+  let(:club) { create :club }
 
   describe '#index' do
-    let(:club) { create :group, :with_thread }
+    let(:club) { create :club, :with_thread }
     let(:user) { create :user }
-    let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
+    let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
     describe 'no_pagination' do
       before { get :index }
@@ -22,7 +22,7 @@ describe ClubsController do
   end
 
   describe '#show' do
-    let(:club) { create :group, :with_thread }
+    let(:club) { create :club, :with_thread }
     before { get :show, id: club.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -35,7 +35,7 @@ describe ClubsController do
 
   describe '#edit' do
     include_context :authenticated, :user
-    let(:club) { create :group, owner: user }
+    let(:club) { create :club, owner: user }
     before { get :edit, id: club.to_param }
 
     it { expect(response).to have_http_status :success }
@@ -64,18 +64,18 @@ describe ClubsController do
 
   describe '#update' do
     include_context :authenticated, :user
-    let(:club) { create :group, :with_thread, owner: user }
+    let(:club) { create :club, :with_thread, owner: user }
 
     context 'when success' do
       context 'with kick_ids' do
         let(:user_2) { create :user }
-        let!(:group_role) { create :group_role, group: club, user: user_2 }
+        let!(:club_role) { create :club_role, club: club, user: user_2 }
         let(:kick_ids) { [user_2.id] }
 
         before { patch :update, id: club.id, club: { name: 'newnewtest' }, kick_ids: kick_ids }
 
         it do
-          expect(club.reload.group_roles_count).to be_zero
+          expect(club.reload.club_roles_count).to be_zero
           expect(resource.name).to eq 'newnewtest'
           expect(resource).to be_valid
           expect(response).to redirect_to edit_club_url(resource)
@@ -84,14 +84,14 @@ describe ClubsController do
 
       context 'with admin_ids' do
         let(:user_2) { create :user }
-        let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
-        let!(:group_role_2) { create :group_role, group: club, user: user_2 }
+        let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
+        let!(:club_role_2) { create :club_role, club: club, user: user_2 }
         let(:admin_ids) { [user.id, user_2.id] }
 
         before { patch :update, id: club.id, club: { name: 'newnewtest', admin_ids: admin_ids } }
 
         it do
-          expect(club.reload.group_roles_count).to eq 2
+          expect(club.reload.club_roles_count).to eq 2
           expect(club.admins.sort_by(&:id)).to eq [user, user_2].sort_by(&:id)
           expect(resource.name).to eq 'newnewtest'
           expect(resource).to be_valid
@@ -113,7 +113,7 @@ describe ClubsController do
 
   describe '#upload' do
     include_context :authenticated, :user
-    let!(:group_role) { create :group_role, group: club, user: user, role: 'admin' }
+    let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
     let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
     before { post :upload, id: club.to_param, image: image }
 
@@ -125,19 +125,19 @@ describe ClubsController do
   end
 
   describe '#members' do
-    let(:club) { create :group }
+    let(:club) { create :club }
     before { get :members, id: club.to_param }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#images' do
-    let(:club) { create :group }
+    let(:club) { create :club }
     before { get :images, id: club.to_param }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
-    let(:club) { create :group, :with_thread }
+    let(:club) { create :club, :with_thread }
     let!(:comment) { create :comment, commentable: club.thread }
     before { get :comments, id: club.to_param }
 
@@ -152,7 +152,7 @@ describe ClubsController do
     end
 
     context 'with_animes' do
-      let(:club) { create :group, :with_thread, :linked_anime }
+      let(:club) { create :club, :with_thread, :linked_anime }
       before { get :animes, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -165,7 +165,7 @@ describe ClubsController do
     end
 
     context 'with_mangas' do
-      let(:club) { create :group, :with_thread, :linked_manga }
+      let(:club) { create :club, :with_thread, :linked_manga }
       before { get :mangas, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -178,7 +178,7 @@ describe ClubsController do
     end
 
     context 'with_characters' do
-      let(:club) { create :group, :with_thread, :linked_character }
+      let(:club) { create :club, :with_thread, :linked_character }
       before { get :characters, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end

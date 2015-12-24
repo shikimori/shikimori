@@ -1,4 +1,4 @@
-class GroupInvitesController < ShikimoriController
+class ClubInvitesController < ShikimoriController
   before_action :find_user, only: :create
   load_and_authorize_resource
 

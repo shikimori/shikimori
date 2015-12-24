@@ -358,7 +358,7 @@ Site::Application.routes.draw do
       scope(
         '(/:forum)(/:linked_type-:linked_id)',
         forum: /animanga|site|offtopic|clubs|reviews|cosplay|contests|news|games|vn/,
-        linked_type: /anime|manga|character|person|group/,
+        linked_type: /anime|manga|character|person|club/,
         format: /html|json|rss/
       ) do
         get '/new' => 'topics#new', as: :new_topic
@@ -412,11 +412,11 @@ Site::Application.routes.draw do
         get '/page/:page', action: :index, as: :page
       end
 
-      resources :group_roles, only: [:create, :destroy], concerns: [:autocompletable]
-      resources :group_invites, only: [:create]
+      resources :club_roles, only: [:create, :destroy], concerns: [:autocompletable]
+      resources :club_invites, only: [:create]
     end
 
-    resources :group_invites, only: [] do
+    resources :club_invites, only: [] do
       post :accept, on: :member
       post :reject, on: :member
     end

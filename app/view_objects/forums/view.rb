@@ -29,7 +29,7 @@ class Forums::View < ViewObjectBase
     case forum && forum.permalink
       when nil
         user_forums = h.current_user.preferences.forums.select(&:present?)
-        user_clubs = h.current_user.groups
+        user_clubs = h.current_user.clubs
 
         user_forums.map { |id| "forum-#{id}" } +
           user_clubs.map { |club| "club-#{club.id}" }

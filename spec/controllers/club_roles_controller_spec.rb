@@ -1,9 +1,9 @@
-describe GroupRolesController do
-  let(:club) { create :group }
+describe ClubRolesController do
+  let(:club) { create :club }
   include_context :authenticated, :user
 
   describe '#create' do
-    before { post :create, club_id: club.id, group_role: { group_id: club.id, user_id: user.id } }
+    before { post :create, club_id: club.id, club_role: { club_id: club.id, user_id: user.id } }
 
     it do
       expect(club.joined? user).to be true
@@ -12,8 +12,8 @@ describe GroupRolesController do
   end
 
   describe '#destroy' do
-    let!(:group_role) { create :group_role, group: club, user: user }
-    before { post :destroy, club_id: club.id, id: group_role.id }
+    let!(:club_role) { create :club_role, club: club, user: user }
+    before { post :destroy, club_id: club.id, id: club_role.id }
 
     it do
       expect(club.joined? user).to be false
@@ -23,8 +23,8 @@ describe GroupRolesController do
 
   describe '#autocomplete' do
     let(:user) { create :user, nickname: 'Fff' }
-    let!(:group_role) { create :group_role, group: club, user: user }
-    let(:club) { create :group, owner: user }
+    let!(:club_role) { create :club_role, club: club, user: user }
+    let(:club) { create :club, owner: user }
     before { get :autocomplete, club_id: club.to_param, search: user.nickname }
 
     it do

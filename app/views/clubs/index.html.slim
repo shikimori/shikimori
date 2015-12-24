@@ -1,7 +1,7 @@
 header.head.misc
   h1 = @page_title.last
 
-  - if can? :new, Group.new(owner: current_user)
+  - if can? :new, Club.new(owner: current_user)
     a.misc[
       href=new_club_url('club[owner_id]' => current_user.id)
       title=t('.create_new_club')

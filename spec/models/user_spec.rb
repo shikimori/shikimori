@@ -33,8 +33,8 @@ describe User do
     it { is_expected.to have_many :ignores }
     it { is_expected.to have_many :ignored_users }
 
-    it { is_expected.to have_many :group_roles }
-    it { is_expected.to have_many :groups }
+    it { is_expected.to have_many :club_roles }
+    it { is_expected.to have_many :clubs }
 
     it { is_expected.to have_many :entry_views }
 
@@ -44,7 +44,7 @@ describe User do
     it { is_expected.to have_many :recommendation_ignores }
 
     it { is_expected.to have_many :bans }
-    it { is_expected.to have_many :group_bans }
+    it { is_expected.to have_many :club_bans }
 
     it { is_expected.to have_many :devices }
 

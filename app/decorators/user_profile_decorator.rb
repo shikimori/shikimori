@@ -134,7 +134,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def clubs
-    object.groups.sort_by(&:name)
+    object.clubs.sort_by(&:name)
   end
 
   def compatibility klass

@@ -18,8 +18,8 @@ FactoryGirl.define do
       type 'ContestComment'
     end
 
-    factory :club_comment, class: 'GroupComment' do
-      type 'GroupComment'
+    factory :club_comment, class: 'ClubComment' do
+      type 'ClubComment'
     end
 
     factory :anime_news, class: 'AnimeNews' do

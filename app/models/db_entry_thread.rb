@@ -4,7 +4,7 @@ class DbEntryThread < Topic
     'Manga' => 1,
     'Character' => 1,
     'Person' => 1,
-    'Group' => Forum::GROUPS_ID,
+    'Club' => Forum::CLUBS_ID,
     'Review' => 12,
     'Contest' => Forum::CONTESTS_ID,
     'CosplayGallery' => Forum::COSPLAY_ID

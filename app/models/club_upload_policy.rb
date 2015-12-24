@@ -1,4 +1,4 @@
-class GroupUploadPolicy
+class ClubUploadPolicy
   ByMembers = 'ByMembers'
   ByStaff = 'ByStaff'
 end

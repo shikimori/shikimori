@@ -49,7 +49,7 @@ describe Message do
       end
 
       it 'disabled for MessageType::GroupRequest' do
-        create :message, to: user, from: user, kind: MessageType::GroupRequest
+        create :message, to: user, from: user, kind: MessageType::ClubRequest
 
         expect {
           create :message, to: user, from: user, kind: MessageType::Notification

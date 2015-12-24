@@ -13,7 +13,9 @@ xml.rss version: "2.0" do
           xml.title history.target ? history.target.name : history.action.capitalize
 
           if history.target
-            text = format_rss_urls("#{strip_tags history.format} <a href=\"#{url_for history.target}\">#{history.target.name}</a>")
+            html = "#{strip_tags history.format} \
+<a href=\"#{url_for history.target}\">#{history.target.name}</a>"
+            text = format_rss_urls html
             xml.description text
           else
             xml.description history.format
