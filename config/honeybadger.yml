@@ -1,17 +1,18 @@
 ---
-api_key: '0cf5b667'
+api_key: 0cf5b667
 development_environments:
-  - 'development'
-  - 'test'
+  - development
+  - test
 exceptions:
   ignore:
-    - 'CanCan::AccessDenied'
-    - 'NotFound'
-    - 'Unauthorized'
-    - 'Forbidden'
-    - 'AgeRestricted'
-    - 'ActionController::InvalidAuthenticityToken'
-    - 'ActionController::UnknownFormat'
-    - 'ActiveRecord::RecordNotFound'
-    - 'Unicorn::ClientShutdown'
-    - 'MismatchedEntries'
+    - CanCan::AccessDenied
+    - NotFound
+    - Unauthorized
+    - Forbidden
+    - AgeRestricted
+    - ActionController::InvalidAuthenticityToken
+    - ActionController::UnknownFormat
+    - ActiveRecord::RecordNotFound
+    - Unicorn::ClientShutdown
+    - MismatchedEntries'
+    - CopyrightedResource
