@@ -1,8 +1,8 @@
 describe Forums::View do
+  include_context :seeds
   include_context :view_object_warden_stub
 
   let(:view) { Forums::View.new }
-  let(:user) { seed :user }
   let(:params) {{ }}
 
   before { allow(view.h).to receive(:params).and_return params }
@@ -22,7 +22,8 @@ describe Forums::View do
     end
   end
 
-  describe '#topics', :focus do
+  describe '#topics' do
+    before { user.preferences.forums = [offtopic_forum.id] }
     it do
       expect(view.topics).to have(1).item
       expect(view.topics.first).to be_kind_of Topics::View
@@ -72,8 +73,8 @@ describe Forums::View do
   end
 
   describe '#faye_subscriptions' do
-    it { expect(view.faye_subscriptions)
-      .to eq Forum.real.map { |v| "forum-#{v.id}" } }
+    before { user.preferences.forums = [offtopic_forum.id] }
+    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}"] }
   end
 
   describe '#menu' do

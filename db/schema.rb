@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224044856) do
+ActiveRecord::Schema.define(version: 20151224060019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -901,14 +901,14 @@ ActiveRecord::Schema.define(version: 20151224044856) do
     t.integer "user_id"
     t.boolean "anime_in_profile",                       default: true
     t.boolean "manga_in_profile",                       default: true
-    t.string  "default_sort",               limit: 255, default: "name",                                                  null: false
+    t.string  "default_sort",               limit: 255, default: "name",   null: false
     t.boolean "comments_in_profile",                    default: true
     t.boolean "postload_in_catalog",                    default: true
     t.date    "statistics_start_on"
     t.boolean "russian_names",                          default: true
     t.boolean "about_on_top",                           default: false
-    t.boolean "russian_genres",                         default: true,                                                    null: false
-    t.boolean "menu_contest",                           default: true,                                                    null: false
+    t.boolean "russian_genres",                         default: true,     null: false
+    t.boolean "menu_contest",                           default: true,     null: false
     t.string  "page_background",            limit: 255
     t.boolean "page_border",                            default: false
     t.string  "body_background",            limit: 512
@@ -916,11 +916,11 @@ ActiveRecord::Schema.define(version: 20151224044856) do
     t.boolean "show_social_buttons",                    default: true
     t.boolean "show_hentai_images",                     default: false
     t.string  "list_privacy",               limit: 255, default: "public"
-    t.boolean "volumes_in_manga",                       default: false,                                                   null: false
+    t.boolean "volumes_in_manga",                       default: false,    null: false
     t.boolean "is_comments_auto_collapsed",             default: true
     t.boolean "is_comments_auto_loaded",                default: true
-    t.string  "body_width",                             default: "x1200",                                                 null: false
-    t.text    "forums",                                 default: ["animanga", "news", "vn", "games", "site", "offtopic"], null: false, array: true
+    t.string  "body_width",                             default: "x1200",  null: false
+    t.text    "forums",                                 default: [],       null: false, array: true
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree
