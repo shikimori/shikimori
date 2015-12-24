@@ -66,12 +66,6 @@ describe Comment do
       it { expect(comment).to receive :creation_callbacks }
     end
 
-    describe '#subscribe' do
-      let(:comment) { build :comment }
-      after { comment.save }
-      it { expect(comment).to receive :subscribe }
-    end
-
     describe '#notify_quotes' do
       let(:comment) { build :comment }
       after { comment.save }
@@ -134,13 +128,6 @@ describe Comment do
           it { expect(comment.html_body).to eq '[image=149374]' }
         end
       end
-    end
-
-    describe '#subscribe' do
-      let(:user) { create :user }
-      let(:topic) { create :entry, user: user }
-      subject!(:comment) { create :comment, :with_subscribe, user: user, commentable: topic }
-      it { expect(user.subscribed?(comment.commentable)).to be_truthy }
     end
 
     describe '#notify_quotes' do

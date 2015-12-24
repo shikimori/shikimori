@@ -149,14 +149,17 @@ private
     thread.update_attribute :title, name if thread.title != name
   end
 
-  # создание AniMangaComment для элемента сразу после создания
+  # создание GroupComment для элемента сразу после создания
   def generate_thread
-    create_thread!(
-      linked: self,
-      forum_id: Forum::GROUPS_ID,
-      title: name,
-      generated: true
-    )
+    FayeService
+      .new(owner, '')
+      .create(GroupComment.new(
+        linked: self,
+        forum_id: Forum::GROUPS_ID,
+        title: name,
+        created_at: created_at,
+        updated_at: updated_at,
+      ))
   end
 
   def join_owner

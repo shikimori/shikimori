@@ -1,5 +1,4 @@
 class TopicsQuery < ChainableQueryBase
-  # pattr_initialize :forum, :user, :linked
   pattr_initialize :user
 
   def initialize user
@@ -70,14 +69,17 @@ private
   end
 
   def user_forums
-    where(
-      "forum_id in (:user_forums) or
-        type = :review_comment or
-        (type = :group_comment and #{Entry.table_name}.linked_id in (:user_clubs))",
-        user_forums: @user.preferences.forums.map(&:to_i),
-        review_comment: ReviewComment.name,
-        group_comment: GroupComment.name,
-        user_clubs: @user.group_roles.pluck(:group_id)
+    where("
+      forum_id in (:user_forums) or
+      type = :review_comment or
+      (
+        type = :group_comment and
+        #{Entry.table_name}.linked_id in (:user_clubs)
+      )",
+      user_forums: @user.preferences.forums.map(&:to_i),
+      review_comment: ReviewComment.name,
+      group_comment: GroupComment.name,
+      user_clubs: @user.group_roles.pluck(:group_id)
     )
   end
 end

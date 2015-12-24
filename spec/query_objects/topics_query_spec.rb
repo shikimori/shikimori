@@ -9,29 +9,47 @@ describe TopicsQuery do
   end
 
   describe '#by_forum' do
-    let!(:review) { create :review, created_at: 3.days.ago }
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
+    let!(:review) { create :review, updated_at: 10.days.ago }
+    let!(:joined_club) { create :group, :with_thread, updated_at: 15.days.ago }
+    let!(:other_club) { create :group, :with_thread, updated_at: 20.days.ago }
 
     context 'not specified: default' do
       before do
         user.preferences.forums = forums if user
+        joined_club.join user if user
         query.by_forum nil
       end
 
       context 'guest' do
         let(:user) { nil }
-        it { is_expected.to eq [seeded_offtopic_topic, anime_topic, offtop_topic] }
+        it do
+          is_expected.to eq [
+            seeded_offtopic_topic,
+            anime_topic,
+            offtop_topic,
+            review.thread,
+          ]
+        end
       end
 
       context 'all forums' do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
-        it { is_expected.to eq [seeded_offtopic_topic, anime_topic, offtop_topic] }
+        it do
+          is_expected.to eq [
+            seeded_offtopic_topic,
+            anime_topic,
+            offtop_topic,
+            review.thread,
+            joined_club.thread
+          ]
+        end
       end
 
       context 'specific forums' do
         let(:forums){ [animanga_forum.id] }
-        it { is_expected.to eq [anime_topic] }
+        it { is_expected.to eq [anime_topic, review.thread, joined_club.thread] }
       end
     end
 
