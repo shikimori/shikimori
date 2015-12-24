@@ -70,7 +70,7 @@ class Group < ActiveRecord::Base
   validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
 
-  TranslatorsID = 2
+  TRANSLATORSID = 2
 
   # для урлов
   def to_param
@@ -103,7 +103,7 @@ class Group < ActiveRecord::Base
 
   # группа ли это переводчиков
   def belongs_to_translators?
-    id == TranslatorsID
+    id == TRANSLATORSID
   end
 
   # число участников группы

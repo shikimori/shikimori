@@ -23,7 +23,7 @@ class AnimeOnline::Contributors
           :user_id,
           "sum(case when #{AnimeVideoReport.table_name}.kind='uploaded' then #{UPLOAD_SCORE} when #{AnimeVideoReport.table_name}.kind='broken' then #{BROKEN_SCORE} when #{AnimeVideoReport.table_name}.kind='wrong' then #{WRONG_SCORE} else 0 end) as score")
         .where(state: :accepted, kind: kinds)
-        .where.not(user_id: User::GuestID)
+        .where.not(user_id: User::GUEST_ID)
         .group(:user_id)
         .order('score desc')
         .limit(limit)

@@ -20,7 +20,7 @@ class Moderations::AbuseRequestsController < ModerationsController
         .includes(:user, :approver, comment: :commentable)
         .order(:created_at)
 
-      @moderators = User.where(id: User::Moderators - User::Admins).sort_by { |v| v.nickname.downcase }
+      @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     end
   end
 

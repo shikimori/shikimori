@@ -24,7 +24,7 @@ class AnimeVideoReport < ActiveRecord::Base
 
     if state
       reports.where! 'state = :state and user_id != :guest_id',
-        state: state, guest_id: User::GuestID
+        state: state, guest_id: User::GUEST_ID
     end
 
     reports.size

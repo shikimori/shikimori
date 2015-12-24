@@ -106,7 +106,7 @@ private
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
     create_thread!(
-      user_id: User::Cosplayer_ID,
+      user_id: User::COSPLAYER_ID,
       linked: self,
       forum_id: Forum::COSPLAY_ID,
       title: title

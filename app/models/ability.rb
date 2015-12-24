@@ -33,18 +33,18 @@ class Ability
     can :read, Review
 
     can [:create], Message do |message|
-      message.kind == MessageType::Private && message.from_id == User::GuestID && message.to_id == User::Admins.first
+      message.kind == MessageType::Private && message.from_id == User::GUEST_ID && message.to_id == User::ADMINS.first
     end
 
     can [:create], AnimeVideoReport do |report|
-      report.user_id == User::GuestID && (report.broken? || report.wrong?)
+      report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
 
     can [:create], Version do |version|
-      version.user_id == User::GuestID && (
+      version.user_id == User::GUEST_ID && (
         version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
       ).none?
     end

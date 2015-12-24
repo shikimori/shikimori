@@ -41,7 +41,7 @@ class SiteStatistics
   end
 
   def versions_moderators
-    User.where(id: User::VersionsModerators - User::Admins)
+    User.where(id: User::VERSIONS_MODERATORS - User::ADMINS)
   end
 
   def retired_moderators
@@ -49,17 +49,17 @@ class SiteStatistics
   end
 
   def forum_moderators
-    User.where(id: User::Moderators - User::Admins)
+    User.where(id: User::MODERATORS - User::ADMINS)
   end
 
   def cosplay_moderators
-    User.where(id: User::CosplayModerators - User::Admins)
+    User.where(id: User::COSPLAY_MODERATORS - User::ADMINS)
   end
 
   def translators
     User
       .joins(:versions)
-      .where.not(id: [1, User::GuestID] + BotsService.posters)
+      .where.not(id: [1, User::GUEST_ID] + BotsService.posters)
       .where(versions: { state: [:accepted, :taken] })
       .group('users.id')
       .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")

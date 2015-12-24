@@ -48,7 +48,7 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
     end
 
     context 'cant_check' do
-      before { create(:user, id: User::GuestID) unless User.find_by(id: User::GuestID) }
+      before { create(:user, id: User::GUEST_ID) unless User.find_by(id: User::GUEST_ID) }
       let(:url) { 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=3' }
 
       context 'not_guest' do
@@ -57,7 +57,7 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
       end
 
       context 'guest' do
-        let(:user) { User.find User::GuestID }
+        let(:user) { User.find User::GUEST_ID }
 
         context 'no_doubles' do
           it { should be_rejected }

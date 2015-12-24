@@ -15,8 +15,8 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
     it { expect(parser.extract_source('Site.ru')).to eq 'http://site.ru' }
     it { expect(parser.extract_source('http://site.ru')).to eq 'http://site.ru' }
     it { expect(parser.extract_source('© Алексей Мелихов, World Art')).to eq '© Алексей Мелихов, http://world-art.ru' }
-    it { expect(parser.extract_source('Espada Clan (c)')).to eq ReadMangaImportData::MangaTeams['espada clan'] }
-    it { expect(parser.extract_source('Copyright © Nomad Team')).to eq ReadMangaImportData::MangaTeams['nomad team'] }
+    it { expect(parser.extract_source('Espada Clan (c)')).to eq ReadMangaImportData::MANGA_TEAMS['espada clan'] }
+    it { expect(parser.extract_source('Copyright © Nomad Team')).to eq ReadMangaImportData::MANGA_TEAMS['nomad team'] }
     it { expect(parser.extract_source('Взято с animeshare.su')).to eq 'http://animeshare.su' }
     it { expect(parser.extract_source('(взято с animeshare.su)')).to eq 'http://animeshare.su' }
     it { expect(parser.extract_source('Kair', 'url')).to eq '© Kair, url' }

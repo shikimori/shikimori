@@ -91,7 +91,7 @@ module ReadMangaImportData
     love_rental
   }
 
-  MangaTeams = {
+  MANGA_TEAMS = {
     'goldenwind.org' => 'http://goldenwind.ucoz.org',
     'crazy paradise' => 'http://www.diary.ru/~crazy-paradise',
     'world art' => 'http://world-art.ru',
@@ -134,7 +134,7 @@ module ReadMangaImportData
     'espada clan' => 'http://espadaclan.ru'
   }
 
-  Translators = Set.new [
+  TRANSLATORS = Set.new [
     'colour_palette',
     'shinigami',
     'kair',

@@ -1,8 +1,8 @@
 FactoryGirl.define do
   factory :user do
     sequence(:nickname) { |n| "user_#{n}" }
-    email { FactoryGirl.generate(:email) }
-    password "123"
+    email { FactoryGirl.generate :email }
+    password '123'
     last_online_at Time.zone.now
 
     can_vote_1 false
@@ -20,39 +20,39 @@ FactoryGirl.define do
     end
 
     trait :guest do
-      id User::GuestID
+      id User::GUEST_ID
     end
 
     trait :admin do
-      id User::Admins.last
+      id User::ADMINS.last
     end
 
     trait :moderator do
-      id User::Moderators.last
+      id User::MODERATORS.last
     end
 
     trait :contests_moderator do
-      id User::ContestsModerators.last
+      id User::CONTEST_MODERATORS.last
     end
 
     trait :reviews_moderator do
-      id User::ReviewsModerators.last
+      id User::REVIEWS_MODERATORS.last
     end
 
     trait :video_moderator do
-      id User::VideoModerators.last
+      id User::VIDEO_MODERATORS.last
     end
 
     trait :versions_moderator do
-      id User::VersionsModerators.last
+      id User::VERSIONS_MODERATORS.last
     end
 
     trait :banhammer do
-      id User::Banhammer_ID
+      id User::BANHAMMER_ID
     end
 
     trait :cosplayer do
-      id User::Cosplayer_ID
+      id User::COSPLAYER_ID
     end
 
     trait :without_password do

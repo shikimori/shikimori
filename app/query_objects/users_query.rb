@@ -13,7 +13,7 @@ class UsersQuery
     query = User.find(@params[:user_id])
       .bans
       .where('created_at > ?', DateTime.now - Ban::ACTIVE_DURATION)
-      .where.not(moderator_id: User::Banhammer_ID)
+      .where.not(moderator_id: User::BANHAMMER_ID)
 
     warnings = query.where(duration: 0).count
     bans = query.where.not(duration: 0).count

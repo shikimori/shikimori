@@ -185,7 +185,7 @@ describe Version do
       subject { Ability.new nil }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user_id: User::GuestID,
+        let(:version) { build_stubbed :version, user_id: User::GUEST_ID,
           item_diff: item_diff }
         let(:item_diff) {{ russian: ['a','b'] }}
 

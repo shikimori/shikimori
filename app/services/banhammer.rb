@@ -260,7 +260,7 @@ private
       comment: comment,
       duration: duration,
       reason: "п.3 [url=http://shikimori.org/s/79042-pravila-sayta]правил сайта[/url]",
-      moderator: User.find(User::Banhammer_ID)
+      moderator: User.find(User::BANHAMMER_ID)
     )
   end
 

@@ -372,7 +372,7 @@ describe User do
       end
 
       context 'admin' do
-        let(:user) { build_stubbed :user, id: User::Admins.first }
+        let(:user) { build_stubbed :user, id: User::ADMINS.first }
         it { is_expected.to be_able_to :edit, profile }
         it { is_expected.to be_able_to :update, profile }
       end

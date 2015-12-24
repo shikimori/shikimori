@@ -1,6 +1,6 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.publish({ data: { comment_id: 2919 } }, ['/topic-77141'])
-# FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/section-1'])
+# FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/forum-1'])
 class FayePublisher
   BroadcastFeed = 'myfeed'
 
@@ -69,7 +69,7 @@ private
     }
 
     mixed_channels = channels + subscribed_channels(topic) +
-      ["#{@namespace}/section-#{topic.forum_id}", "#{@namespace}/topic-#{topic.id}"]
+      ["#{@namespace}/forum-#{topic.forum_id}", "#{@namespace}/topic-#{topic.id}"]
 
     publish_data data, mixed_channels
   end
@@ -139,9 +139,9 @@ private
 
     # уведомление в открытые разделы
     if topic.kind_of? GroupComment
-      mixed_channels += ["#{@namespace}/group-#{topic.linked_id}"]
+      mixed_channels += ["#{@namespace}/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
-      mixed_channels += ["#{@namespace}/section-#{topic.forum_id}"]
+      mixed_channels += ["#{@namespace}/forum-#{topic.forum_id}"]
     end
 
     mixed_channels

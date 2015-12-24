@@ -4,7 +4,7 @@ describe AnimeOnline::AdsPolicy do
   describe 'show_ad?' do
     subject { policy.show_ad? host, user, anime }
 
-    let(:guest_user) { build :user, id: User::GuestID }
+    let(:guest_user) { build :user, id: User::GUEST_ID }
     let(:trust_user) { build :user, id: 11496 }
     let(:admin_user) { build :user, :admin }
     let(:simple_user) { build :user, id: 444 }

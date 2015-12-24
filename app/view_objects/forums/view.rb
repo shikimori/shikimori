@@ -28,8 +28,11 @@ class Forums::View < ViewObjectBase
   def faye_subscriptions
     case forum && forum.permalink
       when nil
-        Forum.real.map {|v| "forum-#{v.id}" } +
-          h.current_user.groups.map { |v| "group-#{v.id}" }
+        user_forums = h.current_user.preferences.forums.select(&:present?)
+        user_clubs = h.current_user.groups
+
+        user_forums.map { |id| "forum-#{id}" } +
+          user_clubs.map { |club| "club-#{club.id}" }
 
       #when Forum::static[:feed].permalink
         #["user-#{current_user.id}", FayePublisher::BroadcastFeed]

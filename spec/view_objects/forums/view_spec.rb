@@ -22,7 +22,7 @@ describe Forums::View do
     end
   end
 
-  describe '#topics' do
+  describe '#topics', :focus do
     it do
       expect(view.topics).to have(1).item
       expect(view.topics.first).to be_kind_of Topics::View

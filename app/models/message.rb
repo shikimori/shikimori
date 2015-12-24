@@ -23,7 +23,7 @@ class Message < ActiveRecord::Base
     return if BotsService.posters.include?(from_id)
     return if kind == MessageType::Notification
     return if kind == MessageType::GroupRequest
-    return if User::Admins.include?(from_id)
+    return if User::ADMINS.include?(from_id)
 
     prior_comment = Message
       .includes(:from, :to)

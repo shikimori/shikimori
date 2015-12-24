@@ -41,7 +41,7 @@ class UserDecorator < BaseDecorator
       i18n_t 'always_online'
     elsif object.banhammer? || object.bot?
       i18n_t 'always_online_bot'
-    elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GuestID
+    elsif Time.zone.now - 5.minutes <= last_online_at || object.id == User::GUEST_ID
       i18n_t 'online'
     else
       i18n_t 'offline',
@@ -62,7 +62,7 @@ class UserDecorator < BaseDecorator
 
   def avatar_url size
     if avatar.exists?
-      if User::CensoredAvatarIds.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CensoredAvatarIds.include?(h.current_user.id)))
+      if User::CENCORED_AVATAR_IDS.include?(id) && (!h.user_signed_in? || (h.user_signed_in? && !User::CENCORED_AVATAR_IDS.include?(h.current_user.id)))
         "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" % [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
       else
         ImageUrlGenerator.instance.url object, "x#{size}".to_sym

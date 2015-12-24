@@ -17,6 +17,10 @@ class UserPreferences < ActiveRecord::Base
 
   before_create :set_forums unless Rails.env.test?
 
+  after_initialize do
+    # binding.pry
+  end
+
   def default_sort
     super || (russian_names? ? 'russian' : 'name')
   end
@@ -68,6 +72,12 @@ class UserPreferences < ActiveRecord::Base
   # TODO: выпилить это поле из базы и из кода
   def postload_in_catalog?
     postload_in_catalog
+  end
+
+  def forums= values
+    super
+    binding.pry
+    values
   end
 
 private

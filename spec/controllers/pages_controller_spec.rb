@@ -62,7 +62,7 @@ describe PagesController do
   describe 'feedback' do
     before do
       create :user, id: 1
-      create :user, id: User::GuestID
+      create :user, id: User::GUEST_ID
       get :feedback
     end
 
