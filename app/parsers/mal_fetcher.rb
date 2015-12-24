@@ -156,23 +156,6 @@ module MalFetcher
     #scores
   #end
 
-  # загрузка изображений элемента
-  def fetch_entry_pictures(id)
-    content = get(entry_url(id) + '/1/pictures')
-
-    images = []
-
-    doc = Nokogiri::HTML(content).css('.picSurround > img')
-    doc.each do |image_node|
-      image = image_node['src']
-
-      unless images.include? image
-        images << image
-      end
-    end
-    images
-  end
-
 private
 
   def parse_block(entry, key, regexp, content)
