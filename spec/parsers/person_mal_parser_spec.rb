@@ -15,17 +15,12 @@ describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
 
   it 'fetches person data' do
     data = parser.fetch_entry_data(person_id)
-    expect(data[:name]).to eq('Tomokazu Seki')
+    expect(data[:name]).to eq 'Tomokazu Seki'
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
-    expect(data).to include(:given_name)
-    expect(data).to include(:family_name)
-    expect(data).to include(:japanese)
-    expect(data).to include(:birthday)
-  end
-
-  it 'fetches person images' do
-    images = parser.fetch_entry_pictures(person_id)
-    expect(images.size).to eq(5)
+    expect(data).to include :given_name
+    expect(data).to include :family_name
+    expect(data).to include :japanese
+    expect(data).to include :birthday
   end
 
   it 'fetches the whole entry' do

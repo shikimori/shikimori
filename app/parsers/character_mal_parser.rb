@@ -32,7 +32,7 @@ class CharacterMalParser < BaseMalParser
     doc = Nokogiri::HTML(content)
 
     # общие данные
-    title_doc = doc.css(".breadcrumb + .normal_header")
+    title_doc = doc.css('.breadcrumb + .normal_header')
 
     if title_doc.text.match(/^(.*?) ?\((.*)\)$/)
       entry[:name] = cleanup($1)
@@ -43,7 +43,7 @@ class CharacterMalParser < BaseMalParser
       raise "name not parsed, id: %i" % id
     end
 
-    entry[:fullname] = cleanup(doc.css("h1").text.gsub("  ", " "))
+    entry[:fullname] = cleanup doc.css('h1').text.gsub('  ', ' ')
 
     description_doc = doc.css('#content > table > tr > td:nth-child(2)')
     entry[:description_en] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
@@ -52,14 +52,7 @@ class CharacterMalParser < BaseMalParser
       ""
     end
 
-    img_doc = doc.css("td.borderClass > div > img")
-
-    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
-      entry[:img] = doc.css('td.borderClass').first()
-        .css('> div > a > img').first.try(:attr, :src)
-    else
-      entry[:img] = img_doc.first.attr(:src)
-    end
+    entry[:img] = extract_poster doc
 
     # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
@@ -96,5 +89,18 @@ class CharacterMalParser < BaseMalParser
     ActiveRecord::Base.connection.
       execute("insert into person_roles (role, character_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
+  end
+
+private
+
+  def extract_poster doc
+    img_doc = doc.css('td.borderClass > div > img')
+
+    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+      doc.css('td.borderClass').first()
+        .css('> div > a > img').first.try(:attr, :src)
+    else
+      img_doc.first.attr(:src)
+    end
   end
 end

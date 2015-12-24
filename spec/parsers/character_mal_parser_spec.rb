@@ -28,7 +28,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
 
   it 'has correct image' do
     data = parser.fetch_entry_data 135627
-    expect(data[:img]).to be_nil
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/characters/14/296499.jpg'
   end
 
   describe 'import' do
