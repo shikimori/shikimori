@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222195233) do
+ActiveRecord::Schema.define(version: 20151224041945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -813,17 +813,6 @@ ActiveRecord::Schema.define(version: 20151222195233) do
     t.text     "ani_db_description"
     t.string   "website",            limit: 255
   end
-
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "target_id"
-    t.string   "target_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "subscriptions", ["user_id", "target_type"], name: "index_subscriptions_on_user_id_and_target_type", using: :btree
-  add_index "subscriptions", ["user_id"], name: "index_subscriptions_on_user_id", using: :btree
 
   create_table "svds", force: :cascade do |t|
     t.binary   "entry_ids"

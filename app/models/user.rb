@@ -64,7 +64,6 @@ class User < ActiveRecord::Base
 
   has_many :versions, dependent: :destroy
 
-  has_many :subscriptions, dependent: :destroy
   has_many :contest_user_votes, dependent: :destroy
 
   has_many :comment_views, dependent: :destroy
@@ -251,23 +250,6 @@ class User < ActiveRecord::Base
       from_id: comment.user_id,
       kind: MessageType::ProfileCommented
     )
-  end
-
-  # подписка на элемент
-  def subscribe entry
-    subscriptions << Subscription.create!(user_id: id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
-  end
-
-  # отписка от элемента
-  def unsubscribe entry
-    subscriptions
-      .select {|v| v.target_id == entry.id && v.target_type == entry.class.name }
-      .each {|v| v.destroy }
-  end
-
-  # подписан ли пользователь на элемент?
-  def subscribed? entry
-    subscriptions.any? {|v| v.target_id == entry.id && v.target_type == entry.class.name }
   end
 
   def ignores? user

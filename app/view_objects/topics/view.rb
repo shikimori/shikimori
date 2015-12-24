@@ -76,10 +76,6 @@ class Topics::View < ViewObjectBase
     ["topic-#{topic.id}"].to_json
   end
 
-  def subscribed?
-    h.current_user.subscribed? topic
-  end
-
   def author_in_header?
     true
   end

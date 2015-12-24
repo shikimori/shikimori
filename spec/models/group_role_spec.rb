@@ -35,25 +35,6 @@ describe GroupRole do
     it { expect{group_role.destroy}.to change(GroupInvite, :count).by -1 }
   end
 
-  #it 'subscribes user to group thread' do
-    #expect {
-      #group.members << user
-    #}.to change(Subscription, :count).by 1
-
-    #user.subscribed?(group.thread).should be_truthy
-  #end
-
-  #it 'unsubscribes user from group thread' do
-    #group.members << user
-
-    #expect {
-      #group.member_roles.where(user_id: user.id).first.destroy
-    #}.to change(Subscription, :count).by -1
-
-    #user.reload
-    #user.subscribed?(group.thread).should be_falsy
-  #end
-
   describe 'permissions' do
     let(:club) { build_stubbed :group, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user }

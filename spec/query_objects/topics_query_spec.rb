@@ -9,6 +9,7 @@ describe TopicsQuery do
   end
 
   describe '#by_forum' do
+    let!(:review) { create :review, created_at: 3.days.ago }
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
 
@@ -35,7 +36,6 @@ describe TopicsQuery do
     end
 
     context 'special forum: reviews' do
-      let!(:review) { create :review }
       before { query.by_forum reviews_forum }
 
       it { is_expected.to eq [review.thread] }

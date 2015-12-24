@@ -773,9 +773,6 @@ Site::Application.routes.draw do
       end
     end
 
-    #post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
-    delete 'subscriptions/:type/:id' => 'subscriptions#destroy', as: :subscribe
-
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/
 

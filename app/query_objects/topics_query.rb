@@ -69,12 +69,6 @@ private
       .where('animes.id is null or animes.censored=false')
   end
 
-  # def user_subscription_ids
-    # Subscription
-      # .where(user_id: user.id, target_type: Entry::Types)
-      # .pluck(:target_id)
-  # end
-
   def user_forums
     where(
       "forum_id in (:user_forums) or
