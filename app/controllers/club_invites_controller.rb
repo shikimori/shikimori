@@ -21,13 +21,14 @@ class ClubInvitesController < ShikimoriController
   end
 
 private
-  def group_invite_params
-    params.require(:group_invite).permit([:group_id, :src_id, :dst_id])
+
+  def club_invite_params
+    params.require(:club_invite).permit([:club_id, :src_id, :dst_id])
   end
 
   def find_user
-    params[:group_invite][:dst_id] = nil if params[:group_invite][:dst_id].blank?
-    matched_user = User.find_by nickname: params[:group_invite][:dst_id]
-    params[:group_invite][:dst_id] = matched_user.id if matched_user
+    params[:club_invite][:dst_id] = nil if params[:club_invite][:dst_id].blank?
+    matched_user = User.find_by nickname: params[:club_invite][:dst_id]
+    params[:club_invite][:dst_id] = matched_user.id if matched_user
   end
 end

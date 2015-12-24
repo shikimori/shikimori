@@ -2,7 +2,7 @@
   $menu = $('.b-clubs-menu')
   $actions_block = $('.actions', $menu)
   $invite_block = $menu.children('.invite')
-  $nickname_input = $('#group_invite_dst_id', $invite_block)
+  $nickname_input = $('#club_invite_dst_id', $invite_block)
 
   # нажатие Пригласить в клуб
   $('.invite', $actions_block).on 'click', ->

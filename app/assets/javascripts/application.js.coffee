@@ -10,13 +10,13 @@
 #= require pages/p-people
 #= require pages/p-characters
 #= require pages/p-contests
-#= require pages/p-clubs
 #= require pages/p-dialogs
 #= require pages/p-messages
 #= require pages/p-userlist_comparer
 #= require pages/p-translations
 #= require pages/p-achievements
 #= require pages/p-versions
+#= require_directory ./pages/p-clubs
 #= require_directory ./pages/p-reviews
 #= require_directory ./pages/p-profiles
 #= require_directory ./pages/p-user_rates
