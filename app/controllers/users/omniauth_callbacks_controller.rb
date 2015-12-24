@@ -1,23 +1,16 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   before_filter :set_omniauth_data
 
-  def twitter
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
-    end
-  end
+  EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
 
-  def vkontakte
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+  def authorize
+    Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
     end
   end
-
-  def facebook
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
-      omniauthorize_additional_account || omniauth_sign_in || omniauth_sign_up
-    end
-  end
+  alias_method :twitter, :authorize
+  alias_method :vkontakte, :authorize
+  alias_method :facebook, :authorize
 
 private
 
@@ -25,50 +18,57 @@ private
     return false unless user_signed_in?
 
     if @preexisting_token && @preexisting_token != current_user
-      flash[:alert] = "Выбранный %s аккаунт уже подключён к другому пользователю сайта" % @omni.provider.titleize
+      flash[:alert] = "Выбранный %s аккаунт уже подключён к другому пользователю сайта" % omniauth_data.provider.titleize
     else
-      OmniauthService.new(current_user, @omni).populate
+      OmniauthService.new(current_user, omniauth_data).populate
       current_user.save
 
-      flash[:notice] = "Подключена авторизация через %s" % @omni.provider.titleize
+      flash[:notice] = "Подключена авторизация через %s" % omniauth_data.provider.titleize
     end
-    redirect_to edit_profile_url(current_user)
+    redirect_to edit_profile_url current_user
   end
 
   def omniauth_sign_in
     return false unless @preexisting_token && @preexisting_token.user
+    @resource = @preexisting_token.user
 
-    flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: @omni.provider.titleize
-    @preexisting_token.user.remember_me = true
-    sign_in_and_redirect :user, @preexisting_token.user
+    flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: omniauth_data.provider.titleize
+    @resource.remember_me = true
+    sign_in_and_redirect :user, @resource
     true
   end
 
   def omniauth_sign_up
-    user = User.new
-    OmniauthService.new(user, @omni).populate
+    @resource = User.new
+    OmniauthService.new(@resource, omniauth_data).populate
 
-    if @omni.provider == 'yandex' || @omni.provider == 'google_apps'
+    if omniauth_data.provider == 'yandex' || omniauth_data.provider == 'google_apps'
       redirect_to :disabled_registration
       return
     end
 
-    user.save rescue PG::UniqueViolation
-
-    if user.errors.any?
-      nickname = user.nickname
-      email = user.email
+    unless safe_save @resource
+      nickname = @resource.nickname
+      email = @resource.email
 
       (2..100).each do |i|
-        user.nickname = "#{nickname}#{i}" if user.errors.include?(:nickname)
-        user.email = email.sub('@', "+#{i}@") if user.errors.include?(:email)
-        break if (user.save rescue PG::UniqueViolation)
+        if @resource.errors.include? :nickname
+          @resource.nickname = "#{nickname}#{i}"
+        end
+
+        if @resource.errors.include? :email
+          @resource.email = email.sub '@', "+#{i}@"
+        end
+
+        break if safe_save @resource
       end
     end
 
-    flash[:notice] = I18n.t "devise.omniauth_callbacks.register", kind: @omni.provider.titleize
-    user.remember_me = true
-    sign_in_and_redirect :user, user
+    flash[:notice] = I18n.t 'devise.omniauth_callbacks.register',
+      kind: omniauth_data.provider.titleize
+
+    @resource.remember_me = true
+    sign_in_and_redirect :user, @resource
   end
 
   def set_omniauth_data
@@ -84,8 +84,21 @@ private
       end
       false
     else
-      @preexisting_token = UserToken.find_by provider: @omni.provider, uid: @omni.uid
+      @preexisting_token = UserToken.find_by(
+        provider: @omni.provider,
+        uid: @omni.uid
+      )
     end
+  end
 
+  def omniauth_data
+    @omni
+  end
+
+  def safe_save user
+    @resource.save
+
+  rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
+    false
   end
 end

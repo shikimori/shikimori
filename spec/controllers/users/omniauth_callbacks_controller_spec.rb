@@ -7,11 +7,11 @@ describe Users::OmniauthCallbacksController do
       let(:token_number) { '123456789iouhg' }
 
       before do
-        request.env["devise.mapping"] = Devise.mappings[:user]
+        request.env['devise.mapping'] = Devise.mappings[:user]
         @controller.env['omniauth.auth'] = DeepStruct.new(
           provider: provider.to_s,
           uid: uid,
-          credentials: {token: token_number, refresh_token: token_number},
+          credentials: { token: token_number, refresh_token: token_number },
           info: {
             email: 'test@test.com',
             name: 'test'
@@ -32,12 +32,17 @@ describe Users::OmniauthCallbacksController do
           before { make_request }
           it { expect(response).to redirect_to :root }
         end
+
+        context 'present nickname' do
+          let!(:user) { create :user, nickname: 'test' }
+          before { make_request }
+          it { expect(resource.nickname).to eq 'test2' }
+        end
       end
 
       context 'with token' do
-        let(:user) { create :user }
-        before { create :user }
-        before { create :user_token, user: user, uid: uid, provider: provider }
+        let!(:user) { create :user }
+        let!(:user_token) { create :user_token, user: user, uid: uid, provider: provider }
 
         let(:make_request) { get provider }
 
