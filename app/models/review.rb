@@ -1,4 +1,3 @@
-# сущность обзора аниме или манги
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable

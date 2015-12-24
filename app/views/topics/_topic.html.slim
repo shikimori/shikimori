@@ -10,7 +10,23 @@
     data-generated="#{view.topic.generated?}"
     data-faye="#{view.faye_channel}"
     data-appear_type="entry"
+    itemscope
+    itemtype="#{view.topic.review? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
   ]
+    meta itemprop="author" content="#{view.topic.user.nickname}"
+    meta itemprop="name" content="#{view.topic_title}"
+    meta itemprop="headline" content="#{view.topic_title}"
+    meta itemprop="url" content="#{UrlGenerator.instance.topic_url view.topic}"
+    meta[
+      itemscope
+      itemprop="mainEntityOfPage"
+      itemType="https://schema.org/WebPage"
+      itemid="#{UrlGenerator.instance.topic_url view.topic}"
+    ]
+    meta itemprop="dateCreated" content="#{view.created_at.iso8601}"
+    meta itemprop="datePublished" content="#{view.created_at.iso8601}"
+    meta itemprop="dateModified" content="#{view.updated_at.iso8601}"
+
     a name="topic-#{view.topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
     - if view.show_body?
@@ -38,7 +54,9 @@
                 entry: view.topic.linked.target.decorate
 
             .body-truncated
-              .body-truncated-inner
+              .body-truncated-inner[
+                itemprop="#{view.topic.review? ? :reviewBody : :articleBody}"
+              ]
                 = view.html_body_truncated
 
           - else

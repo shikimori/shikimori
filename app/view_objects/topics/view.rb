@@ -1,7 +1,8 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
+  delegate :id, :persisted?, :user, :created_at, :updated_at,
+    :body, :comments_count, :viewed?, to: :topic
   instance_cache :comments, :urls, :action_tag
 
   def ignored?
