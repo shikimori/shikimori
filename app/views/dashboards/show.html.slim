@@ -94,6 +94,13 @@
       / - else
       div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    .midheadline.yellow = t '.anime_updates'
+    .midheadline.yellow
+      = t '.anime_updates'
+      a.b-link[
+        href="#{forum_topics_url :updates}"
+        title="#{t '.all_updates'}"
+      ] = t '.all_updates'
     div
-      = render partial: 'topics/topic', collection: @view.generated_news, as: :view
+      = render partial: 'topics/topic',
+        collection: @view.generated_news,
+        as: :view
