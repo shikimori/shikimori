@@ -53,18 +53,31 @@ describe TopicsQuery do
       end
     end
 
-    context 'special forum: reviews' do
+    context 'reviews' do
       before { query.by_forum reviews_forum }
-
       it { is_expected.to eq [review.thread] }
     end
 
-    # context 'special forum: news' do
-      # let!(:news_topic) { create :anime_news }
-      # before { query.by_forum Forum.static[:news] }
+    context 'news' do
+      let!(:generated_news) { create :anime_news, created_at: 1.day.ago, generated: true }
+      let!(:anime_news) { create :anime_news, created_at: 1.day.ago }
+      let!(:manga_news) { create :manga_news, created_at: 2.days.ago }
+      let!(:cosplay_news) { create :cosplay_comment, created_at: 3.days.ago,
+        linked: cosplay_gallery }
+      let(:cosplay_gallery) { create :cosplay_gallery, :anime }
+      before { query.by_forum Forum::NEWS_FORUM }
 
-      # it { is_expected.to eq [news_topic] }
-    # end
+      it { is_expected.to eq [anime_news, manga_news, cosplay_news] }
+    end
+
+    context 'updates' do
+      let!(:anime_news) { create :anime_news, created_at: 1.day.ago, generated: true }
+      let!(:manga_news) { create :manga_news, created_at: 2.days.ago, generated: true }
+      let!(:regular_news) { create :anime_news }
+      before { query.by_forum Forum::UPDATES_FORUM }
+
+      it { is_expected.to eq [anime_news, manga_news] }
+    end
 
     context 'specific forum' do
       before { query.by_forum animanga_forum }

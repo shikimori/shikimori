@@ -52,18 +52,14 @@ class DashboardView < ViewObjectBase
 
   def user_news
     TopicsQuery.new(h.current_user)
-      .by_forum(Forum.static[:news])
-      .where(generated: false)
-      .order!(created_at: :desc)
+      .by_forum(Forum::NEWS_FORUM)
       .limit(5)
       .as_views(true, true)
   end
 
   def generated_news
     TopicsQuery.new(h.current_user)
-      .by_forum(Forum.static[:news])
-      .where(generated: true)
-      .order!(created_at: :desc)
+      .by_forum(Forum::UPDATES_FORUM)
       .limit(15)
       .as_views(true, true)
   end

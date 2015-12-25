@@ -27,6 +27,11 @@ FactoryGirl.define do
       forum { seed :animanga_forum }
     end
 
+    factory :manga_news, class: 'MangaNews' do
+      type 'MangaNews'
+      forum { seed :animanga_forum }
+    end
+
     after :build do |topic|
       topic.class.skip_callback :create, :before, :check_antispam
     end

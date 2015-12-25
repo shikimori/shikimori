@@ -21,8 +21,15 @@ class TopicsQuery < ChainableQueryBase
         where forum_id: forum.id
         order! created_at: :desc
 
-      # when Forum.static[:news].permalink
-        # where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
+      when Forum::NEWS_FORUM.permalink
+        where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
+        where generated: false
+        order! created_at: :desc
+
+      when Forum::UPDATES_FORUM.permalink
+        where type: [AnimeNews.name, MangaNews.name]
+        where generated: true
+        order! created_at: :desc
 
       else
         where forum_id: forum.id
@@ -55,7 +62,7 @@ private
   end
 
   def except_generated forum
-    @relation = if forum && forum.permalink == 'news'
+    @relation = if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
       @relation.wo_episodes
     else
       @relation.wo_empty_generated
