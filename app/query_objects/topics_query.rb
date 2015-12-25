@@ -1,6 +1,12 @@
 class TopicsQuery < ChainableQueryBase
   pattr_initialize :user
 
+  FORUMS_QUERY = 'forum_id in (:user_forums)'
+  MY_CLUBS_QUERY = "(
+    type = #{Entry.sanitize ClubComment.name} and
+    #{Entry.table_name}.linked_id in (:user_clubs)
+  )"
+
   def initialize user
     @user = user
     @relation = prepare_query
@@ -30,6 +36,9 @@ class TopicsQuery < ChainableQueryBase
         where type: [AnimeNews.name, MangaNews.name]
         where generated: true
         order! created_at: :desc
+
+      when Forum::MY_CLUBS_FORUM.permalink
+        where MY_CLUBS_QUERY, user_clubs: @user.club_roles.pluck(:club_id)
 
       else
         where forum_id: forum.id
@@ -76,17 +85,14 @@ private
   end
 
   def user_forums
-    where("
-      forum_id in (:user_forums) or
-      type = :review_comment or
-      (
-        type = :club_comment and
-        #{Entry.table_name}.linked_id in (:user_clubs)
-      )",
-      user_forums: @user.preferences.forums.map(&:to_i),
-      review_comment: ReviewComment.name,
-      club_comment: ClubComment.name,
-      user_clubs: @user.club_roles.pluck(:club_id)
-    )
+    if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
+      where(
+        "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+        user_forums: @user.preferences.forums.map(&:to_i),
+        user_clubs: @user.club_roles.pluck(:club_id)
+      )
+    else
+      where FORUMS_QUERY, user_forums: @user.preferences.forums.map(&:to_i)
+    end
   end
 end

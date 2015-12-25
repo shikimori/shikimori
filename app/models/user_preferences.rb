@@ -73,6 +73,6 @@ class UserPreferences < ActiveRecord::Base
 private
 
   def set_forums
-    self.forums = Forums::List.new.map(&:id)
+    self.forums = Forums::List.defaults
   end
 end

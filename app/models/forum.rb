@@ -13,8 +13,10 @@ class Forum < ActiveRecord::Base
   CONTESTS_ID = 13
   COSPLAY_ID = 15
 
-  NEWS_FORUM = new permalink: 'news'
-  UPDATES_FORUM = new permalink: 'updates'
+  NEWS_FORUM = new permalink: 'news', name: 'Лента новостей'
+  UPDATES_FORUM = new permalink: 'updates', name: 'Обновления аниме'
+  MY_CLUBS_FORUM = new permalink: 'my_clubs', name: 'Мои клубы'
+  def MY_CLUBS_FORUM.id; permalink; end
 
   def to_param
     permalink
@@ -32,7 +34,9 @@ class Forum < ActiveRecord::Base
     end
 
     def find_by_permalink permalink
-      cached.find { |v| v.permalink == permalink }
+      (cached + [NEWS_FORUM, UPDATES_FORUM, MY_CLUBS_FORUM]).find do |forum|
+        forum.permalink == permalink
+      end
     end
 
   private

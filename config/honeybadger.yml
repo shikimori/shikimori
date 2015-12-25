@@ -6,13 +6,14 @@ development_environments:
 exceptions:
   ignore:
     - CanCan::AccessDenied
+    - ActionController::InvalidAuthenticityToken
+    - ActionController::UnknownFormat
+    - ActiveRecord::RecordNotFound
+    - I18n::InvalidLocale
+    - Unicorn::ClientShutdown
     - NotFound
     - Unauthorized
     - Forbidden
     - AgeRestricted
-    - ActionController::InvalidAuthenticityToken
-    - ActionController::UnknownFormat
-    - ActiveRecord::RecordNotFound
-    - Unicorn::ClientShutdown
-    - MismatchedEntries'
+    - MismatchedEntries
     - CopyrightedResource

@@ -12,9 +12,8 @@ describe TopicsController do
 
   before do
     Topic.antispam = false
-    Forum.instance_variable_set :@static, nil
+    Forum.instance_variable_set :@cached, nil
     Forum.instance_variable_set :@with_aggregated, nil
-    Forum.instance_variable_set :@real, nil
   end
 
   describe '#index' do

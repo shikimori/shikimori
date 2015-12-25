@@ -6,10 +6,10 @@ ru:
     status_line:
       from: от
       about: о
-    page:
-      reload_forum: обновить форум
-      # contests: Опросы
+    menu_actions:
       create_topic: Создать тему
+      reload_forum: обновить форум
+    page:
       no_topics: Нет топиков
     menu:
       # forum: Форум

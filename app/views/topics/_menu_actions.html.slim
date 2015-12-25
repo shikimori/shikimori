@@ -1,0 +1,47 @@
+- unless ['new', 'create'].include? params[:action]
+  .forums
+    - if user_signed_in?
+      a.b-link_button.dark.create-topic[
+        href="#{menu.new_topic_url}"
+      ] = t '.create_topic'
+    - else
+      a.b-link_button.dark.create-topic.to-process[
+        data-dynamic="authorized"
+      ] = t '.create_topic'
+
+    - if menu.changeable_forums?
+      = simple_form_for current_user.preferences,
+          url: profile_user_preferences_url(current_user),
+          remote: true do |f|
+        input[
+          type="hidden"
+          name="user_preferences[forums][]"
+          value=""
+        ]
+        - menu.forums.each do |forum|
+          .forum class="#{forum.is_special ? :special : :common}"
+            - if current_user.preferences.forums.include?(forum.id.to_s)
+              input[
+                type="checkbox"
+                name="user_preferences[forums][]"
+                value="#{forum.id}"
+                checked
+              ]
+            - else
+              input[
+                type="checkbox"
+                name="user_preferences[forums][]"
+                value="#{forum.id}"
+              ]
+
+            a.link href="#{forum.url}" = forum.name
+            - if forum.size
+              .threads #{forum.size} #{i18n_i 'topic', forum.size}
+        .ajax-loading.vk-like
+        a.reload href="#{forum_url}" = t '.reload_forum'
+
+    - else
+      - menu.forums.each do |forum|
+        .forum class="#{forum.is_special ? :special : :common}"
+          a.link href="#{forum.url}" = forum.name
+          .threads #{forum.size} #{i18n_i 'topic', forum.size}

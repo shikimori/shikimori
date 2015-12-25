@@ -6,10 +6,10 @@ en:
     status_line:
       from: from
       about: about
-    page:
-      reload_forum: refresh forum
-      # contests: Contests
+    menu_actions:
       create_topic: Create a Topic
+      reload_forum: refresh forum
+    page:
       no_topics: No topics
     menu:
       # forum: Forum

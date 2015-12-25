@@ -15,41 +15,45 @@ describe TopicsQuery do
     let!(:joined_club) { create :club, :with_thread, updated_at: 15.days.ago }
     let!(:other_club) { create :club, :with_thread, updated_at: 20.days.ago }
 
-    context 'not specified: default' do
+    before { joined_club.join user if user }
+
+    context 'user defined forums' do
       before do
         user.preferences.forums = forums if user
-        joined_club.join user if user
         query.by_forum nil
       end
 
-      context 'guest' do
+      context 'no user' do
         let(:user) { nil }
         it do
           is_expected.to eq [
             seeded_offtopic_topic,
             anime_topic,
             offtop_topic,
-            review.thread,
+            review.thread
           ]
         end
       end
 
-      context 'all forums' do
+      context 'group of forums' do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
         it do
           is_expected.to eq [
             seeded_offtopic_topic,
             anime_topic,
-            offtop_topic,
-            review.thread,
-            joined_club.thread
+            offtop_topic
           ]
         end
       end
 
-      context 'specific forums' do
+      context 'my_clubs forum' do
+        let(:forums){ [Forum::MY_CLUBS_FORUM.permalink] }
+        it { is_expected.to eq [joined_club.thread] }
+      end
+
+      context 'common forums' do
         let(:forums){ [animanga_forum.id] }
-        it { is_expected.to eq [anime_topic, review.thread, joined_club.thread] }
+        it { is_expected.to eq [anime_topic] }
       end
     end
 
@@ -58,7 +62,7 @@ describe TopicsQuery do
       it { is_expected.to eq [review.thread] }
     end
 
-    context 'news' do
+    context 'NEWS' do
       let!(:generated_news) { create :anime_news, created_at: 1.day.ago, generated: true }
       let!(:anime_news) { create :anime_news, created_at: 1.day.ago }
       let!(:manga_news) { create :manga_news, created_at: 2.days.ago }
@@ -70,7 +74,7 @@ describe TopicsQuery do
       it { is_expected.to eq [anime_news, manga_news, cosplay_news] }
     end
 
-    context 'updates' do
+    context 'UPDATES' do
       let!(:anime_news) { create :anime_news, created_at: 1.day.ago, generated: true }
       let!(:manga_news) { create :manga_news, created_at: 2.days.ago, generated: true }
       let!(:regular_news) { create :anime_news }
@@ -79,7 +83,15 @@ describe TopicsQuery do
       it { is_expected.to eq [anime_news, manga_news] }
     end
 
-    context 'specific forum' do
+    context 'MY_CLUBS' do
+      let!(:joined_club_2) { create :club, :with_thread, updated_at: 25.days.ago }
+      before { joined_club_2.join user if user }
+      before { query.by_forum Forum::MY_CLUBS_FORUM }
+
+      it { is_expected.to eq [joined_club.thread, joined_club_2.thread] }
+    end
+
+    context 'common forum' do
       before { query.by_forum animanga_forum }
       it { is_expected.to eq [anime_topic] }
     end

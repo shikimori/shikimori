@@ -357,7 +357,7 @@ Site::Application.routes.draw do
       get '/' => 'topics#index',  as: :forum
       scope(
         '(/:forum)(/:linked_type-:linked_id)',
-        forum: /animanga|site|offtopic|clubs|reviews|cosplay|contests|news|games|vn/,
+        forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|games|vn/,
         linked_type: /anime|manga|character|person|club/,
         format: /html|json|rss/
       ) do

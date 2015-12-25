@@ -81,7 +81,7 @@ class DashboardView < ViewObjectBase
   end
 
   def forums
-    Forums::List.new
+    Forums::List.new.select { |forum| !forum.is_special }
   end
 
   def pages
