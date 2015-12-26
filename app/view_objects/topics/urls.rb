@@ -4,7 +4,7 @@ class Topics::Urls < ViewObjectBase
   # адрес заголовка топика
   def poster_url
     if is_preview
-      h.topic_url topic
+      topic_url
     else
       h.profile_url topic.user
     end
@@ -35,5 +35,9 @@ class Topics::Urls < ViewObjectBase
 
   def subscribe_url
     h.subscribe_url type: topic.class.name, id: topic.id
+  end
+
+  def topic_url
+    h.topic_url topic
   end
 end

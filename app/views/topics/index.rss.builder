@@ -1,11 +1,11 @@
 xml.instruct! :xml, version: "1.0"
 xml.rss version: "2.0" do
   xml.channel do
-    xml.title @forum[:name]
-    xml.description @forum[:description]
-    xml.link forum_url(forum: @forum[:permalink])
+    xml.title @view.forum.name
+    # xml.description @forum[:description]
+    xml.link forum_url(forum: @view.forum.permalink)
 
-    @collection.each do |view|
+    @view.topics.each do |view|
       xml.item do
         xml.title view.topic_title
         xml.pubDate Time.at(view.created_at.to_i).to_s(:rfc822)
