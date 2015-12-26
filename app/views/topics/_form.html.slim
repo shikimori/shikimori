@@ -14,7 +14,12 @@
 
   .m20
     = f.input :type, as: :select, include_blank: false,
-      collection: [['Топик', 'Topic'], ['Аниме новость', 'AnimeNews'], ['Манга новость', 'MangaNews']],
+      collection: [\
+        ['Топик', 'Topic'],
+        ['Аниме новость', 'AnimeNews'],
+        ['Манга новость', 'MangaNews'],
+        ['Новость сайта', 'SiteNews']\
+      ],
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
   .m20

@@ -1,0 +1,2 @@
+class SiteNews < Topic
+end

@@ -28,7 +28,7 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when Forum::NEWS_FORUM.permalink
-        where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
+        where type: [SiteNews.name, AnimeNews.name, MangaNews.name, CosplayComment.name]
         where generated: false
         order! created_at: :desc
 
