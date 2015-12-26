@@ -1,8 +1,4 @@
-FactoryGirl.define do  factory :topic_ignore do
-    user nil
-topic nil
-  end
-
+FactoryGirl.define do
   sequence :email do |n|
     "email#{n}@factory.com"
   end
