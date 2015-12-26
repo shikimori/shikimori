@@ -197,13 +197,13 @@ class ReadMangaParser < SiteParserWithCache
 
   # преобразование названия проекта его урл
   def recognize_project name
-    MangaTeams[name.downcase.gsub(/\.$|~$|^~|^\(|\)$/, '').strip]
+    MANGA_TEAMS[name.downcase.gsub(/\.$|~$|^~|^\(|\)$/, '').strip]
   end
 
   # определение переводчика из строки
   def recognize_translator text
     cleaned = text.gsub(/^by |\^-\^$|^Только ваш,|^~/, '').strip
-    Translators.include?(cleaned.downcase) ? cleaned : nil
+    TRANSLATORS.include?(cleaned.downcase) ? cleaned : nil
   end
 
   # построние описания из строк

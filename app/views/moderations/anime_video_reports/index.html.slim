@@ -51,4 +51,4 @@ header.head
   h2.subheadline История
   .block
     = render partial: 'moderations/anime_video_reports/report', collection: @processed
-    = render 'blocks/postloader', url: page_moderations_anime_video_reports_url(page: @page+1, format: :json)
+    = render 'blocks/postloader', next_url: page_moderations_anime_video_reports_url(page: @page+1, format: :json)

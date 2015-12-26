@@ -1,0 +1,23 @@
+header.head
+  h1 = @page_title.last
+  .notice = t '.notice'
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+= simple_form_for @resource, url: update_forum_url(@resource.id) do |f|
+  - if @resource.errors.any?
+    .errors
+      .subheadline.red Errors
+      .subcontent
+        == @resource.errors.full_messages.join('<br>')
+      div
+  - else
+      .subheadline = Forum.model_name.human
+
+  .block
+    = f.input :name
+    = f.input :position
+    = f.input :permalink
+    = f.input :is_visible
+
+  = f.button :magic_submit
+  = link_to t('actions.cancel'), forums_path, class: 'cancel'

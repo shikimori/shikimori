@@ -3,10 +3,12 @@ en:
     models:
       anime: Anime
       character: Character
-      contest: Contest
-      manga: Manga
-      user: User
       comment: Comment
+      contest: Contest
+      genre: Genre
+      manga: Manga
+      forum: Forum
+      user: User
 
     attributes:
       anime: &anime_attributes
@@ -64,6 +66,8 @@ en:
       ban:
         reason: Reason
         duration: Duration
+      genre:
+        description: Description
       user:
         avatar: Avatar
         birth_on: Birthday
@@ -152,7 +156,7 @@ en:
         url: Url
         kind: Type
         name: Name
-      group:
+      club:
         name: Name
         display_images: Show Images
         join_policy: Terms of Joining
@@ -163,9 +167,9 @@ en:
         comment_policy: Comments Policy
         comment_policies:
           free_comment: Unrestricted
-          members_comment: Group Members Only
+          members_comment: Club Members Only
         is_censored: Contains adult content (18+)
-      group_invite:
+      club_invite:
         dst: User
       topic:
         title: Title
@@ -173,7 +177,7 @@ en:
         type: Type
         linked: Linked
         posters: Posters
-        section_id: Section
+        forum_id: Section
       version:
         reason: Change reason
         changes: Changes list
@@ -192,7 +196,7 @@ en:
           in_club_black_list: You're banned in this club. Commenting is disabled
         messages:
           ignored: You can't send messages to this user
-        group_invite:
+        club_invite:
           attributes:
             base:
               banned: User is banned in this club. Invitation is forbidden

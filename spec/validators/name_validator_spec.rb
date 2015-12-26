@@ -1,4 +1,4 @@
-class NameValidatable < Group
+class NameValidatable < Club
   include ActiveModel::Validations
   validates :name, name: true
 end
@@ -16,8 +16,8 @@ describe NameValidator, type: :validator do
   end
 
   context 'invalid' do
-    context 'group' do
-      let!(:group) { create :group, name: 'test' }
+    context 'club' do
+      let!(:club) { create :club, name: 'test' }
 
       it do
         is_expected.to_not allow_value('test').for :name
@@ -29,7 +29,7 @@ describe NameValidator, type: :validator do
     end
 
     context 'user' do
-      let!(:group) { create :user, nickname: 'test' }
+      let!(:club) { create :user, nickname: 'test' }
 
       it do
         is_expected.to_not allow_value('test').for :name
@@ -47,11 +47,10 @@ describe NameValidator, type: :validator do
         is_expected.to_not allow_value('mangas').for :name
         is_expected.to_not allow_value('reviews').for :name
         is_expected.to_not allow_value('contests').for :name
-        is_expected.to_not allow_value('all').for :name
       end
 
       describe 'message' do
-        let!(:group) { create :user, nickname: 'test' }
+        let!(:club) { create :user, nickname: 'test' }
         before { subject.valid? }
 
         let(:message) { subject.errors.messages[:name].first }

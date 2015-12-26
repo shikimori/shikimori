@@ -11,7 +11,7 @@ class MessagesQuery < QueryObjectBase
   ]
   NOTIFICATION_KINDS = [
     MessageType::FriendRequest,
-    MessageType::GroupRequest,
+    MessageType::ClubRequest,
     MessageType::Notification,
     MessageType::ProfileCommented,
     MessageType::QuotedByUser,

@@ -47,7 +47,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, "/users/:id/clubs", "Show user's clubs"
   def clubs
-    respond_with user.groups
+    respond_with user.clubs
   end
 
   api :GET, "/users/:id/anime_rates", "Show user's anime list"

@@ -35,7 +35,7 @@ class BbCodeFormatter
   def format_description text, entry
     text ||= ''
 
-    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Group)
+    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Club)
       format_comment paragraphs(text)
 
     elsif entry.respond_to? :characters

@@ -1,7 +1,10 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  ani_manga_format = '(/type/:type)(/status/:status)(/season/:season)(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)(/order-by/:order)(/page/:page)(.:format)'
+  ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\
+(/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
+(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)\
+(/order-by/:order)(/page/:page)(.:format)"
 
   concern :db_entry do |options|
     member do
@@ -16,7 +19,8 @@ Site::Application.routes.draw do
     get :autocomplete, on: :collection, format: :json
   end
   concern :searcheable do
-    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection, constraints: { page: /\d+/ }
+    get 'search/:search(/page/:page)' => :index, as: :search, on: :collection,
+      constraints: { page: /\d+/ }
   end
 
   devise_for :users, controllers: {
@@ -32,7 +36,6 @@ Site::Application.routes.draw do
   resources :seyu, only: [], concerns: [:autocompletable]
   resources :users, only: [], concerns: [:autocompletable]
 
-  # site pages
   resources :pages, path: '/', only: [] do
     collection do
       get :privacy
@@ -129,6 +132,7 @@ Site::Application.routes.draw do
     end
   end
 
+  # api
   apipie
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
@@ -167,7 +171,7 @@ Site::Application.routes.draw do
       resources :genres, only: [:index]
       resources :publishers, only: [:index]
 
-      resources :sections, only: [:index]
+      resources :forums, only: [:index]
       resources :topics, only: [:index, :show]
       resources :comments, only: [:show, :index, :create, :update, :destroy]
 
@@ -261,6 +265,7 @@ Site::Application.routes.draw do
       end
     end
   end
+  # /api
 
   constraints MangaOnlineDomain do
     get '/', to: 'manga_online/mangas#index'
@@ -282,7 +287,7 @@ Site::Application.routes.draw do
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     scope 'animes/:anime_id', module: 'anime_online' do
-      get '' => redirect {|params, request| "#{request.url}/video_online" }
+      get '' => redirect { |params, request| "#{request.url}/video_online" }
 
       resources :video_online, controller: 'anime_videos', except: [:show] do
         member do
@@ -309,13 +314,8 @@ Site::Application.routes.draw do
   end
 
   constraints ShikimoriDomain do
-    # main page
-    resource :dashboards, only: [:show]
-
-    # форум
-    root to: 'topics#index'
-    get '/', to: 'topics#index', as: :forum
-    get '/', to: 'topics#index', as: :new_session
+    root to: 'dashboards#show'
+    get '/', to: 'dashboards#show', as: :new_session
 
     # seo redirects
     get 'r' => redirect('/reviews')
@@ -323,20 +323,48 @@ Site::Application.routes.draw do
       get 'r/:other' => redirect { |params, request| "/reviews/#{params[:other]}" }
       get 'person/:other' => redirect { |params, request| "/people/#{params[:other]}" }
     end
-
-    #constraints section: Section::VARIANTS do
-    constraints section: /a|m|c|p|s|f|o|g|reviews|cosplay|v|all|news/, format: /html|json|rss/ do
-      get ':section(/s-:linked)/new' => 'topics#new', as: :new_topic
-      #get ':section(/s-:linked)/:topic/new' => 'topics#edit', as: :edit_section_topic
-
-      get ':section(/s-:linked)(/p-:page)' => 'topics#index', as: :section
-      #[:section_topic, :section_blog_post, :section_contest_comment].each do |name|
-        #get ':section(/s-:linked)/:id' => 'topics#show', as: name
-      #end
-      get ':section(/s-:linked)/:id' => 'topics#show', as: :section_topic
+    constraints forum: /a|m|c|p|s|f|o|g|reviews|cosplay|v|news|games|vn/, format: /html|json|rss/ do
+      get ':forum(/s-:linked)/new' => redirect { |_, request| "/forum#{request.path}" }
+      get ':forum(/s-:linked)(/p-:page)' => redirect { |_, request| "/forum#{request.path}" }
+      get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
     end
-    resources :topics, only: [:create, :update, :destroy, :edit] do
-      get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+    {
+      o: [:offtopic, :s],
+      s: [:site, :s],
+      g: [:clubs, :s],
+      v: [:contests, :s],
+      a: [:animanga, :anime],
+      m: [:animanga, :manga],
+      c: [:animanga, :character],
+      p: [:animanga, :person]
+    }.each do |old_path, (new_path, linked)|
+      scope "forum/#{old_path}(/s-:linked)", format: /html|json|rss/ do
+        ['/new', '(/p-:page)', '/:id'].each do |path|
+          get path => redirect { |_, request|
+            request.path
+              .gsub(%r(/#{old_path}(/|$)), "/#{new_path}" + '\1')
+              .gsub(%r(/s-), "/#{linked}-")
+          }
+        end
+      end
+    end
+    # /seo redirects
+
+    scope :forum do
+      resources :topics, except: [:index, :show, :new] do
+        get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
+      end
+      get '/' => 'topics#index',  as: :forum
+      scope(
+        '(/:forum)(/:linked_type-:linked_id)',
+        forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn/,
+        linked_type: /anime|manga|character|person|club/,
+        format: /html|json|rss/
+      ) do
+        get '/new' => 'topics#new', as: :new_topic
+        get '(/p-:page)' => 'topics#index', as: :forum_topics
+        get '/:id' => 'topics#show',  as: :forum_topic
+      end
     end
 
     get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
@@ -384,18 +412,19 @@ Site::Application.routes.draw do
         get '/page/:page', action: :index, as: :page
       end
 
-      resources :group_roles, only: [:create, :destroy], concerns: [:autocompletable]
-      resources :group_invites, only: [:create]
+      resources :club_roles, only: [:create, :destroy], concerns: [:autocompletable]
+      resources :club_invites, only: [:create]
     end
 
-    resources :group_invites, only: [] do
+    resources :club_invites, only: [] do
       post :accept, on: :member
       post :reject, on: :member
     end
     resources :images, only: [:destroy]
 
     # statistics
-    get 'anime-history' => 'statistics#index', as: :anime_history
+    get 'anime-history' => redirect('/anime-industry')
+    get 'anime-industry' => 'statistics#index', as: :anime_statistics
 
     # site pages
     resources :pages, path: '/', only: [] do
@@ -439,17 +468,14 @@ Site::Application.routes.draw do
 
     # картинки с danbooru
     resources :danbooru, only: [], concerns: [:autocompletable] do
-      constraints url: /.*/ do
-        get 'yandere/:url' => :yandere, on: :collection
-      end
+      get 'yandere/:url' => :yandere, url: /.*/, on: :collection
     end
 
     # cosplay
     constraints id: /\d[^\/]*?/ do
       resources :cosplay, path: '/cosplay' do
-        collection do
-          get :mod
-        end
+        get :mod, on: :collection
+
         resources :cosplay_galleries, path: '', controller: 'cosplay' do
           get :delete
           get :undelete
@@ -462,12 +488,11 @@ Site::Application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
+    resources :forums, only: [:index, :edit] do
+      patch :update, on: :member, as: :update
+    end
     resources :genres, only: [:index, :edit, :update] do
       get :tooltip, on: :member
-
-      collection do
-        get ':kind' => :index, as: :index, kind: /anime|manga/
-      end
     end
 
     # tags
@@ -483,6 +508,7 @@ Site::Application.routes.draw do
         get ':kind/type/:type:other' => redirect { |params, request| "/#{params[:kind]}#{params[:other]}" }
       end
     end
+    # /seo redirects
 
     # аниме и манга
     ['animes', 'mangas'].each do |kind|
@@ -526,7 +552,7 @@ Site::Application.routes.draw do
         end
 
         # обзоры
-        resources :reviews, type: kind.singularize.capitalize
+        resources :reviews, type: kind.singularize.capitalize, except: [:show]
       end
     end
 
@@ -746,9 +772,6 @@ Site::Application.routes.draw do
         get :franchise, on: :collection
       end
     end
-
-    #post 'subscriptions/:type/:id' => 'subscriptions#create', as: :subscribe
-    delete 'subscriptions/:type/:id' => 'subscriptions#destroy', as: :subscribe
 
     get 'log_in/restore' => "admin_log_in#restore", as: :restore_admin
     get 'log_in/:nickname' => "admin_log_in#log_in", nickname: /.*/

@@ -29,27 +29,29 @@ class Ability
       user.preferences.list_privacy_public?
     end
     can :see_contest, Contest
-    can :see_club, Group
+    can :see_club, Club
     can :read, Review
 
     can [:create], Message do |message|
-      message.kind == MessageType::Private && message.from_id == User::GuestID && message.to_id == User::Admins.first
+      message.kind == MessageType::Private &&
+        message.from_id == User::GUEST_ID && message.to_id == User::ADMINS.first
     end
 
     can [:create], AnimeVideoReport do |report|
-      report.user_id == User::GuestID && (report.broken? || report.wrong?)
+      report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
 
     can [:create], Version do |version|
-      version.user_id == User::GuestID && (
+      version.user_id == User::GUEST_ID && (
         version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
       ).none?
     end
     cannot [:significant_change], Version
     can [:show, :tooltip], Version
+    can :tooltip, Genre
   end
 
   def user_ability
@@ -77,46 +79,46 @@ class Ability
       user == @user || @user.admin?
     end
 
-    can [:new, :create, :update], Group do |group|
-      !@user.banned? && @user.day_registered? && (group.owner?(@user) || group.admin?(@user))
+    can [:new, :create, :update], Club do |club|
+      !@user.banned? && @user.day_registered? && (club.owner?(@user) || club.admin?(@user))
     end
-    can :join, Group do |group|
-      !group.joined?(@user) && (
-        can?(:manage, group) || (!group.banned?(@user) && group.free_join?)
+    can :join, Club do |club|
+      !club.joined?(@user) && (
+        can?(:manage, club) || (!club.banned?(@user) && club.free_join?)
       )
     end
-    can :invite, Group do |group|
-      group.joined?(@user) && (
-        group.free_join? ||
-        (group.admin_invite_join? && (group.admin?(@user) || group.owner?(@user))) ||
-        (group.owner_invite_join? && group.owner?(@user))
+    can :invite, Club do |club|
+      club.joined?(@user) && (
+        club.free_join? ||
+        (club.admin_invite_join? && (club.admin?(@user) || club.owner?(@user))) ||
+        (club.owner_invite_join? && club.owner?(@user))
       )
     end
-    can :leave, Group do |group|
-      group.joined? @user
+    can :leave, Club do |club|
+      club.joined? @user
     end
-    can :upload, Group do |group|
-      if group.upload_policy == GroupUploadPolicy::ByStaff
-        !@user.banned? && (group.owner?(@user) || group.admin?(@user))
+    can :upload, Club do |club|
+      if club.upload_policy == ClubUploadPolicy::ByStaff
+        !@user.banned? && (club.owner?(@user) || club.admin?(@user))
 
-      elsif group.upload_policy == GroupUploadPolicy::ByMembers
-        !@user.banned? && (group.joined?(@user) && group.display_images)
+      elsif club.upload_policy == ClubUploadPolicy::ByMembers
+        !@user.banned? && (club.joined?(@user) && club.display_images)
 
       else
-        raise ArgumentError, group.upload_policy
+        raise ArgumentError, club.upload_policy
       end
     end
 
-    can :create, GroupRole do |group_role|
-      group_role.user_id == @user.id && can?(:join, group_role.group)
+    can :create, ClubRole do |club_role|
+      club_role.user_id == @user.id && can?(:join, club_role.club)
     end
-    can :destroy, GroupRole do |group_role|
-      group_role.user_id == @user.id
+    can :destroy, ClubRole do |club_role|
+      club_role.user_id == @user.id
     end
 
-    can [:accept, :reject], GroupInvite, dst_id: @user.id, status: GroupInviteStatus::Pending
-    can :create, GroupInvite do |group_invite|
-      group_invite.src_id == @user.id && group_invite.group.joined?(@user)
+    can [:accept, :reject], ClubInvite, dst_id: @user.id, status: ClubInviteStatus::Pending
+    can :create, ClubInvite do |club_invite|
+      club_invite.src_id == @user.id && club_invite.club.joined?(@user)
     end
 
     can :manage, Review do |review|
@@ -175,10 +177,12 @@ class Ability
       ).none?
     end
     cannot [:significant_change], Version
+    can :read, Genre
   end
 
   def moderator_ability
     can :manage, [Topic, AnimeNews, MangaNews, Review]
+    can [:edit, :update], [Genre]
   end
 
   def contests_moderator_ability

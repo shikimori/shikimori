@@ -10,7 +10,6 @@ describe User do
     it { is_expected.to have_many :manga_rates }
 
     it { is_expected.to have_many :history }
-    it { is_expected.to have_many :subscriptions }
 
     it { is_expected.to have_many :friend_links }
     it { is_expected.to have_many :friends }
@@ -34,8 +33,8 @@ describe User do
     it { is_expected.to have_many :ignores }
     it { is_expected.to have_many :ignored_users }
 
-    it { is_expected.to have_many :group_roles }
-    it { is_expected.to have_many :groups }
+    it { is_expected.to have_many :club_roles }
+    it { is_expected.to have_many :clubs }
 
     it { is_expected.to have_many :entry_views }
 
@@ -45,7 +44,7 @@ describe User do
     it { is_expected.to have_many :recommendation_ignores }
 
     it { is_expected.to have_many :bans }
-    it { is_expected.to have_many :group_bans }
+    it { is_expected.to have_many :club_bans }
 
     it { is_expected.to have_many :devices }
 
@@ -104,11 +103,6 @@ describe User do
       end
     end
 
-    it '#subscribed?' do
-      create :subscription, user: user, target_id: topic.id, target_type: topic.class.name
-      expect(user.subscribed?(topic)).to be_truthy
-    end
-
     describe '#ignores?' do
       it do
         user.ignored_users << user2
@@ -118,36 +112,6 @@ describe User do
       it do
         expect(user.ignores?(user2)).to be_falsy
       end
-    end
-
-    describe '#subscribe' do
-      it 'works' do
-        topic
-
-        expect {
-          user.subscribe(topic)
-        }.to change(Subscription, :count).by 1
-
-        expect(user.subscribed?(topic)).to be_truthy
-      end
-
-      it 'only_once' do
-        topic
-
-        expect {
-          user.subscribe(topic)
-          user.subscribe(topic)
-        }.to change(Subscription, :count).by 1
-      end
-    end
-
-    it '#usubscribe' do
-      user.subscribe(topic)
-      expect {
-        user.unsubscribe(topic)
-      }.to change(Subscription, :count).by -1
-
-      expect(User.find(user.id).subscribed?(topic)).to be_falsy
     end
 
     context 'when profile is commented' do
@@ -408,7 +372,7 @@ describe User do
       end
 
       context 'admin' do
-        let(:user) { build_stubbed :user, id: User::Admins.first }
+        let(:user) { build_stubbed :user, id: User::ADMINS.first }
         it { is_expected.to be_able_to :edit, profile }
         it { is_expected.to be_able_to :update, profile }
       end

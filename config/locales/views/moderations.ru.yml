@@ -5,12 +5,14 @@ ru:
       content: Контент
       edited_videos_journal: Журнал изменений видео
       forum_journal: Журнал модерации форума
+      genres: Жанры
       header_notice: Журналы модерации и информация о контенте сайта
       missing_descriptions: Аниме без описаний
       missing_screenshots: Аниме без кадров
       missing_videos: Отсутствующие видео
       moderation: Модерация
       reviews_journal: Журнал рецензий
+      forums: Форумы
       uploaded_videos_journal: Журнал новых видео
       versions_journal: Журнал изменений контента
     missing_screenshots:

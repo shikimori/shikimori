@@ -1,5 +1,26 @@
 ru:
   topics:
+    header:
+      common:
+        about: о
     status_line:
       from: от
       about: о
+    menu_actions:
+      create_topic: Создать тему
+      reload_forum: обновить форум
+    page:
+      no_topics: Нет топиков
+    menu:
+      # forum: Форум
+      hide: '&mdash; спрятать'
+      # my_list: Мой список
+      new_club: Создан новый клуб
+      reviews: Рецензии
+      show_more: '+ показать ещё'
+      sticked_topics: Прикреплённое
+      to_clubs: К клубам
+      # to_contests: К турнирам
+      # to_news: К новостям
+      to_reviews: К рецензиям
+      user_review: 'Рецензия %{author}'

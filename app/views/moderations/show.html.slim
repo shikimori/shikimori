@@ -60,3 +60,15 @@ header.head
             href="#{missing_videos_moderations_url}"
             title="#{'.missing_videos'}"
           ] = t '.missing_videos'
+        - if can? :read, Genre
+          li
+            a.b-link[
+              href="#{genres_url}"
+              title="#{'.genres'}"
+            ] = t '.genres'
+        - if can? :manage, Forum
+          li
+            a.b-link[
+              href="#{forums_url}"
+              title="#{'.forums'}"
+            ] = t '.forums'

@@ -28,12 +28,12 @@ describe PeopleController do
   end
 
   describe '#comments' do
-    let!(:section) { create :section, :person }
     let(:person) { create :person, :with_thread }
     let!(:comment) { create :comment, commentable: person.thread }
     before { get :comments, id: person.to_param }
 
-    it { expect(response).to redirect_to section_topic_url(id: person.thread, section: section, linked: person) }
+    it { expect(response).to redirect_to UrlGenerator.instance
+      .topic_url(person.thread) }
   end
 
   describe '#tooltip' do

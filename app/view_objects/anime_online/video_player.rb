@@ -76,7 +76,7 @@ class AnimeOnline::VideoPlayer
     h.moderation_anime_video_reports_url(
       'anime_videos_report[kind]' => kind,
       'anime_videos_report[anime_video_id]' => current_video.id,
-      'anime_videos_report[user_id]' => h.current_user.try(:id) || User::GuestID,
+      'anime_videos_report[user_id]' => h.current_user.try(:id) || User::GUEST_ID,
       'anime_videos_report[message]' => ''
     )
   end
@@ -123,7 +123,7 @@ class AnimeOnline::VideoPlayer
   def new_report
     AnimeVideoReport.new(
       anime_video_id: current_video.id,
-      user_id: h.current_user.try(:id) || User::GuestID,
+      user_id: h.current_user.try(:id) || User::GUEST_ID,
       state: 'pending',
       kind: 'broken'
     )

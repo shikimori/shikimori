@@ -31,9 +31,12 @@
                 title="#{t 'actions.accept'}"
               ]
               span.item-request-reject.friend-request title="#{t 'actions.reject'}"
-              span.item-delete title="#{t 'actions.delete'}" style="#{'display: none' unless message.read}"
+              span.item-delete[
+                title="#{t 'actions.delete'}"
+                style="#{'display: none' unless message.read}"
+              ]
 
-          - elsif message.kind == MessageType::GroupRequest
+          - elsif message.kind == MessageType::ClubRequest
             - if message.read
               span.item-delete title="#{t 'actions.delete'}"
             - else
@@ -42,16 +45,19 @@
                 data-remote='true'
                 data-method='post'
                 data-type='json'
-                action="#{accept_group_invite_url message.linked}"
+                action="#{accept_club_invite_url message.linked}"
               ]
               span.item-request-reject[
                 data-remote='true'
                 data-method='post'
                 data-type='json'
-                action="#{reject_group_invite_url message.linked}"
+                action="#{reject_club_invite_url message.linked}"
                 title="#{t 'actions.reject'}"
               ]
-              span.item-delete title="#{t 'actions.delete'}" style="#{'display: none' unless message.read}"
+              span.item-delete[
+                title="#{t 'actions.delete'}"
+                style="#{'display: none' unless message.read}"
+              ]
 
           - else
             - if message.kind == MessageType::Private
@@ -143,5 +149,6 @@
         .appear-marker[
           class="appear-message-#{message.id}"
           data-appear_url="#{mark_read_messages_url}"
-          data-disabled="#{[MessageType::FriendRequest, MessageType::GroupRequest].include?(message.kind) ? true : false}"
+          data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"
+
         ]

@@ -83,8 +83,8 @@ describe MalDeployer do
 
       describe 'studios' do
         it 'linked to entry' do
-          parser.deploy(entry, data)
-          expect(entry.studios.size).to eq(data[:entry][:studios].size)
+          parser.deploy entry, data
+          expect(entry.studios).to have(data[:entry][:studios].size).items
         end
 
         it 'creates only new' do

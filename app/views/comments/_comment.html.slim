@@ -4,10 +4,11 @@
 - else
   .b-comment.shiki-object.unprocessed[
     id="#{comment.id}"
-    itemprop="comment" itemscope="itemscope"
-    itemtype="http://schema.org/UserComments"
     data-user_id="#{comment.user.try :id}"
     data-user_nickname="#{comment.user.try :nickname}"
+    itemscope
+    itemprop="comment"
+    itemtype="http://schema.org/UserComments"
   ]
     a name="comment-#{comment.id}"
     / класс нужен из-за проверки высоты

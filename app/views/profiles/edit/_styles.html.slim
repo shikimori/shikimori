@@ -1,4 +1,5 @@
-= simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
+= simple_form_for @resource.preferences,
+    url: profile_user_preferences_url(@resource) do |f|
   input type="hidden" name="page" value="#{@page}"
 
   .block

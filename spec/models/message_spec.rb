@@ -49,7 +49,7 @@ describe Message do
       end
 
       it 'disabled for MessageType::GroupRequest' do
-        create :message, to: user, from: user, kind: MessageType::GroupRequest
+        create :message, to: user, from: user, kind: MessageType::ClubRequest
 
         expect {
           create :message, to: user, from: user, kind: MessageType::Notification
@@ -211,7 +211,7 @@ describe Message do
       it { should_not be_able_to :destroy, message }
 
       context 'message to admin' do
-        let(:message) { build_stubbed :message, from_id: User::GuestID, to_id: User::Admins.first, kind: MessageType::Private }
+        let(:message) { build_stubbed :message, from_id: User::GUEST_ID, to_id: User::ADMINS.first, kind: MessageType::Private }
         it { should be_able_to :create, message }
       end
     end

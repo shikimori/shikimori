@@ -4,6 +4,6 @@
     - if @collection.any?
       = render partial: 'moderations/anime_video_reports/report', collection: @collection
       - if @add_postloader
-        = render 'blocks/postloader', url: videos_profile_url(page: @page+1)
+        = render 'blocks/postloader', next_url: videos_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет загрузок и правок видео

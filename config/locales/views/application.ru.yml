@@ -11,18 +11,8 @@ ru:
 
       shikimori: &shikimori
         community: Сообщество
-        info: Инфо
-        news: Новости
-        reviews: Обзоры
-        contests: Опросы
         current_contest: Текущий турнир
-        recommendations: Рекомендации
-        favourite_recommendations: Избранное
-        community_recommendations: От сообщества
-        personalized_recommendations: Персонализированное
-        moderations_content: Модерация и контент
         currently_airing: Сейчас выходит
-        what_anime_to_watch: Какие аниме посмотреть
       anime_online:
         <<: *shikimori
 

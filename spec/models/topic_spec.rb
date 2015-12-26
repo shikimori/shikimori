@@ -5,16 +5,6 @@ describe Topic do
     it { should validate_presence_of :title }
   end
 
-  describe 'callbacks' do
-    let(:user) { create :user }
-    let(:topic) { create :topic, user: user }
-
-    it 'creation subscribes author to self' do
-      expect { topic }.to change(Subscription, :count).by 1
-      expect(user.subscribed?(topic)).to be_truthy
-    end
-  end
-
   describe 'permissions' do
     let(:topic) { build_stubbed :topic }
     subject { Ability.new user }

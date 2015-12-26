@@ -51,4 +51,4 @@ header.head
 .block
   = render partial: 'versions/version', collection: @versions.processed
   - if @versions.postloader?
-    = render 'blocks/postloader', url: @versions.next_page_url
+    = render 'blocks/postloader', next_url: @versions.next_page_url

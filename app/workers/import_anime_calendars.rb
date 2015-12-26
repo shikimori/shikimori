@@ -13,8 +13,8 @@ class ImportAnimeCalendars
 private
 
   def process_results calendars
-    names = calendars.map {|v| v[:title] }.uniq
-    imported = filter(calendars).map {|v| v[:title] }.uniq
+    names = calendars.map { |v| v[:title] }.uniq
+    imported = filter(calendars).map { |v| v[:title] }.uniq
 
     Rails.cache.write 'calendar_unrecognized', (names - imported - FIXES[:ignores])
 

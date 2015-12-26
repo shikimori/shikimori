@@ -59,14 +59,26 @@
           .subheadline = t '.actions'
           .contest_actions
             - if contest.object.can_propose?
-              div: a.b-js-link href="#{propose_contest_url contest}" data-method='post' = t '.accept_candidates'
+              div: a.b-js-link[
+                href="#{propose_contest_url contest}"
+                data-method='post'
+              ] = t '.accept_candidates'
 
             - if contest.can_stop_propose?
-              div: a.b-js-link href="#{cleanup_suggestions_contest_url contest}" data-method='post' = t '.cleanup_candidates'
-              div: a.b-js-link href="#{stop_propose_contest_url contest}" data-method='post' = t '.stop_accepting_candidates'
+              div: a.b-js-link[
+                href="#{cleanup_suggestions_contest_url contest}"
+                data-method='post'
+              ] = t '.cleanup_candidates'
+              div: a.b-js-link[
+                href="#{stop_propose_contest_url contest}"
+                data-method='post'
+              ] = t '.stop_accepting_candidates'
 
             - if contest.can_start?
-              div: a.b-js-link href="#{build_contest_url contest}"  data-method='post'
+              div: a.b-js-link[
+                href="#{build_contest_url contest}"
+                data-method='post'
+              ]
                 - if contest.rounds.empty?
                   = t '.generate_polls'
                 - else
@@ -80,9 +92,11 @@
               span.action-misc = t '.actions_reload_page'
 
               - if contest.links.count < Contest::MINIMUM_MEMBERS
-                span.action-misc.warn = t '.minimum_anime_needed_for_start', min_members: Contest::MINIMUM_MEMBERS
+                span.action-misc.warn
+                  = t '.minimum_anime_needed_for_start', min_members: Contest::MINIMUM_MEMBERS
               - elsif contest.links.count > Contest::MAXIMUM_MEMBERS
-                span.action-misc.warn = t '.maximum_anime_needed_for_start', max_members: Contest::MAXIMUM_MEMBERS
+                span.action-misc.warn
+                  = t '.maximum_anime_needed_for_start', max_members: Contest::MAXIMUM_MEMBERS
               /- elsif Contest.all.any?(&:started?)
                 span.action-misc.warn Для старта не должно быть других запущенных опросов
 
@@ -168,4 +182,6 @@
       .block
         .subheadline
           = round.title
-        = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(round)
+        = render 'contest_matches/match_days',
+          contest: contest,
+          matches: contest.grouped_matches(round)

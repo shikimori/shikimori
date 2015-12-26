@@ -2,6 +2,10 @@ en:
   dashboards_controller:
     h1_header: Anime and manga encyclopedia
 
+  topics_controller:
+    title: Shikimori Forum
+    new_topic: New topic
+
   profiles_controller: &profiles_controller
     profile: Profile
     friends: Friends
@@ -103,7 +107,7 @@ en:
     club_characters: Club characters
     club_images: Club images
 
-  group_roles_controller:
+  club_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
 
@@ -119,6 +123,9 @@ en:
     show_description: >
       Take part in anime tournament on our site and
       make your contribution to the poll, we want to determine %{title}.
+
+  moderations:
+   title: Moderation
 
   moderations/versions_controller:
     content_change: 'Content change #%{version_id}'

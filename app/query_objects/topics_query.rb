@@ -1,6 +1,11 @@
 class TopicsQuery < ChainableQueryBase
-  # pattr_initialize :section, :user, :linked
   pattr_initialize :user
+
+  FORUMS_QUERY = 'forum_id in (:user_forums)'
+  MY_CLUBS_QUERY = "(
+    type = #{Entry.sanitize ClubComment.name} and
+    #{Entry.table_name}.linked_id in (:user_clubs)
+  )"
 
   def initialize user
     @user = user
@@ -9,30 +14,37 @@ class TopicsQuery < ChainableQueryBase
     @relation = except_hentai @relation
   end
 
-  def by_section section
-    case section.permalink
-      when Section.static[:all].permalink
+  def by_forum forum
+    case forum && forum.permalink
+      when nil
         if @user
-          where(
-            "type != ? or (type = ? and #{Entry.table_name}.id in (?))",
-              GroupComment.name, GroupComment.name, user_subscription_ids
-          )
+          user_forums
         else
-          where_not type: GroupComment.name
+          where_not type: ClubComment.name
         end
 
       when 'reviews'
-        where section_id: section.id
+        where forum_id: forum.id
         order! created_at: :desc
 
-      when Section.static[:news].permalink
+      when Forum::NEWS_FORUM.permalink
         where type: [AnimeNews.name, MangaNews.name, CosplayComment.name]
+        where generated: false
+        order! created_at: :desc
+
+      when Forum::UPDATES_FORUM.permalink
+        where type: [AnimeNews.name, MangaNews.name]
+        where generated: true
+        order! created_at: :desc
+
+      when Forum::MY_CLUBS_FORUM.permalink
+        where MY_CLUBS_QUERY, user_clubs: @user.club_roles.pluck(:club_id)
 
       else
-        where section_id: section.id
+        where forum_id: forum.id
     end
 
-    except_generated section
+    except_generated forum
 
     self
   end
@@ -54,12 +66,12 @@ private
   def prepare_query
     Entry
       .with_viewed(@user)
-      .includes(:section, :user)
+      .includes(:forum, :user)
       .order_default
   end
 
-  def except_generated section
-    @relation = if section && section.permalink == 'news'
+  def except_generated forum
+    @relation = if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
       @relation.wo_episodes
     else
       @relation.wo_empty_generated
@@ -72,9 +84,15 @@ private
       .where('animes.id is null or animes.censored=false')
   end
 
-  def user_subscription_ids
-    Subscription
-      .where(user_id: user.id, target_type: Entry::Types)
-      .pluck(:target_id)
+  def user_forums
+    if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
+      where(
+        "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+        user_forums: @user.preferences.forums.map(&:to_i),
+        user_clubs: @user.club_roles.pluck(:club_id)
+      )
+    else
+      where FORUMS_QUERY, user_forums: @user.preferences.forums.map(&:to_i)
+    end
   end
 end

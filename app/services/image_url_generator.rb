@@ -3,7 +3,7 @@ class ImageUrlGenerator
 
   IMAGE_METHODS = {
     User => :avatar,
-    Group => :logo
+    Club => :logo
   }
   ONLY_PATH = {
     UserImage => false

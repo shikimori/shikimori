@@ -5,12 +5,14 @@ en:
       content: Site content
       edited_videos_journal: Edited videos journal
       forum_journal: Forum moderation journal
+      genres: Genres
       header_notice: Moderation journals
       missing_descriptions: Animes w/o description
       missing_screenshots: Animes w/o screenshots
       missing_videos: Missing videos
       moderation: Moderation
       reviews_journal: Reviews journal
+      forums: Forums
       uploaded_videos_journal: Uploaded videos journal
       versions_journal: Content changes journal
     missing_screenshots:

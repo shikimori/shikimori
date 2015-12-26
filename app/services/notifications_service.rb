@@ -11,7 +11,7 @@ class NotificationsService
     )
 
     Message.create_wo_antispam!(
-      from_id: User::Cosplayer_ID,
+      from_id: User::COSPLAYER_ID,
       to: target,
       kind: MessageType::Notification,
       body: body

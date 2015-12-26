@@ -3,22 +3,22 @@ class Entry < ActiveRecord::Base
   include Viewable
 
   # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'GroupComment']
+  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'ClubComment']
   # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
   SpecialInnerTypes = ['AnimeNews', 'MangaNews']
   # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'GroupComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
+  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'ClubComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 
   # для совместимости с comment
   attr_accessor :topic_name, :topic_url
 
-  belongs_to :section
+  belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user
 
-  validates :section, presence: true unless Rails.env.test?
+  validates :forum, presence: true unless Rails.env.test?
 
   has_many :messages, -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
@@ -135,7 +135,7 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment# && section_id != Section::OFFTOPIC_ID
+    self.class == ReviewComment# && forum_id != Forum::OFFTOPIC_ID
   end
 
   # топик ли это косплей?
@@ -182,7 +182,7 @@ private
 
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Group|Review|Contest|CosplayGallery)$/
+    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Club|Review|Contest|CosplayGallery)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end

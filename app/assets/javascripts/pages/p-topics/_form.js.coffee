@@ -1,16 +1,36 @@
+@on 'page:load', 'topics_index', ->
+  $('form.edit_user_preferences')
+    .on 'change', 'input', ->
+      $(@).closest('form').submit()
+
+    .on 'ajax:before', ->
+      $('.forums .ajax-loading').show()
+      $('.forums .reload').hide()
+
+    .on 'ajax:complete', ->
+      $('.forums .ajax-loading').hide()
+      $('.forums .reload').show()
+
+@on 'page:load', 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
+  if $('.b-animes-menu').exists()
+    init_animes_menu()
+  else
+    $('.b-show_more').show_more()
+
+
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $('.b-form.edit_topic, .b-form.new_topic')
   $topic_linked = $('#topic_linked', $form)
 
   # переключение раздела
-  $('#topic_section_id', $form).on 'change', ->
+  $('#topic_forum_id', $form).on 'change', ->
     $topic_linked
       .data autocomplete: $topic_linked.data("#{linked_type().toLowerCase()}-autocomplete")
       .attr placeholder: $topic_linked.data("#{linked_type().toLowerCase()}-placeholder")
       .trigger('flushCache')
 
   $('.b-shiki_editor', $form).shiki_editor()
-  $('#topic_section_id', $form).trigger('change')
+  $('#topic_forum_id', $form).trigger('change')
 
   # сброс привязанного к топику
   $('.topic_linked .cleanup', $form).on 'click', ->
@@ -80,9 +100,9 @@ reset_wall = ($wall) ->
   $wall.addClass('unprocessed').shiki_wall()
 
 linked_type = ->
-  if $('#topic_section_id').val() == '7'
+  if $('#topic_forum_id').val() == '7'
     'Character'
-  else if $('#topic_section_id').val() == '6'
+  else if $('#topic_forum_id').val() == '6'
     'Manga'
   else
     'Anime'

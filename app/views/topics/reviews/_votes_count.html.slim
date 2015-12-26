@@ -1,4 +1,15 @@
-p.review-votes_count
+p.review-votes_count[
+  itemscope
+  itemprop="aggregateRating"
+  itemtype="http://schema.org/AggregateRating"
+]
+  meta itemprop="bestRating" content="10"
+  meta[
+    itemprop="ratingValue"
+    content="#{(review.votes_for * 10.0 / review.votes_count).round 1}"
+  ]
+  meta itemprop="ratingCount" content="#{review.votes_count}"
+
   = review.votes_text
   - if review.rejected?
     span.warn перенесено в оффтоп

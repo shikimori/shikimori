@@ -11,7 +11,6 @@ FactoryGirl.define do
       comment.stub :check_access
       comment.stub :increment_comments
       comment.stub :creation_callbacks
-      comment.stub :subscribe
       comment.stub :notify_quotes
       comment.stub :release_the_banhammer!
     end
@@ -19,10 +18,6 @@ FactoryGirl.define do
     trait :review do
       review true
       body 'x' * Comment::MIN_REVIEW_SIZE
-    end
-
-    trait :with_subscribe do
-      after(:build) { |comment| comment.unstub :subscribe }
     end
 
     trait :with_notify_quotes do

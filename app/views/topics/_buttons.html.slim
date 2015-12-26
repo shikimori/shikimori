@@ -4,16 +4,6 @@ aside.buttons
     /span.item-reply title="#{t topic.generated? ? 'Написать' : :reply}"
     span.item-reply title="#{t 'actions.reply'}"
 
-    - if view.topic.kind_of?(GroupComment) && view.subscribed?
-      span[
-          class="item-subscribe #{:selected if view.subscribed?}"
-          title="Подписаться на топик"
-          data-type="json"
-          data-action="#{view.urls.subscribe_url}"
-          data-method="#{view.subscribed? ? :delete : :post}"
-          data-remote="true"
-        ]
-
     - if can? :edit, view.topic
       a.item-edit.short[
         href="#{view.urls.edit_url}"

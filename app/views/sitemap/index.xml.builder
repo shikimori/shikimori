@@ -6,14 +6,14 @@ xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
     xml.tag! 'changefreq', 'hourly'
     xml.tag! 'priority', '1'
   end
-  @sections.each do |title,url|
+  @forums.each do |title,url|
     xml.url do
       xml.loc url
       xml.tag! 'changefreq', 'daily'
       xml.tag! 'priority', '0.80'
     end
   end
-  @anime_sections.each do |title,url|
+  @anime_forums.each do |title,url|
     xml.url do
       xml.loc url
       xml.tag! 'changefreq', 'weekly'
@@ -34,7 +34,7 @@ xml.urlset "xmlns" => "http://www.sitemaps.org/schemas/sitemap/0.9" do
       xml.tag! 'priority', '0.60'
     end
   end
-  @manga_sections.each do |title,url|
+  @manga_forums.each do |title,url|
     xml.url do
       xml.loc url
       xml.tag! 'changefreq', 'weekly'

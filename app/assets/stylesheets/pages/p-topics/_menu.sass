@@ -1,16 +1,54 @@
+@import mixins/block
 @import mixins/icons
 @import mixins/image_editable
+@import mixins/link
 @import mixins/menu-blocks
 
 .p-topics .l-menu
+  .sponsors
+    margin-top: $block-offset * 1.5
+
+  .forums
+    +block
+
+    .b-form
+      overflow: visible
+
+    .forum.common + .forum.special
+      margin-top: 10px
+
+    .forum
+      input
+        margin-right: 6px
+
+      .link
+        +link
+        font-size: 13px
+        font-weight: bold
+
+      .threads
+        color: $gray-2
+        float: right
+        font-size: 12px
+
+    .ajax-loading
+      display: none
+      position: absolute
+      width: 32px
+
+    .reload
+      +js_link
+      display: none
+      font-size: 12px
+      margin-top: 5px
+      position: absolute
+
   .calendar .entry,
   .reviews .entry,
-  .news .entry,
-  .groups .entry,
-  .mylist .entry
+  .clubs .entry,
     +menu-block-with-image
 
-  .naruto, .titans
+  .naruto
     +image_editable
 
     img
@@ -19,44 +57,12 @@
     &.deleted
       display: none
 
-  .groups .entry img
+  .clubs .entry img
     width: 35px
     height: 35px
 
-  .seasons .season,
-  .forum .section
+  .sticked-topics .topic,
     +menu-block-with-text-link
-
-  .forum .new-topic
-    +icon_button("\e83d")
-
-  .contests
-    +clearfix
-
-    margin-bottom: 25px
-
-    .contest
-      +menu-block-with-text-link
-
-      a
-        +ellipsis
-        max-width: 195px
-
-        &:after
-          position: absolute
-          right: 10px
-
-      .finished
-        color: $gray-1
-
-      .started
-        color: $gray-3
-
-      .can-vote
-        color: #307a3d
-
-    .show-more
-      float: right
 
   .b-clubs-menu, .b-contests-menu
     .actions

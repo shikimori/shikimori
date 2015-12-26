@@ -104,7 +104,8 @@ describe ContestsController do
     let!(:comment) { create :comment, commentable: contest.thread }
     before { get :comments, id: contest.to_param }
 
-    it { expect(response).to redirect_to section_topic_url(id: contest.thread, section: contests_section) }
+    it { expect(response).to redirect_to forum_topic_url(
+      id: contest.thread, forum: contests_forum) }
   end
 
   describe '#new' do

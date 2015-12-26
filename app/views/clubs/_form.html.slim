@@ -11,8 +11,8 @@
     .subheadline = t :settings
     = f.input :name
 
-    = f.input :join_policy, collection: GroupDecorator.join_policy_options, include_blank: false
-    = f.input :comment_policy, collection: GroupDecorator.comment_policy_options, include_blank: false
+    = f.input :join_policy, collection: ClubDecorator.join_policy_options, include_blank: false
+    = f.input :comment_policy, collection: ClubDecorator.comment_policy_options, include_blank: false
     = f.input :display_images
     = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
 
@@ -85,7 +85,7 @@
             type='text'
             placeholder=t('username')
             data-variant_name='club[moderator_ids][]'
-            data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+            data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
           ]
           .variants
             - @resource.moderators.each do |user|
@@ -99,7 +99,7 @@
           type='text'
           placeholder=t('username')
           data-variant_name='club[admin_ids][]'
-          data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+          data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
         ]
         .subheadline = i18n_i 'admin', :other
         .variants
@@ -127,7 +127,7 @@
         type='text'
         placeholder=t('username')
         data-variant_name='kick_ids[]'
-        data-autocomplete="#{autocomplete_club_group_roles_url @resource}"
+        data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
       ]
       .subheadline = t '.remove_users'
       .variants

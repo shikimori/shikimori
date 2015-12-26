@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
   MINIMUM_LIFE_INTERVAL = 1.day
 
-  CensoredAvatarIds = Set.new [4357, 24433, 48544]
+  CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544]
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
 
@@ -59,12 +59,11 @@ class User < ActiveRecord::Base
   has_many :ignores, dependent: :destroy
   has_many :ignored_users, through: :ignores, source: :target
 
-  has_many :group_roles, dependent: :destroy
-  has_many :groups, through: :group_roles
+  has_many :club_roles, dependent: :destroy
+  has_many :clubs, through: :club_roles
 
   has_many :versions, dependent: :destroy
 
-  has_many :subscriptions, dependent: :destroy
   has_many :contest_user_votes, dependent: :destroy
 
   has_many :comment_views, dependent: :destroy
@@ -75,7 +74,7 @@ class User < ActiveRecord::Base
   has_many :recommendation_ignores, dependent: :destroy
 
   has_many :bans, dependent: :destroy
-  has_many :group_bans, dependent: :destroy
+  has_many :club_bans, dependent: :destroy
 
   has_many :devices, dependent: :destroy
 
@@ -149,16 +148,26 @@ class User < ActiveRecord::Base
     user_tokens.empty?
   end
 
+  #TODO: remove
   def all_history
-    @all_history ||= history.includes(:anime, :manga).order(updated_at: :desc, id: :desc)
+    @all_history ||= history
+      .includes(:anime, :manga)
+      .order(updated_at: :desc, id: :desc)
   end
 
+  #TODO: remove
   def anime_history
-    @anime_history ||= history.where(target_type: [Anime.name, Manga.name]).includes(:anime, :manga)
+    @anime_history ||= history
+      .where(target_type: [Anime.name, Manga.name])
+      .includes(:anime, :manga)
   end
 
+  #TODO: remove
   def anime_uniq_history
-    @anime_uniq_history ||= anime_history.group(:target_id).order('max(updated_at) desc').select('*, max(updated_at) as updated_at')
+    @anime_uniq_history ||= anime_history
+      .group(:target_id)
+      .order('max(updated_at) desc')
+      .select('*, max(updated_at) as updated_at')
   end
 
   def to_param
@@ -185,11 +194,11 @@ class User < ActiveRecord::Base
 
   # бот ли пользователь
   def bot?
-    BotsService.posters.include?(id) || id == Cosplayer_ID
+    BotsService.posters.include?(id) || id == COSPLAYER_ID
   end
 
   def censored?
-    CensoredAvatarIds.include?(id)
+    CENCORED_AVATAR_IDS.include?(id)
   end
 
   # last online time from memcached/or from database
@@ -251,23 +260,6 @@ class User < ActiveRecord::Base
       from_id: comment.user_id,
       kind: MessageType::ProfileCommented
     )
-  end
-
-  # подписка на элемент
-  def subscribe entry
-    subscriptions << Subscription.create!(user_id: id, target_id: entry.id, target_type: entry.class.name) unless subscribed?(entry)
-  end
-
-  # отписка от элемента
-  def unsubscribe entry
-    subscriptions
-      .select {|v| v.target_id == entry.id && v.target_type == entry.class.name }
-      .each {|v| v.destroy }
-  end
-
-  # подписан ли пользователь на элемент?
-  def subscribed? entry
-    subscriptions.any? {|v| v.target_id == entry.id && v.target_type == entry.class.name }
   end
 
   def ignores? user

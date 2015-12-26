@@ -10,4 +10,4 @@
     = render 'history', collection: @collection
 
   - if @add_postloader
-    = render 'blocks/postloader', url: index_profile_user_history_index_url(@resource, page: @page+1)
+    = render 'blocks/postloader', next_url: index_profile_user_history_index_url(@resource, page: @page+1)

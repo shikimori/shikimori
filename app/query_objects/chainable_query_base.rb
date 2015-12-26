@@ -21,7 +21,7 @@ class ChainableQueryBase
 
     @relation = paginate_collection(@relation) if @page
 
-    print @relation if @sql
+    print @relation if @print_sql
 
     @relation = apply_filters(@relation) if @collection_filters
     @relation = decorate_collection(@relation) if @should_decorate
@@ -52,8 +52,8 @@ class ChainableQueryBase
     self
   end
 
-  def sql
-    @sql = true
+  def print_sql
+    @print_sql = true
   end
 
   def sort sort_field, sort_order

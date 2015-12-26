@@ -3,12 +3,11 @@ class UserPreferencesController < ProfilesController
     authorize! :edit, @resource
 
     if @resource.preferences.update user_preferences_params
-      if params[:user].present?
-        super
-      else
-        redirect_to edit_profile_path(@resource, params[:page]), notice: t('changes_saved')
-      end
+      return super if params[:user].present?
+      return head 200 if request.xhr?
 
+      redirect_to edit_profile_path(@resource, params[:page]),
+        notice: t('changes_saved')
     else
       flash[:alert] = t 'changes_not_saved'
       edit
@@ -26,7 +25,8 @@ private
       :show_hentai_images, :show_social_buttons, :show_smileys, :menu_contest,
       :russian_genres, :russian_names, :postload_in_catalog,
       :list_privacy, :volumes_in_manga,
-      :is_comments_auto_collapsed, :is_comments_auto_loaded, :body_width
+      :is_comments_auto_collapsed, :is_comments_auto_loaded, :body_width,
+      forums: []
     )
   end
 end

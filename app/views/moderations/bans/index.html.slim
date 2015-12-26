@@ -8,7 +8,7 @@ header.head
   .moderators
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
   ul.b-list
-    li: p: a href="#{section_topic_url id: 79042, section: :s}" = t 'site_rules'
+    li: p: a href="#{forum_topic_url id: 79042, forum: :s}" = t 'site_rules'
     li: p Не обсуждайте с пользователями модерацию и факт того, что вы сами модератор.
     li: p Не обсуждайте кого, на сколько, за что и почему забанили, почему этого пользователя забанили, а этого пользователя - нет.
     li: p Будьте вежливы, не оскорбляйте и не унижайте пользователей сайта.
@@ -45,4 +45,4 @@ header.head
   .block
     = render partial: 'ban', collection: @bans
     - if @add_postloader
-      = render partial: 'blocks/postloader', locals: { url: page_moderations_bans_url(page: @page+1) }
+      = render partial: 'blocks/postloader', locals: { next_url: page_moderations_bans_url(page: @page+1) }

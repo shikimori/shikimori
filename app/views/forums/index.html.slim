@@ -1,0 +1,27 @@
+header.head
+  h1 = @page_title.last
+  .notice = t '.notice'
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+table.b-table.b-editable_grid
+  thead
+    tr
+      th = Forum.human_attribute_name :position
+      th = Forum.human_attribute_name :id
+      th = Forum.human_attribute_name :name
+      th = Forum.human_attribute_name :permalink
+      th = Forum.human_attribute_name :is_visible
+      td.text
+      th.actions Actions
+
+  tbody
+    - @collection.each do |forum|
+      tr
+        td = forum.position
+        td = forum.id
+        td = forum.name
+        td = forum.permalink
+        td = forum.is_visible
+        td.text
+        td.actions
+          a href="#{edit_forum_url forum.id}" edit

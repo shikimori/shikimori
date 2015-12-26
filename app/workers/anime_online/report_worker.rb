@@ -23,7 +23,7 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
       elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
         report.accept! approver
 
-      elsif report.user_id == User::GuestID && (report.doubles.zero? || report.doubles(:rejected) > 0)
+      elsif report.user_id == User::GUEST_ID && (report.doubles.zero? || report.doubles(:rejected) > 0)
         report.reject! approver
       end
 

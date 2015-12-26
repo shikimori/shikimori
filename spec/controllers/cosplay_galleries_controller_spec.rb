@@ -1,4 +1,5 @@
 describe CosplayGalleriesController do
+  include_context :seeds
   include_context :authenticated, :admin
 
   describe '#publishing' do
@@ -8,10 +9,10 @@ describe CosplayGalleriesController do
 
   describe '#publish' do
     let!(:cosplayer) { create :user, :cosplayer }
-    let!(:section) { create :section, :cosplay }
     let(:cosplay_gallery) { create :cosplay_gallery, :anime }
     before { post :publish, id: cosplay_gallery.id }
 
-    it { expect(response).to redirect_to UrlGenerator.instance.topic_url(cosplay_gallery.reload.thread) }
+    it { expect(response).to redirect_to UrlGenerator.instance
+      .topic_url(cosplay_gallery.reload.thread) }
   end
 end

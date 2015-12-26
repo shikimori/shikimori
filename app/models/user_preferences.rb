@@ -1,18 +1,21 @@
-# настройки профиля пользователя
 class UserPreferences < ActiveRecord::Base
   extend Enumerize
-  DefaultSort = 'name'
 
   belongs_to :user, touch: true
 
-  enumerize :list_privacy, in: [:public, :users, :friends, :owner], predicates: { prefix: true }
+  enumerize :list_privacy,
+    in: [:public, :users, :friends, :owner],
+    predicates: { prefix: true }
   enumerize :body_width, in: [:x1200, :x1000]
 
   boolean_attribute :comments_auto_collapsed
   boolean_attribute :comments_auto_loaded
 
-  validates :default_sort, :page_background, length: { maximum: 255 }, allow_blank: true
+  validates :default_sort, :page_background,
+    length: { maximum: 255 }, allow_blank: true
   validates :body_background, length: { maximum: 512 }, allow_blank: true
+
+  before_create :set_forums unless Rails.env.test?
 
   def default_sort
     super || (russian_names? ? 'russian' : 'name')
@@ -65,5 +68,11 @@ class UserPreferences < ActiveRecord::Base
   # TODO: выпилить это поле из базы и из кода
   def postload_in_catalog?
     postload_in_catalog
+  end
+
+private
+
+  def set_forums
+    self.forums = Forums::List.defaults
   end
 end

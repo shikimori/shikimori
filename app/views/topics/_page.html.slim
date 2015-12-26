@@ -1,16 +1,18 @@
+- linked = @view.linked || (@resource && @resource.linked)
+
 .menu-toggler
   .toggler
 
 header.head
   h1
-    = @h1 || @section.name
-
+    = @page_title.last
+    / = @h1 || @forum.name
 
   - if @breadcrumbs
     = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
-  - else
+  / - else
     .notice
-      = @notice || @section.description
+      = @notice || @forum.description
 
   /- if params[:page] != 'cosplay'
   /- else
@@ -19,7 +21,7 @@ header.head
 
   /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
 
-.menu-slide-outer
+.menu-slide-outer class="#{linked ? :x199 : :x240}"
   /- if defined?(@gallery)
     - if user_signed_in?
       = render partial: 'forum/gallery', formats: :html
@@ -30,44 +32,46 @@ header.head
   .menu-slide-inner
     .l-content
       /.forum-nav
-        /nav.sections
+        /nav.forums
           /- if user_signed_in?
-            /a data-section="new" class="control section-new section-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url section: @section[:permalink], linked: @linked}"
-          /- @sections.each do |section|
-            /a data-section="#{section[:permalink]}" class="control section-#{section[:permalink]}#{' selected' if params[:section] == section[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{section[:permalink] == 'all' ? forum_url : section_url(section[:permalink])}"
-              /= section[:name_short] || section[:name]
+            /a data-forum="new" class="control forum-new forum-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url forum: @forum[:permalink], linked: @linked}"
+          /- @forums.each do |forum|
+            /a data-forum="#{forum[:permalink]}" class="control forum-#{forum[:permalink]}#{' selected' if params[:forum] == forum[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{forum[:permalink] == 'all' ? forum_url : forum_url(forum[:permalink])}"
+              /= forum[:name_short] || forum[:name]
 
         /h1.title
-          /= @h1 || @section.name.sub(/^Все$/, 'Обсуждения')
+          /= @h1 || @forum.name.sub(/^Все$/, 'Обсуждения')
         /p.notice
-          /= @notice || @section.description
+          /= @notice || @forum.description
 
       = yield
 
     aside.l-menu.ajax-opacity
-      - if @topic && @topic.linked
-        - if @topic.linked.kind_of?(Anime) || @topic.linked.kind_of?(Manga)
-          = render 'animes/menu', resource: @topic.linked.decorate
+      = render 'menu_actions', menu: @view.menu
 
-        - elsif @topic.linked.kind_of? Review
-          = render 'animes/menu', resource: @topic.linked.target.decorate
+      - if linked
+        - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
+          = render 'animes/menu', resource: linked.decorate
 
-        - elsif @topic.linked.kind_of? Character
-          = render 'characters/menu', resource: @topic.linked.decorate
+        - elsif linked.kind_of? Review
+          = render 'animes/menu', resource: linked.target.decorate
 
-        - elsif @topic.linked.kind_of? Person
-          = render 'people/menu', resource: @topic.linked.decorate
+        - elsif linked.kind_of? Character
+          = render 'characters/menu', resource: linked.decorate
 
-        - elsif @topic.linked.kind_of? Group
-          = render 'clubs/menu', resource: @topic.linked.decorate
+        - elsif linked.kind_of? Person
+          = render 'people/menu', resource: linked.decorate
 
-        - elsif @topic.linked.kind_of? Contest
-          = render 'contests/menu', resource: @topic.linked.decorate
+        - elsif linked.kind_of? Club
+          = render 'clubs/menu', resource: linked.decorate
 
-        - elsif @topic.linked.kind_of? CosplayGallery
-          = render 'forum/menu', presenter: @news
+        - elsif linked.kind_of? Contest
+          = render 'contests/menu', resource: linked.decorate
 
-        - else raise "unknown linked: #{@linekd.class}"
+        - elsif linked.kind_of? CosplayGallery
+          = render 'menu', menu: @view.menu
+
+        - else raise "unknown linked: #{linked.class}"
 
       - else
-        = render 'forum/menu', presenter: @news
+        = render 'menu', menu: @view.menu

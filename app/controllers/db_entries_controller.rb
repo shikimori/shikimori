@@ -11,12 +11,12 @@ class DbEntriesController < ShikimoriController
 
   def edit
     noindex
-    page_title i18n_t('entry_edit')
+    page_title i18n_t 'entry_edit'
   end
 
   def edit_field
     noindex
-    page_title i18n_t('entry_edit')
+    page_title i18n_t 'entry_edit'
     @field = params[:field]
 
     authorize! :significant_change, Version if significant_fields.include?(@field)

@@ -131,7 +131,7 @@ describe AnimeVideoReport do
           let(:state_2) { state_1 }
 
           context 'guest report' do
-            let(:user) { build_stubbed :user, id: User::GuestID }
+            let(:user) { build_stubbed :user, id: User::GUEST_ID }
             it { should eq 0 }
           end
 
@@ -390,7 +390,7 @@ describe AnimeVideoReport do
 
     context 'guest' do
       let(:user) { nil }
-      let(:user_id) { User::GuestID }
+      let(:user_id) { User::GUEST_ID }
       it { should_not be_able_to :manage, report }
       it { should be_able_to :create, report }
     end

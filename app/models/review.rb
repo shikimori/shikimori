@@ -1,4 +1,3 @@
-# сущность обзора аниме или манги
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable
@@ -94,7 +93,7 @@ class Review < ActiveRecord::Base
   end
 
   def to_offtopic!
-    thread.update_column :section_id, Section::OFFTOPIC_ID
+    thread.update_column :forum_id, Forum::OFFTOPIC_ID
   end
 
   def self.has_changes?

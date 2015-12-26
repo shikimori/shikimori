@@ -86,7 +86,7 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#clubs' do
-    let(:user) { create :user, groups: [create(:group)] }
+    let(:user) { create :user, clubs: [create(:club)] }
 
     before { get :clubs, id: user.id, format: :json }
     it { expect(response).to have_http_status :success }

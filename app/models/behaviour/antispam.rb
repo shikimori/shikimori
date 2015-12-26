@@ -35,7 +35,7 @@ module Antispam
   def check_antispam
     return if id # если id есть, значит это редактирование
     return unless with_antispam?
-    return if User::Admins.include?(user_id)
+    return if User::ADMINS.include?(user_id)
 
     prior = self
       .class

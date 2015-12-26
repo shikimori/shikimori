@@ -22,11 +22,34 @@ module Routing
     if topic.kind_of?(User)
       profile_url topic, subdomain: false
 
-    elsif topic.kind_of?(ContestComment) || topic.news? || topic.review?
-      section_topic_url id: topic, section: topic.section, linked: nil, format: format, subdomain: false
+    elsif topic.kind_of?(ContestComment) || (topic.news? && topic.action != 'episode') || topic.review?
+      forum_topic_url(
+        id: topic,
+        forum: topic.forum,
+        linked: nil,
+        format: format,
+        subdomain: false
+      )
 
     else
-      section_topic_url id: topic, section: topic.section, linked: topic.linked, format: format, subdomain: false
+      forum_topic_url(
+        id: topic,
+        forum: topic.forum,
+        linked_type: topic.linked.class.name.downcase,
+        linked_id: topic.linked.to_param,
+        format: format,
+        subdomain: false
+      )
+    end
+  end
+
+  def forum_url forum, linked = nil
+    if linked
+      forum_topics_url forum,
+        linked_id: linked.to_param,
+        linked_type: linked.class.name.downcase
+    else
+      forum_topics_url forum
     end
   end
 end

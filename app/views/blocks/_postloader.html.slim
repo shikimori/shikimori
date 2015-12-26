@@ -1,5 +1,7 @@
+- raise 'url should not be defined' if defined?(url)
+
 .b-postloader.collapsed[
-    data-remote="#{url}"
+    data-remote="#{next_url}"
     data-filter="#{defined?(filter) ? filter : ''}"
     data-append-to-top="#{true if defined? append_to_top}"
     data-appear-top-offset="900"
@@ -12,7 +14,7 @@
 
   - if defined?(next_url) && next_url.present?
     a.next[
-      href="#{url.sub /.json$/, ''}"
+      href="#{next_url.sub /.json$/, ''}"
       rel='next'
     ] = "#{t 'pagination.next'} →"
 

@@ -1,7 +1,8 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at, :body, :comments_count, :viewed?, to: :topic
+  delegate :id, :persisted?, :user, :created_at, :updated_at,
+    :body, :comments_count, :viewed?, to: :topic
   instance_cache :comments, :urls, :action_tag
 
   def ignored?
@@ -31,11 +32,18 @@ class Topics::View < ViewObjectBase
     is_preview || !topic.generated? || topic.contest?
   end
 
-  def topic_title
+  def poster_title
     if !is_preview
       topic.user.nickname
-    elsif topic.topic? || topic.linked_id.nil?
+    else
+      topic_title
+    end
+  end
+
+  def topic_title
+    if topic.topic? || topic.linked_id.nil?
       topic.title
+
     else
       h.localized_name topic.linked
     end
@@ -47,7 +55,8 @@ class Topics::View < ViewObjectBase
 
   # картинка топика(аватарка автора)
   def poster is_2x
-    if topic.linked && is_preview
+    # последнее условие для пользовательских топиков об аниме
+    if topic.linked && is_preview && !topic.instance_of?(Topic)
       ImageUrlGenerator.instance.url(
         (topic.review? ? topic.linked.target : topic.linked), is_2x ? :x96 : :x48
       )
@@ -66,10 +75,6 @@ class Topics::View < ViewObjectBase
 
   def faye_channel
     ["topic-#{topic.id}"].to_json
-  end
-
-  def subscribed?
-    h.current_user.subscribed? topic
   end
 
   def author_in_header?

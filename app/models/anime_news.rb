@@ -1,7 +1,7 @@
 class AnimeNews < DbEntryThread
   enumerize :action, in: [:anons, :ongoing, :released, :episode], predicates: true
 
-  attr_defaults section_id: -> { SectionIDs[Anime.name] }
+  attr_defaults forum_id: -> { FORUM_IDS[Anime.name] }
   attr_defaults title: -> { generate_title linked }
   attr_defaults text: -> { 'text' }
 

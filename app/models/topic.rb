@@ -6,7 +6,6 @@ class Topic < Entry
 
   validates :title, :text, presence: true
 
-  after_create :subscribe
   before_destroy :clear_anime_history
 
   def title
@@ -30,10 +29,5 @@ private
 
   def clear_anime_history
     self.anime_history.topic_id = 0 if self.anime_history
-  end
-
-  # подписка автора на топик
-  def subscribe
-    user.subscribe(self)
   end
 end

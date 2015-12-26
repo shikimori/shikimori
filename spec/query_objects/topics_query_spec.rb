@@ -1,6 +1,6 @@
 describe TopicsQuery do
   include_context :seeds
-  let(:query) { TopicsQuery.new nil }
+  let(:query) { TopicsQuery.new user }
 
   subject { query.result }
 
@@ -8,41 +8,101 @@ describe TopicsQuery do
     it { is_expected.to eq [seeded_offtopic_topic] }
   end
 
-  describe '#by_section' do
-    let!(:topic_1) { create :entry, section: anime_section, updated_at: 1.day.ago }
-    let!(:topic_2) { create :entry, section: offtopic_section, updated_at: 2.days.ago }
+  describe '#by_forum' do
+    let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
+    let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
+    let!(:review) { create :review, updated_at: 10.days.ago }
+    let!(:joined_club) { create :club, :with_thread, updated_at: 15.days.ago }
+    let!(:other_club) { create :club, :with_thread, updated_at: 20.days.ago }
 
-    context 'special section: all' do
-      before { query.by_section Section.static[:all] }
-      it { is_expected.to eq [seeded_offtopic_topic, topic_1, topic_2] }
+    before { joined_club.join user if user }
+
+    context 'user defined forums' do
+      before do
+        user.preferences.forums = forums if user
+        query.by_forum nil
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it do
+          is_expected.to eq [
+            seeded_offtopic_topic,
+            anime_topic,
+            offtop_topic,
+            review.thread
+          ]
+        end
+      end
+
+      context 'group of forums' do
+        let(:forums) { [offtopic_forum.id, animanga_forum.id] }
+        it do
+          is_expected.to eq [
+            seeded_offtopic_topic,
+            anime_topic,
+            offtop_topic
+          ]
+        end
+      end
+
+      context 'my_clubs forum' do
+        let(:forums){ [Forum::MY_CLUBS_FORUM.permalink] }
+        it { is_expected.to eq [joined_club.thread] }
+      end
+
+      context 'common forums' do
+        let(:forums){ [animanga_forum.id] }
+        it { is_expected.to eq [anime_topic] }
+      end
     end
 
-    context 'special section: reviews' do
-      let!(:review) { create :review }
-      before { query.by_section reviews_section }
-
+    context 'reviews' do
+      before { query.by_forum reviews_forum }
       it { is_expected.to eq [review.thread] }
     end
 
-    context 'special section: news' do
-      let!(:news_topic) { create :anime_news }
-      before { query.by_section Section.static[:news] }
+    context 'NEWS' do
+      let!(:generated_news) { create :anime_news, created_at: 1.day.ago, generated: true }
+      let!(:anime_news) { create :anime_news, created_at: 1.day.ago }
+      let!(:manga_news) { create :manga_news, created_at: 2.days.ago }
+      let!(:cosplay_news) { create :cosplay_comment, created_at: 3.days.ago,
+        linked: cosplay_gallery }
+      let(:cosplay_gallery) { create :cosplay_gallery, :anime }
+      before { query.by_forum Forum::NEWS_FORUM }
 
-      it { is_expected.to eq [news_topic] }
+      it { is_expected.to eq [anime_news, manga_news, cosplay_news] }
     end
 
-    context 'specific section' do
-      before { query.by_section anime_section }
-      it { is_expected.to eq [topic_1] }
+    context 'UPDATES' do
+      let!(:anime_news) { create :anime_news, created_at: 1.day.ago, generated: true }
+      let!(:manga_news) { create :manga_news, created_at: 2.days.ago, generated: true }
+      let!(:regular_news) { create :anime_news }
+      before { query.by_forum Forum::UPDATES_FORUM }
+
+      it { is_expected.to eq [anime_news, manga_news] }
+    end
+
+    context 'MY_CLUBS' do
+      let!(:joined_club_2) { create :club, :with_thread, updated_at: 25.days.ago }
+      before { joined_club_2.join user if user }
+      before { query.by_forum Forum::MY_CLUBS_FORUM }
+
+      it { is_expected.to eq [joined_club.thread, joined_club_2.thread] }
+    end
+
+    context 'common forum' do
+      before { query.by_forum animanga_forum }
+      it { is_expected.to eq [anime_topic] }
     end
   end
 
   describe '#by_linked' do
     let(:linked) { create :anime }
-    let!(:topic_1) { create :entry, linked: linked, section: anime_section }
-    let!(:topic_2) { create :entry, section: anime_section }
+    let!(:topic_1) { create :entry, linked: linked, forum: animanga_forum }
+    let!(:topic_2) { create :entry, forum: animanga_forum }
 
-    before { query.by_section anime_section }
+    before { query.by_forum animanga_forum }
     before { query.by_linked linked }
 
     it { is_expected.to eq [topic_1] }

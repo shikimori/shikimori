@@ -24,7 +24,7 @@ describe Image do
     end
 
     context 'owner_editor' do
-      let(:club) { build_stubbed :group, owner: user }
+      let(:club) { build_stubbed :club, owner: user }
       let(:image) { build_stubbed :image, owner: club }
       it { should be_able_to :destroy, image }
     end

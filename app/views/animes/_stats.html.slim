@@ -42,7 +42,7 @@
       .comments.zero-margin.zero-top-border
         .comments-container.bottom-add
           = render partial: 'comments/add', locals: { options: { \
-                  object: User.find(User::GuestID), \
+                  object: User.find(User::GUEST_ID), \
                   text: "[#{@resource.object.class.name.downcase}_poster=#{@resource.id}]Рекомендую #{@resource.anime? ? "посмотреть [anime=#{@resource.id}]#{@resource.name}[/anime]." : "почитать [manga=#{@resource.id}]#{@resource.name}[/manga]"}", \
                   no_subscribe: true,\
                   no_focus: true\

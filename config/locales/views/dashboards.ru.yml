@@ -1,18 +1,18 @@
 ru:
   dashboards:
     show:
-      currently_airing: Сейчас на экранах
-      reviews: Рецензии
-      all_reviews: все рецензии
-      animes: Аниме
-      mangas: Манга
-      forum: Форум
-      contests: Опросы
       all_contests: все опросы
-      news_feed: Лента новостей
-      all_news: Все новости
-      sponsors: Спонсоры
+      all_news: все новости
+      all_reviews: все рецензии
       anime_updates: Обновления аниме
+      all_updates: все обновления
+      animes: Аниме
+      contests: Опросы
+      currently_airing: Сейчас на экранах
+      mangas: Манга
+      news_feed: Лента новостей
+      other: Прочее
+      reviews: Рецензии
 
     animes:
       title: Аниме

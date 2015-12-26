@@ -1,3 +1,5 @@
+require 'cancan/matchers'
+
 describe Genre do
   describe 'relations' do
     it { have_and_belong_to_many :animes }
@@ -12,64 +14,97 @@ describe Genre do
     it { is_expected.to enumerize(:kind).in :anime, :manga }
   end
 
-  describe '#title' do
-    subject { genre.title ru_case: ru_case, user: user }
+  describe 'instance methods' do
+    describe '#title' do
+      subject { genre.title ru_case: ru_case, user: user }
 
-    let(:ru_case) { :subjective }
-    let(:user) { nil }
+      let(:ru_case) { :subjective }
+      let(:user) { nil }
 
-    let(:genre) { build :genre, name: name, kind: kind }
-    let(:kind) { 'anime' }
-    let(:name) { 'Romance' }
-
-    context 'anime' do
+      let(:genre) { build :genre, name: name, kind: kind }
       let(:kind) { 'anime' }
+      let(:name) { 'Romance' }
 
-      context 'Magic' do
-        let(:name) { 'Magic' }
-        it { is_expected.to eq 'Аниме про магию' }
+      context 'anime' do
+        let(:kind) { 'anime' }
+
+        context 'Magic' do
+          let(:name) { 'Magic' }
+          it { is_expected.to eq 'Аниме про магию' }
+        end
+
+        context 'Shounen' do
+          let(:name) { 'Shounen' }
+          it { is_expected.to eq 'Сёнен аниме' }
+        end
+
+        context 'Romance' do
+          let(:name) { 'Romance' }
+          it { is_expected.to eq 'Романтические аниме про любовь' }
+        end
       end
 
-      context 'Shounen' do
-        let(:name) { 'Shounen' }
-        it { is_expected.to eq 'Сёнен аниме' }
+      context 'manga' do
+        let(:kind) { 'manga' }
+
+        context 'Magic' do
+          let(:name) { 'Magic' }
+          it { is_expected.to eq 'Манга про магию' }
+        end
+
+        context 'Shounen' do
+          let(:name) { 'Shounen' }
+          it { is_expected.to eq 'Сёнен манга' }
+        end
+
+        context 'Romance' do
+          let(:name) { 'Romance' }
+          it { is_expected.to eq 'Романтическая манга про любовь' }
+        end
       end
 
-      context 'Romance' do
-        let(:name) { 'Romance' }
-        it { is_expected.to eq 'Романтические аниме про любовь' }
+      context 'genitive case' do
+        let(:ru_case) { :genitive }
+        it { is_expected.to eq 'Романтических аниме про любовь' }
+      end
+
+      context 'default title' do
+        let(:genre) { build :genre, name: name, kind: kind, russian: 'Безумие' }
+        let(:name) { 'Dementia' }
+
+        it { is_expected.to eq 'Аниме жанра безумие' }
       end
     end
+  end
 
-    context 'manga' do
-      let(:kind) { 'manga' }
+  describe 'permissions' do
+    let(:genre) { build_stubbed :genre }
+    let(:user) { build_stubbed :user, :user }
+    subject { Ability.new user }
 
-      context 'Magic' do
-        let(:name) { 'Magic' }
-        it { is_expected.to eq 'Манга про магию' }
-      end
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :moderator }
 
-      context 'Shounen' do
-        let(:name) { 'Shounen' }
-        it { is_expected.to eq 'Сёнен манга' }
-      end
-
-      context 'Romance' do
-        let(:name) { 'Romance' }
-        it { is_expected.to eq 'Романтическая манга про любовь' }
-      end
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to be_able_to :edit, genre }
+      it { is_expected.to be_able_to :update, genre }
     end
 
-    context 'genitive case' do
-      let(:ru_case) { :genitive }
-      it { is_expected.to eq 'Романтических аниме про любовь' }
+    context 'user' do
+      it { is_expected.to be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to_not be_able_to :edit, genre }
+      it { is_expected.to_not be_able_to :update, genre }
     end
 
-    context 'default title' do
-      let(:genre) { build :genre, name: name, kind: kind, russian: 'Безумие' }
-      let(:name) { 'Dementia' }
+    context 'guest' do
+      let(:user) { nil }
 
-      it { is_expected.to eq 'Аниме жанра безумие' }
+      it { is_expected.to_not be_able_to :read, genre }
+      it { is_expected.to be_able_to :tooltip, genre }
+      it { is_expected.to_not be_able_to :edit, genre }
+      it { is_expected.to_not be_able_to :update, genre }
     end
   end
 end

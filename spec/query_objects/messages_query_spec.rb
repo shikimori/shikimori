@@ -45,8 +45,8 @@ describe MessagesQuery do
     end
 
     context 'notifications' do
-      let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, id: notification.id * 10 }
-      let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, id: notification.id * 100 }
+      let!(:notification_2) { create :message, kind: MessageType::ClubRequest, to: user, from: user_2, id: notification.id * 10 }
+      let!(:notification_3) { create :message, kind: MessageType::ClubRequest, to: user, from: user_2, id: notification.id * 100 }
       let(:messages_type) { :notifications }
 
       it { expect(subject).to have(2).items }
@@ -55,8 +55,8 @@ describe MessagesQuery do
   end
 
   describe '#postload' do
-    let!(:notification_2) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, id: notification.id * 10 }
-    let!(:notification_3) { create :message, kind: MessageType::GroupRequest, to: user, from: user_2, id: notification.id * 100 }
+    let!(:notification_2) { create :message, kind: MessageType::ClubRequest, to: user, from: user_2, id: notification.id * 10 }
+    let!(:notification_3) { create :message, kind: MessageType::ClubRequest, to: user, from: user_2, id: notification.id * 100 }
     let(:messages_type) { :notifications }
 
     subject { query.postload 2, 1 }

@@ -19,7 +19,8 @@ class Image < ActiveRecord::Base
   after_update :reprocess_image, if: :cropping?
 
   def cropping?
-    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank? && crop_h != '0' && crop_w != '0'
+    !crop_x.blank? && !crop_y.blank? && !crop_w.blank? && !crop_h.blank? &&
+      crop_h != '0' && crop_w != '0'
   end
 
   def to_param

@@ -121,8 +121,8 @@ describe AnimesController do
   end
 
   describe '#clubs' do
-    let(:group) { create :group, :with_thread, :with_member }
-    let!(:group_link) { create :group_link, linked: anime, group: group }
+    let(:club) { create :club, :with_thread, :with_member }
+    let!(:club_link) { create :club_link, linked: anime, club: club }
     before { get :clubs, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -132,10 +132,8 @@ describe AnimesController do
     let(:comment) { create :comment, commentable: anime.thread }
     before { get :comments, id: anime.to_param }
 
-    it do
-      expect(response).to redirect_to section_topic_url(
-        id: anime.thread, section: seed(:anime_section), linked: anime)
-    end
+    it { expect(response).to redirect_to UrlGenerator.instance
+      .topic_url(anime.thread) }
   end
 
   describe '#summaries' do

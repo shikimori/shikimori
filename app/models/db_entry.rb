@@ -10,11 +10,11 @@ class DbEntry < ActiveRecord::Base
       foreign_key: :linked_id,
       dependent: :destroy
 
-    klass.has_many :group_links, -> { where linked_type: klass.name },
+    klass.has_many :club_links, -> { where linked_type: klass.name },
       foreign_key: :linked_id,
       dependent: :destroy
 
-    klass.has_many :groups, through: :group_links
+    klass.has_many :clubs, through: :club_links
 
     klass.after_create :generate_thread
     klass.after_save :sync_thread

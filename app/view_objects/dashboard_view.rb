@@ -7,7 +7,7 @@ class DashboardView < ViewObjectBase
 
   DISPLAYED_HISTORY = 2
 
-  instance_cache :ongoings, :favourites, :reviews, :contests
+  instance_cache :ongoings, :favourites, :reviews, :contests, :forums
   #preload :all_ongoings, :all_favourites
 
   def ongoings
@@ -52,19 +52,15 @@ class DashboardView < ViewObjectBase
 
   def user_news
     TopicsQuery.new(h.current_user)
-      .by_section(Section.static[:news])
-      .where(generated: false)
-      .order!(created_at: :desc)
+      .by_forum(Forum::NEWS_FORUM)
       .limit(5)
       .as_views(true, true)
   end
 
   def generated_news
     TopicsQuery.new(h.current_user)
-      .by_section(Section.static[:news])
-      .where(generated: true)
-      .order!(created_at: :desc)
-      .limit(8)
+      .by_forum(Forum::UPDATES_FORUM)
+      .limit(15)
       .as_views(true, true)
   end
 
@@ -85,24 +81,18 @@ class DashboardView < ViewObjectBase
   end
 
   def forums
-    Section.visible.map do |section|
-      OpenStruct.new(
-        name: section.name,
-        url: h.section_url(section),
-        size: TopicsQuery.new(h.current_user).by_section(section).size
-      )
-    end
-    # [
-      # 'Аниме',
-      # 'Манга',
-      # 'Визуальные новеллы',
-      # 'Игры',
-      # 'Новости',
-      # 'Рецензии',
-      # 'Опросы',
-      # 'Сайт',
-      # 'Оффтопик'
-    # ]
+    Forums::List.new.select { |forum| !forum.is_special }
+  end
+
+  def pages
+    {
+      h.anime_statistics_url => i18n_t('.anime_industry'),
+      h.about_pages_url => i18n_t('about_site'),
+      '/forum/s/79042-Pravila-sayta' => i18n_t('site_rules'),
+      '/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy' => 'FAQ',
+      h.moderations_url => i18n_t('.moderations_content'),
+      h.apipie_apipie_url => 'API'
+    }
   end
 
 private
@@ -127,7 +117,7 @@ private
 
   def all_reviews
     TopicsQuery.new(h.current_user)
-      .by_section(reviews_section)
+      .by_forum(reviews_forum)
       .limit(TOPICS_FETCH)
       .as_views(true, true)
   end
@@ -139,7 +129,7 @@ private
       #.shuffle
   #end
 
-  def reviews_section
-    Section.find_by_permalink('reviews')
+  def reviews_forum
+    Forum.find_by_permalink('reviews')
   end
 end

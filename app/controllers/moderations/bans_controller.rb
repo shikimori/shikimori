@@ -6,7 +6,7 @@ class Moderations::BansController < ModerationsController
   def index
     noindex && nofollow
     page_title t('moderations.show.bans_journal')
-    @moderators = User.where(id: User::Moderators - User::Admins).sort_by { |v| v.nickname.downcase }
+    @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
 
     if user_signed_in? && current_user.moderator?

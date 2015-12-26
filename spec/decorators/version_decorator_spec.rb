@@ -13,7 +13,7 @@ describe VersionDecorator do
 
     context 'guest' do
       let(:user) { nil }
-      let!(:guest) { create :user, id: User::GuestID }
+      let!(:guest) { create :user, id: User::GUEST_ID }
       it { expect(decorator.user).to eq guest }
     end
   end

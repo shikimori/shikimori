@@ -139,6 +139,7 @@
         width: 100%
         min-height: 400px
         max-height: 600px
+        margin-bottom: 60px
 
       .b-topic
         border-top-color: #ccc
@@ -170,9 +171,9 @@
         margin-bottom: 0 !important
 
   .forums
-    .section
+    .forum
       .link
-        +link//(#123)
+        +link
         font-size: 13px
         font-weight: bold
 
@@ -180,12 +181,6 @@
         color: $gray-2
         float: right
         font-size: 12px
-        // padding-left: 5px
-        // display: inline
-
-        // &:before
-          content: '/'
-          padding-right: 5px
 
   .contests .contest
     +menu-block-with-text-link

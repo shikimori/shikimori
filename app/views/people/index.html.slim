@@ -10,4 +10,4 @@ header.head
 .cc-8
   = render @collection
   - if @add_postloader
-    = render 'blocks/postloader', url: search_url(search: params[:search], page: @page+1)
+    = render 'blocks/postloader', next_url: search_url(search: params[:search], page: @page+1)

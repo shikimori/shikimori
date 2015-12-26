@@ -172,7 +172,7 @@ private
   end
 
   def faye
-    FayeService.new current_user || User.find(User::GuestID), faye_token
+    FayeService.new current_user || User.find(User::GUEST_ID), faye_token
   end
 
   def create_params

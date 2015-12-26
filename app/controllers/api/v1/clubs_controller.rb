@@ -20,9 +20,9 @@ class Api::V1::ClubsController < Api::V1::ApiController
   api :GET, '/clubs/:id', 'Show a club'
   def show
     if @collection
-      respond_with @collection, each_serializer: GroupProfileSerializer
+      respond_with @collection, each_serializer: ClubProfileSerializer
     else
-      respond_with @club, serializer: GroupProfileSerializer
+      respond_with @club, serializer: ClubProfileSerializer
     end
   end
 
@@ -71,9 +71,9 @@ private
     ids = params[:id].split(',')
 
     if ids.one?
-      @club = Group.find(params[:id]).decorate
+      @club = Club.find(params[:id]).decorate
     else
-      @collection = Group.where(id: ids).limit(LIMIT).decorate
+      @collection = Club.where(id: ids).limit(LIMIT).decorate
     end
   end
 end

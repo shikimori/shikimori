@@ -1,0 +1,27 @@
+describe ForumsController do
+  include_context :authenticated, :admin
+  let(:forum) { seed :offtopic_forum }
+
+  describe '#index' do
+    before { get :index }
+    it do
+      expect(response).to have_http_status :success
+      expect(collection).to have_at_least(6).items
+    end
+  end
+
+  describe '#edit' do
+    before { get :edit, id: forum.id }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#update' do
+    let(:params) {{ position: 5 }}
+    before { patch :update, id: forum.id, forum: params }
+
+    it do
+      expect(response).to redirect_to forums_url
+      expect(resource).to have_attributes params
+    end
+  end
+end

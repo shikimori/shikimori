@@ -1,0 +1,95 @@
+/.block2.naruto[
+    /class="#{:deleted if cookies['landing_naruto_hidden'] == 'true'}"
+    /data-cookie-name="landing_naruto_hidden"
+  /]
+  /.controls
+    /.delete title="Спрятать баннер"
+    /.confirm title="Подтверждаю"
+    /.cancel title="#{t 'actions.cancel'}"
+
+  /a href="http://naruto.kg-portal.ru/"
+    /center
+      /img[
+        /src="http://kawai.shikimori.org/images/user_image/original/40225/95246.jpg"
+        /srcset="http://moe.shikimori.org/images/user_image/original/40225/95247.jpg 2x"
+      /]
+
+/ - cache [:site_block, :reviews, I18n.locale, presenter.reviews_key, russian_names_key], expires_in: 6.hours do
+
+.block2.sponsors
+  .midheadline.gray.m10 = t 'sponsors'
+  .container
+    / - if Rails.env.production?
+      / = render 'dashboards/ad'
+    / - else
+    div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+
+- if menu.reviews.any?
+  .block2.reviews
+    h2.midheadline.m13
+      a[
+        href="#{forum_topics_url :reviews}"
+        title="#{t '.to_reviews'}"
+      ] = t '.reviews'
+    ul
+      - menu.reviews.each do |entry|
+        li.entry
+          a[
+            href="#{forum_topic_url forum: entry.thread.forum, id: entry.thread}"
+            title="#{entry.thread.title}"
+          ]
+            .image-name
+              img[
+                src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
+                srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
+                alt="#{localized_name entry.target}"
+                title="#{localized_name entry.target}"
+              ]
+              span.title
+                == entry.target.name
+            span.misc
+              = t '.user_review', author: entry.user.nickname
+            time.misc.date[
+              datetime="#{entry.created_at.iso8601}"
+            ] = l entry.created_at, format: '%e %B %Y'
+
+.block2.clubs
+  h2.midheadline.m13
+    a[
+      href="#{clubs_url}"
+      title="#{t '.to_clubs'}"
+    ] = i18n_i 'Club', :other
+  ul
+    - menu.clubs.each do |entry|
+      li.entry
+        a href="#{club_url entry.linked}" title="#{entry.title}"
+          .image-name
+            img[
+              src="#{entry.comments.first ? entry.comments.first.user.avatar_url(48) : entry.linked.owner.avatar_url(48)}"
+              alt="#{entry.title}"
+              title="#{entry.title}"
+            ]
+            span.title
+              = entry.title
+          - if entry.comments.first
+            span.misc title="#{truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
+              == truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+          - else
+            span.misc = t '.new_club'
+
+.block2.sticked-topics
+  h2.midheadline.m8 = t '.sticked_topics'
+  div
+    - menu.sticked_topics.take(3).each do |topic|
+      a.topic href="#{topic.url}"
+        span.title = topic.title
+        span.notice = topic.description
+  - if menu.sticked_topics.size > 3
+    .b-show_more = t '.show_more'
+    .b-show_more-more
+      span
+      - menu.sticked_topics.slice(3, 99).each do |topic|
+        a.topic href="#{topic.url}"
+          span.title = topic.title
+          span.notice = topic.description
+      .hide-more #{{t '.hide'}}

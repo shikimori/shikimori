@@ -2,7 +2,7 @@ class VersionDecorator < BaseDecorator
   include HTMLDiff
 
   def user
-    object.user || User.find(User::GuestID)
+    object.user || User.find(User::GUEST_ID)
   end
 
   def changed_fields

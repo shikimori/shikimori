@@ -16,8 +16,12 @@
   @media screen and (min-width: $ipad) and (max-width: $ipad_max)
     @content
 
+=ipad-portrait
+  @media screen and (min-width: $ipad) and (max-width: $ipad_max) and (orientation: portrait)
+    @content
+
 =ipad-landscape
-  @media screen and (max-width: $ipad_max) and (orientation: landscape)
+  @media screen and (min-width: $ipad) and (max-width: $ipad_max) and (orientation: landscape)
     @content
 
 =lte_ipad

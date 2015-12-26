@@ -34,7 +34,7 @@ describe AnimeVideosService do
 
         context 'without user' do
           let!(:guest) { create :user, :guest }
-          it { should have_attributes user_id: User::GuestID, kind: 'uploaded' }
+          it { should have_attributes user_id: User::GUEST_ID, kind: 'uploaded' }
         end
       end
     end

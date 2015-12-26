@@ -1,3 +1,3 @@
 class MangaNews < AnimeNews
-  attr_defaults section_id: -> { SectionIDs[Manga.name] }
+  attr_defaults forum_id: -> { FORUM_IDS[Manga.name] }
 end

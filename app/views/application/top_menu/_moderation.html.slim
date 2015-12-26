@@ -21,7 +21,7 @@
       a href="#{moderations_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
 
   - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
-    - unless current_user.id == User::Morr_ID && AnimeVideoReport.pending.count < 1000
+    - unless current_user.id == User::MORR_ID && AnimeVideoReport.pending.count < 1000
       .mod-block
         span #{i18n_i 'Video_change', :other}:
         a[

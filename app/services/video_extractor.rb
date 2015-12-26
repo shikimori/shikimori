@@ -15,7 +15,7 @@ module VideoExtractor
     end
 
     def matcher
-      @matcher ||= extractors.map {|klass| klass::URL_REGEX }.join '|'
+      @matcher ||= extractors.map { |klass| klass::URL_REGEX }.join '|'
     end
   end
 end

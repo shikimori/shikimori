@@ -1,7 +1,7 @@
 - if @page > 1
   = render partial: 'comments/comment', collection: @comments, formats: :html
   - if @add_postloader
-    = render partial: 'blocks/postloader', locals: { url: user_comments_url(page: @page+1) }, formats: :html
+    = render partial: 'blocks/postloader', locals: { next_url: user_comments_url(page: @page+1) }, formats: :html
 - else
   .subheadline Комментарии
   - if @comments.any?
@@ -10,6 +10,6 @@
         .comments-container
           = render partial: 'comments/comment', collection: @comments, formats: :html
           - if @add_postloader
-            = render partial: 'blocks/postloader', locals: { url: user_comments_url(page: @page+1) }, formats: :html
+            = render partial: 'blocks/postloader', locals: { next_url: user_comments_url(page: @page+1) }, formats: :html
   - else
     p Ничего нет.

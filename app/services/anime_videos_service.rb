@@ -34,6 +34,6 @@ private
   end
 
   def create_report video, user
-    video.reports.create! user_id: user.try(:id) || User::GuestID, kind: :uploaded
+    video.reports.create! user_id: user.try(:id) || User::GUEST_ID, kind: :uploaded
   end
 end

@@ -1,12 +1,14 @@
 .midheadline
   = t '.currently_airing'
-  a.b-link[
-    href="#{contests_url}"
-    title="#{t '.all_contests'}"
-  ] = t '.mangas'
+  / a.b-link[
+    / href="#{contests_url}"
+    / title="#{t '.all_contests'}"
+  / ] = t '.mangas'
 
 .cc-ongoings.to-process data-dynamic="cutted_covers"
-  = render @view.ongoings, cover_notice: :studio, content_by: :mini_tooltip
+  = render @view.ongoings,
+    cover_notice: :studio,
+    content_by: :mini_tooltip
 
 .cc-second
   .cc-inner
@@ -15,23 +17,32 @@
         .option.selected = t '.reviews'
         .option = t '.animes'
         .option = t '.mangas'
+        .option = t '.other'
 
       .slides
         .slide.reviews
           .midheadline.magenta
             h2 = t '.reviews'
             a.b-link[
-              href="#{section_url :reviews}"
+              href="#{forum_topics_url :reviews}"
               title="#{t '.all_reviews'}"
             ] = t '.all_reviews'
           div
-            = render partial: 'topics/topic', collection: @view.reviews, as: :view
+            = render partial: 'topics/topic',
+              collection: @view.reviews,
+              as: :view
 
         .slide.animes.hidden
           = render 'dashboards/animes'
 
         .slide.mangas.hidden
           = render 'dashboards/mangas'
+
+        .slide.hidden
+          .midheadline: h2 = t '.other'
+          ul.b-list
+            - @view.pages.each do |url, title|
+              li: a.b-link href="#{url}" title="#{title}" = title
 
     .c-my_list
       - if user_signed_in?
@@ -44,10 +55,10 @@
 
   .c-forum
     .forums.block
-      a.b-link_button.maxi.dark href="#{root_url}" = t '.forum'
+      a.b-link_button.maxi.dark href="#{forum_url}" = t 'forum'
       .block
         - @view.forums.each do |forum|
-          .section
+          .forum
             a.link href="#{forum.url}" = forum.name
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
 
@@ -66,21 +77,30 @@
     .midheadline.orange
       h2 = t '.news_feed'
       a.b-link[
-        href="#{section_url :news}"
+        href="#{forum_topics_url :news}"
         title="#{t '.all_news'}"
       ] = t '.all_news'
 
     div
-      = render partial: 'topics/topic', collection: @view.user_news, as: :view
+      = render partial: 'topics/topic',
+        collection: @view.user_news,
+        as: :view
 
   .c-generated_news
-    .midheadline.gray.m15 = t '.sponsors'
+    .midheadline.gray.m15 = t 'sponsors'
     .container
       / - if Rails.env.production?
         / = render 'dashboards/ad'
       / - else
       div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    .midheadline.yellow = t '.anime_updates'
+    .midheadline.yellow
+      = t '.anime_updates'
+      a.b-link[
+        href="#{forum_topics_url :updates}"
+        title="#{t '.all_updates'}"
+      ] = t '.all_updates'
     div
-      = render partial: 'topics/topic', collection: @view.generated_news, as: :view
+      = render partial: 'topics/topic',
+        collection: @view.generated_news,
+        as: :view

@@ -11,18 +11,8 @@ en:
 
       shikimori: &shikimori
         community: Community
-        info: Info
-        news: News
-        reviews: Reviews
-        contests: Contests
         current_contest: Current Contest
-        recommendations: Recommendations
-        favourite_recommendations: Favorite
-        community_recommendations: From the Community
-        personalized_recommendations: Personalized
-        moderations_content: Moderation
         currently_airing: Currently Airing
-        what_anime_to_watch: What anime I should watch next
       anime_online:
         <<: *shikimori
 

@@ -1,5 +1,5 @@
 class ClubsController < ShikimoriController
-  load_and_authorize_resource :club, class: Group
+  load_and_authorize_resource :club, class: Club
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
@@ -105,7 +105,7 @@ class ClubsController < ShikimoriController
 
 private
   def resource_klass
-    Group
+    Club
   end
 
   def set_breadcrumbs
@@ -130,7 +130,7 @@ private
 
   def update_club resource, update_params
     Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
-      Group.transaction do
+      Club.transaction do
         resource.animes = []
         resource.mangas = []
         resource.characters = []

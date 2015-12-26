@@ -20,7 +20,7 @@ ru:
       anime_manga_character: Персонаж аниме и манги
   contest_decorator:
     <<: *db_entry_decorator
-  group_decorator:
+  club_decorator:
     <<: *db_entry_decorator
   manga_decorator:
     <<: *ani_manga_decorator

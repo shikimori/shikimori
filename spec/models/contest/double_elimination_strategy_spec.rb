@@ -156,7 +156,9 @@ describe Contest::DoubleEliminationStrategy do
     let(:animes) { 1.upto(11).map { create :anime } }
 
     it 'creates animes/2 matches' do
-      expect { strategy.create_matches round, animes, group: ContestRound::W }.to change(ContestMatch, :count).by (animes.size.to_f / 2).ceil
+      expect {
+        strategy.create_matches round, animes, group: ContestRound::W
+      }.to change(ContestMatch, :count).by (animes.size.to_f / 2).ceil
     end
 
     it 'create_matchess left&right correctly' do

@@ -23,7 +23,7 @@ class AnimeDecorator < AniMangaDecorator
 
   # презентер файлов
   def files
-    AniMangaPresenter::FilesPresenter.new object, h
+    AniMangaDecorator::Files.new object
   end
 
   # дата выхода следующего эпизода

@@ -16,6 +16,15 @@ class Topics::GeneratedNewsView < Topics::View
     )
   end
 
+  def topic_title
+    if !is_preview
+      # TODO: localize all news titles
+      topic.title
+    else
+      super
+    end
+  end
+
   def render_body
     h.content_tag :div, render_linked, class: 'b-catalog-entry-embedded'
   end
@@ -27,7 +36,8 @@ class Topics::GeneratedNewsView < Topics::View
 private
 
   def render_linked
-    h.render(topic.linked.decorate,
+    h.render(
+      topic.linked.decorate,
       cover_title: :none,
       cover_notice: :none,
       content_by: :block,

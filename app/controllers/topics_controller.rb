@@ -1,70 +1,51 @@
-# TODO: выпилить ForumController
-class TopicsController < ForumController
+class TopicsController < ShikimoriController
   include TopicsHelper
 
   load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
-  before_action :build_forum
-  before_action :set_breadcrumbs, only: [:show, :edit, :new]
+  before_action :set_view
+  before_action :set_breadcrumbs
 
-  #caches_action :index,
-    #cache_path: proc { Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{Comment.last.updated_at}|#{json?}" },
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
-
-  #caches_action :show,
-    #cache_path: proc {
-      #topic = Entry.find params[:id]
-      #Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{topic.updated_at}|#{topic.linked ? topic.linked.updated_at : ''}|#{json?}"
-    #},
-    #unless: proc { user_signed_in? },
-    #expires_in: 2.days
-
-  # главная страница сайта и форум
   def index
-    @page = (params[:page] || 1).to_i
-    @limit = topics_limit
-
-    topics, @add_postloader = TopicsQuery.new(current_user)
-      .by_section(@section)
-      .by_linked(@linked)
-      .postload(@page, @limit)
-      .result
-
-    @collection = topics.map do |topic|
-      Topics::Factory.new(true, @section.permalink == 'reviews').build topic
+    # редирект на топик, если топик в подфоруме единственный
+    if params[:linked_id] && @view.topics.one?
+      return redirect_to UrlGenerator.instance.topic_url(
+        @view.topics.first.topic, params[:format]), status: 301
     end
 
-    super
-
-    # редирект на топик, если топик в подфоруме единственный
-    redirect_to topic_url(topics.first, params[:format]) and return if @linked && @collection.one?
+    # редирект, исправляющий linked
+    if params[:linked_id] && @view.linked.to_param != params[:linked_id]
+      return redirect_to UrlGenerator.instance.forum_url(
+        @view.forum, @view.linked), status: 301
+    end
   end
 
-  # страница топика форума
   def show
-    @topic = Entry.with_viewed(current_user).find(params[:id])
-    @view = Topics::Factory.new(false, false).build @topic
-
-    # новости аниме без комментариев поисковым системам не скармливаем
-    noindex && nofollow if @topic.generated? && @topic.comments_count.zero?
-    raise AgeRestricted if @topic.linked && @topic.linked.try(:censored?) && censored_forbidden?
-
-    if ((@topic.news? || @topic.review?) && params[:linked].present?) || (
-        !@topic.news? && !@topic.review? && (
-          @topic.to_param != params[:id] || @topic.section.permalink != params[:section] || (@topic.linked && params[:linked] != @topic.linked.to_param && !@topic.kind_of?(ContestComment))
-        )
-      )
-      return redirect_to topic_url(@topic), status: 301
+    expected_url = UrlGenerator.instance.topic_url @resource
+    if request.url != expected_url
+      return redirect_to expected_url, status: 301
     end
 
-    super
+    # новости аниме без комментариев поисковым системам не скармливаем
+    noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
+    raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
+
+    # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
+        # !@resource.news? && !@resource.review? && (
+          # @resource.to_param != params[:id] ||
+          # @resource.forum.permalink != params[:forum] ||
+          # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
+            # !@resource.kind_of?(ContestComment))
+        # )
+      # )
+      # return redirect_to UrlGenerator.instance.topic_url(@resource), status: 301
+    # end
   end
 
   # создание нового топика
   def new
     noindex
-    super
+    page_title i18n_t('new_topic')
   end
 
   # создание топика
@@ -81,7 +62,6 @@ class TopicsController < ForumController
 
   # редактирование топика
   def edit
-    super
   end
 
   # редактирование топика
@@ -110,7 +90,13 @@ class TopicsController < ForumController
 
     # превью топика отображается в формате комментария
     # render partial: 'comments/comment', layout: false, object: topic, formats: :html
-    render partial: 'topics/topic', object: topic, as: :view, layout: false, formats: :html
+    render(
+      partial: 'topics/topic',
+      object: topic,
+      as: :view,
+      layout: false,
+      formats: :html
+    )
   end
 
   # выбранные топики
@@ -120,7 +106,13 @@ class TopicsController < ForumController
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::Factory.new(true, false).build topic }
 
-    render partial: 'topics/topic', collection: topics, as: :view, layout: false, formats: :html
+    render(
+      partial: 'topics/topic',
+      collection: topics,
+      as: :view,
+      layout: false,
+      formats: :html
+    )
   end
 
   # подгружаемое через ajax тело топика
@@ -138,25 +130,52 @@ private
     allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
        [:text, :title, :linked_id, :linked_type]
     else
-       [:user_id, :section_id, :text, :title, :type, :linked_id, :linked_type]
+       [:user_id, :forum_id, :text, :title, :type, :linked_id, :linked_type]
     end
 
     params.require(:topic).permit(*allowed_params)
   end
 
-  # количество отображаемых топиков
-  def topics_limit
-    params[:format] == 'rss' ? 30 : 8
-  end
+  def set_view
+    @view = Forums::View.new
 
-  def build_forum
-    @forum_view = ForumView.new @resource
+    if params[:action] == 'show'
+      @resource = Entry.with_viewed(current_user).find(params[:id])
+      @topic_view = Topics::Factory.new(false, false).build @resource if @resource
+    end
   end
 
   def set_breadcrumbs
-    breadcrumb 'Форум', root_url
-    breadcrumb @forum_view.section.name, section_url(@forum_view.section)
-    breadcrumb @resource.title, UrlGenerator.instance.topic_url(@resource) if params[:action] == 'edit'
+    page_title i18n_t('title')
+    breadcrumb t('forum'), forum_url
+
+    if @resource && @resource.forum
+      page_title @resource.forum.name
+      breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
+
+      if @view.linked
+        breadcrumb(
+          UsersHelper.localized_name(@view.linked, current_user),
+          UrlGenerator.instance.forum_url(@view.forum, @view.linked)
+        )
+      end
+
+      page_title @topic_view ? @topic_view.topic_title : @resource.title
+      breadcrumb(
+        @topic_view ? @topic_view.topic_title : @resource.title,
+        UrlGenerator.instance.topic_url(@resource)
+      ) if params[:action] == 'edit' || params[:action] == 'update'
+
+    elsif @view.forum
+      page_title @view.forum.name
+      if params[:action] != 'index' || @view.linked
+        breadcrumb @view.forum.name, forum_topics_url(@view.forum)
+      end
+
+      if @view.linked
+        page_title UsersHelper.localized_name(@view.linked, current_user)
+      end
+    end
   end
 
   def faye
