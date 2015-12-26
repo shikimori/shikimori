@@ -40,7 +40,7 @@
         a.name href="#{profile_url dialog.target_user}"
           = dialog.target_user.nickname
 
-        time.dialog-time[
+        span.time: time[
           datetime="#{dialog.created_at.iso8601}"
         ] = l dialog.created_at, format: '%e %B %Y'
 
