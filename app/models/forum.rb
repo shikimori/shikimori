@@ -5,7 +5,7 @@ class Forum < ActiveRecord::Base
 
   VARIANTS = /animanga|site|offtopic|clubs|reviews|contests|news/
   # разделы, в которые можно создавать топики из интерфейса
-  PUBLIC_SECTIONS = %w{ offtopic animanga site }
+  PUBLIC_SECTIONS = %w{ offtopic animanga site games vn }
 
   ANIME_NEWS_ID = 1
   CLUBS_ID = 10
