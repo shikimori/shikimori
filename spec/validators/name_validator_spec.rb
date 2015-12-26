@@ -42,7 +42,7 @@ describe NameValidator, type: :validator do
 
     context 'routing' do
       it do
-        is_expected.to_not allow_value('v').for :name
+        is_expected.to_not allow_value('clubs').for :name
         is_expected.to_not allow_value('animes').for :name
         is_expected.to_not allow_value('mangas').for :name
         is_expected.to_not allow_value('reviews').for :name
