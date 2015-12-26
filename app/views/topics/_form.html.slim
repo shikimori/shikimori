@@ -12,7 +12,7 @@
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden
 
-  .m20
+  .inputs
     = f.input :type, as: :select, include_blank: false,
       collection: [\
         ['Топик', 'Topic'],
@@ -22,56 +22,56 @@
       ],
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
-  .m20
     = f.input :forum_id, as: :select, include_blank: false,
       collection: Forum.public,
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
-  .m20
     = f.input :title
 
-  .b-shiki_editor.unprocessed.block
-    = render 'comments/shiki_editor',
-      text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
-      field_name: 'topic[text]'
+    .b-shiki_editor.unprocessed.block
+      = render 'comments/shiki_editor',
+        text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
+        field_name: 'topic[text]'
 
-  .topic_linked
-    .b-input.string.optional
-      label.string.optional.control-label for="topic_linked"
-        = t 'activerecord.attributes.topic.linked'
-        .b-js-action.cleanup очистить
-      input.string.optional#topic_linked[
-        type="text"
-        data-anime-placeholder="Название аниме"
-        data-manga-placeholder="Название манги"
-        data-character-placeholder="Имя персонажа"
-        data-anime-autocomplete="#{autocomplete_animes_url}"
-        data-manga-autocomplete="#{autocomplete_mangas_url}"
-        data-character-autocomplete="#{autocomplete_characters_url}"
-      ]
-      /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url}"
+    .topic_linked
+      .b-input.string.optional
+        label.string.optional.control-label for="topic_linked"
+          = t 'activerecord.attributes.topic.linked'
+          .b-js-action.cleanup очистить
+        input.string.optional#topic_linked[
+          type="text"
+          data-anime-placeholder="Название аниме"
+          data-manga-placeholder="Название манги"
+          data-character-placeholder="Имя персонажа"
+          data-anime-autocomplete="#{autocomplete_animes_url}"
+          data-manga-autocomplete="#{autocomplete_mangas_url}"
+          data-character-autocomplete="#{autocomplete_characters_url}"
+        ]
+        /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url}"
 
-    /.topic-video
-      - if topic.linked.present?
-        a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
-    .topic-link
-      - if topic.linked.present?
-        a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
-          = topic.linked.name
+      /.topic-video
+        - if topic.linked.present?
+          a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
+      .topic-link
+        - if topic.linked.present?
+          a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
+            = topic.linked.name
 
-  .topic_posters
-    .b-input.string.optional
-      label.string.optional.control-label for="topic_linked"
-        = t 'activerecord.attributes.topic.posters'
-    .wall-ids
-    .drag-here-placeholder data-upload_url="#{api_user_images_url linked_type: AnimeNews.name}"
-      p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
-      = render 'blocks/upload_progress'
-      .b-shiki_wall.unprocessed
-        = render partial: 'images/image',
-          collection: topic.user_images,
-          locals: { topic_poster_edit: true }
-      input type="file" multiple="multiple"
+    .topic_posters
+      .b-input.string.optional
+        label.string.optional.control-label for="topic_linked"
+          = t 'activerecord.attributes.topic.posters'
+      .wall-ids
+      .drag-here-placeholder data-upload_url="#{api_user_images_url linked_type: AnimeNews.name}"
+        p Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом новости.
+        = render 'blocks/upload_progress'
+        .b-shiki_wall.unprocessed
+          = render partial: 'images/image',
+            collection: topic.user_images,
+            locals: { topic_poster_edit: true }
+        input type="file" multiple="multiple"
+
+  = f.input :broadcast
 
   .buttons
     a.cancel[

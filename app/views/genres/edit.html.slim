@@ -13,7 +13,7 @@ header.head
   - else
       .subheadline = Genre.model_name.human
 
-  .block
+  .inputs.block
     - if can? :manage, Genre
       = f.input :name
       = f.input :russian

@@ -133,6 +133,8 @@ private
        [:user_id, :forum_id, :text, :title, :type, :linked_id, :linked_type]
     end
 
+    allowed_params += [:broadcast] if current_user.admin?
+
     params.require(:topic).permit(*allowed_params)
   end
 
