@@ -14,7 +14,7 @@ class Forums::List  < ViewObjectBase
 private
 
   def forums
-    Rails.cache.fetch([:forums, :v4, Entry.last.id], expires_in: 2.weeks) do
+    Rails.cache.fetch([:forums, :v5, Entry.last.id], expires_in: 2.weeks) do
       Forum.visible.map { |forum| build forum, false } +
         Array(build Forum::NEWS_FORUM, true) +
         Array(build Forum.find_by_permalink('reviews'), true) +
@@ -27,7 +27,7 @@ private
     size = TopicsQuery
       .new(h.current_user)
       .by_forum(forum)
-      .where('comments_count > 0')
+      .where('generated = false or (generated = true and comments_count > 0)')
       .size unless is_special
 
     OpenStruct.new(
