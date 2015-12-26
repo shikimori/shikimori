@@ -16,6 +16,7 @@ class Forum < ActiveRecord::Base
   NEWS_FORUM = new permalink: 'news', name: 'Лента новостей'
   UPDATES_FORUM = new permalink: 'updates', name: 'Обновления аниме'
   MY_CLUBS_FORUM = new permalink: 'my_clubs', name: 'Мои клубы'
+  def NEWS_FORUM.id; permalink; end
   def MY_CLUBS_FORUM.id; permalink; end
 
   def to_param

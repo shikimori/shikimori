@@ -20,7 +20,14 @@
         ]
         - menu.forums.each do |forum|
           .forum class="#{forum.is_special ? :special : :common}"
-            - if current_user.preferences.forums.include?(forum.id.to_s)
+            - if forum.id == Forum::NEWS_FORUM.permalink
+              input[
+                type="checkbox"
+                name="user_preferences[forums][]"
+                value="#{forum.id}"
+                disabled
+              ]
+            - elsif current_user.preferences.forums.include?(forum.id.to_s)
               input[
                 type="checkbox"
                 name="user_preferences[forums][]"
