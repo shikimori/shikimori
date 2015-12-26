@@ -1,4 +1,4 @@
-class SetAllClubCommentsToNotGenerated < ActiveRecord::Migration
+class SetAllGroupCommentsToNotGenerated < ActiveRecord::Migration
   def up
     ClubComment.update_all generated: false
   end
