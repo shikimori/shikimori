@@ -1,12 +1,12 @@
 - unless ['new', 'create'].include? params[:action]
   .forums
-    - if user_signed_in?
+    - if user_signed_in? && current_user.day_registered?
       a.b-link_button.dark.create-topic[
         href="#{menu.new_topic_url}"
       ] = t '.create_topic'
     - else
       a.b-link_button.dark.create-topic.to-process[
-        data-dynamic="authorized"
+        data-dynamic="day_registered"
       ] = t '.create_topic'
 
     - if menu.changeable_forums?
