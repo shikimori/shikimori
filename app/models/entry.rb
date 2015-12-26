@@ -20,9 +20,12 @@ class Entry < ActiveRecord::Base
 
   validates :forum, presence: true unless Rails.env.test?
 
-  has_many :messages, -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
+  has_many :messages,
+    -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
     dependent: :delete_all
+  has_many :topic_ignores, foreign_key: :topic_id, dependent: :destroy
+
 
   before_save :validates_linked
   before_save :append_wall

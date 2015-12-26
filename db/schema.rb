@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151224102932) do
+ActiveRecord::Schema.define(version: 20151226213208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -838,6 +838,17 @@ ActiveRecord::Schema.define(version: 20151224102932) do
   create_table "tags", force: :cascade do |t|
     t.string "name", limit: 255
   end
+
+  create_table "topic_ignores", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "topic_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "topic_ignores", ["topic_id"], name: "index_topic_ignores_on_topic_id", using: :btree
+  add_index "topic_ignores", ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true, using: :btree
+  add_index "topic_ignores", ["user_id"], name: "index_topic_ignores_on_user_id", using: :btree
 
   create_table "user_changes", force: :cascade do |t|
     t.integer  "user_id"
