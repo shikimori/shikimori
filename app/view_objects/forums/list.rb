@@ -14,7 +14,7 @@ class Forums::List  < ViewObjectBase
 private
 
   def forums
-    Rails.cache.fetch([:forums, :v5, Entry.last.id], expires_in: 2.weeks) do
+    Rails.cache.fetch([:forums, :v9, Entry.last.id], expires_in: 2.weeks) do
       Forum.visible.map { |forum| build forum, false } +
         Array(build Forum::NEWS_FORUM, true) +
         Array(build Forum.find_by_permalink('reviews'), true) +

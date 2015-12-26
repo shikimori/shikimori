@@ -42,7 +42,15 @@
           .midheadline: h2 = t '.other'
           ul.b-list
             - @view.pages.each do |url, title|
-              li: a.b-link href="#{url}" title="#{title}" = title
+              li
+                - if url == about_pages_url
+                  a.b-link[
+                    href="#{url}"
+                    data-no-turbolink="true"
+                    title="#{title}"
+                  ] = title
+                - else
+                  a.b-link href="#{url}" title="#{title}" = title
 
     .c-my_list
       - if user_signed_in?

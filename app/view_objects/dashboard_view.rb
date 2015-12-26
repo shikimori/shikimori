@@ -19,7 +19,6 @@ class DashboardView < ViewObjectBase
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings
-  #preload :all_ongoings, :all_favourites
 
   def ongoings
     ApplyRatedEntries.new(h.current_user).call(
