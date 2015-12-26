@@ -3,6 +3,22 @@
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block
+    .midheadline = t 'dashboards.animes.recommended.title'
+
+    a.b-link_button.left-aligned.favourite[
+      href="#{send :"recommendations_favourites_#{menu.klass.name.downcase}_url"}"
+    ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
+
+    - if menu.klass == Anime
+      a.b-link_button.left-aligned.by_community[
+        href="#{RecommendationsController::TOPIC_URL}"
+      ] = t 'dashboards.animes.recommended.by_community'
+
+    a.b-link_button.left-aligned.personalized[
+      href="#{recommendations_url klass: menu.klass.name.downcase}"
+    ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
+
+  .block
     .subheadline = Anime.human_attribute_name :status
     ul.block-list.statuses.anime-params
       - menu.statuses.each do |status|
