@@ -1,4 +1,5 @@
 @import compass/css3/transition
+// @import compass/typography/text/ellipsis
 @import globals/variables
 
 =link_button_icon($icon)
@@ -9,6 +10,7 @@
     padding-right: 8px
 
 .b-link_button
+  // +ellipsis
   background-color: #eeeef1
   border: 1px solid darken(#eeeef1, 3%)
   border: 0
@@ -20,7 +22,6 @@
   line-height: 1
   margin-bottom: 10px
   padding: 8px 0
-  // padding: 9px 0
   text-align: center
 
   &:last-child
@@ -41,9 +42,9 @@
     border-color: darken($link-4, 2%)
     color: #fff
 
-  &.left-aligned
-    text-align: left
-    padding-left: 15px
+  // &.left-aligned
+    // text-align: left
+    // padding-left: 15px
 
   &.dark
     +transition(background-color 0.25s ease, border-color 0.25s ease)
