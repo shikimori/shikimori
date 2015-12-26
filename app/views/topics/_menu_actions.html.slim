@@ -44,4 +44,5 @@
       - menu.forums.each do |forum|
         .forum class="#{forum.is_special ? :special : :common}"
           a.link href="#{forum.url}" = forum.name
-          .threads #{forum.size} #{i18n_i 'topic', forum.size}
+          - if forum.size
+            .threads #{forum.size} #{i18n_i 'topic', forum.size}

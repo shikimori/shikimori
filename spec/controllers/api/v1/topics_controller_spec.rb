@@ -3,7 +3,6 @@ describe Api::V1::TopicsController, :show_in_doc do
 
   describe '#index' do
     let!(:topic) { create :entry, forum: animanga_forum, text: 'test [spoiler=спойлер]test[/spoiler] test' }
-
     before { get :index, forum: animanga_forum.permalink, format: :json }
 
     it do

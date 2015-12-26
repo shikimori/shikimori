@@ -69,7 +69,7 @@ describe DashboardView do
   end
 
   describe '#forums' do
-    it { expect(view.forums).to be_kind_of Forums::List }
+    it { expect(view.forums).to have_at_least(2).items }
   end
 
   #describe 'favourites' do

@@ -7,7 +7,18 @@ class DashboardView < ViewObjectBase
 
   DISPLAYED_HISTORY = 2
 
-  instance_cache :ongoings, :favourites, :reviews, :contests, :forums
+  THIS_SEASON_SQL = AnimeSeasonQuery.new(
+    Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
+    Anime
+  ).to_sql
+
+  PRIOR_SEASON_SQL = AnimeSeasonQuery.new(
+    Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text,
+    Anime
+  ).to_sql
+
+  instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
+    :new_ongoings, :old_ongoings
   #preload :all_ongoings, :all_favourites
 
   def ongoings
@@ -98,19 +109,25 @@ class DashboardView < ViewObjectBase
 private
 
   def all_ongoings
-    this_season = AnimeSeasonQuery.new(
-      Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
-      Anime
-    ).to_sql
+    if new_ongoings.size < ONGOINGS_TAKE * 1.5
+      new_ongoings + old_ongoings.take(ONGOINGS_TAKE * 1.5 - new_ongoings.size)
+    else
+      new_ongoings
+    end
+  end
 
-    prior_season = AnimeSeasonQuery.new(
-      Titles::SeasonTitle.new(3.month.ago, :season_year, Anime).text,
-      Anime
-    ).to_sql
-
+  def new_ongoings
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
-      .where("(#{this_season}) OR (#{prior_season})")
+      .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
+      .where('score > 7.5')
+      .decorate
+  end
+
+  def old_ongoings
+    OngoingsQuery.new(false)
+      .fetch(ONGOINGS_FETCH)
+      .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.5')
       .decorate
   end

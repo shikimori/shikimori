@@ -39,8 +39,6 @@ class Forum < ActiveRecord::Base
       end
     end
 
-  private
-
     def cached
       @cached ||= all.to_a.sort_by(&:position)
     end
