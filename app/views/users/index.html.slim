@@ -57,6 +57,5 @@ header.head.misc
 
     - if @add_postloader
       = render 'blocks/postloader', filter: 'b-user',
-        url: users_url(page: @page+1, search: params[:search]),
         next_url: users_url(page: @page+1, search: params[:search]),
         prev_url: (@page > 1 ? users_url(page: @page+1, search: params[:search]) : nil)

@@ -24,7 +24,8 @@
           = render 'user_rates'
 
           - if @resource.list.add_postloader?
-            = render 'blocks/postloader', next_url: profile_user_rates_url(url_params(page: @page+1))
+            = render 'blocks/postloader',
+              next_url: profile_user_rates_url(url_params(page: @page+1))
 
         - else
           p.b-nothing_here = t '.nothing_here'
