@@ -19,6 +19,7 @@
         .addClass('hidden')
 
   $('.cc-news').imagesLoaded ->
+    console.log 'imagesLoaded'
     $user_news = $('.c-user_news')
     $generated_news = $('.c-generated_news')
 
