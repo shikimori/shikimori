@@ -1,2 +1,4 @@
-.messages-postloader.click-loader data-format='json' data-href="#{url}"
-  = t '.load_older_messages'
+.messages-postloader.click-loader[
+  data-format='json'
+  data-href="#{next_url}"
+] = t '.load_older_messages'
