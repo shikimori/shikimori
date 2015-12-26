@@ -18,12 +18,13 @@
         .siblings()
         .addClass('hidden')
 
-  $('.cc-news').imagesLoaded ->
-    console.log 'imagesLoaded'
-    $user_news = $('.c-user_news')
-    $generated_news = $('.c-generated_news')
+  (->
+    $('.cc-news').imagesLoaded ->
+      $user_news = $('.c-user_news')
+      $generated_news = $('.c-generated_news')
 
-    align_blocks $user_news, $generated_news
+      align_blocks $user_news, $generated_news
+  ).delay 500
 
 align_blocks = ($user_news, $generated_news) ->
   $topics = $generated_news.find('.b-topic')
