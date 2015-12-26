@@ -14,6 +14,8 @@
     - if @collection.any?
       = render @collection
       - if @add_postloader
-        = render 'blocks/postloader', filter: 'b-comment', url: comments_profile_url(page: @page+1, search: params[:search])
+        = render 'blocks/postloader',
+          filter: 'b-comment',
+          next_url: comments_profile_url(page: @page+1, search: params[:search])
     - else
       p.b-nothing_here = t 'no_comments'
