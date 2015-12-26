@@ -13,11 +13,9 @@ class Forum < ActiveRecord::Base
   CONTESTS_ID = 13
   COSPLAY_ID = 15
 
-  NEWS_FORUM = new permalink: 'news', name: 'Лента новостей'
-  UPDATES_FORUM = new permalink: 'updates', name: 'Обновления аниме'
-  MY_CLUBS_FORUM = new permalink: 'my_clubs', name: 'Мои клубы'
-  def NEWS_FORUM.id; permalink; end
-  def MY_CLUBS_FORUM.id; permalink; end
+  NEWS_FORUM = OpenStruct.new id: 'news', permalink: 'news', name: 'Лента новостей'
+  UPDATES_FORUM = OpenStruct.new id: 'updates', permalink: 'updates', name: 'Обновления аниме'
+  MY_CLUBS_FORUM = OpenStruct.new id: 'my_clubs', permalink: 'my_clubs', name: 'Мои клубы'
 
   def to_param
     permalink
