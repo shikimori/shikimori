@@ -10,7 +10,6 @@
 
         - if @add_postloader
           = render 'blocks/postloader', filter: 'b-catalog_entry',
-            url: anime_dashboard_page_url(page: @page+1),
             next_url: anime_dashboard_page_url(page: @page+1),
             prev_url: (@page > 1 ? anime_dashboard_page_url(page: @page-1) : nil)
 
