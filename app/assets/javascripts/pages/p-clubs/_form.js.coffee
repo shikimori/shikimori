@@ -4,7 +4,7 @@
     .on 'preview:params', ->
       body: $(@).shiki().$textarea.val()
       target_id: 1
-      target_type: 'Group'
+      target_type: 'Club'
 
   $('.anime-suggest, .manga-suggest, .character-suggest').completable_variant()
   $('.moderator-suggest, .admin-suggest').completable_variant()

@@ -22,12 +22,18 @@
   .block
     .subheadline = i18n_i 'description'
     .b-shiki_editor.unprocessed
-      = render 'comments/shiki_editor', text: @resource.description, field_name: 'club[description]'
+      = render 'comments/shiki_editor',
+        text: @resource.description,
+        field_name: 'club[description]'
 
   .block
     .subheadline.m10 = i18n_i 'logo'
     - if @resource.logo.exists?
-      img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
+      img[
+        src="#{@resource.logo.url :main}"
+        alt="#{@resource.name}"
+        title="#{@resource.name}"
+      ]
     = f.input :logo, label: false
 
   - if @resource.persisted?
