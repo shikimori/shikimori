@@ -1,6 +1,6 @@
 - linked = @view.linked || (@resource && @resource.linked)
 
-.menu-toggler
+.menu-toggler.ipad-expanded
   .toggler
 
 header.head
@@ -21,7 +21,7 @@ header.head
 
   /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
 
-.menu-slide-outer class="#{linked ? :x199 : :x240}"
+.menu-slide-outer.ipad-expanded class="#{linked ? :x199 : :x240}"
   /- if defined?(@gallery)
     - if user_signed_in?
       = render partial: 'forum/gallery', formats: :html
