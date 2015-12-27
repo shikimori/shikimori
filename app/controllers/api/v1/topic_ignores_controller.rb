@@ -1,6 +1,12 @@
 class Api::V1::TopicIgnoresController < Api::V1::ApiController
   load_and_authorize_resource
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :POST, '/topic_ignores', 'Create a topic ignore'
+  param :topic_ignore, Hash do
+    param :topic_id, :number
+    param :user_id, :number
+  end
   def create
     @resource.save!
 
@@ -14,6 +20,8 @@ class Api::V1::TopicIgnoresController < Api::V1::ApiController
     render json: success_response(present_ignore)
   end
 
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :DELETE, '/topic_ignores/:id', 'Destroy a topic ignore'
   def destroy
     @resource.destroy
     render json: {
