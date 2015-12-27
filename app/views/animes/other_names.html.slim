@@ -6,6 +6,6 @@
   - if @resource.english.present?
     span itemprop="alternativeHeadline" == @resource.english.join(', ')
 
-= info_line 'Прочие названия' do
+= info_line t('.other_names') do
   - if @resource.synonyms.present?
     span itemprop="alternativeHeadline" == @resource.synonyms.join(', ')

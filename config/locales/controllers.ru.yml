@@ -210,6 +210,7 @@ ru:
       отсортировано по объёму работ.
 
   reviews_controller:
+    <<: *animes_controller
     new_review: Новый обзор
     edit_review: Изменение обзора
     review:
@@ -227,6 +228,9 @@ ru:
       manga: Сравнение списка манги %{user_1} и %{user_2}
     fetch_users_alert:
       Невозможно сравнить списки - пользователь %{user} не найден
+
+  anime_online/anime_videos_controller:
+    <<: *animes_controller
 
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор

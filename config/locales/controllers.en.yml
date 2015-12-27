@@ -208,6 +208,7 @@ en:
       List of major anime studios sorted by volume of media produced.
 
   reviews_controller:
+    <<: *animes_controller
     new_review: New review
     edit_review: Edit review
     review:
@@ -225,6 +226,9 @@ en:
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
       Cannot compare user's lists - user %{user} not found
+
+  anime_online/anime_videos_controller:
+    <<: *animes_controller
 
   api/v1/topic_ignores_controller:
     ignored: Topic ignored
