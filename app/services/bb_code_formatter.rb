@@ -9,7 +9,7 @@ class BbCodeFormatter
 
   HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
   TAGS = [
-    BbCodes::YoutubeTag,
+    # BbCodes::YoutubeTag,
     BbCodes::VideoTag, BbCodes::PosterTag, BbCodes::EntriesTag,
     BbCodes::WallTag, BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag,
     BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
@@ -73,8 +73,6 @@ class BbCodeFormatter
       text = tag_klass.instance.format text
     end
 
-    #text = text.bbcode_to_html @@custom_tags, false, :disable, :quote, :link, :image, :listitem, :img, :size
-    #text = text.gsub %r{<a href="(?!http|/)}, '<a href="http://'
     text = text.gsub '<ul><br>', '<ul>'
     text = text.gsub '</ul><br>', '</ul>'
 

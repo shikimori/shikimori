@@ -1,11 +1,17 @@
-require Rails.root.join('lib', 'string')
+require Rails.root.join 'lib', 'string'
 
 module CommentHelper
   include SiteHelper
   #include AniMangaHelper
 
-  SimpleBbCodes = [:b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid]
-  ComplexBbCodes = [:moderator, :smileys, :club, :contest, :mention, :version, :anime_video, :user, :message, :comment, :entry, :review, :quote, :posters, :ban, :spoiler]#, :wall_container
+  SimpleBbCodes = [
+    :b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid
+  ]
+  ComplexBbCodes = [
+    :moderator, :smileys, :club, :contest, :mention, :version, :anime_video,
+    :user, :message, :comment, :entry, :review, :quote, :posters, :ban,
+    :spoiler
+  ]#, :wall_container
   DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
@@ -103,7 +109,6 @@ module CommentHelper
 
     #/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
     #'<div class="collapse"><span class="action half-hidden" style="display: none;">развернуть</span></div><div class="collapsed spoiler">спойлер</div><div class="target spoiler" style="display: none;">\1<span class="closing"></span></div>')
-
 
     text.gsub(/
       \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
