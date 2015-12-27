@@ -58,6 +58,16 @@ class @ShikiTopic extends ShikiEditable
         @editor.cleanup()
         @_hide_editor()
 
+    $('.item-ignore', @$inner)
+      .on 'ajax:before', ->
+        $(@).toggleClass 'selected'
+
+      .on 'ajax:success', (e, result) ->
+        $(@).toggleClass 'selected', !!result.id
+        $(@).data
+          method: result.method
+          action: result.url
+
     # голосование за/против рецензии
     @$('.footer-vote .vote').on 'ajax:before', ->
       $(@).addClass('selected')

@@ -202,3 +202,7 @@ en:
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
       Cannot compare user's lists - user %{user} not found
+
+  api/v1/topic_ignores_controller:
+    ignored: Topic ignored
+    not_ignored: Topic is visible now

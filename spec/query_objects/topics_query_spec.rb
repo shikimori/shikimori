@@ -14,6 +14,7 @@ describe TopicsQuery do
     let!(:review) { create :review, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_thread, updated_at: 15.days.ago }
     let!(:other_club) { create :club, :with_thread, updated_at: 20.days.ago }
+    let!(:topic_ignore) { }
 
     before { joined_club.join user if user }
 
@@ -37,22 +38,21 @@ describe TopicsQuery do
 
       context 'group of forums' do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
-        it do
-          is_expected.to eq [
-            seeded_offtopic_topic,
-            anime_topic,
-            offtop_topic
-          ]
+        it { is_expected.to eq [seeded_offtopic_topic, anime_topic, offtop_topic] }
+
+        context 'topic_ignore' do
+          let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
+          # it { is_expected.to eq [seeded_offtopic_topic, offtop_topic] }
         end
       end
 
       context 'my_clubs forum' do
-        let(:forums){ [Forum::MY_CLUBS_FORUM.permalink] }
+        let(:forums) { [Forum::MY_CLUBS_FORUM.permalink] }
         it { is_expected.to eq [joined_club.thread] }
       end
 
       context 'common forums' do
-        let(:forums){ [animanga_forum.id] }
+        let(:forums) { [animanga_forum.id] }
         it { is_expected.to eq [anime_topic] }
       end
     end

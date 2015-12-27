@@ -204,3 +204,7 @@ ru:
       manga: Сравнение списка манги %{user_1} и %{user_2}
     fetch_users_alert:
       Невозможно сравнить списки - пользователь %{user} не найден
+
+  api/v1/topic_ignores_controller:
+    ignored: Топик добавлен в игнор
+    not_ignored: Топик удалён из игнора

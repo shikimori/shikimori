@@ -175,6 +175,7 @@ Site::Application.routes.draw do
       resources :topics, only: [:index, :show]
       resources :comments, only: [:show, :index, :create, :update, :destroy]
 
+      resources :topic_ignores, only: [:create, :destroy]
       resources :user_images, only: [:create]
 
       resources :clubs, only: [:show, :index] do

@@ -11,7 +11,8 @@ class TopicsQuery < ChainableQueryBase
     @user = user
     @relation = prepare_query
 
-    @relation = except_hentai @relation
+    except_hentai
+    except_ignored if @user
   end
 
   def by_forum forum
@@ -45,6 +46,7 @@ class TopicsQuery < ChainableQueryBase
     end
 
     except_generated forum
+    except_ignored if @user
 
     self
   end
@@ -70,20 +72,6 @@ private
       .order_default
   end
 
-  def except_generated forum
-    @relation = if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
-      @relation.wo_episodes
-    else
-      @relation.wo_empty_generated
-    end
-  end
-
-  def except_hentai query
-    query
-      .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
-      .where('animes.id is null or animes.censored=false')
-  end
-
   def user_forums
     if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
       where(
@@ -94,5 +82,25 @@ private
     else
       where FORUMS_QUERY, user_forums: @user.preferences.forums.map(&:to_i)
     end
+  end
+
+  def except_generated forum
+    @relation = if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
+      @relation.wo_episodes
+    else
+      @relation.wo_empty_generated
+    end
+  end
+
+  def except_hentai
+    joins "left join animes on animes.id=linked_id and linked_type='Anime'"
+    where 'animes.id is null or animes.censored=false'
+  end
+
+  def except_ignored
+    joins "left join topic_ignores on
+      topic_ignores.user_id = #{User.sanitize @user.id}
+      and topic_ignores.topic_id = entries.id"
+    where 'topic_ignores.id is null'
   end
 end

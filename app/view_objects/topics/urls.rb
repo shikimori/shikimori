@@ -40,4 +40,11 @@ class Topics::Urls < ViewObjectBase
   def topic_url
     h.topic_url topic
   end
+
+  def ignore_url
+    h.api_topic_ignores_url(topic_ignore: {
+      topic_id: topic.id,
+      user_id: h.current_user.id
+    })
+  end
 end

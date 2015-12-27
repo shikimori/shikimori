@@ -1,6 +1,12 @@
 aside.buttons
   .main-controls
-    / span.item-ignore title="#{t 'actions.ignore'}"
+    span.item-ignore[
+      title="#{t 'actions.ignore'}"
+      data-action="#{view.urls.ignore_url}"
+      data-method="POST"
+      data-remote="true"
+      data-type="json"
+    ]
     span.item-quote title="#{t 'actions.quote'}"
     /span.item-reply title="#{t topic.generated? ? 'Написать' : :reply}"
     span.item-reply title="#{t 'actions.reply'}"
@@ -18,10 +24,10 @@ aside.buttons
   - if can? :destroy, view.topic
     .delete-controls
       span.item-delete-confirm[
-        action="#{view.urls.destroy_url}"
+        title="#{t 'actions.delete'}"
+        data-action="#{view.urls.destroy_url}"
         data-type="json"
         data-remote="true"
-        data-method="delete"
-        title="#{t 'actions.delete'}"
+        data-method="DELETE"
       ]
       span.item-delete-cancel title="#{t 'actions.cancel'}"

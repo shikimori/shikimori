@@ -98,6 +98,11 @@ class ChainableQueryBase
     self
   end
 
+  def joins *args
+    @relation = @relation.joins *args
+    self
+  end
+
   def size
     relation.size
   end
