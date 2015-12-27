@@ -160,9 +160,17 @@ ru:
         restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
         confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.
         sure_to_restore_recommendations: Вы действительно хотите восстановить все заблокированные вами рекомендации для %{kind}?
-        clear_history_of_nickname_changes: Очистить историю изменения никнеймов
+        history_of_nickname_changes: История изменения никнеймов
+        clear_history: Очистить историю
         confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения ваших никнеймов.
         sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения ваших никнеймов?
+        ignored_topics: Игнорируемые топики
+        show_list_of_ignored_topics: Посмотреть список
+
+      ignored_topics:
+        topic_name: Название топика
+        topic_author: Автор
+        stop_ignore: прекратить игнор
 
     stats_bar:
       similar_users: похожие пользователи

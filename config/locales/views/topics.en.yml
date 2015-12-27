@@ -1,7 +1,10 @@
 en:
   topics:
     header:
+      mini: &header_mini
+        topic_ignored: ignored
       common:
+        <<: *header_mini
         about: about
     status_line:
       from: from

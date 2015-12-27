@@ -3,7 +3,7 @@ class Topics::View < ViewObjectBase
 
   delegate :id, :persisted?, :user, :created_at, :updated_at,
     :body, :comments_count, :viewed?, to: :topic
-  instance_cache :comments, :urls, :action_tag
+  instance_cache :comments, :urls, :action_tag, :topic_ignore
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
@@ -70,7 +70,7 @@ class Topics::View < ViewObjectBase
   end
 
   def urls
-    Topics::Urls.new topic, is_preview
+    Topics::Urls.new self
   end
 
   def faye_channel
@@ -125,6 +125,15 @@ class Topics::View < ViewObjectBase
 
   # для совместимости с комментариями для рендера тултипа
   def offtopic?; false; end
+
+  def topic_ignore
+    h.user_signed_in? &&
+      h.current_user.topic_ignores.find { |v| v.topic_id == topic.id }
+  end
+
+  def topic_ignored?
+    topic_ignore.present?
+  end
 
 private
 

@@ -7,7 +7,7 @@ class Api::V1::TopicIgnoresController < Api::V1::ApiController
       id: @resource.id,
       url: api_topic_ignore_url(@resource),
       method: 'DELETE',
-      notice: i18n_t('ignored')
+      # notice: i18n_t('ignored')
     }
   end
 
@@ -19,7 +19,7 @@ class Api::V1::TopicIgnoresController < Api::V1::ApiController
         user_id: @resource.user_id
       }),
       method: 'POST',
-      notice: i18n_t('not_ignored')
+      # notice: i18n_t('not_ignored')
     }
   end
 

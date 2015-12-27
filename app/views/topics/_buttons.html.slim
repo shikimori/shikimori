@@ -2,8 +2,9 @@ aside.buttons
   .main-controls
     span.item-ignore[
       title="#{t 'actions.ignore'}"
-      data-action="#{view.urls.ignore_url}"
-      data-method="POST"
+      class="#{:selected if view.topic_ignored?}"
+      data-action="#{view.topic_ignored? ? view.urls.unignore_url : view.urls.ignore_url}"
+      data-method="#{view.topic_ignored? ? :DELETE : :POST}"
       data-remote="true"
       data-type="json"
     ]

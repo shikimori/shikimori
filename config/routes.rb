@@ -721,7 +721,9 @@ Site::Application.routes.draw do
         get :ban
         get :feed
         #get :stats
-        get 'edit(/:page)' => :edit, as: :edit, page: /account|profile|password|styles|list|notifications|misc/
+        get 'edit(/:page)' => :edit,
+          as: :edit,
+          page: /account|profile|password|styles|list|notifications|misc|ignored_topics/
 
         get 'reviews(/page/:page)' => :reviews, as: :reviews
         get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments

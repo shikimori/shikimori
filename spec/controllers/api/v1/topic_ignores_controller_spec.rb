@@ -15,7 +15,7 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
         id: resource.id,
         url: api_topic_ignore_url(resource),
         method: 'DELETE',
-        notice: I18n.t('api/v1/topic_ignores_controller.ignored')
+        # notice: I18n.t('api/v1/topic_ignores_controller.ignored')
       )
     end
   end
@@ -30,7 +30,7 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
       expect(json).to eq(
         url: api_topic_ignores_url(topic_ignore: topic_ignore_params),
         method: 'POST',
-        notice: I18n.t('api/v1/topic_ignores_controller.not_ignored')
+        # notice: I18n.t('api/v1/topic_ignores_controller.not_ignored')
       )
     end
   end

@@ -1,5 +1,6 @@
 class Topics::Urls < ViewObjectBase
-  pattr_initialize :topic, :is_preview
+  pattr_initialize :view
+  delegate :topic, :is_preview, to: :view
 
   # адрес заголовка топика
   def poster_url
@@ -46,5 +47,9 @@ class Topics::Urls < ViewObjectBase
       topic_id: topic.id,
       user_id: h.current_user.id
     })
+  end
+
+  def unignore_url
+    h.api_topic_ignore_url view.topic_ignore
   end
 end

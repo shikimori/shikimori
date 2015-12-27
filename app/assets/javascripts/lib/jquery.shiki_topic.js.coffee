@@ -62,11 +62,12 @@ class @ShikiTopic extends ShikiEditable
       .on 'ajax:before', ->
         $(@).toggleClass 'selected'
 
-      .on 'ajax:success', (e, result) ->
-        $(@).toggleClass 'selected', !!result.id
-        $(@).data
+      .on 'ajax:success', (e, result) =>
+        $(e.target).toggleClass 'selected', !!result.id
+        $(e.target).data
           method: result.method
           action: result.url
+        @$('.b-anime_status_tag.ignored').toggleClass 'hidden', !result.id
 
     # голосование за/против рецензии
     @$('.footer-vote .vote').on 'ajax:before', ->

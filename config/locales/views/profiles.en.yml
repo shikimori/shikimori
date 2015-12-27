@@ -159,9 +159,17 @@ en:
         restore_rejected_recommendations: Restore rejected %{kind} recommendations
         confirm_to_restore_recommendations: Confirm that you want to restore all your rejected %{kind} recommendations.
         sure_to_restore_recommendations: Are you sure you want to restore all your rejected %{kind} recommendations?
-        clear_history_of_nickname_changes: Clear history of nickname changes
+        history_of_nickname_changes: History of nickname changes
+        clear_history: Clear history
         confirm_to_clear_history_of_nickname_changes: Confirm that you want to clear all history of your nickname changes.
         sure_to_clear_history_of_nickname_changes: Are you sure you want to clear all history of your nickname changes?
+        ignored_topics: Ignored topics
+        show_list_of_ignored_topics: See list
+
+      ignored_topics:
+        topic_name: Topic name
+        topic_author: Author
+        stop_ignore: stop ignore
 
     stats_bar:
       similar_users: similar users

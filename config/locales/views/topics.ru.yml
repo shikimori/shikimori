@@ -1,7 +1,10 @@
 ru:
   topics:
     header:
+      mini: &header_mini
+        topic_ignored: в игноре
       common:
+        <<: *header_mini
         about: о
     status_line:
       from: от

@@ -14,12 +14,12 @@ class UserDecorator < BaseDecorator
   end
 
   def unvoted_contests
-    [can_vote_1?, can_vote_2?, can_vote_3?].count {|v| v }
+    [can_vote_1?, can_vote_2?, can_vote_3?].count { |v| v }
   end
 
   # добавлен ли пользователь в друзья текущему пользователю
   def is_friended?
-    h.current_user && h.current_user.friend_links.any? {|v| v.dst_id == id }
+    h.current_user && h.current_user.friend_links.any? { |v| v.dst_id == id }
   end
 
   def mutual_friended?

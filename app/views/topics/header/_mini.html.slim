@@ -6,6 +6,11 @@
     ]
   - if view.try :offtopic_tag
     .b-anime_status_tag.offtopic data-text="#{view.offtopic_tag}"
+  - if user_signed_in?
+    .b-anime_status_tag.ignored[
+      class="#{:hidden unless view.topic_ignored?}"
+      data-text="#{t '.topic_ignored'}"
+    ]
 
   a.name[
     href="#{view.urls.poster_url}"

@@ -183,3 +183,12 @@
 
     $("#import_phase_2 form").on "submit", ->
       $.cursorMessage()
+
+  # styles page
+  if $('.edit-page.ignored_topics')
+    $('.b-editable_grid .actions .b-js-link')
+      .on 'ajax:before', ->
+        $(@).hide()
+        $('<div class="ajax-loading vk-like"></div>').insertAfter @
+      .on 'ajax:success', ->
+        $(@).closest('tr').remove()

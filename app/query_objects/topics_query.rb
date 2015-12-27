@@ -98,9 +98,10 @@ private
   end
 
   def except_ignored
-    joins "left join topic_ignores on
-      topic_ignores.user_id = #{User.sanitize @user.id}
-      and topic_ignores.topic_id = entries.id"
-    where 'topic_ignores.id is null'
+    # joins "left join topic_ignores on
+      # topic_ignores.user_id = #{User.sanitize @user.id}
+      # and topic_ignores.topic_id = entries.id"
+    # where 'topic_ignores.id is null'
+    where_not id: @user.topic_ignores.map(&:topic_id)
   end
 end

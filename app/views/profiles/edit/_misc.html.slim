@@ -1,13 +1,14 @@
-= simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
-  input type='hidden' name='page' value="#{@page}"
-  .block
-    = f.input :show_hentai_images
-    = f.input :is_comments_auto_collapsed
-    = f.input :is_comments_auto_loaded
+.block
+  = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
+    input type='hidden' name='page' value="#{@page}"
+    .block
+      = f.input :show_hentai_images
+      = f.input :is_comments_auto_collapsed
+      = f.input :is_comments_auto_loaded
 
-  .buttons
-    a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
-    = f.button :magic_submit
+    .block
+      = f.button :magic_submit
+      a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
 
 .profile-action.block
   .mischeadline = t '.anime_manga_recommendations'
@@ -42,8 +43,9 @@
     span.b-js-link.cancel = t 'actions.cancel'
 
 .nickname-changes
+  .mischeadline = t '.history_of_nickname_changes'
   .controls
-    div: .b-js-link = t '.clear_history_of_nickname_changes'
+    div: .b-js-link = t '.clear_history'
 
   .form
     p
@@ -57,3 +59,8 @@
       data-confirm="#{t '.sure_to_clear_history_of_nickname_changes'}"
     ] = t 'yes_i_confirm'
     span.b-js-link.cancel = t 'actions.cancel'
+
+.ignored-topics
+  .mischeadline = t '.ignored_topics'
+  div: a.b-link href="#{edit_profile_url @resource, page: 'ignored_topics'}"
+    = t '.show_list_of_ignored_topics'

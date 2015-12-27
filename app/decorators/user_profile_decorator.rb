@@ -5,7 +5,7 @@ require_dependency 'publisher'
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
     :nickname_changes, :clubs, :favourites,
-    :main_comments, :preview_comments
+    :main_comments, :preview_comments, :ignored_topics
 
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
@@ -197,6 +197,12 @@ class UserProfileDecorator < UserDecorator
   def unconnected_providers
     User.omniauth_providers.select {|v| v != :google_apps && v != :yandex } -
       user_tokens.map {|v| v.provider.to_sym }
+  end
+
+  def ignored_topics
+    object.topic_ignores.includes(:topic).map do |topic_ignore|
+      Topics::Factory.new(false, false).build topic_ignore.topic
+    end
   end
 
 private

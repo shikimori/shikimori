@@ -12,6 +12,11 @@
       class="#{view.action_tag.type}"
       data-text="#{view.action_tag.text}"
     ]
+  - if user_signed_in?
+    .b-anime_status_tag.ignored[
+      class="#{:hidden unless view.topic_ignored?}"
+      data-text="#{t '.topic_ignored'}"
+    ]
 
   a.name[
     href="#{view.urls.poster_url}"
