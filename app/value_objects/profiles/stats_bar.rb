@@ -31,7 +31,7 @@ class Profiles::StatsBar < ViewObjectBase
   end
 
   def dropped_percent
-    (dropped * 100.0 / total).round 2
+    100 - completed_percent - incompleted_percent
   end
 
   def incompleted_percent
