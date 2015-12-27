@@ -6,44 +6,12 @@
 header.head
   h1
     = @page_title.last
-    / = @h1 || @forum.name
-
   - if @breadcrumbs
     = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
-  / - else
-    .notice
-      = @notice || @forum.description
-
-  /- if params[:page] != 'cosplay'
-  /- else
-    h2.h1-like title="#{h1_text @resource}"
-      = h1_text @resource, true
-
-  /= render partial: 'blocks/breadcrumbs', object: @breadcrumbs, formats: :html
 
 .menu-slide-outer.ipad-expanded class="#{linked ? :x199 : :x240}"
-  /- if defined?(@gallery)
-    - if user_signed_in?
-      = render partial: 'forum/gallery', formats: :html
-    - else
-      .welcome-gallery-loader data-remote="#{welcome_gallery_url}"
-        .ajax-loading title="#{t 'loading'}"
-
   .menu-slide-inner
     .l-content
-      /.forum-nav
-        /nav.forums
-          /- if user_signed_in?
-            /a data-forum="new" class="control forum-new forum-edit#{' selected' if params[:action] == 'new' || params[:action] == 'edit'}" title="Новый топик" href="#{new_topic_url forum: @forum[:permalink], linked: @linked}"
-          /- @forums.each do |forum|
-            /a data-forum="#{forum[:permalink]}" class="control forum-#{forum[:permalink]}#{' selected' if params[:forum] == forum[:permalink] && params[:action] != 'new' && params[:action] != 'edit'}" href="#{forum[:permalink] == 'all' ? forum_url : forum_url(forum[:permalink])}"
-              /= forum[:name_short] || forum[:name]
-
-        /h1.title
-          /= @h1 || @forum.name.sub(/^Все$/, 'Обсуждения')
-        /p.notice
-          /= @notice || @forum.description
-
       = yield
 
     aside.l-menu.ajax-opacity

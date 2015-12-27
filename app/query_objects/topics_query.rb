@@ -39,7 +39,8 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when Forum::MY_CLUBS_FORUM.permalink
-        where MY_CLUBS_QUERY, user_clubs: @user.club_roles.pluck(:club_id)
+        where MY_CLUBS_QUERY,
+          user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
 
       else
         where forum_id: forum.id

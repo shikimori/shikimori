@@ -49,6 +49,7 @@
 
     - else
       - menu.forums.each do |forum|
+        - next if !user_signed_in? && forum.id == Forum::MY_CLUBS_FORUM.permalink
         .forum class="#{forum.is_special ? :special : :common}"
           a.link href="#{forum.url}" = forum.name
           - if forum.size

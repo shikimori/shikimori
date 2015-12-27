@@ -29,17 +29,6 @@ class TopicsController < ShikimoriController
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
     raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
-
-    # if ((@resource.news? || @resource.review?) && params[:linked_id].present?) || (
-        # !@resource.news? && !@resource.review? && (
-          # @resource.to_param != params[:id] ||
-          # @resource.forum.permalink != params[:forum] ||
-          # (@resource.linked && params[:linked_id] != @resource.linked.to_param &&
-            # !@resource.kind_of?(ContestComment))
-        # )
-      # )
-      # return redirect_to UrlGenerator.instance.topic_url(@resource), status: 301
-    # end
   end
 
   # создание нового топика
