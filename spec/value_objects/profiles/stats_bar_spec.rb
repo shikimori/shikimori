@@ -14,6 +14,6 @@ describe Profiles::StatsBar do
   it { expect(lists_bar.incompleted).to eq 2 }
 
   it { expect(lists_bar.completed_percent).to eq 58.82 }
-  it { expect(lists_bar.dropped_percent).to eq 29.41 }
+  it { expect(lists_bar.dropped_percent).to eq 29.42 }
   it { expect(lists_bar.incompleted_percent).to eq 11.76 }
 end
