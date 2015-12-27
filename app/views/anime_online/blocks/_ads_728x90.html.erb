@@ -1,0 +1,21 @@
+<div>
+  <% if Rails.env.development? || Rails.env.test? %>
+    <div style="width: 728px; height: 90px; background: #ddd; border: 1px solid #aaa;">&nbsp;</div>
+  <% else %>
+    <%# <iframe src="#{pingmedia_iframe_728x90_advertur_url}" width='728px' height='90px' /> %>
+    <!-- 728*90 Advertur.ru start -->
+    <div id="advertur_1256"></div><script type="text/javascript">
+        (function(w, d, n) {
+            w[n] = w[n] || [];
+            w[n].push({
+                section_id: 1256,
+                place: "advertur_1256",
+                width: 728,
+                height: 90
+            });
+        })(window, document, "advertur_sections");
+    </script>
+    <script type="text/javascript" src="//ddnk.advertur.ru/v1/s/loader.js" async></script>
+    <!-- 728*90 Advertur.ru end -->
+  <% end %>
+</div>
