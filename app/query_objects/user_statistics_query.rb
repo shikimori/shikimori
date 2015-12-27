@@ -128,7 +128,7 @@ class UserStatisticsQuery
       # distance = distance - distance % DAY_INTERVAL
     # end
 
-    0.upto(intervals).map do |num|
+    0.upto(intervals - 1).map do |num|
       from = start_date + (distance*num).seconds
       to = from + distance.seconds - (num == intervals ? 0 : 1.second)
 

@@ -138,7 +138,7 @@ private
   end
 
   def stats
-    Rails.cache.fetch [:user_statistics_query, user] do
+    Rails.cache.fetch [:user_statistics_query, :v2, user] do
       UserStatisticsQuery.new user
     end
   end
