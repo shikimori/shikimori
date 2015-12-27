@@ -19,10 +19,10 @@ describe UserRatesQuery do
     it { should have(2).items  }
   end
 
-  describe '#recent_rates' do
-    it { expect(query.recent_rates(100)).to have(3).items  }
-    it { expect(query.recent_rates(1)).to have(1).item  }
-  end
+  # describe '#recent_rates' do
+    # it { expect(query.recent_rates(100)).to have(3).items  }
+    # it { expect(query.recent_rates(1)).to have(1).item  }
+  # end
 
   describe '#statuses_stats' do
     subject { query.statuses_stats }

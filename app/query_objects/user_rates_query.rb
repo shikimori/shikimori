@@ -14,13 +14,13 @@ class UserRatesQuery
   end
 
   # последние изменения от всех пользователей
-  def recent_rates limit
-    @entry.rates
-      .includes(:user)
-      .order(updated_at: :desc)
-      .limit(limit)
-      .to_a
-  end
+  # def recent_rates limit
+    # @entry.rates
+      # .includes(:user)
+      # .order(updated_at: :desc)
+      # .limit(limit)
+      # .to_a
+  # end
 
   # статусы пользователей сайта
   def statuses_stats

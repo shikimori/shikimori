@@ -119,9 +119,9 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # последние изменения от других пользователей
-  def recent_rates limit
-    rates_query.recent_rates limit
-  end
+  # def recent_rates limit
+    # rates_query.recent_rates limit
+  # end
 
   # полная хронология аниме
   def chronology
