@@ -5,7 +5,11 @@
 
 header.head
   h1
-    = @page_title.last
+    - if user_signed_in?
+      a.reload href="#{request.url}" title="#{t '.refresh'}" = @page_title.last
+    - else
+      = @page_title.last
+
   - if @breadcrumbs
     = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

@@ -13,6 +13,7 @@ ru:
       create_topic: Создать тему
       reload_forum: обновить форум
     page:
+      refresh: Обновить страницу
       no_topics: Нет топиков
     menu:
       # forum: Форум

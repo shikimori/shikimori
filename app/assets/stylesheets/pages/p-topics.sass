@@ -1,6 +1,15 @@
 //=require_directory ./p-topics
+@import mixins/link
 
 .p-topics
+  header h1 a.reload
+    +link(#123)
+    border-bottom: 1px dashed #bbb
+
+    &:hover
+      text-decoration: none !important
+      // border-bottom-color: $link-border-hover
+
   .comments.zero-top-border
     .comment-block:first-child
       margin-top: -2px
