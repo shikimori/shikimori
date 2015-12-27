@@ -21,6 +21,10 @@ class Forum < ActiveRecord::Base
     permalink
   end
 
+  def name
+    I18n.russian? ? name_ru : name_en
+  end
+
   class << self
     def public
       cached

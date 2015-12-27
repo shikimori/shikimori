@@ -14,34 +14,17 @@ class Forums::List  < ViewObjectBase
 private
 
   def forums
-    Rails.cache.fetch([:forums, :v2, Entry.last.id], expires_in: 2.weeks) do
-      Forum.visible.map { |forum| build forum, false } +
-        Array(build Forum::NEWS_FORUM, true) +
-        Array(build Forum.find_by_permalink('reviews'), true) +
+    Rails.cache.fetch([:forums, :v9, Entry.last.id], expires_in: 2.weeks) do
+      Forum.visible.map { |forum| decorate forum, false } +
+        Array(decorate Forum::NEWS_FORUM, true) +
+        Array(decorate Forum.find_by_permalink('reviews'), true) +
         Array(build Forum.find_by_permalink('contests'), true) +
-        Array(build Forum::MY_CLUBS_FORUM, true) +
-        Array(build Forum.find_by_permalink('clubs'), true)
+        Array(decorate Forum::MY_CLUBS_FORUM, true) +
+        Array(decorate Forum.find_by_permalink('clubs'), true)
     end
   end
 
-  def build forum, is_special
-    size = TopicsQuery
-      .new(current_user)
-      .by_forum(forum)
-      .where('generated = false or (generated = true and comments_count > 0)')
-      .size unless is_special
-
-    OpenStruct.new(
-      name: forum.name,
-      url: h.forum_topics_path(forum),
-      id: forum.id,
-      size: size,
-      is_special: is_special
-    )
-  end
-
-  def current_user
-    h.current_user
-  rescue NoMethodError
+  def decorate forum, is_special
+    ForumForList.new forum, is_special
   end
 end
