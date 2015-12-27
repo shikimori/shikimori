@@ -8,6 +8,7 @@
 #= require magnific-popup
 #= require jQuery-Storage-API
 #= require imagesloaded
+#= require autosize
 
 # dependencies for packery
 #= require jquery-bridget

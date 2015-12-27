@@ -20,7 +20,7 @@ class @ShikiEditor extends ShikiView
 
     # по первому фокусу на редактор включаем elastic
     @$textarea.one 'focus', =>
-      @$textarea.elastic.bind(@$textarea).delay()
+      setTimeout => autosize @$textarea
 
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey
