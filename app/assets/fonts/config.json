@@ -387,7 +387,7 @@
     {
       "uid": "12db1f260b5b2ccd1aa4d8942cc7f6dd",
       "css": "vk",
-      "code": 118,
+      "code": 86,
       "src": "zocial"
     },
     {
@@ -399,13 +399,13 @@
     {
       "uid": "6f7586c6f99798c3c1de6123d1f6cfa9",
       "css": "facebook-1",
-      "code": 59406,
+      "code": 70,
       "src": "zocial"
     },
     {
       "uid": "90d3360c550556afb7e5d3ea58a34e43",
       "css": "tumblr-1",
-      "code": 116,
+      "code": 84,
       "src": "zocial"
     },
     {
