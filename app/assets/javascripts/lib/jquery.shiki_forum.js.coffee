@@ -11,7 +11,9 @@
 class @ShikiForum extends ShikiView
   initialize: ($root) ->
     @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
+      return if IGNORED_TOPICS.includes data.topic_id
       $topic = @$(".b-topic##{data.topic_id}")
+
       if $topic.exists()
         $topic.trigger e.type, data
       else if e.type == 'faye:comment:created'

@@ -34,6 +34,8 @@ $ =>
   @IGNORE_COPYRIGHT = $body.data 'ignore-copyright'
   @LOCALE = $body.data 'locale'
 
+  @IGNORED_TOPICS = $body.data 'ignored-topics'
+
   @OPTIONS =
     comments_auto_collapsed: $body.data('comments-auto-collapsed')
     comments_auto_loaded: $body.data('comments-auto-loaded')
