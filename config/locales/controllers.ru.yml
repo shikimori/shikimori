@@ -145,6 +145,29 @@ ru:
     version_taken: *version_accepted
     entry_edit: Редактирование аниме
     edit: Редактирование
+    characters:
+      anime: Персонажи аниме
+      manga: Персонажи манги
+    producers:
+      anime: Создатели аниме
+      manga: Создатели манги
+    files: Файлы
+    similar:
+      anime: Похожие аниме
+      manga: Похожая манга
+    related:
+      anime: Связанное с аниме
+      manga: Связанное с мангой
+    reviews:
+      anime: Отзывы об аниме
+      manga: Отзывы о манге
+    breadcrumbs:
+      anime:
+        list: Список аниме
+        tv: Сериалы
+        movie: Полнометражные
+      manga:
+        list: Список манги
 
   mangas_controller:
     <<: *animes_controller
@@ -187,6 +210,7 @@ ru:
       отсортировано по объёму работ.
 
   reviews_controller:
+    <<: *animes_controller
     new_review: Новый обзор
     edit_review: Изменение обзора
     review:
@@ -204,6 +228,9 @@ ru:
       manga: Сравнение списка манги %{user_1} и %{user_2}
     fetch_users_alert:
       Невозможно сравнить списки - пользователь %{user} не найден
+
+  anime_online/anime_videos_controller:
+    <<: *animes_controller
 
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор

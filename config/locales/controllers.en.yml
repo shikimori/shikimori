@@ -144,6 +144,29 @@ en:
     version_taken: *version_accepted
     entry_edit: Edit anime
     edit: Edit
+    characters:
+      anime: Anime characters
+      manga: Manga characters
+    producers:
+      anime: Anime producers
+      manga: Manga producers
+    files: Files
+    similar:
+      anime: Similar animes
+      manga: Similar mangas
+    related:
+      anime: Related to anime
+      manga: Related to manga
+    reviews:
+      anime: Anime reviews
+      manga: Manga reviews
+    breadcrumbs:
+      anime:
+        list: Anime list
+        tv: TV series
+        movie: Anime movies
+      manga:
+        list: Manga list
 
   mangas_controller:
     <<: *animes_controller
@@ -185,6 +208,7 @@ en:
       List of major anime studios sorted by volume of media produced.
 
   reviews_controller:
+    <<: *animes_controller
     new_review: New review
     edit_review: Edit review
     review:
@@ -202,6 +226,9 @@ en:
       manga: Manga list comparison of users %{user_1} and %{user_2}
     fetch_users_alert:
       Cannot compare user's lists - user %{user} not found
+
+  anime_online/anime_videos_controller:
+    <<: *animes_controller
 
   api/v1/topic_ignores_controller:
     ignored: Topic ignored

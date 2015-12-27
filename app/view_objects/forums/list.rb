@@ -25,17 +25,21 @@ private
 
   def build forum, is_special
     size = TopicsQuery
-      .new(h.current_user)
+      .new(current_user)
       .by_forum(forum)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size unless is_special
 
     OpenStruct.new(
       name: forum.name,
-      url: h.forum_topics_url(forum),
+      url: h.forum_topics_path(forum),
       id: forum.id,
       size: size,
       is_special: is_special
     )
+  end
+
+  def current_user
+    h.current_user rescue NoMethodError
   end
 end

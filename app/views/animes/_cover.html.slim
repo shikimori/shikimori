@@ -9,10 +9,18 @@ span.image-decor
 
 - if cover_title != :none
   - if cover_by == :link
-    span.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" itemprop="name"
+    span.title[
+      class="#{cover_notice == :none ? :two_lined : :left_aligned}"
+      itemprop='name'
+    ]
       = localized_name anime
   - elsif cover_by == :linkeable
-    a.title class="#{cover_notice == :none ? :two_lined : :left_aligned}" href="#{url_for anime}" title="#{localized_name anime}" itemprop="url"
+    a.title[
+      class="#{cover_notice == :none ? :two_lined : :left_aligned}"
+      href="#{url_for anime}"
+      title="#{localized_name anime}"
+      itemprop='url'
+    ]
       = localized_name anime
 
 span.misc
@@ -33,11 +41,11 @@ span.misc
       span.right = time_of_next_episode anime
 
     - if (anime.next_episode || 1) == 1
-      span.anons анонс
+      span.anons = i18n_i 'anons'
     - elsif anime.next_episode == anime.episodes
-      span.released релиз
+      span.released = t '.released'
     - else
-      span #{anime.next_episode || 1} эпизод
+      span "#{anime.next_episode || 1} #{i18n_i 'episode'}"
 
   - elsif cover_notice == :relation
     span.relation = t "relation.#{anime.relation}"

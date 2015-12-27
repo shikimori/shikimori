@@ -40,6 +40,15 @@ en:
       moderators_only: for moderators only
       create_review: Create review
       no_reviews: No reviews
+      search_on:
+        toshokan: Search on Toshokan
+        rutracker: Search on Rutracker
+      subtitles:
+        type: Type
+        name: Name
+      new_torrent: New torrent
+      parse_page: Parse page
+      parse: Parse
 
     menu:
       scores: Scores
@@ -78,6 +87,9 @@ en:
 
     content:
       year: '%{year}'
+
+    cover:
+      released: released
 
   mangas:
     <<: *animes

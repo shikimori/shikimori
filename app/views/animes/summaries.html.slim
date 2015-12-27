@@ -1,11 +1,9 @@
 = render layout: 'page' do
   .b-options-floated.mobile-support
-    span.link.selected
-      | Все отзывы
+    span.link.selected = t '.all_summaries'
       span.brackets = @resource.summaries_count
 
-    a href="#{@resource.comments_url}"
-      | Все комментарии
+    a href="#{@resource.comments_url}" = t '.all_comments'
       span.brackets = @resource.comments_count
   .subheadline.m3 = @page_title.last
   div

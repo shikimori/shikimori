@@ -1,4 +1,4 @@
 = render layout: 'page' do
   .subheadline.m10 = @page_title.last
-  .cc-5.cc-similar.to-process data-dynamic="cutted_covers"
+  .cc-5.cc-similar.to-process data-dynamic='cutted_covers'
     = render @resource.related.similar, cover_notice: :year_kind, content_by: :tooltip

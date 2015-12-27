@@ -417,6 +417,12 @@ ru:
           few: пользователя
           many: пользователей
           other: пользователи
+      subtitle:
+        subjective:
+          one: субтитр
+          few: субтитра
+          many: субтитров
+          other: субтитры
 
       datetime:
         second:
