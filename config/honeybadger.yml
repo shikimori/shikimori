@@ -8,6 +8,7 @@ exceptions:
     - CanCan::AccessDenied
     - ActionController::InvalidAuthenticityToken
     - ActionController::UnknownFormat
+    - ActionDispatch::RemoteIp::IpSpoofAttackError
     - ActiveRecord::RecordNotFound
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
