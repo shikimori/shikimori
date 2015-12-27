@@ -127,18 +127,21 @@ class Ability
 
     can :manage, Device, user_id: @user.id
 
-    can [:new, :create], [Topic, AnimeNews, MangaNews] do |topic|
+    can [:new, :create], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
       !@user.banned? && @user.day_registered? && topic.user_id == @user.id
     end
-    can [:update], [Topic, AnimeNews, MangaNews] do |topic|
+    can [:update], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
       !@user.banned? && (
         topic.user_id == @user.id# && topic.created_at + 3.months > Time.zone.now
       )
     end
-    can [:destroy], [Topic, AnimeNews, MangaNews] do |topic|
+    can [:destroy], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
       !@user.banned? && (
         topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
       )
+    end
+    can [:create, :destroy], [TopicIgnore] do |topic_ignore|
+      topic_ignore.user_id == @user.id
     end
 
     can [:mark_read], Message # пометка сообщений прочтёнными
