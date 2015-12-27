@@ -7,6 +7,9 @@
     a href="#{root_url}" title="#{t :shikimori}"
       .logo
 
+  - if user_signed_in? && shikimori?
+    a.to-mobile-forum href="#{forum_url}"
+
   .menu-mobile
     .menu.mobile-menu-toggler title="#{t '.main_menu'}"
     .search.mobile-search-toggler title="#{t '.search'}"

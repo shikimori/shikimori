@@ -75,7 +75,7 @@
     {
       "uid": "dcedf50ab1ede3283d7a6c70e2fe32f3",
       "css": "chat",
-      "code": 59406,
+      "code": 102,
       "src": "fontawesome"
     },
     {
@@ -399,7 +399,7 @@
     {
       "uid": "6f7586c6f99798c3c1de6123d1f6cfa9",
       "css": "facebook-1",
-      "code": 102,
+      "code": 59406,
       "src": "zocial"
     },
     {
