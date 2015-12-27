@@ -129,7 +129,7 @@ private
   end
 
   def update_club resource, update_params
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation], sleep: 1 do
+    Retryable.retryable tries: 2, on: [PG::UniqueViolation, ActiveRecord::RecordNotUnique], sleep: 1 do
       Club.transaction do
         resource.animes = []
         resource.mangas = []

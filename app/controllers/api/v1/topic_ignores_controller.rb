@@ -3,12 +3,15 @@ class Api::V1::TopicIgnoresController < Api::V1::ApiController
 
   def create
     @resource.save!
-    render json: {
-      id: @resource.id,
-      url: api_topic_ignore_url(@resource),
-      method: 'DELETE',
-      # notice: i18n_t('ignored')
-    }
+
+    render json: success_response(@resource)
+
+  rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
+    present_ignore = TopicIgnore.find_by(
+      topic: @resource.topic,
+      user: @resource.user
+    )
+    render json: success_response(present_ignore)
   end
 
   def destroy
@@ -27,5 +30,14 @@ private
 
   def create_params
     params.require(:topic_ignore).permit [:user_id, :topic_id]
+  end
+
+  def success_response topic_ignore
+    {
+      id: topic_ignore.id,
+      url: api_topic_ignore_url(topic_ignore),
+      method: 'DELETE',
+      # notice: i18n_t('ignored')
+    }
   end
 end

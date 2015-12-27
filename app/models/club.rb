@@ -125,7 +125,7 @@ class Club < ActiveRecord::Base
     else
       members << user
     end
-  rescue PG::UniqueViolation
+  rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
   end
 
   def leave user
