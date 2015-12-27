@@ -7,7 +7,14 @@
         == f.object.errors.full_messages.join('<br>')
 
   .block
-    = f.input :nickname, input_html: { autofocus: true }
+    = f.input :nickname,
+      input_html: {\
+        autocorrect: 'none',
+        autocapitalize: 'none',
+        spellcheck: false,
+        autofocus: true\
+      }
+
     = f.input :password
 
   .block.submits

@@ -1,21 +1,31 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
-= simple_form_for @resource.object, url: profile_url(User.find(@resource.id)) do |f|
+= simple_form_for @resource.object,
+    url: profile_url(User.find(@resource.id)) do |f|
   input type="hidden" name="page" value="#{@page}"
 
   .cc-2
     .c-column.block_m
       .block
-        = f.input :nickname
+        = f.input :nickname,
+          input_html: {\
+            autocorrect: 'none',
+            autocapitalize: 'none',
+            spellcheck: false\
+          }
         = f.input :email, input_html: { disabled: true }
 
         .change-password
-          a href="#{edit_profile_url @resource, page: 'password'}" = t '.change_email_and_password'
+          a href="#{edit_profile_url @resource, page: 'password'}"
+            = t '.change_email_and_password'
 
         = f.input :name
         = f.input :location
         = f.input :website
         = f.input :sex, as: :select, collection: [:male, :female]
-        = f.input :birth_on, include_blank: true, start_year: Date.today.year - 90, end_year: Date.today.year - 8
+        = f.input :birth_on,
+          include_blank: true,
+          start_year: Date.today.year - 90,
+          end_year: Date.today.year - 8
 
     .c-column.block_m
       .block

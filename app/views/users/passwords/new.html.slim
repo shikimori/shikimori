@@ -4,7 +4,13 @@ header.head.m15
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   .block
-    = f.input :email, input_html: { autofocus: true }
+    = f.input :email,
+      input_html: {\
+        autocorrect: 'none',
+        autocapitalize: 'none',
+        spellcheck: false,
+        autofocus: true\
+      }
 
   .block
     = f.button :magic_submit
