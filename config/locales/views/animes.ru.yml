@@ -40,6 +40,15 @@ ru:
       moderators_only: только для модераторов
       create_review: Написать обзор
       no_reviews: Нет рецензий
+      search_on:
+        toshokan: Поиск на тошокане
+        rutracker: Поиск на рутрекере
+      subtitles:
+        type: Тип
+        name: Название
+      new_torrent: Новый торрент
+      parse_page: Распарсить страницу
+      parse: Выполнить
 
     menu:
       scores: Оценки людей
@@ -78,6 +87,9 @@ ru:
 
     content:
       year: '%{year} год'
+
+    cover:
+      released: релиз
 
   mangas: &animes
     <<: *animes

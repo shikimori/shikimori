@@ -7,7 +7,8 @@
     counter_aired: :episodes_aired
 
   - if entry.respond_to?(:next_episode_at) && entry.next_episode_at && !entry.anons?
-    = info_line t(entry.episodes_aired > 0 ? '.next_episode' : '.first_episode'), l(entry.next_episode_at, format: '%e %b %H:%M').strip
+    = info_line t(entry.episodes_aired > 0 ? '.next_episode' : '.first_episode'),
+      l(entry.next_episode_at, format: '%e %b %H:%M').strip
 
   - if entry.respond_to?(:episodes) && entry.duration && entry.duration > 0
     = info_line Anime.human_attribute_name(:duration) do
@@ -34,7 +35,10 @@
       | &nbsp;
 
       - if entry.release_date_tooltip
-        span.b-tooltipped.unprocessed data-direction="right" title="#{entry.release_date_tooltip}"
+        span.b-tooltipped.unprocessed[
+          data-direction='right'
+          title="#{entry.release_date_tooltip}"
+        ]
           = entry.release_date_text
       - else
         = entry.release_date_text
@@ -47,7 +51,7 @@
     = info_line Anime.human_attribute_name(:rating) do
       span.b-tooltipped.unprocessed[
           title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
-          data-direction="right"
+          data-direction='right'
         ]
         = entry.rating_text
 

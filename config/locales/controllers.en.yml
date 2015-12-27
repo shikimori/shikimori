@@ -144,6 +144,29 @@ en:
     version_taken: *version_accepted
     entry_edit: Edit anime
     edit: Edit
+    characters:
+      anime: Anime characters
+      manga: Manga characters
+    producers:
+      anime: Anime producers
+      manga: Manga producers
+    files: Files
+    similar:
+      anime: Similar animes
+      manga: Similar mangas
+    related:
+      anime: Related to anime
+      manga: Related to manga
+    reviews:
+      anime: Anime reviews
+      manga: Manga reviews
+    breadcrumbs:
+      anime:
+        list: Anime list
+        tv: TV series
+        movie: Anime movies
+      manga:
+        list: Manga list
 
   mangas_controller:
     <<: *animes_controller

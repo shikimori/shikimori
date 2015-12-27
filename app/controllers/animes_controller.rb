@@ -25,28 +25,28 @@ class AnimesController < DbEntriesController
     end
 
     noindex
-    page_title "Персонажи #{@resource.anime? ? 'аниме' : 'манги'}"
+    page_title i18n_t("characters.#{@resource.object.class.name.downcase}")
   end
 
   def staff
     return redirect_to @resource.url, status: 301 if @resource.roles.people.none?
 
     noindex
-    page_title "Создатели #{@resource.anime? ? 'аниме' : 'манги'}"
+    page_title i18n_t("producers.#{@resource.object.class.name.downcase}")
   end
 
   def files
     return redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
 
     noindex
-    page_title 'Файлы'
+    page_title i18n_t 'files'
   end
 
   def similar
     return redirect_to @resource.url, status: 301 if @resource.related.similar.none?
 
     noindex
-    page_title(@resource.anime? ? 'Похожие аниме' : 'Похожая манга')
+    page_title i18n_t("similar.#{@resource.object.class.name.downcase}")
   end
 
   def screenshots
@@ -55,7 +55,7 @@ class AnimesController < DbEntriesController
     end
 
     noindex
-    page_title 'Кадры'
+    page_title i18n_i('screenshots', :other).capitalize
   end
 
   def videos
@@ -64,14 +64,14 @@ class AnimesController < DbEntriesController
     end
 
     noindex
-    page_title 'Видео'
+    page_title i18n_i('video').capitalize
   end
 
   def related
     return redirect_to @resource.url, status: 301 unless @resource.related.any?
 
     noindex
-    page_title(@resource.anime? ? 'Связанное с аниме' : 'Связанное с мангой')
+    page_title i18n_t("similar.#{@resource.object.class.name.downcase}")
   end
 
   def chronology
@@ -95,13 +95,13 @@ class AnimesController < DbEntriesController
 
   def reviews
     return redirect_to @resource.url, status: 301 if @resource.summaries_count.zero?
-    page_title "Отзывы #{@resource.anime? ? 'об аниме' : 'о манге'}"
+    page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
     #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
   end
 
   def art
     noindex
-    page_title 'Арт с имиджборд'
+    page_title t('imageboard_art')
   end
 
   def images
@@ -115,14 +115,14 @@ class AnimesController < DbEntriesController
 
     return redirect_to @resource.url, status: 301 if @collection.none?
 
-    page_title 'Косплей'
+    page_title t('cosplay')
   end
 
   def favoured
     return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
 
     noindex
-    page_title t 'in_favourites'
+    page_title t('in_favourites')
   end
 
   def clubs
@@ -163,19 +163,39 @@ private
 
   def set_breadcrumbs
     if @resource.anime?
-      breadcrumb 'Список аниме', animes_url
-      breadcrumb 'Сериалы', animes_url(type: @resource.kind) if @resource.anime? && @resource.kind_tv?
-      breadcrumb 'Полнометражные', animes_url(type: @resource.kind) if @resource.anime? && @resource.kind_movie?
+      breadcrumb i18n_t('breadcrumbs.anime.list'), animes_url
+
+      if @resource.kind_tv?
+        breadcrumb i18n_t('breadcrumbs.anime.tv'),
+          animes_url(type: @resource.kind)
+      end
+
+      if @resource.kind_movie?
+        breadcrumb i18n_t('breadcrumbs.anime.movie'),
+          animes_url(type: @resource.kind)
+      end
     else
-      breadcrumb 'Список манги', mangas_url
+      breadcrumb i18n_t('breadcrumbs.manga.list'), mangas_url
     end
 
-    if @resource.aired_on && [Time.zone.now.year + 1, Time.zone.now.year, Time.zone.now.year - 1].include?(@resource.aired_on.year)
-      breadcrumb "#{@resource.aired_on.year} год", send("#{@resource.object.class.name.downcase.pluralize}_url", season: @resource.aired_on.year)
+    if @resource.aired_on &&
+        [Time.zone.now.year + 1, Time.zone.now.year, Time.zone.now.year - 1].include?(@resource.aired_on.year)
+
+      season_text = Titles::LocalizedSeasonText.new(
+        @resource.object.class,
+        @resource.aired_on.year.to_s
+      ).title
+      url = send(
+        "#{@resource.object.class.name.downcase.pluralize}_url",
+        season: @resource.aired_on.year
+      )
+
+      breadcrumb season_text, url
     end
 
     if @resource.genres.any?
-      breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user), send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
+      breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user),
+        send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
     end
 
     if @resource

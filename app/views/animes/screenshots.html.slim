@@ -5,4 +5,5 @@
   .cc.m10
     = render @resource.screenshots
 
-  = render partial: 'blocks/source', locals: { entry: @resource, authors: @resource.versions.authors(:screenshots), field: 'screenshots' }
+  = render partial: 'blocks/source',
+    locals: { entry: @resource, authors: @resource.versions.authors(:screenshots), field: 'screenshots' }
