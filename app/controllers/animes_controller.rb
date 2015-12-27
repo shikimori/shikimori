@@ -55,7 +55,7 @@ class AnimesController < DbEntriesController
     end
 
     noindex
-    page_title i18n_i('screenshots', :other).capitalize
+    page_title i18n_i('screenshot', :other).capitalize
   end
 
   def videos
