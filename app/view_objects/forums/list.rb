@@ -25,6 +25,19 @@ private
   end
 
   def decorate forum, is_special
-    ForumForList.new forum, is_special
+    size = is_special ? nil : forum_size(forum)
+    ForumForList.new forum, is_special, size
+  end
+
+  def forum_size forum
+    TopicsQuery
+      .new(current_user)
+      .by_forum(object)
+      .where('generated = false or (generated = true and comments_count > 0)')
+      .size
+  end
+
+  def current_user
+    h.current_user rescue NoMethodError
   end
 end
