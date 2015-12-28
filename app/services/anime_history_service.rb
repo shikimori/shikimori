@@ -50,7 +50,7 @@ class AnimeHistoryService
 
     ActiveRecord::Base.transaction do
       Entry.where(id: entries.map(&:id)).update_all processed: true
-      messages.each_slice 1000 { |slice| Message.import slice }
+      messages.each_slice(1000) { |slice| Message.import slice }
     end
 
     messages.each { |message| message.send :send_push_notifications }
