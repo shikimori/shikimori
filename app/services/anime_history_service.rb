@@ -12,15 +12,16 @@ class AnimeHistoryService
     return if entries.empty?
 
     users = User
-      .includes(anime_rates: [:anime])
+      .includes(:devices, anime_rates: [:anime])
       .references(:user_rates)#.where(id: 1)
       .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
               Anime.name, entries.map(&:linked_id))
       .to_a
 
     users += User
+      .includes(:devices)
       .where.not(id: users.map(&:id))#.where(id: 1)
-      .each {|v| v.association(:anime_rates).loaded! }
+      .each { |v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
     #users = users.select {|v| [1].include? v.id }
@@ -33,7 +34,7 @@ class AnimeHistoryService
       next if entry.created_at + NewsExpireIn < DateTime.now
 
       users
-        .select {|v| v.subscribed_for_event? entry }
+        .select { |v| v.subscribed_for_event? entry }
         .map do |user|
           Message.new(
             from_id: entry.user_id,

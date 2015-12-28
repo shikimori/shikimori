@@ -5,6 +5,10 @@ FactoryGirl.define do
 
     read false
 
+    after :build do |message|
+      message.stub :send_push_notifications
+    end
+
     kind MessageType::Private
     body 'test'
 
@@ -22,6 +26,10 @@ FactoryGirl.define do
 
     trait :news do
       kind MessageType::SiteNews
+    end
+
+    trait :with_push_notifications do
+      after(:build) { |message| message.unstub :send_push_notifications }
     end
   end
 end

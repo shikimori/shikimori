@@ -15,6 +15,7 @@ class Message < ActiveRecord::Base
   validates :body, presence: true, if: -> { kind == MessageType::Private }
 
   after_create :send_email
+  after_create :send_push_notifications
 
   # Защита от спама
   def check_antispam
@@ -70,6 +71,7 @@ class Message < ActiveRecord::Base
   end
 
 private
+
   def delete_by! user
     if from == user
       update! is_deleted_by_from: true
@@ -82,5 +84,11 @@ private
 
   def send_email
     EmailNotifier.instance.private_message(self) if kind == MessageType::Private
+  end
+
+  def send_push_notifications
+    to.devices.each do |device|
+      PushNotification.call self, device
+    end
   end
 end
