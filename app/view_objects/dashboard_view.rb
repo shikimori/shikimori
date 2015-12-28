@@ -7,6 +7,8 @@ class DashboardView < ViewObjectBase
 
   DISPLAYED_HISTORY = 2
 
+  SPECIAL_PAGES = 2
+
   THIS_SEASON_SQL = AnimeSeasonQuery.new(
     Titles::SeasonTitle.new(Time.zone.now, :season_year, Anime).text,
     Anime

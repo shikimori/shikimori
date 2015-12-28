@@ -41,9 +41,9 @@
         .slide.hidden
           .midheadline: h2 = t '.other'
           ul.b-list
-            - @view.pages.each do |url, title|
+            - @view.pages.each_with_index do |(url, title), index|
               li
-                - if url == about_pages_url
+                - if index < DashboardView::SPECIAL_PAGES
                   a.b-link[
                     href="#{url}"
                     data-no-turbolink="true"
