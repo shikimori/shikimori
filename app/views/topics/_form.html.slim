@@ -71,7 +71,8 @@
             locals: { topic_poster_edit: true }
         input type="file" multiple="multiple"
 
-  = f.input :broadcast
+  - if current_user.admin?
+    = f.input :broadcast
 
   .buttons
     a.cancel[
