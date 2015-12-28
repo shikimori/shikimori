@@ -94,6 +94,7 @@ class Version < ActiveRecord::Base
 
   def current_value field
     item.send field
+  rescue NoMethodError
   end
 
   def notify_acceptance
