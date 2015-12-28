@@ -223,11 +223,19 @@ describe Version do
 
         describe 'common change'do
           it { is_expected.to be_able_to :create, version }
+          it { is_expected.to be_able_to :destroy, version }
+
+          context 'banned user' do
+            let(:user) { build_stubbed :user, :user, read_only_at: 1.day.from_now }
+            it { is_expected.to_not be_able_to :create, version }
+            it { is_expected.to_not be_able_to :destroy, version }
+          end
         end
 
         describe 'significant change' do
           let(:item_diff) {{ name: ['a','b'] }}
           it { is_expected.to_not be_able_to :create, version }
+          it { is_expected.to_not be_able_to :destroy, version }
         end
 
         it { is_expected.to be_able_to :show, version }

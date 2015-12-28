@@ -175,7 +175,7 @@ class Ability
     end
 
     can [:create, :destroy], Version do |version|
-      version.user_id == @user.id && (
+      !@user.banned? && version.user_id == @user.id && (
         version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
       ).none?
     end
