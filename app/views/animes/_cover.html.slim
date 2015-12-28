@@ -45,7 +45,7 @@ span.misc
     - elsif anime.next_episode == anime.episodes
       span.released = t '.released'
     - else
-      span "#{anime.next_episode || 1} #{i18n_i 'episode'}"
+      span #{anime.next_episode || 1} #{i18n_i 'episode'}
 
   - elsif cover_notice == :relation
     span.relation = t "relation.#{anime.relation}"

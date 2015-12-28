@@ -11,8 +11,9 @@ header.head.m15
     - if index == -1
       .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
         span.action = t 'collapse'
-    .headline.m10 class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
-      = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
+    .headline.m10[
+      class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
+    ] = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
     .collapsed.tiny ...
     .cc-entries
       = render partial: 'animes/anime',
