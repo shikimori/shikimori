@@ -22,7 +22,7 @@ class TopicsController < ShikimoriController
 
   def show
     expected_url = UrlGenerator.instance.topic_url @resource
-    if request.url != expected_url
+    if request.url.gsub(/\?.*/, '') != expected_url
       return redirect_to expected_url, status: 301
     end
 
