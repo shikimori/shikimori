@@ -13,6 +13,8 @@
     - if @collection.any?
       = render @collection
       - if @add_postloader
-        = render 'blocks/postloader', filter: 'b-comment', url: summaries_profile_url(page: @page+1)
+        = render 'blocks/postloader',
+          filter: 'b-comment',
+          next_url: summaries_profile_url(page: @page+1)
     - else
       p.b-nothing_here Нет отзывов
