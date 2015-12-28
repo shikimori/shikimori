@@ -59,13 +59,24 @@
     content: ' '
 
 .l-page
-  &.menu-expanded .l-content
-    +ipad
-      margin-left: -24.5%
-    +iphone-landscape
-      margin-left: -33.5%
-    +iphone-portrait
-      margin-left: -45%
+  &.menu-expanded
+    .x199 .l-content
+      +ipad
+        margin-left: -24.5%
+
+    .x240 .l-content
+      +ipad
+        margin-left: -26%
+
+    .ipad-expanded .l-content
+      +ipad-landscape
+        margin-left: 0
+
+    .l-content
+      +iphone-landscape
+        margin-left: -33.5%
+      +iphone-portrait
+        margin-left: -43%
 
   +lte_ipad
     .menu-slide-outer
