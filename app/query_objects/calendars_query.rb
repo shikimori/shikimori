@@ -91,6 +91,9 @@ private
       .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
               from: Time.zone.today - 1.week, to: Time.zone.today + 1.month, new_year: Time.zone.today.beginning_of_year)
       .where("kind != 'ona' or anime_calendars.episode is not null")
+      .where.not("anime_calendars.episode is null
+        and date_part('day', aired_on) = 1
+        and date_part('month', aired_on) = 1")
       .order('animes.id')
   end
 
