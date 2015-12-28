@@ -156,6 +156,10 @@ class AniMangaDecorator < DbEntryDecorator
         # в 2011-2012 гг.
         parts << i18n_t('datetime.release_dates.in_years',
           from_date: aired_on.year, to_date: released_on.year)
+      elsif released_on && aired_on
+        parts << i18n_t('datetime.release_dates.since_till_date',
+          from_date: h.formatted_date(aired_on, true, true),
+          to_date: h.formatted_date(released_on, true, true))
       else
         parts << i18n_t('datetime.release_dates.date',
           date: h.formatted_date(released_on || aired_on, true))
@@ -184,8 +188,10 @@ class AniMangaDecorator < DbEntryDecorator
 
   def release_date_tooltip
     return unless released_on && aired_on
-    return if released_on.day == 1 || released_on.month == 1 || aired_on.day == 1 || aired_on.month == 1
     return unless released?
+    return if aired_on.year == released_on.year
+    return if released_on.day == 1 && released_on.month == 1
+    return if aired_on.day == 1 && aired_on.month == 1
 
     text = i18n_t('datetime.release_dates.since_till_date',
       from_date: h.formatted_date(aired_on, true, false),
