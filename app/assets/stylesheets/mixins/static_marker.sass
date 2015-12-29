@@ -1,12 +1,12 @@
 @import compass/css3/box-sizing
 @import compass/css3/transition
+@import mixins/responsive
 
 =static_marker($color, $background)
   +box-sizing(border-box)
   display: inline-block
 
   &:before
-    +transition(all 0.25s ease)
     background-color: $background
     border: 1px solid darken($background, 1.5%)
     color: $color
@@ -16,3 +16,6 @@
     line-height: 1.4
     padding: 0 5px
     text-align: center
+
+    +gt_ipad
+      +transition(all 0.25s ease)

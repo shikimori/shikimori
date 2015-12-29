@@ -6,9 +6,10 @@
   &:before
     color: #f58ebb
 
-  &.off
-    &:hover:before
-      color: #f58ebb
+  +gt_ipad
+    &.off
+      &:hover:before
+        color: #f58ebb
 
 .locale-en .b-offtopic_marker
   +marker(52px, #fdebf3, darken(#fdebf3, 3%), lighten(#fdebf3, 0.5%))
@@ -16,6 +17,7 @@
   &:before
     color: #f58ebb
 
-  &.off
-    &:hover:before
-      color: #f58ebb
+  +gt_ipad
+    &.off
+      &:hover:before
+        color: #f58ebb

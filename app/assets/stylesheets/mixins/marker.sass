@@ -17,13 +17,14 @@
   &.active
     cursor: pointer
 
-    &:hover:before
-      background-color: $hover_color
-      border-color: darken($hover_color, 1.5%)
+    +gt_ipad
+      &:hover:before
+        background-color: $hover_color
+        border-color: darken($hover_color, 1.5%)
 
-    &:active:before
-      background-color: $active_color
-      border-color: darken($active_color, 1.5%)
+      &:active:before
+        background-color: $active_color
+        border-color: darken($active_color, 1.5%)
 
   &.off
     &:before
@@ -31,11 +32,12 @@
       border-color: $gray-1
       background-color: transparent
 
-    &:hover:before
-      color: white
-      background-color: $hover_color
-      border-color: darken($hover_color, 1.5%)
+    +gt_ipad
+      &:hover:before
+        color: white
+        background-color: $hover_color
+        border-color: darken($hover_color, 1.5%)
 
-    &:active:before
-      background-color: $active_color
-      border-color: darken($active_color, 1.5%)
+      &:active:before
+        background-color: $active_color
+        border-color: darken($active_color, 1.5%)
