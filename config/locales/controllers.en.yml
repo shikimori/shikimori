@@ -254,3 +254,6 @@ en:
   api/v1/ignores_controller:
     ignored: Messages from %{nickname} are ignored
     not_ignored: Messages from %{nickname} are no longer ignored
+
+  api/v1/nickname_changes_controller:
+    cleared: Your history of nickname changes has been cleared

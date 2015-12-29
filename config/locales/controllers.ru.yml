@@ -256,3 +256,6 @@ ru:
   api/v1/ignores_controller:
     ignored: Сообщения от %{nickname} заблокированы
     not_ignored: Сообщения от %{nickname} больше не блокируются
+
+  api/v1/nickname_changes_controller:
+    cleared: Ваша история имён очищена
