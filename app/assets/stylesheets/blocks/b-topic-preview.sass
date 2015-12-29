@@ -1,8 +1,8 @@
 @import compass/typography/text/ellipsis
 @import mixins/responsive
 
-$body_left_margin: 58px
-$body_phone_left_margin: 42px
+$body_left_padding: 58px
+$body_phone_left_padding: 42px
 
 .b-topic-preview
   margin-bottom: 35px
@@ -90,7 +90,7 @@ $body_phone_left_margin: 42px
   &>.b-comments,
   &>.inner>.body,
   &>.inner>footer
-    margin-left: $body_left_margin
+    padding-left: $body_left_padding
 
     +iphone
-      margin-left: $body_phone_left_margin
+      padding-left: $body_phone_left_padding

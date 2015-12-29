@@ -53,4 +53,5 @@
         .forum class="#{forum.is_special ? :special : :common}"
           - if forum.size
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
-          a.link href="#{forum.url}" = forum.name
+          .link-with-input
+            a.link href="#{forum.url}" = forum.name
