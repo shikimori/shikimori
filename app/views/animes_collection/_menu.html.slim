@@ -123,7 +123,7 @@
           li class="rating-#{rating}"
             input type="checkbox" autocomplete="off"
             = title
-            span.b-question.b-tooltipped.unprocessed[
+            span.b-question.b-tooltipped.mobile.unprocessed[
               title="#{t "enumerize.anime.rating.hint.#{rating}"}"
               data-direction="top"
             ]
@@ -138,7 +138,7 @@
             input type="checkbox" autocomplete="off"
             = localized_name genre
             - if genre.description.present?
-              span.b-question.bubbled[
+              span.b-question.mobile.bubbled[
                 title="#{genre.description}"
                 data-predelay="150"
                 data-href="#{tooltip_genre_url genre, subdomain: false}"

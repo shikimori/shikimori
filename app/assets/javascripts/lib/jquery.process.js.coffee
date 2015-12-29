@@ -41,7 +41,10 @@
   $with('.b-tooltipped.unprocessed', $root)
     .removeClass('unprocessed')
     .each ->
+      return if (is_mobile() || is_tablet()) && !@classList.contains('mobile')
+
       $tip = $(@)
+
       gravity = switch $tip.data('direction')
         when 'top' then 's'
         when 'bottom' then 'n'

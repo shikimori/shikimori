@@ -35,7 +35,7 @@
       | &nbsp;
 
       - if entry.release_date_tooltip
-        span.b-tooltipped.unprocessed[
+        span.b-tooltipped.mobile.unprocessed[
           data-direction='right'
           title="#{entry.release_date_tooltip}"
         ]
@@ -49,11 +49,10 @@
 
   - if entry.rating.present? && !entry.rating_none?
     = info_line Anime.human_attribute_name(:rating) do
-      span.b-tooltipped.unprocessed[
-          title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
-          data-direction='right'
-        ]
-        = entry.rating_text
+      span.b-tooltipped.mobile.unprocessed[
+        title="#{t "enumerize.anime.rating.hint.#{entry.rating}"}"
+        data-direction='right'
+      ] = entry.rating_text
 
   - if (entry.japanese && !entry.japanese.empty?) || (entry.english && !entry.english.empty?) || (entry.synonyms && !entry.synonyms.empty?)
     = info_line t('.other_names') do

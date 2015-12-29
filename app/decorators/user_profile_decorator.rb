@@ -110,7 +110,7 @@ class UserProfileDecorator < UserDecorator
     end
 
     info << ("#{i18n_t 'member_since'} " +
-      "<span class='b-tooltipped unprocessed' data-direction='right' title='#{localized_registration false}'>" +
+      "<span class='b-tooltipped unprocessed mobile' data-direction='right' title='#{localized_registration false}'>" +
       "#{localized_registration true}" +
       "</span>").html_safe
 

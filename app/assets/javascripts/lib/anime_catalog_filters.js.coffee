@@ -71,9 +71,10 @@ DEFAULT_LIST_SORT = "ranked"
   # клики по меню
   $('.anime-params li', $root).on 'click', (e) ->
     return if in_new_tab(e) # игнор средней кнопки мыши
-    #return if $(e.target).hasClass('filter') # игнор при клике на филььр
+    return if e.target.classList.contains('b-question') # игнор при клике на инфо блок
+    #return if $(e.target).hasClass('filter') # игнор при клике на фильтр
 
-    already_selected = $(@).hasClass('selected')
+    already_selected = @classList.contains 'selected'
 
     li_info = extract_li_info $(@)
     return true unless li_info
