@@ -138,21 +138,12 @@
         &:before
           line-height: 20px
 
-+lte_ipad
-  .locale-en .b-shiki_editor aside.buttons
-    max-width: calc(100% - 127px)
-    overflow: hidden
-    white-space: nowrap
-
-  .locale-ru .b-shiki_editor aside.buttons
-    max-width: calc(100% - 115px)
-    overflow: hidden
-    white-space: nowrap
-
 .b-shiki_editor
   aside.buttons
     float: none !important
     margin: 2px 0 7px
+    overflow: hidden
+    white-space: nowrap
 
     .editor-link, .editor-file
       +gt_ipad
@@ -164,7 +155,7 @@
       span
         display: none
 
-      .editor-link, .editor-spoiler, .editor-smiley
+      .editor-spoiler, .editor-file, .editor-smiley
         display: inline-block
 
     +ipad-portrait
@@ -172,11 +163,11 @@
         display: none
 
     +iphone_portrait
-      .editor-link
+      .editor-spoiler
         margin-left: 0
 
     +iphone-landscape
-      .editor-bold, .editor-italic,
+      .editor-bold, .editor-link,
       .editor-file, .editor-file span
         display: inline-block
 
