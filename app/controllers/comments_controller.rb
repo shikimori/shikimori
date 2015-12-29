@@ -34,7 +34,7 @@ class CommentsController < ShikimoriController
     @comment = Comment.new comment_params.merge(user: current_user)
 
     unless faye.create @comment
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан'
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
@@ -44,7 +44,7 @@ class CommentsController < ShikimoriController
     if faye.update @comment, comment_params.except(:offtopic, :review)
       render :create
     else
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий не изменен'
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
