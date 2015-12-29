@@ -14,10 +14,11 @@ class Forums::List  < ViewObjectBase
 private
 
   def forums
-    Rails.cache.fetch([:forums, :v9, Entry.last.id], expires_in: 2.weeks) do
+    Rails.cache.fetch([:forums, :v2, Entry.last.id], expires_in: 2.weeks) do
       Forum.visible.map { |forum| build forum, false } +
         Array(build Forum::NEWS_FORUM, true) +
         Array(build Forum.find_by_permalink('reviews'), true) +
+        Array(build Forum.find_by_permalink('contests'), true) +
         Array(build Forum::MY_CLUBS_FORUM, true) +
         Array(build Forum.find_by_permalink('clubs'), true)
     end
