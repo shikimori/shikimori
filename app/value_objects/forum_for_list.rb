@@ -11,6 +11,6 @@ class ForumForList < SimpleDelegator
   end
 
   def url
-    h.forum_topics_path object
+    h.forum_topics_path self
   end
 end

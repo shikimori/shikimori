@@ -32,7 +32,7 @@ private
   def forum_size forum
     TopicsQuery
       .new(current_user)
-      .by_forum(object)
+      .by_forum(forum)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
   end
