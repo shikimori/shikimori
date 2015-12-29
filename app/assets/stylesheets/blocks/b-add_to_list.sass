@@ -1,6 +1,7 @@
-@import mixins/responsive
+@import compass/typography/text/ellipsis
 @import mixins/hover_underlined
 @import mixins/icons
+@import mixins/responsive
 
 .b-add_to_list
   margin-bottom: 10px
@@ -19,20 +20,16 @@
     padding: 0 5px
 
     .text
+      +ellipsis
       +hover_underlined
       cursor: pointer
 
-      &:after
+      .status-name:after
         content: attr(data-text)
 
     &.trigger .text
-      display: inline
-
       &:after
         margin-left: 2px
-
-    .score-label
-      display: inline
 
   .plus
     +link_color

@@ -1,7 +1,7 @@
-.cc-2
+.cc-2.block
   .c-column
     = simple_form_for [@resource, Video.new] do |f|
-      .block
+      .inputs
         = f.input :url, hint: Video::SAVEABLE_HOSTINGS.join(', ')
         = f.input :kind, as: :select, collection: [Video::PV, Video::OP, Video::ED], include_blank: false
         = f.input :name

@@ -27,23 +27,26 @@
               data-action="#{edit_user_rate_url user_rate}"
             ]
             .edit
-            .text data-text="#{user_rate.status_name}"
-            - if user_rate.score > 0
-              .score-label
-                | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
-                = user_rate.score
+            .text
+              span.status-name data-text="#{user_rate.status_name}"
+              - if user_rate.score > 0
+                span
+                  | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+                  = user_rate.score
         - else
           .text.add-trigger[
             data-status="#{UserRate.statuses[:planned]}"
-            data-text="#{t '.add_to_list'}"
           ]
             .plus
+            span.status-name data-text="#{t '.add_to_list'}"
 
       .expanded-options
         - UserRateDecorator.statuses_options(user_rate.target_type).each do |title,status|
           - if user_rate.new_record? || user_rate.status_name != title
             .option.add-trigger data-status="#{status}"
-              .text data-text="#{title}"
+              .text
+                span.status-name data-text="#{title}"
+
         - if user_rate.persisted?
           .option.remove-trigger[
               data-remote='true'
@@ -52,7 +55,8 @@
               data-method='delete'
               value="#{t '.remove_from_my_list'}"
             ]
-            .text data-text="#{t '.remove_from_my_list'}"
+            .text
+              span.status-name data-text="#{t '.remove_from_my_list'}"
 
   - if user_rate.persisted?
     .rate-edit
