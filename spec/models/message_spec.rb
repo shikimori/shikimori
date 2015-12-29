@@ -164,12 +164,12 @@ describe Message do
         let(:message) { build :message, :with_push_notifications, to: user }
         let(:user) { build :user, devices: devices }
 
-        before { allow(PushNotification).to receive :call }
+        before { allow(PushNotification).to receive :perform_async }
         before { message.save! }
 
         context 'no devices' do
           let(:devices) { [] }
-          it { expect(PushNotification).to_not have_received :call }
+          it { expect(PushNotification).to_not have_received :perform_async }
         end
 
         context 'with devices' do
@@ -177,10 +177,10 @@ describe Message do
           let(:device_1) { build :device }
           let(:device_2) { build :device }
           it do
-            expect(PushNotification).to have_received(:call)
-              .with(message, device_1).ordered
-            expect(PushNotification).to have_received(:call)
-              .with(message, device_2).ordered
+            expect(PushNotification).to have_received(:perform_async)
+              .with(message.id, device_1.id).ordered
+            expect(PushNotification).to have_received(:perform_async)
+              .with(message.id, device_2.id).ordered
           end
         end
       end

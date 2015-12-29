@@ -88,7 +88,7 @@ private
 
   def send_push_notifications
     to.devices.each do |device|
-      PushNotification.call self, device
+      PushNotification.perform_async id, device.id
     end
   end
 end
