@@ -85,12 +85,26 @@ $feedback_color_to: #4b80c0
     &:hover
       z-index: 1001
 
+$horizontal-offset: 10px
+.x1200 .b-feedback
+  &>.message
+    max-width: 1200px
+    &>.inner
+      width: 1200px - $horizontal-offset * 2
+
+.x1000 .b-feedback
+  &>.message
+    max-width: 1000px
+    &>.inner
+      width: 1000px - 20px
+
+.b-feedback
+  margin: $horizontal-offset 0
+
   &>.message
     background: white
     margin: 0 auto
-    max-width: $site-body-width
-    padding: 15px 10px 0 10px
-    //position: relative
+    padding: 0 $horizontal-offset
 
     &>.inner
       background: white
@@ -98,7 +112,6 @@ $feedback_color_to: #4b80c0
       padding: 10px
       position: absolute
       top: 50%
-      width: $site-body-width - 17
       z-index: 1002
 
       .about
