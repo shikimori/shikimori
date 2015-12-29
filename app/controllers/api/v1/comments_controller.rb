@@ -43,7 +43,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     if faye.create @comment
       respond_with @comment.decorate
     else
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий создан'
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
@@ -59,7 +59,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     if faye.update @comment, comment_params.except(:offtopic, :review)
       respond_with @comment
     else
-      render json: @comment.errors, status: :unprocessable_entity, notice: 'Комментарий не изменен'
+      render json: @comment.errors, status: :unprocessable_entity
     end
   end
 
@@ -69,10 +69,11 @@ class Api::V1::CommentsController < Api::V1::ApiController
     raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
     faye.destroy @comment
 
-    render json: { notice: 'Комментарий удален' }
+    render json: { notice: i18n_t('comment.removed') }
   end
 
 private
+
   def comment_params
     params
       .require(:comment)

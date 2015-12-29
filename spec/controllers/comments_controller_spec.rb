@@ -77,24 +77,6 @@ describe CommentsController do
     end
   end
 
-  describe '#destroy' do
-    before { sign_in user }
-    let(:make_request) { delete :destroy, id: comment.id }
-
-    context 'success' do
-      before { make_request }
-      it do
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
-      end
-    end
-
-    context 'forbidden' do
-      let(:comment) { create :comment, commentable: topic }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
-    end
-  end
-
   describe '#fetch' do
     let(:user) { build_stubbed :user }
     let(:topic) { create :entry, user: user }

@@ -4,32 +4,32 @@ aside.buttons
     span.item-reply[
       title="#{t 'actions.reply'}"
       data-action="#{comment_url comment}"
-      data-type="json"
-      data-remote="true"
+      data-type='json'
+      data-remote='true'
     ]
 
     - if comment.can_be_edited_by? current_user
       span.item-edit[
         title="#{t 'actions.edit'}"
         data-action="#{edit_comment_path comment}"
-        data-type="html"
-        data-remote="true"
+        data-type='html'
+        data-remote='true'
       ]
 
     - if comment.can_be_deleted_by? current_user
       span.item-delete title="#{t 'actions.delete'}"
 
-    span.item-moderation title="Пожаловаться"
+    span.item-moderation title='Пожаловаться'
     span.item-cancel title="#{t 'actions.cancel'}"
 
   - if comment.can_be_deleted_by?(current_user) && comment.kind_of?(Comment)
     .delete-controls
       span.item-delete-confirm[
         title="#{t 'actions.delete'}"
-        data-action="#{comment_url comment}"
-        data-type="json"
-        data-remote="true"
-        data-method="delete"
+        data-action="#{api_comment_url comment}"
+        data-type='json'
+        data-remote='true'
+        data-method='delete'
       ]
       span.item-delete-cancel title="#{t 'actions.cancel'}"
 
@@ -38,50 +38,50 @@ aside.buttons
       span.item-ban.b-tooltipped.unprocessed[
         title="#{t 'actions.ban_user'}"
         data-action="#{new_comment_ban_path comment}"
-        data-method="get"
-        data-type="html"
-        data-remote="true"
-        data-direction="top"
+        data-method='get'
+        data-type='html'
+        data-remote='true'
+        data-direction='top'
       ]
     - else
       span.item-abuse.b-tooltipped.unprocessed[
-        title="Нарушение правил"
+        title='Нарушение правил'
         data-action="#{abuse_comment_abuse_requests_url comment}"
-        data-method="post"
-        data-type="json"
-        data-remote="true"
-        data-reason-prompt="Уточните, что за нарушение (заполнять не обязательно)"
-        data-direction="top"
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-reason-prompt='Уточните, что за нарушение (заполнять не обязательно)'
+        data-direction='top'
       ]
       span.item-spoiler.b-tooltipped.unprocessed[
-        title="Спойлер"
+        title='Спойлер'
         data-action="#{spoiler_comment_abuse_requests_url comment}"
-        data-method="post"
-        data-type="json"
-        data-remote="true"
-        data-reason-prompt="Уточните, что именно является спойлером (заполнять не обязательно)"
-        data-direction="top"
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-reason-prompt='Уточните, что именно является спойлером (заполнять не обязательно)'
+        data-direction='top'
       ]
 
     span.item-offtopic.b-tooltipped.unprocessed[
       class="#{:selected if comment.offtopic?}"
-      title="Оффтопик"
+      title='Оффтопик'
       data-action="#{offtopic_comment_abuse_requests_url comment}"
-      data-method="post"
-      data-type="json"
-      data-remote="true"
-      data-direction="top"
+      data-method='post'
+      data-type='json'
+      data-remote='true'
+      data-direction='top'
     ]
 
     - if comment.kind_of?(Comment) && comment.commentable.instance_of?(AniMangaComment)
       span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
-        title="Отзыв"
+        title='Отзыв'
         data-action="#{review_comment_abuse_requests_url comment}"
-        data-method="post"
-        data-type="json"
-        data-remote="true"
-        data-direction="top"
+        data-method='post'
+        data-type='json'
+        data-remote='true'
+        data-direction='top'
       ]
 
     span.item-moderation-cancel title="#{t 'actions.cancel'}"

@@ -233,3 +233,7 @@ en:
   api/v1/topic_ignores_controller:
     ignored: Topic ignored
     not_ignored: Topic is visible now
+
+  api/v1/comments_controller:
+    comment:
+      removed: Comment removed

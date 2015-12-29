@@ -235,3 +235,7 @@ ru:
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор
     not_ignored: Топик удалён из игнора
+
+  api/v1/comments_controller:
+    comment:
+      removed: Комментарий удален
