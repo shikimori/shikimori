@@ -237,3 +237,16 @@ en:
   api/v1/comments_controller:
     comment:
       removed: Comment removed
+
+  api/v1/dialogs_controller:
+    conversation_removed: Conversation removed
+    no_messages: No messages to remove
+
+  api/v1/friends_controller:
+    already_friend: '%{nickname} is already your friend'
+    added_to_friends:
+      male: '%{nickname} has been added to your friends list'
+      female: '%{nickname} has been added to your friends list'
+    removed_from_friends:
+      male: '%{nickname} has been removed from your friends list'
+      female: '%{nickname} has been removed from your friends list'

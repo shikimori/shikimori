@@ -7,7 +7,8 @@ class Api::V1::FriendsController < Api::V1::ApiController
     @user = User.find params[:id]
 
     if current_user.friends.include?(@user)
-      render json: { notice: "#{@user.nickname} уже среди ваших друзей" }
+      notice = i18n_t 'already_friend', nickname: @user.nickname
+      render json: { notice: notice }
     else
       current_user.friends << @user
 
@@ -25,7 +26,12 @@ class Api::V1::FriendsController < Api::V1::ApiController
         )
       end
 
-      render json: { notice: "#{@user.nickname} добавлен#{'а' if @user.female?} в друзья" }
+      notice = i18n_t(
+        "added_to_friends.#{@user.sex || 'male'}",
+        nickname: @user.nickname
+      )
+
+      render json: { notice: notice }
     end
   end
 
@@ -33,8 +39,13 @@ class Api::V1::FriendsController < Api::V1::ApiController
   api :DELETE, '/friends/:id', 'Destroy a friend'
   def destroy
     @user = User.find(params[:id])
-
     current_user.friends.delete @user
-    render json: { notice: "#{@user.nickname} удален#{'а' if @user.female?} из друзей" }
+
+    notice = i18n_t(
+      "removed_from_friends.#{@user.sex || 'male'}",
+      nickname: @user.nickname
+    )
+
+    render json: { notice: notice }
   end
 end
