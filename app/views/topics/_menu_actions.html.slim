@@ -1,5 +1,5 @@
 - unless ['new', 'create'].include? params[:action]
-  .forums
+  .b-forums
     - if user_signed_in? && current_user.day_registered?
       a.b-link_button.dark.create-topic[
         href="#{menu.new_topic_url}"

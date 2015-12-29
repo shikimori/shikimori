@@ -4,12 +4,12 @@
       $(@).closest('form').submit()
 
     .on 'ajax:before', ->
-      $('.forums .ajax-loading').show()
-      $('.forums .reload').hide()
+      $('.b-forums .ajax-loading').show()
+      $('.b-forums .reload').hide()
 
     .on 'ajax:complete', ->
-      $('.forums .ajax-loading').hide()
-      $('.forums .reload').show()
+      $('.b-forums .ajax-loading').hide()
+      $('.b-forums .reload').show()
 
 @on 'page:load', 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   if $('.b-animes-menu').exists()

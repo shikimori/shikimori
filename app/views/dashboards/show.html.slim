@@ -62,13 +62,14 @@
           = render 'devise/sessions/form', resource: User.new
 
   .c-forum
-    .forums.block
+    .b-forums
       a.b-link_button.maxi.dark href="#{forum_url}" = t 'forum'
       .block
         - @view.forums.each do |forum|
           .forum
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
-            a.link href="#{forum.url}" = forum.name
+            .link-with-input
+              a.link href="#{forum.url}" = forum.name
 
     .contests.block
       .midheadline.green.m5

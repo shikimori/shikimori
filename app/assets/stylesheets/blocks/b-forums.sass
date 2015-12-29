@@ -1,0 +1,43 @@
+@import compass/typography/text/ellipsis
+@import mixins/block
+@import mixins/link
+
+.b-forums
+  +block
+
+  .b-form
+    overflow: visible
+
+  .forum.common + .forum.special
+    margin-top: 10px
+
+  .forum
+    input
+      margin-right: 6px
+
+    .link-with-input
+      +ellipsis
+
+      .link
+        +link
+        font-size: 13px
+        font-weight: bold
+
+    .threads
+      color: $gray-2
+      float: right
+      font-size: 11px
+      margin-left: 5px
+      margin-top: 2px
+
+  .ajax-loading
+    display: none
+    position: absolute
+    width: 32px
+
+  .reload
+    +js_link
+    display: none
+    font-size: 12px
+    margin-top: 5px
+    position: absolute
