@@ -1,3 +1,4 @@
+@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/icons
 @import mixins/image_editable
@@ -21,15 +22,19 @@
       input
         margin-right: 6px
 
-      .link
-        +link
-        font-size: 13px
-        font-weight: bold
+      .link-with-input
+        +ellipsis
+
+        .link
+          +link
+          font-size: 13px
+          font-weight: bold
 
       .threads
         color: $gray-2
         float: right
-        font-size: 12px
+        font-size: 11px
+        margin-top: 2px
 
     .ajax-loading
       display: none

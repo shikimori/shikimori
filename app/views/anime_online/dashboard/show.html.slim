@@ -6,7 +6,14 @@
     .l-content
       .midheadline.blue.m12 Новые серии
       .cc.m0
-        = render partial: 'animes/anime', collection: @recent_videos, locals: { cover_title: :none, cover_notice: :latest_episode, content_by: :block, content_text: :none }
+        = render partial: 'animes/anime',
+          collection: @recent_videos,
+          locals: {\
+            cover_title: :none,
+            cover_notice: :latest_episode,
+            content_by: :block,
+            content_text: :none\
+          }
 
         - if @add_postloader
           = render 'blocks/postloader', filter: 'b-catalog_entry',

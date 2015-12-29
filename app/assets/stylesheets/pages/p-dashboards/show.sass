@@ -66,7 +66,7 @@
 
       .cc-inner
         +cc
-        +column(3, 3/4)
+        +column(2, 3/4)
         margin-bottom: 0
 
         .c-content
@@ -79,7 +79,7 @@
           float: left
 
       .c-forum
-        +column(3, 1/4)
+        +column(2, 1/4)
 
     +iphone
       margin-bottom: $block-offset
@@ -107,8 +107,14 @@
     +clear_left
 
     .c-user_news
-      +gte_ipad
-        +column_bm(2, 2/3)
+      +gt_ipad
+        +column_bm(2, 2/3, 6%)
+
+      +ipad_landscape
+        +column_b(2, 2/3, 6%)
+
+      +ipad_portrait
+        +column_b(2, 3/5, 6%)
 
       +iphone
         +column_bm(1, 1)
@@ -129,8 +135,14 @@
           font-size: 16px !important
 
     .c-generated_news
-      +gte_ipad
+      +gt_ipad
         +column_b(2, 1/3, 6%)
+
+      +ipad_landscape
+        +column_b(2, 1/3, 6%)
+
+      +ipad_portrait
+        +column_b(2, 2/5, 6%)
 
       +iphone
         display: none
@@ -173,14 +185,17 @@
   .forums
     .forum
       .link
+        +ellipsis
         +link
+        display: block
         font-size: 13px
         font-weight: bold
 
       .threads
         color: $gray-2
         float: right
-        font-size: 12px
+        font-size: 11px
+        margin-top: 2px
 
   .contests .contest
     +menu-block-with-text-link

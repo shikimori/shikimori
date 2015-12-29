@@ -20,30 +20,30 @@
         ]
         - menu.forums.each do |forum|
           .forum class="#{forum.is_special ? :special : :common}"
-            - if forum.id == Forum::NEWS_FORUM.permalink
-              input[
-                type="checkbox"
-                name="user_preferences[forums][]"
-                value="#{forum.id}"
-                disabled
-              ]
-            - elsif current_user.preferences.forums.include?(forum.id.to_s)
-              input[
-                type="checkbox"
-                name="user_preferences[forums][]"
-                value="#{forum.id}"
-                checked
-              ]
-            - else
-              input[
-                type="checkbox"
-                name="user_preferences[forums][]"
-                value="#{forum.id}"
-              ]
-
-            a.link href="#{forum.url}" = forum.name
             - if forum.size
               .threads #{forum.size} #{i18n_i 'topic', forum.size}
+            .link-with-input
+              - if forum.id == Forum::NEWS_FORUM.permalink
+                input[
+                  type="checkbox"
+                  name="user_preferences[forums][]"
+                  value="#{forum.id}"
+                  disabled
+                ]
+              - elsif current_user.preferences.forums.include?(forum.id.to_s)
+                input[
+                  type="checkbox"
+                  name="user_preferences[forums][]"
+                  value="#{forum.id}"
+                  checked
+                ]
+              - else
+                input[
+                  type="checkbox"
+                  name="user_preferences[forums][]"
+                  value="#{forum.id}"
+                ]
+              a.link href="#{forum.url}" = forum.name
         .ajax-loading.vk-like
         a.reload href="#{forum_url}" = t '.reload_forum'
 
@@ -51,6 +51,6 @@
       - menu.forums.each do |forum|
         - next if !user_signed_in? && forum.id == Forum::MY_CLUBS_FORUM.permalink
         .forum class="#{forum.is_special ? :special : :common}"
-          a.link href="#{forum.url}" = forum.name
           - if forum.size
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
+          a.link href="#{forum.url}" = forum.name

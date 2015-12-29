@@ -67,8 +67,8 @@
       .block
         - @view.forums.each do |forum|
           .forum
-            a.link href="#{forum.url}" = forum.name
             .threads #{forum.size} #{i18n_i 'topic', forum.size}
+            a.link href="#{forum.url}" = forum.name
 
     .contests.block
       .midheadline.green.m5
