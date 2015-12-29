@@ -8,6 +8,9 @@ describe Forum do
   end
 
   describe 'instance methods' do
+    let!(:default_locale) { I18n.locale }
+    after { I18n.locale = default_locale }
+
     describe '#name' do
       subject { forum.name }
       let(:forum) { build :forum }
