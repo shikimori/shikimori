@@ -38,6 +38,8 @@ private
   end
 
   def current_user
-    h.current_user rescue NoMethodError
+    h.current_user
+  rescue NoMethodError
+    nil
   end
 end
