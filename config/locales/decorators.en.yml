@@ -59,8 +59,8 @@ en:
         reset_anime: Reset episodes count
         reset_manga: Reset volumes and chapters count
       rate:
-        cancelled: Rating removed
-        changed: Rating changed from <b>%{prior_score}</b> to <b>%{score}</b>
+        cancelled: Score removed
+        changed: Score changed from <b>%{prior_score}</b> to <b>%{score}</b>
         rated: Rated <b>%{score}</b>
       import:
         anime: Anime imported - %{records}

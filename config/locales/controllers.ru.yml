@@ -232,10 +232,6 @@ ru:
   anime_online/anime_videos_controller:
     <<: *animes_controller
 
-  api/v1/topic_ignores_controller:
-    ignored: Топик добавлен в игнор
-    not_ignored: Топик удалён из игнора
-
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален
@@ -259,3 +255,15 @@ ru:
 
   api/v1/nickname_changes_controller:
     cleared: Ваша история имён очищена
+
+  api/v1/topic_ignores_controller:
+    ignored: Топик добавлен в игнор
+    not_ignored: Топик удалён из игнора
+
+  api/v1/user_rates_controller:
+    list_and_history_cleared:
+      anime: Выполнена очистка вашего списка аниме и вашей истории по аниме
+      manga: Выполнена очистка вашего списка манги и вашей истории по манге
+    scores_reset:
+      anime: Выполнен сброс оценок в вашем списке аниме
+      manga: Выполнен сброс оценок в вашем списке манги
