@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :forum do
-    sequence(:name) { |n| "forum_#{n}" }
+    sequence(:name_ru) { |n| "форум_#{n}" }
+    sequence(:name_en) { |n| "forum_#{n}" }
     permalink :offtopic
     position 0
 
@@ -13,32 +14,32 @@ FactoryGirl.define do
     trait :animanga do
       id { DbEntryThread::FORUM_IDS['Anime'] }
       permalink 'animanga'
-      name 'Аниме и манга'
+      name_ru 'Аниме и манга'
       is_visible true
     end
 
     trait :contest do
       id { DbEntryThread::FORUM_IDS['Contest'] }
       permalink 'contests'
-      name 'Опросы'
+      name_ru 'Опросы'
     end
 
     trait :club do
       id { DbEntryThread::FORUM_IDS['Club'] }
       permalink 'clubs'
-      name 'Клубы'
+      name_ru 'Клубы'
     end
 
     trait :cosplay do
       id { DbEntryThread::FORUM_IDS['CosplayGallery'] }
       permalink 'cosplay'
-      name 'Косплей'
+      name_ru 'Косплей'
     end
 
     trait :reviews do
       id { DbEntryThread::FORUM_IDS['Review'] }
       permalink 'reviews'
-      name 'Рецензии'
+      name_ru 'Рецензии'
     end
 
     factory :animanga_forum, traits: [:animanga]

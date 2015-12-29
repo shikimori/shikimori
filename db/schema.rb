@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20151227160604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
@@ -504,7 +505,7 @@ ActiveRecord::Schema.define(version: 20151227160604) do
 
   create_table "forums", force: :cascade do |t|
     t.integer  "position"
-    t.string   "name",             limit: 255
+    t.string   "name_ru",          limit: 255
     t.string   "description",      limit: 255
     t.string   "permalink",        limit: 255
     t.integer  "topics_count",                 default: 0
@@ -515,6 +516,7 @@ ActiveRecord::Schema.define(version: 20151227160604) do
     t.string   "meta_keywords",    limit: 255
     t.string   "meta_description", limit: 255
     t.boolean  "is_visible"
+    t.string   "name_en"
   end
 
   create_table "friend_links", force: :cascade do |t|

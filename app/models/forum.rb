@@ -13,12 +13,16 @@ class Forum < ActiveRecord::Base
   CONTESTS_ID = 13
   COSPLAY_ID = 15
 
-  NEWS_FORUM = FakeForum.new 'news', 'Лента новостей'
-  UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме'
-  MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы'
+  NEWS_FORUM = FakeForum.new 'news', 'Лента новостей', 'News feed'
+  UPDATES_FORUM = FakeForum.new 'updates', 'Обновления аниме', 'Anime updates'
+  MY_CLUBS_FORUM = FakeForum.new 'my_clubs', 'Мои клубы', 'My clubs'
 
   def to_param
     permalink
+  end
+
+  def name
+    I18n.russian? ? name_ru : name_en
   end
 
   class << self
