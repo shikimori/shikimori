@@ -154,7 +154,10 @@
 
             &:before
               position: absolute
-              margin: 3px 0 0 -15px
+              margin: 2px 0 0 -15px
+
+              +lte_ipad
+                margin-top: -3px
 
         &:first-child a
           +ellipsis
