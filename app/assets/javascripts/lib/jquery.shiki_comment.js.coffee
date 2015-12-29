@@ -38,11 +38,7 @@ class @ShikiComment extends ShikiEditable
       @$('.main-controls').hide()
       @$('.moderation-controls').show()
 
-    # по нажатиям на кнопки закрываем меню в мобильной версии
-    @$('.item-quote,.item-reply,.item-edit,.item-review,.item-offtopic').on 'click', =>
-      @_close_aside()
-
-    @$('.item-spoiler,.item-abuse').on 'ajax:before', (e) ->
+    @$('.item-spoiler, .item-abuse').on 'ajax:before', (e) ->
       reason = prompt $(@).data('reason-prompt')
 
       if reason == null

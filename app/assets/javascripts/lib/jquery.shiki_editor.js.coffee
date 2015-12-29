@@ -327,6 +327,10 @@ class @ShikiEditor extends ShikiView
       .trigger('update') # для elastic плагина
       .setCursorPosition(@$textarea.val().length)
 
+    setTimeout =>
+      if (is_mobile() || is_tablet()) && !@$textarea.is(':appeared')
+        $.scrollTo @$form
+
   # переход в режим редактирования комментария
   edit_comment: ($comment) ->
     $initial_content = $comment.children().detach()

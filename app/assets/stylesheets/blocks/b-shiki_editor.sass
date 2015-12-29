@@ -130,8 +130,9 @@
 
   aside.markers
     float: right
+    height: 20px
 
-    +iphone
+    +lte_ipad
       line-height: 20px
       .b-review_marker, .b-offtopic_marker
         &:before
@@ -165,6 +166,10 @@
 
       .editor-link, .editor-spoiler, .editor-smiley
         display: inline-block
+
+    +ipad-portrait
+      .editor-strike
+        display: none
 
     +iphone_portrait
       .editor-link

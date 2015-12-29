@@ -4,8 +4,9 @@ class @ShikiEditable extends ShikiView
     super $root
     $new_marker = $('.b-new_marker', @$inner)
 
-    # cancel control in mobile expanded aside
-    $('.item-cancel', @$inner).on 'click', =>
+    # по нажатиям на кнопки закрываем меню в мобильной версии
+    @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-review,
+        .item-offtopic, .item-cancel', @$inner).on 'click', =>
       @_close_aside()
 
     # deletion
