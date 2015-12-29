@@ -16,18 +16,24 @@ describe Api::V1::IgnoresController do
       context 'not yet ignored', :show_in_doc do
         before { make_request }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(user.reload.ignores?(user_2)).to be_truthy }
-        it { expect(user.reload.ignores).to have(1).item }
+        it do
+          expect(response).to have_http_status :success
+          expect(user.reload.ignores?(user_2)).to be_truthy
+          expect(user.reload.ignores).to have(1).item
+          expect(json[:notice]).to eq 'Сообщения от user_1234567 заблокированы'
+        end
       end
 
       context 'already ignored' do
         let!(:ignore) { create :ignore, user: user, target: user_2 }
         before { make_request }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(user.reload.ignores?(user_2)).to be_truthy }
-        it { expect(user.reload.ignores).to have(1).item }
+        it do
+          expect(response).to have_http_status :success
+          expect(user.reload.ignores?(user_2)).to be_truthy
+          expect(user.reload.ignores).to have(1).item
+          expect(json[:notice]).to eq 'Сообщения от user_1234567 заблокированы'
+        end
       end
     end
   end
@@ -49,6 +55,7 @@ describe Api::V1::IgnoresController do
         expect(user.reload.ignores? user_2).to eq false
         expect(user.ignores).to be_empty
         expect(response).to have_http_status :success
+        expect(json[:notice]).to eq 'Сообщения от user_1234567 больше не блокируются'
       end
     end
   end

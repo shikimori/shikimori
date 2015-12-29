@@ -250,3 +250,7 @@ en:
     removed_from_friends:
       male: '%{nickname} has been removed from your friends list'
       female: '%{nickname} has been removed from your friends list'
+
+  api/v1/ignores_controller:
+    ignored: Messages from %{nickname} are ignored
+    not_ignored: Messages from %{nickname} are no longer ignored

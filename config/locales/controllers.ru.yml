@@ -252,3 +252,7 @@ ru:
     removed_from_friends:
       male: '%{nickname} удален из друзей'
       female: '%{nickname} удалена из друзей'
+
+  api/v1/ignores_controller:
+    ignored: Сообщения от %{nickname} заблокированы
+    not_ignored: Сообщения от %{nickname} больше не блокируются
