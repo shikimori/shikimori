@@ -329,7 +329,8 @@ class @ShikiEditor extends ShikiView
 
     setTimeout =>
       if (is_mobile() || is_tablet()) && !@$textarea.is(':appeared')
-        $.scrollTo @$form
+        $.scrollTo @$form, null, =>
+          @$textarea.focus()
 
   # переход в режим редактирования комментария
   edit_comment: ($comment) ->
