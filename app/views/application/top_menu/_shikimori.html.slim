@@ -35,6 +35,15 @@ a.entry.calendar[
         title="#{kind.title}"
       ] = kind.title
 
+.entry
+  - if user_signed_in? && current_user.show_contest_link?
+    a.contest[
+      href="#{current_contests_url}"
+      title="#{t '.current_contest'}"
+      data-count="#{current_user.unvoted_contests}"
+    ]
+  a href="#{contests_url}" title="#{t '.contests'}" = t '.contests'
+
 .entry class="#{:selected if params[:controller] == 'topics' || params[:controller] == 'users' || params[:controller] == 'clubs'}"
   .submenu-toggler
   a[

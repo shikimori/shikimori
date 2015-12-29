@@ -11,6 +11,7 @@ en:
 
       shikimori: &shikimori
         community: Community
+        contests: Contests
         current_contest: Current Contest
         currently_airing: Currently Airing
       anime_online:

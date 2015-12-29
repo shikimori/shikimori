@@ -11,7 +11,8 @@ ru:
 
       shikimori: &shikimori
         community: Сообщество
-        current_contest: Текущий турнир
+        contests: Опросы
+        current_contest: Текущий опрос
         currently_airing: Сейчас выходит
       anime_online:
         <<: *shikimori
