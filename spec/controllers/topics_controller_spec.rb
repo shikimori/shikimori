@@ -130,6 +130,7 @@ describe TopicsController do
       let(:params) {{ user_id: user.id, forum_id: animanga_forum.id }}
       before { sign_in user }
       before { get :new, forum: animanga_forum.to_param, topic: params }
+
       it { expect(response).to have_http_status :success }
     end
   end

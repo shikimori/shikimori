@@ -64,7 +64,7 @@
     $('.drag-here-placeholder a', $form)
       .map -> $(@).attr('id')
       .each (index, id) ->
-        $posters.append "<input type=\"hidden\" name=\"wall[]\" value=\"#{id}\"/>"
+        $posters.append "<input type=\"hidden\" name=\"topic[wall_ids][]\" value=\"#{id}\"/>"
 
   # загрузка постера
   $upload = $('.topic_posters .drag-here-placeholder', $form)

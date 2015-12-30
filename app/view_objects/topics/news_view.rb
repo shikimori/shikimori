@@ -11,10 +11,6 @@ class Topics::NewsView < Topics::View
     topic.title
   end
 
-  def html_footer
-    BbCodeFormatter.instance.format_comment topic.appended_text
-  end
-
   def action_tag
     OpenStruct.new(
       type: 'news',

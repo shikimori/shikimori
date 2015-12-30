@@ -2,7 +2,6 @@
   .submenu-toggler
   a href="#{animes_url}" title="Аниме" Аниме онлайн
   .submenu
-    a.entry href="#{animes_url type: nil, status: 'ongoing'}" title="Аниме онгоинги" Онгоинги
     - menu.anime_seasons.each do |season, short_title, full_title|
       a.entry[
         href="#{animes_url season.url_params}"

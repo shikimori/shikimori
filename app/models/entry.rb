@@ -2,14 +2,10 @@ class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
 
-  # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'ClubComment']
-  # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
-  SpecialInnerTypes = ['AnimeNews', 'MangaNews']
-  # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'ClubComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
-
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
+  WALL_ENTRY = /
+    \[poster (?:=(?<id>\d+))\]
+  /mix
 
   # для совместимости с comment
   attr_accessor :topic_name, :topic_url
@@ -26,20 +22,21 @@ class Entry < ActiveRecord::Base
     dependent: :delete_all
   has_many :topic_ignores, foreign_key: :topic_id, dependent: :destroy
 
-
   before_save :validates_linked
-  before_save :append_wall
-  before_update :unclaim_images
-  before_destroy :destroy_images
-  after_save :claim_images
+
+  # TODO: refactor into module
+  # before_update :unclaim_images
+  # before_destroy :destroy_images
+  # after_save :claim_images
 
   # видимые топики
-  #scope :wo_empty_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
-  scope :wo_empty_generated, -> { where '(comments_count > 0 and generated = true) or generated = false' }
+  scope :wo_empty_generated, -> {
+    where '(comments_count > 0 and generated = true) or generated = false'
+  }
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, -> { where 'action is null or action != ?', AnimeHistoryAction::Episode }
-
-  scope :order_default, -> { order updated_at: :desc }
+  scope :wo_episodes, -> {
+    where 'action is null or action != ?', AnimeHistoryAction::Episode
+  }
 
   def to_param
     "%d-%s" % [id, permalink]
@@ -70,11 +67,6 @@ class Entry < ActiveRecord::Base
     text
   end
 
-  # специальный ли тип топика?
-  def special?
-    SpecialTypes.include? self.class.name
-  end
-
   # прочтен ли топик?
   def viewed?
     generated? ? true : super
@@ -83,20 +75,22 @@ class Entry < ActiveRecord::Base
   # колбек, срабатываемый при добавлении коммента
   def comment_added comment
     self.updated_at = Time.zone.now
-    # TODO: why?????????????
     # because automatically generated topics have no created_at
     self.created_at ||= self.updated_at if self.comments_count == 1 && !generated_news?
-    self.save
+    save
   end
 
   # колбек, срабатываемый при удалении коммента
-  def comment_deleted(comment)
+  def comment_deleted comment
     self.class.record_timestamps = false
-    self.update_attributes(updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at, comments_count: self.comments.count)
+    update(
+      updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
+      comments_count: self.comments.count
+    )
     self.class.record_timestamps = true
   end
 
-  def title=(value)
+  def title= value
     super value
     self.permalink = self.to_s.permalinked if value.present?
     value
@@ -104,11 +98,6 @@ class Entry < ActiveRecord::Base
 
   def to_s
     self.title
-  end
-
-  # идентификатор для рсс ленты
-  def guid
-    "entry-#{self.id}"
   end
 
   # оффтопик ли это? для совместимости с интерфейсом отображения комментариев
@@ -138,7 +127,7 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment# && forum_id != Forum::OFFTOPIC_ID
+    self.class == ReviewComment
   end
 
   # топик ли это косплей?
@@ -151,34 +140,67 @@ class Entry < ActiveRecord::Base
     self.class == ContestComment
   end
 
-  def user_image_ids(value=self.value)
-    (value || '').split(',').map(&:to_i).select { |v| v > 0 }
-  end
+  # def user_image_ids value=self.value
+    # (value || '').split(',').map(&:to_i).select { |v| v > 0 }
+  # end
 
-  def user_image_ids=(ids)
-    self.value = ids.join(',')
-  end
+  # def user_image_ids= ids
+    # self.value = (ids || []).join(',')
+  # end
 
-  # картинки, загруженные пользователями в топик
-  def user_images
-    ids = user_image_ids
-    if ids.any?
-      UserImage
-        .where(id: ids)
-        .sort_by {|v| ids.index v.id }
-    else
-      []
-    end
-  end
+  # # картинки, загруженные пользователями в топик
+  # def attached_images
+    # ids = user_image_ids
+
+    # if ids.any?
+      # UserImage
+        # .where(id: ids)
+        # .sort_by {|v| ids.index v.id }
+    # else
+      # []
+    # end
+  # end
 
   # оригинальный текст без сгенерированных автоматом тегов
   def original_text
-    news? ? (text || '').sub(NEWS_WALL, '') : text
+    if generated?
+      text
+    else
+      (text || '').sub(NEWS_WALL, '')
+    end
   end
 
   # сгенерированные автоматом теги
   def appended_text
-    news? ? text[NEWS_WALL] : nil
+    if generated?
+      ''
+    else
+      (text || '')[NEWS_WALL] || ''
+    end
+  end
+
+  # TODO: should ALWAYS be called after text assign
+  def wall_ids= ids
+    # TODO: do not user "value" as user_images storage field
+    self.value = ids.join(',')
+
+    ids = ids.map(&:to_i)
+    images = UserImage.where(id: ids).sort_by { |v| ids.index v.id }
+
+    bb_images = images.map do |image|
+      "[url=#{ImageUrlGenerator.instance.url image, :original}][poster=#{image.id}][/url]"
+    end
+
+    if bb_images.any?
+      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
+    else
+      self.text = original_text
+    end
+  end
+
+  def wall_images
+    ids = appended_text.scan(WALL_ENTRY).map { |v| v[0].to_i }
+    UserImage.where(id: ids).sort_by { |v| ids.index v.id }
   end
 
 private
@@ -190,41 +212,28 @@ private
     return false
   end
 
-  # дописывание к тексту топика картинок
-  def append_wall
-    return if generated?
-    images = user_images
-
-    if images.any?
-      bb_images = images.map do |image|
-        "[url=#{image.image.url :original, false}][poster]#{image.image.url :preview, false}[/poster][/url]"
-      end
-      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
-    end
-  end
-
   # пометка картинок на принадлежность текущему топику
-  def claim_images
-    UserImage
-      .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
-      .update_all(linked_id: id, linked_type: Entry.name)
-  end
+  # def claim_images
+    # UserImage
+      # .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
+      # .update_all(linked_id: id, linked_type: Entry.name)
+  # end
 
-  # удаление более неиспользуемых картинок
-  def unclaim_images
-    if changes['value'].present? && !generated?
-      unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
+  # # удаление более неиспользуемых картинок
+  # def unclaim_images
+    # if changes['value'].present? && !generated?
+      # unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
 
-      UserImage
-        .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
-        .destroy_all
-    end
-  end
+      # UserImage
+        # .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
+        # .destroy_all
+    # end
+  # end
 
-  # полное удаление всех картинок
-  def destroy_images
-    user_images
-      .select {|v| v.linked_id == id && v.linked_type == Entry.name }
-      .each(&:destroy)
-  end
+  # # полное удаление всех картинок
+  # def destroy_images
+    # attached_images
+      # .select { |v| v.linked_id == id && v.linked_type == Entry.name }
+      # .each(&:destroy)
+  # end
 end
