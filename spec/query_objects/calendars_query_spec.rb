@@ -1,6 +1,9 @@
 describe CalendarsQuery do
   let(:query) { CalendarsQuery.new }
 
+  before { Timecop.freeze '28-12-2015' }
+  after { Timecop.return }
+
   context 'common calendar' do
     let!(:anime_1) { create :anime, name: '1' }
 
@@ -21,9 +24,6 @@ describe CalendarsQuery do
   end
 
   context 'before new year' do
-    before { Timecop.freeze '28-12-2015' }
-    after { Timecop.return }
-
     let!(:anime_1) { create :anime, :anons, aired_on: '01-01-2016' }
     let!(:anime_2) { create :anime, :anons, aired_on: '02-01-2016' }
 

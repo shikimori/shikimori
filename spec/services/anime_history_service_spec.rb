@@ -2,18 +2,18 @@ describe AnimeHistoryService do
   let!(:users) { create_list :user, 2, notifications: 0xFFFFFF }
 
   describe 'creates Message' do
-    before { allow(PushNotification).to receive :call }
+    before { allow(PushNotification).to receive :perform_async }
 
     it 'for Topic width broadcast: true' do
       create :topic, user: users.last, broadcast: true
       expect{AnimeHistoryService.process}.to change(Message, :count).by User.count
-      expect(PushNotification).to_not have_received :call
+      expect(PushNotification).to_not have_received :perform_async
     end
 
     it 'for new Anonsed Anime' do
       create :anime, :with_callbacks, :anons
       expect{AnimeHistoryService.process}.to change(Message, :count).by users.size
-      expect(PushNotification).to_not have_received :call
+      expect(PushNotification).to_not have_received :perform_async
     end
 
     it 'for Episode of in-list anime' do
@@ -23,7 +23,7 @@ describe AnimeHistoryService do
       create :anime_news, action: AnimeHistoryAction::Episode, generated: true, linked: anime, user: users.first
 
       expect{AnimeHistoryService.process}.to change(Message, :count).by 1
-      expect(PushNotification).to_not have_received :call
+      expect(PushNotification).to_not have_received :perform_async
     end
 
     context 'user with device' do
@@ -32,7 +32,7 @@ describe AnimeHistoryService do
       let!(:anime) { create :anime, :with_callbacks, :anons }
       before { AnimeHistoryService.process }
 
-      it { expect(PushNotification).to have_received(:call).once }
+      it { expect(PushNotification).to have_received(:perform_async).once }
     end
   end
 
