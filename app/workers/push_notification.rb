@@ -1,5 +1,6 @@
 class PushNotification
   include Sidekiq::Worker
+  sidekiq_options queue: :push_notifications
 
   def perform message_id, device_id
     message = Message.find message_id

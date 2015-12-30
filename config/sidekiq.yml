@@ -10,6 +10,7 @@ production:
 :queues:
   - [high_priority, 3]
   - [critical, 6]
+  - [push_notifications, 2]
   - default
   - cpu_intensive
   - slow_parsers
