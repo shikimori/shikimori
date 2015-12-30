@@ -142,7 +142,9 @@ class UserStatisticsQuery
       #1/0 if num == 42
       #1/0 if z.any? && z.first.id != 3585457 && z.first.id != 3585459
 
-      history.each do |entry|
+      # сортировка это важно, история должна обрабатывать в том порядке,
+      # в каком её создали и затем меняли
+      history.sort_by(&:updated_at).each do |entry|
         cached = rates_cache["#{entry.target_id}#{entry.target_type}"]
 
         # запись о начале пересмотра - сбрасывем счётчик
