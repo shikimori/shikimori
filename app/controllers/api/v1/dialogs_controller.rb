@@ -38,9 +38,10 @@ class Api::V1::DialogsController < Api::V1::ApiController
 
     if message
       Dialog.new(current_user, message).destroy
-      render json: { notice: 'Диалог удалён' }
+      render json: { notice: i18n_t('conversation_removed') }
     else
-      render json: ['Не найдено ни одного сообщения для удаления'], status: :unprocessable_entity
+      render json: [i18n_t('no_messages')],
+        status: :unprocessable_entity
     end
   end
 

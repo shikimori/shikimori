@@ -77,6 +77,7 @@ describe Api::V1::CommentsController do
       it do
         expect(response).to have_http_status :success
         expect(response.content_type).to eq 'application/json'
+        expect(json[:notice]).to eq 'Комментарий удален'
       end
     end
 

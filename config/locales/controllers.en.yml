@@ -230,6 +230,38 @@ en:
   anime_online/anime_videos_controller:
     <<: *animes_controller
 
+  api/v1/comments_controller:
+    comment:
+      removed: Comment removed
+
+  api/v1/dialogs_controller:
+    conversation_removed: Conversation removed
+    no_messages: No messages to remove
+
+  api/v1/friends_controller:
+    already_friend: '%{nickname} is already your friend'
+    added_to_friends:
+      male: '%{nickname} added to your friends list'
+      female: '%{nickname} added to your friends list'
+    removed_from_friends:
+      male: '%{nickname} removed from your friends list'
+      female: '%{nickname} removed from your friends list'
+
+  api/v1/ignores_controller:
+    ignored: Messages from %{nickname} are now ignored
+    not_ignored: Messages from %{nickname} are no longer ignored
+
+  api/v1/nickname_changes_controller:
+    cleared: Your history of nickname changes cleared
+
   api/v1/topic_ignores_controller:
     ignored: Topic ignored
     not_ignored: Topic is visible now
+
+  api/v1/user_rates_controller:
+    list_and_history_cleared:
+      anime: Both your anime list and anime history cleared
+      manga: Both your manga list and manga history cleared
+    scores_reset:
+      anime: All scores in your anime list reset
+      manga: All scores in your manga list reset

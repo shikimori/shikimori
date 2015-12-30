@@ -31,6 +31,15 @@ describe Api::V1::FriendsController do
             create_request
             create_request
           }.to change(FriendLink, :count).by(1)
+
+          expect(json[:notice]).to eq 'user_1234567 добавлен в друзья'
+        end
+
+        context 'already friend' do
+          let(:user) { create :user, friends: [user2] }
+          before { create_request }
+
+          it { expect(json[:notice]).to eq 'user_1234567 уже среди ваших друзей' }
         end
       end
 
@@ -63,6 +72,8 @@ describe Api::V1::FriendsController do
 
         expect(response).to be_success
         expect(User.find(user.id).friends.include?(user2)).to be_falsy
+
+        expect(json[:notice]).to eq 'user_1234567 удален из друзей'
       end
 
       it FriendLink.name do

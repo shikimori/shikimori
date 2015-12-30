@@ -48,13 +48,6 @@ class CommentsController < ShikimoriController
     end
   end
 
-  def destroy
-    raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
-    faye.destroy @comment
-
-    render json: { notice: 'Комментарий удален' }
-  end
-
   # динамическая подгрузка комментариев при скролле
   def postloader
     @limit = [[params[:limit].to_i, 1].max, 100].min

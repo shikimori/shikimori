@@ -6,7 +6,7 @@ class Api::V1::IgnoresController < Api::V1::ApiController
   def create
     @target_user = User.find(params[:id])
     current_user.ignores.create!(target: @target_user) unless current_user.ignores?(@target_user)
-    render json: { notice: "Сообщения от #{@target_user.nickname} заблокированы" }
+    render json: { notice: i18n_t('ignored', nickname: @target_user.nickname) }
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -14,7 +14,7 @@ class Api::V1::IgnoresController < Api::V1::ApiController
   def destroy
     @user = User.find(params[:id])
     current_user.ignored_users.delete(@user)
-    render json: { notice: "Сообщения от #{@user.nickname} больше не блокируются" }
+    render json: { notice: i18n_t('not_ignored', nickname: @user.nickname) }
   end
 end
 

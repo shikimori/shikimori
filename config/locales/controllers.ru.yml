@@ -232,6 +232,38 @@ ru:
   anime_online/anime_videos_controller:
     <<: *animes_controller
 
+  api/v1/comments_controller:
+    comment:
+      removed: Комментарий удален
+
+  api/v1/dialogs_controller:
+    conversation_removed: Переписка удалёна
+    no_messages: Не найдено ни одного сообщения для удаления
+
+  api/v1/friends_controller:
+    already_friend: '%{nickname} уже среди ваших друзей'
+    added_to_friends:
+      male: '%{nickname} добавлен в друзья'
+      female: '%{nickname} добавлена в друзья'
+    removed_from_friends:
+      male: '%{nickname} удален из друзей'
+      female: '%{nickname} удалена из друзей'
+
+  api/v1/ignores_controller:
+    ignored: Сообщения от %{nickname} заблокированы
+    not_ignored: Сообщения от %{nickname} больше не блокируются
+
+  api/v1/nickname_changes_controller:
+    cleared: Ваша история имён очищена
+
   api/v1/topic_ignores_controller:
     ignored: Топик добавлен в игнор
     not_ignored: Топик удалён из игнора
+
+  api/v1/user_rates_controller:
+    list_and_history_cleared:
+      anime: Выполнена очистка вашего списка аниме и вашей истории по аниме
+      manga: Выполнена очистка вашего списка манги и вашей истории по манге
+    scores_reset:
+      anime: Выполнен сброс оценок в вашем списке аниме
+      manga: Выполнен сброс оценок в вашем списке манги

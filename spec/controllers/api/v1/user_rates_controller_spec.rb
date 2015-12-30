@@ -80,6 +80,7 @@ describe Api::V1::UserRatesController do
           expect(response).to have_http_status :success
           expect(user.anime_rates).to be_empty
           expect(user.history).to be_empty
+          expect(json[:notice]).to eq 'Выполнена очистка вашего списка аниме и вашей истории по аниме'
         end
       end
 
@@ -91,6 +92,7 @@ describe Api::V1::UserRatesController do
           expect(response).to have_http_status :success
           expect(user.manga_rates).to be_empty
           expect(user.history).to be_empty
+          expect(json[:notice]).to eq 'Выполнена очистка вашего списка манги и вашей истории по манге'
         end
       end
     end
@@ -105,6 +107,7 @@ describe Api::V1::UserRatesController do
         it do
           expect(response).to have_http_status :success
           expect(user_rate.reload.score).to be_zero
+          expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке аниме'
         end
       end
 
@@ -115,6 +118,7 @@ describe Api::V1::UserRatesController do
         it do
           expect(response).to have_http_status :success
           expect(user_rate.reload.score).to be_zero
+          expect(json[:notice]).to eq 'Выполнен сброс оценок в вашем списке манги'
         end
       end
     end

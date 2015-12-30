@@ -9,6 +9,7 @@ describe Api::V1::NicknameChangesController do
     it do
       expect(user.nickname_changes).to be_empty
       expect(response).to have_http_status :success
+      expect(json[:notice]).to eq 'Ваша история имён очищена'
     end
   end
 end

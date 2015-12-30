@@ -72,7 +72,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     user.send("#{params[:type]}_rates").delete_all
     user.touch
 
-    render json: { notice: "Выполнена очистка вашего #{params[:type] == 'anime' ? 'аниме' : 'манги'} списка и вашей истории по #{params[:type] == 'anime' ? 'аниме' : 'манге'}" }
+    render json: { notice: i18n_t("list_and_history_cleared.#{params[:type]}") }
   end
 
   # сброс оценок в списке
@@ -82,7 +82,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     current_user.send("#{params[:type]}_rates").update_all score: 0
     current_user.touch
 
-    render json: { notice: "Выполнен сброс оценок в вашем #{params[:type] == 'anime' ? 'аниме' : 'манги'} списке" }
+    render json: { notice: i18n_t("scores_reset.#{params[:type]}") }
   end
 
 private
