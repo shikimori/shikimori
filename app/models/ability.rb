@@ -127,18 +127,15 @@ class Ability
 
     can :manage, Device, user_id: @user.id
 
-    can [:new, :create], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
-      !@user.banned? && @user.day_registered? && topic.user_id == @user.id
+    can [:new, :create], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+      !@user.banned? && @user.day_registered? &&
+        topic.user_id == @user.id
     end
-    can [:update], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
-      !@user.banned? && (
-        topic.user_id == @user.id# && topic.created_at + 3.months > Time.zone.now
-      )
+    can [:update], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+      can? :create, topic
     end
-    can [:destroy], [Topic, AnimeNews, MangaNews, SiteNews] do |topic|
-      !@user.banned? && (
-        topic.user_id == @user.id && topic.created_at + 4.hours > Time.zone.now
-      )
+    can [:destroy], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+      can?(:create, topic) && topic.created_at + 4.hours > Time.zone.now
     end
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
       topic_ignore.user_id == @user.id
@@ -184,7 +181,7 @@ class Ability
   end
 
   def moderator_ability
-    can :manage, [Topic, AnimeNews, MangaNews, Review]
+    can :manage, [Entry, Topic, AnimeNews, MangaNews, SiteNews, Review]
     can [:edit, :update], [Genre]
   end
 
