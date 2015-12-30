@@ -39,8 +39,6 @@ class TopicsController < ShikimoriController
 
   # создание топика
   def create
-    # @resource.user_image_ids = (params[:wall] || []).uniq
-
     if faye.create @resource
       redirect_to topic_url(@resource), notice: 'Топик создан'
     else
@@ -56,7 +54,6 @@ class TopicsController < ShikimoriController
   # редактирование топика
   def update
     @resource.class.record_timestamps = false
-    # @resource.user_image_ids = (params[:wall] || []).uniq
 
     if faye.update @resource, topic_params
       redirect_to topic_url(@resource), notice: 'Топик изменён'
@@ -116,15 +113,11 @@ class TopicsController < ShikimoriController
 private
 
   def topic_params
-    allowed_params = if params[:action] == 'update' && !can?(:manage, Topic)
-       [:text, :title, :linked_id, :linked_type]
-    else
-       [:user_id, :forum_id, :text, :title, :type, :linked_id, :linked_type]
-    end
-
+    allowed_params = [:text, :title, :linked_id, :linked_type, wall_ids: []]
+    allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
     allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 
-    params.require(:topic).permit(*allowed_params)
+    params.require(:topic).permit *allowed_params
   end
 
   def set_view

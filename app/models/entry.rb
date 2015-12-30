@@ -3,6 +3,9 @@ class Entry < ActiveRecord::Base
   include Viewable
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
+  WALL_ENTRY = /
+    \[poster (?:=(?<id>\d+))\]
+  /mix
 
   # для совместимости с comment
   attr_accessor :topic_name, :topic_url
@@ -20,11 +23,11 @@ class Entry < ActiveRecord::Base
   has_many :topic_ignores, foreign_key: :topic_id, dependent: :destroy
 
   before_save :validates_linked
-  before_save :append_wall
 
-  before_update :unclaim_images
-  before_destroy :destroy_images
-  after_save :claim_images
+  # TODO: refactor into module
+  # before_update :unclaim_images
+  # before_destroy :destroy_images
+  # after_save :claim_images
 
   # видимые топики
   scope :wo_empty_generated, -> {
@@ -124,7 +127,7 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment# && forum_id != Forum::OFFTOPIC_ID
+    self.class == ReviewComment
   end
 
   # топик ли это косплей?
@@ -137,37 +140,67 @@ class Entry < ActiveRecord::Base
     self.class == ContestComment
   end
 
-  def user_image_ids value=self.value
-    (value || '').split(',').map(&:to_i).select { |v| v > 0 }
-  end
+  # def user_image_ids value=self.value
+    # (value || '').split(',').map(&:to_i).select { |v| v > 0 }
+  # end
 
-  def user_image_ids= ids
-    1/0
-    self.value = ids.join(',')
-  end
+  # def user_image_ids= ids
+    # self.value = (ids || []).join(',')
+  # end
 
-  # картинки, загруженные пользователями в топик
-  def user_images
-    1/0
-    ids = user_image_ids
+  # # картинки, загруженные пользователями в топик
+  # def attached_images
+    # ids = user_image_ids
 
-    if ids.any?
-      UserImage
-        .where(id: ids)
-        .sort_by {|v| ids.index v.id }
-    else
-      []
-    end
-  end
+    # if ids.any?
+      # UserImage
+        # .where(id: ids)
+        # .sort_by {|v| ids.index v.id }
+    # else
+      # []
+    # end
+  # end
 
   # оригинальный текст без сгенерированных автоматом тегов
   def original_text
-    news? ? (text || '').sub(NEWS_WALL, '') : text
+    if generated?
+      text
+    else
+      (text || '').sub(NEWS_WALL, '')
+    end
   end
 
   # сгенерированные автоматом теги
   def appended_text
-    news? ? text[NEWS_WALL] : nil
+    if generated?
+      ''
+    else
+      (text || '')[NEWS_WALL] || ''
+    end
+  end
+
+  # TODO: should ALWAYS be called after text assign
+  def wall_ids= ids
+    # TODO: do not user "value" as user_images storage field
+    self.value = ids.join(',')
+
+    ids = ids.map(&:to_i)
+    images = UserImage.where(id: ids).sort_by { |v| ids.index v.id }
+
+    bb_images = images.map do |image|
+      "[url=#{ImageUrlGenerator.instance.url image, :original}][poster=#{image.id}][/url]"
+    end
+
+    if bb_images.any?
+      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
+    else
+      self.text = original_text
+    end
+  end
+
+  def wall_images
+    ids = appended_text.scan(WALL_ENTRY).map { |v| v[0].to_i }
+    UserImage.where(id: ids).sort_by { |v| ids.index v.id }
   end
 
 private
@@ -179,41 +212,28 @@ private
     return false
   end
 
-  # дописывание к тексту топика картинок
-  def append_wall
-    return if generated?
-    images = user_images
-
-    if images.any?
-      bb_images = images.map do |image|
-        "[url=#{image.image.url :original, false}][poster]#{image.image.url :preview, false}[/poster][/url]"
-      end
-      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
-    end
-  end
-
   # пометка картинок на принадлежность текущему топику
-  def claim_images
-    UserImage
-      .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
-      .update_all(linked_id: id, linked_type: Entry.name)
-  end
+  # def claim_images
+    # UserImage
+      # .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
+      # .update_all(linked_id: id, linked_type: Entry.name)
+  # end
 
-  # удаление более неиспользуемых картинок
-  def unclaim_images
-    if changes['value'].present? && !generated?
-      unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
+  # # удаление более неиспользуемых картинок
+  # def unclaim_images
+    # if changes['value'].present? && !generated?
+      # unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
 
-      UserImage
-        .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
-        .destroy_all
-    end
-  end
+      # UserImage
+        # .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
+        # .destroy_all
+    # end
+  # end
 
-  # полное удаление всех картинок
-  def destroy_images
-    user_images
-      .select { |v| v.linked_id == id && v.linked_type == Entry.name }
-      .each(&:destroy)
-  end
+  # # полное удаление всех картинок
+  # def destroy_images
+    # attached_images
+      # .select { |v| v.linked_id == id && v.linked_type == Entry.name }
+      # .each(&:destroy)
+  # end
 end

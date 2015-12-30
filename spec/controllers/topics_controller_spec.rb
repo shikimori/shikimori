@@ -130,6 +130,21 @@ describe TopicsController do
       let(:params) {{ user_id: user.id, forum_id: animanga_forum.id }}
       before { sign_in user }
       before { get :new, forum: animanga_forum.to_param, topic: params }
+
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
+  describe '#edit' do
+    let(:make_request) { get :edit, id: topic.id }
+
+    context 'guest' do
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+    end
+
+    context 'authenticated' do
+      before { sign_in user }
+      before { get :edit, id: topic.id }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -167,20 +182,6 @@ describe TopicsController do
     end
   end
 
-  describe '#edit' do
-    let(:make_request) { get :edit, id: topic.id }
-
-    context 'guest' do
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
-    end
-
-    context 'authenticated' do
-      before { sign_in user }
-      before { get :edit, id: topic.id }
-      it { expect(response).to have_http_status :success }
-    end
-  end
-
   describe '#update' do
     let(:params) {{
       user_id: user.id,
@@ -200,7 +201,7 @@ describe TopicsController do
     context 'authenticated' do
       before { sign_in user }
 
-      context 'vlid_params params', :focus do
+      context 'vlid_params params' do
         let(:params) {{ user_id: user.id, title: '' }}
         before { post :update, id: topic.id, topic: params }
 
