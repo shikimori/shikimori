@@ -130,7 +130,7 @@ class MessagesController < ProfilesController
       linked = message.linked && message.linked.respond_to?(:linked) && message.linked.linked ? message.linked.linked : nil
       {
         entry: message.decorate,
-        guid: message.guid,
+        guid: "message-#{message.id}",
         image_url: linked && linked.image.exists? ? 'http://shikimori.org' + linked.image.url(:preview, false) : nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
         linked_name: linked ? linked.name : nil,

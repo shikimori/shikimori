@@ -11,7 +11,7 @@ xml.rss version: "2.0" do
         xml.description format_rss_urls(BbCodeFormatter.instance.format_comment topic.text)
         xml.pubDate Time.at(topic.updated_at.to_i)
         xml.link topic_url(topic)
-        xml.guid topic.guid
+        xml.guid "entry-#{topic.id}"
       end
     end
   end
