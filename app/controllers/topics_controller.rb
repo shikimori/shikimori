@@ -39,7 +39,7 @@ class TopicsController < ShikimoriController
 
   # создание топика
   def create
-    @resource.user_image_ids = (params[:wall] || []).uniq
+    # @resource.user_image_ids = (params[:wall] || []).uniq
 
     if faye.create @resource
       redirect_to topic_url(@resource), notice: 'Топик создан'
@@ -56,7 +56,7 @@ class TopicsController < ShikimoriController
   # редактирование топика
   def update
     @resource.class.record_timestamps = false
-    @resource.user_image_ids = (params[:wall] || []).uniq
+    # @resource.user_image_ids = (params[:wall] || []).uniq
 
     if faye.update @resource, topic_params
       redirect_to topic_url(@resource), notice: 'Топик изменён'

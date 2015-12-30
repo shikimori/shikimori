@@ -70,7 +70,7 @@ private
     Entry
       .with_viewed(@user)
       .includes(:forum, :user)
-      .order_default
+      .order(updated_at: :desc)
   end
 
   def user_forums

@@ -169,11 +169,6 @@ class Comment < ActiveRecord::Base
     BbCodeFormatter.instance.format_comment fixed_body
   end
 
-  # идентификатор для рсс ленты
-  def guid
-    "comment-#{id}"
-  end
-
   # оффтопик ли это?
   def offtopic?
     offtopic

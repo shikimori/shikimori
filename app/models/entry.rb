@@ -2,13 +2,6 @@ class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
 
-  # классы, которые не отображаются на общем форуме, пока у них нет комментарив
-  SpecialTypes = ['AnimeNews', 'MangaNews', 'AniMangaComment', 'CharacterComment', 'PersonComment', 'ClubComment']
-  # классы, которые не отображаются на внутреннем форуме, пока у них нет комментарив
-  SpecialInnerTypes = ['AnimeNews', 'MangaNews']
-  # все производные классы
-  Types = ['Entry', 'Topic', 'AniMangaComment', 'CharacterComment', 'ClubComment', 'ReviewComment', 'ContestComment', 'CosplayComment']
-
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 
   # для совместимости с comment
@@ -26,20 +19,21 @@ class Entry < ActiveRecord::Base
     dependent: :delete_all
   has_many :topic_ignores, foreign_key: :topic_id, dependent: :destroy
 
-
   before_save :validates_linked
   before_save :append_wall
+
   before_update :unclaim_images
   before_destroy :destroy_images
   after_save :claim_images
 
   # видимые топики
-  #scope :wo_empty_generated, -> { wo_episodes.where("(comments_count > 0 and generated = true) or generated = false ") }
-  scope :wo_empty_generated, -> { where '(comments_count > 0 and generated = true) or generated = false' }
+  scope :wo_empty_generated, -> {
+    where '(comments_count > 0 and generated = true) or generated = false'
+  }
   # топики без топиков о выходе эпизодов
-  scope :wo_episodes, -> { where 'action is null or action != ?', AnimeHistoryAction::Episode }
-
-  scope :order_default, -> { order updated_at: :desc }
+  scope :wo_episodes, -> {
+    where 'action is null or action != ?', AnimeHistoryAction::Episode
+  }
 
   def to_param
     "%d-%s" % [id, permalink]
@@ -70,11 +64,6 @@ class Entry < ActiveRecord::Base
     text
   end
 
-  # специальный ли тип топика?
-  def special?
-    SpecialTypes.include? self.class.name
-  end
-
   # прочтен ли топик?
   def viewed?
     generated? ? true : super
@@ -83,20 +72,22 @@ class Entry < ActiveRecord::Base
   # колбек, срабатываемый при добавлении коммента
   def comment_added comment
     self.updated_at = Time.zone.now
-    # TODO: why?????????????
     # because automatically generated topics have no created_at
     self.created_at ||= self.updated_at if self.comments_count == 1 && !generated_news?
-    self.save
+    save
   end
 
   # колбек, срабатываемый при удалении коммента
-  def comment_deleted(comment)
+  def comment_deleted comment
     self.class.record_timestamps = false
-    self.update_attributes(updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at, comments_count: self.comments.count)
+    update(
+      updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
+      comments_count: self.comments.count
+    )
     self.class.record_timestamps = true
   end
 
-  def title=(value)
+  def title= value
     super value
     self.permalink = self.to_s.permalinked if value.present?
     value
@@ -104,11 +95,6 @@ class Entry < ActiveRecord::Base
 
   def to_s
     self.title
-  end
-
-  # идентификатор для рсс ленты
-  def guid
-    "entry-#{self.id}"
   end
 
   # оффтопик ли это? для совместимости с интерфейсом отображения комментариев
@@ -151,17 +137,20 @@ class Entry < ActiveRecord::Base
     self.class == ContestComment
   end
 
-  def user_image_ids(value=self.value)
+  def user_image_ids value=self.value
     (value || '').split(',').map(&:to_i).select { |v| v > 0 }
   end
 
-  def user_image_ids=(ids)
+  def user_image_ids= ids
+    1/0
     self.value = ids.join(',')
   end
 
   # картинки, загруженные пользователями в топик
   def user_images
+    1/0
     ids = user_image_ids
+
     if ids.any?
       UserImage
         .where(id: ids)
@@ -224,7 +213,7 @@ private
   # полное удаление всех картинок
   def destroy_images
     user_images
-      .select {|v| v.linked_id == id && v.linked_type == Entry.name }
+      .select { |v| v.linked_id == id && v.linked_type == Entry.name }
       .each(&:destroy)
   end
 end

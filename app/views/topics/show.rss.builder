@@ -15,7 +15,7 @@ xml.rss version: "2.0" do
         xml.description format_rss_urls(comment.html_body)
         xml.pubDate Time.at(comment.created_at.to_i).to_s(:rfc822)
         xml.link "#{topic_url @resource}#comment-#{comment.id}"
-        xml.guid comment.guid
+        xml.guid "comment-#{comment.id}"
       end
     end
   end
