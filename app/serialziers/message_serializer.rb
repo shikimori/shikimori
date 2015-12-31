@@ -1,6 +1,4 @@
 class MessageSerializer < ActiveModel::Serializer
-  include TopicsHelper
-
   attributes :id, :kind, :read, :body, :html_body, :created_at, :linked
   has_one :from
   has_one :to
