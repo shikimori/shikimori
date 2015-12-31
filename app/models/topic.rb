@@ -3,7 +3,6 @@ class Topic < Entry
   include Antispam
 
   belongs_to :anime_history
-
   validates :title, :text, presence: true
 
   before_destroy :clear_anime_history

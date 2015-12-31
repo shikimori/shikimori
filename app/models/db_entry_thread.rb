@@ -35,15 +35,6 @@ class DbEntryThread < Topic
     self[:title] ? self[:title].html_safe : nil
   end
 
-  # раздел топика
-  def section
-    if news? && action != 'episode'
-      Forum::static[:news]
-    else
-      super
-    end
-  end
-
 private
 
   def sync

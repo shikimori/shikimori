@@ -8,7 +8,7 @@ class Message < ActiveRecord::Base
   belongs_to :to, class_name: User.name
   belongs_to :linked, polymorphic: true
 
-  # откменяю проверку, т.к. могут быть уведомления по AnimeHistory
+  # отменяю проверку, т.к. могут быть уведомления по AnimeHistory
   #validates_presence_of :body
 
   validates :from, :to, presence: true

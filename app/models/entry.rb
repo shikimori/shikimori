@@ -7,9 +7,6 @@ class Entry < ActiveRecord::Base
     \[poster (?:=(?<id>\d+))\]
   /mix
 
-  # для совместимости с comment
-  attr_accessor :topic_name, :topic_url
-
   belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user
