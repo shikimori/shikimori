@@ -1,7 +1,6 @@
 # TODO: refactor to MessageDecorator, не забыть MessageSerializer.body
 module MessagesHelper # для truncate в messages helper
   def self.included klass
-    klass.send :include, TopicsHelper # для topic_url, там хелпер
     klass.send :include, ActionView::Helpers::TextHelper # для truncate
     klass.send :include, ActionView::Helpers::SanitizeHelper
   end
@@ -95,7 +94,7 @@ module MessagesHelper # для truncate в messages helper
       when Entry.name
         target = Entry.find_by_id linked_id
         if target
-          url = topic_url(target)
+          url = UrlGenerator.instance.topic_url(target)
           'в топике <!--%s-->.' % [truncate(target.title, length: 30, omission: '…')]
         else
           'в <em>удалённом</em> топике.'

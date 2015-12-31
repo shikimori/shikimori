@@ -370,7 +370,6 @@ Site::Application.routes.draw do
 
     get 'topics/chosen/:ids' => 'topics#chosen', as: :topics_chosen
     get 'topics/:id/tooltip(/:test)' => 'topics#tooltip', as: :topic_tooltip
-    get 'entries/:id/tooltip(/:test)' => 'entries#tooltip', as: :entry_tooltip # это для совместимости, чтобы уже сформированные урлы не сломались
 
     # favourites
     post 'favourites/:linked_type/:linked_id' => 'favourites#create', as: :favourites
@@ -670,16 +669,6 @@ Site::Application.routes.draw do
 
     resources :studios, only: [:index]
     resources :proxies, only: [:index]
-
-    # news
-    get 'entries/:id' => 'entries#show', as: :entry_body, constraints: { format: /json/ }
-    #get 'blogs' => 'entries#index', as: :blogs
-    #get 'blogs(/:offset/:limit)' => 'entries#postloader', as: :blogs_postloader, constraints: { offset: /\d+/, limit: /\d+/ }
-    get ':year/:month/:day/:id' => 'entries#show', as: :news, constraints: { year: /\d+/, day: /\d+/ }
-    #patch 'blogs/:id' => 'entries#apply', as: :entry
-    #delete 'blogs/:id' => 'entries#destroy'
-    #get 'blogs/new' => 'entries#new', as: :new_entry
-    #post 'blogs/create' => 'entries#create', as: :create_news
 
     get 'sitemap' => 'sitemap#index'
     get 'robots.txt' => 'robots#shikimori'

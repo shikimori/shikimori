@@ -46,18 +46,6 @@ class Entry < ActiveRecord::Base
     "#{super}-#{Digest::MD5.hexdigest(body || '')}"
   end
 
-  def year
-    created_at.year
-  end
-
-  def month
-    "%02d" % created_at.month
-  end
-
-  def day
-    "%02d" % created_at.day
-  end
-
   # базовый класс для комментариев
   def base_class
     Entry

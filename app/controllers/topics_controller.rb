@@ -1,6 +1,4 @@
 class TopicsController < ShikimoriController
-  include TopicsHelper
-
   load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :set_view
@@ -40,7 +38,7 @@ class TopicsController < ShikimoriController
   # создание топика
   def create
     if faye.create @resource
-      redirect_to topic_url(@resource), notice: 'Топик создан'
+      redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик создан'
     else
       new
       render :edit
@@ -56,7 +54,7 @@ class TopicsController < ShikimoriController
     @resource.class.record_timestamps = false
 
     if faye.update @resource, topic_params
-      redirect_to topic_url(@resource), notice: 'Топик изменён'
+      redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик изменён'
     else
       edit
       render :edit
