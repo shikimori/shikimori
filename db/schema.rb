@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231150751) do
+ActiveRecord::Schema.define(version: 20151231152733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -493,16 +493,10 @@ ActiveRecord::Schema.define(version: 20151231150751) do
 
   create_table "forums", force: :cascade do |t|
     t.integer  "position"
-    t.string   "name_ru",          limit: 255
-    t.string   "description",      limit: 255
-    t.string   "permalink",        limit: 255
-    t.integer  "topics_count",                 default: 0
-    t.integer  "posts_count",                  default: 0
+    t.string   "name_ru",    limit: 255
+    t.string   "permalink",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "meta_title",       limit: 255
-    t.string   "meta_keywords",    limit: 255
-    t.string   "meta_description", limit: 255
     t.boolean  "is_visible"
     t.string   "name_en"
   end
