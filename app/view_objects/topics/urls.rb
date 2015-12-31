@@ -39,7 +39,7 @@ class Topics::Urls < ViewObjectBase
   end
 
   def topic_url
-    h.topic_url topic
+    UrlGenerator.instance.topic_url topic
   end
 
   def ignore_url
