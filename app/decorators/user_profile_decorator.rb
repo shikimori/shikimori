@@ -93,6 +93,8 @@ class UserProfileDecorator < UserDecorator
   def common_info
     info = []
 
+    info << "id: #{id}" if h.user_signed_in? && h.current_user.admin?
+
     if h.can? :access_list, self
       info << h.h(name)
       info << i18n_t('male') if male?

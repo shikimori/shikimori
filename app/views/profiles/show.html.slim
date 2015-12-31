@@ -138,8 +138,6 @@
           span = @resource.last_online
         - if @resource.banned?
           span.banned = t '.banned', gender: @resource.sex
-        - if user_signed_in? && current_user.admin?
-          span id: #{@resource.id}
 
       .notice
         - @resource.common_info.each do |entry|
