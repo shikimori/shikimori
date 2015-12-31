@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151230203542) do
+ActiveRecord::Schema.define(version: 20151231150751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,17 +41,6 @@ ActiveRecord::Schema.define(version: 20151230203542) do
   end
 
   add_index "anime_calendars", ["anime_id", "episode"], name: "index_anime_calendars_on_anime_id_and_episode", unique: true, using: :btree
-
-  create_table "anime_histories", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "anime_id"
-    t.string   "action",     limit: 255
-    t.string   "value",      limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "processed",              default: false
-    t.integer  "topic_id",               default: 0,     null: false
-  end
 
   create_table "anime_links", force: :cascade do |t|
     t.integer  "anime_id"
