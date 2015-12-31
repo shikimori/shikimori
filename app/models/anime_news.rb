@@ -6,7 +6,7 @@ class AnimeNews < DbEntryThread
   attr_defaults text: -> { 'text' }
 
   # получение названия для новости
-  def generate_title(anime)
+  def generate_title anime
     service = AnimeHistoryService.new
 
     case action
