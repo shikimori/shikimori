@@ -237,7 +237,11 @@
     $.extend(self, {
       show: function(e) {
         // для устройств с тачскрином и узких экранов тултипы отключаем
-        if (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0) || is_mobile()) {
+        if (!e.target.classList.contains('mobile') && (
+            ('ontouchstart' in window) ||
+            (navigator.MaxTouchPoints > 0) ||
+            (navigator.msMaxTouchPoints > 0) ||
+            is_mobile())) {
           return;
         }
         // tip not initialized yet
