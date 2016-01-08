@@ -141,7 +141,7 @@
         = message.generate_body
 
       - if message.kind == MessageType::SiteNews && message.linked
-        a.right.to-entry.b-link href="#{topic_url message.linked}"
+        a.right.to-entry.b-link href="#{UrlGenerator.instance.topic_url message.linked}"
           = t '.to_topic'
 
       - if !message.read && message.to == current_user

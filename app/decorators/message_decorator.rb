@@ -15,7 +15,7 @@ class MessageDecorator < BaseDecorator
     elsif kind == MessageType::ContestFinished
       h.contest_url linked
     elsif MessagesQuery::NEWS_KINDS.include?(kind)
-      h.topic_url linked
+      UrlGenerator.instance.topic_url linked
     else
       h.profile_url from
     end
