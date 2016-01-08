@@ -47,3 +47,55 @@ ru:
           <a href="http://animecalendar.net/">animecalendar.net</a>,
           либо рассчитывается автоматически с учётом дат появления предыдущих эпизодов аниме.
       currently_airing: Уже должно было выйти
+
+    bb_codes:
+      title: Бб-коды сайта
+      notice: Список поддерживаемых сайтом бб-кодов с примерами их использования
+      example_title: 'Пример:'
+      result_title: 'Результат:'
+      font_style: Стиль текста
+      font_style_example: '[b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]'
+      text_color: Цвет текста
+      text_color_example: '[color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]'
+      text_alignment: Выравнивание текста
+      text_alignment_example: 'слева [right]справа[/right] [center]по центру[/center]'
+      font_size: Размер текста
+      font_size_example: '[size=10]текст[/size] и [size=16]текст[/size]'
+      font_size_notice: 13 &ndash; стандартный размер
+      list: Список
+      list_example: '[list][*]первая строка[*]вторая строка[/list]'
+      mention: Упоминание пользователя
+      mention_example: '@morr, привет'
+      mention_notice: >-
+        Перед ником пользователя пишется "@".
+        Пользователю придёт уведомление о том,
+        что ему что-то написали на форуме.
+      reply_to_comment: Ответ на комментарий
+      reply_to_comment_example_1: >-
+        [comment=775324<span>id комментария</span>]morr[/comment], привет
+      reply_to_comment_example_2: >-
+        [comment=775324]morr[/comment], привет
+      reply_to_comment_notice: >-
+        При ответе автору комментария придёт уведомление о том,
+        что ему что-то написали на форуме
+      quote: Цитата
+      quote_example_1: >-
+        [quote]цитата[/quote]<br>
+        [quote=morr]цитата с ником[/quote]<br>
+        [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+      quote_example_2: >-
+        [quote]цитата[/quote]<br>
+        [quote=morr]цитата с ником[/quote]<br>
+        [quote=775324;1;morr]цитата комментария[/quote]
+      quote_notice: >-
+        Если вы цитируете пользователя на форуме,
+        то пользователь получит об этом уведомление.
+      anime_title_to_link: Название аниме, становящаеся ссылкой с подсказкой
+      anime_title_to_link_example: >-
+        [Psycho-Pass], [Наруто], [Watashitachi no Shiawase na Jikan], [Holo]
+      anime_title_to_link_notice: >-
+        Всё, что нужно для того, чтобы название стало ссылкой,
+        это записать название в квадратных скобках.
+        Вот так: [Русское или английское название].
+        <br>
+        Работает для аниме, манги, персонажей, людей.

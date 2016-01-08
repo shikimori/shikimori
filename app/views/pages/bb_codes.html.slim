@@ -1,97 +1,106 @@
 header.head
-  h1 Бб-коды сайта
-  p.notice Список поддерживаемых сайтом бб-кодов с примерами их использования
+  h1 = t '.title'
+  p.notice = t '.notice'
 
 .b-bb_codes-examples
   .cc-2
     .block.c-column
-      .name Стиль текста
+      .name = t '.font_style'
       .example
-        .textarea
-          | [b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]
+        .title = t '.example_title'
+        .textarea = t '.font_style_example'
       .result
-        = BbCodeFormatter.instance.format_comment '[b]полужирный[/b], [i]наклонный[/i], [u]подчеркнутый[/u], [s]зачеркнутый[/s]'
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.font_style_example')
 
     .block_m.c-column
-      .name Цвет текста
+      .name = t '.text_color'
       .example
-        .textarea
-          | [color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]
+        .title = t '.example_title'
+        .textarea = t '.text_color_example'
       .result
-        = BbCodeFormatter.instance.format_comment '[color=red]название цвета[/color] и [color=#44ff88]RGB код цвета[/color]'
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.text_color_example')
 
   .cc-2
     .block.c-column
-      .name Выравнивание текста
+      .name = t '.text_alignment'
       .example
-        .textarea
-          | слева [right]справа[/right] [center]по центру[/center]
+        .title = t '.example_title'
+        .textarea = t '.text_alignment_example'
       .result
-        = BbCodeFormatter.instance.format_comment 'слева [right]справа[/right] [center]по центру[/center]'
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.text_alignment_example')
 
     .block_m.c-column
-      .name Размер текста
+      .name = t '.font_size'
       .example
-        .textarea
-          | [size=10]текст[/size] и [size=16]текст[/size]
+        .title = t '.example_title'
+        .textarea = t '.font_size_example'
       .result
-        = BbCodeFormatter.instance.format_comment '[size=10]текст[/size] и [size=16]текст[/size]'
-      .notice 13 &ndash; стандартный размер
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.font_size_example')
+      .notice == t '.font_size_notice'
 
   .block
-    .name Список
+    .name = t '.list'
     .example
-      | [list][*]первая строка[*]вторая строка[/list]
+      .title = t '.example_title'
+      = t '.list_example'
     .result
-      = BbCodeFormatter.instance.format_comment '[list][*]первая строка[*]вторая строка[/list]'
+      .title = t '.result_title'
+      = BbCodeFormatter.instance.format_comment t('.list_example')
 
   .cc-2
     .block.c-column
-      .name Упоминание пользователя
+      .name = t '.mention'
       .example
-        .textarea
-          | @morr, привет
+        .title = t '.example_title'
+        .textarea = t '.mention_example'
       .result
-        = BbCodeFormatter.instance.format_comment '@morr, привет'
-      .notice Перед ником пользователя пишется "@". Пользователю придёт уведомление о том, что ему что-то написали на форуме
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.mention_example')
+      .notice = t '.mention_notice'
 
     .block_m.c-column
-      .name Ответ на комментарий
+      .name = t '.reply_to_comment'
       .example
-        .textarea
-          | [comment=775324<span>id комментария</span>]morr[/comment], привет
+        .title = t '.example_title'
+        .textarea = t '.reply_to_comment_example_1'
       .result
-        = BbCodeFormatter.instance.format_comment '[comment=775324]morr[/comment], привет'
-      .notice При ответе автору комментария придёт уведомление о том, что ему что-то написали на форуме
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.reply_to_comment_example_2')
+      .notice = t '.reply_to_comment_notice'
 
   .block
-    .name Цитата
+    .name = t '.quote'
     .example
-      .textarea
-        | [quote]цитата[/quote]<br>[quote=morr]цитата с ником[/quote]<br>[quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
+      .title = t '.example_title'
+      .textarea == t '.quote_example_1'
     .result
-      = BbCodeFormatter.instance.format_comment '[quote]цитата[/quote] [quote=morr]цитата с ником[/quote] [quote=775324;1;morr]цитата комментария[/quote]'
-    .notice Если вы цитируете пользователя на форуме, то пользователь получит об этом уведомление.
+      .title = t '.result_title'
+      = BbCodeFormatter.instance.format_comment t('.quote_example_2')
+    .notice = t '.quote_notice'
 
   .block
-    .name Название аниме, становящаеся ссылкой с подсказкой
+    .name = t '.anime_title_to_link'
     .example
-      .textarea
-        | [Psycho-Pass], [Наруто], [Watashitachi no Shiawase na Jikan], [Holo]
+      .title = t '.example_title'
+      .textarea = t '.anime_title_to_link_example'
     .result
+      .title = t '.result_title'
       - cache [:demo, :highlight, :v1] do
-        = BbCodeFormatter.instance.format_comment '[Psycho-Pass], [Наруто], [Watashitachi no Shiawase na Jikan], [Holo]'
-    .notice
-      | Всё, что нужно для того, чтобы название стало ссылкой, это записать название в квадратных скобках. Вот так: [Русское или английское название].
-      br
-      | Работает для аниме, манги, персонажей, людей.
+        = BbCodeFormatter.instance.format_comment t('.anime_title_to_link_example')
+    .notice == t '.anime_title_to_link_notice'
 
   .block
     .name Ссылка на аниме со всплывающей подсказкой
     .example
+      .title = t '.example_title'
       .textarea
         | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
     .result
+      .title = t '.result_title'
       - cache [:demo, :links_2, :v1] do
         = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
     .notice
@@ -106,9 +115,11 @@ header.head
     .block
       .name Постеры аниме, манги, персонажей или людей в 8 колонок
       .example
+        .title = t '.example_title'
         .textarea
           | [mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]
       .result
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]'
       .notice
         ' Параметр colums отвечает за число колонок, на которые разбиваются постеры.
@@ -122,11 +133,13 @@ header.head
     .block
       .name Постеры аниме или манги с отображением студии, либо типа и года
       .example
+        .title = t '.example_title'
         .textarea
           | [animes ids=5114,1575 cover_notice=studio columns=6]
           br
           | [animes ids=6702 cover_notice=year_kind columns=5]
       .result.m15
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[animes ids=5114,1575 cover_notice=studio columns=6]'
         = BbCodeFormatter.instance.format_comment '[animes ids=6702 cover_notice=year_kind columns=5]'
       .notice
@@ -138,9 +151,11 @@ header.head
     .block
       .name Постеры аниме, манги, персонажей, людей в виде сплошной стены картинок
       .example
+        .title = t '.example_title'
         .textarea
           | [animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]
       .result.m15
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]'
       .notice
         | Сплошная стена картинок создаётся добавлением параметра wall.
@@ -150,17 +165,21 @@ header.head
     .block
       .name
       .example
+        .title = t '.example_title'
         .textarea
           | [characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]
       .result
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]'
 
     .block_m
       .name
       .example
+        .title = t '.example_title'
         .textarea
           | [people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]
       .result
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]'
 
   .cc-2
@@ -168,17 +187,21 @@ header.head
       .name Спойлер
       u
       .example
+        .title = t '.example_title'
         .textarea
           | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
       .result
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]'
 
     .block_m.c-column
       .name Ссылка
       .example
+        .title = t '.example_title'
         .textarea
           | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
       .result
+        .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment '[url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru'
       .notice
         | В большинстве ситуаций сайт сам распознает ссылки в тексте даже без тегов [url] и делает их "ссылками".
@@ -186,9 +209,11 @@ header.head
   .block
     .name Ссылка на видео
     .example
+      .title = t '.example_title'
       .textarea
         | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
     .result
+      .title = t '.result_title'
       br
       - cache [:demo, :videos, :v1] do
         = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
@@ -198,6 +223,7 @@ header.head
   .block
     .name Картинка
     .example
+      .title = t '.example_title'
       .textarea
         | <span>это маленькая картинка</span> [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
         br
@@ -211,6 +237,7 @@ header.head
         br
         | <span>это большая картинка</span> [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
     .result
+      .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment '[img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img] [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img] [img h=132]http://anime.kulichki.com/css/images/10.png[/img] [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img] [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img] [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]'
     .notice
@@ -222,9 +249,11 @@ header.head
   .block
     .name Картинка, загруженная на сайт
     .example
+      .title = t '.example_title'
       .textarea
         | [image=35894]
     .result
+      .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment '[image=35894]'
     .notice
@@ -238,26 +267,31 @@ header.head
   .block
     .name Картинка на всю ширину страницы без уменьшения до размеров превьюшки
     .example
+      .title = t '.example_title'
       .textarea
         | <span>вариант с произвольной картинкой</span> [poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster]
         br
         | <span>вариант с загруженной на сайт картиной</span> [poster=10656<span>id берётся из image тега</span>]
     .result
+      .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment '[poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster] [poster=10656]'
 
   .block
     .name Горизонтальная линия
     .example
+      .title = t '.example_title'
       .textarea
         | [hr]
     .result
+      .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment '[hr]'
 
   .block
     .name Картинки без пустот между ними
     .example
+      .title = t '.example_title'
       .textarea
         | <span>картинки без пробелов между ними в теге [sоlid]</span>[solid]
         br
@@ -295,6 +329,7 @@ header.head
         br
 
     .result
+      .title = t '.result_title'
       br
       = BbCodeFormatter.instance.format_comment "\
 [solid]\

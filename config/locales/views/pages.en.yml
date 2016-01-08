@@ -44,3 +44,54 @@ en:
           <a href="http://animecalendar.net/">animecalendar.net</a>
           or calculated based on release dates of previous episodes.
       currently_airing: Currently airing
+
+    bb_codes:
+      title: Site BBCodes
+      notice: List of supported BBCodes with usage examples
+      example_title: 'Example:'
+      result_title: 'Result:'
+      font_style: Font style
+      font_style_example: '[b]bold[/b], [i]italics[/i], [u]underline[/u], [s]strikethrough[/s]'
+      text_color: Text color
+      text_color_example: '[color=red]color name[/color] and [color=#44ff88]RGB color code[/color]'
+      text_alignment: Text alignment
+      text_alignment_example: 'left-aligned [right]right-aligned[/right] [center]centered[/center]'
+      font_size: Font size
+      font_size_example: '[size=10]text[/size] and [size=16]text[/size]'
+      font_size_notice: 13 &ndash; standard font size
+      list: List
+      list_example: '[list][*]first item[*]second item[/list]'
+      mention: Mention
+      mention_example: '@morr, hi'
+      mention_notice: >-
+        User nickname is prefixed with "@".
+        User will receive notification that
+        he has been mentioned in the forum.
+      reply_to_comment: Reply to comment
+      reply_to_comment_example_1: >-
+        [comment=775324<span>comment id</span>]morr[/comment], hi
+      reply_to_comment_example_2: >-
+        [comment=775324]morr[/comment], hi
+      reply_to_comment_notice: >-
+        The comment's author will receive notification that
+        his comment has been replied to in the forum.
+      quote: Quote
+      quote_example_1: >-
+        [quote]quote[/quote]<br>
+        [quote=morr]quote with a nickname[/quote]<br>
+        [quote=775324<span>comment id</span>;1<span>quoted user id</span>;morr]comment quote[/quote]
+      quote_example_2: >-
+        [quote]quote[/quote]
+        [quote=morr]quote with a nickname[/quote]
+        [quote=775324;1;morr]quoted comment[/quote]
+      quote_notice: >-
+        User will receive notification that he has been quoted.
+      anime_title_to_link: Anime title becoming a link with tooltip
+      anime_title_to_link_example: >-
+        [Psycho-Pass], [Naruto], [Watashitachi no Shiawase na Jikan], [Holo]
+      anime_title_to_link_notice: >-
+        All you need to turn anime title into a link is to enclose
+        it in square brackets.
+        This way: [Anime title].
+        <br>
+        Works for anime, manga, characters and people.
