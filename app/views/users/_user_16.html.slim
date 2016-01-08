@@ -1,5 +1,5 @@
 .b-user16
-  a href="#{profile_url user}" title="#{user.nickname}"
+  a href="#{profile_url user, subdomain: false}" title="#{user.nickname}"
     img[
       src="#{user.avatar_url 16}"
       srcset="#{user.avatar_url 32} 2x"
