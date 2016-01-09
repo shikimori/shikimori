@@ -89,46 +89,31 @@ header.head
       .textarea = t '.anime_title_to_link_example'
     .result
       .title = t '.result_title'
-      - cache [:demo, :highlight, :v1] do
+      - cache [:demo, :highlight, :v1, I18n.locale] do
         = BbCodeFormatter.instance.format_comment t('.anime_title_to_link_example')
     .notice == t '.anime_title_to_link_notice'
 
   .block
-    .name Ссылка на аниме со всплывающей подсказкой
+    .name = t '.anime_link_with_tooltip'
     .example
       .title = t '.example_title'
-      .textarea
-        | [anime=1<span>id аниме</span>]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]
+      .textarea == t '.anime_link_with_tooltip_example_1'
     .result
       .title = t '.result_title'
-      - cache [:demo, :links_2, :v1] do
-        = BbCodeFormatter.instance.format_comment '[anime=1]текст ссылки аниме[/anime], [manga=1]манги[/manga], [character=1]персонажа[/character], [person=1]человека[/person]'
-    .notice
-      ' Id аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
-      | Определить id можно из адреса страницы аниме.
-      br
-      | Например, для аниме <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://#{Site::DOMAIN}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a> с адресом <a href="http://#{Site::DOMAIN}/animes/790-ergo-proxy">http://#{Site::DOMAIN}/animes/<b>790</b>-ergo-proxy</a> идентификатор будет равен <b style="color: #000">790</b>.
-      br
-      | Работает для аниме, манги, персонажей, людей.
+      - cache [:demo, :links_2, :v1, I18n.locale] do
+        = BbCodeFormatter.instance.format_comment t('.anime_link_with_tooltip_example_2')
+    .notice == t '.anime_link_with_tooltip_notice', domain: Site::DOMAIN
 
-  - cache [:demo, :entries_posters, :v3] do
+  - cache [:demo, :entries_posters, :v3, I18n.locale] do
     .block
-      .name Постеры аниме, манги, персонажей или людей в 8 колонок
+      .name = t '.posters_8_columns'
       .example
         .title = t '.example_title'
-        .textarea
-          | [mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]
+        .textarea = t '.posters_8_columns_example'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]'
-      .notice
-        ' Параметр colums отвечает за число колонок, на которые разбиваются постеры.
-        | Число колонок может быть в пределах от 4 до 9.
-        br
-        ' Аниме постеры делаются тегом [animes ids=...],
-        ' манга постеры тегом [mangas ids=...],
-        ' постеры персонажей тегом [characters ids=...],
-        | а постеры людей тегом [people ids=...]
+        = BbCodeFormatter.instance.format_comment t('.posters_8_columns_example')
+      .notice == t '.posters_8_columns_notice'
 
     .block
       .name Постеры аниме или манги с отображением студии, либо типа и года
@@ -215,7 +200,7 @@ header.head
     .result
       .title = t '.result_title'
       br
-      - cache [:demo, :videos, :v1] do
+      - cache [:demo, :videos, :v1, I18n.locale] do
         = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
     .notice
       | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.

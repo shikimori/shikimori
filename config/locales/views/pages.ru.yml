@@ -99,3 +99,38 @@ ru:
         Вот так: [Русское или английское название].
         <br>
         Работает для аниме, манги, персонажей, людей.
+      anime_link_with_tooltip: Ссылка на аниме со всплывающей подсказкой
+      anime_link_with_tooltip_example_1: >-
+        [anime=1<span>id аниме</span>]текст ссылки аниме[/anime],
+        [manga=1]манги[/manga],
+        [character=1]персонажа[/character],
+        [person=1]человека[/person]
+      anime_link_with_tooltip_example_2: >-
+        [anime=1]текст ссылки аниме[/anime],
+        [manga=1]манги[/manga],
+        [character=1]персонажа[/character],
+        [person=1]человека[/person]
+      anime_link_with_tooltip_notice: >-
+        Id аниме или манги, или персонажа &ndash; номер аниме в базе сайте.
+        Определить id можно из адреса страницы аниме.
+        <br>
+        Например, для аниме
+        <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        с адресом
+        <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
+        идентификатор будет равен <b style="color: #000">790</b>.
+        <br>
+        Работает для аниме, манги, персонажей, людей.
+      posters_8_columns: >-
+        Постеры аниме, манги, персонажей или людей в 8 колонок
+      posters_8_columns_example: >-
+        [mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]
+      posters_8_columns_notice: >-
+        Параметр <i>columns</i> отвечает за число колонок,
+        на которые разбиваются постеры.
+        Число колонок может быть в пределах от 4 до 9.
+        <br>
+        Аниме постеры делаются тегом [animes ids=...],
+        манга постеры тегом [mangas ids=...],
+        постеры персонажей тегом [characters ids=...],
+        а постеры людей тегом [people ids=...].

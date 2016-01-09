@@ -95,3 +95,38 @@ en:
         This way: [Anime title].
         <br>
         Works for anime, manga, characters and people.
+      anime_link_with_tooltip: Anime link with tooltip
+      anime_link_with_tooltip_example_1: >-
+        [anime=1<span>anime id</span>]anime link text[/anime],
+        [manga=1]manga link text[/manga],
+        [character=1]character link text[/character],
+        [person=1]person link text[/person]
+      anime_link_with_tooltip_example_2: >-
+        [anime=1]anime link text[/anime],
+        [manga=1]manga link text[/manga],
+        [character=1]character link text[/character],
+        [person=1]person link text[/person]
+      anime_link_with_tooltip_notice: >-
+        Anime, manga or character id &ndash; its id in site database.
+        You can find this id in corresponding page URL.
+        <br>
+        E.g., id of anime
+        <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        with URL
+        <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
+        is <b style="color: #000">790</b>.
+        <br>
+        Works for anime, manga, characters and people.
+      posters_8_columns: >-
+        Eight-column anime, manga, character and person posters
+      posters_8_columns_example: >-
+        [mangas ids=33327,23390,13,3031,2,598,11,11734,12,5255,3866,610,4632,42451,29983,564 columns=8]
+      posters_8_columns_notice: >-
+        You can change the number of posters in a row
+        by modifying <i>columns</i> parameter.
+        Its value should be between 4 and 9 inclusive.
+        <br>
+        Anime posters are created with a tag [animes ids=...],
+        manga posters - with a tag [mangas ids=...],
+        character posters - with a tag [characters ids=...],
+        and person posters - with a tag [people ids=...].
