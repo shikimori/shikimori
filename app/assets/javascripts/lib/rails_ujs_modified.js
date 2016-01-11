@@ -79,9 +79,22 @@ jQuery(function ($) {
                             //$.flash({alert: 'Вы не авторизованы'});
                             //$('#sign_in').trigger('click');
                         } else if (xhr.status == 403) {
-                            $.flash({alert: (xhr.responseText != 'Forbidden' ? xhr.responseText : 'У вас нет прав для данного действия')});
+                            try {
+                              var errors = JSON.parse(xhr.responseText);
+                            } catch(e) {
+                              var errors = {};
+                            }
+                            if (Object.isObject(errors) && errors.message) {
+                              $.alert(errors.message);
+                            } else {
+                              $.alert(xhr.responseText != 'Forbidden' ?
+                                xhr.responseText :
+                                'У вас нет прав для данного действия'
+                              );
+                            }
+
                         } else if (xhr.status == 500) {
-                            $.flash({alert: 'Пожалуйста, повторите попытку позже'});
+                            $.alert('Пожалуйста, повторите попытку позже');
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -95,7 +108,7 @@ jQuery(function ($) {
                             }
                             if (Object.size(errors)) {
                                 if (Object.isArray(errors)) {
-                                  $.flash({alert: errors.join('<br />')});
+                                  $.alert(errors.join('<br />'));
                                 } else {
                                   var text = _.map(errors, function(v, k) {
                                     if (k == 'base') {
@@ -105,10 +118,10 @@ jQuery(function ($) {
                                     }
                                   }).join('<br />');
 
-                                  $.flash({alert: text});
+                                  $.alert(text);
                                 }
                             } else {
-                                $.flash({alert: 'Пожалуйста, повторите попытку позже'});
+                                $.alert('Пожалуйста, повторите попытку позже')
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);
