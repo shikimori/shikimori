@@ -1,8 +1,8 @@
 .midheadline
   = t '.currently_airing'
   / a.b-link[
-    / href="#{contests_url}"
-    / title="#{t '.all_contests'}"
+    / href="#{animes_url}"
+    / title="#{t '.all_animess'}"
   / ] = t '.mangas'
 
 .cc-ongoings.to-process data-dynamic="cutted_covers"
@@ -71,15 +71,16 @@
             .link-with-input
               a.link href="#{forum.url}" = forum.name
 
-    .contests.block
-      .midheadline.green.m5
-        h2 = t '.contests'
-        a.b-link[
-          href="#{contests_url}"
-          title="#{t '.all_contests'}"
-        ] = t '.all_contests'
-      .block
-        = render 'dashboards/contests', collection: @view.contests
+    - if @view.contests.any?
+      .contests.block
+        .midheadline.green.m5
+          h2 = t '.contests'
+          a.b-link[
+            href="#{contests_url}"
+            title="#{t '.all_contests'}"
+          ] = t '.all_contests'
+        .block
+          = render 'dashboards/contests', collection: @view.contests
 
 .cc-news
   .c-user_news.m0
