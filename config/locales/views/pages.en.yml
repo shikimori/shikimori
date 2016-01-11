@@ -130,3 +130,18 @@ en:
         manga posters - with a tag [mangas ids=...],
         character posters - with a tag [characters ids=...],
         and person posters - with a tag [people ids=...].
+      posters_studio_or_year_kind: >-
+        Anime or manga posters with studio or year-kind subtitle
+      posters_studio_or_year_kind_example: >-
+        [animes ids=5114,1575 cover_notice=studio columns=6]
+        <br>
+        [animes ids=6702 cover_notice=year_kind columns=5]
+      posters_studio_or_year_kind_example_1: >-
+        [animes ids=5114,1575 cover_notice=studio columns=6]
+      posters_studio_or_year_kind_example_2: >-
+        [animes ids=6702 cover_notice=year_kind columns=5]
+      posters_studio_or_year_kind_notice: >-
+        <i>cover_notice</i> parameter takes one of two values:
+        <i>studio</i> (to display studio) or <i>year_kind</i> (to display year and kind).
+        <br>
+        Works for anime and manga only.

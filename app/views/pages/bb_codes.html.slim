@@ -116,22 +116,15 @@ header.head
       .notice == t '.posters_8_columns_notice'
 
     .block
-      .name Постеры аниме или манги с отображением студии, либо типа и года
+      .name = t '.posters_studio_or_year_kind'
       .example
         .title = t '.example_title'
-        .textarea
-          | [animes ids=5114,1575 cover_notice=studio columns=6]
-          br
-          | [animes ids=6702 cover_notice=year_kind columns=5]
+        .textarea == t '.posters_studio_or_year_kind_example'
       .result.m15
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[animes ids=5114,1575 cover_notice=studio columns=6]'
-        = BbCodeFormatter.instance.format_comment '[animes ids=6702 cover_notice=year_kind columns=5]'
-      .notice
-        ' Параметр cover_notice может принимать два значения:
-        | studio для отображения студии и year_kind для отображения года и типа.
-        br
-        | Параметр cover_notice работает только для аниме и манги
+        = BbCodeFormatter.instance.format_comment t('.posters_studio_or_year_kind_example_1')
+        = BbCodeFormatter.instance.format_comment t('.posters_studio_or_year_kind_example_2')
+      .notice == t '.posters_studio_or_year_kind_notice'
 
     .block
       .name Постеры аниме, манги, персонажей, людей в виде сплошной стены картинок

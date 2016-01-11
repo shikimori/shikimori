@@ -134,3 +134,18 @@ ru:
         манга постеры тегом [mangas ids=...],
         постеры персонажей тегом [characters ids=...],
         а постеры людей тегом [people ids=...].
+      posters_studio_or_year_kind: >-
+        Постеры аниме или манги с отображением студии, либо типа и года
+      posters_studio_or_year_kind_example: >-
+        [animes ids=5114,1575 cover_notice=studio columns=6]
+        <br>
+        [animes ids=6702 cover_notice=year_kind columns=5]
+      posters_studio_or_year_kind_example_1: >-
+        [animes ids=5114,1575 cover_notice=studio columns=6]
+      posters_studio_or_year_kind_example_2: >-
+        [animes ids=6702 cover_notice=year_kind columns=5]
+      posters_studio_or_year_kind_notice: >-
+        Параметр cover_notice может принимать два значения:
+        <i>studio</i> для отображения студии и <i>year_kind</i> для отображения года и типа.
+        <br>
+        Параметр cover_notice работает только для аниме и манги
