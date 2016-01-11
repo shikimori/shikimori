@@ -15,9 +15,6 @@ class DbEntryThread < Topic
 
   before_save :sync
 
-  validates :title, presence: true, unless: :generated?
-  validates :text, presence: true, unless: :generated?
-
   # связанное с новостью аниме
   def anime
     raise "linked Anime requested but it is Manga" if linked_type == Manga.name

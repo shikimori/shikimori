@@ -1,17 +1,17 @@
 class AnimeNews < DbEntryThread
   enumerize :action, in: [:anons, :ongoing, :released, :episode], predicates: true
 
-  attr_defaults forum_id: -> { FORUM_IDS[Anime.name] }
-  attr_defaults title: -> { generate_title linked }
-  attr_defaults text: -> { 'text' }
+  # attr_defaults forum_id: -> { FORUM_IDS[Anime.name] }
+  # attr_defaults title: -> { generate_title linked }
+  # attr_defaults text: -> { 'text' }
 
   # получение названия для новости
   def generate_title anime
     service = AnimeHistoryService.new
 
     case action
-      when AnimeHistoryAction::Episode
-        service.new_episode_topic_subject(anime, self)
+      # when AnimeHistoryAction::Episode
+        # service.new_episode_topic_subject(anime, self)
 
       when AnimeHistoryAction::Anons
         service.new_anons_topic_subject(anime, self)
@@ -25,21 +25,21 @@ class AnimeNews < DbEntryThread
   end
 
   # создание новости о новом эпизоде
-  def self.create_for_new_episode(anime, pubDate)
-    AnimeNews.find_by(
-      linked_id: anime.id,
-      linked_type: anime.class.name,
-      action: AnimeHistoryAction::Episode,
-      value: anime.episodes_aired.to_s,
-    ) || AnimeNews.create!(
-      linked_id: anime.id,
-      linked_type: anime.class.name,
-      action: AnimeHistoryAction::Episode,
-      value: anime.episodes_aired.to_s,
-      created_at: pubDate,
-      generated: true
-    )
-  end
+  # def self.create_for_new_episode(anime, pubDate)
+    # AnimeNews.find_by(
+      # linked_id: anime.id,
+      # linked_type: anime.class.name,
+      # action: AnimeHistoryAction::Episode,
+      # value: anime.episodes_aired.to_s,
+    # ) || AnimeNews.create!(
+      # linked_id: anime.id,
+      # linked_type: anime.class.name,
+      # action: AnimeHistoryAction::Episode,
+      # value: anime.episodes_aired.to_s,
+      # created_at: pubDate,
+      # generated: true
+    # )
+  # end
 
   # создание новости о новом анонсе
   def self.create_for_new_anons(anime)

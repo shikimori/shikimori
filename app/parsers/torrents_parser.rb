@@ -235,7 +235,9 @@ class TorrentsParser
           episode_max = episode if episode_max < episode
           anime.episodes_aired = episode
           new_episodes << entry
-          AnimeNews.create_for_new_episode(anime, (entry[:pubDate] || Time.zone.now) + episode.seconds)
+
+          aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
+          GenerateNews::EntryEpisode.new(anime).episode_aired aired_at
         end
       end
 

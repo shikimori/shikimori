@@ -57,9 +57,9 @@ class AnimeHistoryService
   end
 
   # TODO localize this later
-  def new_episode_topic_subject(anime, history)
-    "%s эпизод %s" % [history.value, anime.name]
-  end
+  # def new_episode_topic_subject(anime, history)
+    # "%s эпизод %s" % [history.value, anime.name]
+  # end
 
   def new_anons_topic_subject(anime, history)
     "%s %s" % [history.to_s(:short), anime.name]

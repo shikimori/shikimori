@@ -20,6 +20,7 @@ class Anime < DbEntry
   serialize :english
   serialize :japanese
   serialize :synonyms
+  # TODO: remove this fields
   serialize :world_art_synonyms
   serialize :mal_scores
   serialize :ani_db_scores
@@ -209,10 +210,11 @@ class Anime < DbEntry
           (released_on || aired_on) &&
           ((!released_on && aired_on > Time.zone.now - 15.month) ||
            (released_on && released_on > Time.zone.now - 1.month))
-        AnimeNews.create_for_new_release(self)
+        entry = GenerateNews::EntryRelease.call self
+        update_column :released_on, entry.created_at
       end
-      AnimeNews.create_for_new_anons(self) if anons? && changes['status'][0] != 'ongoing'
-      AnimeNews.create_for_new_ongoing(self) if ongoing? && changes['status'][0] != 'released'
+      GenerateNews::EntryAnons.call self if anons? && changes['status'][0] != 'ongoing'
+      GenerateNews::EntryOngoing.call self if ongoing? && changes['status'][0] != 'released'
     end
 
     self.save if resave
