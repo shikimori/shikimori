@@ -50,23 +50,30 @@ en:
       notice: List of supported BBCodes with usage examples
       example_title: 'Example:'
       result_title: 'Result:'
+
       font_style: Font style
       font_style_example: '[b]bold[/b], [i]italics[/i], [u]underline[/u], [s]strikethrough[/s]'
+
       text_color: Text color
       text_color_example: '[color=red]color name[/color] and [color=#44ff88]RGB color code[/color]'
+
       text_alignment: Text alignment
       text_alignment_example: 'left-aligned [right]right-aligned[/right] [center]centered[/center]'
+
       font_size: Font size
       font_size_example: '[size=10]text[/size] and [size=16]text[/size]'
       font_size_notice: 13 &ndash; standard font size
+
       list: List
       list_example: '[list][*]first item[*]second item[/list]'
+
       mention: Mention
       mention_example: '@morr, hi'
       mention_notice: >-
         User nickname is prefixed with "@".
         User will receive notification that
         he has been mentioned in the forum.
+
       reply_to_comment: Reply to comment
       reply_to_comment_example_1: >-
         [comment=775324<span>comment id</span>]morr[/comment], hi
@@ -75,6 +82,7 @@ en:
       reply_to_comment_notice: >-
         The comment's author will receive notification that
         his comment has been replied to in the forum.
+
       quote: Quote
       quote_example_1: >-
         [quote]quote[/quote]<br>
@@ -86,6 +94,7 @@ en:
         [quote=775324;1;morr]quoted comment[/quote]
       quote_notice: >-
         User will receive notification that he has been quoted.
+
       anime_title_to_link: Anime title becoming a link with tooltip
       anime_title_to_link_example: >-
         [Psycho-Pass], [Naruto], [Watashitachi no Shiawase na Jikan], [Holo]
@@ -95,6 +104,7 @@ en:
         This way: [Anime title].
         <br>
         Works for anime, manga, characters and people.
+
       anime_link_with_tooltip: Anime link with tooltip
       anime_link_with_tooltip_example_1: >-
         [anime=1<span>anime id</span>]anime link text[/anime],
@@ -117,6 +127,7 @@ en:
         is <b style="color: #000">790</b>.
         <br>
         Works for anime, manga, characters and people.
+
       posters_8_columns: >-
         Eight-column anime, manga, character and person posters
       posters_8_columns_example: >-
@@ -126,10 +137,12 @@ en:
         by modifying <i>columns</i> parameter.
         Its value should be between 4 and 9 inclusive.
         <br>
-        Anime posters are created with a tag [animes ids=...],
-        manga posters - with a tag [mangas ids=...],
-        character posters - with a tag [characters ids=...],
-        and person posters - with a tag [people ids=...].
+        Tags used to create:
+        anime posters - [animes ids=...],
+        manga posters -  [mangas ids=...],
+        character posters - [characters ids=...],
+        and person posters - [people ids=...].
+
       posters_studio_or_year_kind: >-
         Anime or manga posters with studio or year-kind subtitle
       posters_studio_or_year_kind_example: >-
@@ -145,6 +158,7 @@ en:
         <i>studio</i> (to display studio) or <i>year_kind</i> (to display year and kind).
         <br>
         Works for anime and manga only.
+
       posters_wall: >-
         Anime, manga, character or person posters wall
       posters_wall_example_animes: >-
@@ -158,10 +172,12 @@ en:
         <br>
         When <i>wall</i> parameter is present the value of
         <i>columns</i> parameter may vary between 6 and 9 inclusive.
+
       spoiler: Spoiler
       spoiler_example: >-
         [spoiler]spoiler text[/spoiler],
         [spoiler=spoiler title]spoiler text[/spoiler]
+
       link: Link
       link_example: >-
         [url=http://edition.cnn.com]CNN[/url],
@@ -170,3 +186,143 @@ en:
       link_notice: >-
         In most cases links are recognized automatically -
         even without [url] tag.
+
+      video_link: Video link
+      video_link_example: >-
+        http://vk.com/video98023184_165811692
+        http://www.youtube.com/watch?v=ZuLyxWtQQzE
+        http://coub.com/view/47l5m
+        http://www.twitch.tv/joindotared/c/3661348
+        http://vimeo.com/85212054
+        http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2
+        http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi
+        http://www.dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms
+        http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+      video_link_notice: >-
+        Video links are automatically recognized in text and
+        converted into video blocks. All supported video hostings
+        are listed in examples above.
+
+      image: Image
+      image_example_1: >-
+        <span>this is a small image</span>
+        [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
+        <br>
+        [img w=132<span>width</span>]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
+        <br>
+        [img h=132<span>height</span>]http://anime.kulichki.com/css/images/10.png[/img]
+        <br>
+        [img w=132 h=132<span>width and height</span>]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
+        <br>
+        [img 132x132<span>width and height</span>]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
+        <br>
+        <span>this is a large image</span>
+        [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+      image_example_2: >-
+        [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
+        [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
+        [img h=132]http://anime.kulichki.com/css/images/10.png[/img]
+        [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
+        [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
+        [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+      image_notice: >-
+        If image size is not specified clickable image preview
+        with default width and height will be generated automatically.
+        <br>
+        If you want your image to use all space available
+        (limited by page width) use [poster] tag instead.
+
+      uploaded_image: Uploaded image
+      uploaded_image_example: '[image=35894]'
+      uploaded_image_notice: >-
+        Width and height for [image] tag can be specified in
+        exactly the same way as for [img] tag:
+        [image=35894 w=100], [image=35894 h=100], [image=35894 320x200].
+        <br>
+        If image size is not specified clickable image preview
+        with default width and height will be generated automatically.
+        <br>
+        If you want your image to use all space available
+        (limited by page width) use [poster] tag instead.
+
+      poster: >-
+        Full width image (poster) without preview
+      poster_example_1: >-
+        <span>external or uploaded image</span>
+        [poster]http://www.pixelstalk.net/wp-content/uploads/2015/01/Anime-Girl-Cute-HD-Wallpaper-Download.jpg[/poster]
+        <br>
+        <span>uploaded image</span>
+        [poster=10656<span>image tag id</span>]
+      poster_example_2: >-
+        [poster]http://www.pixelstalk.net/wp-content/uploads/2015/01/Anime-Girl-Cute-HD-Wallpaper-Download.jpg[/poster]
+        [poster=10656]
+
+      horizontal_line: Horizontal line
+      horizontal_line_example: '[hr]'
+
+      images_without_spaces: Images without spaces in between
+      images_without_spaces_example_1: >-
+        <span>images without spaces in between inside [sоlid] tag</span>
+        <br>
+        [solid]
+        <br>
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
+        [/solid]
+        <br>
+        [hr]
+        <br>
+        <span>ordinary set of images - without [solid] tag</span>
+        <br>
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        <br>
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        <br>
+      images_without_spaces_example_2: >-
+        [solid]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [/solid]
+        [br][br][br]
+        [hr]
+        [br][br]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
+        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
+        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
+        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
+        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
+        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]

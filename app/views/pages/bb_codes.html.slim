@@ -176,150 +176,67 @@ header.head
       .notice = t '.link_notice'
 
   .block
-    .name Ссылка на видео
+    .name = t '.video_link'
     .example
       .title = t '.example_title'
-      .textarea
-        | http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a
+      .textarea = t '.video_link_example'
     .result
       .title = t '.result_title'
       br
       - cache [:demo, :videos, :v1, I18n.locale] do
-        = BbCodeFormatter.instance.format_comment 'http://vk.com/video98023184_165811692 http://www.youtube.com/watch?v=ZuLyxWtQQzE http://coub.com/view/47l5m http://www.twitch.tv/joindotared/c/3661348 http://vimeo.com/85212054 http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2 http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi https://video.yandex.ru/users/yacinema/view/115/ http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a'
-    .notice
-      | Сайт сам распознает ссылки на видео в тексте и преобразовывает их в блок просмотра видео. В данном примере перечислены все поддерживаемые сайтом видео хостинги.
+        = BbCodeFormatter.instance.format_comment t('.video_link_example')
+    .notice = t '.video_link_notice'
 
   .block
-    .name Картинка
+    .name = t '.image'
     .example
       .title = t '.example_title'
-      .textarea
-        | <span>это маленькая картинка</span> [img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img]
-        br
-        | [img w=132<span>ширина</span>]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img]
-        br
-        | [img h=132<span>высота</span>]http://anime.kulichki.com/css/images/10.png[/img]
-        br
-        | [img w=132 h=132<span>ширина и высота</span>]http://wallpaperscraft.com/image/12205/256x256.jpg[/img]
-        br
-        | [img 132x132<span>ширина и высота</span>]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img]
-        br
-        | <span>это большая картинка</span> [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]
+      .textarea == t '.image_example_1'
     .result
       .title = t '.result_title'
       br
-      = BbCodeFormatter.instance.format_comment '[img]http://product-images.highwire.com/1125895/1549758_132.jpg[/img] [img w=132]https://pbs.twimg.com/profile_images/378800000416548648/588b41f3b71f4caabc1600e4baefa8f5.png[/img] [img h=132]http://anime.kulichki.com/css/images/10.png[/img] [img w=132 h=132]http://wallpaperscraft.com/image/12205/256x256.jpg[/img] [img 132x132]http://wallpaperscraft.ru/image/anime_parni_ulybka_oruzhie_23176_256x256.jpg[/img] [img]http://freedwallpaper.com/wp-content/uploads/2014/05/anime-free-download-anime-hd-wallpaper-hd-wallpaper-free-download-anime-wallpaper-for-samsung-galaxy-y-free-download-anime-wallpaper-for-samsung-corby-2-free-download-anime-hd-wallpaper-free-download-.png[/img]'
-    .notice
-      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
-      br
-      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
-
+      = BbCodeFormatter.instance.format_comment t('.image_example_2')
+    .notice == t '.image_notice'
 
   .block
-    .name Картинка, загруженная на сайт
+    .name = t '.uploaded_image'
     .example
       .title = t '.example_title'
-      .textarea
-        | [image=35894]
+      .textarea = t '.uploaded_image_example'
     .result
       .title = t '.result_title'
       br
-      = BbCodeFormatter.instance.format_comment '[image=35894]'
-    .notice
-      | Для image тега можно указывать ширину и высоту точно так же, как и для обычной картинки через img тег: [image=35894 w=100], [image=35894 h=100], [image=35894 320x200]
-      br
-      | Если у картинки явно не задан размер, то сайт автоматически уменьшит картинку до размера превьюшки. В полный размер картинка развернётся по клику на неё.
-      br
-      | Если вы хотите получить картинку на всю ширину страницы, не задавайте вручную ширину, используйте тег [poster]
-
+      = BbCodeFormatter.instance.format_comment t('.uploaded_image_example')
+    .notice == t '.uploaded_image_notice'
 
   .block
-    .name Картинка на всю ширину страницы без уменьшения до размеров превьюшки
+    .name = t '.poster'
     .example
       .title = t '.example_title'
-      .textarea
-        | <span>вариант с произвольной картинкой</span> [poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster]
-        br
-        | <span>вариант с загруженной на сайт картиной</span> [poster=10656<span>id берётся из image тега</span>]
+      .textarea == t '.poster_example_1'
     .result
       .title = t '.result_title'
       br
-      = BbCodeFormatter.instance.format_comment '[poster]http://wallpaperwonder.com/wp-content/uploads/2014/03/Anime-Gotico-Taringa-HD-Wallpaper.jpg[/poster] [poster=10656]'
+      = BbCodeFormatter.instance.format_comment t('.poster_example_2')
 
   .block
-    .name Горизонтальная линия
+    .name = t '.horizontal_line'
     .example
       .title = t '.example_title'
-      .textarea
-        | [hr]
+      .textarea = t '.horizontal_line_example'
     .result
       .title = t '.result_title'
       br
-      = BbCodeFormatter.instance.format_comment '[hr]'
+      = BbCodeFormatter.instance.format_comment t('.horizontal_line_example')
 
   .block
-    .name Картинки без пустот между ними
+    .name = t '.images_without_spaces'
     .example
       .title = t '.example_title'
-      .textarea
-        | <span>картинки без пробелов между ними в теге [sоlid]</span>[solid]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        br
-        | [/solid]
-        br
-        | [hr]
-        br
-        | <span>обычный набор картинок</span>[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        br
-        | [img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        br
-
+      .textarea == t '.images_without_spaces_example_1', domain: Site::DOMAIN
     .result
       .title = t '.result_title'
       br
-      = BbCodeFormatter.instance.format_comment "\
-[solid]\
-[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-[/solid]\
-\n\n\n\
-[hr]\
-\n\n\
-[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/ZHBE0Kavy-o.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/ukGtG8wbBJc.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/hFT-H0phBKs.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/QGin9ZjfGWg.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/gPVKwBuneIo.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/sC6BfT6LVj8.jpg[/img]\
-[img]http://#{Site::DOMAIN}/images/static/embed/F3G8LVGAbXw.jpg[/img]\
-"
+      = BbCodeFormatter.instance.format_comment(\
+          t('.images_without_spaces_example_2', domain: Site::DOMAIN).gsub(/\s+/, '')\
+        )
