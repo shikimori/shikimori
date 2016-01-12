@@ -8,7 +8,7 @@ module CommentHelper
     :b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid
   ]
   ComplexBbCodes = [
-    :moderator, :smileys, :club, :contest, :mention, :version, :anime_video,
+    :smileys, :club, :contest, :mention, :version, :anime_video,
     :user, :message, :comment, :entry, :review, :quote, :posters, :ban,
     :spoiler
   ]#, :wall_container

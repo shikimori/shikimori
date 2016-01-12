@@ -127,62 +127,53 @@ header.head
       .notice == t '.posters_studio_or_year_kind_notice'
 
     .block
-      .name Постеры аниме, манги, персонажей, людей в виде сплошной стены картинок
+      .name = t 'posters_wall'
       .example
         .title = t '.example_title'
-        .textarea
-          | [animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]
+        .textarea = t '.posters_wall_example_animes'
       .result.m15
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]'
-      .notice
-        | Сплошная стена картинок создаётся добавлением параметра wall.
-        br
-        | При наличии параметра wall число колонок colums может задаваться в пределах от 6 до 9.
+        = BbCodeFormatter.instance.format_comment t('.posters_wall_example_animes')
+      .notice == t '.posters_wall_notice'
 
     .block
       .name
       .example
         .title = t '.example_title'
-        .textarea
-          | [characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]
+        .textarea = t '.posters_wall_example_characters'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]'
+        = BbCodeFormatter.instance.format_comment t('.posters_wall_example_characters')
 
     .block_m
       .name
       .example
         .title = t '.example_title'
-        .textarea
-          | [people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]
+        .textarea = t '.posters_wall_example_people'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]'
+        = BbCodeFormatter.instance.format_comment t('.posters_wall_example_people')
 
   .cc-2
     .block.c-column
-      .name Спойлер
+      .name = t '.spoiler'
       u
       .example
         .title = t '.example_title'
-        .textarea
-          | [spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]
+        .textarea = t '.spoiler_example'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[spoiler]текст спойлера[/spoiler], [spoiler=спойлер с названием]текст спойлера[/spoiler]'
+        = BbCodeFormatter.instance.format_comment t('.spoiler_example')
 
     .block_m.c-column
-      .name Ссылка
+      .name = t '.link'
       .example
         .title = t '.example_title'
-        .textarea
-          | [url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru
+        .textarea = t '.link_example'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment '[url=http://www.warandpeace.ru]война и мир[/url], [url]http://www.warandpeace.ru[/url], http://www.warandpeace.ru'
-      .notice
-        | В большинстве ситуаций сайт сам распознает ссылки в тексте даже без тегов [url] и делает их "ссылками".
+        = BbCodeFormatter.instance.format_comment t('.link_example')
+      .notice = t '.link_notice'
 
   .block
     .name Ссылка на видео

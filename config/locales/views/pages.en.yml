@@ -145,3 +145,28 @@ en:
         <i>studio</i> (to display studio) or <i>year_kind</i> (to display year and kind).
         <br>
         Works for anime and manga only.
+      posters_wall: >-
+        Anime, manga, character or person posters wall
+      posters_wall_example_animes: >-
+        [animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]
+      posters_wall_example_characters: >-
+        [characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]
+      posters_wall_example_people: >-
+        [people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]
+      posters_wall_notice: >-
+        Posters wall is created by adding <i>wall</i> parameter.
+        <br>
+        When <i>wall</i> parameter is present the value of
+        <i>columns</i> parameter may vary between 6 and 9 inclusive.
+      spoiler: Spoiler
+      spoiler_example: >-
+        [spoiler]spoiler text[/spoiler],
+        [spoiler=spoiler title]spoiler text[/spoiler]
+      link: Link
+      link_example: >-
+        [url=http://edition.cnn.com]CNN[/url],
+        [url]http://edition.cnn.com[/url],
+        http://edition.cnn.com
+      link_notice: >-
+        In most cases links are recognized automatically -
+        even without [url] tag.

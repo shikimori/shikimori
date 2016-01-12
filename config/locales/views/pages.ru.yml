@@ -149,3 +149,27 @@ ru:
         <i>studio</i> для отображения студии и <i>year_kind</i> для отображения года и типа.
         <br>
         Параметр cover_notice работает только для аниме и манги
+      posters_wall: >-
+        Постеры аниме, манги, персонажей, людей в виде сплошной стены картинок
+      posters_wall_example_animes: >-
+        [animes ids=1535,11757,16498,9253,5114,1575,6702,2904,2001,21,6547,13601,11771,431,6746,199,245,269 wall columns=9]
+      posters_wall_example_characters: >-
+        [characters ids=417,34470,45627,71,36765,7373,24596,80,14523,10863,672,2160,4963,35252,36828,18769,18344,24482,84677,24595,434,5187,40881,22037 wall columns=8]
+      posters_wall_example_people: >-
+        [people ids=1870,118,65,212,185,79,1117,99,86 wall columns=9]
+      posters_wall_notice: >-
+        Сплошная стена картинок создаётся добавлением параметра wall.
+        <br>
+        При наличии параметра wall число колонок colums может задаваться в пределах от 6 до 9.
+      spoiler: Спойлер
+      spoiler_example: >-
+        [spoiler]текст спойлера[/spoiler],
+        [spoiler=спойлер с названием]текст спойлера[/spoiler]
+      link: Ссылка
+      link_example: >-
+        [url=http://www.warandpeace.ru]война и мир[/url],
+        [url]http://www.warandpeace.ru[/url],
+        http://www.warandpeace.ru
+      link_notice: >-
+        В большинстве ситуаций сайт сам распознает ссылки в тексте
+        даже без тегов [url] и делает их "ссылками".
