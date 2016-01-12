@@ -17,6 +17,18 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     //rutube.ru/play/embed/(\d+)
   }xi
 
+
+  IMAGE_PROPERTIES = %w(
+    meta[property='og:image']
+  ).join(',')
+
+  # twitter:player - for dailymotion
+  VIDEO_PROPERTIES = %w(
+    meta[property='og:video']
+    meta[property='og:video:url']
+    meta[name='twitter:player']
+  ).join(',')
+
   def image_url
     parsed_data.first
   end
@@ -32,9 +44,11 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   def parse_data html
     doc = Nokogiri::HTML html
 
-    og_image = doc.css("meta[property='og:image']").first
-    og_video = doc.css("meta[property='og:video'],meta[property='og:video:url']").first
+    og_image = doc.css(IMAGE_PROPERTIES).first
+    og_video = doc.css(VIDEO_PROPERTIES).first
 
-    [og_image[:content], og_video[:content]] if og_image && og_video
+    if og_image && og_video
+      [og_image[:content], og_video[:content] || og_video[:value]]
+    end
   end
 end
