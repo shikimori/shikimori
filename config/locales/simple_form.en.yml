@@ -42,8 +42,7 @@ en:
       topic:
         type:
           Topic: Topic
-          AnimeNews: Anime news
-          MangaNews: Manga news
+          Topics::NewsTopic: News topic
       user:
         sex:
           male: male

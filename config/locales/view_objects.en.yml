@@ -18,9 +18,7 @@ en:
       anime: '%{anime_days_count} %{anime_days} of anime'
       manga: '%{manga_days_count} %{manga_days} of manga'
 
-  # topics/view: &topics
   topics/review_view:
-    # <<: *topics
     title:
       anime: Anime &laquo;%{target_name}&raquo; review
       manga: Manga &laquo;%{target_name}&raquo; review
@@ -29,6 +27,14 @@ en:
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}
     load_comments: Display %{comment_count} %{out_of_total_comments} %{comment_word}
+
+  topics/generated_news_view:
+    titles:
+      # from Topics::NewsTopic.action
+      released: Anime released
+      anons: Anime announced
+      ongoing: Anime airing
+      episode: Aired episode %{value}
 
   topics/proxy_comments:
     <<: *comments
@@ -69,6 +75,15 @@ en:
           tv_48: Long TV Series
         short:
           <<: *anime_long
+
+
+
+
+
+
+
+
+
       manga:
         long: &manga_long
           doujin: Doujin

@@ -16,10 +16,13 @@ class Topics::GeneratedNewsView < Topics::View
     )
   end
 
+  def poster_title
+    h.localized_name topic.linked
+  end
+
   def topic_title
     if !is_preview
-      # TODO: localize all news titles
-      topic.title
+      i18n_t "titles.#{topic.action}", value: topic.value
     else
       super
     end

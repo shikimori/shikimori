@@ -53,12 +53,12 @@ describe Topics::Factory do
 
     context 'anime news' do
       context 'generated' do
-        let(:topic) { build :anime_news, generated: true }
+        let(:topic) { build :news_topic, generated: true }
         it { expect(view).to be_a Topics::GeneratedNewsView }
       end
 
       context 'not generated' do
-        let(:topic) { build :anime_news, generated: false }
+        let(:topic) { build :news_topic, generated: false }
         it { expect(view).to be_a Topics::View }
       end
     end

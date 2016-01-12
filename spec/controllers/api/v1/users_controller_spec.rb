@@ -110,7 +110,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#messages' do
     let(:user_2) { create :user }
-    let(:topic) { create :anime_news, linked: create(:anime) }
+    let(:topic) { create :news_topic, linked: create(:anime), action: 'episode' }
     let!(:news) { create :message, kind: MessageType::Anons, to: user, from: user_2, body: 'anime [b]anons[/b]', linked: topic }
 
     context 'signed_in' do

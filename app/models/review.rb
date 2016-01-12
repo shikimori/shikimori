@@ -69,7 +69,10 @@ class Review < ActiveRecord::Base
       .create(ReviewComment.new(
         linked: self,
         user: user,
+        #TODO: title должен генериться автоматически и локализовываться
+        # в зависимости от нстроек пользователя
         title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
+        generated: true,
         created_at: created_at,
         updated_at: updated_at,
       ))

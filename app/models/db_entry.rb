@@ -41,6 +41,8 @@ private
 
   # создание топика для элемента сразу после создания элемента
   def generate_thread
+    #TODO: title должен генериться автоматически и локализовываться
+    # в зависимости от нстроек пользователя
     create_thread! linked: self, generated: true, title: name
   end
 

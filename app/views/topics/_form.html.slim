@@ -16,9 +16,7 @@
     = f.input :type, as: :select, include_blank: false,
       collection: [\
         ['Топик', 'Topic'],
-        ['Аниме новость', 'AnimeNews'],
-        ['Манга новость', 'MangaNews'],
-        ['Новость сайта', 'SiteNews']\
+        ['Новость', 'Topics::NewsTopic'],
       ],
       input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 

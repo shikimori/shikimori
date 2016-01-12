@@ -25,9 +25,9 @@ describe PagesController do
     end
 
     context 'anime' do
-      let!(:news_1) { create :anime_news, generated: false, forum: animanga_forum,
+      let!(:news_1) { create :news_topic, generated: false, forum: animanga_forum,
         linked: create(:anime), action: AnimeHistoryAction::Anons }
-      let!(:news_2) { create :anime_news, generated: false, forum: animanga_forum,
+      let!(:news_2) { create :news_topic, generated: false, forum: animanga_forum,
         linked: create(:anime), action: AnimeHistoryAction::Anons }
       before { get :news, kind: 'anime', format: 'rss' }
 

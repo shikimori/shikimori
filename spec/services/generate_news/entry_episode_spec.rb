@@ -9,7 +9,7 @@ describe GenerateNews::EntryEpisode do
     context 'present news' do
       context 'same episode' do
         let!(:news) do
-          create :anime_news,
+          create :news_topic,
             linked_id: anime.id,
             linked_type: Anime.name,
             action: AnimeHistoryAction::Episode,
@@ -21,7 +21,7 @@ describe GenerateNews::EntryEpisode do
 
       context 'prior episode' do
         let!(:news) do
-          create :anime_news,
+          create :news_topic,
             linked_id: anime.id,
             linked_type: Anime.name,
             action: AnimeHistoryAction::Episode,

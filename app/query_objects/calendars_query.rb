@@ -6,7 +6,7 @@ class CalendarsQuery
 
   # список онгоингов
   def fetch
-    Rails.cache.fetch [:calendar, AnimeCalendar.last.try(:id), AnimeNews.last.try(:id), Time.zone.today.to_s] do
+    Rails.cache.fetch [:calendar, AnimeCalendar.last.try(:id), Topics::NewsTopic.last.try(:id), Time.zone.today.to_s] do
       entries = (fetch_ongoings + fetch_anonses).map do |anime|
         AnimeDecorator.new CalendarEntry.new(anime)
       end

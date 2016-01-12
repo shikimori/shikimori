@@ -8,13 +8,14 @@ class GenerateNews::EntryAnons < ServiceObjectBase
 private
 
   def find_news
-    AnimeNews.find_by options
+    Topics::NewsTopic.find_by options
   end
 
   def create_news
-    AnimeNews.create! options.merge(
+    Topics::NewsTopic.create! options.merge(
       forum_id: forum_id,
       created_at: created_at,
+      updated_at: nil,
       generated: true,
       processed: is_processed
     )

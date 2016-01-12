@@ -146,13 +146,6 @@ TokyoToshokanParser.add_episodes(Anime.find(10578), [
           :title => '[Zero-Raws] C3 - 12 END (MX 1280x720 x264 AAC).mp4'
     }
 ])
-###########################
-# добавление эпизода без торрента
-###########################
-anime = Anime.find(9938)
-anime.update_attribute(:episodes_aired, anime.episodes_aired+1)
-AnimeNews.create_for_new_episode(anime, anime.released_on - 1.minute).update_attribute(:processed, true)
-#AnimeNews.create_for_new_episode(anime, DateTime.now - 2.days)
 
 
 ###########################

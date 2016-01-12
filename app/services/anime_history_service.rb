@@ -6,7 +6,7 @@ class AnimeHistoryService
   def self.process
     entries = Entry
       .where.not(processed: true)
-      .where('(type = ? and generated = true) or broadcast = true', AnimeNews.name)
+      .where('(type = ? and generated = true) or broadcast = true', Topics::NewsTopic.name)
       .order(:created_at)
       .to_a
     return if entries.empty?
@@ -29,7 +29,7 @@ class AnimeHistoryService
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.flat_map do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
-      next if entry.class == AnimeNews && (!entry.linked || entry.linked.censored || entry.linked.kind_music?)
+      next if entry.class == Topics::NewsTopic && (!entry.linked || entry.linked.censored || entry.linked.kind_music?)
       # протухшие новости тоже не нужны
       next if entry.created_at + NewsExpireIn < DateTime.now
 

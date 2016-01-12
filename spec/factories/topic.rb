@@ -3,7 +3,7 @@ FactoryGirl.define do
     user { seed :user }
     forum { seed :offtopic_forum }
     sequence(:title) { |n| "topic_#{n}" }
-    sequence(:text) { |n| "topic_text_#{n}" }
+    sequence(:body) { |n| "topic_text_#{n}" }
 
     factory :review_comment, class: 'ReviewComment' do
       type 'ReviewComment'
@@ -22,13 +22,8 @@ FactoryGirl.define do
       type 'ClubComment'
     end
 
-    factory :anime_news, class: 'AnimeNews' do
-      type 'AnimeNews'
-      forum { seed :animanga_forum }
-    end
-
-    factory :manga_news, class: 'MangaNews' do
-      type 'MangaNews'
+    factory :news_topic, class: 'Topics::NewsTopic' do
+      type 'Topics::NewsTopic'
       forum { seed :animanga_forum }
     end
 

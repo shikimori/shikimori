@@ -9,7 +9,7 @@ describe GenerateNews::EntryAnons do
 
     context 'present news' do
       let!(:news) do
-        create :anime_news,
+        create :news_topic,
           linked_id: anime.id,
           linked_type: Anime.name,
           action: AnimeHistoryAction::Anons,
@@ -28,6 +28,7 @@ describe GenerateNews::EntryAnons do
           action: AnimeHistoryAction::Anons,
           value: nil,
           created_at: Time.zone.now,
+          updated_at: nil,
           generated: true,
           processed: false
         )

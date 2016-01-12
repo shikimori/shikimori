@@ -26,10 +26,6 @@ class Entry < ActiveRecord::Base
   # before_destroy :destroy_images
   # after_save :claim_images
 
-  # видимые топики
-  scope :wo_empty_generated, -> {
-    where '(comments_count > 0 and generated = true) or generated = false'
-  }
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> {
     where 'action is null or action != ?', AnimeHistoryAction::Episode
@@ -77,9 +73,9 @@ class Entry < ActiveRecord::Base
     value
   end
 
-  def to_s
-    self.title
-  end
+  # def to_s
+    # self.title
+  # end
 
   # оффтопик ли это? для совместимости с интерфейсом отображения комментариев
   def offtopic?
@@ -143,20 +139,20 @@ class Entry < ActiveRecord::Base
   # end
 
   # оригинальный текст без сгенерированных автоматом тегов
-  def original_text
+  def original_body
     if generated?
-      text
+      body
     else
-      (text || '').sub(NEWS_WALL, '')
+      (body || '').sub(NEWS_WALL, '')
     end
   end
 
   # сгенерированные автоматом теги
-  def appended_text
+  def appended_body
     if generated?
       ''
     else
-      (text || '')[NEWS_WALL] || ''
+      (body || '')[NEWS_WALL] || ''
     end
   end
 
@@ -173,14 +169,14 @@ class Entry < ActiveRecord::Base
     end
 
     if bb_images.any?
-      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
+      self.body = "#{original_body}\n[wall]#{bb_images.join ''}[/wall]"
     else
-      self.text = original_text
+      self.body = original_body
     end
   end
 
   def wall_images
-    ids = appended_text.scan(WALL_ENTRY).map { |v| v[0].to_i }
+    ids = appended_body.scan(WALL_ENTRY).map { |v| v[0].to_i }
     UserImage.where(id: ids).sort_by { |v| ids.index v.id }
   end
 

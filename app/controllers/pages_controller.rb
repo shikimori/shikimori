@@ -30,7 +30,7 @@ class PagesController < ShikimoriController
   # rss с новостями
   def news
     @topics = if params[:kind] == 'anime'
-      AnimeNews
+      Topics::NewsTopic
         .where.not(action: AnimeHistoryAction::Episode)
         .joins('inner join animes on animes.id=linked_id and animes.censored=false')
         .order(created_at: :desc)

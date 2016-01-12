@@ -76,13 +76,8 @@ class SiteStatistics
   end
 
   def newsmakers
-    anime_newsmakers = AnimeNews.where(generated: false).group(:user_id).count
-    manga_newsmakers = MangaNews.where(generated: false).group(:user_id).count
-    manga_newsmakers.each do |user_id, count|
-      anime_newsmakers[user_id] ||= 0
-      anime_newsmakers[user_id] += count
-    end
-    newsmarker_ids = anime_newsmakers
+    newsmakers = Topics::NewsTopic.where(generated: false).group(:user_id).count
+    newsmarker_ids = newsmakers
         .sort_by {|k,v| -v }
         .map(&:first)
         .take(USERS_LIMIT)

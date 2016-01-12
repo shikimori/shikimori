@@ -63,9 +63,9 @@ describe TopicsQuery do
     end
 
     context 'NEWS' do
-      let!(:generated_news) { create :anime_news, created_at: 1.day.ago, generated: true }
-      let!(:anime_news) { create :anime_news, created_at: 1.day.ago }
-      let!(:manga_news) { create :manga_news, created_at: 2.days.ago }
+      let!(:generated_news) { create :news_topic, created_at: 1.day.ago, generated: true }
+      let!(:anime_news) { create :news_topic, created_at: 1.day.ago }
+      let!(:manga_news) { create :news_topic, created_at: 2.days.ago }
       let!(:cosplay_news) { create :cosplay_comment, created_at: 3.days.ago,
         linked: cosplay_gallery }
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
@@ -75,9 +75,9 @@ describe TopicsQuery do
     end
 
     context 'UPDATES' do
-      let!(:anime_news) { create :anime_news, created_at: 1.day.ago, generated: true }
-      let!(:manga_news) { create :manga_news, created_at: 2.days.ago, generated: true }
-      let!(:regular_news) { create :anime_news }
+      let!(:anime_news) { create :news_topic, created_at: 1.day.ago, generated: true }
+      let!(:manga_news) { create :news_topic, created_at: 2.days.ago, generated: true }
+      let!(:regular_news) { create :news_topic }
       before { query.by_forum Forum::UPDATES_FORUM }
 
       it { is_expected.to eq [anime_news, manga_news] }

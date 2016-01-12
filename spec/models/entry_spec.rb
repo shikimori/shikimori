@@ -12,11 +12,11 @@ describe Entry do
 
   context 'hooks' do
     # let!(:images) { create_list :user_image, 4, linked_type: Entry.name }
-    # let!(:entry) { create :anime_news, text: 'text', value: "#{images[0].id},#{images[1].id}" }
+    # let!(:entry) { create :news_topic, body: 'text', value: "#{images[0].id},#{images[1].id}" }
 
     # describe 'append_wall' do
       # it 'wall tag is appended' do
-        # expect(entry.text).to eq "text\n[wall][url=#{images[0].image.url :original, false}][poster]#{images[0].image.url :preview, false}[/poster][/url][url=#{images[1].image.url :original, false}][poster]#{images[1].image.url :preview, false}[/poster][/url][/wall]"
+        # expect(entry.body).to eq "text\n[wall][url=#{images[0].image.url :original, false}][poster]#{images[0].image.url :preview, false}[/poster][/url][url=#{images[1].image.url :original, false}][poster]#{images[1].image.url :preview, false}[/poster][/url][/wall]"
       # end
     # end
 
@@ -33,7 +33,7 @@ describe Entry do
     # end
 
     # describe '#unclaim_images' do
-      # let!(:entry) { create :anime_news, text: 'text', value: "#{images[0].id},#{images[1].id},#{images[2].id},#{images[3].id}" }
+      # let!(:entry) { create :news_topic, body: 'text', value: "#{images[0].id},#{images[1].id},#{images[2].id},#{images[3].id}" }
 
       # it 'unused images are destroyed' do
         # expect {
@@ -86,22 +86,22 @@ describe Entry do
       end
     end
 
-    describe '#original_text & #appended_text' do
-      let(:entry) { build :entry, text: text, generated: is_generated }
-      let(:text) { 'test[wall][/wall]' }
+    describe '#original_body & #appended_body' do
+      let(:entry) { build :entry, body: body, generated: is_generated }
+      let(:body) { 'test[wall][/wall]' }
 
       context 'entry' do
         let(:is_generated) { false }
 
         context 'with wall' do
-          it { expect(entry.original_text).to eq 'test' }
-          it { expect(entry.appended_text).to eq '[wall][/wall]' }
+          it { expect(entry.original_body).to eq 'test' }
+          it { expect(entry.appended_body).to eq '[wall][/wall]' }
         end
 
         context 'without wall' do
-          let(:text) { 'test' }
-          it { expect(entry.original_text).to eq 'test' }
-          it { expect(entry.appended_text).to eq '' }
+          let(:body) { 'test' }
+          it { expect(entry.original_body).to eq 'test' }
+          it { expect(entry.appended_body).to eq '' }
         end
       end
 
@@ -109,14 +109,14 @@ describe Entry do
         let(:is_generated) { true }
 
         context 'with wall' do
-          it { expect(entry.original_text).to eq 'test[wall][/wall]' }
-          it { expect(entry.appended_text).to eq '' }
+          it { expect(entry.original_body).to eq 'test[wall][/wall]' }
+          it { expect(entry.appended_body).to eq '' }
         end
 
         context 'without wall' do
-          let(:text) { 'test' }
-          it { expect(entry.original_text).to eq 'test' }
-          it { expect(entry.appended_text).to eq '' }
+          let(:body) { 'test' }
+          it { expect(entry.original_body).to eq 'test' }
+          it { expect(entry.appended_body).to eq '' }
         end
       end
     end
@@ -125,7 +125,7 @@ describe Entry do
       let!(:user_image_1) { create :user_image }
       let!(:user_image_2) { create :user_image }
       let(:entry) do
-        build :entry, text: "text\n[wall]\
+        build :entry, body: "text\n[wall]\
 [url=#{ImageUrlGenerator.instance.url user_image_2, :original}][poster=#{user_image_2.id}][/url]\
 [url=#{ImageUrlGenerator.instance.url user_image_1, :original}][poster=#{user_image_1.id}][/url]\
 [/wall]"
@@ -142,7 +142,7 @@ describe Entry do
 
       it do
         expect(entry.value).to eq "#{user_image_1.id},#{user_image_2.id}"
-        expect(entry.text).to eq "#{entry.original_text}
+        expect(entry.body).to eq "#{entry.original_body}
 [wall]\
 [url=#{ImageUrlGenerator.instance.url user_image_1, :original}][poster=#{user_image_1.id}][/url]\
 [url=#{ImageUrlGenerator.instance.url user_image_2, :original}][poster=#{user_image_2.id}][/url]\
