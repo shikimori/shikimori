@@ -237,7 +237,7 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          GenerateNews::EntryEpisode.new(anime).episode_aired aired_at
+          GenerateNews::EntryEpisode.call anime, aired_at
         end
       end
 

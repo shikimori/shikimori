@@ -1,5 +1,5 @@
 describe GenerateNews::EntryEpisode do
-  let(:anime) { build_stubbed :anime, episodes_aired: 5 }
+  let(:anime) { build_stubbed :anime, episodes_aired: 5, episodes: 6 }
 
   describe '#call' do
     let(:aired_at) { 1.month.ago }
@@ -8,7 +8,7 @@ describe GenerateNews::EntryEpisode do
 
     context 'present news' do
       context 'same episode' do
-        let!(:news) do
+        let!(:news_topic) do
           create :news_topic,
             linked_id: anime.id,
             linked_type: Anime.name,
@@ -16,11 +16,11 @@ describe GenerateNews::EntryEpisode do
             value: '5'
         end
 
-        it { is_expected.to be_nil }
+        it { is_expected.to eq news_topic }
       end
 
       context 'prior episode' do
-        let!(:news) do
+        let!(:news_topic) do
           create :news_topic,
             linked_id: anime.id,
             linked_type: Anime.name,
@@ -28,6 +28,7 @@ describe GenerateNews::EntryEpisode do
             value: '4'
         end
 
+        it { is_expected.to_not eq news_topic }
         it { is_expected.to be_persisted }
       end
     end
