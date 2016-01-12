@@ -16,11 +16,13 @@ describe CalendarsQuery do
     let!(:anime_7) { create :anime, :anons, name: '7', aired_on: 2.days.from_now }
     let!(:anime_8) { create :anime, :anons, name: '8', aired_on: 2.days.from_now }
 
-    it { expect(query.send :fetch_ongoings).to eq [anime_2, anime_3] }
-    it { expect(query.send :fetch_anonses).to eq [anime_6, anime_7, anime_8] }
 
-    it { expect(query.fetch).to eq [anime_2, anime_6, anime_7, anime_8] }
-    it { expect(query.fetch_grouped).to have(3).items }
+    it do
+      expect(query.send :fetch_ongoings).to eq [anime_2, anime_3]
+      expect(query.send :fetch_anonses).to eq [anime_6, anime_7, anime_8]
+      expect(query.fetch).to eq [anime_2, anime_3, anime_6, anime_7, anime_8]
+      expect(query.fetch_grouped).to have(3).items
+    end
   end
 
   context 'before new year' do

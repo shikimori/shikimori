@@ -15,6 +15,7 @@ describe GenerateNews::EntryOngoing do
         action: AnimeHistoryAction::Ongoing,
         value: nil,
         created_at: Time.zone.now,
+        updated_at: nil,
         generated: true,
         processed: false
       )

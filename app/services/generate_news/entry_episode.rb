@@ -1,8 +1,6 @@
 class GenerateNews::EntryEpisode < GenerateNews::EntryAnons
   pattr_initialize :entry, :aired_at
 
-private
-
   def action
     AnimeHistoryAction::Episode
   end

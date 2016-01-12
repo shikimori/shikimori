@@ -10,7 +10,7 @@ describe AnimeHistoryService do
       expect(PushNotification).to_not have_received :perform_async
     end
 
-    it 'for new Anonsed Anime' do
+    it 'for announced anime' do
       create :anime, :with_callbacks, :anons
       expect{AnimeHistoryService.process}.to change(Message, :count).by users.size
       expect(PushNotification).to_not have_received :perform_async

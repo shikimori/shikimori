@@ -1,6 +1,8 @@
 class CosplayGallery < ActiveRecord::Base
   acts_as_voteable
 
+  belongs_to :user
+
   has_many :image, -> { where(deleted: false).limit(1) },
     class_name: CosplayImage.name
 
@@ -93,8 +95,8 @@ class CosplayGallery < ActiveRecord::Base
   def self.without_topic
     visible
       .includes(:animes, :mangas, :characters, :thread)
-      .select {|v| !v.thread.present? }
-      .select {|v| v.animes.any? || v.mangas.any? || v.characters.any? }
+      .select { |v| !v.thread.present? }
+      .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
 private
@@ -105,10 +107,12 @@ private
 
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
+    publisher = User.find User::COSPLAYER_ID
+
     FayeService
-      .new(user, '')
+      .new(publisher, '')
       .create(CosplayComment.new(
-        user_id: User::COSPLAYER_ID,
+        user: publisher,
         linked: self,
         forum_id: Forum::COSPLAY_ID,
         generated: true

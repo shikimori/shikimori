@@ -1,6 +1,4 @@
 class GenerateNews::EntryRelease < GenerateNews::EntryAnons
-private
-
   def action
     AnimeHistoryAction::Released
   end

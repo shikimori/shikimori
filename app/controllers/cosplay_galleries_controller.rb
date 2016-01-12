@@ -7,13 +7,14 @@ class CosplayGalleriesController < ShikimoriController
   end
 
   def publish
-    topic = CosplayGallery.find(params[:id]).send :generate_thread
-    FayePublisher.new(User.first).publish topic, :created, []
+    gallery = CosplayGallery.find(params[:id])
+    gallery.send :generate_thread
 
-    redirect_to UrlGenerator.instance.topic_url topic
+    redirect_to UrlGenerator.instance.topic_url gallery.thread
   end
 
 private
+
   def check_access
     raise CanCan::AccessDenied unless current_user.admin?
   end

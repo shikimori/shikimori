@@ -8,7 +8,7 @@ describe GenerateNews::EntryAnons do
     subject { GenerateNews::EntryAnons.call anime }
 
     context 'present news' do
-      let!(:news) do
+      let!(:news_topic) do
         create :news_topic,
           linked_id: anime.id,
           linked_type: Anime.name,
@@ -16,7 +16,7 @@ describe GenerateNews::EntryAnons do
           value: nil
       end
 
-      it { is_expected.to eq news }
+      it { is_expected.to eq news_topic }
     end
 
     context 'no news' do

@@ -19,6 +19,7 @@ describe Api::V1::UsersController, :show_in_doc do
     before { get :show, id: user.id, format: :json }
 
     it do
+      expect(json).to_not have_key :email
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end

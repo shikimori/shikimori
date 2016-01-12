@@ -18,6 +18,7 @@ describe GenerateNews::EntryAnons do
           action: AnimeHistoryAction::Released,
           value: nil,
           created_at: Time.zone.now,
+          updated_at: nil,
           generated: true,
           processed: false
         )
