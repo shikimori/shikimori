@@ -127,14 +127,14 @@ class Ability
 
     can :manage, Device, user_id: @user.id
 
-    can [:new, :create], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+    can [:new, :create], [Entry, Topic, Topics::NewsTopic.name] do |topic|
       !@user.banned? && @user.day_registered? &&
         topic.user_id == @user.id
     end
-    can [:update], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+    can [:update], [Entry, Topic, Topics::NewsTopic.name] do |topic|
       can? :create, topic
     end
-    can [:destroy], [Entry, Topic, AnimeNews, MangaNews, SiteNews] do |topic|
+    can [:destroy], [Entry, Topic, Topics::NewsTopic.name] do |topic|
       can?(:create, topic) && topic.created_at + 4.hours > Time.zone.now
     end
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
@@ -151,15 +151,18 @@ class Ability
         #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
     can [:create], Message do |message|
-      !@user.forever_banned? && message.kind == MessageType::Private && message.from_id == @user.id
+      !@user.forever_banned? && message.kind == MessageType::Private &&
+        message.from_id == @user.id
     end
     can [:edit, :update], Message do |message|
       message.kind == MessageType::Private &&
-        message.from_id == @user.id && message.created_at + 10.minutes > Time.zone.now
+        message.from_id == @user.id &&
+          message.created_at + 10.minutes > Time.zone.now
     end
 
     can [:create], AnimeVideoReport do |report|
-      !@user.banned? && report.user_id == @user.id && (report.broken? || report.wrong?)
+      !@user.banned? && report.user_id == @user.id &&
+        (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
       !@user.banned? && anime_video.uploaded?
@@ -168,7 +171,8 @@ class Ability
       !@user.banned? && (anime_video.uploaded? || anime_video.working?)
     end
     can [:destroy], AnimeVideo do |anime_video|
-      !@user.banned? && (anime_video.uploader == @user && anime_video.created_at > 1.week.ago)
+      !@user.banned? &&
+        (anime_video.uploader == @user && anime_video.created_at > 1.week.ago)
     end
 
     can [:create, :destroy], Version do |version|
@@ -181,7 +185,7 @@ class Ability
   end
 
   def moderator_ability
-    can :manage, [Entry, Topic, AnimeNews, MangaNews, SiteNews, Review]
+    can :manage, [Entry, Topic, Topics::NewsTopic.name, Review]
     can [:edit, :update], [Genre]
   end
 

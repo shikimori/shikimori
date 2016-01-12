@@ -1,2 +1,0 @@
-class SiteNews < Topic
-end

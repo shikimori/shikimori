@@ -48,10 +48,6 @@ class Entry < ActiveRecord::Base
     Entry
   end
 
-  def body
-    text
-  end
-
   # прочтен ли топик?
   def viewed?
     generated? ? true : super

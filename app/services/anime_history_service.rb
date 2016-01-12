@@ -61,17 +61,17 @@ class AnimeHistoryService
     # "%s эпизод %s" % [history.value, anime.name]
   # end
 
-  def new_anons_topic_subject(anime, history)
-    "%s %s" % [history.to_s(:short), anime.name]
-  end
+  # def new_anons_topic_subject(anime, history)
+    # "%s %s" % [history.to_s(:short), anime.name]
+  # end
 
-  def new_ongoing_topic_subject(anime, history)
-    "%s %s" % [history.to_s(:short), anime.name]
-  end
+  # def new_ongoing_topic_subject(anime, history)
+    # "%s %s" % [history.to_s(:short), anime.name]
+  # end
 
-  def new_release_topic_subject(anime, history)
-    "%s %s" % [history.to_s(:short), anime.name]
-  end
+  # def new_release_topic_subject(anime, history)
+    # "%s %s" % [history.to_s(:short), anime.name]
+  # end
 
   def filter_name name
     name.gsub('[', ' ').gsub(']', ' ').gsub('  ', ' ')
