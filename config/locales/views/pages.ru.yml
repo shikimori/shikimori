@@ -92,8 +92,8 @@ ru:
         [quote=morr]цитата с ником[/quote]<br>
         [quote=775324<span>id комментария</span>;1<span>id цитируемого пользователя</span>;morr]цитата комментария[/quote]
       quote_example_2: >-
-        [quote]цитата[/quote]<br>
-        [quote=morr]цитата с ником[/quote]<br>
+        [quote]цитата[/quote]
+        [quote=morr]цитата с ником[/quote]
         [quote=775324;1;morr]цитата комментария[/quote]
       quote_notice: >-
         Если вы цитируете пользователя на форуме,
