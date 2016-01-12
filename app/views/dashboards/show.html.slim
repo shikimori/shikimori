@@ -1,6 +1,5 @@
 - content_for :head do
-  = auto_discovery_link_tag :rss, site_news_pages_url(format: :rss), title: 'Site news'
-  = auto_discovery_link_tag :rss, anime_news_pages_url(format: :rss), title: 'Anime news'
+  = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
 .midheadline
   = t '.currently_airing'

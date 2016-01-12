@@ -28,7 +28,7 @@ class PagesController < ShikimoriController
   end
 
   # rss с новостями
-  def shiki_news
+  def news_feed
     @collection = TopicsQuery
       .new(current_user)
       .by_forum(Forum::NEWS_FORUM)

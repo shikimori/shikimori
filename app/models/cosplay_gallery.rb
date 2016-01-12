@@ -105,12 +105,14 @@ private
 
   # создание AniMangaComment для элемента сразу после создания
   def generate_thread
-    create_thread!(
-      user_id: User::COSPLAYER_ID,
-      linked: self,
-      forum_id: Forum::COSPLAY_ID,
-      title: title
-    )
+    FayeService
+      .new(user, '')
+      .create(CosplayComment.new(
+        user_id: User::COSPLAYER_ID,
+        linked: self,
+        forum_id: Forum::COSPLAY_ID,
+        generated: true
+      ))
   end
 
   def any_linked

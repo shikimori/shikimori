@@ -11,10 +11,10 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#news' do
+  describe '#news_feed' do
     let!(:news) { create :news_topic, generated: false, forum: animanga_forum,
       linked: create(:anime), action: AnimeHistoryAction::Anons }
-    before { get :news, format: :rss }
+    before { get :news_feed, format: :rss }
 
     it do
       expect(assigns :collection).to have(1).item

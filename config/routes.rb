@@ -436,10 +436,10 @@ Site::Application.routes.draw do
         get :privacy
         get :user_agent
 
-        get 'site-news' => redirect('/shiki_news.rss')
-        get 'anime-news' => redirect('/shiki_news.rss')
+        get 'site-news' => redirect('/news_feed.rss')
+        get 'anime-news' => redirect('/news_feed.rss')
 
-        get :shiki_news, format: :rss
+        get :news_feed, format: :rss
 
         get :disabled_registration
         get :disabled_openid

@@ -1,8 +1,8 @@
 xml.instruct! :xml, version: '1.0'
 xml.rss version: '2.0' do
   xml.channel do
-    xml.title "#{Site::DOMAIN} news"
-    xml.description "#{Site::DOMAIN} news"
+    xml.title "News #{Site::DOMAIN}"
+    xml.description "News #{Site::DOMAIN}"
     xml.link root_url
 
     @collection.each do |view|
