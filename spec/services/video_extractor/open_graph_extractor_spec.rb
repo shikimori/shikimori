@@ -57,13 +57,13 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       end
     end
 
-    context 'yandex' do
-      let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
+    #context 'yandex' do
+      #let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
 
-      its(:hosting) { should eq :yandex }
-      its(:image_url) { should eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
-      its(:player_url) { should eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
-    end
+      #its(:hosting) { should eq :yandex }
+      #its(:image_url) { should eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
+      #its(:player_url) { should eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
+    #end
 
     context 'dailymotion' do
       let(:url) { 'http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms' }

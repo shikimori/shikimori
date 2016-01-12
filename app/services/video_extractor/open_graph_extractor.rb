@@ -8,7 +8,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      #video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>dailymotion).com/video/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }xi
