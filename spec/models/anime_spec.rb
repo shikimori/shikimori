@@ -53,8 +53,21 @@ describe Anime do
     it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
   end
 
-  context 'hooks' do
-    it { expect{create :anime, :with_thread}.to change(AniMangaComment, :count).by 1 }
+  context 'callbacks' do
+    describe '#generate_thread' do
+      let(:anime) { create :anime, :with_thread }
+      subject { anime.thread }
+
+      it do
+        is_expected.to be_persisted
+        is_expected.to have_attributes(
+          linked: anime,
+          type: AniMangaComment.name,
+          created_at: anime.created_at,
+          updated_at: nil
+        )
+      end
+    end
   end
 
   #it 'should sync episodes_aired with episodes' do

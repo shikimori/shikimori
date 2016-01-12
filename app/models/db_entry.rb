@@ -41,18 +41,25 @@ private
 
   # создание топика для элемента сразу после создания элемента
   def generate_thread
-    #TODO: title должен генериться автоматически и локализовываться
-    # в зависимости от нстроек пользователя
-    create_thread! linked: self, generated: true, title: name
+    AniMangaComment.wo_timestamp do
+      #TODO: title должен генериться автоматически и локализовываться
+      # в зависимости от нстроек пользователя
+      create_thread!(
+        linked: self,
+        generated: true,
+        title: name,
+        created_at: created_at
+      )
+    end
   end
 
   # при сохранении аниме обновление его топика
   def sync_thread
-    if self.changes['name']
-      thread.class.record_timestamps = false
+    return unless changes['name']
+
+    thread.class.wo_timestamp do
       thread.sync
       thread.save
-      thread.class.record_timestamps = true
     end
   end
 

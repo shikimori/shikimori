@@ -2,7 +2,7 @@ class GenerateNews::EntryAnons < ServiceObjectBase
   pattr_initialize :entry
 
   def call
-    find_news || fix_timestamps(create_news)
+    find_news || ActiveRecord::Base.wo_timestamp { create_news }
   end
 
   def is_processed
@@ -30,6 +30,7 @@ private
     Topics::NewsTopic.create options.merge(
       user: BotsService.get_poster,
       forum_id: forum_id,
+      created_at: created_at,
       updated_at: nil,
       generated: true,
       processed: is_processed
@@ -49,14 +50,5 @@ private
       action: action,
       value: value
     }
-  end
-
-  # disabling record_timestamps in ActiveRecors is ugly and not thread safe!
-  def fix_timestamps topic
-    topic.update_columns(
-      created_at: created_at,
-      updated_at: nil
-    )
-    topic
   end
 end
