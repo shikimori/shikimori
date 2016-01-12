@@ -6,19 +6,29 @@ en:
       user_comment: '%{user}comment'
       replies: Replies
     shiki_editor:
-      preview: Preview
-      bb_codes_guide: BBCode Guide
       back_to_editing: Back to Editing
-      hide: Hide
+      bb_codes_guide: BBCode Guide
       bold: Bold
-      italic: Italic
-      underline: Underlined
-      striked: Deleted
-      link: Link
-      image_link: Image Link
-      quote: Quote
-      spoiler: Spoiler
-      upload_image: Upload Image
-      smiley: Smiley
-      text: Text
       comment: Comment text
+      enter:
+        page_url: Enter page URL...
+        anime_title: Enter anime title...
+        manga_title: Enter manga title...
+        character_name: Enter character name...
+        person_name: Enter person name...
+        image_url: Enter image URL...
+        user_name: Enter user name...
+      hide: Hide
+      image_link: Image Link
+      insert_image: 'Insert image:'
+      italic: Italic
+      link: Link
+      preview: Preview
+      quote: Quote
+      quote_user: 'Quote user:'
+      smiley: Smiley
+      spoiler: Spoiler
+      striked: Deleted
+      text: Text
+      underline: Underlined
+      upload_image: Upload Image
