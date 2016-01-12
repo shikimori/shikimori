@@ -25,7 +25,8 @@
     ]
     meta itemprop="dateCreated" content="#{view.created_at.iso8601}"
     meta itemprop="datePublished" content="#{view.created_at.iso8601}"
-    meta itemprop="dateModified" content="#{view.updated_at.iso8601}"
+    - if view.updated_at
+      meta itemprop="dateModified" content="#{view.updated_at.iso8601}"
 
     a name="topic-#{view.topic.id}"
     / класс нужен из-за проверки высоты и для отображения кнопок по hover
