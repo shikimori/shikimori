@@ -29,7 +29,7 @@
     .b-shiki_editor.unprocessed.block
       = render 'comments/shiki_editor',
         text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
-        field_name: 'topic[text]'
+        field_name: 'topic[body]'
 
     .topic_linked
       .b-input.string.optional

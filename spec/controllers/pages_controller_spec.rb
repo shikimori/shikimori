@@ -2,7 +2,7 @@ describe PagesController do
   include_context :seeds
   let(:user) { create :user }
 
-  describe 'ongoings' do
+  describe '#ongoings' do
     let!(:ongoing) { create :anime, :ongoing }
     let!(:anons) { create :anime, :anons }
     let!(:topic) { create :topic, id: PagesController::ONGOINGS_TOPIC_ID }
@@ -11,31 +11,15 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe 'news' do
-    context 'common' do
-      let!(:topic_1) { create :topic, broadcast: true, forum: animanga_forum }
-      let!(:topic_2) { create :topic, broadcast: true, forum: animanga_forum }
-      before { get :news, kind: 'site', format: 'rss' }
+  describe '#news' do
+    let!(:news) { create :news_topic, generated: false, forum: animanga_forum,
+      linked: create(:anime), action: AnimeHistoryAction::Anons }
+    before { get :news, format: :rss }
 
-      it do
-        expect(assigns :topics).to have(2).items
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/rss+xml'
-      end
-    end
-
-    context 'anime' do
-      let!(:news_1) { create :news_topic, generated: false, forum: animanga_forum,
-        linked: create(:anime), action: AnimeHistoryAction::Anons }
-      let!(:news_2) { create :news_topic, generated: false, forum: animanga_forum,
-        linked: create(:anime), action: AnimeHistoryAction::Anons }
-      before { get :news, kind: 'anime', format: 'rss' }
-
-      it do
-        expect(assigns :topics).to have(2).items
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/rss+xml'
-      end
+    it do
+      expect(assigns :collection).to have(1).item
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/rss+xml'
     end
   end
 

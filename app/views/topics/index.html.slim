@@ -12,7 +12,7 @@
 
   = auto_discovery_link_tag :rss,
     forum_topics_url(forum: @view.forum.try(:permalink), format: :rss),
-    title: 'Топики раздела'
+    title: 'Site topics'
 
   / - if @view.forum[:id] == 'all'
     = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
