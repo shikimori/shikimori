@@ -28,6 +28,7 @@ private
 
   def create_news
     Topics::NewsTopic.create options.merge(
+      user: BotsService.get_poster,
       forum_id: forum_id,
       updated_at: nil,
       generated: true,

@@ -11,7 +11,7 @@ class Entry < ActiveRecord::Base
   belongs_to :linked, polymorphic: true
   belongs_to :user
 
-  validates :forum, presence: true unless Rails.env.test?
+  validates :forum, :user, presence: true
 
   has_many :messages,
     -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
