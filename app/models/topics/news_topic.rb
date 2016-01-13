@@ -3,11 +3,13 @@ class Topics::NewsTopic < Topic
     in: [:anons, :ongoing, :released, :episode],
     predicates: true
 
-  # def title
-    # return super unless generated?
-  # end
+  def title
+    return super unless generated?
 
-  # def body
-    # return super unless generated?
-  # end
+    if episode?
+      "#{action_text} #{value}".capitalize
+    else
+      action_text.capitalize
+    end
+  end
 end

@@ -8,12 +8,7 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def action_tag
-    OpenStruct.new(
-      type: topic.action,
-      text: topic.episode? ?
-        "#{topic.action_text} #{topic.value}" :
-        topic.action_text
-    )
+    OpenStruct.new type: topic.action, text: topic.title.downcase
   end
 
   def poster_title

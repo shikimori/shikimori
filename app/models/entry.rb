@@ -35,6 +35,10 @@ class Entry < ActiveRecord::Base
     "%d-%s" % [id, permalink]
   end
 
+  def permalink
+    title.permalinked
+  end
+
   def cache_key
     "#{super}-#{Digest::MD5.hexdigest(body || '')}"
   end
@@ -65,12 +69,6 @@ class Entry < ActiveRecord::Base
       comments_count: self.comments.count
     )
     self.class.record_timestamps = true
-  end
-
-  def title= value
-    super value
-    self.permalink = self.to_s.permalinked if value.present?
-    value
   end
 
   # def to_s
