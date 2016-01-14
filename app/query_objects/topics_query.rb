@@ -3,7 +3,7 @@ class TopicsQuery < ChainableQueryBase
 
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = "(
-    type = #{Entry.sanitize ClubComment.name} and
+    type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
     #{Entry.table_name}.linked_id in (:user_clubs)
   )"
 
@@ -21,7 +21,7 @@ class TopicsQuery < ChainableQueryBase
         if @user
           user_forums
         else
-          where_not type: ClubComment.name
+          where_not type: Topics::EntryTopics::ClubTopic.name
         end
 
       when 'reviews'
@@ -29,12 +29,17 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when Forum::NEWS_FORUM.permalink
-        where type: [SiteNews.name, AnimeNews.name, MangaNews.name, CosplayComment.name]
-        where generated: false
+        where "(
+          type = '#{Topics::NewsTopic.name}' and
+          generated = false
+        ) or (
+          type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
+          generated = true
+        )"
         order! created_at: :desc
 
       when Forum::UPDATES_FORUM.permalink
-        where type: [AnimeNews.name, MangaNews.name]
+        where type: [Topics::NewsTopic.name]
         where generated: true
         order! created_at: :desc
 
@@ -86,10 +91,10 @@ private
   end
 
   def except_generated forum
-    @relation = if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
-      @relation.wo_episodes
+    if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
+      @relation = @relation.wo_episodes
     else
-      @relation.wo_empty_generated
+      where_not updated_at: nil
     end
   end
 

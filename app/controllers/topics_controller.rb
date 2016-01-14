@@ -20,7 +20,7 @@ class TopicsController < ShikimoriController
 
   def show
     expected_url = UrlGenerator.instance.topic_url @resource
-    if request.url.gsub(/\?.*/, '') != expected_url
+    if request.url.gsub(/\?.*/, '') != expected_url && request.format != 'rss'
       return redirect_to expected_url, status: 301
     end
 
@@ -111,7 +111,7 @@ class TopicsController < ShikimoriController
 private
 
   def topic_params
-    allowed_params = [:text, :title, :linked_id, :linked_type, wall_ids: []]
+    allowed_params = [:body, :title, :linked_id, :linked_type, wall_ids: []]
     allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
     allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 

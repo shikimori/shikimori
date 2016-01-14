@@ -346,7 +346,7 @@ ru:
         review: отзыв
         spoiler: спойлер
         abuse: нарушение
-    anime_news:
+    topics/news_topic:
       action:
         released: релиз
         anons: анонс

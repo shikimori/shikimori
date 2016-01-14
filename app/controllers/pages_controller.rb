@@ -28,23 +28,13 @@ class PagesController < ShikimoriController
   end
 
   # rss с новостями
-  def news
-    @topics = if params[:kind] == 'anime'
-      AnimeNews
-        .where.not(action: AnimeHistoryAction::Episode)
-        .joins('inner join animes on animes.id=linked_id and animes.censored=false')
-        .order(created_at: :desc)
-        .limit(15)
-        .to_a
-    else
-      Entry
-        .where(type: Topic.name, broadcast: true)
-        .order(created_at: :desc)
-        .limit(10)
-        .to_a
-    end
-
-    response.headers['Content-Type'] = 'application/rss+xml; charset=utf-8'
+  def news_feed
+    @collection = TopicsQuery
+      .new(current_user)
+      .by_forum(Forum::NEWS_FORUM)
+      .limit(15)
+      .result
+      .map { |topic| Topics::Factory.new(true, false).build topic }
   end
 
   # пользовательское соглашение

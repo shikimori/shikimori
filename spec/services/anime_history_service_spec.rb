@@ -10,7 +10,7 @@ describe AnimeHistoryService do
       expect(PushNotification).to_not have_received :perform_async
     end
 
-    it 'for new Anonsed Anime' do
+    it 'for announced anime' do
       create :anime, :with_callbacks, :anons
       expect{AnimeHistoryService.process}.to change(Message, :count).by users.size
       expect(PushNotification).to_not have_received :perform_async
@@ -20,7 +20,7 @@ describe AnimeHistoryService do
       anime = create :anime, status: :ongoing
       AnimeHistoryService.process
       create :user_rate, user: users.first, target: anime
-      create :anime_news, action: AnimeHistoryAction::Episode, generated: true, linked: anime, user: users.first
+      create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime, user: users.first
 
       expect{AnimeHistoryService.process}.to change(Message, :count).by 1
       expect(PushNotification).to_not have_received :perform_async
@@ -60,7 +60,7 @@ describe AnimeHistoryService do
     it 'for Episode of not-in-list anime' do
       anime = create :anime, status: :ongoing
       AnimeHistoryService.process
-      create :anime_news, action: AnimeHistoryAction::Episode, generated: true, linked: anime
+      create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
       expect{AnimeHistoryService.process}.to_not change Message, :count
     end
@@ -69,7 +69,7 @@ describe AnimeHistoryService do
       anime = create :anime, status: :ongoing
       AnimeHistoryService.process
       create :user_rate, :dropped, user: users.first, target: anime
-      create :anime_news, action: AnimeHistoryAction::Episode, generated: true, linked: anime
+      create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
       expect{AnimeHistoryService.process}.to change(Message, :count).by 0
     end

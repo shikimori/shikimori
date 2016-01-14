@@ -15,7 +15,6 @@ FactoryGirl.define do
 
     after :build do |anime|
       anime.stub :generate_thread
-      anime.stub :sync_thread
       anime.stub :check_status
       anime.stub :update_news
     end

@@ -18,9 +18,7 @@ ru:
       anime: '%{anime_days_count} %{anime_days} аниме'
       manga: '%{manga_days_count} %{manga_days} манги'
 
-  # topics/view: &topics
   topics/review_view:
-    # <<: *topics
     title:
       anime: Обзор аниме &laquo;%{target_name}&raquo;
       manga: Обзор манги &laquo;%{target_name}&raquo;
@@ -29,6 +27,14 @@ ru:
     show_comments: Показать %{comment_word}
     hide_comments: Скрыть %{comment_word}
     load_comments: Загрузить еще %{comment_count} %{out_of_total_comments} %{comment_word}
+
+  topics/generated_news_view:
+    titles:
+      # from Topics::NewsTopic.action
+      released: Завершён показ
+      anons: Анонсировано аниме
+      ongoing: Начало показа
+      episode: Вышел %{value} эпизод
 
   topics/proxy_comments:
     <<: *comments

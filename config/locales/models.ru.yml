@@ -10,31 +10,37 @@ ru:
     default_title: '%{kind} жанра %{name}'
     title:
       common: &common
-        magic: '%{kind} про магию'
-        space: '%{kind} про космос'
-        demons: '%{kind} про демонов'
-        vampire: '%{kind} про вампиров'
-        school: '%{kind} про школу'
-        police: '%{kind} про полицию'
-        sports: '%{kind} про спорт'
-        games: '%{kind} про игры'
-        martial_arts: '%{kind} про боевые искусства'
-        sumurai: '%{kind} про самураев'
         adventure: '%{kind} о приключениях'
+
+        demons: '%{kind} про демонов'
         drama: '%{kind} в жанре драма'
+        echi: этти %{kind}
+        fantasy: фэнтези %{kind}
+        games: '%{kind} про игры'
+
         horror: '%{kind} в жанре ужасы'
-        sci-fi: '%{kind} в жанре фантастика'
-        yaoi: '%{kind} яой'
+        josei: дзёсэй %{kind}
+
+        magic: '%{kind} про магию'
+        martial_arts: '%{kind} про боевые искусства'
         mecha: меха %{kind}
-        shounen: сёнен %{kind}
-        shounen_ai: сёнен-Ай %{kind}
+
+        police: '%{kind} про полицию'
+
+        school: '%{kind} про школу'
+        sci-fi: '%{kind} в жанре фантастика'
         seinen: сэйнэн %{kind}
         shoujo: сёдзё %{kind}
         shoujo_ai: сёдзё-Ай %{kind}
-        josei: дзёсэй %{kind}
-        fantasy: фэнтези %{kind}
+        shounen: сёнен %{kind}
+        shounen_ai: сёнен-Ай %{kind}
+        space: '%{kind} про космос'
+        sports: '%{kind} про спорт'
+        sumurai: '%{kind} про самураев'
+
         thriller: триллер %{kind}
-        echi: этти %{kind}
+        vampire: '%{kind} про вампиров'
+        yaoi: '%{kind} яой'
         yuri: юри %{kind}
 
       subjective:
@@ -72,3 +78,14 @@ ru:
           historical: исторической манги
           supernatural: сверхъестественной манги
           kids: детской %{kind}
+
+  topics/entry_topic:
+    title: Обсуждение
+    body:
+      anime: Топик обсуждения [%{type}=%{id}]аниме[/%{type}].
+      manga: Топик обсуждения [%{type}=%{id}]манги[/%{type}].
+      character: Топик обсуждения [%{type}=%{id}]персонажа[/%{type}].
+      review: Топик обсуждения [%{type}=%{id}]рецензии[/%{type}].
+      contest: Топик обсуждения [%{type}=%{id}]опроса[/%{type}].
+      club: Топик обсуждения [%{type}=%{id}]клуба[/%{type}].
+      cosplay_gallery: Топик обсуждения косплея.

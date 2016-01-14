@@ -37,28 +37,28 @@ describe Topics::Factory do
     end
 
     context 'review' do
-      let(:topic) { build :review_comment }
+      let(:topic) { build :review_topic }
       it { expect(view).to be_a Topics::ReviewView }
     end
 
     context 'cosplay' do
-      let(:topic) { build :cosplay_comment }
+      let(:topic) { build :cosplay_gallery_topic }
       it { expect(view).to be_a Topics::CosplayView }
     end
 
     context 'contest' do
-      let(:topic) { build :contest_comment, linked: build_stubbed(:contest) }
+      let(:topic) { build :contest_topic, linked: build_stubbed(:contest) }
       it { expect(view).to be_a Topics::ContestView }
     end
 
     context 'anime news' do
       context 'generated' do
-        let(:topic) { build :anime_news, generated: true }
+        let(:topic) { build :news_topic, generated: true }
         it { expect(view).to be_a Topics::GeneratedNewsView }
       end
 
       context 'not generated' do
-        let(:topic) { build :anime_news, generated: false }
+        let(:topic) { build :news_topic, generated: false }
         it { expect(view).to be_a Topics::View }
       end
     end

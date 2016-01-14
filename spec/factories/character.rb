@@ -7,7 +7,6 @@ FactoryGirl.define do
 
     after :build do |character|
       character.stub :generate_thread
-      character.stub :sync_thread
     end
 
     trait :anime do

@@ -90,8 +90,8 @@ series of new conflicts. [br][source]ANN[/source]"
 
   it 'correct score & ranked' do
     data = parser.fetch_entry_data(31143)
-    expect(data[:ranked]).to eq 5967
-    expect(data[:score]).to eq 6.11
+    expect(data[:ranked]).to eq 6289
+    expect(data[:score]).to eq 5.96
   end
 
   it 'fetches anime related' do

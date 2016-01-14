@@ -39,7 +39,7 @@ describe Comment do
       it { expect(comment).to receive :check_access }
     end
 
-    describe '#cancel_review' do
+    describe '#cancel_summary' do
       let(:comment) { build :comment, body: body, review: true }
       before { comment.save }
 
@@ -189,6 +189,25 @@ describe Comment do
       its(:valid?) { should be_falsy }
 
       it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
+    end
+
+    describe '#allowed_summary?' do
+      let(:comment) { build :comment, commentable: commentable }
+
+      context 'Topic commentable' do
+        let(:commentable) { build :topic }
+        it { expect(comment).to_not be_allowed_summary }
+      end
+
+      context 'Topics::EntryTopics::AnimeTopic commentable' do
+        let(:commentable) { build :anime_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
+
+      context 'Topics::EntryTopics::MangaTopic commentable' do
+        let(:commentable) { build :manga_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
     end
   end
 end

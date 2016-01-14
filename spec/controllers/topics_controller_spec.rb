@@ -150,7 +150,14 @@ describe TopicsController do
   end
 
   describe '#create' do
-    let(:topic_params) {{ user_id: user.id, forum_id: animanga_forum.id, title: 'title', text: 'text', linked_id: anime.id, linked_type: Anime.name }}
+    let(:topic_params) {{
+      user_id: user.id,
+      forum_id: animanga_forum.id,
+      title: 'title',
+      body: 'text',
+      linked_id: anime.id,
+      linked_type: Anime.name
+    }}
 
     context 'guest' do
       let(:make_request) { post :create, forum: animanga_forum.to_param, topic: topic_params }
@@ -171,7 +178,7 @@ describe TopicsController do
       end
 
       context 'valid params' do
-        let(:text) { 'test' }
+        let(:body) { 'test' }
         before { post :create, forum: animanga_forum.to_param, topic: topic_params }
 
         it do
@@ -187,7 +194,7 @@ describe TopicsController do
       user_id: user.id,
       forum_id: animanga_forum.id,
       title: 'title',
-      text: 'text',
+      body: 'text',
       linked_id: anime.id,
       linked_type: Anime.name
     }}

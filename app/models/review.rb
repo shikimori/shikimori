@@ -12,7 +12,7 @@ class Review < ActiveRecord::Base
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
   has_one :thread, -> { where linked_type: Review.name },
-    class_name: ReviewComment.name,
+    class_name: Topics::EntryTopics::ReviewTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -62,16 +62,14 @@ class Review < ActiveRecord::Base
     end
   end
 
-  # создание ReviewComment для элемента сразу после создания
   def generate_thread
     FayeService
       .new(user, '')
-      .create(ReviewComment.new(
+      .create!(Topics::EntryTopics::ReviewTopic.new(
+        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
+        generated: true,
         linked: self,
-        user: user,
-        title: "Обзор #{target.class == Anime ? 'аниме' : 'манги'} #{entry.name}",
-        created_at: created_at,
-        updated_at: updated_at,
+        user: user
       ))
   end
 

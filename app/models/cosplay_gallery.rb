@@ -1,6 +1,8 @@
 class CosplayGallery < ActiveRecord::Base
   acts_as_voteable
 
+  belongs_to :user
+
   has_many :image, -> { where(deleted: false).limit(1) },
     class_name: CosplayImage.name
 
@@ -33,7 +35,7 @@ class CosplayGallery < ActiveRecord::Base
     source_type: Character.name
 
   has_one :thread, -> { where linked_type: CosplayGallery.name },
-    class_name: CosplayComment.name,
+    class_name: Topics::EntryTopics::CosplayGalleryTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -72,8 +74,12 @@ class CosplayGallery < ActiveRecord::Base
 
   # полное название галереи
   def title linked = self.send(:any_linked)
-    titles = title_components(linked).map {|c| c.map(&:name).join(' и ') }
+    titles = title_components(linked).map { |c| c.map(&:name).join(' и ') }
     "Косплей #{titles.first} от #{titles.second}".html_safe
+  end
+
+  def name
+    title
   end
 
   def title_components linked
@@ -93,8 +99,8 @@ class CosplayGallery < ActiveRecord::Base
   def self.without_topic
     visible
       .includes(:animes, :mangas, :characters, :thread)
-      .select {|v| !v.thread.present? }
-      .select {|v| v.animes.any? || v.mangas.any? || v.characters.any? }
+      .select { |v| !v.thread.present? }
+      .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
 private
@@ -103,14 +109,17 @@ private
     thread.update_attribute :title, name if thread.title != name
   end
 
-  # создание AniMangaComment для элемента сразу после создания
   def generate_thread
-    create_thread!(
-      user_id: User::COSPLAYER_ID,
-      linked: self,
-      forum_id: Forum::COSPLAY_ID,
-      title: title
-    )
+    publisher = User.find User::COSPLAYER_ID
+
+    FayeService
+      .new(publisher, '')
+      .create!(Topics::EntryTopics::CosplayGalleryTopic.new(
+        forum_id: Forum::COSPLAY_ID,
+        generated: true,
+        linked: self,
+        user: publisher
+      ))
   end
 
   def any_linked

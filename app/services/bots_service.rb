@@ -1,7 +1,5 @@
 # TODO: refactor
 class BotsService
-  @@mutex = Mutex.new
-
   def self.posters
     [16,15,14,13]
   end
@@ -12,13 +10,11 @@ class BotsService
       return user || FactoryGirl.create(:user, nickname: 'bot_poster', email: 'bot_poster@gmail.com')
     end
 
-    @@mutex.synchronize do
-      @@aka ||= User.find(16)
-      @@minatsu ||= User.find(15)
-      @@chizuru ||= User.find(14)
-      @@mafuyu ||= User.find(13)
-      @@posters ||= [@@aka, @@minatsu, @@chizuru, @@mafuyu]
-    end
+    @@aka ||= User.find(16)
+    @@minatsu ||= User.find(15)
+    @@chizuru ||= User.find(14)
+    @@mafuyu ||= User.find(13)
+    @@posters ||= [@@aka, @@minatsu, @@chizuru, @@mafuyu]
 
     @@posters.sample
   end

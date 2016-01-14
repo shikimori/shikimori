@@ -16,11 +16,12 @@ class AniMangaDecorator < DbEntryDecorator
   def topics
     object
       .topics
-      .wo_empty_generated
+      .where.not(updated_at: nil)
       .includes(:forum)
       .limit(TopicsPerPage)
       .order(:updated_at)
-      .map { |topic| format_menu_topic topic, :updated_at }
+      .map { |topic| Topics::Factory.new(false, false).build topic }
+      .map { |topic_view| format_menu_topic topic_view, :updated_at }
   end
 
   # новости
@@ -30,7 +31,8 @@ class AniMangaDecorator < DbEntryDecorator
       .includes(:forum)
       .limit(NewsPerPage)
       .order(:created_at)
-      .map { |topic| format_menu_topic topic, :created_at }
+      .map { |topic| Topics::Factory.new(false, false).build topic }
+      .map { |topic_view| format_menu_topic topic_view, :created_at }
   end
 
   # число обзоров
@@ -202,15 +204,17 @@ class AniMangaDecorator < DbEntryDecorator
 
 private
 
-  def format_menu_topic topic, order
+  def format_menu_topic topic_view, order
     {
-      date: h.time_ago_in_words(topic.send(order), i18n_t('time_ago_format')),
-      id: topic.id,
-      #name: topic.to_s,
-      name: topic.to_s,
-      title: topic.title,
-      tooltip: topic.action == AnimeHistoryAction::Episode,
-      url: UrlGenerator.instance.topic_url(topic)
+      date: h.time_ago_in_words(
+        topic_view.send(order) || topic_view.created_at || topic_view.updated_at,
+        i18n_t('time_ago_format')
+      ),
+      id: topic_view.id,
+      name: topic_view.topic_title,
+      title: topic_view.topic_title,
+      tooltip: topic_view.topic.action == AnimeHistoryAction::Episode,
+      url: topic_view.urls.topic_url
     }
   end
 

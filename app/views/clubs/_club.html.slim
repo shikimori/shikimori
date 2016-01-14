@@ -4,7 +4,12 @@
   ]
   - if content_by == :detailed
     a href="#{club_url club, subdomain: false}" title="#{club.name}"
-      img.logo src="#{cdn_image club, :x48}" srcset="#{cdn_image club, :x96} 2x" alt="#{club.name}" title="#{club.name}"
+      img.logo[
+        src="#{cdn_image club, :x48}"
+        srcset="#{cdn_image club, :x96} 2x"
+        alt="#{club.name}"
+        title="#{club.name}"
+      ]
     a.name href="#{club_url club, subdomain: false}" title="#{club.name}"
       = club.name
     .info
@@ -17,13 +22,22 @@
     .info.author
       .b-user16
         a href="#{profile_url club.owner}" title="#{club.owner.nickname}"
-          img src="#{club.owner.avatar_url 16}" srcset="#{club.owner.avatar_url 32} 2x" alt="#{club.owner.nickname}" title="#{club.owner.nickname}"
-          span
-            = club.owner.nickname
+          img[
+            src="#{club.owner.avatar_url 16}"
+            srcset="#{club.owner.avatar_url 32} 2x"
+            alt="#{club.owner.nickname}"
+            title="#{club.owner.nickname}"
+          ]
+          span = club.owner.nickname
 
   - elsif content_by == :avatar
     a href="#{club_url club, subdomain: false}" title="#{club.name}"
-      img.logo src="#{cdn_image club, :x48}" srcset="#{cdn_image club, :x96} 2x" alt="#{club.name}" title="#{club.name}"
+      img.logo[
+        src="#{cdn_image club, :x48}"
+        srcset="#{cdn_image club, :x96} 2x"
+        alt="#{club.name}"
+        title="#{club.name}"
+      ]
 
   - else
     - raise ArgumentError, content_by

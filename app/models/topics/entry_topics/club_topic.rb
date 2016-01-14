@@ -1,4 +1,4 @@
-class ClubComment < AniMangaComment
+class Topics::EntryTopics::ClubTopic < Topics::EntryTopic
   include PermissionsPolicy
 
   # текст топика

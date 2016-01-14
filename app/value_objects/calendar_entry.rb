@@ -31,8 +31,12 @@ class CalendarEntry < SimpleDelegator
   end
 
   def next_episode_at
-    if anime.next_episode_at.blank? && episode_start_at.present?
+    if anime.next_episode_at.present?
+      anime.next_episode_at
+
+    elsif episode_start_at.present?
       episode_start_at
+
     else
       anime.aired_on.to_datetime
     end

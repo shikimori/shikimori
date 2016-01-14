@@ -11,7 +11,7 @@ class Entry < ActiveRecord::Base
   belongs_to :linked, polymorphic: true
   belongs_to :user
 
-  validates :forum, presence: true unless Rails.env.test?
+  validates :forum, :user, presence: true
 
   has_many :messages,
     -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
@@ -26,10 +26,6 @@ class Entry < ActiveRecord::Base
   # before_destroy :destroy_images
   # after_save :claim_images
 
-  # видимые топики
-  scope :wo_empty_generated, -> {
-    where '(comments_count > 0 and generated = true) or generated = false'
-  }
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> {
     where 'action is null or action != ?', AnimeHistoryAction::Episode
@@ -39,6 +35,10 @@ class Entry < ActiveRecord::Base
     "%d-%s" % [id, permalink]
   end
 
+  def permalink
+    title.permalinked
+  end
+
   def cache_key
     "#{super}-#{Digest::MD5.hexdigest(body || '')}"
   end
@@ -46,10 +46,6 @@ class Entry < ActiveRecord::Base
   # базовый класс для комментариев
   def base_class
     Entry
-  end
-
-  def body
-    text
   end
 
   # прочтен ли топик?
@@ -75,15 +71,9 @@ class Entry < ActiveRecord::Base
     self.class.record_timestamps = true
   end
 
-  def title= value
-    super value
-    self.permalink = self.to_s.permalinked if value.present?
-    value
-  end
-
-  def to_s
-    self.title
-  end
+  # def to_s
+    # self.title
+  # end
 
   # оффтопик ли это? для совместимости с интерфейсом отображения комментариев
   def offtopic?
@@ -110,19 +100,16 @@ class Entry < ActiveRecord::Base
     news? && generated?
   end
 
-  # топик ли это обзора?
   def review?
-    self.class == ReviewComment
+    is_a? Topics::EntryTopics::ReviewTopic
   end
 
-  # топик ли это косплей?
   def cosplay?
-    self.class == CosplayComment
+    is_a? Topics::EntryTopics::CosplayGalleryTopic
   end
 
-  # по опросу ли данный топик
   def contest?
-    self.class == ContestComment
+    is_a? Topics::EntryTopics::ContestTopic
   end
 
   # def user_image_ids value=self.value
@@ -147,20 +134,20 @@ class Entry < ActiveRecord::Base
   # end
 
   # оригинальный текст без сгенерированных автоматом тегов
-  def original_text
+  def original_body
     if generated?
-      text
+      body
     else
-      (text || '').sub(NEWS_WALL, '')
+      (body || '').sub(NEWS_WALL, '')
     end
   end
 
   # сгенерированные автоматом теги
-  def appended_text
+  def appended_body
     if generated?
       ''
     else
-      (text || '')[NEWS_WALL] || ''
+      (body || '')[NEWS_WALL] || ''
     end
   end
 
@@ -177,14 +164,14 @@ class Entry < ActiveRecord::Base
     end
 
     if bb_images.any?
-      self.text = "#{original_text}\n[wall]#{bb_images.join ''}[/wall]"
+      self.body = "#{original_body}\n[wall]#{bb_images.join ''}[/wall]"
     else
-      self.text = original_text
+      self.body = original_body
     end
   end
 
   def wall_images
-    ids = appended_text.scan(WALL_ENTRY).map { |v| v[0].to_i }
+    ids = appended_body.scan(WALL_ENTRY).map { |v| v[0].to_i }
     UserImage.where(id: ids).sort_by { |v| ids.index v.id }
   end
 

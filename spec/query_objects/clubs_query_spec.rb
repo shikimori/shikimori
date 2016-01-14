@@ -22,12 +22,12 @@ describe ClubsQuery do
 
     context 'first_page' do
       let(:page) { 1 }
-      it { should eq [club_1, club_3, club_4] }
+      it { is_expected.to eq [club_1, club_3, club_4] }
     end
 
     context 'second_page' do
       let(:page) { 2 }
-      it { should eq [club_4] }
+      it { is_expected.to eq [club_4] }
     end
   end
 
@@ -37,12 +37,12 @@ describe ClubsQuery do
 
     context 'first_page' do
       let(:page) { 1 }
-      it { should eq [[club_1, club_3], true] }
+      it { is_expected.to eq [[club_1, club_3], true] }
     end
 
     context 'second_page' do
       let(:page) { 2 }
-      it { should eq [[club_4], false] }
+      it { is_expected.to eq [[club_4], false] }
     end
   end
 end

@@ -1,4 +1,4 @@
-class CosplayComment < AniMangaComment
+class Topics::EntryTopics::CosplayGalleryTopic < Topics::EntryTopic
   def title
     gallery_linked = linked.animes.first || linked.mangas.first ||
       linked.characters.first

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151231152733) do
+ActiveRecord::Schema.define(version: 20160114104939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -433,13 +433,12 @@ ActiveRecord::Schema.define(version: 20151231152733) do
 
   create_table "entries", force: :cascade do |t|
     t.string   "title",          limit: 255
-    t.string   "permalink",      limit: 255
     t.integer  "user_id"
     t.integer  "forum_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type",           limit: 255
-    t.text     "text"
+    t.text     "body"
     t.boolean  "generated",                  default: false
     t.integer  "linked_id"
     t.string   "linked_type",    limit: 255

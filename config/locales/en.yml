@@ -346,7 +346,7 @@ en:
         review: summary
         spoiler: spoiler
         abuse: abuse
-    anime_news:
+    topics/news_topic:
       action:
         anons: planned
         ongoing: ongoing

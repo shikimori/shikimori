@@ -40,7 +40,7 @@ class Club < ActiveRecord::Base
     dependent: :destroy
 
   has_one :thread, -> { where linked_type: Club.name },
-    class_name: ClubComment.name,
+    class_name: Topics::EntryTopics::ClubTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -52,7 +52,6 @@ class Club < ActiveRecord::Base
   before_save :update_permalink
   after_create :join_owner
   after_create :generate_thread
-  after_save :sync_thread
 
   has_attached_file :logo,
     styles: {
@@ -144,20 +143,14 @@ private
     self.permalink = self.name.permalinked if self.changes.include? :name
   end
 
-  def sync_thread
-    thread.update_attribute :title, name if thread.title != name
-  end
-
-  # создание ClubComment для элемента сразу после создания
   def generate_thread
     FayeService
       .new(owner, '')
-      .create(ClubComment.new(
-        linked: self,
+      .create!(Topics::EntryTopics::ClubTopic.new(
         forum_id: Forum::CLUBS_ID,
-        title: name,
-        created_at: created_at,
-        updated_at: updated_at,
+        generated: true,
+        linked: self,
+        user: owner
       ))
   end
 

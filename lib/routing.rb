@@ -22,7 +22,9 @@ module Routing
     if topic.kind_of?(User)
       profile_url topic, subdomain: false
 
-    elsif topic.kind_of?(ContestComment) || (topic.news? && topic.action != 'episode') || topic.review?
+    elsif topic.kind_of?(Topics::EntryTopics::ContestTopic) ||
+        (topic.news? && !topic.generated?) || topic.review?
+
       forum_topic_url(
         id: topic,
         forum: topic.forum,
@@ -35,7 +37,7 @@ module Routing
       forum_topic_url(
         id: topic,
         forum: topic.forum,
-        linked_type: topic.linked.class.name.downcase,
+        linked_type: topic.linked.class.name.underscore,
         linked_id: topic.linked.to_param,
         format: format,
         subdomain: false
@@ -47,7 +49,7 @@ module Routing
     if linked
       forum_topics_url forum,
         linked_id: linked.to_param,
-        linked_type: linked.class.name.downcase
+        linked_type: linked.class.name.underscore
     else
       forum_topics_url forum
     end

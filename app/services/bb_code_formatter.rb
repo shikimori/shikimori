@@ -47,8 +47,8 @@ class BbCodeFormatter
   end
 
   # форматирование текста комментариев
-  def format_comment original_text
-    text = (original_text || '').fix_encoding.strip
+  def format_comment original_body
+    text = (original_body || '').fix_encoding.strip
     text = remove_wiki_codes text
     text = strip_malware text
     text = user_mention text
@@ -61,9 +61,9 @@ class BbCodeFormatter
 
   # обработка ббкодов текста
   # TODO: перенести весь код ббкодов сюда или в связанные классы
-  def bb_codes original_text
-    text_hash = XXhash.xxh32 original_text, 0
-    text = original_text.gsub %r{\r\n|\r|\n}, '<br>'
+  def bb_codes original_body
+    text_hash = XXhash.xxh32 original_body, 0
+    text = original_body.gsub %r{\r\n|\r|\n}, '<br>'
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash

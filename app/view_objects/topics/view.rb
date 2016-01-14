@@ -121,7 +121,7 @@ class Topics::View < ViewObjectBase
   end
 
   def html_footer
-    BbCodeFormatter.instance.format_comment topic.appended_text
+    BbCodeFormatter.instance.format_comment topic.appended_body
   end
 
   # для совместимости с комментариями для рендера тултипа
@@ -143,6 +143,6 @@ private
   end
 
   def topic_body
-    topic.original_text
+    topic.original_body
   end
 end

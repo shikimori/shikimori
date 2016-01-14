@@ -1,10 +1,13 @@
-- preview_url = defined?(comment) && comment.kind_of?(Message) ? preview_messages_url : preview_comments_url
-- item_type = defined?(comment) && comment.kind_of?(Message) ? 'message' : 'comment'
+- preview_url = defined?(comment) && comment.kind_of?(Message) ? \
+    preview_messages_url : preview_comments_url
+
+- item_type = defined?(comment) && comment.kind_of?(Message) ? \
+    'message' : 'comment'
 
 - if defined?(f)
   - if comment.new_record?
     aside.markers
-      - if comment.kind_of?(Comment) && comment.commentable.instance_of?(AniMangaComment)
+      - if comment.try :allowed_summary?
         .b-review_marker.active[
           class="#{:off unless comment.review?}"
           data-text="#{t 'markers.summary'}"

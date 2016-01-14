@@ -8,18 +8,16 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def action_tag
-    OpenStruct.new(
-      type: topic.action,
-      text: topic.episode? ?
-        "#{topic.action_text} #{topic.value}" :
-        topic.action_text
-    )
+    OpenStruct.new type: topic.action, text: topic.title.downcase
+  end
+
+  def poster_title
+    h.localized_name topic.linked
   end
 
   def topic_title
     if !is_preview
-      # TODO: localize all news titles
-      topic.title
+      i18n_t "titles.#{topic.action}", value: topic.value
     else
       super
     end

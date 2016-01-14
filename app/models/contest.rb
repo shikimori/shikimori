@@ -24,7 +24,7 @@ class Contest < ActiveRecord::Base
     dependent: :destroy
 
   has_one :thread, -> { where linked_type: Contest.name },
-    class_name: ContestComment.name,
+    class_name: Topics::EntryTopics::ContestTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -192,13 +192,14 @@ private
     thread.update title: title if thread && thread.title != title
   end
 
-  # создание AniMangaComment для элемента сразу после создания
   def generate_thread
-    create_thread!(
-      linked: self,
-      forum_id: Forum::CONTESTS_ID,
-      user: user,
-      generated: true
-    )
+    FayeService
+      .new(user, '')
+      .create!(Topics::EntryTopics::ContestTopic.new(
+        forum_id: Forum::CONTESTS_ID,
+        generated: true,
+        linked: self,
+        user: user
+      ))
   end
 end

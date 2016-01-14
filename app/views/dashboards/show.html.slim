@@ -1,3 +1,6 @@
+- content_for :head do
+  = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
+
 .midheadline
   = t '.currently_airing'
   / a.b-link[

@@ -154,7 +154,7 @@ class AnimeOnline::VideoPlayer
 
   def episode_thread
     thread = anime.object.topics.find_by(
-      type: AnimeNews.name,
+      type: Topics::NewsTopic.name,
       action: :episode,
       value: current_episode
     )

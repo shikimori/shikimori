@@ -15,7 +15,7 @@ describe FayeService do
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :created }
       let(:body) { 'test' }
 
-      it { should be true }
+      it { is_expected.to be true }
       describe 'trackable' do
         before { act }
         it { expect(trackable).to be_persisted }
@@ -26,11 +26,36 @@ describe FayeService do
       before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
-      it { should be false }
+      it { is_expected.to be false }
       describe 'trackable' do
         before { act }
         it { expect(trackable).to be_new_record }
       end
+    end
+  end
+
+  describe '#create!' do
+    let(:trackable) { build :comment, commentable: topic, body: body }
+    subject(:act) { service.create! trackable }
+
+    context 'success' do
+      before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
+      before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :created }
+      let(:body) { 'test' }
+
+      it { is_expected.to be_nil }
+
+      describe 'trackable' do
+        before { act }
+        it { expect(trackable).to be_persisted }
+      end
+    end
+
+    context 'failure' do
+      before { expect_any_instance_of(FayePublisher).not_to receive :publish }
+      let(:body) { nil }
+
+      it { expect{act}.to raise_error ActiveRecord::RecordInvalid }
     end
   end
 
@@ -44,7 +69,7 @@ describe FayeService do
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :updated }
       let(:body) { 'test' }
 
-      it { should be true }
+      it { is_expected.to be true }
       describe 'trackable' do
         before { act }
         it { expect(trackable).to be_valid }
@@ -55,7 +80,7 @@ describe FayeService do
       before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
-      it { should be false }
+      it { is_expected.to be false }
       describe 'trackable' do
         before { act }
         it { expect(trackable).to_not be_valid }
@@ -70,7 +95,7 @@ describe FayeService do
       before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
       before { expect_any_instance_of(FayePublisher).to receive(:publish).with an_instance_of(trackable.class), :deleted }
       let(:trackable) { create :comment, user: user }
-      it { should_not be_persisted }
+      it { is_expected.to_not be_persisted }
     end
 
     context 'message' do
@@ -79,13 +104,13 @@ describe FayeService do
       context 'private' do
         let(:trackable) { create :message, :private, to: user }
 
-        it { should be_persisted }
-        its(:is_deleted_by_to) { should be_truthy }
+        it { is_expected.to be_persisted }
+        its(:is_deleted_by_to) { is_expected.to be_truthy }
       end
 
       context 'notification' do
         let(:trackable) { create :message, :notification, to: user }
-        it { should_not be_persisted }
+        it { is_expected.to_not be_persisted }
       end
     end
   end
@@ -98,7 +123,7 @@ describe FayeService do
     before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
     before { expect_any_instance_of(FayePublisher).to receive(:publish_marks).with [comment.id], 'offtopic', is_offtopic }
 
-    it { should eq [comment.id] }
+    it { is_expected.to eq [comment.id] }
 
     describe 'comment' do
       before { act }
@@ -123,7 +148,7 @@ describe FayeService do
     before { expect(FayePublisher).to receive(:new).with(user, faye).and_return publisher }
     before { expect_any_instance_of(FayePublisher).to receive(:publish_marks).with [comment.id], 'review', is_review }
 
-    it { should eq [comment.id] }
+    it { is_expected.to eq [comment.id] }
 
     describe 'comment' do
       before { act }

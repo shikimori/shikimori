@@ -30,14 +30,14 @@ class PeopleJobsActualzier
 
   def mangaka_ids
     PersonRole
-      .where(role: Person::MangakaRoles)
+      .where(role: Person::MANGAKA_ROLES)
       .pluck(:person_id)
       .uniq
   end
 
   def seyu_ids
     PersonRole
-      .where(role: Person::SeyuRoles)
+      .where(role: Person::SEYU_ROLES)
       .pluck(:person_id)
       .uniq
   end

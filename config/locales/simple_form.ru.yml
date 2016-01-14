@@ -42,8 +42,7 @@ ru:
       topic:
         type:
           Topic: Топик
-          AnimeNews: Новость об аниме
-          MangaNews: Новость о манге
+          Topics::NewsTopic: Новостной топик
       user:
         sex:
           male: муж.

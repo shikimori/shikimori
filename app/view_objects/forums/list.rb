@@ -14,7 +14,7 @@ class Forums::List  < ViewObjectBase
 private
 
   def forums
-    Rails.cache.fetch([:forums, :v3, Entry.last.id], expires_in: 2.weeks) do
+    Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
       Forum.visible.map { |forum| decorate forum, false } +
         Array(decorate Forum::NEWS_FORUM, true) +
         Array(decorate Forum.find_by_permalink('reviews'), true) +
@@ -41,5 +41,9 @@ private
     h.current_user
   rescue NoMethodError
     nil
+  end
+
+  def cache_key
+    [:forums, :v3, Entry.last.id]
   end
 end

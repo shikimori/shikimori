@@ -46,7 +46,7 @@ class Manga < DbEntry
     dependent: :destroy
 
   has_many :news, -> { order created_at: :desc },
-    class_name: MangaNews.name,
+    class_name: Topics::NewsTopic.name,
     as: :linked
 
   has_many :similar, -> { order id: :desc },

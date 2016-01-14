@@ -8,7 +8,6 @@ FactoryGirl.define do
 
     after :build do |club|
       club.stub :generate_thread
-      club.stub :sync_thread
       club.stub :join_owner
     end
 

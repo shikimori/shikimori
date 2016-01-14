@@ -119,7 +119,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 1
+        expect{subject}.to change(Topics::NewsTopic, :count).by 1
         expect(anime.episodes_aired).to eq 2
       end
     end
@@ -134,7 +134,7 @@ describe TorrentsParser do
       end
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 3
+        expect{subject}.to change(Topics::NewsTopic, :count).by 3
         expect(anime.episodes_aired).to eq 4
       end
     end
@@ -143,7 +143,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 0
+        expect{subject}.to change(Topics::NewsTopic, :count).by 0
         expect(anime.episodes_aired).to eq episodes_aired
       end
     end
@@ -153,7 +153,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 1
+        expect{subject}.to change(Topics::NewsTopic, :count).by 1
         expect(anime.episodes_aired).to eq 6
       end
     end
@@ -162,7 +162,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to_not change AnimeNews, :count
+        expect{subject}.to_not change Topics::NewsTopic, :count
         expect(anime.episodes_aired).to eq episodes_aired
       end
     end
@@ -173,7 +173,7 @@ describe TorrentsParser do
       let(:feed) {[ { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' } ]}
 
       it do
-        expect{subject}.to change(AnimeNews, :count).by 1
+        expect{subject}.to change(Topics::NewsTopic, :count).by 1
         expect(anime.episodes_aired).to eq 99
       end
     end
