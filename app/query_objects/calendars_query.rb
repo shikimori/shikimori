@@ -49,18 +49,19 @@ private
   # сортировка выборки
   def sort entries
     entries.sort_by do |v|
-      if v.ongoing? && (v.episode_end_at || v.next_episode_at || v.episodes_news.any?)
-        if v.episode_end_at
-          v.episode_end_at.to_i
+      if v.ongoing? && (v.episode_start_at || v.next_episode_at || v.episodes_news.any?)
+        if v.episode_start_at
+          v.episode_start_at
         else
           if v.next_episode_at
-            v.next_episode_at.to_i
+            v.next_episode_at
           else
-            v.episodes_news.first.created_at.to_i + v.average_interval
+            seconds = v.episodes_news.first.created_at.to_i + v.average_interval
+            DateTime.strptime("#{seconds}", '%s')
           end
         end
       else
-        (v.episode_end_at || v.aired_on).to_datetime.to_i
+        (v.episode_start_at || v.aired_on).to_datetime
       end
     end
   end

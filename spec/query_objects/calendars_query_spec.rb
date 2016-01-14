@@ -1,7 +1,7 @@
 describe CalendarsQuery do
   let(:query) { CalendarsQuery.new }
 
-  before { Timecop.freeze '28-12-2015' }
+  before { Timecop.freeze '28-12-2015 00:00:00' }
   after { Timecop.return }
 
   context 'common calendar' do
@@ -12,16 +12,15 @@ describe CalendarsQuery do
     let!(:anime_4) { create :anime, :ongoing, :ova, name: '4' }
     let!(:anime_5) { create :anime, :ongoing, name: '5', episodes_aired: 0, aired_on: Time.zone.now - 1.day - 1.month }
 
-    let!(:anime_6) { create :anime, :anons, name: '6', aired_on: 2.day.from_now }
-    let!(:anime_7) { create :anime, :anons, name: '7', aired_on: 3.days.from_now }
-    let!(:anime_8) { create :anime, :anons, name: '8', aired_on: 3.days.from_now }
-
+    let!(:anime_6) { create :anime, :anons, name: '6', aired_on: 1.day.from_now }
+    let!(:anime_7) { create :anime, :anons, name: '7', aired_on: 2.days.from_now }
+    let!(:anime_8) { create :anime, :anons, name: '8', aired_on: 2.days.from_now }
 
     it do
       expect(query.send :fetch_ongoings).to eq [anime_2, anime_3]
       expect(query.send :fetch_anonses).to eq [anime_6, anime_7, anime_8]
       expect(query.fetch).to eq [anime_2, anime_3, anime_6, anime_7, anime_8]
-      expect(query.fetch_grouped).to have(2).items
+      expect(query.fetch_grouped).to have(3).items
     end
   end
 
