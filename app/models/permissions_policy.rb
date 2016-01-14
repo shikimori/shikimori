@@ -72,7 +72,7 @@ module PermissionsPolicy
   end
 
   # права на действия с Топиком группы
-  module ClubCommentPermissions
+  module Topics::EntryTopics::ClubTopicPermissions
     # может ли комментарий быть создан пользователем
     def can_be_commented_by?(comment)
       if linked.free_comment?

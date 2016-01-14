@@ -102,17 +102,17 @@ class Entry < ActiveRecord::Base
 
   # топик ли это обзора?
   def review?
-    self.class == ReviewComment
+    linked_type == Review.name && generated?
   end
 
   # топик ли это косплей?
   def cosplay?
-    self.class == CosplayComment
+    linked_type == CosplayGallery.name && generated?
   end
 
   # по опросу ли данный топик
   def contest?
-    self.class == ContestComment
+    linked_type == Contest.name && generated?
   end
 
   # def user_image_ids value=self.value

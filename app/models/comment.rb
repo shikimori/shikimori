@@ -1,4 +1,5 @@
 # комментарии должны создаваться, обновляться и удаляться через CommentsService
+# TODO: refactor fat model
 class Comment < ActiveRecord::Base
   include PermissionsPolicy
   include Moderatable
@@ -33,7 +34,7 @@ class Comment < ActiveRecord::Base
   before_validation :forbid_ban_change
 
   before_create :check_access
-  before_create :cancel_review
+  before_create :cancel_summary
 
   after_create :increment_comments
   after_create :creation_callbacks
@@ -70,7 +71,7 @@ class Comment < ActiveRecord::Base
   end
 
   # отмена метки отзыва для коротких комментариев
-  def cancel_review
+  def cancel_summary
     self.review = false if review? && body.size < MIN_REVIEW_SIZE
     true
   end
@@ -227,5 +228,10 @@ class Comment < ActiveRecord::Base
         errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')
       end
     end
+  end
+
+  def allowed_summary?
+    commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
+      commentable.instance_of?(Topics::EntryTopics::MangaTopic)
   end
 end

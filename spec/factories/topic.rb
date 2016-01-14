@@ -5,21 +5,21 @@ FactoryGirl.define do
     sequence(:title) { |n| "topic_#{n}" }
     sequence(:body) { |n| "topic_text_#{n}" }
 
-    factory :review_comment, class: 'ReviewComment' do
-      type 'ReviewComment'
+    factory :review_topic, class: 'Topics::EntryTopics::ReviewTopic' do
+      type 'Topics::EntryTopics::ReviewTopic'
       forum { seed :reviews_forum }
     end
 
-    factory :cosplay_comment, class: 'CosplayComment' do
-      type 'CosplayComment'
+    factory :cosplay_gallery_topic, class: 'Topics::EntryTopics::CosplayGalleryTopic' do
+      type 'Topics::EntryTopics::CosplayGalleryTopic'
     end
 
-    factory :contest_comment, class: 'ContestComment' do
-      type 'ContestComment'
+    factory :contest_topic, class: 'Topics::EntryTopics::ContestTopic' do
+      type 'Topics::EntryTopics::ContestTopic'
     end
 
-    factory :club_comment, class: 'ClubComment' do
-      type 'ClubComment'
+    factory :club_topic, class: 'Topics::EntryTopics::ClubTopic' do
+      type 'Topics::EntryTopics::ClubTopic'
     end
 
     factory :news_topic, class: 'Topics::NewsTopic' do

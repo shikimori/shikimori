@@ -1,4 +1,4 @@
-class ReviewComment < AniMangaComment
+class Topics::EntryTopics::ReviewTopic < Topics::EntryTopic
   # def to_s
     # title
   # end

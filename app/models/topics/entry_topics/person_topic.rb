@@ -1,4 +1,4 @@
-class PersonComment < AniMangaComment
+class Topics::EntryTopics::PersonTopic < Topics::EntryTopic
   # текст топика
   def text
     "Обсуждение [person=#{linked_id}]#{human_role}[/person]."

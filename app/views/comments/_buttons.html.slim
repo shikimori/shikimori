@@ -73,7 +73,7 @@ aside.buttons
       data-direction='top'
     ]
 
-    - if comment.kind_of?(Comment) && comment.commentable.instance_of?(AniMangaComment)
+    - if comment.try :allowed_summary?
       span.item-review.b-tooltipped.unprocessed[
         class="#{:selected if comment.review?}"
         title='Отзыв'

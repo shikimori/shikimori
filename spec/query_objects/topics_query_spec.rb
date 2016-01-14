@@ -66,7 +66,7 @@ describe TopicsQuery do
       let!(:generated_news) { create :news_topic, created_at: 1.day.ago, generated: true }
       let!(:anime_news) { create :news_topic, created_at: 1.day.ago }
       let!(:manga_news) { create :news_topic, created_at: 2.days.ago }
-      let!(:cosplay_news) { create :cosplay_comment, created_at: 3.days.ago,
+      let!(:cosplay_news) { create :cosplay_gallery_topic, created_at: 3.days.ago,
         linked: cosplay_gallery }
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
       before { query.by_forum Forum::NEWS_FORUM }

@@ -4,7 +4,7 @@ describe Forums::Menu do
   let(:user) { seed :user }
 
   describe '#clubs' do
-    let!(:club_comment) { create :club_comment, linked: create(:club) }
+    let!(:club_topic) { create :club_topic, linked: create(:club) }
     it { expect(view.clubs).to eq [club_comment] }
   end
 

@@ -50,7 +50,7 @@ describe Review do
     it 'creates thread' do
       expect {
         create :review, target: create(:anime)
-      }.to change(ReviewComment, :count).by 1
+      }.to change(Topics::EntryTopics::ReviewTopic, :count).by 1
     end
   end
 

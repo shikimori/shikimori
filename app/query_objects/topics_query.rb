@@ -3,7 +3,7 @@ class TopicsQuery < ChainableQueryBase
 
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = "(
-    type = #{Entry.sanitize ClubComment.name} and
+    type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
     #{Entry.table_name}.linked_id in (:user_clubs)
   )"
 
@@ -21,7 +21,7 @@ class TopicsQuery < ChainableQueryBase
         if @user
           user_forums
         else
-          where_not type: ClubComment.name
+          where_not type: Topics::EntryTopics::ClubTopic.name
         end
 
       when 'reviews'
@@ -29,7 +29,9 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when Forum::NEWS_FORUM.permalink
-        where type: [Topics::NewsTopic.name, CosplayComment.name]
+        where type: [
+          Topics::NewsTopic.name, Topics::EntryTopics::CosplayGalleryTopic.name
+        ]
         where generated: false
         order! created_at: :desc
 

@@ -192,7 +192,6 @@ private
     thread.update title: title if thread && thread.title != title
   end
 
-  # создание AniMangaComment для элемента сразу после создания
   def generate_thread
     create_thread!(
       linked: self,

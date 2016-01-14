@@ -35,7 +35,7 @@ class CosplayGallery < ActiveRecord::Base
     source_type: Character.name
 
   has_one :thread, -> { where linked_type: CosplayGallery.name },
-    class_name: CosplayComment.name,
+    class_name: Topics::EntryTopics::CosplayGalleryTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -105,13 +105,12 @@ private
     thread.update_attribute :title, name if thread.title != name
   end
 
-  # создание AniMangaComment для элемента сразу после создания
   def generate_thread
     publisher = User.find User::COSPLAYER_ID
 
     FayeService
       .new(publisher, '')
-      .create(CosplayComment.new(
+      .create(Topics::EntryTopics::CosplayGalleryTopic.new(
         user: publisher,
         linked: self,
         forum_id: Forum::COSPLAY_ID,

@@ -2,7 +2,10 @@ describe Api::V1::TopicsController, :show_in_doc do
   include_context :seeds
 
   describe '#index' do
-    let!(:topic) { create :entry, forum: animanga_forum, body: 'test [spoiler=спойлер]test[/spoiler] test' }
+    let!(:topic) do
+      create :entry, forum: animanga_forum,
+        body: 'test [spoiler=спойлер]test[/spoiler] test'
+    end
     before { get :index, forum: animanga_forum.permalink, format: :json }
 
     it do
@@ -13,7 +16,10 @@ describe Api::V1::TopicsController, :show_in_doc do
 
   describe '#show' do
     let(:review) { create :review }
-    let(:topic) { create :review_comment, linked: review, body: 'test [spoiler=спойлер]test[/spoiler] test' }
+    let(:topic) do
+      create :review_topic, linked: review,
+        body: 'test [spoiler=спойлер]test[/spoiler] test'
+    end
 
     before { get :show, id: topic.id, format: :json }
 

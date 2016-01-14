@@ -62,7 +62,7 @@ describe Anime do
         is_expected.to be_persisted
         is_expected.to have_attributes(
           linked: anime,
-          type: AniMangaComment.name,
+          type: Topics::EntryTopic.name,
           created_at: anime.created_at,
           updated_at: nil
         )

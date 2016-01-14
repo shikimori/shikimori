@@ -40,7 +40,7 @@ class Club < ActiveRecord::Base
     dependent: :destroy
 
   has_one :thread, -> { where linked_type: Club.name },
-    class_name: ClubComment.name,
+    class_name: Topics::EntryTopics::ClubTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
@@ -148,16 +148,12 @@ private
     thread.update_attribute :title, name if thread.title != name
   end
 
-  # создание ClubComment для элемента сразу после создания
   def generate_thread
     FayeService
       .new(owner, '')
-      .create(ClubComment.new(
+      .create(Topics::EntryTopics::ClubTopic.new(
         linked: self,
         forum_id: Forum::CLUBS_ID,
-        #TODO: title должен генериться автоматически и локализовываться
-        # в зависимости от нстроек пользователя
-        title: name,
         generated: true,
         created_at: created_at,
         updated_at: updated_at,

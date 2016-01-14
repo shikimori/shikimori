@@ -10,44 +10,74 @@ en:
     default_title: '%{name} %{kind}'
     title:
       common: &common
-        magic: '%{kind} about magic'
-        space: '%{kind} about space'
-        demons: '%{kind} about demons'
-        vampire: '%{kind} about vampires'
-        mystery: '%{kind} about mysteries'
-        school: '%{kind} about school'
-        police: '%{kind} about police'
-        sports: '%{kind} about sport'
-        games: '%{kind} about games'
-        martial_arts: '%{kind} about martial arts'
-        sumurai: '%{kind} about samurais'
         adventure: '%{kind} about adventures'
-        drama: drama %{kind}
-        horror: horror %{kind}
-        sci-fi: sci-fi %{kind}
         comedy: comedy %{kind}
-        romance: romance %{kind}
+        demons: '%{kind} about demons'
+        drama: drama %{kind}
+        echi: echi %{kind}
+        fantasy: fantasy %{kind}
+        games: '%{kind} about games'
         historical: historical %{kind}
-        supernatural: supernatural %{kind}
-        yaoi: yaoi %{kind}
+        horror: horror %{kind}
+        josei: josei %{kind}
         kids: kids %{kind}
+        magic: '%{kind} about magic'
+        martial_arts: '%{kind} about martial arts'
         mecha: mecha %{kind}
-        shounen: shounen %{kind}
-        shounen_ai: shounen-ai %{kind}
+        mystery: '%{kind} about mysteries'
+        police: '%{kind} about police'
+        romance: romance %{kind}
+        school: '%{kind} about school'
+        sci-fi: sci-fi %{kind}
         seinen: seinen %{kind}
         shoujo: shoujo %{kind}
         shoujo_ai: shoujo-ai %{kind}
-        josei: josei %{kind}
-        fantasy: fantasy %{kind}
+        shounen: shounen %{kind}
+        shounen_ai: shounen-ai %{kind}
+        space: '%{kind} about space'
+        sports: '%{kind} about sport'
+        sumurai: '%{kind} about samurais'
+        supernatural: supernatural %{kind}
         thriller: thriller %{kind}
-        echi: echi %{kind}
+        vampire: '%{kind} about vampires'
+        yaoi: yaoi %{kind}
         yuri: yuri %{kind}
 
       subjective: &subjective
         anime:
           <<: *common
+
+
+
+
+
+
         manga:
           <<: *common
 
+
+
+
+
+
+
       genitive:
         <<: *subjective
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  topics/entry_topic:
+    title: Discussion

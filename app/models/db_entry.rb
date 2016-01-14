@@ -6,7 +6,7 @@ class DbEntry < ActiveRecord::Base
     super
 
     klass.has_one :thread, -> { where linked_type: klass.name },
-      class_name: klass.thread_klass.name,
+      class_name: Topics::EntryTopic,
       foreign_key: :linked_id,
       dependent: :destroy
 
@@ -17,7 +17,7 @@ class DbEntry < ActiveRecord::Base
     klass.has_many :clubs, through: :club_links
 
     klass.after_create :generate_thread
-    klass.after_save :sync_thread
+    # klass.after_save :sync_thread
     #klass.before_save :filter_russian, if: -> { changes['russian'] }
   end
 
@@ -41,7 +41,7 @@ private
 
   # создание топика для элемента сразу после создания элемента
   def generate_thread
-    AniMangaComment.wo_timestamp do
+    Topics::EntryTopic.wo_timestamp do
       #TODO: title должен генериться автоматически и локализовываться
       # в зависимости от нстроек пользователя
       create_thread!(
@@ -54,26 +54,16 @@ private
   end
 
   # при сохранении аниме обновление его топика
-  def sync_thread
-    return unless changes['name']
+  # def sync_thread
+    # return unless changes['name']
 
-    thread.class.wo_timestamp do
-      thread.sync
-      thread.save
-    end
-  end
+    # thread.class.wo_timestamp do
+      # thread.sync
+      # thread.save
+    # end
+  # end
 
   #def filter_russian
     #self.russian = CGI::escapeHTML russian
   #end
-
-  def self.thread_klass
-    if self == Anime || self == Manga
-      AniMangaComment
-    #elsif self == Seyu
-      #PersonComment
-    else
-      "#{self.name}Comment".constantize
-    end
-  end
 end
