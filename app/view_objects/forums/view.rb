@@ -47,7 +47,7 @@ class Forums::View < ViewObjectBase
   end
 
   def linked
-    h.params[:linked_type].capitalize.constantize.find(
+    h.params[:linked_type].camelize.constantize.find(
       CopyrightedIds.instance.restore(
         h.params[:linked_id],
         h.params[:linked_type]

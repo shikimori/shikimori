@@ -81,3 +81,11 @@ ru:
 
   topics/entry_topic:
     title: Обсуждение
+    body:
+      anime: Топик обсуждения [%{type}=%{id}]аниме[/%{type}].
+      manga: Топик обсуждения [%{type}=%{id}]манги[/%{type}].
+      character: Топик обсуждения [%{type}=%{id}]персонажа[/%{type}].
+      review: Топик обсуждения [%{type}=%{id}]рецензии[/%{type}].
+      contest: Топик обсуждения [%{type}=%{id}]опроса[/%{type}].
+      club: Топик обсуждения [%{type}=%{id}]клуба[/%{type}].
+      cosplay_gallery: Топик обсуждения косплея.

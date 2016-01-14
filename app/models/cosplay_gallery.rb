@@ -74,8 +74,12 @@ class CosplayGallery < ActiveRecord::Base
 
   # полное название галереи
   def title linked = self.send(:any_linked)
-    titles = title_components(linked).map {|c| c.map(&:name).join(' и ') }
+    titles = title_components(linked).map { |c| c.map(&:name).join(' и ') }
     "Косплей #{titles.first} от #{titles.second}".html_safe
+  end
+
+  def name
+    title
   end
 
   def title_components linked

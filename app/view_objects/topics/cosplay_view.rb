@@ -17,13 +17,9 @@ class Topics::CosplayView < Topics::View
     topic.user.avatar_url is_2x ? 80 : 48
   end
 
-  def topic_title
-    if !minified?
-      topic.user.nickname
-    else
-      topic.linked.title
-    end
-  end
+  # def topic_title
+    # topic.linked.title
+  # end
 
   def html_body_truncated
     render_body
