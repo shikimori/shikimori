@@ -7,12 +7,4 @@ class Topics::EntryTopics::ContestTopic < Topics::EntryTopic
   def title
     "Опрос \"#{linked.title}\""
   end
-
-  # def to_s
-    # title
-  # end
-
-  def generated?
-    true
-  end
 end

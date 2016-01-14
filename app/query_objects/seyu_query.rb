@@ -9,7 +9,7 @@ class SeyuQuery < PeopleQuery
 
     character_roles = PersonRole
       .where(person_id: people_by_id.keys)
-      .where(role: Person::SeyuRoles)
+      .where(role: Person::SEYU_ROLES)
       .where.not(character_id: 0)
       .select([:person_id, :character_id])
       .to_a

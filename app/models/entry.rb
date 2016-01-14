@@ -100,19 +100,16 @@ class Entry < ActiveRecord::Base
     news? && generated?
   end
 
-  # топик ли это обзора?
   def review?
-    linked_type == Review.name && generated?
+    is_a? Topics::EntryTopics::ReviewTopic
   end
 
-  # топик ли это косплей?
   def cosplay?
-    linked_type == CosplayGallery.name && generated?
+    is_a? Topics::EntryTopics::CosplayGalleryTopic
   end
 
-  # по опросу ли данный топик
   def contest?
-    linked_type == Contest.name && generated?
+    is_a? Topics::EntryTopics::ContestTopic
   end
 
   # def user_image_ids value=self.value

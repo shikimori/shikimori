@@ -17,6 +17,11 @@ describe Topics::NewsTopic do
           it { is_expected.to eq 'Эпизод 1' }
         end
 
+        context 'anons news' do
+          let(:topic) { build :news_topic, :anime_anons }
+          it { is_expected.to eq 'Анонс' }
+        end
+
         context 'other news' do
           let(:action) { 'ongoing' }
           it { is_expected.to eq 'Онгоинг' }

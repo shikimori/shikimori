@@ -41,14 +41,16 @@ private
 
   # создание топика для элемента сразу после создания элемента
   def generate_thread
-    Topics::EntryTopic.wo_timestamp do
-      #TODO: title должен генериться автоматически и локализовываться
-      # в зависимости от нстроек пользователя
-      create_thread!(
-        linked: self,
+    thread_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
+    Entry.wo_timestamp do
+      self.thread = thread_klass.create!(
+        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
         generated: true,
+        linked: self,
         title: name,
-        created_at: created_at
+        created_at: created_at,
+        updated_at: nil,
+        user: BotsService.get_poster
       )
     end
   end

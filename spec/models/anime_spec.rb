@@ -61,8 +61,9 @@ describe Anime do
       it do
         is_expected.to be_persisted
         is_expected.to have_attributes(
+          forum_id: DbEntryThread::FORUM_IDS['Anime'],
           linked: anime,
-          type: Topics::EntryTopic.name,
+          type: Topics::EntryTopics::AnimeTopic.name,
           created_at: anime.created_at,
           updated_at: nil
         )

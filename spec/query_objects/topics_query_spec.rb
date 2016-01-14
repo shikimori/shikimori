@@ -63,7 +63,7 @@ describe TopicsQuery do
     end
 
     context 'NEWS' do
-      let!(:generated_news) { create :news_topic, created_at: 1.day.ago, generated: true }
+      let!(:generated_news) { create :news_topic, :anime_anons }
       let!(:anime_news) { create :news_topic, created_at: 1.day.ago }
       let!(:manga_news) { create :news_topic, created_at: 2.days.ago }
       let!(:cosplay_news) { create :cosplay_gallery_topic, created_at: 3.days.ago,
@@ -75,12 +75,11 @@ describe TopicsQuery do
     end
 
     context 'UPDATES' do
-      let!(:anime_news) { create :news_topic, created_at: 1.day.ago, generated: true }
-      let!(:manga_news) { create :news_topic, created_at: 2.days.ago, generated: true }
+      let!(:anime_news) { create :news_topic, :anime_anons, created_at: 1.day.ago }
       let!(:regular_news) { create :news_topic }
       before { query.by_forum Forum::UPDATES_FORUM }
 
-      it { is_expected.to eq [anime_news, manga_news] }
+      it { is_expected.to eq [anime_news] }
     end
 
     context 'MY_CLUBS' do
