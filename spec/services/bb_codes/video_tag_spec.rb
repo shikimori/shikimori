@@ -88,10 +88,10 @@ describe BbCodes::VideoTag do
         it { should include "<div class=\"c-video b-video unprocessed sibnet" }
       end
 
-      context 'yandex' do
-        let(:text) { 'http://video.yandex.ru/users/allod2008/view/78' }
-        it { should include "<div class=\"c-video b-video unprocessed yandex" }
-      end
+      #context 'yandex' do
+        #let(:text) { 'http://video.yandex.ru/users/allod2008/view/78' }
+        #it { should include "<div class=\"c-video b-video unprocessed yandex" }
+      #end
 
       context 'dailymotion' do
         context 'common url' do

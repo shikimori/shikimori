@@ -68,57 +68,57 @@ aside.buttons
   p
     = label_tag :link_type_url do
       = radio_button_tag 'link_type', :url, false,
-        'data-placeholder' => 'Введите адрес страницы...'
+        'data-placeholder' => t('.enter.page_url')
       span ссылка
 
     = label_tag :link_type_anime do
       = radio_button_tag 'link_type', :anime, false,
-        'data-placeholder' => 'Введите название аниме...',
+        'data-placeholder' => t('.enter.anime_title'),
         'data-autocomplete' => autocomplete_animes_url
       span аниме
 
     = label_tag :link_type_manga do
       = radio_button_tag 'link_type', :manga, false,
-        'data-placeholder' => 'Введите название манги...',
+        'data-placeholder' => t('.enter.manga_title'),
         'data-autocomplete' => autocomplete_mangas_url
       span манга
 
     = label_tag :link_type_character do
       = radio_button_tag 'link_type', :character, false,
-        'data-placeholder' => 'Введите имя персонажа...',
+        'data-placeholder' => t('.enter.character_name'),
         'data-autocomplete' => autocomplete_characters_url
       span персонаж
 
     = label_tag :link_type_person do
       = radio_button_tag 'link_type', :person, false,
-        'data-placeholder' => 'Введите имя человека...',
+        'data-placeholder' => t('.enter.person_name'),
         'data-autocomplete' => autocomplete_people_url
       span человек
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
 
-    span.button.ok data-type="links" OK
+    span.button.ok data-type='links' OK
 
 .images.hidden-block
   p
     = label_tag :image_value do
-      | Вставка изображения:
+      = t '.insert_image'
     = text_field_tag 'image_value', '',
       class: 'link-value',
-      placeholder: 'Введите адрес картинки...'
+      placeholder: t('.enter.image_url')
 
-    span.button.ok data-type="images" OK
+    span.button.ok data-type='images' OK
 
 .quotes.hidden-block
   p
     = label_tag :image_value do
-      | Цитирование пользователя:
+      = t '.quote_user'
     = text_field_tag 'quote_value', '',
       class: 'link-value ac_input',
-      placeholder: 'Введите имя пользователя...',
+      placeholder: t('.enter.user_name'),
       'data-autocomplete' => autocomplete_users_url
 
-    span.button.ok data-type="quotes" OK
+    span.button.ok data-type='quotes' OK
 
 = render 'blocks/upload_progress'
 

@@ -8,7 +8,7 @@ module CommentHelper
     :b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid
   ]
   ComplexBbCodes = [
-    :moderator, :smileys, :club, :contest, :mention, :version, :anime_video,
+    :smileys, :club, :contest, :mention, :version, :anime_video,
     :user, :message, :comment, :entry, :review, :quote, :posters, :ban,
     :spoiler
   ]#, :wall_container
@@ -73,25 +73,6 @@ module CommentHelper
     text
   end
 
-  def moderator_to_html text, poster=nil
-    if self.respond_to?(:user_signed_in?) && poster && user_signed_in? && (current_user.id == poster.id || current_user.moderator?)
-      text.gsub(/\[moderator\]([\s\S]*?)\[\/moderator\](?:<br ?\/?>|\n)?/mi, "
-<section class=\"moderation\">
-  <header>
-    <<< сообщение от модератора
-  </header>
-  <article>
-    \\1
-  </article>
-  <footer>
-    удалите тег после после исправления замечаний >>>
-  </footer>
-</section>")
-    else
-      text.gsub(/\[moderator\]([\s\S]*?)\[\/moderator\](?:<br ?\/?>|\n)?/mi, '')
-    end
-  end
-
   def mention_to_html text, poster=nil
     text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
       nickname = $1
@@ -122,7 +103,7 @@ module CommentHelper
       \[\/spoiler\]
     /xi) do |match|
       '<div class="b-spoiler unprocessed">' +
-        "<label>#{$~[:label] || 'спойлер'}</label>" +
+        "<label>#{$~[:label] || I18n.t('markers.spoiler')}</label>" +
         "<div class='content'><div class='before'></div><div class='inner'>#{$~[:content]}</div><div class='after'></div></div>" +
       '</div>'
     end

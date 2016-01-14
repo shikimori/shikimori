@@ -6,19 +6,29 @@ ru:
       user_comment: Комментарий %{user}
       replies: Ответы
     shiki_editor:
-      preview: Предпросмотр
-      bb_codes_guide: справка по бб-кодам
       back_to_editing: Вернуться к редактированию
-      hide: Скрыть
+      bb_codes_guide: справка по бб-кодам
       bold: Жирный
-      italic: Курсив
-      underline: Подчёркнутый
-      striked: Зачёркнутый
-      link: Ссылка
-      image_link: Ссылка на картинку
-      quote: Цитата
-      spoiler: Спойлер
-      upload_image: Загрузить изображение
-      smiley: Смайлик
-      text: Текст
       comment: Текст комментария
+      enter:
+        page_url: Введите адрес страницы...
+        anime_title: Введите название аниме...
+        manga_title: Введите название манги...
+        character_name: Введите имя персонажа...
+        person_name: Введите имя персонажа...
+        image_url: Введите адрес картинки...
+        user_name: Введите имя пользователя...
+      hide: Скрыть
+      image_link: Ссылка на картинку
+      insert_image: 'Вставка изображения:'
+      italic: Курсив
+      link: Ссылка
+      preview: Предпросмотр
+      quote: Цитата
+      quote_user: 'Цитирование пользователя:'
+      smiley: Смайлик
+      spoiler: Спойлер
+      striked: Зачёркнутый
+      text: Текст
+      underline: Подчёркнутый
+      upload_image: Загрузить изображение

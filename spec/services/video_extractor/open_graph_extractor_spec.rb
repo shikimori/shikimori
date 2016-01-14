@@ -7,75 +7,75 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
     context 'coub' do
       let(:url) { 'http://coub.com/view/bqn2pda' }
 
-      its(:hosting) { should eq :coub }
-      its(:image_url) { should eq 'http://ell.akamai.coub.com/get/bucket:32.11/p/coub/simple/cw_image/5539bc828be/56c75c0364d0a378cc3b9/med_1409156756_1381592378_00032.jpg' }
-      its(:player_url) { should eq 'http://c-cdn.coub.com/fb-player.swf?bot_type=unknown&coubID=bqn2pda' }
+      its(:hosting) { is_expected.to eq :coub }
+      its(:image_url) { is_expected.to eq 'http://ell.akamai.coub.com/get/bucket:32.11/p/coub/simple/cw_image/5539bc828be/56c75c0364d0a378cc3b9/med_1409156756_1381592378_00032.jpg' }
+      its(:player_url) { is_expected.to eq 'http://c-cdn.coub.com/fb-player.swf?bot_type=unknown&coubID=bqn2pda' }
     end
 
     context 'twitch' do
       let(:url) { 'http://www.twitch.tv/joindotared/c/3661348' }
 
-      its(:hosting) { should eq :twitch }
-      its(:image_url) { should eq 'http://static-cdn.jtvnw.net/jtv_user_pictures/joindotared-profile_image-3280e012c28e251e-600x600.jpeg' }
-      its(:player_url) { should eq 'http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=joindotared&playerType=facebook' }
+      its(:hosting) { is_expected.to eq :twitch }
+      its(:image_url) { is_expected.to eq 'http://static-cdn.jtvnw.net/jtv_user_pictures/joindotared-profile_image-3280e012c28e251e-600x600.jpeg' }
+      its(:player_url) { is_expected.to eq 'http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=joindotared&playerType=facebook' }
     end
 
     context 'rutube' do
       let(:url) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
 
-      its(:hosting) { should eq :rutube }
-      its(:image_url) { should eq 'http://pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
-      its(:player_url) { should eq 'http://video.rutube.ru/6797624' }
+      its(:hosting) { is_expected.to eq :rutube }
+      its(:image_url) { is_expected.to eq 'http://pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
+      its(:player_url) { is_expected.to eq 'http://video.rutube.ru/6797624' }
     end
 
     context 'vimeo' do
       let(:url) { 'http://vimeo.com/85212054' }
 
-      its(:hosting) { should eq :vimeo }
-      its(:image_url) { should eq 'https://i.vimeocdn.com/video/463402969_1280x720.jpg' }
-      its(:player_url) { should eq 'https://player.vimeo.com/video/85212054?autoplay=1' }
+      its(:hosting) { is_expected.to eq :vimeo }
+      its(:image_url) { is_expected.to eq 'https://i.vimeocdn.com/video/463402969_1280x720.jpg' }
+      its(:player_url) { is_expected.to eq 'https://player.vimeo.com/video/85212054?autoplay=1' }
     end
 
     context 'myvi' do
       let(:url) { 'http://asia.myvi.ru/watch/Vojna-Magov_eQ4now9R-0KG9eoESX_N-A2' }
 
-      its(:hosting) { should eq :myvi }
-      its(:image_url) { should eq 'http://images.myvi.ru/animeicon/25/e6/58917.jpg' }
-      its(:player_url) { should eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4JzsT1kQ7a35LOr3hG3K7g1' }
+      its(:hosting) { is_expected.to eq :myvi }
+      its(:image_url) { is_expected.to eq 'http://images.myvi.ru/animeicon/25/e6/58917.jpg' }
+      its(:player_url) { is_expected.to eq 'http://myvi.ru/player/flash/oI_SgyRHWdMLI6UU2pmRESiY4Y-Ie0wAnu3jBetGxgY9wJFPgg4yJA4JzsT1kQ7a35LOr3hG3K7g1' }
     end
 
     context 'sibnet' do
       let(:url) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
 
-      its(:hosting) { should eq :sibnet }
-      its(:image_url) { should eq 'http://video.sibnet.ru/upload/cover/video_1234982_0.jpg' }
-      its(:player_url) { should eq 'http://video.sibnet.ru/shell.swf?videoid=1234982' }
+      its(:hosting) { is_expected.to eq :sibnet }
+      its(:image_url) { is_expected.to eq 'http://video.sibnet.ru/upload/cover/video_1234982_0.jpg' }
+      its(:player_url) { is_expected.to eq 'http://video.sibnet.ru/shell.swf?videoid=1234982' }
 
       context 'broken_video' do
         let(:url) { 'http://video.sibnet.ru/video996603-Kyou_no_Asuka_Show_1_5_serii__rus__sub_' }
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
     end
 
-    context 'yandex' do
-      let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
+    #context 'yandex' do
+      #let(:url) { 'http://video.yandex.ru/users/allod2008/view/78' }
 
-      its(:hosting) { should eq :yandex }
-      its(:image_url) { should eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
-      its(:player_url) { should eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
-    end
+      #its(:hosting) { is_expected.to eq :yandex }
+      #its(:image_url) { is_expected.to eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
+      #its(:player_url) { is_expected.to eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
+    #end
 
     context 'dailymotion' do
-      let(:url) { 'http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms' }
+      let(:url) { 'http://www.dailymotion.com/video/x1af42g_lupin-iii-vs-detective-conan-99radioservice-wonderland_shortfilms' }
 
-      its(:hosting) { should eq :dailymotion }
-      its(:image_url) { should eq 'http://s1.dmcdn.net/DpbbQ/526x297-l8K.jpg' }
-      its(:player_url) { should eq 'http://www.dailymotion.com/swf/video/x1cbf83?autoPlay=1' }
+      its(:hosting) { is_expected.to eq :dailymotion }
+      its(:image_url) { is_expected.to eq 'http://s1.dmcdn.net/DeNs_/526x297-o88.jpg' }
+      its(:player_url) { is_expected.to eq 'https://www.dailymotion.com/embed/video/x1af42g' }
     end
 
     context 'invalid_url' do
       let(:url) { 'http://coub.cOOOm/view/bqn2pda' }
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
   end
 end

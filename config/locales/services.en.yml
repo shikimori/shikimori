@@ -21,12 +21,12 @@ en:
       [url=/%{settings_path}/edit]profile settings[/url].
       You can change your nickname there as well.
 
-      Before you start posting on forum we recommend you get familiar with our
+      Before you start posting on the forum we recommend you get familiar with our
       [url=http://%{site_url}/s/79042-Pravila-sayta]site rules[/url].
 
 
       If you have any questions or suggestions
-      feel free to post them on forum - we'll try to help you.
+      feel free to post them on the forum - we'll try to help you.
   omniauth_service:
     new_user: New user
   bb_codes/replies_tag:
