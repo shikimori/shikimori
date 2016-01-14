@@ -1,4 +1,6 @@
 class CosplayGallery < ActiveRecord::Base
+  include Translation
+
   acts_as_voteable
 
   belongs_to :user
@@ -73,13 +75,10 @@ class CosplayGallery < ActiveRecord::Base
   end
 
   # полное название галереи
-  def title linked = self.send(:any_linked)
-    titles = title_components(linked).map { |c| c.map(&:name).join(' и ') }
-    "Косплей #{titles.first} от #{titles.second}".html_safe
-  end
+  def name linked = self.send(:any_linked)
+    titles = title_components(linked).map { |c| c.map(&:name).to_sentence }
 
-  def name
-    title
+    i18n_t('.title', cosplay: titles.first, cosplayer: titles.second).html_safe
   end
 
   def title_components linked

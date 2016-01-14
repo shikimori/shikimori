@@ -28,3 +28,14 @@ en:
       # to_news: To News
       to_reviews: To Reviews
       user_review: "%{author}'s review"
+    cosplay:
+      info:
+        in_gallery: In gallery
+        character:
+          zero: Characters
+          one: Character
+          other: Characters
+        cosplayer:
+          zero: Cosplayers
+          one: Cosplayer
+          other: Cosplayers

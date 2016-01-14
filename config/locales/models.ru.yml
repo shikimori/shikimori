@@ -89,3 +89,6 @@ ru:
       contest: Топик обсуждения [%{type}=%{id}]опроса[/%{type}].
       club: Топик обсуждения [%{type}=%{id}]клуба[/%{type}].
       cosplay_gallery: Топик обсуждения косплея.
+
+  cosplay_gallery:
+    title: Косплей %{cosplay} от %{cosplayer}

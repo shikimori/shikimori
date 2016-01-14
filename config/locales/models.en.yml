@@ -89,3 +89,6 @@ en:
       contest: '[%{type}=%{id}]Contest[/%{type}] discussion thread.'
       club: '[%{type}=%{id}]Club[/%{type}] discussion thread.'
       cosplay_gallery: 'Cosplay discussion thread.'
+
+  cosplay_gallery:
+    title: Cosplay of %{cosplay} by %{cosplayer}

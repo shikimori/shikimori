@@ -28,3 +28,14 @@ ru:
       # to_news: К новостям
       to_reviews: К рецензиям
       user_review: 'Рецензия %{author}'
+    cosplay:
+      info:
+        in_gallery: В галерее
+        character:
+          one: Персонаж
+          few: Персонажи
+          many: Персонажи
+        cosplayer:
+          one: Косплеит
+          few: Косплеят
+          many: Косплеят
