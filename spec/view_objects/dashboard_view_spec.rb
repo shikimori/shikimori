@@ -46,7 +46,7 @@ describe DashboardView do
   end
 
   describe '#generated_news' do
-    let!(:news_topic) { create :news_topic, generated: true }
+    let!(:news_topic) { create :news_topic, :anime_anons }
     it { expect(view.generated_news).to have(1).item }
   end
 

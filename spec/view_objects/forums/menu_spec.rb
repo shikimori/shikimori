@@ -5,7 +5,7 @@ describe Forums::Menu do
 
   describe '#clubs' do
     let!(:club_topic) { create :club_topic, linked: create(:club) }
-    it { expect(view.clubs).to eq [club_comment] }
+    it { expect(view.clubs).to eq [club_topic] }
   end
 
   describe '#changeable_forums?' do

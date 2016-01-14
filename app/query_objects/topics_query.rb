@@ -29,10 +29,13 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when Forum::NEWS_FORUM.permalink
-        where type: [
-          Topics::NewsTopic.name, Topics::EntryTopics::CosplayGalleryTopic.name
-        ]
-        where generated: false
+        where "(
+          type = '#{Topics::NewsTopic.name}' and
+          generated = false
+        ) or (
+          type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
+          generated = true
+        )"
         order! created_at: :desc
 
       when Forum::UPDATES_FORUM.permalink

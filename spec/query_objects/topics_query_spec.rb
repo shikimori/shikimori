@@ -12,8 +12,8 @@ describe TopicsQuery do
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
     let!(:review) { create :review, updated_at: 10.days.ago }
-    let!(:joined_club) { create :club, :with_thread, updated_at: 15.days.ago }
-    let!(:other_club) { create :club, :with_thread, updated_at: 20.days.ago }
+    let!(:joined_club) { create :club, :with_thread }
+    let!(:other_club) { create :club, :with_thread }
     let!(:topic_ignore) { }
 
     before { joined_club.join user if user }
@@ -21,6 +21,7 @@ describe TopicsQuery do
     context 'user defined forums' do
       before do
         user.preferences.forums = forums if user
+        review.thread.update_column :updated_at, review.updated_at
         query.by_forum nil
       end
 
@@ -83,9 +84,12 @@ describe TopicsQuery do
     end
 
     context 'MY_CLUBS' do
-      let!(:joined_club_2) { create :club, :with_thread, updated_at: 25.days.ago }
-      before { joined_club_2.join user if user }
-      before { query.by_forum Forum::MY_CLUBS_FORUM }
+      let!(:joined_club_2) { create :club, :with_thread }
+      before do
+        joined_club_2.join user if user
+        joined_club_2.thread.update_column :updated_at, 10.days.ago
+        query.by_forum Forum::MY_CLUBS_FORUM
+      end
 
       it { is_expected.to eq [joined_club.thread, joined_club_2.thread] }
     end
