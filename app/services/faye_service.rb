@@ -12,6 +12,11 @@ class FayeService
     end
   end
 
+  def create! trackable
+    trackable.save!
+    publisher.publish trackable, :created
+  end
+
   def update trackable, params
     if trackable.update params
       publisher.publish trackable, :updated

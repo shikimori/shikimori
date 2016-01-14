@@ -52,7 +52,6 @@ class Club < ActiveRecord::Base
   before_save :update_permalink
   after_create :join_owner
   after_create :generate_thread
-  after_save :sync_thread
 
   has_attached_file :logo,
     styles: {
@@ -144,19 +143,14 @@ private
     self.permalink = self.name.permalinked if self.changes.include? :name
   end
 
-  def sync_thread
-    thread.update_attribute :title, name if thread.title != name
-  end
-
   def generate_thread
     FayeService
       .new(owner, '')
-      .create(Topics::EntryTopics::ClubTopic.new(
-        linked: self,
+      .create!(Topics::EntryTopics::ClubTopic.new(
         forum_id: Forum::CLUBS_ID,
         generated: true,
-        created_at: created_at,
-        updated_at: updated_at,
+        linked: self,
+        user: owner
       ))
   end
 

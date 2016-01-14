@@ -5,6 +5,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     let(:user) { create :user }
     let(:club_1) { create :club, :with_thread }
     let(:club_2) { create :club, :with_thread }
+
     before do
       club_1.members << user
       club_2.members << user

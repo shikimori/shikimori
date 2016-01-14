@@ -193,11 +193,13 @@ private
   end
 
   def generate_thread
-    create_thread!(
-      linked: self,
-      forum_id: Forum::CONTESTS_ID,
-      user: user,
-      generated: true
-    )
+    FayeService
+      .new(user, '')
+      .create!(Topics::EntryTopics::ContestTopic.new(
+        forum_id: Forum::CONTESTS_ID,
+        generated: true,
+        linked: self,
+        user: user
+      ))
   end
 end

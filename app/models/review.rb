@@ -65,12 +65,11 @@ class Review < ActiveRecord::Base
   def generate_thread
     FayeService
       .new(user, '')
-      .create(Topics::EntryTopics::ReviewTopic.new(
-        linked: self,
-        user: user,
+      .create!(Topics::EntryTopics::ReviewTopic.new(
+        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
         generated: true,
-        created_at: created_at,
-        updated_at: updated_at,
+        linked: self,
+        user: user
       ))
   end
 

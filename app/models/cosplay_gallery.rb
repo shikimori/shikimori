@@ -110,11 +110,11 @@ private
 
     FayeService
       .new(publisher, '')
-      .create(Topics::EntryTopics::CosplayGalleryTopic.new(
-        user: publisher,
-        linked: self,
+      .create!(Topics::EntryTopics::CosplayGalleryTopic.new(
         forum_id: Forum::COSPLAY_ID,
-        generated: true
+        generated: true,
+        linked: self,
+        user: publisher
       ))
   end
 
