@@ -22,7 +22,9 @@ module Routing
     if topic.kind_of?(User)
       profile_url topic, subdomain: false
 
-    elsif topic.kind_of?(ContestComment) || (topic.news? && !topic.generated?) || topic.review?
+    elsif topic.kind_of?(Topics::EntryTopics::ContestTopic) ||
+        (topic.news? && !topic.generated?) || topic.review?
+
       forum_topic_url(
         id: topic,
         forum: topic.forum,

@@ -9,7 +9,6 @@ FactoryGirl.define do
 
     after :build do |person|
       person.stub :generate_thread
-      person.stub :sync_thread
     end
 
     trait :with_thread do

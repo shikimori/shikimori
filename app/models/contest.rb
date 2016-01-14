@@ -24,7 +24,7 @@ class Contest < ActiveRecord::Base
     dependent: :destroy
 
   has_one :thread, -> { where linked_type: Contest.name },
-    class_name: ContestComment.name,
+    class_name: Topics::EntryTopics::ContestTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
