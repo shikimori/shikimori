@@ -18,7 +18,7 @@ private
   end
 
   def localized_name_field
-    if ru_domain? && russian_names?
+    if ru_domain? && russian_names? && I18n.locale == :ru
       'russian'
     else
       'name'

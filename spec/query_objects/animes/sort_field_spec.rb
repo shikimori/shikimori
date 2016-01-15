@@ -14,6 +14,9 @@ describe Animes::SortField do
   let(:user) { create :user, language: language }
   let(:language) { :russian }
   let(:ru_domain) { true }
+  let(:locale) { :ru }
+
+  before { allow(I18n).to receive(:locale).and_return locale }
 
   describe '#field' do
     context 'order not set' do
@@ -74,7 +77,15 @@ describe Animes::SortField do
 
         context 'guest' do
           let(:user) { nil }
-          it { expect(query.field).to eq 'russian' }
+
+          context 'ru locale' do
+            it { expect(query.field).to eq 'russian' }
+          end
+
+          context 'en locale' do
+            let(:locale) { :en }
+            it { expect(query.field).to eq 'name' }
+          end
         end
 
         context 'authenticated' do
@@ -83,7 +94,15 @@ describe Animes::SortField do
 
             context 'russian names' do
               before { user.preferences.russian_names = true }
-              it { expect(query.field).to eq 'russian' }
+
+              context 'ru locale' do
+                it { expect(query.field).to eq 'russian' }
+              end
+
+              context 'en locale' do
+                let(:locale) { :en }
+                it { expect(query.field).to eq 'name' }
+              end
             end
 
             context 'english names' do
