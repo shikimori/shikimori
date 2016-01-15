@@ -7,7 +7,7 @@
   .info
     span.id-label #
     span
-      a href="#{url_for [review.entry, review]}" = review.id
+      a href="#{UrlGenerator.instance.topic_url review.thread}" = review.id
     span.date
       = review.created_at.strftime '%d.%m.%Y'
 
