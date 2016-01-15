@@ -86,6 +86,8 @@ private
   end
 
   def fetch_resource
-    @resource = Anime.find(params[:id]).decorate
+    @resource = Anime.find(
+      CopyrightedIds.instance.restore(params[:id], :anime)
+    ).decorate
   end
 end

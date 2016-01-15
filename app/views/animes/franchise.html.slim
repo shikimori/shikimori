@@ -11,4 +11,7 @@ header.head.misc
 .sticked-tooltip
   .close
   .inner
-.graph data-id="#{@resource.id}" data-api-url="#{@resource.anime? ? franchise_api_anime_url(@resource) : franchise_api_manga_url(@resource)}"
+.graph[
+  data-id="#{@resource.id}"
+  data-api-url="#{@resource.anime? ? franchise_api_anime_url(@resource) : franchise_api_manga_url(@resource)}"
+]
