@@ -27,14 +27,16 @@ private
   end
 
   def create_news
-    Topics::NewsTopic.create options.merge(
-      user: BotsService.get_poster,
-      forum_id: forum_id,
-      created_at: created_at,
-      updated_at: nil,
-      generated: true,
-      processed: is_processed
-    )
+    Topic.wo_timestamp do
+      Topics::NewsTopic.create options.merge(
+        user: BotsService.get_poster,
+        forum_id: forum_id,
+        created_at: created_at,
+        updated_at: nil,
+        generated: true,
+        processed: is_processed
+      )
+    end
   end
 
 
