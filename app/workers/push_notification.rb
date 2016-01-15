@@ -20,7 +20,7 @@ private
 
   def gcm_message message
     {
-      action: message.kind.to_underscore,
+      action: message.kind.camelize.to_underscore,
       msgTitle: nil,
       msgBody: message.body,
       params: {
