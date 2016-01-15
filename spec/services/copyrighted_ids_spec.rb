@@ -3,8 +3,8 @@ describe CopyrightedIds do
 
   describe '#change' do
     context 'copyrighted' do
-      it { expect(service.change 145, :anime)
-        .to eq "#{CopyrightedIds::MARKER}145" }
+      it { expect(service.change 8888888, :anime)
+        .to eq "#{CopyrightedIds::MARKER}8888888" }
     end
 
     context 'twice copyrighted' do
@@ -22,14 +22,14 @@ describe CopyrightedIds do
       context 'changed' do
         it do
           expect(
-            service.restore "#{CopyrightedIds::MARKER}145-neo-ranga", :anime
-          ).to eq 145
+            service.restore "#{CopyrightedIds::MARKER}8888888-neo-ranga", :anime
+          ).to eq 8888888
         end
       end
 
       context 'original' do
-        let!(:anime) { create :anime, id: 145 }
-        it { expect{service.restore '145-neo-ranga', :anime}
+        let!(:anime) { create :anime, id: 8888888 }
+        it { expect{service.restore '8888888-neo-ranga', :anime}
           .to raise_error CopyrightedResource }
       end
     end
