@@ -56,6 +56,13 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/animes/:id/videos'
+  def videos
+    @collection = @resource.videos
+    respond_with @resource.videos
+  end
+
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/animes/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer

@@ -70,18 +70,6 @@ describe Api::V1::AnimesController, :show_in_doc do
     end
   end
 
-  describe '#franchise' do
-    let(:anime) { create :anime }
-    let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :franchise, id: anime.id, format: :json }
-    after { BannedRelations.instance.clear_cache! }
-
-    it do
-      expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
-    end
-  end
-
   describe '#screenshots' do
     let(:anime) { create :anime }
     let!(:screenshot) { create :screenshot, anime: anime }
@@ -89,6 +77,30 @@ describe Api::V1::AnimesController, :show_in_doc do
 
     it do
       expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#videos' do
+    let(:anime) { create :anime }
+    let!(:video) { create :video, :confirmed, anime: anime }
+    before { get :videos, id: anime.id, format: :json }
+
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#franchise' do
+    let(:anime) { create :anime }
+    let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
+    before { get :franchise, id: anime.id, format: :json }
+    after { BannedRelations.instance.clear_cache! }
+
+    it do
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
     end

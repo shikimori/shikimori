@@ -143,6 +143,7 @@ Site::Application.routes.draw do
           get :related
           get :screenshots
           get :franchise
+          get :videos
         end
         get :search, on: :collection
       end
