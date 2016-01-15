@@ -1,8 +1,33 @@
 class NameValidator < ActiveModel::EachValidator
+  FORBIDDEN_NAMES = %r(
+    \A(
+      #{Forum::VARIANTS} |
+      animes |
+      mangas |
+      contests |
+      users |
+      forum |
+      \.css |
+      \.js |
+      \.jpg |
+      \.jpeg |
+      \.png |
+      \.gif |
+      \.css |
+      \.js |
+      \.ttf |
+      \.eot |
+      \.otf |
+      \.svg |
+      \.woff |
+      \.php
+    )\Z
+  )mix
+
   def validate_each record, attribute, value
     return unless value.kind_of? String
 
-    is_taken = value =~ /\A(?:#{Forum::VARIANTS}|animes|mangas|contests|users)\Z/ ||
+    is_taken = value =~ FORBIDDEN_NAMES ||
       presence(record, value, Club, :name) || presence(record, value, User, :nickname)
 
     if is_taken
