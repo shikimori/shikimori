@@ -26,11 +26,12 @@ class User
     # 16178 - Vika Filippova, 17532 - MeTroScreaM, 33635 - Tedeika,
     # 44418 - Zuten, 15511 - Peoplearestrong, 17916 - Nika Moon,
     # 30214 - baksIII, 16178 - Vika Filippova, 47440 - Zodik2, 11942 - WanoKur,
-    # 52936 - IAmTheDoctor
+    # 52936 - IAmTheDoctor, 38439 - Yurika
     TRUSTED_VIDEO_UPLOADERS = (ADMINS + VIDEO_MODERATORS + [
       16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347,
       4792, 10342, 20483, 16858, 34724, 28601, 24518, 5019, 40713, 16178,
-      17532, 33635, 44418, 15511, 17916, 30214, 16178, 47440, 11942, 52936
+      17532, 33635, 44418, 15511, 17916, 30214, 16178, 47440, 11942, 52936,
+      38439
     ]).uniq
 
     # администратор ли пользователь?
