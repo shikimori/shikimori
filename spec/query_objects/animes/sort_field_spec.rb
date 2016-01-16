@@ -4,19 +4,11 @@ describe Animes::SortField do
   let(:default) { :zz }
   let(:view_context) do
     double(
-      ru_domain?: ru_domain,
-      user_signed_id?: user.present?,
-      current_user: user,
+      russian_names?: russian_names,
       params: { order: order }
     )
   end
-
-  let(:user) { create :user, language: language }
-  let(:language) { :russian }
-  let(:ru_domain) { true }
-  let(:locale) { :ru }
-
-  before { allow(I18n).to receive(:locale).and_return locale }
+  let(:russian_names) { true }
 
   describe '#field' do
     context 'order not set' do
@@ -40,91 +32,14 @@ describe Animes::SortField do
     context 'name or russian order' do
       let(:order) { 'name' }
 
-      context 'english domain' do
-        let(:ru_domain) { false }
-
-        context 'guest' do
-          let(:user) { nil }
-
-          context 'name' do
-            it { expect(query.field).to eq 'name' }
-          end
-
-          context 'russian' do
-            it { expect(query.field).to eq 'name' }
-          end
-        end
-
-        context 'authenticated' do
-          context 'russian language' do
-            let(:language) { :russian }
-
-            context 'russian names' do
-              before { user.preferences.russian_names = true }
-              it { expect(query.field).to eq 'name' }
-            end
-
-            context 'english names' do
-              before { user.preferences.russian_names = false }
-              it { expect(query.field).to eq 'name' }
-            end
-          end
-        end
+      context 'russian_names' do
+        let(:russian_names) { true }
+        it { expect(query.field).to eq 'russian' }
       end
 
-      context 'russian domain' do
-        let(:ru_domain) { true }
-
-        context 'guest' do
-          let(:user) { nil }
-
-          context 'ru locale' do
-            it { expect(query.field).to eq 'russian' }
-          end
-
-          context 'en locale' do
-            let(:locale) { :en }
-            it { expect(query.field).to eq 'name' }
-          end
-        end
-
-        context 'authenticated' do
-          context 'russian language' do
-            let(:language) { :russian }
-
-            context 'russian names' do
-              before { user.preferences.russian_names = true }
-
-              context 'ru locale' do
-                it { expect(query.field).to eq 'russian' }
-              end
-
-              context 'en locale' do
-                let(:locale) { :en }
-                it { expect(query.field).to eq 'name' }
-              end
-            end
-
-            context 'english names' do
-              before { user.preferences.russian_names = false }
-              it { expect(query.field).to eq 'name' }
-            end
-          end
-
-          context 'english language' do
-            let(:language) { :english }
-
-            context 'russian names' do
-              before { user.preferences.russian_names = true }
-              it { expect(query.field).to eq 'name' }
-            end
-
-            context 'english names' do
-              before { user.preferences.russian_names = false }
-              it { expect(query.field).to eq 'name' }
-            end
-          end
-        end
+      context 'not russian_names' do
+        let(:russian_names) { false }
+        it { expect(query.field).to eq 'name' }
       end
     end
   end
