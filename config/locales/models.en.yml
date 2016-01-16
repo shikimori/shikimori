@@ -85,6 +85,7 @@ en:
       anime: '[%{type}=%{id}]Anime[/%{type}] discussion thread.'
       manga: '[%{type}=%{id}]Manga[/%{type}] discussion thread.'
       character: '[%{type}=%{id}]Character[/%{type}] discussion thread.'
+      character: '[%{type}=%{id}]Person[/%{type}] discussion thread.'
       review: '[%{type}=%{id}]Review[/%{type}] discussion thread.'
       contest: '[%{type}=%{id}]Contest[/%{type}] discussion thread.'
       club: '[%{type}=%{id}]Club[/%{type}] discussion thread.'
