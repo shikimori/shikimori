@@ -2,6 +2,10 @@ class PushNotification
   include Sidekiq::Worker
   sidekiq_options queue: :push_notifications
 
+  include MessagesHelper
+  include Rails.application.routes.url_helpers
+  default_url_options[:host] = Site::DOMAIN
+
   def perform message_id, device_id
     message = Message.find_by id: message_id
     device = Device.find_by id: device_id
@@ -27,7 +31,8 @@ private
       msgBody: message.body,
       params: {
         message_id: message.id,
-        from: UserSerializer.new(message.from).attributes
+        from: UserSerializer.new(message.from).attributes,
+        html_body: get_message_body(message)
       }
     }
   end
