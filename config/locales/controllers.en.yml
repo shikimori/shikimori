@@ -124,25 +124,30 @@ en:
       Take part in anime tournament on our site and
       make your contribution to the poll, we want to determine %{title}.
 
-  moderations_controller:
+  moderations_controller: &moderations_controller
     title: Moderation
     missing_screenshots_title: Missing screenshots
     missing_videos_title: Missing videos
     missing_videos: :moderations.missing_videos
 
   moderations/abuse_requests_controller:
+    <<: *moderations_controller
     page_title: Forum moderation journal
 
   moderations/anime_video_reports_controller:
+    <<: *moderations_controller
     page_title: Video moderation
 
   moderations/bans_controller:
+    <<: *moderations_controller
     page_title: Bans journal
 
   moderations/reviews_controller:
+    <<: *moderations_controller
     page_title: Reviews moderation
 
   moderations/versions_controller:
+    <<: *moderations_controller
     content_change: 'Content change #%{version_id}'
     content_changes: Content changes
     changes_accepted: Changes accepted
@@ -152,6 +157,12 @@ en:
     version_pending: &version_pending Content changes have been saved successfully and will be moderated soon. Thanks!
     version_accepted: &version_accepted Content changes have been applied successfully.
     version_taken: *version_accepted
+
+  genres_controller:
+    <<: *moderations_controller
+
+  forums_controller:
+    <<: *moderations_controller
 
   animes_controller: &animes_controller
     version_pending: *version_pending
