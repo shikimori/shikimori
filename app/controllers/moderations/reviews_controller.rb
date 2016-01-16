@@ -5,7 +5,7 @@ class Moderations::ReviewsController < ModerationsController
   PENDING_PER_PAGE = 15
 
   def index
-    @page_title = 'Модерация рецензий'
+    @page_title = i18n_t 'page_title'
 
     @moderators = User.where(id: User::REVIEWS_MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     @processed = postload_paginate(params[:page], 25) do

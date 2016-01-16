@@ -124,8 +124,23 @@ en:
       Take part in anime tournament on our site and
       make your contribution to the poll, we want to determine %{title}.
 
-  moderations:
-   title: Moderation
+  moderations_controller:
+    title: Moderation
+    missing_screenshots_title: Missing screenshots
+    missing_videos_title: Missing videos
+    missing_videos: :moderations.missing_videos
+
+  moderations/abuse_requests_controller:
+    page_title: Forum moderation journal
+
+  moderations/anime_video_reports_controller:
+    page_title: Video moderation
+
+  moderations/bans_controller:
+    page_title: Bans journal
+
+  moderations/reviews_controller:
+    page_title: Reviews moderation
 
   moderations/versions_controller:
     content_change: 'Content change #%{version_id}'
