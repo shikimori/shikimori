@@ -5,7 +5,7 @@ class NullifyUpdatedAtForGeneratedAnimangaTopics < ActiveRecord::Migration
         'Topics::EntryTopics::AnimeTopic',
         'Topics::EntryTopics::MangaTopic',
         'Topics::EntryTopics::CharacterTopic',
-        'Topics::EntryTopics::PersonTopi'
+        'Topics::EntryTopics::PersonTopic'
       ])
       .where(comments_count: 0)
       .where(generated: true)
