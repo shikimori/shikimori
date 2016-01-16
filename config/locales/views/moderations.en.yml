@@ -16,8 +16,11 @@ en:
       uploaded_videos_journal: Uploaded videos journal
       versions_journal: Content changes journal
     missing_screenshots:
-      title: Missing screenshots
       animes: Animes
+      notices:
+        - This is the list of top %{limit} most popular animes
+          with missing screenshots.
+        - The list is cached by the site and refreshed once per hour.
     missing_videos:
       video_types: Video types
       videos: Videos
@@ -27,6 +30,16 @@ en:
       vk_dubbed: vk.com dubbed videos
       subbed: Videos with subtitles
       dubbed: Dubbed videos
+      notices:
+        - This is the list of top %{limit} most popular animes with
+          missing videos.
+        - You can get detailed information about missing video by clicking
+          corresponding anime in the list.
+        - The list is cached by the site and refreshed once per hour.
+        - Sometimes only 1-3 episodes of 13-26 ones are shown as available -
+          most likely this means that available episodes are from another
+          anime (they have been imported from another site automatically
+          by mistake). Such episodes should be deleted.
     anime_video_reports:
       report:
         show: show
