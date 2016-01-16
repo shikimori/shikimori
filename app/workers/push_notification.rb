@@ -3,8 +3,10 @@ class PushNotification
   sidekiq_options queue: :push_notifications
 
   def perform message_id, device_id
-    message = Message.find message_id
-    device = Device.find device_id
+    message = Message.find_by id: message_id
+    device = Device.find_by id: device_id
+
+    return unless message && device
 
     gcm.send_notification(
       [device.token],
