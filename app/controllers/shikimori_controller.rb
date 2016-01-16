@@ -40,7 +40,7 @@ class ShikimoriController < ApplicationController
   end
 
   def resource_klass
-    self.class.name.sub(/Controller$/ ,'').singularize.constantize
+    self.class.name.sub(/Controller$/ ,'').sub(/.*:/, '').singularize.constantize
   end
 
   # заполнение хлебных крошек

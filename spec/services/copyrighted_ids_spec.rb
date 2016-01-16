@@ -43,4 +43,9 @@ describe CopyrightedIds do
       it { expect(service.restore '25', :anime).to eq 25 }
     end
   end
+
+  describe '#restore_id' do
+    it { expect(service.restore_id "#{CopyrightedIds::MARKER}8").to eq 8 }
+    it { expect(service.restore_id '8').to eq 8 }
+  end
 end

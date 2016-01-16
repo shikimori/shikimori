@@ -21,7 +21,7 @@ private
 
   def fetch_resource
     @resource = Character.find(
-      CopyrightedIds.instance.restore(params[:id], :character)
+      CopyrightedIds.instance.restore_id(params[:id])
     ).decorate
   end
 end

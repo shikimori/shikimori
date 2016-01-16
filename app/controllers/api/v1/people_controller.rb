@@ -21,7 +21,7 @@ class Api::V1::PeopleController < Api::V1::ApiController
 
   def fetch_resource
     @resource = Person.find(
-      CopyrightedIds.instance.restore(params[:id], :person)
+      CopyrightedIds.instance.restore_id(params[:id])
     )
   end
 end

@@ -22,14 +22,14 @@ class CopyrightedIds
     end
   end
 
+  def restore_id id
+    id.gsub(/^#{MARKER}+/, '').to_i
+  end
+
 private
 
   def copyrighted_resource type, id
      type.to_s.capitalize.constantize.find(restore_id id)
-  end
-
-  def restore_id id
-    id.gsub(/^#{MARKER}+/, '').to_i
   end
 
   def ids

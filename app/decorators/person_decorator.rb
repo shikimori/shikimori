@@ -30,7 +30,7 @@ class PersonDecorator < DbEntryDecorator
   def flatten_roles
     object.person_roles
       .pluck(:role)
-      .map {|v| v.split(/, */) }
+      .map { |v| v.split(/, */) }
       .flatten
   end
 

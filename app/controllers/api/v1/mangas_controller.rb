@@ -72,7 +72,7 @@ private
 
   def fetch_resource
     @resource = Manga.find(
-      CopyrightedIds.instance.restore(params[:id], :manga)
+      CopyrightedIds.instance.restore_id(params[:id])
     ).decorate
   end
 end
