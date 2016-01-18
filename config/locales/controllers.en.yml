@@ -125,7 +125,7 @@ en:
       make your contribution to the poll, we want to determine %{title}.
 
   moderations_controller: &moderations_controller
-    title: Moderation
+    title: Moderation and content
     missing_screenshots_title: Missing screenshots
     missing_videos_title: Missing videos
     missing_videos: :moderations.missing_videos

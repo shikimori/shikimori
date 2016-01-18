@@ -1,5 +1,5 @@
 .b-log_entry.b-abuse_request.to-process[
-  data-dynamic="abuse_request"
+  data-dynamic='abuse_request'
   data-url="#{moderations_abuse_request_url abuse_request}"
 ]
   span.id-label #
@@ -12,11 +12,16 @@
   - unless abuse_request.value
     span.remove
       = t '.remove'
+
   .marker[
     class="b-#{abuse_request.kind}_marker"
     data-text="#{t "markers.#{abuse_request.kind.sub 'review', 'summary'}"}"
   ]
-  span = t '.to'
+
+  - if abuse_request.value
+    span = t '.for'
+  - else
+    span = t '.from'
 
   = render 'users/user_16', user: abuse_request.comment.user
 
@@ -43,33 +48,33 @@
           - if abuse_request.punishable?
             a.warn[
               data-action="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
-              data-method="get"
-              data-type="html"
-              data-remote="true"
+              data-method='get'
+              data-type='html'
+              data-remote='true'
             ] = t '.warn'
             - unless abuse_request.spoiler?
               a.ban[
                 href="#{new_comment_abuse_request_ban_path abuse_request.comment, abuse_request}"
-                data-method="get"
-                data-type="html"
-                data-remote="true"
+                data-method='get'
+                data-type='html'
+                data-remote='true'
               ] = t '.ban'
             a.deny[
               href="#{deny_moderations_abuse_request_path abuse_request}"
-              data-method="post"
-              data-remote="true"
+              data-method='post'
+              data-remote='true'
             ] = t '.reject'
             .ban-form
           - else
             a.take[
               href="#{take_moderations_abuse_request_path abuse_request}"
-              method="post"
-              data-remote="true"
+              method='post'
+              data-remote='true'
             ] = t '.accept'
             a.deny[
               href="#{deny_moderations_abuse_request_path abuse_request}"
-              method="post"
-              data-remote="true"
+              method='post'
+              data-remote='true'
             ] = t '.reject'
         .ban-form
   - else

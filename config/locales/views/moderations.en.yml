@@ -47,6 +47,20 @@ en:
     abuse_requests:
       index:
         expand_all: :moderations.bans.index.expand_all
+        notice: >-
+          This is the history of tagging comments
+          with comment markers by site users
+        instruction: Instructions
+        instructions:
+          - Personal conversations in anime topics are offtopic
+          - Comments written in (very) poor English are offtopic
+          - Don't remove 'summary' marker from negative summaries
+            if they are well-written and not offensive.
+        to_your_discretion: The rest is left to your discretion.
+        queue: Queue
+        bans_plus_warnings: bans + warnings
+        history: History
+
       abuse_request:
         accept: accept
         actions: actions
@@ -56,7 +70,8 @@ en:
         reject: reject
         remove: remove
         show: show
-        to: to
+        for: for
+        from: from
         warn: warn
     bans:
       index:
