@@ -6,7 +6,7 @@ class DbEntry < ActiveRecord::Base
     super
 
     klass.has_one :thread, -> { where linked_type: klass.name },
-      class_name: Topics::EntryTopic,
+      class_name: "Topics::EntryTopics::#{klass.name}Topic",
       foreign_key: :linked_id,
       dependent: :destroy
 
