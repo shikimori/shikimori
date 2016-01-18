@@ -55,7 +55,9 @@ class ProfileStatsQuery
   end
 
   def anime_spent_time
-    time = stats.anime_rates.sum {|v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
+    time = stats.anime_rates
+      .select(&:duration)
+      .sum { |v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
     SpentTime.new time / 60.0 / 24
   end
 

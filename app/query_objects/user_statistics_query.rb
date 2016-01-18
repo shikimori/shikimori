@@ -59,6 +59,9 @@ class UserStatisticsQuery
     histories = @anime_history + @manga_history
     rates = @anime_rates + @manga_rates
 
+    # удаляем всё без duration т.к. по ним активность всё равно 0 посчитается
+    rates.select!(&:duration)
+
     rates_cache = rates.each_with_object({}) do |rate, rez|
       rez["#{rate.target_id}#{rate.target_type}"] = rate
     end
