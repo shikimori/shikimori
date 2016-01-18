@@ -9,12 +9,12 @@ describe AbuseRequestsService do
     let(:comment) { create :comment, user: user }
 
     it { expect{act}.to_not change AbuseRequest, :count }
-    it { should eq [comment.id] }
+    it { is_expected.to eq [comment.id] }
 
     describe 'offtopic?' do
       before { act }
       subject { comment.offtopic? }
-      it { should be_truthy }
+      it { is_expected.to be_truthy }
     end
 
     describe 'cancel' do
@@ -40,20 +40,30 @@ describe AbuseRequestsService do
 
   describe '#review' do
     subject(:act) { service.review faye_token }
-    let(:comment) { create :comment, user: user }
+    let(:comment) { create :comment, user: user, created_at: created_at }
 
-    it { expect{act}.to_not change AbuseRequest, :count }
-    it { should eq [comment.id] }
+    context 'new comment' do
+      let(:created_at) { 4.minutes.ago }
 
-    describe 'review?' do
-      before { act }
-      subject { comment.review? }
-      it { should be_truthy }
+      it do
+        expect{act}.to_not change AbuseRequest, :count
+        is_expected.to eq [comment.id]
+        expect(comment).to be_review
+      end
+
+      describe 'cancel' do
+        let(:comment) { create :comment, user: user, review: true }
+        it { expect{act}.to_not change AbuseRequest, :count }
+      end
     end
 
-    describe 'cancel' do
-      let(:comment) { create :comment, user: user, review: true }
-      it { expect{act}.to_not change AbuseRequest, :count }
+    context 'old comment' do
+      let(:created_at) { 6.minutes.ago }
+      it do
+        expect{act}.to change AbuseRequest, :count
+        is_expected.to eq []
+        expect(comment).to_not be_review
+      end
     end
   end
 
@@ -71,7 +81,7 @@ describe AbuseRequestsService do
       let(:comment) { create :comment }
 
       it { expect{act}.to change(AbuseRequest, :count).by 1 }
-      it { should eq [] }
+      it { is_expected.to eq [] }
 
       describe 'abuse_request' do
         before { act }
@@ -85,7 +95,7 @@ describe AbuseRequestsService do
         before { act }
         subject { user.abuse_requests.last }
 
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
 
       context 'already acted' do

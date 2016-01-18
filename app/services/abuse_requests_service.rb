@@ -4,6 +4,8 @@ class AbuseRequestsService
     #5779 # Lumennes
   ]
 
+  SUMMARY_TIMEOUT = 5.minutes
+
   pattr_initialize :comment, :reporter
 
   def offtopic faye_token
@@ -46,7 +48,9 @@ private
   end
 
   def allowed_review_change?
-    @comment.user_id == @reporter.id || @reporter.moderator?
+    @reporter.moderator? ||
+      (@comment.user_id == @reporter.id &&
+        @comment.created_at > SUMMARY_TIMEOUT.ago)
   end
 
   def allowed_offtopic_change?
