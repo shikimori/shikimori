@@ -12,4 +12,17 @@ class Topics::NewsTopic < Topic
       action_text.capitalize
     end
   end
+
+  # для message
+  def full_title
+    fail ArgumentError unless generated?
+
+    BbCodeFormatter.instance.format_comment(I18n.t(
+      "topics/news_topic.full_title.#{linked_type.underscore}",
+      action_name: title,
+      action_name_lower: title.downcase,
+      id: linked_id,
+      type: linked_type.underscore
+    )).gsub(/<.*?>/, '')
+  end
 end

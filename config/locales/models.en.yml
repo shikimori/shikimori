@@ -91,5 +91,22 @@ en:
       club: '[%{type}=%{id}]Club[/%{type}] discussion thread.'
       cosplay_gallery: 'Cosplay discussion thread.'
 
+    full_title:
+      anime: Anime [%{type}]%{id}[/%{type}] discussion
+      manga: Manga [%{type}]%{id}[/%{type}] discussion
+      character: Character [%{type}]%{id}[/%{type}] discussion
+      character: Person [%{type}]%{id}[/%{type}] discussion
+      review:
+        anime: Anime %{target_name} review by %{author} discussion
+        manga: Manga %{target_name} review by %{author} discussion
+      contest: Contest [%{type}]%{id}[/%{type}] discussion
+      club: Club [%{type}]%{id}[/%{type}] discussion
+      cosplay_gallery: Cosplay discussion
+
+  topics/news_topic:
+    full_title:
+      anime: 'Anime [%{type}]%{id}[/%{type}] %{action_name_lower}'
+      manga: 'Manga [%{type}]%{id}[/%{type}] %{action_name_lower}'
+
   cosplay_gallery:
     title: Cosplay of %{cosplay} by %{cosplayer}

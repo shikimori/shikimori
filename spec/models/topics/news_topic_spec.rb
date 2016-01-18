@@ -33,5 +33,18 @@ describe Topics::NewsTopic do
         it { is_expected.to eq '123' }
       end
     end
+
+    describe '#full_title' do
+      context 'generated' do
+        let(:anime) { create :anime }
+        let(:topic) { build :news_topic, :anime_anons, linked: anime }
+        it { expect(topic.full_title).to eq "Анонс аниме #{anime.name}" }
+      end
+
+      context 'not generated' do
+        let(:topic) { build :news_topic, generated: false }
+        it { expect{topic.full_title}.to raise_error ArgumentError }
+      end
+    end
   end
 end

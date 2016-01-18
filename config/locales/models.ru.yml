@@ -91,5 +91,22 @@ ru:
       club: Топик обсуждения [%{type}=%{id}]клуба[/%{type}].
       cosplay_gallery: Топик обсуждения косплея.
 
+    full_title:
+      anime: Обсуждение аниме [%{type}]%{id}[/%{type}]
+      manga: Обсуждение манги [%{type}]%{id}[/%{type}]
+      character: Обсуждение персонажа [%{type}]%{id}[/%{type}]
+      person: Обсуждение человека [%{type}]%{id}[/%{type}]
+      review:
+        anime: Обсуждение рецензии аниме %{target_name} от %{author}
+        manga: Обсуждение рецензии манги %{target_name} от %{author}
+      contest: Обсуждение опроса [%{type}]%{id}[/%{type}]
+      club: Обсуждение клуба [%{type}]%{id}[/%{type}]
+      cosplay_gallery: Обсуждение косплея
+
+  topics/news_topic:
+    full_title:
+      anime: '%{action_name} аниме [%{type}]%{id}[/%{type}]'
+      manga: '%{action_name} манги [%{type}]%{id}[/%{type}]'
+
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}

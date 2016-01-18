@@ -80,6 +80,7 @@ module MessagesHelper # для truncate в messages helper
     content = case linked_type
       when CosplayGallery.name
         target = CosplayGallery.includes(:animes).find(linked_id)
+
         if target.animes.empty?
           linked_type
         else
@@ -93,15 +94,24 @@ module MessagesHelper # для truncate в messages helper
 
       when Entry.name
         target = Entry.find_by_id linked_id
+
         if target
           url = UrlGenerator.instance.topic_url(target)
-          'в топике <!--%s-->.' % [truncate(target.title, length: 30, omission: '…')]
+
+          topic_name = if target.respond_to? :full_title
+            target.full_title
+          else
+            target.title
+          end
+
+          'в топике <!--%s-->.' % topic_name
         else
           'в <em>удалённом</em> топике.'
         end
 
       when User.name
         target = User.find_by_id linked_id
+
         if target
           url = profile_url(target)
           'в профиле пользователя <!--%s-->.' % [target.nickname]
