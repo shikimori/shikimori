@@ -1,5 +1,4 @@
 class ClubsQuery < QueryObjectBase
-private
   def query
     Club
       .joins(:member_roles, :thread)

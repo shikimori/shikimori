@@ -74,14 +74,17 @@ class DbEntryDecorator < BaseDecorator
 
   # связанные клубы
   def linked_clubs
-    object.clubs.shuffle.take(MAX_CLUBS)
+    object.clubs
+      .where(is_censored: false)
+      .shuffle
+      .take(MAX_CLUBS)
   end
 
   # все связанные клубы
   def all_linked_clubs
-    ClubsQuery.new
-      .fetch(1, 999)
+    ClubsQuery.new.query
       .where(id: object.clubs)
+      .where(is_censored: false)
   end
 
   # добавлено ли в избранное?
