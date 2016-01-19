@@ -1,7 +1,7 @@
 describe PushNotification do
   let(:worker) { PushNotification.new }
 
-  let(:message) { create :message, :profile_commented }
+  let(:message) { create :message, :profile_commented, read: is_read }
   let(:device) { create :device }
 
   describe '#perform' do
@@ -11,9 +11,17 @@ describe PushNotification do
     before { allow(gcm).to receive :send_notification }
     before { worker.perform message.id, device.id }
 
-    it do
-      expect(gcm).to have_received(:send_notification)
-        .with [device.token], data: { message: gcm_message }
+    context 'not read message' do
+      let(:is_read) { false }
+      it do
+        expect(gcm).to have_received(:send_notification)
+          .with [device.token], data: { message: gcm_message }
+      end
+    end
+
+    context 'read message' do
+      let(:is_read) { true }
+      it { expect(gcm).to_not have_received :send_notification }
     end
   end
 end
