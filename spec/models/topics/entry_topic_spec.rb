@@ -15,7 +15,7 @@ describe Topics::EntryTopic do
 
       context 'not generated' do
         let(:topic) { build :club_topic, generated: false }
-        it { expect{topic.full_title}.to raise_error ArgumentError }
+        it { expect(topic.full_title).to eq topic.title }
       end
     end
 
