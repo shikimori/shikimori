@@ -1,5 +1,7 @@
 ru:
   pages:
+    info:
+      header_notice: Полезные ссылки
     about:
       android_developer: Android разработчики
       community: Посещаемость

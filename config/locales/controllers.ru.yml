@@ -202,6 +202,7 @@ ru:
     calendar_of_ongoings: Календарь онгоингов
     privacy_policy: Политика конфиденциальности
     terms_of_service: Пользовательское соглашение
+    info: Информация
 
   studios_controller:
     page_title: Аниме студии

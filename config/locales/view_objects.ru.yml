@@ -132,6 +132,3 @@ ru:
     year: '%{year} год'
     decade: '%{decade}0е годы'
     ancient: Более старые
-
-  dashboard_view:
-    moderations_content: Модерация и контент

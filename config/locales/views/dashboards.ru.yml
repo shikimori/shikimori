@@ -11,7 +11,7 @@ ru:
       currently_airing: Сейчас на экранах
       mangas: Манга
       news_feed: Лента новостей
-      other: Прочее
+      # other: Прочее
       reviews: Рецензии
 
     animes:

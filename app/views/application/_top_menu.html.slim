@@ -18,9 +18,14 @@
     - if user_signed_in?
       .entry.userbox
         - if current_user.unread_count > 0
-          a.unread-count href="#{current_user.unread_messages_url}" title="#{t :mail}"
-            = [99, current_user.unread_count].min
-        a.avatar href="#{current_user.url}" title="#{current_user.nickname}"
+          a.unread-count[
+            href="#{current_user.unread_messages_url}"
+            title="#{t :mail}"
+          ] = [99, current_user.unread_count].min
+        a.avatar[
+          href="#{current_user.url}"
+          title="#{current_user.nickname}"
+        ]
           img.avatar[
             src="#{current_user.avatar_url 20}"
             srcset="#{current_user.avatar_url 48} 2x"
@@ -55,9 +60,9 @@
 
     - else
       .entry.userbox.linkeable[
-          data-href="#{new_user_session_url subdomain: nil}"
-          title="#{t '.sign_in'}"
-        ]
+        data-href="#{new_user_session_url subdomain: nil}"
+        title="#{t '.sign_in'}"
+      ]
         span#sign_in
 
   .menu.menu-search

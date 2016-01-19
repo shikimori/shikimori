@@ -16,11 +16,12 @@
       title="#{i18n_i 'Studio', :other}"
     ] = i18n_i 'Studio', :other
 
-a.entry.calendar[
-  class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}"
-  href="#{ongoings_pages_url}"
-  title="#{t 'calendar'}"
-]
+.entry.calendar
+  a[
+    class="#{:selected if params[:controller] == 'pages' && params[:action] == 'ongoings'}"
+    href="#{ongoings_pages_url}"
+    title="#{t 'calendar'}"
+  ]
 
 .entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
   .submenu-toggler
@@ -67,3 +68,36 @@ a.entry.calendar[
       href="#{clubs_url}"
       title="#{i18n_i 'Club', :other}"
     ] = i18n_i 'Club', :other
+
+- if user_signed_in?
+  .entry.info
+    .submenu-toggler
+    a title="#{t '.info'}" href="#{info_pages_url}"
+    .submenu
+      a.entry[
+        href="#{anime_statistics_url}"
+        title="#{t 'anime_industry'}"
+      ] = t 'anime_industry'
+      a.entry[
+        href="#{about_pages_url}"
+        title="#{t 'about_site'}"
+      ] = t 'about_site'
+      a.entry[
+        href='/forum/s/79042-Pravila-sayta'
+        title="#{t 'site_rules'}"
+      ] = t 'site_rules'
+      a.entry[
+        href='/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy'
+        title='FAQ'
+      ] FAQ
+      a.entry[
+        href="#{moderations_url}"
+        title="#{t '.moderation'}"
+      ] = t '.moderation'
+      a.entry[
+        href="#{apipie_apipie_url}"
+        title='API'
+      ] API
+- else
+  .entry.info
+    a title="#{t '.info'}" href="#{info_pages_url}"

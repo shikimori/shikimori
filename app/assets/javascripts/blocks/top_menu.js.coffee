@@ -14,7 +14,6 @@ $(document).on 'page:load', ->
       $menu.css
         height: height
         borderBottomWidth: borderBottomWidth
-
     , ->
       $menu.css
         height: 0

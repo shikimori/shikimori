@@ -1,5 +1,7 @@
 en:
   pages:
+    info:
+      header_notice: Useful links
     about:
       android_developer: Android developers
       community: Site visitors

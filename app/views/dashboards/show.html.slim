@@ -20,7 +20,7 @@
         .option.selected = t '.reviews'
         .option = t '.animes'
         .option = t '.mangas'
-        .option = t '.other'
+        / .option = t '.other'
 
       .slides
         .slide.reviews
@@ -41,19 +41,19 @@
         .slide.mangas.hidden
           = render 'dashboards/mangas'
 
-        .slide.hidden
-          .midheadline: h2 = t '.other'
-          ul.b-list
-            - @view.pages.each_with_index do |(url, title), index|
-              li
-                - if index < DashboardView::SPECIAL_PAGES
-                  a.b-link[
-                    href="#{url}"
-                    data-no-turbolink="true"
-                    title="#{title}"
-                  ] = title
-                - else
-                  a.b-link href="#{url}" title="#{title}" = title
+        / .slide.hidden
+          / .midheadline: h2 = t '.other'
+          / ul.b-list
+            / - @view.pages.each_with_index do |(url, title), index|
+              / li
+                / - if index < DashboardView::SPECIAL_PAGES
+                  / a.b-link[
+                    / href="#{url}"
+                    / data-no-turbolink="true"
+                    / title="#{title}"
+                  / ] = title
+                / - else
+                  / a.b-link href="#{url}" title="#{title}" = title
 
     .c-my_list
       - if user_signed_in?

@@ -132,6 +132,3 @@ en:
     year: '%{year}'
     decade: '%{decade}0s'
     ancient: Older
-
-  dashboard_view:
-    moderations_content: Moderation

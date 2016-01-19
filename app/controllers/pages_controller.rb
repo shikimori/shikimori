@@ -22,9 +22,13 @@ class PagesController < ShikimoriController
 
   # о сайте
   def about
-    @page_title = t 'about_site'
+    page_title t('about_site')
     @statistics = SiteStatistics.new
     @topic = Topics::Factory.new(false, false).find ABOUT_TOPIC_ID
+  end
+
+  def info
+    page_title i18n_t('.info')
   end
 
   # rss с новостями

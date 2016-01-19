@@ -5,6 +5,18 @@
 $entry_padding_left: 10px
 
 +lte_ipad
+  .locale-en .l-top_menu
+    .calendar:before
+      content: 'Calendar'
+    .info:before
+      content: 'Info'
+
+  .locale-ru .l-top_menu
+    .calendar:before
+      content: 'Календарь'
+    .info:before
+      content: 'Инфо'
+
   .l-top_menu
     +clearfix
 
@@ -80,9 +92,6 @@ $entry_padding_left: 10px
 
         &.active:before
           content: '-'
-
-      .calendar:before
-        content: 'Календарь'
 
     .menu-search
       .entry

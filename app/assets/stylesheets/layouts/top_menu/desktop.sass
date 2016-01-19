@@ -10,19 +10,13 @@ $menu_link_color: #e1e7f2
   .l-top_menu
     height: $menu_height
 
-    .menu-items
-      +clearfix
-      margin-left: 125px
-      white-space: nowrap
+    .menu-mobile
+      display: none
 
     .menu-search, .menu-userbox
       float: right
       margin-top: 0
 
-    .menu-mobile
-      display: none
-
-    .menu
       & > .entry
         +transition(backround-color 0.3s ease)
         color: $menu_link_color
@@ -32,24 +26,40 @@ $menu_link_color: #e1e7f2
         line-height: 21px
         padding: 7px 10px 4px
 
-        &.num
-          display: inline-block
-          float: none
+    .menu-items
+      +clearfix
+      margin-left: 125px
+      white-space: nowrap
 
-        &.calendar
-          +icon("\e839")
-          padding-left: 8px
-          padding-right: 8px
-          margin-left: 0 !important
-          padding-bottom: 3px
+      & > .entry
+        +transition(backround-color 0.3s ease)
+        color: $menu_link_color
+        cursor: pointer
+        float: left
 
-          &:before
-            font-size: 18px !important
-            line-height: 20px !important
-            width: 20px !important
+        &.calendar, &.info
+          & > a
+            margin-left: 0 !important
+            line-height: 28px
+            padding-top: 5px
+
+            &:before
+              font-size: 18px !important
+              line-height: 20px !important
+              width: 20px !important
+
+        &.calendar > a
+          +icon('\e839')
+
+        &.info > a
+          +icon('i')
 
         & > a
           color: inherit
+          display: inline-block
+          font-size: 12px
+          line-height: 27px
+          padding: 4px 10px 0
 
           &:active
             color: #f9f9f9 !important
@@ -59,12 +69,21 @@ $menu_link_color: #e1e7f2
           color: white
           text-decoration: none
 
+        & > .submenu
+          margin-top: 0
+          margin-left: 0
+
         &:active
           background-color: #4A4A4A
           color: $menu_link_color !important
 
-        .contest
-          margin-left: 7px
+        & > .contest
+          margin: 7px 5px 0 0
+
+          &:before
+            position: absolute
+            margin-left: -5px
+            line-height: 15px
 
     .submenu
       +transition(height 0.3s ease)

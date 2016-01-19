@@ -64,10 +64,6 @@ describe DashboardView do
     it { expect(view.history).to have(1).item }
   end
 
-  describe '#pages' do
-    it { expect(view.pages).to have_at_least(5).items }
-  end
-
   describe '#forums' do
     it { expect(view.forums).to have_at_least(2).items }
   end

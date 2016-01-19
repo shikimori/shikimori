@@ -98,17 +98,6 @@ class DashboardView < ViewObjectBase
     Forums::List.new.select { |forum| !forum.is_special }
   end
 
-  def pages
-    {
-      h.anime_statistics_url => i18n_t('.anime_industry'),
-      h.about_pages_url => i18n_t('about_site'),
-      '/forum/s/79042-Pravila-sayta' => i18n_t('site_rules'),
-      '/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy' => 'FAQ',
-      h.moderations_url => i18n_t('.moderations_content'),
-      h.apipie_apipie_url => 'API'
-    }
-  end
-
 private
 
   def all_ongoings

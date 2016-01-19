@@ -11,7 +11,7 @@ en:
       currently_airing: Currently Airing
       mangas: Mangas
       news_feed: News Feed
-      other: Other
+      # other: Other
       reviews: Reviews
 
     animes:

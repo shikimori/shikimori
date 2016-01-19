@@ -7,6 +7,7 @@ class NameValidator < ActiveModel::EachValidator
       contests |
       users |
       forum |
+      info |
       \.css |
       \.js |
       \.jpg |
