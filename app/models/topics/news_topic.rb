@@ -15,7 +15,7 @@ class Topics::NewsTopic < Topic
 
   # для message
   def full_title
-    fail ArgumentError unless generated?
+    return title unless generated?
 
     BbCodeFormatter.instance.format_comment(I18n.t(
       "topics/news_topic.full_title.#{linked_type.underscore}",

@@ -4,7 +4,8 @@ class Topics::EntryTopics::ReviewTopic < Topics::EntryTopic
   end
 
   def full_title
-    fail ArgumentError unless generated?
+    return title unless generated?
+
     first_key = linked_type.underscore
     second_key = linked.target_type.underscore
 
