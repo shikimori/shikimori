@@ -6,6 +6,13 @@ class TopicsQuery < ChainableQueryBase
     type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
     #{Entry.table_name}.linked_id in (:user_clubs)
   )"
+  NEWS_QUERY = "(
+    type = '#{Topics::NewsTopic.name}' and
+    generated = false
+  ) or (
+    type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
+    generated = true
+  )"
 
   def initialize user
     @user = user
@@ -28,14 +35,14 @@ class TopicsQuery < ChainableQueryBase
         where forum_id: forum.id
         order! created_at: :desc
 
+      when 'clubs'
+        joins "left join clubs on clubs.id=linked_id and linked_type='Club'"
+        where forum_id: forum.id
+        where "(linked_id in (:user_clubs)) or clubs.is_censored = false",
+          user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
+
       when Forum::NEWS_FORUM.permalink
-        where "(
-          type = '#{Topics::NewsTopic.name}' and
-          generated = false
-        ) or (
-          type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
-          generated = true
-        )"
+        where NEWS_QUERY
         order! created_at: :desc
 
       when Forum::UPDATES_FORUM.permalink

@@ -42,7 +42,7 @@ private
   # создание топика для элемента сразу после создания элемента
   def generate_thread
     thread_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
-    Entry.wo_timestamp do
+    thread_klass.wo_timestamp do
       self.thread = thread_klass.create!(
         forum_id: DbEntryThread::FORUM_IDS[self.class.name],
         generated: true,

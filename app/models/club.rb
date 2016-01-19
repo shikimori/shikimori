@@ -144,14 +144,18 @@ private
   end
 
   def generate_thread
-    FayeService
-      .new(owner, '')
-      .create!(Topics::EntryTopics::ClubTopic.new(
-        forum_id: Forum::CLUBS_ID,
-        generated: true,
-        linked: self,
-        user: owner
-      ))
+    Topics::EntryTopics::ClubTopic.wo_timestamp do
+      FayeService
+        .new(owner, '')
+        .create!(Topics::EntryTopics::ClubTopic.new(
+          forum_id: Forum::CLUBS_ID,
+          generated: true,
+          linked: self,
+          created_at: created_at,
+          updated_at: updated_at,
+          user: owner
+        ))
+    end
   end
 
   def join_owner
