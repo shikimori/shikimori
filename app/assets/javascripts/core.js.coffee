@@ -7,6 +7,7 @@
 #= require eventEmitter
 #= require magnific-popup
 #= require jQuery-Storage-API
+#= require ev-emitter
 #= require imagesloaded
 
 # dependencies for packery

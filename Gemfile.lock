@@ -480,14 +480,14 @@ GEM
     rails-assets-classie (1.0.1)
     rails-assets-doc-ready (1.0.4)
       rails-assets-eventie (>= 1, < 2)
+    rails-assets-ev-emitter (1.0.1)
     rails-assets-eventEmitter (4.3.0)
     rails-assets-eventie (1.0.6)
     rails-assets-get-size (1.2.2)
       rails-assets-get-style-property (~> 1.0)
     rails-assets-get-style-property (1.0.4)
-    rails-assets-imagesloaded (3.2.0)
-      rails-assets-eventEmitter (>= 4.2, < 5.0)
-      rails-assets-eventie (~> 1.0.4)
+    rails-assets-imagesloaded (4.1.0)
+      rails-assets-ev-emitter (~> 1.0.0)
     rails-assets-jQuery-Storage-API (1.7.5)
       rails-assets-jquery (>= 1.4)
     rails-assets-jquery (2.1.4)
@@ -756,6 +756,7 @@ DEPENDENCIES
   rack-cors
   rack-utf8_sanitizer
   rails
+  rails-assets-ev-emitter!
   rails-assets-eventEmitter!
   rails-assets-eventie!
   rails-assets-imagesloaded!

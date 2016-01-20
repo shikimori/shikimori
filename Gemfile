@@ -182,6 +182,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-jquery'
   gem 'rails-assets-eventie'
   gem 'rails-assets-eventEmitter'
+  gem 'rails-assets-ev-emitter'
   gem 'rails-assets-jquery-bridget'
   #gem 'rails-assets-moment'
   gem 'rails-assets-packery', '1.3.2'
