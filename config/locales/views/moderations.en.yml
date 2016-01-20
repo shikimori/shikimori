@@ -73,9 +73,43 @@ en:
         for: for
         from: from
         warn: warn
+
     bans:
       index:
         expand_all: expand all
+        notice: This is the history of bans and warnings
+        instruction: Instructions
+        instructions:
+          - Don't discuss moderation related issues and the fact of you being
+            a moderator with other members.
+          - Don't discuss your reasons for banning a particular member
+            as well as ban duration or why this user has been banned
+            while another one has not.
+          - Be polite, don't insult or harass other members.
+          - Ban duration is set using a combination of minutes (m),
+            hours (h), days (d) and weeks (w). E.g. <b><em>5m 2h 3w</em></b>
+            is a ban for 3 weeks, 2 hours and 5 minutes.
+          - Using zero as ban duration results in warning a member
+            without actually banning him or her.
+          - 'Ban duration for any particular member is calculated
+            automatically using this formula:
+            <b><em>0.5 + 0.5 * ((&lt;number_of_bans_for_the_last_two_months&gt; ^ 3) /2 - 1)</em></b>.'
+          - Ban duration is left to your discretion but it's recommended to
+            use ban duration calculated automatically.
+          - Banned users trying to sign up using proxy server
+            must be banned without further ado and for a very long time.
+            Their comments must be removed.
+          - 'Don''t ban for old comments - such comments are tagged with an
+            <span style="font-size: 11px; color: green;">
+            old comment</span> marker.'
+          - Deliberate flaming or trolling is strictly
+            prohibited - members starting them must be banned.
+        queue: Queue
+        queue_empty: Queue is empty
+        declined: Declined
+        offtopic_plus_summaries: offtopic + summaries
+        history: History
+
       ban:
         ban: ban
         banned_on: "on" # не убирать кавычки
