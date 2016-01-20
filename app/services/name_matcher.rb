@@ -1,5 +1,4 @@
 # матчер названий аниме и манги со сторонних сервисов с названиями на сайте
-# TODO: необходимо оптимихировать. думаю, @cache надо вынести в базу данных
 class NameMatcher
   attr_reader :cache
 
@@ -232,8 +231,8 @@ private
 
     names
       .flatten
-      .select {|v| fix(v) !~ BAD_NAMES }
-      .select {|v| fix(v).size > 3 }
+      .select { |v| fix(v) !~ BAD_NAMES }
+      .select { |v| fix(v).size > 3 }
   end
 
   # заполнение кеша
@@ -246,7 +245,7 @@ private
       russian: {},
       predefined: predefined_matches
     }
-    @services.each {|service| cache[service] = {} }
+    @services.each { |service| cache[service] = {} }
 
     datasource.each do |entry|
       names = {
@@ -325,7 +324,9 @@ private
   end
 
   def predefined_matches
-    config = YAML::load(File.open("#{::Rails.root.to_s}/config/alternative_names.yml"))[@klass.table_name]
+    @@config ||= YAML::load_file Rails.root.join('config/app/names_matches_predefined.yml')
+    config = @@config[@klass.table_name]
+
     entries_by_id = @klass
       .where(id: config.values)
       .select(db_fields)
