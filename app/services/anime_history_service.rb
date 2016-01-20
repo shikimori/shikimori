@@ -31,7 +31,7 @@ class AnimeHistoryService
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
       next if entry.class == Topics::NewsTopic && (!entry.linked || entry.linked.censored || entry.linked.kind_music?)
       # протухшие новости тоже не нужны
-      next if entry.created_at + NewsExpireIn < DateTime.now
+      next if (entry.created_at || Time.zone.now) + NewsExpireIn < Time.zone.now
 
       users
         .select { |v| v.subscribed_for_event? entry }
