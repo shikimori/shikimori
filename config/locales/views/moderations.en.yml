@@ -52,8 +52,8 @@ en:
           with comment markers by site users
         instruction: Instructions
         instructions:
-          - Personal conversations in anime topics are offtopic
-          - Comments written in (very) poor English are offtopic
+          - Personal conversations in anime topics are offtopic.
+          - Comments written in (very) poor English are offtopic.
           - Don't remove 'summary' marker from negative summaries
             if they are well-written and not offensive.
         to_your_discretion: The rest is left to your discretion.
