@@ -75,15 +75,6 @@
     a title="#{t '.info'}" href="#{info_pages_url}"
     .submenu
       a.entry[
-        href="#{anime_statistics_url}"
-        title="#{t 'anime_industry'}"
-        data-no-turbolink="true"
-      ] = t 'anime_industry'
-      a.entry[
-        href="#{about_pages_url}"
-        title="#{t 'about_site'}"
-      ] = t 'about_site'
-      a.entry[
         href='/forum/s/79042-Pravila-sayta'
         title="#{t 'site_rules'}"
       ] = t 'site_rules'
@@ -91,6 +82,16 @@
         href='/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy'
         title='FAQ'
       ] FAQ
+      a.entry[
+        href="#{about_pages_url}"
+        title="#{t 'about_site'}"
+        data-no-turbolink="true"
+      ] = t 'about_site'
+      a.entry[
+        href="#{anime_statistics_url}"
+        title="#{t 'anime_industry'}"
+        data-no-turbolink="true"
+      ] = t 'anime_industry'
       a.entry[
         href="#{moderations_url}"
         title="#{t '.moderation'}"

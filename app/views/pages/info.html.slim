@@ -6,10 +6,6 @@ header.head
   .c-column.m0
     ul.b-list
       li: a.entry[
-        href="#{about_pages_url}"
-        title="#{t 'about_site'}"
-      ] = t 'about_site'
-      li: a.entry[
         href='/forum/s/79042-Pravila-sayta'
         title="#{t 'site_rules'}"
       ] = t 'site_rules'
@@ -17,6 +13,11 @@ header.head
         href='/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy'
         title='FAQ'
       ] FAQ
+      li: a.entry[
+        href="#{about_pages_url}"
+        title="#{t 'about_site'}"
+        data-no-turbolink="true"
+      ] = t 'about_site'
       li: a.entry[
         href="#{moderations_url}"
         title="#{t 'application.top_menu.shikimori.moderation'}"
