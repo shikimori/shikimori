@@ -24,19 +24,19 @@ private
 
   def letter_synonyms
     config[:letter_synonyms].map do |to, from|
-      [/(?:#{Array(from).join '|'})/, to]
+      [/(?:#{Array(from).join '|'})/i, to]
     end
   end
 
   def word_synonyms
     config[:word_synonyms].map do |to, from|
-      [/\b(?:#{Array(from).join '|'})\b/, to]
+      [/\b(?:#{Array(from).join '|'})\b/i, to]
     end
   end
 
   def regexp_replaces
     config[:regexp_replaces].map do |left, right|
-      [/#{left}/, right]
+      [/#{left}/i, right]
     end
   end
 end

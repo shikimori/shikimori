@@ -20,7 +20,7 @@ describe NameMatches::BuildMatches do
     subject(:name_matches) { service.call }
 
     it do
-      is_expected.to have(8).items
+      is_expected.to have(5).items
       expect(name_matches.first).to be_kind_of NameMatch
       expect(name_matches.first).to be_new_record
       expect(name_matches.first).to be_valid
@@ -31,6 +31,9 @@ describe NameMatches::BuildMatches do
         priority: 0,
         target: entry
       )
+      expect(name_matches.map(&:phrase)).to eq [
+        'myanime', 'mylittleanime', 'myanim', 'littleanime', 'littleanimetv'
+      ]
     end
 
     describe 'predefined_name' do
@@ -38,9 +41,9 @@ describe NameMatches::BuildMatches do
         let(:id) { 136 }
 
         it do
-          is_expected.to have(9).items
+          is_expected.to have(6).items
           expect(name_matches.first).to have_attributes(
-            phrase: 'охотникхохотниктв1',
+            phrase: 'охотникхохотник',
             group: 0
           )
           expect(name_matches.second).to have_attributes(
@@ -54,7 +57,7 @@ describe NameMatches::BuildMatches do
         let(:id) { 9999 }
 
         it do
-          is_expected.to have(8).items
+          is_expected.to have(5).items
           expect(name_matches.first).to have_attributes(
             phrase: 'myanime',
             group: 1

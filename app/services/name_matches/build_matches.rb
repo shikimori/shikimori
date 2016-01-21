@@ -1,18 +1,22 @@
 class NameMatches::BuildMatches < ServiceObjectBase
   pattr_initialize :entry
 
-  delegate :fix, :phrase_variants, to: :phraser
+  delegate :phrase_variants, to: :phraser
+  delegate :cleanup, :fix, :finalize, :finalizes, to: :cleaner
 
   GROUPS = NameMatch::GROUPS
 
   def call
-    GROUPS.flat_map { |group| build group }.uniq(&:phrase)
+    GROUPS
+      .map { |group| [group, send(:"#{group}_names", entry)] }
+      .flat_map { |group, phrases| build group, finalizes(phrases) }
+      .uniq(&:phrase)
   end
 
 private
 
-  def build group
-    fix(send(:"#{group}_names", entry)).uniq.map do |phrase|
+  def build group, phrases
+    phrases.map do |phrase|
       NameMatch.new(
         group: GROUPS.index(group),
         priority: entry.kind == :tv ? 0 : 1,
@@ -24,7 +28,7 @@ private
 
   def predefined_names entry
     config.predefined_names(entry.class)
-      .select { |name, id| id == entry.id }
+      .select { |_, id| id == entry.id }
       .map(&:first)
   end
 
@@ -67,10 +71,14 @@ private
   end
 
   def phraser
-    @phraser ||= NameMatches::Phraser.new
+    @phraser ||= NameMatches::Phraser.instance
+  end
+
+  def cleaner
+    @cleaner ||= NameMatches::Cleaner.instance
   end
 
   def config
-    NameMatches::Config.instance
+    @config ||= NameMatches::Config.instance
   end
 end

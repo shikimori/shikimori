@@ -7,7 +7,8 @@ class NameMatcher
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
-  delegate :fix, :multiply, :variants, :phrase_variants, to: :phraser
+  delegate :fix, to: :cleaner
+  delegate :multiply, :variants, :phrase_variants, to: :phraser
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -192,7 +193,15 @@ private
     @klass == Anime ? ANIME_FIELDS : MANGA_FIELDS
   end
 
+  def cleaner
+    @cleaner ||= NameMatches::Cleaner.instance
+  end
+
   def phraser
-    @phraser ||= NameMatches::Phraser.new
+    @phraser ||= NameMatches::Phraser.instance
+  end
+
+  def config
+    @config ||= NameMatches::Config.instance
   end
 end

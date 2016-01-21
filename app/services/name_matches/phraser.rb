@@ -1,20 +1,7 @@
 class NameMatches::Phraser
-  CLEANUP = /[-:,.~)(\[\]\/～"'☆†♪]+/mix
+  include Singleton
 
-  def fix phrases
-    if phrases.nil?
-      fix ''
-    elsif phrases.kind_of? Array
-      phrases.map { |phrase| fix phrase }.uniq.select(&:present?)
-    else
-      phrase = phrases.frozen? ? String.new(phrases) : phrases
-      cleanup(phrase.force_encoding('utf-8'))
-        .gsub(/ /, '')
-        .gsub(/`/, "'")
-        .gsub(/ +/, '')
-        .strip
-    end
-  end
+  delegate :cleanup, :fix, :desynonymize, :finalize, :finalizes, to: :cleaner
 
   # все возможные варианты написания имён
   def variants names, with_splits=true
@@ -55,16 +42,14 @@ class NameMatches::Phraser
     #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
 
     String::UNACCENTS.each do |word, matches|
-      phrases = replace phrases, matches, word.downcase
+      phrases = replace_regexp phrases, matches, word.downcase
     end
-    config.synonyms.each do |match, replacement|
-      phrases = replace phrases, match, replacement
-    end
+    phrases = phrases.map { |phrase| desynonymize phrase }
     if kind && name.downcase.include?("(#{kind.downcase})")
       phrases = multiply phrases, "(#{kind})", ''
     end
     phrases.uniq
-  end
+ end
 
   # aternative names in brackets
   def bracket_alternatives phrase
@@ -81,11 +66,7 @@ class NameMatches::Phraser
       .map { |split| cleanup split.join(' ') }
   end
 
-  def cleanup phrase
-    phrase.gsub(CLEANUP, '').downcase
-  end
-
-  def replace phrases, from, to
+  def replace_regexp phrases, from, to
     phrases
       .map { |phrase| phrase.gsub(from, to).gsub(/  +/, ' ').strip }
       .uniq
@@ -113,7 +94,13 @@ class NameMatches::Phraser
     multiplies.any? ? phrases + multiplies : phrases
   end
 
+private
+
+  def cleaner
+    @cleaner ||= NameMatches::Cleaner.instance
+  end
+
   def config
-    NameMatches::Config.instance
+    @config ||= NameMatches::Config.instance
   end
 end
