@@ -15,12 +15,14 @@ en:
       forums: Forums
       uploaded_videos_journal: Uploaded videos journal
       versions_journal: Content changes journal
+
     missing_screenshots:
       animes: Animes
       notices:
         - This is the list of top %{limit} most popular animes
           with missing screenshots.
         - The list is cached by the site and refreshed once per hour.
+
     missing_videos:
       video_types: Video types
       videos: Videos
@@ -40,10 +42,12 @@ en:
           most likely this means that available episodes are from another
           anime (they have been imported from another site automatically
           by mistake). Such episodes should be deleted.
+
     anime_video_reports:
       report:
         show: show
         show_changes: show details
+
     abuse_requests:
       index:
         expand_all: :moderations.bans.index.expand_all
@@ -103,7 +107,7 @@ en:
             <span style="font-size: 11px; color: green;">
             old comment</span> marker.'
           - Deliberate flaming or trolling is strictly
-            prohibited - members starting them must be banned.
+            prohibited - members starting either one must be banned.
         queue: Queue
         queue_empty: Queue is empty
         declined: Declined
@@ -116,3 +120,22 @@ en:
         for: for
         for_deleted_comment: for deleted comment
         warning: warning
+
+    reviews:
+      index:
+        notice: This is the history of reviews moderation
+        instruction: Instructions
+        instructions:
+          - In general review should follow the guidelines outlined
+            <a href="http://shikimori.org/animes/1-Cowboy-Bebop/reviews/new">
+            here</a>.
+          - Rejected reviews are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject reviews containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other reviews will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
