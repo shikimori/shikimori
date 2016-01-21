@@ -7,6 +7,7 @@ header.head
 .b-brief
   .moderators
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
+
   ul.b-list
     li: p: a href="#{forum_topic_url id: 79042, forum: :s}" = t 'site_rules'
     - t('.instructions').each do |instruction|
