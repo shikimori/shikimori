@@ -74,16 +74,16 @@
     - 6th season
 
 :regexp_replaces:
-  '\b(тв|tv|ova|tb)\s*-?\s*\d$': ''
-  '\btv$': ''
-  '\b\d{4}$': ''
+  # '\b(тв|tv|ova|tb)\s*-?\s*\d$': ''
+  # '\btv$': ''
+  # '\b\d{4}$': ''
   # '\bs(\d+)\b': ' s\1'
   # '(?<= )([456789])$': '\1th season'
   # '(?<= )2$': '2nd season'
   # '(?<= )3$': '3rd season'
   '^the ': ''
   # '\bi\b': ''
-  '!': ''
+  # '!': ''
   ' plus$': '+'
   ' the animation$': ''
   '\bseries\b': ''

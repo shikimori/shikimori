@@ -1,7 +1,19 @@
 class NameMatches::Cleaner
   include Singleton
 
-  CLEANUP = /[-:,.~)(\[\]\/～"'☆†♪]+/mix
+  CLEANER = /[-:,.~)(\[\]\/～"'☆†♪]+/mix
+
+  def finalize phrase
+    compact desynonymize cleanup phrase
+  end
+
+  def finalizes phrases
+    phrases.map { |phrase| finalize phrase }.uniq.select(&:present?)
+  end
+
+  def post_process phrase
+    desynonymize cleanup phrase
+  end
 
   def cleanup phrase
     phrase ||= ''
@@ -9,7 +21,7 @@ class NameMatches::Cleaner
 
     phrase
       .force_encoding('utf-8')
-      .gsub(CLEANUP, '')
+      .gsub(CLEANER, '')
       .gsub(/`/, "'")
       .gsub(/  +/, ' ')
       .downcase
@@ -24,20 +36,13 @@ class NameMatches::Cleaner
     phrase
   end
 
+  # TODO: remove
   def fix phrases
     if phrases.kind_of? Array
       phrases.map { |phrase| fix phrase }.uniq.select(&:present?)
     else
       compact cleanup(phrases)
     end
-  end
-
-  def finalize phrase
-    fix desynonymize cleanup phrase
-  end
-
-  def finalizes phrases
-    phrases.map { |phrase| finalize phrase }.uniq.select(&:present?)
   end
 
   def compact phrase
