@@ -1,5 +1,5 @@
 #= require jquery
-#= require core/jquery-migrate-1.2.1
+#= require core/jquery-migrate-1.3.0
 #= require_tree ./core
 
 #= require d3
