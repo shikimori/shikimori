@@ -55,13 +55,13 @@ class NameMatches::Phraser
     #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
 
     String::UNACCENTS.each do |word, matches|
-      phrases = replace_phrases phrases, matches, word.downcase
+      phrases = replace phrases, matches, word.downcase
     end
     config.synonyms.each do |match, replacement|
-      phrases = replace_phrases phrases, match, replacement
+      phrases = replace phrases, match, replacement
     end
     if kind && name.downcase.include?("(#{kind.downcase})")
-      phrases = multiply_phrases phrases, "(#{kind})", ''
+      phrases = multiply phrases, "(#{kind})", ''
     end
     phrases.uniq
   end
@@ -85,14 +85,14 @@ class NameMatches::Phraser
     phrase.gsub(CLEANUP, '').downcase
   end
 
-  def replace_phrases phrases, from, to
+  def replace phrases, from, to
     phrases
       .map { |phrase| phrase.gsub(from, to).gsub(/  +/, ' ').strip }
       .uniq
   end
 
   # множественная замена фразы на альтернативы
-  def multiply_phrases phrases, from, to
+  def multiply phrases, from, to
     multiplies = []
 
     phrases.each do |phrase|

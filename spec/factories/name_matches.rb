@@ -1,7 +1,8 @@
 FactoryGirl.define do
   factory :name_match do
     phrase 'MyString'
-    group :alt
+    group 0
+    priority 0
     target nil
   end
 end

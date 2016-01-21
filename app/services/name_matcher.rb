@@ -7,8 +7,7 @@ class NameMatcher
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
-  delegate :fix, :multiply_phrases, :variants,
-    :split_by_delimiters, :phrase_variants, to: :phraser
+  delegate :fix, :multiply, :variants, :phrase_variants, to: :phraser
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -87,22 +86,6 @@ private
 
     found_matches.select { |group, matches| matches.any? }
   end
-
-  # рекурсивная замена фразы на альтернативы
-  # медленнее второго варианта на 40%
-  #def multiply_phrases phrases, from, to, nesting=1
-    #raise 'infinite loop' if nesting > 50
-
-    #multiplies = phrases.flat_map do |phrase|
-      #replaced = phrase.sub(from, to).strip
-
-      #if replaced != phrase
-        #multiply_phrases [replaced], from, to, nesting+1
-      #end
-    #end
-
-    #(phrases + multiplies.compact).uniq
-  #end
 
   # заполнение кеша
   def build_cache

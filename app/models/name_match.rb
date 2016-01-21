@@ -2,7 +2,7 @@ class NameMatch < ActiveRecord::Base
   belongs_to :target, polymorphic: true
 
   validates :target, :phrase, presence: true
-  validates :group,
+  validates :group, :priority,
     presence: true,
     numericality: { greater_than_or_equal_to: 0 }
 

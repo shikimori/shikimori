@@ -1,8 +1,7 @@
 class NameMatches::BuildMatches < ServiceObjectBase
   pattr_initialize :entry
 
-  delegate :fix, :multiply_phrases, :variants,
-    :split_by_delimiters, :phrase_variants, to: :phraser
+  delegate :fix, :phrase_variants, to: :phraser
 
   GROUPS = NameMatch::GROUPS
 
@@ -16,38 +15,12 @@ private
     fix(send(:"#{group}_names", entry)).uniq.map do |phrase|
       NameMatch.new(
         group: GROUPS.index(group),
+        priority: entry.kind == :tv ? 0 : 1,
         phrase: phrase,
         target: entry
       )
     end
   end
-
-  # заполнение кеша
-  # def build_cache
-    # names = {
-      # name: main_names(entry).compact,
-      # alt: alt_names(entry).compact,
-      # alt2: alt2_names(entry).compact,
-      # russian: russian_names(entry).compact
-    # }
-    # names.each {|k,v| v.map!(&:downcase) }
-    # names[:alt3] = alt3_names(entry, names[:alt2])
-
-    # names.each {|k,v| names[k] = (v + v.map {|name| fix name }).uniq }
-
-    # names.each do |group,names|
-      # names.each do |name|
-        # cache[group][name] ||= []
-        # cache[group][name] << entry
-      # end
-    # end
-
-    # # идентификаторы привязанных сервисов
-    # entry
-      # .links
-      # .select {|v| @services.include?(v.service.to_sym) }
-      # .each {|link| cache[link.service.to_sym][link.identifier] = entry } if @services.present?
-  # end
 
   def predefined_names entry
     config.predefined_names(entry.class)
