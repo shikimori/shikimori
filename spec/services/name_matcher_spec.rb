@@ -165,7 +165,7 @@ describe NameMatcher do
       it { should eq [anime] }
     end
 
-    describe 'reversed words', :focus do
+    describe 'reversed words' do
       subject { matcher.matches 'Lain - Serial Experiments' }
       let!(:anime) { create :anime, :tv, name: 'Serial Experiments Lain' }
       it { should eq [anime] }

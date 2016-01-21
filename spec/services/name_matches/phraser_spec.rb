@@ -44,6 +44,11 @@ describe NameMatches::Phraser do
 
   describe '#bracket_alternatives' do
     it { expect(phraser.bracket_alternatives 'Kigeki [Sweat Punch Series 3]')
-      .to eq ['Kigeki', 'Sweat Punch Series 3'] }
+      .to eq ['kigeki', 'sweat punch series 3'] }
+  end
+
+  describe '#words_combinations' do
+    it { expect(phraser.words_combinations ['lain - serial experiments'])
+      .to eq ['serial experiments lain'] }
   end
 end

@@ -88,14 +88,9 @@ class NameMatches::Phraser
 
     phrases = Array(cleanup name)
 
-    phrases.concat bracket_alternatives(name.downcase)
-    phrases.concat split_by_delimiters(name.downcase, kind) if with_splits
-
-    # перестановки
-    phrases = phrases + phrases
-      .select { |v| v =~ /-/ }
-      .map { |v| v.split(/-/).map(&:strip).reverse.join(' ') }
-      .flatten
+    phrases.concat words_combinations name
+    phrases.concat bracket_alternatives name
+    phrases.concat split_by_delimiters name.downcase, kind if with_splits
 
     # транслит
     #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
@@ -117,6 +112,14 @@ class NameMatches::Phraser
     Array(phrase)
       .select { |v| v =~ /[\[\(].{5}.*?[\]\)]/ }
       .flat_map { |v| v.split(/[\(\)\[\]]/).map(&:strip) }
+      .map { |v| cleanup v }
+  end
+
+  def words_combinations phrase
+    Array(phrase)
+      .select { |v| v =~ /-/ }
+      .map { |v| v.split(/-/).map(&:strip).reverse.join(' ') }
+      .map { |v| cleanup v }
   end
 
   def cleanup phrase
