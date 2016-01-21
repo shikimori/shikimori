@@ -26,7 +26,8 @@ class NameMatches::Phraser
     elsif phrases.kind_of? Array
       phrases.map { |phrase| fix phrase }.uniq.compact
     else
-      cleanup(phrases.force_encoding('utf-8'))
+      phrase = phrases.frozen? ? String.new(phrases) : phrases
+      cleanup(phrase.force_encoding('utf-8'))
         .gsub(/ /, '')
         .gsub(/`/, "'")
         .gsub(/ +/, '')
@@ -81,20 +82,14 @@ class NameMatches::Phraser
       .select { |v| fix(v).size > 3 }
   end
 
-
   # получение различных вариантов написания фразы
-  def phrase_variants name, kind=nil, with_split=true
+  def phrase_variants name, kind=nil, with_splits=true
     return [] if name.nil?
 
     phrases = Array(cleanup name)
 
-    phrases.concat split_by_delimiters(name, kind) if with_split
-
-    # альтернативные названия в скобках
-    phrases = phrases + phrases
-      .select { |v| v =~ /[\[\(].{5}.*?[\]\)]/ }
-      .map { |v| v.split(/[\(\)\[\]]/).map(&:strip) }
-      .flatten
+    phrases.concat bracket_alternatives(name.downcase)
+    phrases.concat split_by_delimiters(name.downcase, kind) if with_splits
 
     # перестановки
     phrases = phrases + phrases
@@ -111,8 +106,17 @@ class NameMatches::Phraser
     SYNONYMS.each do |match, replacement|
       phrases = multiply_phrases phrases, match, replacement
     end
-    phrases = multiply_phrases phrases, "(#{kind})", '' if kind && name.include?("(#{kind.downcase})")
+    if kind && name.downcase.include?("(#{kind.downcase})")
+      phrases = multiply_phrases phrases, "(#{kind})", ''
+    end
     phrases.uniq
+  end
+
+  # aternative names in brackets
+  def bracket_alternatives phrase
+    Array(phrase)
+      .select { |v| v =~ /[\[\(].{5}.*?[\]\)]/ }
+      .flat_map { |v| v.split(/[\(\)\[\]]/).map(&:strip) }
   end
 
   def cleanup phrase

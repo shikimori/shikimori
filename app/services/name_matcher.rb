@@ -7,6 +7,9 @@ class NameMatcher
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
 
+  delegate :fix, :multiply_phrases, :variants,
+    :split_by_delimiters, :phrase_variants, to: :phraser
+
   # конструктор
   def initialize klass, ids=nil, services=[]
     # в каком порядке будем обходить кеш
@@ -22,7 +25,7 @@ class NameMatcher
   # поиск всех подходящих id аниме по переданным наваниям
   # возможные опции: year и episodes
   def matches names, options={}
-    found = matching_groups(Array(names).map {|v| fix v }).first ||
+    found = matching_groups(fix Array(names)).first ||
       matching_groups(variants(names, false)).first ||
       matching_groups(variants(names, true)).first
 
@@ -74,19 +77,6 @@ class NameMatcher
 
 private
 
-  # фикс имени - вырезание из него всего, что можно
-  def fix name
-    (name || '')
-      .downcase
-      .force_encoding('utf-8')
-      .gsub(/[-:,.~)(\/～"']/, '')
-      .gsub(/`/, '\'')
-      .gsub(/ /, '')
-      .gsub(/☆|†|♪/, '')
-      .strip
-      #.gsub(/([A-z])0(\d)/, '\1\2')
-  end
-
   def matching_groups fixed_names
     found_matches = fixed_names.each_with_object({}) do |variant,memo|
       @match_order.each do |group|
@@ -96,79 +86,6 @@ private
     end
 
     found_matches.select {|group, matches| matches.any? }
-  end
-
-  # получение различных вариантов написания фразы
-  def phrase_variants name, kind=nil, with_split=true
-    return [] if name.nil?
-
-    phrases = [name]
-
-    phrases.concat split_by_delimiters(name, kind) if with_split
-
-    # альтернативные названия в скобках
-    phrases = phrases + phrases
-      .select {|v| v =~ /[\[\(].{5}.*?[\]\)]/ }
-      .map {|v| v.split(/[\(\)\[\]]/).map(&:strip) }
-      .flatten
-
-    # перестановки
-    phrases = phrases + phrases
-      .select {|v| v =~ /-/ }
-      .map {|v| v.split(/-/).map(&:strip).reverse.join(' ') }
-      .flatten
-
-    # транслит
-    #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
-
-    # [ТВ-1]
-    phrases = multiply_phrases phrases, /\[?(тв|ova|tb)\s*-?\s*\d\]?$/, ''
-    phrases = multiply_phrases phrases, / \[?tv\]?$/, ''
-    # (2000)
-    phrases = multiply_phrases phrases, /[\[\(]\d{4}[\]\)]$/, ''
-
-    phrases = multiply_phrases phrases, / season (\d+)/, ' s\1'
-    phrases = multiply_phrases phrases, / s(\d+)/, ' season \1'
-    phrases = multiply_phrases phrases, / 2nd season$/, ' s2'
-
-    phrases = multiply_phrases phrases, /^the /, ''
-    phrases = multiply_phrases phrases, /\b2\b/, 'II'
-    phrases = multiply_phrases phrases, /\bi\b/, ''
-
-    phrases = multiply_phrases phrases, /kanojo/, 'heroine'
-
-    phrases = multiply_phrases phrases, /magika/, 'magica'
-    phrases = multiply_phrases phrases, /(?<= )2$/, '2nd season'
-    phrases = multiply_phrases phrases, /(?<= )3$/, '3rd season'
-    phrases = multiply_phrases phrases, / plus$/, '+'
-    phrases = multiply_phrases phrases, / the animation$/, ''
-    phrases = multiply_phrases phrases, / series \d$/, ''
-    phrases = multiply_phrases phrases, /\bspecial\b/, 'specials'
-
-    phrases = multiply_phrases phrases, '!', ''
-
-    # разлинчные варианты написания одних и тех же слов и фраз
-    phrases = multiply_phrases phrases, ' and ', ' & '
-    phrases = multiply_phrases phrases, ' & ', ' and '
-    phrases = multiply_phrases phrases, ' o ', ' wo '
-    phrases = multiply_phrases phrases, ' wo ', ' o '
-    phrases = multiply_phrases phrases, 'u', 'h'
-
-    String::UNACCENTS.each do |word, matches|
-      phrases = multiply_phrases phrases, matches, word.downcase
-    end
-
-    phrases = multiply_phrases phrases, 'ß', 'ss'
-    phrases = multiply_phrases phrases, '×', 'x'
-
-    phrases = multiply_phrases phrases, /(?<!u)u(?!u)/, 'uu'
-    phrases = multiply_phrases phrases, /s(?!h)/, 'sh'
-    phrases = multiply_phrases phrases, /(?<=[wrtpsdfghjklzxcvbnmy])o(?!u)/, 'ou'
-
-    phrases = multiply_phrases phrases, /(?<= )([456789])$/, '\1th season'
-    phrases = multiply_phrases phrases, "(#{kind})", '' if kind && name.include?("(#{kind.downcase})")
-
-    phrases.map {|name| fix name }.uniq
   end
 
   # рекурсивная замена фразы на альтернативы
@@ -186,54 +103,6 @@ private
 
     #(phrases + multiplies.compact).uniq
   #end
-
-  # множественная замена фразы на альтернативы
-  def multiply_phrases phrases, from, to
-    multiplies = []
-
-    phrases.each do |phrase|
-      next_phrase = phrase
-
-      10.times do
-        replaced = next_phrase.sub(from, to).strip
-
-        if replaced != next_phrase
-          multiplies << replaced
-          next_phrase = replaced
-        else
-          break
-        end
-      end
-    end
-
-    multiplies.any? ? phrases + multiplies : phrases
-  end
-
-
-  # все возможные варианты написания имён
-  def variants names, with_splits=true
-    Array(names)
-      .map(&:downcase)
-      .map {|name| phrase_variants name, nil, with_splits }
-      .flatten
-      .uniq
-      .select(&:present?)
-  end
-
-  # разбитие фразы по запятым, двоеточиям и тире
-  def split_by_delimiters name, kind=nil
-    names = (name =~ /:|-/ ?
-      name.split(/:|-/).select {|s| s.size > 7 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
-      []) +
-    (name =~ /,/ ?
-      name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
-      [])
-
-    names
-      .flatten
-      .select { |v| fix(v) !~ BAD_NAMES }
-      .select { |v| fix(v).size > 3 }
-  end
 
   # заполнение кеша
   def build_cache
@@ -339,5 +208,9 @@ private
 
   def db_fields
     @klass == Anime ? ANIME_FIELDS : MANGA_FIELDS
+  end
+
+  def phraser
+    @phraser ||= NameMatches::Phraser.new
   end
 end
