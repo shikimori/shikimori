@@ -6,7 +6,7 @@ describe NameMatches::Namer do
       id: id,
       kind: kind,
       name: 'Ootnik z Ootnik!',
-      russian: 'Охотник!',
+      russian: russian,
       aired_on: aired_on,
       synonyms: [
         'Hunter x Hunter',
@@ -22,6 +22,7 @@ describe NameMatches::Namer do
 
   let(:id) { 99999999999 }
   let(:kind) { :tv }
+  let(:russian) { 'Охотник!' }
   let(:aired_on) { Date.parse '2000-01-01' }
 
   describe '#predefined' do
@@ -46,7 +47,7 @@ describe NameMatches::Namer do
       end
     end
 
-    context 'without aired_on' do
+    context 'wo aired_on' do
       let(:aired_on) { nil }
       it do
         expect(service.name entry).to eq [
@@ -78,22 +79,32 @@ describe NameMatches::Namer do
   describe '#alt3' do
     it do
       expect(service.alt3 entry).to eq [
-        'ootnik z ootnik!', 'ootnik z ootnik! tv', 'ootnik z ootnik! 2000',
-        'hunter x hunter', 'hunters', 'englis hunter', 'ハンターxハンター',
-        'hunter x hunter tv', 'hunter x hunter 2000',
-        'hunters tv', 'hunters 2000',
-        'englis hunter tv', 'englis hunter 2000',
-        'ハンターxハンター tv', 'ハンターxハンター 2000',
-        'ootnik z ootnik', 'ootnik z ootnik tv',
-        'ootnik z ootnik 2000'
+        'ootnik z ootnik', 'ootnik z ootnik tv', 'ootnik z ootnik 2000'
       ]
     end
   end
 
   describe '#russian' do
+    context 'with russian' do
+      let(:russian) { 'Охотник!' }
+      it do
+        expect(service.russian entry).to eq [
+          'охотник!', 'охотник! tv', 'охотник! 2000'
+        ]
+      end
+    end
+
+    context 'wo russian' do
+      let(:russian) { nil }
+      it { expect(service.russian entry).to eq [] }
+    end
+  end
+
+  describe '#russian_alt' do
     it do
-      # expect(service.russian entry).to eq [
-      # ]
+      expect(service.russian_alt entry).to eq  [
+        'охотник', 'охотник tv', 'охотник 2000'
+      ]
     end
   end
 end

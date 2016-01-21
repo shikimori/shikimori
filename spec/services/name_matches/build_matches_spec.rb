@@ -1,38 +1,52 @@
 describe NameMatches::BuildMatches do
   let(:service) { NameMatches::BuildMatches.new entry }
   let(:entry) do
-    build_stubbed :anime,
+    build :anime,
       id: id,
       kind: kind,
-      name: 'My anime',
+      name: 'Ootnik z Ootnik!',
+      russian: 'Охотник!',
+      aired_on: Date.parse('2000-01-01'),
       synonyms: [
-        'My little anime',
-        'My : little anime',
-        'My Little Anime',
-        'MyAnim'
+        'Hunter x Hunter',
+        'Hunters'
+      ],
+      english: [
+        'English Hunter'
+      ],
+      japanese: [
+        'ハンターxハンター'
       ]
   end
 
-  let(:id) { 9999 }
+  let(:id) { 9999999 }
   let(:kind) { :tv }
 
   describe '#call' do
     subject(:name_matches) { service.call }
 
     it do
-      is_expected.to have(5).items
+      is_expected.to have(24).items
       expect(name_matches.first).to be_kind_of NameMatch
       expect(name_matches.first).to be_new_record
       expect(name_matches.first).to be_valid
       expect(name_matches.first).to have_attributes(
         id: nil,
-        phrase: 'myanime',
+        phrase: 'ootnikzootnik!',
         group: 1,
         priority: 0,
         target: entry
       )
       expect(name_matches.map(&:phrase)).to eq [
-        'myanime', 'mylittleanime', 'myanim', 'littleanime', 'littleanimetv'
+        'ootnikzootnik!', 'ootnikzootnik!tv', 'ootnikzootnik!2000',
+        'hunterxhuntertv', 'hunterxhunter2000',
+        'hunterstv', 'hunters2000',
+        'englishuntertv', 'englishunter2000',
+        'ハンターxハンターtv', 'ハンターxハンター2000',
+        'hunterxhunter', 'hunters', 'englishunter', 'ハンターxハンター',
+        'ootnikzootnik', 'ootnikzootniktv', 'ootnikzootnik2000',
+        'охотник!', 'охотник!tv', 'охотник!2000',
+        'охотник', 'охотникtv', 'охотник2000'
       ]
     end
 
@@ -41,13 +55,13 @@ describe NameMatches::BuildMatches do
         let(:id) { 136 }
 
         it do
-          is_expected.to have(6).items
+          is_expected.to have(25).items
           expect(name_matches.first).to have_attributes(
             phrase: 'охотникхохотник',
             group: 0
           )
           expect(name_matches.second).to have_attributes(
-            phrase: 'myanime',
+            phrase: 'ootnikzootnik!',
             group: 1
           )
         end
@@ -57,9 +71,9 @@ describe NameMatches::BuildMatches do
         let(:id) { 9999 }
 
         it do
-          is_expected.to have(5).items
+          is_expected.to have(24).items
           expect(name_matches.first).to have_attributes(
-            phrase: 'myanime',
+            phrase: 'ootnikzootnik!',
             group: 1
           )
         end

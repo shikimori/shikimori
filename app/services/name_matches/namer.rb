@@ -29,28 +29,19 @@ class NameMatches::Namer
   end
 
   def alt3 entry
-    alt_names = name(entry) + alt2(entry) + alt(entry)
-
-    names = alt_names
-      .flat_map { |name| post_process(phrase_variants name, entry.kind) }
-      .compact
-
-    post_process(names + names.map { |v| v.gsub('!', '') })
+    with_bang_variants name(entry) + alt2(entry) + alt(entry), entry
   end
 
   def russian entry
-    names = [entry.russian, fix(entry.russian), fix(phrase_variants(entry.russian))]
-      .flatten
-      .compact
-      .map(&:downcase)
-
-    (names + names.map {|v| v.gsub('!', '') }).uniq
+    post_process [
+      entry.russian,
+      with_kind(entry.russian, entry),
+      with_year(entry.russian, entry)
+    ]
   end
 
-  def russian2 entry
-  end
-
-  def russian3 entry
+  def russian_alt entry
+    with_bang_variants russian(entry), entry
   end
 
 private
@@ -60,11 +51,19 @@ private
   end
 
   def with_kind name, entry
-    "#{name} #{entry.kind}" if entry.kind
+    "#{name} #{entry.kind}" if name.present?
   end
 
   def with_year name, entry
-    "#{name} #{entry.aired_on.year}" if entry.aired_on
+    "#{name} #{entry.aired_on.year}" if name.present? && entry.aired_on
+  end
+
+  def with_bang_variants names, entry
+    phrases = names
+      .flat_map { |name| post_process(phrase_variants name, entry.kind) }
+      .compact
+
+    post_process(phrases + phrases.map { |v| v.gsub('!', '') } - names)
   end
 
   def post_process names

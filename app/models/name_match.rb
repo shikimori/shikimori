@@ -10,6 +10,6 @@ class NameMatch < ActiveRecord::Base
     :predefined,
     :name,
     :alt, :alt2, :alt3,
-    :russian, :russian2, :russian3
+    :russian, :russian_alt
   ]
 end
