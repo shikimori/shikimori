@@ -1,0 +1,501 @@
+:bad_names:
+ - \d+
+ - первыйсезон
+ - второйсезон
+ - третийсезон
+ - сезонпервый
+ - сезонвторой
+ - сезонтретий
+ - спецвыпуск\d+
+ - firstseason
+ - secondseason
+ - thirdseason
+ - anime
+ - theanime
+ - themovie
+ - movie
+
+:letter_synonyms:
+  and: '&'
+  ß: ss
+  x: ×
+  tv: тв
+  ova: ова
+  ona: она
+  movie: фильм
+  # u: h
+  # wo: o
+  u: uu
+  s: sh
+  o:
+    - wo
+    - ou
+    - oh
+  magik: magic
+
+:word_synonyms:
+  kanojo: heroine
+  special: specials
+  s1:
+    - '1'
+    - i
+    - tv1
+    - season 1
+    - 1st season
+  s2:
+    - '2'
+    - ii
+    - tv2
+    - season 2
+    - 2nd season
+  s3:
+    - '3'
+    - iii
+    - tv3
+    - season 3
+    - 3rd season
+  s4:
+    - '4'
+    - iv
+    - tv4
+    - season 4
+    - 4th season
+  s5:
+    - '5'
+    - v
+    - tv5
+    - season 5
+    - 5th season
+  s6:
+    - '6'
+    - vi
+    - tv6
+    - season 6
+    - 6th season
+
+:regexp_replaces:
+  '\b(тв|tv|ova|tb)\s*-?\s*\d$': ''
+  '\btv$': ''
+  '\b\d{4}$': ''
+  '\bs(\d+)\b': ' s\1'
+  # '(?<= )([456789])$': '\1th season'
+  # '(?<= )2$': '2nd season'
+  # '(?<= )3$': '3rd season'
+  '^the ': ''
+  # '\bi\b': ''
+  '!': ''
+  ' plus$': '+'
+  ' the animation$': ''
+  '\bseries\b': ''
+  '\bs1$': ''
+  # '(?<!u)u(?!u)': 'uu'
+  # 's(?!h)': 'sh'
+  # '(?<=[wrtpsdfghjklzxcvbnmy])o(?!u)': 'ou'
+
+:predefined_names:
+  :manga:
+    no_matches_yet: true
+
+  :anime:
+    'Охотник х Охотник [ТВ-1]': 136
+    'Охотник х Охотник [ТВ -2]': 11061
+    'Megami Kouhosei OVA': 887
+    'Lupin the Third Episode 0 First Contact': 1418
+    'Evangelion 2.22 You Can [Not] Advance': 3784
+    'Девы Розена [ТВ 3]': 18041
+    'Мэйджор [ТВ-1]': 627
+    'Candy Candy [Movie]': 723
+    'Digimon Adventure 02 Hurricane Touchdown!': 2962
+    'Negima!? Summer OVA-2': 1732
+    'Ore no Imouto OVA - True End': 18857
+    'Fairy Tail Ecchi OVA': 9982
+    'Doki Doki! PreСure': 16419
+    'Kateikyoushi Hitman Reborn! OVA': 8532
+    'Gekijouban Munto Tenjoubito to Akutobito Saigo no Tatakai': 6169
+    'Wrath of the Ninja OVA': 3600
+    'DNA2: Dokoka de Nakushita Aitsu no Aitsu OVA': 1187
+    'Сакура: Война миров OVA-2': 1166
+    'Whimsical Orange Road': 1087
+    'Clamp In Wonderland 1 & 2': 2768
+    'Seikai no Dansho - Tanjyou OVA': 1124
+    'Katekyo Hitman Reborn! The Complete Memory': 8532
+    'Мелочи жизни OVA': 8857
+    'Nodame Cantabile Puri Gorota': 5656
+    'Магический учитель Нэгима! Еще один мир': 6050
+    'Kurokami The Animation OVA: Tora to Tsubasa Gaiden': 6587
+    'Забить на последней секунде TB-1': 406
+    'Naruto Ova 3D Cross Roads': 7367
+    'Manga Shouwa Monogatari': 10014
+    'Black Rock Shooter[TV]': 11285
+    'Psychic Academy Aura Bansho ONA': 337
+    'Manami to Nami Sprite': 1786
+    'Recorder to Randsell OVA': 14627
+    'Naruto OVA 3': 1074
+    'Detective Conan Magic File 2011 the Niigata-Tokyo souvenir capriccio': 10531
+    'Towa no Quon Vol. 6 Final': 10717
+    'Blue Submarine #6': 1051
+    'Garasu no Kamen [TV-2]': 1974
+    'Chuunibyou demo Koi ga Shitai! OVA': 16934
+    'One Piece Movie II — Clockwork Island Adventure': 460
+    'In a Distant Time 2: Priestess of the White Dragon': 1904
+    'Kuroko no Basuke FanDisc': 17259
+    'Tenchi Muyo! Galaxy Police Transporter': 1133
+    'Kidou Senshi Mobile Suit Gundam Unicorn OVA': 6336
+    "Aquarian Age Saga II: Don't forget me...": 1268
+    'Gokujou. Gokurakuin Joshikou Ryou Monogatari': 11769
+    'Choujikuu Seiki': 2089
+    'Toriko SP 2009': 6941
+    'Ao no Exorcist OVA ~Kuro no Iede~': 11266
+    'TO Elliptical Orbit & Symbiotic Planet': 7279
+    'Magical Project S [TV]': 1502
+    'Kyoshoku Soku Guyver': 6016
+    'Kujibiki Unbalance TV': 1591
+    'UFO Princess Valkyrie/ Enban Oujo Valkyrie': 1127
+    'Kyo Kara Maoh! R': 2971
+    'Monkey Punch': 5343
+    'H.P. Lovecraft no Dunwich Horror': 3906
+    'Ring ni Kakero': 23
+    'Urusei Yatsura OVA Series': 1919
+    'Honoo no Chuunin Shiken! Naruto vs Konohamaru!': 10686
+    'Yuru Yuri 2': 12403
+    'Dyurarara!!': 6746
+    'Девочка-волшебница Мадока (компиляция)': 11977
+    'Major [ТВ-1]': 627
+    'Граница пустоты: Сад грешников (фильм первый)': 2593
+    'Хроника Крыльев (сезон первый)': 177
+    'School Days OVA-2: Magical Heart Kokoro-chan': 3328
+    'Gekijouban Kara no Kyoukai: Dai Nana Shou - Satsujin Kousatsu (Go)': 5205
+    'Команда ученых - ниндзя Гатчамен': 3154
+    'Дораэмон-1979': 2471
+    'Детектив Конан (фильм 08)': 1367
+    'Inuyasha Movie 1': 452
+    'Wish upon a Star': 7230
+    "Tales of Symphonia: Tethe'alla Chapter": 5306
+    'Konan tai Kid tai Yaiba: Houtou Soudatsu Daikessen!!': 1369
+    'Akahori Gedou Hour Rabuge': 309
+    'DiGi Charat Summer Special': 1754
+    'UFO Princess Walküre: Seiresetsu no Hanayome': 1514
+    'Digimon Zero Two': 1313
+    'Eiga Futari wa Precure Max Heart! The God is a frog. Movie 1': 1930
+    'Ayu Mayu Theater OVA': 1856
+    'Pokemon the Movie 9: Umino Ouji - Manafi': 2201
+    'Pocket Monsters Advanced': 1526
+    'Air - Theatrical Feature': 713
+    'Hakkenden: Eight Dogs of the East [TV-2]': 18055
+    'Toriko TV-1': 10033
+    'Gekijouban Hunter x Hunter: Phantom Rouge': 13271
+    'Kami nomi zo Shiru Sekai: Magical Star Kanon 100%': 17725
+    'Saint Seiya Omega: New Cloth Hen': 12929
+    'Rinne no Lagrange TV-2': 12281
+    'Gall Force: Eternal Story': 2060
+    'Rinne no Lagrange TV-1': 11227
+    'Magic Teacher Negima! Spring, OVA-1': 1619
+    'Poltergeist Report: Fight': 2125
+    'Project ARMS TV-1': 1492
+    'Project Arms TV-2': 1493
+    'Loups-Garous': 7598
+    'Superbook season 2': 3936
+    'One Piece: The Detective Memoirs of Boss Straw Hat Luffy': 2020
+    'One Piece: Protect! The Last Great Stage': 1238
+    "One Piece: Open Upon the Great Sea! A Father's Huge, HUGE Dream!": 1237
+    'Hell Teacher Nube 1997': 8228
+    'Kidou Senshi Gundam 0083 - Zeon no Zankou': 2695
+    'Detective Conan: Count Down to Heaven': 1364
+    'Detective Conan: Captured In Her Eyes': 1363
+    "Detective Conan: High School Girl Detective Sonoko Suzuki's Case File": 6198
+    'Detective Conan: The Timed Skyscraper': 779
+    'Meitantei Conan: 10 Nengo no Strange': 6438
+    'Белый Альбом (второй сезон)': 6165
+    'Белый альбом 2 (2013)': 18245
+    'Seitokai Yakuindomo: Kaette Kita Seitokai': 10119
+    'Fairy Tail: The Maiden of the Phoenix': 12049
+    'Naruto Shippuden: The Will of Fire Still Burns': 6325
+    'Ayakashi - Samurai Horror Tales': 586
+    'Hunter x Hunter [TV-2]': 11061
+    'Hunter X Hunter - G I Final': 139
+    'Nodame Cantabile: Paris Chapter': 4477
+    'Code Geass: Lelouch of the Rebellion R2': 2904
+    'Inuyasha: The Final Act': 6811
+    'Infinite Stratos Encore: Koi ni Kogareru Rokujuso': 10794
+    'Gekijo-ban Tennis no Ouji-sama Eikoku Shikiteikyu-jo Kessen!': 10731
+    'Gekijouban Pocket Monsters: Best Wishes - Kyurem vs Seikenshi Keldeo': 12671
+    "You're Under Arrest The Motion Picture": 2013
+    'Chie the Brat': 3947
+    'Shin Kyuseishu Densetsu Hokuto no Ken Zero: Kenshiro-den': 5291
+    'One Piece: The Desert Princess and The Pirates: Adventure in Alabasta': 2107
+    'One Piece: The Movie': 459
+    'Seitokai Yakuindomo - Kaette Kita Seitokai Yakuindomo': 10119
+    'Gintama (2013)': 15335
+    'Gekijouban Gintama: Shinyaku Benizakura Hen': 7472
+    'Gintama [TV-2]': 9969
+    'Yuru Yuri': 10495
+    'Strike Witches 2-ki': 6381
+    'Darker than BLACK - Ryuusei no Gemini OVA': 7338
+    'JoJo no Kimyou na Bouken [OVA-2]': 665
+    'Fushigi Yuugi OVA 1': 380
+    'Gargantia on the Verdurous Planet Sp': 18413
+    'Mermaid Forest': 2016
+    'Black Jack OVA': 1520
+    'Black Jack (2004)': 2213
+    'Sora no Otoshimono: Project Pink Tougenkyou': 7858
+    'Kuroshitsuji II: Spiders Intention': 9136
+    'Ore no Imouto ga Konnani Kawaii Wake ga Nai [TV-2]': 13659
+    'Shadow Skill TV': 678
+    'Meitantei Conan: Kid in Trap Island': 8609
+    "Problem Children are Coming from Another World, aren't they? - [OVA]": 16444
+    'Buzzer Beater TV-2': 2684
+    'Love Live! School Idol Project 2013': 15051
+    'Crazy KOUZU Basketball Club': 359
+    'Koukaku Kidoutai Arise: Ghost in the Shell': 17187
+    'Стеклянная маска OVA': 3734
+    'Ai no Kusabi OVA-2': 5784
+    'Broken Blade: Fifth Chapter - Horizon Between Life and Death': 9724
+    'Broken Blade: Fourth Chapter - Ground of Calamity': 9465
+    "Broken Blade: Third Chapter - Mark of the Assassin's Dagger": 9252
+    'Broken Blade: The Split Path': 8514
+    'Broken Blade: Hour of Awakening': 6772
+    'Broken Blade: Sixth Chapter - Enclave of Lamentations': 10092
+    'Mobile Suit Gundam SEED: Movie I - The Empty Battlefield': 2269
+    'The Secret of Haruka Nogizaka: Purity': 6023
+    'All Purpose Cultural Cat Girl Nuku Nuku': 375
+    'All Purpose Cultural Cat Girl Nuku Nuku OVA 1': 373
+    'Gekijouban Naruto Shippuuden: Kizuna': 4437
+    'Naruto the Movie: The Great Clash! The Phantom Ruins in the Depths of the Earth': 936
+    'Saint Seiya: The Lost Canvas - Meio Shinwa 2nd Chapter': 9130
+    'Zetsuai': 1041
+    'To Aru Kagaku no Railgun OVA': 9047
+    'Ichigo Mashimaro OVA - 1': 1888
+    'Birdy the Mighty-2': 5074
+    'Berserk Golden Age Arc II: The Battle for Doldrey': 12113
+    'Принцесса чудовищ OVA': 9159
+    'Victorian Romance Emma: Second Act': 2035
+    'Happy Lesson OVA/ HAPPY☆LESSON': 259
+    'Eureka Seven Ao: Jungfrau no Hana-tachi': 14875
+    'Горничные Ханаукё OVA': 797
+    'Aa! Megami-sama!': 9611
+    "Lupin III: Napoleon's Dictionary": 1423
+    'Lupin III: Hemingway Papers': 1421
+    'Lupin III: Tokyo Crisis': 1437
+    'Seisenshi Dunbine': 929
+    'Wind: A Breath of Heart': 546
+    'Samurai Girl': 1098
+    'Mahoromatic: Tadaima Okaeri': 7066
+    'Ancient Book of Ys I [1989]': 1276
+    'Shin Hokuto no Ken: Raoh-den Gekitou no Shou': 2174
+    'Shinkon Gattai Godannar the second sesson': 1104
+    'Stratos 4 OVA-1': 422
+    'Kyo no Gononi TV': 4903
+    'Сегодня в 5-Б классе OVA-2': 6379
+    'Космические приключения Кобры OVA': 4646
+    'Hidamari Sketch × 365': 3604
+    'В джунглях всё было хорошо, пока не пришла Гуу: Финал': 255
+    'Area 88': 284
+    'Меланхолия Харухи Судзумии [ТВ-2]': 4382
+    'Дева Мария смотрит за вами OVA': 1729
+    'Ronin Warriors: Legend of the Inferno Armor': 1266
+    'Достичь Терры': 2560
+    "Queen's Blade OVA-2": 10924
+    'Tobira O Akete': 3192
+    'To Heart: Heart Fighters': 686
+    'Неземная принцесса Валькирия 2 [ТВ]': 1128
+    'Yume de Aetara [TV]': 718
+    'Futari wa Precure Splash Star Tick Tack Kiki Ippatsu!': 4124
+    'Hell Teacher Nube 1996': 8208
+    'Территория отверженных OVA': 1248
+    'Candy Candy OVA 1 - The Call of Spring': 2801
+    'Kyousougiga ONA': 15359
+    'Kyousougiga': 10893
+    'Kyousougiga (2013)': 19703
+    'In a Distant Time: One Night Dance': 1906
+    'Pocket Monsters: Best Wishes Season 2': 14093
+    'Wind a breath of hear t- Omake OVA': 2015
+    'Code Geass: Akito the Exiled': 8888
+    'Shinryaku!? Ika Musume': 10378
+    'JoJo no Kimyou na Bouken[TV]': 14719
+    "Dragon Ball Z Movie 2: The World's Strongest": 895
+    'Dragon Ball Z Movie 1: The Deadzone': 894
+    "Death Note Anime Director's Cut Final Conclusion": 2994
+    'Pokemon: Advance Generation - Wishing Star of the Seven Nights': 1121
+    "I Don't Have Many Friends OVA": 10897
+    'Digimon Tamers - Runaway Digimon Express': 3033
+    'Love Hina - Spring': 192
+    'Love Hina - Christmas': 191
+    'Bungaku Shoujo no Kyou no Oyatsu ~Hatsukoi~': 7669
+    'Karneval': 16035
+    "One Piece Special: Adventure in the Ocean's Nave": 1094
+    'Gakuen Mokushiroku: High School of the Dead - Drifters of the Dead': 9515
+    'Dragon Ball Z Movie 8: The Legendary Super Saiyan': 901
+    'Ghost in the Shell: Stand Alone Complex - Individual Eleven': 2448
+    'Gokinjo Monogatari - Movie': 7578
+    'Кулак Северной Звезды - Фильм': 1358
+    'Slam Dunk: Shouhoku Saidai no Kiki! Moero Sakuragi Hanamichi': 2498
+    'Slam Dunk: Hoero Basketman Tamashii!! Hanamichi to Nagarekawa no Nekki Natsu': 2499
+    'Yes! Precure 5: Kagami no Kuni no Miracle Daibouken!': 3051
+    'Digimon Adventure - Gekijouban': 2961
+    'Space Adventure Cobra': 2451
+    'Галактический экспресс 999 - Фильм [1979]': 1301
+    'Seisenshi Dunbine: New Story of Aura Battler Dunbine': 5372
+    'Kaleido Star: New Wings': 427
+    'Человек-дьявол': 2355
+    'Devil Man. Volume 1: The Birth': 2354
+    'Samurai X - The Movie': 46
+    'flag': 5136
+    'Flag TV': 1299
+    'Doraemon: Nobita to Fushigi Kaze Tsukai': 2393
+    "Doraemon: Nobita's New Adventure into the Dark World - The seven messengers of magic": 2673
+    'Мобильный доспех Зета Гандам - Новый перевод: Наследники Звёзд (фильм первый)': 1967
+    'Mobile Suit GUNDAM: The 08th MS Team Movie': 83
+    'Mobile Suit Gundam 0079 - Movie 01': 1090
+    'Mobile Suit Gundam 00: A wakening of the Trailblazer': 6288
+    'Touch, Kaze no Yukue': 1539
+    'Touch, Miss Lonely Yesterday': 1540
+    'Hidan no Aria OVA': 10604
+    'Ansatsu Kyoushitsu [OVA]': 19759
+    'Chuunibyou demo Koi ga Shitai [TV 2]': 18671
+    'Zetsumetsu Kigu Shōjo Amazing Twins': 19953
+    'Silver Spoon': 16918
+    'Silver Spoon 2': 19363
+    'Dream Note': 6635
+    'Septem Charm Magical Kanan SP Dokidoki Summer Camp': 4489
+    'Arbeit Shiyou!! Let`s Arbeit!': 8652
+    'Yubisaki Annainin Shirudaku Settai Okawari Sanbai-me': 9326
+    'The Xena Buster: Daiakuji': 2352
+    'Kowaremono II': 3529
+    'Countdown: Yuuwaku Count Down': 1383
+    'Отсчет: Акира': 4608
+    "Teacher's Pet: Natural": 3056
+    "Teacher's Pet 2: Natural: Another": 3370
+    'Распутные сестры: Цветочки': 1636
+    'Распутные сестры 2 ': 1635
+    'Синяя девочка': 1272
+    'Синяя девочка возвращается': 1273
+    'Toei Robot Girls Z': 19799
+    'Natsumes Book of Friends: Sometime on a Snowy Day': 20651
+    'Natsume Yuujinchou OVA - Nyanko-sensei to Hajimete no Otsukai': 18849
+    'Pupipoo!': 21325
+    'Tanoshii Muumin Ikka Muumindani no Suisei': 2313
+    'Wooser no Sono Higurashi Kakusei Hen': 20267
+    'Maken-ki!: Natsu Da! Mizugi Da! Gasshuku Da!': 11209
+    'Rou Kyuu Bu! Tomoka no Ichigo Sunday': 15807
+    'Free! – Iwatobi Swim Club': 18507
+    'Mardock Scramble Haiki': 12053
+    'Furusato Saisei Nippon no Mukashibanashi': 13163
+    'Gekijouban Hanasaku Iroha Home Sweet Home (Movie)': 14175
+    'Toradora! The True Meaning of Bentou': 11553
+    'Ranma 1/2 Movie 1': 418
+    #'Ranma 1/2 Special OVA': 1008
+    #'Ranma 1/2 Super OVA': 1011
+    'Aoyama Gosho Short Story Collection OVA 1': 5578
+    'Gokicha!! Cockroach Girls': 10258
+    'Victini and the Black Hero: Zekrom': 9917
+    'Гинтама [ТВ-3]': 15417
+    'Mouryou no Hako / Box of Goblins': 4879
+    'Animation Runner Kuromi 1,2': 1797
+    'Coquelicot Saka kara': 10029
+    'The Case Files of Young Kindaichi': 2076
+    'Gekijouban Doubutsu no Mori': 2950
+    'Mobile Suit Gundam X': 92
+    'Mahou Shoujo Pretty Sammy Omake Gekijou': 1503
+    'Адский учитель Нубэ (Фильм первый)': 8208
+    'Адский учитель Нубэ (Фильм второй)': 8228
+    'Вальврэйв Освободитель [ТВ-2]': 18295
+    'Фейри Тейл OVA': 9982
+    'Удивительный мир Эль-Хазард OVA-1': 117
+    'Удивительный мир Эль-Хазард OVA-2': 118
+    'Небесный Фафнир (спэшл)': 560
+    'Забить на последней секунде ТВ-2': 2684
+    'Город Шумных Празднеств': 10893
+    'Шизанутая столица': 15359
+    'Сумасшедшая Столица': 19703
+    'To Love-Ru: Trouble - Darkness': 13851
+    'To Love-Ru Darkness': 13663
+    'Призрак в доспехах: Синдром одиночки [ТВ-2]': 801
+    'Капризы Апельсиновой улицы OVA-1: Влюбленные среди снегов': 2458
+    'Моя младшая сестра не может быть такой милой ТВ-2': 13659
+    "Death Note:Rewrite 2-L's Successors": 2994
+    'Saint Seiya Omega': 12929
+    'Pocket Monsters: Best Wishes Season 2 Episode N': 17115
+    'Pocket Monsters: Maboroshi no Pokemon Lugia Bakutan': 1117
+    'Meitantei Conan: Excalibur no Kiseki': 13839
+    'Upotte!!: Miatte Waratte': 14173
+    'Gunparade Orchestra': 858
+    'Gunparade March: Aratanaru Kougunka': 266
+    'Судьба: Начало [ТВ-2]': 11741
+    'Kuroshitsuji II: Ciel in Wonderland - OVA 1, 4': 9136
+    'Чёрный кролик и его семь жизней OVA': 10934
+    'Затерянная Вселенная [TB]': 1184
+    'Alien X from A Zone': 2080
+    'Новое Хорошенькое Лекарство! Тайна Страны игрушек.': 6527
+    'Super Dimension Century Orguss Two: Orguss 02': 2090
+    'Судьба: Ночь Схватки OVA': 7559
+    'Doraemon And The Robot Of Bugs (mini)': 2626
+    'Ringu ni Kakero': 23
+    'Судьба: Ночь Прибытия - Мечей бесконечных край': 6922
+    'This Ugly and Beautiful World': 146
+    'Kuttsukibosh': 9014
+    'Grappler Baki OVA': 1859
+    'Boys Before Flowers - The Movie': 2071
+    'Street Fighter Alpha 2': 950
+    'Grenadier the smiling warrior': 297
+    'Magical Princess Minky Momo Hitomi no Seiza Minky Momo Song Special': 23129
+    'Glass no Clair - Ginga Tetsudo 999 [1980]': 6653
+    'Break Through Heaven Gurren Lagann: Crimson Chapte': 4107
+    'Gurren Lagann the Movie -The Lights in the Sky Are Stars': 4565
+    'Natsume Yuujinchou: Nyanko-sensei to Hajimete no Otsukai': 18849
+    'Code Geass: Boukoku no Akito': 8888
+    'Junjou Romantica (2012)': 13767
+    "Pocket Monsters: The Water Capital's Protector Gods - Latias and Latios": 1120
+    'Toward the Terra': 2158
+    'Клин Любви OVA-2': 5784
+    'Lupin Third: Blood Seal - Eternal Mermaid': 11777
+    'The Prince of Tennis: A Gift from Atobe': 814
+    'Охотник х Охотник (пайлот)': 10189
+    'Tobira O Akete': 1979
+    'Tobira o Akete': 1979
+    'Aki Sora - Yume no Naka OVA - 02': 8577
+    "You're Under Arrest: Taiho Shichau zo": 2010
+    'Munto TV': 5702
+    'Космические приключения Кобры OVA-1 OVA-2': 4646
+    'Любовь и Тьма неприятностей': 13663
+    'Btooom!': 14345
+    'Tears to Tiara': 3594
+    'Путешествие Кино (фильм первый)': 1379
+    'Spice and Wolf': 2966
+    'Spice and Wolf II': 5341
+    'Fairy Tail [TV-2]': 22043
+    'Fairy Tail 2': 22043
+    'Gekijouban Kara no Kyoukai: Mirai Fukuin': 14807
+    'Keroro TV 2': 21671
+    'KissXsis [OVA]': 5042
+    'Puchimas! Petit Idolmaster': 15649
+    'Puchimas! Petit Idolmaster (2014)': 21073
+    'Love Live! 2': 19111
+    'Shijou Saikyou no Deshi Kenichi: Yami no Shuugeki': 11813
+    'Bokusatsu Tenshi Dokuro-chan 2nd Series': 2131
+    'Gekijouban Ao no Exorcist': 11737
+    "JoJo's Bizarre Adventure [TV-1]": 14719
+    'The Idolmaster (2012)': 14835
+    'Ranma 1/2 Movie': 418
+    'Gekijouban Bleach: Fade to Black Kimi no Na o Yobu': 4835
+    'Rejected by 420 Girls in a Row': 17871
+    'Hiatari Ryoukou! Kasumi Yume no Naka ni Kimi ga Ita': 1552
+    'Aria the Scarlet Ammo [OVA]': 10604
+    'Date a Live [OVA]': 17641
+    'Tasogare Otome x Amnesia OVA': 14189
+    'Code Geass: Lelouch of the Rebellion [TV-1]': 1575
+    'Gekijouban Gintama Kanketsuhen: Yorozuya yo Eien Nare': 15335
+    'One Piece [Movie 1] - The Great Gold Pirate': 459
+    'One Piece: Nejimaki Jima no Bouken': 460
+    'Tenchi Muyo! Ryo-Ohki OAV 3': 541
+    'Death Note Final Conclusion': 2994
+    'Fairy Tail Gekijouban: Houou no Miko': 12049
+    'Gurren Lagann Parallel Works': 4705
+    'Gekijouban Toaru Majutsu no Index: Endymion no Kiseki': 11743
+    'Arcana Famiglia: Capriccio': 15411
+    'FullMetal Alchemist: Brotherhood [TV-2]': 5114
+    "You're Under Arrest!": 1372
+    'Поцелуй Сестёр [OVA]': 5042
+    'KissXsis [OVA]': 5042
+    'Поцелуй Сестёр [OVA]': 5042
+    'Поцелуй Сестёр [ТВ]': 7593
+    'KissXsis [TV]': 7593

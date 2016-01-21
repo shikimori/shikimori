@@ -1,17 +1,24 @@
 class NameMatches::BuildMatches < ServiceObjectBase
   pattr_initialize :entry
 
+  delegate :fix, :multiply_phrases, :variants,
+    :split_by_delimiters, :phrase_variants, to: :phraser
+
+  GROUPS = NameMatch::GROUPS
+
   def call
-    alternatives
-      .compact
-      .map { |attrs| NameMatch.build attrs }
+    GROUPS.flat_map { |group| build group }.uniq(&:phrase)
   end
 
 private
 
-  def alternatives
-    NameMatch::GROUPS.flat_map do |group|
-      send :"#{group}_names", entry
+  def build group
+    fix(send(:"#{group}_names", entry)).uniq.map do |phrase|
+      NameMatch.new(
+        group: GROUPS.index(group),
+        phrase: phrase,
+        target: entry
+      )
     end
   end
 
@@ -42,7 +49,13 @@ private
       # .each {|link| cache[link.service.to_sym][link.identifier] = entry } if @services.present?
   # end
 
-  def main_names entry
+  def predefined_names entry
+    config.predefined_names(entry.class)
+      .select { |name, id| id == entry.id }
+      .map(&:first)
+  end
+
+  def name_names entry
     names = [entry.name, "#{entry.name} #{entry.kind}"]
     aired_on = ["#{entry.name} #{entry.aired_on.year}"] if entry.aired_on
 
@@ -61,13 +74,13 @@ private
   end
 
   def alt3_names entry
-    alt_names_1 = alt1_names entry
+    alternatives = alt_names entry
 
-    names = alt_names_1.map { |name| fix(phrase_variants name, entry.kind) }.compact.flatten
+    names = alternatives.map { |name| fix(phrase_variants name, entry.kind) }.compact.flatten
     (
       names +
       names.map {|v| v.gsub('!', '') } +
-      alt_names_1.select {|v| v =~ /!/ }.map {|v| v.gsub('!', '') }
+      alternatives.select {|v| v =~ /!/ }.map {|v| v.gsub('!', '') }
     ).uniq
   end
 
@@ -78,5 +91,13 @@ private
       .map(&:downcase)
 
     (names + names.map {|v| v.gsub('!', '') }).uniq
+  end
+
+  def phraser
+    @phraser ||= NameMatches::Phraser.new
+  end
+
+  def config
+    NameMatches::Config.instance
   end
 end

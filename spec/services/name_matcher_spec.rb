@@ -99,13 +99,13 @@ describe NameMatcher do
     end
 
     describe 'series' do
-      subject { matcher.matches 'Kigeki [Sweat Punch Series 3]' }
+      subject { matcher.matches 'Kigeki [Sweat Punch Series]' }
       let!(:anime) { create :anime, :tv, name: 'Sweat Punch' }
       it { should eq [anime] }
     end
 
     describe 'long lines in brackets' do
-      subject { matcher.matches "My youth romantic comedy is wrong as I expected. (Yahari ore no seishun rabukome wa machigatte iru.)" }
+      subject { matcher.matches 'My youth romantic comedy is wrong as I expected. (Yahari ore no seishun rabukome wa machigatte iru.)' }
       let!(:anime) { create :anime, :tv, name: 'Yahari Ore no Seishun Love Come wa Machigatteiru.', english: ["My youth romantic comedy is wrong as I expected."] }
       it { should eq [anime] }
     end

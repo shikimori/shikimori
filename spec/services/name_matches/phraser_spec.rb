@@ -14,28 +14,30 @@ describe NameMatches::Phraser do
       .to eq ['mahou shoujo madoka magica', 'mahou shoujo madoka magika'] }
   end
 
+  describe '#replace_phrases' do
+    let(:phrases) { ['test', 'teest', 'test2'] }
+    it { expect(phraser.replace_phrases phrases, /te+/, 'te').to eq ['test', 'test2'] }
+  end
+
   describe '#phrase_variants' do
-    it { expect(phraser.phrase_variants 'madoka magica')
-      .to eq ['madoka magica', 'madoka magika', 'madouka magica', 'madouka magika'] }
-    it { expect(phraser.phrase_variants 'zz [ТВ]').to include 'zz' }
-    it { expect(phraser.phrase_variants 'zz [ТВ-4]').to include 'zz тв4' }
-    it { expect(phraser.phrase_variants 'zz [ТВ-4]').to include 'zz tv4' }
-    it { expect(phraser.phrase_variants 'zz 2nd season').to include 'zz tv2' }
-    it { expect(phraser.phrase_variants 'season 10').to include 's10' }
-    it { expect(phraser.phrase_variants 'JoJo no Kimyou na Bouken (2000)').to include 'jojo no kimyou na bouken' }
+    it { expect(phraser.phrase_variants 'madouka magica')
+      .to eq ['madoka magika'] }
+
+    it { expect(phraser.phrase_variants 'zz [ТВ]').to eq ['zz'] }
+    it { expect(phraser.phrase_variants 'zz [ТВ-4]').to eq ['zz s4'] }
+    it { expect(phraser.phrase_variants 'zz 2nd season').to eq ['zz s2'] }
+    it { expect(phraser.phrase_variants 'season 6').to eq ['s6'] }
+    it { expect(phraser.phrase_variants 'JoJo no Kimyou na Bouken (2000)').to eq ['jojo no kimyo na boken'] }
 
     describe 'user bracket_alternatives' do
       let(:phrase) { 'Kigeki [Sweat Punch Series 3]' }
-      it do
-        expect(phraser.phrase_variants phrase).to include 'kigeki'
-        expect(phraser.phrase_variants phrase).to include 'sweat punch series 3'
-        expect(phraser.phrase_variants phrase).to include 'sweat punch'
-      end
+      let(:result) { ['kigeki sweat punch s3', 'kigeki', 'sweat punch s3'] }
+      it { expect(phraser.phrase_variants phrase).to eq result }
     end
   end
 
   describe '#variants' do
-    it { expect(phraser.variants 'madoka').to eq ['madoka', 'madouka'] }
+    it { expect(phraser.variants 'madouka').to eq ['madoka'] }
   end
 
   describe '#split_by_delimiters' do
@@ -48,7 +50,8 @@ describe NameMatches::Phraser do
   end
 
   describe '#words_combinations' do
-    it { expect(phraser.words_combinations ['lain - serial experiments'])
-      .to eq ['serial experiments lain'] }
+    let(:lain) { 'lain - serial experiments' }
+    it { expect(phraser.words_combinations [lain]).to eq ['serial experiments lain'] }
+    it { expect(phraser.words_combinations ['zz [ТВ-4]']).to be_empty }
   end
 end

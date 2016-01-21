@@ -85,7 +85,7 @@ private
       end
     end
 
-    found_matches.select {|group, matches| matches.any? }
+    found_matches.select { |group, matches| matches.any? }
   end
 
   # рекурсивная замена фразы на альтернативы
@@ -193,8 +193,7 @@ private
   end
 
   def predefined_matches
-    @@config ||= YAML::load_file Rails.root.join('config/app/names_matches_predefined.yml')
-    config = @@config[@klass.table_name]
+    config = NameMatches::Config.instance.predefined_names(@klass)
 
     entries_by_id = @klass
       .where(id: config.values)

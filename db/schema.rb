@@ -639,7 +639,7 @@ ActiveRecord::Schema.define(version: 20160120171406) do
 
   create_table "name_matches", force: :cascade do |t|
     t.string  "phrase",      null: false
-    t.string  "group",       null: false
+    t.integer "group",       null: false
     t.integer "target_id",   null: false
     t.string  "target_type", null: false
   end
