@@ -139,3 +139,7 @@ en:
           moderation after processing the ones above.
         queue_empty: Queue is empty
         history: History
+
+      review:
+        accept: accept
+        move_to_offtopic: move to offtopic
