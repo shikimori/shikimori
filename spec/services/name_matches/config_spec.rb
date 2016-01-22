@@ -13,4 +13,9 @@ describe NameMatches::Config do
     it { expect(config.predefined_names Anime).to have_at_least(300).items }
     it { expect(config.predefined_names Manga).to have(1).item }
   end
+
+  describe '#splitters' do
+    it { expect(config.splitters).to have_at_least(2).items }
+    it { expect(config.splitters.first).to be_kind_of Regexp }
+  end
 end

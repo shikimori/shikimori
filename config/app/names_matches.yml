@@ -37,41 +37,41 @@
   kanojo: heroine
   special: specials
   s1:
+    - tv(?:\s|-|)1
+    - season\s1
+    - 1st\sseason
     - '1'
     - i
-    - tv1
-    - season 1
-    - 1st season
   s2:
+    - tv(?:\s|-|)2
+    - season\s2
+    - 2nd\sseason
     - '2'
     - ii
-    - tv2
-    - season 2
-    - 2nd season
   s3:
+    - tv(?:\s|-|)3
+    - season\s3
+    - 3rd\sseason
     - '3'
     - iii
-    - tv3
-    - season 3
-    - 3rd season
   s4:
+    - tv(?:\s|-|)4
+    - season\s4
+    - 4th\sseason
     - '4'
     - iv
-    - tv4
-    - season 4
-    - 4th season
   s5:
+    - tv(?:\s|-|)5
+    - season\s5
+    - 5th\sseason
     - '5'
     - v
-    - tv5
-    - season 5
-    - 5th season
   s6:
+    - tv(?:\s|-|)6
+    - season\s6
+    - 6th\sseason
     - '6'
     - vi
-    - tv6
-    - season 6
-    - 6th season
 
 :regexp_replaces:
   # '\b(тв|tv|ova|tb)\s*-?\s*\d$': ''
@@ -84,13 +84,18 @@
   '^the ': ''
   # '\bi\b': ''
   # '!': ''
-  ' plus$': '+'
-  ' the animation$': ''
+  '\splus$': '+'
+  '\sthe\sanimation$': ''
   '\bseries\b': ''
   '\bs1$': ''
   # '(?<!u)u(?!u)': 'uu'
   # 's(?!h)': 'sh'
   # '(?<=[wrtpsdfghjklzxcvbnmy])o(?!u)': 'ou'
+
+:regexp_splitters:
+  - '(?: [\[(] )? \b \d{4} (?: [\])] )? $'
+  - '(?: [\[(] )? \b tv    (?: [\])] )? $'
+  - '!'
 
 :predefined_names:
   :manga:

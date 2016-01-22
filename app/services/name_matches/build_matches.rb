@@ -1,14 +1,10 @@
 class NameMatches::BuildMatches < ServiceObjectBase
   pattr_initialize :entry
 
-  delegate *NameMatch::GROUPS, to: :namer
-  delegate :finalizes, to: :cleaner
-
-
   def call
     NameMatch::GROUPS
-      .map { |group| [group, send(group, entry)] }
-      .flat_map { |group, phrases| build group, finalizes(phrases) }
+      .map { |group| [group, namer.send(group, entry)] }
+      .flat_map { |group, phrases| build group, cleaner.finalizes(phrases) }
       .uniq(&:phrase)
   end
 

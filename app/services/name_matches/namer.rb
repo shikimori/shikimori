@@ -2,7 +2,7 @@ class NameMatches::Namer
   include Singleton
 
   delegate :cleanup, :fix, :finalize, :finalizes, to: :cleaner
-  delegate :phrase_variants, to: :phraser
+  delegate :variate, to: :phraser
 
   def predefined entry
     config.predefined_names(entry.class)
@@ -60,7 +60,7 @@ private
 
   def with_bang_variants names, entry
     phrases = names
-      .flat_map { |name| post_process(phrase_variants name, entry.kind) }
+      .flat_map { |name| post_process(variate name, entry.kind) }
       .compact
 
     post_process(phrases + phrases.map { |v| v.gsub('!', '') } - names)

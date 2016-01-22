@@ -1,39 +1,56 @@
 class NameMatches::Cleaner
   include Singleton
 
-  CLEANER = /[-:,.~)(\[\]\/～"'☆†♪]+/mix
+  CLEANER = /[.~\/～"'☆†♪]+/mix
+  FINALIZER = /[-:,)(\[\]]/mix
 
-  def finalize phrase
-    compact desynonymize cleanup phrase
+  def initialize
+    @config ||= NameMatches::Config.instance
   end
 
-  def finalizes phrases
-    phrases.map { |phrase| finalize phrase }.uniq.select(&:present?)
+  def finalize arg
+    if arg.kind_of? Array
+      arg.map { |phrase| finalize phrase }.uniq.select(&:present?)
+    else
+      compact post_process arg
+    end
   end
 
   def post_process phrase
-    desynonymize cleanup phrase
+    desynonymize cleanup(phrase).gsub(FINALIZER, '')
   end
 
-  def cleanup phrase
-    phrase ||= ''
-    phrase = phrase.frozen? ? String.new(phrase) : phrase
+  def cleanup arg
+    if arg.kind_of? Array
+      arg.map { |phrase| cleanup phrase }
+    else
+      arg ||= ''
+      arg = arg.frozen? ? String.new(arg) : arg
 
-    phrase
-      .force_encoding('utf-8')
-      .gsub(CLEANER, '')
-      .gsub(/`/, "'")
-      .gsub(/  +/, ' ')
-      .downcase
-      .strip
+      arg
+        .force_encoding('utf-8')
+        .gsub(CLEANER, '')
+        .gsub(/`/, "'")
+        .gsub(/  +/, ' ')
+        .downcase
+        .strip
+    end
   end
 
   def desynonymize phrase
-    config.synonyms.each do |match, replacement|
+    @config.synonyms.each do |match, replacement|
       phrase = phrase.gsub(match, replacement).gsub(/  +/, ' ').strip
     end
 
     phrase
+  end
+
+  def compact phrases
+    if phrases.kind_of? Array
+      phrases.map { |phrase| compact phrase }.uniq.select(&:present?)
+    else
+      phrases.gsub(/ +/, '')
+    end
   end
 
   # TODO: remove
@@ -43,15 +60,5 @@ class NameMatches::Cleaner
     else
       compact cleanup(phrases)
     end
-  end
-
-  def compact phrase
-    phrase.gsub(/ +/, '')
-  end
-
-private
-
-  def config
-    @config ||= NameMatches::Config.instance
   end
 end

@@ -1,17 +1,45 @@
 class NameMatches::Phraser
   include Singleton
 
-  delegate :cleanup, :fix, :desynonymize, :finalize, :finalizes, to: :cleaner
+  def initialize
+    @cleaner ||= NameMatches::Cleaner.instance
+    @config ||= NameMatches::Config.instance
+  end
 
   # все возможные варианты написания имён
-  def variants names, with_splits=true
-    Array(names)
-      .map(&:downcase)
-      .map { |name| fix phrase_variants(name, nil, with_splits) }
-      .flatten
-      .uniq
-      .select(&:present?)
-  end
+  # def variants names, do_splits = true
+    # finalize Array(names).flat_map { |name| variate name, do_splits }
+  # end
+
+  # получение различных вариантов написания фразы
+  def variate phrases, do_splits: true, kind: nil, year: nil
+    phrases = @cleaner.cleanup(Array(phrases))
+    return [] if phrases.empty?
+
+    phrases.concat words_combinations phrases
+    phrases.concat bracket_alternatives phrases
+    phrases.concat split_by_delimiters phrases, kind if do_splits
+
+    # транслит
+    #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
+
+    String::UNACCENTS.each do |word, matches|
+      phrases = replace_regexp phrases, matches, word.downcase
+    end
+    phrases = phrases.map { |phrase| @cleaner.desynonymize phrase }
+
+    if do_splits
+      @config.splitters.each do |splitter|
+        phrases = multiply phrases, splitter, ''
+      end
+    end
+
+    if kind && name.downcase.include?("(#{kind.downcase})")
+      phrases = multiply phrases, "(#{kind})", ''
+    end
+
+    @cleaner.finalize phrases
+ end
 
   # разбитие фразы по запятым, двоеточиям и тире
   def split_by_delimiters name, kind=nil
@@ -24,46 +52,23 @@ class NameMatches::Phraser
 
     names
       .flatten
-      .select { |v| fix(v) !~ config.bad_names }
+      .select { |v| fix(v) !~ @config.bad_names }
       .select { |v| fix(v).size > 3 }
   end
 
-  # получение различных вариантов написания фразы
-  def phrase_variants name, kind=nil, with_splits=true
-    return [] if name.nil?
-
-    phrases = Array(cleanup name)
-
-    phrases.concat words_combinations name
-    phrases.concat bracket_alternatives name
-    phrases.concat split_by_delimiters name.downcase, kind if with_splits
-
-    # транслит
-    #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
-
-    String::UNACCENTS.each do |word, matches|
-      phrases = replace_regexp phrases, matches, word.downcase
-    end
-    phrases = phrases.map { |phrase| desynonymize phrase }
-    if kind && name.downcase.include?("(#{kind.downcase})")
-      phrases = multiply phrases, "(#{kind})", ''
-    end
-    phrases.uniq
- end
-
   # aternative names in brackets
-  def bracket_alternatives phrase
-    Array(phrase)
+  def bracket_alternatives phrases
+    phrases
       .select { |v| v =~ /[\[\(].{5}.*?[\]\)]/ }
       .flat_map { |v| v.split(/[\(\)\[\]]/).map(&:strip) }
-      .map { |v| cleanup v }
+      .map { |phrase| @cleaner.cleanup phrase }
   end
 
   def words_combinations phrases
-    Array(phrases)
+   phrases
       .map { |phrase| phrase.split(/-/).map(&:strip).reverse }
       .select { |split| split.all? { |v| v.size >= 4 } }
-      .map { |split| cleanup split.join(' ') }
+      .map { |split| split.join(' ') }
   end
 
   def replace_regexp phrases, from, to
@@ -92,15 +97,5 @@ class NameMatches::Phraser
     end
 
     multiplies.any? ? phrases + multiplies : phrases
-  end
-
-private
-
-  def cleaner
-    @cleaner ||= NameMatches::Cleaner.instance
-  end
-
-  def config
-    @config ||= NameMatches::Config.instance
   end
 end

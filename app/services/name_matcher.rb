@@ -2,13 +2,12 @@
 class NameMatcher
   attr_reader :cache
 
-  ANIME_FIELDS = [:id, :name, :russian, :english, :synonyms, :status, :kind, :aired_on, :episodes, :rating, :censored]
-  MANGA_FIELDS = [:id, :name, :russian, :english, :synonyms, :status,:kind, :aired_on, :chapters, :rating, :censored]
+  COMMON_FIELDS = [:id, :name, :russian, :english, :synonyms, :japanese,
+    :status, :kind, :aired_on, :rating, :censored]
+  ANIME_FIELDS = COMMON_FIELDS + [:episodes]
+  MANGA_FIELDS = COMMON_FIELDS + [:chapters]
 
   BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
-
-  delegate :fix, to: :cleaner
-  delegate :multiply, :variants, :phrase_variants, to: :phraser
 
   # конструктор
   def initialize klass, ids=nil, services=[]
@@ -18,6 +17,12 @@ class NameMatcher
     @klass = klass
     @ids = ids
     @services = services
+
+    @namer ||= NameMatches::Namer.instance
+    @cleaner ||= NameMatches::Cleaner.instance
+    @phraser ||= NameMatches::Phraser.instance
+    @config ||= NameMatches::Config.instance
+
     @cache = build_cache
     #@cache.each {|k,v| ap v.keys }
   end
@@ -25,9 +30,20 @@ class NameMatcher
   # поиск всех подходящих id аниме по переданным наваниям
   # возможные опции: year и episodes
   def matches names, options={}
-    found = matching_groups(fix Array(names)).first ||
-      matching_groups(variants(names, false)).first ||
-      matching_groups(variants(names, true)).first
+    phrases = cleanup Array(names)
+
+    variants = [
+      finalize(phrases),
+      finalize(@phraser.variants(phrases, false)),
+      finalize(@phraser.variants(phrases, true))
+    ]
+
+    ap phrases
+    ap variants
+
+    found = matching_groups(variants.first).first ||
+      matching_groups(variants.second).first ||
+      matching_groups(variants.third).first
 
     if found
       entries = found.second.flatten.compact.uniq
@@ -96,21 +112,21 @@ private
       alt2: {},
       alt3: {},
       russian: {},
-      predefined: predefined_matches
+      russian_alt: {},
+      predefined: {}
     }
     @services.each { |service| cache[service] = {} }
 
     datasource.each do |entry|
       names = {
-        name: main_names(entry).compact,
-        alt: alt_names(entry).compact,
-        alt2: alt2_names(entry).compact,
-        russian: russian_names(entry).compact
+        name: compact(@namer.name entry),
+        alt: compact(@namer.alt entry),
+        alt2: compact(@namer.alt2 entry),
+        alt3: compact(@namer.alt3 entry),
+        russian: compact(@namer.russian entry),
+        russian_alt: compact(@namer.russian_alt entry),
+        predefined: compact(@namer.predefined entry)
       }
-      names.each {|k,v| v.map!(&:downcase) }
-      names[:alt3] = alt3_names(entry, names[:alt2])
-
-      names.each {|k,v| names[k] = (v + v.map {|name| fix name }).uniq }
 
       names.each do |group,names|
         names.each do |name|
@@ -122,48 +138,11 @@ private
       # идентификаторы привязанных сервисов
       entry
         .links
-        .select {|v| @services.include?(v.service.to_sym) }
-        .each {|link| cache[link.service.to_sym][link.identifier] = entry } if @services.present?
-
+        .select { |v| @services.include?(v.service.to_sym) }
+        .each { |link| cache[link.service.to_sym][link.identifier] = entry } if @services.present?
     end
 
     cache
-  end
-
-  def main_names entry
-    names = [entry.name, "#{entry.name} #{entry.kind}"]
-    aired_on = ["#{entry.name} #{entry.aired_on.year}"] if entry.aired_on
-
-    names + (aired_on || [])
-  end
-
-  def alt_names entry
-    synonyms = entry.synonyms.map {|v| "#{v} #{entry.kind}" } + (entry.aired_on ? entry.synonyms.map {|v| "#{v} #{entry.aired_on.year}" } : []) if entry.synonyms
-    english = entry.english.map {|v| "#{v} #{entry.kind}" }  + (entry.aired_on ? entry.english.map {|v| "#{v} #{entry.aired_on.year}" } : []) if entry.english
-
-    (synonyms || []) + (english || [])
-  end
-
-  def alt2_names entry
-    [entry.name] + (entry.synonyms ? entry.synonyms : []) + (entry.english ? entry.english : [])
-  end
-
-  def alt3_names entry, alt1_names
-    names = alt1_names.map {|name| phrase_variants name, entry.kind }.compact.flatten
-    (
-      names +
-      names.map {|v| v.gsub('!', '') } +
-      alt1_names.select {|v| v =~ /!/ }.map {|v| v.gsub('!', '') }
-    ).uniq
-  end
-
-  def russian_names entry
-    names = [entry.russian, fix(entry.russian), phrase_variants(entry.russian)]
-      .flatten
-      .compact
-      .map(&:downcase)
-
-    (names + names.map {|v| v.gsub('!', '') }).uniq
   end
 
   def datasource
@@ -176,32 +155,19 @@ private
       .sort_by {|v| v.kind == 'tv' ? 0 : 1 } # выборку сортируем, чтобы TV было последним и перезатировало всё остальное
   end
 
-  def predefined_matches
-    config = NameMatches::Config.instance.predefined_names(@klass)
+  def cleanup names
+    names.map { |name| @cleaner.cleanup name }.uniq
+  end
 
-    entries_by_id = @klass
-      .where(id: config.values)
-      .select(db_fields)
-      .each_with_object({}) {|v,memo| memo[v.id] = v }
+  def compact names
+    names.map { |name| @cleaner.compact name }.uniq
+  end
 
-    config.each_with_object({}) do |(k,v),memo|
-      memo[fix k] = [entries_by_id[v]]
-    end
+  def finalize names
+    names.map { |name| @cleaner.finalize name }.uniq
   end
 
   def db_fields
     @klass == Anime ? ANIME_FIELDS : MANGA_FIELDS
-  end
-
-  def cleaner
-    @cleaner ||= NameMatches::Cleaner.instance
-  end
-
-  def phraser
-    @phraser ||= NameMatches::Phraser.instance
-  end
-
-  def config
-    @config ||= NameMatches::Config.instance
   end
 end
