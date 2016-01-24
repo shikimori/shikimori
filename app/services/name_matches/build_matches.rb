@@ -4,7 +4,7 @@ class NameMatches::BuildMatches < ServiceObjectBase
   def call
     NameMatch::GROUPS
       .map { |group| [group, namer.send(group, entry)] }
-      .flat_map { |group, phrases| build group, cleaner.finalizes(phrases) }
+      .flat_map { |group, phrases| build group, cleaner.finalize(phrases) }
       .uniq(&:phrase)
   end
 

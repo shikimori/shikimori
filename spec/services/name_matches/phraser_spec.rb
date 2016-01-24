@@ -18,7 +18,7 @@ describe NameMatches::Phraser do
       it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv', 'zz'] }
       it { expect(service.variate 'zz (2000)', options).to eq ['zz2000', 'zz'] }
       it { expect(service.variate 'zz!', options).to eq ['zz!', 'zz'] }
-      it { expect(service.variate 'zz, with comma', options).to eq ['zz with comma', 'with comma'] }
+      it { expect(service.variate 'zz, with comma', options).to eq ['zzwithcomma', 'withcomma'] }
     end
 
     describe 'user bracket_alternatives' do

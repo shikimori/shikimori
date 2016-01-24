@@ -52,13 +52,4 @@ class NameMatches::Cleaner
       phrases.gsub(/ +/, '')
     end
   end
-
-  # TODO: remove
-  def fix phrases
-    if phrases.kind_of? Array
-      phrases.map { |phrase| fix phrase }.uniq.select(&:present?)
-    else
-      compact cleanup(phrases)
-    end
-  end
 end

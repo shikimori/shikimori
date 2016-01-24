@@ -34,26 +34,28 @@ class NameMatches::Phraser
       end
     end
 
-    if kind && name.downcase.include?("(#{kind.downcase})")
-      phrases = multiply phrases, "(#{kind})", ''
-    end
+    # if kind && name.downcase.include?("(#{kind.downcase})")
+      # phrases = multiply phrases, "(#{kind})", ''
+    # end
 
     @cleaner.finalize phrases
  end
 
   # разбитие фразы по запятым, двоеточиям и тире
-  def split_by_delimiters name, kind=nil
-    names = (name =~ /:|-/ ?
-      name.split(/:|-/).select {|s| s.size > 7 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
-      []) +
-    (name =~ /,/ ?
-      name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
-      [])
+  def split_by_delimiters phrases, kind=nil
+    phrases.flat_map do |name|
+      names = (name =~ /:|-/ ?
+        name.split(/:|-/).select {|s| s.size > 7 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
+        []) +
+      (name =~ /,/ ?
+        name.split(/,/).select {|s| s.size > 10 }.map(&:strip).map {|s| kind ? [s, "#{s} #{kind.downcase}"] : [s] } :
+        [])
 
-    names
-      .flatten
-      .select { |v| fix(v) !~ @config.bad_names }
-      .select { |v| fix(v).size > 3 }
+      names
+        .flatten
+        .select { |v| @cleaner.finalize(v) !~ @config.bad_names }
+        .select { |v| @cleaner.finalize(v).size > 3 }
+    end
   end
 
   # aternative names in brackets

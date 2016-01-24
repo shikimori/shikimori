@@ -34,9 +34,4 @@ describe NameMatches::Cleaner do
     it { expect(service.compact phrase).to eq 'zz(tv4)' }
     it { expect(service.compact [phrase, phrase]).to eq ['zz(tv4)'] }
   end
-
-  describe '#fix' do
-    it { expect(service.fix phrase).to eq 'zz(tv4)' }
-    it { expect(service.fix ['[test]', 'test' '☆ †♪', '(TEST2)']).to eq ['[test]', 'test', '(test2)'] }
-  end
 end

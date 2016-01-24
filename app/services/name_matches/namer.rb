@@ -1,47 +1,58 @@
 class NameMatches::Namer
   include Singleton
 
-  delegate :cleanup, :fix, :finalize, :finalizes, to: :cleaner
-  delegate :variate, to: :phraser
+  def initialize
+    @phraser ||= NameMatches::Phraser.instance
+    @cleaner ||= NameMatches::Cleaner.instance
+    @config ||= NameMatches::Config.instance
+  end
 
   def predefined entry
-    config.predefined_names(entry.class)
+    @config.predefined_names(entry.class)
       .select { |_, id| id == entry.id }
-      .map { |phrase, _| cleaner.post_process phrase }
+      .map { |phrase, _| @cleaner.finalize phrase }
   end
 
   def name entry
-    post_process [
+    names = [
       entry.name,
       with_kind(entry.name, entry),
       with_year(entry.name, entry)
     ]
+    @cleaner.finalize names
   end
 
   def alt entry
-    alternatives(entry).flat_map do |name|
+    names = alternatives(entry).flat_map do |name|
       post_process [with_kind(name, entry), with_year(name, entry)]
     end
+
+    @cleaner.finalize names
   end
 
   def alt2 entry
-    post_process alternatives(entry)
+    @cleaner.finalize alternatives(entry)
   end
 
   def alt3 entry
-    with_bang_variants name(entry) + alt2(entry) + alt(entry), entry
+    other_names = name(entry) + alt2(entry) + alt(entry)
+    names = with_bang_variants other_names, entry
+    @cleaner.finalize names - other_names
   end
 
   def russian entry
-    post_process [
+    names = [
       entry.russian,
       with_kind(entry.russian, entry),
       with_year(entry.russian, entry)
     ]
+    @cleaner.finalize names
   end
 
   def russian_alt entry
-    with_bang_variants russian(entry), entry
+    other_names = russian(entry)
+    names = with_bang_variants other_names, entry
+    @cleaner.finalize names - other_names
   end
 
 private
@@ -59,26 +70,18 @@ private
   end
 
   def with_bang_variants names, entry
-    phrases = names
-      .flat_map { |name| post_process(variate name, entry.kind) }
-      .compact
+      # @phraser.variate(
+        # names,
+        # do_splits: true,
+        # kind: entry.kind,
+        # year: entry.year
+      # )
 
-    post_process(phrases + phrases.map { |v| v.gsub('!', '') } - names)
+    # post_process(phrases + phrases.map { |v| v.gsub('!', '') } - names)
+    names + names.map { |v| v.gsub('!', '') }
   end
 
   def post_process names
-    names.compact.map { |name| cleaner.post_process name }.uniq
-  end
-
-  def phraser
-    @phraser ||= NameMatches::Phraser.instance
-  end
-
-  def cleaner
-    @cleaner ||= NameMatches::Cleaner.instance
-  end
-
-  def config
-    @config ||= NameMatches::Config.instance
+    names.compact.map { |name| @cleaner.post_process name }.uniq
   end
 end
