@@ -10,7 +10,7 @@ describe NameMatcher do
       it { expect(service.matches("#{anime.name} TV")).to eq [anime] }
       it { expect(service.matches(anime.synonyms.first)).to eq [anime] }
       it { expect(service.matches("#{anime.synonyms.first} TV")).to eq [anime] }
-      it('',:focus) { expect(service.matches("#{anime.synonyms.first}, with comma")).to eq [anime] }
+      it { expect(service.matches("#{anime.synonyms.first}, with comma")).to eq [anime] }
     end
 
     describe '"&" with "and"' do

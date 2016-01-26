@@ -41,46 +41,59 @@ describe NameMatches::Namer do
     context 'with aired_on' do
       let(:aired_on) { Date.parse '2005-01-01' }
       it do
-        expect(service.name entry).to eq [
-          'ootnikzootnik!', 'ootnikzootnik!tv', 'ootnikzootnik!2005'
-        ]
+        expect(service.name entry).to eq %w(
+          ootnikzootnik! ootnikzootnik!tv ootnikzootnik!2005
+        )
       end
     end
 
     context 'wo aired_on' do
       let(:aired_on) { nil }
       it do
-        expect(service.name entry).to eq [
-          'ootnikzootnik!', 'ootnikzootnik!tv'
-        ]
+        expect(service.name entry).to eq %w(
+          ootnikzootnik! ootnikzootnik!tv
+        )
       end
     end
   end
 
   describe '#alt' do
-    it do
-      expect(service.alt entry).to eq [
-        'hunterxhuntertv', 'hunterxhunter2000',
-        'hunterstv', 'hunters2000',
-        'englishuntertv', 'englishunter2000',
-        'ハンターxハンターtv', 'ハンターxハンター2000'
-      ]
+    context 'without suffix' do
+      it do
+        expect(service.alt entry).to eq %w(
+          hunterxhunter hunters englishunter ハンターxハンター
+          hunterxhuntertv hunterxhunter2000 hunterstv hunters2000
+          englishuntertv englishunter2000
+          ハンターxハンターtv ハンターxハンター2000
+          ootnikzootnik
+        )
+      end
+    end
+
+    context 'with suffix' do
+      let(:entry) { build :anime, :tv, name: 'JoJo no Kimyou na Bouken (2000)' }
+      it do
+        expect(service.alt entry).to eq %w(
+          jojonokimyonaboken
+        )
+      end
     end
   end
 
   describe '#alt2' do
     it do
-      expect(service.alt2 entry).to eq [
-        'hunterxhunter', 'hunters', 'englishunter', 'ハンターxハンター'
-      ]
+      expect(service.alt2 entry).to eq %w(
+        hunterxhunter hunters englishunter ハンターxハンター
+      )
     end
   end
 
   describe '#alt3' do
     it do
-      expect(service.alt3 entry).to eq [
-        'ootnikzootnik', 'ootnikzootniktv', 'ootnikzootnik2000'
-      ]
+      expect(service.alt3 entry).to eq %w(
+        englisunter englisuntertv englisunter2000
+        ootnikzootniktv ootnikzootnik2000
+      )
     end
   end
 
@@ -88,9 +101,9 @@ describe NameMatches::Namer do
     context 'with russian' do
       let(:russian) { 'Охотник!' }
       it do
-        expect(service.russian entry).to eq [
-          'охотник!', 'охотник!tv', 'охотник!2000'
-        ]
+        expect(service.russian entry).to eq %w(
+          охотник! охотник!tv охотник!2000
+        )
       end
     end
 
@@ -102,9 +115,9 @@ describe NameMatches::Namer do
 
   describe '#russian_alt' do
     it do
-      expect(service.russian_alt entry).to eq  [
-        'охотник', 'охотникtv', 'охотник2000'
-      ]
+      expect(service.russian_alt entry).to eq %w(
+        охотник охотникtv охотник2000
+      )
     end
   end
 end

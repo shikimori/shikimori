@@ -26,7 +26,9 @@ describe NameMatches::BuildMatches do
     subject(:name_matches) { service.call }
 
     it do
-      is_expected.to have(24).items
+      expect(name_matches.map(&:phrase)).to eq %w(
+        ootnikzootnik! ootnikzootnik!tv ootnikzootnik!2000 hunterxhunter hunters englisunter ハンターxハンター hunterxhuntertv hunterxhunter2000 hunterstv hunters2000 englisuntertv englisunter2000 ハンターxハンターtv ハンターxハンター2000 ootnikzootnik ootnikzootniktv ootnikzootnik2000 охотник! охотник!tv охотник!2000 охотник охотникtv охотник2000
+      )
       expect(name_matches.first).to be_kind_of NameMatch
       expect(name_matches.first).to be_new_record
       expect(name_matches.first).to be_valid
@@ -37,17 +39,6 @@ describe NameMatches::BuildMatches do
         priority: 0,
         target: entry
       )
-      expect(name_matches.map(&:phrase)).to eq [
-        'ootnikzootnik!', 'ootnikzootnik!tv', 'ootnikzootnik!2000',
-        'hunterxhuntertv', 'hunterxhunter2000',
-        'hunterstv', 'hunters2000',
-        'englishuntertv', 'englishunter2000',
-        'ハンターxハンターtv', 'ハンターxハンター2000',
-        'hunterxhunter', 'hunters', 'englishunter', 'ハンターxハンター',
-        'ootnikzootnik', 'ootnikzootniktv', 'ootnikzootnik2000',
-        'охотник!', 'охотник!tv', 'охотник!2000',
-        'охотник', 'охотникtv', 'охотник2000'
-      ]
     end
 
     describe 'predefined_name' do
@@ -89,6 +80,26 @@ describe NameMatches::BuildMatches do
       context 'ova' do
         let(:kind) { :ova }
         it { expect(name_matches.first).to have_attributes priority: 1 }
+      end
+    end
+
+    context 'only name' do
+      let(:entry) { build :anime, :tv, name: 'JoJo no Kimyou na Bouken (2000)' }
+
+      it do
+        expect(name_matches.map(&:phrase)).to eq %w(
+          jojonokimyonaboken2000 jojonokimyonaboken2000tv jojonokimyonaboken
+        )
+        expect(name_matches.first).to be_kind_of NameMatch
+        expect(name_matches.first).to be_new_record
+        expect(name_matches.first).to be_valid
+        expect(name_matches.first).to have_attributes(
+          id: nil,
+          phrase: 'jojonokimyonaboken2000',
+          group: 1,
+          priority: 0,
+          target: entry
+        )
       end
     end
   end

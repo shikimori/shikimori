@@ -24,10 +24,15 @@ class NameMatches::Namer
 
   def alt entry
     names = alternatives(entry).flat_map do |name|
-      post_process [with_kind(name, entry), with_year(name, entry)]
+      [name, with_kind(name, entry), with_year(name, entry)]
     end
 
-    @cleaner.finalize names
+    @phraser.variate(
+      [entry.name] + alternatives(entry) + names,
+      do_splits: true,
+      kind: entry.kind,
+      year: entry.year
+    ) - name(entry)
   end
 
   def alt2 entry
@@ -37,7 +42,7 @@ class NameMatches::Namer
   def alt3 entry
     other_names = name(entry) + alt2(entry) + alt(entry)
     names = with_bang_variants other_names, entry
-    @cleaner.finalize names - other_names
+    @cleaner.finalize(names) - other_names
   end
 
   def russian entry
@@ -52,7 +57,7 @@ class NameMatches::Namer
   def russian_alt entry
     other_names = russian(entry)
     names = with_bang_variants other_names, entry
-    @cleaner.finalize names - other_names
+    @cleaner.finalize(names) - other_names
   end
 
 private
@@ -69,15 +74,11 @@ private
     "#{name} #{entry.aired_on.year}" if name.present? && entry.aired_on
   end
 
-  def with_bang_variants names, entry
-      # @phraser.variate(
-        # names,
-        # do_splits: true,
-        # kind: entry.kind,
-        # year: entry.year
-      # )
+  def without_suffix name
+    @cleaner.cleanup name
+  end
 
-    # post_process(phrases + phrases.map { |v| v.gsub('!', '') } - names)
+  def with_bang_variants names, entry
     names + names.map { |v| v.gsub('!', '') }
   end
 

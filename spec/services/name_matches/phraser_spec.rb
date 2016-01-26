@@ -4,6 +4,7 @@ describe NameMatches::Phraser do
   describe '#variate' do
     it { expect(service.variate 'madouka magica').to eq ['madokamagika'] }
     it { expect(service.variate 'zz [ТВ-4]').to eq ['zzs4'] }
+    it { expect(service.variate 'zz season 3').to eq ['zzs3'] }
 
     context 'without splits' do
       let(:options) {{ do_splits: false }}

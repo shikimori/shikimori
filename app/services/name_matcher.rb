@@ -7,13 +7,8 @@ class NameMatcher
   ANIME_FIELDS = COMMON_FIELDS + [:episodes]
   MANGA_FIELDS = COMMON_FIELDS + [:chapters]
 
-  BAD_NAMES = /\A(\d+|первыйсезон|второйсезон|третийсезон|сезонпервый|сезонвторой|сезонтретий|спецвыпуск\d+|firstseason|secondseason|thirdseason|anime|theanime|themovie|movie)\Z/
-
   # конструктор
   def initialize klass, ids=nil, services=[]
-    # в каком порядке будем обходить кеш
-    @match_order = [:predefined, :name, :alt, :alt2, :alt3, :russian]
-
     @klass = klass
     @ids = ids
     @services = services
@@ -34,12 +29,9 @@ class NameMatcher
 
     variants = [
       finalize(phrases),
-      finalize(@phraser.variants(phrases, false)),
-      finalize(@phraser.variants(phrases, true))
+      finalize(@phraser.variate(phrases, do_splits: false)),
+      finalize(@phraser.variate(phrases, do_splits: true))
     ]
-
-    ap phrases
-    ap variants
 
     found = matching_groups(variants.first).first ||
       matching_groups(variants.second).first ||
@@ -56,8 +48,8 @@ class NameMatcher
   # поиск id аниме по переданному наванию
   def match name
     ActiveSupport::Deprecation.warn "use .matches instead.", caller
-    variants(name).each do |variant|
-      @match_order.each do |group|
+    @phraser.variate(name).each do |variant|
+      NameMatch::GROUPS.each do |group|
         ids = @cache[group][variant]
         return ids.first if ids
       end
@@ -95,7 +87,7 @@ private
 
   def matching_groups fixed_names
     found_matches = fixed_names.each_with_object({}) do |variant,memo|
-      @match_order.each do |group|
+      NameMatch::GROUPS.each do |group|
         memo[group] ||= []
         memo[group] << @cache[group][variant] if @cache[group][variant]
       end
