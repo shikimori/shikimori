@@ -39,14 +39,6 @@ module Clockwork
     ProgressContests.perform_async
   end
 
-  every 1.day, 'nightly.stuff', at: '03:00' do
-    NameMatches::Refresh.perform_async Anime.name
-  end
-
-  every 1.day, 'nightly.stuff', at: '03:30' do
-    NameMatches::Refresh.perform_async Manga.name
-  end
-
   every 1.day, 'daily.stuff', at: '00:30' do
     SakuhindbImporter.perform_async with_fail: false
     ReadMangaLinksWorker.perform_async
@@ -103,5 +95,10 @@ module Clockwork
     ImportListWorker.perform_async pages_limit: 100
     ImportListWorker.perform_async pages_limit: 100, type: Manga.name
     PeopleJobsActualzier.perform_async
+  end
+
+  every 1.week, 'weekly.stuff', at: 'Monday 05:45' do
+    NameMatches::Refresh.perform_async Anime.name
+    NameMatches::Refresh.perform_async Manga.name
   end
 end
