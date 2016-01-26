@@ -320,6 +320,12 @@ Site::Application.routes.draw do
     root to: 'dashboards#show'
     get '/', to: 'dashboards#show', as: :new_session
 
+    resources :sponsors, only: [] do
+      collection do
+        get :adwise_240x400
+      end
+    end
+
     # seo redirects
     get 'r' => redirect('/reviews')
     constraints other: /.*/  do

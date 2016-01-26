@@ -28,7 +28,7 @@ class AnimeOnline::DashboardController < ShikimoriController
   def advertur_test
   end
 
-  private
+private
 
   def is_adult
     @is_adult ||= AnimeOnlineDomain::adult_host? request

@@ -22,7 +22,7 @@
 
     .l-menu
       - if AnimeOnline::AdsPolicy.show_ad? request.host, current_user
-        .ads_container
+        .ads_container.block
           = render partial: 'anime_online/blocks/ads_240x400'
 
       .midheadline.green.m15 Онгоинги сезона

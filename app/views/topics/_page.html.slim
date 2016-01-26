@@ -21,6 +21,10 @@ header.head
     aside.l-menu.ajax-opacity
       = render 'menu_actions', menu: @view.menu
 
+      - if !user_signed_in? || current_user.admin?
+        .sponsors
+          center: iframe src="#{adwise_240x400_sponsors_url}" width='240px' height='400px'
+
       - if linked
         - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
           = render 'animes/menu', resource: linked.decorate
