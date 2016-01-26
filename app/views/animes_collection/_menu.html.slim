@@ -19,6 +19,10 @@
         href="#{recommendations_url klass: menu.klass.name.downcase}"
       ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
+  - if !user_signed_in? || current_user.admin?
+    .block2
+      center: iframe src="#{adwise_240x400_sponsors_url}" width='240px' height='400px'
+
   .block
     .subheadline = Anime.human_attribute_name :status
     ul.block-list.statuses.anime-params

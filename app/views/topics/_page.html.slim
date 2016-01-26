@@ -22,7 +22,7 @@ header.head
       = render 'menu_actions', menu: @view.menu
 
       - if !user_signed_in? || current_user.admin?
-        .sponsors
+        .block2
           center: iframe src="#{adwise_240x400_sponsors_url}" width='240px' height='400px'
 
       - if linked
