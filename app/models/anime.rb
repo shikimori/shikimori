@@ -97,6 +97,10 @@ class Anime < DbEntry
   has_many :anime_videos, -> { order :episode }, dependent: :destroy
   has_many :episode_notifications, dependent: :destroy
 
+  has_many :name_matches, -> { where target_type: Anime.name },
+    foreign_key: :target_id,
+    dependent: :destroy
+
   has_attached_file :image,
     styles: {
       original: ['225x350>', :jpg],
@@ -121,6 +125,7 @@ class Anime < DbEntry
 
   before_save :check_status
   after_save :update_news
+  after_create :generate_name_matches
 
   def episodes= value
     value.blank? ? super(0) : super(value)

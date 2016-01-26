@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114104939) do
+ActiveRecord::Schema.define(version: 20160120171406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -636,6 +636,16 @@ ActiveRecord::Schema.define(version: 20160114104939) do
   add_index "messages", ["from_id", "is_deleted_by_from", "kind"], name: "private_and_notifications", using: :btree
   add_index "messages", ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id", using: :btree
   add_index "messages", ["to_id", "kind", "read"], name: "messages_for_profile", using: :btree
+
+  create_table "name_matches", force: :cascade do |t|
+    t.string  "phrase",      null: false
+    t.integer "priority",    null: false
+    t.integer "group",       null: false
+    t.integer "target_id",   null: false
+    t.string  "target_type", null: false
+  end
+
+  add_index "name_matches", ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name",               limit: 255

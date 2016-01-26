@@ -30,6 +30,8 @@ describe Manga do
 
     it { should have_many :recommendation_ignores }
     it { should have_many :manga_chapters }
+
+    it { is_expected.to have_many :name_matches }
   end
 
   describe 'validations' do

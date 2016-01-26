@@ -73,6 +73,10 @@ class Manga < DbEntry
 
   has_many :manga_chapters, class_name: MangaChapter.name, dependent: :destroy
 
+  has_many :name_matches, -> { where target_type: Manga.name },
+    foreign_key: :target_id,
+    dependent: :destroy
+
   has_attached_file :image,
     styles: {
       original: ['225x350>', :jpg],
@@ -92,6 +96,8 @@ class Manga < DbEntry
 
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
+
+  after_create :generate_name_matches
 
   def name
     self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
