@@ -20,8 +20,10 @@
       ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   - if !user_signed_in? || current_user.admin?
-    .block2
-      center: iframe src="#{adwise_240x400_sponsors_url}" width='240px' height='400px'
+    .to-process[
+      data-dynamic="desktop_ad"
+      data-html="<div class='block2'><center><iframe src='#{adwise_240x400_sponsors_url}' width='240px' height='400px'></center></div>"
+    ]
 
   .block
     .subheadline = Anime.human_attribute_name :status
