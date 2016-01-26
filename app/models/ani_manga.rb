@@ -48,4 +48,8 @@ module AniManga
   def with_score?
     score > 1.0 && score < 9.9 && !anons?
   end
+
+  def generate_name_matches
+    NameMatches::Refresh.perform_async self.class.name, id
+  end
 end

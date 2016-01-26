@@ -1,6 +1,15 @@
 class NameMatches::BuildMatches < ServiceObjectBase
   pattr_initialize :entry
 
+  PRIORITIES = {
+    tv: 0,
+    movie: 1,
+    special: 10,
+    one_shot: 8,
+    doujin: 10,
+  }
+  DEFAULT_PRIORITY = 5
+
   def call
     NameMatch::GROUPS
       .map { |group| [group, namer.send(group, entry)] }
@@ -14,11 +23,15 @@ private
     phrases.map do |phrase|
       NameMatch.new(
         group: NameMatch::GROUPS.index(group),
-        priority: entry.kind == :tv ? 0 : 1,
+        priority: priority(entry.kind) || DEFAULT_PRIORITY,
         phrase: phrase,
         target: entry
       )
     end
+  end
+
+  def priority kind
+    PRIORITIES[kind.to_sym] if kind
   end
 
   def namer

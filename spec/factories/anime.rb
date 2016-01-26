@@ -17,6 +17,7 @@ FactoryGirl.define do
       anime.stub :generate_thread
       anime.stub :check_status
       anime.stub :update_news
+      anime.stub :generate_name_matches
     end
     trait :with_callbacks do
       after :build do |anime|

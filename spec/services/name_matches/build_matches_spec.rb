@@ -74,12 +74,12 @@ describe NameMatches::BuildMatches do
     describe 'priority' do
       context 'tv' do
         let(:kind) { :tv }
-        it { expect(name_matches.first).to have_attributes priority: 0 }
+        it { expect(name_matches.first).to have_attributes priority: NameMatches::BuildMatches::PRIORITIES[:tv] }
       end
 
       context 'ova' do
         let(:kind) { :ova }
-        it { expect(name_matches.first).to have_attributes priority: 1 }
+        it { expect(name_matches.first).to have_attributes priority: NameMatches::BuildMatches::DEFAULT_PRIORITY }
       end
     end
 

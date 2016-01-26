@@ -11,6 +11,7 @@ FactoryGirl.define do
 
     after(:build) do |anime|
       anime.stub :generate_thread
+      anime.stub :generate_name_matches
     end
     trait :with_thread do
       after(:build) do |anime|

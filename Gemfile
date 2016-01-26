@@ -116,7 +116,7 @@ group :development do
   gem 'rvm1-capistrano3', require: false
   gem 'capistrano-git-submodule-strategy', require: false
   gem 'airbrussh', require: false
-  gem 'rails-flog', require: 'flog'
+  # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
 
   gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
