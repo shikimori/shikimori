@@ -10,6 +10,7 @@
 jQuery.migrateVersion = "1.3.0";
 
 
+jQuery.migrateMute = true;
 var warnedAbout = {};
 
 // List of warnings already given; public read only
