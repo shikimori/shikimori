@@ -6,15 +6,16 @@ class @DesktopAd extends View
     $iframe = $new_content.find 'iframe'
 
     $iframe.on 'load', ->
-      (->
-        iframe = $iframe[0]
-        doc = if iframe.contentDocument
-          iframe.contentDocument
-        else
-          iframe.contentWindow.document
+      iframe = $iframe[0]
+      doc = if iframe.contentDocument
+        iframe.contentDocument
+      else
+        iframe.contentWindow.document
 
+      doc.no_ads = ->
         unless $('iframe,#placeholder', doc).exists()
           $new_content.remove()
-      ).delay 3.5 * 1000
+
+      doc.no_ads.delay(3.5 * 1000)
 
     @$node.replaceWith $new_content
