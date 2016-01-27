@@ -20,7 +20,6 @@ header.head
 
     aside.l-menu.ajax-opacity
       = render 'menu_actions', menu: @view.menu
-      = render 'sponsors/ad_240x400'
 
       - if linked
         - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
@@ -42,9 +41,11 @@ header.head
           = render 'contests/menu', resource: linked.decorate
 
         - elsif linked.kind_of? CosplayGallery
+          = render 'sponsors/ad_240x400'
           = render 'menu', menu: @view.menu
 
         - else raise "unknown linked: #{linked.class}"
 
       - else
+        = render 'sponsors/ad_240x400'
         = render 'menu', menu: @view.menu
