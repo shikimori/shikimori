@@ -41,7 +41,10 @@ describe NameMatches::FindMatches do
     end
 
     describe 'ambiguousity resolve' do
-      pending
+      let(:options) {{ year: anime_2.year }}
+      let!(:anime_2) { create :anime, :tv, name: 'Hunter x Hunter tv', aired_on: 5.years.ago }
+
+      it { is_expected.to eq [anime_2] }
     end
   end
 end

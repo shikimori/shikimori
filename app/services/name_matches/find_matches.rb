@@ -5,6 +5,12 @@ class NameMatches::FindMatches < ServiceObjectBase
 
   def call
     entries = match_entries
+
+    if entries.one?
+      entries
+    else
+      NameMatches::ResolveAmbigiousity.call entries, options
+    end
   end
 
 private
