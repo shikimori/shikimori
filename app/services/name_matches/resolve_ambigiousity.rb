@@ -1,10 +1,7 @@
-class AmbiguousMatcher
-  def initialize entries, options
-    @entries = entries
-    @options = options
-  end
+class NameMatches::ResolveAmbigiousity < ServiceObjectBase
+  pattr_initialize :entries, :options
 
-  def resolve
+  def call
     entries = @entries
     entries = resolve_by_year entries, @options[:year] if @options[:year]
     entries = resolve_by_episodes entries, @options[:episodes] if @options[:episodes]

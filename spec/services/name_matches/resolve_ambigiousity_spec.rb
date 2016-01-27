@@ -1,12 +1,13 @@
-describe AmbiguousMatcher do
-  subject { matcher.resolve }
+describe NameMatches::ResolveAmbigiousity do
 
-  let(:matcher) { AmbiguousMatcher.new animes, options }
+  let(:matcher) { NameMatches::ResolveAmbigiousity.new animes, options }
   let(:anime_1) { build_stubbed :anime, name: ['test'] }
   let(:anime_2) { build_stubbed :anime, name: ['test'] }
   let(:animes) { [anime_1, anime_2] }
 
   describe '#resolve' do
+    subject { matcher.call }
+
     describe 'no options' do
       let(:options) {{ }}
       it { should eq animes }

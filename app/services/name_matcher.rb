@@ -29,7 +29,7 @@ class NameMatcher
 
     if found
       entries = found.second.flatten.compact.uniq
-      entries.one? ? entries : AmbiguousMatcher.new(entries, options).resolve
+      entries.one? ? entries : NameMatches::ResolveAmbigiousity.call(entries, options)
     else
       []
     end
