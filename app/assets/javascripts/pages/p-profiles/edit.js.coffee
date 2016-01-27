@@ -112,11 +112,15 @@
 
     # выбор откуда импортировать: myanimelist.net или anime-planet.com
     $("#import_phase_1 .control").on "click", ->
+      type = $(@).data("final-step")
       $("#import_service_name").html $(@).attr("title")
-      $("#to_final_step").data "final-step", $(@).data("final-step")
+      $("#to_final_step").data "final-step", type
       $("#import_phase_1").hide()
-      $("#import_phase_2").show()
 
+      if type == 'import_anime_planet'
+        $("#import_phase_2 .control#anime").click()
+      else
+        $("#import_phase_2").show()
 
     # выбор типа импорта: аниме или манга
     $("#import_phase_2 .control").on "click", ->

@@ -1,5 +1,5 @@
 class NameMatches::FindMatches < ServiceObjectBase
-  pattr_initialize :names, :type, :options
+  pattr_initialize :names, :type_klass, :options
 
   instance_cache :phraser, :cleaner, :phrase_variants
 
@@ -25,11 +25,15 @@ private
   end
 
   def find_matches phrases
-    db_matches(phrases)
+    groups = db_matches(phrases)
       .group_by { |match| "#{match.priority}-#{match.group}" }
       .sort_by(&:first)
-        .first.second
-        .map { |match| match.send entry_type }
+
+    if groups.any?
+      groups.first.second.map { |match| match.send entry_type }
+    else
+      []
+    end
   end
 
   def db_matches phrases
@@ -48,7 +52,7 @@ private
   end
 
   def entry_type
-    type.downcase.to_sym
+    type_klass.name.downcase.to_sym
   end
 
   def phraser

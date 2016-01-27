@@ -1,5 +1,5 @@
 describe NameMatches::FindMatches do
-  let(:service) { NameMatches::FindMatches.new names, Anime.name, options }
+  let(:service) { NameMatches::FindMatches.new names, Anime, options }
   let(:refresher) { NameMatches::Refresh.new }
 
   describe '#call' do
@@ -11,6 +11,11 @@ describe NameMatches::FindMatches do
     subject do
       refresher.perform Anime.name
       service.call
+    end
+
+    describe 'no matches' do
+      let(:names) { ['zz'] }
+      it { is_expected.to be_empty }
     end
 
     describe 'no priority' do

@@ -1,20 +1,20 @@
 # парсер аккаунта anime-planet
 # klass: Anime или Manga
-# wont_watch_strategy - nil или UserRate.statuses[:dropped]
+# wont_watch_strategy - nil или :dropped
 class UserListParsers::AnimePlanetListParser
   def initialize klass, wont_watch_strategy = nil
     @klass = klass
-    @matcher = NameMatcher.new @klass
-    @wont_watch_strategy = wont_watch_strategy
+    @wont_watch_strategy = UserRate.statuses[wont_watch_strategy]
   end
 
   def parse login
-    1.upto(pages_count(login)).map do |page|
+    1.upto(pages_count(login)).flat_map do |page|
       find_matches parse_page login, page
-    end.flatten
+    end
   end
 
 private
+
   # заполнение id для собранного списка
   def find_matches entries
     entries.each do |entry|
@@ -24,7 +24,13 @@ private
 
   # получение id для найденного элемента
   def find_match entry
-    matches = @matcher.matches entry[:name], year: entry[:year], episodes: entry[:episodes]
+    matches = NameMatches::FindMatches.call(
+      entry[:name],
+      @klass,
+      year: entry[:year],
+      episodes: entry[:episodes]
+    )
+
     matches.first.id if matches.one? && entry[:status]
   end
 

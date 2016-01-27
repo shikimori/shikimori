@@ -9,7 +9,10 @@ class UserListParser
         UserListParsers::JsonListParser.new(@klass).parse params[:data]
 
       when :anime_planet
-        UserListParsers::AnimePlanetListParser.new(@klass).parse params[:login]
+        UserListParsers::AnimePlanetListParser.new(
+          @klass,
+          params[:wont_watch_strategy]
+        ).parse(params[:login])
 
       when :xml
         UserListParsers::XmlListParser.new(@klass).parse extract_xml(params[:file])

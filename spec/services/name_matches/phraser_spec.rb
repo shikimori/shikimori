@@ -6,6 +6,9 @@ describe NameMatches::Phraser do
     it { expect(service.variate 'zz [ТВ-4]').to eq ['zzs4'] }
     it { expect(service.variate 'zz season 3').to eq ['zzs3'] }
 
+    it { expect(service.variate 'Naruto: Shippuuden').to eq ['narutosippuden', 'sippuden'] }
+    it { expect(service.variate 'Naruto Shippuden').to eq ['narutosippuden'] }
+
     context 'without splits' do
       let(:options) {{ do_splits: false }}
       it { expect(service.variate 'zz [ТВ]', options).to eq ['zztv'] }

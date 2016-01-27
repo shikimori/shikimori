@@ -127,20 +127,30 @@ describe UserRatesController do
       end
     end
 
-    context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' } do
+    context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' }, focus:true do
       let!(:anime_1) { create :anime, name: 'Black Bullet' }
       let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
       let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
+      let!(:anime_4) { create :anime, name: 'Naruto: Shippuuden' }
 
-      before { post :import, profile_id: user.to_param, klass: 'anime', rewrite: true, list_type: :anime_planet, login: 'shikitest' }
+      let(:import_params) {{
+        profile_id: user.to_param,
+        klass: 'anime',
+        rewrite: true,
+        list_type: :anime_planet,
+        login: 'shikitest'
+      }}
+
+      before { NameMatches::Refresh.new.perform Anime.name }
+      before { post :import, import_params }
 
       it 'imports data' do
         expect(response).to redirect_to index_profile_messages_url(user, :notifications)
-        expect(user.reload.anime_rates.size).to eq(2)
+        expect(user.reload.anime_rates.size).to eq(3)
 
-        expect(assigns(:added).size).to eq(2)
+        expect(assigns(:added).size).to eq(3)
         expect(assigns(:updated).size).to eq(0)
-        expect(assigns(:not_imported).size).to eq(4)
+        expect(assigns(:not_imported).size).to eq(3)
       end
     end
 
