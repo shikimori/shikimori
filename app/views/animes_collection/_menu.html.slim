@@ -19,11 +19,7 @@
         href="#{recommendations_url klass: menu.klass.name.downcase}"
       ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
-  - if !user_signed_in? || current_user.admin?
-    .to-process[
-      data-dynamic="desktop_ad"
-      data-html="<div class='block2'><center><iframe src='#{adwise_240x400_sponsors_url}' width='240px' height='400px'></center></div>"
-    ]
+  = render 'sponsors/ad_240x400'
 
   .block
     .subheadline = Anime.human_attribute_name :status

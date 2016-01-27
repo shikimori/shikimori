@@ -25,4 +25,8 @@
         //li.edit-entry
           /span Редактировать персонажа
 
-= render 'blocks/favoured', favoured: @resource.favoured, url: favoured_seyu_url(@resource)
+= render 'blocks/favoured',
+  favoured: @resource.favoured,
+  url: favoured_seyu_url(@resource)
+
+= render 'sponsors/ad_240x400'
