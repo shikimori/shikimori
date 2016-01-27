@@ -127,7 +127,7 @@ describe UserRatesController do
       end
     end
 
-    context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' }, focus:true do
+    context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' } do
       let!(:anime_1) { create :anime, name: 'Black Bullet' }
       let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
       let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
@@ -138,6 +138,7 @@ describe UserRatesController do
         klass: 'anime',
         rewrite: true,
         list_type: :anime_planet,
+        wont_watch_strategy: 'dropped',
         login: 'shikitest'
       }}
 
