@@ -78,10 +78,6 @@ private
     Icalendar.parse open(CALENDAR_URL).read
   end
 
-  def matcher
-    @matcher ||= NameMatcher.new Anime
-  end
-
   def find_anime anime_id
     @db_cache ||= {}
 
@@ -99,11 +95,15 @@ private
       @matches_cache[name]
 
     else
-      matches = matcher.matches name, status: :anons
-      matches = matcher.matches name, status: :ongoing if matches.blank?
-      matches = matcher.matches name if matches.blank?
+      matches = matches(name, status: :anons)
+      matches = matches(name, status: :ongoing) if matches.blank?
+      matches = matches(name) if matches.blank?
 
       @matches_cache[name] = matches.one? ? matches.first : nil
     end
+  end
+
+  def matches name, options = {}
+    NameMatches::FindMatches.call name, Anime, options
   end
 end

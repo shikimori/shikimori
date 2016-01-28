@@ -1,12 +1,11 @@
-describe NameMatches::ResolveAmbigiousity do
-
-  let(:matcher) { NameMatches::ResolveAmbigiousity.new animes, options }
+describe NameMatches::ResolveAmbiguousity do
+  let(:service) { NameMatches::ResolveAmbiguousity.new animes, options }
   let(:anime_1) { build_stubbed :anime, name: ['test'] }
   let(:anime_2) { build_stubbed :anime, name: ['test'] }
   let(:animes) { [anime_1, anime_2] }
 
   describe '#resolve' do
-    subject { matcher.call }
+    subject { service.call }
 
     describe 'no options' do
       let(:options) {{ }}

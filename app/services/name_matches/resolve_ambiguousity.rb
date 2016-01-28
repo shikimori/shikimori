@@ -1,4 +1,4 @@
-class NameMatches::ResolveAmbigiousity < ServiceObjectBase
+class NameMatches::ResolveAmbiguousity < ServiceObjectBase
   pattr_initialize :entries, :options
 
   def call

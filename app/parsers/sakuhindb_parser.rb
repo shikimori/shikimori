@@ -2,7 +2,8 @@ class SakuhindbParser
   attr_accessor :fail_on_unmatched
 
   def initialize
-    config = YAML::load(File.open("#{::Rails.root.to_s}/config/sakuhindb.yml"))
+    config = YAML::load_file Rails.root.join 'config/app/sakuhindb_parser.yml'
+
     @ignores = Set.new config[:ignores]
     @matches = config[:matches]
     @deleted = config[:deleted]
@@ -19,16 +20,17 @@ class SakuhindbParser
   end
 
 private
+
   # мерж в базу данных
   def merge data
     videos = data.map do |entry|
-      Video.create({
+      Video.create(
         name: entry[:title],
         anime_id: entry[:anime_id],
         kind: entry[:kind],
         url: "http://www.youtube.com/watch?v=#{entry[:youtube]}",
         uploader_id: BotsService.posters.sample
-      })
+      )
     end
   end
 
@@ -68,7 +70,8 @@ private
       if @matches[entry[:anime]] && @matches[entry[:anime]].kind_of?(Integer)
         entry[:anime_id] = @matches[entry[:anime]]
       else
-        matches = matcher.matches [fixed_name, entry[:anime2]].compact
+        names = [fixed_name, entry[:anime2]].compact
+        matches = NameMatches::FindMatches.call names, Anime, {}
         entry[:anime_id] = matches.first.id if matches.size == 1
       end
     end
@@ -102,11 +105,6 @@ private
     doc = Nokogiri::HTML content
     link = doc.css('.va_top td a').first
     link ? link.text : nil
-  end
-
-  # матчер для аниме
-  def matcher
-    @matcher ||= NameMatcher.new Anime
   end
 
   def utf_hack str

@@ -122,30 +122,40 @@ private
     )
   end
 
+  def find_by_link identifier
+    AnimeLink.find_by(
+      identifier: identifier,
+      service: service.to_sym
+    )&.anime
+  end
+
   def save_link identifier, anime
-    link = AnimeLink.create! service: service, anime_id: anime.id, identifier: identifier
-    @matcher.add_link anime, identifier, service.to_sym
+    AnimeLink.create! service: service, anime_id: anime.id, identifier: identifier
   end
 
   def find_match entry
-    anime = @matcher.by_link entry[:id], service.to_sym
+    anime = find_by_link entry[:id]
+    return anime if anime
 
-    unless anime
-      animes = @matcher.matches entry[:names], year: entry[:year], episodes: entry[:episodes]
+    animes = NameMatches::FindMatches.call(
+      entry[:names],
+      Anime,
+      year: entry[:year],
+      episodes: entry[:episodes]
+    )
 
-      if animes.size == 1
-        anime = animes.first
-        save_link entry[:id], anime
+    if animes.size == 1
+      save_link entry[:id], animes.first
+      animes.first
 
-      elsif animes.size > 1
-        @ambiguous << "#{entry[:id]} (#{animes.map(&:id).join ', '})"
+    elsif animes.size > 1
+      @ambiguous << "#{entry[:id]} (#{animes.map(&:id).sort.join ', '})"
+      nil
 
-      else
-        @unmatched << entry[:id]
-      end
+    else
+      @unmatched << entry[:id]
+      nil
     end
-
-    anime
   end
 
   def find_or_create_author name

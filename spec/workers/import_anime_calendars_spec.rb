@@ -11,6 +11,7 @@ describe ImportAnimeCalendars do
 
     let!(:config_match) { create :anime, :anons, id: 30230, name: 'Diamond no Ace: Second Season' }
 
+    before { NameMatches::Refresh.new.perform Anime.name }
     before { worker.perform }
 
     it do

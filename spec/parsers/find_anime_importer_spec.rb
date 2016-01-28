@@ -3,12 +3,19 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
   describe 'import' do
     subject(:import) { importer.import pages: pages, ids: ids, last_episodes: last_episodes }
-    let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
     let(:identifier) { 'xxxholic__shunmuki' }
     let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
-    before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier] }
+
+    let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki' }
+    let!(:anime_2) { }
+
+    before { NameMatches::Refresh.new.perform Anime.name }
+    before do
+      allow_any_instance_of(FindAnimeParser)
+        .to receive(:fetch_page_links).and_return [identifier]
+    end
 
     describe 'video' do
       context 'no_videos' do
@@ -174,7 +181,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
       it { should be_nil }
     end
 
-    describe 'link' do
+    describe 'anime_link' do
       context 'no_link' do
         let(:links) { AnimeLink.where service: FindAnimeImporter::SERVICE.to_s, anime_id: anime.id, identifier: identifier }
         it { expect{subject}.to change(links, :count).by 1 }
@@ -211,12 +218,13 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
       describe 'ambiguous' do
         let!(:anime_2) { create :anime, name: 'Триплексоголик OVA-1' }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
-        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous:\n#{identifier} (#{anime_2.id}, #{anime.id})\n" }
+        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous:\n#{identifier} (#{anime.id}, #{anime_2.id})\n" }
       end
 
       describe 'twice_matched' do
         let(:identifier2) { 'kuroko_no_basket_2' }
         let!(:anime) { create :anime, name: 'xxxHOLiC: Shunmuki', russian: 'Kuroko no Basket 2' }
+
         before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier2] }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
 

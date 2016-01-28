@@ -9,7 +9,7 @@ class NameMatches::FindMatches < ServiceObjectBase
     if entries.one?
       entries
     else
-      NameMatches::ResolveAmbigiousity.call entries, options
+      NameMatches::ResolveAmbiguousity.call entries, options
     end
   end
 
@@ -30,7 +30,9 @@ private
       .sort_by(&:first)
 
     if groups.any?
-      groups.first.second.map { |match| match.send entry_type }
+      groups.first.second
+        .map { |match| match.send entry_type }
+        .uniq
     else
       []
     end
