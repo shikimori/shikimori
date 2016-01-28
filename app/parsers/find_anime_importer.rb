@@ -6,7 +6,6 @@ class FindAnimeImporter
 
   def initialize
     @parser = self.class.name.sub(/Importer$/, 'Parser').constantize.new
-    @matcher = NameMatcher.new Anime, nil, [service.to_sym]
 
     @authors = AnimeVideoAuthor.all.each_with_object({}) do |author,memo|
       memo[author.name.downcase] = author
