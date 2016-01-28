@@ -84,7 +84,7 @@ describe NameMatches::BuildMatches do
     end
 
     context 'only name' do
-      let(:entry) { build :anime, :tv, name: 'JoJo no Kimyou na Bouken (2000)' }
+      let(:entry) { build_stubbed :anime, :tv, name: 'JoJo no Kimyou na Bouken (2000)' }
 
       it do
         expect(name_matches.map(&:phrase)).to eq %w(
