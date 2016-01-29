@@ -149,41 +149,33 @@ en:
         notice: This is the history of content changes authored by members.
         instruction: Instructions
         instructions:
-          - 'Для аниме описания должны быть уникальны, то есть не взяты
-            с других сайтов. Проверяется это просто:
-            ищется в Гугле фраза из правки пользователя вот
-            <a href="https://www.google.ru/search?sourceid=chrome&client=ubuntu&channel=cs&ie=UTF-8&q=%D0%9E%D0%BD+%D0%B8%D0%BC%D0%B5%D0%B5%D1%82+%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%BD%D0%BE%D1%81%D1%82%D1%8C+%D0%B2%D0%B8%D0%B4%D0%B5%D1%82%D1%8C+%D0%BF%D1%80%D0%B8%D0%B7%D1%80%D0%B0%D0%BA%D0%BE%D0%B2+%D0%B8+%D0%B4%D1%83%D1%85%D0%BE%D0%B2.+%D0%A0%D0%BE%D0%BA%D0%BE%D0%B2%D0%BE%D0%B9+%D0%B4%D0%B5%D0%BD%D1%8C+%D0%BF%D1%80%D0%B8%D1%85%D0%BE%D0%B4%D0%B8%D1%82+%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0+%D0%BE%D0%BD+%D0%B2%D1%81%D1%82%D1%80%D0%B5%D1%87%D0%B0%D0%B5%D1%82+%D1%88%D0%B8%D0%BD%D0%B8%D0%B3%D0%B0%D0%BC%D0%B8+%D0%9A%D1%83%D1%87%D0%B8%D0%BA%D0%B8+%D0%A0%D1%83%D0%BA%D0%B8%D1%8E">так</a>.
-            Если находится полное совпадение (на любом сайте, кроме Шикимори),
-            значит это копипаста, и правку следует отклонить.
-            Для манги и персонажей описания могут быть взяты с других сайтов,
-            но при этом должен быть указан источник.'
-          - Не должно быть грамматических ошибок. Проверить можно в Ворде
-            или <a href="http://advego.ru/text/">тут</a>.
-          - Имена персонажей должны быть <b>подсвечены</b> указанием
-            после имени в скобочках японского или английского варианта имени
-            (если у персонажа задано русское имя, и прямое вхождение имени
-            встретится в тексте описания, то имя будет так же
-            <b>подсвечено</b>).
-          - Описания должны быть написаны литературным русским языком.
-            Время от времени добавляют дословные переводы с английского,
-            подобное принимать не нужно.
-          - При принятии или отказе правки от вашего имени пользователю
-            будет выслано уведомление о принятии или отказе.
-            При отказе, пожалуйста, напишите пользователю о том,
-            что ему нужно исправить, чтобы правка была принята.
-          - Запрета на полное изменение чьих-либо описаний нет.
-            Любые описания могут быть изменены другими пользователям,
-            если модератор сочтёт, что новый текст лучше.
-          - 'Кадры должны быть надлежащего качества:
-            онгоинги - 720p (1280x720),
-            для более старых - не менее 480p (720x480),
-            для совсем старых аниме 90х годов и ранее можно и
-            в худшем качестве.'
-          - На кадрах не должно быть логотипов, водяных знаков других сайтов,
-            а также субтитров.
-          - 'Боты теперь умеют удалять видео, создавая запрос на удаление.
-            Удаляют в двух случаях: либо видео не работает,
-            либо видео дублируется.'
+          - 'Anime descriptions must be original that is not "copypasted"
+            from other sites. It can be easily checked: just search for
+            description in question on
+            <a href="https://www.google.ru/search?q=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&oq=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&aqs=chrome..69i57.662j0j1&sourceid=chrome&es_sm=91&ie=UTF-8">Google</a>.
+            If there''s a full text match on any site besides Shikimori
+            this is plagiarism and such content change must be rejected.
+            Manga and character descriptions can be quoted from other sites
+            provided the source is specified.'
+          - Content changes should not have any spelling or grammar mistakes.
+            You can spot them with MS Word or any online spell checker
+            (e.g. <a href="https://www.jspell.com/public-spell-checker.html">this one</a>).
+          - Character names must be <b>highlighted</b> by specifying
+            Japanese variant in parentheses right after the name.
+          - Descriptions must be authored in literary English.
+            Translations verbatim from other languages are forbidden.
+          - The author will receive notification after you accept or reject
+            his content change. In the latter case try to explain
+            what should be fixed for his content change to be accepted.
+          - It's not prohibited to replace someone else's description
+            completely. All descriptions can be changed by other members
+            if moderator considers a new text to be better.
+          - 'High quality screenshots are strongly recommended:
+            e.g. acceptable resolution for ongoings is 720p (1280x720),
+            for older animes - at least 480p (720x480). It''s allowed
+            to use poor quality screenshots from animes of the 90s.'
+          - Screenshots shouldn't contain any logos or watermarks of
+            other sites as well as subtitles.
         instructions_notice: >-
           In case of minor drawbacks it's recommended to accept (rather than
           reject) content change and correct it by yourself if necessary:
