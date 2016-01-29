@@ -7,7 +7,7 @@ en:
         <<: *header_mini
         about: about
     status_line:
-      from: from
+      by: by
       about: about
     menu_actions:
       create_topic: Create a Topic
