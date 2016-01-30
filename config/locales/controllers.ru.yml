@@ -125,10 +125,30 @@ ru:
       Примите участие в аниме-турнире на нашем сайте и
       внесите свой вклад в голосование, мы хотим определить %{title}.
 
-  moderations:
-   title: Модерация и контент
+  moderations_controller: &moderations_controller
+    title: Модерация и контент
+    missing_screenshots_title: Аниме без кадров
+    missing_videos_title: Отсутствующие видео
+    missing_videos: :moderations.missing_videos
+
+  moderations/abuse_requests_controller:
+    <<: *moderations_controller
+    page_title: Журнал модерации форума
+
+  moderations/anime_video_reports_controller:
+    <<: *moderations_controller
+    page_title: Модерация видео
+
+  moderations/bans_controller:
+    <<: *moderations_controller
+    page_title: Журнал банов
+
+  moderations/reviews_controller:
+    <<: *moderations_controller
+    page_title: Модерация рецензий
 
   moderations/versions_controller:
+    <<: *moderations_controller
     content_change: 'Правка #%{version_id}'
     content_changes: Журнал модерации контента
     changes_accepted: Изменения приняты
@@ -138,6 +158,12 @@ ru:
     version_pending: &version_pending Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
     version_accepted: &version_accepted Изменения сохранены
     version_taken: *version_accepted
+
+  genres_controller:
+    <<: *moderations_controller
+
+  forums_controller:
+    <<: *moderations_controller
 
   animes_controller: &animes_controller
     version_pending: *version_pending

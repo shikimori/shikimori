@@ -1,8 +1,8 @@
 .b-log_entry
   - if review.pending?
     .moderation
-      a.accept href="#{accept_moderations_review_path review}" data-method="post" принять
-      a.reject href="#{reject_moderations_review_path review}" data-method="post" переместить в оффтопик
+      a.accept href="#{accept_moderations_review_path review}" data-method='post' = t '.accept'
+      a.reject href="#{reject_moderations_review_path review}" data-method='post' = t '.move_to_offtopic'
 
   .info
     span.id-label #

@@ -15,9 +15,14 @@ en:
       forums: Forums
       uploaded_videos_journal: Uploaded videos journal
       versions_journal: Content changes journal
+
     missing_screenshots:
-      title: Missing Screenshots
       animes: Animes
+      notices:
+        - This is the list of top %{limit} most popular animes
+          with missing screenshots.
+        - The list is cached by the site and refreshed once per hour.
+
     missing_videos:
       video_types: Video types
       videos: Videos
@@ -27,13 +32,39 @@ en:
       vk_dubbed: vk.com dubbed videos
       subbed: Videos with subtitles
       dubbed: Dubbed videos
+      notices:
+        - This is the list of top %{limit} most popular animes with
+          missing videos.
+        - You can get detailed information about missing video by clicking
+          corresponding anime in the list.
+        - The list is cached by the site and refreshed once per hour.
+        - Sometimes only 1-3 episodes of 13-26 ones are shown as available -
+          most likely this means that available episodes are from another
+          anime (they have been imported from another site automatically
+          by mistake). Such episodes should be deleted.
+
     anime_video_reports:
       report:
         show: show
         show_changes: show details
+
     abuse_requests:
       index:
         expand_all: :moderations.bans.index.expand_all
+        notice: >-
+          This is the history of tagging comments
+          with comment markers by site users
+        instruction: Instructions
+        instructions:
+          - Personal conversations in anime topics are offtopic.
+          - Comments written in (very) poor English are offtopic.
+          - Don't remove 'summary' marker from negative summaries
+            if they are well-written and not offensive.
+        to_your_discretion: The rest is left to your discretion.
+        queue: Queue
+        bans_plus_warnings: bans + warnings
+        history: History
+
       abuse_request:
         accept: accept
         actions: actions
@@ -43,14 +74,117 @@ en:
         reject: reject
         remove: remove
         show: show
-        to: to
+        for: for
+        from: from
         warn: warn
+
     bans:
       index:
         expand_all: expand all
+        notice: This is the history of bans and warnings
+        instruction: Instructions
+        instructions:
+          - Don't discuss moderation related issues and the fact of you being
+            a moderator with other members.
+          - Don't discuss your reasons for banning a particular member
+            as well as ban duration or why this user has been banned
+            while another one has not.
+          - Be polite, don't insult or harass other members.
+          - Ban duration is set using a combination of minutes (m),
+            hours (h), days (d) and weeks (w). E.g. <b><em>5m 2h 3w</em></b>
+            is a ban for 3 weeks, 2 hours and 5 minutes.
+          - Using zero as ban duration results in warning a member
+            without actually banning him or her.
+          - 'Ban duration for any particular member is calculated
+            automatically using this formula:
+            <b><em>0.5 + 0.5 * ((&lt;number_of_bans_for_the_last_two_months&gt; ^ 3) /2 - 1)</em></b>.'
+          - Ban duration is left to your discretion but it's recommended to
+            use ban duration calculated automatically.
+          - Banned users trying to sign up using proxy server
+            must be banned without further ado and for a very long time.
+            Their comments must be removed.
+          - 'Don''t ban for old comments - such comments are tagged with an
+            <span style="font-size: 11px; color: green;">
+            old comment</span> marker.'
+          - Deliberate flaming or trolling is strictly
+            prohibited - members starting either one must be banned.
+        queue: Queue
+        queue_empty: Queue is empty
+        declined: Declined
+        offtopic_plus_summaries: offtopic + summaries
+        history: History
+
       ban:
         ban: ban
         banned_on: "on" # не убирать кавычки
         for: for
         for_deleted_comment: for deleted comment
         warning: warning
+
+    reviews:
+      index:
+        notice: This is the history of reviews moderation
+        instruction: Instructions
+        instructions:
+          - In general review should follow the guidelines outlined
+            <a href="http://shikimori.org/animes/1-Cowboy-Bebop/reviews/new">
+            here</a>.
+          - Rejected reviews are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject reviews containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other reviews will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
+
+      review:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
+    versions:
+      index:
+        notice: This is the history of content changes authored by members.
+        instruction: Instructions
+        instructions:
+          - 'Anime descriptions must be original that is not "copypasted"
+            from other sites. It can be easily checked: just search for
+            description in question on
+            <a href="https://www.google.ru/search?q=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&oq=The+End+of+Evangelion+serves+as+an+alternate+ending+to+the+polarizing+final+episodes+of+Neon+Genesis+Evangelion&aqs=chrome..69i57.662j0j1&sourceid=chrome&es_sm=91&ie=UTF-8">Google</a>.
+            If there''s a full text match on any site besides Shikimori
+            this is plagiarism and such content change must be rejected.
+            Manga and character descriptions can be quoted from other sites
+            provided the source is specified.'
+          - Content changes should not have any spelling or grammar mistakes.
+            You can spot them with MS Word or any online spell checker
+            (e.g. <a href="https://www.jspell.com/public-spell-checker.html">this one</a>).
+          - Character names must be <b>highlighted</b> by specifying
+            Japanese variant in parentheses right after the name.
+          - Descriptions must be authored in literary English.
+            Translations verbatim from other languages are forbidden.
+          - The author will receive notification after you accept or reject
+            his content change. In the latter case try to explain
+            what should be fixed for his content change to be accepted.
+          - It's not prohibited to replace someone else's description
+            completely. All descriptions can be changed by other members
+            if moderator considers a new text to be better.
+          - 'High quality screenshots are strongly recommended:
+            e.g. acceptable resolution for ongoings is 720p (1280x720),
+            for older animes - at least 480p (720x480). It''s allowed
+            to use poor quality screenshots from animes of the 90s.'
+          - Screenshots shouldn't contain any logos or watermarks of
+            other sites as well as subtitles.
+        instructions_notice: >-
+          In case of minor drawbacks it's recommended to accept (rather than
+          reject) content change and correct it by yourself if necessary:
+          when editing anime/manga/character description you can use
+          "Apply" button (it's located to the left of "Save" button)
+          to apply changes without adding yourself to the list of authors.
+        queue: Queue
+        more_content_changes_pending: >-
+          That's not all yet. Other content changes will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History of content changes

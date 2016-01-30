@@ -1,24 +1,26 @@
 header.head
   h1 = @page_title.last
-  p.notice Список пометок комментариев сайта пользователями
+  p.notice = t '.notice'
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-.subheadline.m10 Инструкция
+.subheadline.m10 = t '.instruction'
 .b-brief
   .moderators
-    = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
-  ul.b-list
-    li: p Личные разговоры в топиках аниме - оффтоп.
-    li: p Комментарии от тех, у кого проблемы с русским языком - оффтоп.
-    li: p С негативных отзывов, если они культурно написаны, "отзыв" снимать не надо.
+    = render partial: 'users/user',
+      collection: @moderators,
+      locals: { content_by: :named_avatar }
 
-  p Остальное на ваше усмотрение.
+  ul.b-list
+    - t('.instructions').each do |instruction|
+      li: p = instruction
+
+  p = t '.to_your_discretion'
 
 - if @pending.any?
   .block
     .b-options-floated
       a.expand-all.b-js-link = t '.expand_all'
-    .subheadline Очередь
+    .subheadline = t '.queue'
     div
       = render partial: 'moderations/abuse_requests/abuse_request', collection: @pending
 
@@ -26,8 +28,10 @@ header.head
   .block
     - if user_signed_in? && current_user.moderator?
       .b-options-floated
-        a href="#{moderations_bans_url}" баны + предупреждения
-    .subheadline История
+        a href="#{moderations_bans_url}" = t '.bans_plus_warnings'
+    .subheadline = t '.history'
     .block
-      = render partial: 'moderations/abuse_requests/abuse_request', collection: @processed
-      = render partial: 'blocks/postloader', locals: { next_url: page_moderations_abuse_requests_url(page: @page+1) }
+      = render partial: 'moderations/abuse_requests/abuse_request',
+        collection: @processed
+      = render partial: 'blocks/postloader',
+        locals: { next_url: page_moderations_abuse_requests_url(page: @page+1) }

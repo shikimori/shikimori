@@ -2,7 +2,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   load_and_authorize_resource
 
   def index
-    @page_title = 'Модерация видео'
+    @page_title = i18n_t 'page_title'
     @moderators = User.where(id: User::VIDEO_MODERATORS - User::ADMINS)
     @processed = postload_paginate(params[:page], 20) do
       AnimeVideoReport.includes(:user, anime_video: :author).processed

@@ -1,13 +1,9 @@
 header.head
   h1 = @page_title.last
-  p.notice Здесь отображены #{Moderation::MissingVideosQuery::LIMIT} наиболее популярных аниме,
-    у которых пропущены видео.
-  p.notice По клику на аниме отображется подробная информация о пропущенных видео.
-  p.notice Отображённый список кешируется сайтом. Обновляется раз в час.
-  p.notice Иногда может показывать, что присутствуют только 1-3 серии из 13-26,
-    в таком случае это скорее всего означает что присутствующие серии
-    не от того аниме (ошибчно автоматически были импортированны не от того аниме
-    с другого сайта). Подобные неправильные серии нужно удалить.
+  - t('.notices').each do |notice|
+    p.notice
+      = I18n.interpolate notice,
+        limit: Moderation::MissingVideosQuery::LIMIT
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 - if @collection

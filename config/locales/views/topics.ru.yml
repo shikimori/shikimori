@@ -7,7 +7,7 @@ ru:
         <<: *header_mini
         about: о
     status_line:
-      from: от
+      by: от
       about: о
     menu_actions:
       create_topic: Создать тему

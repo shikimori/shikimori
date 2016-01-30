@@ -1,8 +1,10 @@
 header.head
   h1 = @page_title.last
-  p.notice Здесь отображены #{Moderation::MissingScreenshotsQuery::LIMIT} наиболее популярных аниме,
-    у которых отсутствуют кадры.
-  p.notice Отображённый список кешируется сайтом. Обновляется раз в час.
+
+  - t('.notices').each do |notice|
+    p.notice
+      = I18n.interpolate notice,
+        limit: Moderation::MissingScreenshotsQuery::LIMIT
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .subheadline = t '.animes'
