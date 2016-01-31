@@ -53,6 +53,17 @@
               datetime="#{entry.created_at.iso8601}"
             ] = l entry.created_at, format: '%e %B %Y'
 
+
+- if menu.contests.any?
+  .contests.block
+    h2.midheadline.m5
+      a [
+        href="#{contests_url}"
+        title="#{t '.contests'}"
+      ] = t '.contests'
+    .block
+      = render 'dashboards/contests', collection: menu.contests
+
 .block2.clubs
   h2.midheadline.m13
     a[

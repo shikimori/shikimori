@@ -1,12 +1,16 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :clubs, :reviews
+  instance_cache :clubs, :contests, :reviews
 
   def clubs
     Topics::EntryTopics::ClubTopic
       .includes(:linked)
       .order(updated_at: :desc)
       .limit(3)
+  end
+
+  def contests
+    Contest.current
   end
 
   def changeable_forums?

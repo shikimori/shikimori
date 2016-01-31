@@ -32,3 +32,21 @@
   .b-clubs-menu, .b-contests-menu
     .actions
       display: none
+
+  .contests .contest
+    +menu-block-with-text-link
+
+    a
+      +ellipsis
+
+      &:after
+        right: 2px
+
+    .finished
+      color: $gray-1
+
+    .started
+      color: $gray-3
+
+    .can-vote
+      color: #307a3d
