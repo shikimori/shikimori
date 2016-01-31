@@ -1,5 +1,9 @@
-/ - if !user_signed_in? || current_user.admin?
+- if !user_signed_in? || current_user.admin?
+  .to-process[
+    data-dynamic="desktop_ad"
+    data-html="<div class='block2'><center><iframe src='#{block_1_sponsors_url}' width='240px' height='400px'></center></div>"
+  ]
   / .to-process[
     / data-dynamic="desktop_ad"
-    / data-html="<div class='block2'><center><iframe src='#{adwise_240x400_sponsors_url}' width='240px' height='400px'></center></div>"
+    / data-html="<div class='block2'><center>#{render('sponsors/block_1').to_str}</center></div>"
   / ]

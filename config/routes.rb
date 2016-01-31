@@ -322,7 +322,7 @@ Site::Application.routes.draw do
 
     resources :sponsors, only: [] do
       collection do
-        get :adwise_240x400
+        get :block_1
       end
     end
 
