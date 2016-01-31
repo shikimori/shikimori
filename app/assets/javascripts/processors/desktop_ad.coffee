@@ -1,8 +1,14 @@
+# function is called from ad iframe
+@remove_ad = (ad_class) ->
+  console.log "remove ad #{ad_class}"
+  $(".#{ad_class}").remove()
+
 class @DesktopAd extends View
   initialize: ->
     return if is_mobile() || is_tablet()
 
     $new_content = $(@$node.data('html'))
+    $new_content.addClass @$node.data('ad_class')
     # $iframe = $new_content.find 'iframe'
     # console.log $new_content.html()
 
