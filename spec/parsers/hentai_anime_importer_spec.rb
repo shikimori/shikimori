@@ -8,6 +8,8 @@ describe HentaiAnimeImporter, vcr: { cassette_name: 'hentai_anime_parser' } do
     let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
+
+    before { NameMatches::Refresh.new.perform Anime.name }
     before { allow_any_instance_of(HentaiAnimeParser).to receive(:fetch_page_links).and_return [identifier] }
 
     let(:videos) { AnimeVideo.where anime_id: anime.id }
