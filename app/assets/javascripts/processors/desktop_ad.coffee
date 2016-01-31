@@ -3,18 +3,19 @@ class @DesktopAd extends View
     return if is_mobile() || is_tablet()
 
     $new_content = $(@$node.data('html'))
-    $iframe = $new_content.find 'iframe'
+    # $iframe = $new_content.find 'iframe'
+    # console.log $new_content.html()
 
-    $iframe.on 'load', ->
-      iframe = $iframe[0]
-      doc = if iframe.contentDocument
-        iframe.contentDocument
-      else
-        iframe.contentWindow.document
+    # $iframe.on 'load', ->
+      # iframe = $iframe[0]
+      # doc = if iframe.contentDocument
+        # iframe.contentDocument
+      # else
+        # iframe.contentWindow.document
 
-      (->
-        unless $('iframe,#placeholder', doc).exists()
-          $new_content.remove()
-      ).delay 3.5 * 1000
+      # (->
+        # unless $('iframe,#placeholder', doc).exists()
+          # $new_content.remove()
+      # ).delay 3.5 * 1000
 
     @$node.replaceWith $new_content
