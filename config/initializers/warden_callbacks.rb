@@ -6,5 +6,5 @@
 
 Warden::Manager.after_authentication do |user, auth, opts|
   #Rails.logger.info '========='
-  user.prolongate_ban
+  ProlongateBan.perform_in 10.seconds, user.id
 end
