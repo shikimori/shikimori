@@ -58,7 +58,7 @@ class TopicsQuery < ChainableQueryBase
         where forum_id: forum.id
     end
 
-    except_generated forum
+    except_episodes forum
     except_ignored if @user
 
     self
@@ -97,7 +97,7 @@ private
     end
   end
 
-  def except_generated forum
+  def except_episodes forum
     if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
       @relation = @relation.wo_episodes
     else

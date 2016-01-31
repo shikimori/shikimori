@@ -26,19 +26,19 @@ FactoryGirl.define do
       end
     end
     trait :with_character do
-      after(:build) {|v| FactoryGirl.create :person_role, :character_role, anime: v }
+      after(:build) { |v| FactoryGirl.create :person_role, :character_role, anime: v }
     end
     trait :with_staff do
-      after(:build) {|v| FactoryGirl.create :person_role, :staff_role, anime: v }
+      after(:build) { |v| FactoryGirl.create :person_role, :staff_role, anime: v }
     end
     trait :with_thread do
-      after(:build) {|v| v.unstub :generate_thread }
+      after(:build) { |v| v.unstub :generate_thread }
     end
     trait :with_news do
-      after(:build) {|v| v.unstub :update_news }
+      after(:build) { |v| v.unstub :update_news }
     end
     trait :with_video do
-      after(:create) {|v| FactoryGirl.create :anime_video, anime: v }
+      after(:create) { |v| FactoryGirl.create :anime_video, anime: v }
     end
 
     Anime.kind.values.each do |kind_type|

@@ -51,15 +51,14 @@ class TopicsController < ShikimoriController
 
   # редактирование топика
   def update
-    @resource.class.record_timestamps = false
+    updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
 
-    if faye.update @resource, topic_params
+    if updated
       redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик изменён'
     else
       edit
       render :edit
     end
-    @topic.class.record_timestamps = true
   end
 
   # удаление топика

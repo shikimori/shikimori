@@ -16,6 +16,6 @@ describe Forums::List do
 
   describe '.defaults' do
     it { expect(Forums::List.defaults).to have_at_least(4).items }
-    it { expect(Forums::List.defaults).to include offtopic_forum.id }
+    # it { expect(Forums::List.defaults).to include offtopic_forum.id }
   end
 end

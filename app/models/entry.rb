@@ -63,12 +63,12 @@ class Entry < ActiveRecord::Base
 
   # колбек, срабатываемый при удалении коммента
   def comment_deleted comment
-    self.class.record_timestamps = false
-    update(
-      updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
-      comments_count: self.comments.count
-    )
-    self.class.record_timestamps = true
+    self.class.wo_timestamp do
+      update(
+        updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
+        comments_count: self.comments.count
+      )
+    end
   end
 
   # def to_s

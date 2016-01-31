@@ -2,7 +2,8 @@ class GenerateNews::EntryAnons < ServiceObjectBase
   pattr_initialize :entry
 
   def call
-    find_news || ActiveRecord::Base.wo_timestamp { create_news }
+    find_news ||
+      Topics::NewsTopic.wo_timestamp { create_news }
   end
 
   def is_processed
@@ -27,16 +28,14 @@ private
   end
 
   def create_news
-    Topic.wo_timestamp do
-      Topics::NewsTopic.create options.merge(
-        user: BotsService.get_poster,
-        forum_id: forum_id,
-        created_at: created_at,
-        updated_at: nil,
-        generated: true,
-        processed: is_processed
-      )
-    end
+    Topics::NewsTopic.create options.merge(
+      user: BotsService.get_poster,
+      forum_id: forum_id,
+      created_at: created_at,
+      updated_at: nil,
+      generated: true,
+      processed: is_processed
+    )
   end
 
 

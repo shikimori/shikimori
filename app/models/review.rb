@@ -73,7 +73,8 @@ class Review < ActiveRecord::Base
       ))
   end
 
-  # хз что это за хрень и почему ReviewComment.first.linked.target возвращает сам обзор. я так и не понял
+  # хз что это за хрень и почему ReviewComment.first.linked.target
+  # возвращает сам обзор. я так и не понял
   def entry
     @entry ||= Object.const_get(target_type).find(target_id)
   end
