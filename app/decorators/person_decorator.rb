@@ -7,7 +7,7 @@ class PersonDecorator < DbEntryDecorator
   instance_cache :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
   ROLES = {
-    seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean'],
+    seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean', 'Hebrew'],
     composer: ['Music', 'Theme Song Composition'],
     producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
     mangaka: ['Original Creator', 'Story & Art', 'Story']
