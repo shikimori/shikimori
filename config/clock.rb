@@ -50,6 +50,8 @@ module Clockwork
     AnimeLinksVerifier.perform_async
 
     FinishExpiredAnimes.perform_async
+
+    AutobanFix.perform_async
   end
 
   every 1.day, 'daily.log-stuff', at: '03:00' do
