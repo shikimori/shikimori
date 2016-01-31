@@ -8,6 +8,8 @@ describe AnimeSpiritImporter, vcr: { cassette_name: 'anime_spirit_parser' } do
     let(:last_episodes) { false }
     let(:pages) { [0] }
     let(:ids) { [] }
+
+    before { NameMatches::Refresh.new.perform Anime.name }
     before { allow_any_instance_of(AnimeSpiritParser).to receive(:fetch_page_links).and_return [link] }
 
     describe 'video' do
