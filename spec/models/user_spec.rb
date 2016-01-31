@@ -167,20 +167,6 @@ describe User do
       end
     end
 
-    it '#prolongate_ban' do
-      read_only_at = DateTime.now + 5.hours
-      ip = '127.0.0.1'
-
-      user.read_only_at = read_only_at
-      user.current_sign_in_ip = ip
-      user.save
-
-      user2.current_sign_in_ip = ip
-      user2.prolongate_ban
-
-      expect(user2.read_only_at.to_i).to eq read_only_at.to_i
-    end
-
     describe '#banned?' do
       let(:read_only_at) { nil }
       subject { create(:user, read_only_at: read_only_at).banned? }

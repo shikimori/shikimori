@@ -276,17 +276,6 @@ class User < ActiveRecord::Base
     "#{self.id}_#{self.updated_at.to_i}"
   end
 
-  # повесить пользователю такой же бан, что и другим с тем же ip
-  def prolongate_ban
-    read_only_at = User
-      .where(current_sign_in_ip: current_sign_in_ip)
-      .select {|v| v.read_only_at.present? && v.read_only_at > Time.zone.now }
-      .map {|v| v.read_only_at }
-      .max
-
-    update_column :read_only_at, read_only_at
-  end
-
   def banned?
     !!(read_only_at && read_only_at > Time.zone.now)
   end
