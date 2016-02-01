@@ -34,6 +34,7 @@ class FranchiseSerializer < ActiveModel::Serializer
   end
 
 private
+
   def query
     @query ||= ChronologyQuery.new object.decorated? ? object.object : object
   end

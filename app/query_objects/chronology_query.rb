@@ -17,7 +17,7 @@ class ChronologyQuery
   end
 
   def links
-    related_entries.flat_map {|source_id, related| related }
+    related_entries.flat_map { |source_id, related| related }
   end
 
 private
