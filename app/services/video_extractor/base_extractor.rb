@@ -12,7 +12,7 @@ class VideoExtractor::BaseExtractor
       VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
     end
 
-  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError, TypeError
+  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError, TypeError, Net::OpenTimeout
   end
 
   def hosting
