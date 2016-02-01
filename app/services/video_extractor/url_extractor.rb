@@ -76,6 +76,10 @@ private
       $1
     elsif html =~ %r{(#{HTTP}mipix.eu#{CONTENT})}
       $1
+    elsif html =~ %r(#{HTTP}smotret-anime.ru/catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+))
+      "https://smotret-anime.ru/translations/embed/#{$~[:id]}"
+    elsif html =~ %r((#{HTTP}smotret-anime.ru/translations/embed/\d+))
+      $1
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
 
