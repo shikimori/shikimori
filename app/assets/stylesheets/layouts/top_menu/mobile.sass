@@ -6,15 +6,15 @@ $entry_padding_left: 10px
 
 +lte_ipad
   .locale-en .l-top_menu
-    .calendar:before
+    .calendar > a:before
       content: 'Calendar'
-    .info:before
+    .info > a:before
       content: 'Info'
 
   .locale-ru .l-top_menu
-    .calendar:before
+    .calendar > a:before
       content: 'Календарь'
-    .info:before
+    .info > a:before
       content: 'Инфо'
 
   .l-top_menu
@@ -84,6 +84,7 @@ $entry_padding_left: 10px
         cursor: pointer
         position: absolute
         right: 10px
+        top: 0
 
         &:before
           content: '+'
@@ -112,6 +113,7 @@ $entry_padding_left: 10px
       display: block
       line-height: $menu_height
       padding-left: $entry_padding_left
+      position: relative
 
       a
         color: inherit
