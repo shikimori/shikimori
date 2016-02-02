@@ -22,7 +22,9 @@ private
   end
 
   def import calendars
-    models = filter(calendars).map {|v| build v }
+    models = filter(calendars)
+      .map { |v| build v }
+      .uniq { |v| "#{v.anime_id} #{v.episode}" }
 
     AnimeCalendar.transaction do
       AnimeCalendar.delete_all
