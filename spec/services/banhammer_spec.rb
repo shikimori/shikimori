@@ -19,7 +19,7 @@ describe Banhammer do
     end
   end
 
-  describe '#censor', :focus do
+  describe '#censor' do
     it { expect(banhammer.censor 'test хуй').to eq 'test xxx' }
   end
 
