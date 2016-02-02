@@ -1,4 +1,4 @@
-- if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator?
+- if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
   - if !local_assigns[:obtrusive] || (!user_signed_in? || current_user.admin?)
     .to-process[
       data-dynamic="desktop_ad"
