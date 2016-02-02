@@ -20,4 +20,4 @@
     .b-clubs.one-line
       = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }
 
-= render 'sponsors/ad_240x400'
+= render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

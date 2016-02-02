@@ -1,6 +1,6 @@
 describe SponsorsController do
-  describe '#block_1' do
-    before { get :block_1 }
+  describe '#show' do
+    before { get :show, id: 1 }
     it { expect(response).to have_http_status :success }
   end
 end

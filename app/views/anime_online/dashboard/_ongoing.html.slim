@@ -2,8 +2,8 @@
   a href="#{anime_url anime}" title="#{localized_name anime}"
     .image-name
       img[
-        src="#{anime.image.url :x48}"
-        srcset="#{anime.image.url :x96} 2x"
+        src="#{cdn_image anime, :x48}"
+        srcset="#{cdn_image anime, :x96} 2x"
         alt="#{localized_name anime}"
         title="#{localized_name anime}"
       ]

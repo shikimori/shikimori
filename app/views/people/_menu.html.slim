@@ -11,4 +11,4 @@
   favoured: resource.favoured,
   url: favoured_person_url(resource)
 
-= render 'sponsors/ad_240x400'
+= render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

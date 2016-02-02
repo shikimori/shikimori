@@ -41,11 +41,11 @@ header.head
           = render 'contests/menu', resource: linked.decorate
 
         - elsif linked.kind_of? CosplayGallery
-          = render 'sponsors/ad_240x400'
+          = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
           = render 'menu', menu: @view.menu
 
         - else raise "unknown linked: #{linked.class}"
 
       - else
-        = render 'sponsors/ad_240x400'
+        = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
         = render 'menu', menu: @view.menu

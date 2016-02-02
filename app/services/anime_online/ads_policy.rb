@@ -6,6 +6,7 @@ class AnimeOnline::AdsPolicy
   end
 
 private
+
   def self.host_allowed? host
     host == AnimeOnlineDomain::HOST_PLAY
   end

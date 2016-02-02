@@ -83,6 +83,8 @@ Site::Application.routes.draw do
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
+  resources :sponsors, only: [:show]
+
   namespace :moderations do
     resources :versions, only: [:show, :create, :destroy] do
       member do
@@ -308,23 +310,12 @@ Site::Application.routes.draw do
       end
     end
 
-    get 'pingmedia/iframe_240x400' => 'anime_online/pingmedia#iframe_240x400', as: :pingmedia_iframe_240x400
-    get 'pingmedia/iframe_728x90' => 'anime_online/pingmedia#iframe_728x90', as: :pingmedia_iframe_728x90
-    get 'pingmedia/iframe_240x400_advertur' => 'anime_online/pingmedia#iframe_240x400_advertur', as: :pingmedia_iframe_240x400_advertur
-    get 'pingmedia/iframe_728x90_advertur' => 'anime_online/pingmedia#iframe_728x90_advertur', as: :pingmedia_iframe_728x90_advertur
-
     get 'robots.txt' => 'robots#anime_online'
   end
 
   constraints ShikimoriDomain do
     root to: 'dashboards#show'
     get '/', to: 'dashboards#show', as: :new_session
-
-    resources :sponsors, only: [] do
-      collection do
-        get :block_1
-      end
-    end
 
     # seo redirects
     get 'r' => redirect('/reviews')

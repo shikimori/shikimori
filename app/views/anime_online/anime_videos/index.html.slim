@@ -1,6 +1,5 @@
 - if AnimeOnline::AdsPolicy.show_ad? request.host, current_user, @resource
-  .ads_container
-    = render partial: 'anime_online/blocks/ads_728x90'
+  = render 'sponsors/ad', ad: Ad.new(728, 90), obtrusive: true
 
 = render layout: 'animes/page' do
   - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)

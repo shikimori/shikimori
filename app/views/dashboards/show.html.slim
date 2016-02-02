@@ -100,6 +100,8 @@
         as: :view
 
   .c-generated_news
+    = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
+
     / .midheadline.gray.m15 = t 'sponsors'
     / .container
       / / - if Rails.env.production?

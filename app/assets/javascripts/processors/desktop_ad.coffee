@@ -5,7 +5,7 @@
 
 class @DesktopAd extends View
   initialize: ->
-    return if is_mobile() || is_tablet()
+    return if is_mobile() && !mobile_detect.tablet()
 
     $new_content = $(@$node.data('html'))
     $new_content.addClass @$node.data('ad_class')

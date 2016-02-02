@@ -1,6 +1,8 @@
+- top_ad = @anime_online_ad && AnimeOnline::AdsPolicy.show_ad?(request.host, current_user, resource)
+
 .b-animes-menu
-  - if @anime_online_ad && AnimeOnline::AdsPolicy.show_ad?(request.host, current_user, resource)
-    = render partial: 'anime_online/blocks/ads_240x400'
+  - if top_ad
+    = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: false
 
   - elsif !@itemtype
     .b-menu_logo
@@ -163,4 +165,5 @@
         a.addthis_button_odnoklassniki_ru
         a.addthis_button_compact
 
-  = render 'sponsors/ad_240x400'
+  - unless top_ad
+    = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

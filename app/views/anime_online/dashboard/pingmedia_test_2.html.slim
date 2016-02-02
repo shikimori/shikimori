@@ -1,8 +1,8 @@
 h1 page2
-.ads_container = render partial: 'anime_online/blocks/ads_728x90'
+= render 'sponsors/ad', ad: Ad.new(728, 90), obtrusive: true
 br
 div: a href="#{pingmedia_test_1_url}" page1 link
 div: a href="#{advertur_test_url}" page1 link (adverture)
 br
-.ads_container = render partial: 'anime_online/blocks/ads_240x400'
+= render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
 br

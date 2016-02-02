@@ -1,22 +1,22 @@
 html
   body style='margin: 0; padding: 0'
     - if Rails.env.development? || Rails.env.test?
-      #placeholder style="box-sizing: border-box; width: 240px; height: 400px; background: #ddd; border: 1px solid #aaa;" &nbsp;
+      #placeholder style="box-sizing: border-box; width: #{params[:width]}px; height: #{params[:height]}px; background: #ddd; border: 1px solid #aaa;" &nbsp;
     - else
-      #advertur_92129
+      div id="advertur_#{params[:id]}"
       javascript:
         (function(w, d, n) {
           w[n] = w[n] || [];
           w[n].push({
-            section_id: 92129,
-            place: "advertur_92129",
-            width: 240,
-            height: 400
+            section_id: #{params[:id]},
+            place: "advertur_#{params[:id]}",
+            width: #{params[:width]},
+            height: #{params[:height]}
           });
         })(window, document, "advertur_sections");
 
         window.no_ad_loaded = function() {
-          window.parent.remove_ad('sponsors_block_1');
+          window.parent.remove_ad('#{params[:container_class]}');
         };
       script[
         type="text/javascript"
