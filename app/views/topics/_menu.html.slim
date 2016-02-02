@@ -77,11 +77,11 @@
           .image-name
             img[
               src="#{entry.comments.first ? entry.comments.first.user.avatar_url(48) : entry.linked.owner.avatar_url(48)}"
-              alt="#{entry.title}"
-              title="#{entry.title}"
+              alt="#{entry.linked.name}"
+              title="#{entry.linked.name}"
             ]
             span.title
-              = entry.title
+              = entry.linked.name
           - if entry.comments.first
             span.misc title="#{truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
               == truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
