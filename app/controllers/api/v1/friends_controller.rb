@@ -5,34 +5,28 @@ class Api::V1::FriendsController < Api::V1::ApiController
   api :POST, '/friends/:id', 'Create a friend'
   def create
     @user = User.find params[:id]
+    current_user.friends << @user
 
-    if current_user.friends.include?(@user)
-      notice = i18n_t 'already_friend', nickname: @user.nickname
-      render json: { notice: notice }
-    else
-      current_user.friends << @user
+    # если дружба не взаимная, то надо создать сообщение с запросом в друзья
+    unless @user.friends.include? current_user
+      Message
+        .where(from_id: current_user.id, to_id: @user.id)
+        .where(kind: MessageType::FriendRequest)
+        .delete_all
 
-      # если дружба не взаимная, то надо создать сообщение с запросом в друзья
-      unless @user.friends.include? current_user
-        Message
-          .where(from_id: current_user.id, to_id: @user.id)
-          .where(kind: MessageType::FriendRequest)
-          .delete_all
-
-        Message.create(
-          from_id: current_user.id,
-          to_id: @user.id,
-          kind: MessageType::FriendRequest
-        )
-      end
-
-      notice = i18n_t(
-        "added_to_friends.#{@user.sex || 'male'}",
-        nickname: @user.nickname
+      Message.create(
+        from_id: current_user.id,
+        to_id: @user.id,
+        kind: MessageType::FriendRequest
       )
-
-      render json: { notice: notice }
     end
+
+    notice = i18n_t(
+      "added_to_friends.#{@user.sex || 'male'}",
+      nickname: @user.nickname
+    )
+
+    render json: { notice: notice }
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME

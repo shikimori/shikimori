@@ -268,7 +268,6 @@ ru:
     no_messages: Не найдено ни одного сообщения для удаления
 
   api/v1/friends_controller:
-    already_friend: '%{nickname} уже среди ваших друзей'
     added_to_friends:
       male: '%{nickname} добавлен в друзья'
       female: '%{nickname} добавлена в друзья'

@@ -77,6 +77,7 @@ class UserRatesImporter
   end
 
 private
+
   def user_rates
     @user.send "#{@klass.name.downcase}_rates"
   end
