@@ -1,5 +1,20 @@
 html
   body style='margin: 0; padding: 0'
+    = render 'fuckadblock'
+    javascript:
+      function no_ad_loaded() {
+        window.parent.remove_ad('#{params[:container_class]}');
+      };
+      function fuck_ad_block() {
+        console.warn('adblock detected');
+        no_ad_loaded();
+      }
+
+      fuckAdBlock
+        .setOption({loopCheckTime: 1000, checkOnLoad: false})
+        .onDetected(fuck_ad_block)
+        .check(true);
+
     - if Rails.env.development? || Rails.env.test?
       #placeholder style="box-sizing: border-box; width: #{params[:width]}px; height: #{params[:height]}px; background: #ddd; border: 1px solid #aaa;" &nbsp;
     - else
@@ -14,10 +29,6 @@ html
             height: #{params[:height]}
           });
         })(window, document, "advertur_sections");
-
-        window.no_ad_loaded = function() {
-          window.parent.remove_ad('#{params[:container_class]}');
-        };
       script[
         type="text/javascript"
         src="//ddnk.advertur.ru/v1/s/loader.js"

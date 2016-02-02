@@ -1,6 +1,9 @@
 describe ProlongateBan do
   let(:worker) { ProlongateBan.new }
 
+  before { Timecop.freeze }
+  after { Timecop.return }
+
   describe '#perform' do
     let!(:user) { create :user }
     let!(:user_2) { create :user, read_only_at: read_only_at, current_sign_in_ip: ip }
