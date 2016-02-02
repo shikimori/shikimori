@@ -2,7 +2,7 @@ class ImportAnimeCalendars
   include Sidekiq::Worker
 
   CALENDAR_URL = 'http://animecalendar.net/user/ical/8831/e599e8323643658c14eef67e85bdb534'
-  FIXES = YAML.load_file(Rails.root.join 'config/animecalendar.yml')
+  FIXES = YAML.load_file(Rails.root.join 'config/app/animecalendar.yml')
 
   def perform
     calendars = match exclude parse calendars_data
