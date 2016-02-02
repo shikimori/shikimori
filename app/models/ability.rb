@@ -185,7 +185,10 @@ class Ability
   end
 
   def moderator_ability
-    can :manage, [Entry, Topic, Topics::NewsTopic.name, Review]
+    can :manage, [Entry, Topic]
+    cannot :manage, [Entry, Topic] do |topic|
+      topic.generated? && !topic.is_a?(Topics::EntryTopics::ReviewTopic)
+    end
     can [:edit, :update], [Genre]
   end
 

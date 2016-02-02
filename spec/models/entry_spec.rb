@@ -198,7 +198,20 @@ describe Entry do
 
     context 'forum moderator' do
       let(:user) { build_stubbed :user, :moderator }
-      it { is_expected.to be_able_to :manage, entry }
+
+      context 'common topic' do
+        it { is_expected.to be_able_to :manage, entry }
+      end
+
+      context 'generated topic' do
+        let(:entry) { build_stubbed :club_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to_not be_able_to :manage, entry }
+      end
+
+      context 'generated review topic' do
+        let(:entry) { build_stubbed :review_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to be_able_to :manage, entry }
+      end
     end
 
     context 'user' do

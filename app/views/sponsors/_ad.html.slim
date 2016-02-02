@@ -1,10 +1,11 @@
-- if !local_assigns[:obtrusive] || (!user_signed_in? || current_user.admin?)
-  .to-process[
-    data-dynamic="desktop_ad"
-    data-ad_class="#{ad.container_class}"
-    data-html="<div class='b-sponsors_#{ad.block_key}'><center><iframe src='#{ad.url}' width='#{ad.width}px' height='#{ad.height}px'></center></div>"
-  ]
-  / .to-process[
-    / data-dynamic="desktop_ad"
-    / data-html="<div class='block2'><center>#{render('sponsors/block_1').to_str}</center></div>"
-  / ]
+- if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator?
+  - if !local_assigns[:obtrusive] || (!user_signed_in? || current_user.admin?)
+    .to-process[
+      data-dynamic="desktop_ad"
+      data-ad_class="#{ad.container_class}"
+      data-html="<div class='b-sponsors_#{ad.block_key}'><center><iframe src='#{ad.url}' width='#{ad.width}px' height='#{ad.height}px'></center></div>"
+    ]
+    / .to-process[
+      / data-dynamic="desktop_ad"
+      / data-html="<div class='block2'><center>#{render('sponsors/block_1').to_str}</center></div>"
+    / ]
