@@ -77,7 +77,11 @@ private
   end
 
   def calendars_data
-    Icalendar.parse open(CALENDAR_URL).read
+    raw_data = Rails.cache.fetch(:ical_calendar, expires_in: 1.hours) do
+      open(CALENDAR_URL).read
+    end
+
+    Icalendar.parse raw_data
   end
 
   def find_anime anime_id
