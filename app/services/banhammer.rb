@@ -1,5 +1,5 @@
 class Banhammer
-  vattr_initialize :comment
+  include Singleton
 
   Z = '[!@#$%&*^]'
   X = '[\s.,-:?!)(\]\[]'
@@ -240,20 +240,24 @@ class Banhammer
     (?:#{X}|\Z|$)
   /mix
 
-  def release
-    ban if abusive?
+  def release! comment
+    ban comment if abusive? comment.body
   end
 
-  def abusive? text = self.comment.body
+  def abusive? text
     abusiveness(text) > 0
+  end
+
+  def censor text
+    replace_abusiveness text, 'x'
   end
 
 private
 
-  def ban
-    duration = ban_duration
+  def ban comment
+    duration = ban_duration comment
 
-    comment.update_column :body, censored_body
+    comment.update_column :body, replace_abusiveness(comment.body, nil)
     # TODO localize ban reason later
     Ban.create!(
       user: comment.user,
@@ -264,7 +268,7 @@ private
     )
   end
 
-  def ban_duration
+  def ban_duration comment
     duration = if comment.user.bans.size >= 2 && comment.user.bans.last.created_at > 36.hours.ago
       '1d'
     elsif comment.user.bans.any?
@@ -274,16 +278,20 @@ private
     end
 
     multiplier = BanDuration.new(duration).to_i
-    BanDuration.new(multiplier * abusiveness).to_s
+    BanDuration.new(multiplier * abusiveness(comment.body)).to_s
   end
 
-  def censored_body
-    comment.body.gsub ABUSE do |match|
-      "[color=#ff4136]#{match.size.times.inject(''){|v| v + '#' }}[/color]"
+  def replace_abusiveness text, replacement
+    text.gsub ABUSE do |match|
+      if replacement
+        "#{match.size.times.inject('') { |v| v + replacement }}"
+      else
+        "[color=#ff4136]#{match.size.times.inject('') { |v| v + '#' }}[/color]"
+      end
     end
   end
 
-  def abusiveness text = self.comment.body
+  def abusiveness text
     @abusivenesses ||= {}
     @abusivenesses[text] ||=
       text

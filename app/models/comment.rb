@@ -139,7 +139,7 @@ class Comment < ActiveRecord::Base
 
   # автобан за мат
   def release_the_banhammer!
-    Banhammer.new(self).release
+    Banhammer.instance.release! self
   end
 
   def clean

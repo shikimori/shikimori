@@ -137,11 +137,13 @@ class User < ActiveRecord::Base
 
   # зачистка никнейма от запрещённых символов
   def nickname= value
-    super value
+    fixed_nickname = value
       .gsub(/[%&#\/\\?+><\]\[:,@]+/, '')
       .gsub(/[[:space:]]+/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
+
+    super Banhammer.instance.censor(fixed_nickname)
   end
 
   # allows for account creation from twitter

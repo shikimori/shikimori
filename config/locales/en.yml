@@ -187,7 +187,8 @@ en:
 
     errors:
       messages:
-        taken: Already Taken
+        taken: already taken
+        abusive: is abusive
         invalid_transition: cannot transition
       models:
         comments:

@@ -188,6 +188,7 @@ ru:
     errors:
       messages:
         taken: уже используется
+        abusive: содержит мат
         invalid_transition: cannot transition
       models:
         comments:

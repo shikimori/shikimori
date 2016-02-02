@@ -1,18 +1,18 @@
 describe Comment do
   describe 'relations' do
-    it { should belong_to :user }
-    it { should belong_to :commentable }
-    it { should belong_to :topic }
-    it { should have_many :messages }
-    it { should have_many :views }
-    it { should have_many :abuse_requests }
-    it { should have_many :bans }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :commentable }
+    it { is_expected.to belong_to :topic }
+    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many :views }
+    it { is_expected.to have_many :abuse_requests }
+    it { is_expected.to have_many :bans }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :body }
-    it { should validate_presence_of :user }
-    it { should validate_presence_of :commentable }
+    it { is_expected.to validate_presence_of :body }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :commentable }
   end
 
   describe 'callbacks' do
@@ -87,7 +87,7 @@ describe Comment do
     describe '#release_the_banhammer!' do
       let(:comment) { build :comment, :with_banhammer }
       after { comment.save }
-      it { expect_any_instance_of(Banhammer).to receive(:release) }
+      it { expect(Banhammer.instance).to receive :release! }
     end
 
     describe '#remove_replies' do
@@ -186,7 +186,7 @@ describe Comment do
     describe '#forbid_ban_change' do
       subject! { build :comment, body: "[ban=1]" }
       before { subject.valid? }
-      its(:valid?) { should be_falsy }
+      its(:valid?) { is_expected.to be_falsy }
 
       it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
     end

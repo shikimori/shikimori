@@ -32,7 +32,13 @@ class NameValidator < ActiveModel::EachValidator
       presence(record, value, Club, :name) || presence(record, value, User, :nickname)
 
     if is_taken
-      record.errors[attribute] << (options[:message] || I18n.t('activerecord.errors.messages.taken'))
+      message = options[:message] || I18n.t('activerecord.errors.messages.taken')
+      record.errors[attribute] << message
+    end
+
+    if Banhammer.instance.abusive? value
+      message = options[:message] || I18n.t('activerecord.errors.messages.abusive')
+      record.errors[attribute] << message
     end
   end
 

@@ -1,5 +1,5 @@
 describe Banhammer do
-  let(:banhammer) { Banhammer.new comment }
+  let(:banhammer) { Banhammer.instance }
   let(:comment) { build_stubbed :comment, user: user, body: text, commentable: build_stubbed(:topic, user: user) }
   let(:text) { 'хуй' }
   let(:user) { build_stubbed :user }
@@ -7,23 +7,27 @@ describe Banhammer do
   describe '#release' do
     let(:user) { create :user, :banhammer }
     let(:comment) { create :comment, user: user, body: text }
-    subject { banhammer.release }
+    subject { banhammer.release! comment }
 
     context 'not abusive' do
       let(:text) { 'test' }
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
 
     context 'abusive' do
-      it { should be_kind_of Ban }
+      it { is_expected.to be_kind_of Ban }
     end
+  end
+
+  describe '#censor', :focus do
+    it { expect(banhammer.censor 'test хуй').to eq 'test xxx' }
   end
 
   describe '#ban' do
     let!(:user_banhammer) { create :user, :banhammer }
     let(:comment) { create :comment, body: text }
     let(:text) { 'test хуй test хуй' }
-    subject(:ban) { banhammer.send :ban }
+    subject(:ban) { banhammer.send :ban, comment }
 
     it do
       expect(ban).to be_kind_of Ban
@@ -83,43 +87,43 @@ describe Banhammer do
   end
 
   describe '#abusiveness' do
-    subject { banhammer.send :abusiveness }
+    subject { banhammer.send :abusiveness, text }
 
     context 'not abusive' do
       let(:text) { 'test' }
-      it { should eq 0 }
+      it { is_expected.to eq 0 }
     end
 
     context 'abusive' do
-      it { should eq 1 }
+      it { is_expected.to eq 1 }
     end
 
     context 'abusive thrice' do
       let(:text) { 'хуй бля нахер' }
-      it { should eq 3 }
+      it { is_expected.to eq 3 }
     end
   end
 
   describe '#ban_duration' do
-    subject { banhammer.send :ban_duration }
+    subject { banhammer.send :ban_duration, comment }
 
     context 'had no bans' do
-      it { should eq '15m' }
+      it { is_expected.to eq '15m' }
     end
 
     context 'had no bans double abusiveness' do
       let(:text) { 'хуй хуй' }
-      it { should eq '30m' }
+      it { is_expected.to eq '30m' }
     end
 
     context 'had bans less than 1.5 days ago' do
       let(:user) { build_stubbed :user, bans: [build_stubbed(:ban, created_at: 1.day.ago), build_stubbed(:ban, created_at: 1.day.ago)] }
-      it { should eq '1d' }
+      it { is_expected.to eq '1d' }
     end
 
     context 'had bans more than 1.5 days ago' do
       let(:user) { build_stubbed :user, bans: [build_stubbed(:ban, created_at: 2.days.ago), build_stubbed(:ban, created_at: 2.days.ago)] }
-      it { should eq '2h' }
+      it { is_expected.to eq '2h' }
     end
   end
 end

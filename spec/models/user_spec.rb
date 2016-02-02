@@ -82,8 +82,17 @@ describe User do
 
   describe 'instance methods' do
     describe '#nickname=' do
-      let(:user) { create :user, nickname: '#[test]%&?+@' }
-      it { expect(user.nickname).to eq 'test' }
+      let(:user) { create :user, nickname: nickname }
+
+      context 'forbidden symbols' do
+        let(:nickname) { '#[test]%&?+@' }
+        it { expect(user.nickname).to eq 'test' }
+      end
+
+      context 'abusive words' do
+        let(:nickname) { 'test [хуй]' }
+        it { expect(user.nickname).to eq 'test xxx' }
+      end
     end
 
     describe '#can_post' do

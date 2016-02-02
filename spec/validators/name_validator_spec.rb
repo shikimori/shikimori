@@ -40,6 +40,13 @@ describe NameValidator, type: :validator do
       end
     end
 
+    context 'abusive' do
+      it do
+        is_expected.to_not allow_value('хуй').for :name
+        is_expected.to_not allow_value('бля').for :name
+      end
+    end
+
     context 'routing' do
       it do
         is_expected.to_not allow_value('.php').for :name
@@ -52,11 +59,21 @@ describe NameValidator, type: :validator do
       end
 
       describe 'message' do
-        let!(:club) { create :user, nickname: 'test' }
-        before { subject.valid? }
-
         let(:message) { subject.errors.messages[:name].first }
-        it { expect(message).to eq I18n.t('activerecord.errors.messages.taken') }
+
+        context 'taken' do
+          let!(:user) { create :user, nickname: 'test' }
+          before { subject.validate }
+
+          it { expect(message).to eq I18n.t('activerecord.errors.messages.taken') }
+        end
+
+        context 'taken' do
+          subject { NameValidatable.new name: 'хуй' }
+          before { subject.validate }
+
+          it { expect(message).to eq I18n.t('activerecord.errors.messages.abusive') }
+        end
       end
     end
   end
