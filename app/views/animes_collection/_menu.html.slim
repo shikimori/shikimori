@@ -19,7 +19,7 @@
         href="#{recommendations_url klass: menu.klass.name.downcase}"
       ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
-  = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+  / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
 
   .block
     .subheadline = Anime.human_attribute_name :status
@@ -145,3 +145,5 @@
                 data-predelay="150"
                 data-href="#{tooltip_genre_url genre, subdomain: false}"
               ]
+
+  = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
