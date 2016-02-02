@@ -72,6 +72,7 @@ class UserRate < ActiveRecord::Base
   end
 
 private
+
   # перед сохранением модели, смотрим, что изменилось, и соответствующе меняем остальные поля, и заносим запись в историю
   def smart_process_changes
     self.rewatches ||= 0
@@ -124,7 +125,7 @@ private
       self.volumes = target.volumes if counter == 'chapters'
     end
 
-    if changes[counter]
+    if persisted? && changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
       if self[counter] > 0 && (changes[counter].first || 0).zero?
         if changes['status'].nil? && !rewatching?
