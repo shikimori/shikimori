@@ -1,0 +1,16 @@
+.topic_posters
+  .b-input.string.optional
+    label.string.optional.control-label for="topic_linked"
+      = t 'activerecord.attributes.topic.posters'
+
+  .wall-ids
+  label: .b-dropzone[
+    data-upload_url="#{api_user_images_url linked_type: Entry.name}"
+    data-hint="Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом топика."
+  ]
+    = render 'blocks/upload_progress'
+    .b-shiki_wall.unprocessed
+      = render partial: 'images/image',
+        collection: topic.wall_images,
+        locals: { topic_poster_edit: true }
+    input type="file" multiple="multiple"

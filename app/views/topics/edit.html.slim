@@ -1,2 +1,4 @@
 = render layout: 'topics/page' do |f|
-  = render 'topics/form/form', topic: @resource
+  = render 'topics/form/form',
+    topic: @resource,
+    back_url: UrlGenerator.instance.topic_url(@resource)

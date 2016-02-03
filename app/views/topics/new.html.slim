@@ -2,4 +2,6 @@
   - if @resource.type.nil?
     = render 'topics/form/type', topic: @resource
   - else
-    = render 'topics/form/form', topic: @resource
+    = render 'topics/form/form',
+      topic: @resource,
+      back_url: @breadcrumbs.first.second

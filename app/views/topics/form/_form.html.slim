@@ -23,16 +23,16 @@
     - else
         = f.input :type, as: :hidden
 
-    = f.input :forum_id, as: :select, include_blank: false,
-      collection: Forum.public,
-      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+    .cc-2a
+      .c-column.m0
+        = f.input :forum_id, as: :select, include_blank: false,
+          collection: Forum.public,
+          input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+      .c-column.m0
+        - if current_user.admin?
+          = f.input :broadcast
 
     = f.input :title
-
-    .b-shiki_editor.unprocessed.block
-      = render 'comments/shiki_editor',
-        text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
-        field_name: 'topic[body]'
 
     .topic_linked
       .b-input.string.optional
@@ -53,33 +53,20 @@
       /.topic-video
         - if topic.linked.present?
           a href="#{url_for topic.linked}/edit/videos" target="_blank" добавить видео
+
       .topic-link
         - if topic.linked.present?
           a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
             = topic.linked.name
 
-    .topic_posters
-      .b-input.string.optional
-        label.string.optional.control-label for="topic_linked"
-          = t 'activerecord.attributes.topic.posters'
+    .b-shiki_editor.unprocessed.block
+      = render 'comments/shiki_editor',
+        text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
+        field_name: 'topic[body]'
 
-      .wall-ids
-      label: .b-dropzone[
-        data-upload_url="#{api_user_images_url linked_type: Entry.name}"
-        data-hint="Перетаскивайте сюда картинки, они будут отображены отдельным блоком под текстом топика."
-      ]
-        = render 'blocks/upload_progress'
-        .b-shiki_wall.unprocessed
-          = render partial: 'images/image',
-            collection: topic.wall_images,
-            locals: { topic_poster_edit: true }
-        input type="file" multiple="multiple"
-
-  - if current_user.admin?
-    = f.input :broadcast
+    - if @resource.news?
+      = render 'topics/form/news', topic: topic
 
   .buttons
-    a.cancel[
-      href="#{topic.persisted? ? UrlGenerator.instance.topic_url(topic) : root_url}"
-    ] = t 'actions.cancel'
+    a.cancel href="#{back_url}" = t 'actions.cancel'
     = f.button :magic_submit
