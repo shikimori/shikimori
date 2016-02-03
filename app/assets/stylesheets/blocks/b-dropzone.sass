@@ -1,14 +1,16 @@
 @import globals
 
-.drag-placeholder
+$min_height: 89px
+
+.b-dropzone-drag_placeholder
   +border-radius(1px)
   +box-sizing(border-box)
   +transition("opacity,border-color,color", 0.5s)
   background: white
-  border: 2px dashed rgba(0, 0, 0, 0.6)
+  border: 2px dashed #006EFF
   font-family: Verdana, Arial
   font-size: 25px
-  min-height: 89px
+  min-height: $min_height
   position: absolute
   text-align: center
   z-index: 10
@@ -18,28 +20,37 @@
     color: $red
 
   &.hovered.allowed
-    border-color: rgba(0, 255, 0, 0.6)
+    border-color: $green
     color: $green
 
   &::before
     content: attr(data-text)
 
-.drag-here-placeholder
+.b-dropzone
   +clearfix
-  background-color: #F9F9F9
-  border: 1px dashed #CCC
-  min-height: 75px
+  background-color: #f9f9f9
+  border: 2px dashed #ccc
+  cursor: pointer
+  min-height: $min_height
   padding: 0 10px
 
-  p
+  &:hover
+    border-color: #006eff
+
+  &:before
     color: #555
+    content: attr(data-hint)
+    display: block
+    font-size: 13px
+    line-height: 1
+    margin: 5px 0 5px
 
   .image-container
     margin-right: 11px
     margin-bottom: 11px
 
   .thank-you
-    color: #008000
+    color: $green
     display: none
     margin-bottom: 5px
 
