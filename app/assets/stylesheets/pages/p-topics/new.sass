@@ -1,13 +1,14 @@
 @import compass/utilities/general/clearfix
 @import globals/variables
 @import mixins/responsive
-@import mixins/link
 
 .p-topics-new
   .topic-type
     &:hover
       .type-name > span
         text-decoration: underline
+      .type-preview
+        border-color: $link-border-hover
 
     .type-name
       display: block
@@ -16,5 +17,7 @@
       text-align: center
       margin-bottom: 5px
 
+    // 1750x1480
     .type-preview
+      border: 5px solid #eee
       max-width: 100%
