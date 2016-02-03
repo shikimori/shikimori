@@ -6,6 +6,11 @@ ru:
       common:
         <<: *header_mini
         about: о
+    form:
+      type:
+        pick_topic_type: Выберите тип топика
+        common_topic: Обычный топик
+        news_topic: Новостной топик
     status_line:
       by: от
       about: о

@@ -1,0 +1,20 @@
+@import compass/utilities/general/clearfix
+@import globals/variables
+@import mixins/responsive
+@import mixins/link
+
+.p-topics-new
+  .topic-type
+    &:hover
+      .type-name > span
+        text-decoration: underline
+
+    .type-name
+      display: block
+      font-size: 18px
+      font-weight: bold
+      text-align: center
+      margin-bottom: 5px
+
+    .type-preview
+      max-width: 100%

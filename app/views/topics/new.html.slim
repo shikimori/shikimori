@@ -1,2 +1,5 @@
 = render layout: 'topics/page' do |f|
-  = render 'form', topic: @resource
+  - if @resource.type.nil?
+    = render 'topics/form/type', topic: @resource
+  - else
+    = render 'topics/form/form', topic: @resource

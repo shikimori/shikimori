@@ -1,0 +1,18 @@
+.midheadline.m10 = t '.pick_topic_type'
+.cc-2a
+  .c-column
+    a.topic-type[
+      href="#{url_for params.merge('topic[type]' => Topic.name)}"
+    ]
+      span.type-name: span = t '.common_topic'
+      img.type-preview[
+        src="http://nyaa.shikimori.org/images/user_image/original/1/237655.jpg"
+      ]
+  .c-column
+    a.topic-type[
+      href="#{url_for params.merge('topic[type]' => Topics::NewsTopic.name)}"
+    ]
+      span.type-name: span = t '.news_topic'
+      img.type-preview[
+        src="http://moe.shikimori.org/images/user_image/original/1/237657.jpg"
+      ]

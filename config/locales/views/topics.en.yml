@@ -6,6 +6,11 @@ en:
       common:
         <<: *header_mini
         about: about
+    new:
+      type:
+        pick_topic_type: Pick topic type
+        common_topic: Common topic
+        news_topic: News topic
     status_line:
       by: by
       about: about

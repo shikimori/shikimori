@@ -13,12 +13,15 @@
   = f.input :linked_type, as: :hidden
 
   .inputs
-    = f.input :type, as: :select, include_blank: false,
-      collection: [\
-        ['Топик', 'Topic'],
-        ['Новость', 'Topics::NewsTopic'],
-      ],
-      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+    - if topic.persisted? && can?(:manage, Topic)
+      = f.input :type, as: :select, include_blank: false,
+        collection: [\
+          ['Топик', 'Topic'],
+          ['Новость', 'Topics::NewsTopic'],
+        ],
+        input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+    - else
+        = f.input :type, as: :hidden
 
     = f.input :forum_id, as: :select, include_blank: false,
       collection: Forum.public,
