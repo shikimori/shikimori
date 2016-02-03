@@ -167,8 +167,8 @@ describe TopicsController do
     context 'authenticated' do
       before { sign_in user }
 
-      context 'invalid params', :focus do
-        let(:params) {{ user_id: user.id, forum_id: animanga_forum.id }}
+      context 'invalid params' do
+        let(:params) {{ user_id: user.id }}
         before { post :create, forum: animanga_forum.to_param, topic: params }
 
         it do
