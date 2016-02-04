@@ -99,10 +99,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     }}
     let(:continue) { '' }
 
+    before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
     let(:created_video) { assigns :video }
-
-    before { post :create, anime_id: anime.to_param, anime_video: video_params,
-      continue: continue }
 
     context 'valid params' do
       let(:kind) { 'fandub' }

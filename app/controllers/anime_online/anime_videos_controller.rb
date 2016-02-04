@@ -8,6 +8,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
   before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index
 
+  CREATE_PARAMS = [
+    :episode, :author_name, :url, :anime_id, :source, :kind, :state, :language
+  ]
+
   def index
     return redirect_to valid_host_url unless valid_host?
     return redirect_to @resource.url unless ignore_copyright?
@@ -95,7 +99,7 @@ private
   def create_params
     params
       .require(:anime_video)
-      .permit(:episode, :author_name, :url, :anime_id, :source, :kind, :state)
+      .permit(*CREATE_PARAMS)
   end
 
   def update_params
