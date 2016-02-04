@@ -7,6 +7,9 @@ ru:
         <<: *header_mini
         about: о
     form:
+      form:
+        topic_text: Текст топика
+        news_text: Текст новости
       type:
         pick_topic_type: Выберите тип топика
         common_topic: Обычный топик

@@ -58,6 +58,7 @@
       = f.input :broadcast
 
     .b-shiki_editor.unprocessed.block
+      .title = t ".#{topic.news? ? :news : :topic}_text"
       = render 'comments/shiki_editor',
         text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
         field_name: 'topic[body]'

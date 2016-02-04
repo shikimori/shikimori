@@ -6,7 +6,10 @@ en:
       common:
         <<: *header_mini
         about: about
-    new:
+    form:
+      form:
+        topic_text: Topic text
+        news_text: News text
       type:
         pick_topic_type: Pick topic type
         common_topic: Common topic
