@@ -71,7 +71,7 @@ class AnimesController < DbEntriesController
     return redirect_to @resource.url, status: 301 unless @resource.related.any?
 
     noindex
-    page_title i18n_t("similar.#{@resource.object.class.name.downcase}")
+    page_title i18n_t("related.#{@resource.object.class.name.downcase}")
   end
 
   def chronology
