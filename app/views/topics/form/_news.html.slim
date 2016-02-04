@@ -2,19 +2,22 @@
   .topic_video
     .title = t '.topic_video'
 
-    = ff.input :url,
-      hint: Video::SAVEABLE_HOSTINGS.join(', '),
-      label: Video.human_attribute_name(:url),
-      wrapper_html: { class: 'video-url' }
-    = ff.input :kind,
-      as: :select,
-      collection: [Video::PV, Video::OP, Video::ED],
-      include_blank: false,
-      label: Video.human_attribute_name(:kind),
-      wrapper_html: { class: 'video-kind' }
-    = ff.input :name,
-      label: Video.human_attribute_name(:name),
-      wrapper_html: { class: 'video-name' }
+    - if current_user.admin?
+      = ff.input :url,
+        hint: Video::SAVEABLE_HOSTINGS.join(', '),
+        label: Video.human_attribute_name(:url),
+        wrapper_html: { class: 'video-url' }
+      = ff.input :kind,
+        as: :select,
+        collection: [Video::PV, Video::OP, Video::ED],
+        include_blank: false,
+        label: Video.human_attribute_name(:kind),
+        wrapper_html: { class: 'video-kind' }
+      = ff.input :name,
+        label: Video.human_attribute_name(:name),
+        wrapper_html: { class: 'video-name' }
+    - else
+      p.m20.b-nothing_here = t 'under_development'
 
 .topic_posters
   .title = t '.topic_posters'
