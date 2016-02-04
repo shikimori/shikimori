@@ -13,14 +13,14 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
   end
 
   api :POST, '/animes/:anime_id/anime_videos', 'Create an anime video'
-  param :anime_video, Hash do
-    param :anime_id, :number
+  param :anime_video, Hash, required: true do
+    param :anime_id, :number, required: true
     param :author_name, :undef
-    param :episode, :number
-    param :kind, %w(raw subtitles fandub unknown)
-    param :language, %w(russian english japanese unknown)
-    param :source, String
-    param :url, String
+    param :episode, :number, required: true
+    param :kind, %w(raw subtitles fandub unknown), required: true
+    param :language, %w(russian english japanese unknown), required: true
+    param :source, String, required: true
+    param :url, String, required: true
   end
   def create
     create_params['state'] = 'uploaded'
