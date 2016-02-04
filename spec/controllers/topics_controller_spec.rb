@@ -168,7 +168,7 @@ describe TopicsController do
       before { sign_in user }
 
       context 'invalid params' do
-        let(:params) {{ user_id: user.id }}
+        let(:params) {{ user_id: user.id, type: Topic.name, forum_id: animanga_forum.id, title: '' }}
         before { post :create, forum: animanga_forum.to_param, topic: params }
 
         it do

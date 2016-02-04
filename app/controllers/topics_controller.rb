@@ -42,7 +42,7 @@ class TopicsController < ShikimoriController
       redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик создан'
     else
       new
-      render :edit
+      render :new
     end
   end
 

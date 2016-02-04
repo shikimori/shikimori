@@ -1,6 +1,6 @@
-- topic_type = topic.type
-= simple_form_for topic.becomes(Topic) do |f|
-  - topic.type = topic_type
+= simple_form_for topic,
+    url: (topic.persisted? ? topic_url(topic) : topics_url) do |f|
+  input type="hidden" name="rules_passed" value="1"
 
   - if topic.errors.any?
     .b-errors
@@ -51,7 +51,7 @@
           a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
             = topic.linked.name
 
-    - if @resource.news?
+    - if topic.news?
       = render 'topics/form/news', topic: topic, f: f
 
     - if current_user.admin?

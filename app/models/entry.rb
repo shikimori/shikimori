@@ -36,11 +36,11 @@ class Entry < ActiveRecord::Base
   end
 
   def permalink
-    title.permalinked
+    title&.permalinked
   end
 
   def cache_key
-    "#{super}-#{Digest::MD5.hexdigest(body || '')}"
+    "#{super}-#{Digest::MD5.hexdigest body || ''}"
   end
 
   # базовый класс для комментариев
