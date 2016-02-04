@@ -3,12 +3,22 @@ describe Api::V1::AnimeVideosController do
   let!(:anime_video) { create :anime_video, anime: anime }
 
   describe '#index' do
-    before { get :index, anime_id: anime.id, format: :json }
+    let(:make_request) { get :index, anime_id: anime.id, format: :json }
 
-    it do
-      expect(collection).to have(1).item
-      expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
+    context 'trusted video uploader' do
+      include_context :authenticated, :trusted_video_uploader
+      before { make_request }
+
+      it do
+        expect(collection).to have(1).item
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
+    end
+
+    context 'common user' do
+      include_context :authenticated, :user
+      it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -27,7 +37,7 @@ describe Api::V1::AnimeVideosController do
 
     before { post :create, anime_id: anime.id, anime_video: video_params, format: :json }
 
-    context 'valid params' do
+    context 'valid params', :show_in_doc do
       let(:kind) { 'fandub' }
 
       it do
@@ -43,7 +53,7 @@ describe Api::V1::AnimeVideosController do
     end
 
     context 'invalid params' do
-      let(:kind) { }
+      let(:kind) { '' }
 
       it do
         expect(resource).to_not be_valid

@@ -55,6 +55,10 @@ FactoryGirl.define do
       id User::COSPLAYER_ID
     end
 
+    trait :trusted_video_uploader do
+      id User::TRUSTED_VIDEO_UPLOADERS.last
+    end
+
     trait :without_password do
       password nil
 

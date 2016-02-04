@@ -11,7 +11,7 @@ class AnimeVideo < ActiveRecord::Base
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind, in: [:raw, :subtitles, :fandub, :unknown], predicates: true
-  enumerize :language, in: [:russian, :english], predicates: true
+  enumerize :language, in: [:russian, :english, :japanese, :unknown], predicates: true
 
   validates :anime, :source, :kind, presence: true
   validates :url, presence: true, anime_video_url: true, if: -> { new_record? || changes['url'] }
