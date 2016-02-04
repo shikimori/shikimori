@@ -29,7 +29,7 @@ describe TopicsController do
     end
 
     context 'offtopic' do
-      before { get :index, forum: seed(:offtopic_forum).permalink }
+      before { get :index, forum: offtopic_forum.permalink }
 
       it do
         expect(assigns(:view).topics).to have(2).items

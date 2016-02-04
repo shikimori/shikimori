@@ -3,8 +3,46 @@
 @import mixins/responsive
 
 .p-topics-new, .p-topics-edit, .p-topics-create, .p-topics-update
+  .topic_video
+    +gte_ipad
+      float: right
+    +iphone
+      margin-bottom: $block_offset / 2
+
+    .title
+      font-weight: bold
+      margin-bottom: 5px
+
+    label
+      display: inline-block
+      margin-right: 7px
+
+    .topic_video_kind
+      width: 76px
+
+    +gte_ipad
+      .topic_video_kind, .topic_video_name
+        display: inline-block
+
+        &.topic_video_kind
+          margin-right: $block_offset
+
+        input
+          max-width: 257px
+
   .topic_posters
-    margin-bottom: $block_offset / 2
+    clear: right
+    margin-bottom: $block_offset * 1.5
+
+    .title
+      font-weight: bold
+
+      +gte_ipad
+        margin-top: -25px
+        position: absolute
+
+      +iphone
+        margin-bottom: 5px
 
     .b-input
       margin-bottom: 0
@@ -13,12 +51,9 @@
     +clearfix
     margin-bottom: $block_offset / 2
 
-    .b-input
-      display: inline-block
-
     .topic-link
-      display: inline-block
-      margin-left: $block_offset
+      margin-top: -15px
+      margin-bottom: 20px
 
     .topic-video
       float: right

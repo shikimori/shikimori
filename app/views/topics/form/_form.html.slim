@@ -15,22 +15,14 @@
   .inputs
     - if topic.persisted? && can?(:manage, Topic)
       = f.input :type, as: :select, include_blank: false,
-        collection: [\
-          ['Топик', 'Topic'],
-          ['Новость', 'Topics::NewsTopic'],
-        ],
+        collection: [['Топик', 'Topic'], ['Новость', 'Topics::NewsTopic']],
         input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
     - else
         = f.input :type, as: :hidden
 
-    .cc-2a
-      .c-column.m0
-        = f.input :forum_id, as: :select, include_blank: false,
-          collection: Forum.public,
-          input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
-      .c-column.m0
-        - if current_user.admin?
-          = f.input :broadcast
+    = f.input :forum_id, as: :select, include_blank: false,
+      collection: Forum.public,
+      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
     = f.input :title
 
@@ -59,13 +51,16 @@
           a.bubbled.b-link href="#{url_for topic.linked}" title="#{topic.linked.name}"
             = topic.linked.name
 
+    - if @resource.news?
+      = render 'topics/form/news', topic: topic, f: f
+
+    - if current_user.admin?
+      = f.input :broadcast
+
     .b-shiki_editor.unprocessed.block
       = render 'comments/shiki_editor',
         text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
         field_name: 'topic[body]'
-
-    - if @resource.news?
-      = render 'topics/form/news', topic: topic
 
   .buttons
     a.cancel href="#{back_url}" = t 'actions.cancel'

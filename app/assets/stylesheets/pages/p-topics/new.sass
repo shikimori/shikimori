@@ -1,5 +1,6 @@
 @import compass/utilities/general/clearfix
 @import globals/variables
+@import mixins/block
 @import mixins/responsive
 
 .p-topics-new
@@ -21,3 +22,14 @@
     .type-preview
       border: 5px solid #eee
       max-width: 100%
+
+  .news-rules
+    .rules
+      +block
+
+    .next-url
+      display: block
+      font-size: 18px
+      font-weight: bold
+      text-align: center
+      margin-bottom: 5px

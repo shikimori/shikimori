@@ -1,4 +1,8 @@
-@import globals
+@import compass/css3/border-radius
+@import compass/css3/box-sizing
+@import compass/css3/transition
+@import compass/utilities/general/clearfix
+@import globals/variables
 
 $min_height: 89px
 
@@ -32,13 +36,20 @@ $min_height: 89px
   border: 2px dashed #ccc
   cursor: pointer
   min-height: $min_height
-  padding: 0 10px
+  padding: 0 10px 25px
+  position: relative
 
   &:hover
     border-color: #006eff
 
+    &:before
+      color: $gray-4
+
+    input[type=file]
+      color: $gray-4
+
   &:before
-    color: #555
+    color: $gray-2
     content: attr(data-hint)
     display: block
     font-size: 13px
@@ -59,4 +70,6 @@ $min_height: 89px
 
   input[type=file]
     border: none
-    margin: 10px 0 5px -5px
+    bottom: 5px
+    color: $gray-2
+    position: absolute

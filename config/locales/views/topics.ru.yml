@@ -11,6 +11,11 @@ ru:
         pick_topic_type: Выберите тип топика
         common_topic: Обычный топик
         news_topic: Новостной топик
+      rules:
+        go_next: Далее →
+      news:
+        topic_video: Видео к новости
+        topic_posters: Картинки к новости
     status_line:
       by: от
       about: о

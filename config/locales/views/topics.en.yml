@@ -11,6 +11,11 @@ en:
         pick_topic_type: Pick topic type
         common_topic: Common topic
         news_topic: News topic
+      rules:
+        go_next: Next →
+      news:
+        topic_video: News video
+        topic_posters: News posters
     status_line:
       by: by
       about: about

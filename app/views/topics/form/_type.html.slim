@@ -5,14 +5,10 @@
       href="#{url_for params.merge('topic[type]' => Topic.name)}"
     ]
       span.type-name: span = t '.common_topic'
-      img.type-preview[
-        src="http://dere.shikimori.org/images/user_image/original/1/237659.jpg"
-      ]
+      = image_tag 'pages/topics/common_topic.jpg', class: 'type-preview'
   .c-column
     a.topic-type[
       href="#{url_for params.merge('topic[type]' => Topics::NewsTopic.name)}"
     ]
       span.type-name: span = t '.news_topic'
-      img.type-preview[
-        src="http://moe.shikimori.org/images/user_image/original/1/237657.jpg"
-      ]
+      = image_tag 'pages/topics/news_topic.jpg', class: 'type-preview'

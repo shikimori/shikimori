@@ -176,7 +176,6 @@ ru:
         body: Текст
         type: Тип
         linked: Связанное
-        posters: Постеры
         forum_id: Раздел
       version:
         reason: Причина правки

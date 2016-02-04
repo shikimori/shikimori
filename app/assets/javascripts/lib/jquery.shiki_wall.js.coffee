@@ -42,8 +42,8 @@ class @ShikiWall
     @each (image) => @_put image, true
     @each (image) => image.apply()
 
-    width = (@map (v) -> v.left + v.width).max()
-    height = (@map (v) -> v.top + v.height).max()
+    width = (@map (v) -> v.left + v.width).max() || 0
+    height = (@map (v) -> v.top + v.height).max() || 0
 
     @$wall.css
       width: ([width, @max_width]).min()

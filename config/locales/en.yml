@@ -176,7 +176,6 @@ en:
         body: Text
         type: Type
         linked: Linked
-        posters: Posters
         forum_id: Section
       version:
         reason: Change reason

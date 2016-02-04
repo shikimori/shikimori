@@ -1,0 +1,12 @@
+.news-rules
+  .rules
+    = form.news_rules_text
+    = BbCodeFormatter.instance.format_comment "\
+[right]\
+[profile=#{form.news_rules_topic.user_id}]#{form.news_rules_topic.user.nickname}[/profile]\
+[br][url]#{UrlGenerator.instance.topic_url form.news_rules_topic}[/url]\
+[/right]"
+
+  .next-url
+    a.b-link href="#{url_for ({'topic[forum_id]' => Forum::ANIME_NEWS_ID}).merge(params.merge(rules_passed: true))}"
+      = t '.go_next'

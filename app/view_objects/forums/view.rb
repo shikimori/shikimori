@@ -55,6 +55,10 @@ class Forums::View < ViewObjectBase
     ) if h.params[:linked_id]
   end
 
+  def form
+    Forums::Form.new
+  end
+
 private
 
   def page_url page

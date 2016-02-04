@@ -32,7 +32,8 @@ class TopicsController < ShikimoriController
   # создание нового топика
   def new
     noindex
-    page_title i18n_t('new_topic')
+    page_title i18n_t("new_#{@resource.news? ? :news : :topic}")
+    @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 
   # создание топика

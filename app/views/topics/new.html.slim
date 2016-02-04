@@ -1,7 +1,12 @@
 = render layout: 'topics/page' do |f|
   - if @resource.type.nil?
-    = render 'topics/form/type', topic: @resource
-  - else
-    = render 'topics/form/form',
+    = render 'topics/form/type',
       topic: @resource,
       back_url: @breadcrumbs.first.second
+  - else
+    - if @resource.news? && !params[:rules_passed]
+      = render 'topics/form/rules', topic: @resource, form: @view.form
+    - else
+      = render 'topics/form/form',
+        topic: @resource,
+        back_url: @breadcrumbs.first.second
