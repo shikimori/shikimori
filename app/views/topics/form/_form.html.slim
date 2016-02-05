@@ -1,5 +1,6 @@
 = simple_form_for topic,
-    url: (topic.persisted? ? topic_url(topic) : topics_url) do |f|
+    url: (topic.persisted? ? topic_url(topic) : topics_url),
+    as: :topic do |f|
   input type="hidden" name="rules_passed" value="1"
 
   - if topic.errors.any?

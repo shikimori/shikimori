@@ -179,7 +179,8 @@ private
 
   # проверка, что linked при его наличии нужного типа
   def validates_linked
-    return unless self[:linked_type].present? && self[:linked_type] !~ /^(Anime|Manga|Character|Person|Club|Review|Contest|CosplayGallery)$/
+    return unless self[:linked_type].present? &&
+      self[:linked_type] !~ /^(Anime|Manga|Character|Person|Club|Review|Contest|CosplayGallery)$/
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end
