@@ -24,6 +24,8 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
   $topic_linked = $ '#topic_linked', $form
   $linked_type = $ '#topic_linked_type', $form
 
+  $topic_link = $ '.topic-link', $form
+
   initial_linked_type = $('#topic_linked_type').val() ||
     $('option', LINKED_TYPE_USER_SELECT).val()
   $(LINKED_TYPE_USER_SELECT)
@@ -49,10 +51,14 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
 
   # сброс привязанного к топику
   $('.topic_linked .cleanup', $form).on 'click', ->
-    $('.topic_linked .topic-link, .topic_linked .topic-video', $form).empty()
+    $topic_link.find('a').remove()
     $('#topic_linked_id', $form).val('')
     $('#topic_linked_type', $form).val('')
     $('#topic_linked', $form).val('')
+
+    $topic_linked.show()
+    $(LINKED_TYPE_USER_SELECT).show()
+    $topic_link.hide()
 
   # выбор привязанного к топику
   $topic_linked.completable()
@@ -61,10 +67,13 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
       $('#topic_linked_type', $form).val($linked_type.val())
       @value = ''
 
-      $('.topic-link', $form)
-        .html("<a href='/#{$linked_type.val().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
-        .process()
-      #$('.topic-video', $form).html "<a class='b-link' href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
+      $topic_link.find('a').remove()
+      $topic_link.prepend("<a href='/#{$linked_type.val().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
+      $topic_link.process()
+
+      $topic_linked.hide()
+      $(LINKED_TYPE_USER_SELECT).hide()
+      $('.topic-link', $form).show()
 
     .on 'keypress', (e) ->
       if e.keyCode == 10 || e.keyCode == 13
