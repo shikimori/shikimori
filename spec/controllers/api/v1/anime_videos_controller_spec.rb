@@ -22,7 +22,7 @@ describe Api::V1::AnimeVideosController do
     end
   end
 
-  describe '#create' do
+  describe '#create', :show_in_doc do
     include_context :authenticated, :user
     let(:video_params) {{
       state: 'uploaded',
@@ -37,31 +37,17 @@ describe Api::V1::AnimeVideosController do
 
     before { post :create, anime_id: anime.id, anime_video: video_params, format: :json }
 
-    context 'valid params', :show_in_doc do
-      let(:kind) { 'fandub' }
+    let(:kind) { 'fandub' }
 
-      it do
-        expect(resource).to be_valid
-        expect(resource).to be_persisted
-        expect(resource).to have_attributes video_params.except(:url)
-        expect(resource.url).to eq VideoExtractor::UrlExtractor
-          .new(video_params[:url]).extract
+    it do
+      expect(resource).to be_valid
+      expect(resource).to be_persisted
+      expect(resource).to have_attributes video_params.except(:url)
+      expect(resource.url).to eq VideoExtractor::UrlExtractor
+        .new(video_params[:url]).extract
 
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
-      end
-    end
-
-    context 'invalid params' do
-      let(:kind) { '' }
-
-      it do
-        expect(resource).to_not be_valid
-        expect(resource).to_not be_persisted
-
-        expect(response).to have_http_status 422
-        expect(response.content_type).to eq 'application/json'
-      end
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
     end
   end
 end
