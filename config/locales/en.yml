@@ -9,6 +9,7 @@ en:
       manga: Manga
       forum: Forum
       user: User
+      person: Person
 
     attributes:
       anime: &anime_attributes

@@ -37,11 +37,17 @@
           data-anime-placeholder="Название аниме"
           data-manga-placeholder="Название манги"
           data-character-placeholder="Имя персонажа"
+          data-person-placeholder="Имя персонажа"
           data-anime-autocomplete="#{autocomplete_animes_url}"
           data-manga-autocomplete="#{autocomplete_mangas_url}"
           data-character-autocomplete="#{autocomplete_characters_url}"
+          data-person-autocomplete="#{autocomplete_people_url}"
         ]
-        /input.string.optional type="text" id="topic_linked" placeholder="Название аниме или манги" data-autocomplete="#{autocomplete_animes_url}"
+        select.type
+          option value="#{Anime.name}" = Anime.model_name.human
+          option value="#{Manga.name}" = Manga.model_name.human
+          option value="#{Character.name}" = Character.model_name.human
+          option value="#{Person.name}" = Person.model_name.human
 
       /.topic-video
         - if topic.linked.present?

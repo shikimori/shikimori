@@ -1,3 +1,5 @@
+LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
+
 @on 'page:load', 'topics_index', ->
   $('form.edit_user_preferences')
     .on 'change', 'input', ->
@@ -17,16 +19,29 @@
   else
     $('.b-show_more').show_more()
 
-
 @on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
-  $form = $('.b-form.edit_topic, .b-form.new_topic')
-  $topic_linked = $('#topic_linked', $form)
+  $form = $ '.b-form.edit_topic, .b-form.new_topic'
+  $topic_linked = $ '#topic_linked', $form
+  $linked_type = $ '#topic_linked_type', $form
+
+  initial_linked_type = $('#topic_linked_type').val() ||
+    $('option', LINKED_TYPE_USER_SELECT).val()
+  $(LINKED_TYPE_USER_SELECT)
+    .on 'change', ->
+      console.log @value
+      $linked_type.val @value
+      $topic_linked
+        .data autocomplete: $topic_linked.data("#{@value.toLowerCase()}-autocomplete")
+        .attr placeholder: $topic_linked.data("#{@value.toLowerCase()}-placeholder")
+        .trigger('flushCache')
+    .val(initial_linked_type)
+    .trigger('change')
 
   # переключение раздела
   $('#topic_forum_id', $form).on 'change', ->
     $topic_linked
-      .data autocomplete: $topic_linked.data("#{linked_type().toLowerCase()}-autocomplete")
-      .attr placeholder: $topic_linked.data("#{linked_type().toLowerCase()}-placeholder")
+      .data autocomplete: $topic_linked.data("#{$linked_type.val().toLowerCase()}-autocomplete")
+      .attr placeholder: $topic_linked.data("#{$linked_type.val().toLowerCase()}-placeholder")
       .trigger('flushCache')
 
   $('.b-shiki_editor', $form).shiki_editor()
@@ -43,11 +58,11 @@
   $topic_linked.completable()
     .on 'autocomplete:success', (e, entry) ->
       $('#topic_linked_id', $form).val(entry.id)
-      $('#topic_linked_type', $form).val(linked_type())
+      $('#topic_linked_type', $form).val($linked_type.val())
       @value = ''
 
       $('.topic-link', $form)
-        .html("<a href='/#{linked_type().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
+        .html("<a href='/#{$linked_type.val().toLowerCase()}s/#{entry.id}' class='bubbled b-link'>#{entry.name}</a>")
         .process()
       #$('.topic-video', $form).html "<a class='b-link' href='/#{type}s/#{entry.id}/edit/videos' target='_blank'>добавить видео</a>"
 
@@ -98,11 +113,3 @@ remove_image = ($image, $wall) ->
 reset_wall = ($wall) ->
   $wall.find('img').css(width: '', height: '')
   $wall.addClass('unprocessed').shiki_wall()
-
-linked_type = ->
-  if $('#topic_forum_id').val() == '7'
-    'Character'
-  else if $('#topic_forum_id').val() == '6'
-    'Manga'
-  else
-    'Anime'

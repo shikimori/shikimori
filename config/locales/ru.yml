@@ -9,6 +9,7 @@ ru:
       manga: Манга
       forum: Раздел
       user: Пользователь
+      person: Человек
 
     attributes:
       anime: &anime_attributes

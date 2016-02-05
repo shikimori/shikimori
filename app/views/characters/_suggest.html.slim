@@ -1,5 +1,8 @@
 .character-suggest
-  img.avatar src="#{entry.image.url :preview}" title="#{entry.name}"
+  img.avatar[
+    src="#{cdn_image entry, :preview}"
+    title="#{localized_name entry}"
+  ]
   .name
     - if defined?(render_link) && render_link
       a href="#{send url_builder, entry}" == entry_name
