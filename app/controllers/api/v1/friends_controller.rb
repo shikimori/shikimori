@@ -21,12 +21,9 @@ class Api::V1::FriendsController < Api::V1::ApiController
       )
     end
 
-    notice = i18n_t(
-      "added_to_friends.#{@user.sex || 'male'}",
-      nickname: @user.nickname
-    )
-
-    render json: { notice: notice }
+  rescue ActiveRecord::RecordNotUnique
+  ensure
+    render json: { notice: success_notice }
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -41,5 +38,14 @@ class Api::V1::FriendsController < Api::V1::ApiController
     )
 
     render json: { notice: notice }
+  end
+
+private
+
+  def success_notice
+    i18n_t(
+      "added_to_friends.#{@user.sex || 'male'}",
+      nickname: @user.nickname
+    )
   end
 end
