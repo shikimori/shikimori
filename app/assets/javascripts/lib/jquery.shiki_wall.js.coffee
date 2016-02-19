@@ -5,7 +5,12 @@
         $root = $(@)
         return unless $root.hasClass('unprocessed')
 
-        $root.removeClass('unprocessed').imagesLoaded ->
+        $root.removeClass('unprocessed')
+        # $root.find('.b-video img').each ->
+          # if @src.match '/mqdefault.jpg'
+            # @src = @src.replace '/mqdefault.jpg', '/hqdefault.jpg'
+
+        $root.imagesLoaded ->
           new ShikiWall($root).mason()
 
 )(jQuery)
@@ -25,7 +30,10 @@ class @ShikiWall
     @max_height = parseInt @$wall.css('max-height')
     @max_width = parseInt @$wall.css('width')
 
-    $images = @$wall.children('a').attr(rel: "wall-#{@id}").css(width: '', height: '')
+    $images = @$wall
+      .children('a,.b-video')
+      .attr(rel: "wall-#{@id}")
+      .css(width: '', height: '')
     $images.children().removeClass 'check-width'
     @images = $images.toArray().map (v) -> new ShikiImage $(v)
 
@@ -125,10 +133,12 @@ class ShikiImage
   constructor: ($node) ->
     @$container = $node
 
-    @$image = @$container.children('img')
+    @$image = @$container.find('img')
 
-    @width = @$image.width() * 1.0
-    @height = @$image.height() * 1.0
+    # @width = @$image.width() * 1.0
+    # @height = @$image.height() * 1.0
+    @width = @$image[0].naturalWidth * 1.0
+    @height = @$image[0].naturalHeight * 1.0
 
     @ratio = @width / @height
 
@@ -146,11 +156,16 @@ class ShikiImage
       width: @width
       height: @height
 
-    @$container
-      .css
-        top: @top
-        left: @left
-      .shiki_image()
+    @$container.css
+      top: @top
+      left: @left
+
+    if @$container.hasClass 'b-video'
+      @$container.css
+        width: @width
+        height: @height
+    else
+      @$container.shiki_image()
 
   normalize: (width, height) ->
     if @width > width

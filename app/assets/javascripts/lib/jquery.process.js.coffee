@@ -19,6 +19,8 @@
     .change_tag('a')
     .removeClass('linkeable')
 
+  $with('.b-video.unprocessed', $root).shiki_video()
+
   # стена картинок
   $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
   $with('.b-forum.unprocessed', $root).shiki_forum()
@@ -70,7 +72,6 @@
 
   $with('.b-user_rate.unprocessed', $root).user_rate_button()
 
-  $with('.b-video.unprocessed', $root).shiki_video()
   $with('img.check-width', $root)
     .removeClass('check-width')
     .normalize_image(append_marker: true)

@@ -31,6 +31,9 @@ class TestsController < ShikimoriController
     render :vk_video, layout: false
   end
 
+  def wall
+  end
+
   def colors
   end
 

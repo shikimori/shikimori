@@ -52,6 +52,7 @@ class TopicsController < ShikimoriController
 
   # редактирование топика
   def update
+    1/0
     updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
 
     if updated
@@ -111,7 +112,11 @@ class TopicsController < ShikimoriController
 private
 
   def topic_params
-    allowed_params = [:body, :title, :linked_id, :linked_type, wall_ids: []]
+    allowed_params = [
+      :body, :title, :linked_id, :linked_type,
+      wall_ids: [],
+      video: [:id, :url, :kind, :name]
+    ]
     allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
     allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 
