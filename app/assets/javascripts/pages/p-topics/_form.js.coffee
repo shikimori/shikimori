@@ -53,7 +53,7 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
   $('.topic_linked .cleanup', $form).on 'click', ->
     $topic_link.find('a').remove()
     $('#topic_linked_id', $form).val('')
-    $('#topic_linked_type', $form).val('')
+    # $('#topic_linked_type', $form).val('')
     $('#topic_linked', $form).val('')
 
     $topic_linked.show()
