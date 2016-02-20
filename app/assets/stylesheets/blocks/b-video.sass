@@ -1,8 +1,10 @@
-//@import compass/css3/opacity
+@import compass/css3/opacity
+@import compass/css3/transition
 @import globals/variables
 @import mixins/image_editable
-@import mixins/media_marker
 @import mixins/link
+@import mixins/media_marker
+@import mixins/retina
 
 .b-video
   +image_editable
@@ -29,7 +31,23 @@
       height: $media_height
 
   a.video-link
+    +transition(opacity 0.5s ease)
     cursor: zoom-in !important
+
+    &:hover
+      +opacity(0.85)
+
+    &:before
+      +background-inline-retina('/blocks/b-video/play', 'png', 69px, 69px)
+      content: ''
+      height: 69px
+      left: 50%
+      margin-left: -34.5px
+      margin-top: -34.5px
+      position: absolute
+      top: 50%
+      width: 69px
+      z-index: 1
 
   .name
     +media_marker

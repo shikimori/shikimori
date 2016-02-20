@@ -1,3 +1,4 @@
+# TODO: refactor appended wall and wall constants to separate object
 class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
