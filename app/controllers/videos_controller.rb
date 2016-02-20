@@ -33,6 +33,8 @@ private
 
 
   def fetch_anime
-    @anime = Anime.find params[:anime_id]
+    @anime = Anime.find(
+      CopyrightedIds.instance.restore(params[:anime_id], 'anime')
+    )
   end
 end

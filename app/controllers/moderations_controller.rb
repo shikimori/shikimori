@@ -28,7 +28,9 @@ class ModerationsController < ShikimoriController
   end
 
   def missing_episodes
-    @anime = Anime.find params[:anime_id]
+    @anime = Anime.find(
+      CopyrightedIds.instance.restore(params[:anime_id], 'anime')
+    )
     @episodes = Moderation::MissingVideosQuery.new(params[:kind]).episodes @anime
   end
 end
