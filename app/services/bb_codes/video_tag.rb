@@ -1,37 +1,27 @@
 class BbCodes::VideoTag
   include Singleton
-  MAXIMUM_VIDEOS = 20
+  REGEXP = /
+    \[
+      video=(?<id>\d+)
+    \]
+  /xi
 
   def format text
-    times = 0
-    preprocess(text).gsub /(?<text>[^"\]=]|^)(?<url>#{VideoExtractor.matcher})/mi do
-      is_youtube = $~[:url].include? 'youtube.com/'
-      times += 1 unless is_youtube
+    text.gsub REGEXP do |matched|
+      video = Video.find_by id: $~[:id]
 
-      if times <= MAXIMUM_VIDEOS || is_youtube
-        $~[:text] + to_html($~[:url])
+      if video
+        html_for video
       else
-        $~[:text] + $~[:url]
+        matched
       end
-    end
-  end
-
-  def preprocess text
-    text.gsub /\[url=(?<url>#{VideoExtractor.matcher})\].*?\[\/url\]/mi do
-      "#{$~[:url]} "
     end
   end
 
 private
 
-  def to_html url
-    video = Video.new url: url
-
-    if video.hosting.present?
-      @template = Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
-      @template.render OpenStruct.new(video: video)
-    else
-      url
-    end
+  def html_for video
+    @template = Slim::Template.new Rails.root.join('app', 'views', 'videos', '_video.html.slim').to_s
+    @template.render OpenStruct.new(video: video)
   end
 end

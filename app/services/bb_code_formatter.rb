@@ -10,7 +10,7 @@ class BbCodeFormatter
   HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
   TAGS = [
     # BbCodes::YoutubeTag,
-    BbCodes::VideoTag, BbCodes::PosterTag, BbCodes::EntriesTag,
+    BbCodes::VideoUrlTag, BbCodes::VideoTag, BbCodes::PosterTag, BbCodes::EntriesTag,
     BbCodes::WallTag, BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag,
     BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,

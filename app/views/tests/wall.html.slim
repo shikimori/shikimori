@@ -1,11 +1,14 @@
-= cache 'wall-test' do
+/ = cache 'wall-test' do
+div
   .midheadline wall test
 
   .block
+    = BbCodeFormatter.instance.format_comment '[video=4510]'
+    = BbCodeFormatter.instance.format_comment ' http://www.youtube.com/watch?v=z5sju1Pa2jU '
     = BbCodeFormatter.instance.format_comment ' http://www.youtube.com/watch?v=z5sju1Pa2jU '
 
   .b-shiki_wall.unprocessed
-    = BbCodeFormatter.instance.format_comment ' http://www.youtube.com/watch?v=z5sju1Pa2jU '
+    = BbCodeFormatter.instance.format_comment '[video=4510]'
     a href="/images/static/embed/KVR8N3M4Dps.jpg"
       img src="/images/static/embed/KVR8N3M4Dps.jpg"
     a href="/images/static/embed/48y6FjfFRqk.jpg"
