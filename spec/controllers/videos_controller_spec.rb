@@ -10,24 +10,68 @@ describe VideosController do
 
   describe '#create' do
     include_context :back_redirect
-    before { post :create, anime_id: anime.id, video: { url: url, kind: kind, name: name } }
+    let(:video_params) {{ url: url, kind: kind, name: name }}
 
-    it do
-      expect(assigns :video).to be_uploaded
-      expect(assigns :video).to have_attributes(
-        url: url,
-        name: name,
-        kind: kind,
-        anime_id: anime.id,
-        uploader_id: user.id
-      )
-      expect(assigns :video).to be_persisted
+    describe 'post request'do
+      before { post :create, anime_id: anime.id, video: video_params }
+      it do
+        expect(assigns :video).to be_uploaded
+        expect(assigns :video).to have_attributes(
+          url: url,
+          name: name,
+          kind: kind,
+          anime_id: anime.id,
+          uploader_id: user.id
+        )
+        expect(assigns :video).to be_persisted
 
-      expect(assigns :version).to be_persisted
-      expect(assigns(:version).item_diff['action']).to eq(
-        Versions::VideoVersion::ACTIONS[:upload])
+        expect(assigns :version).to be_persisted
+        expect(assigns(:version).item_diff['action']).to eq(
+          Versions::VideoVersion::ACTIONS[:upload])
 
-      expect(response).to redirect_to back_url
+        expect(response).to redirect_to back_url
+      end
+    end
+
+    describe 'xhr request' do
+      let!(:video) { }
+      before { xhr :post, :create, anime_id: anime.id, video: video_params }
+
+      context 'new video' do
+        it do
+          expect(assigns :video).to be_uploaded
+          expect(assigns :video).to be_persisted
+
+          expect(json).to_not have_key 'errors'
+          expect(json).to have_key 'video_id'
+          expect(json).to have_key 'content'
+        end
+      end
+
+      context 'invalid video' do
+        let(:video_params) {{ kind: kind, name: name }}
+
+        it do
+          expect(assigns :video).to_not be_persisted
+
+          expect(json).to have_key 'errors'
+          expect(json).to_not have_key 'video_id'
+          expect(json).to_not have_key 'content'
+        end
+      end
+
+      context 'already uploaded video' do
+        let!(:video) { create :video, video_params }
+        before { xhr :post, :create, anime_id: anime.id, video: video_params }
+
+        it do
+          expect(assigns :video).to eq video
+
+          expect(json).to_not have_key 'errors'
+          expect(json).to have_key 'video_id'
+          expect(json).to have_key 'content'
+        end
+      end
     end
   end
 
