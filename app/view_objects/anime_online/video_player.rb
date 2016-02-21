@@ -30,7 +30,7 @@ class AnimeOnline::VideoPlayer
     if h.params[:episode]
       h.params[:episode].to_i
     else
-      videos.first.try(:first).to_i
+      videos.first&.try(:first).to_i
     end
   end
 
@@ -99,6 +99,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def same_videos
+    return [] unless current_videos
     current_videos.group_by(&:uniq_criteria)[current_video.uniq_criteria]
   end
 
