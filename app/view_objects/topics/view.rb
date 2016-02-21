@@ -110,7 +110,11 @@ class Topics::View < ViewObjectBase
 
   def html_body_truncated
     if is_preview
-      h.truncate_html(html_body,
+      body_wo_images = html_body
+        .gsub(%r(<a [^>]* class="b-image.*?</a>), '')
+        .gsub(/\A(<br>)+/, '')
+
+      h.truncate_html(body_wo_images,
         length: 500,
         separator: ' ',
         word_boundary: /\S[\.\?\!<>]/
