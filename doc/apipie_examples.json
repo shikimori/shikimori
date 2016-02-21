@@ -53,7 +53,7 @@
           "url": "http://smotret-anime.ru/catalog/anime-princessa-vampir-miyu-1988-2/ova-1-seriya-93732/russkie-subtitry-758598",
           "source": "http://url-for-page-where-you-got-video",
           "language": "russian",
-          "quality": "720p",
+          "quality": "bd",
           "anime_id": 40
         }
       },
@@ -65,7 +65,7 @@
         "episode": 3,
         "kind": "fandub",
         "language": "russian",
-        "quality": "720p",
+        "quality": "bd",
         "state": "uploaded",
         "author_name": "test"
       },

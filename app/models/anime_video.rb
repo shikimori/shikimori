@@ -11,7 +11,7 @@ class AnimeVideo < ActiveRecord::Base
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind,
-    in: [:raw, :subtitles, :fandub, :unknown],
+    in: [:fandub, :unknown, :subtitles, :raw],
     default: :unknown,
     predicates: true
   enumerize :language,
@@ -19,7 +19,7 @@ class AnimeVideo < ActiveRecord::Base
     default: :unknown,
     predicates: { prefix: true }
   enumerize :quality,
-    in: [:'1080p', :'720p', :'480p', :unknown],
+    in: [:bd, :tv, :dvd, :unknown],
     default: :unknown
 
   validates :anime, :source, :kind, presence: true

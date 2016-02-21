@@ -142,7 +142,7 @@ class AnimeOnline::VideoPlayer
       'anime_video[state]' => 'uploaded',
       'anime_video[kind]' => 'fandub',
       'anime_video[language]' => 'russian',
-      'anime_video[quality]' => '720p',
+      'anime_video[quality]' => 'tv',
       'anime_video[episode]' => current_episode
     )
   end
