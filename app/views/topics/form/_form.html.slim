@@ -63,7 +63,10 @@
         .b-js-action.remove = t('actions.delete').downcase
 
     - if topic.news?
-      = render 'topics/form/news_form', topic: topic, f: f
+      = render 'topics/form/news_form',
+        topic: topic,
+        f: f,
+        decomposed_body: Topics::DecomposeBody.new(topic)
 
     - if current_user.admin?
       = f.input :broadcast

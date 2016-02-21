@@ -11,7 +11,6 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
     $('option', LINKED_TYPE_USER_SELECT).val()
   $(LINKED_TYPE_USER_SELECT)
     .on 'change', ->
-      console.log @value
       $linked_type.val @value
       $topic_linked
         .data autocomplete: $topic_linked.data("#{@value.toLowerCase()}-autocomplete")

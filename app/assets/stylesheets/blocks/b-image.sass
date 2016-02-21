@@ -4,11 +4,15 @@
 
 .b-image
   +image_editable
+  +transition(opacity 0.5s ease)
   cursor: zoom-in !important
   line-height: 0
   margin-bottom: 10px
   overflow: hidden
   position: relative
+
+  &:hover
+    +opacity(0.85)
 
   img
     +transition(opacity 0.25s ease)

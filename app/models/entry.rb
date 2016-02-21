@@ -3,9 +3,6 @@ class Entry < ActiveRecord::Base
   include Viewable
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
-  WALL_ENTRY = /
-    \[poster (?:=(?<id>\d+))\]
-  /mix
 
   belongs_to :forum
   belongs_to :linked, polymorphic: true
@@ -149,11 +146,6 @@ class Entry < ActiveRecord::Base
     else
       (body || '')[NEWS_WALL] || ''
     end
-  end
-
-  def wall_images
-    ids = appended_body.scan(WALL_ENTRY).map { |v| v[0].to_i }
-    UserImage.where(id: ids).sort_by { |v| ids.index v.id }
   end
 
 private

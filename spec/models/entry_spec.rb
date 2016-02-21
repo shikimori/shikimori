@@ -120,19 +120,6 @@ describe Entry do
         end
       end
     end
-
-    describe 'wall_images' do
-      let!(:user_image_1) { create :user_image }
-      let!(:user_image_2) { create :user_image }
-      let(:entry) do
-        build :entry, body: "text\n[wall]\
-[url=#{ImageUrlGenerator.instance.url user_image_2, :original}][poster=#{user_image_2.id}][/url]\
-[url=#{ImageUrlGenerator.instance.url user_image_1, :original}][poster=#{user_image_1.id}][/url]\
-[/wall]"
-      end
-
-      it { expect(entry.wall_images).to eq [user_image_2, user_image_1] }
-    end
   end
 
   context 'permissions' do

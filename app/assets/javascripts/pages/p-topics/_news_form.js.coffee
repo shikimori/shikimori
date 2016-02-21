@@ -27,14 +27,19 @@
   $('.b-image .confirm', $upload).on 'click', ->
     remove_image $(@).closest('.b-image').remove(), $wall
 
-  # загрузка видео
+  # прикреплённое видео
   $topic_video = $ '.topic_video', $form
+
+  if $topic_video.data 'video_id'
+    attach_video {
+      video_id: $topic_video.data('video_id')
+      content: $topic_video.data('content')
+    }, $topic_video, $wall
+
+  # загрузка видео
   $topic_video_form = $ '.form', $topic_video
-  $topic_video_video = $ '.video', $topic_video
-  $topic_video_remove = $ '.remove', $topic_video
 
   $attach = $ '.attach', $topic_video_form
-  $errors = $ '.errors', $topic_video_form
 
   # прикрепление видео
   $attach.on 'click', ->
@@ -52,28 +57,7 @@
       url: url
       data: form
       dataType: 'json'
-    .success (result) ->
-      $topic_video.removeClass 'b-ajax'
-
-      if result.errors
-        $errors.show().html result.errors.join(', ')
-      else
-        $errors.hide()
-
-        $topic_video.data video_id: result.video_id
-        $topic_video_form.hide()
-        $topic_video_video
-          .show()
-          .html(result.content)
-          .process()
-        $topic_video_remove.removeClass 'hidden'
-
-  # удаление видео
-  $topic_video_remove.on 'click', ->
-    $topic_video.data video_id: null
-    $topic_video_form.show()
-    $topic_video_video.hide().empty()
-    $topic_video_remove.addClass 'hidden'
+    .success (video_data) -> attach_video video_data, $topic_video, $wall
 
   # создание/редактирование топика
   $form.on 'submit', ->
@@ -101,3 +85,36 @@ reset_wall = ($wall) ->
 
 linked_anime_id = ($linked_type, $linked_id) ->
   $linked_id.val() if $linked_type.val() == 'Anime'
+
+attach_video = (video_data, $topic_video, $wall) ->
+  $topic_video_video = $ '.video', $topic_video
+  $topic_video_form = $ '.form', $topic_video
+  $topic_video_remove = $ '.remove', $topic_video
+  $topic_video_errors = $ '.errors', $topic_video
+
+  $topic_video.removeClass 'b-ajax'
+
+  if video_data.errors
+    $topic_video_errors.show().html video_data.errors.join(', ')
+  else
+    $topic_video_errors.hide()
+
+    $topic_video.data video_id: video_data.video_id
+    $topic_video_form.hide()
+    $topic_video_video
+      .show()
+      .html(video_data.content)
+      .process()
+    $topic_video_remove.removeClass 'hidden'
+
+    $video = $(video_data.content).prependTo($wall)
+    reset_wall $wall
+
+    # удаление видео
+    $topic_video_remove.one 'click', ->
+      $topic_video.data video_id: null
+      $topic_video_form.show()
+      $topic_video_video.hide().empty()
+      $topic_video_remove.addClass 'hidden'
+
+      remove_image $video, $wall

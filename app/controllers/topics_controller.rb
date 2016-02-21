@@ -49,7 +49,6 @@ class TopicsController < ShikimoriController
   end
 
   def update
-    1/0
     updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
 
     if updated

@@ -2,7 +2,10 @@
 
 = f.simple_fields_for :video do |ff|
   .cc-2
-    .c-column.topic_video
+    .c-column.topic_video[
+      data-video_id="#{decomposed_body.wall_video&.id}"
+      data-content="#{render('videos/video', video: decomposed_body.wall_video).to_str if decomposed_body.wall_video}"
+    ]
       .title
         = t '.topic_video'
         .b-js-action.remove.hidden = t('actions.delete').downcase
@@ -10,20 +13,25 @@
       .video
       .form
         - if current_user.admin?
-          = ff.input :anime_id, as: :hidden
           = ff.input :url,
             hint: Video::SAVEABLE_HOSTINGS.join(', '),
             label: Video.human_attribute_name(:url),
-            wrapper_html: { class: 'video-url' }
-          = ff.input :kind,
-            as: :select,
-            collection: [Video::PV, Video::OP, Video::ED],
-            include_blank: false,
-            label: Video.human_attribute_name(:kind),
-            wrapper_html: { class: 'video-kind' }
-          = ff.input :name,
-            label: Video.human_attribute_name(:name),
-            wrapper_html: { class: 'video-name' }
+            wrapper_html: { class: 'video-url' },
+            input_html: { value: decomposed_body.wall_video&.url }
+          .cc-name-kind
+            .c-column
+              = ff.input :kind,
+                as: :select,
+                collection: [Video::PV, Video::OP, Video::ED],
+                include_blank: false,
+                label: Video.human_attribute_name(:kind),
+                wrapper_html: { class: 'video-kind' },
+              input_html: { value: decomposed_body.wall_video&.kind }
+            .c-column
+              = ff.input :name,
+                label: Video.human_attribute_name(:name),
+                wrapper_html: { class: 'video-name' },
+                input_html: { value: decomposed_body.wall_video&.name }
 
           .block
             .errors
@@ -40,6 +48,6 @@
     = render 'blocks/upload_progress'
     .b-shiki_wall.unprocessed
       = render partial: 'images/image',
-        collection: topic.wall_images,
+        collection: decomposed_body.wall_images,
         locals: { topic_poster_edit: true }
     input type="file" multiple="multiple"
