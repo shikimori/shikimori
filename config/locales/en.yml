@@ -367,9 +367,9 @@ en:
         japanese: japanese
         unknown: unknown
       quality:
-        1080p: 1080p
-        720p: 720p
-        480p: 480p
+        bd: BD
+        tv: TV
+        dvd: DVD
         unknown: Unknown
       state:
         working: working

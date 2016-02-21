@@ -20,7 +20,8 @@ class AnimeVideo < ActiveRecord::Base
     predicates: { prefix: true }
   enumerize :quality,
     in: [:bd, :tv, :dvd, :unknown],
-    default: :unknown
+    default: :unknown,
+    predicates: { prefix: true }
 
   validates :anime, :source, :kind, presence: true
   validates :url, presence: true, anime_video_url: true, if: -> { new_record? || changes['url'] }

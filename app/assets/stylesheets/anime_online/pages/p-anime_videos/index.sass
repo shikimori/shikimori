@@ -78,31 +78,31 @@
 
   .video-variant
     a
-      +link
+      &.active
+        color: $link-4
+        border-bottom: 1px dotted $link-4
+        span, span:before, span:after
+          color: inherit
 
+      +link
       &:hover
         text-decoration: none
         border-bottom: 1px solid $link-border-hover
-
-        span
+        span, span:before, span:after
           color: inherit
 
       &>span
         display: inline-block
-        padding-right: 6px
+        padding-right: 5px
 
         &:first-child:first-letter
           text-transform: uppercase
         &:last-child
           padding-right: 0
 
-      &.active
-        font-weight: bold
-
       &.broken:after, &.wrong:after
         float: left
         font-weight: normal
-        padding-right: 5px
 
       &.broken:after
         color: $red
@@ -126,10 +126,10 @@
 
       &:before, &:after
         color: $gray-1
-        display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
-
       &:before
         content: '('
-
       &:after
         content: ')'
+
+    .video-quality
+      color: #123
