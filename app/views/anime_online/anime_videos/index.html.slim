@@ -20,7 +20,7 @@
 
       = render 'anime_online/anime_videos/video_player'
 
-    - unless @player.same_videos.one?
+    - if @player.same_videos.size > 1
       .same-videos
         .title Такие же видео
         - @player.same_videos.each do |video|

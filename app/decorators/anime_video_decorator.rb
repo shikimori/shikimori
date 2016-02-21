@@ -80,7 +80,7 @@ class AnimeVideoDecorator < BaseDecorator
   # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик, язык, качество]
   def sort_criteria
     [
-      kind.fandub? || kind.unknown? ? '' : kind,
+      AnimeVideo.kind.values.index(kind),
       vk? ? '' : hosting,
       author_name || '',
       AnimeVideo.language.values.index(language),
