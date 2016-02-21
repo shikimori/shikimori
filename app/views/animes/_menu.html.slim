@@ -1,10 +1,11 @@
-- top_ad = @anime_online_ad && AnimeOnline::AdsPolicy.show_ad?(request.host, current_user, resource)
+/ - top_ad = @anime_online_ad && AnimeOnline::AdsPolicy.show_ad?(request.host, current_user, resource)
 
 .b-animes-menu
-  - if top_ad
+  / - if top_ad
     = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: false
 
-  - elsif !@itemtype
+  / - elsif !@itemtype
+  - if !@itemtype
     .b-menu_logo
       center: a[
         href="#{resource.url params[:action] != 'index'}"
@@ -165,5 +166,6 @@
         a.addthis_button_odnoklassniki_ru
         a.addthis_button_compact
 
-  - unless top_ad
+  / - unless top_ad
     = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+  = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

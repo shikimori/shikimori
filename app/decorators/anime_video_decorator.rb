@@ -77,14 +77,24 @@ class AnimeVideoDecorator < BaseDecorator
     h.viewed_video_online_url(anime, id)
   end
 
-  # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик]
-  def sort_criteria with_id
+  # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик, язык, качество]
+  def sort_criteria
     [
       kind.fandub? || kind.unknown? ? '' : kind,
       vk? ? '' : hosting,
       author_name || '',
-      with_id ? id : '',
-      author_name.present? ? '' : rand.to_s,
+      AnimeVideo.language.values.index(language),
+      AnimeVideo.quality.values.index(quality),
+      -id
+    ]
+  end
+
+  # уникальность по [озвучка, хотинг, переводчик]
+  def uniq_criteria
+    [
+      kind.fandub? || kind.unknown? ? '' : kind,
+      vk? ? '' : hosting,
+      author_name || ''
     ]
   end
 

@@ -9,7 +9,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
   after_action :save_preferences, only: :index
 
   CREATE_PARAMS = [
-    :episode, :author_name, :url, :anime_id, :source, :kind, :state, :language
+    :episode, :author_name, :url, :anime_id, :source, :state,
+    :kind, :language, :quality
   ]
 
   def index
@@ -103,11 +104,15 @@ private
   end
 
   def update_params
-    params.require(:anime_video).permit(:episode, :author_name, :kind)
+    params
+      .require(:anime_video)
+      .permit(:episode, :author_name, :kind, :language, :quality)
   end
 
   def moderator_update_params
-    params.require(:anime_video).permit(:episode, :author_name, :kind, :url, :state)
+    params
+      .require(:anime_video)
+      .permit(:episode, :author_name, :kind, :url, :state, :language, :quality)
   end
 
   def resource_id
@@ -138,6 +143,8 @@ private
       'anime_video[source]' => video.source,
       'anime_video[state]' => :uploaded,
       'anime_video[kind]' => video.kind,
+      'anime_video[language]' => video.language,
+      'anime_video[quality]' => video.quality,
       'anime_video[episode]' => video.episode + 1,
       'anime_video[author_name]' => video.author_name,
     )

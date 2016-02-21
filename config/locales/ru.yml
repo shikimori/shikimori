@@ -150,6 +150,8 @@ ru:
         url: Url на видео
         episode: Эпизод
         kind: Тип видео
+        language: На каком языке видео
+        quality: Качество видео
         state: Статус
         author_name: Автор
         anime_video_author_id: Автор
@@ -359,6 +361,16 @@ ru:
         raw: оригинал
         subtitles: субтитры
         fandub: озвучка
+      language:
+        russian: русский
+        english: английский
+        japanese: японский
+        unknown: неизвестно
+      quality:
+        1080p: 1080p
+        720p: 720p
+        480p: 480p
+        unknown: Неизвестно
       state:
         working: работает
         uploaded: загружено, требует проверки

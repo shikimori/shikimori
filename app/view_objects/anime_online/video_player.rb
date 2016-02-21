@@ -3,8 +3,8 @@ class AnimeOnline::VideoPlayer
   prepend ActiveCacher.instance
 
   vattr_initialize :anime
-  instance_cache :nav, :videos, :current_video, :last_episode, :episode_videos
-  instance_cache :episode_thread
+  instance_cache :nav, :videos, :current_video, :current_videos,
+    :last_episode, :episode_videos, :episode_thread
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -15,7 +15,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_videos
-    videos[current_episode]
+    videos[current_episode]&.map(&:decorate)&.sort_by(&:sort_criteria)
   end
 
   def first_episode?
@@ -37,9 +37,13 @@ class AnimeOnline::VideoPlayer
   def current_video
     video = if current_videos.present?
       if video_id > 0
-        current_videos.find {|v| v.id == video_id }
+        current_videos.find { |v| v.id == video_id }
       else
-        try_select_by h.cookies[PREFERENCES_KIND], h.cookies[PREFERENCES_HOSTING], h.cookies[PREFERENCES_AUTHOR]
+        try_select_by(
+          h.cookies[PREFERENCES_KIND],
+          h.cookies[PREFERENCES_HOSTING],
+          h.cookies[PREFERENCES_AUTHOR]
+        )
       end
     end
 
@@ -91,10 +95,11 @@ class AnimeOnline::VideoPlayer
 
   def episode_videos
     return [] if current_videos.blank?
+    current_videos.uniq(&:uniq_criteria)
+  end
 
-    current_videos.map(&:decorate)
-      .uniq {|v| v.sort_criteria(false) }
-      .sort_by {|v| v.sort_criteria(true) }
+  def same_videos
+    current_videos.group_by(&:uniq_criteria)[current_video.uniq_criteria]
   end
 
   # список типов коллекции видео
@@ -135,6 +140,8 @@ class AnimeOnline::VideoPlayer
       'anime_video[source]' => Site::DOMAIN,
       'anime_video[state]' => 'uploaded',
       'anime_video[kind]' => 'fandub',
+      'anime_video[language]' => 'russian',
+      'anime_video[quality]' => '720p',
       'anime_video[episode]' => current_episode
     )
   end
@@ -174,9 +181,9 @@ private
   end
 
   def try_select_by kind, hosting, fixed_author_name
-    by_kind = current_videos.select {|v| v.kind == kind }
-    by_hosting = by_kind.select {|v| v.hosting == hosting }
-    by_author = by_hosting.select {|v| cleanup_author_name(v.author_name) == fixed_author_name }
+    by_kind = current_videos.select { |v| v.kind == kind }
+    by_hosting = by_kind.select { |v| v.hosting == hosting }
+    by_author = by_hosting.select { |v| cleanup_author_name(v.author_name) == fixed_author_name }
 
     by_author.first || by_hosting.first || by_kind.first || current_videos.first
   end

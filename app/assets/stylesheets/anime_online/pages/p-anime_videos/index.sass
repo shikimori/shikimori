@@ -1,6 +1,7 @@
 @import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/column
+@import mixins/comma_separated
 @import mixins/link
 @import mixins/responsive
 
@@ -43,6 +44,21 @@
         img
           margin-top: 0
 
+  .same-videos
+    +block
+
+    .title
+      color: #123
+      font-weight: bold
+      margin-bottom: 5px
+
+    .video-variant
+      +comma_separated
+      display: inline-block
+
+      span
+        padding-right: 5px
+
   .c-episodes,
   .c-videos
     +block
@@ -60,49 +76,60 @@
       color: #123
       margin-bottom: 5px
 
-    .episode
-      &:first-letter
-        text-transform: uppercase
+  .video-variant
+    a
+      +link
 
-      a
-        +link
+      &:hover
+        text-decoration: none
+        border-bottom: 1px solid $link-border-hover
 
-        &.active
-          font-weight: bold
+        span
+          color: inherit
 
-        &.broken:after, &.wrong:after
-          float: left
-          font-weight: normal
-          padding-right: 5px
-
-        &.broken:after
-          color: $red
-          content: 'broken'
-
-        &.wrong:after
-          color: $orange
-          content: 'wrong'
-
-      .episode-num
-        color: #123
+      &>span
         display: inline-block
-        font-weight: bold
         padding-right: 6px
 
-      .video-author
-        color: #123
-        padding-left: 6px
+        &:first-child:first-letter
+          text-transform: uppercase
+        &:last-child
+          padding-right: 0
 
-      .episode-hostings, .video-hosting
-        padding-left: 6px
-        color: $gray-3
+      &.active
+        font-weight: bold
 
-        &:before, &:after
-          color: $gray-1
-          display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
+      &.broken:after, &.wrong:after
+        float: left
+        font-weight: normal
+        padding-right: 5px
 
-        &:before
-          content: '('
+      &.broken:after
+        color: $red
+        content: 'broken'
 
-        &:after
-          content: ')'
+      &.wrong:after
+        color: $orange
+        content: 'wrong'
+
+    .episode-num
+      font-weight: bold
+
+    .episode-num, .video-id
+      color: #123
+
+    .video-author
+      color: #123
+
+    .episode-hostings, .video-hosting, .video-language
+      color: $gray-3
+
+      &:before, &:after
+        color: $gray-1
+        display: inline-block // чтбы по hover подчёркивание не появлялось у ссылок
+
+      &:before
+        content: '('
+
+      &:after
+        content: ')'

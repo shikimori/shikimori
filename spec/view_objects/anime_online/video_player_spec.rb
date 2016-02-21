@@ -1,87 +1,98 @@
 describe AnimeOnline::VideoPlayer do
-  let(:decorator) { AnimeOnline::VideoPlayer.new anime }
+  let(:player) { AnimeOnline::VideoPlayer.new anime }
   let(:anime) { build :anime }
 
   #describe '#watch_increment_delay' do
     #let(:anime) { build :anime, duration: duration }
-    #subject { decorator.watch_increment_delay }
+    #subject { player.watch_increment_delay }
 
     #context 'with_duration' do
       #let(:duration) { 2 }
-      #it { should eq anime.duration * 60000 / 3 }
+      #it { is_expected.to eq anime.duration * 60000 / 3 }
     #end
 
     #context 'without_duration' do
       #let(:duration) { 0 }
-      #it { should be_nil }
+      #it { is_expected.to be_nil }
     #end
   #end
 
   describe 'videos' do
-    subject { decorator.videos }
+    subject { player.videos }
     let(:anime) { create :anime }
     let(:episode) { 1 }
 
     context 'anime_without_videos' do
-      it { should be_blank }
+      it { is_expected.to be_blank }
     end
 
     context 'anime_with_one_video' do
       let!(:video) { create :anime_video, episode: episode, anime: anime }
-      it { should eq episode => [video] }
+      it { is_expected.to eq episode => [video] }
     end
 
     context 'anime_with_two_videos' do
       let!(:video_1) { create :anime_video, episode: episode, anime: anime }
       let!(:video_2) { create :anime_video, episode: episode, anime: anime }
-      it { should eq episode => [video_1, video_2] }
+      it { is_expected.to eq episode => [video_1, video_2] }
     end
 
     context 'no_working' do
       let!(:video_1) { create :anime_video, episode: episode, state: :broken }
-      it { should be_empty }
+      it { is_expected.to be_empty }
     end
 
     context 'only working' do
       let!(:video_1) { create :anime_video, episode: episode, state: 'working', anime: anime }
       let!(:video_2) { create :anime_video, episode: episode, state: 'broken', anime: anime }
       let!(:video_3) { create :anime_video, episode: episode, state: 'wrong', anime: anime }
-      it { should eq episode => [video_1] }
+      it { is_expected.to eq episode => [video_1] }
     end
   end
 
   describe '#episode_videos' do
-    subject { AnimeOnline::VideoPlayer.new(anime).episode_videos }
+    subject { player.episode_videos }
     let(:anime) { create :anime }
 
     context 'without vidoes' do
-      it { should be_blank }
+      it { is_expected.to be_blank }
     end
 
     context 'vk first' do
       let!(:video_vk) { create :anime_video, url: 'http://vk.com/video', anime: anime }
       let!(:video_other) { create :anime_video, url: 'http://aaa.com/video', anime: anime }
 
-      its(:first) { should eq video_vk }
+      its(:first) { is_expected.to eq video_vk }
     end
 
     context 'fandub first' do
       let!(:video_fandub) { create :anime_video, kind: :fandub, anime: anime }
       let!(:video_sublitles) { create :anime_video, kind: :subtitles, anime: anime }
 
-      its(:first) { should eq video_fandub }
+      its(:first) { is_expected.to eq video_fandub }
     end
 
     context 'unknown as fandub first' do
       let!(:video_unknown) { create :anime_video, kind: :unknown, anime: anime }
       let!(:video_sublitles) { create :anime_video, kind: :subtitles, anime: anime }
 
-      its(:first) { should eq video_unknown }
+      its(:first) { is_expected.to eq video_unknown }
     end
   end
 
+  describe '#same_videos' do
+    let(:anime) { create :anime }
+
+    let!(:video_vk_1) { create :anime_video, url: 'http://vk.com/video', anime: anime }
+    let!(:video_vk_2) { create :anime_video, url: 'http://vk.com/video2', anime: anime }
+    let!(:video_other) { create :anime_video, url: 'http://abc.com/video2', anime: anime }
+
+    before { allow(player).to receive(:current_video).and_return video_vk_1.decorate }
+    it { expect(player.same_videos).to have(2).items }
+  end
+
   describe '#try_select_by' do
-    subject { AnimeOnline::VideoPlayer.new(anime).send :try_select_by, kind.to_s, hosting, author_id }
+    subject { player.send :try_select_by, kind.to_s, hosting, author_id }
     let(:anime) { create :anime }
 
     context 'author_nil' do
@@ -89,33 +100,33 @@ describe AnimeOnline::VideoPlayer do
       let(:hosting) { 'vk.com' }
       let(:author_id) { 1 }
       let!(:video) { create :anime_video, kind: kind, url: 'http://vk.com', author: nil, anime: anime }
-      it { should eq video }
+      it { is_expected.to eq video }
     end
   end
 
   describe 'last_episode' do
-    subject { AnimeOnline::VideoPlayer.new(anime).last_episode }
+    subject { player.last_episode }
     let(:anime) { create :anime }
 
     context 'without_video' do
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
 
     context 'with_video' do
       let!(:video_1) { create :anime_video, episode: 1, anime: anime }
       let!(:video_2) { create :anime_video, episode: 2, anime: anime }
-      it { should eq 2 }
+      it { is_expected.to eq 2 }
     end
   end
 
   describe '#compatible?' do
-    subject { decorator.compatible?(video) }
+    subject { player.compatible?(video) }
     let(:video) { build :anime_video, url: url }
     let(:url) { 'http://rutube.ru?video=1' }
     let(:h) { OpenStruct.new request: request, mobile?: is_mobile }
     let(:request) { OpenStruct.new user_agent: user_agent }
     let(:user_agent) { 'Mozilla/5.0 (Windows 2000; U) Opera 6.01 [en]' }
-    before { allow(decorator).to receive(:h).and_return h }
+    before { allow(player).to receive(:h).and_return h }
 
     context 'desktop' do
       let(:is_mobile) { false }
@@ -150,43 +161,43 @@ describe AnimeOnline::VideoPlayer do
   end
 
   #describe 'current_author' do
-    #subject { AnimeOnline::VideoPlayer.new(anime).current_author }
+    #subject { player.current_author }
     #let(:anime) { build :anime }
     #before { allow_any_instance_of(AnimeOnline::VideoPlayer).to receive(:current_video).and_return video }
 
     #context 'current_video_nil' do
       #let(:video) { nil }
-      #it { should be_blank }
+      #it { is_expected.to be_blank }
     #end
 
     #context 'author_nil' do
       #let(:video) { build :anime_video, author: nil }
-      #it { should be_blank }
+      #it { is_expected.to be_blank }
     #end
 
     #context 'author_valid' do
       #let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test') }
-      #it { should eq 'test' }
+      #it { is_expected.to eq 'test' }
     #end
 
     #context 'author_very_long' do
       #let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test12345678901234567890') }
-      #it { should eq 'test1234567890123...' }
+      #it { is_expected.to eq 'test1234567890123...' }
     #end
   #end
 
   #describe 'last_date' do
-    #subject { AnimeOnline::VideoPlayer.new(anime).last_date }
+    #subject { player.last_date }
     #let(:last_date) { DateTime.now }
 
     #context 'with_video' do
       #let(:anime) { build :anime, anime_videos: [build(:anime_video, created_at: last_date)] }
-      #it { should eq last_date }
+      #it { is_expected.to eq last_date }
     #end
 
     #context 'without_video' do
       #let(:anime) { build :anime, created_at: last_date }
-      #it { should eq last_date }
+      #it { is_expected.to eq last_date }
     #end
   #end
 end

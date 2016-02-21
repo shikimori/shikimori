@@ -12,9 +12,21 @@
         = f.input :episode
         = f.input :url, input_html: { disabled: !current_user.video_moderator? }
         = f.input :author_name, hint: 'не обязательно'
-        = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+        = f.input :kind,
+          as: :select,
+          include_blank: false
+        = f.input :language,
+          as: :select,
+          include_blank: false,
+          hint: 'если видео без дубляжа, то это язык субтитров'
+        = f.input :quality,
+          as: :select,
+          include_blank: false
         - if current_user.video_moderator?
-          = f.input :state, as: :select, include_blank: false, collection: AnimeVideo.state_machine.states.map(&:name).select { |state| ![:banned, :copyrighted].include?(state) }.map{ |state| [I18n.t("activerecord.state_machines.anime_video.states.#{state}"), state] }
+          = f.input :state,
+            as: :select,
+            include_blank: false,
+            collection: AnimeVideo.state_machine.states.map(&:name).select { |state| ![:banned, :copyrighted].include?(state) }.map{ |state| [I18n.t("activerecord.state_machines.anime_video.states.#{state}"), state] }
 
       = render 'versions/reason'
 

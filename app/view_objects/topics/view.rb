@@ -112,6 +112,7 @@ class Topics::View < ViewObjectBase
     if is_preview
       body_wo_images = html_body
         .gsub(%r(<a [^>]* class="b-image.*?</a>), '')
+        .gsub(/<center><\/center>/, '')
         .gsub(/\A(<br>)+/, '')
 
       h.truncate_html(body_wo_images,

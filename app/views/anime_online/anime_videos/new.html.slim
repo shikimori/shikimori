@@ -23,7 +23,19 @@
       = f.input :episode
       = f.input :url, hint: "<a href='#{help_video_online_index_url @anime}' target='_blank'>как правильно получить ссылку на видео</a>".html_safe
       = f.input :author_name, hint: 'не обязательно'
-      = f.input :kind, as: :select, include_blank: false, collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+      = f.input :kind,
+        as: :select,
+        include_blank: false,
+        collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+      = f.input :language,
+        as: :select,
+        include_blank: false,
+        hint: 'если видео без дубляжа, то это язык субтитров',
+        collection: AnimeVideo.language.options.delete_if {|v| v[1] == 'unknown' }
+      = f.input :quality,
+        as: :select,
+        include_blank: false,
+        collection: AnimeVideo.quality.options.delete_if {|v| v[1] == 'unknown' }
 
     .block
       .button.do-preview data-href="#{extract_url_video_online_index_url @anime}"

@@ -150,6 +150,8 @@ en:
         url: Video Link
         episode: Episode
         kind: Video Type
+        language: Video language
+        quality: Video quality
         state: Status
         author_name: Author
         anime_video_author_id: Author
@@ -359,6 +361,16 @@ en:
         raw: raw
         subtitles: subtitles
         fandub: fandub
+      language:
+        russian: russian
+        english: english
+        japanese: japanese
+        unknown: unknown
+      quality:
+        1080p: 1080p
+        720p: 720p
+        480p: 480p
+        unknown: Unknown
       state:
         working: working
         uploaded: uploaded but needs approval

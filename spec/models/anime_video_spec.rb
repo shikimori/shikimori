@@ -2,17 +2,23 @@ require 'cancan/matchers'
 
 describe AnimeVideo do
   describe 'relations' do
-    it { should belong_to :anime }
-    it { should belong_to :author }
-    it { should have_many(:reports).dependent :destroy }
+    it { is_expected.to belong_to :anime }
+    it { is_expected.to belong_to :author }
+    it { is_expected.to have_many(:reports).dependent :destroy }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :anime }
-    it { should validate_presence_of :url }
-    it { should validate_presence_of :source }
-    it { should validate_presence_of :kind }
-    it { should validate_numericality_of(:episode).is_greater_than_or_equal_to(0) }
+    it { is_expected.to validate_presence_of :anime }
+    it { is_expected.to validate_presence_of :url }
+    it { is_expected.to validate_presence_of :source }
+    it { is_expected.to validate_presence_of :kind }
+    it { is_expected.to validate_numericality_of(:episode).is_greater_than_or_equal_to(0) }
+  end
+
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in :raw, :subtitles, :fandub, :unknown }
+    it { is_expected.to enumerize(:language).in :russian, :english, :japanese, :unknown }
+    it { is_expected.to enumerize(:quality).in :'1080p', :'720p', :'480p', :unknown }
   end
 
   describe 'scopes' do
@@ -28,12 +34,12 @@ describe AnimeVideo do
 
         context 'good states' do
           let(:states) { ['working', 'uploaded' ] }
-          it { should have(states.size).items }
+          it { is_expected.to have(states.size).items }
         end
 
         context 'bad states' do
           let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
-          it { should be_empty }
+          it { is_expected.to be_empty }
         end
       end
     end
@@ -44,19 +50,19 @@ describe AnimeVideo do
       context 'true' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: false) }
-          it { should have(1).item }
+          it { is_expected.to have(1).item }
         end
 
         context 'by_reting' do
           before { create :anime_video, anime: create(:anime, rating: :none) }
-          it { should have(1).item }
+          it { is_expected.to have(1).item }
         end
       end
 
       context 'false' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: true) }
-          it { should be_blank }
+          it { is_expected.to be_blank }
         end
 
         context 'by_rating' do
@@ -64,7 +70,7 @@ describe AnimeVideo do
             create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATING)
           end
 
-          it { should be_blank }
+          it { is_expected.to be_blank }
         end
       end
     end
@@ -75,24 +81,24 @@ describe AnimeVideo do
       context 'false' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: false) }
-          it { should be_blank }
+          it { is_expected.to be_blank }
         end
 
         context 'by_reting' do
           before { create :anime_video, anime: create(:anime, rating: :none) }
-          it { should be_blank }
+          it { is_expected.to be_blank }
         end
       end
 
       context 'true' do
         context 'by_censored' do
           before { create :anime_video, anime: create(:anime, censored: true) }
-          it { should have(1).item }
+          it { is_expected.to have(1).item }
         end
 
         context 'by_rating' do
           before { create :anime_video, anime: create(:anime, rating: Anime::ADULT_RATING) }
-          it { should have(1).item }
+          it { is_expected.to have(1).item }
         end
       end
     end
@@ -108,12 +114,12 @@ describe AnimeVideo do
 
         context 'in_ban' do
           let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
-          it { should be_truthy }
+          it { is_expected.to be_truthy }
         end
 
         context 'no_ban' do
           let(:url) { 'http://vk.com/j8n3/' }
-          it { should be_falsy }
+          it { is_expected.to be_falsy }
         end
       end
 
@@ -123,12 +129,12 @@ describe AnimeVideo do
 
         context 'ban' do
           let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-          it { should be_truthy }
+          it { is_expected.to be_truthy }
         end
 
         context 'not_ban' do
           let(:anime_id) { 1 }
-          it { should be_falsy }
+          it { is_expected.to be_falsy }
         end
       end
     end
@@ -143,9 +149,9 @@ describe AnimeVideo do
           subject { EpisodeNotification.first }
           let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
 
-          its(:is_raw) { should be_truthy }
-          its(:is_subtitles) { should be_nil }
-          its(:is_fandub) { should be_nil }
+          its(:is_raw) { is_expected.to be_truthy }
+          its(:is_subtitles) { is_expected.to be_nil }
+          its(:is_fandub) { is_expected.to be_nil }
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
@@ -160,9 +166,9 @@ describe AnimeVideo do
           let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
           let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
 
-          its(:is_raw) { should be_truthy }
-          its(:is_subtitles) { should be_truthy }
-          its(:is_fandub) { should be_nil }
+          its(:is_raw) { is_expected.to be_truthy }
+          its(:is_subtitles) { is_expected.to be_truthy }
+          its(:is_fandub) { is_expected.to be_nil }
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
@@ -184,22 +190,22 @@ describe AnimeVideo do
     subject(:video) { create :anime_video }
 
     context 'initial' do
-      it { should be_working }
+      it { is_expected.to be_working }
     end
 
     context 'broken' do
       before { video.broken }
-      it { should be_broken }
+      it { is_expected.to be_broken }
     end
 
     context 'wrong' do
       before { video.wrong }
-      it { should be_wrong }
+      it { is_expected.to be_wrong }
     end
 
     context 'ban' do
       before { video.ban }
-      it { should be_banned }
+      it { is_expected.to be_banned }
     end
 
     context 'FIX : https://github.com/morr/shikimori/issues/428' do
@@ -286,22 +292,22 @@ describe AnimeVideo do
 
       context 'valid_url' do
         let(:url) { 'http://vk.com/video_ext.php?oid=1' }
-        it { should eq 'vk.com' }
+        it { is_expected.to eq 'vk.com' }
       end
 
       context 'remove_www' do
         let(:url) { 'http://www.vk.com?id=1' }
-        it { should eq 'vk.com' }
+        it { is_expected.to eq 'vk.com' }
       end
 
       context 'second_level_domain' do
         let(:url) { 'http://www.foo.bar.com/video?id=1' }
-        it { should eq 'bar.com' }
+        it { is_expected.to eq 'bar.com' }
       end
 
       context 'alias_vk_com' do
         let(:url) { 'http://vkontakte.ru/video?id=1' }
-        it { should eq 'vk.com' }
+        it { is_expected.to eq 'vk.com' }
       end
     end
 
@@ -311,12 +317,12 @@ describe AnimeVideo do
 
       context 'true' do
         let(:url) { 'http://www.vk.com?id=1' }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       context 'false' do
         let(:url) { 'http://www.foo.bar.com/video?id=1' }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -341,12 +347,12 @@ describe AnimeVideo do
 
       context 'ban' do
         let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       context 'not_ban' do
         let(:anime_id) { 1 }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -361,18 +367,18 @@ describe AnimeVideo do
         let(:anime_video) { create :anime_video, state: state }
         let!(:anime_video_report) { create :anime_video_report, anime_video: anime_video, kind: kind, user: user }
 
-        it { should eq user }
+        it { is_expected.to eq user }
       end
 
       context 'without_uploader' do
         context 'working' do
           let(:state) { 'working' }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
 
         context 'uploaded_without_report' do
           let(:state) { 'uploaded' }
-          it { should be_nil }
+          it { is_expected.to be_nil }
         end
       end
     end
@@ -382,12 +388,12 @@ describe AnimeVideo do
 
       context 'no author' do
         let(:author) { }
-        its(:author_name) { should be_nil }
+        its(:author_name) { is_expected.to be_nil }
       end
 
       context 'with author' do
         let(:author) { build_stubbed :anime_video_author }
-        its(:author_name) { should eq author.name }
+        its(:author_name) { is_expected.to eq author.name }
       end
     end
 
@@ -398,12 +404,12 @@ describe AnimeVideo do
       before { anime_video.author_name = author_name }
 
       context 'new author' do
-        its(:author_name) { should eq author_name }
+        its(:author_name) { is_expected.to eq author_name }
       end
 
       context 'present author' do
         let(:author) { create :anime_video_author, name: author_name }
-        its(:author) { should eq author }
+        its(:author) { is_expected.to eq author }
       end
     end
   end
@@ -418,37 +424,37 @@ describe AnimeVideo do
 
     describe 'guest' do
       let(:user) { }
-      it { should be_able_to :new, uploaded_video }
-      it { should be_able_to :create, uploaded_video }
+      it { is_expected.to be_able_to :new, uploaded_video }
+      it { is_expected.to be_able_to :create, uploaded_video }
 
-      it { should_not be_able_to :new, working_video }
-      it { should_not be_able_to :create, working_video }
-      it { should_not be_able_to :new, broken_video }
-      it { should_not be_able_to :create, broken_video }
+      it { is_expected.to_not be_able_to :new, working_video }
+      it { is_expected.to_not be_able_to :create, working_video }
+      it { is_expected.to_not be_able_to :new, broken_video }
+      it { is_expected.to_not be_able_to :create, broken_video }
 
-      it { should_not be_able_to :edit, uploaded_video }
-      it { should_not be_able_to :update, uploaded_video }
-      it { should_not be_able_to :edit, working_video }
-      it { should_not be_able_to :update, working_video }
+      it { is_expected.to_not be_able_to :edit, uploaded_video }
+      it { is_expected.to_not be_able_to :update, uploaded_video }
+      it { is_expected.to_not be_able_to :edit, working_video }
+      it { is_expected.to_not be_able_to :update, working_video }
     end
 
     describe 'user' do
       let(:user) { build_stubbed :user, :user }
 
-      it { should be_able_to :new, uploaded_video }
-      it { should be_able_to :create, uploaded_video }
+      it { is_expected.to be_able_to :new, uploaded_video }
+      it { is_expected.to be_able_to :create, uploaded_video }
 
-      it { should_not be_able_to :new, working_video }
-      it { should_not be_able_to :create, working_video }
-      it { should_not be_able_to :new, broken_video }
-      it { should_not be_able_to :create, broken_video }
+      it { is_expected.to_not be_able_to :new, working_video }
+      it { is_expected.to_not be_able_to :create, working_video }
+      it { is_expected.to_not be_able_to :new, broken_video }
+      it { is_expected.to_not be_able_to :create, broken_video }
 
-      it { should_not be_able_to :destroy, uploaded_video }
+      it { is_expected.to_not be_able_to :destroy, uploaded_video }
 
-      it { should be_able_to :edit, uploaded_video }
-      it { should be_able_to :update, uploaded_video }
-      it { should be_able_to :edit, working_video }
-      it { should be_able_to :update, working_video }
+      it { is_expected.to be_able_to :edit, uploaded_video }
+      it { is_expected.to be_able_to :update, uploaded_video }
+      it { is_expected.to be_able_to :edit, working_video }
+      it { is_expected.to be_able_to :update, working_video }
     end
 
     describe 'video uploader' do
@@ -458,31 +464,31 @@ describe AnimeVideo do
 
       context 'video created long ago' do
         let(:created_at) { 1.week.ago - 1.day }
-        it { should_not be_able_to :destroy, video }
+        it { is_expected.to_not be_able_to :destroy, video }
       end
 
       context 'video created not long ago' do
         let(:created_at) { 1.week.ago + 1.day }
-        it { should be_able_to :destroy, video }
+        it { is_expected.to be_able_to :destroy, video }
       end
     end
 
     describe 'video_moderator' do
       let(:user) { build_stubbed :user, :video_moderator }
-      it { should be_able_to :new, uploaded_video }
-      it { should be_able_to :create, uploaded_video }
+      it { is_expected.to be_able_to :new, uploaded_video }
+      it { is_expected.to be_able_to :create, uploaded_video }
 
-      it { should be_able_to :edit, uploaded_video }
-      it { should be_able_to :update, uploaded_video }
-      it { should be_able_to :edit, working_video }
-      it { should be_able_to :update, working_video }
-      it { should be_able_to :edit, broken_video }
-      it { should be_able_to :update, broken_video }
+      it { is_expected.to be_able_to :edit, uploaded_video }
+      it { is_expected.to be_able_to :update, uploaded_video }
+      it { is_expected.to be_able_to :edit, working_video }
+      it { is_expected.to be_able_to :update, working_video }
+      it { is_expected.to be_able_to :edit, broken_video }
+      it { is_expected.to be_able_to :update, broken_video }
 
-      it { should_not be_able_to :edit, banned_video }
-      it { should_not be_able_to :update, banned_video }
-      it { should_not be_able_to :edit, copyrighted_video }
-      it { should_not be_able_to :update, copyrighted_video }
+      it { is_expected.to_not be_able_to :edit, banned_video }
+      it { is_expected.to_not be_able_to :update, banned_video }
+      it { is_expected.to_not be_able_to :edit, copyrighted_video }
+      it { is_expected.to_not be_able_to :update, copyrighted_video }
     end
   end
 

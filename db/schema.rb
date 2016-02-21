@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202100052) do
+ActiveRecord::Schema.define(version: 20160221224557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20160202100052) do
     t.datetime "updated_at",                                             null: false
     t.string   "state",                 limit: 255,  default: "working", null: false
     t.integer  "watch_view_count"
+    t.string   "quality"
   end
 
   add_index "anime_videos", ["anime_id"], name: "index_anime_videos_on_anime_id", using: :btree
