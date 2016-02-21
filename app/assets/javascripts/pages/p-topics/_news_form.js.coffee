@@ -87,7 +87,6 @@ linked_anime_id = ($linked_type, $linked_id) ->
   $linked_id.val() if $linked_type.val() == 'Anime'
 
 attach_video = (video_data, $topic_video, $wall) ->
-  $topic_video_video = $ '.video', $topic_video
   $topic_video_form = $ '.form', $topic_video
   $topic_video_remove = $ '.remove', $topic_video
   $topic_video_errors = $ '.errors', $topic_video
@@ -101,10 +100,6 @@ attach_video = (video_data, $topic_video, $wall) ->
 
     $topic_video.data video_id: video_data.video_id
     $topic_video_form.hide()
-    $topic_video_video
-      .show()
-      .html(video_data.content)
-      .process()
     $topic_video_remove.removeClass 'hidden'
 
     $video = $(video_data.content).prependTo($wall)
@@ -114,7 +109,6 @@ attach_video = (video_data, $topic_video, $wall) ->
     $topic_video_remove.one 'click', ->
       $topic_video.data video_id: null
       $topic_video_form.show()
-      $topic_video_video.hide().empty()
       $topic_video_remove.addClass 'hidden'
 
       remove_image $video, $wall

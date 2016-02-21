@@ -10,7 +10,6 @@
         = t '.topic_video'
         .b-js-action.remove.hidden = t('actions.delete').downcase
 
-      .video
       .form
         - if current_user.admin?
           = ff.input :url,
