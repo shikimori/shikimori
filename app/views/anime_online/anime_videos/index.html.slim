@@ -52,7 +52,7 @@
             .b-show_more + показать всё
             .b-show_more-more
               - @player.videos.to_a.slice(13,9999).each do |(episode, videos)|
-                .episode
+                .video-variant
                   a class="#{:active if episode == @player.current_episode}" href="#{@player.episode_url episode}"
                     span.episode-num = "##{episode.zero? ? 'прочее' : episode}"
                     span.episode-kinds = @player.kinds videos
