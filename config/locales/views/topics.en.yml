@@ -16,9 +16,10 @@ en:
         news_topic: News topic
       rules:
         go_next: Next →
-      news:
+      news_form:
         topic_video: News video
         topic_posters: News posters
+        attach: Attach
     status_line:
       by: by
       about: about

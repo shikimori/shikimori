@@ -133,22 +133,6 @@ describe Entry do
 
       it { expect(entry.wall_images).to eq [user_image_2, user_image_1] }
     end
-
-    describe '#wall_ids=' do
-      let(:user_image_1) { create :user_image }
-      let(:user_image_2) { create :user_image }
-
-      before { entry.wall_ids = [user_image_1.id.to_s, user_image_2.id.to_s] }
-
-      it do
-        expect(entry.value).to eq "#{user_image_1.id},#{user_image_2.id}"
-        expect(entry.body).to eq "#{entry.original_body}
-[wall]\
-[url=#{ImageUrlGenerator.instance.url user_image_1, :original}][poster=#{user_image_1.id}][/url]\
-[url=#{ImageUrlGenerator.instance.url user_image_2, :original}][poster=#{user_image_2.id}][/url]\
-[/wall]"
-      end
-    end
   end
 
   context 'permissions' do

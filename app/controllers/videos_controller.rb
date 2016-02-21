@@ -36,8 +36,8 @@ private
   end
 
   def fetch_anime
-    @anime = Anime.find(
-      CopyrightedIds.instance.restore(params[:anime_id], 'anime')
+    @anime = Anime.find_by(
+      id: CopyrightedIds.instance.restore(params[:anime_id], 'anime')
     )
   end
 

@@ -34,17 +34,35 @@ describe VideosController do
     end
 
     describe 'xhr request' do
+      let(:anime_id) { anime.id }
       let!(:video) { }
-      before { xhr :post, :create, anime_id: anime.id, video: video_params }
+
+      before { xhr :post, :create, anime_id: anime_id, video: video_params }
 
       context 'new video' do
-        it do
-          expect(assigns :video).to be_uploaded
-          expect(assigns :video).to be_persisted
+        context 'with anime' do
+          it do
+            expect(assigns :video).to be_persisted
+            expect(assigns :video).to be_uploaded
+            expect(assigns(:video).anime).to eq anime
 
-          expect(json).to_not have_key 'errors'
-          expect(json).to have_key 'video_id'
-          expect(json).to have_key 'content'
+            expect(json).to_not have_key 'errors'
+            expect(json).to have_key 'video_id'
+            expect(json).to have_key 'content'
+          end
+        end
+
+        context 'wo anime' do
+          let(:anime_id) { 0 }
+          it do
+            expect(assigns :video).to be_persisted
+            expect(assigns :video).to be_uploaded
+            expect(assigns(:video).anime).to be_nil
+
+            expect(json).to_not have_key 'errors'
+            expect(json).to have_key 'video_id'
+            expect(json).to have_key 'content'
+          end
         end
       end
 

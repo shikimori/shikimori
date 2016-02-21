@@ -154,7 +154,7 @@ ru:
         author_name: Автор
         anime_video_author_id: Автор
       video:
-        url: Ссылка
+        url: Url
         kind: Тип
         name: Название
       club:

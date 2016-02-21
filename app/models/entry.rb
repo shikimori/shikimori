@@ -1,4 +1,3 @@
-# TODO: refactor appended wall and wall constants to separate object
 class Entry < ActiveRecord::Base
   include Commentable
   include Viewable
@@ -149,25 +148,6 @@ class Entry < ActiveRecord::Base
       ''
     else
       (body || '')[NEWS_WALL] || ''
-    end
-  end
-
-  # TODO: should ALWAYS be called after text assign
-  def wall_ids= ids
-    # TODO: do not user "value" as user_images storage field
-    self.value = ids.join(',')
-
-    ids = ids.map(&:to_i)
-    images = UserImage.where(id: ids).sort_by { |v| ids.index v.id }
-
-    bb_images = images.map do |image|
-      "[url=#{ImageUrlGenerator.instance.url image, :original}][poster=#{image.id}][/url]"
-    end
-
-    if bb_images.any?
-      self.body = "#{original_body}\n[wall]#{bb_images.join ''}[/wall]"
-    else
-      self.body = original_body
     end
   end
 

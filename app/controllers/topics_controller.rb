@@ -1,6 +1,7 @@
 class TopicsController < ShikimoriController
   load_and_authorize_resource class: Entry, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
+  before_action :compose_body, only: [:create, :update]
   before_action :set_view
   before_action :set_breadcrumbs
 
@@ -29,14 +30,15 @@ class TopicsController < ShikimoriController
     raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
   end
 
-  # создание нового топика
   def new
     noindex
     page_title i18n_t("new_#{@resource.news? ? :news : :topic}")
     @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 
-  # создание топика
+  def edit
+  end
+
   def create
     if faye.create @resource
       redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик создан'
@@ -46,11 +48,6 @@ class TopicsController < ShikimoriController
     end
   end
 
-  # редактирование топика
-  def edit
-  end
-
-  # редактирование топика
   def update
     1/0
     updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
@@ -63,7 +60,6 @@ class TopicsController < ShikimoriController
     end
   end
 
-  # удаление топика
   def destroy
     faye.destroy @resource
     render json: { notice: 'Топик удален' }
@@ -113,14 +109,19 @@ private
 
   def topic_params
     allowed_params = [
-      :body, :title, :linked_id, :linked_type,
-      wall_ids: [],
-      video: [:id, :url, :kind, :name]
+      # :body,
+      :title, :linked_id, :linked_type,
+      # wall_ids: [],
+      # video: [:id, :url, :kind, :name]
     ]
     allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
     allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 
     params.require(:topic).permit *allowed_params
+  end
+
+  def compose_body
+    @resource.body = Topics::ComposeBody.call(params[:topic])
   end
 
   def set_view

@@ -16,9 +16,10 @@ ru:
         news_topic: Новостной топик
       rules:
         go_next: Далее →
-      news:
+      news_form:
         topic_video: Видео к новости
         topic_posters: Картинки к новости
+        attach: Прикрепить
     status_line:
       by: от
       about: о
