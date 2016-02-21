@@ -34,6 +34,9 @@ class TestsController < ShikimoriController
   def wall
   end
 
+  def ajax
+  end
+
   def colors
   end
 
