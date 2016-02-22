@@ -4,7 +4,7 @@ describe ShikiMailer do
 
     let(:read) { false }
     let(:to_email) { 'test@gmail.com' }
-    let(:to_user) { create :user, email: to_email }
+    let(:to_user) { create :user, nickname: 'Vasya', email: to_email }
     let(:message) { create :message, read: read, to: to_user }
 
     it do
@@ -12,12 +12,14 @@ describe ShikiMailer do
         I18n.t('shiki_mailer.private_message_email.subject')
       )
       expect(mail.body.raw_source).to eq "
-        user_2, у вас 1 новое сообщение на shikimori.org от пользователя user_1.
-        Прочитать полностью можно тут: http://test.host/user_2/dialogs
+        Vasya, у вас 1 новое сообщение на shikimori.org от пользователя user_1.
+        Прочитать полностью можно тут: http://test.host/Vasya/dialogs
 
-        Текст сообщения: test
+        Текст сообщения:
+        test
 
-        Отписаться от уведомлений можно по ссылке http://test.host/messages/user_2/ec166bfdca4e59d3ce2e209a76c548d6f3685a3d/Private/unsubscribe
+        Отписаться от уведомлений можно по ссылке:
+        http://test.host/messages/Vasya/ec166bfdca4e59d3ce2e209a76c548d6f3685a3d/Private/unsubscribe
       ".gsub(/^ +/, '').strip
     end
 
@@ -52,9 +54,9 @@ describe ShikiMailer do
       expect(mail.body.raw_source).to eq "
         Привет!
 
-        Кто-то активировал процедуру сброса пароля для вашего аккаунта на <a href=\"http://shikimori.org\">shikimori.org</a>.
+        Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
 
-        Изменить пароль можно, перейдя по <a href=\"http://test.host/users/password/edit.user_2?reset_password_token=token\">ссылке</a>.
+        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.user_2?reset_password_token=token
 
         Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 

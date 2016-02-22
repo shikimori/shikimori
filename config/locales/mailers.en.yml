@@ -4,11 +4,13 @@ en:
       subject: Private message
       body: |-
         %{nickname}, you have 1 new message on %{site_link} from %{from_nickname}.
-        You can read the full message here: %{private_message_link}
+        Read the full message: %{private_message_link}
 
-        Message: %{message}
+        Message:
+        %{message}
 
-        You can unsubscribe from notification emails by clicking %{unsubscribe_link}
+        To unsubscribe from notification emails click here:
+        %{unsubscribe_link}
 
     reset_password_instructions:
       subject: Reset password instructions
@@ -17,7 +19,7 @@ en:
 
         We have received a request to reset your account password on %{site_link}.
 
-        Please click this <a href="%{reset_password_url}">link</a> to reset your password.
+        To reset you password click this link: %{reset_password_link}
 
         If you didn't make a request to reset your password just ignore this message.
 

@@ -46,8 +46,8 @@ class ShikiMailer < ActionMailer::Base
       tag: 'password-reset',
       body: i18n_t(
         'reset_password_instructions.body',
-        site_link: link_to(Site::DOMAIN, "http://#{Site::DOMAIN}"),
-        reset_password_url: edit_user_password_url(
+        site_link: Site::DOMAIN,
+        reset_password_link: edit_user_password_url(
           @resource,
           reset_password_token: @token
         )
