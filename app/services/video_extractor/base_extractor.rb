@@ -19,7 +19,7 @@ class VideoExtractor::BaseExtractor
     self
       .class
       .name
-      .underscore
+      .to_underscore
       .sub(/.*::_?/, '')
       .sub(/_extractor/, '')
       .to_sym

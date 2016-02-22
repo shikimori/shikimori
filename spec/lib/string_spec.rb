@@ -1,9 +1,9 @@
 describe String do
   subject { 'тЕст' }
 
-  its(:capitalize) { should eq 'Тест' }
-  # its(:upcase) { should eq 'ТЕСТ' }
-  its(:downcase) { should eq 'тест' }
+  its(:capitalize) { is_expected.to eq 'Тест' }
+  # its(:upcase) { is_expected.to eq 'ТЕСТ' }
+  its(:downcase) { is_expected.to eq 'тест' }
 
   describe '#first_downcase' do
     let(:string) { 'Реклама ВКонтакте' }
@@ -59,6 +59,20 @@ describe String do
     context 'without_www' do
       let(:url) { "http://test.org/test" }
       it { is_expected.to eq 'test.org' }
+    end
+  end
+
+  describe '#to_underscore' do
+    subject { name.to_underscore }
+
+    context 'camelized' do
+      let(:name) { 'ZxcVbn' }
+      it { is_expected.to eq 'zxc_vbn' }
+    end
+
+    context 'downcased' do
+      let(:name) { 'zxc' }
+      it { is_expected.to eq 'zxc' }
     end
   end
 end

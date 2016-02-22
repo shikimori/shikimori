@@ -191,7 +191,7 @@ module CommentHelper
     Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }
   @@type_matchers.each do |klass, (matcher, preloader)|
-    define_method("#{klass.name.underscore}_to_html") do |text|
+    define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
         if klass == Comment || klass == Entry || klass == Message
           url = if klass == Comment
