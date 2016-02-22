@@ -22,7 +22,7 @@
   span.reason = BbCodeFormatter.instance.format_comment(ban.reason)
 
   - if ban.comment_id && ban.comment
-    span == format_linked_name ban.comment.commentable_id, ban.comment.commentable_type, ban.comment.id
+    span == Messages::MentionSource.call ban.comment.commentable, ban.comment.id
     span: a.b-link.comment-hash href="#{comment_url ban.comment}" #
 
   - elsif ban.comment_id

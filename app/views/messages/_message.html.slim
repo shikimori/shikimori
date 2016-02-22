@@ -137,6 +137,7 @@
             content_by: :block,
             content_title: :none,
             content_text: :none
+
       - else
         = message.generate_body
 
@@ -149,5 +150,4 @@
           class="appear-message-#{message.id}"
           data-appear_url="#{mark_read_messages_url}"
           data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"
-
         ]

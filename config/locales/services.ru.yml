@@ -36,3 +36,15 @@ ru:
     finished: завершён
   bb_codes/contest_round_status_tag:
     finished: завершён
+  messages/generate_body:
+    version_accepted: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] принята.
+    version_rejected: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена.
+    version_rejected_with_reason: >-
+      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине: [quote=%{moderator}]%{reason}[/quote]
+  messages/mention_source:
+    texts:
+      nil: в <em>удалено</em>.
+      topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
+      profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.

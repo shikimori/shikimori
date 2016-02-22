@@ -11,6 +11,6 @@ class SolitaryCommentDecorator < CommentDecorator
 private
 
   def formatted
-    h.format_linked_name commentable_id, commentable_type, id
+    @formatted ||= Messages::MentionSource.call commentable, id
   end
 end

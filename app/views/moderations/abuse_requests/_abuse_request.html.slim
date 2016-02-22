@@ -30,9 +30,7 @@
     span.reason = abuse_request.reason
 
   span
-    == format_linked_name abuse_request.comment.commentable_id,
-      abuse_request.comment.commentable_type,
-      abuse_request.comment.id
+    == Messages::MentionSource.call abuse_request.comment.commentable, abuse_request.comment.id
   span: a.b-link.comment-hash href="#{comment_url abuse_request.comment}" #
 
   - if abuse_request.pending?

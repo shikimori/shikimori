@@ -29,7 +29,9 @@ class AnimeHistoryService
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
     messages = entries.flat_map do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
-      next if entry.class == Topics::NewsTopic && (!entry.linked || entry.linked.censored || entry.linked.kind_music?)
+      next if entry.class == Topics::NewsTopic &&
+        (!entry.linked || entry.linked.censored || entry.linked.kind_music?) &&
+        !entry.broadcast
       # протухшие новости тоже не нужны
       next if (entry.created_at || Time.zone.now) + NewsExpireIn < Time.zone.now
 
@@ -40,7 +42,7 @@ class AnimeHistoryService
             from_id: entry.user_id,
             to_id: user.id,
             body: nil,
-            kind: entry.action,
+            kind: message_type(entry),
             linked: entry,
             created_at: entry.created_at
           )
@@ -56,24 +58,11 @@ class AnimeHistoryService
     messages.each { |message| message.send :send_push_notifications }
   end
 
-  # TODO localize this later
-  # def new_episode_topic_subject(anime, history)
-    # "%s эпизод %s" % [history.value, anime.name]
-  # end
-
-  # def new_anons_topic_subject(anime, history)
-    # "%s %s" % [history.to_s(:short), anime.name]
-  # end
-
-  # def new_ongoing_topic_subject(anime, history)
-    # "%s %s" % [history.to_s(:short), anime.name]
-  # end
-
-  # def new_release_topic_subject(anime, history)
-    # "%s %s" % [history.to_s(:short), anime.name]
-  # end
-
-  def filter_name name
-    name.gsub('[', ' ').gsub(']', ' ').gsub('  ', ' ')
+  def self.message_type topic
+    if topic.class == Topics::NewsTopic && topic.broadcast
+      MessageType::SiteNews
+    else
+      entry.action || fail("unknown message_type for topic #{topic.id}")
+    end
   end
 end

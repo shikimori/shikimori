@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
 
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544]
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :async
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :trackable, :validatable, :omniauthable, :async
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
@@ -102,7 +103,10 @@ class User < ActiveRecord::Base
     default_url: '/assets/globals/missing_avatar/:style.png'
 
   validates :nickname, presence: true
-  validates :nickname, name: true, length: { maximum: MAX_NICKNAME_LENGTH }, if: -> { new_record? || changes['nickname'] }
+  validates :nickname,
+    name: true,
+    length: { maximum: MAX_NICKNAME_LENGTH },
+    if: -> { new_record? || changes['nickname'] }
   validates :email, presence: true, if: -> { persisted? && changes['email'] }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 

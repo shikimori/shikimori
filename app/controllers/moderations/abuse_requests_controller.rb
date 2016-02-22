@@ -1,7 +1,5 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
-  include MessagesHelper # для работы хелпера format_linked_name
-
   before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :review, :spoiler, :abuse]
 
   def index

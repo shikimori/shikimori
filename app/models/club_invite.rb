@@ -24,13 +24,13 @@ class ClubInvite < ActiveRecord::Base
   end
 
 private
+
   def create_message
     message = Message.create!(
       kind: MessageType::ClubRequest,
       from: src,
       to: dst,
-      linked: self,
-      body: "Приглашение на вступление в клуб [club]#{club_id}[/club]."
+      linked: self
     )
 
     update message: message

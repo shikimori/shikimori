@@ -36,3 +36,14 @@ en:
     finished: has finished
   bb_codes/contest_round_status_tag:
     finished: has finished
+  messages/generate_body:
+    version_accepted: >-
+      Your [version=%{version_id}]content change[/version] for [%{item_type}]%{item_id}[/%{item_type}] was accepted.
+    version_rejected: >-
+      Your [version=%{version_id}]content change[/version] for [%{item_type}]%{item_id}[/%{item_type}] was rejected.
+    version_rejected_with_reason: >-
+      Your [version=%{version_id}]content change[/version] for [%{item_type}]%{item_id}[/%{item_type}] was rejected because of [quote=%{moderator}]%{reason}[/quote]
+  messages/mention_source:
+      nil: in <em>deleted</em>.
+      topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.
+      profile: in <a href="%{url}"%{bubble}>%{name}</a>'s profile.
