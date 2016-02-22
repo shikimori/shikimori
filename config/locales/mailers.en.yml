@@ -1,0 +1,24 @@
+en:
+  shiki_mailer:
+    private_message_email:
+      subject: Private message
+      body: |-
+        %{nickname}, you have 1 new message on %{site_link} from %{from_nickname}.
+        You can read the full message here: %{private_message_link}
+
+        Message: %{message}
+
+        You can unsubscribe from notification emails by clicking %{unsubscribe_link}
+
+    reset_password_instructions:
+      subject: Reset password instructions
+      body: |-
+        Hi!
+
+        We have received a request to reset your account password on %{site_link}.
+
+        Please click this <a href="%{reset_password_url}">link</a> to reset your password.
+
+        If you didn't make a request to reset your password just ignore this message.
+
+        Your password will not change until you click the link above.
