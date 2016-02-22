@@ -25,7 +25,7 @@ private
     message = message.decorate
 
     {
-      action: message.kind.camelize.to_underscore,
+      action: message.kind.underscore,
       msgTitle: nil,
       msgBody: message.body,
       params: {

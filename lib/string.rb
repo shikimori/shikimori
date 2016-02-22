@@ -59,15 +59,6 @@ class String
     Unicode.downcase(self.slice 0,1) + self.slice(1..-1)
   end
 
-  def to_underscore!
-    self.gsub!(/(.)([A-Z])/,'\1_\2')
-    self.downcase!
-  end
-
-  def to_underscore
-    self.clone.to_underscore!
-  end
-
   # нормализация японского названия
   def cleanup_japanese
     self.gsub('=', '＝').gsub(/･|·/, '・').gsub(/「|」/, '').gsub(/　/, ' ')

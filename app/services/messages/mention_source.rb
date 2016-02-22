@@ -49,7 +49,7 @@ private
   def link_bubble
     return unless comment_id
 
-    "class=\"bubbled b-link\" \
+    " class=\"bubbled b-link\" \
 data-href=\"#{UrlGenerator.instance.comment_url id: comment_id}\""
   end
 end

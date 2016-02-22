@@ -5,24 +5,24 @@ class Messages::GenerateBody < ServiceObjectBase
   instance_cache :linked
 
   def call
-    send(message.kind.to_underscore).html_safe
+    send(message.kind.underscore).html_safe
   end
 
 private
 
   def linked
-    message linked
+    message.linked
   end
 
   def html_body
     message.html_body
   end
   alias_method :private, :html_body
-  alias_method :notificaiton, :html_body
+  alias_method :notification, :html_body
   alias_method :nickname_changed, :html_body
 
   def action_text
-    message.linked.action_text
+    linked.action_text
   end
   alias_method :ongoing, :action_text
   alias_method :anons, :action_text
@@ -30,32 +30,35 @@ private
   alias_method :released, :action_text
 
   def site_news
-    BbCodeFormatter.instance.format_comment message.linked.body
+    BbCodeFormatter.instance.format_comment linked.body
   end
 
   def profile_commented
-    "Написал#{'а' if message.from.female?} что-то в вашем " +
-      "<a class='b-link' href='#{profile_url message.to}'>профиле</a>..."
+    "Написал#{'а' if message.from.female?} что-то в вашем <a class='b-link' \
+href='#{UrlGenerator.instance.profile_url message.to}'>профиле</a>..."
   end
 
   def friend_request
-    "Добавил#{'а' if message.from.female?} вас в список друзей. " +
-      "Добавить #{message.from.female? ? 'её' : 'его'} в свой список друзей в ответ?"
+    response = unless message.read
+      " Добавить #{message.from.female? ? 'её' : 'его'} в свой список друзей в ответ?" 
+    end
+
+    "Добавил#{'а' if message.from.female?} вас в список друзей.#{response}"
   end
 
   def quoted_by_user
-    "Написал#{'а' if message.from.female?} что-то вам #{linked_name message.linked}"
+    "Написал#{'а' if message.from.female?} что-то вам #{linked_name}"
   end
 
   def subscription_commented
-    "Новые сообщения #{linked_name message.linked}"
+    "Новые сообщения #{linked_name}"
   end
 
   def warned
-    msg = "Вам вынесено предупреждение за "
+    msg = "Вам вынесено предупреждение за"
 
     if message.linked.comment
-      "#{msg} комментарий #{linked_name message.linked}."
+      "#{msg} комментарий #{linked_name}."
     else
       "#{msg} удалённый комментарий. Причина: \"#{message.linked.reason}\"."
     end
@@ -65,7 +68,7 @@ private
     msg = "Вы забанены на #{message.linked ? message.linked.duration.humanize : '???'}."
 
     if message.linked && message.linked.comment
-      "#{msg} за комментарий #{linked_name message.linked}."
+      "#{msg} за комментарий #{linked_name}."
     else
       "#{msg}. Причина: \"#{message.linked ? message.linked.reason : '???'}\"."
     end
@@ -104,10 +107,12 @@ private
   end
 
   def contest_finished
-    BbCodeFormatter.instance.format_comment "[contest_status=#{linked_id}]"
+    BbCodeFormatter.instance.format_comment(
+      "[contest_status=#{message.linked_id}]"
+    )
   end
 
-  def linked_name linked
+  def linked_name
     if linked.is_a? Comment
       Messages::MentionSource.call(
         message.linked.commentable,

@@ -9,7 +9,7 @@ class SiteParserWithCache
   def initialize
     @mutex = Mutex.new
 
-    @cache_name = self.class.name.to_underscore
+    @cache_name = self.class.name.underscore
     @cache_path = '%s/.%s.yml' % [ENV['HOME'], @cache_name]
     @cache_tmp_path = '/tmp/.%s.yml.tmp' % @cache_name
     @proxy_log = false

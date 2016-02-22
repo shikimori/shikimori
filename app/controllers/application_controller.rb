@@ -168,7 +168,7 @@ class ApplicationController < ActionController::Base
   end
 
   def base_controller_names
-    superclass_name = ('p-' + self.class.superclass.name.to_underscore)
+    superclass_name = ('p-' + self.class.superclass.name.underscore)
       .sub(/_controller$/, '')
       .sub(/^p-application/, '')
       .sub(/^p-shikimori/, '')
