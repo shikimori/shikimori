@@ -2,7 +2,8 @@
   h2.subheadline = @page_title.last
   div
     - if @collection.any?
-      = render partial: 'moderations/anime_video_reports/report', collection: @collection
+      = render partial: 'moderations/anime_video_reports/report',
+        collection: @collection
       - if @add_postloader
         = render 'blocks/postloader', next_url: videos_profile_url(page: @page+1)
     - else
