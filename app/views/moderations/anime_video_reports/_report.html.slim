@@ -43,19 +43,27 @@
             span ID:
             = report.anime_video.id
           li
-            span Url:
+            span #{AnimeVideo.human_attribute_name :url}:
             a href="#{report.anime_video.url}" = report.anime_video.url
 
           li
-            span Эпизод:
+            span #{AnimeVideo.human_attribute_name :episode}:
             = report.anime_video.episode
           li
-            span Тип:
-            = report.anime_video.kind
+            span #{AnimeVideo.human_attribute_name :kind}:
+            = report.anime_video.kind_text
+          - unless report.anime_video.language_unknown?
+          li
+            span #{AnimeVideo.human_attribute_name :language}:
+            = report.anime_video.language_text
+          - unless report.anime_video.quality_unknown?
+            li
+              span #{AnimeVideo.human_attribute_name :quality}:
+              = report.anime_video.quality_text
 
           - if report.anime_video.author
             li
-              span Автор:
+              span #{AnimeVideo.human_attribute_name :author}:
               = report.anime_video.author.name.to_s.html_safe
 
           - if report.user_agent.present?

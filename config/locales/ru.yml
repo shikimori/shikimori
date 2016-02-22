@@ -147,7 +147,7 @@ ru:
         postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
         volumes_in_manga: Отображать тома у манги
       anime_video:
-        url: Url на видео
+        url: Url
         episode: Эпизод
         kind: Тип видео
         language: На каком языке видео
