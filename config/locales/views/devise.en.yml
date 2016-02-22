@@ -1,16 +1,23 @@
 en:
   devise:
     common: &common
-      sign_up: Register new account
+      errors: Errors
       forgot_password: Forgot your password?
+      sign_in: Sign in
+      sign_up: Sign up
+
+    registrations:
+      new:
+        <<: *common
+        title: Sign in
+        notice: Create a new account.
 
     sessions:
       form:
         <<: *common
-        errors: Errors
       new:
-        title: Log in
-        notice: Log in or sign up here.
+        title: Sign in
+        notice: Sign in to your account.
 
     social:
       social_networks: Sign in with social networks
