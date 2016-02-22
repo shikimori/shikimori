@@ -14,7 +14,8 @@
         = f.input :author_name, hint: 'не обязательно'
         = f.input :kind,
           as: :select,
-          include_blank: false
+          include_blank: false,
+          collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
         = f.input :language,
           as: :select,
           include_blank: false,
