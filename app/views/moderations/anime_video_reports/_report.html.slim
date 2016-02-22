@@ -63,7 +63,7 @@
 
           - if report.anime_video.author
             li
-              span #{AnimeVideo.human_attribute_name :author}:
+              span #{AnimeVideo.human_attribute_name :author_name}:
               = report.anime_video.author.name.to_s.html_safe
 
           - if report.user_agent.present?
