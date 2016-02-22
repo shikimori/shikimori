@@ -5,7 +5,7 @@ describe VideoExtractor::VkExtractor, vcr: { cassette_name: 'vk_extractor' } do
     subject { service.fetch }
 
     context 'valid_url' do
-      context 'common', :focus do
+      context 'common' do
         let(:url) { 'http://vk.com/video98023184_165811692' }
 
         its(:hosting) { is_expected.to eq :vk }
