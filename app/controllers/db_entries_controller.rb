@@ -6,7 +6,7 @@ class DbEntriesController < ShikimoriController
   end
 
   def versions
-    render template: 'db_entries/versions'
+    render template: 'db_entries/versions', formats: :json
   end
 
   def edit
