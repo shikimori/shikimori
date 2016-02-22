@@ -8,6 +8,9 @@ en:
       form:
         <<: *common
         errors: Errors
+      new:
+        title: Log in
+        notice: Log in or sign up here.
 
     social:
       social_networks: Sign in with social networks

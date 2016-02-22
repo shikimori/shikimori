@@ -8,6 +8,9 @@ ru:
       form:
         <<: *common
         errors: Ошибки
+      new:
+        title: Авторизация
+        notice: На данной странице вы сможете авторизоваться на нашем сайте.
 
     social:
       social_networks: Вход через социальные сети
