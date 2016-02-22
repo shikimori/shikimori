@@ -114,7 +114,7 @@ private
         message.linked.id
       )
 
-    elsif linked.is_a? Ban.name
+    elsif linked.is_a? Ban
       Messages::MentionSource.call(
         message.linked.comment.commentable,
         message.linked.comment.id
