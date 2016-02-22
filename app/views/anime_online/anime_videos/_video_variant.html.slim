@@ -13,9 +13,9 @@
         span.video-language = video.language_text
 
     - else
-      span.video-kind = video.kind_text
       - if video.quality_bd?
         span.video-quality = video.quality_text
+      span.video-kind = video.kind_text
       span.video-hosting = video.hosting
       - if video.author
         span.video-author = strip_tags(video.author.name).gsub('&amp;', '&')
