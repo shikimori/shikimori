@@ -90,12 +90,14 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     let!(:guest) { create :user, :guest }
     let(:video_params) {{
       state: 'uploaded',
-      kind: kind,
+      kind: 'fandub',
       author_name: 'test',
       episode: 3,
       url: 'https://vk.com/video-16326869_166521208',
       source: 'test',
-      anime_id: anime.id
+      language: 'russian',
+      quality: 'bd',
+      anime_id: anime_id
     }}
     let(:continue) { '' }
 
@@ -103,7 +105,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     let(:created_video) { assigns :video }
 
     context 'valid params' do
-      let(:kind) { 'fandub' }
+      let(:anime_id) { anime.id }
 
       context 'without continue' do
         it do
@@ -127,6 +129,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
             'anime_video[source]' => video_params[:source],
             'anime_video[state]' => video_params[:state],
             'anime_video[kind]' => video_params[:kind],
+            'anime_video[language]' => video_params[:language],
+            'anime_video[quality]' => video_params[:quality],
             'anime_video[episode]' => video_params[:episode] + 1,
             'anime_video[author_name]' => video_params[:author_name],
           )
@@ -135,7 +139,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     end
 
     context 'invalid params' do
-      let(:kind) { }
+      let(:anime_id) { }
 
       it do
         expect(response).to have_http_status :success
