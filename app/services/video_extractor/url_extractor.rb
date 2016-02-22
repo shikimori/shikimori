@@ -1,11 +1,11 @@
-class VideoExtractor::UrlExtractor
+class VideoExtractor::UrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
   PARAM = /[^" ><&\n]+/.source
 
   pattr_initialize :content
 
-  def extract
+  def call
     if parsed_url
       parsed_url
         .sub(%r{^//}, 'http://')

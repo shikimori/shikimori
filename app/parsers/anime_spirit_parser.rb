@@ -79,7 +79,7 @@ class AnimeSpiritParser
         episode: episode,
         kind: kind,
         source: link,
-        url: VideoExtractor::UrlExtractor.new(video_tag.text).extract,
+        url: VideoExtractor::UrlExtractor.call(video_tag.text),
         language: :russian,
       )
     end

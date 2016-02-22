@@ -1,6 +1,6 @@
 describe VideoExtractor::UrlExtractor do
-  describe '#extract' do
-    subject(:extract) { VideoExtractor::UrlExtractor.new(html).extract }
+  describe '#call' do
+    subject(:extract) { VideoExtractor::UrlExtractor.call html }
 
     context 'direct' do
       let(:html) { 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7' }
