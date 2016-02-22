@@ -1,11 +1,11 @@
 header.head.m15
-  h1 Регистрация
-  p.notice На данной странице вы сможете зарегистрироваться на нашем сайте.
+  h1 = t '.title'
+  p.notice = t '.notice'
 
 = simple_form_for(resource, as: :user, url: registration_path(:user), html: { multipart: true }) do |f|
   - if f.object.errors.any?
     .b-errors
-      .subheadline Ошибки
+      .subheadline = t '.errors'
       .block
         == f.object.errors.full_messages.join('<br>')
 
@@ -27,7 +27,7 @@ header.head.m15
 
   .block
     = f.button :magic_submit
-    a.cancel href="#{new_user_session_url}" Войти в уже существующий аккаунт
-    a.cancel href="#{new_user_password_url}" Забыли пароль?
+    a.cancel href="#{new_user_session_url}" = t '.sign_in'
+    a.cancel href="#{new_user_password_url}" = t '.forgot_password'
 
   = render 'devise/social'

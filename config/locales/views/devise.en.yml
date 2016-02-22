@@ -1,16 +1,38 @@
 en:
   devise:
     common: &common
-      sign_up: Register new account
+      errors: Errors
       forgot_password: Forgot your password?
+      sign_in: Sign in
+      sign_up: Sign up
+
+    registrations:
+      new:
+        <<: *common
+        title: Sign in
+        notice: Create a new account.
 
     sessions:
       form:
         <<: *common
-        errors: Errors
+      new:
+        title: Sign in
+        notice: Sign in to your account.
 
     social:
       social_networks: Sign in with social networks
       twitter: Sign in with Twitter
       facebook: Sign in with Facebook
       vkontakte: Sign in with vk.com
+
+    mailer:
+      reset_password_instructions:
+        instructions:
+          - Hi!
+          - We have received a request to reset your account password
+            on %{site_link}
+          - Please click this <a href="%{reset_password_url}">link</a>
+            to reset your password.
+          - If you didn't make a request to reset your password just
+            ignore this message.
+          - Your password will not change until you click the link above.
