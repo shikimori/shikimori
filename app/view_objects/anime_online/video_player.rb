@@ -100,7 +100,7 @@ class AnimeOnline::VideoPlayer
 
   def same_videos
     return [] unless current_videos && current_video
-    current_videos.group_by(&:uniq_criteria)[current_video.uniq_criteria]
+    current_videos.group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
   end
 
   # список типов коллекции видео
