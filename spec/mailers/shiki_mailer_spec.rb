@@ -9,24 +9,32 @@ describe ShikiMailer do
         .and_return unsubscribe_link_key
     end
 
-    let(:read) { false }
+    let(:from_user) { create :user, nickname: 'Randy' }
     let(:to_email) { 'test@gmail.com' }
     let(:to_user) { create :user, nickname: 'Vasya', email: to_email }
-    let(:message) { create :message, read: read, to: to_user }
+    let(:read) { false }
+    let(:message_body) { 'Hi, Vasya!' }
+    let(:message) do
+      create :message,
+        read: read,
+        to: to_user,
+        from: from_user,
+        body: message_body
+    end
 
     it do
       expect(mail.subject).to eq(
         I18n.t('shiki_mailer.private_message_email.subject')
       )
       expect(mail.body.raw_source).to eq "
-        Vasya, у вас 1 новое сообщение на shikimori.org от пользователя user_1.
-        Прочитать полностью можно тут: http://test.host/Vasya/dialogs
+        #{to_user.nickname}, у вас 1 новое сообщение на shikimori.org от пользователя #{from_user.nickname}.
+        Прочитать полностью можно тут: http://test.host/#{to_user.nickname}/dialogs
 
         Текст сообщения:
-        test
+        #{message_body}
 
         Отписаться от уведомлений можно по ссылке:
-        http://test.host/messages/Vasya/#{unsubscribe_link_key}/Private/unsubscribe
+        http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
       ".gsub(/^ +/, '').strip
     end
 
@@ -51,7 +59,7 @@ describe ShikiMailer do
     end
 
     let(:email) { 'test@gmail.com' }
-    let(:user) { build :user, nickname: 'vasya', email: email }
+    let(:user) { build :user, nickname: 'Vasya', email: email }
     let(:token) { 'token' }
 
     it do
@@ -63,7 +71,7 @@ describe ShikiMailer do
 
         Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
 
-        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.vasya?reset_password_token=token
+        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.#{user.nickname}?reset_password_token=#{token}
 
         Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 
