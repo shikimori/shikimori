@@ -13,6 +13,7 @@ class EmailNotifier
   end
 
 private
+
   def notifications_disabled? user
     user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL == 0
   end
