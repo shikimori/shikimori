@@ -1,6 +1,5 @@
 class ShikiMailer < ActionMailer::Base
   include Routing
-  include ActionView::Helpers::UrlHelper
   include Translation
 
   default from: "noreply@#{Site::DOMAIN}"
