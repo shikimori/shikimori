@@ -2,6 +2,13 @@ describe ShikiMailer do
   describe '#private_message_email' do
     subject(:mail) { ShikiMailer.private_message_email(message).deliver_now }
 
+    let(:unsubscribe_link_key) { '123' }
+    before do
+      allow_any_instance_of(ShikiMailer)
+        .to receive(:unsubscribe_link_key)
+        .and_return unsubscribe_link_key
+    end
+
     let(:read) { false }
     let(:to_email) { 'test@gmail.com' }
     let(:to_user) { create :user, nickname: 'Vasya', email: to_email }
@@ -19,7 +26,7 @@ describe ShikiMailer do
         test
 
         Отписаться от уведомлений можно по ссылке:
-        http://test.host/messages/Vasya/ec166bfdca4e59d3ce2e209a76c548d6f3685a3d/Private/unsubscribe
+        http://test.host/messages/Vasya/#{unsubscribe_link_key}/Private/unsubscribe
       ".gsub(/^ +/, '').strip
     end
 
@@ -44,7 +51,7 @@ describe ShikiMailer do
     end
 
     let(:email) { 'test@gmail.com' }
-    let(:user) { build :user, email: email }
+    let(:user) { build :user, nickname: 'vasya', email: email }
     let(:token) { 'token' }
 
     it do
@@ -56,7 +63,7 @@ describe ShikiMailer do
 
         Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
 
-        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.user_2?reset_password_token=token
+        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.vasya?reset_password_token=token
 
         Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 

@@ -25,10 +25,7 @@ class ShikiMailer < ActionMailer::Base
         message: message.body,
         unsubscribe_link: unsubscribe_messages_url(
           name: message.to.to_param,
-          key: MessagesController::unsubscribe_key(
-            message.to,
-            MessageType::Private
-          )
+          key: unsubscribe_link_key(message)
         )
       )
     )
@@ -61,6 +58,10 @@ class ShikiMailer < ActionMailer::Base
   #end
 
 private
+
+  def unsubscribe_link_key message
+    MessagesController::unsubscribe_key message.to, MessageType::Private
+  end
 
   def generated? email
     !!(email.blank? || email =~ /^generated_/)
