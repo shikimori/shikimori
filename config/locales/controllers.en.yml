@@ -268,11 +268,11 @@ en:
 
   api/v1/friends_controller:
     added_to_friends:
-      male: '%{nickname} added to your friends list'
-      female: '%{nickname} added to your friends list'
+      male: '%{nickname} added to your friend list'
+      female: '%{nickname} added to your friend list'
     removed_from_friends:
-      male: '%{nickname} removed from your friends list'
-      female: '%{nickname} removed from your friends list'
+      male: '%{nickname} removed from your friend list'
+      female: '%{nickname} removed from your friend list'
 
   api/v1/ignores_controller:
     ignored: Messages from %{nickname} are now ignored

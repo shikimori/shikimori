@@ -41,32 +41,31 @@ en:
     profile_comment:
       female: &female >-
         Left a comment in your
-        <a class='b-link' href='%{profile_url}'>profile</a>...
+        <a class='b-link' href='%{profile_url}'>profile</a>.
       male: *female
     friend_request:
       add:
-        female: >-
-          Add her to your friend list as well?
-        male: >-
-          Add him to your friend list as well?
+        female: Add her to your friend list as well?
+        male: Add him to your friend list as well?
       added:
-        female: >-
-          Has added you to her friend list.
-        male:
-          Has added you to his friend list.
+        female: Has added you to her friend list.
+        male: Has added you to his friend list.
     quoted_by_user:
       female: &female You have been mentioned %{linked_name}
       male: *female
     subscription_commented: New messages %{linked_name}
     warned:
       comment: >-
-        You have been warned for comment %{linked_name}
+        You have been warned for posting a comment %{linked_name}
       removed_comment: >-
-        You have been warned for removed comment.
+        You have been warned for posting a comment (now removed).
         Reason: "%{reason}".
     banned:
-      comment: You have been banned for %{duration} for comment %{linked_name}
-      other: 'You have been banned for %{duration}. Reason: "%{linked_name}".'
+      comment: >-
+        You have been banned for %{duration} for
+        posting a comment %{linked_name}
+      other: >-
+        You have been banned for %{duration}. Reason: "%{reason}".
     club_request: Invitation to join the club [club]%{club_id}[/club].
     version_accepted: >-
       Your [version=%{version_id}]content change[/version] for
@@ -80,6 +79,7 @@ en:
       [quote=%{moderator}]%{reason}[/quote]
 
   messages/mention_source:
+    texts:
       nil: in <em>deleted</em>.
       topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.
       profile: in <a href="%{url}"%{bubble}>%{name}</a>'s profile.

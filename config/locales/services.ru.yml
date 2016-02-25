@@ -41,21 +41,17 @@ ru:
     profile_comment:
       female: >-
         Написала что-то в вашем
-        <a class='b-link' href='%{profile_url}'>профиле</a>...
+        <a class='b-link' href='%{profile_url}'>профиле</a>.
       male:
         Написал что-то в вашем
-        <a class='b-link' href='%{profile_url}'>профиле</a>...
+        <a class='b-link' href='%{profile_url}'>профиле</a>.
     friend_request:
       add:
-        female: >-
-          Добавить её в свой список друзей в ответ?
-        male:
-          Добавить его в свой список друзей в ответ?
+        female: Добавить её в свой список друзей в ответ?
+        male: Добавить его в свой список друзей в ответ?
       added:
-        female: >-
-          Добавила вас в список друзей.
-        male:
-          Добавил вас в список друзей.
+        female: Добавила вас в список друзей.
+        male: Добавил вас в список друзей.
     quoted_by_user:
       female: Написала что-то вам %{linked_name}
       male: Написал что-то вам %{linked_name}
@@ -67,8 +63,10 @@ ru:
         Вам вынесено предупреждение за удалённый комментарий.
         Причина: "%{reason}".
     banned:
-      comment: Вы забанены на %{duration} за комментарий %{linked_name}
-      other: 'Вы забанены на %{duration}. Причина: "%{reason}".'
+      comment: >-
+        Вы забанены на %{duration} за комментарий %{linked_name}
+      other: >-
+        Вы забанены на %{duration}. Причина: "%{reason}".
     club_request: Приглашение на вступление в клуб [club]%{club_id}[/club].
     version_accepted: >-
       Ваша [version=%{version_id}]правка[/version] для
