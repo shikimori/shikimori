@@ -19,7 +19,7 @@ class AnimeVideo < ActiveRecord::Base
     default: :unknown,
     predicates: { prefix: true }
   enumerize :quality,
-    in: [:bd, :tv, :dvd, :unknown],
+    in: [:bd, :web, :tv, :dvd, :unknown],
     default: :unknown,
     predicates: { prefix: true }
 

@@ -19,7 +19,7 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
     param :episode, :number, required: true
     param :kind, %w(raw subtitles fandub unknown), required: true
     param :language, %w(russian english japanese unknown), required: true
-    param :quality, %w(bd tv dvd unknown), required: true
+    param :quality, %w(bd web tv dvd unknown), required: true
     param :source, String, required: true
     param :url, String, required: true
   end

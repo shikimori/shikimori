@@ -368,6 +368,7 @@ en:
         unknown: unknown
       quality:
         bd: BD
+        web: Web
         tv: TV
         dvd: DVD
         unknown: Unknown
