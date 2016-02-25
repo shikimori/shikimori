@@ -70,7 +70,7 @@ describe Messages::GenerateBody do
 
     context 'profile_commented' do
       let(:kind) { MessageType::ProfileCommented }
-      it { is_expected.to eq "Написал что-то в вашем <a class='b-link' href='http://test.host/to'>профиле</a>..." }
+      it { is_expected.to eq "Написал что-то в вашем <a class='b-link' href='http://test.host/to'>профиле</a>." }
     end
 
     context 'friend_request' do
