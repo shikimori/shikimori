@@ -66,7 +66,7 @@ en:
         Reason: "%{reason}".
     banned:
       comment: You have been banned for %{duration} for comment %{linked_name}
-      other: You have been banned for %{duration}. Reason: "%{linked_name}".
+      other: 'You have been banned for %{duration}. Reason: "%{linked_name}".'
     club_request: Invitation to join the club [club]%{club_id}[/club].
     version_accepted: >-
       Your [version=%{version_id}]content change[/version] for
