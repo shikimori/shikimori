@@ -3,30 +3,31 @@ header.head
   p.notice = t '.notice'
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-.subheadline.m10 = t '.instruction'
-.b-brief
-  .moderators
-    = render partial: 'users/user',
-      collection: @versions.moderators,
-      locals: { content_by: :named_avatar }
+- unless params[:type] == 'anime_video'
+  .subheadline.m10 = t '.instruction'
+  .b-brief
+    .moderators
+      = render partial: 'users/user',
+        collection: @versions.moderators,
+        locals: { content_by: :named_avatar }
 
-  ul.b-list
-    - t('.instructions').each do |instruction|
-      li: p == instruction
+    ul.b-list
+      - t('.instructions').each do |instruction|
+        li: p == instruction
 
-    /Отклонять правки на [u]японские[/u] имена, где присутствуют сочетания таких букв как:
+      /Отклонять правки на [u]японские[/u] имена, где присутствуют сочетания таких букв как:
 
-    /[list]
-    /[*] «тс» (например, в имени [i][b]Ts[/b]ubaki[/i] — «Цубаки», а не «[s]Тс[/s]убаки»),
-    /[*] «оу» (в имени [i]S[b]ou[/b]suke[/i] — «Соскэ», а не «С[s]оу[/s]скэ»),
-    /[*] «юу» (в имени [i]K[b]yuu[/b]suke[/i] — «Кюскэ», а не «К[s]юу[/s]скэ»),
-    /[*] «ёу» (в имени [i]R[b]you[/b]suke[/i] — «Рёскэ», а не «Р[s]ёу[/s]скэ») и.т.п.
-    /[/list]
+      /[list]
+      /[*] «тс» (например, в имени [i][b]Ts[/b]ubaki[/i] — «Цубаки», а не «[s]Тс[/s]убаки»),
+      /[*] «оу» (в имени [i]S[b]ou[/b]suke[/i] — «Соскэ», а не «С[s]оу[/s]скэ»),
+      /[*] «юу» (в имени [i]K[b]yuu[/b]suke[/i] — «Кюскэ», а не «К[s]юу[/s]скэ»),
+      /[*] «ёу» (в имени [i]R[b]you[/b]suke[/i] — «Рёскэ», а не «Р[s]ёу[/s]скэ») и.т.п.
+      /[/list]
 
-    /Это грубые ошибки при транслитерации, и многие здесь привыкли такое допускать. Я же хочу от этого избавиться.
-    / <span style="padding: 0 3px; color: white; background: red;">новое</span>
+      /Это грубые ошибки при транслитерации, и многие здесь привыкли такое допускать. Я же хочу от этого избавиться.
+      / <span style="padding: 0 3px; color: white; background: red;">новое</span>
 
-  p.m5 = t '.instructions_notice'
+    p.m5 = t '.instructions_notice'
 
 - if @versions.pending.any?
   .subheadline = t '.queue'
