@@ -4,7 +4,7 @@ class Topics::DecomposeBody < ServiceObjectBase
   instance_cache :appended_body, :wall_video, :wall_images
 
   WALL_VIDEO = /\[video = (?<id>\d+) \]/mix
-  WALL_IMAGE = /\[(?:poster|image) = (?<id>\d+) \]/mix
+  WALL_IMAGE = /\[(?:poster|image|wall_image) = (?<id>\d+) \]/mix
 
   def wall_video
     ids = appended_body.scan(WALL_VIDEO).map { |v| v[0].to_i }
