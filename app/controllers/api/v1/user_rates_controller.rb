@@ -86,6 +86,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
 private
+
   def create_params
     params.require(:user_rate).permit(*CREATE_PARAMS)
   end

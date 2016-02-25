@@ -56,10 +56,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
 
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
-      rates = user
-        .anime_rates
-        .includes(:anime)
-
+      rates = user.anime_rates.includes(:anime)
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
@@ -74,10 +71,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
 
     @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
-      rates = user
-        .manga_rates
-        .includes(:manga)
-
+      rates = user.manga_rates.includes(:manga)
       rates = rates.where status: params[:status] if params[:status].present?
       rates.to_a
     end
