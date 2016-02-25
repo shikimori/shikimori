@@ -62,7 +62,7 @@ class AnimeHistoryService
     if topic.class == Topics::NewsTopic && topic.broadcast
       MessageType::SiteNews
     else
-      entry.action || fail("unknown message_type for topic #{topic.id}")
+      topic.action || fail("unknown message_type for topic #{topic.id}")
     end
   end
 end
