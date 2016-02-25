@@ -1,10 +1,11 @@
 class ShikiMailer < ActionMailer::Base
   include Routing
+  include Translation
+
   default from: "noreply@#{Site::DOMAIN}"
 
   def test_mail email = 'takandar@gmail.com'
     return if generated?(email)
-
     mail(to: email, subject: 'Test', body: 'test body')
   end
 
@@ -14,13 +15,19 @@ class ShikiMailer < ActionMailer::Base
 
     mail(
       to: message.to.email,
-      subject: "Личное сообщение",
-      body: "#{message.to.nickname}, у вас 1 новое сообщение на shikimori от пользователя #{message.from.nickname}.
-Прочитать полностью можно тут #{profile_dialogs_url message.to}
-
-Текст сообщения: #{message.body}
-
-Отписаться от уведомлений можно по ссылке #{unsubscribe_messages_url name: message.to.to_param, key: MessagesController::unsubscribe_key(message.to, MessageType::Private)}"
+      subject: i18n_t('private_message_email.subject'),
+      body: i18n_t(
+        'private_message_email.body',
+        nickname: message.to.nickname,
+        site_link: Site::DOMAIN,
+        from_nickname: message.from.nickname,
+        private_message_link: profile_dialogs_url(message.to),
+        message: message.body,
+        unsubscribe_link: unsubscribe_messages_url(
+          name: message.to.to_param,
+          key: unsubscribe_link_key(message)
+        )
+      )
     )
   end
 
@@ -29,9 +36,19 @@ class ShikiMailer < ActionMailer::Base
     @token = token
     return if generated?(@resource.email)
 
-    mail(to: @resource.email, subject: "Reset password instructions", tag: 'password-reset', content_type: "text/html") do |format|
-      format.html { render "devise/mailer/reset_password_instructions" }
-    end
+    mail(
+      to: @resource.email,
+      subject: i18n_t('reset_password_instructions.subject'),
+      tag: 'password-reset',
+      body: i18n_t(
+        'reset_password_instructions.body',
+        site_link: Site::DOMAIN,
+        reset_password_link: edit_user_password_url(
+          @resource,
+          reset_password_token: @token
+        )
+      )
+    )
   end
 
   #def mail options, *args
@@ -41,6 +58,11 @@ class ShikiMailer < ActionMailer::Base
   #end
 
 private
+
+  def unsubscribe_link_key message
+    MessagesController::unsubscribe_key message.to, MessageType::Private
+  end
+
   def generated? email
     !!(email.blank? || email =~ /^generated_/)
   end

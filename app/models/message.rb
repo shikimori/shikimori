@@ -83,7 +83,8 @@ private
   end
 
   def send_email
-    EmailNotifier.instance.private_message(self) if kind == MessageType::Private
+    return unless kind == MessageType::Private
+    EmailNotifier.instance.private_message self
   end
 
   def send_push_notifications

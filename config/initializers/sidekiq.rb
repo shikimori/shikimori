@@ -1,3 +1,6 @@
+# https://github.com/mperham/sidekiq/issues/750
+require 'sidekiq/middleware/i18n'
+
 SidekiqUniqueJobs.config.unique_args_enabled = true
 SidekiqUniqueJobs.config.default_expiration = 30.days
 
