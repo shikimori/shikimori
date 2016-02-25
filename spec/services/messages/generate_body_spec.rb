@@ -110,7 +110,7 @@ describe Messages::GenerateBody do
         let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
         let(:comment) { build_stubbed :comment, id: 1 }
         let(:linked) { build_stubbed :ban, comment: comment }
-        it { is_expected.to eq "Вам вынесено предупреждение за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>.." }
+        it { is_expected.to eq "Вам вынесено предупреждение за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>." }
       end
     end
 
@@ -119,14 +119,14 @@ describe Messages::GenerateBody do
 
       context 'no comment' do
         let(:linked) { build_stubbed :ban }
-        it { is_expected.to eq "Вы забанены на 3 часа.. Причина: \"moderator comment\"." }
+        it { is_expected.to eq "Вы забанены на 3 часа. Причина: \"moderator comment\"." }
       end
 
       context 'comment' do
         let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
         let(:comment) { build_stubbed :comment, id: 1 }
         let(:linked) { build_stubbed :ban, comment: comment }
-        it { is_expected.to eq "Вы забанены на 3 часа. за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>.." }
+        it { is_expected.to eq "Вы забанены на 3 часа за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>." }
       end
     end
 

@@ -36,13 +36,51 @@ ru:
     finished: завершён
   bb_codes/contest_round_status_tag:
     finished: завершён
+
   messages/generate_body:
+    profile_comment:
+      female: >-
+        Написала что-то в вашем
+        <a class='b-link' href='%{profile_url}'>профиле</a>...
+      male:
+        Написал что-то в вашем
+        <a class='b-link' href='%{profile_url}'>профиле</a>...
+    friend_request:
+      add:
+        female: >-
+          Добавить её в свой список друзей в ответ?
+        male:
+          Добавить его в свой список друзей в ответ?
+      added:
+        female: >-
+          Добавила вас в список друзей.
+        male:
+          Добавил вас в список друзей.
+    quoted_by_user:
+      female: Написала что-то вам %{linked_name}
+      male: Написал что-то вам %{linked_name}
+    subscription_commented: Новые сообщения %{linked_name}
+    warned:
+      comment: >-
+        Вам вынесено предупреждение за комментарий %{linked_name}
+      removed_comment: >-
+        Вам вынесено предупреждение за удалённый комментарий.
+        Причина: "%{reason}".
+    banned:
+      comment: Вы забанены на %{duration} за комментарий %{linked_name}
+      other: Вы забанены на %{duration}. Причина: "%{reason}".
+    club_request: Приглашение на вступление в клуб [club]%{club_id}[/club].
     version_accepted: >-
-      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] принята.
+      Ваша [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] принята.
     version_rejected: >-
-      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена.
+      Ваша [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] отклонена.
     version_rejected_with_reason: >-
-      Ваша [version=%{version_id}]правка[/version] для [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине: [quote=%{moderator}]%{reason}[/quote]
+      Ваша [version=%{version_id}]правка[/version] для
+      [%{item_type}]%{item_id}[/%{item_type}] отклонена по причине:
+      [quote=%{moderator}]%{reason}[/quote]
+
   messages/mention_source:
     texts:
       nil: в <em>удалено</em>.
