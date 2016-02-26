@@ -5,8 +5,10 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
   before_filter :authenticate_user!, only: [:index]
   load_and_authorize_resource only: [:create]
 
+  RYUTER_TOKEN = 'b904f15dbd33a8d8ada48a2895c9de00ce91d6268651d798'
+
   def index
-    raise CanCan::AccessDenied unless current_user.trusted_video_uploader?
+    raise CanCan::AccessDenied unless access_granted?
 
     @collection = @anime.anime_videos.order(:episode)
     respond_with @collection, each_serializer: AnimeVideoSerializer
@@ -41,5 +43,9 @@ private
     params
       .require(:anime_video)
       .permit(*AnimeOnline::AnimeVideosController::CREATE_PARAMS)
+  end
+
+  def access_granted?
+    current_user.trusted_video_uploader? || params[:video_token] == RYUTER_TOKEN
   end
 end

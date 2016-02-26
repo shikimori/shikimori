@@ -3,7 +3,22 @@ describe Api::V1::AnimeVideosController do
   let!(:anime_video) { create :anime_video, anime: anime }
 
   describe '#index' do
-    let(:make_request) { get :index, anime_id: anime.id, format: :json }
+    let(:make_request) do
+      get :index, anime_id: anime.id, video_token: video_token, format: :json
+    end
+    let(:video_token) { }
+
+    context 'video_token' do
+      include_context :authenticated, :user
+      before { make_request }
+      let(:video_token) { Api::V1::AnimeVideosController::RYUTER_TOKEN }
+
+      it do
+        expect(collection).to have(1).item
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/json'
+      end
+    end
 
     context 'trusted video uploader' do
       include_context :authenticated, :trusted_video_uploader
