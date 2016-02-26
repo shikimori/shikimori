@@ -45,4 +45,18 @@ describe Menus::CollectionMenu do
       )
     end
   end
+
+  describe '#show_sorting?' do
+    before { allow(view.h).to receive(:params).and_return params }
+
+    context 'recommendations' do
+      let(:params) {{ controller: 'recommendations' }}
+      it { expect(view).to_not be_show_sorting }
+    end
+
+    context 'not recommendations' do
+      let(:params) {{ controller: 'animes_collection' }}
+      it { expect(view).to be_show_sorting }
+    end
+  end
 end

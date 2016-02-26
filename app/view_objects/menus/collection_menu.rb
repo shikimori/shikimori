@@ -52,6 +52,10 @@ class Menus::CollectionMenu < ViewObjectBase
     ]
   end
 
+  def show_sorting?
+    h.params[:controller] != 'recommendations'
+  end
+
 private
 
   def load_associations
