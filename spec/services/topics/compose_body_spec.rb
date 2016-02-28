@@ -20,7 +20,7 @@ describe Topics::ComposeBody do
       let(:user_image) { create :user_image }
       let(:wall_ids) { [user_image.id.to_s] }
 
-      it { is_expected.to eq "#{body}[wall][image=#{user_image.id}][/wall]" }
+      it { is_expected.to eq "#{body}[wall][wall_image=#{user_image.id}][/wall]" }
     end
 
     context 'video' do
@@ -36,7 +36,7 @@ describe Topics::ComposeBody do
       let(:wall_ids) { [user_image.id.to_s] }
       let(:video_id) { video.id.to_s }
 
-      it { is_expected.to eq "#{body}[wall][video=#{video.id}][image=#{user_image.id}][/wall]" }
+      it { is_expected.to eq "#{body}[wall][video=#{video.id}][wall_image=#{user_image.id}][/wall]" }
     end
   end
 end

@@ -60,7 +60,8 @@ class Ban < ActiveRecord::Base
   # callbacks
   def ban_user
     return if warning?
-    user.update_column :read_only_at, [user.read_only_at || DateTime.now, DateTime.now].max + duration.minutes
+    start_at = [user.read_only_at || Time.zone.now, Time.zone.now].max
+    user.update_column :read_only_at, start_at + duration.minutes
   end
 
   def notify_user

@@ -101,6 +101,9 @@ module Clockwork
 
   every 1.week, 'weekly.stuff', at: 'Monday 05:45' do
     NameMatches::Refresh.perform_async Anime.name
+  end
+
+  every 1.week, 'weekly.stuff', at: 'Monday 06:15' do
     NameMatches::Refresh.perform_async Manga.name
   end
 end

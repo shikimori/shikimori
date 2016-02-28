@@ -1,19 +1,19 @@
 describe Ban do
   describe 'relations' do
-    it { should belong_to :user }
-    it { should belong_to :moderator }
-    it { should belong_to :comment }
-    it { should belong_to :abuse_request }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :moderator }
+    it { is_expected.to belong_to :comment }
+    it { is_expected.to belong_to :abuse_request }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :user }
-    it { should validate_presence_of :moderator }
-    it { should validate_presence_of :duration }
-    it { should validate_presence_of :reason }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :moderator }
+    it { is_expected.to validate_presence_of :duration }
+    it { is_expected.to validate_presence_of :reason }
 
-    #it { should validate_presence_of :comment }
-    #it { should validate_presence_of :abuse_request }
+    #it { is_expected.to validate_presence_of :comment }
+    #it { is_expected.to validate_presence_of :abuse_request }
   end
 
   let(:duration) { 60 }
@@ -62,12 +62,12 @@ describe Ban do
 
       describe true do
         let(:duration) { 0 }
-        it { should be_truthy }
+        it { is_expected.to be_truthy }
       end
 
       describe false do
         let(:duration) { 1 }
-        it { should be_falsy }
+        it { is_expected.to be_falsy }
       end
     end
 
@@ -77,28 +77,29 @@ describe Ban do
 
       context 'warning' do
         let(:duration) { 0 }
-        it { should eq "предупреждение. #{reason}." }
+        it { is_expected.to eq "предупреждение. #{reason}." }
       end
 
       context 'ban' do
         let(:duration) { '3h 5m' }
-        it { should eq "бан на 3 часа 5 минут. #{reason}." }
+        it { is_expected.to eq "бан на 3 часа 5 минут. #{reason}." }
       end
     end
 
     describe '#ban_user' do
-      subject { user.read_only_at.to_i }
-      let!(:now) { DateTime.now }
-      let!(:ban) { create :ban, params.merge(created_at: now) }
-      before { allow(DateTime).to receive(:now).and_return now }
+      before { Timecop.freeze }
+      after { Timecop.return }
+
+      subject { user.read_only_at }
+      let!(:ban) { create :ban, params.merge(created_at: Time.zone.now) }
 
       context 'user_witout_prior_ban' do
-        it { should be_within(1).of (now + ban.duration.minutes).to_i }
+        it { is_expected.to eq ban.duration.minutes.from_now }
       end
 
       context 'user_with_prior_ban' do
-        let(:user) { create :user, read_only_at: now + 10.minutes }
-        it { should be_within(1).of (now + ban.duration.minutes + 10.minutes).to_i }
+        let(:user) { create :user, read_only_at: 10.minutes.from_now }
+        it { is_expected.to eq 10.minutes.from_now + ban.duration.minutes }
       end
     end
 
@@ -108,13 +109,13 @@ describe Ban do
 
        context 'no_prior_ban' do
         let!(:ban) { create :ban, params }
-        it { should eq "test\n\n[ban=#{ban.id}]" }
+        it { is_expected.to eq "test\n\n[ban=#{ban.id}]" }
       end
 
        context 'with_prior_ban' do
         let!(:prior_ban) { create :ban, params }
         let!(:ban) { create :ban, params }
-        it { should eq "test\n\n[ban=#{prior_ban.id}][ban=#{ban.id}]" }
+        it { is_expected.to eq "test\n\n[ban=#{prior_ban.id}][ban=#{ban.id}]" }
       end
     end
 
@@ -132,42 +133,42 @@ describe Ban do
 
       context '0 bans' do
         let(:bans_count) { 0 }
-        it { should eq '0m' }
+        it { is_expected.to eq '0m' }
       end
 
       context '1 ban' do
         let(:bans_count) { 1 }
-        it { should eq '15m' }
+        it { is_expected.to eq '15m' }
       end
 
       context '2 bans' do
         let(:bans_count) { 2 }
-        it { should eq '2h' }
+        it { is_expected.to eq '2h' }
       end
 
       context '5 bans' do
         let(:bans_count) { 5 }
-        it { should eq '1d 7h 15m' }
+        it { is_expected.to eq '1d 7h 15m' }
       end
 
       context '8 bans' do
         let(:bans_count) { 8 }
-        it { should eq '2d 16h' }
+        it { is_expected.to eq '2d 16h' }
       end
 
       context '12 bans' do
         let(:bans_count) { 12 }
-        it { should eq '6d' }
+        it { is_expected.to eq '6d' }
       end
 
       context '15 bans' do
         let(:bans_count) { 15 }
-        it { should eq '1w 2d 9h' }
+        it { is_expected.to eq '1w 2d 9h' }
       end
 
       context '16 bans' do
         let(:bans_count) { 16 }
-        it { should eq '1w 3d 12h' }
+        it { is_expected.to eq '1w 3d 12h' }
       end
     end
 
@@ -175,8 +176,8 @@ describe Ban do
       let(:abuse_request) { create :abuse_request, user: user, comment: comment }
       let(:ban) { create :ban, params.merge(abuse_request: abuse_request) }
       subject { ban.abuse_request }
-      it { should be_accepted }
-      its(:approver_id) { should eq ban.moderator_id }
+      it { is_expected.to be_accepted }
+      its(:approver_id) { is_expected.to eq ban.moderator_id }
     end
   end
 end
