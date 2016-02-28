@@ -15,9 +15,9 @@
       $image = $("<a href='#{data.url}' rel='new-wall' class='b-image b-link' id='#{data.id}'>\
 <img src='#{data.preview}' class=''>
 <div class='mobile-edit'></div><div class='controls'>
-<div class='delete' title='Удалить картинку'></div>\
-<div class='confirm' title='Подтвердить удаление'></div>\
-<div class='cancel' title='Отменить удаление'></div></div></a>").appendTo($wall)
+<div class='delete'></div>\
+<div class='confirm'></div>\
+<div class='cancel'></div></div></a>").appendTo($wall)
 
       $('.confirm', $image).on 'click', ->
         remove_image $image, $wall

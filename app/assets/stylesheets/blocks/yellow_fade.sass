@@ -1,0 +1,10 @@
+@import compass/css3/transition
+
+.yellow-fade
+  outline: 10px solid #ffffcc
+  background: #ffffcc
+
+.yellow-fade-animated
+  +transition(background-color 1s ease, outline-color 1s ease)
+  outline-color: transparent
+  background-color: transparent
