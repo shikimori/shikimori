@@ -6,6 +6,12 @@
     = render 'comments/shiki_editor', text: resource.object.description_en,
       field_name: "#{resource.object.class.name.downcase}[description_en]"
 
+    = render 'blocks/source',
+      entry: resource,
+      authors: resource.versions.authors(:description_ru),
+      field: 'description',
+      default_source: resource.mal_url
+
   = f.input :source
   = render 'versions/reason'
 

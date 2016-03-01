@@ -1,6 +1,6 @@
 # sudo apt-get install libjpeg-progs
 class Proxy < ActiveRecord::Base
-  SafeErrors = /queue empty|execution expired|banned|connection refused|connection reset by peer|no route to host|end of file reached/i
+  SAFE_ERRORS = /queue empty|execution expired|banned|connection refused|connection reset by peer|no route to host|end of file reached/i
   cattr_accessor :use_proxy, :use_cache, :show_log
 
   # список проксей
@@ -141,7 +141,7 @@ class Proxy < ActiveRecord::Base
 
         rescue Exception => e
           raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
-          if e.message =~ SafeErrors
+          if e.message =~ SAFE_ERRORS
             log "#{e.message}", options
           else
             log "#{e.message}\n#{e.backtrace.join("\n")}", options
@@ -187,7 +187,7 @@ class Proxy < ActiveRecord::Base
 
     rescue Exception => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
-      if e.message =~ SafeErrors
+      if e.message =~ SAFE_ERRORS
         log "#{e.message}", options
       else
         log "#{e.message}\n#{e.backtrace.join("\n")}", options
@@ -217,7 +217,7 @@ class Proxy < ActiveRecord::Base
       resp.body
     rescue Exception => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
-      if e.message =~ SafeErrors
+      if e.message =~ SAFE_ERRORS
         log "#{e.message}", options
       else
         log "#{e.message}\n#{e.backtrace.join("\n")}", options
