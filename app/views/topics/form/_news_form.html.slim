@@ -11,31 +11,30 @@
         .b-js-action.remove.hidden = t('actions.delete').downcase
 
       .form
-        - if current_user.admin?
-          = ff.input :url,
-            hint: Video::SAVEABLE_HOSTINGS.join(', '),
-            label: Video.human_attribute_name(:url),
-            wrapper_html: { class: 'video-url' },
-            input_html: { value: decomposed_body.wall_video&.url }
-          .cc-name-kind
-            .c-column
-              = ff.input :kind,
-                as: :select,
-                collection: [Video::PV, Video::OP, Video::ED],
-                include_blank: false,
-                label: Video.human_attribute_name(:kind),
-                wrapper_html: { class: 'video-kind' },
-              input_html: { value: decomposed_body.wall_video&.kind }
-            .c-column
-              = ff.input :name,
-                label: Video.human_attribute_name(:name),
-                wrapper_html: { class: 'video-name' },
-                input_html: { value: decomposed_body.wall_video&.name }
+        = ff.input :url,
+          hint: Video::SAVEABLE_HOSTINGS.join(', '),
+          label: Video.human_attribute_name(:url),
+          wrapper_html: { class: 'video-url' },
+          input_html: { value: decomposed_body.wall_video&.url }
+        .cc-name-kind
+          .c-column
+            = ff.input :kind,
+              as: :select,
+              collection: [Video::PV, Video::OP, Video::ED],
+              include_blank: false,
+              label: Video.human_attribute_name(:kind),
+              wrapper_html: { class: 'video-kind' },
+            input_html: { value: decomposed_body.wall_video&.kind }
+          .c-column
+            = ff.input :name,
+              label: Video.human_attribute_name(:name),
+              wrapper_html: { class: 'video-name' },
+              input_html: { value: decomposed_body.wall_video&.name }
 
-          .m5
-            .errors
-            .button.attach data-url="#{anime_videos_url anime_id: 'ANIME_ID'}"
-              = t '.attach'
+        .m5
+          .errors
+          .button.attach data-url="#{anime_videos_url anime_id: 'ANIME_ID'}"
+            = t '.attach'
 
 .topic_posters
   .title = t '.topic_posters'
