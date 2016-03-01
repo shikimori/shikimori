@@ -19,6 +19,9 @@ class BbCodeFormatter
     BbCodes::ContestStatusTag, BbCodes::ContestRoundStatusTag,
     BbCodes::Html5VideoTag, BbCodes::SourceTag
   ]
+  OBSOLETE_TAGS = %r(
+    \[user_change=\d+\] | \[\/user_change\]
+  )mix
 
   default_url_options[:host] ||= if Rails.env.development?
     'shikimori.dev'
@@ -79,6 +82,8 @@ class BbCodeFormatter
     BbCodeReplacers.each do |processor|
       text = send processor, text
     end
+
+    text = text.gsub OBSOLETE_TAGS, ''
 
     text = db_entry_mention text
     text = anime_to_html text
