@@ -476,6 +476,9 @@ private
       when 'user_1', 'user_2' # кастомные сортировки
         nil
 
+      when 'random'
+        'random()'
+
       else
         #raise ArgumentError, "unknown order '#{field}'"
         order_sql AniMangaQuery::DefaultOrder, klass
