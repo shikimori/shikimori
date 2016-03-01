@@ -1,16 +1,24 @@
 describe Api::V1::AnimesController, :show_in_doc do
   describe '#index' do
-    let(:user) { create :user }
+    include_context :authenticated, :user
+
     let(:genre) { create :genre }
     let(:studio) { create :studio }
-    let(:anime) { create :anime, name: 'Test', aired_on: Date.parse('2014-01-01'),
-      studios: [studio], genres: [genre], duration: 90, rating: :r }
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
+    let(:anime) do
+      create :anime,
+        name: 'Test',
+        aired_on: Date.parse('2014-01-01'),
+        studios: [studio],
+        genres: [genre],
+        duration: 90,
+        rating: :r,
+        score: 8
+    end
 
-    before { sign_in user }
     before { get :index, page: 1, limit: 1, type: 'TV', season: '2014',
       genre: genre.id.to_s, studio: studio.id.to_s, duration: 'F', rating: 'r',
-      search: 'Te', order: 'ranked', mylist: '1', format: :json }
+      search: 'Te', order: 'ranked', mylist: '1', score: '6', format: :json }
 
     it do
       expect(collection).to have(1).item
