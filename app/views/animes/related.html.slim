@@ -6,16 +6,9 @@
       a href="#{@resource.franchise_url}" = t '.franchise'
 
   .subheadline-buttons
-    span.item-list_switcher[
-      class="#{:selected if cookies['related_view'] != 'posters'}"
-      data-name="related_view"
-      data-value="list"
-    ]
-    span.item-posters_switcher[
-      class="#{:selected if cookies['related_view'] == 'posters'}"
-      data-name="related_view"
-      data-value="posters"
-    ]
+    = render 'blocks/list_switchers',
+      name: 'related_view',
+      values: ['list', 'posters']
 
   - if cookies['related_view'] == 'posters'
     .subheadline.m10 = @page_title.last

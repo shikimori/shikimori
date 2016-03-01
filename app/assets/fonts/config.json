@@ -491,6 +491,12 @@
       "css": "asterisk-1",
       "code": 59466,
       "src": "elusive"
+    },
+    {
+      "uid": "84d19120538dd143b9cf5433f2417f48",
+      "css": "th-list-1",
+      "code": 59406,
+      "src": "websymbols"
     }
   ]
 }

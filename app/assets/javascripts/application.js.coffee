@@ -85,6 +85,11 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
   #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
+  # переключатели видов отображения списка
+  $('.b-list_switchers .switcher').on 'click', ->
+    $.cookie $(@).data('name'), $(@).data('value'), expires: 730, path: "/"
+    Turbolinks.visit location.href
+
 #$(document).on 'page:fetch', ->
   #$('.l-page').css opacity: 0.3
 

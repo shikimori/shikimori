@@ -1,0 +1,7 @@
+.b-list_switchers
+  - values.each do |value|
+    span.switcher[
+      class="#{value} #{:selected if cookies[name] == value}"
+      data-name="#{name}"
+      data-value="#{value}"
+    ]
