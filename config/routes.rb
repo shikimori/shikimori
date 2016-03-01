@@ -3,8 +3,8 @@ require 'sidekiq/web'
 Site::Application.routes.draw do
   ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
-(/rating/:rating)(/options/:options)(/mylist/:mylist)(/search/:search)\
-(/order-by/:order)(/page/:page)(.:format)"
+(/rating/:rating)(/score/:score)(/options/:options)(/mylist/:mylist)\
+(/search/:search)(/order-by/:order)(/page/:page)(.:format)"
 
   concern :db_entry do |options|
     member do

@@ -29,6 +29,7 @@ class AniMangaQuery
     @publisher = params[:publisher]
 
     @rating = params[:rating]
+    @score = params[:score]
     @duration = params[:duration]
     @season = params[:season]
     @status = params[:status]
@@ -58,6 +59,7 @@ class AniMangaQuery
     associations!
 
     rating!
+    score!
     duration!
     season!
     status!
@@ -201,6 +203,15 @@ private
     end
     if ratings[:exclude].any?
       @query = @query.where.not(rating: ratings[:exclude])
+    end
+  end
+
+  # фильтрация по оценке
+  def score!
+    return if @score.blank?
+
+    @score.split(',').each do |score|
+      @query = @query.where("score >= #{score.to_i}")
     end
   end
 

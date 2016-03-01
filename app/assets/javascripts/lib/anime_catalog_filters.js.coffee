@@ -9,7 +9,10 @@ DEFAULT_LIST_SORT = "ranked"
     return null unless matches
     type = matches[1]
     value = matches[2]
-    if type.match(/genre-\d+/) or type.match(/studio-\d+/) or type.match(/publisher-\d+/) or type.match(/type-\w+/) or type.match(/rating-\w+/) or type.match(/duration-\w+/)
+    if type.match(/genre-\d+/) || type.match(/studio-\d+/) ||
+        type.match(/publisher-\d+/) || type.match(/type-\w+/) ||
+        type.match(/rating-\w+/) || type.match(/score-\d+/) ||
+        type.match(/duration-\w+/)
       tmp = type.split("-")
       type = tmp[0]
       value = tmp.slice(1).join("-") + "-" + value
@@ -61,6 +64,7 @@ DEFAULT_LIST_SORT = "ranked"
     publisher: []
     duration: []
     rating: []
+    score: []
     options: []
     mylist: []
     search: []
@@ -111,8 +115,12 @@ DEFAULT_LIST_SORT = "ranked"
   # клики по фильтру элемента - плюсику или минусику
   $('.anime-params li', $root).on 'click', '.filter', (e) ->
     to_exclude = $(@).hasClass('item-add')
-    $(@).removeClass((if to_exclude then 'item-add' else 'item-minus')).addClass (if not to_exclude then "item-add" else "item-minus")
-    li_info = extract_li_info($(@).parent())
+
+    $(@)
+      .removeClass((if to_exclude then 'item-add' else 'item-minus'))
+      .addClass (if not to_exclude then "item-add" else "item-minus")
+
+    li_info = extract_li_info $(@).parent()
     value_key = _.indexOf(data[li_info.type], (if to_exclude then li_info.value else "!" + li_info.value))
     data[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback params.compile()

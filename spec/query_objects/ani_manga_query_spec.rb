@@ -234,6 +234,14 @@ describe AniMangaQuery do
       end
     end
 
+    describe 'score' do
+      let!(:anime_1) { create :anime, score: 6.9 }
+      let!(:anime_2) { create :anime, score: 7.0, ranked: 1 }
+      let!(:anime_3) { create :anime, score: 7.1, ranked: 1 }
+
+      it { expect(fetch score: '7').to eq [anime_3, anime_2] }
+    end
+
     describe 'duration' do
       let!(:anime_1) { create :anime, duration: 10 }
       let!(:anime_2) { create :anime, duration: 20 }
