@@ -4,7 +4,7 @@
       .subheadline = t '.errors'
       == @resource.errors.full_messages.join('<br>')
 
-  .b-options-floated.mobile-support.mobile-landscape
+  .b-options-floated.mobile-phone
     a[
       class="#{:selected if @page == 'account' || @page == 'password'}"
       href="#{edit_profile_url @resource, page: 'account'}"

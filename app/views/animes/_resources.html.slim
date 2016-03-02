@@ -5,7 +5,7 @@
       .c-column.block_m
         /.subheadline.m5
           span.link.linkeable data-href="#{@resource.franchise_url}" Связанное
-        .b-options-floated.mobile-support.mobile-landscape
+        .b-options-floated.mobile-phone
           span.link.linkeable data-href="#{@resource.related_url}"
             = t 'animes.page.linked_directly'
 
@@ -89,7 +89,7 @@
           = render @resource.videos(5)
 
 /- if @resource.related.related.any?
-  /.b-options-floated.mobile-support
+  /.b-options-floated.mobile-phone
     /span.link.selected Напрямую
     /span.link.linkeable data-href="#{@resource.chronology_url}" Вся хронология
   /.subheadline.m10 Связанное

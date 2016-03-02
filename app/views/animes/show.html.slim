@@ -138,7 +138,7 @@
       .ajax-loading.vk-like title="#{t 'loading'}"
 
   - if user_signed_in? || @resource.comments_count > 0
-    .b-options-floated.mobile-support
+    .b-options-floated.mobile-phone_portrait
       - if @resource.summaries? && @resource.comments_count != @resource.summaries_count
         span.linkeable data-href="#{@resource.summaries_url}"
           = t '.all_summaries'
