@@ -74,7 +74,7 @@ private
     end
   end
 
-  def club_invite
+  def club_request
     BbCodeFormatter.instance.format_comment(
       i18n_t('club_request', club_id: message.linked.club_id)
     )
