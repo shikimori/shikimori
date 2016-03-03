@@ -1,6 +1,6 @@
 class DbEntryDecorator < BaseDecorator
   instance_cache :description_ru, :description_en, :description_html,
-    :main_thread, :preview_thread, :linked_clubs, :all_linked_clubs,
+    :main_topic_view, :preview_topic_view, :linked_clubs, :all_linked_clubs,
     :favoured, :favoured?, :all_favoured
 
   MAX_CLUBS = 4
@@ -63,13 +63,13 @@ class DbEntryDecorator < BaseDecorator
   end
 
   # полный топик
-  def main_thread
-    Topics::Factory.new(false, false).build thread
+  def main_topic_view
+    Topics::TopicViewFactory.new(false, false).build topic
   end
 
   # превью топика
-  def preview_thread
-    Topics::Factory.new(true, false).build thread
+  def preview_topic_view
+    Topics::TopicViewFactory.new(true, false).build topic
   end
 
   # связанные клубы

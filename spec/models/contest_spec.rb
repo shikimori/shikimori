@@ -6,7 +6,7 @@ describe Contest do
     it { is_expected.to have_many :links }
     it { is_expected.to have_many :rounds }
     it { is_expected.to have_many :suggestions }
-    it { is_expected.to have_one :thread }
+    it { is_expected.to have_one :topic }
   end
 
   describe 'validations' do
@@ -80,11 +80,11 @@ describe Contest do
     end
 
     context 'after propose' do
-      let(:contest) { create :contest, :with_5_members, :with_thread }
+      let(:contest) { create :contest, :with_5_members, :with_topic }
 
-      it 'creates thread' do
+      it 'creates topic' do
         contest.propose!
-        expect(contest.reload.thread.present?).to be_truthy
+        expect(contest.reload.topic.present?).to be_truthy
       end
     end
 
@@ -94,10 +94,10 @@ describe Contest do
         expect(contest.rounds.first.started?).to be_truthy
       end
 
-      let(:contest) { create :contest, :with_5_members, :with_thread }
-      it 'creates thread' do
+      let(:contest) { create :contest, :with_5_members, :with_topic }
+      it 'creates topic' do
         contest.start!
-        expect(contest.reload.thread.present?).to be_truthy
+        expect(contest.reload.topic.present?).to be_truthy
       end
     end
 

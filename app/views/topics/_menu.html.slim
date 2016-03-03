@@ -35,8 +35,8 @@
       - menu.reviews.each do |entry|
         li.entry
           a[
-            href="#{forum_topic_url forum: entry.thread.forum, id: entry.thread}"
-            title="#{entry.thread.title}"
+            href="#{forum_topic_url forum: entry.topic.forum, id: entry.topic}"
+            title="#{entry.topic.title}"
           ]
             .image-name
               img[

@@ -14,7 +14,7 @@ describe CosplayGalleriesController do
 
     it do
       expect(response).to redirect_to UrlGenerator.instance
-        .topic_url(cosplay_gallery.reload.thread)
+        .topic_url(cosplay_gallery.reload.topic)
     end
   end
 end

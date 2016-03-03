@@ -15,12 +15,12 @@
     - else
       = render 'round', contest: @resource
 
-  - if user_signed_in? || @resource.thread.comments_count > 0
-    - if @resource.thread.comments_count > 0
+  - if user_signed_in? || @resource.topic.comments_count > 0
+    - if @resource.topic.comments_count > 0
       .subheadline.m3
         .linkeable[
           data-href="#{comments_contest_url @resource}"
         ] = t '.discussion'
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_thread.comments
+      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
+        = render 'topics/comments', view: @resource.preview_topic_view.comments

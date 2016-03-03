@@ -23,7 +23,7 @@ class Contest < ActiveRecord::Base
     class_name: ContestRound.name,
     dependent: :destroy
 
-  has_one :thread, -> { where linked_type: Contest.name },
+  has_one :topic, -> { where linked_type: Contest.name },
     class_name: Topics::EntryTopics::ContestTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
@@ -45,7 +45,7 @@ public
   has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
 
   before_save :update_permalink
-  after_save :sync_thread
+  after_save :sync_topic
 
   state_machine :state, initial: :created do
     state :created, :proposing do
@@ -77,7 +77,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.send :generate_thread unless contest.thread
+      contest.send :generate_topic unless contest.topic
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -188,11 +188,11 @@ private
     self.permalink = title.permalinked if changes.include? :title
   end
 
-  def sync_thread
-    thread.update title: title if thread && thread.title != title
+  def sync_topic
+    topic.update title: title if topic && topic.title != title
   end
 
-  def generate_thread
+  def generate_topic
     FayeService
       .new(user, '')
       .create!(Topics::EntryTopics::ContestTopic.new(

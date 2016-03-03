@@ -5,7 +5,7 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_one :thread, -> { where linked_type: klass.name },
+    klass.has_one :topic, -> { where linked_type: klass.name },
       class_name: "Topics::EntryTopics::#{klass.name}Topic",
       foreign_key: :linked_id,
       dependent: :destroy
@@ -16,8 +16,8 @@ class DbEntry < ActiveRecord::Base
 
     klass.has_many :clubs, through: :club_links
 
-    klass.after_create :generate_thread
-    # klass.after_save :sync_thread
+    klass.after_create :generate_topic
+    # klass.after_save :sync_topic
     #klass.before_save :filter_russian, if: -> { changes['russian'] }
   end
 
@@ -40,11 +40,11 @@ class DbEntry < ActiveRecord::Base
 private
 
   # создание топика для элемента сразу после создания элемента
-  def generate_thread
-    thread_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
-    thread_klass.wo_timestamp do
-      self.thread = thread_klass.create!(
-        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
+  def generate_topic
+    topic_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
+    topic_klass.wo_timestamp do
+      self.topic = topic_klass.create!(
+        forum_id: Topic::FORUM_IDS[self.class.name],
         generated: true,
         linked: self,
         title: name,
@@ -56,12 +56,12 @@ private
   end
 
   # при сохранении аниме обновление его топика
-  # def sync_thread
+  # def sync_topic
     # return unless changes['name']
 
-    # thread.class.wo_timestamp do
-      # thread.sync
-      # thread.save
+    # topic.class.wo_timestamp do
+      # topic.sync
+      # topic.save
     # end
   # end
 

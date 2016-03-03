@@ -17,8 +17,8 @@
         span.number #{club.members_count}
         span.value = i18n_i 'member', club.members_count
       span.grouped
-        span.number #{number_with_delimiter club.thread.comments_count, delimiter: ' '}
-        span.value #{club.thread.comments_count < 1000 ? i18n_i('comment', club.thread.comments_count) : i18n_i('comment', :many)}
+        span.number #{number_with_delimiter club.topic.comments_count, delimiter: ' '}
+        span.value #{club.topic.comments_count < 1000 ? i18n_i('comment', club.topic.comments_count) : i18n_i('comment', :many)}
     .info.author
       .b-user16
         a href="#{profile_url club.owner}" title="#{club.owner.nickname}"

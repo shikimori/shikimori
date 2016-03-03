@@ -4,6 +4,6 @@ class ClubProfileSerializer < ClubSerializer
   has_many :members, :animes, :mangas, :characters, :images
 
   def thread_id
-    object.thread.id
+    object.topic.id
   end
 end

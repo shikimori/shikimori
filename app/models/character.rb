@@ -6,7 +6,8 @@ class Character < DbEntry
   has_many :mangas, -> { order :id }, through: :person_roles
   has_many :persons, through: :person_roles
 
-  has_many :japanese_roles, -> { where role: 'Japanese' }, class_name: PersonRole.name
+  has_many :japanese_roles, -> { where role: 'Japanese' },
+    class_name: PersonRole.name
   has_many :seyu, through: :japanese_roles, source: :person
 
   has_attached_file :image,

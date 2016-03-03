@@ -1,6 +1,6 @@
 describe Api::V1::CharactersController, :show_in_doc do
   describe '#show' do
-    let(:character) { create :character, :with_thread }
+    let(:character) { create :character, :with_topic }
     before { get :show, id: character.id, format: :json }
 
     it do

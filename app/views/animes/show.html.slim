@@ -153,5 +153,5 @@
       .subheadline.m3
         = i18n_io @resource.summaries? ? 'Summary' : 'Comment', :few
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_summaries_thread.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_summaries_thread.comments
+      .b-topic.unprocessed data-faye="#{@resource.preview_summaries_topic.faye_channel}"
+        = render 'topics/comments', view: @resource.preview_summaries_topic.comments

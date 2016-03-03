@@ -7,7 +7,7 @@ FactoryGirl.define do
     description ''
 
     after :build do |club|
-      club.stub :generate_thread
+      club.stub :generate_topic
       club.stub :join_owner
     end
 
@@ -43,9 +43,9 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_thread do
+    trait :with_topic do
       after :build do |club|
-        club.unstub :generate_thread
+        club.unstub :generate_topic
       end
     end
 

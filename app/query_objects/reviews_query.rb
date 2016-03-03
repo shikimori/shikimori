@@ -10,7 +10,7 @@ class ReviewsQuery
   def fetch
     reviews = @entry
       .reviews
-      .includes(:user, :votes, :thread)
+      .includes(:user, :votes, :topic)
       .with_viewed(@user)
 
     if @id.present? && @id != 0

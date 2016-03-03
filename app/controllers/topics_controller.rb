@@ -66,7 +66,7 @@ class TopicsController < ShikimoriController
 
   # html код для тултипа
   def tooltip
-    topic = Topics::Factory.new(true, true).find params[:id]
+    topic = Topics::TopicViewFactory.new(true, true).find params[:id]
 
     # превью топика отображается в формате комментария
     # render partial: 'comments/comment', layout: false, object: topic, formats: :html
@@ -84,7 +84,7 @@ class TopicsController < ShikimoriController
     topics = Entry
       .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
-      .map { |topic| Topics::Factory.new(true, false).build topic }
+      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
 
     render(
       partial: 'topics/topic',
@@ -98,7 +98,7 @@ class TopicsController < ShikimoriController
   # подгружаемое через ajax тело топика
   def reload
     topic = Entry.with_viewed(current_user).find params[:id]
-    view = Topics::Factory.new(params[:is_preview] == 'true', false).build topic
+    view = Topics::TopicViewFactory.new(params[:is_preview] == 'true', false).build topic
 
     # render 'topics/topic', view: view
     render partial: 'topics/topic', object: view, as: :view
@@ -128,7 +128,7 @@ private
 
     if params[:action] == 'show'
       @resource = Entry.with_viewed(current_user).find(params[:id])
-      @topic_view = Topics::Factory.new(false, false).build @resource if @resource
+      @topic_view = Topics::TopicViewFactory.new(false, false).build @resource if @resource
     end
   end
 

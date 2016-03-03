@@ -11,14 +11,14 @@ class Moderations::ReviewsController < ModerationsController
     @processed = postload_paginate(params[:page], 25) do
       Review
         .where(state: ['accepted', 'rejected'])
-        .includes(:user, :approver, :target, :thread)
+        .includes(:user, :approver, :target, :topic)
         .order(created_at: :desc)
     end
 
     # if user_signed_in? && current_user.reviews_moderator?
     @pending = Review
       .where(state: 'pending')
-      .includes(:user, :approver, :target, :thread)
+      .includes(:user, :approver, :target, :topic)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)
     # end

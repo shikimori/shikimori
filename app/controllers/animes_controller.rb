@@ -9,7 +9,7 @@ class AnimesController < DbEntriesController
     #cache_path: proc {
       #id = params[:anime_id] || params[:manga_id] || params[:id]
       #@resource ||= klass.find(id.to_i)
-      #"#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.thread.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
+      #"#{klass.name}|#{Digest::MD5.hexdigest params.to_json}|#{@resource.updated_at.to_i}|#{@resource.topic.updated_at.to_i}|#{json?}|v3|#{request.xhr?}"
     #},
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
@@ -90,13 +90,13 @@ class AnimesController < DbEntriesController
   end
 
   def comments
-    return redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+    return redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
   def reviews
     return redirect_to @resource.url, status: 301 if @resource.summaries_count.zero?
     page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
-    #@canonical = UrlGenerator.instance.topic_url(@resource.thread)
+    #@canonical = UrlGenerator.instance.topic_url(@resource.topic)
   end
 
   def art
@@ -126,7 +126,9 @@ class AnimesController < DbEntriesController
   end
 
   def clubs
-    return redirect_to @resource.url, status: 301 if @resource.all_linked_clubs.none?
+    if @resource.all_linked_clubs.none?
+      return redirect_to @resource.url, status: 301 
+    end
 
     noindex
     page_title i18n_i('Club', :other)

@@ -3,8 +3,8 @@ describe Api::V1::ClubsController, :show_in_doc do
 
   describe '#index' do
     let(:user) { create :user }
-    let(:club_1) { create :club, :with_thread }
-    let(:club_2) { create :club, :with_thread }
+    let(:club_1) { create :club, :with_topic }
+    let(:club_2) { create :club, :with_topic }
 
     before do
       club_1.members << user
@@ -22,7 +22,7 @@ describe Api::V1::ClubsController, :show_in_doc do
 
   describe '#show' do
     include_context :authenticated, :user
-    let(:club) { create :club, :with_thread }
+    let(:club) { create :club, :with_topic }
     before do
       club.members << user
       club.animes << create(:anime)

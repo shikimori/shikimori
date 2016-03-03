@@ -32,8 +32,8 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   describe 'import' do
-    let!(:character_1) { create :character, :with_thread, id: 8177 }
-    let!(:character_2) { create :character, :with_thread, id: 26201, imported_at: Time.zone.now }
+    let!(:character_1) { create :character, :with_topic, id: 8177 }
+    let!(:character_2) { create :character, :with_topic, id: 26201, imported_at: Time.zone.now }
 
     it { expect(parser.prepare.size).to eq(1) }
 

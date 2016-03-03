@@ -7,7 +7,7 @@ class CharacterProfileSerializer < CharacterSerializer
   has_many :mangas
 
   def thread_id
-    object.thread.id
+    object.topic.id
   end
 
   def description

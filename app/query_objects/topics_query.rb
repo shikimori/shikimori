@@ -72,7 +72,7 @@ class TopicsQuery < ChainableQueryBase
 
   def as_views is_preview, is_mini
     result.map do |topic|
-      Topics::Factory.new(is_preview, is_mini).build topic
+      Topics::TopicViewFactory.new(is_preview, is_mini).build topic
     end
   end
 

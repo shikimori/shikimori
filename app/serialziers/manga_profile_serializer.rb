@@ -15,7 +15,7 @@ class MangaProfileSerializer < MangaSerializer
   end
 
   def thread_id
-    object.thread.id
+    object.topic.id
   end
 
   def myanimelist_id

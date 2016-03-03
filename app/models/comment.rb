@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
 
   MIN_REVIEW_SIZE = 230
 
-  # assiciations
+  # associations
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,

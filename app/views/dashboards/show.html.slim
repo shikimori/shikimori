@@ -70,7 +70,7 @@
       .block
         - @view.forums.each do |forum|
           .forum
-            .threads #{forum.size} #{i18n_i 'topic', forum.size}
+            .topics #{forum.size} #{i18n_i 'topic', forum.size}
             .link-with-input
               a.link href="#{forum.url}" = forum.name
 

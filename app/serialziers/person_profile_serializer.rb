@@ -21,6 +21,6 @@ class PersonProfileSerializer < PersonSerializer
   end
 
   def thread_id
-    object.thread.try :id
+    object.topic.try :id
   end
 end

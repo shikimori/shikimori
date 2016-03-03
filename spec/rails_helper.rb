@@ -93,15 +93,15 @@ RSpec.configure do |config|
 
     FactoryGirl::SeedGenerator.create :offtopic_forum, id: id
     FactoryGirl::SeedGenerator.create :reviews_forum,
-      id: DbEntryThread::FORUM_IDS['Review']
+      id: Topic::FORUM_IDS['Review']
     FactoryGirl::SeedGenerator.create :animanga_forum,
-      id: DbEntryThread::FORUM_IDS['Anime']
+      id: Topic::FORUM_IDS['Anime']
     FactoryGirl::SeedGenerator.create :contests_forum,
-      id: DbEntryThread::FORUM_IDS['Contest']
+      id: Topic::FORUM_IDS['Contest']
     FactoryGirl::SeedGenerator.create :clubs_forum,
-      id: DbEntryThread::FORUM_IDS['Club']
+      id: Topic::FORUM_IDS['Club']
     FactoryGirl::SeedGenerator.create :cosplay_forum,
-      id: DbEntryThread::FORUM_IDS['CosplayGallery']
+      id: Topic::FORUM_IDS['CosplayGallery']
 
     FactoryGirl::SeedGenerator.create :topic, id: id
   end

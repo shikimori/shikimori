@@ -1,6 +1,11 @@
 = render layout: 'page' do
   .logo.block
-    center: img src="#{@resource.logo.url :main}" alt="#{@resource.name}" title="#{@resource.name}"
+    center
+      img[
+        src="#{@resource.logo.url :main}"
+        alt="#{@resource.name}"
+        title="#{@resource.name}"
+      ]
 
   .block
     = @resource.description_html
@@ -16,14 +21,14 @@
           .grid_sizer
           = render @resource.images(12), rel: 'club'
 
-  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
     .subheadline.m3
-      - if @resource.preview_thread.comments_count > 0
+      - if @resource.preview_topic_view.comments_count > 0
         .linkeable data-href="#{comments_club_url @resource}"
           = i18n_i 'Discussion', :other
       - else
         = i18n_i 'Discussion'
 
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_thread.comments
+      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
+        = render 'topics/comments', view: @resource.preview_topic_view.comments

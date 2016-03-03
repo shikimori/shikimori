@@ -17,7 +17,7 @@ describe Manga do
 
     it { should have_many :similar }
 
-    it { should have_one :thread }
+    it { should have_one :topic }
 
     it { should have_many :user_histories }
 

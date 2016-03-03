@@ -21,7 +21,7 @@
         - menu.forums.each do |forum|
           .forum class="#{forum.is_special ? :special : :common}"
             - if forum.size
-              .threads #{forum.size} #{i18n_i 'topic', forum.size}
+              .topics #{forum.size} #{i18n_i 'topic', forum.size}
             .link-with-input
               - if forum.id == Forum::NEWS_FORUM.permalink
                 input[
@@ -52,6 +52,6 @@
         - next if !user_signed_in? && forum.id == Forum::MY_CLUBS_FORUM.permalink
         .forum class="#{forum.is_special ? :special : :common}"
           - if forum.size
-            .threads #{forum.size} #{i18n_i 'topic', forum.size}
+            .topics #{forum.size} #{i18n_i 'topic', forum.size}
           .link-with-input
             a.link href="#{forum.url}" = forum.name

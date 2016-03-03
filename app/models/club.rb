@@ -39,7 +39,7 @@ class Club < ActiveRecord::Base
     as: :linked,
     dependent: :destroy
 
-  has_one :thread, -> { where linked_type: Club.name },
+  has_one :topic, -> { where linked_type: Club.name },
     class_name: Topics::EntryTopics::ClubTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
@@ -51,7 +51,7 @@ class Club < ActiveRecord::Base
 
   before_save :update_permalink
   after_create :join_owner
-  after_create :generate_thread
+  after_create :generate_topic
 
   has_attached_file :logo,
     styles: {
@@ -143,7 +143,7 @@ private
     self.permalink = self.name.permalinked if self.changes.include? :name
   end
 
-  def generate_thread
+  def generate_topic
     Topics::EntryTopics::ClubTopic.wo_timestamp do
       FayeService
         .new(owner, '')

@@ -12,7 +12,7 @@ describe CharactersController do
   end
 
   describe '#show' do
-    let!(:character) { create :character, :with_thread }
+    let!(:character) { create :character, :with_topic }
     before { get :show, id: character.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -57,12 +57,12 @@ describe CharactersController do
   end
 
   describe '#comments' do
-    let(:character) { create :character, :with_thread }
-    let!(:comment) { create :comment, commentable: character.thread }
+    let(:character) { create :character, :with_topic }
+    let!(:comment) { create :comment, commentable: character.topic }
     before { get :comments, id: character.to_param }
 
     it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(character.thread) }
+      .topic_url(character.topic) }
   end
 
   describe '#cosplay' do
@@ -90,7 +90,7 @@ describe CharactersController do
   end
 
   describe '#clubs' do
-    let(:club) { create :club, :with_thread, :with_member }
+    let(:club) { create :club, :with_topic, :with_member }
     let!(:club_link) { create :club_link, linked: character, club: club }
     before { get :clubs, id: character.to_param }
     it { expect(response).to have_http_status :success }
