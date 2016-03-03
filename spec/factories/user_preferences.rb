@@ -3,11 +3,11 @@ FactoryGirl.define do
     user { seed :user }
     list_privacy :public
     forums [
-      DbEntryThread::FORUM_IDS['Review'],
-      DbEntryThread::FORUM_IDS['Anime'],
-      DbEntryThread::FORUM_IDS['Contest'],
-      DbEntryThread::FORUM_IDS['Group'],
-      DbEntryThread::FORUM_IDS['CosplayGallery'],
+      Topic::FORUM_IDS['Review'],
+      Topic::FORUM_IDS['Anime'],
+      Topic::FORUM_IDS['Contest'],
+      Topic::FORUM_IDS['Group'],
+      Topic::FORUM_IDS['CosplayGallery'],
     ]
   end
 end

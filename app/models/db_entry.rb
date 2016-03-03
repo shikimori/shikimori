@@ -44,7 +44,7 @@ private
     thread_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
     thread_klass.wo_timestamp do
       self.thread = thread_klass.create!(
-        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
+        forum_id: Topic::FORUM_IDS[self.class.name],
         generated: true,
         linked: self,
         title: name,

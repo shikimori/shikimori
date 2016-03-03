@@ -41,7 +41,7 @@ private
 
   def forum_id
     entry_name = @entry.class.name || fail(ArgumentError, @entry.class.name)
-    DbEntryThread::FORUM_IDS[entry_name]
+    Topic::FORUM_IDS[entry_name]
   end
 
   def options

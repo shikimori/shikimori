@@ -66,7 +66,7 @@ class Review < ActiveRecord::Base
     FayeService
       .new(user, '')
       .create!(Topics::EntryTopics::ReviewTopic.new(
-        forum_id: DbEntryThread::FORUM_IDS[self.class.name],
+        forum_id: Topic::FORUM_IDS[self.class.name],
         generated: true,
         linked: self,
         user: user

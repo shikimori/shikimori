@@ -63,7 +63,7 @@ describe Anime do
       it do
         is_expected.to be_persisted
         is_expected.to have_attributes(
-          forum_id: DbEntryThread::FORUM_IDS['Anime'],
+          forum_id: Topic::FORUM_IDS['Anime'],
           linked: anime,
           type: Topics::EntryTopics::AnimeTopic.name,
           created_at: anime.created_at,
@@ -257,7 +257,7 @@ describe Anime do
         create :news_topic, linked: anime, action: AnimeHistoryAction::Episode
         expect {
           anime.update episodes_aired: 0
-        }.to change(Topics::NewsTopic, :count).by -2
+        }.to change(Topics::NewsTopic, :count).by(-2)
       end
     end
   end
