@@ -3,22 +3,13 @@
 @import compass/typography/text/ellipsis
 @import globals/variables
 @import mixins/dash_separated
+@import mixins/frame_form
 @import mixins/icons
 @import mixins/link
 @import mixins/responsive
 
 .b-user_rates
   margin-bottom: $block_offset / 2
-
-  header
-    margin-top: 30px
-
-    &.summary
-      margin-top: 20px
-
-      h2
-        margin: 0 5px 3px
-        border-bottom: 1px solid #eeeeee !important
 
   .b-options-floated .action
     &:before, &:after
@@ -163,17 +154,37 @@
           +ellipsis
           max-width: 371px
 
-    .summary
-      td
-        color: darken($gray-3, 15%)
-        font-family: Tahoma
-        font-size: 12px
-        padding-top: 5px
+  // &.posters .list-summary
+    margin-bottom: 45px
 
-        .stat-value
-          +dash_separated
-          color: #123
+  .summary
+    &.lines
+      color: #123
+      font-family: Tahoma
+      font-size: 12px
 
-    .total td
-      padding-top: 0px
-      text-align: center
+      &.list
+        margin: 5px 0 30px
+
+      &.library
+        border-top: 1px solid #eeeeee
+        margin: 15px 0 0 0
+        padding: 5px
+        text-align: center
+
+    &.posters
+      +frame_form
+
+      &.list
+        display: inline-block
+        margin-bottom: 45px
+
+      &.library
+        margin-top: -15px
+        text-align: center
+
+    .stat-value
+      +dash_separated
+      font-weight: bold
+
+      &:last-child

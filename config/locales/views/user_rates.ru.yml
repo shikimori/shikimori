@@ -17,5 +17,5 @@ ru:
         volumes: Упорядочить по томам
         kind: Упорядочить по типу
 
-    user_rates:
+    lines:
       <<: *list_page

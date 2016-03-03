@@ -10,9 +10,12 @@ class UserRatesController < ProfilesController
 
   def index
     noindex
+
     @page = (params[:page] || 1).to_i
     @limit = UserLibraryView::ENTRIES_PER_PAGE
-    @menu = Menus::CollectionMenu.new @resource.list.klass
+
+    @library = UserLibraryView.new @resource
+    @menu = Menus::CollectionMenu.new @library.klass
 
     page_title t("#{params[:list_type]}_list")
   end

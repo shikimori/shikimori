@@ -37,7 +37,11 @@ article.c-column.b-catalog_entry[
       = render partial: 'animes/cover',
         object: anime,
         as: :anime,
-        locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice }
+        locals: {\
+          cover_title: cover_title,
+          cover_by: cover_by,
+          cover_notice: cover_notice\
+        }
 
   - elsif cover_by == :linkeable
     .cover.linkeable[
@@ -54,7 +58,11 @@ article.c-column.b-catalog_entry[
       = render partial: 'animes/cover',
         object: anime,
         as: :anime,
-        locals: { cover_title: cover_title, cover_by: cover_by, cover_notice: cover_notice }
+        locals: {\
+          cover_title: cover_title,
+          cover_by: cover_by,
+          cover_notice: cover_notice,
+        }
 
   - else
     - raise ArgumentError, cover_by

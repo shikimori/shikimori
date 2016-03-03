@@ -40,10 +40,6 @@ class UserProfileDecorator < UserDecorator
     (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
   end
 
-  def list
-    UserLibraryView.new self
-  end
-
   #def full_counts
     #if h.params[:list_type] == 'anime'
       #stats[:full_statuses][:anime].select {|v| v[:size] > 0 }

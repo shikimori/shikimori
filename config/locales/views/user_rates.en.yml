@@ -17,5 +17,5 @@ en:
         volumes: Sort by number of volumes
         kind: Sort by type
 
-    user_rates:
+    lines:
       <<: *list_page

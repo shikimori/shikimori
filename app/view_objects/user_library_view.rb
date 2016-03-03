@@ -1,8 +1,12 @@
 class UserLibraryView < ViewObjectBase
   pattr_initialize :user
-  instance_cache :full_list, :truncated_list, :total_stats, :klass, :page
+  instance_cache :full_list, :truncated_list, :total_stats, :klass,
+    :list_page, :page
 
-  ENTRIES_PER_PAGE = 400
+  ENTRIES_PER_PAGE = {
+    'lines' => 400,
+    'posters' => 40
+  }
 
   def each
     list_page.each do |entry|
@@ -26,8 +30,11 @@ class UserLibraryView < ViewObjectBase
   end
 
   def add_postloader?
+    list_page_key = list_page.keys.last
+
     list_page.any? && (list_page.keys.last != full_list.keys.last ||
-      list_page[list_page.keys.last].entries.size != full_list[full_list.keys.last].size) 
+      (list_page[list_page_key].entries.size + list_page[list_page_key].index - 1) !=
+        full_list[full_list.keys.last].size)
   end
 
   def total_stats
@@ -65,6 +72,10 @@ class UserLibraryView < ViewObjectBase
 
   def sort_order
     Animes::SortField.new('name', h).field
+  end
+
+  def list_view
+    h.cookies['list_view'] || 'lines'
   end
 
 private
@@ -147,6 +158,6 @@ private
   end
 
   def limit
-    ENTRIES_PER_PAGE
+    ENTRIES_PER_PAGE[list_view]
   end
 end

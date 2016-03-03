@@ -1,0 +1,3 @@
+.cc-5.to-process data-dynamic='cutted_covers'
+  - list.entries.each do |user_rate|
+    = render user_rate.target.decorate, cover_notice: :year_kind, content_by: :mini_tooltip

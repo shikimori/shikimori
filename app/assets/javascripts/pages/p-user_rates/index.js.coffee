@@ -105,6 +105,7 @@ apply_list_handlers = ($root) ->
     if $(@).next().hasClass 'edit-form'
       $(@).next().find('.cancel').click()
       e.stopImmediatePropagation()
+
   $('tr.editable', $root).on 'ajax:success', (e, html) ->
     # прочие блоки редактирования скроем
     $another_tr_edit = $('tr.edit-form')
@@ -288,11 +289,11 @@ insert_next_page = (e, $data) ->
   # 2. погружается дальнейший контент уже существующего блока, и тогда...
 
   if $present_header.exists()
-    # присоединяем к уже существующей таблице новую таблицу
-    $rows = $header.next().find('tbody,tfoot')
+    # # присоединяем к уже существующим сущностям новые
+    $entries = $header.next().children()
 
-    $rows.detach().appendTo $present_header.next()
-    apply_list_handlers $rows
+    $entries.detach().appendTo $present_header.next()
+    apply_list_handlers $entries
 
     $header.next().remove()
     $header.remove()
