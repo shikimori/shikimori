@@ -3,8 +3,8 @@ list_cache = []
 filter_timer = null
 
 LOCALES = {
-  ru: { no_data: 'Недостаточно данных' },
-  en: { no_data: 'Insufficient data' }
+  ru: 'Недостаточно данных',
+  en: 'Insufficient data'
 }
 
 @on 'page:load', 'user_rates_index', ->
@@ -14,7 +14,7 @@ LOCALES = {
   # графики
   $("#scores, #types, #ratings").bar
     no_data: ($chart) ->
-      $chart.html "<p class='b-nothing_here'>#{LOCALES[LOCALE].no_data}</p>"
+      $chart.html "<p class='b-nothing_here'>#{LOCALES[LOCALE]}</p>"
 
   # фокус по инпуту фильтра по тайтлу
   $('.filter input').on 'focus', ->
@@ -44,6 +44,14 @@ LOCALES = {
     type = $(@).data('order')
     $(".orders.anime-params li.order-by-#{type}").trigger 'click'
 
+  # редактирование user_rate posters
+  $('.list-groups').on 'ajax:before', '.edit-user_rate', ->
+    $(@).closest('.user_rate').addClass 'b-ajax'
+  $('.list-groups').on 'ajax:success', '.edit-user_rate', (e, form_html) ->
+    $(@).closest('.user_rate').removeClass 'b-ajax'
+    console.log arguments
+
+  # фильтры каталога
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
   new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
@@ -83,7 +91,7 @@ filter = ->
 
 # кеширование всех строк списка для производительности
 update_list_cache = ->
-  list_cache = $('.user_rates')
+  list_cache = $('.list-lines, .list-posters')
     .map ->
       $container = $(@)
       entries = $container.find('.user_rate').map(->
@@ -176,8 +184,8 @@ apply_list_handlers = ($root) ->
       opacity: 1
     )
 
-  # изменения оценки/числа просмотренных эпизодов
-  $trs = $('.b-user_rates .hoverable').off()
+  # изменения оценки/числа просмотренных эпизодов у user_rate lines
+  $trs = $('.list-lines .hoverable').off()
   $trs.off()
     .hover ->
         return if is_mobile()
@@ -224,7 +232,6 @@ apply_list_handlers = ($root) ->
       $('input', $this).trigger('focus').select()
       e.stopPropagation()
       false
-
 
 apply_new_value_handlers = ($new_value) ->
   # обработчики для инпутов листа

@@ -32,7 +32,7 @@
 @tooltip_options =
   #effect: 'opacity'
   delay: 150
-  predelay: 250
+  eredelay: 250
   position: 'top right'
   defaultTemplate: TOOLTIP_TEMPLATE
   onBeforeShow: ->

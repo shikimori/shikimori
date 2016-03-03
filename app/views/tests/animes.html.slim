@@ -1,0 +1,4 @@
+- @collection.each do |anime|
+  = render anime.decorate,
+    cover_notice: :year_kind,
+    content_by: :mini_tooltip

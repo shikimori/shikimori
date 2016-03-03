@@ -1,3 +1,8 @@
+LOCALES = {
+  ru: 'Сообщение отправлено',
+  en: 'Message sent'
+}
+
 $(document).on 'page:load', ->
   $feedback = $('.b-feedback')
 
@@ -13,7 +18,7 @@ $(document).on 'page:load', ->
       .shiki_editor()
 
     $form.on 'ajax:success', ->
-      $.notice 'Сообщение отправлено администрации'
+      $.notice LOCALES[LOCALE]
       $('#shade').trigger 'click'
 
     $('#shade').show()

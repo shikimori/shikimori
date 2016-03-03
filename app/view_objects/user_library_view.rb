@@ -5,7 +5,7 @@ class UserLibraryView < ViewObjectBase
 
   ENTRIES_PER_PAGE = {
     'lines' => 400,
-    'posters' => 40
+    'posters' => 50
   }
 
   def each

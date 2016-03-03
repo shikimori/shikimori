@@ -1,0 +1,57 @@
+@import compass/css3/box-shadow
+@import mixins/icons
+@import mixins/responsive
+
+=size($size)
+  line-height: $size
+  width: $size
+  height: $size
+
+  &:before
+    line-height: $size
+    width: $size
+    height: $size
+
+.p-user_rates-index .list-posters
+  .user_rate
+    &.b-ajax:after
+      margin-top: -30px
+
+    &:hover .edit-user_rate
+      display: block
+
+    .edit-user_rate
+      +transition(background 0.25s ease)
+      background: $link-3
+      color: white
+      cursor: pointer
+      display: none
+      line-height: 0 !important
+      margin: 0 !important
+      padding: 0
+      position: absolute
+      right: 0
+      top: 0
+
+      &:before
+        +box-shadow(-1px 1px 1px rgba(255,255,255,0.5), -1px 1px 1px rgba(0,0,0,0.5))
+
+      +gt_ipad
+        +icon('\e842', 18px)
+        +size(25px)
+
+      +ipad
+        +icon('\e842', 22px)
+        +size(30px)
+        display: block
+
+      +iphone
+        +icon('\e842', 25px)
+        +size(35px)
+        display: block
+
+      &:hover
+        background-color: $link-4
+
+      &:active
+        background-color: $link-2

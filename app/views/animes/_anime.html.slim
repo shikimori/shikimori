@@ -28,6 +28,7 @@ article.c-column.b-catalog_entry[
       href="#{anime.url}"
       title="#{localized_name anime}"
       data-delay="150"
+      data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
       data-insert-tooltip-after="#{content_by == :mini_tooltip}"
       data-local-tooltip="#{content_by == :inline_tooltip}"
       data-offset-left="#{-15 if content_by == :inline_tooltip}"

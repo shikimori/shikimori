@@ -120,7 +120,10 @@ $horizontal-offset: 10px
         left: 0
 
       .about
-        line-height: $line_height
+        +gt_ipad
+          line-height: 1.45
+        +lte_ipad
+          line-height: 1.65
         margin-bottom: 8px
 
         a

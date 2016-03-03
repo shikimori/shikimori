@@ -62,6 +62,7 @@
   $with('.anime-tooltip', $root)
     .tooltip(ANIME_TOOLTIP_OPTIONS)
     .removeClass('anime-tooltip')
+    .removeAttr('title')
 
   $with('.bubbled', $root)
     .addClass('bubbled-processed')

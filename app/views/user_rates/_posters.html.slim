@@ -1,15 +1,18 @@
-.user_rates.cc-5.to-process data-dynamic='cutted_covers'
+.list-posters.cc-5.to-process data-dynamic='cutted_covers'
   - list.entries.each do |user_rate|
     .c-column.user_rate[
       data-target_id="#{user_rate.target_id}"
       data-title="#{user_rate.target_name}"
       data-text="#{user_rate.text}"
     ]
-      / class="#{:editable if library.user.own_profile?}"
-      / data-remote="#{true if library.user.own_profile?}"
-      / data-action="#{edit_api_user_rate_path user_rate if library.user.own_profile?}"
-      / data-type='html'
-      / data-rate_url="#{api_user_rate_path user_rate}"
       = render user_rate.target.decorate,
         cover_notice: :year_kind,
-        content_by: :mini_tooltip
+        content_by: :mini_tooltip,
+        tooltip_predelay: 1000
+      - if library.user.own_profile?
+        .edit-user_rate[
+          data-remote="true"
+          data-action="#{edit_api_user_rate_path user_rate}"
+          data-type='html'
+          data-rate_url="#{api_user_rate_path user_rate}"
+        ]

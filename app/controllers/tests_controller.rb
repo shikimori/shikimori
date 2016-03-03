@@ -19,6 +19,14 @@ class TestsController < ShikimoriController
   def border
   end
 
+  def animes
+    @collection = Anime
+      .where("score > 8")
+      .order("id")
+      .take(10)
+    render :animes, layout: 'clean'
+  end
+
   def momentjs
   end
 

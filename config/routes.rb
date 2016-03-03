@@ -464,6 +464,7 @@ Site::Application.routes.draw do
       get :border
       get 'd3/:anime_id' => :d3, as: :d3
       get :webm
+      get :animes
       get :wall
       get :ajax
       get :vk_video

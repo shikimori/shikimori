@@ -5,7 +5,7 @@
   .menu-slide-outer.x199
     .menu-slide-inner
       .l-content
-        .b-options-floated.mylist.mobile-tablet.before-buttons-2
+        .b-options-floated.mylist.mobile-desktop
           - @library.counts.each do |stat|
             .link.always-active[
               data-id="#{stat[:id]}"
@@ -26,7 +26,7 @@
           input placeholder="#{t '.search_by_name'}"
 
         - if @library.any?
-          .b-user_rates
+          .list-groups
             = render 'user_rates', library: @library
 
             - if @library.add_postloader?
