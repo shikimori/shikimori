@@ -64,12 +64,12 @@ class DbEntryDecorator < BaseDecorator
 
   # полный топик
   def main_thread
-    Topics::Factory.new(false, false).build thread
+    Topics::TopicViewFactory.new(false, false).build thread
   end
 
   # превью топика
   def preview_thread
-    Topics::Factory.new(true, false).build thread
+    Topics::TopicViewFactory.new(true, false).build thread
   end
 
   # связанные клубы

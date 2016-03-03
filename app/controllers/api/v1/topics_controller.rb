@@ -20,7 +20,7 @@ class Api::V1::TopicsController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/topics/:id', 'Show a topic'
   def show
-    @topic = Topics::Factory.new(false, false).find params[:id]
+    @topic = Topics::TopicViewFactory.new(false, false).find params[:id]
     respond_with @topic, serializer: TopicSerializer
   end
 end

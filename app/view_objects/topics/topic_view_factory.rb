@@ -1,4 +1,4 @@
-class Topics::Factory
+class Topics::TopicViewFactory
   pattr_initialize :is_preview, :is_mini
 
   def find entry_id

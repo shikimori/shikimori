@@ -82,7 +82,7 @@ private
       .result
 
     collection = topics.map do |topic|
-      Topics::Factory.new(
+      Topics::TopicViewFactory.new(
         true,
         forum && forum.permalink == 'reviews'
       ).build topic

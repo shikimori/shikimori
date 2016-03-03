@@ -203,7 +203,7 @@ class UserProfileDecorator < UserDecorator
 
   def ignored_topics
     object.topic_ignores.includes(:topic).map do |topic_ignore|
-      Topics::Factory.new(false, false).build topic_ignore.topic
+      Topics::TopicViewFactory.new(false, false).build topic_ignore.topic
     end
   end
 

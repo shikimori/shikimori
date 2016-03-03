@@ -17,14 +17,14 @@ class PagesController < ShikimoriController
     @page_title = i18n_t 'calendar_of_ongoings'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = Topics::Factory.new(false, false).find ONGOINGS_TOPIC_ID
+    @topic = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
   end
 
   # о сайте
   def about
     page_title t('about_site')
     @statistics = SiteStatistics.new
-    @topic = Topics::Factory.new(false, false).find ABOUT_TOPIC_ID
+    @topic = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
   end
 
   def info
@@ -38,7 +38,7 @@ class PagesController < ShikimoriController
       .by_forum(Forum::NEWS_FORUM)
       .limit(15)
       .result
-      .map { |topic| Topics::Factory.new(true, false).build topic }
+      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
   end
 
   # пользовательское соглашение

@@ -167,7 +167,7 @@ class AnimeOnline::VideoPlayer
       value: current_episode
     )
 
-    Topics::Factory.new(true, false).build thread if thread
+    Topics::TopicViewFactory.new(true, false).build thread if thread
   end
 
 private

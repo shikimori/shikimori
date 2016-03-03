@@ -20,7 +20,7 @@ class AniMangaDecorator < DbEntryDecorator
       .includes(:forum)
       .limit(TopicsPerPage)
       .order(:updated_at)
-      .map { |topic| Topics::Factory.new(false, false).build topic }
+      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
       .map { |topic_view| format_menu_topic topic_view, :updated_at }
   end
 
@@ -31,7 +31,7 @@ class AniMangaDecorator < DbEntryDecorator
       .includes(:forum)
       .limit(NewsPerPage)
       .order(:created_at)
-      .map { |topic| Topics::Factory.new(false, false).build topic }
+      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
       .map { |topic_view| format_menu_topic topic_view, :created_at }
   end
 
@@ -223,7 +223,7 @@ private
   end
 
   def summaries_view is_preview
-    view = Topics::Factory.new(is_preview, false).build thread
+    view = Topics::TopicViewFactory.new(is_preview, false).build thread
     view.comments.summary_new_comment = true
     view.comments.summaries_query = summaries?
     view

@@ -1,5 +1,5 @@
-describe Topics::Factory do
-  let(:factory) { Topics::Factory.new is_preview, is_mini }
+describe Topics::TopicViewFactory do
+  let(:factory) { Topics::TopicViewFactory.new is_preview, is_mini }
   let(:is_preview) { false }
   let(:is_mini) { false }
 
