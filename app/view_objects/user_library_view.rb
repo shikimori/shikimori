@@ -1,5 +1,5 @@
 class UserLibraryView < ViewObjectBase
-  pattr_initialize :user
+  vattr_initialize :user
   instance_cache :full_list, :truncated_list, :total_stats, :klass,
     :list_page, :page
 

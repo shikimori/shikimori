@@ -2,6 +2,11 @@
 list_cache = []
 filter_timer = null
 
+LOCALES = {
+  ru: { no_data: 'Недостаточно данных' },
+  en: { no_data: 'Insufficient data' }
+}
+
 @on 'page:load', 'user_rates_index', ->
   apply_list_handlers $('.l-content')
   update_list_cache()
@@ -9,7 +14,7 @@ filter_timer = null
   # графики
   $("#scores, #types, #ratings").bar
     no_data: ($chart) ->
-      $chart.html "<p class='b-nothing_here'>Недостаточно данных</p>"
+      $chart.html "<p class='b-nothing_here'>#{LOCALES[LOCALE].no_data}</p>"
 
   # фокус по инпуту фильтра по тайтлу
   $('.filter input').on 'focus', ->
@@ -57,8 +62,8 @@ filter = ->
     visible = false
     num = 0
 
-    while num < block.rows.length
-      entry = block.rows[num]
+    while num < block.entries.length
+      entry = block.entries[num]
       if entry.title.indexOf(filter_value) != -1 ||
           entry.text.indexOf(filter_value) != -1
         visible = true
@@ -72,16 +77,16 @@ filter = ->
         entry.node.style.display = 'none'
       num++
 
-    block.$nodes.toggle visible  if block.toggable
+    block.$container.toggle visible  if block.toggable
 
   $.force_appear()
 
-# кеширование всех строчек списка для производительности
+# кеширование всех строк списка для производительности
 update_list_cache = ->
-  list_cache = $('table')
+  list_cache = $('.user_rates')
     .map ->
-      $table = $(@)
-      rows = $table.find('tr.selectable').map(->
+      $container = $(@)
+      entries = $container.find('.user_rate').map(->
         node: @
         target_id: $(@).data('target_id')
         title: String($(@).data('title')).toLowerCase()
@@ -89,9 +94,9 @@ update_list_cache = ->
         display: @style.display
       ).toArray()
 
-      $nodes: $table
-      rows: rows
-      toggable: !$table.next('.b-postloader').length
+      $container: $container
+      entries: entries
+      toggable: !$container.next('.b-postloader').length
     .toArray()
 
 # обработчики для списка
@@ -148,7 +153,7 @@ apply_list_handlers = ($root) ->
 
       # обновляем текст в кеше
       list_cache.each (cache_block) ->
-        cache_entry = cache_block.rows.find (row) ->
+        cache_entry = cache_block.entries.find (row) ->
           row.target_id == data.anime?.id || row.target_id == data.manga?.id
 
         cache_entry.text = data.text if cache_entry
@@ -302,6 +307,5 @@ insert_next_page = (e, $data) ->
 
 process_next_page = ->
   update_list_cache()
-  $input = $('.filter input')
-  $input.trigger('keyup') unless _.isEmpty($input.val())
+  filter() unless _.isEmpty($('.filter input').val())
   $.force_appear()

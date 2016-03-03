@@ -1,4 +1,4 @@
-table.b-table
+table.b-table.user_rates
   - if list.index == 1
     thead
       tr
@@ -50,13 +50,13 @@ table.b-table
 
   tbody.entries
     - list.entries.each_with_index do |user_rate, index|
-      tr.unprocessed.selectable[
-        class="#{:editable if @resource.own_profile?}"
-        data-remote="#{true if @resource.own_profile?}"
-        data-action="#{edit_api_user_rate_path user_rate if @resource.own_profile?}"
+      tr.user_rate.unprocessed.selectable[
+        class="#{:editable if library.user.own_profile?}"
+        data-remote="#{true if library.user.own_profile?}"
+        data-action="#{edit_api_user_rate_path user_rate if library.user.own_profile?}"
         data-type='html'
         data-rate_url="#{api_user_rate_path user_rate}"
-        data-id="#{user_rate.target_id}"
+        data-target_id="#{user_rate.target_id}"
         data-title="#{user_rate.target_name}"
         data-text="#{user_rate.text}"
       ]
