@@ -8,7 +8,7 @@ class CharactersController < PeopleController
   #caches_action :page, :show, :tooltip,
     #cache_path: proc {
       #entry = Character.find(params[:id].to_i)
-      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.thread.updated_at.to_i}|#{json?}"
+      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.topic.updated_at.to_i}|#{json?}"
     #},
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
@@ -40,7 +40,7 @@ class CharactersController < PeopleController
 
   # TODO: удалить после 05.2015
   def comments
-    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
   def art

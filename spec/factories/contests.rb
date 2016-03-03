@@ -35,22 +35,22 @@ FactoryGirl.define do
     end
 
     after :build do |contest|
-      contest.stub :generate_thread
+      contest.stub :generate_topic
       contest.stub :update_permalink
-      contest.stub :sync_thread
+      contest.stub :sync_topic
     end
 
-    trait :with_thread do
+    trait :with_topic do
       after :build do |contest|
-        contest.unstub :generate_thread
+        contest.unstub :generate_topic
       end
     end
 
-    trait :with_generated_thread do
-      with_thread
+    trait :with_generated_topic do
+      with_topic
 
       after :build do |contest|
-        contest.send :generate_thread
+        contest.send :generate_topic
       end
     end
 

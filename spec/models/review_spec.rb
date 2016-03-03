@@ -5,7 +5,7 @@ describe Review do
     it { is_expected.to belong_to :target }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :approver }
-    it { is_expected.to have_one :thread }
+    it { is_expected.to have_one :topic }
   end
 
   describe 'validations' do
@@ -47,7 +47,7 @@ describe Review do
   end
 
   context 'hooks' do
-    it 'creates thread' do
+    it 'creates topic' do
       expect {
         create :review, target: create(:anime)
       }.to change(Topics::EntryTopics::ReviewTopic, :count).by 1
@@ -75,7 +75,7 @@ describe Review do
 
     describe '#to_offtopic' do
       before { review.reject! user }
-      it { expect(review.thread.forum_id).to eq Forum::OFFTOPIC_ID }
+      it { expect(review.topic.forum_id).to eq Forum::OFFTOPIC_ID }
     end
   end
 

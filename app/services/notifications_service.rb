@@ -41,7 +41,7 @@ class NotificationsService
   def round_finished
     create_comment Comment.new(
       user: target.contest.user,
-      commentable: target.contest.thread,
+      commentable: target.contest.topic,
       body: "[contest_round_status=#{target.id}]"
     )
   end
@@ -62,7 +62,7 @@ class NotificationsService
 
     create_comment Comment.new(
       user: target.user,
-      commentable: target.thread,
+      commentable: target.topic,
       body: "[contest_status=#{target.id}]"
     )
   end

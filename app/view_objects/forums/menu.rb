@@ -25,7 +25,7 @@ class Forums::Menu < ViewObjectBase
     @reviews ||= Review
       .where('created_at >= ?',  2.weeks.ago)
       .visible
-      .includes(:user, :target, thread: [:forum])
+      .includes(:user, :target, topic: [:forum])
       .order(created_at: :desc)
       .limit(3)
   end

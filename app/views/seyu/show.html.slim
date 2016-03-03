@@ -70,11 +70,11 @@
       .c-characters.to-process data-dynamic='cutted_covers' data-ratio_type='person'
         = render @resource.best_roles
 
-  - if user_signed_in? || @resource.preview_thread.comments_count > 0
+  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
     .subheadline.m3
       .linkeable[
         data-href="#{comments_seyu_url @resource}"
       ] = i18n_i 'Discussion'
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_thread.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_thread.comments
+      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
+        = render 'topics/comments', view: @resource.preview_topic_view.comments

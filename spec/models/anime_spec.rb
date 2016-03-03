@@ -18,7 +18,7 @@ describe Anime do
     it { is_expected.to have_many :similar }
     it { is_expected.to have_many :links }
 
-    it { is_expected.to have_one :thread }
+    it { is_expected.to have_one :topic }
 
     it { is_expected.to have_many :user_histories }
 
@@ -56,9 +56,9 @@ describe Anime do
   end
 
   context 'callbacks' do
-    describe '#generate_thread' do
-      let(:anime) { create :anime, :with_thread }
-      subject { anime.thread }
+    describe '#generate_topic' do
+      let(:anime) { create :anime, :with_topic }
+      subject { anime.topic }
 
       it do
         is_expected.to be_persisted

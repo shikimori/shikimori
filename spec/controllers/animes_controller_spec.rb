@@ -3,7 +3,7 @@ describe AnimesController do
   include_examples :db_entry_controller, :anime
 
   describe '#show' do
-    let(:anime) { create :anime, :with_thread }
+    let(:anime) { create :anime, :with_topic }
 
     describe 'id' do
       before { get :show, id: anime.id }
@@ -121,24 +121,24 @@ describe AnimesController do
   end
 
   describe '#clubs' do
-    let(:club) { create :club, :with_thread, :with_member }
+    let(:club) { create :club, :with_topic, :with_member }
     let!(:club_link) { create :club_link, linked: anime, club: club }
     before { get :clubs, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
-    let(:anime) { create :anime, :with_thread }
-    let(:comment) { create :comment, commentable: anime.thread }
+    let(:anime) { create :anime, :with_topic }
+    let(:comment) { create :comment, commentable: anime.topic }
     before { get :comments, id: anime.to_param }
 
     it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(anime.thread) }
+      .topic_url(anime.topic) }
   end
 
   describe '#summaries' do
-    let(:anime) { create :anime, :with_thread }
-    let!(:comment) { create :comment, :review, commentable: anime.thread }
+    let(:anime) { create :anime, :with_topic }
+    let!(:comment) { create :comment, :review, commentable: anime.topic }
     before { get :summaries, id: anime.to_param }
 
     it { expect(response).to have_http_status :success }

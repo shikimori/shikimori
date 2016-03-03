@@ -36,15 +36,15 @@ class CosplayGallery < ActiveRecord::Base
     source: :linked,
     source_type: Character.name
 
-  has_one :thread, -> { where linked_type: CosplayGallery.name },
+  has_one :topic, -> { where linked_type: CosplayGallery.name },
     class_name: Topics::EntryTopics::CosplayGalleryTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
 
   scope :visible, -> { where confirmed: true, deleted: false }
 
-  #after_create :generate_thread
-  #after_save :sync_thread
+  #after_create :generate_topic
+  #after_save :sync_topic
 
   accepts_nested_attributes_for :images, :deleted_images
 
@@ -97,18 +97,18 @@ class CosplayGallery < ActiveRecord::Base
 
   def self.without_topic
     visible
-      .includes(:animes, :mangas, :characters, :thread)
-      .select { |v| !v.thread.present? }
+      .includes(:animes, :mangas, :characters, :topic)
+      .select { |v| !v.topic.present? }
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
 private
 
-  def sync_thread
-    thread.update_attribute :title, name if thread.title != name
+  def sync_topic
+    topic.update_attribute :title, name if topic.title != name
   end
 
-  def generate_thread
+  def generate_topic
     publisher = User.find User::COSPLAYER_ID
 
     FayeService

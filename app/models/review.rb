@@ -11,7 +11,7 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  has_one :thread, -> { where linked_type: Review.name },
+  has_one :topic, -> { where linked_type: Review.name },
     class_name: Topics::EntryTopics::ReviewTopic.name,
     foreign_key: :linked_id,
     dependent: :destroy
@@ -21,7 +21,7 @@ class Review < ActiveRecord::Base
     length: { minimum: MINIMUM_LENGTH, too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)" },
     if: -> { text !~ /\[youtube\].*\[\/youtube\]/ }
 
-  after_create :generate_thread
+  after_create :generate_topic
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -55,14 +55,14 @@ class Review < ActiveRecord::Base
         from_id: review.approver_id,
         to_id: review.user_id,
         kind: MessageType::Notification,
-        body: "Ваша [entry=#{review.thread.id}]реценция[/entry] перенесена в оффтоп" +
+        body: "Ваша [entry=#{review.topic.id}]реценция[/entry] перенесена в оффтоп" +
           (transition.args.second ?
            " по причине: [quote=#{review.approver.nickname}]#{transition.args.second}[/quote]" : '')
       )
     end
   end
 
-  def generate_thread
+  def generate_topic
     FayeService
       .new(user, '')
       .create!(Topics::EntryTopics::ReviewTopic.new(
@@ -85,14 +85,21 @@ class Review < ActiveRecord::Base
 
   def votes_text
     if votes_for == votes_count
-      "#{votes_count} #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
+      "#{votes_count}"\
+      "#{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'}"\
+      "#{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}"\
+      "этот обзор полезным"
     else
-      "#{votes_for} из #{votes_count} #{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'} #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'} этот обзор полезным"
+      "#{votes_for} из"\
+      "#{votes_count}"\
+      "#{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'}"\
+      "#{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}"\
+      "этот обзор полезным"
     end
   end
 
   def to_offtopic!
-    thread.update_column :forum_id, Forum::OFFTOPIC_ID
+    topic.update_column :forum_id, Forum::OFFTOPIC_ID
   end
 
   def self.has_changes?

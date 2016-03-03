@@ -61,7 +61,7 @@ class ClubsController < ShikimoriController
   # TODO: удалить после 05.2015
   def comments
     noindex
-    redirect_to UrlGenerator.instance.topic_url(@resource.thread), status: 301
+    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
   def animes

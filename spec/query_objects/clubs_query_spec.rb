@@ -5,10 +5,10 @@ describe ClubsQuery do
   after { Timecop.return }
 
   let(:user) { create :user }
-  let!(:club_1) { create :club, :with_thread, id: 1 }
-  let!(:club_2) { create :club, :with_thread, id: 2 }
-  let!(:club_3) { create :club, :with_thread, id: 3 }
-  let!(:club_4) { create :club, :with_thread, id: 4 }
+  let!(:club_1) { create :club, :with_topic, id: 1 }
+  let!(:club_2) { create :club, :with_topic, id: 2 }
+  let!(:club_3) { create :club, :with_topic, id: 3 }
+  let!(:club_4) { create :club, :with_topic, id: 4 }
 
   before do
     club_1.members << user

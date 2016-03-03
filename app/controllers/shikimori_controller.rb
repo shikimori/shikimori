@@ -4,7 +4,9 @@ class ShikimoriController < ApplicationController
 
   def fetch_resource
     @resource ||= resource_klass.find(
-      CopyrightedIds.instance.restore(resource_id, resource_klass.name.downcase)
+      CopyrightedIds
+        .instance
+        .restore(resource_id, resource_klass.name.downcase)
     )
     @resource = @resource.decorate
     instance_variable_set "@#{resource_klass.name.downcase}", @resource
@@ -40,7 +42,12 @@ class ShikimoriController < ApplicationController
   end
 
   def resource_klass
-    self.class.name.sub(/Controller$/ ,'').sub(/.*:/, '').singularize.constantize
+    self.class
+      .name
+      .sub(/Controller$/ ,'')
+      .sub(/.*:/, '')
+      .singularize
+      .constantize
   end
 
   # заполнение хлебных крошек

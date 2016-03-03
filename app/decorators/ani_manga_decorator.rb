@@ -9,7 +9,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news, :reviews, :reviews_count, :summaries_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
-  instance_cache :preview_summaries_thread, :main_summaries_thread
+  instance_cache :main_summaries_topic, :preview_summaries_topic
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
@@ -55,14 +55,14 @@ class AniMangaDecorator < DbEntryDecorator
     rates.where(user_id: h.current_user.id).decorate.first if h.user_signed_in?
   end
 
-  # основной топик
-  def preview_summaries_thread
-    summaries_view true
+  # полный топик отзывов
+  def main_summaries_topic
+    summaries_view false
   end
 
-  # полный топик отзывов
-  def main_summaries_thread
-    summaries_view false
+  # основной топик
+  def preview_summaries_topic
+    summaries_view true
   end
 
   # объект с ролями аниме
@@ -77,12 +77,12 @@ class AniMangaDecorator < DbEntryDecorator
 
   # число коментариев
   def comments_count
-    thread.comments_count
+    object.topic.comments_count
   end
 
   # число отзывов
   def summaries_count
-    @summaries_count ||= object.thread.comments.summaries.count
+    @summaries_count ||= object.topic.comments.summaries.count
   end
 
   # есть ли отзывы?
@@ -223,7 +223,7 @@ private
   end
 
   def summaries_view is_preview
-    view = Topics::TopicViewFactory.new(is_preview, false).build thread
+    view = Topics::TopicViewFactory.new(is_preview, false).build topic
     view.comments.summary_new_comment = true
     view.comments.summaries_query = summaries?
     view

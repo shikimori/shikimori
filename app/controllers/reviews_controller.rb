@@ -11,7 +11,7 @@ class ReviewsController < AnimesController
     @collection = ReviewsQuery
       .new(@resource.object, current_user, params[:id].to_i)
       .fetch.map do |review|
-        Topics::ReviewView.new review.thread, true, true
+        Topics::ReviewView.new review.topic, true, true
       end
   end
 
@@ -26,7 +26,7 @@ class ReviewsController < AnimesController
   def create
     if @review.save
       redirect_to(
-        UrlGenerator.instance.topic_url(@review.thread),
+        UrlGenerator.instance.topic_url(@review.topic),
         notice: i18n_t('review.created')
       )
     else
@@ -38,7 +38,7 @@ class ReviewsController < AnimesController
   def update
     if @review.update review_params
       redirect_to(
-        UrlGenerator.instance.topic_url(@review.thread),
+        UrlGenerator.instance.topic_url(@review.topic),
         notice: i18n_t('review.updated')
       )
     else

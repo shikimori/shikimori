@@ -3,7 +3,7 @@ describe ClubsController do
   let(:club) { create :club }
 
   describe '#index' do
-    let(:club) { create :club, :with_thread }
+    let(:club) { create :club, :with_topic }
     let(:user) { create :user }
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
@@ -22,7 +22,7 @@ describe ClubsController do
   end
 
   describe '#show' do
-    let(:club) { create :club, :with_thread }
+    let(:club) { create :club, :with_topic }
     before { get :show, id: club.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -64,7 +64,7 @@ describe ClubsController do
 
   describe '#update' do
     include_context :authenticated, :user
-    let(:club) { create :club, :with_thread, owner: user }
+    let(:club) { create :club, :with_topic, owner: user }
 
     context 'when success' do
       context 'with kick_ids' do
@@ -137,12 +137,12 @@ describe ClubsController do
   end
 
   describe '#comments' do
-    let(:club) { create :club, :with_thread }
-    let!(:comment) { create :comment, commentable: club.thread }
+    let(:club) { create :club, :with_topic }
+    let!(:comment) { create :comment, commentable: club.topic }
     before { get :comments, id: club.to_param }
 
     it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(club.thread) }
+      .topic_url(club.topic) }
   end
 
   describe '#animes' do
@@ -152,7 +152,7 @@ describe ClubsController do
     end
 
     context 'with_animes' do
-      let(:club) { create :club, :with_thread, :linked_anime }
+      let(:club) { create :club, :with_topic, :linked_anime }
       before { get :animes, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -165,7 +165,7 @@ describe ClubsController do
     end
 
     context 'with_mangas' do
-      let(:club) { create :club, :with_thread, :linked_manga }
+      let(:club) { create :club, :with_topic, :linked_manga }
       before { get :mangas, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -178,7 +178,7 @@ describe ClubsController do
     end
 
     context 'with_characters' do
-      let(:club) { create :club, :with_thread, :linked_character }
+      let(:club) { create :club, :with_topic, :linked_character }
       before { get :characters, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end

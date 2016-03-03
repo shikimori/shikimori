@@ -17,7 +17,7 @@ describe Api::V1::MangasController, :show_in_doc do
   end
 
   describe '#show' do
-    let(:manga) { create :manga, :with_thread }
+    let(:manga) { create :manga, :with_topic }
     before { get :show, id: manga.id, format: :json }
 
     it do

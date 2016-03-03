@@ -6,7 +6,7 @@ FactoryGirl.define do
     description_en ''
 
     after :build do |character|
-      character.stub :generate_thread
+      character.stub :generate_topic
     end
 
     trait :anime do
@@ -15,9 +15,9 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_thread do
+    trait :with_topic do
       after :build do |character|
-        character.unstub :generate_thread
+        character.unstub :generate_topic
       end
     end
   end

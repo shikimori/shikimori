@@ -10,7 +10,7 @@ describe PeopleController do
   end
 
   describe '#show' do
-    let!(:person) { create :person, :with_thread, mangaka: true }
+    let!(:person) { create :person, :with_topic, mangaka: true }
     before { get :show, id: person.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -28,12 +28,12 @@ describe PeopleController do
   end
 
   describe '#comments' do
-    let(:person) { create :person, :with_thread }
-    let!(:comment) { create :comment, commentable: person.thread }
+    let(:person) { create :person, :with_topic }
+    let!(:comment) { create :comment, commentable: person.topic }
     before { get :comments, id: person.to_param }
 
     it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(person.thread) }
+      .topic_url(person.topic) }
   end
 
   describe '#tooltip' do

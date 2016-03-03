@@ -10,12 +10,12 @@ FactoryGirl.define do
     kind :manga
 
     after(:build) do |anime|
-      anime.stub :generate_thread
+      anime.stub :generate_topic
       anime.stub :generate_name_matches
     end
-    trait :with_thread do
+    trait :with_topic do
       after(:build) do |anime|
-        anime.unstub :generate_thread
+        anime.unstub :generate_topic
       end
     end
 
