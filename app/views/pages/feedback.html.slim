@@ -1,12 +1,11 @@
-.message
-  .inner
-    .subheadline = t '.title'
-    .about
-      = BbCodeFormatter.instance.format_comment t('.text')
-    .b-shiki_editor.unprocessed.block
-      = simple_form_for @feedback_message, url: messages_url, as: :message, remote: true, authenticity_token: true, html: { data: { type: :json } } do |f|
-        - unless user_signed_in?
-          .m10
-            = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
-        = f.input :location, as: :hidden
-        = render 'comments/shiki_editor', comment: @feedback_message, f: f
+.b-feedback-inner
+  .subheadline = t '.title'
+  .about
+    = BbCodeFormatter.instance.format_comment t('.text')
+  .b-shiki_editor.unprocessed.block
+    = simple_form_for @feedback_message, url: messages_url, as: :message, remote: true, authenticity_token: true, html: { data: { type: :json } } do |f|
+      - unless user_signed_in?
+        .m10
+          = f.input :feedback_address, label: 'E-mail', hint: 'Сюда может прийти ответ'
+      = f.input :location, as: :hidden
+      = render 'comments/shiki_editor', comment: @feedback_message, f: f

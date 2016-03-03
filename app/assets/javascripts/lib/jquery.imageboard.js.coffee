@@ -21,7 +21,7 @@ class ImageboardGallery
   BATCH_SIZE = 12
 
   constructor: (root) ->
-    @$root = $(root).data(shiki_object: @)
+    @$root = $(root).view(@)
     @container_html = root.innerHTML
 
     @forbidden_tags = if @$root.data('with-hentai-images')

@@ -2,7 +2,7 @@
   $('.b-shiki_editor')
     .shiki_editor()
     .on 'preview:params', ->
-      body: $(@).shiki().$textarea.val()
+      body: $(@).view().$textarea.val()
       target_id: 1
       target_type: 'Club'
 

@@ -22,6 +22,7 @@
 
     .edit-user_rate
       +transition(background 0.25s ease)
+      +box-shadow(-1px 1px 1px rgba(255,255,255,0.35), -1px 1px 1px rgba(0,0,0,0.35))
       background: $link-3
       color: white
       cursor: pointer
@@ -32,9 +33,6 @@
       position: absolute
       right: 0
       top: 0
-
-      &:before
-        +box-shadow(-1px 1px 1px rgba(255,255,255,0.5), -1px 1px 1px rgba(0,0,0,0.5))
 
       +gt_ipad
         +icon('\e842', 18px)

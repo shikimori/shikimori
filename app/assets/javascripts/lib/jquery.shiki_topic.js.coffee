@@ -206,7 +206,7 @@ class @ShikiTopic extends ShikiEditable
     # изменение метки комментария
     @on 'faye:comment:marked', (e, data) =>
       e.stopImmediatePropagation()
-      $(".b-comment##{data.comment_id}").shiki().mark(data.mark_kind, data.mark_value)
+      $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
