@@ -90,13 +90,15 @@ $horizontal-offset: 10px
   &>.message
     max-width: 1200px
     &>.inner
-      width: 1200px - $horizontal-offset * 2
+      max-width: 1200px - $horizontal-offset * 2
+      width: 100%
 
 .x1000 .b-feedback
   &>.message
     max-width: 1000px
     &>.inner
-      width: 1000px - 20px
+      max-width: 1000px - 20px
+      width: 100%
 
 .b-feedback
   margin: $horizontal-offset 0
@@ -114,7 +116,11 @@ $horizontal-offset: 10px
       top: 50%
       z-index: 1002
 
+      +lte_ipad
+        left: 0
+
       .about
+        line-height: $line_height
         margin-bottom: 8px
 
         a
