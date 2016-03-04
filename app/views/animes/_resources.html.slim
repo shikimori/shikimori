@@ -65,8 +65,8 @@
         .cc.m0
           = render @resource.roles.main_people
 
-- if @resource.screenshots(5).any? || @resource.videos(5).any?
-  .cc.m0 class="#{@resource.videos(5).any? && @resource.screenshots(5).any? ? (@resource.videos(5).one? ? 'one-video' : 'two-videos') : 'no-video'}"
+- if @resource.screenshots(5).any? || @resource.videos(4).any?
+  .cc.m0 class="#{@resource.videos(4).any? && @resource.screenshots(5).any? ? (@resource.videos(4).one? ? 'one-video' : 'two-videos') : 'no-video'}"
     - if @resource.screenshots(5).any?
       .c-screenshots
         .subheadline.m10
@@ -78,7 +78,7 @@
         .cc
           = render @resource.screenshots(5)
 
-    - if @resource.videos(5).any?
+    - if @resource.videos(4).any?
       .c-videos
         .subheadline.m10
           - if user_signed_in?
@@ -86,7 +86,7 @@
           - else
             = t '.videos'
         .cc
-          = render @resource.videos(5)
+          = render @resource.videos(4)
 
 /- if @resource.related.related.any?
   /.b-options-floated.mobile-phone
