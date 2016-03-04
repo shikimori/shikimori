@@ -6,26 +6,38 @@ $horizontal-offset: 10px
   max-width: 1200px
   &>.inner
     max-width: 1200px - $horizontal-offset * 2
-    width: 100%
 
 .x1000 .b-modal
   max-width: 1000px
   &>.inner
     max-width: 1000px - 20px
-    width: 100%
 
 .b-modal
-  background: white
   margin: 0 auto
   padding: 0 $horizontal-offset
+  width: 100%
 
-  &>.inner
-    background: white
-    margin: -150px auto 0
-    padding: 10px
+  +lte_ipad
+    left: 0
     position: absolute
-    top: 50%
     z-index: 1002
 
-    +lte_ipad
-      left: 0
+  +ipad
+    margin-top: 100px
+
+  +iphone-portrait
+    margin-top: 50px
+
+  +iphone-landscape
+    margin-top: 34px
+
+  &>.inner
+    background: #fff
+    margin: 0 auto
+    padding: 10px
+    width: 100%
+
+    +gt_ipad
+      margin-top: 150px
+      position: absolute
+      z-index: 1002

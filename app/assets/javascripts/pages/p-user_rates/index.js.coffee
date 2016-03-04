@@ -50,7 +50,7 @@ LOCALES = {
 
   $('.list-groups').on 'ajax:success', '.edit-user_rate', (e, form_html) ->
     $(@).closest('.user_rate').removeClass 'b-ajax'
-    $(form_html).shiki_modal()
+    new ShikiModal $(form_html)
 
   # фильтры каталога
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
