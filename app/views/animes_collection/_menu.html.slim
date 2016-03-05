@@ -155,4 +155,5 @@
                 data-href="#{tooltip_genre_url genre, subdomain: false}"
               ]
 
-  = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+  - unless params[:controller] == 'user_rates'
+    = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

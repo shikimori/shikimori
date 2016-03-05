@@ -7,6 +7,8 @@ LINKED_TYPE_USER_SELECT = '.topic_linked select.type'
 
   $topic_link = $ '.topic-link', $form
 
+  return unless $form.length
+
   initial_linked_type = $('#topic_linked_type').val() ||
     $('option', LINKED_TYPE_USER_SELECT).val()
   $(LINKED_TYPE_USER_SELECT)

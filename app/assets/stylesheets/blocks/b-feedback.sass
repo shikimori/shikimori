@@ -85,52 +85,28 @@ $feedback_color_to: #4b80c0
     &:hover
       z-index: 1001
 
-$horizontal-offset: 10px
-.x1200 .b-feedback
-  &>.message
-    max-width: 1200px
-    &>.inner
-      width: 1200px - $horizontal-offset * 2
+.b-feedback-inner
+  .about
+    +gt_ipad
+      line-height: 1.45
+    +lte_ipad
+      line-height: 1.65
 
-.x1000 .b-feedback
-  &>.message
-    max-width: 1000px
-    &>.inner
-      width: 1000px - 20px
+    margin-bottom: 8px
 
-.b-feedback
-  margin: $horizontal-offset 0
+    a
+      +link
+  .warn
+    color: $red
 
-  &>.message
-    background: white
-    margin: 0 auto
-    padding: 0 $horizontal-offset
+  .post-here
+    color: $gray-3
+    position: absolute
+    right: 22px
+    margin-top: -32px
+    font-size: 11px
 
-    &>.inner
-      background: white
-      margin: -150px auto 0
-      padding: 10px
-      position: absolute
-      top: 50%
-      z-index: 1002
-
-      .about
-        margin-bottom: 8px
-
-        a
-          +link
-
-      .warn
-        color: $red
-
-      .post-here
-        color: $gray-3
-        position: absolute
-        right: 22px
-        margin-top: -32px
-        font-size: 11px
-
-      .post-here-arrow
-        margin-top: -16px
-        position: absolute
-        right: 98px
+  .post-here-arrow
+    margin-top: -16px
+    position: absolute
+    right: 98px

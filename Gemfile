@@ -22,7 +22,7 @@ gem 'd3_rails'
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
 
-gem 'rmagick', require: 'rmagick', github: 'gemhome/rmagick', branch: 'master' # dependence: sudo apt-get install libmagickwand-dev
+gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
@@ -108,6 +108,10 @@ group :development do
   #gem 'web-console'
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'rack-mini-profiler'
+  gem 'flamegraph' # for flame graph in rack-mini-profiler
+  gem 'stackprof', require: false # for flamegraph
 
   gem 'capistrano'
   gem 'capistrano-rails', require: false

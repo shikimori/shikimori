@@ -4,7 +4,7 @@
     $editor
       .shiki_editor()
       .on 'preview:params', ->
-        body: $(@).shiki().$textarea.val()
+        body: $(@).view().$textarea.val()
         target_id: $editor.data('target_id')
         target_type: $editor.data('target_type')
 
@@ -40,7 +40,7 @@
       .on 'autocomplete:success autocomplete:text', (e, result) ->
         @value = if Object.isString(result) then result else result.value
         $('.b-gallery').data(tags: @value)
-        $('.b-gallery').shiki().refresh()
+        $('.b-gallery').view().refresh()
 
     $('.b-gallery').imageboard()
 

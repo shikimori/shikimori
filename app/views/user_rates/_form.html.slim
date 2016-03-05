@@ -1,0 +1,58 @@
+= simple_form_for params[:api] ? [:api, resource] : resource,
+    remote: true,
+    html: { 'data-type' => params[:api] ? :json : :html },
+    authenticity_token: true do |f|
+
+  - unless params[:api]
+    .remove-container
+      a.remove[
+        href="#{user_rate_url f.object}"
+        title="#{t '.remove_from_my_list'}"
+        data-method="delete"
+        data-remote="true"
+        data-type="html"
+      ] = t '.remove_from_my_list'
+
+  = f.input :score,
+    as: :select,
+    collection: UserRateDecorator.scores_options
+
+  - if f.object.anime?
+    = f.input :episodes,
+      input_html: {\
+        min: 0,
+        max: f.object.target.episodes.zero? ? 999 : f.object.target.episodes,
+      }
+
+  - else
+    = f.input :chapters,
+      input_html: {\
+        min: 0,
+        max: f.object.target.chapters.zero? ? 999 : f.object.target.chapters,
+      }
+    = f.input :volumes,
+      input_html: {\
+        min: 0,
+        max: f.object.target.volumes.zero? ? 999 : f.object.target.volumes,
+      }
+
+  = f.input :status,
+    collection: UserRateDecorator.statuses_options(f.object.target_type),
+    include_blank: false
+  = f.input :rewatches,
+    label: UserRate.human_attribute_name(f.object.anime? ? :rewatches : :rereads),
+    input_html: { min: 0 }
+  = f.input :text, as: :text
+
+  - if params[:api]
+    a.remove[
+      href="#{user_rate_url f.object}"
+      title="#{t '.remove_from_my_list'}"
+      data-method="delete"
+      data-remote="true"
+      data-type="html"
+    ] = t '.remove_from_my_list'
+
+  .buttons
+    .b-js-link.cancel = t 'actions.cancel'
+    = f.button :magic_submit

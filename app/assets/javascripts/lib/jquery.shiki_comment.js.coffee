@@ -51,7 +51,7 @@ class @ShikiComment extends ShikiEditable
     @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.each (id) ->
-          $(".b-comment##{id}").shiki().mark(data.kind, data.value)
+          $(".b-comment##{id}").view().mark(data.kind, data.value)
         $.notice marker_message(data)
       else
         $.notice 'Ваш запрос будет рассмотрен. Домо аригато.'

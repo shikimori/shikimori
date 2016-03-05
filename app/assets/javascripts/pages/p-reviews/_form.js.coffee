@@ -3,6 +3,6 @@
   $('.b-shiki_editor.unprocessed')
     .shiki_editor()
     .on 'preview:params', ->
-      body: $(@).shiki().$textarea.val()
+      body: $(@).view().$textarea.val()
       target_id: $('#review_target_id').val()
       target_type: $('#review_target_type').val()

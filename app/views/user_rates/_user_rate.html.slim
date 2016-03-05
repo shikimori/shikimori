@@ -1,10 +1,10 @@
 .b-user_rate.unprocessed[
-    data-status="#{user_rate.status if user_rate.persisted?}"
-    data-target_id="#{user_rate.target_id}"
-    data-target_type="#{user_rate.target_type}"
-    data-button_only="#{!!local_assigns[:button_only]}"
-    data-unauthorized="#{t '.please_sign_in', url: new_user_session_url}"
-  ]
+  data-status="#{user_rate.status if user_rate.persisted?}"
+  data-target_id="#{user_rate.target_id}"
+  data-target_type="#{user_rate.target_type}"
+  data-button_only="#{!!local_assigns[:button_only]}"
+  data-unauthorized="#{t '.please_sign_in', url: new_user_session_url}"
+]
   .b-add_to_list[
       class="#{user_rate.persisted? ? user_rate.status : :planned}"
     ]
@@ -100,4 +100,7 @@
         = render partial: 'blocks/rate',
           locals: { score: user_rate ? user_rate.score : '', with_submit: true, input_selector: '#user_rate_score' }
 
-      p.note = user_rate.text_html
+      - if user_signed_in? && user_rate.text.present?
+        p.note = user_rate.text_html
+        .note-author
+          = render 'users/user_16', user: current_user

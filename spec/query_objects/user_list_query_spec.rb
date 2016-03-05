@@ -14,7 +14,7 @@ describe UserListQuery do
     it 'has 2 items' do
       expect(subject.size).to eq(2)
     end
-    its(:first) { should eq [:watching, [user_rate_2, user_rate_1]] }
-    its([:completed]) { should eq [user_rate_3] }
+    its(:first) { is_expected.to eq [:watching, [user_rate_2, user_rate_1]] }
+    its([:completed]) { is_expected.to eq [user_rate_3] }
   end
 end

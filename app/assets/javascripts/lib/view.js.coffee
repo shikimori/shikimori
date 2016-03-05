@@ -1,8 +1,8 @@
-# общий класс для комментария, топика, редактора
+# общий класс для любого вью объекта
 class @View
-  constructor: (root) ->
-    @_initialize(root)
-    @initialize(@$node)
+  constructor: (node) ->
+    @_initialize node
+    @initialize @$node
     @_after_initialize()
 
   on: ->
@@ -19,32 +19,7 @@ class @View
     @$node = @$root = $(node)
     @node = @root = @$node[0]
 
+    @$node.view(@)
+
   # колбек после инициализации
   _after_initialize: ->
-
-  # тень аякс запроса
-  _shade: =>
-    @$node.addClass 'ajax_request'
-
-  # убирание тени
-  _unshade: =>
-    @$node.removeClass 'ajax_request'
-
-  # перезагрузка содержимого
-  _reload: =>
-    @_shade()
-    $.get @_reload_url(), (response) =>
-      @_replace response
-
-  # урл для перезагрузки элемента
-  _reload_url: ->
-    @$node.data 'url'
-
-  # замена элемента контентом
-  _replace: (html) ->
-    $replaced = $(html)
-    @$node.replaceWith $replaced
-
-    $replaced
-      .process()
-      .yellowFade()
