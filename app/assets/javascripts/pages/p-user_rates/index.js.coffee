@@ -57,7 +57,8 @@ LOCALES = {
 
     $('.remove', $form).on 'ajax:success', ->
       $poster.remove()
-    $form.on 'ajax:success', ->
+    $form.on 'ajax:success', (e, data) ->
+      update_text_in_cache data
       modal.close()
 
   # фильтры каталога
@@ -169,11 +170,7 @@ apply_list_handlers = ($root) ->
         $('.rewatches', $tr).html ''
 
       # обновляем текст в кеше
-      list_cache.each (cache_block) ->
-        cache_entry = cache_block.entries.find (row) ->
-          row.target_id == data.anime?.id || row.target_id == data.manga?.id
-
-        cache_entry.text = data.text if cache_entry
+      update_text_in_cache data
 
     # удаление из списка
     $('.remove', $form).on 'ajax:success', (e, data) ->
@@ -325,3 +322,10 @@ process_next_page = ->
   update_list_cache()
   filter() unless _.isEmpty($('.filter input').val())
   $.force_appear()
+
+update_text_in_cache = (data) ->
+  list_cache.each (cache_block) ->
+    cache_entry = cache_block.entries.find (row) ->
+      row.target_id == data.anime?.id || row.target_id == data.manga?.id
+
+    cache_entry.text = data.text if cache_entry
