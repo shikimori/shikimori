@@ -49,8 +49,16 @@ LOCALES = {
     $(@).closest('.user_rate').addClass 'b-ajax'
 
   $('.list-groups').on 'ajax:success', '.edit-user_rate', (e, form_html) ->
-    $(@).closest('.user_rate').removeClass 'b-ajax'
-    new ShikiModal $(form_html)
+    $poster = $(@).closest('.user_rate')
+
+    $poster.removeClass('b-ajax')
+    $form = $(form_html).process()
+    modal = new ShikiModal $form
+
+    $('.remove', $form).on 'ajax:success', ->
+      $poster.remove()
+    $form.on 'ajax:success', ->
+      modal.close()
 
   # фильтры каталога
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')

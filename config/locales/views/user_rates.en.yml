@@ -1,6 +1,6 @@
 en:
   user_rates:
-    edit:
+    form:
       remove_from_my_list: Remove from My List
 
     user_rate:

@@ -10,9 +10,13 @@
       .cc-result
         .c-winner
           - if contest.anime?
-            = render partial: 'animes/anime', object: entry, locals: { cover_notice: :studio, content_by: :block }
+            = render partial: 'animes/anime',
+              object: entry,
+              locals: { cover_notice: :studio, content_by: :block }
           - else
-            = render partial: 'characters/character', object: entry, locals: { content_by: :block }
+            = render partial: 'characters/character',
+              object: entry,
+              locals: { content_by: :block }
 
         .c-rounds
           .label = "#{t '.competitors'}:"

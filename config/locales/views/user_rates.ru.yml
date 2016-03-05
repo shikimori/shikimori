@@ -1,6 +1,6 @@
 ru:
   user_rates:
-    edit:
+    form:
       remove_from_my_list: Удалить из списка
 
     user_rate:

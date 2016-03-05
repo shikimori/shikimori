@@ -1,9 +1,8 @@
 class @ShikiModal extends View
   initialize: ($root) ->
-    @$modal = $root
-      .wrap("<div class='inner'></div>").parent()
-      .wrap("<div class='b-modal'></div>").parent()
+    @$modal = $("<div class='b-modal'><div class='inner'></div></div>")
 
+    @$modal.find('.inner').append $root
     @$modal.css top: $(window).scrollTop()
     @$modal.children().css top: $(window).scrollTop()
 

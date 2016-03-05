@@ -12,7 +12,7 @@
       - if library.user.own_profile?
         .edit-user_rate[
           data-remote="true"
-          data-action="#{edit_api_user_rate_path user_rate}"
+          data-action="#{edit_api_user_rate_path user_rate, detailed: true}"
           data-type='html'
           data-rate_url="#{api_user_rate_path user_rate}"
         ]
