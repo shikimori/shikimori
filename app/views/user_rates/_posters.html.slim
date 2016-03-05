@@ -8,7 +8,9 @@
       = render user_rate.target.decorate,
         cover_notice: :year_kind,
         content_by: :mini_tooltip,
-        tooltip_predelay: 1000
+        tooltip_predelay: library.user.own_profile? ? 1000 : 450
+      .text class="#{:hidden if user_rate.text.blank?}"
+        = user_rate.text_html
       - if library.user.own_profile?
         .edit-user_rate[
           data-remote="true"

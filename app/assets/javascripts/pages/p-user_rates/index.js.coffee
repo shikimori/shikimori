@@ -58,6 +58,7 @@ LOCALES = {
     $('.remove', $form).on 'ajax:success', ->
       $poster.remove()
     $form.on 'ajax:success', (e, data) ->
+      $poster.children('.text').html data.text_html || ''
       update_text_in_cache data
       modal.close()
 

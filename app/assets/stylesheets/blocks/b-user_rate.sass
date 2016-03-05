@@ -4,6 +4,7 @@
 @import mixins/block
 @import mixins/hover_underlined
 @import mixins/link
+@import mixins/clear_right
 @import mixins/responsive
 
 .b-user_rate
@@ -47,8 +48,12 @@
       margin-bottom: 5px
 
     .note
-      color: $gray-1
+      color: $gray-4
       margin-top: 5px
+
+    .note-author
+      +clear_right
+      float: right
 
   .rate-edit
     display: none
