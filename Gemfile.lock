@@ -299,7 +299,7 @@ GEM
     flamegraph (0.1.0)
       fast_stack
     formatador (0.2.5)
-    gcm (0.1.0)
+    gcm (0.1.1)
       httparty
       json
     git-version-bump (0.15.1)
@@ -329,7 +329,7 @@ GEM
       guard (~> 2.0)
       guard-compat (~> 1.1)
       spring
-    hashdiff (0.2.3)
+    hashdiff (0.3.0)
     hashie (3.4.3)
     hike (1.2.3)
     hiredis (0.5.2)
@@ -337,7 +337,7 @@ GEM
     honeybadger (2.5.1)
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
-    httparty (0.13.5)
+    httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -425,7 +425,7 @@ GEM
       omniauth-oauth2 (~> 1.1)
     open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
-    paperclip (4.3.4)
+    paperclip (4.3.5)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       cocaine (~> 0.5.5)
@@ -451,7 +451,7 @@ GEM
     rabl (0.12.0)
       activesupport (>= 2.3.14)
     rack (1.6.4)
-    rack-attack (4.3.1)
+    rack-attack (4.4.1)
       rack
     rack-contrib (1.4.0)
       git-version-bump (~> 0.15)
@@ -528,7 +528,7 @@ GEM
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.7)
-    rb-inotify (0.9.5)
+    rb-inotify (0.9.7)
       ffi (>= 0.5.0)
     redis (3.2.2)
     redis-namespace (1.5.2)
@@ -582,7 +582,7 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
-    sidekiq (4.1.0)
+    sidekiq (4.1.1)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
       redis (~> 3.2, >= 3.2.1)
@@ -656,7 +656,7 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.6)
       rack (>= 1.0)
-    webmock (1.22.6)
+    webmock (1.24.2)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
