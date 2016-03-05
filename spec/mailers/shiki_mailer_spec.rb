@@ -71,7 +71,7 @@ describe ShikiMailer do
 
         Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
 
-        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit.#{user.nickname}?reset_password_token=#{token}
+        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit?reset_password_token=#{token}
 
         Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 
