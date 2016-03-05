@@ -19,7 +19,7 @@ class Review < ActiveRecord::Base
   validates :user, :target, presence: true
   validates :text,
     length: { minimum: MINIMUM_LENGTH, too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)" },
-    if: -> { text.present? && changes['text'] }
+    if: -> { changes['text'] }
 
   after_create :generate_topic
 
