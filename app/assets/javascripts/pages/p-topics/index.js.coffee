@@ -5,9 +5,9 @@
     $('.b-show_more').show_more()
 
 @on 'page:load', 'topics_index', ->
-  $banner = $('.naruto,.titans')
+  $banner = $('.naruto, .titans')
 
-  # скрыть
+  # скрыть баннер
   $('.delete', $banner).on 'click', ->
     $.cookie $banner.data('cookie-name'), true, {expires: 9999, path: '/'}
     $banner.addClass('deletable')
