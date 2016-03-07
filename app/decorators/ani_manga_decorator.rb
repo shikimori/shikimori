@@ -6,7 +6,7 @@ class AniMangaDecorator < DbEntryDecorator
   NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :summaries_count, :cosplay?
+  instance_cache :topics, :news, :reviews, :reviews_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :main_entry_topic_view, :preview_entry_topic_view
@@ -72,21 +72,6 @@ class AniMangaDecorator < DbEntryDecorator
   # презентер связанных аниме
   def related
     RelatedDecorator.new object
-  end
-
-  # число коментариев
-  def comments_count
-    object.topic.comments_count
-  end
-
-  # число отзывов
-  def summaries_count
-    @summaries_count ||= object.topic.comments.summaries.count
-  end
-
-  # есть ли отзывы?
-  def summaries?
-    summaries_count > 0
   end
 
   # оценки друзей
@@ -222,9 +207,6 @@ private
   end
 
   def entry_topic_view is_preview
-    view = Topics::TopicViewFactory.new(is_preview, false).build topic
-    view.comments_view.summary_new_comment = true
-    view.comments_view.summaries_query = summaries?
-    view
+    Topics::TopicViewFactory.new(is_preview, false).build object.topic
   end
 end

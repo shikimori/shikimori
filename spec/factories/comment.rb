@@ -28,6 +28,10 @@ FactoryGirl.define do
       after(:build) { |comment| comment.unstub :check_antispam }
     end
 
+    trait :with_counter_cache do
+      after(:build) { |comment| comment.unstub :increment_comments }
+    end
+
     trait :with_creation_callbacks do
       after(:build) { |comment| comment.unstub :creation_callbacks }
     end

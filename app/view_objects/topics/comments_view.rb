@@ -1,9 +1,6 @@
 class Topics::CommentsView < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
-  attr_accessor :summaries_query
-  attr_accessor :summary_new_comment
-
   instance_cache :comments, :new_comment, :folded_comments
 
   # есть ли свёрнутые комментарии?
@@ -13,8 +10,8 @@ class Topics::CommentsView < ViewObjectBase
 
   # число свёрнутых комментариев
   def folded_comments
-    if summaries_query
-      topic.comments.summaries.size - comments_limit
+    if topic.any_summaries?
+      topic.summaries_count - comments_limit
     else
       topic.comments_count - comments_limit
     end
@@ -46,7 +43,7 @@ class Topics::CommentsView < ViewObjectBase
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
-    (summaries_query ? comments.summaries : comments)
+    (topic.any_summaries? ? comments.summaries : comments)
       .decorate
       .to_a
       .reverse
@@ -60,13 +57,12 @@ class Topics::CommentsView < ViewObjectBase
       topic_id: topic.id,
       skip: 'SKIP',
       limit: fold_limit,
-      review: summaries_query ? 'review' : nil
+      review: topic.any_summaries? ? 'review' : nil
     )
   end
 
   def hide_comments_text
     i18n_t 'hide_comments', comment_word: comment_word(5)
-
   end
 
   def show_comments_text
@@ -91,7 +87,7 @@ class Topics::CommentsView < ViewObjectBase
     Comment.new(
       user: h.current_user,
       commentable: topic,
-      review: summary_new_comment
+      review: true
     )
   end
 
@@ -101,9 +97,9 @@ class Topics::CommentsView < ViewObjectBase
 
 private
 
-  def comment_word num
-    word = summaries_query ? 'summary' : 'comment'
-    i18n_i word, num, :accusative
+  def comment_word number
+    word = topic.any_summaries? ? 'summary' : 'comment'
+    i18n_i word, number, :accusative
   end
 
   # # для адреса подгрузки комментариев

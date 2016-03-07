@@ -94,7 +94,8 @@ class AnimesController < DbEntriesController
   end
 
   def reviews
-    return redirect_to @resource.url, status: 301 if @resource.summaries_count.zero?
+    return redirect_to @resource.url, status: 301 unless @resource.topic.any_summaries?
+
     page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
     #@canonical = UrlGenerator.instance.topic_url(@resource.topic)
   end
