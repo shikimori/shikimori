@@ -2,7 +2,7 @@ json.title @page_title
 json.notice @title_notice
 
 json.content render(
-  partial: 'animes_collection/entries',
+  partial: 'userlist_comparer/table.html',
   formats: :html
 )
 json.current_page @current_page

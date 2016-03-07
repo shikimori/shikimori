@@ -19,11 +19,15 @@
               = @user_2.nickname
         tr.border
           th colspan="4"
+
         - collection.each do |entry|
           tr.unprocessed.selectable class="#{entry[:variety]}"
             td.name
-              a.tooltipped href="#{entry[:url]}" data-predelay="650" title="#{entry[:name]}"
-                = entry[:name]
+              a.tooltipped[
+                href="#{entry[:url]}"
+                data-predelay="500"
+                title="#{entry[:name]}"
+              ] = entry[:name]
             - if type == :both || type == :user_1_only
               td.num
                 == entry[:rate_1_title]

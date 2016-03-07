@@ -155,5 +155,5 @@
                 data-href="#{tooltip_genre_url genre, subdomain: false}"
               ]
 
-  - unless params[:controller] == 'user_rates'
+  - unless ['user_rates', 'userlist_comparer'].include? params[:controller]
     = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

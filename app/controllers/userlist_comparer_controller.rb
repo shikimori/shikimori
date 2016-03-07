@@ -21,19 +21,6 @@ class UserlistComparerController < ShikimoriController
       user_1: @user_1.nickname, user_2: @user_2.nickname
 
     @menu = Menus::CollectionMenu.new @klass
-
-    respond_to do |format|
-      format.html { render }
-      format.json {
-        render json: {
-          content: render_to_string(
-            partial: 'userlist_comparer/table.html',
-            layout: false,
-            formats: :html
-          )
-        }
-      }
-    end
   end
 
 private
