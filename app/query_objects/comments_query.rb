@@ -3,7 +3,13 @@ class CommentsQuery
 
   def initialize commentable_type, commentable_id, review = false
     commentable_klass = commentable_type.camelize.constantize
-    @commentable_type = commentable_klass.respond_to?(:base_class) ? commentable_klass.base_class.name : commentable_klass.name
+
+    @commentable_type =
+      if commentable_klass.respond_to?(:base_class)
+        commentable_klass.base_class.name
+      else
+        commentable_klass.name
+      end
     @commentable_id = commentable_id
     @review = review
   end

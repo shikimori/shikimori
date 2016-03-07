@@ -5,13 +5,13 @@ class Api::V1::CommentsController < Api::V1::ApiController
   before_filter :check_post_permission, only: [:create, :update, :destroy]
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENERATING NEXT TIME
   api :GET, '/comments/:id', 'Show a comment'
   def show
     respond_with Comment.find(params[:id]).decorate
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENERATING NEXT TIME
   api :GET, '/comments', 'List comments'
   def index
     @limit = [[params[:limit].to_i, 1].max, 30].min
@@ -28,7 +28,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
       .decorate
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENERATING NEXT TIME
   api :POST, '/comments', 'Create a comment'
   param :comment, Hash do
     param :body, :undef
@@ -47,7 +47,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENERATING NEXT TIME
   api :PATCH, '/comments/:id', 'Update a comment'
   api :PUT, '/comments/:id', 'Update a comment'
   param :comment, Hash do
@@ -63,7 +63,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENERATING NEXT TIME
   api :DELETE, '/comments/:id', 'Destroy a comment'
   def destroy
     raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user

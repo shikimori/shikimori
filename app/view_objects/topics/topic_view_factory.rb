@@ -1,28 +1,28 @@
 class Topics::TopicViewFactory
   pattr_initialize :is_preview, :is_mini
 
-  def find entry_id
-    build Entry.find(entry_id)
+  def find topic_id
+    build Topic.find(topic_id)
   end
 
-  def build entry
-    if entry.review?
-      Topics::ReviewView.new entry, @is_preview, @is_mini
+  def build topic
+    if topic.review?
+      Topics::ReviewView.new topic, is_preview, is_mini
 
-    elsif entry.contest?
-      Topics::ContestView.new entry, @is_preview, @is_mini
+    elsif topic.contest?
+      Topics::ContestView.new topic, is_preview, is_mini
 
-    elsif entry.cosplay?
-      Topics::CosplayView.new entry, @is_preview, @is_mini
+    elsif topic.cosplay?
+      Topics::CosplayView.new topic, is_preview, is_mini
 
-    elsif entry.generated_news?
-      Topics::GeneratedNewsView.new entry, @is_preview, @is_mini
+    elsif topic.generated_news?
+      Topics::GeneratedNewsView.new topic, is_preview, is_mini
 
-    elsif entry.news?
-      Topics::NewsView.new entry, @is_preview, @is_mini
+    elsif topic.news?
+      Topics::NewsView.new topic, is_preview, is_mini
 
     else
-      Topics::View.new entry, @is_preview, @is_mini
+      Topics::View.new topic, is_preview, is_mini
     end
   end
 end

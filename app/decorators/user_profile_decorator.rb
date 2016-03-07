@@ -5,7 +5,7 @@ require_dependency 'publisher'
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
     :nickname_changes, :clubs, :favourites,
-    :main_comments, :preview_comments, :ignored_topics
+    :main_comments_view, :preview_comments_view, :ignored_topics
 
   def about_above?
     !about.blank? && !about.strip.blank? && preferences.about_on_top?
@@ -184,11 +184,11 @@ class UserProfileDecorator < UserDecorator
       .map(&:decorate)
   end
 
-  def main_comments
+  def main_comments_view
     Topics::ProxyComments.new object, false
   end
 
-  def preview_comments
+  def preview_comments_view
     Topics::ProxyComments.new object, true
   end
 

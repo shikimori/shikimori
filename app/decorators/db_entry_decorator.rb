@@ -1,7 +1,8 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_ru, :description_en, :description_html,
-    :main_topic_view, :preview_topic_view, :linked_clubs, :all_linked_clubs,
-    :favoured, :favoured?, :all_favoured
+  instance_cache :description_ru, :description_en, :description_html
+  instance_cache :main_entry_topic_view, :preview_entry_topic_view
+  instance_cache :linked_clubs, :all_linked_clubs
+  instance_cache :favoured, :favoured?, :all_favoured
 
   MAX_CLUBS = 4
   MAX_FAVOURITES = 12
@@ -62,13 +63,11 @@ class DbEntryDecorator < BaseDecorator
     "http://myanimelist.net/#{klass_lower}/#{object.id}"
   end
 
-  # полный топик
-  def main_topic_view
+  def main_entry_topic_view
     Topics::TopicViewFactory.new(false, false).build topic
   end
 
-  # превью топика
-  def preview_topic_view
+  def preview_entry_topic_view
     Topics::TopicViewFactory.new(true, false).build topic
   end
 

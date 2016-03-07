@@ -3,7 +3,7 @@ class Topics::View < ViewObjectBase
 
   delegate :id, :persisted?, :user, :created_at, :updated_at,
     :body, :comments_count, :viewed?, to: :topic
-  instance_cache :comments, :urls, :action_tag, :topic_ignore
+  instance_cache :comments_view, :urls, :action_tag, :topic_ignore
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
@@ -65,7 +65,7 @@ class Topics::View < ViewObjectBase
     end
   end
 
-  def comments
+  def comments_view
     Topics::CommentsView.new topic, is_preview
   end
 
