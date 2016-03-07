@@ -1,7 +1,7 @@
 class Topics::CommentsView < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
-  instance_cache :comments, :new_comment, :folded_comments
+  instance_cache :comments, :folded_comments
 
   # есть ли свёрнутые комментарии?
   def folded?
