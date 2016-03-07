@@ -83,11 +83,11 @@
         - else
           li.order-by-id = t 'by.date_added'
 
-      / используется в userlist comparer
-      - if defined?(custom_sorts) && !custom_sorts.empty?
-        - custom_sorts.each do |name, title|
-          li class="order-by-#{name}"
-            = title
+        / используется в userlist comparer
+        - if defined?(custom_sorts) && !custom_sorts.empty?
+          - custom_sorts.each do |name, title|
+            li class="order-by-#{name}"
+              = title
 
   - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparison)
     = render 'animes_collection/mylist', klass: menu.klass
