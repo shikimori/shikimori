@@ -7,14 +7,8 @@ FactoryGirl.define do
         ]
     end
 
-    after :build do |person|
-      person.stub :generate_topic
-    end
-
     trait :with_topic do
-      after :build do |person|
-        person.unstub :generate_topic
-      end
+      after(:create) { |v| v.generate_topic }
     end
   end
 end

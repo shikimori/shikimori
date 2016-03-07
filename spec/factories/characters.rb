@@ -5,10 +5,6 @@ FactoryGirl.define do
     description_ru ''
     description_en ''
 
-    after :build do |character|
-      character.stub :generate_topic
-    end
-
     trait :anime do
       after :create do |character|
         FactoryGirl.create :anime, characters: [character]
@@ -16,9 +12,7 @@ FactoryGirl.define do
     end
 
     trait :with_topic do
-      after :build do |character|
-        character.unstub :generate_topic
-      end
+      after(:create) { |v| character.unstub :generate_topic }
     end
   end
 end
