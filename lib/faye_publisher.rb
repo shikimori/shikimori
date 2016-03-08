@@ -44,6 +44,7 @@ class FayePublisher
   end
 
 private
+
   # отправка уведомлений о новом комментарии
   def publish_comment comment, event, channels
     # уведомление в открытые топики

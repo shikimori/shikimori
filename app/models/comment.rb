@@ -6,7 +6,9 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  MIN_REVIEW_SIZE = 230
+  boolean_attribute :summary
+
+  MIN_SUMMARY_SIZE = 230
 
   # associations
   belongs_to :user
@@ -27,7 +29,7 @@ class Comment < ActiveRecord::Base
   validates_length_of :body, minimum: 2, maximum: 10000
 
   # scopes
-  scope :summaries, -> { where review: true }
+  scope :summaries, -> { where is_summary: true }
 
   # callbacks
   before_validation :clean
@@ -72,7 +74,7 @@ class Comment < ActiveRecord::Base
 
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
-    self.review = false if review? && body.size < MIN_REVIEW_SIZE
+    self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
     true
   end
 
@@ -175,30 +177,22 @@ class Comment < ActiveRecord::Base
     offtopic
   end
 
-  # отзыв ли это?
-  def review?
-    review
+  def mark_offtopic flag
+    ids = comment_thread.map(&:id) + [id]
+    Comment.where(id: ids).update_all offtopic: flag
+    self.offtopic = flag
+    ids
   end
 
-  # пометка комментария либо оффтопиком, либо обзором
-  def mark kind, value
-    if value && kind == 'offtopic'
-      ids = quoted_responses.map(&:id) + [id]
-      Comment.where(id: ids).update_all offtopic: true
-      self.offtopic = true
-
-      ids
-    else
-      update kind => value if respond_to? kind
-
-      [id]
-    end
+  def mark_summary flag
+    update is_summary: flag
+    [id]
   end
 
   # ветка с ответами на этот комментарий
-  def quoted_responses
+  def comment_thread
     comments = Comment
-      .where("id > ?", id)
+      .where('id > ?', id)
       .where(commentable_type: commentable_type, commentable_id: commentable_id)
       .order(:id)
 

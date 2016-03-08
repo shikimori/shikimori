@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(version: 20160313125123) do
     t.integer  "user_id",                                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "review",                      default: false
+    t.boolean  "is_summary",                  default: false
     t.boolean  "offtopic",                    default: false
   end
 

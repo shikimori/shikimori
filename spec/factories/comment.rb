@@ -4,7 +4,7 @@ FactoryGirl.define do
     commentable { seed :topic }
     sequence(:body) { |n| "comment_body_#{n}" }
     offtopic false
-    review false
+    is_summary false
 
     after :build do |comment|
       comment.stub :check_antispam
@@ -15,9 +15,9 @@ FactoryGirl.define do
       comment.stub :release_the_banhammer!
     end
 
-    trait :review do
-      review true
-      body 'x' * Comment::MIN_REVIEW_SIZE
+    trait :summary do
+      is_summary true
+      body 'x' * Comment::MIN_SUMMARY_SIZE
     end
 
     trait :with_notify_quotes do

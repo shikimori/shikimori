@@ -40,17 +40,17 @@ describe Comment do
     end
 
     describe '#cancel_summary' do
-      let(:comment) { build :comment, body: body, review: true }
+      let(:comment) { build :comment, :summary, body: body }
       before { comment.save }
 
       context 'long comment' do
-        let(:body) { 'x' * Comment::MIN_REVIEW_SIZE }
-        it { expect(comment).to be_review }
+        let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+        it { expect(comment).to be_summary }
       end
 
       context 'short comment' do
-        let(:body) { 'x' * (Comment::MIN_REVIEW_SIZE - 1) }
-        it { expect(comment).to_not be_review }
+        let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
+        it { expect(comment).to_not be_summary }
       end
     end
 

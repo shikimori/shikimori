@@ -11,6 +11,7 @@ FactoryGirl.define do
       state 'accepted'
       approver { seed :user }
     end
+
     factory :rejected_abuse_request do
       state 'rejected'
       approver { seed :user }

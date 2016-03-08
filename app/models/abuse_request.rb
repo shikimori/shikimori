@@ -7,12 +7,12 @@ class AbuseRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  enumerize :kind, in: [:offtopic, :review, :spoiler, :abuse], predicates: true
+  enumerize :kind, in: [:offtopic, :summary, :spoiler, :abuse], predicates: true
 
   validates :user, :comment, presence: true
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
-  scope :pending, -> { where state: 'pending', kind: ['offtopic', 'review'] }
+  scope :pending, -> { where state: 'pending', kind: ['offtopic', 'summary'] }
   scope :abuses, -> { where state: 'pending', kind: ['spoiler', 'abuse'] }
 
   state_machine :state, initial: :pending do

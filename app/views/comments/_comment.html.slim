@@ -19,9 +19,9 @@
 
         aside.markers
           - if comment.try :allowed_summary?
-            .b-review_marker[
+            .b-summary_marker[
               class="#{:active if user_signed_in?}"
-              style="#{'display: none;' unless comment.review?}"
+              style="#{'display: none;' unless comment.summary?}"
               title="Снять метку отзыва"
               data-action="#{review_comment_abuse_requests_url comment}"
               data-text="#{t 'markers.summary'}"

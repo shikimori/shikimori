@@ -35,15 +35,15 @@ class FayeService
     end
   end
 
-  def offtopic comment, value
-    ids = comment.mark 'offtopic', value
-    publisher.publish_marks ids, 'offtopic', comment.offtopic?
+  def offtopic comment, flag
+    ids = comment.mark_offtopic flag
+    publisher.publish_marks ids, 'offtopic', flag
     ids
   end
 
-  def review comment, value
-    ids = comment.mark 'review', value
-    publisher.publish_marks ids, 'review', comment.review?
+  def summary comment, flag
+    ids = comment.mark_summary flag
+    publisher.publish_marks ids, 'summary', flag
     ids
   end
 
@@ -60,6 +60,7 @@ class FayeService
   end
 
 private
+
   def publisher
     FayePublisher.new @actor, @publisher_faye_id
   end
