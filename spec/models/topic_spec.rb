@@ -128,7 +128,7 @@ describe Topic do
       context 'not all summaries' do
         before do
           create_comment
-          create_comment
+          create_summary
           create_summary
         end
 

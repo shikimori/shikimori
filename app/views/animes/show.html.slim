@@ -154,5 +154,5 @@
         = i18n_io @resource.topic.any_summaries? ? 'Summary' : 'Comment', :few
 
     div
-      .b-topic.unprocessed data-faye="#{@resource.preview_entry_topic_view.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_entry_topic_view.comments_view
+      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
+        = render 'topics/comments', view: @resource.preview_topic_view.comments_view

@@ -9,7 +9,6 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news, :reviews, :reviews_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
-  instance_cache :main_entry_topic_view, :preview_entry_topic_view
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
@@ -54,14 +53,6 @@ class AniMangaDecorator < DbEntryDecorator
   def current_rate
     return unless h.user_signed_in?
     rates.where(user_id: h.current_user.id).decorate.first
-  end
-
-  def main_entry_topic_view
-    entry_topic_view false
-  end
-
-  def preview_entry_topic_view
-    entry_topic_view true
   end
 
   # объект с ролями аниме
@@ -204,9 +195,5 @@ private
 
   def rates_query
     UserRatesQuery.new(object, h.current_user)
-  end
-
-  def entry_topic_view is_preview
-    Topics::TopicViewFactory.new(is_preview, false).build object.topic
   end
 end
