@@ -29,7 +29,6 @@ en:
     labels:
       user:
         nickname: Login (nickname)
-        avatar: Avatar (160x160)
       anime_video:
         author_name: Author (dubbing, subtitles)
         anime_video_author_id: Author (dubbing, subtitles)

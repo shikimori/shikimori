@@ -1,5 +1,5 @@
 class Person < DbEntry
-  DESYNCABLE = %w{name japanese website birthday}
+  DESYNCABLE = %w(name japanese website birthday image)
 
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles
@@ -19,7 +19,7 @@ class Person < DbEntry
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  SEYU_ROLES = %w{ English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean }
+  SEYU_ROLES = %w(English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean)
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
   # является ли человек режиссёром

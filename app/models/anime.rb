@@ -4,8 +4,10 @@
 class Anime < DbEntry
   include AniManga
 
-  DESYNCABLE = %w(name kind episodes rating aired_on released_on status genres
-    description_en)
+  DESYNCABLE = %w(
+    name kind episodes rating aired_on released_on status genres
+    description_en image
+  )
   EXCLUDED_ONGOINGS = %w(966 1199 1960 2406 4459 6149 7511 7643 8189 8336 8631
     8687 9943 9947 10506 10797 10995 12393 13165 13433 13457 13463 15111 15749
     16908 18227 18845 18941 19157 19445 19825 20261 21447 21523 24403 24969

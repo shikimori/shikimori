@@ -37,7 +37,7 @@
             = fp.input :russian_names
 
       .block
-        = f.input :avatar
+        = f.input :avatar, hint: '160x160'
         .avatar-edit
           - if @resource.avatar.exists?
             img[

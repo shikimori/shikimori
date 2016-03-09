@@ -8,45 +8,43 @@
           .field = Character.human_attribute_name :name
           .value = @resource.name
           - if can? :significant_change, Version
-            a.b-js-action[
-              href="#{@resource.edit_field_url :name}"
-            ] = t '.moderators_only'
+            a.b-js-action href="#{@resource.edit_field_url :name}"
+              = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'
 
         li
           .field = Character.human_attribute_name :russian
           .value = @resource.russian
-          a.b-js-action[
-            href="#{@resource.edit_field_url :russian}"
-          ] = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :russian}"
+            = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :japanese
           .value = @resource.japanese
-          a.b-js-action[
-            href="#{@resource.edit_field_url :japanese}"
-          ] = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :japanese}"
+            = t 'actions.edit'
 
     .c-column.m0
       ul.b-list
         li
           .field = Character.human_attribute_name :poster
-          .value.under_development = t('under_development').downcase
-          /a.b-js-action href="#{@resource.edit_field_url :poster}" = t 'actions.edit'
+          - if can? :significant_change, Version
+            a.b-js-action href="#{@resource.edit_field_url :poster}"
+              = t '.moderators_only'
+          - else
+            .b-js-action = t '.moderators_only'
 
         - if ru_domain?
           li
             .field = Character.human_attribute_name :description_ru
-            a.b-js-action[
-              href="#{@resource.edit_field_url :description_ru}"
-            ] = t 'actions.edit'
+            a.b-js-action href="#{@resource.edit_field_url :description_ru}"
+              = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :description_en
-          a.b-js-action[
-            href="#{@resource.edit_field_url :description_en}"
-          ] = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :description_en}"
+            = t 'actions.edit'
 
         li
           .field = Character.human_attribute_name :cosplay
@@ -56,9 +54,8 @@
         li
           .field = Character.human_attribute_name :tags
           .value = @resource.tags
-          a.b-js-action[
-            href="#{@resource.edit_field_url :tags}"
-          ] = t 'actions.edit'
+          a.b-js-action href="#{@resource.edit_field_url :tags}"
+            = t 'actions.edit'
 
   - if @resource.desynced.any?
     .block

@@ -23,7 +23,8 @@ en:
         genres: Genres
         kind: Type
         name: Name
-        poster: Poster
+        poster: &poster Poster
+        image: *poster
         rating: Rating
         released_on: End date
         russian: Russian name
@@ -45,7 +46,8 @@ en:
         description_en: Description
         japanese: Japanese name
         name: Name
-        poster: Poster
+        poster: *poster
+        image: *poster
         russian: Russian name
         source: Description source
         tags: Imageboards tag

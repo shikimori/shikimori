@@ -2,8 +2,10 @@ class Manga < DbEntry
   include AniManga
   EXCLUDED_ONGOINGS = [-1]
 
-  DESYNCABLE = %w(name kind volumes chapters aired_on released_on status genres
-    description_en)
+  DESYNCABLE = %w(
+    name kind volumes chapters aired_on released_on status genres
+    description_en image
+  )
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 

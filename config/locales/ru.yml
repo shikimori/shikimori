@@ -23,7 +23,8 @@ ru:
         genres: Жанры
         kind: Тип
         name: Английское название
-        poster: Постер
+        poster: &poster Постер
+        image: *poster
         rating: Рейтинг
         released_on: Дата конца показа
         russian: Русское название
@@ -45,7 +46,8 @@ ru:
         description_en: Описание (англ)
         japanese: Японское имя
         name: Английское имя
-        poster: Постер
+        poster: *poster
+        image: *poster
         russian: Русское имя
         source: Источник описания
         tags: Тег имиджборд

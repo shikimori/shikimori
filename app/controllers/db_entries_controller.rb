@@ -27,16 +27,32 @@ class DbEntriesController < ShikimoriController
   def update
     authorize! :significant_change, Version if (update_params.keys & significant_fields).any?
 
-    version = Versioneers::FieldsVersioneer.new(@resource.object)
-      .premoderate(update_params, current_user, params[:reason])
-
-    version.accept current_user if version.persisted? && can?(:manage, version)
-    redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
+    if update_params[:image]
+      update_image
+    else
+      update_version
+    end
   end
 
 private
 
   def significant_fields
     @resource.object.class::SIGNIFICANT_FIELDS
+  end
+
+  def update_version
+    version = Versioneers::FieldsVersioneer.new(@resource.object)
+      .premoderate(update_params, current_user, params[:reason])
+
+    version.accept current_user if version.persisted? && can?(:manage, version)
+    flash.keep
+    redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
+  end
+
+  def update_image
+    @resource.update update_params
+    flash[:notice] = 'test'
+    flash.keep
+    redirect_to @resource.edit_url
   end
 end
