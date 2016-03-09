@@ -27,9 +27,10 @@ class Moderations::BansController < ModerationsController
 
   def create
     raise Forbidden unless current_user.moderator?
-
     @ban = Ban.new ban_params
+
     render json: @ban.errors.full_messages, status: :unprocessable_entity unless @ban.save
+  rescue StateMachine::InvalidTransition
   end
 
 private

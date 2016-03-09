@@ -32,7 +32,9 @@ private
 
   def changes new_values
     convert_dates(new_values).each_with_object({}) do |(field, new_value), memo|
-      memo[field.to_s] = [item.send(field), new_value] if item.send(field).to_s != new_value.to_s
+      if item.send(field).to_s != new_value.to_s
+        memo[field.to_s] = [item.send(field), new_value]
+      end
     end
   end
 
@@ -43,7 +45,7 @@ private
   end
 
   def convert_dates hash
-    hash.each_with_object({}) do |(key,value),memo|
+    hash.each_with_object({}) do |(key, value), memo|
       if key =~ SPLITTED_DATE_FIELD
         memo[$~[:field]] ||= Date.new(
           hash[$~[:field] + '(1i)'].to_i,

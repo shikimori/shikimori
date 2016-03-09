@@ -1,4 +1,4 @@
-class @AbuseRequest extends View
+class @AbuseRequest extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 

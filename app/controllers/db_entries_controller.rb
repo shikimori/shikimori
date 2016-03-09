@@ -45,14 +45,11 @@ private
       .premoderate(update_params, current_user, params[:reason])
 
     version.accept current_user if version.persisted? && can?(:manage, version)
-    flash.keep
     redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
   end
 
   def update_image
     @resource.update update_params
-    flash[:notice] = 'test'
-    flash.keep
-    redirect_to @resource.edit_url
+    redirect_to @resource.edit_url, notice: i18n_t('version_taken')
   end
 end

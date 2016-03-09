@@ -56,6 +56,8 @@ class Moderations::AbuseRequestsController < ModerationsController
     raise Forbidden unless current_user.moderator?
     @request.take! current_user
 
+  rescue StateMachine::InvalidTransition
+  ensure
     render json: {}
   end
 
@@ -65,6 +67,8 @@ class Moderations::AbuseRequestsController < ModerationsController
     raise Forbidden unless current_user.moderator?
     @request.reject! current_user
 
+  rescue StateMachine::InvalidTransition
+  ensure
     render json: {}
   end
 end
