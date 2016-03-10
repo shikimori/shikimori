@@ -20,6 +20,7 @@
     sibnet: video_hosting('sibnet.ru', url)
     yandex_ru: video_hosting('yandex.ru', url)
     dailymotion_com: video_hosting('dailymotion.com', url)
+    streamable_com: video_hosting('streamable.com', url)
 
     #youtube_example:
       #index: 'youtube.com' # String that detects type of video (in this case YouTube). Simply via url.indexOf(index).

@@ -25,7 +25,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
 
       its(:hosting) { is_expected.to eq :rutube }
       its(:image_url) { is_expected.to eq 'http://pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
-      its(:player_url) { is_expected.to eq 'http://video.rutube.ru/6797624' }
+      its(:player_url) { is_expected.to eq 'https://rutube.ru/play/embed/6797624?isFullTab=true' }
     end
 
     context 'vimeo' do
@@ -33,7 +33,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
 
       its(:hosting) { is_expected.to eq :vimeo }
       its(:image_url) { is_expected.to eq 'https://i.vimeocdn.com/video/463402969_1280x720.jpg' }
-      its(:player_url) { is_expected.to eq 'https://player.vimeo.com/video/85212054?autoplay=1' }
+      its(:player_url) { is_expected.to eq 'https://player.vimeo.com/video/85212054' }
     end
 
     context 'myvi' do
@@ -71,6 +71,14 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       its(:hosting) { is_expected.to eq :dailymotion }
       its(:image_url) { is_expected.to eq 'http://s1.dmcdn.net/DeNs_/526x297-o88.jpg' }
       its(:player_url) { is_expected.to eq 'https://www.dailymotion.com/embed/video/x1af42g' }
+    end
+
+    context 'streamable' do
+      let(:url) { 'https://streamable.com/efgm' }
+
+      its(:hosting) { is_expected.to eq :streamable }
+      its(:image_url) { is_expected.to eq 'https://cdn.streamable.com/image/efgm.jpg' }
+      its(:player_url) { is_expected.to eq 'https://streamable.com/e/efgm' }
     end
 
     context 'invalid_url' do

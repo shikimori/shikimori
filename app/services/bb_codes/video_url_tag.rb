@@ -1,6 +1,6 @@
 class BbCodes::VideoUrlTag
   include Singleton
-  MAXIMUM_VIDEOS = 20
+  MAXIMUM_VIDEOS = 30
 
   def format text
     times = 0

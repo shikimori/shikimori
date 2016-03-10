@@ -107,9 +107,9 @@ describe BbCodes::VideoUrlTag do
         end
       end
 
-      context 'sibnet' do
-        let(:text) { 'http://video.sibnet.ru/video1234982-03__Poverivshiy_v_grezyi' }
-        it { is_expected.to include "<div class=\"c-video b-video unprocessed sibnet" }
+      context 'streamable' do
+        let(:text) { 'https://streamable.com/efgm' }
+        it { is_expected.to include "<div class=\"c-video b-video unprocessed streamable" }
       end
     end
   end

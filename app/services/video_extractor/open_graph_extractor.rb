@@ -1,5 +1,7 @@
 class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   PARAMS_REGEXP = /(?:\?[\w=+%&]+)?/
+  # Video.hosting should include these hostings
+  # shiki_video should include these hostings too
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
@@ -9,7 +11,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
       #video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>dailymotion).com/video/[\wА-я_-]+#{PARAMS_REGEXP.source}
+      (?<hosting>dailymotion).com/video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }xi
 
@@ -20,14 +23,14 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
 
   IMAGE_PROPERTIES = %w(
     meta[property='og:image']
-  ).join(',')
+  )
 
   # twitter:player - for dailymotion
   VIDEO_PROPERTIES = %w(
+    meta[name='twitter:player']
     meta[property='og:video']
     meta[property='og:video:url']
-    meta[name='twitter:player']
-  ).join(',')
+  )
 
   def image_url
     parsed_data.first
@@ -44,8 +47,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   def parse_data html
     doc = Nokogiri::HTML html
 
-    og_image = doc.css(IMAGE_PROPERTIES).first
-    og_video = doc.css(VIDEO_PROPERTIES).first
+    og_image = doc.css(IMAGE_PROPERTIES.join ',').first
+    og_video = VIDEO_PROPERTIES.map { |v| doc.css(v).first }.find(&:present?)
 
     if og_image && og_video
       [og_image[:content], og_video[:content] || og_video[:value]]

@@ -7,7 +7,7 @@ class Video < ActiveRecord::Base
 
   enumerize :hosting, in: [
     :youtube, :vk, :coub, :twitch, :rutube, :vimeo,
-    :myvi, :sibnet, :yandex, :dailymotion
+    :myvi, :sibnet, :yandex, :dailymotion, :streamable
   ], predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
