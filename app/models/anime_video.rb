@@ -15,7 +15,7 @@ class AnimeVideo < ActiveRecord::Base
     default: :unknown,
     predicates: true
   enumerize :language,
-    in: [:russian, :english, :japanese, :unknown],
+    in: [:russian, :english, :original, :unknown],
     default: :unknown,
     predicates: { prefix: true }
   enumerize :quality,

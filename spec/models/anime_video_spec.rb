@@ -17,7 +17,7 @@ describe AnimeVideo do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:kind).in :raw, :subtitles, :fandub, :unknown }
-    it { is_expected.to enumerize(:language).in :russian, :english, :japanese, :unknown }
+    it { is_expected.to enumerize(:language).in :russian, :english, :original, :unknown }
     it { is_expected.to enumerize(:quality).in :bd, :web, :tv, :dvd, :unknown }
   end
 
