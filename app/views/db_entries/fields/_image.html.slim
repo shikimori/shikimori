@@ -8,7 +8,10 @@
       ]
 
       = f.input :image, hint: '225x320'
-      .b-errors.m15: .subcontent = t '.warning'
+      .b-errors.m15
+        .subcontent.m5 = t '.warning'
+        .hint == t '.hint'
+
       = render 'versions/reason'
 
       .buttons

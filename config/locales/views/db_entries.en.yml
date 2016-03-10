@@ -8,4 +8,5 @@ en:
         remove: remove
         up: move up
       image:
-        warning: The current picture will be permanently deleted
+        warning: The current picture will be permanently deleted.
+        hint: ''
