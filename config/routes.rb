@@ -569,7 +569,7 @@ Site::Application.routes.draw do
 
     resources :animes, only: [:edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian description_ru description_en poster
+        name russian description_ru description_en image
         kind episodes rating
         screenshots videos torrents_name tags aired_on released_on genres
       }.join('|'))
@@ -584,7 +584,7 @@ Site::Application.routes.draw do
 
     resources :mangas, only: [:edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian description_ru description_en poster
+        name russian description_ru description_en image
         kind rating volumes chapters
         tags aired_on released_on status genres
       }.join('|'))
@@ -592,7 +592,7 @@ Site::Application.routes.draw do
 
     resources :characters, only: [:show, :edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian japanese poster description_ru description_en tags
+        name russian japanese image description_ru description_en tags
       }.join('|'))
       concerns :searcheable
 
@@ -609,7 +609,7 @@ Site::Application.routes.draw do
 
     resources :people, only: [:show, :edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian japanese poster website birthday
+        name russian japanese image website birthday
       }.join('|'))
       concerns :searcheable
 
@@ -623,7 +623,7 @@ Site::Application.routes.draw do
 
     resources :seyu, only: [:show, :edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
-        name russian japanese poster website birthday
+        name russian japanese image website birthday
       }.join('|'))
       concerns :searcheable
 

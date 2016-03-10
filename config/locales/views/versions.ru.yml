@@ -22,3 +22,5 @@ ru:
       change: Изменение
     versions:
       <<: *text_diff
+    video:
+      deleted: Видео удалено

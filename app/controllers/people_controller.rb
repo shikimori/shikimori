@@ -53,6 +53,8 @@ private
     params
       .require(:person)
       .permit(:russian, *Person::DESYNCABLE)
+  rescue ActionController::ParameterMissing
+    {}
   end
 
   def search_title

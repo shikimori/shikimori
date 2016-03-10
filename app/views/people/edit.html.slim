@@ -40,9 +40,9 @@
     .c-column.m0
       ul.b-list
         li
-          .field = Person.human_attribute_name :poster
+          .field = Person.human_attribute_name :image
           - if can? :significant_change, Version
-            a.b-js-action href="#{@resource.edit_field_url :poster}"
+            a.b-js-action href="#{@resource.edit_field_url :image}"
               = t '.moderators_only'
           - else
             .b-js-action = t '.moderators_only'

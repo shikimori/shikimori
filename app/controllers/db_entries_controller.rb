@@ -27,10 +27,16 @@ class DbEntriesController < ShikimoriController
   def update
     authorize! :significant_change, Version if (update_params.keys & significant_fields).any?
 
-    if update_params[:image]
+    version = if update_params[:image]
       update_image
     else
       update_version
+    end
+
+    if version.persisted?
+      redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
+    else
+      redirect_to :back, alert: i18n_t('no_changes')
     end
   end
 
@@ -45,11 +51,11 @@ private
       .premoderate(update_params, current_user, params[:reason])
 
     version.accept current_user if version.persisted? && can?(:manage, version)
-    redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
+    version
   end
 
   def update_image
-    @resource.update update_params
-    redirect_to @resource.edit_url, notice: i18n_t('version_taken')
+    Versioneers::PostersVersioneer.new(@resource.object)
+      .postmoderate(update_params[:image], current_user, params[:reason])
   end
 end

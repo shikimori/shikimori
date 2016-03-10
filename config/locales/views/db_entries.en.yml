@@ -7,3 +7,5 @@ en:
         down: move down
         remove: remove
         up: move up
+      image:
+        warning: The current picture will be permanently deleted

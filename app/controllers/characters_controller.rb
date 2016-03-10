@@ -98,6 +98,8 @@ private
         :description_ru, :description_en,
         *Character::DESYNCABLE
       )
+  rescue ActionController::ParameterMissing
+    {}
   end
 
   def search_title

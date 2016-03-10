@@ -22,3 +22,5 @@ en:
       change: Change
     versions:
       <<: *text_diff
+    video:
+      deleted: Video deleted

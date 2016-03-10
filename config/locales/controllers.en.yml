@@ -92,6 +92,7 @@ en:
         This page contains search results for %{title} sorted %{order_name}
       non_manga_variant: *manga_variant
 
+
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
@@ -158,6 +159,7 @@ en:
     version_pending: &version_pending Content changes have been saved successfully and will be moderated soon. Thanks!
     version_accepted: &version_accepted Content changes have been applied successfully.
     version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
 
   genres_controller:
     <<: *moderations_controller
@@ -169,6 +171,8 @@ en:
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: No changes
     entry_edit: Edit anime
     edit: Edit
     characters:

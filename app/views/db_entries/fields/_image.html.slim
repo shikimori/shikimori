@@ -6,7 +6,10 @@
         title="#{localized_name resource}"
         alt="#{localized_name resource}"
       ]
+
       = f.input :image, hint: '225x320'
+      .b-errors.m15: .subcontent = t '.warning'
+      = render 'versions/reason'
 
       .buttons
         a.cancel href="#{resource.edit_url}" = t 'actions.cancel'

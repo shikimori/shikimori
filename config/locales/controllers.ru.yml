@@ -159,6 +159,7 @@ ru:
     version_pending: &version_pending Изменения сохранены и в ближайшее время будут рассмотрены модератором. Спасибо!
     version_accepted: &version_accepted Изменения сохранены
     version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
 
   genres_controller:
     <<: *moderations_controller
@@ -170,6 +171,8 @@ ru:
     version_pending: *version_pending
     version_accepted: *version_accepted
     version_taken: *version_accepted
+    version_auto_accepted: *version_accepted
+    no_changes: Нет изменений
     entry_edit: Редактирование аниме
     edit: Редактирование
     characters:

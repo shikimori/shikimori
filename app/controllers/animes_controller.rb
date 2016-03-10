@@ -161,6 +161,8 @@ private
         :description_ru, :description_en,
         *Anime::DESYNCABLE
       )
+  rescue ActionController::ParameterMissing
+    {}
   end
 
   def set_breadcrumbs
