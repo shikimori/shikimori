@@ -2,6 +2,14 @@
   .c-column
     = simple_form_for resource.object do |f|
       = f.input :chapters
+
+      .b-warning
+        p.warning Если хотите, чтобы правка была принята модератором, в причине
+          правки обязательно укажите ссылку на источник, из которого вы взяли
+          информацию о числе глав.
+        p.warning Русскоязычные сайты "онлайн чтения"
+          источником быть не могут!
+
       = render 'versions/reason'
 
       .buttons
