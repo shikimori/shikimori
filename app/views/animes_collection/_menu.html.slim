@@ -108,13 +108,14 @@
           input type="checkbox" autocomplete="off"
           = season.catalog_title
 
-  .block.scores
-    .subheadline = i18n_i 'Score'
-    ul.block-list.scores.anime-params
-      - [8, 7, 6].each do |score|
-        li class="score-#{score}"
-          input type="checkbox" autocomplete="off"
-          | #{score}+
+  - unless ['user_rates', 'userlist_comparer'].include? params[:controller]
+    .block.scores
+      .subheadline = i18n_i 'Score'
+      ul.block-list.scores.anime-params
+        - [8, 7, 6].each do |score|
+          li class="score-#{score}"
+            input type="checkbox" autocomplete="off"
+            | #{score}+
 
   - if menu.klass == Anime
     .block.durations
