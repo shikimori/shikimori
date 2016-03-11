@@ -13,7 +13,9 @@
   - if cookies['related_view'] == 'posters'
     .subheadline.m10 = @page_title.last
     .cc-5.to-process data-dynamic='cutted_covers'
-      = render @resource.related.related, cover_notice: :relation, content_by: :mini_tooltip
+      = render @resource.related.related,
+        cover_notice: :relation,
+        content_by: :mini_tooltip
   - else
     .subheadline.m5 = @page_title.last
     div
