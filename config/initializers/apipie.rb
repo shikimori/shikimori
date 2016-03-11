@@ -21,5 +21,10 @@ Authentication:
 X-User-Nickname=user_nickname
 
 X-User-Api-Access-Token=user_api_access_token
+
+
+
+<br><br>
+Python API implementation by OlegWock: https://github.com/OlegWock/PyShiki
 DICK
 end
