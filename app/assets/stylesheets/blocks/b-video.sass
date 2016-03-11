@@ -38,15 +38,22 @@
       +opacity(0.85)
 
     &:before
-      +background-inline-retina('/blocks/b-video/play', 'png', 69px, 69px)
+      // +background-inline-retina('/blocks/b-video/play', 'png', 69px, 69px)
+      // background-size: 69px 69px
+      // margin-left: -34.5px
+      // margin-top: -34.5px
+      // height: 69px
+      // width: 69px
+      background: inline-image('/blocks/b-video/play-optimized.png')
+      background-size: 80px 80px
       content: ''
-      height: 69px
+      height: 80px
       left: 50%
-      margin-left: -34.5px
-      margin-top: -34.5px
+      margin-left: -40px
+      margin-top: -40px
       position: absolute
       top: 50%
-      width: 69px
+      width: 80px
       z-index: 1
 
   .name
