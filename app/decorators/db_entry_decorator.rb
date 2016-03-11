@@ -74,10 +74,9 @@ class DbEntryDecorator < BaseDecorator
 
   # связанные клубы
   def linked_clubs
-    object.clubs
-      .where(is_censored: false)
-      .shuffle
-      .take(MAX_CLUBS)
+    query = object.clubs
+    query = query.where(is_censored: false) unless object.try :censored?
+    query.shuffle.take(MAX_CLUBS)
   end
 
   # все связанные клубы
