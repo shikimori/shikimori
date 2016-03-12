@@ -1,5 +1,5 @@
 .b-collection-filters class="#{menu.klass.name.downcase}-params-controls"
-  - if defined?(in_user_profile)
+  - if defined? in_user_profile
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block
@@ -89,7 +89,7 @@
             li class="order-by-#{name}"
               = title
 
-  - if user_signed_in? && !defined?(in_user_profile) && !defined?(in_lists_comparison)
+  - if user_signed_in? && !defined?(in_user_profile)
     = render 'animes_collection/mylist', klass: menu.klass
 
   .block.hidden

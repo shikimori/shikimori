@@ -13,7 +13,7 @@ class UserlistComparerController < ShikimoriController
 
     @cache_key = "#{@user_1.cache_key}_#{@user_2.cache_key}_list_comparer_#{Digest::MD5.hexdigest(params.to_yaml)}"
     @entries = Rails.cache.fetch("#{@cache_key}_data", expires_in: 10.minutes) do
-      expire_fragment(@cache_key)
+      # expire_fragment(@cache_key)
       @entries = ListCompareService.fetch(@user_1, @user_2, params)
     end
 

@@ -18,7 +18,6 @@ header.head
     aside.l-menu
       = render 'animes_collection/menu',
         menu: @menu,
-        in_lists_comparison: true,
         custom_sorts: [\
           [:user_1, t('.by_user_score', user: @user_1.nickname)],
           [:user_2, t('.by_user_score', user: @user_2.nickname)]\

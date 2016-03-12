@@ -1,5 +1,4 @@
 json.title @page_title
-json.notice @title_notice
 
 json.content render(
   partial: 'userlist_comparer/table.html',

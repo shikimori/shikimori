@@ -1,3 +1,4 @@
+# TODO: refactor
 class ListCompareService
   include Translation
 

@@ -59,6 +59,14 @@
     content: ' '
 
 .l-page
+  // чтобы страница не схлопывалась по ширине при отсутствии контента
+  .l-content:after
+    content: ""
+    display: block
+    height: 1px
+    line-height: 0
+    width: 0
+
   &.menu-expanded
     .x199 .l-content
       +ipad
