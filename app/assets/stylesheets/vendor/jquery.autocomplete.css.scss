@@ -37,7 +37,9 @@
   padding: 1px;
 }
 .ac_loading {
-  background: inline-image('/globals/ajax-mini.gif') right center no-repeat;
+  background: image-url('blocks/b-ajax/ajax.gif') no-repeat;
+  background-position: right center;
+  background-size: 13px 13px;
 }
 .ac_odd {
   background-color: #F9F9F9;
