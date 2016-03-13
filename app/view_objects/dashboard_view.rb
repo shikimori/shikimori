@@ -72,7 +72,7 @@ class DashboardView < ViewObjectBase
   end
 
   def generated_news
-    TopicsQuery.new(h.current_user)
+    TopicsQuery.new(h.current_user, h.censored_forbidden?)
       .by_forum(Forum::UPDATES_FORUM)
       .limit(15)
       .as_views(true, true)
@@ -127,7 +127,7 @@ private
   end
 
   def all_reviews
-    TopicsQuery.new(h.current_user)
+    TopicsQuery.new(h.current_user, h.censored_forbidden?)
       .by_forum(reviews_forum)
       .limit(TOPICS_FETCH)
       .as_views(true, true)
