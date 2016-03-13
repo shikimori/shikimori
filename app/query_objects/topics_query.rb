@@ -44,10 +44,6 @@ class TopicsQuery < ChainableQueryBase
           where "(linked_id in (:user_clubs)) or clubs.is_censored = false",
             user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
         end
-        # where(
-          # linked_id: @user ? @user.club_roles.pluck(:club_id) : [],
-          # linked_type: Club.name
-        # )
 
       when Forum::NEWS_FORUM.permalink
         where NEWS_QUERY

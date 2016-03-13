@@ -14,6 +14,7 @@ shared_context :view_object_warden_stub do
     allow(view.h).to receive(:current_user).and_return(
       user ? user.decorate : nil
     )
+    allow(view.h).to receive(:censored_forbidden?).and_return true
   end
 
   after do
