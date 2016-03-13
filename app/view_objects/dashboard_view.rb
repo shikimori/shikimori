@@ -65,7 +65,7 @@ class DashboardView < ViewObjectBase
   end
 
   def user_news
-    TopicsQuery.new(h.current_user)
+    TopicsQuery.new(h.current_user, h.censored_forbidden?)
       .by_forum(Forum::NEWS_FORUM)
       .limit(5)
       .as_views(true, true)
