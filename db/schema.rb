@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310175641) do
+ActiveRecord::Schema.define(version: 20160313125123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,8 @@ ActiveRecord::Schema.define(version: 20160310175641) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "club_links", ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", using: :btree
 
   create_table "club_roles", force: :cascade do |t|
     t.string   "role",       limit: 255, default: "member"
@@ -720,6 +722,8 @@ ActiveRecord::Schema.define(version: 20160310175641) do
     t.integer  "manga_id"
   end
 
+  add_index "related_animes", ["source_id"], name: "index_related_animes_on_source_id", using: :btree
+
   create_table "related_mangas", force: :cascade do |t|
     t.integer  "source_id"
     t.integer  "anime_id"
@@ -730,6 +734,7 @@ ActiveRecord::Schema.define(version: 20160310175641) do
   end
 
   add_index "related_mangas", ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
+  add_index "related_mangas", ["source_id"], name: "index_related_mangas_on_source_id", using: :btree
 
   create_table "review_views", id: false, force: :cascade do |t|
     t.integer "user_id"
