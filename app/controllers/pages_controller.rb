@@ -34,7 +34,7 @@ class PagesController < ShikimoriController
   # rss с новостями
   def news_feed
     @collection = TopicsQuery
-      .new(current_user)
+      .new(current_user, censored_forbidden?)
       .by_forum(Forum::NEWS_FORUM)
       .limit(15)
       .result

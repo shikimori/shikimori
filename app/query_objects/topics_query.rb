@@ -1,6 +1,4 @@
 class TopicsQuery < ChainableQueryBase
-  pattr_initialize :user
-
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = "(
     type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
@@ -14,8 +12,10 @@ class TopicsQuery < ChainableQueryBase
     generated = true
   )"
 
-  def initialize user
+  def initialize user, is_censored_forbidden
     @user = user
+    @is_censored_forbidden = is_censored_forbidden
+
     @relation = prepare_query
 
     except_hentai
@@ -36,10 +36,18 @@ class TopicsQuery < ChainableQueryBase
         order! created_at: :desc
 
       when 'clubs'
-        joins "left join clubs on clubs.id=linked_id and linked_type='Club'"
         where forum_id: forum.id
-        where "(linked_id in (:user_clubs)) or clubs.is_censored = false",
-          user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
+        where linked_type: Club.name
+
+        if @is_censored_forbidden
+          joins "left join clubs on clubs.id=linked_id and linked_type='Club'"
+          where "(linked_id in (:user_clubs)) or clubs.is_censored = false",
+            user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
+        end
+        # where(
+          # linked_id: @user ? @user.club_roles.pluck(:club_id) : [],
+          # linked_type: Club.name
+        # )
 
       when Forum::NEWS_FORUM.permalink
         where NEWS_QUERY

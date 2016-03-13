@@ -1,6 +1,7 @@
 describe TopicsQuery do
   include_context :seeds
-  let(:query) { TopicsQuery.new user }
+  let(:query) { TopicsQuery.new user, is_censored_forbidden }
+  let(:is_censored_forbidden) { false }
 
   subject { query.result }
 
@@ -99,8 +100,18 @@ describe TopicsQuery do
 
       before { query.by_forum clubs_forum }
 
-      it do
-        is_expected.to eq [joined_club.topic, joined_club_2.topic, other_club_2.topic]
+      context 'censored not forbidden' do
+        let(:is_censored_forbidden) { false }
+        it do
+          is_expected.to eq [joined_club.topic, other_club.topic, joined_club_2.topic, other_club_2.topic]
+        end
+      end
+
+      context 'censored forbidden' do
+        let(:is_censored_forbidden) { true }
+        it do
+          is_expected.to eq [joined_club.topic, joined_club_2.topic, other_club_2.topic]
+        end
       end
     end
 

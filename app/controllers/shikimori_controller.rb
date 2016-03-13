@@ -2,6 +2,8 @@ class ShikimoriController < ApplicationController
   before_action { noindex && nofollow unless shikimori? }
   COOKIE_AGE_OVER_18 = :confirmed_age_over_18
 
+  helper_method :censored_forbidden?
+
   def fetch_resource
     @resource ||= resource_klass.find(
       CopyrightedIds

@@ -75,7 +75,7 @@ private
   end
 
   def fetch_topics
-    topics, add_postloader = TopicsQuery.new(h.current_user)
+    topics, add_postloader = TopicsQuery.new(h.current_user, h.censored_forbidden?)
       .by_forum(forum)
       .by_linked(linked)
       .postload(page, limit)

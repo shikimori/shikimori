@@ -8,7 +8,7 @@ class Api::V1::TopicsController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
 
     @forum = Forum.find_by_permalink params[:forum]
-    @topics = TopicsQuery.new(current_user)
+    @topics = TopicsQuery.new(current_user, censored_forbidden?)
       .by_forum(@forum)
       .paginate(@page, @limit)
       .includes(:forum, :user)
