@@ -40,9 +40,9 @@ describe DashboardView do
     it { expect(view.reviews).to have(1).item }
   end
 
-  describe '#user_news' do
+  describe '#news_topics' do
     let!(:news_topic) { create :news_topic, generated: false }
-    it { expect(view.user_news).to have(1).item }
+    it { expect(view.news_topics).to have(1).item }
   end
 
   describe '#generated_news' do

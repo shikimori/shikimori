@@ -10,9 +10,11 @@ class Api::V1::TopicsController < Api::V1::ApiController
     @forum = Forum.find_by_permalink params[:forum]
     @topics = TopicsQuery.new(current_user, censored_forbidden?)
       .by_forum(@forum)
-      .paginate(@page, @limit)
       .includes(:forum, :user)
+      .offset(@limit * (@page-1))
+      .limit(@limit + 1)
       .as_views(true, false)
+      .result
 
     respond_with @topics, each_serializer: TopicSerializer
   end

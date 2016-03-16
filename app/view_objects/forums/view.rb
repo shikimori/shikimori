@@ -1,12 +1,18 @@
 class Forums::View < ViewObjectBase
-  instance_cache :fetch_topics, :forum, :menu, :linked
+  instance_cache :topics, :forum, :menu, :linked
 
   def forum
     Forum.find_by_permalink h.params[:forum]
   end
 
   def topics
-    fetch_topics.first
+    TopicsQuery
+      .new(h.current_user, h.censored_forbidden?)
+      .by_forum(forum)
+      .by_linked(linked)
+      .paginate(page, limit)
+      .as_views(true, forum && forum.permalink == 'reviews')
+      .result
   end
 
   def page
@@ -18,11 +24,11 @@ class Forums::View < ViewObjectBase
   end
 
   def next_page_url
-    page_url page + 1 if add_postloader?
+    page_url topics.next_page if topics.next_page
   end
 
   def prev_page_url
-    page_url page - 1 if page != 1
+    page_url topics.prev_page if topics.prev_page
   end
 
   def faye_subscriptions
@@ -68,26 +74,5 @@ private
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type]
     )
-  end
-
-  def add_postloader?
-    fetch_topics.last
-  end
-
-  def fetch_topics
-    topics, add_postloader = TopicsQuery.new(h.current_user, h.censored_forbidden?)
-      .by_forum(forum)
-      .by_linked(linked)
-      .postload(page, limit)
-      .result
-
-    collection = topics.map do |topic|
-      Topics::TopicViewFactory.new(
-        true,
-        forum && forum.permalink == 'reviews'
-      ).build topic
-    end
-
-    [collection, add_postloader]
   end
 end

@@ -55,10 +55,15 @@ describe Forums::View do
   describe '#next_page_url & #prev_page_url' do
     context 'first page' do
       let(:params) {{ forum: 'all', linked_type: 'xx', linked_id: 'zz' }}
-      before { allow(view).to receive(:add_postloader?).and_return true }
+      before do
+        allow(view).to receive(:topics).and_return double(
+          next_page: 3,
+          prev_page: nil
+        )
+      end
 
       it do
-        expect(view.next_page_url).to eq 'http://test.host/forum/xx-zz/p-2'
+        expect(view.next_page_url).to eq 'http://test.host/forum/xx-zz/p-3'
         expect(view.prev_page_url).to be_nil
       end
     end

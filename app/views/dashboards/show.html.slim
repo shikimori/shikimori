@@ -86,7 +86,7 @@
           = render 'dashboards/contests', collection: @view.contests
 
 .cc-news
-  .c-user_news.m0
+  .c-news_topics.m0
     .midheadline.orange
       h2 = t '.news_feed'
       a.b-link[
@@ -96,8 +96,13 @@
 
     div
       = render partial: 'topics/topic',
-        collection: @view.user_news,
+        collection: @view.news_topics,
         as: :view
+
+      - if @view.news_topics.next_page
+        = render 'blocks/postloader',
+          filter: 'b-topic',
+          next_url: root_page_url(page: @view.news_topics.next_page)
 
   .c-generated_news
     = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true

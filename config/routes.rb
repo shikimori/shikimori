@@ -318,6 +318,7 @@ Site::Application.routes.draw do
   constraints ShikimoriDomain do
     root to: 'dashboards#show'
     get '/', to: 'dashboards#show', as: :new_session
+    get '/page/:page', to: 'dashboards#show', as: :root_page
 
     # seo redirects
     get 'r' => redirect('/reviews')

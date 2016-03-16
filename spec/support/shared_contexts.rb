@@ -10,11 +10,14 @@ end
 
 shared_context :view_object_warden_stub do
   before do
-    view.h.request.env['warden'] ||= WardenStub.new
-    allow(view.h).to receive(:current_user).and_return(
+    view_context = view.h
+
+    view_context.request.env['warden'] ||= WardenStub.new
+    allow(view_context).to receive(:current_user).and_return(
       user ? user.decorate : nil
     )
-    allow(view.h).to receive(:censored_forbidden?).and_return true
+    def view_context.censored_forbidden?; true; end
+    # allow(view_context).to receive(:censored_forbidden?).and_return true
   end
 
   after do

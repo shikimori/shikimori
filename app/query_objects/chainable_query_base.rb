@@ -6,29 +6,24 @@ class ChainableQueryBase
   dsl_attribute :includes
   dsl_attribute :order_field
 
-  attr_reader :should_decorate
   attr_reader :sort_field
   attr_reader :sort_order
 
   attr_reader :page
   attr_reader :limit
 
-  attr_reader :postloaded
+  attr_reader :paginated
 
   def result
     @relation = @relation.includes(*@includes) if @includes
     @relation = order @order_field if @order_field
 
-    @relation = paginate_collection(@relation) if @page
+    @relation = apply_filters @relation if @collection_filters
+    @relation = apply_maps @relation if @collection_maps
+    @relation = sort_collection @relation if @sort_field && @sort_order
 
-    print @relation if @print_sql
-
-    @relation = apply_filters(@relation) if @collection_filters
-    @relation = decorate_collection(@relation) if @should_decorate
-    @relation = sort_collection(@relation) if @sort_field && @sort_order
-
-    if @postloaded
-      postload_collection @relation
+    if @paginated
+      paginate_collection @relation
     else
       @relation
     end
@@ -37,23 +32,13 @@ class ChainableQueryBase
   def paginate page, limit
     @page = page
     @limit = limit
-    self
-  end
+    @paginated = true
 
-  def postload page, limit
-    @page = page
-    @limit = limit
-    @postloaded = true
-    self
-  end
+    @relation = relation
+      .offset(@limit * (@page-1))
+      .limit(@limit)
 
-  def decorate
-    @should_decorate = true
     self
-  end
-
-  def print_sql
-    @print_sql = true
   end
 
   def sort sort_field, sort_order
@@ -103,6 +88,16 @@ class ChainableQueryBase
     self
   end
 
+  def offset *args
+    @relation = @relation.offset *args
+    self
+  end
+
+  def limit *args
+    @relation = @relation.limit *args
+    self
+  end
+
   def size
     relation.size
   end
@@ -120,19 +115,22 @@ private
     end
   end
 
-  def paginate_collection relation
-    relation
-      .offset(@limit * (@page-1))
-      .limit(@limit + 1)
+  def collection_map &block
+    @collection_maps ||= []
+    @collection_maps << block
   end
 
-  def postload_collection collection
-    [collection.take(@limit), collection.size == @limit+1]
+  def apply_maps relation
+    @collection_maps.inject(relation) do |result, filter|
+      result.map { |v| filter.call v }
+    end
   end
 
-  def print relation
-    puts '-------------------------------'
-    puts relation.to_sql
-    puts '-------------------------------'
+  def paginate_collection collection
+    PaginatedCollection.new(
+      collection,
+      @page,
+      collection.size == @limit ? @page + 1 : @page
+    )
   end
 end

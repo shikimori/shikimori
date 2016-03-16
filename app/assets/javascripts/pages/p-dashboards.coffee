@@ -20,7 +20,7 @@
 
   (->
     $('.cc-news').imagesLoaded ->
-      $user_news = $('.c-user_news')
+      $user_news = $('.c-news_topics')
       $generated_news = $('.c-generated_news')
 
       align_blocks $user_news, $generated_news

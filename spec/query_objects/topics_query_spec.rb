@@ -136,7 +136,7 @@ describe TopicsQuery do
     let(:is_preview) { true }
     let(:is_mini) { true }
 
-    subject(:views) { query.as_views is_preview, is_mini }
+    subject(:views) { query.as_views(is_preview, is_mini).result }
 
     it do
       expect(views).to have(1).item
