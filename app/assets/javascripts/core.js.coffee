@@ -1,23 +1,31 @@
+#= require sugar
 #= require jquery
 #= require core/jquery-migrate-1.3.0
 #= require_tree ./core
 
 #= require d3
-#= require eventie
-#= require eventEmitter
-#= require magnific-popup
 #= require jQuery-Storage-API
+
+# imagesLoaded dependency
 #= require ev-emitter
 #= require imagesloaded
 
-# dependencies for packery
-#= require jquery-bridget
-#= require matches-selector
-#= require doc-ready
-#= require classie
-#= require get-style-property
+# magnific-popup dependency
+# require matches-selector
+#= require magnific-popup
+
+# outlayer dependency
+# fizzy-ui-utils dependency
+#= require desandro-matches-selector
+# outlayer dependency
+#= require fizzy-ui-utils
 #= require get-size
+#= require outlayer/item
 #= require outlayer
+#= require jquery-bridget
+#= require packery/rect
+#= require packery/packer
+#= require packery/item
 #= require packery
 
 #= require_tree ./vendor

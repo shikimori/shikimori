@@ -182,16 +182,21 @@ gem 'faye-websocket', '0.10.0' # не обновлять до 0.10.1 - лома�
 gem 'thin'
 
 # assets
-source 'https://rails-assets.org' do
+source 'https://rails-assets.tenex.tech' do
+  # produces weird compilation error for production assets
+  # gem 'rails-assets-moment'
+
+  # dependencies for rails-assets-packery'
+  gem 'rails-assets-fizzy-ui-utils', '2.0.1'
+  gem 'rails-assets-get-size', '2.0.2'
+  gem 'rails-assets-matches-selector', '2.0.1'
+  gem 'rails-assets-outlayer', '2.0.1'
+
+  gem 'rails-assets-sugar'
   gem 'rails-assets-jquery'
-  gem 'rails-assets-eventie'
-  gem 'rails-assets-eventEmitter'
-  gem 'rails-assets-ev-emitter'
-  gem 'rails-assets-jquery-bridget'
-  #gem 'rails-assets-moment'
-  gem 'rails-assets-packery', '1.3.2'
+  gem 'rails-assets-jquery-bridget' # packery dependency
+  gem 'rails-assets-packery'
   gem 'rails-assets-jQuery-Storage-API'
   gem 'rails-assets-imagesloaded'
-
-  gem 'magnific-popup-rails', github: 'itsNikolay/magnific-popup-rails' # заменить на #gem 'rails-assets-magnific-popup', когда в нём пофиксят турболинки
+  gem 'rails-assets-magnific-popup'
 end

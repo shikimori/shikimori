@@ -25,7 +25,6 @@ class NameMatches::Cleaner
       arg.map { |phrase| cleanup phrase }
     else
       arg ||= ''
-      arg = arg.frozen? ? String.new(arg) : arg
 
       arg
         .force_encoding('utf-8')

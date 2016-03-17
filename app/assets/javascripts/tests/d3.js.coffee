@@ -1,5 +1,5 @@
 #= require jquery
-#= require core/sugar
+#= require sugar
 #= require d3
 
 $ ->
