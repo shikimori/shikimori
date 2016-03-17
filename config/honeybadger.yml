@@ -18,3 +18,4 @@ exceptions:
     - AgeRestricted
     - MismatchedEntries
     - CopyrightedResource
+    - Net::SMTPServerBusy
