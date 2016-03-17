@@ -1,4 +1,4 @@
-class BansQuery < QueryObjectBase
+class BansQuery < SimpleQueryBase
 private
   def query
     Ban.order(id: :desc).includes(comment: :user)

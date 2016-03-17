@@ -1,4 +1,4 @@
-class MessagesQuery < QueryObjectBase
+class MessagesQuery < SimpleQueryBase
   pattr_initialize :user, :messages_type
 
   NEWS_KINDS = [

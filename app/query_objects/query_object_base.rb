@@ -1,18 +1,37 @@
 class QueryObjectBase
+  prepend ActiveCacher.instance
   extend DslAttribute
-  dsl_attribute :decorate_page
 
-  def fetch page, limit
-    query
+  QUERY_METHODS = %i(joins includes select where order limit offset)
+
+  pattr_initialize :scope
+  delegate :==, :eql?, :equal?, to: :scope
+
+  def paginate page, limit
+    new_scope = @scope
       .offset(limit * (page-1))
-      .limit(limit + 1)
+      .limit(limit)
+
+    chain PaginatedCollection.new(new_scope, page, limit)
   end
 
-  def postload page, limit
-    collection = decorate_page ?
-      fetch(page, limit).decorate.to_a :
-      fetch(page, limit).to_a
+  QUERY_METHODS.each do |method_name|
+    define_method method_name do |*args|
+      chain @scope.public_send(method_name, *args)
+    end
+  end
 
-    [collection.take(limit), collection.size == limit+1]
+private
+
+  def chain scope
+    self.class.new scope
+  end
+
+  def respond_to? *args
+    super(*args) || @collection.respond_to?(*args)
+  end
+
+  def method_missing method, *args, &block
+    @scope.send method, *args, &block
   end
 end

@@ -1,9 +1,7 @@
 describe TopicsQuery do
   include_context :seeds
-  let(:query) { TopicsQuery.new user, is_censored_forbidden }
+  subject(:query) { TopicsQuery.fetch user }
   let(:is_censored_forbidden) { false }
-
-  subject { query.result }
 
   describe '#result' do
     it { is_expected.to eq [seeded_offtopic_topic] }
@@ -23,8 +21,8 @@ describe TopicsQuery do
       before do
         user.preferences.forums = forums if user
         review.topic.update_column :updated_at, review.updated_at
-        query.by_forum nil
       end
+      subject { query.by_forum nil, user, is_censored_forbidden }
 
       context 'no user' do
         let(:user) { nil }
@@ -60,7 +58,7 @@ describe TopicsQuery do
     end
 
     context 'reviews' do
-      before { query.by_forum reviews_forum }
+      subject { query.by_forum reviews_forum, user, is_censored_forbidden }
       it { is_expected.to eq [review.topic] }
     end
 
@@ -71,7 +69,8 @@ describe TopicsQuery do
       let!(:cosplay_news) { create :cosplay_gallery_topic, created_at: 3.days.ago,
         linked: cosplay_gallery }
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
-      before { query.by_forum Forum::NEWS_FORUM }
+
+      subject { query.by_forum Forum::NEWS_FORUM, user, is_censored_forbidden }
 
       it { is_expected.to eq [anime_news, manga_news, cosplay_news] }
     end
@@ -79,17 +78,15 @@ describe TopicsQuery do
     context 'UPDATES' do
       let!(:anime_news) { create :news_topic, :anime_anons, created_at: 1.day.ago }
       let!(:regular_news) { create :news_topic }
-      before { query.by_forum Forum::UPDATES_FORUM }
+      subject { query.by_forum Forum::UPDATES_FORUM, user, is_censored_forbidden }
 
       it { is_expected.to eq [anime_news] }
     end
 
     context 'MY_CLUBS' do
       let!(:joined_club_2) { create :club, :with_topic, updated_at: 25.days.ago }
-      before do
-        joined_club_2.join user if user
-        query.by_forum Forum::MY_CLUBS_FORUM
-      end
+      before { joined_club_2.join user }
+      subject { query.by_forum Forum::MY_CLUBS_FORUM, user, is_censored_forbidden }
 
       it { is_expected.to eq [joined_club.topic, joined_club_2.topic] }
     end
@@ -98,7 +95,7 @@ describe TopicsQuery do
       let!(:joined_club_2) { create :club, :with_topic, updated_at: 25.days.ago }
       let!(:other_club_2) { create :club, :with_topic, updated_at: 30.days.ago }
 
-      before { query.by_forum clubs_forum }
+      subject { query.by_forum clubs_forum, user, is_censored_forbidden }
 
       context 'censored not forbidden' do
         let(:is_censored_forbidden) { false }
@@ -116,7 +113,7 @@ describe TopicsQuery do
     end
 
     context 'common forum' do
-      before { query.by_forum animanga_forum }
+      subject { query.by_forum animanga_forum, user, is_censored_forbidden }
       it { is_expected.to eq [anime_topic] }
     end
   end
@@ -126,8 +123,11 @@ describe TopicsQuery do
     let!(:topic_1) { create :entry, linked: linked, forum: animanga_forum }
     let!(:topic_2) { create :entry, forum: animanga_forum }
 
-    before { query.by_forum animanga_forum }
-    before { query.by_linked linked }
+    subject do
+      query
+        .by_forum(animanga_forum, user, is_censored_forbidden)
+        .by_linked(linked)
+    end
 
     it { is_expected.to eq [topic_1] }
   end
@@ -136,7 +136,7 @@ describe TopicsQuery do
     let(:is_preview) { true }
     let(:is_mini) { true }
 
-    subject(:views) { query.as_views(is_preview, is_mini).result }
+    subject(:views) { query.as_views(is_preview, is_mini) }
 
     it do
       expect(views).to have(1).item

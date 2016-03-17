@@ -1,3 +1,4 @@
+# TODO: refactor
 class AniMangaQuery
   include CompleteQuery
 

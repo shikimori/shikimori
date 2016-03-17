@@ -1,4 +1,4 @@
-class ClubsQuery < QueryObjectBase
+class ClubsQuery < SimpleQueryBase
   def query
     Club
       .joins(:member_roles, :topic)

@@ -1,4 +1,4 @@
-class VersionsQuery < QueryObjectBase
+class VersionsQuery < SimpleQueryBase
   pattr_initialize :entry
   decorate_page true
 

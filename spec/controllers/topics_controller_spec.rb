@@ -82,7 +82,7 @@ describe TopicsController do
         before { get :index, forum: animanga_forum.to_param, linked: anime.to_param }
 
         it do
-          expect(assigns(:view).topics).to have_at_least(2).items
+          expect(assigns(:view).topics).to have(3).items
           expect(response).to have_http_status :success
         end
       end

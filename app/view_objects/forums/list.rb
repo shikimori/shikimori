@@ -31,9 +31,8 @@ private
   end
 
   def forum_size forum
-    TopicsQuery
-      .new(current_user, h.censored_forbidden?)
-      .by_forum(forum)
+    TopicsQuery.fetch(current_user)
+      .by_forum(forum, current_user, h.censored_forbidden?)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
   end

@@ -63,24 +63,24 @@ class DashboardView < ViewObjectBase
 
   def reviews
     all_reviews
-      .shuffle.take(REVIEWS_TAKE).sort_by { |view| -view.topic.id }
+      .shuffle
+      .take(REVIEWS_TAKE)
+      .sort_by { |view| -view.topic.id }
   end
 
   def news_topics
-    TopicsQuery.new(h.current_user, h.censored_forbidden?)
-      .by_forum(Forum::NEWS_FORUM)
+    TopicsQuery.fetch(h.current_user)
+      .by_forum(Forum::NEWS_FORUM, h.current_user, h.censored_forbidden?)
       .limit(7)
       .paginate(page, NEWS_LIMIT)
       .as_views(true, true)
-      .result
   end
 
   def generated_news
-    TopicsQuery.new(h.current_user, h.censored_forbidden?)
-      .by_forum(Forum::UPDATES_FORUM)
+    TopicsQuery.fetch(h.current_user)
+      .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .limit(15)
       .as_views(true, true)
-      .result
   end
 
   #def favourites
@@ -132,11 +132,10 @@ private
   end
 
   def all_reviews
-    TopicsQuery.new(h.current_user, h.censored_forbidden?)
-      .by_forum(reviews_forum)
+    TopicsQuery.fetch(h.current_user)
+      .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)
-      .result
   end
 
   #def all_favourites

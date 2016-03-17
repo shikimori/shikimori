@@ -33,12 +33,10 @@ class PagesController < ShikimoriController
 
   # rss с новостями
   def news_feed
-    @collection = TopicsQuery
-      .new(current_user, censored_forbidden?)
-      .by_forum(Forum::NEWS_FORUM)
+    @collection = TopicsQuery.fetch(current_user)
+      .by_forum(Forum::NEWS_FORUM, current_user, censored_forbidden?)
       .limit(15)
-      .result
-      .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
+      .as_views(true, false)
   end
 
   # пользовательское соглашение

@@ -1,125 +1,140 @@
-class TopicsQuery < ChainableQueryBase
+class TopicsQuery < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
-  MY_CLUBS_QUERY = "(
-    type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
-    #{Entry.table_name}.linked_id in (:user_clubs)
-  )"
-  NEWS_QUERY = "(
-    type = '#{Topics::NewsTopic.name}' and
-    generated = false
-  ) or (
-    type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
-    generated = true
-  )"
+  MY_CLUBS_QUERY = <<SQL
+    (
+      type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
+      #{Entry.table_name}.linked_id in (:user_clubs)
+    )
+SQL
+  NEWS_QUERY = <<SQL
+    (
+      type = '#{Topics::NewsTopic.name}' and
+      generated = false
+    ) or (
+      type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
+      generated = true
+    )
+SQL
+  CLUBS_JOIN = "left join clubs on clubs.id=linked_id and linked_type='Club'"
 
-  def initialize user, is_censored_forbidden
-    @user = user
-    @is_censored_forbidden = is_censored_forbidden
+  def self.fetch user
+    query = new Entry
+      .with_viewed(user)
+      .includes(:forum, :user)
+      .order(updated_at: :desc)
 
-    @relation = prepare_query
-
-    except_hentai
-    except_ignored if @user
+    query.except_hentai.except_ignored(user)
   end
 
-  def by_forum forum
-    case forum && forum.permalink
-      when nil
-        if @user
-          user_forums
-        else
-          where_not type: Topics::EntryTopics::ClubTopic.name
-        end
-
-      when 'reviews'
-        where forum_id: forum.id
-        order! created_at: :desc
-
-      when 'clubs'
-        where forum_id: forum.id
-        where linked_type: Club.name
-
-        if @is_censored_forbidden
-          joins "left join clubs on clubs.id=linked_id and linked_type='Club'"
-          where "(linked_id in (:user_clubs)) or clubs.is_censored = false",
-            user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
-        end
-
-      when Forum::NEWS_FORUM.permalink
-        where NEWS_QUERY
-        order! created_at: :desc
-
-      when Forum::UPDATES_FORUM.permalink
-        where type: [Topics::NewsTopic.name]
-        where generated: true
-        order! created_at: :desc
-
-      when Forum::MY_CLUBS_FORUM.permalink
-        where MY_CLUBS_QUERY,
-          user_clubs: @user ? @user.club_roles.pluck(:club_id) : []
-
-      else
-        where forum_id: forum.id
-    end
-
-    except_episodes forum
-    except_ignored if @user
-
-    self
+  def by_forum forum, user, is_censored_forbidden
+    new_scope = except_episodes(@scope, forum)
+    chain forum_scope(new_scope, forum, user, is_censored_forbidden)
   end
 
   def by_linked linked
-    return self unless linked
-    where linked: linked
-    self
-  end
-
-  def as_views is_preview, is_mini
-    collection_map do |topic|
-      Topics::TopicViewFactory.new(is_preview, is_mini).build topic
-    end
-    self
-  end
-
-private
-
-  def prepare_query
-    Entry
-      .with_viewed(@user)
-      .includes(:forum, :user)
-      .order(updated_at: :desc)
-  end
-
-  def user_forums
-    if @user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
-      where(
-        "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
-        user_forums: @user.preferences.forums.map(&:to_i),
-        user_clubs: @user.club_roles.pluck(:club_id)
-      )
+    if linked
+      chain @scope.where(linked: linked)
     else
-      where FORUMS_QUERY, user_forums: @user.preferences.forums.map(&:to_i)
+      self
     end
   end
 
-  def except_episodes forum
-    if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
-      @relation = @relation.wo_episodes
+  def except_ignored user
+    if user
+      chain @scope.where.not id: user.topic_ignores.map(&:topic_id)
     else
-      where_not updated_at: nil
+      self
     end
   end
 
   def except_hentai
-    joins "left join animes on animes.id=linked_id and linked_type='Anime'"
-    where 'animes.id is null or animes.censored=false'
+    chain @scope
+      .joins("left join animes on animes.id=linked_id and linked_type='Anime'")
+      .where('animes.id is null or animes.censored=false')
   end
 
-  def except_ignored
-    # joins "left join topic_ignores on
-      # topic_ignores.user_id = #{User.sanitize @user.id}
-      # and topic_ignores.topic_id = entries.id"
-    # where 'topic_ignores.id is null'
-    where_not id: @user.topic_ignores.map(&:topic_id)
+  def as_views is_preview, is_mini
+    mapped_scope = MappedCollection.new @scope do |topic|
+      Topics::TopicViewFactory.new(is_preview, is_mini).build topic
+    end
+
+    chain mapped_scope
+  end
+
+private
+
+  def except_episodes scope, forum
+    if forum == Forum::NEWS_FORUM || forum == Forum::UPDATES_FORUM
+      scope.wo_episodes
+    else
+      scope.where.not(updated_at: nil)
+    end
+  end
+
+  # TODO: refactor to standalone class
+  def forum_scope scope, forum, user, is_censored_forbidden
+    case forum && forum.permalink
+      when nil
+        if user
+          user_forums scope, user
+        else
+          scope.where.not(type: Topics::EntryTopics::ClubTopic.name)
+        end
+
+      when 'reviews'
+        scope
+          .where(forum_id: forum.id)
+          .except(:order)
+          .order(created_at: :desc)
+
+      when 'clubs'
+        new_scope = scope.where(forum_id: forum.id, linked_type: Club.name)
+
+        if is_censored_forbidden
+          new_scope
+            .joins(CLUBS_JOIN)
+            .where(
+              "(linked_id in (:user_clubs)) or clubs.is_censored = false",
+              user_clubs: user ? user.club_roles.pluck(:club_id) : []
+            )
+        else
+          new_scope
+        end
+
+      when Forum::NEWS_FORUM.permalink
+        scope
+          .where(NEWS_QUERY)
+          .except(:order)
+          .order(created_at: :desc)
+
+      when Forum::UPDATES_FORUM.permalink
+        scope
+          .where(type: [Topics::NewsTopic.name], generated: true)
+          .except(:order)
+          .order(created_at: :desc)
+
+      when Forum::MY_CLUBS_FORUM.permalink
+        scope
+          .where(
+            MY_CLUBS_QUERY,
+            user_clubs: user ? user.club_roles.pluck(:club_id) : []
+          )
+
+      else
+        scope
+          .where(forum_id: forum.id)
+    end
+  end
+
+  def user_forums scope, user
+    if user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
+      scope.where(
+        "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+        user_forums: user.preferences.forums.map(&:to_i),
+        user_clubs: user.club_roles.pluck(:club_id)
+      )
+    else
+      scope.where(FORUMS_QUERY, user_forums: user.preferences.forums.map(&:to_i))
+    end
   end
 end

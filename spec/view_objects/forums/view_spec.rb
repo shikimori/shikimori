@@ -33,22 +33,22 @@ describe Forums::View do
   describe '#page' do
     context 'has page in params' do
       let(:params) {{ page: 2 }}
-      it { expect(view.page).to eq 2 }
+      it { expect(view.send :page).to eq 2 }
     end
 
     context 'no page in params' do
-      it { expect(view.page).to eq 1 }
+      it { expect(view.send :page).to eq 1 }
     end
   end
 
   describe '#limit' do
     context 'no format' do
-      it { expect(view.limit).to eq 8 }
+      it { expect(view.send :limit).to eq 8 }
     end
 
     context 'rss format' do
       let(:params) {{ format: 'rss' }}
-      it { expect(view.limit).to eq 30 }
+      it { expect(view.send :limit).to eq 30 }
     end
   end
 

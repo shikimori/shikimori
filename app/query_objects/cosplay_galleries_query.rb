@@ -1,4 +1,4 @@
-class CosplayGalleriesQuery < QueryObjectBase
+class CosplayGalleriesQuery < SimpleQueryBase
   pattr_initialize :entry
 
 private

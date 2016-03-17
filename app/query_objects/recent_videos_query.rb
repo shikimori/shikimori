@@ -1,4 +1,4 @@
-class RecentVideosQuery < QueryObjectBase
+class RecentVideosQuery < SimpleQueryBase
   pattr_initialize :is_adult
 
 private

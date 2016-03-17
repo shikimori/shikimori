@@ -1,4 +1,4 @@
-class DialogsQuery < QueryObjectBase
+class DialogsQuery < SimpleQueryBase
   pattr_initialize :user
 
   def fetch page, limit

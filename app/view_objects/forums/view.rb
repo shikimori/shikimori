@@ -6,21 +6,11 @@ class Forums::View < ViewObjectBase
   end
 
   def topics
-    TopicsQuery
-      .new(h.current_user, h.censored_forbidden?)
-      .by_forum(forum)
+    TopicsQuery.fetch(h.current_user)
+      .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .paginate(page, limit)
       .as_views(true, forum && forum.permalink == 'reviews')
-      .result
-  end
-
-  def page
-    (h.params[:page] || 1).to_i
-  end
-
-  def limit
-    h.params[:format] == 'rss' ? 30 : 8
   end
 
   def next_page_url
@@ -74,5 +64,13 @@ private
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type]
     )
+  end
+
+  def page
+    (h.params[:page] || 1).to_i
+  end
+
+  def limit
+    h.params[:format] == 'rss' ? 30 : 8
   end
 end

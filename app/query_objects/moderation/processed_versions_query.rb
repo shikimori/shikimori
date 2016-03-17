@@ -1,4 +1,4 @@
-class Moderation::ProcessedVersionsQuery < QueryObjectBase
+class Moderation::ProcessedVersionsQuery < SimpleQueryBase
   pattr_initialize :type
 
 private
