@@ -142,8 +142,7 @@ private
   # редирект для не автороизованных пользователей при ссылках на mylist, чтобы не падало с ошибкой
   def mylist_redirect_check
     if params.include?(:mylist) && !user_signed_in?
-      params.except! :mylist
-      raise ForceRedirect, url_for(filtered_params)
+      raise ForceRedirect, url_for(filtered_params.merge(mylist: nil))
     end
   end
 
@@ -229,7 +228,14 @@ private
   end
 
   def filtered_params
-    params.except :format, :exclude_ids, :ids_with_sort, :template, :is_adult, :exclude_ai_genres
+    params.merge(
+      format: nil,
+      exclude_ids: nil,
+      ids_with_sort: nil,
+      template: nil,
+      is_adult: nil,
+      exclude_ai_genres: nil
+    )
   end
 
   def collection_url changed_params
