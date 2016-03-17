@@ -78,7 +78,7 @@ describe Topic do
     end
 
     def create_summary
-      create :comment, :review, :with_counter_cache, commentable: topic
+      create :comment, :summary, :with_counter_cache, commentable: topic
     end
 
     describe '#any_comments?' do

@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  boolean_attribute :summary
+  boolean_attributes :summary, :offtopic
 
   MIN_SUMMARY_SIZE = 230
 
@@ -50,6 +50,11 @@ class Comment < ActiveRecord::Base
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
   #acts_as_voteable
+
+  # TODO remove when review param is removed from API
+  def review= value
+    self[:is_summary] = value
+  end
 
   # counter_cache hack
   def increment_comments
@@ -157,6 +162,7 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  # TODO: move to CommentDecorator
   def html_body
     fixed_body = if commentable_id == 82468 && commentable_type == Entry.name
       body
@@ -172,16 +178,18 @@ class Comment < ActiveRecord::Base
     BbCodeFormatter.instance.format_comment fixed_body
   end
 
-  # оффтопик ли это?
-  def offtopic?
-    offtopic
-  end
-
   def mark_offtopic flag
-    ids = comment_thread.map(&:id) + [id]
-    Comment.where(id: ids).update_all offtopic: flag
-    self.offtopic = flag
-    ids
+    # mark comment thread as offtopic
+    if flag
+      ids = comment_thread.map(&:id) + [id]
+      Comment.where(id: ids).update_all is_offtopic: flag
+      self.is_offtopic = flag
+      ids
+    # mark as not offtopic current comment only
+    else
+      update is_offtopic: flag
+      [id]
+    end
   end
 
   def mark_summary flag

@@ -20,19 +20,19 @@ describe AbuseRequestsService do
     describe 'cancel' do
       context 'user' do
         context 'old comment' do
-          let(:comment) { create :comment, user: user, offtopic: true, created_at: 1.month.ago }
+          let(:comment) { create :comment, :offtopic, user: user, created_at: 1.month.ago }
           it { expect{act}.to change(AbuseRequest, :count).by 1 }
         end
 
         context 'new comment' do
-          let(:comment) { create :comment, user: user, offtopic: true }
+          let(:comment) { create :comment, :offtopic, user: user }
           it { expect{act}.to_not change AbuseRequest, :count }
         end
       end
 
       context 'moderator' do
         let(:user) { create :user, id: 1 }
-        let(:comment) { create :comment, user: user, offtopic: true, created_at: 1.month.ago }
+        let(:comment) { create :comment, :offtopic, user: user, created_at: 1.month.ago }
         it { expect{act}.to change(AbuseRequest, :count).by 0 }
       end
     end

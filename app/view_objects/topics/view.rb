@@ -130,7 +130,9 @@ class Topics::View < ViewObjectBase
   end
 
   # для совместимости с комментариями для рендера тултипа
-  def offtopic?; false; end
+  def offtopic?
+    false
+  end
 
   def topic_ignore
     h.user_signed_in? &&

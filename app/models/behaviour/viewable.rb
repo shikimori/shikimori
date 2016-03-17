@@ -1,3 +1,4 @@
+# for entries and comments
 module Viewable
   extend ActiveSupport::Concern
 

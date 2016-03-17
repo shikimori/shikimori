@@ -5,7 +5,7 @@ class @ShikiEditable extends ShikiView
     $new_marker = $('.b-new_marker', @$inner)
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
-    @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-review,
+    @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-summary,
         .item-offtopic, .item-cancel', @$inner).on 'click', =>
       @_close_aside()
 

@@ -41,7 +41,7 @@ class CommentsController < ShikimoriController
   def update
     raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
 
-    if faye.update @comment, comment_params.except(:offtopic, :is_summary)
+    if faye.update @comment, comment_params.except(:is_offtopic, :is_summary)
       render :create
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -133,6 +133,6 @@ private
   def comment_params
     params
       .require(:comment)
-      .permit(:body, :is_summary, :offtopic, :commentable_id, :commentable_type, :user_id)
+      .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
   end
 end

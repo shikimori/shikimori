@@ -34,7 +34,7 @@ describe CommentsController do
           commentable_id: topic.id,
           commentable_type: 'Entry',
           body: 'x'*Comment::MIN_SUMMARY_SIZE,
-          offtopic: true,
+          is_offtopic: true,
           is_summary: true
         }
       end
@@ -49,7 +49,7 @@ describe CommentsController do
     end
 
     context 'failure' do
-      before { post :create, comment: { body: 'test', offtopic: false, is_summary: false } }
+      before { post :create, comment: { body: 'test', is_offtopic: false, is_summary: false } }
 
       it do
         expect(response).to have_http_status 422

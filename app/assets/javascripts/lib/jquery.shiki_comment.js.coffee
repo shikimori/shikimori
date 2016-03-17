@@ -48,7 +48,7 @@ class @ShikiComment extends ShikiEditable
           reason: reason
 
     # пометка комментария обзором/оффтопиком
-    @$('.item-review,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-review_marker').on 'ajax:success', (e, data, satus, xhr) =>
+    @$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.each (id) ->
           $(".b-comment##{id}").view().mark(data.kind, data.value)

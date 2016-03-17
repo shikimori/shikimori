@@ -6,6 +6,7 @@
     a href="#{@resource.comments_url}" = t '.all_comments'
       span.brackets = @resource.comments_count
   .subheadline.m3 = @page_title.last
+
   div
     .b-topic.unprocessed
       = render 'topics/comments', view: @resource.main_topic_view.comments_view

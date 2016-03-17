@@ -88,7 +88,9 @@ describe NameMatches::BuildMatches do
 
       it do
         expect(name_matches.map(&:phrase)).to eq %w(
-          jojonokimyonaboken2000 jojonokimyonaboken2000tv jojonokimyonaboken
+          jojonokimyonaboken2000
+          jojonokimyonaboken2000tv
+          jojonokimyonaboken
         )
         expect(name_matches.first).to be_kind_of NameMatch
         expect(name_matches.first).to be_new_record

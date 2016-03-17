@@ -23,7 +23,7 @@
               class="#{:active if user_signed_in?}"
               style="#{'display: none;' unless comment.summary?}"
               title="Снять метку отзыва"
-              data-action="#{review_comment_abuse_requests_url comment}"
+              data-action="#{summary_comment_abuse_requests_url comment}"
               data-text="#{t 'markers.summary'}"
               data-method="post"
               data-type="json"

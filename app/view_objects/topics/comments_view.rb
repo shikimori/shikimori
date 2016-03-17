@@ -2,6 +2,7 @@ class Topics::CommentsView < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
   instance_cache :comments, :folded_comments
+  instance_cache :only_summaries_page?
 
   # есть ли свёрнутые комментарии?
   def folded?
@@ -10,7 +11,7 @@ class Topics::CommentsView < ViewObjectBase
 
   # число свёрнутых комментариев
   def folded_comments
-    if topic.any_summaries?
+    if only_summaries_page?
       topic.summaries_count - comments_limit
     else
       topic.comments_count - comments_limit
@@ -43,7 +44,7 @@ class Topics::CommentsView < ViewObjectBase
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
-    (topic.any_summaries? ? comments.summaries : comments)
+    (only_summaries_page? ? comments.summaries : comments)
       .decorate
       .to_a
       .reverse
@@ -57,7 +58,7 @@ class Topics::CommentsView < ViewObjectBase
       topic_id: topic.id,
       skip: 'SKIP',
       limit: fold_limit,
-      review: topic.any_summaries? ? 'review' : nil
+      is_summary: topic.any_summaries? ? 'is_summary' : nil
     )
   end
 
@@ -87,7 +88,7 @@ class Topics::CommentsView < ViewObjectBase
     Comment.new(
       user: h.current_user,
       commentable: topic,
-      review: true
+      is_summary: only_summaries_page?
     )
   end
 
@@ -97,12 +98,19 @@ class Topics::CommentsView < ViewObjectBase
 
 private
 
+  def only_summaries_page?
+    return false unless ['animes', 'mangas'].include? h.params[:controller]
+    return true if h.params[:action] == 'summaries'
+
+    h.params[:action] == 'show' && topic.summaries_count > 0
+  end
+
   def comment_word number
     word = topic.any_summaries? ? 'summary' : 'comment'
     i18n_i word, number, :accusative
   end
 
-  # # для адреса подгрузки комментариев
+  # для адреса подгрузки комментариев
   def topic_type
     Entry.name
   end

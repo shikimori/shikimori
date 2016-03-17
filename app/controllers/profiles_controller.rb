@@ -4,7 +4,9 @@ class ProfilesController < ShikimoriController
 
   def show
     if user_signed_in? && current_user.id == @resource.id
-      MessagesService.new(@resource.object).read_messages(kind: MessageType::ProfileCommented)
+      MessagesService
+        .new(@resource.object)
+        .read_messages(kind: MessageType::ProfileCommented)
     end
   end
 
@@ -29,7 +31,8 @@ class ProfilesController < ShikimoriController
   def feed
     noindex
 
-    if !@resource.show_comments? || @resource.main_comments_view.comments_count.zero?
+    if !@resource.show_comments? ||
+        @resource.main_comments_view.comments_count.zero?
       redirect_to @resource.url
     end
 
@@ -72,7 +75,7 @@ class ProfilesController < ShikimoriController
     noindex
     collection = postload_paginate(params[:page], 20) do
       Comment
-        .where(user: @resource.object, review: true)
+        .where(user: @resource.object, is_summary: true)
         .order(id: :desc)
     end
     @collection = collection.map {|v| SolitaryCommentDecorator.new v }

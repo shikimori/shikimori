@@ -3,7 +3,7 @@ FactoryGirl.define do
     user { seed :user }
     commentable { seed :topic }
     sequence(:body) { |n| "comment_body_#{n}" }
-    offtopic false
+    is_offtopic false
     is_summary false
 
     after :build do |comment|
@@ -17,6 +17,11 @@ FactoryGirl.define do
 
     trait :summary do
       is_summary true
+      body 'x' * Comment::MIN_SUMMARY_SIZE
+    end
+
+    trait :offtopic do
+      is_offtopic true
       body 'x' * Comment::MIN_SUMMARY_SIZE
     end
 

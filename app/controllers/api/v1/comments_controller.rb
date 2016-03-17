@@ -38,6 +38,8 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :review, :bool
   end
   def create
+    # TODO replace review param with is_summary param
+    #      (create, update and comment_params)
     @comment = Comment.new comment_params.merge(user: current_user)
 
     if faye.create @comment

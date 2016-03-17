@@ -1,17 +1,14 @@
 class ReviewsQuery
   NewReviewBubbleInterval = 2.days
 
-  def initialize(entry, user, id=0)
+  def initialize entry, user, id = 0
     @entry = entry
     @user = user
     @id = id
   end
 
   def fetch
-    reviews = @entry
-      .reviews
-      .includes(:user, :votes, :topic)
-      .with_viewed(@user)
+    reviews = @entry.reviews.includes(:user, :votes, :topic)
 
     if @id.present? && @id != 0
       reviews.where(id: @id)
