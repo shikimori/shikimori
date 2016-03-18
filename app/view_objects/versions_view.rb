@@ -33,7 +33,7 @@ private
 
   def processed_query
     Moderation::ProcessedVersionsQuery
-      .new(h.params[:type])
-      .postload page, per_page_limit
+      .new(h.params[:type], h.params[:created_on])
+      .postload(page, per_page_limit)
   end
 end
