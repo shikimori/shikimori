@@ -1,5 +1,3 @@
-#= require_tree ./social
-
 $ ->
   $("#image_placeholder").hide()
   window.comments_notifier = new CommentsNotifier() if USER_SIGNED_IN

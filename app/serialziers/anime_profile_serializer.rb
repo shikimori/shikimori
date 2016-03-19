@@ -3,7 +3,7 @@ class AnimeProfileSerializer < AnimeSerializer
     :released_on, :episodes, :episodes_aired, :duration, :score, :description,
     :description_html, :favoured?, :anons?, :ongoing?, :thread_id,
     :world_art_id, :myanimelist_id, :ani_db_id,
-    :rates_scores_stats, :rates_statuses_stats
+    :rates_scores_stats, :rates_statuses_stats, :updated_at
 
   has_many :genres
   has_many :studios

@@ -146,6 +146,7 @@ en:
 
     versions:
       index:
+        date: Date
         notice: This is the history of content changes authored by members.
         instruction: Instructions
         instructions:
@@ -176,12 +177,21 @@ en:
             to use poor quality screenshots from animes of the 90s.'
           - Screenshots shouldn't contain any logos or watermarks of
             other sites as well as subtitles.
+
+
+
+
+
+
+
+
         instructions_notice: >-
           In case of minor drawbacks it's recommended to accept (rather than
           reject) content change and correct it by yourself if necessary:
           when editing anime/manga/character description you can use
           "Apply" button (it's located to the left of "Save" button)
           to apply changes without adding yourself to the list of authors.
+
         queue: Queue
         more_content_changes_pending: >-
           That's not all yet. Other content changes will be available for

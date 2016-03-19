@@ -1,6 +1,6 @@
 class CharacterProfileSerializer < CharacterSerializer
-  attributes :altname, :japanese, :description, :description, :description_html
-  attributes :favoured?, :thread_id
+  attributes :altname, :japanese, :description, :description, :description_html,
+    :favoured?, :thread_id, :updated_at
 
   has_many :seyu
   has_many :animes

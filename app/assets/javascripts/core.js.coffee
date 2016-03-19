@@ -1,26 +1,26 @@
 #= require sugar
 #= require jquery
-#= require core/jquery-migrate-1.3.0
-#= require_tree ./core
+#= require vendor/jquery-migrate-1.3.0
+#= require vendor/modernizr
 
 #= require d3
 #= require jQuery-Storage-API
+#= require pikaday
+#= require urijs
 
 # imagesLoaded dependency
 #= require ev-emitter
 #= require imagesloaded
 
 # magnific-popup dependency
-# require matches-selector
 #= require magnific-popup
 
 # outlayer dependency
-# fizzy-ui-utils dependency
 #= require desandro-matches-selector
-# outlayer dependency
 #= require fizzy-ui-utils
 #= require get-size
 #= require outlayer/item
+# packery dependency
 #= require outlayer
 #= require jquery-bridget
 #= require packery/rect
@@ -30,9 +30,10 @@
 
 #= require_tree ./vendor
 
-#= require lib/view
-#= require lib/shiki_view
-#= require lib/shiki_editable
+#= require ./views/application/view
+#= require ./views/application/shiki_view
+#= require ./views/application/shiki_editable
+#= require_tree ./views
 
 #= require_tree ./processors
 #= require_tree ./lib
