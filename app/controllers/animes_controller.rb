@@ -14,7 +14,7 @@ class AnimesController < DbEntriesController
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
 
-  # отображение аниме или манги
+  # display anime or manga
   def show
     @itemtype = @resource.itemtype
   end
@@ -93,7 +93,7 @@ class AnimesController < DbEntriesController
     return redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
-  def reviews
+  def summaries
     return redirect_to @resource.url, status: 301 unless @resource.topic.any_summaries?
 
     page_title i18n_t("reviews.#{@resource.object.class.name.downcase}")
