@@ -1,7 +1,7 @@
 json.content render(
   partial: 'topics/topic',
   collection: @view.news_topics,
-  as: :view,
+  as: :topic_view,
   formats: :html
 )
 
