@@ -1,10 +1,11 @@
 class PersonProfileSerializer < PersonSerializer
   attributes :japanese, :job_title, :birthday, :website, :groupped_roles
-  attributes :roles, :works, :thread_id
-  attributes :person_favoured?
-  attributes :producer?, :producer_favoured?
-  attributes :mangaka?, :mangaka_favoured?
-  attributes :seyu?, :seyu_favoured?
+    :roles, :works, :thread_id,
+    :person_favoured?,
+    :producer?, :producer_favoured?,
+    :mangaka?, :mangaka_favoured?,
+    :seyu?, :seyu_favoured?,
+    :updated_at
 
   def roles
     []
