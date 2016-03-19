@@ -20,7 +20,11 @@ class VersionsView < ViewObjectBase
   end
 
   def next_page_url
-    h.index_moderations_versions_url page: page+1, type: h.params[:type]
+    h.index_moderations_versions_url(
+      page: page+1,
+      type: h.params[:type],
+      created_on: h.params[:created_on]
+    )
   end
 
   def moderators

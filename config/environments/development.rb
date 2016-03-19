@@ -24,6 +24,7 @@ Site::Application.configure do
   config.assets.debug = false
   config.assets.raise_production_errors = true
   config.assets.raise_runtime_errors = true
+  config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = true

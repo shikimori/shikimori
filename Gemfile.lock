@@ -478,7 +478,7 @@ GEM
       rails-assets-ev-emitter (~> 1.0.0)
     rails-assets-jQuery-Storage-API (1.8.1)
       rails-assets-jquery (>= 1.4)
-    rails-assets-jquery (2.2.1)
+    rails-assets-jquery (2.2.2)
     rails-assets-jquery-bridget (2.0.0)
       rails-assets-jquery (>= 1.4.2, < 4)
     rails-assets-magnific-popup (1.0.1)
@@ -491,7 +491,9 @@ GEM
     rails-assets-packery (2.0.0)
       rails-assets-get-size (~> 2.0.2)
       rails-assets-outlayer (~> 2.0.0)
+    rails-assets-pikaday (1.4.0)
     rails-assets-sugar (1.4.1)
+    rails-assets-urijs (1.17.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -751,7 +753,9 @@ DEPENDENCIES
   rails-assets-matches-selector (= 2.0.1)!
   rails-assets-outlayer (= 2.0.1)!
   rails-assets-packery!
+  rails-assets-pikaday!
   rails-assets-sugar!
+  rails-assets-urijs!
   rails-i18n
   railties
   rake

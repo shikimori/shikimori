@@ -183,8 +183,9 @@ gem 'thin'
 
 # assets
 source 'https://rails-assets.tenex.tech' do
-  # produces weird compilation error for production assets
   # gem 'rails-assets-moment'
+  gem 'rails-assets-pikaday'
+  gem 'rails-assets-urijs'
 
   # dependencies for rails-assets-packery'
   gem 'rails-assets-fizzy-ui-utils', '2.0.1'

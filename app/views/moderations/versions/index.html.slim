@@ -30,19 +30,27 @@ header.head
     p.m5 = t '.instructions_notice'
 
 - if @versions.pending.any?
-  .subheadline = t '.queue'
-  .block
-    - if @versions.pending.any?
-      = render partial: 'versions/version', collection: @versions.pending
-      - if @versions.pending.size == @versions.per_page_limit
-        .m5
-        .b-nothing_here = t '.more_content_changes_pending'
+    .subheadline = t '.queue'
+    .block
+      - if @versions.pending.any?
+        = render partial: 'versions/version', collection: @versions.pending
+        - if @versions.pending.size == @versions.per_page_limit
+          .m5
+          .b-nothing_here = t '.more_content_changes_pending'
 
-    - else
-      .b-nothing_here = t '.queue_empty'
+      - else
+        .b-nothing_here = t '.queue_empty'
 
-.subheadline = t '.history'
 .block
-  = render partial: 'versions/version', collection: @versions.processed
-  - if @versions.postloader?
-    = render 'blocks/postloader', next_url: @versions.next_page_url
+  input.subheadline-input.date-filter[
+    type="text"
+    data-name="created_on"
+    placeholder="#{t '.date'}"
+    value="#{params[:created_on]}"
+  ]
+  .subheadline = t '.history'
+  .block
+    = render partial: 'versions/version', collection: @versions.processed
+    - if @versions.postloader?
+      = render 'blocks/postloader',
+        next_url: @versions.next_page_url

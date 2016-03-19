@@ -15,6 +15,13 @@ $moderation = (node) ->
         .html($player.data 'html')
         .data(html: '')
 
+# страница модерации правок
+@on 'page:load', 'versions_index', ->
+  picker = new DatePicker('.date-filter')
+  picker.on 'date:picked', ->
+    new_url = new URI(location.href).setQuery('created_on', @value).href()
+    Turbolinks.visit new_url
+
 # страницы модерации
 @on 'page:load', 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->
   # сокращение высоты инструкции
