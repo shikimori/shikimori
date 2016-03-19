@@ -20,7 +20,7 @@ describe Moderation::ProcessedVersionsQuery do
       it { is_expected.to eq [version_1, version_3, version_4] }
 
       context 'with created_on' do
-        let(:created_on) { 1.day.ago }
+        let(:created_on) { 1.day.ago.to_date.to_s }
         it { is_expected.to eq [version_1, version_3] }
       end
     end

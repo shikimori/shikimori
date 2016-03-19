@@ -10,7 +10,11 @@ private
       .order(updated_at: :desc)
 
     if created_on
-      scope = scope.where("cast(created_at as date) = ?", created_on.to_date)
+      scope = scope.where(
+        "created_at between ? and ?",
+        Time.zone.parse(created_on).beginning_of_day,
+        Time.zone.parse(created_on).end_of_day,
+      )
     end
 
     scope
