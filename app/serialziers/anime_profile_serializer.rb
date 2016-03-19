@@ -1,7 +1,7 @@
 class AnimeProfileSerializer < AnimeSerializer
   attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on,
     :released_on, :episodes, :episodes_aired, :duration, :score, :description,
-    :description_html, :favoured?, :anons?, :ongoing?, :thread_id,
+    :description_html, :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
     :world_art_id, :myanimelist_id, :ani_db_id,
     :rates_scores_stats, :rates_statuses_stats, :updated_at
 
@@ -16,7 +16,12 @@ class AnimeProfileSerializer < AnimeSerializer
     object.current_rate
   end
 
+  # TODO: deprecated
   def thread_id
+    object.topic.try :id
+  end
+
+  def topic_id
     object.topic.try :id
   end
 
