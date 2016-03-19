@@ -6,7 +6,7 @@
 ```
 ```
 postgres=# create user shikimori_production with password 'bimpQscuJvkkL4Y';
-postgres=# create user shikimori_test with password='bimpQscuJvkkL4Y';
+postgres=# create user shikimori_test with password 'bimpQscuJvkkL4Y';
 postgres=# alter user shikimori_production createdb;
 postgres=# alter user shikimori_test createdb;
 ```
