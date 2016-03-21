@@ -92,21 +92,21 @@ namespace :unicorn do
   desc "Stop unicorn"
   task :stop do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} stop"
+      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} stop"
     end
   end
 
   desc "Start unicorn"
   task :start do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} start"
+      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} start"
     end
   end
 
   desc "Restart unicorn"
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
+      execute "sudo /etc/init.d/#{fetch :application}_unicorn_#{fetch :stage} upgrade"
     end
   end
 end
