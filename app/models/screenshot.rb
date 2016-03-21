@@ -7,7 +7,7 @@ class Screenshot < ActiveRecord::Base
 
   has_attached_file :image,
     styles: { x166: ['166x93#', :jpg], x332: ['332x186#', :jpg] },
-    url: "/images/screenshot/:style/:access_token.:extension"
+    url: "/system/screenshots/:style/:access_token.:extension"
 
   #validates_presence_of :anime # ну что за хрень с валидациями??
   validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }
