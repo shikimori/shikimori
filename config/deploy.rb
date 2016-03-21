@@ -30,24 +30,8 @@ set :linked_dirs, %w{
   tmp/pids
   tmp/cache
   tmp/sockets
-  tmp/sessions
-
   public/assets
-
-  public/images/anime
-  public/images/anime_fixed
-  public/images/character
-  public/images/cosplay_image
-  public/images/group
-  public/images/image
-  public/images/manga
-  public/images/manga_online
-  public/images/person
-  public/images/screenshot
-  public/images/studio
-  public/images/user
-  public/images/user_image
-  public/images/webm_video
+  public/system
 }
 
 def shell_exec command
