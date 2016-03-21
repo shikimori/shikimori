@@ -182,7 +182,7 @@ gem 'faye-websocket', '0.10.0' # не обновлять до 0.10.1 - лома�
 gem 'thin'
 
 # assets
-source 'https://rails-assets.tenex.tech' do
+source 'https://rails-assets.org' do
   # gem 'rails-assets-moment'
   gem 'rails-assets-pikaday'
   gem 'rails-assets-urijs'
