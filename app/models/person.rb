@@ -13,8 +13,8 @@ class Person < DbEntry
       x96: ['96x150#', :jpg],
       x48: ['48x75#', :jpg]
     },
-    url: '/images/person/:style/:id.:extension',
-    path: ':rails_root/public/images/person/:style/:id.:extension',
+    url: '/system/person/:style/:id.:extension',
+    path: ':rails_root/public/system/person/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }

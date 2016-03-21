@@ -6,7 +6,7 @@ class CosplayImage < ActiveRecord::Base
   has_attached_file :image,
     styles: { preview: "178x534>" },
     url: "/images/cosplay_image/:style/:id.:extension",
-    path: ":rails_root/public/images/cosplay_image/:style/:id.:extension",
+    path: ":rails_root/public/system/cosplay_image/:style/:id.:extension",
     default_url: '/assets/globals/missing_:style.jpg'
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }

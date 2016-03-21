@@ -98,8 +98,8 @@ class User < ActiveRecord::Base
       x20: ['20x20#', :png],
       x16: ['16x16#', :png]
     },
-    url: '/images/user/:style/:id.:extension',
-    path: ':rails_root/public/images/user/:style/:id.:extension',
+    url: '/system/user/:style/:id.:extension',
+    path: ':rails_root/public/system/user/:style/:id.:extension',
     default_url: '/assets/globals/missing_avatar/:style.png'
 
   validates :nickname, presence: true

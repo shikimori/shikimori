@@ -5,7 +5,7 @@ class WebmVideo < ActiveRecord::Base
       retina: ['470x264#', :jpg],
     },
     url: "/images/webm_video/:style/:id.:extension",
-    path: ":rails_root/public/images/webm_video/:style/:id.:extension",
+    path: ":rails_root/public/system/webm_video/:style/:id.:extension",
     default_url: "/images/webm_video/:style/:id.:extension"
     #default_url: '/assets/globals/missing_:style.jpg'
 
