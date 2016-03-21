@@ -7,8 +7,8 @@ class Image < ActiveRecord::Base
       main: '1920x1200>',
       preview: '178x534>'
     },
-    url: '/system/image/:style/:id.:extension',
-    path: ':rails_root/public/system/image/:style/:id.:extension',
+    url: '/system/images/:style/:id.:extension',
+    path: ':rails_root/public/system/images/:style/:id.:extension',
     processors: [:cropper]
 
   validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }

@@ -8,8 +8,8 @@ class UserImage < ActiveRecord::Base
       preview: ['700x700>', :jpg],
       thumbnail: ['235x235>', :jpg]
     },
-    url: '/system/user_image/:style/:user_id/:id.:extension',
-    path: ':rails_root/public/system/user_image/:style/:user_id/:id.:extension'
+    url: '/system/user_images/:style/:user_id/:id.:extension',
+    path: ':rails_root/public/system/user_images/:style/:user_id/:id.:extension'
 
   validates :user, presence: true
   validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }

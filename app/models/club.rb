@@ -60,9 +60,9 @@ class Club < ActiveRecord::Base
       x73: '73x73#',
       x48: '48x48#'
     },
-    url: '/system/group/:style/:id.:extension',
-    path: ':rails_root/public/system/group/:style/:id.:extension',
-    default_url: '/system/static/missing_logo_x215.png'
+    url: '/system/clubs/:style/:id.:extension',
+    path: ':rails_root/public/system/clubs/:style/:id.:extension',
+    default_url: '/assets/globals/missing_:style.jpg'
 
   validates :name, presence: true, name: true
   validates :owner, presence: true

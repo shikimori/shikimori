@@ -2,8 +2,8 @@ class MangaPage < ActiveRecord::Base
   belongs_to :chapter, class_name: 'MangaChapter', foreign_key: :manga_chapter_id
 
   has_attached_file :image,
-    url:                    '/images/manga_online/:style/:manga_id_mod/:manga_id/:chapter_name/:number.:extension',
-    path: ':rails_root/public/system/manga_online/:style/:manga_id_mod/:manga_id/:chapter_name/:number.:extension'
+    url: '/system/manga_pages/:style/:manga_id_mod/:manga_id/:chapter_name/:number.:extension',
+    path: ':rails_root/public/system/manga_pages/:style/:manga_id_mod/:manga_id/:chapter_name/:number.:extension'
 
   validates :url, presence: true, url: true, uniqueness: true
   validates :number, presence: true

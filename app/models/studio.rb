@@ -15,8 +15,8 @@ class Studio < ActiveRecord::Base
   # Relations
   has_and_belongs_to_many :animes
   has_attached_file :image,
-    url: "/images/studio/:style/:id.:extension",
-    path: ":rails_root/public/system/studio/:style/:id.:extension"
+    url: "/system/studios/:style/:id.:extension",
+    path: ":rails_root/public/system/studios/:style/:id.:extension"
 
   STUDIO_NAME_FILTER = /°|^studios? | studios?$| productions?$| entertainment?$| animation?$|^animation? /i
 
