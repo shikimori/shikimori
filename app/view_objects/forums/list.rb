@@ -32,7 +32,7 @@ private
 
   def forum_size forum
     TopicsQuery.fetch(current_user)
-      .by_forum(forum, current_user, h.censored_forbidden?)
+      .by_forum(forum, current_user, h.try(:censored_forbidden?)) # может не быть при регистрации через соц сеть и первичном заполнении профиля
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
   end
