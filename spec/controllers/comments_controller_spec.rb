@@ -33,7 +33,7 @@ describe CommentsController do
         {
           commentable_id: topic.id,
           commentable_type: 'Entry',
-          body: 'x'*Comment::MIN_SUMMARY_SIZE,
+          body: 'x' * Comment::MIN_SUMMARY_SIZE,
           is_offtopic: true,
           is_summary: true
         }
