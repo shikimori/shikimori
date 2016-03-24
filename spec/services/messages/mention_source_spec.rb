@@ -13,12 +13,12 @@ describe Messages::MentionSource do
 
     context 'Entry' do
       let(:linked) { build_stubbed :topic, id: 1, title: 'xx&' }
-      it { is_expected.to eq "в топике <a href=\"http://test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
+      it { is_expected.to eq "в топике <a href=\"//test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
     end
 
     context 'User' do
       let(:linked) { build_stubbed :user, id: 1, nickname: 'zz' }
-      it { is_expected.to eq "в профиле пользователя <a href=\"http://test.host/zz\">zz</a>." }
+      it { is_expected.to eq "в профиле пользователя <a href=\"//test.host/zz\">zz</a>." }
     end
 
     context 'other linked' do

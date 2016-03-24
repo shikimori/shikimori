@@ -14,7 +14,7 @@ class AdminLogInController < ShikimoriController
         sign_in(@user)
         session[AdminLogInController.admin_id_to_restore_key] = id if id
 
-        redirect_to :root
+        redirect_to root_path
       else
         render text: "пользователь с ником на \"#{params[:nickname]}\" не найден", status: :unprocessable_entity
       end
@@ -29,7 +29,7 @@ class AdminLogInController < ShikimoriController
       @user = User.find(session[AdminLogInController.admin_id_to_restore_key])
       session.delete AdminLogInController.admin_id_to_restore_key
 
-      sign_in_and_redirect(@user)
+      sign_in_and_redirect @user
     else
       render 'pages/page404.html', layout: set_layout, status: 404
     end

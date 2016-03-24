@@ -82,7 +82,7 @@ private
       user: comment.user,
       comment: comment,
       duration: duration,
-      reason: "п.3 [url=http://shikimori.org/s/79042-pravila-sayta]правил сайта[/url]",
+      reason: "п.3 [url=//shikimori.org/s/79042-pravila-sayta]правил сайта[/url]",
       moderator: User.find(User::BANHAMMER_ID)
     )
   end

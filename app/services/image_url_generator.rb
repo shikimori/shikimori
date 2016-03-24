@@ -20,11 +20,11 @@ class ImageUrlGenerator
     image_url_path = entry.send(image_method).url image_size, only_path
 
     if Rails.env.production?
-      "http://#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
+      "//#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
     elsif Rails.env.test? || (image_file_path && File.exists?(image_file_path))
       image_url_path
     else
-      "http://#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
+      "//#{Site::STATIC_SUBDOMAINS[image_index]}.#{Site::DOMAIN}#{image_url_path}"
     end
   end
 end

@@ -76,11 +76,6 @@ module ApplicationHelper
       .gsub(/<br *\/?>/, '')
   end
 
-  def sitelink url
-    Rails.logger.warn 'sitelink call is deprecated'
-    link_to url.gsub(/^http:\/\/|www\.|\/$/, ''), url, :rel => :nofollow
-  end
-
   def format_rss_urls text
     text
       .gsub('href="/', "href=\"http://#{Site::DOMAIN}/")

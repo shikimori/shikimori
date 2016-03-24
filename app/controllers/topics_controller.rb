@@ -21,7 +21,8 @@ class TopicsController < ShikimoriController
 
   def show
     expected_url = UrlGenerator.instance.topic_url @resource
-    if request.url.gsub(/\?.*/, '') != expected_url && request.format != 'rss'
+
+    if request.url.gsub(/\?.*|https?:/, '') != expected_url && request.format != 'rss'
       return redirect_to expected_url, status: 301
     end
 

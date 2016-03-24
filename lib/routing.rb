@@ -3,18 +3,18 @@ module Routing
   include Rails.application.routes.url_helpers
 
   included do
-    def default_url_options
-      host = if Rails.env.test?
+    def shiki_domain
+      if Rails.env.test?
         'test.host'
+      elsif (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
+        Site::DOMAIN
       else
-        if (Draper::ViewContext.current.request.try(:host) || 'test.host') == 'test.host'
-          Site::DOMAIN
-        else
-          Draper::ViewContext.current.request.host
-        end
+        Draper::ViewContext.current.request.host
       end
+    end
 
-      { host: host }
+    def default_url_options
+      ApplicationController.default_url_options.merge(host: shiki_domain)
     end
   end
 

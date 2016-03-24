@@ -257,7 +257,7 @@ describe BbCodeFormatter do
 
     describe '[mention]' do
       let(:text) { '[mention=1]test[/mention]' }
-      it { is_expected.to eq '<a href="http://shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
+      it { is_expected.to eq '<a href="//shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
     end
 
     describe '[hr]' do
@@ -445,7 +445,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     describe 'two replies' do
       let(:text) { '[comment=1260072]Viks[/comment],
 [comment=1260062]Егор Кун[/comment],' }
-      it { is_expected.to eq '<span class="bubbled" data-href="http://shikimori.org/comments/1260072.html">Viks</span>,<br><span class="bubbled" data-href="http://shikimori.org/comments/1260062.html">Егор Кун</span>,' }
+      it { is_expected.to eq '<span class="bubbled" data-href="//shikimori.org/comments/1260072.html">Viks</span>,<br><span class="bubbled" data-href="//shikimori.org/comments/1260062.html">Егор Кун</span>,' }
     end
 
     describe 'obsolete tags' do

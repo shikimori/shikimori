@@ -23,16 +23,16 @@ ru:
         [p]
         Возможно, у вас возникла интересная идея?
         Или вам тут что-то не нравится и чего-то не хватает?
-        Напишите об этом в [url=http://shikimori.org/s/10586-Pozhelaniya-po-saytu]топике идей и предложений[/url].
+        Напишите об этом в [url=//shikimori.org/s/10586-Pozhelaniya-po-saytu]топике идей и предложений[/url].
         [/p]
         [p]
         Или, может быть, на сайте что-то неправильно работает,
         и вы нашли ошибку? Сообщите об этом в
-        [url=http://shikimori.org/s/102-Tema-ob-oshibkah]теме ошибок[/url].
+        [url=//shikimori.org/s/102-Tema-ob-oshibkah]теме ошибок[/url].
         [/p]
         [p]
         А может быть, просто хотите что-то сказать или спросить? Прочтите
-        [url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]тему о часто задаваемых вопросах[/url]
+        [url=//shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]тему о часто задаваемых вопросах[/url]
         и, если не нашли ответа, задайте вопрос там.
         [/p]
         [p]
@@ -127,7 +127,7 @@ ru:
         Определить id можно из адреса страницы аниме.
         <br>
         Например, для аниме
-        <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        <a href="//shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
         с адресом
         <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
         идентификатор будет равен <b style="color: #000">790</b>.

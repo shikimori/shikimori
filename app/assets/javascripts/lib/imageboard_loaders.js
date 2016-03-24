@@ -124,7 +124,7 @@ function ImagesLoader(options) {
 };
 
 function camo_url(image, image_url, tags) {
-  var camo_base_url = "http://shikimori.org/camo";
+  var camo_base_url = location.protocol + "//shikimori.org/camo";
   var extension = '.' + image_url.replace(/.*\./, '');
   var filename = (tags + '_' + image.width + 'x' + image.height + '_' +
       image.author + '_' + image.id)

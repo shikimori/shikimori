@@ -70,7 +70,7 @@ describe Messages::GenerateBody do
 
     context 'profile_commented' do
       let(:kind) { MessageType::ProfileCommented }
-      it { is_expected.to eq "Написал что-то в вашем <a class='b-link' href='http://test.host/to'>профиле</a>." }
+      it { is_expected.to eq "Написал что-то в вашем <a class='b-link' href='//test.host/to'>профиле</a>." }
     end
 
     context 'friend_request' do
@@ -89,13 +89,13 @@ describe Messages::GenerateBody do
     context 'quoted_by_user' do
       let(:kind) { MessageType::QuotedByUser }
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
-      it { is_expected.to eq "Написал что-то вам в топике <a href=\"http://test.host/forum/offtopic/1-test\">test</a>." }
+      it { is_expected.to eq "Написал что-то вам в топике <a href=\"//test.host/forum/offtopic/1-test\">test</a>." }
     end
 
     context 'subscription_commented' do
       let(:kind) { MessageType::SubscriptionCommented }
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
-      it { is_expected.to eq "Новые сообщения в топике <a href=\"http://test.host/forum/offtopic/1-test\">test</a>." }
+      it { is_expected.to eq "Новые сообщения в топике <a href=\"//test.host/forum/offtopic/1-test\">test</a>." }
     end
 
     context 'warned' do
@@ -110,7 +110,7 @@ describe Messages::GenerateBody do
         let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
         let(:comment) { build_stubbed :comment, id: 1 }
         let(:linked) { build_stubbed :ban, comment: comment }
-        it { is_expected.to eq "Вам вынесено предупреждение за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>." }
+        it { is_expected.to eq "Вам вынесено предупреждение за комментарий в топике <a href=\"//test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"//test.host/comments/1\">topic_1</a>." }
       end
     end
 
@@ -126,7 +126,7 @@ describe Messages::GenerateBody do
         let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
         let(:comment) { build_stubbed :comment, id: 1 }
         let(:linked) { build_stubbed :ban, comment: comment }
-        it { is_expected.to eq "Вы забанены на 3 часа за комментарий в топике <a href=\"http://test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"http://test.host/comments/1\">topic_1</a>." }
+        it { is_expected.to eq "Вы забанены на 3 часа за комментарий в топике <a href=\"//test.host/forum/offtopic/78643875-topic_1#comment-1\" class=\"bubbled b-link\" data-href=\"//test.host/comments/1\">topic_1</a>." }
       end
     end
 
@@ -134,14 +134,14 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::ClubRequest }
       let(:club) { create :club, id: 1, name: 'test' }
       let(:linked) { build_stubbed :club_invite, club: club }
-      it { is_expected.to eq "Приглашение на вступление в клуб <a href=\"http://shikimori.org/clubs/1-test\" title=\"\" class=\"b-link\">test</a>." }
+      it { is_expected.to eq "Приглашение на вступление в клуб <a href=\"//shikimori.org/clubs/1-test\" title=\"\" class=\"b-link\">test</a>." }
     end
 
     context 'version_accepted' do
       let(:kind) { MessageType::VersionAccepted }
       let(:anime) { create :anime, id: 1, name: 'test' }
       let(:linked) { create :version, item: anime, id: 1 }
-      it { is_expected.to eq "Ваша <a href=\"http://shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"http://shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/animes/1-test/tooltip\">test</a> принята." }
+      it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> принята." }
     end
 
     context 'version_rejected' do
@@ -151,18 +151,18 @@ describe Messages::GenerateBody do
 
       context 'with reason' do
         let(:body) { 'zxc' }
-        it { is_expected.to eq "Ваша <a href=\"http://shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"http://shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/animes/1-test/tooltip\">test</a> отклонена по причине: <div class=\"b-quote\"><div class=\"quoteable\">from написал:</div>zxc</div>" }
+        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> отклонена по причине: <div class=\"b-quote\"><div class=\"quoteable\">from написал:</div>zxc</div>" }
       end
 
       context 'without reason' do
-        it { is_expected.to eq "Ваша <a href=\"http://shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"http://shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"http://shikimori.org/animes/1-test/tooltip\">test</a> отклонена." }
+        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> отклонена." }
       end
     end
 
     context 'contest_finished' do
       let(:kind) { MessageType::ContestFinished }
       let(:linked) { create :contest, id: 1, title: 'asd' }
-      it { is_expected.to eq "Опрос <a href=\"http://test.host/contests/1-\" class=\"b-link\">asd</a> завершён." }
+      it { is_expected.to eq "Опрос <a href=\"//test.host/contests/1-\" class=\"b-link\">asd</a> завершён." }
     end
   end
 end

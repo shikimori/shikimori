@@ -50,7 +50,7 @@ describe AbuseRequest do
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:offtopic) { should be_truthy }
+        its(:is_offtopic) { should be_truthy }
       end
     end
 
@@ -60,7 +60,7 @@ describe AbuseRequest do
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:offtopic) { should be_falsy }
+        its(:is_offtopic) { should be_falsy }
       end
     end
   end

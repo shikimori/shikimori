@@ -3,7 +3,8 @@ class FranchiseSerializer < ActiveModel::Serializer
 
   def default_url_options
     {
-      host: Draper::ViewContext.current.request.host
+      host: Draper::ViewContext.current.request.host,
+      protocol: false
     }
   end
 

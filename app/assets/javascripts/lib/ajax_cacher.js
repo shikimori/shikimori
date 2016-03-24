@@ -18,7 +18,7 @@ var AjaxCacher = (function() {
   }
   // выделение из урла части после /
   function get_uri_part(url) {
-    return url.replace(/http:\/\/[^\/]+/, '');
+    return url.replace(/https?:\/\/[^\/]+/, '');
   }
 
   return {

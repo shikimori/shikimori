@@ -118,7 +118,7 @@ describe FayeService do
   describe '#offtopic' do
     subject(:act) { service.offtopic comment, is_offtopic }
 
-    let(:comment) { create :comment, commentable: topic, offtopic: !is_offtopic }
+    let(:comment) { create :comment, commentable: topic, is_offtopic: !is_offtopic }
     let(:is_offtopic) { true }
 
     let(:publisher) { double publish_marks: nil }

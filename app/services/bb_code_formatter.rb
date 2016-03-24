@@ -23,6 +23,7 @@ class BbCodeFormatter
     \[user_change=\d+\] | \[\/user_change\]
   )mix
 
+  default_url_options[:protocol] = false
   default_url_options[:host] ||= if Rails.env.development?
     'shikimori.dev'
   elsif Rails.env.beta?

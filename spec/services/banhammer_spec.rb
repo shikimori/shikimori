@@ -38,52 +38,53 @@ describe Banhammer do
   end
 
   describe '#abusive?' do
-    it { expect(banhammer.abusive? 'х*о').to be_falsy }
-    it { expect(banhammer.abusive? 'тест').to be_falsy }
-    it { expect(banhammer.abusive? '!!!').to be_falsy }
-    it { expect(banhammer.abusive? '*!!!*').to be_falsy }
-    it { expect(banhammer.abusive? 'N*O*K').to be_falsy }
-    it { expect(banhammer.abusive? '^O^').to be_falsy }
-    it { expect(banhammer.abusive? 'her').to be_falsy }
-    it { expect(banhammer.abusive? 'на!').to be_falsy }
+    it { expect(banhammer.abusive? 'х*о').to eq false }
+    it { expect(banhammer.abusive? 'тест').to eq false }
+    it { expect(banhammer.abusive? '!!!').to eq false }
+    it { expect(banhammer.abusive? '*!!!*').to eq false }
+    it { expect(banhammer.abusive? 'N*O*K').to eq false }
+    it { expect(banhammer.abusive? '^O^').to eq false }
+    it { expect(banhammer.abusive? 'her').to eq false }
+    it { expect(banhammer.abusive? 'на!').to eq false }
 
-    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to be_falsy }
-    it { expect(banhammer.abusive? '[img]http://shikimori.org/cosplay_galleries/publishing/хуй/test.png[/img]').to be_falsy }
-    it { expect(banhammer.abusive? '[poster]http://shikimori.org/cosplay_galleries/publishing/хуй/test.png[/poster]').to be_falsy }
-    it { expect(banhammer.abusive? '###[/quote]').to be_falsy }
-    it { expect(banhammer.abusive? '[character=17712]Yuzuki Eba[/character]').to be_falsy }
+    it { expect(banhammer.abusive? '//shikimori.org/cosplay_galleries/publishing/хуй/test').to eq false }
+    it { expect(banhammer.abusive? 'http://shikimori.org/cosplay_galleries/publishing/хуй/test').to eq false }
+    it { expect(banhammer.abusive? '[img]//shikimori.org/cosplay_galleries/publishing/хуй/test.png[/img]').to eq false }
+    it { expect(banhammer.abusive? '[poster]//shikimori.org/cosplay_galleries/publishing/хуй/test.png[/poster]').to eq false }
+    it { expect(banhammer.abusive? '###[/quote]').to eq false }
+    it { expect(banhammer.abusive? '[character=17712]Yuzuki Eba[/character]').to eq false }
 
-    it { expect(banhammer.abusive? 'хуй').to be_truthy }
-    it { expect(banhammer.abusive? 'хуйня').to be_truthy }
-    it { expect(banhammer.abusive? 'ху*').to be_truthy }
-    it { expect(banhammer.abusive? 'х*й').to be_truthy }
-    it { expect(banhammer.abusive? 'хуйло').to be_truthy }
-    it { expect(banhammer.abusive? 'бля').to be_truthy }
-    it { expect(banhammer.abusive? 'блять').to be_truthy }
-    it { expect(banhammer.abusive? 'блядь').to be_truthy }
-    it { expect(banhammer.abusive? 'нах').to be_truthy }
-    it { expect(banhammer.abusive? 'пох').to be_truthy }
-    it { expect(banhammer.abusive? 'охуел').to be_truthy }
-    it { expect(banhammer.abusive? 'оху*ть').to be_truthy }
-    it { expect(banhammer.abusive? 'похер').to be_truthy }
-    it { expect(banhammer.abusive? 'нахер').to be_truthy }
-    it { expect(banhammer.abusive? 'херня').to be_truthy }
-    it { expect(banhammer.abusive? 'хера').to be_truthy }
-    it { expect(banhammer.abusive? 'херь').to be_truthy }
-    it { expect(banhammer.abusive? 'сука').to be_truthy }
-    it { expect(banhammer.abusive? 'с*ка').to be_truthy }
-    it { expect(banhammer.abusive? 'су*а').to be_truthy }
-    it { expect(banhammer.abusive? 'сучка').to be_truthy }
-    it { expect(banhammer.abusive? 'сучёнок').to be_truthy }
-    it { expect(banhammer.abusive? 'хер').to be_truthy }
-    it { expect(banhammer.abusive? 'херо*о').to be_truthy }
-    it { expect(banhammer.abusive? 'ебать').to be_truthy }
-    it { expect(banhammer.abusive? 'ёба,').to be_truthy }
-    it { expect(banhammer.abusive? 'заебись').to be_truthy }
-    it { expect(banhammer.abusive? 'пизда').to be_truthy }
-    it { expect(banhammer.abusive? 'пиздуй').to be_truthy }
-    it { expect(banhammer.abusive? 'пиздец').to be_truthy }
-    it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to be_truthy }
+    it { expect(banhammer.abusive? 'хуй').to eq true }
+    it { expect(banhammer.abusive? 'хуйня').to eq true }
+    it { expect(banhammer.abusive? 'ху*').to eq true }
+    it { expect(banhammer.abusive? 'х*й').to eq true }
+    it { expect(banhammer.abusive? 'хуйло').to eq true }
+    it { expect(banhammer.abusive? 'бля').to eq true }
+    it { expect(banhammer.abusive? 'блять').to eq true }
+    it { expect(banhammer.abusive? 'блядь').to eq true }
+    it { expect(banhammer.abusive? 'нах').to eq true }
+    it { expect(banhammer.abusive? 'пох').to eq true }
+    it { expect(banhammer.abusive? 'охуел').to eq true }
+    it { expect(banhammer.abusive? 'оху*ть').to eq true }
+    it { expect(banhammer.abusive? 'похер').to eq true }
+    it { expect(banhammer.abusive? 'нахер').to eq true }
+    it { expect(banhammer.abusive? 'херня').to eq true }
+    it { expect(banhammer.abusive? 'хера').to eq true }
+    it { expect(banhammer.abusive? 'херь').to eq true }
+    it { expect(banhammer.abusive? 'сука').to eq true }
+    it { expect(banhammer.abusive? 'с*ка').to eq true }
+    it { expect(banhammer.abusive? 'су*а').to eq true }
+    it { expect(banhammer.abusive? 'сучка').to eq true }
+    it { expect(banhammer.abusive? 'сучёнок').to eq true }
+    it { expect(banhammer.abusive? 'хер').to eq true }
+    it { expect(banhammer.abusive? 'херо*о').to eq true }
+    it { expect(banhammer.abusive? 'ебать').to eq true }
+    it { expect(banhammer.abusive? 'ёба,').to eq true }
+    it { expect(banhammer.abusive? 'заебись').to eq true }
+    it { expect(banhammer.abusive? 'пизда').to eq true }
+    it { expect(banhammer.abusive? 'пиздуй').to eq true }
+    it { expect(banhammer.abusive? 'пиздец').to eq true }
+    it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
   end
 
   describe '#abusiveness' do

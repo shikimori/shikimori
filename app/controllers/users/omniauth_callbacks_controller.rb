@@ -43,8 +43,7 @@ private
     OmniauthService.new(@resource, omniauth_data).populate
 
     if omniauth_data.provider == 'yandex' || omniauth_data.provider == 'google_apps'
-      redirect_to :disabled_registration
-      return
+      return redirect_to disabled_registration_pages_url
     end
 
     unless safe_save @resource
@@ -80,7 +79,7 @@ private
       if user_signed_in?
         redirect_to edit_profile_url(current_user)
       else
-        redirect_to :root
+        redirect_to root_url
       end
       false
     else

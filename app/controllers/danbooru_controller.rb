@@ -35,7 +35,7 @@ class DanbooruController < ShikimoriController
   class << self
     # путь к картинке на s3
     def s3_path(md5)
-      "http://d.shikimori.org/#{md5}"
+      "#{request.protocol}d.shikimori.org/#{md5}"
     end
 
     # путь к картинке на s3

@@ -23,16 +23,16 @@ en:
         [p]
         Have an interesting idea?
         Or you don't like or miss anything here?
-        Tell us about it in [url=http://shikimori.org/s/10586-Pozhelaniya-po-saytu]the topic of ideas and suggestions[/url].
+        Tell us about it in [url=//shikimori.org/s/10586-Pozhelaniya-po-saytu]the topic of ideas and suggestions[/url].
         [/p]
         [p]
         Or maybe something has gone wrong and you want to inform us about it?
         Please leave your comments in
-        [url=http://shikimori.org/s/102-Tema-ob-oshibkah]the topic about errors[/url].
+        [url=//shikimori.org/s/102-Tema-ob-oshibkah]the topic about errors[/url].
         [/p]
         [p]
         Or maybe you just want to say or ask anything? Please read
-        [url=http://shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]the topic about frequently asked questions[/url]
+        [url=//shikimori.org/s/85018-FAQ-Chasto-zadavaemye-voprosy]the topic about frequently asked questions[/url]
         and ask your question there if you cannot find the answer.
         [/p]
         [p]
@@ -123,7 +123,7 @@ en:
         You can find this id in corresponding page URL.
         <br>
         E.g., id of anime
-        <a href="http://shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
+        <a href="//shikimori.dev/animes/1-cowboy-bebop" title="Cowboy Bebop" class="bubbled" data-href="http://%{domain}/animes/790-ergo-proxy/tooltip">Ergo Proxy</a>
         with URL
         <a href="http://%{domain}/animes/790-ergo-proxy">http://%{domain}/animes/<b>790</b>-ergo-proxy</a>
         is <b style="color: #000">790</b>.

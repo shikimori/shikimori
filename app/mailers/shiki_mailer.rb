@@ -1,3 +1,5 @@
+# важно указывать протокол в урла, т.к. по дефолту он выключен, а письма
+# отсылаются в plain text
 class ShikiMailer < ActionMailer::Base
   include Routing
   include Translation
@@ -21,20 +23,21 @@ class ShikiMailer < ActionMailer::Base
         nickname: message.to.nickname,
         site_link: Site::DOMAIN,
         from_nickname: message.from.nickname,
-        private_message_link: profile_dialogs_url(message.to),
+        private_message_link: profile_dialogs_url(message.to, protocol: :http),
         message: message.body,
         unsubscribe_link: unsubscribe_messages_url(
           name: message.to.to_param,
-          key: unsubscribe_link_key(message)
+          key: unsubscribe_link_key(message),
+          protocol: :http
         )
       )
     )
   end
 
   def reset_password_instructions user, token, options
+    return if generated?(user.email)
     @resource = user
     @token = token
-    return if generated?(@resource.email)
 
     mail(
       to: @resource.email,
@@ -44,7 +47,8 @@ class ShikiMailer < ActionMailer::Base
         'reset_password_instructions.body',
         site_link: Site::DOMAIN,
         reset_password_link: edit_user_password_url(
-          reset_password_token: @token
+          reset_password_token: @token,
+          protocol: :http
         )
       )
     )

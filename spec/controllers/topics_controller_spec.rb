@@ -1,7 +1,7 @@
 describe TopicsController do
   include_context :seeds
 
-  let(:user) { create :user, :user, :day_registered }
+  let(:user) { create :user, :user, :week_registered }
   let(:anime) { create :anime }
 
   let!(:topic) { create :topic, forum: animanga_forum, user: user }

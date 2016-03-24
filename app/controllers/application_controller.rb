@@ -57,67 +57,15 @@ class ApplicationController < ActionController::Base
     raise ArgumentError, "#{locale} #{key}"
   }
 
-  def runtime_error e
-    Honeybadger.notify(e) if defined?(Honeybadger)
+  def self.default_url_options
+    { protocol: false }
+  end
 
-    NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
-    Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
-
-    raise e if remote_addr == '127.0.0.1' && (
-      !e.is_a?(AgeRestricted) &&
-      !e.is_a?(CopyrightedResource) &&
-      !e.is_a?(Forbidden)
-    )
-
-    with_json_response = self.kind_of?(Api::V1::ApiController) || json?
-
-    if NOT_FOUND_ERRORS.include? e.class
-      @sub_layout = nil
-
-      if with_json_response
-        render json: { message: t('page_not_found'), code: 404 }, status: 404
-      else
-        render 'pages/page404', layout: false, status: 404, formats: :html
-      end
-
-    elsif e.is_a?(AgeRestricted)
-      render 'pages/age_restricted', layout: false, formats: :html
-
-    elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
-      if with_json_response
-        render json: { message: e.message, code: 403 }, status: 403
-      else
-        render text: e.message, status: 403
-      end
-
-    elsif e.is_a?(StatusCodeError)
-      render json: {}, status: e.status
-
-    elsif e.is_a?(CopyrightedResource)
-      resource = e.resource
-      @new_url = url_for params.merge(resource_id_key => resource.to_param)
-
-      if params[:format] == 'rss'
-        redirect_to @new_url, status: 301
-      else
-        render 'pages/page_moved.html', layout: false, status: 404, formats: :html
-      end
-
+  def default_url_options options = {}
+    if params[:locale]
+      options.merge locale: params[:locale]
     else
-      if self.kind_of?(Api::V1::ApiController) || json?
-        render(
-          json: {
-            code: 503,
-            exception: e.class.name,
-            message: e.message,
-            backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
-          },
-          status: 503
-        )
-      else
-        @page_title = t 'error'
-        render 'pages/page503.html', layout: false, status: 503, formats: :html
-      end
+      options
     end
   end
 
@@ -208,10 +156,6 @@ private
       (ru_domain? ? :ru : :en)
   end
 
-  def default_url_options options = {}
-    params[:locale] ? options.merge(locale: params[:locale]) : options
-  end
-
   # гугловский бот со странным format иногда ходит
   def fix_googlebot
     if request.format.to_s =~ %r%\*\/\*%
@@ -252,5 +196,69 @@ private
   # faye токен текущего пользователя
   def faye_token
     request.headers['X-Faye-Token'] || params[:faye]
+  end
+
+  def runtime_error e
+    Honeybadger.notify(e) if defined?(Honeybadger)
+
+    NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
+    Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
+
+    raise e if remote_addr == '127.0.0.1' && (
+      !e.is_a?(AgeRestricted) &&
+      !e.is_a?(CopyrightedResource) &&
+      !e.is_a?(Forbidden)
+    )
+
+    with_json_response = self.kind_of?(Api::V1::ApiController) || json?
+
+    if NOT_FOUND_ERRORS.include? e.class
+      @sub_layout = nil
+
+      if with_json_response
+        render json: { message: t('page_not_found'), code: 404 }, status: 404
+      else
+        render 'pages/page404', layout: false, status: 404, formats: :html
+      end
+
+    elsif e.is_a?(AgeRestricted)
+      render 'pages/age_restricted', layout: false, formats: :html
+
+    elsif e.is_a?(Forbidden) || e.is_a?(CanCan::AccessDenied)
+      if with_json_response
+        render json: { message: e.message, code: 403 }, status: 403
+      else
+        render text: e.message, status: 403
+      end
+
+    elsif e.is_a?(StatusCodeError)
+      render json: {}, status: e.status
+
+    elsif e.is_a?(CopyrightedResource)
+      resource = e.resource
+      @new_url = url_for params.merge(resource_id_key => resource.to_param)
+
+      if params[:format] == 'rss'
+        redirect_to @new_url, status: 301
+      else
+        render 'pages/page_moved.html', layout: false, status: 404, formats: :html
+      end
+
+    else
+      if self.kind_of?(Api::V1::ApiController) || json?
+        render(
+          json: {
+            code: 503,
+            exception: e.class.name,
+            message: e.message,
+            backtrace: e.backtrace.first.sub(Rails.root.to_s, '')
+          },
+          status: 503
+        )
+      else
+        @page_title = t 'error'
+        render 'pages/page503.html', layout: false, status: 503, formats: :html
+      end
+    end
   end
 end

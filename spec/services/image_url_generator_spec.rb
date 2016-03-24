@@ -16,38 +16,38 @@ describe ImageUrlGenerator do
 
         context 'original' do
           let(:image_size) { :original }
-          it { should eq "http://kawai.shikimori.org/images/anime/original/1.jpg?#{timestamp}" }
+          it { is_expected.to eq "//kawai.shikimori.org/system/animes/original/1.jpg?#{timestamp}" }
         end
 
         context 'x48' do
           let(:image_size) { :x48 }
-          it { should eq "http://kawai.shikimori.org/images/anime/x48/1.jpg?#{timestamp}" }
+          it { is_expected.to eq "//kawai.shikimori.org/system/animes/x48/1.jpg?#{timestamp}" }
         end
       end
 
       context 'club' do
         let(:entry) { build_stubbed :club, :with_logo, id: 2 }
         let(:image_size) { :x96 }
-        it { should eq "http://moe.shikimori.org/images/group/x96/2.jpg?#{timestamp}" }
+        it { is_expected.to eq "//moe.shikimori.org/system/clubs/x96/2.jpg?#{timestamp}" }
       end
 
       context 'user' do
         let(:entry) { build_stubbed :user, :with_avatar, id: 2 }
         let(:image_size) { :x160 }
-        it { should eq "http://moe.shikimori.org/images/user/x160/2.png?#{timestamp}" }
+        it { is_expected.to eq "//moe.shikimori.org/system/users/x160/2.png?#{timestamp}" }
       end
 
       context 'decorated user' do
         let(:entry) { build_stubbed(:user, :with_avatar, id: 3).decorate }
         let(:image_size) { :x48 }
-        it { should eq "http://desu.shikimori.org/images/user/x48/3.png?#{timestamp}" }
+        it { is_expected.to eq "//desu.shikimori.org/system/users/x48/3.png?#{timestamp}" }
       end
     end
 
     context 'test environment' do
       let(:entry) { build_stubbed :anime, :with_image, id: 1 }
       let(:image_size) { :original }
-      it { should eq "/images/anime/original/1.jpg?#{timestamp}" }
+      it { is_expected.to eq "/system/animes/original/1.jpg?#{timestamp}" }
     end
   end
 end

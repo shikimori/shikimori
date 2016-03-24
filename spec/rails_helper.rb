@@ -80,12 +80,19 @@ RSpec.configure do |config|
   end
 
   config.before :each do
+    if respond_to?(:controller) && controller
+      allow(controller).to receive(:default_url_options)
+        .and_return ApplicationController.default_url_options
+    end
+
     #RSpec::Mocks.with_temporary_scope do
-      allow_any_instance_of(FayePublisher).to receive :run_event_machine
-      allow_any_instance_of(FayePublisher).to receive :publish_data
+    allow_any_instance_of(FayePublisher).to receive :run_event_machine
+    allow_any_instance_of(FayePublisher).to receive :publish_data
       #allow_any_instance_of(Faye::Client).to receive :publish
     #end
   end
+
+  Rails.application.routes.default_url_options = ApplicationController.default_url_options
 
   config.before :suite do
     id = 78643875

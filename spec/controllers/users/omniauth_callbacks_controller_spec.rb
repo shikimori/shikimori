@@ -30,7 +30,9 @@ describe Users::OmniauthCallbacksController do
 
         describe 'response' do
           before { make_request }
-          it { expect(response).to redirect_to :root }
+          it do
+            expect(response).to redirect_to root_path
+          end
         end
 
         context 'present nickname' do
@@ -51,7 +53,7 @@ describe Users::OmniauthCallbacksController do
 
         describe 'response' do
           before { make_request }
-          it { expect(response).to redirect_to :root }
+          it { expect(response).to redirect_to root_path }
         end
       end
     end

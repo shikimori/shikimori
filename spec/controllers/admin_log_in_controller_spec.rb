@@ -18,7 +18,7 @@ describe AdminLogInController do
 
       it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }
       it { expect(assigns(:user).id).to eq admin.id }
-      it { expect(response).to redirect_to root_url }
+      it { expect(response).to redirect_to root_path }
     end
   end
 
@@ -31,7 +31,7 @@ describe AdminLogInController do
       context 'known user' do
         it { expect(assigns(:user).id).to eq user.id }
         it { expect(session[AdminLogInController.admin_id_to_restore_key]).to eq admin.id }
-        it { expect(response).to redirect_to root_url }
+        it { expect(response).to redirect_to root_path }
       end
 
       context 'unknown user' do

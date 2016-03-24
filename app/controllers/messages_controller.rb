@@ -131,7 +131,7 @@ class MessagesController < ProfilesController
       {
         entry: message.decorate,
         guid: "message-#{message.id}",
-        image_url: linked && linked.image.exists? ? 'http://shikimori.org' + linked.image.url(:preview, false) : nil,
+        image_url: linked && linked.image.exists? ? '//shikimori.org' + linked.image.url(:preview, false) : nil,
         link: linked ? url_for(linked) : messages_url(type: :notifications),
         linked_name: linked ? linked.name : nil,
         pubDate: Time.at(message.created_at.to_i).to_s(:rfc822),

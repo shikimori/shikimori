@@ -183,7 +183,7 @@ class @ShikiEditor extends ShikiView
 
     # построение бб-кода для url
     @$('.links #link_type_url').on 'tag:build', (e, value) =>
-      @$textarea.insertAtCaret "[url=#{value}]", "[/url]", value.replace(/^http:\/\/|\/.*/g, "")
+      @$textarea.insertAtCaret "[url=#{value}]", "[/url]", value.replace(/^https?:\/\/|\/.*/g, "")
 
     # построение бб-кода для аниме,манги,персонажа и человека
     @$('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person').on 'tag:build', (e, data) =>
