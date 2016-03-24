@@ -58,7 +58,7 @@ class Topics::CommentsView < ViewObjectBase
       topic_id: topic.id,
       skip: 'SKIP',
       limit: fold_limit,
-      is_summary: topic.any_summaries? ? 'is_summary' : nil
+      is_summary: only_summaries_shown? ? 'is_summary' : nil
     )
   end
 
@@ -111,7 +111,8 @@ private
   end
 
   def comment_word number
-    word = topic.any_summaries? ? 'summary' : 'comment'
+    # word = topic.any_summaries? ? 'summary' : 'comment'
+    word = only_summaries_shown? ? 'summary' : 'comment'
     i18n_i word, number, :accusative
   end
 
