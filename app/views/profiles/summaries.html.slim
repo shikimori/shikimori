@@ -1,13 +1,20 @@
 = render layout: 'page' do
+  .b-options-floated.mobile-phone_portrait
+    span.link.selected
+      | Отзывы
+      span.brackets = @resource.stats.summaries_count
+
+    a href="#{comments_profile_url @resource}"
+      | Комментарии
+      span.brackets = @resource.stats.comments_count
+
   h2.subheadline.m10 = @page_title.last
-  div
+  .b-comments
     - if @collection.any?
-      = render partial: 'topics/topic',
-        collection: @collection,
-        as: :topic_view
+      = render @collection
       - if @add_postloader
         = render 'blocks/postloader',
-          filter: 'b-topic',
+          filter: 'b-comment',
           next_url: summaries_profile_url(page: @page+1)
     - else
-      p.b-nothing_here = t '.no_summaries'
+      p.b-nothing_here Нет отзывов

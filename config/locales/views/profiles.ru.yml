@@ -45,7 +45,6 @@ ru:
       mark_as_read: Прочитать всё
       remove_all: Удалить всё
       no_messages: Нет сообщений
-      no_summaries: Нет отзывов
       confirm_mark_as_read: Пометить все сообщения этого раздела прочитанными?
       confirm_remove_all: Пометить все сообщения этого раздела?
       conversation_with_user: Диалог с %{user}

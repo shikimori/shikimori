@@ -542,6 +542,10 @@ Site::Application.routes.draw do
 
           get :summaries
 
+          # TODO: удалить после 2016-01-01
+          get 'comments/reviews' => redirect { |params, request| request.url.sub 'comments/reviews', 'summaries' }
+
+
           get :other_names # другие названия
           get :resources # подгружаемый центральный блок с персонажами, скриншотами, видео
 
@@ -734,7 +738,7 @@ Site::Application.routes.draw do
         get 'reviews(/page/:page)' => :reviews, as: :reviews
         get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
         scope 'comments' do
-          get 'summaries(/page/:page)' => :summaries, as: :summaries
+          get 'reviews(/page/:page)' => :summaries, as: :summaries
         end
         get 'versions(/page/:page)' => :versions, as: :versions
         get 'videos(/page/:page)' => :videos, as: :videos
