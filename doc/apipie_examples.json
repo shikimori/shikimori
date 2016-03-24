@@ -261,8 +261,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/images/screenshot/original/778d5bb3de40408acb2fb9e0de92ffb52bd12d9d.jpg?1458395240",
-          "preview": "/images/screenshot/x332/778d5bb3de40408acb2fb9e0de92ffb52bd12d9d.jpg?1458395240"
+          "original": "/system/screenshots/original/778d5bb3de40408acb2fb9e0de92ffb52bd12d9d.jpg?1458395240",
+          "preview": "/system/screenshots/x332/778d5bb3de40408acb2fb9e0de92ffb52bd12d9d.jpg?1458395240"
         }
       ],
       "code": "200",
@@ -826,9 +826,9 @@
       "response_data": [
         {
           "id": 2,
-          "original": "/images/image/original/2.jpg?1458395237",
-          "main": "/images/image/main/2.jpg?1458395237",
-          "preview": "/images/image/preview/2.jpg?1458395237"
+          "original": "/system/images/original/2.jpg?1458395237",
+          "main": "/system/images/main/2.jpg?1458395237",
+          "preview": "/system/images/preview/2.jpg?1458395237"
         }
       ],
       "code": "200",
@@ -3441,8 +3441,8 @@
       },
       "response_data": {
         "id": 1,
-        "preview": "/images/user_image/preview/23456833/1.jpg",
-        "url": "/images/user_image/original/23456833/1.jpg",
+        "preview": "/system/user_images/preview/23456833/1.jpg",
+        "url": "/system/user_images/original/23456833/1.jpg",
         "bbcode": "[image=1]"
       },
       "code": "200",
