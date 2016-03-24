@@ -51,7 +51,7 @@ class Comment < ActiveRecord::Base
   # want user to vote on the quality of comments.
   #acts_as_voteable
 
-  # TODO: remove when review param is removed from API
+  # TODO: remove when review param is removed from API (after 01.09.2016)
   def review= value
     self[:is_summary] = value
   end

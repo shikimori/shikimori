@@ -74,21 +74,17 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
 private
 
-  # TODO: remove fix with review and offtopic params
+  # TODO: remove 'offtopic' and 'review' after 01.09.2016
   def comment_params
     comment_params = params
       .require(:comment)
       .permit(
-        :body, :review, :is_summary, :offtopic, :is_offtopic,
+        :body, :review, :offtopic, :is_summary, :is_offtopic,
         :commentable_id, :commentable_type, :user_id
       )
 
-    unless comment_params[:is_summary]
-      comment_params[:is_summary] = comment_params[:review] 
-    end
-    unless comment_params[:is_offtopic]
-      comment_params[:is_offtopic] = comment_params[:offtopic] 
-    end
+    comment_params[:is_summary] ||= comment_params[:review]
+    comment_params[:is_offtopic] ||= comment_params[:offtopic]
 
     comment_params.except(:review, :offtopic)
   end
