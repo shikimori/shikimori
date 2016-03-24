@@ -59,12 +59,16 @@ class Video < ActiveRecord::Base
     self[:url]
   end
 
+  def url
+    super&.without_protocol
+  end
+
   def image_url
-    super.without_protocol
+    super&.without_protocol
   end
 
   def player_url
-    super.without_protocol
+    super&.without_protocol
   end
 
 private
