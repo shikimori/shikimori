@@ -1,20 +1,13 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-phone_portrait
-    span.link.selected
-      | Отзывы
-      span.brackets = @resource.stats.summaries_count
-
-    a href="#{comments_profile_url @resource}"
-      | Комментарии
-      span.brackets = @resource.stats.comments_count
-
   h2.subheadline.m10 = @page_title.last
-  .b-comments
+  div
     - if @collection.any?
-      = render @collection
+      = render partial: 'topics/topic',
+        collection: @collection,
+        as: :topic_view
       - if @add_postloader
         = render 'blocks/postloader',
-          filter: 'b-comment',
+          filter: 'b-topic',
           next_url: summaries_profile_url(page: @page+1)
     - else
-      p.b-nothing_here Нет отзывов
+      p.b-nothing_here = t '.no_summaries'

@@ -42,6 +42,7 @@ en:
         In all other cases ban users in forum itself.
       unread_messages: unread messages sorted by newest first
       no_messages: No messages
+      no_summaries: No summaries
       mark_as_read: Mark all messages as read
       remove_all: Remove all messages
       no_messages: No messages
