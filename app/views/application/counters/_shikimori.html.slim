@@ -9,7 +9,7 @@ javascript:
 
   (function() {
     var ym = document.createElement('script'); ym.type = 'text/javascript'; ym.async = true;
-    ym.src = 'http://mc.yandex.ru/metrika/watch.js';
+    ym.src = (location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ym, s);
   })();
 
