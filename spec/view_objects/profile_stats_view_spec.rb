@@ -175,7 +175,7 @@ describe ProfileStatsView do
 
   describe '#summaries_count' do
     let(:topic) { create :topic, user: user }
-    let!(:comment) { create :comment, :review, user: user, commentable: topic }
+    let!(:comment) { create :comment, :summary, user: user, commentable: topic }
     let!(:comment_2) { create :comment, user: user, commentable: topic }
     subject { stats.summaries_count }
 

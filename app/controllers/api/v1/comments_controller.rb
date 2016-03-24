@@ -34,8 +34,8 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :body, :undef
     param :commentable_id, :number
     param :commentable_type, :undef
-    param :offtopic, :bool
-    param :review, :bool
+    param :is_offtopic, :bool
+    param :is_summary, :bool
   end
   def create
     @comment = Comment.new comment_params.merge(user: current_user)
@@ -56,7 +56,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   def update
     raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
 
-    if faye.update @comment, comment_params.except(:offtopic, :review)
+    if faye.update @comment, comment_params.except(:is_summary, :is_offtopic)
       respond_with @comment
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -74,10 +74,19 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
 private
 
+  # TODO: remove 'offtopic' and 'review' after 01.09.2016
   def comment_params
-    params
+    comment_params = params
       .require(:comment)
-      .permit(:body, :review, :offtopic, :commentable_id, :commentable_type, :user_id)
+      .permit(
+        :body, :review, :offtopic, :is_summary, :is_offtopic,
+        :commentable_id, :commentable_type, :user_id
+      )
+
+    comment_params[:is_summary] ||= comment_params[:review]
+    comment_params[:is_offtopic] ||= comment_params[:offtopic]
+
+    comment_params.except(:review, :offtopic)
   end
 
   def prepare_edition

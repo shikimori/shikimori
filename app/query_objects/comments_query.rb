@@ -1,11 +1,17 @@
 class CommentsQuery
   LIMIT = 100
 
-  def initialize commentable_type, commentable_id, review = false
+  def initialize commentable_type, commentable_id, is_summary = false
     commentable_klass = commentable_type.camelize.constantize
-    @commentable_type = commentable_klass.respond_to?(:base_class) ? commentable_klass.base_class.name : commentable_klass.name
+
+    @commentable_type =
+      if commentable_klass.respond_to?(:base_class)
+        commentable_klass.base_class.name
+      else
+        commentable_klass.name
+      end
     @commentable_id = commentable_id
-    @review = review
+    @is_summary = is_summary
   end
 
   def postload page, limit, descending
@@ -21,7 +27,7 @@ class CommentsQuery
       .offset(limit * (page-1))
       .limit(limit + 1)
 
-    query.where! review: true if @review
+    query.where! is_summary: true if @is_summary
     query
   end
 end

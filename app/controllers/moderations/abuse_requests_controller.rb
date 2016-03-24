@@ -1,11 +1,11 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
-  before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :review, :spoiler, :abuse]
+  before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :summary, :spoiler, :abuse]
 
   def index
     @processed = postload_paginate(params[:page], 25) do
       AbuseRequest
-        .where(kind: ['review', 'offtopic'])
+        .where(kind: ['summary', 'offtopic'])
         .where.not(state: 'pending')
         .includes(:user, :approver, comment: :commentable)
         .order(updated_at: :desc)
@@ -32,9 +32,9 @@ class Moderations::AbuseRequestsController < ModerationsController
     render :create
   end
 
-  def review
+  def summary
     @comment = Comment.find params[:comment_id]
-    @ids = AbuseRequestsService.new(@comment, current_user).review(faye_token)
+    @ids = AbuseRequestsService.new(@comment, current_user).summary(faye_token)
     render :create
   end
 

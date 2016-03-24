@@ -13,7 +13,7 @@ describe Moderations::AbuseRequestsController do
     it { expect(response).to have_http_status :success }
   end
 
-  [:review, :offtopic, :abuse, :spoiler].each do |method|
+  [:summary, :offtopic, :abuse, :spoiler].each do |method|
     describe method.to_s do
       let(:comment) { create :comment }
 

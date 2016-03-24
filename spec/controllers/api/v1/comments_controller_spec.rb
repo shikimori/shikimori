@@ -29,7 +29,7 @@ describe Api::V1::CommentsController do
     before { sign_in user }
 
     context 'success', :show_in_doc do
-      before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', offtopic: false, review: false }, format: :json }
+      before { post :create, comment: { commentable_id: topic.id, commentable_type: topic.class.name, body: 'test', is_offtopic: false, is_summary: false }, format: :json }
 
       it do
         expect(response).to have_http_status :success
@@ -39,7 +39,7 @@ describe Api::V1::CommentsController do
     end
 
     context 'failure' do
-      before { post :create, comment: { body: 'test', offtopic: false, review: false }, format: :json }
+      before { post :create, comment: { body: 'test', is_offtopic: false, is_summary: false }, format: :json }
 
       it do
         expect(response).to have_http_status 422

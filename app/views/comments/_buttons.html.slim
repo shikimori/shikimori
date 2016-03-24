@@ -74,10 +74,10 @@ aside.buttons
     ]
 
     - if comment.try :allowed_summary?
-      span.item-review.b-tooltipped.unprocessed[
-        class="#{:selected if comment.review?}"
+      span.item-summary.b-tooltipped.unprocessed[
+        class="#{:selected if comment.summary?}"
         title='Отзыв'
-        data-action="#{review_comment_abuse_requests_url comment}"
+        data-action="#{summary_comment_abuse_requests_url comment}"
         data-method='post'
         data-type='json'
         data-remote='true'

@@ -14,7 +14,6 @@ FactoryGirl.define do
     next_episode_at nil
 
     after :build do |anime|
-      anime.stub :generate_topic
       anime.stub :check_status
       anime.stub :update_news
       anime.stub :generate_name_matches
@@ -32,7 +31,7 @@ FactoryGirl.define do
       after(:build) { |v| FactoryGirl.create :person_role, :staff_role, anime: v }
     end
     trait :with_topic do
-      after(:build) { |v| v.unstub :generate_topic }
+      after(:create) { |v| v.generate_topic }
     end
     trait :with_news do
       after(:build) { |v| v.unstub :update_news }

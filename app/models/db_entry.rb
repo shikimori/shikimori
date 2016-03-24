@@ -16,7 +16,6 @@ class DbEntry < ActiveRecord::Base
 
     klass.has_many :clubs, through: :club_links
 
-    klass.after_create :generate_topic
     # klass.after_save :sync_topic
     #klass.before_save :filter_russian, if: -> { changes['russian'] }
   end
@@ -37,9 +36,6 @@ class DbEntry < ActiveRecord::Base
     self.class == Manga
   end
 
-private
-
-  # создание топика для элемента сразу после создания элемента
   def generate_topic
     topic_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
     topic_klass.wo_timestamp do
@@ -54,6 +50,8 @@ private
       )
     end
   end
+
+private
 
   # при сохранении аниме обновление его топика
   # def sync_topic

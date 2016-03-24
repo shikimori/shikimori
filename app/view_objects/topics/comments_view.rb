@@ -1,10 +1,8 @@
 class Topics::CommentsView < ViewObjectBase
   pattr_initialize :topic, :is_preview
 
-  attr_accessor :summaries_query
-  attr_accessor :summary_new_comment
-
-  instance_cache :comments, :new_comment, :folded_comments
+  instance_cache :comments, :folded_comments
+  instance_cache :only_summaries_shown?
 
   # есть ли свёрнутые комментарии?
   def folded?
@@ -13,8 +11,8 @@ class Topics::CommentsView < ViewObjectBase
 
   # число свёрнутых комментариев
   def folded_comments
-    if summaries_query
-      topic.comments.summaries.size - comments_limit
+    if only_summaries_shown?
+      topic.summaries_count - comments_limit
     else
       topic.comments_count - comments_limit
     end
@@ -46,7 +44,7 @@ class Topics::CommentsView < ViewObjectBase
       .with_viewed(h.current_user)
       .limit(comments_limit)
 
-    (summaries_query ? comments.summaries : comments)
+    (only_summaries_shown? ? comments.summaries : comments)
       .decorate
       .to_a
       .reverse
@@ -60,13 +58,12 @@ class Topics::CommentsView < ViewObjectBase
       topic_id: topic.id,
       skip: 'SKIP',
       limit: fold_limit,
-      review: summaries_query ? 'review' : nil
+      is_summary: topic.any_summaries? ? 'is_summary' : nil
     )
   end
 
   def hide_comments_text
     i18n_t 'hide_comments', comment_word: comment_word(5)
-
   end
 
   def show_comments_text
@@ -91,7 +88,7 @@ class Topics::CommentsView < ViewObjectBase
     Comment.new(
       user: h.current_user,
       commentable: topic,
-      review: summary_new_comment
+      is_summary: new_comment_summary?
     )
   end
 
@@ -101,12 +98,24 @@ class Topics::CommentsView < ViewObjectBase
 
 private
 
-  def comment_word num
-    word = summaries_query ? 'summary' : 'comment'
-    i18n_i word, num, :accusative
+  def only_summaries_shown?
+    return false unless ['animes', 'mangas'].include? h.params[:controller]
+    return true if h.params[:action] == 'summaries'
+
+    h.params[:action] == 'show' && topic.summaries_count > 0
   end
 
-  # # для адреса подгрузки комментариев
+  def new_comment_summary?
+    return false unless ['animes', 'mangas'].include? h.params[:controller]
+    ['show', 'summaries'].include? h.params[:action]
+  end
+
+  def comment_word number
+    word = topic.any_summaries? ? 'summary' : 'comment'
+    i18n_i word, number, :accusative
+  end
+
+  # для адреса подгрузки комментариев
   def topic_type
     Entry.name
   end

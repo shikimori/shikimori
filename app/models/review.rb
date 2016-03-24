@@ -1,7 +1,6 @@
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable
-  include Viewable
 
   acts_as_voteable
 

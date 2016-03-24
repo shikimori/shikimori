@@ -73,7 +73,7 @@ class TopicsController < ShikimoriController
     render(
       partial: 'topics/topic',
       object: topic,
-      as: :view,
+      as: :topic_view,
       layout: false,
       formats: :html
     )
@@ -89,7 +89,7 @@ class TopicsController < ShikimoriController
     render(
       partial: 'topics/topic',
       collection: topics,
-      as: :view,
+      as: :topic_view,
       layout: false,
       formats: :html
     )
@@ -98,10 +98,12 @@ class TopicsController < ShikimoriController
   # подгружаемое через ajax тело топика
   def reload
     topic = Entry.with_viewed(current_user).find params[:id]
-    view = Topics::TopicViewFactory.new(params[:is_preview] == 'true', false).build topic
+    view = Topics::TopicViewFactory
+      .new(params[:is_preview] == 'true', false)
+      .build topic
 
     # render 'topics/topic', view: view
-    render partial: 'topics/topic', object: view, as: :view
+    render partial: 'topics/topic', object: view, as: :topic_view
   end
 
 private

@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
-  MINIMUM_LIFE_INTERVAL = 1.day
+  DAY_LIFE_INTERVAL = 1.day
+  WEEK_LIFE_INTERVAL = 1.week
 
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544]
 
@@ -305,7 +306,12 @@ class User < ActiveRecord::Base
 
   # регистрация более суток тому назад
   def day_registered?
-    created_at + MINIMUM_LIFE_INTERVAL <= Time.zone.now
+    created_at + DAY_LIFE_INTERVAL <= Time.zone.now
+  end
+
+  # регистрация более суток тому назад
+  def week_registered?
+    created_at + WEEK_LIFE_INTERVAL <= Time.zone.now
   end
 
 private

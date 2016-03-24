@@ -128,7 +128,7 @@ class Ability
     can :manage, Device, user_id: @user.id
 
     can [:new, :create], [Entry, Topic, Topics::NewsTopic.name] do |topic|
-      !@user.banned? && @user.day_registered? &&
+      !@user.banned? && @user.week_registered? &&
         topic.user_id == @user.id
     end
     can [:update], [Entry, Topic, Topics::NewsTopic.name] do |topic|

@@ -33,7 +33,7 @@
           div
             = render partial: 'topics/topic',
               collection: @view.reviews,
-              as: :view
+              as: :topic_view
 
         .slide.animes.hidden
           = render 'dashboards/animes'
@@ -97,7 +97,7 @@
     div
       = render partial: 'topics/topic',
         collection: @view.news_topics,
-        as: :view
+        as: :topic_view
 
       - if @view.news_topics.next_page
         = render 'blocks/postloader',
@@ -123,4 +123,4 @@
     div
       = render partial: 'topics/topic',
         collection: @view.generated_news,
-        as: :view
+        as: :topic_view

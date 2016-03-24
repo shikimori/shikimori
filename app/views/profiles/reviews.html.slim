@@ -4,7 +4,7 @@
     - if @collection.any?
       = render partial: 'topics/topic',
         collection: @collection,
-        as: :view
+        as: :topic_view
       - if @add_postloader
         = render 'blocks/postloader',
           filter: 'b-topic',

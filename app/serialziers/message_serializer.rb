@@ -17,7 +17,9 @@ class MessageSerializer < ActiveModel::Serializer
 
     if object.linked && object.linked.kind_of?(Entry)
       hash[:topic_url] = UrlGenerator.instance.topic_url object.linked
+      # TODO: deprecated
       hash[:thread_id] = object.linked_id
+      hash[:topic_id] = object.linked_id
       hash[:type] = object.linked.type
 
       if object.linked.linked
@@ -34,7 +36,9 @@ class MessageSerializer < ActiveModel::Serializer
       hash[:type] = object.linked.class.name
       if object.linked.kind_of? Comment
         hash[:topic_url] = "#{UrlGenerator.instance.topic_url object.linked.commentable}#comment-#{object.linked.id}"
+        # TODO: deprecated
         hash[:thread_id] = object.linked.commentable_id
+        hash[:topic_id] = object.linked.commentable_id
       end
     end
 

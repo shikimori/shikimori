@@ -10,53 +10,58 @@ class AbuseRequestsService
 
   def offtopic faye_token
     if allowed_offtopic_change?
-      FayeService.new(@reporter, faye_token).offtopic(@comment, !@comment.offtopic?)
+      faye_service(faye_token).offtopic @comment, !@comment.offtopic?
     else
-      make_request :offtopic, !@comment.offtopic?, nil
+      create_abuse_request :offtopic, !@comment.offtopic?, nil
     end
   end
 
-  def review faye_token
-    if allowed_review_change?
-      FayeService.new(@reporter, faye_token).review(@comment, !@comment.review?)
+  def summary faye_token
+    if allowed_summary_change?
+      faye_service(faye_token).summary @comment, !@comment.summary?
     else
-      make_request :review, !@comment.review?, nil
+      create_abuse_request :summary, !@comment.summary?, nil
     end
   end
 
   def abuse reason
-    make_request :abuse, true, reason
+    create_abuse_request :abuse, true, reason
   end
 
   def spoiler reason
-    make_request :spoiler, true, reason
+    create_abuse_request :spoiler, true, reason
   end
 
 private
-  def make_request kind, value, reason
+
+  def create_abuse_request kind, value, reason
     AbuseRequest.create!(
       comment_id: @comment.id,
-      user_id: @reporter.id,
+      user_id: reporter.id,
       kind: kind,
       value: value,
       state: 'pending',
       reason: reason
-    ) unless ABUSIVE_USERS.include?(@reporter.id)
+    ) unless ABUSIVE_USERS.include?(reporter.id)
     []
   rescue ActiveRecord::RecordNotUnique
     []
   end
 
-  def allowed_review_change?
-    @reporter.moderator? ||
-      (@comment.user_id == @reporter.id &&
-        @comment.created_at > SUMMARY_TIMEOUT.ago)
+  def allowed_summary_change?
+    reporter.moderator? ||
+      (@comment.user_id == reporter.id &&
+      @comment.created_at > SUMMARY_TIMEOUT.ago)
   end
 
   def allowed_offtopic_change?
-   @reporter.moderator? || (
-        @comment.can_be_edited_by?(@reporter) &&
-        (!@comment.offtopic? || @comment.can_cancel_offtopic?(@reporter))
-      )
+    reporter.moderator? || (
+      @comment.can_be_edited_by?(reporter) &&
+      (!@comment.offtopic? || @comment.can_cancel_offtopic?(reporter))
+    )
+  end
+
+  def faye_service faye_token
+    FayeService.new reporter, faye_token
   end
 end

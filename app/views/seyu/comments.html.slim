@@ -2,5 +2,4 @@
   .subheadline.m3 = @page_title.last
   div
     .b-topic.unprocessed data-faye="#{@resource.main_topic_view.faye_channel}"
-      = render partial: 'topics/comments',
-        locals: { topic: @resource.main_topic_view }
+      = render partial: 'topics/comments', locals: { topic: @resource.main_topic_view }

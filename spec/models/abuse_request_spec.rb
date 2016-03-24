@@ -93,8 +93,8 @@ describe AbuseRequest do
           it { should be_falsy }
         end
 
-        context 'review' do
-          let(:kind) { 'review' }
+        context 'summary' do
+          let(:kind) { 'summary' }
           it { should be_falsy }
         end
       end

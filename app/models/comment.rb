@@ -6,7 +6,9 @@ class Comment < ActiveRecord::Base
   include Antispam
   include Viewable
 
-  MIN_REVIEW_SIZE = 230
+  boolean_attributes :summary, :offtopic
+
+  MIN_SUMMARY_SIZE = 230
 
   # associations
   belongs_to :user
@@ -27,7 +29,7 @@ class Comment < ActiveRecord::Base
   validates_length_of :body, minimum: 2, maximum: 10000
 
   # scopes
-  scope :summaries, -> { where review: true }
+  scope :summaries, -> { where is_summary: true }
 
   # callbacks
   before_validation :clean
@@ -48,6 +50,11 @@ class Comment < ActiveRecord::Base
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
   #acts_as_voteable
+
+  # TODO: remove when review param is removed from API (after 01.09.2016)
+  def review= value
+    self[:is_summary] = value
+  end
 
   # counter_cache hack
   def increment_comments
@@ -72,7 +79,7 @@ class Comment < ActiveRecord::Base
 
   # отмена метки отзыва для коротких комментариев
   def cancel_summary
-    self.review = false if review? && body.size < MIN_REVIEW_SIZE
+    self.is_summary = false if summary? && body.size < MIN_SUMMARY_SIZE
     true
   end
 
@@ -155,6 +162,7 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  # TODO: move to CommentDecorator
   def html_body
     fixed_body = if commentable_id == 82468 && commentable_type == Entry.name
       body
@@ -170,35 +178,29 @@ class Comment < ActiveRecord::Base
     BbCodeFormatter.instance.format_comment fixed_body
   end
 
-  # оффтопик ли это?
-  def offtopic?
-    offtopic
-  end
-
-  # отзыв ли это?
-  def review?
-    review
-  end
-
-  # пометка комментария либо оффтопиком, либо обзором
-  def mark kind, value
-    if value && kind == 'offtopic'
-      ids = quoted_responses.map(&:id) + [id]
-      Comment.where(id: ids).update_all offtopic: true
-      self.offtopic = true
-
+  def mark_offtopic flag
+    # mark comment thread as offtopic
+    if flag
+      ids = comment_thread.map(&:id) + [id]
+      Comment.where(id: ids).update_all is_offtopic: flag
+      self.is_offtopic = flag
       ids
+    # mark as not offtopic current comment only
     else
-      update kind => value if respond_to? kind
-
+      update is_offtopic: flag
       [id]
     end
   end
 
+  def mark_summary flag
+    update is_summary: flag
+    [id]
+  end
+
   # ветка с ответами на этот комментарий
-  def quoted_responses
+  def comment_thread
     comments = Comment
-      .where("id > ?", id)
+      .where('id > ?', id)
       .where(commentable_type: commentable_type, commentable_id: commentable_id)
       .order(:id)
 

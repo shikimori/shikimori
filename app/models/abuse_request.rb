@@ -7,12 +7,12 @@ class AbuseRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  enumerize :kind, in: [:offtopic, :review, :spoiler, :abuse], predicates: true
+  enumerize :kind, in: [:offtopic, :summary, :spoiler, :abuse], predicates: true
 
   validates :user, :comment, presence: true
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
-  scope :pending, -> { where state: 'pending', kind: ['offtopic', 'review'] }
+  scope :pending, -> { where state: 'pending', kind: ['offtopic', 'summary'] }
   scope :abuses, -> { where state: 'pending', kind: ['spoiler', 'abuse'] }
 
   state_machine :state, initial: :pending do
@@ -35,10 +35,14 @@ class AbuseRequest < ActiveRecord::Base
     before_transition pending: :accepted do |abuse_request, transition|
       abuse_request.approver = transition.args.first
       faye = FayeService.new(abuse_request.approver, '')
+
+      # process offtopic and summary requests only
       if faye.respond_to? abuse_request.kind
-        faye.send(abuse_request.kind, abuse_request.comment, abuse_request.value)
-      else
-        abuse_request.comment.mark abuse_request.kind, abuse_request.value
+        faye.public_send(
+          abuse_request.kind,
+          abuse_request.comment,
+          abuse_request.value
+        )
       end
     end
 

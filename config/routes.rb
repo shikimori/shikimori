@@ -66,15 +66,15 @@ Site::Application.routes.draw do
         post :abuse
         post :spoiler
         post :offtopic
-        post :review
+        post :summary
       end
     end
 
     collection do
       get :smileys
       post :preview
-      get 'fetch/:comment_id/:topic_type/:topic_id(/:review)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
-      get ':commentable_type/:commentable_id(/:review)/:offset/:limit', action: :postloader, as: :model
+      get 'fetch/:comment_id/:topic_type/:topic_id(/:is_summary)/:skip/:limit' => :fetch, as: :fetch, topic_type: /Entry|User/
+      get ':commentable_type/:commentable_id(/:is_summary)/:offset/:limit', action: :postloader, as: :model
     end
 
     member do

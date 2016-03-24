@@ -1,7 +1,7 @@
 class MangaProfileSerializer < MangaSerializer
   attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on,
     :volumes, :chapters, :score, :description, :description_html,
-    :favoured?, :anons?, :ongoing?, :thread_id,
+    :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
     :read_manga_id, :myanimelist_id,
     :rates_scores_stats, :rates_statuses_stats
 
@@ -14,7 +14,12 @@ class MangaProfileSerializer < MangaSerializer
     object.current_rate
   end
 
+  # TODO: deprecated
   def thread_id
+    object.topic.id
+  end
+
+  def topic_id
     object.topic.id
   end
 

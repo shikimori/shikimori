@@ -17,14 +17,15 @@ class PagesController < ShikimoriController
     @page_title = i18n_t 'calendar_of_ongoings'
 
     @ongoings = CalendarsQuery.new.fetch_grouped
-    @topic = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
+    @topic_view = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
   end
 
   # о сайте
   def about
     page_title t('about_site')
+
     @statistics = SiteStatistics.new
-    @topic = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
+    @topic_view = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
   end
 
   def info

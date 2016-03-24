@@ -17,6 +17,23 @@ class Topic < Entry
   validates :title, :body, presence: true, unless: :generated?
 
   def title
-    self.user && self.user.bot? && self[:title] ? self[:title].html_safe : self[:title]
+    return self[:title]&.html_safe if user&.bot?
+    self[:title]
+  end
+
+  def any_comments?
+    comments_count > 0
+  end
+
+  def any_summaries?
+    summaries_count > 0
+  end
+
+  def all_summaries?
+    summaries_count == comments_count
+  end
+
+  def summaries_count
+    @summaries_count ||= comments.summaries.count
   end
 end

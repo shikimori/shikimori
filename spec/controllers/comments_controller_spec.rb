@@ -29,7 +29,15 @@ describe CommentsController do
     before { sign_in user }
 
     context 'success' do
-      let(:comment_params) {{ commentable_id: topic.id, commentable_type: 'Entry', body: 'x'*Comment::MIN_REVIEW_SIZE, offtopic: true, review: true }}
+      let(:comment_params) do
+        {
+          commentable_id: topic.id,
+          commentable_type: 'Entry',
+          body: 'x' * Comment::MIN_SUMMARY_SIZE,
+          is_offtopic: true,
+          is_summary: true
+        }
+      end
       before { post :create, comment: comment_params }
 
       it do
@@ -41,7 +49,7 @@ describe CommentsController do
     end
 
     context 'failure' do
-      before { post :create, comment: { body: 'test', offtopic: false, review: false } }
+      before { post :create, comment: { body: 'test', is_offtopic: false, is_summary: false } }
 
       it do
         expect(response).to have_http_status 422

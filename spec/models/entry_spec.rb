@@ -44,6 +44,88 @@ describe Entry do
     # end
   end
 
+  context 'permissions' do
+    let(:user) { build_stubbed :user, :user, :week_registered }
+    let(:entry) { build_stubbed :entry, user: entry_user, created_at: created_at }
+
+    let(:entry_user) { user }
+    let(:created_at) { Time.zone.now }
+
+    subject { Ability.new user }
+
+    context 'entry owner' do
+      context 'not banned' do
+        it { is_expected.to be_able_to :new, entry }
+        it { is_expected.to be_able_to :create, entry }
+        it { is_expected.to be_able_to :update, entry }
+
+        context 'old entry' do
+          let(:created_at) { 4.hours.ago - 1.minute }
+          it { is_expected.to_not be_able_to :destroy, entry }
+        end
+
+        context 'new entry' do
+          let(:created_at) { 4.hours.ago + 1.minute }
+          it { is_expected.to be_able_to :destroy, entry }
+        end
+      end
+
+      context 'newly registered' do
+        let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
+
+        it { is_expected.to_not be_able_to :new, entry }
+        it { is_expected.to_not be_able_to :create, entry }
+        it { is_expected.to_not be_able_to :update, entry }
+        it { is_expected.to_not be_able_to :destroy, entry }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :banned, :day_registered }
+
+        it { is_expected.to_not be_able_to :new, entry }
+        it { is_expected.to_not be_able_to :create, entry }
+        it { is_expected.to_not be_able_to :update, entry }
+        it { is_expected.to_not be_able_to :destroy, entry }
+      end
+    end
+
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :moderator }
+
+      context 'common topic' do
+        it { is_expected.to be_able_to :manage, entry }
+      end
+
+      context 'generated topic' do
+        let(:entry) { build_stubbed :club_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to_not be_able_to :manage, entry }
+      end
+
+      context 'generated review topic' do
+        let(:entry) { build_stubbed :review_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to be_able_to :manage, entry }
+      end
+    end
+
+    context 'user' do
+      let(:entry_user) { build_stubbed :user, :week_registered }
+
+      it { is_expected.to_not be_able_to :new, entry }
+      it { is_expected.to_not be_able_to :create, entry }
+      it { is_expected.to_not be_able_to :update, entry }
+      it { is_expected.to_not be_able_to :destroy, entry }
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+
+      it { is_expected.to_not be_able_to :new, entry }
+      it { is_expected.to_not be_able_to :create, entry }
+      it { is_expected.to_not be_able_to :update, entry }
+      it { is_expected.to_not be_able_to :destroy, entry }
+    end
+  end
+
   describe 'instance methods' do
     let(:user) { create :user }
     let(:user2) { create :user }
@@ -119,88 +201,6 @@ describe Entry do
           it { expect(entry.appended_body).to eq '' }
         end
       end
-    end
-  end
-
-  context 'permissions' do
-    let(:user) { build_stubbed :user, :user, :day_registered }
-    let(:entry) { build_stubbed :entry, user: entry_user, created_at: created_at }
-
-    let(:entry_user) { user }
-    let(:created_at) { Time.zone.now }
-
-    subject { Ability.new user }
-
-    context 'entry owner' do
-      context 'not banned' do
-        it { is_expected.to be_able_to :new, entry }
-        it { is_expected.to be_able_to :create, entry }
-        it { is_expected.to be_able_to :update, entry }
-
-        context 'old entry' do
-          let(:created_at) { 4.hours.ago - 1.minute }
-          it { is_expected.to_not be_able_to :destroy, entry }
-        end
-
-        context 'new entry' do
-          let(:created_at) { 4.hours.ago + 1.minute }
-          it { is_expected.to be_able_to :destroy, entry }
-        end
-      end
-
-      context 'newly registered' do
-        let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
-
-        it { is_expected.to_not be_able_to :new, entry }
-        it { is_expected.to_not be_able_to :create, entry }
-        it { is_expected.to_not be_able_to :update, entry }
-        it { is_expected.to_not be_able_to :destroy, entry }
-      end
-
-      context 'banned' do
-        let(:user) { build_stubbed :user, :banned, :day_registered }
-
-        it { is_expected.to_not be_able_to :new, entry }
-        it { is_expected.to_not be_able_to :create, entry }
-        it { is_expected.to_not be_able_to :update, entry }
-        it { is_expected.to_not be_able_to :destroy, entry }
-      end
-    end
-
-    context 'forum moderator' do
-      let(:user) { build_stubbed :user, :moderator }
-
-      context 'common topic' do
-        it { is_expected.to be_able_to :manage, entry }
-      end
-
-      context 'generated topic' do
-        let(:entry) { build_stubbed :club_topic, user: entry_user, created_at: created_at }
-        it { is_expected.to_not be_able_to :manage, entry }
-      end
-
-      context 'generated review topic' do
-        let(:entry) { build_stubbed :review_topic, user: entry_user, created_at: created_at }
-        it { is_expected.to be_able_to :manage, entry }
-      end
-    end
-
-    context 'user' do
-      let(:entry_user) { build_stubbed :user, :day_registered }
-
-      it { is_expected.to_not be_able_to :new, entry }
-      it { is_expected.to_not be_able_to :create, entry }
-      it { is_expected.to_not be_able_to :update, entry }
-      it { is_expected.to_not be_able_to :destroy, entry }
-    end
-
-    context 'guest' do
-      let(:user) { nil }
-
-      it { is_expected.to_not be_able_to :new, entry }
-      it { is_expected.to_not be_able_to :create, entry }
-      it { is_expected.to_not be_able_to :update, entry }
-      it { is_expected.to_not be_able_to :destroy, entry }
     end
   end
 end

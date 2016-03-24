@@ -40,17 +40,17 @@ describe Comment do
     end
 
     describe '#cancel_summary' do
-      let(:comment) { build :comment, body: body, review: true }
+      let(:comment) { build :comment, :summary, body: body }
       before { comment.save }
 
       context 'long comment' do
-        let(:body) { 'x' * Comment::MIN_REVIEW_SIZE }
-        it { expect(comment).to be_review }
+        let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+        it { expect(comment).to be_summary }
       end
 
       context 'short comment' do
-        let(:body) { 'x' * (Comment::MIN_REVIEW_SIZE - 1) }
-        it { expect(comment).to_not be_review }
+        let(:body) { 'x' * (Comment::MIN_SUMMARY_SIZE - 1) }
+        it { expect(comment).to_not be_summary }
       end
     end
 
@@ -97,7 +97,7 @@ describe Comment do
     end
   end
 
-  describe '#instance_methods' do
+  describe 'instance methods' do
     let(:user) { build_stubbed :user }
     let(:user2) { build_stubbed :user }
     let(:topic) { build_stubbed :entry, user: user }
@@ -109,8 +109,14 @@ describe Comment do
 
       it { expect(comment.html_body).to eq '<strong>bold</strong>' }
 
-      describe 'offtopic comment' do
-        let(:comment) { build :comment, body: body, commentable_id: 82468, commentable_type: Entry.name }
+      describe 'comment in offtopic topic' do
+        let(:offtopic_topic_id) { 82468 }
+        let(:comment) do
+          build :comment,
+            body: body,
+            commentable_id: offtopic_topic_id,
+            commentable_type: Entry.name
+        end
 
         describe 'poster' do
           let(:body) { '[poster]http:///test.com[/poster]' }
@@ -207,6 +213,52 @@ describe Comment do
       context 'Topics::EntryTopics::MangaTopic commentable' do
         let(:commentable) { build :manga_topic }
         it { expect(comment).to be_allowed_summary }
+      end
+    end
+
+    describe '#mark_offtopic' do
+      let!(:comment) { create :comment, is_offtopic: offtopic }
+      let!(:inner_comment) do
+        create :comment,
+          body: "[comment=#{comment.id}]",
+          is_offtopic: offtopic
+      end
+
+      before { comment.mark_offtopic flag }
+
+      context 'mark offtopic' do
+        let(:offtopic) { false }
+        let(:flag) { true }
+
+        it { expect(comment.reload).to be_offtopic }
+        it { expect(inner_comment.reload).to be_offtopic }
+      end
+
+      context 'mark not offtopic' do
+        let(:offtopic) { true }
+        let(:flag) { false }
+
+        it { expect(comment.reload).not_to be_offtopic }
+        it { expect(inner_comment.reload).to be_offtopic }
+      end
+    end
+
+    describe '#mark_summary' do
+      let!(:comment) { create :comment, is_summary: is_summary }
+      before { comment.mark_summary flag }
+
+      context 'mark summary' do
+        let(:is_summary) { false }
+        let(:flag) { true }
+
+        it { expect(comment.reload).to be_summary }
+      end
+
+      context 'mark not summary' do
+        let(:is_summary) { true }
+        let(:flag) { false }
+
+        it { expect(comment.reload).not_to be_summary }
       end
     end
   end

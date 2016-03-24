@@ -4,7 +4,7 @@ class AnimeOnline::VideoPlayer
 
   vattr_initialize :anime
   instance_cache :nav, :videos, :current_video, :current_videos,
-    :last_episode, :episode_videos, :episode_topic
+    :last_episode, :episode_videos, :episode_topic_view
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -160,7 +160,7 @@ class AnimeOnline::VideoPlayer
     video.vk? || !!(h.request.user_agent =~ /Android/)
   end
 
-  def episode_topic
+  def episode_topic_view
     topic = anime.object.topics.find_by(
       type: Topics::NewsTopic.name,
       action: :episode,

@@ -18,7 +18,7 @@ describe Topic do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :user, :day_registered }
+      let(:user) { build_stubbed :user, :user, :week_registered }
 
       it { should_not be_able_to :new, topic }
       it { should_not be_able_to :create, topic }
@@ -67,6 +67,85 @@ describe Topic do
         subject { Ability.new build_stubbed(:user, :moderator) }
         it { should be_able_to :manage, topic }
       end
+    end
+  end
+
+  describe 'instance methods' do
+    let(:topic) { create :topic }
+
+    def create_comment
+      create :comment, :with_counter_cache, commentable: topic
+    end
+
+    def create_summary
+      create :comment, :summary, :with_counter_cache, commentable: topic
+    end
+
+    describe '#any_comments?' do
+      subject { topic.any_comments? }
+
+      context 'with comments' do
+        before { create_comment }
+        it { is_expected.to eq true }
+      end
+
+      context 'with summaries' do
+        before { create_summary }
+        it { is_expected.to eq true }
+      end
+
+      context 'without comments' do
+        it { is_expected.to eq false }
+      end
+    end
+
+    describe '#any_summaries?' do
+      subject { topic.any_summaries? }
+
+      context 'with summaries' do
+        before { create_summary }
+        it { is_expected.to eq true }
+      end
+
+      context 'without summaries' do
+        before { create_comment }
+        it { is_expected.to eq false }
+      end
+    end
+
+    describe '#all_summaries?' do
+      subject { topic.all_summaries? }
+
+      context 'all summaries' do
+        before do
+          create_summary
+          create_summary
+        end
+
+        it { is_expected.to eq true }
+      end
+
+      context 'not all summaries' do
+        before do
+          create_comment
+          create_summary
+          create_summary
+        end
+
+        it { is_expected.to eq false }
+      end
+    end
+
+    describe '#summaries_count' do
+      subject { topic.summaries_count }
+
+      before do
+        create_comment
+        create_summary
+        create_summary
+      end
+
+      it { is_expected.to eq 2 }
     end
   end
 end

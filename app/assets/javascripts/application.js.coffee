@@ -31,6 +31,7 @@ $ =>
   @ENV = $body.data 'env'
   @USER_SIGNED_IN = $body.data 'user-signed-in'
   @DAY_REGISTERED = $body.data 'day-registered'
+  @WEEK_REGISTERED = $body.data 'week-registered'
   @IGNORE_COPYRIGHT = $body.data 'ignore-copyright'
   @LOCALE = $body.data 'locale'
 

@@ -21,7 +21,7 @@
 = render layout: 'topics/page' do |f|
   .b-forum.unprocessed data-faye="#{@view.faye_subscriptions.to_json if user_signed_in?}"
     - if @view.topics.any?
-      = render partial: 'topics/topic', collection: @view.topics, as: :view
+      = render partial: 'topics/topic', collection: @view.topics, as: :topic_view
     - else
       .b-nothing_here = t '.no_topics'
 

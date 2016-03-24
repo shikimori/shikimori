@@ -211,8 +211,8 @@ class @ShikiEditor extends ShikiView
       @_mark_offtopic @$('.b-offtopic_marker').hasClass('off')
 
     # нажатие на метку отзыва
-    @$('.b-review_marker').on 'click', =>
-      @_mark_review @$('.b-review_marker').hasClass('off')
+    @$('.b-summary_marker').on 'click', =>
+      @_mark_review @$('.b-summary_marker').hasClass('off')
 
     # назад к редактированию при предпросмотре
     @$('footer .unpreview').on 'click', @_hide_preview
@@ -239,9 +239,9 @@ class @ShikiEditor extends ShikiView
           @_show_preview html
 
     # отзыв и оффтопик
-    #@$('.item-offtopic, .item-review').click (e, data) =>
+    #@$('.item-offtopic, .item-summary').click (e, data) =>
       #$button = $(e.target)
-      #kind = if $button.hasClass('item-offtopic') then 'offtopic' else 'review'
+      #kind = if $button.hasClass('item-offtopic') then 'offtopic' else 'summary'
       #$button.toggleClass('selected')
       #new_value = if $button.hasClass('selected') then '1' else '0'
       #@$("#comment_#{kind}").val(new_value)
@@ -307,7 +307,7 @@ class @ShikiEditor extends ShikiView
 
   _mark_review: (is_review) ->
     @$('#comment_review').val if is_review then 't' else 'f'
-    @$('.b-review_marker').toggleClass 'off', !is_review
+    @$('.b-summary_marker').toggleClass 'off', !is_review
 
   # очистка редактора
   cleanup: ->

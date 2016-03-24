@@ -5,14 +5,12 @@ class ReviewsController < AnimesController
   before_action :add_title
   before_action :add_breadcrumbs, except: [:index]
 
-
   # обзоры аниме или манги
   def index
     @collection = ReviewsQuery
       .new(@resource.object, current_user, params[:id].to_i)
-      .fetch.map do |review|
-        Topics::ReviewView.new review.topic, true, true
-      end
+      .fetch
+      .map { |review| Topics::ReviewView.new review.topic, true, true }
   end
 
   def new
@@ -53,6 +51,7 @@ class ReviewsController < AnimesController
   end
 
 private
+
   def review_params
     params
       .require(:review)

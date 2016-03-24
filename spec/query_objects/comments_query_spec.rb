@@ -1,10 +1,10 @@
 describe CommentsQuery do
-  let(:query) { CommentsQuery.new User.name, user.id, review }
+  let(:query) { CommentsQuery.new User.name, user.id, is_summary }
   let(:user) { build_stubbed :user }
-  let(:review) { false }
-  let!(:comment1) { create :comment, :review, user: user, commentable: user }
+  let(:is_summary) { false }
+  let!(:comment1) { create :comment, :summary, user: user, commentable: user }
   let!(:comment2) { create :comment, user: user, commentable: user }
-  let!(:comment3) { create :comment, :review, user: user, commentable: user }
+  let!(:comment3) { create :comment, :summary, user: user, commentable: user }
   let!(:comment4) { create :comment, user: user, commentable: user }
   let!(:comment5) { create :comment, user: user, commentable: build_stubbed(:user) }
 
@@ -45,8 +45,8 @@ describe CommentsQuery do
       it { should eq [comment1, comment2, comment3] }
     end
 
-    context 'review' do
-      let(:review) { true }
+    context 'summary' do
+      let(:is_summary) { true }
       subject { query.fetch 1, 2, false }
       it { should eq [comment1, comment3] }
     end
