@@ -39,7 +39,7 @@ private
     sizes_html += " height=\"#{height.to_i}\"" if height > 0
 
     "<a href=\"#{link_url || image_url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{image_url}\" class=\"#{'check-width' unless sizes_html.present?}\
+<img src=\"#{image_url.without_protocol}\" class=\"#{'check-width' unless sizes_html.present?}\
 #{' '+klass if klass.present?}\"#{sizes_html}></a>"
   end
 end

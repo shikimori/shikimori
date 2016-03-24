@@ -48,6 +48,20 @@ describe String do
     end
   end
 
+  describe '#without_protocol' do
+    subject { string.without_protocol }
+
+    context 'has_http' do
+      let(:string) { 'http://test.org' }
+      it { is_expected.to eq '//test.org' }
+    end
+
+    context 'no_http' do
+      let(:string) { 'test.org' }
+      it { is_expected.to eq 'test.org' }
+    end
+  end
+
   describe '#extract_domain' do
     subject { url.extract_domain }
 

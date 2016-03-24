@@ -143,6 +143,10 @@ class String
     sub %r{\A(?:https?:)?//}, ''
   end
 
+  def without_protocol
+    sub %r{\A(?:https?:)?}, ''
+  end
+
   def extract_domain
     without_http.sub(%r{/.*}, '')
   end

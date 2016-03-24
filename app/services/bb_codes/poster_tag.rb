@@ -23,7 +23,7 @@ class BbCodes::PosterTag
 private
 
   def html_for_url url
-    "<img class=\"b-poster\" src=\"#{url}\" />"
+    "<img class=\"b-poster\" src=\"#{url.without_protocol}\" />"
   end
 
   def html_for_image user_image

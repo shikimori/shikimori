@@ -290,13 +290,13 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
       it { is_expected.to eq "<a href=\"#{url}\" rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{url}\" class=\"check-width\"></a>" }
+<img src=\"#{url.without_protocol}\" class=\"check-width\"></a>" }
     end
 
     describe '[poster]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
-      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{url}\">" }
+      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{url.without_protocol}\">" }
     end
 
     describe '[entries]' do
