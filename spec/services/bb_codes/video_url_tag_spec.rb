@@ -10,18 +10,18 @@ describe BbCodes::VideoUrlTag do
 
       context 'without time' do
         let(:text) { "https://www.youtube.com/watch?v=#{hash}" }
-        it { is_expected.to include "data-href=\"http://youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+        it { is_expected.to include "data-href=\"//youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
       context 'with time' do
         let(:text) { "https://www.youtube.com/watch?v=#{hash}#t=#{time}" }
         it { is_expected.to include "<div class=\"c-video b-video unprocessed youtube" }
-        it { is_expected.to include "data-href=\"http://youtube.com/embed/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
+        it { is_expected.to include "data-href=\"//youtube.com/embed/#{hash}?start=#{time}\" href=\"http://youtube.com/watch?v=#{hash}#t=#{time}\"" }
       end
 
       context 'with text' do
         let(:text) { "zzz https://www.youtube.com/watch?v=#{hash}" }
-        it { is_expected.to include "data-href=\"http://youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
+        it { is_expected.to include "data-href=\"//youtube.com/embed/#{hash}\" href=\"http://youtube.com/watch?v=#{hash}\"" }
       end
 
       context 'with params', vcr: { cassette_name: 'video_tag' } do
@@ -43,7 +43,7 @@ describe BbCodes::VideoUrlTag do
       context 'without text' do
         let(:text) { "http://vk.com/video#{oid}_#{vid}" }
         it { is_expected.to include "<div class=\"c-video b-video unprocessed vk" }
-        it { is_expected.to include "data-href=\"https://vk.com/video_ext.php?oid=#{oid}&amp;id=#{vid}&amp;hash=#{hash2}\" href=\"http://vk.com/video#{oid}_#{vid}\"" }
+        it { is_expected.to include "data-href=\"//vk.com/video_ext.php?oid=#{oid}&amp;id=#{vid}&amp;hash=#{hash2}\" href=\"http://vk.com/video#{oid}_#{vid}\"" }
       end
 
       context 'width text' do

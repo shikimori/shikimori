@@ -48,7 +48,7 @@ describe Video do
     its(:player_url) { is_expected.to eq '//youtube.com/embed/VdwKZ6JDENc' }
 
     describe 'url=' do
-      let(:clean_url) { '//youtube.com/watch?v=VdwKZ6JDENc' }
+      let(:clean_url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }
 
       context 'valid url' do
         let(:video) { create(:video, url: url) }
@@ -84,7 +84,7 @@ describe Video do
     end
 
     describe 'url=' do
-      let(:clean_url) { '//vk.com/video98023184_165811692' }
+      let(:clean_url) { 'http://vk.com/video98023184_165811692' }
 
       context 'valid url' do
         let(:video) { build :video, url: url }
@@ -97,7 +97,7 @@ describe Video do
 
         describe 'dash' do
           let(:url) { 'http://vk.com/video-98023184_165811692' }
-          it { is_expected.to eq '//vk.com/video-98023184_165811692' }
+          it { is_expected.to eq 'http://vk.com/video-98023184_165811692' }
         end
       end
     end
