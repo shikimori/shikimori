@@ -135,6 +135,7 @@ class String
       .downcase
   end
 
+  # TODO: refactor url methods into service object or use some existing gem
   def with_http
     sub %r{\A (?!https?://) (//(?=\w))? }mix, 'http://'
   end
