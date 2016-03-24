@@ -8,6 +8,7 @@
           when 'cutted_covers' then new CuttedCovers(@)
           when 'authorized' then new AuthorizedAction(@)
           when 'day_registered' then new DayRegisteredAction(@)
+          when 'week_registered' then new WeekRegisteredAction(@)
           when 'html5_video' then new Html5Video(@)
           when 'abuse_request' then new AbuseRequest(@)
           when 'desktop_ad' then new DesktopAd(@)

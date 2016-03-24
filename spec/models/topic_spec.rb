@@ -18,7 +18,7 @@ describe Topic do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, :user, :day_registered }
+      let(:user) { build_stubbed :user, :user, :week_registered }
 
       it { should_not be_able_to :new, topic }
       it { should_not be_able_to :create, topic }

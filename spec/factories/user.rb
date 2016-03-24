@@ -79,6 +79,10 @@ FactoryGirl.define do
       created_at 25.hours.ago
     end
 
+    trait :week_registered do
+      created_at 8.days.ago
+    end
+
     trait :with_avatar do
       avatar { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
     end

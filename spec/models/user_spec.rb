@@ -239,6 +239,20 @@ describe User do
         it { expect(user.day_registered?).to be true }
       end
     end
+
+    describe '#week_registered?' do
+      let(:user) { build :user, created_at: created_at }
+
+      context 'created_at not week ago' do
+        let(:created_at) { 6.days.ago }
+        it { expect(user.week_registered?).to be false }
+      end
+
+      context 'created_at week ago' do
+        let(:created_at) { 8.days.ago }
+        it { expect(user.week_registered?).to be true }
+      end
+    end
   end
 
   describe 'permissions' do
