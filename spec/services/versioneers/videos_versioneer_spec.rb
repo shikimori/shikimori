@@ -20,7 +20,7 @@ describe Versioneers::VideosVersioneer do
       expect(video).to be_persisted
       expect(video).to be_uploaded
       expect(video).to have_attributes(
-        url: params[:url].without_protocol,
+        url: params[:url],
         name: params[:name],
         kind: params[:kind],
         uploader: user,

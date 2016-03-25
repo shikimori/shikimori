@@ -10,55 +10,55 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     describe 'common entry' do
       let(:identifier) { 'attack_on_titan' }
 
-      its(:id) { should eq 'attack_on_titan' }
-      its(:names) { should eq ["Вторжение Гигантов", "Attack on Titan", "Shingeki no Kyojin", "Вторжение Титанов", "Атака Гигантов", "進撃の巨人"] }
-      its(:russian) { should eq 'Вторжение Гигантов' }
-      its(:score) { should be_within(1).of 9 }
-      its(:description_ru) { should be_present }
-      its(:source) { should eq '© Hollow, http://world-art.ru' }
+      its(:id) { is_expected.to eq 'attack_on_titan' }
+      its(:names) { is_expected.to eq ["Вторжение Гигантов", "Attack on Titan", "Shingeki no Kyojin", "Вторжение Титанов", "Атака Гигантов", "進撃の巨人"] }
+      its(:russian) { is_expected.to eq 'Вторжение Гигантов' }
+      its(:score) { is_expected.to be_within(1).of 9 }
+      its(:description_ru) { is_expected.to be_present }
+      its(:source) { is_expected.to eq '© Hollow, http://world-art.ru' }
 
-      its(:videos) { should have(26).items }
-      its(:year) { should eq 2013 }
+      its(:videos) { is_expected.to have(26).items }
+      its(:year) { is_expected.to eq 2013 }
 
       describe 'last episode' do
         subject { entry.videos.first }
-        it { should eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
+        it { is_expected.to eq episode: 26, url: 'http://findanime.ru/attack_on_titan/series26?mature=1' }
       end
 
       describe 'first episode' do
         subject { entry.videos.last }
-        it { should eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
+        it { is_expected.to eq episode: 1, url: 'http://findanime.ru/attack_on_titan/series1?mature=1' }
       end
     end
 
     describe 'names' do
       let(:identifier) { 'how_to_train_the_ordinary_girl_to_be_a_heroine' }
-      its(:names) { should eq ["Как воспитать из обычной девушки героиню", "How to Train the Ordinary Girl to be a Heroine", "Saenai Kanojo no Sodate-kata", "Как создать скучную героиню", "Как воспитать героиню", "Saekano", "冴えない彼女の育てかた"] }
+      its(:names) { is_expected.to eq ["Как воспитать из обычной девушки героиню", "How to Train the Ordinary Girl to be a Heroine", "Saenai Kanojo no Sodate-kata", "Как создать скучную героиню", "Как воспитать героиню", "Saekano", "冴えない彼女の育てかた"] }
     end
 
     describe 'additioanl names' do
       let(:identifier) { 'gen__ei_wo_kakeru_taiyou' }
-      its(:names) { should eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
+      its(:names) { is_expected.to eq ['Солнце, пронзившее иллюзию.', "Gen' ei wo Kakeru Taiyou", 'Il Sole Penetra le Illusioni', '幻影ヲ駆ケル太陽', 'Стремительные солнечные призраки', 'Солнце, покорившее иллюзию' ] }
     end
 
     describe 'inline videos' do
       let(:identifier) { 'problem_children_are_coming_from_another_world__aren_t_they_____ova' }
-      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they___ova/series0?mature=1'}] }
+      its(:videos) { is_expected.to eq [{episode: 1, url: 'http://findanime.ru/problem_children_are_coming_from_another_world__aren_t_they___ova/series0?mature=1'}] }
     end
 
     describe 'episode 0 or movie' do
       let(:identifier) { 'seikai_no_dansho___tanjyou_ova' }
-      its(:videos) { should eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
+      its(:videos) { is_expected.to eq [{episode: 1, url: 'http://findanime.ru/seikai_no_dansho___tanjyou_ova/series0?mature=1'}] }
     end
 
     describe 'amv' do
       let(:identifier) { 'steel_fenders' }
-      its(:categories) { should eq ['amv'] }
+      its(:categories) { is_expected.to eq ['amv'] }
     end
 
     describe 'episodes' do
       let(:identifier) { 'full_moon_wo_sagashite' }
-      its(:episodes) { should eq 52 }
+      its(:episodes) { is_expected.to eq 52 }
     end
   end
 
@@ -74,19 +74,19 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
     describe 'first' do
       subject { videos.first }
 
-      its(:episode) { should eq episode }
-      its(:url) { should eq "https://vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206" }
-      its(:kind) { should eq :raw }
-      its(:language) { should eq :russian }
-      its(:source) { should eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
-      its(:author) { should eq '' }
+      its(:episode) { is_expected.to eq episode }
+      its(:url) { is_expected.to eq "//vk.com/video_ext.php?oid=-51137404&id=166106853&hash=ccd5e4a17d189206" }
+      its(:kind) { is_expected.to eq :raw }
+      its(:language) { is_expected.to eq :russian }
+      its(:source) { is_expected.to eq "http://findanime.ru/strike_the_blood/series1?mature=1" }
+      its(:author) { is_expected.to eq '' }
     end
 
     describe 'last' do
       subject { videos[-4] }
 
-      its(:kind) { should eq :fandub }
-      its(:author) { should eq 'JazzWay Anime' }
+      its(:kind) { is_expected.to eq :fandub }
+      its(:author) { is_expected.to eq 'JazzWay Anime' }
     end
   end
 
@@ -95,12 +95,12 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
 
     describe :английские_сабы do
       let(:text) { 'Английские сабы' }
-      it { should eq :english }
+      it { is_expected.to eq :english }
     end
 
     describe 'other' do
       let(:text) { 'other' }
-      it { should eq :russian }
+      it { is_expected.to eq :russian }
     end
   end
 
@@ -109,37 +109,37 @@ describe FindAnimeParser, vcr: { cassette_name: 'find_anime_parser' } do
 
     describe :озвучка do
       let(:text) { 'Озвучка+сабы' }
-      it { should eq :fandub }
+      it { is_expected.to eq :fandub }
     end
 
     describe :озвучка do
       let(:text) { 'Озвучка' }
-      it { should eq :fandub }
+      it { is_expected.to eq :fandub }
     end
 
     describe :сабы do
       let(:text) { 'Сабы' }
-      it { should eq :subtitles }
+      it { is_expected.to eq :subtitles }
     end
 
     describe :английские_сабы do
       let(:text) { 'Английские сабы' }
-      it { should eq :subtitles }
+      it { is_expected.to eq :subtitles }
     end
 
     describe :хардсаб do
       let(:text) { 'Хардсаб' }
-      it { should eq :subtitles }
+      it { is_expected.to eq :subtitles }
     end
 
     describe :хардсаб_сабы do
       let(:text) { 'Хардсаб+сабы' }
-      it { should eq :subtitles }
+      it { is_expected.to eq :subtitles }
     end
 
     describe :оригинал do
       let(:text) { 'Оригинал' }
-      it { should eq :raw }
+      it { is_expected.to eq :raw }
     end
 
     describe 'mismatch' do

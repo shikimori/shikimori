@@ -59,7 +59,7 @@ describe Api::V1::AnimeVideosController do
       expect(resource).to be_valid
       expect(resource).to be_persisted
       expect(resource).to have_attributes video_params.except(:url)
-      expect(resource.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url])
+      expect(resource.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url]).with_http
 
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'

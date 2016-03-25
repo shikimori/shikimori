@@ -18,14 +18,14 @@ describe Moderations::AbuseRequestsController do
       let(:comment) { create :comment }
 
       describe 'response' do
-        before { post method, comment_id: comment.id, reason: 'zxcv' }
+        before { post method, comment_id: comment.id, reason: 'zxcv', format: :json }
 
         it { expect(response).to have_http_status :success }
         it { expect(response.content_type).to eq 'application/json' }
       end
 
       describe 'result' do
-        after { post method, comment_id: comment.id }
+        after { post method, comment_id: comment.id, format: :json }
         it { expect_any_instance_of(AbuseRequestsService).to receive method }
       end
     end

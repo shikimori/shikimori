@@ -12,7 +12,13 @@ class Ad < ViewObjectBase
   end
 
   def url
-    h.sponsor_url id, width: @width, height: @height, container_class: container_class
+    h.sponsor_url(
+      id,
+      width: @width,
+      height: @height,
+      container_class: container_class,
+      protocol: false
+    )
   end
 
   def container_class

@@ -4,34 +4,30 @@ describe VideoExtractor::UrlExtractor do
 
     context 'direct' do
       let(:html) { 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7' }
-      it { is_expected.to eq html }
+      it { is_expected.to eq html.without_protocol }
     end
 
     context 'short', vcr: { cassette_name: 'url_extractor' } do
       context 'with_dash' do
         let(:html) { 'http://vk.com/video-42313379_167267838' }
-        let(:extracted_url) { '//vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
-
-        it { is_expected.to eq extracted_url }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
       end
 
       context 'without_dash' do
         let(:html) { 'https://vk.com/video135375095_163446262' }
-        let(:extracted_url) { '//vk.com/video_ext.php?oid=135375095&id=163446262&hash=8574b5f5752c28d4' }
-
-        it { is_expected.to eq extracted_url }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=135375095&id=163446262&hash=8574b5f5752c28d4' }
       end
-   end
+    end
 
-   context 'frame' do
+    context 'frame' do
       let(:html) { '<iframe width="607" src="'+extracted_url+'" height="360" frameborder="0"></iframe>' }
-      let(:extracted_url) { 'http://vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
+      let(:extracted_url) { '//vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
       it { is_expected.to eq extracted_url }
     end
 
     context 'strip' do
       let(:html) { ' http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7 ' }
-      it { is_expected.to eq html.strip }
+      it { is_expected.to eq html.strip.without_protocol }
     end
 
     describe 'vk_1' do
