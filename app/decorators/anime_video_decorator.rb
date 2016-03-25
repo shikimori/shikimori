@@ -10,15 +10,17 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_html
+    fixed_url = url.without_protocol
+
     if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
-      flash_player_html(url)
-    elsif hosting == 'rutube.ru' && url =~ /http:\/\/video\.rutube.ru\/(.*)/
+      flash_player_html(fixed_url)
+    elsif hosting == 'rutube.ru' && url =~ /\/\/video\.rutube.ru\/(.*)/
       # Простая фильтрация для http://video.rutube.ru/xxxxxxx
-      if url.size > 30
-        flash_player_html("http://rutube.ru/player.swf?hash=#{$1}")
+      if fixed_url.size > 30
+        flash_player_html("//rutube.ru/player.swf?hash=#{$1}")
       else
         h.content_tag(:iframe,
-          src: "http://rutube.ru/play/embed/#{$1}",
+          src: "//rutube.ru/play/embed/#{$1}",
           frameborder: '0',
           webkitAllowFullScreen: 'true',
           mozallowfullscreen: 'true',
@@ -30,7 +32,7 @@ class AnimeVideoDecorator < BaseDecorator
       #h.content_tag(:iframe, src: url, frameborder: '0', allowfullscreen: true) {}
     else
       h.content_tag(:iframe,
-        src: url,
+        src: fixed_url,
         frameborder: '0',
         webkitAllowFullScreen: 'true',
         mozallowfullscreen: 'true',

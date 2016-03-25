@@ -30,7 +30,11 @@
             .icon
             .label #{t 'actions.edit'}
           - if can? :destroy, @video
-            a.c-control.delete href="#{video_online_url @resource, @video}" data-method="delete" data-confirm="Вы уверены? Видео будет безвозвратно удалено"
+            a.c-control.delete[
+              href="#{video_online_url @resource, @video}"
+              data-method="delete"
+              data-confirm="Вы уверены? Видео будет безвозвратно удалено"
+            ]
               .icon
               .label = t 'actions.delete'
 
@@ -42,11 +46,23 @@
         .c-buttons.cc-3a
           - if user_signed_in?
             - if @video.in_list?
-              a.c-column.c-control.increment-user_rate class="#{:watched if @video.watched?}" data-remote="true" data-method="post" href="#{@video.viewed_url}"
+              a.c-column.c-control.increment-user_rate[
+                class="#{:watched if @video.watched?}"
+                data-remote="true"
+                data-method="post"
+                href="#{@video.viewed_url}"
+              ]
                 .icon
                 .label Просмотрено
             - else
-              a.c-column.c-control.create-user_rate href="#{@video.add_to_list_url}" data-remote="true" data-method="post" data-type="json" data-increment_url="#{@video.viewed_url}" data-increment_text="Просмотрено"
+              a.c-column.c-control.create-user_rate[
+                href="#{@video.add_to_list_url}"
+                data-remote="true"
+                data-method="post"
+                data-type="json"
+                data-increment_url="#{@video.viewed_url}"
+                data-increment_text="Просмотрено"
+              ]
                 .icon
                 .label В мой список
 
@@ -79,5 +95,9 @@
                     /| Добавил
                 .b-user16
                   a href="#{profile_url @video.uploader, subdomain: false}" title="#{@video.uploader.nickname}"
-                    img src="#{@video.uploader.avatar_url 16}" srcset="#{@video.uploader.avatar_url 32} 2x" alt="#{@video.uploader.nickname}"
+                    img[
+                      src="#{@video.uploader.avatar_url 16}"
+                      srcset="#{@video.uploader.avatar_url 32} 2x"
+                      alt="#{@video.uploader.nickname}"
+                    ]
                     span = @video.uploader.nickname
