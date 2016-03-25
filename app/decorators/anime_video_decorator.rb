@@ -10,7 +10,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def player_html
-    fixed_url = url.without_protocol
+    fixed_url = url&.without_protocol
 
     if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
       flash_player_html(fixed_url)

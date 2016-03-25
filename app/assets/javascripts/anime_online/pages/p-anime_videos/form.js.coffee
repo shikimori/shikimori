@@ -15,12 +15,14 @@
 
   # клик по "Проверить видео"
   $('.do-preview').on 'click', ->
+    video_url = $('#anime_video_url').val()
+    return unless video_url
     $('.video-preview').removeClass('hidden')
 
     $.ajax
       url: $(@).data 'href'
       data:
-        url: $('#anime_video_url').val()
+        url: video_url
       type: 'POST'
       dataType: 'json'
       success: (data, status, xhr) ->
