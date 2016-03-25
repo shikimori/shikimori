@@ -32,8 +32,8 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       let(:url) { 'http://vimeo.com/85212054' }
 
       its(:hosting) { is_expected.to eq :vimeo }
-      its(:image_url) { is_expected.to eq 'https://i.vimeocdn.com/video/463402969_1280x720.jpg' }
-      its(:player_url) { is_expected.to eq 'https://player.vimeo.com/video/85212054' }
+      its(:image_url) { is_expected.to eq '//i.vimeocdn.com/video/463402969_1280x720.jpg' }
+      its(:player_url) { is_expected.to eq '//player.vimeo.com/video/85212054' }
     end
 
     context 'myvi' do

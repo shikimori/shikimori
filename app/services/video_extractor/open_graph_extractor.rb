@@ -32,22 +32,12 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     meta[property='og:video:url']
   )
 
-  SHIT_HOSTINGS = %i( vimeo )
-
   def image_url
-    if SHIT_HOSTINGS.include? hosting
-      parsed_data.first
-    else
-      parsed_data.first&.without_protocol
-    end
+    parsed_data.first&.without_protocol
   end
 
   def player_url
-    if SHIT_HOSTINGS.include? hosting
-      parsed_data.second
-    else
-      parsed_data.second&.without_protocol
-    end
+    parsed_data.second&.without_protocol
   end
 
   def hosting

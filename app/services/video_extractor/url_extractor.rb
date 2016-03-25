@@ -8,10 +8,10 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   def call
     if parsed_url
       parsed_url
-        .sub(%r{^//}, 'http://')
         .gsub('&amp;', '&')
         .sub(%r{[\]\[=\\]+$}, '')
         .sub(%r{\|.*}, '')
+        .without_protocol
 
     else
       data = VideoExtractor.fetch url
