@@ -64,16 +64,16 @@ class AnimeVideoReport < ActiveRecord::Base
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
 
-      report.anime_video.send "#{report.kind}!" unless transition.event == :accept_only
-
       report.process_doubles(:accepted)
       report.process_conflict(:uploaded, :rejected)
+
+      report.anime_video.send "#{report.kind}!" unless transition.event == :accept_only
     end
 
     before_transition pending: :rejected do |report, transition|
       report.approver = transition.args.first
-      report.anime_video.reject! if report.uploaded?
       report.process_doubles(:rejected)
+      report.anime_video.reject! if report.uploaded?
     end
 
     before_transition [:accepted, :rejected] => :pending do |report, transition|
@@ -83,19 +83,17 @@ class AnimeVideoReport < ActiveRecord::Base
     end
   end
 
-  def find_doubles state = 'pending'
-    AnimeVideoReport.where(
-      kind: kind,
-      state: state,
-      anime_video_id: anime_video_id
-    )
-  end
-
   def process_doubles to_state
-    find_doubles.update_all(
-      approver_id: approver.id,
-      state: to_state
-    )
+    AnimeVideoReport
+      .where(
+        kind: kind,
+        state: 'pending',
+        anime_video_id: anime_video_id
+      )
+      .update_all(
+        approver_id: approver.id,
+        state: to_state
+      )
   end
 
   def process_conflict conflict_kind, to_state
@@ -118,6 +116,6 @@ private
   end
 
   def auto_accept
-    accept!(user) if user.video_moderator?
+    accept! user if user.video_moderator?
   end
 end

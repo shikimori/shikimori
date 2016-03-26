@@ -220,7 +220,7 @@ describe AnimeVideo do
       it { is_expected.to be_wrong }
     end
 
-    describe 'remove_episode_notification' do
+    describe '#remove_episode_notification' do
       [:fandub, :raw, :subtitles].each do |kind|
         [:broken, :wrong, :ban].each do |action|
           context "#{kind} #{action}" do
@@ -253,7 +253,7 @@ describe AnimeVideo do
       end
     end
 
-    describe 'remove_episode_notification' do
+    describe '#process_reports' do
       [:broken, :wrong, :ban].each do |action|
         context action do
           let(:video) { create :anime_video }
