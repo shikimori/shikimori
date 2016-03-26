@@ -5,6 +5,11 @@
       @items = $("a[rel='#{item.rel}']").toArray()
       @index = @items.indexOf(item)
 
+  # ссылки на camo в href содержат оригинальный url картинки,
+  # а в data-href проксированный url картинки
+  extract_url = (item) ->
+    item.src = item.el.data('href') || item.src
+
   $.fn.extend
     magnific_rel_gallery: ->
       @each ->
@@ -13,6 +18,7 @@
           $node.magnificPopup
             type: 'image'
             closeOnContentClick: true
+            # closeBtnInside: false
 
             gallery:
               enabled: true
@@ -21,6 +27,7 @@
 
             callbacks:
               beforeOpen: build_gallery
+              elementParse: extract_url
 
             mainClass: 'mfp-no-margins mfp-img-mobile'
             #mainClass: 'mfp-with-zoom'

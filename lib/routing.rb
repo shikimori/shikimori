@@ -54,4 +54,19 @@ module Routing
       forum_topics_url forum
     end
   end
+
+  def camo_url image_url
+    port = ':5566' if Rails.env.development?
+    "//#{shiki_domain}#{port}/camo/#{camo_digest image_url}?url=#{image_url}"
+  end
+
+private
+
+  def camo_digest url
+    OpenSSL::HMAC.hexdigest(
+      OpenSSL::Digest.new('sha1'),
+      Rails.application.secrets[:camo][:key],
+      url
+    )
+  end
 end

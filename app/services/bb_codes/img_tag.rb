@@ -33,13 +33,14 @@ class BbCodes::ImgTag
 
 private
   def html_for_image image_url, link_url, width, height, klass, text_hash
-    sizes_html = ''
+    camo_url = UrlGenerator.instance.camo_url(image_url)
 
+    sizes_html = ''
     sizes_html += " width=\"#{width}\"" if width > 0
     sizes_html += " height=\"#{height.to_i}\"" if height > 0
 
-    "<a href=\"#{link_url || image_url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
-<img src=\"#{image_url.without_protocol}\" class=\"#{'check-width' unless sizes_html.present?}\
+    "<a href=\"#{link_url || image_url}\" data-href=\"#{camo_url}\" rel=\"#{text_hash}\" class=\"b-image unprocessed\">\
+<img src=\"#{camo_url}\" class=\"#{'check-width' unless sizes_html.present?}\
 #{' '+klass if klass.present?}\"#{sizes_html}></a>"
   end
 end
