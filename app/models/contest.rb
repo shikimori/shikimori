@@ -77,7 +77,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.send :generate_topic unless contest.topic
+      contest.generate_topic unless contest.topic
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -181,6 +181,10 @@ public
     description
   end
 
+  def generate_topic
+    Topics::Generate::UserTopic.call self, user
+  end
+
 private
 
   # TODO: remove field permalink
@@ -190,16 +194,5 @@ private
 
   def sync_topic
     topic.update title: title if topic && topic.title != title
-  end
-
-  def generate_topic
-    FayeService
-      .new(user, '')
-      .create!(Topics::EntryTopics::ContestTopic.new(
-        forum_id: Forum::CONTESTS_ID,
-        generated: true,
-        linked: self,
-        user: user
-      ))
   end
 end

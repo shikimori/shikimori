@@ -55,24 +55,6 @@ describe Anime do
     it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
   end
 
-  context 'callbacks' do
-    describe '#generate_topic' do
-      let(:anime) { create :anime, :with_topic }
-      subject { anime.topic }
-
-      it do
-        is_expected.to be_persisted
-        is_expected.to have_attributes(
-          forum_id: Topic::FORUM_IDS['Anime'],
-          linked: anime,
-          type: Topics::EntryTopics::AnimeTopic.name,
-          created_at: anime.created_at,
-          updated_at: nil
-        )
-      end
-    end
-  end
-
   #it 'should sync episodes_aired with episodes' do
     #anime = create :anime, :ongoing, episodes: 20, episodes_aired: 10
     #anime.status = :released

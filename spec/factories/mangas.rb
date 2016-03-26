@@ -12,6 +12,7 @@ FactoryGirl.define do
     after(:build) do |v|
       v.stub :generate_name_matches
     end
+
     trait :with_topic do
       after(:create) { |v| v.generate_topic }
     end

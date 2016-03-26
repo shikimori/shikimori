@@ -1,5 +1,5 @@
 ignore %r{
-  bin | db | public
+  bin | public
 }x
 
 guard :bundler do
@@ -12,7 +12,6 @@ guard :rspec, cmd: 'bundle exec spring rspec --color --format documentation', al
   watch(%r{^spec/factories/(.+)\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
 
-  watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
   # presenters
   watch(%r{^app/presenters/(.+)_presenter\.rb$})      { |m| "spec/controllers/#{m[1]}_controller_spec.rb" }
