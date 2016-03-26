@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class Topics::Generate::Base < ServiceObjectBase
+class Topics::Generate::BaseTopic < ServiceObjectBase
   pattr_initialize :model, :user
 
-  attr_implement :call, :topic_attributes
+  attr_implement :call
 
 private
 

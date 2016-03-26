@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topics::Generate::SiteTopic < Topics::Generate::Base
+class Topics::Generate::SiteTopic < Topics::Generate::BaseTopic
   def call
     topic_klass.wo_timestamp { topic.save! }
   end
