@@ -11,6 +11,8 @@ en:
 
     index:
       search_results_for_query: Search results for query "%{query}"
+
+    page:
       positions_in_anime: Positions in anime
       positions_in_manga: Positions in manga
       positions_in_anime_manga: Positions in anime and manga
