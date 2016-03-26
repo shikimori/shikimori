@@ -153,6 +153,9 @@ class ProfileStatsView
   end
 
   def videos_changes_count
-    AnimeVideoReport.where(user: user).where.not(state: 'rejected').count
+    AnimeVideoReport
+      .where(user: user)
+      .where.not(state: ['rejected', 'post_rejected'])
+      .count
   end
 end

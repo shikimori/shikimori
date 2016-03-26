@@ -71,7 +71,12 @@ class AnimeVideo < ActiveRecord::Base
       transition :uploaded => :working
     end
 
-    after_transition [:working, :uploaded] => [:broken, :wrong, :banned], if: :single?, do: :remove_episode_notification
+    after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
+      if: :single?,
+      do: :remove_episode_notification
+
+    after_transition [:working, :uploaded] => [:broken, :wrong, :banned],
+      do: :process_reports
   end
 
   def url= value
@@ -147,5 +152,15 @@ private
     EpisodeNotification
       .where(anime_id: anime_id, episode: episode)
       .update_all("is_#{kind}" => false)
+  end
+
+  def process_reports
+    reports.each do |report|
+      if (report.wrong? || report.broken?) && report.pending?
+        report.accept_only! BotsService.get_poster
+      elsif report.uploaded? && report.can_post_reject?
+        report.post_reject!
+      end
+    end
   end
 end

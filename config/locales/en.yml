@@ -258,6 +258,7 @@ en:
           accepted: accepted
           taken: taken
           rejected: rejected
+          post_rejected: rejected
           deleted: deleted
 
   activemodel:

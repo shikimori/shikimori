@@ -258,6 +258,7 @@ ru:
           accepted: принято
           taken: взято
           rejected: отклонено
+          post_rejected: отклонено
           deleted: удалено
 
   activemodel:

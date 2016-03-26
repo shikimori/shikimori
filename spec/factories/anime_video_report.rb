@@ -3,34 +3,18 @@ FactoryGirl.define do
     kind AnimeVideoReport.kind.values.first
     state 'pending'
     user_agent 'ipad'
+    user { seed :user }
 
-    trait :broken do
-      kind 'broken'
+    AnimeVideoReport.kind.values.each do |report_kind|
+      trait(report_kind.to_sym) { kind report_kind }
     end
 
-    trait :uploaded do
-      kind 'uploaded'
-    end
-
-    trait :wrong do
-      kind 'wrong'
-    end
-
-    trait :accepted do
-      state 'accepted'
-    end
-
-    trait :rejected do
-      state 'rejected'
-    end
-
-    trait :pending do
-      state 'pending'
+    AnimeVideoReport.state_machine.states.map(&:value).each do |report_state|
+      trait(report_state.to_sym) { state report_state }
     end
 
     after :build do |v|
       v.anime_video = FactoryGirl.build_stubbed(:anime_video) unless v.anime_video_id
-      v.user = FactoryGirl.build_stubbed(:user, :user) unless v.user_id
       v.approver = FactoryGirl.build_stubbed(:user, :user) unless v.user_id && v.pending?
     end
 

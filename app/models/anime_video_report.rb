@@ -38,6 +38,8 @@ class AnimeVideoReport < ActiveRecord::Base
     state :rejected do
       validates :approver, presence: true
     end
+    # отклонено автоматической post модераций
+    state :post_rejected
 
     event :accept do
       transition [:pending, :accepted] => :accepted
@@ -49,6 +51,10 @@ class AnimeVideoReport < ActiveRecord::Base
 
     event :reject do
       transition pending: :rejected
+    end
+
+    event :post_reject do
+      transition [:pending, :accepted] => :post_rejected
     end
 
     event :cancel do

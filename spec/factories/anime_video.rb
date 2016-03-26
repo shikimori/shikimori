@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:url) { |n| "http://vk.com/video/#{n}" }
     source 'http://source.com'
     kind AnimeVideo.kind.values.first
-    anime { FactoryGirl.build_stubbed(:anime) }
+    anime { seed :anime }
     episode 1
     author nil
     state 'working'
@@ -13,16 +13,12 @@ FactoryGirl.define do
       video.stub :create_episode_notificaiton
     end
 
-    trait :uploaded do
-      state 'uploaded'
+    AnimeVideo.kind.values.each do |video_kind|
+      trait(video_kind.to_sym) { kind video_kind }
     end
 
-    trait :subtitles do
-      kind :subtitles
-    end
-
-    trait :fandub do
-      kind :fandub
+    AnimeVideo.state_machine.states.map(&:value).each do |video_state|
+      trait(video_state.to_sym) { state video_state }
     end
 
     trait :with_notification do

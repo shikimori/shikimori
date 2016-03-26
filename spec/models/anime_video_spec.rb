@@ -224,7 +224,7 @@ describe AnimeVideo do
       [:fandub, :raw, :subtitles].each do |kind|
         [:broken, :wrong, :ban].each do |action|
           context "#{kind} #{action}" do
-            let(:video) { create(:anime_video, kind: kind) }
+            let(:video) { create :anime_video, kind: kind }
             before do
               create(
                 :episode_notification,
@@ -245,9 +245,29 @@ describe AnimeVideo do
 
             context 'not single video' do
               before { create(:anime_video, anime: video.anime, episode: video.episode, kind: kind) }
-              before { video.send(action) }
+              before { video.send action }
               it { expect(subject.send("is_#{kind}")).to eq true }
             end
+          end
+        end
+      end
+    end
+
+    describe 'remove_episode_notification' do
+      [:broken, :wrong, :ban].each do |action|
+        context action do
+          let(:video) { create :anime_video }
+          let!(:pending_upload_report) { create :anime_video_report, :uploaded, :accepted, anime_video: video }
+          let!(:uploaded_upload_report) { create :anime_video_report, :uploaded, :accepted, anime_video: video }
+          let!(:wrong_report) { create :anime_video_report, :wrong, :pending, anime_video: video }
+          let!(:broken_report) { create :anime_video_report, :broken, :pending, anime_video: video }
+
+          before { video.send action }
+          it do
+            expect(pending_upload_report.reload).to be_post_rejected
+            expect(uploaded_upload_report.reload).to be_post_rejected
+            expect(wrong_report.reload).to be_accepted
+            expect(broken_report.reload).to be_accepted
           end
         end
       end
