@@ -112,9 +112,10 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           expect(created_video).to be_valid
           expect(created_video).to be_persisted
           expect(created_video).to have_attributes video_params.except(:url)
-          expect(created_video.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url])
+          expect(created_video.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url]).with_http
           expect(response).to redirect_to play_video_online_index_url(
-            anime, created_video.episode, created_video.id)
+            anime, created_video.episode, created_video.id
+          )
         end
       end
 
@@ -215,12 +216,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
 
     context 'first_time' do
       let(:view_count) { nil }
-      it { should eq 1 }
+      it { is_expected.to eq 1 }
     end
 
     context 'not_first_time' do
       let(:view_count) { 103 }
-      it { should eq view_count + 1 }
+      it { is_expected.to eq view_count + 1 }
     end
   end
 

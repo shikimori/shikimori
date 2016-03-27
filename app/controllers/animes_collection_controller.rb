@@ -111,7 +111,7 @@ private
     end
 
     if params[:controller] == 'animes_collection'
-      page_title build_page_title(@entry_data)
+      page_title collection_title(@entry_data).title
       @title_notice = build_page_description @entry_data
       @description = @page_title.last
     end
@@ -202,10 +202,6 @@ private
 
   def params_page
     [(params[:page] || 1).to_i, 1].max
-  end
-
-  def build_page_title entry_data
-    collection_title(entry_data).title
   end
 
   def build_page_description entry_data

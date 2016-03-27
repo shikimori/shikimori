@@ -64,12 +64,13 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 
   = yield :head
 
-  = javascript_include_tag :core, data: { 'turbolinks-track' => ''}
-  = javascript_include_tag :application, data: { 'turbolinks-track' => ''}
-  - if anime_online?
-    = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
-  - elsif manga_online?
-    = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
+  - unless Rails.env.test?
+    = javascript_include_tag :core, data: { 'turbolinks-track' => ''}
+    = javascript_include_tag :application, data: { 'turbolinks-track' => ''}
+    - if anime_online?
+      = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}
+    - elsif manga_online?
+      = javascript_include_tag 'manga_online/application', data: { 'turbolinks-track' => ''}
 
 - if Rails.env.production?
   = render partial: "application/counters/#{domain_folder}"

@@ -18,6 +18,8 @@ shared_context :view_object_warden_stub do
     )
     def view_context.censored_forbidden?; true; end
     # allow(view_context).to receive(:censored_forbidden?).and_return true
+    allow(view_context.controller).to receive(:default_url_options)
+      .and_return ApplicationController.default_url_options
   end
 
   after do

@@ -54,7 +54,8 @@ class ApplicationController < ActionController::Base
   end
 
   I18n.exception_handler = -> (exception, locale, key, options) {
-    raise ArgumentError, "#{locale} #{key}"
+    # raise I18n::MissingTranslation, "#{locale} #{key}"
+    raise I18n::NoTranslation, "#{locale} #{key}"
   }
 
   def self.default_url_options

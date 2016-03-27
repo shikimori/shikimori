@@ -63,7 +63,7 @@ describe Forums::View do
       end
 
       it do
-        expect(view.next_page_url).to eq 'http://test.host/forum/xx-zz/p-3'
+        expect(view.next_page_url).to eq '//test.host/forum/xx-zz/p-3'
         expect(view.prev_page_url).to be_nil
       end
     end
@@ -72,7 +72,7 @@ describe Forums::View do
       let(:params) {{ forum: 'all', page: 2 }}
       it do
         expect(view.next_page_url).to be_nil
-        expect(view.prev_page_url).to eq 'http://test.host/forum/p-1'
+        expect(view.prev_page_url).to eq '//test.host/forum/p-1'
       end
     end
   end
