@@ -8,7 +8,7 @@ class MessageSerializer < ActiveModel::Serializer
   end
 
   def html_body
-    object.generate_body
+    object.generate_body.gsub(%r{(?<!:)//(?=\w)}, 'http://')
   end
 
   def linked
