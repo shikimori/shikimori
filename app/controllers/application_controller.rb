@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :mailer_set_url_options
   before_action :force_vary_accept
   before_action :force_canonical
+  before_action :force_ssl, if: :user_signed_in?
 
   helper_method :url_params
   helper_method :resource_class
@@ -144,6 +145,12 @@ private
 
   def force_canonical
     @canonical = request.url.sub(/\?[\s\S]*/, '') if request.url.include? '?'
+  end
+
+  def force_ssl
+    if current_user.preferences.force_ssl && request.protocol != 'https://'
+      redirect_to url_for(params.merge protocol: 'https')
+    end
   end
 
   # before фильтры с настройкой сайта

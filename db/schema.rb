@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160317173645) do
+ActiveRecord::Schema.define(version: 20160327003940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -925,6 +925,7 @@ ActiveRecord::Schema.define(version: 20160317173645) do
     t.boolean "is_comments_auto_loaded",                default: true
     t.string  "body_width",                             default: "x1200",  null: false
     t.text    "forums",                                 default: [],       null: false, array: true
+    t.boolean "force_ssl",                              default: false,    null: false
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree

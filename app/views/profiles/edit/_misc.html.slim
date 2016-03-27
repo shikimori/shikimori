@@ -1,7 +1,9 @@
 .block
-  = simple_form_for @resource.preferences, url: profile_user_preferences_url(@resource) do |f|
+  = simple_form_for @resource.preferences,
+      url: profile_user_preferences_url(@resource) do |f|
     input type='hidden' name='page' value="#{@page}"
     .block
+      = f.input :force_ssl, hint: t('.ssl_hint')
       = f.input :show_hentai_images
       = f.input :is_comments_auto_collapsed
       = f.input :is_comments_auto_loaded
@@ -13,8 +15,10 @@
 .profile-action.block
   .mischeadline = t '.anime_manga_recommendations'
   .controls
-    div: .b-js-link data-type='anime' = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
-    div: .b-js-link data-type='manga' = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
+    div: .b-js-link data-type='anime'
+      = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
+    div: .b-js-link data-type='manga'
+      = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
 
   .form.anime
     p

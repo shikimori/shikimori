@@ -142,12 +142,12 @@ en:
         show_hentai_images: Allow Nudity
         is_comments_auto_collapsed: Collapse Long Comments
         is_comments_auto_loaded: Load New Comments Automatically
-
         list_privacy: Can See My Lists
         #russian_genres: Anime Genres in Russian
         #russian_names: Anime and Manga Titles in Russian
         postload_in_catalog: Autoload Pages in Anime Catalog
         volumes_in_manga: Show Manga Volumes
+        force_ssl: Enable secure connection (HTTPS)
       anime_video:
         url: Video Link
         episode: Episode
