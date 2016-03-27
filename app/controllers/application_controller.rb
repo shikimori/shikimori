@@ -11,7 +11,10 @@ class ApplicationController < ActionController::Base
   before_action :mailer_set_url_options
   before_action :force_vary_accept
   before_action :force_canonical
-  before_action :force_ssl, if: :user_signed_in?
+
+  if Rails.env.production?
+    before_action :force_ssl, if: :user_signed_in?
+  end
 
   helper_method :url_params
   helper_method :resource_class

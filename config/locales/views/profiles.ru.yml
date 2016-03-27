@@ -156,7 +156,7 @@ ru:
         notifications_about_friend_nickname_change: Уведомления о смене ников друзей
 
       misc:
-        ssl_hint: Experimental
+        ssl_hint: Экспериментальное
         anime_manga_recommendations: Рекомендации аниме и манги
         restore_rejected_recommendations: Восстановить отклонённые вами рекомендации %{kind}
         confirm_to_restore_recommendations: Подтвердите намерение восстановить все заблокированные вами рекомендации для %{kind}.

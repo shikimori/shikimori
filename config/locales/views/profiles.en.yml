@@ -155,7 +155,7 @@ en:
         notifications_about_friend_nickname_change: "Notifications about friends' nickname change"
 
       misc:
-        ssl_hint: Экспериментальное
+        ssl_hint: Experimental
         anime_manga_recommendations: Anime and manga recommendations
         restore_rejected_recommendations: Restore rejected %{kind} recommendations
         confirm_to_restore_recommendations: Confirm that you want to restore all your rejected %{kind} recommendations.
