@@ -29,4 +29,8 @@ class PersonProfileSerializer < PersonSerializer
   def topic_id
     object.topic.try :id
   end
+
+  def description_html
+    object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+  end
 end

@@ -37,6 +37,10 @@ class AnimeProfileSerializer < AnimeSerializer
     end
   end
 
+  def description_html
+    object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+  end
+
   def videos
     object.videos 2
   end

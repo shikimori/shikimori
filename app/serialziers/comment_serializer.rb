@@ -15,4 +15,8 @@ class CommentSerializer < ActiveModel::Serializer
   def offtopic
     object.is_offtopic
   end
+
+  def html_body
+    object.html_body.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+  end
 end

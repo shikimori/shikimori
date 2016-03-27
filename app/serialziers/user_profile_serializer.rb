@@ -40,4 +40,8 @@ class UserProfileSerializer < UserSerializer
   def is_ignored
     object.ignored?
   end
+
+  def about_html
+    object.about_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+  end
 end
