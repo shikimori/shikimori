@@ -32,6 +32,11 @@ class PagesController < ShikimoriController
     page_title i18n_t('.info')
   end
 
+  def development
+    page_title i18n_t('.application.top_menu.shikimori.development')
+    @blank_layout = true
+  end
+
   # rss с новостями
   def news_feed
     @collection = TopicsQuery.fetch(current_user)

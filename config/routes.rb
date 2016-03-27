@@ -433,6 +433,7 @@ Site::Application.routes.draw do
       collection do
         get :ongoings
         get :about
+        get :development
 
         get :terms
         get :privacy

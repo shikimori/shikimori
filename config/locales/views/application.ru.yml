@@ -15,6 +15,7 @@ ru:
         current_contest: Текущий опрос
         currently_airing: Сейчас выходит
         info: Инфо
+        development: Разработка сайта
         moderation: Модерация и контент
       anime_online:
         <<: *shikimori

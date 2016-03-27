@@ -15,6 +15,7 @@ en:
         current_contest: Current Contest
         currently_airing: Currently Airing
         info: Info
+        development: Website development
         moderation: Moderation
       anime_online:
         <<: *shikimori
