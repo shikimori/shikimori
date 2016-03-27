@@ -5,11 +5,11 @@ class ClubsQuery < SimpleQueryBase
     clubs.where(id: FAVOURITE)
   end
 
-private
-
   def query
     clubs.where.not(id: FAVOURITE)
   end
+
+private
 
   def clubs
     Club
