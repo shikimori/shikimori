@@ -1,5 +1,5 @@
 class ClubsQuery < SimpleQueryBase
-  FAVOURITE = [72, 19, 202, 113, 315, 26, 293, 277]
+  FAVOURITE = [72, 19, 202, 113, 315, 26, 293]
 
   def favourite
     clubs.where(id: FAVOURITE)
