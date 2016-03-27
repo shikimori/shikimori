@@ -6,13 +6,13 @@ FactoryGirl.define do
     description_en ''
 
     trait :anime do
-      after :create do |v|
-        FactoryGirl.create :anime, characters: [v]
+      after :create do |character|
+        FactoryGirl.create :anime, characters: [character]
       end
     end
 
     trait :with_topic do
-      after(:create) { |v| v.generate_topic }
+      after(:create) { |character| character.generate_topic }
     end
   end
 end
