@@ -12,6 +12,7 @@ class ClubsController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 48].max, 96].min
 
+    @favourite = ClubsQuery.new.favourite if @page == 1
     @collection, @add_postloader = ClubsQuery.new.postload @page, @limit
   end
 

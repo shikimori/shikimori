@@ -9,10 +9,12 @@ header.head.misc
 
   p.notice.clearfix = t '.list_of_all_clubs'
 
+.subheadline.m10 = t '.favourite'
 .b-clubs.index
-  = render partial: 'club',
-    collection: @collection,
-    locals: { content_by: :detailed }
+  = render @favourite, content_by: :detailed
+
+.b-clubs.index
+  = render @collection, content_by: :detailed
 
   - if @add_postloader
     = render 'blocks/postloader', filter: 'b-club',

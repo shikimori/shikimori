@@ -9,6 +9,7 @@ describe ClubsQuery do
   let!(:club_2) { create :club, :with_topic, id: 2 }
   let!(:club_3) { create :club, :with_topic, id: 3 }
   let!(:club_4) { create :club, :with_topic, id: 4 }
+  let!(:club_favoured) { create :club, :with_topic, id: ClubsQuery::FAVOURITE.first }
 
   before do
     club_1.members << user
@@ -29,6 +30,11 @@ describe ClubsQuery do
       let(:page) { 2 }
       it { is_expected.to eq [club_4] }
     end
+  end
+
+  describe '#favourite' do
+    subject { query.favourite }
+    it { is_expected.to eq [club_favoured] }
   end
 
   describe '#postload' do

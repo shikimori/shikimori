@@ -3,6 +3,7 @@ ru:
     index:
       create_new_club: Создать новый клуб
       list_of_all_clubs: Список всех клубов сайта в порядке активности участников
+      favourite: Избранные
 
     page:
       back_to_clubs_page: Назад на страницу клуба

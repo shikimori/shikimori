@@ -59,15 +59,15 @@
       title="#{t 'forum'}"
     ] = t 'forum'
     a.entry[
-      class="#{:active if params[:controller] == 'users'}"
-      href="#{users_url}"
-      title="#{i18n_i 'User', :other}"
-    ] = i18n_i 'User', :other
-    a.entry[
       class="#{:active if params[:controller] == 'clubs'}"
       href="#{clubs_url}"
       title="#{i18n_i 'Club', :other}"
     ] = i18n_i 'Club', :other
+    a.entry[
+      class="#{:active if params[:controller] == 'users'}"
+      href="#{users_url}"
+      title="#{i18n_i 'User', :other}"
+    ] = i18n_i 'User', :other
 
 - if user_signed_in?
   .entry.info
