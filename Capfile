@@ -22,7 +22,6 @@ require 'rvm1/capistrano3'
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
-require 'capistrano/git-submodule-strategy'
 require "airbrussh/capistrano"
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.

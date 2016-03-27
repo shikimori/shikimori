@@ -51,6 +51,7 @@ private
       end
   end
 
+  # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned-franchise-coupling.json
   def malgraph_data
     data = open(Rails.root.join 'config/app//banned-franchise-coupling.lst').read
     LstParser.new.parse(data)
