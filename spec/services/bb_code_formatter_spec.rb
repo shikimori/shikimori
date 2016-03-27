@@ -295,7 +295,8 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     describe '[poster]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[poster]#{url}[/poster]" }
-      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{url.without_protocol}\">" }
+      let(:camo_url) { UrlGenerator.instance.camo_url url }
+      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\">" }
     end
 
     describe '[entries]' do

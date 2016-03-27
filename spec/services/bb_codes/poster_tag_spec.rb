@@ -6,8 +6,9 @@ describe BbCodes::PosterTag do
 
     context 'external image' do
       let(:url) { 'http://site.com/site-url' }
+      let(:camo_url) { UrlGenerator.instance.camo_url url }
       let(:text) { "[poster]#{url}[/poster]" }
-      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{url.without_protocol}\" />" }
+      it { is_expected.to eq "<img class=\"b-poster\" src=\"#{camo_url}\" />" }
     end
 
     context 'shiki image' do

@@ -22,8 +22,9 @@ class BbCodes::PosterTag
 
 private
 
-  def html_for_url url
-    "<img class=\"b-poster\" src=\"#{url.without_protocol}\" />"
+  def html_for_url image_url
+    camo_url = UrlGenerator.instance.camo_url(image_url)
+    "<img class=\"b-poster\" src=\"#{camo_url}\" />"
   end
 
   def html_for_image user_image
