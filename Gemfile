@@ -118,7 +118,6 @@ group :development do
   gem 'capistrano-bundler', require: false
   #gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
-  gem 'capistrano-git-submodule-strategy', require: false
   gem 'airbrussh', require: false
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'

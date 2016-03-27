@@ -6,7 +6,6 @@ set :rails_env, fetch(:stage)
 #set :bundle_without, [:test]
 set :branch, ->{ `git rev-parse --abbrev-ref HEAD`.chomp }
 set :scm, :git
-set :git_strategy, Capistrano::Git::SubmoduleStrategy
 
 set :keep_releases, 5
 #set :format, :pretty

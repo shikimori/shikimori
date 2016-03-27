@@ -52,7 +52,7 @@ private
   end
 
   def malgraph_data
-    data = open(Rails.root.join 'lib/malgraph4/data/banned-franchise-coupling.lst').read
+    data = open(Rails.root.join 'config/app//banned-franchise-coupling.lst').read
     LstParser.new.parse(data)
   end
 end
