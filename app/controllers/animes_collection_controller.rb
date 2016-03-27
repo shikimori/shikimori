@@ -90,6 +90,12 @@ private
     if params[:type] =~ /[A-Z -]/
       raise ForceRedirect, collection_url(type: params[:type].downcase.sub(/ |-/, '_'))
     end
+    types = [klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
+    if params[:type] && params[:type] !~ %r{\A (?: !? (?:#{types}) (?:,|\Z ) )+ \Z}mix
+      fixed = params[:type].split(',').select {|v| v =~ %r{\A !? (?:#{types}) \Z }mix }
+      raise ForceRedirect, collection_url(type: fixed.join(','))
+    end
+
     [:genre, :studio, :publisher].each do |kind|
       if params[kind]
         all_param_ids = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
