@@ -12,9 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :force_vary_accept
   before_action :force_canonical
 
-  if Rails.env.production?
-    before_action :force_ssl, if: :user_signed_in?
-  end
+  before_action :force_ssl, if: :user_signed_in?
 
   helper_method :url_params
   helper_method :resource_class
@@ -151,8 +149,13 @@ private
   end
 
   def force_ssl
-    if current_user.preferences.force_ssl && request.protocol != 'https://'
-      redirect_to url_for(params.merge protocol: 'https')
+    if current_user.preferences.force_ssl
+      if request.protocol != 'https://' && Rails.env.production?
+        redirect_to url_for(params.merge protocol: 'https')
+      end
+      response.headers['Strict-Transport-Security'] = 'max-age=31536000 always'
+    else
+      response.headers['Strict-Transport-Security'] = 'max-age=0 always'
     end
   end
 
