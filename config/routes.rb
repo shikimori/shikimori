@@ -56,7 +56,7 @@ Site::Application.routes.draw do
     post :preview, on: :collection
   end
 
-  resources :comments do
+  resources :comments, except: [:create, :update] do
     # NOTE: should be before collection & member actions
     resources :bans, only: [:new], controller: 'moderations/bans'
     resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
