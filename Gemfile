@@ -130,9 +130,6 @@ gem 'pry-rails'
 gem 'pry-stack_explorer'
 gem 'colorize'
 
-#gem 'ruby-prof'
-#gem 'ruby-prof-flamegraph'
-
 group :test, :development do
   gem 'byebug'
   gem 'pry-byebug'

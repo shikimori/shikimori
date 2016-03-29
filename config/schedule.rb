@@ -22,11 +22,6 @@ set :environment, :production
 set :output, '/home/apps/shikimori/production/shared/log/whenever.log'
 set :job_template, "/usr/bin/zsh -i -c \"source /home/devops/.rvm/scripts/rvm && :job\""
 
-# здесь только редкие/долгие таски, которые нельзя на clockwork положить
-every 1.day, at: '4:30 am' do
-  command "backup perform --trigger shikimori"
-end
-
 # пока есть бета-стейджинг, будут постоянно синхронизиться картинки
 #every 2.minutes do
   #command 'rsync -ahvu /home/apps/shikimori/production/shared/public/images /home/apps/shikimori/beta/shared/public/'
