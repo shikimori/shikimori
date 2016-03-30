@@ -34,12 +34,12 @@ describe Api::V1::CommentsController do
     end
   end
 
-  shared_examples_for :html_response do
+  shared_examples_for :frontend_response do
     it { expect(response.body).to include '"html"' }
     it { expect(response.body).not_to include '"review"' }
   end
 
-  shared_examples_for :json_response do
+  shared_examples_for :api_response do
     it { expect(response.body).not_to include '"html"' }
     it { expect(response.body).to include '"review"' }
   end
@@ -58,16 +58,16 @@ describe Api::V1::CommentsController do
         }
       end
 
-      context 'html' do
-        before { post :create, comment: comment_params }
+      context 'frontend' do
+        before { post :create, frontend: true, comment: comment_params }
         it_behaves_like :created_or_updated_comment
-        it_behaves_like :html_response
+        it_behaves_like :frontend_response
       end
 
-      context 'json', :show_in_doc do
+      context 'api', :show_in_doc do
         before { post :create, comment: comment_params, format: :json }
         it_behaves_like :created_or_updated_comment
-        it_behaves_like :json_response
+        it_behaves_like :api_response
       end
     end
 
@@ -91,16 +91,16 @@ describe Api::V1::CommentsController do
     context 'success' do
       let(:comment_params) { { body: 'blablabla' } }
 
-      context 'html' do
-        before { patch :update, id: comment.id, comment: comment_params }
+      context 'frontend' do
+        before { patch :update, id: comment.id, frontend: true, comment: comment_params }
         it_behaves_like :created_or_updated_comment
-        it_behaves_like :html_response
+        it_behaves_like :frontend_response
       end
 
-      context 'json', :show_in_doc do
+      context 'api', :show_in_doc do
         before { patch :update, id: comment.id, comment: comment_params, format: :json }
         it_behaves_like :created_or_updated_comment
-        it_behaves_like :json_response
+        it_behaves_like :api_response
       end
     end
 

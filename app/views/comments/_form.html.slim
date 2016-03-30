@@ -1,4 +1,5 @@
 .b-shiki_editor.unprocessed
   = simple_form_for [:api, comment], remote: true, authenticity_token: true,
     html: { data: { type: :json } } do |f|
+    input type='hidden' name='frontend' value='true'
     = render 'comments/shiki_editor', comment: comment, f: f

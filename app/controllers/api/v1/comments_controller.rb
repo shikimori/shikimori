@@ -41,17 +41,12 @@ class Api::V1::CommentsController < Api::V1::ApiController
     @comment = Comment.new create_params
 
     if faye.create @comment
-      respond_to do |format|
+      if params[:frontend]
         # render jbuilder template
-        format.html do
-          1/0
-          render :create, formats: [:json], content_type: 'application/json'
-        end
+        render :create, formats: [:json], content_type: 'application/json'
+      else
         # respond with serialized comment (using serializer)
-        format.json do
-          1/0
-          render json: @comment.decorate
-        end
+        render json: @comment.decorate
       end
     else
       render json: @comment.errors, status: :unprocessable_entity
@@ -68,15 +63,12 @@ class Api::V1::CommentsController < Api::V1::ApiController
     raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
 
     if faye.update @comment, update_params
-      respond_to do |format|
+      if params[:frontend]
         # render jbuilder template
-        format.html do
-          render :create, formats: [:json], content_type: 'application/json'
-        end
+        render :create, formats: [:json], content_type: 'application/json'
+      else
         # respond with serialized comment (using serializer)
-        format.json do
-          render json: @comment.decorate
-        end
+        render json: @comment.decorate
       end
     else
       render json: @comment.errors, status: :unprocessable_entity
