@@ -42,8 +42,9 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
     if faye.create @comment
       if params[:frontend]
+        # incoming request form shiki editor has format json
         # render jbuilder template
-        render :create, formats: [:json], content_type: 'application/json'
+        render :create
       else
         # respond with serialized comment (using serializer)
         render json: @comment.decorate
@@ -64,8 +65,9 @@ class Api::V1::CommentsController < Api::V1::ApiController
 
     if faye.update @comment, update_params
       if params[:frontend]
+        # incoming request form shiki editor has format json
         # render jbuilder template
-        render :create, formats: [:json], content_type: 'application/json'
+        render :create
       else
         # respond with serialized comment (using serializer)
         render json: @comment.decorate

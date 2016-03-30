@@ -59,7 +59,7 @@ describe Api::V1::CommentsController do
       end
 
       context 'frontend' do
-        before { post :create, frontend: true, comment: comment_params }
+        before { post :create, frontend: true, comment: comment_params, format: :json }
         it_behaves_like :created_or_updated_comment
         it_behaves_like :frontend_response
       end
@@ -92,7 +92,7 @@ describe Api::V1::CommentsController do
       let(:comment_params) { { body: 'blablabla' } }
 
       context 'frontend' do
-        before { patch :update, id: comment.id, frontend: true, comment: comment_params }
+        before { patch :update, id: comment.id, frontend: true, comment: comment_params, format: :json }
         it_behaves_like :created_or_updated_comment
         it_behaves_like :frontend_response
       end
