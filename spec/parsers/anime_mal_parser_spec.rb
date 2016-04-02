@@ -10,26 +10,26 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
   end
 
   it 'fetches list page' do
-    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches updated list page' do
-    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches 3 list pages' do
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage + 3)
+    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'stops when got 0 entries' do
     urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches anime data' do
@@ -69,7 +69,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
-    expect(data[:ranked]).to eq 22
+    expect(data[:ranked]).to eq 24
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
@@ -90,8 +90,8 @@ series of new conflicts. [br][source]ANN[/source]"
 
   it 'correct score & ranked' do
     data = parser.fetch_entry_data(31143)
-    expect(data[:ranked]).to eq 6289
-    expect(data[:score]).to eq 5.96
+    expect(data[:ranked]).to eq 6401
+    expect(data[:score]).to eq 5.95
   end
 
   it 'fetches anime related' do

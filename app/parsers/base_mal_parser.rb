@@ -144,9 +144,10 @@ class BaseMalParser < SiteParserWithCache
       next unless content
       doc = Nokogiri::HTML(content)
 
-      doc.css("div#content > table tr").each do |tr|
-        next unless tr.css('.normal_header').size.zero?
+      doc.css("div.list > table tr").each do |tr|
         tds = tr.css('td')
+        next if tds[0].css('img').none?
+
         entry = {}
         entry[:img_preview] = tds[0].css('img')[0]['src']
         entry[:url] = tds[1].css('a')[0]['href']

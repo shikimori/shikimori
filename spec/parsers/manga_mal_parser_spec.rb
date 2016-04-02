@@ -10,26 +10,26 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
   end
 
   it 'fetches list page' do
-    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches updated list page' do
-    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches 3 list pages' do
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage + 3)
+    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'stops when got 0 entries' do
     urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
+    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
   end
 
   it 'fetches manga data' do
@@ -59,7 +59,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/157935.jpg'
+    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/171813.jpg'
   end
 
   it 'fetches manga characters' do
