@@ -53,6 +53,7 @@ describe Anime do
     it { is_expected.to enumerize(:kind).in :tv, :movie, :ova, :ona, :special, :music }
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
     it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
+    it { is_expected.to enumerize(:origin) }
   end
 
   #it 'should sync episodes_aired with episodes' do
