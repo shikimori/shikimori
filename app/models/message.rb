@@ -32,8 +32,8 @@ class Message < ActiveRecord::Base
       .order(id: :desc)
       .first
 
-    if prior_comment && DateTime.now.to_i - prior_comment.created_at.to_i < 15
-      interval = 15 - (DateTime.now.to_i - prior_comment.created_at.to_i)
+    if prior_comment && Time.zone.now.to_i - prior_comment.created_at.to_i < 15
+      interval = 15 - (Time.zone.now.to_i - prior_comment.created_at.to_i)
       errors['created_at'] = 'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
       return false
     end

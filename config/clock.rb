@@ -4,8 +4,8 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 module Clockwork
   every 10.minutes, 'history.toshokan' do
     HistoryWorker.perform_async
-    ToshokanTorrentsImporter.perform_async
-    NyaaTorrentsImporter.perform_async
+    ImportToshokanTorrents.perform_async
+    ImportNyaaTorrents.perform_async
     ProxyWorker.perform_async(true)
   end
 

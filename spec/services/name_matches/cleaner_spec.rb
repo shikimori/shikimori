@@ -28,6 +28,7 @@ describe NameMatches::Cleaner do
   describe '#desynonymize' do
     it { expect(service.desynonymize phrase).to eq 'zz s4' }
     it { expect(service.desynonymize 'zz [ТВ-4]').to eq 'zz s4' }
+    it { expect(service.desynonymize 'kyōkai no rinne').to eq 'kyokai no rinne' }
   end
 
   describe '#compact' do

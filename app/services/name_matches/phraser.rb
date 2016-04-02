@@ -23,9 +23,6 @@ class NameMatches::Phraser
     # транслит
     #phrases = (phrases + phrases.map {|v| Russian::translit v }).uniq
 
-    String::UNACCENTS.each do |word, matches|
-      phrases = replace_regexp phrases, matches, word.downcase
-    end
     phrases = phrases.map { |phrase| @cleaner.desynonymize phrase }
 
     if do_splits
