@@ -139,6 +139,7 @@ class Anime < DbEntry
       web_manga
       digital_manga
       4_koma_manga
+      novel
       visual_novel
       light_novel
       game
