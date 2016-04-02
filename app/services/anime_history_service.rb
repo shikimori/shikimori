@@ -27,7 +27,7 @@ class AnimeHistoryService
     #users = users.select {|v| [1].include? v.id }
 
     # алоритм очень не оптимальный. позже, когда начнет сильно тормозить, нужно будет переделать
-    messages = entries.flat_map do |entry|
+    entries.each do |entry|
       # новости о уже не существующих элементах, или о зацензуренных элементах, или о музыке не создаём
       next if entry.class == Topics::NewsTopic &&
         (!entry.linked || entry.linked.censored || entry.linked.kind_music?) &&
@@ -35,7 +35,7 @@ class AnimeHistoryService
       # протухшие новости тоже не нужны
       next if (entry.created_at || Time.zone.now) + NewsExpireIn < Time.zone.now
 
-      users
+      messages = users
         .select { |v| v.subscribed_for_event? entry }
         .map do |user|
           Message.new(
@@ -47,15 +47,13 @@ class AnimeHistoryService
             created_at: entry.created_at
           )
         end
-    end
-    messages.compact!
 
-    ActiveRecord::Base.transaction do
-      Entry.where(id: entries.map(&:id)).update_all processed: true
-      messages.each_slice(1000) { |slice| Message.import slice }
+      ActiveRecord::Base.transaction do
+        entry.update processed: true
+        messages.each_slice(1000) { |slice| Message.import slice }
+      end
+      messages.each { |message| message.send :send_push_notifications }
     end
-
-    messages.each { |message| message.send :send_push_notifications }
   end
 
   def self.message_type topic
