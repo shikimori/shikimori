@@ -133,7 +133,7 @@ class Anime < DbEntry
     in: %i(tv movie ova ona special music),
     predicates: { prefix: true }
   enumerize :origin,
-    in: %i(original manga visual_novel light_novel game unknown picture_book 4_koma_manga other)
+    in: %i(original manga visual_novel light_novel game music picture_book 4_koma_manga other unknown)
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
   enumerize :rating,
     in: %i(none g pg pg_13 r r_plus rx),
