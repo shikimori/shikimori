@@ -5,6 +5,7 @@ class BaseMalParser < SiteParserWithCache
 
   EntriesPerPage = 50
   RelatedAdaptationName = "Adaptation"
+  THREADS = 1
 
   # инициализация кеша
   def load_cache
@@ -64,7 +65,7 @@ class BaseMalParser < SiteParserWithCache
   # импорт всех новых и помеченных к импорту элементов
   def import ids=nil
     Proxy.preload
-    ThreadPool.defaults = { threads: 60 }# timeout: 90, log: true debug_log: true }
+    ThreadPool.defaults = { threads: THREADS }# timeout: 90, log: true debug_log: true }
     #@proxy_log = true
     @import_mutex = Mutex.new
 

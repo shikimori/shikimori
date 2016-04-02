@@ -59,7 +59,7 @@
       span.other-names.click-loader data-href="#{entry.other_names_url}"
         span ···
 
-  - if entry.topic.any_comments? || entry.topic.any_summaries? || entry.reviews_count > 0
+  - if entry.topic&.any_comments? || entry.topic&.any_summaries? || entry.reviews_count > 0
     .additional-links
       .line-container
         .key #{t ".#{entry.object.class.name.downcase}_additionals"}:

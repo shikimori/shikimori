@@ -38,12 +38,12 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data[:name]).to eq 'Cowboy Bebop'
     expect(data[:kind]).to eq 'tv'
     expect(data[:status]).to eq 'released'
+    expect(data[:origin]).to eq 'original'
     expect(data[:description_en]).to be_present
     expect(data[:related]).not_to be_empty
     expect(data).to include(:english)
     expect(data).to include(:synonyms)
     expect(data[:japanese]).to eq ['カウボーイビバップ']
-    expect(data).to include(:kind)
 
     expect(data[:episodes]).to eq 26
 
@@ -119,6 +119,11 @@ series of new conflicts. [br][source]ANN[/source]"
 
   it 'fetches the whole entry' do
     expect(parser.fetch_entry(anime_id)).to have(4).items
+  end
+
+  it 'anime wo image' do
+    data = parser.fetch_entry_data(33102)
+    expect(data[:img]).to be_nil
   end
 
   #describe 'import' do

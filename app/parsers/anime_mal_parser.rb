@@ -64,6 +64,7 @@ class AnimeMalParser < BaseMalParser
     entry.delete(:episodes) if entry[:episodes] == 0
 
     entry[:status] = STATUSES[parse_line("Status", content, false)]
+    entry[:origin] = parse_line("Source", content, false).downcase.tr(' ', '_')
     dates = parse_line("Aired", content, false).split(' to ').map do |v|
       parse_date(v)
     end
@@ -104,9 +105,9 @@ class AnimeMalParser < BaseMalParser
     img_doc = doc.css("td.borderClass > div > img")
 
     if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
-      entry[:img] = doc.css("td.borderClass > div > div > a > img, td.borderClass > div > a > img").first.attr(:src)
+      entry[:img] = doc.css("td.borderClass > div > div > a > img, td.borderClass > div > a > img").first&.attr(:src)
     else
-      entry[:img] = img_doc.first.attr(:src)
+      entry[:img] = img_doc.first&.attr(:src)
     end
 
     raise EmptyContent.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?

@@ -130,6 +130,7 @@ class Anime < DbEntry
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: { prefix: true }
+  enumerize :origin, in: [:original, :manga, :visual_novel, :game]
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
   enumerize :rating, in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx], predicates: { prefix: true }
 
