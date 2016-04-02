@@ -16,8 +16,7 @@ class DbEntry < ActiveRecord::Base
 
     klass.has_many :clubs, through: :club_links
 
-    # klass.after_save :sync_topic
-    #klass.before_save :filter_russian, if: -> { changes['russian'] }
+    klass.after_create :generate_topic
   end
 
   def to_param
@@ -39,20 +38,4 @@ class DbEntry < ActiveRecord::Base
   def generate_topic
     Topics::Generate::SiteTopic.call self, BotsService.get_poster
   end
-
-private
-
-  # при сохранении аниме обновление его топика
-  # def sync_topic
-    # return unless changes['name']
-
-    # topic.class.wo_timestamp do
-      # topic.sync
-      # topic.save
-    # end
-  # end
-
-  #def filter_russian
-    #self.russian = CGI::escapeHTML russian
-  #end
 end

@@ -129,10 +129,14 @@ class Anime < DbEntry
     path: ':rails_root/public/system/animes/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
-  enumerize :kind, in: [:tv, :movie, :ova, :ona, :special, :music], predicates: { prefix: true }
-  enumerize :origin, in: [:original, :manga, :visual_novel, :game]
+  enumerize :kind,
+    in: [:tv, :movie, :ova, :ona, :special, :music],
+    predicates: { prefix: true }
+  enumerize :origin, in: [:original, :manga, :visual_novel, :game, :unknown]
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
-  enumerize :rating, in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx], predicates: { prefix: true }
+  enumerize :rating,
+    in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx],
+    predicates: { prefix: true }
 
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
