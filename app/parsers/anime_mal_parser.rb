@@ -64,7 +64,7 @@ class AnimeMalParser < BaseMalParser
     entry.delete(:episodes) if entry[:episodes] == 0
 
     entry[:status] = STATUSES[parse_line("Status", content, false)]
-    entry[:origin] = parse_line("Source", content, false).downcase.tr(' ', '_')
+    entry[:origin] = parse_line("Source", content, false).downcase.tr(' ', '_').tr('-', '_')
     dates = parse_line("Aired", content, false).split(' to ').map do |v|
       parse_date(v)
     end
