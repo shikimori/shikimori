@@ -24,6 +24,15 @@ describe Review do
     end
   end
 
+  describe 'callbacks' do
+    before { review.save }
+
+    describe '#generate_topic' do
+      let(:review) { build :review, :with_topic }
+      it { expect(review.topic).to be_present }
+    end
+  end
+
   context 'scopes' do
     let(:user) { seed :user }
 
@@ -46,17 +55,9 @@ describe Review do
     end
   end
 
-  context 'hooks' do
-    it 'creates topic' do
-      expect {
-        create :review, target: create(:anime)
-      }.to change(Topics::EntryTopics::ReviewTopic, :count).by 1
-    end
-  end
-
   context 'state_machine' do
     let(:user) { create :user }
-    subject(:review) { create :review, user: user }
+    subject(:review) { create :review, :with_topic, user: user }
 
     describe 'accept' do
       before { review.accept user }
@@ -71,7 +72,7 @@ describe Review do
 
   describe 'instance methods' do
     let(:user) { create :user }
-    let(:review) { create :review, user: user }
+    let(:review) { create :review, :with_topic, user: user }
 
     describe '#to_offtopic' do
       before { review.reject! user }

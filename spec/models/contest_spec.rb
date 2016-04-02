@@ -84,11 +84,11 @@ describe Contest do
 
       it 'creates topic' do
         contest.propose!
-        expect(contest.reload.topic.present?).to be_truthy
+        expect(contest.topic).to be_present
       end
     end
 
-    context 'after started' do
+    context 'after start' do
       it 'starts first round' do
         contest.start!
         expect(contest.rounds.first.started?).to be_truthy
@@ -97,7 +97,7 @@ describe Contest do
       let(:contest) { create :contest, :with_5_members, :with_topic }
       it 'creates topic' do
         contest.start!
-        expect(contest.reload.topic.present?).to be_truthy
+        expect(contest.topic).to be_present
       end
     end
 

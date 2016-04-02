@@ -43,7 +43,7 @@ describe NotificationsService do
 
   describe '#round_finished' do
     let(:target) { create :contest_round, contest: contest }
-    let(:contest) { create :contest, :with_generated_topic }
+    let(:contest) { create :contest, :with_topic }
 
     before { service.round_finished }
 
@@ -51,7 +51,7 @@ describe NotificationsService do
   end
 
   describe '#contest_finished' do
-    let(:target) { create :contest, :with_generated_topic }
+    let(:target) { create :contest, :with_topic }
     let!(:round) { create :contest_round, contest: target }
     let!(:match) { create :contest_match, round: round }
     let!(:user_vote) { create :contest_user_vote, match: match, user: user_1, item_id: 1, ip: '1' }

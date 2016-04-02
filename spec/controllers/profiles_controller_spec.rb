@@ -47,7 +47,7 @@ describe ProfilesController do
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, user: user }
+    let!(:review) { create :review, :with_topic, user: user }
     before { get :reviews, id: user.to_param }
     it { expect(response).to have_http_status :success }
   end

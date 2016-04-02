@@ -37,18 +37,7 @@ class DbEntry < ActiveRecord::Base
   end
 
   def generate_topic
-    topic_klass = "Topics::EntryTopics::#{self.class.name}Topic".constantize
-    topic_klass.wo_timestamp do
-      self.topic = topic_klass.create!(
-        forum_id: Topic::FORUM_IDS[self.class.name],
-        generated: true,
-        linked: self,
-        title: name,
-        created_at: created_at,
-        updated_at: nil,
-        user: BotsService.get_poster
-      )
-    end
+    Topics::Generate::SiteTopic.call self, BotsService.get_poster
   end
 
 private

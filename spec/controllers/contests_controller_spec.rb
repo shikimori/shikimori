@@ -68,7 +68,7 @@ describe ContestsController do
     end
 
     context 'proposing' do
-      let(:contest) { create :contest, :with_generated_topic, :proposing, user: user }
+      let(:contest) { create :contest, :with_topic, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
       it { expect(response).to have_http_status :success }
@@ -100,8 +100,8 @@ describe ContestsController do
 
   describe '#comments' do
     let!(:contest) { create :contest, :with_topic, user: user }
-    before { contest.send :generate_topic }
     let!(:comment) { create :comment, commentable: contest.topic }
+
     before { get :comments, id: contest.to_param }
 
     it do

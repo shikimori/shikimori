@@ -9,11 +9,12 @@ FactoryGirl.define do
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :manga
 
-    after(:build) do |v|
-      v.stub :generate_name_matches
+    after(:build) do |manga|
+      manga.stub :generate_name_matches
     end
+
     trait :with_topic do
-      after(:create) { |v| v.generate_topic }
+      after(:create) { |manga| manga.generate_topic }
     end
 
     Manga.kind.values.each do |kind_type|

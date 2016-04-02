@@ -38,10 +38,17 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_summary, :bool
   end
   def create
-    @comment = Comment.new comment_params.merge(user: current_user)
+    @comment = Comment.new create_params
 
     if faye.create @comment
-      respond_with @comment.decorate
+      if params[:frontend]
+        # incoming request form shiki editor has format json
+        # render jbuilder template
+        render :create
+      else
+        # respond with serialized comment (using serializer)
+        render json: @comment.decorate
+      end
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -56,8 +63,15 @@ class Api::V1::CommentsController < Api::V1::ApiController
   def update
     raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
 
-    if faye.update @comment, comment_params.except(:is_summary, :is_offtopic)
-      respond_with @comment
+    if faye.update @comment, update_params
+      if params[:frontend]
+        # incoming request form shiki editor has format json
+        # render jbuilder template
+        render :create
+      else
+        # respond with serialized comment (using serializer)
+        render json: @comment.decorate
+      end
     else
       render json: @comment.errors, status: :unprocessable_entity
     end
@@ -87,6 +101,14 @@ private
     comment_params[:is_offtopic] ||= comment_params[:offtopic]
 
     comment_params.except(:review, :offtopic)
+  end
+
+  def create_params
+    comment_params.merge(user: current_user)
+  end
+
+  def update_params
+    comment_params.except(:is_summary, :is_offtopic)
   end
 
   def prepare_edition

@@ -43,7 +43,6 @@ class CosplayGallery < ActiveRecord::Base
 
   scope :visible, -> { where confirmed: true, deleted: false }
 
-  #after_create :generate_topic
   #after_save :sync_topic
 
   accepts_nested_attributes_for :images, :deleted_images
@@ -102,23 +101,14 @@ class CosplayGallery < ActiveRecord::Base
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
+  def generate_topic
+    Topics::Generate::UserTopic.call self, User.find(User::COSPLAYER_ID)
+  end
+
 private
 
   def sync_topic
     topic.update_attribute :title, name if topic.title != name
-  end
-
-  def generate_topic
-    publisher = User.find User::COSPLAYER_ID
-
-    FayeService
-      .new(publisher, '')
-      .create!(Topics::EntryTopics::CosplayGalleryTopic.new(
-        forum_id: Forum::COSPLAY_ID,
-        generated: true,
-        linked: self,
-        user: publisher
-      ))
   end
 
   def any_linked

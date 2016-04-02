@@ -62,14 +62,7 @@ class Review < ActiveRecord::Base
   end
 
   def generate_topic
-    FayeService
-      .new(user, '')
-      .create!(Topics::EntryTopics::ReviewTopic.new(
-        forum_id: Topic::FORUM_IDS[self.class.name],
-        generated: true,
-        linked: self,
-        user: user
-      ))
+    Topics::Generate::UserTopic.call self, user
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target

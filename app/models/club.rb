@@ -144,18 +144,7 @@ private
   end
 
   def generate_topic
-    Topics::EntryTopics::ClubTopic.wo_timestamp do
-      FayeService
-        .new(owner, '')
-        .create!(Topics::EntryTopics::ClubTopic.new(
-          forum_id: Forum::CLUBS_ID,
-          generated: true,
-          linked: self,
-          created_at: created_at,
-          updated_at: updated_at,
-          user: owner
-        ))
-    end
+    Topics::Generate::UserTopic.call self, owner
   end
 
   def join_owner

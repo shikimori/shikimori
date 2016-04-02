@@ -18,26 +18,32 @@ FactoryGirl.define do
       anime.stub :update_news
       anime.stub :generate_name_matches
     end
+
     trait :with_callbacks do
       after :build do |anime|
         anime.unstub :check_status
         anime.unstub :update_news
       end
     end
-    trait :with_character do
-      after(:build) { |v| FactoryGirl.create :person_role, :character_role, anime: v }
-    end
-    trait :with_staff do
-      after(:build) { |v| FactoryGirl.create :person_role, :staff_role, anime: v }
-    end
+
     trait :with_topic do
-      after(:create) { |v| v.generate_topic }
+      after(:create) { |anime| anime.generate_topic }
     end
+
+    trait :with_character do
+      after(:build) { |anime| FactoryGirl.create :person_role, :character_role, anime: anime }
+    end
+
+    trait :with_staff do
+      after(:build) { |anime| FactoryGirl.create :person_role, :staff_role, anime: anime }
+    end
+
     trait :with_news do
-      after(:build) { |v| v.unstub :update_news }
+      after(:build) { |anime| anime.unstub :update_news }
     end
+
     trait :with_video do
-      after(:create) { |v| FactoryGirl.create :anime_video, anime: v }
+      after(:create) { |anime| FactoryGirl.create :anime_video, anime: anime }
     end
 
     Anime.kind.values.each do |kind_type|

@@ -26,28 +26,6 @@ class CommentsController < ShikimoriController
     @comment = Comment.find params[:id]
   end
 
-  def create
-    # if comment_params[:commentable_id].to_i == 152575 && !current_user.admin?
-      # return render json: ['Комментирование топика отключено'], status: :unprocessable_entity
-    # end
-
-    @comment = Comment.new comment_params.merge(user: current_user)
-
-    unless faye.create @comment
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
-
-    if faye.update @comment, comment_params.except(:is_offtopic, :is_summary)
-      render :create
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
-  end
-
   # динамическая подгрузка комментариев при скролле
   def postloader
     @limit = [[params[:limit].to_i, 1].max, 100].min

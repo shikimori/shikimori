@@ -10,7 +10,7 @@ describe TopicsQuery do
   describe '#by_forum' do
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
-    let!(:review) { create :review, updated_at: 10.days.ago }
+    let!(:review) { create :review, :with_topic, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_topic, updated_at: 15.days.ago, is_censored: true }
     let!(:other_club) { create :club, :with_topic, updated_at: 20.days.ago, is_censored: true }
     let!(:topic_ignore) { }
@@ -100,14 +100,23 @@ describe TopicsQuery do
       context 'censored not forbidden' do
         let(:is_censored_forbidden) { false }
         it do
-          is_expected.to eq [joined_club.topic, other_club.topic, joined_club_2.topic, other_club_2.topic]
+          is_expected.to eq [
+            joined_club.topic,
+            other_club.topic,
+            joined_club_2.topic,
+            other_club_2.topic
+          ]
         end
       end
 
       context 'censored forbidden' do
         let(:is_censored_forbidden) { true }
         it do
-          is_expected.to eq [joined_club.topic, joined_club_2.topic, other_club_2.topic]
+          is_expected.to eq [
+            joined_club.topic,
+            joined_club_2.topic,
+            other_club_2.topic
+          ]
         end
       end
     end

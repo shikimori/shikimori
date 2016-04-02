@@ -25,66 +25,6 @@ describe CommentsController do
     end
   end
 
-  describe '#create' do
-    before { sign_in user }
-
-    context 'success' do
-      let(:comment_params) do
-        {
-          commentable_id: topic.id,
-          commentable_type: 'Entry',
-          body: 'x' * Comment::MIN_SUMMARY_SIZE,
-          is_offtopic: true,
-          is_summary: true
-        }
-      end
-      before { post :create, comment: comment_params }
-
-      it do
-        expect(assigns(:comment)).to be_persisted
-        expect(assigns(:comment)).to have_attributes(comment_params)
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
-      end
-    end
-
-    context 'failure' do
-      before { post :create, comment: { body: 'test', is_offtopic: false, is_summary: false } }
-
-      it do
-        expect(response).to have_http_status 422
-        expect(response.content_type).to eq 'application/json'
-      end
-    end
-  end
-
-  describe '#edit' do
-    before { sign_in user }
-    before { get :edit, id: comment.id }
-
-    it { expect(response).to have_http_status :success }
-  end
-
-  describe '#update' do
-    before { sign_in user }
-    let(:make_request) { patch :update, id: comment.id, comment: { body: 'testzxc' } }
-
-    context 'success' do
-      before { make_request }
-
-      it do
-        expect(assigns(:comment).body).to eq 'testzxc'
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/json'
-      end
-    end
-
-    context 'forbidden' do
-      let(:comment) { create :comment, commentable: topic }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
-    end
-  end
-
   describe '#fetch' do
     let(:user) { build_stubbed :user }
     let(:topic) { create :entry, user: user }

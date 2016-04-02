@@ -1,6 +1,6 @@
 describe ReviewsController do
   let(:anime) { create :anime }
-  let(:review) { create :review, user: user, target: anime }
+  let(:review) { create :review, :with_topic, user: user, target: anime }
 
   describe '#index' do
     before { get :index, anime_id: anime.to_param, type: 'Anime' }

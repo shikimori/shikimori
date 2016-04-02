@@ -20,7 +20,7 @@ class Anime < DbEntry
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
 
-  # TODO: refacttor to postgres array
+  # TODO: refactor to postgres array
   serialize :english
   serialize :japanese
   serialize :synonyms

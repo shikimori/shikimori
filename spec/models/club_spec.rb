@@ -31,9 +31,17 @@ describe Club do
   end
 
   describe 'callbacks' do
-    let(:club) { build :club, :with_owner_join }
     before { club.save }
-    it { expect(club.joined? club.owner).to be true }
+
+    describe '#join_owner' do
+      let(:club) { build :club, :with_owner_join }
+      it { expect(club.joined? club.owner).to eq true }
+    end
+
+    describe '#generate_topic' do
+      let(:club) { build :club, :with_topic }
+      it { expect(club.topic).to be_present }
+    end
   end
 
   describe 'instance methods' do
