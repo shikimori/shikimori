@@ -50,7 +50,7 @@ class AnimeHistoryService
         end
 
       ActiveRecord::Base.transaction do
-        entry.update_column processed: true
+        entry.update_column :processed, true
         messages.each_slice(1000) { |slice| Message.import slice, validate: false }
       end
       messages.each { |message| message.send :send_push_notifications }
