@@ -5,6 +5,7 @@ class AnimeHistoryService
   # обрабатывает всю небработанную историю, отправляет уведомления пользователям
   def self.process
     entries = Entry
+      .includes(:user)
       .where.not(processed: true)
       .where('(type = ? and generated = true) or broadcast = true', Topics::NewsTopic.name)
       .order(:created_at)
@@ -13,14 +14,14 @@ class AnimeHistoryService
 
     users = User
       .includes(:devices, anime_rates: [:anime])
-      .references(:user_rates)#.where(id: 1)
+      .references(:user_rates)#.where(id: 1..1000)
       .where('user_rates.id is null or (user_rates.target_type = ? and user_rates.target_id in (?))',
               Anime.name, entries.map(&:linked_id))
       .to_a
 
     users += User
       .includes(:devices)
-      .where.not(id: users.map(&:id))#.where(id: 1)
+      .where.not(id: users.map(&:id))#.where(id: 1..1000)
       .each { |v| v.association(:anime_rates).loaded! }
       .uniq(&:id)
 
@@ -39,8 +40,8 @@ class AnimeHistoryService
         .select { |v| v.subscribed_for_event? entry }
         .map do |user|
           Message.new(
-            from_id: entry.user_id,
-            to_id: user.id,
+            from: entry.user,
+            to: user,
             body: nil,
             kind: message_type(entry),
             linked: entry,
@@ -50,7 +51,7 @@ class AnimeHistoryService
 
       ActiveRecord::Base.transaction do
         entry.update processed: true
-        messages.each_slice(1000) { |slice| Message.import slice }
+        messages.each_slice(1000) { |slice| Message.import slice, validate: false }
       end
       messages.each { |message| message.send :send_push_notifications }
     end
