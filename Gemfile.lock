@@ -518,6 +518,10 @@ GEM
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
     redis (3.2.2)
+    redis-classy (2.2.0)
+      redis-namespace (~> 1.0)
+    redis-mutex (4.0.0)
+      redis-classy (~> 2.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
     request_store (1.2.1)
@@ -758,6 +762,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   redis
+  redis-mutex
   redis-namespace
   responders
   retryable

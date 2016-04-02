@@ -57,6 +57,7 @@ gem 'pghero'
 gem 'sidekiq'
 gem 'sidekiq-unique-jobs'
 gem 'sidekiq-limit_fetch'
+gem 'redis-mutex'
 gem 'sinatra', '>= 1.3.0', require: nil
 
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих

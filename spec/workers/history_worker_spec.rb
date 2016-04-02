@@ -1,4 +1,5 @@
-describe AnimeHistoryService do
+describe HistoryWorker do
+  subject { HistoryWorker.new.perform }
   let!(:users) { create_list :user, 2, notifications: 0xFFFFFF }
 
   describe 'creates Message' do
@@ -6,23 +7,23 @@ describe AnimeHistoryService do
 
     it 'for Topic width broadcast: true' do
       create :topic, user: users.last, broadcast: true
-      expect{AnimeHistoryService.process}.to change(Message, :count).by User.count
+      expect{subject}.to change(Message, :count).by User.count
       expect(PushNotification).to_not have_received :perform_async
     end
 
     it 'for announced anime' do
       create :anime, :with_callbacks, :anons
-      expect{AnimeHistoryService.process}.to change(Message, :count).by users.size
+      expect{subject}.to change(Message, :count).by users.size
       expect(PushNotification).to_not have_received :perform_async
     end
 
     it 'for Episode of in-list anime' do
       anime = create :anime, status: :ongoing
-      AnimeHistoryService.process
+      HistoryWorker.new.perform
       create :user_rate, user: users.first, target: anime
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime, user: users.first
 
-      expect{AnimeHistoryService.process}.to change(Message, :count).by 1
+      expect{subject}.to change(Message, :count).by 1
       expect(PushNotification).to_not have_received :perform_async
     end
 
@@ -30,7 +31,7 @@ describe AnimeHistoryService do
       let!(:user) { create :user, notifications: 0xFFFFFF }
       let!(:device) { create :device, user: user }
       let!(:anime) { create :anime, :with_callbacks, :anons }
-      before { AnimeHistoryService.process }
+      before { subject }
 
       it { expect(PushNotification).to have_received(:perform_async).once }
     end
@@ -38,40 +39,40 @@ describe AnimeHistoryService do
 
   describe "doesn't create Message" do
     it 'for old news' do
-      create :topic, user: users.last, broadcast: true, created_at: DateTime.now - AnimeHistoryService::NewsExpireIn - 1.day
-      expect{AnimeHistoryService.process}.to_not change Message, :count
+      create :topic, user: users.last, broadcast: true, created_at: HistoryWorker::NEWS_EXPIRE_IN.ago - 1.day
+      expect{subject}.to_not change Message, :count
     end
 
     it 'for Topic width broadcast: false' do
       create :topic, user: users.last, broadcast: false
-      expect{AnimeHistoryService.process}.to_not change Message, :count
+      expect{subject}.to_not change Message, :count
     end
 
     it 'for censored anime' do
       create :anime, status: :anons, censored: true
-      expect{AnimeHistoryService.process}.to_not change Message, :count
+      expect{subject}.to_not change Message, :count
     end
 
     it 'for music anime' do
       create :anime, status: :anons, kind: 'music'
-      expect{AnimeHistoryService.process}.to_not change Message, :count
+      expect{subject}.to_not change Message, :count
     end
 
     it 'for Episode of not-in-list anime' do
       anime = create :anime, status: :ongoing
-      AnimeHistoryService.process
+      subject
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
-      expect{AnimeHistoryService.process}.to_not change Message, :count
+      expect{subject}.to_not change Message, :count
     end
 
     it 'for Episode of in-list dropped anime' do
       anime = create :anime, status: :ongoing
-      AnimeHistoryService.process
+      subject
       create :user_rate, :dropped, user: users.first, target: anime
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
-      expect{AnimeHistoryService.process}.to change(Message, :count).by 0
+      expect{subject}.to change(Message, :count).by 0
     end
   end
 end
