@@ -130,13 +130,13 @@ class Anime < DbEntry
     default_url: '/assets/globals/missing_:style.jpg'
 
   enumerize :kind,
-    in: [:tv, :movie, :ova, :ona, :special, :music],
+    in: %i(tv movie ova ona special music),
     predicates: { prefix: true }
   enumerize :origin,
-    in: [:original, :manga, :visual_novel, :game, :unknown, :picture_book, :'4_koma_manga']
+    in: %i(original manga visual_novel light_novel game unknown picture_book 4_koma_manga other)
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
   enumerize :rating,
-    in: [:none, :g, :pg, :pg_13, :r, :r_plus, :rx],
+    in: %i(none g pg pg_13 r r_plus rx),
     predicates: { prefix: true }
 
   validates :name, presence: true
