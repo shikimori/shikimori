@@ -143,8 +143,10 @@ class Anime < DbEntry
       visual_novel
       light_novel
       game
+      card_game
       music
       radio
+      book
       picture_book
       other
       unknown
