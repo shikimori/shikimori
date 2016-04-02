@@ -5,7 +5,7 @@ class BaseMalParser < SiteParserWithCache
 
   EntriesPerPage = 50
   RelatedAdaptationName = "Adaptation"
-  THREADS = 1
+  THREADS = 50
 
   # инициализация кеша
   def load_cache
