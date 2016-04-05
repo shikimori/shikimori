@@ -484,7 +484,15 @@ describe AnimeVideo do
 
       context 'video created long ago' do
         let(:created_at) { 1.week.ago - 1.day }
-        it { is_expected.to_not be_able_to :destroy, video }
+
+        context 'api video uploader' do
+          let(:user) { create :user, :api_video_uploader }
+          it { is_expected.to be_able_to :destroy, video }
+        end
+
+        context 'not api video uploader' do
+          it { is_expected.to_not be_able_to :destroy, video }
+        end
       end
 
       context 'video created not long ago' do

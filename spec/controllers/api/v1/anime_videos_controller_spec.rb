@@ -65,4 +65,18 @@ describe Api::V1::AnimeVideosController do
       expect(response.content_type).to eq 'application/json'
     end
   end
+
+  describe '#destroy' do
+    include_context :authenticated, :api_video_uploader
+    let(:video) { create :anime_video, anime: anime }
+    let!(:upload_report) { create :anime_video_report, anime_video: video, kind: 'uploaded', user: user }
+
+    before { delete :destroy, anime_id: anime.id, id: video.id, format: :json }
+
+    it do
+      expect(resource).to be_destroyed
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

@@ -172,7 +172,8 @@ class Ability
     end
     can [:destroy], AnimeVideo do |anime_video|
       !@user.banned? &&
-        (anime_video.uploader == @user && anime_video.created_at > 1.week.ago)
+        (anime_video.uploader == @user && (
+          @user.api_video_uploader? || anime_video.created_at > 1.week.ago))
     end
 
     can [:create, :destroy], Version do |version|

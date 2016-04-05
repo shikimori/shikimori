@@ -3,7 +3,7 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
   before_action :fetch_anime
 
   before_filter :authenticate_user!, only: [:index]
-  load_and_authorize_resource only: [:create]
+  load_and_authorize_resource only: [:create, :destroy]
 
   RYUTER_TOKEN = 'b904f15dbd33a8d8ada48a2895c9de00ce91d6268651d798'
 
@@ -29,6 +29,11 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
     create_params['state'] = 'uploaded'
     @resource = AnimeVideosService.new(create_params).create(current_user)
     respond_with @resource
+  end
+
+  def destroy
+    @resource.destroy
+    head 200
   end
 
 private
