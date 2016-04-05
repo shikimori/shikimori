@@ -9,9 +9,10 @@ header.head.misc
 
   p.notice.clearfix = t '.list_of_all_clubs'
 
-.subheadline.m10 = t '.favourite'
-.b-clubs.index
-  = render @favourite, content_by: :detailed
+- if @favourite
+  .subheadline.m10 = t '.favourite'
+  .b-clubs.index
+    = render @favourite, content_by: :detailed
 
 .b-clubs.index
   = render @collection, content_by: :detailed
