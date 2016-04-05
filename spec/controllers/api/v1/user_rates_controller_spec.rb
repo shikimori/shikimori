@@ -14,9 +14,9 @@ describe Api::V1::UserRatesController do
       end
 
       it do
+        expect(resource).to have_attributes create_params.except(:status)
+        expect(resource.status).to eq 'watching'
         expect(response).to have_http_status :created
-        expect(assigns :user_rate).to have_attributes create_params.except(:status)
-        expect(assigns(:user_rate).status).to eq 'watching'
       end
     end
   end
@@ -30,9 +30,9 @@ describe Api::V1::UserRatesController do
       before { post :create, user_rate: create_params, format: :json }
 
       it do
+        expect(resource).to have_attributes create_params.except(:status)
+        expect(resource.status).to eq 'watching'
         expect(response).to have_http_status :created
-        expect(assigns :user_rate).to have_attributes create_params.except(:status)
-        expect(assigns(:user_rate).status).to eq 'watching'
       end
     end
 
@@ -42,9 +42,9 @@ describe Api::V1::UserRatesController do
       before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
       it do
+        expect(resource).to have_attributes update_params.except(:status)
+        expect(resource.status).to eq 'watching'
         expect(response).to have_http_status :success
-        expect(assigns :user_rate).to have_attributes update_params.except(:status)
-        expect(assigns(:user_rate).status).to eq 'watching'
       end
     end
 
@@ -53,8 +53,8 @@ describe Api::V1::UserRatesController do
       before { post :increment, id: user_rate.id, format: :json }
 
       it do
+        expect(resource.episodes).to eq user_rate.episodes + 1
         expect(response).to have_http_status :created
-        expect(assigns(:user_rate).episodes).to eq user_rate.episodes + 1
       end
     end
 
@@ -63,8 +63,8 @@ describe Api::V1::UserRatesController do
       before { delete :destroy, id: user_rate.id, format: :json }
 
       it do
+        expect(resource).to be_new_record
         expect(response).to have_http_status :no_content
-        expect(assigns(:user_rate)).to be_new_record
       end
     end
 

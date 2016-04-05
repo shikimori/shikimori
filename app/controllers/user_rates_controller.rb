@@ -8,6 +8,7 @@ class UserRatesController < ProfilesController
 
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
 
+
   def index
     noindex
 
@@ -21,46 +22,48 @@ class UserRatesController < ProfilesController
   end
 
   def create
-    if (@user_rate.save rescue PG::Error)
-      render partial: 'user_rate',
-        locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
-        formats: :html
-    else
-      render json: @user_rate.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    fail NotSaved unless @resource.save
+    render(
+      partial: 'user_rate',
+      locals: { user_rate: @resource.decorate, entry: @resource.target },
+      formats: :html
+    )
+
+  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
+    render json: @resource.errors.full_messages, status: :unprocessable_entity
   end
 
   def edit
   end
 
   def update
-    if @user_rate.update update_params
-      render partial: 'user_rate',
-        locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
-        formats: :html
-    else
-      render json: @user_rate.errors.full_messages,
-        status: :unprocessable_entity
-    end
+    fail NotSaved unless @resource.update update_params
+    render(
+      partial: 'user_rate',
+      locals: { user_rate: @resource.decorate, entry: @resource.target },
+      formats: :html
+    )
+
+  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
+    render json: @resource.errors.full_messages, status: :unprocessable_entity
   end
 
   def increment
-    if @user_rate.anime?
-      @user_rate.update episodes: @user_rate.episodes + 1
+    if @resource.anime?
+      @resource.update episodes: @resource.episodes + 1
     else
-      @user_rate.update chapters: @user_rate.chapters + 1
+      @resource.update chapters: @resource.chapters + 1
     end
 
     render partial: 'user_rate',
-      locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+      locals: { user_rate: @resource.decorate, entry: @resource.target },
       formats: :html
   end
 
   def destroy
-    @user_rate.destroy!
+    @resource.destroy!
     render partial: 'user_rate',
-      locals: { user_rate: @user_rate.decorate, entry: @user_rate.target },
+      locals: { user_rate: @resource.decorate, entry: @resource.target },
       formats: :html
   end
 

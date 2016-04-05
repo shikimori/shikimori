@@ -17,6 +17,40 @@ describe UserRatesController do
     end
   end
 
+  describe '#create' do
+    let(:target) { create :anime }
+    let(:create_params) do
+      {
+        user_id: user.id,
+        target_id: target.id,
+        target_type: target.class.name,
+        score: 10,
+        status: 1,
+        episodes: 2,
+        volumes: 3,
+        chapters: 4,
+        text: 'test',
+        rewatches: rewatches
+      }
+    end
+    let(:rewatches) { 5 }
+    before { post :create, user_rate: create_params, format: :json }
+
+    it do
+      expect(resource.user_id).to eq create_params[:user_id]
+      expect(resource.target_id).to eq create_params[:target_id]
+      expect(resource.target_type).to eq create_params[:target_type]
+      expect(resource.score).to eq create_params[:score]
+      expect(resource[:status]).to eq create_params[:status]
+      expect(resource.episodes).to eq create_params[:episodes]
+      expect(resource.volumes).to eq create_params[:volumes]
+      expect(resource.chapters).to eq create_params[:chapters]
+      expect(resource.text).to eq create_params[:text]
+      expect(resource.rewatches).to eq create_params[:rewatches]
+      expect(response).to have_http_status :success
+    end
+  end
+
   describe '#edit' do
     let(:user_rate) { create :user_rate, user: user }
     before { get :edit, id: user_rate.id }
@@ -24,34 +58,25 @@ describe UserRatesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#destroy' do
-    let(:user_rate) { create :user_rate, user: user }
-    before { delete :destroy, id: user_rate.id, format: :json }
+  describe '#update', :focus do
+    let(:user_rate) { create :user_rate, user: user, episodes: 1 }
+    before { post :update, id: user_rate.id, user_rate: update_params, format: :json }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(assigns(:user_rate)).to be_destroyed }
-  end
+    context 'valid params' do
+      let(:update_params) {{ episodes: 2 }}
+      it do
+        expect(resource.episodes).to eq 2
+        expect(resource).to_not be_changed
+        expect(response).to have_http_status :success
+      end
+    end
 
-  describe '#create' do
-    let(:target) { create :anime }
-    let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
-    before { post :create, user_rate: create_params, format: :json }
-
-    it { expect(response).to have_http_status :success }
-
-    describe 'user_rate' do
-      subject { assigns :user_rate }
-
-      its(:user_id) { should eq create_params[:user_id] }
-      its(:target_id) { should eq create_params[:target_id] }
-      its(:target_type) { should eq create_params[:target_type] }
-      its(:score) { should eq create_params[:score] }
-      its([:status]) { should eq create_params[:status] }
-      its(:episodes) { should eq create_params[:episodes] }
-      its(:volumes) { should eq create_params[:volumes] }
-      its(:chapters) { should eq create_params[:chapters] }
-      its(:text) { should eq create_params[:text] }
-      its(:rewatches) { should eq create_params[:rewatches] }
+    context 'invalid params' do
+      let(:update_params) {{ rewatches: 9999999999999999999999999999999992 }}
+      it do
+        expect(resource).to be_changed
+        expect(response).to have_http_status 422
+      end
     end
   end
 
@@ -59,11 +84,19 @@ describe UserRatesController do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :increment, id: user_rate.id, format: :json }
 
-    it { expect(response).to have_http_status :success }
+    it do
+      expect(resource.episodes).to eq user_rate.episodes + 1
+      expect(response).to have_http_status :success
+    end
+  end
 
-    describe 'user_rate' do
-      subject { assigns :user_rate }
-      its(:episodes) { should eq user_rate.episodes + 1 }
+  describe '#destroy' do
+    let(:user_rate) { create :user_rate, user: user }
+    before { delete :destroy, id: user_rate.id, format: :json }
+
+    it do
+      expect(resource).to be_destroyed
+      expect(response).to have_http_status :success
     end
   end
 
@@ -73,8 +106,10 @@ describe UserRatesController do
 
     context 'has access' do
       before { make_request }
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/xml' }
+      it do
+        expect(response).to have_http_status :success
+        expect(response.content_type).to eq 'application/xml'
+      end
     end
 
     context 'has no access' do
@@ -127,33 +162,33 @@ describe UserRatesController do
       end
     end
 
-    context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' } do
-      let!(:anime_1) { create :anime, name: 'Black Bullet' }
-      let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
-      let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
-      let!(:anime_4) { create :anime, name: 'Naruto: Shippuuden' }
+    # context 'anime_planet', vcr: { cassette_name: 'anime_planet_import' } do
+      # let!(:anime_1) { create :anime, name: 'Black Bullet' }
+      # let!(:anime_2) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2007-01-01') }
+      # let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
+      # let!(:anime_4) { create :anime, name: 'Naruto: Shippuuden' }
 
-      let(:import_params) {{
-        profile_id: user.to_param,
-        klass: 'anime',
-        rewrite: true,
-        list_type: :anime_planet,
-        wont_watch_strategy: 'dropped',
-        login: 'shikitest'
-      }}
+      # let(:import_params) {{
+        # profile_id: user.to_param,
+        # klass: 'anime',
+        # rewrite: true,
+        # list_type: :anime_planet,
+        # wont_watch_strategy: 'dropped',
+        # login: 'shikitest'
+      # }}
 
-      before { NameMatches::Refresh.new.perform Anime.name }
-      before { post :import, import_params }
+      # before { NameMatches::Refresh.new.perform Anime.name }
+      # before { post :import, import_params }
 
-      it 'imports data' do
-        expect(response).to redirect_to index_profile_messages_url(user, :notifications)
-        expect(user.reload.anime_rates.size).to eq(3)
+      # it 'imports data' do
+        # expect(response).to redirect_to index_profile_messages_url(user, :notifications)
+        # expect(user.reload.anime_rates.size).to eq(3)
 
-        expect(assigns(:added).size).to eq(3)
-        expect(assigns(:updated).size).to eq(0)
-        expect(assigns(:not_imported).size).to eq(3)
-      end
-    end
+        # expect(assigns(:added).size).to eq(3)
+        # expect(assigns(:updated).size).to eq(0)
+        # expect(assigns(:not_imported).size).to eq(3)
+      # end
+    # end
 
     context 'xml' do
       let(:manga_1) { create :manga, name: "07 Ghost" }

@@ -5,6 +5,8 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   CREATE_PARAMS = [:target_id, :target_type, :user_id, :status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
   UPDATE_PARAMS = [:status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
 
+  ALLOWED_EXCEPTIONS = [PG::Error, RangeError]
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates', 'Create an user rate'
   param :user_rate, Hash do
@@ -20,8 +22,11 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def create
-    @user_rate.save rescue PG::Error
-    respond_with @user_rate, location: nil
+    @resource.save
+
+  rescue *ALLOWED_EXCEPTIONS
+  ensure
+    respond_with @resource, location: nil
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -37,27 +42,30 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def update
-    @user_rate.update update_params
-    respond_with @user_rate, location: nil
+    @resource.update update_params
+
+  rescue *ALLOWED_EXCEPTIONS
+  ensure
+    respond_with @resource, location: nil
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates/:id/increment'
   def increment
-    if @user_rate.anime?
-      @user_rate.update episodes: (params[:episodes] || @user_rate.episodes) + 1
+    if @resource.anime?
+      @resource.update episodes: (params[:episodes] || @resource.episodes) + 1
     else
-      @user_rate.update chapters: (params[:chapters] || @user_rate.chapters) + 1
+      @resource.update chapters: (params[:chapters] || @resource.chapters) + 1
     end
 
-    respond_with @user_rate
+    respond_with @resource
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/user_rates/:id', 'Destroy an user rate'
   def destroy
-    @user_rate.destroy!
-    respond_with @user_rate, location: nil
+    @resource.destroy!
+    respond_with @resource, location: nil
   end
 
   # очистка списка и истории
