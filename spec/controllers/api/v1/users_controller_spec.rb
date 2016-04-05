@@ -150,10 +150,22 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#bans' do
-    let(:user) { create :user }
     let!(:ban) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
-
     before { get :bans, id: user.id, format: :json }
-    it { expect(response).to have_http_status :success }
+
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#anime_video_reports' do
+    let!(:anime_video_report) { create :anime_video_report, user: user }
+    before { get :anime_video_reports, id: user.id, format: :json }
+
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+    end
   end
 end

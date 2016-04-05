@@ -129,7 +129,23 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   api :GET, '/users/:id/bans', "Show user's bans"
   def bans
-    respond_with user.bans.reverse
+    @collection = user.bans.reverse
+    respond_with @collection
+  end
+
+  api :GET, '/users/:id/anime_video_reports', "Show user's uploaded videos"
+  def anime_video_reports
+    @limit = [[params[:limit].to_i, 1].max, 2000].min
+    @page = [params[:page].to_i, 1].max
+
+    @collection = postload_paginate(@page, @limit) do
+      AnimeVideoReport
+        .where(user: user)
+        .includes(:user, anime_video: :author)
+        .order(id: :desc)
+    end
+
+    respond_with @collection
   end
 
 private

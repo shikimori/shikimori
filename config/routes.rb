@@ -243,6 +243,7 @@ Site::Application.routes.draw do
           get :anime_rates
           get :manga_rates
           get :bans
+          get :anime_video_reports
         end
       end
 
