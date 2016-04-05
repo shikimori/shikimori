@@ -58,7 +58,7 @@ describe UserRatesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#update', :focus do
+  describe '#update' do
     let(:user_rate) { create :user_rate, user: user, episodes: 1 }
     before { post :update, id: user_rate.id, user_rate: update_params, format: :json }
 
