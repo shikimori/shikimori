@@ -133,7 +133,8 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with @collection
   end
 
-  api :GET, '/users/:id/anime_video_reports', "Show user's uploaded videos"
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/users/:id/anime_video_reports'
   def anime_video_reports
     @limit = [[params[:limit].to_i, 1].max, 2000].min
     @page = [params[:page].to_i, 1].max

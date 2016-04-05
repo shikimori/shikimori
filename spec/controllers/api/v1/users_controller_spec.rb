@@ -161,7 +161,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#anime_video_reports' do
     let!(:anime_video_report) { create :anime_video_report, user: user }
-    before { get :anime_video_reports, id: user.id, format: :json }
+    before { get :anime_video_reports, id: user.id, page: 1, limit: 1, format: :json }
 
     it do
       expect(collection).to have(1).item
