@@ -7,7 +7,7 @@ class PushNotification
     device = Device.find_by id: device_id
 
     return unless message && device
-    return if message.read
+    # return if message.read
 
     gcm.send_notification(
       [device.token],
@@ -27,11 +27,10 @@ private
     {
       action: message.kind.to_underscore,
       msgTitle: nil,
-      msgBody: message.body,
+      msgBody: (message.body[0..199] if message.body),
       params: {
         message_id: message.id,
         from: UserSerializer.new(message.from).attributes,
-        html_body: message.generate_body
       }
     }
   end
