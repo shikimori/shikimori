@@ -39,7 +39,7 @@
   "anime_videos#create": [
     {
       "verb": "POST",
-      "path": "/api/animes/28/anime_videos",
+      "path": "/api/animes/17/anime_videos",
       "versions": [
         "1"
       ],
@@ -54,12 +54,12 @@
           "source": "http://url-for-page-where-you-got-video",
           "language": "russian",
           "quality": "bd",
-          "anime_id": 28
+          "anime_id": 17
         }
       },
       "response_data": {
-        "id": 2,
-        "anime_id": 28,
+        "id": 3,
+        "anime_id": 17,
         "url": "http://smotret-anime.ru/translations/embed/758598",
         "source": "http://url-for-page-where-you-got-video",
         "episode": 3,
@@ -77,7 +77,7 @@
   "animes#franchise": [
     {
       "verb": "GET",
-      "path": "/api/animes/48/franchise",
+      "path": "/api/animes/19/franchise",
       "versions": [
         "1"
       ],
@@ -94,21 +94,21 @@
         ],
         "nodes": [
           {
-            "id": 49,
-            "date": 1459857466,
-            "name": "anime_46",
+            "id": 20,
+            "date": 1460021985,
+            "name": "anime_20",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "//test.host/animes/49-anime_46",
+            "url": "//test.host/animes/20-anime_20",
             "year": null,
             "kind": "TV Сериал",
             "weight": 0
           },
           {
-            "id": 48,
-            "date": 1459857466,
-            "name": "anime_45",
+            "id": 19,
+            "date": 1460021985,
+            "name": "anime_19",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "//test.host/animes/48-anime_45",
+            "url": "//test.host/animes/19-anime_19",
             "year": null,
             "kind": "TV Сериал",
             "weight": 1
@@ -127,11 +127,11 @@
       "versions": [
         "1"
       ],
-      "query": "duration=F&genre=3&limit=1&mylist=1&order=ranked&page=1&rating=r&score=6&search=Te&season=2014&studio=2&type=TV",
+      "query": "duration=F&genre=2&limit=1&mylist=1&order=ranked&page=1&rating=r&score=6&search=Te&season=2014&studio=1&type=TV",
       "request_data": null,
       "response_data": [
         {
-          "id": 47,
+          "id": 22,
           "name": "Test",
           "russian": null,
           "image": {
@@ -140,7 +140,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/47-test",
+          "url": "/animes/22-test",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -157,7 +157,7 @@
   "animes#related": [
     {
       "verb": "GET",
-      "path": "/api/animes/52/related",
+      "path": "/api/animes/25/related",
       "versions": [
         "1"
       ],
@@ -168,8 +168,8 @@
           "relation": "Adaptation",
           "relation_russian": "Адаптация",
           "anime": {
-            "id": 53,
-            "name": "anime_50",
+            "id": 26,
+            "name": "anime_25",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -177,7 +177,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/53-anime_50",
+            "url": "/animes/26-anime_25",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -196,7 +196,7 @@
   "animes#roles": [
     {
       "verb": "GET",
-      "path": "/api/animes/41/roles",
+      "path": "/api/animes/30/roles",
       "versions": [
         "1"
       ],
@@ -212,15 +212,15 @@
           ],
           "character": null,
           "person": {
-            "id": 10,
-            "name": "person_8",
+            "id": 9,
+            "name": "person_7",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/people/10-person_8"
+            "url": "/people/9-person_7"
           }
         },
         {
@@ -231,16 +231,16 @@
             "Main"
           ],
           "character": {
-            "id": 8,
-            "name": "character_6",
-            "russian": "персонаж_8",
+            "id": 4,
+            "name": "character_4",
+            "russian": "персонаж_4",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/8-character_6"
+            "url": "/characters/4-character_4"
           },
           "person": null
         }
@@ -253,7 +253,7 @@
   "animes#screenshots": [
     {
       "verb": "GET",
-      "path": "/api/animes/43/screenshots",
+      "path": "/api/animes/27/screenshots",
       "versions": [
         "1"
       ],
@@ -261,8 +261,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/d9c0124d226831074178497c344e67a57e0f5c60.jpg?1459857465",
-          "preview": "/system/screenshots/x332/d9c0124d226831074178497c344e67a57e0f5c60.jpg?1459857465"
+          "original": "/system/screenshots/original/ce7d679cf71873050a48d87099c9bf96f14ad26f.jpg?1460021986",
+          "preview": "/system/screenshots/x332/ce7d679cf71873050a48d87099c9bf96f14ad26f.jpg?1460021986"
         }
       ],
       "code": "200",
@@ -281,7 +281,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 44,
+          "id": 28,
           "name": "asdf",
           "russian": null,
           "image": {
@@ -290,7 +290,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/44-asdf",
+          "url": "/animes/28-asdf",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -307,15 +307,15 @@
   "animes#show": [
     {
       "verb": "GET",
-      "path": "/api/animes/46",
+      "path": "/api/animes/21",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 46,
-        "name": "anime_44",
+        "id": 21,
+        "name": "anime_21",
         "russian": null,
         "image": {
           "original": "/assets/globals/missing_original.jpg",
@@ -323,7 +323,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/animes/46-anime_44",
+        "url": "/animes/21-anime_21",
         "kind": "tv",
         "ongoing": null,
         "anons": null,
@@ -347,10 +347,10 @@
         "description": "",
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "favoured": false,
-        "thread_id": 99,
-        "topic_id": 99,
+        "thread_id": 43,
+        "topic_id": 43,
         "world_art_id": 0,
-        "myanimelist_id": 46,
+        "myanimelist_id": 21,
         "ani_db_id": 0,
         "rates_scores_stats": [
 
@@ -358,7 +358,7 @@
         "rates_statuses_stats": [
 
         ],
-        "updated_at": "2016-04-05T14:57:45.794+03:00",
+        "updated_at": "2016-04-07T12:39:45.857+03:00",
         "genres": [
 
         ],
@@ -381,7 +381,7 @@
   "animes#similar": [
     {
       "verb": "GET",
-      "path": "/api/animes/50/similar",
+      "path": "/api/animes/23/similar",
       "versions": [
         "1"
       ],
@@ -389,8 +389,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 51,
-          "name": "anime_48",
+          "id": 24,
+          "name": "anime_23",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -398,7 +398,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/51-anime_48",
+          "url": "/animes/24-anime_23",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -415,7 +415,7 @@
   "animes#videos": [
     {
       "verb": "GET",
-      "path": "/api/animes/54/videos",
+      "path": "/api/animes/18/videos",
       "versions": [
         "1"
       ],
@@ -426,7 +426,7 @@
           "id": 1,
           "url": "http://youtube.com/watch?v=VdwKZ6JDENc",
           "image_url": "http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg",
-          "player_url": "http://img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg",
+          "player_url": "http://youtube.com/embed/VdwKZ6JDENc",
           "name": null,
           "kind": "OP",
           "hosting": "youtube"
@@ -446,7 +446,7 @@
       ],
       "query": null,
       "request_data": {
-        "ids": "comment-12,comment-13,entry-72"
+        "ids": "comment-12,comment-13,entry-83"
       },
       "response_data": null,
       "code": "200",
@@ -464,7 +464,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "jWOQVWWz3kWwxMwNoFk+wgRytXiw3xNFNSeWnm6K4tql2lSXKRPCjTCZsnZAPvaQXlabhlGOCaZTOFXoLfgz3A=="
+        "authenticity_token": "2/K4mMze0pGCt7OF//BNPDf7ks/5TGaOG9dITLRNgf1GohYEfDixlEru51Mqq1eLEZ2EJeTgDnUuLBZrCruTXA=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -482,16 +482,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "user_id": 3,
+          "id": 3,
+          "user_id": 45,
           "comment": null,
-          "moderator_id": 3,
+          "moderator_id": 45,
           "reason": "moderator comment",
-          "created_at": "2016-04-05T14:57:40.515+03:00",
+          "created_at": "2016-04-07T12:39:49.921+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 3,
-            "nickname": "user_32",
+            "id": 45,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -502,11 +502,11 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "moderator": {
-            "id": 3,
-            "nickname": "user_32",
+            "id": 45,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -517,30 +517,30 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         },
         {
-          "id": 1,
-          "user_id": 3,
+          "id": 2,
+          "user_id": 45,
           "comment": {
-            "id": 11,
+            "id": 14,
             "commentable_id": 78643875,
             "commentable_type": "Entry",
-            "body": "comment_body_8\n\n[ban=1]",
-            "user_id": 3,
-            "created_at": "2016-04-05T14:57:40.454+03:00",
-            "updated_at": "2016-04-05T14:57:40.512+03:00",
+            "body": "comment_body_11\n\n[ban=2]",
+            "user_id": 45,
+            "created_at": "2016-04-07T12:39:49.903+03:00",
+            "updated_at": "2016-04-07T12:39:49.918+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
-          "moderator_id": 3,
+          "moderator_id": 45,
           "reason": "moderator comment",
-          "created_at": "2016-04-05T14:57:40.479+03:00",
+          "created_at": "2016-04-07T12:39:49.908+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 3,
-            "nickname": "user_32",
+            "id": 45,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -551,11 +551,11 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "moderator": {
-            "id": 3,
-            "nickname": "user_32",
+            "id": 45,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -566,7 +566,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         }
       ],
@@ -587,11 +587,11 @@
       "response_data": [
         {
           "next_episode": 1,
-          "next_episode_at": "2016-04-04T00:00:00.000+00:00",
+          "next_episode_at": "2016-04-06T00:00:00.000+00:00",
           "duration": null,
           "anime": {
-            "id": 6,
-            "name": "anime_6",
+            "id": 48,
+            "name": "anime_45",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -599,7 +599,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/6-anime_6",
+            "url": "/animes/48-anime_45",
             "kind": "tv",
             "ongoing": true,
             "anons": false,
@@ -610,11 +610,11 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2016-04-12T00:00:00.000+00:00",
+          "next_episode_at": "2016-04-14T00:00:00.000+00:00",
           "duration": null,
           "anime": {
-            "id": 12,
-            "name": "anime_12",
+            "id": 54,
+            "name": "anime_51",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -622,7 +622,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/12-anime_12",
+            "url": "/animes/54-anime_51",
             "kind": "tv",
             "ongoing": false,
             "anons": true,
@@ -633,11 +633,11 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2016-04-19T00:00:00.000+00:00",
+          "next_episode_at": "2016-04-21T00:00:00.000+00:00",
           "duration": null,
           "anime": {
-            "id": 10,
-            "name": "anime_10",
+            "id": 52,
+            "name": "anime_49",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -645,7 +645,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/10-anime_10",
+            "url": "/animes/52-anime_49",
             "kind": "tv",
             "ongoing": false,
             "anons": true,
@@ -656,11 +656,11 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2016-04-19T00:00:00.000+00:00",
+          "next_episode_at": "2016-04-21T00:00:00.000+00:00",
           "duration": null,
           "anime": {
-            "id": 11,
-            "name": "anime_11",
+            "id": 53,
+            "name": "anime_50",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -668,7 +668,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/11-anime_11",
+            "url": "/animes/53-anime_50",
             "kind": "tv",
             "ongoing": false,
             "anons": true,
@@ -694,16 +694,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
+          "id": 5,
           "name": "asdf",
-          "russian": "персонаж_2",
+          "russian": "персонаж_5",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/characters/2-asdf"
+          "url": "/characters/5-asdf"
         }
       ],
       "code": "200",
@@ -714,31 +714,31 @@
   "characters#show": [
     {
       "verb": "GET",
-      "path": "/api/characters/4",
+      "path": "/api/characters/7",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 4,
-        "name": "character_2",
-        "russian": "персонаж_4",
+        "id": 7,
+        "name": "character_5",
+        "russian": "персонаж_7",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/characters/4-character_2",
+        "url": "/characters/7-character_5",
         "altname": null,
         "japanese": null,
         "description": "",
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "favoured": false,
-        "thread_id": 61,
-        "topic_id": 61,
-        "updated_at": "2016-04-05T14:57:40.356+03:00",
+        "thread_id": 59,
+        "topic_id": 59,
+        "updated_at": "2016-04-07T12:39:47.471+03:00",
         "seyu": [
 
         ],
@@ -757,7 +757,7 @@
   "clubs#animes": [
     {
       "verb": "GET",
-      "path": "/api/clubs/9/animes",
+      "path": "/api/clubs/4/animes",
       "versions": [
         "1"
       ],
@@ -765,8 +765,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 29,
-          "name": "anime_29",
+          "id": 11,
+          "name": "anime_11",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -774,7 +774,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/29-anime_29",
+          "url": "/animes/11-anime_11",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -791,7 +791,7 @@
   "clubs#characters": [
     {
       "verb": "GET",
-      "path": "/api/clubs/1/characters",
+      "path": "/api/clubs/7/characters",
       "versions": [
         "1"
       ],
@@ -799,16 +799,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 5,
+          "id": 3,
           "name": "character_3",
-          "russian": "персонаж_5",
+          "russian": "персонаж_3",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/characters/5-character_3"
+          "url": "/characters/3-character_3"
         }
       ],
       "code": "200",
@@ -819,7 +819,7 @@
   "clubs#images": [
     {
       "verb": "GET",
-      "path": "/api/clubs/7/images",
+      "path": "/api/clubs/3/images",
       "versions": [
         "1"
       ],
@@ -828,9 +828,9 @@
       "response_data": [
         {
           "id": 1,
-          "original": "/system/images/original/1.jpg?1459857461",
-          "main": "/system/images/main/1.jpg?1459857461",
-          "preview": "/system/images/preview/1.jpg?1459857461"
+          "original": "/system/images/original/1.jpg?1460021983",
+          "main": "/system/images/main/1.jpg?1460021983",
+          "preview": "/system/images/preview/1.jpg?1460021983"
         }
       ],
       "code": "200",
@@ -849,28 +849,28 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
-          "name": "club_4",
+          "id": 11,
+          "name": "club_11",
           "logo": {
-            "original": "/assets/globals/missing_original.jpg",
-            "main": "/assets/globals/missing_main.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x73": "/assets/globals/missing_x73.jpg",
-            "x48": "/assets/globals/missing_x48.jpg"
+            "original": "/assets/globals/missing_original_original.jpg",
+            "main": "/assets/globals/missing_main_main.jpg",
+            "x96": "/assets/globals/missing_x96_x96.jpg",
+            "x73": "/assets/globals/missing_x73_x73.jpg",
+            "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
           "join_policy": "free_join",
           "comment_policy": "free_comment"
         },
         {
-          "id": 3,
-          "name": "club_3",
+          "id": 10,
+          "name": "club_10",
           "logo": {
-            "original": "/assets/globals/missing_original.jpg",
-            "main": "/assets/globals/missing_main.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x73": "/assets/globals/missing_x73.jpg",
-            "x48": "/assets/globals/missing_x48.jpg"
+            "original": "/assets/globals/missing_original_original.jpg",
+            "main": "/assets/globals/missing_main_main.jpg",
+            "x96": "/assets/globals/missing_x96_x96.jpg",
+            "x73": "/assets/globals/missing_x73_x73.jpg",
+            "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
           "join_policy": "free_join",
@@ -885,7 +885,7 @@
   "clubs#join": [
     {
       "verb": "POST",
-      "path": "/api/clubs/6/join",
+      "path": "/api/clubs/8/join",
       "versions": [
         "1"
       ],
@@ -901,7 +901,7 @@
   "clubs#leave": [
     {
       "verb": "POST",
-      "path": "/api/clubs/5/leave",
+      "path": "/api/clubs/6/leave",
       "versions": [
         "1"
       ],
@@ -917,7 +917,7 @@
   "clubs#mangas": [
     {
       "verb": "GET",
-      "path": "/api/clubs/2/mangas",
+      "path": "/api/clubs/9/mangas",
       "versions": [
         "1"
       ],
@@ -925,16 +925,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 14,
-          "name": "manga_11",
-          "russian": "манга_14",
+          "id": 4,
+          "name": "manga_4",
+          "russian": "манга_4",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/14-manga_11",
+          "url": "/mangas/4-manga_4",
           "ongoing": null,
           "anons": null,
           "status": null,
@@ -950,7 +950,7 @@
   "clubs#members": [
     {
       "verb": "GET",
-      "path": "/api/clubs/8/members",
+      "path": "/api/clubs/2/members",
       "versions": [
         "1"
       ],
@@ -958,8 +958,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 15,
-          "nickname": "user_48",
+          "id": 23,
+          "nickname": "user_12",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -970,7 +970,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       ],
       "code": "200",
@@ -981,21 +981,21 @@
   "clubs#show": [
     {
       "verb": "GET",
-      "path": "/api/clubs/10",
+      "path": "/api/clubs/5",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 10,
-        "name": "club_10",
+        "id": 5,
+        "name": "club_5",
         "logo": {
-          "original": "/assets/globals/missing_original.jpg",
-          "main": "/assets/globals/missing_main.jpg",
-          "x96": "/assets/globals/missing_x96.jpg",
-          "x73": "/assets/globals/missing_x73.jpg",
-          "x48": "/assets/globals/missing_x48.jpg"
+          "original": "/assets/globals/missing_original_original.jpg",
+          "main": "/assets/globals/missing_main_main.jpg",
+          "x96": "/assets/globals/missing_x96_x96.jpg",
+          "x73": "/assets/globals/missing_x73_x73.jpg",
+          "x48": "/assets/globals/missing_x48_x48.jpg"
         },
         "is_censored": false,
         "join_policy": "free_join",
@@ -1004,16 +1004,16 @@
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "mangas": [
           {
-            "id": 15,
-            "name": "manga_12",
-            "russian": "манга_15",
+            "id": 3,
+            "name": "manga_3",
+            "russian": "манга_3",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/15-manga_12",
+            "url": "/mangas/3-manga_3",
             "ongoing": null,
             "anons": null,
             "status": null,
@@ -1023,25 +1023,25 @@
         ],
         "characters": [
           {
-            "id": 6,
-            "name": "character_4",
-            "russian": "персонаж_6",
+            "id": 2,
+            "name": "character_2",
+            "russian": "персонаж_2",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/6-character_4"
+            "url": "/characters/2-character_2"
           }
         ],
-        "thread_id": 68,
-        "topic_id": 68,
+        "thread_id": 22,
+        "topic_id": 22,
         "user_role": "member",
         "members": [
           {
-            "id": 23456822,
-            "nickname": "user_50",
+            "id": 23456790,
+            "nickname": "user_16",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1052,13 +1052,13 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         ],
         "animes": [
           {
-            "id": 30,
-            "name": "anime_30",
+            "id": 12,
+            "name": "anime_12",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -1066,7 +1066,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/30-anime_30",
+            "url": "/animes/12-anime_12",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -1078,9 +1078,9 @@
         "images": [
           {
             "id": 2,
-            "original": "/system/images/original/2.jpg?1459857462",
-            "main": "/system/images/main/2.jpg?1459857462",
-            "preview": "/system/images/preview/2.jpg?1459857462"
+            "original": "/system/images/original/2.jpg?1460021984",
+            "main": "/system/images/main/2.jpg?1460021984",
+            "preview": "/system/images/preview/2.jpg?1460021984"
           }
         ]
       },
@@ -1099,7 +1099,7 @@
       "query": null,
       "request_data": {
         "comment": {
-          "commentable_id": 17,
+          "commentable_id": 61,
           "commentable_type": "Entry",
           "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
           "is_offtopic": true,
@@ -1107,14 +1107,14 @@
         }
       },
       "response_data": {
-        "id": 1,
-        "user_id": 23456793,
-        "commentable_id": 17,
+        "id": 5,
+        "user_id": 23456809,
+        "commentable_id": 61,
         "commentable_type": "Entry",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "created_at": "2016-04-05T14:57:37.387+03:00",
-        "updated_at": "2016-04-05T14:57:37.387+03:00",
+        "created_at": "2016-04-07T12:39:47.729+03:00",
+        "updated_at": "2016-04-07T12:39:47.729+03:00",
         "offtopic": true,
         "is_offtopic": true,
         "review": true,
@@ -1122,8 +1122,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456793,
-          "nickname": "user_6",
+          "id": 23456809,
+          "nickname": "user_47",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1134,7 +1134,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1150,7 +1150,7 @@
       "query": null,
       "request_data": {
         "comment": {
-          "commentable_id": 18,
+          "commentable_id": 62,
           "commentable_type": "Entry",
           "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
           "is_offtopic": true,
@@ -1158,14 +1158,14 @@
         }
       },
       "response_data": {
-        "id": 2,
-        "user_id": 23456794,
-        "commentable_id": 18,
+        "id": 6,
+        "user_id": 23456810,
+        "commentable_id": 62,
         "commentable_type": "Entry",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "created_at": "2016-04-05T14:57:37.490+03:00",
-        "updated_at": "2016-04-05T14:57:37.490+03:00",
+        "created_at": "2016-04-07T12:39:47.800+03:00",
+        "updated_at": "2016-04-07T12:39:47.800+03:00",
         "offtopic": true,
         "is_offtopic": true,
         "review": true,
@@ -1173,8 +1173,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456794,
-          "nickname": "user_7",
+          "id": 23456810,
+          "nickname": "user_48",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1185,7 +1185,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1201,7 +1201,7 @@
       "query": null,
       "request_data": {
         "comment": {
-          "commentable_id": 19,
+          "commentable_id": 63,
           "commentable_type": "Entry",
           "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
           "is_offtopic": true,
@@ -1209,14 +1209,14 @@
         }
       },
       "response_data": {
-        "id": 3,
-        "user_id": 23456795,
-        "commentable_id": 19,
+        "id": 7,
+        "user_id": 23456811,
+        "commentable_id": 63,
         "commentable_type": "Entry",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-        "created_at": "2016-04-05T14:57:37.551+03:00",
-        "updated_at": "2016-04-05T14:57:37.551+03:00",
+        "created_at": "2016-04-07T12:39:47.864+03:00",
+        "updated_at": "2016-04-07T12:39:47.864+03:00",
         "offtopic": true,
         "is_offtopic": true,
         "review": true,
@@ -1224,8 +1224,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456795,
-          "nickname": "user_8",
+          "id": 23456811,
+          "nickname": "user_49",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1236,7 +1236,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1247,7 +1247,7 @@
   "comments#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/comments/4",
+      "path": "/api/comments/8",
       "versions": [
         "1"
       ],
@@ -1268,18 +1268,18 @@
       "versions": [
         "1"
       ],
-      "query": "commentable_id=23456801&commentable_type=User&desc=1&limit=10&page=1",
+      "query": "commentable_id=23456808&commentable_type=User&desc=1&limit=10&page=1",
       "request_data": null,
       "response_data": [
         {
-          "id": 10,
-          "user_id": 23456801,
-          "commentable_id": 23456801,
+          "id": 4,
+          "user_id": 23456808,
+          "commentable_id": 23456808,
           "commentable_type": "User",
-          "body": "comment_body_7",
-          "html_body": "comment_body_7",
-          "created_at": "2016-04-05T14:57:37.930+03:00",
-          "updated_at": "2016-04-05T14:57:37.930+03:00",
+          "body": "comment_body_4",
+          "html_body": "comment_body_4",
+          "created_at": "2016-04-07T12:39:47.648+03:00",
+          "updated_at": "2016-04-07T12:39:47.648+03:00",
           "offtopic": false,
           "is_offtopic": false,
           "review": false,
@@ -1287,8 +1287,8 @@
           "viewed": true,
           "can_be_edited": null,
           "user": {
-            "id": 23456801,
-            "nickname": "user_14",
+            "id": 23456808,
+            "nickname": "user_46",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1299,18 +1299,18 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         },
         {
-          "id": 9,
-          "user_id": 23456801,
-          "commentable_id": 23456801,
+          "id": 3,
+          "user_id": 23456808,
+          "commentable_id": 23456808,
           "commentable_type": "User",
-          "body": "comment_body_6",
-          "html_body": "comment_body_6",
-          "created_at": "2016-04-05T14:57:37.924+03:00",
-          "updated_at": "2016-04-05T14:57:37.924+03:00",
+          "body": "comment_body_3",
+          "html_body": "comment_body_3",
+          "created_at": "2016-04-07T12:39:47.642+03:00",
+          "updated_at": "2016-04-07T12:39:47.642+03:00",
           "offtopic": false,
           "is_offtopic": false,
           "review": false,
@@ -1318,8 +1318,8 @@
           "viewed": true,
           "can_be_edited": null,
           "user": {
-            "id": 23456801,
-            "nickname": "user_14",
+            "id": 23456808,
+            "nickname": "user_46",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1330,7 +1330,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         }
       ],
@@ -1342,21 +1342,21 @@
   "comments#show": [
     {
       "verb": "GET",
-      "path": "/api/comments/5",
+      "path": "/api/comments/2",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 5,
-        "user_id": 23456797,
-        "commentable_id": 21,
+        "id": 2,
+        "user_id": 23456807,
+        "commentable_id": 60,
         "commentable_type": "Entry",
         "body": "comment_body_2",
         "html_body": "comment_body_2",
-        "created_at": "2016-04-05T14:57:37.698+03:00",
-        "updated_at": "2016-04-05T14:57:37.698+03:00",
+        "created_at": "2016-04-07T12:39:47.572+03:00",
+        "updated_at": "2016-04-07T12:39:47.572+03:00",
         "offtopic": false,
         "is_offtopic": false,
         "review": false,
@@ -1364,8 +1364,8 @@
         "viewed": true,
         "can_be_edited": null,
         "user": {
-          "id": 23456797,
-          "nickname": "user_10",
+          "id": 23456807,
+          "nickname": "user_45",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1376,7 +1376,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1387,7 +1387,7 @@
   "comments#update": [
     {
       "verb": "PATCH",
-      "path": "/api/comments/6",
+      "path": "/api/comments/9",
       "versions": [
         "1"
       ],
@@ -1398,14 +1398,14 @@
         }
       },
       "response_data": {
-        "id": 6,
-        "user_id": 23456798,
-        "commentable_id": 22,
+        "id": 9,
+        "user_id": 23456813,
+        "commentable_id": 65,
         "commentable_type": "Entry",
         "body": "blablabla",
         "html_body": "blablabla",
-        "created_at": "2016-04-05T14:57:37.758+03:00",
-        "updated_at": "2016-04-05T14:57:37.774+03:00",
+        "created_at": "2016-04-07T12:39:47.984+03:00",
+        "updated_at": "2016-04-07T12:39:47.999+03:00",
         "offtopic": false,
         "is_offtopic": false,
         "review": false,
@@ -1413,8 +1413,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456798,
-          "nickname": "user_11",
+          "id": 23456813,
+          "nickname": "user_51",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1425,7 +1425,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1434,7 +1434,7 @@
     },
     {
       "verb": "PATCH",
-      "path": "/api/comments/7",
+      "path": "/api/comments/10",
       "versions": [
         "1"
       ],
@@ -1445,14 +1445,14 @@
         }
       },
       "response_data": {
-        "id": 7,
-        "user_id": 23456799,
-        "commentable_id": 23,
+        "id": 10,
+        "user_id": 23456814,
+        "commentable_id": 66,
         "commentable_type": "Entry",
         "body": "blablabla",
         "html_body": "blablabla",
-        "created_at": "2016-04-05T14:57:37.816+03:00",
-        "updated_at": "2016-04-05T14:57:37.831+03:00",
+        "created_at": "2016-04-07T12:39:48.046+03:00",
+        "updated_at": "2016-04-07T12:39:48.061+03:00",
         "offtopic": false,
         "is_offtopic": false,
         "review": false,
@@ -1460,8 +1460,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456799,
-          "nickname": "user_12",
+          "id": 23456814,
+          "nickname": "user_52",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1472,7 +1472,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -1481,7 +1481,7 @@
     },
     {
       "verb": "PATCH",
-      "path": "/api/comments/8",
+      "path": "/api/comments/11",
       "versions": [
         "1"
       ],
@@ -1492,14 +1492,14 @@
         }
       },
       "response_data": {
-        "id": 8,
-        "user_id": 23456800,
-        "commentable_id": 24,
+        "id": 11,
+        "user_id": 23456815,
+        "commentable_id": 67,
         "commentable_type": "Entry",
         "body": "blablabla",
         "html_body": "blablabla",
-        "created_at": "2016-04-05T14:57:37.874+03:00",
-        "updated_at": "2016-04-05T14:57:37.890+03:00",
+        "created_at": "2016-04-07T12:39:48.105+03:00",
+        "updated_at": "2016-04-07T12:39:48.120+03:00",
         "offtopic": false,
         "is_offtopic": false,
         "review": false,
@@ -1507,8 +1507,8 @@
         "viewed": true,
         "can_be_edited": true,
         "user": {
-          "id": 23456800,
-          "nickname": "user_13",
+          "id": 23456815,
+          "nickname": "user_53",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1519,7 +1519,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -2220,19 +2220,19 @@
       "query": null,
       "request_data": {
         "device": {
-          "user_id": 23456842,
+          "user_id": 23456838,
           "token": "test",
           "platform": "ios",
           "name": "test"
         }
       },
       "response_data": {
-        "id": 4,
-        "user_id": 23456842,
+        "id": 1,
+        "user_id": 23456838,
         "token": "test",
         "platform": "ios",
-        "created_at": "2016-04-05T14:57:43.750+03:00",
-        "updated_at": "2016-04-05T14:57:43.750+03:00",
+        "created_at": "2016-04-07T12:39:50.256+03:00",
+        "updated_at": "2016-04-07T12:39:50.256+03:00",
         "name": "test"
       },
       "code": "201",
@@ -2266,12 +2266,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "user_id": 23456837,
+          "id": 2,
+          "user_id": 23456839,
           "token": "11111111111111111111111111111111111111",
           "platform": "ios",
-          "created_at": "2016-04-05T14:57:43.483+03:00",
-          "updated_at": "2016-04-05T14:57:43.483+03:00",
+          "created_at": "2016-04-07T12:39:50.298+03:00",
+          "updated_at": "2016-04-07T12:39:50.298+03:00",
           "name": "Nexus One"
         }
       ],
@@ -2283,7 +2283,7 @@
   "devices#update": [
     {
       "verb": "PATCH",
-      "path": "/api/devices/3",
+      "path": "/api/devices/4",
       "versions": [
         "1"
       ],
@@ -2294,12 +2294,12 @@
         }
       },
       "response_data": {
-        "id": 3,
-        "user_id": 23456841,
+        "id": 4,
+        "user_id": 23456840,
         "token": "test zxc",
         "platform": "ios",
-        "created_at": "2016-04-05T14:57:43.651+03:00",
-        "updated_at": "2016-04-05T14:57:43.684+03:00",
+        "created_at": "2016-04-07T12:39:50.366+03:00",
+        "updated_at": "2016-04-07T12:39:50.394+03:00",
         "name": "Nexus One"
       },
       "code": "200",
@@ -2310,22 +2310,7 @@
   "dialogs#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/dialogs/user_56",
-      "versions": [
-        "1"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": [
-        "Не найдено ни одного сообщения для удаления"
-      ],
-      "code": "422",
-      "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "DELETE",
-      "path": "/api/dialogs/user_58",
+      "path": "/api/dialogs/user_59",
       "versions": [
         "1"
       ],
@@ -2335,6 +2320,21 @@
         "notice": "Переписка удалёна"
       },
       "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    },
+    {
+      "verb": "DELETE",
+      "path": "/api/dialogs/user_61",
+      "versions": [
+        "1"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        "Не найдено ни одного сообщения для удаления"
+      ],
+      "code": "422",
       "show_in_doc": 0,
       "recorded": true
     }
@@ -2351,8 +2351,8 @@
       "response_data": [
         {
           "target_user": {
-            "id": 20,
-            "nickname": "user_60",
+            "id": 37,
+            "nickname": "user_55",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2363,19 +2363,19 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "message": {
-            "id": 5,
+            "id": 17,
             "kind": "Private",
             "read": false,
             "body": "test",
             "html_body": "test",
-            "created_at": "2016-04-05T14:57:42.645+03:00",
+            "created_at": "2016-04-07T12:39:48.249+03:00",
             "linked": null,
             "from": {
-              "id": 23456827,
-              "nickname": "user_59",
+              "id": 23456816,
+              "nickname": "user_54",
               "avatar": "http:///assets/globals/missing_avatar/x48.png",
               "image": {
                 "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2386,11 +2386,11 @@
                 "x32": "http:///assets/globals/missing_avatar/x32.png",
                 "x16": "http:///assets/globals/missing_avatar/x16.png"
               },
-              "last_online_at": "2016-04-05T14:57:33.923+03:00"
+              "last_online_at": "2016-04-07T12:39:38.709+03:00"
             },
             "to": {
-              "id": 20,
-              "nickname": "user_60",
+              "id": 37,
+              "nickname": "user_55",
               "avatar": "http:///assets/globals/missing_avatar/x48.png",
               "image": {
                 "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2401,7 +2401,7 @@
                 "x32": "http:///assets/globals/missing_avatar/x32.png",
                 "x16": "http:///assets/globals/missing_avatar/x16.png"
               },
-              "last_online_at": "2016-04-05T14:57:33.923+03:00"
+              "last_online_at": "2016-04-07T12:39:38.709+03:00"
             }
           }
         }
@@ -2414,7 +2414,7 @@
   "dialogs#show": [
     {
       "verb": "GET",
-      "path": "/api/dialogs/user_62",
+      "path": "/api/dialogs/user_57",
       "versions": [
         "1"
       ],
@@ -2422,16 +2422,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 7,
+          "id": 19,
           "kind": "Private",
           "read": false,
           "body": "test",
           "html_body": "test",
-          "created_at": "2016-04-05T14:57:42.763+03:00",
+          "created_at": "2016-04-07T12:39:48.377+03:00",
           "linked": null,
           "from": {
-            "id": 21,
-            "nickname": "user_62",
+            "id": 38,
+            "nickname": "user_57",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2442,11 +2442,11 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "to": {
-            "id": 23456828,
-            "nickname": "user_61",
+            "id": 23456817,
+            "nickname": "user_56",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2457,20 +2457,20 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         },
         {
-          "id": 6,
+          "id": 18,
           "kind": "Private",
           "read": false,
           "body": "test",
           "html_body": "test",
-          "created_at": "2016-04-05T14:57:42.755+03:00",
+          "created_at": "2016-04-07T12:39:48.367+03:00",
           "linked": null,
           "from": {
-            "id": 23456828,
-            "nickname": "user_61",
+            "id": 23456817,
+            "nickname": "user_56",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2481,11 +2481,11 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "to": {
-            "id": 21,
-            "nickname": "user_62",
+            "id": 38,
+            "nickname": "user_57",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2496,7 +2496,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         }
       ],
@@ -2609,8 +2609,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "name": "genre_2",
+          "id": 1,
+          "name": "genre_1",
           "russian": null,
           "kind": "anime"
         }
@@ -2658,7 +2658,7 @@
   "mangas#franchise": [
     {
       "verb": "GET",
-      "path": "/api/mangas/1/franchise",
+      "path": "/api/mangas/11/franchise",
       "versions": [
         "1"
       ],
@@ -2670,11 +2670,11 @@
         ],
         "nodes": [
           {
-            "id": 1,
-            "date": 1459857458,
-            "name": "манга_1",
+            "id": 11,
+            "date": 1460021990,
+            "name": "манга_11",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "//test.host/mangas/1-manga_1",
+            "url": "//test.host/mangas/11-manga_8",
             "year": null,
             "kind": "Манга",
             "weight": 1
@@ -2693,20 +2693,20 @@
       "versions": [
         "1"
       ],
-      "query": "genre=1&limit=1&mylist=1&order=ranked&page=1&publisher=2&rating=r&search=Te&season=2014&type=Manga",
+      "query": "genre=3&limit=1&mylist=1&order=ranked&page=1&publisher=2&rating=r&search=Te&season=2014&type=Manga",
       "request_data": null,
       "response_data": [
         {
-          "id": 11,
+          "id": 10,
           "name": "Test",
-          "russian": "манга_11",
+          "russian": "манга_10",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/11-test",
+          "url": "/mangas/10-test",
           "ongoing": null,
           "anons": null,
           "status": null,
@@ -2722,7 +2722,7 @@
   "mangas#related": [
     {
       "verb": "GET",
-      "path": "/api/mangas/7/related",
+      "path": "/api/mangas/14/related",
       "versions": [
         "1"
       ],
@@ -2734,16 +2734,16 @@
           "relation_russian": "Адаптация",
           "anime": null,
           "manga": {
-            "id": 8,
-            "name": "manga_6",
-            "russian": "манга_8",
+            "id": 15,
+            "name": "manga_12",
+            "russian": "манга_15",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/8-manga_6",
+            "url": "/mangas/15-manga_12",
             "ongoing": null,
             "anons": null,
             "status": null,
@@ -2760,7 +2760,7 @@
   "mangas#roles": [
     {
       "verb": "GET",
-      "path": "/api/mangas/3/roles",
+      "path": "/api/mangas/9/roles",
       "versions": [
         "1"
       ],
@@ -2776,15 +2776,15 @@
           ],
           "character": null,
           "person": {
-            "id": 5,
-            "name": "person_3",
+            "id": 10,
+            "name": "person_8",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/people/5-person_3"
+            "url": "/people/10-person_8"
           }
         },
         {
@@ -2795,16 +2795,16 @@
             "Main"
           ],
           "character": {
-            "id": 1,
-            "name": "character_1",
-            "russian": "персонаж_1",
+            "id": 8,
+            "name": "character_6",
+            "russian": "персонаж_8",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/1-character_1"
+            "url": "/characters/8-character_6"
           },
           "person": null
         }
@@ -2825,16 +2825,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 5,
+          "id": 7,
           "name": "asdf",
-          "russian": "манга_5",
+          "russian": "манга_7",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/5-asdf",
+          "url": "/mangas/7-asdf",
           "ongoing": null,
           "anons": null,
           "status": null,
@@ -2850,23 +2850,23 @@
   "mangas#show": [
     {
       "verb": "GET",
-      "path": "/api/mangas/4",
+      "path": "/api/mangas/13",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 4,
-        "name": "manga_4",
-        "russian": "манга_4",
+        "id": 13,
+        "name": "manga_10",
+        "russian": "манга_13",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/mangas/4-manga_4",
+        "url": "/mangas/13-manga_10",
         "ongoing": null,
         "anons": null,
         "status": null,
@@ -2888,10 +2888,10 @@
         "description": "",
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "favoured": false,
-        "thread_id": 32,
-        "topic_id": 32,
+        "thread_id": 95,
+        "topic_id": 95,
         "read_manga_id": null,
-        "myanimelist_id": 4,
+        "myanimelist_id": 13,
         "rates_scores_stats": [
 
         ],
@@ -2914,7 +2914,7 @@
   "mangas#similar": [
     {
       "verb": "GET",
-      "path": "/api/mangas/9/similar",
+      "path": "/api/mangas/16/similar",
       "versions": [
         "1"
       ],
@@ -2922,16 +2922,16 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 10,
-          "name": "manga_8",
-          "russian": "манга_10",
+          "id": 17,
+          "name": "manga_14",
+          "russian": "манга_17",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
             "preview": "/assets/globals/missing_preview.jpg",
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/10-manga_8",
+          "url": "/mangas/17-manga_14",
           "ongoing": null,
           "anons": null,
           "status": null,
@@ -2955,22 +2955,22 @@
       "request_data": {
         "message": {
           "kind": "Private",
-          "from_id": 23456836,
-          "to_id": 23456836,
+          "from_id": 23456806,
+          "to_id": 23456806,
           "body": "test"
         }
       },
       "response_data": {
-        "id": 20,
+        "id": 16,
         "kind": "Private",
         "read": false,
         "body": "test",
         "html_body": "test",
-        "created_at": "2016-04-05T14:57:43.394+03:00",
+        "created_at": "2016-04-07T12:39:47.352+03:00",
         "linked": null,
         "from": {
-          "id": 23456836,
-          "nickname": "user_72",
+          "id": 23456806,
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2981,11 +2981,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "to": {
-          "id": 23456836,
-          "nickname": "user_72",
+          "id": 23456806,
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2996,7 +2996,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "201",
@@ -3013,7 +3013,7 @@
       ],
       "query": null,
       "request_data": {
-        "profile_id": "user_70",
+        "profile_id": "user_42",
         "type": "notifications"
       },
       "response_data": null,
@@ -3025,7 +3025,7 @@
   "messages#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/messages/13",
+      "path": "/api/messages/6",
       "versions": [
         "1"
       ],
@@ -3047,7 +3047,7 @@
       "query": null,
       "request_data": {
         "is_read": "1",
-        "ids": "10,11,987654"
+        "ids": "8,9,987654"
       },
       "response_data": null,
       "code": "200",
@@ -3064,7 +3064,7 @@
       ],
       "query": null,
       "request_data": {
-        "profile_id": "user_68",
+        "profile_id": "user_40",
         "type": "news"
       },
       "response_data": null,
@@ -3076,23 +3076,23 @@
   "messages#show": [
     {
       "verb": "GET",
-      "path": "/api/messages/9",
+      "path": "/api/messages/4",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 9,
+        "id": 4,
         "kind": "Private",
         "read": false,
         "body": "test",
         "html_body": "test",
-        "created_at": "2016-04-05T14:57:42.906+03:00",
+        "created_at": "2016-04-07T12:39:46.751+03:00",
         "linked": null,
         "from": {
-          "id": 23456830,
-          "nickname": "user_64",
+          "id": 23456799,
+          "nickname": "user_35",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3103,7 +3103,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "to": {
           "id": 78643875,
@@ -3118,7 +3118,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -3129,7 +3129,7 @@
   "messages#update": [
     {
       "verb": "PATCH",
-      "path": "/api/messages/12",
+      "path": "/api/messages/7",
       "versions": [
         "1"
       ],
@@ -3140,16 +3140,16 @@
         }
       },
       "response_data": {
-        "id": 12,
+        "id": 7,
         "kind": "Private",
         "read": false,
         "body": "test",
         "html_body": "test",
-        "created_at": "2016-04-05T14:57:43.062+03:00",
+        "created_at": "2016-04-07T12:39:47.006+03:00",
         "linked": null,
         "from": {
-          "id": 23456832,
-          "nickname": "user_66",
+          "id": 23456802,
+          "nickname": "user_38",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3160,11 +3160,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "to": {
-          "id": 23456832,
-          "nickname": "user_66",
+          "id": 23456802,
+          "nickname": "user_38",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3175,7 +3175,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       },
       "code": "200",
@@ -3194,7 +3194,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 3,
+          "id": 7,
           "name": "asdf",
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -3202,7 +3202,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/people/3-asdf"
+          "url": "/people/7-asdf"
         }
       ],
       "code": "200",
@@ -3213,22 +3213,22 @@
   "people#show": [
     {
       "verb": "GET",
-      "path": "/api/people/1",
+      "path": "/api/people/5",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 1,
-        "name": "person_1",
+        "id": 5,
+        "name": "person_5",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/people/1-person_1",
+        "url": "/people/5-person_5",
         "japanese": null,
         "job_title": "Режиссер аниме",
         "birthday": null,
@@ -3245,8 +3245,8 @@
         "works": [
           {
             "anime": {
-              "id": 1,
-              "name": "anime_1",
+              "id": 13,
+              "name": "anime_13",
               "russian": null,
               "image": {
                 "original": "/assets/globals/missing_original.jpg",
@@ -3254,7 +3254,7 @@
                 "x96": "/assets/globals/missing_x96.jpg",
                 "x48": "/assets/globals/missing_x48.jpg"
               },
-              "url": "/animes/1-anime_1",
+              "url": "/animes/13-anime_13",
               "kind": "tv",
               "ongoing": null,
               "anons": null,
@@ -3266,8 +3266,8 @@
             "role": "Продюсер"
           }
         ],
-        "thread_id": 1,
-        "topic_id": 1,
+        "thread_id": 30,
+        "topic_id": 30,
         "person_favoured": false,
         "producer": false,
         "producer_favoured": false,
@@ -3275,7 +3275,7 @@
         "mangaka_favoured": false,
         "seyu": false,
         "seyu_favoured": false,
-        "updated_at": "2016-04-05T14:57:35.687+03:00"
+        "updated_at": "2016-04-07T12:39:45.152+03:00"
       },
       "code": "200",
       "show_in_doc": 1,
@@ -3283,22 +3283,22 @@
     },
     {
       "verb": "GET",
-      "path": "/api/people/2",
+      "path": "/api/people/6",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 2,
-        "name": "person_2",
+        "id": 6,
+        "name": "person_6",
         "image": {
           "original": "/assets/globals/missing_original.jpg",
           "preview": "/assets/globals/missing_preview.jpg",
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/people/2-person_2",
+        "url": "/people/6-person_6",
         "japanese": null,
         "job_title": "Режиссер аниме",
         "birthday": null,
@@ -3315,8 +3315,8 @@
         "works": [
 
         ],
-        "thread_id": 3,
-        "topic_id": 3,
+        "thread_id": 32,
+        "topic_id": 32,
         "person_favoured": false,
         "producer": false,
         "producer_favoured": false,
@@ -3324,7 +3324,7 @@
         "mangaka_favoured": false,
         "seyu": true,
         "seyu_favoured": false,
-        "updated_at": "2016-04-05T14:57:36.215+03:00"
+        "updated_at": "2016-04-07T12:39:45.244+03:00"
       },
       "code": "200",
       "show_in_doc": 0,
@@ -3366,9 +3366,9 @@
         }
       },
       "response_data": {
-        "id": 1,
+        "id": 41,
         "nickname": "test",
-        "email": "email6@factory.com",
+        "email": "email79@factory.com",
         "avatar": "/assets/globals/missing_avatar/x32.png"
       },
       "code": "200",
@@ -3386,7 +3386,7 @@
       "query": "",
       "request_data": null,
       "response_data": [
-        47
+        44
       ],
       "code": "200",
       "show_in_doc": 1,
@@ -3404,9 +3404,9 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "name": "studio_1",
-          "filtered_name": "studio_1",
+          "id": 2,
+          "name": "studio_2",
+          "filtered_name": "studio_2",
           "real": false,
           "image": null
         }
@@ -3427,12 +3427,12 @@
       "request_data": {
         "topic_ignore": {
           "topic_id": "78643875",
-          "user_id": "23456790"
+          "user_id": "23456836"
         }
       },
       "response_data": {
-        "id": 1,
-        "url": "//test.host/api/topic_ignores/1",
+        "id": 2,
+        "url": "//test.host/api/topic_ignores/2",
         "method": "DELETE"
       },
       "code": "200",
@@ -3449,12 +3449,12 @@
       "request_data": {
         "topic_ignore": {
           "topic_id": "78643875",
-          "user_id": "23456791"
+          "user_id": "23456837"
         }
       },
       "response_data": {
-        "id": 2,
-        "url": "//test.host/api/topic_ignores/2",
+        "id": 4,
+        "url": "//test.host/api/topic_ignores/4",
         "method": "DELETE"
       },
       "code": "200",
@@ -3465,14 +3465,14 @@
   "topic_ignores#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/topic_ignores/4",
+      "path": "/api/topic_ignores/1",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "url": "//test.host/api/topic_ignores?topic_ignore%5Btopic_id%5D=78643875&topic_ignore%5Buser_id%5D=23456792",
+        "url": "//test.host/api/topic_ignores?topic_ignore%5Btopic_id%5D=78643875&topic_ignore%5Buser_id%5D=23456835",
         "method": "POST"
       },
       "code": "200",
@@ -3491,11 +3491,11 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 55,
-          "topic_title": "entry title 9",
+          "id": 1,
+          "topic_title": "entry title 1",
           "body": "test [spoiler=спойлер]test[/spoiler] test",
           "html_body": "test <div class=\"b-spoiler unprocessed\"><label>спойлер</label><div class=\"content\"><div class=\"before\"></div><div class=\"inner\">test</div><div class=\"after\"></div></div></div> test",
-          "created_at": "2016-04-05T14:57:40.057+03:00",
+          "created_at": "2016-04-07T12:39:40.605+03:00",
           "comments_count": 0,
           "forum": {
             "id": 1,
@@ -3517,7 +3517,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "type": "Entry",
           "linked_id": null,
@@ -3535,18 +3535,18 @@
   "topics#show": [
     {
       "verb": "GET",
-      "path": "/api/topics/57",
+      "path": "/api/topics/3",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 57,
-        "topic_title": "Обзор аниме &laquo;anime_27&raquo;",
+        "id": 3,
+        "topic_title": "Обзор аниме &laquo;anime_1&raquo;",
         "body": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "html_body": "<div class=\"prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>",
-        "created_at": "2016-04-05T14:57:40.236+03:00",
+        "created_at": "2016-04-07T12:39:40.996+03:00",
         "comments_count": 0,
         "forum": {
           "id": 12,
@@ -3568,7 +3568,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3576,8 +3576,8 @@
         "linked": {
           "id": 1,
           "target": {
-            "id": 27,
-            "name": "anime_27",
+            "id": 1,
+            "name": "anime_1",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -3585,7 +3585,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/27-anime_27",
+            "url": "/animes/1-anime_1",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -3606,7 +3606,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -3617,7 +3617,7 @@
           "music": 1,
           "characters": 1,
           "animation": 1,
-          "created_at": "2016-04-05T14:57:40.214+03:00"
+          "created_at": "2016-04-07T12:39:40.978+03:00"
         },
         "viewed": true,
         "last_comment_viewed": null
@@ -3692,8 +3692,8 @@
       "query": null,
       "request_data": {
         "user_rate": {
-          "user_id": 23456806,
-          "target_id": 17,
+          "user_id": 23456834,
+          "target_id": 44,
           "target_type": "Anime",
           "score": 10,
           "status": 1,
@@ -3705,7 +3705,7 @@
         }
       },
       "response_data": {
-        "id": 6,
+        "id": 11,
         "score": 10,
         "status": 1,
         "status_name": "Watching",
@@ -3716,8 +3716,8 @@
         "text_html": "test",
         "rewatches": 5,
         "user": {
-          "id": 23456806,
-          "nickname": "user_20",
+          "id": 23456834,
+          "nickname": "user_77",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3728,11 +3728,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "anime": {
-          "id": 17,
-          "name": "anime_17",
+          "id": 44,
+          "name": "anime_41",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -3740,7 +3740,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/17-anime_17",
+          "url": "/animes/44-anime_41",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -3773,7 +3773,7 @@
   "user_rates#increment": [
     {
       "verb": "POST",
-      "path": "/api/user_rates/7/increment",
+      "path": "/api/user_rates/6/increment",
       "versions": [
         "1"
       ],
@@ -3781,7 +3781,7 @@
       "request_data": {
       },
       "response_data": {
-        "id": 7,
+        "id": 6,
         "score": 0,
         "status": 0,
         "status_name": "Plan to Watch",
@@ -3792,8 +3792,8 @@
         "text_html": null,
         "rewatches": 0,
         "user": {
-          "id": 23456807,
-          "nickname": "user_21",
+          "id": 23456829,
+          "nickname": "user_72",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3804,11 +3804,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "anime": {
-          "id": 18,
-          "name": "anime_18",
+          "id": 41,
+          "name": "anime_38",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -3816,7 +3816,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/18-anime_18",
+          "url": "/animes/41-anime_38",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -3896,8 +3896,8 @@
         "text_html": "test",
         "rewatches": 5,
         "user": {
-          "id": 23456805,
-          "nickname": "user_19",
+          "id": 23456821,
+          "nickname": "user_63",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3908,11 +3908,11 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         "anime": {
-          "id": 16,
-          "name": "anime_16",
+          "id": 33,
+          "name": "anime_30",
           "russian": null,
           "image": {
             "original": "/assets/globals/missing_original.jpg",
@@ -3920,7 +3920,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/16-anime_16",
+          "url": "/animes/33-anime_30",
           "kind": "tv",
           "ongoing": null,
           "anons": null,
@@ -3938,7 +3938,7 @@
   "users#anime_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/36/anime_rates",
+      "path": "/api/users/21/anime_rates",
       "versions": [
         "1"
       ],
@@ -3946,7 +3946,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 11,
+          "id": 2,
           "score": 0,
           "status": 1,
           "status_name": "Watching",
@@ -3957,8 +3957,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 36,
-            "nickname": "user_85",
+            "id": 21,
+            "nickname": "user_9",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3969,11 +3969,11 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "anime": {
-            "id": 38,
-            "name": "anime_38",
+            "id": 10,
+            "name": "anime_10",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -3981,7 +3981,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/38-anime_38",
+            "url": "/animes/10-anime_10",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -4000,7 +4000,7 @@
   "users#anime_video_reports": [
     {
       "verb": "GET",
-      "path": "/api/users/32/anime_video_reports",
+      "path": "/api/users/20/anime_video_reports",
       "versions": [
         "1"
       ],
@@ -4008,16 +4008,39 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 2,
-          "anime_video_id": 1004,
-          "user_id": 32,
-          "approver_id": null,
+          "id": 1,
           "kind": "uploaded",
           "state": "pending",
-          "user_agent": "ipad",
-          "created_at": "2016-04-05T14:57:44.556+03:00",
-          "updated_at": "2016-04-05T14:57:44.556+03:00",
-          "message": null
+          "message": null,
+          "created_at": "2016-04-07T12:39:43.188+03:00",
+          "anime_video": {
+            "id": 1,
+            "anime_id": 9,
+            "url": "http://vk.com/video/1",
+            "source": "http://source.com",
+            "episode": 1,
+            "kind": "fandub",
+            "language": "unknown",
+            "quality": "unknown",
+            "state": "working",
+            "author_name": null
+          },
+          "user": {
+            "id": 20,
+            "nickname": "Test",
+            "avatar": "http:///assets/globals/missing_avatar/x48.png",
+            "image": {
+              "x160": "http:///assets/globals/missing_avatar/x160.png",
+              "x148": "http:///assets/globals/missing_avatar/x148.png",
+              "x80": "http:///assets/globals/missing_avatar/x80.png",
+              "x64": "http:///assets/globals/missing_avatar/x64.png",
+              "x48": "http:///assets/globals/missing_avatar/x48.png",
+              "x32": "http:///assets/globals/missing_avatar/x32.png",
+              "x16": "http:///assets/globals/missing_avatar/x16.png"
+            },
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
+          },
+          "approver": null
         }
       ],
       "code": "200",
@@ -4028,7 +4051,7 @@
   "users#bans": [
     {
       "verb": "GET",
-      "path": "/api/users/30/bans",
+      "path": "/api/users/17/bans",
       "versions": [
         "1"
       ],
@@ -4036,25 +4059,25 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 3,
-          "user_id": 30,
+          "id": 1,
+          "user_id": 17,
           "comment": {
-            "id": 14,
+            "id": 1,
             "commentable_id": 78643875,
             "commentable_type": "Entry",
-            "body": "comment_body_11\n\n[ban=3]",
-            "user_id": 30,
-            "created_at": "2016-04-05T14:57:44.170+03:00",
-            "updated_at": "2016-04-05T14:57:44.184+03:00",
+            "body": "comment_body_1\n\n[ban=1]",
+            "user_id": 17,
+            "created_at": "2016-04-07T12:39:42.743+03:00",
+            "updated_at": "2016-04-07T12:39:42.842+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
-          "moderator_id": 30,
+          "moderator_id": 17,
           "reason": "moderator comment",
-          "created_at": "2016-04-05T14:57:44.175+03:00",
+          "created_at": "2016-04-07T12:39:42.805+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 30,
+            "id": 17,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4066,10 +4089,10 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "moderator": {
-            "id": 30,
+            "id": 17,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4081,7 +4104,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         }
       ],
@@ -4093,7 +4116,7 @@
   "users#clubs": [
     {
       "verb": "GET",
-      "path": "/api/users/38/clubs",
+      "path": "/api/users/2/clubs",
       "versions": [
         "1"
       ],
@@ -4101,14 +4124,14 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 11,
-          "name": "club_11",
+          "id": 1,
+          "name": "club_1",
           "logo": {
-            "original": "/assets/globals/missing_original.jpg",
-            "main": "/assets/globals/missing_main.jpg",
-            "x96": "/assets/globals/missing_x96.jpg",
-            "x73": "/assets/globals/missing_x73.jpg",
-            "x48": "/assets/globals/missing_x48.jpg"
+            "original": "/assets/globals/missing_original_original.jpg",
+            "main": "/assets/globals/missing_main_main.jpg",
+            "x96": "/assets/globals/missing_x96_x96.jpg",
+            "x73": "/assets/globals/missing_x73_x73.jpg",
+            "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
           "join_policy": "free_join",
@@ -4123,7 +4146,7 @@
   "users#favourites": [
     {
       "verb": "GET",
-      "path": "/api/users/31/favourites",
+      "path": "/api/users/11/favourites",
       "versions": [
         "1"
       ],
@@ -4132,65 +4155,65 @@
       "response_data": {
         "animes": [
           {
-            "id": 31,
-            "name": "anime_31",
+            "id": 2,
+            "name": "anime_2",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/animes/31-anime_31"
+            "url": "/animes/2-anime_2"
           }
         ],
         "mangas": [
           {
-            "id": 17,
-            "name": "manga_14",
-            "russian": "манга_17",
+            "id": 2,
+            "name": "manga_2",
+            "russian": "манга_2",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/mangas/17-manga_14"
+            "url": "/mangas/2-manga_2"
           }
         ],
         "characters": [
           {
-            "id": 7,
-            "name": "character_5",
-            "russian": "персонаж_7",
+            "id": 1,
+            "name": "character_1",
+            "russian": "персонаж_1",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/characters/7-character_5"
+            "url": "/characters/1-character_1"
           }
         ],
         "people": [
           {
-            "id": 6,
-            "name": "person_4",
+            "id": 1,
+            "name": "person_1",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/6-person_4"
+            "url": "/people/1-person_1"
           }
         ],
         "mangakas": [
           {
-            "id": 7,
-            "name": "person_5",
+            "id": 2,
+            "name": "person_2",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/7-person_5"
+            "url": "/people/2-person_2"
           }
         ],
         "seyu": [
           {
-            "id": 9,
-            "name": "person_7",
+            "id": 4,
+            "name": "person_4",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/9-person_7"
+            "url": "/people/4-person_4"
           }
         ],
         "producers": [
           {
-            "id": 8,
-            "name": "person_6",
+            "id": 3,
+            "name": "person_3",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/8-person_6"
+            "url": "/people/3-person_3"
           }
         ]
       },
@@ -4202,7 +4225,7 @@
   "users#friends": [
     {
       "verb": "GET",
-      "path": "/api/users/41/friends",
+      "path": "/api/users/13/friends",
       "versions": [
         "1"
       ],
@@ -4210,8 +4233,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 40,
-          "nickname": "user_88",
+          "id": 12,
+          "nickname": "user_6",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4222,7 +4245,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       ],
       "code": "200",
@@ -4233,7 +4256,7 @@
   "users#history": [
     {
       "verb": "GET",
-      "path": "/api/users/45/history",
+      "path": "/api/users/14/history",
       "versions": [
         "1"
       ],
@@ -4241,12 +4264,12 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 19,
-          "created_at": "2016-04-05T14:57:45.243+03:00",
+          "id": 3,
+          "created_at": "2016-04-07T12:39:42.444+03:00",
           "description": "Запланировано",
           "target": {
-            "id": 39,
-            "name": "anime_39",
+            "id": 7,
+            "name": "anime_7",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -4254,7 +4277,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/39-anime_39",
+            "url": "/animes/7-anime_7",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -4264,8 +4287,8 @@
           }
         },
         {
-          "id": 18,
-          "created_at": "2016-04-05T14:57:45.223+03:00",
+          "id": 2,
+          "created_at": "2016-04-07T12:39:42.426+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
         }
@@ -4286,7 +4309,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 42,
+          "id": 4,
           "nickname": "Test1",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -4298,10 +4321,10 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         },
         {
-          "id": 43,
+          "id": 5,
           "nickname": "Test2",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -4313,7 +4336,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2016-04-05T14:57:33.923+03:00"
+          "last_online_at": "2016-04-07T12:39:38.709+03:00"
         }
       ],
       "code": "200",
@@ -4324,14 +4347,14 @@
   "users#info": [
     {
       "verb": "GET",
-      "path": "/api/users/46/info",
+      "path": "/api/users/16/info",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 46,
+        "id": 16,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4343,7 +4366,7 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2016-04-05T14:57:33.923+03:00",
+        "last_online_at": "2016-04-07T12:39:38.709+03:00",
         "name": null,
         "sex": null,
         "website": null,
@@ -4357,7 +4380,7 @@
   "users#manga_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/29/manga_rates",
+      "path": "/api/users/7/manga_rates",
       "versions": [
         "1"
       ],
@@ -4365,7 +4388,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 10,
+          "id": 1,
           "score": 0,
           "status": 1,
           "status_name": "Reading",
@@ -4376,8 +4399,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 29,
-            "nickname": "user_82",
+            "id": 7,
+            "nickname": "user_4",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4388,20 +4411,20 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "anime": null,
           "manga": {
-            "id": 16,
-            "name": "manga_13",
-            "russian": "манга_16",
+            "id": 1,
+            "name": "manga_1",
+            "russian": "манга_1",
             "image": {
               "original": "/assets/globals/missing_original.jpg",
               "preview": "/assets/globals/missing_preview.jpg",
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/16-manga_13",
+            "url": "/mangas/1-manga_1",
             "ongoing": null,
             "anons": null,
             "status": null,
@@ -4418,7 +4441,7 @@
   "users#messages": [
     {
       "verb": "GET",
-      "path": "/api/users/33/messages",
+      "path": "/api/users/18/messages",
       "versions": [
         "1"
       ],
@@ -4426,19 +4449,19 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 22,
+          "id": 2,
           "kind": "anons",
           "read": false,
           "body": "anime [b]anons[/b]",
           "html_body": "эпизод",
-          "created_at": "2016-04-05T14:57:44.662+03:00",
+          "created_at": "2016-04-07T12:39:42.985+03:00",
           "linked": {
-            "id": 37,
-            "topic_url": "//test.host/forum/animanga/87-topic_3",
-            "thread_id": 87,
-            "topic_id": 87,
+            "id": 8,
+            "topic_url": "//test.host/forum/animanga/18-topic_3",
+            "thread_id": 18,
+            "topic_id": 18,
             "type": "Anime",
-            "name": "anime_37",
+            "name": "anime_8",
             "russian": null,
             "image": {
               "original": "/assets/globals/missing_original.jpg",
@@ -4446,7 +4469,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/37-anime_37",
+            "url": "/animes/8-anime_8",
             "kind": "tv",
             "ongoing": null,
             "anons": null,
@@ -4455,8 +4478,8 @@
             "episodes_aired": 0
           },
           "from": {
-            "id": 34,
-            "nickname": "user_84",
+            "id": 19,
+            "nickname": "user_8",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4467,10 +4490,10 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           },
           "to": {
-            "id": 33,
+            "id": 18,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4482,7 +4505,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2016-04-05T14:57:33.923+03:00"
+            "last_online_at": "2016-04-07T12:39:38.709+03:00"
           }
         }
       ],
@@ -4494,14 +4517,14 @@
   "users#show": [
     {
       "verb": "GET",
-      "path": "/api/users/39",
+      "path": "/api/users/15",
       "versions": [
         "1"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 39,
+        "id": 15,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4513,11 +4536,11 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2016-04-05T14:57:33.923+03:00",
+        "last_online_at": "2016-04-07T12:39:38.709+03:00",
         "name": null,
         "sex": null,
         "full_years": null,
-        "last_online": "сейчас на сайте",
+        "last_online": "всегда на сайте (бот)",
         "website": "",
         "location": null,
         "banned": false,
@@ -4525,7 +4548,7 @@
         "about_html": "",
         "common_info": [
           "Нет личных данных",
-          "на сайте с <span class='b-tooltipped unprocessed mobile' data-direction='right' title=' 5 апреля 2016 г.'> 5 апреля 2016 г.</span>"
+          "на сайте с <span class='b-tooltipped unprocessed mobile' data-direction='right' title=' 7 апреля 2016 г.'> 7 апреля 2016 г.</span>"
         ],
         "show_comments": false,
         "in_friends": null,
@@ -4741,7 +4764,7 @@
   "users#unread_messages": [
     {
       "verb": "GET",
-      "path": "/api/users/35/unread_messages",
+      "path": "/api/users/3/unread_messages",
       "versions": [
         "1"
       ],
@@ -4767,7 +4790,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 26,
+        "id": 8,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4779,7 +4802,7 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2016-04-05T14:57:33.923+03:00",
+        "last_online_at": "2016-04-07T12:39:38.709+03:00",
         "name": null,
         "sex": null,
         "website": null,
@@ -4798,7 +4821,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 27,
+        "id": 9,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4810,7 +4833,7 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2016-04-05T14:57:33.923+03:00",
+        "last_online_at": "2016-04-07T12:39:38.709+03:00",
         "name": null,
         "sex": null,
         "website": null,
@@ -4829,7 +4852,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 28,
+        "id": 10,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4841,7 +4864,7 @@
           "x32": "http:///assets/globals/missing_avatar/x32.png",
           "x16": "http:///assets/globals/missing_avatar/x16.png"
         },
-        "last_online_at": "2016-04-05T14:57:33.923+03:00",
+        "last_online_at": "2016-04-07T12:39:38.709+03:00",
         "name": null,
         "sex": null,
         "website": null,

@@ -142,7 +142,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     @collection = postload_paginate(@page, @limit) do
       AnimeVideoReport
         .where(user: user)
-        .includes(:user, anime_video: :author)
+        .includes(:user, :approver, anime_video: :author)
         .order(id: :desc)
     end
 

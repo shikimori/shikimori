@@ -160,7 +160,8 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#anime_video_reports' do
-    let!(:anime_video_report) { create :anime_video_report, user: user }
+    let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
+    let(:anime_video) { create :anime_video }
     before { get :anime_video_reports, id: user.id, page: 1, limit: 1, format: :json }
 
     it do
