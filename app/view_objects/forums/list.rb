@@ -32,7 +32,7 @@ private
 
   def forum_size forum
     TopicsQuery.fetch(current_user)
-      .by_forum(forum, current_user, h.try(:censored_forbidden?)) # может не быть при регистрации через соц сеть и первичном заполнении профиля
+      .by_forum(forum, current_user, censored_forbidden?) # может не быть при регистрации через соц сеть и первичном заполнении профиля
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
   end
@@ -45,5 +45,9 @@ private
 
   def cache_key
     [:forums, :v3, Entry.last.id]
+  end
+
+  def censored_forbidden?
+    h.respond_to?(:censored_forbidden?) ? h.censored_forbidden? : false
   end
 end
