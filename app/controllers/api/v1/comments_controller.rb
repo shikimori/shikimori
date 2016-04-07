@@ -39,6 +39,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   end
   def create
     @comment = Comment.new create_params
+    generate_missing_topic
 
     if faye.create @comment
       if params[:frontend]
@@ -113,6 +114,22 @@ private
 
   def prepare_edition
     @comment = Comment.find(params[:id]).decorate if params[:id]
+  end
+
+  def generate_missing_topic
+    return unless @comment.valid?
+    return if commentable_klass <= Entry
+
+    commentable_object.generate_topic
+    @comment.commentable = commentable_object.topic
+  end
+
+  def commentable_klass
+    comment_params[:commentable_type].constantize
+  end
+
+  def commentable_object
+    commentable_klass.find comment_params[:commentable_id]
   end
 
   def faye

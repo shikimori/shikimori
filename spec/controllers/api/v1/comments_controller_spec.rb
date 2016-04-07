@@ -1,5 +1,6 @@
 describe Api::V1::CommentsController do
   let(:user) { create :user, :user }
+  let(:anime) { create :anime, topic: topic }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
@@ -81,6 +82,37 @@ describe Api::V1::CommentsController do
       it do
         expect(response).to have_http_status 422
         expect(response.content_type).to eq 'application/json'
+      end
+    end
+
+    describe 'comment topic' do
+      subject { assigns(:comment).commentable }
+      let(:comment_params) do
+        {
+          commentable_id: commentable_id,
+          commentable_type: commentable_type,
+          body: 'x' * Comment::MIN_SUMMARY_SIZE,
+          is_offtopic: true,
+          is_summary: true
+        }
+      end
+
+      before { post :create, frontend: true, comment: comment_params, format: :json }
+
+      context 'commentable is topic' do
+        let(:commentable_id) { topic.id }
+        let(:commentable_type) { topic.class.name }
+
+        it { is_expected.to eq topic }
+      end
+
+      context 'commentable is db entry without topic' do
+        let(:commentable_id) { anime.id }
+        let(:commentable_type) { anime.class.name }
+        let(:topic) {}
+
+        #it { is_expected.to be_present }
+        it { is_expected.to be_kind_of Topic }
       end
     end
   end

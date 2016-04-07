@@ -43,7 +43,7 @@ class Manga < DbEntry
     source: :manga
 
   has_many :topics, -> { order updated_at: :desc },
-    class_name: Entry.name,
+    class_name: Topic.name,
     as: :linked,
     dependent: :destroy
 
