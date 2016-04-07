@@ -13,7 +13,7 @@ class Versioneers::ScreenshotsVersioneer
 
     if art.save
       version = find_version(author, UPLOAD) || build_version(author, UPLOAD)
-      version.item_diff[self.class::KEY] << art.id
+      version.item_diff[field_key] << art.id
       version.save
     end
 
@@ -22,14 +22,14 @@ class Versioneers::ScreenshotsVersioneer
 
   def delete art_id, author
     version = find_version(author, DELETE) || build_version(author, DELETE)
-    version.item_diff[self.class::KEY] << art_id
+    version.item_diff[field_key] << art_id
     version.save
     version
   end
 
   def reposition ordered_ids, author
     version = build_version author, REPOSITION
-    version.item_diff[self.class::KEY] = [
+    version.item_diff[field_key] = [
       item.screenshots.pluck(:id),
       ordered_ids.map(&:to_i)
     ]
@@ -40,7 +40,7 @@ class Versioneers::ScreenshotsVersioneer
 private
 
   def add_art version, art_id
-    version.item_diff[self.class::KEY] << art_id
+    version.item_diff[field_key] << art_id
   end
 
   def build_art image
@@ -56,6 +56,7 @@ private
     Version
       .where(user: author, item: item, state: :pending)
       .where("(item_diff->>:field) = :action", field: :action, action: action)
+      .where("item_diff ? :field", field: field_key)
       .first
   end
 
@@ -64,9 +65,13 @@ private
       item: item,
       item_diff: {
         action: action,
-        self.class::KEY => []
+        field_key => []
       },
       user: author,
     )
+  end
+
+  def field_key
+    self.class::KEY
   end
 end

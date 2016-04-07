@@ -25,7 +25,7 @@ describe Versioneers::ScreenshotsVersioneer do
             'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
             Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
           },
-          user: user,
+          user: user
         )
       end
     end
@@ -34,14 +34,16 @@ describe Versioneers::ScreenshotsVersioneer do
       let!(:present_version) { create :screenshots_version, version_params }
 
       context 'matched version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
 
         it do
           expect(screenshot).to be_persisted
@@ -58,55 +60,79 @@ describe Versioneers::ScreenshotsVersioneer do
         end
       end
 
-      context 'another author version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: build_stubbed(:user),
-        }}
+      context 'another user version' do
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: build_stubbed(:user),
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'another item version' do
-        let(:version_params) {{
-          item: build_stubbed(:anime),
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: build_stubbed(:anime),
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
+
+        it { expect(version).to_not eq present_version }
+      end
+
+      context 'another field version' do
+        let!(:present_version) { create :screenshots_version, version_params }
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::VideosVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'another action version' do
-        let(:version_params) {{
-          item: build_stubbed(:anime),
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
-            Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: build_stubbed(:anime),
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
+              Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
+            },
+            user: user
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'not pending version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-          state: 'accepted'
-        }}
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user,
+            state: 'accepted'
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
@@ -128,7 +154,7 @@ describe Versioneers::ScreenshotsVersioneer do
             'action' => Versioneers::ScreenshotsVersioneer::DELETE,
             Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
           },
-          user: user,
+          user: user
         )
       end
     end
@@ -137,14 +163,16 @@ describe Versioneers::ScreenshotsVersioneer do
       let!(:present_version) { create :screenshots_version, version_params }
 
       context 'matched version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::DELETE,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
 
         it do
           expect(version).to be_persisted
@@ -158,54 +186,78 @@ describe Versioneers::ScreenshotsVersioneer do
       end
 
       context 'another author version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::DELETE,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: build_stubbed(:user),
-        }}
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: build_stubbed(:user),
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'another item version' do
-        let(:version_params) {{
-          item: build_stubbed(:anime),
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::DELETE,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: build_stubbed(:anime),
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
+
+        it { expect(version).to_not eq present_version }
+      end
+
+      context 'another field version' do
+        let!(:present_version) { create :screenshots_version, version_params }
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::DELETE,
+              Versioneers::VideosVersioneer::KEY => [123456]
+            },
+            user: user
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'another action version' do
-        let(:version_params) {{
-          item: build_stubbed(:anime),
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
-            Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
-          },
-          user: user,
-        }}
+        let(:version_params) do
+          {
+            item: build_stubbed(:anime),
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::REPOSITION,
+              Versioneers::ScreenshotsVersioneer::KEY => [screenshot.id]
+            },
+            user: user
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
 
       context 'not pending version' do
-        let(:version_params) {{
-          item: anime,
-          item_diff: {
-            'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
-            Versioneers::ScreenshotsVersioneer::KEY => [123456]
-          },
-          user: user,
-          state: 'accepted'
-        }}
+        let(:version_params) do
+          {
+            item: anime,
+            item_diff: {
+              'action' => Versioneers::ScreenshotsVersioneer::UPLOAD,
+              Versioneers::ScreenshotsVersioneer::KEY => [123456]
+            },
+            user: user,
+            state: 'accepted'
+          }
+        end
 
         it { expect(version).to_not eq present_version }
       end
@@ -229,7 +281,7 @@ describe Versioneers::ScreenshotsVersioneer do
             [screenshot_2.id, screenshot_1.id]
           ]
         },
-        user: user,
+        user: user
       )
     end
   end
