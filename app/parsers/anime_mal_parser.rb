@@ -102,13 +102,13 @@ class AnimeMalParser < BaseMalParser
     entry[:favorites] = parse_line("Favorites", content, false).gsub(",", "").to_i
 
     doc = Nokogiri::HTML(content)
-    img_doc = doc.css("td.borderClass > div > img")
+    left_column_doc = doc.css("td.borderClass").first()
 
-    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
-      entry[:img] = doc.css("td.borderClass > div > div > a > img, td.borderClass > div > a > img").first&.attr(:src)
-    else
-      entry[:img] = img_doc.first&.attr(:src)
-    end
+    img_doc = left_column_doc.css('> div > img')
+    img_doc = left_column_doc.css('> div > div > a > img') if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+    img_doc = left_column_doc.css('> div > a > img') if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+
+    entry[:img] = img_doc.first&.attr(:src)
 
     raise EmptyContent.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?
     entry
