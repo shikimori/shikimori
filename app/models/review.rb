@@ -77,16 +77,19 @@ class Review < ActiveRecord::Base
 
   def votes_text
     if votes_for == votes_count
-      "#{votes_count}"\
-      "#{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'}"\
-      "#{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}"\
-      "этот обзор полезным"
+      <<-TEXT.squish
+        #{votes_count}
+        #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'}
+        #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}
+        этот обзор полезным
+      TEXT
     else
-      "#{votes_for} из"\
-      "#{votes_count}"\
-      "#{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'}"\
-      "#{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}"\
-      "этот обзор полезным"
+      <<-TEXT.squish
+        #{votes_for} из #{votes_count}
+        #{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'}
+        #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}
+        этот обзор полезным
+      TEXT
     end
   end
 

@@ -22,11 +22,19 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def create
-    @resource.save
+    present_rate = UserRate.find_by(
+      user_id: @resource.user_id,
+      target_id: @resource.target_id,
+      target_type: @resource.target_type,
+    )
 
-  rescue *ALLOWED_EXCEPTIONS
-  ensure
-    respond_with @resource, location: nil
+    if present_rate
+      update_rate present_rate
+    else
+      create_rate @resource
+    end
+
+    respond @resource
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -42,30 +50,22 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     param :volumes, :undef
   end
   def update
-    @resource.update update_params
-
-  rescue *ALLOWED_EXCEPTIONS
-  ensure
-    respond_with @resource, location: nil
+    update_rate @resource
+    respond @resource
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates/:id/increment'
   def increment
-    if @resource.anime?
-      @resource.update episodes: (params[:episodes] || @resource.episodes) + 1
-    else
-      @resource.update chapters: (params[:chapters] || @resource.chapters) + 1
-    end
-
-    respond_with @resource
+    @resource.update increment_params
+    respond @resource
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/user_rates/:id', 'Destroy an user rate'
   def destroy
     @resource.destroy!
-    respond_with @resource, location: nil
+    respond @resource
   end
 
   # очистка списка и истории
@@ -101,5 +101,33 @@ private
 
   def update_params
     params.require(:user_rate).permit(*UPDATE_PARAMS)
+  end
+
+  def increment_params
+    if @resource.anime?
+      { episodes: (params[:episodes] || @resource.episodes) + 1 }
+    else
+      { chapters: (params[:chapters] || @resource.chapters) + 1 }
+    end
+  end
+
+  def create_rate user_rate
+    @resource = user_rate
+    fail NotSaved unless @resource.save
+  rescue *ALLOWED_EXCEPTIONS
+  end
+
+  def update_rate user_rate
+    @resource = user_rate
+    fail NotSaved unless @resource.update update_params
+  rescue *ALLOWED_EXCEPTIONS
+  end
+
+  def respond user_rate
+    if params[:frontend]
+      render :create
+    else
+      respond_with user_rate, location: nil
+    end
   end
 end

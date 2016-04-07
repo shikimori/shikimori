@@ -6,12 +6,13 @@
   data-unauthorized="#{t '.please_sign_in', url: new_user_session_url}"
 ]
   .b-add_to_list[
-      class="#{user_rate.persisted? ? user_rate.status : :planned}"
-    ]
-    = simple_form_for user_rate,
+    class="#{user_rate.persisted? ? user_rate.status : :planned}"
+  ]
+    = simple_form_for [:api, user_rate],
         remote: true,
         authenticity_token: true,
-        html: { 'data-type' => :html } do |f|
+        html: { 'data-type' => :json } do |f|
+      input type='hidden' name='frontend' value='1'
 
       = f.input :user_id, as: :hidden
       = f.input :target_id, as: :hidden
@@ -22,10 +23,10 @@
         .trigger-arrow
         - if user_rate.persisted?
           .edit-trigger[
-              data-remote='true'
-              data-type='html'
-              data-action="#{edit_user_rate_url user_rate}"
-            ]
+            data-remote='true'
+            data-type='html'
+            data-action="#{edit_user_rate_url user_rate}"
+          ]
             .edit
             .text
               span.status-name data-text="#{user_rate.status_name}"
@@ -49,12 +50,12 @@
 
         - if user_rate.persisted?
           .option.remove-trigger[
-              data-remote='true'
-              data-type='html'
-              data-action="#{user_rate_url user_rate}"
-              data-method='delete'
-              value="#{t '.remove_from_my_list'}"
-            ]
+            data-action="#{api_user_rate_url user_rate, frontend: 1}"
+            data-method='delete'
+            data-remote='true'
+            data-type='json'
+            value="#{t '.remove_from_my_list'}"
+          ]
             .text
               span.status-name data-text="#{t '.remove_from_my_list'}"
 
@@ -71,10 +72,10 @@
               = entry.episodes
           - if user_rate.episodes != entry.episodes || user_rate.episodes.zero?
             span.item-add.increment[
-              data-action="#{increment_user_rate_url user_rate}"
-              data-remote='true'
-              data-type='html'
+              data-action="#{increment_api_user_rate_url user_rate, frontend: 1}"
               data-method='post'
+              data-remote='true'
+              data-type='json'
             ]
         .episodes = UserRate.human_attribute_name :episodes
 
@@ -88,14 +89,18 @@
               = entry.chapters
           - if user_rate.chapters != entry.chapters || user_rate.chapters.zero?
             span.item-add.increment[
-              data-action="#{increment_user_rate_url user_rate}"
+              data-action="#{increment_api_user_rate_url user_rate, frontend: 1}"
               data-remote='true'
-              data-type='html'
+              data-type='json'
               data-method='post'
             ]
         .episodes = UserRate.human_attribute_name :chapters
 
-      = simple_form_for user_rate, remote: true, authenticity_token: true, html: { 'data-type' => :html } do |f|
+      = simple_form_for [:api, user_rate],
+          remote: true,
+          authenticity_token: true,
+          html: { 'data-type' => :json } do |f|
+        input type='hidden' name='frontend' value='1'
         = f.input :score, as: :hidden
         = render partial: 'blocks/rate',
           locals: { score: user_rate ? user_rate.score : '', with_submit: true, input_selector: '#user_rate_score' }

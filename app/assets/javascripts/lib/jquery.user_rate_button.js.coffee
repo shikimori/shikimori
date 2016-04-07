@@ -43,7 +43,7 @@ class @UserRateButton extends ShikiView
         $.info @$root.data('unauthorized')
         false
 
-    @on 'ajax:success ajax:complete', (e, edit_html) =>
+    @on 'ajax:success ajax:complete', (e, response) =>
       @$root.removeClass 'ajax_request'
 
     # отмена редактирования user_rate
@@ -83,7 +83,7 @@ class @UserRateButton extends ShikiView
     (=> @$root.css height: '').delay(500)
 
   # показ формы редактирования
-  _show_edition_form: (e, edit_html) =>
+  _show_edition_form: (e, response_html) =>
     e.stopImmediatePropagation()
 
     $show = @$('.rate-show')
@@ -92,7 +92,7 @@ class @UserRateButton extends ShikiView
       .hide()
 
     $edit = @$('.rate-edit')
-    $edit.html(edit_html)
+    $edit.html(response_html)
 
     $edit
       .data(height: $edit.outerHeight(true))
@@ -105,8 +105,8 @@ class @UserRateButton extends ShikiView
     (=> @$root.css height: '').delay(500)
 
   # замена кнопки на новую
-  _replace_button: (e, html) =>
-    $new_root = $(html)
+  _replace_button: (e, response) =>
+    $new_root = $(response.html)
       .data('button_only', @button_only)
       .replaceAll(@$root)
       .user_rate_button()

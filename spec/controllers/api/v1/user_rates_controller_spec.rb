@@ -27,12 +27,28 @@ describe Api::V1::UserRatesController do
     describe '#create' do
       let(:target) { create :anime }
       let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
-      before { post :create, user_rate: create_params, format: :json }
+      let(:make_request) { post :create, user_rate: create_params, format: :json }
 
-      it do
-        expect(resource).to have_attributes create_params.except(:status)
-        expect(resource.status).to eq 'watching'
-        expect(response).to have_http_status :created
+      context 'new user_rate' do
+        before { make_request }
+
+        it do
+          expect(resource).to have_attributes create_params.except(:status)
+          expect(resource.status).to eq 'watching'
+          expect(response).to have_http_status :created
+        end
+      end
+
+      context 'present user_rate' do
+        let!(:user_rate) { create :user_rate, user: user, target: target }
+        before { make_request }
+
+        it do
+          expect(resource).to have_attributes create_params.except(:status)
+          expect(resource.status).to eq 'watching'
+          expect(resource.id).to eq user_rate.id
+          expect(response).to have_http_status :created
+        end
       end
     end
 
@@ -129,24 +145,24 @@ describe Api::V1::UserRatesController do
       context 'own_data' do
         let(:user_rate) { build :user_rate, user: user }
 
-        it { should be_able_to :manage, user_rate }
-        it { should be_able_to :clenaup, user_rate }
-        it { should be_able_to :reset, user_rate }
+        it { is_expected.to be_able_to :manage, user_rate }
+        it { is_expected.to be_able_to :clenaup, user_rate }
+        it { is_expected.to be_able_to :reset, user_rate }
       end
 
       context 'foreign_data' do
         let(:user_rate) { build :user_rate, user: build_stubbed(:user) }
 
-        it { should_not be_able_to :manage, user_rate }
+        it { is_expected.to_not be_able_to :manage, user_rate }
       end
 
       context 'guest' do
         subject { Ability.new nil }
         let(:user_rate) { build :user_rate, user: user }
 
-        it { should_not be_able_to :manage, user_rate }
-        it { should_not be_able_to :clenaup, user_rate }
-        it { should_not be_able_to :reset, user_rate }
+        it { is_expected.to_not be_able_to :manage, user_rate }
+        it { is_expected.to_not be_able_to :clenaup, user_rate }
+        it { is_expected.to_not be_able_to :reset, user_rate }
       end
     end
   end

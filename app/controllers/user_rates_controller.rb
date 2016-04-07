@@ -8,7 +8,6 @@ class UserRatesController < ProfilesController
 
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :export, :import]
 
-
   def index
     noindex
 
@@ -21,50 +20,7 @@ class UserRatesController < ProfilesController
     page_title t("#{params[:list_type]}_list")
   end
 
-  def create
-    fail NotSaved unless @resource.save
-    render(
-      partial: 'user_rate',
-      locals: { user_rate: @resource.decorate, entry: @resource.target },
-      formats: :html
-    )
-
-  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
-    render json: @resource.errors.full_messages, status: :unprocessable_entity
-  end
-
   def edit
-  end
-
-  def update
-    fail NotSaved unless @resource.update update_params
-    render(
-      partial: 'user_rate',
-      locals: { user_rate: @resource.decorate, entry: @resource.target },
-      formats: :html
-    )
-
-  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
-    render json: @resource.errors.full_messages, status: :unprocessable_entity
-  end
-
-  def increment
-    if @resource.anime?
-      @resource.update episodes: @resource.episodes + 1
-    else
-      @resource.update chapters: @resource.chapters + 1
-    end
-
-    render partial: 'user_rate',
-      locals: { user_rate: @resource.decorate, entry: @resource.target },
-      formats: :html
-  end
-
-  def destroy
-    @resource.destroy!
-    render partial: 'user_rate',
-      locals: { user_rate: @resource.decorate, entry: @resource.target },
-      formats: :html
   end
 
   def export
