@@ -1,0 +1,2 @@
+class NotSaved < ArgumentError
+end

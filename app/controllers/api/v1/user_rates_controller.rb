@@ -5,7 +5,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   CREATE_PARAMS = [:target_id, :target_type, :user_id, :status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
   UPDATE_PARAMS = [:status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
 
-  ALLOWED_EXCEPTIONS = [PG::Error, RangeError]
+  ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates', 'Create an user rate'
