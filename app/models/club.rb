@@ -49,7 +49,6 @@ class Club < ActiveRecord::Base
 
   boolean_attribute :censored
 
-  before_save :update_permalink
   after_create :join_owner
   after_create :generate_topic
 
@@ -72,7 +71,7 @@ class Club < ActiveRecord::Base
 
   # для урлов
   def to_param
-    "#{id}-#{permalink}"
+    "#{id}-#{name.permalinked}"
   end
 
   def joined? user
@@ -137,11 +136,6 @@ class Club < ActiveRecord::Base
   end
 
 private
-
-  # TODO: remove field permalink
-  def update_permalink
-    self.permalink = self.name.permalinked if self.changes.include? :name
-  end
 
   def generate_topic
     Topics::Generate::UserTopic.call self, owner
