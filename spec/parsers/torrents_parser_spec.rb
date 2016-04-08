@@ -2,7 +2,7 @@ describe TorrentsParser do
   describe '#extract_episodes_num' do
     subject { TorrentsParser.extract_episodes_num name }
 
-    describe 'should match common cases' do
+    describe 'is_expected.to match common cases' do
       it { expect(TorrentsParser.extract_episodes_num('[Local-Raws] Bakuman 11 RAW (1280x720 x264 AAC NHKE).mp4')).to eq [11] }
       it { expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Bakuman. - 11 RAW (NHKE 1280x720 x264 AAC).mp4')).to eq [11] }
       it { expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Bakuman. - 11 RAW (NHKE 1920x1200 x264 AAC).mp4')).to eq [11] }
@@ -54,57 +54,62 @@ describe TorrentsParser do
 
     describe 'episodes with #' do
       let(:name) { '[Leopard-Raws] Bakuman #12 (MBS 1280x720 x264 AAC).mp4' }
-      it { should eq [12] }
+      it { is_expected.to eq [12] }
     end
 
     describe 'episodes with data hash only' do
       let(:name) { '[WhyNot] Phi Brain - Kami no Puzzle S2 - 13 [1ED5F495].mkv' }
-      it { should eq [13] }
+      it { is_expected.to eq [13] }
     end
 
     describe 'names with rev2' do
       let(:name) { '[Raws-4U] Bounen no Xamdou - 01 rev2 (PSN 1920x1080 x264 AAC 5.1ch).mp4' }
-      it { should eq [1] }
+      it { is_expected.to eq [1] }
     end
 
     describe '~ and other symbols' do
       let(:name) { '[Winter] Mashiro-iro Symphony ~The Color of Lovers~ 99 [BDrip 1280x720 x264 Vorbis].mkv' }
-      it { should eq [99] }
+      it { is_expected.to eq [99] }
     end
 
     describe 'without brackets at end' do
       let(:name) { '[Raws] Chousoku Henkei Gyrozetter - 22.mp4' }
-      it { should eq [22] }
+      it { is_expected.to eq [22] }
     end
 
     describe 'with long dash at end of name' do
       let(:name) { '[Mezashite] Aikatsu! ‒ 101 [6936887B].mkv' }
-      it { should eq [101] }
+      it { is_expected.to eq [101] }
     end
 
     describe 'name with brackets' do
       let(:name) { '[HorribleSubs] Rozen Maiden (2013) - 01 [720p].mkv' }
-      it { should eq [1] }
+      it { is_expected.to eq [1] }
     end
 
     describe 'name with plus' do
       let(:name) { '[Ohys-Raws] Sin Strange+ - 02 (AT-X 1280x720 x264 AAC).mp4' }
-      it { should eq [2] }
+      it { is_expected.to eq [2] }
     end
 
     describe 'episode num after "ch-"' do
       let(:name) { '[kingtqi-Raws] Saikyou Ginga Ultimate Zero - Battle Spirits CH-04 (ABC 1280x720 x264 AAC).mp4' }
-      it { should eq [4] }
+      it { is_expected.to eq [4] }
     end
 
     describe 'episode num with zero' do
       let(:name) { '[SubDESU] Shijou Saikyou no Deshi Kenichi OVA - 05v0 (640x360 x264 AAC) [8D5C93AE].mp4' }
-      it { should eq [5] }
+      it { is_expected.to eq [5] }
+    end
+
+    describe 'episode with part' do
+      let(:name) { '[BakedFish] Re:Zero kara Hajimeru Isekai Seikatsu - 01 - Part 2 [720p][AAC].mp4' }
+      it { is_expected.to eq [1] }
     end
 
     describe 'multiple episodes' do
       let(:name) { '[HorribleSubs] Tsukimonogatari - (01-04) [1080p].mkv' }
-      it { should eq [1,2,3,4] }
+      it { is_expected.to eq [1,2,3,4] }
     end
   end
 
@@ -167,7 +172,7 @@ describe TorrentsParser do
       end
     end
 
-    describe 'any episode number should affect anime if episodes is not specified' do
+    describe 'any episode number is_expected.to affect anime if episodes is not specified' do
       let(:episodes) { 0 }
       let(:episodes_aired) { 98 }
       let(:feed) {[ { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' } ]}

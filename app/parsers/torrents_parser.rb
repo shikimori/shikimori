@@ -17,37 +17,36 @@ class TorrentsParser
   AnimeWithAllSubGroups = [9539, 12979, 13163, 6702, 15417]
 
   END_OF_NAME = /[\w\)!~?\.+-‒]/
-  EPISODE_FOR_HISTORY_REGEXES = [
-    /
-      #{END_OF_NAME} # завершающий кусочек названия
-      (?: _- )?
-      _
-      \#?
-      (?:Vol\.)?
-      (?:CH-)?
-      (\d+) # номер эпизода
-      (?:v[0-3] )? # v0 v1 v2 - версия релиза
-      (?: _- )?
-      ( _rev\d )?
-      ( _RAW | _END )?
-      ( # различные варианты концовки
-        (_|-)
-        (
-            \[(1080|720|480)p\] _? \[ .*
-          |
-            (\( | \[) [\w _-]{2,8} (1280|1920)x .*
-          |
-            \[\w{8}\]
-          |
-            (\( | \[)
-              ( ([\w-]{2,4}_)? \d{3} | [A-Z])
-            .*
-        )
-      )?
-      \. (?: mp4 | mp3 | mkv | avi )
-      $
-    /imx,
-  ]
+  EPISODE_FOR_HISTORY_REGEXES = %r(
+    #{END_OF_NAME} # завершающий кусочек названия
+    (?: _- )?
+    _
+    \#?
+    (?:Vol\.)?
+    (?:CH-)?
+    (\d+) # номер эпизода
+    (?: _-_Part_\d )?
+    (?: v[0-3] )? # v0 v1 v2 - версия релиза
+    (?: _- )?
+    (?: _rev\d )?
+    (?: _RAW | _END )?
+    (?: # различные варианты концовки
+      (?: _|- )
+      (?:
+          \[(1080|720|480)p\] _? \[ .*
+        |
+          (?: \(|\[ ) [\w _-]{2,8} (?: 1280|1920 )x .*
+        |
+          \[\w{8}\]
+        |
+          (?: \(|\[ )
+            (?: (?: [\w-]{2,4}_ )? \d{3} | [A-Z] )
+          .*
+      )
+    )?
+    \. (?: mp4 | mp3 | mkv | avi )
+    $
+  )mix
   EPISODES_FOR_HISTORY_REGEXES = [
     /Vol\.(\d+)-(\d+)_(?:\[|\()(?:BD|DVD)/i,
     /#{END_OF_NAME}_(\d+)-(\d+)(?:_RAW|_END)?_?(?:\(|\[)(?:\d{3}|[A-Z])/i,
@@ -83,7 +82,8 @@ class TorrentsParser
 
   def self.parse_episodes_num episode_name
     fixed_name = episode_name.gsub ' ', '_'
-    EPISODE_FOR_HISTORY_REGEXES.each do |regex|
+
+    Array(EPISODE_FOR_HISTORY_REGEXES).each do |regex|
       return [$1.to_i] if fixed_name.match(regex)
     end
     EPISODES_FOR_HISTORY_REGEXES.each do |regex|
