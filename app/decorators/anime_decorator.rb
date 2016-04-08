@@ -38,7 +38,7 @@ class AnimeDecorator < AniMangaDecorator
         calendars[1].start_at
       end
 
-      date || object.next_episode_at
+      date || object.next_episode_at || next_episode_start_at
     end
   end
 
@@ -55,5 +55,11 @@ class AnimeDecorator < AniMangaDecorator
     #elsif kind == 'tv'
       #'http://schema.org/TVSeries'
     #end
+  end
+
+  def next_episode_start_at
+    if schedule_at && schedule_at > 1.week.ago
+      schedule_at < 1.hour.ago ? schedule_at + 1.week : schedule_at
+    end
   end
 end
