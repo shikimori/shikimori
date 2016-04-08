@@ -17,6 +17,7 @@ class BanDuration
     hash = to_hash
     result = []
 
+    result << "#{hash[:years]}y" if hash[:years] > 0
     result << "#{hash[:weeks]}w" if hash[:weeks] > 0
     result << "#{hash[:days]}d" if hash[:days] > 0
     result << "#{hash[:hours]}h" if hash[:hours] > 0
@@ -51,10 +52,12 @@ class BanDuration
   end
 
 private
+
   def to_hash
     {
-      weeks: (value / (60*24 * 7)).floor,
-      days: (value / (60*24)).floor % 7,
+      years: (value / (60*24 * 365)).floor,
+      weeks: (((value / (60*24)).floor % 365) / 7).floor,
+      days: (value / (60*24)).floor % 365 % 7,
       hours: (value / 60).floor % 24,
       minutes: value % 60
     }
@@ -77,6 +80,9 @@ private
 
         when 'w'
           (number * 60 * 24 * 7).to_i
+
+        when 'y'
+          (number * 60 * 24 * 365).to_i
       end
     end.sum
   rescue
