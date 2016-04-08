@@ -1,5 +1,8 @@
 class CalendarEntry < SimpleDelegator
+  prepend ActiveCacher.instance
+
   attr_reader :anime
+  instance_cache :last_news, :average_interval, :next_episode_start_at
 
   def initialize anime_with_data
     super
@@ -7,7 +10,7 @@ class CalendarEntry < SimpleDelegator
   end
 
   def average_interval
-    @average_interval ||= if anime.episodes_aired.zero?
+    if anime.episodes_aired.zero?
       0
     else
       anime.episodes_news.size < 2 ? 7.days : episode_average_interval
@@ -15,11 +18,11 @@ class CalendarEntry < SimpleDelegator
   end
 
   def last_news
-    @last_news ||= episodes_news.sort_by {|n| n.value.to_i }.last
+    episodes_news.sort_by { |entry| entry.value.to_i }.last
   end
 
   def next_episode
-    @next_episode ||= if ongoing? && last_news
+    if ongoing? && last_news
       last_news.value.to_i+1
     else
       1
@@ -27,27 +30,18 @@ class CalendarEntry < SimpleDelegator
   end
 
   def last_episode_date
-    @last_episode_date ||= last_news.created_at if ongoing? && last_news
+    last_news.created_at if ongoing? && last_news
   end
 
-  def next_episode_at
-    if anime.next_episode_at.present?
-      anime.next_episode_at
-
-    elsif episode_start_at.present?
-      episode_start_at
-
-    else
-      anime.aired_on.to_datetime
-    end
+  def next_episode_start_at
+    anime.next_episode_at ||
+      anime_calendars.first&.start_at ||
+      aired_at ||
+      schedule_at
   end
 
-  def episode_start_at
-    @episode_start_at ||= anime_calendars.first.start_at if anime_calendars.any?
-  end
-
-  def episode_end_at
-    @episode_end_at ||= episode_start_at + ((duration.zero? ? 26 : duration) + 5).minutes if anime_calendars.any?
+  def next_episode_end_at
+    next_episode_start_at + ((duration.zero? ? 26 : duration) + 5).minutes
   end
 
   # для совместимости с декорированными объектами
@@ -79,5 +73,19 @@ private
     end
 
     [7.days, interval].max
+  end
+
+  def aired_at
+    anime.aired_on.to_datetime if anime.aired_on.to_datetime >= 1.day.ago
+  end
+
+  def schedule_at
+    return unless anime.schedule_at
+
+    if anime.schedule_at > 1.hour.ago
+      anime.schedule_at
+    elsif last_news && anime.schedule_at - last_news.created_at < 4.days
+      anime.schedule_at + 1.week
+    end
   end
 end

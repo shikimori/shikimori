@@ -11,7 +11,9 @@ class CalendarsQuery
         AnimeDecorator.new CalendarEntry.new(anime)
       end
 
-      exclude_overdue sort entries
+      exclude_overdue(
+        entries.select(&:next_episode_start_at).sort_by(&:next_episode_start_at)
+      )
       #fill_in_list entries, current_user if current_user.present?
     end
   end
@@ -29,11 +31,13 @@ private
   # группировка выборки по датам
   def group entries
     entries = entries.group_by do |anime|
-      key_date = if anime.ongoing?
-        anime.next_episode_at || anime.episode_end_at || (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
-      else
-        (anime.episode_end_at || anime.aired_on).to_datetime
-      end
+      # key_date = if anime.ongoing?
+        # anime.next_episode_at || anime.episode_end_at ||
+          # (anime.last_episode_date || anime.aired_on.to_datetime) + anime.average_interval
+      # else
+        # (anime.episode_end_at || anime.aired_on).to_datetime
+      # end
+      key_date = anime.next_episode_start_at
 
       if key_date.to_i - Time.zone.now.to_i < 0
         -1
@@ -46,37 +50,20 @@ private
     Hash[entries.sort]
   end
 
-  # сортировка выборки
-  def sort entries
-    entries.sort_by do |v|
-      if v.ongoing? && (v.episode_start_at || v.next_episode_at || v.episodes_news.any?)
-        if v.episode_start_at
-          v.episode_start_at
-        else
-          if v.next_episode_at
-            v.next_episode_at
-          else
-            seconds = v.episodes_news.first.created_at.to_i + v.average_interval
-            DateTime.strptime("#{seconds}", '%s')
-          end
-        end
-      else
-        (v.episode_start_at || v.aired_on).to_datetime
-      end
-    end
-  end
-
   # выборка онгоингов
   def fetch_ongoings
     Anime
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :ongoing)
+      .where(status: :ongoing)#.where(id: 31680)
       .where(kind: [:tv, :ona]) # 15133 - спешл Aoi Sekai no Chuushin de
       .where.not(id: Anime::EXCLUDED_ONGOINGS + [15547]) # 15547 - Cross Fight B-Daman eS
       .where('anime_calendars.episode is null or anime_calendars.episode = episodes_aired+1')
       .where("kind != 'ona' or anime_calendars.episode is not null")
-      .where('episodes_aired != 0 or (aired_on is not null and aired_on > ?)', Time.zone.now - 1.months)
+      .where(
+        'episodes_aired != 0 or (aired_on is not null and aired_on > ?)',
+        Time.zone.now - 1.months
+      )
       .order('animes.id')
   end
 
@@ -85,23 +72,31 @@ private
     Anime
       .includes(:episodes_news, :anime_calendars)
       .references(:anime_calendars)
-      .where(status: :anons)
+      .where(status: :anons)#.where(id: 31680)
       .where(kind: [:tv, :ona])
       .where(episodes_aired: 0)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where("anime_calendars.episode=1 or (anime_calendars.episode is null and aired_on >= :from and aired_on <= :to and aired_on != :new_year)",
-              from: Time.zone.today - 1.week, to: Time.zone.today + 1.month, new_year: Time.zone.today.beginning_of_year)
+      .where(
+        "anime_calendars.episode=1 or (
+          anime_calendars.episode is null and aired_on >= :from and
+          aired_on <= :to and aired_on != :new_year)",
+        from: Time.zone.today - 1.week,
+        to: Time.zone.today + 1.month,
+        new_year: Time.zone.today.beginning_of_year
+      )
       .where("kind != 'ona' or anime_calendars.episode is not null")
-      .where.not("anime_calendars.episode is null
+      .where.not(
+        "anime_calendars.episode is null
         and date_part('day', aired_on) = 1
-        and date_part('month', aired_on) = 1")
+        and date_part('month', aired_on) = 1"
+      )
       .order('animes.id')
   end
 
   # выкидывание просроченных аниме
   def exclude_overdue entries
     entries.select do |v|
-      (v.next_episode_at && v.next_episode_at > Time.zone.now - 1.week) ||
+      (v.next_episode_start_at && v.next_episode_start_at > Time.zone.now - 1.week) ||
         v.anons?
     end
   end

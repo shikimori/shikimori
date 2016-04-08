@@ -1,3 +1,4 @@
+# 10.downto(0) {|v| TokyoToshokanParser.grab_page "http://www.tokyotosho.info/?page=#{v}&cat=0" }
 class ImportToshokanTorrents
   include Sidekiq::Worker
   sidekiq_options queue: :torrents_parsers
