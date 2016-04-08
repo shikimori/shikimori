@@ -104,6 +104,7 @@ private
   def cache_key
     [
       :calendar,
+      :v2,
       AnimeCalendar.last.try(:id),
       Topics::NewsTopic.last.try(:id),
       Time.zone.today.to_s
