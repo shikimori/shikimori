@@ -66,6 +66,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
       # { id: 233, name: 'Bandai Entertainment' }
     ]
     expect(data).to include(:duration)
+    expect(data[:schedule]).to eq nil
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
@@ -75,6 +76,11 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data).to include(:favorites)
 
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
+  end
+
+  it 'anime schedule' do
+    recs = parser.fetch_entry_data(31240)
+    expect(recs[:schedule]).to eq 'Mondays at 01:05 (JST)'
   end
 
   it 'correct synopsis' do

@@ -304,4 +304,25 @@ describe Anime do
       end
     end
   end
+
+  describe '#schedule_at' do
+    before { Timecop.freeze '06-04-2016' }
+    after { Timecop.return }
+
+    let(:anime) { build :anime, state, schedule: schedule }
+    let(:state) { :ongoing }
+    let(:schedule) { 'Thursdays at 22:00 (JST)' }
+
+    it { expect(anime.schedule_at).to eq Time.zone.parse('07-04-2016 16:00') }
+
+    context 'no schedule' do
+      let(:schedule) { '' }
+      it { expect(anime.schedule_at).to be_nil }
+    end
+
+    context 'not ongoing or anons' do
+      let(:state) { :released }
+      it { expect(anime.schedule_at).to be_nil }
+    end
+  end
 end

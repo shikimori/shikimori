@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407192402) do
+ActiveRecord::Schema.define(version: 20160407204939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20160407192402) do
     t.float    "site_score",                     default: 0.0,   null: false
     t.text     "desynced",                       default: [],    null: false, array: true
     t.string   "origin"
+    t.string   "schedule"
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
