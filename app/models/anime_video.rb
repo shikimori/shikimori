@@ -107,9 +107,10 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def uploader
-    @uploader ||= if uploaded? || working?
-      AnimeVideoReport.where(anime_video_id: id, kind: 'uploaded').last.try(:user)
-    end
+    @uploader ||= AnimeVideoReport.find_by(
+      anime_video_id: id,
+      kind: 'uploaded'
+    )&.user
   end
 
   def author_name
