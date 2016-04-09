@@ -111,6 +111,18 @@ describe TorrentsParser do
       let(:name) { '[HorribleSubs] Tsukimonogatari - (01-04) [1080p].mkv' }
       it { is_expected.to eq [1,2,3,4] }
     end
+
+    describe 'ignored phrases' do
+      context 'full match' do
+        let(:name) { '[Local-Raws] Flying Witch Petit 11 RAW (1280x720 x264 AAC NHKE).mp4' }
+        it { is_expected.to eq [] }
+      end
+
+      context 'partial match' do
+        let(:name) { '[Local-Raws] Flying Witch 11 RAW (1280x720 x264 AAC NHKE).mp4' }
+        it { is_expected.to eq [11] }
+      end
+    end
   end
 
   describe '#check_aired_episodes' do

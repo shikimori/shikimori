@@ -3,18 +3,21 @@ class TorrentsParser
   USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
 
   # игнорируемые названия торрентов
-  IgnoredTorrents = Set.new [
+  IGNORED_TORRENTS = Set.new [
     'Chuunibyou demo Koi ga Shitai! Lite - 04 (640x360 x264 AAC).mp4',
     '[WZF]Ore_no_Imouto_ga_Konna_ni_Kawaii_Wake_ga_Nai_-_Capitulo_13-15[BDRip][X264-AAC][1280x720][Sub_Esp]',
     'Owari Subs] Mahouka Koukou no Rettousei ~ Esplorando Mahouka 03 [Webrip][207F8116].mkv',
     '[iPUNISHER] Mahouka Koukou No Rettousei - Yoku Wakaru Mahouka - 03 [720p][AAC].mkv'
   ]
+  IGNORED_PHRASES = [
+    %w(Flying Witch Petit)
+  ]
   # аниме, для которых не будут искаться торренты
-  AnimeIgnored = [13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592]
+  IGNORED_ANIME_IDS = [13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592]
 
-  AnimeWithOnlyNameMatch = [10049, 10033, 6336, 11319]
-  AnimeWithExactNameMatch = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
-  AnimeWithAllSubGroups = [9539, 12979, 13163, 6702, 15417]
+  ANIME_WITH_NAME_MATCH_ONLY = [10049, 10033, 6336, 11319]
+  ANIME_WITH_EXACT_NAME_MATCH = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
+  ANIME_WITH_ALL_SUB_GROUPS = [9539, 12979, 13163, 6702, 15417]
 
   END_OF_NAME = /[\w\)!~?\.+-‒]/
   EPISODE_FOR_HISTORY_REGEXES = %r(
@@ -58,7 +61,9 @@ class TorrentsParser
   ]
 
   def self.extract_episodes_num episode_name
-    return [] if IgnoredTorrents.include?(episode_name)
+    return [] if IGNORED_TORRENTS.include? episode_name
+    return [] if ignored_phrases? episode_name
+
     num = parse_episodes_num(episode_name).select {|v| v < 1000 }
 
     if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
@@ -137,16 +142,15 @@ class TorrentsParser
 
     animes.sum do |anime|
       matches = feed.select do |v|
-        unless AnimeWithAllSubGroups.include?(anime.id) # некоторые аниме только эти негодяи сабят
+        unless ANIME_WITH_ALL_SUB_GROUPS.include?(anime.id) # некоторые аниме только эти негодяи сабят
           next if v[:title].include? '[KRT]' # эти негодяи совсем криво торренты именуют
           next if v[:title].include? '[Arabic]' # это вообще какие-то неадекваты
         end
-        next if v[:title].include?('Otome') && v[:title].include?('Amnesia') # оно уже закончилось, но портит хизнь для Amnesia
 
         TorrentsMatcher.new(anime).matches_for(
           v[:title],
-          only_name: AnimeWithOnlyNameMatch.include?(anime.id),
-          exact_name: AnimeWithExactNameMatch.include?(anime.id)
+          only_name: ANIME_WITH_NAME_MATCH_ONLY.include?(anime.id),
+          exact_name: ANIME_WITH_EXACT_NAME_MATCH.include?(anime.id)
         )
       end
 
@@ -175,7 +179,8 @@ class TorrentsParser
       .to_a
 
     (ongoings + anons + released).select do |v|
-      !v.kind_special? && !Anime::EXCLUDED_ONGOINGS.include?(v.id) && !TorrentsParser::AnimeIgnored.include?(v.id)
+      !v.kind_special? && !Anime::EXCLUDED_ONGOINGS.include?(v.id) &&
+        !TorrentsParser::IGNORED_ANIME_IDS.include?(v.id)
     end
   end
 
@@ -257,5 +262,11 @@ private
       log: PROXY_LOG,
       no_proxy: true
     )
+  end
+
+  def self.ignored_phrases? title
+    IGNORED_PHRASES.any? do |phrases|
+      phrases.all? { |phrase| title.include? phrase }
+    end
   end
 end
