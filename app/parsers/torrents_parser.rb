@@ -10,7 +10,7 @@ class TorrentsParser
     '[iPUNISHER] Mahouka Koukou No Rettousei - Yoku Wakaru Mahouka - 03 [720p][AAC].mkv'
   ]
   # аниме, для которых не будут искаться торренты
-  AnimeIgnored = [13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670]
+  AnimeIgnored = [13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592]
 
   AnimeWithOnlyNameMatch = [10049, 10033, 6336, 11319]
   AnimeWithExactNameMatch = [10161, 10490, 10379, 6336, 11319, 14645, 15085, 14967, 15611, 17705, 15699, 16241, 16049]
