@@ -59,6 +59,14 @@ class Video < ActiveRecord::Base
     self[:url]
   end
 
+  def camo_image_url
+    if vk?
+      UrlGenerator.instance.camo_url image_url.with_http
+    else
+      image_url
+    end
+  end
+
 private
 
   def check_url

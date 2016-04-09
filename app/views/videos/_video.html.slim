@@ -15,7 +15,7 @@
       .cancel title="Отменить удаление"
 
   a.video-link href="#{video.url}" data-href="#{video.player_url}"
-     img src="#{UrlGenerator.instance.camo_url video.image_url}" data-id="#{video.id}"
+    img src="#{video.camo_image_url}" data-id="#{video.id}"
   - if video.name.present?
     span.name title="#{video.name}" = video.name
   a.marker href="#{video.url}"
