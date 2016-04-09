@@ -6,7 +6,17 @@ describe PushNotification do
 
   describe '#perform' do
     let(:gcm) { worker.send :gcm }
-    let(:gcm_message) { worker.send :gcm_message, message }
+    let(:gcm_message) do
+      {
+        action: 'profile_commented',
+        msgTitle: nil,
+        msgBody: 'Написал что-то в вашем профиле.',
+        params: {
+          message_id: message.id,
+          from: UserSerializer.new(message.from).attributes
+        }
+      }
+    end
 
     before { allow(gcm).to receive :send_notification }
     before { worker.perform message.id, device.id }

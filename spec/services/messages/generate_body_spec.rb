@@ -38,28 +38,32 @@ describe Messages::GenerateBody do
       it { is_expected.to eq '<strong>test</strong>' }
     end
 
-    context 'ongoing' do
-      let(:linked) { build :news_topic, action: 'ongoing' }
-      let(:kind) { MessageType::Ongoing }
-      it { is_expected.to eq 'онгоинг' }
+    context 'anons' do
+      let(:linked) { build :news_topic, action: 'anons', linked: anime }
+      let(:anime) { build_stubbed :anime, name: 'test' }
+      let(:kind) { MessageType::Anons }
+      it { is_expected.to eq "Анонсировано аниме #{anime.name}" }
     end
 
-    context 'anons' do
-      let(:linked) { build :news_topic, action: 'anons' }
-      let(:kind) { MessageType::Anons }
-      it { is_expected.to eq 'анонс' }
+    context 'ongoing' do
+      let(:linked) { build :news_topic, action: 'ongoing', linked: anime }
+      let(:anime) { build_stubbed :anime, name: 'test' }
+      let(:kind) { MessageType::Ongoing }
+      it { is_expected.to eq "Начат показ аниме #{anime.name}" }
     end
 
     context 'episode' do
-      let(:linked) { build :news_topic, action: 'episode', value: 5 }
+      let(:linked) { build :news_topic, action: 'episode', value: 5, linked: anime }
+      let(:anime) { build_stubbed :anime, name: 'test' }
       let(:kind) { MessageType::Episode }
-      it { is_expected.to eq 'эпизод' }
+      it { is_expected.to eq "Вышел 5 эпизод аниме #{anime.name}" }
     end
 
     context 'released' do
-      let(:linked) { build :news_topic, action: 'released' }
+      let(:linked) { build :news_topic, action: 'released', linked: anime }
+      let(:anime) { build_stubbed :anime, name: 'test' }
       let(:kind) { MessageType::Released }
-      it { is_expected.to eq 'релиз' }
+      it { is_expected.to eq "Завершён показ аниме #{anime.name}" }
     end
 
     context 'site_news' do

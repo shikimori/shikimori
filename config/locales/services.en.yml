@@ -43,6 +43,7 @@ en:
         Left a comment in your
         <a class='b-link' href='%{profile_url}'>profile</a>.
       male: *female
+
     friend_request:
       add:
         female: Add her to your friend list as well?
@@ -53,6 +54,10 @@ en:
     quoted_by_user:
       female: &female You have been mentioned %{linked_name}
       male: *female
+    anons: '%{linked_name} anime announced'
+    ongoing: '%{linked_name} anime airing'
+    episode: '%{linked_name} episode %{episode} released'
+    released: '%{linked_name} anime released'
     subscription_commented: New messages %{linked_name}
     warned:
       comment: >-

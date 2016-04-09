@@ -55,6 +55,10 @@ ru:
     quoted_by_user:
       female: Написала что-то вам %{linked_name}
       male: Написал что-то вам %{linked_name}
+    anons: Анонсировано аниме %{linked_name}
+    ongoing: Начат показ аниме %{linked_name}
+    episode: Вышел %{episode} эпизод аниме %{linked_name}
+    released: Завершён показ аниме %{linked_name}
     subscription_commented: Новые сообщения %{linked_name}
     warned:
       comment: >-

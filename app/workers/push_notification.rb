@@ -28,11 +28,21 @@ private
     {
       action: message.kind.to_underscore,
       msgTitle: nil,
-      msgBody: (message.body[0..199] if message.body),
+      msgBody: generate_body(message),
       params: {
         message_id: message.id,
-        from: UserSerializer.new(message.from).attributes,
+        from: UserSerializer.new(message.from).attributes
       }
     }
+  end
+
+  def generate_body message
+    body = message.generate_body.gsub(/<.*?>/, '')
+
+    if body.size > 199
+      body[0..198] + '…'
+    else
+      body
+    end
   end
 end

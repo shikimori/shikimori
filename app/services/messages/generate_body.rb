@@ -25,13 +25,21 @@ private
   alias_method :notification, :html_body
   alias_method :nickname_changed, :html_body
 
-  def action_text
-    linked.action_text
+  def anons
+    i18n_t 'anons', linked_name: linked.linked.name
   end
-  alias_method :ongoing, :action_text
-  alias_method :anons, :action_text
-  alias_method :episode, :action_text
-  alias_method :released, :action_text
+
+  def ongoing
+    i18n_t 'ongoing', linked_name: linked.linked.name
+  end
+
+  def episode
+    i18n_t 'episode', linked_name: linked.linked.name, episode: linked.value
+  end
+
+  def released
+    i18n_t 'released', linked_name: linked.linked.name
+  end
 
   def site_news
     BbCodeFormatter.instance.format_comment linked.body
@@ -56,10 +64,10 @@ private
   end
 
   def warned
-    if message.linked.comment
+    if message.linked&.comment
       i18n_t 'warned.comment', linked_name: linked_name
     else
-      i18n_t 'warned.removed_comment', reason: message.linked.reason
+      i18n_t 'warned.removed_comment', reason: message.linked&.reason
     end
   end
 
