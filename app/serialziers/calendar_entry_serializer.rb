@@ -7,12 +7,12 @@ class CalendarEntrySerializer < ActiveModel::Serializer
   end
 
   def next_episode_at
-    object.next_episode_at
+    object.next_episode_start_at
   end
 
   def duration
-    if object.episode_end_at && object.episode_start_at
-      object.episode_end_at - object.episode_start_at
+    if object.next_episode_end_at && object.object.next_episode_start_at
+      object.next_episode_end_at - object.object.next_episode_start_at
     elsif object.duration > 0
       object.duration * 60
     else
