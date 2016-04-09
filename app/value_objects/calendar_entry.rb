@@ -84,7 +84,7 @@ private
 
     if anime.schedule_at > 1.hour.ago
       anime.schedule_at
-    elsif last_news && anime.schedule_at - last_news.created_at < 4.days
+     elsif last_news && anime.schedule_at - last_news.created_at < 14.days
       anime.schedule_at + 1.week
     end
   end
