@@ -139,7 +139,7 @@
 
   - if user_signed_in? || @resource.topic.comments_count > 0
     .b-options-floated.mobile-phone_portrait
-      - if @resource.topic.any_comments? && !@resource.topic.all_summaries?
+      - if @resource.topic.summaries_count > 0
         span.linkeable data-href="#{@resource.summaries_url}"
           = t '.all_summaries'
           span.brackets = @resource.topic.summaries_count
