@@ -1,5 +1,7 @@
 class AnimeOnline::DashboardController < ShikimoriController
   def show
+    redirect_to '/animes/genre/12-Hentai' if is_adult
+
     @page = [params[:page].to_i, 1].max
     @limit = 8
 
