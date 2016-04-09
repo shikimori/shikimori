@@ -32,6 +32,7 @@ class BbCodes::ImgTag
   end
 
 private
+
   def html_for_image image_url, link_url, width, height, klass, text_hash
     camo_url = UrlGenerator.instance.camo_url(image_url)
 
