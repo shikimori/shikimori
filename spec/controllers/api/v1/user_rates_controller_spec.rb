@@ -16,7 +16,7 @@ describe Api::V1::UserRatesController do
       it do
         expect(resource).to have_attributes create_params.except(:status)
         expect(resource.status).to eq 'watching'
-        expect(response).to have_http_status :created
+        expect(response).to have_http_status :success
       end
     end
   end
@@ -35,7 +35,7 @@ describe Api::V1::UserRatesController do
         it do
           expect(resource).to have_attributes create_params.except(:status)
           expect(resource.status).to eq 'watching'
-          expect(response).to have_http_status :created
+          expect(response).to have_http_status :success
         end
       end
 
@@ -47,7 +47,7 @@ describe Api::V1::UserRatesController do
           expect(resource).to have_attributes create_params.except(:status)
           expect(resource.status).to eq 'watching'
           expect(resource.id).to eq user_rate.id
-          expect(response).to have_http_status :created
+          expect(response).to have_http_status :success
         end
       end
     end
