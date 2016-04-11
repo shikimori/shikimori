@@ -42,3 +42,33 @@ shared_context :seeds do
 
   let(:seeded_offtopic_topic) { seed :topic }
 end
+
+shared_examples_for :success_resource_change do |type|
+  it do
+    expect(resource).to be_persisted
+    expect(resource).to have_attributes(params)
+    expect(response).to have_http_status :success
+    expect(response.content_type).to eq 'application/json'
+
+    if type == :api
+      expect(json).to_not include :html
+    elsif type == :frontend
+      expect(json).to include :html
+    else
+      raise ArgumentError, "unknown type #{type} (allowed :api or :frontend)"
+    end
+  end
+end
+
+shared_examples_for :failure_resource_change do
+  it do
+    expect(resource).to_not be_valid
+    expect(resource.changes).to_not be_empty
+
+    expect(response).to have_http_status 422
+    expect(response.content_type).to eq 'application/json'
+
+    expect(json).to include :errors
+    expect(json[:errors]).to be_kind_of Array
+  end
+end

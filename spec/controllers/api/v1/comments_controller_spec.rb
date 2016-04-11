@@ -25,30 +25,11 @@ describe Api::V1::CommentsController do
     end
   end
 
-  shared_examples_for :created_or_updated_comment do
-    it do
-      expect(assigns(:comment)).to be_persisted
-      expect(assigns(:comment)).to have_attributes(comment_params)
-      expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
-    end
-  end
-
-  shared_examples_for :frontend_response do
-    it { expect(response.body).to include '"html"' }
-    it { expect(response.body).not_to include '"review"' }
-  end
-
-  shared_examples_for :api_response do
-    it { expect(response.body).not_to include '"html"' }
-    it { expect(response.body).to include '"review"' }
-  end
-
   describe '#create' do
     before { sign_in user }
 
     context 'success' do
-      let(:comment_params) do
+      let(:params) do
         {
           commentable_id: topic.id,
           commentable_type: 'Entry',
@@ -59,15 +40,13 @@ describe Api::V1::CommentsController do
       end
 
       context 'frontend' do
-        before { post :create, frontend: true, comment: comment_params, format: :json }
-        it_behaves_like :created_or_updated_comment
-        it_behaves_like :frontend_response
+        before { post :create, frontend: true, comment: params, format: :json }
+        it_behaves_like :success_resource_change, :frontend
       end
 
       context 'api', :show_in_doc do
-        before { post :create, comment: comment_params, format: :json }
-        it_behaves_like :created_or_updated_comment
-        it_behaves_like :api_response
+        before { post :create, comment: params, format: :json }
+        it_behaves_like :success_resource_change, :api
       end
     end
 
@@ -75,12 +54,17 @@ describe Api::V1::CommentsController do
       before do
         post :create,
           comment: { body: 'test', is_offtopic: false, is_summary: false },
+          frontend: is_frontend,
           format: :json
       end
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :failure_resource_change
+      end
 
-      it do
-        expect(response).to have_http_status 422
-        expect(response.content_type).to eq 'application/json'
+      context 'api' do
+        let(:is_frontend) { false }
+        it_behaves_like :failure_resource_change
       end
     end
   end
@@ -89,18 +73,32 @@ describe Api::V1::CommentsController do
     before { sign_in user }
 
     context 'success' do
-      let(:comment_params) { { body: 'blablabla' } }
+      let(:params) {{ body: 'blablabla' }}
+      before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
 
       context 'frontend' do
-        before { patch :update, id: comment.id, frontend: true, comment: comment_params, format: :json }
-        it_behaves_like :created_or_updated_comment
-        it_behaves_like :frontend_response
+        let(:is_frontend) { true }
+        it_behaves_like :success_resource_change, :frontend
       end
 
       context 'api', :show_in_doc do
-        before { patch :update, id: comment.id, comment: comment_params, format: :json }
-        it_behaves_like :created_or_updated_comment
-        it_behaves_like :api_response
+        let(:is_frontend) { false }
+        it_behaves_like :success_resource_change, :api
+      end
+    end
+
+    context 'failure' do
+      let(:params) {{ body: '' }}
+      before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
+
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :failure_resource_change
+      end
+
+      context 'api' do
+        let(:is_frontend) { false }
+        it_behaves_like :failure_resource_change
       end
     end
 

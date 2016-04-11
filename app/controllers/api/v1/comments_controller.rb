@@ -38,19 +38,19 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_summary, :bool
   end
   def create
-    @comment = Comment.new create_params
+    @resource = Comment.new create_params
 
-    if faye.create @comment
+    if faye.create @resource
       if params[:frontend]
         # incoming request form shiki editor has format json
         # render jbuilder template
         render :create
       else
         # respond with serialized comment (using serializer)
-        render json: @comment.decorate
+        render json: @resource.decorate
       end
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      respond_with @resource
     end
   end
 
@@ -61,27 +61,27 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :body, :undef
   end
   def update
-    raise CanCan::AccessDenied unless @comment.can_be_edited_by? current_user
+    raise CanCan::AccessDenied unless @resource.can_be_edited_by? current_user
 
-    if faye.update @comment, update_params
+    if faye.update @resource, update_params
       if params[:frontend]
         # incoming request form shiki editor has format json
         # render jbuilder template
         render :create
       else
         # respond with serialized comment (using serializer)
-        render json: @comment.decorate
+        render json: @resource.decorate
       end
     else
-      render json: @comment.errors, status: :unprocessable_entity
+      respond_with @resource
     end
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/comments/:id', 'Destroy a comment'
   def destroy
-    raise CanCan::AccessDenied unless @comment.can_be_deleted_by? current_user
-    faye.destroy @comment
+    raise CanCan::AccessDenied unless @resource.can_be_deleted_by? current_user
+    faye.destroy @resource
 
     render json: { notice: i18n_t('comment.removed') }
   end
@@ -112,7 +112,7 @@ private
   end
 
   def prepare_edition
-    @comment = Comment.find(params[:id]).decorate if params[:id]
+    @resource = Comment.find(params[:id]).decorate if params[:id]
   end
 
   def faye

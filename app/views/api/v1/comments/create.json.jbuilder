@@ -1,9 +1,9 @@
-json.id @comment.id
+json.id @resource.id
 json.html render(
   partial: 'comments/comment',
   formats: [:html],
   locals: {
-    comment: @comment,
-    topic: @comment.commentable
+    comment: @resource,
+    topic: @resource.commentable
   }
 )
