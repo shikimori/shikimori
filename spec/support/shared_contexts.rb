@@ -48,7 +48,6 @@ shared_examples_for :success_resource_change do |type|
     expect(resource).to be_persisted
     expect(resource).to have_attributes(params)
     expect(response).to have_http_status :success
-    expect(response.content_type).to eq 'application/json'
 
     if type == :api
       expect(json).to_not include :html
@@ -57,6 +56,8 @@ shared_examples_for :success_resource_change do |type|
     else
       raise ArgumentError, "unknown type #{type} (allowed :api or :frontend)"
     end
+
+    expect(response.content_type).to eq 'application/json'
   end
 end
 
@@ -65,10 +66,10 @@ shared_examples_for :failure_resource_change do
     expect(resource).to_not be_valid
     expect(resource.changes).to_not be_empty
 
-    expect(response).to have_http_status 422
-    expect(response.content_type).to eq 'application/json'
-
     expect(json).to include :errors
     expect(json[:errors]).to be_kind_of Array
+
+    expect(response.content_type).to eq 'application/json'
+    expect(response).to have_http_status 422
   end
 end

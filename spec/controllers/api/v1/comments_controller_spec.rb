@@ -38,14 +38,15 @@ describe Api::V1::CommentsController do
           is_summary: true
         }
       end
+      before { post :create, frontend: is_frontend, comment: params, format: :json }
 
       context 'frontend' do
-        before { post :create, frontend: true, comment: params, format: :json }
+        let(:is_frontend) { true }
         it_behaves_like :success_resource_change, :frontend
       end
 
       context 'api', :show_in_doc do
-        before { post :create, comment: params, format: :json }
+        let(:is_frontend) { false }
         it_behaves_like :success_resource_change, :api
       end
     end

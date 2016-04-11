@@ -40,17 +40,12 @@ class Api::V1::CommentsController < Api::V1::ApiController
   def create
     @resource = Comment.new create_params
 
-    if faye.create @resource
-      if params[:frontend]
-        # incoming request form shiki editor has format json
-        # render jbuilder template
-        render :create
-      else
-        # respond with serialized comment (using serializer)
-        render json: @resource.decorate
-      end
+    if faye.create(@resource) && params[:frontend]
+      # incoming request form shiki editor has format json
+      # render jbuilder template
+      render :comment
     else
-      respond_with @resource
+      respond_with @resource.decorate
     end
   end
 
@@ -63,17 +58,13 @@ class Api::V1::CommentsController < Api::V1::ApiController
   def update
     raise CanCan::AccessDenied unless @resource.can_be_edited_by? current_user
 
-    if faye.update @resource, update_params
-      if params[:frontend]
-        # incoming request form shiki editor has format json
-        # render jbuilder template
-        render :create
-      else
-        # respond with serialized comment (using serializer)
-        render json: @resource.decorate
-      end
+    if faye.update(@resource, update_params) && params[:frontend]
+      # incoming request form shiki editor has format json
+      # render jbuilder template
+      render :comment
     else
-      respond_with @resource
+      # respond with serialized comment (using serializer)
+      respond_with @resource.decorate
     end
   end
 
