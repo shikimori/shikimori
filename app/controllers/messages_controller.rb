@@ -37,57 +37,6 @@ class MessagesController < ProfilesController
     render message
   end
 
-  def create
-    if faye.create @resource
-      @resource = @resource.decorate
-      render :create, notice: i18n_t('message.created')
-    else
-      render json: @resource.errors.full_messages,
-        status: :unprocessable_entity,
-        notice: i18n_t('message.not_created')
-    end
-  end
-
-  def update
-    if faye.update @resource, update_params
-      @resource = @resource.decorate
-      render :create, notice: i18n_t('message.updated')
-    else
-      render json: @resource.errors.full_messages,
-        status: :unprocessable_entity,
-        notice: i18n_t('message.not_updated')
-    end
-  end
-
-  def destroy
-    faye.destroy @resource
-    render json: { notice: i18n_t('message.removed') }
-  end
-
-  def mark_read
-    ids = (params[:ids] || '').split(',').map {|v| v.sub(/message-/, '').to_i }
-
-    Retryable.retryable tries: 2, on: [PG::TRDeadlockDetected], sleep: 1 do
-      Message
-        .where(id: ids, to_id: current_user.id)
-        .update_all(read: params[:unread] ? false : true)
-    end
-
-    head 200
-  end
-
-  def read_all
-    MessagesService.new(current_user).read_messages type: @messages_type
-    redirect_to index_profile_messages_url(current_user, @messages_type),
-      notice: i18n_t('messages.read')
-  end
-
-  def delete_all
-    MessagesService.new(current_user).delete_messages type: @messages_type
-    redirect_to index_profile_messages_url(current_user, @messages_type),
-      notice: i18n_t('messages.removed')
-  end
-
   def chosen
     @collection = Message
       .where(id: params[:ids].split(',').map(&:to_i))

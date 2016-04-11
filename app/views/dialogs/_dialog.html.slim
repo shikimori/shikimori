@@ -1,7 +1,7 @@
 .b-dialog.shiki-object.unprocessed[
   id="#{dialog.target_user.id}"
   data-message_id="#{dialog.message.id}"
-  data-appear_url="#{mark_read_messages_url}"
+  data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
 ]
   .inner.check_height
     span.item-mobile title="#{i18n_i 'Action', :other}"

@@ -27,18 +27,19 @@ describe Api::V1::CommentsController do
 
   describe '#create' do
     before { sign_in user }
+    before { post :create, frontend: is_frontend, comment: params, format: :json }
+    let(:params) do
+      {
+        commentable_id: topic.id,
+        commentable_type: 'Entry',
+        body: body,
+        is_offtopic: true,
+        is_summary: true
+      }
+    end
 
     context 'success' do
-      let(:params) do
-        {
-          commentable_id: topic.id,
-          commentable_type: 'Entry',
-          body: 'x' * Comment::MIN_SUMMARY_SIZE,
-          is_offtopic: true,
-          is_summary: true
-        }
-      end
-      before { post :create, frontend: is_frontend, comment: params, format: :json }
+      let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -52,12 +53,8 @@ describe Api::V1::CommentsController do
     end
 
     context 'failure' do
-      before do
-        post :create,
-          comment: { body: 'test', is_offtopic: false, is_summary: false },
-          frontend: is_frontend,
-          format: :json
-      end
+      let(:body) { '' }
+
       context 'frontend' do
         let(:is_frontend) { true }
         it_behaves_like :failure_resource_change
@@ -72,10 +69,11 @@ describe Api::V1::CommentsController do
 
   describe '#update' do
     before { sign_in user }
+    before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
+    let(:params) {{ body: body }}
 
     context 'success' do
-      let(:params) {{ body: 'blablabla' }}
-      before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
+      let(:body) { 'blablabla' }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -89,8 +87,7 @@ describe Api::V1::CommentsController do
     end
 
     context 'failure' do
-      let(:params) {{ body: '' }}
-      before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
+      let(:body) { '' }
 
       context 'frontend' do
         let(:is_frontend) { true }
@@ -101,13 +98,6 @@ describe Api::V1::CommentsController do
         let(:is_frontend) { false }
         it_behaves_like :failure_resource_change
       end
-    end
-
-    context 'forbidden' do
-      let(:request) { patch :update, id: comment.id, comment: { body: 'a' } }
-      let(:comment) { create :comment, commentable: topic }
-
-      it { expect{request}.to raise_error CanCan::AccessDenied }
     end
   end
 

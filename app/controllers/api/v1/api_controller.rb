@@ -17,7 +17,6 @@ private
     render json: [
       "missing parameter: #{exception.message}"
     ], status: :unprocessable_entity
-
   end
 
   def authenticate_user_from_token!
@@ -37,5 +36,9 @@ private
         render json: { error: 'invalid user nickname or api access token' }, status: 403
       end
     end
+  end
+
+  def frontent_request?
+    params[:frontend]
   end
 end

@@ -55,6 +55,10 @@ ru:
         <<: *character_attributes
         birthday: Дата рождения
         website: Сайт
+      comment:
+        body: Текст
+      message:
+        body: Текст
       contest:
         title: Название
         description: Описание

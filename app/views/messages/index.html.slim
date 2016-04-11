@@ -2,15 +2,15 @@
 
 = render layout: 'page' do
   - unless @messages_type == :private
-    .messages-action
-      a[
-        href="#{read_all_profile_messages_url @resource, messages_type: @messages_type}"
+    .mass-actions
+      .action: a.b-js-link[
+        href="#{read_all_api_messages_path type: @messages_type, frontend: true}"
         data-method='post'
         data-confirm="#{t '.confirm_mark_as_read'}"
       ] = t '.mark_as_read'
 
-      a[
-        href="#{delete_all_profile_messages_url @resource, messages_type: @messages_type}"
+      .action: a.b-js-link[
+        href="#{delete_all_api_messages_url type: @messages_type, frontend: true}"
         data-method='post'
         data-confirm="#{t '.confirm_remove_all'}"
       ] = t '.remove_all'

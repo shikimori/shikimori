@@ -30,15 +30,6 @@ ru:
     site_news: Новости сайта
     private_messages: Личные сообщения
     site_notifications: Уведомления сайта
-    message:
-      created: Сообщение создано
-      not_created: Сообщение не создано
-      updated: Сообщение изменено
-      not_updated: Сообщение не изменено
-      removed: Сообщение удалено
-    messages:
-      read: Сообщения прочитаны
-      removed: Сообщения удалены
   user_history_controller:
     <<: *profiles_controller
   user_preferences_controller:
@@ -266,6 +257,17 @@ ru:
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален
+
+  api/v1/messages_controller:
+    messages:
+      read: Сообщения прочитаны
+      removed: Сообщения удалены
+    message:
+      created: Сообщение отправлено
+      not_created: Сообщение не отправлено
+      updated: Сообщение изменено
+      not_updated: Сообщение не изменено
+      removed: Сообщение удалено
 
   api/v1/dialogs_controller:
     conversation_removed: Переписка удалёна

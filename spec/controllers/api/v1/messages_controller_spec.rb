@@ -17,25 +17,78 @@ describe Api::V1::MessagesController, :show_in_doc do
   end
 
   describe '#create' do
-    let(:params) {{ kind: MessageType::Private, from_id: user.id, to_id: user.id, body: 'test' }}
-    before { post :create, message: params, format: :json }
+    before { post :create, frontend: is_frontend, message: params, format: :json }
+    let(:params) do
+      {
+        kind: MessageType::Private,
+        from_id: user.id,
+        to_id: user.id,
+        body: body
+      }
+    end
 
-    it do
-      expect(resource).to be_persisted
-      expect(resource).to have_attributes params
-      expect(response).to have_http_status :success
+    context 'success' do
+      let(:body) { 'x' * Comment::MIN_SUMMARY_SIZE }
+
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :success_resource_change, :frontend
+      end
+
+      context 'api', :show_in_doc do
+        let(:is_frontend) { false }
+        it_behaves_like :success_resource_change, :api
+      end
+    end
+
+    context 'failure' do
+      let(:body) { '' }
+
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :failure_resource_change
+      end
+
+      context 'api' do
+        let(:is_frontend) { false }
+        it_behaves_like :failure_resource_change
+      end
     end
   end
 
   describe '#update' do
-    let(:params) {{ body: 'test' }}
     let(:message) { create :message, :private, from: user, to: user }
-    before { patch :update, id: message.id, message: params, format: :json }
 
-    it do
-      expect(resource).to be_valid
-      expect(resource).to have_attributes params
-      expect(response).to have_http_status :success
+    before { sign_in user }
+    before { patch :update, id: message.id, frontend: is_frontend, message: params, format: :json }
+    let(:params) {{ body: body }}
+
+    context 'success' do
+      let(:body) { 'blablabla' }
+
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :success_resource_change, :frontend
+      end
+
+      context 'api', :show_in_doc do
+        let(:is_frontend) { false }
+        it_behaves_like :success_resource_change, :api
+      end
+    end
+
+    context 'failure' do
+      let(:body) { '' }
+
+      context 'frontend' do
+        let(:is_frontend) { true }
+        it_behaves_like :failure_resource_change
+      end
+
+      context 'api' do
+        let(:is_frontend) { false }
+        it_behaves_like :failure_resource_change
+      end
     end
   end
 
@@ -65,13 +118,29 @@ describe Api::V1::MessagesController, :show_in_doc do
     let!(:message_1) { create :message, :news, to: user, from: user, created_at: 1.hour.ago }
     let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
     let!(:message_3) { create :message, :private, to: user, from: user }
-    before { post :read_all, profile_id: user.to_param, type: 'news' }
 
-    it do
-      expect(message_1.reload).to be_read
-      expect(message_2.reload).to_not be_read
-      expect(message_3.reload).to_not be_read
-      expect(response).to have_http_status :success
+    include_context :back_redirect
+    before { post :read_all, type: 'news', frontend: is_frontend }
+
+    context 'api' do
+      let(:is_frontend) { false }
+      it do
+        expect(message_1.reload).to be_read
+        expect(message_2.reload).to_not be_read
+        expect(message_3.reload).to_not be_read
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'frontend' do
+      let(:is_frontend) { true }
+
+      it do
+        expect(message_1.reload).to be_read
+        expect(message_2.reload).to_not be_read
+        expect(message_3.reload).to_not be_read
+        expect(response).to redirect_to back_url
+      end
     end
   end
 
@@ -79,13 +148,29 @@ describe Api::V1::MessagesController, :show_in_doc do
     let!(:message_1) { create :message, :profile_commented, to: user, from: user, created_at: 1.hour.ago }
     let!(:message_2) { create :message, :profile_commented, to: create(:user), from: user, created_at: 30.minutes.ago }
     let!(:message_3) { create :message, :private, to: user, from: user }
-    before { post :delete_all, profile_id: user.to_param, type: 'notifications' }
 
-    it do
-      expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
-      expect(message_2.reload).to be_persisted
-      expect(message_3.reload).to be_persisted
-      expect(response).to have_http_status :success
+    include_context :back_redirect
+    before { post :delete_all, type: 'notifications', frontend: is_frontend }
+
+    context 'api' do
+      let(:is_frontend) { false }
+      it do
+        expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect(message_2.reload).to be_persisted
+        expect(message_3.reload).to be_persisted
+        expect(response).to have_http_status :success
+      end
+    end
+
+    context 'frontend' do
+      let(:is_frontend) { true }
+
+      it do
+        expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect(message_2.reload).to be_persisted
+        expect(message_3.reload).to be_persisted
+        expect(response).to redirect_to back_url
+      end
     end
   end
 end

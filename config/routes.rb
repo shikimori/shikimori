@@ -713,7 +713,6 @@ Site::Application.routes.draw do
       collection do
         get 'chosen/:ids' => :chosen, as: :chosen
 
-        post :mark_read
         post :bounce
 
         get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :feed
@@ -774,8 +773,6 @@ Site::Application.routes.draw do
       resources :messages, only: [], messages_type: /news|notifications|private/ do
         collection do
           get ':messages_type(/page/:page)' => :index, as: :index
-          post 'read/:messages_type/all' => :read_all, as: :read_all, messages_type: /news|notifications/
-          post 'delete/:messages_type/all' => :delete_all, as: :delete_all, messages_type: /news|notifications/
         end
       end
 

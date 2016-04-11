@@ -55,6 +55,10 @@ en:
         <<: *character_attributes
         birthday: Birthday
         website: Website
+      comment:
+        body: Text
+      message:
+        body: Text
       contest:
         title: Title
         description: Synopsis

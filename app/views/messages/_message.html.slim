@@ -12,8 +12,8 @@
           .b-new_marker.active[
             class="#{!message.read ? '' : 'off'}"
             data-reappear='true'
-            data-reappear_url="#{mark_read_messages_url unread: true}"
-            data-appear_url="#{mark_read_messages_url}"
+            data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
+            data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
             data-text="#{t 'markers.new'}"
           ]
 
@@ -98,7 +98,7 @@
           .delete-controls
             span.item-delete-confirm[
               title="#{t 'actions.delete'}"
-              action="#{message_url message}"
+              action="#{api_message_url message}"
               data-type='json'
               data-remote='true'
               data-method='delete'
@@ -148,6 +148,6 @@
       - if !message.read && message.to == current_user
         .appear-marker[
           class="appear-message-#{message.id}"
-          data-appear_url="#{mark_read_messages_url}"
+          data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
           data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"
         ]

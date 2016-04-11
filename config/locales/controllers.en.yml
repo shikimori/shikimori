@@ -30,15 +30,6 @@ en:
     site_news: Site news
     private_messages: Private messages
     site_notifications: Site notifications
-    message:
-      created: Message created
-      not_created: Message not created
-      updated: Message updated
-      not_updated: Messaged not updated
-      removed: Message removed
-    messages:
-      read: Messages marked as read
-      removed: Messages removed
   user_history_controller:
     <<: *profiles_controller
   user_preferences_controller:
@@ -239,6 +230,7 @@ en:
     description:
       List of major anime studios sorted by volume of media produced.
 
+
   reviews_controller:
     <<: *animes_controller
     new_review: New review
@@ -265,6 +257,17 @@ en:
   api/v1/comments_controller:
     comment:
       removed: Comment removed
+
+  api/v1/messages_controller:
+    messages:
+      read: Messages marked as read
+      removed: Messages removed
+    message:
+      created: Message sent
+      not_created: Message not sent
+      updated: Message changed
+      not_updated: Messaged not changed
+      removed: Message removed
 
   api/v1/dialogs_controller:
     conversation_removed: Conversation removed
