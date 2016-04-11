@@ -120,16 +120,8 @@ private
     end
   end
 
-  def faye
-    FayeService.new current_user || User.find(User::GUEST_ID), faye_token
-  end
-
   def create_params
     params.require(:message).permit(:body, :from_id, :to_id, :kind)
-  end
-
-  def update_params
-    params.require(:message).permit(:body)
   end
 
   def authorize_acess

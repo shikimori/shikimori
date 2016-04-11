@@ -114,6 +114,6 @@ private
   end
 
   def faye
-    FayeService.new current_user, nil
+    FayeService.new current_user || User.find(User::GUEST_ID), faye_token
   end
 end
