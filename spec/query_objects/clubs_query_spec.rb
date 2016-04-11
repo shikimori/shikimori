@@ -33,7 +33,7 @@ describe ClubsQuery do
     end
   end
 
-  describe '#favourite', :focus do
+  describe '#favourite' do
     subject { query.favourite }
     it { is_expected.to eq [club_favoured] }
   end
