@@ -37,8 +37,8 @@ data-tooltip_url="//test.host/animes/9876543-zxcvbn/tooltip">#{name_html}</a>
       context 'with russian name' do
         let(:name_html) do
           <<-HTML.squish
-<span class="en-name">#{anime.name}</span><span
-class="ru-name" data-text="#{anime.russian}"></span>
+<span class="name-en">#{anime.name}</span><span
+class="name-ru" data-text="#{anime.russian}"></span>
           HTML
         end
         let(:russian) { 'test' }

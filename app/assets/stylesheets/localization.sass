@@ -1,0 +1,11 @@
+body
+  &.localized_names-ru
+    .name-en
+      display: none
+
+    .name-ru:before
+      content: attr(data-text)
+
+  &.localized_names-en
+    .name-ru
+      display: none

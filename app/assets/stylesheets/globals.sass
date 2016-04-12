@@ -77,13 +77,6 @@ $default-image-active-background: #adadad
   &:active
     background-color: $default-image-active-background
 
-/* стандартное оформление аватара
-=avatar
-  +border-radius(3px)
-  background: #FCFCFF
-  border: 1px solid #A5CAE4
-  padding: 2px
-
 =link-color($color)
   +transition(color, 0.2s)
   color: $color
@@ -94,13 +87,6 @@ $default-image-active-background: #adadad
   &:active
     color: $link-active
 
-=link_color_hover_underlined($color)
-  +link-color($color)
-
-  text-decoration: none
-  &:hover
-    text-decoration: underline
-
 /* нормальная голубая ссылка
 =normal-link
   +transition(color, 0.2s)
@@ -108,35 +94,6 @@ $default-image-active-background: #adadad
   cursor: pointer
   &:hover
     text-decoration: underline
-
-/* кнопка с фоном из картинки
-=default-button
-  background-image: url(/images/buttons.png)
-  cursor: pointer
-  display: block
-  height: 21px
-  margin-left: 5px
-  width: 21px
-  /*&:hover {
-  /*@include border-radius(4px);
-  /*background-color: #f3f3f3;
-  /*}
-  /*&:active {
-  /*background-color: transparent;
-  /*}
-
-=default-link-a
-  text-shadow: none
-  color: #555555
-
-=default-link
-  +selectable-decor
-  +transition(background-color, 0.2s)
-  cursor: pointer
-  padding: 1px 3px
-  a
-    +default-link-a
-    cursor: inherit
 
 /* цвета логотипа
 $logo-color: #333333

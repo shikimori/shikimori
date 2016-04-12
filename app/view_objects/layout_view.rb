@@ -6,6 +6,14 @@ class LayoutView < ViewObjectBase
     !!h.controller.instance_variable_get('@blank_layout')
   end
 
+  def body_id
+    "#{h.controller_name}_#{h.action_name}"
+  end
+
+  def localized_names_class
+    ru_names? ? 'localized_names-ru' : 'localized_names-en'
+  end
+
   def background_styles
     return if blank_layout?
     return unless background
@@ -24,5 +32,10 @@ private
   def background
     object_with_background = h.controller.instance_variable_get('@user')
     (object_with_background || h.current_user)&.preferences&.body_background
+  end
+
+  def ru_names?
+    I18n.russian? && h.ru_domain? &&
+      (!h.user_signed_in? || h.current_user&.preferences&.russian_names)
   end
 end

@@ -12,7 +12,8 @@ module UsersHelper
     end
 
     def russian_names? russian_option, current_user
-      I18n.russian? && (!current_user || current_user.preferences.try(russian_option))
+      I18n.russian? &&
+        (!current_user || current_user.preferences.try(russian_option))
     end
   end
 

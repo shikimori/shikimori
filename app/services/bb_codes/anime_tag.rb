@@ -46,8 +46,8 @@ private
   def localized_name entry
     if entry.russian.present?
       <<-HTML.squish
-<span class="en-name">#{entry.name}</span><span
-class="ru-name" data-text="#{entry.russian}"></span>
+<span class="name-en">#{entry.name}</span><span
+class="name-ru" data-text="#{entry.russian}"></span>
       HTML
     else
       entry.name
