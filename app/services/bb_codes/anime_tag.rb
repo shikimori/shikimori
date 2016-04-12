@@ -8,7 +8,7 @@ class BbCodes::AnimeTag
     db_entries = fetch_entries text
 
     text.gsub regexp do |matched|
-      entry = db_entries[$~[:id]]
+      entry = db_entries[$~[:id].to_i]
 
       if entry
         html_for entry.decorate, $~[:name]
@@ -55,11 +55,11 @@ class="ru-name" data-text="#{entry.russian}"></span>
   end
 
   def fetch_entries text
-    entries = {}
+    ids = []
     text.scan(regexp) do |match|
-      entries[$~[:id]] = klass.find_by id: $~[:id]
+      ids.push $~[:id].to_i if $~[:id]
     end
-    entries
+    klass.where(id: ids).each_with_object({}) { |v, memo| memo[v.id] = v }
   end
 
   def name
