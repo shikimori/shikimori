@@ -26,33 +26,33 @@ header.head
       = yield
 
     aside.l-menu.ajax-opacity
-      / = render 'menu_actions', menu: @view.menu
+      = render 'menu_actions', menu: @view.menu
 
-      / - if linked
-        / - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
-          / = render 'animes/menu', resource: linked.decorate
+      - if linked
+        - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
+          = render 'animes/menu', resource: linked.decorate
 
-        / - elsif linked.kind_of? Review
-          / = render 'animes/menu', resource: linked.target.decorate
+        - elsif linked.kind_of? Review
+          = render 'animes/menu', resource: linked.target.decorate
 
-        / - elsif linked.kind_of? Character
-          / = render 'characters/menu', resource: linked.decorate
+        - elsif linked.kind_of? Character
+          = render 'characters/menu', resource: linked.decorate
 
-        / - elsif linked.kind_of? Person
-          / = render 'people/menu', resource: linked.decorate
+        - elsif linked.kind_of? Person
+          = render 'people/menu', resource: linked.decorate
 
-        / - elsif linked.kind_of? Club
-          / = render 'clubs/menu', resource: linked.decorate
+        - elsif linked.kind_of? Club
+          = render 'clubs/menu', resource: linked.decorate
 
-        / - elsif linked.kind_of? Contest
-          / = render 'contests/menu', resource: linked.decorate
+        - elsif linked.kind_of? Contest
+          = render 'contests/menu', resource: linked.decorate
 
-        / - elsif linked.kind_of? CosplayGallery
-          / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
-          / = render 'menu', menu: @view.menu
+        - elsif linked.kind_of? CosplayGallery
+          = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+          = render 'menu', menu: @view.menu
 
-        / - else raise "unknown linked: #{linked.class}"
+        - else raise "unknown linked: #{linked.class}"
 
-      / - else
-        / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
-        / = render 'menu', menu: @view.menu
+      - else
+        = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+        = render 'menu', menu: @view.menu
