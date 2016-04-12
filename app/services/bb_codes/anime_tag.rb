@@ -4,6 +4,16 @@ class BbCodes::AnimeTag
 
   dsl_attribute :klass, Anime
 
+  def regexp
+    @regexp ||= %r{
+      \[#{name}=(?<id>\d+)\] (?<name>[^\[\]]*?) \[\/#{name}\]
+      |
+      \[#{name}\] (?<id>\d+) \[\/#{name}\]
+      |
+      \[#{name}=(?<id>\d+)\] (?!=\d)
+    }mix
+  end
+
   def format text
     db_entries = fetch_entries text
 
@@ -62,15 +72,5 @@ private
 
   def name
     klass.name.downcase
-  end
-
-  def regexp
-    @regexp ||= %r{
-      \[#{name}=(?<id>\d+)\] (?<name>[^\[\]].*?) \[\/#{name}\]
-      |
-      \[#{name}\] (?<id>\d+) \[\/#{name}\]
-      |
-      \[#{name}=(?<id>\d+)\] (?!=\d)
-    }mix
   end
 end
