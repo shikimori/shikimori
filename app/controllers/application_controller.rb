@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
   before_action :set_locale
+  before_action :set_layout_view
   before_action :fix_googlebot
   before_action :touch_last_online
   before_action :mailer_set_url_options
@@ -142,6 +143,10 @@ private
     end
   rescue URI::InvalidURIError
     'application'
+  end
+
+  def set_layout_view
+    @layout = LayoutView.new
   end
 
   def force_canonical
