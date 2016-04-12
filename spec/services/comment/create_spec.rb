@@ -53,7 +53,6 @@ describe Comment::Create do
       let(:topic) {}
 
       it_behaves_like :comment
-
       it { is_expected.to be_present }
       it { is_expected.to be_kind_of Topic }
     end
