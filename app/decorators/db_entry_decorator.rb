@@ -36,14 +36,14 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_ru
-    Rails.cache.fetch [:descrption, h.russian_names_key, object, I18n.locale] do
+    Rails.cache.fetch [:descrption, object, I18n.locale] do
       BbCodeFormatter.instance.format_description object.description_ru, object
     end
   end
 
   def description_en
     if object.respond_to?(:description_en) && object.description_en.present?
-      Rails.cache.fetch [:descrption_en, h.russian_names_key, object, I18n.locale] do
+      Rails.cache.fetch [:descrption_en, object, I18n.locale] do
         BbCodeFormatter.instance.format_comment object.description_en
       end
     else
@@ -75,7 +75,7 @@ class DbEntryDecorator < BaseDecorator
   def linked_clubs
     query = object.clubs
     if !object.try(:censored?) && h.censored_forbidden?
-      query = query.where(is_censored: false) 
+      query = query.where(is_censored: false)
     end
     query.shuffle.take(MAX_CLUBS)
   end

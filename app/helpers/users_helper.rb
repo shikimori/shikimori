@@ -18,8 +18,19 @@ module UsersHelper
   end
 
   # название с учётом настроек отображения русского языка
+  # DEPRECATED
+  # TODO: заменить на localization_span
   def localized_name entry
     UsersHelper.localized_name entry, current_user
+  end
+
+  def localization_span entry
+    if entry.try(:russian).present?
+      "<span class='name-en'>#{h entry.name}</span>"\
+      "<span class='name-ru' data-text='#{h entry.russian}'></span>".html_safe
+    else
+      entry.name
+    end
   end
 
   def russian_names? russian_option = :russian_names

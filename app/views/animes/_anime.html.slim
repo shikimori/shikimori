@@ -26,7 +26,7 @@ article.c-column.b-catalog_entry[
     a.cover[
       class="#{'anime-tooltip' if tooltipped || content_by == :inline_tooltip}"
       href="#{anime.url}"
-      title="#{localized_name anime}"
+      title="#{anime.name}"
       data-delay="150"
       data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
       data-insert-tooltip-after="#{content_by == :mini_tooltip}"
@@ -48,7 +48,7 @@ article.c-column.b-catalog_entry[
     .cover.linkeable[
       class="#{'anime-tooltip' if tooltipped || content_by == :inline_tooltip}"
       data-href="#{anime.url}"
-      data-title="#{localized_name anime}"
+      data-title="#{anime.name}"
       data-delay="150"
       data-insert-tooltip-after="#{content_by == :mini_tooltip}"
       data-local-tooltip="#{content_by == :inline_tooltip}"

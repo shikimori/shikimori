@@ -23,7 +23,7 @@ private
   def html_for entry, name
     <<-HTML.squish
 <a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
-  data-tooltip_url="#{tooltip_url entry}">#{name || localized_name(entry)}</a>
+  data-tooltip_url="#{tooltip_url entry}">#{name || localization_span(entry)}</a>
     HTML
   end
 
@@ -43,12 +43,10 @@ private
     )
   end
 
-  def localized_name entry
+  def localization_span entry
     if entry.russian.present?
-      <<-HTML.squish
-<span class="name-en">#{entry.name}</span><span
-class="name-ru" data-text="#{entry.russian}"></span>
-      HTML
+      "<span class='name-en'>#{entry.name}</span>"\
+      "<span class='name-ru' data-text='#{entry.russian}'></span>"
     else
       entry.name
     end
