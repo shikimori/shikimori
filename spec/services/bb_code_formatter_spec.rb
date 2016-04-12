@@ -78,37 +78,37 @@ describe BbCodeFormatter do
         let(:anime) { create :anime, name: "Hayate no Gotoku! Can't Take My Eyes Off You" }
         let(:text) { "[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]" }
 
-        it { should eq "[anime=#{anime.id}]#{anime.name}[/anime]" }
+        it { should eq "[anime=#{anime.id}]" }
 
         context 'score order' do
           let!(:anime) { create :anime, name: 'test', score: 5 }
           let!(:anime2) { create :anime, name: 'test', score: 9 }
           let(:text) { "[#{anime.name}]" }
-          it { is_expected.to eq "[anime=#{anime2.id}]#{anime.name}[/anime]" }
+          it { is_expected.to eq "[anime=#{anime2.id}]" }
         end
       end
 
       context 'manga' do
         let(:manga) { create :manga }
         let(:text) { "[#{manga.name}]" }
-        it { is_expected.to eq "[manga=#{manga.id}]#{manga.name}[/manga]" }
+        it { is_expected.to eq "[manga=#{manga.id}]" }
       end
 
       context 'character' do
         let(:character) { create :character }
         let(:text) { "[#{character.name}]" }
-        it { is_expected.to eq "[character=#{character.id}]#{character.name}[/character]" }
+        it { is_expected.to eq "[character=#{character.id}]" }
 
         context 'reversed name' do
           let(:text) { "[#{character.name.split(' ').reverse.join ' '}]" }
-          it { is_expected.to eq "[character=#{character.id}]#{character.name.split(' ').reverse.join ' '}[/character]" }
+          it { is_expected.to eq "[character=#{character.id}]" }
         end
       end
 
       context 'person' do
         let(:person) { create :person }
         let(:text) { "[#{person.name}]" }
-        it { is_expected.to eq "[person=#{person.id}]#{person.name}[/person]" }
+        it { is_expected.to eq "[person=#{person.id}]" }
       end
     end
 
@@ -116,19 +116,19 @@ describe BbCodeFormatter do
       context 'anime' do
         let(:anime) { create :anime, russian: 'руру' }
         let(:text) { "[#{anime.russian}]" }
-        it { is_expected.to eq "[anime=#{anime.id}]#{anime.russian}[/anime]" }
+        it { is_expected.to eq "[anime=#{anime.id}]" }
       end
 
       context 'manga' do
         let(:manga) { create :manga, russian: 'руру' }
         let(:text) { "[#{manga.russian}]" }
-        it { is_expected.to eq "[manga=#{manga.id}]#{manga.russian}[/manga]" }
+        it { is_expected.to eq "[manga=#{manga.id}]" }
       end
 
       context 'character' do
         let(:character) { create :character, russian: 'руру' }
         let(:text) { "[#{character.russian}]" }
-        it { is_expected.to eq "[character=#{character.id}]#{character.russian}[/character]" }
+        it { is_expected.to eq "[character=#{character.id}]" }
       end
     end
 

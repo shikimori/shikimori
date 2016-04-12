@@ -2,7 +2,7 @@ class BbCodes::ImageTag
   include Singleton
   REGEXP = /
     \[
-      image (?:=(?<id>\d+))
+      image=(?<id>\d+)
       (?:
         (?: \s c(?:lass)?=(?<klass>[\w_-]+) )? |
         (?: \s (?<width>\d+)x(?<height>\d+) )? |

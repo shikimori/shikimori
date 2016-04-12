@@ -7,5 +7,6 @@ if defined? Rack::MiniProfiler
     /assets/
     /__better_errors/
     /sidekiq/
+    /api/appears
   )
 end

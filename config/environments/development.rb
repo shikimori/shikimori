@@ -52,7 +52,7 @@ Site::Application.configure do
 
   Slim::Engine.set_options pretty: false
 
-  # ActiveRecordQueryTrace.enabled = true
+  ActiveRecordQueryTrace.enabled = true
 
   # Flog.configure do |config|
     # # If this value is true, not format on cached query
