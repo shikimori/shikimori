@@ -1,7 +1,4 @@
 class Api::V1::CommentsController < Api::V1::ApiController
-  prepend ActiveCacher.instance
-  instance_cache :commentable_object
-
   respond_to :json
 
   before_filter :authenticate_user!, only: [:create, :update, :destroy]
@@ -41,10 +38,9 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_summary, :bool
   end
   def create
-    @comment = Comment.new create_params
+    @comment = Comment::Create.call(faye, create_params)
 
-    # TODO: extract into service?
-    if create_comment
+    if @comment.persisted?
       if params[:frontend]
         # incoming request form shiki editor has format json
         # render jbuilder template
@@ -117,38 +113,6 @@ private
 
   def prepare_edition
     @comment = Comment.find(params[:id]).decorate if params[:id]
-  end
-
-  def create_comment
-    RedisMutex.with_lock(mutex_key) do
-      set_topic
-      faye.create @comment
-    end
-  end
-
-  def mutex_key
-    "comment_"\
-      "#{comment_params[:commentable_id]}_"\
-      "#{comment_params[:commentable_type]}"
-  end
-
-  def set_topic
-    return unless @comment.valid?
-    return if commentable_klass <= Entry
-
-    @comment.commentable = find_or_generate_topic
-  end
-
-  def find_or_generate_topic
-    commentable_object.topic || commentable_object.generate_topic
-  end
-
-  def commentable_klass
-    comment_params[:commentable_type].constantize
-  end
-
-  def commentable_object
-    commentable_klass.find comment_params[:commentable_id]
   end
 
   def faye
