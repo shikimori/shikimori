@@ -1,6 +1,5 @@
 describe Api::V1::CommentsController do
   let(:user) { create :user, :user }
-  let(:anime) { create :anime, topic: topic }
   let(:topic) { create :entry, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
