@@ -5,11 +5,13 @@ class BbCodes::AnimeTag
   dsl_attribute :klass, Anime
 
   def format text
+    db_entries = fetch_entries text
+
     text.gsub regexp do |matched|
-      entry = klass.find_by(id: $~[:id])&.decorate
+      entry = db_entries[$~[:id]]
 
       if entry
-        html_for entry, $~[:name]
+        html_for entry.decorate, $~[:name]
       else
         matched
       end
@@ -49,6 +51,12 @@ class="ru-name" data-text="#{entry.russian}"></span>
       HTML
     else
       entry.name
+    end
+  end
+
+  def fetch_entries text
+    text.scan(regexp).each_with_object({}) do |match, memo|
+      memo[$~[:id]] = klass.find_by id: $~[:id]
     end
   end
 
