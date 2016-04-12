@@ -67,7 +67,12 @@ private
     text.scan(regexp) do |match|
       ids.push $~[:id].to_i if $~[:id]
     end
-    klass.where(id: ids).each_with_object({}) { |v, memo| memo[v.id] = v }
+
+    if ids.any?
+      klass.where(id: ids).each_with_object({}) { |v, memo| memo[v.id] = v }
+    else
+      {}
+    end
   end
 
   def name
