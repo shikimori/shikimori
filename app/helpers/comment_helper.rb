@@ -4,15 +4,14 @@ module CommentHelper
   include SiteHelper
   #include AniMangaHelper
 
-  SimpleBbCodes = [
+  SIMPLE_BB_CODES = [
     :b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid
   ]
-  ComplexBbCodes = [
+  COMPLEX_BB_CODES = [
     :smileys, :club, :contest, :mention, :version, :anime_video,
     :user, :message, :comment, :entry, :review, :quote, :posters, :ban,
     :spoiler
   ]#, :wall_container
-  DbEntryBbCodes = [:anime, :manga, :character, :person]
 
   @@smileys_path = '/images/smileys/'
   @@smileys_synonym = {
@@ -109,31 +108,7 @@ module CommentHelper
     end
   end
 
-  BbCodeReplacers = ComplexBbCodes.map { |v| "#{v}_to_html".to_sym }.reverse
-
-  def db_entry_mention text
-    text.gsub %r{\[(?!\/|#{(SimpleBbCodes + ComplexBbCodes + DbEntryBbCodes).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
-      name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
-
-      splitted_name = name.split(' ')
-
-      entry = if name.contains_russian?
-        Anime.order('score desc').find_by_russian(name) ||
-          Manga.order('score desc').find_by_russian(name) ||
-          Character.find_by_russian(name) ||
-          (splitted_name.size == 2 ? Character.find_by_russian(splitted_name.reverse.join ' ') : nil)
-      elsif name != 'manga' && name != 'list' && name != 'anime'
-        Anime.order('score desc').find_by_name(name) ||
-          Manga.order('score desc').find_by_name(name) ||
-          Character.find_by_name(name) ||
-          (splitted_name.size == 2 ? Character.find_by_name(splitted_name.reverse.join ' ') : nil) ||
-          Person.find_by_name(name) ||
-          (splitted_name.size == 2 ? Person.find_by_name(splitted_name.reverse.join ' ') : nil)
-      end
-
-      entry ? "[#{entry.class.name.downcase}=#{entry.id}]#{name}[/#{entry.class.name.downcase}]" : matched
-    end
-  end
+  BbCodeReplacers = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
 
   def remove_old_tags(html)
     html
@@ -175,10 +150,6 @@ module CommentHelper
 
   # TODO: refactor to bbcode class
   @@type_matchers = {
-    Anime => [/(\[anime(?:=(\d+))?\]([^\[]*?)\[\/anime\])/, :tooltip_anime_url],
-    Manga => [/(\[manga(?:=(\d+))?\]([^\[]*?)\[\/manga\])/, :tooltip_manga_url],
-    Character => [/(\[character(?:=(\d+))?\]([^\[]*?)\[\/character\])/, :tooltip_character_url],
-    Person => [/(\[person(?:=(\d+))?\]([^\[]*?)\[\/person\])/, :tooltip_person_url],
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],

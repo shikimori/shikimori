@@ -3,7 +3,7 @@ span.image-decor
     img[
       src="#{cdn_image anime, :preview}"
       srcset="#{cdn_image anime, :original} 2x"
-      alt="#{localized_name anime}"
+      alt="#{anime.name}"
     ]
 
 - if cover_title != :none
@@ -12,15 +12,15 @@ span.image-decor
       class="#{cover_notice == :none ? :two_lined : :left_aligned}"
       itemprop='name'
     ]
-      = localized_name anime
+      = localization_span anime
   - elsif cover_by == :linkeable
     a.title[
       class="#{cover_notice == :none ? :two_lined : :left_aligned}"
       href="#{url_for anime}"
-      title="#{localized_name anime}"
+      title="#{anime.name}"
       itemprop='url'
     ]
-      = localized_name anime
+      = localization_span anime
 
 span.misc
   - if cover_notice == :studio

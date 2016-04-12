@@ -11,7 +11,7 @@ class CommentDecorator < Draper::Decorator
 
   def html_body
     if persisted?
-      Rails.cache.fetch [:body, h.russian_names_key, object] do
+      Rails.cache.fetch [:body, object] do
         object.html_body
       end
     else

@@ -26,18 +26,19 @@ article.c-column.b-catalog_entry.c-character[
         img[
           src="#{cdn_image character, :preview}"
           srcset="#{cdn_image character, :original} 2x"
-          alt="#{localized_name character}"
-          title="#{localized_name character}"
+          alt="#{character.name}"
         ]
 
     - if cover_title != :none
       - if cover_by == :link
         span.title.two_lined itemprop="name"
-          = localized_name character
+          = localization_span character
 
   - unless content_by == :tooltip || content_by == :none
     .content
       - if content_by == :block
-        = render partial: 'characters/content', object: character, as: :character
+        = render partial: 'characters/content',
+          object: character,
+          as: :character
       - else
         - raise ArgumentError, content_by

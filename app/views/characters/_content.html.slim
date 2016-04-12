@@ -1,10 +1,10 @@
 .b-catalog_entry-tooltip
   - if defined?(with_image) && with_image
-    a href="#{character_url character}" title="#{localized_name character}"
+    a href="#{character_url character}" title="#{character.name}"
       img.image[
         src="#{cdn_image character, :preview}"
         srcset="#{cdn_image character, :original} 2x"
-        alt="#{localized_name character}"
+        alt="#{character.name}"
       ]
 
   .inner.p0 class="#{:offset if defined?(with_image) && with_image}"
@@ -12,15 +12,15 @@
       - if !defined?(cover_by) || cover_by != :link
         a.data.name[
           href="#{character_url character}"
-          title="#{localized_name character}"
+          title="#{character.name}"
           itemprop="name"
-        ] = localized_name character
+        ] = localization_span character
 
       - else
         .linkeable.name[
           data-href="#{character_url character}"
-          data-title="#{localized_name character}"
-        ] = localized_name character
+          data-title="#{character.name}"
+        ] = localization_span character
 
     - if character.best_works.any?
       .additional-images

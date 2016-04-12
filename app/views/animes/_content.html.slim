@@ -4,11 +4,11 @@
 .b-catalog_entry-tooltip
   .entry-tooltip_container
     - if local_assigns[:with_image]
-      a.image-link href="#{anime.url}" title="#{localized_name anime}"
+      a.image-link href="#{anime.url}" title="#{anime.name}"
         img.image[
           src="#{cdn_image anime, :preview}"
           srcset="#{cdn_image anime, :original} 2x"
-          alt="#{localized_name anime}"
+          alt="#{anime.name}"
         ]
 
     .inner class="#{:offset if local_assigns[:with_image]}"
@@ -17,14 +17,14 @@
           - if !defined?(cover_by) || cover_by != :link
             a.data.name[
               href="#{anime.url}"
-              title="#{localized_name anime}"
+              title="#{anime.name}"
               itemprop="name"
-            ] = localized_name anime
+            ] = localization_span anime
           - else
             .linkeable.name[
               data-href="#{anime.url}"
-              data-title="#{localized_name anime}"
-            ] = localized_name anime
+              data-title="#{anime.name}"
+            ] = localization_span anime
 
       - if content_text != :none
         .text itemprop="description"

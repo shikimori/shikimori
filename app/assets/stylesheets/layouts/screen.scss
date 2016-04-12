@@ -187,30 +187,6 @@ img.right {
   color: #666;
   font-style: italic;
 }
-.related-all {
-  color: #999999;
-  cursor: pointer;
-  font-family: helvetica,arial,sans-serif;
-  font-size: 11px;
-  line-height: 12px;
-  padding-top: 2px;
-  position: absolute;
-  right: 0;
-  text-decoration: none;
-
-  a {
-    @include link-hover;
-
-    display: block;
-    /*margin-top: 3px;*/
-  }
-  .link {
-    @include default-link;
-
-    color: #666;
-    display: block;
-  }
-}
 
 .strong {
   font-weight: bold;

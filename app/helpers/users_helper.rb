@@ -12,13 +12,25 @@ module UsersHelper
     end
 
     def russian_names? russian_option, current_user
-      I18n.russian? && (!current_user || current_user.preferences.try(russian_option))
+      I18n.russian? &&
+        (!current_user || current_user.preferences.try(russian_option))
     end
   end
 
   # название с учётом настроек отображения русского языка
+  # DEPRECATED
+  # TODO: заменить на localization_span
   def localized_name entry
     UsersHelper.localized_name entry, current_user
+  end
+
+  def localization_span entry
+    if entry.try(:russian).present?
+      "<span class='name-en'>#{h entry.name}</span>"\
+      "<span class='name-ru' data-text='#{h entry.russian}'></span>".html_safe
+    else
+      entry.name
+    end
   end
 
   def russian_names? russian_option = :russian_names
@@ -38,31 +50,5 @@ module UsersHelper
     if user && user.persisted? && user.preferences.page_border
       :bordered
     end
-  end
-
-  def body_background
-    user = @user || current_user
-
-    if user && user.persisted? && user.preferences.body_background.present?
-      background = (@user || user).preferences.body_background
-      if background =~ %r{^https?://}
-        remove_suspicious_css "background: url(#{background}) fixed no-repeat;"
-      else
-        remove_suspicious_css "background: #{background};"
-      end
-    end
-  end
-
-  def remove_suspicious_css css
-    evil = [
-      /(\bdata:\b|eval|cookie|\bwindow\b|\bparent\b|\bthis\b)/i, # suspicious javascript-type words
-      /behaviou?r|expression|moz-binding|@import|@charset|(java|vb)?script|[\<]|\\\w/i,
-      /[\<>]/, # back slash, html tags,
-      #/[\x7f-\xff]/, # high bytes -- suspect
-      /[\x00-\x08\x0B\x0C\x0E-\x1F]/, #low bytes -- suspect
-      /&\#/, # bad charset
-    ]
-    evil.each {|regex| css.gsub! regex, '' }
-    css
   end
 end
