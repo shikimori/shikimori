@@ -145,7 +145,7 @@ describe Messages::GenerateBody do
       let(:kind) { MessageType::VersionAccepted }
       let(:anime) { create :anime, id: 1, name: 'test' }
       let(:linked) { create :version, item: anime, id: 1 }
-      it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> принята." }
+      it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//test.host/animes/1-test\" title=\"test\" class=\"bubbled b-link\" data-tooltip_url=\"//test.host/animes/1-test/tooltip\">test</a> принята." }
     end
 
     context 'version_rejected' do
@@ -155,11 +155,11 @@ describe Messages::GenerateBody do
 
       context 'with reason' do
         let(:body) { 'zxc' }
-        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> отклонена по причине: <div class=\"b-quote\"><div class=\"quoteable\">from написал:</div>zxc</div>" }
+        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//test.host/animes/1-test\" title=\"test\" class=\"bubbled b-link\" data-tooltip_url=\"//test.host/animes/1-test/tooltip\">test</a> отклонена по причине: <div class=\"b-quote\"><div class=\"quoteable\">from написал:</div>zxc</div>" }
       end
 
       context 'without reason' do
-        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//shikimori.org/animes/1-test\" title=\"\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/animes/1-test/tooltip\">test</a> отклонена." }
+        it { is_expected.to eq "Ваша <a href=\"//shikimori.org/moderations/versions/1\" title=\"правка\" class=\"bubbled b-link\" data-tooltip_url=\"//shikimori.org/moderations/versions/1/tooltip\">правка</a> для <a href=\"//test.host/animes/1-test\" title=\"test\" class=\"bubbled b-link\" data-tooltip_url=\"//test.host/animes/1-test/tooltip\">test</a> отклонена." }
       end
     end
 
