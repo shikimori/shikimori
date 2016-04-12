@@ -25,8 +25,13 @@ data-tooltip_url="//test.host/animes/9876543-zxcvbn/tooltip">#{name_html}</a>
       it { is_expected.to eq html }
 
       context 'multiple bb codes' do
-        let(:text) { "[anime=#{anime.id}][anime=#{anime.id}]" }
-        it { is_expected.to eq html+html }
+        let(:anime2) { create :anime, id: 98765432, name: 'zxcvbn', russian: russian }
+        let(:text) { "[anime=#{anime.id}][anime=#{anime2.id}]" }
+        it do
+          is_expected.to include html
+          is_expected.to include anime.name
+          is_expected.to include anime2.name
+        end
       end
 
       context 'with russian name' do

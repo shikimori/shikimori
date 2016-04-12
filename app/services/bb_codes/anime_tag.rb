@@ -55,9 +55,11 @@ class="ru-name" data-text="#{entry.russian}"></span>
   end
 
   def fetch_entries text
-    text.scan(regexp).each_with_object({}) do |match, memo|
-      memo[$~[:id]] = klass.find_by id: $~[:id]
+    entries = {}
+    text.scan(regexp) do |match|
+      entries[$~[:id]] = klass.find_by id: $~[:id]
     end
+    entries
   end
 
   def name
