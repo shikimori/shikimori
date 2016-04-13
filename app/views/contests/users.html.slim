@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  - cache [@resource, :users, @resource.displayed_match] do
+  - cache [@resource, @resource.displayed_match, I18n.locale] do
     .block
       .b-options-floated.count = @resource.left_voters.size
       .subheadline.m10

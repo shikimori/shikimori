@@ -27,7 +27,7 @@ class UserProfileDecorator < UserDecorator
   end
 
   def about_html
-    Rails.cache.fetch [:about, h.russian_names_key, object.cache_key] do
+    Rails.cache.fetch [:about, object] do
       BbCodeFormatter.instance.format_comment about || ''
     end
   end

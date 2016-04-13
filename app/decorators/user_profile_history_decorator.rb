@@ -4,7 +4,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, h.russian_names_key, object.cache_key] do
+    @formatted ||= Rails.cache.fetch [:history, object.cache_key] do
       grouped_history
         .map { |_, entries| format_entries entries }
         .compact
@@ -80,7 +80,7 @@ private
       {
         image: ImageUrlGenerator.instance.url(entry.target, :x48),
         image_2x: ImageUrlGenerator.instance.url(entry.target, :x96),
-        name: UsersHelper.localized_name(entry.target, h.current_user),
+        name: h.localization_span(entry.target),
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
         url: h.url_for(entry.target),

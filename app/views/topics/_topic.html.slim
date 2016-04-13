@@ -42,7 +42,7 @@
         - if topic_view.show_actions?
           = render 'topics/buttons', view: topic_view
 
-        /= cache [topic.object, topic.linked ? topic.linked : nil, russian_names_key, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
+        /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
         header
           = render "topics/header/#{topic_view.minified? ? :mini : :common}", view: topic_view
 

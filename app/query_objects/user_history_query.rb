@@ -34,6 +34,7 @@ private
 
   def fetch page, limit
     user.all_history
+      .includes(:anime, :manga)
       .offset(limit * (page-1))
       .limit(limit + 1)
       .to_a

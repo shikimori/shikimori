@@ -32,7 +32,8 @@ html
 
     - else
       header.l-top_menu
-        = render 'application/top_menu'
+        - unless Rails.env.development? && params[:no_menu]
+          = render 'application/top_menu'
 
       section.l-page *itemprop style="#{page_background}"
         - if user_signed_in? && current_user.admin? && !Rails.env.development?

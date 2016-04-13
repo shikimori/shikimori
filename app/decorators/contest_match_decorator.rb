@@ -9,10 +9,6 @@ class ContestMatchDecorator < BaseDecorator
     object.right.decorate if object.right
   end
 
-  def show_cache_key
-    ['contests/match', object, object.voted_for]
-  end
-
   def left_percent
     if (left_votes + right_votes).zero?
       0

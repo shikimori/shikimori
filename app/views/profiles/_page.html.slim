@@ -1,5 +1,8 @@
 header.head.misc
-  h1 class="#{@resource.nickname_changes? ? 'aliases' : ''}" title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : ''}"
+  h1[
+    class="#{@resource.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
+    title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
+  ]
     - if params[:action] != 'show' || @back_url
       a.back[
         href="#{@back_url || @resource.url}"

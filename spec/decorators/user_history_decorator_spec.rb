@@ -1,17 +1,33 @@
 describe UserHistoryDecorator do
   let(:user_history) do
-    build :user_history, {
+    build :user_history,
       target: target,
+      anime: (target if target&.anime?),
+      manga: (target if target&.manga?),
       action: action,
       value: value,
       prior_value: prior_value
-    }
   end
   let(:decorator) { user_history.decorate }
 
-  let(:target) {}
-  let(:value) {}
-  let(:prior_value) {}
+  let(:action) { }
+  let(:target) { }
+  let(:value) { }
+  let(:prior_value) { }
+
+  describe '#target' do
+    it { expect(decorator.target).to be_nil }
+
+    context 'anime' do
+      let(:target) { build :anime }
+      it { expect(decorator.target).to eq target }
+    end
+
+    context 'manga' do
+      let(:target) { build :manga }
+      it { expect(decorator.target).to eq target }
+    end
+  end
 
   describe '#format' do
     subject { decorator.format }

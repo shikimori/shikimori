@@ -19,6 +19,14 @@ class UserHistoryDecorator < BaseDecorator
     end
   end
 
+  def target
+    if target_type == Anime.name
+      anime
+    elsif target_type == Manga.name
+      manga
+    end
+  end
+
   def format
     case action
       when UserHistoryAction::MalAnimeImport,

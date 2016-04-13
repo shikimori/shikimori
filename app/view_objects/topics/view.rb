@@ -146,7 +146,7 @@ class Topics::View < ViewObjectBase
 private
 
   def body_cache_key
-    [topic, topic.linked, h.russian_names_key, 'body']
+    [topic, topic.linked, 'body']
   end
 
   def topic_body

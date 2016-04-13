@@ -1,13 +1,15 @@
 = render layout: 'profiles/page' do
-  - if @page == 1
+  - if @view.page == 1
     - content_for :head do
-      = auto_discovery_link_tag :rss, profile_url(@resource, format: :rss), title: "История пользователя #{@resource.nickname}"
+      = auto_discovery_link_tag :rss,
+        profile_url(@resource, format: :rss),
+        title: t('.rss_title', nickname: @resource.nickname)
 
   h2.subheadline.m10 = @page_title.last
-  /- if @page == 1 && interval == @collection.keys.first
-    a.rss href="#{profile_url @resource, format: :rss}" title="RSS"
-  .block
-    = render 'history', collection: @collection
+  - cache [:history, @resource, @page, I18n.locale] do
+    .block
+      = render 'history', collection: @view.collection
 
-  - if @add_postloader
-    = render 'blocks/postloader', next_url: index_profile_user_history_index_url(@resource, page: @page+1)
+    - if @view.add_postloader?
+      = render 'blocks/postloader',
+        next_url: index_profile_user_history_index_url(@resource, page: @view.page+1)

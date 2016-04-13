@@ -1,9 +1,8 @@
 .proposing
-  - cache [contest, 'proposing'] do
-    = render partial: 'contests/public_suggestions', locals: { contest: contest }
+  = render partial: 'contests/public_suggestions', locals: { contest: contest }
 
   - if user_signed_in?
-    - cache [contest, 'proposing', current_user.id] do
+    - cache [contest, current_user.id, I18n.locale] do
       = form_for [contest, contest.new_suggestion] do |f|
         = f.hidden_field :item_type
         = f.hidden_field :item_id

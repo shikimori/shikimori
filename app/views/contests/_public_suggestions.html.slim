@@ -1,13 +1,14 @@
-.block
-  .b-options-floated.count
-    = contest.suggestions.size
-  .subheadline = t '.candidates'
+- cache [contest, I18n.locale] do
+  .block
+    .b-options-floated.count
+      = contest.suggestions.size
+    .subheadline = t '.candidates'
 
-  .proposing
-    - if contest.suggestions.any?
-      = render partial: 'public_suggestion',
-        collection: contest.unordered_suggestions,
-        as: :suggestion,
-        locals: { contest: contest }
-    - else
-      p = t '.no_candidates'
+    .proposing
+      - if contest.suggestions.any?
+        = render partial: 'public_suggestion',
+          collection: contest.unordered_suggestions,
+          as: :suggestion,
+          locals: { contest: contest }
+      - else
+        p = t '.no_candidates'

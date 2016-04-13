@@ -44,7 +44,6 @@ class Comments::View < ViewObjectBase
     [
       comment,
       :replies,
-      h.russian_names_key,
       Digest::MD5.hexdigest(replies.map(&:cache_key).join(' '))
     ]
   end

@@ -1,4 +1,4 @@
-- cache @match.show_cache_key, expires_in: 1.hour do
+- cache [@match.object, @match.object.voted_for, I18n.locale], expires_in: 1.hour do
   .contest-match [
     data-id="#{@match.id}"
     data-state="#{@match.state}"

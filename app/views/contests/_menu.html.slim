@@ -18,13 +18,12 @@
     .subheadline.m5 = t '.contest_type'
     p = resource.strategy_type.text
 
-  - cache ['uniq-voters', resource] do
+  - cache [resource, social_key, I18n.locale] do
     - if resource.uniq_voters > 0
       .block
         .subheadline.m5 = t '.voters'
         p #{resource.uniq_voters} #{i18n_i 'site_user', resource.uniq_voters}
 
-  - cache ['nominants', resource, social_key] do
     - unless resource.proposing?
       .block
         .b-options-floated.count
