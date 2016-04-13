@@ -5,7 +5,7 @@ class UserProfileHistoryDecorator < Draper::Decorator
   # отформатированная история
   def formatted
     @formatted ||= Rails.cache.fetch [:history, object, I18n.locale] do
-      grouped_history.map { |_, entries| format_entries entries }.compact
+      grouped_history.map { |_, entries| format entries }.compact
     end
   end
 
@@ -28,7 +28,7 @@ private
       .take(LIMIT)
   end
 
-  def format_entries entries
+  def format entries
     entry = entries.first
 
     if UserHistoryAction::Registration == entry.action

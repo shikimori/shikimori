@@ -39,7 +39,7 @@
               time.date[
                 datetime="#{entry.iso_date}"
               ] = entry.localized_date
-              span.event = entry.localization_span
+              span.event = entry.localized_name
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin
     a.avatar href="#{profile_url user, subdomain: false}" title="#{user.nickname}"
