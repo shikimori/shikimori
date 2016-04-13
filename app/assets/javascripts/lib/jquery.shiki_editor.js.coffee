@@ -187,7 +187,7 @@ class @ShikiEditor extends ShikiView
 
     # построение бб-кода для аниме,манги,персонажа и человека
     @$('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person').on 'tag:build', (e, data) =>
-      @$textarea.insertAtCaret '', '', "[#{data.type}=#{data.id}]"
+      @$textarea.insertAtCaret "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
 
     # открытие блока со смайлами
     @$('.smileys').on 'click:open', (e) =>
