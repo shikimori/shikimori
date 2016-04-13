@@ -213,4 +213,8 @@ private
 
     data
   end
+
+  def russian_genres_key
+    "#{I18n.locale}_#{user_signed_in? ? current_user.preferences.russian_genres? : true}"
+  end
 end

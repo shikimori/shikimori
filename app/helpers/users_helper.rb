@@ -25,9 +25,11 @@ module UsersHelper
   end
 
   def localization_span entry
+    key = entry.kind_of?(Genre) ? 'genre' : 'name'
+
     if entry.try(:russian).present?
-      "<span class='name-en'>#{h entry.name}</span>"\
-      "<span class='name-ru' data-text='#{h entry.russian}'></span>".html_safe
+      "<span class='#{key}-en'>#{h entry.name}</span>"\
+      "<span class='#{key}-ru' data-text='#{h entry.russian}'></span>".html_safe
     else
       entry.name
     end

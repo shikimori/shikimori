@@ -1,4 +1,5 @@
 body
+  // names
   &.localized_names-ru
     .name-en
       display: none
@@ -8,4 +9,16 @@ body
 
   &.localized_names-en
     .name-ru
+      display: none
+
+  // genres
+  &.localized_genres-ru
+    .genre-en
+      display: none
+
+    .genre-ru:before
+      content: attr(data-text)
+
+  &.localized_genres-en
+    .genre-ru
       display: none

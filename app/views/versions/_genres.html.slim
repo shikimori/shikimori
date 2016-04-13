@@ -3,10 +3,10 @@ ul.diff
     span #{t '.before'}:
     - version.collection_prior.each do |genre|
       span.genre
-        = localized_name genre
+        = localization_span genre
 
   li.new-value
     span #{t '.after'}:
     - version.collection.each do |genre|
       span.genre
-        = localized_name genre
+        = localization_span genre

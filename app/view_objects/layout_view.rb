@@ -11,7 +11,11 @@ class LayoutView < ViewObjectBase
   end
 
   def localized_names_class
-    ru_names? ? 'localized_names-ru' : 'localized_names-en'
+    ru_option?(:russian_names) ? 'localized_names-ru' : 'localized_names-en'
+  end
+
+  def localized_genres_class
+    ru_option?(:russian_genres) ? 'localized_genres-ru' : 'localized_genres-en'
   end
 
   def background_styles
@@ -34,8 +38,8 @@ private
     (object_with_background || h.current_user)&.preferences&.body_background
   end
 
-  def ru_names?
+  def ru_option? option_name
     I18n.russian? && h.ru_domain? &&
-      (!h.user_signed_in? || h.current_user&.preferences&.russian_names)
+      (!h.user_signed_in? || h.current_user&.preferences&.send(option_name))
   end
 end

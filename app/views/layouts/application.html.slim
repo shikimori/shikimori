@@ -4,7 +4,7 @@ html
     = render 'application/head'
   / refactor to LayoutView. put top_menu to LayoutView
   body[
-    class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{current_user&.preferences&.body_width || 'x1200'} #{@layout.localized_names_class} locale-#{I18n.locale}"
+    class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{page_border} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{current_user&.preferences&.body_width || 'x1200'} #{@layout.localized_names_class} #{@layout.localized_genres_class} locale-#{I18n.locale}"
     id="#{@layout.body_id}"
     style="#{@layout.background_styles}"
     data-env="#{Rails.env}"

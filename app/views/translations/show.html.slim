@@ -15,7 +15,7 @@ header.head
           | #{k+1}.
 
           a.bubbled class="#{anime.kind}" href="#{anime_url anime}" data-href="#{respond_to?("tooltip_#{anime.class.name.downcase}_url") ? send("tooltip_#{anime.class.name.downcase}_url", anime) : ''}"
-            = localized_name anime
+            = localization_span anime
 
           - if TranslationsController::TRANSLATE_ME.include?(anime.id) && !@changes.include?(anime.id) && (anime.description_ru == nil || anime.description_ru == '' || anime.description_ru == anime.description_en)
             span style="font-size:9px; color: red;" это в первую очередь

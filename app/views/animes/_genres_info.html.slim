@@ -1,16 +1,16 @@
 - entry.genres.uniq(&:name).each do |genre|
   - if user_signed_in?
     a.b-tag[
-        class="#{:bubbled if genre.description}"
-        href="#{send "#{entry.object.class.name.downcase.pluralize}_url", genre: genre}"
-        data-href="#{tooltip_genre_url genre}"
-        data-predelay="350"
-      ] = "#{localized_name genre}\n"
+      class="#{:bubbled if genre.description}"
+      href="#{send "#{entry.object.class.name.downcase.pluralize}_url", genre: genre}"
+      data-href="#{tooltip_genre_url genre}"
+      data-predelay="350"
+    ] = localization_span genre
 
   - else
     span.b-tag[
-        class="#{:bubbled if genre.description}"
-        data-delay="150"
-        data-href="#{tooltip_genre_url genre}"
-        itemprop="genre"
-      ] = "#{localized_name genre}\n"
+      class="#{:bubbled if genre.description}"
+      data-delay="150"
+      data-href="#{tooltip_genre_url genre}"
+      itemprop="genre"
+    ] = localization_span genre

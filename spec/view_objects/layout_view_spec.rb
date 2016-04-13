@@ -22,40 +22,54 @@ describe LayoutView do
     it { expect(view.body_id).to eq 'foo_boo' }
   end
 
-  describe '#localized_names_class' do
+  describe '#localized_names_class & #localized_genres_class' do
     before do
       allow(I18n).to receive(:russian?).and_return is_i18n_russian
       allow(view.h).to receive(:ru_domain?).and_return is_ru_domain
       allow(view.h).to receive(:user_signed_in?).and_return is_user_signed_in
-      allow(view.h.current_user).to receive(:preferences)
-        .and_return double(russian_names: is_russian_names)
+      allow(view.h.current_user).to receive(:preferences).and_return double(
+        russian_names: is_russian_names,
+        russian_genres: is_russian_genres
+      )
     end
 
     let(:is_i18n_russian) { true }
     let(:is_ru_domain) { true }
     let(:is_user_signed_in) { true }
     let(:is_russian_names) { true }
+    let(:is_russian_genres) { true }
 
     it { expect(view.localized_names_class).to eq 'localized_names-ru' }
+    it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
 
     context 'not russian locale' do
       let(:is_i18n_russian) { false }
       it { expect(view.localized_names_class).to eq 'localized_names-en' }
+      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
     end
 
     context 'not russian domain' do
       let(:is_ru_domain) { false }
       it { expect(view.localized_names_class).to eq 'localized_names-en' }
+      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
     end
 
     context 'user not signed in' do
       let(:is_user_signed_in) { false }
       it { expect(view.localized_names_class).to eq 'localized_names-ru' }
+      it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
     end
 
     context 'disabled russian_names' do
       let(:is_russian_names) { false }
       it { expect(view.localized_names_class).to eq 'localized_names-en' }
+      it { expect(view.localized_genres_class).to eq 'localized_genres-ru' }
+    end
+
+    context 'disabled russian_genres' do
+      let(:is_russian_genres) { false }
+      it { expect(view.localized_names_class).to eq 'localized_names-ru' }
+      it { expect(view.localized_genres_class).to eq 'localized_genres-en' }
     end
   end
 
