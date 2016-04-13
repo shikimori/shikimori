@@ -21,7 +21,7 @@ class BbCodes::AnimeTag
       entry = db_entries[$~[:id].to_i]
 
       if entry
-        html_for entry.decorate, $~[:name]
+        html_for entry.decorate, ($~[:name] if $~[:name] != entry.name)
       else
         matched
       end

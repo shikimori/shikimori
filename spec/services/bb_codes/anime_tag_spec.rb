@@ -3,13 +3,13 @@ describe BbCodes::AnimeTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:anime) { create :anime, id: 9876543, name: 'zxcvbn', russian: russian }
+    let(:anime) { create :anime, id: 9876543, name: 'test', russian: russian }
 
     let(:html) do
       <<-HTML.squish
-<a href="//test.host/animes/9876543-zxcvbn" title="zxcvbn"
+<a href="//test.host/animes/9876543-test" title="test"
 class="bubbled b-link"
-data-tooltip_url="//test.host/animes/9876543-zxcvbn/tooltip">#{name_html}</a>
+data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
         HTML
     end
     let(:name_html) { anime.name }
@@ -52,9 +52,22 @@ data-tooltip_url="//test.host/animes/9876543-zxcvbn/tooltip">#{name_html}</a>
     end
 
     context '[anime=id]name[/anime]' do
-      let(:text) { "[anime=#{anime.id}]test[/anime]" }
-      let(:name_html) { 'test' }
-      it { is_expected.to eq html }
+      let(:russian) { 'тест' }
+
+      context 'name equals anime.name' do
+        let(:text) { "[anime=#{anime.id}]test[/anime]" }
+        let(:name_html) do
+          "<span class='name-en'>#{anime.name}</span>"\
+          "<span class='name-ru' data-text='#{anime.russian}'></span>"
+        end
+        it { is_expected.to eq html }
+      end
+
+      context 'name not equals anime.name' do
+        let(:text) { "[anime=#{anime.id}]test2[/anime]" }
+        let(:name_html) { 'test2' }
+        it { is_expected.to eq html }
+      end
     end
   end
 end
