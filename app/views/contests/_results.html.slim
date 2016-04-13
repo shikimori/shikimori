@@ -1,6 +1,5 @@
 .results
-  /- cache [:results, :v3, contest, russian_names_key, russian_genres_key] do
-  div
+  - cache [:results, contest, russian_genres_key] do
     /- contest.results.each_with_index do |entry, index|
     - view.results.each_with_index do |entry, index|
       .subheadline.m10
@@ -34,7 +33,7 @@
                 - if match.left_id && match.right_id
                   a.bubbled [
                     href="#{url_for match.left_id == entry.id ? match.right : match.left}"
-                    title="#{localized_name match.left_id == entry.id ? match.right : match.left}"
-                  ] = localized_name match.left_id == entry.id ? match.right : match.left
+                    title="#{(match.left_id == entry.id ? match.right : match.left).name}"
+                  ] = localization_span match.left_id == entry.id ? match.right : match.left
                 - else
                   p = t 'answers.no'

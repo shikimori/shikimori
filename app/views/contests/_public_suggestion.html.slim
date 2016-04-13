@@ -1,6 +1,6 @@
 .variant.suggestion
   a.bubbled href="#{url_for suggestion.item}"
-    = localized_name suggestion.item
+    = localization_span suggestion.item
 
   - unless suggestion.respond_to? :votes
     span.b-js-actions

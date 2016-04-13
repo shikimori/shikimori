@@ -1,6 +1,6 @@
 .variant.suggestion
   a.bubbled href="#{url_for suggestion.item}"
-    = localized_name suggestion.item
+    = localization_span suggestion.item
 
   span.b-bracket-details.show.ajaxable data-href="#{contest_contest_suggestion_url contest, suggestion}"
     = suggestion.votes

@@ -7,13 +7,19 @@
       = group.first.finished_on.strftime '%d.%m.%Y'
     .subcontent
       - group.each do |match|
-        span.match-link.two-columns class="#{match.right ? match.state_with_voted : (match.started? ? 'voted' : match.state)}" data-remote="true" data-action="#{contest_contest_match_url contest.entry, match}" data-type="html" data-id="#{match.id}"
+        span.match-link.two-columns[
+          class="#{match.right ? match.state_with_voted : (match.started? ? 'voted' : match.state)}"
+          data-remote="true"
+          data-action="#{contest_contest_match_url contest.entry, match}"
+          data-type="html"
+          data-id="#{match.id}"
+        ]
           .column class="#{match.finished? && match.winner_id == match.left_id ? 'winner' : 'loser'}"
             - if match.left
               span.matches-num
                 = match.left_votes
-              a.bubbled href="#{url_for match.left}" data-predelay="150"
-                = localized_name match.left
+              a.bubbled href="#{url_for match.left}"
+                = localization_span match.left
             - else
               | &hellip;
 
@@ -22,7 +28,7 @@
               - if match.right
                 span.matches-num
                   = match.right_votes
-                a.bubbled href="#{url_for match.right}" data-predelay="150"
-                  = localized_name match.right
+                a.bubbled href="#{url_for match.right}"
+                  = localization_span match.right
               - else
                 | &hellip;

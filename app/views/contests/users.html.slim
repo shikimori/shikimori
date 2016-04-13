@@ -1,11 +1,10 @@
 = render layout: 'page' do
-  /- cache [@resource, :users, :v2, @resource.displayed_match.id, @resource.displayed_match.updated_at, russian_names_key], expires_in: @resource.displayed_match.finished? ? nil : 1.hour do
-  div
+  - cache [@resource, :users, @resource.displayed_match] do
     .block
       .b-options-floated.count = @resource.left_voters.size
       .subheadline.m10
         == t '.votes_for',
-          name: link_to(localized_name(@resource.displayed_match.left),
+          name: link_to(localization_span(@resource.displayed_match.left),
             url_for(@resource.displayed_match.left))
       - if @resource.left_voters.any?
         = render @resource.left_voters, content_by: :avatar_fixed_margin
@@ -17,7 +16,7 @@
         = @resource.right_voters.size
       .subheadline.m10
         == t '.votes_for',
-          name: link_to(localized_name(@resource.displayed_match.right),
+          name: link_to(localization_span(@resource.displayed_match.right),
             url_for(@resource.displayed_match.right))
       - if @resource.right_voters.any?
         = render @resource.right_voters, content_by: :avatar_fixed_margin

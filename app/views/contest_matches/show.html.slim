@@ -62,11 +62,11 @@
 
         - if @match.finished?
           a.votes-percents href="#{round_match_users_contest_url @match.contest, round: @match.round, match_id: @match.id}"
-            .left-part title="#{@match.left_votes} #{i18n_i 'vote', @match.left_votes} #{t '.for'} «#{localized_name @match.left}»"
+            .left-part title="#{@match.left_votes} #{i18n_i 'vote', @match.left_votes} #{t '.for'} «#{@match.left.name}»"
               span #{@match.left_percent}% (#{@match.left_votes})
               .right-part[
                 style="width: #{[[@match.right_votes.to_f / ([@match.left_votes + @match.right_votes, 1].max) * 100 - 0.75, 4].max, 95].min}%"
-                title="#{@match.right_votes} #{i18n_i 'vote', @match.right_votes} #{t '.for'} «#{localized_name @match.right}»"
+                title="#{@match.right_votes} #{i18n_i 'vote', @match.right_votes} #{t '.for'} «#{@match.right.name}»"
               ]
 
                 span #{@match.right_percent}% (#{@match.right_votes})

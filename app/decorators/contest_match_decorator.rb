@@ -10,7 +10,7 @@ class ContestMatchDecorator < BaseDecorator
   end
 
   def show_cache_key
-    ['contests/match', object, object.voted_for, h.russian_names_key]
+    ['contests/match', object, object.voted_for]
   end
 
   def left_percent

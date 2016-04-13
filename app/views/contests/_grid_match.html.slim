@@ -9,7 +9,7 @@
               span.val = match.right_votes
               span.sep.zero =")"
           a.bubbled href="#{url_for match.right}"
-            = localized_name match.right
+            = localization_span match.right
       - else
         p.unknown ???
     - else
@@ -22,7 +22,7 @@
               span.sep.zero =")"
 
           a.bubbled href="#{url_for match.left}"
-            = localized_name match.left
+            = localization_span match.left
       - else
         p.unknown ???
   .entry.grid
@@ -36,7 +36,7 @@
               span.sep.zero =")"
 
           a.bubbled href="#{url_for match.right}"
-            = localized_name match.right
+            = localization_span match.right
       - else
         p.unknown ???
     - else

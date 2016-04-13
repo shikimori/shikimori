@@ -24,7 +24,7 @@
         .subheadline.m5 = t '.voters'
         p #{resource.uniq_voters} #{i18n_i 'site_user', resource.uniq_voters}
 
-  - cache ['nominants', resource, russian_names_key, social_key] do
+  - cache ['nominants', resource, social_key] do
     - unless resource.proposing?
       .block
         .b-options-floated.count

@@ -34,7 +34,7 @@
         = render 'contest_matches/match_days', contest: contest, matches: contest.grouped_matches(contest.displayed_round)
 
   - if contest.displayed_round.number > 1 && contest.prior_round.finished?
-    - cache ['prior_round', contest, contest.displayed_round, contest.prior_round, russian_names_key] do
+    - cache ['prior_round', contest, contest.displayed_round, contest.prior_round] do
       .cc-round_stats
         .c-column
           = render 'rating', contest: contest, round: contest.prior_round
