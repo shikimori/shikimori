@@ -10,24 +10,24 @@
             = i18n_io 'History', :one
         - else
           = i18n_io 'History', :one
+
       .block-list
         - @resource.formatted_history.each do |entry|
           .entry
-            a href="#{entry[:url]}" title="#{entry[:name]}"
+            a href="#{entry.url}" title="#{entry.name}"
               .image-name
                 img[
-                  src="#{entry[:image]}"
-                  srcset="#{"#{entry[:image_2x]} 2x" if entry[:image_2x]}"
-                  alt="#{entry[:name]}"
-                  title="#{entry[:name]}"
+                  src="#{entry.image}"
+                  srcset="#{"#{entry.image_2x} 2x" if entry.image_2x}"
+                  alt="#{entry.name}"
                 ]
                 span.title
-                  == entry[:name]
-              span.misc title="#{entry[:reversed_action]}"
-                = entry[:reversed_action]
+                  = entry.localized_name
+              span.misc title="#{entry.reversed_action}"
+                = entry.reversed_action
               time.misc.date.unprocessed[
-                datetime="#{entry[:created_at].iso8601}"
-              ] = l entry[:created_at], format: '%e %B %Y'
+                datetime="#{entry.iso_date}"
+              ] = entry.localized_date
 
   .c-brief
     .avatar

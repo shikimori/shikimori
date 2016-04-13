@@ -26,21 +26,20 @@
     .history
       - user.history.formatted.each do |entry|
         .line
-          - if entry[:special?]
+          - if entry.special?
             time.date[
-              datetime="#{entry[:created_at].iso8601}"
-              data-momentjs-time="#{entry[:created_at].utc.to_s.gsub(' UTC', '')}"
-            ] = l entry[:created_at], format: '%e %B %Y'
-            span.event = entry[:short_name]
+              datetime="#{entry.iso_date}"
+            ] = entry.localized_date
+            span.event = entry.action_info
           - else
             a.bubbled[
-              href="#{entry[:url]}"
-              title="#{entry[:name]}"
+              href="#{entry.url}"
+              title="#{entry.name}"
             ]
               time.date[
-                datetime="#{entry[:created_at].iso8601}"
-              ] = l entry[:created_at], format: '%e %B %Y'
-              span.event = entry[:name]
+                datetime="#{entry.iso_date}"
+              ] = entry.localized_date
+              span.event = entry.localization_span
 
   - elsif content_by == :avatar || content_by == :avatar_fixed_margin
     a.avatar href="#{profile_url user, subdomain: false}" title="#{user.nickname}"

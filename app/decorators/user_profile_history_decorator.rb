@@ -4,17 +4,8 @@ class UserProfileHistoryDecorator < Draper::Decorator
 
   # отформатированная история
   def formatted
-    @formatted ||= Rails.cache.fetch [:history, object.cache_key] do
-      grouped_history
-        .map { |_, entries| format_entries entries }
-        .compact
-        .each do |entry|
-          entry[:reversed_action] = entry[:action]
-            .split(/(?<!\d[йяюо]), (?!\d)/)
-            .reverse
-            .join(', ')
-            .gsub(/<.*?>/, '')
-        end
+    @formatted ||= Rails.cache.fetch [:history, object, I18n.locale] do
+      grouped_history.map { |_, entries| format_entries entries }.compact
     end
   end
 
@@ -41,51 +32,48 @@ private
     entry = entries.first
 
     if UserHistoryAction::Registration == entry.action
-      {
+      Users::FormattedHistory.new(
         image: '/assets/blocks/history/shikimori.x43.png',
         name: Site::DOMAIN,
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        action_info: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         created_at: entry.created_at,
-        url: "http://#{Site::DOMAIN}",
-        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
-        special?: true
-      }
+        url: "http://#{Site::DOMAIN}"
+      )
 
     elsif [UserHistoryAction::MalAnimeImport, UserHistoryAction::MalMangaImport].include? entry.action
-      {
+      Users::FormattedHistory.new(
         image: '/assets/blocks/history/mal.png',
         name: 'MyAnimeList',
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        action_info: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         created_at: entry.created_at,
-        url: 'http://myanimelist.net',
-        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
-        special?: true
-      }
+        url: 'http://myanimelist.net'
+      )
 
     elsif [UserHistoryAction::ApAnimeImport, UserHistoryAction::ApMangaImport].include? entry.action
-      {
+      Users::FormattedHistory.new(
         image: '/assets/blocks/history/anime-planet.jpg',
         name: 'Anime-Planet',
         action: entries.reverse.map(&:format).join(', ').html_safe,
+        action_info: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
         created_at: entry.created_at,
-        url: 'http://anime-planet.com',
-        short_name: I18n.t("enumerize.user_history_action.action.#{entry.action}"),
-        special?: true
-      }
+        url: 'http://anime-planet.com'
+      )
 
     elsif entry.target.nil?
       nil
 
     else
-      {
+      Users::FormattedHistory.new(
         image: ImageUrlGenerator.instance.url(entry.target, :x48),
         image_2x: ImageUrlGenerator.instance.url(entry.target, :x96),
-        name: h.localization_span(entry.target),
+        name: entry.target.name,
+        russian: entry.target.russian,
         action: entries.reverse.map(&:format).join(', ').html_safe,
         created_at: entry.created_at,
-        url: h.url_for(entry.target),
-        special?: false
-      }
+        url: h.url_for(entry.target)
+      )
     end
   end
 end

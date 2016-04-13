@@ -31,14 +31,14 @@
   - view.history.each do |entry|
     .list-change
       a[
-        class="#{:bubbled unless entry[:special?]}"
-        href="#{entry[:url]}"
-        title="#{entry[:name]}"
+        class="#{:bubbled unless entry.special?}"
+        href="#{entry.url}"
+        title="#{entry.name}"
       ]
         .title
-          == truncate entry[:name], length: 32, omission: '…'
+          = entry.localization_span
         .note
-          = entry[:reversed_action]
+          = entry.reversed_action
 
 / - if current_user.history.any?
   / - current_user.history.formatted.take(2).each do |entry|
