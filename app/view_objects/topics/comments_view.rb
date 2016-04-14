@@ -11,6 +11,8 @@ class Topics::CommentsView < ViewObjectBase
 
   # число свёрнутых комментариев
   def folded_comments
+    return 0 if topic.comments_count.zero?
+
     if only_summaries_shown?
       topic.summaries_count - comments_limit
     else
@@ -84,10 +86,12 @@ class Topics::CommentsView < ViewObjectBase
     end.html_safe
   end
 
+  # pass object linked to topic instead of topic
+  # because the latter might not exist yet
   def new_comment
     Comment.new(
       user: h.current_user,
-      commentable: topic,
+      commentable: new_comment_commentable,
       is_summary: new_comment_summary?
     )
   end
@@ -97,6 +101,10 @@ class Topics::CommentsView < ViewObjectBase
   end
 
 private
+
+  def new_comment_commentable
+    topic.persisted? ? topic : topic.linked
+  end
 
   def only_summaries_shown?
     return false unless ['animes', 'mangas'].include? h.params[:controller]
@@ -111,7 +119,6 @@ private
   end
 
   def comment_word number
-    # word = topic.any_summaries? ? 'summary' : 'comment'
     word = only_summaries_shown? ? 'summary' : 'comment'
     i18n_i word, number, :accusative
   end

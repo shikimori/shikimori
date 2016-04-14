@@ -15,8 +15,6 @@ class DbEntry < ActiveRecord::Base
       dependent: :destroy
 
     klass.has_many :clubs, through: :club_links
-
-    klass.after_create :generate_topic
   end
 
   def to_param

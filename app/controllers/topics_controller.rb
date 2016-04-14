@@ -1,5 +1,5 @@
 class TopicsController < ShikimoriController
-  load_and_authorize_resource class: Entry, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource class: Topic, only: [:new, :create, :edit, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
   before_action :set_view

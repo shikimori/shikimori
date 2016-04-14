@@ -137,21 +137,21 @@
     .resources-loader.postloaded data-href="#{@resource.resources_url}"
       .ajax-loading.vk-like title="#{t 'loading'}"
 
-  - if user_signed_in? || @resource.topic.comments_count > 0
+  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
     .b-options-floated.mobile-phone_portrait
-      - if @resource.topic.summaries_count > 0
+      - if @resource.preview_topic_view.summaries_count > 0
         span.linkeable data-href="#{@resource.summaries_url}"
           = t '.all_summaries'
-          span.brackets = @resource.topic.summaries_count
+          span.brackets = @resource.preview_topic_view.summaries_count
 
-      - if @resource.topic.any_comments?
+      - if @resource.preview_topic_view.any_comments?
         span.linkeable data-href="#{@resource.comments_url}"
           = t '.all_comments'
-          span.brackets = @resource.topic.comments_count
+          span.brackets = @resource.preview_topic_view.comments_count
 
-    - if @resource.topic.any_comments?
+    - if @resource.preview_topic_view.any_comments?
       .subheadline.m3
-        = i18n_io @resource.topic.any_summaries? ? 'Summary' : 'Comment', :few
+        = i18n_io @resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"

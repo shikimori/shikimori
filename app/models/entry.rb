@@ -77,7 +77,7 @@ class Entry < ActiveRecord::Base
     false
   end
 
-  # сгенерированный ли топик
+  # forum topic created by user
   def topic?
     self.class == Topic
   end

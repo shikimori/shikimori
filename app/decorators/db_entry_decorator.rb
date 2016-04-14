@@ -36,7 +36,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_ru
-    Rails.cache.fetch [:descrption, object, I18n.locale] do
+    Rails.cache.fetch [:description, object, I18n.locale] do
       BbCodeFormatter.instance.format_description object.description_ru, object
     end
   end
@@ -64,11 +64,11 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def main_topic_view
-    Topics::TopicViewFactory.new(false, false).build topic
+    Topics::TopicViewFactory.new(false, false).build(topic || no_topic)
   end
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build topic
+    Topics::TopicViewFactory.new(true, false).build(topic || no_topic)
   end
 
   # связанные клубы
@@ -131,6 +131,10 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
+
+  def no_topic
+    NoTopic.new(object)
+  end
 
   def headline_array
     if h.ru_domain?

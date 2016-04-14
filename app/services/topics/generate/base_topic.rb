@@ -11,8 +11,8 @@ private
     FayeService.new user, ''
   end
 
-  def topic
-    topic_klass.new topic_attributes
+  def build_topic
+    model.build_topic topic_attributes
   end
 
   def topic_klass
@@ -23,8 +23,9 @@ private
     {
       forum_id: forum_id,
       generated: true,
-      linked: model,
+      #linked: model,
       user: user,
+      type: topic_klass.name,
       created_at: model.created_at,
       updated_at: model.updated_at
     }

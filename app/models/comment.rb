@@ -70,7 +70,8 @@ class Comment < ActiveRecord::Base
 
   # проверка можно ли добавлять комментарий в комментируемый объект
   def check_access
-    commentable_klass = Object.const_get(commentable_type.to_sym)
+    # http://stackoverflow.com/a/3464012
+    commentable_klass = commentable_type.constantize
     commentable = commentable_klass.find(commentable_id)
     if commentable.respond_to?(:can_be_commented_by?)
       return false unless commentable.can_be_commented_by?(self)
