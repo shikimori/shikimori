@@ -10,10 +10,11 @@ describe Topics::Generate::UserTopic do
         forum_id: Topic::FORUM_IDS[model.class.name],
         generated: true,
         linked: model,
-        user: user,
-        created_at: model.created_at.change(msec: 0),
-        updated_at: model.updated_at.change(msec: 0)
+        user: user
       )
+
+      expect(model.topic.created_at.to_i).to eq model.created_at.to_i
+      expect(model.topic.updated_at.to_i).to eq model.updated_at.to_i
     end
   end
 
