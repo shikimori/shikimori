@@ -66,6 +66,9 @@ class Club < ActiveRecord::Base
   validates :name, presence: true, name: true
   validates :owner, presence: true
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
+  validates :locale, presence: true
+
+  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   TRANSLATORSID = 2
 
@@ -138,7 +141,7 @@ class Club < ActiveRecord::Base
 private
 
   def generate_topic
-    Topics::Generate::UserTopic.call self, owner
+    Topics::Generate::UserTopic.call self, owner, locale
   end
 
   def join_owner

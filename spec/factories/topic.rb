@@ -5,6 +5,8 @@ FactoryGirl.define do
     sequence(:title) { |n| "topic_#{n}" }
     sequence(:body) { |n| "topic_text_#{n}" }
 
+    locale 'ru'
+
     factory :anime_topic, class: 'Topics::EntryTopics::AnimeTopic' do
       type 'Topics::EntryTopics::AnimeTopic'
       forum { seed :animanga_forum }

@@ -11,7 +11,7 @@ describe Review do
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :target }
-    #it { is_expected.to validate_length_of(:text).is_at_least Review::MINIMUM_LENGTH }
+    it { is_expected.to validate_presence_of :locale }
 
     context 'accepted' do
       subject { build :review, state: 'accepted' }
@@ -94,12 +94,12 @@ describe Review do
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.not_to be_able_to :manage, review }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :banned }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.not_to be_able_to :manage, review }
       end
     end
 
@@ -115,18 +115,18 @@ describe Review do
 
     context 'user' do
       it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.not_to be_able_to :new, review }
+      it { is_expected.not_to be_able_to :edit, review }
+      it { is_expected.not_to be_able_to :destroy, review }
     end
 
     context 'guest' do
       let(:user) { nil }
 
       it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.not_to be_able_to :new, review }
+      it { is_expected.not_to be_able_to :edit, review }
+      it { is_expected.not_to be_able_to :destroy, review }
     end
   end
 end

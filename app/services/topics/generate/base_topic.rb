@@ -23,7 +23,6 @@ private
     {
       forum_id: forum_id,
       generated: true,
-      #linked: model,
       user: user,
       type: topic_klass.name,
       created_at: model.created_at,

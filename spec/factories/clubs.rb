@@ -6,6 +6,8 @@ FactoryGirl.define do
     association :owner, factory: :user
     description ''
 
+    locale :ru
+
     after :build do |club|
       club.stub :join_owner
       club.stub :generate_topic

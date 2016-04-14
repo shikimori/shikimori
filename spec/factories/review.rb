@@ -10,6 +10,8 @@ FactoryGirl.define do
     characters 1
     animation 1
 
+    locale :ru
+
     after :build do |review|
       review.stub :generate_topic
     end

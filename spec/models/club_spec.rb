@@ -2,32 +2,33 @@ require 'cancan/matchers'
 
 describe Club do
   describe 'relations' do
-    it { should have_many :member_roles }
-    it { should have_many :members }
+    it { is_expected.to have_many :member_roles }
+    it { is_expected.to have_many :members }
 
-    #it { should have_many :moderator_roles }
-    #it { should have_many :moderators }
+    #it { is_expected.to have_many :moderator_roles }
+    #it { is_expected.to have_many :moderators }
 
-    it { should have_many :admin_roles }
-    it { should have_many :admins }
+    it { is_expected.to have_many :admin_roles }
+    it { is_expected.to have_many :admins }
 
-    it { should have_many :links }
-    it { should have_many :animes }
-    it { should have_many :characters }
+    it { is_expected.to have_many :links }
+    it { is_expected.to have_many :animes }
+    it { is_expected.to have_many :characters }
 
-    it { should have_many :images }
+    it { is_expected.to have_many :images }
 
-    it { should belong_to :owner }
+    it { is_expected.to belong_to :owner }
 
-    it { should have_many :invites }
-    it { should have_many :bans }
-    it { should have_many :banned_users }
+    it { is_expected.to have_many :invites }
+    it { is_expected.to have_many :bans }
+    it { is_expected.to have_many :banned_users }
   end
 
   describe 'validations' do
-    it { should validate_presence_of :name }
-    it { should validate_presence_of :owner }
-    it { should have_attached_file :logo }
+    it { is_expected.to validate_presence_of :name }
+    it { is_expected.to validate_presence_of :owner }
+    it { is_expected.to have_attached_file :logo }
+    it { is_expected.to validate_presence_of :locale }
   end
 
   describe 'callbacks' do
@@ -86,7 +87,7 @@ describe Club do
       let(:club_role) { build_stubbed :club_role, user: user }
       subject { club.member_role user }
 
-      it { should eq club_role }
+      it { is_expected.to eq club_role }
     end
 
     describe '#joined?' do
@@ -96,16 +97,16 @@ describe Club do
 
       context "owner" do
         let(:club) { build_stubbed :club, owner: user }
-        it { should be false }
+        it { is_expected.to be false }
       end
 
       context 'admin' do
         let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :member, user: user)] }
-        it { should be true }
+        it { is_expected.to be true }
       end
 
       context "not a member" do
-        it { should be false }
+        it { is_expected.to be false }
       end
     end
 
@@ -116,16 +117,16 @@ describe Club do
 
       context 'just owner' do
         let(:club) { build_stubbed :club, owner: user }
-        it { should be false }
+        it { is_expected.to be false }
       end
 
       context 'is admin' do
         let(:club) { build_stubbed :club, member_roles: [build_stubbed(:club_role, :admin, user: user)] }
-        it { should be true }
+        it { is_expected.to be true }
       end
 
       context 'not a member' do
-        it { should be false }
+        it { is_expected.to be false }
       end
     end
 
@@ -136,11 +137,11 @@ describe Club do
 
       context 'is owner' do
         let(:club) { build_stubbed :club, owner: user }
-        it { should be true }
+        it { is_expected.to be true }
       end
 
       context 'not an owner' do
-        it { should be false }
+        it { is_expected.to be false }
       end
     end
 
@@ -151,11 +152,11 @@ describe Club do
 
       context 'invited' do
         let(:club) { build_stubbed :club, invites: [build_stubbed(:club_invite, dst: user)] }
-        it { should be true }
+        it { is_expected.to be true }
       end
 
       context 'not invited' do
-        it { should be false }
+        it { is_expected.to be false }
       end
     end
   end
@@ -169,43 +170,43 @@ describe Club do
     context 'club owner' do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
       let(:club) { build_stubbed :club, owner: user, join_policy: join_policy, member_roles: [club_role] }
-      it { should be_able_to :see_club, club }
+      it { is_expected.to be_able_to :see_club, club }
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user }
-        it { should_not be_able_to :new, club }
-        it { should_not be_able_to :create, club }
+        it { is_expected.not_to be_able_to :new, club }
+        it { is_expected.not_to be_able_to :create, club }
       end
 
       context 'not banned' do
-        it { should be_able_to :update, club }
-        it { should be_able_to :upload, club }
-        it { should be_able_to :new, club }
-        it { should be_able_to :create, club }
+        it { is_expected.to be_able_to :update, club }
+        it { is_expected.to be_able_to :upload, club }
+        it { is_expected.to be_able_to :new, club }
+        it { is_expected.to be_able_to :create, club }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :user, :banned }
-        it { should_not be_able_to :update, club }
-        it { should_not be_able_to :upload, club }
-        it { should_not be_able_to :new, club }
-        it { should_not be_able_to :create, club }
+        it { is_expected.not_to be_able_to :update, club }
+        it { is_expected.not_to be_able_to :upload, club }
+        it { is_expected.not_to be_able_to :new, club }
+        it { is_expected.not_to be_able_to :create, club }
       end
 
       describe 'invite' do
         context 'free_join' do
           let(:join_policy) { :free_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
 
         context 'admin_invite_join' do
           let(:join_policy) { :admin_invite_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
 
         context 'owner_invite_join' do
           let(:join_policy) { :owner_invite_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
       end
     end
@@ -214,33 +215,33 @@ describe Club do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
       let(:club) { build_stubbed :club, member_roles: [club_role], join_policy: join_policy }
 
-      it { should be_able_to :see_club, club }
+      it { is_expected.to be_able_to :see_club, club }
 
       context 'not banned' do
-        it { should be_able_to :update, club }
-        it { should be_able_to :upload, club }
+        it { is_expected.to be_able_to :update, club }
+        it { is_expected.to be_able_to :upload, club }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :user, :banned }
-        it { should_not be_able_to :update, club }
-        it { should_not be_able_to :upload, club }
+        it { is_expected.not_to be_able_to :update, club }
+        it { is_expected.not_to be_able_to :upload, club }
       end
 
       describe 'invite' do
         context 'free_join' do
           let(:join_policy) { :free_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
 
         context 'admin_invite_join' do
           let(:join_policy) { :admin_invite_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
 
         context 'owner_invite_join' do
           let(:join_policy) { :owner_invite_join }
-          it { should_not be_able_to :invite, club }
+          it { is_expected.not_to be_able_to :invite, club }
         end
       end
     end
@@ -250,24 +251,24 @@ describe Club do
       let(:club) { build_stubbed :club, member_roles: [club_role], join_policy: join_policy, upload_policy: upload_policy, display_images: display_images }
       let(:upload_policy) { ClubUploadPolicy::ByMembers }
       let(:display_images) { true }
-      it { should be_able_to :leave, club }
+      it { is_expected.to be_able_to :leave, club }
 
       describe 'upload' do
         context 'by_staff' do
           let(:upload_policy) { ClubUploadPolicy::ByStaff }
-          it { should_not be_able_to :upload, club }
+          it { is_expected.not_to be_able_to :upload, club }
         end
 
         context 'by_members' do
           let(:upload_policy) { ClubUploadPolicy::ByMembers }
 
           context 'display_images' do
-            it { should be_able_to :upload, club }
+            it { is_expected.to be_able_to :upload, club }
           end
 
           context 'do not display_images' do
             let(:display_images) { false }
-            it { should_not be_able_to :upload, club }
+            it { is_expected.not_to be_able_to :upload, club }
           end
         end
       end
@@ -275,50 +276,50 @@ describe Club do
       describe 'invite' do
         context 'free_join' do
           let(:join_policy) { :free_join }
-          it { should be_able_to :invite, club }
+          it { is_expected.to be_able_to :invite, club }
         end
 
         context 'admin_invite_join' do
           let(:join_policy) { :admin_invite_join }
-          it { should_not be_able_to :invite, club }
+          it { is_expected.not_to be_able_to :invite, club }
         end
 
         context 'owner_invite_join' do
           let(:join_policy) { :owner_invite_join }
-          it { should_not be_able_to :invite, club }
+          it { is_expected.not_to be_able_to :invite, club }
         end
       end
     end
 
     context 'guest' do
       let(:user) { nil }
-      it { should be_able_to :see_club, club }
-      it { should_not be_able_to :new, club }
-      it { should_not be_able_to :update, club }
-      it { should_not be_able_to :invite, club }
-      it { should_not be_able_to :upload, club }
+      it { is_expected.to be_able_to :see_club, club }
+      it { is_expected.not_to be_able_to :new, club }
+      it { is_expected.not_to be_able_to :update, club }
+      it { is_expected.not_to be_able_to :invite, club }
+      it { is_expected.not_to be_able_to :upload, club }
     end
 
     context 'user' do
-      it { should be_able_to :see_club, club }
-      it { should_not be_able_to :new, club }
-      it { should_not be_able_to :update, club }
-      it { should_not be_able_to :invite, club }
-      it { should_not be_able_to :upload, club }
+      it { is_expected.to be_able_to :see_club, club }
+      it { is_expected.not_to be_able_to :new, club }
+      it { is_expected.not_to be_able_to :update, club }
+      it { is_expected.not_to be_able_to :invite, club }
+      it { is_expected.not_to be_able_to :upload, club }
 
       context 'free_join' do
         let(:join_policy) { :free_join }
-        it { should be_able_to :join, club }
+        it { is_expected.to be_able_to :join, club }
       end
 
       context 'admin_invite_join' do
         let(:join_policy) { :admin_invite_join }
-        it { should_not be_able_to :join, club }
+        it { is_expected.not_to be_able_to :join, club }
       end
 
       context 'owner_invite_join' do
         let(:join_policy) { :owner_invite_join }
-        it { should_not be_able_to :join, club }
+        it { is_expected.not_to be_able_to :join, club }
       end
     end
   end

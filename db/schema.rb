@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.boolean  "display_images",                default: true
     t.integer  "comment_policy",                default: 1,           null: false
     t.boolean  "is_censored",                   default: false,       null: false
+    t.string   "locale",                                              null: false
   end
 
   create_table "comment_views", force: :cascade do |t|
@@ -451,6 +452,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.string   "value",          limit: 255
     t.integer  "comments_count",             default: 0
     t.boolean  "broadcast",                  default: false
+    t.string   "locale",                                     null: false
   end
 
   add_index "entries", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
@@ -753,6 +755,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.string   "source",      limit: 255
     t.string   "state",       limit: 255, default: "pending"
     t.integer  "approver_id"
+    t.string   "locale",                                      null: false
   end
 
   add_index "reviews", ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type", using: :btree

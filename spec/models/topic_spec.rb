@@ -2,7 +2,12 @@ require 'cancan/matchers'
 
 describe Topic do
   describe 'validations' do
-    it { should validate_presence_of :title }
+    it { is_expected.to validate_presence_of :title }
+    it { is_expected.to validate_presence_of :locale }
+  end
+
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:locale).in :ru, :en }
   end
 
   describe 'permissions' do
@@ -11,61 +16,61 @@ describe Topic do
 
     context 'guest' do
       let(:user) { nil }
-      it { should_not be_able_to :new, topic }
-      it { should_not be_able_to :create, topic }
-      it { should_not be_able_to :update, topic }
-      it { should_not be_able_to :destroy, topic }
+      it { is_expected.not_to be_able_to :new, topic }
+      it { is_expected.not_to be_able_to :create, topic }
+      it { is_expected.not_to be_able_to :update, topic }
+      it { is_expected.not_to be_able_to :destroy, topic }
     end
 
     context 'user' do
       let(:user) { build_stubbed :user, :user, :week_registered }
 
-      it { should_not be_able_to :new, topic }
-      it { should_not be_able_to :create, topic }
-      it { should_not be_able_to :update, topic }
-      it { should_not be_able_to :destroy, topic }
+      it { is_expected.not_to be_able_to :new, topic }
+      it { is_expected.not_to be_able_to :create, topic }
+      it { is_expected.not_to be_able_to :update, topic }
+      it { is_expected.not_to be_able_to :destroy, topic }
 
       context 'topic owner' do
         let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
         let(:created_at) { Time.zone.now }
 
         context 'day registered' do
-          it { should be_able_to :new, topic }
-          it { should be_able_to :create, topic }
-          it { should be_able_to :update, topic }
-          it { should be_able_to :destroy, topic }
+          it { is_expected.to be_able_to :new, topic }
+          it { is_expected.to be_able_to :create, topic }
+          it { is_expected.to be_able_to :update, topic }
+          it { is_expected.to be_able_to :destroy, topic }
         end
 
         context 'newly registered' do
           let(:user) { build_stubbed :user, :user }
-          it { should_not be_able_to :new, topic }
-          it { should_not be_able_to :create, topic }
+          it { is_expected.not_to be_able_to :new, topic }
+          it { is_expected.not_to be_able_to :create, topic }
         end
 
         context '3 hours ago topic' do
           let(:created_at) { 239.minutes.ago }
-          it { should be_able_to :destroy, topic }
+          it { is_expected.to be_able_to :destroy, topic }
         end
 
         context '4 hours ago topic' do
           let(:created_at) { 241.minutes.ago }
-          it { should_not be_able_to :destroy, topic }
+          it { is_expected.not_to be_able_to :destroy, topic }
         end
 
         context '2 months ago topic' do
           let(:created_at) { 86.days.ago }
-          it { should be_able_to :update, topic }
+          it { is_expected.to be_able_to :update, topic }
         end
 
         #context '3 months ago topic' do
           #let(:created_at) { 94.days.ago }
-          #it { should_not be_able_to :update, topic }
+          #it { is_expected.not_to be_able_to :update, topic }
         #end
       end
 
       context 'moderator' do
         subject { Ability.new build_stubbed(:user, :moderator) }
-        it { should be_able_to :manage, topic }
+        it { is_expected.to be_able_to :manage, topic }
       end
     end
   end

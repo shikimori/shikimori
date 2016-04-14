@@ -17,8 +17,14 @@ class Review < ActiveRecord::Base
 
   validates :user, :target, presence: true
   validates :text,
-    length: { minimum: MINIMUM_LENGTH, too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)" },
+    length: {
+      minimum: MINIMUM_LENGTH,
+      too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)"
+    },
     if: -> { changes['text'] }
+  validates :locale, presence: true
+
+  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   after_create :generate_topic
 
@@ -62,7 +68,7 @@ class Review < ActiveRecord::Base
   end
 
   def generate_topic
-    Topics::Generate::UserTopic.call self, user
+    Topics::Generate::UserTopic.call self, user, locale
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target
