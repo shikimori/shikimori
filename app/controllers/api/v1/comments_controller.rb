@@ -38,8 +38,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_summary, :bool
   end
   def create
-    @resource = Comment.new create_params
-
+    @resource = Comment::Create.call(faye, create_params)
     if faye.create(@resource) && frontent_request?
       render :comment
     else
