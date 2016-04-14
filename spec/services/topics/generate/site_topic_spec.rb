@@ -13,7 +13,7 @@ describe Topics::Generate::SiteTopic do
         generated: true,
         linked: model,
         user: user,
-        created_at: model.created_at,
+        created_at: model.created_at.to_i,
         updated_at: nil
       )
     end

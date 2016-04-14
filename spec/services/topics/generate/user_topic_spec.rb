@@ -11,8 +11,8 @@ describe Topics::Generate::UserTopic do
         generated: true,
         linked: model,
         user: user,
-        created_at: model.created_at,
-        updated_at: model.updated_at
+        created_at: model.created_at.to_i,
+        updated_at: model.updated_at.to_i
       )
     end
   end
