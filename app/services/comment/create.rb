@@ -1,6 +1,8 @@
 class Comment::Create < ServiceObjectBase
   pattr_initialize :faye, :params
 
+  instance_cache :commentable_object
+
   def call
     comment = Comment.new params
     RedisMutex.with_lock(mutex_key) do
@@ -29,13 +31,10 @@ private
   end
 
   def find_or_generate_topic
-    unless commentable_object.topic
-      commentable_object.generate_topic
-    end
-
-    commentable_object.topic
+    commentable_object.topic || commentable_object.generate_topic
   end
 
+  # NOTE: can be Topic or DbEntry
   def commentable_klass
     params[:commentable_type].constantize
   end

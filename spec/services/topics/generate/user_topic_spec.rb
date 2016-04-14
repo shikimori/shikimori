@@ -1,20 +1,21 @@
 describe Topics::Generate::UserTopic do
+  subject(:topic) { service.call }
+
   let(:service) { Topics::Generate::UserTopic.new model, user }
-  before { service.call }
 
   shared_examples_for :topic do
     let(:topics) { Topic.where(linked: model) }
     it do
-      expect(topics).to have(1).item
-      expect(model.topic).to have_attributes(
+      expect{subject}.to change(Topic, :count).by 1
+      is_expected.to have_attributes(
         forum_id: Topic::FORUM_IDS[model.class.name],
         generated: true,
         linked: model,
         user: user
       )
 
-      expect(model.topic.created_at.to_i).to eq model.created_at.to_i
-      expect(model.topic.updated_at.to_i).to eq model.updated_at.to_i
+      expect(topic.created_at.to_i).to eq model.created_at.to_i
+      expect(topic.updated_at.to_i).to eq model.updated_at.to_i
     end
   end
 
