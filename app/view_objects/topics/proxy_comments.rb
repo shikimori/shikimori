@@ -27,7 +27,7 @@ class Topics::ProxyComments < Topics::CommentsView
 
 private
 
-  # # для адреса подгрузки комментариев
+  # для адреса подгрузки комментариев
   def topic_type
     model.class.name
   end
