@@ -71,7 +71,7 @@
           span.linkeable data-href="#{entry.summaries_url}"
             = "#{entry.preview_topic_view.summaries_count} #{i18n_i 'summary', entry.preview_topic_view.summaries_count}"
 
-        - if entry.preview_topic_view.any_comments? && !entry.preview_topic_view.all_summaries?
+        - if entry.preview_topic_view.any_comments? && !entry.preview_topic_view.any_summaries?
           span.linkeable data-href="#{entry.comments_url}"
             = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
 
