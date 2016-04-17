@@ -41,7 +41,7 @@ FactoryGirl.define do
 
     trait :with_topic do
       after :build do |contest|
-        contest.generate_topic
+        contest.generate_topics
       end
     end
 

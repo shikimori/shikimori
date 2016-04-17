@@ -12,7 +12,7 @@ FactoryGirl.define do
     end
 
     trait :with_topic do
-      after(:create) { |character| character.generate_topic }
+      after(:create) { |character| character.generate_topics }
     end
   end
 end

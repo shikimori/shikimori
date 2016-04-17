@@ -101,7 +101,7 @@ class CosplayGallery < ActiveRecord::Base
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
-  def generate_topic
+  def generate_topics
     Topics::Generate::UserTopic.call self, User.find(User::COSPLAYER_ID)
   end
 

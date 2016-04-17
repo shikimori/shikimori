@@ -77,7 +77,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.generate_topic unless contest.topic
+      contest.generate_topics unless contest.topic
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -181,7 +181,7 @@ public
     description
   end
 
-  def generate_topic
+  def generate_topics
     Topics::Generate::UserTopic.call self, user
   end
 

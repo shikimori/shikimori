@@ -33,7 +33,9 @@ class DbEntry < ActiveRecord::Base
     self.class == Manga
   end
 
-  def generate_topic
-    Topics::Generate::SiteTopic.call self, BotsService.get_poster
+  def generate_topics
+    I18n.available_locales.each do |locale|
+      Topics::Generate::SiteTopic.call self, BotsService.get_poster, locale
+    end
   end
 end

@@ -39,7 +39,7 @@ describe Club do
       it { expect(club.joined? club.owner).to eq true }
     end
 
-    describe '#generate_topic' do
+    describe '#generate_topics' do
       let(:club) { build :club, :with_topic }
       it { expect(club.topic).to be_present }
     end

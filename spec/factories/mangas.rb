@@ -14,7 +14,7 @@ FactoryGirl.define do
     end
 
     trait :with_topic do
-      after(:create) { |manga| manga.generate_topic }
+      after(:create) { |manga| manga.generate_topics }
     end
 
     Manga.kind.values.each do |kind_type|

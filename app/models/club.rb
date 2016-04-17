@@ -50,7 +50,7 @@ class Club < ActiveRecord::Base
   boolean_attribute :censored
 
   after_create :join_owner
-  after_create :generate_topic
+  after_create :generate_topics
 
   has_attached_file :logo,
     styles: {
@@ -140,7 +140,7 @@ class Club < ActiveRecord::Base
 
 private
 
-  def generate_topic
+  def generate_topics
     Topics::Generate::UserTopic.call self, owner, locale
   end
 

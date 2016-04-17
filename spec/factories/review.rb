@@ -13,12 +13,12 @@ FactoryGirl.define do
     locale :ru
 
     after :build do |review|
-      review.stub :generate_topic
+      review.stub :generate_topics
     end
 
     trait :with_topic do
       after :build do |club|
-        club.unstub :generate_topic
+        club.unstub :generate_topics
       end
     end
   end

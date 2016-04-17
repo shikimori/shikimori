@@ -27,7 +27,7 @@ describe Review do
   describe 'callbacks' do
     before { review.save }
 
-    describe '#generate_topic' do
+    describe '#generate_topics' do
       let(:review) { build :review, :with_topic }
       it { expect(review.topic).to be_present }
     end

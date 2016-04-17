@@ -5,5 +5,7 @@ FactoryGirl.define do
     sequence(:title) { |n| "entry title #{n}" }
     sequence(:body) { |n| "entry text #{n}" }
     type 'Entry'
+
+    locale :ru
   end
 end

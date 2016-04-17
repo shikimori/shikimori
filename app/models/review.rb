@@ -26,7 +26,7 @@ class Review < ActiveRecord::Base
 
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
-  after_create :generate_topic
+  after_create :generate_topics
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -67,7 +67,7 @@ class Review < ActiveRecord::Base
     end
   end
 
-  def generate_topic
+  def generate_topics
     Topics::Generate::UserTopic.call self, user, locale
   end
 
