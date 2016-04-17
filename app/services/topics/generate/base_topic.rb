@@ -1,15 +1,11 @@
 # frozen_string_literal: true
 
 class Topics::Generate::BaseTopic < ServiceObjectBase
-  pattr_initialize :model, :user
+  pattr_initialize :model, :user, :locale
 
   attr_implement :call
 
 private
-
-  def faye_service
-    FayeService.new user, ''
-  end
 
   def build_topic
     model.build_topic topic_attributes
@@ -25,6 +21,7 @@ private
       generated: true,
       user: user,
       type: topic_klass.name,
+      locale: locale,
       created_at: model.created_at,
       updated_at: model.updated_at
     }

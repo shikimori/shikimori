@@ -1,7 +1,7 @@
 describe Topics::Generate::SiteTopic do
   subject(:topic) { service.call }
 
-  let(:service) { Topics::Generate::SiteTopic.new model, user }
+  let(:service) { Topics::Generate::SiteTopic.new model, user, :ru }
   let(:user) { BotsService.get_poster }
 
   shared_examples_for :topic do

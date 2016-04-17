@@ -1,7 +1,7 @@
 describe Topics::Generate::UserTopic do
   subject(:topic) { service.call }
 
-  let(:service) { Topics::Generate::UserTopic.new model, user }
+  let(:service) { Topics::Generate::UserTopic.new model, user, :ru }
 
   shared_examples_for :topic do
     let(:topics) { Topic.where(linked: model) }
