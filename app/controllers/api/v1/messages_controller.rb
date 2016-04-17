@@ -1,6 +1,7 @@
 class Api::V1::MessagesController < Api::V1::ApiController
   load_and_authorize_resource except: [:read_all, :delete_all]
   before_action :prepare_group_action, only: [:read_all, :delete_all]
+  before_action :append_info, only: [:create]
   respond_to :json
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -115,5 +116,16 @@ private
 
   def faye
     FayeService.new current_user || User.find(User::GUEST_ID), faye_token
+  end
+
+  def append_info
+    return unless @resource.to.admin?
+
+    @resource.body.strip!
+    @resource.body += " [right][size=11][color=gray][spoiler=info][quote]"
+    @resource.body += "#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
+    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" if params[:message][:location].present?
+    @resource.body += "#{params[:message][:feedback_address]}\n" if params[:message][:feedback_address].present?
+    @resource.body += '[/quote][/spoiler][/color][/size][/right]'
   end
 end

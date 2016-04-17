@@ -5,7 +5,6 @@ class MessagesController < ProfilesController
   skip_before_action :verify_authenticity_token, only: [:bounce]
 
   before_action :authorize_acess, only: [:index, :read_all, :delete_all]
-  before_action :append_info, only: [:create]
 
   MESSAGES_PER_PAGE = 15
 
@@ -127,16 +126,5 @@ private
   def authorize_acess
     authorize! :access_messages, @resource
     @messages_type = params[:messages_type].to_sym
-  end
-
-  def append_info
-    return unless @resource.to.admin?
-
-    @resource.body.strip!
-    @resource.body += " [right][size=11][color=gray][spoiler=info][quote]"
-    @resource.body += "#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
-    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" if params[:message][:location].present?
-    @resource.body += "#{params[:message][:feedback_address]}\n" if params[:message][:feedback_address].present?
-    @resource.body += '[/quote][/spoiler][/color][/size][/right]'
   end
 end
