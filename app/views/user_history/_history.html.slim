@@ -6,8 +6,8 @@
       - history.each do |entry|
         - next if entry.target_type && entry.target.nil?
         p data-id="#{entry.id}"
-          span.date
-            = entry.time_ago interval
+          time.date datetime="#{entry.created_at.iso8601}"
+            = l entry.created_at, format: '%e %B %Y'
           - if entry.target
             a.bubbled href="#{url_for entry.target}"
               = localization_span entry.target
