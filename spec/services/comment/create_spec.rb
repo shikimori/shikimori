@@ -24,6 +24,7 @@ describe Comment::Create do
 
   shared_examples_for :comment do
     it do
+      expect(comment).to be_persisted
       expect(comment).to have_attributes(
         commentable_type: 'Entry',
         body: 'x' * Comment::MIN_SUMMARY_SIZE,
@@ -45,6 +46,21 @@ describe Comment::Create do
 
       it_behaves_like :comment
       it { is_expected.to eq topic }
+    end
+
+    context 'commentable is user' do
+      let(:commentable_id) { user.id }
+      let(:commentable_type) { 'User' }
+
+      it do
+        expect(comment).to have_attributes(
+          commentable: user,
+          body: 'x' * Comment::MIN_SUMMARY_SIZE,
+          is_offtopic: true,
+          is_summary: true,
+          user: user
+        )
+      end
     end
 
     context 'commentable is db entry without topic' do

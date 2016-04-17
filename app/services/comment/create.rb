@@ -26,6 +26,7 @@ private
   def set_topic comment
     return unless comment.valid?
     return if commentable_klass <= Entry
+    return if commentable_klass <= User
 
     comment.commentable = find_or_generate_topic
   end
