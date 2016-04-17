@@ -1,6 +1,6 @@
 = simple_form_for [:api, resource],
     remote: true,
-    html: { 'data-type' => params[:api] ? :json : :html },
+    html: { 'data-type' => :json },
     authenticity_token: true do |f|
 
   - unless params[:api]

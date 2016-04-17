@@ -13,6 +13,7 @@ class @UserRateButton extends ShikiView
     @button_only = @$root.data('button_only')
 
     @$('.b-rate').rateable()
+    @$('.note').check_height(125)
 
     # клик по раскрытию вариантов добавления в список
     @on 'click', '.trigger-arrow', @_toggle_list
@@ -98,6 +99,9 @@ class @UserRateButton extends ShikiView
       .data(height: $edit.outerHeight(true))
       .show()
 
+    # по первому фокусу на редактор включаем elastic
+    $edit.find('textarea').one 'focus', -> $(@).elastic.bind($(@)).delay()
+
     @$root.css height: @$('.b-add_to_list').outerHeight(true) + $show.data('height')
     (=>
       @$root.css height: @$('.b-add_to_list').outerHeight(true) + $edit.data('height')
@@ -112,6 +116,7 @@ class @UserRateButton extends ShikiView
       .user_rate_button()
 
     @$catalog_entry = $(".b-catalog_entry.c-#{$new_root.data('target_type').toLowerCase()}##{$new_root.data 'target_id'}")
+
     if @$catalog_entry.exists()
       @$catalog_entry
         .removeClass(@$catalog_entry.data('rate-status'))

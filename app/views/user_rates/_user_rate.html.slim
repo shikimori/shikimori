@@ -106,6 +106,8 @@
           locals: { score: user_rate ? user_rate.score : '', with_submit: true, input_selector: '#user_rate_score' }
 
       - if user_signed_in? && user_rate.text.present?
-        p.note = user_rate.text_html
-        .note-author
-          = render 'users/user_16', user: current_user
+        div.note
+          .author
+            = render 'users/user_16', user: current_user
+            | :
+          = user_rate.text_html
