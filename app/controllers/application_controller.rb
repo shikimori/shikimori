@@ -178,7 +178,7 @@ private
 
   def set_locale
     I18n.locale = params[:locale] ||
-      (I18n::LOCALES[current_user.language] if user_signed_in?) ||
+      (I18n.locale_from_language(current_user.language) if user_signed_in?) ||
       (ru_domain? ? :ru : :en)
   end
 
