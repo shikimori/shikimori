@@ -17,7 +17,7 @@
 
 wall_id = 0
 
-class @ShikiCluster
+class WallCluster
   @VERTICAL = 'vertical'
   @HORIZONTAL = 'horizontal'
 
@@ -31,13 +31,18 @@ class @ShikiWall
     @max_width = parseInt @$wall.css('width')
 
     $images = @$wall
-      .children('a,.b-video')
+      .children('a, .b-video')
       .attr(rel: "wall-#{@id}")
       .css(width: '', height: '')
     $images.children().removeClass 'check-width'
-    @images = $images.toArray().map (v) -> new ShikiImage $(v)
 
-    @direction = ShikiCluster.HORIZONTAL
+    @images = $images.toArray().map (v) ->
+      if v.classList.contains('b-video')
+        new WallVideo $(v)
+      else
+        new WallImage $(v)
+
+    @direction = WallCluster.HORIZONTAL
     @margin = 4
 
   each: (func) -> @images.each func
@@ -76,7 +81,7 @@ class @ShikiWall
       #image.position left, 0
 
     #else if delta_x && delta_y
-      #if @direction == ShikiCluster.HORIZONTAL
+      #if @direction == WallCluster.HORIZONTAL
         #image.position left, 0
       #else
         #image.position 0, top
@@ -84,7 +89,7 @@ class @ShikiWall
     #else
       #image.position left, top
 
-    if @direction == ShikiCluster.HORIZONTAL
+    if @direction == WallCluster.HORIZONTAL
       image.position left, 0
     else
       image.position 0, top
@@ -96,7 +101,7 @@ class @ShikiWall
     images = @positioned()
     return if images.length == 1
 
-    if @direction == ShikiCluster.HORIZONTAL
+    if @direction == WallCluster.HORIZONTAL
       heights = _(images).map (v) -> v.height
       min = _(heights).min()
       if min != _(heights).max()
@@ -113,7 +118,7 @@ class @ShikiWall
   _scale: (image, delta_x, delta_y) ->
     images = @positioned()
 
-    if @direction == ShikiCluster.HORIZONTAL
+    if @direction == WallCluster.HORIZONTAL
       current_width = _(images).reduce (memo, v) =>
           memo + v.width + @margin
         , 0.0
@@ -129,7 +134,7 @@ class @ShikiWall
     else
       throw 'not implemented yet'
 
-class ShikiImage
+class WallImage
   constructor: ($node) ->
     @$container = $node
 
@@ -137,8 +142,7 @@ class ShikiImage
 
     # @width = @$image.width() * 1.0
     # @height = @$image.height() * 1.0
-    @width = @$image[0].naturalWidth * 1.0
-    @height = @$image[0].naturalHeight * 1.0
+    [@width, @height] = @_image_sizes()
 
     @ratio = @width / @height
 
@@ -160,12 +164,7 @@ class ShikiImage
       top: @top
       left: @left
 
-    if @$container.hasClass 'b-video'
-      @$container.css
-        width: @width
-        height: @height
-    else
-      @$container.shiki_image()
+    @$container.shiki_image()
 
   normalize: (width, height) ->
     if @width > width
@@ -185,3 +184,40 @@ class ShikiImage
   scale: (percent) ->
     @width *= percent
     @height *= percent
+
+  _image_sizes: ->
+    [
+      @$image[0].naturalWidth * 1.0
+      @$image[0].naturalHeight * 1.0
+    ]
+
+class WallVideo extends WallImage
+  HEIGHT_RATIO =
+    other: 1.0
+    vk: 0.75417
+
+  constructor: ($node) ->
+    @is_vk = $node.hasClass('vk')
+    super
+
+  apply: ->
+    @$image.css
+      width: @width
+      # height: @height / @_height_ratio()
+
+    console.log @$container
+    @$container.css
+      top: @top
+      left: @left
+      width: @width
+      height: @height
+
+  _image_sizes: ->
+    [
+      @$image[0].naturalWidth * 1.0
+      @$image[0].naturalHeight * 1.0 * @_height_ratio()
+    ]
+
+  _height_ratio: ->
+    console.log @is_vk, HEIGHT_RATIO[if @is_vk then 'vk' else 'other']
+    HEIGHT_RATIO[if @is_vk then 'vk' else 'other']
