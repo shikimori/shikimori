@@ -42,11 +42,6 @@ class Manga < DbEntry
     through: :related,
     source: :manga
 
-  has_many :topics, -> { order updated_at: :desc },
-    class_name: Entry.name,
-    as: :linked,
-    dependent: :destroy
-
   has_many :news, -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
     as: :linked

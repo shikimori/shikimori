@@ -18,8 +18,6 @@ describe Anime do
     it { is_expected.to have_many :similar }
     it { is_expected.to have_many :links }
 
-    it { is_expected.to have_one :topic }
-
     it { is_expected.to have_many :user_histories }
 
     it { is_expected.to have_many :cosplay_gallery_links }

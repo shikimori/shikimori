@@ -43,12 +43,6 @@ class Anime < DbEntry
    foreign_key: :target_id,
    dependent: :destroy
 
-  has_many :topics,
-    -> { order updated_at: :desc },
-    class_name: Entry.name,
-    as: :linked,
-    dependent: :destroy
-
   has_many :news,
     -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
@@ -235,13 +229,14 @@ class Anime < DbEntry
       self.status = :ongoing
       resave = true
     end
+
     # онгоинг, у которого вышел последний эпизод, делаем релизом
     if ongoing? && changes['episodes_aired'] && episodes_aired == episodes && episodes != 0
       self.status = :released
       resave = true
     end
 
-    # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
+    # при сбросе числа вышедших эпизодов удаляем новости эпизодов
     if changes['episodes_aired'] && episodes_aired == 0 && changes['episodes_aired'][0] != nil
       Topics::NewsTopic
         .where(linked: self)
