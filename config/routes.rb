@@ -294,6 +294,10 @@ Site::Application.routes.draw do
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
+    resources :animes, only: [] do
+      get 'tooltip(/:minified)' => :tooltip, as: :anime_tooltip, minified: /minified/
+    end
+
     scope 'animes/:anime_id', module: 'anime_online' do
       get '' => redirect { |params, request| "#{request.url}/video_online" }
 
