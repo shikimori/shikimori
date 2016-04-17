@@ -1,7 +1,7 @@
 .character-suggest
   img.avatar[
     src="#{cdn_image entry, :preview}"
-    title="#{localized_name entry}"
+    title="#{entry.name}"
   ]
   .name
     - if defined?(render_link) && render_link
@@ -15,4 +15,4 @@
   .animes
     - (entry.animes+entry.mangas).shuffle.take(3).each do |entry|
       div: a href="#{url_for entry}"
-        = localized_name entry
+        = localization_span entry

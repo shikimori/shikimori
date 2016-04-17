@@ -1,6 +1,7 @@
 class AnimeVideoDecorator < BaseDecorator
+  # NOTE: используется в ./app/views/versions/_anime_video.html.slim
   def name
-    "episode ##{episode} #{h.localized_name anime}"
+    "episode ##{episode} #{anime.name}"
   end
 
   def views_count

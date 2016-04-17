@@ -9,12 +9,11 @@
     .b-menu_logo
       center: a[
         href="#{resource.url params[:action] != 'index'}"
-        title="#{localized_name resource}"
+        title="#{resource.name}"
       ]
         img[
           src="#{cdn_image resource, :original}"
-          title="#{localized_name resource}"
-          alt="#{localized_name resource}"
+          alt="#{resource.name}"
         ]
 
   - if resource.with_score?

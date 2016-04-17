@@ -148,7 +148,7 @@
           - next if genre.censored? && !user_signed_in?
           li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"
             input type="checkbox" autocomplete="off"
-            = localized_name genre
+            = localization_span genre
             - if genre.description.present?
               span.b-question.mobile.bubbled[
                 title="#{genre.description}"

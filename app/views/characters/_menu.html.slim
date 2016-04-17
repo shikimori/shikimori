@@ -1,10 +1,9 @@
 - unless @itemtype
   .b-menu_logo
-    center: a href="#{resource.url}" title="#{localized_name resource}"
+    center: a href="#{resource.url}" title="#{resource.name}"
       img[
         src="#{cdn_image resource, :original}"
-        title="#{localized_name resource}"
-        alt="#{localized_name resource}"
+        alt="#{resource.name}"
       ]
 
 = render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)

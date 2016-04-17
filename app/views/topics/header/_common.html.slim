@@ -29,7 +29,7 @@
       a.b-link.bubbled[
         href="#{view.topic.linked.decorate.url}"
         title="#{localized_name view.topic.linked}"
-      ] = localized_name view.topic.linked
+      ] = localization_span view.topic.linked
 
   - elsif view.topic.review?
     span.about
@@ -37,7 +37,7 @@
       a.b-link.bubbled[
         href="#{view.topic.linked.target.decorate.url}"
         title="#{localized_name view.topic.linked.target}"
-      ] = localized_name view.topic.linked.target
+      ] = localization_span view.topic.linked.target
 
   span.time
     time[

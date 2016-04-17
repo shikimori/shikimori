@@ -4,7 +4,7 @@
     .cc-1
       - @resource.genres.each do |genre|
         .c-column.genre id="#{genre.id}"
-          .name = localized_name genre
+          .name = localization_span genre
           .b-js-actions
             .b-js-link.up = t '.up'
             .b-js-link.down = t '.down'
@@ -18,7 +18,7 @@
           id="#{genre.id}"
           class="#{:included if @resource.genres.include? genre}"
         ]
-          .name = localized_name genre
+          .name = localization_span genre
           .b-js-actions
             .b-js-link.up = t '.up'
             .b-js-link.down = t '.down'
