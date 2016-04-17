@@ -59,7 +59,7 @@
       span.other-names.click-loader data-href="#{entry.other_names_url}"
         span ···
 
-  - if entry.topic&.any_comments? || entry.topic&.any_summaries? || entry.reviews_count > 0
+  - if entry.preview_topic_view.any_comments? || entry.preview_topic_view.any_summaries? || entry.reviews_count > 0
     .additional-links
       .line-container
         .key #{t ".#{entry.object.class.name.downcase}_additionals"}:
@@ -67,13 +67,13 @@
           span.linkeable data-href="#{entry.reviews_url}"
             = "#{entry.reviews_count} #{i18n_i 'review', entry.reviews_count}"
 
-        - if entry.topic.any_summaries?
+        - if entry.preview_topic_view.any_summaries?
           span.linkeable data-href="#{entry.summaries_url}"
-            = "#{entry.topic.summaries_count} #{i18n_i 'summary', entry.topic.summaries_count}"
+            = "#{entry.preview_topic_view.summaries_count} #{i18n_i 'summary', entry.preview_topic_view.summaries_count}"
 
-        - if entry.topic.any_comments? && !entry.topic.all_summaries?
+        - if entry.preview_topic_view.any_comments? && !entry.preview_topic_view.all_summaries?
           span.linkeable data-href="#{entry.comments_url}"
-            = "#{entry.topic.comments_count} #{i18n_i 'comment', entry.topic.comments_count}"
+            = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
 
       - if entry.files? || entry.tags.present? || entry.cosplay?
         .line-container
