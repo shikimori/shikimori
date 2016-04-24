@@ -16,7 +16,13 @@ describe Message do
   describe 'callbacks' do
     let(:user) { build_stubbed :user, :user }
 
-    describe 'antispam' do
+    describe '#check_spam_abuse' do
+      before { allow(Messages::CheckSpamAbuse).to receive :call }
+      let!(:message) { create :message }
+      it { expect(Messages::CheckSpamAbuse).to have_received(:call).with message }
+    end
+
+    describe '#check_antispam' do
       before { Message.antispam = true }
       after { Message.antispam = false }
 
@@ -187,39 +193,6 @@ describe Message do
     end
   end
 
-  describe 'instance methods' do
-    describe '#delete_by' do
-      let(:message) { create :message, to: build_stubbed(:user), from: build_stubbed(:user) }
-      before { message.delete_by user }
-
-      context 'private message' do
-        context 'by from' do
-          let(:user) { message.from }
-
-          it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_from).to be_truthy }
-          it { expect(message.is_deleted_by_to).to be_falsy }
-          it { expect(message).to_not be_read }
-        end
-
-        context 'by to' do
-          let(:user) { message.to }
-
-          it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_to).to be_truthy }
-          it { expect(message.is_deleted_by_from).to be_falsy }
-          it { expect(message).to be_read }
-        end
-      end
-
-      context 'other messages' do
-        let(:message) { create :message, :notification }
-        let(:user) { nil }
-        it { expect(message).to be_destroyed }
-      end
-    end
-  end
-
   describe 'permissions' do
     let(:message) { build_stubbed :message, from: from_user, to: to_user, kind: kind, created_at: created_at }
     let(:from_user) { build_stubbed :user, :user }
@@ -329,6 +302,39 @@ describe Message do
           let(:kind) { MessageType::Notification }
           it { is_expected.to be_able_to :destroy, message }
         end
+      end
+    end
+  end
+
+  describe 'instance methods' do
+    describe '#delete_by' do
+      let(:message) { create :message, to: build_stubbed(:user), from: build_stubbed(:user) }
+      before { message.delete_by user }
+
+      context 'private message' do
+        context 'by from' do
+          let(:user) { message.from }
+
+          it { expect(message).to be_persisted }
+          it { expect(message.is_deleted_by_from).to be_truthy }
+          it { expect(message.is_deleted_by_to).to be_falsy }
+          it { expect(message).to_not be_read }
+        end
+
+        context 'by to' do
+          let(:user) { message.to }
+
+          it { expect(message).to be_persisted }
+          it { expect(message.is_deleted_by_to).to be_truthy }
+          it { expect(message.is_deleted_by_from).to be_falsy }
+          it { expect(message).to be_read }
+        end
+      end
+
+      context 'other messages' do
+        let(:message) { create :message, :notification }
+        let(:user) { nil }
+        it { expect(message).to be_destroyed }
       end
     end
   end

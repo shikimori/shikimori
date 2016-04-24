@@ -88,3 +88,7 @@ en:
       nil: in <em>deleted</em>.
       topic: in topic <a href="%{url}"%{bubble}>%{name}</a>.
       profile: in <a href="%{url}"%{bubble}>%{name}</a>'s profile.
+  messages/check_spam_abuse:
+    ban_text: >-
+      You are banned for spam.
+      Send a word to %{email} in case if you are innocent.

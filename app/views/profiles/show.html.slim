@@ -120,9 +120,9 @@
 
     header.head.misc
       h1[
-          class="#{:aliases if @resource.nickname_changes?}"
-          title="#{@resource.nicknames_tooltip if @resource.nickname_changes?}"
-        ]
+        class="#{:aliases if @resource.nickname_changes?}"
+        title="#{@resource.nicknames_tooltip if @resource.nickname_changes?}"
+      ]
         - if params[:action] != 'show'
           a.back[
             href="#{@resource.url}"
@@ -131,13 +131,7 @@
           ]
         = @resource.nickname
 
-      .misc
-        /- if @resource.own_profile?
-          a.edit href="#{edit_profile_url @resource}" title="Изменить профиль" изменить
-        - unless @resource.own_profile?
-          span = @resource.last_online
-        - if @resource.banned?
-          span.banned = t '.banned', gender: @resource.sex
+      = render 'profiles/status', user: @resource
 
       .notice
         - @resource.common_info.each do |entry|

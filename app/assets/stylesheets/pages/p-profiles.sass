@@ -1,1 +1,19 @@
 //= require_directory ./p-profiles
+@import globals/variables
+@import mixins/dash_separated
+@import mixins/responsive
+
+.p-profiles
+  header.head
+    .misc
+      margin-left: 1px
+
+      +iphone
+        display: block
+
+      span, a
+        +dash_separated(5px)
+        padding: 0
+
+      .banned
+        color: $red

@@ -7,7 +7,6 @@ ru:
       add_to_friends: Добавить в друзья
       add_to_ignored: Добавить в игнор
       ban_history: История банов
-      banned: '@{f:забанена|m:забанен}'
       my_bans: Мои баны
       my_mail: Почта
       my_profile_settings: Настройки
@@ -21,6 +20,9 @@ ru:
       remove_from_ignored: Удалить из игнора
       send_message: Написать
       user_profile_settings: Настройки профиля
+
+    status:
+      banned: '@{f:забанена|m:забанен}'
 
     page:
       account: Аккаунт

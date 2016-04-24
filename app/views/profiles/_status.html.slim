@@ -1,0 +1,7 @@
+.misc
+  /- if user.own_profile?
+    a.edit href="#{edit_profile_url user}" title="Изменить профиль" изменить
+  - unless user.own_profile?
+    span = user.last_online
+  - if user.banned?
+    span.banned = t '.banned', gender: user.sex

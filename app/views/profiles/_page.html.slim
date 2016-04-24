@@ -11,6 +11,8 @@ header.head.misc
       ]
     = @resource.nickname
 
+  = render 'profiles/status', user: @resource
+
   - if params[:controller] == 'user_rates'
     - if params[:list_type] == 'anime' && @resource.stats.manga? && @resource.preferences.manga_in_profile?
       a.misc href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="#{t '.to_manga'}" = t '.to_manga'

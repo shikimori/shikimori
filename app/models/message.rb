@@ -14,6 +14,7 @@ class Message < ActiveRecord::Base
   validates :from, :to, presence: true
   validates :body, presence: true, if: -> { kind == MessageType::Private }
 
+  before_create :check_spam_abuse
   after_create :send_email
   after_create :send_push_notifications
 
@@ -71,6 +72,10 @@ class Message < ActiveRecord::Base
   end
 
 private
+
+  def check_spam_abuse
+    Messages::CheckSpamAbuse.call self if kind == MessageType::Private
+  end
 
   def delete_by! user
     if from == user

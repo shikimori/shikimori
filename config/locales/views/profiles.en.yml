@@ -7,7 +7,6 @@ en:
       add_to_friends: Add to Friends
       add_to_ignored: Add to Ignored
       ban_history: Ban History
-      banned: banned
       my_bans: Bans
       my_mail: Mail
       my_profile_settings: Settings
@@ -21,6 +20,9 @@ en:
       remove_from_ignored: Remove from Ignored
       send_message: Send Message
       user_profile_settings: User Profile Settings
+
+    status:
+      banned: banned
 
     page:
       account: Account
