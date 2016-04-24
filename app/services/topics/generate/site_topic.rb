@@ -11,7 +11,7 @@ class Topics::Generate::SiteTopic < Topics::Generate::BaseTopic
 
 private
 
-  def topic_attributes
-    super.update updated_at: nil
+  def updated_at
+    nil
   end
 end
