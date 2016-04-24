@@ -100,13 +100,6 @@ class MessagesController < ProfilesController
     Digest::SHA1.hexdigest("unsubscribe_#{kind}_messages_for_user_##{user.id}!")
   end
 
-  def bounce
-    emails = JSON.parse(params[:mandrill_events]).map { |event| event['msg']['email'] }
-    NamedLogger.bounce.info emails
-    User.where(email: emails).each(&:notify_bounced_email)
-    head 200
-  end
-
 private
 
   def localized_page_title

@@ -6,17 +6,6 @@ describe MessagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#bounce' do
-    let(:user) { create :user }
-    before { sign_out user }
-    before { post :bounce, mandrill_events: [{msg: {email: user.email}}].to_json }
-
-    it do
-      expect(response).to have_http_status :success
-      expect(user.messages.size).to eq(1)
-    end
-  end
-
   describe '#show' do
     let(:message) { create :message, from: user }
     let(:make_request) { get :show, id: message.id }

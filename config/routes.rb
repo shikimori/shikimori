@@ -56,6 +56,13 @@ Site::Application.routes.draw do
     post :preview, on: :collection
   end
 
+  resources :emails, only: [] do
+    collection do
+      post :bounce
+      post :spam
+    end
+  end
+
   resources :comments, except: [:create, :update] do
     # NOTE: should be before collection & member actions
     resources :bans, only: [:new], controller: 'moderations/bans'
@@ -467,6 +474,9 @@ Site::Application.routes.draw do
     end
 
     resource :tests, only: [:show] do
+      get :echo
+      post :echo
+
       get :momentjs
       get :border
       get 'd3/:anime_id' => :d3, as: :d3
@@ -716,8 +726,6 @@ Site::Application.routes.draw do
     resources :messages, only: [:show, :edit, :update, :destroy] do
       collection do
         get 'chosen/:ids' => :chosen, as: :chosen
-
-        post :bounce
 
         get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :feed
         get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :unsubscribe

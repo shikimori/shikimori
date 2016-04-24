@@ -3,10 +3,17 @@ require_dependency 'calendar_entry'
 require_dependency 'site_statistics'
 
 class TestsController < ShikimoriController
+  skip_before_action :verify_authenticity_token, only: [:echo]
+
   # тестовая страница
   def show
     @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
   rescue Faraday::ConnectionFailed
+  end
+
+  def echo
+    NamedLogger.echo.info params.to_yaml
+    render json: params
   end
 
   # тест d3 графа
