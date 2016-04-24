@@ -18,11 +18,11 @@ class AnimeProfileSerializer < AnimeSerializer
 
   # TODO: deprecated
   def thread_id
-    object.topic.try :id
+    object.topic&.id
   end
 
   def topic_id
-    object.topic.try :id
+    object.topic&.id
   end
 
   def myanimelist_id
