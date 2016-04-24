@@ -1,12 +1,19 @@
 class DbEntriesController < ShikimoriController
   before_action :authenticate_user!, only: [:edit, :edit_field, :update]
 
+  before_action :fetch_resource, if: :resource_id
+
   def tooltip
     noindex
   end
 
   def versions
     render template: 'db_entries/versions', formats: :json
+  end
+
+  def comments
+    maybe_topic = @resource.maybe_topic
+    redirect_to UrlGenerator.instance.topic_url(maybe_topic), status: 301
   end
 
   def edit

@@ -3,7 +3,6 @@ class PeopleController < DbEntriesController
   respond_to :html, :json, only: :index
   respond_to :json, only: :autocomplete
 
-  before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
   before_action :role_redirect, if: -> { resource_id && !['tooltip','update'].include?(params[:action]) }
   before_action :set_breadcrumbs, if: -> { @resource }
@@ -25,12 +24,6 @@ class PeopleController < DbEntriesController
   def works
     noindex
     page_title i18n_t('participation_in_projects')
-  end
-
-  # TODO: удалить после 05.2015
-  def comments
-    noindex
-    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
   def favoured

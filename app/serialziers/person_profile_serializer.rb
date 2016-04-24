@@ -23,11 +23,11 @@ class PersonProfileSerializer < PersonSerializer
 
   # TODO: deprecated
   def thread_id
-    object.topic.try :id
+    object.topic&.id
   end
 
   def topic_id
-    object.topic.try :id
+    object.topic&.id
   end
 
   def description_html

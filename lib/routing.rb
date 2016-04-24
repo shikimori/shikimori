@@ -19,7 +19,10 @@ module Routing
   end
 
   def topic_url topic, format = nil
-    if topic.kind_of?(User)
+    if topic.instance_of? NoTopic
+      db_entry_path topic.linked
+
+    elsif topic.kind_of?(User)
       profile_url topic, subdomain: false
 
     elsif topic.kind_of?(Topics::EntryTopics::ContestTopic) ||
@@ -61,6 +64,10 @@ module Routing
   end
 
 private
+
+  def db_entry_path db_entry
+    public_send "#{db_entry.class.name.underscore}_path", db_entry
+  end
 
   def camo_digest url
     OpenSSL::HMAC.hexdigest(
