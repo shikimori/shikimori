@@ -70,10 +70,10 @@ module Site
     config.action_mailer.default_url_options = { host: Site::DOMAIN }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address: 'smtp.mandrillapp.com',
+      address: 'smtp.mailgun.org',
       port: 587,
-      user_name: Rails.application.secrets.mandrill[:user_name],
-      password: Rails.application.secrets.mandrill[:api_key],
+      user_name: Rails.application.secrets.mailgun[:login],
+      password: Rails.application.secrets.mailgun[:password],
       domain: Site::DOMAIN
     }
 
