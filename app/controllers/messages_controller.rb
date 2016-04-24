@@ -1,9 +1,7 @@
 class MessagesController < ProfilesController
-  load_and_authorize_resource except: [:index, :bounce, :feed, :preview, :read_all, :delete_all, :chosen, :unsubscribe]
+  load_and_authorize_resource except: [:index, :feed, :preview, :read_all, :delete_all, :chosen, :unsubscribe]
 
   skip_before_action :fetch_resource, :set_breadcrumbs, except: [:index, :read_all, :delete_all]
-  skip_before_action :verify_authenticity_token, only: [:bounce]
-
   before_action :authorize_acess, only: [:index, :read_all, :delete_all]
 
   MESSAGES_PER_PAGE = 15

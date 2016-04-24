@@ -1,4 +1,6 @@
 class EmailsController < ShikimoriController
+  skip_before_action :verify_authenticity_token
+
   def bounce
     NamedLogger.bounce.info email
     user = User.find_by email: email
