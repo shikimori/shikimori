@@ -38,11 +38,6 @@ class CharactersController < PeopleController
     page_title t('mangagraphy')
   end
 
-  # TODO: удалить после 05.2015
-  def comments
-    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
-  end
-
   def art
     page_title t('imageboard_art')
   end

@@ -1,6 +1,6 @@
 class AnimesController < DbEntriesController
   before_action -> { page_title resource_klass.model_name.human }
-  before_action :fetch_resource, if: :resource_id
+
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :resource_redirect, if: -> { @resource }
 
@@ -87,10 +87,6 @@ class AnimesController < DbEntriesController
     noindex
     page_title t('animes.page.franchise')
     @blank_layout = true
-  end
-
-  def comments
-    return redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
   end
 
   def summaries

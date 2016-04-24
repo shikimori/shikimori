@@ -64,11 +64,15 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def main_topic_view
-    Topics::TopicViewFactory.new(false, false).build(topic || no_topic)
+    Topics::TopicViewFactory.new(false, false).build maybe_topic
   end
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build(topic || no_topic)
+    Topics::TopicViewFactory.new(true, false).build maybe_topic
+  end
+
+  def maybe_topic
+    topic || NoTopic.new(object)
   end
 
   # связанные клубы
@@ -131,10 +135,6 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
-
-  def no_topic
-    NoTopic.new(object)
-  end
 
   def headline_array
     if h.ru_domain?
