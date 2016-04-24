@@ -8,7 +8,7 @@ class Topics::Generate::BaseTopic < ServiceObjectBase
 private
 
   def build_topic
-    model.find_or_initialize_by topic_attributes
+    model.topics.find_or_initialize_by topic_attributes
   end
 
   def topic_klass

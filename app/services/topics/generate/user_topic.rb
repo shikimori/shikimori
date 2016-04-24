@@ -10,6 +10,6 @@ class Topics::Generate::UserTopic < Topics::Generate::BaseTopic
 private
 
   def faye_service
-    FayeService.new user, ''
+    FayeService.new user, nil
   end
 end
