@@ -8,11 +8,11 @@ class CharacterProfileSerializer < CharacterSerializer
 
   # TODO: deprecated
   def thread_id
-    object.topic.id
+    object.topic.try :id
   end
 
   def topic_id
-    object.topic.id
+    object.topic.try :id
   end
 
   def description
