@@ -7,7 +7,7 @@ module I18n
   }
 
   def self.locale_from_language language
-    LOCALE[language.to_s]
+    LOCALES[language.to_s]
   end
 
   def self.russian?
