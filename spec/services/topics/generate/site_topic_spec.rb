@@ -22,7 +22,6 @@ describe Topics::Generate::SiteTopic do
 
     context 'with existing topic' do
       let!(:topic) { create :topic, linked: model }
-
       it do
         expect{subject}.not_to change(Topic, :count)
         is_expected.to eq topic
