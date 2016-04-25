@@ -2,12 +2,16 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
   include Translation
   pattr_initialize :message
 
-  SPAM = %r{
+  SPAM_LINKS = %r{
     cos30.ru/M=5j-N9 |
     aHR0cDovL3ByaW1hcnl4Lm5ldC9ncmVlaz9kbGM9a2ltb3Jp |
     PrimaryX.NET/greek?dlc=Kimori |
     goo.gl/KfKxKC
   }mix
+
+  SPAM_PHRASES = %r{
+    Хорош \s качать \s уже\) \s А \s то \s всё \s качаем,качаем
+  }mx
 
   def call
     if spam?
@@ -22,7 +26,8 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
 private
 
   def spam?
-    message.kind == MessageType::Private && message.body =~ SPAM
+    message.kind == MessageType::Private &&
+      (message.body =~ SPAM_LINKS || message.body =~ SPAM_PHRASES)
   end
 
   def ban_text
