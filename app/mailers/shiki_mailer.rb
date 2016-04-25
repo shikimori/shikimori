@@ -46,6 +46,7 @@ class ShikiMailer < ActionMailer::Base
       body: i18n_t(
         'reset_password_instructions.body',
         site_link: Site::DOMAIN,
+        nickname: user.nickname,
         reset_password_link: edit_user_password_url(
           reset_password_token: @token,
           protocol: :http
