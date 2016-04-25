@@ -39,11 +39,13 @@ class NotificationsService
   end
 
   def round_finished
-    create_comment Comment.new(
-      user: target.contest.user,
-      commentable: target.contest.topic,
-      body: "[contest_round_status=#{target.id}]"
-    )
+    target.contest.topics.each do |topic|
+      create_comment Comment.new(
+        user: target.contest.user,
+        commentable: topic,
+        body: "[contest_round_status=#{target.id}]"
+      )
+    end
   end
 
   def contest_finished
@@ -60,11 +62,13 @@ class NotificationsService
       linked: target,
       body: nil
 
-    create_comment Comment.new(
-      user: target.user,
-      commentable: target.topic,
-      body: "[contest_status=#{target.id}]"
-    )
+    target.topics.each do |topic|
+      create_comment Comment.new(
+        user: target.user,
+        commentable: topic,
+        body: "[contest_status=#{target.id}]"
+      )
+    end
   end
 
 private

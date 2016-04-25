@@ -23,9 +23,9 @@ class Contest < ActiveRecord::Base
     class_name: ContestRound.name,
     dependent: :destroy
 
-  has_one :topic, -> { where linked_type: Contest.name },
-    class_name: Topics::EntryTopics::ContestTopic.name,
-    foreign_key: :linked_id,
+  has_many :topics, -> { order updated_at: :desc },
+    class_name: 'Topics::EntryTopics::ContestTopic',
+    as: :linked,
     dependent: :destroy
 
 private
@@ -45,7 +45,6 @@ public
   has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
 
   before_save :update_permalink
-  after_save :sync_topic
 
   state_machine :state, initial: :created do
     state :created, :proposing do
@@ -77,7 +76,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.generate_topics unless contest.topic
+      contest.generate_topics unless contest.topics.present?
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -182,7 +181,9 @@ public
   end
 
   def generate_topics
-    Topics::Generate::UserTopic.call self, user
+    I18n.available_locales.each do |locale|
+      Topics::Generate::UserTopic.call self, user, locale
+    end
   end
 
 private
@@ -190,9 +191,5 @@ private
   # TODO: remove field permalink
   def update_permalink
     self.permalink = title.permalinked if changes.include? :title
-  end
-
-  def sync_topic
-    topic.update title: title if topic && topic.title != title
   end
 end

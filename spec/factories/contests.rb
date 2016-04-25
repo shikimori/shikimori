@@ -36,10 +36,9 @@ FactoryGirl.define do
 
     after :build do |contest|
       contest.stub :update_permalink
-      contest.stub :sync_topic
     end
 
-    trait :with_topic do
+    trait :with_topics do
       after :build do |contest|
         contest.generate_topics
       end

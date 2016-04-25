@@ -43,15 +43,19 @@ describe NotificationsService do
 
   describe '#round_finished' do
     let(:target) { create :contest_round, contest: contest }
-    let(:contest) { create :contest, :with_topic }
+    let(:contest) { create :contest, :with_topics }
 
     before { service.round_finished }
 
-    it { expect(contest.topic.comments).to have(1).item }
+    it do
+      contest.topics.each do |topic|
+        expect(topic.comments).to have(1).item
+      end
+    end
   end
 
   describe '#contest_finished' do
-    let(:target) { create :contest, :with_topic }
+    let(:target) { create :contest, :with_topics }
     let!(:round) { create :contest_round, contest: target }
     let!(:match) { create :contest_match, round: round }
     let!(:user_vote) { create :contest_user_vote, match: match, user: user_1, item_id: 1, ip: '1' }
@@ -62,7 +66,10 @@ describe NotificationsService do
     before { service.contest_finished }
 
     it do
-      expect(target.topic.comments).to have(1).item
+      target.topics.each do |topic|
+        expect(topic.comments).to have(1).item
+      end
+
       expect(user_1.messages).to have(1).item
       expect(user_2.messages).to be_empty
     end
