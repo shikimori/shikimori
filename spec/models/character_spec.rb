@@ -1,15 +1,19 @@
 describe Character do
-  it { should have_many :person_roles }
-  it { should have_many :animes }
-  it { should have_many :mangas }
-  it { should have_many :persons }
+  describe 'relations' do
+    it { is_expected.to have_many :person_roles }
+    it { is_expected.to have_many :animes }
+    it { is_expected.to have_many :mangas }
+    it { is_expected.to have_many :persons }
 
-  it { should have_many :persons }
-  it { should have_many :japanese_roles }
-  it { should have_many :seyu }
+    it { is_expected.to have_many :persons }
+    it { is_expected.to have_many :japanese_roles }
+    it { is_expected.to have_many :seyu }
 
-  it { should have_attached_file :image }
+    it { is_expected.to have_attached_file :image }
 
-  it { should have_many :cosplay_gallery_links }
-  it { should have_many :cosplay_galleries }
+    it { is_expected.to have_many :cosplay_gallery_links }
+    it { is_expected.to have_many :cosplay_galleries }
+
+    it { is_expected.to have_many :topics }
+  end
 end

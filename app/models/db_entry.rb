@@ -5,8 +5,7 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_many :topics,
-      -> { where(locale: I18n.locale).order(updated_at: :desc) },
+    klass.has_many :topics, -> { order updated_at: :desc },
       class_name: "Topics::EntryTopics::#{klass.name}Topic",
       as: :linked,
       dependent: :destroy
