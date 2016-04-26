@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  .b-options-floated.mobile-phone.before-buttons-3
+  .b-options-floated.mobile-phone.before-buttons-2
     a href="#{@resource.related_url}" = t '.linked_directly'
     span.link.selected = t '.chronology'
     a href="#{@resource.franchise_url}" = t '.franchise'
@@ -7,14 +7,18 @@
   .subheadline-buttons
     = render 'blocks/list_switchers',
       name: 'related_view',
-      values: ['list', 'posters']
+      values: %w(list posters)
 
   - if cookies['related_view'] == 'posters'
     .subheadline.m10 = @page_title.last
     .cc-5.to-process data-dynamic='cutted_covers'
-      = render @resource.chronology, cover_notice: :year_kind, content_by: :mini_tooltip
+      = render partial: 'animes/anime',
+        collection: @resource.chronology,
+        locals: { cover_notice: :year_kind, content_by: :mini_tooltip },
+        cache: ->(entry, _) { [entry, :year_kind, :mini_tooltip, I18n.locale] }
 
   - else
     .subheadline.m10 = @page_title.last
     div
-      = render partial: 'animes/relation_note', collection: @resource.chronology
+      = render partial: 'animes/relation_note',
+        collection: @resource.chronology

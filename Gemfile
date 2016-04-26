@@ -28,6 +28,7 @@ gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 gem 'rack-attack'
 
+gem 'multi_fetch_fragments', github: 'watg/multi_fetch_fragments'
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'attr_extras'

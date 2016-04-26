@@ -8,15 +8,17 @@
   .subheadline-buttons
     = render 'blocks/list_switchers',
       name: 'related_view',
-      values: ['list', 'posters']
+      values: %w(list posters)
 
   - if cookies['related_view'] == 'posters'
     .subheadline.m10 = @page_title.last
     .cc-5.to-process data-dynamic='cutted_covers'
-      = render @resource.related.related,
-        cover_notice: :relation,
-        content_by: :mini_tooltip
+      = render partial: 'animes/anime',
+        collection: @resource.related.related,
+        locals: { cover_notice: :relation, content_by: :mini_tooltip },
+        cache: ->(entry, _) { [entry, :relation, :mini_tooltip, I18n.locale] }
   - else
     .subheadline.m5 = @page_title.last
     div
-      = render partial: 'animes/relation_note', collection: @resource.related.related
+      = render partial: 'animes/relation_note',
+        collection: @resource.related.related

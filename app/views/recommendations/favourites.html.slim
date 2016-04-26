@@ -28,7 +28,6 @@ header.head.ajaxable
 
 .block
   - if @entries.any?
-    - content_by = user_signed_in? || turbolinks_request? ? :inline_tooltip : :tooltip
     - kinds_with_colors.each do |data|
       - next unless @entries[data[:kind]]
 
@@ -38,10 +37,10 @@ header.head.ajaxable
       .to-process data-dynamic='cutted_covers'
         - if klass == Anime
           .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 8}"
-            = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
+            = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
         - else
           .m0 class="cc-#{data[:kind] != 'one_shot' && data[:kind] != 'doujin' ? 'entries' : 8}"
-            = render @entries[data[:kind]], cover_notice: :studio, content_by: content_by
+            = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
 
   - else
     p.b-nothing_here = t 'nothing_found'

@@ -1,49 +1,69 @@
 class UserRates::Tracker < ViewObjectBase
   include Singleton
 
-  PLACEHOLDERS = %r{data-track_user_rates="(anime-\d+|manga-\d+)"}i
+  KINDS = %i(catalog_entry relation_note)
+  DELIMITER = ':'
+  PLACEHOLDERS = %r{
+    data-track_user_rates="
+      ( #{KINDS.join '|'} )
+        #{DELIMITER}
+      ( anime|manga )
+        #{DELIMITER}
+      ( \d+ )
+    "
+  }mix
 
-  def placeholder entry
-    "#{entry.anime? ? :anime : :manga}-#{entry.id}"
+  def placeholder kind, entry
+    raise ArgumentError, "unknown kind: #{kind}" unless KINDS.include?(kind)
+
+    [
+      kind,
+      entry.anime? ? :anime : :manga,
+      entry.id
+    ].join(DELIMITER)
   end
 
   def sweep html
     cleanup
-    html.scan(PLACEHOLDERS).each do |results|
-      track results[0]
+    html.scan(PLACEHOLDERS) do |results|
+      track results[0].to_sym, results[1].to_sym, results[2].to_i
     end
     html
   end
 
   def export user
-    user_rates(anime_ids, Anime, user) +
-      user_rates(manga_ids, Manga, user)
+    anime_rates = user_rates ids(:anime), Anime, user
+    manga_rates = user_rates ids(:manga), Manga, user
+
+    KINDS.each_with_object({}) do |kind, memo|
+      memo[kind] =
+        anime_rates.select { |v| cache[kind][:anime].include? v.target_id } +
+          manga_rates.select { |v| cache[kind][:manga].include? v.target_id }
+    end
   end
 
 private
 
-  def track entry
-    cache << entry
-  end
-
-  def cache
-    Thread.current[self.class.name] ||= []
-  end
-
-  def anime_ids
-    cache
-      .select { |v| v.starts_with? 'anime' }
-      .map { |v| v.split('-').last.to_i }
-  end
-
-  def manga_ids
-    cache
-      .select { |v| v.starts_with? 'manga' }
-      .map { |v| v.split('-').last.to_i }
+  def track kind, type, id
+    cache[kind][type] << id
   end
 
   def cleanup
-    Thread.current[self.class.name] = []
+    Thread.current[self.class.name] = empty_cache_value
+  end
+
+  def cache
+    Thread.current[self.class.name] ||= empty_cache_value
+  end
+
+  def ids type
+    KINDS.flat_map { |kind| cache[kind][type] }
+  end
+
+  def empty_cache_value
+    KINDS.each_with_object({}) do |kind, memo|
+      memo[kind] = { anime: [], manga: [] }
+    end
   end
 
   def user_rates entry_ids, klass, user

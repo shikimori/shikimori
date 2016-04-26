@@ -8,10 +8,10 @@
 - tooltipped = content_by == :tooltip || content_by == :mini_tooltip
 
 article.c-column.b-catalog_entry[
-  class="c-#{anime.kind_of?(Manga) ? :manga : :anime} entry-#{anime.id} #{:tooltipped if content_by == :inline_tooltip || content_by == :mini_tooltip} #{:cc if content_by == :block} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
+  class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
   id="#{anime.id}"
   itemscope itemtype="#{{anime.itemtype}}"
-  data-track_user_rates="#{UserRates::Tracker.instance.placeholder anime}"
+  data-track_user_rates="#{UserRates::Tracker.instance.placeholder :catalog_entry, anime}"
 ]
   meta[
     itemprop="image"
@@ -24,15 +24,13 @@ article.c-column.b-catalog_entry[
 
   - if cover_by == :link || cover_by == :image_link
     a.cover[
-      class="#{'anime-tooltip' if tooltipped || content_by == :inline_tooltip}"
+      class="#{'anime-tooltip' if tooltipped}"
       href="#{anime.url}"
       title="#{anime.name}"
       data-delay="150"
       data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
       data-insert-tooltip-after="#{content_by == :mini_tooltip}"
-      data-local-tooltip="#{content_by == :inline_tooltip}"
-      data-offset-left="#{-15 if content_by == :inline_tooltip}"
-      data-relative="#{content_by == :inline_tooltip || content_by == :mini_tooltip}"
+      data-relative="#{content_by == :mini_tooltip}"
       data-tooltip_url="#{anime.tooltip_url content_by == :mini_tooltip}"
     ]
       = render partial: 'animes/cover',
@@ -46,14 +44,12 @@ article.c-column.b-catalog_entry[
 
   - elsif cover_by == :linkeable
     .cover.linkeable[
-      class="#{'anime-tooltip' if tooltipped || content_by == :inline_tooltip}"
+      class="#{'anime-tooltip' if tooltipped}"
       data-href="#{anime.url}"
       data-title="#{anime.name}"
       data-delay="150"
       data-insert-tooltip-after="#{content_by == :mini_tooltip}"
-      data-local-tooltip="#{content_by == :inline_tooltip}"
-      data-offset-left="#{-15 if content_by == :inline_tooltip}"
-      data-relative="#{content_by == :inline_tooltip || content_by == :mini_tooltip}"
+      data-relative="#{content_by == :mini_tooltip}"
       data-tooltip_url="#{anime.tooltip_url content_by == :mini_tooltip}"
     ]
       = render partial: 'animes/cover',
@@ -70,12 +66,7 @@ article.c-column.b-catalog_entry[
 
   - unless tooltipped || content_by == :none
     .content
-      - if content_by == :inline_tooltip
-        = render 'blocks/tooltip',
-          template_name: 'animes/content',
-          objects: { anime: anime }
-
-      - elsif content_by == :block
+      - if content_by == :block
         = render 'animes/content',
           anime: anime,
           cover_by: cover_by,

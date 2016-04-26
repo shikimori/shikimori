@@ -70,6 +70,12 @@ GIT
       activemodel (>= 3.0)
 
 GIT
+  remote: git://github.com/watg/multi_fetch_fragments.git
+  revision: 8cae7d8dc1c0b00b94419035854d90ba93ca8863
+  specs:
+    multi_fetch_fragments (0.0.17)
+
+GIT
   remote: git://github.com/zph/clockwork.git
   revision: ac95a6c6b11527bf11c6970f2c1865004cc2559f
   branch: master
@@ -720,6 +726,7 @@ DEPENDENCIES
   marco-polo
   meta-tags
   metrika
+  multi_fetch_fragments!
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets

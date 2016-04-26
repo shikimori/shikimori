@@ -1,6 +1,7 @@
 = render layout: 'page' do
   .subheadline.m10 = @page_title.last
   .cc-5.cc-similar.to-process data-dynamic='cutted_covers'
-    = render @resource.related.similar,
-      cover_notice: :year_kind,
-      content_by: :tooltip
+    = render partial: 'animes/anime',
+      collection: @resource.related.similar,
+      locals: { cover_notice: :year_kind, content_by: :tooltip },
+      cache: ->(entry, _) { [entry, :year_kind, :tooltip, I18n.locale] }

@@ -13,23 +13,26 @@
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
-          = render @entries[data[:kind]],
-            cover_notice: :studio,
-            content_by: :mini_tooltip
+          = render partial: 'animes/anime',
+            collection: @entries[data[:kind]],
+            locals: {cover_notice: :studio, content_by: :mini_tooltip },
+            cache: ->(entry, _) { [entry, :studio, :mini_tooltip, I18n.locale] }
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
-          = render @entries[data[:kind]],
-            cover_notice: :studio,
-            content_by: :mini_tooltip
+          = render partial: 'animes/anime',
+            collection: @entries[data[:kind]],
+            locals: { cover_notice: :studio, content_by: :mini_tooltip },
+            cache: ->(entry, _) { [entry, :studio, :mini_tooltip, I18n.locale] }
 
 - else
   .cc-entries
     - if @entries.none? && @current_page == 1
       .b-nothing_here Ничего нет
     - else
-      = render @entries,
-        cover_notice: :year_kind,
-        content_by: :mini_tooltip
+      = render partial: 'animes/anime',
+        collection: @entries,
+        locals: {cover_notice: :year_kind, content_by: :mini_tooltip },
+        cache: ->(entry, _) { [entry, :year_kind, :mini_tooltip, I18n.locale] }
 
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
     - if @next_page.present?
