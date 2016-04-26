@@ -1,3 +1,4 @@
+# TODO: deprecated. remove with ReleatedEntry model
 class ApplyRatedEntries
   pattr_initialize :user
 

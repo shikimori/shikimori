@@ -28,7 +28,8 @@ html
         == alert
 
     - if @blank_layout
-      = yield
+      = sweep_user_rates do
+        = yield
 
     - else
       header.l-top_menu
@@ -48,7 +49,8 @@ html
           .admin_panel
 
         div
-          = yield
+          = sweep_user_rates do
+            = yield
 
         footer.l-footer
           = render 'application/footer'
@@ -65,4 +67,7 @@ html
         data-type='html'
       ]
         .marker-text data-text="#{t 'application.aside.report_bug'}"
+    - if user_signed_in?
+      javascript:
+        tracked_user_rates = #{{UserRates::Tracker.instance.export(current_user).to_json}};
     = yield :tail

@@ -10,6 +10,9 @@
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
+  new TrackUserRates @tracked_user_rates, $root
+  @tracked_user_rates = null
+
   $with('.to-process', $root).dynamic_element()
 
   $with('time', $root).livetime()

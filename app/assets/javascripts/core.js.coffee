@@ -36,6 +36,7 @@
 #= require_tree ./views
 
 #= require_tree ./processors
+#= require_tree ./services
 #= require_tree ./lib
 #= require_tree ./blocks
 
