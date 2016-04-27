@@ -1,4 +1,4 @@
-require 'cancan/matchers'
+# frozen_string_literal: true
 
 describe Contest do
   describe 'relations' do
@@ -336,6 +336,48 @@ describe Contest do
       subject { Ability.new build_stubbed(:user, :user) }
       it { is_expected.to be_able_to :see_contest, contest }
       it { is_expected.to_not be_able_to :manage, contest }
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'callbacks' do
+      let(:model) { build :contest }
+
+      before { allow(model).to receive(:generate_topics) }
+      before { model.save }
+
+      describe '#generate_topics' do
+        it { expect(model).not_to have_received :generate_topics }
+      end
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :contest }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics.order(:locale) }
+        before { model.generate_topics }
+
+        it do
+          expect(topics).to have(2).items
+          expect(topics.first.locale).to eq 'en'
+          expect(topics.second.locale).to eq 'ru'
+        end
+      end
+
+      describe '#topic_auto_generated' do
+        subject { model.send :topic_auto_generated? }
+        it { is_expected.to eq false }
+      end
+
+      describe '#topic_user' do
+        subject { model.send :topic_user }
+        it { is_expected.to eq model.user }
+      end
     end
   end
 end

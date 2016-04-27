@@ -1,4 +1,4 @@
-require 'cancan/matchers'
+# frozen_string_literal: true
 
 describe Club do
   describe 'relations' do
@@ -37,11 +37,6 @@ describe Club do
     describe '#join_owner' do
       let(:club) { build :club, :with_owner_join }
       it { expect(club.joined? club.owner).to eq true }
-    end
-
-    describe '#generate_topics' do
-      let(:club) { build :club, :with_topics }
-      it { expect(club.topic).to be_present }
     end
   end
 
@@ -320,6 +315,47 @@ describe Club do
       context 'owner_invite_join' do
         let(:join_policy) { :owner_invite_join }
         it { is_expected.not_to be_able_to :join, club }
+      end
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'callbacks' do
+      let(:model) { build :club }
+
+      before { allow(model).to receive(:generate_topics) }
+      before { model.save }
+
+      describe '#generate_topics' do
+        it { expect(model).to have_received :generate_topics }
+      end
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :club }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics.order(:locale) }
+        before { model.generate_topics }
+
+        it do
+          expect(topics).to have(1).item
+          expect(topics.first.locale).to eq model.locale
+        end
+      end
+
+      describe '#topic_auto_generated' do
+        subject { model.send :topic_auto_generated? }
+        it { is_expected.to eq true }
+      end
+
+      describe '#topic_user' do
+        subject { model.send :topic_user }
+        it { is_expected.to eq model.owner }
       end
     end
   end

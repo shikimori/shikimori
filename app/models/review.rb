@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable
+  include TopicsConcern
 
   acts_as_voteable
 
@@ -9,11 +12,6 @@ class Review < ActiveRecord::Base
   belongs_to :target, polymorphic: true
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
-
-  has_one :topic, -> { where linked_type: Review.name },
-    class_name: Topics::EntryTopics::ReviewTopic.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
 
   validates :user, :target, presence: true
   validates :text,
@@ -25,8 +23,6 @@ class Review < ActiveRecord::Base
   validates :locale, presence: true
 
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
-
-  after_create :generate_topics
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -67,8 +63,16 @@ class Review < ActiveRecord::Base
     end
   end
 
-  def generate_topics
-    Topics::Generate::UserTopic.call self, user, locale
+  def topic_auto_generated?
+    true
+  end
+
+  def topic_user
+    user
+  end
+
+  def topic
+    topics.first
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target

@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 # TODO: extract torrents to value object
 # TODO: move check_status, update_news to service object
 # TODO: refactor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
+  include TopicsConcern
 
   DESYNCABLE = %w(
     name kind episodes rating aired_on released_on status genres

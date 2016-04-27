@@ -1,5 +1,3 @@
-require 'cancan/matchers'
-
 describe ClubInvite do
   describe 'relations' do
     it { is_expected.to belong_to :club }

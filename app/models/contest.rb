@@ -1,19 +1,19 @@
+# frozen_string_literal: true
+
 class Contest < ActiveRecord::Base
+  include TopicsConcern
+
   MINIMUM_MEMBERS = 5
   MAXIMUM_MEMBERS = 196
 
-  belongs_to :user
-
-  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
-    :member_type, presence: true
-  validates :matches_interval, :match_duration, :matches_per_round,
-    numericality: { greater_than: 0 }, presence: true
+  delegate :total_rounds, :results, to: :strategy
 
   enumerize :member_type, in: [:anime, :character], predicates: true
   enumerize :strategy_type,
     in: [:double_elimination, :play_off, :swiss],
     predicates: true
-  delegate :total_rounds, :results, to: :strategy
+
+  belongs_to :user
 
   has_many :links,
     class_name: ContestLink.name,
@@ -23,10 +23,10 @@ class Contest < ActiveRecord::Base
     class_name: ContestRound.name,
     dependent: :destroy
 
-  has_many :topics, -> { order updated_at: :desc },
-    class_name: 'Topics::EntryTopics::ContestTopic',
-    as: :linked,
-    dependent: :destroy
+  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
+    :member_type, presence: true
+  validates :matches_interval, :match_duration, :matches_per_round,
+    numericality: { greater_than: 0 }, presence: true
 
 private
 
@@ -180,10 +180,12 @@ public
     description
   end
 
-  def generate_topics
-    I18n.available_locales.each do |locale|
-      Topics::Generate::UserTopic.call self, user, locale
-    end
+  def topic_auto_generated?
+    false
+  end
+
+  def topic_user
+    user
   end
 
 private

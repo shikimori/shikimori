@@ -1,11 +1,10 @@
-require 'cancan/matchers'
+# frozen_string_literal: true
 
 describe Review do
   describe 'relations' do
     it { is_expected.to belong_to :target }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :approver }
-    it { is_expected.to have_one :topic }
   end
 
   describe 'validations' do
@@ -21,15 +20,6 @@ describe Review do
     context 'rejected' do
       subject { build :review, state: 'rejected' }
       it { is_expected.to validate_presence_of :approver }
-    end
-  end
-
-  describe 'callbacks' do
-    before { review.save }
-
-    describe '#generate_topics' do
-      let(:review) { build :review, :with_topics }
-      it { expect(review.topic).to be_present }
     end
   end
 
@@ -127,6 +117,47 @@ describe Review do
       it { is_expected.not_to be_able_to :new, review }
       it { is_expected.not_to be_able_to :edit, review }
       it { is_expected.not_to be_able_to :destroy, review }
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'callbacks' do
+      let(:model) { build :review }
+
+      before { allow(model).to receive(:generate_topics) }
+      before { model.save }
+
+      describe '#generate_topics' do
+        it { expect(model).to have_received :generate_topics }
+      end
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :review }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics.order(:locale) }
+        before { model.generate_topics }
+
+        it do
+          expect(topics).to have(1).item
+          expect(topics.first.locale).to eq model.locale
+        end
+      end
+
+      describe '#topic_auto_generated' do
+        subject { model.send :topic_auto_generated? }
+        it { is_expected.to eq true }
+      end
+
+      describe '#topic_user' do
+        subject { model.send :topic_user }
+        it { is_expected.to eq model.user }
+      end
     end
   end
 end

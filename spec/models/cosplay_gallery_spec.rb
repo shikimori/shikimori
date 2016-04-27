@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
-describe Person do
-  describe 'relations' do
-    it { is_expected.to have_many :person_roles }
-    it { is_expected.to have_many :animes }
-    it { is_expected.to have_many :mangas }
-    it { is_expected.to have_many :characters }
-
-    it { is_expected.to have_attached_file :image }
-  end
-
+describe CosplayGallery do
   describe 'topics concern' do
     describe 'associations' do
       it { is_expected.to have_many :topics }
     end
 
     describe 'callbacks' do
-      let(:model) { build :person }
+      let(:model) { build :cosplay_gallery }
 
       before { allow(model).to receive(:generate_topics) }
       before { model.save }
@@ -27,7 +18,8 @@ describe Person do
     end
 
     describe 'instance methods' do
-      let(:model) { create :person }
+      let(:model) { build_stubbed :cosplay_gallery }
+      let!(:cosplayer) { create :user, id: User::COSPLAYER_ID }
 
       describe '#generate_topics' do
         let(:topics) { model.topics.order(:locale) }
@@ -47,7 +39,7 @@ describe Person do
 
       describe '#topic_user' do
         subject { model.send :topic_user }
-        it { is_expected.to eq BotsService.get_poster }
+        it { is_expected.to eq cosplayer }
       end
     end
   end

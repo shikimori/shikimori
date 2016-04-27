@@ -1,5 +1,3 @@
-require 'cancan/matchers'
-
 describe Api::V1::UserRatesController do
   context 'token authentication' do
     let!(:user) { create :user, api_access_token: 'zzzxxxccc' }

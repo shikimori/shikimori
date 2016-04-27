@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 # TODO: удалить поле permalinked
 class Club < ActiveRecord::Base
+  include TopicsConcern
+
   has_many :member_roles, class_name: ClubRole.name, dependent: :destroy
   has_many :members, through: :member_roles, source: :user
 
@@ -34,23 +38,12 @@ class Club < ActiveRecord::Base
   has_many :bans, dependent: :destroy, class_name: ClubBan.name
   has_many :banned_users, through: :bans, source: :user
 
-  has_many :topics, -> { order updated_at: :desc },
-    class_name: Entry.name,
-    as: :linked,
-    dependent: :destroy
-
-  has_one :topic, -> { where linked_type: Club.name },
-    class_name: Topics::EntryTopics::ClubTopic.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
   enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }
 
   boolean_attribute :censored
 
   after_create :join_owner
-  after_create :generate_topics
 
   has_attached_file :logo,
     styles: {
@@ -138,11 +131,19 @@ class Club < ActiveRecord::Base
     description
   end
 
-private
-
-  def generate_topics
-    Topics::Generate::UserTopic.call self, owner, locale
+  def topic_auto_generated?
+    true
   end
+
+  def topic_user
+    owner
+  end
+
+  def topic
+    topics.first
+  end
+
+private
 
   def join_owner
     join owner

@@ -1,5 +1,3 @@
-require 'cancan/matchers'
-
 describe User do
   describe 'relations' do
     it { is_expected.to have_one :preferences }

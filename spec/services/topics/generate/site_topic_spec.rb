@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 describe Topics::Generate::SiteTopic do
   subject(:topic) { service.call }
 
-  let(:service) { Topics::Generate::SiteTopic.new model, user, :ru }
+  let(:locale) { 'ru' }
+  let(:service) { Topics::Generate::SiteTopic.new model, user, locale }
   let(:user) { BotsService.get_poster }
 
   shared_examples_for :topic do
@@ -12,7 +15,8 @@ describe Topics::Generate::SiteTopic do
           forum_id: Topic::FORUM_IDS[model.class.name],
           generated: true,
           linked: model,
-          user: user
+          user: user,
+          locale: locale
         )
 
         expect(topic.created_at.to_i).to eq model.created_at.to_i

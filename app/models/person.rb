@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class Person < DbEntry
+  include TopicsConcern
+
   DESYNCABLE = %w(name japanese website birthday image)
 
   has_many :person_roles, dependent: :destroy

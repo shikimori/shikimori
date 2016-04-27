@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 describe Topics::Generate::UserTopic do
   subject(:topic) { service.call }
 
-  let(:service) { Topics::Generate::UserTopic.new model, user, :ru }
+  let(:locale) { 'ru' }
+  let(:service) { Topics::Generate::UserTopic.new model, user, locale }
 
   shared_examples_for :topic do
     context 'without existing topic' do
@@ -11,7 +14,8 @@ describe Topics::Generate::UserTopic do
           forum_id: Topic::FORUM_IDS[model.class.name],
           generated: true,
           linked: model,
-          user: user
+          user: user,
+          locale: locale
         )
 
         expect(topic.created_at.to_i).to eq model.created_at.to_i
@@ -28,12 +32,6 @@ describe Topics::Generate::UserTopic do
     end
   end
 
-  context 'club' do
-    let(:model) { create :club }
-    let(:user) { model.owner }
-    it_behaves_like :topic
-  end
-
   context 'contest' do
     let(:model) { create :contest }
     let(:user) { model.user }
@@ -43,6 +41,12 @@ describe Topics::Generate::UserTopic do
   context 'cosplay gallery' do
     let(:model) { create :cosplay_gallery }
     let(:user) { create :user, id: User::COSPLAYER_ID }
+    it_behaves_like :topic
+  end
+
+  context 'club' do
+    let(:model) { create :club }
+    let(:user) { model.owner }
     it_behaves_like :topic
   end
 

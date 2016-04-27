@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Manga do
   describe 'relations' do
     it { is_expected.to have_and_belong_to_many :genres }
@@ -8,7 +10,6 @@ describe Manga do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many :topics }
     it { is_expected.to have_many :news }
 
     it { is_expected.to have_many :related }
@@ -56,6 +57,48 @@ describe Manga do
     describe '#read_manga_adult' do
       it { expect(Manga.read_manga_adult).to have(1).item }
       it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'callbacks' do
+      let(:model) { build :manga }
+
+      before { allow(model).to receive(:generate_topics) }
+      before { model.save }
+
+      describe '#generate_topics' do
+        it { expect(model).not_to have_received :generate_topics }
+      end
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :manga }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics.order(:locale) }
+        before { model.generate_topics }
+
+        it do
+          expect(topics).to have(2).items
+          expect(topics.first.locale).to eq 'en'
+          expect(topics.second.locale).to eq 'ru'
+        end
+      end
+
+      describe '#topic_auto_generated' do
+        subject { model.send :topic_auto_generated? }
+        it { is_expected.to eq false }
+      end
+
+      describe '#topic_user' do
+        subject { model.send :topic_user }
+        it { is_expected.to eq BotsService.get_poster }
+      end
     end
   end
 end

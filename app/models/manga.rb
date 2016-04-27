@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class Manga < DbEntry
   include AniManga
+  include TopicsConcern
+
   EXCLUDED_ONGOINGS = [-1]
 
   DESYNCABLE = %w(

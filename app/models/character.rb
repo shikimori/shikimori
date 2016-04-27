@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class Character < DbEntry
+  include TopicsConcern
+
   DESYNCABLE = %w(name japanese description_en image)
 
   has_many :person_roles, dependent: :destroy

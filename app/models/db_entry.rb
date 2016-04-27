@@ -5,11 +5,6 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_many :topics, -> { order updated_at: :desc },
-      class_name: "Topics::EntryTopics::#{klass.name}Topic",
-      as: :linked,
-      dependent: :destroy
-
     klass.has_many :club_links, -> { where linked_type: klass.name },
       foreign_key: :linked_id,
       dependent: :destroy
@@ -33,9 +28,13 @@ class DbEntry < ActiveRecord::Base
     self.class == Manga
   end
 
-  def generate_topics
-    I18n.available_locales.each do |locale|
-      Topics::Generate::SiteTopic.call self, BotsService.get_poster, locale
-    end
+private
+
+  def topic_auto_generated?
+    false
+  end
+
+  def topic_user
+    BotsService.get_poster
   end
 end
