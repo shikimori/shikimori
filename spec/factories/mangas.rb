@@ -13,7 +13,7 @@ FactoryGirl.define do
       manga.stub :generate_name_matches
     end
 
-    trait :with_topic do
+    trait :with_topics do
       after(:create) { |manga| manga.generate_topics }
     end
 

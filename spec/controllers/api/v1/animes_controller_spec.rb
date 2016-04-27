@@ -41,7 +41,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   end
 
   describe '#show' do
-    let(:anime) { create :anime, :with_topic }
+    let(:anime) { create :anime, :with_topics }
     before { get :show, id: anime.id, format: :json }
 
     it do

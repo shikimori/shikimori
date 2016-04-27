@@ -40,7 +40,7 @@ describe Club do
     end
 
     describe '#generate_topics' do
-      let(:club) { build :club, :with_topic }
+      let(:club) { build :club, :with_topics }
       it { expect(club.topic).to be_present }
     end
   end

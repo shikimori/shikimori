@@ -11,7 +11,7 @@ describe SeyuController do
   end
 
   describe '#show' do
-    let!(:seyu) { create :person, :with_topic, seyu: true }
+    let!(:seyu) { create :person, :with_topics, seyu: true }
     before { get :show, id: seyu.to_param }
 
     context 'seyu' do
@@ -30,7 +30,7 @@ describe SeyuController do
   end
 
   describe '#comments' do
-    let!(:seyu) { create :person, :with_topic, seyu: true }
+    let!(:seyu) { create :person, :with_topics, seyu: true }
     let!(:comment) { create :comment, commentable: seyu.topic }
     before { get :roles, id: seyu.to_param }
 

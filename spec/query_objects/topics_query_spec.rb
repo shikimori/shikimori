@@ -10,9 +10,9 @@ describe TopicsQuery do
   describe '#by_forum' do
     let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
     let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
-    let!(:review) { create :review, :with_topic, updated_at: 10.days.ago }
-    let!(:joined_club) { create :club, :with_topic, updated_at: 15.days.ago, is_censored: true }
-    let!(:other_club) { create :club, :with_topic, updated_at: 20.days.ago, is_censored: true }
+    let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
+    let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
+    let!(:other_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
     let!(:topic_ignore) { }
 
     before { joined_club.join user if user }
@@ -84,7 +84,7 @@ describe TopicsQuery do
     end
 
     context 'MY_CLUBS' do
-      let!(:joined_club_2) { create :club, :with_topic, updated_at: 25.days.ago }
+      let!(:joined_club_2) { create :club, :with_topics, updated_at: 25.days.ago }
       before { joined_club_2.join user }
       subject { query.by_forum Forum::MY_CLUBS_FORUM, user, is_censored_forbidden }
 
@@ -92,8 +92,8 @@ describe TopicsQuery do
     end
 
     context 'clubs' do
-      let!(:joined_club_2) { create :club, :with_topic, updated_at: 25.days.ago }
-      let!(:other_club_2) { create :club, :with_topic, updated_at: 30.days.ago }
+      let!(:joined_club_2) { create :club, :with_topics, updated_at: 25.days.ago }
+      let!(:other_club_2) { create :club, :with_topics, updated_at: 30.days.ago }
 
       subject { query.by_forum clubs_forum, user, is_censored_forbidden }
 

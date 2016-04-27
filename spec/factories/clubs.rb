@@ -51,7 +51,7 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_topic do
+    trait :with_topics do
       after :build do |club|
         club.unstub :generate_topics
       end

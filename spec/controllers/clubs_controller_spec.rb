@@ -3,7 +3,7 @@ describe ClubsController do
   let(:club) { create :club }
 
   describe '#index' do
-    let(:club) { create :club, :with_topic }
+    let(:club) { create :club, :with_topics }
     let(:user) { create :user }
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
@@ -22,7 +22,7 @@ describe ClubsController do
   end
 
   describe '#show' do
-    let(:club) { create :club, :with_topic }
+    let(:club) { create :club, :with_topics }
     before { get :show, id: club.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -64,7 +64,7 @@ describe ClubsController do
 
   describe '#update' do
     include_context :authenticated, :user
-    let(:club) { create :club, :with_topic, owner: user }
+    let(:club) { create :club, :with_topics, owner: user }
 
     context 'when success' do
       context 'with kick_ids' do
@@ -137,7 +137,7 @@ describe ClubsController do
   end
 
   describe '#comments' do
-    let(:club) { create :club, :with_topic }
+    let(:club) { create :club, :with_topics }
     let!(:comment) { create :comment, commentable: club.topic }
     before { get :comments, id: club.to_param }
 
@@ -152,7 +152,7 @@ describe ClubsController do
     end
 
     context 'with_animes' do
-      let(:club) { create :club, :with_topic, :linked_anime }
+      let(:club) { create :club, :with_topics, :linked_anime }
       before { get :animes, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -165,7 +165,7 @@ describe ClubsController do
     end
 
     context 'with_mangas' do
-      let(:club) { create :club, :with_topic, :linked_manga }
+      let(:club) { create :club, :with_topics, :linked_manga }
       before { get :mangas, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end
@@ -178,7 +178,7 @@ describe ClubsController do
     end
 
     context 'with_characters' do
-      let(:club) { create :club, :with_topic, :linked_character }
+      let(:club) { create :club, :with_topics, :linked_character }
       before { get :characters, id: club.to_param }
       it { expect(response).to have_http_status :success }
     end

@@ -10,7 +10,7 @@ describe PeopleController do
   end
 
   describe '#show' do
-    let!(:person) { create :person, :with_topic, mangaka: true }
+    let!(:person) { create :person, :with_topics, mangaka: true }
     before { get :show, id: person.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -28,7 +28,7 @@ describe PeopleController do
   end
 
   describe '#comments' do
-    let(:person) { create :person, :with_topic }
+    let(:person) { create :person, :with_topics }
     let!(:comment) { create :comment, commentable: person.topic }
     before { get :comments, id: person.to_param }
 

@@ -26,7 +26,7 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_topic do
+    trait :with_topics do
       after(:create) { |anime| anime.generate_topics }
     end
 

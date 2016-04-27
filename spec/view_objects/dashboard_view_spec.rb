@@ -36,7 +36,7 @@ describe DashboardView do
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, :with_topic }
+    let!(:review) { create :review, :with_topics }
     it { expect(view.reviews).to have(1).item }
   end
 

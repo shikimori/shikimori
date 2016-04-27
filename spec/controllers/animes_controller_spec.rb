@@ -3,7 +3,7 @@ describe AnimesController do
   include_examples :db_entry_controller, :anime
 
   describe '#show' do
-    let(:anime) { create :anime, :with_topic }
+    let(:anime) { create :anime, :with_topics }
 
     describe 'id' do
       before { get :show, id: anime.id }
@@ -121,14 +121,14 @@ describe AnimesController do
   end
 
   describe '#clubs' do
-    let(:club) { create :club, :with_topic, :with_member }
+    let(:club) { create :club, :with_topics, :with_member }
     let!(:club_link) { create :club_link, linked: anime, club: club }
     before { get :clubs, id: anime.to_param }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
-    let(:anime) { create :anime, :with_topic }
+    let(:anime) { create :anime, :with_topics }
     let(:comment) { create :comment, commentable: anime.topic }
     before { get :comments, id: anime.to_param }
 
@@ -137,7 +137,7 @@ describe AnimesController do
   end
 
   describe '#summaries' do
-    let(:anime) { create :anime, :with_topic }
+    let(:anime) { create :anime, :with_topics }
     let!(:comment) { create :comment, :summary, commentable: anime.topic }
     before { get :summaries, id: anime.to_param }
 

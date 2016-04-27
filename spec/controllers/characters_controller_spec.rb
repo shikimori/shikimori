@@ -12,7 +12,7 @@ describe CharactersController do
   end
 
   describe '#show' do
-    let!(:character) { create :character, :with_topic }
+    let!(:character) { create :character, :with_topics }
     before { get :show, id: character.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -57,7 +57,7 @@ describe CharactersController do
   end
 
   describe '#comments' do
-    let(:character) { create :character, :with_topic }
+    let(:character) { create :character, :with_topics }
     let!(:comment) { create :comment, commentable: character.topic }
     before { get :comments, id: character.to_param }
 
@@ -90,7 +90,7 @@ describe CharactersController do
   end
 
   describe '#clubs' do
-    let(:club) { create :club, :with_topic, :with_member }
+    let(:club) { create :club, :with_topics, :with_member }
     let!(:club_link) { create :club_link, linked: character, club: club }
     before { get :clubs, id: character.to_param }
     it { expect(response).to have_http_status :success }

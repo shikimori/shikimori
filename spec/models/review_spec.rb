@@ -28,7 +28,7 @@ describe Review do
     before { review.save }
 
     describe '#generate_topics' do
-      let(:review) { build :review, :with_topic }
+      let(:review) { build :review, :with_topics }
       it { expect(review.topic).to be_present }
     end
   end
@@ -57,7 +57,7 @@ describe Review do
 
   context 'state_machine' do
     let(:user) { create :user }
-    subject(:review) { create :review, :with_topic, user: user }
+    subject(:review) { create :review, :with_topics, user: user }
 
     describe 'accept' do
       before { review.accept user }
@@ -72,7 +72,7 @@ describe Review do
 
   describe 'instance methods' do
     let(:user) { create :user }
-    let(:review) { create :review, :with_topic, user: user }
+    let(:review) { create :review, :with_topics, user: user }
 
     describe '#to_offtopic' do
       before { review.reject! user }
