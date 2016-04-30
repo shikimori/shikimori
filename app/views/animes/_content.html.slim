@@ -13,7 +13,7 @@
 
     .inner class="#{:offset if local_assigns[:with_image]}"
       - if content_title != :none
-        .line itemprop="name"
+        .line.name itemprop="name"
           - if !defined?(cover_by) || cover_by != :link
             a.data.name[
               href="#{anime.url}"
@@ -98,7 +98,5 @@
         .data
 
   div class="#{'flexible-button' if !local_assigns[:with_image] && !local_assigns[:no_flexible_button]}"
-    = render 'user_rates/user_rate',
-      user_rate: (anime.rate if anime.kind_of?(RatedEntry)) || anime.current_rate || anime.rates.build(user_id: current_user.try(:id)),
-      entry: anime,
-      button_only: true
+    = render partial: 'user_rates/placeholder',
+      locals: { target: anime, button_only: true }

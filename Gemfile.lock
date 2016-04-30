@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/GBH/jade-rails.git
+  revision: 12b2f5b34720a23bc6148f0a907df9018a1c2492
+  specs:
+    jade-rails (1.11.0.0)
+      execjs
+      tilt
+
+GIT
   remote: git://github.com/flori/amatch.git
   revision: 81db493aa8fa007b6d384e75960212ea1637412e
   specs:
@@ -719,6 +727,7 @@ DEPENDENCIES
   htmlentities
   i18n-inflector-rails
   icalendar
+  jade-rails!
   jbuilder
   letter_opener
   lograge

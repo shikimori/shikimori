@@ -136,6 +136,10 @@
   .cc-favourites
     +clear_left
 
+    // скрываем отметки о состоянии в собственном списке
+    .b-catalog_entry .image-decor::after
+      display: none
+
     .c-column
       +gte_ipad
         +column(8, 1/8, 2%)

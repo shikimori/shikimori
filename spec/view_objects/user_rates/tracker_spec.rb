@@ -22,8 +22,8 @@ describe UserRates::Tracker do
   describe '#sweep' do
     let(:html) do
       <<-HTML.strip
-        <div data-track_user_rates="catalog_entry:anime:1"></div>
-        <div data-track_user_rates="catalog_entry:manga:2"></div>
+        <div data-track_user_rate="catalog_entry:anime:1"></div>
+        <div data-track_user_rate="catalog_entry:manga:2"></div>
       HTML
     end
     before { tracker.send :track, :catalog_entry, :anime, 3 }
@@ -33,7 +33,7 @@ describe UserRates::Tracker do
       is_expected.to eq html
       expect(tracker.send :cache).to eq(
         catalog_entry: { anime: [1], manga: [2] },
-        relation_note: { anime: [], manga: [] }
+        user_rate: { anime: [], manga: [] }
       )
     end
   end
@@ -55,11 +55,11 @@ describe UserRates::Tracker do
     it do
       expect(tracker.export user_1).to eq(
         catalog_entry: [rate_1_1, rate_2_1],
-        relation_note: []
+        user_rate: []
       )
       expect(tracker.export user_2).to eq(
         catalog_entry: [rate_1_2],
-        relation_note: []
+        user_rate: []
       )
     end
   end

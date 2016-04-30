@@ -1,7 +1,5 @@
 .results
-  / TODO: uncomment cache after smart in-list status cache implementd
-  / - cache [contest, I18n.locale] do
-  div
+  - cache [contest, I18n.locale] do
     /- contest.results.each_with_index do |entry, index|
     - view.results.each_with_index do |entry, index|
       .subheadline.m10
@@ -12,12 +10,15 @@
         .c-winner
           - if contest.anime?
             = render partial: 'animes/anime',
-              object: entry,
-              locals: { cover_notice: :studio, content_by: :block }
+              collection: [entry],
+              locals: { cover_notice: :studio, content_by: :block },
+              cache: ->(entry, _) { [entry, :studio, :block, I18n.locale] }
+
           - else
             = render partial: 'characters/character',
-              object: entry,
-              locals: { content_by: :block }
+              collection: [entry],
+              locals: { content_by: :block },
+              cache: ->(entry, _) { [entry, :block, I18n.locale] }
 
         .c-rounds
           .label = "#{t '.competitors'}:"

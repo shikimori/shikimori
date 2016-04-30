@@ -1,5 +1,7 @@
 en:
   animes_collection:
+    entries:
+      nothing_here: Nothing here
     menu:
       anime:
         status: &anime_statuses

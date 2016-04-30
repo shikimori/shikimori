@@ -18,7 +18,7 @@
     .subheadline.m5 = t '.contest_type'
     p = resource.strategy_type.text
 
-  - cache [resource, social_key, I18n.locale] do
+  - cache [resource, I18n.locale] do
     - if resource.uniq_voters > 0
       .block
         .subheadline.m5 = t '.voters'
@@ -32,22 +32,35 @@
         .cc-4a.to-process[
           data-dynamic='cutted_covers'
           data-ratio_type="#{resource.member_type == 'character' ? 'person' : 'entry'}"
-        ] = render resource.members, cover_by: :image_link
+        ]
+          - if resource.anime?
+            = render partial: 'animes/anime',
+              collection: resource.members,
+              locals: { cover_by: :image_link },
+              cache: ->(entry, _) { [entry, :image_link, I18n.locale] }
+          - else
+            = render partial: 'characters/character',
+              collection: resource.members,
+              locals: { cover_by: :image_link },
+              cache: ->(entry, _) { [entry, :image_link, I18n.locale] }
 
     - unless resource.proposing? || resource.swiss?
       .block.grid
         .subheadline.m5 = t 'tournament_bracket'
-        a href="#{grid_contest_url resource}" title=t('tournament_bracket') = "#{t 'goto'} →"
+        a[
+          href="#{grid_contest_url resource}"
+          title="#{t 'tournament_bracket'}"
+        ] = "#{t 'goto'} →"
 
-    - if show_social?
-      .menu-right
-        .subheadline.m15 = t 'share'
-        .block.addthis_toolbox.addthis_default_style.addthis_32x32_style
-          a.addthis_button_vk
-          a.addthis_button_facebook
-          a.addthis_button_twitter
-          a.addthis_button_google_plusone_share
-          a.addthis_button_odnoklassniki_ru
-          a.addthis_button_compact
+  - if show_social?
+    .menu-right
+      .subheadline.m15 = t 'share'
+      .block.addthis_toolbox.addthis_default_style.addthis_32x32_style
+        a.addthis_button_vk
+        a.addthis_button_facebook
+        a.addthis_button_twitter
+        a.addthis_button_google_plusone_share
+        a.addthis_button_odnoklassniki_ru
+        a.addthis_button_compact
 
   = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

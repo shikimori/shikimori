@@ -7,11 +7,11 @@
 
 - tooltipped = content_by == :tooltip || content_by == :mini_tooltip
 
-article.c-column.b-catalog_entry[
+article.c-column.b-catalog_entry.not-tracked[
   class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
   id="#{anime.id}"
   itemscope itemtype="#{{anime.itemtype}}"
-  data-track_user_rates="#{UserRates::Tracker.instance.placeholder :catalog_entry, anime}"
+  data-track_user_rate="#{UserRates::Tracker.instance.placeholder :catalog_entry, anime}"
 ]
   meta[
     itemprop="image"
@@ -70,7 +70,7 @@ article.c-column.b-catalog_entry[
         = render 'animes/content',
           anime: anime,
           cover_by: cover_by,
-          content_title: :none,
+          content_title: content_title,
           content_text: content_text,
           no_flexible_button: cover_notice == :none
 

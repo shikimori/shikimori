@@ -10,7 +10,7 @@
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
-  new TrackUserRates @tracked_user_rates, $root
+  new UserRates.Tracker @tracked_user_rates, $root
   @tracked_user_rates = null
 
   $with('.to-process', $root).dynamic_element()
@@ -73,8 +73,6 @@
     .tooltip($.extend(offset: [-48, 10, -10], tooltip_options))
 
   $with('.b-spoiler.unprocessed', $root).spoiler()
-
-  $with('.b-user_rate.unprocessed', $root).user_rate_button()
 
   $with('img.check-width', $root)
     .removeClass('check-width')

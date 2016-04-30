@@ -1,10 +1,10 @@
 class UserRates::Tracker < ViewObjectBase
   include Singleton
 
-  KINDS = %i(catalog_entry relation_note)
+  KINDS = %i(catalog_entry user_rate)
   DELIMITER = ':'
   PLACEHOLDERS = %r{
-    data-track_user_rates="
+    data-track_user_rate="
       ( #{KINDS.join '|'} )
         #{DELIMITER}
       ( anime|manga )

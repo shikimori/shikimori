@@ -17,6 +17,8 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+gem 'jade-rails', github: 'GBH/jade-rails'
+#gem 'i18n-js', '3.0.0.rc12'
 gem 'd3_rails'
 
 gem 'uglifier'

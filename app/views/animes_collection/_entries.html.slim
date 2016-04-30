@@ -3,7 +3,7 @@
 
 - if @render_by_kind
   - if @entries.none? && @current_page == 1
-    .b-nothing_here Ничего нет
+    .b-nothing_here = t '.nothing_here'
   - else
     - kinds_with_colors.each do |data|
       - next unless @entries[data[:kind]]
@@ -27,7 +27,7 @@
 - else
   .cc-entries
     - if @entries.none? && @current_page == 1
-      .b-nothing_here Ничего нет
+      .b-nothing_here = t '.nothing_here'
     - else
       = render partial: 'animes/anime',
         collection: @entries,

@@ -28,7 +28,13 @@
 #= require packery/item
 #= require packery
 
+# require i18n
+# require_directory ./i18n
+#= require jade/runtime
+
 #= require_tree ./vendor
+
+#= require_self
 
 #= require ./views/application/view
 #= require ./views/application/shiki_view
@@ -55,6 +61,12 @@ $.bridget 'packery', Packery
   bindings[event].push
     conditions: conditions
     callback: callback
+
+@using = (names) ->
+  scope = window
+  names.split('.').forEach (name) ->
+    scope[name] ||= {}
+    scope = scope[name]
 
 # на мобильной ли мы версии (телефон)
 @is_mobile = ->

@@ -69,14 +69,14 @@ class RecommendationsController < AnimesCollectionController
 
   def favourites
     page_title klass == Anime ? i18n_t('what_anime_to_watch') : i18n_t('what_manga_to_read')
+    cache_key = [:favourites_recommendations, klass, current_user, current_user.try(:sex)]
 
-    cache_key = [:favourites_recommendations, :v2, klass, current_user, current_user.try(:sex)]
-
-    @entries = Rails.cache.fetch cache_key, expires_in: 1.week do
-      FavouritesQuery.new.global_top(klass, klass == Anime ? 500 : 1000, current_user)
+    all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do
+      limit = klass == Anime ? 500 : 1000
+      FavouritesQuery.new.global_top(klass, limit, current_user)
     end
 
-    @entries = ApplyRatedEntries.new(current_user).call(@entries)
+    @entries = all_entries
       .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
       .each_with_object({}) do |(kind, group), memo|
         limit = if klass == Anime
@@ -84,7 +84,7 @@ class RecommendationsController < AnimesCollectionController
         else
           kind == :manga ? 18 : (kind == :one_shot || kind == :doujin ? 8 : 12)
         end
-        memo[kind] = group.take(limit)
+        memo[kind] = group.take(limit).map(&:decorate)
       end
   end
 

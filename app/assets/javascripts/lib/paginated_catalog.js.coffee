@@ -77,7 +77,7 @@ class @PaginatedCatalog
     if @_is_pages_limit()
       $content.find('.b-postloader').data locked: true
 
-    new TrackUserRates data.tracked_user_rates, $content
+    new UserRates.Tracker data.tracked_user_rates, $content
     @$content.process()
 
   # наступил ли лимит прокрутки страниц?
@@ -201,7 +201,7 @@ class @PaginatedCatalog
     document.title = "#{data.title}"
 
     $content = $(data.content)
-    new TrackUserRates data.tracked_user_rates, $content
+    new UserRates.Tracker data.tracked_user_rates, $content
 
     @$content
       .html($content)

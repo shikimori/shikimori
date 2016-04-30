@@ -1,0 +1,8 @@
+.b-user_rate.not-tracked[
+  class="#{local_assigns[:target].anime? ? :anime : :manga}-#{local_assigns[:target].id}"
+  data-track_user_rate="#{UserRates::Tracker.instance.placeholder :user_rate, local_assigns[:target]}"
+  data-minified="#{local_assigns[:minified]}"
+  data-button_only="#{local_assigns[:button_only]}"
+  data-target_id="#{local_assigns[:target].id}"
+  data-target_type="#{local_assigns[:target].anime? ? Anime.name : Manga.name}"
+]
