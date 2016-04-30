@@ -89,12 +89,12 @@ describe VideoExtractor::UrlExtractor do
 
     describe 'mail_ru_1' do
       let(:html) { "<iframe src=\"http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
-      it { is_expected.to eq '//api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
+      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
     end
 
     describe 'mail_ru_2' do
       let(:html) { "<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" width=\"730\" height=\"480\" id=\"movie_name\" align=\"middle\"><param name=\"movie\" value=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\"/><param name=\"flashvars\" value=\"movieSrc=mail/bel_comp1/14985/15939&autoplay=0\" /><param name=\"allowFullScreen\" value=\"true\" /><param name=\"AllowScriptAccess\" value=\"always\" /><!--[if !IE]>--><object type=\"application/x-shockwave-flash\" data=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\" width=\"730\" height=\"480\"><param name=\"movie\" value=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\"/><param name=\"flashvars\" value=\"movieSrc=mail/bel_comp1/14985/15939&autoplay=0\" /><param name=\"allowFullScreen\" value=\"true\" /><param name=\"AllowScriptAccess\" value=\"always\" /><!--<![endif]--><a href=\"http://www.adobe.com/go/getflash\"><img src=\"http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif\" alt=\"Get Adobe Flash player\"/></a><!--[if !IE]>--></object><!--<![endif]--></object>" }
-      it { is_expected.to eq '//api.video.mail.ru/videos/embed/mail/bel_comp1/14985/15939.html' }
+      it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/15939.html' }
     end
 
     describe 'mail_ru_3' do
