@@ -9,9 +9,13 @@ class Topics::Generate::News::BaseTopic < Topics::Generate::SiteTopic
     end
   end
 
-  attr_implement :processed, :action, :value, :created_at
+  attr_implement :is_processed, :action, :value, :created_at
 
 private
+
+  def build_topic
+    model.news.find_or_initialize_by topic_attributes
+  end
 
   def topic_klass
     Topics::NewsTopic
@@ -19,7 +23,7 @@ private
 
   def topic_attributes
     super.merge(
-      processed: processed,
+      processed: is_processed,
       action: action,
       value: value
     )
