@@ -46,10 +46,6 @@ class Manga < DbEntry
     through: :related,
     source: :manga
 
-  has_many :news, -> { order created_at: :desc },
-    class_name: Topics::NewsTopic.name,
-    as: :linked
-
   has_many :similar, -> { order id: :desc },
     class_name: SimilarManga.name,
     foreign_key: :src_id,

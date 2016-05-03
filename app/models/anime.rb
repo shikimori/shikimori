@@ -46,11 +46,6 @@ class Anime < DbEntry
    foreign_key: :target_id,
    dependent: :destroy
 
-  has_many :news,
-    -> { order created_at: :desc },
-    class_name: Topics::NewsTopic.name,
-    as: :linked
-
   has_many :episodes_news,
     -> { where(action: AnimeHistoryAction::Episode).order(created_at: :desc) },
     class_name: Topics::NewsTopic.name,
