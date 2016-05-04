@@ -10,7 +10,7 @@ class Topics::Generate::News::EpisodeTopic < Topics::Generate::News::BaseTopic
 
 private
 
-  def processed
+  def is_processed
     false
   end
 

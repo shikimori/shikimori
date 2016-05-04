@@ -14,7 +14,8 @@ class Topics::Generate::News::BaseTopic < Topics::Generate::SiteTopic
 private
 
   def build_topic
-    model.news.find_or_initialize_by topic_attributes
+    model.news.find_by(find_by_attributes) ||
+      model.news.build(topic_attributes)
   end
 
   def topic_klass
@@ -27,5 +28,9 @@ private
       action: action,
       value: value
     )
+  end
+
+  def find_by_attributes
+    topic_attributes.slice(:action, :value)
   end
 end
