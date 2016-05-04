@@ -20,9 +20,11 @@ describe Topics::Generate::News::EpisodeTopic do
         generated: true,
         linked: model,
         user: user,
-        locale: locale
+        locale: locale,
+        processed: false,
+        action: AnimeHistoryAction::Episode,
+        value: model.episodes_aired.to_s
       )
-
       expect(subject.created_at.to_i).to eq aired_at.to_i
       expect(subject.updated_at).to be_nil
     end

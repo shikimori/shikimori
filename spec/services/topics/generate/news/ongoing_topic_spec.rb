@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-describe Topics::Generate::News::AnonsTopic do
+describe Topics::Generate::News::OngoingTopic do
   subject { service.call }
 
   before { Timecop.freeze }
   after { Timecop.return }
 
-  let(:service) { Topics::Generate::News::AnonsTopic.new model, user, locale }
+  let(:service) { Topics::Generate::News::OngoingTopic.new model, user, locale }
   let(:model) { create :anime }
   let(:user) { BotsService.get_poster }
   let(:locale) { 'ru' }
@@ -21,7 +21,7 @@ describe Topics::Generate::News::AnonsTopic do
         user: user,
         locale: locale,
         processed: false,
-        action: AnimeHistoryAction::Anons,
+        action: AnimeHistoryAction::Ongoing,
         value: nil
       )
       expect(subject.created_at.to_i).to eq Time.zone.now.to_i
@@ -33,7 +33,7 @@ describe Topics::Generate::News::AnonsTopic do
     let!(:topic) do
       create :news_topic,
         linked: model,
-        action: AnimeHistoryAction::Anons,
+        action: AnimeHistoryAction::Ongoing,
         value: nil
     end
 
