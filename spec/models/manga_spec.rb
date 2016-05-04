@@ -10,7 +10,6 @@ describe Manga do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many :news }
 
     it { is_expected.to have_many :related }
     it { is_expected.to have_many :related_mangas }

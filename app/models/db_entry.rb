@@ -5,10 +5,6 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_many :news, -> { order created_at: :desc },
-      class_name: Topics::NewsTopic.name,
-      as: :linked
-
     klass.has_many :club_links, -> { where linked_type: klass.name },
       foreign_key: :linked_id,
       dependent: :destroy

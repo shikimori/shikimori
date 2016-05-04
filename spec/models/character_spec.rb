@@ -15,8 +15,6 @@ describe Character do
 
     it { is_expected.to have_many :cosplay_gallery_links }
     it { is_expected.to have_many :cosplay_galleries }
-
-    it { is_expected.to have_many :news }
   end
 
   describe 'topics concern' do

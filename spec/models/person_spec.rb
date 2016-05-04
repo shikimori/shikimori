@@ -8,8 +8,6 @@ describe Person do
     it { is_expected.to have_many :characters }
 
     it { is_expected.to have_attached_file :image }
-
-    it { is_expected.to have_many :news }
   end
 
   describe 'topics concern' do
