@@ -1,20 +1,17 @@
 describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
-  before (:each) { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
+  before { allow(parser).to receive :save_cache }
 
-  let (:parser) {
-    p = PersonMalParser.new
-    allow(p).to receive(:save_cache)
-    p
-  }
-
+  let(:parser) { PersonMalParser.new }
   let(:person_id) { 1 }
+
+  subject(:data) { parser.fetch_entry_data person_id }
 
   it 'have correct type' do
     expect(parser.instance_eval { type }).to eq('person')
   end
 
   it 'fetches person data' do
-    data = parser.fetch_entry_data(person_id)
     expect(data[:name]).to eq 'Tomokazu Seki'
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
     expect(data).to include :given_name
@@ -40,5 +37,10 @@ describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
         #parser.import.should have(3).items
       #}.to change(Person, :count).by(2)
     #end
+  end
+
+  describe 'no avatar' do
+    let(:person_id) { 21083 }
+    it { expect(data[:img]).to be_nil }
   end
 end

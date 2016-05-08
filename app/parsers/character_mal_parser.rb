@@ -94,11 +94,11 @@ class CharacterMalParser < BaseMalParser
 private
 
   def extract_poster doc
-    img_doc = doc.css('td.borderClass > div > img')
+    img_doc = doc.css('td.borderClass > div:first-child > img')
 
     if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
       doc.css('td.borderClass').first()
-        .css('> div > a > img').first.try(:attr, :src)
+        .css('> div:first-child > a > img').first.try(:attr, :src)
     else
       img_doc.first.attr(:src)
     end

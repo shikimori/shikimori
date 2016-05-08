@@ -15,6 +15,7 @@ class PersonMalParser < CharacterMalParser
     entry[:japanese] = "#{entry[:family_name]} #{entry[:given_name]}" if entry[:given_name] && entry[:family_name]
     entry[:birthday] = parse_date parse_line('Birthday', content, false)
     entry[:website] = parse_line 'Website', content, false
+
     if entry[:website]
       if entry[:website] =~ /href=\"(.*?)\"/
         entry[:website] = $1
