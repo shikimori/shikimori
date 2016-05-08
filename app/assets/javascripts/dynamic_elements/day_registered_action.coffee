@@ -4,7 +4,8 @@ TRANSLATIONS =
   en:
     authorized_action: "Action will be available one day after registering."
 
-class @DayRegisteredAction extends View
+using 'DynamicElements'
+class DynamicElements.DayRegisteredAction extends View
   initialize: ->
     @$node.on 'click', (e) ->
       if !USER_SIGNED_IN

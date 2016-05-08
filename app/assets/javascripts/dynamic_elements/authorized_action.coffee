@@ -1,4 +1,5 @@
-class @AuthorizedAction extends View
+using 'DynamicElements'
+class DynamicElements.AuthorizedAction extends View
   @TRANSLATIONS:
     ru:
       authorized_action: "Для этого действия вам необходима регистрация на сайте."

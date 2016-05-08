@@ -1,4 +1,14 @@
-class @CuttedCovers extends View
+recalc_styles = ->
+  $('#injectCSSContainer').empty()
+  $(".#{DynamicElements.CuttedCovers.CLASS_NAME}").each ->
+    $(@).data(DynamicElements.CuttedCovers.CLASS_NAME).inject_css()
+
+bind_hanler = ->
+  DynamicElements.CuttedCovers.GLOBAL_HANDLER = true
+  $(document).on 'resize:debounced orientationchange', recalc_styles
+
+using 'DynamicElements'
+class DynamicElements.CuttedCovers extends View
   @PRIOR_ID = 0
   @RATIO =
     #entry: 229.0 / 156.0
@@ -7,15 +17,6 @@ class @CuttedCovers extends View
 
   @CLASS_NAME = 'd-cutted_covers'
   @GLOBAL_HANDLER = false
-
-  recalc_styles = ->
-    $('#injectCSSContainer').empty()
-    $('.d-cutted_covers').each ->
-      $(@).data(CuttedCovers.CLASS_NAME).inject_css()
-
-  bind_hanler = ->
-    CuttedCovers.GLOBAL_HANDLER = true
-    $(document).on 'resize:debounced orientationchange', recalc_styles
 
   initialize: ->
     @_fetch_poster()

@@ -1,4 +1,5 @@
-class @AbuseRequest extends ShikiView
+using 'DynamicElements'
+class DynamicElements.AbuseRequest extends ShikiView
   initialize: ->
     @$moderation = @$ '.moderation'
 

@@ -3,7 +3,6 @@ class UserRates.TrackCatalogEntry
   MARK = 'not-tracked'
 
   constructor: (user_rate, $root) ->
-    console.log 'catalog_entry', user_rate
     $root.find(@_selector(user_rate))
       .data('rate-status': user_rate.status)
       .addClass(user_rate.status)

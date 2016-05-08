@@ -13,7 +13,7 @@
   new UserRates.Tracker @tracked_user_rates, $root
   @tracked_user_rates = null
 
-  $with('.to-process', $root).dynamic_element()
+  new DynamicElements.Parser $with('.to-process', $root)
 
   $with('time', $root).livetime()
 

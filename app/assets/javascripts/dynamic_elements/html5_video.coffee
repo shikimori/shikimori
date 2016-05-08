@@ -1,4 +1,5 @@
-class @Html5Video extends View
+using 'DynamicElements'
+class DynamicElements.Html5Video extends View
   initialize: ->
     @$node.magnificPopup
       preloader: false

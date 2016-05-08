@@ -3,7 +3,8 @@
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
 
-class @DesktopAd extends View
+using 'DynamicElements'
+class DynamicElements.DesktopAd extends View
   initialize: ->
     return if is_mobile() && !mobile_detect.tablet()
 

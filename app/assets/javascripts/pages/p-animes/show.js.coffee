@@ -5,6 +5,8 @@
   # сокращение высоты описания
   $('.text').check_height(200)
 
+  new UserRates.ButtonForm $('.b-db_entry .b-user_rate')
+
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()

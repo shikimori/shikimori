@@ -1,4 +1,12 @@
-- @collection.each do |anime|
-  = render anime.decorate,
-    cover_notice: :year_kind,
-    content_by: :mini_tooltip
+.block
+  .subheadline.m10 entry
+  = render partial: 'animes/anime',
+    collection: @resource,
+    locals: { cover_notice: :studio, content_by: :block }
+
+.block
+  .subheadline.m10 collection
+  .cc-6.to-process data-dynamic='cutted_covers'
+    = render partial: 'animes/anime',
+      collection: @collection,
+      locals: { cover_notice: :year_kind, content_by: :mini_tooltip }

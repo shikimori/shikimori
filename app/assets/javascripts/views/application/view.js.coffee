@@ -14,6 +14,10 @@ class @View
   $: (selector) ->
     $(selector, @$node)
 
+  html: (html) ->
+    console.log html
+    @$node.html html
+
   # внутренняя инициализация
   _initialize: (node) ->
     @$node = @$root = $(node)

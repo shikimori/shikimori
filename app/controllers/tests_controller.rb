@@ -27,11 +27,13 @@ class TestsController < ShikimoriController
   end
 
   def animes
+    @resource = Anime.where("score > 9 and score < 9.5").order(id: :desc).limit(1).decorate
     @collection = Anime
-      .where("score > 8")
-      .order("id")
-      .take(10)
-    render :animes, layout: 'clean'
+      .where("score > 8 and score < 9")
+      .order(id: :desc)
+      .limit(6)
+      .decorate
+    #render :animes, layout: 'clean'
   end
 
   def momentjs

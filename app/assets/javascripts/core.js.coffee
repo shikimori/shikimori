@@ -32,6 +32,8 @@
 # require_directory ./i18n
 #= require jade/runtime
 
+#= require_tree ./templates
+
 #= require_tree ./vendor
 
 #= require_self
@@ -41,12 +43,14 @@
 #= require ./views/application/shiki_editable
 #= require_tree ./views
 
-#= require_tree ./processors
+#= require_tree ./dynamic_elements
 #= require_tree ./services
 #= require_tree ./lib
 #= require_tree ./blocks
 
 #= require turbolinks
+
+#= require_tree ./pages
 
 bindings =
   'page:load': []

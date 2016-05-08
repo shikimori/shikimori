@@ -6,9 +6,7 @@ ru:
     user_rate:
       add_to_list: Добавить в список
       remove_from_my_list: Удалить из списка
-
-    # placeholder:
-      # please_sign_in: Это действие требует <a href=\"%{url}\">регистрации</a> на сайте.
+      please_sign_in: Это действие требует <a href=\"%{url}\">регистрации</a> на сайте.
 
     list_page: &list_page
       order_by:
