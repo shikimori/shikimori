@@ -1,7 +1,7 @@
-class ImageReloader
+class ImageReloader < ServiceObjectBase
   pattr_initialize :entry
 
-  def perform
+  def call
     return if entry.desynced.include? 'image'
 
     if parsed_data && parsed_data[:img]
@@ -10,6 +10,7 @@ class ImageReloader
   end
 
 private
+
   def parsed_data
     @parsed_data ||= parser.fetch_entry_data @entry.id
   rescue InvalidId
