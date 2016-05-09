@@ -5,13 +5,11 @@
 .p-studios
   .studio
     +clearfix
-    border-bottom: 1px dashed #DDD
-    margin-bottom: 5px
+    margin-bottom: 29px
     min-height: 65px
-    padding-bottom: 5px
 
-    &:last-child
-      border-bottom: none
+    &:first-child
+      border-top: none
 
     .logo
       float: right
@@ -19,7 +17,7 @@
       margin: 3px
 
     .name
-      +link(#123)
+      +link
       display: block
       font-size: 14px
       font-weight: bold
@@ -32,4 +30,3 @@
 
       .num
         color: darken($gray-3, 10%)
-
