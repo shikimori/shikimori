@@ -132,7 +132,7 @@ class Ability
         topic.user_id == @user.id
     end
     can [:update], [Entry, Topic, Topics::NewsTopic.name] do |topic|
-      can? :create, topic
+      !@user.banned? && topic.user_id == @user.id
     end
     can [:destroy], [Entry, Topic, Topics::NewsTopic.name] do |topic|
       can?(:create, topic) && topic.created_at + 4.hours > Time.zone.now
