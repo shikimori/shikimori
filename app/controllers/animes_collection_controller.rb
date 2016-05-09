@@ -157,6 +157,7 @@ private
     AniMangaQuery
       .new(klass, params)
       .order(query)
+      .decorate
       .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
   end
 
@@ -195,7 +196,7 @@ private
     end
     build_pagination_links entries, total_pages
 
-    entries
+    entries.map(&:decorate)
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент
