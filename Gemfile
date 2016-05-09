@@ -18,7 +18,6 @@ gem 'sass-rails'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 gem 'jade-rails', github: 'GBH/jade-rails'
-gem 'i18n-js', '3.0.0.rc12'
 gem 'd3_rails'
 
 gem 'uglifier'
@@ -96,6 +95,7 @@ gem 'apipie-rails', '0.3.3' # 0.3.4 сломан
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
+gem 'i18n-js', '3.0.0.rc12'
 gem 'rails-i18n'
 gem 'i18n-inflector-rails'
 
