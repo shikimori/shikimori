@@ -62,7 +62,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
 
     @rates = @rates[@limit * (@page-1), @limit+1]
-    respond_with @rates
+    respond_with @rates, each_serializer: UserRateFullSerializer
   end
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
@@ -77,7 +77,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     end
 
     @rates = @rates[@limit * (@page-1), @limit+1]
-    respond_with @rates
+    respond_with @rates, each_serializer: UserRateFullSerializer
   end
 
   api :GET, "/users/:id/favourites", "Show user's favourites"
