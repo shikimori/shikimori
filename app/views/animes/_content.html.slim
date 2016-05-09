@@ -86,7 +86,11 @@
           ] = localization_span genre
 
       - if anime.with_score?
-        .rating[itemscope itemprop="aggregateRating" itemtype="http://schema.org/AggregateRating"]
+        .rating[
+          itemscope
+          itemprop="aggregateRating"
+          itemtype="http://schema.org/AggregateRating"
+        ]
           - if anime.rates_size > 0
             meta itemprop="bestRating" content="10"
             meta itemprop="ratingValue" content="#{anime.score}"

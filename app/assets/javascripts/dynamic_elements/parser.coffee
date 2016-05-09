@@ -13,6 +13,10 @@ class DynamicElements.Parser
           when 'html5_video' then new DynamicElements.Html5Video(@)
           when 'abuse_request' then new DynamicElements.AbuseRequest(@)
           when 'desktop_ad' then new DynamicElements.DesktopAd(@)
-          when 'user_rate' then new DynamicElements.UserRate(@)
+          when 'user_rate'
+            if @attributes['data-button_only'].value == 'true'
+              new DynamicElements.UserRate(@)
+            else
+              new DynamicElements.UserRateForm(@)
           else
             console.error "unexpected processor: #{processor}"

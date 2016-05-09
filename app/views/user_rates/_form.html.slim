@@ -4,11 +4,11 @@
     authenticity_token: true do |f|
 
   - unless params[:api]
-    input type='hidden' name='frontend' value='1'
+    input type='hidden' name='frontend' value=''
 
     .remove-container
       a.remove[
-        href="#{api_user_rate_url f.object, frontend: 1}"
+        href="#{api_user_rate_url f.object, frontend: true}"
         title="#{t '.remove_from_my_list'}"
         data-method="delete"
         data-remote="true"
@@ -48,7 +48,7 @@
 
   - if params[:api]
     a.remove[
-      href="#{api_user_rate_url f.object, frontend: 1}"
+      href="#{api_user_rate_url f.object, frontend: true}"
       title="#{t '.remove_from_my_list'}"
       data-method="delete"
       data-remote="true"
