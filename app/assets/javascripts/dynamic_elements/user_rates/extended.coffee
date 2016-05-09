@@ -6,12 +6,12 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
     @entry = @$root.data('entry')
     @form_html = null
 
+    @on 'click', '.cancel', @_hide_form
+
     @on 'ajax:success', '.remove', @_hide_form
     @on 'ajax:success', '.rate-edit', @_hide_form
 
     super
-
-    @on 'click', '.cancel', @_hide_form
 
   # handlers
   _toggle_list: (e) =>
