@@ -584,6 +584,8 @@ Site::Application.routes.draw do
       end
     end
 
+    resources :user_rates, only: [:edit]
+
     resources :animes, only: [:edit, :update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian description_ru description_en image
