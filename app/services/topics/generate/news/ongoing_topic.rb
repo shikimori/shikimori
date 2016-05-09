@@ -3,7 +3,7 @@
 class Topics::Generate::News::OngoingTopic < Topics::Generate::News::BaseTopic
 private
 
-  def is_processed
+  def processed
     false
   end
 
