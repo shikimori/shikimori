@@ -15,7 +15,7 @@ class DynamicElements.UserRates.Button extends View
     @on 'click', '.add-trigger', @_submit_status
 
     @on 'ajax:before', @_ajax_before
-    @on 'ajax:ajax:error', @_ajax_complete
+    @on 'ajax:error', @_ajax_complete
     @on 'ajax:success', @_ajax_success
 
   # handlers
@@ -77,9 +77,12 @@ class DynamicElements.UserRates.Button extends View
     form_url: submit_url
     form_method: if @_is_persisted() then 'PATCH' else 'POST'
     destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @_is_persisted()
-    increment_url: "/api/v2/user_rates/#{@user_rate.id}/increment" if @_is_persisted()
+    extended_html: @_extended_html()
 
   _new_user_rate: ->
     status: 'planned'
     target_id: @user_rate.target_id
     target_type: @user_rate.target_type
+
+  # must be redifined in inherited class
+  _extended_html: ->

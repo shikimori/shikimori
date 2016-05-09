@@ -1,6 +1,6 @@
-= simple_form_for [:api, resource],
+= simple_form_for [:api, :v2, resource],
     remote: true,
-    html: { 'data-type' => :json },
+    html: { 'data-type' => :json, class: 'b-form rate-edit' },
     authenticity_token: true do |f|
 
   - unless params[:api]

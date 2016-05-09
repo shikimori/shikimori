@@ -1,16 +1,16 @@
-form(
-  action= form_url
-  data-method= form_method
-  data-remote='true'
-  data-type='json'
-)
-  input(type='hidden' name='frontend' value='1')
-  input(type='hidden' name='user_rate[user_id]' value= user_id)
-  input(type='hidden' name='user_rate[target_id]' value= user_rate.target_id)
-  input(type='hidden' name='user_rate[target_type]' value= user_rate.target_type)
-  input(type='hidden' name='user_rate[status]' value= user_rate.status)
+.b-add_to_list(class= user_rate.status)
+  form(
+    action= form_url
+    data-method= form_method
+    data-remote='true'
+    data-type='json'
+  )
+    input(type='hidden' name='frontend' value='1')
+    input(type='hidden' name='user_rate[user_id]' value= user_id)
+    input(type='hidden' name='user_rate[target_id]' value= user_rate.target_id)
+    input(type='hidden' name='user_rate[target_type]' value= user_rate.target_type)
+    input(type='hidden' name='user_rate[status]' value= user_rate.status)
 
-  .b-add_to_list(class= user_rate.status)
     .trigger
       .trigger-arrow
 
@@ -51,4 +51,4 @@ form(
               data-text= t('frontend.user_rates.button.remove_from_my_list')
             )
 
-  != extended_html
+!= extended_html

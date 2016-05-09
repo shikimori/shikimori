@@ -4,6 +4,11 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
 
   initialize: ->
     @entry = @$root.data('entry')
+    @form_html = null
+
+    @on 'ajax:success', '.remove', @_hide_form
+    @on 'ajax:success', '.rate-edit', @_hide_form
+
     super
 
     # @$('.b-rate').rateable()
@@ -22,8 +27,8 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
           # @$('.rate-edit').find('.cancel').click()
           # false
 
-    # # отмена редактирования user_rate
-    # @on 'click', '.cancel', @_cancel_edition
+    # отмена редактирования user_rate
+    @on 'click', '.cancel', @_hide_form
 
     # # сабмит формы user_rate
     # @on 'ajax:success', '.new_user_rate, .increment, .remove', @_replace_button
@@ -33,22 +38,35 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
 
   # handlers
   _toggle_list: (e) =>
-    if e.currentTarget.classList.contains('edit-trigger')
-      console.log(e, e.currentTarget)
+    if @_is_persisted() && e.currentTarget.classList.contains('edit-trigger')
+      @_fetch_form()
     else
       super
 
-  _toggle_form: ->
-    console.log 'toggle_form'
-    false
+  _fetch_form: ->
+    @_ajax_before()
+    $.get("/user_rates/#{@user_rate.id}/edit")
+      .complete(@_ajax_complete)
+      .success(@_show_form)
+
+  _show_form: (html) =>
+    @form_html = html
+    @_render()
+
+  _hide_form: =>
+    @form_html = null
+    @_render()
 
   # functions
-  _render_params: ->
-    params = super()
-    extended_params = Object.merge(Object.merge({}, params), entry: @entry)
-    extended_html = JST[TEMPLATE](extended_params) if @_is_persisted()
+  _extended_html: ->
+    @form_html || @_render_extended() if @_is_persisted()
 
-    Object.merge(params, extended_html: extended_html)
+  _render_extended: ->
+    JST[TEMPLATE](
+      entry: @entry
+      user_rate: @user_rate
+      increment_url: "/api/v2/user_rates/#{@user_rate.id}/increment" if @_is_persisted()
+    )
 
   # # отмена редактирования user_rate
   # _cancel_edition: =>
