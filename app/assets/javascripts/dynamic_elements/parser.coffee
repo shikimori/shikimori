@@ -14,9 +14,9 @@ class DynamicElements.Parser
           when 'abuse_request' then new DynamicElements.AbuseRequest(@)
           when 'desktop_ad' then new DynamicElements.DesktopAd(@)
           when 'user_rate'
-            if @attributes['data-button_only'].value == 'true'
-              new DynamicElements.UserRate(@)
+            if @attributes['data-extended'].value == 'true'
+              new DynamicElements.UserRates.Extended(@)
             else
-              new DynamicElements.UserRateForm(@)
+              new DynamicElements.UserRates.Button(@)
           else
             console.error "unexpected processor: #{processor}"

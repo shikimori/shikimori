@@ -28,7 +28,7 @@
         .text.add-trigger(data-status= user_rate.status)
           .plus
           span.status-name(
-            data-text= t('frontend.user_rates.user_rate.add_to_list')
+            data-text= t('frontend.user_rates.button.add_to_list')
           )
 
     .expanded-options
@@ -44,7 +44,11 @@
           data-method='delete'
           data-remote='true'
           data-type='json'
-          value= t('frontend.user_rates.user_rate.remove_from_my_list')
+          value= t('frontend.user_rates.button.remove_from_my_list')
         )
           .text
-            span.status-name(data-text= t('frontend.user_rates.user_rate.remove_from_my_list'))
+            span.status-name(
+              data-text= t('frontend.user_rates.button.remove_from_my_list')
+            )
+
+    != extended_html

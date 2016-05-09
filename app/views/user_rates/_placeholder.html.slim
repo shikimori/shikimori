@@ -1,9 +1,10 @@
 .b-user_rate.not-tracked.to-process[
   class="#{local_assigns[:target].anime? ? :anime : :manga}-#{local_assigns[:target].id}"
-  data-button_only="#{local_assigns[:button_only]}"
+  data-extended="#{local_assigns[:extended]}"
   data-dynamic="user_rate"
   data-target_id="#{local_assigns[:target].id}"
   data-target_type="#{local_assigns[:target].anime? ? Anime.name : Manga.name}"
   data-track_user_rate="#{UserRates::Tracker.instance.placeholder :user_rate, local_assigns[:target]}"
   data-user_rate="#{UserRate.new(target: local_assigns[:target].decorated? ? local_assigns[:target].object : local_assigns[:target]).to_json}"
+  data-entry="#{local_assigns[:target].to_json if local_assigns[:extended]}"
 ]

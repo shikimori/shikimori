@@ -1,6 +1,6 @@
 en:
   frontend:
     user_rates:
-      user_rate:
+      button:
         add_to_list: Add to My List
         remove_from_my_list: Remove from My List

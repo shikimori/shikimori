@@ -1,17 +1,17 @@
-using 'DynamicElements'
-class DynamicElements.UserRateForm extends DynamicElements.UserRate
-  I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
+using 'DynamicElements.UserRates'
+class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Button
+  TEMPLATE = 'templates/user_rates/extended'
 
   initialize: ->
     super
-    # @button_only = @$root.data('button_only')
+    # @extended = @$root.data('extended')
 
     # @$('.b-rate').rateable()
     # @$('.note').check_height(125)
 
     # # по изменению статуса в списке
     # @on 'click', '.edit-trigger', =>
-      # if @button_only
+      # if @extended
         # @$root.find('.trigger-arrow').click()
         # false
       # else
@@ -34,6 +34,11 @@ class DynamicElements.UserRateForm extends DynamicElements.UserRate
   # handlers
 
   # functions
+  _render_params: ->
+    params = super()
+    extended_html = JST[TEMPLATE](params) if @_is_persisted()
+
+    Object.merge(super, extended_html: extended_html)
 
   # # отмена редактирования user_rate
   # _cancel_edition: =>
@@ -46,7 +51,7 @@ class DynamicElements.UserRateForm extends DynamicElements.UserRate
   # # замена кнопки на новую
   # _replace_button: (e, response) =>
     # $new_root = $(response.html)
-      # .data('button_only', @button_only)
+      # .data('extended', @extended)
       # .replaceAll(@$root)
       # .user_rate_button()
 

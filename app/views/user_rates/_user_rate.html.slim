@@ -2,7 +2,7 @@
   data-status="#{user_rate.status if user_rate.persisted?}"
   data-target_id="#{user_rate.target_id}"
   data-target_type="#{user_rate.target_type}"
-  data-button_only="#{!!local_assigns[:button_only]}"
+  data-extended="#{!!local_assigns[:extended]}"
   data-unauthorized="#{t '.please_sign_in', url: new_user_session_url}"
 ]
   .b-add_to_list[

@@ -1,6 +1,5 @@
-using 'DynamicElements.UserRates'
-class DynamicElements.UserRates.Button extends View
-  TEMPLATE = 'templates/user_rates/button'
+using 'DynamicElements'
+class DynamicElements.UserRate extends View
   I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
@@ -58,14 +57,11 @@ class DynamicElements.UserRates.Button extends View
     @user_rate = user_rate
     @_render()
 
-  _is_persisted: ->
-    !!@user_rate.id
-
   _render: ->
-    @html JST[TEMPLATE](@_render_params())
+    @html JST['templates/user_rates/user_rate'](@_render_params())
 
   _render_params: ->
-    submit_url = if @_is_persisted()
+    submit_url = if @user_rate.id
       "/api/v2/user_rates/#{@user_rate.id}"
     else
       '/api/v2/user_rates'
@@ -74,9 +70,8 @@ class DynamicElements.UserRates.Button extends View
     user_id: USER_ID
     statuses: t("#{I18N_STATUS_KEY}.#{@user_rate.target_type.toLowerCase()}")
     form_url: submit_url
-    form_method: if @_is_persisted() then 'PATCH' else 'POST'
-    destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @_is_persisted()
-    increment_url: "/api/v2/user_rates/#{@user_rate.id}/increment" if @_is_persisted()
+    form_method: if @user_rate.id then 'PATCH' else 'POST'
+    destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @user_rate.id
 
   _new_user_rate: ->
     status: 'planned'

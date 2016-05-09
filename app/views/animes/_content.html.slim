@@ -103,4 +103,4 @@
 
   div class="#{'flexible-button' if !local_assigns[:with_image] && !local_assigns[:no_flexible_button]}"
     = render partial: 'user_rates/placeholder',
-      locals: { target: anime, button_only: true }
+      locals: { target: anime, extended: false }
