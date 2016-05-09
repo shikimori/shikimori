@@ -22,11 +22,11 @@ module TopicsConcern
     end
   end
 
-private
-
   def locales
     Array(try :locale).presence || I18n.available_locales
   end
+
+private
 
   def generate_site_topics
     locales.each do |locale|
