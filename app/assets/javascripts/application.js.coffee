@@ -17,7 +17,9 @@ $ =>
     comments_auto_collapsed: $body.data('comments_auto_collapsed')
     comments_auto_loaded: $body.data('comments_auto_loaded')
 
+  I18n.locale = LOCALE
   moment.locale(LOCALE)
+
   @MOMENT_DIFF = moment($body.data('server_time')).diff(new Date())
 
   $(document).trigger 'page:load', true

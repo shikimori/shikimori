@@ -21,6 +21,7 @@
 
       .trigger
         .trigger-arrow
+
         - if user_rate.persisted?
           .edit-trigger[
             data-remote='true'
@@ -34,6 +35,7 @@
                 span
                   | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
                   = user_rate.score
+
         - else
           .text.add-trigger[
             data-status="#{UserRate.statuses[:planned]}"

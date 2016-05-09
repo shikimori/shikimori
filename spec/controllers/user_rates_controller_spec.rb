@@ -17,13 +17,6 @@ describe UserRatesController do
     end
   end
 
-  describe '#edit' do
-    let(:user_rate) { create :user_rate, user: user }
-    before { get :edit, id: user_rate.id }
-
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#export' do
     let(:make_request) { get :export, profile_id: user.to_param, list_type: 'anime', format: 'xml' }
     let!(:user_rate) { create :user_rate, user: user, target: create(:anime) }

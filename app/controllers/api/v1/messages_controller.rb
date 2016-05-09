@@ -12,12 +12,14 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/messages', 'Create a message'
+  param :frontend, :bool
   param :message, Hash do
     param :body, :undef
     param :from_id, :number
     param :kind, :undef
     param :to_id, :number
   end
+  error code: 422
   def create
     if faye.create(@resource) && frontent_request?
       render :message, locals: { notice: i18n_t('message.created') }
@@ -29,9 +31,11 @@ class Api::V1::MessagesController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :PATCH, '/messages/:id', 'Update a message'
   api :PUT, '/messages/:id', 'Update a message'
+  param :frontend, :bool
   param :message, Hash do
     param :body, :undef
   end
+  error code: 422
   def update
     if faye.update(@resource, update_params) && frontent_request?
       render :message, locals: { notice: i18n_t('message.updated') }
@@ -77,8 +81,9 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/messages/delete_all', 'Delete all messages. Types: news, notifications'
-  param :profile_id, :undef
+  param :frontend, :bool
   param :type, :undef
+  error code: 302
   def delete_all
     MessagesService.new(current_user).delete_messages type: @messages_type
 

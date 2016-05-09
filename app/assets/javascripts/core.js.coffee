@@ -28,8 +28,8 @@
 #= require packery/item
 #= require packery
 
-# require i18n
-# require_directory ./i18n
+#= require i18n
+#= require_directory ./i18n
 #= require jade/runtime
 
 #= require_tree ./templates

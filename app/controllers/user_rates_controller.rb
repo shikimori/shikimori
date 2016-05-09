@@ -20,9 +20,6 @@ class UserRatesController < ProfilesController
     page_title t("#{params[:list_type]}_list")
   end
 
-  def edit
-  end
-
   def export
     type = params[:list_type]
     if type == 'anime'

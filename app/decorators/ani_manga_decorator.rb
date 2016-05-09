@@ -102,9 +102,7 @@ class AniMangaDecorator < DbEntryDecorator
 
   # полная хронология аниме
   def chronology
-    ApplyRatedEntries.new(h.current_user).call(
-      ChronologyQuery.new(object).fetch.map(&:decorate)
-    )
+    ChronologyQuery.new(object).fetch.map(&:decorate)
   end
 
   # показывать ли блок файлов

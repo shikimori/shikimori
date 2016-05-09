@@ -348,6 +348,7 @@ class @ShikiEditor extends ShikiView
   _type: ->
     @$textarea.data('item_type')
 
+# TODO: refactor to i18n-js
 TRANSLATIONS =
   ru:
     text_cant_be_blank: 'Текст не может быть пустым'

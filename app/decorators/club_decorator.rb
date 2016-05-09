@@ -28,11 +28,11 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def animes
-    ApplyRatedEntries.new(h.current_user).call(all_animes)
+    all_animes
   end
 
   def mangas
-    ApplyRatedEntries.new(h.current_user).call(all_mangas)
+    all_mangas
   end
 
   def characters

@@ -27,10 +27,7 @@ class DashboardView < ViewObjectBase
     :new_ongoings, :old_ongoings
 
   def ongoings
-    ApplyRatedEntries.new(h.current_user).call(
-      all_ongoings
-        .shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
-    )
+    all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
   end
 
   def db_seasons klass

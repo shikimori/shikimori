@@ -24,6 +24,13 @@ describe Api::V1::UserRatesController do
   context 'login&password authentication', :show_in_doc do
     include_context :authenticated, :user
 
+    describe '#show' do
+      let(:user_rate) { create :user_rate, user: user }
+      before { get :show, id: user_rate.id, format: :json }
+
+      it { expect(response).to have_http_status :success }
+    end
+
     describe '#create' do
       let(:target) { create :anime }
       let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}

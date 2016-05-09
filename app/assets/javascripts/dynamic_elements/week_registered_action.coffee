@@ -1,3 +1,4 @@
+# TODO: refactor to i18n-js
 TRANSLATIONS =
   ru:
     authorized_action: "Действие станет доступно через неделю после регистрации."

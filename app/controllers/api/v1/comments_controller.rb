@@ -37,6 +37,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_offtopic, :bool
     param :is_summary, :bool
   end
+  param :frontend, :bool
   def create
     @resource = Comment::Create.call(faye, create_params)
     if faye.create(@resource) && frontent_request?
@@ -52,6 +53,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   param :comment, Hash do
     param :body, :undef
   end
+  param :frontend, :bool
   def update
     raise CanCan::AccessDenied unless @resource.can_be_edited_by? current_user
 

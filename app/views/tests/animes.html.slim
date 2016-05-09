@@ -1,12 +1,13 @@
 .block
   .subheadline.m10 entry
-  = render partial: 'animes/anime',
-    collection: @resource,
-    locals: { cover_notice: :studio, content_by: :block }
+  .cc-3a
+    = render partial: 'animes/anime',
+      collection: @collection1,
+      locals: { cover_notice: :studio, content_by: :block }
 
 .block
   .subheadline.m10 collection
   .cc-6.to-process data-dynamic='cutted_covers'
     = render partial: 'animes/anime',
-      collection: @collection,
+      collection: @collection2,
       locals: { cover_notice: :year_kind, content_by: :mini_tooltip }

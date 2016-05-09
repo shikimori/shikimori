@@ -154,9 +154,9 @@ private
 
   # выборка из датасорса без пагинации
   def fetch_wo_pagination(query)
-    entries = AniMangaQuery.new(klass, params).order(query)
-
-    ApplyRatedEntries.new(current_user).call(entries)
+    AniMangaQuery
+      .new(klass, params)
+      .order(query)
       .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
   end
 
@@ -195,7 +195,7 @@ private
     end
     build_pagination_links entries, total_pages
 
-    ApplyRatedEntries.new(current_user).call(entries)
+    entries
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент

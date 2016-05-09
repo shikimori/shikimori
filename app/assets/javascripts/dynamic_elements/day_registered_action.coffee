@@ -1,19 +1,15 @@
-TRANSLATIONS =
-  ru:
-    authorized_action: "Действие станет доступно через сутки после регистрации."
-  en:
-    authorized_action: "Action will be available one day after registering."
-
 using 'DynamicElements'
 class DynamicElements.DayRegisteredAction extends View
+  I18N_KEY = 'frontend.dynamic_elements.day_registered_action'
+
   initialize: ->
     @$node.on 'click', (e) ->
       if !USER_SIGNED_IN
-        $.alert AuthorizedAction.TRANSLATIONS[LOCALE].authorized_action
+        $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
         e.stopImmediatePropagation()
         false
 
       else if !DAY_REGISTERED
-        $.alert TRANSLATIONS[LOCALE].authorized_action
+        $.info t(I18N_KEY)
         e.stopImmediatePropagation()
         false

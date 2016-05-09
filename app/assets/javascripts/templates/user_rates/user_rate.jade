@@ -1,26 +1,50 @@
-div
-  .b-add_to_list(class= user_rate.status)
-    form(data-remote='true' data-type='true')
-      input(type='hidden' name='frontend' value='1')
-      input(type='hidden' name='user_rate[user_id]' value= user_id)
-      input(type='hidden' name='user_rate[target_id]' value= user_rate.target_id)
-      input(type='hidden' name='user_rate[target_type]' value= user_rate.target_type)
-      input(type='hidden' name='user_rate[status]' value= user_rate.status)
+.b-add_to_list(class= user_rate.status)
+  form(
+    action= form_url
+    data-method= form_method
+    data-remote='true'
+    data-type='json'
+  )
+    input(type='hidden' name='frontend' value='1')
+    input(type='hidden' name='user_rate[user_id]' value= user_id)
+    input(type='hidden' name='user_rate[target_id]' value= user_rate.target_id)
+    input(type='hidden' name='user_rate[target_type]' value= user_rate.target_type)
+    input(type='hidden' name='user_rate[status]' value= user_rate.status)
 
-      .trigger
-        .trigger-arrow
+    .trigger
+      .trigger-arrow
 
-        if user_rate.id
-          .edit-trigger(data-remote='true' data-type='html' data-action="#{edit_url})
-            .edit
+      if user_rate.id
+        .edit-trigger
+          .edit
+          .text
+            span.status-name(data-text= statuses[user_rate.status])
+            if user_rate.score > 0
+              span
+                | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
+                = user_rate.score
+
+      else
+        .text.add-trigger(data-status= user_rate.status)
+          .plus
+          span.status-name(
+            data-text= t('frontend.user_rates.user_rate.add_to_list')
+          )
+
+    .expanded-options
+      for title,status in statuses
+        if !user_rate.id || user_rate.status != status
+          .option.add-trigger(data-status= status)
             .text
-              span.status-name(data-text= t("frontend.enumerize.user_rate.status." + user_rate.status))
-              if user_rate.score > 0
-                span
-                  | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
-                  = user_rate.score
+              span.status-name(data-text= title)
 
-        else
-          .text.add-trigger(data-status="#{UserRate.statuses[:planned]}")
-            .plus
-            span.status-name(data-text= t('frontend.user_rates.user_rate.add_to_list'))
+      if user_rate.id
+        .option.remove-trigger(
+          data-action= destroy_url
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          value= t('frontend.user_rates.user_rate.remove_from_my_list')
+        )
+          .text
+            span.status-name(data-text= t('frontend.user_rates.user_rate.remove_from_my_list'))

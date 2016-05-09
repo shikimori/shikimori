@@ -144,6 +144,15 @@ Site::Application.routes.draw do
 
   # api
   apipie
+  # v2
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v2 do
+      resources :user_rates, only: [:show, :create, :update, :destroy] do
+        post :increment, on: :member
+      end
+    end
+  end
+  # v1
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
       resources :animes, only: [:show, :index] do
@@ -212,7 +221,7 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :user_rates, only: [:create, :update, :destroy] do
+      resources :user_rates, only: [:show, :create, :update, :destroy] do
         post :increment, on: :member
 
         collection do
@@ -573,11 +582,6 @@ Site::Application.routes.draw do
         # обзоры
         resources :reviews, type: kind.singularize.capitalize, except: [:show]
       end
-    end
-
-    resources :user_rates, only: [:edit] do
-      get :edit_api => :edit, action: :edit, as: :edit_api, on: :member, api: true
-      post :increment, on: :member
     end
 
     resources :animes, only: [:edit, :update] do

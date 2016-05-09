@@ -15,7 +15,6 @@ class @View
     $(selector, @$node)
 
   html: (html) ->
-    console.log html
     @$node.html html
 
   # внутренняя инициализация
