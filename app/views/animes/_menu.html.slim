@@ -10,7 +10,7 @@
           alt="#{resource.name}"
         ]
 
-  - cache [:stats, resource, I18n.locale] do
+  - cache [:stats, resource] do
     - if resource.with_score?
       .block
         .subheadline = t '.scores'
@@ -35,7 +35,7 @@
             = t '.one_user_has_it_in_his_list'
 
   - if user_signed_in?
-    - cache [:stats, resource, current_user, I18n.locale], expired_in: 1.day do
+    - cache [:stats, resource, current_user], expired_in: 1.day do
       - if resource.friend_rates.any?
         .block
           .subheadline = t '.in_friends_lists'
@@ -78,7 +78,7 @@
               .hide-more
                 | &mdash; #{t '.hide'}
 
-  - cache [:menu, resource, I18n.locale], expired_in: 1.day do
+  - cache [:menu, resource], expired_in: 1.day do
     = render 'blocks/favoured', favoured: resource.favoured, url: resource.favoured_url
 
     - if resource.linked_clubs.any?

@@ -89,7 +89,7 @@ header.head
       .textarea = t '.anime_title_to_link_example'
     .result
       .title = t '.result_title'
-      - cache [:demo, :highlight, :v1, I18n.locale] do
+      - cache [:demo, :highlight, :v1] do
         = BbCodeFormatter.instance.format_comment t('.anime_title_to_link_example')
     .notice == t '.anime_title_to_link_notice'
 
@@ -100,11 +100,11 @@ header.head
       .textarea == t '.anime_link_with_tooltip_example_1'
     .result
       .title = t '.result_title'
-      - cache [:demo, :links_2, :v1, I18n.locale] do
+      - cache [:demo, :links_2, :v1] do
         = BbCodeFormatter.instance.format_comment t('.anime_link_with_tooltip_example_2')
     .notice == t '.anime_link_with_tooltip_notice', domain: Site::DOMAIN
 
-  - cache [:demo, :entries_posters, :v3, I18n.locale] do
+  - cache [:demo, :entries_posters, :v3] do
     .block
       .name = t '.posters_8_columns'
       .example
@@ -183,7 +183,7 @@ header.head
     .result
       .title = t '.result_title'
       br
-      - cache [:demo, :videos, :v1, I18n.locale] do
+      - cache [:demo, :videos, :v1] do
         = BbCodeFormatter.instance.format_comment t('.video_link_example')
     .notice = t '.video_link_notice'
 

@@ -1,4 +1,13 @@
 module CacheHelper
+  I18N_HASH = {
+    ru: Digest::MD5.hexdigest(I18n.backend.translate(:ru, '.').to_json),
+    en: Digest::MD5.hexdigest(I18n.backend.translate(:en, '.').to_json)
+  }
+
+  def cache(name = {}, *args)
+    super Array(name) + [I18n.locale, I18N_HASH[I18n.locale]], *args
+  end
+
   def self.cache_settings
     {
       cache_path: proc { "#{params[:controller]}_#{params[:action]}_#{I18n.locale}" +

@@ -18,7 +18,7 @@
     .subheadline.m5 = t '.contest_type'
     p = resource.strategy_type.text
 
-  - cache [resource, I18n.locale] do
+  - cache resource do
     - if resource.uniq_voters > 0
       .block
         .subheadline.m5 = t '.voters'

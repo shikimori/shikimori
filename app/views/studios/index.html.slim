@@ -5,7 +5,7 @@ header.head
     = @description
 
 .block
-  = cache "studios_index_block_#{I18n.locale}_#{Date.today.strftime '%Y-%m-%d'}" do
+  = cache [:studios], expires_in: 1.day do
     - @collection.select(&:real?).each do |studio|
       .studio
         - if studio.image.exists?

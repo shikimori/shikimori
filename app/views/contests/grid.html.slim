@@ -8,7 +8,7 @@ header.head.misc
     = @page_title.last
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-- cache [@resource, I18n.locale] do
+- cache @resource do
   .contest-grid class="#{@resource.strategy_type}"
     .final
       .round

@@ -1,4 +1,4 @@
-- cache [ru_domain?, I18n.locale, resource.object, :description] do
+- cache [ru_domain?, resource.object, :description] do
   - if ru_domain?
     - if user_signed_in? && resource.description_en?
       .b-lang_trigger: span eng
