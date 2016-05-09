@@ -7,11 +7,11 @@ class DynamicElements.UserRates.Button extends View
     @user_rate = @$root.data 'user_rate'
     @_render()
 
-    # обработчики делегированные т.к. @_render может вызываться множество раз
+    # delegated gandlers because @_render can be called multiple times
     # клик по раскрытию вариантов добавления в список
     @on 'click', '.trigger-arrow', @_toggle_list
     @on 'click', '.edit-trigger', @_toggle_list
-    # клик по добавлению в свой список
+
     @on 'click', '.add-trigger', @_submit_status
 
     @on 'ajax:before', @_ajax_before
