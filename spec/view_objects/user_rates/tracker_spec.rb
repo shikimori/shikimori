@@ -52,15 +52,17 @@ describe UserRates::Tracker do
     let!(:rate_2_1) { create :user_rate, target: anime_2, user: user_1 }
     let!(:rate_1_2) { create :user_rate, target: anime_1, user: user_2 }
 
+    let(:export_1) { tracker.export user_1 }
+    let(:export_2) { tracker.export user_2 }
     it do
-      expect(tracker.export user_1).to eq(
-        catalog_entry: [rate_1_1, rate_2_1],
-        user_rate: []
-      )
-      expect(tracker.export user_2).to eq(
-        catalog_entry: [rate_1_2],
-        user_rate: []
-      )
+      expect(export_1).to have(2).items
+      expect(export_1[:catalog_entry].first).to be_kind_of UserRateSerializer
+      expect(export_1[:catalog_entry].map(&:object)).to eq [rate_1_1, rate_2_1]
+      expect(export_1[:user_rate]).to eq []
+
+      expect(export_2).to have(2).items
+      expect(export_2[:catalog_entry].map(&:object)).to eq [rate_1_2]
+      expect(export_2[:user_rate]).to eq []
     end
   end
 end

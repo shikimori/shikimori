@@ -39,6 +39,8 @@ class UserRates::Tracker < ViewObjectBase
       memo[kind] =
         anime_rates.select { |v| cache[kind][:anime].include? v.target_id } +
           manga_rates.select { |v| cache[kind][:manga].include? v.target_id }
+
+      memo[kind] = memo[kind].map { |rate| UserRateSerializer.new rate }
     end
   end
 

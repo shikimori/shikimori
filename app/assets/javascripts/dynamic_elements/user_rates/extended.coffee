@@ -3,8 +3,8 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
   TEMPLATE = 'templates/user_rates/extended'
 
   initialize: ->
+    @entry = @$root.data('entry')
     super
-    # @extended = @$root.data('extended')
 
     # @$('.b-rate').rateable()
     # @$('.note').check_height(125)
@@ -32,13 +32,23 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
     # @on 'ajax:success', '.edit_user_rate', @_replace_button
 
   # handlers
+  _toggle_list: (e) =>
+    if e.currentTarget.classList.contains('edit-trigger')
+      console.log(e, e.currentTarget)
+    else
+      super
+
+  _toggle_form: ->
+    console.log 'toggle_form'
+    false
 
   # functions
   _render_params: ->
     params = super()
-    extended_html = JST[TEMPLATE](params) if @_is_persisted()
+    extended_params = Object.merge(Object.merge({}, params), entry: @entry)
+    extended_html = JST[TEMPLATE](extended_params) if @_is_persisted()
 
-    Object.merge(super, extended_html: extended_html)
+    Object.merge(params, extended_html: extended_html)
 
   # # отмена редактирования user_rate
   # _cancel_edition: =>

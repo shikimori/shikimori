@@ -36,3 +36,6 @@
           data-method='post'
         )
     .episodes= t('activerecord.attributes.user_rate.chapters')
+
+  if user_rate.text_html
+    .note!= user_rate.text_html
