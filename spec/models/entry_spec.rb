@@ -75,7 +75,7 @@ describe Entry do
 
         it { is_expected.to_not be_able_to :new, entry }
         it { is_expected.to_not be_able_to :create, entry }
-        it { is_expected.to_not be_able_to :update, entry }
+        it { is_expected.to be_able_to :update, entry }
         it { is_expected.to_not be_able_to :destroy, entry }
       end
 
