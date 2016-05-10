@@ -32,6 +32,8 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
   _show_form: (html) =>
     @form_html = html
     @_render()
+    @$('.remove-container.bottom').addClass 'hidden'
+    @$('.remove-container.top').removeClass 'hidden'
 
   _hide_form: =>
     @form_html = null
