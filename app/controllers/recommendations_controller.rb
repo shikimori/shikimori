@@ -15,6 +15,7 @@ class RecommendationsController < AnimesCollectionController
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
     @menu = Menus::CollectionMenu.new klass
+    @view = AnimesCollection::View.new
 
     return redirect_to recommendations_url(url_params(metric: 'pearson_z')) if @metric.blank?
     unless THRESHOLDS[klass].include? @threshold

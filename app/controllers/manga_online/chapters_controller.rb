@@ -22,7 +22,7 @@ class MangaOnline::ChaptersController < ShikimoriController
         @next_page = online_manga_chapter_show_url(@chapter, @page.number + 1)
         @last_page = online_manga_chapter_show_url(@chapter, @chapter.pages.last.number)
       end
-      @total_pages = @chapter.pages.count
+      @pages_count = @chapter.pages.count
     end
   end
 end

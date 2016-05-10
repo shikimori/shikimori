@@ -2,6 +2,7 @@
 list_cache = []
 filter_timer = null
 
+# TODO: refactor to i18n-js
 LOCALES = {
   ru: 'Недостаточно данных',
   en: 'Insufficient data'

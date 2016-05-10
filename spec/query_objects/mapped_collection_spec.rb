@@ -11,6 +11,6 @@ describe MappedCollection do
   end
 
   describe 'respond_to original collection methods' do
-    its(:current_page) { is_expected.to eq 1 }
+    its(:page) { is_expected.to eq 1 }
   end
 end

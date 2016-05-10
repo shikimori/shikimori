@@ -1,17 +1,17 @@
 .pagination
   a.link.link-prev[
-    class="#{:disabled if @prev_page.blank?}"
-    href="#{@prev_page}"
+    class="#{:disabled unless @view.prev_page_url}"
+    href="#{@view.prev_page_url}"
   ] = "← #{t 'pagination.back'}"
 
   .no-hover
     span.link-title data-text="#{i18n_i 'Page', :other}"
       = i18n_i 'Page', :other
-    span.link-current = params[:page] || 1
+    span.link-current = @view.page
     span из
-    span.link-total = @total_pages || 1
+    span.link-total = @view.pages_count
 
   a.link.link-next[
-    class="#{:disabled if @next_page.blank?}"
-    href="#{@next_page}"
+    class="#{:disabled unless @view.next_page_url}"
+    href="#{@view.next_page_url}"
   ] = "#{t 'pagination.next'} →"

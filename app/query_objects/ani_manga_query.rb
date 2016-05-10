@@ -452,8 +452,7 @@ private
       when 'ranked'
         "(case when ranked=0 then 999999 else ranked end), #{klass.table_name}.score desc"
 
-      # TODO: удалить released_at и released после 01.05.2014
-      when 'released_on', 'released_at', 'released'
+      when 'released_on'
         '(case when released_on is null then aired_on else released_on end) desc'
 
       when 'aired_on'

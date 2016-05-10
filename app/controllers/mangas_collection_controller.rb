@@ -1,0 +1,2 @@
+class MangasCollectionController < AnimesCollectionController
+end

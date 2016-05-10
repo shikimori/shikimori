@@ -544,8 +544,8 @@ Site::Application.routes.draw do
 
     # аниме и манга
     ['animes', 'mangas'].each do |kind|
-      get "#{kind}#{ani_manga_format}" => "animes_collection#index", as: kind, klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
-      get "#{kind}/menu(/rating/:rating)" => "animes_collection#menu", klass: kind.singularize, as: "menu_#{kind}"
+      get "#{kind}#{ani_manga_format}" => "#{kind}_collection#index", as: kind, constraints: { page: /\d+/, studio: /[^\/]+/ }
+      get "#{kind}/menu(/rating/:rating)" => "#{kind}_collection#menu", as: "menu_#{kind}"
 
       resources kind, only: [:show], format: /html/ do
         member do

@@ -1,55 +1,47 @@
 describe AnimesCollectionController do
-  ['anime', 'manga'].each do |type|
-    before do
-      create type.to_sym
-      create type.to_sym
-    end
+  let!(:anime_1) { create :anime }
+  let!(:anime_2) { create :anime }
 
-    ['guest', 'user'].each do |user|
-      context type do
-        context user do
-          before do
-            sign_in create(:user) if user == 'user'
-          end
+  ['guest', 'user'].each do |user|
+    context user do
+      include_context :authenticated, :user if user == 'user'
 
-          describe 'index' do
-            describe 'html' do
-              before { get :index, klass: type }
+      describe '#index' do
+        describe 'html' do
+          before { get :index }
 
-              it { expect(response).to have_http_status :success }
-              it { expect(response.content_type).to eq 'text/html' }
-            end
+          it { expect(response).to have_http_status :success }
+          it { expect(response.content_type).to eq 'text/html' }
+        end
 
-            describe 'json' do
-              before { get :index, klass: type, format: 'json' }
+        describe 'json' do
+          before { get :index, format: 'json' }
 
-              it { expect(response).to have_http_status :success }
-              it { expect(response.content_type).to eq 'application/json' }
-            end
-          end
+          it { expect(response).to have_http_status :success }
+          it { expect(response.content_type).to eq 'application/json' }
+        end
+      end
 
-          describe 'search' do
-            before { get :index, klass: type, search: 'test' }
+      describe '#search' do
+        before { get :index, search: 'test' }
 
-            it { expect(response).to have_http_status :success }
-            it { expect(response.content_type).to eq 'text/html' }
-          end
+        it { expect(response).to have_http_status :success }
+        it { expect(response.content_type).to eq 'text/html' }
+      end
 
-          describe 'season' do
-            describe 'html' do
-              before { get :index, klass: type, season: 'summer_2012' }
+      describe '#season' do
+        describe 'html' do
+          before { get :index, season: 'summer_2012' }
 
-              it { expect(response).to have_http_status :success }
-              it { expect(response.content_type).to eq 'text/html' }
-            end
+          it { expect(response).to have_http_status :success }
+          it { expect(response.content_type).to eq 'text/html' }
+        end
 
-            describe 'json' do
-              before { get :index, klass: type, season: 'summer_2012', format: 'json' } 
+        describe 'json' do
+          before { get :index, season: 'summer_2012', format: 'json' } 
 
-              it { expect(response).to have_http_status :success }
-              it { expect(response.content_type).to eq 'application/json' }
-            end
-          end if type == 'anime'
+          it { expect(response).to have_http_status :success }
+          it { expect(response.content_type).to eq 'application/json' }
         end
       end
     end
