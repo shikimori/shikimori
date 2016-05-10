@@ -63,13 +63,6 @@ GIT
     htmldiff (0.0.1)
 
 GIT
-  remote: git://github.com/nazgum/will_paginate.git
-  revision: 887d615971e76c01d19e2e274856129acf5b9ec3
-  branch: master
-  specs:
-    will_paginate (3.0.4)
-
-GIT
   remote: git://github.com/rails-api/active_model_serializers.git
   revision: 8d31f7ee8c0ea3ed83ab871765f1444291278b41
   branch: 0-8-stable
@@ -820,7 +813,6 @@ DEPENDENCIES
   virtus
   webmock
   whenever
-  will_paginate!
   xxhash
   zaru
 

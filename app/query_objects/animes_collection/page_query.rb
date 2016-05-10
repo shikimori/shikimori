@@ -12,6 +12,7 @@ class AnimesCollection::PageQuery
 private
 
   def collection
+    добавить пагинацию
     AniMangaQuery.new(klass, params).fetch
   end
 end

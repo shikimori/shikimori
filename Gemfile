@@ -34,8 +34,6 @@ gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'attr_extras'
 gem 'state_machine'
-# TODO: remove this gem after AnimeCollectionQuery refactoring
-gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'nokogiri'
 gem 'paperclip'
 gem 'rs_russian'
