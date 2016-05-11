@@ -1,2 +1,3 @@
-= render partial: 'people/content',
-  locals: { person: @resource, with_image: true }
+- cache @resource do
+  = render partial: 'people/content',
+    locals: { person: @resource, with_image: true }
