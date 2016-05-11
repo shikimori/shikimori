@@ -1,6 +1,14 @@
 class AnimesCollection::SeasonQuery < AnimesCollection::PageQuery
   OVA_KEY = 'OVA/ONA'
 
+  def page
+    1
+  end
+
+  def pages_count
+    1
+  end
+
 private
 
   def process query

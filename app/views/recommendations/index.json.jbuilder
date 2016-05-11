@@ -8,8 +8,8 @@ json.content UserRates::Tracker.instance.sweep(render(
 ))
 json.current_page @view.page
 json.total_pages @view.pages_count
-json.next_page @view.next_page
-json.prev_page @view.prev_page
+json.next_page @view.next_page_url
+json.prev_page @view.prev_page_url
 
 if user_signed_in?
   json.tracked_user_rates UserRates::Tracker.instance.export(current_user)

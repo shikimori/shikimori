@@ -1,23 +1,23 @@
 class AnimesCollection::View < ViewObjectBase
-  instance_cache :collection, :results, :filtered_params
+  vattr_initialize :klass
 
+  instance_cache :collection, :results, :filtered_params
   delegate :page, :pages_count, to: :results
 
   def collection
-    results.collection.map(&:decorate)
-  end
-
-  def groups
-    results.collection.each_with_object({}) do |(key, entries), memo|
-      memo[key] = entries.map(&:decorate)
+    if season_page?
+      results.collection.each_with_object({}) do |(key, entries), memo|
+        memo[key] = entries.map(&:decorate)
+      end
+    else
+      results.collection.map(&:decorate)
     end
   end
 
   def season_page?
     !recommendations? &&
       h.params[:season].present? &&
-      !!h.params[:season].match(/^([a-z]+_\d+,?)+$/) &&
-      !h.params[:ids_with_sort].present?
+      !!h.params[:season].match(/^([a-z]+_\d+,?)+$/)
   end
 
   def recommendations?
@@ -31,7 +31,8 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     h.params
       .except(:format, :controller, :action)
-      .inject(%w(animes_collection)) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .sort_by(&:first)
+      .inject([klass.name]) { |memo, (k, v)| memo.push "#{k}:#{v}" }
   end
 
   def cache_expires_in
@@ -52,24 +53,19 @@ class AnimesCollection::View < ViewObjectBase
 
   def filtered_params
     h.params.except(
-      :format, :exclude_ids, :ids_with_sort, :template, :is_adult,
-      :exclude_ai_genres
+      :format, :template, :is_adult,
+      AnimesCollection::RecommendationsQuery::IDS_KEY,
+      AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
     )
-  end
-
-  def klass
-    if recommendations?
-      fail ArgumentError
-    else
-      h.params[:controller] == 'animes_collection' ? Anime : Manga
-    end
   end
 
 private
 
   def results
     Rails.cache.fetch cache_key, expires_in: cache_expires_in do
-      if season_page?
+      if recommendations?
+        AnimesCollection::RecommendationsQuery.new(klass, h.params).fetch
+      elsif season_page?
         AnimesCollection::SeasonQuery.new(klass, h.params).fetch
       else
         AnimesCollection::PageQuery.new(klass, h.params).fetch

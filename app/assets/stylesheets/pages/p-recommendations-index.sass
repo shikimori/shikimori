@@ -43,10 +43,14 @@
 
   .b-catalog_entry
     +image_editable
+
     .mark-ignored
       line-height: 16px
       right: 6px
       top: 6px
+
+    .image-decor:after
+      display: none
 
     &.entry-ignored
       +transition(opacity 0.4s ease)
@@ -54,10 +58,13 @@
       opacity: 0.3
 
       a
-        cursor: default !important
+        cursor: default!important
 
       .content
-        display: none !important
+        display: none!important
+
+      .tooltip
+        display: none!important
 
   .no-rankings
     .fail

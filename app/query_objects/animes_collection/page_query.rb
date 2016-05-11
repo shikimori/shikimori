@@ -14,11 +14,11 @@ class AnimesCollection::PageQuery
 private
 
   def page
-    (params[:page] || 1).to_i
+    @page ||= (params[:page] || 1).to_i
   end
 
   def pages_count
-    (query.size * 1.0 / limit).ceil
+    @pages_count ||= (query.size * 1.0 / limit).ceil
   end
 
   def limit

@@ -2,45 +2,45 @@ header.head.ajaxable
   h1
     = @page_title.last
 
-  - if @klass == Anime
+  - if @view.klass == Anime
     a.misc href="#{recommendations_favourites_manga_url}" = t 'switch_to_manga'
   - else
     a.misc href="#{recommendations_favourites_anime_url}" = t 'switch_to_anime'
 
   .notice
     p = t '.here_we_have_put_together',
-          kind: (@klass == Anime ? i18n_i('best_anime', 1, :genitive) : i18n_i('best_manga', 1, :genitive))
-    - if @klass == Anime
+          kind: (@view.klass == Anime ? i18n_i('best_anime', 1, :genitive) : i18n_i('best_manga', 1, :genitive))
+    - if @view.klass == Anime
       p
         = t '.not_interested'
         '
         == t '.pick_anime_to_your_liking', url: RecommendationsController::TOPIC_URL
 
     p
-      - if @klass == Anime
+      - if @view.klass == Anime
         == t '.get_personalized_anime_recommendations',
           user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
-          url: recommendations_url(klass: @klass.name.downcase)
+          url: recommendations_url(klass: @view.klass.name.downcase)
       - else
         == t '.get_personalized_manga_recommendations',
           user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
-          url: recommendations_url(klass: @klass.name.downcase)
+          url: recommendations_url(klass: @view.klass.name.downcase)
 
 .block
-  - if @entries.any?
+  - if @collection.any?
     - kinds_with_colors.each do |data|
-      - next unless @entries[data[:kind]]
+      - next unless @collection[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "collection_title.kind.#{@klass.name.downcase}.long.#{data[:kind]}"
+        = t "collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
       .to-process data-dynamic='cutted_covers'
-        - if klass == Anime
+        - if @view.klass == Anime
           .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 8}"
-            = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
+            = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
         - else
           .m0 class="cc-#{data[:kind] != 'one_shot' && data[:kind] != 'doujin' ? 'entries' : 8}"
-            = render @entries[data[:kind]], cover_notice: :studio, content_by: :tooltip
+            = render @collection[data[:kind]], cover_notice: :studio, content_by: :tooltip
 
   - else
     p.b-nothing_here = t 'nothing_found'

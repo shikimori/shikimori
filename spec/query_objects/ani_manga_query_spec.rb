@@ -360,7 +360,7 @@ describe AniMangaQuery do
       let(:shounen_ai) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
       let(:shoujo_ai) { create :genre, id: Genre::SHOUJO_AI_IDS.sample }
 
-      let(:options) {{ exclude_ai_genres: true }}
+      let(:options) {{ AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true }}
 
       it do
         # male

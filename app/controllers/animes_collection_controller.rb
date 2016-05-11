@@ -5,9 +5,8 @@ class AnimesCollectionController < ShikimoriController
   before_action do
     params[:order] = Animes::SortField.new('ranked', view_context).field
 
-    @view = AnimesCollection::View.new
+    @view = AnimesCollection::View.new params[:klass].classify.constantize
     @menu = Menus::CollectionMenu.new @view.klass
-    @page = @view.page
   end
 
   # страница каталога аниме/манги
@@ -26,13 +25,6 @@ class AnimesCollectionController < ShikimoriController
       page_title i18n_t('search', search: SearchHelper.unescape(params[:search]))
     end
 
-    # для сезонов без пагинации
-    # @entries = if params[:season].present? && params[:season] =~ /^([a-z]+_\d+,?)+$/ && !params[:ids_with_sort].present?
-      # @render_by_kind = true
-      # fetch_wo_pagination query
-    # else
-      # fetch_with_pagination query
-    # end
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') ||
@@ -41,8 +33,8 @@ class AnimesCollectionController < ShikimoriController
       noindex and nofollow
     end
 
-    @description = '' if params_page > 1 && !turbolinks_request?
-    @title_notice = "" if params_page > 1 && !turbolinks_request?
+    @description = '' if @view.page > 1 && !turbolinks_request?
+    @title_notice = '' if @view.page > 1 && !turbolinks_request?
 
     description @description
     keywords Titles::AnimeKeywords.new(
@@ -59,10 +51,8 @@ class AnimesCollectionController < ShikimoriController
 
   rescue BadStatusError
     redirect_to @view.url(status: nil), status: 301
-
   rescue BadSeasonError
     redirect_to @view.url(season: nil), status: 301
-
   rescue ForceRedirect => e
     redirect_to e.url, status: 301
   end
@@ -122,53 +112,12 @@ private
     end
   end
 
-  # выборка из датасорса с пагинацией
-  # def fetch_with_pagination(ds)
-    # entries = []
-    # # выборка id элементов с разбивкой по страницам
-    # unless params.include? :ids_with_sort
-      # entries = ds
-        # .select("#{klass.name.tableize}.id")
-        # .paginate(page: @view.page, per_page: entries_per_page)
-      # total_pages = entries.total_pages
-    # else
-      # entries = ds
-        # .where(id: params[:ids_with_sort].keys)
-        # .where("#{klass.name.tableize}.kind not in (?)", [:special, :music])
-        # .select("#{klass.name.tableize}.id")
-        # .to_a
-      # total_pages = (entries.size * 1.0 / entries_per_page).ceil
-      # entries = entries
-        # .sort_by {|v| -params[:ids_with_sort][v.id] }
-        # .drop(entries_per_page*(@view.page-1))
-        # .take(entries_per_page)
-    # end
-
-    # entries = klass
-      # .where(id: entries.map(&:id))
-      # .includes(:genres)
-      # .includes(klass == Anime ? :studios : :publishers)
-
-    # # повторная сортировка полученной выборки
-    # if params[:ids_with_sort].present?
-      # entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
-    # else
-      # entries = AniMangaQuery.new(klass, params).order(entries).to_a
-    # end
-
-    # entries.map(&:decorate)
-  # end
-
   # был ли запущен поиск, и найден ли при этом один элемент
   def one_found_redirect_check
     if params[:search] && @view.collection.kind_of?(Array) &&
         @view.collection.count == 1 && @view.page == 1 && !json?
       raise ForceRedirect, url_for(@view.collection.first)
     end
-  end
-
-  def params_page
-    [(params[:page] || 1).to_i, 1].max
   end
 
   def build_page_description entry_data
@@ -181,11 +130,6 @@ private
       i18n_t 'description.non_manga_variant',
         title: title, order_name: order_name
     end
-  end
-
-  # число аниме/манги на странице
-  def entries_per_page
-    20
   end
 
   def order_name

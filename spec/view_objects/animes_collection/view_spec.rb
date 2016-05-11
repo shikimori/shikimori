@@ -1,49 +1,93 @@
 describe AnimesCollection::View do
-  let(:view) { AnimesCollection::View.new }
+  let(:view) { AnimesCollection::View.new klass }
 
   include_context :view_object_warden_stub
 
+  let(:klass) { Anime }
   let(:user) { seed :user }
   let(:params) {{ controller: 'animes_collection' }}
 
   before { allow(view.h).to receive(:params).and_return params }
 
   describe '#collection' do
-    let!(:anime_1) { create :anime, :tv }
     let(:collection) { view.collection }
-    it do
-      expect(collection).to have(1).item
-      expect(collection.first).to be_kind_of AnimeDecorator
-      expect(collection.first.object).to eq anime_1
-    end
-  end
 
-  describe '#group' do
-    let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
-    let(:params) {{ controller: 'animes_collection', season: 'fall_2016' }}
-    subject(:groups) { view.groups }
-    it do
-      expect(groups).to have(1).item
-      expect(groups['tv']).to have(1).item
-      expect(groups['tv'].first).to be_kind_of AnimeDecorator
-      expect(groups['tv'].first.object).to eq anime_1
+    context 'season page' do
+      let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
+      let(:params) {{ controller: 'animes_collection', season: 'fall_2016' }}
+      it do
+        expect(collection).to have(1).item
+        expect(collection['tv']).to have(1).item
+        expect(collection['tv'].first).to be_kind_of AnimeDecorator
+        expect(collection['tv'].first.object).to eq anime_1
+      end
+    end
+
+    context 'common page' do
+      let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
+      it do
+        expect(collection).to have(1).item
+        expect(collection.first).to be_kind_of AnimeDecorator
+        expect(collection.first.object).to eq anime_1
+      end
+    end
+
+    describe 'query method' do
+      before do
+        allow(AnimesCollection::RecommendationsQuery)
+          .to receive(:new).with(klass, params).and_return recommendations_query
+        allow(AnimesCollection::SeasonQuery)
+          .to receive(:new).with(klass, params).and_return season_query
+        allow(AnimesCollection::PageQuery)
+          .to receive(:new).with(klass, params).and_return page_query
+      end
+
+      let(:page) { AnimesCollection::Page.new collection: [] }
+      let(:recommendations_query) { double fetch: page }
+      let(:season_query) { double fetch: page }
+      let(:page_query) { double fetch: page }
+
+      subject { view.collection }
+
+      context 'recommendations' do
+        before { allow(view).to receive(:recommendations?).and_return true }
+        it do
+          is_expected.to be_empty
+          expect(recommendations_query).to have_received :fetch
+          expect(season_query).to_not have_received :fetch
+          expect(page_query).to_not have_received :fetch
+        end
+      end
+
+      context 'season' do
+        before { allow(view).to receive(:season_page?).and_return true }
+        it do
+          is_expected.to be_empty
+          expect(recommendations_query).to_not have_received :fetch
+          expect(season_query).to have_received :fetch
+          expect(page_query).to_not have_received :fetch
+        end
+      end
+
+      context 'common query' do
+        it do
+          is_expected.to be_empty
+          expect(recommendations_query).to_not have_received :fetch
+          expect(season_query).to_not have_received :fetch
+          expect(page_query).to have_received :fetch
+        end
+      end
     end
   end
 
   describe '#season_page?' do
     subject { view.season_page? }
     let(:params) do
-      { season: season, ids_with_sort: ids_with_sort, controller: controller_name }
+      { season: season, controller: controller_name }
     end
 
     let(:season) { 'fall_2016' }
-    let(:ids_with_sort) { }
     let(:controller_name) { 'animes_collection' }
-
-    context 'ids_with_sort' do
-      let(:ids_with_sort) { [1] }
-      it { is_expected.to eq false }
-    end
 
     context 'not matched season' do
       let(:season) { '2016' }
@@ -102,7 +146,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w(animes_collection page:1 status:ongoing) }
+    it { is_expected.to eq %w(Anime page:1 status:ongoing) }
   end
 
   describe '#cache_expires_in' do
@@ -128,6 +172,7 @@ describe AnimesCollection::View do
     let(:params) do
       {
         controller: 'animes_collection',
+        klass: 'anime',
         format: 'a',
         page: '2'
       }
@@ -140,13 +185,13 @@ describe AnimesCollection::View do
     let(:params) do
       {
         controller: 'animes_collection',
+        klass: 'anime',
         format: 'a',
-        exclude_ids: ['b'],
-        ids_with_sort: ['c'],
         template: 'd',
         is_adult: 'e',
-        exclude_ai_genres: ['f'],
-        type: 'tv'
+        type: 'tv',
+        AnimesCollection::RecommendationsQuery::IDS_KEY => ['c'],
+        AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY => ['b']
       }
     end
 
@@ -196,24 +241,13 @@ describe AnimesCollection::View do
 
     describe '#filtered_params' do
       subject { view.filtered_params }
-      it { is_expected.to eq controller: 'animes_collection', type: 'tv' }
-    end
-  end
-
-  describe '#klass' do
-    context 'recommendations' do
-      let(:params) {{ controller: 'recommendations' }}
-      it { expect{view.klass}.to raise_error ArgumentError }
-    end
-
-    context 'animes_collection' do
-      let(:params) {{ controller: 'animes_collection' }}
-      it { expect(view.klass).to eq Anime }
-    end
-
-    context 'mangas_collection' do
-      let(:params) {{ controller: 'mangas_collection' }}
-      it { expect(view.klass).to eq Manga }
+      it do
+        is_expected.to eq(
+          controller: 'animes_collection',
+          klass: 'anime',
+          type: 'tv'
+        )
+      end
     end
   end
 end
