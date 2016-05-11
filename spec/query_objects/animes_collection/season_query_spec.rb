@@ -1,5 +1,5 @@
 describe AnimesCollection::SeasonQuery do
-  let(:query) { AnimesCollection::SeasonQuery.new params, klass }
+  let(:query) { AnimesCollection::SeasonQuery.new klass, params }
   let(:klass) { Anime }
 
   describe '#fetch' do

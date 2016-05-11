@@ -31,7 +31,7 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     h.params
       .except(:format, :controller, :action)
-      .inject([]) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .inject(%w(animes_collection)) { |memo, (k, v)| memo.push "#{k}:#{v}" }
   end
 
   def cache_expires_in
@@ -68,11 +68,11 @@ class AnimesCollection::View < ViewObjectBase
 private
 
   def results
-    Rails.cache.fetch [:collection] + cache_key, expires_in: cache_expires_in do
+    Rails.cache.fetch cache_key, expires_in: cache_expires_in do
       if season_page?
-        AnimesCollection::SeasonQuery.new(h.params, klass).fetch
+        AnimesCollection::SeasonQuery.new(klass, h.params).fetch
       else
-        AnimesCollection::PageQuery.new(h.params, klass).fetch
+        AnimesCollection::PageQuery.new(klass, h.params).fetch
       end
     end
   end

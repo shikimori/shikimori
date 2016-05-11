@@ -102,7 +102,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w(page:1 status:ongoing) }
+    it { is_expected.to eq %w(animes_collection page:1 status:ongoing) }
   end
 
   describe '#cache_expires_in' do

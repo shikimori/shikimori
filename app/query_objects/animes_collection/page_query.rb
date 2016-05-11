@@ -1,5 +1,5 @@
 class AnimesCollection::PageQuery
-  pattr_initialize :params, :klass
+  pattr_initialize :klass, :params
 
   LIMIT = 20
 
@@ -26,7 +26,7 @@ private
   end
 
   def process query
-    query.offset(limit * (page-1)).limit(limit)
+    query.offset(limit * (page-1)).limit(limit).to_a
   end
 
   def query

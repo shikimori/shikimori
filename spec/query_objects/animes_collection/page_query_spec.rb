@@ -1,5 +1,5 @@
 describe AnimesCollection::PageQuery do
-  let(:query) { AnimesCollection::PageQuery.new params, klass }
+  let(:query) { AnimesCollection::PageQuery.new klass, params }
 
   describe '#fetch' do
     subject(:page) { query.fetch }

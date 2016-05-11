@@ -1,5 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class AnimesCollectionController < ShikimoriController
+  CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
+
   before_action do
     params[:order] = Animes::SortField.new('ranked', view_context).field
 
@@ -20,7 +22,7 @@ class AnimesCollectionController < ShikimoriController
 
     if params[:search]
       noindex && nofollow
-      raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/ && censored_forbidden?
+      raise AgeRestricted if params[:search] =~ CENSORED && censored_forbidden?
       page_title i18n_t('search', search: SearchHelper.unescape(params[:search]))
     end
 
