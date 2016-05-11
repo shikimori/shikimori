@@ -1,7 +1,7 @@
 # TODO: отрефакторить толстый контроллер
 class RecommendationsController < AnimesCollectionController
   before_action :authenticate_user!, if: -> { json? }
-  before_action -> { page_title klass.model_name.human }
+  before_action -> { page_title @view.klass.model_name.human }
   layout false, only: [:test]
 
   COOKIE_NAME = 'recommendations_url'
@@ -14,11 +14,12 @@ class RecommendationsController < AnimesCollectionController
   def index
     @threshold = params[:threshold].to_i
     @metric = params[:metric]
-    @menu = Menus::CollectionMenu.new klass
 
-    return redirect_to recommendations_url(url_params(metric: 'pearson_z')) if @metric.blank?
-    unless THRESHOLDS[klass].include? @threshold
-      return redirect_to recommendations_url(url_params(threshold: THRESHOLDS[klass][-1]))
+    if @metric.blank?
+      return redirect_to recommendations_url(url_params(metric: 'pearson_z')) 
+    end
+    unless THRESHOLDS[@view.klass].include? @threshold
+      return redirect_to recommendations_url(url_params(threshold: THRESHOLDS[@view.klass][-1]))
     end
 
     page_title i18n_t 'personalized_recommendations'
@@ -36,28 +37,26 @@ class RecommendationsController < AnimesCollectionController
       User.find_by(nickname: SearchHelper.unescape(params[:user])) || User.find_by(id: params[:user])
     end
 
-    @rankings = Recommendations::Fetcher.new(user, klass, @metric, @threshold).fetch
+    @rankings = Recommendations::Fetcher.new(user, @view.klass, @metric, @threshold).fetch
 
     if @rankings.present?
-      @entries = []
-
       if @rankings.any?
-        params[:ids_with_sort] = @rankings
-
-        params[:exclude_ai_genres] = true
-        params[:exclude_ids] = user
-          .send("#{klass.name.downcase}_rates")
-          .includes(klass.name.downcase.to_sym).inject([]) do |result, v|
+        excluded_ids = user
+          .send("#{@view.klass.name.downcase}_rates")
+          .includes(@view.klass.name.downcase.to_sym).inject([]) do |result, v|
             result << v.target_id unless v.planned?
             result
           end
+
+        params[AnimesCollection::RecommendationsQuery::IDS_KEY] = @rankings.keys
+        params[AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY] = excluded_ids
       end
 
       super
+
     else
       respond_to do |format|
         format.html do
-          params[:ids_with_sort] = {}
           super
         end
         format.json do
@@ -68,18 +67,18 @@ class RecommendationsController < AnimesCollectionController
   end
 
   def favourites
-    page_title klass == Anime ? i18n_t('what_anime_to_watch') : i18n_t('what_manga_to_read')
-    cache_key = [:favourites_recommendations, klass, current_user, current_user.try(:sex)]
+    page_title @view.klass == Anime ? i18n_t('what_anime_to_watch') : i18n_t('what_manga_to_read')
+    cache_key = [:favourites_recommendations, @view.klass, current_user, current_user.try(:sex)]
 
     all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do
-      limit = klass == Anime ? 500 : 1000
-      FavouritesQuery.new.global_top(klass, limit, current_user)
+      limit = @view.klass == Anime ? 500 : 1000
+      FavouritesQuery.new.global_top(@view.klass, limit, current_user)
     end
 
-    @entries = all_entries
+    @collection = all_entries
       .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
       .each_with_object({}) do |(kind, group), memo|
-        limit = if klass == Anime
+        limit = if @view.klass == Anime
           kind == :tv ? 18 : (kind == :movie ? 12 : 8)
         else
           kind == :manga ? 18 : (kind == :one_shot || kind == :doujin ? 8 : 12)

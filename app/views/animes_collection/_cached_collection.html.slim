@@ -1,0 +1,10 @@
+- if view.cache?
+  - cache view.cache_key, expires_in: view.cache_expires_in do
+    = render partial: 'animes_collection/collection',
+      locals: { view: view },
+      formats: :html
+
+- else
+    = render partial: 'animes_collection/collection',
+      locals: { view: view },
+      formats: :html

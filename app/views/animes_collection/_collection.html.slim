@@ -1,42 +1,41 @@
-/ специальная вёрстка отображения отдельного сезона:
-/ каталог разбит на куски по kind, каждый кусок отображается с заголовков
-
-- if @render_by_kind
-  - if @entries.none? && @current_page == 1
+- if view.season_page?
+  / специальная вёрстка отображения отдельного сезона:
+  / каталог разбит на куски по kind, каждый кусок отображается с заголовков
+  - if @view.collection.none? && @view.page == 1
     .b-nothing_here = t '.nothing_here'
   - else
     - kinds_with_colors.each do |data|
-      - next unless @entries[data[:kind]]
+      - next unless @view.collection[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "collection_title.kind.#{@klass.name.downcase}.long.#{data[:kind]}"
+        = t "collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
           = render partial: 'animes/anime',
-            collection: @entries[data[:kind]],
-            locals: {cover_notice: :studio, content_by: :mini_tooltip },
+            collection: @view.collection[data[:kind]],
+            locals: { cover_notice: :studio, content_by: :mini_tooltip },
             cache: ->(entry, _) { [entry, :studio, :mini_tooltip, I18n.locale] }
       - else
         .m0 class="cc-#{data[:kind] == 'doujin' || data[:kind] == 'one_shot' ? 6 : 'entries'}"
           = render partial: 'animes/anime',
-            collection: @entries[data[:kind]],
+            collection: @view.collection[data[:kind]],
             locals: { cover_notice: :studio, content_by: :mini_tooltip },
             cache: ->(entry, _) { [entry, :studio, :mini_tooltip, I18n.locale] }
 
 - else
   .cc-entries
-    - if @entries.none? && @current_page == 1
+    - if @view.collection.none? && @view.page == 1
       .b-nothing_here = t '.nothing_here'
     - else
       = render partial: 'animes/anime',
-        collection: @entries,
-        locals: {cover_notice: :year_kind, content_by: :mini_tooltip },
+        collection: @view.collection,
+        locals: { cover_notice: :year_kind, content_by: :mini_tooltip },
         cache: ->(entry, _) { [entry, :year_kind, :mini_tooltip, I18n.locale] }
 
   - if !user_signed_in? || current_user.preferences.postload_in_catalog
-    - if @next_page.present?
+    - if @view.next_page_url
       = render 'blocks/postloader',
-        next_url: @next_page,
-        prev_url: @prev_page,
+        next_url: @view.next_page_url,
+        prev_url: @view.prev_page_url,
         filter: nil
