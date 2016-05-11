@@ -19,17 +19,36 @@ describe ClubsQuery do
   end
 
   describe '#fetch' do
-    subject { query.fetch page, limit }
-    let(:limit) { 2 }
+    subject { query.fetch page, limit, with_favourites }
 
-    context 'first_page' do
-      let(:page) { 1 }
-      it { is_expected.to eq [club_1, club_3, club_4] }
+    context 'without favourites' do
+      let(:with_favourites) { false }
+      let(:limit) { 2 }
+
+      context 'first_page' do
+        let(:page) { 1 }
+        it { is_expected.to eq [club_1, club_3, club_4] }
+      end
+
+      context 'second_page' do
+        let(:page) { 2 }
+        it { is_expected.to eq [club_4] }
+      end
     end
 
-    context 'second_page' do
-      let(:page) { 2 }
-      it { is_expected.to eq [club_4] }
+    context 'with favourite' do
+      let(:with_favourites) { true }
+      let(:limit) { 2 }
+
+      context 'first_page' do
+        let(:page) { 1 }
+        it { is_expected.to eq [club_1, club_3, club_4] }
+      end
+
+      context 'second_page' do
+        let(:page) { 2 }
+        it { is_expected.to eq [club_4, club_favoured] }
+      end
     end
   end
 

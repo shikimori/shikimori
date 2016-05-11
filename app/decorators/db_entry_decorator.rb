@@ -86,10 +86,10 @@ class DbEntryDecorator < BaseDecorator
 
   # все связанные клубы
   def all_linked_clubs
-    query = ClubsQuery.new.query.where(id: object.clubs)
+    query = ClubsQuery.new.query(true).where(id: object.clubs)
 
     if !object.try(:censored?) && h.censored_forbidden?
-      query.where(is_censored: false) 
+      query.where(is_censored: false)
     else
       query
     end

@@ -46,9 +46,6 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 - if defined?(@canonical) && !@canonical.blank?
   link rel="canonical" href="#{{@canonical}}"
 
-- if defined?(@page) && @page > 1
-  - @meta_tags[:title] = (@meta_tags[:title].class == Array ? @meta_tags[:title] << "Страница #{@page}" : "Страница #{@page} / #{@meta_tags[:title]}")
-
 - if @page_title.blank?
   title = Site::NAME
 

@@ -124,7 +124,10 @@ describe AnimesController do
     let(:club) { create :club, :with_topic, :with_member }
     let!(:club_link) { create :club_link, linked: anime, club: club }
     before { get :clubs, id: anime.to_param }
-    it { expect(response).to have_http_status :success }
+    it do
+      binding.pry;
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#comments' do

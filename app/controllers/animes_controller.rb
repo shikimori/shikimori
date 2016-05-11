@@ -124,7 +124,7 @@ class AnimesController < DbEntriesController
 
   def clubs
     if @resource.all_linked_clubs.none?
-      return redirect_to @resource.url, status: 301 
+      return redirect_to @resource.url, status: 301
     end
 
     noindex

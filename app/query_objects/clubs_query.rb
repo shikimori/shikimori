@@ -5,8 +5,18 @@ class ClubsQuery < SimpleQueryBase
     clubs.where(id: FAVOURITE)
   end
 
-  def query
-    clubs.where.not(id: FAVOURITE)
+  def fetch page, limit, with_favourites = false
+    query(with_favourites)
+      .offset(limit * (page-1))
+      .limit(limit + 1)
+  end
+
+  def query with_favourites
+    if with_favourites
+      clubs
+    else
+      clubs.where.not(id: FAVOURITE)
+    end
   end
 
 private
