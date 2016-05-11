@@ -32,7 +32,7 @@ module Site
     config.i18n.locale = :ru
     config.i18n.available_locales = [:ru, :en]
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join("config/locales/**/*.yml")]
+    config.i18n.load_path += Dir[Rails.root.join('config/locales/**/*.yml')]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

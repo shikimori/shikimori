@@ -7,8 +7,7 @@ class DynamicElements.UserRates.Button extends View
     @user_rate = @$root.data 'user_rate'
     @_render()
 
-    # delegated gandlers because @_render can be called multiple times
-    # клик по раскрытию вариантов добавления в список
+    # delegated handlers because @_render can be called multiple times
     @on 'click', '.trigger-arrow', @_toggle_list
     @on 'click', '.edit-trigger', @_toggle_list
 
@@ -84,5 +83,5 @@ class DynamicElements.UserRates.Button extends View
     target_id: @user_rate.target_id
     target_type: @user_rate.target_type
 
-  # must be redifined in inherited class
+  # must be redefined in inherited class
   _extended_html: ->

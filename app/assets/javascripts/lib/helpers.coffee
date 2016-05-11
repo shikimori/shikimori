@@ -6,4 +6,4 @@
   arguments[plural + 1]
 
 @t = (phrase, options) ->
-  I18n.t phrase,options
+  I18n.t phrase, options
