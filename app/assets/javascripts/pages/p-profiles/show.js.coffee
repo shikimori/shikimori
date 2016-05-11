@@ -57,6 +57,7 @@
       from_date = moment(entry.dates.from).format date_format
       to_date = moment(entry.dates.to).format date_format
 
+      # TODO: refactor to i18n-js
       t TRANSLATIONS, 'title',
         hours: entry.value,
         hour_word: hour_word,
@@ -97,6 +98,13 @@ date_diff = (date_earlier, date_later) ->
   one_day = 1000 * 60 * 60 * 24
   Math.round((date_later.getTime() - date_earlier.getTime()) / one_day * 10) / 10
 
+t = (translations, key, options) ->
+  phrase = translations[LOCALE][key]
+  for option, replacement of options
+    phrase = phrase.replace('%{' + option + '}', replacement)
+  phrase
+
+# TODO: refactor to i18n-js
 TRANSLATIONS =
   ru:
     hour:

@@ -34,6 +34,7 @@ Site::Application.configure do
   config.active_support.deprecation = :log
 
   config.middleware.use 'TurboDev'
+  config.middleware.use 'I18n::JS::Middleware'
 
   if defined? Pry
     Pry.config.auto_indent = false

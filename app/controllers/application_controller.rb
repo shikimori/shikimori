@@ -137,9 +137,9 @@ private
         URI.parse(request.headers['HTTP_REFERER']).host != URI.parse(request.url).host &&
         request.headers['rack.cors'] && request.headers['rack.cors'].hit
       )
-      false
+      'xhr'
     else
-      Rails.env.development? && params[:no_layout] ? false : 'application'
+      Rails.env.development? && params[:no_layout] ? 'xhr' : 'application'
     end
   rescue URI::InvalidURIError
     'application'

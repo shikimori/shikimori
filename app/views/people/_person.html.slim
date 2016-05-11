@@ -3,10 +3,10 @@
 - content_by ||= :tooltip
 
 article.c-column.b-catalog_entry.c-person[
-    class="entry-#{person.id} #{:tooltipped if content_by == :inline_tooltip} #{:cc if content_by == :block} item-#{person_counter if defined? person_counter}"
-    itemscope itemtype='http://schema.org/Person'
-    itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
-  ]
+  class="entry-#{person.id} #{:cc if content_by == :block} item-#{person_counter if defined? person_counter}"
+  itemscope itemtype='http://schema.org/Person'
+  itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
+]
   meta[
     itemprop='image'
     content="#{{meta_image_url person.image, :original, false}}"

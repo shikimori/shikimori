@@ -1,14 +1,14 @@
 header.head.misc
   h1 = @page_title.last
 
-  - if @klass == Anime
+  - if @view.klass == Anime
     a.misc href="#{recommendations_manga_url}" = t 'switch_to_manga'
   - else
     a.misc href="#{recommendations_anime_url}" = t 'switch_to_anime'
 
   - if user_signed_in?
-    .b-header_filters style="#{'display: none;' if @entries.nil?}"
-      - if @klass == Anime
+    .b-header_filters style="#{'display: none;' if @view.collection.nil?}"
+      - if @view.klass == Anime
         .filter-line
           span.title = "#{t '.method'}:"
 
@@ -48,45 +48,45 @@ header.head.misc
         span.title = "#{t '.filtering'}:"
 
         a[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][0]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][0], user: params[:user]}"
+          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][0]}"
+          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][0], user: params[:user]}"
         ] = t '.filtering_type.none'
 
         a[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][1]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][1], user: params[:user]}"
+          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][1]}"
+          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][1], user: params[:user]}"
         ] = t '.filtering_type.soft'
 
         a[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][2]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][2], user: params[:user]}"
+          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][2]}"
+          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][2], user: params[:user]}"
         ] = t '.filtering_type.moderate'
 
         a[
-          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][3]}"
-          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][3], user: params[:user]}"
+          class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][3]}"
+          href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][3], user: params[:user]}"
         ] = t '.filtering_type.hard'
 
-        - if @klass == Anime
+        - if @view.klass == Anime
           a[
-            class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@klass][4]}"
-            href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@klass][4], user: params[:user]}"
+            class="#{:current if @threshold == RecommendationsController::THRESHOLDS[@view.klass][4]}"
+            href="#{recommendations_url metric: @metric, threshold: RecommendationsController::THRESHOLDS[@view.klass][4], user: params[:user]}"
           ] = t '.filtering_type.full'
 
       .hint = t '.filtering_hint'
 
   .notice
     p = t '.about',
-          action: (@klass == Anime ? i18n_i(:watching, 1, :dative) : i18n_i(:reading, 1, :dative)),
-          kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+          action: (@view.klass == Anime ? i18n_i(:watching, 1, :dative) : i18n_i(:reading, 1, :dative)),
+          kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
     p = t '.how_it_works',
-          kind: (@klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
+          kind: (@view.klass == Anime ? i18n_i(:anime, 1, :genitive) : i18n_i(:manga, 1, :genitive))
 
 - if @rankings && @rankings.empty?
   .no-rankings
     p.fail = t '.cant_generate_recommendations'
     p
-      - if @klass == Anime
+      - if @view.klass == Anime
         = t '.anime_recommendations_generation_requirements'
       - else
         = t '.manga_recommendations_generation_requirements'
@@ -104,7 +104,7 @@ header.head.misc
   .menu-slide-outer.x199
     .menu-slide-inner
       .l-content.to-process data-dynamic="cutted_covers"
-        = render 'animes_collection/entries'
+        = render 'animes_collection/cached_collection', view: @view
 
       .l-menu
         - if user_signed_in? || turbolinks_request?

@@ -1,19 +1,16 @@
-= simple_form_for [:api, resource],
+= simple_form_for [:api, :v2, resource],
     remote: true,
-    html: { 'data-type' => :json },
+    html: { 'data-type' => :json, class: 'b-form rate-edit' },
     authenticity_token: true do |f|
 
-  - unless params[:api]
-    input type='hidden' name='frontend' value='1'
-
-    .remove-container
-      a.remove[
-        href="#{api_user_rate_url f.object, frontend: 1}"
-        title="#{t '.remove_from_my_list'}"
-        data-method="delete"
-        data-remote="true"
-        data-type="json"
-      ] = t '.remove_from_my_list'
+  .remove-container.top.hidden
+    a.remove[
+      href="#{api_user_rate_url f.object, frontend: true}"
+      title="#{t '.remove_from_my_list'}"
+      data-method="delete"
+      data-remote="true"
+      data-type="json"
+    ] = t '.remove_from_my_list'
 
   = f.input :score,
     as: :select,
@@ -46,9 +43,9 @@
     input_html: { min: 0 }
   = f.input :text, as: :text
 
-  - if params[:api]
+  .remove-container.bottom
     a.remove[
-      href="#{api_user_rate_url f.object, frontend: 1}"
+      href="#{api_user_rate_url f.object, frontend: true}"
       title="#{t '.remove_from_my_list'}"
       data-method="delete"
       data-remote="true"

@@ -13,7 +13,8 @@
             cover_notice: :latest_episode,
             content_by: :block,
             content_text: :none\
-          }
+          },
+          cache: ->(entry, _) { [entry, :latest_episode, :block, I18n.locale] }
 
         - if @add_postloader
           = render 'blocks/postloader', filter: 'b-catalog_entry',

@@ -6,7 +6,7 @@
         title: t('.rss_title', nickname: @resource.nickname)
 
   h2.subheadline.m10 = @page_title.last
-  - cache [:history, :v2, @resource, @view.page, I18n.locale] do
+  - cache [:history, :v2, @resource, @view.page] do
     .block
       = render 'history', collection: @view.collection
 

@@ -5,8 +5,5 @@
   plural = if n == 0 then 0 else plural
   arguments[plural + 1]
 
-@t = (translations, key, options) ->
-  phrase = translations[LOCALE][key]
-  for option, replacement of options
-    phrase = phrase.replace('%{' + option + '}', replacement)
-  phrase
+@t = (phrase, options) ->
+  I18n.t phrase, options

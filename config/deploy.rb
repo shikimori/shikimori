@@ -18,6 +18,7 @@ set :slack_channel, ->{ '#general' }
 set :slack_username, ->{ ENV['USER'] }
 
 set :user, 'devops'
+set :group, 'apps'
 set :unicorn_user, 'devops'
 
 set :linked_files, %w{
@@ -37,8 +38,8 @@ def shell_exec command
   execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"
 end
 
-def bundle_exec command
-  shell_exec "cd #{deploy_to}/current && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
+def bundle_exec command, witin_path = "#{self.deploy_to}/current"
+  shell_exec "cd #{witin_path} && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
 end
 
 namespace :deploy do
@@ -49,6 +50,28 @@ namespace :deploy do
     end
     on roles(:app), in: :sequence, wait: 5 do
       execute "sudo /etc/init.d/#{fetch :application}_#{fetch :stage} upgrade"
+    end
+  end
+
+  namespace :file do
+    task :lock do
+      on roles(:app) do
+        execute "touch /tmp/deploy_#{fetch :application}_#{fetch :stage}.lock"
+      end
+    end
+
+    task :unlock do
+      on roles(:app) do
+        execute "rm /tmp/deploy_#{fetch :application}_#{fetch :stage}.lock"
+      end
+    end
+  end
+
+  namespace :i18n_js do
+    task :export do
+      on roles(:app) do
+        bundle_exec 'rake i18n:js:export'
+      end
     end
   end
 end
@@ -172,10 +195,15 @@ namespace :whenever do
   end
 end
 
+after 'deploy:starting', 'deploy:file:lock'
+after 'deploy:published', 'deploy:file:unlock'
+
 after 'deploy:starting', 'sidekiq:quiet'
 after 'deploy:updated', 'sidekiq:stop'
 after 'deploy:reverted', 'sidekiq:stop'
 after 'deploy:published', 'sidekiq:start'
+
+before 'deploy:assets:precompile', 'deploy:i18n_js:export'
 
 if fetch(:stage) == :production
   after 'deploy:updated', 'clockwork:stop'

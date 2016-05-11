@@ -60,23 +60,24 @@ class @PaginatedCatalog
   _page_loaded_by_scroll: (e, $content, data) =>
     @$link_current.html @$link_current.html().replace(/-\d+|$/, "-" + data.current_page)
     @$link_title.html @$link_title.data('text')
-    @$link_total.html data.total_pages
+    @$link_total.html data.pages_count
 
     @$link_prev.attr
-      href: data.prev_page || ""
-      action: data.prev_page
+      href: data.prev_page_url || ""
+      action: data.prev_page_url
 
     @$link_next.attr
-      href: data.next_page || ""
-      action: data.next_page
+      href: data.next_page_url || ""
+      action: data.next_page_url
 
-    @$link_prev.toggleClass 'disabled', !data.prev_page
-    @$link_next.toggleClass 'disabled', !data.next_page
+    @$link_prev.toggleClass 'disabled', !data.prev_page_url
+    @$link_next.toggleClass 'disabled', !data.next_page_url
 
     # после pages_limit отключаем postloader (слишком много контента на странице оказывается и начинает тормозить)
     if @_is_pages_limit()
       $content.find('.b-postloader').data locked: true
 
+    UserRates.Tracker.track data.tracked_user_rates, $content
     @$content.process()
 
   # наступил ли лимит прокрутки страниц?
@@ -188,6 +189,36 @@ class @PaginatedCatalog
 
   # обработка контента, полученного от аякс-запроса
   _process_ajax_content: (data, url) ->
+    document.title = "#{data.title}"
+
+    $content = $(data.content)
+
+    UserRates.Tracker.track data.tracked_user_rates, $content
+
+    @$content
+      .html($content)
+      .process()
+
+    $('.head h1').html data.title
+    $('.head .notice').html data.notice
+
+    @$link_current.html data.page
+    @$link_total.html data.pages_count
+
+    @$link_prev.attr(href: data.prev_page_url || '', action: data.prev_page_url)
+    if data.prev_page_url
+      @$link_prev.removeClass "disabled"
+    else
+      @$link_prev.addClass "disabled"
+
+    @$link_next.attr(href: data.next_page_url || '', action: data.next_page_url)
+    if data.next_page_url
+      @$link_next.removeClass "disabled"
+    else
+      @$link_next.addClass "disabled"
+
+    @$pagination.toggle !(@$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled'))
+
     # отслеживание страниц в гугл аналитике и яндекс метрике
     if '_gaq' of window
       _gaq.push [
@@ -196,29 +227,3 @@ class @PaginatedCatalog
       ]
     if 'yaCounter7915231' of window
       yaCounter7915231.hit url
-
-    document.title = "#{data.title}"
-
-    @$content
-      .html(data.content)
-      .process()
-
-    $('.head h1').html data.title
-    $('.head .notice').html data.notice
-
-    @$link_current.html data.current_page
-    @$link_total.html data.total_pages
-
-    @$link_prev.attr(href: data.prev_page || '', action: data.prev_page)
-    if data.prev_page
-      @$link_prev.removeClass "disabled"
-    else
-      @$link_prev.addClass "disabled"
-
-    @$link_next.attr(href: data.next_page || '', action: data.next_page)
-    if data.next_page
-      @$link_next.removeClass "disabled"
-    else
-      @$link_next.addClass "disabled"
-
-    @$pagination.toggle !(@$link_next.hasClass('disabled') && @$link_prev.hasClass('disabled'))

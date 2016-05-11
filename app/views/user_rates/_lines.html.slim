@@ -53,9 +53,9 @@ table.b-table.list-lines
       tr.user_rate.unprocessed.selectable[
         class="#{:editable if library.user.own_profile?}"
         data-remote="#{true if library.user.own_profile?}"
-        data-action="#{edit_api_user_rate_path user_rate if library.user.own_profile?}"
+        data-action="#{edit_user_rate_path user_rate if library.user.own_profile?}"
         data-type='html'
-        data-rate_url="#{api_user_rate_path user_rate}"
+        data-rate_url="#{api_v2_user_rate_path user_rate}"
         data-target_id="#{user_rate.target_id}"
         data-title="#{user_rate.target_name}"
         data-text="#{user_rate.text}"

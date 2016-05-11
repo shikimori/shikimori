@@ -17,6 +17,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+gem 'jade-rails', github: 'GBH/jade-rails'
 gem 'd3_rails'
 
 gem 'uglifier'
@@ -28,11 +29,11 @@ gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 gem 'rack-attack'
 
+gem 'multi_fetch_fragments', github: 'watg/multi_fetch_fragments'
 gem 'actionpack-action_caching'
 gem 'attribute-defaults'
 gem 'attr_extras'
 gem 'state_machine'
-gem 'will_paginate', github: 'nazgum/will_paginate', branch: 'master'
 gem 'nokogiri'
 gem 'paperclip'
 gem 'rs_russian'
@@ -93,6 +94,7 @@ gem 'apipie-rails', '0.3.3' # 0.3.4 сломан
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
+gem 'i18n-js', '3.0.0.rc12'
 gem 'rails-i18n'
 gem 'i18n-inflector-rails'
 

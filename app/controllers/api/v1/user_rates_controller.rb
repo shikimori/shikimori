@@ -7,6 +7,10 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
+  def show
+    respond_with @resource
+  end
+
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates', 'Create an user rate'
   param :user_rate, Hash do
@@ -34,7 +38,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
       create_rate @resource
     end
 
-    respond @resource
+    respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
@@ -51,21 +55,21 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
   def update
     update_rate @resource
-    respond @resource
+    respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/user_rates/:id/increment'
   def increment
     @resource.update increment_params
-    respond @resource
+    respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :DELETE, '/user_rates/:id', 'Destroy an user rate'
   def destroy
     @resource.destroy!
-    respond @resource
+    head 204
   end
 
   # очистка списка и истории
@@ -121,13 +125,5 @@ private
     @resource = user_rate
     fail NotSaved unless @resource.update update_params
   rescue *ALLOWED_EXCEPTIONS
-  end
-
-  def respond user_rate
-    if params[:frontend]
-      render :create
-    else
-      respond_with user_rate, location: nil
-    end
   end
 end

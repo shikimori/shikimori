@@ -20,7 +20,9 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def user_role
-    member_roles.find {|v| v.user_id == h.current_user.id }.try :role if h.user_signed_in?
+    if h.user_signed_in?
+      member_roles.find {|v| v.user_id == h.current_user.id }&.role
+    end
   end
 
   def members
@@ -28,15 +30,15 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def animes
-    ApplyRatedEntries.new(h.current_user).call(all_animes)
+    all_animes
   end
 
   def mangas
-    ApplyRatedEntries.new(h.current_user).call(all_mangas)
+    all_mangas
   end
 
   def characters
-    all_characters.map(&:decorate)
+    all_characters
   end
 
   def menu_animes
@@ -44,7 +46,6 @@ class ClubDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:ranked)
-      .map(&:decorate)
   end
 
   def menu_mangas
@@ -52,7 +53,6 @@ class ClubDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:ranked)
-      .map(&:decorate)
   end
 
   def menu_characters
@@ -60,7 +60,6 @@ class ClubDecorator < DbEntryDecorator
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:name)
-      .map(&:decorate)
   end
 
   def images limit = 999
@@ -109,14 +108,14 @@ private
   end
 
   def all_animes
-    object.animes.order(:ranked).uniq(&:id)
+    object.animes.order(:ranked).uniq(&:id).map(&:decorate)
   end
 
   def all_mangas
-    object.mangas.order(:ranked).uniq(&:id)
+    object.mangas.order(:ranked).uniq(&:id).map(&:decorate)
   end
 
   def all_characters
-    object.characters.order(:name).uniq(&:id)
+    object.characters.order(:name).uniq(&:id).map(&:decorate)
   end
 end

@@ -1,8 +1,13 @@
 # TODO: отрефакторить толстый контроллер
 class AnimesCollectionController < ShikimoriController
-  helper_method :klass, :entries_per_page
-  caches_action :index, :menu, CacheHelper.cache_settings
-  before_action :set_order
+  CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
+
+  before_action do
+    params[:order] = Animes::SortField.new('ranked', view_context).field
+
+    @view = AnimesCollection::View.new params[:klass].classify.constantize
+    @menu = Menus::CollectionMenu.new @view.klass
+  end
 
   # страница каталога аниме/манги
   def index
@@ -14,35 +19,26 @@ class AnimesCollectionController < ShikimoriController
       params[:with_censored] = params[:is_adult]
     end
 
-    query = AniMangaQuery.new(klass, params, current_user).fetch
-
     if params[:search]
       noindex && nofollow
-      raise AgeRestricted if params[:search] =~ /\b(?:sex|секс|porno?|порно)\b/ && censored_forbidden?
+      raise AgeRestricted if params[:search] =~ CENSORED && censored_forbidden?
       page_title i18n_t('search', search: SearchHelper.unescape(params[:search]))
     end
 
-    # для сезонов без пагинации
-    @entries = if params[:season].present? && params[:season] =~ /^([a-z]+_\d+,?)+$/ && !params[:ids_with_sort].present?
-      @render_by_kind = true
-      fetch_wo_pagination query
-    else
-      fetch_with_pagination query
-    end
     one_found_redirect_check
 
     if params[:rel] || request.url.include?('order') ||
-        @description.blank? || @entries.empty? ||
+        @description.blank? || @view.collection.empty? ||
         params.any? {|k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
       noindex and nofollow
     end
 
-    @description = '' if params_page > 1 && !turbolinks_request?
-    @title_notice = "" if params_page > 1 && !turbolinks_request?
+    @description = '' if @view.page > 1 && !turbolinks_request?
+    @title_notice = '' if @view.page > 1 && !turbolinks_request?
 
     description @description
     keywords Titles::AnimeKeywords.new(
-      klass: klass,
+      klass: @view.klass,
       season: params[:season],
       type: params[:type],
       genres: @entry_data[:genre],
@@ -54,32 +50,17 @@ class AnimesCollectionController < ShikimoriController
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
   rescue BadStatusError
-    redirect_to send(collection_url_method, url_params(status: nil)), status: 301
-
+    redirect_to @view.url(status: nil), status: 301
   rescue BadSeasonError
-    redirect_to send(collection_url_method, url_params(season: nil)), status: 301
-
+    redirect_to @view.url(season: nil), status: 301
   rescue ForceRedirect => e
     redirect_to e.url, status: 301
   end
 
-  # меню каталога аниме/манги
-  def menu
-    @menu = Menus::CollectionMenu.new klass
-  end
-
 private
 
-  # класс текущего элемента
-  def klass
-    @klass ||= Object.const_get(params[:klass].to_s.camelize)
-  end
-
-  # окружение страниц
+  # TODO: refactor this shit
   def build_background
-    @current_page = params_page
-    @menu = Menus::CollectionMenu.new klass
-
     all_data = {
       genre: @menu.genres,
       publisher: @menu.publishers,
@@ -88,12 +69,12 @@ private
     @entry_data = {}
 
     if params[:type] =~ /[A-Z -]/
-      raise ForceRedirect, collection_url(type: params[:type].downcase.sub(/ |-/, '_'))
+      raise ForceRedirect, @view.url(type: params[:type].downcase.sub(/ |-/, '_'))
     end
-    types = [klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
+    types = [@view.klass.kind.values + %w(tv_48 tv_24 tv_13)].join '|'
     if params[:type] && params[:type] !~ %r{\A (?: !? (?:#{types}) (?:,|\Z ) )+ \Z}mix
       fixed = params[:type].split(',').select {|v| v =~ %r{\A !? (?:#{types}) \Z }mix }
-      raise ForceRedirect, collection_url(type: fixed.join(','))
+      raise ForceRedirect, @view.url(type: fixed.join(','))
     end
 
     [:genre, :studio, :publisher].each do |kind|
@@ -107,107 +88,36 @@ private
         filter_klass = kind.to_s.capitalize.constantize
         all_param_ids.each do |id|
           if filter_klass::Merged.include? id
-            raise ForceRedirect, collection_url(kind.to_sym => params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s))
+            fixed_kind = params[kind].gsub(%r{\b#{id}\b}, filter_klass::Merged[id].to_s)
+            raise ForceRedirect, @view.url(kind.to_sym => fixed_kind)
           end
         end
 
         next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data.first.to_param
-        raise ForceRedirect, collection_url(kind.to_sym => all_entry_data.first.to_param)
+        raise ForceRedirect, @view.url(kind.to_sym => all_entry_data.first.to_param)
       end
     end
 
-    if params[:controller] == 'animes_collection'
+    unless @view.recommendations?
       page_title collection_title(@entry_data).title
       @title_notice = build_page_description @entry_data
       @description = @page_title.last
     end
   end
 
-  # постраничное разбитие коллекции
-  def build_pagination_links(entries, total_pages)
-    options = filtered_params
-
-    if total_pages
-      @total_pages = total_pages == 0 ? 1 : total_pages
-    else
-      @total_pages = entries.total_pages == 0 ? 1 : entries.total_pages
-    end
-    if @current_page == 1
-      @prev_page = ''
-    else
-      @prev_page = url_for(options.merge(page: @current_page == 2 ? nil : (@current_page-1)))
-    end
-
-    if @current_page == @total_pages
-      @next_page = ''
-    else
-      @next_page = @current_page < @total_pages ? url_for(options.merge(page: @current_page+1)) : ''
-    end
-  end
-
   # редирект для не автороизованных пользователей при ссылках на mylist, чтобы не падало с ошибкой
   def mylist_redirect_check
     if params.include?(:mylist) && !user_signed_in?
-      raise ForceRedirect, url_for(filtered_params.merge(mylist: nil))
+      raise ForceRedirect, @view.url(mylist: nil)
     end
-  end
-
-  # выборка из датасорса без пагинации
-  def fetch_wo_pagination(query)
-    entries = AniMangaQuery.new(klass, params).order(query)
-
-    ApplyRatedEntries.new(current_user).call(entries)
-      .group_by { |v| v.anime? && (v.kind_ova? || v.kind_ona?) ? 'OVA/ONA' : v.kind }
-  end
-
-  # выборка из датасорса с пагинацией
-  def fetch_with_pagination(ds)
-    entries = []
-    # выборка id элементов с разбивкой по страницам
-    unless params.include? :ids_with_sort
-      entries = ds
-        .select("#{klass.name.tableize}.id")
-        .paginate(page: @current_page, per_page: entries_per_page)
-      total_pages = entries.total_pages
-    else
-      entries = ds
-        .where(id: params[:ids_with_sort].keys)
-        .where("#{klass.name.tableize}.kind not in (?)", [:special, :music])
-        .select("#{klass.name.tableize}.id")
-        .to_a
-      total_pages = (entries.size * 1.0 / entries_per_page).ceil
-      entries = entries
-        .sort_by {|v| -params[:ids_with_sort][v.id] }
-        .drop(entries_per_page*(@current_page-1))
-        .take(entries_per_page)
-    end
-
-    entries = klass
-      .where(id: entries.map(&:id))
-      .includes(:genres)
-      .includes(klass == Anime ? :studios : :publishers)
-
-    # повторная сортировка полученной выборки
-    if params[:ids_with_sort].present?
-      entries = entries.sort_by {|v| -params[:ids_with_sort][v.id] }
-    else
-      entries = AniMangaQuery.new(klass, params).order(entries).to_a
-    end
-    build_pagination_links entries, total_pages
-
-    ApplyRatedEntries.new(current_user).call(entries)
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент
   def one_found_redirect_check
-    if params[:search] && @entries.kind_of?(Array) &&
-        @entries.count == 1 && @current_page == 1 && !json?
-      raise ForceRedirect, url_for(@entries.first)
+    if params[:search] && @view.collection.kind_of?(Array) &&
+        @view.collection.count == 1 && @view.page == 1 && !json?
+      raise ForceRedirect, url_for(@view.collection.first)
     end
-  end
-
-  def params_page
-    [(params[:page] || 1).to_i, 1].max
   end
 
   def build_page_description entry_data
@@ -222,33 +132,6 @@ private
     end
   end
 
-  # число аниме/манги на странице
-  def entries_per_page
-    #user_signed_in? ? 24 : 12
-    #user_signed_in? ? 40 : 20
-    20
-  end
-
-  def filtered_params
-    params.merge(
-      format: nil,
-      exclude_ids: nil,
-      ids_with_sort: nil,
-      template: nil,
-      is_adult: nil,
-      exclude_ai_genres: nil
-    )
-  end
-
-  def collection_url changed_params
-    send collection_url_method, filtered_params.merge(changed_params).symbolize_keys
-  end
-
-  def collection_url_method
-    "#{klass.table_name}_url"
-  end
-
-  # TODO: удалить released_at после 01.05.2014
   def order_name
     case params[:order]
       when 'name'
@@ -257,7 +140,7 @@ private
         i18n_t 'order.by_popularity'
       when 'ranked'
         i18n_t 'order.by_ranking'
-      when 'released_on', 'released_at', 'aired_on'
+      when 'released_on', 'aired_on'
         i18n_t 'order.by_released_date'
       when 'id'
         i18n_t 'order.by_add_date'
@@ -266,7 +149,7 @@ private
 
   def collection_title entry_data
     @collection_title ||= Titles::CollectionTitle.new(
-      klass: klass,
+      klass: @view.klass,
       user: current_user,
       season: params[:season],
       type: params[:type],
@@ -275,9 +158,5 @@ private
       studios: entry_data[:studio],
       publishers: entry_data[:publisher]
     )
-  end
-
-  def set_order
-    params[:order] = Animes::SortField.new('ranked', view_context).field
   end
 end

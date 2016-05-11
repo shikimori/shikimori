@@ -10,8 +10,10 @@
     ]
 
   .name-container class="#{:with_note if relation_note.respond_to? :relation}"
-    a.name.bubbled href="#{relation_note.url}" title="#{relation_note.name}"
-      = localization_span relation_note
+    a.name.bubbled[
+      href="#{relation_note.url}"
+      title="#{relation_note.name}"
+    ] = localization_span relation_note
 
     .note
       - if relation_note.respond_to? :relation
@@ -22,9 +24,5 @@
         - if relation_note.aired_on
           span = t '.year', year: relation_note.aired_on.year
 
-    - if user_signed_in?
-      = render 'user_rates/user_rate',
-        user_rate: relation_note.current_rate || relation_note.rates.build(user_id: current_user.try(:id)),
-        entry: relation_note,
-        button_only: true,
-        minified: true
+    = render partial: 'user_rates/placeholder',
+      locals: { target: relation_note, extended: false }

@@ -33,6 +33,7 @@ class FavouritesQuery
 
     klass
       .where(id: fav_ids - in_list_ids - ignored_ids)
+      .includes(klass == Anime ? :studios : :publishers)
       .where.not(kind: [:special, :music])
       .where.not(id: ai_censored_ids)
       .sort_by {|v| fav_ids.index v.id }

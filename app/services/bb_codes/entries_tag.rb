@@ -69,7 +69,8 @@ private
         cover_title: cover_title,
         cover_notice: cover_notice
       },
-      formats: [:html]
+      formats: [:html],
+      cache: ->(entry, _) { [entry, cover_title, cover_notice, I18n.locale] }
     )
   end
 

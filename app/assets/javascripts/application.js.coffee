@@ -1,48 +1,26 @@
-#= require pages/p-moderations
-#= require pages/p-users-index
-#= require pages/p-animes
-#= require pages/p-animes_collection-index
-#= require pages/p-recommendations-index
-
-#= require_directory ./pages/p-db_entries
-#= require pages/p-dashboards
-#= require pages/p-seyu
-#= require pages/p-people
-#= require pages/p-characters
-#= require pages/p-contests
-#= require pages/p-dialogs
-#= require pages/p-messages
-#= require pages/p-userlist_comparer
-#= require pages/p-translations
-#= require pages/p-achievements
-#= require pages/p-versions
-#= require_directory ./pages/p-clubs
-#= require_directory ./pages/p-reviews
-#= require_directory ./pages/p-profiles
-#= require_directory ./pages/p-user_rates
-#= require_directory ./pages/p-topics
-#= require pages/p-tests
-
 # require anime_online/application
 # require manga_online/application
 
 $ =>
   $body = $(document.body)
   @ENV = $body.data 'env'
-  @USER_SIGNED_IN = $body.data 'user-signed-in'
-  @DAY_REGISTERED = $body.data 'day-registered'
-  @WEEK_REGISTERED = $body.data 'week-registered'
-  @IGNORE_COPYRIGHT = $body.data 'ignore-copyright'
+  @USER_ID = $body.data 'user_id'
+  @USER_SIGNED_IN = !!@USER_ID
+  @DAY_REGISTERED = $body.data 'day_registered'
+  @WEEK_REGISTERED = $body.data 'week_registered'
+  @IGNORE_COPYRIGHT = $body.data 'ignore_copyright'
   @LOCALE = $body.data 'locale'
 
-  @IGNORED_TOPICS = $body.data 'ignored-topics'
+  @IGNORED_TOPICS = $body.data 'ignored_topics'
 
   @OPTIONS =
-    comments_auto_collapsed: $body.data('comments-auto-collapsed')
-    comments_auto_loaded: $body.data('comments-auto-loaded')
+    comments_auto_collapsed: $body.data('comments_auto_collapsed')
+    comments_auto_loaded: $body.data('comments_auto_loaded')
 
+  I18n.locale = LOCALE
   moment.locale(LOCALE)
-  @MOMENT_DIFF = moment($body.data('server-time')).diff(new Date())
+
+  @MOMENT_DIFF = moment($body.data('server_time')).diff(new Date())
 
   $(document).trigger 'page:load', true
 

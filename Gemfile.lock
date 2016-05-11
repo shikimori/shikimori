@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/GBH/jade-rails.git
+  revision: 12b2f5b34720a23bc6148f0a907df9018a1c2492
+  specs:
+    jade-rails (1.11.0.0)
+      execjs
+      tilt
+
+GIT
   remote: git://github.com/flori/amatch.git
   revision: 81db493aa8fa007b6d384e75960212ea1637412e
   specs:
@@ -55,19 +63,18 @@ GIT
     htmldiff (0.0.1)
 
 GIT
-  remote: git://github.com/nazgum/will_paginate.git
-  revision: 887d615971e76c01d19e2e274856129acf5b9ec3
-  branch: master
-  specs:
-    will_paginate (3.0.4)
-
-GIT
   remote: git://github.com/rails-api/active_model_serializers.git
   revision: 8d31f7ee8c0ea3ed83ab871765f1444291278b41
   branch: 0-8-stable
   specs:
     active_model_serializers (0.8.3)
       activemodel (>= 3.0)
+
+GIT
+  remote: git://github.com/watg/multi_fetch_fragments.git
+  revision: 8cae7d8dc1c0b00b94419035854d90ba93ca8863
+  specs:
+    multi_fetch_fragments (0.0.17)
 
 GIT
   remote: git://github.com/zph/clockwork.git
@@ -338,6 +345,8 @@ GEM
       actionpack (>= 3.0.0)
       i18n-inflector (~> 2.6)
       railties (>= 3.0.0)
+    i18n-js (3.0.0.rc12)
+      i18n (~> 0.6, >= 0.6.6)
     icalendar (2.3.0)
     ice_nine (0.11.1)
     jbuilder (2.4.1)
@@ -712,7 +721,9 @@ DEPENDENCIES
   htmldiff!
   htmlentities
   i18n-inflector-rails
+  i18n-js (= 3.0.0.rc12)
   icalendar
+  jade-rails!
   jbuilder
   letter_opener
   lograge
@@ -720,6 +731,7 @@ DEPENDENCIES
   marco-polo
   meta-tags
   metrika
+  multi_fetch_fragments!
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets
@@ -801,7 +813,6 @@ DEPENDENCIES
   virtus
   webmock
   whenever
-  will_paginate!
   xxhash
   zaru
 

@@ -80,6 +80,7 @@ $(document).on 'page:load', ->
     $main_search.removeClass 'hovered'
   , 250
 
+# TODO: refactor to i18n-js
 TRANSLATIONS =
   ru:
     animes: 'Поиск по аниме...'

@@ -1,0 +1,40 @@
+.rate-show
+  if user_rate.target_type == 'Anime'
+    .rate-number
+      span.current-episodes= user_rate.episodes
+
+      if entry.episodes == 0
+        span.sep
+          | /
+        span.total-episodes= entry.episodes
+
+      if user_rate.episodes != entry.episodes || user_rate.episodes == 0
+        span.item-add.increment(
+          data-action= increment_url
+          data-method='post'
+          data-remote='true'
+          data-type='json'
+        )
+
+    .episodes= t('activerecord.attributes.user_rate.episodes')
+
+  else
+    .rate-number
+      span.current-episodes= user_rate.chapters
+
+      if entry.chapters == 0
+        span.sep
+          | /
+        span.total-episodes= entry.chapters
+
+      if user_rate.chapters != entry.chapters || user_rate.chapters == 0
+        span.item-add.increment(
+          data-action= increment_url
+          data-remote='true'
+          data-type='json'
+          data-method='post'
+        )
+    .episodes= t('activerecord.attributes.user_rate.chapters')
+
+  if user_rate.text_html
+    .note!= user_rate.text_html

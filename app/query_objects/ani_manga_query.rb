@@ -2,8 +2,7 @@
 class AniMangaQuery
   include CompleteQuery
 
-  AnimeFeatured = [7724,5081,6746,7,4224,2418,3958,849,2562,1698,2025,2251,1601,5909,3549,396,5630,2966,957,4177,1606,1559,102,240,3358,877,5781,7054,3655,245,3702,4898,2926,4081,4066,5530,3974,6408,1575,5114,5680,9253]
-  AnimeSerials = [1604,6702,6033,235,21,1735,170,738,1482,820,15,2076,249,22,45,627,269,28]
+  EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
   Durations = {
     'S' => "(duration >= 0 and duration <= 10)",
@@ -38,7 +37,7 @@ class AniMangaQuery
     @mylist = params[:mylist]
     @search = SearchHelper.unescape params[:search]
 
-    @exclude_ai_genres = params[:exclude_ai_genres]
+    @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
     @exclude_ids = params[:exclude_ids]
 
     @user = user
@@ -452,8 +451,7 @@ private
       when 'ranked'
         "(case when ranked=0 then 999999 else ranked end), #{klass.table_name}.score desc"
 
-      # TODO: удалить released_at и released после 01.05.2014
-      when 'released_on', 'released_at', 'released'
+      when 'released_on'
         '(case when released_on is null then aired_on else released_on end) desc'
 
       when 'aired_on'

@@ -1,0 +1,6 @@
+ru:
+  frontend:
+    user_rates:
+      button:
+        add_to_list: Добавить в список
+        remove_from_my_list: Удалить из списка

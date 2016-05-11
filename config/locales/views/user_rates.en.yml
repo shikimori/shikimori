@@ -3,11 +3,6 @@ en:
     form:
       remove_from_my_list: Remove from My List
 
-    user_rate:
-      add_to_list: Add to My List
-      remove_from_my_list: Remove from My List
-      please_sign_in: This action requires <a href=\"%{url}\">registration</a>.
-
     list_page: &list_page
       order_by:
         name: Sort by name

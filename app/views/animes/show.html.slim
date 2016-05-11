@@ -73,9 +73,8 @@
             data-text="#{t '.actions.edit'}"
           ]
 
-      = render 'user_rates/user_rate',
-        user_rate: (@resource.rate if @resource.kind_of?(RatedEntry)) || @resource.current_rate || @resource.rates.build(user_id: current_user.try(:id)),
-        entry: @resource
+      = render partial: 'user_rates/placeholder',
+        locals: { target: @resource, extended: true }
 
     .c-about
       .cc

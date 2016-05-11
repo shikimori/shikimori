@@ -1,23 +1,21 @@
 class AniMangaDecorator::RelatedDecorator < BaseDecorator
-  instance_cache :related, :similar, :all, :similar_entries
+  instance_cache :related, :similar, :all
 
   # связанные аниме
   def related
-    entries = all.map do |v|
+    all.map do |v|
       RelatedEntry.new (v.anime || v.manga).decorate, v.relation
     end
     #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
-
-    ApplyRatedEntries.new(h.current_user).call entries
   end
 
   # похожие аниме
   def similar
-    if h.user_signed_in?
-      ApplyRatedEntries.new(h.current_user).call similar_entries
-    else
-      similar_entries
-    end
+    object
+      .similar
+      .includes(:dst)
+      .select { |v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
+      .map { |v| v.dst.decorate }
   end
 
   # есть ли они вообще?
@@ -50,15 +48,5 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
           (v.manga_id ? v.manga.aired_on : nil) ||
           Date.new(9999)
       end
-  end
-
-private
-
-  def similar_entries
-    object
-      .similar
-      .includes(:dst)
-      .select { |v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
-      .map { |v| v.dst.decorate }
   end
 end

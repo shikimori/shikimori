@@ -1,0 +1,6 @@
+= sweep_user_rates do
+  = yield
+
+- if user_signed_in?
+  javascript:
+    tracked_user_rates = #{{UserRates::Tracker.instance.export(current_user).to_json}};

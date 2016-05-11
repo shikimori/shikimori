@@ -8,15 +8,15 @@ html
     id="#{@layout.body_id}"
     style="#{@layout.background_styles}"
     data-env="#{Rails.env}"
-    data-user-signed-in="#{user_signed_in?}"
-    data-day-registered="#{user_signed_in? && current_user.day_registered?}"
-    data-week-registered="#{user_signed_in? && current_user.week_registered?}"
-    data-ignore-copyright="#{ignore_copyright?}"
-    data-ignored-topics="#{user_signed_in? ? current_user.topic_ignores.map(&:topic_id): []}"
-    data-comments-auto-collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
-    data-comments-auto-loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
+    data-user_id="#{current_user.id if user_signed_in?}"
+    data-day_registered="#{user_signed_in? && current_user.day_registered?}"
+    data-week_registered="#{user_signed_in? && current_user.week_registered?}"
+    data-ignore_copyright="#{ignore_copyright?}"
+    data-ignored_topics="#{user_signed_in? ? current_user.topic_ignores.map(&:topic_id): []}"
+    data-comments_auto_collapsed="#{user_signed_in? && current_user.preferences.comments_auto_collapsed?}"
+    data-comments_auto_loaded="#{user_signed_in? && current_user.preferences.comments_auto_loaded?}"
     data-locale="#{I18n.locale}"
-    data-server-time="#{Time.zone.now.iso8601}"
+    data-server_time="#{Time.zone.now.iso8601}"
   ]
     .turbolinks
 
@@ -28,7 +28,8 @@ html
         == alert
 
     - if @blank_layout
-      = yield
+      = sweep_user_rates do
+        = yield
 
     - else
       header.l-top_menu
@@ -48,7 +49,8 @@ html
           .admin_panel
 
         div
-          = yield
+          = sweep_user_rates do
+            = yield
 
         footer.l-footer
           = render 'application/footer'
@@ -65,4 +67,7 @@ html
         data-type='html'
       ]
         .marker-text data-text="#{t 'application.aside.report_bug'}"
+    - if user_signed_in?
+      javascript:
+        tracked_user_rates = #{{UserRates::Tracker.instance.export(current_user).to_json}};
     = yield :tail
