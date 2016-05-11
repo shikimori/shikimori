@@ -18,7 +18,12 @@ private
   end
 
   def pages_count
-    @pages_count ||= (query.size * 1.0 / limit).ceil
+    @pages_count ||= (entries_count * 1.0 / limit).ceil
+  end
+
+  def entries_count
+    size = query.size
+    size.kind_of?(Hash) ? size.count : size
   end
 
   def limit
