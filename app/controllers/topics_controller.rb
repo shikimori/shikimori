@@ -137,6 +137,7 @@ private
   end
 
   def set_breadcrumbs
+    page_title t('page', page: @view.page) if @view.page > 1
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 

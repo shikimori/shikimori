@@ -81,10 +81,12 @@ ru:
   mangagraphy: Мангаграфия
   mangaka: Мангака
   news: Новости
+  comments: Комментарии
   no_comments: Нет комментариев
   nothing_found: Ничего не найдено.
   notifications: Уведомления
   out_of: из
+  page: Страница %{page}
   page_not_found: Страница не найдена
   pagination:
     back: Назад

@@ -138,4 +138,16 @@ describe Forums::View do
       it { expect(view.linked).to be_nil }
     end
   end
+
+  describe '#page' do
+    context 'no page' do
+      let(:params) {{ }}
+      it { expect(view.page).to eq 1 }
+    end
+
+    context 'with page' do
+      let(:params) {{ page: 2 }}
+      it { expect(view.page).to eq 2 }
+    end
+  end
 end

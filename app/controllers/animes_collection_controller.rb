@@ -99,7 +99,9 @@ private
     end
 
     unless @view.recommendations?
+      page_title t('page', page: @view.page) if @view.page > 1
       page_title collection_title(@entry_data).title
+
       @title_notice = build_page_description @entry_data
       @description = @page_title.last
     end

@@ -55,6 +55,10 @@ class Forums::View < ViewObjectBase
     Forums::Form.new
   end
 
+  def page
+    (h.params[:page] || 1).to_i
+  end
+
 private
 
   def page_url page
@@ -64,10 +68,6 @@ private
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type]
     )
-  end
-
-  def page
-    (h.params[:page] || 1).to_i
   end
 
   def limit

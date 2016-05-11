@@ -86,6 +86,7 @@ en:
   nothing_found: Nothing found.
   notifications: Notifications
   out_of: out of
+  page: Page %{page}
   page_not_found: Page not found
   pagination:
     back: Back
