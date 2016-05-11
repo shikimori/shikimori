@@ -13,6 +13,18 @@ describe AnimesCollection::PageQuery do
     context 'anime' do
       let(:klass) { Anime }
 
+      context 'pagination' do
+        before { allow(query).to receive(:limit).and_return 1 }
+
+        it do
+          is_expected.to have_attributes(
+            collection: [anime_1],
+            page: 1,
+            pages_count: 2
+          )
+        end
+      end
+
       context 'without type' do
         it do
           is_expected.to have_attributes(

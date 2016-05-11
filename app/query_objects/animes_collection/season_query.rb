@@ -3,8 +3,8 @@ class AnimesCollection::SeasonQuery < AnimesCollection::PageQuery
 
 private
 
-  def collection
-    super.group_by do |v|
+  def process query
+    query.group_by do |v|
       v.anime? && (v.kind_ova? || v.kind_ona?) ? OVA_KEY : v.kind.to_s
     end
   end
