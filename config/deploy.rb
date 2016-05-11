@@ -70,7 +70,7 @@ namespace :deploy do
   namespace :i18n_js do
     task :export do
       on roles(:app) do
-        bundle_exec 'rake i18n:js:export'
+        bundle_exec 'rake i18n:js:export', release_path
       end
     end
   end
