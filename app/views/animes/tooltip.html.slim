@@ -1,4 +1,4 @@
-- cache @resource do
+- cache [@resource, params[:minified]] do
   = render 'animes/content',
     anime: @resource,
     with_image: params[:minified] ? false : true
