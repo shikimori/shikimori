@@ -1,6 +1,7 @@
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Button
-  TEMPLATE = 'templates/user_rates/extended'
+  EXTENDED_TEMPLATE = 'templates/user_rates/extended'
+  SCORE_TEMPLATE = 'templates/user_rates/score'
 
   initialize: ->
     @entry = @$root.data('entry')
@@ -10,6 +11,7 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
 
     @on 'ajax:success', '.remove', @_hide_form
     @on 'ajax:success', '.rate-edit', @_hide_form
+    @on 'rate:change', @_change_score
 
     super
 
@@ -39,13 +41,22 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
     @form_html = null
     @_render()
 
+  _change_score: (e, score) =>
+    @$('input[name="user_rate[score]"]').val score
+    @$('form').submit()
+
   # functions
   _extended_html: ->
     @form_html || @_render_extended() if @_is_persisted()
 
   _render_extended: ->
-    JST[TEMPLATE](
+    JST[EXTENDED_TEMPLATE](
       entry: @entry
       user_rate: @user_rate
       increment_url: "/api/v2/user_rates/#{@user_rate.id}/increment" if @_is_persisted()
+      rate_html: JST[SCORE_TEMPLATE](score: @user_rate.score)
     )
+
+  _render: ->
+    super
+    @$('.b-rate').rateable()

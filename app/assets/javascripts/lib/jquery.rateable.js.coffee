@@ -12,7 +12,6 @@
       notices = $(@).data('notices')
       input_selector = $(@).data('input_selector')
       with_input = !!input_selector
-      with_submit = !!$(@).data('with_submit')
 
       initial_score = parseInt($score_value.text()) || 0
       new_score = null
@@ -47,9 +46,9 @@
         if with_input
           initial_score = new_score
           $(@).trigger('mouseout')
-
           $(@).closest('form').find(input_selector).val(new_score)
-          $(@).closest('form').submit() if with_submit
+
+        $(@).trigger('rate:change', new_score)
 
   without_score = ($node) ->
     $node.attr('class').replace(/\s?score-\d+/, '')
