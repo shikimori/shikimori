@@ -220,7 +220,7 @@ class Anime < DbEntry
   end
 
   def schedule_at
-    Schedule.parse(schedule) if schedule && (ongoing? || anons?)
+    Schedule.parse(schedule, aired_on) if schedule && (ongoing? || anons?)
   end
 
   # при сохранении аниме проверка того, что изменилось и создание записей в историю при необходимости

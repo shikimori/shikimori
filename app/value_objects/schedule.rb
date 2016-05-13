@@ -1,5 +1,5 @@
 class Schedule
-  pattr_initialize :schedule
+  pattr_initialize :schedule, :start_on
 
   DAYS = %w(
     Mondays
@@ -18,14 +18,14 @@ class Schedule
   )mix
   JST_OFFSET = - 6.hours
 
-  def self.parse schedule
-    new(schedule).to_datetime
+  def self.parse schedule, start_on
+    new(schedule, start_on || Time.zone.today).to_datetime
   end
 
   def to_datetime
     return unless schedule && schedule =~ DATE
 
-    Time.zone.now.beginning_of_week +
+    start_on.beginning_of_week +
       DAYS.index($~[:day]).days +
       $~[:hours].to_i.hours +
       $~[:minutes].to_i.minutes +

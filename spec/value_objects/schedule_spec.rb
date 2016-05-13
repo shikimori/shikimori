@@ -3,7 +3,8 @@ describe Schedule do
   after { Timecop.return }
 
   describe '.parse' do
-    subject { Schedule.parse schedule }
+    subject { Schedule.parse schedule, start_on }
+    let(:start_on) { Date.parse '06-04-2016' }
 
     context 'nil' do
       let(:schedule) { nil }
@@ -17,7 +18,15 @@ describe Schedule do
 
     context 'matched' do
       let(:schedule) { 'Thursdays at 22:00 (JST)' }
-      it { is_expected.to eq Time.zone.parse('07-04-2016 16:00') }
+
+      context 'start_on now' do
+        it { is_expected.to eq Time.zone.parse('07-04-2016 16:00') }
+      end
+
+      context 'start_on in future' do
+        let(:start_on) { Date.parse '13-04-2016' }
+        it { is_expected.to eq Time.zone.parse('14-04-2016 16:00') }
+      end
     end
   end
 end
