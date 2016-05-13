@@ -1,5 +1,5 @@
 class AnimesCollection::View < ViewObjectBase
-  vattr_initialize :klass
+  vattr_initialize :klass, :user
 
   instance_cache :collection, :results, :filtered_params
   delegate :page, :pages_count, to: :results
@@ -25,14 +25,17 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache?
-    !recommendations? && !h.params[:mylist]
+    !recommendations?
   end
 
   def cache_key
+    user_key = user if h.params[:mylist]
+
     h.params
       .except(:format, :controller, :action)
       .sort_by(&:first)
-      .inject([klass.name]) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .inject([klass.name, user_key]) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .compact
   end
 
   def cache_expires_in
@@ -62,14 +65,24 @@ class AnimesCollection::View < ViewObjectBase
 private
 
   def results
-    Rails.cache.fetch cache_key, expires_in: cache_expires_in do
-      if recommendations?
-        AnimesCollection::RecommendationsQuery.new(klass, h.params).fetch
-      elsif season_page?
-        AnimesCollection::SeasonQuery.new(klass, h.params).fetch
-      else
-        AnimesCollection::PageQuery.new(klass, h.params).fetch
-      end
+    if cache?
+      Rails.cache.fetch(*cache_params) { fetch }
+    else
+      fetch
     end
+  end
+
+  def fetch
+    if recommendations?
+      AnimesCollection::RecommendationsQuery.new(klass, h.params, user).fetch
+    elsif season_page?
+      AnimesCollection::SeasonQuery.new(klass, h.params, user).fetch
+    else
+      AnimesCollection::PageQuery.new(klass, h.params, user).fetch
+    end
+  end
+
+  def cache_params
+    [cache_key, expires_in: cache_expires_in]
   end
 end

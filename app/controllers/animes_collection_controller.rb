@@ -3,9 +3,10 @@ class AnimesCollectionController < ShikimoriController
   CENSORED = /\b(?:sex|секс|porno?|порно)\b/mix
 
   before_action do
+    klass = params[:klass].classify.constantize
     params[:order] = Animes::SortField.new('ranked', view_context).field
 
-    @view = AnimesCollection::View.new params[:klass].classify.constantize
+    @view = AnimesCollection::View.new klass, current_user
     @menu = Menus::CollectionMenu.new @view.klass
   end
 

@@ -1,5 +1,5 @@
 class AnimesCollection::PageQuery
-  pattr_initialize :klass, :params
+  pattr_initialize :klass, :params, :user
 
   LIMIT = 20
 
@@ -35,6 +35,6 @@ private
   end
 
   def query
-    AniMangaQuery.new(klass, params).fetch
+    AniMangaQuery.new(klass, params, user).fetch
   end
 end

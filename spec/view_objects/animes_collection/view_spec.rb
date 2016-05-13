@@ -1,5 +1,6 @@
 describe AnimesCollection::View do
-  let(:view) { AnimesCollection::View.new klass }
+  let(:view) { AnimesCollection::View.new klass, user }
+  let(:user) { user }
 
   include_context :view_object_warden_stub
 
@@ -35,11 +36,11 @@ describe AnimesCollection::View do
     describe 'query method' do
       before do
         allow(AnimesCollection::RecommendationsQuery)
-          .to receive(:new).with(klass, params).and_return recommendations_query
+          .to receive(:new).with(klass, params, user).and_return recommendations_query
         allow(AnimesCollection::SeasonQuery)
-          .to receive(:new).with(klass, params).and_return season_query
+          .to receive(:new).with(klass, params, user).and_return season_query
         allow(AnimesCollection::PageQuery)
-          .to receive(:new).with(klass, params).and_return page_query
+          .to receive(:new).with(klass, params, user).and_return page_query
       end
 
       let(:page) { AnimesCollection::Page.new collection: [] }
@@ -122,20 +123,16 @@ describe AnimesCollection::View do
 
   describe '#cache?' do
     subject { view.cache? }
-    let(:params) {{ controller: controller_name, mylist: mylist }}
-
-    let(:controller_name) { 'animes_collection' }
-    let(:mylist) { }
-    it { is_expected.to eq true }
+    let(:params) {{ controller: controller_name }}
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
       it { is_expected.to eq false }
     end
 
-    context 'mylist param' do
-      let(:mylist) { 1 }
-      it { is_expected.to eq false }
+    context 'animes_controller' do
+      let(:controller_name) { 'animes_collection' }
+      it { is_expected.to eq true }
     end
   end
 

@@ -1,5 +1,5 @@
 describe AnimesCollection::RecommendationsQuery do
-  let(:query) { AnimesCollection::RecommendationsQuery.new Anime, params }
+  let(:query) { AnimesCollection::RecommendationsQuery.new Anime, params, nil }
   let(:params) do
     {
       AnimesCollection::RecommendationsQuery::IDS_KEY => [
