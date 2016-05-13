@@ -27,7 +27,8 @@ class ContestsController < ShikimoriController
 
   def show
     noindex if params[:round] || params[:vote]
-    redirect_to edit_contest_url(@resource) and return if @resource.created?
+    return redirect_to edit_contest_url(@resource) if @resource.created?
+    return redirect_to contest_url(@resource) if params[:round] && !@resource.displayed_round
 
     keywords i18n_t :show_keywords, title: @resource.title
     description i18n_t :show_description, title: Unicode::downcase(@resource.title)
@@ -38,7 +39,7 @@ class ContestsController < ShikimoriController
   # проголосовавшие в раунде
   def users
     unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
-      redirect_to contest_url(@resource)
+      return redirect_to contest_url(@resource)
     end
     noindex
 
