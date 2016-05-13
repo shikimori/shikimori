@@ -1,5 +1,5 @@
 json.array! [
   params[:search],
-  @entries.map(&:name),
-  @entries.map {|v| url_for(v) }
+  @view.collection.map(&:name),
+  @view.collection.map {|v| url_for(v) }
 ]
