@@ -25,7 +25,7 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache?
-    !recommendations?
+    !recommendations? && !h.params[:mylist]
   end
 
   def cache_key

@@ -122,16 +122,20 @@ describe AnimesCollection::View do
 
   describe '#cache?' do
     subject { view.cache? }
-    let(:params) {{ controller: controller_name }}
+    let(:params) {{ controller: controller_name, mylist: mylist }}
+
+    let(:controller_name) { 'animes_collection' }
+    let(:mylist) { }
+    it { is_expected.to eq true }
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
       it { is_expected.to eq false }
     end
 
-    context 'animes_collection controller' do
-      let(:controller_name) { 'animes_collection' }
-      it { is_expected.to eq true }
+    context 'mylist param' do
+      let(:mylist) { 1 }
+      it { is_expected.to eq false }
     end
   end
 
