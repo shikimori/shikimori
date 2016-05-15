@@ -34,4 +34,15 @@ header.head
 
 - if user_signed_in?
   javascript:
-    is_vafoured = #{@resource.favoured?.to_json};
+    person_role = {
+      producer: #{@resource.main_role? :producer},
+      mangaka: #{@resource.main_role? :mangaka},
+      seyu: #{@resource.main_role? :seyu},
+      person: #{!(@resource.main_role?(:seyu) || @resource.main_role?(:producer) || @resource.main_role?(:mangaka))}
+    };
+    is_vafoured = {
+      producer: #{@resource.producer_favoured?},
+      mangaka: #{@resource.mangaka_favoured?},
+      seyu: #{@resource.seyu_favoured?},
+      person: #{@resource.person_favoured?}
+    };
