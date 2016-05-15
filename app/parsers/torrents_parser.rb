@@ -233,7 +233,7 @@ class TorrentsParser
         ].max
         next if entry[:episodes].none? ||
           ((anime.ongoing? || anime.anons?) && episdoes_diff > 1 &&
-            !(entry[:episodes].max > 1 && anime.episodes_aired == 0)) ||
+            !(entry[:episodes].max > 1 && anime.episodes_aired == 0))
 
         entry[:episodes].each do |episode|
           next if (anime.episodes > 0 && episode > anime.episodes) || episode_min >= episode

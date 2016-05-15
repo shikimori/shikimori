@@ -1,100 +1,101 @@
 = render layout: 'page' do
-  .b-db_entry
-    .c-image.cc
-      .c-poster
-        center
-          img[
-            src="#{cdn_image @resource, :original}"
-            title="#{localized_name @resource}"
-            alt="#{localized_name @resource}"
+  - cache @resource do
+    .b-db_entry
+      .c-image.cc
+        .c-poster
+          center
+            img[
+              src="#{cdn_image @resource, :original}"
+              title="#{localized_name @resource}"
+              alt="#{localized_name @resource}"
+            ]
+
+        .c-actions
+          a.new_comment.b-tooltipped.unprocessed[
+            title="#{t '.actions.comment'}"
+            data-direction='top'
+            data-text="#{t '.actions.comment'}"
+            data-dynamic='authorized'
           ]
 
-      .c-actions
-        a.new_comment.b-tooltipped.unprocessed[
-          title="#{t '.actions.comment'}"
-          data-direction='top'
-          data-text="#{t '.actions.comment'}"
-          data-dynamic='authorized'
-        ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_producer_url @resource.object.class.name, @resource}"
+            style="display: none"
+            data-remote='true'
+            data-type='json'
+            data-kind='producer'
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
 
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_producer_url @resource.object.class.name, @resource}"
-          style="display: none"
-          data-remote='true'
-          data-type='json'
-          data-kind='producer'
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_mangaka_url @resource.object.class.name, @resource}"
+            style="display: none"
+            data-remote='true'
+            data-type='json'
+            data-kind='mangaka'
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
 
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_mangaka_url @resource.object.class.name, @resource}"
-          style="display: none"
-          data-remote='true'
-          data-type='json'
-          data-kind='mangaka'
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_seyu_url @resource.object.class.name, @resource}"
+            style="display: none"
+            data-remote='true'
+            data-type='json'
+            data-kind='seyu'
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
 
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-          style="display: none"
-          data-remote='true'
-          data-type='json'
-          data-kind='seyu'
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_person_url @resource.object.class.name, @resource}"
+            style="display: none"
+            data-remote='true'
+            data-type='json'
+            data-kind='person'
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
 
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_person_url @resource.object.class.name, @resource}"
-          style="display: none"
-          data-remote='true'
-          data-type='json'
-          data-kind='person'
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
+          a.edit.b-tooltipped.unprocessed.to-process[
+            href="#{@resource.edit_url}"
+            title="#{t '.actions.edit'}"
+            data-direction='top'
+            data-text="#{t '.actions.edit'}"
+            data-dynamic='authorized'
+          ]
 
-        a.edit.b-tooltipped.unprocessed.to-process[
-          href="#{@resource.edit_url}"
-          title="#{t '.actions.edit'}"
-          data-direction='top'
-          data-text="#{t '.actions.edit'}"
-          data-dynamic='authorized'
-        ]
+      .c-about
+        .cc
+          - if @resource.credentials?
+            .c-info-left
+              .subheadline = t 'information'
+              .b-entry-info
+                - if @resource.credentials?
+                  = info_line t('in_english'), @resource.name
+                  = info_line t('in_japanese'), @resource.japanese
+                  = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
+                  = info_line Person.human_attribute_name(:website), @resource.website_html
 
-    .c-about
-      .cc
-        - if @resource.credentials?
-          .c-info-left
-            .subheadline = t 'information'
-            .b-entry-info
-              - if @resource.credentials?
-                = info_line t('in_english'), @resource.name
-                = info_line t('in_japanese'), @resource.japanese
-                = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
-                = info_line Person.human_attribute_name(:website), @resource.website_html
+          - if @resource.groupped_roles.any?
+            .c-info-right
+              .subheadline = t ".positions_in_#{@resource.occupation}"
+              .b-entry-info
+                - @resource.groupped_roles.each do |role,times|
+                  = info_line role, times
 
-        - if @resource.groupped_roles.any?
-          .c-info-right
-            .subheadline = t ".positions_in_#{@resource.occupation}"
-            .b-entry-info
-              - @resource.groupped_roles.each do |role,times|
-                = info_line role, times
-
-    - if @resource.best_works.any?
-      .c-description.m0
-        .subheadline.m10
-          .linkeable data-href="#{works_person_url @resource}" = t 'best_works'
-        .c-works
-          = render @resource.best_works, cover_notice: :role
+      - if @resource.best_works.any?
+        .c-description.m0
+          .subheadline.m10
+            .linkeable data-href="#{works_person_url @resource}" = t 'best_works'
+          .c-works
+            = render @resource.best_works, cover_notice: :role

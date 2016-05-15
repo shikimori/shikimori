@@ -1,94 +1,95 @@
 = render layout: 'page' do
-  .b-db_entry
-    .c-image.cc
-      .c-poster
-        center: img[
-          src="#{cdn_image @resource, :original}"
-          title="#{@resource.name}"
-          alt="#{@resource.name}"
-        ]
+  = cache @resource do
+    .b-db_entry
+      .c-image.cc
+        .c-poster
+          center: img[
+            src="#{cdn_image @resource, :original}"
+            title="#{@resource.name}"
+            alt="#{@resource.name}"
+          ]
 
-      .c-actions
-        a.new_comment.b-tooltipped.unprocessed.to-process[
-          title="#{t '.actions.comment'}"
-          data-direction='top'
-          data-text="#{t '.actions.comment'}"
-          data-dynamic='authorized'
-        ]
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_url @resource.object.class.name, @resource.id}"
-          data-remote='true'
-          data-type='json'
-          data-kind=''
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
-        a.edit.b-tooltipped.unprocessed.to-process[
-          href="#{@resource.edit_url}"
-          title="#{t '.actions.edit'}"
-          data-direction='top'
-          data-text="#{t '.actions.edit'}"
-          data-dynamic='authorized'
-        ]
+        .c-actions
+          a.new_comment.b-tooltipped.unprocessed.to-process[
+            title="#{t '.actions.comment'}"
+            data-direction='top'
+            data-text="#{t '.actions.comment'}"
+            data-dynamic='authorized'
+          ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_url @resource.object.class.name, @resource.id}"
+            data-remote='true'
+            data-type='json'
+            data-kind=''
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
+          a.edit.b-tooltipped.unprocessed.to-process[
+            href="#{@resource.edit_url}"
+            title="#{t '.actions.edit'}"
+            data-direction='top'
+            data-text="#{t '.actions.edit'}"
+            data-dynamic='authorized'
+          ]
 
-    .c-about
-      .cc
-        - if @resource.credentials?
-          .c-info-left
-            .subheadline = t '.names'
-            .b-entry-info
-              = info_line t('in_russian'), @resource.russian
-              = info_line t('in_japanese'), @resource.japanese
-              = info_line t('.other'), @resource.altname
+      .c-about
+        .cc
+          - if @resource.credentials?
+            .c-info-left
+              .subheadline = t '.names'
+              .b-entry-info
+                = info_line t('in_russian'), @resource.russian
+                = info_line t('in_japanese'), @resource.japanese
+                = info_line t('.other'), @resource.altname
 
-              - if @resource.tags.present? || @resource.cosplay?
-                .additional-links
-                  .line-container
-                    - if @resource.cosplay?
-                      span.linkeable[
-                        data-href="#{cosplay_character_url @resource}"
-                      ] = t 'cosplay'
+                - if @resource.tags.present? || @resource.cosplay?
+                  .additional-links
+                    .line-container
+                      - if @resource.cosplay?
+                        span.linkeable[
+                          data-href="#{cosplay_character_url @resource}"
+                        ] = t 'cosplay'
 
-                    - if @resource.tags.present?
-                      span.linkeable[
-                        data-href="#{art_character_url @resource}"
-                      ] = t 'imageboard_art'
+                      - if @resource.tags.present?
+                        span.linkeable[
+                          data-href="#{art_character_url @resource}"
+                        ] = t 'imageboard_art'
 
-        - if @resource.seyu.present?
-          .c-info-right
-            .subheadline.m10
-              .linkeable href="#{seyu_character_url @resource}" = t 'seyu'
-              /- if @resource.seyu.size > 3
-                | Сэйю <span>#{@resource.seyu.size}</span>
-              /- else
-                | Сэйю
-            .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
-              = render @resource.seyu.take(3)
+          - if @resource.seyu.present?
+            .c-info-right
+              .subheadline.m10
+                .linkeable href="#{seyu_character_url @resource}" = t 'seyu'
+                /- if @resource.seyu.size > 3
+                  | Сэйю <span>#{@resource.seyu.size}</span>
+                /- else
+                  | Сэйю
+              .cc.m0.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+                = render @resource.seyu.take(3)
 
-    .c-description
-      .subheadline.m5 = Character.human_attribute_name :description
-      .block
-        meta[
-          itemprop='image'
-          content="#{{meta_image_url @resource.image, :original, false}}"
-        ]
-        meta[
-          itemprop='thumbnailUrl'
-          content="#{{meta_image_url @resource.image, :x64, false}}"
-        ]
-        = render 'blocks/description', resource: @resource
+      .c-description
+        .subheadline.m5 = Character.human_attribute_name :description
+        .block
+          meta[
+            itemprop='image'
+            content="#{{meta_image_url @resource.image, :original, false}}"
+          ]
+          meta[
+            itemprop='thumbnailUrl'
+            content="#{{meta_image_url @resource.image, :x64, false}}"
+          ]
+          = render 'blocks/description', resource: @resource
 
 
-  - if @resource.animes(7).any?
-    .subheadline.m10
-      .linkeable data-href="#{animes_character_url @resource}" = t 'animegraphy'
-    .cc.m0.to-process data-dynamic='cutted_covers'
-      = render @resource.animes(7)
+    - if @resource.animes(7).any?
+      .subheadline.m10
+        .linkeable data-href="#{animes_character_url @resource}" = t 'animegraphy'
+      .cc.m0.to-process data-dynamic='cutted_covers'
+        = render @resource.animes(7)
 
-  - if @resource.mangas(7).any?
-    .subheadline.m10
-      .linkeable data-href="#{mangas_character_url @resource}" = t 'mangagraphy'
-    .cc.m0.to-process data-dynamic='cutted_covers'
-      = render @resource.mangas(7)
+    - if @resource.mangas(7).any?
+      .subheadline.m10
+        .linkeable data-href="#{mangas_character_url @resource}" = t 'mangagraphy'
+      .cc.m0.to-process data-dynamic='cutted_covers'
+        = render @resource.mangas(7)
