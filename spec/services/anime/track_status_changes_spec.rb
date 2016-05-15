@@ -12,7 +12,7 @@ describe Anime::TrackStatusChanges do
     let(:old_status) { :anons }
     let(:new_status) { :anons }
 
-    it { expect(anime.status).to eq new_status }
+    it { expect(anime.status_change).to eq nil }
   end
 
   describe 'rollback ongoing status' do
