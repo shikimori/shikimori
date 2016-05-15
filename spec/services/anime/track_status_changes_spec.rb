@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 describe Anime::TrackStatusChanges do
-  let(:anime) { create :anime, status: old_status }
-
   before do
     anime.assign_attributes status: new_status
     Anime::TrackStatusChanges.call anime
   end
 
   context 'status not changed' do
+    let(:anime) { create :anime, status: old_status }
+
     let(:old_status) { :anons }
     let(:new_status) { :anons }
+
     it { expect(anime.status).to eq new_status }
   end
 

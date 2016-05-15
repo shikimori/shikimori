@@ -4,7 +4,6 @@
 class Anime::TrackStatusChanges < ServiceObjectBase
   pattr_initialize :anime
 
-  delegate :episodes, :episodes_aired, to: :anime
   delegate :aired_on, :released_on, to: :anime
   delegate :status_change, to: :anime
 
@@ -41,10 +40,6 @@ private
 
   def released_in_past?
     released_on < Time.zone.today
-  end
-
-  def one_episode_left?
-    episodes_aired + 1 == episodes
   end
 
   def status_changed? change
