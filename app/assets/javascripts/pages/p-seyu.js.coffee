@@ -1,4 +1,4 @@
-@on 'page:load', '.seyu', ->
+@on 'page:load', 'seyu_show', ->
   # добавление в избранное
   $('.c-actions .fav-add').on 'ajax:success', ->
     $(@).hide().next().show()

@@ -1,8 +1,8 @@
 # общий класс для любого вью объекта
 class @View
-  constructor: (node) ->
+  constructor: (node, arg1, arg2, arg3) ->
     @_initialize node
-    @initialize @$node
+    @initialize arg1, arg2, arg3
     @_after_initialize()
 
   on: ->

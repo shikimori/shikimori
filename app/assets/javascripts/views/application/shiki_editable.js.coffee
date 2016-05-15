@@ -1,7 +1,7 @@
 class @ShikiEditable extends ShikiView
   # внутренняя инициализация
-  _initialize: ($root) ->
-    super $root
+  _initialize: ->
+    super
     $new_marker = $('.b-new_marker', @$inner)
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
@@ -42,7 +42,7 @@ class @ShikiEditable extends ShikiView
           url: $new_marker.data 'reappear_url'
           type: 'POST'
           data:
-            ids: $root.attr('id')
+            ids: @$root.attr('id')
 
       else if $('.b-new_marker', @$inner).data('manual')
         $new_marker.addClass('off')
@@ -50,7 +50,7 @@ class @ShikiEditable extends ShikiView
           url: $new_marker.data 'appear_url'
           type: 'POST'
           data:
-            ids: $root.attr('id')
+            ids: @$root.attr('id')
 
       else
         # эвент appear обрабатывается в shiki-topic

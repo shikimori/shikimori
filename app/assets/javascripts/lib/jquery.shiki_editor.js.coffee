@@ -11,7 +11,8 @@
 # TODO: в кнструктор перенесён весь старый код. надо отрефакторить.
 # подумать над view бекбона # (если на ShikiComment будет переведён на бекбон)
 class @ShikiEditor extends ShikiView
-  initialize: ($root) ->
+  initialize: ->
+    $root = @$root
     @$form = @$('form')
     @$textarea = @$('textarea')
 

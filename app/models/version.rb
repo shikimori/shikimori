@@ -3,7 +3,7 @@ class Version < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :moderator, class_name: User
-  belongs_to :item, polymorphic: true
+  belongs_to :item, polymorphic: true, touch: true
 
   validates :item, :item_diff, presence: true
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }

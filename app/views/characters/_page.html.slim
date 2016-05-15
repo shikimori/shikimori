@@ -23,7 +23,12 @@ header.head
 .menu-slide-outer.x199
   .menu-slide-inner
     .l-content
-      = yield
+      = cache [@resource, params[:action]], expires_in: 1.week do
+        = yield
 
     aside.l-menu
       = render 'menu', resource: @resource
+
+- if user_signed_in?
+  javascript:
+    is_vafoured = #{@resource.favoured?.to_json};

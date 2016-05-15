@@ -6,17 +6,18 @@
         alt="#{resource.name}"
       ]
 
-= render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
+= cache [@resource, params[:action]], expires_in: 1.day do
+  = render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
 
-- if resource.linked_clubs.any?
-  .block
-    .subheadline.m10
-      - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
-        .linkeable data-href="#{clubs_character_url(resource)}" = i18n_i 'Club', :other
-      - else
-        = i18n_i 'Club', :other
+  - if resource.linked_clubs.any?
+    .block
+      .subheadline.m10
+        - if resource.linked_clubs.size == DbEntryDecorator::MAX_CLUBS
+          .linkeable data-href="#{clubs_character_url(resource)}" = i18n_i 'Club', :other
+        - else
+          = i18n_i 'Club', :other
 
-    .b-clubs.one-line
-      = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }
+      .b-clubs.one-line
+        = render partial: 'clubs/club', collection: resource.linked_clubs, locals: { content_by: :avatar }
 
 = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

@@ -1,13 +1,10 @@
-@on 'page:load', '.characters', ->
+# отображение персонажа
+@on 'page:load', 'characters_show', ->
   # сокращение высоты описания
   $('.text').check_height(200)
 
-  # добавление в избранное
-  $('.c-actions .fav-add').on 'ajax:success', ->
-    $(@).hide().next().show()
-  # удаление из избранного
-  $('.c-actions .fav-remove').on 'ajax:success', ->
-    $(@).hide().prev().show()
+  new FavouriteStar $('.c-actions .fav-add'), is_vafoured
+
   # комментировать
   $('.c-actions .new_comment').on 'click', ->
     $editor = $('.b-form.new_comment textarea')

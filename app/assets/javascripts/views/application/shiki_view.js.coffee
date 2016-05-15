@@ -4,8 +4,8 @@ class @ShikiView extends View
   COLLAPSED_HEIGHT: 150
 
   # внутренняя инициализация
-  _initialize: ($node) ->
-    super $node
+  _initialize: ->
+    super
 
     @$node.removeClass 'unprocessed'
     @$inner = @$('>.inner')
