@@ -10,7 +10,7 @@ class AnimesCollection::View < ViewObjectBase
         memo[key] = entries.map(&:decorate)
       end
     else
-      results.collection.map(&:decorate)
+      results.collection&.map(&:decorate)
     end
   end
 
