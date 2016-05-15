@@ -1,5 +1,5 @@
 = render layout: 'characters/page' do
-  = cache @resource do
+  = cache [@resource, params[:action]] do
     .b-options-floated.count = @resource.all_favoured.size
     .subheadline.m10 = @page_title.last
     .block

@@ -27,5 +27,19 @@ header.head
     .l-content
       = yield
 
+      - if params[:action] == 'show'
+        = render 'db_entries/comments', resource: @resource
+
     aside.l-menu
       = render 'animes/menu', resource: @resource
+
+- if params[:action] == 'show'
+  javascript:
+    var is_favoured = #{@resource.favoured?};
+    var watch_online = {
+      is_allowed: #{@resource.allowed_watch_online?},
+      has_videos: #{@resource.anime_videos?},
+      can_upload: #{user_signed_in? && current_user.day_registered?},
+      watch_url: #{{(@resource.allowed_watch_online? ? @resource.video_online_url : '').to_json}},
+      upload_url: #{{(user_signed_in? && current_user.day_registered? ? @resource.upload_first_video_online_url : '').to_json}}
+    };

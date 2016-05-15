@@ -3,7 +3,7 @@
   # сокращение высоты описания
   $('.text').check_height(200)
 
-  new FavouriteStar $('.c-actions .fav-add'), is_vafoured
+  new FavouriteStar $('.c-actions .fav-add'), is_favoured
 
   # комментировать
   $('.c-actions .new_comment').on 'click', ->

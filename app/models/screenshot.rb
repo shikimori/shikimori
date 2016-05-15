@@ -3,7 +3,7 @@ class Screenshot < ActiveRecord::Base
   UPLOADED = 'uploaded'
   DELETED = 'deleted'
 
-  belongs_to :anime
+  belongs_to :anime, touch: true
 
   has_attached_file :image,
     styles: { x166: ['166x93#', :jpg], x332: ['332x186#', :jpg] },

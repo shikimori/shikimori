@@ -1,12 +1,12 @@
 @on 'page:load', 'people_show', ->
   $('.b-entry-info').check_height 101, true
 
-  Object.keys(is_vafoured).each (role) ->
-    if person_role[role] || is_vafoured[role]
+  Object.keys(is_favoured).each (role) ->
+    if person_role[role] || is_favoured[role]
       $button = $(".c-actions .fav-add[data-kind='#{role}']")
 
       $button.show()
-      new FavouriteStar $button, is_vafoured[role]
+      new FavouriteStar $button, is_favoured[role]
 
   # комментировать
   $('.c-actions .new_comment').on 'click', ->

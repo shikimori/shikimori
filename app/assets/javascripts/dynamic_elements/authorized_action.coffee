@@ -5,6 +5,6 @@ class DynamicElements.AuthorizedAction extends View
   initialize: ->
     @$node.on 'click', (e) ->
       unless USER_SIGNED_IN
-        $.info t(I18N_KEY)
+        $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
         e.stopImmediatePropagation()
-        falst
+        false

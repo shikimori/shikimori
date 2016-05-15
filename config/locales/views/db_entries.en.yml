@@ -1,5 +1,8 @@
 en:
   db_entries:
+    comments:
+      all_summaries: All summaries
+      all_comments: All comments
     fields:
       genres:
         all_genres: All Genres

@@ -1,57 +1,58 @@
 = render layout: 'page' do
-  .b-db_entry
-    .c-image.cc
-      .c-poster
-        center: img[
-          src="#{cdn_image @resource, :original}"
-          title="#{localized_name @resource}"
-          alt="#{localized_name @resource}"
-        ]
+  = cache [@resource, params[:action]] do
+    .b-db_entry
+      .c-image.cc
+        .c-poster
+          center: img[
+            src="#{cdn_image @resource, :original}"
+            title="#{localized_name @resource}"
+            alt="#{localized_name @resource}"
+          ]
 
-      .c-actions
-        a.new_comment.b-tooltipped.unprocessed.to-process[
-          title="#{t '.actions.comment'}"
-          data-direction='top'
-          data-text="#{t '.actions.comment'}"
-          data-dynamic='authorized'
-        ]
-        a.fav-add.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-          data-remote='true'
-          data-type='json'
-          data-kind='seyu'
-          data-direction='top'
-          data-dynamic='authorized'
-          data-add_text="#{t '.actions.add_to_favorites'}"
-          data-remove_text="#{t '.actions.remove_from_favorites'}"
-        ]
-        a.edit.b-tooltipped.unprocessed.to-process[
-          href="#{@resource.edit_url}"
-          title="#{t '.actions.edit'}"
-          data-direction='top'
-          data-text="#{t '.actions.edit'}"
-          data-dynamic='authorized'
-        ]
+        .c-actions
+          a.new_comment.b-tooltipped.unprocessed.to-process[
+            title="#{t '.actions.comment'}"
+            data-direction='top'
+            data-text="#{t '.actions.comment'}"
+            data-dynamic='authorized'
+          ]
+          a.fav-add.b-tooltipped.unprocessed.to-process[
+            href="#{favourites_seyu_url @resource.object.class.name, @resource}"
+            data-remote='true'
+            data-type='json'
+            data-kind='seyu'
+            data-direction='top'
+            data-dynamic='authorized'
+            data-add_text="#{t '.actions.add_to_favorites'}"
+            data-remove_text="#{t '.actions.remove_from_favorites'}"
+          ]
+          a.edit.b-tooltipped.unprocessed.to-process[
+            href="#{@resource.edit_url}"
+            title="#{t '.actions.edit'}"
+            data-direction='top'
+            data-text="#{t '.actions.edit'}"
+            data-dynamic='authorized'
+          ]
 
-    .c-about
-      .cc
-        - if @resource.credentials?
-          .c-info-left
-            .subheadline = t 'information'
+      .c-about
+        .cc
+          - if @resource.credentials?
+            .c-info-left
+              .subheadline = t 'information'
+              .b-entry-info
+                = info_line t('in_english'), @resource.name
+                = info_line t('in_japanese'), @resource.japanese
+                = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
+                = info_line Person.human_attribute_name(:website), @resource.website_html
+
+          .c-info-right
+            .subheadline = t 'roles_in_anime'
             .b-entry-info
-              = info_line t('in_english'), @resource.name
-              = info_line t('in_japanese'), @resource.japanese
-              = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, true) if @resource.birthday
-              = info_line Person.human_attribute_name(:website), @resource.website_html
+              - @resource.groupped_roles.each do |role, times|
+                = info_line role, times
 
-        .c-info-right
-          .subheadline = t 'roles_in_anime'
-          .b-entry-info
-            - @resource.groupped_roles.each do |role, times|
-              = info_line role, times
-
-    .c-description.m0
-      .subheadline.m10
-        .linkeable data-href="#{roles_seyu_url @resource}" = t 'best_roles'
-      .c-characters.to-process data-dynamic='cutted_covers' data-ratio_type='person'
-        = render @resource.best_roles
+      .c-description.m0
+        .subheadline.m10
+          .linkeable data-href="#{roles_seyu_url @resource}" = t 'best_roles'
+        .c-characters.to-process data-dynamic='cutted_covers' data-ratio_type='person'
+          = render @resource.best_roles

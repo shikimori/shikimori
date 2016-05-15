@@ -31,6 +31,6 @@ header.head
     aside.l-menu
       = render 'menu', resource: @resource
 
-- if user_signed_in?
+- if params[:action] == 'show'
   javascript:
-    is_vafoured = #{@resource.favoured?};
+    var is_favoured = #{@resource.favoured?};

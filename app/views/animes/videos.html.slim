@@ -1,10 +1,11 @@
 = render layout: 'page' do
-  .subheadline-buttons
-    a.item-edit href="#{@resource.edit_field_url :videos}"
-  .subheadline.m10 = i18n_i('video').capitalize
-  .cc.m10
-    = render @resource.videos
+  = cache [@resource, params[:action]] do
+    .subheadline-buttons
+      a.item-edit href="#{@resource.edit_field_url :videos}"
+    .subheadline.m10 = i18n_i('video').capitalize
+    .cc.m10
+      = render @resource.videos
 
-  = render partial: 'blocks/source',
-    locals: { entry: @resource, authors: @resource.versions.authors(:videos), field: 'video' },
-    formats: :html
+    = render partial: 'blocks/source',
+      locals: { entry: @resource, authors: @resource.versions.authors(:videos), field: 'video' },
+      formats: :html

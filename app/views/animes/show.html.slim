@@ -1,157 +1,113 @@
 = render layout: 'page' do
-  meta itemprop="url" content="#{{@resource.url}}"
-  meta itemprop="headline" content="#{@resource.name}"
+  = cache [@resource, user_signed_in?] do
+    meta itemprop="url" content="#{{@resource.url}}"
+    meta itemprop="headline" content="#{@resource.name}"
 
-  - if @resource.russian
-    meta itemprop="alternativeHeadline" content="#{@resource.russian}"
+    - if @resource.russian
+      meta itemprop="alternativeHeadline" content="#{@resource.russian}"
 
-  - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
-    meta[
-      itemprop="datePublished"
-      content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
-    ]
-  - elsif @resource.anime?
-    - if @resource.aired_on
-      meta itemprop="startDate" content="#{@resource.aired_on.to_s}"
-    - if @resource.released_on
-      meta itemprop="endDate" content="#{@resource.released_on.to_s}"
+    - if @resource.anime? && @resource.kind_movie? && (@resource.aired_on || @resource.released_on)
+      meta[
+        itemprop="datePublished"
+        content="#{@resource.aired_on.to_s || @resource.released_on.to_s}"
+      ]
+    - elsif @resource.anime?
+      - if @resource.aired_on
+        meta itemprop="startDate" content="#{@resource.aired_on.to_s}"
+      - if @resource.released_on
+        meta itemprop="endDate" content="#{@resource.released_on.to_s}"
 
-  .b-db_entry
-    .c-image
-      .cc.block
-        .c-poster
-          center: img[
-            src="#{cdn_image @resource, :original}"
-            title="#{@resource.name}"
-            alt="#{@resource.name}"
-          ]
+    .b-db_entry
+      .c-image
+        .cc.block
+          .c-poster
+            center: img[
+              src="#{cdn_image @resource, :original}"
+              title="#{@resource.name}"
+              alt="#{@resource.name}"
+            ]
 
-        .c-actions
-          a.new_comment.b-tooltipped.unprocessed.to-process[
-            title="#{t '.actions.comment'}"
-            data-direction="top"
-            data-dynamic="authorized"
-            data-text="#{t '.actions.comment'}"
-          ]
-          - if can? :new, Review.new(user: current_user)
-            a.new_review.b-tooltipped.unprocessed.to-process[
-              href="#{@resource.new_review_url}"
-              title="#{t '.actions.review'}"
+          .c-actions
+            a.new_comment.b-tooltipped.unprocessed.to-process[
+              title="#{t '.actions.comment'}"
               data-direction="top"
               data-dynamic="authorized"
-              data-text="#{t '.actions.review'}"
+              data-text="#{t '.actions.comment'}"
             ]
-          a.fav-add.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_url @resource.object.class.name, @resource.id}"
-            style="#{'display: none;' if @resource.favoured?}"
-            title="#{t '.actions.add_to_favorites'}"
-            data-remote="true"
-            data-method="post"
-            data-type="json"
-            data-kind=""
-            data-direction="top"
-            data-dynamic="authorized"
-            data-text="#{t '.actions.add_to_favorites'}"
-          ]
-          a.fav-remove.b-tooltipped.unprocessed.to-process[
-            href="#{favourites_url @resource.object.class.name, @resource.id}"
-            style="#{'display: none;' unless @resource.favoured?}"
-            title="#{t '.actions.remove_from_favorites'}"
-            data-remote="true"
-            data-method="delete"
-            data-type="json"
-            data-kind=""
-            data-direction="top"
-            data-dynamic="authorized"
-            data-text="#{t '.actions.remove_from_favorites'}"
-          ]
-          a.edit.b-tooltipped.unprocessed.to-process[
-            href="#{@resource.edit_url}"
-            title="#{t '.actions.edit'}"
-            data-direction="top"
-            data-dynamic="authorized"
-            data-text="#{t '.actions.edit'}"
-          ]
-
-      = render partial: 'user_rates/placeholder',
-        locals: { target: @resource, extended: true }
-
-    .c-about
-      .cc
-        .c-info-left
-          .subheadline = t 'information'
-          .block
-            = render 'animes/info', entry: @resource
-
-        .c-info-right
-          - if @resource.with_score?
-            .block[
-              itemscope
-              itemprop="aggregateRating"
-              itemtype="http://schema.org/AggregateRating"
+            - if can? :new, Review.new(user: current_user)
+              a.new_review.b-tooltipped.unprocessed.to-process[
+                href="#{@resource.new_review_url}"
+                title="#{t '.actions.review'}"
+                data-direction="top"
+                data-dynamic="authorized"
+                data-text="#{t '.actions.review'}"
+              ]
+            a.fav-add.b-tooltipped.unprocessed.to-process[
+              href="#{favourites_url @resource.object.class.name, @resource.id}"
+              data-remote="true"
+              data-type="json"
+              data-kind=""
+              data-direction="top"
+              data-dynamic="authorized"
+              data-add_text="#{t '.actions.add_to_favorites'}"
+              data-remove_text="#{t '.actions.remove_from_favorites'}"
             ]
-              .subheadline.m5 = Anime.human_attribute_name(:score)
-              .scores
-                meta itemprop="bestRating" content="10"
-                meta itemprop="ratingValue" content="#{@resource.score}"
-                - if @resource.rates_size > 0
-                  meta itemprop="ratingCount" content="#{@resource.rates_size}"
-                = render 'blocks/rate', score: @resource.score
+            a.edit.b-tooltipped.unprocessed.to-process[
+              href="#{@resource.edit_url}"
+              title="#{t '.actions.edit'}"
+              data-direction="top"
+              data-dynamic="authorized"
+              data-text="#{t '.actions.edit'}"
+            ]
 
-          - if @resource.respond_to?(:studios) && @resource.studios.any?
+        = render partial: 'user_rates/placeholder',
+          locals: { target: @resource, extended: true }
+
+      .c-about
+        .cc
+          .c-info-left
+            .subheadline = t 'information'
             .block
-              .subheadline.m10
-                = i18n_io 'Producer', @resource.real_studios.size > 1 ? :few : :one
+              = render 'animes/info', entry: @resource
+
+          .c-info-right
+            - if @resource.with_score?
+              .block[
+                itemscope
+                itemprop="aggregateRating"
+                itemtype="http://schema.org/AggregateRating"
+              ]
+                .subheadline.m5 = Anime.human_attribute_name(:score)
+                .scores
+                  meta itemprop="bestRating" content="10"
+                  meta itemprop="ratingValue" content="#{@resource.score}"
+                  - if @resource.rates_size > 0
+                    meta itemprop="ratingCount" content="#{@resource.rates_size}"
+                  = render 'blocks/rate', score: @resource.score
+
+            - if @resource.respond_to?(:studios) && @resource.studios.any?
               .block
-                = render 'animes/studios_info', entry: @resource
+                .subheadline.m10
+                  = i18n_io 'Producer', @resource.real_studios.size > 1 ? :few : :one
+                .block
+                  = render 'animes/studios_info', entry: @resource
 
-          - if @resource.respond_to?(:publishers) && @resource.publishers.any?
-            .block
-              .subheadline
-                = i18n_io 'Publisher', @resource.real_publishers.size > 1 ? :few : :one
+            - if @resource.respond_to?(:publishers) && @resource.publishers.any?
               .block
-                = render 'mangas/publishers_info', entry: @resource
+                .subheadline
+                  = i18n_io 'Publisher', @resource.real_publishers.size > 1 ? :few : :one
+                .block
+                  = render 'mangas/publishers_info', entry: @resource
 
-          - if @resource.anime? && !@resource.anons? && ignore_copyright?
-            - if user_signed_in? || (!user_signed_in? && !Copyright::DAISUKI_COPYRIGHTED.include?(@resource.id))
-              .block
-                - if @resource.anime_videos?
-                  span.linkeable.b-link_button.dark.watch-online[
-                    data-href="#{@resource.video_online_url}"
-                  ] Смотреть онлайн
+            .watch-online-placeholer
 
-                - elsif user_signed_in? && current_user.day_registered?
-                  a.b-link_button.dark.upload-video[
-                    href="#{@resource.upload_first_video_online_url}"
-                  ] Нет видео. Загрузить
+      .c-description
+        .subheadline.m5 = Anime.human_attribute_name :description
+        .block
+          = render 'blocks/description', resource: @resource
 
-    .c-description
-      .subheadline.m5 = Anime.human_attribute_name :description
-      .block
-        = render 'blocks/description', resource: @resource
-
-  - if user_signed_in?
-    = render 'resources'
-  - else
-    .resources-loader.postloaded data-href="#{@resource.resources_url}"
-      .ajax-loading.vk-like title="#{t 'loading'}"
-
-  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
-    .b-options-floated.mobile-phone_portrait
-      - if @resource.preview_topic_view.summaries_count > 0
-        span.linkeable data-href="#{@resource.summaries_url}"
-          = t '.all_summaries'
-          span.brackets = @resource.preview_topic_view.summaries_count
-
-      - if @resource.preview_topic_view.any_comments?
-        span.linkeable data-href="#{@resource.comments_url}"
-          = t '.all_comments'
-          span.brackets = @resource.preview_topic_view.comments_count
-
-    - if @resource.preview_topic_view.any_comments?
-      .subheadline.m3
-        = i18n_io @resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
-
-    div
-      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_topic_view.comments_view
+    - if user_signed_in?
+      = render 'resources'
+    - else
+      .resources-loader.postloaded data-href="#{@resource.resources_url}"
+        .ajax-loading.vk-like title="#{t 'loading'}"

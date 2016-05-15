@@ -5,6 +5,9 @@
   # сокращение высоты описания
   $('.text').check_height(200)
 
+  new FavouriteStar $('.c-actions .fav-add'), is_favoured
+  new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online
+
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()
@@ -30,12 +33,6 @@
     $(@).siblings().show()
     $(@).remove()
 
-  # добавление в избранное
-  $('.c-actions .fav-add').on 'ajax:success', ->
-    $(@).hide().next().show()
-  # удаление из избранного
-  $('.c-actions .fav-remove').on 'ajax:success', ->
-    $(@).hide().prev().show()
   # комментировать
   $('.c-actions .new_comment').on 'click', ->
     $editor = $('.b-form.new_comment textarea')

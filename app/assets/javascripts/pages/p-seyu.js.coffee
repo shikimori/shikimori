@@ -1,5 +1,5 @@
 @on 'page:load', 'seyu_show', ->
-  new FavouriteStar $('.c-actions .fav-add'), is_vafoured.seyu
+  new FavouriteStar $('.c-actions .fav-add'), is_favoured.seyu
 
   # комментировать
   $('.c-actions .new_comment').on 'click', ->

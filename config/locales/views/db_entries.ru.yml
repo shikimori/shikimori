@@ -1,5 +1,8 @@
 ru:
   db_entries:
+    comments:
+      all_summaries: Все отзывы
+      all_comments: Все комментарии
     fields:
       genres:
         all_genres: Все жанры
