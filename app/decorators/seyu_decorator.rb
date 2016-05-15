@@ -95,6 +95,10 @@ class SeyuDecorator < PersonDecorator
     h.edit_field_seyu_url object, field: field
   end
 
+  def comments_url
+    h.comments_seyu_url object
+  end
+
   # нужно, чтобы работало simple_form_for(resouce), где resource - SeyuDecorator instance
   def model_name
     Person.model_name

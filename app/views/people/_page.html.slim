@@ -23,7 +23,15 @@ header.head
 .menu-slide-outer.x199
   .menu-slide-inner
     .l-content
-      = yield
+      = cache [@resource, params[:action]] do
+        = yield
+
+      - if params[:action] == 'show'
+        = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
       = render 'menu', resource: @resource
+
+- if user_signed_in?
+  javascript:
+    is_vafoured = #{@resource.favoured?.to_json};

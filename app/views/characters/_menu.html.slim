@@ -6,7 +6,7 @@
         alt="#{resource.name}"
       ]
 
-= cache [@resource, params[:action]], expires_in: 1.day do
+= cache @resource do
   = render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
 
   - if resource.linked_clubs.any?

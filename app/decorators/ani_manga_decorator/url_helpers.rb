@@ -115,11 +115,6 @@ module AniMangaDecorator::UrlHelpers
     h.send "summaries_#{klass_lower}_url", object
   end
 
-  # урл страницы со всеми комментариями
-  def comments_url
-    h.send "comments_#{klass_lower}_url", object
-  end
-
   def video_online_url
     h.play_video_online_index_url object,
       episode: 1, domain: AnimeOnlineDomain::HOST, subdomain: false

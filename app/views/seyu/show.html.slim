@@ -17,27 +17,13 @@
         ]
         a.fav-add.b-tooltipped.unprocessed.to-process[
           href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-          style="#{'display: none;' if @resource.seyu_favoured?}"
-          title="#{t '.actions.add_to_favorites'}"
           data-remote='true'
-          data-method='post'
           data-type='json'
           data-kind='seyu'
           data-direction='top'
-          data-text="#{t '.actions.add_to_favorites'}"
           data-dynamic='authorized'
-        ]
-        a.fav-remove.b-tooltipped.unprocessed.to-process[
-          href="#{favourites_seyu_url @resource.object.class.name, @resource}"
-          style="#{'display: none;' unless @resource.seyu_favoured?}"
-          title="#{t '.actions.remove_from_favorites'}"
-          data-kind='seyu'
-          data-remote='true'
-          data-method='delete'
-          data-type='json'
-          data-direction='top'
-          data-text="#{t '.actions.remove_from_favorites'}"
-          data-dynamic='authorized'
+          data-add_text="#{t '.actions.add_to_favorites'}"
+          data-remove_text="#{t '.actions.remove_from_favorites'}"
         ]
         a.edit.b-tooltipped.unprocessed.to-process[
           href="#{@resource.edit_url}"
@@ -69,12 +55,3 @@
         .linkeable data-href="#{roles_seyu_url @resource}" = t 'best_roles'
       .c-characters.to-process data-dynamic='cutted_covers' data-ratio_type='person'
         = render @resource.best_roles
-
-  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
-    .subheadline.m3
-      .linkeable[
-        data-href="#{comments_seyu_url @resource}"
-      ] = i18n_i 'Discussion'
-    div
-      .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_topic_view.comments_view

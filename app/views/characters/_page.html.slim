@@ -23,8 +23,11 @@ header.head
 .menu-slide-outer.x199
   .menu-slide-inner
     .l-content
-      = cache [@resource, params[:action]], expires_in: 1.week do
+      = cache [@resource, params[:action]] do
         = yield
+
+      - if params[:action] == 'show'
+        = render 'db_entries/comments', resource: @resource
 
     aside.l-menu
       = render 'menu', resource: @resource

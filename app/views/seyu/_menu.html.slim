@@ -25,8 +25,9 @@
         //li.edit-entry
           /span Редактировать персонажа
 
-= render 'blocks/favoured',
-  favoured: @resource.favoured,
-  url: favoured_seyu_url(@resource)
+= cache @resource do
+  = render 'blocks/favoured',
+    favoured: @resource.favoured,
+    url: favoured_seyu_url(@resource)
 
 = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

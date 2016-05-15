@@ -7,8 +7,9 @@
         alt="#{localized_name resource}"
       ]
 
-= render 'blocks/favoured',
-  favoured: resource.favoured,
-  url: favoured_person_url(resource)
+= cache @resource do
+  = render 'blocks/favoured',
+    favoured: resource.favoured,
+    url: favoured_person_url(resource)
 
 = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

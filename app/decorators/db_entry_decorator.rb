@@ -130,6 +130,10 @@ class DbEntryDecorator < BaseDecorator
     h.send "edit_field_#{klass_lower}_url", object, field: field
   end
 
+  def comments_url
+    h.send "comments_#{klass_lower}_url", object
+  end
+
   def next_versions_page
     h.send "versions_#{klass_lower}_url", object, page: (h.params[:page] || 1).to_i + 1
   end

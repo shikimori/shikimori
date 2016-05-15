@@ -2,9 +2,10 @@ class PersonDecorator < DbEntryDecorator
   decorates_finders
 
   rails_cache :best_works
-  instance_cache :website, :all_roles, :groupped_roles, :roles_names, :works
-  instance_cache :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?
-  instance_cache :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
+  instance_cache :website,
+    :flatten_roles, :all_roles, :groupped_roles, :roles_names, :works,
+    :producer_favoured?, :mangaka_favoured?, :person_favoured?, :seyu_favoured?,
+    :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
   ROLES = {
     seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean', 'Hebrew'],

@@ -1,8 +1,8 @@
 class PersonRole < ActiveRecord::Base
-  belongs_to :anime
-  belongs_to :manga
-  belongs_to :character
-  belongs_to :person
+  belongs_to :anime, touch: true
+  belongs_to :manga, touch: true
+  belongs_to :character, touch: true
+  belongs_to :person, touch: true
 
   scope :main, -> {
     where(role: 'Main')
