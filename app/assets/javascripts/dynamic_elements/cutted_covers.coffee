@@ -26,10 +26,10 @@ class DynamicElements.CuttedCovers extends View
     @inject_css()
 
     @node.id = @collection_id
-    @node.classList.add(CuttedCovers.CLASS_NAME)
-    @$node.data("#{CuttedCovers.CLASS_NAME}": @)
+    @node.classList.add(DynamicElements.CuttedCovers.CLASS_NAME)
+    @$node.data("#{DynamicElements.CuttedCovers.CLASS_NAME}": @)
 
-    hanler() unless CuttedCovers.GLOBAL_HANDLER
+    hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
@@ -38,13 +38,13 @@ class DynamicElements.CuttedCovers extends View
       "##{@collection_id}": {
         '.image-cutter': {
           'max-width': @$poster.width()
-          'max-height': (@$poster.width() * CuttedCovers.RATIO[@ratio_type]).round(2)
+          'max-height': (@$poster.width() * DynamicElements.CuttedCovers.RATIO[@ratio_type]).round(2)
         }
       }
     )
 
   _increment_id: ->
-    CuttedCovers.PRIOR_ID = CuttedCovers.PRIOR_ID + 1
+    DynamicElements.CuttedCovers.PRIOR_ID = DynamicElements.CuttedCovers.PRIOR_ID + 1
 
   _node_ratio: (node) ->
     @node.attributes['data-ratio_type']?.value || 'entry'
