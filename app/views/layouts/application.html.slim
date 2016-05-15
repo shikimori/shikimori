@@ -27,7 +27,7 @@ html
       p.flash-alert
         == alert
 
-    - if @blank_layout
+    - if @layout.blank_layout?
       = sweep_user_rates do
         = yield
 
