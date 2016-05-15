@@ -9,7 +9,7 @@ describe Topics::Generate::News::EpisodeTopic do
   let(:episodes_aired) { 5 }
 
   let(:user) { BotsService.get_poster }
-  let(:locale) { 'ru' }
+  let(:locale) { 'en' }
   let(:aired_at) { 2.days.ago }
 
   context 'without existing news topic' do
@@ -35,7 +35,8 @@ describe Topics::Generate::News::EpisodeTopic do
       create :news_topic,
         linked: model,
         action: AnimeHistoryAction::Episode,
-        value: topic_episodes_aired
+        value: topic_episodes_aired,
+        locale: locale
     end
 
     context 'for prior episode' do

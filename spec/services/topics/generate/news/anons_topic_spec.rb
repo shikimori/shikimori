@@ -9,7 +9,7 @@ describe Topics::Generate::News::AnonsTopic do
   let(:service) { Topics::Generate::News::AnonsTopic.new model, user, locale }
   let(:model) { create :anime }
   let(:user) { BotsService.get_poster }
-  let(:locale) { 'ru' }
+  let(:locale) { 'en' }
 
   context 'without existing topic' do
     it do
@@ -34,7 +34,8 @@ describe Topics::Generate::News::AnonsTopic do
       create :news_topic,
         linked: model,
         action: AnimeHistoryAction::Anons,
-        value: nil
+        value: nil,
+        locale: locale
     end
 
     it do

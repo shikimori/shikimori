@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topics::Generate::News::ReleaseTopic < Topics::Generate::News::BaseTopic
+class Topics::Generate::News::ReleasedTopic < Topics::Generate::News::BaseTopic
 private
 
   def processed

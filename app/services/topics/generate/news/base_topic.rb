@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# NOTE: see AnimeHistoryAction for news topic names
 class Topics::Generate::News::BaseTopic < Topics::Generate::SiteTopic
   def call
     topic_klass.wo_timestamp do
@@ -31,6 +32,6 @@ private
   end
 
   def find_by_attributes
-    topic_attributes.slice(:action, :value)
+    topic_attributes.slice(:action, :value, :locale)
   end
 end

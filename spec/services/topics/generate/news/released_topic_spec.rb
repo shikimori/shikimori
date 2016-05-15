@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-describe Topics::Generate::News::ReleaseTopic do
+describe Topics::Generate::News::ReleasedTopic do
   subject { service.call }
 
   before { Timecop.freeze }
   after { Timecop.return }
 
-  let(:service) { Topics::Generate::News::ReleaseTopic.new model, user, locale }
+  let(:service) { Topics::Generate::News::ReleasedTopic.new model, user, locale }
   let(:model) { create :anime }
   let(:user) { BotsService.get_poster }
   let(:locale) { 'ru' }
@@ -34,7 +34,8 @@ describe Topics::Generate::News::ReleaseTopic do
       create :news_topic,
         linked: model,
         action: AnimeHistoryAction::Released,
-        value: nil
+        value: nil,
+        locale: locale
     end
 
     it do
