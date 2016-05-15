@@ -28,9 +28,10 @@ set :job_template, "/usr/bin/zsh -i -c \"source /home/devops/.rvm/scripts/rvm &&
   #command 'rsync -ahvu /home/apps/shikimori/beta/shared/public/images/user_image /home/apps/shikimori/production/shared/public/images/'
 #end
 
-#every 1.day, at: '0:45 am' do
-  #runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
-#end
+every 1.day, at: '0:45 am' do
+  command 'sudo service shikimori_unicorn_production upgrade'
+  # runner "Delayed::Job.enqueue_uniq TorrentsLatestJob.new"
+end
 
 every 2.weeks, at: '2:30 am' do
   runner "AnimeOnline::BrokenVkVideosCleaner.perform_async"
