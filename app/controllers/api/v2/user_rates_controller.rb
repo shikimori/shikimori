@@ -1,4 +1,10 @@
 class Api::V2::UserRatesController < Api::V1::UserRatesController
+  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  api :GET, '/v2/user_rates/:id', 'Show an user rate'
+  def show
+    respond_with @resource
+  end
+
   api :POST, '/v2/user_rates', 'Create an user rate'
   param :user_rate, Hash do
     param :user_id, :number, required: true

@@ -44,7 +44,6 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   # очистка списка и истории
   api :DELETE, "/user_rates/:type/cleanup", "Delete entire user rates and history"
-  error :code => 302
   def cleanup
     user = current_user.object
 
@@ -59,7 +58,6 @@ class Api::V1::UserRatesController < Api::V1::ApiController
 
   # сброс оценок в списке
   api :DELETE, "/user_rates/:type/reset", "Reset all user scores to 0"
-  error :code => 302
   def reset
     current_user.send("#{params[:type]}_rates").update_all score: 0
     current_user.touch
