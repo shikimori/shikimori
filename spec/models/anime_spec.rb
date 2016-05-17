@@ -309,7 +309,7 @@ describe Anime do
     before { Timecop.freeze '06-04-2016' }
     after { Timecop.return }
 
-    let(:anime) { build :anime, state, schedule: schedule }
+    let(:anime) { build :anime, state, schedule: schedule, aired_on: nil }
     let(:state) { :ongoing }
     let(:schedule) { 'Thursdays at 22:00 (JST)' }
 
