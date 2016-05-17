@@ -8,6 +8,10 @@
   new FavouriteStar $('.c-actions .fav-add'), is_favoured
   new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online
 
+  new_review_url = $('.new_review')
+    .attr('href').replace(/%5Buser_id%5D=\d+/, "%5Buser_id%5D=#{USER_ID}")
+  $('.new_review').attr href: new_review_url
+
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
     $('.c-screenshot').magnific_rel_gallery()
