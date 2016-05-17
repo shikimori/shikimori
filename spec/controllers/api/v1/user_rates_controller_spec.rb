@@ -21,7 +21,7 @@ describe Api::V1::UserRatesController do
     end
   end
 
-  context 'login&password authentication', :show_in_doc do
+  context 'login&password authentication' do
     include_context :authenticated, :user
 
     describe '#show' do
@@ -95,7 +95,7 @@ describe Api::V1::UserRatesController do
       let!(:user_rate) { create :user_rate, user: user, target: entry }
       let!(:user_history) { create :user_history, user: user, target: entry }
 
-      context 'anime' do
+      context 'anime', :show_in_doc do
         let(:entry) { create :anime }
         before { delete :cleanup, type: :anime }
 
@@ -123,7 +123,7 @@ describe Api::V1::UserRatesController do
     describe '#reset' do
       let!(:user_rate) { create :user_rate, user: user, target: entry, score: 1 }
 
-      context 'anime' do
+      context 'anime', :show_in_doc do
         let(:entry) { create :anime }
         before { post :reset, type: :anime }
 

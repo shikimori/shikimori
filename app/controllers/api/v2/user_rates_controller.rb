@@ -1,17 +1,16 @@
 class Api::V2::UserRatesController < Api::V1::UserRatesController
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/v2/user_rates', 'Create an user rate'
   param :user_rate, Hash do
-    param :chapters, :undef
-    param :episodes, :undef
-    param :rewatches, :undef
-    param :score, :undef
-    param :status, :undef
-    param :target_id, :number
-    param :target_type, :undef
-    param :text, :undef
-    param :user_id, :number
-    param :volumes, :undef
+    param :user_id, :number, required: true
+    param :target_id, :number, required: true
+    param :target_type, %w(Anime Manga), required: true
+    param :status, %w(planned watching rewatching completed on_hold dropped), required: true
+    param :score, :number, required: false
+    param :chapters, :number, required: false
+    param :episodes, :number, required: false
+    param :volumes, :number, required: false
+    param :rewatches, :number, required: false
+    param :text, String, required: false
   end
   def create
     present_rate = UserRate.find_by(
@@ -29,17 +28,16 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     respond_with @resource
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :PATCH, '/v2/user_rates/:id', 'Update an user rate'
   api :PUT, '/v2/user_rates/:id', 'Update an user rate'
   param :user_rate, Hash do
-    param :chapters, :undef
-    param :episodes, :undef
-    param :rewatches, :undef
-    param :score, :undef
-    param :status, :undef
-    param :text, :undef
-    param :volumes, :undef
+    param :status, %w(planned watching rewatching completed on_hold dropped), required: false
+    param :score, :number, required: false
+    param :chapters, :number, required: false
+    param :episodes, :number, required: false
+    param :volumes, :number, required: false
+    param :rewatches, :number, required: false
+    param :text, String, required: false
   end
   def update
     update_rate @resource

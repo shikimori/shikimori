@@ -12,7 +12,20 @@ describe Api::V2::UserRatesController, :show_in_doc do
 
   describe '#create' do
     let(:target) { create :anime }
-    let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
+    let(:create_params) do
+      {
+        user_id: user.id,
+        target_id: target.id,
+        target_type: target.class.name,
+        score: 10,
+        status: 'watching',
+        episodes: 2,
+        volumes: 3,
+        chapters: 4,
+        text: 'test',
+        rewatches: 5
+      }
+    end
     let(:make_request) { post :create, user_rate: create_params, format: :json }
 
     context 'new user_rate' do
@@ -40,7 +53,17 @@ describe Api::V2::UserRatesController, :show_in_doc do
 
   describe '#update' do
     let(:user_rate) { create :user_rate, user: user }
-    let(:update_params) {{ score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
+    let(:update_params) do
+      {
+        score: 10,
+        status: 'watching',
+        episodes: 2,
+        volumes: 3,
+        chapters: 4,
+        text: 'test',
+        rewatches: 5
+      }
+    end
     before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
     it do
