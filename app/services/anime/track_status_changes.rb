@@ -43,7 +43,7 @@ private
   end
 
   def status_changed? change
-    # when status has already been rolled back previously
+    # when status has already been rollbacked previously
     return false if status_change.nil?
 
     from, to = change.keys.first, change.values.first

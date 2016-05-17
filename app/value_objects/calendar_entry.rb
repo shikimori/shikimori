@@ -13,12 +13,12 @@ class CalendarEntry < SimpleDelegator
     if anime.episodes_aired.zero?
       0
     else
-      episodes_news.size < 2 ? 7.days : episode_average_interval
+      episode_news_topics.size < 2 ? 7.days : episode_average_interval
     end
   end
 
   def last_news
-    episodes_news.sort_by { |entry| entry.value.to_i }.last
+    episode_news_topics.sort_by { |entry| entry.value.to_i }.last
   end
 
   def next_episode
@@ -57,9 +57,9 @@ private
   # вычисление среднего интервала между выходами серий
   def episode_average_interval
     times = []
-    prior_time = episodes_news.first.created_at
+    prior_time = episode_news_topics.first.created_at
     # учитываем только последние восемь записей
-    episodes_news.reverse.take(8).reverse.each do |news|
+    episode_news_topics.reverse.take(8).reverse.each do |news|
       next if prior_time == news.created_at
       times << (news.created_at - prior_time).abs#/60/60/24
       prior_time = news.created_at

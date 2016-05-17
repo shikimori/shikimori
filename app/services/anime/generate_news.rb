@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# NOTE: call in before_save callback
 class Anime::GenerateNews < ServiceObjectBase
   pattr_initialize :anime
 

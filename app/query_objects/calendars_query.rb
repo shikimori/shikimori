@@ -53,7 +53,7 @@ private
   # выборка онгоингов
   def fetch_ongoings
     Anime
-      .includes(:episodes_news, :anime_calendars)
+      .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
       .where(status: :ongoing)#.where(id: 31680)
       .where(kind: [:tv, :ona]) # 15133 - спешл Aoi Sekai no Chuushin de
@@ -70,7 +70,7 @@ private
   # выборка анонсов
   def fetch_anonses
     Anime
-      .includes(:episodes_news, :anime_calendars)
+      .includes(:episode_news_topics, :anime_calendars)
       .references(:anime_calendars)
       .where(status: :anons)#.where(id: 31680)
       .where(kind: [:tv, :ona])

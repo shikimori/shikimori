@@ -29,7 +29,7 @@ describe Anime::GenerateNews do
       end
     end
 
-    context 'rolled back from ongoing to anons' do
+    context 'rollbacked from ongoing to anons' do
       let(:old_status) { :ongoing }
       let(:new_status) { :anons }
 
@@ -51,7 +51,7 @@ describe Anime::GenerateNews do
       end
     end
 
-    context 'rolled back from released to ongoing' do
+    context 'rollbacked from released to ongoing' do
       let(:old_status) { :released }
       let(:new_status) { :ongoing }
 
@@ -61,7 +61,7 @@ describe Anime::GenerateNews do
     end
   end
 
-  describe 'release news topics' do
+  describe 'released news topics' do
     let(:anime) do
       create :anime,
         status: old_status,

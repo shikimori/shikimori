@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TorrentsParser
   PROXY_LOG = ENV['RAILS_ENV'] == 'development' ? true : false
   USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
@@ -242,7 +244,11 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          GenerateNews::EntryEpisode.call anime, aired_at
+          anime.locales.each do |locale|
+            Topics::Generate::News::EpisodeTopic.call(
+              anime, anime.topic_user, locale, aired_at
+            )
+          end
         end
       end
 
