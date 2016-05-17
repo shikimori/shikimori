@@ -1,6 +1,6 @@
 # NOTE: implement these methods in including classes:
 #
-# - topic_auto_generated? (create after_save callback if yes)
+# - topic_auto_generated? (add after_create callback if yes)
 # - topic_user
 module TopicsConcern
   extend ActiveSupport::Concern
