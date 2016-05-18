@@ -9,10 +9,12 @@
   new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online
 
   $new_review = $('.new_review')
-  if $new_review.length
+  if USER_SIGNED_IN
     new_review_url = $new_review
-      .attr('href').replace(/%5Buser_id%5D=\d+/, "%5Buser_id%5D=#{USER_ID}")
+      .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{USER_ID}")
     $new_review.attr href: new_review_url
+  else
+    $new_review.hide()
 
   # автоподгрузка блока с расширенной инфой об аниме для гостей
   $('.l-content').on 'postloaded:success', '.resources-loader', ->
