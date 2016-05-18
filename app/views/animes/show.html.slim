@@ -34,14 +34,13 @@
               data-dynamic="authorized"
               data-text="#{t '.actions.comment'}"
             ]
-            - if can? :new, Review.new(user: current_user)
-              a.new_review.b-tooltipped.unprocessed.to-process[
-                href="#{@resource.new_review_url}"
-                title="#{t '.actions.review'}"
-                data-direction="top"
-                data-dynamic="authorized"
-                data-text="#{t '.actions.review'}"
-              ]
+            a.new_review.b-tooltipped.unprocessed.to-process[
+              href="#{@resource.new_review_url}"
+              title="#{t '.actions.review'}"
+              data-direction="top"
+              data-dynamic="authorized"
+              data-text="#{t '.actions.review'}"
+            ]
             a.fav-add.b-tooltipped.unprocessed.to-process[
               href="#{favourites_url @resource.object.class.name, @resource.id}"
               data-remote="true"
