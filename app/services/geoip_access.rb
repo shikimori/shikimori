@@ -5,7 +5,7 @@
 #   geoipupdate
 
 class GeoipAccess
-  pattr_initialize :ip
+  include Singleton
 
   # User.pluck(:last_sign_in_ip).uniq.map {|v| %x{geoiplookup #{v}}.fix_encoding[/GeoIP Country Edition: .*/] }.group_by {|v| v }.sort_by {|k,v| v.size }.each_with_object({}) {|(k,v),memo| memo[k] = v.size }
   ALLOWED_COUNTRIES = Set.new([
@@ -24,16 +24,25 @@ class GeoipAccess
     'TJ', # Tajikistan
   ])
 
-  def allowed?
-    _stub_test || ALLOWED_COUNTRIES.include?(country_code)
+  def allowed? ip
+    _stub_test || ALLOWED_COUNTRIES.include?(country_code(ip))
   end
 
-  def safe_ip
-    @safe_ip ||= ip.fix_encoding.gsub(/[^.\d]/, '')
+  def safe_ip ip
+    ip.fix_encoding.gsub(/[^.\d]/, '')
   end
 
-  def country_code
-    @country_code ||= Rails.cache.fetch([:geo_ip, safe_ip]) { ask_geoip safe_ip }
+  def country_code ip
+    safed_ip = safe_ip(ip)
+    @codes ||= {}
+
+    if @codes.include? safed_ip
+      @cores[safed_ip]
+    else
+      @codes[safed_ip] = Rails.cache.fetch([:geo_ip, safed_ip]) do
+        ask_geoip safed_ip
+      end
+    end
   end
 
 private

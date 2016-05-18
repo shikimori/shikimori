@@ -211,8 +211,7 @@ private
   end
 
   def ignore_copyright?
-    (user_signed_in? && current_user.day_registered?) ||
-      GeoipAccess.new(remote_addr).allowed?
+    current_user&.day_registered? || GeoipAccess.instance.allowed?(remote_addr)
   end
 
   # faye токен текущего пользователя
