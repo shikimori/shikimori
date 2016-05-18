@@ -15,7 +15,7 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     param :chapters, :number, required: false
     param :episodes, :number, required: false
     param :volumes, :number, required: false
-    param :rewatches, :number, required: false
+    param :rewatches, :undef, required: false
     param :text, String, required: false
   end
   def create
@@ -42,7 +42,7 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     param :chapters, :number, required: false
     param :episodes, :number, required: false
     param :volumes, :number, required: false
-    param :rewatches, :number, required: false
+    param :rewatches, :undef, required: false
     param :text, String, required: false
   end
   def update
