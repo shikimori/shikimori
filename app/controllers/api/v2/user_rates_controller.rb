@@ -11,7 +11,7 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     param :target_id, :number, required: true
     param :target_type, %w(Anime Manga), required: true
     param :status, %w(planned watching rewatching completed on_hold dropped), required: true
-    param :score, :number, required: false
+    param :score, :undef, required: false
     param :chapters, :number, required: false
     param :episodes, :number, required: false
     param :volumes, :number, required: false
@@ -38,7 +38,7 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
   api :PUT, '/v2/user_rates/:id', 'Update an user rate'
   param :user_rate, Hash do
     param :status, %w(planned watching rewatching completed on_hold dropped), required: false
-    param :score, :number, required: false
+    param :score, :undef, required: false
     param :chapters, :number, required: false
     param :episodes, :number, required: false
     param :volumes, :number, required: false
