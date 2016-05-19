@@ -24,14 +24,14 @@ class CharactersQuery < PeopleQuery
 
     works.sort_by {|v| v.aired_on || v.released_on || DateTime.now - 99.years }.reverse.each do |entry|
       (entry.class == Anime ? animes : mangas)[entry.id].each do |person|
-        break if person.last_works.size >= WorksLimit
+        break if person.last_works.size >= WORKS_LIMIT
         person.last_works << entry
       end
     end
 
     works.sort_by {|v| v.score }.reverse.each do |entry|
       (entry.class == Anime ? animes : mangas)[entry.id].each do |person|
-        break if person.best_works.size >= WorksLimit
+        break if person.best_works.size >= WORKS_LIMIT
         person.best_works << entry
       end
     end

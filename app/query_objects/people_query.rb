@@ -1,8 +1,8 @@
 class PeopleQuery
   include CompleteQuery
-  WorksLimit = 5
+  WORKS_LIMIT = 5
 
-  def initialize(params, klass=Person)
+  def initialize params, klass = Person
     @search = SearchHelper.unescape params[:search]
     @page = (params[:page] || 1).to_i
     @kind = (params[:kind] || '').to_sym
@@ -27,8 +27,9 @@ class PeopleQuery
       .select([:person_id, work_key])
       .to_a
 
-    role_people = roles.each_with_object({}) do |role,memo|
-      (memo[role[work_key]] = memo[role[work_key]] || []) << people_by_id[role.person_id]
+    role_people = roles.each_with_object({}) do |role, memo|
+      (memo[role[work_key]] = memo[role[work_key]] || []) <<
+        people_by_id[role.person_id]
     end
 
     works = work_klass
@@ -36,16 +37,19 @@ class PeopleQuery
       .order(score: :desc)
       .to_a
 
-    works.sort_by {|v| v.aired_on || v.released_on || DateTime.now - 99.years }.reverse.each do |entry|
-      role_people[entry.id].each do |person|
-        break if person.last_works.size >= WorksLimit
-        person.last_works << entry
+    works
+      .sort_by { |v| v.aired_on || v.released_on || DateTime.now - 99.years }
+      .reverse
+      .each do |entry|
+        role_people[entry.id].each do |person|
+          break if person.last_works.size >= WORKS_LIMIT
+          person.last_works << entry
+        end
       end
-    end
 
     works.each do |entry|
       role_people[entry.id].each do |person|
-        break if person.best_works.size >= WorksLimit
+        break if person.best_works.size >= WORKS_LIMIT
         person.best_works << entry
       end
     end
@@ -59,16 +63,19 @@ class PeopleQuery
   end
 
 private
+
   # ключи, по которым будет вестись поиск
-  def search_fields(term)
+  def search_fields term
     if term.contains_cjkv?
       [:japanese]
+    elsif term =~ /[А-я]/
+      [:russian]
     else
       [:name]
     end
   end
 
-  def fill_by_id(fetched_query)
+  def fill_by_id fetched_query
     fetched_query.each_with_object({}) do |entry, memo|
       class << entry; attr_accessor :last_works, :best_works; end
 

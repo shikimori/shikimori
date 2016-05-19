@@ -54,14 +54,14 @@ class SeyuQuery < PeopleQuery
     animes.each do |anime|
       anime_characters[anime.id].each do |character_id|
         character_people[character_id].each do |person_id|
-          person_characters[person_id] << characters[character_id] if person_characters[person_id].size < WorksLimit
+          person_characters[person_id] << characters[character_id] if person_characters[person_id].size < WORKS_LIMIT
         end
       end
     end
     animes.sort_by {|v| v.aired_on || v.released_on || DateTime.now + 10.years }.reverse.each do |anime|
       anime_characters[anime.id].each do |character_id|
         character_people[character_id].each do |person_id|
-          person_animes[person_id] << anime if person_animes[person_id].size < WorksLimit
+          person_animes[person_id] << anime if person_animes[person_id].size < WORKS_LIMIT
         end
       end
     end

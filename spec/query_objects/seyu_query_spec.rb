@@ -19,7 +19,7 @@ describe SeyuQuery do
     end
     let(:fetched_query) { query.fill_works(query.fetch) }
 
-    it { expect(fetched_query.first.best_works.size).to eq(PeopleQuery::WorksLimit) }
-    it { expect(fetched_query.first.last_works.size).to eq(PeopleQuery::WorksLimit) }
+    it { expect(fetched_query.first.best_works.size).to eq(PeopleQuery::WORKS_LIMIT) }
+    it { expect(fetched_query.first.last_works.size).to eq(PeopleQuery::WORKS_LIMIT) }
   end
 end
