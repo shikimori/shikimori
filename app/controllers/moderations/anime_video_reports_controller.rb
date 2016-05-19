@@ -1,5 +1,5 @@
 class Moderations::AnimeVideoReportsController < ModerationsController
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
 
   def index
     @page_title = i18n_t 'page_title'
@@ -11,7 +11,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     unless json?
       @pending = AnimeVideoReport
         .includes(:user, anime_video: :author)
-        .pending
+        .pendin
         .order(id: :desc)
         .limit(20)
     end
@@ -53,6 +53,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   end
 
 private
+
   def anime_video_report_params
     params
       .require(:anime_video_report)
