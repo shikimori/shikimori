@@ -12,9 +12,9 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     param :target_type, %w(Anime Manga), required: true
     param :status, %w(planned watching rewatching completed on_hold dropped), required: true
     param :score, :undef, required: false
-    param :chapters, :number, required: false
-    param :episodes, :number, required: false
-    param :volumes, :number, required: false
+    param :chapters, :undef, required: false
+    param :episodes, :undef, required: false
+    param :volumes, :undef, required: false
     param :rewatches, :undef, required: false
     param :text, String, required: false
   end
@@ -39,9 +39,9 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
   param :user_rate, Hash do
     param :status, %w(planned watching rewatching completed on_hold dropped), required: false
     param :score, :undef, required: false
-    param :chapters, :number, required: false
-    param :episodes, :number, required: false
-    param :volumes, :number, required: false
+    param :chapters, :undef, required: false
+    param :episodes, :undef, required: false
+    param :volumes, :undef, required: false
     param :rewatches, :undef, required: false
     param :text, String, required: false
   end
