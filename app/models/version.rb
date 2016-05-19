@@ -127,7 +127,7 @@ private
   end
 
   def truncate_value field, value
-    if item.class.columns_hash[field].limit && value.is_a?(String)
+    if item.class.columns_hash[field]&.limit && value.is_a?(String)
       value[0..item.class.columns_hash[field].limit-1]
     else
       value
