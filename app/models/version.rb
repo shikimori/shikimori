@@ -72,16 +72,9 @@ class Version < ActiveRecord::Base
   end
 
   def apply_changes
-    item_diff.each do |(field, changes)|
-      changes[0] = current_value field
-      item.send "#{field}=", changes.second
-
-      if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
-        item.desynced << field unless item.desynced.include?(field)
-      end
+    item.class.transaction do
+      item_diff.each { |(field, changes)| apply_change field, changes }
     end
-
-    item.save && save
   end
 
   def rollback_changes
@@ -118,5 +111,26 @@ class Version < ActiveRecord::Base
 
   def takeable?
     false
+  end
+
+private
+
+  def apply_change field, changes
+    changes[0] = current_value field
+    item.send "#{field}=", truncate_value(field, changes.second)
+
+    if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
+      item.desynced << field unless item.desynced.include?(field)
+    end
+
+    item.save && save
+  end
+
+  def truncate_value field, value
+    if item.class.columns_hash[field].limit && value.is_a?(String)
+      value[0..item.class.columns_hash[field].limit-1]
+    else
+      value
+    end
   end
 end
