@@ -157,6 +157,7 @@ group :test, :development do
   gem 'guard-bundler', require: false
   gem 'guard-spring', require: false
   gem 'guard-pow', require: false
+  gem 'guard-rubocop', require: false
 end
 
 group :test do

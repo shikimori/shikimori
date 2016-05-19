@@ -1,0 +1,80 @@
+AllCops:
+  TargetRubyVersion: 2.3
+  Exclude:
+    - config/**/*
+    - db/**/*
+    - lib/tasks/*
+  UseCache: false
+
+Metrics/LineLength:
+  Exclude:
+    - spec/**/*
+
+Style/NestedParenthesizedCalls:
+  Exclude:
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+Style/MethodDefParentheses:
+  Enabled: false
+Style/MultilineOperationIndentation:
+  Enabled: false
+Style/CommentIndentation:
+  Enabled: false
+Style/AccessModifierIndentation:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Style/CaseIndentation:
+  Enabled: false
+Style/AsciiComments:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/AlignParameters:
+  Enabled: false
+Style/MultilineMethodCallIndentation:
+  Enabled: false
+Lint/EndAlignment:
+  Enabled: false
+
+Style/StringLiterals:
+  Description: Checks if uses of quotes match the configured preference.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-string-literals
+  Enabled: true
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
+Style/StringLiteralsInInterpolation:
+  Description: Checks if uses of quotes inside expressions in interpolated strings
+    match the configured preference.
+  Enabled: true
+  EnforcedStyle: single_quotes
+  SupportedStyles:
+  - single_quotes
+  - double_quotes
+
+Style/DotPosition:
+  Description: Checks the position of the dot in multi-line method calls.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+  - leading
+  - trailing
+
+Style/CollectionMethods:
+  Description: Preferred collection methods.
+  StyleGuide: https://github.com/bbatsov/ruby-style-guide#map-find-select-reduce-size
+  Enabled: true
+  PreferredMethods:
+    collect: map
+    collect!: map!
+    find_all: select
+    reduce: inject
