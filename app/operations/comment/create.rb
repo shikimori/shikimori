@@ -18,7 +18,7 @@ private
   attr_reader :params
 
   def mutex_key
-    "comment_"\
+    'comment_'\
       "#{params[:commentable_id]}_"\
       "#{params[:commentable_type]}"
   end

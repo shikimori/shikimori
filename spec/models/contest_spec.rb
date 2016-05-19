@@ -19,7 +19,7 @@ describe Contest do
   end
 
   describe 'state machine' do
-    let(:contest) { create :contest, :with_5_members }
+    let(:contest) { create :contest, :with_5_members, :created }
 
     it 'full cycle' do
       expect(contest.created?).to be_truthy
@@ -80,29 +80,23 @@ describe Contest do
     end
 
     context 'after propose' do
-      let(:contest) { create :contest, :with_5_members, :with_topics }
-
-      it 'creates topics' do
-        contest.propose!
+      before { contest.propose! }
+      it 'creates 2 topics' do
         expect(contest.topics).to have(2).items
       end
     end
 
     context 'after start' do
-      it 'starts first round' do
-        contest.start!
-        expect(contest.rounds.first.started?).to be_truthy
-      end
-
-      let(:contest) { create :contest, :with_5_members, :with_topics }
-      it 'creates topics' do
-        contest.start!
+      before { contest.start! }
+      it 'starts first round and creates 2 topics' do
+        expect(contest.rounds.first.started?).to eq true
         expect(contest.topics).to have(2).items
       end
     end
 
     context 'after finished' do
       let(:contest) { create :contest, :started }
+
       before { allow(FinalizeContest).to receive :perform_async }
       before { contest.finish }
 
@@ -370,13 +364,11 @@ describe Contest do
       end
 
       describe '#topic_auto_generated' do
-        subject { model.send :topic_auto_generated? }
-        it { is_expected.to eq false }
+        it { expect(model.topic_auto_generated?).to eq false }
       end
 
       describe '#topic_user' do
-        subject { model.send :topic_user }
-        it { is_expected.to eq model.user }
+        it { expect(model.topic_user).to eq model.user }
       end
     end
   end

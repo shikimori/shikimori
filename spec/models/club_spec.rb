@@ -349,13 +349,15 @@ describe Club do
       end
 
       describe '#topic_auto_generated' do
-        subject { model.send :topic_auto_generated? }
-        it { is_expected.to eq true }
+        it { expect(model.topic_auto_generated?).to eq true }
       end
 
       describe '#topic_user' do
-        subject { model.send :topic_user }
-        it { is_expected.to eq model.owner }
+        it { expect(model.topic_user).to eq model.owner }
+      end
+
+      describe '#topic' do
+        it { expect(model.topic).to eq model.topics.first }
       end
     end
   end

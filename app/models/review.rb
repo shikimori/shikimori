@@ -71,6 +71,7 @@ class Review < ActiveRecord::Base
     user
   end
 
+  # 1 topic per review
   def topic
     topics.first
   end

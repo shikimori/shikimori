@@ -41,13 +41,11 @@ describe Person do
       end
 
       describe '#topic_auto_generated' do
-        subject { model.send :topic_auto_generated? }
-        it { is_expected.to eq false }
+        it { expect(model.topic_auto_generated?).to eq false }
       end
 
       describe '#topic_user' do
-        subject { model.send :topic_user }
-        it { is_expected.to eq BotsService.get_poster }
+        it { expect(model.topic_user).to eq BotsService.get_poster }
       end
     end
   end

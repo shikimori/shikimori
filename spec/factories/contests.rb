@@ -22,16 +22,8 @@ FactoryGirl.define do
       member_type :character
     end
 
-    trait :proposing do
-      state 'proposing'
-    end
-
-    trait :started do
-      state 'started'
-    end
-
-    trait :finished do
-      state 'finished'
+    Contest.state_machine.states.map(&:value).each do |contest_state|
+      trait(contest_state.to_sym) { state contest_state }
     end
 
     after :build do |contest|

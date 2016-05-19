@@ -28,13 +28,11 @@ class DbEntry < ActiveRecord::Base
     self.class == Manga
   end
 
-  def topic_user
-    BotsService.get_poster
-  end
-
-private
-
   def topic_auto_generated?
     false
+  end
+
+  def topic_user
+    BotsService.get_poster
   end
 end
