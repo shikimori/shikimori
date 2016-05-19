@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 describe Anime::TrackEpisodesChanges do
-  let!(:news_topic) {}
+  let!(:news_topic_wo_comments) {}
+  let!(:news_topic_with_comments) {}
 
   before do
     anime.assign_attributes episodes_aired: new_episodes_aired
@@ -86,10 +87,16 @@ describe Anime::TrackEpisodesChanges do
         episodes_aired: old_episodes_aired
     end
 
-    let(:news_topic) do
+    let(:news_topic_wo_comments) do
       create :news_topic,
         linked: anime,
         action: AnimeHistoryAction::Episode
+    end
+    let(:news_topic_with_comments) do
+      create :news_topic,
+        linked: anime,
+        action: AnimeHistoryAction::Episode,
+        comments_count: 1
     end
 
     context 'aired episodes not reset' do
@@ -97,7 +104,10 @@ describe Anime::TrackEpisodesChanges do
       let(:new_episodes_aired) { 8 }
 
       it 'does not remove news topics' do
-        expect(anime.news).to eq [news_topic]
+        expect(anime.news).to eq [
+          news_topic_with_comments,
+          news_topic_wo_comments
+        ]
       end
     end
 
@@ -105,8 +115,10 @@ describe Anime::TrackEpisodesChanges do
       let(:old_episodes_aired) { 7 }
       let(:new_episodes_aired) { 0 }
 
-      it 'removes news topics about aired episodes' do
-        expect(anime.news).to be_empty
+      it 'removes news topics about aired episodes without comments' do
+        expect(anime.news).to eq [
+          news_topic_with_comments
+        ]
       end
     end
   end

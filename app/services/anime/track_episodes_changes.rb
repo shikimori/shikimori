@@ -42,6 +42,7 @@ private
     Topics::NewsTopic
       .where(linked: anime)
       .where(action: AnimeHistoryAction::Episode)
+      .where(comments_count: 0)
       .destroy_all
   end
 end
