@@ -11,7 +11,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     unless json?
       @pending = AnimeVideoReport
         .includes(:user, anime_video: :author)
-        .pendin
+        .pending
         .order(id: :desc)
         .limit(20)
     end
