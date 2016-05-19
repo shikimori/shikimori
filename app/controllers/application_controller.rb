@@ -154,21 +154,21 @@ private
   end
 
   def force_ssl
-    if request.protocol != 'http://'
-      redirect_to url_for(params.merge protocol: 'http')
-      response.headers['Strict-Transport-Security'] = 'max-age=0'
-    end
-    # if user_signed_in? && current_user.preferences.force_ssl
-      # if request.protocol != 'https://' && Rails.env.production?
-        # redirect_to url_for(params.merge protocol: 'https')
-        # response.headers['Strict-Transport-Security'] = 'max-age=31536000 always'
-      # end
-    # else
-      # if request.protocol != 'http://' && Rails.env.production?
-        # redirect_to url_for(params.merge protocol: 'http')
-        # response.headers['Strict-Transport-Security'] = 'max-age=0'
-      # end
+    # if request.protocol != 'http://'
+      # redirect_to url_for(params.merge protocol: 'http')
+      # response.headers['Strict-Transport-Security'] = 'max-age=0'
     # end
+    if user_signed_in? && current_user.preferences.force_ssl
+      if request.protocol != 'https://' && Rails.env.production?
+        redirect_to url_for(params.merge protocol: 'https')
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000 always'
+      end
+    else
+      if request.protocol != 'http://' && Rails.env.production?
+        redirect_to url_for(params.merge protocol: 'http')
+        response.headers['Strict-Transport-Security'] = 'max-age=0'
+      end
+    end
   end
 
   # before фильтры с настройкой сайта
