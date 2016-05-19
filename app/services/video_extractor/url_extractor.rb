@@ -57,7 +57,7 @@ private
     elsif html =~ %r{#{HTTP}rutube.ru/tracks/#{PARAM}\.html\?v=(#{PARAM})}
       "http://video.rutube.ru/#{$1}"
     elsif html =~ %r{(#{HTTP}video.sibnet.ru/shell#{CONTENT})}
-      $1.sub /shell\.swf\?/, 'shell.php?'
+      $1.sub(/shell\.swf\?/, 'shell.php?')
     elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).(?:mp4|flv)}
       "http://video.sibnet.ru/shell.php?videoid=#{$1.sub(/\.(flv|mp4)\?.*/, '')}"
     elsif html =~ %r{(#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
@@ -82,6 +82,8 @@ private
       $1
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
+    # elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
+      # "http://play.aniland.org/#{$1}?player=4"
 
     #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
       #puts 'animeonline.su skipped' unless Rails.env.test?
