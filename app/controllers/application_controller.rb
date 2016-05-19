@@ -67,9 +67,9 @@ class ApplicationController < ActionController::Base
 
   def default_url_options options = {}
     if params[:locale]
-      options.merge locale: params[:locale]
+      options.merge protocol: false, locale: params[:locale]
     else
-      options
+      options.merge protocol: false
     end
   end
 
