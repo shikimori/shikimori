@@ -32,7 +32,7 @@ class AnimesCollection::View < ViewObjectBase
     keys = [
       klass.name,
       (user if h.params[:mylist]),
-      h.anime_online?.to_s
+      h.request.domain
     ]
 
     h.params
