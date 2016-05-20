@@ -29,12 +29,17 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache_key
-    keys = [klass.name, (user if h.params[:mylist]), h.shikimori?.to_s].compact
+    keys = [
+      klass.name,
+      (user if h.params[:mylist]),
+      h.anime_online?.to_s
+    ]
 
     h.params
       .except(:format, :controller, :action)
       .sort_by(&:first)
       .inject(keys) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .compact
   end
 
   def cache_expires_in
