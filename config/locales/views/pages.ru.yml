@@ -272,21 +272,7 @@ ru:
         <br>
         [solid]
         <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
         [/solid]
         <br>
@@ -294,41 +280,13 @@ ru:
         <br>
         <span>обычный набор картинок</span>
         <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
       images_without_spaces_example_2: >-
         [solid]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         [/solid]
         [br][br][br]
         [hr]
         [br][br]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
