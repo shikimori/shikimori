@@ -25,7 +25,7 @@
 
 - else
   .cc-entries
-    - if @view.collection.none? && @view.page == 1
+    - if (!@view.collection || @view.collection.none?) && @view.page == 1
       .b-nothing_here = t '.nothing_here'
     - else
       = render partial: 'animes/anime',
