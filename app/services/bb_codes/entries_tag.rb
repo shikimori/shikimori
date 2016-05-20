@@ -70,7 +70,7 @@ private
         cover_notice: cover_notice
       },
       formats: [:html],
-      cache: ->(entry, _) { [entry, cover_title, cover_notice, I18n.locale] }
+      cache: ->(entry, _) { CacheHelper.keys entry, cover_title, cover_notice }
     )
   end
 

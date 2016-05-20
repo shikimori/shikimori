@@ -118,6 +118,10 @@ class DbEntryDecorator < BaseDecorator
     versions.postload (h.params[:page] || 1).to_i, 15
   end
 
+  def path
+    h.send "#{klass_lower}_url", object
+  end
+
   def url subdomain=true
     h.send "#{klass_lower}_url", object, subdomain: subdomain
   end

@@ -14,7 +14,7 @@
             content_by: :block,
             content_text: :none\
           },
-          cache: ->(entry, _) { [entry, :latest_episode, :block, I18n.locale] }
+          cache: ->(entry, _) { CacheHelper.keys entry, :latest_episode, :block }
 
         - if @add_postloader
           = render 'blocks/postloader', filter: 'b-catalog_entry',
