@@ -222,9 +222,9 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq '//smotret-anime.ru/translations/embed/522965' }
     end
 
-    # describe 'play.aniland.org' do
-      # let(:html) { 'http://play.aniland.org/2147401883?player=4' }
-      # it { is_expected.to eq '//play.aniland.org/2147401883' }
-    # end
+    describe 'play.aniland.org' do
+      let(:html) { 'http://play.aniland.org/2147401883?player=4' }
+      it { is_expected.to eq '//play.aniland.org/2147401883?player=8' }
+    end
   end
 end

@@ -82,8 +82,8 @@ private
       $1
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
-    # elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
-      # "http://play.aniland.org/#{$1}?player=4"
+    elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
+      "http://play.aniland.org/#{$1}?player=8"
 
     #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
       #puts 'animeonline.su skipped' unless Rails.env.test?
