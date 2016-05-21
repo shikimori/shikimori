@@ -3,9 +3,9 @@ class Topics::NewsView < Topics::View
     super 'b-news-topic'
   end
 
-  def minified?
-    is_preview || is_mini
-  end
+  # def minified?
+    # is_preview || is_mini
+  # end
 
   def topic_title
     topic.title

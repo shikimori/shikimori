@@ -1,10 +1,10 @@
+# rubocop:disable ClassLength
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at, :updated_at,
-    :body, :viewed?, to: :topic
-  delegate :comments_count, :summaries_count, to: :topic
-  delegate :any_comments?, :any_summaries?, to: :topic
+  delegate :id, :persisted?, :user, :created_at, :updated_at, :body, :viewed?,
+    :comments_count, :summaries_count, :any_comments?, :any_summaries?,
+    to: :topic
 
   instance_cache :comments_view, :urls, :action_tag, :topic_ignore
 
@@ -20,7 +20,7 @@ class Topics::View < ViewObjectBase
     [
       css,
       ('b-topic-preview' if is_preview),
-      (:mini if is_mini),
+      (:mini if is_mini)
     ].compact.join ' '
   end
 
@@ -56,13 +56,12 @@ class Topics::View < ViewObjectBase
     html_body
   end
 
-  # картинка топика(аватарка автора)
+  # картинка топика (аватарка автора)
   def poster is_2x
     # последнее условие для пользовательских топиков об аниме
-    if topic.linked && is_preview && !topic.instance_of?(Topic)
-      ImageUrlGenerator.instance.url(
-        (topic.review? ? topic.linked.target : topic.linked), is_2x ? :x96 : :x48
-      )
+    if linked_in_avatar?
+      linked = topic.review? ? topic.linked.target : topic.linked
+      ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
       topic.user.avatar_url is_2x ? 80 : 48
     end
@@ -107,22 +106,20 @@ class Topics::View < ViewObjectBase
     # if linked.kind_of? Review
       # h.localized_name linked.target
     # else
-      # h.localized_name linked if linked.respond_to?(:name) && linked.respond_to?(:russian)
+      # if linked.respond_to?(:name) && linked.respond_to?(:russian)
+        # h.localized_name linked
+      # end
     # end
   # end
 
   def html_body_truncated
     if is_preview
-      body_wo_images = html_body
-        .gsub(%r(<a [^>]* class="b-image.*?</a>), '')
-        .gsub(/<center><\/center>/, '')
-        .gsub(/\A(<br>)+/, '')
-
-      h.truncate_html(body_wo_images,
+      html = h.truncate_html cleanup_preview_body(html_body),
         length: 500,
         separator: ' ',
         word_boundary: /\S[\.\?\!<>]/
-      ).html_safe
+
+      html.html_safe
     else
       html_body
     end
@@ -155,4 +152,16 @@ private
   def topic_body
     topic.original_body
   end
+
+  def linked_in_avatar?
+    topic.linked && is_preview && !topic.instance_of?(Topic)
+  end
+
+  def cleanup_preview_body html
+    html
+      .gsub(%r{<a [^>]* class="b-image.*?</a>}, '')
+      .gsub(%r{<center></center>}, '')
+      .gsub(/\A(<br>)+/, '')
+  end
 end
+# rubocop:enable ClassLength
