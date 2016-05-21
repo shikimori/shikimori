@@ -5,24 +5,52 @@ class Topics::TopicViewFactory
     build Topic.find(topic_id)
   end
 
+  # rubocop:disable MethodLength
   def build topic
     if topic.review?
-      Topics::ReviewView.new topic, is_preview, is_mini
+      review_topic topic
 
     elsif topic.contest?
-      Topics::ContestView.new topic, is_preview, is_mini
+      contest_topic topic
 
     elsif topic.cosplay?
-      Topics::CosplayView.new topic, is_preview, is_mini
+      cosplay_topic topic
 
     elsif topic.generated_news?
-      Topics::GeneratedNewsView.new topic, is_preview, is_mini
+      generated_news_topic topic
 
     elsif topic.news?
-      Topics::NewsView.new topic, is_preview, is_mini
+      news_topic topic
 
     else
-      Topics::View.new topic, is_preview, is_mini
+      common_topic topic
     end
+  end
+  # rubocop:enable MethodLength
+
+private
+
+  def review_topic topic
+    Topics::ReviewView.new topic, is_preview, is_mini
+  end
+
+  def contest_topic topic
+    Topics::ContestView.new topic, is_preview, is_mini
+  end
+
+  def cosplay_topic topic
+    Topics::CosplayView.new topic, is_preview, is_mini
+  end
+
+  def generated_news_topic topic
+    Topics::GeneratedNewsView.new topic, is_preview, is_mini
+  end
+
+  def news_topic topic
+    Topics::NewsView.new topic, is_preview, is_mini
+  end
+
+  def common_topic topic
+    Topics::View.new topic, is_preview, is_mini
   end
 end
