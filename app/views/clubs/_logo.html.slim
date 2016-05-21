@@ -1,3 +1,7 @@
 - if resource.logo.exists?
   .block.logo
-    center: img src="#{resource.logo.url :main}" alt="#{resource.name}" title="#{resource.name}"
+    center: img[
+      src="#{cdn_image resource, :main}"
+      alt="#{resource.name}"
+      title="#{resource.name}"
+    ]

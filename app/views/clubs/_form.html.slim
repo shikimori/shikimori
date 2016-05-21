@@ -30,7 +30,7 @@
     .subheadline.m10 = i18n_i 'logo'
     - if @resource.logo.exists?
       img[
-        src="#{@resource.logo.url :main}"
+        src="#{cdn_image @resource, :main}"
         alt="#{@resource.name}"
         title="#{@resource.name}"
       ]
