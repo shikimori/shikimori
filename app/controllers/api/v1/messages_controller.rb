@@ -10,14 +10,12 @@ class Api::V1::MessagesController < Api::V1::ApiController
     respond_with @resource.decorate
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/messages', 'Create a message'
-  param :frontend, :bool
   param :message, Hash do
-    param :body, :undef
-    param :from_id, :number
-    param :kind, :undef
-    param :to_id, :number
+    param :body, String, required: true
+    param :from_id, :number, required: true
+    param :kind, [MessageType::Private], required: true
+    param :to_id, :number, required: true
   end
   error code: 422
   def create
@@ -28,12 +26,10 @@ class Api::V1::MessagesController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :PATCH, '/messages/:id', 'Update a message'
   api :PUT, '/messages/:id', 'Update a message'
-  param :frontend, :bool
-  param :message, Hash do
-    param :body, :undef
+  param :message, Hash, required: true do
+    param :body, String, required: true
   end
   error code: 422
   def update
@@ -63,9 +59,8 @@ class Api::V1::MessagesController < Api::V1::ApiController
     head 200
   end
 
-  api :POST, '/messages/read_all', 'Mark all messages as read. Types: news, notifications'
-  param :type, :undef
-  param :profile_id, :undef
+  api :POST, '/messages/read_all', 'Mark all messages as read'
+  param :type, %w(news notifications)
   def read_all
     MessagesService.new(current_user).read_messages type: @messages_type
 
@@ -80,9 +75,8 @@ class Api::V1::MessagesController < Api::V1::ApiController
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :POST, '/messages/delete_all', 'Delete all messages. Types: news, notifications'
-  param :frontend, :bool
-  param :type, :undef
+  api :POST, '/messages/delete_all', 'Delete all messages'
+  param :type, %w(news notifications)
   error code: 302
   def delete_all
     MessagesService.new(current_user).delete_messages type: @messages_type
@@ -126,11 +120,26 @@ private
   def append_info
     return unless @resource.to.admin?
 
-    @resource.body.strip!
-    @resource.body += " [right][size=11][color=gray][spoiler=info][quote]"
-    @resource.body += "#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}\n"
-    @resource.body += "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n" if params[:message][:location].present?
-    @resource.body += "#{params[:message][:feedback_address]}\n" if params[:message][:feedback_address].present?
-    @resource.body += '[/quote][/spoiler][/color][/size][/right]'
+    @resource.body = @resource.body.strip
+    @resource.body += info_text
+  end
+
+  def info_text
+    <<-TEXT.strip
+[right][size=11][color=gray][spoiler=info][quote]
+#{params[:message][:user_agent] || request.env['HTTP_USER_AGENT']}
+#{location_text}#{feedback_address_text}\
+[/quote][/spoiler][/color][/size][/right]
+TEXT
+  end
+
+  def location_text
+    return if params[:message][:location].blank?
+    "[url=#{params[:message][:location]}]#{params[:message][:location]}[/url]\n"
+  end
+
+  def feedback_address_text
+    return if params[:message][:feedback_address].blank?
+    "#{params[:message][:feedback_address]}\n"
   end
 end

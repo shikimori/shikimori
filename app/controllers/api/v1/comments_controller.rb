@@ -11,15 +11,16 @@ class Api::V1::CommentsController < Api::V1::ApiController
     respond_with Comment.find(params[:id]).decorate
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :GET, '/comments', 'List comments'
+  param :commentable_id, :number, required: true
+  param :commentable_type, String, required: true
+  param :page, :number, required: false
+  param :limit, :number, required: false
+  param :desc, %w(1 0), required: false
   def index
     @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
-
-    raise MissingApiParameter, :commentable_type if params[:commentable_type].blank?
-    raise MissingApiParameter, :commentable_id if params[:commentable_id].blank?
 
     respond_with CommentsQuery
       .new(params[:commentable_type], params[:commentable_id])
@@ -28,14 +29,13 @@ class Api::V1::CommentsController < Api::V1::ApiController
       .decorate
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/comments', 'Create a comment'
   param :comment, Hash do
-    param :body, :undef
-    param :commentable_id, :number
-    param :commentable_type, :undef
-    param :is_offtopic, :bool
-    param :is_summary, :bool
+    param :body, String, required: true
+    param :commentable_id, :number, required: true
+    param :commentable_type, String, required: true
+    param :is_offtopic, :bool, required: false
+    param :is_summary, :bool, required: false
   end
   param :frontend, :bool
   def create
@@ -47,11 +47,10 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :PATCH, '/comments/:id', 'Update a comment'
   api :PUT, '/comments/:id', 'Update a comment'
   param :comment, Hash do
-    param :body, :undef
+    param :body, String, required: true
   end
   param :frontend, :bool
   def update
