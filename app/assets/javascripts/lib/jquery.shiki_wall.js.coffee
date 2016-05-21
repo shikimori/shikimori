@@ -205,7 +205,6 @@ class WallVideo extends WallImage
       width: @width
       # height: @height / @_height_ratio()
 
-    console.log @$container
     @$container.css
       top: @top
       left: @left
@@ -219,5 +218,4 @@ class WallVideo extends WallImage
     ]
 
   _height_ratio: ->
-    console.log @is_vk, HEIGHT_RATIO[if @is_vk then 'vk' else 'other']
     HEIGHT_RATIO[if @is_vk then 'vk' else 'other']
