@@ -1,4 +1,4 @@
-# TODO: refactor
+# TODO: refactor to bunch of simplier query objects
 class AniMangaQuery
   include CompleteQuery
 
@@ -111,34 +111,50 @@ private
   def type!
     return if @type.blank?
 
-    raw_types = @type.split(',').map do |type|
+    types = @type
+      .split(',')
+      .each_with_object(complex: [], simple: []) do |type, memo|
+        memo[type =~ /tv_\d+/ ? :complex : :simple] << type
+      end
+
+    simple_types = bang_split types[:simple]
+
+    simple_queries = {
+      include: simple_types[:include].map do |type|
+        "#{@klass.table_name}.kind = #{Anime.sanitize type}"
+      end,
+      exclude: simple_types[:exclude].map do |type|
+        "#{@klass.table_name}.kind = #{Anime.sanitize type}"
+      end
+    }
+    complex_queries = { include: [], exclude: [] }
+
+    types[:complex].each do |type|
       with_bang = type.starts_with? '!'
 
-      case type
+      query = case type
         when 'tv_13', '!tv_13'
-          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
-          @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'tv'
+          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
 
         when 'tv_24', '!tv_24'
-          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
-          @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'tv'
+          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
 
         when 'tv_48', '!tv_48'
-          query = "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 29) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
-          @query = @query.where(with_bang ? "not(#{query})" : query)
-          with_bang ? nil : 'tv'
-
-        else
-          type.gsub(/-| /, '_').downcase
+          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 29) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
       end
-    end.compact
 
-    types = bang_split raw_types
+      complex_queries[with_bang ? :exclude : :include] << query
+    end
 
-    @query = @query.where("#{@klass.table_name}.kind in (?)", types[:include]) if types[:include].any?
-    @query = @query.where("#{@klass.table_name}.kind not in (?)", types[:exclude]) if types[:exclude].any?
+    includes = (simple_queries[:include] + complex_queries[:include]).compact
+    excludes = (simple_queries[:exclude] + complex_queries[:exclude]).compact
+
+    if includes.any?
+      @query = @query.where includes.join(' or ')
+    end
+    if excludes.any?
+      @query = @query.where 'not(' + excludes.join(' or ') + ')'
+    end
   end
 
   # включение цензуры
@@ -394,8 +410,8 @@ private
     end
 
     if block_given?
-      data[:include].map! {|v| yield(v) }
-      data[:exclude].map! {|v| yield(v) }
+      data[:include].map! { |v| yield v }
+      data[:exclude].map! { |v| yield v }
     end
 
     data
@@ -427,12 +443,14 @@ private
         "#{klass.table_name}.name"
 
       when 'russian'
-        "(case when #{klass.table_name}.russian is null or #{klass.table_name}.russian=''
-            then #{klass.table_name}.name else #{klass.table_name}.russian end)"
+        "(case when #{klass.table_name}.russian is null \
+          or #{klass.table_name}.russian=''
+          then #{klass.table_name}.name else #{klass.table_name}.russian end)"
 
       when 'episodes'
         "(case when #{klass.table_name}.episodes = 0
-          then  #{klass.table_name}.episodes_aired else #{klass.table_name}.episodes end) desc"
+          then #{klass.table_name}.episodes_aired \
+          else #{klass.table_name}.episodes end) desc"
 
       when 'chapters'
         "#{klass.table_name}.chapters desc"
@@ -441,18 +459,21 @@ private
         "#{klass.table_name}.volumes desc"
 
       when 'status'
-        "(case when #{klass.table_name}.status='Not yet aired' or #{klass.table_name}.status='Not yet published'
+        "(case when #{klass.table_name}.status='Not yet aired' \
+          or #{klass.table_name}.status='Not yet published'
           then 'AAA' else (case when #{klass.table_name}.status='Publishing'
-            then 'Currently Airing' else #{klass.table_name}.status end) end)"
+          then 'Currently Airing' else #{klass.table_name}.status end) end)"
 
       when 'popularity'
         '(case when popularity=0 then 999999 else popularity end)'
 
       when 'ranked'
-        "(case when ranked=0 then 999999 else ranked end), #{klass.table_name}.score desc"
+        "(case when ranked=0 then 999999 else ranked end), \
+        #{klass.table_name}.score desc"
 
       when 'released_on'
-        '(case when released_on is null then aired_on else released_on end) desc'
+        '(case when released_on is null then aired_on \
+        else released_on end) desc'
 
       when 'aired_on'
         'aired_on desc'

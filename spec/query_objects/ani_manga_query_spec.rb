@@ -30,9 +30,9 @@ describe AniMangaQuery do
 
       let!(:anime_8) { create :anime, :tv, episodes: 29 }
       let!(:anime_9) { create :anime, :tv, episodes: 0, episodes_aired: 100 }
+      let!(:anime_10) { create :anime, :movie }
 
       context 'tv' do
-        before { create :anime, :movie }
         it do
           expect(fetch type: 'tv').to have(9).items
           expect(fetch type: '!tv').to have(1).item
@@ -42,29 +42,34 @@ describe AniMangaQuery do
       context 'tv_13' do
         it do
           expect(fetch type: 'tv_13').to have(4).items
-          expect(fetch type: '!tv_13').to have(5).items
+          expect(fetch type: '!tv_13').to have(6).items
         end
       end
 
       context 'tv_24' do
         it do
           expect(fetch type: 'tv_24').to have(3).items
-          expect(fetch type: '!tv_24').to have(6).items
+          expect(fetch type: '!tv_24').to have(7).items
         end
       end
 
       context 'tv_48' do
         it do
           expect(fetch type: 'tv_48').to have(2).items
-          expect(fetch type: '!tv_48').to have(7).items
+          expect(fetch type: '!tv_48').to have(8).items
         end
       end
 
-      it 'multiple negative' do
-        expect(fetch type: '!tv_13,!tv_24').to have(2).items
-      end
       it 'multiple positive' do
-        expect(fetch type: 'tv_13,tv_24').to have(0).items
+        expect(fetch type: 'tv_13,tv_24').to have(7).items
+      end
+
+      it 'multiple negative' do
+        expect(fetch type: '!tv_13,!tv_24').to have(3).items
+      end
+
+      it 'mixed' do
+        expect(fetch type: 'movie,tv_13,tv_24').to have(8).items
       end
     end
 
@@ -360,7 +365,7 @@ describe AniMangaQuery do
       let(:shounen_ai) { create :genre, id: Genre::SHOUNEN_AI_IDS.sample }
       let(:shoujo_ai) { create :genre, id: Genre::SHOUJO_AI_IDS.sample }
 
-      let(:options) {{ AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true }}
+      let(:options) { { AniMangaQuery::EXCLUDE_AI_GENRES_KEY => true } }
 
       it do
         # male
@@ -372,7 +377,7 @@ describe AniMangaQuery do
           [common_anime, anime_yaoi, anime_shounen_ai])
 
         # unknown gender
-        expect(fetch options, build_stubbed(:user)).to eq([common_anime])
+        expect(fetch options, build_stubbed(:user)).to eq [common_anime]
       end
     end
 
