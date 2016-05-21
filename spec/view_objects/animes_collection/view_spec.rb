@@ -244,12 +244,7 @@ describe AnimesCollection::View do
 
     describe '#filtered_params' do
       subject { view.filtered_params }
-      it do
-        is_expected.to eq(
-          klass: 'anime',
-          type: 'tv'
-        )
-      end
+      it { is_expected.to eq type: 'tv' }
     end
   end
 end

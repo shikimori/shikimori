@@ -43,10 +43,12 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def url changed_params
+    params = filtered_params.merge(changed_params).symbolize_keys
+
     if recommendations?
-      h.recommendations_url filtered_params.merge(changed_params)
+      h.recommendations_url params
     else
-      h.animes_url filtered_params.merge(changed_params)
+      h.send "#{klass.name.downcase.pluralize}_url", params
     end
   end
 
@@ -60,7 +62,7 @@ class AnimesCollection::View < ViewObjectBase
 
   def filtered_params
     h.params.except(
-      :format, :template, :is_adult, :controller, :action,
+      :format, :template, :is_adult, :controller, :action, :klass,
       AnimesCollection::RecommendationsQuery::IDS_KEY,
       AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
     )

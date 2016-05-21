@@ -12,7 +12,7 @@ class AnimesCollectionController < ShikimoriController
 
   # страница каталога аниме/манги
   def index
-    mylist_redirect_check
+    forbidden_params_redirect_check
     build_background
 
     unless shikimori?
@@ -108,10 +108,13 @@ private
     end
   end
 
-  # редирект для не автороизованных пользователей при ссылках на mylist, чтобы не падало с ошибкой
-  def mylist_redirect_check
+  def forbidden_params_redirect_check
     if params.include?(:mylist) && !user_signed_in?
       raise ForceRedirect, @view.url(mylist: nil)
+    end
+
+    if params.include?(:duration) && @view.klass == Manga
+      raise ForceRedirect, @view.url(duration: nil)
     end
   end
 
