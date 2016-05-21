@@ -188,10 +188,10 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-urijs'
 
   # dependencies for rails-assets-packery'
-  gem 'rails-assets-fizzy-ui-utils', '2.0.1'
+  gem 'rails-assets-fizzy-ui-utils', '2.0.2'
   gem 'rails-assets-get-size', '2.0.2'
   gem 'rails-assets-matches-selector', '2.0.1'
-  gem 'rails-assets-outlayer', '2.0.1'
+  gem 'rails-assets-outlayer', '2.1.0'
 
   gem 'rails-assets-sugar'
   gem 'rails-assets-jquery'

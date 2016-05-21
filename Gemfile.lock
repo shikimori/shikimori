@@ -257,7 +257,7 @@ GEM
     equalizer (0.0.11)
     erubis (2.7.0)
     eventmachine (1.2.0.1)
-    execjs (2.6.0)
+    execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     factory_girl-seeds (1.1.0)
@@ -319,9 +319,9 @@ GEM
       guard-compat (~> 1.1)
       spring
     hashdiff (0.3.0)
-    hashie (3.4.3)
+    hashie (3.4.4)
     hiredis (0.5.2)
-    hitimes (1.2.3)
+    hitimes (1.2.4)
     honeybadger (2.6.0)
     htmlentities (4.3.4)
     http_parser.rb (0.6.0)
@@ -338,7 +338,7 @@ GEM
     i18n-js (3.0.0.rc12)
       i18n (~> 0.6, >= 0.6.6)
     icalendar (2.3.0)
-    ice_nine (0.11.1)
+    ice_nine (0.11.2)
     jbuilder (2.4.1)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -361,8 +361,8 @@ GEM
       nokogiri (>= 1.5.9)
     lumberjack (1.0.10)
     mactag (0.7.2)
-    mail (2.6.3)
-      mime-types (>= 1.16, < 3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     marco-polo (1.2.1)
     meta-tags (2.1.0)
       actionpack (>= 3.0.0)
@@ -370,7 +370,9 @@ GEM
     metrika (0.2.3)
       oauth2
       yajl-ruby
-    mime-types (2.99.1)
+    mime-types (3.0)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2016.0221)
     mimemagic (0.3.0)
     mini_portile2 (2.0.0)
     minitest (5.9.0)
@@ -472,29 +474,29 @@ GEM
       sprockets-rails
     rails-assets-desandro-matches-selector (2.0.1)
     rails-assets-ev-emitter (1.0.2)
-    rails-assets-fizzy-ui-utils (2.0.1)
+    rails-assets-fizzy-ui-utils (2.0.2)
       rails-assets-desandro-matches-selector (~> 2.0.0)
     rails-assets-get-size (2.0.2)
     rails-assets-imagesloaded (4.1.0)
       rails-assets-ev-emitter (~> 1.0.0)
-    rails-assets-jQuery-Storage-API (1.8.1)
+    rails-assets-jQuery-Storage-API (1.9.1)
       rails-assets-jquery (>= 1.4)
-    rails-assets-jquery (2.2.2)
+    rails-assets-jquery (2.2.4)
     rails-assets-jquery-bridget (2.0.0)
       rails-assets-jquery (>= 1.4.2, < 4)
     rails-assets-magnific-popup (1.1.0)
       rails-assets-jquery (>= 1.8.0)
     rails-assets-matches-selector (2.0.1)
-    rails-assets-outlayer (2.0.1)
-      rails-assets-ev-emitter (~> 1.0.0)
-      rails-assets-fizzy-ui-utils (~> 2.0.0)
-      rails-assets-get-size (~> 2.0.2)
-    rails-assets-packery (2.0.0)
-      rails-assets-get-size (~> 2.0.2)
-      rails-assets-outlayer (~> 2.0.0)
+    rails-assets-outlayer (2.1.0)
+      rails-assets-ev-emitter (>= 1.0.0, < 2)
+      rails-assets-fizzy-ui-utils (>= 2.0.0, < 3)
+      rails-assets-get-size (>= 2.0.2, < 3)
+    rails-assets-packery (2.1.0)
+      rails-assets-get-size (>= 2.0.2, < 3)
+      rails-assets-outlayer (>= 2.0.0, < 3)
     rails-assets-pikaday (1.4.0)
     rails-assets-sugar (1.4.1)
-    rails-assets-urijs (1.17.1)
+    rails-assets-urijs (1.18.0)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.7)
@@ -631,7 +633,7 @@ GEM
       rack (~> 1.0)
     thor (0.19.1)
     thread_safe (0.3.5)
-    tilt (2.0.2)
+    tilt (2.0.4)
     timecop (0.8.1)
     timers (4.1.1)
       hitimes
@@ -654,7 +656,7 @@ GEM
       equalizer (~> 0.0, >= 0.0.9)
     warden (1.2.6)
       rack (>= 1.0)
-    webmock (1.24.2)
+    webmock (2.0.3)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
@@ -756,7 +758,7 @@ DEPENDENCIES
   rack-mini-profiler
   rack-utf8_sanitizer
   rails
-  rails-assets-fizzy-ui-utils (= 2.0.1)!
+  rails-assets-fizzy-ui-utils (= 2.0.2)!
   rails-assets-get-size (= 2.0.2)!
   rails-assets-imagesloaded!
   rails-assets-jQuery-Storage-API!
@@ -764,7 +766,7 @@ DEPENDENCIES
   rails-assets-jquery-bridget!
   rails-assets-magnific-popup!
   rails-assets-matches-selector (= 2.0.1)!
-  rails-assets-outlayer (= 2.0.1)!
+  rails-assets-outlayer (= 2.1.0)!
   rails-assets-packery!
   rails-assets-pikaday!
   rails-assets-sugar!
