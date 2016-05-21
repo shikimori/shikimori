@@ -76,15 +76,6 @@ GIT
   specs:
     multi_fetch_fragments (0.0.17)
 
-GIT
-  remote: git://github.com/zph/clockwork.git
-  revision: ac95a6c6b11527bf11c6970f2c1865004cc2559f
-  branch: master
-  specs:
-    clockwork (0.7.5)
-      activesupport
-      tzinfo
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -197,6 +188,9 @@ GEM
     chunky_png (1.3.5)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    clockwork (2.0.0)
+      activesupport
+      tzinfo
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
@@ -712,7 +706,7 @@ DEPENDENCIES
   capistrano-rails
   capybara
   celluloid
-  clockwork!
+  clockwork
   coffee-rails
   colorize
   compass-rails
@@ -837,4 +831,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.12.3
+   1.12.4
