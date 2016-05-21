@@ -302,11 +302,11 @@ class @ShikiEditor extends ShikiView
     $.scrollTo @$root unless @$('.editor-controls').is(':appeared')
 
   _mark_offtopic: (is_offtopic) ->
-    @$('#comment_offtopic').val if is_offtopic then 't' else 'f'
+    @$('#comment_is_offtopic').val if is_offtopic then 'true' else 'false'
     @$('.b-offtopic_marker').toggleClass 'off', !is_offtopic
 
   _mark_review: (is_review) ->
-    @$('#comment_review').val if is_review then 't' else 'f'
+    @$('#comment_is_summary').val if is_review then 'true' else 'false'
     @$('.b-summary_marker').toggleClass 'off', !is_review
 
   # очистка редактора
