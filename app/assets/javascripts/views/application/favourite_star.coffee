@@ -23,8 +23,8 @@ class @FavouriteStar extends View
         .attr
           title: @remove_text
           'original-title': @remove_text
+          'data-text': @remove_text
         .data
-          text: @remove_text
           method: REMOVE_METHOD
 
     else
@@ -34,6 +34,6 @@ class @FavouriteStar extends View
         .attr
           title: @add_text
           'original-title': @add_text
+          'data-text': @add_text
         .data
-          text: @add_text
           method: ADD_METHOD
