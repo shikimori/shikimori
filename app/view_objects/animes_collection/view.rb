@@ -43,20 +43,24 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def url changed_params
-    h.url_for filtered_params.merge(changed_params)
+    if recommendations?
+      h.recommendations_url filtered_params.merge(changed_params)
+    else
+      h.animes_url filtered_params.merge(changed_params)
+    end
   end
 
   def prev_page_url
-    h.url_for filtered_params.merge(page: page - 1) if page > 1
+    url(page: page - 1) if page > 1
   end
 
   def next_page_url
-    h.url_for filtered_params.merge(page: page + 1) if page < pages_count
+    url(page: page + 1) if page < pages_count
   end
 
   def filtered_params
     h.params.except(
-      :format, :template, :is_adult,
+      :format, :template, :is_adult, :controller, :action,
       AnimesCollection::RecommendationsQuery::IDS_KEY,
       AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
     )
@@ -74,15 +78,27 @@ private
 
   def fetch
     if recommendations?
-      AnimesCollection::RecommendationsQuery.new(klass, h.params, user).fetch
+      recommendations_query
     elsif season_page?
-      AnimesCollection::SeasonQuery.new(klass, h.params, user).fetch
+      season_query
     else
-      AnimesCollection::PageQuery.new(klass, h.params, user).fetch
+      page_query
     end
   end
 
   def cache_params
     [cache_key, expires_in: cache_expires_in]
+  end
+
+  def recommendations_query
+    AnimesCollection::RecommendationsQuery.new(klass, h.params, user).fetch
+  end
+
+  def season_query
+    AnimesCollection::SeasonQuery.new(klass, h.params, user).fetch
+  end
+
+  def page_query
+    AnimesCollection::PageQuery.new(klass, h.params, user).fetch
   end
 end

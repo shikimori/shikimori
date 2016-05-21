@@ -6,8 +6,8 @@ json.content UserRates::Tracker.instance.sweep(render(
   locals: { view: @view },
   formats: :html
 ))
-json.current_page @view.page
-json.total_pages @view.pages_count
+json.page @view.page
+json.pages_count @view.pages_count
 json.next_page @view.next_page_url
 json.prev_page @view.prev_page_url
 

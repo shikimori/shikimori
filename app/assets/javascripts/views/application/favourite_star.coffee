@@ -23,6 +23,8 @@ class @FavouriteStar extends View
         .attr
           title: @remove_text
           'original-title': @remove_text
+          # именно так, а не через data метод,
+          # т.к. из атрибута через css текст берётся
           'data-text': @remove_text
         .data
           method: REMOVE_METHOD
@@ -34,6 +36,8 @@ class @FavouriteStar extends View
         .attr
           title: @add_text
           'original-title': @add_text
+          # именно так, а не через data метод,
+          # т.к. из атрибута через css текст берётся
           'data-text': @add_text
         .data
           method: ADD_METHOD

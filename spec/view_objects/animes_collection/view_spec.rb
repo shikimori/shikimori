@@ -6,7 +6,7 @@ describe AnimesCollection::View do
 
   let(:klass) { Anime }
   let(:user) { seed :user }
-  let(:params) {{ controller: 'animes_collection' }}
+  let(:params) { { controller: 'animes_collection' } }
 
   before { allow(view.h).to receive(:params).and_return params }
 
@@ -15,7 +15,7 @@ describe AnimesCollection::View do
 
     context 'season page' do
       let!(:anime_1) { create :anime, :tv, aired_on: Date.parse('10-10-2016') }
-      let(:params) {{ controller: 'animes_collection', season: 'fall_2016' }}
+      let(:params) { { controller: 'animes_collection', season: 'fall_2016' } }
       it do
         expect(collection).to have(1).item
         expect(collection['tv']).to have(1).item
@@ -96,7 +96,7 @@ describe AnimesCollection::View do
     end
 
     context 'no season' do
-      let(:season) { }
+      let(:season) {}
       it { is_expected.to eq false }
     end
 
@@ -108,7 +108,7 @@ describe AnimesCollection::View do
 
   describe '#recommendations?' do
     subject { view.recommendations? }
-    let(:params) {{ controller: controller_name }}
+    let(:params) { { controller: controller_name } }
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
@@ -123,7 +123,7 @@ describe AnimesCollection::View do
 
   describe '#cache?' do
     subject { view.cache? }
-    let(:params) {{ controller: controller_name }}
+    let(:params) { { controller: controller_name } }
 
     context 'recommendations controller' do
       let(:controller_name) { 'recommendations' }
@@ -154,17 +154,17 @@ describe AnimesCollection::View do
     subject { view.cache_expires_in }
 
     context 'no season, no status params' do
-      let(:params) {{ page: '1' }}
+      let(:params) { { page: '1' } }
       it { is_expected.to eq 1.week }
     end
 
     context 'season param' do
-      let(:params) {{ season: '1' }}
+      let(:params) { { season: '1' } }
       it { is_expected.to eq 1.day }
     end
 
     context 'status param' do
-      let(:params) {{ status: '1' }}
+      let(:params) { { status: '1' } }
       it { is_expected.to eq 1.day }
     end
   end
@@ -179,7 +179,9 @@ describe AnimesCollection::View do
       }
     end
 
-    it { expect(view.url type: 'tv').to eq  '/animes/type/tv/page/2' }
+    it do
+      expect(view.url type: 'tv').to eq '//test.host/animes/type/tv/page/2'
+    end
   end
 
   describe 'url params' do
@@ -211,7 +213,7 @@ describe AnimesCollection::View do
 
       context 'second page' do
         let(:page) { 2 }
-        it { is_expected.to eq '/animes/type/tv/page/1' }
+        it { is_expected.to eq '//test.host/animes/type/tv/page/1' }
       end
     end
 
@@ -225,7 +227,7 @@ describe AnimesCollection::View do
 
       context 'first page' do
         let(:page) { 1 }
-        it { is_expected.to eq '/animes/type/tv/page/2' }
+        it { is_expected.to eq '//test.host/animes/type/tv/page/2' }
       end
 
       context 'second page' do
@@ -244,7 +246,6 @@ describe AnimesCollection::View do
       subject { view.filtered_params }
       it do
         is_expected.to eq(
-          controller: 'animes_collection',
           klass: 'anime',
           type: 'tv'
         )
