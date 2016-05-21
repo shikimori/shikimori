@@ -89,7 +89,7 @@ private
   end
 
   def cache_params
-    [[*cache_key, :v2], expires_in: cache_expires_in]
+    [cache_key, expires_in: cache_expires_in]
   end
 
   def recommendations_query
