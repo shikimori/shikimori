@@ -1,34 +1,34 @@
 class DanbooruController < ShikimoriController
   respond_to :json, only: [:autocomplete, :yandere]
 
-  UserAgentWithSSL = {
-    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36',
+  USER_AGENT_WITH_SSL = {
+    'User-Agent' => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) \
+AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36",
     ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE
   }
+  EXCEPTIONS = [
+    Timeout::Error,
+    Net::ReadTimeout,
+    OpenSSL::SSL::SSLError,
+    Errno::ETIMEDOUT,
+    Errno::ECONNREFUSED,
+    OpenURI::HTTPError
+  ]
 
-  # если картинка уже есть, то редиректим на s3, иначе загружаем и отдаём картинку. а загрузку шедалим через delayed_jobs
   def autocomplete
-    @items = DanbooruTagsQuery.new(params).complete
+    @collection = DanbooruTagsQuery.new(params[:search]).complete
   end
 
   def yandere
-    url = Base64.decode64(URI.decode params[:url])
+    Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
+      url = Base64.decode64 URI.decode(params[:url])
+      raise Forbidden, url unless url =~ %r{https?://yande.re}
 
-    raise Forbidden, url unless url =~ /https?:\/\/yande.re/
-    json = Rails.cache.fetch "yandere_#{url}", expires_in: 2.weeks do
-      open(url, UserAgentWithSSL).read
-    end
+      json = Rails.cache.fetch "yandere_#{url}", expires_in: 2.weeks do
+        open(url, USER_AGENT_WITH_SSL).read
+      end
 
-    render json: json
-
-  rescue Timeout::Error, Net::ReadTimeout, OpenSSL::SSL::SSLError, Errno::ETIMEDOUT, Errno::ECONNREFUSED, OpenURI::HTTPError
-    @retries ||= 2
-    @retries -= 1
-
-    if @retries > 0
-      retry
-    else
-      raise
+      render json: json
     end
   end
 

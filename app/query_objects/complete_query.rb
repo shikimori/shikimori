@@ -3,7 +3,7 @@ module CompleteQuery
 
   # автодополнение
   def complete
-    query = @klass.where(search_queries.join(' or ')).limit(AUTOCOMPLETE_LIMIT)
+    query = @klass.where(search_queries.join(' or ')).limit(self.class::AUTOCOMPLETE_LIMIT)
     query = query.where(@kind => true) if @kind.present?
     search_order(query).reverse
   end
