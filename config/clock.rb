@@ -58,6 +58,7 @@ module Clockwork
     ImportListWorker.perform_async source: :latest, hours_limit: 24*7
     SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
+    FixAnimeVideoAuthors.perform_async
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do

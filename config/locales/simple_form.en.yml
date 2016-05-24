@@ -61,6 +61,10 @@ en:
         <<: *anime_hints
         volumes: It must be "0" for ongoings with an unknown total number of volumes
         chapters: It must be "0" for ongoings with an unknown total number of chapters
+      anime_video:
+        author_name: >-
+          Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
+        language: Если видео без дубляжа, то это язык субтитров
 
     magic_submit:
       users:
