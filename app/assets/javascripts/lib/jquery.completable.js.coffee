@@ -17,6 +17,7 @@
             #autoFill: true,
             cacheLength: 10
             delay: 10
+            max: 30
             formatItem: (entry) ->
               entry.label
 
