@@ -12,8 +12,8 @@ describe Anime::GenerateNews do
     let(:old_status) { :anons }
     let(:new_status) { :anons }
 
-    it 'does not generate news' do
-      expect(anime.news).to be_empty
+    it 'does not generate news topics' do
+      expect(anime.news_topics).to be_empty
     end
   end
 

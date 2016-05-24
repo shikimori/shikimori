@@ -74,16 +74,6 @@ class ClubDecorator < DbEntryDecorator
     invites.new(src: h.current_user)
   end
 
-  ## для отображения топиков клуба на форуме
-  #def topics
-    #[]
-  #end
-
-  ## для отображения топиков клуба на форуме
-  #def news
-    #[]
-  #end
-
   class << self
     def join_policy_options
       Club.join_policies.map do |policy_name, policy_id|

@@ -229,12 +229,12 @@ class TorrentsParser
         next if entry[:episodes].none?
 
         # для онгоингов и анонсов при нахождении более одного эпизода, игнорируем подобные находки
-        episdoes_diff = [
+        episodes_diff = [
           entry[:episodes].min - anime.episodes_aired,
           entry[:episodes].max - anime.episodes_aired
         ].max
         next if entry[:episodes].none? ||
-          ((anime.ongoing? || anime.anons?) && episdoes_diff > 1 &&
+          ((anime.ongoing? || anime.anons?) && episodes_diff > 1 &&
             !(entry[:episodes].max > 1 && anime.episodes_aired == 0))
 
         entry[:episodes].each do |episode|

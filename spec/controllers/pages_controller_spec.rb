@@ -27,7 +27,7 @@ describe PagesController do
   end
 
   describe '#news_feed' do
-    let!(:news) { create :news_topic, generated: false, forum: animanga_forum,
+    let!(:news_topic) { create :news_topic, generated: false, forum: animanga_forum,
       linked: create(:anime), action: AnimeHistoryAction::Anons }
     before { get :news_feed, format: :rss }
 

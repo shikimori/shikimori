@@ -63,24 +63,24 @@ describe TopicsQuery do
     end
 
     context 'NEWS' do
-      let!(:generated_news) { create :news_topic, :anime_anons }
-      let!(:anime_news) { create :news_topic, created_at: 1.day.ago }
-      let!(:manga_news) { create :news_topic, created_at: 2.days.ago }
-      let!(:cosplay_news) { create :cosplay_gallery_topic, created_at: 3.days.ago,
+      let!(:generated_news_topic) { create :news_topic, :anime_anons }
+      let!(:anime_news_topic) { create :news_topic, created_at: 1.day.ago }
+      let!(:manga_news_topic) { create :news_topic, created_at: 2.days.ago }
+      let!(:cosplay_news_topic) { create :cosplay_gallery_topic, created_at: 3.days.ago,
         linked: cosplay_gallery }
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
 
       subject { query.by_forum Forum::NEWS_FORUM, user, is_censored_forbidden }
 
-      it { is_expected.to eq [anime_news, manga_news, cosplay_news] }
+      it { is_expected.to eq [anime_news_topic, manga_news_topic, cosplay_news_topic] }
     end
 
     context 'UPDATES' do
-      let!(:anime_news) { create :news_topic, :anime_anons, created_at: 1.day.ago }
+      let!(:anime_news_topic) { create :news_topic, :anime_anons, created_at: 1.day.ago }
       let!(:regular_news) { create :news_topic }
       subject { query.by_forum Forum::UPDATES_FORUM, user, is_censored_forbidden }
 
-      it { is_expected.to eq [anime_news] }
+      it { is_expected.to eq [anime_news_topic] }
     end
 
     context 'MY_CLUBS' do

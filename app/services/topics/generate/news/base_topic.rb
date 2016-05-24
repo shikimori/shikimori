@@ -15,8 +15,8 @@ class Topics::Generate::News::BaseTopic < Topics::Generate::SiteTopic
 private
 
   def build_topic
-    model.news.find_by(find_by_attributes) ||
-      model.news.build(topic_attributes)
+    model.news_topics.find_by(find_by_attributes) ||
+      model.news_topics.build(topic_attributes)
   end
 
   def topic_klass

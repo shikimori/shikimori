@@ -10,7 +10,7 @@ describe Anime do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many :news }
+    it { is_expected.to have_many :news_topics }
 
     it { is_expected.to have_many :anons_news_topics }
     it { is_expected.to have_many :episode_news_topics }
@@ -60,7 +60,7 @@ describe Anime do
     it { is_expected.to enumerize(:origin) }
   end
 
-  describe 'news generation' do
+  describe 'news topics generation' do
     context 'news topics already generated' do
       let(:anime) { create :anime, :with_callbacks, status: :ongoing }
 

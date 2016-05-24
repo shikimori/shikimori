@@ -6,7 +6,7 @@ class AniMangaDecorator < DbEntryDecorator
   NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :cosplay?
+  instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
@@ -24,9 +24,9 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # новости
-  def news
+  def news_topics
     object
-      .news
+      .news_topics
       .includes(:forum)
       .limit(NEWS_PER_PAGE)
       .order(:created_at)

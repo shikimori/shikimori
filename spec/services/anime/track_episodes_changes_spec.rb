@@ -104,7 +104,7 @@ describe Anime::TrackEpisodesChanges do
       let(:new_episodes_aired) { 8 }
 
       it 'does not remove news topics' do
-        expect(anime.news).to eq [
+        expect(anime.news_topics).to eq [
           news_topic_with_comments,
           news_topic_wo_comments
         ]
@@ -116,7 +116,7 @@ describe Anime::TrackEpisodesChanges do
       let(:new_episodes_aired) { 0 }
 
       it 'removes news topics about aired episodes without comments' do
-        expect(anime.news).to eq [
+        expect(anime.news_topics).to eq [
           news_topic_with_comments
         ]
       end
