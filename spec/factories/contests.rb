@@ -32,7 +32,7 @@ FactoryGirl.define do
 
     trait :with_topics do
       after :build do |contest|
-        contest.generate_topics
+        contest.generate_topics [:en, :ru]
       end
     end
 

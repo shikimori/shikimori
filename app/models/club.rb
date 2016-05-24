@@ -131,10 +131,6 @@ class Club < ActiveRecord::Base
     description
   end
 
-  def topic_auto_generated?
-    true
-  end
-
   def topic_user
     owner
   end

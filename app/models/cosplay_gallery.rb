@@ -97,10 +97,6 @@ class CosplayGallery < ActiveRecord::Base
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
-  def topic_auto_generated?
-    false
-  end
-
   def topic_user
     User.find User::COSPLAYER_ID
   end

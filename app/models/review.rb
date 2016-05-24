@@ -63,10 +63,6 @@ class Review < ActiveRecord::Base
     end
   end
 
-  def topic_auto_generated?
-    true
-  end
-
   def topic_user
     user
   end

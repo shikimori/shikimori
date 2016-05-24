@@ -76,7 +76,9 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.generate_topics unless contest.topics.present?
+      unless contest.topics.present?
+        contest.generate_topics I18n.available_locales
+      end
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -178,10 +180,6 @@ public
   # для совместимости с DbEntry
   def description_ru
     description
-  end
-
-  def topic_auto_generated?
-    false
   end
 
   def topic_user

@@ -338,33 +338,18 @@ describe Contest do
       it { is_expected.to have_many :topics }
     end
 
-    describe 'callbacks' do
-      let(:model) { build :contest }
-
-      before { allow(model).to receive(:generate_topics) }
-      before { model.save }
-
-      describe '#generate_topics' do
-        it { expect(model).not_to have_received :generate_topics }
-      end
-    end
-
     describe 'instance methods' do
       let(:model) { build_stubbed :contest }
 
       describe '#generate_topics' do
-        let(:topics) { model.topics.order(:locale) }
-        before { model.generate_topics }
+        let(:topics) { model.topics }
+        before { model.generate_topics [:en, :ru] }
 
         it do
           expect(topics).to have(2).items
-          expect(topics.first.locale).to eq 'en'
-          expect(topics.second.locale).to eq 'ru'
+          expect(topics.first.locale).to eq 'ru'
+          expect(topics.second.locale).to eq 'en'
         end
-      end
-
-      describe '#topic_auto_generated' do
-        it { expect(model.topic_auto_generated?).to eq false }
       end
 
       describe '#topic_user' do

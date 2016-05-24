@@ -10,7 +10,6 @@ FactoryGirl.define do
 
     after :build do |club|
       club.stub :join_owner
-      club.stub :generate_topics
     end
 
     trait :free_join do
@@ -53,7 +52,7 @@ FactoryGirl.define do
 
     trait :with_topics do
       after :build do |club|
-        club.unstub :generate_topics
+        club.generate_topics club.locale
       end
     end
 

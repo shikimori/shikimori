@@ -324,32 +324,17 @@ describe Club do
       it { is_expected.to have_many :topics }
     end
 
-    describe 'callbacks' do
-      let(:model) { build :club }
-
-      before { allow(model).to receive(:generate_topics) }
-      before { model.save }
-
-      describe '#generate_topics' do
-        it { expect(model).to have_received :generate_topics }
-      end
-    end
-
     describe 'instance methods' do
       let(:model) { build_stubbed :club }
 
       describe '#generate_topics' do
-        let(:topics) { model.topics.order(:locale) }
-        before { model.generate_topics }
+        let(:topics) { model.topics }
+        before { model.generate_topics model.locale }
 
         it do
           expect(topics).to have(1).item
           expect(topics.first.locale).to eq model.locale
         end
-      end
-
-      describe '#topic_auto_generated' do
-        it { expect(model.topic_auto_generated?).to eq true }
       end
 
       describe '#topic_user' do

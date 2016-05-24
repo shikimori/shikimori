@@ -1,7 +1,4 @@
-# NOTE: implement these methods in including classes:
-#
-# - topic_auto_generated? (add after_create callback if yes)
-# - topic_user
+# NOTE: implement `topic_user` method in including classes
 module TopicsConcern
   extend ActiveSupport::Concern
 
@@ -10,32 +7,26 @@ module TopicsConcern
       class_name: "Topics::EntryTopics::#{self.name}Topic",
       as: :linked,
       dependent: :destroy
-
-    after_create :generate_topics, if: :topic_auto_generated?
   end
 
-  def generate_topics
+  def generate_topics locales
     if self.class < DbEntry
-      generate_site_topics
+      generate_site_topics locales
     else
-      generate_user_topics
+      generate_user_topics locales
     end
-  end
-
-  def locales
-    Array(try :locale).presence || I18n.available_locales
   end
 
 private
 
-  def generate_site_topics
-    locales.each do |locale|
+  def generate_site_topics locales
+    Array(locales).each do |locale|
       Topics::Generate::SiteTopic.call self, topic_user, locale
     end
   end
 
-  def generate_user_topics
-    locales.each do |locale|
+  def generate_user_topics locales
+    Array(locales).each do |locale|
       Topics::Generate::UserTopic.call self, topic_user, locale
     end
   end
