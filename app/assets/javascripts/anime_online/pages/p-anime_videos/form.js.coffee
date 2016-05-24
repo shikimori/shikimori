@@ -32,6 +32,11 @@
   $('.continue').on 'click', ->
     $('#continue').val('true')
 
+  $('#anime_video_author_name')
+    .completable()
+    .on 'autocomplete:success autocomplete:text', (e, result) ->
+      @value = result.value
+
 preview_video = (player_html) ->
   $('.video-preview')
     .show()

@@ -314,21 +314,25 @@ Site::Application.routes.draw do
       get 'tooltip(/:minified)' => :tooltip, as: :anime_tooltip, minified: /minified/
     end
 
-    scope 'animes/:anime_id', module: 'anime_online' do
-      get '' => redirect { |params, request| "#{request.url}/video_online" }
+    scope '', module: 'anime_online' do
+      resources :anime_video_authors, only: [], concerns: [:autocompletable]
 
-      resources :video_online, controller: 'anime_videos', except: [:show] do
-        member do
-          post :track_view
-          post :viewed
-        end
+      scope 'animes/:anime_id' do
+        get '' => redirect { |params, request| "#{request.url}/video_online" }
 
-        collection do
-          get :help
-          get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
-            episode: /\d+/, video_id: /\d+/, all: /all/
-          post :extract_url
-          get :extract_url if Rails.env.development?
+        resources :video_online, controller: 'anime_videos', except: [:show] do
+          member do
+            post :track_view
+            post :viewed
+          end
+
+          collection do
+            get :help
+            get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
+              episode: /\d+/, video_id: /\d+/, all: /all/
+            post :extract_url
+            get :extract_url if Rails.env.development?
+          end
         end
       end
     end
@@ -526,9 +530,6 @@ Site::Application.routes.draw do
     resources :genres, only: [:index, :edit, :update] do
       get :tooltip, on: :member
     end
-
-    # tags
-    #get 'tags/autocomplete/:search' => 'tags#autocomplete', as: :autocomplete_tags, format: :json
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do
