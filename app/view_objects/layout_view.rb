@@ -22,10 +22,14 @@ class LayoutView < ViewObjectBase
     return if blank_layout?
     return unless background
 
-    if background =~ %r{^https?://}
-      css = "background: url(#{background}) fixed no-repeat;"
+    if background =~ %r{\A(https?:)?//}
+      url = UrlGenerator.instance.camo_url background
+      css = "background: url(#{url}) fixed no-repeat;"
     else
-      css = "background: #{background};"
+      fixed_background = background.gsub(BbCodes::UrlTag::REGEXP) do
+        UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
+      end
+      css = "background: #{fixed_background};"
     end
 
     Misc::SanitizeEvilCss.call css

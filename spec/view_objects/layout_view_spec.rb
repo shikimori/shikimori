@@ -87,24 +87,33 @@ describe LayoutView do
 
   describe '#background_styles' do
     let(:controller_user) { nil }
-    let(:current_user_background) { '#fff' }
+    let(:background) { '#fff' }
 
     before do
       allow(view.h.controller).to receive(:instance_variable_get)
         .with('@user').and_return controller_user
     end
-    before { user.preferences.body_background = current_user_background }
+    before { user.preferences.body_background = background }
 
     subject { view.background_styles }
 
     context 'current_user' do
       context 'url background' do
-        let(:current_user_background) { 'http://test.com' }
-        it { is_expected.to eq "background: url(#{current_user_background}) fixed no-repeat;" }
+        let(:background) { 'http://test.com' }
+        let(:camo_background_url) { UrlGenerator.instance.camo_url background }
+        it { is_expected.to eq "background: url(#{camo_background_url}) fixed no-repeat;" }
       end
 
       context 'simple background' do
-        it { is_expected.to eq "background: #{current_user_background};" }
+        it { is_expected.to eq "background: #{background};" }
+      end
+
+      context 'complex background' do
+        let(:url) { 'http://nyaa.shikimori.org/system/user_images/original/1/288070.jpg' }
+        let(:camo_url) { UrlGenerator.instance.camo_url url }
+        let(:background) { "url(#{url}) no-repeat fixed" }
+        let(:fixed_background) { "url(#{camo_url}) no-repeat fixed" }
+        it { is_expected.to eq "background: #{fixed_background};" }
       end
     end
 

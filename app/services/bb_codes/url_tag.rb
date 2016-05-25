@@ -2,27 +2,27 @@ class BbCodes::UrlTag
   include Singleton
   MAX_SHORT_URL_SIZE = 65
 
-  REGEXP = /
-      \[url\]
-        (?<url> .*?)
-      \[\/url\]
-    |
-      \[url=(?<url>.*?)\]
-        (?<text> .*?)
-      \[\/url\]
-    |
-      (?<= \s|^|>|\()
-        (?<url>
-          (?: https?: )
-          ?\/\/(?:www\.)?
-          ( [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|<|\[|\]|\ ) )+
-        )
-  /mix
+  REGEXP = %r{
+    \[url\]
+      (?<url> .*?)
+    \[/url\]
+      |
+    \[url=(?<url>.*?)\]
+      (?<text> .*?)
+    \[/url\]
+      |
+    (?<= \s|^|>|\()
+      (?<url>
+        (?: https?: )
+        ?//(?:www\.)?
+        ( [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|<|\[|\]|\ ) )+
+      )
+  }mix
 
   def format text
     text.gsub REGEXP do
-      url = match_url $~[:url]
-      text = match_text $~[:text], url
+      url = match_url $LAST_MATCH_INFO[:url]
+      text = match_text $LAST_MATCH_INFO[:text], url
 
       url.ends_with?('.webm') ? video_bb_code(url) : link_tag(url, text)
     end
@@ -48,8 +48,8 @@ private
   def match_text text, url
     return text if text
 
-    if url.without_http =~ /(\w+\.)?shikimori.\w+\/(?<path>.+)/
-      "/#{$~[:path]}"
+    if url.without_http =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
+      "/#{$LAST_MATCH_INFO[:path]}"
     else
       url.size > MAX_SHORT_URL_SIZE ? url.extract_domain : url.without_http
     end
