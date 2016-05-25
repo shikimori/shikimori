@@ -59,8 +59,11 @@ module Routing
   end
 
   def camo_url image_url
-    port = ':5566' if Rails.env.development?
-    "//#{shiki_domain}#{port}/camo/#{camo_digest image_url}?url=#{image_url}"
+    @camo_urls ||= {}
+    @camo_urls[image_url] = begin
+      port = ':5566' if Rails.env.development?
+      "//#{shiki_domain}#{port}/camo/#{camo_digest image_url}?url=#{image_url}"
+    end
   end
 
 private
