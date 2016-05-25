@@ -7,13 +7,10 @@ class CommentsController < ShikimoriController
 
   def show
     noindex
-    comment = Comment.find(params[:id])#.decorate
+    comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
-    respond_to do |format|
-      format.html { render :show }
-      format.json { render :show }
-    end
+    render :missing if comment.is_a? NoComment
   end
 
   def reply

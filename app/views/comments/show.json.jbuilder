@@ -1,3 +1,4 @@
+# fetched when user click on "reply" button
 json.id @view.comment.id
 #json.body @view.comment.body
 json.offtopic @view.comment.offtopic?

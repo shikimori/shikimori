@@ -1,0 +1,8 @@
+- if request.xhr?
+  p.b-nothing_here = t '.no_comment'
+
+- else
+  .b-topic.unprocessed
+    .subheadline.m10 = t '.user_comment', id: @view.comment.id
+    .block
+      p.b-nothing_here = t '.no_comment'

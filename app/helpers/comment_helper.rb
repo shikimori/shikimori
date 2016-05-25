@@ -186,7 +186,7 @@ module CommentHelper
             end
 
           rescue
-            text.gsub! $~[:match], "<span class=\"bubbled\" data-href=\"#{url}\">#{$~[:text]}</span>"
+            text.gsub! $~[:match], "<span class=\"bubbled b-link\" data-href=\"#{url}\">@#{$~[:text]}</span>"
           end
 
         elsif klass == Review
