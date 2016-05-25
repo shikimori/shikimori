@@ -6,28 +6,37 @@ class FixAnimeVideoAuthors
   TRASH = /[^\[\]() &,-]*/.source
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
-    AniUchi AniSound AnimeReactor
+    AniUchi AniSound AnimeReactor NekoProject
   )
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
 
   STUDIOS_REPLACEMENTS = STUDIOS.each_with_object({}) do |name, memo|
     memo[/
-      (?: [\[(] \s* )?
+      (?: \( \s* )?
         #{name}
         #{TRASH}
         (?! [&-] )
-      (?: \s* [\])]+ )?
+      (?: \s* \) )?
     /mix] = name
   end
   STUDIOS_REPOSITIONS = STUDIOS.each_with_object({}) do |name, memo|
     memo[/
       \A
-      (?: \( \s* )? (.+) (?: \s* \) )?
+      (?: \( \s* )? ([^()]+) (?: \s* \) )?
       \s
       (?: \( \s* )? (#{name}) (?: \s* \) )?
       \Z
     /mix] = '\2 (\1)'
+
+    memo[/
+      \A
+      (?: \( \s* )? (#{name}) (?: \s* \) )?
+      \s
+      (?: \( \s* )? ([^()]+) (?: \s* \) )?
+      \Z
+    /mix] = '\1 (\2)'
   end
+
   QUALITIES_REPLACEMENTS = QUALITIES.each_with_object({}) do |name, memo|
     memo[name] = /
       \A
@@ -46,7 +55,6 @@ TEXT
 
   def perform
     AnimeVideo.transaction do
-      cleanup
       process
       cleanup
     end
@@ -67,7 +75,7 @@ private
     authors.each do |author|
       quality = match_quality(author.name)&.first
 
-      author.name = fix_brackets(fix_studio(fix_quality(author.name)))
+      author.name = fix_studio(fix_brackets(fix_quality(author.name)))
       change_videos_quality author, quality if quality
 
       if author.changes.any?
@@ -105,7 +113,12 @@ private
   end
 
   def fix_brackets name
-    name.tr('[]', '()').gsub(/\A\( (.*) \)\Z/mix, '\1')
+    name
+      .gsub(/\[+/, '(')
+      .gsub(/\]+/, ')')
+      .gsub(/\(\(+/, '(')
+      .gsub(/\)\)+/, ')')
+      .gsub(/\A\( (.*) \)\Z/mix, '\1')
   end
 
   def change_videos_quality author, quality
