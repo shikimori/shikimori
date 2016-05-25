@@ -1,5 +1,5 @@
 class Comment::Create < ServiceObjectBase
-  pattr_initialize :faye, :params
+  pattr_initialize :faye, :params, :locale
 
   instance_cache :commentable_object
 
@@ -14,8 +14,6 @@ class Comment::Create < ServiceObjectBase
   end
 
 private
-
-  attr_reader :params
 
   def mutex_key
     'comment_'\
@@ -32,7 +30,8 @@ private
   end
 
   def find_or_generate_topic
-    commentable_object.topic || commentable_object.generate_topic
+    commentable_object.topic(locale) ||
+      commentable_object.generate_topics(locale).first
   end
 
   # NOTE: can be Topic or DbEntry

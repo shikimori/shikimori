@@ -17,27 +17,5 @@ describe Character do
     it { is_expected.to have_many :cosplay_galleries }
   end
 
-  describe 'topics concern' do
-    describe 'associations' do
-      it { is_expected.to have_many :topics }
-    end
-
-    describe 'instance methods' do
-      let(:model) { create :character }
-
-      describe '#generate_topics' do
-        let(:topics) { model.topics }
-        before { model.generate_topics :en }
-
-        it do
-          expect(topics).to have(1).item
-          expect(topics.first.locale).to eq 'en'
-        end
-      end
-
-      describe '#topic_user' do
-        it { expect(model.topic_user).to eq BotsService.get_poster }
-      end
-    end
-  end
+  it_behaves_like :topics_concern_in_db_entry, :character
 end

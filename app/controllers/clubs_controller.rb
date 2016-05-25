@@ -12,8 +12,9 @@ class ClubsController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 48].max, 96].min
 
-    @favourite = ClubsQuery.new.favourite if @page == 1
-    @collection, @add_postloader = ClubsQuery.new.postload @page, @limit
+    clubs_query = ClubsQuery.new(locale_from_domain)
+    @favourite = clubs_query.favourite if @page == 1
+    @collection, @add_postloader = clubs_query.postload @page, @limit
   end
 
   def show
@@ -29,6 +30,7 @@ class ClubsController < ShikimoriController
     @resource = @resource.decorate
 
     if @resource.save
+      @resource.generate_topics @resource.locale
       redirect_to edit_club_url(@resource), notice: i18n_t('club_created')
     else
       new
@@ -105,6 +107,7 @@ class ClubsController < ShikimoriController
   end
 
 private
+
   def resource_klass
     Club
   end
@@ -118,7 +121,7 @@ private
   end
 
   def update_params
-    resource_params.except(:owner_id)
+    resource_params.except(:owner_id, :locale)
   end
 
   def resource_params
@@ -127,6 +130,7 @@ private
       .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
         :comment_policy, :logo, :is_censored,
         anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
+      .merge(locale: locale_from_domain)
   end
 
   def update_club resource, update_params

@@ -1,13 +1,12 @@
 describe Comment::Create do
-  let(:service) { Comment::Create.call faye, params }
+  let(:service) { Comment::Create.call faye, params, locale }
   let(:comment) { Comment.last }
 
   let(:user) { create :user }
   let(:anime) { create :anime }
-  let!(:topic) { create :anime_topic, user: user, linked: anime }
+  let!(:topic) { create :anime_topic, user: user, linked: anime, locale: locale }
 
   let(:faye) { FayeService.new user, nil }
-
   let(:params) do
     {
       commentable_id: commentable_id,
@@ -18,6 +17,7 @@ describe Comment::Create do
       user: user
     }
   end
+  let(:locale) { :en }
 
   before { allow_any_instance_of(FayePublisher).to receive :publish }
   before { service }
@@ -63,22 +63,26 @@ describe Comment::Create do
       end
     end
 
-    context 'commentable is db entry without topic' do
-      let(:commentable_id) { anime.id }
-      let(:commentable_type) { anime.class.name }
-      let(:topic) {}
-
-      it_behaves_like :comment
-      it { is_expected.to be_present }
-      it { is_expected.to be_kind_of Topic }
-    end
-
     context 'commentable is db entry with topic' do
       let(:commentable_id) { anime.id }
       let(:commentable_type) { anime.class.name }
 
       it_behaves_like :comment
       it { is_expected.to eq topic }
+    end
+
+    context 'commentable is db entry without topic' do
+      let(:commentable_id) { anime.id }
+      let(:commentable_type) { anime.class.name }
+      let(:topic) {}
+
+      it_behaves_like :comment
+      it 'creates anime topic' do
+        is_expected.to have_attributes(
+          type: Topics::EntryTopics::AnimeTopic.name,
+          locale: locale.to_s
+        )
+      end
     end
   end
 end

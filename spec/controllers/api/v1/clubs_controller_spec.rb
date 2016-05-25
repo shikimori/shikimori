@@ -5,10 +5,12 @@ describe Api::V1::ClubsController, :show_in_doc do
     let(:user) { create :user }
     let(:club_1) { create :club, :with_topics }
     let(:club_2) { create :club, :with_topics }
+    let(:club_en) { create :club, :with_topics, locale: :en }
 
     before do
       club_1.members << user
       club_2.members << user
+      club_en.members << user
     end
 
     before { get :index, page: 1, limit: 1, format: :json }

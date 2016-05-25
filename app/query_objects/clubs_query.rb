@@ -1,6 +1,8 @@
 class ClubsQuery < SimpleQueryBase
   FAVOURITE = [72, 19, 202, 113, 315, 293]
 
+  pattr_initialize :locale
+
   def favourite
     clubs.where(id: FAVOURITE)
   end
@@ -23,8 +25,9 @@ private
 
   def clubs
     Club
-      .joins(:member_roles, :topic)
-      .preload(:owner, :topic)
+      .joins(:member_roles, :topics)
+      .preload(:owner, :topics)
+      .where(locale: locale)
       .group('clubs.id, entries.updated_at')
       .having('count(club_roles.id) > 0')
       .order('entries.updated_at desc, id')

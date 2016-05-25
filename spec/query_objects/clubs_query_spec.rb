@@ -1,5 +1,5 @@
 describe ClubsQuery do
-  let(:query) { ClubsQuery.new }
+  let(:query) { ClubsQuery.new :ru }
 
   before { Timecop.freeze }
   after { Timecop.return }
@@ -9,6 +9,7 @@ describe ClubsQuery do
   let!(:club_2) { create :club, :with_topics, id: 2 }
   let!(:club_3) { create :club, :with_topics, id: 3 }
   let!(:club_4) { create :club, :with_topics, id: 4 }
+  let!(:club_en) { create :club, :with_topics, id: 5, locale: :en }
   let!(:club_favoured) { create :club, :with_topics, id: ClubsQuery::FAVOURITE.max }
 
   before do

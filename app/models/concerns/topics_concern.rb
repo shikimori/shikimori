@@ -17,16 +17,20 @@ module TopicsConcern
     end
   end
 
+  def topic locale
+    topics.find_by locale: locale
+  end
+
 private
 
   def generate_site_topics locales
-    Array(locales).each do |locale|
+    Array(locales).map do |locale|
       Topics::Generate::SiteTopic.call self, topic_user, locale
     end
   end
 
   def generate_user_topics locales
-    Array(locales).each do |locale|
+    Array(locales).map do |locale|
       Topics::Generate::UserTopic.call self, topic_user, locale
     end
   end

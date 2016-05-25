@@ -15,8 +15,13 @@ class ReviewsController < AnimesController
 
   # обзоры аниме или манги
   def index
-    @collection = ReviewsQuery
-      .new(@resource.object, current_user, params[:id].to_i)
+    query = ReviewsQuery.new(
+      @resource.object,
+      current_user,
+      locale_from_domain,
+      params[:id].to_i
+    )
+    @collection = query
       .fetch
       .map { |review| Topics::ReviewView.new review.topic, true, true }
   end
@@ -32,6 +37,7 @@ class ReviewsController < AnimesController
 
   def create
     if @review.save
+      @review.generate_topics @review.locale
       redirect_to(
         UrlGenerator.instance.topic_url(@review.topic),
         notice: i18n_t('review.created')
@@ -43,7 +49,7 @@ class ReviewsController < AnimesController
   end
 
   def update
-    if @review.update review_params
+    if @review.update update_params
       redirect_to(
         UrlGenerator.instance.topic_url(@review.topic),
         notice: i18n_t('review.updated')
@@ -61,11 +67,16 @@ class ReviewsController < AnimesController
 
 private
 
-  def review_params
+  def update_params
+    resource_params.except(:locale)
+  end
+
+  def resource_params
     params
       .require(:review)
-      .permit :user_id, :target_type, :target_id, :text,
-        :storyline, :characters, :animation, :music, :overall
+      .permit(:user_id, :target_type, :target_id, :text,
+        :storyline, :characters, :animation, :music, :overall)
+      .merge(locale: locale_from_domain)
   end
 
   # url текущего обзора

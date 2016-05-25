@@ -111,3 +111,47 @@ shared_examples :db_entry_controller do |entry_name|
     end
   end
 end
+
+shared_examples :topics_concern_in_db_entry do |db_entry|
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed db_entry }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics }
+        before { model.generate_topics :en }
+
+        it do
+          expect(topics).to have(1).item
+          expect(topics.first.locale).to eq 'en'
+        end
+      end
+
+      describe '#topic' do
+        let(:topic) { model.topic locale }
+        before { model.generate_topics :ru }
+
+        context 'with topic for locale' do
+          let(:locale) { :ru }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale
+          end
+        end
+
+        context 'without topic for locale' do
+          let(:locale) { :en }
+          it { expect(topic).to be_nil }
+        end
+      end
+
+      describe '#topic_user' do
+        it { expect(model.topic_user).to eq BotsService.get_poster }
+      end
+    end
+  end
+end
