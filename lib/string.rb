@@ -59,9 +59,6 @@ class String
     Unicode.downcase(self.slice 0,1) + self.slice(1..-1)
   end
 
-  def to_underscore!
-  end
-
   def to_underscore
     self.gsub(/(.)([A-Z])/, '\1_\2').downcase
   end
