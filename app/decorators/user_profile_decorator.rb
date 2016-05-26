@@ -132,7 +132,11 @@ class UserProfileDecorator < UserDecorator
   end
 
   def clubs
-    object.clubs.sort_by(&:name)
+    object
+      .clubs
+      .where(locale: h.locale_from_domain)
+      .decorate
+      .sort_by(&:name)
   end
 
   def compatibility klass

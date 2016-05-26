@@ -17,8 +17,9 @@ module TopicsConcern
     end
   end
 
+  # using find without to_a would query database each time
   def topic locale
-    topics.find_by locale: locale
+    topics.to_a.find { |topic| topic.locale == locale }
   end
 
 private

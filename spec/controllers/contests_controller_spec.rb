@@ -100,14 +100,13 @@ describe ContestsController do
 
   describe '#comments' do
     let!(:contest) { create :contest, :with_topics, user: user }
-    let!(:comment) { create :comment, commentable: contest.topic }
+    let!(:comment) { create :comment, commentable: contest.topics.first }
 
     before { get :comments, id: contest.to_param }
 
     it do
-      expect(response).to redirect_to(
-        forum_topic_url(id: contest.topic, forum: contests_forum)
-      )
+      url = forum_topic_url id: contest.topics.first, forum: contests_forum
+      expect(response).to redirect_to url
     end
   end
 

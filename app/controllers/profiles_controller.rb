@@ -50,7 +50,7 @@ class ProfilesController < ShikimoriController
     end
 
     @collection = collection.map do |review|
-      Topics::ReviewView.new review.topic, true, true
+      Topics::ReviewView.new review.maybe_topic, true, true
     end
 
     page_title i18n_t('reviews')

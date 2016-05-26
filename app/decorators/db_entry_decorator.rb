@@ -72,7 +72,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def maybe_topic
-    topic || NoTopic.new(object)
+    topic(h.locale_from_domain) || NoTopic.new(object)
   end
 
   # связанные клубы
@@ -81,7 +81,7 @@ class DbEntryDecorator < BaseDecorator
     if !object.try(:censored?) && h.censored_forbidden?
       query = query.where(is_censored: false)
     end
-    query.shuffle.take(MAX_CLUBS)
+    query.decorate.shuffle.take(MAX_CLUBS)
   end
 
   # все связанные клубы
@@ -92,10 +92,10 @@ class DbEntryDecorator < BaseDecorator
       .where(id: object.clubs)
 
     if !object.try(:censored?) && h.censored_forbidden?
-      query.where(is_censored: false)
-    else
-      query
+      query = query.where(is_censored: false)
     end
+
+    query.decorate
   end
 
   # добавлено ли в избранное?

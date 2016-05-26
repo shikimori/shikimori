@@ -129,16 +129,19 @@ describe AnimesController do
 
   describe '#comments' do
     let(:anime) { create :anime, :with_topics }
-    let(:comment) { create :comment, commentable: anime.topic }
+    let(:comment) { create :comment, commentable: anime.topics.first }
     before { get :comments, id: anime.to_param }
 
-    it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(anime.topic) }
+    it do
+      expect(response).to redirect_to(
+        UrlGenerator.instance.topic_url(anime.topics.first)
+      )
+    end
   end
 
   describe '#summaries' do
     let(:anime) { create :anime, :with_topics }
-    let!(:comment) { create :comment, :summary, commentable: anime.topic }
+    let!(:comment) { create :comment, :summary, commentable: anime.topics.first }
     before { get :summaries, id: anime.to_param }
 
     it { expect(response).to have_http_status :success }

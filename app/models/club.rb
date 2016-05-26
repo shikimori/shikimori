@@ -135,11 +135,6 @@ class Club < ActiveRecord::Base
     owner
   end
 
-  # 1 topic per club
-  def topic
-    topics.first
-  end
-
 private
 
   def join_owner

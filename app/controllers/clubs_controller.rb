@@ -3,6 +3,7 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
+  before_action :restrict_domain, except: [:index]
 
   before_action :set_breadcrumbs
   before_action { page_title i18n_i('Club', :other) }
@@ -13,6 +14,7 @@ class ClubsController < ShikimoriController
     @limit = [[params[:limit].to_i, 48].max, 96].min
 
     clubs_query = ClubsQuery.new(locale_from_domain)
+
     @favourite = clubs_query.favourite if @page == 1
     @collection, @add_postloader = clubs_query.postload @page, @limit
   end
@@ -64,7 +66,7 @@ class ClubsController < ShikimoriController
   # TODO: удалить после 05.2015
   def comments
     noindex
-    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
+    redirect_to UrlGenerator.instance.topic_url(@resource.maybe_topic), status: 301
   end
 
   def animes
@@ -107,6 +109,10 @@ class ClubsController < ShikimoriController
   end
 
 private
+
+  def restrict_domain
+    fail ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
+  end
 
   def resource_klass
     Club

@@ -90,10 +90,10 @@ class CosplayGallery < ActiveRecord::Base
     deleted
   end
 
-  def self.without_topic
+  def self.without_topics
     visible
-      .includes(:animes, :mangas, :characters, :topic)
-      .select { |v| !v.topic.present? }
+      .includes(:animes, :mangas, :characters, :topics)
+      .select { |v| !v.topics.present? }
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 

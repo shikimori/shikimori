@@ -337,12 +337,26 @@ describe Club do
         end
       end
 
-      describe '#topic_user' do
-        it { expect(model.topic_user).to eq model.owner }
+      describe '#topic' do
+        let(:topic) { model.topic locale }
+        before { model.generate_topics model.locale }
+
+        context 'locale from model' do
+          let(:locale) { model.locale }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+
+        context 'locale not from model' do
+          let(:locale) { (I18n.available_locales - [model.locale.to_sym]).sample }
+          it { expect(topic).to be_nil }
+        end
       end
 
-      describe '#topic' do
-        it { expect(model.topic).to eq model.topics.first }
+      describe '#topic_user' do
+        it { expect(model.topic_user).to eq model.owner }
       end
     end
   end

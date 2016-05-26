@@ -23,8 +23,17 @@ describe ClubsController do
 
   describe '#show' do
     let(:club) { create :club, :with_topics }
-    before { get :show, id: club.to_param }
-    it { expect(response).to have_http_status :success }
+    let(:make_request) { get :show, id: club.to_param }
+
+    context 'club locale == locale from domain' do
+      before { make_request }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'club locale != locale from domain' do
+      before { allow(controller).to receive(:ru_domain?).and_return false }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
+    end
   end
 
   describe '#new' do
@@ -138,11 +147,14 @@ describe ClubsController do
 
   describe '#comments' do
     let(:club) { create :club, :with_topics }
-    let!(:comment) { create :comment, commentable: club.topic }
+    let!(:comment) { create :comment, commentable: club.topics.first }
     before { get :comments, id: club.to_param }
 
-    it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(club.topic) }
+    it do
+      expect(response).to redirect_to(
+        UrlGenerator.instance.topic_url(club.topics.first)
+      )
+    end
   end
 
   describe '#animes' do

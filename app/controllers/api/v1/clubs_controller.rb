@@ -2,6 +2,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
   respond_to :json
 
   before_action :fetch_club, except: :index
+  before_action :restrict_domain, except: [:index]
 
   LIMIT = 30
 
@@ -11,7 +12,9 @@ class Api::V1::ClubsController < Api::V1::ApiController
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    @collection = ClubsQuery.new(locale_from_domain).fetch page, limit, true
+    @collection = ClubsQuery
+      .new(locale_from_domain)
+      .fetch(page, limit, true)
 
     respond_with @collection
   end
@@ -75,5 +78,9 @@ private
     else
       @collection = Club.where(id: ids).limit(LIMIT).decorate
     end
+  end
+
+  def restrict_domain
+    fail ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
   end
 end

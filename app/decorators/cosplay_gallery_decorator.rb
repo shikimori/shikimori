@@ -1,0 +1,2 @@
+class CosplayGalleryDecorator < DbEntryDecorator
+end

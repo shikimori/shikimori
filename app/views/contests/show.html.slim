@@ -15,8 +15,8 @@
     - else
       = render 'round', contest: @resource
 
-  - if user_signed_in? || @resource.topic.comments_count > 0
-    - if @resource.topic.comments_count > 0
+  - if user_signed_in? || @resource.maybe_topic.comments_count > 0
+    - if @resource.maybe_topic.comments_count > 0
       .subheadline.m3
         .linkeable[
           data-href="#{comments_contest_url @resource}"

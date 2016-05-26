@@ -8,7 +8,7 @@ FactoryGirl.define do
     end
 
     trait :with_topics do
-      after(:create) { |v| v.generate_topics :en }
+      after(:create) { |v| v.generate_topics :ru }
     end
   end
 end

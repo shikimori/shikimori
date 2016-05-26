@@ -56,7 +56,7 @@ class Review < ActiveRecord::Base
         from_id: review.approver_id,
         to_id: review.user_id,
         kind: MessageType::Notification,
-        body: "Ваша [entry=#{review.topic.id}]реценция[/entry] перенесена в оффтоп" +
+        body: "Ваша [entry=#{review.topic(review.locale).id}]реценция[/entry] перенесена в оффтоп" +
           (transition.args.second ?
            " по причине: [quote=#{review.approver.nickname}]#{transition.args.second}[/quote]" : '')
       )
@@ -65,11 +65,6 @@ class Review < ActiveRecord::Base
 
   def topic_user
     user
-  end
-
-  # 1 topic per review
-  def topic
-    topics.first
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target
@@ -101,7 +96,7 @@ class Review < ActiveRecord::Base
   end
 
   def to_offtopic!
-    topic.update_column :forum_id, Forum::OFFTOPIC_ID
+    topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
   end
 
   def self.has_changes?

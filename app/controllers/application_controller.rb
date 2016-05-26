@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
   helper_method :base_controller_names
   helper_method :ignore_copyright?
 
+  helper_method :locale_from_domain
   helper_method :i18n_i, :i18n_io
 
   NOT_FOUND_ERRORS = [
