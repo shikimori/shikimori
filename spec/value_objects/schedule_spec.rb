@@ -27,6 +27,11 @@ describe Schedule do
         let(:start_on) { Date.parse '13-04-2016' }
         it { is_expected.to eq Time.zone.parse('14-04-2016 16:00') }
       end
+
+      context 'start_on in past' do
+        let(:start_on) { Date.parse '13-03-2016' }
+        it { is_expected.to eq Time.zone.parse('07-04-2016 16:00') }
+      end
     end
   end
 end
