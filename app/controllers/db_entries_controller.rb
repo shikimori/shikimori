@@ -12,7 +12,7 @@ class DbEntriesController < ShikimoriController
   end
 
   def comments
-    maybe_topic = @resource.maybe_topic
+    maybe_topic = @resource.maybe_topic locale_from_domain
     redirect_to UrlGenerator.instance.topic_url(maybe_topic), status: 301
   end
 

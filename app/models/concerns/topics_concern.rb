@@ -22,6 +22,10 @@ module TopicsConcern
     topics.to_a.find { |topic| topic.locale == locale }
   end
 
+  def maybe_topic locale
+    topic(locale) || NoTopic.new(self)
+  end
+
 private
 
   def generate_site_topics locales

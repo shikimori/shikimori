@@ -23,11 +23,11 @@ class PersonProfileSerializer < PersonSerializer
 
   # TODO: deprecated
   def thread_id
-    object.topic&.id
+    object.maybe_topic(scope.locale_from_domain).id
   end
 
   def topic_id
-    object.topic&.id
+    object.maybe_topic(scope.locale_from_domain).id
   end
 
   def description_html

@@ -49,7 +49,8 @@ class ContestsController < ShikimoriController
 
   # TODO: удалить после 05.2015
   def comments
-    redirect_to UrlGenerator.instance.topic_url(@resource.maybe_topic), status: 301
+    topic = @resource.maybe_topic locale_from_domain
+    redirect_to UrlGenerator.instance.topic_url(topic), status: 301
   end
 
   # турнирная сетка

@@ -149,6 +149,28 @@ shared_examples :topics_concern_in_db_entry do |db_entry|
         end
       end
 
+      describe '#maybe_topic' do
+        let(:topic) { model.maybe_topic locale }
+        before { model.generate_topics :ru }
+
+        context 'with topic for locale' do
+          let(:locale) { :ru }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale
+          end
+        end
+
+        context 'without topic for locale' do
+          let(:locale) { :en }
+          it do
+            expect(topic).to be_present
+            expect(topic).to be_instance_of NoTopic
+            expect(topic.linked).to eq model
+          end
+        end
+      end
+
       describe '#topic_user' do
         it { expect(model.topic_user).to eq BotsService.get_poster }
       end

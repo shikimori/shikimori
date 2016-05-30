@@ -11,7 +11,7 @@ class CosplayGalleriesController < ShikimoriController
     gallery.generate_topics I18n.available_locales
 
     redirect_to UrlGenerator.instance.topic_url(
-      gallery.decorate.maybe_topic
+      gallery.maybe_topic(locale_from_domain)
     )
   end
 

@@ -1,4 +1,5 @@
 class Api::V1::ClubsController < Api::V1::ApiController
+  serialization_scope :view_context
   respond_to :json
 
   before_action :fetch_club, except: :index

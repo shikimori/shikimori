@@ -64,15 +64,15 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def main_topic_view
-    Topics::TopicViewFactory.new(false, false).build maybe_topic
+    Topics::TopicViewFactory.new(false, false).build(
+      object.maybe_topic(h.locale_from_domain)
+    )
   end
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build maybe_topic
-  end
-
-  def maybe_topic
-    topic(h.locale_from_domain) || NoTopic.new(object)
+    Topics::TopicViewFactory.new(true, false).build(
+      object.maybe_topic(h.locale_from_domain)
+    )
   end
 
   # связанные клубы

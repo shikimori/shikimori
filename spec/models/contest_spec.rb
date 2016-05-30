@@ -373,6 +373,27 @@ describe Contest do
         end
       end
 
+      describe '#maybe_topic' do
+        let(:topic) { model.maybe_topic locale }
+        before { model.generate_topics [:en, :ru] }
+
+        context 'ru topic' do
+          let(:locale) { :ru }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale
+          end
+        end
+
+        context 'en topic' do
+          let(:locale) { :en }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+      end
+
       describe '#topic_user' do
         it { expect(model.topic_user).to eq model.user }
       end

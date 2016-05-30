@@ -1,4 +1,6 @@
 class CharacterProfileSerializer < CharacterSerializer
+  serialization_scope :view_context
+
   attributes :altname, :japanese, :description, :description, :description_html
   attributes :favoured?, :thread_id, :topic_id, :updated_at
 
@@ -8,11 +10,11 @@ class CharacterProfileSerializer < CharacterSerializer
 
   # TODO: deprecated
   def thread_id
-    object.topic&.id
+    object.maybe_topic(scope.locale_from_domain).id
   end
 
   def topic_id
-    object.topic&.id
+    object.maybe_topic(scope.locale_from_domain).id
   end
 
   def description

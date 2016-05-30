@@ -1,11 +1,10 @@
 class ClubsQuery < SimpleQueryBase
-  decorate_page true
   pattr_initialize :locale
 
   FAVOURITE = [72, 19, 202, 113, 315, 293]
 
   def favourite
-    clubs.where(id: FAVOURITE).decorate
+    clubs.where(id: FAVOURITE)
   end
 
   def fetch page, limit, with_favourites = false

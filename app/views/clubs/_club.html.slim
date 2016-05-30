@@ -1,3 +1,5 @@
+- comments_count = club.maybe_topic(locale_from_domain).comments_count
+
 .b-club.c-colum[
     id="#{club.id}"
     class="#{content_by} #{:censored if club.censored?} item-#{club_counter if defined? club_counter}"
@@ -18,10 +20,10 @@
         span.value = i18n_i 'member', club.members_count
       span.grouped
         span.number
-          = number_with_delimiter club.maybe_topic.comments_count, delimiter: ' '
+          = number_with_delimiter comments_count, delimiter: ' '
         span.value
-          - if club.maybe_topic.comments_count < 1000
-            = i18n_i 'comment', club.maybe_topic.comments_count
+          - if comments_count < 1000
+            = i18n_i 'comment', comments_count
           - else
             = i18n_i 'comment', :many
     .info.author
