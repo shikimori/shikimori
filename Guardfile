@@ -52,3 +52,7 @@ guard :pow do
   watch(%r{^config/environments/.*\.rb$})
   watch(%r{^config/initializers/.*\.rb$})
 end
+
+guard 'i18n-js' do
+  watch(%r{config/locales/.+\.yml})
+end

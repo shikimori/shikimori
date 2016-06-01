@@ -158,6 +158,7 @@ group :test, :development do
   gem 'guard-spring', require: false
   gem 'guard-pow', require: false
   gem 'guard-rubocop', require: false
+  gem 'guard-i18n-js', require: false, github: 'fauxparse/guard-i18n-js'
 end
 
 group :test do
