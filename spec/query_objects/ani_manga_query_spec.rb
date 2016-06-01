@@ -60,16 +60,22 @@ describe AniMangaQuery do
         end
       end
 
-      it 'multiple positive' do
-        expect(fetch type: 'tv_13,tv_24').to have(7).items
-      end
+      context 'multiple types' do
+        it 'positive' do
+          expect(fetch type: 'tv_13,tv_24').to have(7).items
+        end
 
-      it 'multiple negative' do
-        expect(fetch type: '!tv_13,!tv_24').to have(3).items
-      end
+        it 'negative' do
+          expect(fetch type: '!tv_13,!tv_24').to have(3).items
+        end
 
-      it 'mixed' do
-        expect(fetch type: 'movie,tv_13,tv_24').to have(8).items
+        it 'mixed' do
+          expect(fetch type: 'movie,tv_13,tv_24').to have(8).items
+        end
+
+        it 'tv + tv_13' do
+          expect(fetch type: 'tv,tv_13').to have(4).items
+        end
       end
     end
 

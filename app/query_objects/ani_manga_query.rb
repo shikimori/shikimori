@@ -120,9 +120,11 @@ private
     simple_types = bang_split types[:simple]
 
     simple_queries = {
-      include: simple_types[:include].map do |type|
-        "#{@klass.table_name}.kind = #{Anime.sanitize type}"
-      end,
+      include: simple_types[:include]
+        .delete_if { |v| v == 'tv' && types[:complex].any? { |q| q =~ /^tv_/ } }
+        .map do |type|
+          "#{@klass.table_name}.kind = #{Anime.sanitize type}"
+        end,
       exclude: simple_types[:exclude].map do |type|
         "#{@klass.table_name}.kind = #{Anime.sanitize type}"
       end
