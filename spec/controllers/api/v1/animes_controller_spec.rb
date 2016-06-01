@@ -16,9 +16,22 @@ describe Api::V1::AnimesController, :show_in_doc do
         score: 8
     end
 
-    before { get :index, page: 1, limit: 1, type: 'TV', season: '2014',
-      genre: genre.id.to_s, studio: studio.id.to_s, duration: 'F', rating: 'r',
-      search: 'Te', order: 'ranked', mylist: '1', score: '6', format: :json }
+    before do
+      get :index,
+        page: 1,
+        limit: 1,
+        type: 'tv',
+        season: '2014',
+        genre: genre.id.to_s,
+        studio: studio.id.to_s,
+        duration: 'F',
+        rating: 'r',
+        search: 'Te',
+        order: 'ranked',
+        mylist: '1',
+        score: '6',
+        format: :json
+    end
 
     it do
       expect(collection).to have(1).item

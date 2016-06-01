@@ -7,7 +7,20 @@ describe Api::V1::MangasController, :show_in_doc do
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
 
     before { sign_in user }
-    before { get :index, page: 1, limit: 1, type: 'Manga', season: '2014', genre: genre.id.to_s, publisher: publisher.id.to_s, rating: 'r', search: 'Te', order: 'ranked', mylist: '1', format: :json }
+    before do
+      get :index,
+        page: 1,
+        limit: 1,
+        type: 'manga',
+        season: '2014',
+        genre: genre.id.to_s,
+        publisher: publisher.id.to_s,
+        rating: 'r',
+        search: 'Te',
+        order: 'ranked',
+        mylist: '1',
+        format: :json
+    end
 
     it do
       expect(response).to have_http_status :success
