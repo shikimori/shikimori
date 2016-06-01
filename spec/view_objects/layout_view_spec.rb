@@ -98,6 +98,8 @@ describe LayoutView do
     subject { view.background_styles }
 
     context 'current_user' do
+      let(:camo_url) { UrlGenerator.instance.camo_url url }
+
       context 'url background' do
         let(:background) { 'http://test.com' }
         let(:camo_background_url) { UrlGenerator.instance.camo_url background }
@@ -110,9 +112,15 @@ describe LayoutView do
 
       context 'complex background' do
         let(:url) { 'http://nyaa.shikimori.org/system/user_images/original/1/288070.jpg' }
-        let(:camo_url) { UrlGenerator.instance.camo_url url }
         let(:background) { "url(#{url}) no-repeat fixed" }
         let(:fixed_background) { "url(#{camo_url}) no-repeat fixed" }
+        it { is_expected.to eq "background: #{fixed_background};" }
+      end
+
+      context 'more complex background' do
+        let(:url) { 'https://pp.vk.me/c625818/v625818569/3d111/Z_LiM2lgwuA.jpg' }
+        let(:background) { "url(#{url}); background-size: 100%; background-attachment: fixed;  background-repeat:no-repeat" }
+        let(:fixed_background) { "url(#{camo_url}); background-size: 100%; background-attachment: fixed;  background-repeat:no-repeat" }
         it { is_expected.to eq "background: #{fixed_background};" }
       end
     end
