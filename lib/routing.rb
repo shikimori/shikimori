@@ -59,6 +59,8 @@ module Routing
   end
 
   def camo_url image_url
+    return image_url if image_url.starts_with? '//'
+
     @camo_urls ||= {}
     @camo_urls[image_url] = begin
       port = ':5566' if Rails.env.development?
