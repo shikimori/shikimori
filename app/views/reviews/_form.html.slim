@@ -18,6 +18,7 @@
 
       - if @additional_text
         = @additional_text
+        = BbCodeFormatter.instance.format_comment "[right][club]293[/club][/right]"
         = BbCodeFormatter.instance.format_comment "[right][profile=21887]Joseph[/profile][/right]"
       - else
         = BbCodeFormatter.instance.format_comment t '.guidelines'
