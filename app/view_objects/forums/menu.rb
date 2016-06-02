@@ -24,8 +24,9 @@ class Forums::Menu < ViewObjectBase
   def reviews
     @reviews ||= Review
       .where('created_at >= ?',  2.weeks.ago)
+      .where(locale: h.locale_from_domain)
       .visible
-      .includes(:user, :target, topic: [:forum])
+      .includes(:user, :target, topics: [:forum])
       .order(created_at: :desc)
       .limit(3)
   end

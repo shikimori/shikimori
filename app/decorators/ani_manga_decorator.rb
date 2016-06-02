@@ -12,9 +12,10 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
-  def topics
+  def topic_views
     object
       .topics
+      .where(locale: h.locale_from_domain)
       .where.not(updated_at: nil)
       .includes(:forum)
       .limit(TOPICS_PER_PAGE)
@@ -24,9 +25,10 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   # новости
-  def news_topics
+  def news_topic_views
     object
       .news_topics
+      .where(locale: h.locale_from_domain)
       .includes(:forum)
       .limit(NEWS_PER_PAGE)
       .order(:created_at)

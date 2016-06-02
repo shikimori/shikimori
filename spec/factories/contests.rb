@@ -31,9 +31,7 @@ FactoryGirl.define do
     end
 
     trait :with_topics do
-      after :build do |contest|
-        contest.generate_topics [:en, :ru]
-      end
+      after(:create) { |contest| contest.generate_topics [:en, :ru] }
     end
 
     [3,5,6,8,19].each do |members|

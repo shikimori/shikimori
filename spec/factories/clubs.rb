@@ -51,9 +51,7 @@ FactoryGirl.define do
     end
 
     trait :with_topics do
-      after :build do |club|
-        club.generate_topics club.locale
-      end
+      after(:create) { |club| club.generate_topics club.locale }
     end
 
     trait :with_logo do

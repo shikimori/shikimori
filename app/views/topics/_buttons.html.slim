@@ -2,9 +2,9 @@ aside.buttons
   .main-controls
     span.item-ignore[
       title="#{t 'actions.ignore'}"
-      class="#{:selected if view.topic_ignored?}"
-      data-action="#{view.topic_ignored? ? view.urls.unignore_url : view.urls.ignore_url}"
-      data-method="#{view.topic_ignored? ? :DELETE : :POST}"
+      class="#{:selected if topic_view.topic_ignored?}"
+      data-action="#{topic_view.topic_ignored? ? topic_view.urls.unignore_url : topic_view.urls.ignore_url}"
+      data-method="#{topic_view.topic_ignored? ? :DELETE : :POST}"
       data-remote="true"
       data-type="json"
     ]
@@ -12,21 +12,21 @@ aside.buttons
     /span.item-reply title="#{t topic.generated? ? 'Написать' : :reply}"
     span.item-reply title="#{t 'actions.reply'}"
 
-    - if can? :edit, view.topic
+    - if can? :edit, topic_view.topic
       a.item-edit.short[
-        href="#{view.urls.edit_url}"
+        href="#{topic_view.urls.edit_url}"
         title="#{t 'actions.edit'}"
       ]
 
-    - if can? :destroy, view.topic
+    - if can? :destroy, topic_view.topic
       span.item-delete.short title="#{t 'actions.delete'}"
     span.item-cancel title="#{t 'actions.cancel'}"
 
-  - if can? :destroy, view.topic
+  - if can? :destroy, topic_view.topic
     .delete-controls
       span.item-delete-confirm[
         title="#{t 'actions.delete'}"
-        data-action="#{view.urls.destroy_url}"
+        data-action="#{topic_view.urls.destroy_url}"
         data-type="json"
         data-remote="true"
         data-method="DELETE"

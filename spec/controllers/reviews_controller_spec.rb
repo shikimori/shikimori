@@ -45,7 +45,7 @@ describe ReviewsController do
         expect(assigns :review).to be_persisted
         expect(assigns :review).to have_attributes(params)
         expect(response).to redirect_to UrlGenerator.instance
-          .topic_url(assigns(:review).topic)
+          .topic_url(assigns(:review).maybe_topic(controller.locale_from_domain))
       end
     end
 
@@ -87,8 +87,11 @@ describe ReviewsController do
       it do
         expect(assigns :review).to be_valid
         expect(assigns :review).to have_attributes(params)
-        expect(response).to redirect_to UrlGenerator.instance
-          .topic_url(assigns(:review).topic)
+        expect(response).to redirect_to(
+          UrlGenerator.instance.topic_url(
+            assigns(:review).maybe_topic(controller.locale_from_domain)
+          )
+        )
       end
     end
 

@@ -6,7 +6,7 @@ class Forums::View < ViewObjectBase
   end
 
   def topics
-    TopicsQuery.fetch(h.current_user)
+    TopicsQuery.fetch(h.current_user, h.locale_from_domain)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .paginate(page, limit)

@@ -1,6 +1,7 @@
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
   load_and_authorize_resource class: Entry, only: [:new, :create, :edit, :update, :destroy]
+
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
   before_action :set_view
@@ -110,6 +111,14 @@ class TopicsController < ShikimoriController
 
 private
 
+  def create_params
+    topic_params.merge locale: locale_from_domain
+  end
+
+  def update_params
+    topic_params
+  end
+
   def topic_params
     allowed_params = [
       # :body,
@@ -120,7 +129,7 @@ private
     allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
     allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 
-    params.require(:topic).permit *allowed_params
+    params.require(:topic).permit(*allowed_params)
   end
 
   def compose_body

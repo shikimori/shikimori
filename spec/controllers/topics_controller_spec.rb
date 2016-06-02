@@ -183,6 +183,7 @@ describe TopicsController do
 
         it do
           expect(resource).to have_attributes topic_params
+          expect(resource.locale).to eq controller.locale_from_domain
           expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end
@@ -208,7 +209,7 @@ describe TopicsController do
     context 'authenticated' do
       before { sign_in user }
 
-      context 'vlid_params params' do
+      context 'valid_params params' do
         let(:params) {{ user_id: user.id, title: '' }}
         before { post :update, id: topic.id, topic: params }
 

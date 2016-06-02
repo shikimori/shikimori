@@ -21,9 +21,11 @@ class ReviewsController < AnimesController
       locale_from_domain,
       params[:id].to_i
     )
-    @collection = query
-      .fetch
-      .map { |review| Topics::ReviewView.new review.topic, true, true }
+    @collection = query.fetch
+      .map do |review|
+        topic = review.maybe_topic locale_from_domain
+        Topics::ReviewView.new topic, true, true
+      end
   end
 
   def new
@@ -38,8 +40,10 @@ class ReviewsController < AnimesController
   def create
     if @review.save
       @review.generate_topics @review.locale
+
+      topic = @review.maybe_topic locale_from_domain
       redirect_to(
-        UrlGenerator.instance.topic_url(@review.topic),
+        UrlGenerator.instance.topic_url(topic),
         notice: i18n_t('review.created')
       )
     else
@@ -50,8 +54,10 @@ class ReviewsController < AnimesController
 
   def update
     if @review.update update_params
+
+      topic = @review.maybe_topic locale_from_domain
       redirect_to(
-        UrlGenerator.instance.topic_url(@review.topic),
+        UrlGenerator.instance.topic_url(topic),
         notice: i18n_t('review.updated')
       )
     else

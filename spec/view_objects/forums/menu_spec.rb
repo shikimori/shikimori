@@ -22,7 +22,11 @@ describe Forums::Menu do
   end
 
   describe '#reviews' do
+    let(:user_en) { build_stubbed :user }
+
     let!(:review) { create :review }
+    let!(:review_en) { create :review, user: user_en, locale: :en }
+
     it { expect(view.reviews).to eq [review] }
   end
 

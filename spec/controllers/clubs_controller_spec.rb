@@ -147,14 +147,12 @@ describe ClubsController do
 
   describe '#comments' do
     let(:club) { create :club, :with_topics }
-    let!(:comment) { create :comment, commentable: club.topics.first }
+    let(:topic) { club.maybe_topic(controller.locale_from_domain) }
+    let!(:comment) { create :comment, commentable: topic }
+
     before { get :comments, id: club.to_param }
 
-    it do
-      expect(response).to redirect_to(
-        UrlGenerator.instance.topic_url(club.topics.first)
-      )
-    end
+    it { expect(response).to redirect_to UrlGenerator.instance.topic_url(topic) }
   end
 
   describe '#animes' do

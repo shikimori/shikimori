@@ -13,9 +13,7 @@ FactoryGirl.define do
     locale :ru
 
     trait :with_topics do
-      after :build do |review|
-        review.generate_topics review.locale
-      end
+      after(:create) { |review| review.generate_topics review.locale }
     end
   end
 end

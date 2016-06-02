@@ -31,7 +31,7 @@ private
   end
 
   def forum_size forum
-    TopicsQuery.fetch(current_user)
+    TopicsQuery.fetch(current_user, h.locale_from_domain)
       .by_forum(forum, current_user, censored_forbidden?) # может не быть при регистрации через соц сеть и первичном заполнении профиля
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
