@@ -13,8 +13,8 @@ en:
     text:
       <p>Something has gone wrong. But maybe we are fixing it now.</p>
       <p>
-        Try <a onclick='location.reload();'>to reload page</a>
-        or contact site administration.
+        Try <a onclick="location.reload();">to reload page</a>
+        or contact <a href="mailto:%{email}">site administration</a>.
       </p>
 
   page_moved:
