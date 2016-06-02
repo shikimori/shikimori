@@ -5,6 +5,14 @@ class ReviewsController < AnimesController
   before_action :add_title
   before_action :add_breadcrumbs, except: [:index]
 
+  REVIEWS_CLUB_ID = 293
+  ADDITIONAL_TEXT = %r{
+    \[spoiler=Рекомендации\]
+      (?<text>[\s\S]+)
+    \[/spoiler\]
+    \s*\Z
+  }mix
+
   # обзоры аниме или манги
   def index
     @collection = ReviewsQuery
@@ -15,6 +23,7 @@ class ReviewsController < AnimesController
 
   def new
     page_title i18n_t('new_review')
+    @additional_text = additinal_text if ru_domain? && I18n.russian?
   end
 
   def edit
@@ -101,6 +110,17 @@ private
     if @resource.kind_of?(Review)
       @review = @resource
       @resource = @anime || @manga
+    end
+  end
+
+  def additinal_text
+    reviews_club = Club.find_by(id: REVIEWS_CLUB_ID)
+
+    Rails.cache.fetch [reviews_club, :guideline] do
+      if reviews_club.description =~ ADDITIONAL_TEXT
+        text = $LAST_MATCH_INFO[:text]
+        BbCodeFormatter.instance.format_description text, reviews_club
+      end
     end
   end
 end

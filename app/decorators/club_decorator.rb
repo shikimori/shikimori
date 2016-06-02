@@ -21,7 +21,7 @@ class ClubDecorator < DbEntryDecorator
 
   def user_role
     if h.user_signed_in?
-      member_roles.find {|v| v.user_id == h.current_user.id }&.role
+      member_roles.find { |v| v.user_id == h.current_user.id }&.role
     end
   end
 

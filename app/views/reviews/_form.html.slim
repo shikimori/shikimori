@@ -15,8 +15,14 @@
     .body
       = BbCodeFormatter.instance.format_comment t '.introduction',
         kind: "#{resource.anime? ? t('this.anime') : t('this.manga')}"
+
+      - if @additional_text
+        = @additional_text
+        = BbCodeFormatter.instance.format_comment "[right][profile=21887]Joseph[/profile][/right]"
+      - else
+        = BbCodeFormatter.instance.format_comment t '.guidelines'
+
       = render 'stars', review: review, in_edit: true, with_music: resource.anime?
-      = BbCodeFormatter.instance.format_comment t '.guidelines'
 
   .b-shiki_editor.unprocessed.block
     = render 'comments/shiki_editor', text: review.text, field_name: 'review[text]'

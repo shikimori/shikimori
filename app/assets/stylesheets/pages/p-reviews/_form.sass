@@ -4,3 +4,20 @@
   .votes
     +gt_ipad
       margin-top: 120px !important
+
+  .review-stars
+    float: none
+    width: auto
+    margin: 20px 0 -10px
+
+    .star-line
+      display: inline-block
+
+      +gte_ipad
+        width: 30%
+
+      +iphone_portrait
+        width: 100%
+
+      +iphone_landscape
+        width: 50%
