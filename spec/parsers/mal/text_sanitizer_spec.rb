@@ -13,7 +13,7 @@ describe Mal::TextSanitizer do
       end
 
       context 'bad html' do
-        it { expect(parser.call "<html><body><div>aaa").to eq '<div>aaa</div>' }
+        it { expect(parser.call '<html><body><div>aaa').to eq '<div>aaa</div>' }
       end
 
       describe 'new lines' do
@@ -27,14 +27,14 @@ describe Mal::TextSanitizer do
 
       context 'tags' do
         context 'styled span' do
-          let(:text) { "zzz<span style=\"font-size: 90%;\">xxx</span>" }
+          let(:text) { 'zzz<span style="font-size: 90%;">xxx</span>' }
           it { is_expected.to eq 'zzzxxx' }
         end
       end
 
       context 'phrases' do
         context 'note' do
-          let(:text) { "<br /><b>Note:</b>zzz.<!--size--></span><br /><br />" }
+          let(:text) { '<br /><b>Note:</b>zzz.<!--size--></span><br /><br />' }
           it { is_expected.to eq '' }
         end
 
@@ -57,28 +57,33 @@ describe Mal::TextSanitizer do
       it { expect(parser.call '<em>a</em>').to eq '[i]a[/i]' }
       it { expect(parser.call 'a<br>b').to eq 'a[br]b' }
 
-      context '[anime]' do
-        let(:text) { "<a href=\"http://myanimelist.net/anime.php?id=1\">zzz</a>" }
+      context '[anime] #1' do
+        let(:text) { '<a href="http://myanimelist.net/anime.php?id=1">zzz</a>' }
         it { is_expected.to eq '[anime=1]zzz[/anime]' }
       end
 
+      context '[anime] #2' do
+        let(:text) { '<a href="http://myanimelist.net/anime/3449/">zzz</a>' }
+        it { is_expected.to eq '[anime=3449]zzz[/anime]' }
+      end
+
       context '[anime] with nofollow' do
-        let(:text) { "<a href=\"http://myanimelist.net/anime.php?id=1\" rel=\"nofollow\">zzz</a>" }
+        let(:text) { '<a href="http://myanimelist.net/anime.php?id=1" rel="nofollow">zzz</a>' }
         it { is_expected.to eq '[anime=1]zzz[/anime]' }
       end
 
       context '[manga]' do
-        let(:text) { "<a href=\"http://myanimelist.net/manga.php?id=1\">zzz</a>" }
+        let(:text) { '<a href="http://myanimelist.net/manga.php?id=1">zzz</a>' }
         it { is_expected.to eq '[manga=1]zzz[/manga]' }
       end
 
       context '[character]' do
-        let(:text) { "<a href=\"http://myanimelist.net/character/1/asd\">zzz</a>" }
+        let(:text) { '<a href="http://myanimelist.net/character/1/asd">zzz</a>' }
         it { is_expected.to eq '[character=1]zzz[/character]' }
       end
 
       context '[person]' do
-        let(:text) { "<a href=\"http://myanimelist.net/people/1/asd\">zzz</a>" }
+        let(:text) { '<a href="http://myanimelist.net/people/1/asd">zzz</a>' }
         it { is_expected.to eq '[person=1]zzz[/person]' }
       end
 
@@ -129,17 +134,17 @@ describe Mal::TextSanitizer do
 
         context 'source text' do
           let(:text) { "aa\n\n(Source: zxc)" }
-          it { is_expected.to eq "aa[br][source]zxc[/source]" }
+          it { is_expected.to eq 'aa[br][source]zxc[/source]' }
         end
 
         context 'source text quoted ' do
           let(:text) { "aa\n\n(Source: \"zxc\")" }
-          it { is_expected.to eq "aa[br][source]zxc[/source]" }
+          it { is_expected.to eq 'aa[br][source]zxc[/source]' }
         end
       end
 
       context '[img]' do
-        let(:text) { "aa<img class=\"userimg\" data-src=\"http://static.tvtropes.org/pmwiki/pub/images/shirou_3881.png\">bb" }
+        let(:text) { 'aa<img class="userimg" data-src="http://static.tvtropes.org/pmwiki/pub/images/shirou_3881.png">bb' }
         it { is_expected.to eq 'aa[img]http://static.tvtropes.org/pmwiki/pub/images/shirou_3881.png[/img]bb' }
       end
 
@@ -150,7 +155,7 @@ describe Mal::TextSanitizer do
     end
 
     describe '#comments' do
-      it { expect(parser.call 'aaa<!-- bbb -->ccc').to eq "aaaccc" }
+      it { expect(parser.call 'aaa<!-- bbb -->ccc').to eq 'aaaccc' }
     end
   end
 end

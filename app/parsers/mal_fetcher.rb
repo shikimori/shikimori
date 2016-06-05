@@ -40,6 +40,12 @@ module MalFetcher
     'Сервер на техосмотре, пожалуйста, зайдите через полчасика.'
   ]
 
+  NO_SYNOPSYS = [
+    'No synopsis has been added for this',
+    'No biography written.',
+    'No summary yet.'
+  ]
+
   def self.ban_texts
     @@ban_texts
   end
@@ -174,6 +180,8 @@ private
   end
 
   def parse_synopsis(content)
+    return nil if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
+
     content.match(/
       Synopsis<\/h2>
         (?:
@@ -254,9 +262,6 @@ private
       .gsub(/<br \/>(<br \/>)?\(adapted from[\s\S]*/i, '')
       .gsub(/<br \/>(<br \/>)<strong>Note:<\/strong><br \/>[\s\S]*/i, '')
       .gsub(/=Tricks=[\s\S]*/i, '')
-      .gsub(/No synopsis has been added for this .*? yet[\s\S]*/i, '')
-      .gsub(/No biography written.[\s\S]*/i, '')
-      .gsub(/No summary yet.[\s\S]*/i, '')
       .strip
       .gsub(/(<br \/>)+$/m, '')
       .gsub(/(<br \/?>){2}+/m, '<br />')

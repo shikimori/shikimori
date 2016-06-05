@@ -49,7 +49,7 @@ private
       <a \s href="http://myanimelist.net/(?<type>anime|manga|character|people)
         (?:
           .php\?id=(?<id>\d+) |
-          / (?<id>\d+) / \w+
+          / (?<id>\d+) / \w*
         )
       " (?: \s rel="nofollow")?>
         (?<name>[^<]+)
