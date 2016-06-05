@@ -1,9 +1,9 @@
 class SitemapController < ShikimoriController
   def default_url_options options = {}
     if params[:format] == 'xml'
-      options.merge protocol: 'http'
+      super.merge protocol: 'http'
     else
-      options
+      super
     end
   end
 
