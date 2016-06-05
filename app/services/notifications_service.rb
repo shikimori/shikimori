@@ -33,7 +33,7 @@ class NotificationsService
         nickname_changed_key,
         old_nickname: "[profile=#{target.id}]#{old_nickname}[/profile]",
         new_nickname: "[profile=#{target.id}]#{new_nickname}[/profile]",
-        locale: I18n.locale_from_language(friend.language)
+        locale: friend.locale
       )
     )
   end

@@ -87,7 +87,7 @@ ru:
         password_confirmation: Подтверждение пароля
         sex: Пол
         website: Сайт
-        language: Язык интерфейса
+        locale: Язык интерфейса
       user_rate:
         status: Статус
         episodes: Эпизоды
@@ -272,9 +272,9 @@ ru:
 
   enumerize:
     user:
-      language:
-        russian: Русский
-        english: English
+      locale:
+        ru: Русский
+        en: English
     user_preferences:
       body_width:
         x1200: 1200 пикселей

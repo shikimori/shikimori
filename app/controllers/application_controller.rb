@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
   before_action :set_locale
+  before_action :set_user_locale_from_domain
   before_action :set_layout_view
   before_action :fix_googlebot
   before_action :touch_last_online
@@ -183,8 +184,13 @@ private
 
   def set_locale
     I18n.locale = params[:locale] ||
-      (I18n.locale_from_language(current_user.language) if user_signed_in?) ||
-      (ru_domain? ? :ru : :en)
+      current_user&.locale ||
+      locale_from_domain
+  end
+
+  def set_user_locale_from_domain
+    return unless user_signed_in?
+    current_user.update locale_from_domain: locale_from_domain
   end
 
   # гугловский бот со странным format иногда ходит

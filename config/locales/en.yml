@@ -87,7 +87,7 @@ en:
         password_confirmation: Password Confirmation
         sex: Gender
         website: Website
-        language: Language
+        locale: Language
       user_rate:
         status: Status
         episodes: Episodes
@@ -272,9 +272,9 @@ en:
 
   enumerize:
     user:
-      language:
-        russian: Russian
-        english: English
+      locale:
+        ru: Russian
+        en: English
     user_preferences:
       body_width:
         x1200: 1200 pixels

@@ -4,7 +4,7 @@
       = t '.title'
       a.b-link href="#{animes_url}" = t '.all_animes'
 
-    - @view.db_seasons(Anime).each do |season|
+    - dashboard_view.db_seasons(Anime).each do |season|
       a.b-link_button[
         class="#{season.text.split('_').first}"
         href="#{animes_url season.url_params}"
@@ -34,7 +34,7 @@
 .others
   .note #{t '.others'}:
 
-  - @view.db_others(Anime).each do |season|
+  - dashboard_view.db_others(Anime).each do |season|
     a.b-link[
       href="#{animes_url season.url_params}"
       title="#{season.full_title}"
