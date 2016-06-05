@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160414165408) do
+ActiveRecord::Schema.define(version: 20160602194350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
@@ -488,7 +487,7 @@ ActiveRecord::Schema.define(version: 20160414165408) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "kind",        limit: 255
+    t.string   "kind",        limit: 255, null: false
   end
 
   add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree

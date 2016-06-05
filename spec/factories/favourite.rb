@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :favourite do
     linked nil
-    user
+    user { seed :user }
+    kind ''
   end
 end

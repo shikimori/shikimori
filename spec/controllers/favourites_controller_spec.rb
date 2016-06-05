@@ -7,28 +7,35 @@ describe FavouritesController do
       let(:method_name) { "fav_#{klass.name.downcase.pluralize}" }
 
       describe '#create' do
-        it 'success' do
-          expect {
-            post :create, linked_type: entry.class.name, linked_id: entry.id
-          }.to change(Favourite, :count).by(1)
-          expect(user.send(method_name)).to include(entry)
+        let(:make_request) do
+          post :create, linked_type: entry.class.name, linked_id: entry.id, kind: kind
         end
 
-        it 'supports kind parameter' do
-          expect {
-            post :create, linked_type: entry.class.name, linked_id: entry.id, kind: Favourite::Producer
-          }.to change(Favourite, :count).by(1)
-          expect(user.fav_producers).to include(entry)
+        context 'withput kind' do
+          let(:kind) { nil }
+          it do
+            expect { make_request }.to change(Favourite, :count).by(1)
+            expect(user.send(method_name)).to include(entry)
+          end
+        end
+
+        context 'with kind' do
+          let(:kind) { Favourite::Producer }
+          it do
+            expect { make_request }.to change(Favourite, :count).by(1)
+            expect(user.fav_producers).to include(entry)
+          end
         end if klass == Person
       end
 
       describe '#destroy' do
         let!(:favourite) { create :favourite, linked: entry, user: user }
+        let(:make_request) do
+          delete :destroy, linked_type: entry.class.name, linked_id: entry.id
+        end
 
         it 'success' do
-          expect {
-            delete :destroy, linked_type: entry.class.name, linked_id: entry.id
-          }.to change(Favourite, :count).by -1
+          expect { make_request }.to change(Favourite, :count).by(-1)
           expect(user.reload.send(method_name)).not_to include(entry)
         end
       end
