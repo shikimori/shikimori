@@ -1,10 +1,11 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :clubs, :contests, :reviews
+  instance_cache :club_topics, :contests, :reviews
 
-  def clubs
+  def club_topics
     Topics::EntryTopics::ClubTopic
       .includes(:linked)
+      .where(locale: h.locale_from_domain)
       .order(updated_at: :desc)
       .limit(3)
   end

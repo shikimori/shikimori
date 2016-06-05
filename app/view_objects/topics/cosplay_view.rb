@@ -10,7 +10,7 @@ class Topics::CosplayView < Topics::View
   end
 
   def render_body
-    h.render 'topics/cosplay/info', view: self, gallery: topic.linked
+    h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
   end
 
   def poster is_2x

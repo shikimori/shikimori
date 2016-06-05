@@ -3,9 +3,11 @@ describe Forums::Menu do
   let(:view) { Forums::Menu.new double(id: 1), nil }
   let(:user) { seed :user }
 
-  describe '#clubs' do
+  describe '#club_topics' do
     let!(:club_topic) { create :club_topic, linked: create(:club) }
-    it { expect(view.clubs).to eq [club_topic] }
+    let!(:club_topic_en) { create :club_topic, linked: create(:club), locale: :en }
+
+    it { expect(view.club_topics).to eq [club_topic] }
   end
 
   describe '#contests' do
