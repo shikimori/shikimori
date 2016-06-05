@@ -1,4 +1,12 @@
 class SitemapController < ShikimoriController
+  def default_url_options options = {}
+    if params[:format] == 'xml'
+      options.merge protocol: 'http'
+    else
+      options
+    end
+  end
+
   def index
     if params[:format] == 'xml'
       @animes = Anime
