@@ -61,6 +61,7 @@ class DashboardView < ViewObjectBase
   def reviews
     all_reviews
       .shuffle
+      .select { |view| !view.topic.linked.target.censored? }
       .take(REVIEWS_TAKE)
       .sort_by { |view| -view.topic.id }
   end
