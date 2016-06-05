@@ -474,8 +474,8 @@ private
         #{klass.table_name}.score desc"
 
       when 'released_on'
-        '(case when released_on is null then aired_on \
-        else released_on end) desc'
+        "(case when released_on is null then aired_on \
+        else released_on end) desc"
 
       when 'aired_on'
         'aired_on desc'
