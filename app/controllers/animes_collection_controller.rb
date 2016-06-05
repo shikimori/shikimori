@@ -116,6 +116,10 @@ private
     if params.include?(:duration) && @view.klass == Manga
       raise ForceRedirect, @view.url(duration: nil)
     end
+
+    if params[:page] == '0'
+      raise ForceRedirect, @view.url(page: nil)
+    end
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент
