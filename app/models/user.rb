@@ -127,8 +127,8 @@ class User < ActiveRecord::Base
       .where('users.id not in (select distinct(user_id) from user_rates)')
   }
 
-  enumerize :locale, in: [:ru, :en], default: :ru, predicates: true
-  enumerize :locale_from_domain, in: [:ru, :en], default: :ru, predicates: true
+  enumerize :locale, in: %i(ru en), default: :ru
+  enumerize :locale_from_domain, in: %i(ru en), default: :ru
 
   accepts_nested_attributes_for :preferences
 
