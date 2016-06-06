@@ -86,6 +86,7 @@ module UserNotifications
 
   # возвращает подписан ли пользователь на новость
   def subscribed_for_event? entry
+    # don't create messages about news in different language
     return false if entry.locale != locale_from_domain
 
     if entry.kind_of?(Topic) && entry.broadcast

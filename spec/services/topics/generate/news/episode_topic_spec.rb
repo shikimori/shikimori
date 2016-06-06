@@ -14,7 +14,7 @@ describe Topics::Generate::News::EpisodeTopic do
 
   context 'without existing news topic' do
     it do
-      expect{subject}.to change(Topic, :count).by 1
+      expect { subject }.to change(Entry, :count).by 1
       is_expected.to have_attributes(
         forum_id: Topic::FORUM_IDS[model.class.name],
         generated: true,
@@ -36,20 +36,37 @@ describe Topics::Generate::News::EpisodeTopic do
         linked: model,
         action: AnimeHistoryAction::Episode,
         value: topic_episodes_aired,
-        locale: locale
+        locale: topic_locale
     end
 
-    context 'for prior episode' do
-      let(:topic_episodes_aired) { episodes_aired - 1 }
-      it do
-        is_expected.not_to eq topic
-        is_expected.to be_persisted
+    context 'for the same locale' do
+      let(:topic_locale) { locale }
+
+      context 'for prior episode' do
+        let(:topic_episodes_aired) { episodes_aired - 1 }
+        it 'generates topic' do
+          is_expected.not_to eq topic
+          is_expected.to be_persisted
+        end
+      end
+
+      context 'for current episode' do
+        let(:topic_episodes_aired) { episodes_aired }
+        it 'does not generate topic' do
+          expect { subject }.not_to change(Entry, :count)
+          is_expected.to eq topic
+        end
       end
     end
 
-    context 'for current episode' do
+    context 'for different locale and current episode' do
       let(:topic_episodes_aired) { episodes_aired }
-      it { is_expected.to eq topic }
+      let(:topic_locale) { 'ru' }
+
+      it 'generates topic for new locale' do
+        expect { subject }.to change(Entry, :count).by 1
+        is_expected.not_to eq topic
+      end
     end
   end
 end

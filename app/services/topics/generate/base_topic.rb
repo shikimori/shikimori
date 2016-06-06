@@ -8,7 +8,8 @@ class Topics::Generate::BaseTopic < ServiceObjectBase
 private
 
   def build_topic
-    model.topics.find_or_initialize_by topic_attributes
+    model.topics.find_by(find_by_attributes) ||
+      model.topics.build(topic_attributes)
   end
 
   def topic_klass
@@ -25,6 +26,10 @@ private
       created_at: created_at,
       updated_at: updated_at
     }
+  end
+
+  def find_by_attributes
+    topic_attributes.slice(:type, :locale)
   end
 
   def forum_id

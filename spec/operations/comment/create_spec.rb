@@ -71,13 +71,29 @@ describe Comment::Create do
       it { is_expected.to eq topic }
     end
 
+    context 'commentable is db entry with topic for different locale' do
+      let(:commentable_id) { anime.id }
+      let(:commentable_type) { anime.class.name }
+
+      let(:topic_locale) { (I18n.available_locales - [locale]).sample }
+      let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
+
+      it_behaves_like :comment
+      it 'creates anime topic with specified locale' do
+        is_expected.to have_attributes(
+          type: Topics::EntryTopics::AnimeTopic.name,
+          locale: locale.to_s
+        )
+      end
+    end
+
     context 'commentable is db entry without topic' do
       let(:commentable_id) { anime.id }
       let(:commentable_type) { anime.class.name }
       let(:topic) {}
 
       it_behaves_like :comment
-      it 'creates anime topic' do
+      it 'creates anime topic with specified locale' do
         is_expected.to have_attributes(
           type: Topics::EntryTopics::AnimeTopic.name,
           locale: locale.to_s

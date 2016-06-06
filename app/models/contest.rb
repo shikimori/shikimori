@@ -76,9 +76,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      unless contest.topics.present?
-        contest.generate_topics I18n.available_locales
-      end
+      contest.generate_topics I18n.available_locales
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
