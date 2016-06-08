@@ -54,7 +54,6 @@ class ReviewsController < AnimesController
 
   def update
     if @review.update update_params
-
       topic = @review.maybe_topic locale_from_domain
       redirect_to(
         UrlGenerator.instance.topic_url(topic),

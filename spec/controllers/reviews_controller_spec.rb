@@ -2,6 +2,8 @@ describe ReviewsController do
   let(:anime) { create :anime }
   let(:review) { create :review, :with_topics, user: user, target: anime }
 
+  before { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
+
   describe '#index' do
     before { get :index, anime_id: anime.to_param, type: 'Anime' }
     it { expect(response).to have_http_status :success }
@@ -9,6 +11,7 @@ describe ReviewsController do
 
   describe '#new' do
     include_context :authenticated, :user
+
     let(:params) do
       {
         user_id: user.id,
@@ -16,14 +19,13 @@ describe ReviewsController do
         target_type: anime.class.name
       }
     end
-    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
     before { get :new, anime_id: anime.to_param, type: 'Anime', review: params }
+
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
     include_context :authenticated, :user
-    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
 
     context 'when success' do
       let(:params) do
@@ -44,14 +46,19 @@ describe ReviewsController do
       it do
         expect(assigns :review).to be_persisted
         expect(assigns :review).to have_attributes(params)
-        expect(response).to redirect_to UrlGenerator.instance
-          .topic_url(assigns(:review).maybe_topic(controller.locale_from_domain))
+
+        topic = assigns(:review).topic(controller.locale_from_domain)
+        expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
 
     context 'when validation errors' do
-      before { post :create, anime_id: anime.to_param, type: 'Anime',
-        review: { user_id: user.id} }
+      before do
+        post :create,
+          anime_id: anime.to_param,
+          type: 'Anime',
+          review: { user_id: user.id }
+      end
 
       it do
         expect(assigns :review).to be_new_record

@@ -58,12 +58,12 @@ describe CharactersController do
 
   describe '#comments' do
     let(:character) { create :character, :with_topics }
-    let!(:comment) { create :comment, commentable: character.topics.first }
+    let!(:comment) { create :comment, commentable: character.topic(:ru) }
     before { get :comments, id: character.to_param }
 
     it do
       expect(response).to redirect_to(
-        UrlGenerator.instance.topic_url(character.topics.first)
+        UrlGenerator.instance.topic_url(character.topic(:ru))
       )
     end
   end

@@ -147,7 +147,7 @@ describe ClubsController do
 
   describe '#comments' do
     let(:club) { create :club, :with_topics }
-    let(:topic) { club.maybe_topic(controller.locale_from_domain) }
+    let(:topic) { club.topic(controller.locale_from_domain) }
     let!(:comment) { create :comment, commentable: topic }
 
     before { get :comments, id: club.to_param }

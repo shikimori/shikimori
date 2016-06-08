@@ -132,7 +132,8 @@ private
   end
 
   def all_review_topic_views
-    TopicsQuery.fetch(h.current_user, h.locale_from_domain)
+    TopicsQuery
+      .fetch(h.current_user, h.locale_from_domain)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

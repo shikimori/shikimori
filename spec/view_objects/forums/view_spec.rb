@@ -22,11 +22,12 @@ describe Forums::View do
     end
   end
 
-  describe '#topics' do
+  describe '#topic_views' do
     before { user.preferences.forums = [offtopic_forum.id] }
+
     it do
-      expect(view.topics).to have(1).item
-      expect(view.topics.first).to be_kind_of Topics::View
+      expect(view.topic_views).to have(1).item
+      expect(view.topic_views.first).to be_kind_of Topics::View
     end
   end
 

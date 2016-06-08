@@ -1,32 +1,32 @@
 - content_for :head do
-  - if @view.next_page_url
+  - if @forums_view.next_page_url
     link[
       rel="next"
-      href="#{{@view.next_page_url}}"
+      href="#{{@forums_view.next_page_url}}"
     ]
-  - if @view.prev_page_url
+  - if @forums_view.prev_page_url
     link[
       rel="prev"
-      href="#{{@view.prev_page_url}}"
+      href="#{{@forums_view.prev_page_url}}"
     ]
 
   = auto_discovery_link_tag :rss,
-    forum_topics_url(forum: @view.forum.try(:permalink), format: :rss),
+    forum_topics_url(forum: @forums_view.forum.try(:permalink), format: :rss),
     title: 'Site topics'
 
-  / - if @view.forum[:id] == 'all'
+  / - if @forums_view.forum[:id] == 'all'
     = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
     = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
 
 = render layout: 'topics/page' do |f|
-  .b-forum.unprocessed data-faye="#{@view.faye_subscriptions.to_json if user_signed_in?}"
-    - if @view.topics.any?
-      = render partial: 'topics/topic', collection: @view.topics, as: :topic_view
+  .b-forum.unprocessed data-faye="#{@forums_view.faye_subscriptions.to_json if user_signed_in?}"
+    - if @forums_view.topics.any?
+      = render partial: 'topics/topic', collection: @forums_view.topics, as: :topic_view
     - else
       .b-nothing_here = t '.no_topics'
 
-    - if @view.next_page_url
+    - if @forums_view.next_page_url
       = render 'blocks/postloader',
         filter: 'b-topic',
-        next_url: @view.next_page_url,
-        prev_url: @view.prev_page_url
+        next_url: @forums_view.next_page_url,
+        prev_url: @forums_view.prev_page_url

@@ -17,9 +17,10 @@ module TopicsConcern
     end
   end
 
-  # using find without to_a would query database each time
+  # using find with block converts topics to array and
+  # doesn't query database since relation is preloaded
   def topic locale
-    topics.to_a.find { |topic| topic.locale == locale }
+    topics.find { |topic| topic.locale == locale }
   end
 
   def maybe_topic locale

@@ -9,15 +9,15 @@ class TopicsController < ShikimoriController
 
   def index
     # редирект на топик, если топик в подфоруме единственный
-    if params[:linked_id] && @view.topics.one?
+    if params[:linked_id] && @forums_view.topics.one?
       return redirect_to UrlGenerator.instance.topic_url(
-        @view.topics.first.topic, params[:format]), status: 301
+        @forums_view.topics.first.topic, params[:format]), status: 301
     end
 
     # редирект, исправляющий linked
-    if params[:linked_id] && @view.linked.to_param != params[:linked_id]
+    if params[:linked_id] && @forums_view.linked.to_param != params[:linked_id]
       return redirect_to UrlGenerator.instance.forum_url(
-        @view.forum, @view.linked), status: 301
+        @forums_view.forum, @forums_view.linked), status: 301
     end
   end
 
@@ -137,7 +137,7 @@ private
   end
 
   def set_view
-    @view = Forums::View.new
+    @forums_view = Forums::View.new
 
     if params[:action] == 'show'
       @resource = Entry.with_viewed(current_user).find(params[:id])
@@ -146,7 +146,7 @@ private
   end
 
   def set_breadcrumbs
-    page_title t('page', page: @view.page) if @view.page > 1
+    page_title t('page', page: @forums_view.page) if @forums_view.page > 1
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 
@@ -154,10 +154,10 @@ private
       page_title @resource.forum.name
       breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
 
-      if @view.linked
+      if @forums_view.linked
         breadcrumb(
-          UsersHelper.localized_name(@view.linked, current_user),
-          UrlGenerator.instance.forum_url(@view.forum, @view.linked)
+          UsersHelper.localized_name(@forums_view.linked, current_user),
+          UrlGenerator.instance.forum_url(@forums_view.forum, @forums_view.linked)
         )
       end
 
@@ -167,14 +167,14 @@ private
         UrlGenerator.instance.topic_url(@resource)
       ) if params[:action] == 'edit' || params[:action] == 'update'
 
-    elsif @view.forum
-      page_title @view.forum.name
-      if params[:action] != 'index' || @view.linked
-        breadcrumb @view.forum.name, forum_topics_url(@view.forum)
+    elsif @forums_view.forum
+      page_title @forums_view.forum.name
+      if params[:action] != 'index' || @forums_view.linked
+        breadcrumb @forums_view.forum.name, forum_topics_url(@forums_view.forum)
       end
 
-      if @view.linked
-        page_title UsersHelper.localized_name(@view.linked, current_user)
+      if @forums_view.linked
+        page_title UsersHelper.localized_name(@forums_view.linked, current_user)
       end
     end
   end

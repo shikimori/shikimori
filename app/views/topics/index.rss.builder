@@ -3,9 +3,9 @@ xml.rss version: '2.0' do
   xml.channel do
     xml.title "#{@page_title.last} #{Site::DOMAIN}"
     # xml.description @forum[:description]
-    xml.link forum_url(forum: @view.forum.try(:permalink))
+    xml.link forum_url(forum: @forums_view.forum.try(:permalink))
 
-    @view.topics.each do |view|
+    @forums_view.topics.each do |view|
       xml.item do
         xml.title view.topic_title
         xml.pubDate Time.at(view.created_at.to_i).to_s(:rfc822)

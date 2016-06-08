@@ -5,7 +5,7 @@ class Forums::View < ViewObjectBase
     Forum.find_by_permalink h.params[:forum]
   end
 
-  def topics
+  def topic_views
     TopicsQuery.fetch(h.current_user, h.locale_from_domain)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
