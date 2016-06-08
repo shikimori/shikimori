@@ -61,11 +61,14 @@ class AniMangaDecorator::Files
 
   def episodes_data
     torrents = significant_torrents
-    topics = entry.news_topics.limit AnimeDecorator::NEWS_PER_PAGE
+    topics = entry
+      .news_topics
+      .where(locale: :ru)
+      .limit AnimeDecorator::NEWS_PER_PAGE
 
     data = topics.each_with_object({}) do |entry, memo|
       memo[entry.id] = torrents
-          .select {|v| TorrentsParser.extract_episodes_num(v[:title]).include? entry.value.to_i }
+          .select { |v| TorrentsParser.extract_episodes_num(v[:title]).include? entry.value.to_i }
           .map do |v|
             {
               title: v[:title],

@@ -88,4 +88,8 @@ private
       anime.schedule_at + 1.week
     end
   end
+
+  def episode_news_topics
+    anime.episode_news_topics.select { |v| v.news_topic.locale == :ru }
+  end
 end
