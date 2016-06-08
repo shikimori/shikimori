@@ -47,10 +47,13 @@ class AnimesVerifier
   def perform
     klass.import bad_entries if bad_entries.any?
 
-    raise "Broken entries found: #{bad_entries.join ', '}" if bad_entries.any?
+    if bad_entries.any?
+      raise "#{bad_entries.size} broken entries found: #{bad_entries.join ', '}"
+    end
 
     if bad_mal_descriptions.any?
-      raise "Broken mal_descriptions found: #{bad_mal_descriptions.join ', '}"
+      raise "#{bad_mal_descriptions.size} broken mal_descriptions found: \
+#{bad_mal_descriptions.join ', '}"
     end
   end
 

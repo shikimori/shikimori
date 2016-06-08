@@ -13,7 +13,7 @@ class CalendarEntry < SimpleDelegator
     if anime.episodes_aired.zero?
       0
     else
-      anime.episodes_news.size < 2 ? 7.days : episode_average_interval
+      episodes_news.size < 2 ? 7.days : episode_average_interval
     end
   end
 

@@ -23,7 +23,10 @@ class Mal::TextSanitizer < ServiceObjectBase
   }mix
 
   SOURCE_REGEXP_1 = %r{
-    \n* \(?
+    \n*
+    (?<prefix>(?:<(?:div|span)[^>]+>)+)?
+    \(?
+      (?: <[bi]> )?
       (?:
         source |
         written |
@@ -32,19 +35,27 @@ class Mal::TextSanitizer < ServiceObjectBase
         description \s from
         adapted \s from
       ) \b
-      \s* :? \s*
-      ("|'|)
+
+      (?: </[bi]> )? \s* :? \s*
+      (?: </[bi]> )? \s* :? \s*
+
+      ["']?
       (?:
         (?:<!--link-->)?<a [^>]*? href="(?<url>.*?)" [^>]*? >.*?</a>
-            .*{0,8} ("|'|) (?=\Z|\)) |
-        (?<text> .{0,60}? ) ("|'|) (?=\Z|\)
-        )
+        .*{0,8}
+          |
+        (?<text> [^<]{0,100}? )
       )
-    \)? \Z
+      ["']?
+      (?= \Z|[)\[<] )
+    \)?
+    (?<postfix>(?:</(?:div|span)>)+)?
+    \Z
   }mix
 
   SOURCE_REGEXP_2 = %r{
-    \n* \(?
+    (?: ([\s\S]{100} \n*+) | \n+ )
+    \(?
       (?:<!--link-->)?<a [^>]*? href="(.*?)" [^>]*? >
         .*?
       </a>
@@ -56,21 +67,40 @@ class Mal::TextSanitizer < ServiceObjectBase
       (.*?)
     </a>
   }mix
+  DOUBLE_LINK_REGEXP = %r{
+    <a [^>]*? href="([^"]+)" [^>]*? ></a>
+    (
+      <a [^>]*? href="(\1)" [^>]*? >.*?</a>
+    )
+  }mix
 
-  RIGHT_TAG_REGEXP = %r{
-    <div \s style="text-align: \s right;">
-      (.*?)<!--right-->\n?
+  POSITION_TAG_REGEXP = %r{
+    <div \s style="text-align: \s (right|center);">
+      ( .*? ) (?:<!--right-->)?\n?
     </div>
   }mix
 
+  COLOR_TAG_REGEXP = %r{
+    <span \s style="color: \s ([^">]+);">
+      ( .*? )
+    </span>
+  }
+
+  SPOILER_REGEXP = %r{
+    \n*
+    (?: <div \s class="spoiler .*? value="Hide \s [^"<>]*"> )
+      ( .*? )
+    (?: </span>\n?</div> )
+  }mix
+
   def call
-    comments bb_codes cleanup raw_text
+    finalize comments bb_codes cleanup finalize raw_text
   end
 
 private
 
   def cleanup text
-    fix_phrases fix_tags fix_new_lines specials fix_html text.strip
+    fix_links fix_phrases fix_tags fix_new_lines specials fix_html text
   end
 
   def bb_codes text
@@ -88,15 +118,24 @@ private
     text.gsub(/<!--.*?-->/mix, '') # <!-- comment -->
   end
 
+  def finalize text
+    text.gsub(/
+      \A (\s | \[br\] | <br> )+
+      |
+      ( \s | \[br\] | <br> )+ \Z
+    /mix, '')
+  end
+
   def bb_other text
     text
       .gsub(%r{<strong>(.*?)</strong>}mix, '[b]\1[/b]')
       .gsub(%r{<b>(.*?)</b>}mix, '[b]\1[/b]')
       .gsub(%r{<i>(.*?)</i>}mix, '[i]\1[/i]')
       .gsub(%r{<em>(.*?)</em>}mix, '[i]\1[/i]')
-      .gsub(/<img \s class="userimg" \s data-src="(.*?)">/mix,
+      .gsub(/<img \s class="userimg" \s (?:data-)?src="(.*?)">/mix,
         '[img]\1[/img]')
-      .gsub(RIGHT_TAG_REGEXP, '[right]\1[/right]')
+      .gsub(POSITION_TAG_REGEXP, '[\1]\2[/\1]')
+      .gsub(COLOR_TAG_REGEXP, '[color=\1]\2[/color]')
       .gsub(/\n/, '[br]')
   end
 
@@ -127,11 +166,10 @@ private
   end
 
   def bb_spoiler text
-    text.gsub %r{
-      (?: <div \s class="spoiler .*? value="Hide \s spoiler"> )
-        ( .*? )
-      (?: </span>\n?</div> )
-    }mix, '[br][spoiler]\1[/spoiler]'
+    text
+      .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
+      .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
+      .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
   end
 
   def bb_source text
@@ -140,13 +178,13 @@ private
         source = $LAST_MATCH_INFO[:url] || $LAST_MATCH_INFO[:text]
         "[br][source]#{source}[/source]"
       end
-      .gsub(SOURCE_REGEXP_2, '[br][source]\1[/source]')
+      .gsub(SOURCE_REGEXP_2, '\1[br][source]\2[/source]')
   end
 
   def fix_tags text
     text
-      .gsub(%r{<span \s style=".*">(.*?)</span>}mix, '\1')
-      .strip
+      .gsub(%r{<span \s style=".*?">(.*?)</span>}mix, '\1')
+      .gsub(%r{<span \s style=".*?">(.*?)</span>}mix, '\1')
   end
 
   def fix_phrases text
@@ -156,8 +194,6 @@ private
       .gsub(/no biography written[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
-      .gsub(MOREINFO_LINK_REGEXP, '\1')
-      .strip
   end
 
   def fix_new_lines text
@@ -166,7 +202,12 @@ private
       .gsub(/\r\n/, '<br>')
       .gsub(/[\n\r]/, '<br>')
       .gsub(/<br>/mix, "\n")
-      .strip
+  end
+
+  def fix_links text
+    text
+      .gsub(MOREINFO_LINK_REGEXP, '\1')
+      .gsub(DOUBLE_LINK_REGEXP, '\2')
   end
 
   def fix_html text
