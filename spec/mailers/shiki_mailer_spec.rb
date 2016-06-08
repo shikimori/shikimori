@@ -9,9 +9,15 @@ describe ShikiMailer do
         .and_return unsubscribe_link_key
     end
 
-    let(:from_user) { create :user, nickname: 'Randy' }
+    let(:from_user) do
+      create :user, nickname: 'Randy'
+    end
+    let(:to_user) do
+      create :user, nickname: 'Vasya', email: to_email, locale: to_user_locale
+    end
+    let(:to_user_locale) { :ru }
     let(:to_email) { 'test@gmail.com' }
-    let(:to_user) { create :user, nickname: 'Vasya', email: to_email }
+
     let(:read) { false }
     let(:message_body) { 'Hi, Vasya!' }
     let(:message) do
@@ -22,20 +28,38 @@ describe ShikiMailer do
         body: message_body
     end
 
-    it do
-      expect(mail.subject).to eq(
-        I18n.t('shiki_mailer.private_message_email.subject')
-      )
-      expect(mail.body.raw_source).to eq "
-        #{to_user.nickname}, у вас 1 новое сообщение на shikimori.org от пользователя #{from_user.nickname}.
-        Прочитать полностью можно тут: http://test.host/#{to_user.nickname}/dialogs
+    context 'recipient uses ru locale' do
+      let(:to_user_locale) { :ru }
+      it do
+        expect(mail.subject).to eq 'Личное сообщение'
+        expect(mail.body.raw_source).to eq "
+          #{to_user.nickname}, у вас 1 новое сообщение на shikimori.org от пользователя #{from_user.nickname}.
+          Прочитать полностью можно тут: http://test.host/#{to_user.nickname}/dialogs
 
-        Текст сообщения:
-        #{message_body}
+          Текст сообщения:
+          #{message_body}
 
-        Отписаться от уведомлений можно по ссылке:
-        http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
-      ".gsub(/^ +/, '').strip
+          Отписаться от уведомлений можно по ссылке:
+          http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+        ".gsub(/^ +/, '').strip
+      end
+    end
+
+    context 'recipient uses en locale' do
+      let(:to_user_locale) { :en }
+      it do
+        expect(mail.subject).to eq 'Private message'
+        expect(mail.body.raw_source).to eq "
+          #{to_user.nickname}, you have 1 new message on shikimori.org from #{from_user.nickname}.
+          Read the full message: http://test.host/#{to_user.nickname}/dialogs
+
+          Message:
+          #{message_body}
+
+          To unsubscribe from notification emails click here:
+          http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+        ".gsub(/^ +/, '').strip
+      end
     end
 
     context 'message is read' do
@@ -59,26 +83,48 @@ describe ShikiMailer do
     end
 
     let(:email) { 'test@gmail.com' }
-    let(:user) { build :user, nickname: 'Vasya', email: email }
+    let(:user) { build :user, nickname: 'Vasya', email: email, locale: user_locale }
+    let(:user_locale) { :ru }
     let(:token) { 'token' }
 
-    it do
-      expect(mail.subject).to eq(
-        I18n.t('shiki_mailer.reset_password_instructions.subject')
-      )
-      expect(mail.body.raw_source).to eq "
-        Привет!
+    context 'recipient uses ru locale' do
+      let(:user_locale) { :ru }
+      it do
+        expect(mail.subject).to eq 'Инструкции по сбросу пароля'
+        expect(mail.body.raw_source).to eq "
+          Привет!
 
-        Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
+          Кто-то активировал процедуру сброса пароля для вашего аккаунта на shikimori.org.
 
-        Ваш логин - #{user.nickname}.
+          Ваш логин - #{user.nickname}.
 
-        Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit?reset_password_token=#{token}
+          Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit?reset_password_token=#{token}
 
-        Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
+          Если вы не запрашивали сброс пароля, то просто проигнорируйте это письмо.
 
-        Ваш пароль не будет изменён до тех пор, пока вы не перейдёте по указанной выше ссылке.
-      ".gsub(/^ +/, '').strip
+          Ваш пароль не будет изменён до тех пор, пока вы не перейдёте по указанной выше ссылке.
+        ".gsub(/^ +/, '').strip
+      end
+    end
+
+    context 'recipient uses en locale' do
+      let(:user_locale) { :en }
+      it do
+        expect(mail.subject).to eq 'Reset password instructions'
+        expect(mail.body.raw_source).to eq "
+          Hi!
+
+          We have received a request to reset your account password on shikimori.org.
+
+          Your acount login is #{user.nickname}.
+
+          To reset you password click this link: http://test.host/users/password/edit?reset_password_token=#{token}
+
+          If you didn't make a request to reset your password just ignore this message.
+
+          Your password will not change until you click the link above.
+        ".gsub(/^ +/, '').strip
+      end
     end
 
     context 'with generated email' do
