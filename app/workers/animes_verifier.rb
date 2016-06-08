@@ -43,7 +43,6 @@ class AnimesVerifier
     '%Редактировать описание',
     '%Описание представлено'
   ]
-  IGNORE_IDS = []
 
   def perform
     klass.import bad_entries if bad_entries.any?
@@ -80,6 +79,7 @@ private
           .map { |v| "description_en ilike '#{v}'" }
           .join(' or ')
       )
+      .where.not(id: ignore_ids)
       .pluck(:id)
   end
 

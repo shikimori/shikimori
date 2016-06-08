@@ -43,8 +43,13 @@ describe Mal::TextSanitizer do
           it { is_expected.to eq '' }
         end
 
-        context 'moreinfo linkes' do
+        context 'moreinfo #1' do
           let(:text) { '<a href="http://myanimelist.net/z/-/moreinfo">x</a>' }
+          it { is_expected.to eq 'x' }
+        end
+
+        context 'moreinfo #2' do
+          let(:text) { '<a href="http://myanimelist.net/z/-/moreinfo/">x</a>' }
           it { is_expected.to eq 'x' }
         end
       end
@@ -57,6 +62,11 @@ describe Mal::TextSanitizer do
       it { expect(parser.call '<em>a</em>').to eq '[i]a[/i]' }
       it { expect(parser.call 'a<br>b').to eq 'a[br]b' }
 
+      context 'complex #1' do
+        let(:text) { "<!--link--><a href=\"http://myanimelist.net/manga/12073\">Kinpeibai Kinden Honoo no Kuchizuke</a>.\n\n(Source: MU)" }
+        it { is_expected.to eq '[manga=12073]Kinpeibai Kinden Honoo no Kuchizuke[/manga].[br][source]MU[/source]' }
+      end
+
       context '[anime] #1' do
         let(:text) { '<a href="http://myanimelist.net/anime.php?id=1">zzz</a>' }
         it { is_expected.to eq '[anime=1]zzz[/anime]' }
@@ -64,6 +74,11 @@ describe Mal::TextSanitizer do
 
       context '[anime] #2' do
         let(:text) { '<a href="http://myanimelist.net/anime/3449/">zzz</a>' }
+        it { is_expected.to eq '[anime=3449]zzz[/anime]' }
+      end
+
+      context '[anime] #3' do
+        let(:text) { '<a href="http://myanimelist.net/anime/3449/qwSw-_:test!123">zzz</a>' }
         it { is_expected.to eq '[anime=3449]zzz[/anime]' }
       end
 
@@ -151,6 +166,21 @@ describe Mal::TextSanitizer do
       context '[right]' do
         let(:text) { "aa<div style=\"text-align: right;\">ccc<!--right-->\n</div>bb" }
         it { is_expected.to eq 'aa[right]ccc[/right]bb' }
+      end
+
+      context '[link]' do
+        let(:name) { 'test' }
+        let(:text) { "<a href=\"#{url}\">#{name}</a>\nzxc" }
+
+        context 'unknown domain' do
+          let(:url) { 'http://test.com' }
+          it { is_expected.to eq "[url=#{url}]#{name}[/url][br]zxc" }
+        end
+
+        context 'myanimelist.net' do
+          let(:url) { 'http://myanimelist.net' }
+          it { is_expected.to eq "<a href=\"#{url}\">#{name}</a>[br]zxc" }
+        end
       end
     end
 

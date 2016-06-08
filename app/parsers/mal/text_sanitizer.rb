@@ -1,8 +1,67 @@
+# rubocop:disable ClassLength
 class Mal::TextSanitizer < ServiceObjectBase
   pattr_initialize :raw_text
 
   NOKOGIRI_SAVE_OPTIONS = Nokogiri::XML::Node::SaveOptions::AS_HTML |
     Nokogiri::XML::Node::SaveOptions::NO_DECLARATION
+
+  ENTRY_REGEXP = %r{
+    <a [^>]*? href="http://myanimelist.net/(?<type>anime|manga|character|people)
+      (?:
+        .php\?id=(?<id>\d+) |
+        / (?<id>\d+) (?: / [\w:/!-]* )?
+      )
+    " [^>]*? >
+      (?<name>[^<]+)
+    </a>
+  }mix
+
+  LINK_REGEXP = %r{
+    <a [^>]*? href="(?<url>[^"]+)" [^>]*? >
+      (?<name>[^<]*)
+    </a>
+  }mix
+
+  SOURCE_REGEXP_1 = %r{
+    \n* \(?
+      (?:
+        source |
+        written |
+        taken \s from |
+        retrieved \s from |
+        description \s from
+        adapted \s from
+      ) \b
+      \s* :? \s*
+      ("|'|)
+      (?:
+        (?:<!--link-->)?<a [^>]*? href="(?<url>.*?)" [^>]*? >.*?</a>
+            .*{0,8} ("|'|) (?=\Z|\)) |
+        (?<text> .{0,60}? ) ("|'|) (?=\Z|\)
+        )
+      )
+    \)? \Z
+  }mix
+
+  SOURCE_REGEXP_2 = %r{
+    \n* \(?
+      (?:<!--link-->)?<a [^>]*? href="(.*?)" [^>]*? >
+        .*?
+      </a>
+    \)? [^\r\n]{0,8} \Z
+  }mix
+
+  MOREINFO_LINK_REGEXP = %r{
+    <a [^>]*? href="http://myanimelist.net/[^"]*?/moreinfo/?" [^>]*? >
+      (.*?)
+    </a>
+  }mix
+
+  RIGHT_TAG_REGEXP = %r{
+    <div \s style="text-align: \s right;">
+      (.*?)<!--right-->\n?
+    </div>
+  }mix
 
   def call
     comments bb_codes cleanup raw_text
@@ -15,7 +74,7 @@ private
   end
 
   def bb_codes text
-    bb_other bb_source bb_spoiler bb_center bb_entry text
+    bb_other bb_link bb_source bb_spoiler bb_center bb_entry text
   end
 
   def specials text
@@ -31,110 +90,74 @@ private
 
   def bb_other text
     text
-      .gsub(%r(<strong>(.*?)</strong>)mix, '[b]\1[/b]')
-      .gsub(%r(<b>(.*?)</b>)mix, '[b]\1[/b]')
-      .gsub(%r(<i>(.*?)</i>)mix, '[i]\1[/i]')
-      .gsub(%r(<em>(.*?)</em>)mix, '[i]\1[/i]')
-      .gsub(%r(<img \s class="userimg" \s data-src="(.*?)">)mix,
+      .gsub(%r{<strong>(.*?)</strong>}mix, '[b]\1[/b]')
+      .gsub(%r{<b>(.*?)</b>}mix, '[b]\1[/b]')
+      .gsub(%r{<i>(.*?)</i>}mix, '[i]\1[/i]')
+      .gsub(%r{<em>(.*?)</em>}mix, '[i]\1[/i]')
+      .gsub(/<img \s class="userimg" \s data-src="(.*?)">/mix,
         '[img]\1[/img]')
-      .gsub(
-        %r(<div \s style="text-align: \s right;">(.*?)<!--right-->\n?</div>)mix,
-        '[right]\1[/right]'
-      )
+      .gsub(RIGHT_TAG_REGEXP, '[right]\1[/right]')
       .gsub(/\n/, '[br]')
   end
 
   def bb_entry text
-    text.gsub %r(
-      <a \s href="http://myanimelist.net/(?<type>anime|manga|character|people)
-        (?:
-          .php\?id=(?<id>\d+) |
-          / (?<id>\d+) / \w*
-        )
-      " (?: \s rel="nofollow")?>
-        (?<name>[^<]+)
-      </a>
-    )mix do
-      type = $~[:type] == 'people' ? 'person' : $~[:type]
-      "[#{type}=#{$~[:id]}]#{$~[:name]}[/#{type}]"
+    text.gsub ENTRY_REGEXP do
+      type = $LAST_MATCH_INFO[:type]
+      type = 'person' if type == 'people'
+      "[#{type}=#{$LAST_MATCH_INFO[:id]}]#{$LAST_MATCH_INFO[:name]}[/#{type}]"
+    end
+  end
+
+  def bb_link text
+    text.gsub LINK_REGEXP do |match|
+      if match.include? 'myanimelist'
+        match
+      else
+        "[url=#{$LAST_MATCH_INFO[:url]}]#{$LAST_MATCH_INFO[:name]}[/url]"
+      end
     end
   end
 
   def bb_center text
-    text.gsub %r(
+    text.gsub %r{
       <div\sstyle="text-align:\scenter;">
         (.*?)
       <!--center-->\n?</div>
-    )mix, '[center]\1[/center]'
+    }mix, '[center]\1[/center]'
   end
 
   def bb_spoiler text
-    text.gsub %r(
+    text.gsub %r{
       (?: <div \s class="spoiler .*? value="Hide \s spoiler"> )
         ( .*? )
       (?: </span>\n?</div> )
-    )mix, '[br][spoiler]\1[/spoiler]'
+    }mix, '[br][spoiler]\1[/spoiler]'
   end
 
   def bb_source text
     text
-      .gsub %r(
-        \n* \(?
-          (?:
-            source |
-            written |
-            taken \s from |
-            retrieved \s from |
-            description \s from
-            adapted \s from
-          ) \b
-          \s* :? \s*
-          ("|'|)
-          (?:
-            (?:<!--link-->)?<a [^>]*? href="(?<url>.*?)" [^>]*? >.*?</a>
-               .*{0,8} ("|'|) (?=\Z|\)) |
-            (?<text> .{0,60}? ) ("|'|) (?=\Z|\)
-            )
-          )
-        \)? \Z
-      )mix do |match|
-        "[br][source]#{$~[:url] || $~[:text]}[/source]"
+      .gsub(SOURCE_REGEXP_1) do
+        source = $LAST_MATCH_INFO[:url] || $LAST_MATCH_INFO[:text]
+        "[br][source]#{source}[/source]"
       end
-      .gsub(%r(
-        \n* \(?
-          (?:<!--link-->)?<a [^>]*? href="(.*?)" [^>]*? >
-            .*?
-          </a>
-        \)? [^\r\n]{0,8} \Z
-      )mix, '[br][source]\1[/source]')
+      .gsub(SOURCE_REGEXP_2, '[br][source]\1[/source]')
   end
 
   def fix_tags text
     text
-      .gsub(%r(<span \s style=".*">(.*?)</span>)mix, '\1')
+      .gsub(%r{<span \s style=".*">(.*?)</span>}mix, '\1')
       .strip
   end
 
   def fix_phrases text
     text
-      .gsub(%r(<(?:strong|b)>Note:</(?:strong|b)>.*)mix, '')
+      .gsub(%r{<(?:strong|b)>Note:</(?:strong|b)>.*}mix, '')
       .gsub(/no synopsis (?:information)? has been added[\s\S]*/i, '')
       .gsub(/no biography written[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
-      .gsub(%r(
-        <a [^>]*? href="http://myanimelist.net/[^"]*?/moreinfo" [^>]*? >
-          (.*?)
-        </a>)mix, '\1'
-      )
+      .gsub(MOREINFO_LINK_REGEXP, '\1')
       .strip
-      # .gsub(/=Tricks=[\s\S]*/i, '')
-      # .strip
-      # .gsub(/(<br \/>)+$/m, '')
-      # .gsub(/(<br \/?>){2}+/m, '<br />')
-      # .gsub(/<div class=\"border_top\"[\s\S]*<\/div>/, '') # Naruto: Shippuuden (id: 1735)
-      # .gsub(/<!--.*?-->/mix, '') # <!-- comment -->
-      # .strip
   end
 
   def fix_new_lines text
@@ -152,3 +175,4 @@ private
       .to_html(save_with: NOKOGIRI_SAVE_OPTIONS)
   end
 end
+# rubocop:enable ClassLength
