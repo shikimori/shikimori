@@ -7,6 +7,7 @@ module Clockwork
     ImportToshokanTorrents.perform_async
     ImportNyaaTorrents.perform_async
     ProxyWorker.perform_async(true)
+    SidekiqHeartbeat.new.perform
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
