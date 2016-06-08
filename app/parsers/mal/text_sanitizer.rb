@@ -12,7 +12,9 @@ class Mal::TextSanitizer < ServiceObjectBase
         / (?<id>\d+) (?: / [\w:/!-]* )?
       )
     " [^>]*? >
+      (?:<[ib]>)?
       (?<name>[^<]+)
+      (?:</[ib]>)?
     </a>
   }mix
 
@@ -54,7 +56,7 @@ class Mal::TextSanitizer < ServiceObjectBase
   }mix
 
   SOURCE_REGEXP_2 = %r{
-    (?: ([\s\S]{100} \n*+) | \n+ )
+    (?: ([\s\S]{300} \n*+) | \n+ )
     \(?
       (?:<!--link-->)?<a [^>]*? href="(.*?)" [^>]*? >
         .*?

@@ -90,6 +90,11 @@ describe Mal::TextSanitizer do
         it { is_expected.to eq '[anime=3449]zzz[/anime]' }
       end
 
+      context '[anime] #4' do
+        let(:text) { '<a href="http://myanimelist.net/anime/3449"><i>zzz</i></a>' }
+        it { is_expected.to eq '[anime=3449]zzz[/anime]' }
+      end
+
       context '[anime] with nofollow' do
         let(:text) { '<a href="http://myanimelist.net/anime.php?id=1" rel="nofollow">zzz</a>' }
         it { is_expected.to eq '[anime=1]zzz[/anime]' }
@@ -144,8 +149,8 @@ describe Mal::TextSanitizer do
         end
 
         context 'source on first with long text' do
-          let(:text) { "#{'a' * 100}<a href=\"#{url}\">#{url}</a>" }
-          it { is_expected.to eq "#{'a' * 100}[br][source]#{url}[/source]" }
+          let(:text) { "#{'a' * 301}<a href=\"#{url}\">#{url}</a>" }
+          it { is_expected.to eq "#{'a' * 301}[br][source]#{url}[/source]" }
         end
 
         context 'source link' do
