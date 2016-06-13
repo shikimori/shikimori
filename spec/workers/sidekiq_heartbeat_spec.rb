@@ -19,7 +19,7 @@ describe SidekiqHeartbeat do
 
   before { job.perform }
 
-  context 'heartbeat skipped',:focus do
+  context 'heartbeat skipped' do
     it { expect(job).to have_received :restart_sidekiq }
   end
 
