@@ -13,9 +13,11 @@ describe ContestMatchesController do
     context 'new vote' do
       before { post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'left' }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      it { expect(assigns(:match).votes.size).to eq(1) }
+      it do
+        expect(assigns(:match).votes).to have(1).item
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'has user_id vote' do
@@ -25,11 +27,13 @@ describe ContestMatchesController do
       end
       let(:json) { JSON.parse response.body }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
-      it { expect(assigns(:match).votes.size).to eq(1) }
-      it { expect(json['variant']).to eq 'right' }
-      it { expect(json['vote_id']).to eq match.id }
+      it do
+        expect(assigns(:match).votes).to have(1).item
+        expect(json['variant']).to eq 'right'
+        expect(json['vote_id']).to eq match.id
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status :success
+      end
     end
 
     context 'has ip vote' do
@@ -38,9 +42,11 @@ describe ContestMatchesController do
         post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'right'
       end
 
-      it { expect(response).to have_http_status 422 }
-      it { expect(response.content_type).to eq 'application/json' }
-      it { expect(assigns(:match).votes.size).to eq(1) }
+      it do
+        expect(assigns(:match).votes).to have(1).item
+        expect(response.content_type).to eq 'application/json'
+        expect(response).to have_http_status 422
+      end
     end
   end
 end
