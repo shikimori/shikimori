@@ -92,6 +92,15 @@ RSpec.configure do |config|
     #end
   end
 
+  config.after :each do
+    if respond_to?(:controller) && controller
+      # в каких-то случаях params почему-то не очищается
+      # словил падение view object спеки от того, что в params лежали данные от
+      # предыдущего контроллера
+      controller.params.delete_if { true }
+    end
+  end
+
   Rails.application.routes.default_url_options = ApplicationController.default_url_options
 
   config.before :suite do

@@ -27,6 +27,10 @@ shared_context :view_object_warden_stub do
     view.h.instance_variable_set '@current_user', nil
     view.h.controller.instance_variable_set '@current_user', nil
     view.h.controller.instance_variable_set '@decorated_current_user', nil
+    # в каких-то случаях params почему-то не очищается
+    # словил падение view object спеки от того, что в params лежали данные от
+    # предыдущего контроллера
+    view.h.params.delete_if { true }
   end
 end
 
