@@ -91,20 +91,20 @@ mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
 after extracting his NOTE, has spread among the public. Prime Minister \
 Sugayama backs the plan, but not everyone agrees with his policy. A \
 mysterious organization attacks Sugayama's vehicle, marking the start of a \
-series of new conflicts. [br][source]ANN[/source]"
+series of new conflicts.[br][source]ANN[/source]"
   end
 
   it 'correct score & ranked' do
     data = parser.fetch_entry_data(31143)
-    expect(data[:ranked]).to eq 6422
-    expect(data[:score]).to eq 5.95
+    expect(data[:ranked]).to eq 6485
+    expect(data[:score]).to eq 5.94
   end
 
   it 'fetches anime related' do
     data = parser.fetch_entry_data(22043)
 
     expect(data[:name]).to eq 'Fairy Tail (2014)'
-    expect(data[:related]).to have(3).items
+    expect(data[:related]).to have(4).items
   end
 
   it 'fetches anime characters' do
@@ -128,7 +128,7 @@ series of new conflicts. [br][source]ANN[/source]"
   end
 
   it 'anime wo image' do
-    data = parser.fetch_entry_data(33102)
+    data = parser.fetch_entry_data(27375)
     expect(data[:img]).to be_nil
   end
 

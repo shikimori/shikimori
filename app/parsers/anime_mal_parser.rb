@@ -109,7 +109,7 @@ class AnimeMalParser < BaseMalParser
     img_doc = left_column_doc.css('> div > div > a > img') if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
     img_doc = left_column_doc.css('> div > a > img') if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
 
-    entry[:img] = img_doc.first&.attr(:src)
+    entry[:img] = img_doc.first&.attr('data-src') || img_doc.first&.attr(:src)
 
     raise EmptyContent.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?
     entry
