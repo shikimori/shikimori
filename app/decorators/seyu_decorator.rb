@@ -75,7 +75,13 @@ class SeyuDecorator < PersonDecorator
 
     @characters = @characters
       .sort_by do |character|
-        character[:animes].map { |anime| sort_criteria anime }.max
+        if character[:animes].any?
+          character[:animes].map { |anime| sort_criteria anime }.max
+        elsif sort_by_date?
+          30.years.ago
+        else
+          0
+        end
       end
       .reverse
   end

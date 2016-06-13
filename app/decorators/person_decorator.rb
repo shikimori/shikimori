@@ -194,10 +194,14 @@ private
   end
 
   def sort_criteria anime
-    if h.params[:order_by] == 'date'
-      anime.aired_on || anime.released_on || 99.years.ago
+    if sort_by_date?
+      anime.aired_on || anime.released_on || 30.years.ago
     else
       anime.score && anime.score < 9.9 ? anime.score : -999
     end
+  end
+
+  def sort_by_date?
+    h.params[:order_by] == 'date'
   end
 end
