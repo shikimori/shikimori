@@ -11,6 +11,7 @@ class SeyuController < PeopleController
   end
 
 private
+
   def fetch_resource
     super
     @resource = SeyuDecorator.new @resource.object

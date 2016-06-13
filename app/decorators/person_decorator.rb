@@ -49,15 +49,10 @@ class PersonDecorator < DbEntryDecorator
 
   def works
     all_roles
-      .select {|v| v.anime || v.manga }
-      .map {|v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
-      .sort_by do |v|
-        if h.params[:order_by] == 'date'
-          v.aired_on || v.released_on || DateTime.now - 99.years
-        else
-          v.score && v.score < 9.9 ? v.score : -999
-        end
-      end.reverse
+      .select { |v| v.anime || v.manga }
+      .map { |v| RoleEntry.new((v.anime || v.manga).decorate, v.role) }
+      .sort_by { |anime| sort_criteria anime }
+      .reverse
   end
 
   def best_works
@@ -195,6 +190,14 @@ private
       'http://%s' % object.website.sub(/^(https?:\/\/)?/, '')
     else
       nil
+    end
+  end
+
+  def sort_criteria anime
+    if h.params[:order_by] == 'date'
+      anime.aired_on || anime.released_on || 99.years.ago
+    else
+      anime.score && anime.score < 9.9 ? anime.score : -999
     end
   end
 end

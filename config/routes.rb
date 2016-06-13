@@ -649,7 +649,9 @@ Site::Application.routes.draw do
       }.join('|'))
       concerns :searcheable
 
-      get :roles, on: :member
+      member do
+        get 'roles(order-by/:order_by)' => :roles, order_by: /date/, as: :roles
+      end
     end
     #get "people/:search(/page/:page)" => 'people#index', as: :people_search, constraints: { page: /\d+/ }
     #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu

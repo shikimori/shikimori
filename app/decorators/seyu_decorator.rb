@@ -67,20 +67,17 @@ class SeyuDecorator < PersonDecorator
       group[:characters] = group[:characters].take(3) if group[:characters].size > 3
       animes_limit = WORK_GROUP_SIZE - group[:characters].size
       group[:animes] = group[:animes]
-        .map {|k,v| v } #.sort_by {|v| -1 * v.score }
+        .map(&:second)
+        .sort_by { |anime| sort_criteria anime }.reverse
         .take(animes_limit)
-        .sort_by {|v| v[:aired_on] || v.released_on || DateTime.new(2001) }
+        .sort_by { |anime| anime.aired_on || anime.released_on || 30.years.ago }
     end
 
-    @characters = @characters.sort_by do |v|
-      animes = v[:animes].select {|a| a.score < 9.9 }
-
-      if animes.empty?
-        0
-      else
-        -1 * animes.max_by(&:score).score
+    @characters = @characters
+      .sort_by do |character|
+        character[:animes].map { |anime| sort_criteria anime }.max
       end
-    end
+      .reverse
   end
 
   def url
