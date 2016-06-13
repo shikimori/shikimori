@@ -49,7 +49,7 @@
                 span.retries
                   = job['class']
 
-        .subheadline class="#{:red if @proxies_count < 400}" Proxies
+        .subheadline class="#{:red if @proxies_count < 200}" Proxies
         p.m15 = @proxies_count
 
         - if @last_episodes_message
