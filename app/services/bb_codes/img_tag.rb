@@ -54,7 +54,7 @@ private
       <a href="#{link_url || image_url}" data-href="#{camo_url}"
         rel="#{text_hash}" class="b-image unprocessed"><img
         src="#{camo_url}" class="#{css_class}"#{sizes_html}></a>
-HTML
+    HTML
   end
 
   def fix_url url
