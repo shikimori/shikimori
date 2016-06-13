@@ -57,7 +57,7 @@ describe Forums::View do
     context 'first page' do
       let(:params) {{ forum: 'all', linked_type: 'xx', linked_id: 'zz' }}
       before do
-        allow(view).to receive(:topics).and_return double(
+        allow(view).to receive(:topic_views).and_return double(
           next_page: 3,
           prev_page: nil
         )

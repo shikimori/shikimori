@@ -31,7 +31,7 @@ describe SeyuController do
 
   describe '#comments' do
     let!(:seyu) { create :person, :with_topics, seyu: true }
-    let!(:comment) { create :comment, commentable: seyu.topic }
+    let!(:comment) { create :comment, commentable: seyu.topic(:ru) }
     before { get :roles, id: seyu.to_param }
 
     it { expect(response).to have_http_status :success }

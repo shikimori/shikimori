@@ -9,9 +9,9 @@ class TopicsController < ShikimoriController
 
   def index
     # редирект на топик, если топик в подфоруме единственный
-    if params[:linked_id] && @forums_view.topics.one?
+    if params[:linked_id] && @forums_view.topic_views.one?
       return redirect_to UrlGenerator.instance.topic_url(
-        @forums_view.topics.first.topic, params[:format]), status: 301
+        @forums_view.topic_views.first.topic, params[:format]), status: 301
     end
 
     # редирект, исправляющий linked
@@ -126,8 +126,14 @@ private
       # wall_ids: [],
       # video: [:id, :url, :kind, :name]
     ]
-    allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
-    allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
+
+    if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
+      allowed_params += [:user_id, :forum_id, :type]
+    end
+
+    if user_signed_in? && current_user.admin?
+      allowed_params += [:broadcast]
+    end
 
     params.require(:topic).permit(*allowed_params)
   end

@@ -23,7 +23,7 @@ describe TopicsController do
       before { get :index }
 
       it do
-        expect(assigns(:view).topics).to have(4).items
+        expect(assigns(:forums_view).topic_views).to have(4).items
         expect(response).to have_http_status :success
       end
     end
@@ -32,7 +32,7 @@ describe TopicsController do
       before { get :index, forum: offtopic_forum.permalink }
 
       it do
-        expect(assigns(:view).topics).to have(2).items
+        expect(assigns(:forums_view).topic_views).to have(2).items
         expect(response).to have_http_status :success
       end
     end
@@ -42,7 +42,7 @@ describe TopicsController do
 
       context 'no linked' do
         it do
-          expect(assigns(:view).topics).to have(2).items
+          expect(assigns(:forums_view).topic_views).to have(2).items
           expect(response).to have_http_status :success
         end
       end
@@ -56,7 +56,7 @@ describe TopicsController do
         context 'valid linked' do
           let(:linked_id) { anime.to_param }
           it do
-            expect(assigns(:view).topics).to have(2).items
+            expect(assigns(:forums_view).topic_views).to have(2).items
             expect(response).to have_http_status :success
           end
         end
@@ -76,13 +76,13 @@ describe TopicsController do
         it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
       end
 
-      context 'multiple topics' do
+      context 'multiple topic views' do
         let!(:anime_topic2) { create :topic, forum: animanga_forum,
           user: user, linked: anime }
         before { get :index, forum: animanga_forum.to_param, linked: anime.to_param }
 
         it do
-          expect(assigns(:view).topics).to have(3).items
+          expect(assigns(:forums_view).topic_views).to have(3).items
           expect(response).to have_http_status :success
         end
       end
@@ -127,7 +127,7 @@ describe TopicsController do
     end
 
     context 'authenticated' do
-      let(:params) {{ user_id: user.id, forum_id: animanga_forum.id }}
+      let(:params) { { user_id: user.id, forum_id: animanga_forum.id } }
       before { sign_in user }
       before { get :new, forum: animanga_forum.to_param, topic: params }
 

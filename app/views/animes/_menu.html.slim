@@ -103,7 +103,7 @@
             collection: resource.topic_views,
             as: :topic
 
-    - if resource.news_topic_views.any?
+    - resource.news_topic_views.any?
       .block.menu-topics-block.history.m30[
         data-remote="#{episode_torrents_anime_url resource, subdomain: false}"
       ]

@@ -244,7 +244,7 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          anime.locales.each do |locale|
+          I18n.available_locales.each do |locale|
             Topics::Generate::News::EpisodeTopic.call(
               anime, anime.topic_user, locale, aired_at
             )
@@ -258,9 +258,9 @@ class TorrentsParser
     new_episodes.uniq
   end
 
-private
+private_class_method
 
-  def self.get url, ban_texts=nil
+  def self.get url, ban_texts = nil
     Proxy.get(
       url,
       timeout: 30,

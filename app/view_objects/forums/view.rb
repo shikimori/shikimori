@@ -1,5 +1,5 @@
 class Forums::View < ViewObjectBase
-  instance_cache :topics, :forum, :menu, :linked
+  instance_cache :topic_views, :forum, :menu, :linked
 
   def forum
     Forum.find_by_permalink h.params[:forum]
@@ -14,11 +14,11 @@ class Forums::View < ViewObjectBase
   end
 
   def next_page_url
-    page_url topics.next_page if topics.next_page
+    page_url topic_views.next_page if topic_views.next_page
   end
 
   def prev_page_url
-    page_url topics.prev_page if topics.prev_page
+    page_url topic_views.prev_page if topic_views.prev_page
   end
 
   def faye_subscriptions

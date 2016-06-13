@@ -24,18 +24,6 @@ class AniMangaDecorator < DbEntryDecorator
       .map { |topic_view| format_menu_topic topic_view, :updated_at }
   end
 
-  # новости
-  def news_topic_views
-    object
-      .news_topics
-      .where(locale: h.locale_from_domain)
-      .includes(:forum)
-      .limit(NEWS_PER_PAGE)
-      .order(:created_at)
-      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
-      .map { |topic_view| format_menu_topic topic_view, :created_at }
-  end
-
   # число обзоров
   def reviews_count
     object.reviews.visible.count

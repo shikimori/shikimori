@@ -41,7 +41,9 @@ describe ReviewsController do
           overall: 5
         }
       end
-      before { post :create, anime_id: anime.to_param, type: 'Anime', review: params }
+      before do
+        post :create, anime_id: anime.to_param, type: 'Anime', review: params
+      end
 
       it do
         expect(assigns :review).to be_persisted
@@ -77,19 +79,26 @@ describe ReviewsController do
     include_context :authenticated, :user
 
     context 'when success' do
-      let(:params) {{
-        user_id: user.id,
-        target_type: anime.class.name,
-        target_id: anime.id,
-        text: 'x' * Review::MINIMUM_LENGTH,
-        storyline: 1,
-        characters: 2,
-        animation: 3,
-        music: 4,
-        overall: 5
-      }}
-      before { patch :update, id: review.id, review: params,
-        anime_id: anime.to_param, type: 'Anime' }
+      let(:params) do
+        {
+          user_id: user.id,
+          target_type: anime.class.name,
+          target_id: anime.id,
+          text: 'x' * Review::MINIMUM_LENGTH,
+          storyline: 1,
+          characters: 2,
+          animation: 3,
+          music: 4,
+          overall: 5
+        }
+      end
+      before do
+        patch :update,
+          id: review.id,
+          review: params,
+          anime_id: anime.to_param,
+          type: 'Anime'
+      end
 
       it do
         expect(assigns :review).to be_valid
@@ -103,9 +112,13 @@ describe ReviewsController do
     end
 
     context 'when validation errors' do
-      before { patch :update, id: review.id,
-        review: { user_id: user.id, text: 'test' },
-        anime_id: anime.to_param, type: 'Anime' }
+      before do
+        patch :update,
+          id: review.id,
+          review: { user_id: user.id, text: 'test' },
+          anime_id: anime.to_param,
+          type: 'Anime'
+      end
 
       it do
         expect(assigns :review).to_not be_valid
@@ -116,8 +129,9 @@ describe ReviewsController do
 
   describe '#destroy' do
     include_context :authenticated, :user
-    before { delete :destroy, id: review.id, anime_id: anime.to_param,
-      type: 'Anime' }
+    before do
+      delete :destroy, id: review.id, anime_id: anime.to_param, type: 'Anime'
+    end
 
     it do
       expect(response.content_type).to eq 'application/json'

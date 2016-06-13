@@ -1,4 +1,8 @@
 class MangaDecorator < AniMangaDecorator
+  def news_topic_views
+    []
+  end
+
   def screenshots limit=nil
     []
   end

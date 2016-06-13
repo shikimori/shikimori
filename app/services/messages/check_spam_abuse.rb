@@ -31,10 +31,6 @@ private
   end
 
   def ban_text
-    i18n_t :ban_text, email: Site::EMAIL, locale: locale
-  end
-
-  def locale
-    message.from.russian? ? :ru : :en
+    i18n_t :ban_text, email: Site::EMAIL, locale: message.from.locale
   end
 end
