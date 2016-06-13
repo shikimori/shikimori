@@ -205,9 +205,16 @@ private
 
   # корректно определяющийся ip адрес пользователя
   def remote_addr
-    ip = request.headers['HTTP_X_FORWARDED_FOR'] || request.headers['HTTP_X_REAL_IP'] || request.headers['REMOTE_ADDR']
-    ip = ip+'z' if user_signed_in? && [231,296,3801,16029,43714,659,22828,56019].include?(current_user.id)
-    ip
+    ip = request.headers['HTTP_X_FORWARDED_FOR'] ||
+      request.headers['HTTP_X_REAL_IP'] || request.headers['REMOTE_ADDR']
+
+    return ip if Rails.env.test?
+
+    if [231,296,3801,16029,43714,659,22828,56019].include? current_user&.id
+      ip + 'z'
+    else
+      ip
+    end
   end
 
   def json?
