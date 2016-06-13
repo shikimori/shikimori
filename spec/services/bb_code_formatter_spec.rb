@@ -445,7 +445,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     describe 'two replies' do
       let(:text) { '[comment=1260072]Viks[/comment],
 [comment=1260062]Егор Кун[/comment],' }
-      it { is_expected.to eq '<span class="bubbled" data-href="//shikimori.org/comments/1260072.html">Viks</span>,<br><span class="bubbled" data-href="//shikimori.org/comments/1260062.html">Егор Кун</span>,' }
+      it { is_expected.to eq '<span class="bubbled b-link" data-href="//shikimori.org/comments/1260072.html">@Viks</span>,<br><span class="bubbled b-link" data-href="//shikimori.org/comments/1260062.html">@Егор Кун</span>,' }
     end
 
     describe 'obsolete tags' do
