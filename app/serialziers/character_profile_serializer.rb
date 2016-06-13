@@ -1,6 +1,4 @@
 class CharacterProfileSerializer < CharacterSerializer
-  serialization_scope :view_context
-
   attributes :altname, :japanese, :description, :description, :description_html
   attributes :favoured?, :thread_id, :topic_id, :updated_at
 
