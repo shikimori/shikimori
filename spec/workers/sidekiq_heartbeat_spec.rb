@@ -14,11 +14,12 @@ describe SidekiqHeartbeat do
     allow(job).to receive(:enqueued).and_return enqueued
     allow(job).to receive(:busy).and_return busy
     allow(job).to receive(:queues).and_return queues
+    allow(job).to receive :log
   end
 
   before { job.perform }
 
-  context 'heartbeat skipped' do
+  context 'heartbeat skipped',:focus do
     it { expect(job).to have_received :restart_sidekiq }
   end
 

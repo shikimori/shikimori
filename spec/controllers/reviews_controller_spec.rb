@@ -9,30 +9,36 @@ describe ReviewsController do
 
   describe '#new' do
     include_context :authenticated, :user
-    let(:params) {{
-      user_id: user.id,
-      target_id: anime.id,
-      target_type: anime.class.name
-    }}
+    let(:params) do
+      {
+        user_id: user.id,
+        target_id: anime.id,
+        target_type: anime.class.name
+      }
+    end
+    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
     before { get :new, anime_id: anime.to_param, type: 'Anime', review: params }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
     include_context :authenticated, :user
-    context 'when success' do
-      let(:params) {{
-        user_id: user.id,
-        target_type: anime.class.name,
-        target_id: anime.id,
-        text: 'x' * Review::MINIMUM_LENGTH,
-        storyline: 1,
-        characters: 2,
-        animation: 3,
-        music: 4,
-        overall: 5
-      }}
+    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
 
+    context 'when success' do
+      let(:params) do
+        {
+          user_id: user.id,
+          target_type: anime.class.name,
+          target_id: anime.id,
+          text: 'x' * Review::MINIMUM_LENGTH,
+          storyline: 1,
+          characters: 2,
+          animation: 3,
+          music: 4,
+          overall: 5
+        }
+      end
       before { post :create, anime_id: anime.to_param, type: 'Anime', review: params }
 
       it do
