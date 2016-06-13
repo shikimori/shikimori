@@ -34,7 +34,7 @@ private
       commentable_object.generate_topics(locale).first
   end
 
-  # NOTE: can be Topic or DbEntry
+  # NOTE: Entry, User or DbEntry
   def commentable_klass
     params[:commentable_type].constantize
   end

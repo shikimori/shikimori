@@ -40,10 +40,10 @@ class NotificationsService
 
   def round_finished
     target.contest.topics.each do |topic|
-      create_comment Comment.new(
-        user: target.contest.user,
-        commentable: topic,
-        body: "[contest_round_status=#{target.id}]"
+      create_comment(
+        target.contest.user,
+        topic,
+        "[contest_round_status=#{target.id}]"
       )
     end
   end
@@ -63,20 +63,31 @@ class NotificationsService
       body: nil
 
     target.topics.each do |topic|
-      create_comment Comment.new(
-        user: target.user,
-        commentable: topic,
-        body: "[contest_status=#{target.id}]"
+      create_comment(
+        target.user,
+        topic,
+        "[contest_status=#{target.id}]"
       )
     end
   end
 
 private
 
-  def create_comment comment
+  def create_comment user, topic, body
+    create_params = {
+      user: user,
+      commentable_id: topic.id,
+      commentable_type: 'Entry',
+      body: body
+    }
+
     Comment.wo_antispam do
-      FayeService.new(comment.user, nil).create comment
+      Comment::Create.call faye(user), create_params, nil
     end
+  end
+
+  def faye user
+    FayeService.new user, nil
   end
 
   def create_messages user_ids, kind:, from:, linked:, body:
@@ -86,7 +97,7 @@ private
         to_id: user_id,
         body: body,
         kind: kind,
-        linked: linked,
+        linked: linked
       )
     end
 
