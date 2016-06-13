@@ -77,7 +77,7 @@ class DbEntryDecorator < BaseDecorator
 
   # связанные клубы
   def linked_clubs
-    query = object.clubs
+    query = clubs_for_domain
     if !object.try(:censored?) && h.censored_forbidden?
       query = query.where(is_censored: false)
     end
@@ -89,7 +89,7 @@ class DbEntryDecorator < BaseDecorator
     query = ClubsQuery
       .new(h.locale_from_domain)
       .query(true)
-      .where(id: object.clubs)
+      .where(id: clubs_for_domain)
 
     if !object.try(:censored?) && h.censored_forbidden?
       query = query.where(is_censored: false)
@@ -146,6 +146,10 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
+
+  def clubs_for_domain
+    object.clubs.where(locale: h.locale_from_domain)
+  end
 
   def headline_array
     if h.ru_domain?

@@ -25,9 +25,9 @@ class Forums::View < ViewObjectBase
     case forum && forum.permalink
       when nil
         user_forums = h.current_user.preferences.forums.select(&:present?)
-        user_clubs = h.current_user.clubs
+        user_clubs = h.current_user.clubs_for_domain
 
-        user_forums.map { |id| "forum-#{id}" } +
+        user_forums.map { |id| forum_channel(id, h.locale_from_domain) } +
           user_clubs.map { |club| "club-#{club.id}" }
 
       #when Forum::static[:feed].permalink
@@ -36,6 +36,10 @@ class Forums::View < ViewObjectBase
       else
         ["forum-#{forum.id}"]
     end
+  end
+
+  def forum_channel forum_id, locale
+    "forum-#{forum_id}/#{locale}"
   end
 
   def menu

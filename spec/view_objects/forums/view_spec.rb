@@ -80,7 +80,7 @@ describe Forums::View do
 
   describe '#faye_subscriptions' do
     before { user.preferences.forums = [offtopic_forum.id] }
-    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}"] }
+    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"] }
   end
 
   describe '#menu' do

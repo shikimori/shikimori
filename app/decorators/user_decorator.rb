@@ -1,8 +1,17 @@
 class UserDecorator < BaseDecorator
+  instance_cache :clubs_for_domain
   instance_cache :is_friended?, :mutual_friended?, :history
 
   def self.model_name
     User.model_name
+  end
+
+  def clubs_for_domain
+    object
+      .clubs
+      .where(locale: h.locale_from_domain)
+      .decorate
+      .sort_by(&:name)
   end
 
   def url
