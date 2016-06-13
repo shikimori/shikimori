@@ -94,16 +94,18 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#favourites' do
-    let(:user) do
-      create :user,
-        fav_animes: [create(:anime)],
-        fav_mangas: [create(:manga)],
-        fav_characters: [create(:character)],
-        fav_persons: [create(:person)],
-        fav_mangakas: [create(:person)],
-        fav_producers: [create(:person)],
-        fav_seyu: [create(:person)]
-    end
+    let(:user) { seed :user }
+    let(:anime) { create :anime }
+    let(:manga) { create :manga }
+    let(:character) { create :character }
+    let(:person) { create :person }
+    let!(:fav_anime) { create :favourite, linked: anime }
+    let!(:fav_manga) { create :favourite, linked: manga }
+    let!(:fav_character) { create :favourite, linked: character }
+    let!(:fav_person) { create :favourite, linked: person, kind: Favourite::Person }
+    let!(:fav_mangaka) { create :favourite, linked: person, kind: Favourite::Mangaka }
+    let!(:fav_producer) { create :favourite, linked: person, kind: Favourite::Producer }
+    let!(:fav_seyu) { create :favourite, linked: person, kind: Favourite::Seyu }
 
     before { get :favourites, id: user.id, format: :json }
     it { expect(response).to have_http_status :success }
