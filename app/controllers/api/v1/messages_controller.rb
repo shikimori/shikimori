@@ -76,7 +76,8 @@ class Api::V1::MessagesController < Api::V1::ApiController
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/messages/delete_all', 'Delete all messages'
-  param :type, %w(news notifications)
+  param :frontend, :bool
+  param :type, :undef
   error code: 302
   def delete_all
     MessagesService.new(current_user).delete_messages type: @messages_type

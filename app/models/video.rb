@@ -1,6 +1,7 @@
+# TODO: refactor kind to enumerize
 class Video < ActiveRecord::Base
   extend Enumerize
-  SAVEABLE_HOSTINGS = [:youtube, :vk, :rutube, :sibnet, :dailymotion]
+  ALLOWED_HOSTINGS = [:youtube, :vk, :rutube, :sibnet, :dailymotion]
 
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
@@ -79,7 +80,7 @@ private
   end
 
   def check_hosting
-    if SAVEABLE_HOSTINGS.include? hosting.to_sym
+    if ALLOWED_HOSTINGS.include? hosting.to_sym
       true
     else
       self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'

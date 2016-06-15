@@ -167,6 +167,7 @@ Site::Application.routes.draw do
         get :search, on: :collection
 
         resources :anime_videos, only: [:index, :create, :destroy]
+        resources :videos, only: [:index, :create, :destroy]
       end
       resource :calendar, only: [:show]
       resources :mangas, only: [:show, :index] do

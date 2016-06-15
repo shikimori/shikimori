@@ -12,7 +12,7 @@
 
       .form
         = ff.input :url,
-          hint: Video::SAVEABLE_HOSTINGS.join(', '),
+          hint: Video::ALLOWED_HOSTINGS.join(', '),
           label: Video.human_attribute_name(:url),
           wrapper_html: { class: 'video-url' },
           input_html: { value: decomposed_body.wall_video&.url }

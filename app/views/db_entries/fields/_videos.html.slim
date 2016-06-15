@@ -2,7 +2,7 @@
   .c-column
     = simple_form_for [@resource, Video.new] do |f|
       .inputs
-        = f.input :url, hint: Video::SAVEABLE_HOSTINGS.join(', ')
+        = f.input :url, hint: Video::ALLOWED_HOSTINGS.join(', ')
         = f.input :kind,
           as: :select,
           collection: [Video::PV, Video::OP, Video::ED],

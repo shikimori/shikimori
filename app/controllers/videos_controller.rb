@@ -9,7 +9,7 @@ class VideosController < ShikimoriController
       replace_video @video if duplicate? @video
     else
       redirect_to_back_or_to(
-        @anime.decorate.edit_field_url(:screenshots),
+        @anime.decorate.edit_field_url(:videos),
         @video.persisted? ?
           { notice: i18n_t('pending_version') } :
           { alert: @video.errors.full_messages.join(', ') }
@@ -42,8 +42,8 @@ private
   end
 
   def duplicate? video
-    @video.errors.one? &&
-      @video.errors[:url] == Array(I18n.t 'activerecord.errors.messages.taken')
+    video.errors.one? &&
+      video.errors[:url] == Array(I18n.t('activerecord.errors.messages.taken'))
   end
 
   def replace_video video

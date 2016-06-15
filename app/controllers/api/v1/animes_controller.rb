@@ -55,11 +55,11 @@ class Api::V1::AnimesController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
-  api :GET, '/animes/:id/videos'
+  # TODO: delete after 01.01.2017
+  api :GET, '/animes/:id/videos', 'DEPRECATED and will be deleted soon. Use Videos API instead'
   def videos
     @collection = @resource.videos
-    respond_with @resource.videos
+    respond_with @collection
   end
 
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
