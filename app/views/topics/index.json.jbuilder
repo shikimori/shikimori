@@ -1,6 +1,6 @@
 json.content render(
   partial: 'topics/topic',
-  collection: @forums_view.topics,
+  collection: @forums_view.topic_views,
   as: :topic_view,
   formats: :html
 )
