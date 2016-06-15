@@ -21,7 +21,7 @@
     - if comments_count > 0
       .subheadline.m3
         .linkeable[
-          data-href="#{comments_contest_url @resource}"
+          data-href="#{@resource.comments_url}"
         ] = t '.discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
