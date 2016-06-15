@@ -130,10 +130,7 @@ private
     if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
       allowed_params += [:user_id, :forum_id, :type]
     end
-
-    if user_signed_in? && current_user.admin?
-      allowed_params += [:broadcast]
-    end
+    allowed_params += [:broadcast] if current_user&.admin?
 
     params.require(:topic).permit(*allowed_params)
   end

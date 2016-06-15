@@ -1,3 +1,4 @@
+# TODO: refactor everything
 class AniMangaDecorator::Files
   pattr_initialize :entry
 
@@ -32,7 +33,9 @@ class AniMangaDecorator::Files
   end
 
   def subtitles
-    @subtitles ||= entry.subtitles.sort_by {|k,v| v[:link] == nil ? 2 : 1 }.select {|k,subs| subs[:title] }
+    @subtitles ||= entry.subtitles
+      .sort_by {|k,v| v[:link] == nil ? 2 : 1 }
+      .select {|k,subs| subs[:title] }
   end
 
   def groupped_torrents
@@ -66,15 +69,16 @@ class AniMangaDecorator::Files
       .where(locale: :ru)
       .limit AnimeDecorator::NEWS_PER_PAGE
 
-    data = topics.each_with_object({}) do |entry, memo|
+    topics.each_with_object({}) do |entry, memo|
       memo[entry.id] = torrents
-          .select { |v| TorrentsParser.extract_episodes_num(v[:title]).include? entry.value.to_i }
-          .map do |v|
-            {
-              title: v[:title],
-              link: v[:link]
-            }
-          end
+        .select do |v|
+          TorrentsParser.extract_episodes_num(v[:title]).include?(
+            entry.value.to_i
+          )
+        end
+        .map do |v|
+          { title: v[:title], link: v[:link] }
+        end
     end
   end
 
@@ -82,7 +86,7 @@ private
 
   def significant_torrents
     (groupped_torrents[:torrents_1080p] || []) +
-        (groupped_torrents[:torrents_720p] || []) +
-        (groupped_torrents[:torrents_480p] || [])
+      (groupped_torrents[:torrents_720p] || []) +
+      (groupped_torrents[:torrents_480p] || [])
   end
 end
