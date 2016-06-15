@@ -1,4 +1,3 @@
-# NOTE: implement `topic_user` method in including classes
 module TopicsConcern
   extend ActiveSupport::Concern
 
@@ -12,6 +11,8 @@ module TopicsConcern
       class_name: Entry.name,
       as: :linked,
       dependent: :destroy
+
+    attr_implement :topic_user
   end
 
   def generate_topics locales
