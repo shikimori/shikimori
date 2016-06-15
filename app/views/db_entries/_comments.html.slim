@@ -1,16 +1,3 @@
-/ - if user_signed_in? || resource.preview_topic_view.comments_count > 0
-  / .subheadline.m3
-    / - if resource.preview_topic_view.comments_count > 0
-      / .linkeable[
-        / data-href="#{resource.comments_url}"
-      / ] = i18n_i 'Discussion'
-    / - else
-      / = i18n_i 'Discussion'
-  / div
-    / .b-topic.unprocessed data-faye="#{resource.preview_topic_view.faye_channel}"
-      / = render 'topics/comments', view: resource.preview_topic_view.comments_view
-
-
 - if user_signed_in? || resource.preview_topic_view.comments_count > 0
   .b-options-floated.mobile-phone_portrait
     - if resource.preview_topic_view.summaries_count > 0
@@ -29,4 +16,5 @@
 
   div
     .b-topic.unprocessed data-faye="#{resource.preview_topic_view.faye_channel}"
-      = render 'topics/comments', view: resource.preview_topic_view.comments_view
+      = render 'topics/comments',
+        comments_view: resource.preview_topic_view.comments_view

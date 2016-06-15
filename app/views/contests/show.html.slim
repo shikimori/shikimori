@@ -25,4 +25,5 @@
         ] = t '.discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
-        = render 'topics/comments', comments_view: @resource.preview_topic_view.comments_view
+        = render 'topics/comments',
+          comments_view: @resource.preview_topic_view.comments_view
