@@ -11,11 +11,6 @@ class DbEntriesController < ShikimoriController
     render template: 'db_entries/versions', formats: :json
   end
 
-  def comments
-    topic = @resource.maybe_topic locale_from_domain
-    redirect_to UrlGenerator.instance.topic_url(topic), status: 301
-  end
-
   def edit
     noindex
     page_title i18n_t 'entry_edit'

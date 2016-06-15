@@ -27,18 +27,6 @@ describe PeopleController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#comments' do
-    let(:person) { create :person, :with_topics }
-    let!(:comment) { create :comment, commentable: person.topic(:ru) }
-    before { get :comments, id: person.to_param }
-
-    it do
-      expect(response).to redirect_to(
-        UrlGenerator.instance.topic_url(person.topic(:ru))
-      )
-    end
-  end
-
   describe '#tooltip' do
     before { get :tooltip, id: person.to_param }
     it { expect(response).to have_http_status :success }

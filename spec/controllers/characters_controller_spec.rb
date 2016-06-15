@@ -56,18 +56,6 @@ describe CharactersController do
     end
   end
 
-  describe '#comments' do
-    let(:character) { create :character, :with_topics }
-    let!(:comment) { create :comment, commentable: character.topic(:ru) }
-    before { get :comments, id: character.to_param }
-
-    it do
-      expect(response).to redirect_to(
-        UrlGenerator.instance.topic_url(character.topic(:ru))
-      )
-    end
-  end
-
   describe '#cosplay' do
     let(:cosplay_gallery) { create :cosplay_gallery }
     let!(:cosplay_link) { create :cosplay_gallery_link,
