@@ -16,7 +16,7 @@ class UserRatesImporter
   # :status должен быть циферкой, не словом
   def import list_to_import, rewrite_existed
     # уже имеющееся у пользователя в списке
-    rates = user_rates.each_with_object({}) {|v,memo| memo[v.target_id] = v }
+    rates = user_rates.each_with_object({}) { |v,memo| memo[v.target_id] = v }
 
     # то, что будет добавлено с нуля
     added = []
@@ -35,7 +35,11 @@ class UserRatesImporter
         not_imported << (entry[:name] || entry[:id])
         next
       elsif rate.nil?
-        rate = UserRate.new user_id: @user.id, target_id: entry[:id], target_type: @klass.name
+        rate = UserRate.new(
+          user_id: @user.id,
+          target_id: entry[:id],
+          target_type: @klass.name
+        )
         add = true
       elsif rate && !rewrite_existed
         #not_imported << entry[:id]
@@ -51,9 +55,11 @@ class UserRatesImporter
       rate.status = entry[:status].to_i
       rate.score = entry[:score].to_i
       rate.rewatches = entry[:rewatches].to_i
-      rate.text = entry[:text].gsub(%r{<br ?/?>}, "\n").strip if entry[:text]
+      text = entry[:text].gsub(%r{<br ?/?>}, "\n").strip if entry[:text]
+      rate.text = text if text.present?
 
-      # нельзя указать больше/меньше эпизодов,частей,томов для просмотренного, чем имеется в аниме/манге
+      # нельзя указать больше/меньше эпизодов/частей/томов для просмотренного,
+      # чем имеется в аниме/манге
       Counters.each do |counter|
         target = rate.target
 
