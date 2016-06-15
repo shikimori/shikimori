@@ -6,32 +6,22 @@ class AniMangaDecorator < DbEntryDecorator
   NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news, :reviews, :reviews_count, :cosplay?
+  instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?
   instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 
   # топики
-  def topics
+  def topic_views
     object
       .topics
+      .where(locale: h.locale_from_domain)
       .where.not(updated_at: nil)
       .includes(:forum)
       .limit(TOPICS_PER_PAGE)
       .order(:updated_at)
       .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
       .map { |topic_view| format_menu_topic topic_view, :updated_at }
-  end
-
-  # новости
-  def news
-    object
-      .news
-      .includes(:forum)
-      .limit(NEWS_PER_PAGE)
-      .order(:created_at)
-      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
-      .map { |topic_view| format_menu_topic topic_view, :created_at }
   end
 
   # число обзоров

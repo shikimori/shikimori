@@ -35,19 +35,19 @@ describe DashboardView do
     it { expect(view.db_others(Anime)).to have(4).items }
   end
 
-  describe '#reviews' do
-    let!(:review) { create :review, :with_topic }
-    it { expect(view.reviews).to have(1).item }
+  describe '#review_topic_views' do
+    let!(:review) { create :review, :with_topics }
+    it { expect(view.review_topic_views).to have(1).item }
   end
 
-  describe '#news_topics' do
+  describe '#news_topic_views' do
     let!(:news_topic) { create :news_topic, generated: false }
-    it { expect(view.news_topics).to have(1).item }
+    it { expect(view.news_topic_views).to have(1).item }
   end
 
-  describe '#generated_news' do
+  describe '#generated_news_topic_views' do
     let!(:news_topic) { create :news_topic, :anime_anons }
-    it { expect(view.generated_news).to have(1).item }
+    it { expect(view.generated_news_topic_views).to have(1).item }
   end
 
   describe '#contests' do

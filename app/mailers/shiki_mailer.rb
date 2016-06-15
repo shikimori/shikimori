@@ -15,23 +15,26 @@ class ShikiMailer < ActionMailer::Base
     return if message.reload.read?
     return if generated?(message.to.email)
 
-    mail(
-      to: message.to.email,
-      subject: i18n_t('private_message_email.subject'),
-      body: i18n_t(
-        'private_message_email.body',
-        nickname: message.to.nickname,
-        site_link: Site::DOMAIN,
-        from_nickname: message.from.nickname,
-        private_message_link: profile_dialogs_url(message.to, protocol: :http),
-        message: message.body,
-        unsubscribe_link: unsubscribe_messages_url(
-          name: message.to.to_param,
-          key: unsubscribe_link_key(message),
-          protocol: :http
-        )
-      )
+    subject = i18n_t(
+      'private_message_email.subject',
+      locale: message.to.locale
     )
+    body = i18n_t(
+      'private_message_email.body',
+      nickname: message.to.nickname,
+      site_link: Site::DOMAIN,
+      from_nickname: message.from.nickname,
+      private_message_link: profile_dialogs_url(message.to, protocol: :http),
+      message: message.body,
+      unsubscribe_link: unsubscribe_messages_url(
+        name: message.to.to_param,
+        key: unsubscribe_link_key(message),
+        protocol: :http
+      ),
+      locale: message.to.locale
+    )
+
+    mail to: message.to.email, subject: subject, body: body
   end
 
   def reset_password_instructions user, token, options
@@ -39,19 +42,26 @@ class ShikiMailer < ActionMailer::Base
     @resource = user
     @token = token
 
+    subject = i18n_t(
+      'reset_password_instructions.subject',
+      locale: user.locale
+    )
+    body = i18n_t(
+      'reset_password_instructions.body',
+      site_link: Site::DOMAIN,
+      nickname: user.nickname,
+      reset_password_link: edit_user_password_url(
+        reset_password_token: @token,
+        protocol: :http
+      ),
+      locale: user.locale
+    )
+
     mail(
       to: @resource.email,
-      subject: i18n_t('reset_password_instructions.subject'),
+      subject: subject,
       tag: 'password-reset',
-      body: i18n_t(
-        'reset_password_instructions.body',
-        site_link: Site::DOMAIN,
-        nickname: user.nickname,
-        reset_password_link: edit_user_password_url(
-          reset_password_token: @token,
-          protocol: :http
-        )
-      )
+      body: body
     )
   end
 

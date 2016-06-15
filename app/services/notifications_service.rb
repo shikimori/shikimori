@@ -33,17 +33,19 @@ class NotificationsService
         nickname_changed_key,
         old_nickname: "[profile=#{target.id}]#{old_nickname}[/profile]",
         new_nickname: "[profile=#{target.id}]#{new_nickname}[/profile]",
-        locale: I18n::LOCALES[friend.language]
+        locale: friend.locale
       )
     )
   end
 
   def round_finished
-    create_comment Comment.new(
-      user: target.contest.user,
-      commentable: target.contest.topic,
-      body: "[contest_round_status=#{target.id}]"
-    )
+    target.contest.topics.each do |topic|
+      create_comment(
+        target.contest.user,
+        topic,
+        "[contest_round_status=#{target.id}]"
+      )
+    end
   end
 
   def contest_finished
@@ -60,19 +62,32 @@ class NotificationsService
       linked: target,
       body: nil
 
-    create_comment Comment.new(
-      user: target.user,
-      commentable: target.topic,
-      body: "[contest_status=#{target.id}]"
-    )
+    target.topics.each do |topic|
+      create_comment(
+        target.user,
+        topic,
+        "[contest_status=#{target.id}]"
+      )
+    end
   end
 
 private
 
-  def create_comment comment
+  def create_comment user, topic, body
+    create_params = {
+      user: user,
+      commentable_id: topic.id,
+      commentable_type: 'Entry',
+      body: body
+    }
+
     Comment.wo_antispam do
-      FayeService.new(comment.user, nil).create comment
+      Comment::Create.call faye(user), create_params, nil
     end
+  end
+
+  def faye user
+    FayeService.new user, nil
   end
 
   def create_messages user_ids, kind:, from:, linked:, body:
@@ -82,7 +97,7 @@ private
         to_id: user_id,
         body: body,
         kind: kind,
-        linked: linked,
+        linked: linked
       )
     end
 

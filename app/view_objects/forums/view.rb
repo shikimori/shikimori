@@ -1,12 +1,12 @@
 class Forums::View < ViewObjectBase
-  instance_cache :topics, :forum, :menu, :linked
+  instance_cache :topic_views, :forum, :menu, :linked
 
   def forum
     Forum.find_by_permalink h.params[:forum]
   end
 
-  def topics
-    TopicsQuery.fetch(h.current_user)
+  def topic_views
+    TopicsQuery.fetch(h.current_user, h.locale_from_domain)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .paginate(page, limit)
@@ -14,20 +14,20 @@ class Forums::View < ViewObjectBase
   end
 
   def next_page_url
-    page_url topics.next_page if topics.next_page
+    page_url topic_views.next_page if topic_views.next_page
   end
 
   def prev_page_url
-    page_url topics.prev_page if topics.prev_page
+    page_url topic_views.prev_page if topic_views.prev_page
   end
 
   def faye_subscriptions
     case forum && forum.permalink
       when nil
         user_forums = h.current_user.preferences.forums.select(&:present?)
-        user_clubs = h.current_user.clubs
+        user_clubs = h.current_user.clubs_for_domain
 
-        user_forums.map { |id| "forum-#{id}" } +
+        user_forums.map { |id| forum_channel(id, h.locale_from_domain) } +
           user_clubs.map { |club| "club-#{club.id}" }
 
       #when Forum::static[:feed].permalink
@@ -36,6 +36,10 @@ class Forums::View < ViewObjectBase
       else
         ["forum-#{forum.id}"]
     end
+  end
+
+  def forum_channel forum_id, locale
+    "forum-#{forum_id}/#{locale}"
   end
 
   def menu

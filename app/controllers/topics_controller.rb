@@ -1,6 +1,7 @@
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
   load_and_authorize_resource class: Entry, only: [:new, :create, :edit, :update, :destroy]
+
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
   before_action :set_view
@@ -8,15 +9,15 @@ class TopicsController < ShikimoriController
 
   def index
     # редирект на топик, если топик в подфоруме единственный
-    if params[:linked_id] && @view.topics.one?
+    if params[:linked_id] && @forums_view.topic_views.one?
       return redirect_to UrlGenerator.instance.topic_url(
-        @view.topics.first.topic, params[:format]), status: 301
+        @forums_view.topic_views.first.topic, params[:format]), status: 301
     end
 
     # редирект, исправляющий linked
-    if params[:linked_id] && @view.linked.to_param != params[:linked_id]
+    if params[:linked_id] && @forums_view.linked.to_param != params[:linked_id]
       return redirect_to UrlGenerator.instance.forum_url(
-        @view.forum, @view.linked), status: 301
+        @forums_view.forum, @forums_view.linked), status: 301
     end
   end
 
@@ -110,6 +111,14 @@ class TopicsController < ShikimoriController
 
 private
 
+  def create_params
+    topic_params.merge locale: locale_from_domain
+  end
+
+  def update_params
+    topic_params
+  end
+
   def topic_params
     allowed_params = [
       # :body,
@@ -117,10 +126,13 @@ private
       # wall_ids: [],
       # video: [:id, :url, :kind, :name]
     ]
-    allowed_params += [:user_id, :forum_id, :type] if can?(:manage, Topic) || ['new','create'].include?(params[:action])
-    allowed_params += [:broadcast] if user_signed_in? && current_user.admin?
 
-    params.require(:topic).permit *allowed_params
+    if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
+      allowed_params += [:user_id, :forum_id, :type]
+    end
+    allowed_params += [:broadcast] if current_user&.admin?
+
+    params.require(:topic).permit(*allowed_params)
   end
 
   def compose_body
@@ -128,7 +140,7 @@ private
   end
 
   def set_view
-    @view = Forums::View.new
+    @forums_view = Forums::View.new
 
     if params[:action] == 'show'
       @resource = Entry.with_viewed(current_user).find(params[:id])
@@ -137,7 +149,7 @@ private
   end
 
   def set_breadcrumbs
-    page_title t('page', page: @view.page) if @view.page > 1
+    page_title t('page', page: @forums_view.page) if @forums_view.page > 1
     page_title i18n_t('title')
     breadcrumb t('forum'), forum_url
 
@@ -145,10 +157,10 @@ private
       page_title @resource.forum.name
       breadcrumb @resource.forum.name, forum_topics_url(@resource.forum)
 
-      if @view.linked
+      if @forums_view.linked
         breadcrumb(
-          UsersHelper.localized_name(@view.linked, current_user),
-          UrlGenerator.instance.forum_url(@view.forum, @view.linked)
+          UsersHelper.localized_name(@forums_view.linked, current_user),
+          UrlGenerator.instance.forum_url(@forums_view.forum, @forums_view.linked)
         )
       end
 
@@ -158,14 +170,14 @@ private
         UrlGenerator.instance.topic_url(@resource)
       ) if params[:action] == 'edit' || params[:action] == 'update'
 
-    elsif @view.forum
-      page_title @view.forum.name
-      if params[:action] != 'index' || @view.linked
-        breadcrumb @view.forum.name, forum_topics_url(@view.forum)
+    elsif @forums_view.forum
+      page_title @forums_view.forum.name
+      if params[:action] != 'index' || @forums_view.linked
+        breadcrumb @forums_view.forum.name, forum_topics_url(@forums_view.forum)
       end
 
-      if @view.linked
-        page_title UsersHelper.localized_name(@view.linked, current_user)
+      if @forums_view.linked
+        page_title UsersHelper.localized_name(@forums_view.linked, current_user)
       end
     end
   end

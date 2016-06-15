@@ -280,13 +280,13 @@
 
         .c-column.m0
           .subheadline.m10
-            - if @resource.clubs.any? && @resource.clubs.size > 4
+            - if @resource.clubs_for_domain.any? && @resource.clubs_for_domain.size > 4
               a href="#{clubs_profile_url @resource}" title="#{i18n_i 'Club', :other}"
                 = i18n_i 'Club', :other
             - else
               = i18n_i 'Club', :other
           .b-clubs.one-line
-            - if @resource.clubs.any?
+            - if @resource.clubs_for_domain.any?
               = render partial: 'clubs/club', collection: @resource.random_clubs, locals: { content_by: :avatar }
             - else
               .b-nothing_here = t '.no_clubs'
@@ -323,4 +323,5 @@
           = t 'profiles_controller.feed'
       div
         .b-topic.unprocessed data-faye="#{@resource.preview_comments_view.faye_channel}"
-          = render 'topics/comments', view: @resource.preview_comments_view
+          = render 'topics/comments',
+            comments_view: @resource.preview_comments_view

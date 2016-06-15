@@ -2,10 +2,12 @@ class DailyCosplay
   include Sidekiq::Worker
 
   def perform
-    galleries = CosplayGallery.without_topic.to_a
+    galleries = CosplayGallery.without_topics.to_a
 
-    1.times do
-      topic = galleries.sample.generate_topic
+    sample_gallery = galleries.sample
+    sample_gallery.generate_topics(Site::DOMAIN_LOCALES)
+
+    sample_gallery.topics.each do |topic|
       FayePublisher.new(User.first).publish topic, :created, []
     end
   end

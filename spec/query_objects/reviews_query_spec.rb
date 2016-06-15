@@ -7,14 +7,18 @@ describe ReviewsQuery do
       @reviews = [
         create(:review, target: entry, user: user),
         create(:review, target: entry, user: user, created_at: ReviewsQuery::NewReviewBubbleInterval.ago),
-        create(:review, target: entry, user: user)
+        create(:review, target: entry, user: user),
+        create(:review, target: entry, user: user, locale: :en)
       ]
     end
   end
 
   describe 'fetch' do
+    subject { query.fetch.to_a }
+    let(:locale) { :ru }
+
     describe 'with_id' do
-      subject { ReviewsQuery.new(entry, entry, @reviews[0].id).fetch.to_a }
+      let(:query) { ReviewsQuery.new entry, user, locale, @reviews[0].id }
 
       it 'has 1 item' do
         expect(subject.size).to eq(1)
@@ -23,10 +27,10 @@ describe ReviewsQuery do
     end
 
     describe 'without_id' do
-      subject { ReviewsQuery.new(entry, entry).fetch }
+      let(:query) { ReviewsQuery.new entry, user, locale }
 
       it 'has 3 items' do
-        expect(subject.size).to eq(3)
+        is_expected.to have(3).items
       end
       its(:last) { should eq @reviews[1] }
       its(:first) { should eq @reviews[2] }

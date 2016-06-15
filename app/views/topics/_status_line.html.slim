@@ -1,23 +1,23 @@
 .status-line
   span.from = t '.by'
   span.author
-    = render 'users/user_16', user: view.user
+    = render 'users/user_16', user: topic_view.user
 
-  - if view.topic.news? && view.topic.linked
+  - if topic_view.topic.news? && topic_view.topic.linked
     span.about = t '.about'
     a.b-link.bubbled[
-      href="#{view.topic.linked.decorate.url}"
-      title="#{localized_name view.topic.linked}"
-    ] = localized_name view.topic.linked
+      href="#{topic_view.topic.linked.decorate.url}"
+      title="#{localized_name topic_view.topic.linked}"
+    ] = localized_name topic_view.topic.linked
 
   span.time
     time[
       itemprop="commentTime"
-      datetime="#{view.created_at.iso8601}"
-    ] = l view.created_at, format: '%e %B %Y'
+      datetime="#{topic_view.created_at.iso8601}"
+    ] = l topic_view.created_at, format: '%e %B %Y'
 
   span.additional
-    span.comments = view.topic.comments_count
+    span.comments = topic_view.topic.comments_count
 
-    - if view.topic.review? || view.topic.cosplay?
-      span.likes #{view.topic.linked.votes_for} <span>/</span> #{view.topic.linked.votes_count}
+    - if topic_view.topic.review? || topic_view.topic.cosplay?
+      span.likes #{topic_view.topic.linked.votes_for} <span>/</span> #{topic_view.topic.linked.votes_count}

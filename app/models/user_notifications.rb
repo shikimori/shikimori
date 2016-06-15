@@ -32,9 +32,9 @@ module UserNotifications
   NICKNAME_CHANGE_NOTIFICATIONS  = 0x800000
 
   DEFAULT_NOTIFICATIONS = MY_ONGOING_TV_NOTIFICATIONS + MY_ONGOING_MOVIE_NOTIFICATIONS + MY_ONGOING_OVA_NOTIFICATIONS +
-      MY_RELEASE_TV_NOTIFICATIONS + MY_RELEASE_MOVIE_NOTIFICATIONS + MY_RELEASE_OVA_NOTIFICATIONS +
-      NOTIFICATIONS_TO_EMAIL_GROUP +
-      PRIVATE_MESSAGES_TO_EMAIL + NICKNAME_CHANGE_NOTIFICATIONS
+    MY_RELEASE_TV_NOTIFICATIONS + MY_RELEASE_MOVIE_NOTIFICATIONS + MY_RELEASE_OVA_NOTIFICATIONS +
+    NOTIFICATIONS_TO_EMAIL_GROUP +
+    PRIVATE_MESSAGES_TO_EMAIL + NICKNAME_CHANGE_NOTIFICATIONS
 
   def unread_count
     unread_messages + unread_news + unread_notifications
@@ -45,30 +45,30 @@ module UserNotifications
     ignored_ids = cached_ignores.map(&:target_id) << 0
 
     @unread_messages ||= Message.where(to_id: id)
-        .where(kind: MessageType::Private)
-        .where(read: false)
-        .where.not(from_id: ignored_ids, to_id: ignored_ids)
-        .count
+      .where(kind: MessageType::Private)
+      .where(read: false)
+      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .count
   end
 
   # number of unread notifications
   def unread_news
     ignored_ids = cached_ignores.map(&:target_id) << 0
     @unread_news ||= Message.where(to_id: id)
-        .where(kind: MessagesQuery::NEWS_KINDS)
-        .where(read: false)
-        .where.not(from_id: ignored_ids, to_id: ignored_ids)
-        .count
+      .where(kind: MessagesQuery::NEWS_KINDS)
+      .where(read: false)
+      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .count
   end
 
   # number of unread notifications
   def unread_notifications
     ignored_ids = cached_ignores.map(&:target_id) << 0
     @unread_notifications ||= Message.where(to_id: id)
-        .where(kind: MessagesQuery::NOTIFICATION_KINDS)
-        .where(read: false)
-        .where.not(from_id: ignored_ids, to_id: ignored_ids)
-        .count
+      .where(kind: MessagesQuery::NOTIFICATION_KINDS)
+      .where(read: false)
+      .where.not(from_id: ignored_ids, to_id: ignored_ids)
+      .count
   end
 
   def notify_bounced_email
@@ -86,6 +86,9 @@ module UserNotifications
 
   # возвращает подписан ли пользователь на новость
   def subscribed_for_event? entry
+    # don't create messages about news in different language
+    return false if entry.locale != locale_from_domain
+
     if entry.kind_of?(Topic) && entry.broadcast
       entry.action = MessageType::SiteNews
       return true

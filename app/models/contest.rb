@@ -1,19 +1,19 @@
+# frozen_string_literal: true
+
 class Contest < ActiveRecord::Base
+  include TopicsConcern
+
   MINIMUM_MEMBERS = 5
   MAXIMUM_MEMBERS = 196
 
-  belongs_to :user
-
-  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
-    :member_type, presence: true
-  validates :matches_interval, :match_duration, :matches_per_round,
-    numericality: { greater_than: 0 }, presence: true
+  delegate :total_rounds, :results, to: :strategy
 
   enumerize :member_type, in: [:anime, :character], predicates: true
   enumerize :strategy_type,
     in: [:double_elimination, :play_off, :swiss],
     predicates: true
-  delegate :total_rounds, :results, to: :strategy
+
+  belongs_to :user
 
   has_many :links,
     class_name: ContestLink.name,
@@ -23,10 +23,10 @@ class Contest < ActiveRecord::Base
     class_name: ContestRound.name,
     dependent: :destroy
 
-  has_one :topic, -> { where linked_type: Contest.name },
-    class_name: Topics::EntryTopics::ContestTopic.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
+  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
+    :member_type, presence: true
+  validates :matches_interval, :match_duration, :matches_per_round,
+    numericality: { greater_than: 0 }, presence: true
 
 private
 
@@ -45,7 +45,6 @@ public
   has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
 
   before_save :update_permalink
-  after_save :sync_topic
 
   state_machine :state, initial: :created do
     state :created, :proposing do
@@ -77,7 +76,7 @@ public
     event(:finish) { transition started: :finished }
 
     after_transition created: [:proposing, :started] do |contest, transition|
-      contest.generate_topic unless contest.topic
+      contest.generate_topics Site::DOMAIN_LOCALES
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
@@ -181,8 +180,8 @@ public
     description
   end
 
-  def generate_topic
-    Topics::Generate::UserTopic.call self, user
+  def topic_user
+    user
   end
 
 private
@@ -190,9 +189,5 @@ private
   # TODO: remove field permalink
   def update_permalink
     self.permalink = title.permalinked if changes.include? :title
-  end
-
-  def sync_topic
-    topic.update title: title if topic && topic.title != title
   end
 end

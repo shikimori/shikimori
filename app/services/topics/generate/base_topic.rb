@@ -1,18 +1,15 @@
 # frozen_string_literal: true
 
 class Topics::Generate::BaseTopic < ServiceObjectBase
-  pattr_initialize :model, :user
+  pattr_initialize :model, :user, :locale
 
   attr_implement :call
 
 private
 
-  def faye_service
-    FayeService.new user, ''
-  end
-
   def build_topic
-    model.build_topic topic_attributes
+    model.topics.find_by(find_by_attributes) ||
+      model.topics.build(topic_attributes)
   end
 
   def topic_klass
@@ -23,15 +20,28 @@ private
     {
       forum_id: forum_id,
       generated: true,
-      #linked: model,
       user: user,
       type: topic_klass.name,
-      created_at: model.created_at,
-      updated_at: model.updated_at
+      locale: locale,
+      created_at: created_at,
+      updated_at: updated_at
     }
   end
 
+  def find_by_attributes
+    topic_attributes.slice(:type, :locale)
+  end
+
   def forum_id
-    Topic::FORUM_IDS[model.class.name]
+    Topic::FORUM_IDS[model.class.name] ||
+      fail(ArgumentError, model.class.name)
+  end
+
+  def created_at
+    model.created_at
+  end
+
+  def updated_at
+    model.updated_at
   end
 end

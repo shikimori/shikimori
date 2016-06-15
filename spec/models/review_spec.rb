@@ -1,17 +1,16 @@
-require 'cancan/matchers'
+# frozen_string_literal: true
 
 describe Review do
   describe 'relations' do
     it { is_expected.to belong_to :target }
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :approver }
-    it { is_expected.to have_one :topic }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :target }
-    #it { is_expected.to validate_length_of(:text).is_at_least Review::MINIMUM_LENGTH }
+    it { is_expected.to validate_presence_of :locale }
 
     context 'accepted' do
       subject { build :review, state: 'accepted' }
@@ -21,15 +20,6 @@ describe Review do
     context 'rejected' do
       subject { build :review, state: 'rejected' }
       it { is_expected.to validate_presence_of :approver }
-    end
-  end
-
-  describe 'callbacks' do
-    before { review.save }
-
-    describe '#generate_topic' do
-      let(:review) { build :review, :with_topic }
-      it { expect(review.topic).to be_present }
     end
   end
 
@@ -57,7 +47,7 @@ describe Review do
 
   context 'state_machine' do
     let(:user) { create :user }
-    subject(:review) { create :review, :with_topic, user: user }
+    subject(:review) { create :review, :with_topics, user: user }
 
     describe 'accept' do
       before { review.accept user }
@@ -72,11 +62,11 @@ describe Review do
 
   describe 'instance methods' do
     let(:user) { create :user }
-    let(:review) { create :review, :with_topic, user: user }
+    let(:review) { create :review, :with_topics, user: user }
 
     describe '#to_offtopic' do
       before { review.reject! user }
-      it { expect(review.topic.forum_id).to eq Forum::OFFTOPIC_ID }
+      it { expect(review.topic(review.locale).forum_id).to eq Forum::OFFTOPIC_ID }
     end
   end
 
@@ -94,12 +84,12 @@ describe Review do
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.not_to be_able_to :manage, review }
       end
 
       context 'banned' do
         let(:user) { build_stubbed :user, :banned }
-        it { is_expected.to_not be_able_to :manage, review }
+        it { is_expected.not_to be_able_to :manage, review }
       end
     end
 
@@ -115,18 +105,82 @@ describe Review do
 
     context 'user' do
       it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.not_to be_able_to :new, review }
+      it { is_expected.not_to be_able_to :edit, review }
+      it { is_expected.not_to be_able_to :destroy, review }
     end
 
     context 'guest' do
       let(:user) { nil }
 
       it { is_expected.to be_able_to :read, review }
-      it { is_expected.to_not be_able_to :new, review }
-      it { is_expected.to_not be_able_to :edit, review }
-      it { is_expected.to_not be_able_to :destroy, review }
+      it { is_expected.not_to be_able_to :new, review }
+      it { is_expected.not_to be_able_to :edit, review }
+      it { is_expected.not_to be_able_to :destroy, review }
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :review }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics }
+        before { model.generate_topics model.locale }
+
+        it do
+          expect(topics).to have(1).item
+          expect(topics.first.locale).to eq model.locale
+        end
+      end
+
+      describe '#topic' do
+        let(:topic) { model.topic locale }
+        before { model.generate_topics model.locale }
+
+        context 'locale from model' do
+          let(:locale) { model.locale }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+
+        context 'locale not from model' do
+          let(:locale) { (Site::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
+          it { expect(topic).to be_nil }
+        end
+      end
+
+      describe '#maybe_topic' do
+        let(:topic) { model.maybe_topic locale }
+        before { model.generate_topics model.locale }
+
+        context 'locale from model' do
+          let(:locale) { model.locale }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+
+        context 'locale not from model' do
+          let(:locale) { (Site::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
+          it do
+            expect(topic).to be_present
+            expect(topic).to be_instance_of NoTopic
+            expect(topic.linked).to eq model
+          end
+        end
+      end
+
+      describe '#topic_user' do
+        it { expect(model.topic_user).to eq model.user }
+      end
     end
   end
 end

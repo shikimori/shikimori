@@ -1,6 +1,8 @@
 describe ReviewsController do
   let(:anime) { create :anime }
-  let(:review) { create :review, :with_topic, user: user, target: anime }
+  let(:review) { create :review, :with_topics, user: user, target: anime }
+
+  before { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
 
   describe '#index' do
     before { get :index, anime_id: anime.to_param, type: 'Anime' }
@@ -9,6 +11,7 @@ describe ReviewsController do
 
   describe '#new' do
     include_context :authenticated, :user
+
     let(:params) do
       {
         user_id: user.id,
@@ -16,14 +19,13 @@ describe ReviewsController do
         target_type: anime.class.name
       }
     end
-    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
     before { get :new, anime_id: anime.to_param, type: 'Anime', review: params }
+
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
     include_context :authenticated, :user
-    let!(:review) { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
 
     context 'when success' do
       let(:params) do
@@ -39,19 +41,26 @@ describe ReviewsController do
           overall: 5
         }
       end
-      before { post :create, anime_id: anime.to_param, type: 'Anime', review: params }
+      before do
+        post :create, anime_id: anime.to_param, type: 'Anime', review: params
+      end
 
       it do
         expect(assigns :review).to be_persisted
         expect(assigns :review).to have_attributes(params)
-        expect(response).to redirect_to UrlGenerator.instance
-          .topic_url(assigns(:review).topic)
+
+        topic = assigns(:review).topic(controller.locale_from_domain)
+        expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
 
     context 'when validation errors' do
-      before { post :create, anime_id: anime.to_param, type: 'Anime',
-        review: { user_id: user.id} }
+      before do
+        post :create,
+          anime_id: anime.to_param,
+          type: 'Anime',
+          review: { user_id: user.id }
+      end
 
       it do
         expect(assigns :review).to be_new_record
@@ -70,32 +79,46 @@ describe ReviewsController do
     include_context :authenticated, :user
 
     context 'when success' do
-      let(:params) {{
-        user_id: user.id,
-        target_type: anime.class.name,
-        target_id: anime.id,
-        text: 'x' * Review::MINIMUM_LENGTH,
-        storyline: 1,
-        characters: 2,
-        animation: 3,
-        music: 4,
-        overall: 5
-      }}
-      before { patch :update, id: review.id, review: params,
-        anime_id: anime.to_param, type: 'Anime' }
+      let(:params) do
+        {
+          user_id: user.id,
+          target_type: anime.class.name,
+          target_id: anime.id,
+          text: 'x' * Review::MINIMUM_LENGTH,
+          storyline: 1,
+          characters: 2,
+          animation: 3,
+          music: 4,
+          overall: 5
+        }
+      end
+      before do
+        patch :update,
+          id: review.id,
+          review: params,
+          anime_id: anime.to_param,
+          type: 'Anime'
+      end
 
       it do
         expect(assigns :review).to be_valid
         expect(assigns :review).to have_attributes(params)
-        expect(response).to redirect_to UrlGenerator.instance
-          .topic_url(assigns(:review).topic)
+        expect(response).to redirect_to(
+          UrlGenerator.instance.topic_url(
+            assigns(:review).maybe_topic(controller.locale_from_domain)
+          )
+        )
       end
     end
 
     context 'when validation errors' do
-      before { patch :update, id: review.id,
-        review: { user_id: user.id, text: 'test' },
-        anime_id: anime.to_param, type: 'Anime' }
+      before do
+        patch :update,
+          id: review.id,
+          review: { user_id: user.id, text: 'test' },
+          anime_id: anime.to_param,
+          type: 'Anime'
+      end
 
       it do
         expect(assigns :review).to_not be_valid
@@ -106,8 +129,9 @@ describe ReviewsController do
 
   describe '#destroy' do
     include_context :authenticated, :user
-    before { delete :destroy, id: review.id, anime_id: anime.to_param,
-      type: 'Anime' }
+    before do
+      delete :destroy, id: review.id, anime_id: anime.to_param, type: 'Anime'
+    end
 
     it do
       expect(response.content_type).to eq 'application/json'

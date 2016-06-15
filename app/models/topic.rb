@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Topic < Entry
   include Moderatable
   include Antispam
@@ -14,7 +16,11 @@ class Topic < Entry
   }
 
   belongs_to :anime_history
+
   validates :title, :body, presence: true, unless: :generated?
+  validates :locale, presence: true
+
+  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   def title
     return self[:title]&.html_safe if user&.bot?

@@ -58,24 +58,26 @@ class DashboardView < ViewObjectBase
     ].compact
   end
 
-  def reviews
-    all_reviews
+  def review_topic_views
+    all_review_topic_views
       .shuffle
       .select { |view| !view.topic.linked.target.censored? }
       .take(REVIEWS_TAKE)
       .sort_by { |view| -view.topic.id }
   end
 
-  def news_topics
-    TopicsQuery.fetch(h.current_user)
+  def news_topic_views
+    TopicsQuery
+      .fetch(h.current_user, h.locale_from_domain)
       .by_forum(Forum::NEWS_FORUM, h.current_user, h.censored_forbidden?)
       .limit(7)
       .paginate(page, NEWS_LIMIT)
       .as_views(true, true)
   end
 
-  def generated_news
-    TopicsQuery.fetch(h.current_user)
+  def generated_news_topic_views
+    TopicsQuery
+      .fetch(h.current_user, h.locale_from_domain)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .limit(15)
       .as_views(true, true)
@@ -129,8 +131,9 @@ private
       .decorate
   end
 
-  def all_reviews
-    TopicsQuery.fetch(h.current_user)
+  def all_review_topic_views
+    TopicsQuery
+      .fetch(h.current_user, h.locale_from_domain)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)
       .as_views(true, true)

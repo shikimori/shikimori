@@ -10,14 +10,10 @@ FactoryGirl.define do
     characters 1
     animation 1
 
-    after :build do |review|
-      review.stub :generate_topic
-    end
+    locale :ru
 
-    trait :with_topic do
-      after :build do |club|
-        club.unstub :generate_topic
-      end
+    trait :with_topics do
+      after(:create) { |review| review.generate_topics review.locale }
     end
   end
 end

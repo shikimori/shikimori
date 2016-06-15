@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TorrentsParser
   PROXY_LOG = ENV['RAILS_ENV'] == 'development' ? true : false
   USE_PROXY = false#ENV['RAILS_ENV'] == 'development' ? false : true
@@ -227,12 +229,12 @@ class TorrentsParser
         next if entry[:episodes].none?
 
         # для онгоингов и анонсов при нахождении более одного эпизода, игнорируем подобные находки
-        episdoes_diff = [
+        episodes_diff = [
           entry[:episodes].min - anime.episodes_aired,
           entry[:episodes].max - anime.episodes_aired
         ].max
         next if entry[:episodes].none? ||
-          ((anime.ongoing? || anime.anons?) && episdoes_diff > 1 &&
+          ((anime.ongoing? || anime.anons?) && episodes_diff > 1 &&
             !(entry[:episodes].max > 1 && anime.episodes_aired == 0))
 
         entry[:episodes].each do |episode|
@@ -242,7 +244,11 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          GenerateNews::EntryEpisode.call anime, aired_at
+          Site::DOMAIN_LOCALES.each do |locale|
+            Topics::Generate::News::EpisodeTopic.call(
+              anime, anime.topic_user, locale, aired_at
+            )
+          end
         end
       end
 
@@ -252,9 +258,9 @@ class TorrentsParser
     new_episodes.uniq
   end
 
-private
+private_class_method
 
-  def self.get url, ban_texts=nil
+  def self.get url, ban_texts = nil
     Proxy.get(
       url,
       timeout: 30,

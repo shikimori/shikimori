@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class CosplayGallery < ActiveRecord::Base
   include Translation
+  include TopicsConcern
 
   acts_as_voteable
 
@@ -36,14 +39,7 @@ class CosplayGallery < ActiveRecord::Base
     source: :linked,
     source_type: Character.name
 
-  has_one :topic, -> { where linked_type: CosplayGallery.name },
-    class_name: Topics::EntryTopics::CosplayGalleryTopic.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
   scope :visible, -> { where confirmed: true, deleted: false }
-
-  #after_save :sync_topic
 
   accepts_nested_attributes_for :images, :deleted_images
 
@@ -94,22 +90,18 @@ class CosplayGallery < ActiveRecord::Base
     deleted
   end
 
-  def self.without_topic
+  def self.without_topics
     visible
-      .includes(:animes, :mangas, :characters, :topic)
-      .select { |v| !v.topic.present? }
+      .includes(:animes, :mangas, :characters, :topics)
+      .select { |v| !v.topics.present? }
       .select { |v| v.animes.any? || v.mangas.any? || v.characters.any? }
   end
 
-  def generate_topic
-    Topics::Generate::UserTopic.call self, User.find(User::COSPLAYER_ID)
+  def topic_user
+    User.find User::COSPLAYER_ID
   end
 
 private
-
-  def sync_topic
-    topic.update_attribute :title, name if topic.title != name
-  end
 
   def any_linked
     animes.first || mangas.first || characters.first

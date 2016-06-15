@@ -10,6 +10,7 @@ class NullObject
 
   def method_missing method_name, *args, &block
     return false if method_name.to_s.end_with?('?')
+    nil
   end
 
 private

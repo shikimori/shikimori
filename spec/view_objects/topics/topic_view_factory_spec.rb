@@ -51,7 +51,7 @@ describe Topics::TopicViewFactory do
       it { expect(view).to be_a Topics::ContestView }
     end
 
-    context 'anime news' do
+    context 'anime news topic' do
       context 'generated' do
         let(:topic) { build :news_topic, generated: true }
         it { expect(view).to be_a Topics::GeneratedNewsView }

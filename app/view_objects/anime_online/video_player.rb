@@ -161,10 +161,10 @@ class AnimeOnline::VideoPlayer
   end
 
   def episode_topic_view
-    topic = anime.object.topics.find_by(
-      type: Topics::NewsTopic.name,
+    topic = anime.object.news_topics.find_by(
       action: :episode,
-      value: current_episode
+      value: current_episode,
+      locale: :ru
     )
 
     Topics::TopicViewFactory.new(true, false).build topic if topic

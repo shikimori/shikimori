@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 class Review < ActiveRecord::Base
   include Antispam
   include Moderatable
+  include TopicsConcern
 
   acts_as_voteable
 
@@ -10,17 +13,16 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  has_one :topic, -> { where linked_type: Review.name },
-    class_name: Topics::EntryTopics::ReviewTopic.name,
-    foreign_key: :linked_id,
-    dependent: :destroy
-
   validates :user, :target, presence: true
   validates :text,
-    length: { minimum: MINIMUM_LENGTH, too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)" },
+    length: {
+      minimum: MINIMUM_LENGTH,
+      too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)"
+    },
     if: -> { changes['text'] }
+  validates :locale, presence: true
 
-  after_create :generate_topic
+  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   scope :pending, -> { where state: 'pending' }
   scope :visible, -> { where state: ['pending', 'accepted'] }
@@ -54,15 +56,15 @@ class Review < ActiveRecord::Base
         from_id: review.approver_id,
         to_id: review.user_id,
         kind: MessageType::Notification,
-        body: "Ваша [entry=#{review.topic.id}]реценция[/entry] перенесена в оффтоп" +
+        body: "Ваша [entry=#{review.topic(review.locale).id}]реценция[/entry] перенесена в оффтоп" +
           (transition.args.second ?
            " по причине: [quote=#{review.approver.nickname}]#{transition.args.second}[/quote]" : '')
       )
     end
   end
 
-  def generate_topic
-    Topics::Generate::UserTopic.call self, user
+  def topic_user
+    user
   end
 
   # хз что это за хрень и почему ReviewComment.first.linked.target
@@ -94,7 +96,7 @@ class Review < ActiveRecord::Base
   end
 
   def to_offtopic!
-    topic.update_column :forum_id, Forum::OFFTOPIC_ID
+    topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
   end
 
   def self.has_changes?

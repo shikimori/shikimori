@@ -22,27 +22,16 @@ FactoryGirl.define do
       member_type :character
     end
 
-    trait :proposing do
-      state 'proposing'
-    end
-
-    trait :started do
-      state 'started'
-    end
-
-    trait :finished do
-      state 'finished'
+    Contest.state_machine.states.map(&:value).each do |contest_state|
+      trait(contest_state.to_sym) { state contest_state }
     end
 
     after :build do |contest|
       contest.stub :update_permalink
-      contest.stub :sync_topic
     end
 
-    trait :with_topic do
-      after :build do |contest|
-        contest.generate_topic
-      end
+    trait :with_topics do
+      after(:create) { |contest| contest.generate_topics [:en, :ru] }
     end
 
     [3,5,6,8,19].each do |members|

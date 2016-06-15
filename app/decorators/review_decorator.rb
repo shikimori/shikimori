@@ -1,0 +1,2 @@
+class ReviewDecorator < DbEntryDecorator
+end

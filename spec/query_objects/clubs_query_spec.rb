@@ -1,15 +1,16 @@
 describe ClubsQuery do
-  let(:query) { ClubsQuery.new }
+  let(:query) { ClubsQuery.new :ru }
 
   before { Timecop.freeze }
   after { Timecop.return }
 
   let(:user) { create :user }
-  let!(:club_1) { create :club, :with_topic, id: 1 }
-  let!(:club_2) { create :club, :with_topic, id: 2 }
-  let!(:club_3) { create :club, :with_topic, id: 3 }
-  let!(:club_4) { create :club, :with_topic, id: 4 }
-  let!(:club_favoured) { create :club, :with_topic, id: ClubsQuery::FAVOURITE.max }
+  let!(:club_1) { create :club, :with_topics, id: 1 }
+  let!(:club_2) { create :club, :with_topics, id: 2 }
+  let!(:club_3) { create :club, :with_topics, id: 3 }
+  let!(:club_4) { create :club, :with_topics, id: 4 }
+  let!(:club_en) { create :club, :with_topics, id: 5, locale: :en }
+  let!(:club_favoured) { create :club, :with_topics, id: ClubsQuery::FAVOURITE.max }
 
   before do
     club_1.members << user

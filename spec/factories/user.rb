@@ -11,6 +11,9 @@ FactoryGirl.define do
 
     notifications User::DEFAULT_NOTIFICATIONS
 
+    locale 'ru'
+    locale_from_domain 'ru'
+
     after :build do |user|
       user.class.skip_callback :save, :before, :ensure_api_access_token
     end

@@ -9,7 +9,7 @@
   / ] = t '.mangas'
 
 .cc-ongoings.to-process data-dynamic="cutted_covers"
-  = render @view.ongoings,
+  = render @dashboard_view.ongoings,
     cover_notice: :studio,
     content_by: :mini_tooltip
 
@@ -32,19 +32,21 @@
             ] = t '.all_reviews'
           div
             = render partial: 'topics/topic',
-              collection: @view.reviews,
+              collection: @dashboard_view.review_topic_views,
               as: :topic_view
 
         .slide.animes.hidden
-          = render 'dashboards/animes'
+          = render 'dashboards/animes',
+            dashboard_view: @dashboard_view
 
         .slide.mangas.hidden
-          = render 'dashboards/mangas'
+          = render 'dashboards/mangas',
+            dashboard_view: @dashboard_view
 
         / .slide.hidden
           / .midheadline: h2 = t '.other'
           / ul.b-list
-            / - @view.pages.each_with_index do |(url, title), index|
+            / - @dashboard_view.pages.each_with_index do |(url, title), index|
               / li
                 / - if index < DashboardView::SPECIAL_PAGES
                   / a.b-link[
@@ -58,7 +60,8 @@
     .c-my_list
       - if user_signed_in?
         .user_list
-          = render 'dashboards/user_list', view: @view
+          = render 'dashboards/user_list',
+            dashboard_view: @dashboard_view
 
       - else
         .sign_in
@@ -68,13 +71,13 @@
     .b-forums
       a.b-link_button.maxi.dark href="#{forum_url}" = t 'forum'
       .block
-        - @view.forums.each do |forum|
+        - @dashboard_view.forums.each do |forum|
           .forum
             .topics #{forum.size} #{i18n_i 'topic', forum.size}
             .link-with-input
               a.link href="#{forum.url}" = forum.name
 
-    - if @view.contests.any?
+    - if @dashboard_view.contests.any?
       .contests.block
         .midheadline.green.m5
           h2 = t '.contests'
@@ -83,7 +86,8 @@
             title="#{t '.all_contests'}"
           ] = t '.all_contests'
         .block
-          = render 'dashboards/contests', collection: @view.contests
+          = render 'dashboards/contests',
+            collection: @dashboard_view.contests
 
 .cc-news
   .c-news_topics.m0
@@ -96,13 +100,13 @@
 
     div
       = render partial: 'topics/topic',
-        collection: @view.news_topics,
+        collection: @dashboard_view.news_topic_views,
         as: :topic_view
 
-      - if @view.news_topics.next_page
+      - if @dashboard_view.news_topic_views.next_page
         = render 'blocks/postloader',
           filter: 'b-topic',
-          next_url: root_page_url(page: @view.news_topics.next_page)
+          next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
   .c-generated_news
     = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
@@ -122,5 +126,5 @@
       ] = t '.all_updates'
     div
       = render partial: 'topics/topic',
-        collection: @view.generated_news,
+        collection: @dashboard_view.generated_news_topic_views,
         as: :topic_view

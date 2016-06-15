@@ -12,6 +12,8 @@ module Site
   STATIC_SUBDOMAINS = %w(nyaa kawai moe desu dere)
   EMAIL = 'mail@shikimori.org'
 
+  DOMAIN_LOCALES = %i(ru en)
+
   class Application < Rails::Application
 
     # Settings in config/environments/* take precedence over those specified here.

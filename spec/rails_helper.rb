@@ -10,6 +10,7 @@ require 'factory_girl-seeds'
 require 'paperclip/matchers'
 require 'shoulda/matchers'
 require 'sidekiq/testing'
+require 'cancan/matchers'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 

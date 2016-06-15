@@ -89,7 +89,7 @@ class Entry < ActiveRecord::Base
 
   # новостной ли это топиик?
   def news?
-    !!(self.class.name =~ /News/)
+    /News/ === self.class.name
   end
 
   # топик ли это сгенерированной новости?

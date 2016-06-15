@@ -3,14 +3,16 @@ class CosplayGalleriesController < ShikimoriController
   before_action :check_access
 
   def publishing
-    @collection = CosplayGallery.without_topic.to_a.shuffle.take(10)
+    @collection = CosplayGallery.without_topics.to_a.shuffle.take(10)
   end
 
   def publish
     gallery = CosplayGallery.find(params[:id])
-    gallery.generate_topic
+    gallery.generate_topics Site::DOMAIN_LOCALES
 
-    redirect_to UrlGenerator.instance.topic_url gallery.topic
+    redirect_to UrlGenerator.instance.topic_url(
+      gallery.maybe_topic(locale_from_domain)
+    )
   end
 
 private

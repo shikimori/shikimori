@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # TODO: extract torrents to value object
-# TODO: move check_status, update_news to service object
 # TODO: refactor serialized fields to postgres arrays
 class Anime < DbEntry
   include AniManga
+  include TopicsConcern
 
   DESYNCABLE = %w(
     name kind episodes rating aired_on released_on status genres
@@ -43,19 +45,27 @@ class Anime < DbEntry
    foreign_key: :target_id,
    dependent: :destroy
 
-  has_many :topics,
-    -> { order updated_at: :desc },
-    class_name: Entry.name,
-    as: :linked,
-    dependent: :destroy
-
-  has_many :news,
-    -> { order created_at: :desc },
+  has_many :news_topics, -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
     as: :linked
 
-  has_many :episodes_news,
+  has_many :anons_news_topics,
+    -> { where(action: AnimeHistoryAction::Anons).order(created_at: :desc) },
+    class_name: Topics::NewsTopic.name,
+    as: :linked
+
+  has_many :episode_news_topics,
     -> { where(action: AnimeHistoryAction::Episode).order(created_at: :desc) },
+    class_name: Topics::NewsTopic.name,
+    as: :linked
+
+  has_many :ongoing_news_topics,
+    -> { where(action: AnimeHistoryAction::Ongoing).order(created_at: :desc) },
+    class_name: Topics::NewsTopic.name,
+    as: :linked
+
+  has_many :released_news_topics,
+    -> { where(action: AnimeHistoryAction::Released).order(created_at: :desc) },
     class_name: Topics::NewsTopic.name,
     as: :linked
 
@@ -159,8 +169,8 @@ class Anime < DbEntry
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  before_save :check_status
-  after_save :update_news
+  before_save :track_changes
+  before_save :generate_news
   after_create :generate_name_matches
 
   def episodes= value
@@ -192,82 +202,17 @@ class Anime < DbEntry
     BlobData.get("anime_%d_subtitles" % id) || {}
   end
 
-  # перед сохранением посмотрим, какой стоит статус, и не надо ли его откатить
-  def check_status
-    return unless changes['status']
+  def track_changes
+    Anime::TrackStatusChanges.call self
+    Anime::TrackEpisodesChanges.call self
+  end
 
-    # anons => ongoing
-    if changes['status'][0] == 'anons' && changes['status'][1] == 'ongoing'
-      # у которого дата старта больше текущей более, чем на 1 день, не делаем онгоинггом
-      if aired_on && aired_on > Time.zone.now + 1.day
-        self.status = :anons
-      end
-
-    # ongoings => released
-    elsif changes['status'][0] == 'ongoing' && changes['status'][1] == 'released'
-      if released_on
-        # one episode left
-        if episodes_aired + 1 == episodes && released_on > Time.zone.today - 1.day
-          self.status = :ongoing
-        end
-
-        # released_on in the future
-        if released_on > Time.zone.today
-          self.status = :ongoing
-        end
-      end
-    end
+  def generate_news
+    Anime::GenerateNews.call self
   end
 
   def schedule_at
     Schedule.parse(schedule, aired_on) if schedule && (ongoing? || anons?)
-  end
-
-  # при сохранении аниме проверка того, что изменилось и создание записей в историю при необходимости
-  def update_news
-    return unless changed?
-
-    resave = false
-    no_news = false
-
-    # анонс, у которого появились вышедшие эпизоды, делаем онгоигом
-    if anons? && changes['episodes_aired'] && episodes_aired > 0
-      self.status = :ongoing
-      resave = true
-    end
-    # онгоинг, у которого вышел последний эпизод, делаем релизом
-    if ongoing? && changes['episodes_aired'] && episodes_aired == episodes && episodes != 0
-      self.status = :released
-      resave = true
-    end
-
-    # при сбросе числа вышедщих эпизодов удаляем новости эпизодов
-    if changes['episodes_aired'] && episodes_aired == 0 && changes['episodes_aired'][0] != nil
-      Topics::NewsTopic
-        .where(linked: self)
-        .where(action: AnimeHistoryAction::Episode)
-        .destroy_all
-      no_news = true
-    end
-
-    if changes['status'] && changes['status'][0] != status && !no_news
-      if released? && changes['id'].nil? &&
-          changes['status'].any? && (released_on || aired_on) &&
-          ((!released_on && aired_on > Time.zone.now - 15.month) ||
-          (released_on && released_on > Time.zone.now - 1.month))
-        entry = GenerateNews::EntryRelease.call self
-        # TODO: remove commented code
-        # if resave
-          self.released_on = entry.created_at
-        # else
-          # update_column :released_on, entry.created_at
-        # end
-      end
-      GenerateNews::EntryAnons.call self if anons? && changes['status'][0] != 'ongoing'
-      GenerateNews::EntryOngoing.call self if ongoing? && changes['status'][0] != 'released'
-    end
-
-    self.save if resave
   end
 
   # torrents

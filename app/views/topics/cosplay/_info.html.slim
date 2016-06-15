@@ -1,4 +1,4 @@
-- cache [view.topic, view.is_preview, gallery] do
+- cache [cosplay_view.topic, cosplay_view.is_preview, gallery] do
   .cosplay-info
     .line
       .key #{t '.cosplayer', count: gallery.cosplayers.size}:
@@ -30,10 +30,10 @@
             a.bubbled href="#{manga_url manga}"
               = localized_name manga
 
-    - if view.is_preview && gallery.images.size > Topics::CosplayView::IMAGES_IN_PREVIEW
+    - if cosplay_view.is_preview && gallery.images.size > Topics::CosplayView::IMAGES_IN_PREVIEW
       .line
         .key #{t '.in_gallery'}:
         .value #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
 
-  - unless view.minified?
-    = render view.topic.linked
+  - unless cosplay_view.minified?
+    = render cosplay_view.topic.linked

@@ -5,11 +5,6 @@ class DbEntry < ActiveRecord::Base
   def self.inherited klass
     super
 
-    klass.has_one :topic, -> { where linked_type: klass.name },
-      class_name: "Topics::EntryTopics::#{klass.name}Topic",
-      foreign_key: :linked_id,
-      dependent: :destroy
-
     klass.has_many :club_links, -> { where linked_type: klass.name },
       foreign_key: :linked_id,
       dependent: :destroy
@@ -33,7 +28,7 @@ class DbEntry < ActiveRecord::Base
     self.class == Manga
   end
 
-  def generate_topic
-    Topics::Generate::SiteTopic.call self, BotsService.get_poster
+  def topic_user
+    BotsService.get_poster
   end
 end

@@ -47,11 +47,6 @@ class ContestsController < ShikimoriController
     page_title i18n_t :votes
   end
 
-  # TODO: удалить после 05.2015
-  def comments
-    redirect_to UrlGenerator.instance.topic_url(@resource.topic), status: 301
-  end
-
   # турнирная сетка
   def grid
     if !user_signed_in? || !current_user.contests_moderator?

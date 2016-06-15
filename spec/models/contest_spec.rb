@@ -1,4 +1,4 @@
-require 'cancan/matchers'
+# frozen_string_literal: true
 
 describe Contest do
   describe 'relations' do
@@ -6,7 +6,7 @@ describe Contest do
     it { is_expected.to have_many :links }
     it { is_expected.to have_many :rounds }
     it { is_expected.to have_many :suggestions }
-    it { is_expected.to have_one :topic }
+    it { is_expected.to have_many :topics }
   end
 
   describe 'validations' do
@@ -19,7 +19,7 @@ describe Contest do
   end
 
   describe 'state machine' do
-    let(:contest) { create :contest, :with_5_members }
+    let(:contest) { create :contest, :with_5_members, :created }
 
     it 'full cycle' do
       expect(contest.created?).to be_truthy
@@ -80,29 +80,23 @@ describe Contest do
     end
 
     context 'after propose' do
-      let(:contest) { create :contest, :with_5_members, :with_topic }
-
-      it 'creates topic' do
-        contest.propose!
-        expect(contest.topic).to be_present
+      before { contest.propose! }
+      it 'creates 2 topics' do
+        expect(contest.topics).to have(2).items
       end
     end
 
     context 'after start' do
-      it 'starts first round' do
-        contest.start!
-        expect(contest.rounds.first.started?).to be_truthy
-      end
-
-      let(:contest) { create :contest, :with_5_members, :with_topic }
-      it 'creates topic' do
-        contest.start!
-        expect(contest.topic).to be_present
+      before { contest.start! }
+      it 'starts first round and creates 2 topics' do
+        expect(contest.rounds.first.started?).to eq true
+        expect(contest.topics).to have(2).items
       end
     end
 
     context 'after finished' do
       let(:contest) { create :contest, :started }
+
       before { allow(FinalizeContest).to receive :perform_async }
       before { contest.finish }
 
@@ -292,26 +286,27 @@ describe Contest do
       end
 
       context 'finished not so long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 6.days }
+        let!(:contest) { create :contest, :finished, finished_on: Time.zone.today - 6.days }
+
         it { is_expected.to eq [contest.id] }
 
         context 'new one started' do
-          let!(:contest2) { create :contest, state: 'started' }
+          let!(:contest2) { create :contest, :started }
           it { is_expected.to eq [contest.id, contest2.id] }
 
           context 'and one more started' do
-            let!(:contest3) { create :contest, state: 'started' }
+            let!(:contest3) { create :contest, :started }
             it { is_expected.to eq [contest.id, contest2.id, contest3.id] }
           end
         end
       end
 
       context 'finished long ago' do
-        let!(:contest) { create :contest, state: 'finished', finished_on: Time.zone.today - 9.days }
+        let!(:contest) { create :contest, :finished, finished_on: Time.zone.today - 9.days }
         it { is_expected.to be_empty }
 
         context 'new one started' do
-          let!(:contest) { create :contest, state: 'started' }
+          let!(:contest) { create :contest, :started }
           it { is_expected.to eq [contest.id] }
         end
       end
@@ -336,6 +331,73 @@ describe Contest do
       subject { Ability.new build_stubbed(:user, :user) }
       it { is_expected.to be_able_to :see_contest, contest }
       it { is_expected.to_not be_able_to :manage, contest }
+    end
+  end
+
+  describe 'topics concern' do
+    describe 'associations' do
+      it { is_expected.to have_many :topics }
+    end
+
+    describe 'instance methods' do
+      let(:model) { build_stubbed :contest }
+
+      describe '#generate_topics' do
+        let(:topics) { model.topics }
+        before { model.generate_topics [:en, :ru] }
+
+        it do
+          expect(topics).to have(2).items
+          expect(topics.first.locale).to eq 'ru'
+          expect(topics.second.locale).to eq 'en'
+        end
+      end
+
+      describe '#topic' do
+        let(:topic) { model.topic locale }
+        before { model.generate_topics [:en, :ru] }
+
+        context 'ru topic' do
+          let(:locale) { :ru }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+
+        context 'en topic' do
+          let(:locale) { :en }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+      end
+
+      describe '#maybe_topic' do
+        let(:topic) { model.maybe_topic locale }
+        before { model.generate_topics [:en, :ru] }
+
+        context 'ru topic' do
+          let(:locale) { :ru }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale
+          end
+        end
+
+        context 'en topic' do
+          let(:locale) { :en }
+          it do
+            expect(topic).to be_present
+            expect(topic.locale).to eq locale.to_s
+          end
+        end
+      end
+
+      describe '#topic_user' do
+        it { expect(model.topic_user).to eq model.user }
+      end
     end
   end
 end

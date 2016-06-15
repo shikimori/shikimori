@@ -30,11 +30,7 @@ private
     I18n.t(
       'messages/check_spam_abuse.ban_text',
       email: Site::EMAIL,
-      locale: locale(user)
+      locale: user.locale
     )
-  end
-
-  def locale user
-    user.russian? ? :ru : :en
   end
 end

@@ -32,26 +32,28 @@
         title="#{t '.to_reviews'}"
       ] = t '.reviews'
     ul
-      - menu.reviews.each do |entry|
+      - menu.reviews.each do |review|
+        - review_topic = review.topic(locale_from_domain)
+
         li.entry
           a[
-            href="#{forum_topic_url forum: entry.topic.forum, id: entry.topic}"
-            title="#{entry.topic.title}"
+            href="#{forum_topic_url forum: review_topic.forum, id: review_topic}"
+            title="#{review_topic.title}"
           ]
             .image-name
               img[
-                src="#{ImageUrlGenerator.instance.url entry.target, :x48}"
-                srcset="#{ImageUrlGenerator.instance.url entry.target, :x96} 2x"
-                alt="#{localized_name entry.target}"
-                title="#{localized_name entry.target}"
+                src="#{ImageUrlGenerator.instance.url review.target, :x48}"
+                srcset="#{ImageUrlGenerator.instance.url review.target, :x96} 2x"
+                alt="#{localized_name review.target}"
+                title="#{localized_name review.target}"
               ]
               span.title
-                == entry.target.name
+                == review.target.name
             span.misc
-              = t '.user_review', author: entry.user.nickname
+              = t '.user_review', author: review.user.nickname
             time.misc.date[
-              datetime="#{entry.created_at.iso8601}"
-            ] = l entry.created_at, format: '%e %B %Y'
+              datetime="#{review.created_at.iso8601}"
+            ] = l review.created_at, format: '%e %B %Y'
 
 - if menu.contests.any?
   .contests.block
@@ -70,20 +72,20 @@
       title="#{t '.to_clubs'}"
     ] = i18n_i 'Club', :other
   ul
-    - menu.clubs.each do |entry|
+    - menu.club_topics.each do |club_topic|
       li.entry
-        a href="#{club_url entry.linked}" title="#{entry.title}"
+        a href="#{club_url club_topic.linked}" title="#{club_topic.title}"
           .image-name
             img[
-              src="#{entry.comments.first ? entry.comments.first.user.avatar_url(48) : entry.linked.owner.avatar_url(48)}"
-              alt="#{entry.linked.name}"
-              title="#{entry.linked.name}"
+              src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.linked.owner.avatar_url(48)}"
+              alt="#{club_topic.linked.name}"
+              title="#{club_topic.linked.name}"
             ]
             span.title
-              = entry.linked.name
-          - if entry.comments.first
-            span.misc title="#{truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
-              == truncate entry.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+              = club_topic.linked.name
+          - if club_topic.comments.first
+            span.misc title="#{truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
+              == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
           - else
             span.misc = t '.new_club'
 

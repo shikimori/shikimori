@@ -64,35 +64,38 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def main_topic_view
-    Topics::TopicViewFactory.new(false, false).build maybe_topic
+    Topics::TopicViewFactory.new(false, false).build(
+      object.maybe_topic(h.locale_from_domain)
+    )
   end
 
   def preview_topic_view
-    Topics::TopicViewFactory.new(true, false).build maybe_topic
-  end
-
-  def maybe_topic
-    topic || NoTopic.new(object)
+    Topics::TopicViewFactory.new(true, false).build(
+      object.maybe_topic(h.locale_from_domain)
+    )
   end
 
   # связанные клубы
   def linked_clubs
-    query = object.clubs
+    query = clubs_for_domain
     if !object.try(:censored?) && h.censored_forbidden?
       query = query.where(is_censored: false)
     end
-    query.shuffle.take(MAX_CLUBS)
+    query.decorate.shuffle.take(MAX_CLUBS)
   end
 
   # все связанные клубы
   def all_linked_clubs
-    query = ClubsQuery.new.query(true).where(id: object.clubs)
+    query = ClubsQuery
+      .new(h.locale_from_domain)
+      .query(true)
+      .where(id: clubs_for_domain)
 
     if !object.try(:censored?) && h.censored_forbidden?
-      query.where(is_censored: false)
-    else
-      query
+      query = query.where(is_censored: false)
     end
+
+    query.decorate
   end
 
   # добавлено ли в избранное?
@@ -135,7 +138,8 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def comments_url
-    h.send "comments_#{klass_lower}_url", object
+    topic = object.maybe_topic h.locale_from_domain
+    UrlGenerator.instance.topic_url(topic) if topic
   end
 
   def next_versions_page
@@ -143,6 +147,10 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
+
+  def clubs_for_domain
+    object.clubs.where(locale: h.locale_from_domain)
+  end
 
   def headline_array
     if h.ru_domain?

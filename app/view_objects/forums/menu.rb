@@ -1,10 +1,11 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :clubs, :contests, :reviews
+  instance_cache :club_topics, :contests, :reviews
 
-  def clubs
+  def club_topics
     Topics::EntryTopics::ClubTopic
       .includes(:linked)
+      .where(locale: h.locale_from_domain)
       .order(updated_at: :desc)
       .limit(3)
   end
@@ -24,8 +25,9 @@ class Forums::Menu < ViewObjectBase
   def reviews
     @reviews ||= Review
       .where('created_at >= ?',  2.weeks.ago)
+      .where(locale: h.locale_from_domain)
       .visible
-      .includes(:user, :target, topic: [:forum])
+      .includes(:user, :target, topics: [:forum])
       .order(created_at: :desc)
       .limit(3)
   end

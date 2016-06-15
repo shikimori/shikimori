@@ -1,4 +1,4 @@
-- linked = @view.linked || (@resource && @resource.linked)
+- linked = @forums_view.linked || (@resource && @resource.linked)
 
 .menu-toggler.ipad-expanded
   .toggler
@@ -26,7 +26,7 @@ header.head
       = yield
 
     aside.l-menu.ajax-opacity
-      = render 'menu_actions', menu: @view.menu
+      = render 'menu_actions', menu: @forums_view.menu
 
       - if linked
         - if linked.kind_of?(Anime) || linked.kind_of?(Manga)
@@ -49,10 +49,10 @@ header.head
 
         - elsif linked.kind_of? CosplayGallery
           = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
-          = render 'menu', menu: @view.menu
+          = render 'menu', menu: @forums_view.menu
 
         - else raise "unknown linked: #{linked.class}"
 
       - else
         = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
-        = render 'menu', menu: @view.menu
+        = render 'menu', menu: @forums_view.menu

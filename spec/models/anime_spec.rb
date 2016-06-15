@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Anime do
   describe 'relations' do
     it { is_expected.to have_and_belong_to_many :genres }
@@ -8,8 +10,12 @@ describe Anime do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many :topics }
-    it { is_expected.to have_many :news }
+    it { is_expected.to have_many :news_topics }
+
+    it { is_expected.to have_many :anons_news_topics }
+    it { is_expected.to have_many :episode_news_topics }
+    it { is_expected.to have_many :ongoing_news_topics }
+    it { is_expected.to have_many :released_news_topics }
 
     it { is_expected.to have_many :related }
     it { is_expected.to have_many :related_animes }
@@ -17,8 +23,6 @@ describe Anime do
 
     it { is_expected.to have_many :similar }
     it { is_expected.to have_many :links }
-
-    it { is_expected.to have_one :topic }
 
     it { is_expected.to have_many :user_histories }
 
@@ -56,191 +60,100 @@ describe Anime do
     it { is_expected.to enumerize(:origin) }
   end
 
-  #it 'should sync episodes_aired with episodes' do
-    #anime = create :anime, :ongoing, episodes: 20, episodes_aired: 10
-    #anime.status = :released
+  describe 'news topics generation' do
+    context 'news topics already generated' do
+      let(:anime) { create :anime, :with_callbacks, status: :ongoing }
 
-    #anime.episodes_aired.should_not eq(anime.episodes)
-
-    #anime.save
-
-    #anime.episodes_aired.should eq(anime.episodes)
-  #end
-
-  # TODO: refactor specs
-  describe 'Topics::NewsTopic' do
-    describe 'created anime' do
-      it 'with Ongoing status generates new Topics::NewsTopic entry' do
-        expect {
-          create :anime, :with_callbacks, status: :ongoing
-        }.to change(Topics::NewsTopic.where(action: AnimeHistoryAction::Ongoing), :count).by 1
+      let!(:ru_news_topic) do
+        create :news_topic,
+          linked: anime,
+          action: AnimeHistoryAction::Anons,
+          value: nil,
+          locale: :ru
+      end
+      let!(:en_news_topic) do
+        create :news_topic,
+          linked: anime,
+          action: AnimeHistoryAction::Anons,
+          value: nil,
+          locale: :en
       end
 
-      it 'with Anons status generates new Topics::NewsTopic entry' do
-        expect {
-          create :anime, :with_callbacks, status: :anons
-        }.to change(Topics::NewsTopic.where(action: AnimeHistoryAction::Anons), :count).by 1
-      end
+      before { anime.update status: :anons }
 
-      it "with Released status doesn't generate new Topics::NewsTopic entry" do
-        expect {
-          create :anime, :with_callbacks, status: :released
-        }.to_not change(Topics::NewsTopic, :count)
+      it 'does not generate more news topics' do
+        expect(anime.anons_news_topics).to eq [en_news_topic, ru_news_topic]
       end
     end
 
-    describe 'changed anime' do
-      describe 'status' do
-        it 'anons with aired_on > now() => ongoing' do
-          anime = create :anime, :with_callbacks, status: :anons, aired_on: Time.zone.now + 1.week
+    context 'status changed' do
+      context 'to anons (anime just created)' do
+        let!(:anime) { create :anime, :with_callbacks, status: :anons }
 
-          expect{anime.update status: :ongoing}.to_not change(Topics::NewsTopic, :count)
-          expect(anime).to be_anons
+        it 'generates 2 anons news topics' do
+          expect(anime.anons_news_topics).to have(2).items
         end
+      end
 
-        it 'ongoing => anons' do
-          anime = create :anime, :with_callbacks, status: :ongoing
+      context 'from anons to ongoing' do
+        let(:anime) { create :anime, :with_callbacks, status: :anons }
+        before { anime.update status: :ongoing }
 
-          expect{anime.update status: :anons}.to_not change(Topics::NewsTopic, :count)
-          expect(anime).to be_anons
+        it 'generates 2 ongoing news topics' do
+          expect(anime.ongoing_news_topics).to have(2).items
         end
+      end
+    end
 
-        it "should not crete news for ancient releases" do
-          anime = create :anime, :with_callbacks, status: :ongoing
-
-          expect{anime.update status: :released, released_on: Time.zone.now - 33.days}.to_not change(Topics::NewsTopic, :count)
+    context 'status rollbacked' do
+      context 'from ongoing back to anons' do
+        let(:anime) do
+          create :anime, :with_callbacks,
+            status: :anons,
+            aired_on: Time.zone.tomorrow
         end
+        before { anime.update status: :ongoing }
 
-        describe 'ongoing => released' do
-          let!(:anime) { create :anime, :with_callbacks, anime_params }
-          let(:anime_params) {{
+        it 'does not change status and does not generate news topics' do
+          expect(anime.status).to be_anons
+          expect(anime.ongoing_news_topics).to be_empty
+        end
+      end
+
+      context 'from released back to ongoing' do
+        let(:anime) do
+          create :anime, :with_callbacks,
             status: :ongoing,
-            episodes: 10,
-            episodes_aired: episodes_aired,
-            aired_on: 5.month.ago,
-            released_on: released_on
-          }}
-          let(:finalize) { anime.update status: :released }
-
-          let(:released_on) { Time.zone.tomorrow }
-          let(:episodes_aired) { 9 }
-
-          context 'released_on is present' do
-            context 'one episode left' do
-              context 'release is in the future' do
-                let(:released_on) { Time.zone.tomorrow }
-
-                it do
-                  expect{finalize}.to_not change(Topics::NewsTopic, :count)
-                  expect(anime).to be_ongoing
-                end
-              end
-
-              context 'release was yesterday' do
-                let(:released_on) { Time.zone.today - 1.day }
-
-                it do
-                  expect{finalize}.to change(Topics::NewsTopic, :count)
-                  expect(anime).to be_released
-                end
-              end
-            end
-
-            context 'more than one episode left' do
-              let(:episodes_aired) { 8 }
-
-              context 'release is in the future' do
-                let(:released_on) { Time.zone.tomorrow }
-
-                it do
-                  expect{finalize}.to_not change(Topics::NewsTopic, :count)
-                  expect(anime).to be_ongoing
-                end
-              end
-
-              context 'release is today' do
-                let(:released_on) { Time.zone.today }
-
-                it do
-                  expect{finalize}.to change(Topics::NewsTopic, :count)
-                  expect(anime).to be_released
-                end
-              end
-            end
-          end
-
-          context 'released_on is absent' do
-            let(:released_on) { nil }
-
-            it do
-              expect{finalize}.to change(Topics::NewsTopic, :count)
-              expect(anime).to be_released
-            end
-          end
+            released_on: Time.zone.today
         end
+        before { anime.update status: :released }
 
-        it 'Ongoing to Released with released_on more than 2.weeks.ago' do
-          anime = create :anime, :with_callbacks, status: :ongoing
-
-          anime.update(status: :released, released_on: Time.zone.now - 15.days)
-          news = Topics::NewsTopic.last
-
-          expect(news.processed).to be(true)
-          expect(news.created_at.to_date).to eq anime.released_on
-        end
-
-        it 'Ongoing to Released to Ongoing to Released' do
-          anime = create :anime, :with_callbacks, status: :ongoing
-          anime.update status: :released
-
-          expect{anime.update status: :ongoing}.to_not change(Topics::NewsTopic, :count)
-          expect(anime).to be_ongoing
-
-          expect{anime.update status: :released}.to_not change(Topics::NewsTopic, :count)
-          expect(anime).to be_released
-        end
-
-        it "'' to Released" do
-          anime = create :anime, status: ''
-          expect {
-            anime.update(status: :released, aired_on: Time.zone.now - 15.months)
-          }.to_not change(Topics::NewsTopic, :count)
-        end
-      end
-
-      describe 'episodes' do
-        it 'Anons with episodes_aired > 0 becomes Ongoing' do
-          anime = create :anime, :with_callbacks, status: :anons
-
-          expect{anime.update episodes_aired: 1}.to change(Topics::NewsTopic.where(action: AnimeHistoryAction::Ongoing), :count).by 1
-          expect(anime).to be_ongoing
-        end
-
-        it 'Ongoing with episodes_aired == episodes becomes Released' do
-          anime = create :anime, :with_callbacks, status: :ongoing, episodes: 2, aired_on: Time.zone.now - 3.month
-          query = Topics::NewsTopic.where(action: AnimeHistoryAction::Released)
-
-          expect{anime.update episodes_aired: 2}.to change(query, :count).by 1
-          expect(anime).to be_released
+        it 'does not change status and does not generate news topics' do
+          expect(anime.status).to be_ongoing
+          expect(anime.released_news_topics).to be_empty
         end
       end
     end
 
-    describe "reset episodes_aired" do
-      let!(:anime) { create :anime, :with_callbacks, status: :ongoing, episodes: 20, episodes_aired: 10 }
+    context 'number of aired episodes changed' do
+      context 'first episodes aired' do
+        let(:anime) { create :anime, :with_callbacks, status: :anons, episodes: 5 }
+        before { anime.update episodes_aired: 1 }
 
-      it "shouldn't generate new Topics::NewsTopic" do
-        expect {
-          anime.update episodes_aired: 0
-        }.to_not change(Topics::NewsTopic, :count)
+        it 'changes status to ongoing and generates 2 ongoing news topics' do
+          expect(anime.status).to be_ongoing
+          expect(anime.ongoing_news_topics).to have(2).items
+        end
       end
 
-      it "should reset anime's Topics::NewsTopic" do
-        create :news_topic, linked: anime, action: AnimeHistoryAction::Episode
-        create :news_topic, linked: anime, action: AnimeHistoryAction::Episode
-        expect {
-          anime.update episodes_aired: 0
-        }.to change(Topics::NewsTopic, :count).by(-2)
+      context 'final episodes aired' do
+        let(:anime) { create :anime, :with_callbacks, status: :ongoing, episodes: 5 }
+        before { anime.update episodes_aired: 5 }
+
+        it 'changes status to released and generates 2 released news topics' do
+          expect(anime.status).to be_released
+          expect(anime.released_news_topics).to have(2).items
+        end
       end
     end
   end
@@ -325,4 +238,6 @@ describe Anime do
       it { expect(anime.schedule_at).to be_nil }
     end
   end
+
+  it_behaves_like :topics_concern_in_db_entry, :anime
 end

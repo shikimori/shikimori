@@ -22,11 +22,12 @@ describe Forums::View do
     end
   end
 
-  describe '#topics' do
+  describe '#topic_views' do
     before { user.preferences.forums = [offtopic_forum.id] }
+
     it do
-      expect(view.topics).to have(1).item
-      expect(view.topics.first).to be_kind_of Topics::View
+      expect(view.topic_views).to have(1).item
+      expect(view.topic_views.first).to be_kind_of Topics::View
     end
   end
 
@@ -56,7 +57,7 @@ describe Forums::View do
     context 'first page' do
       let(:params) { { forum: 'all', linked_type: 'xx', linked_id: 'zz' } }
       before do
-        allow(view).to receive(:topics).and_return double(
+        allow(view).to receive(:topic_views).and_return double(
           next_page: 3,
           prev_page: nil
         )
@@ -79,7 +80,7 @@ describe Forums::View do
 
   describe '#faye_subscriptions' do
     before { user.preferences.forums = [offtopic_forum.id] }
-    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}"] }
+    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"] }
   end
 
   describe '#menu' do

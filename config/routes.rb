@@ -10,7 +10,6 @@ Site::Application.routes.draw do
 
   concern :db_entry do |options|
     member do
-      get :comments
       get :favoured
       get 'tooltip(/:minified)' => :tooltip, as: :tooltip, minified: /minified/
       get 'edit/:field' => :edit_field, as: :edit_field, field: options[:fields]
@@ -429,7 +428,6 @@ Site::Application.routes.draw do
 
     resources :clubs do
       member do
-        get :comments
         get :members
         get :animes
         get :mangas
@@ -670,8 +668,6 @@ Site::Application.routes.draw do
         post :propose
         post :stop_propose
         post :cleanup_suggestions
-
-        get :comments
 
         get :grid
         get 'rounds/:round', action: 'show', as: 'round'

@@ -1,6 +1,18 @@
 class AnimeDecorator < AniMangaDecorator
   instance_cache :files, :next_episode_at
 
+  # новости
+  def news_topic_views
+    object
+      .news_topics
+      .where(locale: h.locale_from_domain)
+      .includes(:forum)
+      .limit(NEWS_PER_PAGE)
+      .order(:created_at)
+      .map { |topic| Topics::TopicViewFactory.new(false, false).build topic }
+      .map { |topic_view| format_menu_topic topic_view, :created_at }
+  end
+
   # скриншоты
   def screenshots limit=nil
     return [] if Copyright::SCREENSHOTS.include?(id) || !h.ignore_copyright?

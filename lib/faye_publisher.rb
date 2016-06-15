@@ -1,11 +1,10 @@
 # Публикация различных уведомлений через Faye
 # FayePublisher.publish({ data: { comment_id: 2919 } }, ['/topic-77141'])
-# FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/forum-1'])
+# FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/forum-1/ru'])
 class FayePublisher
   BroadcastFeed = 'myfeed'
 
   def initialize actor, publisher_faye_id = nil
-    @namespace = ''
     @publisher_faye_id = publisher_faye_id
     @actor = actor
   end
@@ -70,7 +69,7 @@ private
     }
 
     mixed_channels = channels + subscribed_channels(topic) +
-      ["#{@namespace}/forum-#{topic.forum_id}", "#{@namespace}/topic-#{topic.id}"]
+      [forum_channel(topic.forum_id, topic.locale), "/topic-#{topic.id}"]
 
     publish_data data, mixed_channels
   end
@@ -85,7 +84,7 @@ private
       message_id: message.id
     }
 
-    mixed_channels = channels + ["#{@namespace}/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
+    mixed_channels = channels + ["/dialog-#{[message.from_id, message.to_id].sort.join '-'}"]
     publish_data data, mixed_channels
   end
 
@@ -131,18 +130,19 @@ private
   end
 
 private
+
   def comment_channels comment, channels
     topic = comment.commentable
     topic_type = comment.commentable_type == User.name ? 'user' : 'topic'
 
     mixed_channels = channels + subscribed_channels(topic) +
-      ["#{@namespace}/#{topic_type}-#{topic.id}"]
+      ["/#{topic_type}-#{topic.id}"]
 
     # уведомление в открытые разделы
     if topic.kind_of? Topics::EntryTopics::ClubTopic
-      mixed_channels += ["#{@namespace}/club-#{topic.linked_id}"]
+      mixed_channels += ["/club-#{topic.linked_id}"]
     elsif topic.respond_to? :forum_id
-      mixed_channels += ["#{@namespace}/forum-#{topic.forum_id}"]
+      mixed_channels += [forum_channel(topic.forum_id, topic.locale)]
     end
 
     mixed_channels
@@ -163,5 +163,9 @@ private
       EM.run
     end unless EM.reactor_running?
     Thread.pass until EM.reactor_running?
+  end
+
+  def forum_channel forum_id, locale
+    "/forum-#{forum_id}/#{locale}"
   end
 end

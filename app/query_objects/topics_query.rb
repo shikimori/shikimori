@@ -17,11 +17,12 @@ SQL
 SQL
   CLUBS_JOIN = "left join clubs on clubs.id=linked_id and linked_type='Club'"
 
-  def self.fetch user
+  def self.fetch user, locale
     query = new Entry
       .with_viewed(user)
       .includes(:forum, :user)
       .order(updated_at: :desc)
+      .where(locale: locale)
 
     query.except_hentai.except_ignored(user)
   end

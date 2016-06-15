@@ -24,7 +24,7 @@ class FranchiseSerializer < ActiveModel::Serializer
       {
         id: entry.id,
         date: (entry.aired_on || Time.zone.now).to_time.to_i,
-        name: UsersHelper.localized_name(entry, scope),
+        name: UsersHelper.localized_name(entry, scope.current_user),
         image_url: ImageUrlGenerator.instance.url(entry, :x96),
         url: url_for(entry),
         year: entry.aired_on.try(:year),

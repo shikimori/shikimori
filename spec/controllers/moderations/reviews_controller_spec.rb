@@ -16,7 +16,7 @@ describe Moderations::ReviewsController do
   end
 
   describe 'reject' do
-    let(:review) { create :review, :with_topic, user: user }
+    let(:review) { create :review, :with_topics, user: user }
     before { post :reject, id: review.id }
 
     specify { expect(assigns(:review).rejected?).to be_truthy }

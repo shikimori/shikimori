@@ -1,3 +1,5 @@
+- comments_count = @resource.maybe_topic(locale_from_domain).comments_count
+
 = render layout: 'page' do
   img#social_image[
     src="/images/static/contest.jpg"
@@ -15,12 +17,13 @@
     - else
       = render 'round', contest: @resource
 
-  - if user_signed_in? || @resource.topic.comments_count > 0
-    - if @resource.topic.comments_count > 0
+  - if user_signed_in? || comments_count > 0
+    - if comments_count > 0
       .subheadline.m3
         .linkeable[
-          data-href="#{comments_contest_url @resource}"
+          data-href="#{@resource.comments_url}"
         ] = t '.discussion'
     div
       .b-topic.unprocessed data-faye="#{@resource.preview_topic_view.faye_channel}"
-        = render 'topics/comments', view: @resource.preview_topic_view.comments_view
+        = render 'topics/comments',
+          comments_view: @resource.preview_topic_view.comments_view

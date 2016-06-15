@@ -14,20 +14,20 @@ FactoryGirl.define do
     next_episode_at nil
 
     after :build do |anime|
-      anime.stub :check_status
-      anime.stub :update_news
+      anime.stub :track_changes
+      anime.stub :generate_news
       anime.stub :generate_name_matches
     end
 
     trait :with_callbacks do
       after :build do |anime|
-        anime.unstub :check_status
-        anime.unstub :update_news
+        anime.unstub :track_changes
+        anime.unstub :generate_news
       end
     end
 
-    trait :with_topic do
-      after(:create) { |anime| anime.generate_topic }
+    trait :with_topics do
+      after(:create) { |anime| anime.generate_topics :ru }
     end
 
     trait :with_character do

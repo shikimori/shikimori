@@ -4,7 +4,7 @@ require_dependency 'publisher'
 
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
-    :nickname_changes, :clubs, :favourites,
+    :nickname_changes, :favourites,
     :main_comments_view, :preview_comments_view, :ignored_topics
 
   def about_above?
@@ -125,14 +125,10 @@ class UserProfileDecorator < UserDecorator
   end
 
   def random_clubs
-    clubs
+    clubs_for_domain
       .sort_by { rand }
       .take(4)
       .sort_by(&:name)
-  end
-
-  def clubs
-    object.clubs.sort_by(&:name)
   end
 
   def compatibility klass

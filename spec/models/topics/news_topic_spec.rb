@@ -12,17 +12,17 @@ describe Topics::NewsTopic do
       context 'generated' do
         let(:generated) { true }
 
-        context 'episode news' do
+        context 'episode news topic' do
           let(:action) { 'episode' }
           it { is_expected.to eq 'Эпизод 1' }
         end
 
-        context 'anons news' do
+        context 'anons news topic' do
           let(:topic) { build :news_topic, :anime_anons }
           it { is_expected.to eq 'Анонс' }
         end
 
-        context 'other news' do
+        context 'another news topic' do
           let(:action) { 'ongoing' }
           it { is_expected.to eq 'Онгоинг' }
         end

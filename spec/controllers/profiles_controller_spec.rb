@@ -26,7 +26,7 @@ describe ProfilesController do
     end
 
     context 'with clubs' do
-      let(:club) { create :club, :with_topic }
+      let(:club) { create :club, :with_topics }
       let!(:club_role) { create :club_role, user: user, club: club }
       before { get :clubs, id: user.to_param }
       it { expect(response).to have_http_status :success }
@@ -47,7 +47,7 @@ describe ProfilesController do
   end
 
   describe '#reviews' do
-    let!(:review) { create :review, :with_topic, user: user }
+    let!(:review) { create :review, :with_topics, user: user }
     before { get :reviews, id: user.to_param }
     it { expect(response).to have_http_status :success }
   end

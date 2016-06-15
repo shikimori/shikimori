@@ -37,7 +37,7 @@ describe ContestsController do
 
   describe '#show' do
     let(:user) { create :user, :user }
-    let(:contest) { create :contest, :with_5_members, :with_topic, user: user }
+    let(:contest) { create :contest, :with_5_members, :with_topics, user: user }
 
     context 'started' do
       before { contest.start! }
@@ -56,7 +56,7 @@ describe ContestsController do
     context 'finished' do
       before do
         contest.start!
-        contest.rounds.each do |round|
+        contest.rounds.each do
           contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
           contest.progress!
           contest.reload
@@ -68,7 +68,7 @@ describe ContestsController do
     end
 
     context 'proposing' do
-      let(:contest) { create :contest, :with_topic, :proposing, user: user }
+      let(:contest) { create :contest, :with_topics, :proposing, user: user }
       before { get :show, id: contest.to_param }
 
       it { expect(response).to have_http_status :success }
@@ -98,19 +98,6 @@ describe ContestsController do
     end
   end
 
-  describe '#comments' do
-    let!(:contest) { create :contest, :with_topic, user: user }
-    let!(:comment) { create :comment, commentable: contest.topic }
-
-    before { get :comments, id: contest.to_param }
-
-    it do
-      expect(response).to redirect_to(
-        forum_topic_url(id: contest.topic, forum: contests_forum)
-      )
-    end
-  end
-
   describe '#new' do
     before { get :new }
     it { expect(response).to have_http_status :success }
@@ -133,16 +120,20 @@ describe ContestsController do
         patch :update, id: contest.id, contest: attr.merge(description: 'zxc')
       end
 
-      it { expect(response).to redirect_to edit_contest_url(assigns :resource) }
-      it { expect(resource.description).to eq 'zxc' }
-      it { expect(resource.errors).to be_empty }
+      it do
+        expect(resource.description).to eq 'zxc'
+        expect(resource.errors).to be_empty
+        expect(response).to redirect_to edit_contest_url(resource)
+      end
     end
 
     context 'when validation errors' do
       before { patch 'update', id: contest.id, contest: { title: '' } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(resource.errors).to_not be_empty }
+      it do
+        expect(resource.errors).to_not be_empty
+        expect(response).to have_http_status :success
+      end
     end
   end
 
@@ -155,8 +146,10 @@ describe ContestsController do
     context 'when validation errors' do
       before { post :create, contest: { id: 1 } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(resource.new_record?).to be true }
+      it do
+        expect(resource).to be_new_record
+        expect(response).to have_http_status :success
+      end
     end
   end
 
@@ -164,16 +157,20 @@ describe ContestsController do
     let(:contest) { create :contest, :with_5_members, user: user }
     before { post :start, id: contest.to_param }
 
-    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.started?).to be true }
+    it do
+      expect(resource).to be_started
+      expect(response).to redirect_to edit_contest_url(id: resource.to_param)
+    end
   end
 
   describe '#propose' do
     let(:contest) { create :contest, user: user }
     before { post :propose, id: contest.to_param }
 
-    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.proposing?).to be true }
+    it do
+      expect(resource).to be_proposing
+      expect(response).to redirect_to edit_contest_url(id: resource.to_param)
+    end
   end
 
   describe '#cleanup_suggestions' do
@@ -182,34 +179,40 @@ describe ContestsController do
     let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, id: 2, sign_in_count: 999) }
     before { post :cleanup_suggestions, id: contest.to_param }
 
-    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.suggestions.size).to eq(1) }
+    it do
+      expect(resource.suggestions).to have(1).item
+      expect(response).to redirect_to edit_contest_url(id: resource.to_param)
+    end
   end
 
   describe '#stop_propose' do
     let(:contest) { create :contest, state: :proposing, user: user }
     before { post :stop_propose, id: contest.to_param }
 
-    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.created?).to be true }
+    it do
+      expect(resource).to be_created
+      expect(response).to redirect_to edit_contest_url(id: resource.to_param)
+    end
   end
 
-  #describe '#finish' do
-    #let(:contest) { create :contest, :with_5_members, user: user }
-    #before do
-      #contest.start
-      #get 'finish', id: contest.to_param
-    #end
+  # describe '#finish' do
+    # let(:contest) { create :contest, :with_5_members, user: user }
+    # before do
+      # contest.start
+      # get 'finish', id: contest.to_param
+    # end
 
-    #it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    #it { expect(resource.state).to eq 'finished' }
-  #end
+    # it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
+    # it { expect(resource.state).to eq 'finished' }
+  # end
 
   describe '#build' do
-    let(:contest) { create :contest,:with_5_members, user: user }
+    let(:contest) { create :contest, :with_5_members, user: user }
     before { post :build, id: contest.to_param }
 
-    it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    it { expect(resource.rounds.size).to eq(6) }
+    it do
+      expect(resource.rounds).to have(6).items
+      expect(response).to redirect_to edit_contest_url(id: resource.to_param)
+    end
   end
 end

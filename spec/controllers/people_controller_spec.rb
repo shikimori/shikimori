@@ -10,7 +10,7 @@ describe PeopleController do
   end
 
   describe '#show' do
-    let!(:person) { create :person, :with_topic, mangaka: true }
+    let!(:person) { create :person, :with_topics, mangaka: true }
     before { get :show, id: person.to_param }
     it { expect(response).to have_http_status :success }
   end
@@ -27,22 +27,13 @@ describe PeopleController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#comments' do
-    let(:person) { create :person, :with_topic }
-    let!(:comment) { create :comment, commentable: person.topic }
-    before { get :comments, id: person.to_param }
-
-    it { expect(response).to redirect_to UrlGenerator.instance
-      .topic_url(person.topic) }
-  end
-
   describe '#tooltip' do
     before { get :tooltip, id: person.to_param }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#autocomplete' do
-    ['mangaka', 'seyu', 'producer'].each do |kind|
+    %w(mangaka seyu producer).each do |kind|
       describe kind do
         let!(:person_1) { create :person, kind => true, name: 'Fffff' }
         let!(:person_2) { create :person, kind => true, name: 'zzz Ffff' }

@@ -1,5 +1,3 @@
-require 'cancan/matchers'
-
 describe Genre do
   describe 'relations' do
     it { have_and_belong_to_many :animes }

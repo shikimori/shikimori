@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
 
   layout :set_layout
   before_action :set_locale
+  before_action :set_user_locale_from_domain
   before_action :set_layout_view
   before_action :fix_googlebot
   before_action :touch_last_online
@@ -26,6 +27,7 @@ class ApplicationController < ActionController::Base
   helper_method :base_controller_names
   helper_method :ignore_copyright?
 
+  helper_method :locale_from_domain
   helper_method :i18n_i, :i18n_io
 
   NOT_FOUND_ERRORS = [
@@ -82,6 +84,10 @@ class ApplicationController < ActionController::Base
   # находимся ли сейчас на домене шикимори?
   def ru_domain?
     request.host.include?(ShikimoriDomain::RU_HOST) || Rails.env.test?
+  end
+
+  def locale_from_domain
+    ru_domain? ? :ru : :en
   end
 
   # находимся ли сейчас на домене шикимори?
@@ -178,8 +184,13 @@ private
 
   def set_locale
     I18n.locale = params[:locale] ||
-      (I18n::LOCALES[current_user.language] if user_signed_in?) ||
-      (ru_domain? ? :ru : :en)
+      current_user&.locale ||
+      locale_from_domain
+  end
+
+  def set_user_locale_from_domain
+    return unless user_signed_in?
+    current_user.update locale_from_domain: locale_from_domain
   end
 
   # гугловский бот со странным format иногда ходит

@@ -38,7 +38,7 @@ describe HistoryWorker do
   end
 
   describe "doesn't create Message" do
-    it 'for old news' do
+    it 'for old news topic' do
       create :topic, user: users.last, broadcast: true, created_at: HistoryWorker::NEWS_EXPIRE_IN.ago - 1.day
       expect{subject}.to_not change Message, :count
     end

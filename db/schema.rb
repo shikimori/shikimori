@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160602194350) do
+ActiveRecord::Schema.define(version: 20160605104311) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.boolean  "display_images",                default: true
     t.integer  "comment_policy",                default: 1,           null: false
     t.boolean  "is_censored",                   default: false,       null: false
+    t.string   "locale",                                              null: false
   end
 
   create_table "comment_views", force: :cascade do |t|
@@ -346,7 +347,6 @@ ActiveRecord::Schema.define(version: 20160602194350) do
   add_index "contest_user_votes", ["contest_match_id"], name: "index_contest_user_votes_on_contest_vote_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
-    t.string   "title",                limit: 255
     t.text     "description"
     t.integer  "user_id"
     t.string   "state",                limit: 255, default: "created"
@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
+    t.string   "title",                limit: 50
   end
 
   add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
@@ -451,6 +452,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.string   "value",          limit: 255
     t.integer  "comments_count",             default: 0
     t.boolean  "broadcast",                  default: false
+    t.string   "locale",                                     null: false
   end
 
   add_index "entries", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
@@ -753,6 +755,7 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.string   "source",      limit: 255
     t.string   "state",       limit: 255, default: "pending"
     t.integer  "approver_id"
+    t.string   "locale",                                      null: false
   end
 
   add_index "reviews", ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type", using: :btree
@@ -988,13 +991,14 @@ ActiveRecord::Schema.define(version: 20160602194350) do
     t.datetime "avatar_updated_at"
     t.date     "birth_on"
     t.datetime "read_only_at"
-    t.boolean  "can_vote_1",                         default: false,     null: false
-    t.boolean  "can_vote_2",                         default: false,     null: false
-    t.boolean  "can_vote_3",                         default: false,     null: false
+    t.boolean  "can_vote_1",                         default: false,   null: false
+    t.boolean  "can_vote_2",                         default: false,   null: false
+    t.boolean  "can_vote_3",                         default: false,   null: false
     t.datetime "reset_password_sent_at"
     t.string   "remember_token",         limit: 255
     t.string   "api_access_token"
-    t.string   "language",                           default: "russian"
+    t.string   "locale",                             default: "ru",    null: false
+    t.string   "locale_from_domain",                 default: "ru",    null: false
   end
 
   add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree

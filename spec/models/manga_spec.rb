@@ -1,35 +1,33 @@
+# frozen_string_literal: true
+
 describe Manga do
   describe 'relations' do
-    it { should have_and_belong_to_many :genres }
-    it { should have_and_belong_to_many :publishers }
+    it { is_expected.to have_and_belong_to_many :genres }
+    it { is_expected.to have_and_belong_to_many :publishers }
 
-    it { should have_many :person_roles }
-    it { should have_many :characters }
-    it { should have_many :people }
+    it { is_expected.to have_many :person_roles }
+    it { is_expected.to have_many :characters }
+    it { is_expected.to have_many :people }
 
-    it { should have_many :rates }
-    it { should have_many :topics }
-    it { should have_many :news }
+    it { is_expected.to have_many :rates }
 
-    it { should have_many :related }
-    it { should have_many :related_mangas }
-    it { should have_many :related_animes }
+    it { is_expected.to have_many :related }
+    it { is_expected.to have_many :related_mangas }
+    it { is_expected.to have_many :related_animes }
 
-    it { should have_many :similar }
+    it { is_expected.to have_many :similar }
 
-    it { should have_one :topic }
+    it { is_expected.to have_many :user_histories }
 
-    it { should have_many :user_histories }
+    it { is_expected.to have_many :cosplay_gallery_links }
+    it { is_expected.to have_many :cosplay_galleries }
 
-    it { should have_many :cosplay_gallery_links }
-    it { should have_many :cosplay_galleries }
+    it { is_expected.to have_many :reviews }
 
-    it { should have_many :reviews }
+    it { is_expected.to have_attached_file :image }
 
-    it { should have_attached_file :image }
-
-    it { should have_many :recommendation_ignores }
-    it { should have_many :manga_chapters }
+    it { is_expected.to have_many :recommendation_ignores }
+    it { is_expected.to have_many :manga_chapters }
 
     it { is_expected.to have_many :name_matches }
   end
@@ -60,4 +58,6 @@ describe Manga do
       it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
     end
   end
+
+  it_behaves_like :topics_concern_in_db_entry, :manga
 end

@@ -5,6 +5,8 @@ FactoryGirl.define do
     sequence(:title) { |n| "topic_#{n}" }
     sequence(:body) { |n| "topic_text_#{n}" }
 
+    locale 'ru'
+
     factory :anime_topic, class: 'Topics::EntryTopics::AnimeTopic' do
       type 'Topics::EntryTopics::AnimeTopic'
       forum { seed :animanga_forum }
@@ -13,6 +15,18 @@ FactoryGirl.define do
 
     factory :manga_topic, class: 'Topics::EntryTopics::MangaTopic' do
       type 'Topics::EntryTopics::MangaTopic'
+      forum { seed :animanga_forum }
+      generated true
+    end
+
+    factory :character_topic, class: 'Topics::EntryTopics::CharacterTopic' do
+      type 'Topics::EntryTopics::CharacterTopic'
+      forum { seed :animanga_forum }
+      generated true
+    end
+
+    factory :person_topic, class: 'Topics::EntryTopics::PersonTopic' do
+      type 'Topics::EntryTopics::PersonTopic'
       forum { seed :animanga_forum }
       generated true
     end

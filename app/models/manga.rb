@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class Manga < DbEntry
   include AniManga
+  include TopicsConcern
+
   EXCLUDED_ONGOINGS = [-1]
 
   DESYNCABLE = %w(
@@ -41,15 +45,6 @@ class Manga < DbEntry
   has_many :related_mangas, -> { where.not related_mangas: { manga_id: nil } },
     through: :related,
     source: :manga
-
-  has_many :topics, -> { order updated_at: :desc },
-    class_name: Entry.name,
-    as: :linked,
-    dependent: :destroy
-
-  has_many :news, -> { order created_at: :desc },
-    class_name: Topics::NewsTopic.name,
-    as: :linked
 
   has_many :similar, -> { order id: :desc },
     class_name: SimilarManga.name,

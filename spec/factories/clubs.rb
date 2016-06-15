@@ -6,9 +6,10 @@ FactoryGirl.define do
     association :owner, factory: :user
     description ''
 
+    locale :ru
+
     after :build do |club|
       club.stub :join_owner
-      club.stub :generate_topic
     end
 
     trait :free_join do
@@ -49,10 +50,8 @@ FactoryGirl.define do
       end
     end
 
-    trait :with_topic do
-      after :build do |club|
-        club.unstub :generate_topic
-      end
+    trait :with_topics do
+      after(:create) { |club| club.generate_topics club.locale }
     end
 
     trait :with_logo do

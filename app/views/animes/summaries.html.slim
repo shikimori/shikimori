@@ -1,7 +1,7 @@
 = render layout: 'page' do
   .b-options-floated.mobile-phone_portrait
     span.link.selected = t '.all_summaries'
-      span.brackets = @resource.topic.summaries_count
+      span.brackets = @resource.maybe_topic(locale_from_domain).summaries_count
 
     a href="#{@resource.comments_url}" = t '.all_comments'
       span.brackets = @resource.comments_count
@@ -9,4 +9,5 @@
 
   div
     .b-topic.unprocessed
-      = render 'topics/comments', view: @resource.main_topic_view.comments_view
+      = render 'topics/comments',
+        comments_view: @resource.main_topic_view.comments_view

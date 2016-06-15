@@ -6,4 +6,10 @@ class Topics::Generate::UserTopic < Topics::Generate::BaseTopic
     faye_service.create! topic
     topic
   end
+
+private
+
+  def faye_service
+    FayeService.new user, nil
+  end
 end

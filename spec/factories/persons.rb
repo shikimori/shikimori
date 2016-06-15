@@ -7,8 +7,8 @@ FactoryGirl.define do
         ]
     end
 
-    trait :with_topic do
-      after(:create) { |v| v.generate_topic }
+    trait :with_topics do
+      after(:create) { |v| v.generate_topics :ru }
     end
   end
 end

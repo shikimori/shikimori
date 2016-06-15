@@ -13,8 +13,9 @@ describe CosplayGalleriesController do
     before { post :publish, id: cosplay_gallery.id }
 
     it do
+      expect(cosplay_gallery.topics).to have(2).items
       expect(response).to redirect_to(
-        UrlGenerator.instance.topic_url(cosplay_gallery.topic)
+        UrlGenerator.instance.topic_url(cosplay_gallery.topic(:ru))
       )
     end
   end

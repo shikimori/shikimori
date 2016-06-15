@@ -1,5 +1,3 @@
-require 'cancan/matchers'
-
 describe Api::V1::DevicesController, :show_in_doc do
   include_context :authenticated, :user
   let(:user) { create :user, :user }
