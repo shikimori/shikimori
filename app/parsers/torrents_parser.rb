@@ -244,7 +244,7 @@ class TorrentsParser
           new_episodes << entry
 
           aired_at = (entry[:pubDate] || Time.zone.now) + episode.seconds
-          I18n.available_locales.each do |locale|
+          Site::DOMAIN_LOCALES.each do |locale|
             Topics::Generate::News::EpisodeTopic.call(
               anime, anime.topic_user, locale, aired_at
             )

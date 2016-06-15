@@ -151,7 +151,7 @@ describe Review do
         end
 
         context 'locale not from model' do
-          let(:locale) { (I18n.available_locales - [model.locale.to_sym]).sample }
+          let(:locale) { (Site::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
           it { expect(topic).to be_nil }
         end
       end
@@ -169,7 +169,7 @@ describe Review do
         end
 
         context 'locale not from model' do
-          let(:locale) { (I18n.available_locales - [model.locale.to_sym]).sample }
+          let(:locale) { (Site::DOMAIN_LOCALES - [model.locale.to_sym]).sample }
           it do
             expect(topic).to be_present
             expect(topic).to be_instance_of NoTopic

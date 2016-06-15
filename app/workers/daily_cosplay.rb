@@ -5,7 +5,7 @@ class DailyCosplay
     galleries = CosplayGallery.without_topics.to_a
 
     sample_gallery = galleries.sample
-    sample_gallery.generate_topics(I18n.available_locales)
+    sample_gallery.generate_topics(Site::DOMAIN_LOCALES)
 
     sample_gallery.topics.each do |topic|
       FayePublisher.new(User.first).publish topic, :created, []
