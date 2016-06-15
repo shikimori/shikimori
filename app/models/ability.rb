@@ -116,7 +116,7 @@ class Ability
       club_role.user_id == @user.id
     end
 
-    can [:accept, :reject], ClubInvite, dst_id: @user.id, status: ClubInviteStatus::Pending
+    can [:accept, :reject], ClubInvite, dst_id: @user.id
     can :create, ClubInvite do |club_invite|
       club_invite.src_id == @user.id && club_invite.club.joined?(@user)
     end

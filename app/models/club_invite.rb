@@ -12,14 +12,18 @@ class ClubInvite < ActiveRecord::Base
   after_create :create_message
   after_create :cleanup_invites
 
-  def accept!
-    update_column :status, ClubInviteStatus::Accepted
+  def accept
+    if status == ClubInviteStatus::Pending
+      update status: ClubInviteStatus::Accepted
+      club.join dst
+    end
     message.update read: true
-    club.join dst
   end
 
-  def reject!
-    update_column :status, ClubInviteStatus::Rejected
+  def reject
+    if status == ClubInviteStatus::Pending
+      update status: ClubInviteStatus::Rejected
+    end
     message.update read: true
   end
 

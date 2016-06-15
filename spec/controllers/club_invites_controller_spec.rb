@@ -13,12 +13,20 @@ describe ClubInvitesController do
   describe '#accept' do
     let(:club_invite) { create :club_invite, :pending, dst: user }
     before { post :accept, club_id: club_invite.club_id, id: club_invite.id }
-    it { expect(response).to have_http_status :success }
+
+    it do
+      expect(resource.status).to eq ClubInviteStatus::Accepted
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#reject' do
     let(:club_invite) { create :club_invite, :pending, dst: user }
     before { post :reject, club_id: club_invite.club_id, id: club_invite.id }
-    it { expect(response).to have_http_status :success }
+
+    it do
+      expect(resource.status).to eq ClubInviteStatus::Rejected
+      expect(response).to have_http_status :success
+    end
   end
 end

@@ -1,7 +1,7 @@
 require 'sidekiq/web'
 
 Site::Application.routes.draw do
-  USER_ID = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
+  user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
   ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\
 (/genre/:genre)(/studio/:studio)(/publisher/:publisher)(/duration/:duration)\
@@ -246,7 +246,7 @@ Site::Application.routes.draw do
         resources :sessions, only: [:create]
       end
 
-      resources :users, only: [:index, :show], constraints: { id: USER_ID } do
+      resources :users, only: [:index, :show], constraints: { id: user_id } do
         collection do
           get :whoami
         end
@@ -742,7 +742,7 @@ Site::Application.routes.draw do
       end
     end
 
-    resources :profiles, path: '/', constraints: { id: USER_ID }, only: [:show, :update] do
+    resources :profiles, path: '/', constraints: { id: user_id }, only: [:show, :update] do
       member do
         get :friends
         get :favourites
