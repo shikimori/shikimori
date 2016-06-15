@@ -145,16 +145,6 @@ describe ClubsController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#comments' do
-    let(:club) { create :club, :with_topics }
-    let(:topic) { club.topic(controller.locale_from_domain) }
-    let!(:comment) { create :comment, commentable: topic }
-
-    before { get :comments, id: club.to_param }
-
-    it { expect(response).to redirect_to UrlGenerator.instance.topic_url(topic) }
-  end
-
   describe '#animes' do
     context 'without_animes' do
       before { get :animes, id: club.to_param }

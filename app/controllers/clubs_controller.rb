@@ -63,13 +63,6 @@ class ClubsController < ShikimoriController
     page_title i18n_t('club_members')
   end
 
-  # TODO: удалить после 05.2015
-  def comments
-    noindex
-    topic = @resource.maybe_topic locale_from_domain
-    redirect_to UrlGenerator.instance.topic_url(topic), status: 301
-  end
-
   def animes
     noindex
     redirect_to club_url(@resource) if @resource.animes.none?

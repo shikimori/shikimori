@@ -138,7 +138,8 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def comments_url
-    h.send "comments_#{klass_lower}_url", object
+    topic = object.maybe_topic h.locale_from_domain
+    UrlGenerator.instance.topic_url(topic) if topic
   end
 
   def next_versions_page

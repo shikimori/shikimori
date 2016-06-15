@@ -426,7 +426,6 @@ Site::Application.routes.draw do
 
     resources :clubs do
       member do
-        get :comments
         get :members
         get :animes
         get :mangas
