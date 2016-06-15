@@ -3,7 +3,7 @@ module TopicsConcern
 
   included do
     has_many :topics, -> { order updated_at: :desc },
-      class_name: "Topics::EntryTopics::#{self.name}Topic",
+      class_name: "Topics::EntryTopics::#{name}Topic",
       as: :linked
 
     # special association for dependent destroy
