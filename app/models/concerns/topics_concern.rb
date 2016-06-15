@@ -5,8 +5,9 @@ module TopicsConcern
   included do
     has_many :topics, -> { order updated_at: :desc },
       class_name: "Topics::EntryTopics::#{self.name}Topic",
-      as: :linked,
-      dependent: :destroy
+      as: :linked
+
+    has_many :topics, as: :linked, dependent: :destroy
   end
 
   def generate_topics locales
