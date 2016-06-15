@@ -44,11 +44,9 @@ class ClubsController < ShikimoriController
   end
 
   def update
-    (params[:kick_ids] || []).each do |user_id|
-      @resource.leave User.find(user_id)
-    end
+    Club::Update.call @resource, params[:kick_ids], update_params
 
-    if update_club(@resource, update_params)
+    if @resource.errors.blank?
       redirect_to edit_club_url(@resource), notice: t('changes_saved')
     else
       flash[:alert] = t 'changes_not_saved'
@@ -129,21 +127,5 @@ private
 
   def update_params
     resource_params.except(:owner_id)
-  end
-
-  def update_club resource, update_params
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation, ActiveRecord::RecordNotUnique], sleep: 1 do
-      Club.transaction do
-        resource.animes = []
-        resource.mangas = []
-        resource.characters = []
-        resource.banned_users = []
-
-        resource.member_roles.where(role: 'admin').destroy_all
-        resource.member_roles.where(user_id: params[:club][:admin_ids]).destroy_all
-
-        resource.update update_params
-      end
-    end
   end
 end

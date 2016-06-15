@@ -53,7 +53,7 @@ describe ClubsController do
   describe '#create' do
     include_context :authenticated, :user
 
-    context 'when success' do
+    context 'valid params' do
       before { post :create, club: { name: 'test', owner_id: user.id } }
       it do
         expect(resource).to be_persisted
@@ -61,9 +61,8 @@ describe ClubsController do
       end
     end
 
-    context 'when validation errors' do
+    context 'invalid params' do
       before { post :create, club: { owner_id: user.id } }
-
       it do
         expect(resource).to be_new_record
         expect(response).to have_http_status :success
@@ -75,50 +74,22 @@ describe ClubsController do
     include_context :authenticated, :user
     let(:club) { create :club, :with_topics, owner: user }
 
-    context 'when success' do
-      context 'with kick_ids' do
-        let(:user_2) { create :user }
-        let!(:club_role) { create :club_role, club: club, user: user_2 }
-        let(:kick_ids) { [user_2.id] }
-
-        before { patch :update, id: club.id, club: { name: 'newnewtest' }, kick_ids: kick_ids }
-
-        it do
-          expect(club.reload.club_roles_count).to be_zero
-          expect(resource.name).to eq 'newnewtest'
-          expect(resource).to be_valid
-          expect(response).to redirect_to edit_club_url(resource)
-        end
-      end
-
-      context 'with admin_ids' do
-        let(:user_2) { create :user }
-        let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
-        let!(:club_role_2) { create :club_role, club: club, user: user_2 }
-        let(:admin_ids) { [user.id, user_2.id] }
-
-        before { patch :update, id: club.id, club: { name: 'newnewtest', admin_ids: admin_ids } }
-
-        it do
-          expect(club.reload.club_roles_count).to eq 2
-          expect(club.admins.sort_by(&:id)).to eq [user, user_2].sort_by(&:id)
-          expect(resource.name).to eq 'newnewtest'
-          expect(resource).to be_valid
-          expect(response).to redirect_to edit_club_url(resource)
-        end
+    context 'valid params' do
+      before { patch :update, id: club.id, club: { name: 'test club' } }
+      it do
+        expect(resource.errors).to be_empty
+        expect(response).to redirect_to edit_club_url(resource)
       end
     end
 
-    context 'when validation errors' do
+    context 'invalid params' do
       before { patch 'update', id: club.id, club: { name: '' } }
-
       it do
-        expect(resource).to_not be_valid
+        expect(resource.errors).to have(1).item
         expect(response).to have_http_status :success
       end
     end
   end
-
 
   describe '#upload' do
     include_context :authenticated, :user
