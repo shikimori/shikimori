@@ -7,7 +7,8 @@ module TopicsConcern
       class_name: "Topics::EntryTopics::#{self.name}Topic",
       as: :linked
 
-    has_many :topics, as: :linked, dependent: :destroy
+    # special association for dependent destroy
+    has_many :all_topics, as: :linked, dependent: :destroy
   end
 
   def generate_topics locales
