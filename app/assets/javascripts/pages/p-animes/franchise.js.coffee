@@ -174,11 +174,18 @@ class @Franchise
     @h = @w
 
     # dates for positioning on Y axis
-    @min_date = @nodes_data.map((v) -> v.date).min() * 1.0
-    @max_date = @nodes_data.map((v) -> v.date).max() * 1.0
+    min_date = @nodes_data.map((v) -> v.date).min()
+    max_date = @nodes_data.map((v) -> v.date).max()
+
+    # do not use min/max dates if they belong to multiple entries
+    if @nodes_data.filter((v) -> v.date == min_date).length == 1
+      @min_date = min_date * 1.0
+    if @nodes_data.filter((v) -> v.date == max_date).length == 1
+      @max_date = max_date * 1.0
 
   # initial nodes positioning
   _position_nodes: ->
+    # return unless @min_date && @max_date
     @nodes_data.each (d) =>
       d.y = @_y_by_date(d.date)
       d.x = @w / 2.0 - d.rx
