@@ -96,7 +96,11 @@ public
     # текущий опрос
     def current
       Contest
-        .where("state in ('proposing', 'started') or (state = 'finished' and finished_on >= ?)", Time.zone.now - 1.week)
+        .where(
+          "state in ('proposing', 'started') or
+          (state = 'finished' and finished_on >= ?)",
+          Time.zone.now - 1.week
+        )
         .order(:started_on)
         .to_a
     end
@@ -107,7 +111,9 @@ public
     if finished?
       rounds.last
     else
-      rounds.select(&:started?).first || rounds.select { |v| !v.finished? }.first || rounds.first
+      rounds.select(&:started?).first ||
+        rounds.select { |v| !v.finished? }.first ||
+        rounds.first
     end
   end
 
@@ -117,7 +123,7 @@ public
     finished = current_round.matches.select(&:can_finish?).each(&:finish!)
     round = current_round.finish! if current_round.can_finish?
 
-    update_attribute :updated_at, DateTime.now if started.any? || finished.any? || round
+    update updated_at: Time.zone.now if started.any? || finished.any? || round
   end
 
   # побежденные аниме данным аниме
@@ -125,7 +131,7 @@ public
     @defeated ||= {}
     @defeated["#{entry.id}-#{round.id}"] ||= ContestMatch
       .where(
-        round_id: rounds.map(&:id).select {|v| v <= round.id },
+        round_id: rounds.map(&:id).select { |v| v <= round.id },
         state: 'finished',
         winner_id: entry.id
       )

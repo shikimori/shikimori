@@ -6,7 +6,6 @@
 @import mixins/column
 @import mixins/link
 @import mixins/clear_left
-@import mixins/clear_right
 @import mixins/responsive
 
 .p-contests .contest-match
@@ -131,7 +130,7 @@
 
   .match-losers
     +block
-    +clear_right
+    +pie-clearfix
     padding-top: $block_offset / 2
 
     +iphone_portrait

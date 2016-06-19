@@ -1,5 +1,5 @@
-- if losers.any?
-  .losers
+.losers
+  - if losers.any?
     .subheadline = t '.beaten'
     .cc-4a.to-process data-dynamic="cutted_covers"
       = render losers, cover_by: :image_link

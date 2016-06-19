@@ -83,7 +83,7 @@
               = render @match.left, cover_notice: :studio, content_by: :none
 
           - if @match.defeated_by(@match.left, @match.round).any?
-            .match-losers
+            .match-losers.to-process data-dynamic="cutted_covers"
               = render 'contest_matches/losers',
                 losers: @match.defeated_by(@match.left, @match.round),
                 position: 'center'
