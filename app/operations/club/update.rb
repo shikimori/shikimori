@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Club::Update < ServiceObjectBase
   pattr_initialize :model, :kick_ids, :params
 

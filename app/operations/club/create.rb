@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Club::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 

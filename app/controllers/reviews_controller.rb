@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < AnimesController
   load_and_authorize_resource
 
@@ -38,9 +40,9 @@ class ReviewsController < AnimesController
   end
 
   def create
-    if @review.save
-      @review.generate_topics @review.locale
+    @review = Review::Create.call resource_params, locale_from_domain
 
+    if @review.errors.blank?
       topic = @review.maybe_topic locale_from_domain
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
@@ -53,7 +55,7 @@ class ReviewsController < AnimesController
   end
 
   def update
-    if @review.update update_params
+    if @review.update resource_params
       topic = @review.maybe_topic locale_from_domain
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
@@ -72,16 +74,20 @@ class ReviewsController < AnimesController
 
 private
 
-  def update_params
-    resource_params.except(:locale)
-  end
-
   def resource_params
     params
       .require(:review)
-      .permit(:user_id, :target_type, :target_id, :text,
-        :storyline, :characters, :animation, :music, :overall)
-      .merge(locale: locale_from_domain)
+      .permit(
+        :user_id,
+        :target_type,
+        :target_id,
+        :text,
+        :storyline,
+        :characters,
+        :animation,
+        :music,
+        :overall
+    )
   end
 
   # url текущего обзора

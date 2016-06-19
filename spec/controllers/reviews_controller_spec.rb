@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe ReviewsController do
   let(:anime) { create :anime }
   let(:review) { create :review, :with_topics, user: user, target: anime }
@@ -27,7 +29,14 @@ describe ReviewsController do
   describe '#create' do
     include_context :authenticated, :user
 
-    context 'when success' do
+    before do
+      post :create,
+        anime_id: anime.to_param,
+        type: 'Anime',
+        review: params
+    end
+
+    context 'valid params' do
       let(:params) do
         {
           user_id: user.id,
@@ -41,29 +50,27 @@ describe ReviewsController do
           overall: 5
         }
       end
-      before do
-        post :create, anime_id: anime.to_param, type: 'Anime', review: params
-      end
-
       it do
-        expect(assigns :review).to be_persisted
-        expect(assigns :review).to have_attributes(params)
-
+        expect(assigns(:review)).to be_persisted
         topic = assigns(:review).topic(controller.locale_from_domain)
         expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
 
-    context 'when validation errors' do
-      before do
-        post :create,
-          anime_id: anime.to_param,
-          type: 'Anime',
-          review: { user_id: user.id }
+    context 'invalid params' do
+      let(:params) do
+        {
+          user_id: user.id,
+          text: 'x' * Review::MINIMUM_LENGTH,
+          storyline: 1,
+          characters: 2,
+          animation: 3,
+          music: 4,
+          overall: 5
+        }
       end
-
       it do
-        expect(assigns :review).to be_new_record
+        expect(assigns(:review)).to be_new_record
         expect(response).to have_http_status :success
       end
     end

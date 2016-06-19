@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Club::Update do
   subject { Club::Update.call club, kick_ids, params }
 

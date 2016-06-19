@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Club::Create do
   subject(:club) { Club::Create.call params, locale }
 
