@@ -5,6 +5,8 @@
 @import mixins/block
 @import mixins/column
 @import mixins/link
+@import mixins/clear_left
+@import mixins/clear_right
 @import mixins/responsive
 
 .p-contests .contest-match
@@ -77,6 +79,7 @@
         float: none
 
   .match-member
+    +clear_left
     +transition(opacity 0.3s ease)
 
     &.voted, &.hovered
@@ -128,7 +131,7 @@
 
   .match-losers
     +block
-    clear: both
+    +clear_right
     padding-top: $block_offset / 2
 
     +iphone_portrait
