@@ -1,18 +1,20 @@
 class CalendarsQuery
   # список онгоингов, сгруппированный по времени выхода
-  def fetch_grouped
-    group fetch
+  def fetch_grouped locale
+    group fetch(locale)
   end
 
   # список онгоингов
-  def fetch
+  def fetch locale
     Rails.cache.fetch cache_key do
       entries = (fetch_ongoings + fetch_anonses).map do |anime|
-        AnimeDecorator.new CalendarEntry.new(anime)
+        AnimeDecorator.new CalendarEntry.new(anime, locale)
       end
 
       exclude_overdue(
-        entries.select(&:next_episode_start_at).sort_by(&:next_episode_start_at)
+        entries
+          .select(&:next_episode_start_at)
+          .sort_by(&:next_episode_start_at)
       )
       #fill_in_list entries, current_user if current_user.present?
     end

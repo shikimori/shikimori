@@ -16,7 +16,7 @@ class PagesController < ShikimoriController
   def ongoings
     @page_title = i18n_t 'calendar_of_ongoings'
 
-    @ongoings = CalendarsQuery.new.fetch_grouped
+    @ongoings = CalendarsQuery.new.fetch_grouped locale_from_domain
     @topic_view = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
   end
 
