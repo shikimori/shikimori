@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe ClubsController do
   include_context :seeds
   let(:club) { create :club }

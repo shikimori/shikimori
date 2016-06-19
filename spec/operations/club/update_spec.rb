@@ -13,7 +13,7 @@ describe Club::Update do
 
     it do
       expect(club.errors).to be_empty
-      expect(club.name).to eq 'test club'
+      expect(club.reload).to have_attributes params
     end
   end
 
@@ -21,7 +21,10 @@ describe Club::Update do
     let(:params) { { name: '' } }
     before { subject }
 
-    it { expect(club.errors).to have(1).item }
+    it do
+      expect(club.errors).to have(1).item
+      expect(club.reload).not_to have_attributes params
+    end
   end
 
   context 'with kick ids' do
@@ -29,11 +32,11 @@ describe Club::Update do
     let(:kick_ids) { user.id }
 
     let(:params) { {} }
-    before { subject; club.reload }
+    before { subject }
 
     it do
       expect(club.errors).to be_empty
-      expect(club.club_roles_count).to eq 0
+      expect(club.reload.club_roles_count).to eq 0
     end
   end
 
@@ -46,12 +49,12 @@ describe Club::Update do
     let!(:club_role_3) { create :club_role, :admin, club: club, user: user_3 }
 
     let(:params) { { admin_ids: [user.id, user_2.id] } }
-    before { subject; club.reload }
+    before { subject }
 
     it do
       expect(club.errors).to be_empty
-      expect(club.club_roles_count).to eq 2
-      expect(club.admins.to_set).to eq [user, user_2].to_set
+      expect(club.reload.club_roles_count).to eq 2
+      expect(club.reload.admins.to_set).to eq [user, user_2].to_set
     end
   end
 end

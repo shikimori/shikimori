@@ -16,7 +16,7 @@ class CopyrightedIds
     cleaned_id = id.to_s.gsub(/-.*$/, '')
 
     if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id)
-      fail CopyrightedResource, copyrighted_resource(type, cleaned_id)
+      raise CopyrightedResource, copyrighted_resource(type, cleaned_id)
     else
       restore_id cleaned_id
     end

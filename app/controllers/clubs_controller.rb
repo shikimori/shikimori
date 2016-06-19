@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, class: Club
 
@@ -102,7 +104,7 @@ class ClubsController < ShikimoriController
 private
 
   def restrict_domain
-    fail ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
   end
 
   def resource_klass
@@ -120,9 +122,22 @@ private
   def resource_params
     params
       .require(:club)
-      .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
-        :comment_policy, :logo, :is_censored,
-        anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
+      .permit(
+        :owner_id,
+        :name,
+        :join_policy,
+        :description,
+        :upload_policy,
+        :display_images,
+        :comment_policy,
+        :logo,
+        :is_censored,
+        anime_ids: [],
+        manga_ids: [],
+        character_ids: [],
+        admin_ids: [],
+        banned_user_ids: []
+      )
   end
 
   def update_params

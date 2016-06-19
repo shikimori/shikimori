@@ -85,13 +85,13 @@ private
 
   def create_rate user_rate
     @resource = user_rate
-    fail NotSaved unless @resource.save
+    raise NotSaved unless @resource.save
   rescue *ALLOWED_EXCEPTIONS
   end
 
   def update_rate user_rate
     @resource = user_rate
-    fail NotSaved unless @resource.update update_params
+    raise NotSaved unless @resource.update update_params
   rescue *ALLOWED_EXCEPTIONS
   end
 end

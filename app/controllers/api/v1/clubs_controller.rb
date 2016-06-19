@@ -82,6 +82,6 @@ private
   end
 
   def restrict_domain
-    fail ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
   end
 end

@@ -55,7 +55,9 @@ class ReviewsController < AnimesController
   end
 
   def update
-    if @review.update resource_params
+    Review::Update.call @review, resource_params
+
+    if @review.errors.blank?
       topic = @review.maybe_topic locale_from_domain
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
@@ -87,7 +89,7 @@ private
         :animation,
         :music,
         :overall
-    )
+      )
   end
 
   # url текущего обзора

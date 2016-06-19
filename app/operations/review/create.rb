@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Review::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 
@@ -5,10 +7,7 @@ class Review::Create < ServiceObjectBase
     review = Review.new params
     review.locale = locale
 
-    if review.save
-      review.generate_topics locale
-    end
-
+    review.generate_topics locale if review.save
     review
   end
 end
