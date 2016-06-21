@@ -1,35 +1,38 @@
+# rubocop:disable ClassLength
 class Banhammer
   include Singleton
 
   Z = '[!@#$%&*^]'
-  X = '[\s.,-:?!)(\]\[]'
-  TAG = '(?: \[ [^\]]+  \] )?'
+  X = '[\s.,:?!)(\]\[-]'
+  TAG = '(?: \[ [^\]]+ \] )*'
+  TAG_REGEXP = /#{TAG}/mix
 
   SYNONYMS = {
-    а: ['a', 'а'],
-    б: ['b', 'б'],
-    в: ['v', 'в'],
-    д: ['d', 'д'],
-    е: ['e', 'е', 'ё'],
-    з: ['z', '3', 'з'],
-    и: ['i', 'и'],
-    й: ['y', 'i', 'й'],
-    к: ['k', 'к'],
-    л: ['l', 'л'],
-    н: ['n', 'н'],
-    о: ['o', 'о'],
-    п: ['p', 'п'],
-    р: ['р', 'p', 'r'],
-    с: ['c', 's', 'с'],
-    т: ['t', 'т'],
-    у: ['y', 'у'],
-    х: ['x', 'h', 'х'],
-    ч: ['ch', 'ч'],
-    я: ['ya', 'я'],
+    а: %w(a а),
+    б: %w(b б),
+    в: %w(v в),
+    д: %w(d д),
+    е: %w(e е ё),
+    з: %w(z 3 з),
+    и: %w(i и),
+    й: %w(y i й),
+    к: %w(k к),
+    л: %w(l л),
+    н: %w(n н),
+    о: %w(o о),
+    п: %w(p п),
+    р: %w(р p r),
+    с: %w(c s с),
+    т: %w(t т),
+    у: %w(y у),
+    х: %w(x h х),
+    ч: %w(ch ч),
+    я: %w(ya я)
   }
 
   def self.w word
-    "(?:#{word.to_s.split(//).map {|v| l v }.join ' '})"
+    fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
+    "(?:#{fixed_word})"
   end
 
   def self.l letter
@@ -37,17 +40,17 @@ class Banhammer
     "(?:#{synonyms.join('|')}|#{Z})#{TAG}"
   end
 
-  ABUSIVE_WORDS = YAML::load_file Rails.root.join 'config/app/abusive_words.yml'
+  ABUSIVE_WORDS = YAML.load_file Rails.root.join('config/app/abusive_words.yml')
 
   ABUSE = /
     (?<= #{X}|\A|^ )
     (
-      #{ABUSIVE_WORDS.map {|word| w word }.join ' | '}
+      #{ABUSIVE_WORDS.map { |word| w word }.join ' | '}
     )
     (?= #{X}|\Z|$ )
   /mix
 
-  ABUSE_SYMBOL = /#{Z}|[\[\]\/]/
+  ABUSE_SYMBOL = %r{#{Z}|[\[\]/]}
   NOT_ABUSE = /
     (?:#{X}|\A|^)
       (?:
@@ -88,28 +91,34 @@ private
   end
 
   def ban_duration comment
-    duration = if comment.user.bans.size >= 2 && comment.user.bans.last.created_at > 36.hours.ago
+    duration = duration_by comment
+    multiplier = BanDuration.new(duration).to_i
+
+    BanDuration.new(multiplier * abusiveness(comment.body)).to_s
+  end
+
+  def duration_by comment
+    if comment.user.bans.size >= 2 &&
+        comment.user.bans.last.created_at > 36.hours.ago
       '1d'
     elsif comment.user.bans.any?
       '2h'
     else
       '15m'
     end
-
-    multiplier = BanDuration.new(duration).to_i
-    BanDuration.new(multiplier * abusiveness(comment.body)).to_s
   end
 
   def replace_abusiveness text, replacement
     text.gsub ABUSE do |match|
-      if replacement
-        "#{match.size.times.inject('') { |v| v + replacement }}"
-      else
-        "[color=#ff4136]#{match.size.times.inject('') { |v| v + '#' }}[/color]"
-      end
+      mached_text = match.size
+        .times
+        .inject('') { |v, _memo| v + (replacement || '#') }
+
+      replacement ? mached_text : "[color=#ff4136]#{mached_text}[/color]"
     end
   end
 
+  # rubocop:enable MethodLength
   def abusiveness text
     @abusivenesses ||= {}
     @abusivenesses[text] ||=
@@ -119,11 +128,21 @@ private
         .gsub(BbCodes::PosterTag::REGEXP, '')
         .scan(ABUSE)
         .select do |group|
-          group.select(&:present?).select do |match|
-            match.size >= 3 && match !~ NOT_ABUSE &&
-              match.scan(ABUSE_SYMBOL).size <= (match.size / 2).floor
-          end.any?
+          group
+            .select(&:present?)
+            .select { |match| valid_match? match }
+            .any?
         end
         .size
   end
+  # rubocop:enable MethodLength
+
+  def valid_match? match
+    is_matched = match.size >= 3 && match !~ NOT_ABUSE
+    match_wo_tags = match.gsub(TAG_REGEXP, '')
+
+    is_matched &&
+      match_wo_tags.scan(ABUSE_SYMBOL).size <= (match_wo_tags.size / 2).floor
+  end
 end
+# rubocop:enable ClassLength

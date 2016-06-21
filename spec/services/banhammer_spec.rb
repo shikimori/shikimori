@@ -85,6 +85,7 @@ describe Banhammer do
     it { expect(banhammer.abusive? 'пиздуй').to eq true }
     it { expect(banhammer.abusive? 'пиздец').to eq true }
     it { expect(banhammer.abusive? 'н[size=15]а[/size]х').to eq true }
+    it { expect(banhammer.abusive? 'х[b][/b][b][/b]ер').to eq true }
   end
 
   describe '#abusiveness' do
