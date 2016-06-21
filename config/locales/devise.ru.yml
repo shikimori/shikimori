@@ -23,7 +23,7 @@ ru:
       reset_password_instructions:
         subject: "Инструкции по восстановлению пароля"
       unlock_instructions:
-        subject: "Инструкции по разблокировке учётной записи"        
+        subject: "Инструкции по разблокировке учётной записи"
     omniauth_callbacks:
       register: 'Вы успешно зарегистрировались через ваш %{kind} аккаунт.'
       failure: "Вы не можете войти в систему с учётной записью из %{kind}, так как \"%{reason}\"."
