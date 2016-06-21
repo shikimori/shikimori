@@ -34,7 +34,7 @@ en:
       new_club: New club
       reviews: Reviews
       show_more: '+ show more'
-      sticked_topics: Sticked Topics
+      sticky_topics: Sticky Topics
       to_clubs: To Clubs
       to_reviews: To Reviews
       user_review: "%{author}'s review"

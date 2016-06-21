@@ -1,4 +1,4 @@
-class StickedTopic
+class StickyTopic
   include Virtus.model
 
   attribute :url, String

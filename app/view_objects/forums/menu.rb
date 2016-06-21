@@ -32,29 +32,29 @@ class Forums::Menu < ViewObjectBase
       .limit(3)
   end
 
-  def sticked_topics
+  def sticky_topics
     [
-      StickedTopic.new(
+      StickyTopic.new(
         url: '/s/79042-Pravila-sayta',
         title: "#{I18n.t 'site_rules'}",
         description: 'Что не стоит делать на сайте'
       ),
-      StickedTopic.new(
+      StickyTopic.new(
         url: '/s/85018-FAQ-Chasto-zadavaemye-voprosy',
         title: 'FAQ',
         description: "#{I18n.t 'faq'}"
       ),
-      StickedTopic.new(
+      StickyTopic.new(
         url: '/s/103553-Opisaniya-zhanrov',
         title: 'Описания жанров',
         description: 'Для желающих помочь сайту'
       ),
-      StickedTopic.new(
+      StickyTopic.new(
         url: '/s/10586-Pozhelaniya-po-saytu',
         title: 'Идеи и предложения',
         description: 'Было бы неплохо реализовать это...'
       ),
-      StickedTopic.new(
+      StickyTopic.new(
         url: '/s/102-Tema-ob-oshibkah',
         title: 'Ошибки',
         description: 'Топик о любых проблемах на сайте'

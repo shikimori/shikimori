@@ -32,8 +32,8 @@ describe Forums::Menu do
     it { expect(view.reviews).to eq [review] }
   end
 
-  describe '#sticked_topics' do
-    it { expect(view.sticked_topics).to have(5).items }
+  describe '#sticky_topics' do
+    it { expect(view.sticky_topics).to have(5).items }
   end
 
   describe '#new_topic_url' do

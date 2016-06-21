@@ -7,7 +7,7 @@
       @franchise = new Franchise(data)
       @franchise.render_to $graph[0]
 
-      $('.sticked-tooltip .close').on 'click', ->
+      $('.sticky-tooltip .close').on 'click', ->
         node = $('.node.selected')[0]
         d3.select(node).on('click')(node.__data__)
 
@@ -107,13 +107,13 @@ class @FranchiseNode
           tick()
 
   _hide_tooltip: ->
-    $('.sticked-tooltip').hide()
+    $('.sticky-tooltip').hide()
 
   _load_tooltip: ->
-    $('.sticked-tooltip').show().addClass('ajax_request')
+    $('.sticky-tooltip').show().addClass('ajax_request')
     $.get(@url + '/tooltip').success (html) ->
-      $('.sticked-tooltip').removeClass('ajax_request')
-      $('.sticked-tooltip > .inner').html(html).process()
+      $('.sticky-tooltip').removeClass('ajax_request')
+      $('.sticky-tooltip > .inner').html(html).process()
 
   _d3_node: ->
     @_node_elem ||= d3.select $(".node##{@id}")[0]
