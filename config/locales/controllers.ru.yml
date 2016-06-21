@@ -254,6 +254,13 @@ ru:
   anime_online/anime_videos_controller:
     <<: *animes_controller
 
+  users/omniauth_callbacks_controller:
+    already_linked: >-
+      Выбранный %{provider} аккаунт уже подключён к другому пользователю сайта
+    account_linked: >-
+      Подключена авторизация через %{provider}
+    authentication_failed: Не удалось авторизоваться
+
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален

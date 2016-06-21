@@ -254,6 +254,13 @@ en:
   anime_online/anime_videos_controller:
     <<: *animes_controller
 
+  users/omniauth_callbacks_controller:
+    already_linked: >-
+      This %{provider} account is already linked to another user account
+    account_linked: >-
+      %{provider} account is linked to your user account
+    authentication_failed: Authentication failed
+
   api/v1/comments_controller:
     comment:
       removed: Comment removed

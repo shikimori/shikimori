@@ -17,13 +17,14 @@ private
   def omniauthorize_additional_account
     return false unless user_signed_in?
 
+    provider = omniauth_data.provider.titleize
     if @preexisting_token && @preexisting_token != current_user
-      flash[:alert] = "Выбранный %s аккаунт уже подключён к другому пользователю сайта" % omniauth_data.provider.titleize
+      flash[:alert] = i18n_t 'already_linked', provider: provider
     else
       OmniauthService.new(current_user, omniauth_data).populate
       current_user.save
 
-      flash[:notice] = "Подключена авторизация через %s" % omniauth_data.provider.titleize
+      flash[:notice] = i18n_t 'account_linked', provider: provider
     end
     redirect_to edit_profile_url current_user
   end
@@ -32,9 +33,12 @@ private
     return false unless @preexisting_token && @preexisting_token.user
     @resource = @preexisting_token.user
 
-    flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: omniauth_data.provider.titleize
+    flash[:notice] = I18n.t 'devise.omniauth_callbacks.success',
+      kind: omniauth_data.provider.titleize
+
     @resource.remember_me = true
     sign_in_and_redirect :user, @resource
+
     true
   end
 
@@ -74,7 +78,7 @@ private
     @omni = env['omniauth.auth']
 
     if @omni.nil?
-      flash[:alert] = 'Не удалось авторизоваться'
+      flash[:alert] = i18n_t 'authentication_failed'
 
       if user_signed_in?
         redirect_to edit_profile_url(current_user)
