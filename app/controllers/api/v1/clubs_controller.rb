@@ -3,7 +3,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
   respond_to :json
 
   before_action :fetch_club, except: :index
-  before_action :restrict_domain, except: [:index]
+  before_action :restrict_domain, except: [:index, :create, :new]
 
   LIMIT = 30
 
@@ -82,6 +82,6 @@ private
   end
 
   def restrict_domain
-    fail ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
   end
 end

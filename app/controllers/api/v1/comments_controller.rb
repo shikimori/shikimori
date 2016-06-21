@@ -41,7 +41,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   def create
     @resource = Comment::Create.call(faye, create_params, locale_from_domain)
 
-    if faye.create(@resource) && frontent_request?
+    if @resource.errors.blank? && frontent_request?
       render :comment
     else
       respond_with @resource.decorate

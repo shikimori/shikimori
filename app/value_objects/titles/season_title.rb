@@ -23,7 +23,7 @@ class Titles::SeasonTitle
         'ancient'
 
       else
-        fail ArgumentError, "unexpected format #{format}"
+        raise ArgumentError, "unexpected format #{format}"
     end
   end
 
@@ -63,15 +63,15 @@ private
         i18n_t "#{klass.name.downcase}.#{key}.ancient"
 
       else
-        fail ArgumentError, "unexpected format #{format}"
+        raise ArgumentError, "unexpected format #{format}"
     end
   end
 
   def season
     case date.month
-      when 1,2,12 then 'winter'
-      when 3,4,5 then 'spring'
-      when 6,7,8 then 'summer'
+      when 1, 2, 12 then 'winter'
+      when 3, 4, 5 then 'spring'
+      when 6, 7, 8 then 'summer'
       else 'fall'
     end
   end

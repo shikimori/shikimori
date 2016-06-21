@@ -1,6 +1,5 @@
 describe Comment::Create do
-  let(:service) { Comment::Create.call faye, params, locale }
-  let(:comment) { Comment.last }
+  subject(:comment) { Comment::Create.call faye, params, locale }
 
   let(:user) { create :user }
   let(:anime) { create :anime }
@@ -20,7 +19,6 @@ describe Comment::Create do
   let(:locale) { :en }
 
   before { allow_any_instance_of(FayePublisher).to receive :publish }
-  before { service }
 
   shared_examples_for :comment do
     it do

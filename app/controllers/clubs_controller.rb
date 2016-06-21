@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, class: Club
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_domain, except: [:index]
+  before_action :restrict_domain, except: [:index, :create, :new]
 
   before_action :set_breadcrumbs
   before_action { page_title i18n_i('Club', :other) }
@@ -29,10 +31,9 @@ class ClubsController < ShikimoriController
   end
 
   def create
-    @resource = @resource.decorate
+    @resource = Club::Create.call resource_params, locale_from_domain
 
-    if @resource.save
-      @resource.generate_topics @resource.locale
+    if @resource.errors.blank?
       redirect_to edit_club_url(@resource), notice: i18n_t('club_created')
     else
       new
@@ -45,11 +46,9 @@ class ClubsController < ShikimoriController
   end
 
   def update
-    (params[:kick_ids] || []).each do |user_id|
-      @resource.leave User.find(user_id)
-    end
+    Club::Update.call @resource, params[:kick_ids], update_params
 
-    if update_club(@resource, update_params)
+    if @resource.errors.blank?
       redirect_to edit_club_url(@resource), notice: t('changes_saved')
     else
       flash[:alert] = t 'changes_not_saved'
@@ -105,7 +104,7 @@ class ClubsController < ShikimoriController
 private
 
   def restrict_domain
-    fail ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
   end
 
   def resource_klass
@@ -120,32 +119,28 @@ private
     end
   end
 
-  def update_params
-    resource_params.except(:owner_id, :locale)
-  end
-
   def resource_params
     params
       .require(:club)
-      .permit(:owner_id, :name, :join_policy, :description, :upload_policy, :display_images,
-        :comment_policy, :logo, :is_censored,
-        anime_ids: [], manga_ids: [], character_ids: [], admin_ids: [], banned_user_ids: [])
-      .merge(locale: locale_from_domain)
+      .permit(
+        :owner_id,
+        :name,
+        :join_policy,
+        :description,
+        :upload_policy,
+        :display_images,
+        :comment_policy,
+        :logo,
+        :is_censored,
+        anime_ids: [],
+        manga_ids: [],
+        character_ids: [],
+        admin_ids: [],
+        banned_user_ids: []
+      )
   end
 
-  def update_club resource, update_params
-    Retryable.retryable tries: 2, on: [PG::UniqueViolation, ActiveRecord::RecordNotUnique], sleep: 1 do
-      Club.transaction do
-        resource.animes = []
-        resource.mangas = []
-        resource.characters = []
-        resource.banned_users = []
-
-        resource.member_roles.where(role: 'admin').destroy_all
-        resource.member_roles.where(user_id: params[:club][:admin_ids]).destroy_all
-
-        resource.update update_params
-      end
-    end
+  def update_params
+    resource_params.except(:owner_id)
   end
 end
