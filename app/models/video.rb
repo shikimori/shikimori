@@ -1,15 +1,17 @@
 # TODO: refactor kind to enumerize
 class Video < ActiveRecord::Base
   extend Enumerize
-  ALLOWED_HOSTINGS = [:youtube, :vk, :rutube, :sibnet, :dailymotion]
+  ALLOWED_HOSTINGS = %i(youtube vk rutube sibnet dailymotion smotret_anime)
 
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
 
-  enumerize :hosting, in: [
-    :youtube, :vk, :coub, :twitch, :rutube, :vimeo,
-    :myvi, :sibnet, :yandex, :dailymotion, :streamable
-  ], predicates: true
+  enumerize :hosting,
+    in: %i(
+      youtube vk coub twitch rutube vimeo myvi sibnet yandex dailymotion
+      streamable smotret_anime
+    ),
+    predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url,

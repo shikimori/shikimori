@@ -1,15 +1,16 @@
 module VideoExtractor
+  EXTRACTORS = %i(vk youtube open_graph smotret_anime)
+
   class << self
     def fetch url
-      extractor = extractors.find do |extractor|
-        extractor.valid_url? url
-      end
-
-      extractor.new(url).fetch if extractor
+      extractors
+        .find { |v| v.valid_url? url }
+        &.new(url)
+        &.fetch
     end
 
     def extractors
-      @extractors ||= [:vk, :youtube, :open_graph].map do |extractor|
+      @extractors ||= EXTRACTORS.map do |extractor|
         "VideoExtractor::#{extractor.to_s.camelize}Extractor".constantize
       end
     end

@@ -165,6 +165,7 @@ en:
         url: Url
         kind: Type
         name: Name
+        hosting: Hosting
       club:
         name: Name
         display_images: Show Images
@@ -217,7 +218,7 @@ en:
         videos:
           attributes:
             url:
-              incorrect: incorrect, must be a valid youtube or vk.com link
+              incorrect: incorrect, unsupported video hosting
               taken: the video you've uploaded already exists within our system
             hosting:
               incorrect: unsupported video hosting

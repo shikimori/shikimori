@@ -15,9 +15,14 @@
       .cancel title="Отменить удаление"
 
   a.video-link href="#{video.url}" data-href="#{video.player_url}"
-    img src="#{video.camo_image_url}" data-id="#{video.id}"
+    img[
+      src="#{video.camo_image_url || '/assets/blocks/b-video/no_image.png'}"
+      data-id="#{video.id}"
+    ]
+
   - if video.name.present?
     span.name title="#{video.name}" = video.name
+
   a.marker href="#{video.url}"
     - if defined?(video_counter) || defined?(show_kind)
       = video.kind

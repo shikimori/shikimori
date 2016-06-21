@@ -2,6 +2,14 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
   PARAM = /[^" ><&\n]+/.source
+  SMOTRET_ANIME_REGEXP = %r(
+    #{HTTP}smotret-anime.ru
+      (?:
+        /catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+)
+        |
+        /translations/embed/(?<id>\d+)
+      )
+  )mix
 
   pattr_initialize :content
 
@@ -76,10 +84,8 @@ private
       $1
     elsif html =~ %r{(#{HTTP}mipix.eu#{CONTENT})}
       $1
-    elsif html =~ %r(#{HTTP}smotret-anime.ru/catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+))
+    elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotret-anime.ru/translations/embed/#{$~[:id]}"
-    elsif html =~ %r((#{HTTP}smotret-anime.ru/translations/embed/\d+))
-      $1
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
     elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
