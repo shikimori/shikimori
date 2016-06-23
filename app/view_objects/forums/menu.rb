@@ -34,31 +34,11 @@ class Forums::Menu < ViewObjectBase
 
   def sticky_topics
     [
-      StickyTopic.new(
-        url: '/s/79042-Pravila-sayta',
-        title: "#{I18n.t 'site_rules'}",
-        description: 'Что не стоит делать на сайте'
-      ),
-      StickyTopic.new(
-        url: '/s/85018-FAQ-Chasto-zadavaemye-voprosy',
-        title: 'FAQ',
-        description: "#{I18n.t 'faq'}"
-      ),
-      StickyTopic.new(
-        url: '/s/103553-Opisaniya-zhanrov',
-        title: 'Описания жанров',
-        description: 'Для желающих помочь сайту'
-      ),
-      StickyTopic.new(
-        url: '/s/10586-Pozhelaniya-po-saytu',
-        title: 'Идеи и предложения',
-        description: 'Было бы неплохо реализовать это...'
-      ),
-      StickyTopic.new(
-        url: '/s/102-Tema-ob-oshibkah',
-        title: 'Ошибки',
-        description: 'Топик о любых проблемах на сайте'
-      )
+      Topics::StickyTopic.site_rules,
+      Topics::StickyTopic.faq,
+      Topics::StickyTopic.description_of_genres,
+      Topics::StickyTopic.ideas_and_suggestions,
+      Topics::StickyTopic.site_problems
     ]
   end
 

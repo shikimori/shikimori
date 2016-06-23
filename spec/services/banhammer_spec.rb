@@ -4,6 +4,8 @@ describe Banhammer do
   let(:text) { 'хуй' }
   let(:user) { build_stubbed :user }
 
+  before { create :topic, id: Topics::StickyTopic::TOPIC_IDS[:site_rules][:ru] }
+
   describe '#release' do
     let(:user) { create :user, :banhammer }
     let(:comment) { create :comment, user: user, body: text }

@@ -110,3 +110,20 @@ en:
 
   cosplay_gallery:
     title: Cosplay of %{cosplay} by %{cosplayer}
+
+  topics/sticky_topic:
+    site_rules:
+      title: Site rules
+      description: What is allowed on site and what is not
+    faq:
+      title: FAQ
+      description: Frequently asked questions
+    description_of_genres:
+      title: Description of genres
+      description: For those wishing to help the site
+    ideas_and_suggestions:
+      title: Ideas and suggestions
+      description: It would be nice to implement it...
+    site_problems:
+      title: Site problems
+      description: Topic about any problems related to the site

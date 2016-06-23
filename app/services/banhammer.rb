@@ -1,5 +1,8 @@
 # rubocop:disable ClassLength
+# frozen_string_literal: true
+
 class Banhammer
+  include Translation
   include Singleton
 
   Z = '[!@#$%&*^]'
@@ -82,12 +85,11 @@ private
     duration = ban_duration comment
 
     comment.update_column :body, replace_abusiveness(comment.body, nil)
-    # TODO localize ban reason later
     Ban.create!(
       user: comment.user,
       comment: comment,
       duration: duration,
-      reason: "п.3 [url=//shikimori.org/s/79042-pravila-sayta]правил сайта[/url]",
+      reason: i18n_t('ban_reason', url: Topics::StickyTopic.site_rules.url),
       moderator: User.find(User::BANHAMMER_ID)
     )
   end

@@ -88,7 +88,11 @@ ru:
       nil: в <em>удалено</em>.
       topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
       profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.
+
   messages/check_spam_abuse:
     ban_text: >-
       Вы забанены за спам.
       Напишите на %{email}, если вы невиновны.
+
+  banhammer:
+    ban_reason: п.3 [url=%{url}]правил сайта[/url]

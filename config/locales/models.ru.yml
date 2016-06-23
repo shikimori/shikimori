@@ -110,3 +110,20 @@ ru:
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}
+
+  topics/sticky_topic:
+    site_rules:
+      title: Правила сайта
+      description: Что не стоит делать на сайте
+    faq:
+      title: FAQ
+      description: Часто задаваемые вопросы
+    description_of_genres:
+      title: Описания жанров
+      description: Для желающих помочь сайту
+    ideas_and_suggestions:
+      title: Идеи и предложения
+      description: Было бы неплохо реализовать это...
+    site_problems:
+      title: Ошибки
+      description: Топик о любых проблемах на сайте
