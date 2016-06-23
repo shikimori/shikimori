@@ -108,9 +108,6 @@ A793   # xxxHOLiC: Manatsu no Yoru no Yume
 A11597 # Nisemonogatari
 A11981 # Mahou Shoujo Madoka★Magica Movie 3: Hangyaku no Monogatari
 ---
-A3785  # Evangelion: 3.0 You Can (Not) Redo
-A28149 # Nihon Animator Mihonichi
----
 A80    # Mobile Suit Gundam
 A28149 # Nihon Animator Mihonichi
 ---
@@ -164,6 +161,9 @@ A3008  # Time Bokan Series: Yatterman
 A3444  # The Ultraman
 A80    # Mobile Suit Gundam
 A30    # Neon Genesis Evangelion
+---
+A3444  # The Ultraman
+A80    # Mobile Suit Gundam
 A3785  # Evangelion: 3.0 You Can (Not) Redo
 ---
 A27829 # Heavy Object
