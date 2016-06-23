@@ -1,7 +1,8 @@
 class AnimeProfileSerializer < AnimeSerializer
   attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on,
     :released_on, :episodes, :episodes_aired, :duration, :score, :description,
-    :description_html, :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
+    :description_html, :description_source,
+    :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
     :world_art_id, :myanimelist_id, :ani_db_id,
     :rates_scores_stats, :rates_statuses_stats, :updated_at
 
@@ -39,6 +40,10 @@ class AnimeProfileSerializer < AnimeSerializer
 
   def description_html
     object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
+  end
+
+  def description_source
+    object.source
   end
 
   def videos
