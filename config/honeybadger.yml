@@ -19,3 +19,5 @@ exceptions:
     - MismatchedEntries
     - CopyrightedResource
     - Net::SMTPServerBusy
+    - Net::SMTPFatalError
+    - Interrupt

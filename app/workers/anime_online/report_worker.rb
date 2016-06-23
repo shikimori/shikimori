@@ -10,7 +10,8 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
     /\n\nВидеозапись была помечена модераторами сайта как «Материал для взрослых»./i,
     /\n\nThis video was marked as Adult.Embedding adult videos/i
   ]
-  SIBNET_BROKEN_TEXTS = ["Ошибка обработки видео", "Îøèáêà îáðàáîòêè âèäåî"]
+  SIBNET_BROKEN_TEXTS = ['Ошибка обработки видео', 'Îøèáêà îáðàáîòêè âèäåî']
+  EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout, Net::OpenTimeout]
 
   def perform id
     report = AnimeVideoReport.find id
@@ -59,7 +60,7 @@ private
   end
 
   def get url
-    Retryable.retryable tries: 2, on: [Errno::ECONNRESET, Net::ReadTimeout], sleep: 1 do
+    Retryable.retryable tries: 2, on: EXCEPTIONS, sleep: 1 do
       open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read.fix_encoding
     end
   end
