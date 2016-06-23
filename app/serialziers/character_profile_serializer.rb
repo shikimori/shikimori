@@ -27,4 +27,8 @@ class CharacterProfileSerializer < CharacterSerializer
   def description_html
     object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
   end
+
+  def description_source
+    object.source
+  end
 end
