@@ -36,7 +36,7 @@ class AnimesController < DbEntriesController
   end
 
   def files
-    return redirect_to @resource.url, status: 301 unless user_signed_in? && ignore_copyright?
+    return redirect_to @resource.url, status: 301 unless user_signed_in? && @resource.files?
 
     noindex
     page_title i18n_t 'files'
@@ -101,6 +101,7 @@ class AnimesController < DbEntriesController
   end
 
   def art
+    return redirect_to @resource.url, status: 301 unless @resource.display_sensitive?
     noindex
     page_title t('imageboard_art')
   end

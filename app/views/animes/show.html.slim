@@ -98,7 +98,8 @@
                 .block
                   = render 'mangas/publishers_info', entry: @resource
 
-            .watch-online-placeholer
+            - if @resource.display_sensitive?
+              .watch-online-placeholer
 
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description

@@ -103,13 +103,15 @@ class AniMangaDecorator < DbEntryDecorator
 
   # показывать ли ссылки, если аниме или манга для взрослых?
   def display_sensitive?
-    !object.censored? ||
-      (h.user_signed_in? && h.current_user.day_registered?)
+    !object.censored?# ||
+      # (h.user_signed_in? && h.current_user.day_registered?)
   end
 
   # есть ли видео для просмотра онлайн?
   def anime_videos?
-    object.respond_to?(:anime_videos) && object.anime_videos.available.any?
+    display_sensitive? &&
+      object.respond_to?(:anime_videos) &&
+      object.anime_videos.available.any?
   end
 
   def release_date_text
