@@ -6,11 +6,11 @@ class StickyTopicView
 
   # TODO: en topics ids
   TOPIC_IDS = {
-    site_rules: { ru: 79042, en: 11111 },
-    faq: { ru: 85018, en: 11111 },
-    description_of_genres: { ru: 103553, en: 11111 },
-    ideas_and_suggestions: { ru: 10586, en: 11111 },
-    site_problems: { ru: 102, en: 11111 }
+    site_rules: { ru: 79_042, en: 220_000 },
+    faq: { ru: 85_018, en: 85_018 },
+    description_of_genres: { ru: 103_553, en: 103_553 },
+    ideas_and_suggestions: { ru: 10_586, en: 10_586 },
+    site_problems: { ru: 102, en: 102 }
   }
 
   attribute :url, String

@@ -1,15 +1,25 @@
 class AddEnglishOfftopicTopic < ActiveRecord::Migration
-  EN_OFFTOPIC_TOPIC = 210_000
+  EN_OFFTOPIC_TOPIC_ID = 210_000
 
-  def change
+  def up
+    return if Rails.env.test?
+
     Topic.create!(
-      id: EN_OFFTOPIC_TOPIC,
+      id: EN_OFFTOPIC_TOPIC_ID,
       user_id: en_offtopic_user.id,
       forum_id: 8,
       title: 'Off-topic thread',
       body: en_offtopic_body,
       locale: :en
     )
+  end
+
+  def down
+    return if Rails.env.test?
+
+    en_offtopic_topic = Topic.find(EN_OFFTOPIC_TOPIC_ID)
+    en_offtopic_topic.user.destroy
+    en_offtopic_topic.destroy
   end
 
 private
@@ -20,14 +30,10 @@ private
       password: '1z6NYlLd9B9ikA==',
       name: '',
       nickname: 'Offtopic-tyan',
-      avatar: ru_offtopic_user.avatar,
+      avatar: User.find(40990).avatar,
       locale: :en,
       locale_from_domain: :en
     )
-  end
-
-  def ru_offtopic_user
-    User.find(40990)
   end
 
   def en_offtopic_body
