@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160605104311) do
+ActiveRecord::Schema.define(version: 20160629205159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -363,7 +363,6 @@ ActiveRecord::Schema.define(version: 20160605104311) do
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
-    t.string   "title",                limit: 50
   end
 
   add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
