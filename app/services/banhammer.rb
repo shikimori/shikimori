@@ -89,7 +89,7 @@ private
       user: comment.user,
       comment: comment,
       duration: duration,
-      reason: i18n_t('ban_reason', url: Topics::StickyTopic.site_rules.url),
+      reason: i18n_t('ban_reason', url: StickyTopicView.site_rules.url),
       moderator: User.find(User::BANHAMMER_ID)
     )
   end

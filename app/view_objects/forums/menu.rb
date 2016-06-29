@@ -34,11 +34,11 @@ class Forums::Menu < ViewObjectBase
 
   def sticky_topics
     [
-      Topics::StickyTopic.site_rules,
-      Topics::StickyTopic.faq,
-      Topics::StickyTopic.description_of_genres,
-      Topics::StickyTopic.ideas_and_suggestions,
-      Topics::StickyTopic.site_problems
+      StickyTopicView.site_rules,
+      StickyTopicView.faq,
+      StickyTopicView.description_of_genres,
+      StickyTopicView.ideas_and_suggestions,
+      StickyTopicView.site_problems
     ]
   end
 

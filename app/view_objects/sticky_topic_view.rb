@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topics::StickyTopic
+class StickyTopicView
   extend Translation
   include Virtus.model
 

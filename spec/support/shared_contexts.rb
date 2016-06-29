@@ -80,7 +80,7 @@ end
 
 shared_examples_for :sticky_topics do
   before do
-    Topics::StickyTopic::TOPIC_IDS.each do |name, ids|
+    StickyTopicView::TOPIC_IDS.each do |name, ids|
       create :topic, id: ids[:ru]
     end
   end

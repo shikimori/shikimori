@@ -6,8 +6,8 @@ class NotificationsService
   def user_registered
     body = i18n_t(
       'user_registered_message',
-      faq_url: Topics::StickyTopic.faq.url,
-      site_rules_url: Topics::StickyTopic.site_rules.url,
+      faq_url: StickyTopicView.faq.url,
+      site_rules_url: StickyTopicView.site_rules.url,
       settings_path: target.to_param
     )
 
