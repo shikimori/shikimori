@@ -5,7 +5,7 @@ module AnimeOnlineDomain
   HOST_XPLAY = "#{DOMAIN_ADULT}.shikimori.#{Rails.env.development? ? :dev : :org}"
   HOST = HOST_PLAY
   HOSTS = [
-   HOST_PLAY, HOST_XPLAY
+   HOST_PLAY#, HOST_XPLAY
   ]
 
   def self.matches? request
