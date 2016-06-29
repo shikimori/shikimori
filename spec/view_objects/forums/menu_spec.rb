@@ -33,6 +33,11 @@ describe Forums::Menu do
   end
 
   describe '#sticky_topics' do
+    before do
+      Topics::StickyTopic::TOPIC_IDS.each do |name, ids|
+        create :topic, id: ids[:ru]
+      end
+    end
     it { expect(view.sticky_topics).to have(5).items }
   end
 
