@@ -137,6 +137,33 @@ en:
     site_rules:
       title: Site rules
       description: What is allowed on site and what is not
+      body: >-
+        A few rules to abide by on this site:\r\n\r\n
+        [list]\r\n
+        [*]1. Be polite and respect other users. Abuse, harassment, insults
+        or threats are strictly forbidden and won't be tolerated. In any form.
+        \r\n
+        [*]2. Don't bastardize the language and try to use correct grammar.
+        \r\n
+        [*]3. Under no pretext should you use foul language.\r\n
+        [*]4. Trolling is prohibited - especially when discussing anime,
+        manga or characters. [spoiler=What is trolling?]
+        Discussing topics you don't like and deliberate flaming there.\r\n
+        Also trolling is everything a moderator considers to be a trolling.
+        [/spoiler]\r\n
+        [*]5. Everything prohibited by law is prohibited here as well.\r\n
+        [*]6. Posting pictures of nude lolis and other materials that might
+        be considered pornographic is prohibited.\r\n
+        [*]7. Use spoiler tag [spоiler] when spoiling.\r\n
+        [*]8. Offtopic discussions are moved to
+        [url=http://shikimori.XXX/o/XXXX]offtopic thread[/url].\r\n
+        [*]9. Any advertising without prior permission by site administration
+        is prohibited [spoiler=Exceptions]Except for self-made dubbing,
+        subtitles or AMVs. These materials shouldn't advertise other
+        anime sites.[/spoiler]\r\n
+        [*]10. Moderator is always right. All moderator's decisions are final
+        and are not to be discussed.\r\n
+        [/list]
     faq:
       title: FAQ
       description: Frequently asked questions
