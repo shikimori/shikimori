@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 describe Topics::StickyTopic do
+  include_context :sticky_topics
+
   describe 'sample sticky topic' do
     let(:sticky_topic) { Topics::StickyTopic.faq }
-    let!(:faq_topic) do
-      create :topic, id: Topics::StickyTopic::TOPIC_IDS[:faq][:ru]
-    end
+    let(:faq_topic) { Topic.find Topics::StickyTopic::TOPIC_IDS[:faq][:ru] }
 
     it do
       expect(sticky_topic).to have_attributes(

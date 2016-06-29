@@ -6,13 +6,13 @@ header.head
   .c-column.m0
     ul.b-list
       li: a.entry[
-        href='/forum/s/79042-Pravila-sayta'
-        title="#{t 'site_rules'}"
-      ] = t 'site_rules'
+        href=Topics::StickyTopic.site_rules.url
+        title=Topics::StickyTopic.site_rules.title
+      ] = Topics::StickyTopic.site_rules.title
       li: a.entry[
-        href='/forum/s/85018-FAQ-Chasto-zadavaemye-voprosy'
-        title='FAQ'
-      ] FAQ
+        href=Topics::StickyTopic.faq.url
+        title=Topics::StickyTopic.faq.title
+      ] = Topics::StickyTopic.faq.title
       li: a.entry[
         href="#{about_pages_url}"
         title="#{t 'about_site'}"

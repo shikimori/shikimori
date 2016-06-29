@@ -12,7 +12,7 @@ en:
     user_registered_message: >-
       Welcome!
 
-      [url=http://%{site_url}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Here[/url]
+      [url=%{faq_url}]Here[/url]
       you'll find the answers to most frequently asked questions.
 
       You can import anime and manga lists from
@@ -22,8 +22,7 @@ en:
       You can change your nickname there as well.
 
       Before you start posting on the forum we recommend you get familiar with our
-      [url=http://%{site_url}/s/79042-Pravila-sayta]site rules[/url].
-
+      [url=%{site_rules_url}]site rules[/url].
 
       If you have any questions or suggestions
       feel free to post them on the forum - we'll try to help you.

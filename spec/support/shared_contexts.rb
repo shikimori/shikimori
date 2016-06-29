@@ -77,3 +77,11 @@ shared_examples_for :failure_resource_change do
     expect(response).to have_http_status 422
   end
 end
+
+shared_examples_for :sticky_topics do
+  before do
+    Topics::StickyTopic::TOPIC_IDS.each do |name, ids|
+      create :topic, id: ids[:ru]
+    end
+  end
+end
