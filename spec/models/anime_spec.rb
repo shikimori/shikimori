@@ -182,12 +182,12 @@ describe Anime do
 
           context '1 episode' do
             let(:episodes) { 1 }
-            it { expect(anime).to be_adult }
+            it { expect(anime).to_not be_adult }
           end
 
           context '2 episodes' do
             let(:episodes) { 2 }
-            it { expect(anime).to be_adult }
+            it { expect(anime).to_not be_adult }
           end
 
           context '3 episodes' do
@@ -198,7 +198,7 @@ describe Anime do
 
         context 'Special' do
           let(:kind) { :special }
-          it { expect(anime).to be_adult }
+          it { expect(anime).to_not be_adult }
         end
       end
     end
