@@ -35,7 +35,8 @@ class CharacterMalParser < BaseMalParser
     title_doc = doc.css('.breadcrumb + .normal_header')
 
     if title_doc.text.match(/^(.*?) ?\((.*)\)$/)
-      entry[:name] = cleanup($1)
+      name = cleanup($1)
+      entry[:name] = name if name.present?
       entry[:japanese] = cleanup($2)
     elsif title_doc.text.match(/^(.*) ?$/)
       entry[:name] = cleanup($1)
