@@ -132,23 +132,6 @@ class String
       .downcase
   end
 
-  # TODO: refactor url methods into service object or use some existing gem
-  def with_http
-    sub %r{\A (?!https?://) (//(?=\w))? }mix, 'http://'
-  end
-
-  def without_http
-    sub %r{\A(?:https?:)?//}, ''
-  end
-
-  def without_protocol
-    sub %r{\A(?:https?:)?}, ''
-  end
-
-  def extract_domain
-    without_http.sub(%r{/.*}, '')
-  end
-
   def pretext?
     self =~ Pretext
   end

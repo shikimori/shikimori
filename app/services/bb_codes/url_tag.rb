@@ -33,8 +33,9 @@ private
   def link_tag url, text
     decoded_text = URI.decode text rescue Encoding::CompatibilityError
     decoded_text ||= text
+
     "<a class=\"b-link\" href=\"#{url}\">\
-#{decoded_text.valid_encoding? ? decoded_text : url.extract_domain}</a>"
+#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).extract_domain}</a>"
   end
 
   def video_bb_code url
@@ -42,13 +43,13 @@ private
   end
 
   def match_url url
-    url.starts_with?('/') ? url : url.with_http
+    url.starts_with?('/') ? url : Url.new(url).with_http.to_s
   end
 
   def match_text text, url
     return text if text
 
-    if url.without_http =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
+    if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
     else
       url.size > MAX_SHORT_URL_SIZE ? url.extract_domain : url.without_http

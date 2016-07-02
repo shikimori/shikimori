@@ -83,7 +83,7 @@ class AnimeVideo < ActiveRecord::Base
     if persisted?
       super VideoExtractor::UrlExtractor.call(value).with_http
     else
-      super value.present? ? value.with_http : value
+      super value.present? ? Url.new(value).with_http.to_s : value
     end
   end
 

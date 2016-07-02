@@ -20,7 +20,6 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     //rutube.ru/play/embed/(\d+)
   }xi
 
-
   IMAGE_PROPERTIES = %w(
     meta[property='og:image']
   )
@@ -33,21 +32,21 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   )
 
   def image_url
-    parsed_data.first&.without_protocol
+    Url.new(parsed_data.first).without_protocol.to_s if parsed_data.first
   end
 
   def player_url
-    parsed_data.second&.without_protocol
+    Url.new(parsed_data.second).without_protocol.to_s if parsed_data.second
   end
 
   def hosting
-    url.match(URL_REGEX) && $~[:hosting].to_sym
+    url.match(URL_REGEX) && $LAST_MATCH_INFO[:hosting].to_sym
   end
 
   def parse_data html
     doc = Nokogiri::HTML html
 
-    og_image = doc.css(IMAGE_PROPERTIES.join ',').first
+    og_image = doc.css(IMAGE_PROPERTIES.join(',')).first
     og_video = VIDEO_PROPERTIES.map { |v| doc.css(v).first }.find(&:present?)
 
     if og_image && og_video

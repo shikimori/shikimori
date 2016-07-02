@@ -4,7 +4,7 @@ class VideoExtractor::VkExtractor < VideoExtractor::BaseExtractor
   }xi
 
   def image_url
-    parsed_data[:image]&.without_protocol
+    Url.new(parsed_data[:image]).without_protocol.to_s if parsed_data[:image]
   end
 
   def player_url

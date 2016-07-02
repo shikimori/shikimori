@@ -14,13 +14,13 @@ class BbCodes::SourceTag
 
       "<div class=\"b-source hidden\">\
 <span class=\"linkeable\" data-href=\"#{url}\">\
-#{url.extract_domain}</span></div>"
+#{Url.new(url).extract_domain}</span></div>"
     end
   end
 
 private
 
   def match_url url
-    url.starts_with?('/') ? url : url.with_http
+    url.starts_with?('/') ? url : Url.new(url).with_http.to_s
   end
 end

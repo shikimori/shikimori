@@ -112,7 +112,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
           expect(created_video).to be_valid
           expect(created_video).to be_persisted
           expect(created_video).to have_attributes video_params.except(:url)
-          expect(created_video.url).to eq VideoExtractor::UrlExtractor.call(video_params[:url]).with_http
+          expect(created_video.url).to eq Url.new(VideoExtractor::UrlExtractor.call(video_params[:url])).with_http.to_s
           expect(response).to redirect_to play_video_online_index_url(
             anime, created_video.episode, created_video.id
           )

@@ -29,10 +29,10 @@ module Routing
     if topic.instance_of? NoTopic
       db_entry_path topic.linked
 
-    elsif topic.kind_of?(User)
+    elsif topic.is_a?(User)
       profile_url topic, subdomain: false
 
-    elsif topic.kind_of?(Topics::EntryTopics::ContestTopic) ||
+    elsif topic.is_a?(Topics::EntryTopics::ContestTopic) ||
         (topic.news? && !topic.generated?) || topic.review?
 
       forum_topic_url(
@@ -69,7 +69,6 @@ module Routing
     return image_url if image_url.starts_with? '//'
     url = Url.new(image_url)
     return url.without_protocol.to_s if url.domain.to_s =~ SHIKIMORI_DOMAIN
-
 
     @camo_urls ||= {}
     @camo_urls[image_url] = begin

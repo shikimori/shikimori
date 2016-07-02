@@ -16,7 +16,7 @@ class VideoExtractor::SmotretAnimeExtractor < VideoExtractor::BaseExtractor
   def parsed_data
     {
       image_url: nil,
-      player_url: VideoExtractor::UrlExtractor.call(url).with_http,
+      player_url: Url.new(VideoExtractor::UrlExtractor.call(url)).with_http.to_s,
       hosting: :smotret_anime
     }
   end

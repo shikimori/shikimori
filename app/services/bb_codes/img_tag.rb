@@ -58,6 +58,6 @@ private
   end
 
   def fix_url url
-    url =~ %r{\A(https?:)?//} ? url : url.with_http
+    url =~ %r{\A(https?:)?//} ? url : Url.new(url).with_http.to_s
   end
 end
