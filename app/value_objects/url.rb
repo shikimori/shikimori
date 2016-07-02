@@ -6,7 +6,7 @@ class Url
       (?<domain>[^/:]+)
       (?<port>:\d+)
       |
-      (?<domain>[^/]+)
+      (?<domain>[^/?]+)
     )
     (?<path>.*)
     \Z
@@ -26,16 +26,16 @@ class Url
     end
   end
 
+  def without_protocol
+    chain '//' + without_http.to_s
+  end
+
   def with_http
     chain @url.sub(%r{\A(?!https?://)}, 'http://')
   end
 
   def without_http
     chain @url.sub(%r{\A(?:https?:)?//}, '')
-  end
-
-  def protocolless
-    chain '//' + without_http.to_s
   end
 
   def domain
@@ -46,7 +46,30 @@ class Url
     chain @url.sub(%r{\A(https?://)?www\.}, '\1')
   end
 
+  def set_params hash
+    @url.split('?').first + '?' + query_string_updated(hash)
+  end
+
+  def param param_name
+    current_query_string[param_name.to_s]
+  end
+
 private
+
+  def query_string_updated new_params_hash
+    query_string = current_query_string.reject do |param|
+      new_params_hash[param.to_sym].present?
+    end
+    hash_to_query_string query_string.merge(new_params_hash)
+  end
+
+  def hash_to_query_string hash
+    CGI.unescape(hash.to_query)
+  end
+
+  def current_query_string
+    Rack::Utils.parse_query URI(@url).query
+  end
 
   def protocol? string
     string.starts_with?('https://') || string.starts_with?('http://')

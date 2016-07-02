@@ -14,7 +14,10 @@
       ]
       .cancel title="Отменить удаление"
 
-  a.video-link href="#{video.url}" data-href="#{video.player_url}"
+  a.video-link[
+    href="#{video.url}"
+    data-href="#{Url.new(video.player_url).without_protocol.to_s}"
+  ]
     img[
       src="#{video.camo_image_url || '/assets/blocks/b-video/no_image.png'}"
       data-id="#{video.id}"

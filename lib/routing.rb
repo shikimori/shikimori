@@ -68,7 +68,7 @@ module Routing
   def camo_url image_url
     return image_url if image_url.starts_with? '//'
     url = Url.new(image_url)
-    return url.protocolless.to_s if url.domain.to_s =~ SHIKIMORI_DOMAIN
+    return url.without_protocol.to_s if url.domain.to_s =~ SHIKIMORI_DOMAIN
 
 
     @camo_urls ||= {}

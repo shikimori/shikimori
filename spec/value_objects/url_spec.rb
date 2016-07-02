@@ -2,6 +2,20 @@ describe Url do
   let(:string) { 'lenta.ru' }
   let(:url) { Url.new string }
 
+  describe 'without_protocol' do
+    subject { url.without_protocol.to_s }
+
+    context 'has_http' do
+      let(:string) { 'http://test.org' }
+      it { is_expected.to eq '//test.org' }
+    end
+
+    context 'no_http' do
+      let(:string) { 'test.org' }
+      it { is_expected.to eq '//test.org' }
+    end
+  end
+
   describe '#with_http' do
     subject { url.with_http.to_s }
 
@@ -27,20 +41,6 @@ describe Url do
     context 'no_http' do
       let(:string) { 'test.org' }
       it { is_expected.to eq 'test.org' }
-    end
-  end
-
-  describe 'protocolless' do
-    subject { url.protocolless.to_s }
-
-    context 'has_http' do
-      let(:string) { 'http://test.org' }
-      it { is_expected.to eq '//test.org' }
-    end
-
-    context 'no_http' do
-      let(:string) { 'test.org' }
-      it { is_expected.to eq '//test.org' }
     end
   end
 
@@ -81,6 +81,55 @@ describe Url do
     context 'without www' do
       let(:string) { 'http://test.org/test' }
       it { is_expected.to eq 'http://test.org/test' }
+    end
+  end
+
+  describe '#set_params' do
+    subject { url.set_params(hash) }
+    let(:hash) do
+      { 'p1' => 'p1', 'p2' => 'p2' }
+    end
+
+    context 'link has params' do
+      let(:string) { 'http://test.org/test?p0=p0' }
+      it { is_expected.to eq 'http://test.org/test?p0=p0&p1=p1&p2=p2' }
+    end
+
+    context 'link without params' do
+      let(:string) { 'http://test.org/test' }
+      it { is_expected.to eq 'http://test.org/test?p1=p1&p2=p2' }
+    end
+
+    context 'link with the same params' do
+      let(:string) { 'http://test.org/test?p1=p1' }
+      it { is_expected.to eq 'http://test.org/test?p1=p1&p2=p2' }
+    end
+
+    context 'passed params overwrites query string' do
+      let(:string) { 'http://test.org/test?p1=pppp1' }
+      it { is_expected.to eq 'http://test.org/test?p1=p1&p2=p2' }
+    end
+  end
+
+  describe '#param' do
+    subject { url.param(param_name) }
+    let(:string) { 'http://test.org/test?p1=p1&p2=p2' }
+
+    context 'param exists' do
+      let(:param_name) { :p1 }
+      it { is_expected.to be_truthy }
+    end
+
+    context "param doesn't exist" do
+      let(:param_name) { :p3 }
+      it { is_expected.to be_falsy }
+    end
+
+    context 'no params' do
+      let(:string) { 'http://test.org/test' }
+      let(:param_name) { :p3 }
+
+      it { is_expected.to be_falsy }
     end
   end
 end
