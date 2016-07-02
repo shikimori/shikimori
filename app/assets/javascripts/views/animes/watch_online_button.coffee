@@ -4,7 +4,11 @@ class Animes.WathOnlineButton extends View
   UPLOAD_VIDEOS_TEMPLATE = 'templates/animes/upload_videos'
 
   initialize: (@options) ->
-    @_render() if @options.is_allowed
+    return unless @options.is_allowed
+    @total_episodes = @$root.data('total_episodes') || 9999
+
+    @_render()
+    @_setup_handlers.delay()
 
   _render: ->
     if @options.has_videos
@@ -12,3 +16,15 @@ class Animes.WathOnlineButton extends View
 
     else if @options.can_upload
       @$root.html JST[UPLOAD_VIDEOS_TEMPLATE](url: @options.upload_url)
+
+  _setup_handlers: =>
+    @$('.watch-online').on 'click', @_click
+
+  _click: (e) =>
+    episode = parseInt($('.b-db_entry .b-user_rate .current-episodes').html())
+    watch_episode = if !episode || episode == @total_episodes then 1 else episode + 1
+
+    $link = $(e.target)
+    url = $link.attr('href').replace(/\d+$/, watch_episode)
+
+    $link.attr href: url

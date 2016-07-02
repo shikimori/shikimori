@@ -25,16 +25,6 @@
   $('.other-names.click-loader').on 'ajax:success', (e, data) ->
     $(@).closest('.line').replaceWith data
 
-  (->
-    # клик по смотреть онлайн
-    $('.watch-online').on 'click', ->
-      episode = parseInt($('.b-db_entry .b-user_rate .current-episodes').html())
-      total_episodes = parseInt($('.b-user_rate .total-episodes').html()) || 9999
-      watch_episode = if !episode || episode == total_episodes then 1 else episode + 1
-
-      $(@).attr href: $(@).attr('href').replace(/\d+$/, watch_episode)
-  ).delay()
-
   # раскрытие свёрнутого блока связанного
   $('.l-content').on 'click', '.related-shower', ->
     $(@).next().children().unwrap()

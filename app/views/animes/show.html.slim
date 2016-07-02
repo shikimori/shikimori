@@ -99,7 +99,9 @@
                   = render 'mangas/publishers_info', entry: @resource
 
             - if @resource.display_sensitive?
-              .watch-online-placeholer
+              .watch-online-placeholer[
+                data-total_episodes="#{@resource.episodes}"
+              ]
 
       .c-description
         .subheadline.m5 = Anime.human_attribute_name :description
