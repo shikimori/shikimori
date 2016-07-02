@@ -16,8 +16,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         it { expect(response).to have_http_status :success }
 
         context 'without current_video' do
-          let(:make_request) { get :index, anime_id: anime.to_param,
-            episode: anime_video.episode, video_id: anime_video.id + 1 }
+          let(:make_request) do
+            get :index,
+              anime_id: anime.to_param,
+              episode: anime_video.episode,
+              video_id: anime_video.id + 1
+          end
           it { expect(response).to have_http_status :success }
         end
       end

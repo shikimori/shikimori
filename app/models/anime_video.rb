@@ -81,7 +81,7 @@ class AnimeVideo < ActiveRecord::Base
 
   def url= value
     if persisted?
-      super VideoExtractor::UrlExtractor.call(value).with_http
+      super Url.new(VideoExtractor::UrlExtractor.call(value)).with_http.to_s
     else
       super value.present? ? Url.new(value).with_http.to_s : value
     end

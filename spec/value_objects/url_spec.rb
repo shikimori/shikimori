@@ -19,12 +19,17 @@ describe Url do
   describe '#with_http' do
     subject { url.with_http.to_s }
 
-    context 'has_http' do
+    context 'has http' do
       let(:string) { 'http://test.org' }
       it { is_expected.to eq 'http://test.org' }
     end
 
-    context 'no_http' do
+    context 'no protocol' do
+      let(:string) { '//test.org' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+
+    context 'no http' do
       let(:string) { 'test.org' }
       it { is_expected.to eq 'http://test.org' }
     end
@@ -33,12 +38,17 @@ describe Url do
   describe 'without_http' do
     subject { url.without_http.to_s }
 
-    context 'has_http' do
+    context 'has http' do
       let(:string) { 'http://test.org' }
       it { is_expected.to eq 'test.org' }
     end
 
-    context 'no_http' do
+    context 'no protocol' do
+      let(:string) { '//test.org' }
+      it { is_expected.to eq 'test.org' }
+    end
+
+    context 'no http' do
       let(:string) { 'test.org' }
       it { is_expected.to eq 'test.org' }
     end
