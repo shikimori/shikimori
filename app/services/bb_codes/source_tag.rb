@@ -14,7 +14,7 @@ class BbCodes::SourceTag
 
       "<div class=\"b-source hidden\">\
 <span class=\"linkeable\" data-href=\"#{url}\">\
-#{Url.new(url).extract_domain}</span></div>"
+#{Url.new(url).domain}</span></div>"
     end
   end
 

@@ -44,7 +44,7 @@ describe Url do
     end
   end
 
-  describe '#extract_domain' do
+  describe '#domain' do
     subject { url.domain.to_s }
 
     context 'with www' do

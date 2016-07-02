@@ -35,7 +35,7 @@ private
     decoded_text ||= text
 
     "<a class=\"b-link\" href=\"#{url}\">\
-#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).extract_domain}</a>"
+#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).domain}</a>"
   end
 
   def video_bb_code url
@@ -52,7 +52,11 @@ private
     if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
     else
-      url.size > MAX_SHORT_URL_SIZE ? url.extract_domain : url.without_http
+      if url.size > MAX_SHORT_URL_SIZE
+        Url.new(url).domain.to_s
+      else
+        Url.new(url).without_http.to_s
+      end
     end
   end
 end
