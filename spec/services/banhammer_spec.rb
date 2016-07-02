@@ -127,5 +127,10 @@ describe Banhammer do
       let(:user) { build_stubbed :user, bans: [build_stubbed(:ban, created_at: 2.days.ago), build_stubbed(:ban, created_at: 2.days.ago)] }
       it { is_expected.to eq '2h' }
     end
+
+    describe 'maximum ban duration' do
+      let(:text) { 'хуй ' * 99999 }
+      it { is_expected.to eq '26w' }
+    end
   end
 end

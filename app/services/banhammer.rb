@@ -30,6 +30,8 @@ class Banhammer
     я: %w(ya я)
   }
 
+  HALF_YEAR_DURATION = 60 * 24 * 7 * 26
+
   def self.w word
     fixed_word = word.to_s.split(//).map { |v| l v }.join ' '
     "(?:#{fixed_word})"
@@ -94,7 +96,9 @@ private
     duration = duration_by comment
     multiplier = BanDuration.new(duration).to_i
 
-    BanDuration.new(multiplier * abusiveness(comment.body)).to_s
+    BanDuration.new(
+      [multiplier * abusiveness(comment.body), HALF_YEAR_DURATION].min
+    ).to_s
   end
 
   def duration_by comment
