@@ -87,7 +87,11 @@ class AnimeOnline::AnimeVideosController < AnimesController
   end
 
   def extract_url
-    url = VideoExtractor::UrlExtractor.call(params[:url].try :with_http)
+    if params[:url].present?
+      url = VideoExtractor::UrlExtractor.call(
+        Url.new(params[:url]).with_http.to_s
+      )
+    end
     render json: { player_html: AnimeVideo.new(url: url).decorate.player_html }
   end
 
