@@ -98,7 +98,7 @@
                 .block
                   = render 'mangas/publishers_info', entry: @resource
 
-            - if @resource.display_sensitive?
+            - if @resource.anime? && @resource.display_sensitive?
               .watch-online-placeholer[
                 data-total_episodes="#{@resource.episodes}"
               ]
