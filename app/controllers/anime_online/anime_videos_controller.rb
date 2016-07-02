@@ -128,7 +128,7 @@ private
   end
 
   def valid_host?
-    AnimeOnlineDomain::valid_host? @anime, request
+    AnimeOnlineDomain.valid_host? @anime, request
   end
 
   def valid_host_url

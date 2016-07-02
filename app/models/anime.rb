@@ -182,10 +182,10 @@ class Anime < DbEntry
   end
 
   def adult?
-    censored || ADULT_RATING == rating || (
-      SUB_ADULT_RATING == rating &&
-      ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
-    )
+    censored || ADULT_RATING == rating# || (
+      # SUB_ADULT_RATING == rating &&
+      # ((kind_ova? && episodes <= AnimeVideo::R_OVA_EPISODES) || kind_special?)
+    # )
   end
 
   def name
