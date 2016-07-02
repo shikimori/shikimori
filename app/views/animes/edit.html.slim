@@ -137,6 +137,48 @@
       b Desynced:
       span  #{@resource.desynced.join(', ')}
 
+  - if current_user&.admin?
+    .block
+      .subheadline = t '.new_torrent'
+      .subcontent
+        = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
+          .m5
+            p Link
+            = text_field_tag 'torrent[link]',
+              params[:torrent] ? params[:torrent]['link'] : '',
+              class: 'common',
+              size: 100
+          .m5
+            p PubDate
+            = text_field_tag 'torrent[pubDate]',
+              params[:torrent] ? params[:torrent]['pubDate'] : '',
+              class: 'common',
+              size: 40
+          .m15
+            p Title
+            = text_field_tag 'torrent[title]',
+              params[:torrent] ? params[:torrent]['title'] : '',
+              class: 'common',
+              size: 100
+          .m5
+            = submit_tag t('actions.add'), class: 'button'
+
+    .block
+      .subheadline-buttons
+        a.item-edit href="#{@resource.edit_field_url :torrents_name}"
+      .subheadline = t '.parse_page'
+      .subcontent
+        = form_tag torrent_anime_path(@resource.object), method: :post do |f|
+          .m15
+            p URL
+            = text_field_tag 'torrent[url]',
+              params[:torrent] ? params[:torrent]['url'] : '',
+              class: 'common',
+              size: 100
+          .m5
+            = submit_tag t('.parse'), class: 'button'
+
+
   - if @resource.versions_page.first.any?
     .subheadline = t '.changes_history'
     .block

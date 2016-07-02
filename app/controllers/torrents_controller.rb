@@ -40,7 +40,7 @@ class TorrentsController < ShikimoriController
 
     if added > 0
       flash[:notice] = added == 1 ? "Новый торрент успешно добавлен" : "Новые торренты успешно добавлены"
-      redirect_to anime.decorate.files_url
+      redirect_to anime.decorate.edit_url
     else
       redirect_to :back, alert: params[:torrent]['url'] ? 'Не найдено ни одного нового эпизода' : 'Не удалось добавить новый торрент, проверьте корректность Title'
     end
