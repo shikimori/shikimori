@@ -64,7 +64,7 @@ class Video < ActiveRecord::Base
 
   def camo_image_url
     if vk?
-      UrlGenerator.instance.camo_url image_url.with_http
+      UrlGenerator.instance.camo_url Url.new(image_url).with_http.to_s
     else
       image_url
     end
