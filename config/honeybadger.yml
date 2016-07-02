@@ -21,3 +21,4 @@ exceptions:
     - Net::SMTPServerBusy
     - Net::SMTPFatalError
     - Interrupt
+    - Apipie::ParamMissing
