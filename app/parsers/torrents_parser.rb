@@ -69,22 +69,22 @@ class TorrentsParser
     num = parse_episodes_num(episode_name).select {|v| v < 1000 }
 
     if episode_name =~ /cardfight!![ _]vanguard/i && episode_name =~ /link[ _]joker/i
-      num.map {|v| v - 104 }
+      num.map { |v| v - 104 }
     elsif episode_name =~ /THE iDOLM@STER Cinderella Girls/i
-      num.map {|v| v - 13 }
+      num.map { |v| v - 13 }
     elsif episode_name =~ /Yu-Gi-Oh![ _]Zexal[ _]II/i
-      num.map {|v| v - 73 }
+      num.map { |v| v - 73 }
     elsif episode_name =~ /stardust[ _]crusaders/i
-      num.map {|v| v > 24 ? v - 24 : v }
+      num.map { |v| v > 24 ? v - 24 : v }
     elsif episode_name =~ /kuroko[ _]no[ _](basuke|basket)/i
-      num.map {|v| v > 25 ? v - 25 : v }
+      num.map { |v| v > 25 ? v - 25 : v }
     elsif episode_name =~ /fairy[ _]?tail/i
-      num.map {|v| v > 175 ? v - 175 : v }
+      num.map { |v| v > 175 ? v - 175 : v }
     elsif episode_name =~ /kyousou[ _]?giga/i
-      num.map {|v| v + 1 }
+      num.map { |v| v + 1 }
     else
       num
-    end.select {|v| v > 0 }
+    end.select { |v| v > 0 }
   end
 
   def self.parse_episodes_num episode_name
@@ -234,7 +234,8 @@ class TorrentsParser
           entry[:episodes].max - anime.episodes_aired
         ].max
         next if entry[:episodes].none? ||
-          ((anime.ongoing? || anime.anons?) && episodes_diff > 1 &&
+          ((anime.ongoing? || anime.anons?) &&
+            episodes_diff > entry[:episodes].size &&
             !(entry[:episodes].max > 1 && anime.episodes_aired == 0))
 
         entry[:episodes].each do |episode|
