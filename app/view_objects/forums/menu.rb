@@ -24,7 +24,7 @@ class Forums::Menu < ViewObjectBase
 
   def reviews
     @reviews ||= Review
-      .where('created_at >= ?',  2.weeks.ago)
+      .where('created_at >= ?', 2.weeks.ago)
       .where(locale: h.locale_from_domain)
       .visible
       .includes(:user, :target, topics: [:forum])
@@ -34,11 +34,11 @@ class Forums::Menu < ViewObjectBase
 
   def sticky_topics
     [
-      StickyTopicView.site_rules,
-      StickyTopicView.faq,
-      StickyTopicView.description_of_genres,
-      StickyTopicView.ideas_and_suggestions,
-      StickyTopicView.site_problems
+      StickyTopicView.site_rules(h.locale_from_domain),
+      StickyTopicView.faq(h.locale_from_domain),
+      StickyTopicView.description_of_genres(h.locale_from_domain),
+      StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
+      StickyTopicView.site_problems(h.locale_from_domain)
     ]
   end
 

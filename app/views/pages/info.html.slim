@@ -5,14 +5,17 @@ header.head
 .cc-2a
   .c-column.m0
     ul.b-list
+      - site_rules = StickyTopicView.site_rules(locale_from_domain)
+      - faq = StickyTopicView.faq(locale_from_domain)
+
       li: a.entry[
-        href=StickyTopicView.site_rules.url
-        title=StickyTopicView.site_rules.title
-      ] = StickyTopicView.site_rules.title
+        href=site_rules.url
+        title=site_rules.title
+      ] = site_rules.title
       li: a.entry[
-        href=StickyTopicView.faq.url
-        title=StickyTopicView.faq.title
-      ] = StickyTopicView.faq.title
+        href=faq.url
+        title=faq.title
+      ] = faq.title
       li: a.entry[
         href="#{about_pages_url}"
         title="#{t 'about_site'}"

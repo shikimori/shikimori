@@ -24,14 +24,14 @@ class StickyTopicView
     ideas_and_suggestions
     site_problems
   ).each do |topic_name|
-    define_singleton_method topic_name do
-      instance_variable_get(:"@#{__method__}") ||
+    define_singleton_method topic_name do |locale|
+      instance_variable_get(:"@#{__method__}_#{locale}") ||
         instance_variable_set(
-          :"@#{__method__}",
+          :"@#{__method__}_#{locale}",
           new(
-            url: url(__method__),
-            title: title(__method__),
-            description: description(__method__)
+            url: url(__method__, locale),
+            title: title(__method__, locale),
+            description: description(__method__, locale)
           )
         )
     end
@@ -39,18 +39,18 @@ class StickyTopicView
 
 private
 
-  def self.url method_name
-    topic_id = TOPIC_IDS[method_name][I18n.locale]
+  def self.url method_name, locale
+    topic_id = TOPIC_IDS[method_name][locale.to_sym]
     Rails.cache.fetch("sticky_topic_url_#{topic_id}") do
       UrlGenerator.instance.topic_url Topic.find(topic_id)
     end
   end
 
-  def self.title method_name
-    i18n_t("#{method_name}.title")
+  def self.title method_name, locale
+    i18n_t "#{method_name}.title", locale: locale
   end
 
-  def self.description method_name
-    i18n_t("#{method_name}.description")
+  def self.description method_name, locale
+    i18n_t "#{method_name}.description", locale: locale
   end
 end

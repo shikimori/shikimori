@@ -1,5 +1,5 @@
-# rubocop:disable ClassLength
 # frozen_string_literal: true
+# rubocop:disable ClassLength
 
 class Banhammer
   include Translation
@@ -89,9 +89,14 @@ private
       user: comment.user,
       comment: comment,
       duration: duration,
-      reason: i18n_t('ban_reason', url: StickyTopicView.site_rules.url),
+      reason: ban_reason(comment),
       moderator: User.find(User::BANHAMMER_ID)
     )
+  end
+
+  def ban_reason comment
+    locale = comment.user.locale_from_domain
+    i18n_t('ban_reason', url: StickyTopicView.site_rules(locale).url)
   end
 
   def ban_duration comment
