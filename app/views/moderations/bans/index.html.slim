@@ -10,7 +10,8 @@ header.head
 
   ul.b-list
     li: p
-      a href=StickyTopic.site_rules.url = StickyTopic.site_rules.title
+      - site_rules = StickyTopicView.site_rules(locale_from_domain)
+      a href=site_rules.url = site_rules.title
 
     - t('.instructions').each do |instruction|
       li: p == instruction
