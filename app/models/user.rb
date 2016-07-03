@@ -71,7 +71,6 @@ class User < ActiveRecord::Base
   has_many :topic_ignores, dependent: :destroy
 
   has_many :comment_views, dependent: :destroy
-  has_many :entry_views, dependent: :destroy
 
   has_many :nickname_changes, class_name: UserNicknameChange.name, dependent: :destroy
   has_many :recommendation_ignores, dependent: :destroy

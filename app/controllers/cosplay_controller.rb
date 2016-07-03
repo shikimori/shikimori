@@ -47,7 +47,8 @@ class CosplayController < ShikimoriController
     if @characters.empty? || @animes.empty? || @mangas.empty? || @tags.empty?
       if strip_tags(@gallery.description_cos_rain || '').match(/^(?:.*?) (?:is|are) cosplaying as (.*?) from (.*?)(?:$|\.)/)
         animes = $2
-        mangas = $2
+        # NOTE: unused
+        #mangas = $2
         characters = $1
         @anime_keywords = fix_keywords(animes.split(/&|and/).map {|v| v.strip }).
                               map {|v| v.split(' ').size > 4 ? v : geta(v.split(' ')).map {|s| s.join(' ') } }.
@@ -248,10 +249,39 @@ class CosplayController < ShikimoriController
     end
   end
 
+  # TODO: выпилить
+  #def chronology params
+    #collection = params[:source]
+      #.where("`#{params[:date]}` >= #{Entry.sanitize params[:entry][params[:date]]}")
+      #.where("#{params[:entry].class.table_name}.id != #{Entry.sanitize params[:entry].id}")
+      #.limit(20)
+      #.order(params[:date])
+      #.to_a + [params[:entry]]
+
+    #collection += params[:source]
+      #.where("`#{params[:date]}` <= #{Entry.sanitize params[:entry][params[:date]]}")
+      #.where.not(id: collection.map(&:id))
+      #.limit(20)
+      #.order("#{params[:date]} desc")
+      #.to_a
+
+    #collection = collection.sort {|l,r| r[params[:date]] == l[params[:date]] ? r.id <=> l.id : r[params[:date]] <=> l[params[:date]] }
+    #collection = collection.reverse if params[:desc]
+    #gallery_index = collection.index {|v| v.id == params[:entry].id }
+    #reduce = Proc.new {|v| v < 0 ? 0 : v }
+    #collection.slice(reduce.call(gallery_index + params[:window] + 1 < collection.size ?
+                                   #gallery_index - params[:window] :
+                                   #(gallery_index - params[:window] - (gallery_index + params[:window]  + 1 - collection.size))),
+                     #params[:window]*2 + 1).
+               #group_by do |v|
+                 #Russian::strftime(v[params[:date]], '%B %Y')
+               #end
+  #end
+
 private
 
   def breadcrumbs
-    crumbs = { 'Модерация косплея' => mod_cosplay_index_url }
+    { 'Модерация косплея' => mod_cosplay_index_url }
   end
 
   def cosplay_gallery_params

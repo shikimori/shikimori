@@ -3,6 +3,7 @@
 class Topic < Entry
   include Moderatable
   include Antispam
+  include Viewable
 
   FORUM_IDS = {
     'Anime' => 1,
@@ -41,5 +42,9 @@ class Topic < Entry
 
   def summaries_count
     @summaries_count ||= comments.summaries.count
+  end
+
+  def viewing_klass
+    TopicViewing
   end
 end

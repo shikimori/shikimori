@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629213037) do
+ActiveRecord::Schema.define(version: 20160703155936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,13 +261,13 @@ ActiveRecord::Schema.define(version: 20160629213037) do
     t.string   "locale",                                              null: false
   end
 
-  create_table "comment_views", force: :cascade do |t|
+  create_table "comment_viewings", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "comment_id"
+    t.integer "viewed_id"
   end
 
-  add_index "comment_views", ["comment_id"], name: "index_comment_views_on_comment_id", using: :btree
-  add_index "comment_views", ["user_id", "comment_id"], name: "index_comment_views_on_user_id_and_comment_id", unique: true, using: :btree
+  add_index "comment_viewings", ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
+  add_index "comment_viewings", ["viewed_id"], name: "index_comment_viewings_on_viewed_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -461,14 +461,6 @@ ActiveRecord::Schema.define(version: 20160629213037) do
   add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
   add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
   add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
-
-  create_table "entry_views", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "entry_id"
-  end
-
-  add_index "entry_views", ["entry_id"], name: "index_entry_views_on_entry_id", using: :btree
-  add_index "entry_views", ["user_id", "entry_id"], name: "index_entry_views_on_user_id_and_entry_id", unique: true, using: :btree
 
   create_table "episode_notifications", force: :cascade do |t|
     t.integer  "anime_id"
@@ -846,6 +838,14 @@ ActiveRecord::Schema.define(version: 20160629213037) do
   add_index "topic_ignores", ["topic_id"], name: "index_topic_ignores_on_topic_id", using: :btree
   add_index "topic_ignores", ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true, using: :btree
   add_index "topic_ignores", ["user_id"], name: "index_topic_ignores_on_user_id", using: :btree
+
+  create_table "topic_viewings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "viewed_id"
+  end
+
+  add_index "topic_viewings", ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
+  add_index "topic_viewings", ["viewed_id"], name: "index_topic_viewings_on_viewed_id", using: :btree
 
   create_table "user_changes", force: :cascade do |t|
     t.integer  "user_id"

@@ -11,6 +11,9 @@ class CommentViewsCleaner
   end
 
   def last_id klass
-    klass .order(created_at: :desc) .where('created_at < ?', (1.week + 1.day).ago) .first
+    klass
+      .order(created_at: :desc)
+      .where('created_at < ?', (1.week + 1.day).ago)
+      .first
   end
 end

@@ -1,6 +1,5 @@
 class Entry < ActiveRecord::Base
   include Commentable
-  include Viewable
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 
@@ -14,14 +13,12 @@ class Entry < ActiveRecord::Base
     -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
     foreign_key: :linked_id,
     dependent: :delete_all
-  has_many :topic_ignores, foreign_key: :topic_id, dependent: :destroy
+
+  has_many :topic_ignores,
+    foreign_key: :topic_id,
+    dependent: :destroy
 
   before_save :validates_linked
-
-  # TODO: refactor into module
-  # before_update :unclaim_images
-  # before_destroy :destroy_images
-  # after_save :claim_images
 
   # топики без топиков о выходе эпизодов
   scope :wo_episodes, -> {
@@ -68,10 +65,6 @@ class Entry < ActiveRecord::Base
     end
   end
 
-  # def to_s
-    # self.title
-  # end
-
   # оффтопик ли это? для совместимости с интерфейсом отображения комментариев
   def offtopic?
     false
@@ -109,27 +102,6 @@ class Entry < ActiveRecord::Base
     is_a? Topics::EntryTopics::ContestTopic
   end
 
-  # def user_image_ids value=self.value
-    # (value || '').split(',').map(&:to_i).select { |v| v > 0 }
-  # end
-
-  # def user_image_ids= ids
-    # self.value = (ids || []).join(',')
-  # end
-
-  # # картинки, загруженные пользователями в топик
-  # def attached_images
-    # ids = user_image_ids
-
-    # if ids.any?
-      # UserImage
-        # .where(id: ids)
-        # .sort_by {|v| ids.index v.id }
-    # else
-      # []
-    # end
-  # end
-
   # оригинальный текст без сгенерированных автоматом тегов
   def original_body
     if generated?
@@ -157,29 +129,4 @@ private
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end
-
-  # пометка картинок на принадлежность текущему топику
-  # def claim_images
-    # UserImage
-      # .where(id: user_image_ids, linked_id: nil, linked_type: Entry.name)
-      # .update_all(linked_id: id, linked_type: Entry.name)
-  # end
-
-  # # удаление более неиспользуемых картинок
-  # def unclaim_images
-    # if changes['value'].present? && !generated?
-      # unused_ids = user_image_ids(changes['value'][0]) - user_image_ids
-
-      # UserImage
-        # .where(id: unused_ids, linked_id: id, linked_type: Entry.name)
-        # .destroy_all
-    # end
-  # end
-
-  # # полное удаление всех картинок
-  # def destroy_images
-    # attached_images
-      # .select { |v| v.linked_id == id && v.linked_type == Entry.name }
-      # .each(&:destroy)
-  # end
 end
