@@ -363,6 +363,7 @@ ActiveRecord::Schema.define(version: 20160629213037) do
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
+    t.string   "title",                limit: 50
   end
 
   add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
