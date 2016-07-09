@@ -10,15 +10,13 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
     primaryx.net/quadro\?dlc=kimori
   }mix
 
+  # rubocop:disable LineLength
   SPAM_PHRASES = [
-    /
-        Хорош \s качать \s уже\) \s А \s то \s всё \s качаем,качаем
-    /mix,
-    /
-      Поднадоело \s читать, \s ищу \s напарника \s со \s мной \s в \s игру. \s
-      Если \s за, \s то \s регайся \s и \s качай \s тут
-    /mix
+    'Хорош качать уже) А то всё качаем,качаем',
+    'Поднадоело читать, ищу напарника со мной в игру. Если за, то регайся и качай тут',
+    'Вот прям затягивает и на моём ноуте идёт. Полно народу кстати бегает, регистрируйся'
   ]
+  # rubocop:enable LineLength
 
   def call
     if spam?
@@ -36,7 +34,7 @@ private
     message.kind == MessageType::Private &&
       (
         message.body =~ SPAM_LINKS ||
-        SPAM_PHRASES.any? { |v| v =~ message.body }
+        SPAM_PHRASES.any? { |phrase| message.body.include? phrase }
       )
   end
 
