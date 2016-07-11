@@ -25,4 +25,7 @@
 - if user_signed_in?
   .editor-container
     .subheadline.m10 Ваш комментарий
-    = render 'comments/form', comment: comments_view.new_comment
+    - if current_user.day_registered?
+      = render 'comments/form', comment: comments_view.new_comment
+    - else
+      .b-nothing_here Комментирование будет доступно через сутки после регистрации
