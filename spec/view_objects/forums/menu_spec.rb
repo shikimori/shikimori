@@ -1,5 +1,6 @@
 describe Forums::Menu do
   include_context :view_object_warden_stub
+
   let(:view) { Forums::Menu.new double(id: 1), nil }
   let(:user) { seed :user }
 
@@ -33,7 +34,12 @@ describe Forums::Menu do
   end
 
   describe '#sticky_topics' do
-    include_context :sticky_topics
+    # site_rules and faq are created with seeds
+    before do
+      create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
+      create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
+      create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
+    end
     it { expect(view.sticky_topics).to have(5).items }
   end
 
