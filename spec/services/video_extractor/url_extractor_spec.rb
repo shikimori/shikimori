@@ -4,7 +4,7 @@ describe VideoExtractor::UrlExtractor do
 
     context 'direct' do
       let(:html) { 'http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7' }
-      it { is_expected.to eq html.without_protocol }
+      it { is_expected.to eq Url.new(html).without_protocol.to_s }
     end
 
     context 'short', vcr: { cassette_name: 'url_extractor' } do
@@ -27,7 +27,7 @@ describe VideoExtractor::UrlExtractor do
 
     context 'strip' do
       let(:html) { ' http://vk.com/video_ext.php?oid=-11230840&id=164793125&hash=c8f8109b2c0341d7 ' }
-      it { is_expected.to eq html.strip.without_protocol }
+      it { is_expected.to eq Url.new(html.strip).without_protocol.to_s }
     end
 
     describe 'vk_1' do

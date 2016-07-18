@@ -83,7 +83,12 @@ describe FixAnimeVideoAuthors do
 
           context 'name in square brackets with translators' do
             let(:name) { '[AniDUB] Test, Foo' }
-            it { expect(author_1.reload.name).to eq 'AniDUB (Test, Foo)' }
+            it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
+          end
+
+          context 'name with commas' do
+            let(:name) { 'AniDUB (Test, Foo)' }
+            it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
           end
 
           context 'name in round brackets' do
