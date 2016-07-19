@@ -66,6 +66,16 @@ describe FixAnimeVideoAuthors do
             it { expect(author_1.reload.name).to eq 'AniDUB' }
           end
 
+          context 'name with prefix' do
+            let(:name) { 'xaNiDuB' }
+            it { expect(author_1.reload.name).to eq 'AniDUB' }
+          end
+
+          context 'name with postfix' do
+            let(:name) { 'aNiDuBx' }
+            it { expect(author_1.reload.name).to eq 'AniDUB' }
+          end
+
           context 'tv domain' do
             let(:name) { 'AniLibria.TV' }
             it { expect(author_1.reload.name).to eq 'AniLibria' }
@@ -119,6 +129,11 @@ describe FixAnimeVideoAuthors do
           context 'studio after author' do
             let(:name) { 'Cuba77 [AniDUB]' }
             it { expect(author_1.reload.name).to eq 'AniDUB (Cuba77)' }
+          end
+
+          context 'author similar to studio' do
+            let(:name) { 'Mirazell & Annie & SlyfeFreeDub' }
+            it { expect(author_1.reload.name).to eq 'Mirazell & Annie & SlyfeFreeDub' }
           end
         end
 

@@ -67,7 +67,7 @@ class ProfilesController < ShikimoriController
           nil)
         .order(id: :desc)
     end
-    @collection = collection.map {|v| SolitaryCommentDecorator.new v }
+    @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
     page_title i18n_t('comments')
   end
@@ -79,7 +79,7 @@ class ProfilesController < ShikimoriController
         .where(user: @resource.object, is_summary: true)
         .order(id: :desc)
     end
-    @collection = collection.map {|v| SolitaryCommentDecorator.new v }
+    @collection = collection.map { |v| SolitaryCommentDecorator.new v }
 
     page_title i18n_t('summaries')
   end

@@ -3,16 +3,19 @@ class FixAnimeVideoAuthors
   include Sidekiq::Worker
   include ActionView::Helpers::TextHelper
 
-  TRASH = /[^\[\]() &,-]*/.source
+  TRASH = /[^\[\]() &,-]{0,4}/.source
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
-    AniUchi AniSound AnimeReactor NekoProject
-  )
+    AniUchi AniSound AnimeReactor NekoProject AnimeJet FreeDub AniFame
+  ) + [
+    'DeadLine Studio', 'Bastion Studio'
+  ]
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
 
   STUDIOS_REPLACEMENTS = STUDIOS.each_with_object({}) do |name, memo|
     memo[/
       (?: \( \s* )?
+        (?: \b#{TRASH} )?
         #{name}
         #{TRASH}
         (?! [&-] )
@@ -110,6 +113,7 @@ private
       .gsub(', ', ' & ')
       .gsub(' и ', ' & ')
       .gsub(/\A[^ivx\d] /i, '')
+      .gsub(/ &[)($]/, '')
   end
 
   def fix_studio name
