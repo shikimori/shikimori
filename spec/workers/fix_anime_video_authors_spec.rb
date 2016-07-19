@@ -76,6 +76,16 @@ describe FixAnimeVideoAuthors do
             it { expect(author_1.reload.name).to eq 'AniDUB (test)' }
           end
 
+          context 'symbol in the beginning' do
+            let(:name) { 'и test' }
+            it { expect(author_1.reload.name).to eq 'test' }
+          end
+
+          context 'digit in the beginning' do
+            let(:name) { '1 test' }
+            it { expect(author_1.reload.name).to eq '1 test' }
+          end
+
           context 'name in square brackets' do
             let(:name) { '[AniDUB]' }
             it { expect(author_1.reload.name).to eq 'AniDUB' }
@@ -88,6 +98,11 @@ describe FixAnimeVideoAuthors do
 
           context 'name with commas' do
             let(:name) { 'AniDUB (Test, Foo)' }
+            it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
+          end
+
+          context 'name with russian and' do
+            let(:name) { 'AniDUB (Test и Foo)' }
             it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
           end
 

@@ -75,9 +75,7 @@ private
     authors.each do |author|
       quality = match_quality(author.name)&.first
 
-      author.name = fix_commas(
-        fix_studio(fix_brackets(fix_quality(author.name)))
-      )
+      author.name = fix_studio(fix_misc(fix_quality(author.name)))
       change_videos_quality author, quality if quality
 
       if author.changes.any?
@@ -102,13 +100,16 @@ private
     end
   end
 
-  def fix_brackets name
+  def fix_misc name
     name
       .gsub(/\[+/, '(')
       .gsub(/\]+/, ')')
       .gsub(/\(\(+/, '(')
       .gsub(/\)\)+/, ')')
       .gsub(/\A\( (.*) \)\Z/mix, '\1')
+      .gsub(', ', ' & ')
+      .gsub(' и ', ' & ')
+      .gsub(/\A[^ivx\d] /i, '')
   end
 
   def fix_studio name
@@ -121,10 +122,6 @@ private
       .inject(fixed_name) do |memo, (regexp, replacement)|
         memo.gsub(regexp, replacement).strip
       end
-  end
-
-  def fix_commas name
-    name.gsub(', ', ' & ')
   end
 
   def change_videos_quality author, quality
