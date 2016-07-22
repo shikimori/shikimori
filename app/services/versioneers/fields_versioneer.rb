@@ -2,7 +2,7 @@ class Versioneers::FieldsVersioneer
   pattr_initialize :item
 
   SPLITTED_DATE_FIELD = /
-    (?<field> [\w_-]+ )
+    (?<field> [\w-]+ )
     \( (?<index>[1-3]i) \)
     $
   /mix
@@ -13,7 +13,7 @@ class Versioneers::FieldsVersioneer
 
   def postmoderate params, author=nil, reason=nil
     version = premoderate params, author, reason
-    version.auto_accept! if version.persisted?
+    version.auto_accept! if version.persisted? && version.can_auto_accept?
     version
   end
 

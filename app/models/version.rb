@@ -1,6 +1,8 @@
 class Version < ActiveRecord::Base
   MAXIMUM_REASON_SIZE = 255
 
+  ABUSE_USER_IDS = [91184]
+
   belongs_to :user
   belongs_to :moderator, class_name: User
   belongs_to :item, polymorphic: true, touch: true
@@ -17,7 +19,7 @@ class Version < ActiveRecord::Base
     state :deleted
 
     event(:accept) { transition :pending => :accepted }
-    event(:auto_accept) { transition :pending => :auto_accepted }
+    event(:auto_accept) { transition :pending => :auto_accepted, if: :auto_acceptable? }
     event(:take) { transition :pending => :taken }
     event(:reject) { transition [:pending, :auto_accepted] => :rejected }
     event(:to_deleted) { transition :pending => :deleted }
@@ -132,5 +134,9 @@ private
     else
       value
     end
+  end
+
+  def auto_acceptable?
+    !ABUSE_USER_IDS.include?(user_id)
   end
 end

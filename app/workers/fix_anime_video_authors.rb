@@ -6,9 +6,9 @@ class FixAnimeVideoAuthors
   TRASH = /[^\[\]() &,-]{0,4}/.source
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
-    AniUchi AniSound AnimeReactor NekoProject AnimeJet FreeDub AniFame
+    AniUchi AniSound AnimeReactor NekoProject AnimeJet FreeDub AniFame AniChaos
   ) + [
-    'DeadLine Studio', 'Bastion Studio'
+    'DeadLine Studio', 'Bastion Studio', 'Onibaku Group'
   ]
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
 
