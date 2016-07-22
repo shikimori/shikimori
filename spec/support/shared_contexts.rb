@@ -44,7 +44,18 @@ shared_context :seeds do
   let(:clubs_forum) { seed :clubs_forum }
   let(:cosplay_forum) { seed :cosplay_forum }
 
-  let(:seeded_offtopic_topic) { seed :topic }
+  let(:offtopic_topic) { seed :offtopic_topic }
+  let(:rules_topic) { seed :rules_topic }
+  let(:faq_topic) { seed :faq_topic }
+end
+
+shared_context :other_sticky_topics do
+  # site_rules and faq are created with seeds
+  before do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
+    create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
+    create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
+  end
 end
 
 shared_examples_for :success_resource_change do |type|

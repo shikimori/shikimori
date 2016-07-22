@@ -7,7 +7,7 @@ describe TopicsQuery do
 
   describe '#result' do
     context 'domain matches topic locale' do
-      it { is_expected.to eq [seeded_offtopic_topic] }
+      it { is_expected.to eq [offtopic_topic, rules_topic, faq_topic] }
     end
 
     context 'domain does not match topic locale' do
@@ -17,12 +17,11 @@ describe TopicsQuery do
   end
 
   describe '#by_forum' do
-    let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.day.ago }
-    let!(:offtop_topic) { create :entry, forum: offtopic_forum, updated_at: 2.days.ago }
+    let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.hour.ago }
     let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
     let!(:another_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
-    let!(:topic_ignore) { }
+    let!(:topic_ignore) {}
 
     before { joined_club.join user if user }
 
@@ -37,9 +36,10 @@ describe TopicsQuery do
         let(:user) { nil }
         it do
           is_expected.to eq [
-            seeded_offtopic_topic,
             anime_topic,
-            offtop_topic,
+            offtopic_topic,
+            rules_topic,
+            faq_topic,
             review.topic(locale)
           ]
         end
@@ -47,11 +47,18 @@ describe TopicsQuery do
 
       context 'group of forums' do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
-        it { is_expected.to eq [seeded_offtopic_topic, anime_topic, offtop_topic] }
+        it do
+          is_expected.to eq [
+            anime_topic,
+            offtopic_topic,
+            rules_topic,
+            faq_topic
+          ]
+        end
 
         context 'topic_ignore' do
           let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
-          # it { is_expected.to eq [seeded_offtopic_topic, offtop_topic] }
+          # it { is_expected.to eq [offtopic_topic, offtop_topic] }
         end
       end
 
@@ -75,8 +82,10 @@ describe TopicsQuery do
       let!(:generated_news_topic) { create :news_topic, :anime_anons }
       let!(:anime_news_topic) { create :news_topic, created_at: 1.day.ago }
       let!(:manga_news_topic) { create :news_topic, created_at: 2.days.ago }
-      let!(:cosplay_news_topic) { create :cosplay_gallery_topic, created_at: 3.days.ago,
-        linked: cosplay_gallery }
+      let!(:cosplay_news_topic) do
+        create :cosplay_gallery_topic,
+          created_at: 3.days.ago, linked: cosplay_gallery
+      end
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
 
       subject { query.by_forum Forum::NEWS_FORUM, user, is_censored_forbidden }
@@ -158,7 +167,7 @@ describe TopicsQuery do
     subject(:views) { query.as_views(is_preview, is_mini) }
 
     it do
-      expect(views).to have(1).item
+      expect(views).to have(3).items
       expect(views.first).to be_kind_of Topics::View
       expect(views.first.is_mini).to eq true
       expect(views.first.is_preview).to eq true

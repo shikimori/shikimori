@@ -26,7 +26,7 @@ describe Forums::View do
     before { user.preferences.forums = [offtopic_forum.id] }
 
     it do
-      expect(view.topic_views).to have(1).item
+      expect(view.topic_views).to have(3).items
       expect(view.topic_views.first).to be_kind_of Topics::View
     end
   end
@@ -141,7 +141,7 @@ describe Forums::View do
 
     context 'no linekd' do
       let(:params) { {} }
-      let(:permalink) { }
+      let(:permalink) {}
 
       it { expect(view.linked).to be_nil }
     end

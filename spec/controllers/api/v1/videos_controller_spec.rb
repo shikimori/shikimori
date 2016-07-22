@@ -48,7 +48,7 @@ describe Api::V1::VideosController do
     end
 
     context 'invalid video' do
-      let(:video_params) { { kind: kind, name: name } }
+      let(:video_params) { { kind: kind, name: name, url: '' } }
       it do
         expect(resource).to_not be_persisted
         expect(response).to have_http_status 422

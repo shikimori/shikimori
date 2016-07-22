@@ -1,5 +1,5 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV["RAILS_ENV"] ||= 'test'
+ENV['RAILS_ENV'] ||= 'test'
 require 'spec_helper'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -12,7 +12,7 @@ require 'shoulda/matchers'
 require 'sidekiq/testing'
 require 'cancan/matchers'
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 Sidekiq::Testing.fake!
 
@@ -109,22 +109,14 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :user, id: id
 
     FactoryGirl::SeedGenerator.create :offtopic_forum, id: id
-    FactoryGirl::SeedGenerator.create :reviews_forum,
-      id: Topic::FORUM_IDS['Review']
-    FactoryGirl::SeedGenerator.create :animanga_forum,
-      id: Topic::FORUM_IDS['Anime']
-    FactoryGirl::SeedGenerator.create :contests_forum,
-      id: Topic::FORUM_IDS['Contest']
-    FactoryGirl::SeedGenerator.create :clubs_forum,
-      id: Topic::FORUM_IDS['Club']
-    FactoryGirl::SeedGenerator.create :cosplay_forum,
-      id: Topic::FORUM_IDS['CosplayGallery']
+    FactoryGirl::SeedGenerator.create :reviews_forum
+    FactoryGirl::SeedGenerator.create :animanga_forum
+    FactoryGirl::SeedGenerator.create :contests_forum
+    FactoryGirl::SeedGenerator.create :clubs_forum
+    FactoryGirl::SeedGenerator.create :cosplay_forum
 
-    FactoryGirl::SeedGenerator.create :topic, id: id
-
-    FactoryGirl::SeedGenerator.create :topic,
-      id: StickyTopicView::TOPIC_IDS[:site_rules][:ru]
-    FactoryGirl::SeedGenerator.create :topic,
-      id: StickyTopicView::TOPIC_IDS[:faq][:ru]
+    FactoryGirl::SeedGenerator.create :offtopic_topic
+    FactoryGirl::SeedGenerator.create :rules_topic
+    FactoryGirl::SeedGenerator.create :faq_topic
   end
 end

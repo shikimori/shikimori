@@ -14,14 +14,14 @@ describe AnimeVideoDecorator, type: :controller do
 
       context 'flash' do
         let(:url) { 'http://myvi.ru/player/flash/o_qym5zt9aPeL9mvSKMfUTRY4FGD0JHrHX6yr_dznWK0yDZy3cUQYVqgAkSbPgJmr0' }
-        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{url.without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{Url.new(url).without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
       end
     end
 
     context 'sibnet.ru' do
       context 'with .swf?' do
         let(:url) { 'http://sibnet.ru/video/1.swf?' }
-        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{url.without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{Url.new(url).without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
       end
 
       context 'without .swf?' do

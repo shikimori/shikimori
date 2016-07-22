@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :comment do
     user { seed :user }
-    commentable { seed :topic }
+    commentable { seed :offtopic_topic }
     sequence(:body) { |n| "comment_body_#{n}" }
     is_offtopic false
     is_summary false

@@ -66,5 +66,34 @@ FactoryGirl.define do
     after :build do |topic|
       topic.class.skip_callback :create, :before, :check_antispam
     end
+
+    trait :offtopic do
+      id 786438751
+      title 'offtopic'
+      body 'offtopic'
+      created_at { 1.day.ago }
+      updated_at { 1.day.ago }
+      forum { seed :offtopic_forum }
+    end
+    trait :rules do
+      id StickyTopicView::TOPIC_IDS[:site_rules][:ru]
+      title 'rules'
+      body 'rules'
+      created_at { 2.days.ago }
+      updated_at { 2.days.ago }
+      forum { seed :offtopic_forum }
+    end
+    trait :faq do
+      id StickyTopicView::TOPIC_IDS[:faq][:ru]
+      title 'faq'
+      body 'faq'
+      created_at { 3.days.ago }
+      updated_at { 3.days.ago }
+      forum { seed :offtopic_forum }
+    end
+
+    factory :offtopic_topic, traits: [:offtopic]
+    factory :rules_topic, traits: [:rules]
+    factory :faq_topic, traits: [:faq]
   end
 end

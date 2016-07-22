@@ -1,5 +1,6 @@
 describe TopicsController do
   include_context :seeds
+  include_context :other_sticky_topics
 
   let(:user) { create :user, :user, :week_registered }
   let(:anime) { create :anime }
@@ -23,7 +24,7 @@ describe TopicsController do
       before { get :index }
 
       it do
-        expect(assigns(:forums_view).topic_views).to have(4).items
+        expect(assigns(:forums_view).topic_views).to have(8).items
         expect(response).to have_http_status :success
       end
     end
@@ -32,7 +33,7 @@ describe TopicsController do
       before { get :index, forum: offtopic_forum.permalink }
 
       it do
-        expect(assigns(:forums_view).topic_views).to have(2).items
+        expect(assigns(:forums_view).topic_views).to have(7).items
         expect(response).to have_http_status :success
       end
     end

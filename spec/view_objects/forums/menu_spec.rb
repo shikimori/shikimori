@@ -34,12 +34,7 @@ describe Forums::Menu do
   end
 
   describe '#sticky_topics' do
-    # site_rules and faq are created with seeds
-    before do
-      create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
-      create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
-      create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
-    end
+    include_context :other_sticky_topics
     it { expect(view.sticky_topics).to have(5).items }
   end
 

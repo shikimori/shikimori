@@ -1,8 +1,8 @@
 describe CommentsController do
   let(:user) { create :user, :user }
-  let(:topic) { seed :topic }
-  let(:comment) { create :comment, commentable: topic, user: user }
-  let(:comment2) { create :comment, commentable: topic, user: user }
+  let(:topic) { seed :offtopic_topic }
+  let(:comment) { create :comment, commentable: offtopic_topic, user: user }
+  let(:comment2) { create :comment, commentable: offtopic_topic, user: user }
   before { allow(FayePublisher).to receive(:new).and_return double(FayePublisher, publish: true) }
 
   describe '#show' do

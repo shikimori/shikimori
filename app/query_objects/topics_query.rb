@@ -1,12 +1,12 @@
 class TopicsQuery < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
-  MY_CLUBS_QUERY = <<SQL
+  MY_CLUBS_QUERY = <<-SQL.strip
     (
       type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
       #{Entry.table_name}.linked_id in (:user_clubs)
     )
-SQL
-  NEWS_QUERY = <<SQL
+  SQL
+  NEWS_QUERY = <<-SQL.strip
     (
       type = '#{Topics::NewsTopic.name}' and
       generated = false
@@ -14,7 +14,7 @@ SQL
       type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
       generated = true
     )
-SQL
+  SQL
   CLUBS_JOIN = "left join clubs on clubs.id=linked_id and linked_type='Club'"
 
   def self.fetch user, locale
