@@ -12,7 +12,7 @@ ru:
     user_registered_message: >-
       Добро пожаловать.
 
-      [url=http://%{site_url}/s/85018-FAQ-Chasto-zadavaemye-voprosy]Здесь[/url]
+      [url=%{faq_url}]Здесь[/url]
       находятся ответы на наиболее часто задаваемые вопросы.
 
       Импортировать список аниме и манги из
@@ -22,8 +22,7 @@ ru:
       Там же можно изменить свой никнейм.
 
       Перед постингом на форуме рекомендуем ознакомиться с
-      [url=http://%{site_url}/s/79042-Pravila-sayta]правилами сайта[/url].
-
+      [url=%{site_rules_url}]правилами сайта[/url].
 
       Если возникнут вопросы или пожелания - пишите на форуме,
       мы постараемся вам ответить.
@@ -88,7 +87,11 @@ ru:
       nil: в <em>удалено</em>.
       topic: в топике <a href="%{url}"%{bubble}>%{name}</a>.
       profile: в профиле пользователя <a href="%{url}"%{bubble}>%{name}</a>.
+
   messages/check_spam_abuse:
     ban_text: >-
       Вы забанены за спам.
       Напишите на %{email}, если вы невиновны.
+
+  banhammer:
+    ban_reason: п.3 [url=%{url}]правил сайта[/url]

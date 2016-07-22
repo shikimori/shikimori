@@ -121,5 +121,10 @@ RSpec.configure do |config|
       id: Topic::FORUM_IDS['CosplayGallery']
 
     FactoryGirl::SeedGenerator.create :topic, id: id
+
+    FactoryGirl::SeedGenerator.create :topic,
+      id: StickyTopicView::TOPIC_IDS[:site_rules][:ru]
+    FactoryGirl::SeedGenerator.create :topic,
+      id: StickyTopicView::TOPIC_IDS[:faq][:ru]
   end
 end

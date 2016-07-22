@@ -132,3 +132,47 @@ en:
     year: '%{year}'
     decade: '%{decade}0s'
     ancient: Older
+
+  sticky_topic_view:
+    site_rules:
+      title: Site rules
+      description: What is allowed on site and what is not
+      body: >-
+        A few rules to abide by on this site:
+        [br]
+        [br]
+        [list]
+        [*]1. Be polite and respect other users. Abuse, harassment, insults
+        or threats are strictly forbidden and won't be tolerated. In any form.
+        [*]2. Don't bastardize the language and try to use correct grammar.
+        [*]3. Under no pretext should you use foul language.
+        [*]4. Trolling is prohibited - especially when discussing anime,
+        manga or characters. [spoiler=What is trolling?]
+        Discussing topics you don't like and deliberate flaming there.
+        Also trolling is everything a moderator considers to be a trolling.
+        [/spoiler]
+        [*]5. Everything prohibited by law is prohibited here as well.
+        [*]6. Posting pictures of nude lolis and other materials that might
+        be considered pornographic is prohibited.
+        [*]7. Use spoiler tag [spоiler] when spoiling.
+        [*]8. Off-topic discussions are moved to
+        [url=http://shikimori.net/o/210000-off-topic-thread]Off-topic thread[/url].
+        [*]9. Any advertising without prior permission by site administration
+        is prohibited [spoiler=Exceptions]Except for self-made dubbing,
+        subtitles or AMVs. These materials shouldn't advertise other
+        anime sites.[/spoiler]
+        [*]10. Moderator is always right. All moderator's decisions are final
+        and are not to be discussed.
+        [/list]
+    faq:
+      title: FAQ
+      description: Frequently asked questions
+    description_of_genres:
+      title: Description of genres
+      description: For those wishing to help the site
+    ideas_and_suggestions:
+      title: Ideas and suggestions
+      description: It would be nice to implement it...
+    site_problems:
+      title: Site problems
+      description: Topic about any problems related to the site

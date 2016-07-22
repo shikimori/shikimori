@@ -73,7 +73,7 @@ class CosplayGallery < ActiveRecord::Base
   def name linked = self.send(:any_linked)
     titles = title_components(linked).map { |c| c.map(&:name).to_sentence }
 
-    i18n_t('.title', cosplay: titles.first, cosplayer: titles.second).html_safe
+    i18n_t('title', cosplay: titles.first, cosplayer: titles.second).html_safe
   end
 
   def title_components linked

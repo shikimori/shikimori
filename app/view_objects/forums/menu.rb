@@ -24,7 +24,7 @@ class Forums::Menu < ViewObjectBase
 
   def reviews
     @reviews ||= Review
-      .where('created_at >= ?',  2.weeks.ago)
+      .where('created_at >= ?', 2.weeks.ago)
       .where(locale: h.locale_from_domain)
       .visible
       .includes(:user, :target, topics: [:forum])
@@ -32,33 +32,13 @@ class Forums::Menu < ViewObjectBase
       .limit(3)
   end
 
-  def sticked_topics
+  def sticky_topics
     [
-      StickedTopic.new(
-        url: '/s/79042-Pravila-sayta',
-        title: "#{I18n.t 'site_rules'}",
-        description: 'Что не стоит делать на сайте'
-      ),
-      StickedTopic.new(
-        url: '/s/85018-FAQ-Chasto-zadavaemye-voprosy',
-        title: 'FAQ',
-        description: "#{I18n.t 'faq'}"
-      ),
-      StickedTopic.new(
-        url: '/s/103553-Opisaniya-zhanrov',
-        title: 'Описания жанров',
-        description: 'Для желающих помочь сайту'
-      ),
-      StickedTopic.new(
-        url: '/s/10586-Pozhelaniya-po-saytu',
-        title: 'Идеи и предложения',
-        description: 'Было бы неплохо реализовать это...'
-      ),
-      StickedTopic.new(
-        url: '/s/102-Tema-ob-oshibkah',
-        title: 'Ошибки',
-        description: 'Топик о любых проблемах на сайте'
-      )
+      StickyTopicView.site_rules(h.locale_from_domain),
+      StickyTopicView.faq(h.locale_from_domain),
+      StickyTopicView.description_of_genres(h.locale_from_domain),
+      StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
+      StickyTopicView.site_problems(h.locale_from_domain)
     ]
   end
 

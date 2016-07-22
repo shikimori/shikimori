@@ -89,18 +89,18 @@
           - else
             span.misc = t '.new_club'
 
-.block2.sticked-topics
-  h2.midheadline.m8 = t '.sticked_topics'
+.block2.sticky-topics
+  h2.midheadline.m8 = t '.sticky_topics'
   div
-    - menu.sticked_topics.take(3).each do |topic|
+    - menu.sticky_topics.take(3).each do |topic|
       a.topic href="#{topic.url}"
         span.title = topic.title
         span.notice = topic.description
-  - if menu.sticked_topics.size > 3
+  - if menu.sticky_topics.size > 3
     .b-show_more = t '.show_more'
     .b-show_more-more
       span
-      - menu.sticked_topics.slice(3, 99).each do |topic|
+      - menu.sticky_topics.slice(3, 99).each do |topic|
         a.topic href="#{topic.url}"
           span.title = topic.title
           span.notice = topic.description

@@ -9,7 +9,10 @@ header.head
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
 
   ul.b-list
-    li: p: a href="#{forum_topic_url id: 79042, forum: :s}" = t 'site_rules'
+    li: p
+      - site_rules = StickyTopicView.site_rules(locale_from_domain)
+      a href=site_rules.url = site_rules.title
+
     - t('.instructions').each do |instruction|
       li: p == instruction
 

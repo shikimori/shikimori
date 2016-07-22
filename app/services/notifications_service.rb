@@ -4,9 +4,11 @@ class NotificationsService
   pattr_initialize :target
 
   def user_registered
+    locale = target.locale_from_domain
     body = i18n_t(
       'user_registered_message',
-      site_url: Site::DOMAIN,
+      faq_url: StickyTopicView.faq(locale).url,
+      site_rules_url: StickyTopicView.site_rules(locale).url,
       settings_path: target.to_param
     )
 
