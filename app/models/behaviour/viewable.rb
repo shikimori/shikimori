@@ -1,41 +1,44 @@
-# for entries and comments
 module Viewable
   extend ActiveSupport::Concern
 
-  INTERVAL = 1.week
+  MAX_NOT_VIEWED_INTERVAL = 1.week
 
   included do |klass|
-    klass_name = (self.respond_to?(:base_class) ? base_class.name : name)
-    view_klass = Object.const_get(klass_name + 'View')
+    viewing_klass = "#{base_class.name}Viewing".constantize
 
-    # чёртов гем ломает присвоение ассоциаций в FactoryGirl, и я не знаю, как это быстро починить другим способом
+    # f**king gem breaks assigning associations in FactoryGirl
+    # and IDK how to fix it quickly
     if Rails.env.test?
-      has_many :views, class_name: view_klass.name
+      has_many :viewings, class_name: viewing_klass.name
     else
-      has_many :views, class_name: view_klass.name, dependent: :delete_all
+      has_many :viewings, class_name: viewing_klass.name, dependent: :delete_all
     end
 
-    # для автора сразу же создаётся view
-    after_create lambda {
-      view_klass.create! user_id: self.user_id, klass_name.downcase => self
-    }
+    # create viewing for the author right after create
+    after_create -> { viewing_klass.create! user_id: user_id, viewed_id: id }
 
     klass.const_set(
       'VIEWED_JOINS_SELECT',
       "coalesce(jv.#{name.downcase}_id, 0) > 0 as viewed"
     )
 
-    scope :with_viewed, lambda { |user|
+    scope :with_viewed, -> (user) {
       if user
-        joins("left join #{view_klass.table_name} jv on jv.#{name.downcase}_id=#{table_name}.id and jv.user_id='#{user.id}'")
-          .select("#{table_name}.*, #{klass::VIEWED_JOINS_SELECT}")
+        select("#{table_name}.*, #{klass::VIEWED_JOINS_SELECT}"")
+        .joins(
+          "LEFT JOIN #{viewing_klass.table_name} v
+            ON v.viewed_id = #{table_name}.id AND v.user_id = '#{user.id}'"
       else
         select("#{table_name}.*")
       end
+      )
     }
   end
 
   def viewed?
-    self[:viewed].nil? || (created_at + INTERVAL < Time.zone.today) ? true : self[:viewed]
+    return true unless self[:viewed]
+    return true if created_at < MAX_NOT_VIEWED_INTERVAL.ago
+
+    self[:viewed]
   end
 end

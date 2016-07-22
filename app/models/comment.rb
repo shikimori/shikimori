@@ -237,8 +237,4 @@ class Comment < ActiveRecord::Base
     commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
       commentable.instance_of?(Topics::EntryTopics::MangaTopic)
   end
-
-  def viewing_klass
-    CommentViewing
-  end
 end

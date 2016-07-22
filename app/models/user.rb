@@ -32,7 +32,10 @@ class User < ActiveRecord::Base
     source: :target_id,
     dependent: :destroy
 
-  #has_many :topic_views
+  # viewings
+  has_many :topic_viewings, dependent: :delete_all
+  has_many :comment_viewings, dependent: :delete_all
+
   has_many :history, class_name: UserHistory.name, dependent: :destroy
 
   has_many :friend_links, foreign_key: :src_id, dependent: :destroy
@@ -69,8 +72,6 @@ class User < ActiveRecord::Base
   has_many :contest_user_votes, dependent: :destroy
   has_many :topics, class_name: Entry.name
   has_many :topic_ignores, dependent: :destroy
-
-  has_many :comment_views, dependent: :destroy
 
   has_many :nickname_changes, class_name: UserNicknameChange.name, dependent: :destroy
   has_many :recommendation_ignores, dependent: :destroy
