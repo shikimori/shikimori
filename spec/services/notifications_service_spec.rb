@@ -4,7 +4,7 @@ describe NotificationsService do
   describe '#user_registered' do
     let(:target) { build_stubbed :user }
     let!(:sender) { create :user, id: User::COSPLAYER_ID }
-    it { expect{service.user_registered}.to change(target.messages, :count).by 1 }
+    it { expect { service.user_registered }.to change(target.messages, :count).by 1 }
   end
 
   describe '#nickname_changed' do
@@ -18,7 +18,7 @@ describe NotificationsService do
     context 'disabled_notifications' do
       let(:notifications) { User::DEFAULT_NOTIFICATIONS - User::NICKNAME_CHANGE_NOTIFICATIONS }
       it { should be nil }
-      it { expect{subject}.to_not change(Message, :count) }
+      it { expect { subject }.to_not change(Message, :count) }
     end
 
     context 'allowed_notifications' do
@@ -31,7 +31,7 @@ describe NotificationsService do
       its(:to) { should eq friend }
       its(:body) { should include old_nickname }
       its(:body) { should include new_nickname }
-      it { expect{subject}.to change(Message, :count).by 1 }
+      it { expect { subject }.to change(Message, :count).by 1 }
       it 'ignores antispam' do
         expect {
           service.nickname_changed friend, old_nickname, new_nickname
