@@ -2,8 +2,6 @@ describe NotificationsService do
   let(:service) { NotificationsService.new target }
 
   describe '#user_registered' do
-    include_context :sticky_topics
-
     let(:target) { build_stubbed :user }
     let!(:sender) { create :user, id: User::COSPLAYER_ID }
     it { expect{service.user_registered}.to change(target.messages, :count).by 1 }
