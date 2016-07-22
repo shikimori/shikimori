@@ -7,9 +7,9 @@
 
   .block
     .b-topic.shiki-object.unprocessed[
-        data-faye="#{@dialog.faye_channel}"
-        data-appear_type='message'
-      ]
+      data-faye="#{@dialog.faye_channel}"
+      data-appear_type='message'
+    ]
       .b-comments
         - if @add_postloader
           = render 'dialogs/postloader',

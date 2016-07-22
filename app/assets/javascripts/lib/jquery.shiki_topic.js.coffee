@@ -86,7 +86,7 @@ class @ShikiTopic extends ShikiEditable
         ids = $objects
           .map ->
             $object = $(@)
-            item_type = $object.data('appear_type') || $object.attr('class').match(/b-(\w+)/)[1]
+            item_type = $object.data('appear_type')
             "#{item_type}-#{@id}"
           .toArray()
 
