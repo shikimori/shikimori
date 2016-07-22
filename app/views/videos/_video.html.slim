@@ -19,7 +19,7 @@
     data-href="#{Url.new(video.player_url).without_protocol.to_s}"
   ]
     img[
-      src="#{video.camo_image_url || '/assets/blocks/b-video/no_image.png'}"
+      src="#{video.camo_image_url}"
       data-id="#{video.id}"
     ]
 
