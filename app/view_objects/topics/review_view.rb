@@ -44,14 +44,22 @@ class Topics::ReviewView < Topics::View
   end
 
   def html_body
+    if is_preview || is_mini
+      format_body.gsub(/<img.*?>/, '').strip.html_safe
+    else
+      format_body
+    end
+  end
+
+private
+
+  def format_body
     Rails.cache.fetch body_cache_key, expires_in: 2.weeks do
       BbCodeFormatter.instance.format_description(
         topic.linked.text, topic.linked
       )
     end
   end
-
-private
 
   def body
     topic.linked.text
