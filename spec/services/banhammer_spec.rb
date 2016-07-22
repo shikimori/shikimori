@@ -5,8 +5,6 @@ describe Banhammer do
   let(:user) { build_stubbed :user }
 
   describe '#release!' do
-    include_context :sticky_topics
-
     let(:user) { create :user, :banhammer }
     let(:comment) { create :comment, user: user, body: text }
     subject { banhammer.release! comment }
