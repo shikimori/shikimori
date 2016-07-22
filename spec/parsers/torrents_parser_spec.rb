@@ -16,16 +16,16 @@ describe TorrentsParser do
       it { expect(TorrentsParser.extract_episodes_num('[Coalgirls]_Mobile_Suit_Gundam_Unicorn_02_(1280x720_Blu-Ray_FLAC)_[6BD5CB24].mkv')).to eq [2] }
       it { expect(TorrentsParser.extract_episodes_num('[QTS] Mobile Suit Gundam Unicorn Vol.1 (BD H264 1280x720 24fps AAC 2.0J+2.0E).mkv')).to eq [1] }
       it { expect(TorrentsParser.extract_episodes_num('[ReinForce] Tegami Bachi REVERSE - 10 (TX 1280x720 x264 AAC).mkv')).to eq [10] }
-      it { expect(TorrentsParser.extract_episodes_num('[Yousei-raws] Tales of Symphonia - Tethe`alla Hen Vol.1-2 [DVDrip 848x480 x264 FLAC].mkv')).to eq [1,2] }
-      it { expect(TorrentsParser.extract_episodes_num('[Yousei-raws] Tales of Symphonia - Tethe`alla Hen Vol.1-3 [DVDrip 848x480 x264 FLAC].mkv')).to eq [1,2,3] }
+      it { expect(TorrentsParser.extract_episodes_num('[Yousei-raws] Tales of Symphonia - Tethe`alla Hen Vol.1-2 [DVDrip 848x480 x264 FLAC].mkv')).to eq [1, 2] }
+      it { expect(TorrentsParser.extract_episodes_num('[Yousei-raws] Tales of Symphonia - Tethe`alla Hen Vol.1-3 [DVDrip 848x480 x264 FLAC].mkv')).to eq [1, 2, 3] }
       it { expect(TorrentsParser.extract_episodes_num('[BadRaws]Tales of Symphonia The Animation Tethealla Hen 3 (DVD NTSC H.264 FLAC).mkv')).to eq [3] }
       it { expect(TorrentsParser.extract_episodes_num('[inshuheki] Bakuman 03 [720p][6ABBCC13].mkv')).to eq [3] }
       it { expect(TorrentsParser.extract_episodes_num('[TV-Japan] NARUTO Shippuuden - 192 Raw [1280x720 h264+AAC D-TX].mp4')).to eq [192] }
       it { expect(TorrentsParser.extract_episodes_num('TV-Japan] Bleach - 302 [1280x720 h264+AAC D-TX].mkv')).to eq [302] }
       it { expect(TorrentsParser.extract_episodes_num('[Animworld.com] One Piece 481 - RAW [480p] [H.264] [MP3].mp4')).to eq [481] }
-      it { expect(TorrentsParser.extract_episodes_num('Detective Conan 593-595, 598 RAW 720р')).to eq [593,594,595,598] }
-      it { expect(TorrentsParser.extract_episodes_num("[KOP-Raw's] Detective Conan 591-593 (1600x900 x264 ac3 24fps avi)")).to eq [591,592,593] }
-      it { expect(TorrentsParser.extract_episodes_num('[sage]_Sekaiichi_Hatsukoi_2_-_07_[720p][10bit][E5CC0581].mkv')).to eq [07] }
+      it { expect(TorrentsParser.extract_episodes_num('Detective Conan 593-595, 598 RAW 720р')).to eq [593, 594, 595, 598] }
+      it { expect(TorrentsParser.extract_episodes_num("[KOP-Raw's] Detective Conan 591-593 (1600x900 x264 ac3 24fps avi)")).to eq [591, 592, 593] }
+      it { expect(TorrentsParser.extract_episodes_num('[sage]_Sekaiichi_Hatsukoi_2_-_07_[720p][10bit][E5CC0581].mkv')).to eq [7] }
       it { expect(TorrentsParser.extract_episodes_num('[OPC-Raws]_One_Piece_556_[CX_1280x720_VFR_H264_AAC]_[F8F6F8A2].mp4')).to eq [556] }
       it { expect(TorrentsParser.extract_episodes_num('[OPC-Raws]_One_Piece_556_[D-CX_1280x720_VFR_H264_AAC]_[F8F6F8A2].mp4')).to eq [556] }
       it { expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Panty & Stocking with Garterbelt - 01 RAW (BS4 1280x720 x264 AAC).mp4')).to eq [1] }
@@ -109,7 +109,7 @@ describe TorrentsParser do
 
     describe 'multiple episodes' do
       let(:name) { '[HorribleSubs] Tsukimonogatari - (01-04) [1080p].mkv' }
-      it { is_expected.to eq [1,2,3,4] }
+      it { is_expected.to eq [1, 2, 3, 4] }
     end
 
     describe 'ignored phrases' do
@@ -129,6 +129,7 @@ describe TorrentsParser do
     let(:episodes_aired) { 1 }
     let(:episodes) { 24 }
     let(:anime) { create :anime, episodes_aired: episodes_aired, episodes: episodes, status: :ongoing }
+    let(:multiplier) { Site::DOMAIN_LOCALES.size }
 
     subject { TorrentsParser.check_aired_episodes anime, feed }
 
@@ -136,7 +137,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(Topics::NewsTopic, :count).by 2
+        expect { subject }.to change(Topics::NewsTopic, :count).by 1 * multiplier
         expect(anime.episodes_aired).to eq 2
       end
     end
@@ -151,16 +152,25 @@ describe TorrentsParser do
       end
 
       it do
-        expect{subject}.to change(Topics::NewsTopic, :count).by 6
+        expect { subject }.to change(Topics::NewsTopic, :count).by 3 * multiplier
         expect(anime.episodes_aired).to eq 4
       end
     end
 
-    describe 'interval' do
+    describe 'interval with next episode' do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(Topics::NewsTopic, :count).by 0
+        expect { subject }.to change(Topics::NewsTopic, :count).by 5 * multiplier
+        expect(anime.episodes_aired).to eq 6
+      end
+    end
+
+    describe 'interval not intersect' do
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.3-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      it do
+        expect { subject }.to change(Topics::NewsTopic, :count).by 0
         expect(anime.episodes_aired).to eq episodes_aired
       end
     end
@@ -170,7 +180,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.2-6 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(Topics::NewsTopic, :count).by 2
+        expect { subject }.to change(Topics::NewsTopic, :count).by 1 * multiplier
         expect(anime.episodes_aired).to eq 6
       end
     end
@@ -179,7 +189,7 @@ describe TorrentsParser do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to_not change Topics::NewsTopic, :count
+        expect { subject }.to_not change Topics::NewsTopic, :count
         expect(anime.episodes_aired).to eq episodes_aired
       end
     end
@@ -187,10 +197,10 @@ describe TorrentsParser do
     describe 'any episode number is_expected.to affect anime if episodes is not specified' do
       let(:episodes) { 0 }
       let(:episodes_aired) { 98 }
-      let(:feed) {[ { title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' } ]}
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
       it do
-        expect{subject}.to change(Topics::NewsTopic, :count).by 2
+        expect { subject }.to change(Topics::NewsTopic, :count).by 1 * multiplier
         expect(anime.episodes_aired).to eq 99
       end
     end
