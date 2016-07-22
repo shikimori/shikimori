@@ -45,7 +45,11 @@ class Topics::ReviewView < Topics::View
 
   def html_body
     if is_preview || is_mini
-      format_body.gsub(/<img.*?>/, '').strip.html_safe
+      format_body
+        .gsub(/<img.*?>/, '')
+        .strip
+        .gsub(/\A<center> \s* <\/center>/, '')
+        .html_safe
     else
       format_body
     end
