@@ -19,7 +19,7 @@ describe NameMatches::BuildMatches do
       ]
   end
 
-  let(:id) { 9999999 }
+  let(:id) { 9_999_999 }
   let(:kind) { :tv }
 
   describe '#call' do

@@ -6,7 +6,7 @@ class NameMatches::BuildMatches < ServiceObjectBase
     movie: 1,
     special: 10,
     one_shot: 8,
-    doujin: 10,
+    doujin: 10
   }
   DEFAULT_PRIORITY = 5
 
