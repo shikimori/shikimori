@@ -12,6 +12,7 @@ class ShikiMailer < ActionMailer::Base
   end
 
   def private_message_email message
+    return unless message
     return if message.reload.read?
     return if generated?(message.to.email)
 
