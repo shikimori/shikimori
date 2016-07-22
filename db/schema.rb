@@ -347,6 +347,7 @@ ActiveRecord::Schema.define(version: 20160629213037) do
   add_index "contest_user_votes", ["contest_match_id"], name: "index_contest_user_votes_on_contest_vote_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
+    t.string   "title",                limit: 255
     t.text     "description"
     t.integer  "user_id"
     t.string   "state",                limit: 255, default: "created"
@@ -363,7 +364,6 @@ ActiveRecord::Schema.define(version: 20160629213037) do
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
-    t.string   "title",                limit: 50
   end
 
   add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree

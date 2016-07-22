@@ -331,7 +331,7 @@ private
 
   def grab_avatar
     return if avatar.exists?
-    gravatar_url = "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" %
+    gravatar_url = 'http://www.gravatar.com/avatar/%s?s=%i&d=identicon' %
       [Digest::MD5.hexdigest(email.downcase), 160]
 
     update avatar: open(gravatar_url)

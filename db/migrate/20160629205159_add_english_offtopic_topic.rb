@@ -25,6 +25,7 @@ class AddEnglishOfftopicTopic < ActiveRecord::Migration
 private
 
   def en_offtopic_user
+    User.skip_callback :create, :after, :send_wellcome_message
     User.create!(
       email: 'vbhmjasy@dasd.asd',
       password: '1z6NYlLd9B9ikA==',
