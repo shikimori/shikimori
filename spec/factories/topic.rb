@@ -7,6 +7,10 @@ FactoryGirl.define do
 
     locale 'ru'
 
+    factory :forum_topic do
+      type 'Topic'
+    end
+
     factory :anime_topic, class: 'Topics::EntryTopics::AnimeTopic' do
       type 'Topics::EntryTopics::AnimeTopic'
       forum { seed :animanga_forum }

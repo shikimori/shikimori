@@ -25,8 +25,8 @@ class MessageDecorator < BaseDecorator
     anime_related? ? h.localized_name(anime) : from.nickname
   end
 
-  def generated_news?
-    linked.respond_to?(:generated_news?) && linked.generated_news?
+  def generated_news_topic?
+    linked.respond_to?(:generated_news_topic?) && linked.generated_news_topic?
   end
 
   def action_tag
@@ -35,7 +35,7 @@ class MessageDecorator < BaseDecorator
       text: linked.action == 'episode' ?
         "#{linked.action_text} #{linked.value}" :
         linked.action_text
-    ) if generated_news?
+    ) if generated_news_topic?
   end
 
   def generate_body

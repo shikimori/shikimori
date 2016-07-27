@@ -35,7 +35,7 @@ class Topics::View < ViewObjectBase
   end
 
   def show_body?
-    is_preview || !topic.generated? || topic.contest?
+    is_preview || !topic.generated? || topic.contest_topic?
   end
 
   def poster_title
@@ -63,7 +63,7 @@ class Topics::View < ViewObjectBase
   def poster is_2x
     # последнее условие для пользовательских топиков об аниме
     if linked_in_avatar?
-      linked = topic.review? ? topic.linked.target : topic.linked
+      linked = topic.review_topic? ? topic.linked.target : topic.linked
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
       topic.user.avatar_url is_2x ? 80 : 48
@@ -108,7 +108,7 @@ class Topics::View < ViewObjectBase
 
   # # тег топика
   # def tag
-    # return nil if linked.nil? || review? || contest?
+    # return nil if linked.nil? || review_topic? || contest_topic?
 
     # if linked.kind_of? Review
       # h.localized_name linked.target

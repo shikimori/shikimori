@@ -33,7 +33,7 @@ module Routing
       profile_url topic, subdomain: false
 
     elsif topic.is_a?(Topics::EntryTopics::ContestTopic) ||
-        (topic.news_topic? && !topic.generated?) || topic.review?
+        (topic.news_topic? && !topic.generated?) || topic.review_topic?
 
       forum_topic_url(
         id: topic,

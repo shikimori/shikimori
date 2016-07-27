@@ -31,7 +31,7 @@
         title="#{localized_name view.topic.linked}"
       ] = localization_span view.topic.linked
 
-  - elsif view.topic.review?
+  - elsif view.topic.review_topic?
     span.about
       span = t '.about'
       a.b-link.bubbled[
