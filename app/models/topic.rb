@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topic < Entry
+class Topic < ActiveRecord::Base
   include Moderatable
   include Antispam
   include Viewable

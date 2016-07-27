@@ -37,11 +37,6 @@ class Entry < ActiveRecord::Base
     "#{super}-#{Digest::MD5.hexdigest body || ''}"
   end
 
-  # базовый класс для комментариев
-  def base_class
-    Entry
-  end
-
   # прочтен ли топик?
   def viewed?
     generated? ? true : super

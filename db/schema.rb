@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703155936) do
+ActiveRecord::Schema.define(version: 20160727173911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -436,32 +436,6 @@ ActiveRecord::Schema.define(version: 20160703155936) do
     t.string   "name",       limit: 255
   end
 
-  create_table "entries", force: :cascade do |t|
-    t.string   "title",          limit: 255
-    t.integer  "user_id"
-    t.integer  "forum_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "type",           limit: 255
-    t.text     "body"
-    t.boolean  "generated",                  default: false
-    t.integer  "linked_id"
-    t.string   "linked_type",    limit: 255
-    t.boolean  "processed",                  default: false
-    t.string   "action",         limit: 255
-    t.string   "value",          limit: 255
-    t.integer  "comments_count",             default: 0
-    t.boolean  "broadcast",                  default: false
-    t.string   "locale",                                     null: false
-  end
-
-  add_index "entries", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
-  add_index "entries", ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
-  add_index "entries", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
-  add_index "entries", ["type", "updated_at"], name: "index_entries_on_type_and_updated_at", using: :btree
-  add_index "entries", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
-  add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
-
   create_table "episode_notifications", force: :cascade do |t|
     t.integer  "anime_id"
     t.integer  "episode"
@@ -846,6 +820,32 @@ ActiveRecord::Schema.define(version: 20160703155936) do
 
   add_index "topic_viewings", ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
   add_index "topic_viewings", ["viewed_id"], name: "index_topic_viewings_on_viewed_id", using: :btree
+
+  create_table "topics", force: :cascade do |t|
+    t.string   "title",          limit: 255
+    t.integer  "user_id"
+    t.integer  "forum_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "type",           limit: 255
+    t.text     "body"
+    t.boolean  "generated",                  default: false
+    t.integer  "linked_id"
+    t.string   "linked_type",    limit: 255
+    t.boolean  "processed",                  default: false
+    t.string   "action",         limit: 255
+    t.string   "value",          limit: 255
+    t.integer  "comments_count",             default: 0
+    t.boolean  "broadcast",                  default: false
+    t.string   "locale",                                     null: false
+  end
+
+  add_index "topics", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
+  add_index "topics", ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
+  add_index "topics", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
+  add_index "topics", ["type", "updated_at"], name: "index_topics_on_type_and_updated_at", using: :btree
+  add_index "topics", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
+  add_index "topics", ["updated_at"], name: "index_topics_on_updated_at", using: :btree
 
   create_table "user_changes", force: :cascade do |t|
     t.integer  "user_id"
