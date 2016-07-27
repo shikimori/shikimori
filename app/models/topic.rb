@@ -51,7 +51,8 @@ class Topic < ActiveRecord::Base
   end
 
   def viewed?
-    generated? ? true : super
+    return true if generated?
+    super
   end
 
   def to_param
@@ -84,38 +85,9 @@ class Topic < ActiveRecord::Base
     end
   end
 
-  # for compatibily with comment API
+  # for compatibily with comments API
   def offtopic?
     false
-  end
-
-  # forum topic created by user
-  def forum_topic?
-    self.class == Topic
-  end
-
-  def generated?
-    generated
-  end
-
-  def news_topic?
-    false
-  end
-
-  def generated_news?
-    news_topic? && generated?
-  end
-
-  def review?
-    is_a? Topics::EntryTopics::ReviewTopic
-  end
-
-  def cosplay?
-    is_a? Topics::EntryTopics::CosplayGalleryTopic
-  end
-
-  def contest?
-    is_a? Topics::EntryTopics::ContestTopic
   end
 
   # оригинальный текст без сгенерированных автоматом тегов
