@@ -11,8 +11,8 @@ class NoTopic < NullObject
     0
   end
 
-  def summaries_count
-    0
+  def comments
+    Comment.none
   end
 
 private

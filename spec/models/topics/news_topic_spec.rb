@@ -46,5 +46,10 @@ describe Topics::NewsTopic do
         it { expect(topic.full_title).to eq topic.title }
       end
     end
+
+    describe '#news_topic?' do
+      let(:topic) { build :news_topic }
+      it { expect(topic.news_topic?).to eq true }
+    end
   end
 end

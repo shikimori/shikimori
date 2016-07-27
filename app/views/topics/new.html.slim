@@ -4,7 +4,7 @@
       topic: @resource,
       back_url: @breadcrumbs.first.second
   - else
-    - if @resource.news? && !params[:rules_passed]
+    - if @resource.news_topic? && !params[:rules_passed]
       = render 'topics/form/rules', topic: @resource, form: @forums_view.form
     - else
       = render 'topics/form/form',

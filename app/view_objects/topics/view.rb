@@ -2,11 +2,14 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at, :updated_at, :body, :viewed?,
-    :comments_count, :summaries_count, :any_comments?, :any_summaries?,
-    to: :topic
+  delegate :id, :persisted?, :user, :created_at,
+    :updated_at, :body, :viewed?, to: :topic
+
+  delegate :comments_count, :summaries_count, to: :topic_comments_policy
+  delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
   instance_cache :comments_view, :urls, :action_tag, :topic_ignore
+  instance_cache :topic_comments_policy
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
@@ -44,7 +47,7 @@ class Topics::View < ViewObjectBase
   end
 
   def topic_title
-    if topic.topic? || topic.linked_id.nil?
+    if topic.forum_topic? || topic.linked_id.nil?
       topic.title
 
     else
@@ -88,7 +91,7 @@ class Topics::View < ViewObjectBase
   end
 
   # def author_in_footer?
-    # is_preview && (topic.news? || topic.review?) &&
+    # is_preview && (topic.news_topic? || topic.review?) &&
       # (!author_in_header? || poster(false) != user.avatar_url(48))
   # end
 
@@ -100,7 +103,7 @@ class Topics::View < ViewObjectBase
 
   # # надо ли свёртывать длинный контент топика?
   # def should_shorten?
-    # !news? || (news? && generated?) || (news? && object.body !~ /\[wall\]/)
+    # !news_topic? || (news_topic? && generated?) || (news_topic? && object.body !~ /\[wall\]/)
   # end
 
   # # тег топика
@@ -166,6 +169,10 @@ private
       .gsub(%r{<a [^>]* class="b-image.*?</a>}, '')
       .gsub(%r{<center></center>}, '')
       .gsub(/\A(<br>)+/, '')
+  end
+
+  def topic_comments_policy
+    Topic::CommentsPolicy.new topic
   end
 end
 # rubocop:enable ClassLength

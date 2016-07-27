@@ -51,7 +51,7 @@ class TopicsController < ShikimoriController
 
   def new
     noindex
-    page_title i18n_t("new_#{@resource.news? ? :news : :topic}")
+    page_title i18n_t("new_#{@resource.news_topic? ? :news : :topic}")
     @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 

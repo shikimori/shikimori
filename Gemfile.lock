@@ -215,6 +215,8 @@ GEM
     dalli (2.7.6)
     database_cleaner (1.5.3)
     debug_inspector (0.0.2)
+    declarative (0.0.8)
+      uber (>= 0.0.15)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     devise (3.5.10)
@@ -227,6 +229,10 @@ GEM
     devise-async (0.10.2)
       devise (>= 3.2, < 4.0)
     diff-lcs (1.2.5)
+    disposable (0.2.6)
+      declarative (~> 0.0.6)
+      representable (>= 2.4.0, <= 3.1.0)
+      uber
     draper (2.1.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -515,6 +521,9 @@ GEM
       redis-classy (~> 2.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    representable (2.4.1)
+      declarative (~> 0.0.5)
+      uber (~> 0.0.15)
     request_store (1.3.1)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
@@ -625,6 +634,7 @@ GEM
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.1)
+    uber (0.0.15)
       execjs (>= 0.3.0, < 3)
     unicode (0.4.4.2)
     unicode-display_width (1.1.0)
@@ -688,6 +698,7 @@ DEPENDENCIES
   database_cleaner
   devise
   devise-async
+  disposable
   draper
   enumerize
   factory_girl-seeds

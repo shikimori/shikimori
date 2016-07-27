@@ -1,10 +1,10 @@
 describe Comment do
-  describe 'relations' do
+  describe 'associations' do
     it { is_expected.to belong_to :user }
     it { is_expected.to belong_to :commentable }
     it { is_expected.to belong_to :topic }
     it { is_expected.to have_many :messages }
-    it { is_expected.to have_many :views }
+    it { is_expected.to have_many :viewings }
     it { is_expected.to have_many :abuse_requests }
     it { is_expected.to have_many :bans }
   end
@@ -18,7 +18,7 @@ describe Comment do
   describe 'callbacks' do
     let(:user) { build_stubbed :user }
     let(:user2) { build_stubbed :user }
-    let(:topic) { build_stubbed :entry, user: user }
+    let(:topic) { build_stubbed :topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#clean' do
@@ -100,7 +100,7 @@ describe Comment do
   describe 'instance methods' do
     let(:user) { build_stubbed :user }
     let(:user2) { build_stubbed :user }
-    let(:topic) { build_stubbed :entry, user: user }
+    let(:topic) { build_stubbed :topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#html_body' do
@@ -115,7 +115,7 @@ describe Comment do
           build :comment,
             body: body,
             commentable_id: offtopic_topic_id,
-            commentable_type: Entry.name
+            commentable_type: Topic.name
         end
 
         describe 'poster' do
@@ -160,9 +160,9 @@ describe Comment do
         it { expect{subject}.to change(user_message, :count).by 1 }
       end
 
-      context 'entry' do
-        let(:text) { "[entry=#{topic.id}]test[/entry]" }
-        it { expect{subject}.to change(user_message, :count).by 1 }
+      context 'topic' do
+        let(:text) { "[topic=#{topic.id}]test[/topic]" }
+        it { expect { subject }.to change(user_message, :count).by 1 }
       end
 
       context 'mention' do
@@ -170,7 +170,7 @@ describe Comment do
         it { expect{subject}.to change(user_message, :count).by 1 }
       end
 
-      it 'notification only once' do
+      it 'notifies only once' do
         text = "[mention=#{user.id}]test[/mention]"
         expect {
           create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2

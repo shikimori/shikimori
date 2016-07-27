@@ -25,4 +25,8 @@ class Topics::NewsTopic < Topic
       type: linked_type.underscore
     )).gsub(/<.*?>/, '')
   end
+
+  def news_topic?
+    true
+  end
 end

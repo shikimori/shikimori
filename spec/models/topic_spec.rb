@@ -1,7 +1,16 @@
 describe Topic do
+  describe 'associations' do
+    it { is_expected.to belong_to :forum }
+    it { is_expected.to belong_to :linked }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many :topic_ignores }
+    it { is_expected.to have_many :views }
+  end
+
   describe 'validations' do
-    it { is_expected.to validate_presence_of :title }
     it { is_expected.to validate_presence_of :locale }
+    it { is_expected.to validate_presence_of :title }
   end
 
   describe 'enumerize' do
@@ -73,82 +82,86 @@ describe Topic do
     end
   end
 
-  describe 'instance methods' do
-    let(:topic) { create :topic }
+  context 'permissions' do
+    let(:user) { build_stubbed :user, :user, :week_registered }
+    let(:entry) { build_stubbed :entry, user: entry_user, created_at: created_at }
 
-    def create_comment
-      create :comment, :with_counter_cache, commentable: topic
-    end
+    let(:entry_user) { user }
+    let(:created_at) { Time.zone.now }
 
-    def create_summary
-      create :comment, :summary, :with_counter_cache, commentable: topic
-    end
+    subject { Ability.new user }
 
-    describe '#any_comments?' do
-      subject { topic.any_comments? }
+    context 'entry owner' do
+      context 'not banned' do
+        it { is_expected.to be_able_to :new, entry }
+        it { is_expected.to be_able_to :create, entry }
+        it { is_expected.to be_able_to :update, entry }
 
-      context 'with comments' do
-        before { create_comment }
-        it { is_expected.to eq true }
-      end
-
-      context 'with summaries' do
-        before { create_summary }
-        it { is_expected.to eq true }
-      end
-
-      context 'without comments' do
-        it { is_expected.to eq false }
-      end
-    end
-
-    describe '#any_summaries?' do
-      subject { topic.any_summaries? }
-
-      context 'with summaries' do
-        before { create_summary }
-        it { is_expected.to eq true }
-      end
-
-      context 'without summaries' do
-        before { create_comment }
-        it { is_expected.to eq false }
-      end
-    end
-
-    describe '#all_summaries?' do
-      subject { topic.all_summaries? }
-
-      context 'all summaries' do
-        before do
-          create_summary
-          create_summary
+        context 'old entry' do
+          let(:created_at) { 4.hours.ago - 1.minute }
+          it { is_expected.to_not be_able_to :destroy, entry }
         end
 
-        it { is_expected.to eq true }
+        context 'new entry' do
+          let(:created_at) { 4.hours.ago + 1.minute }
+          it { is_expected.to be_able_to :destroy, entry }
+        end
       end
 
-      context 'not all summaries' do
-        before do
-          create_comment
-          create_summary
-          create_summary
-        end
+      context 'newly registered' do
+        let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
 
-        it { is_expected.to eq false }
+        it { is_expected.to_not be_able_to :new, entry }
+        it { is_expected.to_not be_able_to :create, entry }
+        it { is_expected.to be_able_to :update, entry }
+        it { is_expected.to_not be_able_to :destroy, entry }
+      end
+
+      context 'banned' do
+        let(:user) { build_stubbed :user, :banned, :day_registered }
+
+        it { is_expected.to_not be_able_to :new, entry }
+        it { is_expected.to_not be_able_to :create, entry }
+        it { is_expected.to_not be_able_to :update, entry }
+        it { is_expected.to_not be_able_to :destroy, entry }
       end
     end
 
-    describe '#summaries_count' do
-      subject { topic.summaries_count }
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :moderator }
 
-      before do
-        create_comment
-        create_summary
-        create_summary
+      context 'common topic' do
+        it { is_expected.to be_able_to :manage, entry }
       end
 
-      it { is_expected.to eq 2 }
+      context 'generated topic' do
+        let(:entry) { build_stubbed :club_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to_not be_able_to :manage, entry }
+      end
+
+      context 'generated review topic' do
+        let(:entry) { build_stubbed :review_topic, user: entry_user, created_at: created_at }
+        it { is_expected.to be_able_to :manage, entry }
+      end
+    end
+
+    context 'user' do
+      let(:entry_user) { build_stubbed :user, :week_registered }
+
+      it { is_expected.to_not be_able_to :new, entry }
+      it { is_expected.to_not be_able_to :create, entry }
+      it { is_expected.to_not be_able_to :update, entry }
+      it { is_expected.to_not be_able_to :destroy, entry }
+    end
+
+    context 'guest' do
+      let(:user) { nil }
+
+      it { is_expected.to_not be_able_to :new, entry }
+      it { is_expected.to_not be_able_to :create, entry }
+      it { is_expected.to_not be_able_to :update, entry }
+      it { is_expected.to_not be_able_to :destroy, entry }
     end
   end
+
 end

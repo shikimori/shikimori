@@ -14,7 +14,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,
-    class_name: Entry.name,
+    class_name: Topic.name,
     foreign_key: :commentable_id
 
   has_many :abuse_requests, -> { order :id }, dependent: :destroy
@@ -165,7 +165,7 @@ class Comment < ActiveRecord::Base
 
   # TODO: move to CommentDecorator
   def html_body
-    fixed_body = if commentable_id == 82468 && commentable_type == Entry.name
+    fixed_body = if commentable_id == 82468 && commentable_type == Topic.name
       body
         .gsub('[poster=', '[image=')
         .gsub('[poster]', '[img]')

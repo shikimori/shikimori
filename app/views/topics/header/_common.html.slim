@@ -23,7 +23,7 @@
     title="#{view.poster_title}"
   ] = view.poster_title
 
-  - if view.topic.linked && (view.topic.instance_of?(Topic) || (view.topic.news? && !view.topic.generated_news?))
+  - if view.topic.linked && (view.topic.instance_of?(Topic) || (view.topic.news_topic? && !view.topic.generated_news?))
     span.about
       span = t '.about'
       a.b-link.bubbled[

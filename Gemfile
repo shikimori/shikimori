@@ -74,6 +74,7 @@ gem 'acts-as-taggable-on'
 gem 'meta-tags'
 gem 'enumerize'
 gem 'draper'
+gem 'disposable'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 
 gem 'unicode' # для downcase русских слов

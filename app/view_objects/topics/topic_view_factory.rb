@@ -19,7 +19,7 @@ class Topics::TopicViewFactory
     elsif topic.generated_news?
       generated_news_topic topic
 
-    elsif topic.news?
+    elsif topic.news_topic?
       news_topic topic
 
     else
