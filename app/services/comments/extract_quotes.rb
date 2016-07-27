@@ -1,9 +1,9 @@
-class ExtractQuoted
+class Comments::ExtractQuotes < ServiceObjectBase
   pattr_initialize :text
 
   REGEXP = /\[(quote|comment|entry|mention)=([^\]]+)\](?:(?:\[quote.*?\][\s\S]*?\[\/quote\]|[\s\S])*?)\[\/(?:quote|comment|entry|mention)\]/mx
 
-  def perform
+  def call
     text.scan(REGEXP).map do |(tag,data)|
       extract_quote tag, data
     end
