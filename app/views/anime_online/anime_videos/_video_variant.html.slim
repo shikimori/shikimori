@@ -16,10 +16,10 @@
 
     - else
       - if video.quality_bd?
-        span.video-quality = video.quality_text
+        span.video-quality
 
       span.video-kind class="#{video.language}"
-        = video.kind_text
+        = video.kind_text.capitalize
 
       span.video-hosting = video.hosting
 

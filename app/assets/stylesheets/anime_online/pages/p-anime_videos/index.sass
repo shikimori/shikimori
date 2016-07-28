@@ -4,6 +4,9 @@
 @import mixins/comma_separated
 @import mixins/link
 @import mixins/responsive
+@import mixins/retina
+
+$image-path: 'anime_online/pages/anime_videos'
 
 .p-anime_videos-index
   .b-nothing_here
@@ -143,5 +146,10 @@
       &:after
         content: ')'
 
-    .video-quality
-      color: #123
+  .c-videos .video-variant .video-quality
+    +background-inline-retina('#{$image-path}/bd', 'png', 56px, 12px)
+    height: 12px
+    width: 56px
+    float: left
+    margin-top: 5px
+    margin-right: 4px

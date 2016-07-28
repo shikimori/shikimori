@@ -97,6 +97,7 @@ class AnimeVideoDecorator < BaseDecorator
     [
       kind.fandub? || kind.unknown? ? '' : kind,
       vk? ? '' : hosting,
+      language_english?,
       author_name || ''
     ]
   end
