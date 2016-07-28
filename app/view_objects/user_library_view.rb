@@ -1,3 +1,4 @@
+# TODO: refactor
 class UserLibraryView < ViewObjectBase
   vattr_initialize :user
   instance_cache :full_list, :truncated_list, :total_stats, :klass,
@@ -19,7 +20,7 @@ class UserLibraryView < ViewObjectBase
   end
 
   def list_page
-    truncated_list.each do |status,list|
+    truncated_list.each do |status, list|
       list.stats = list_stats(full_list[status]) if list.stats
       list.size = full_list[status].size
     end
@@ -33,7 +34,7 @@ class UserLibraryView < ViewObjectBase
     list_page_key = list_page.keys.last
 
     list_page.any? && (list_page.keys.last != full_list.keys.last ||
-      (list_page[list_page_key].entries.size + list_page[list_page_key].index - 1) !=
+      (list_page[list_page_key].user_rates.size + list_page[list_page_key].index - 1) !=
         full_list[full_list.keys.last].size)
   end
 
@@ -90,10 +91,10 @@ private
     # счётчик числа элементов в пределах группы
     j = 0
 
-    full_list.each do |status,entries|
+    full_list.each do |status, user_rates|
       j = 0
 
-      entries.each do |entry|
+      user_rates.each do |user_rate|
         j += 1
         i += 1
 
@@ -103,16 +104,17 @@ private
           break
         end
 
-        list[status] ||= OpenStruct.new entries: [], stats: {}, index: j
-        list[status].entries.push entry
+        list[status] ||= OpenStruct.new user_rates: [], stats: {}, index: j
+        list[status].user_rates.push user_rate
       end
     end
 
+    UserRates::RefreshIrrelevant.call list, klass
     list
   end
 
   # аггрегированная статистика по данным
-  def list_stats data, reduce=true
+  def list_stats data, reduce = true
     stats = {
       tv: data.sum { |v| v.target.anime? && v.target.kind_tv? ? 1 : 0 },
       movie: data.sum { |v| v.target.anime? && v.target.kind_movie? ? 1 : 0 },
