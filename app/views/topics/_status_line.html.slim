@@ -1,9 +1,11 @@
+- topic_type_policy = Topic::TypePolicy.new topic_view.topic
+
 .status-line
   span.from = t '.by'
   span.author
     = render 'users/user_16', user: topic_view.user
 
-  - if topic_view.topic.news_topic? && topic_view.topic.linked
+  - if topic_type_policy.news_topic? && topic_view.topic.linked
     span.about = t '.about'
     a.b-link.bubbled[
       href="#{topic_view.topic.linked.decorate.url}"
@@ -17,7 +19,7 @@
     ] = l topic_view.created_at, format: '%e %B %Y'
 
   span.additional
-    span.comments = topic_view.topic.comments_count
+    span.comments = topic_view.comments_count
 
-    - if topic_view.topic.review_topic? || topic_view.topic.cosplay_gallery_topic?
+    - if topic_type_policy.review_topic? || topic_type_policy.cosplay_gallery_topic?
       span.likes #{topic_view.topic.linked.votes_for} <span>/</span> #{topic_view.topic.linked.votes_count}

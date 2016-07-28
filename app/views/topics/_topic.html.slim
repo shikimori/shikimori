@@ -1,3 +1,5 @@
+- topic_type_policy = Topic::TypePolicy.new topic_view.topic
+
 - if topic_view.ignored?
   = render partial: 'blocks/ignored', object: topic_view.topic
 
@@ -14,7 +16,7 @@
     data-user_id="#{topic_view.user.id}"
     data-user_nickname="#{topic_view.user.nickname}"
     itemscope
-    itemtype="#{topic_view.topic.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
+    itemtype="#{topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
   ]
     meta itemprop="author" content="#{topic_view.topic.user.nickname}"
     meta itemprop="name" content="#{topic_view.topic_title}"

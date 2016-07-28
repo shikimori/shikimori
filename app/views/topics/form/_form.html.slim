@@ -1,3 +1,5 @@
+- topic_type_policy = Topic::TypePolicy.new topic
+
 = simple_form_for topic,
     url: (topic.persisted? ? topic_url(topic) : topics_url),
     as: :topic do |f|
@@ -62,7 +64,7 @@
             = topic.linked.name
         .b-js-action.remove = t('actions.delete').downcase
 
-    - if topic.news_topic?
+    - if topic_type_policy.news_topic?
       = render 'topics/form/news_form',
         topic: topic,
         f: f,
@@ -72,7 +74,7 @@
       = f.input :broadcast
 
     .b-shiki_editor.unprocessed.block
-      .title = t ".#{topic.news_topic? ? :news : :topic}_text"
+      .title = t ".#{topic_type_policy.news_topic? ? :news : :topic}_text"
       = render 'comments/shiki_editor',
         text: (topic.body || '').sub(/\[wall\][\s\S]*/, '').strip,
         field_name: 'topic[body]'

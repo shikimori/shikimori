@@ -19,6 +19,8 @@ describe TopicsController do
       before { get :index }
 
       it do
+        # F**K: in fact 9 items: 4 topics + 5 sticky topics but it's
+        # limited to 8 because of pagination limit in Forums::View
         expect(assigns(:forums_view).topic_views).to have(8).items
         expect(response).to have_http_status :success
       end
@@ -28,7 +30,8 @@ describe TopicsController do
       before { get :index, forum: offtopic_forum.permalink }
 
       it do
-        expect(assigns(:forums_view).topic_views).to have(7).items
+        expect(assigns(:forums_view).topic_views)
+          .to have(2 + sticky_topics_count).items
         expect(response).to have_http_status :success
       end
     end

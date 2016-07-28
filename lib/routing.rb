@@ -26,14 +26,17 @@ module Routing
   end
 
   def topic_url topic, format = nil
+    topic_type_policy = Topic::TypePolicy.new topic
+
     if topic.instance_of? NoTopic
       db_entry_path topic.linked
 
     elsif topic.is_a?(User)
       profile_url topic, subdomain: false
 
-    elsif topic.is_a?(Topics::EntryTopics::ContestTopic) ||
-        (topic.news_topic? && !topic.generated?) || topic.review_topic?
+    elsif topic_type_policy.contest_topic? ||
+        topic_type_policy.not_generated_news_topic? ||
+        topic_type_policy.review_topic?
 
       forum_topic_url(
         id: topic,

@@ -6,6 +6,7 @@ describe Topic::TypePolicy do
   let(:forum_topic) { build_stubbed :forum_topic }
   let(:news_topic) { build_stubbed :news_topic }
   let(:generated_news_topic) { build_stubbed :news_topic, generated: true }
+  let(:not_generated_news_topic) { build_stubbed :news_topic, generated: false }
   let(:review_topic) { build_stubbed :review_topic }
   let(:cosplay_gallery_topic) { build_stubbed :cosplay_gallery_topic }
   let(:contest_topic) { build_stubbed :contest_topic }
@@ -48,6 +49,20 @@ describe Topic::TypePolicy do
 
     context 'not generated news topic' do
       let(:topic) { news_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#not_generated_news_topic?' do
+    subject { policy.not_generated_news_topic? }
+
+    context 'not generated news topic' do
+      let(:topic) { not_generated_news_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'generated news topic' do
+      let(:topic) { generated_news_topic }
       it { is_expected.to eq false }
     end
   end

@@ -47,7 +47,8 @@ class Topics::View < ViewObjectBase
   end
 
   def topic_title
-    if topic.forum_topic? || topic.linked_id.nil?
+    topic_type_policy = Topic::TypePolicy.new(topic)
+    if topic_type_policy.forum_topic? || topic.linked_id.nil?
       topic.title
 
     else

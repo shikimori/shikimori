@@ -15,6 +15,10 @@ class Topic::TypePolicy
     news_topic? && topic.generated?
   end
 
+  def not_generated_news_topic?
+    news_topic? && !topic.generated?
+  end
+
   def review_topic?
     topic.class.name == Topics::EntryTopics::ReviewTopic.name
   end

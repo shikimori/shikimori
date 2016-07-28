@@ -58,6 +58,26 @@ shared_context :other_sticky_topics do
   end
 end
 
+shared_context :sticky_topics do
+  let!(:site_rules_topic) do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:site_rules][:ru]
+  end
+  let!(:faq_topic) do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:faq][:ru]
+  end
+  let!(:description_of_genres_topic) do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
+  end
+  let!(:ideas_and_suggestions_topic) do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
+  end
+  let!(:site_problems_topic) do
+    create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
+  end
+
+  let(:sticky_topics_count) { 5 }
+end
+
 shared_examples_for :success_resource_change do |type|
   it do
     expect(resource).to be_persisted

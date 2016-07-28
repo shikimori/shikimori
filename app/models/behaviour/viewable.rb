@@ -29,14 +29,12 @@ module Viewable
     )
 
     scope :with_viewed, -> (user) {
-      if user
-        select("#{table_name}.*, #{klass::VIEWED_JOINS_SELECT}"")
-        .joins(
-          "LEFT JOIN #{viewing_klass.table_name} v
-            ON v.viewed_id = #{table_name}.id AND v.user_id = '#{user.id}'"
-      else
-        select("#{table_name}.*")
-      end
+      return select("#{table_name}.*") unless user
+
+      select("#{table_name}.*, #{klass::VIEWED_JOINS_SELECT}")
+      .joins(
+        "LEFT JOIN #{viewing_klass.table_name} v
+          ON v.viewed_id = #{table_name}.id AND v.user_id = '#{user.id}'"
       )
     }
   end

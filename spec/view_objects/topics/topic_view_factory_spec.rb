@@ -25,7 +25,7 @@ describe Topics::TopicViewFactory do
     subject(:view) { factory.build topic }
 
     context 'common topic' do
-      let(:topic) { build :entry }
+      let(:topic) { build :topic }
 
       it { expect(view).to be_a Topics::View }
       it { expect(view.is_preview).to eq false }

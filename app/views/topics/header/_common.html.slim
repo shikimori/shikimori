@@ -1,3 +1,5 @@
+- topic_type_policy = Topic::TypePolicy.new view.topic
+
 - if view.author_in_header?
   span.linkeable data-href="#{view.urls.poster_url}"
     img[
@@ -23,7 +25,7 @@
     title="#{view.poster_title}"
   ] = view.poster_title
 
-  - if view.topic.linked && (view.topic.instance_of?(Topic) || (view.topic.news_topic? && !view.topic.generated_news?))
+  - if view.topic.linked && (topic_type_policy.forum_topic? || topic_type_policy.not_generated_news_topic?)
     span.about
       span = t '.about'
       a.b-link.bubbled[
@@ -31,7 +33,7 @@
         title="#{localized_name view.topic.linked}"
       ] = localization_span view.topic.linked
 
-  - elsif view.topic.review_topic?
+  - elsif topic_type_policy.review_topic?
     span.about
       span = t '.about'
       a.b-link.bubbled[

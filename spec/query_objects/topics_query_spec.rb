@@ -17,7 +17,8 @@ describe TopicsQuery do
   end
 
   describe '#by_forum' do
-    let!(:anime_topic) { create :entry, forum: animanga_forum, updated_at: 1.hour.ago }
+    let!(:anime_topic) { create :topic, forum: animanga_forum, updated_at: 1.day.ago }
+    let!(:offtop_topic) { create :topic, forum: offtopic_forum, updated_at: 2.days.ago }
     let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
     let!(:another_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
@@ -148,8 +149,8 @@ describe TopicsQuery do
 
   describe '#by_linked' do
     let(:linked) { create :anime }
-    let!(:topic_1) { create :entry, linked: linked, forum: animanga_forum }
-    let!(:topic_2) { create :entry, forum: animanga_forum }
+    let!(:topic_1) { create :topic, linked: linked, forum: animanga_forum }
+    let!(:topic_2) { create :topic, forum: animanga_forum }
 
     subject do
       query
