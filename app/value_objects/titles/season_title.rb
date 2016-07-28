@@ -28,7 +28,7 @@ class Titles::SeasonTitle
   end
 
   def url_params
-    { type: nil, season: text }
+    { type: nil, season: text, status: nil }
   end
 
   def catalog_title

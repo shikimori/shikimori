@@ -7,7 +7,7 @@ describe Titles::SeasonTitle do
     let(:format) { :season_year }
 
     it { expect(title.text).to eq 'fall_2015' }
-    it { expect(title.url_params).to eq type: nil, season: title.text }
+    it { expect(title.url_params).to eq type: nil, season: title.text, status: nil }
     it { expect(title.catalog_title).to eq 'Осень 2015' }
     it { expect(title.short_title).to eq 'Осенний сезон' }
     it { expect(title.full_title).to eq 'Осенний сезон 2015 года' }

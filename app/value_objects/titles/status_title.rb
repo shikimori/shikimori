@@ -7,7 +7,7 @@ class Titles::StatusTitle
   end
 
   def url_params
-    { type: nil, status: text }
+    { type: nil, status: text, status: nil }
   end
 
   def catalog_title
