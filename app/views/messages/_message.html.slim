@@ -1,9 +1,10 @@
 .b-message.shiki-object.unprocessed[
-    class="#{'b-generated_news' if message.generated_news?}"
-    id="#{message.id}"
-    data-user_id="#{message.from.id}"
-    data-user_nickname="#{message.from.nickname}"
-  ]
+  class="#{'b-generated_news' if message.generated_news?}"
+  id="#{message.id}"
+  data-appear_type="message"
+  data-user_id="#{message.from.id}"
+  data-user_nickname="#{message.from.nickname}"
+]
   .inner
     - if message.persisted?
       span.item-mobile title="#{i18n_i 'Action', :other}"
