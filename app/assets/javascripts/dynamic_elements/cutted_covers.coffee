@@ -33,15 +33,15 @@ class DynamicElements.CuttedCovers extends View
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
+    height = (@$poster.width() * DynamicElements.CuttedCovers.RATIO[@ratio_type]).round(2)
+    width = @$poster.width()
 
-    $.injectCSS(
-      "##{@collection_id}": {
-        '.image-cutter': {
-          'max-width': @$poster.width()
-          'max-height': (@$poster.width() * DynamicElements.CuttedCovers.RATIO[@ratio_type]).round(2)
-        }
-      }
-    )
+    if width > 0 && height > 0
+      $.injectCSS
+        "##{@collection_id}":
+          '.image-cutter':
+            'max-width': width
+            'max-height': height
 
   _increment_id: ->
     DynamicElements.CuttedCovers.PRIOR_ID = DynamicElements.CuttedCovers.PRIOR_ID + 1

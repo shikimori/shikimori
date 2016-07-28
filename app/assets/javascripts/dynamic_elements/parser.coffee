@@ -1,8 +1,10 @@
 using 'DynamicElements'
 class DynamicElements.Parser
+  @PENDING_CLASS = 'to-process'
+
   constructor: ($nodes) ->
     $nodes.each ->
-      @classList.remove 'to-process'
+      @classList.remove DynamicElements.Parser.PENDING_CLASS
 
       for processor in @attributes['data-dynamic'].value.split(',')
         switch processor

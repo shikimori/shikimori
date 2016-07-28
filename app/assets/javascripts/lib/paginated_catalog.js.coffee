@@ -196,6 +196,7 @@ class @PaginatedCatalog
     UserRates.Tracker.track data.tracked_user_rates, $content
 
     @$content
+      .addClass(DynamicElements.Parser.PENDING_CLASS) # чтобы cutted_covers сработал
       .html($content)
       .process()
 
