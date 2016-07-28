@@ -1,5 +1,5 @@
 .video-variant data-id="#{video.id}"
-  - same_video = is_special ? @video && video.id == @video.id : @player.same_videos&.any? {|v| v.id == video.id }
+  - same_video = is_special ? @video && video.id == @video.id : @player.same_videos&.any? { |v| v.id == video.id }
 
   a [
     class="#{:active if same_video} #{video.state}"
@@ -7,15 +7,21 @@
   ]
     - if is_special
       span.video-id ##{video.id}
+
       - unless video.quality_unknown?
         span.video-quality = video.quality_text
+
       - unless video.language_unknown?
         span.video-language = video.language_text
 
     - else
       - if video.quality_bd?
         span.video-quality = video.quality_text
-      span.video-kind = video.kind_text
+
+      span.video-kind class="#{video.language}"
+        = video.kind_text
+
       span.video-hosting = video.hosting
+
       - if video.author
         span.video-author = strip_tags(video.author.name).gsub('&amp;', '&')
