@@ -7,6 +7,9 @@ class Titles::StatusTitle
   end
 
   def url_params
+    # без nil из-за странного бага рельс когда находишься на странице
+    # http://shikimori.dev/animes/status/anons status/anons попадает
+    # в сгенерённый url
     { type: nil, status: text, status: nil }
   end
 
