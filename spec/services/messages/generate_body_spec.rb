@@ -102,7 +102,7 @@ describe Messages::GenerateBody do
       let(:linked) { build_stubbed :topic, id: 1, title: 'test' }
       it do
         is_expected.to eq(
-          'Написал что-то вам в топике <a href="//test.host/forum/offtopic/1-test">test</a>.'
+          'Написал <a href="//test.host/comments/1-test">что-то</a> вам в топике <a href="//test.host/forum/offtopic/1-test">test</a>.'
         )
       end
     end
