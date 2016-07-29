@@ -51,7 +51,7 @@ en:
         female: Has added you to her friend list.
         male: Has added you to his friend list.
     quoted_by_user:
-      female: &female You have been mentioned %{linked_name}
+      female: &female You have been <a class="b-link" href="%{comment_url}">mentioned</a> %{linked_name}
       male: *female
     anons: '%{linked_name} anime announced'
     ongoing: '%{linked_name} anime airing'

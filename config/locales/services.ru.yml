@@ -52,8 +52,8 @@ ru:
         female: Добавила вас в список друзей.
         male: Добавил вас в список друзей.
     quoted_by_user:
-      female: Написала <a href="%{comment_url}">что-то</a> вам %{linked_name}
-      male: Написал <a href="%{comment_url}">что-то</a> вам %{linked_name}
+      female: Написала <a class="b-link" href="%{comment_url}">что-то</a> вам %{linked_name}
+      male: Написал <a class="b-link" href="%{comment_url}">что-то</a> вам %{linked_name}
     anons: Анонсировано аниме %{linked_name}
     ongoing: Начат показ аниме %{linked_name}
     episode: Вышел %{episode} эпизод аниме %{linked_name}
