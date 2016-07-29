@@ -56,7 +56,9 @@ private
   end
 
   def quoted_by_user
-    i18n_t "quoted_by_user.#{gender}", linked_name: linked_name
+    i18n_t "quoted_by_user.#{gender}",
+      linked_name: linked_name,
+      comment_url: UrlGenerator.instance.comment_url(linked)
   end
 
   def subscription_commented
