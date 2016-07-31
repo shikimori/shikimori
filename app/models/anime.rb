@@ -88,6 +88,9 @@ class Anime < DbEntry
     class_name: SimilarAnime.name,
     foreign_key: :src_id,
     dependent: :destroy
+  has_many :similar_animes,
+    through: :similar,
+    source: :dst
   has_many :links, class_name: AnimeLink.name, dependent: :destroy
 
   has_many :user_histories,
@@ -203,15 +206,6 @@ class Anime < DbEntry
     BlobData.get("anime_%d_subtitles" % id) || {}
   end
 
-  def track_changes
-    Anime::TrackStatusChanges.call self
-    Anime::TrackEpisodesChanges.call self
-  end
-
-  def generate_news
-    Anime::GenerateNews.call self
-  end
-
   def schedule_at
     Schedule.parse(schedule, aired_on) if schedule && (ongoing? || anons?)
   end
@@ -255,5 +249,16 @@ class Anime < DbEntry
   def torrents_1080p=(data)
     BlobData.set("anime_%d_torrents_1080p" % id, data) unless data.empty?
     @torrents_1080p = nil
+  end
+
+private
+
+  def track_changes
+    Anime::TrackStatusChanges.call self
+    Anime::TrackEpisodesChanges.call self
+  end
+
+  def generate_news
+    Anime::GenerateNews.call self
   end
 end

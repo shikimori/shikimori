@@ -17,6 +17,7 @@ FactoryGirl.define do
       anime.stub :track_changes
       anime.stub :generate_news
       anime.stub :generate_name_matches
+      anime.class.skip_callback :update, :after, :touch_related
     end
 
     trait :with_callbacks do

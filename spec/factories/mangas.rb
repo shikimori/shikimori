@@ -9,8 +9,9 @@ FactoryGirl.define do
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :manga
 
-    after(:build) do |manga|
+    after :build do |manga|
       manga.stub :generate_name_matches
+      manga.class.skip_callback :update, :after, :touch_related
     end
 
     trait :with_topics do

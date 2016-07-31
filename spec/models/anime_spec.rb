@@ -22,6 +22,7 @@ describe Anime do
     it { is_expected.to have_many :related_mangas }
 
     it { is_expected.to have_many :similar }
+    it { is_expected.to have_many :similar_animes }
     it { is_expected.to have_many :links }
 
     it { is_expected.to have_many :user_histories }
@@ -60,184 +61,189 @@ describe Anime do
     it { is_expected.to enumerize(:origin) }
   end
 
-  describe 'news topics generation' do
-    context 'news topics already generated' do
-      let(:anime) { create :anime, :with_callbacks, status: :ongoing }
+  describe 'callbacks' do
+    describe 'news topics generation' do
+      context 'news topics already generated' do
+        let(:anime) { create :anime, :with_callbacks, status: :ongoing }
 
-      let!(:ru_news_topic) do
-        create :news_topic,
-          linked: anime,
-          action: AnimeHistoryAction::Anons,
-          value: nil,
-          locale: :ru
-      end
-      let!(:en_news_topic) do
-        create :news_topic,
-          linked: anime,
-          action: AnimeHistoryAction::Anons,
-          value: nil,
-          locale: :en
-      end
+        let!(:ru_news_topic) do
+          create :news_topic,
+            linked: anime,
+            action: AnimeHistoryAction::Anons,
+            value: nil,
+            locale: :ru
+        end
+        let!(:en_news_topic) do
+          create :news_topic,
+            linked: anime,
+            action: AnimeHistoryAction::Anons,
+            value: nil,
+            locale: :en
+        end
 
-      before { anime.update status: :anons }
+        before { anime.update status: :anons }
 
-      it 'does not generate more news topics' do
-        expect(anime.anons_news_topics).to eq [en_news_topic, ru_news_topic]
-      end
-    end
-
-    context 'status changed' do
-      context 'to anons (anime just created)' do
-        let!(:anime) { create :anime, :with_callbacks, status: :anons }
-
-        it 'generates 2 anons news topics' do
-          expect(anime.anons_news_topics).to have(2).items
+        it 'does not generate more news topics' do
+          expect(anime.anons_news_topics).to eq [en_news_topic, ru_news_topic]
         end
       end
 
-      context 'from anons to ongoing' do
-        let(:anime) { create :anime, :with_callbacks, status: :anons }
-        before { anime.update status: :ongoing }
+      context 'status changed' do
+        context 'to anons (anime just created)' do
+          let!(:anime) { create :anime, :with_callbacks, status: :anons }
 
-        it 'generates 2 ongoing news topics' do
-          expect(anime.ongoing_news_topics).to have(2).items
+          it 'generates 2 anons news topics' do
+            expect(anime.anons_news_topics).to have(2).items
+          end
         end
-      end
-    end
 
-    context 'status rollbacked' do
-      context 'from ongoing back to anons' do
-        let(:anime) do
-          create :anime, :with_callbacks,
-            status: :anons,
-            aired_on: Time.zone.tomorrow
-        end
-        before { anime.update status: :ongoing }
+        context 'from anons to ongoing' do
+          let(:anime) { create :anime, :with_callbacks, status: :anons }
+          before { anime.update status: :ongoing }
 
-        it 'does not change status and does not generate news topics' do
-          expect(anime.status).to be_anons
-          expect(anime.ongoing_news_topics).to be_empty
+          it 'generates 2 ongoing news topics' do
+            expect(anime.ongoing_news_topics).to have(2).items
+          end
         end
       end
 
-      context 'from released back to ongoing' do
-        let(:anime) do
-          create :anime, :with_callbacks,
-            status: :ongoing,
-            released_on: Time.zone.today
-        end
-        before { anime.update status: :released }
+      context 'status rollbacked' do
+        context 'from ongoing back to anons' do
+          let(:anime) do
+            create :anime, :with_callbacks,
+              status: :anons,
+              aired_on: Time.zone.tomorrow
+          end
+          before { anime.update status: :ongoing }
 
-        it 'does not change status and does not generate news topics' do
-          expect(anime.status).to be_ongoing
-          expect(anime.released_news_topics).to be_empty
+          it 'does not change status and does not generate news topics' do
+            expect(anime.status).to be_anons
+            expect(anime.ongoing_news_topics).to be_empty
+          end
+        end
+
+        context 'from released back to ongoing' do
+          let(:anime) do
+            create :anime, :with_callbacks,
+              status: :ongoing,
+              released_on: Time.zone.today
+          end
+          before { anime.update status: :released }
+
+          it 'does not change status and does not generate news topics' do
+            expect(anime.status).to be_ongoing
+            expect(anime.released_news_topics).to be_empty
+          end
         end
       end
-    end
 
-    context 'number of aired episodes changed' do
-      context 'first episodes aired' do
-        let(:anime) { create :anime, :with_callbacks, status: :anons, episodes: 5 }
-        before { anime.update episodes_aired: 1 }
+      context 'number of aired episodes changed' do
+        context 'first episodes aired' do
+          let(:anime) { create :anime, :with_callbacks, status: :anons, episodes: 5 }
+          before { anime.update episodes_aired: 1 }
 
-        it 'changes status to ongoing and generates 2 ongoing news topics' do
-          expect(anime.status).to be_ongoing
-          expect(anime.ongoing_news_topics).to have(2).items
+          it 'changes status to ongoing and generates 2 ongoing news topics' do
+            expect(anime.status).to be_ongoing
+            expect(anime.ongoing_news_topics).to have(2).items
+          end
         end
-      end
 
-      context 'final episodes aired' do
-        let(:anime) { create :anime, :with_callbacks, status: :ongoing, episodes: 5 }
-        before { anime.update episodes_aired: 5 }
+        context 'final episodes aired' do
+          let(:anime) { create :anime, :with_callbacks, status: :ongoing, episodes: 5 }
+          before { anime.update episodes_aired: 5 }
 
-        it 'changes status to released and generates 2 released news topics' do
-          expect(anime.status).to be_released
-          expect(anime.released_news_topics).to have(2).items
+          it 'changes status to released and generates 2 released news topics' do
+            expect(anime.status).to be_released
+            expect(anime.released_news_topics).to have(2).items
+          end
         end
       end
     end
   end
 
-  describe 'adult?' do
-    context 'by_rating' do
-      let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
-      let(:episodes) { 1 }
-      let(:kind) { :ova }
+  describe 'instance methods' do
+    describe '#adult?' do
+      context 'by_rating' do
+        let(:anime) { build :anime, rating: rating, episodes: episodes, kind: kind }
+        let(:episodes) { 1 }
+        let(:kind) { :ova }
 
-      context 'G - All Ages' do
-        let(:rating) { :g }
-        it { expect(anime).to_not be_adult }
-      end
-
-      context 'R+ - Mild Nudity' do
-        let(:rating) { :r_plus }
-
-        context 'TV' do
-          let(:kind) { :tv }
+        context 'G - All Ages' do
+          let(:rating) { :g }
           it { expect(anime).to_not be_adult }
         end
 
-        context 'OVA' do
-          let(:kind) { :ova }
+        context 'R+ - Mild Nudity' do
+          let(:rating) { :r_plus }
 
-          context '1 episode' do
-            let(:episodes) { 1 }
+          context 'TV' do
+            let(:kind) { :tv }
             it { expect(anime).to_not be_adult }
           end
 
-          context '2 episodes' do
-            let(:episodes) { 2 }
-            it { expect(anime).to_not be_adult }
+          context 'OVA' do
+            let(:kind) { :ova }
+
+            context '1 episode' do
+              let(:episodes) { 1 }
+              it { expect(anime).to_not be_adult }
+            end
+
+            context '2 episodes' do
+              let(:episodes) { 2 }
+              it { expect(anime).to_not be_adult }
+            end
+
+            context '3 episodes' do
+              let(:episodes) { 3 }
+              it { expect(anime).to_not be_adult }
+            end
           end
 
-          context '3 episodes' do
-            let(:episodes) { 3 }
+          context 'Special' do
+            let(:kind) { :special }
             it { expect(anime).to_not be_adult }
           end
         end
+      end
 
-        context 'Special' do
-          let(:kind) { :special }
+      context 'censored' do
+        let(:anime) { build :anime, censored: censored }
+
+        context 'false' do
+          let(:censored) { false }
           it { expect(anime).to_not be_adult }
         end
+
+        context 'true' do
+          let(:censored) { true }
+          it { expect(anime).to be_adult }
+        end
       end
     end
 
-    context 'censored' do
-      let(:anime) { build :anime, censored: censored }
+    describe '#schedule_at' do
+      before { Timecop.freeze '06-04-2016' }
+      after { Timecop.return }
 
-      context 'false' do
-        let(:censored) { false }
-        it { expect(anime).to_not be_adult }
+      let(:anime) { build :anime, state, schedule: schedule, aired_on: nil }
+      let(:state) { :ongoing }
+      let(:schedule) { 'Thursdays at 22:00 (JST)' }
+
+      it { expect(anime.schedule_at).to eq Time.zone.parse('07-04-2016 16:00') }
+
+      context 'no schedule' do
+        let(:schedule) { '' }
+        it { expect(anime.schedule_at).to be_nil }
       end
 
-      context 'true' do
-        let(:censored) { true }
-        it { expect(anime).to be_adult }
+      context 'not ongoing or anons' do
+        let(:state) { :released }
+        it { expect(anime.schedule_at).to be_nil }
       end
     end
   end
 
-  describe '#schedule_at' do
-    before { Timecop.freeze '06-04-2016' }
-    after { Timecop.return }
-
-    let(:anime) { build :anime, state, schedule: schedule, aired_on: nil }
-    let(:state) { :ongoing }
-    let(:schedule) { 'Thursdays at 22:00 (JST)' }
-
-    it { expect(anime.schedule_at).to eq Time.zone.parse('07-04-2016 16:00') }
-
-    context 'no schedule' do
-      let(:schedule) { '' }
-      it { expect(anime.schedule_at).to be_nil }
-    end
-
-    context 'not ongoing or anons' do
-      let(:state) { :released }
-      it { expect(anime.schedule_at).to be_nil }
-    end
-  end
-
+  it_behaves_like :touch_related_in_db_entry, :anime
   it_behaves_like :topics_concern_in_db_entry, :anime
 end

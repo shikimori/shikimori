@@ -50,6 +50,9 @@ class Manga < DbEntry
     class_name: SimilarManga.name,
     foreign_key: :src_id,
     dependent: :destroy
+  has_many :similar_mangas,
+    through: :similar,
+    source: :dst
 
   has_many :user_histories, -> { where target_type: Manga.name },
     foreign_key: :target_id,

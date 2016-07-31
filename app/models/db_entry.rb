@@ -1,6 +1,6 @@
 class DbEntry < ActiveRecord::Base
   self.abstract_class = true
-  SIGNIFICANT_FIELDS = %w{name genres image}
+  SIGNIFICANT_FIELDS = %w(name genres image)
 
   def self.inherited klass
     super
@@ -10,6 +10,8 @@ class DbEntry < ActiveRecord::Base
       dependent: :destroy
 
     klass.has_many :clubs, through: :club_links
+
+    klass.before_update :touch_related
   end
 
   def to_param
@@ -30,5 +32,10 @@ class DbEntry < ActiveRecord::Base
 
   def topic_user
     BotsService.get_poster
+  end
+
+  def touch_related
+    return unless changes[:name] || changes[:russian]
+    DbEntries::TouchRelated.perform_async id
   end
 end

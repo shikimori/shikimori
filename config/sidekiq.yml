@@ -8,17 +8,18 @@ production:
   :concurrency: 12
 
 :queues:
-  - [high_priority, 3]
-  - [critical, 6]
+  - [high_priority, 8]
+  - [critical, 10]
   - [push_notifications, 2]
-  - default
-  - cpu_intensive
-  - slow_parsers
-  - torrents_parsers
-  - anime_online_parsers
-  - manga_online_parsers
-  - webm_thumbnails
-  - similar_users
+  - [default, 5]
+  - [cpu_intensive, 5]
+  - [slow_parsers, 5]
+  - [torrents_parsers, 5]
+  - [anime_online_parsers, 5]
+  - [manga_online_parsers, 5]
+  - [webm_thumbnails, 5]
+  - [similar_users, 5]
+  - [low_priority, 1]
 
 :limits:
   cpu_intensive: 2

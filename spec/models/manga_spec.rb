@@ -16,6 +16,7 @@ describe Manga do
     it { is_expected.to have_many :related_animes }
 
     it { is_expected.to have_many :similar }
+    it { is_expected.to have_many :similar_mangas }
 
     it { is_expected.to have_many :user_histories }
 
@@ -59,5 +60,6 @@ describe Manga do
     end
   end
 
+  it_behaves_like :touch_related_in_db_entry, :manga
   it_behaves_like :topics_concern_in_db_entry, :manga
 end

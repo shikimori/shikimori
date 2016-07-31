@@ -5,6 +5,10 @@ FactoryGirl.define do
     description_ru ''
     description_en ''
 
+    after :build do |character|
+      character.class.skip_callback :update, :after, :touch_related
+    end
+
     trait :anime do
       after :create do |character|
         FactoryGirl.create :anime, characters: [character]

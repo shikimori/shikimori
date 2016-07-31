@@ -12,10 +12,8 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   # похожие аниме
   def similar
     object
-      .similar
-      .includes(:dst)
-      .select { |v| v.dst && v.dst.name } # т.к.связанные аниме могут быть ещё не импортированы
-      .map { |v| v.dst.decorate }
+      .send("similar_#{object.class.name.downcase.pluralize}")
+      .map(&:decorate)
   end
 
   # есть ли они вообще?
