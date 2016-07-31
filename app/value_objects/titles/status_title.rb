@@ -10,7 +10,7 @@ class Titles::StatusTitle
     # без nil из-за странного бага рельс когда находишься на странице
     # http://shikimori.dev/animes/status/anons status/anons попадает
     # в сгенерённый url
-    { type: nil, status: text, status: nil }
+    { season: nil, status: text, type: nil }
   end
 
   def catalog_title
