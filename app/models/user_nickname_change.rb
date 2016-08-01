@@ -27,7 +27,7 @@ private
   end
 
   def notify_friend friend
-    NotificationsService.new(user).nickname_changed(
+    Messages::CreateNotification.new(user).nickname_changed(
       friend,
       user.changes['nickname'][0],
       user.changes['nickname'][1]

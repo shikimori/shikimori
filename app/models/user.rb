@@ -326,7 +326,7 @@ private
 
   # создание послерегистрационного приветственного сообщения пользователю
   def send_wellcome_message
-    NotificationsService.new(self).user_registered
+    Messages::CreateNotification.new(self).user_registered
   end
 
   def grab_avatar

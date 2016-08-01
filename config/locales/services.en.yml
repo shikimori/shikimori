@@ -6,7 +6,7 @@ en:
     user_rate_status:
       planned: planned
       dropped: dropped
-  notifications_service:
+  messages/create_notification:
     female_nickname_changed: Your friend %{old_nickname} changed nickname to %{new_nickname}.
     male_nickname_changed: Your friend %{old_nickname} changed nickname to %{new_nickname}.
     user_registered_message: >-

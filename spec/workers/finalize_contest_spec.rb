@@ -11,7 +11,7 @@ describe FinalizeContest do
     let!(:user) { create :user, can_vote_1: true }
     let(:notifications) { double contest_finished: nil }
 
-    before { allow(NotificationsService).to receive(:new).with(contest).and_return notifications }
+    before { allow(Messages::CreateNotification).to receive(:new).with(contest).and_return notifications }
     before { worker.perform contest.id }
 
     it do

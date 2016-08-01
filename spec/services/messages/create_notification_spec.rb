@@ -1,5 +1,5 @@
-describe NotificationsService do
-  let(:service) { NotificationsService.new target }
+describe Messages::CreateNotification do
+  let(:service) { Messages::CreateNotification.new target }
 
   describe '#user_registered' do
     let(:target) { build_stubbed :user }

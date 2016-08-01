@@ -90,7 +90,7 @@ describe ContestRound do
     end
 
     context 'after finished' do
-      before { allow(NotificationsService).to receive(:new).with(round).and_return notification_service }
+      before { allow(Messages::CreateNotification).to receive(:new).with(round).and_return notification_service }
       before do
         contest.strategy.fill_round_with_matches round
         round.start!

@@ -13,6 +13,6 @@ class FinalizeContest
 
     contest.update finished_on: Time.zone.today
     User.update_all contest.user_vote_key => false
-    NotificationsService.new(contest).contest_finished
+    Messages::CreateNotification.new(contest).contest_finished
   end
 end

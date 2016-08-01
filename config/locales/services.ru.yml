@@ -6,7 +6,7 @@ ru:
     user_rate_status:
       planned: в планах
       dropped: брошено
-  notifications_service:
+  messages/create_notification:
     female_nickname_changed: Ваша подруга %{old_nickname} изменила никнейм на %{new_nickname}.
     male_nickname_changed: Ваш друг %{old_nickname} изменил никнейм на %{new_nickname}.
     user_registered_message: >-

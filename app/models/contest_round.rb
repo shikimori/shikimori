@@ -39,7 +39,7 @@ class ContestRound < ActiveRecord::Base
       if round.next_round
         round.next_round.start!
         round.strategy.advance_members round.next_round, round
-        NotificationsService.new(round).round_finished
+        Messages::CreateNotification.new(round).round_finished
       else
         round.contest.finish!
       end

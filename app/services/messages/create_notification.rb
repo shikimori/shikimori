@@ -1,4 +1,4 @@
-class NotificationsService
+class Messages::CreateNotification
   include Translation
 
   pattr_initialize :target
