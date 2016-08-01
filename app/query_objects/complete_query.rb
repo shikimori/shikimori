@@ -1,5 +1,5 @@
 module CompleteQuery
-  AUTOCOMPLETE_LIMIT = 8
+  AUTOCOMPLETE_LIMIT = 16
 
   # автодополнение
   def complete
