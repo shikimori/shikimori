@@ -5,9 +5,8 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
   SPAM_LINKS = %r{
     cos30.ru/M=5j-N9 |
     aHR0cDovL3ByaW1hcnl4Lm5ldC9ncmVlaz9kbGM9a2ltb3Jp |
-    PrimaryX.NET/greek\?dlc=Kimori |
     goo.gl/KfKxKC |
-    primaryx.net/quadro\?dlc=kimori
+    primaryx.net/quadro\?dlc=\w+
   }mix
 
   # rubocop:disable LineLength
