@@ -13,7 +13,8 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
   SPAM_PHRASES = [
     'Хорош качать уже) А то всё качаем,качаем',
     'Поднадоело читать, ищу напарника со мной в игру. Если за, то регайся и качай тут',
-    'Вот прям затягивает и на моём ноуте идёт. Полно народу кстати бегает, регистрируйся'
+    'Вот прям затягивает и на моём ноуте идёт. Полно народу кстати бегает, регистрируйся',
+    'Поднадоело читать, ищу напарника в игру. Если за, то регайся'
   ]
   # rubocop:enable LineLength
 
@@ -27,7 +28,7 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
     end
   end
 
-private
+privat
 
   def spam?
     message.kind == MessageType::Private &&
