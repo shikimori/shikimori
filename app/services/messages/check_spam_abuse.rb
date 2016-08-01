@@ -28,7 +28,7 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
     end
   end
 
-privat
+private
 
   def spam?
     message.kind == MessageType::Private &&
