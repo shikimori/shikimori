@@ -22,6 +22,7 @@ class Messages::CheckSpamAbuse < ServiceObjectBase
     if spam?
       message.errors[:base] << ban_text
       Users::BanSpamAbuse.perform_async message.from_id
+      NamedLogger.spam_abuse.info message.attributes.to_yaml
       false
     else
       true
