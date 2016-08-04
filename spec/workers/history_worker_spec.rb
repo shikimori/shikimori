@@ -7,13 +7,13 @@ describe HistoryWorker do
 
     it 'for Topic width broadcast: true' do
       create :topic, user: users.last, broadcast: true
-      expect{subject}.to change(Message, :count).by User.count
+      expect { subject }.to change(Message, :count).by User.count
       expect(PushNotification).to_not have_received :perform_async
     end
 
     it 'for announced anime' do
       create :anime, :with_callbacks, :anons
-      expect{subject}.to change(Message, :count).by users.size
+      expect { subject }.to change(Message, :count).by users.size
       expect(PushNotification).to_not have_received :perform_async
     end
 
@@ -23,7 +23,7 @@ describe HistoryWorker do
       create :user_rate, user: users.first, target: anime
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime, user: users.first
 
-      expect{subject}.to change(Message, :count).by 1
+      expect { subject }.to change(Message, :count).by 1
       expect(PushNotification).to_not have_received :perform_async
     end
 
@@ -40,22 +40,22 @@ describe HistoryWorker do
   describe "doesn't create Message" do
     it 'for old news topic' do
       create :topic, user: users.last, broadcast: true, created_at: HistoryWorker::NEWS_EXPIRE_IN.ago - 1.day
-      expect{subject}.to_not change Message, :count
+      expect { subject }.to_not change Message, :count
     end
 
     it 'for Topic width broadcast: false' do
       create :topic, user: users.last, broadcast: false
-      expect{subject}.to_not change Message, :count
+      expect { subject }.to_not change Message, :count
     end
 
     it 'for censored anime' do
       create :anime, status: :anons, censored: true
-      expect{subject}.to_not change Message, :count
+      expect { subject }.to_not change Message, :count
     end
 
     it 'for music anime' do
       create :anime, status: :anons, kind: 'music'
-      expect{subject}.to_not change Message, :count
+      expect { subject }.to_not change Message, :count
     end
 
     it 'for Episode of not-in-list anime' do
@@ -63,7 +63,7 @@ describe HistoryWorker do
       subject
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
-      expect{subject}.to_not change Message, :count
+      expect { subject }.to_not change Message, :count
     end
 
     it 'for Episode of in-list dropped anime' do
@@ -72,7 +72,7 @@ describe HistoryWorker do
       create :user_rate, :dropped, user: users.first, target: anime
       create :news_topic, action: AnimeHistoryAction::Episode, generated: true, linked: anime
 
-      expect{subject}.to change(Message, :count).by 0
+      expect { subject }.to change(Message, :count).by 0
     end
   end
 end

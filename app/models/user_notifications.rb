@@ -95,9 +95,12 @@ module UserNotifications
     end
 
     if entry.linked
-      return false if send("#{entry.linked.class.name.downcase}_rates").select do |v|
-        v.target_id == entry.linked_id && v.dropped?
-      end.any?
+      skip_by_status = send("#{entry.linked.class.name.downcase}_rates")
+        .select do |v|
+          v.target_id == entry.linked_id && (v.dropped? || v.on_hold?)
+        end
+        .any?
+      return false if skip_by_status
     end
 
     case entry.action
