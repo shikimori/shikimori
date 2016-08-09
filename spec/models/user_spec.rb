@@ -98,6 +98,11 @@ describe User do
         let(:nickname) { 'test [хуй]' }
         it { expect(user.nickname).to eq 'test xxx' }
       end
+
+      context 'extension' do
+        let(:nickname) { 'test.png' }
+        it { expect(user.nickname).to eq 'test_png' }
+      end
     end
 
     describe '#can_post' do

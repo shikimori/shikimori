@@ -8,6 +8,7 @@ class NameValidator < ActiveModel::EachValidator
       users |
       forum |
       info |
+    )\Z | ((
       \.css |
       \.js |
       \.jpg |
@@ -22,14 +23,15 @@ class NameValidator < ActiveModel::EachValidator
       \.svg |
       \.woff |
       \.php
-    )\Z
+    )\Z)
   )mix
 
   def validate_each record, attribute, value
     return unless value.kind_of? String
 
     is_taken = value =~ FORBIDDEN_NAMES ||
-      presence(record, value, Club, :name) || presence(record, value, User, :nickname)
+      presence(record, value, Club, :name) ||
+      presence(record, value, User, :nickname)
 
     if is_taken
       message = options[:message] || I18n.t('activerecord.errors.messages.taken')

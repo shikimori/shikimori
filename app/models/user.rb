@@ -145,6 +145,11 @@ class User < ActiveRecord::Base
       .gsub(/[[:space:]]+/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
+      .gsub(
+        /\.(css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php)$/i,
+        '_\1'
+      )
+
 
     super Banhammer.instance.censor(fixed_nickname)
   end
