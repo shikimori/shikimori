@@ -21,7 +21,7 @@ class DashboardView < ViewObjectBase
     Anime
   ).to_sql
 
-  IGNORE_ONGOINGS = [31592]
+  IGNORE_ONGOINGS = [31_592]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings
@@ -53,8 +53,12 @@ class DashboardView < ViewObjectBase
       Titles::StatusTitle.new(:anons, klass),
       (Titles::StatusTitle.new(:ongoing, klass) if klass == Manga),
       Titles::SeasonTitle.new(month + 2.months, :year, klass),
-      Titles::SeasonTitle.new(is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass),
-      Titles::SeasonTitle.new(is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass),
+      Titles::SeasonTitle.new(
+        is_still_this_year ? 1.year.ago : 2.months.ago, :year, klass
+      ),
+      Titles::SeasonTitle.new(
+        is_still_this_year ? 2.years.ago : 14.months.ago, :year, klass
+      )
     ].compact
   end
 
@@ -83,9 +87,9 @@ class DashboardView < ViewObjectBase
       .as_views(true, true)
   end
 
-  #def favourites
-    #all_favourites.take(ONGOINGS_TAKE / 2).sort_by(&:ranked)
-  #end
+  # def favourites
+    # all_favourites.take(ONGOINGS_TAKE / 2).sort_by(&:ranked)
+  # end
 
   def contests
     Contest.current
@@ -139,12 +143,12 @@ private
       .as_views(true, true)
   end
 
-  #def all_favourites
-    #Anime
-      #.where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
-      #.decorate
-      #.shuffle
-  #end
+  # def all_favourites
+    # Anime
+      # .where(id: FavouritesQuery.new.top_favourite_ids(Anime, FETCH_LIMIT))
+      # .decorate
+      # .shuffle
+  # end
 
   def reviews_forum
     Forum.find_by_permalink('reviews')
