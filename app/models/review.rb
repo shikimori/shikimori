@@ -9,7 +9,7 @@ class Review < ActiveRecord::Base
 
   MINIMUM_LENGTH = 3000
 
-  belongs_to :target, polymorphic: true
+  belongs_to :target, polymorphic: true, touch: true
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
