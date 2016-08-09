@@ -28,7 +28,7 @@ html
         == alert
 
     - if @layout.blank_layout?
-      = sweep_user_rates do
+      = JsExports.instance.sweep do
         = yield
 
     - else
@@ -49,7 +49,7 @@ html
           .admin_panel
 
         div
-          = sweep_user_rates do
+          = JsExports.instance.sweep do
             = yield
 
         footer.l-footer

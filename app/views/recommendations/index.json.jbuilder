@@ -1,7 +1,7 @@
 json.title @page_title
 json.notice @title_notice
 
-json.content UserRates::Tracker.instance.sweep(render(
+json.content JsExports.instance.sweep(render(
   partial: 'animes_collection/cached_collection',
   locals: { view: @view },
   formats: :html
