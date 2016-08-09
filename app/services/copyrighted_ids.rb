@@ -1,15 +1,34 @@
 class CopyrightedIds
   include Singleton
 
-  MARKER = 'z'
+  MARKERS =
+    if Rails.env.test?
+      %w(z a)
+    else
+      %w(z y x w v u t s r q p o n m l k j i h g f e d c b a)
+    end
+
   CONFIG_PATH = Rails.root.join 'config/app/copyrighted_ids.yml'
+  TEST_IDS = %w(
+    9999999
+    8888888 z8888888
+    7777777 z7777777 a7777777
+    6666666 z6666666 a6666666 zz6666666
+    5555555 z5555555 a5555555 zz5555555 az5555555
+  )
 
   def change id, type
-    if ids[type.to_sym] && ids[type.to_sym].include?(id.to_s)
-      change "#{MARKER}#{id}", type
-    else
-      id
+    type = type.to_sym
+    id = id.to_s
+
+    return id unless ids[type]&.include?(id)
+
+    MARKERS.size.times do |index|
+      new_id = "#{MARKERS[index]}#{id}"
+      return new_id unless ids[type].include?(new_id)
     end
+
+    change "#{MARKERS[0]}#{id}", type
   end
 
   def restore id, type
@@ -23,20 +42,18 @@ class CopyrightedIds
   end
 
   def restore_id id
-    id.gsub(/^#{MARKER}+/, '').to_i
+    id.gsub(/^(?:#{MARKERS.join('|')})+/, '').to_i
   end
 
 private
 
   def copyrighted_resource type, id
-     type.to_s.capitalize.constantize.find(restore_id id)
+    type.to_s.capitalize.constantize.find restore_id(id)
   end
 
   def ids
     @ids ||= yaml.each_with_object({}) do |(type, ids), memo|
-      memo[type] = Set.new(
-        Rails.env.test? ? %w(8888888 9999999 z9999999) : ids.map(&:to_s)
-      )
+      memo[type] = Set.new(Rails.env.test? ? TEST_IDS : ids.map(&:to_s))
     end
   end
 

@@ -23,13 +23,13 @@ $(document).on 'page:load', ->
 
     .on 'autocomplete:success', (e, entry) ->
       type = $search.data 'type'
-      marker = $main_search.data 'marker'
+      markers = $main_search.data 'markers'
 
       if type == 'users'
         document.location.href = "/#{search_escape entry.name}"
       else
         document.location.href =
-          searcheables[type].id.replace('[id]', "#{marker}#{entry.id}")
+          searcheables[type].id.replace('[id]', "aaaaaaa#{entry.id}")
 
     .on 'autocomplete:text', (e, text) ->
       type = $search.data('type')
