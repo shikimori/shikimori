@@ -12,5 +12,5 @@ json.next_page_url @view.next_page_url
 json.prev_page_url @view.prev_page_url
 
 if user_signed_in?
-  json.tracked_user_rates UserRates::Tracker.instance.export(current_user)
+  json.JS_EXPORTS JsExports.instance.export
 end
