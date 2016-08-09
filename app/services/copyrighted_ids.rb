@@ -2,7 +2,7 @@ class CopyrightedIds
   include Singleton
 
   MARKER = 'z'
-  CONFIG_PATH = Rails.root.join 'config/copyrighted_ids.yml'
+  CONFIG_PATH = Rails.root.join 'config/app/copyrighted_ids.yml'
 
   def change id, type
     if ids[type.to_sym] && ids[type.to_sym].include?(id.to_s)
