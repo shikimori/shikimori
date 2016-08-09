@@ -12,11 +12,15 @@
     data-appear_type="entry"
     itemscope
     itemtype="#{topic_view.topic.review? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
+    data-track_topic="#{JsExports::Topics.instance.placeholder topic_view.topic}"
   ]
     meta itemprop="author" content="#{topic_view.topic.user.nickname}"
     meta itemprop="name" content="#{topic_view.topic_title}"
     meta itemprop="headline" content="#{topic_view.topic_title}"
-    meta itemprop="url" content="#{UrlGenerator.instance.topic_url topic_view.topic}"
+    meta[
+      itemprop="url"
+      content="#{UrlGenerator.instance.topic_url topic_view.topic}"
+    ]
     meta[
       itemscope
       itemprop="mainEntityOfPage"

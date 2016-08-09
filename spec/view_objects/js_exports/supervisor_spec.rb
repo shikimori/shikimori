@@ -1,16 +1,16 @@
-describe JsExports do
+describe JsExports::Supervisor do
   include_context :view_object_warden_stub
 
   let(:user) { build_stubbed :user }
-  let(:view) { JsExports.instance }
+  let(:view) { JsExports::Supervisor.instance }
 
-  let(:user_rates_tracker) { UserRates::Tracker.instance }
+  let(:user_rates_tracker) { JsExports::UserRates.instance }
 
   describe '#export' do
     subject(:export) { view.export }
     it do
       expect(export).to be_kind_of Hash
-      expect(export.keys).to eq JsExports::KEYS
+      expect(export.keys).to eq JsExports::Supervisor::KEYS
     end
   end
 

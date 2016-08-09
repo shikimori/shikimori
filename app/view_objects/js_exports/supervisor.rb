@@ -1,4 +1,4 @@
-class JsExports
+class JsExports::Supervisor
   include Singleton
   include Draper::ViewHelpers
 
@@ -23,6 +23,6 @@ class JsExports
 private
 
   def tracked_user_rates
-    UserRates::Tracker.instance
+    JsExports::UserRates.instance
   end
 end

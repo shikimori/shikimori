@@ -1,5 +1,5 @@
-describe UserRates::Tracker do
-  let(:tracker) { UserRates::Tracker.instance }
+describe JsExports::UserRates do
+  let(:tracker) { JsExports::UserRates.instance }
   let(:anime) { build_stubbed :anime }
 
   before { tracker.send :cleanup }

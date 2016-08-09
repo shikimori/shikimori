@@ -1,6 +1,6 @@
-= JsExports.instance.sweep do
+= JsExports::Supervisor.instance.sweep do
   = yield
 
 - if user_signed_in?
   javascript:
-    JS_EXPORTS = #{{JsExports.instance.export.to_json}};
+    JS_EXPORTS = #{{JsExports::Supervisor.instance.export.to_json}};

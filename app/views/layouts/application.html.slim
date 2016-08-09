@@ -69,5 +69,5 @@ html
         .marker-text data-text="#{t 'application.aside.report_bug'}"
     - if user_signed_in?
       javascript:
-        JS_EXPORTS = #{{JsExports.instance.export.to_json}};
+        JS_EXPORTS = #{{JsExports::Supervisor.instance.export.to_json}};
     = yield :tail
