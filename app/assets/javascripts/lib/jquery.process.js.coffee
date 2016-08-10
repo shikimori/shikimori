@@ -11,8 +11,8 @@
   $root = $(root)
 
   if @JS_EXPORTS
-    UserRates.Tracker.track @JS_EXPORTS.tracked_user_rates, $root
-    @JS_EXPORTS.tracked_user_rates = null
+    UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
+    @JS_EXPORTS.user_rates = null
 
   new DynamicElements.Parser $with('.to-process', $root)
 

@@ -5,6 +5,6 @@
   data-extended="#{local_assigns[:extended]}"
   data-target_id="#{local_assigns[:target].id}"
   data-target_type="#{local_assigns[:target].anime? ? Anime.name : Manga.name}"
-  data-track_user_rate="#{JsExports::UserRates.instance.placeholder :user_rate, local_assigns[:target]}"
+  data-track_user_rate="#{JsExports::UserRatesExport.instance.placeholder :user_rate, local_assigns[:target]}"
   data-user_rate="#{UserRate.new(target: local_assigns[:target].decorated? ? local_assigns[:target].object : local_assigns[:target]).to_json}"
 ]

@@ -2,7 +2,7 @@ class JsExports::Supervisor
   include Singleton
   include Draper::ViewHelpers
 
-  KEYS = %i(tracked_user_rates)
+  KEYS = %i(user_rates topics)
 
   def export
     KEYS.each_with_object({}) do |key, memo|
@@ -22,7 +22,11 @@ class JsExports::Supervisor
 
 private
 
-  def tracked_user_rates
-    JsExports::UserRates.instance
+  def user_rates
+    JsExports::UserRatesExport.instance
+  end
+
+  def topics
+    JsExports::TopicsExport.instance
   end
 end

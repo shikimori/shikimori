@@ -4,7 +4,8 @@ describe JsExports::Supervisor do
   let(:user) { build_stubbed :user }
   let(:view) { JsExports::Supervisor.instance }
 
-  let(:user_rates_tracker) { JsExports::UserRates.instance }
+  let(:user_rates_export) { JsExports::UserRatesExport.instance }
+  let(:topics_export) { JsExports::TopicsExport.instance }
 
   describe '#export' do
     subject(:export) { view.export }
@@ -15,13 +16,17 @@ describe JsExports::Supervisor do
   end
 
   describe '#sweep' do
-    before { allow(user_rates_tracker).to receive :sweep }
+    before do
+      allow(user_rates_export).to receive :sweep
+      allow(topics_export).to receive :sweep
+    end
     subject! { view.sweep html }
     let(:html) { 'test' }
 
     it do
       is_expected.to eq html
-      expect(user_rates_tracker).to have_received(:sweep).with html
+      expect(user_rates_export).to have_received(:sweep).with html
+      expect(topics_export).to have_received(:sweep).with html
     end
   end
 end

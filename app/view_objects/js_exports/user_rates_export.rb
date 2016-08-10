@@ -1,4 +1,4 @@
-class JsExports::UserRates < JsExports::Base
+class JsExports::UserRatesExport
   include Singleton
 
   KINDS = %i(catalog_entry user_rate)

@@ -1,6 +1,5 @@
-describe JsExports::UserRates do
-  let(:tracker) { JsExports::UserRates.instance }
-  let(:anime) { build_stubbed :anime }
+describe JsExports::UserRatesExport do
+  let(:tracker) { JsExports::UserRatesExport.instance }
 
   before { tracker.send :cleanup }
   after { tracker.send :cleanup }
@@ -39,9 +38,11 @@ describe JsExports::UserRates do
   end
 
   describe '#export' do
-    before { tracker.send :track, :catalog_entry, :anime, anime_1.id }
-    before { tracker.send :track, :catalog_entry, :anime, anime_2.id }
-    before { tracker.export user_1 }
+    before do
+      tracker.send :track, :catalog_entry, :anime, anime_1.id
+      tracker.send :track, :catalog_entry, :anime, anime_2.id
+      tracker.export user_1
+    end
 
     let(:anime_1) { create :anime }
     let(:anime_2) { create :anime }
@@ -54,6 +55,7 @@ describe JsExports::UserRates do
 
     let(:export_1) { tracker.export user_1 }
     let(:export_2) { tracker.export user_2 }
+
     it do
       expect(export_1).to have(2).items
       expect(export_1[:catalog_entry].first).to be_kind_of UserRateSerializer
