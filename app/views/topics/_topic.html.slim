@@ -2,7 +2,7 @@
   = render partial: 'blocks/ignored', object: topic_view.topic
 
 - else
-  article.b-topic.shiki-object.unprocessed[
+  article.b-topic.shiki-object.not-tracked.unprocessed[
     id="#{topic_view.topic.id}"
     class="#{topic_view.container_class}"
     data-user_id="#{topic_view.user.id}"

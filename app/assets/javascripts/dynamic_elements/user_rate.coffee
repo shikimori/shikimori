@@ -4,6 +4,7 @@ class DynamicElements.UserRates.Button extends View
   I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
+    # data 'user_rate' задаётся в UserRates.Tracker
     @user_rate = @$root.data 'user_rate'
     @_render()
 

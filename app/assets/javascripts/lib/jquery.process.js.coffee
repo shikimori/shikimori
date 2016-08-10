@@ -12,7 +12,11 @@
 
   if @JS_EXPORTS
     UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
-    @JS_EXPORTS.user_rates = null
+    Topics.Tracker.track @JS_EXPORTS.topics, $root
+
+    @JS_EXPORTS.user_rates = {}
+    @JS_EXPORTS.topics = {}
+
 
   new DynamicElements.Parser $with('.to-process', $root)
 
