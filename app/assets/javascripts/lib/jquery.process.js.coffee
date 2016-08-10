@@ -10,8 +10,9 @@
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
-  UserRates.Tracker.track @JS_EXPORTS.tracked_user_rates, $root
-  @JS_EXPORTS.tracked_user_rates = null
+  if @JS_EXPORTS
+    UserRates.Tracker.track @JS_EXPORTS.tracked_user_rates, $root
+    @JS_EXPORTS.tracked_user_rates = null
 
   new DynamicElements.Parser $with('.to-process', $root)
 
