@@ -1,20 +1,14 @@
-(($) ->
-  $.fn.extend
-    shiki_topic: ->
-      @each ->
-        $root = $(@)
-        return unless $root.hasClass('unprocessed')
+using 'DynamicElements'
+class DynamicElements.Topic extends ShikiEditable
+  initialize: ->
+    # data 'user_rate' задаётся в Topics.Tracker
+    @topic = @$root.data 'topic'
 
-        new ShikiTopic($root)
-) jQuery
-
-class @ShikiTopic extends ShikiEditable
-  initialize: ($root) ->
     @$body = @$inner.children('.body')
 
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
-    @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
+    @editor = new ShikiEditor(@$editor) if USER_SIGNED_IN && @$editor.length
 
     @$comments_loader = @$('.comments-loader')
     @$comments_hider = @$('.comments-hider')
@@ -275,3 +269,4 @@ class @ShikiTopic extends ShikiEditable
   # url перезагрузки содержимого
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"
+

@@ -10,13 +10,10 @@
 @process_current_dom = (root = document.body) ->
   $root = $(root)
 
-  if @JS_EXPORTS
-    UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
-    Topics.Tracker.track @JS_EXPORTS.topics, $root
+  UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
+  Topics.Tracker.track @JS_EXPORTS.topics, $root
 
-    @JS_EXPORTS.user_rates = {}
-    @JS_EXPORTS.topics = {}
-
+  @JS_EXPORTS = {}
 
   new DynamicElements.Parser $with('.to-process', $root)
 
@@ -32,7 +29,9 @@
   # стена картинок
   $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
   $with('.b-forum.unprocessed', $root).shiki_forum()
-  $with('.b-topic.unprocessed', $root).shiki_topic()
+
+  throw 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
+
   $with('.b-comment.unprocessed', $root).shiki_comment()
 
   # блоки, загружаемые аяксом

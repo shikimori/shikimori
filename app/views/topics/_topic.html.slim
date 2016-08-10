@@ -2,7 +2,7 @@
   = render partial: 'blocks/ignored', object: topic_view.topic
 
 - else
-  article.b-topic.shiki-object.not-tracked.unprocessed[
+  article.b-topic.shiki-object.not-tracked.to-process[
     id="#{topic_view.topic.id}"
     class="#{topic_view.container_class}"
     data-user_id="#{topic_view.user.id}"
@@ -10,6 +10,7 @@
     data-generated="#{topic_view.topic.generated?}"
     data-faye="#{topic_view.faye_channel}"
     data-appear_type="entry"
+    data-dynamic="topic"
     itemscope
     itemtype="#{topic_view.topic.review? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
     data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
