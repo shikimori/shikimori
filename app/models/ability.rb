@@ -32,6 +32,8 @@ class Ability
     can :see_club, Club
     can :read, Review
 
+    can :read, Entry
+
     can [:create], Message do |message|
       message.kind == MessageType::Private &&
         message.from_id == User::GUEST_ID && message.to_id == User::ADMINS.first

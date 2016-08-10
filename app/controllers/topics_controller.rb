@@ -1,6 +1,7 @@
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
-  load_and_authorize_resource class: Entry, only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource class: Entry,
+    only: %i(show new create edit update destroy)
 
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
@@ -85,7 +86,6 @@ class TopicsController < ShikimoriController
   # выбранные топики
   def chosen
     topics = Entry
-      .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
 
@@ -100,7 +100,7 @@ class TopicsController < ShikimoriController
 
   # подгружаемое через ajax тело топика
   def reload
-    topic = Entry.with_viewed(current_user).find params[:id]
+    topic = Entry.find params[:id]
     view = Topics::TopicViewFactory
       .new(params[:is_preview] == 'true', false)
       .build topic
@@ -142,9 +142,8 @@ private
   def set_view
     @forums_view = Forums::View.new
 
-    if params[:action] == 'show'
-      @resource = Entry.with_viewed(current_user).find(params[:id])
-      @topic_view = Topics::TopicViewFactory.new(false, false).build @resource if @resource
+    if params[:action] == 'show' && @resource
+      @topic_view = Topics::TopicViewFactory.new(false, false).build @resource
     end
   end
 
