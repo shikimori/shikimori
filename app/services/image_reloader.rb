@@ -12,7 +12,7 @@ class ImageReloader < ServiceObjectBase
 private
 
   def parsed_data
-    @parsed_data ||= parser.fetch_entry_data @entry.id
+    @parsed_data ||= parser.fetch_model @entry.id
   rescue InvalidId
   end
 

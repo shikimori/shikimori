@@ -5,7 +5,7 @@ describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
   let(:parser) { PersonMalParser.new }
   let(:person_id) { 1 }
 
-  subject(:data) { parser.fetch_entry_data person_id }
+  subject(:data) { parser.fetch_model person_id }
 
   it 'have correct type' do
     expect(parser.instance_eval { type }).to eq('person')

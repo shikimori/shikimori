@@ -33,7 +33,7 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
   end
 
   it 'fetches anime data' do
-    data = parser.fetch_entry_data(anime_id)
+    data = parser.fetch_model(anime_id)
 
     expect(data[:name]).to eq 'Cowboy Bebop'
     expect(data[:kind]).to eq 'tv'
@@ -79,12 +79,12 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
   end
 
   it 'anime schedule' do
-    recs = parser.fetch_entry_data(31240)
+    recs = parser.fetch_model(31240)
     expect(recs[:schedule]).to eq 'Mondays at 01:05 (JST)'
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_entry_data(21039)
+    data = parser.fetch_model(21039)
     expect(data[:description_en]).to eq "A year has passed since the \
 \"Tachikawa Incident\" in summer 2015. CROWDS, the system that turns the \
 mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
@@ -95,13 +95,13 @@ series of new conflicts.[br][source]ANN[/source]"
   end
 
   it 'correct score & ranked' do
-    data = parser.fetch_entry_data(31143)
+    data = parser.fetch_model(31143)
     expect(data[:ranked]).to eq 6485
     expect(data[:score]).to eq 5.94
   end
 
   it 'fetches anime related' do
-    data = parser.fetch_entry_data(22043)
+    data = parser.fetch_model(22043)
 
     expect(data[:name]).to eq 'Fairy Tail (2014)'
     expect(data[:related]).to have(4).items
@@ -128,7 +128,7 @@ series of new conflicts.[br][source]ANN[/source]"
   end
 
   it 'anime wo image' do
-    data = parser.fetch_entry_data(27375)
+    data = parser.fetch_model(27375)
     expect(data[:img]).to be_nil
   end
 

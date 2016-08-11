@@ -19,27 +19,25 @@ class @ShikiView extends View
 
   # тень аякс запроса
   _shade: =>
-    @$node.addClass 'ajax_request'
+    @$node.addClass 'b-ajax'
 
   # убирание тени
   _unshade: =>
-    @$node.removeClass 'ajax_request'
+    @$node.removeClass 'b-ajax'
 
   # перезагрузка содержимого
   _reload: =>
     @_shade()
-    $.get @_reload_url(), (response) =>
-      @_replace response
+    $.getJSON @_reload_url(), (response) =>
+      @_replace response.content, response.JS_EXPORTS
 
   # урл для перезагрузки элемента
   _reload_url: ->
     @$node.data 'url'
 
   # замена элемента контентом
-  _replace: (html) ->
+  _replace: (html, JS_EXPORTS) ->
     $replaced = $(html)
     @$node.replaceWith $replaced
 
-    $replaced
-      .process()
-      .yellowFade()
+    $replaced.process(JS_EXPORTS).yellowFade()

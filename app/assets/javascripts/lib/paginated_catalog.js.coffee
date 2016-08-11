@@ -77,7 +77,7 @@ class @PaginatedCatalog
     if @_is_pages_limit()
       $content.find('.b-postloader').data locked: true
 
-    UserRates.Tracker.track data.JS_EXPORTS.user_rates, $content
+    UserRates.Tracker.track data.JS_EXPORTS, $content
     @$content.process()
 
   # наступил ли лимит прокрутки страниц?
@@ -193,7 +193,7 @@ class @PaginatedCatalog
 
     $content = $(data.content)
 
-    UserRates.Tracker.track data.JS_EXPORTS.user_rates, $content
+    UserRates.Tracker.track data.JS_EXPORTS, $content
 
     @$content
       .addClass(DynamicElements.Parser.PENDING_CLASS) # чтобы cutted_covers сработал

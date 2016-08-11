@@ -27,7 +27,7 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
 
   _fetch_form: ->
     @_ajax_before()
-    $.get("/user_rates/#{@user_rate.id}/edit")
+    $.get("/user_rates/#{@model.id}/edit")
       .complete(@_ajax_complete)
       .success(@_show_form)
 
@@ -52,9 +52,9 @@ class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Butto
   _render_extended: ->
     JST[EXTENDED_TEMPLATE](
       entry: @entry
-      user_rate: @user_rate
-      increment_url: "/api/v2/user_rates/#{@user_rate.id}/increment" if @_is_persisted()
-      rate_html: JST[SCORE_TEMPLATE](score: @user_rate.score)
+      model: @model
+      increment_url: "/api/v2/user_rates/#{@model.id}/increment" if @_is_persisted()
+      rate_html: JST[SCORE_TEMPLATE](score: @model.score)
     )
 
   _render: ->

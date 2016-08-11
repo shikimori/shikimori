@@ -3,7 +3,7 @@ class DynamicElements.UserRate extends View
   I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
-    @user_rate = @$root.data 'user_rate'
+    @model = @$root.data 'model'
     @_render()
 
     # клик по раскрытию вариантов добавления в список
@@ -40,40 +40,40 @@ class DynamicElements.UserRate extends View
 
   _ajax_before: =>
     if USER_SIGNED_IN
-      @$root.addClass 'ajax_request'
+      @$root.addClass 'b-ajax'
     else
       $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
       false
 
   _ajax_complete: =>
-    @$root.removeClass 'ajax_request'
+    @$root.removeClass 'b-ajax'
 
-  _ajax_success: (e, user_rate) =>
-    UserRates.Tracker.update user_rate || @_new_user_rate()
+  _ajax_success: (e, model) =>
+    UserRates.Tracker.update model || @_new_user_rate()
     @_ajax_complete()
 
   # functions
-  update: (user_rate) ->
-    @user_rate = user_rate
+  update: (model) ->
+    @model = model
     @_render()
 
   _render: ->
     @html JST['templates/user_rates/user_rate'](@_render_params())
 
   _render_params: ->
-    submit_url = if @user_rate.id
-      "/api/v2/user_rates/#{@user_rate.id}"
+    submit_url = if @model.id
+      "/api/v2/user_rates/#{@model.id}"
     else
       '/api/v2/user_rates'
 
-    user_rate: @user_rate
+    model: @model
     user_id: USER_ID
-    statuses: t("#{I18N_STATUS_KEY}.#{@user_rate.target_type.toLowerCase()}")
+    statuses: t("#{I18N_STATUS_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
-    form_method: if @user_rate.id then 'PATCH' else 'POST'
-    destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @user_rate.id
+    form_method: if @model.id then 'PATCH' else 'POST'
+    destroy_url: "/api/v2/user_rates/#{@model.id}" if @model.id
 
   _new_user_rate: ->
     status: 'planned'
-    target_id: @user_rate.target_id
-    target_type: @user_rate.target_type
+    target_id: @model.target_id
+    target_type: @model.target_type

@@ -1,6 +1,4 @@
 describe JsExports::Supervisor do
-  include_context :view_object_warden_stub
-
   let(:user) { build_stubbed :user }
   let(:view) { JsExports::Supervisor.instance }
 
@@ -8,7 +6,7 @@ describe JsExports::Supervisor do
   let(:topics_export) { JsExports::TopicsExport.instance }
 
   describe '#export' do
-    subject(:export) { view.export }
+    subject(:export) { view.export user }
     it do
       expect(export).to be_kind_of Hash
       expect(export.keys).to eq JsExports::Supervisor::KEYS
@@ -24,6 +22,7 @@ describe JsExports::Supervisor do
     let(:html) { 'test' }
 
     it do
+      is_expected.to eq html
       expect(user_rates_export).to have_received(:sweep).with html
       expect(topics_export).to have_received(:sweep).with html
     end

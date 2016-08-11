@@ -381,10 +381,7 @@ Site::Application.routes.draw do
     # /seo redirects
 
     resources :topics, only: [] do
-      get 'reload/:is_preview' => :reload,
-        as: :reload,
-        is_preview: /true|false/,
-        on: :member
+      get :reload, format: /json/, on: :member
     end
 
     scope :forum do

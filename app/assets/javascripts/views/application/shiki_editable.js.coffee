@@ -128,10 +128,10 @@ class @ShikiEditable extends ShikiView
     $('.moderation-controls', @$inner).hide()
 
   # замена объекта другим объектом
-  _replace: (html) ->
-    $replaced = super html
-    $replaced["shiki_#{@_type()}"]()
-    window.faye_loader.apply() if @_type() == 'topic'
+  # _replace: (html) ->
+    # $replaced = super html
+    # $replaced["shiki_#{@_type()}"]()
+    # window.faye_loader.apply() if @_type() == 'topic'
 
   # url перезагрузки содержимого
   _reload_url: =>

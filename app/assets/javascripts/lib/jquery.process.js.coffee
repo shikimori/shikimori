@@ -1,18 +1,17 @@
 (($) ->
   $.fn.extend
-    process: ->
+    process: (JS_EXPORTS) ->
       @each ->
-        process_current_dom @
+        process_current_dom @, JS_EXPORTS
 ) jQuery
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 # TODO: переписать всю тут имеющееся на dynamic_element
-@process_current_dom = (root = document.body) ->
+@process_current_dom = (root = document.body, JS_EXPORTS = @JS_EXPORTS) ->
   $root = $(root)
 
-  UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
-  Topics.Tracker.track @JS_EXPORTS.topics, $root
-  @JS_EXPORTS = {}
+  UserRates.Tracker.track JS_EXPORTS, $root
+  Topics.Tracker.track JS_EXPORTS, $root
 
   new DynamicElements.Parser $with('.to-process', $root)
 

@@ -118,9 +118,9 @@ class @ChronologyNode
           @_d3_image_container().attr transform: "translate(#{o}, #{o})"
 
   _load_tooltip: ->
-    $('.sticky-tooltip').addClass('ajax_request')
+    $('.sticky-tooltip').addClass('b-ajax')
     $.get(@url + '/tooltip').success (html) ->
-      $('.sticky-tooltip').removeClass('ajax_request').html html
+      $('.sticky-tooltip').removeClass('b-ajax').html html
 
 
 class @ChronologyImages

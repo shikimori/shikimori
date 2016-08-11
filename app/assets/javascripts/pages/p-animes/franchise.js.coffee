@@ -110,9 +110,9 @@ class @FranchiseNode
     $('.sticky-tooltip').hide()
 
   _load_tooltip: ->
-    $('.sticky-tooltip').show().addClass('ajax_request')
+    $('.sticky-tooltip').show().addClass('b-ajax')
     $.get(@url + '/tooltip').success (html) ->
-      $('.sticky-tooltip').removeClass('ajax_request')
+      $('.sticky-tooltip').removeClass('b-ajax')
       $('.sticky-tooltip > .inner').html(html).process()
 
   _d3_node: ->

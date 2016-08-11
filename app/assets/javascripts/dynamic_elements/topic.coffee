@@ -3,7 +3,7 @@ using 'DynamicElements'
 class DynamicElements.Topic extends ShikiEditable
   initialize: ->
     # data attribute is set in Topics.Tracke
-    @entry_data = @$root.data 'entry_data'
+    @model = @$root.data 'model'
 
     @$body = @$inner.children('.body')
 
@@ -20,7 +20,7 @@ class DynamicElements.Topic extends ShikiEditable
     @is_cosplay = @$root.hasClass('b-cosplay-topic')
     @is_review = @$root.hasClass('b-review-topic')
 
-    @_activate_appear_marker() if @entry_data && !@entry_data.is_viewed
+    @_activate_appear_marker() if @model && !@model.is_viewed
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -276,6 +276,5 @@ class DynamicElements.Topic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> 'Топик'
 
-  # url перезагрузки содержимого
   _reload_url: =>
-    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"
+    "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"

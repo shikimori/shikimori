@@ -1,12 +1,13 @@
 class JsExports::Supervisor
   include Singleton
-  include Draper::ViewHelpers
 
   KEYS = %i(user_rates topics)
 
-  def export
+  def export user
+    return unless user
+
     KEYS.each_with_object({}) do |key, memo|
-      memo[key] = send(key).export h.current_user
+      memo[key] = send(key).export user
     end
   end
 
@@ -14,6 +15,7 @@ class JsExports::Supervisor
     KEYS.each do |key|
       send(key).sweep html
     end
+    html
   end
 
 private

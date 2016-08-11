@@ -1,6 +1,6 @@
 class PersonMalParser < CharacterMalParser
   # загрузка информации о человеке
-  def fetch_entry_data id
+  def fetch_model id
     content = get entry_url(id)
 
     entry = {}

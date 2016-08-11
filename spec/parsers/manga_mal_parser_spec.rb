@@ -33,7 +33,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
   end
 
   it 'fetches manga data' do
-    data = parser.fetch_entry_data(manga_id)
+    data = parser.fetch_model(manga_id)
     expect(data[:name]).to eq('Yokohama Kaidashi Kikou')
     expect(data).to include(:description_en)
     expect(data[:related]).not_to be_empty
@@ -75,7 +75,7 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
   end
 
   it 'fetches manga publishers' do
-    entry = parser.fetch_entry_data(manga_id)
+    entry = parser.fetch_model(manga_id)
     expect(entry[:publishers]).not_to be_empty
   end
 

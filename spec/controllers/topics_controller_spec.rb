@@ -259,7 +259,7 @@ describe TopicsController do
   end
 
   describe '#reload' do
-    before { get :reload, id: topic.to_param, is_preview: 'true' }
+    before { get :reload, id: topic.to_param, is_preview: 'true', format: :json }
     it { expect(response).to have_http_status :success }
   end
 end

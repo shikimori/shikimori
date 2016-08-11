@@ -11,4 +11,4 @@ json.pages_count @view.pages_count
 json.next_page_url @view.next_page_url
 json.prev_page_url @view.prev_page_url
 
-json.JS_EXPORTS(user_signed_in? ? JsExports::Supervisor.instance.export : {})
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

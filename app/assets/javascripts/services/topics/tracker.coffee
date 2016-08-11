@@ -1,7 +1,9 @@
 using 'Topics'
 class Topics.Tracker
-  @track: (topics, $root) ->
-    return if Object.isEmpty(topics)
+  @track: (JS_EXPORTS, $root) ->
+    return if Object.isEmpty(JS_EXPORTS.topics)
 
-    topics.each (topic) ->
+    JS_EXPORTS.topics.each (topic) ->
       new Topics.TrackTopic topic, $root
+
+    JS_EXPORTS.topcis = null

@@ -101,11 +101,11 @@ class TopicsController < ShikimoriController
   # подгружаемое через ajax тело топика
   def reload
     topic = Entry.find params[:id]
-    view = Topics::TopicViewFactory
+    @topic_view = Topics::TopicViewFactory
       .new(params[:is_preview] == 'true', false)
-      .build topic
+      .build(topic)
 
-    render partial: 'topics/topic', object: view, as: :topic_view
+    render :show, formats: :json
   end
 
 private

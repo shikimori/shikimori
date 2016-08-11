@@ -33,7 +33,7 @@ class MangaMalParser < BaseMalParser
   end
 
   # загрузка информации по манге
-  def fetch_entry_data id
+  def fetch_model id
     content = get entry_url(id)
     doc = Nokogiri::HTML(content)
 
