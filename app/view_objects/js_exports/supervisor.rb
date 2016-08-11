@@ -10,14 +10,10 @@ class JsExports::Supervisor
     end
   end
 
-  def sweep html = nil, &block
-    html ||= h.capture(&block)
-
+  def sweep html
     KEYS.each do |key|
       send(key).sweep html
     end
-
-    html
   end
 
 private

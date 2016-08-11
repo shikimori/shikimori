@@ -5,7 +5,7 @@ module JsExportsHelper
   # (что происходит в BbCodes::EntriesTag)
   def sweep_js_exports &block
      html = capture &block
-     JsExports.instance.sweep html
+     JsExports::Supervisor.instance.sweep html
      html
    end
 end
