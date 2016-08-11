@@ -28,7 +28,7 @@ html
         == alert
 
     - if @layout.blank_layout?
-      = JsExports.instance.sweep do
+      = sweep_js_exports do
         = yield
 
     - else
@@ -49,7 +49,7 @@ html
           .admin_panel
 
         div
-          = JsExports.instance.sweep do
+          = sweep_js_exports do
             = yield
 
         footer.l-footer
