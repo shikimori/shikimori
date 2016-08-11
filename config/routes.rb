@@ -380,10 +380,16 @@ Site::Application.routes.draw do
     end
     # /seo redirects
 
+    resources :topics, only: [] do
+      get 'reload/:is_preview' => :reload,
+        as: :reload,
+        is_preview: /true|false/,
+        on: :member
+    end
+
     scope :forum do
-      resources :topics, except: [:index, :show, :new] do
-        get 'reload/:is_preview' => :reload, as: :reload, is_preview: /true|false/, on: :member
-      end
+      resources :topics, except: [:index, :show, :new]
+
       get '/' => 'topics#index',  as: :forum
       scope(
         '(/:forum)(/:linked_type-:linked_id)',

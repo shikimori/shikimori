@@ -24,4 +24,4 @@
 fallbacks: false
 translations:
 - file: "app/assets/javascripts/i18n/translations.js"
-  only: ['*.activerecord.attributes.*', '*.frontend.*', '*.markers.*']
+  only: ['*.activerecord.attributes.*', '*.frontend.*']

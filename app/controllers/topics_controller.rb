@@ -105,7 +105,6 @@ class TopicsController < ShikimoriController
       .new(params[:is_preview] == 'true', false)
       .build topic
 
-    # render 'topics/topic', view: view
     render partial: 'topics/topic', object: view, as: :topic_view
   end
 

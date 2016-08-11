@@ -93,10 +93,10 @@
           / - if topic.author_in_footer?
             = render 'users/user_16', user: topic_view.user
 
-      .b-appear_marker[
-        class="appear-topic-#{topic_view.topic.id}"
-        data-appear_url="#{api_appears_url}"
-      ]
+        .b-appear_marker[
+          class="appear-topic-#{topic_view.topic.id}"
+          data-appear_url="#{api_appears_url}"
+        ]
 
     - unless topic_view.is_mini
       = render 'topics/comments', comments_view: topic_view.comments_view
