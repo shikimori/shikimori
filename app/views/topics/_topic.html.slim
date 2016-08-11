@@ -5,15 +5,16 @@
   article.b-topic.shiki-object.not-tracked.to-process[
     id="#{topic_view.topic.id}"
     class="#{topic_view.container_class}"
+    data-appear_type="entry"
+    data-appear_url="#{api_appears_url}"
+    data-dynamic="topic"
+    data-faye="#{topic_view.faye_channel}"
+    data-generated="#{topic_view.topic.generated?}"
+    data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
     data-user_id="#{topic_view.user.id}"
     data-user_nickname="#{topic_view.user.nickname}"
-    data-generated="#{topic_view.topic.generated?}"
-    data-faye="#{topic_view.faye_channel}"
-    data-appear_type="entry"
-    data-dynamic="topic"
     itemscope
     itemtype="#{topic_view.topic.review? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
-    data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
   ]
     meta itemprop="author" content="#{topic_view.topic.user.nickname}"
     meta itemprop="name" content="#{topic_view.topic_title}"
@@ -41,8 +42,7 @@
           span.item-mobile title="Действия"
 
         aside.markers
-          - unless topic_view.topic.viewed?
-            p.b-new_marker data-text="#{t 'markers.new'}"
+          p.b-new_marker data-text="#{t 'markers.new'}"
 
         - if topic_view.show_actions?
           = render 'topics/buttons', topic_view: topic_view
@@ -93,11 +93,10 @@
           / - if topic.author_in_footer?
             = render 'users/user_16', user: topic_view.user
 
-      - unless topic_view.topic.viewed?
-        .appear-marker[
-          class="appear-topic-#{topic_view.topic.id}"
-          data-appear_url="#{api_appears_url}"
-        ]
+      .b-appear_marker[
+        class="appear-topic-#{topic_view.topic.id}"
+        data-appear_url="#{api_appears_url}"
+      ]
 
     - unless topic_view.is_mini
       = render 'topics/comments', comments_view: topic_view.comments_view

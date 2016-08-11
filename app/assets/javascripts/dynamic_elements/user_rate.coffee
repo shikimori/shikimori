@@ -4,8 +4,8 @@ class DynamicElements.UserRates.Button extends View
   I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
-    # data 'user_rate' задаётся в UserRates.Tracker
-    @user_rate = @$root.data 'user_rate'
+    # data attribute is set in UserRates.Tracker
+    @entry_data = @$root.data 'entry_data'
     @_render()
 
     # delegated handlers because @_render can be called multiple times
@@ -56,33 +56,33 @@ class DynamicElements.UserRates.Button extends View
 
   # functions
   update: (user_rate) ->
-    @user_rate = user_rate
+    @entry_data = user_rate
     @_render()
 
   _is_persisted: ->
-    !!@user_rate.id
+    !!@entry_data.id
 
   _render: ->
     @html JST[TEMPLATE](@_render_params())
 
   _render_params: ->
     submit_url = if @_is_persisted()
-      "/api/v2/user_rates/#{@user_rate.id}"
+      "/api/v2/user_rates/#{@entry_data.id}"
     else
       '/api/v2/user_rates'
 
-    user_rate: @user_rate
+    user_rate: @entry_data
     user_id: USER_ID
-    statuses: t("#{I18N_STATUS_KEY}.#{@user_rate.target_type.toLowerCase()}")
+    statuses: t("#{I18N_STATUS_KEY}.#{@entry_data.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @_is_persisted() then 'PATCH' else 'POST'
-    destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @_is_persisted()
+    destroy_url: "/api/v2/user_rates/#{@entry_data.id}" if @_is_persisted()
     extended_html: @_extended_html()
 
   _new_user_rate: ->
     status: 'planned'
-    target_id: @user_rate.target_id
-    target_type: @user_rate.target_type
+    target_id: @entry_data.target_id
+    target_type: @entry_data.target_type
 
   # must be redefined in inherited class
   _extended_html: ->

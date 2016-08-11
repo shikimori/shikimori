@@ -2,7 +2,7 @@ class @ShikiEditable extends ShikiView
   # внутренняя инициализация
   _initialize: ->
     super
-    $new_marker = $('.b-new_marker', @$inner)
+    $new_marker = $('.b-new_marker.active', @$inner)
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-summary,
@@ -36,7 +36,7 @@ class @ShikiEditable extends ShikiView
 
     # по клику на 'новое' пометка прочитанным
     $new_marker.on 'click', =>
-      if $('.b-new_marker', @$inner).hasClass('off')
+      if $('.b-new_marker.active', @$inner).hasClass('off')
         $new_marker.removeClass('off').data(manual: true)
         $.ajax
           url: $new_marker.data 'reappear_url'
@@ -44,7 +44,7 @@ class @ShikiEditable extends ShikiView
           data:
             ids: @$root.attr('id')
 
-      else if $('.b-new_marker', @$inner).data('manual')
+      else if $('.b-new_marker.active', @$inner).data('manual')
         $new_marker.addClass('off')
         $.ajax
           url: $new_marker.data 'appear_url'
@@ -54,7 +54,8 @@ class @ShikiEditable extends ShikiView
 
       else
         # эвент appear обрабатывается в shiki-topic
-        @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
+        $appears = @$('.b-appear_marker.active')
+        $appears.trigger 'appear', [$appears, true]
 
     # realtime уведомление об изменении
     @on "faye:#{@_type()}:updated", (e, data) =>

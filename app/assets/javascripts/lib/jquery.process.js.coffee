@@ -12,7 +12,6 @@
 
   UserRates.Tracker.track @JS_EXPORTS.user_rates, $root
   Topics.Tracker.track @JS_EXPORTS.topics, $root
-
   @JS_EXPORTS = {}
 
   new DynamicElements.Parser $with('.to-process', $root)

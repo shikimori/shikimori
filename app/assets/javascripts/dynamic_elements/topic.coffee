@@ -1,8 +1,9 @@
 using 'DynamicElements'
+# TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
   initialize: ->
-    # data 'user_rate' задаётся в Topics.Tracker
-    @topic = @$root.data 'topic'
+    # data attribute is set in Topics.Tracke
+    @entry_data = @$root.data 'entry_data'
 
     @$body = @$inner.children('.body')
 
@@ -18,6 +19,8 @@ class DynamicElements.Topic extends ShikiEditable
     @is_preview = @$root.hasClass('b-topic-preview')
     @is_cosplay = @$root.hasClass('b-cosplay-topic')
     @is_review = @$root.hasClass('b-review-topic')
+
+    @_activate_appear_marker() if @entry_data && !@entry_data.is_viewed
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -71,12 +74,15 @@ class DynamicElements.Topic extends ShikiEditable
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
       $filtered_appeared = $appeared.not ->
-        $(@).data('disabled') || !$(@).hasClass('appear-marker')
+        $(@).data('disabled') || !(
+          @classList.contains('b-appear_marker') &&
+            @classList.contains('active')
+        )
 
       if $filtered_appeared.exists()
         interval = if by_click then 1 else 1500
         $objects = $filtered_appeared.closest(".shiki-object")
-        $markers = $objects.find('.b-new_marker')
+        $markers = $objects.find('.b-new_marker.active')
         ids = $objects
           .map ->
             $object = $(@)
@@ -202,6 +208,10 @@ class DynamicElements.Topic extends ShikiEditable
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
+  _activate_appear_marker: ->
+    @$root.children('.b-appear_marker').addClass('active')
+    @$inner.children('.markers').find('.b-new_marker').addClass('active')
+
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
@@ -269,4 +279,3 @@ class DynamicElements.Topic extends ShikiEditable
   # url перезагрузки содержимого
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"
-

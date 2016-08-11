@@ -4,7 +4,7 @@ class UserRates.TrackCatalogEntry
 
   constructor: (user_rate, $root) ->
     $root.find(".#{MARK}#{@_selector user_rate}")
-      .data(user_rate: user_rate)
+      .data(entry_data: user_rate)
       .addClass(user_rate.status)
       .removeClass(MARK)
 

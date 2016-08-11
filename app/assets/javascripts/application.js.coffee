@@ -30,7 +30,7 @@ $ =>
     @faye_loader = new FayeLoader()
     @comments_notifier = new CommentsNotifier()
 
-  $('.appear-marker').appear()
+  $('.b-appear_marker.active').appear()
 
   $.form_navigate
     size: 250
