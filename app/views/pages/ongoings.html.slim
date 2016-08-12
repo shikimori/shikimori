@@ -22,5 +22,8 @@ header.head.m15
 
 .subheadline.m3 = i18n_i 'Discussion'
 div
-  .b-topic.unprocessed data-faye="#{@topic_view.faye_channel}"
+  .b-topic.to-process[
+    data-dynamic='topic'
+    data-faye="#{@topic_view.faye_channel}"
+  ]
     = render 'topics/comments', comments_view: @topic_view.comments_view

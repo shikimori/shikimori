@@ -28,7 +28,7 @@
   $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
   $with('.b-forum.unprocessed', $root).shiki_forum()
 
-  throw 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
+  console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
 
   $with('.b-comment.unprocessed', $root).shiki_comment()
 

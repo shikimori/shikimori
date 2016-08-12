@@ -66,6 +66,9 @@
     .block.clearfix
       .subheadline.m3 = i18n_io 'Comment', :few
       div
-        .b-topic.unprocessed data-faye="#{@player.episode_topic_view.faye_channel}"
+        .b-topic.to-process[
+          data-dynamic='topic'
+          data-faye="#{@player.episode_topic_view.faye_channel}"
+        ]
           = render 'topics/comments',
             comments_view: @player.episode_topic_view.comments_view

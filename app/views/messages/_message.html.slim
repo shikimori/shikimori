@@ -69,12 +69,7 @@
                   title="#{t 'actions.reply'}"
                 ]
               - else
-                span.item-reply[
-                  data-action="#{message_url message}"
-                  data-type='json'
-                  data-remote='true'
-                  title="#{t 'actions.reply'}"
-                ]
+                span.item-reply title="#{t 'actions.reply'}"
 
               - if can? :edit, message
                 span.item-edit[

@@ -15,6 +15,9 @@
       = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
   div
-    .b-topic.unprocessed data-faye="#{resource.preview_topic_view.faye_channel}"
+    .b-topic.to-process[
+      data-dynamic='topic'
+      data-faye="#{resource.preview_topic_view.faye_channel}"
+    ]
       = render 'topics/comments',
         comments_view: resource.preview_topic_view.comments_view
