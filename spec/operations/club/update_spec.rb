@@ -22,7 +22,7 @@ describe Club::Update do
     before { subject }
 
     it do
-      expect(club.errors).to have(1).item
+      expect(club.errors).to_not be_empty
       expect(club.reload).not_to have_attributes params
     end
   end
