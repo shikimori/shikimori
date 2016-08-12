@@ -20,25 +20,25 @@ class @ShikiForum extends ShikiView
         $placeholder = @_faye_placeholder(data.topic_id)
 
         # уведомление о добавленном элементе через faye
-        $(document.body).trigger "faye:added"
+        $(document.body).trigger 'faye:added'
 
     @on 'faye:topic:created', (e, data) =>
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye
-      $(document.body).trigger "faye:added"
+      $(document.body).trigger 'faye:added'
 
   # получение плейсхолдера для подгрузки новых топиков
   _faye_placeholder: (comment_id) ->
     $placeholder = @$('>.faye-loader')
 
     unless $placeholder.exists()
-      $placeholder = $('<div class="click-loader faye-loader"></div>')
+      $placeholder = $('<div class="click-loader faye-loader" data-format="json"></div>')
         .prependTo(@$root)
         .data(ids: [])
-        .on 'ajax:success', (e, html) ->
-          $html = $(html)
+        .on 'ajax:success', (e, data) ->
+          $html = $(data.content)
+          process_current_dom $html, data.JS_EXPORTS
           $placeholder.replaceWith $html
-          $html.process()
 
     if $placeholder.data('ids').indexOf(comment_id) == -1
       $placeholder.data

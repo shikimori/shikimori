@@ -1,3 +1,5 @@
+# TODO: move forum topics actions to Forum::TopicsController
+# other actions should stay here
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
   load_and_authorize_resource class: Entry,
@@ -85,17 +87,9 @@ class TopicsController < ShikimoriController
 
   # выбранные топики
   def chosen
-    topics = Entry
+    @collection = Entry
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
-
-    render(
-      partial: 'topics/topic',
-      collection: topics,
-      as: :topic_view,
-      layout: false,
-      formats: :html
-    )
   end
 
   # подгружаемое через ajax тело топика
