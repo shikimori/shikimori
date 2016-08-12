@@ -87,7 +87,7 @@ describe ClubsController do
     context 'invalid params' do
       before { patch 'update', id: club.id, club: { name: '' } }
       it do
-        expect(resource.errors).to have(1).item
+        expect(resource.errors).to be_present
         expect(response).to have_http_status :success
       end
     end
