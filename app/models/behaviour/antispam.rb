@@ -48,7 +48,7 @@ module Antispam
 
     if prior && DateTime.now.to_i - prior.created_at.to_i < 15
       interval = 15 - (DateTime.now.to_i - prior.created_at.to_i)
-      errors['created_at'] = 'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
+      errors[:base] = 'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
       return false
     end
   end
