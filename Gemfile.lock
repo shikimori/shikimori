@@ -568,9 +568,6 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
-    rspec_junit_formatter (0.2.2)
-      builder (< 4)
-      rspec-core (>= 2, < 4, != 2.12.0)
     rubocop (0.42.0)
       parser (>= 2.3.1.1, < 3.0)
       powerpack (~> 0.1)
@@ -696,6 +693,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   browser
+  byebug
   cancancan!
   capistrano
   capistrano-bundler
@@ -795,7 +793,6 @@ DEPENDENCIES
   rspec-its
   rspec-mocks
   rspec-rails
-  rspec_junit_formatter (= 0.2.2)
   ruby-svd!
   rvm1-capistrano3
   sass-rails
@@ -825,4 +822,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.12.5
+   1.12.4

@@ -134,6 +134,7 @@ gem 'pry-stack_explorer'
 gem 'colorize'
 
 group :test, :development do
+  gem 'byebug'
   gem 'pry-byebug'
 
   gem 'rb-inotify', require: false
@@ -148,7 +149,6 @@ group :test, :development do
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
-  gem 'rspec_junit_formatter', '0.2.2'
 
   gem 'spring-commands-rspec'
 

@@ -1,5 +1,4 @@
 test:
   override:
-    # - bundle exec rspec spec:
-    - RAILS_ENV=test bundle exec rspec -r rspec_junit_formatter --format RspecJunitFormatter -o $CIRCLE_TEST_REPORTS/rspec/junit.xml
+    - bundle exec rspec spec:
         timeout: 600
