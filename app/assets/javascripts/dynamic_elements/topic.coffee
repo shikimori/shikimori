@@ -101,9 +101,9 @@ class DynamicElements.Topic extends ShikiEditable
         if $markers.data('reappear')
           $markers.addClass 'off'
         else
-          $markers.removeClass 'active'
           $markers.css.bind($markers).delay(interval, opacity: 0)
           $markers.hide.bind($markers).delay(interval + 500)
+          $markers.removeClass.bind($markers).delay(interval + 500, 'active')
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
@@ -209,7 +209,7 @@ class DynamicElements.Topic extends ShikiEditable
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
   _activate_appear_marker: ->
-    @$root.children('.b-appear_marker').addClass('active')
+    @$inner.children('.b-appear_marker').addClass('active')
     @$inner.children('.markers').find('.b-new_marker').addClass('active')
 
   # удаляем уже имеющиеся подгруженные элементы

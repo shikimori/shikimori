@@ -4,6 +4,14 @@ AllCops:
     - config/**/*
     - db/**/*
     - lib/tasks/*
+    - Guardfile
+    - Capfile
+    - Gemfile
+    - Rakefile
+    - spec/spec_helper.rb
+    - spec/rails_helper.rb
+    - spec/support*
+    - bin/*
   UseCache: false
 
 Metrics/LineLength:
@@ -11,6 +19,9 @@ Metrics/LineLength:
     - spec/**/*
 
 Style/NestedParenthesizedCalls:
+  Exclude:
+    - spec/**/*
+Style/WordArray:
   Exclude:
     - spec/**/*
 
@@ -39,6 +50,10 @@ Style/MutableConstant:
 Style/AlignParameters:
   Enabled: false
 Style/MultilineMethodCallIndentation:
+  Enabled: false
+Style/EmptyCaseCondition:
+  Enabled: false
+Style/MultilineTernaryOperator:
   Enabled: false
 Lint/EndAlignment:
   Enabled: false
@@ -78,3 +93,4 @@ Style/CollectionMethods:
     collect!: map!
     find_all: select
     reduce: inject
+    detect: find

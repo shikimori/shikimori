@@ -2,7 +2,7 @@ class @ShikiEditable extends ShikiView
   # внутренняя инициализация
   _initialize: ->
     super
-    $new_marker = $('.b-new_marker.active', @$inner)
+    $new_marker = $('.b-new_marker', @$inner)
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
     @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-summary,

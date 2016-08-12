@@ -80,6 +80,13 @@ $.bridget 'packery', Packery
 @is_tablet = ->
   !!@mobile_detect.tablet() || screen.width <= 768
 
+# поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
+@$with = (selector, $root) ->
+  if $root.is(selector)
+    $root.find(selector).add($root)
+  else
+    $root.find(selector)
+
 $(document).on 'page:load page:change page:restore', (e) ->
   for group in bindings[e.type]
     body_classes = if group.conditions.length && group.conditions[0][0] == '.'

@@ -3,7 +3,7 @@ class Topics.TrackTopic
   MARK = 'not-tracked'
 
   constructor: (topic, $root) ->
-    $root.find(".#{MARK}#{@_selector topic}")
+    $with(".#{MARK}#{@_selector topic}", $root)
       .removeClass(MARK)
       .data(model: topic)
 

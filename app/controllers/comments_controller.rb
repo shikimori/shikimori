@@ -7,7 +7,8 @@ class CommentsController < ShikimoriController
 
   def show
     noindex
-    comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
+    comment = Comment.with_viewed(current_user).find_by(id: params[:id]) ||
+      NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
     render :missing if comment.is_a? NoComment

@@ -3,7 +3,7 @@ class UserRates.TrackUserRate
   MARK = 'not-tracked'
 
   constructor: (user_rate, $root) ->
-    $root.find(".#{MARK}#{@_selector user_rate}")
+    $with(".#{MARK}#{@_selector user_rate}", $root)
       .removeClass(MARK)
       .data(model: user_rate)
 
