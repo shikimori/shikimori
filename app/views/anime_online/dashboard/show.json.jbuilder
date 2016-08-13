@@ -1,4 +1,4 @@
-json.content render(
+json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'animes/anime',
   collection: @recent_videos,
   locals: {
@@ -8,10 +8,14 @@ json.content render(
     content_text: :none
   },
   formats: :html
-)
+))
 
-json.postloader render(
-  'blocks/postloader',
-  filter: 'b-catalog_entry',
-  next_url: anime_dashboard_page_url(page: @page+1)
-) if @add_postloader
+if @add_postloader
+  json.postloader render(
+    'blocks/postloader',
+    filter: 'b-catalog_entry',
+    next_url: anime_dashboard_page_url(page: @page+1)
+  )
+end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)
