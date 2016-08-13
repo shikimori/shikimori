@@ -81,7 +81,7 @@ private
       open(CALENDAR_URL).read
     end
 
-    Icalendar.parse raw_data
+    Icalendar::Calendar.parse raw_data
   end
 
   def find_anime anime_id
