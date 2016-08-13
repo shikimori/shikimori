@@ -296,7 +296,7 @@ class User < ActiveRecord::Base
 
   def avatar_url size
     if censored?
-      "http://www.gravatar.com/avatar/%s?s=%i&d=identicon" %
+      "//www.gravatar.com/avatar/%s?s=%i&d=identicon" %
         [Digest::MD5.hexdigest('takandar+censored@gmail.com'), size]
     else
       ImageUrlGenerator.instance.url self, "x#{size}".to_sym
