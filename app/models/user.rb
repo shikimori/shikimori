@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   DAY_LIFE_INTERVAL = 1.day
   WEEK_LIFE_INTERVAL = 1.week
 
-  CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544]
+  CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable, :omniauthable, :async
