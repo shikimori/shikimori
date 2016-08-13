@@ -105,9 +105,11 @@ RSpec.configure do |config|
   Rails.application.routes.default_url_options = ApplicationController.default_url_options
 
   config.before :suite do
-    FactoryGirl::SeedGenerator.create :user
+    id = 500_000
 
-    FactoryGirl::SeedGenerator.create :offtopic_forum
+    FactoryGirl::SeedGenerator.create :user, id: id
+
+    FactoryGirl::SeedGenerator.create :offtopic_forum, id: id
     FactoryGirl::SeedGenerator.create :reviews_forum
     FactoryGirl::SeedGenerator.create :animanga_forum
     FactoryGirl::SeedGenerator.create :contests_forum
@@ -117,5 +119,9 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :offtopic_topic
     FactoryGirl::SeedGenerator.create :rules_topic
     FactoryGirl::SeedGenerator.create :faq_topic
+
+    ActiveRecord::Base.connection.reset_pk_sequence! :users
+    ActiveRecord::Base.connection.reset_pk_sequence! :forums
+    ActiveRecord::Base.connection.reset_pk_sequence! :entries
   end
 end
