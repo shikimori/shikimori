@@ -105,10 +105,9 @@ RSpec.configure do |config|
   Rails.application.routes.default_url_options = ApplicationController.default_url_options
 
   config.before :suite do
-    id = 78643875
-    FactoryGirl::SeedGenerator.create :user, id: id
+    FactoryGirl::SeedGenerator.create :user
 
-    FactoryGirl::SeedGenerator.create :offtopic_forum, id: id
+    FactoryGirl::SeedGenerator.create :offtopic_forum
     FactoryGirl::SeedGenerator.create :reviews_forum
     FactoryGirl::SeedGenerator.create :animanga_forum
     FactoryGirl::SeedGenerator.create :contests_forum

@@ -128,20 +128,18 @@ group :development do
   # gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
 
+gem 'byebug'
+gem 'colorize'
 gem 'marco-polo'
+gem 'pry-byebug'
 gem 'pry-rails'
 gem 'pry-stack_explorer'
-gem 'colorize'
 
 group :test, :development do
-  gem 'byebug'
-  gem 'pry-byebug'
-
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
 
-  gem 'celluloid'
   gem 'rspec'
   gem 'rspec-core'
   gem 'rspec-expectations'
