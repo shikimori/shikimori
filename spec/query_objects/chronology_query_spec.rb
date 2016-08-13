@@ -16,29 +16,37 @@ describe ChronologyQuery do
     @related_2_3 = create :related_anime, source_id: @anime_2.id, anime_id: @anime_3.id
     @related_3_2 = create :related_anime, source_id: @anime_3.id, anime_id: @anime_2.id
   end
-  after(:all) { Anime.destroy_all }
+  after(:all) do
+    Anime.destroy_all
+    Entry.destroy_all
+  end
 
   describe '#relations' do
-    before { allow(BannedRelations.instance).to receive(:cache)
-      .and_return animes: [[@anime_1.id,@anime_3.id]] }
+    before do
+      allow(BannedRelations.instance).to receive(:cache)
+        .and_return animes: [[@anime_1.id, @anime_3.id]]
+    end
 
     it { expect(query.new(@anime_1).links).to eq [@related_1_2, @related_2_1] }
   end
 
   describe '#fetch' do
     describe 'direct ban' do
-      before { allow(BannedRelations.instance).to receive(:cache)
-        .and_return animes: [[@anime_1.id,@anime_2.id]] }
+      before do
+        allow(BannedRelations.instance).to receive(:cache)
+          .and_return animes: [[@anime_1.id, @anime_2.id]]
+      end
 
       it { expect(query.new(@anime_1).fetch.map(&:id)).to eq [@anime_1.id] }
       it { expect(query.new(@anime_2).fetch.map(&:id)).to eq [@anime_2.id, @anime_3.id] }
       it { expect(query.new(@anime_3).fetch.map(&:id)).to eq [@anime_2.id, @anime_3.id] }
     end
 
-
     describe 'indirect ban' do
-      before { allow(BannedRelations.instance).to receive(:cache)
-        .and_return animes: [[@anime_1.id,@anime_3.id]] }
+      before do
+        allow(BannedRelations.instance).to receive(:cache)
+          .and_return animes: [[@anime_1.id, @anime_3.id]]
+      end
 
       it { expect(query.new(@anime_1).fetch.map(&:id)).to eq [@anime_1.id, @anime_2.id] }
       it { expect(query.new(@anime_2).fetch.map(&:id)).to eq [@anime_1.id, @anime_2.id, @anime_3.id] }

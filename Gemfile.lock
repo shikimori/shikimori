@@ -224,8 +224,8 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
-    devise-async (0.10.1)
-      devise (~> 3.2)
+    devise-async (0.10.2)
+      devise (>= 3.2, < 4.0)
     diff-lcs (1.2.5)
     draper (2.1.0)
       actionpack (>= 3.0)

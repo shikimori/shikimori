@@ -6,11 +6,6 @@ describe TopicsController do
   let(:anime) { create :anime }
 
   let!(:topic) { create :topic, forum: animanga_forum, user: user }
-  let(:anime_topic) do
-    create :topic, forum: animanga_forum, user: user, linked: anime
-  end
-
-  let(:topic2) { create :topic, forum: offtopic_forum, user: user }
 
   before do
     Topic.antispam = false
@@ -19,7 +14,10 @@ describe TopicsController do
   end
 
   describe '#index' do
-    before { anime_topic && topic2 }
+    let!(:anime_topic_1) do
+      create :topic, forum: animanga_forum, user: user, linked: anime
+    end
+    let!(:topic_2) { create :topic, forum: offtopic_forum, user: user }
 
     context 'no forum' do
       before { get :index }
@@ -87,13 +85,14 @@ describe TopicsController do
             linked_id: anime.to_param
         end
         it do
-          expect(response)
-            .to redirect_to UrlGenerator.instance.topic_url(anime_topic)
+          expect(response).to redirect_to(
+            UrlGenerator.instance.topic_url(anime_topic_1)
+          )
         end
       end
 
       context 'multiple topic views' do
-        let!(:anime_topic2) do
+        let!(:anime_topic_2) do
           create :topic, forum: animanga_forum, user: user, linked: anime
         end
         before do
@@ -109,6 +108,9 @@ describe TopicsController do
   end
 
   describe '#show' do
+    let(:anime_topic) do
+      create :topic, forum: animanga_forum, user: user, linked: anime
+    end
     context 'no linked' do
       before { get :show, id: topic.to_param, forum: animanga_forum.to_param }
       it { expect(response).to have_http_status :success }
@@ -116,12 +118,16 @@ describe TopicsController do
 
     context 'wrong to_param' do
       before { get :show, id: topic.to_param[0..-2], forum: animanga_forum.to_param }
-      it { expect(response).to redirect_to UrlGenerator.instance.topic_url(topic) }
+      it do
+        expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
+      end
     end
 
     context 'missing linked' do
       before { get :show, id: anime_topic.to_param, forum: animanga_forum.to_param }
-      it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
+      it do
+        expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic)
+      end
     end
 
     context 'wrong linked' do
@@ -302,7 +308,8 @@ describe TopicsController do
   end
 
   describe '#chosen' do
-    before { get :chosen, ids: [topic.to_param, topic2.to_param].join(','), format: :json }
+    let!(:topic_2) { create :topic, forum: offtopic_forum, user: user }
+    before { get :chosen, ids: [topic.to_param, topic_2.to_param].join(','), format: :json }
     it { expect(response).to have_http_status :success }
   end
 
