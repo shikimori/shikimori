@@ -7,7 +7,7 @@ class @CommentsNotifier
     # текущее значение счётчика
     @current_counter = 0
 
-    @comment_selector = 'div.appear-marker'
+    @comment_selector = 'div.b-appear_marker.active'
     @faye_loader_selector = '.faye-loader'
 
     # при загрузке новой страницы вставляем в DOM счётчик

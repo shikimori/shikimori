@@ -1,4 +1,7 @@
-json.id @resource.id
-#json.body @resource.body
-json.user @resource.from.nickname
-json.kind 'message'
+json.content JsExports::Supervisor.instance.sweep(render(
+  partial: 'messages/message',
+  locals: { message: @resource },
+  formats: :html
+))
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

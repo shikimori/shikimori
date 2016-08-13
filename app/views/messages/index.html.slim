@@ -21,7 +21,10 @@
     = @page_title.last
 
   .block
-    .b-topic.unprocessed data-no-faye='true'
+    .b-topic.to-process[
+      data-dynamic='topic'
+      data-no-faye='true'
+    ]
       .b-comments
         - if @collection.any?
           = render @collection, reply_as_link: @messages_type == :private

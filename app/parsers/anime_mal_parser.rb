@@ -29,7 +29,7 @@ class AnimeMalParser < BaseMalParser
   end
 
   # загрузка информации по манге
-  def fetch_entry_data id
+  def fetch_model id
     content = get entry_url(id)
     raise EmptyContent.new(url) if content.include? "404 Not Found"
     doc = Nokogiri::HTML(content)

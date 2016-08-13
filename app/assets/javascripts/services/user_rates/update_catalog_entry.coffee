@@ -5,8 +5,8 @@ class UserRates.UpdateCatalogEntry extends UserRates.TrackCatalogEntry
   constructor: (user_rate, $root) ->
     $(@_selector(user_rate)).each ->
       $node = $(@)
-      prior_rate = $node.data('user_rate')
+      prior_rate = $node.data('model')
 
       $node.removeClass prior_rate.status if prior_rate
-      $node.data(user_rate: user_rate)
+      $node.data(model: user_rate)
       $node.addClass(user_rate.status) if user_rate.id

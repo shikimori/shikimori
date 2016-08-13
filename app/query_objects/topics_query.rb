@@ -19,7 +19,6 @@ class TopicsQuery < QueryObjectBase
 
   def self.fetch user, locale
     query = new Entry
-      .with_viewed(user)
       .includes(:forum, :user)
       .order(updated_at: :desc)
       .where(locale: locale)

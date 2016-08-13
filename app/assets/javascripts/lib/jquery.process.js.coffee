@@ -1,18 +1,17 @@
 (($) ->
   $.fn.extend
-    process: ->
+    process: (JS_EXPORTS) ->
       @each ->
-        process_current_dom @
+        process_current_dom @, JS_EXPORTS
 ) jQuery
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 # TODO: переписать всю тут имеющееся на dynamic_element
-@process_current_dom = (root = document.body) ->
+@process_current_dom = (root = document.body, JS_EXPORTS = @JS_EXPORTS) ->
   $root = $(root)
 
-  if @JS_EXPORTS
-    UserRates.Tracker.track @JS_EXPORTS.tracked_user_rates, $root
-    @JS_EXPORTS.tracked_user_rates = null
+  UserRates.Tracker.track JS_EXPORTS, $root
+  Topics.Tracker.track JS_EXPORTS, $root
 
   new DynamicElements.Parser $with('.to-process', $root)
 
@@ -28,7 +27,9 @@
   # стена картинок
   $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
   $with('.b-forum.unprocessed', $root).shiki_forum()
-  $with('.b-topic.unprocessed', $root).shiki_topic()
+
+  console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
+
   $with('.b-comment.unprocessed', $root).shiki_comment()
 
   # блоки, загружаемые аяксом
@@ -104,10 +105,3 @@
         false
       else
         $(@).attr href: "#{href}?reason=#{reason}"
-
-# поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
-$with = (selector, $root) ->
-  if $root.is(selector)
-    $root.find(selector).add($root)
-  else
-    $root.find(selector)

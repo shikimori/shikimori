@@ -69,12 +69,7 @@
                   title="#{t 'actions.reply'}"
                 ]
               - else
-                span.item-reply[
-                  data-action="#{message_url message}"
-                  data-type='json'
-                  data-remote='true'
-                  title="#{t 'actions.reply'}"
-                ]
+                span.item-reply title="#{t 'actions.reply'}"
 
               - if can? :edit, message
                 span.item-edit[
@@ -147,7 +142,7 @@
           = t '.to_topic'
 
       - if !message.read && message.to == current_user
-        .appear-marker[
+        .b-appear_marker.active[
           class="appear-message-#{message.id}"
           data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
           data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"

@@ -10,7 +10,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   it 'fetches character data' do
-    data = parser.fetch_entry_data(character_id)
+    data = parser.fetch_model(character_id)
 
     expect(data[:name]).to eq('Charlotte Dunois')
     expect(data[:fullname]).to eq('Charlotte "Charles, Charl" Dunois')
@@ -27,7 +27,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   it 'has correct image' do
-    data = parser.fetch_entry_data 135627
+    data = parser.fetch_model 135627
     expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/characters/9/300518.jpg'
   end
 
@@ -56,7 +56,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_entry_data(87143)
+    data = parser.fetch_model(87143)
     expect(data[:description_en]).to eq(
       "One of Kinana and Sumi's next door neighbors. She lives together with \
 Oomori Hayase, whom she is in a romantic relationship with. She is the \
@@ -69,7 +69,7 @@ styles are a reference to the La Croix designs from \
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_entry_data(25023)
+    data = parser.fetch_model(25023)
 
     expect(data[:description_en]).to eq(
       "Harui Kaho is a classmate of \

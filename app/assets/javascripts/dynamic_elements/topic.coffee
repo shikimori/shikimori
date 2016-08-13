@@ -1,20 +1,15 @@
-(($) ->
-  $.fn.extend
-    shiki_topic: ->
-      @each ->
-        $root = $(@)
-        return unless $root.hasClass('unprocessed')
+using 'DynamicElements'
+# TODO: move code related to comments to separate class
+class DynamicElements.Topic extends ShikiEditable
+  initialize: ->
+    # data attribute is set in Topics.Tracke
+    @model = @$root.data 'model'
 
-        new ShikiTopic($root)
-) jQuery
-
-class @ShikiTopic extends ShikiEditable
-  initialize: ($root) ->
     @$body = @$inner.children('.body')
 
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
-    @editor = new ShikiEditor(@$editor) if @$editor.length # редактора не будет у неавторизованных пользователей
+    @editor = new ShikiEditor(@$editor) if USER_SIGNED_IN && @$editor.length
 
     @$comments_loader = @$('.comments-loader')
     @$comments_hider = @$('.comments-hider')
@@ -24,6 +19,8 @@ class @ShikiTopic extends ShikiEditable
     @is_preview = @$root.hasClass('b-topic-preview')
     @is_cosplay = @$root.hasClass('b-cosplay-topic')
     @is_review = @$root.hasClass('b-review-topic')
+
+    @_activate_appear_marker() if @model && !@model.is_viewed
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -77,12 +74,15 @@ class @ShikiTopic extends ShikiEditable
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
       $filtered_appeared = $appeared.not ->
-        $(@).data('disabled') || !$(@).hasClass('appear-marker')
+        $(@).data('disabled') || !(
+          @classList.contains('b-appear_marker') &&
+            @classList.contains('active')
+        )
 
       if $filtered_appeared.exists()
         interval = if by_click then 1 else 1500
         $objects = $filtered_appeared.closest(".shiki-object")
-        $markers = $objects.find('.b-new_marker')
+        $markers = $objects.find('.b-new_marker.active')
         ids = $objects
           .map ->
             $object = $(@)
@@ -101,9 +101,9 @@ class @ShikiTopic extends ShikiEditable
         if $markers.data('reappear')
           $markers.addClass 'off'
         else
-          $markers.removeClass 'active'
           $markers.css.bind($markers).delay(interval, opacity: 0)
           $markers.hide.bind($markers).delay(interval + 500)
+          $markers.removeClass.bind($markers).delay(interval + 500, 'active')
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
@@ -208,6 +208,10 @@ class @ShikiTopic extends ShikiEditable
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
+  _activate_appear_marker: ->
+    @$inner.children('.b-appear_marker').addClass('active')
+    @$inner.children('.markers').find('.b-new_marker').addClass('active')
+
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
@@ -272,6 +276,5 @@ class @ShikiTopic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> 'Топик'
 
-  # url перезагрузки содержимого
   _reload_url: =>
-    "/#{@_type()}s/#{@$root.attr 'id'}/reload/#{@is_preview}"
+    "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"

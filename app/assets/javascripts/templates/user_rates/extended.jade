@@ -1,14 +1,14 @@
 .rate-show
-  if user_rate.target_type == 'Anime'
+  if model.target_type == 'Anime'
     .rate-number
-      span.current-episodes= user_rate.episodes
+      span.current-episodes= model.episodes
 
       if entry.episodes == 0
         span.sep
           | /
         span.total-episodes= entry.episodes
 
-      if user_rate.episodes != entry.episodes || user_rate.episodes == 0
+      if model.episodes != entry.episodes || model.episodes == 0
         span.item-add.increment(
           data-action= increment_url
           data-method='post'
@@ -20,14 +20,14 @@
 
   else
     .rate-number
-      span.current-episodes= user_rate.chapters
+      span.current-episodes= model.chapters
 
       if entry.chapters == 0
         span.sep
           | /
         span.total-episodes= entry.chapters
 
-      if user_rate.chapters != entry.chapters || user_rate.chapters == 0
+      if model.chapters != entry.chapters || model.chapters == 0
         span.item-add.increment(
           data-action= increment_url
           data-remote='true'
@@ -38,5 +38,5 @@
 
   != rate_html
 
-  if user_rate.text_html
-    .note!= user_rate.text_html
+  if model.text_html
+    .note!= model.text_html

@@ -42,12 +42,12 @@ class AnimesCollectionController < ShikimoriController
       klass: @view.klass,
       season: params[:season],
       type: params[:type],
-      genres: @entry_data[:genre],
-      studios: @entry_data[:studio],
-      publishers: @entry_data[:publisher]
+      genres: @model[:genre],
+      studios: @model[:studio],
+      publishers: @model[:publisher]
     ).keywords
 
-    raise AgeRestricted if @entry_data[:genre] && @entry_data[:genre].any?(&:censored?) && censored_forbidden?
+    raise AgeRestricted if @model[:genre] && @model[:genre].any?(&:censored?) && censored_forbidden?
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
   rescue BadStatusError
@@ -67,7 +67,7 @@ private
       publisher: @menu.publishers,
       studio: @menu.studios
     }
-    @entry_data = {}
+    @model = {}
 
     if params[:type] =~ /[A-Z -]/
       raise ForceRedirect, @view.url(type: params[:type].downcase.sub(/ |-/, '_'))
@@ -83,8 +83,8 @@ private
         all_param_ids = params[kind].split(',').map { |v| v.sub(/^!/, '').to_i }
         included_param_ids = params[kind].split(',').map(&:to_i).select {|v| v > 0 }
 
-        all_entry_data = all_data[kind].select { |v| all_param_ids.include?(v.id) }
-        @entry_data[kind] = all_data[kind].select { |v| included_param_ids.include?(v.id) }
+        all_model = all_data[kind].select { |v| all_param_ids.include?(v.id) }
+        @model[kind] = all_data[kind].select { |v| included_param_ids.include?(v.id) }
 
         filter_klass = kind.to_s.capitalize.constantize
         all_param_ids.each do |id|
@@ -94,16 +94,16 @@ private
           end
         end
 
-        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_entry_data.first.to_param
-        raise ForceRedirect, @view.url(kind.to_sym => all_entry_data.first.to_param)
+        next unless all_param_ids.size == 1 && params[kind].sub(/^!/, '') != all_model.first.to_param
+        raise ForceRedirect, @view.url(kind.to_sym => all_model.first.to_param)
       end
     end
 
     unless @view.recommendations?
       page_title t('page', page: @view.page) if @view.page > 1
-      page_title collection_title(@entry_data).title
+      page_title collection_title(@model).title
 
-      @title_notice = build_page_description @entry_data
+      @title_notice = build_page_description @model
       @description = @page_title.last
     end
   end
@@ -130,10 +130,10 @@ private
     end
   end
 
-  def build_page_description entry_data
-    title = collection_title(entry_data).title false
+  def build_page_description model
+    title = collection_title(model).title false
 
-    if collection_title(entry_data).manga_conjugation_variant?
+    if collection_title(model).manga_conjugation_variant?
       i18n_t 'description.manga_variant',
         title: title, order_name: order_name
     else
@@ -157,16 +157,16 @@ private
     end
   end
 
-  def collection_title entry_data
+  def collection_title model
     @collection_title ||= Titles::CollectionTitle.new(
       klass: @view.klass,
       user: current_user,
       season: params[:season],
       type: params[:type],
       status: params[:status],
-      genres: entry_data[:genre],
-      studios: entry_data[:studio],
-      publishers: entry_data[:publisher]
+      genres: model[:genre],
+      studios: model[:studio],
+      publishers: model[:publisher]
     )
   end
 end

@@ -4,7 +4,8 @@ class DynamicElements.UserRates.Button extends View
   I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
-    @user_rate = @$root.data 'user_rate'
+    # data attribute is set in UserRates.Tracker
+    @model = @$root.data 'model'
     @_render()
 
     # delegated handlers because @_render can be called multiple times
@@ -41,47 +42,46 @@ class DynamicElements.UserRates.Button extends View
 
   _ajax_before: =>
     if USER_SIGNED_IN
-      @$root.addClass 'ajax_request'
+      @$root.addClass 'b-ajax'
     else
       $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
       false
 
   _ajax_complete: =>
-    @$root.removeClass 'ajax_request'
+    @$root.removeClass 'b-ajax'
 
-  _ajax_success: (e, user_rate) =>
-    UserRates.Tracker.update user_rate || @_new_user_rate()
+  _ajax_success: (e, model) =>
+    UserRates.Tracker.update model || @_new_user_rate()
     @_ajax_complete()
 
   # functions
-  update: (user_rate) ->
-    @user_rate = user_rate
+  update: (@model) ->
     @_render()
 
   _is_persisted: ->
-    !!@user_rate.id
+    !!@model.id
 
   _render: ->
     @html JST[TEMPLATE](@_render_params())
 
   _render_params: ->
     submit_url = if @_is_persisted()
-      "/api/v2/user_rates/#{@user_rate.id}"
+      "/api/v2/user_rates/#{@model.id}"
     else
       '/api/v2/user_rates'
 
-    user_rate: @user_rate
+    model: @model
     user_id: USER_ID
-    statuses: t("#{I18N_STATUS_KEY}.#{@user_rate.target_type.toLowerCase()}")
+    statuses: t("#{I18N_STATUS_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @_is_persisted() then 'PATCH' else 'POST'
-    destroy_url: "/api/v2/user_rates/#{@user_rate.id}" if @_is_persisted()
+    destroy_url: "/api/v2/user_rates/#{@model.id}" if @_is_persisted()
     extended_html: @_extended_html()
 
   _new_user_rate: ->
     status: 'planned'
-    target_id: @user_rate.target_id
-    target_type: @user_rate.target_type
+    target_id: @model.target_id
+    target_type: @model.target_type
 
   # must be redefined in inherited class
   _extended_html: ->

@@ -2,6 +2,8 @@
 # require manga_online/application
 
 $ =>
+  @JS_EXPORTS ||= {}
+
   $body = $(document.body)
   @ENV = $body.data 'env'
   @USER_ID = $body.data 'user_id'
@@ -28,7 +30,7 @@ $ =>
     @faye_loader = new FayeLoader()
     @comments_notifier = new CommentsNotifier()
 
-  $('.appear-marker').appear()
+  $('.b-appear_marker.active').appear()
 
   $.form_navigate
     size: 250

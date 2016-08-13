@@ -4,7 +4,7 @@ module Viewable
 
   INTERVAL = 1.week
 
-  included do
+  included do |klass|
     klass_name = (self.respond_to?(:base_class) ? base_class.name : name)
     view_klass = Object.const_get(klass_name + 'View')
 
@@ -20,10 +20,15 @@ module Viewable
       view_klass.create! user_id: self.user_id, klass_name.downcase => self
     }
 
+    klass.const_set(
+      'VIEWED_JOINS_SELECT',
+      "coalesce(jv.#{name.downcase}_id, 0) > 0 as viewed"
+    )
+
     scope :with_viewed, lambda { |user|
       if user
         joins("left join #{view_klass.table_name} jv on jv.#{name.downcase}_id=#{table_name}.id and jv.user_id='#{user.id}'")
-          .select("#{table_name}.*, coalesce(jv.#{name.downcase}_id, 0) > 0 as viewed")
+          .select("#{table_name}.*, #{klass::VIEWED_JOINS_SELECT}")
       else
         select("#{table_name}.*")
       end

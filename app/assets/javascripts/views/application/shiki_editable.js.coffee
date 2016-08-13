@@ -36,7 +36,7 @@ class @ShikiEditable extends ShikiView
 
     # по клику на 'новое' пометка прочитанным
     $new_marker.on 'click', =>
-      if $('.b-new_marker', @$inner).hasClass('off')
+      if $('.b-new_marker.active', @$inner).hasClass('off')
         $new_marker.removeClass('off').data(manual: true)
         $.ajax
           url: $new_marker.data 'reappear_url'
@@ -44,7 +44,7 @@ class @ShikiEditable extends ShikiView
           data:
             ids: @$root.attr('id')
 
-      else if $('.b-new_marker', @$inner).data('manual')
+      else if $('.b-new_marker.active', @$inner).data('manual')
         $new_marker.addClass('off')
         $.ajax
           url: $new_marker.data 'appear_url'
@@ -54,7 +54,8 @@ class @ShikiEditable extends ShikiView
 
       else
         # эвент appear обрабатывается в shiki-topic
-        @$('.appear-marker').trigger 'appear', [@$('.appear-marker'), true]
+        $appears = @$('.b-appear_marker.active')
+        $appears.trigger 'appear', [$appears, true]
 
     # realtime уведомление об изменении
     @on "faye:#{@_type()}:updated", (e, data) =>
@@ -127,10 +128,10 @@ class @ShikiEditable extends ShikiView
     $('.moderation-controls', @$inner).hide()
 
   # замена объекта другим объектом
-  _replace: (html) ->
-    $replaced = super html
-    $replaced["shiki_#{@_type()}"]()
-    window.faye_loader.apply() if @_type() == 'topic'
+  # _replace: (html) ->
+    # $replaced = super html
+    # $replaced["shiki_#{@_type()}"]()
+    # window.faye_loader.apply() if @_type() == 'topic'
 
   # url перезагрузки содержимого
   _reload_url: =>

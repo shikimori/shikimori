@@ -6,7 +6,8 @@
       user: (render 'users/user_16', user: @dialog.target_user)
 
   .block
-    .b-topic.shiki-object.unprocessed[
+    .b-topic.shiki-object.to-process[
+      data-dynamic='topic'
       data-faye="#{@dialog.faye_channel}"
       data-appear_type='message'
     ]

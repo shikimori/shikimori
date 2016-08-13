@@ -76,5 +76,8 @@ javascript:
 
 .subheadline.m3 Комментарии
 div
-  .b-topic.unprocessed data-faye="#{@topic.faye_channel}"
+  .b-topic.to-process[
+    data-dynamic='topic'
+    data-faye="#{@topic.faye_channel}"
+  ]
     = render 'topics/comments', comments_view: @topic.comments_view

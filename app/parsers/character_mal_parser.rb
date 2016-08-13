@@ -16,7 +16,7 @@ class CharacterMalParser < BaseMalParser
 
   # загрузка всей информации по персонажу
   def fetch_entry id
-    entry = fetch_entry_data id
+    entry = fetch_model id
 
     {
       entry: entry,
@@ -24,7 +24,7 @@ class CharacterMalParser < BaseMalParser
   end
 
   # загрузка информации по персонажу
-  def fetch_entry_data id
+  def fetch_model id
     content = get entry_url(id)
 
     entry = {seyu: []}

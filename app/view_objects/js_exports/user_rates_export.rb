@@ -1,9 +1,9 @@
-class UserRates::Tracker < ViewObjectBase
+class JsExports::UserRatesExport
   include Singleton
 
   KINDS = %i(catalog_entry user_rate)
   DELIMITER = ':'
-  PLACEHOLDERS = %r{
+  PLACEHOLDERS = /
     data-track_user_rate="
       ( #{KINDS.join '|'} )
         #{DELIMITER}
@@ -11,7 +11,7 @@ class UserRates::Tracker < ViewObjectBase
         #{DELIMITER}
       ( \d+ )
     "
-  }mix
+  /mix
 
   def placeholder kind, entry
     raise ArgumentError, "unknown kind: #{kind}" unless KINDS.include?(kind)
@@ -28,7 +28,6 @@ class UserRates::Tracker < ViewObjectBase
     html.scan(PLACEHOLDERS) do |results|
       track results[0].to_sym, results[1].to_sym, results[2].to_i
     end
-    html
   end
 
   def export user

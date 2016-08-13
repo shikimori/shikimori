@@ -34,7 +34,7 @@ class ImageboardGallery
   start: ->
     return unless @tags
     @$root.gallery(imageboard: true)
-    @$loader = $('<p class="ajax-loading vk-like appear-marker" data-appear-top-offset="900"></p>')
+    @$loader = $('<p class="ajax-loading vk-like b-appear_marker active" data-appear-top-offset="900"></p>')
       .appendTo(@$root)
       .on 'appear', =>
         @_load() unless @awaiting_preload || @awaiting_loaders

@@ -52,7 +52,7 @@ module MalFetcher
 
   # загрузка элемента
   def fetch_entry(id)
-    entry = fetch_entry_data(id)
+    entry = fetch_model(id)
     characters, people = fetch_entry_characters(id)
     recommendations = fetch_entry_recommendations(id)
     #scores = fetch_entry_scores(id)

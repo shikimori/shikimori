@@ -2,7 +2,10 @@
   p.b-nothing_here.centered = t '.no_comment'
 
 - else
-  .b-topic.unprocessed
+  .b-topic.to-process[
+    data-dynamic='topic'
+    data-no-faye='true'
+  ]
     .subheadline.m10 = t '.user_comment', id: @view.comment.id
     .block
       p.b-nothing_here = t '.no_comment'

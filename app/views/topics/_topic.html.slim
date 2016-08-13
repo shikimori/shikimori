@@ -2,21 +2,27 @@
   = render partial: 'blocks/ignored', object: topic_view.topic
 
 - else
-  article.b-topic.shiki-object.unprocessed[
+  article.b-topic.shiki-object.not-tracked.to-process[
     id="#{topic_view.topic.id}"
     class="#{topic_view.container_class}"
+    data-appear_type="entry"
+    data-appear_url="#{api_appears_url}"
+    data-dynamic='topic'
+    data-faye="#{topic_view.faye_channel}"
+    data-generated="#{topic_view.topic.generated?}"
+    data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
     data-user_id="#{topic_view.user.id}"
     data-user_nickname="#{topic_view.user.nickname}"
-    data-generated="#{topic_view.topic.generated?}"
-    data-faye="#{topic_view.faye_channel}"
-    data-appear_type="entry"
     itemscope
     itemtype="#{topic_view.topic.review? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
   ]
     meta itemprop="author" content="#{topic_view.topic.user.nickname}"
     meta itemprop="name" content="#{topic_view.topic_title}"
     meta itemprop="headline" content="#{topic_view.topic_title}"
-    meta itemprop="url" content="#{UrlGenerator.instance.topic_url topic_view.topic}"
+    meta[
+      itemprop="url"
+      content="#{UrlGenerator.instance.topic_url topic_view.topic}"
+    ]
     meta[
       itemscope
       itemprop="mainEntityOfPage"
@@ -29,70 +35,7 @@
       meta itemprop="dateModified" content="#{topic_view.updated_at.iso8601}"
 
     a name="topic-#{topic_view.topic.id}"
-    / класс нужен из-за проверки высоты и для отображения кнопок по hover
     - if topic_view.show_body?
-      .inner
-        - if topic_view.show_actions?
-          span.item-mobile title="Действия"
-
-        aside.markers
-          - unless topic_view.topic.viewed?
-            p.b-new_marker data-text="#{t 'markers.new'}"
-
-        - if topic_view.show_actions?
-          = render 'topics/buttons', topic_view: topic_view
-
-        /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
-        header
-          = render "topics/header/#{topic_view.minified? ? :mini : :common}", view: topic_view
-
-        .body
-          - if topic_view.minified?
-            = render 'topics/status_line', topic_view: topic_view
-
-            - if topic_view.topic.review?
-              = render 'topics/reviews/entry_cover', view: topic_view,
-                entry: topic_view.topic.linked.target.decorate
-
-            .body-truncated
-              .body-truncated-inner[
-                itemprop="#{topic_view.topic.review? ? :reviewBody : :articleBody}"
-              ]
-                = topic_view.html_body_truncated
-
-          - else
-            .body-inner
-              = topic_view.render_body
-
-        footer
-          = topic_view.html_footer
-
-          - if user_signed_in?
-            - if topic_view.topic.review? && !topic_view.minified?
-              = render 'topics/reviews/footer_vote', topic_view: topic_view
-            - elsif topic_view.topic.cosplay?
-              = render 'topics/cosplay/footer_vote', topic_view: topic_view
-
-          / p.tags
-            - if user_signed_in?
-              - if topic.tag.present? && !tview.opic.news? && !topic_view.topic.review?
-                span.tag
-                  a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
-              span.tag
-                a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
-            - else
-              - if topic.tag.present? && !topic.news? && !topic.review?
-                span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
-              span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
-
-          / - if topic.author_in_footer?
-            = render 'users/user_16', user: topic_view.user
-
-      - unless topic_view.topic.viewed?
-        .appear-marker[
-          class="appear-topic-#{topic_view.topic.id}"
-          data-appear_url="#{api_appears_url}"
-        ]
-
+      = render 'topics/inner', topic_view: topic_view
     - unless topic_view.is_mini
       = render 'topics/comments', comments_view: topic_view.comments_view

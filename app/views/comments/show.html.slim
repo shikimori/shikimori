@@ -2,7 +2,10 @@
   = render partial: 'comments/comment', layout: false, object: @view.comment, formats: :html
 
 - else
-  .b-topic.unprocessed
+  .b-topic.to-process[
+    data-dynamic='topic'
+    data-no-faye='true'
+  ]
     .subheadline.m10
       == t '.user_comment',
         id: @view.comment.id,
@@ -33,5 +36,8 @@
       / .b-options-floated.count = @view.replies.size
       .subheadline.m3 = t '.replies'
       .block
-        .b-topic
+        .b-topic.to-process[
+          data-dynamic='topic'
+          data-no-faye='true'
+        ]
           = render 'topics/comments', comments_view: @view

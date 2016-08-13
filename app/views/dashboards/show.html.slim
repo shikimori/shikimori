@@ -127,4 +127,5 @@
     div
       = render partial: 'topics/topic',
         collection: @dashboard_view.generated_news_topic_views,
+        locals: { do_not_track: true },
         as: :topic_view

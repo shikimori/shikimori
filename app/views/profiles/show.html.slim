@@ -322,6 +322,9 @@
         - else
           = t 'profiles_controller.feed'
       div
-        .b-topic.unprocessed data-faye="#{@resource.preview_comments_view.faye_channel}"
+        .b-topic.to-process[
+          data-dynamic='topic'
+          data-faye="#{@resource.preview_comments_view.faye_channel}"
+        ]
           = render 'topics/comments',
             comments_view: @resource.preview_comments_view

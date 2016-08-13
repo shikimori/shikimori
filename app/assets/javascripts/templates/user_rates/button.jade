@@ -1,4 +1,4 @@
-.b-add_to_list(class= user_rate.status)
+.b-add_to_list(class= model.status)
   form(
     action= form_url
     data-method= form_method
@@ -7,26 +7,26 @@
   )
     input(type='hidden' name='frontend' value='1')
     input(type='hidden' name='user_rate[user_id]' value= user_id)
-    input(type='hidden' name='user_rate[target_id]' value= user_rate.target_id)
-    input(type='hidden' name='user_rate[target_type]' value= user_rate.target_type)
-    input(type='hidden' name='user_rate[status]' value= user_rate.status)
-    input(type='hidden' name='user_rate[score]' value= user_rate.score)
+    input(type='hidden' name='user_rate[target_id]' value= model.target_id)
+    input(type='hidden' name='user_rate[target_type]' value= model.target_type)
+    input(type='hidden' name='user_rate[status]' value= model.status)
+    input(type='hidden' name='user_rate[score]' value= model.score)
 
     .trigger
       .trigger-arrow
 
-      if user_rate.id
+      if model.id
         .edit-trigger
           .edit
           .text
-            span.status-name(data-text= statuses[user_rate.status])
-            if user_rate.score > 0
+            span.status-name(data-text= statuses[model.status])
+            if model.score > 0
               span
                 | &nbsp;&nbsp;&ndash;&nbsp;&nbsp;
-                = user_rate.score
+                = model.score
 
       else
-        .text.add-trigger(data-status= user_rate.status)
+        .text.add-trigger(data-status= model.status)
           .plus
           span.status-name(
             data-text= t('frontend.user_rates.button.add_to_list')
@@ -34,12 +34,12 @@
 
     .expanded-options
       for title,status in statuses
-        if !user_rate.id || user_rate.status != status
+        if !model.id || model.status != status
           .option.add-trigger(data-status= status)
             .text
               span.status-name(data-text= title)
 
-      if user_rate.id
+      if model.id
         .option.remove-trigger(
           data-action= destroy_url
           data-method='delete'
