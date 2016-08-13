@@ -130,12 +130,15 @@ describe Messages::GenerateBody do
       end
 
       context 'comment' do
-        let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
-        let(:comment) { build_stubbed :comment, id: 1 }
+        let(:offtopic_topic) { seed :offtopic_topic }
+        let(:comment) { build_stubbed :comment }
         let(:linked) { build_stubbed :ban, comment: comment }
         it do
           is_expected.to eq(
-            'Вам вынесено предупреждение за комментарий в топике <a href="//test.host/forum/offtopic/786438751-offtopic#comment-1" class="bubbled b-link" data-href="//test.host/comments/1">offtopic</a>.'
+            'Вам вынесено предупреждение за комментарий в топике '\
+            "<a href=\"//test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}\""\
+            ' class="bubbled b-link" '\
+            "data-href=\"//test.host/comments/#{comment.id}\">offtopic</a>."
           )
         end
       end
@@ -154,12 +157,15 @@ describe Messages::GenerateBody do
       end
 
       context 'comment' do
-        let(:topic) { build_stubbed :topic, id: 1, title: 'test' }
+        let(:offtopic_topic) { seed :offtopic_topic }
         let(:comment) { build_stubbed :comment, id: 1 }
         let(:linked) { build_stubbed :ban, comment: comment }
         it do
           is_expected.to eq(
-            'Вы забанены на 3 часа за комментарий в топике <a href="//test.host/forum/offtopic/786438751-offtopic#comment-1" class="bubbled b-link" data-href="//test.host/comments/1">offtopic</a>.'
+            'Вы забанены на 3 часа за комментарий в топике '\
+            "<a href=\"//test.host/forum/offtopic/#{offtopic_topic.to_param}#comment-#{comment.id}\""\
+            ' class="bubbled b-link" '\
+            "data-href=\"//test.host/comments/#{comment.id}\">offtopic</a>."
           )
         end
       end

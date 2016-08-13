@@ -2,8 +2,8 @@ describe BbCodeFormatter do
   let(:processor) { BbCodeFormatter.instance }
 
   it '#remove_wiki_codes' do
-    expect(processor.remove_wiki_codes("[[test]]")).to eq "test"
-    expect(processor.remove_wiki_codes("[[test|123]]")).to eq "123"
+    expect(processor.remove_wiki_codes('[[test]]')).to eq 'test'
+    expect(processor.remove_wiki_codes('[[test|123]]')).to eq '123'
   end
 
   describe '#format_description' do
@@ -11,8 +11,8 @@ describe BbCodeFormatter do
     let(:anime) { build :anime }
 
     describe '[spoiler] with [b]' do
-      let(:text) { "[spoiler=[b]z[/b]]x[/spoiler]" }
-      it { is_expected.to_not include "<br" }
+      let(:text) { '[spoiler=[b]z[/b]]x[/spoiler]' }
+      it { is_expected.to_not include '<br' }
     end
   end
 
@@ -41,7 +41,7 @@ describe BbCodeFormatter do
     end
 
     describe '[quote]' do
-      let(:text) { "[quote]zzz" }
+      let(:text) { '[quote]zzz' }
       it { is_expected.to eq "[quote]\nzzz" }
     end
   end
@@ -76,7 +76,7 @@ describe BbCodeFormatter do
     describe 'english' do
       context 'anime' do
         let(:anime) { create :anime, name: "Hayate no Gotoku! Can't Take My Eyes Off You" }
-        let(:text) { "[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]" }
+        let(:text) { '[Hayate no Gotoku! Can&#x27;t Take My Eyes Off You]' }
 
         it { should eq "[anime=#{anime.id}]" }
 
@@ -133,8 +133,8 @@ describe BbCodeFormatter do
     end
 
     context 'no match' do
-      let(:text) { "[test]" }
-      it { is_expected.to eq "[test]" }
+      let(:text) { '[test]' }
+      it { is_expected.to eq '[test]' }
     end
   end
 
@@ -152,12 +152,12 @@ describe BbCodeFormatter do
     end
 
     describe '<br>' do
-      let(:text) { "123<br />456<br>789" }
+      let(:text) { '123<br />456<br>789' }
       it { is_expected.to eq "123\n456\n789" }
     end
 
     describe '&lt;br&gt;' do
-      let(:text) { "123&lt;br /&gt;456&lt;br/&gt;789" }
+      let(:text) { '123&lt;br /&gt;456&lt;br/&gt;789' }
       it { is_expected.to eq "123\n456\n789" }
     end
 
@@ -173,8 +173,8 @@ describe BbCodeFormatter do
     describe '#cleanup' do
       describe 'smileys' do
         describe 'multiple with spaces' do
-          let(:text) { ":):D:-D" }
-          it { is_expected.to eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }
+          let(:text) { ':):D:-D' }
+          it { is_expected.to eq '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
         end
 
         describe 'multiline smileys' do
@@ -187,8 +187,8 @@ describe BbCodeFormatter do
         end
 
         describe 'multiple' do
-          let(:text) { ":):D :-D" }
-          it { is_expected.to eq "<img src=\"/images/smileys/:).gif\" alt=\":)\" title=\":)\" class=\"smiley\">" }
+          let(:text) { ':):D :-D' }
+          it { is_expected.to eq '<img src="/images/smileys/:).gif" alt=":)" title=":)" class="smiley">' }
         end
 
         describe 'different' do
@@ -234,18 +234,18 @@ describe BbCodeFormatter do
     end
 
     describe '[vkontakte]', vcr: { cassette_name: 'bb_code_formatter' } do
-      let(:text) { "http://vk.com/video98023184_165811692" }
+      let(:text) { 'http://vk.com/video98023184_165811692' }
       it { is_expected.to include '<div class="c-video b-video unprocessed vk' }
     end
 
     describe '[youtube]', vcr: { cassette_name: 'bb_code_formatter' } do
       context 'direct link' do
-        let(:text) { "https://www.youtube.com/watch?v=og2a5lngYeQ" }
+        let(:text) { 'https://www.youtube.com/watch?v=og2a5lngYeQ' }
         it { is_expected.to include '<div class="c-video b-video unprocessed youtube' }
       end
 
       context 'link with &' do
-        let(:text) { "https://www.youtube.com/watch?feature=player_embedded&v=aX9j5KokIeE" }
+        let(:text) { 'https://www.youtube.com/watch?feature=player_embedded&v=aX9j5KokIeE' }
         it { is_expected.to include '<div class="c-video b-video unprocessed youtube' }
       end
     end
@@ -278,18 +278,22 @@ describe BbCodeFormatter do
     describe '[image]' do
       let(:text) { "[image=#{user_image.id}]" }
       let(:user_image) { create :user_image, user: build_stubbed(:user) }
-      it { is_expected.to eq "<a href=\"#{user_image.image.url :original, false}\" \
-rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">\
-<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\" \
-data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
-<span class=\"marker\">1000x1000</span>\
-</a>" }
+      it do
+        is_expected.to eq(
+          "<a href=\"#{user_image.image.url :original, false}\" "\
+          "rel=\"#{XXhash.xxh32 text, 0}\" class=\"b-image unprocessed\">"\
+          "<img src=\"#{user_image.image.url :thumbnail, false}\" class=\"\" "\
+          "data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">"\
+          '<span class="marker">1000x1000</span>'\
+          '</a>'
+        )
+      end
     end
 
     describe '[img]' do
       let(:url) { 'http://site.com/image.jpg' }
       let(:text) { "[img]#{url}[/img]" }
-      it { is_expected.to include "class=\"b-image unprocessed\"" }
+      it { is_expected.to include 'class="b-image unprocessed"' }
     end
 
     describe '[poster]' do
@@ -302,7 +306,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     describe '[entries]' do
       let(:character) { create :character }
       let(:text) { "[characters ids=#{character.id}]" }
-      it { is_expected.to include "b-catalog_entry" }
+      it { is_expected.to include 'b-catalog_entry' }
     end
 
     describe '[spoiler=text]' do
@@ -388,7 +392,7 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     describe '[replies]' do
       let(:text) { "[replies=#{comment.id}]" }
       let!(:comment) { create :comment }
-      it { is_expected.to include "<div class=\"b-replies single\"" }
+      it { is_expected.to include '<div class="b-replies single"' }
     end
 
     describe '[contest_round]' do
@@ -443,8 +447,9 @@ data-width=\"#{user_image.width}\" data-height=\"#{user_image.height}\">\
     end
 
     describe 'two replies' do
-      let(:text) { '[comment=1260072]Viks[/comment],
-[comment=1260062]Егор Кун[/comment],' }
+      let(:text) do
+        "[comment=1260072]Viks[/comment],\n[comment=1260062]Егор Кун[/comment],"
+      end
       it { is_expected.to eq '<span class="bubbled b-link" data-href="//shikimori.org/comments/1260072.html">@Viks</span>,<br><span class="bubbled b-link" data-href="//shikimori.org/comments/1260062.html">@Егор Кун</span>,' }
     end
 

@@ -68,7 +68,6 @@ FactoryGirl.define do
     end
 
     trait :offtopic do
-      id 786438751
       title 'offtopic'
       body 'offtopic'
       created_at { 1.day.ago }
