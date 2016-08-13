@@ -6,8 +6,9 @@ describe TopicsController do
   let(:anime) { create :anime }
 
   let!(:topic) { create :topic, forum: animanga_forum, user: user }
-  let(:anime_topic) { create :topic, forum: animanga_forum,
-    user: user, linked: anime }
+  let(:anime_topic) do
+    create :topic, forum: animanga_forum, user: user, linked: anime
+  end
 
   let(:topic2) { create :topic, forum: offtopic_forum, user: user }
 
@@ -49,10 +50,15 @@ describe TopicsController do
       end
 
       context 'with linked' do
-        let!(:anime_topic_2) { create :topic, forum: animanga_forum,
-          user: user, linked: anime }
-        before { get :index, forum: animanga_forum.to_param,
-          linked_id: linked_id, linked_type: 'anime' }
+        let!(:anime_topic_2) do
+          create :topic, forum: animanga_forum, user: user, linked: anime
+        end
+        before do
+          get :index,
+            forum: animanga_forum.to_param,
+            linked_id: linked_id,
+            linked_type: 'anime'
+        end
 
         context 'valid linked' do
           let(:linked_id) { anime.to_param }
@@ -64,23 +70,35 @@ describe TopicsController do
 
         context 'invalid linked' do
           let(:linked_id) { anime.to_param[0..-2] }
-          it { expect(response).to redirect_to UrlGenerator.instance
-            .forum_url(animanga_forum, anime) }
+          it do
+            expect(response).to redirect_to UrlGenerator.instance
+              .forum_url(animanga_forum, anime)
+          end
         end
       end
     end
 
     context 'subforum' do
       context 'one topic' do
-        before { get :index, forum: animanga_forum.to_param,
-          linked_type: 'anime', linked_id: anime.to_param }
-        it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
+        before do
+          get :index,
+            forum: animanga_forum.to_param,
+            linked_type: 'anime',
+            linked_id: anime.to_param
+        end
+        it do
+          expect(response)
+            .to redirect_to UrlGenerator.instance.topic_url(anime_topic)
+        end
       end
 
       context 'multiple topic views' do
-        let!(:anime_topic2) { create :topic, forum: animanga_forum,
-          user: user, linked: anime }
-        before { get :index, forum: animanga_forum.to_param, linked: anime.to_param }
+        let!(:anime_topic2) do
+          create :topic, forum: animanga_forum, user: user, linked: anime
+        end
+        before do
+          get :index, forum: animanga_forum.to_param, linked: anime.to_param
+        end
 
         it do
           expect(assigns(:forums_view).topic_views).to have(3).items
@@ -107,16 +125,24 @@ describe TopicsController do
     end
 
     context 'wrong linked' do
-      before { get :show, id: anime_topic.to_param,
-        forum: animanga_forum.to_param,
-        linked_type: 'anime', linked_id: "#{anime.to_param}test" }
+      before do
+        get :show,
+          id: anime_topic.to_param,
+          forum: animanga_forum.to_param,
+          linked_type: 'anime',
+          linked_id: "#{anime.to_param}test"
+      end
       it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
     end
 
     context 'with linked' do
-      before { get :show, id: anime_topic.to_param,
-        forum: animanga_forum.to_param,
-        linked_type: 'anime', linked_id: anime.to_param }
+      before do
+        get :show,
+          id: anime_topic.to_param,
+          forum: animanga_forum.to_param,
+          linked_type: 'anime',
+          linked_id: anime.to_param
+      end
       it { expect(response).to have_http_status :success }
     end
   end
@@ -124,7 +150,7 @@ describe TopicsController do
   describe '#new' do
     context 'guest' do
       let(:make_request) { get :new, forum: animanga_forum.to_param }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
@@ -140,7 +166,7 @@ describe TopicsController do
     let(:make_request) { get :edit, id: topic.id }
 
     context 'guest' do
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
@@ -151,25 +177,34 @@ describe TopicsController do
   end
 
   describe '#create' do
-    let(:topic_params) {{
-      user_id: user.id,
-      forum_id: animanga_forum.id,
-      title: 'title',
-      body: 'text',
-      linked_id: anime.id,
-      linked_type: Anime.name
-    }}
+    let(:topic_params) do
+      {
+        user_id: user.id,
+        forum_id: animanga_forum.id,
+        title: 'title',
+        body: 'text',
+        linked_id: anime.id,
+        linked_type: Anime.name
+      }
+    end
 
     context 'guest' do
       let(:make_request) { post :create, forum: animanga_forum.to_param, topic: topic_params }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       before { sign_in user }
 
       context 'invalid params' do
-        let(:params) {{ user_id: user.id, type: Topic.name, forum_id: animanga_forum.id, title: '' }}
+        let(:params) do
+          {
+            user_id: user.id,
+            type: Topic.name,
+            forum_id: animanga_forum.id,
+            title: ''
+          }
+        end
         before { post :create, forum: animanga_forum.to_param, topic: params }
 
         it do
@@ -192,26 +227,32 @@ describe TopicsController do
   end
 
   describe '#update' do
-    let(:params) {{
-      user_id: user.id,
-      forum_id: animanga_forum.id,
-      title: 'title',
-      body: 'text',
-      linked_id: anime.id,
-      linked_type: Anime.name
-    }}
+    let(:params) do
+      {
+        user_id: user.id,
+        forum_id: animanga_forum.id,
+        title: 'title',
+        body: 'text',
+        linked_id: anime.id,
+        linked_type: Anime.name
+      }
+    end
 
     context 'guest' do
-      let(:make_request) { post :update, forum: animanga_forum.to_param,
-        id: topic.id, topic: params }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      let(:make_request) do
+        post :update,
+          forum: animanga_forum.to_param,
+          id: topic.id,
+          topic: params
+      end
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       before { sign_in user }
 
       context 'valid_params params' do
-        let(:params) {{ user_id: user.id, title: '' }}
+        let(:params) { { user_id: user.id, title: '' } }
         before { post :update, id: topic.id, topic: params }
 
         it do
@@ -221,8 +262,12 @@ describe TopicsController do
       end
 
       context 'valid params' do
-        before { post :update, forum: animanga_forum.to_param,
-          id: topic.id, topic: params }
+        before do
+          post :update,
+            forum: animanga_forum.to_param,
+            id: topic.id,
+            topic: params
+        end
 
         it do
           expect(resource).to have_attributes params
@@ -234,7 +279,10 @@ describe TopicsController do
 
   describe '#destroy' do
     context 'guest' do
-      it { expect{post :destroy, id: topic.id}.to raise_error CanCan::AccessDenied }
+      it do
+        expect { post :destroy, id: topic.id }
+          .to raise_error CanCan::AccessDenied
+      end
     end
 
     context 'authenticated' do
@@ -254,7 +302,7 @@ describe TopicsController do
   end
 
   describe '#chosen' do
-    before { get :chosen, ids: [topic.to_param, topic2.to_param].join(',') }
+    before { get :chosen, ids: [topic.to_param, topic2.to_param].join(','), format: :json }
     it { expect(response).to have_http_status :success }
   end
 

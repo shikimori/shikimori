@@ -2,8 +2,10 @@
 # other actions should stay here
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
-  load_and_authorize_resource class: Entry,
+  load_and_authorize_resource(
+    class: Entry,
     only: %i(show new create edit update destroy)
+  )
 
   before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
@@ -13,21 +15,32 @@ class TopicsController < ShikimoriController
   def index
     # редирект на топик, если топик в подфоруме единственный
     if params[:linked_id] && @forums_view.topic_views.one?
-      return redirect_to UrlGenerator.instance.topic_url(
-        @forums_view.topic_views.first.topic, params[:format]), status: 301
+      return redirect_to(
+        UrlGenerator.instance.topic_url(
+          @forums_view.topic_views.first.topic,
+          params[:format]
+        ),
+        status: 301
+      )
     end
 
     # редирект, исправляющий linked
     if params[:linked_id] && @forums_view.linked.to_param != params[:linked_id]
-      return redirect_to UrlGenerator.instance.forum_url(
-        @forums_view.forum, @forums_view.linked), status: 301
+      return redirect_to(
+        UrlGenerator.instance.forum_url(
+          @forums_view.forum,
+          @forums_view.linked
+        ),
+        status: 301
+      )
     end
   end
 
   def show
     expected_url = UrlGenerator.instance.topic_url @resource
 
-    if request.url.gsub(/\?.*|https?:/, '') != expected_url && request.format != 'rss'
+    if request.url.gsub(/\?.*|https?:/, '') != expected_url &&
+        request.format != 'rss'
       return redirect_to expected_url, status: 301
     end
 
@@ -75,7 +88,12 @@ class TopicsController < ShikimoriController
     topic = Topics::TopicViewFactory.new(true, true).find params[:id]
 
     # превью топика отображается в формате комментария
-    # render partial: 'comments/comment', layout: false, object: topic, formats: :html
+    # render(
+    #   partial: 'comments/comment',
+    #   layout: false,
+    #   object: topic,
+    #   formats: :html
+    # )
     render(
       partial: 'topics/topic',
       object: topic,
@@ -152,7 +170,9 @@ private
       if @forums_view.linked
         breadcrumb(
           UsersHelper.localized_name(@forums_view.linked, current_user),
-          UrlGenerator.instance.forum_url(@forums_view.forum, @forums_view.linked)
+          UrlGenerator.instance.forum_url(
+            @forums_view.forum, @forums_view.linked
+          )
         )
       end
 
