@@ -1,7 +1,7 @@
 using 'UserRates'
 class UserRates.Tracker
   @track: (JS_EXPORTS, $root) ->
-    return if Object.isEmpty(JS_EXPORTS.user_rates)
+    return if Object.isEmpty(JS_EXPORTS?.user_rates)
 
     JS_EXPORTS.user_rates.catalog_entry.each (user_rate) ->
       new UserRates.TrackCatalogEntry user_rate, $root
