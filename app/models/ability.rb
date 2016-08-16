@@ -5,7 +5,7 @@ class Ability
     define_abilities
 
     @user = user
-    guest_ability
+    guest_restrictions
 
     if @user
       user_ability
@@ -16,6 +16,8 @@ class Ability
       versions_moderator_ability if @user.versions_moderator?
       admin_ability if @user.admin?
     end
+
+    guest_allowances
   end
 
   def define_abilities
@@ -24,15 +26,10 @@ class Ability
     alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :see_club
   end
 
-  def guest_ability
+  def guest_restrictions
     can :access_list, User do |user|
       user.preferences.list_privacy_public?
     end
-    can :see_contest, Contest
-    can :see_club, Club
-    can :read, Review
-
-    can :read, Entry
 
     can [:create], Message do |message|
       message.kind == MessageType::Private &&
@@ -52,8 +49,16 @@ class Ability
       ).none?
     end
     cannot [:significant_change], Version
+  end
+
+  def guest_allowances
     can [:show, :tooltip], Version
     can :tooltip, Genre
+    can :see_contest, Contest
+    can :see_club, Club
+    can :read, Review
+
+    can :read, Entry
   end
 
   def user_ability
