@@ -3,6 +3,8 @@ class ProfilesController < ShikimoriController
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
   def show
+    noindex if @resource.created_at > 1.year.ago
+
     if user_signed_in? && current_user.id == @resource.id
       MessagesService
         .new(@resource.object)
