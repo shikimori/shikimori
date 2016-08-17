@@ -7,12 +7,14 @@ class UserProfileDecorator < UserDecorator
     :nickname_changes, :favourites,
     :main_comments_view, :preview_comments_view, :ignored_topics
 
-  def about_above?
-    !about.blank? && !about.strip.blank? && preferences.about_on_top?
-  end
+  # list of users with abusive content in profile
+  # (reported by moderators or roskomnadzor)
+  BANNED_PROFILES = %w(
+    7683
+  )
 
-  def about_below?
-    !about.blank? && !about.strip.blank? && !preferences.about_on_top?
+  def banned_profile?
+    BANNED_PROFILES.include? object.id.to_s
   end
 
   def avatar_url size=160
@@ -27,6 +29,8 @@ class UserProfileDecorator < UserDecorator
   end
 
   def about_html
+    return if banned_profile?
+
     Rails.cache.fetch [:about, object] do
       BbCodeFormatter.instance.format_comment about || ''
     end
@@ -37,7 +41,8 @@ class UserProfileDecorator < UserDecorator
   end
 
   def show_comments?
-    (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
+    !banned_profile? &&
+      (h.user_signed_in? || comments.any?) && preferences.comments_in_profile?
   end
 
   #def full_counts
