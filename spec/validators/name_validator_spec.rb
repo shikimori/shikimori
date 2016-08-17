@@ -36,6 +36,13 @@ describe NameValidator, type: :validator do
       end
     end
 
+    context 'banned nickname' do
+      it do
+        expect(club)
+          .to_not allow_value(NameValidator::BANNED_NICKNAMES.first).for :name
+      end
+    end
+
     context 'routing' do
       it do
         expect(club).to_not allow_value('.php').for :name

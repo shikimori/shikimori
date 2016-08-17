@@ -1,4 +1,7 @@
 class NameValidator < ActiveModel::EachValidator
+  BANNED_NICKNAMES = %w(
+    Youtoome
+  )
   FORBIDDEN_NAMES = %r(
     \A(
       #{Forum::VARIANTS} |
@@ -8,6 +11,7 @@ class NameValidator < ActiveModel::EachValidator
       users |
       forum |
       info |
+      #{BANNED_NICKNAMES.join('|')}
     )\Z | ((
       \.css |
       \.js |
