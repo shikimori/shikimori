@@ -1,6 +1,6 @@
 class NameValidator < ActiveModel::EachValidator
   BANNED_NICKNAMES = %w(
-    Youtoome________________
+    Youtoome
   )
   FORBIDDEN_NAMES = %r(
     \A(
