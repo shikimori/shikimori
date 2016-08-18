@@ -1,8 +1,9 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
-.midheadline
-  = t '.currently_airing'
+.midheadline.linkheadline
+  a href="#{animes_url status: :ongoing}"
+    = t '.currently_airing'
   / a.b-link[
     / href="#{animes_url}"
     / title="#{t '.all_animess'}"
@@ -24,12 +25,16 @@
 
       .slides
         .slide.reviews
-          .midheadline.magenta
-            h2 = t '.reviews'
-            a.b-link[
+          h2.midheadline.magenta.linkheadline
+            a[
               href="#{forum_topics_url :reviews}"
-              title="#{t '.all_reviews'}"
-            ] = t '.all_reviews'
+              title="#{t '.reviews'}"
+            ] = t '.reviews'
+            / h2 = t '.reviews'
+            / a.b-link[
+              / href="#{forum_topics_url :reviews}"
+              / title="#{t '.all_reviews'}"
+            / ] = t '.all_reviews'
           div
             = render partial: 'topics/topic',
               collection: @dashboard_view.review_topic_views,
@@ -79,24 +84,32 @@
 
     - if @dashboard_view.contests.any?
       .contests.block
-        .midheadline.green.m5
-          h2 = t '.contests'
-          a.b-link[
+        h2.midheadline.green.linkheadline.m5
+          a[
             href="#{contests_url}"
-            title="#{t '.all_contests'}"
-          ] = t '.all_contests'
+            title="#{t '.contests'}"
+          ] = t '.contests'
+          / h2 = t '.contests'
+          / a.b-link[
+            / href="#{contests_url}"
+            / title="#{t '.all_contests'}"
+          / ] = t '.all_contests'
         .block
           = render 'dashboards/contests',
             collection: @dashboard_view.contests
 
 .cc-news
   .c-news_topics.m0
-    .midheadline.orange
-      h2 = t '.news_feed'
-      a.b-link[
+    h2.midheadline.orange.linkheadline
+      a[
         href="#{forum_topics_url :news}"
-        title="#{t '.all_news'}"
-      ] = t '.all_news'
+        title="#{t '.news_feed'}"
+      ] = t '.news_feed'
+      / h2 = t '.news_feed'
+      / a.b-link[
+        / href="#{forum_topics_url :news}"
+        / title="#{t '.all_news'}"
+      / ] = t '.all_news'
 
     div
       = render partial: 'topics/topic',
@@ -118,12 +131,16 @@
       / / - else
       / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    .midheadline.yellow
-      = t '.anime_updates'
-      a.b-link[
+    .midheadline.yellow.linkheadline
+      a[
         href="#{forum_topics_url :updates}"
-        title="#{t '.all_updates'}"
-      ] = t '.all_updates'
+        title="#{t '.anime_updates'}"
+      ] = t '.anime_updates'
+      / = t '.anime_updates'
+      / a.b-link[
+        / href="#{forum_topics_url :updates}"
+        / title="#{t '.all_updates'}"
+      / ] = t '.all_updates'
     div
       = render partial: 'topics/topic',
         collection: @dashboard_view.generated_news_topic_views,

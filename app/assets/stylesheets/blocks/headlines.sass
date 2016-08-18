@@ -114,14 +114,24 @@ header.head
       &:before
         color: $link-active
 
+  &.linkheadline
+    &>a
+      text-decoration: underline
+      color: inherit
+
+      &:hover
+        color: $link-hover
+
+      +gt_ipad
+        &:active
+          color: $link-active
+
 .midheadline
   @extend .headline
   font-size: 16px
   margin-bottom: 10px
   padding-bottom: 2px
   padding-top: 3px
-
-
 
 .subheadline
   @extend .headline
