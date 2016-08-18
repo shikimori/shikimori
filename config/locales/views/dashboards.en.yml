@@ -29,6 +29,7 @@ en:
       all_mangas: all mangas
       recommended:
         <<: *anime_recommended
+      others: Others
 
     user_list:
       my_anime_list: My Anime List
