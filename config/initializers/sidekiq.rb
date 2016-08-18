@@ -1,7 +1,9 @@
 # https://github.com/mperham/sidekiq/issues/750
 require 'sidekiq/middleware/i18n'
 
-# Sidekiq::Web.set :sessions, domain: 'all'
+if defined? Sidekiq::Web
+  Sidekiq::Web.set :sessions, domain: 'all'
+end
 
 SidekiqUniqueJobs.config.unique_args_enabled = true
 SidekiqUniqueJobs.config.default_expiration = 30.days
