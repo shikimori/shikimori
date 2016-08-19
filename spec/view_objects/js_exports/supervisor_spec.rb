@@ -19,12 +19,23 @@ describe JsExports::Supervisor do
       allow(topics_export).to receive :sweep
     end
     subject! { view.sweep html }
-    let(:html) { 'test' }
 
-    it do
-      is_expected.to eq html
-      expect(user_rates_export).to have_received(:sweep).with html
-      expect(topics_export).to have_received(:sweep).with html
+    context 'with html' do
+      let(:html) { 'test' }
+      it do
+        is_expected.to eq html
+        expect(user_rates_export).to have_received(:sweep).with html
+        expect(topics_export).to have_received(:sweep).with html
+      end
+    end
+
+    context 'without html' do
+      let(:html) { nil }
+      it do
+        is_expected.to eq html
+        expect(user_rates_export).to_not have_received :sweep
+        expect(topics_export).to_not have_received :sweep
+      end
     end
   end
 end

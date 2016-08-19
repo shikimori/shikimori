@@ -12,6 +12,8 @@ class JsExports::Supervisor
   end
 
   def sweep html
+    return html if html.blank?
+
     KEYS.each do |key|
       send(key).sweep html
     end
