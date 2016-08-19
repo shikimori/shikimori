@@ -20,6 +20,7 @@ class OmniauthService
   end
 
 private
+
   def fill_facebook_fields
     @user.location = @omni.extra.raw_info['location']['name'] if @user.location.blank? && @omni.extra.raw_info['location'] && @omni.extra.raw_info['location']['name'].present?
 
@@ -33,15 +34,22 @@ private
   end
 
   def fill_vkontakte_fields
-    @user.avatar = open @omni.extra.raw_info['photo_big'] if !@user.avatar.present? && @omni.extra.raw_info['photo_big'].present? && @omni.extra.raw_info['photo_big'] =~ /^https?:\/\//
-    @user.avatar = open @omni.info.image if !@user.avatar.present? && @omni.info.image.present? && @omni.info.image =~ /^https?:\/\//
+    if !@user.avatar.present? && @omni.extra.raw_info['photo_big'].present? &&
+        @omni.extra.raw_info['photo_big'] =~ /^https?:\/\//
+      get_avatar @omni.extra.raw_info['photo_big']
+    end
+    if !@user.avatar.present? && @omni.info.image.present? &&
+        @omni.info.image =~ /^https?:\/\//
+      get_avatar @omni.info.image 
+    end
 
     if @user.sex.blank? && @omni.extra.raw_info['sex'].present?
-      @user.sex = if @omni.extra.raw_info['sex'] == '2'
-        'male'
-      elsif @omni.extra.raw_info['sex'] == '1'
-        'female'
-      end
+      @user.sex =
+        if @omni.extra.raw_info['sex'] == '2'
+          'male'
+        elsif @omni.extra.raw_info['sex'] == '1'
+          'female'
+        end
     end
 
     begin
@@ -64,6 +72,13 @@ private
       @user.birth_on = DateTime.parse @omni.info.birth_date unless @user.birth_on.present? || !@omni.info.birth_date.present?
     rescue
     end
+  end
+
+  def get_avatar url
+    @user.avatar = open url
+
+  rescue OpenURI::HTTPError, URI::InvalidURIError, SocketError, Net::OpenTimeout
+    @user.avatar = nil
   end
 
   def build_token
