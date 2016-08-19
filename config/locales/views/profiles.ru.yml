@@ -90,7 +90,7 @@ ru:
         connected_accounts: Подключенные сервисы
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
-        not_connected_accounts: Неподключенные сервисы
+        not_connected_accounts: Не подключенные сервисы
         username: Имя пользователя
 
       profile:

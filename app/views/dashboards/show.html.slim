@@ -1,18 +1,19 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
-.midheadline.linkheadline
-  a href="#{animes_url status: :ongoing}"
-    = t '.currently_airing'
-  / a.b-link[
-    / href="#{animes_url}"
-    / title="#{t '.all_animess'}"
-  / ] = t '.mangas'
+.block2
+  .midheadline.linkheadline
+    a href="#{animes_url status: :ongoing}"
+      = t '.currently_airing'
+    / a.b-link[
+      / href="#{animes_url}"
+      / title="#{t '.all_animess'}"
+    / ] = t '.mangas'
 
-.cc-ongoings.to-process data-dynamic="cutted_covers"
-  = render @dashboard_view.ongoings,
-    cover_notice: :studio,
-    content_by: :mini_tooltip
+  .cc-ongoings.to-process data-dynamic="cutted_covers"
+    = render @dashboard_view.ongoings,
+      cover_notice: :studio,
+      content_by: :mini_tooltip
 
 .cc-second
   .cc-inner
