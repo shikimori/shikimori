@@ -62,6 +62,7 @@ class Comment < ActiveRecord::Base
       commentable.increment!(:comments_count)
     end
   end
+
   def decrement_comments
     if commentable && commentable.attributes['comments_count']
       commentable.class.decrement_counter(:comments_count, commentable.id)

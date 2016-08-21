@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # either Topic or Comment so far
 module Viewable
   extend ActiveSupport::Concern
@@ -5,10 +7,16 @@ module Viewable
   MAX_NOT_VIEWED_INTERVAL = 1.week
 
   included do |klass|
+    klass.const_set(
+      'VIEWED_JOINS_SELECT',
+      'COALESCE(v.viewed_id, 0) > 0 AS viewed'
+    )
+
+    # base_class returns class descending directly from ActiveRecord::Base
+    # (that is either Topic or Comment model)
     viewing_klass = "#{base_class.name}Viewing".constantize
 
     # f**king gem breaks assigning associations in FactoryGirl
-    # and IDK how to fix it quickly
     if Rails.env.test?
       has_many :viewings,
         class_name: viewing_klass.name,
@@ -22,11 +30,6 @@ module Viewable
 
     # create viewing for the author right after create
     after_create -> { viewing_klass.create! user_id: user_id, viewed_id: id }
-
-    klass.const_set(
-      'VIEWED_JOINS_SELECT',
-      "coalesce(jv.#{name.downcase}_id, 0) > 0 as viewed"
-    )
 
     scope :with_viewed, -> (user) {
       return select("#{table_name}.*") unless user

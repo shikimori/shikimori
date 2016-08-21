@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class Topic < ActiveRecord::Base
+  include Antispam
   include Commentable
   include Moderatable
-  include Antispam
   include Viewable
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
@@ -19,7 +19,6 @@ class Topic < ActiveRecord::Base
     'CosplayGallery' => Forum::COSPLAY_ID
   }
 
-  belongs_to :anime_history
   belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user
@@ -30,7 +29,7 @@ class Topic < ActiveRecord::Base
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   has_many :messages,
-    -> { where "linked_type = '#{self.class.name}' or linked_type = '#{Entry.name}'" },
+    -> { where "linked_type = '#{self.class.name}'" },
     foreign_key: :linked_id,
     dependent: :delete_all
 
@@ -56,7 +55,7 @@ class Topic < ActiveRecord::Base
   end
 
   def to_param
-    "%d-%s" % [id, permalink]
+    "#{id}-#{permalink}"
   end
 
   def permalink

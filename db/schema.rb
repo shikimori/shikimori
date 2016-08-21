@@ -11,10 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727173911) do
+ActiveRecord::Schema.define(version: 20160821121506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
