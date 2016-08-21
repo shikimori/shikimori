@@ -1,4 +1,4 @@
-class Forums::List  < ViewObjectBase
+class Forums::List < ViewObjectBase
   include Enumerable
 
   instance_cache :all
@@ -15,14 +15,22 @@ private
 
   def forums
     Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
-      Forum.visible.map { |forum| decorate forum, false } + [
-        decorate(Forum::NEWS_FORUM, true),
-        decorate(Forum.find_by_permalink('reviews'), true),
-        decorate(Forum.find_by_permalink('contests'), true),
-        decorate(Forum::MY_CLUBS_FORUM, true),
-        decorate(Forum.find_by_permalink('clubs'), true)
-      ]
+      visible_forums + static_forums
     end
+  end
+
+  def visible_forums
+    Forum.visible.map { |forum| decorate forum, false }
+  end
+
+  def static_forums
+    [
+      decorate(Forum::NEWS_FORUM, true),
+      decorate(Forum.find_by_permalink('reviews'), true),
+      decorate(Forum.find_by_permalink('contests'), true),
+      decorate(Forum::MY_CLUBS_FORUM, true),
+      decorate(Forum.find_by_permalink('clubs'), true)
+    ]
   end
 
   def decorate forum, is_special
@@ -32,7 +40,7 @@ private
 
   def forum_size forum
     TopicsQuery.fetch(current_user, h.locale_from_domain)
-      .by_forum(forum, current_user, censored_forbidden?) # может не быть при регистрации через соц сеть и первичном заполнении профиля
+      .by_forum(forum, current_user, censored_forbidden?)
       .where('generated = false or (generated = true and comments_count > 0)')
       .size
   end
