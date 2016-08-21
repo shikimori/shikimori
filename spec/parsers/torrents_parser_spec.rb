@@ -185,6 +185,26 @@ describe TorrentsParser do
       end
     end
 
+    describe 'episodes limit' do
+      let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.6-15 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
+
+      context 'too many' do
+        let(:episodes_aired) { 5 }
+        it do
+          expect { subject }.to_not change Topics::NewsTopic, :count
+          expect(anime.episodes_aired).to eq 5
+        end
+      end
+
+      context 'not too many' do
+        let(:episodes_aired) { 6 }
+        it do
+          expect { subject }.to change(Topics::NewsTopic, :count).by 9 * multiplier
+          expect(anime.episodes_aired).to eq 15
+        end
+      end
+    end
+
     describe 'wrong episode number' do
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.3 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
 
@@ -194,7 +214,7 @@ describe TorrentsParser do
       end
     end
 
-    describe 'any episode number is_expected.to affect anime if episodes is not specified' do
+    describe 'any episode number should affect anime if episodes is not specified' do
       let(:episodes) { 0 }
       let(:episodes_aired) { 98 }
       let(:feed) { [{ title: '[QTS] Mobile Suit Gundam Unicorn Vol.99 (BD H264 1280x720 24fps AAC 5.1J+5.1E).mkv' }] }
