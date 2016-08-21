@@ -5,11 +5,6 @@ describe Forums::List do
   let(:user) { seed :user }
   let(:view) { Forums::List.new }
 
-  before do
-    Forum.instance_variable_set :@cached, nil
-    Forum.instance_variable_set :@with_aggregated, nil
-  end
-
   describe '#to_a' do
     it { expect(view.to_a).to have_at_least(5).items }
   end

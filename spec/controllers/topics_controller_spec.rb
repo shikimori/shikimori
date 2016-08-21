@@ -7,11 +7,7 @@ describe TopicsController do
 
   let!(:topic) { create :topic, forum: animanga_forum, user: user }
 
-  before do
-    Topic.antispam = false
-    Forum.instance_variable_set :@cached, nil
-    Forum.instance_variable_set :@with_aggregated, nil
-  end
+  before { Topic.antispam = false }
 
   describe '#index' do
     let!(:anime_topic_1) do

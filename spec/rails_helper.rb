@@ -86,6 +86,8 @@ RSpec.configure do |config|
         .and_return ApplicationController.default_url_options
     end
 
+    Forum.instance_variable_set '@cached', nil
+
     #RSpec::Mocks.with_temporary_scope do
     allow_any_instance_of(FayePublisher).to receive :run_event_machine
     allow_any_instance_of(FayePublisher).to receive :publish_data
