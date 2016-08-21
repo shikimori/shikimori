@@ -24,7 +24,7 @@ class DashboardView < ViewObjectBase
   IGNORE_ONGOINGS = [31_592]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
-    :new_ongoings, :old_ongoings
+    :new_ongoings, :old_ongoings, :news_cache_keys
 
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
@@ -105,6 +105,14 @@ class DashboardView < ViewObjectBase
 
   def forums
     Forums::List.new.select { |forum| !forum.is_special }
+  end
+
+  def news_cache_keys
+    {
+      review: Review.last,
+      news: Entry.where(forum_id: Forum::NEWS_FORUM).last,
+      updates: Entry.where(forum_id: Forum::UPDATES_FORUM).last
+    }
   end
 
 private

@@ -1,28 +1,20 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
-.c-my_list-content
-  - if user_signed_in?
-    .user_list
-      = cache current_user do
-        = render 'dashboards/user_list', dashboard_view: @dashboard_view
-  - else
-    .sign_in
-      = render 'devise/sessions/form', resource: User.new
+- cache [:ongoings, rand(5)], expires_in: 1.day do
+  .block2
+    .midheadline.linkheadline
+      a href="#{animes_url status: :ongoing}"
+        = t '.currently_airing'
+      / a.b-link[
+        / href="#{animes_url}"
+        / title="#{t '.all_animess'}"
+      / ] = t '.mangas'
 
-.block2
-  .midheadline.linkheadline
-    a href="#{animes_url status: :ongoing}"
-      = t '.currently_airing'
-    / a.b-link[
-      / href="#{animes_url}"
-      / title="#{t '.all_animess'}"
-    / ] = t '.mangas'
-
-  .cc-ongoings.to-process data-dynamic="cutted_covers"
-    = render @dashboard_view.ongoings,
-      cover_notice: :studio,
-      content_by: :mini_tooltip
+    .cc-ongoings.to-process data-dynamic="cutted_covers"
+      = render @dashboard_view.ongoings,
+        cover_notice: :studio,
+        content_by: :mini_tooltip
 
 .cc-second
   .cc-inner
@@ -56,7 +48,14 @@
                 / - else
                   / a.b-link href="#{url}" title="#{title}" = title
 
-    .c-my_list.b-ajax
+    .c-my_list
+      - if user_signed_in?
+        .user_list
+          = cache [:list, current_user] do
+            = render 'dashboards/user_list', dashboard_view: @dashboard_view
+      - else
+        .sign_in
+          = render 'devise/sessions/form', resource: User.new
 
   .c-forum
     .b-forums
@@ -84,68 +83,72 @@
           = render 'dashboards/contests',
             collection: @dashboard_view.contests
 
-.cc-news
-  .c-news_topics.m0
-    h2.midheadline.orange.linkheadline
-      a[
-        href="#{forum_topics_url :news}"
-        title="#{t '.news_feed'}"
-      ] = t '.news_feed'
-      / h2 = t '.news_feed'
-      / a.b-link[
-        / href="#{forum_topics_url :news}"
-        / title="#{t '.all_news'}"
-      / ] = t '.all_news'
-
-    div
-      = render partial: 'topics/topic',
-        collection: @dashboard_view.news_topic_views,
-        as: :topic_view
-
-      - if @dashboard_view.news_topic_views.next_page
-        = render 'blocks/postloader',
-          filter: 'b-topic',
-          next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
-
-  .c-generated_news
-    = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
-
-    / .midheadline.gray.m15 = t 'sponsors'
-    / .container
-      / / - if Rails.env.production?
-        / / = render 'dashboards/ad'
-      / / - else
-      / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
-
-    .block
-      h2.midheadline.magenta.linkheadline
+- cache @dashboard_view.news_cache_keys.values do
+  .cc-news
+    .c-news_topics.m0
+      h2.midheadline.orange.linkheadline
         a[
-          href="#{forum_topics_url :reviews}"
-          title="#{t '.reviews'}"
-        ] = t '.reviews'
-        / h2 = t '.reviews'
+          href="#{forum_topics_url :news}"
+          title="#{t '.news_feed'}"
+        ] = t '.news_feed'
+        / h2 = t '.news_feed'
         / a.b-link[
-          / href="#{forum_topics_url :reviews}"
-          / title="#{t '.all_reviews'}"
-        / ] = t '.all_reviews'
-      div
-        = render partial: 'topics/topic',
-          collection: @dashboard_view.review_topic_views,
-          as: :topic_view
+          / href="#{forum_topics_url :news}"
+          / title="#{t '.all_news'}"
+        / ] = t '.all_news'
 
-    .block
-      .midheadline.yellow.linkheadline
-        a[
-          href="#{forum_topics_url :updates}"
-          title="#{t '.anime_updates'}"
-        ] = t '.anime_updates'
-        / = t '.anime_updates'
-        / a.b-link[
-          / href="#{forum_topics_url :updates}"
-          / title="#{t '.all_updates'}"
-        / ] = t '.all_updates'
-      div
-        = render partial: 'topics/topic',
-          collection: @dashboard_view.generated_news_topic_views,
-          locals: { do_not_track: true },
-          as: :topic_view
+      - cache @dashboard_view.news_cache_keys[:news] do
+        div
+          = render partial: 'topics/topic',
+            collection: @dashboard_view.news_topic_views,
+            as: :topic_view
+
+          - if @dashboard_view.news_topic_views.next_page
+            = render 'blocks/postloader',
+              filter: 'b-topic',
+              next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
+
+    .c-generated_news
+      = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
+
+      / .midheadline.gray.m15 = t 'sponsors'
+      / .container
+        / / - if Rails.env.production?
+          / / = render 'dashboards/ad'
+        / / - else
+        / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+
+      - cache [@dashboard_view.news_cache_keys[:reviews], rand(3)] do
+        .block
+          h2.midheadline.magenta.linkheadline
+            a[
+              href="#{forum_topics_url :reviews}"
+              title="#{t '.reviews'}"
+            ] = t '.reviews'
+            / h2 = t '.reviews'
+            / a.b-link[
+              / href="#{forum_topics_url :reviews}"
+              / title="#{t '.all_reviews'}"
+            / ] = t '.all_reviews'
+          div
+            = render partial: 'topics/topic',
+              collection: @dashboard_view.review_topic_views,
+              as: :topic_view
+
+      - cache @dashboard_view.news_cache_keys[:updates] do
+        .block
+          .midheadline.yellow.linkheadline
+            a[
+              href="#{forum_topics_url :updates}"
+              title="#{t '.anime_updates'}"
+            ] = t '.anime_updates'
+            / = t '.anime_updates'
+            / a.b-link[
+              / href="#{forum_topics_url :updates}"
+              / title="#{t '.all_updates'}"
+            / ] = t '.all_updates'
+          div
+            = render partial: 'topics/topic',
+              collection: @dashboard_view.generated_news_topic_views,
+              locals: { do_not_track: true },
+              as: :topic_view

@@ -1,8 +1,4 @@
 @on 'page:load', 'dashboards_show', ->
-  $('.c-my_list')
-    .append($('.c-my_list-content').detach())
-    .removeClass('b-ajax')
-
   $('.user_list .switch').on 'click', ->
     $(@)
       .closest('.list-type')
