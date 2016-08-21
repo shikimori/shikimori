@@ -24,7 +24,7 @@ class DashboardView < ViewObjectBase
   IGNORE_ONGOINGS = [31_592]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
-    :new_ongoings, :old_ongoings, :news_cache_keys
+    :new_ongoings, :old_ongoings, :cache_keys
 
   def ongoings
     all_ongoings.shuffle.take(ONGOINGS_TAKE).sort_by(&:ranked)
@@ -115,7 +115,7 @@ class DashboardView < ViewObjectBase
 
     {
       reviews: Review.order(id: :desc).first,
-      reviews_index: rand(3), # to randomize reviews output
+      reviews_index: rand(REVIEWS_FETCH), # to randomize reviews output
       news: news,
       updates: updates
     }
