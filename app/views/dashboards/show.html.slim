@@ -1,6 +1,15 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
+.c-my_list-content
+  - if user_signed_in?
+    .user_list
+      = cache current_user do
+        = render 'dashboards/user_list', dashboard_view: @dashboard_view
+  - else
+    .sign_in
+      = render 'devise/sessions/form', resource: User.new
+
 .block2
   .midheadline.linkheadline
     a href="#{animes_url status: :ongoing}"
@@ -19,29 +28,13 @@
   .cc-inner
     .c-content
       .options
-        .option.selected = t '.reviews'
-        .option = t '.animes'
+        / .option = t '.reviews'
+        .option.selected = t '.animes'
         .option = t '.mangas'
         / .option = t '.other'
 
       .slides
-        .slide.reviews
-          h2.midheadline.magenta.linkheadline
-            a[
-              href="#{forum_topics_url :reviews}"
-              title="#{t '.reviews'}"
-            ] = t '.reviews'
-            / h2 = t '.reviews'
-            / a.b-link[
-              / href="#{forum_topics_url :reviews}"
-              / title="#{t '.all_reviews'}"
-            / ] = t '.all_reviews'
-          div
-            = render partial: 'topics/topic',
-              collection: @dashboard_view.review_topic_views,
-              as: :topic_view
-
-        .slide.animes.hidden
+        .slide.animes
           = render 'dashboards/animes',
             dashboard_view: @dashboard_view
 
@@ -63,15 +56,7 @@
                 / - else
                   / a.b-link href="#{url}" title="#{title}" = title
 
-    .c-my_list
-      - if user_signed_in?
-        .user_list
-          = render 'dashboards/user_list',
-            dashboard_view: @dashboard_view
-
-      - else
-        .sign_in
-          = render 'devise/sessions/form', resource: User.new
+    .c-my_list.b-ajax
 
   .c-forum
     .b-forums
@@ -132,18 +117,35 @@
       / / - else
       / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-    .midheadline.yellow.linkheadline
-      a[
-        href="#{forum_topics_url :updates}"
-        title="#{t '.anime_updates'}"
-      ] = t '.anime_updates'
-      / = t '.anime_updates'
-      / a.b-link[
-        / href="#{forum_topics_url :updates}"
-        / title="#{t '.all_updates'}"
-      / ] = t '.all_updates'
-    div
-      = render partial: 'topics/topic',
-        collection: @dashboard_view.generated_news_topic_views,
-        locals: { do_not_track: true },
-        as: :topic_view
+    .block
+      h2.midheadline.magenta.linkheadline
+        a[
+          href="#{forum_topics_url :reviews}"
+          title="#{t '.reviews'}"
+        ] = t '.reviews'
+        / h2 = t '.reviews'
+        / a.b-link[
+          / href="#{forum_topics_url :reviews}"
+          / title="#{t '.all_reviews'}"
+        / ] = t '.all_reviews'
+      div
+        = render partial: 'topics/topic',
+          collection: @dashboard_view.review_topic_views,
+          as: :topic_view
+
+    .block
+      .midheadline.yellow.linkheadline
+        a[
+          href="#{forum_topics_url :updates}"
+          title="#{t '.anime_updates'}"
+        ] = t '.anime_updates'
+        / = t '.anime_updates'
+        / a.b-link[
+          / href="#{forum_topics_url :updates}"
+          / title="#{t '.all_updates'}"
+        / ] = t '.all_updates'
+      div
+        = render partial: 'topics/topic',
+          collection: @dashboard_view.generated_news_topic_views,
+          locals: { do_not_track: true },
+          as: :topic_view
