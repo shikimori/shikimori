@@ -68,7 +68,6 @@ class DashboardView < ViewObjectBase
       .select { |view| !view.topic.linked.target.censored? }
       .sort_by { |view| -view.topic.id }
       .select.with_index { |review, index| index == cache_keys[:reviews_index] }
-      # .take(REVIEWS_TAKE)
   end
 
   def news_topic_views
@@ -115,7 +114,7 @@ class DashboardView < ViewObjectBase
       TopicsQuery.new(Entry).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
-      reviews: Review.order(:id).last,
+      reviews: Review.order(id: :desc).first,
       reviews_index: rand(3), # to randomize reviews output
       news: news,
       updates: updates
