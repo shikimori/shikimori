@@ -1,8 +1,13 @@
 .cc-2a
   .c-column.m0
-    .midheadline.purple
-      = t '.title'
-      a.b-link href="#{animes_url}" = t '.all_mangas'
+    / .midheadline.purple
+      / = t '.title'
+      / a.b-link href="#{mangas_url}" = t '.all_mangas'
+    .midheadline.red.linkheadline
+      a[
+        href="#{mangas_url}"
+        title="#{t '.title'}"
+      ] = t '.title'
 
     - dashboard_view.manga_kinds[0..-2].each do |season|
       a.b-link_button[

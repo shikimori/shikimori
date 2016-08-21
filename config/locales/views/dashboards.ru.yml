@@ -16,7 +16,7 @@ ru:
 
     animes:
       title: Аниме
-      all_animes: все аниме
+      # all_animes: все аниме
       recommended: &anime_recommended
         title: Рекомендации
         favourite: Избранное

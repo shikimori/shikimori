@@ -16,7 +16,7 @@ en:
 
     animes:
       title: Animes
-      all_animes: all animes
+      # all_animes: all animes
       recommended: &anime_recommended
         title: Recommended
         favourite: Favorite

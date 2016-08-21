@@ -1,8 +1,13 @@
 .cc-2a
   .c-column.m0
-    .midheadline.red
-      = t '.title'
-      a.b-link href="#{animes_url}" = t '.all_animes'
+    / .midheadline.red
+      / = t '.title'
+      / a.b-link href="#{animes_url}" = t '.all_animes'
+    .midheadline.red.linkheadline
+      a[
+        href="#{animes_url}"
+        title="#{t '.title'}"
+      ] = t '.title'
 
     - dashboard_view.db_seasons(Anime).each do |season|
       a.b-link_button[
