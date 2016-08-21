@@ -1,15 +1,15 @@
 class JsExports::TopicsExport < JsExports::ExportBase
 private
 
-  def fetch_entries user
+  def fetch_topics user
     Topic
       .with_viewed(user)
       .where(id: tracked_ids)
-      .select("entries.id, entries.created_at, #{Topic::VIEWED_JOINS_SELECT}")
+      .select("topics.id, topics.created_at, #{Topic::VIEWED_JOINS_SELECT}")
       .order(:id)
   end
 
-  def serialize entry
-    { id: entry.id, is_viewed: entry.viewed? }
+  def serialize topic
+    { id: topic.id, is_viewed: topic.viewed? }
   end
 end

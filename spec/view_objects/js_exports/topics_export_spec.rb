@@ -1,13 +1,13 @@
 describe JsExports::TopicsExport do
   let(:tracker) { JsExports::TopicsExport.instance }
-  let(:entry) { build_stubbed :topic }
+  let(:topic) { build_stubbed :topic }
 
   before { tracker.send :cleanup }
   after { tracker.send :cleanup }
 
   describe '#placeholder' do
-    subject { tracker.placeholder entry }
-    it { is_expected.to eq entry.id.to_s }
+    subject { tracker.placeholder topic }
+    it { is_expected.to eq topic.id.to_s }
   end
 
   describe '#sweep' do
@@ -28,31 +28,35 @@ describe JsExports::TopicsExport do
 
   describe '#export' do
     before do
-      tracker.send :track, entry_1.id
-      tracker.send :track, entry_2.id
+      tracker.send :track, topic_1.id
+      tracker.send :track, topic_2.id
       tracker.export user_1
     end
 
-    let(:entry_1) { create :topic }
-    let(:entry_2) { create :topic }
+    let(:topic_1) { create :topic }
+    let(:topic_2) { create :topic }
 
     let(:user_1) { create :user }
     let(:user_2) { create :user }
 
-    let!(:entry_view_1) { create :entry_view, entry: entry_1, user: user_1 }
-    let!(:entry_view_2) { create :entry_view, entry: entry_2, user: user_2 }
+    let!(:topic_viewing_1) do
+      create :topic_viewing, viewed: topic_1, user: user_1
+    end
+    let!(:topic_viewing_2) do
+      create :topic_viewing, viewed: topic_2, user: user_2
+    end
 
     let(:export_1) { tracker.export user_1 }
     let(:export_2) { tracker.export user_2 }
 
-    it do
+    it  do
       expect(export_1).to eq [
-        { id: entry_1.id, is_viewed: true },
-        { id: entry_2.id, is_viewed: false }
+        { id: topic_1.id, is_viewed: true },
+        { id: topic_2.id, is_viewed: false }
       ]
       expect(export_2).to eq [
-        { id: entry_1.id, is_viewed: false },
-        { id: entry_2.id, is_viewed: true }
+        { id: topic_1.id, is_viewed: false },
+        { id: topic_2.id, is_viewed: true }
       ]
     end
   end

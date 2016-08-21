@@ -1,3 +1,5 @@
+- topic_type_policy = Topic::TypePolicy.new topic_view.topic
+
 / класс нужен из-за проверки высоты и для отображения кнопок по hover
 .inner
   - if topic_view.show_actions?
@@ -20,13 +22,13 @@
     - if topic_view.minified?
       = render 'topics/status_line', topic_view: topic_view
 
-      - if topic_view.topic.review_topic?
+      - if topic_type_policy.review_topic?
         = render 'topics/reviews/entry_cover', view: topic_view,
           entry: topic_view.topic.linked.target.decorate
 
       .body-truncated
         .body-truncated-inner[
-          itemprop="#{topic_view.topic.review_topic? ? :reviewBody : :articleBody}"
+          itemprop="#{topic_type_policy.review_topic? ? :reviewBody : :articleBody}"
         ]
           = topic_view.html_body_truncated
 
@@ -44,22 +46,22 @@
     = topic_view.html_footer
 
     - if user_signed_in?
-      - if topic_view.topic.review_topic? && !topic_view.minified?
+      - if topic_type_policy.review_topic? && !topic_view.minified?
         = render 'topics/reviews/footer_vote', topic_view: topic_view
-      - elsif topic_view.topic.cosplay_gallery_topic?
+      - elsif topic_type_policy.cosplay_gallery_topic?
         = render 'topics/cosplay/footer_vote', topic_view: topic_view
 
     / p.tags
       - if user_signed_in?
         - if topic.tag.present? &&
-          !topic_view.topic.news_topic? &&
-          !topic_view.topic.review_topic?
+          !topic_type_policy.news_topic? &&
+          !topic_type_policy.review_topic?
           span.tag
             a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
         span.tag
           a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
       - else
-        - if topic.tag.present? && !topic.news_topic? && !topic.review_topic?
+        - if topic.tag.present? && !topic_type_policy.news_topic? && !topic_type_policy.review_topic?
           span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
         span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
 

@@ -43,7 +43,7 @@ module Viewable
   end
 
   def viewed?
-    return true unless self[:viewed]
+    return true if self[:viewed].nil?
     return true if created_at < MAX_NOT_VIEWED_INTERVAL.ago
 
     self[:viewed]

@@ -51,6 +51,7 @@ class Topic < ActiveRecord::Base
 
   def viewed?
     return true if generated?
+    # invokes Viewable#viewed?
     super
   end
 

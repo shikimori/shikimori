@@ -17,7 +17,7 @@ class Topics::Urls < ViewObjectBase
   end
 
   def edit_url
-    if topic.review_topic?
+    if topic_type_policy.review_topic?
       h.send "edit_#{topic.linked.target_type.downcase}_review_url",
         topic.linked.target, topic.linked
     else
@@ -26,7 +26,7 @@ class Topics::Urls < ViewObjectBase
   end
 
   def destroy_url
-    if topic.review_topic?
+    if topic_type_policy.review_topic?
       h.send "#{topic.linked.target_type.downcase}_review_url",
         topic.linked.target, topic.linked
     else
@@ -51,5 +51,9 @@ class Topics::Urls < ViewObjectBase
 
   def unignore_url
     h.api_topic_ignore_url view.topic_ignore
+  end
+
+  def topic_type_policy
+    @topic_type_policy ||= Topic::TypePolicy.new view.topic
   end
 end

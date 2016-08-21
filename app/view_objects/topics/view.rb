@@ -9,7 +9,7 @@ class Topics::View < ViewObjectBase
   delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
   instance_cache :comments_view, :urls, :action_tag, :topic_ignore
-  instance_cache :topic_comments_policy
+  instance_cache :topic_comments_policy, :topic_type_policy
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
@@ -35,7 +35,9 @@ class Topics::View < ViewObjectBase
   end
 
   def show_body?
-    is_preview || !topic.generated? || topic.contest_topic?
+    is_preview ||
+      !topic.generated? ||
+      topic_type_policy.contest_topic?
   end
 
   def poster_title
@@ -47,10 +49,8 @@ class Topics::View < ViewObjectBase
   end
 
   def topic_title
-    topic_type_policy = Topic::TypePolicy.new(topic)
     if topic_type_policy.forum_topic? || topic.linked_id.nil?
       topic.title
-
     else
       h.localized_name topic.linked
     end
@@ -64,7 +64,12 @@ class Topics::View < ViewObjectBase
   def poster is_2x
     # последнее условие для пользовательских топиков об аниме
     if linked_in_avatar?
-      linked = topic.review_topic? ? topic.linked.target : topic.linked
+      linked = if topic_type_policy.review_topic?
+        topic.linked.target
+      else
+        topic.linked
+      end
+
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
       topic.user.avatar_url is_2x ? 80 : 48
@@ -92,7 +97,7 @@ class Topics::View < ViewObjectBase
   end
 
   # def author_in_footer?
-    # is_preview && (topic.news_topic? || topic.review?) &&
+    # is_preview && (topic_type_policy.news_topic? || topic_type_policy.review_topic?) &&
       # (!author_in_header? || poster(false) != user.avatar_url(48))
   # end
 
@@ -174,6 +179,10 @@ private
 
   def topic_comments_policy
     Topic::CommentsPolicy.new topic
+  end
+
+  def topic_type_policy
+    Topic::TypePolicy.new topic
   end
 end
 # rubocop:enable ClassLength
