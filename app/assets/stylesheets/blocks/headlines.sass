@@ -119,11 +119,16 @@ header.head
       text-decoration: underline
       color: inherit
 
-      &:hover
+      &:before
+        color: inherit
+
+      &:hover,
+      &:before:hover
         color: $link-hover
 
       +gt_ipad
-        &:active
+        &:active,
+        &:before:active
           color: $link-active
 
 .midheadline
