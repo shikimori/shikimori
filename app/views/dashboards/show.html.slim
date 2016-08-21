@@ -83,7 +83,7 @@
           = render 'dashboards/contests',
             collection: @dashboard_view.contests
 
-- cache @dashboard_view.news_cache_keys.values do
+- cache @dashboard_view.cache_keys.values do
   .cc-news
     .c-news_topics.m0
       h2.midheadline.orange.linkheadline
@@ -97,7 +97,7 @@
           / title="#{t '.all_news'}"
         / ] = t '.all_news'
 
-      - cache @dashboard_view.news_cache_keys[:news] do
+      - cache @dashboard_view.cache_keys[:news] do
         div
           = render partial: 'topics/topic',
             collection: @dashboard_view.news_topic_views,
@@ -118,7 +118,7 @@
         / / - else
         / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
-      - cache [@dashboard_view.news_cache_keys[:reviews], rand(3)] do
+      - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
         .block
           h2.midheadline.magenta.linkheadline
             a[
@@ -135,7 +135,7 @@
               collection: @dashboard_view.review_topic_views,
               as: :topic_view
 
-      - cache @dashboard_view.news_cache_keys[:updates] do
+      - cache @dashboard_view.cache_keys[:updates] do
         .block
           .midheadline.yellow.linkheadline
             a[

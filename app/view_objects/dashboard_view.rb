@@ -66,8 +66,9 @@ class DashboardView < ViewObjectBase
     all_review_topic_views
       .shuffle
       .select { |view| !view.topic.linked.target.censored? }
-      .take(REVIEWS_TAKE)
       .sort_by { |view| -view.topic.id }
+      .select.with_index { |review, index| index == cache_keys[:reviews_index] }
+      # .take(REVIEWS_TAKE)
   end
 
   def news_topic_views
@@ -107,11 +108,17 @@ class DashboardView < ViewObjectBase
     Forums::List.new.select { |forum| !forum.is_special }
   end
 
-  def news_cache_keys
+  def cache_keys
+    news =
+      TopicsQuery.new(Entry).by_forum(Forum::NEWS_FORUM, nil, nil).first
+    updates =
+      TopicsQuery.new(Entry).by_forum(Forum::UPDATES_FORUM, nil, nil).first
+
     {
-      review: Review.last,
-      news: Entry.where(forum_id: Forum::NEWS_FORUM).last,
-      updates: Entry.where(forum_id: Forum::UPDATES_FORUM).last
+      reviews: Review.order(:id).last,
+      reviews_index: rand(3), # to randomize reviews output
+      news: news,
+      updates: updates
     }
   end
 
