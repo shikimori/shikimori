@@ -2,7 +2,7 @@ class DashboardView < ViewObjectBase
   ONGOINGS_FETCH = 24
   ONGOINGS_TAKE = 8
 
-  REVIEWS_FETCH = 3
+  REVIEWS_FETCH = Rails.env.test? ? 1 : 3
   REVIEWS_TAKE = 1
 
   NEWS_LIMIT = 7
