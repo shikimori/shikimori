@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
   def nickname= value
     fixed_nickname = value
       .gsub(/[%&#\/\\?+><\]\[:,@]+/, '')
-      .gsub(/[[:space:]]+/, ' ')
+      .gsub(/[[:space:]]+|⁤/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
       .gsub(
@@ -348,7 +348,7 @@ private
 
   def self.find_by_nickname nickname
     where(nickname: nickname)
-      .find {|v| v.nickname == nickname }
+      .find { |v| v.nickname == nickname }
   end
 
   def check_ban
