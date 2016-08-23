@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
   def nickname= value
     fixed_nickname = value
       .gsub(/[%&#\/\\?+><\]\[:,@]+/, '')
-      .gsub(/[[:space:]]+|⁤/, ' ')
+      .gsub(/[[:space:]]+|⁤+/, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
       .gsub(
