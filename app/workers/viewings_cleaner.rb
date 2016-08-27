@@ -1,4 +1,4 @@
-class CommentViewsCleaner
+class ViewingsCleaner
   include Sidekiq::Worker
   sidekiq_options(
     unique: :until_executed,
@@ -6,8 +6,8 @@ class CommentViewsCleaner
   )
 
   def perform
-    CommentView.where('comment_id < ?', last_id(Comment)).delete_all
-    EntryView.where('entry_id < ?', last_id(Entry)).delete_all
+    CommentViewing.where('viewed_id < ?', last_id(Comment)).delete_all
+    TopicViewing.where('viewed_id < ?', last_id(Topic)).delete_all
   end
 
   def last_id klass
