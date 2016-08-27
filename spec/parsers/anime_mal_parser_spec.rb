@@ -1,4 +1,4 @@
-describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
+describe AnimeMalParser, :vcr do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
   before { allow(parser).to receive :save_cache }
 
@@ -25,7 +25,11 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
   end
 
   it 'stops when got 0 entries' do
-    urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
+    urls = [
+      parser.instance_eval { all_catalog_url(0) },
+      parser.instance_eval { all_catalog_url(999_99) },
+      parser.instance_eval { all_catalog_url(2) }
+    ]
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
     expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
@@ -75,16 +79,16 @@ describe AnimeMalParser, vcr: { cassette_name: 'anime_mal_parser' } do
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/anime/4/19644.jpg'
+    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/anime/4/19644.jpg'
   end
 
   it 'anime schedule' do
-    recs = parser.fetch_model(31240)
+    recs = parser.fetch_model(31_240)
     expect(recs[:schedule]).to eq 'Mondays at 01:05 (JST)'
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_model(21039)
+    data = parser.fetch_model(21_039)
     expect(data[:description_en]).to eq "A year has passed since the \
 \"Tachikawa Incident\" in summer 2015. CROWDS, the system that turns the \
 mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
@@ -95,13 +99,13 @@ series of new conflicts.[br][source]ANN[/source]"
   end
 
   it 'correct score & ranked' do
-    data = parser.fetch_model(31143)
-    expect(data[:ranked]).to eq 6485
-    expect(data[:score]).to eq 5.94
+    data = parser.fetch_model(31_143)
+    expect(data[:ranked]).to eq 6619
+    expect(data[:score]).to eq 5.93
   end
 
   it 'fetches anime related' do
-    data = parser.fetch_model(22043)
+    data = parser.fetch_model(22_043)
 
     expect(data[:name]).to eq 'Fairy Tail (2014)'
     expect(data[:related]).to have(4).items
@@ -118,35 +122,35 @@ series of new conflicts.[br][source]ANN[/source]"
     expect(recs.size).to be >= 55
   end
 
-  #it 'fetches anime scores' do
-    #scores = parser.fetch_entry_scores(anime_id)
-    #expect(scores.size).to eq(10)
-  #end
+  # it 'fetches anime scores' do
+    # scores = parser.fetch_entry_scores(anime_id)
+    # expect(scores.size).to eq(10)
+  # end
 
   it 'fetches the whole entry' do
     expect(parser.fetch_entry(anime_id)).to have(4).items
   end
 
   it 'anime wo image' do
-    data = parser.fetch_model(27375)
+    data = parser.fetch_model(27_375)
     expect(data[:img]).to be_nil
   end
 
-  #describe 'import' do
-    #before (:each) {
-      #FactoryGirl.create :anime, id: 3234
-      #FactoryGirl.create :anime, id: 298, imported_at: DateTime.now
-      #parser.fetch_list_page(0)
-    #}
+  # describe 'import' do
+    # before (:each) {
+      # FactoryGirl.create :anime, id: 3234
+      # FactoryGirl.create :anime, id: 298, imported_at: DateTime.now
+      # parser.fetch_list_page(0)
+    # }
 
-    #it 'prepares' do
-      #parser.prepare.should have(BaseMalParser::EntriesPerPage-1).items
-    #end
+    # it 'prepares' do
+      # parser.prepare.should have(BaseMalParser::EntriesPerPage-1).items
+    # end
 
-    #it 'imports' do
-      #expect {
-        #parser.import.should have(BaseMalParser::EntriesPerPage-1).items
-      #}.to change(Anime, :count).by(BaseMalParser::EntriesPerPage-2)
-    #end
-  #end
+    # it 'imports' do
+      # expect {
+        # parser.import.should have(BaseMalParser::EntriesPerPage-1).items
+      # }.to change(Anime, :count).by(BaseMalParser::EntriesPerPage-2)
+    # end
+  # end
 end

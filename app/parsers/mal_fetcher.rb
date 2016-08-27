@@ -248,6 +248,19 @@ private
     end
   end
 
+  def parse_poster doc
+    doc.css('img.ac[itemprop=image]').first&.attr(:src) || begin
+      img_doc = doc.css('td.borderClass > div:first-child > img')
+
+      if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
+        doc.css('td.borderClass').first()
+          .css('> div:first-child > a > img').first.try(:attr, :src)
+      else
+        img_doc.first.attr(:src)
+      end
+    end
+  end
+
   def cleanup text
     (text || '')
       .gsub('&amp;#039;', "'")

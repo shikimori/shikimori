@@ -1,4 +1,4 @@
-describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
+describe MangaMalParser, :vcr do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
   before { allow(parser).to receive :save_cache }
 
@@ -10,26 +10,30 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
   end
 
   it 'fetches list page' do
-    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches updated list page' do
-    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage + 1)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage + 1)
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches 3 list pages' do
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage + 3)
-    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage + 1)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
   end
 
   it 'stops when got 0 entries' do
-    urls = [parser.instance_eval { all_catalog_url(0) }, parser.instance_eval { all_catalog_url(99999) }, parser.instance_eval { all_catalog_url(2) }]
+    urls = [
+      parser.instance_eval { all_catalog_url(0) },
+      parser.instance_eval { all_catalog_url(99_999) },
+      parser.instance_eval { all_catalog_url(2) }
+    ]
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
-    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage + 1)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
   end
 
   it 'fetches manga data' do
@@ -52,14 +56,14 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(data[:authors]).not_to be_empty
     expect(data[:publishers]).not_to be_empty
 
-    #data.should include(:rating)
+    # data.should include(:rating)
     expect(data).to include(:score)
     expect(data).to include(:ranked)
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/manga/1/171813.jpg'
+    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/manga/1/171813.jpg'
   end
 
   it 'fetches manga characters' do
@@ -84,10 +88,10 @@ describe MangaMalParser, vcr: { cassette_name: 'manga_mal_parser' } do
     expect(recs.size).to be >= 17
   end
 
-  #it 'fetches manga scores' do
-    #scores = parser.fetch_entry_scores(manga_id)
-    #expect(scores.size).to eq(10)
-  #end
+  # it 'fetches manga scores' do
+    # scores = parser.fetch_entry_scores(manga_id)
+    # expect(scores.size).to eq(10)
+  # end
 
   it 'fetches the whole entry' do
     expect(parser.fetch_entry(manga_id)).to have(4).items

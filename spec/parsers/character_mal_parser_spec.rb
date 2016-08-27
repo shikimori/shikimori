@@ -1,9 +1,9 @@
-describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
+describe CharacterMalParser, :vcr do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
   before { allow(parser).to receive :save_cache }
 
   let(:parser) { CharacterMalParser.new }
-  let(:character_id) { 35662 }
+  let(:character_id) { 35_662 }
 
   it 'has correct type' do
     expect(parser.instance_eval { type }).to eq('character')
@@ -16,10 +16,10 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
     expect(data[:fullname]).to eq('Charlotte "Charles, Charl" Dunois')
     expect(data[:description_en]).to include('[spoiler]')
 
-    expect(data[:seyu].size).to eq(2)
-    expect(data[:seyu].first).to eq({ role: 'Japanese', id: 185 })
+    expect(data[:seyu].size).to eq 2
+    expect(data[:seyu].first).to eq role: 'Japanese', id: 185
 
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/characters/8/216587.jpg'
+    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/characters/8/216587.jpg'
   end
 
   it 'fetches the whole entry' do
@@ -27,13 +27,13 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   it 'has correct image' do
-    data = parser.fetch_model 135627
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/characters/9/300518.jpg'
+    data = parser.fetch_model 135_627
+    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/characters/9/300518.jpg'
   end
 
   describe 'import' do
-    let!(:character_1) { create :character, :with_topics, id: 8177 }
-    let!(:character_2) { create :character, :with_topics, id: 26201, imported_at: Time.zone.now }
+    let!(:character_1) { create :character, :with_topics, id: 8_177 }
+    let!(:character_2) { create :character, :with_topics, id: 26_201, imported_at: Time.zone.now }
 
     it { expect(parser.prepare.size).to eq(1) }
 
@@ -56,7 +56,7 @@ describe CharacterMalParser, vcr: { cassette_name: 'character_mal_parser' } do
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_model(87143)
+    data = parser.fetch_model(87_143)
     expect(data[:description_en]).to eq(
       "One of Kinana and Sumi's next door neighbors. She lives together with \
 Oomori Hayase, whom she is in a romantic relationship with. She is the \
@@ -69,7 +69,7 @@ styles are a reference to the La Croix designs from \
   end
 
   it 'correct synopsis' do
-    data = parser.fetch_model(25023)
+    data = parser.fetch_model(25_023)
 
     expect(data[:description_en]).to eq(
       "Harui Kaho is a classmate of \

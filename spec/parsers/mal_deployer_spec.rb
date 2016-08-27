@@ -2,7 +2,7 @@ describe MalDeployer do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
 
   [:anime, :manga].each do |kind|
-    describe kind, vcr: { cassette_name: "#{kind}_mal_deployer" } do
+    describe kind, :vcr do
       let(:klass) { kind.to_s.capitalize.constantize }
       let(:parser_klass) { "#{klass.name}MalParser".constantize }
 

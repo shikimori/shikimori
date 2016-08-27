@@ -34,6 +34,8 @@ class CharacterMalParser < BaseMalParser
     # общие данные
     title_doc = doc.css('.breadcrumb + .normal_header')
 
+    entry[:img] = parse_poster doc
+
     if title_doc.text.match(/^(.*?) ?\((.*)\)$/)
       name = cleanup($1)
       entry[:name] = name if name.present?
@@ -52,8 +54,6 @@ class CharacterMalParser < BaseMalParser
     else
       ""
     end
-
-    entry[:img] = extract_poster doc
 
     # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
@@ -90,18 +90,5 @@ class CharacterMalParser < BaseMalParser
     ActiveRecord::Base.connection.
       execute("insert into person_roles (role, character_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
-  end
-
-private
-
-  def extract_poster doc
-    img_doc = doc.css('td.borderClass > div:first-child > img')
-
-    if img_doc.empty? || img_doc.first.attr(:src) !~ %r{cdn.myanimelist.net}
-      doc.css('td.borderClass').first()
-        .css('> div:first-child > a > img').first.try(:attr, :src)
-    else
-      img_doc.first.attr(:src)
-    end
   end
 end

@@ -176,6 +176,7 @@ private
   # получение страницы MAL
   def get(url, required_text=['MyAnimeList.net</title>', '</html>'])
     content = super(url, required_text)
+    # binding.pry unless content
     raise EmptyContent.new(url) unless content
     raise InvalidId.new(url) if content.include?("Invalid ID provided") ||
                                 content.include?("No manga found, check the manga id and try again") ||
@@ -185,15 +186,15 @@ private
   end
 
   def updated_catalog_url(page)
-    "http://myanimelist.net/#{type}.php?o=9&c[]=a&c[]=d&cv=2&w=1&show=#{page * EntriesPerPage}"
+    "https://myanimelist.net/#{type}.php?o=9&c[]=a&c[]=d&cv=2&w=1&show=#{page * EntriesPerPage}"
   end
 
   def all_catalog_url(page)
-    "http://myanimelist.net/#{type}.php?letter=&q=&tag=&sm=0&sd=0&em=0&ed=0&c[0]=b&c[1]=c&c[2]=a&show=#{page * EntriesPerPage}"
+    "https://myanimelist.net/#{type}.php?letter=&q=&tag=&sm=0&sd=0&em=0&ed=0&c[0]=b&c[1]=c&c[2]=a&show=#{page * EntriesPerPage}"
   end
 
   def entry_url(id)
-    "http://myanimelist.net/#{type}/#{id}"
+    "https://myanimelist.net/#{type}/#{id}"
   end
 
   def type
