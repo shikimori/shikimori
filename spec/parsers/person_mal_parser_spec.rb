@@ -1,6 +1,7 @@
-describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
+describe PersonMalParser, :vcr do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return(list: {}) }
   before { allow(parser).to receive :save_cache }
+  # after { sleep 1 } # раскоментить перед генерацией новых кассет
 
   let(:parser) { PersonMalParser.new }
   let(:person_id) { 1 }
@@ -13,7 +14,7 @@ describe PersonMalParser, vcr: { cassette_name: 'person_mal_parser' } do
 
   it 'fetches person data' do
     expect(data[:name]).to eq 'Tomokazu Seki'
-    expect(data[:img]).to eq 'http://cdn.myanimelist.net/images/voiceactors/3/17141.jpg'
+    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/voiceactors/3/44649.jpg'
     expect(data).to include :given_name
     expect(data).to include :family_name
     expect(data).to include :japanese

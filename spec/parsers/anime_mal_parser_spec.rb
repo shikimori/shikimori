@@ -1,6 +1,7 @@
 describe AnimeMalParser, :vcr do
   before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
   before { allow(parser).to receive :save_cache }
+  # after { sleep 1 } # раскоментить перед генерацией новых кассет
 
   let(:parser) { AnimeMalParser.new }
   let(:anime_id) { 1 }

@@ -7,7 +7,7 @@ class PersonMalParser < CharacterMalParser
 
     doc = Nokogiri::HTML content
     entry[:name] = cleanup(doc.css('h1').text.gsub('  ', ' ')).gsub(/^(.*), (.*)$/, '\2 \1')
-    entry[:img] = extract_poster doc
+    entry[:img] = parse_poster doc
     entry[:given_name] = parse_line 'Given name', content, false
     entry[:given_name] = nil if entry[:given_name] == ''
     entry[:family_name] = parse_line 'Family name', content, false
