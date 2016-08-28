@@ -14,9 +14,9 @@ class Api::V1::VideosController < Api::V1::ApiController
   # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
   api :POST, '/animes/:anime_id/videos', 'Create a video'
   param :video, Hash do
-    param :kind, %w(PV OP ED), required: true
-    param :name, String, required: false
-    param :url, String, required: true
+    param :kind, :undef
+    param :name, :undef
+    param :url, :undef
   end
   def create
     @resource, @version = versioneer.upload video_params, current_user

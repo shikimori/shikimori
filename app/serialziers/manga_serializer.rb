@@ -1,7 +1,7 @@
 # TODO: delete "ongoing?", "anons?" after 01.09.2015
 class MangaSerializer < ActiveModel::Serializer
-  attributes :id, :name, :russian, :image, :url, :ongoing?, :anons?, :status,
-    :volumes, :chapters
+  attributes :id, :name, :russian, :image, :url, :kind, :ongoing?, :anons?, :status,
+    :volumes, :chapters, :aired_on, :released_on
 
   def image
     {
