@@ -10,7 +10,7 @@ module PermissionsPolicy
     # 85018 - топик фака
     def can_be_edited_by?(user)
       user && (
-        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.base_class.name && self.commentable_id == 85018) ||
+        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.name && self.commentable_id == 85018) ||
         (user.id == 2043 && self.class == Topic && self.id == 85018) ||
         (user.id == self.user_id && ((self.respond_to?(:moderated?) && self.moderated?) || self.kind_of?(Entry) || (self.created_at + 1.day > Time.zone.now))) || user.moderator?
       )
@@ -18,7 +18,7 @@ module PermissionsPolicy
 
     def can_be_deleted_by?(user)
       user && (
-        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.base_class.name && self.commentable_id == 85018) ||
+        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.name && self.commentable_id == 85018) ||
         (user.id == self.user_id && self.created_at + 1.day > Time.zone.now) || user.moderator?
       )
     end

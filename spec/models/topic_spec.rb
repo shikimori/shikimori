@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Topic do
   describe 'associations' do
     it do

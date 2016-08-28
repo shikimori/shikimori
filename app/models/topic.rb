@@ -42,7 +42,7 @@ class Topic < ActiveRecord::Base
     where 'action IS NULL OR action != ?', AnimeHistoryAction::Episode
   }
 
-  before_save :validates_linked
+  before_save :validate_linked
 
   def title
     return self[:title]&.html_safe if user&.bot?
@@ -70,17 +70,28 @@ class Topic < ActiveRecord::Base
   # callback when comment is added
   def comment_added comment
     self.updated_at = Time.zone.now
-    # because automatically generated topics have no created_at
-    self.created_at ||= self.updated_at if self.comments_count == 1 && !generated_news?
+
+    if self.comments_count == 1 &&
+        !Topic::TypePolicy.new(self).generated_news_topic?
+      # automatically generated topics have no created_at
+      self.created_at ||= self.updated_at
+    end
+
     save
   end
 
   # callback when comment is deleted
   def comment_deleted comment
+    updated_at = if self.comments.count > 0
+      comments.first.created_at
+    else
+      self.created_at
+    end
+
     self.class.wo_timestamp do
       update(
-        updated_at: self.comments.count > 0 ? self.comments.first.created_at : self.created_at,
-        comments_count: self.comments.count
+        updated_at: updated_at,
+        comments_count: comments.count
       )
     end
   end
@@ -111,9 +122,23 @@ class Topic < ActiveRecord::Base
 private
 
   # проверка, что linked при его наличии нужного типа
-  def validates_linked
-    return unless self[:linked_type].present? &&
-      self[:linked_type] !~ /^(Anime|Manga|Character|Person|Club|Review|Contest|CosplayGallery)$/
+  def validate_linked
+    return if self[:linked_type].blank?
+
+    match = self[:linked_type] =~ /
+      ^(
+        Anime|
+        Manga|
+        Character|
+        Person|
+        Club|
+        Review|
+        Contest|
+        CosplayGallery
+      )$
+    /x
+    return if match.present?
+
     errors[:linked_type] = 'Forbidden Linked Type'
     return false
   end

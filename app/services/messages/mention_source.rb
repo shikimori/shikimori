@@ -18,7 +18,7 @@ private
   def i18n_key
     case linked
       when NilClass then :nil
-      when Entry then :topic
+      when Topic then :topic
       when User then :profile
       else raise ArgumentError, "#{linked.class} #{linked.to_param}"
     end
@@ -26,7 +26,7 @@ private
 
   def linked_name
     case linked
-      when Entry
+      when Topic
         linked.respond_to?(:full_title) ? linked.full_title : linked.title
 
       when User
@@ -37,7 +37,7 @@ private
   def linked_url
     case linked
       when NilClass then nil
-      when Entry then UrlGenerator.instance.topic_url linked
+      when Topic then UrlGenerator.instance.topic_url linked
       when User then UrlGenerator.instance.profile_url linked
     end
   end

@@ -28,28 +28,28 @@ describe CommentsController do
 
   describe '#fetch' do
     it do
-      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
       expect(response).to be_success
     end
 
     it 'not_found for wrong comment' do
-      expect {
-        get :fetch, comment_id: comment.id+1, topic_type: Entry.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
-      }.to raise_error ActiveRecord::RecordNotFound
+      expect do
+        get :fetch, comment_id: (comment.id + 1), topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+      end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'not_found for wrong topic' do
-      expect {
-        get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: offtopic_topic.id+1, skip: 1, limit: 10
-      }.to raise_error ActiveRecord::RecordNotFound
+      expect do
+        get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: (offtopic_topic.id + 1), skip: 1, limit: 10
+      end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'forbidden for mismatched comment and topic' do
       comment = create :comment, topic: create(:topic)
-      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
       expect(response).to be_forbidden
 
-      get :fetch, comment_id: comment.id, topic_type: Entry.name, topic_id: create(:entry).id, skip: 1, limit: 10
+      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: create(:topic).id, skip: 1, limit: 10
       expect(response).to be_forbidden
     end
   end
@@ -66,7 +66,7 @@ describe CommentsController do
     end
 
     describe 'unexisted' do
-      before { get :chosen, ids: "#{comment2.id+1}" }
+      before { get :chosen, ids: "#{comment2.id + 1}" }
       it { expect(response).to have_http_status :success }
     end
   end

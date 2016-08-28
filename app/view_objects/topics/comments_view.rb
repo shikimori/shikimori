@@ -127,7 +127,7 @@ private
 
   # для адреса подгрузки комментариев
   def topic_type
-    Entry.name
+    Topic.name
   end
 
   def topic_comments_policy

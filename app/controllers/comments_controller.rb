@@ -39,10 +39,7 @@ class CommentsController < ShikimoriController
     comment = Comment.find(params[:comment_id])
     topic = params[:topic_type].constantize.find(params[:topic_id])
 
-    raise Forbidden unless comment.commentable_id == topic.id && (
-                             comment.commentable_type == topic.class.name || (
-                               topic.respond_to?(:base_class) && comment.commentable_type == topic.base_class.name
-                           ))
+    raise Forbidden unless comment.commentable == topic
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
