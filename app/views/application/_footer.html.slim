@@ -1,8 +1,9 @@
+.copyright
+  |&copy; #{Site::DOMAIN}&nbsp;
+  span.date 2011-#{Date.today.year}
+
 - if shikimori?
   .links
     a href="#{terms_pages_url}" title="#{t '.terms'}" = t '.terms'
     a href="#{privacy_pages_url}" title="#{t '.privacy'}" = t '.privacy'
     a href="#{sitemap_url}" title="#{t '.sitemap'}" = t '.sitemap'
-.copyright
-  |&copy; #{Site::DOMAIN}&nbsp;
-  span.date 2011-#{Date.today.year}
