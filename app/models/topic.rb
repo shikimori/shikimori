@@ -103,20 +103,14 @@ class Topic < ActiveRecord::Base
 
   # оригинальный текст без сгенерированных автоматом тегов
   def original_body
-    if generated?
-      body
-    else
-      (body || '').sub(NEWS_WALL, '')
-    end
+    return body if generated?
+    (body || '').sub(NEWS_WALL, '')
   end
 
   # сгенерированные автоматом теги
   def appended_body
-    if generated?
-      ''
-    else
-      (body || '')[NEWS_WALL] || ''
-    end
+    return '' if generated?
+    (body || '')[NEWS_WALL] || ''
   end
 
 private

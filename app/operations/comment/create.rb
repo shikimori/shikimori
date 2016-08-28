@@ -23,7 +23,7 @@ private
 
   def set_topic comment
     return unless comment.valid?
-    return if commentable_klass <= Entry
+    return if commentable_klass <= Topic
     return if commentable_klass <= User
 
     comment.commentable = find_or_generate_topic
@@ -34,7 +34,7 @@ private
       commentable_object.generate_topics(locale).first
   end
 
-  # NOTE: Entry, User or DbEntry
+  # NOTE: Topic, User or DbEntry
   def commentable_klass
     params[:commentable_type].constantize
   end

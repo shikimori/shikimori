@@ -23,6 +23,75 @@ describe Topic do
     it { is_expected.to enumerize(:locale).in :ru, :en }
   end
 
+  describe 'instance methods' do
+    describe '#comment_added' do
+      let(:topic) { create :topic }
+
+      it 'updated_at is set to created_at of last comment' do
+        first = second = third = nil
+        Comment.wo_antispam do
+          first = create :comment, commentable: topic, created_at: 2.days.ago, body: 'first'
+          second = create :comment, commentable: topic, created_at: 1.day.ago, body: 'second'
+          third = create :comment, commentable: topic, created_at: 30.minutes.ago, body: 'third'
+        end
+        third.destroy
+        expect(first.commentable.reload.updated_at.to_i).to eq(second.created_at.to_i)
+      end
+    end
+
+    describe 'comments selected with viewed flag' do
+      subject { topic.comments.with_viewed(user).first.viewed? }
+
+      let(:topic) { create :topic }
+      let(:user) { create :user }
+      let!(:comment) { create :comment, commentable: topic, user: user }
+
+      context 'comment not viewed' do
+        it { is_expected.to eq false }
+      end
+
+      context 'comment viewed' do
+        before { create :comment_viewing, user: user, viewed: comment }
+        it { is_expected.to eq true }
+      end
+    end
+
+    describe '#original_body & #appended_body' do
+      let(:topic) { build :topic, body: body, generated: is_generated }
+      let(:body) { 'test[wall][/wall]' }
+
+      context 'not generated topic' do
+        let(:is_generated) { false }
+
+        context 'with wall' do
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '[wall][/wall]' }
+        end
+
+        context 'without wall' do
+          let(:body) { 'test' }
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '' }
+        end
+      end
+
+      context 'generated topic' do
+        let(:is_generated) { true }
+
+        context 'with wall' do
+          it { expect(topic.original_body).to eq 'test[wall][/wall]' }
+          it { expect(topic.appended_body).to eq '' }
+        end
+
+        context 'without wall' do
+          let(:body) { 'test' }
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '' }
+        end
+      end
+    end
+  end
+
   describe 'permissions' do
     subject { Ability.new user }
 

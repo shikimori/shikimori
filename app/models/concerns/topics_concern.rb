@@ -8,7 +8,7 @@ module TopicsConcern
 
     # special association for dependent destroy
     has_many :all_topics,
-      class_name: Entry.name,
+      class_name: Topic.name,
       as: :linked,
       dependent: :destroy
 

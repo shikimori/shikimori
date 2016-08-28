@@ -89,7 +89,7 @@ class Comment < ActiveRecord::Base
   def creation_callbacks
     commentable_klass = Object.const_get(self.commentable_type.to_sym)
     commentable = commentable_klass.find(self.commentable_id)
-    self.commentable_type = commentable.base_class.name
+    self.commentable_type = commentable_klass.base_class.name
 
     commentable.comment_added(self) if commentable.respond_to?(:comment_added)
     #commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)

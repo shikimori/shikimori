@@ -11,7 +11,7 @@ describe Messages::MentionSource do
       it { is_expected.to be_html_safe }
     end
 
-    context 'Entry' do
+    context 'Topic' do
       let(:linked) { build_stubbed :topic, id: 1, title: 'xx&' }
       it { is_expected.to eq "в топике <a href=\"//test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
     end

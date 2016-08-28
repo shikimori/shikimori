@@ -9,7 +9,7 @@ module CommentHelper
   ]
   COMPLEX_BB_CODES = [
     :smileys, :club, :contest, :mention, :version, :anime_video,
-    :user, :message, :comment, :entry, :review, :quote, :posters, :ban,
+    :user, :message, :comment, :topic, :review, :quote, :posters, :ban,
     :spoiler
   ]#, :wall_container
 
@@ -129,7 +129,7 @@ module CommentHelper
       .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
         '<div class="b-quote"><div class="quoteable">[message=\1 quote]\3[/message]</div>')
       .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
-        '<div class="b-quote"><div class="quoteable">[entry=\1 quote]\3[/entry]</div>')
+        '<div class="b-quote"><div class="quoteable">[topic=\1 quote]\3[/topic]</div>')
       .gsub(/\[quote=([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
         '<div class="b-quote"><div class="quoteable">[user]\1[/user]</div>')
       .gsub(/\[\/quote\](?:\r\n|\r|\n|<br>)?/, '</div>')
@@ -154,7 +154,7 @@ module CommentHelper
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
     Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
-    Entry => [/(?<match>\[entry=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/entry\])/, nil],
+    Topic => [/(?<match>\[topic=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/topic\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
@@ -164,7 +164,7 @@ module CommentHelper
   @@type_matchers.each do |klass, (matcher, preloader)|
     define_method("#{klass.name.to_underscore}_to_html") do |text|
       while text =~ matcher
-        if klass == Comment || klass == Entry || klass == Message
+        if klass == Comment || klass == Topic || klass == Message
           url = if klass == Comment
             comment_url id: $~[:id], format: :html
           elsif klass == Message

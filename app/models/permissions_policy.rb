@@ -42,7 +42,7 @@ module PermissionsPolicy
   end
 
   # права на действия с топиками
-  module EntryPermissions
+  module TopicPermissions
     include Defaults
 
     def can_be_edited_by?(user)

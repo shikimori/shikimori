@@ -24,7 +24,7 @@ describe Comment::Create do
     it do
       expect(comment).to be_persisted
       expect(comment).to have_attributes(
-        commentable_type: 'Entry',
+        commentable_type: 'Topic',
         body: 'x' * Comment::MIN_SUMMARY_SIZE,
         is_offtopic: true,
         is_summary: true,
@@ -40,7 +40,7 @@ describe Comment::Create do
     #       because of limit on commentable_type in comments
     context 'commentable is topic' do
       let(:commentable_id) { topic.id }
-      let(:commentable_type) { 'Entry' }
+      let(:commentable_type) { 'Topic' }
 
       it_behaves_like :comment
       it { is_expected.to eq topic }

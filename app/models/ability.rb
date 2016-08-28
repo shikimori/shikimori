@@ -58,7 +58,7 @@ class Ability
     can :see_club, Club
     can :read, Review
 
-    can :read, Entry
+    can :read, Topic
   end
 
   def user_ability
