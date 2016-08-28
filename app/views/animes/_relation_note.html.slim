@@ -19,10 +19,13 @@
       - if relation_note.respond_to? :relation
         .relation = t "relation.#{relation_note.relation}"
 
-      .additional
-        span = relation_note.kind_text
-        - if relation_note.aired_on
-          span = t '.year', year: relation_note.aired_on.year
+      - if relation_note.kind || relation_note.aired_on
+        .additional
+          - if relation_note.kind
+            span = relation_note.kind_text
+
+          - if relation_note.aired_on
+            span = t '.year', year: relation_note.aired_on.year
 
     = render partial: 'user_rates/placeholder',
       locals: { target: relation_note, extended: false }

@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v3] do
+  = cache [@resource, user_signed_in?, :v4] do
     meta itemprop="url" content="#{{@resource.url}}"
     meta itemprop="headline" content="#{@resource.name}"
 
@@ -110,6 +110,7 @@
 
     - if user_signed_in?
       = render 'resources'
+
     - else
       .resources-loader.postloaded data-href="#{@resource.resources_url}"
         .ajax-loading.vk-like title="#{t 'loading'}"
