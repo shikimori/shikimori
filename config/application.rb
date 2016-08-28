@@ -66,6 +66,9 @@ module Site
 
     config.redis_db = 2
 
+    # достали эксепшены с ханибаджера
+    config.action_dispatch.ip_spoofing_check = false
+
     # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
     config.assets.precompile += [ Proc.new { |path| !%w(.js .css).include?(File.extname(path)) }, /.*.(css|js)$/ ]
 
