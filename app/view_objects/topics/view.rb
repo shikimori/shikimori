@@ -93,7 +93,7 @@ class Topics::View < ViewObjectBase
   end
 
   def read_more_link?
-    (is_preview || is_mini) && topic.review?
+    (is_preview || is_mini) && topic_type_policy.review_topic?
   end
 
   # def author_in_footer?
