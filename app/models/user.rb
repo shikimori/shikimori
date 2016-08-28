@@ -32,7 +32,6 @@ class User < ActiveRecord::Base
     source: :target_id,
     dependent: :destroy
 
-  # viewings
   has_many :topic_viewings, dependent: :delete_all
   has_many :comment_viewings, dependent: :delete_all
 
@@ -70,7 +69,7 @@ class User < ActiveRecord::Base
   has_many :versions, dependent: :destroy
 
   has_many :contest_user_votes, dependent: :destroy
-  has_many :topics, class_name: Entry.name
+  has_many :topics, class_name: Topic.name
   has_many :topic_ignores, dependent: :destroy
 
   has_many :nickname_changes, class_name: UserNicknameChange.name, dependent: :destroy
