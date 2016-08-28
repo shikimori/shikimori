@@ -1,85 +1,84 @@
 describe Api::V1::AppearController do
   let!(:topic) { create :topic }
-
-  let(:user2) { create :user }
-  let(:user3) { create :user }
-
-  let!(:comment) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name, user_id: user2.id }
-  let!(:comment2) { create :comment, commentable_id: topic.id, commentable_type: topic.class.name }
+  let!(:comment) { create :comment, commentable: topic, user_id: user.id }
 
   describe '#create' do
     let(:user) { create :user }
+    let(:submit) { post :create, ids: "comment-#{comment.id}" }
 
-    it 'not authorized' do
-      expect {
-        post :create, ids: "comment-#{comment.id}"
-      }.to change(CommentViewing, :count).by 0
+    let(:bulk_create_viewings) { double call: nil }
+    before do
+      allow(controller)
+        .to receive(:bulk_create_viewings)
+        .and_return bulk_create_viewings
+    end
 
-      expect(response).to be_redirect
+    context 'not authorized' do
+      before { submit }
+      it do
+        expect(bulk_create_viewings).not_to have_received(:call)
+        expect(response).to be_redirect
+      end
     end
 
     describe 'user signed in' do
-      let(:comment2) { create :comment }
       before { sign_in user }
+      before { submit }
 
-      it 'success' do
-        expect(response).to be_success
+      context 'success' do
+        it { expect(response).to be_success }
       end
 
-      it 'one view' do
-        expect {
+      context '1 viewed id' do
+        it 'one view' do
+          expect(bulk_create_viewings)
+            .to have_received(:call)
+            .with(user, Comment, [comment.id])
+        end
+      end
+
+      context 'multiple viewed ids' do
+        let(:comment_2) { create :comment, commentable: topic }
+        let(:submit) do
+          post :create, ids: [
+            "comment-#{comment.id}",
+            "comment-#{comment_2.id}",
+            "topic-#{topic.id}"
+          ].join(',')
+        end
+
+        it 'multiple views', :show_in_doc do
+          expect(bulk_create_viewings)
+            .to have_received(:call)
+            .with(user, Comment, [comment.id, comment_2.id])
+          expect(bulk_create_viewings)
+            .to have_received(:call)
+            .with(user, Topic, [topic.id])
+        end
+      end
+
+      context '2 same viewed ids' do
+        let(:submit) do
           post :create, ids: "comment-#{comment.id}"
-        }.to change(CommentViewing, :count).by 1
-      end
-
-      it 'multiple views', :show_in_doc do
-        expect {
-          expect {
-            post :create, ids: "comment-#{comment.id},comment-#{comment2.id},topic-#{topic.id}"
-          }.to change(CommentViewing, :count).by 2
-        }.to change(TopicViewing, :count).by 1
-      end
-
-      it 'only once' do
-        expect {
           post :create, ids: "comment-#{comment.id}"
-          post :create, ids: "comment-#{comment.id}"
-        }.to change(CommentViewing, :count).by 1
+        end
+        it do
+          expect(bulk_create_viewings)
+          .to have_received(:call)
+          .with(user, Comment, [comment.id])
+          .twice
+        end
       end
 
-      it 'no views for not existing' do
-        expect {
+      context 'not existing viewed id' do
+        let(:submit) do
           post :create, ids: 'comment-999999'
-        }.to change(CommentViewing, :count).by 0
-      end
-
-      it '"reads" comment notification message' do
-        original_comment = create :comment, commentable: topic, user: user
-        reply_comment = nil
-
-        # создаём ответ на комментарий
-        expect {
-          reply_comment = create(
-            :comment,
-            :with_notify_quotes,
-            commentable: topic,
-            user: user3,
-            body: "[comment=#{original_comment.id}]ня[/comment]"
-          )
-        }.to change(Message, :count).by 1
-
-        # должно создаться уведомление о новом комменте
-        message = Message.last
-        expect(message.read).to be_falsy
-        expect(message.from_id).to eq user3.id
-        expect(message.to_id).to eq user.id
-        expect(message.kind).to eq MessageType::QuotedByUser
-
-        post :create, ids: "comment-#{reply_comment.id}", log: true
-
-        # то самое уведомление должно стать прочитанным
-        message = Message.find(message.id)
-        expect(message.read).to eq true
+        end
+        it 'no views for not existing' do
+          expect(bulk_create_viewings)
+            .to have_received(:call)
+            .with(user, Comment, [999_999])
+        end
       end
     end
   end

@@ -9,7 +9,7 @@ class Api::V1::AppearController < Api::V1::ApiController
 
     type_ids.each do |type, ids|
       klass = type.titleize.constantize
-      Viewing::BulkCreate.new.(current_user, klass, ids)
+      bulk_create_viewings.(current_user, klass, ids)
     end
 
     head 200
@@ -24,5 +24,9 @@ class Api::V1::AppearController < Api::V1::ApiController
         data = v.split('-')
         (memo[data[0]] ||= []) << data[1].to_i
       end
+  end
+
+  def bulk_create_viewings
+    Viewing::BulkCreate.new
   end
 end

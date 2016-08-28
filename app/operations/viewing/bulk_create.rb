@@ -12,7 +12,7 @@ class Viewing::BulkCreate
     @viewed_ids = viewed_ids
 
     bulk_create_viewings
-    update_messages_as_read
+    read_quoted_comment_messages
   end
 
   private
@@ -44,8 +44,7 @@ class Viewing::BulkCreate
       .pluck(:viewed_id)
   end
 
-  # update messages in user inbox as read
-  def update_messages_as_read
+  def read_quoted_comment_messages
     Message.where(
       read: false,
       to_id: user.id,
