@@ -137,7 +137,7 @@
       b Desynced:
       span  #{@resource.desynced.join(', ')}
 
-  - if current_user&.admin?
+  - if current_user&.admin? && @resource.anime?
     .block
       .subheadline = t '.new_torrent'
       .subcontent
@@ -177,7 +177,6 @@
               size: 100
           .m5
             = submit_tag t('.parse'), class: 'button'
-
 
   - if @resource.versions_page.first.any?
     .subheadline = t '.changes_history'
