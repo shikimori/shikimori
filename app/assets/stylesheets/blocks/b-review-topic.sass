@@ -4,6 +4,8 @@
 @import mixins/link
 @import mixins/responsive
 
+$body-offset: 130px
+
 .b-review-topic
   &.mini
     margin-bottom: 45px
@@ -18,17 +20,21 @@
       .b-catalog_entry
         float: left
         margin-bottom: 20px
-        margin-top: 5px
+        // margin-top: 5px
         width: 115px
 
+    .read_more
+      margin-left: $body-offset
+      line-height: 1
+      padding-top: 5px
+
     .body-truncated
-      margin-left: 130px
+      margin-left: $body-offset
       max-height: 172px
       overflow: hidden
 
       .b-height_shortener .expand
-        span, &:after
-          display: none
+        margin-top: -6px
 
   .inner .footer-vote
     margin-top: 5px

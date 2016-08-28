@@ -6,6 +6,8 @@ en:
       common:
         <<: *header_mini
         about: about
+    inner:
+      read_more: Read more
     form:
       form:
         topic_text: Topic text

@@ -25,7 +25,7 @@ $moderation = (node) ->
 # страницы модерации
 @on 'page:load', 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->
   # сокращение высоты инструкции
-  $('.b-brief').check_height(150)
+  $('.b-brief').check_height max_height: 150
 
   $('.expand-all').on 'click', ->
     $(@).parent().next().next().find('.collapsed.spoiler:visible').click()

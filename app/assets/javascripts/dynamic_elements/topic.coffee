@@ -258,9 +258,19 @@ class DynamicElements.Topic extends ShikiEditable
       num = $placeholder.data('ids').length
 
       $placeholder.html if trackable_type == 'message'
-        p(num, "Добавлено #{num} новое сообщение", "Добавлены #{num} новых сообщения", "Добавлено #{num} новых сообщений")
+        p(
+          num,
+          "Добавлено #{num} новое сообщение",
+          "Добавлены #{num} новых сообщения",
+          "Добавлено #{num} новых сообщений"
+        )
       else
-        p(num, "Добавлен #{num} новый комментарий", "Добавлены #{num} новых комментария", "Добавлено #{num} новых комментариев")
+        p(
+          num,
+          "Добавлен #{num} новый комментарий",
+          "Добавлены #{num} новых комментария",
+          "Добавлено #{num} новых комментариев"
+        )
 
     $placeholder
 
@@ -268,10 +278,18 @@ class DynamicElements.Topic extends ShikiEditable
   _check_height: =>
     if @is_review
       image_height = @$('.review-entry_cover img').height()
+      read_more_height = 13 + 5 # 5px - read_more offset
+
       if image_height > 0
-        @$('.body-truncated-inner').check_height image_height, false, image_height
+        @$('.body-truncated-inner').check_height
+          max_height: image_height - read_more_height
+          collapsed_height: image_height - read_more_height
+          expand_html: ''
+
     else
-      @$('.body-inner').check_height @MAX_PREVIEW_HEIGHT, false, @COLLAPSED_HEIGHT
+      @$('.body-inner').check_height
+        max_height: @MAX_PREVIEW_HEIGHT
+        collapsed_height: @COLLAPSED_HEIGHT
 
   _type: -> 'topic'
   _type_label: -> 'Топик'

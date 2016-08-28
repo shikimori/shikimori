@@ -6,6 +6,8 @@ ru:
       common:
         <<: *header_mini
         about: о
+    inner:
+      read_more: Читать дальше
     form:
       form:
         topic_text: Текст топика

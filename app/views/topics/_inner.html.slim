@@ -34,6 +34,12 @@
       .body-inner
         = topic_view.render_body
 
+    - if topic_view.read_more_link?
+      .read_more
+        a.b-link[
+          href="#{topic_view.urls.poster_url}"
+        ] = t '.read_more'
+
   footer
     = topic_view.html_footer
 
@@ -45,7 +51,7 @@
 
     / p.tags
       - if user_signed_in?
-        - if topic.tag.present? && !tview.opic.news? && !topic_view.topic.review?
+        - if topic.tag.present? && !tview.topic.news? && !topic_view.topic.review?
           span.tag
             a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
         span.tag

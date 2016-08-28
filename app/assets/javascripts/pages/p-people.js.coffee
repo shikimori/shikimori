@@ -1,5 +1,5 @@
 @on 'page:load', 'people_show', ->
-  $('.b-entry-info').check_height 101, true
+  $('.b-entry-info').check_height max_height: 101, without_shade: true
 
   Object.keys(is_favoured).each (role) ->
     if person_role[role] || is_favoured[role]

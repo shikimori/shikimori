@@ -3,7 +3,7 @@
   $('.c-screenshot').magnific_rel_gallery()
 
   # сокращение высоты описания
-  $('.text').check_height(200)
+  $('.text').check_height max_height: 200
 
   new FavouriteStar $('.c-actions .fav-add'), is_favoured
   new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online

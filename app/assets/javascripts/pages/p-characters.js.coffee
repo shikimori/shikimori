@@ -1,7 +1,7 @@
 # отображение персонажа
 @on 'page:load', 'characters_show', ->
   # сокращение высоты описания
-  $('.text').check_height(200)
+  $('.text').check_height max_height: 200
 
   new FavouriteStar $('.c-actions .fav-add'), is_favoured
 

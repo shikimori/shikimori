@@ -83,6 +83,10 @@ class Topics::View < ViewObjectBase
     true
   end
 
+  def read_more_link?
+    (is_preview || is_mini) && topic.review?
+  end
+
   # def author_in_footer?
     # is_preview && (topic.news? || topic.review?) &&
       # (!author_in_header? || poster(false) != user.avatar_url(48))

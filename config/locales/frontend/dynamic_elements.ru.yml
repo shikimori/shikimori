@@ -3,3 +3,5 @@ ru:
     dynamic_elements:
       authorized_action: Для этого действия вам необходима <a href="/users/sign_up">регистрация</a> на сайте.
       day_registered_action: Действие станет доступно через сутки после <a href="/users/sign_up">регистрации</a>.
+      check_height:
+        expand: развернуть
