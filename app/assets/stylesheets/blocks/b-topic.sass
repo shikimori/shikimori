@@ -1,4 +1,5 @@
 @import compass/css3/transition
+@import compass/css3/opacity
 @import compass/typography/text/ellipsis
 @import compass/utilities/general/clearfix
 @import mixins/block
@@ -99,7 +100,7 @@
     +frame_form
     color: #123
     display: inline-block
-    font-size: 14px
+    font-size: 13px
     line-height: $line_height
     margin-top: 10px
 
@@ -107,30 +108,54 @@
       &>span
         display: block
 
-    .vote
-      color: $gray-1
-      cursor: pointer
+    .notice
       display: inline-block
-      margin-left: 20px
+      margin-right: 15px
 
-      &:before
-        font-family: 'shikimori'
-        padding-right: 7px
+    .vote-group
+      display: inline-block
+      white-space: nowrap
 
-      &.yes
-        +iphone_portrait
-          margin-left: 0
+      .separator
+        display: inline-block
+        margin-left: 15px
+        margin-right: 15px
 
         &:before
-          content: '\e82f'
-        &.selected, &:hover
-          color: $green
+          color: $gray-1
+          content: '/'
 
-      &.no
+      .vote
+        +opacity(0.9)
+        +transition(opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease)
+        +js-link
+        // color: $gray-1
+        // cursor: pointer
+        display: inline-block
+
         &:before
-          content: '\e82e'
-        &.selected, &:hover
-          color: $red
+          font-family: 'shikimori'
+          padding-right: 7px
+
+        &.yes
+          +iphone_portrait
+            margin-left: 0
+
+          &:before
+            content: '\e82f'
+          &.selected, &:hover
+            +opacity(1)
+            color: $green
+            border-bottom-color: $green
+
+        &.no
+          &:before
+            content: '\e82e'
+
+          &.selected, &:hover
+            +opacity(1)
+            color: $red
+            border-bottom-color: $red
 
   &>.b-comments
     +transition(margin-left 0.25s ease)
