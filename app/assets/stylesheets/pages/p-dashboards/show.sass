@@ -40,22 +40,21 @@
 
       +laptop
         +column(7, 1/7, 1.5%)
-        &.item-7
-          display: none
+        &:nth-child(8)
 
       +ipad
         +column(6)
-        &.item-6, &.item-7
+        &:nth-child(7), &:nth-child(8)
           display: none
 
       +iphone_landscape
         +column(3)
-        &.item-3, &.item-4, &.item-5, &.item-6, &.item-7
+        &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8)
           display: none
 
       +iphone_portrait
         +column(2)
-        &.item-2, &.item-3, &.item-4, &.item-5, &.item-6, &.item-7
+        &:nth-child(3), &:nth-child(4), &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8)
           display: none
 
   .cc-second

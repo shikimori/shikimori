@@ -8,7 +8,7 @@
 - tooltipped = content_by == :tooltip || content_by == :mini_tooltip
 
 article.c-column.b-catalog_entry.not-tracked[
-  class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block} item-#{anime_counter if defined?(anime_counter) && anime_counter}"
+  class="c-#{anime.anime? ? :anime : :manga} entry-#{anime.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block}"
   id="#{anime.id}"
   itemscope itemtype="#{{anime.itemtype}}"
   data-track_user_rate="#{JsExports::UserRatesExport.instance.placeholder :catalog_entry, anime}"

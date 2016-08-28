@@ -2,7 +2,7 @@
 
 .b-club.c-colum[
     id="#{club.id}"
-    class="#{content_by} #{:censored if club.censored?} item-#{club_counter if defined? club_counter}"
+    class="#{content_by} #{:censored if club.censored?}"
   ]
   - if content_by == :detailed
     a href="#{club_url club, subdomain: false}" title="#{club.name}"

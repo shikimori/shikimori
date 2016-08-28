@@ -22,7 +22,8 @@ header.head.misc
         - (@characters || []).each do |v|
           .entry.character-entry
             input type="hidden" name="characters[]" value="#{v.id}"
-            = render partial: 'characters/suggest', locals: { character: v, render_after_name: '<span class="item-minus"></span>', url_builder: :character_url, render_link: true }
+            = render partial: 'characters/suggest',
+              locals: { character: v, render_after_name: '<span class="item-minus"></span>', url_builder: :character_url, render_link: true }
 
       .completable-title
         span.anime.item-minus
