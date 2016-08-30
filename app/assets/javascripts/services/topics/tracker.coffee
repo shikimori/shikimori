@@ -6,4 +6,4 @@ class Topics.Tracker
     JS_EXPORTS.topics.each (topic) ->
       new Topics.TrackTopic topic, $root
 
-    JS_EXPORTS.topcis = null
+    JS_EXPORTS.topics = null
