@@ -48,7 +48,6 @@ class CommentsController < ShikimoriController
 
     query = entry
       .comments
-      .with_viewed(current_user)
       .includes(:user, :commentable)
       .offset(from)
       .limit(to)
@@ -66,7 +65,6 @@ class CommentsController < ShikimoriController
   # список комментариев по запросу
   def chosen
     comments = Comment
-      .with_viewed(current_user)
       .where(id: params[:ids].split(',').map(&:to_i))
       .includes(:user, :commentable)
       .limit(100)
