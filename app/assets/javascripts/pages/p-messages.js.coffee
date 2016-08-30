@@ -3,8 +3,6 @@
   $('.l-page').on 'postloader:success', process
 
 process = ->
-  $('.b-message.unprocessed').shiki_message()
-
   $('.item-request-confirm, .item-request-reject').on 'ajax:success', ->
     read_message $(@).closest('.b-message')
 

@@ -6,7 +6,7 @@ class Topics::CommentsView < ViewObjectBase
 
   # есть ли свёрнутые комментарии?
   def folded?
-    folded_comments > 0
+    folded_comments.positive?
   end
 
   # число свёрнутых комментариев
@@ -43,7 +43,6 @@ class Topics::CommentsView < ViewObjectBase
     comments = topic
       .comments
       .includes(:user)
-      .with_viewed(h.current_user)
       .limit(comments_limit)
 
     (only_summaries_shown? ? comments.summaries : comments)
@@ -79,10 +78,10 @@ class Topics::CommentsView < ViewObjectBase
     i18n_t 'load_comments' do |options|
       options[:comment_count] = num
       options[:comment_word] = comment_word(num)
-
-      options[:out_of_total_comments] = if folded_comments > fold_limit
-        "#{I18n.t('out_of').downcase} #{folded_comments}"
-      end
+      options[:out_of_total_comments] =
+        if folded_comments > fold_limit
+          "#{I18n.t('out_of').downcase} #{folded_comments}"
+        end
     end.html_safe
   end
 
@@ -106,16 +105,18 @@ private
     topic.persisted? ? topic : topic.linked
   end
 
+  # rubocop:disable AbcSize
   def only_summaries_shown?
-    return false unless ['animes', 'mangas'].include? h.params[:controller]
+    return false unless %w(animes mangas).include? h.params[:controller]
     return true if h.params[:action] == 'summaries'
 
-    h.params[:action] == 'show' && topic.summaries_count > 0
+    h.params[:action] == 'show' && topic.summaries_count.positive?
   end
+  # rubocop:enable AbcSize
 
   def new_comment_summary?
-    return false unless ['animes', 'mangas'].include? h.params[:controller]
-    ['show', 'summaries'].include? h.params[:action]
+    return false unless %w(animes mangas).include? h.params[:controller]
+    %w(show summaries).include? h.params[:action]
   end
 
   def comment_word number

@@ -15,7 +15,12 @@ class DynamicElements.Parser
           when 'html5_video' then new DynamicElements.Html5Video(@)
           when 'abuse_request' then new DynamicElements.AbuseRequest(@)
           when 'desktop_ad' then new DynamicElements.DesktopAd(@)
+
           when 'topic' then new DynamicElements.Topic(@)
+          when 'comment' then new DynamicElements.Comment(@)
+          when 'message' then new DynamicElements.Message(@)
+          when 'dialog' then new DynamicElements.Dialog(@)
+
           when 'user_rate'
             if @attributes['data-extended'].value == 'true'
               new DynamicElements.UserRates.Extended(@)

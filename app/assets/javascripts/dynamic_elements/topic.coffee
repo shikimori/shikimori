@@ -1,8 +1,11 @@
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
+  _type: -> 'topic'
+  _type_label: -> 'Топик'
+
   initialize: ->
-    # data attribute is set in Topics.Tracke
+    # data attribute is set in Topics.Tracker
     @model = @$root.data 'model'
 
     @$body = @$inner.children('.body')
@@ -48,8 +51,6 @@ class DynamicElements.Topic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment.filter('.b-comment').shiki_comment()
-        $new_comment.filter('.b-message').shiki_message()
         $new_comment.process().yellowFade()
 
         @editor.cleanup()
@@ -116,19 +117,24 @@ class DynamicElements.Topic extends ShikiEditable
     @$comments_loader
       # подготовка к подгрузке новых комментов
       .on 'ajax:before', =>
-        new_url = @$comments_loader.data('href-template').replace('SKIP', @$comments_loader.data('skip'))
+        new_url = @$comments_loader
+          .data('href-template')
+          .replace('SKIP', @$comments_loader.data('skip'))
+
         @$comments_loader.data(href: new_url)
 
     @$comments_loader
       # подгрузка новых комментов
-      .on 'ajax:success', (e, html) =>
-        $new_comments = $("<div class='comments-loaded'></div>").html html
+      .on 'ajax:success', (e, data) =>
+        $new_comments = $("<div class='comments-loaded'></div>")
+          .html(data.content)
+          .process(data.JS_EXPORTS)
+
         @_filter_present_entries($new_comments)
 
         $new_comments
           .insertAfter(@$comments_loader)
           .animated_expand()
-          .process()
 
         limit = @$comments_loader.data('limit')
         count = @$comments_loader.data('count') - limit
@@ -208,10 +214,6 @@ class DynamicElements.Topic extends ShikiEditable
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
-  _activate_appear_marker: ->
-    @$inner.children('.b-appear_marker').addClass('active')
-    @$inner.children('.markers').find('.b-new_marker').addClass('active')
-
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
@@ -241,12 +243,10 @@ class DynamicElements.Topic extends ShikiEditable
       $placeholder = $('<div class="click-loader faye-loader"></div>')
         .appendTo(@$('.b-comments'))
         .data(ids: [])
-        .on 'ajax:success', (e, html) ->
-          $html = $(html)
+        .on 'ajax:success', (e, data) ->
+          $html = $(data.content).process data.JS_EXPORTS
           $placeholder.replaceWith $html
 
-          $html.filter('.b-comment').shiki_comment()
-          $html.filter('.b-message').shiki_message()
           $html.process()
 
     if $placeholder.data('ids').indexOf(trackable_id) == -1
@@ -290,9 +290,6 @@ class DynamicElements.Topic extends ShikiEditable
       @$('.body-inner').check_height
         max_height: @MAX_PREVIEW_HEIGHT
         collapsed_height: @COLLAPSED_HEIGHT
-
-  _type: -> 'topic'
-  _type_label: -> 'Топик'
 
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"

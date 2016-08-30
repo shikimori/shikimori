@@ -108,6 +108,8 @@ class TopicsController < ShikimoriController
     @collection = Entry
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
+
+    render :collection, formats: :json
   end
 
   # подгружаемое через ajax тело топика

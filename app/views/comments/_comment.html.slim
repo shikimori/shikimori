@@ -2,11 +2,13 @@
   = render partial: 'blocks/ignored', object: comment
 
 - else
-  .b-comment.shiki-object.unprocessed[
-    id="#{comment.id}"
-    data-appear_type="comment"
+  .b-comment.shiki-object.not-tracked.to-process[
+    data-appear_type='comment'
+    data-dynamic='comment'
+    data-track_comment="#{JsExports::CommentsExport.instance.placeholder comment}"
     data-user_id="#{comment.user.try :id}"
     data-user_nickname="#{comment.user.try :nickname}"
+    id="#{comment.id}"
     itemscope
     itemprop="comment"
     itemtype="http://schema.org/UserComments"
@@ -40,8 +42,7 @@
             data-type="json"
             data-remote="true"
           ]
-          - unless comment.viewed?
-            .b-new_marker.active data-text="#{t 'markers.new'}"
+          .b-new_marker data-text="#{t 'markers.new'}"
 
         - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
           - if current_user.moderator?
@@ -76,5 +77,7 @@
       .body itemprop="commentText"
         = comment.html_body
 
-      - unless comment.viewed?
-        .b-appear_marker.active class="appear-comment-#{comment.id}" data-appear_url="#{api_appears_url}"
+      .b-appear_marker[
+        class="appear-comment-#{comment.id}"
+        data-appear_url="#{api_appears_url}"
+      ]

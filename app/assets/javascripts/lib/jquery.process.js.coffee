@@ -12,6 +12,7 @@
 
   UserRates.Tracker.track JS_EXPORTS, $root
   Topics.Tracker.track JS_EXPORTS, $root
+  Comments.Tracker.track JS_EXPORTS, $root
 
   new DynamicElements.Parser $with('.to-process', $root)
 
@@ -29,8 +30,6 @@
   $with('.b-forum.unprocessed', $root).shiki_forum()
 
   console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
-
-  $with('.b-comment.unprocessed', $root).shiki_comment()
 
   # блоки, загружаемые аяксом
   $with('.postloaded[data-href]', $root).each ->

@@ -1,12 +1,21 @@
 class @ShikiEditable extends ShikiView
+  BUTTONS = [
+    '.item-ignore'
+    '.item-quote'
+    '.item-reply'
+    '.item-edit'
+    '.item-summary'
+    '.item-offtopic'
+    '.item-cancel'
+  ]
+
   # внутренняя инициализация
   _initialize: ->
     super
     $new_marker = $('.b-new_marker', @$inner)
 
     # по нажатиям на кнопки закрываем меню в мобильной версии
-    @$('.item-ignore, .item-quote, .item-reply, .item-edit, .item-summary,
-        .item-offtopic, .item-cancel', @$inner).on 'click', =>
+    @$(BUTTONS.join(','), @$inner).on 'click', =>
       @_close_aside()
 
     # deletion
@@ -118,6 +127,10 @@ class @ShikiEditable extends ShikiView
         quote = "[quote=#{type}#{ids.join ';'}]#{selected_text}[/quote]\n"
 
         @$root.trigger 'comment:reply', [quote, @_is_offtopic?()]
+
+  _activate_appear_marker: ->
+    @$inner.children('.b-appear_marker').addClass('active')
+    @$inner.children('.markers').find('.b-new_marker').addClass('active')
 
   # закрытие кнопок в мобильной версии
   _close_aside: ->

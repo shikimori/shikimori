@@ -151,21 +151,6 @@ describe Entry do
       end
     end
 
-    describe 'comments selected with viewed flag' do
-      before do
-        @comment = create :comment, commentable: entry, user: user
-      end
-
-      it 'false' do
-        expect(entry.comments.with_viewed(user2).first.viewed?).to be_falsy
-      end
-
-      it 'true' do
-        create :comment_view, comment: @comment, user: user2
-        expect(entry.comments(user2).first.viewed?).to be_truthy
-      end
-    end
-
     describe '#original_body & #appended_body' do
       let(:entry) { build :entry, body: body, generated: is_generated }
       let(:body) { 'test[wall][/wall]' }

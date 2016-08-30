@@ -1,15 +1,6 @@
-(($) ->
-  $.fn.extend
-    shiki_dialog: ->
-      @each ->
-        $root = $(@)
-        return unless $root.hasClass('unprocessed')
-
-        new ShikiDialog($root)
-) jQuery
-
-class @ShikiDialog extends ShikiEditable
-  initialize: ($root) ->
+using 'DynamicElements'
+class DynamicElements.Dialog extends ShikiEditable
+  initialize: ->
     @_check_height()
 
     # прочтение комментриев

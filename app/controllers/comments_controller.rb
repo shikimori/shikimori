@@ -7,8 +7,7 @@ class CommentsController < ShikimoriController
 
   def show
     noindex
-    comment = Comment.with_viewed(current_user).find_by(id: params[:id]) ||
-      NoComment.new(params[:id])
+    comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
     render :missing if comment.is_a? NoComment
@@ -56,11 +55,12 @@ class CommentsController < ShikimoriController
 
     query.where! is_summary: true if params[:is_summary]
 
-    comments = query
+    @collection = query
       .decorate
       .reverse
 
-    render partial: 'comments/comment', collection: comments, formats: :html
+    render :collection, formats: :json
+    # render partial: 'comments/comment', collection: comments, formats: :html
   end
 
   # список комментариев по запросу
@@ -72,9 +72,9 @@ class CommentsController < ShikimoriController
       .limit(100)
       .decorate
 
-    comments.reverse! if params[:order]
+    @collection = params[:order] ? comments.reverse : comments
 
-    render comments
+    render :collection, formats: :json
   end
 
   # предпросмотр текста

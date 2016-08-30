@@ -1,16 +1,15 @@
-(($) ->
-  $.fn.extend
-    shiki_comment: ->
-      @each ->
-        $root = $(@)
-        return unless $root.hasClass('unprocessed')
+using 'DynamicElements'
+class DynamicElements.Comment extends ShikiEditable
+  _type: -> 'comment'
+  _type_label: -> 'Комментарий'
 
-        new ShikiComment($root)
-) jQuery
+  initialize: ->
+    # data attribute is set in Comments.Tracker
+    @model = @$root.data 'model'
 
-class @ShikiComment extends ShikiEditable
-  initialize: ($root) ->
     @$body = @$('.body')
+
+    @_activate_appear_marker() if @model && !@model.is_viewed
 
     if @$inner.hasClass('check_height')
       $images = @$body.find('img')
@@ -101,9 +100,6 @@ class @ShikiComment extends ShikiEditable
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
 
-  _type: -> 'comment'
-  _type_label: -> 'Комментарий'
-
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->
   if data.value
@@ -114,6 +110,7 @@ marker_message = (data) ->
         $.notice 'Комментарий помечен оффтопиком'
     else
       $.notice 'Комментарий помечен отзывом'
+
   else
     if data.kind == 'offtopic'
       $.notice 'Метка оффтопика снята'

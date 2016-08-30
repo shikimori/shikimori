@@ -5,7 +5,7 @@
   article.b-topic.shiki-object.not-tracked.to-process[
     id="#{topic_view.topic.id}"
     class="#{topic_view.container_class}"
-    data-appear_type="entry"
+    data-appear_type='entry'
     data-appear_url="#{api_appears_url}"
     data-dynamic='topic'
     data-faye="#{topic_view.faye_channel}"
@@ -35,7 +35,9 @@
       meta itemprop="dateModified" content="#{topic_view.updated_at.iso8601}"
 
     a name="topic-#{topic_view.topic.id}"
+
     - if topic_view.show_body?
       = render 'topics/inner', topic_view: topic_view
+
     - unless topic_view.is_mini
       = render 'topics/comments', comments_view: topic_view.comments_view
