@@ -25,8 +25,8 @@ class Api::V1::CommentsController < Api::V1::ApiController
     respond_with CommentsQuery
       .new(params[:commentable_type], params[:commentable_id])
       .fetch(@page, @limit, @desc)
-      .with_viewed(current_user)
       .decorate
+      # .with_viewed(current_user)
   end
 
   api :POST, '/comments', 'Create a comment'
