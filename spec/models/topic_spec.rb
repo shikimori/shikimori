@@ -40,18 +40,19 @@ describe Topic do
     end
 
     describe 'comments selected with viewed flag' do
-      subject { topic.comments.with_viewed(user).first.viewed? }
+      subject { topic.comments.with_viewed(another_user).first.viewed? }
 
       let(:topic) { create :topic }
-      let(:user) { create :user }
-      let!(:comment) { create :comment, commentable: topic, user: user }
+      let(:comment_user) { create :user }
+      let(:another_user) { create :user }
+      let!(:comment) { create :comment, commentable: topic, user: comment_user }
 
       context 'comment not viewed' do
         it { is_expected.to eq false }
       end
 
       context 'comment viewed' do
-        before { create :comment_viewing, user: user, viewed: comment }
+        before { create :comment_viewing, user: another_user, viewed: comment }
         it { is_expected.to eq true }
       end
     end
