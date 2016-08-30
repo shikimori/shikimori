@@ -1,6 +1,6 @@
 describe Api::V1::CommentsController do
   let(:user) { create :user, :user }
-  let(:topic) { create :entry, user: user }
+  let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
   describe '#show', :show_in_doc do
