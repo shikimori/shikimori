@@ -8,7 +8,7 @@ html
     id="#{@layout.body_id}"
     style="#{@layout.background_styles}"
     data-env="#{Rails.env}"
-    data-user_id="#{current_user.id if user_signed_in?}"
+    data-user="#{@layout.user_data.to_json}"
     data-day_registered="#{user_signed_in? && current_user.day_registered?}"
     data-week_registered="#{user_signed_in? && current_user.week_registered?}"
     data-ignore_copyright="#{ignore_copyright?}"

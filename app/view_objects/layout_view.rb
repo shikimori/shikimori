@@ -18,6 +18,7 @@ class LayoutView < ViewObjectBase
     ru_option?(:russian_genres) ? 'localized_genres-ru' : 'localized_genres-en'
   end
 
+  # rubocop:disable MethodLength
   def background_styles
     return if blank_layout?
     return unless background
@@ -33,6 +34,14 @@ class LayoutView < ViewObjectBase
     end
 
     Misc::SanitizeEvilCss.call css
+  end
+  # rubocop:enable MethodLength
+
+  def user_data
+    {
+      id: h.current_user&.id,
+      is_moderator: h.current_user&.moderator?
+    }
   end
 
 private

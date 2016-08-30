@@ -152,4 +152,17 @@ describe LayoutView do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#user_data' do
+    before do
+      allow(view.h).to receive(:current_user).and_return current_user
+    end
+
+    it do
+      expect(view.user_data).to eq(
+        id: current_user.id,
+        is_moderator: current_user.moderator?
+      )
+    end
+  end
 end
