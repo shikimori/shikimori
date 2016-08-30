@@ -31,7 +31,7 @@ describe Api::V1::CommentsController do
     let(:params) do
       {
         commentable_id: topic.id,
-        commentable_type: 'Topic',
+        commentable_type: Topic.name,
         body: body,
         is_offtopic: true,
         is_summary: true

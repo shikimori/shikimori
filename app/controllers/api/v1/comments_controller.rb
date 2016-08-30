@@ -22,8 +22,11 @@ class Api::V1::CommentsController < Api::V1::ApiController
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 
+    commentable_type = params[:commentable_type].gsub('Entry', Topic.name)
+    commentable_id = params[:commentable_id]
+
     respond_with CommentsQuery
-      .new(params[:commentable_type], params[:commentable_id])
+      .new(commentable_type, commentable_id)
       .fetch(@page, @limit, @desc)
       .decorate
       # .with_viewed(current_user)
@@ -86,6 +89,11 @@ private
 
     comment_params[:is_summary] ||= comment_params[:review]
     comment_params[:is_offtopic] ||= comment_params[:offtopic]
+
+    if comment_params[:commentable_type].present?
+      comment_params[:commentable_type] =
+        comment_params[:commentable_type].gsub('Entry', Topic.name)
+    end
 
     comment_params.except(:review, :offtopic)
   end
