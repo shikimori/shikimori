@@ -266,6 +266,7 @@ class User < ActiveRecord::Base
                             count > 0
     return if comment.user_id == comment.commentable_id &&
               comment.commentable_type == User.name
+
     Message.create(
       to_id: id,
       from_id: comment.user_id,
@@ -278,12 +279,12 @@ class User < ActiveRecord::Base
   end
 
   def friended? user
-    friend_links.any? {|v| v.dst_id == user.id }
+    friend_links.any? { |v| v.dst_id == user.id }
   end
 
   # ключ для кеша по дате изменения пользователя
   def cache_key
-    "#{self.id}_#{self.updated_at.to_i}"
+    "#{id}_#{updated_at.to_i}"
   end
 
   def banned?
