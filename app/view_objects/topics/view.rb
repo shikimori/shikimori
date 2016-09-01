@@ -156,6 +156,10 @@ class Topics::View < ViewObjectBase
     topic_ignore.present?
   end
 
+  def topic_type_policy
+    Topic::TypePolicy.new topic
+  end
+
 private
 
   def body_cache_key
@@ -179,10 +183,6 @@ private
 
   def topic_comments_policy
     Topic::CommentsPolicy.new topic
-  end
-
-  def topic_type_policy
-    Topic::TypePolicy.new topic
   end
 end
 # rubocop:enable ClassLength

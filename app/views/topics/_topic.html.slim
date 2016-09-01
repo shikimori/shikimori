@@ -1,4 +1,4 @@
-- topic_type_policy = Topic::TypePolicy.new topic_view.topic
+- topic_type_policy = topic_view.topic_type_policy
 
 - if topic_view.ignored?
   = render partial: 'blocks/ignored', object: topic_view.topic
