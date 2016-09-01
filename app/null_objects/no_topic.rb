@@ -7,6 +7,10 @@ class NoTopic < NullObject
     Comment.none
   end
 
+  def comments_count
+    0
+  end
+
 private
 
   def base_klass
