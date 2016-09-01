@@ -43,39 +43,17 @@ shared_context :seeds do
   let(:contests_forum) { seed :contests_forum }
   let(:clubs_forum) { seed :clubs_forum }
   let(:cosplay_forum) { seed :cosplay_forum }
-
-  let(:offtopic_topic) { seed :offtopic_topic }
-  let(:rules_topic) { seed :rules_topic }
-  let(:faq_topic) { seed :faq_topic }
-end
-
-shared_context :other_sticky_topics do
-  # site_rules and faq are created with seeds
-  before do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
-    create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
-    create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
-  end
 end
 
 shared_context :sticky_topics do
-  let!(:site_rules_topic) do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:site_rules][:ru]
-  end
-  let!(:faq_topic) do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:faq][:ru]
-  end
-  let!(:description_of_genres_topic) do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
-  end
-  let!(:ideas_and_suggestions_topic) do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
-  end
-  let!(:site_problems_topic) do
-    create :topic, id: StickyTopicView::TOPIC_IDS[:site_problems][:ru]
-  end
+  let(:offtopic_topic) { seed :offtopic_topic }
+  let(:rules_topic) { seed :rules_topic }
+  let(:faq_topic) { seed :faq_topic }
+  let(:description_of_genres_topic) { seed :description_of_genres_topic }
+  let(:ideas_and_suggestions_topic) { seed :ideas_and_suggestions_topic }
+  let(:site_problems_topic) { seed :site_problems_topic }
 
-  let(:sticky_topics_count) { 5 }
+  let(:sticky_topics_count) { 6 }
 end
 
 shared_examples_for :success_resource_change do |type|

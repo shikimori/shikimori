@@ -1,6 +1,6 @@
 describe TopicsController do
   include_context :seeds
-  include_context :other_sticky_topics
+  include_context :sticky_topics
 
   let(:user) { create :user, :user, :week_registered }
   let(:anime) { create :anime }
@@ -13,13 +13,13 @@ describe TopicsController do
     let!(:anime_topic_1) do
       create :topic, forum: animanga_forum, user: user, linked: anime
     end
-    let!(:topic_2) { create :topic, forum: offtopic_forum, user: user }
+    let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
 
     context 'no forum' do
       before { get :index }
 
       it do
-        # F**K: in fact 9 items: 4 topics + 5 sticky topics but it's
+        # F**K: in fact 10 items: 4 topics + 6 sticky topics but it's
         # limited to 8 because of pagination limit in Forums::View
         expect(assigns(:forums_view).topic_views).to have(8).items
         expect(response).to have_http_status :success
@@ -27,12 +27,13 @@ describe TopicsController do
     end
 
     context 'offtopic' do
-      let(:sticky_topics_count) { 5 }
       before { get :index, forum: offtopic_forum.permalink }
 
+      # offtopic_topic_1 + 6 sticky topics
+      # (because they belong to offtopic forum)
       it do
         expect(assigns(:forums_view).topic_views)
-          .to have(2 + sticky_topics_count).items
+          .to have(1 + sticky_topics_count).items
         expect(response).to have_http_status :success
       end
     end
@@ -308,8 +309,8 @@ describe TopicsController do
   end
 
   describe '#chosen' do
-    let!(:topic_2) { create :topic, forum: offtopic_forum, user: user }
-    before { get :chosen, ids: [topic.to_param, topic_2.to_param].join(','), format: :json }
+    let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
+    before { get :chosen, ids: [topic.to_param, offtopic_topic_1.to_param].join(','), format: :json }
     it { expect(response).to have_http_status :success }
   end
 

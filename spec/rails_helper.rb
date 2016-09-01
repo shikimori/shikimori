@@ -117,8 +117,11 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :offtopic_forum
 
     FactoryGirl::SeedGenerator.create :offtopic_topic
-    FactoryGirl::SeedGenerator.create :rules_topic
+    FactoryGirl::SeedGenerator.create :site_rules_topic
     FactoryGirl::SeedGenerator.create :faq_topic
+    FactoryGirl::SeedGenerator.create :description_of_genres_topic
+    FactoryGirl::SeedGenerator.create :ideas_and_suggestions_topic
+    FactoryGirl::SeedGenerator.create :site_problems_topic
 
     ActiveRecord::Base.connection.reset_pk_sequence! :users
     ActiveRecord::Base.connection.reset_pk_sequence! :forums
