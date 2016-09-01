@@ -18,7 +18,6 @@ describe TopicsQuery do
 
   describe '#by_forum' do
     let!(:anime_topic) { create :topic, forum: animanga_forum, updated_at: 1.day.ago }
-    let!(:offtop_topic) { create :topic, forum: offtopic_forum, updated_at: 2.days.ago }
     let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
     let!(:another_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
@@ -27,11 +26,12 @@ describe TopicsQuery do
     before { joined_club.join user if user }
 
     context 'user defined forums' do
+      subject { query.by_forum nil, user, is_censored_forbidden }
+
       before do
         user.preferences.forums = forums if user
         review.topic(locale).update_column :updated_at, review.updated_at
       end
-      subject { query.by_forum nil, user, is_censored_forbidden }
 
       context 'no user' do
         let(:user) { nil }
@@ -59,7 +59,7 @@ describe TopicsQuery do
 
         context 'topic_ignore' do
           let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
-          # it { is_expected.to eq [offtopic_topic, offtop_topic] }
+          # it { is_expected.to eq [offtopic_topic, offtopic_topic] }
         end
       end
 
