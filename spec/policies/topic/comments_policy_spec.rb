@@ -39,7 +39,7 @@ describe Topic::CommentsPolicy do
   end
 
   describe '#any_summaries?' do
-    subject { policy.any_comments? }
+    subject { policy.any_summaries? }
 
     let(:summaries_count) { 0 }
     before do
@@ -48,7 +48,7 @@ describe Topic::CommentsPolicy do
         .and_return summaries_count
     end
 
-    context 'summaries count > 0',:focus do
+    context 'summaries count > 0' do
       let(:summaries_count) { 1 }
       it { is_expected.to eq true }
     end
