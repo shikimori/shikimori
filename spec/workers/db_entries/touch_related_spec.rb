@@ -46,17 +46,17 @@ describe DbEntries::TouchRelated do
       let(:db_entry) { anime }
 
       it do
-        expect(anime.reload.updated_at).to eq 1.day.ago
-        expect(anime_related.reload.updated_at).to eq Time.zone.now
-        expect(anime_similar.reload.updated_at).to eq Time.zone.now
+        expect(anime.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(anime_related.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(anime_similar.reload.updated_at.to_i).to eq Time.zone.now.to_i
 
-        expect(manga.reload.updated_at).to eq 1.day.ago
-        expect(manga_related.reload.updated_at).to eq Time.zone.now
-        expect(manga_similar.reload.updated_at).to eq 1.day.ago
+        expect(manga.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(manga_related.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(manga_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(character.reload.updated_at).to eq Time.zone.now
+        expect(character.reload.updated_at.to_i).to eq Time.zone.now.to_i
 
-        expect(person.reload.updated_at).to eq Time.zone.now
+        expect(person.reload.updated_at.to_i).to eq Time.zone.now.to_i
       end
     end
 
@@ -64,34 +64,34 @@ describe DbEntries::TouchRelated do
       let(:db_entry) { manga }
 
       it do
-        expect(anime.reload.updated_at).to eq 1.day.ago
-        expect(anime_related.reload.updated_at).to eq Time.zone.now
-        expect(anime_similar.reload.updated_at).to eq 1.day.ago
+        expect(anime.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(anime_related.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(anime_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(manga.reload.updated_at).to eq 1.day.ago
-        expect(manga_related.reload.updated_at).to eq Time.zone.now
-        expect(manga_similar.reload.updated_at).to eq Time.zone.now
+        expect(manga.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(manga_related.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(manga_similar.reload.updated_at.to_i).to eq Time.zone.now.to_i
 
-        expect(character.reload.updated_at).to eq Time.zone.now
+        expect(character.reload.updated_at.to_i).to eq Time.zone.now.to_i
 
-        expect(person.reload.updated_at).to eq Time.zone.now
+        expect(person.reload.updated_at.to_i).to eq Time.zone.now.to_i
       end
     end
 
     context 'character' do
       let(:db_entry) { character }
       it do
-        expect(anime.reload.updated_at).to eq Time.zone.now
-        expect(anime_related.reload.updated_at).to eq 1.day.ago
-        expect(anime_similar.reload.updated_at).to eq 1.day.ago
+        expect(anime.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(anime_related.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(anime_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(manga.reload.updated_at).to eq Time.zone.now
-        expect(manga_related.reload.updated_at).to eq 1.day.ago
-        expect(manga_similar.reload.updated_at).to eq 1.day.ago
+        expect(manga.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(manga_related.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(manga_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(character.reload.updated_at).to eq 1.day.ago
+        expect(character.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(person.reload.updated_at).to eq Time.zone.now
+        expect(person.reload.updated_at.to_i).to eq Time.zone.now.to_i
       end
     end
 
@@ -99,17 +99,17 @@ describe DbEntries::TouchRelated do
       let(:db_entry) { person }
 
       it do
-        expect(anime.reload.updated_at).to eq Time.zone.now
-        expect(anime_related.reload.updated_at).to eq 1.day.ago
-        expect(anime_similar.reload.updated_at).to eq 1.day.ago
+        expect(anime.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(anime_related.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(anime_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(manga.reload.updated_at).to eq Time.zone.now
-        expect(manga_related.reload.updated_at).to eq 1.day.ago
-        expect(manga_similar.reload.updated_at).to eq 1.day.ago
+        expect(manga.reload.updated_at.to_i).to eq Time.zone.now.to_i
+        expect(manga_related.reload.updated_at.to_i).to eq 1.day.ago.to_i
+        expect(manga_similar.reload.updated_at.to_i).to eq 1.day.ago.to_i
 
-        expect(character.reload.updated_at).to eq Time.zone.now
+        expect(character.reload.updated_at.to_i).to eq Time.zone.now.to_i
 
-        expect(person.reload.updated_at).to eq 1.day.ago
+        expect(person.reload.updated_at.to_i).to eq 1.day.ago.to_i
       end
     end
   end

@@ -1,5 +1,7 @@
 describe TopicsQuery do
   include_context :seeds
+  include_context :sticky_topics
+
   subject(:query) { TopicsQuery.fetch user, locale }
 
   let(:locale) { :ru }
@@ -7,7 +9,7 @@ describe TopicsQuery do
 
   describe '#result' do
     context 'domain matches topic locale' do
-      it { is_expected.to eq [offtopic_topic, rules_topic, faq_topic] }
+      it { is_expected.to eq all_sticky_topics }
     end
 
     context 'domain does not match topic locale' do
@@ -36,26 +38,17 @@ describe TopicsQuery do
       context 'no user' do
         let(:user) { nil }
         it do
-          is_expected.to eq [
-            anime_topic,
-            offtopic_topic,
-            rules_topic,
-            faq_topic,
-            review.topic(locale)
-          ]
+          is_expected.to eq(
+            [anime_topic] +
+              all_sticky_topics +
+              [review.topic(locale)]
+          )
         end
       end
 
       context 'group of forums' do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
-        it do
-          is_expected.to eq [
-            anime_topic,
-            offtopic_topic,
-            rules_topic,
-            faq_topic
-          ]
-        end
+        it { is_expected.to eq [anime_topic] + all_sticky_topics }
 
         context 'topic_ignore' do
           let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
@@ -168,7 +161,7 @@ describe TopicsQuery do
     subject(:views) { query.as_views(is_preview, is_mini) }
 
     it do
-      expect(views).to have(3).items
+      expect(views).to have(6).items
       expect(views.first).to be_kind_of Topics::View
       expect(views.first.is_mini).to eq true
       expect(views.first.is_preview).to eq true

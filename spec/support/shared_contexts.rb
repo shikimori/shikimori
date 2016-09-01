@@ -47,13 +47,23 @@ end
 
 shared_context :sticky_topics do
   let(:offtopic_topic) { seed :offtopic_topic }
-  let(:rules_topic) { seed :rules_topic }
+  let(:site_rules_topic) { seed :site_rules_topic }
   let(:faq_topic) { seed :faq_topic }
   let(:description_of_genres_topic) { seed :description_of_genres_topic }
   let(:ideas_and_suggestions_topic) { seed :ideas_and_suggestions_topic }
   let(:site_problems_topic) { seed :site_problems_topic }
 
   let(:sticky_topics_count) { 6 }
+  let(:all_sticky_topics) do
+    [
+      offtopic_topic,
+      site_rules_topic,
+      faq_topic,
+      description_of_genres_topic,
+      ideas_and_suggestions_topic,
+      site_problems_topic
+    ]
+  end
 end
 
 shared_examples_for :success_resource_change do |type|

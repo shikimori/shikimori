@@ -39,8 +39,8 @@ describe JsExports::CommentsExport do
     let(:user_1) { create :user }
     let(:user_2) { create :user }
 
-    let!(:comment_view_1) { create :comment_view, comment: comment_1, user: user_1 }
-    let!(:comment_view_2) { create :comment_view, comment: comment_2, user: user_2 }
+    let!(:comment_viewing_1) { create :comment_viewing, viewed: comment_1, user: user_1 }
+    let!(:comment_viewing_2) { create :comment_viewing, viewed: comment_2, user: user_2 }
 
     let(:export_1) { tracker.export user_1 }
     let(:export_2) { tracker.export user_2 }

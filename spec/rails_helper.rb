@@ -125,6 +125,6 @@ RSpec.configure do |config|
 
     ActiveRecord::Base.connection.reset_pk_sequence! :users
     ActiveRecord::Base.connection.reset_pk_sequence! :forums
-    ActiveRecord::Base.connection.reset_pk_sequence! :entries
+    ActiveRecord::Base.connection.reset_pk_sequence! :topics
   end
 end

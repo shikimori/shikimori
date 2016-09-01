@@ -1,5 +1,6 @@
 describe Forums::View do
   include_context :seeds
+  include_context :sticky_topics
   include_context :view_object_warden_stub
 
   let(:view) { Forums::View.new }
@@ -26,7 +27,7 @@ describe Forums::View do
     before { user.preferences.forums = [offtopic_forum.id] }
 
     it do
-      expect(view.topic_views).to have(3).items
+      expect(view.topic_views).to have(sticky_topics_count).items
       expect(view.topic_views.first).to be_kind_of Topics::View
     end
   end
