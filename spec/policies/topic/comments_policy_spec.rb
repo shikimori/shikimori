@@ -43,12 +43,12 @@ describe Topic::CommentsPolicy do
 
     let(:summaries_count) { 0 }
     before do
-      allow(:policy)
+      allow(policy)
         .to receive(:summaries_count)
         .and_return summaries_count
     end
 
-    context 'summaries count > 0' do
+    context 'summaries count > 0',:focus do
       let(:summaries_count) { 1 }
       it { is_expected.to eq true }
     end
@@ -64,7 +64,7 @@ describe Topic::CommentsPolicy do
 
     let(:summaries_count) { 0 }
     before do
-      allow(:policy)
+      allow(policy)
         .to receive(:summaries_count)
         .and_return summaries_count
     end

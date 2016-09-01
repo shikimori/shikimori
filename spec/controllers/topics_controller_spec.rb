@@ -27,6 +27,7 @@ describe TopicsController do
     end
 
     context 'offtopic' do
+      let(:sticky_topics_count) { 5 }
       before { get :index, forum: offtopic_forum.permalink }
 
       it do
