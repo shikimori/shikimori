@@ -1,5 +1,5 @@
 class JsExports::ExportBase
-  attr_implement :fetch_topics
+  attr_implement :fetch_entries
   attr_implement :serialize
 
   def self.inherited klass
@@ -24,7 +24,7 @@ class JsExports::ExportBase
   end
 
   def export user
-    fetch_topics(user).map { |topic| serialize topic }
+    fetch_entries(user).map { |topic| serialize topic }
   end
 
 private

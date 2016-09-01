@@ -1,7 +1,7 @@
 class JsExports::TopicsExport < JsExports::ExportBase
 private
 
-  def fetch_topics user
+  def fetch_entries user
     Topic
       .with_viewed(user)
       .where(id: tracked_ids)
