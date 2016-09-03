@@ -56,6 +56,7 @@ describe Banhammer do
 
     it { expect(banhammer.abusive? 'хуй').to eq true }
     it { expect(banhammer.abusive? 'хуйня').to eq true }
+    it { expect(banhammer.abusive? 'похуй').to eq true }
     it { expect(banhammer.abusive? 'ху*').to eq true }
     it { expect(banhammer.abusive? 'х*й').to eq true }
     it { expect(banhammer.abusive? 'хуйло').to eq true }
