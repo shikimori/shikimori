@@ -55,6 +55,10 @@ class AnimesVerifier
       raise "#{bad_mal_descriptions.size} broken mal_descriptions found: \
 #{bad_mal_descriptions.join ', '}"
     end
+
+    if bad_images.any?
+      raise "#{bad_images.size} bad images found: #{bad_images.join ', '}"
+    end
   end
 
 private
@@ -84,6 +88,18 @@ private
       )
       .where.not(id: ignore_ids)
       .pluck(:id)
+  end
+
+  def bad_iamges
+    @bad_images ||= klass.all
+      .select do |entry|
+        next unless entry.image.exists?
+        Paperclip::Geometry.from_file(entry.image.path).width.to_i < 50
+      end
+      .each { |entry| ImageReloader.call entry }
+      .select do |entry|
+        Paperclip::Geometry.from_file(entry.image.path).width.to_i < 50
+      end
   end
 
   def klass_parser
