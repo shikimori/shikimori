@@ -8,7 +8,7 @@ class Api::V1::AppearController < Api::V1::ApiController
     return head 200 unless params[:ids]
 
     type_ids.each do |type, ids|
-      klass = type.titleize.constantize
+      klass = type.gsub('entry', 'topic').titleize.constantize
       bulk_create_viewings.(current_user, klass, ids)
     end
 
