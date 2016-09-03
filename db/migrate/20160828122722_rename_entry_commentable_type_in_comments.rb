@@ -4,6 +4,6 @@ class RenameEntryCommentableTypeInComments < ActiveRecord::Migration
   end
 
   def down
-    Message.where(commentable_type: 'Topic').update_all(commentable_type: 'Entry')
+    Comment.where(commentable_type: 'Topic').update_all(commentable_type: 'Entry')
   end
 end
