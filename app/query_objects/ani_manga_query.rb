@@ -349,40 +349,40 @@ private
 
     if field == :japanese || field == :english || field == :synonyms
       queries << [
-        "#{table_field} ilike #{Entry.sanitize "% #{term.gsub('*', '%')}%"}",
-        "#{table_field} ilike #{Entry.sanitize "%#{term.gsub('*', '%')}%"}"
+        "#{table_field} ilike #{Topic.sanitize "% #{term.gsub('*', '%')}%"}",
+        "#{table_field} ilike #{Topic.sanitize "%#{term.gsub('*', '%')}%"}"
       ]
       if field == :japanese
-        queries << "#{table_field} ilike #{Entry.sanitize "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '').gsub('*', '%')}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '').gsub('*', '%')}%"}"
       end
 
     else
       queries = [
-        "#{table_field} = #{Entry.sanitize term}",
-        "#{table_field} ilike #{Entry.sanitize "#{term}%"}",
-        "#{table_field} ilike #{Entry.sanitize term.gsub(/([A-zА-я0-9])/, '\1% ').sub(/ $/, '')}"
+        "#{table_field} = #{Topic.sanitize term}",
+        "#{table_field} ilike #{Topic.sanitize "#{term}%"}",
+        "#{table_field} ilike #{Topic.sanitize term.gsub(/([A-zА-я0-9])/, '\1% ').sub(/ $/, '')}"
       ]
 
       if field == :english || field == :synonyms || field == :name || field == :russian
-        queries << "#{table_field} ilike #{Entry.sanitize term.broken_translit.gsub(/'/, '')}" if field != :russian
-        queries << "#{table_field} ilike #{Entry.sanitize "% #{term}%"}"
-        queries << "#{table_field} ilike #{Entry.sanitize "% _#{term}%"}"
-        queries << "#{table_field} ilike #{Entry.sanitize "% #{term}%"}"
-        queries << "#{table_field} ilike #{Entry.sanitize "%#{term}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize term.broken_translit.gsub(/'/, '')}" if field != :russian
+        queries << "#{table_field} ilike #{Topic.sanitize "% #{term}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "% _#{term}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "% #{term}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "%#{term}%"}"
 
         if term != pterm
-          queries << "#{table_field} ilike #{Entry.sanitize "#{pterm.broken_translit.gsub(/'/, '')}%"}"
+          queries << "#{table_field} ilike #{Topic.sanitize "#{pterm.broken_translit.gsub(/'/, '')}%"}"
         end
       end
 
       unless term.eql? pterm
-        queries << "#{table_field} ilike #{Entry.sanitize "#{pterm}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "#{pterm}%"}"
       end
 
       if field == :name && term.include?('*')
-        queries << "#{table_field} ilike #{Entry.sanitize term.gsub('*', '%')}"
-        queries << "#{table_field} ilike #{Entry.sanitize "#{term.gsub '*', '%'}%"}"
-        queries << "#{table_field} ilike #{Entry.sanitize "%#{term.gsub '*', '%'}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize term.gsub('*', '%')}"
+        queries << "#{table_field} ilike #{Topic.sanitize "#{term.gsub '*', '%'}%"}"
+        queries << "#{table_field} ilike #{Topic.sanitize "%#{term.gsub '*', '%'}%"}"
       end
     end
 

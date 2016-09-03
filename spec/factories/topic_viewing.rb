@@ -1,4 +1,4 @@
 FactoryGirl.define do
-  factory :comment_view do
+  factory :topic_viewing do
   end
 end

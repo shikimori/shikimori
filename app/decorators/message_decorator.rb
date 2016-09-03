@@ -13,9 +13,9 @@ class MessageDecorator < BaseDecorator
     if kind == MessageType::Episode
       linked.linked.decorate.url
     elsif kind == MessageType::ContestFinished
-      h.contest_url linked
+      h.contest_url(linked)
     elsif MessagesQuery::NEWS_KINDS.include?(kind)
-      UrlGenerator.instance.topic_url linked
+      UrlGenerator.instance.topic_url(linked)
     else
       h.profile_url from
     end
@@ -25,8 +25,9 @@ class MessageDecorator < BaseDecorator
     anime_related? ? h.localized_name(anime) : from.nickname
   end
 
-  def generated_news?
-    linked.respond_to?(:generated_news?) && linked.generated_news?
+  def for_generated_news_topic?
+    return false unless linked.is_a?(Topic)
+    Topic::TypePolicy.new(linked).generated_news_topic?
   end
 
   def action_tag
@@ -35,7 +36,7 @@ class MessageDecorator < BaseDecorator
       text: linked.action == 'episode' ?
         "#{linked.action_text} #{linked.value}" :
         linked.action_text
-    ) if generated_news?
+    ) if for_generated_news_topic?
   end
 
   def generate_body

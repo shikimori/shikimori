@@ -37,16 +37,13 @@ class CommentsController < ShikimoriController
   # все комментарии сущности до определённого коммента
   def fetch
     comment = Comment.find(params[:comment_id])
-    entry = params[:topic_type].constantize.find(params[:topic_id])
+    topic = params[:topic_type].constantize.find(params[:topic_id])
 
-    raise Forbidden unless comment.commentable_id == entry.id && (
-                             comment.commentable_type == entry.class.name || (
-                               entry.respond_to?(:base_class) && comment.commentable_type == entry.base_class.name
-                           ))
+    raise Forbidden unless comment.commentable == topic
     from = params[:skip].to_i
     to = [params[:limit].to_i, 100].min
 
-    query = entry
+    query = topic
       .comments
       .includes(:user, :commentable)
       .offset(from)

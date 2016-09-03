@@ -3,7 +3,7 @@ describe FayeService do
 
   let(:faye) { 'test' }
   let(:user) { create :user }
-  let(:topic) { create :entry, user: user }
+  let(:topic) { create :topic, user: user }
   let!(:publisher) { FayePublisher.new user, faye }
 
   describe '#create' do
@@ -55,12 +55,12 @@ describe FayeService do
       before { expect_any_instance_of(FayePublisher).not_to receive :publish }
       let(:body) { nil }
 
-      it { expect{act}.to raise_error ActiveRecord::RecordInvalid }
+      it { expect { act }.to raise_error ActiveRecord::RecordInvalid }
     end
   end
 
   describe '#update' do
-    let(:params) {{ body: body }}
+    let(:params) { { body: body } }
     let(:trackable) { create :comment, user: user }
     subject(:act) { service.update trackable, params }
 

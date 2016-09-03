@@ -7,6 +7,10 @@ FactoryGirl.define do
 
     locale 'ru'
 
+    factory :forum_topic do
+      type 'Topic'
+    end
+
     factory :anime_topic, class: 'Topics::EntryTopics::AnimeTopic' do
       type 'Topics::EntryTopics::AnimeTopic'
       forum { seed :animanga_forum }
@@ -74,10 +78,10 @@ FactoryGirl.define do
       updated_at { 1.day.ago }
       forum { seed :offtopic_forum }
     end
-    trait :rules do
+    trait :site_rules do
       id StickyTopicView::TOPIC_IDS[:site_rules][:ru]
-      title 'rules'
-      body 'rules'
+      title 'site rules'
+      body 'site rules'
       created_at { 2.days.ago }
       updated_at { 2.days.ago }
       forum { seed :offtopic_forum }
@@ -90,9 +94,36 @@ FactoryGirl.define do
       updated_at { 3.days.ago }
       forum { seed :offtopic_forum }
     end
+    trait :description_of_genres do
+      id StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
+      title 'description of genres'
+      body 'description of genres'
+      created_at { 4.days.ago }
+      updated_at { 4.days.ago }
+      forum { seed :offtopic_forum }
+    end
+    trait :ideas_and_suggestions do
+      id StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
+      title 'ideas and suggestions'
+      body 'ideas and suggestions'
+      created_at { 5.days.ago }
+      updated_at { 5.days.ago }
+      forum { seed :offtopic_forum }
+    end
+    trait :site_problems do
+      id StickyTopicView::TOPIC_IDS[:site_problems][:ru]
+      title 'site problems'
+      body 'site problems'
+      created_at { 6.days.ago }
+      updated_at { 6.days.ago }
+      forum { seed :offtopic_forum }
+    end
 
     factory :offtopic_topic, traits: [:offtopic]
-    factory :rules_topic, traits: [:rules]
+    factory :site_rules_topic, traits: [:site_rules]
     factory :faq_topic, traits: [:faq]
+    factory :description_of_genres_topic, traits: [:description_of_genres]
+    factory :ideas_and_suggestions_topic, traits: [:ideas_and_suggestions]
+    factory :site_problems_topic, traits: [:site_problems]
   end
 end

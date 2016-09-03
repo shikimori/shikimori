@@ -3,7 +3,8 @@ describe Api::V1::TopicsController, :show_in_doc do
 
   describe '#index' do
     let!(:topic) do
-      create :entry, forum: animanga_forum,
+      create :topic,
+        forum: animanga_forum,
         body: 'test [spoiler=спойлер]test[/spoiler] test'
     end
     before { get :index, forum: animanga_forum.permalink, format: :json }
@@ -17,7 +18,8 @@ describe Api::V1::TopicsController, :show_in_doc do
   describe '#show' do
     let(:review) { create :review }
     let(:topic) do
-      create :review_topic, linked: review,
+      create :review_topic,
+        linked: review,
         body: 'test [spoiler=спойлер]test[/spoiler] test'
     end
 

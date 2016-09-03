@@ -14,7 +14,7 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :commentable, polymorphic: true
   belongs_to :topic,
-    class_name: Entry.name,
+    class_name: Topic.name,
     foreign_key: :commentable_id
 
   has_many :abuse_requests, -> { order :id }, dependent: :destroy
@@ -62,6 +62,7 @@ class Comment < ActiveRecord::Base
       commentable.increment!(:comments_count)
     end
   end
+
   def decrement_comments
     if commentable && commentable.attributes['comments_count']
       commentable.class.decrement_counter(:comments_count, commentable.id)
@@ -88,7 +89,7 @@ class Comment < ActiveRecord::Base
   def creation_callbacks
     commentable_klass = Object.const_get(self.commentable_type.to_sym)
     commentable = commentable_klass.find(self.commentable_id)
-    self.commentable_type = commentable.base_class.name if commentable.respond_to?(:base_class)
+    self.commentable_type = commentable_klass.base_class.name
 
     commentable.comment_added(self) if commentable.respond_to?(:comment_added)
     #commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
@@ -165,7 +166,7 @@ class Comment < ActiveRecord::Base
 
   # TODO: move to CommentDecorator
   def html_body
-    fixed_body = if commentable_id == 82468 && commentable_type == Entry.name
+    fixed_body = if commentable_id == 82468 && commentable_type == Topic.name
       body
         .gsub('[poster=', '[image=')
         .gsub('[poster]', '[img]')

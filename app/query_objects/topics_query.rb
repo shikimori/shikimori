@@ -2,8 +2,8 @@ class TopicsQuery < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = <<-SQL.strip
     (
-      type = #{Entry.sanitize Topics::EntryTopics::ClubTopic.name} and
-      #{Entry.table_name}.linked_id in (:user_clubs)
+      type = #{Topic.sanitize Topics::EntryTopics::ClubTopic.name} and
+      #{Topic.table_name}.linked_id in (:user_clubs)
     )
   SQL
   NEWS_QUERY = <<-SQL.strip
@@ -18,7 +18,7 @@ class TopicsQuery < QueryObjectBase
   CLUBS_JOIN = "left join clubs on clubs.id=linked_id and linked_type='Club'"
 
   def self.fetch user, locale
-    query = new Entry
+    query = new Topic
       .includes(:forum, :user)
       .order(updated_at: :desc)
       .where(locale: locale)
@@ -78,7 +78,10 @@ private
         if user
           user_forums scope, user
         else
-          scope.where.not(type: Topics::EntryTopics::ClubTopic.name)
+          scope.where(
+            'type <> ? OR type IS NULL',
+            Topics::EntryTopics::ClubTopic.name
+          )
         end
 
       when 'reviews'

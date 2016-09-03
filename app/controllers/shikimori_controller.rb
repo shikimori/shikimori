@@ -108,35 +108,6 @@ class ShikimoriController < ApplicationController
   end
 
   # TODO: выпилить
-  def chronology params
-    collection = params[:source]
-      .where("`#{params[:date]}` >= #{Entry.sanitize params[:entry][params[:date]]}")
-      .where("#{params[:entry].class.table_name}.id != #{Entry.sanitize params[:entry].id}")
-      .limit(20)
-      .order(params[:date])
-      .to_a + [params[:entry]]
-
-    collection += params[:source]
-      .where("`#{params[:date]}` <= #{Entry.sanitize params[:entry][params[:date]]}")
-      .where.not(id: collection.map(&:id))
-      .limit(20)
-      .order("#{params[:date]} desc")
-      .to_a
-
-    collection = collection.sort {|l,r| r[params[:date]] == l[params[:date]] ? r.id <=> l.id : r[params[:date]] <=> l[params[:date]] }
-    collection = collection.reverse if params[:desc]
-    gallery_index = collection.index {|v| v.id == params[:entry].id }
-    reduce = Proc.new {|v| v < 0 ? 0 : v }
-    collection.slice(reduce.call(gallery_index + params[:window] + 1 < collection.size ?
-                                   gallery_index - params[:window] :
-                                   (gallery_index - params[:window] - (gallery_index + params[:window]  + 1 - collection.size))),
-                     params[:window]*2 + 1).
-               group_by do |v|
-                 Russian::strftime(v[params[:date]], '%B %Y')
-               end
-  end
-
-  # TODO: выпилить
   def check_post_permission
     raise Forbidden, "Вы забанены (запрет комментирования) до #{current_user.read_only_at.strftime '%H:%M %d.%m.%Y'}" unless current_user.can_post?
   end

@@ -109,9 +109,9 @@ class DashboardView < ViewObjectBase
 
   def cache_keys
     news =
-      TopicsQuery.new(Entry).by_forum(Forum::NEWS_FORUM, nil, nil).first
+      TopicsQuery.new(Topic).by_forum(Forum::NEWS_FORUM, nil, nil).first
     updates =
-      TopicsQuery.new(Entry).by_forum(Forum::UPDATES_FORUM, nil, nil).first
+      TopicsQuery.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
       reviews: Review.order(id: :desc).first,

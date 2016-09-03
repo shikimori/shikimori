@@ -24,7 +24,7 @@ describe Comment::Create do
     it do
       expect(comment).to be_persisted
       expect(comment).to have_attributes(
-        commentable_type: 'Entry',
+        commentable_type: Topic.name,
         body: 'x' * Comment::MIN_SUMMARY_SIZE,
         is_offtopic: true,
         is_summary: true,
@@ -40,7 +40,7 @@ describe Comment::Create do
     #       because of limit on commentable_type in comments
     context 'commentable is topic' do
       let(:commentable_id) { topic.id }
-      let(:commentable_type) { 'Entry' }
+      let(:commentable_type) { Topic.name }
 
       it_behaves_like :comment
       it { is_expected.to eq topic }
@@ -48,7 +48,7 @@ describe Comment::Create do
 
     context 'commentable is user' do
       let(:commentable_id) { user.id }
-      let(:commentable_type) { 'User' }
+      let(:commentable_type) { User.name }
 
       it do
         expect(comment).to have_attributes(
@@ -63,7 +63,7 @@ describe Comment::Create do
 
     context 'commentable is db entry with topic' do
       let(:commentable_id) { anime.id }
-      let(:commentable_type) { anime.class.name }
+      let(:commentable_type) { Anime.name }
 
       it_behaves_like :comment
       it { is_expected.to eq topic }
@@ -71,7 +71,7 @@ describe Comment::Create do
 
     context 'commentable is db entry with topic for different locale' do
       let(:commentable_id) { anime.id }
-      let(:commentable_type) { anime.class.name }
+      let(:commentable_type) { Anime.name }
 
       let(:topic_locale) { (Site::DOMAIN_LOCALES - [locale]).sample }
       let(:topic) { create :anime_topic, user: user, linked: anime, locale: topic_locale }
@@ -87,7 +87,7 @@ describe Comment::Create do
 
     context 'commentable is db entry without topic' do
       let(:commentable_id) { anime.id }
-      let(:commentable_type) { anime.class.name }
+      let(:commentable_type) { Anime.name }
       let(:topic) {}
 
       it_behaves_like :comment

@@ -72,8 +72,8 @@ module Clockwork
     CharactersImporter.perform_async
   end
 
-  every 1.day, 'daily.views_cleaner', at: '05:00' do
-    CommentViewsCleaner.perform_async
+  every 1.day, 'daily.viewings_cleaner', at: '05:00' do
+    ViewingsCleaner.perform_async
   end
 
   every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do

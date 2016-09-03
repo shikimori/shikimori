@@ -1,6 +1,6 @@
 describe Api::V1::CommentsController do
   let(:user) { create :user, :user }
-  let(:topic) { create :entry, user: user }
+  let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
   describe '#show', :show_in_doc do
@@ -31,7 +31,7 @@ describe Api::V1::CommentsController do
     let(:params) do
       {
         commentable_id: topic.id,
-        commentable_type: 'Entry',
+        commentable_type: Topic.name,
         body: body,
         is_offtopic: true,
         is_summary: true

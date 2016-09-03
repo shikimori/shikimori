@@ -79,7 +79,7 @@ private
     create_params = {
       user: user,
       commentable_id: topic.id,
-      commentable_type: 'Entry',
+      commentable_type: 'Topic',
       body: body
     }
 

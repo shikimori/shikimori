@@ -3,14 +3,17 @@ class JsExports::ExportBase
   attr_implement :serialize
 
   def self.inherited klass
-    name = klass.name.gsub(/.*:/, '').underscore.gsub('_export', '').singularize
+    name = klass.name
+      .gsub(/.*:/, '')
+      .underscore.gsub('_export', '')
+      .singularize
 
     klass.include Singleton
     klass.const_set 'PLACEHOLDER', /data-track_#{name}="(\d+)"/mix
   end
 
-  def placeholder entry
-    entry.id.to_s
+  def placeholder topic
+    topic.id.to_s
   end
 
   def sweep html
@@ -21,7 +24,7 @@ class JsExports::ExportBase
   end
 
   def export user
-    fetch_entries(user).map { |entry| serialize entry }
+    fetch_entries(user).map { |topic| serialize topic }
   end
 
 private

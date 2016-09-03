@@ -1,5 +1,5 @@
 .b-message.shiki-object.to-process[
-  class="#{'b-generated_news' if message.generated_news?}"
+  class="#{'b-generated_news' if message.for_generated_news_topic?}"
   id="#{message.id}"
   data-appear_type='message'
   data-dynamic='message'
@@ -103,7 +103,7 @@
             span.item-delete-cancel title="#{t 'actions.cancel'}"
 
     header
-      - unless message.generated_news?
+      - unless message.for_generated_news_topic?
         span.linkeable data-href="#{message.url}"
           img[
             src="#{message.image}"
@@ -126,7 +126,7 @@
           ] = l message.created_at, format: '%e %B %Y'
 
     .body
-      - if message.generated_news?
+      - if message.for_generated_news_topic?
         .b-catalog-entry-embedded
           = render message.linked.linked.decorate,
             cover_title: :none,

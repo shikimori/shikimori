@@ -32,7 +32,7 @@ p tdm.column(sorted_ranks.first[0])
     #.each_with_object({}) {|(id,index),memo| memo[id] = index }
 
 # подготовка данных для SVD матрицы
-RATE_CONDITION = Entry.squeel { (status.not_eq my{UserRateStatus.get UserRateStatus::Planned}) & (score.not_eq(nil)) & (score > 0) }
+RATE_CONDITION = Topic.squeel { (status.not_eq my{UserRateStatus.get UserRateStatus::Planned}) & (score.not_eq(nil)) & (score > 0) }
 
 entry_ids = Anime.where do
   (score >= 6) &

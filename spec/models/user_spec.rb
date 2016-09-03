@@ -7,6 +7,9 @@ describe User do
     it { is_expected.to have_many :anime_rates }
     it { is_expected.to have_many :manga_rates }
 
+    it { is_expected.to have_many :topic_viewings }
+    it { is_expected.to have_many :comment_viewings }
+
     it { is_expected.to have_many :history }
 
     it { is_expected.to have_many :friend_links }
@@ -37,9 +40,6 @@ describe User do
     it { is_expected.to have_many :contest_user_votes }
     it { is_expected.to have_many :topics }
     it { is_expected.to have_many :topic_ignores }
-
-    it { is_expected.to have_many :comment_views }
-    it { is_expected.to have_many :entry_views }
 
     it { is_expected.to have_many :nickname_changes }
     it { is_expected.to have_many :recommendation_ignores }

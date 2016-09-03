@@ -15,7 +15,7 @@ class MessageSerializer < ActiveModel::Serializer
     return nil unless object.linked
     hash = { id: object.linked.id }
 
-    if object.linked && object.linked.kind_of?(Entry)
+    if object.linked && object.linked.kind_of?(Topic)
       hash[:topic_url] = UrlGenerator.instance.topic_url object.linked
       # TODO: deprecated
       hash[:thread_id] = object.linked_id

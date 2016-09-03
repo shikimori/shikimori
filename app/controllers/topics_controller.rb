@@ -3,8 +3,8 @@
 class TopicsController < ShikimoriController
   # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
   load_and_authorize_resource(
-    class: Entry,
-    only: %i(show new create edit update destroy)
+    class: Topic,
+    only: %i(new create edit update show destroy)
   )
 
   before_action :check_post_permission, only: [:create, :update, :destroy]
@@ -51,7 +51,9 @@ class TopicsController < ShikimoriController
 
   def new
     noindex
-    page_title i18n_t("new_#{@resource.news? ? :news : :topic}")
+
+    topic_type_policy = Topic::TypePolicy.new(@resource)
+    page_title i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
     @back_url = @breadcrumbs[@breadcrumbs.keys.last]
   end
 
@@ -105,7 +107,7 @@ class TopicsController < ShikimoriController
 
   # выбранные топики
   def chosen
-    @collection = Entry
+    @collection = Topic
       .where(id: params[:ids].split(',').map(&:to_i))
       .map { |topic| Topics::TopicViewFactory.new(true, false).build topic }
 
@@ -114,7 +116,7 @@ class TopicsController < ShikimoriController
 
   # подгружаемое через ajax тело топика
   def reload
-    topic = Entry.find params[:id]
+    topic = Topic.find params[:id]
     @topic_view = Topics::TopicViewFactory
       .new(params[:is_preview] == 'true', false)
       .build(topic)

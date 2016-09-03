@@ -48,7 +48,7 @@ private
   end
 
   def topics
-    Entry
+    Topic
       .includes(:user)
       .where.not(processed: true)
       .where('(type = ? and generated = true) or broadcast = true', Topics::NewsTopic.name)

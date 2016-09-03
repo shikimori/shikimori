@@ -52,7 +52,7 @@ private
   end
 
   def cache_key
-    [:forums, :v3, Entry.last&.id]
+    [:forums, :v3, Topic.last&.id]
   end
 
   def censored_forbidden?

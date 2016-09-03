@@ -90,7 +90,8 @@ class AnimesController < DbEntriesController
   end
 
   def summaries
-    unless @resource.maybe_topic(locale_from_domain).any_summaries?
+    maybe_topic = @resource.maybe_topic(locale_from_domain)
+    unless Topic::CommentsPolicy.new(maybe_topic).any_summaries?
       return redirect_to @resource.url, status: 301
     end
 

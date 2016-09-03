@@ -9,7 +9,7 @@ class ClubsQuery < SimpleQueryBase
 
   def fetch page, limit, with_favourites = false
     query(with_favourites)
-      .offset(limit * (page-1))
+      .offset(limit * (page - 1))
       .limit(limit + 1)
   end
 
@@ -28,8 +28,8 @@ private
       .joins(:member_roles, :topics)
       .preload(:owner, :topics)
       .where(locale: locale)
-      .group('clubs.id, entries.updated_at')
+      .group('clubs.id, topics.updated_at')
       .having('count(club_roles.id) > 0')
-      .order('entries.updated_at desc, id')
+      .order('topics.updated_at desc, id')
   end
 end

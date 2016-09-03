@@ -13,7 +13,7 @@ class FayePublisher
     if trackable.kind_of? Comment
       publish_comment trackable, event, channels
 
-    elsif trackable.kind_of? Entry
+    elsif trackable.kind_of? Topic
       publish_topic trackable, event, channels
 
     elsif trackable.kind_of? Message

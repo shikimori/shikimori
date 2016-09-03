@@ -2,11 +2,14 @@
 class Topics::View < ViewObjectBase
   vattr_initialize :topic, :is_preview, :is_mini
 
-  delegate :id, :persisted?, :user, :created_at, :updated_at, :body, :viewed?,
-    :comments_count, :summaries_count, :any_comments?, :any_summaries?,
-    to: :topic
+  delegate :id, :persisted?, :user, :created_at,
+    :updated_at, :body, :viewed?, to: :topic
+
+  delegate :comments_count, :summaries_count, to: :topic_comments_policy
+  delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
   instance_cache :comments_view, :urls, :action_tag, :topic_ignore
+  instance_cache :topic_comments_policy, :topic_type_policy
 
   def ignored?
     h.user_signed_in? && h.current_user.ignores?(topic.user)
@@ -32,7 +35,9 @@ class Topics::View < ViewObjectBase
   end
 
   def show_body?
-    is_preview || !topic.generated? || topic.contest?
+    is_preview ||
+      !topic.generated? ||
+      topic_type_policy.contest_topic?
   end
 
   def poster_title
@@ -44,9 +49,8 @@ class Topics::View < ViewObjectBase
   end
 
   def topic_title
-    if topic.topic? || topic.linked_id.nil?
+    if topic_type_policy.forum_topic? || topic.linked_id.nil?
       topic.title
-
     else
       h.localized_name topic.linked
     end
@@ -60,7 +64,12 @@ class Topics::View < ViewObjectBase
   def poster is_2x
     # последнее условие для пользовательских топиков об аниме
     if linked_in_avatar?
-      linked = topic.review? ? topic.linked.target : topic.linked
+      linked = if topic_type_policy.review_topic?
+        topic.linked.target
+      else
+        topic.linked
+      end
+
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
       topic.user.avatar_url is_2x ? 80 : 48
@@ -84,11 +93,11 @@ class Topics::View < ViewObjectBase
   end
 
   def read_more_link?
-    (is_preview || is_mini) && topic.review?
+    (is_preview || is_mini) && topic_type_policy.review_topic?
   end
 
   # def author_in_footer?
-    # is_preview && (topic.news? || topic.review?) &&
+    # is_preview && (topic_type_policy.news_topic? || topic_type_policy.review_topic?) &&
       # (!author_in_header? || poster(false) != user.avatar_url(48))
   # end
 
@@ -100,12 +109,12 @@ class Topics::View < ViewObjectBase
 
   # # надо ли свёртывать длинный контент топика?
   # def should_shorten?
-    # !news? || (news? && generated?) || (news? && object.body !~ /\[wall\]/)
+    # !news_topic? || (news_topic? && generated?) || (news_topic? && object.body !~ /\[wall\]/)
   # end
 
   # # тег топика
   # def tag
-    # return nil if linked.nil? || review? || contest?
+    # return nil if linked.nil? || review_topic? || contest_topic?
 
     # if linked.kind_of? Review
       # h.localized_name linked.target
@@ -147,6 +156,10 @@ class Topics::View < ViewObjectBase
     topic_ignore.present?
   end
 
+  def topic_type_policy
+    Topic::TypePolicy.new topic
+  end
+
 private
 
   def body_cache_key
@@ -166,6 +179,10 @@ private
       .gsub(%r{<a [^>]* class="b-image.*?</a>}, '')
       .gsub(%r{<center></center>}, '')
       .gsub(/\A(<br>)+/, '')
+  end
+
+  def topic_comments_policy
+    Topic::CommentsPolicy.new topic
   end
 end
 # rubocop:enable ClassLength

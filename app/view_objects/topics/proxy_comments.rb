@@ -2,8 +2,6 @@
 # требуется наличие объекта-топика, но у комментируемой сущности
 # нет топиков, а есть лишь комментарии (например, в модели User)
 class Topics::ProxyComments < Topics::CommentsView
-  instance_cache :any_summaries?
-
   def comments_count
     model.comments.count
   end
@@ -19,10 +17,6 @@ class Topics::ProxyComments < Topics::CommentsView
 
   def comments_limit
     is_preview ? 7 : fold_limit
-  end
-
-  def any_summaries?
-    model.comments.where(is_summary: true).count
   end
 
 private

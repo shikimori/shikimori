@@ -7,19 +7,21 @@ class Topics::TopicViewFactory
 
   # rubocop:disable MethodLength
   def build topic
-    if topic.review?
+    topic_type_policy = Topic::TypePolicy.new(topic)
+
+    if topic_type_policy.review_topic?
       review_topic topic
 
-    elsif topic.contest?
+    elsif topic_type_policy.contest_topic?
       contest_topic topic
 
-    elsif topic.cosplay?
+    elsif topic_type_policy.cosplay_gallery_topic?
       cosplay_topic topic
 
-    elsif topic.generated_news?
+    elsif topic_type_policy.generated_news_topic?
       generated_news_topic topic
 
-    elsif topic.news?
+    elsif topic_type_policy.news_topic?
       news_topic topic
 
     else

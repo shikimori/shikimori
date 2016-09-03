@@ -3,6 +3,7 @@ class Topics::CommentsView < ViewObjectBase
 
   instance_cache :comments, :folded_comments
   instance_cache :only_summaries_shown?
+  instance_cache :topic_comments_policy
 
   # есть ли свёрнутые комментарии?
   def folded?
@@ -11,12 +12,12 @@ class Topics::CommentsView < ViewObjectBase
 
   # число свёрнутых комментариев
   def folded_comments
-    return 0 if topic.comments_count.zero?
+    return 0 if topic_comments_policy.comments_count.zero?
 
     if only_summaries_shown?
-      topic.summaries_count - comments_limit
+      topic_comments_policy.summaries_count - comments_limit
     else
-      topic.comments_count - comments_limit
+      topic_comments_policy.comments_count - comments_limit
     end
   end
 
@@ -110,7 +111,7 @@ private
     return false unless %w(animes mangas).include? h.params[:controller]
     return true if h.params[:action] == 'summaries'
 
-    h.params[:action] == 'show' && topic.summaries_count.positive?
+    h.params[:action] == 'show' && topic_comments_policy.summaries_count.positive?
   end
   # rubocop:enable AbcSize
 
@@ -126,6 +127,10 @@ private
 
   # для адреса подгрузки комментариев
   def topic_type
-    Entry.name
+    Topic.name
+  end
+
+  def topic_comments_policy
+    Topic::CommentsPolicy.new topic
   end
 end

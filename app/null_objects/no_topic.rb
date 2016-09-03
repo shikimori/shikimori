@@ -11,10 +11,6 @@ class NoTopic < NullObject
     0
   end
 
-  def summaries_count
-    0
-  end
-
 private
 
   def base_klass

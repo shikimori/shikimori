@@ -1,154 +1,185 @@
+# frozen_string_literal: true
+
 describe Topic do
+  describe 'associations' do
+    it do
+      is_expected.to belong_to :forum
+      is_expected.to belong_to :linked
+      is_expected.to belong_to :user
+      is_expected.to have_many :messages
+      is_expected.to have_many :topic_ignores
+      is_expected.to have_many :viewings
+    end
+  end
+
   describe 'validations' do
-    it { is_expected.to validate_presence_of :title }
-    it { is_expected.to validate_presence_of :locale }
+    it do
+      is_expected.to validate_presence_of :locale
+      is_expected.to validate_presence_of :title
+    end
   end
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:locale).in :ru, :en }
   end
 
-  describe 'permissions' do
-    let(:topic) { build_stubbed :topic }
-    subject { Ability.new user }
+  describe 'instance methods' do
+    describe '#comment_added' do
+      let(:topic) { create :topic }
 
-    context 'guest' do
-      let(:user) { nil }
-      it { is_expected.not_to be_able_to :new, topic }
-      it { is_expected.not_to be_able_to :create, topic }
-      it { is_expected.not_to be_able_to :update, topic }
-      it { is_expected.not_to be_able_to :destroy, topic }
+      it 'updated_at is set to created_at of last comment' do
+        first = second = third = nil
+        Comment.wo_antispam do
+          first = create :comment, commentable: topic, created_at: 2.days.ago, body: 'first'
+          second = create :comment, commentable: topic, created_at: 1.day.ago, body: 'second'
+          third = create :comment, commentable: topic, created_at: 30.minutes.ago, body: 'third'
+        end
+        third.destroy
+        expect(first.commentable.reload.updated_at.to_i).to eq(second.created_at.to_i)
+      end
     end
 
-    context 'user' do
-      let(:user) { build_stubbed :user, :user, :week_registered }
+    describe 'comments selected with viewed flag' do
+      subject { topic.comments.with_viewed(another_user).first.viewed? }
 
-      it { is_expected.not_to be_able_to :new, topic }
-      it { is_expected.not_to be_able_to :create, topic }
-      it { is_expected.not_to be_able_to :update, topic }
-      it { is_expected.not_to be_able_to :destroy, topic }
+      let(:topic) { create :topic }
+      let(:comment_user) { create :user }
+      let(:another_user) { create :user }
+      let!(:comment) { create :comment, commentable: topic, user: comment_user }
 
-      context 'topic owner' do
-        let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
-        let(:created_at) { Time.zone.now }
-
-        context 'day registered' do
-          it { is_expected.to be_able_to :new, topic }
-          it { is_expected.to be_able_to :create, topic }
-          it { is_expected.to be_able_to :update, topic }
-          it { is_expected.to be_able_to :destroy, topic }
-        end
-
-        context 'newly registered' do
-          let(:user) { build_stubbed :user, :user }
-          it { is_expected.not_to be_able_to :new, topic }
-          it { is_expected.not_to be_able_to :create, topic }
-        end
-
-        context '3 hours ago topic' do
-          let(:created_at) { 239.minutes.ago }
-          it { is_expected.to be_able_to :destroy, topic }
-        end
-
-        context '4 hours ago topic' do
-          let(:created_at) { 241.minutes.ago }
-          it { is_expected.not_to be_able_to :destroy, topic }
-        end
-
-        context '2 months ago topic' do
-          let(:created_at) { 86.days.ago }
-          it { is_expected.to be_able_to :update, topic }
-        end
-
-        #context '3 months ago topic' do
-          #let(:created_at) { 94.days.ago }
-          #it { is_expected.not_to be_able_to :update, topic }
-        #end
+      context 'comment not viewed' do
+        it { is_expected.to eq false }
       end
 
-      context 'moderator' do
-        subject { Ability.new build_stubbed(:user, :moderator) }
-        it { is_expected.to be_able_to :manage, topic }
+      context 'comment viewed' do
+        before { create :comment_viewing, user: another_user, viewed: comment }
+        it { is_expected.to eq true }
+      end
+    end
+
+    describe '#original_body & #appended_body' do
+      let(:topic) { build :topic, body: body, generated: is_generated }
+      let(:body) { 'test[wall][/wall]' }
+
+      context 'not generated topic' do
+        let(:is_generated) { false }
+
+        context 'with wall' do
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '[wall][/wall]' }
+        end
+
+        context 'without wall' do
+          let(:body) { 'test' }
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '' }
+        end
+      end
+
+      context 'generated topic' do
+        let(:is_generated) { true }
+
+        context 'with wall' do
+          it { expect(topic.original_body).to eq 'test[wall][/wall]' }
+          it { expect(topic.appended_body).to eq '' }
+        end
+
+        context 'without wall' do
+          let(:body) { 'test' }
+          it { expect(topic.original_body).to eq 'test' }
+          it { expect(topic.appended_body).to eq '' }
+        end
       end
     end
   end
 
-  describe 'instance methods' do
-    let(:topic) { create :topic }
+  describe 'permissions' do
+    subject { Ability.new user }
 
-    def create_comment
-      create :comment, :with_counter_cache, commentable: topic
-    end
+    context 'guest' do
+      let(:user) { nil }
+      let(:topic) { build_stubbed :topic }
 
-    def create_summary
-      create :comment, :summary, :with_counter_cache, commentable: topic
-    end
-
-    describe '#any_comments?' do
-      subject { topic.any_comments? }
-
-      context 'with comments' do
-        before { create_comment }
-        it { is_expected.to eq true }
-      end
-
-      context 'with summaries' do
-        before { create_summary }
-        it { is_expected.to eq true }
-      end
-
-      context 'without comments' do
-        it { is_expected.to eq false }
+      it do
+        is_expected.not_to be_able_to :new, topic
+        is_expected.not_to be_able_to :create, topic
+        is_expected.not_to be_able_to :update, topic
+        is_expected.not_to be_able_to :destroy, topic
       end
     end
 
-    describe '#any_summaries?' do
-      subject { topic.any_summaries? }
+    context 'not topic owner' do
+      let(:user) { build_stubbed :user, :user, :week_registered }
+      let(:topic) { build_stubbed :topic, user: build_stubbed(:user) }
 
-      context 'with summaries' do
-        before { create_summary }
-        it { is_expected.to eq true }
-      end
-
-      context 'without summaries' do
-        before { create_comment }
-        it { is_expected.to eq false }
+      it do
+        is_expected.not_to be_able_to :new, topic
+        is_expected.not_to be_able_to :create, topic
+        is_expected.not_to be_able_to :update, topic
+        is_expected.not_to be_able_to :destroy, topic
       end
     end
 
-    describe '#all_summaries?' do
-      subject { topic.all_summaries? }
+    context 'topic owner' do
+      let(:user) { build_stubbed :user, :user, :week_registered }
+      let(:topic) { build_stubbed :topic, user: user }
 
-      context 'all summaries' do
-        before do
-          create_summary
-          create_summary
+      it do
+        is_expected.to be_able_to :new, topic
+        is_expected.to be_able_to :create, topic
+        is_expected.to be_able_to :update, topic
+      end
+
+      context 'user is registered < 1 week ago' do
+        let(:user) { build_stubbed :user, :user, :day_registered }
+        it do
+          is_expected.not_to be_able_to :new, topic
+          is_expected.not_to be_able_to :create, topic
+          is_expected.to be_able_to :update, topic
+        end
+      end
+
+      context 'banned user' do
+        let(:user) { build_stubbed :user, :banned, :week_registered }
+        it do
+          is_expected.not_to be_able_to :new, topic
+          is_expected.not_to be_able_to :create, topic
+          is_expected.not_to be_able_to :update, topic
+        end
+      end
+
+      describe 'permissions based on topic creation date' do
+        let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
+
+        context 'topic created < 4 hours ago' do
+          let(:created_at) { 4.hours.ago + 1.minute }
+          it { is_expected.to be_able_to :destroy, topic }
         end
 
-        it { is_expected.to eq true }
-      end
-
-      context 'not all summaries' do
-        before do
-          create_comment
-          create_summary
-          create_summary
+        context 'topic created >= 4 hours ago' do
+          let(:created_at) { 4.hours.ago - 1.minute }
+          it { is_expected.not_to be_able_to :destroy, topic }
         end
-
-        it { is_expected.to eq false }
       end
     end
 
-    describe '#summaries_count' do
-      subject { topic.summaries_count }
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :moderator }
+      let(:topic) { build_stubbed :topic, user: build_stubbed(:user) }
 
-      before do
-        create_comment
-        create_summary
-        create_summary
+      context 'common topic' do
+        it { is_expected.to be_able_to :manage, topic }
       end
 
-      it { is_expected.to eq 2 }
+      context 'generated topic' do
+        let(:topic) { build_stubbed :club_topic, user: build_stubbed(:user) }
+        it { is_expected.to_not be_able_to :manage, topic }
+      end
+
+      context 'generated review topic' do
+        let(:topic) { build_stubbed :review_topic, user: build_stubbed(:user) }
+        it { is_expected.to be_able_to :manage, topic }
+      end
     end
   end
 end

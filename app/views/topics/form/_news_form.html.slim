@@ -40,7 +40,7 @@
   .title = t '.topic_posters'
 
   label: .b-dropzone[
-    data-upload_url="#{api_user_images_url linked_type: Entry.name}"
+    data-upload_url="#{api_user_images_url linked_type: Topic.name}"
     data-hint="Перетаскивайте сюда картинки, они будут отображены отдельным блоком в топике."
   ]
     = render 'blocks/upload_progress'

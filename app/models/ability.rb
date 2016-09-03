@@ -58,7 +58,7 @@ class Ability
     can :see_club, Club
     can :read, Review
 
-    can :read, Entry
+    can :read, Topic
   end
 
   def user_ability
@@ -134,14 +134,14 @@ class Ability
 
     can :manage, Device, user_id: @user.id
 
-    can [:new, :create], [Entry, Topic, Topics::NewsTopic.name] do |topic|
+    can [:new, :create], [Topic, Topics::NewsTopic.name] do |topic|
       !@user.banned? && @user.week_registered? &&
         topic.user_id == @user.id
     end
-    can [:update], [Entry, Topic, Topics::NewsTopic.name] do |topic|
+    can [:update], [Topic, Topics::NewsTopic.name] do |topic|
       !@user.banned? && topic.user_id == @user.id
     end
-    can [:destroy], [Entry, Topic, Topics::NewsTopic.name] do |topic|
+    can [:destroy], [Topic, Topics::NewsTopic.name] do |topic|
       can?(:create, topic) && topic.created_at + 4.hours > Time.zone.now
     end
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
@@ -193,8 +193,8 @@ class Ability
   end
 
   def moderator_ability
-    can :manage, [Entry, Topic]
-    cannot :manage, [Entry, Topic] do |topic|
+    can :manage, [Topic]
+    cannot :manage, [Topic] do |topic|
       topic.generated? && !topic.is_a?(Topics::EntryTopics::ReviewTopic)
     end
     can [:edit, :update], [Genre]
