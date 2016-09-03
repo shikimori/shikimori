@@ -2,7 +2,7 @@ describe Moderation::ProcessedVersionsQuery do
   let(:query) { Moderation::ProcessedVersionsQuery.new 'content', created_on }
   let(:created_on) { nil }
 
-  before { Timecop.freeze '2016-03-18 15:00:00' }
+  before { Timecop.freeze Time.zone.parse('2016-03-18 15:00:00') }
   after { Timecop.return }
 
   let(:user) { create :user }
