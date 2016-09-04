@@ -77,7 +77,7 @@ class @PaginatedCatalog
     if @_is_pages_limit()
       $content.find('.b-postloader').data locked: true
 
-    @$content.process data.JS_EXPORTS
+    # @$content.process data.JS_EXPORTS
 
   # наступил ли лимит прокрутки страниц?
   _is_pages_limit: ->
