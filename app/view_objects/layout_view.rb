@@ -40,7 +40,7 @@ class LayoutView < ViewObjectBase
   def user_data
     {
       id: h.current_user&.id,
-      is_moderator: h.current_user&.moderator?
+      is_moderator: !!h.current_user&.moderator?
     }
   end
 
