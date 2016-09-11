@@ -7,6 +7,12 @@ class DynamicElements.Topic extends ShikiEditable
   initialize: ->
     # data attribute is set in Topics.Tracker
     @model = @$root.data 'model'
+    @id = parseInt(@root.id)
+    @user_id = @$root.data('user_id')
+
+    if USER.ignored_users.includes(@user_id) || USER.ignored_topics.includes(@id)
+      @$root.remove()
+      return
 
     @$body = @$inner.children('.body')
 
@@ -61,6 +67,11 @@ class DynamicElements.Topic extends ShikiEditable
         $(@).toggleClass 'selected'
 
       .on 'ajax:success', (e, result) =>
+        if result.is_ignored
+          USER.ignored_topics.push parseInt(result.topic_id)
+        else
+          USER.ignored_topics.remove parseInt(result.topic_id)
+
         $(e.target).toggleClass 'selected', result.is_ignored
         $(e.target).data(method: if result.is_ignored then 'DELETE' else 'POST')
         @$('.b-anime_status_tag.ignored').toggleClass(

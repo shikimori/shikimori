@@ -1,7 +1,8 @@
-- content_for :head do
-  = stylesheet_link_tag :users
-- content_for :tail do
-  = javascript_include_tag :users
+- unless Rails.env.test?
+  - content_for :head do
+    = stylesheet_link_tag :users
+  - content_for :tail do
+    = javascript_include_tag :users
 
 section
   - if params[:controller] == 'messages'

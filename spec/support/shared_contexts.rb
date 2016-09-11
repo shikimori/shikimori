@@ -43,6 +43,8 @@ shared_context :seeds do
   let(:contests_forum) { seed :contests_forum }
   let(:clubs_forum) { seed :clubs_forum }
   let(:cosplay_forum) { seed :cosplay_forum }
+
+  include_context :sticky_topics
 end
 
 shared_context :sticky_topics do

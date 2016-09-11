@@ -53,7 +53,8 @@ private
       actor_avatar: @actor.decorate.avatar_url(16),
       actor_avatar_2x: @actor.decorate.avatar_url(32),
       topic_id: comment.commentable_id,
-      comment_id: comment.id
+      comment_id: comment.id,
+      user_id: comment.user_id
     }
     publish_data data, comment_channels(comment, channels)
   end
@@ -65,7 +66,8 @@ private
       actor: @actor.nickname,
       actor_avatar: @actor.decorate.avatar_url(16),
       actor_avatar_2x: @actor.decorate.avatar_url(32),
-      topic_id: topic.id
+      topic_id: topic.id,
+      user_id: topic.user_id
     }
 
     mixed_channels = channels + subscribed_channels(topic) +
@@ -74,7 +76,7 @@ private
     publish_data data, mixed_channels
   end
 
-  # отправка уведомлений о новом топике
+  # отправка уведомлений о новом сообщении
   def publish_message message, event, channels
     data = {
       event: "message:#{event}",

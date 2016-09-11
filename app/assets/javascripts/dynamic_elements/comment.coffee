@@ -6,6 +6,11 @@ class DynamicElements.Comment extends ShikiEditable
   initialize: ->
     # data attribute is set in Comments.Tracker
     @model = @$root.data 'model'
+    @user_id = @$root.data('user_id')
+
+    if USER.ignored_users.includes(@user_id)
+      @$root.remove()
+      return
 
     @$body = @$('.body')
 

@@ -40,7 +40,9 @@ class LayoutView < ViewObjectBase
   def user_data
     {
       id: h.current_user&.id,
-      is_moderator: !!h.current_user&.moderator?
+      is_moderator: !!h.current_user&.moderator?,
+      ignored_topics: h.current_user&.topic_ignores&.pluck(:topic_id) || [],
+      ignored_users: h.current_user&.ignores&.pluck(:target_id) || []
     }
   end
 

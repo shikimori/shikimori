@@ -1,8 +1,3 @@
-/- content_for :head do
-  = stylesheet_link_tag :users
-/- content_for :tail do
-  = javascript_include_tag :similar_users
-
 header.head.misc
   h1 style="#{'white-space: nowrap;' if !params[:similar] && user_signed_in?}"
     = @page_title

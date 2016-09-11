@@ -10,7 +10,7 @@ class Api::V2::Topics::IgnoresController < Api::V1::ApiController
 
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique
   ensure
-    render json: { is_ignored: true }
+    render json: { topic_id: params[:topic_id],is_ignored: true }
   end
 
   api :DELETE, '/v2/topics/:topic_id/ignore', 'Unignore a topic'
@@ -20,6 +20,6 @@ class Api::V2::Topics::IgnoresController < Api::V1::ApiController
       .where(user_id: current_user.id)
       .destroy_all
 
-    render json: { is_ignored: false }
+    render json: { topic_id: params[:topic_id], is_ignored: false }
   end
 end

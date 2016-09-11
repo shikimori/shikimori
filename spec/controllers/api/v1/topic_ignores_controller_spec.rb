@@ -1,6 +1,5 @@
 describe Api::V1::TopicIgnoresController, :show_in_doc do
   include_context :seeds
-  include_context :sticky_topics
   include_context :authenticated, :user
 
   let(:topic_ignore_params) { { topic_id: offtopic_topic.id, user_id: user.id } }

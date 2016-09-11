@@ -154,15 +154,32 @@ describe LayoutView do
   end
 
   describe '#user_data' do
-    before do
-      allow(view.h).to receive(:current_user).and_return current_user
+    context 'user' do
+      let!(:topic_ignore) { create :topic_ignore, user: current_user, topic: offtopic_topic }
+      let!(:user_ignore) { create :ignore, user: current_user, target: ignored_user }
+      let(:ignored_user) { create :user }
+
+      it do
+        expect(view.user_data).to eq(
+          id: current_user.id,
+          is_moderator: current_user.moderator?,
+          ignored_topics: [offtopic_topic.id],
+          ignored_users: [ignored_user.id]
+        )
+      end
     end
 
-    it do
-      expect(view.user_data).to eq(
-        id: current_user.id,
-        is_moderator: current_user.moderator?
-      )
+    context 'guest' do
+      let(:current_user) { nil }
+
+      it do
+        expect(view.user_data).to eq(
+          id: nil,
+          is_moderator: false,
+          ignored_topics: [],
+          ignored_users: []
+        )
+      end
     end
   end
 end

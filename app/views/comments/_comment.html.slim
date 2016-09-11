@@ -1,83 +1,79 @@
-- if user_signed_in? && comment.persisted? && current_user.ignores?(comment.user)
-  = render partial: 'blocks/ignored', object: comment
+.b-comment.shiki-object.not-tracked.to-process[
+  data-appear_type='comment'
+  data-dynamic='comment'
+  data-track_comment="#{JsExports::CommentsExport.instance.placeholder comment}"
+  data-user_id="#{comment.user.try :id}"
+  data-user_nickname="#{comment.user.try :nickname}"
+  id="#{comment.id}"
+  itemscope
+  itemprop="comment"
+  itemtype="http://schema.org/UserComments"
+]
+  a name="comment-#{comment.id}"
+  / класс нужен из-за проверки высоты
+  .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
+    - if comment.persisted?
+      - if user_signed_in?
+        span.item-mobile title="#{t 'actions.actions'}"
 
-- else
-  .b-comment.shiki-object.not-tracked.to-process[
-    data-appear_type='comment'
-    data-dynamic='comment'
-    data-track_comment="#{JsExports::CommentsExport.instance.placeholder comment}"
-    data-user_id="#{comment.user.try :id}"
-    data-user_nickname="#{comment.user.try :nickname}"
-    id="#{comment.id}"
-    itemscope
-    itemprop="comment"
-    itemtype="http://schema.org/UserComments"
-  ]
-    a name="comment-#{comment.id}"
-    / класс нужен из-за проверки высоты
-    .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
-      - if comment.persisted?
-        - if user_signed_in?
-          span.item-mobile title="#{t 'actions.actions'}"
-
-        aside.markers
-          - if comment.try :allowed_summary?
-            .b-summary_marker[
-              class="#{:active if user_signed_in?}"
-              style="#{'display: none;' unless comment.summary?}"
-              title="Снять метку отзыва"
-              data-action="#{summary_comment_abuse_requests_url comment}"
-              data-text="#{t 'markers.summary'}"
-              data-method="post"
-              data-type="json"
-              data-remote="true"
-            ]
-          .b-offtopic_marker[
+      aside.markers
+        - if comment.try :allowed_summary?
+          .b-summary_marker[
             class="#{:active if user_signed_in?}"
-            style="#{'display: none;' unless comment.offtopic?}"
-            title="Снять метку оффтопика"
-            data-action="#{offtopic_comment_abuse_requests_url comment}"
-            data-text="#{t 'markers.offtopic'}"
+            style="#{'display: none;' unless comment.summary?}"
+            title="Снять метку отзыва"
+            data-action="#{summary_comment_abuse_requests_url comment}"
+            data-text="#{t 'markers.summary'}"
             data-method="post"
             data-type="json"
             data-remote="true"
           ]
-          .b-new_marker data-text="#{t 'markers.new'}"
+        .b-offtopic_marker[
+          class="#{:active if user_signed_in?}"
+          style="#{'display: none;' unless comment.offtopic?}"
+          title="Снять метку оффтопика"
+          data-action="#{offtopic_comment_abuse_requests_url comment}"
+          data-text="#{t 'markers.offtopic'}"
+          data-method="post"
+          data-type="json"
+          data-remote="true"
+        ]
+        .b-new_marker data-text="#{t 'markers.new'}"
 
-        - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
-          - if current_user.moderator?
-            aside.moderation-ban
-          = render 'comments/buttons', comment: comment
+      - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
+        - if current_user.moderator?
+          aside.moderation-ban
+        = render 'comments/buttons', comment: comment
 
-      / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
-      - if comment.user
-        header
-          span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
-            img[
-              src="#{comment.user.avatar_url 48}"
-              srcset="#{comment.user.avatar_url 80} 2x"
-              alt="#{comment.user.nickname}"
-            ]
-          .name-date
-            a.name href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
-              /- if comment.respond_to?(:topic_url)
-              - if comment.kind_of? SolitaryCommentDecorator
-                = comment.topic_name
-              - else
-                = comment.user.nickname
+    / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
+    - if comment.user
+      header
+        span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+          img[
+            src="#{comment.user.avatar_url 48}"
+            srcset="#{comment.user.avatar_url 80} 2x"
+            alt="#{comment.user.nickname}"
+          ]
+        .name-date
+          a.name href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
+            /- if comment.respond_to?(:topic_url)
+            - if comment.kind_of? SolitaryCommentDecorator
+              = comment.topic_name
+            - else
+              = comment.user.nickname
 
-            - if comment.persisted?
-              span.time
-                time[
-                  itemprop="commentTime"
-                  datetime="#{comment.created_at.iso8601}"
-                ] = l comment.created_at, format: '%e %B %Y'
-                span.hash data-url="#{comment_url comment}" #
+          - if comment.persisted?
+            span.time
+              time[
+                itemprop="commentTime"
+                datetime="#{comment.created_at.iso8601}"
+              ] = l comment.created_at, format: '%e %B %Y'
+              span.hash data-url="#{comment_url comment}" #
 
-      .body itemprop="commentText"
-        = comment.html_body
+    .body itemprop="commentText"
+      = comment.html_body
 
-      .b-appear_marker[
-        class="appear-comment-#{comment.id}"
-        data-appear_url="#{api_appears_url}"
-      ]
+    .b-appear_marker[
+      class="appear-comment-#{comment.id}"
+      data-appear_url="#{api_appears_url}"
+    ]

@@ -11,7 +11,9 @@
 class @ShikiForum extends ShikiView
   initialize: ->
     @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
-      return if IGNORED_TOPICS.includes data.topic_id
+      return if USER.ignored_topics.includes data.topic_id
+      return if USER.ignored_users.includes data.user_id
+
       $topic = @$(".b-topic##{data.topic_id}")
 
       if $topic.exists()
@@ -23,6 +25,8 @@ class @ShikiForum extends ShikiView
         $(document.body).trigger 'faye:added'
 
     @on 'faye:topic:created', (e, data) =>
+      return if USER.ignored_users.includes data.user_id
+
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'

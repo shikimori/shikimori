@@ -2,11 +2,12 @@ doctype html
 html
   head
     title WebM player test
-    = stylesheet_link_tag :application, media: 'all'
-    = javascript_include_tag :core
-    = javascript_include_tag :application
-    = stylesheet_link_tag 'tests/webm'
-    = javascript_include_tag 'tests/webm'
+    - unless Rails.env.test?
+      = stylesheet_link_tag :application, media: 'all'
+      = javascript_include_tag :core
+      = javascript_include_tag :application
+      = stylesheet_link_tag 'tests/webm'
+      = javascript_include_tag 'tests/webm'
   body
     h1 WebM player test
 

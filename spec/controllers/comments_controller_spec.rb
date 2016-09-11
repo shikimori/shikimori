@@ -1,6 +1,5 @@
 describe CommentsController do
   include_context :seeds
-  include_context :sticky_topics
 
   let(:user) { create :user, :user }
   let(:comment) { create :comment, commentable: offtopic_topic, user: user }

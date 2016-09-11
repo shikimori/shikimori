@@ -1,45 +1,39 @@
-- topic_type_policy = topic_view.topic_type_policy
-
-- if topic_view.ignored?
-  = render partial: 'blocks/ignored', object: topic_view.topic
-
-- else
-  article.b-topic.shiki-object.not-tracked.to-process[
-    id="#{topic_view.topic.id}"
-    class="#{topic_view.container_class}"
-    data-appear_type='topic'
-    data-appear_url="#{api_appears_url}"
-    data-dynamic='topic'
-    data-faye="#{topic_view.faye_channel}"
-    data-generated="#{topic_view.topic.generated?}"
-    data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
-    data-user_id="#{topic_view.user.id}"
-    data-user_nickname="#{topic_view.user.nickname}"
-    itemscope
-    itemtype="#{topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
+article.b-topic.shiki-object.not-tracked.to-process[
+  id="#{topic_view.topic.id}"
+  class="#{topic_view.container_class}"
+  data-appear_type='topic'
+  data-appear_url="#{api_appears_url}"
+  data-dynamic='topic'
+  data-faye="#{topic_view.faye_channel}"
+  data-generated="#{topic_view.topic.generated?}"
+  data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
+  data-user_id="#{topic_view.user.id}"
+  data-user_nickname="#{topic_view.user.nickname}"
+  itemscope
+  itemtype="#{topic_view.topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
+]
+  meta itemprop="author" content="#{topic_view.topic.user.nickname}"
+  meta itemprop="name" content="#{topic_view.topic_title}"
+  meta itemprop="headline" content="#{topic_view.topic_title}"
+  meta[
+    itemprop="url"
+    content="#{UrlGenerator.instance.topic_url topic_view.topic}"
   ]
-    meta itemprop="author" content="#{topic_view.topic.user.nickname}"
-    meta itemprop="name" content="#{topic_view.topic_title}"
-    meta itemprop="headline" content="#{topic_view.topic_title}"
-    meta[
-      itemprop="url"
-      content="#{UrlGenerator.instance.topic_url topic_view.topic}"
-    ]
-    meta[
-      itemscope
-      itemprop="mainEntityOfPage"
-      itemType="https://schema.org/WebPage"
-      itemid="#{UrlGenerator.instance.topic_url topic_view.topic}"
-    ]
-    meta itemprop="dateCreated" content="#{topic_view.created_at.iso8601}"
-    meta itemprop="datePublished" content="#{topic_view.created_at.iso8601}"
-    - if topic_view.updated_at
-      meta itemprop="dateModified" content="#{topic_view.updated_at.iso8601}"
+  meta[
+    itemscope
+    itemprop="mainEntityOfPage"
+    itemType="https://schema.org/WebPage"
+    itemid="#{UrlGenerator.instance.topic_url topic_view.topic}"
+  ]
+  meta itemprop="dateCreated" content="#{topic_view.created_at.iso8601}"
+  meta itemprop="datePublished" content="#{topic_view.created_at.iso8601}"
+  - if topic_view.updated_at
+    meta itemprop="dateModified" content="#{topic_view.updated_at.iso8601}"
 
-    a name="topic-#{topic_view.topic.id}"
+  a name="topic-#{topic_view.topic.id}"
 
-    - if topic_view.show_body?
-      = render 'topics/inner', topic_view: topic_view
+  - if topic_view.show_body?
+    = render 'topics/inner', topic_view: topic_view
 
-    - unless topic_view.is_mini
-      = render 'topics/comments', comments_view: topic_view.comments_view
+  - unless topic_view.is_mini
+    = render 'topics/comments', comments_view: topic_view.comments_view

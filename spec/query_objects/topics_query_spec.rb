@@ -1,6 +1,5 @@
 describe TopicsQuery do
   include_context :seeds
-  include_context :sticky_topics
 
   subject(:query) { TopicsQuery.fetch user, locale }
 
