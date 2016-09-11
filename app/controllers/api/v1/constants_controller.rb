@@ -1,5 +1,5 @@
 class Api::V1::ConstantsController < Api::V1::ApiController
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/anime'
   def anime
     render json: {
@@ -8,7 +8,7 @@ class Api::V1::ConstantsController < Api::V1::ApiController
     }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/manga'
   def manga
     render json: {
@@ -17,7 +17,7 @@ class Api::V1::ConstantsController < Api::V1::ApiController
     }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/user_rate'
   def user_rate
     render json: {
@@ -25,7 +25,7 @@ class Api::V1::ConstantsController < Api::V1::ApiController
     }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/club'
   def club
     render json: {
@@ -34,7 +34,7 @@ class Api::V1::ConstantsController < Api::V1::ApiController
     }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/smileys'
   def smileys
     collection = CommentHelper.class_variable_get(:@@smiley_groups).flatten.map do |smiley|

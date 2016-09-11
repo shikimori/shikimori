@@ -4,7 +4,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
   before_action :append_info, only: [:create]
   respond_to :json
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/messages/:id', 'Show a message'
   def show
     respond_with @resource.decorate
@@ -40,7 +40,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/messages/:id', 'Destroy a message'
   def destroy
     faye.destroy @resource
@@ -74,7 +74,7 @@ class Api::V1::MessagesController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/messages/delete_all', 'Delete all messages'
   param :frontend, :bool
   param :type, :undef

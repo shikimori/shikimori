@@ -3,7 +3,8 @@ Apipie.configure do |config|
   config.api_base_url            = '/api'
   config.doc_base_url            = '/api/doc'
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/api/**/*.rb"
-  config.default_version         = '1' # 1.0 for latest apipie-rails
+  config.default_version         = '1.0'
+  config.api_routes              = Rails.application.routes
   config.app_info                = <<-DICK
 Do not parse the main site. Use this api instead.
 
@@ -27,4 +28,6 @@ X-User-Api-Access-Token=user_api_access_token
 <br><br>
 Python API implementation by OlegWock: https://github.com/OlegWock/PyShiki
 DICK
+  config.generated_doc_disclaimer =
+    '# AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING'
 end

@@ -1,7 +1,7 @@
 class Api::V1::IgnoresController < Api::V1::ApiController
   before_filter :authenticate_user!
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/ignores/:id', 'Create an ignore'
   def create
     @target_user = User.find(params[:id])
@@ -9,7 +9,7 @@ class Api::V1::IgnoresController < Api::V1::ApiController
     render json: { notice: i18n_t('ignored', nickname: @target_user.nickname) }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/ignores/:id', 'Destroy an ignore'
   def destroy
     @user = User.find(params[:id])

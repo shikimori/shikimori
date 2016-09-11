@@ -1,7 +1,7 @@
 class Api::V1::FriendsController < Api::V1::ApiController
   before_filter :authenticate_user!
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/friends/:id', 'Create a friend'
   def create
     @user = User.find params[:id]
@@ -26,7 +26,7 @@ class Api::V1::FriendsController < Api::V1::ApiController
     render json: { notice: success_notice }
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/friends/:id', 'Destroy a friend'
   def destroy
     @user = User.find(params[:id])

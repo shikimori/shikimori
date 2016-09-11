@@ -1,7 +1,7 @@
 class Api::V1::UserImagesController < Api::V1::ApiController
   before_filter :authenticate_user!
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/user_images', 'Create an user image'
   param :image, :undef
   param :linked_type, :undef

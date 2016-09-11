@@ -1,7 +1,7 @@
 class Api::V1::BansController < Api::V1::ApiController
   respond_to :json
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/bans', 'List bans'
   def index
     page = [params[:page].to_i, 1].max

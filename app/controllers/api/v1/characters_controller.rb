@@ -3,7 +3,7 @@ class Api::V1::CharactersController < Api::V1::ApiController
   respond_to :json
   before_action :fetch_resource, except: [:search]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/characters/:id', 'Show a character'
   def show
     respond_with @resource,
@@ -11,7 +11,7 @@ class Api::V1::CharactersController < Api::V1::ApiController
       scope: view_context
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/characters/search'
   def search
     @collection = CharactersQuery.new(search: params[:q]).complete

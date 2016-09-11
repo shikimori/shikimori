@@ -1,5 +1,5 @@
 class Api::V2::UserRatesController < Api::V1::UserRatesController
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates/:id', 'Show an user rate'
   def show
     respond_with @resource
@@ -50,14 +50,14 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     respond_with @resource, location: nil
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/v2/user_rates/:id/increment'
   def increment
     @resource.update increment_params
     respond_with @resource, location: nil
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/v2/user_rates/:id', 'Destroy an user rate'
   def destroy
     @resource.destroy!

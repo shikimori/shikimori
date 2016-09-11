@@ -4,7 +4,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
 
   before_action :fetch_resource, except: [:index, :search]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes', 'List animes'
   def index
     limit = [[params[:limit].to_i, 1].max, 30].min
@@ -20,7 +20,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
     respond_with @collection, each_serializer: AnimeSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id', 'Show an anime'
   def show
     respond_with @resource,
@@ -28,28 +28,28 @@ class Api::V1::AnimesController < Api::V1::ApiController
       scope: view_context
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/roles'
   def roles
     @collection = @resource.person_roles.includes(:character, :person)
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/similar'
   def similar
     @collection = @resource.related.similar
     respond_with @collection, each_serializer: AnimeSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/related'
   def related
     @collection = @resource.related.all
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/screenshots'
   def screenshots
     @collection = @resource.screenshots
@@ -63,13 +63,13 @@ class Api::V1::AnimesController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/search'
   def search
     @collection = AniMangaQuery.new(

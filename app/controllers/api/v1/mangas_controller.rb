@@ -4,7 +4,7 @@ class Api::V1::MangasController < Api::V1::ApiController
   respond_to :json
   before_action :fetch_resource, except: [:index, :search]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas', 'List mangas'
   def index
     limit = [[params[:limit].to_i, 1].max, 30].min
@@ -20,7 +20,7 @@ class Api::V1::MangasController < Api::V1::ApiController
     respond_with @collection, each_serializer: MangaSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/:id', 'Show a manga'
   def show
     respond_with Manga.find(params[:id]).decorate,
@@ -28,34 +28,34 @@ class Api::V1::MangasController < Api::V1::ApiController
       scope: view_context
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/:id/roles'
   def roles
     @collection = @resource.person_roles.includes(:character, :person)
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/:id/similar'
   def similar
     @collection = @resource.related.similar
     respond_with @collection, each_serializer: MangaSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/:id/related'
   def related
     @collection = @resource.related.all
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/search'
   def search
     @collection = AniMangaQuery.new(

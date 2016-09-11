@@ -4,14 +4,14 @@ class Api::V1::VideosController < Api::V1::ApiController
   before_action :authenticate_user!, except: [:index]
   before_action :fetch_anime
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:anime_id/videos', 'List videos'
   def index
     @collection = @anime.videos
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/animes/:anime_id/videos', 'Create a video'
   param :video, Hash do
     param :kind, :undef
@@ -24,7 +24,7 @@ class Api::V1::VideosController < Api::V1::ApiController
     respond_with @resource
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/animes/:anime_id/videos/:id', 'Destroy a video'
   def destroy
     @version = versioneer.delete params[:id], current_user

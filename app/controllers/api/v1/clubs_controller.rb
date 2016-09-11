@@ -7,7 +7,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
 
   LIMIT = 30
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/clubs', 'List clubs'
   def index
     page = [params[:page].to_i, 1].max
@@ -20,7 +20,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/clubs/:id', 'Show a club'
   def show
     if @collection

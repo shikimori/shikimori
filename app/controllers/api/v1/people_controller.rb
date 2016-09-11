@@ -4,7 +4,7 @@ class Api::V1::PeopleController < Api::V1::ApiController
   respond_to :json
   before_action :fetch_resource, except: [:search]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/people/:id', 'Show a person'
   def show
     if @resource.seyu?
@@ -14,7 +14,7 @@ class Api::V1::PeopleController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/people/search'
   def search
     @collection = PeopleQuery.new(search: params[:q]).complete

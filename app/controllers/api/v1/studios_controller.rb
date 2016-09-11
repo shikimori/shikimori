@@ -1,7 +1,7 @@
 class Api::V1::StudiosController < Api::V1::ApiController
   respond_to :json
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/studios', 'List studios'
   def index
     @collection = Studio.all

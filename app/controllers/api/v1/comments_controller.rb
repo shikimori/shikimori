@@ -5,7 +5,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   before_filter :check_post_permission, only: [:create, :update, :destroy]
   before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
     respond_with Comment.find(params[:id]).decorate
@@ -67,7 +67,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     end
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/comments/:id', 'Destroy a comment'
   def destroy
     raise CanCan::AccessDenied unless @resource.can_be_deleted_by? current_user

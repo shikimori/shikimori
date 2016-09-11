@@ -1,7 +1,7 @@
 class Api::V1::CalendarsController < Api::V1::ApiController
   respond_to :json
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/calendar', 'Show a calendar'
   def show
     @collection = CalendarsQuery.new.fetch locale_from_domain

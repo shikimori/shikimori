@@ -6,7 +6,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
     description 'Mobile devices for push notifications'
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/devices', 'List devices'
   def index
     respond_with @devices
@@ -29,7 +29,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
     respond_with @device, location: nil
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :PATCH, '/devices/:id', 'Update a device'
   api :PUT, '/devices/:id', 'Update a device'
   param :device, Hash do
@@ -40,7 +40,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
     respond_with @device, location: nil
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/devices/:id', 'Destroy a device'
   def destroy
     @device.destroy

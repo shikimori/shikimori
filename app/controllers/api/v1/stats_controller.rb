@@ -3,7 +3,7 @@ class Api::V1::StatsController < Api::V1::ApiController
 
   MINIMUM_COMPLETED_ANIMES = Rails.env.test? ? 1 : 30
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/stats/active_users', 'Users having at least 1 completed animes and active during last month'
   def active_users
     ids = Rails.cache.fetch(:active_users, expires_in: 5.minutes) { user_ids }

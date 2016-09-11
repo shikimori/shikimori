@@ -4,7 +4,7 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   respond_to :json
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users', 'List users'
   def index
     @limit = [[params[:limit].to_i, 1].max, 100].min
@@ -24,7 +24,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users/:id', 'Show an user'
   def show
     respond_with UserProfileDecorator.new(user), serializer: UserProfileSerializer
@@ -133,7 +133,7 @@ class Api::V1::UsersController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users/:id/anime_video_reports'
   def anime_video_reports
     @limit = [[params[:limit].to_i, 1].max, 2000].min

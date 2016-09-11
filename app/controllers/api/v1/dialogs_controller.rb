@@ -5,7 +5,7 @@ class Api::V1::DialogsController < Api::V1::ApiController
   before_action :authorize_messages_access
   before_action :fetch_target_user, only: [:show, :destroy]
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/dialogs', 'List dialogs'
   def index
     @page = [params[:page].to_i, 1].max
@@ -16,7 +16,7 @@ class Api::V1::DialogsController < Api::V1::ApiController
     respond_with @collection, each_serializer: DialogSerializer
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/dialogs/:id', 'Show a dialog'
   def show
     @page = [params[:page].to_i, 1].max
@@ -30,7 +30,7 @@ class Api::V1::DialogsController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # DOC GENERATED AUTOMATICALLY: REMOVE THIS LINE TO PREVENT REGENARATING NEXT TIME
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/dialogs/:id', 'Destroy a dialog'
   error code: 422
   def destroy
