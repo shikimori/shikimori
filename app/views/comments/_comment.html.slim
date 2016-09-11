@@ -18,7 +18,7 @@
     .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
       - if comment.persisted?
         - if user_signed_in?
-          span.item-mobile title="Действия"
+          span.item-mobile title="#{t 'actions.actions'}"
 
         aside.markers
           - if comment.try :allowed_summary?

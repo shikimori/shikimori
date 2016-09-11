@@ -106,6 +106,13 @@ RSpec.configure do |config|
 
   Rails.application.routes.default_url_options = ApplicationController.default_url_options
 
+  Paperclip::Attachment.default_options[:path] =
+    "#{Rails.root}/spec/test_files/:class/:id_partition/:style.:extension"
+
+  config.after :suite do
+    FileUtils.rm_rf Dir["#{Rails.root}/spec/test_files/"]
+  end
+
   config.before :suite do
     FactoryGirl::SeedGenerator.create :user, id: 500_000
 

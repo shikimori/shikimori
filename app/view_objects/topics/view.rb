@@ -30,10 +30,6 @@ class Topics::View < ViewObjectBase
   def action_tag
   end
 
-  def show_actions?
-    h.user_signed_in? && !is_mini
-  end
-
   def show_body?
     is_preview ||
       !topic.generated? ||

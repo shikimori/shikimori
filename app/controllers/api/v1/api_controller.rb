@@ -3,10 +3,13 @@ class Api::V1::ApiController < ShikimoriController
   skip_before_action :touch_last_online
   before_action :authenticate_user_from_token!
   before_action :touch_last_online
-  skip_before_action :verify_authenticity_token, if: -> { request.headers['X-User-Nickname'] && request.headers['X-User-Api-Access-Token'] }
+  skip_before_action :verify_authenticity_token, if: lambda {
+    request.headers['X-User-Nickname'] &&
+      request.headers['X-User-Api-Access-Token']
+  }
 
   resource_description do
-    api_version '1'
+    api_version '1.0'
   end
 
   rescue_from MissingApiParameter, with: :missing_api_parameter
@@ -14,11 +17,13 @@ class Api::V1::ApiController < ShikimoriController
 private
 
   def missing_api_parameter exception
-    render json: [
-      "missing parameter: #{exception.message}"
-    ], status: :unprocessable_entity
+    render(
+      json: ["missing parameter: #{exception.message}"],
+      status: :unprocessable_entity
+    )
   end
 
+  # rubocop:disable MethodLength
   def authenticate_user_from_token!
     user_nickname = request.headers['X-User-Nickname']
     user_token = request.headers['X-User-Api-Access-Token']
@@ -33,10 +38,14 @@ private
         sign_in user, store: false
         @authenticated_by_token = true
       else
-        render json: { error: 'invalid user nickname or api access token' }, status: 403
+        render(
+          json: { error: 'invalid user nickname or api access token' },
+          status: 403
+        )
       end
     end
   end
+  # rubocop:enable MethodLength
 
   def frontent_request?
     params[:frontend]

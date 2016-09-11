@@ -1,7 +1,7 @@
 .b-contests-menu
   - if user_signed_in?
     .block.actions.r-iphone
-      .subheadline Действия
+      .subheadline = t 'actions.actions'
       ul.block-list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry

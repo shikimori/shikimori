@@ -2,13 +2,13 @@
 
 / класс нужен из-за проверки высоты и для отображения кнопок по hover
 .inner
-  - if topic_view.show_actions?
-    span.item-mobile title="Действия"
+  - if user_signed_in? && !topic_view.is_mini
+    span.item-mobile title="#{t 'actions.actions'}"
 
   aside.markers
     p.b-new_marker data-text="#{t 'markers.new'}"
 
-  - if topic_view.show_actions?
+  - if user_signed_in? && !topic_view.is_mini
     = render 'topics/buttons', topic_view: topic_view
 
   /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do

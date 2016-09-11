@@ -468,8 +468,8 @@ GEM
       rails-assets-ev-emitter (~> 1.0.0)
     rails-assets-jQuery-Storage-API (1.9.2)
       rails-assets-jquery (>= 1.4)
-    rails-assets-jquery (3.1.0)
-    rails-assets-jquery-bridget (2.0.1)
+    rails-assets-jquery (2.2.4)
+    rails-assets-jquery-bridget (2.0.0)
       rails-assets-jquery (>= 1.4.2, < 4)
     rails-assets-magnific-popup (1.1.0)
       rails-assets-jquery (>= 1.8.0)
@@ -743,8 +743,8 @@ DEPENDENCIES
   rails-assets-get-size (= 2.0.2)!
   rails-assets-imagesloaded!
   rails-assets-jQuery-Storage-API!
-  rails-assets-jquery!
-  rails-assets-jquery-bridget!
+  rails-assets-jquery (= 2.2.4)!
+  rails-assets-jquery-bridget (= 2.0.0)!
   rails-assets-magnific-popup!
   rails-assets-matches-selector (= 2.0.1)!
   rails-assets-outlayer (= 2.1.0)!
@@ -801,4 +801,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.12.5
+   1.13.0

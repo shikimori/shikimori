@@ -61,11 +61,12 @@ class DynamicElements.Topic extends ShikiEditable
         $(@).toggleClass 'selected'
 
       .on 'ajax:success', (e, result) =>
-        $(e.target).toggleClass 'selected', !!result.id
-        $(e.target).data
-          method: result.method
-          action: result.url
-        @$('.b-anime_status_tag.ignored').toggleClass 'hidden', !result.id
+        $(e.target).toggleClass 'selected', result.is_ignored
+        $(e.target).data(method: if result.is_ignored then 'DELETE' else 'POST')
+        @$('.b-anime_status_tag.ignored').toggleClass(
+          'hidden',
+          !result.is_ignored
+        )
 
     # голосование за/против рецензии
     @$('.footer-vote .vote').on 'ajax:before', ->

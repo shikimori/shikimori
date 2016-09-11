@@ -193,8 +193,8 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-outlayer', '2.1.0'
 
   gem 'rails-assets-sugar'
-  gem 'rails-assets-jquery'
-  gem 'rails-assets-jquery-bridget' # packery dependency
+  gem 'rails-assets-jquery', '2.2.4'
+  gem 'rails-assets-jquery-bridget', '2.0.0' # packery dependency
   gem 'rails-assets-packery'
   gem 'rails-assets-jQuery-Storage-API'
   gem 'rails-assets-imagesloaded'

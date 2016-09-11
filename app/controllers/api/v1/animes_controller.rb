@@ -57,7 +57,7 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
   # TODO: delete after 01.01.2017
-  api :GET, '/animes/:id/videos', 'DEPRECATED and will be deleted soon. Use Videos API instead'
+  api :GET, '/animes/:id/videos', 'Use Videos API instead', deprecated: true
   def videos
     @collection = @resource.videos
     respond_with @collection

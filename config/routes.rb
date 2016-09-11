@@ -151,6 +151,11 @@ Site::Application.routes.draw do
       resources :user_rates, only: [:show, :create, :update, :destroy] do
         post :increment, on: :member
       end
+      namespace :topics do
+        scope ':topic_id'  do
+          resource :ignore, only: [:create, :destroy]
+        end
+      end
     end
   end
   # v1

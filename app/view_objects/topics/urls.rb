@@ -42,17 +42,6 @@ class Topics::Urls < ViewObjectBase
     UrlGenerator.instance.topic_url topic
   end
 
-  def ignore_url
-    h.api_topic_ignores_url(topic_ignore: {
-      topic_id: topic.id,
-      user_id: h.current_user.id
-    })
-  end
-
-  def unignore_url
-    h.api_topic_ignore_url view.topic_ignore
-  end
-
   def topic_type_policy
     @topic_type_policy ||= Topic::TypePolicy.new view.topic
   end

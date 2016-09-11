@@ -126,7 +126,7 @@ header.head.misc
           = f.object.cos_rain_id
 
       .block
-        .subheadline Действия
+        .subheadline = t 'actions.actions'
         p
           = label_tag :move_from_confirm, "Перенести <b>в эту</b> галерею фото из другой галереи".html_safe
           = check_box_tag 'move_from[confirm]', '1', false, 'autocomplete' => 'off'
