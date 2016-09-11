@@ -90,7 +90,7 @@ private
       .pluck(:id)
   end
 
-  def bad_iamges
+  def bad_images
     @bad_images ||= klass.all
       .select do |entry|
         next unless entry.image.exists?
