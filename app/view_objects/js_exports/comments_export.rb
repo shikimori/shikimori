@@ -12,7 +12,8 @@ private
   def serialize comment, user
     {
       id: comment.id,
-      is_viewed: comment.viewed?
+      is_viewed: comment.viewed?,
+      user_id: comment.user_id
     }
   end
 end

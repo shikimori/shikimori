@@ -13,8 +13,7 @@
   / класс нужен из-за проверки высоты
   .inner class="#{:check_height if comment.persisted? && (comment.body.size > 500 || comment.body =~ /\[poster/ || comment.body =~ /\[ima?g/ || comment.body.count("\n") > 5)}"
     - if comment.persisted?
-      - if user_signed_in?
-        span.item-mobile title="#{t 'actions.actions'}"
+      span.item-mobile title="#{t 'actions.actions'}"
 
       aside.markers
         - if comment.try :allowed_summary?
@@ -40,22 +39,26 @@
         ]
         .b-new_marker data-text="#{t 'markers.new'}"
 
-      - if user_signed_in? && comment.respond_to?(:can_be_edited_by?)
-        - if current_user.moderator?
-          aside.moderation-ban
+      - if comment.respond_to? :can_be_edited_by?
+        aside.moderation-ban
         = render 'comments/buttons', comment: comment
 
     / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
     - if comment.user
       header
-        span.linkeable data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+        span.linkeable[
+          data-href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+        ]
           img[
             src="#{comment.user.avatar_url 48}"
             srcset="#{comment.user.avatar_url 80} 2x"
             alt="#{comment.user.nickname}"
           ]
         .name-date
-          a.name href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}" itemprop="creator"
+          a.name[
+            href="#{comment.respond_to?(:topic_url) ? comment.topic_url : profile_url(comment.user, subdomain: false)}"
+            itemprop="creator"
+          ]
             /- if comment.respond_to?(:topic_url)
             - if comment.kind_of? SolitaryCommentDecorator
               = comment.topic_name

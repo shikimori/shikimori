@@ -4,8 +4,9 @@
     title: 'Комментарии топика'
 
 = render layout: 'topics/page' do |f|
-  - if @topic_view.ignored?
-    = render partial: 'blocks/ignored', object: @topic_view.topic
-
+  - if @topic_view.ignored_topic?
+    = render 'blocks/ignored', ignored: @topic_view.topic, kind: :ignored_topic
+  - elsif @topic_view.ignored_user?
+    = render 'blocks/ignored', ignored: @topic_view.topic, kind: :ignored_user
   - else
     = render 'topics/topic', topic_view: @topic_view

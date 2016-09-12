@@ -4,7 +4,7 @@ class Comments::View < ViewObjectBase
   delegate :bans, :abuse_requests, :user, to: :comment
   instance_cache :decorated_comment, :replies, :reply_ids
 
-  def ignored?
+  def ignored_user?
     h.user_signed_in? && h.current_user.ignores?(user)
   end
 

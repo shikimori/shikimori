@@ -3,12 +3,15 @@ class DynamicElements.Comment extends ShikiEditable
   _type: -> 'comment'
   _type_label: -> 'Комментарий'
 
+  # similar to hash from JsExports::CommentsExport#serialzie
+  _default_model: ->
+    user_id: @$root.data('user_id')
+
   initialize: ->
     # data attribute is set in Comments.Tracker
-    @model = @$root.data 'model'
-    @user_id = @$root.data('user_id')
+    @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@user_id)
+    if SHIKI_USER.user_ignored(@model.user_id)
       @$root.remove()
       return
 
@@ -19,7 +22,8 @@ class DynamicElements.Comment extends ShikiEditable
     if @$inner.hasClass('check_height')
       $images = @$body.find('img')
       if $images.exists()
-        # картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
+        # картинки могут быть уменьшены image_normalizer'ом,
+        # поэтому делаем с задержкой
         $images.imagesLoaded => @_check_height.delay(10)
       else
         @_check_height()

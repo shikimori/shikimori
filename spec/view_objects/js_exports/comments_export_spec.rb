@@ -46,14 +46,24 @@ describe JsExports::CommentsExport do
     let(:export_2) { tracker.export user_2 }
 
     it do
-      expect(export_1).to eq [
-        { id: comment_1.id, is_viewed: true },
-        { id: comment_2.id, is_viewed: false }
-      ]
-      expect(export_2).to eq [
-        { id: comment_1.id, is_viewed: false },
-        { id: comment_2.id, is_viewed: true }
-      ]
+      expect(export_1).to eq [{
+        id: comment_1.id,
+        is_viewed: true,
+        user_id: comment_1.user_id
+      }, {
+        id: comment_2.id,
+        is_viewed: false,
+        user_id: comment_2.user_id
+      }]
+      expect(export_2).to eq [{
+        id: comment_1.id,
+        is_viewed: false,
+        user_id: comment_1.user_id
+      }, {
+        id: comment_2.id,
+        is_viewed: true,
+        user_id: comment_2.user_id
+      }]
     end
   end
 end
