@@ -46,6 +46,8 @@ class Anime < DbEntry
    foreign_key: :target_id,
    dependent: :destroy
 
+  has_many :topics, as: :linked, dependent: :destroy
+
   has_many :news_topics, -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
     as: :linked
