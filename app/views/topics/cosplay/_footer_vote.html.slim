@@ -1,18 +1,20 @@
 .footer-vote
   .notice Тебе нравится?
   .vote-group
-    .vote.yes[
-      class="#{:selected if topic_view.topic.linked.voted_yes? current_user} #{:deselected if topic_view.topic.linked.voted_no? current_user}"
-      data-remote="true"
-      action="#{vote_yes_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
-      data-type="json"
+    .vote.yes.to-process[
+      class="#{:selected if topic_view.topic.linked.voted_yes? current_user}"
+      data-action="#{vote_yes_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
+      data-dynamic="authorized"
       data-method="post"
+      data-remote="true"
+      data-type="json"
     ] Да
     .separator
-    .vote.no[
-      class="#{:selected if topic_view.topic.linked.voted_no? current_user} #{:deselected if topic_view.topic.linked.voted_yes? current_user}"
-      data-remote="true"
-      action="#{vote_no_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
-      data-type="json"
+    .vote.no.to-process[
+      class="#{:selected if topic_view.topic.linked.voted_no? current_user}"
+      data-action="#{vote_no_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
+      data-dynamic="authorized"
       data-method="post"
+      data-remote="true"
+      data-type="json"
     ] Нет
