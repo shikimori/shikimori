@@ -10,7 +10,6 @@ describe Anime do
     it { is_expected.to have_many :people }
 
     it { is_expected.to have_many :rates }
-    it { is_expected.to have_many :topics }
     it { is_expected.to have_many :news_topics }
     it { is_expected.to have_many :anons_news_topics }
     it { is_expected.to have_many :episode_news_topics }
