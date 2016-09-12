@@ -49,15 +49,33 @@ describe JsExports::TopicsExport do
     let(:export_1) { tracker.export user_1 }
     let(:export_2) { tracker.export user_2 }
 
-    it  do
-      expect(export_1).to eq [
-        { id: topic_1.id, is_viewed: true },
-        { id: topic_2.id, is_viewed: false }
-      ]
-      expect(export_2).to eq [
-        { id: topic_1.id, is_viewed: false },
-        { id: topic_2.id, is_viewed: true }
-      ]
+    it do
+      expect(export_1).to eq [{
+        can_destroy: false,
+        can_edit: false,
+        id: topic_1.id,
+        is_viewed: true,
+        user_id: topic_1.user_id
+      }, {
+        can_destroy: false,
+        can_edit: false,
+        id: topic_2.id,
+        is_viewed: false,
+        user_id: topic_2.user_id
+      }]
+      expect(export_2).to eq [{
+        can_destroy: false,
+        can_edit: false,
+        id: topic_1.id,
+        is_viewed: false,
+        user_id: topic_1.user_id
+      }, {
+        can_destroy: false,
+        can_edit: false,
+        id: topic_2.id,
+        is_viewed: true,
+        user_id: topic_2.user_id
+      }]
     end
   end
 end

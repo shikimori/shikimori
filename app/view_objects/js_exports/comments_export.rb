@@ -9,7 +9,10 @@ private
       .order(:id)
   end
 
-  def serialize comment
-    { id: comment.id, is_viewed: comment.viewed? }
+  def serialize comment, user
+    {
+      id: comment.id,
+      is_viewed: comment.viewed?
+    }
   end
 end

@@ -4,13 +4,20 @@ class DynamicElements.Topic extends ShikiEditable
   _type: -> 'topic'
   _type_label: -> 'Топик'
 
+  # similar to hash from JsExports::TopicsExport#serialzie
+  _default_model: ->
+    can_destroy: false
+    can_edit: false
+    id: parseInt(@root.id)
+    is_viewed: true
+    user_id: @$root.data('user_id')
+
   initialize: ->
     # data attribute is set in Topics.Tracker
-    @model = @$root.data 'model'
-    @id = parseInt(@root.id)
-    @user_id = @$root.data('user_id')
+    @model = @$root.data('model') || @_default_model()
 
-    if USER.ignored_users.includes(@user_id) || USER.ignored_topics.includes(@id)
+    if USER.ignored_users.includes(@model.user_id) ||
+        USER.ignored_topics.includes(@model.id)
       @$root.remove()
       return
 
@@ -120,8 +127,10 @@ class DynamicElements.Topic extends ShikiEditable
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
-      @_show_editor()
-      @editor.reply_comment text, is_offtopic
+      # @editor is empty for unauthorized user
+      if @editor
+        @_show_editor()
+        @editor.reply_comment text, is_offtopic
 
     # клик скрытию редактора
     @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
@@ -226,6 +235,10 @@ class DynamicElements.Topic extends ShikiEditable
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
+    # скрытие действий, недоступных пользователю
+    @$inner.one 'mouseover', @_check_buttons_access
+    $('.item-mobile', @$inner).one @_check_buttons_access
+
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
@@ -286,7 +299,8 @@ class DynamicElements.Topic extends ShikiEditable
 
     $placeholder
 
-  # проверка высоты топика. урезание, если текст слишком длинный (точно такой же код в shiki_comment)
+  # проверка высоты топика. урезание,
+  # если текст слишком длинный (точно такой же код в shiki_comment)
   _check_height: =>
     if @is_review
       image_height = @$('.review-entry_cover img').height()
@@ -305,3 +319,8 @@ class DynamicElements.Topic extends ShikiEditable
 
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"
+
+  # скрытие действий, на которые у пользователя нет прав
+  _check_buttons_access: =>
+    @$inner.find('.item-edit').addClass 'hidden' unless @model.can_edit
+    @$inner.find('.item-delete').addClass 'hidden' unless @model.can_destroy

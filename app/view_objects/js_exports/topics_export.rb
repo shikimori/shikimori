@@ -9,7 +9,14 @@ private
       .order(:id)
   end
 
-  def serialize topic
-    { id: topic.id, is_viewed: topic.viewed? }
+  def serialize topic, user
+    ability = Ability.new user
+    {
+      can_destroy: ability.can?(:destroy, topic),
+      can_edit: ability.can?(:edit, topic),
+      id: topic.id,
+      is_viewed: topic.viewed?,
+      user_id: topic.user_id
+    }
   end
 end

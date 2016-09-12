@@ -24,7 +24,7 @@ class JsExports::ExportBase
   end
 
   def export user
-    fetch_entries(user).map { |topic| serialize topic }
+    fetch_entries(user).map { |topic| serialize topic, user }
   end
 
 private
