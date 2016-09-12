@@ -8,7 +8,7 @@ class DynamicElements.Comment extends ShikiEditable
     @model = @$root.data 'model'
     @user_id = @$root.data('user_id')
 
-    if USER.ignored_users.includes(@user_id)
+    if SHIKI_USER.ignored_users.includes(@user_id)
       @$root.remove()
       return
 

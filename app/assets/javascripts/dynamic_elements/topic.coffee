@@ -16,8 +16,8 @@ class DynamicElements.Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if USER.ignored_users.includes(@model.user_id) ||
-        USER.ignored_topics.includes(@model.id)
+    if SHIKI_USER.ignored_users.includes(@model.user_id) ||
+        SHIKI_USER.ignored_topics.includes(@model.id)
       @$root.remove()
       return
 
@@ -75,9 +75,9 @@ class DynamicElements.Topic extends ShikiEditable
 
       .on 'ajax:success', (e, result) =>
         if result.is_ignored
-          USER.ignored_topics.push parseInt(result.topic_id)
+          SHIKI_USER.ignored_topics.push parseInt(result.topic_id)
         else
-          USER.ignored_topics.remove parseInt(result.topic_id)
+          SHIKI_USER.ignored_topics.remove parseInt(result.topic_id)
 
         $(e.target).toggleClass 'selected', result.is_ignored
         $(e.target).data(method: if result.is_ignored then 'DELETE' else 'POST')

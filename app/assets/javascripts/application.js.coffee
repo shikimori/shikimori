@@ -6,8 +6,8 @@ $ =>
 
   $body = $(document.body)
   @ENV = $body.data 'env'
-  @USER = $body.data 'user'
-  @USER_SIGNED_IN = !!@USER.id
+  @SHIKI_USER = $body.data 'user'
+  @USER_SIGNED_IN = !!@SHIKI_USER.id
   @DAY_REGISTERED = $body.data 'day_registered'
   @WEEK_REGISTERED = $body.data 'week_registered'
   @IGNORE_COPYRIGHT = $body.data 'ignore_copyright'

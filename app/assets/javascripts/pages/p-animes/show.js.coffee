@@ -11,7 +11,7 @@
   $new_review = $('.new_review')
   if USER_SIGNED_IN
     new_review_url = $new_review
-      .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{USER.id}")
+      .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{SHIKI_USER.id}")
     $new_review.attr href: new_review_url
   else
     $new_review.hide()
