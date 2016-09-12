@@ -14,7 +14,7 @@ table.b-table.b-editable_grid.m0
             = topic.topic_title
         td.actions
           a.b-js-link[
-            data-action="#{topic.urls.unignore_url}"
+            data-action="#{api_v2_topics_ignore_url topic.id}"
             data-method="DELETE"
             data-remote="true"
             data-type="json"
