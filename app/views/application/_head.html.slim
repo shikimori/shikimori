@@ -52,6 +52,11 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 = display_meta_tags separator: '/', reverse: true
 = csrf_meta_tag
 
+- if Rails.env.production?
+  javascript:
+    window._trackJs = { token: '1e63f8002c3a48f7b18702d9890a916c' }
+  script type="text/javascript" src="https://cdn.trackjs.com/releases/current/tracker.js"
+
 - unless Rails.env.test?
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
   - if anime_online?
