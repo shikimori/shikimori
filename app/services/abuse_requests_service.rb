@@ -1,10 +1,11 @@
 class AbuseRequestsService
   ABUSIVE_USERS = [
     -1
-    #5779 # Lumennes
+    # 5779 # Lumennes
   ]
 
   SUMMARY_TIMEOUT = 5.minutes
+  OFFTOPIC_TIMEOUT = 5.minutes
 
   pattr_initialize :comment, :reporter
 
@@ -34,6 +35,7 @@ class AbuseRequestsService
 
 private
 
+  # rubocop:disable MethodLength
   def create_abuse_request kind, value, reason
     AbuseRequest.create!(
       comment_id: @comment.id,
@@ -47,6 +49,7 @@ private
   rescue ActiveRecord::RecordNotUnique
     []
   end
+  # rubocop:enable MethodLength
 
   def allowed_summary_change?
     reporter.moderator? ||
@@ -55,10 +58,9 @@ private
   end
 
   def allowed_offtopic_change?
-    reporter.moderator? || (
-      @comment.can_be_edited_by?(reporter) &&
-      (!@comment.offtopic? || @comment.can_cancel_offtopic?(reporter))
-    )
+    reporter.moderator? ||
+      (@comment.user_id == reporter.id &&
+      @comment.created_at > OFFTOPIC_TIMEOUT.ago)
   end
 
   def faye_service faye_token

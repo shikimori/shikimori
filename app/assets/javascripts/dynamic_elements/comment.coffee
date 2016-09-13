@@ -7,7 +7,6 @@ class DynamicElements.Comment extends ShikiEditable
   _default_model: ->
     can_destroy: false
     can_edit: false
-    can_moderate: false
     id: parseInt(@root.id)
     is_viewed: true
     user_id: @$root.data('user_id')

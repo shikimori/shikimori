@@ -15,11 +15,11 @@ private
     ability = Ability.new user
 
     {
+      can_destroy: ability.can?(:destroy, comment),
+      can_edit: ability.can?(:edit, comment),
       id: comment.id,
       is_viewed: comment.viewed?,
-      user_id: comment.user_id,
-      can_destroy: ability.can?(:destroy, comment),
-      can_edit: ability.can?(:edit, comment)
+      user_id: comment.user_id
     }
   end
 end
