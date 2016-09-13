@@ -39,9 +39,8 @@
         ]
         .b-new_marker data-text="#{t 'markers.new'}"
 
-      - if comment.respond_to? :can_be_edited_by?
-        aside.moderation-ban
-        = render 'comments/buttons', comment: comment
+      aside.moderation-ban
+      = render 'comments/buttons', comment: comment
 
     / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
     - if comment.user

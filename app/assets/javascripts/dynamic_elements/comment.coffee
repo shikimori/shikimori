@@ -120,7 +120,12 @@ class DynamicElements.Comment extends ShikiEditable
   _deactivate_inaccessible_buttons: =>
     @$('.item-edit').addClass 'hidden' unless @model.can_edit
     @$('.item-delete').addClass 'hidden' unless @model.can_destroy
-    @$('.item-moderation').addClass 'hidden' unless SHIKI_USER.is_moderator
+
+    if SHIKI_USER.is_moderator
+      @$('.moderation-controls .item-abuse').addClass 'hidden'
+      @$('.moderation-controls .item-spoiler').addClass 'hidden'
+    else
+      @$('.moderation-controls .item-ban').addClass 'hidden'
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->
