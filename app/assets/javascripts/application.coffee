@@ -1,5 +1,4 @@
-# require anime_online/application
-# require manga_online/application
+#= require core
 
 $ =>
   @JS_EXPORTS ||= {}
