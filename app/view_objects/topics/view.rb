@@ -11,11 +11,12 @@ class Topics::View < ViewObjectBase
   instance_cache :comments_view, :urls, :action_tag, :topic_ignore
   instance_cache :topic_comments_policy, :topic_type_policy
 
-  def ignored?
-    h.user_signed_in? && (
-      h.current_user.ignores?(topic.user) ||
-      h.current_user.ignored_topics.include?(topic)
-    )
+  def ignored_topic?
+    h.user_signed_in? && h.current_user.ignored_topics.include?(topic)
+  end
+
+  def ignored_user?
+    h.user_signed_in? && h.current_user.ignores?(topic.user)
   end
 
   def minified?

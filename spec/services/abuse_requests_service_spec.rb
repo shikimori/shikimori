@@ -8,7 +8,7 @@ describe AbuseRequestsService do
     subject(:act) { service.offtopic faye_token }
     let(:comment) { create :comment, user: user }
 
-    it { expect{act}.to_not change AbuseRequest, :count }
+    it { expect { act }.to_not change AbuseRequest, :count }
     it { is_expected.to eq [comment.id] }
 
     describe 'offtopic?' do
@@ -21,19 +21,19 @@ describe AbuseRequestsService do
       context 'user' do
         context 'old comment' do
           let(:comment) { create :comment, :offtopic, user: user, created_at: 1.month.ago }
-          it { expect{act}.to change(AbuseRequest, :count).by 1 }
+          it { expect { act }.to change(AbuseRequest, :count).by 1 }
         end
 
         context 'new comment' do
           let(:comment) { create :comment, :offtopic, user: user }
-          it { expect{act}.to_not change AbuseRequest, :count }
+          it { expect { act }.to_not change AbuseRequest, :count }
         end
       end
 
       context 'moderator' do
         let(:user) { create :user, id: 1 }
         let(:comment) { create :comment, :offtopic, user: user, created_at: 1.month.ago }
-        it { expect{act}.to change(AbuseRequest, :count).by 0 }
+        it { expect { act }.to change(AbuseRequest, :count).by 0 }
       end
     end
   end
@@ -46,7 +46,7 @@ describe AbuseRequestsService do
       let(:created_at) { 4.minutes.ago }
 
       it do
-        expect{act}.to_not change AbuseRequest, :count
+        expect { act }.to_not change AbuseRequest, :count
         is_expected.to eq [comment.id]
         expect(comment).to be_summary
       end
@@ -55,7 +55,7 @@ describe AbuseRequestsService do
         let(:comment) { create :comment, :summary, user: user }
 
         it do
-          expect{act}.to_not change AbuseRequest, :count
+          expect { act }.to_not change AbuseRequest, :count
           is_expected.to eq [comment.id]
           expect(comment).not_to be_summary
         end
@@ -65,7 +65,7 @@ describe AbuseRequestsService do
     context 'old comment' do
       let(:created_at) { 6.minutes.ago }
       it do
-        expect{act}.to change AbuseRequest, :count
+        expect { act }.to change AbuseRequest, :count
         is_expected.to eq []
         expect(comment).to_not be_summary
       end
@@ -85,7 +85,7 @@ describe AbuseRequestsService do
       let(:user) { create :user, id: 99 }
       let(:comment) { create :comment }
 
-      it { expect{act}.to change(AbuseRequest, :count).by 1 }
+      it { expect { act }.to change(AbuseRequest, :count).by 1 }
       it { is_expected.to eq [] }
 
       describe 'abuse_request' do
@@ -105,7 +105,7 @@ describe AbuseRequestsService do
 
       context 'already acted' do
         before { act }
-        it { expect{act}.to change(AbuseRequest, :count).by 0 }
+        it { expect { act }.to change(AbuseRequest, :count).by 0 }
       end
     end
   end

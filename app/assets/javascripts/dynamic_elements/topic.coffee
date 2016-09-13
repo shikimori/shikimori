@@ -37,6 +37,8 @@ class DynamicElements.Topic extends ShikiEditable
     @is_review = @$root.hasClass('b-review-topic')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
+    @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
+    $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
     if @is_preview
       @$body.imagesLoaded @_check_height
@@ -235,10 +237,6 @@ class DynamicElements.Topic extends ShikiEditable
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
 
-    # скрытие действий, недоступных пользователю
-    @$inner.one 'mouseover', @_check_buttons_access
-    $('.item-mobile', @$inner).one @_check_buttons_access
-
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
     filter = 'b-comment'
@@ -321,6 +319,6 @@ class DynamicElements.Topic extends ShikiEditable
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"
 
   # скрытие действий, на которые у пользователя нет прав
-  _check_buttons_access: =>
+  _deactivate_inaccessible_buttons: =>
     @$inner.find('.item-edit').addClass 'hidden' unless @model.can_edit
     @$inner.find('.item-delete').addClass 'hidden' unless @model.can_destroy

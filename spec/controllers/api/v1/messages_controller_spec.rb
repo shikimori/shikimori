@@ -32,12 +32,12 @@ describe Api::V1::MessagesController, :show_in_doc do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :success_resource_change, :frontend
+        it_behaves_like :successful_resource_change, :frontend
       end
 
       context 'api', :show_in_doc do
         let(:is_frontend) { false }
-        it_behaves_like :success_resource_change, :api
+        it_behaves_like :successful_resource_change, :api
       end
     end
 
@@ -46,12 +46,12 @@ describe Api::V1::MessagesController, :show_in_doc do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :failure_resource_change
+        it_behaves_like :failed_resource_change
       end
 
       context 'api' do
         let(:is_frontend) { false }
-        it_behaves_like :failure_resource_change
+        it_behaves_like :failed_resource_change
       end
     end
   end
@@ -68,12 +68,12 @@ describe Api::V1::MessagesController, :show_in_doc do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :success_resource_change, :frontend
+        it_behaves_like :successful_resource_change, :frontend
       end
 
       context 'api', :show_in_doc do
         let(:is_frontend) { false }
-        it_behaves_like :success_resource_change, :api
+        it_behaves_like :successful_resource_change, :api
       end
     end
 
@@ -82,12 +82,12 @@ describe Api::V1::MessagesController, :show_in_doc do
 
       context 'frontend' do
         let(:is_frontend) { true }
-        it_behaves_like :failure_resource_change
+        it_behaves_like :failed_resource_change
       end
 
       context 'api' do
         let(:is_frontend) { false }
-        it_behaves_like :failure_resource_change
+        it_behaves_like :failed_resource_change
       end
     end
   end

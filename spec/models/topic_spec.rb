@@ -110,7 +110,7 @@ describe Topic do
 
     context 'not topic owner' do
       let(:user) { build_stubbed :user, :user, :week_registered }
-      let(:topic) { build_stubbed :topic, user: build_stubbed(:user) }
+      let(:topic) { build_stubbed :topic, user: build_stubbed(:user, :user) }
 
       it do
         is_expected.not_to be_able_to :new, topic
@@ -151,13 +151,13 @@ describe Topic do
       describe 'permissions based on topic creation date' do
         let(:topic) { build_stubbed :topic, user: user, created_at: created_at }
 
-        context 'topic created < 4 hours ago' do
-          let(:created_at) { 4.hours.ago + 1.minute }
+        context 'topic created < 1 day ago' do
+          let(:created_at) { 1.day.ago + 1.minute }
           it { is_expected.to be_able_to :destroy, topic }
         end
 
         context 'topic created >= 4 hours ago' do
-          let(:created_at) { 4.hours.ago - 1.minute }
+          let(:created_at) { 1.day.ago - 1.minute }
           it { is_expected.not_to be_able_to :destroy, topic }
         end
       end

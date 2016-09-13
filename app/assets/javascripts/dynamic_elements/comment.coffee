@@ -3,23 +3,33 @@ class DynamicElements.Comment extends ShikiEditable
   _type: -> 'comment'
   _type_label: -> 'Комментарий'
 
+  # similar to hash from JsExports::CommentsExport#serialzie
+  _default_model: ->
+    can_destroy: false
+    can_edit: false
+    id: parseInt(@root.id)
+    is_viewed: true
+    user_id: @$root.data('user_id')
+
   initialize: ->
     # data attribute is set in Comments.Tracker
-    @model = @$root.data 'model'
-    @user_id = @$root.data('user_id')
+    @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@user_id)
+    if SHIKI_USER.user_ignored(@model.user_id)
       @$root.remove()
       return
 
     @$body = @$('.body')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
+    @$root.one 'mouseover', @_deactivate_inaccessible_buttons
+    @$('.item-mobile').one @_deactivate_inaccessible_buttons
 
     if @$inner.hasClass('check_height')
       $images = @$body.find('img')
       if $images.exists()
-        # картинки могут быть уменьшены image_normalizer'ом, поэтому делаем с задержкой
+        # картинки могут быть уменьшены image_normalizer'ом,
+        # поэтому делаем с задержкой
         $images.imagesLoaded => @_check_height.delay(10)
       else
         @_check_height()
@@ -104,6 +114,17 @@ class DynamicElements.Comment extends ShikiEditable
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
+
+  # скрытие действий, на которые у пользователя нет прав
+  _deactivate_inaccessible_buttons: =>
+    @$('.item-edit').addClass 'hidden' unless @model.can_edit
+    @$('.item-delete').addClass 'hidden' unless @model.can_destroy
+
+    if SHIKI_USER.is_moderator
+      @$('.moderation-controls .item-abuse').addClass 'hidden'
+      @$('.moderation-controls .item-spoiler').addClass 'hidden'
+    else
+      @$('.moderation-controls .item-ban').addClass 'hidden'
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->

@@ -68,7 +68,7 @@ shared_context :sticky_topics do
   end
 end
 
-shared_examples_for :success_resource_change do |type|
+shared_examples_for :successful_resource_change do |type|
   it do
     expect(resource).to be_persisted
     expect(resource).to have_attributes(params)
@@ -86,7 +86,7 @@ shared_examples_for :success_resource_change do |type|
   end
 end
 
-shared_examples_for :failure_resource_change do
+shared_examples_for :failed_resource_change do
   it do
     expect(resource).to_not be_valid
     expect(resource.changes).to_not be_empty
