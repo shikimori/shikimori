@@ -194,10 +194,10 @@ class @PaginatedCatalog
 
     UserRates.Tracker.track data.JS_EXPORTS, $content
 
-    @$content
-      .addClass(DynamicElements.Parser.PENDING_CLASS) # чтобы cutted_covers сработал
-      .html($content)
-      .process()
+    # чтобы cutted_covers сработал
+    if @$content.data 'dynamic'
+      @$content.addClass(DynamicElements.Parser.PENDING_CLASS)
+    @$content.html($content).process()
 
     $('.head h1').html data.title
     $('.head .notice').html data.notice
