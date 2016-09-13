@@ -6,7 +6,7 @@ class CommentDecorator < Draper::Decorator
   instance_cache :html_body, :replies, :reply_comments_view
 
   def can_be_edited?
-    can_be_edited_by? h.current_user
+    h.can? :edit, object
   end
 
   def html_body

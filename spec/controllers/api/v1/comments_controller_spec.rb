@@ -1,5 +1,5 @@
 describe Api::V1::CommentsController do
-  let(:user) { create :user, :user }
+  let(:user) { create :user, :user, :day_registered }
   let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
@@ -26,8 +26,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#create' do
-    before { sign_in user }
-    before { post :create, frontend: is_frontend, comment: params, format: :json }
+    include_context :authenticated, :user
     let(:params) do
       {
         commentable_id: topic.id,
@@ -36,6 +35,13 @@ describe Api::V1::CommentsController do
         is_offtopic: true,
         is_summary: true
       }
+    end
+
+    before do
+      post :create,
+        frontend: is_frontend,
+        comment: params,
+        format: :json
     end
 
     context 'success' do
@@ -68,9 +74,16 @@ describe Api::V1::CommentsController do
   end
 
   describe '#update' do
-    before { sign_in user }
-    before { patch :update, id: comment.id, frontend: is_frontend, comment: params, format: :json }
-    let(:params) {{ body: body }}
+    include_context :authenticated, :user
+    let(:params) { { body: body } }
+
+    before do
+      patch :update,
+        id: comment.id,
+        frontend: is_frontend,
+        comment: params,
+        format: :json
+    end
 
     context 'success' do
       let(:body) { 'blablabla' }
@@ -102,7 +115,7 @@ describe Api::V1::CommentsController do
   end
 
   describe '#destroy' do
-    before { sign_in user }
+    include_context :authenticated, :user
     let(:make_request) { delete :destroy, id: comment.id, format: :json }
 
     context 'success', :show_in_doc do
@@ -116,7 +129,7 @@ describe Api::V1::CommentsController do
 
     context 'forbidden' do
       let(:comment) { create :comment, commentable: topic }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 end

@@ -1,9 +1,9 @@
 class Api::V1::CommentsController < Api::V1::ApiController
   respond_to :json
 
-  before_filter :authenticate_user!, only: [:create, :update, :destroy]
-  before_filter :check_post_permission, only: [:create, :update, :destroy]
-  before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
+  load_and_authorize_resource only: [:create, :update, :destroy]
+  before_action :authenticate_user!, only: [:create, :update, :destroy]
+  before_action :check_post_permission, only: [:create, :update, :destroy]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
@@ -17,6 +17,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
   param :page, :number, required: false
   param :limit, :number, required: false
   param :desc, %w(1 0), required: false
+  # rubocop:disable AbcSize
   def index
     @limit = [[params[:limit].to_i, 1].max, 30].min
     @page = [params[:page].to_i, 1].max
@@ -25,12 +26,14 @@ class Api::V1::CommentsController < Api::V1::ApiController
     commentable_type = params[:commentable_type].gsub('Entry', Topic.name)
     commentable_id = params[:commentable_id]
 
-    respond_with CommentsQuery
+    @collection = CommentsQuery
       .new(commentable_type, commentable_id)
       .fetch(@page, @limit, @desc)
       .decorate
-      # .with_viewed(current_user)
+
+    respond_with @collection
   end
+  # rubocop:enable AbcSize
 
   api :POST, '/comments', 'Create a comment'
   param :comment, Hash do
@@ -58,8 +61,6 @@ class Api::V1::CommentsController < Api::V1::ApiController
   end
   param :frontend, :bool
   def update
-    raise CanCan::AccessDenied unless @resource.can_be_edited_by? current_user
-
     if faye.update(@resource, update_params) && frontent_request?
       render :comment
     else
@@ -70,7 +71,6 @@ class Api::V1::CommentsController < Api::V1::ApiController
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/comments/:id', 'Destroy a comment'
   def destroy
-    raise CanCan::AccessDenied unless @resource.can_be_deleted_by? current_user
     faye.destroy @resource
 
     render json: { notice: i18n_t('comment.removed') }
@@ -79,6 +79,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
 private
 
   # TODO: remove 'offtopic' and 'review' after 01.09.2016
+  # rubocop:disable MethodLength
   def comment_params
     comment_params = params
       .require(:comment)
@@ -97,6 +98,7 @@ private
 
     comment_params.except(:review, :offtopic)
   end
+  # rubocop:enable MethodLength
 
   def create_params
     comment_params.merge(user: current_user)
@@ -104,10 +106,6 @@ private
 
   def update_params
     comment_params.except(:is_summary, :is_offtopic)
-  end
-
-  def prepare_edition
-    @resource = Comment.find(params[:id]).decorate if params[:id]
   end
 
   def faye

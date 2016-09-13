@@ -5,6 +5,7 @@ class Comment::Create < ServiceObjectBase
 
   def call
     comment = Comment.new params
+
     RedisMutex.with_lock(mutex_key) do
       set_topic comment
       faye.create comment
