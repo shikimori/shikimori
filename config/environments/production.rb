@@ -22,23 +22,14 @@ Site::Application.configure do
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_files = false
 
-  # # config.assets.debug = true
-  # config.assets.compress = false
-  # # Compress JavaScripts and CSS.
-  # config.assets.js_compressor = :uglifier
-  # # Don't fallback to assets pipeline if a precompiled asset is missed
-  # config.assets.compile = false
-  # # Generate digests for assets URLs
-  # config.assets.digest = true
-
-  config.assets.compress = false
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  # config.assets.compile = false
+  config.assets.compile = false
+
   # Generate digests for assets URLs
   config.assets.digest = true
-
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '2.0'
