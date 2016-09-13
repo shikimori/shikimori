@@ -5,6 +5,11 @@ class DynamicElements.Comment extends ShikiEditable
 
   # similar to hash from JsExports::CommentsExport#serialzie
   _default_model: ->
+    can_destroy: false
+    can_edit: false
+    can_moderate: false
+    id: parseInt(@root.id)
+    is_viewed: true
     user_id: @$root.data('user_id')
 
   initialize: ->
@@ -18,6 +23,8 @@ class DynamicElements.Comment extends ShikiEditable
     @$body = @$('.body')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
+    @$root.one 'mouseover', @_deactivate_inaccessible_buttons
+    @$('.item-mobile').one @_deactivate_inaccessible_buttons
 
     if @$inner.hasClass('check_height')
       $images = @$body.find('img')
@@ -108,6 +115,12 @@ class DynamicElements.Comment extends ShikiEditable
   # оффтопиковый ли данный комментарий
   _is_offtopic: ->
     @$('.b-offtopic_marker').css('display') != 'none'
+
+  # скрытие действий, на которые у пользователя нет прав
+  _deactivate_inaccessible_buttons: =>
+    @$('.item-edit').addClass 'hidden' unless @model.can_edit
+    @$('.item-delete').addClass 'hidden' unless @model.can_destroy
+    @$('.item-moderation').addClass 'hidden' unless @model.can_moderate
 
 # текст сообщения, отображаемый при изменении маркера
 marker_message = (data) ->
