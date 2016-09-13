@@ -30,8 +30,8 @@ Site::Application.configure do
   config.assets.digest = true
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '2.0'
-  config.assets.debug = true
-  config.assets.compress = false
+  # config.assets.debug = true
+  # config.assets.compress = false
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   #config.assets.precompile += %w( admin.css email.css registrations.css standart.css admin.js application_new.js application_new.css *.js admin/*.css)
