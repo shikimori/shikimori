@@ -43,6 +43,7 @@
 #= require ./views/application/shiki_editable
 #= require_tree ./views
 
+#= require_tree ./models
 #= require_tree ./dynamic_elements
 #= require_tree ./services
 #= require_tree ./lib

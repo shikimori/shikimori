@@ -6,7 +6,7 @@ $ =>
 
   $body = $(document.body)
   @ENV = $body.data 'env'
-  @SHIKI_USER = $body.data 'user'
+  @SHIKI_USER = new ShikiUser($body.data('user'))
   @USER_SIGNED_IN = !!@SHIKI_USER.id
   @DAY_REGISTERED = $body.data 'day_registered'
   @WEEK_REGISTERED = $body.data 'week_registered'

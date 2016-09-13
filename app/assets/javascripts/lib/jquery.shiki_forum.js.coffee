@@ -11,8 +11,8 @@
 class @ShikiForum extends ShikiView
   initialize: ->
     @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
-      return if SHIKI_USER.ignored_topics.includes data.topic_id
-      return if SHIKI_USER.ignored_users.includes data.user_id
+      return if SHIKI_USER.topic_ignored(data.topic_id)
+      return if SHIKI_USER.user_ignored(data.user_id)
 
       $topic = @$(".b-topic##{data.topic_id}")
 
