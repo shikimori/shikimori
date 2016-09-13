@@ -25,7 +25,7 @@ class Abilities::User
       !@user.banned? && topic.user_id == @user.id
     end
     can [:destroy], [Topic, Topics::NewsTopic.name] do |topic|
-      can?(:create, topic) && topic.created_at + 4.hours > Time.zone.now
+      can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
     end
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
       topic_ignore.user_id == @user.id
@@ -33,6 +33,16 @@ class Abilities::User
   end
 
   def comment_abilities
+    can [:new, :create], [Comment] do |comment|
+      !@user.banned? && @user.day_registered? &&
+        comment.user_id == @user.id
+    end
+    can [:update], [Comment] do |comment|
+      can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
+    end
+    can [:destroy], [Comment] do |comment|
+      can? :update, comment
+    end
   end
 
   def message_abilities

@@ -1,10 +1,6 @@
 class CommentsController < ShikimoriController
   include CommentHelper
 
-  before_filter :authenticate_user!, only: [:edit, :create, :update, :destroy]
-  before_filter :check_post_permission, only: [:create, :update, :destroy]
-  before_filter :prepare_edition, only: [:edit, :create, :update, :destroy]
-
   def show
     noindex
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
@@ -91,11 +87,6 @@ class CommentsController < ShikimoriController
   end
 
 private
-
-  def prepare_edition
-    Rails.logger.info params.to_yaml
-    @comment = Comment.find(params[:id]).decorate if params[:id]
-  end
 
   def faye
     FayeService.new current_user, faye_token

@@ -10,36 +10,33 @@ module PermissionsPolicy
     # 85018 - топик фака
     def can_be_edited_by?(user)
       user && (
-        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.name && self.commentable_id == 85018) ||
-        (user.id == 2043 && self.class == Topic && self.id == 85018) ||
         (user.id == self.user_id && ((self.respond_to?(:moderated?) && self.moderated?) || self.kind_of?(Topic) || (self.created_at + 1.day > Time.zone.now))) || user.moderator?
       )
     end
 
     def can_be_deleted_by?(user)
       user && (
-        (user.id == 2043 && self.respond_to?(:commentable_type) && self.commentable_type == Topic.name && self.commentable_id == 85018) ||
         (user.id == self.user_id && self.created_at + 1.day > Time.zone.now) || user.moderator?
       )
     end
   end
 
   # права на действия с комментариями
-  module CommentPermissions
-    include Defaults
+  # module CommentPermissions
+    # include Defaults
 
-    def can_be_edited_by?(user)
-      super || (user && commentable_type == User.name && commentable_id == user.id && user_id == user.id)
-    end
+    # def can_be_edited_by?(user)
+      # super || (user && commentable_type == User.name && commentable_id == user.id && user_id == user.id)
+    # end
 
-    def can_be_deleted_by?(user)
-      super || (user && commentable_type == User.name && commentable_id == user.id)
-    end
+    # def can_be_deleted_by?(user)
+      # super || (user && commentable_type == User.name && commentable_id == user.id)
+    # end
 
-    def can_cancel_offtopic?(user)
-      can_be_deleted_by?(user) || user.moderator?
-    end
-  end
+    # def can_cancel_offtopic?(user)
+      # can_be_deleted_by?(user) || user.moderator?
+    # end
+  # end
 
   # права на действия с топиками
   module TopicPermissions

@@ -110,7 +110,7 @@ describe Comment do
       it { expect(comment.html_body).to eq '<strong>bold</strong>' }
 
       describe 'comment in offtopic topic' do
-        let(:offtopic_topic_id) { 82468 }
+        let(:offtopic_topic_id) { 82_468 }
         let(:comment) do
           build :comment,
             body: body,
@@ -146,18 +146,18 @@ describe Comment do
 
       context 'quote' do
         let(:text) { "[quote=200778;#{user.id};test2]test[/quote]" }
-        it { expect{subject}.to change(user_message, :count).by 1 }
+        it { expect { subject }.to change(user_message, :count).by 1 }
 
         context 'quote by ignored user' do
           let!(:ignore) { create :ignore, user: user, target: user2 }
-          it { expect{subject}.to_not change user_message, :count }
+          it { expect { subject }.to_not change user_message, :count }
         end
       end
 
       context 'comment' do
         let!(:comment) { create :comment, commentable: topic, user: user }
         let(:text) { "[comment=#{comment.id}]test[/comment]" }
-        it { expect{subject}.to change(user_message, :count).by 1 }
+        it { expect { subject }.to change(user_message, :count).by 1 }
       end
 
       context 'topic' do
@@ -167,7 +167,7 @@ describe Comment do
 
       context 'mention' do
         let(:text) { "[mention=#{user.id}]test[/mention]" }
-        it { expect{subject}.to change(user_message, :count).by 1 }
+        it { expect { subject }.to change(user_message, :count).by 1 }
       end
 
       it 'notifies only once' do
@@ -190,7 +190,7 @@ describe Comment do
     end
 
     describe '#forbid_ban_change' do
-      subject! { build :comment, body: "[ban=1]" }
+      subject! { build :comment, body: '[ban=1]' }
       before { subject.valid? }
       its(:valid?) { is_expected.to be_falsy }
 
@@ -260,6 +260,83 @@ describe Comment do
 
         it { expect(comment.reload).not_to be_summary }
       end
+    end
+  end
+
+  describe 'permissions' do
+    subject { Ability.new user }
+
+    context 'guest' do
+      let(:user) { nil }
+      let(:comment) { build_stubbed :comment }
+
+      it do
+        is_expected.not_to be_able_to :new, comment
+        is_expected.not_to be_able_to :create, comment
+        is_expected.not_to be_able_to :update, comment
+        is_expected.not_to be_able_to :destroy, comment
+      end
+    end
+
+    context 'not comment owner' do
+      let(:user) { build_stubbed :user, :user, :day_registered }
+      let(:comment) { build_stubbed :comment, user: build_stubbed(:user, :user) }
+
+      it do
+        is_expected.not_to be_able_to :new, comment
+        is_expected.not_to be_able_to :create, comment
+        is_expected.not_to be_able_to :update, comment
+        is_expected.not_to be_able_to :destroy, comment
+      end
+    end
+
+    context 'comment owner' do
+      let(:user) { build_stubbed :user, :user, :day_registered }
+      let(:comment) { build_stubbed :comment, user: user }
+
+      it do
+        is_expected.to be_able_to :new, comment
+        is_expected.to be_able_to :create, comment
+        is_expected.to be_able_to :update, comment
+      end
+
+      context 'user is registered < 1 day ago' do
+        let(:user) { build_stubbed :user, :user }
+        it do
+          is_expected.not_to be_able_to :new, comment
+          is_expected.not_to be_able_to :create, comment
+          is_expected.not_to be_able_to :update, comment
+        end
+      end
+
+      context 'banned user' do
+        let(:user) { build_stubbed :user, :banned, :day_registered }
+        it do
+          is_expected.not_to be_able_to :new, comment
+          is_expected.not_to be_able_to :create, comment
+          is_expected.not_to be_able_to :update, comment
+        end
+      end
+
+      describe 'permissions based on comment creation date' do
+        let(:comment) { build_stubbed :comment, user: user, created_at: created_at }
+
+        context 'comment created < 1.day hours ago' do
+          let(:created_at) { 1.day.ago + 1.minute }
+          it { is_expected.to be_able_to :destroy, comment }
+        end
+
+        context 'comment created >= 1.day hours ago' do
+          let(:created_at) { 1.day.ago - 1.minute }
+          it { is_expected.not_to be_able_to :destroy, comment }
+        end
+      end
+    end
+
+    context 'forum moderator' do
+      let(:user) { build_stubbed :user, :moderator }
+      let(:comment) { build_stubbed :comment, user: build_stubbed(:user) }
+      it { is_expected.to be_able_to :manage, comment }
     end
   end
 end
