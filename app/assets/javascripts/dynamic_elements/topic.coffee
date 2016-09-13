@@ -16,8 +16,8 @@ class DynamicElements.Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.ignored_users?.includes?(@model.user_id) ||
-        SHIKI_USER.ignored_topics?.includes?(@model.id)
+    if SHIKI_USER.ignored_users.includes(@model.user_id) ||
+        SHIKI_USER.ignored_topics.includes(@model.id)
       @$root.remove()
       return
 
