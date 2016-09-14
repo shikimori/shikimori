@@ -33,13 +33,21 @@ class Forums::Menu < ViewObjectBase
   end
 
   def sticky_topics
-    [
-      StickyTopicView.site_rules(h.locale_from_domain),
-      StickyTopicView.faq(h.locale_from_domain),
-      StickyTopicView.description_of_genres(h.locale_from_domain),
-      StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
-      StickyTopicView.site_problems(h.locale_from_domain)
-    ]
+    if h.ru_domain?
+      [
+        StickyTopicView.site_rules(h.locale_from_domain),
+        StickyTopicView.faq(h.locale_from_domain),
+        StickyTopicView.description_of_genres(h.locale_from_domain),
+        StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
+        StickyTopicView.site_problems(h.locale_from_domain)
+      ]
+    else
+      [
+        StickyTopicView.site_rules(h.locale_from_domain),
+        StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
+        StickyTopicView.site_problems(h.locale_from_domain)
+      ]
+    end
   end
 
   def new_topic_url

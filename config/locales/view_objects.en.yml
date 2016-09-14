@@ -173,6 +173,14 @@ en:
     ideas_and_suggestions:
       title: Ideas and suggestions
       description: It would be nice to implement it...
+      body: >-
+        Share your thoughts and suggestions here.
+        [br]
+        [br]
+        Flood is highly unwelcome.
     site_problems:
       title: Site problems
       description: Topic about any problems related to the site
+      body: >-
+        Describe the problem here if something doesn't work at all or
+        doesn't work as expected.

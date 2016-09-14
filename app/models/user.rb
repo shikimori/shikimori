@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
   after_create :create_preferences!, unless: :preferences
   after_create :check_ban
   # personal message from me
-  after_create :send_wellcome_message unless Rails.env.test?
+  after_create :send_welcome_message unless Rails.env.test?
   after_create :grab_avatar unless Rails.env.test?
 
   scope :suspicious, -> {
@@ -331,7 +331,7 @@ private
   end
 
   # создание послерегистрационного приветственного сообщения пользователю
-  def send_wellcome_message
+  def send_welcome_message
     Messages::CreateNotification.new(self).user_registered
   end
 
