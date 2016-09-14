@@ -8,8 +8,8 @@ class AddEnglishSiteRulesTopic < ActiveRecord::Migration
       id: EN_SITE_RULES_TOPIC_ID,
       title: 'Site rules',
       user_id: 1,
-      forum_id: 4,
-      body: en_site_rules_topic_body,
+      forum_id: Forum::SITE_ID,
+      body: body,
       locale: :en
     )
   end
@@ -21,7 +21,7 @@ class AddEnglishSiteRulesTopic < ActiveRecord::Migration
 
 private
 
-  def en_site_rules_topic_body
+  def body
     I18n.t 'sticky_topic_view.site_rules.body', locale: :en
   end
 end
