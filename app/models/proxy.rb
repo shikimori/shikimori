@@ -28,18 +28,18 @@ class Proxy < ActiveRecord::Base
     end
 
     # гет запрос через прокси
-    def get url, options={}
+    def get url, options = {}
       process url, options, :get
     end
 
     # пост запрос через прокси
-    def post url, options={}
+    def post url, options = {}
       process url, options, :post
     end
 
     # выполнение запроса через прокси или из кеша
     def process url, options, method
-      if @@use_cache && File.exists?(cache_path(url, options)) && (DateTime.now - 1.month < File.ctime(cache_path(url, options)))
+      if @@use_cache && File.exists?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
         NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
         return File.open(cache_path(url, options), "r") { |h| h.read }
       end
@@ -204,7 +204,7 @@ class Proxy < ActiveRecord::Base
       path = uri.path
       #cookie = resp.response['set-cookie']
 
-      # POST request -> getiting data
+      # POST request -> getting data
       data = options[:data].map { |k,v| "#{k}=#{v}" }.join('&')
       headers = {
         #'Cookie' => cookie,

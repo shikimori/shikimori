@@ -17,7 +17,7 @@ module Clockwork
     ImportListWorker.perform_async source: :ongoing, hours_limit: 8
   end
 
-  every 30.minutes, 'half-hourly.import.anothher', at: ['**:00', '**:30'] do
+  every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do
     AnimesImporter.perform_async
     PostgresFix.perform_async
   end

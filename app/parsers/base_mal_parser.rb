@@ -1,73 +1,59 @@
-# TODO: refactor
 class BaseMalParser < SiteParserWithCache
   include MalFetcher
   include MalDeployer
 
-  EntriesPerPage = 50
-  RelatedAdaptationName = "Adaptation"
+  ENTRIES_PER_PAGE = 50
   THREADS = 50
 
   BANNED_IDS_CONFIG_PATH = "#{Rails.root}/config/app/banned_mal_ids.yml"
 
-  # инициализация кеша
-  def load_cache
-    super
-    @cache[:list] = {} unless @cache.include? :list
-  end
-
   def genres
-    @genres ||= Genre.all.each_with_object({'anime' => {}, 'manga' => {}}) do |genre, memo|
-      memo[genre.kind][genre.mal_id] = genre
-    end
+    @genres ||= Genre.all
+      .each_with_object({'anime' => {}, 'manga' => {}}) do |genre, memo|
+        memo[genre.kind][genre.mal_id] = genre
+      end
   end
 
   def studios
-    @studios ||= Studio.all.each_with_object({}) do |studio, memo|
-      memo[studio.id] = studio
-    end
+    @studios ||= Studio.all
+      .each_with_object({}) do |studio, memo|
+        memo[studio.id] = studio
+      end
   end
 
   def publishers
-    @publishers ||= Publisher.all.each_with_object({}) do |publisher, memo|
-      memo[publisher.id] = publisher
-    end
+    @publishers ||= Publisher.all
+      .each_with_object({}) do |publisher, memo|
+        memo[publisher.id] = publisher
+      end
   end
 
-  # список
-  def list
-    @cache[:list]
+  def cached_list
+    @cache[:list] ||= {}
   end
 
-  # список параметров элементов, заданных руками
   def mal_fixes
-    unless @mal_fixes
-      all_mal_fixes = YAML::load(File.open("#{::Rails.root.to_s}/config/mal_fixes.yml"))
-      @mal_fixes = all_mal_fixes.include?(type.to_sym) ? all_mal_fixes[type.to_sym] : {}
+    @mal_fixes ||= begin
+      mal_fixes_path = Rails.root.join('config/mal_fixes.yml')
+      YAML::load(File.open(mal_fixes_path))[type.to_sym] || {}
     end
-    @mal_fixes
   end
 
-  # применение правок для импортированных данных
   def apply_mal_fixes id, data
-    mal_fixes[id].each do |k2,v2|
-      #if data[:entry][k2].respond_to?('merge!')
-        #data[:entry][k2].merge!(v2)
-      #else
-        #data[:entry][k2] = v2
-      #end
-      data[:entry][k2] = v2
-    end if mal_fixes.include?(id)
+    return data unless mal_fixes[id]
+    mal_fixes[id].each { |k, v| data[:entry][k] = v }
     data
   end
 
-  def self.import(ids=nil)
+  def self.import ids = nil
     self.new.import(ids)
   end
 
   # импорт всех новых и помеченных к импорту элементов
-  def import ids=nil
+  def import ids = nil
     Proxy.preload
-    ThreadPool.defaults = { threads: THREADS }# timeout: 90, log: true debug_log: true }
+    # timeout: 90, log: true debug_log: true }
+    ThreadPool.defaults = { threads: THREADS }
     #@proxy_log = true
     @import_mutex = Mutex.new
 
@@ -102,15 +88,8 @@ class BaseMalParser < SiteParserWithCache
 
   # сбор списка элементов, которые будем импортировать
   def prepare
-    imported = {}
-    ActiveRecord::Base.connection.
-        execute("select id,imported_at from #{type.tableize}"). # #{' where id not in (8757, 8758, 8759, 8760, 17653)' if type.tableize == 'animes'}
-          each {|v| imported[v['id'].to_i] = v['imported_at'].nil? ? nil : v['imported_at'].to_datetime }
-
-    new_ids = list.keys - imported.keys
-    outdated_ids = imported.select {|k,v| v.nil? }.map {|k,v| k }
-
-    new_ids + outdated_ids
+    not_outdated_ids = type.constantize.where.not(imported_at: nil).pluck(:id)
+    cached_list.keys - not_outdated_ids
   end
 
   def banned_ids
@@ -118,8 +97,13 @@ class BaseMalParser < SiteParserWithCache
   end
 
   # загрузка полного списка с MAL
-  def fetch_list_pages(options = {})
-    options = { offset: 0, limit: 99999, url_getter: :all_catalog_url }.merge(options)
+  def fetch_list_pages options = {}
+    options = {
+      offset: 0,
+      limit: 99999,
+      url_getter: :all_catalog_url
+    }.merge(options)
+
     #total_entries_found = 0
     page = options[:offset]
     all_found_entrires = []
@@ -133,6 +117,7 @@ class BaseMalParser < SiteParserWithCache
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
       break
     end while entries_found.any? && page < options[:limit]
+
     #total_entries_found
     save_cache
     all_found_entrires
@@ -161,7 +146,7 @@ class BaseMalParser < SiteParserWithCache
         entry[:id] = entry[:url].match(/\/(\d+)\//)[1].to_i
         entry[:name] = tds[1].css('a > strong')[0].inner_html
 
-        list[entry[:id]] = entry
+        cached_list[entry[:id]] = entry
         entries_found << entry[:id]
       end
 
@@ -192,19 +177,19 @@ private
   end
 
   def updated_catalog_url(page)
-    "https://myanimelist.net/#{type}.php?o=9&c[]=a&c[]=d&cv=2&w=1&show=#{page * EntriesPerPage}"
+    "https://myanimelist.net/#{type}.php?o=9&c[]=a&c[]=d&cv=2&w=1&show=#{page * ENTRIES_PER_PAGE}"
   end
 
   def all_catalog_url(page)
-    "https://myanimelist.net/#{type}.php?letter=&q=&tag=&sm=0&sd=0&em=0&ed=0&c[0]=b&c[1]=c&c[2]=a&show=#{page * EntriesPerPage}"
+    "https://myanimelist.net/#{type}.php?letter=&q=&tag=&sm=0&sd=0&em=0&ed=0&c[0]=b&c[1]=c&c[2]=a&show=#{page * ENTRIES_PER_PAGE}"
   end
 
   def entry_url(id)
     "https://myanimelist.net/#{type}/#{id}"
   end
 
+  # AnimeMalParser => 'anime'
   def type
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
-    @type
   end
 end

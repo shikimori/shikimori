@@ -42,11 +42,6 @@ class AnimeMalParser < BaseMalParser
     #parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
 
-    #unless entry[:related].nil?
-      #entry[:related_mangas] = entry[:related].select {|k,v| k == RelatedAdaptationName }
-      #entry[:related_animes] = entry[:related].select {|k,v| k != RelatedAdaptationName }
-    #end
-
     entry[:english] = parse_line("English", content, true)
     entry[:synonyms] = parse_line("Synonyms", content, true)
     entry[:japanese] = parse_line("Japanese", content, true)

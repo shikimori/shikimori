@@ -11,18 +11,18 @@ describe AnimeMalParser, :vcr do
   end
 
   it 'fetches list page' do
-    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches updated list page' do
-    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches 3 list pages' do
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(3 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.list.size).to eq(3 * BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'stops when got 0 entries' do
@@ -33,8 +33,8 @@ describe AnimeMalParser, :vcr do
     ]
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
-    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::EntriesPerPage)
-    expect(parser.list.size).to eq(1 * BaseMalParser::EntriesPerPage)
+    expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.list.size).to eq(1 * BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches anime data' do
@@ -145,13 +145,13 @@ series of new conflicts.[br][source]ANN[/source]"
     # }
 
     # it 'prepares' do
-      # parser.prepare.should have(BaseMalParser::EntriesPerPage-1).items
+      # parser.prepare.should have(BaseMalParser::ENTRIES_PER_PAGE-1).items
     # end
 
     # it 'imports' do
       # expect {
-        # parser.import.should have(BaseMalParser::EntriesPerPage-1).items
-      # }.to change(Anime, :count).by(BaseMalParser::EntriesPerPage-2)
+        # parser.import.should have(BaseMalParser::ENTRIES_PER_PAGE-1).items
+      # }.to change(Anime, :count).by(BaseMalParser::ENTRIES_PER_PAGE-2)
     # end
   # end
 end
