@@ -23,7 +23,7 @@ class TopicsQuery < QueryObjectBase
       .order(updated_at: :desc)
       .where(locale: locale)
 
-    query.except_hentai.except_ignored(user)
+    query.except_hentai#.except_ignored(user)
   end
 
   def by_forum forum, user, is_censored_forbidden
@@ -39,13 +39,13 @@ class TopicsQuery < QueryObjectBase
     end
   end
 
-  def except_ignored user
-    if user
-      chain @scope.where.not id: user.topic_ignores.map(&:topic_id)
-    else
-      self
-    end
-  end
+  # def except_ignored user
+    # if user
+      # chain @scope.where.not id: user.topic_ignores.map(&:topic_id)
+    # else
+      # self
+    # end
+  # end
 
   def except_hentai
     chain @scope

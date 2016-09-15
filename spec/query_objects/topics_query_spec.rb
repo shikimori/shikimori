@@ -22,7 +22,7 @@ describe TopicsQuery do
     let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
     let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
     let!(:another_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
-    let!(:topic_ignore) {}
+    # let!(:topic_ignore) {}
 
     before { joined_club.join user if user }
 
@@ -49,10 +49,10 @@ describe TopicsQuery do
         let(:forums) { [offtopic_forum.id, animanga_forum.id] }
         it { is_expected.to eq [anime_topic] + all_sticky_topics }
 
-        context 'topic_ignore' do
-          let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
+        # context 'topic_ignore' do
+          # let!(:topic_ignore) { create :topic_ignore, user: user, topic: anime_topic }
           # it { is_expected.to eq [offtopic_topic, offtopic_topic] }
-        end
+        # end
       end
 
       context 'my_clubs forum' do
