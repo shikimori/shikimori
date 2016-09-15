@@ -41,6 +41,7 @@ class Comment < ActiveRecord::Base
   after_create :creation_callbacks
   after_create :notify_quotes
   after_save :release_the_banhammer!
+  after_save :touch_commented_at
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
@@ -148,6 +149,11 @@ class Comment < ActiveRecord::Base
   # автобан за мат
   def release_the_banhammer!
     Banhammer.instance.release! self
+  end
+
+  def touch_commented_at
+    return unless commentable.respond_to? :commented_at
+    commentable.update_column :commented_at, updated_at
   end
 
   def clean

@@ -90,6 +90,14 @@ describe Comment do
       it { expect(Banhammer.instance).to receive :release! }
     end
 
+    describe 'touch_commented_at' do
+      let(:topic) { create :topic }
+      let(:comment) { build :comment, commentable: topic }
+      subject! { comment.save! }
+
+      it { expect(topic.commented_at).to eq comment.updated_at }
+    end
+
     describe '#remove_replies' do
       let(:comment) { create :comment }
       after { comment.destroy }

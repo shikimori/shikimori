@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914184613) do
+ActiveRecord::Schema.define(version: 20160915103823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -840,6 +840,7 @@ ActiveRecord::Schema.define(version: 20160914184613) do
     t.integer  "comments_count",             default: 0
     t.boolean  "broadcast",                  default: false
     t.string   "locale",                                     null: false
+    t.datetime "commented_at"
   end
 
   add_index "topics", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
