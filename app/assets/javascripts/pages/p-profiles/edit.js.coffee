@@ -188,8 +188,8 @@
     $("#import_phase_2 form").on "submit", ->
       $.cursorMessage()
 
-  # styles page
-  if $('.edit-page.ignored_topics')
+  # ignores pages
+  if $('.edit-page.ignored_topics, .edit-page.ignored_users')
     $('.b-editable_grid .actions .b-js-link')
       .on 'ajax:before', ->
         $(@).hide()

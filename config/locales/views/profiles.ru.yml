@@ -171,11 +171,16 @@ ru:
         confirm_to_clear_history_of_nickname_changes: Подтвердите намерение очистить историю изменения ваших никнеймов.
         sure_to_clear_history_of_nickname_changes: Вы действительно хотите очистить историю изменения ваших никнеймов?
         ignored_topics: Игнорируемые топики
-        show_list_of_ignored_topics: Посмотреть список
+        ignored_users: Игнорируемые пользователи
+        show_list_of_ignored: Посмотреть список
 
       ignored_topics:
         topic_name: Название топика
         topic_author: Автор
+        stop_ignore: прекратить игнор
+
+      ignored_users:
+        user_nickname: Пользователь
         stop_ignore: прекратить игнор
 
     stats_bar:

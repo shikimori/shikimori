@@ -12,59 +12,67 @@
       = f.button :magic_submit
       a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
 
-.profile-action.block
-  .mischeadline = t '.anime_manga_recommendations'
-  .controls
-    div: .b-js-link data-type='anime'
-      = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
-    div: .b-js-link data-type='manga'
-      = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
+.cc-2
+  .c-column
+    .profile-action.block
+      .mischeadline = t '.anime_manga_recommendations'
+      .controls
+        div: .b-js-link data-type='anime'
+          = t '.restore_rejected_recommendations', kind: i18n_i('anime', 1, :genitive)
+        div: .b-js-link data-type='manga'
+          = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
 
-  .form.anime
-    p
-      span.warn = t 'this_action_cant_be_undone'
-      span = t '.confirm_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)
-    a.b-js-link.control[
-      href="#{cleanup_recommendation_ignores_path target_type: :anime}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.anime
+        p
+          span.warn = t 'this_action_cant_be_undone'
+          span = t '.confirm_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)
+        a.b-js-link.control[
+          href="#{cleanup_recommendation_ignores_path target_type: :anime}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-  .form.manga
-    p
-      span.warn = t 'this_action_cant_be_undone'
-      span = t '.confirm_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)
-    a.b-js-link.control[
-      href="#{cleanup_recommendation_ignores_path target_type: :manga}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.manga
+        p
+          span.warn = t 'this_action_cant_be_undone'
+          span = t '.confirm_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)
+        a.b-js-link.control[
+          href="#{cleanup_recommendation_ignores_path target_type: :manga}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-.nickname-changes
-  .mischeadline = t '.history_of_nickname_changes'
-  .controls
-    div: .b-js-link = t '.clear_history'
+    .nickname-changes
+      .mischeadline = t '.history_of_nickname_changes'
+      .controls
+        div: .b-js-link = t '.clear_history'
 
-  .form
-    p
-      span.warn = t 'this_action_cant_be_undone'
-      span = t '.confirm_to_clear_history_of_nickname_changes'
-    a.b-js-link.control[
-      href="#{cleanup_api_nickname_changes_url}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_clear_history_of_nickname_changes'}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form
+        p
+          span.warn = t 'this_action_cant_be_undone'
+          span = t '.confirm_to_clear_history_of_nickname_changes'
+        a.b-js-link.control[
+          href="#{cleanup_api_nickname_changes_url}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_clear_history_of_nickname_changes'}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-.ignored-topics
-  .mischeadline = t '.ignored_topics'
-  div: a.b-link href="#{edit_profile_url @resource, page: 'ignored_topics'}"
-    = t '.show_list_of_ignored_topics'
+  .c-column
+    .block
+      .mischeadline = t '.ignored_topics'
+      div: a.b-link href="#{edit_profile_url @resource, page: 'ignored_topics'}"
+        = t '.show_list_of_ignored'
+
+    .block
+      .mischeadline = t '.ignored_users'
+      div: a.b-link href="#{edit_profile_url @resource, page: 'ignored_users'}"
+        = t '.show_list_of_ignored'
