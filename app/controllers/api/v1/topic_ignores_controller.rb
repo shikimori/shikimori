@@ -1,7 +1,7 @@
 class Api::V1::TopicIgnoresController < Api::V1::ApiController
   load_and_authorize_resource
 
-  api :POST, '/topic_ignores', 'Use Ignores API instead', deprecated: true
+  api :POST, '/topic_ignores', 'Create an ignore', deprecated: true
   param :topic_ignore, Hash do
     param :topic_id, :number
     param :user_id, :number
@@ -19,7 +19,7 @@ class Api::V1::TopicIgnoresController < Api::V1::ApiController
     render json: success_response(present_ignore)
   end
 
-  api :DELETE, '/topic_ignores/:id', 'Use Ignores API instead', deprecated: true
+  api :DELETE, '/topic_ignores/:id', 'Destroy an ignore', deprecated: true
   def destroy
     @resource.destroy
     render json: {

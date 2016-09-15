@@ -156,6 +156,11 @@ Site::Application.routes.draw do
           resource :ignore, only: [:create, :destroy]
         end
       end
+      namespace :users do
+        scope ':user_id'  do
+          resource :ignore, only: [:create, :destroy]
+        end
+      end
     end
   end
   # v1
@@ -760,7 +765,7 @@ Site::Application.routes.draw do
         #get :stats
         get 'edit(/:page)' => :edit,
           as: :edit,
-          page: /account|profile|password|styles|list|notifications|misc|ignored_topics/
+          page: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
         get 'reviews(/page/:page)' => :reviews, as: :reviews
         get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments

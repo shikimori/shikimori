@@ -1,6 +1,10 @@
 class Api::V2::Topics::IgnoresController < Api::V1::ApiController
   before_action :authenticate_user!
 
+  resource_description do
+    resource_id 'Topic Ignore'
+  end
+
   api :POST, '/v2/topics/:topic_id/ignore', 'Ignore a topic'
   def create
     TopicIgnore.find_or_create_by(
