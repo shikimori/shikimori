@@ -38,8 +38,8 @@ class Topics::Urls < ViewObjectBase
     h.subscribe_url type: topic.class.name, id: topic.id
   end
 
-  def topic_url
-    UrlGenerator.instance.topic_url topic
+  def topic_url options = {}
+    UrlGenerator.instance.topic_url topic, false, options
   end
 
   def topic_type_policy

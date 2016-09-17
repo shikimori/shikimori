@@ -25,20 +25,20 @@ module Routing
     end
   end
 
-  def topic_url topic, format = nil
+  def topic_url topic, format = nil, options = {}
     topic_type_policy = Topic::TypePolicy.new topic
 
     if topic.instance_of? NoTopic
-      db_entry_path topic.linked
+      db_entry_path topic.linked, options
 
     elsif topic.is_a?(User)
-      profile_url topic, subdomain: false
+      profile_url topic, options.merge(subdomain: false)
 
     elsif topic_type_policy.contest_topic? ||
         topic_type_policy.not_generated_news_topic? ||
         topic_type_policy.review_topic?
 
-      forum_topic_url(
+      forum_topic_url options.merge(
         id: topic,
         forum: topic.forum,
         linked: nil,
@@ -47,7 +47,7 @@ module Routing
       )
 
     else
-      forum_topic_url(
+      forum_topic_url options.merge(
         id: topic,
         forum: topic.forum,
         linked_type: topic.linked.class.name.underscore,

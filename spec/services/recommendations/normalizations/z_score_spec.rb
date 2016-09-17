@@ -1,6 +1,6 @@
 describe Recommendations::Normalizations::ZScore do
   let(:formula) { Recommendations::Normalizations::ZScore.new }
-  let(:ratings) {{ 4 => 4, 6 => 6, 8 => 8 }}
+  let(:ratings) { { 4 => 4, 6 => 6, 8 => 8 } }
 
   it { expect(formula.sigma ratings.values, nil).to eq 2 }
   it { expect(formula.mean ratings.values, nil).to eq 6 }
@@ -13,7 +13,7 @@ describe Recommendations::Normalizations::ZScore do
     subject { formula.normalize ratings, nil }
 
     #describe 'no deviation' do
-      #let(:ratings) {{ 1 => 8, 2 => 8, 3 => 8 }}
+      #let(:ratings) { { 1 => 8, 2 => 8, 3 => 8 } }
 
       #it { expect(subject.values.first).to be_nan }
       #it { expect(subject.values.second).to be_nan }

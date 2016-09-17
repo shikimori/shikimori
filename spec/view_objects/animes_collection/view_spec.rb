@@ -155,7 +155,7 @@ describe AnimesCollection::View do
 
     context 'no season, no status params' do
       let(:params) { { page: '1' } }
-      it { is_expected.to eq 1.week }
+      it { is_expected.to eq 3.days }
     end
 
     context 'season param' do
