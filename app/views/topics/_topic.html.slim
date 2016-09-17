@@ -13,8 +13,8 @@ article.b-topic.shiki-object.not-tracked.to-process[
   itemtype="#{topic_view.topic_type_policy.review_topic? ? 'http://schema.org/Review' : 'http://schema.org/Article'}"
 ]
   meta itemprop="author" content="#{topic_view.topic.user.nickname}"
-  meta itemprop="name" content="#{topic_view.topic_title}"
-  meta itemprop="headline" content="#{topic_view.topic_title}"
+  meta itemprop="name" content="#{topic_view.topic.title}"
+  meta itemprop="headline" content="#{topic_view.topic.title}"
   meta[
     itemprop="url"
     content="#{UrlGenerator.instance.topic_url topic_view.topic}"

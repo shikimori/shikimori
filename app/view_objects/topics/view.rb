@@ -52,11 +52,27 @@ class Topics::View < ViewObjectBase
     end
   end
 
+  def poster_title_html
+    if !preview?
+      topic.user.nickname
+    else
+      topic_title_html
+    end
+  end
+
   def topic_title
     if topic_type_policy.forum_topic? || topic.linked_id.nil?
       topic.title
     else
-      h.localized_name topic.linked
+      topic.linked.name
+    end
+  end
+
+  def topic_title_html
+    if topic_type_policy.forum_topic? || topic.linked_id.nil?
+      topic.title
+    else
+      h.localization_span topic.linked
     end
   end
 

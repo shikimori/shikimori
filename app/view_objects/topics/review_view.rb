@@ -24,16 +24,24 @@ class Topics::ReviewView < Topics::View
 
   # rubocop:disable AbcSize
   def topic_title
-    if !is_preview
+    if is_preview
+      topic.linked.target.name
+    else
       i18n_t(
         "title.#{topic.linked.target_type.downcase}",
         target_name: h.h(h.localized_name(topic.linked.target))
       ).html_safe
-    else
-      h.localized_name topic.linked.target
     end
   end
    # rubocop:enable AbcSize
+
+  def topic_title_html
+    if is_preview
+      h.localization_span topic.linked.target
+    else
+      topic_title
+    end
+  end
 
   def render_body
     render_results + render_stars + super

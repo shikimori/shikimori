@@ -12,7 +12,11 @@ class Topics::GeneratedNewsView < Topics::View
   end
 
   def poster_title
-    h.localized_name topic.linked
+    topic.linked.name
+  end
+
+  def poster_title_html
+    h.localization_span topic.linked
   end
 
   def topic_title

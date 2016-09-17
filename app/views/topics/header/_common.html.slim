@@ -1,5 +1,3 @@
-- topic_type_policy = topic_view.topic_type_policy
-
 - if topic_view.author_in_header?
   span.linkeable data-href="#{topic_view.urls.poster_url}"
     img[
@@ -23,9 +21,9 @@
   a.name[
     href="#{topic_view.urls.poster_url}"
     title="#{topic_view.poster_title}"
-  ] = topic_view.poster_title
+  ] = topic_view.poster_title_html
 
-  - if topic_view.topic.linked && (topic_type_policy.forum_topic? || topic_type_policy.not_generated_news_topic?)
+  - if topic_view.topic.linked && (topic_view.topic_type_policy.forum_topic? || topic_view.topic_type_policy.not_generated_news_topic?)
     span.about
       span = t '.about'
       a.b-link.bubbled[
@@ -33,7 +31,7 @@
         title="#{localized_name topic_view.topic.linked}"
       ] = localization_span topic_view.topic.linked
 
-  - elsif topic_type_policy.review_topic?
+  - elsif topic_view.topic_type_policy.review_topic?
     span.about
       span = t '.about'
       a.b-link.bubbled[
