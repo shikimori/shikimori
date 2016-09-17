@@ -6,7 +6,7 @@ class Mal::TextSanitizer < ServiceObjectBase
     Nokogiri::XML::Node::SaveOptions::NO_DECLARATION
 
   ENTRY_REGEXP = %r{
-    <a [^>]*? href="http://myanimelist.net/(?<type>anime|manga|character|people)
+    <a [^>]*? href="https?://myanimelist.net/(?<type>anime|manga|character|people)
       (?:
         .php\?id=(?<id>\d+) |
         / (?<id>\d+) (?: / [\w:/!-]* )?
@@ -65,7 +65,7 @@ class Mal::TextSanitizer < ServiceObjectBase
   }mix
 
   MOREINFO_LINK_REGEXP = %r{
-    <a [^>]*? href="http://myanimelist.net/[^"]*?/moreinfo/?" [^>]*? >
+    <a [^>]*? href="https?://myanimelist.net/[^"]*?/moreinfo/?" [^>]*? >
       (.*?)
     </a>
   }mix
