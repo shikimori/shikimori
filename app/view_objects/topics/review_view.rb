@@ -58,11 +58,9 @@ class Topics::ReviewView < Topics::View
 private
 
   def format_body
-    Rails.cache.fetch body_cache_key, expires_in: 2.weeks do
-      BbCodeFormatter.instance.format_description(
-        topic.linked.text, topic.linked
-      )
-    end
+    BbCodeFormatter.instance.format_description(
+      topic.linked.text, topic.linked
+    )
   end
 
   def body

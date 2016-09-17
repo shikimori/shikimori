@@ -1,73 +1,72 @@
-- topic_type_policy = topic_view.topic_type_policy
+- cache topic_view.cache_key + [topic_view.topic.linked] do
+  / класс нужен из-за проверки высоты и для отображения кнопок по hover
+  .inner
+    - unless topic_view.minified?
+      span.item-mobile title="#{t 'actions.actions'}"
 
-/ класс нужен из-за проверки высоты и для отображения кнопок по hover
-.inner
-  - unless topic_view.minified?
-    span.item-mobile title="#{t 'actions.actions'}"
+    aside.markers
+      p.b-new_marker data-text="#{t 'markers.new'}"
 
-  aside.markers
-    p.b-new_marker data-text="#{t 'markers.new'}"
+    - unless topic_view.minified?
+      = render 'topics/buttons', topic_view: topic_view
 
-  - unless topic_view.minified?
-    = render 'topics/buttons', topic_view: topic_view
-
-  /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
-  header
-    - if topic_view.minified?
-      = render "topics/header/mini", topic_view: topic_view
-    - else
-      = render "topics/header/common", topic_view: topic_view
-
-  .body
-    - if topic_view.minified?
-      = render 'topics/status_line', topic_view: topic_view
-
-      - if topic_type_policy.review_topic?
-        = render 'topics/reviews/entry_cover', view: topic_view,
-          entry: topic_view.topic.linked.target.decorate
-
-      .body-truncated
-        .body-truncated-inner[
-          itemprop="#{topic_type_policy.review_topic? ? :reviewBody : :articleBody}"
-        ]
-          = topic_view.html_body_truncated
-
-    - else
-      .body-inner
-        = topic_view.render_body
-
-    - if topic_view.read_more_link?
-      .read_more
-        a.b-link[
-          href="#{topic_view.urls.poster_url}"
-        ] = t '.read_more'
-
-  footer
-    = topic_view.html_footer
-
-    - if topic_type_policy.review_topic? && !topic_view.minified?
-      = render 'topics/reviews/footer_vote', topic_view: topic_view
-    - elsif topic_type_policy.cosplay_gallery_topic?
-      = render 'topics/cosplay/footer_vote', topic_view: topic_view
-
-    / p.tags
-      - if user_signed_in?
-        - if topic.tag.present? &&
-          !topic_type_policy.news_topic? &&
-          !topic_type_policy.review_topic?
-          span.tag
-            a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
-        span.tag
-          a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
+    /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
+    header
+      - if topic_view.minified?
+        = render "topics/header/mini", topic_view: topic_view
       - else
-        - if topic.tag.present? && !topic_type_policy.news_topic? && !topic_type_policy.review_topic?
-          span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
-        span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
+        = render "topics/header/common", topic_view: topic_view
 
-    / - if topic.author_in_footer?
-      = render 'users/user_16', user: topic_view.user
+    .body
+      - if topic_view.minified?
+        = render 'topics/status_line', topic_view: topic_view
 
-  .b-appear_marker[
-    class="appear-topic-#{topic_view.topic.id}"
-    data-appear_url="#{api_appears_url}"
-  ]
+        - if topic_view.topic_type_policy.review_topic?
+          = render 'topics/reviews/entry_cover', view: topic_view,
+            entry: topic_view.topic.linked.target.decorate
+
+        .body-truncated
+          .body-truncated-inner[
+            itemprop="#{topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody}"
+          ]
+            = topic_view.html_body_truncated
+
+      - else
+        .body-inner
+          = topic_view.render_body
+
+      - if topic_view.read_more_link?
+        .read_more
+          a.b-link[
+            href="#{topic_view.urls.poster_url}"
+          ] = t '.read_more'
+
+    footer
+      = topic_view.html_footer
+
+      - if topic_view.topic_type_policy.review_topic? && !topic_view.minified?
+        = render 'topics/reviews/footer_vote', topic_view: topic_view
+      - elsif topic_view.topic_type_policy.cosplay_gallery_topic?
+        = render 'topics/cosplay/footer_vote', topic_view: topic_view
+
+      / p.tags
+        - if user_signed_in?
+          - if topic.tag.present? &&
+            !topic_view.topic_type_policy.news_topic? &&
+            !topic_view.topic_type_policy.review_topic?
+            span.tag
+              a title="#{topic.tag}" href="#{subforum_url topic}" = topic.tag
+          span.tag
+            a title="#{topic.forum.name}" href="#{forum_url topic.forum}" = topic.forum.name
+        - else
+          - if topic.tag.present? && !topic_view.topic_type_policy.news_topic? && !topic_view.topic_type_policy.review_topic?
+            span.tag title="#{topic.tag}" data-href="#{subforum_url topic}" = topic.tag
+          span.tag title="#{topic.forum.name}" data-href="#{forum_url topic.forum}" = topic.forum.name
+
+      / - if topic.author_in_footer?
+        = render 'users/user_16', user: topic_view.user
+
+    .b-appear_marker[
+      class="appear-topic-#{topic_view.topic.id}"
+      data-appear_url="#{api_appears_url}"
+    ]

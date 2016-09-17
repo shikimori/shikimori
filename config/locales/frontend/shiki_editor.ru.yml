@@ -1,0 +1,7 @@
+ru:
+  frontend:
+    shiki_editor:
+      not_available: Комментирование будет доступно через сутки после регистрации
+      text_cant_be_blank: Текст не может быть пустым
+      spoiler: спойлер
+      file: файл

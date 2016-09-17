@@ -8,7 +8,7 @@ class Topics::View < ViewObjectBase
   delegate :comments_count, :summaries_count, to: :topic_comments_policy
   delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
-  instance_cache :comments_view, :urls, :action_tag, :topic_ignore
+  instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore
   instance_cache :topic_comments_policy, :topic_type_policy
 
   def ignored_topic?
@@ -19,6 +19,10 @@ class Topics::View < ViewObjectBase
     h.user_signed_in? && h.current_user.ignores?(topic.user)
   end
 
+  def preview?
+    is_preview
+  end
+
   def minified?
     is_mini
   end
@@ -26,8 +30,8 @@ class Topics::View < ViewObjectBase
   def container_class css = ''
     [
       css,
-      ('b-topic-preview' if is_preview),
-      (:mini if is_mini)
+      ('b-topic-preview' if preview?),
+      (:mini if minified?)
     ].compact.join ' '
   end
 
@@ -35,13 +39,13 @@ class Topics::View < ViewObjectBase
   end
 
   def show_body?
-    is_preview ||
+    preview? ||
       !topic.generated? ||
       topic_type_policy.contest_topic?
   end
 
   def poster_title
-    if !is_preview
+    if !preview?
       topic.user.nickname
     else
       topic_title
@@ -77,7 +81,7 @@ class Topics::View < ViewObjectBase
   end
 
   def comments_view
-    Topics::CommentsView.new topic, is_preview
+    Topics::CommentsView.new topic, preview?
   end
 
   def urls
@@ -93,16 +97,16 @@ class Topics::View < ViewObjectBase
   end
 
   def read_more_link?
-    (is_preview || is_mini) && topic_type_policy.review_topic?
+    (preview? || minified?) && topic_type_policy.review_topic?
   end
 
   # def author_in_footer?
-    # is_preview && (topic_type_policy.news_topic? || topic_type_policy.review_topic?) &&
+    # preview? && (topic_type_policy.news_topic? || topic_type_policy.review_topic?) &&
       # (!author_in_header? || poster(false) != user.avatar_url(48))
   # end
 
   def html_body
-    Rails.cache.fetch body_cache_key, expires_in: 2.weeks do
+    Rails.cache.fetch [:body, Digest::MD5.hexdigest(topic_body)] do
       BbCodeFormatter.instance.format_comment topic_body
     end
   end
@@ -126,7 +130,7 @@ class Topics::View < ViewObjectBase
   # end
 
   def html_body_truncated
-    if is_preview
+    if preview?
       html = h.truncate_html cleanup_preview_body(html_body),
         length: 500,
         separator: ' ',
@@ -160,18 +164,24 @@ class Topics::View < ViewObjectBase
     Topic::TypePolicy.new topic
   end
 
-private
-
-  def body_cache_key
-    [topic, topic.linked, 'body']
+  def cache_key
+    CacheHelper.keys(
+      topic.cache_key,
+      topic.commented_at,
+      comments_view.comments_limit,
+      preview?,
+      minified?
+    )
   end
+
+private
 
   def topic_body
     topic.original_body
   end
 
   def linked_in_avatar?
-    topic.linked && is_preview && !topic.instance_of?(Topic)
+    topic.linked && preview? && !topic.instance_of?(Topic)
   end
 
   def cleanup_preview_body html

@@ -90,7 +90,6 @@ class Topics::CommentsView < ViewObjectBase
   # because the latter might not exist yet
   def new_comment
     Comment.new(
-      user: h.current_user,
       commentable: new_comment_commentable,
       is_summary: new_comment_summary?
     )
@@ -98,6 +97,17 @@ class Topics::CommentsView < ViewObjectBase
 
   def cached_comments?
     false
+  end
+
+  def cache_key
+    [
+      topic.id,
+      topic.commented_at,
+      comments_limit,
+      h.params[:page],
+      only_summaries_shown?,
+      new_comment_summary?
+    ]
   end
 
 private
@@ -111,7 +121,8 @@ private
     return false unless %w(animes mangas).include? h.params[:controller]
     return true if h.params[:action] == 'summaries'
 
-    h.params[:action] == 'show' && topic_comments_policy.summaries_count.positive?
+    h.params[:action] == 'show' &&
+      topic_comments_policy.summaries_count.positive?
   end
   # rubocop:enable AbcSize
 

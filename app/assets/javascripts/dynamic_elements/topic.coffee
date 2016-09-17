@@ -25,7 +25,15 @@ class DynamicElements.Topic extends ShikiEditable
 
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
-    @editor = new ShikiEditor(@$editor) if USER_SIGNED_IN && @$editor.length
+
+    if USER_SIGNED_IN && DAY_REGISTERED
+      @editor = new ShikiEditor(@$editor)
+    else
+      @$editor.replaceWith(
+        "<div class='b-nothing_here'>
+          #{t 'frontend.shiki_editor.not_available'}
+        </div>"
+      )
 
     @$comments_loader = @$('.comments-loader')
     @$comments_hider = @$('.comments-hider')
@@ -58,7 +66,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     @$editor
       .on 'ajax:success', (e, response) =>
-        $new_comment = $(response.html)
+        $new_comment = $(response.html).process(response.JS_EXPORTS)
 
         @$('.b-comments').find('.b-nothing_here').remove()
         if @$editor.is(':last-child')
@@ -66,7 +74,7 @@ class DynamicElements.Topic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment.process().yellowFade()
+        $new_comment.yellowFade()
 
         @editor.cleanup()
         @_hide_editor()

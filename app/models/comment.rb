@@ -46,6 +46,7 @@ class Comment < ActiveRecord::Base
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
   after_destroy :remove_replies
+  after_destroy :touch_commented_at
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.

@@ -1,0 +1,7 @@
+en:
+  frontend:
+    shiki_editor:
+      not_available: Commenting will be available one day after registering
+      text_cant_be_blank: Text can't be blank
+      spoiler: spoiler
+      file: file
