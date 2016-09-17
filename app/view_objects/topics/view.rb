@@ -106,8 +106,10 @@ class Topics::View < ViewObjectBase
   # end
 
   def html_body
-    Rails.cache.fetch [:body, Digest::MD5.hexdigest(topic_body)] do
-      BbCodeFormatter.instance.format_comment topic_body
+    return '' unless topic.original_body
+
+    Rails.cache.fetch [:body, Digest::MD5.hexdigest(topic.original_body)] do
+      BbCodeFormatter.instance.format_comment topic.original_body
     end
   end
 
@@ -175,10 +177,6 @@ class Topics::View < ViewObjectBase
   end
 
 private
-
-  def topic_body
-    topic.original_body
-  end
 
   def linked_in_avatar?
     topic.linked && preview? && !topic.instance_of?(Topic)
