@@ -169,7 +169,7 @@ class Topics::View < ViewObjectBase
   def cache_key
     CacheHelper.keys(
       topic.cache_key,
-      topic.respond_to?(:commented_at) : topic.commented_at : nil,
+      topic.respond_to?(:commented_at) ? topic.commented_at : nil,
       comments_view.comments_limit,
       preview?,
       minified?
