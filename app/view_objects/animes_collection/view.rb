@@ -13,7 +13,7 @@ class AnimesCollection::View < ViewObjectBase
       results.collection&.map(&:decorate)
     end
   end
-
+ 
   def season_page?
     !recommendations? &&
       h.params[:season].present? &&
@@ -39,7 +39,7 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache_expires_in
-    h.params[:season] || h.params[:status] ? 1.day : 1.week
+    h.params[:season] || h.params[:status] ? 1.day : 3.days
   end
 
   def url changed_params

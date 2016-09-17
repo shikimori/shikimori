@@ -2,13 +2,13 @@
 module MalDeployer
   # применение импортированных данных к элементу и сохранение элемента в базу
   def deploy entry, data
-    if data[:entry].include?(:genres) && !entry.desynced.include?('genres')
+    if data[:entry][:genres]&.any? && !entry.desynced.include?('genres')
       deploy_genres entry, data[:entry][:genres]
     end
-    if data[:entry].include?(:studios) && !entry.desynced.include?('studios')
+    if data[:entry][:studios]&.any? && !entry.desynced.include?('studios')
       deploy_studios entry, data[:entry][:studios]
     end
-    if data[:entry].include?(:publishers) && !entry.desynced.include?('publishers')
+    if data[:entry][:publishers]&.any? && !entry.desynced.include?('publishers')
       deploy_publishers entry, data[:entry][:publishers]
     end
 
