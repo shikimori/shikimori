@@ -2,7 +2,6 @@ aside.buttons
   .main-controls
     span.item-ignore.to-process[
       title="#{t 'actions.ignore'}"
-      class="#{:selected if topic_view.topic_ignored?}"
       data-action="#{api_v2_topics_ignore_url topic_view.id}"
       data-dynamic="authorized"
       data-method="POST"

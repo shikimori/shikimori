@@ -13,8 +13,7 @@
       data-text="#{topic_view.action_tag.text}"
     ]
   - if user_signed_in?
-    .b-anime_status_tag.ignored[
-      class="#{:hidden unless topic_view.topic_ignored?}"
+    .b-anime_status_tag.ignored.hidden[
       data-text="#{t '.topic_ignored'}"
     ]
 
