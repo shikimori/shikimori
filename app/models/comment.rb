@@ -41,12 +41,12 @@ class Comment < ActiveRecord::Base
   after_create :creation_callbacks
   after_create :notify_quotes
   after_save :release_the_banhammer!
-  after_save :touch_commented_at
+  after_save :touch_commentable
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
   after_destroy :remove_replies
-  after_destroy :touch_commented_at
+  after_destroy :touch_commentable
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -152,9 +152,12 @@ class Comment < ActiveRecord::Base
     Banhammer.instance.release! self
   end
 
-  def touch_commented_at
-    return unless commentable.respond_to? :commented_at
-    commentable.update_column :commented_at, updated_at
+  def touch_commentable
+    if commentable.respond_to? :commented_at
+      commentable.update_column :commented_at, updated_at
+    else
+      commentable.update_column :updated_at, updated_at
+    end
   end
 
   def clean

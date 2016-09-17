@@ -90,7 +90,7 @@ describe Comment do
       it { expect(Banhammer.instance).to receive :release! }
     end
 
-    describe '#touch_commented_at' do
+    describe '#touch_commentable' do
       let(:topic) { create :topic }
       let(:comment) { build :comment, commentable: topic }
 
@@ -99,7 +99,15 @@ describe Comment do
 
       context 'create' do
         subject! { comment.save! }
-        it { expect(topic.commented_at).to eq Time.zone.now }
+
+        context 'commentable with commented_at' do
+          it { expect(topic.commented_at).to eq Time.zone.now }
+        end
+
+        context 'commentable without updated_at' do
+          let(:topic) { create :user, updated_at: 1.day.ago }
+          it { expect(topic.updated_at).to eq Time.zone.now }
+        end
       end
 
       context 'update' do

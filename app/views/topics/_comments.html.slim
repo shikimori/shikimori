@@ -13,12 +13,6 @@
 
     - if comments_view.comments.any?
       = render partial: 'comments/comment', collection: comments_view.comments
-      / - if comments_view.cached_comments?
-        / - cache comments_view.comments_cache_key do
-          / = render partial: 'comments/comment', collection: comments_view.comments
-
-      / - else
-        = render partial: 'comments/comment', collection: comments_view.comments
 
     - else
       p.b-nothing_here = t 'no_comments'

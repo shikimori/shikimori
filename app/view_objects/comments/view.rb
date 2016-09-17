@@ -44,14 +44,6 @@ class Comments::View < ViewObjectBase
     true
   end
 
-  def comments_cache_key
-    [
-      comment,
-      :replies,
-      Digest::MD5.hexdigest(replies.map(&:cache_key).join(' '))
-    ]
-  end
-
 private
 
   def reply_ids
