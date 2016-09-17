@@ -102,7 +102,7 @@ class Topics::CommentsView < ViewObjectBase
   def cache_key
     [
       topic.id,
-      topic.commented_at,
+      topic.respond_to?(:commented_at) : topic.commented_at : nil,
       comments_limit,
       h.params[:page],
       only_summaries_shown?,
