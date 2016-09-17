@@ -70,7 +70,7 @@ class CommentsController < ShikimoriController
 
   # предпросмотр текста
   def preview
-    @comment = Comment.new(comment_params).decorate
+    @comment = Comment.new(preview_params).decorate
 
     # это может быть предпросмотр не просто текста, а описания к аниме или манге
     if params[:comment][:target_type] && params[:comment][:target_id]
@@ -92,9 +92,12 @@ private
     FayeService.new current_user, faye_token
   end
 
-  def comment_params
+  def preview_params
     params
       .require(:comment)
       .permit(:body, :is_summary, :is_offtopic, :commentable_id, :commentable_type, :user_id)
+      .tap do |comment|
+        comment[:user_id] ||= current_user.id
+      end
   end
 end

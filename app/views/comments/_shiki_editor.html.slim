@@ -131,6 +131,8 @@ aside.buttons
   .editor
     - if defined? f
       - if f.object.kind_of? Comment
+        - if f.object.persisted?
+          = f.input :user_id, as: :hidden
         = f.input :commentable_id, as: :hidden
         = f.input :commentable_type, as: :hidden
         = f.input :is_offtopic, as: :hidden
