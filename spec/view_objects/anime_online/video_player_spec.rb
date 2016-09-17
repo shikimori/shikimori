@@ -2,21 +2,6 @@ describe AnimeOnline::VideoPlayer do
   let(:player) { AnimeOnline::VideoPlayer.new anime }
   let(:anime) { build :anime }
 
-  #describe '#watch_increment_delay' do
-    #let(:anime) { build :anime, duration: duration }
-    #subject { player.watch_increment_delay }
-
-    #context 'with_duration' do
-      #let(:duration) { 2 }
-      #it { is_expected.to eq anime.duration * 60000 / 3 }
-    #end
-
-    #context 'without_duration' do
-      #let(:duration) { 0 }
-      #it { is_expected.to be_nil }
-    #end
-  #end
-
   describe 'videos' do
     subject { player.videos }
     let(:anime) { create :anime }
@@ -136,20 +121,16 @@ describe AnimeOnline::VideoPlayer do
     context 'mobile' do
       let(:is_mobile) { true }
 
-      context 'not vk' do
-        it { is_expected.to eq false }
-      end
-
-      context 'vk' do
-        let(:url) { 'http://vk.com?video=1' }
+      context 'android' do
+        let(:user_agent) { 'Android' }
         it { is_expected.to eq true }
       end
 
-      context 'android' do
-        let(:user_agent) { 'Mozilla/5.0 (Linux; U; Android 4.0.3; ko-kr; LG-L160L Build/IML74K) AppleWebkit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30' }
+      context 'ios' do
+        let(:user_agent) { 'ios' }
 
         context 'not vk' do
-          it { is_expected.to eq true }
+          it { is_expected.to eq false }
         end
 
         context 'vk' do
@@ -159,45 +140,4 @@ describe AnimeOnline::VideoPlayer do
       end
     end
   end
-
-  #describe 'current_author' do
-    #subject { player.current_author }
-    #let(:anime) { build :anime }
-    #before { allow_any_instance_of(AnimeOnline::VideoPlayer).to receive(:current_video).and_return video }
-
-    #context 'current_video_nil' do
-      #let(:video) { nil }
-      #it { is_expected.to be_blank }
-    #end
-
-    #context 'author_nil' do
-      #let(:video) { build :anime_video, author: nil }
-      #it { is_expected.to be_blank }
-    #end
-
-    #context 'author_valid' do
-      #let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test') }
-      #it { is_expected.to eq 'test' }
-    #end
-
-    #context 'author_very_long' do
-      #let(:video) { build :anime_video, author: build(:anime_video_author, name: 'test12345678901234567890') }
-      #it { is_expected.to eq 'test1234567890123...' }
-    #end
-  #end
-
-  #describe 'last_date' do
-    #subject { player.last_date }
-    #let(:last_date) { DateTime.now }
-
-    #context 'with_video' do
-      #let(:anime) { build :anime, anime_videos: [build(:anime_video, created_at: last_date)] }
-      #it { is_expected.to eq last_date }
-    #end
-
-    #context 'without_video' do
-      #let(:anime) { build :anime, created_at: last_date }
-      #it { is_expected.to eq last_date }
-    #end
-  #end
 end

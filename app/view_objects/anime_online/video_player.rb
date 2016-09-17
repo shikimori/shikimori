@@ -156,8 +156,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def compatible? video
-    return true unless h.mobile?
-    video.vk? || !!(h.request.user_agent =~ /Android/)
+    !(h.mobile?) || video.vk? || !!(h.request.user_agent =~ /android/i)
   end
 
   def episode_topic_view
