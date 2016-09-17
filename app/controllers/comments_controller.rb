@@ -20,15 +20,15 @@ class CommentsController < ShikimoriController
   end
 
   # динамическая подгрузка комментариев при скролле
-  def postloader
-    @limit = [[params[:limit].to_i, 1].max, 100].min
-    @offset = params[:offset].to_i
-    @page = (@offset+@limit) / @limit
+  # def postloader
+    # @limit = [[params[:limit].to_i, 1].max, 100].min
+    # @offset = params[:offset].to_i
+    # @page = (@offset+@limit) / @limit
 
-    @comments, @add_postloader = CommentsQuery
-      .new(params[:commentable_type], params[:commentable_id], params[:is_summary].present?)
-      .postload(@page, @limit, true)
-  end
+    # @comments, @add_postloader = CommentsQuery
+      # .new(params[:commentable_type], params[:commentable_id], params[:is_summary].present?)
+      # .postload(@page, @limit, true)
+  # end
 
   # все комментарии сущности до определённого коммента
   def fetch
@@ -52,7 +52,6 @@ class CommentsController < ShikimoriController
       .reverse
 
     render :collection, formats: :json
-    # render partial: 'comments/comment', collection: comments, formats: :html
   end
 
   # список комментариев по запросу
