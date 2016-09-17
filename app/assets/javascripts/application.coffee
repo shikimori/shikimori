@@ -16,12 +16,12 @@ $ =>
     comments_auto_collapsed: $body.data('comments_auto_collapsed')
     comments_auto_loaded: $body.data('comments_auto_loaded')
 
-  if 'atatus' of window
-    atatus
-      .config(
-        '9477dc0d01a949759d2436c6fbcd5a35',
-        { customData: { SHIKI_USER: @SHIKI_USER } }
-      ).install?()
+  # if 'atatus' of window
+    # atatus
+      # .config(
+        # '9477dc0d01a949759d2436c6fbcd5a35',
+        # { customData: { SHIKI_USER: @SHIKI_USER } }
+      # ).install?()
 
   I18n.locale = LOCALE
   moment.locale(LOCALE)

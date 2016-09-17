@@ -52,10 +52,10 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 = display_meta_tags separator: '/', reverse: true
 = csrf_meta_tag
 
-- if Rails.env.production?
-  script src="//dmc1acwvwny3.cloudfront.net/atatus.js"
-  javascript:
-    atatus.config('9477dc0d01a949759d2436c6fbcd5a35').install();
+/ - if Rails.env.production?
+  / script src="//dmc1acwvwny3.cloudfront.net/atatus.js"
+  / javascript:
+    / atatus.config('9477dc0d01a949759d2436c6fbcd5a35').install();
 
 - unless Rails.env.test?
   = stylesheet_link_tag :application, media: 'all', data: { 'turbolinks-track' => ''}
