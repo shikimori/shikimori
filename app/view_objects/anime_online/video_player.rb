@@ -108,7 +108,7 @@ class AnimeOnline::VideoPlayer
     videos
       .map(&:kind)
       .uniq
-      .map {|v| I18n.t "enumerize.anime_video.kind.#{v}" }
+      .map { |v| I18n.t "enumerize.anime_video.kind.#{v}" }
       .uniq
       .join(', ')
   end
@@ -118,12 +118,12 @@ class AnimeOnline::VideoPlayer
     videos
       .map(&:hosting)
       .uniq
-      .sort_by {|h| h == 'vk.com' ? '' : h }
+      .sort_by { |h| h == 'vk.com' ? '' : h }
       .join(', ')
   end
 
   def last_episode
-    videos.max().first unless videos.blank?
+    videos.max.first unless videos.blank?
   end
 
   def new_report
@@ -156,7 +156,9 @@ class AnimeOnline::VideoPlayer
   end
 
   def compatible? video
-    !(h.mobile?) || video.vk? || !!(h.request.user_agent =~ /android/i)
+    !(h.mobile?) ||
+      !!(h.request.user_agent =~ /android/i) ||
+      video.vk? || video.smotret_anime?
   end
 
   def episode_topic_view

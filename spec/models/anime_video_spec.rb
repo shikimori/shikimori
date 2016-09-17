@@ -31,12 +31,12 @@ describe AnimeVideo do
         end
 
         context 'good states' do
-          let(:states) { ['working', 'uploaded' ] }
+          let(:states) { %w(working uploaded) }
           it { is_expected.to have(states.size).items }
         end
 
         context 'bad states' do
-          let(:states) { ['broken', 'wrong', 'banned', 'copyrighted' ] }
+          let(:states) { %w(broken wrong banned copyrighted) }
           it { is_expected.to be_empty }
         end
       end
@@ -176,10 +176,10 @@ describe AnimeVideo do
           it { expect(EpisodeNotification.all).to have(1).item }
         end
 
-        #context 'not need notification if video kind is unknown' do
-          #let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
-          #it { expect(EpisodeNotification.all).to be_empty }
-        #end
+        # context 'not need notification if video kind is unknown' do
+          # let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, url: url_1, kind: :unknown }
+          # it { expect(EpisodeNotification.all).to be_empty }
+        # end
       end
     end
   end
@@ -329,18 +329,19 @@ describe AnimeVideo do
       end
     end
 
-    describe '#vk?' do
-      subject { video.vk? }
+    describe '#vk?, #smotret_anime?' do
       let(:video) { build :anime_video, url: url }
 
-      context 'true' do
+      context 'vk' do
         let(:url) { 'http://www.vk.com?id=1' }
-        it { is_expected.to be_truthy }
+        it { expect(video).to be_vk }
+        it { expect(video).to_not be_smotret_anime }
       end
 
-      context 'false' do
-        let(:url) { 'http://www.foo.bar.com/video?id=1' }
-        it { is_expected.to be_falsy }
+      context 'smotret_anime' do
+        let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
+        it { expect(video).to_not be_vk }
+        it { expect(video).to be_smotret_anime }
       end
     end
 
@@ -405,7 +406,7 @@ describe AnimeVideo do
       subject(:anime_video) { build_stubbed :anime_video, author: author }
 
       context 'no author' do
-        let(:author) { }
+        let(:author) {}
         its(:author_name) { is_expected.to be_nil }
       end
 
@@ -417,7 +418,7 @@ describe AnimeVideo do
 
     describe '#author_name=' do
       subject(:anime_video) { build_stubbed :anime_video }
-      let!(:author) { }
+      let!(:author) {}
       let(:author_name) { 'fofofo' }
       before { anime_video.author_name = author_name }
 
@@ -441,7 +442,7 @@ describe AnimeVideo do
     let(:copyrighted_video) { build :anime_video, state: 'copyrighted' }
 
     describe 'guest' do
-      let(:user) { }
+      let(:user) {}
       it { is_expected.to be_able_to :new, uploaded_video }
       it { is_expected.to be_able_to :create, uploaded_video }
 
@@ -520,8 +521,8 @@ describe AnimeVideo do
 
   describe '#page_url' do
     subject { video.page_url }
-    let(:anime) { build_stubbed(:anime, id: 2001) }
-    let(:video) { build_stubbed(:anime_video, id: 76543, episode: 14, anime: anime) }
+    let(:anime) { build_stubbed :anime, id: 2_001 }
+    let(:video) { build_stubbed :anime_video, id: 76_543, episode: 14, anime: anime }
 
     it { is_expected.to eq 'play.shikimori.org/animes/2001/video_online/14/76543' }
   end

@@ -129,12 +129,17 @@ describe AnimeOnline::VideoPlayer do
       context 'ios' do
         let(:user_agent) { 'ios' }
 
-        context 'not vk' do
+        context 'not allowed hostings' do
           it { is_expected.to eq false }
         end
 
         context 'vk' do
           let(:url) { 'http://vk.com?video=1' }
+          it { is_expected.to eq true }
+        end
+
+        context 'smotret-anime' do
+          let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
           it { is_expected.to eq true }
         end
       end

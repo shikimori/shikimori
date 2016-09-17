@@ -98,6 +98,10 @@ class AnimeVideo < ActiveRecord::Base
     hosting == 'vk.com'
   end
 
+  def smotret_anime?
+    hosting == 'smotret-anime.ru'
+  end
+
   def allowed?
     working? || uploaded?
   end
