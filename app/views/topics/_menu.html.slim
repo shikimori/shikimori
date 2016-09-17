@@ -72,22 +72,24 @@
       title="#{t '.to_clubs'}"
     ] = i18n_i 'Club', :other
   ul
-    - menu.club_topics.each do |club_topic|
-      li.entry
-        a href="#{club_url club_topic.linked}" title="#{club_topic.title}"
-          .image-name
-            img[
-              src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.linked.owner.avatar_url(48)}"
-              alt="#{club_topic.linked.name}"
-              title="#{club_topic.linked.name}"
-            ]
-            span.title
-              = club_topic.linked.name
-          - if club_topic.comments.first
-            span.misc title="#{truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
-              == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
-          - else
-            span.misc = t '.new_club'
+    - cache menu.club_topics do
+      - menu.club_topics.each do |club_topic|
+        - cache club_topic do
+            li.entry
+              a href="#{club_url club_topic.linked}" title="#{club_topic.title}"
+                .image-name
+                  img[
+                    src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.linked.owner.avatar_url(48)}"
+                    alt="#{club_topic.linked.name}"
+                    title="#{club_topic.linked.name}"
+                  ]
+                  span.title
+                    = club_topic.linked.name
+                - if club_topic.comments.first
+                  span.misc title="#{truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
+                    == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '
+                - else
+                  span.misc = t '.new_club'
 
 .block2.sticky-topics
   h2.midheadline.m8 = t '.sticky_topics'
