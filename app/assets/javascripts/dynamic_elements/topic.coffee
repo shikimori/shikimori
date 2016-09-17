@@ -26,7 +26,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
 
-    if USER_SIGNED_IN && DAY_REGISTERED
+    if USER_SIGNED_IN && DAY_REGISTERED && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
