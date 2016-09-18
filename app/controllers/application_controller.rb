@@ -16,8 +16,6 @@ class ApplicationController < ActionController::Base
   before_action :force_vary_accept
   before_action :force_canonical
 
-  before_action :force_ssl, if: -> { Rails.env.production? && user_signed_in? }
-
   helper_method :url_params
   helper_method :resource_class
   helper_method :remote_addr
@@ -162,22 +160,6 @@ private
 
   def force_canonical
     @canonical = request.url.sub(/\?[\s\S]*/, '') if request.url.include? '?'
-  end
-
-  def force_ssl
-    # if request.protocol != 'http://'
-      # redirect_to url_for(params.merge protocol: 'http')
-      # response.headers['Strict-Transport-Security'] = 'max-age=0'
-    # end
-    if current_user.preferences.force_ssl && request.protocol != 'https://'
-      redirect_to url_for(params.merge protocol: 'https')
-      response.headers['Strict-Transport-Security'] = 'max-age=31536000 always'
-    # else
-      # if request.protocol != 'http://' && Rails.env.production?
-        # redirect_to url_for(params.merge protocol: 'http')
-        # response.headers['Strict-Transport-Security'] = 'max-age=0'
-      # end
-    end
   end
 
   # before фильтры с настройкой сайта

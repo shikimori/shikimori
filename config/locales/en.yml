@@ -151,7 +151,6 @@ en:
         #russian_names: Anime and Manga Titles in Russian
         postload_in_catalog: Autoload Pages in Anime Catalog
         volumes_in_manga: Show Manga Volumes
-        force_ssl: Enable secure connection (HTTPS)
       anime_video:
         url: Video Link
         episode: Episode

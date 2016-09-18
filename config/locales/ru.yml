@@ -151,7 +151,6 @@ ru:
         russian_names: Русские названия аниме и манги
         postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
         volumes_in_manga: Отображать тома у манги
-        force_ssl: Включить безопасное соединение (HTTPS)
       anime_video:
         url: Url
         episode: Эпизод
