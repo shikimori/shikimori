@@ -2,8 +2,8 @@ require 'thread_pool'
 
 # http://pastebin.com/r2Xz6i0M
 class ProxyParser
-  TEST_URL = "http://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
-  WHAT_IS_MY_IP_URL ="http://#{Site::DOMAIN}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
+  TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
+  WHAT_IS_MY_IP_URL ="https://#{Site::DOMAIN}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
 
   HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
