@@ -13,6 +13,7 @@ FactoryGirl.define do
       comment.stub :creation_callbacks
       comment.stub :notify_quotes
       comment.stub :release_the_banhammer!
+      comment.stub :touch_commentable
     end
 
     trait :summary do
@@ -44,5 +45,10 @@ FactoryGirl.define do
     trait :with_banhammer do
       after(:build) { |comment| comment.unstub :release_the_banhammer! }
     end
+
+    trait :with_touch_commentable do
+      after(:build) { |comment| comment.unstub :touch_commentable }
+    end
+
   end
 end

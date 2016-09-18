@@ -92,7 +92,7 @@ describe Comment do
 
     describe '#touch_commentable' do
       let(:topic) { create :topic }
-      let(:comment) { build :comment, commentable: topic }
+      let(:comment) { build :comment, :with_touch_commentable, commentable: topic }
 
       before { Timecop.freeze }
       after { Timecop.return }
@@ -316,7 +316,7 @@ describe Comment do
     context 'not comment owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
       let(:user_2) { build_stubbed :user, :user }
-        let(:comment) { build_stubbed :comment, user: user_2 }
+      let(:comment) { build_stubbed :comment, user: user_2 }
 
       it { is_expected.to_not be_able_to :new, comment }
       it { is_expected.to_not be_able_to :create, comment }
