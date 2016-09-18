@@ -275,7 +275,7 @@ describe Comment do
         let(:offtopic) { true }
         let(:flag) { false }
 
-        it { expect(comment.reload).not_to be_offtopic }
+        it { expect(comment.reload).to_not be_offtopic }
         it { expect(inner_comment.reload).to be_offtopic }
       end
     end
@@ -295,35 +295,44 @@ describe Comment do
         let(:is_summary) { true }
         let(:flag) { false }
 
-        it { expect(comment.reload).not_to be_summary }
+        it { expect(comment.reload).to_not be_summary }
       end
     end
   end
 
-  describe 'permissions' do
+  describe 'permissions', :focus do
     subject { Ability.new user }
 
     context 'guest' do
       let(:user) { nil }
       let(:comment) { build_stubbed :comment }
 
-      it do
-        is_expected.not_to be_able_to :new, comment
-        is_expected.not_to be_able_to :create, comment
-        is_expected.not_to be_able_to :update, comment
-        is_expected.not_to be_able_to :destroy, comment
-      end
+      it { is_expected.to_not be_able_to :new, comment }
+      it { is_expected.to_not be_able_to :create, comment }
+      it { is_expected.to_not be_able_to :update, comment }
+      it { is_expected.to_not be_able_to :destroy, comment }
     end
 
     context 'not comment owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
-      let(:comment) { build_stubbed :comment, user: build_stubbed(:user, :user) }
+      let(:user_2) { build_stubbed :user, :user }
+        let(:comment) { build_stubbed :comment, user: user_2 }
 
-      it do
-        is_expected.not_to be_able_to :new, comment
-        is_expected.not_to be_able_to :create, comment
-        is_expected.not_to be_able_to :update, comment
-        is_expected.not_to be_able_to :destroy, comment
+      it { is_expected.to_not be_able_to :new, comment }
+      it { is_expected.to_not be_able_to :create, comment }
+      it { is_expected.to_not be_able_to :update, comment }
+      it { is_expected.to_not be_able_to :destroy, comment }
+
+      context 'comment in own profile' do
+        let(:comment) do
+          build_stubbed :comment,
+            user: user_2,
+            commentable: user,
+            created_at: 1.week.ago
+        end
+
+        it { is_expected.to_not be_able_to :update, comment }
+        it { is_expected.to be_able_to :destroy, comment }
       end
     end
 
@@ -331,28 +340,31 @@ describe Comment do
       let(:user) { build_stubbed :user, :user, :day_registered }
       let(:comment) { build_stubbed :comment, user: user }
 
-      it do
-        is_expected.to be_able_to :new, comment
-        is_expected.to be_able_to :create, comment
-        is_expected.to be_able_to :update, comment
-      end
+      it { is_expected.to be_able_to :new, comment }
+      it { is_expected.to be_able_to :create, comment }
+      it { is_expected.to be_able_to :update, comment }
 
       context 'user is registered < 1 day ago' do
         let(:user) { build_stubbed :user, :user }
-        it do
-          is_expected.not_to be_able_to :new, comment
-          is_expected.not_to be_able_to :create, comment
-          is_expected.not_to be_able_to :update, comment
+
+        it { is_expected.to_not be_able_to :new, comment }
+        it { is_expected.to_not be_able_to :create, comment }
+        it { is_expected.to_not be_able_to :update, comment }
+
+        context 'comment in own profile' do
+          let(:comment) { build_stubbed :comment, user: user, commentable: user }
+
+          it { is_expected.to be_able_to :update, comment }
+          it { is_expected.to be_able_to :destroy, comment }
         end
       end
 
       context 'banned user' do
         let(:user) { build_stubbed :user, :banned, :day_registered }
-        it do
-          is_expected.not_to be_able_to :new, comment
-          is_expected.not_to be_able_to :create, comment
-          is_expected.not_to be_able_to :update, comment
-        end
+
+        it { is_expected.to_not be_able_to :new, comment }
+        it { is_expected.to_not be_able_to :create, comment }
+        it { is_expected.to_not be_able_to :update, comment }
       end
 
       describe 'permissions based on comment creation date' do
@@ -365,7 +377,7 @@ describe Comment do
 
         context 'comment created >= 1.day hours ago' do
           let(:created_at) { 1.day.ago - 1.minute }
-          it { is_expected.not_to be_able_to :destroy, comment }
+          it { is_expected.to_not be_able_to :destroy, comment }
         end
       end
     end

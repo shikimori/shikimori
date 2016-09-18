@@ -38,10 +38,19 @@ class Abilities::User
         comment.user_id == @user.id
     end
     can [:update], [Comment] do |comment|
-      can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
+      (
+        can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
+      ) || (
+        comment.commentable_type == User.name &&
+        comment.commentable_id == @user.id &&
+        comment.user_id == @user.id
+      )
     end
     can [:destroy], [Comment] do |comment|
-      can? :update, comment
+      can?(:update, comment) || (
+        comment.commentable_type == User.name &&
+        comment.commentable_id == @user.id
+      )
     end
   end
 
