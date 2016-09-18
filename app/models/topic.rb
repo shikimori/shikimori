@@ -20,7 +20,6 @@ class Topic < ActiveRecord::Base
   }
 
   # TODO: offtopic en id
-  # TODO: anime_industry en id
   TOPIC_IDS = {
     Forum::OFFTOPIC_ID => {
       offtopic: { ru: 82_468, en: 99_999 },
