@@ -261,6 +261,18 @@ en:
       %{provider} account is linked to your user account
     authentication_failed: Authentication failed
 
+  statistics_controller:
+    page_title: Anime industry
+    page_description: >-
+      Have you ever thought about how many animes have been produced
+      in the world until now, their types and genres and how they were
+      changing over time?
+      On this page you'll find a few charts with anime statistics for
+      the last quarter-century.
+    keywords: >-
+      anime history, anime series statistics, anime industry,
+      anime ratings, anime studios, anime genres, top anime
+
   api/v1/comments_controller:
     comment:
       removed: Comment removed

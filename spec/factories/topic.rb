@@ -79,7 +79,7 @@ FactoryGirl.define do
       forum { seed :offtopic_forum }
     end
     trait :site_rules do
-      id StickyTopicView::TOPIC_IDS[:site_rules][:ru]
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:site_rules][:ru]
       title 'site rules'
       body 'site rules'
       created_at { 2.days.ago }
@@ -87,7 +87,7 @@ FactoryGirl.define do
       forum { seed :offtopic_forum }
     end
     trait :faq do
-      id StickyTopicView::TOPIC_IDS[:faq][:ru]
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:faq][:ru]
       title 'faq'
       body 'faq'
       created_at { 3.days.ago }
@@ -95,7 +95,7 @@ FactoryGirl.define do
       forum { seed :offtopic_forum }
     end
     trait :description_of_genres do
-      id StickyTopicView::TOPIC_IDS[:description_of_genres][:ru]
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:description_of_genres][:ru]
       title 'description of genres'
       body 'description of genres'
       created_at { 4.days.ago }
@@ -103,7 +103,7 @@ FactoryGirl.define do
       forum { seed :offtopic_forum }
     end
     trait :ideas_and_suggestions do
-      id StickyTopicView::TOPIC_IDS[:ideas_and_suggestions][:ru]
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:ideas_and_suggestions][:ru]
       title 'ideas and suggestions'
       body 'ideas and suggestions'
       created_at { 5.days.ago }
@@ -111,7 +111,7 @@ FactoryGirl.define do
       forum { seed :offtopic_forum }
     end
     trait :site_problems do
-      id StickyTopicView::TOPIC_IDS[:site_problems][:ru]
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:site_problems][:ru]
       title 'site problems'
       body 'site problems'
       created_at { 6.days.ago }

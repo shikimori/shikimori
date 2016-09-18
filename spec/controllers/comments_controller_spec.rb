@@ -56,7 +56,7 @@ describe CommentsController do
 
   describe '#chosen' do
     describe 'one' do
-      before { get :chosen, ids: "#{comment.id}" }
+      before { get :chosen, ids: comment.id.to_s }
       it { expect(response).to have_http_status :success }
     end
 

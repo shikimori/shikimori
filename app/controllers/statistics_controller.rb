@@ -5,10 +5,10 @@ class StatisticsController < ShikimoriController
   include CacheHelper
 
   def index
-    @page_title = 'История аниме'
-    @page_description = 'Никогда не задумывались, сколько всего существует аниме, каких оно жанров и типов, и как оно менялось по прошествии лет? На данной странице представлены несколько графиков со статистикой по истории аниме за последние четверть века.'
+    @page_title = i18n_t 'page_title'
+    @page_description = i18n_t 'page_description'
     set_meta_tags description: @page_description
-    set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
+    set_meta_tags keywords: i18n_t('keywords')
 
     @kinds = Anime.kind.values#.select {|v| v != 'music' }
     @rating_kinds = ['tv', 'movie', 'ova']
@@ -19,8 +19,9 @@ class StatisticsController < ShikimoriController
         [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
       end
 
-    # TODO: choose topic based on locale from domain
-    @topic = Topics::TopicViewFactory.new(false, false).build Topic.find(81906)
+    site_topic_ids = Topic::TOPIC_IDS[Forum::SITE_ID]
+    topic = Topic.find site_topic_ids[:anime_industry][locale_from_domain]
+    @topic_view = Topics::TopicViewFactory.new(false, false).build topic
   end
 
 private
@@ -114,7 +115,7 @@ private
         false
       end
     end
-    data[:series].insert -1, other
+    data[:series].insert(-1, other)
 
     data
   end

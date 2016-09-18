@@ -19,6 +19,22 @@ class Topic < ActiveRecord::Base
     'CosplayGallery' => Forum::COSPLAY_ID
   }
 
+  # TODO: offtopic en id
+  # TODO: anime_industry en id
+  TOPIC_IDS = {
+    Forum::OFFTOPIC_ID => {
+      offtopic: { ru: 82_468, en: 99_999 },
+      site_rules: { ru: 79_042, en: 220_000 },
+      faq: { ru: 85_018, en: nil },
+      description_of_genres: { ru: 103_553, en: nil },
+      ideas_and_suggestions: { ru: 10_586, en: 230_000 },
+      site_problems: { ru: 102, en: 240_000 }
+    },
+    Forum::SITE_ID => {
+      anime_industry: { ru: 81_906, en: 81_906 }
+    }
+  }
+
   belongs_to :forum
   belongs_to :linked, polymorphic: true
   belongs_to :user

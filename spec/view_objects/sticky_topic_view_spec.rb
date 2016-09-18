@@ -8,7 +8,7 @@ describe StickyTopicView do
     it do
       expect(sticky_topic).to have_attributes(
         url: UrlGenerator.instance.topic_url(faq_topic),
-        title: I18n.t('sticky_topic_view.faq.title'),
+        title: faq_topic.title,
         description: I18n.t('sticky_topic_view.faq.description')
       )
     end

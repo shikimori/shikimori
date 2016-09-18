@@ -147,12 +147,12 @@ describe Comment do
       it { expect(comment.html_body).to eq '<strong>bold</strong>' }
 
       describe 'comment in offtopic topic' do
-        let(:offtopic_topic_id) { 82_468 }
+        let(:offtopic_topic) do
+          create :topic,
+            id: Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:offtopic][:ru]
+        end
         let(:comment) do
-          build :comment,
-            body: body,
-            commentable_id: offtopic_topic_id,
-            commentable_type: Topic.name
+          create :comment, body: body, commentable: offtopic_topic
         end
 
         describe 'poster' do

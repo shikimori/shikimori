@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
+# views for topics to be shown in sticky topics forum section:
+# all of them belong to offtopic forum
 class StickyTopicView
   extend Translation
   include Virtus.model
 
-  TOPIC_IDS = {
-    site_rules: { ru: 79_042, en: 220_000 },
-    faq: { ru: 85_018, en: nil },
-    description_of_genres: { ru: 103_553, en: nil },
-    ideas_and_suggestions: { ru: 10_586, en: 230_000 },
-    site_problems: { ru: 102, en: 240_000 }
-  }
-
   attribute :url, String
   attribute :title, String
   attribute :description, String
+
+  TOPIC_IDS = Topic::TOPIC_IDS[Forum::OFFTOPIC_ID]
 
   TOPIC_IDS.keys.each do |topic_name|
     define_singleton_method topic_name do |locale|
@@ -35,15 +31,22 @@ private
   def self.url topic_name, locale
     topic_id = TOPIC_IDS[topic_name][locale.to_sym]
     Rails.cache.fetch("sticky_topic_url_#{topic_id}") do
-      UrlGenerator.instance.topic_url Topic.find(topic_id)
+      UrlGenerator.instance.topic_url topics[topic_id]
     end
   end
 
   def self.title topic_name, locale
-    i18n_t "#{topic_name}.title", locale: locale
+    topic_id = TOPIC_IDS[topic_name][locale.to_sym]
+    topics[topic_id].title
   end
 
   def self.description topic_name, locale
     i18n_t "#{topic_name}.description", locale: locale
+  end
+
+  def self.topics
+    @topics ||= Hash.new do |cache, topic_id|
+      cache[topic_id] = Topic.find topic_id
+    end
   end
 end

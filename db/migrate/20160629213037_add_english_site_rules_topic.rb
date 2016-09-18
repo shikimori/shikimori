@@ -22,6 +22,10 @@ class AddEnglishSiteRulesTopic < ActiveRecord::Migration
 private
 
   def body
-    I18n.t 'sticky_topic_view.site_rules.body', locale: :en
+    I18n.t(
+      'sticky_topic_view.site_rules.body',
+      offtopic_topic_id: Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:site_rules][:en],
+      locale: :en
+    )
   end
 end

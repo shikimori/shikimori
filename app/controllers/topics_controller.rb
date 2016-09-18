@@ -1,7 +1,6 @@
 # TODO: move forum topics actions to Forum::TopicsController
 # other actions should stay here
 class TopicsController < ShikimoriController
-  # NOTE: не менять на Topic!. Ломается выбор типа топика при создании топика
   load_and_authorize_resource(
     class: Topic,
     only: %i(new create edit update show destroy)
