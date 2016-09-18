@@ -31,7 +31,7 @@ class Topic < ActiveRecord::Base
       site_problems: { ru: 102, en: 240_000 }
     },
     Forum::SITE_ID => {
-      anime_industry: { ru: 81_906, en: 81_906 }
+      anime_industry: { ru: 81_906, en: 250_000 }
     }
   }
 
