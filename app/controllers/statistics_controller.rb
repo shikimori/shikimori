@@ -5,8 +5,8 @@ class StatisticsController < ShikimoriController
   include CacheHelper
 
   def index
-    @page_title = i18n_t 'page_title'
-    @page_description = i18n_t 'page_description'
+    @page_title = i18n_t('page_title')
+    @page_description = i18n_t('page_description')
     set_meta_tags description: @page_description
     set_meta_tags keywords: i18n_t('keywords')
 
