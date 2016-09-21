@@ -85,7 +85,6 @@ class ApplicationController < ActionController::Base
 
   # находимся ли сейчас на домене шикимори?
   def ru_domain?
-    return false
     request.host.include?(ShikimoriDomain::RU_HOST) || Rails.env.test? ||
       request.host == 'localhost'
   end
