@@ -272,6 +272,9 @@ en:
     keywords: >-
       anime history, anime series statistics, anime industry,
       anime ratings, anime studios, anime genres, top anime
+    kind: Type
+    score: Score
+    other: Others
 
   api/v1/comments_controller:
     comment:

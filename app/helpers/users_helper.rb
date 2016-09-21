@@ -1,19 +1,18 @@
 module UsersHelper
   class << self
-    def localized_name entry, current_user
+    def localized_name entry, user
       russian_option = entry.kind_of?(Genre) ? :russian_genres? : :russian_names
       allowed_russian = entry.respond_to?(:russian) && entry.russian.present?
 
-      if allowed_russian && russian_names?(russian_option, current_user)
+      if allowed_russian && russian_names?(russian_option, user)
         entry.russian
       else
         entry.name
       end
     end
 
-    def russian_names? russian_option, current_user
-      I18n.russian? &&
-        (!current_user || current_user.preferences.try(russian_option))
+    def russian_names? russian_option, user
+      I18n.russian? && (!user || user.preferences.try(russian_option))
     end
   end
 

@@ -19,10 +19,9 @@ class Topic < ActiveRecord::Base
     'CosplayGallery' => Forum::COSPLAY_ID
   }
 
-  # TODO: offtopic en id
   TOPIC_IDS = {
     Forum::OFFTOPIC_ID => {
-      offtopic: { ru: 82_468, en: 99_999 },
+      offtopic: { ru: 82_468, en: 210_000 },
       site_rules: { ru: 79_042, en: 220_000 },
       faq: { ru: 85_018, en: nil },
       description_of_genres: { ru: 103_553, en: nil },
