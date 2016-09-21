@@ -169,7 +169,7 @@ private
 
   # выборка статистики
   def stats_data animes, grouping, categories
-    years = animes.group_by { |v| v.aired_on.strftime('%Y') }.keys
+    years = animes.group_by { |v| v[:aired_on].strftime('%Y') }.keys
 
     groups = categories.each_with_object({}) do |group, memo|
       memo[group] = nil
@@ -181,7 +181,7 @@ private
         next unless data.include? entry[0]
         data[entry[0]] = years.each_with_object({}) { |v, memo| memo[v] = 0 }
 
-        entry[1].group_by { |v| v.aired_on.strftime('%Y') }.each do |k, v|
+        entry[1].group_by { |v| v[:aired_on].strftime('%Y') }.each do |k, v|
           data[entry[0]][k] = v.size
         end
       end

@@ -15,17 +15,17 @@ javascript:
   by_studio = #{{@by_studio.to_json}};
 
 .block
-  .headline.blue Общее
-  p Общее количество по типам и оценкам зрителей:
+  .headline.blue = t('.common')
+  p = t('.breakdown_by_type_and_score')
   #image_placeholder
-    img src="/images/static/stats.png" alt="Статистика аниме" title="Статистика аниме"
+    img src="/images/static/stats.png" alt=t('.anime_statistics') title=t('.anime_statistics')
   #total style="min-width: 800px; height: 400px; margin: 0 auto"
 
-  p.m10 Распределение по годам выпуска:
+  p.m10 = t('.breakdown_by_release_date')
   #by_kind style="min-width: 400px; height: 400px; margin: 0 auto"
 
 .block
-  .headline.green Возрастной рейтинг
+  .headline.green = t('.age_rating')
   .forum-nav.by_rating
     nav.sections
       - @rating_kinds.each do |kind|
@@ -34,12 +34,12 @@ javascript:
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
 
-  p Распределение по годам с учётом возрастного рейтинга:
+  p = t('.distribution_of_animes_grouped_by_age_rating')
   #by_rating style="min-width: 400px; height: 400px; margin: 0 auto"
-  p Интересно, как меняется аудитория со временем: доля детского аниме неуклонно снижается, а подросткового и "взрослого" рисуется всё больше, причём ориентация неуклонно смещается в сторону совершеннолетнего зрителя. А OVA и вовсе выпускают лишь для платёжеспособной аудитории, причём значительная доля тайтлов приходится на хентай. И кто тут говорит, что аниме - это детские мультики?
+  p = t('.interesting_how_audience_changed')
 
 .block
-  .headline.red Жанры
+  .headline.red = t('.genres')
   .forum-nav.by_genre
     nav.sections
       - @rating_kinds.each do |kind|
@@ -47,12 +47,12 @@ javascript:
           data-kind="#{kind}"
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
-  p Как с годами менялись жанровые предпочтения зрителей:
+  p = t('.how_genre_preferences_changed')
   #by_genre style="width: 975px; height: 600px; margin: 0 auto"
-  p Практически полностью исчезла с экранов меха и каждый год снижается доля приключений с фантастикой, но всё больше и больше делают мистики. Про смену ориентации на более взрослую аудиторию писалось выше, и здесь мы видим подтверждение: растёт число этти, гаремников, сейненов и даже появляется немного дзёсея.
+  p = t('.mecha_almost_disappeared')
 
 .block
-  .headline.orange Студии
+  .headline.orange = t('.studios')
   .forum-nav.by_studio
     nav.sections
       - ['tv'].each do |kind|
@@ -60,7 +60,7 @@ javascript:
           data-kind="#{kind}"
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
-  p Аниме последнего десятилетия в разрезе по студиям:
+  p = t('.breakdown_by_studio')
   /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
   #by_studio style="width: 975px; height: 800px; margin: 0 auto"
   - if show_social?
@@ -71,10 +71,10 @@ javascript:
       a.addthis_button_google_plusone_share
       a.addthis_button_odnoklassniki_ru
       a.addthis_button_compact
-  p Ничего интересного тут в принципе нет, можно лишь посмотреть, как росла и падала доля различных студий.
-  p Все мелкие студии, выпустившие менее 10 аниме за десятилетие, отнесены в "Прочее" (отключено по-умолчанию).
+  p = t('.nothing_interesting_here')
+  p = t('.all_minor_studios')
 
-.subheadline.m3 Комментарии
+.subheadline.m3 = t('.comments')
 div
   .b-topic.to-process[
     data-dynamic='topic'

@@ -21,13 +21,16 @@ class StickyTopicView
 
   STICKY_TOPICS.each do |topic_name|
     define_singleton_method topic_name do |locale|
-      instance_variable_get(:"@#{__method__}_#{locale}") ||
+      topic_id = OFFTOPIC_TOPIC_IDS[topic_name][locale.to_sym]
+      next unless topic_id.present?
+
+      instance_variable_get(:"@#{topic_name}_#{locale}") ||
         instance_variable_set(
-          :"@#{__method__}_#{locale}",
+          :"@#{topic_name}_#{locale}",
           new(
-            url: url(__method__, locale),
-            title: title(__method__, locale),
-            description: description(__method__, locale)
+            url: url(topic_id, locale),
+            title: title(topic_id, locale),
+            description: description(topic_name, locale)
           )
         )
     end
@@ -35,15 +38,13 @@ class StickyTopicView
 
 private
 
-  def self.url topic_name, locale
-    topic_id = OFFTOPIC_TOPIC_IDS[topic_name][locale.to_sym]
+  def self.url topic_id, locale
     Rails.cache.fetch("sticky_topic_url_#{topic_id}") do
       UrlGenerator.instance.topic_url topics[topic_id]
     end
   end
 
-  def self.title topic_name, locale
-    topic_id = OFFTOPIC_TOPIC_IDS[topic_name][locale.to_sym]
+  def self.title topic_id, locale
     topics[topic_id].title
   end
 
