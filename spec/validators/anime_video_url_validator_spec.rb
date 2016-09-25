@@ -1,15 +1,19 @@
 describe AnimeVideoUrlValidator, type: :validator do
   class ValidatorTest
     include ActiveModel::Model
+    attr_accessor :id
     attr_accessor :anime_id
     attr_accessor :url
     validates :url, anime_video_url: true
   end
 
-  subject { ValidatorTest.new url: url, anime_id: anime_id }
+  subject { ValidatorTest.new id: anime_video_id, url: url, anime_id: anime_id }
+
   let(:url) {}
   let(:anime_id) {}
   let!(:other_anime_video) {}
+  let(:anime_video_id) {}
+
   before { subject.valid? }
 
   context 'valid' do
@@ -43,8 +47,14 @@ describe AnimeVideoUrlValidator, type: :validator do
 
     context 'eq url' do
       let(:anime_id) { anime.id }
+
       it { is_expected.to_not allow_value(other_url).for :url }
       it { is_expected.to_not allow_value("https://#{link}").for :url }
+
+      context 'same anime_video_id' do
+        let(:anime_video_id) { other_anime_video.id }
+        it { is_expected.to allow_value(other_url).for :url }
+      end
 
       context 'check messages' do
         let(:url) { other_url }
