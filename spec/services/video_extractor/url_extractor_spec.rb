@@ -20,7 +20,7 @@ describe VideoExtractor::UrlExtractor do
     end
 
     context 'frame' do
-      let(:html) { '<iframe width="607" src="'+extracted_url+'" height="360" frameborder="0"></iframe>' }
+      let(:html) { '<iframe width="607" src="' + extracted_url + '" height="360" frameborder="0"></iframe>' }
       let(:extracted_url) { '//vk.com/video_ext.php?oid=-42313379&id=167267838&hash=a941d75eea176ded' }
       it { is_expected.to eq extracted_url }
     end
@@ -31,7 +31,7 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe 'vk_1' do
-      let(:html) { "<iframe src=\"http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=1\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
+      let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=1" width="730" height="480" frameborder="0"></iframe>' }
       it { is_expected.to eq '//vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2' }
     end
 
@@ -45,15 +45,20 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq '//vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae' }
     end
 
-    describe 'vk - remove &hd=? from url' do
-      [1, 2, 3].each do |quality|
-        let(:html) { "http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&hd=#{quality}" }
+    describe 'vk - remove misc parameters from url' do
+      context '&hd=' do
+        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&hd=1' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+      end
+
+      context '&other=' do
+        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&qwe=vbn&id=163317311&hash=e446fa5312813ebc&zxc=1' }
         it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
       end
     end
 
     describe 'myvi_1' do
-      let(:html) { "<object style=\"height: 390px; width: 640px\"><param name=\"movie\" value=\"http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0\"><param name=\"allowFullScreen\" value=\"true\"><param name=\"allowScriptAccess\" value=\"always\"><embed src=\"http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0\" type=\"application/x-shockwave-flash\" allowfullscreen=\"true\" allowScriptAccess=\"always\" width=\"730\" height=\"480\"></object>" }
+      let(:html) { '<object style="height: 390px; width: 640px"><param name="movie" value="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://myvi.ru/player/flash/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480"></object>' }
       it { is_expected.to eq '//myvi.ru/player/embed/html/oIxbMgoWkVjUm-HHtYw1d1Gwj5xxyVdusrAmuarGU8ycjTIaeOcNlgGbGEZGhTGLE0' }
     end
 
@@ -88,12 +93,12 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe 'mail_ru_1' do
-      let(:html) { "<iframe src=\"http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html\" width=\"730\" height=\"480\" frameborder=\"0\"></iframe>" }
+      let(:html) { '<iframe src="http://api.video.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html" width="730" height="480" frameborder="0"></iframe>' }
       it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/16397.html' }
     end
 
     describe 'mail_ru_2' do
-      let(:html) { "<object classid=\"clsid:d27cdb6e-ae6d-11cf-96b8-444553540000\" width=\"730\" height=\"480\" id=\"movie_name\" align=\"middle\"><param name=\"movie\" value=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\"/><param name=\"flashvars\" value=\"movieSrc=mail/bel_comp1/14985/15939&autoplay=0\" /><param name=\"allowFullScreen\" value=\"true\" /><param name=\"AllowScriptAccess\" value=\"always\" /><!--[if !IE]>--><object type=\"application/x-shockwave-flash\" data=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\" width=\"730\" height=\"480\"><param name=\"movie\" value=\"http://my9.imgsmail.ru/r/video2/uvpv3.swf?3\"/><param name=\"flashvars\" value=\"movieSrc=mail/bel_comp1/14985/15939&autoplay=0\" /><param name=\"allowFullScreen\" value=\"true\" /><param name=\"AllowScriptAccess\" value=\"always\" /><!--<![endif]--><a href=\"http://www.adobe.com/go/getflash\"><img src=\"http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif\" alt=\"Get Adobe Flash player\"/></a><!--[if !IE]>--></object><!--<![endif]--></object>" }
+      let(:html) { '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="730" height="480" id="movie_name" align="middle"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--[if !IE]>--><object type="application/x-shockwave-flash" data="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3" width="730" height="480"><param name="movie" value="http://my9.imgsmail.ru/r/video2/uvpv3.swf?3"/><param name="flashvars" value="movieSrc=mail/bel_comp1/14985/15939&autoplay=0" /><param name="allowFullScreen" value="true" /><param name="AllowScriptAccess" value="always" /><!--<![endif]--><a href="http://www.adobe.com/go/getflash"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/></a><!--[if !IE]>--></object><!--<![endif]--></object>' }
       it { is_expected.to eq '//videoapi.my.mail.ru/videos/embed/mail/bel_comp1/14985/15939.html' }
     end
 
@@ -113,7 +118,7 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe 'rutube_1' do
-      let(:html) { "<iframe type=\"text/html\" width=\"730\" height=\"480\" src=\"http://rutube.ru/video/embed/6504640\" frameborder=\"0\"></iframe>" }
+      let(:html) { '<iframe type="text/html" width="730" height="480" src="http://rutube.ru/video/embed/6504640" frameborder="0"></iframe>' }
       it { is_expected.to eq '//rutube.ru/video/embed/6504640' }
     end
 
@@ -143,22 +148,22 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe 'sibnet_1' do
-      let(:html) { "<iframe width=\"730\" height=\"480\" src=\"http://video.sibnet.ru/shell.php?videoid=1186077\" frameborder=\"0\" scrolling=\"no\" allowfullscreen></iframe>" }
+      let(:html) { '<iframe width="730" height="480" src="http://video.sibnet.ru/shell.php?videoid=1186077" frameborder="0" scrolling="no" allowfullscreen></iframe>' }
       it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1186077' }
     end
 
     describe 'sibnet_2' do
-      let(:html) { "http://data10.video.sibnet.ru/13/88/40/1388407.flv" }
+      let(:html) { 'http://data10.video.sibnet.ru/13/88/40/1388407.flv' }
       it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1388407' }
     end
 
     describe 'sibnet_3' do
-      let(:html) { "http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0" }
+      let(:html) { 'http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0' }
       it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=710879' }
     end
 
     describe 'sibnet_4' do
-      let(:html) { "http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000" }
+      let(:html) { 'http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000' }
       it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
     end
 
@@ -188,12 +193,12 @@ describe VideoExtractor::UrlExtractor do
     end
 
     describe 'video.yandex' do
-      let(:html) { "<iframe width=\"730\" height=\"480\" frameborder=\"0\" src=\"http://video.yandex.ru/iframe/dashaset08/pwq0ljt7p4.5028/\"></iframe>" }
+      let(:html) { '<iframe width="730" height="480" frameborder="0" src="http://video.yandex.ru/iframe/dashaset08/pwq0ljt7p4.5028/"></iframe>' }
       it { is_expected.to eq '//video.yandex.ru/iframe/dashaset08/pwq0ljt7p4.5028/' }
     end
 
     describe 'i.ua' do
-      let(:html) { "<OBJECT width=\"730\" height=\"480\"><PARAM name=\"movie\" value=\"http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead\"></PARAM><EMBED src=\"http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead\" type=\"application/x-shockwave-flash\" width=\"730\" height=\"480\"></EMBED></OBJECT>" }
+      let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead"></PARAM><EMBED src="http://i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead" type="application/x-shockwave-flash" width="730" height="480"></EMBED></OBJECT>' }
       it { is_expected.to eq '//i.i.ua/video/evp.swf?V=504dd.ac6bb.59d.8e7cdf9.k29b27ead' }
     end
 

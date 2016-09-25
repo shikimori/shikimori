@@ -41,13 +41,20 @@ private
     end
   end
 
+  # rubocop:disable AbcSize
+  # rubocop:disable MethodLength
+  # rubocop:disable LineLenghth
   def parsed_url
     if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
-      $1.sub(/&(amp;)?hd=\d/, '')
-    #elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
-      #$1
-    #elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
-      #$1
+      $1
+        .gsub('&amp;', '&')
+        .gsub(/[?&](?<param>[^=]+)=[^&]*/) do |match|
+          %w(oid id hash).include?($LAST_MATCH_INFO[:param]) ? match : ''
+        end
+    # elsif html =~ %r{(#{HTTP}myvi.ru/(?:ru/flash/)?player#{CONTENT})}
+      # $1
+    # elsif html =~ %r{(#{HTTP}myvi.tv/embed/html/#{CONTENT})}
+      # $1
     elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
       "http://myvi.ru/player/embed/html/#{$~[:hash]}"
     elsif html =~ %r{(#{HTTP}(api.video|videoapi.my).mail.ru/videos#{CONTENT})}
@@ -76,40 +83,43 @@ private
       $1.sub(/^\/\//, 'http://')
     elsif html =~ %r{(#{HTTP}i.i.ua/video/evp.swf\?#{CONTENT})}
       $1
-    elsif html =~ %r{(#{HTTP}video.yandex.ru#{CONTENT})}
+    elsif html =~ /(#{HTTP}video.yandex.ru#{CONTENT})/
       $1
-    elsif html =~ %r{(#{HTTP}flashx.tv#{CONTENT})}
+    elsif html =~ /(#{HTTP}flashx.tv#{CONTENT})/
       $1
-    elsif html =~ %r{(#{HTTP}vidbull.com#{CONTENT})}
+    elsif html =~ /(#{HTTP}vidbull.com#{CONTENT})/
       $1
-    elsif html =~ %r{(#{HTTP}mipix.eu#{CONTENT})}
+    elsif html =~ /(#{HTTP}mipix.eu#{CONTENT})/
       $1
     elsif html =~ SMOTRET_ANIME_REGEXP
-      "https://smotret-anime.ru/translations/embed/#{$~[:id]}"
+      "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
       "http://rutube.ru/play/embed/#{$1}"
     elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
       "http://play.aniland.org/#{$1}?player=8"
 
-    #elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
-      #puts 'animeonline.su skipped' unless Rails.env.test?
-      #nil
+    # elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
+      # puts 'animeonline.su skipped' unless Rails.env.test?
+      # nil
 
-    #elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
-      #puts 'clipiki.ru skipped' unless Rails.env.test?
-      #nil
+    # elsif html =~ %r{(?:https?:)?//clipiki.ru/flash}
+      # puts 'clipiki.ru skipped' unless Rails.env.test?
+      # nil
 
-    #elsif html =~ %r{\bi.ua/video/}
-      #puts 'i.ua skipped' unless Rails.env.test?
-      #nil
+    # elsif html =~ %r{\bi.ua/video/}
+      # puts 'i.ua skipped' unless Rails.env.test?
+      # nil
 
-    #elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
-      #puts 'vk direct link skipped' unless Rails.env.test?
-      #nil
+    # elsif html =~ %r{(?:https?:)?//(?:vk.com|vkontakte)/video\?q}
+      # puts 'vk direct link skipped' unless Rails.env.test?
+      # nil
 
     else
       puts "can't extract video url: '#{html}'" unless Rails.env.test?
       nil
     end
   end
+  # rubocop:enable LineLenghth
+  # rubocop:enable MethodLength
+  # rubocop:enable AbcSize
 end
