@@ -14,7 +14,7 @@ describe Api::V1::CalendarsController, :show_in_doc do
       create :anime, :anons, aired_on: Time.zone.now + 1.week
     end
 
-    before { get :show, format: :json }
+    subject! { get :show, format: :json }
 
     it do
       expect(collection).to have(3).items

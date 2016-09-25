@@ -55,6 +55,11 @@ describe VideoExtractor::UrlExtractor do
         let(:html) { 'http://vk.com/video_ext.php?oid=36842689&qwe=vbn&id=163317311&hash=e446fa5312813ebc&zxc=1' }
         it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
       end
+
+      context '&param' do
+        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&param' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+      end
     end
 
     describe 'myvi_1' do

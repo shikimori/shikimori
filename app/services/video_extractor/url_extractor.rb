@@ -48,6 +48,7 @@ private
     if html =~ %r{(#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       $1
         .gsub('&amp;', '&')
+        .gsub(/[?&](?<param>[^=]+)$/, '')
         .gsub(/[?&](?<param>[^=]+)=[^&]*/) do |match|
           %w(oid id hash).include?($LAST_MATCH_INFO[:param]) ? match : ''
         end
