@@ -24,7 +24,7 @@ class Topics::ReviewView < Topics::View
 
   # rubocop:disable AbcSize
   def topic_title
-    if is_preview
+    if preview?
       topic.linked.target.name
     else
       i18n_t(
@@ -36,7 +36,7 @@ class Topics::ReviewView < Topics::View
    # rubocop:enable AbcSize
 
   def topic_title_html
-    if is_preview
+    if preview?
       h.localization_span topic.linked.target
     else
       topic_title
@@ -44,15 +44,19 @@ class Topics::ReviewView < Topics::View
   end
 
   def render_body
-    render_results + render_stars + super
+    preview? ? html_body_truncated : (render_results + render_stars + html_body)
   end
 
   def vote_results?
     topic.linked.votes_count > 0
   end
 
+  def read_more_link?
+    preview? || minified?
+  end
+
   def html_body
-    if is_preview || is_mini
+    if preview? || minified?
       format_body
         .gsub(/<img.*?>/, '')
         .strip

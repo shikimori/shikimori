@@ -23,7 +23,7 @@ class Topics::CommentsView < ViewObjectBase
 
   # число отображаемых напрямую комментариев
   def comments_limit
-    if is_preview
+    if @is_preview
       h.params[:page] && h.params[:page].to_i > 1 ? 1 : 3
     else
       fold_limit
@@ -32,7 +32,7 @@ class Topics::CommentsView < ViewObjectBase
 
   # число подгружаемых комментариев из click-loader блока
   def fold_limit
-    if is_preview
+    if @is_preview
       10
     else
       20
@@ -41,7 +41,7 @@ class Topics::CommentsView < ViewObjectBase
 
   # посты топика
   def comments
-    comments = topic
+    comments = @topic
       .comments
       .includes(:user)
       .limit(comments_limit)
@@ -57,7 +57,7 @@ class Topics::CommentsView < ViewObjectBase
     h.fetch_comments_url(
       comment_id: comments.first.id,
       topic_type: topic_type,
-      topic_id: topic.id,
+      topic_id: @topic.id,
       skip: 'SKIP',
       limit: fold_limit,
       is_summary: only_summaries_shown? ? 'is_summary' : nil
@@ -101,8 +101,9 @@ class Topics::CommentsView < ViewObjectBase
 
   def cache_key
     [
-      topic.is_a?(NoTopic) ? topic.linked : topic.id,
-      topic.respond_to?(:commented_at) ? topic.commented_at : topic.updated_at,
+      @topic.is_a?(NoTopic) ? @topic.linked : @topic.id,
+      @topic.respond_to?(:commented_at) ?
+        @topic.commented_at : @topic.updated_at,
       comments_limit,
       h.params[:page],
       only_summaries_shown?,
@@ -113,7 +114,7 @@ class Topics::CommentsView < ViewObjectBase
 private
 
   def new_comment_commentable
-    topic.persisted? ? topic : topic.linked
+    @topic.persisted? ? @topic : @topic.linked
   end
 
   # rubocop:disable AbcSize
@@ -142,6 +143,6 @@ private
   end
 
   def topic_comments_policy
-    Topic::CommentsPolicy.new topic
+    Topic::CommentsPolicy.new @topic
   end
 end

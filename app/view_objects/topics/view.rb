@@ -12,19 +12,19 @@ class Topics::View < ViewObjectBase
   instance_cache :topic_comments_policy, :topic_type_policy
 
   def ignored_topic?
-    h.user_signed_in? && h.current_user.ignored_topics.include?(topic)
+    h.user_signed_in? && h.current_user.ignored_topics.include?(@topic)
   end
 
   def ignored_user?
-    h.user_signed_in? && h.current_user.ignores?(topic.user)
+    h.user_signed_in? && h.current_user.ignores?(@topic.user)
   end
 
   def preview?
-    is_preview
+    @is_preview
   end
 
   def minified?
-    is_mini
+    @is_mini
   end
 
   def container_class css = ''
@@ -40,13 +40,13 @@ class Topics::View < ViewObjectBase
 
   def show_body?
     preview? ||
-      !topic.generated? ||
+      !@topic.generated? ||
       topic_type_policy.contest_topic?
   end
 
   def poster_title
     if !preview?
-      topic.user.nickname
+      @topic.user.nickname
     else
       topic_title
     end
@@ -54,25 +54,25 @@ class Topics::View < ViewObjectBase
 
   def poster_title_html
     if !preview?
-      topic.user.nickname
+      @topic.user.nickname
     else
       topic_title_html
     end
   end
 
   def topic_title
-    if topic_type_policy.forum_topic? || topic.linked_id.nil?
-      topic.title
+    if topic_type_policy.forum_topic? || @topic.linked_id.nil?
+      @topic.title
     else
-      topic.linked.name
+      @topic.linked.name
     end
   end
 
   def topic_title_html
-    if topic_type_policy.forum_topic? || topic.linked_id.nil?
-      topic.title
+    if topic_type_policy.forum_topic? || @topic.linked_id.nil?
+      @topic.title
     else
-      h.localization_span topic.linked
+      h.localization_span @topic.linked
     end
   end
 
@@ -85,19 +85,19 @@ class Topics::View < ViewObjectBase
     # последнее условие для пользовательских топиков об аниме
     if linked_in_avatar?
       linked = if topic_type_policy.review_topic?
-        topic.linked.target
+        @topic.linked.target
       else
-        topic.linked
+        @topic.linked
       end
 
       ImageUrlGenerator.instance.url linked, is_2x ? :x96 : :x48
     else
-      topic.user.avatar_url is_2x ? 80 : 48
+      @topic.user.avatar_url is_2x ? 80 : 48
     end
   end
 
   def comments_view
-    Topics::CommentsView.new topic, preview?
+    Topics::CommentsView.new @topic, preview?
   end
 
   def urls
@@ -105,7 +105,7 @@ class Topics::View < ViewObjectBase
   end
 
   def faye_channel
-    ["topic-#{topic.id}"].to_json
+    ["topic-#{@topic.id}"].to_json
   end
 
   def author_in_header?
@@ -113,7 +113,7 @@ class Topics::View < ViewObjectBase
   end
 
   def read_more_link?
-    (preview? || minified?) && topic_type_policy.review_topic?
+    false
   end
 
   # def author_in_footer?
@@ -122,10 +122,10 @@ class Topics::View < ViewObjectBase
   # end
 
   def html_body
-    return '' unless topic.original_body
+    return '' if @topic.original_body.blank?
 
-    Rails.cache.fetch [:body, Digest::MD5.hexdigest(topic.original_body)] do
-      BbCodeFormatter.instance.format_comment topic.original_body
+    Rails.cache.fetch [:body, Digest::MD5.hexdigest(@topic.original_body)] do
+      BbCodeFormatter.instance.format_comment @topic.original_body
     end
   end
 
@@ -161,7 +161,7 @@ class Topics::View < ViewObjectBase
   end
 
   def html_footer
-    BbCodeFormatter.instance.format_comment topic.appended_body
+    BbCodeFormatter.instance.format_comment @topic.appended_body
   end
 
   # для совместимости с комментариями для рендера тултипа
@@ -171,7 +171,7 @@ class Topics::View < ViewObjectBase
 
   def topic_ignore
     h.user_signed_in? &&
-      h.current_user.topic_ignores.find { |v| v.topic_id == topic.id }
+      h.current_user.topic_ignores.find { |v| v.topic_id == @topic.id }
   end
 
   def topic_ignored?
@@ -179,23 +179,25 @@ class Topics::View < ViewObjectBase
   end
 
   def topic_type_policy
-    Topic::TypePolicy.new topic
+    Topic::TypePolicy.new @topic
   end
 
   def cache_key
     CacheHelper.keys(
-      topic.cache_key,
-      topic.respond_to?(:commented_at) ? topic.commented_at : nil,
+      @topic.cache_key,
+      @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
       comments_view.comments_limit,
-      preview?,
-      minified?
+      # не заменять на preview? и minified?,
+      # т.к. эти методы могут быть переопределены в наследниках
+      @is_preview,
+      @is_mini
     )
   end
 
 private
 
   def linked_in_avatar?
-    topic.linked && preview? && !topic.instance_of?(Topic)
+    @topic.linked && preview? && !@topic.instance_of?(Topic)
   end
 
   def cleanup_preview_body html
@@ -206,7 +208,7 @@ private
   end
 
   def topic_comments_policy
-    Topic::CommentsPolicy.new topic
+    Topic::CommentsPolicy.new @topic
   end
 end
 # rubocop:enable ClassLength
