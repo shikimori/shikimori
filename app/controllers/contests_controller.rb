@@ -16,8 +16,8 @@ class ContestsController < ShikimoriController
   end
 
   def index
-    keywords i18n_t :index_keywords
-    description i18n_t :index_description
+    keywords i18n_t('index_keywords')
+    description i18n_t('index_description')
 
     @collection_groups = @collection
       .includes(rounds: :matches)

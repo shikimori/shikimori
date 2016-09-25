@@ -75,16 +75,12 @@
     a title="#{t '.info'}" href="#{info_pages_url}"
     .submenu
       - site_rules = StickyTopicView.site_rules(locale_from_domain)
-      - faq = StickyTopicView.faq(locale_from_domain)
+      a.entry href=site_rules.url title=site_rules.title = site_rules.title
 
-      a.entry[
-        href=site_rules.url
-        title=site_rules.title
-      ] = site_rules.title
-      a.entry[
-        href=faq.url
-        title=faq.title
-      ] = faq.title
+      - if ru_domain?
+        - faq = StickyTopicView.faq(locale_from_domain)
+        a.entry href=faq.url title=faq.title = faq.title
+
       a.entry[
         href="#{about_pages_url}"
         title="#{t 'about_site'}"

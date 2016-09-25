@@ -1,0 +1,41 @@
+en:
+  statistics:
+    index:
+      common: Common
+      breakdown_by_type_and_score: >-
+        Total number of anime titles with breakdown by type and score:
+      anime_statistics: Anime statistics
+      breakdown_by_release_date: 'Breakdown by release date:'
+      age_rating: Age rating
+      distribution_of_animes_grouped_by_age_rating: >-
+        Distribution of animes grouped by age rating over time:
+      interesting_how_audience_changed: >-
+        It's quite interesting how audience changed over time:
+        share of anime for kids was constantly declining while
+        studios were producing more and more anime for teens and adults.
+        Moreover, much OVA production now aims at those who can pay
+        for it - with a high percentage of hentai titles.
+        So a widespread belief that animes are just cartoons for kids
+        is just a popular fallacy.
+      genres: Genres
+      how_genre_preferences_changed: >-
+        This is how genre preferences changed over years:
+      mecha_almost_disappeared: >-
+        Mecha has almost disappeared and adventures with fantasies
+        are losing their popularity as well. On the other hand studios
+        produce more and more mysteries and supernatural anime.
+        We mentioned before that anime industry was becoming more
+        adult oriented and we can see the proof of this statement here:
+        the number of ecchi, harem, seinen and even josei animes is
+        growing year by year.
+      studios: Studios
+      breakdown_by_studio: >-
+        Anime of the last decade with breakdown by studio.
+      nothing_interesting_here: >-
+        Nothing particularly interesting here. We can just trace
+        how shares of different studios were changing during this period.
+      all_minor_studios: >-
+        All minor studios which have produced less than 10 anime titles
+        during the last decade fall under the category 'Others'
+        (and not shown by default).
+      comments: Comments

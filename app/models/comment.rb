@@ -175,7 +175,7 @@ class Comment < ActiveRecord::Base
 
   # TODO: move to CommentDecorator
   def html_body
-    fixed_body = if commentable_id == 82468 && commentable_type == Topic.name
+    fixed_body = if offtopic_topic?
       body
         .gsub('[poster=', '[image=')
         .gsub('[poster]', '[img]')
@@ -246,5 +246,14 @@ class Comment < ActiveRecord::Base
   def allowed_summary?
     commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
       commentable.instance_of?(Topics::EntryTopics::MangaTopic)
+  end
+
+  private
+
+  def offtopic_topic?
+    return false unless topic.present?
+
+    offtopic_topic_ids = Topic::TOPIC_IDS[Forum::OFFTOPIC_ID]
+    topic.id == offtopic_topic_ids[:offtopic][topic.locale.to_sym]
   end
 end

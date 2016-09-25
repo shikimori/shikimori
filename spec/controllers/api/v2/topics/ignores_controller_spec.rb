@@ -1,8 +1,7 @@
 describe Api::V2::Topics::IgnoresController, :show_in_doc do
-  include_context :sticky_topics
   include_context :authenticated, :user
 
-  let(:topic) { offtopic_topic }
+  let(:topic) { seed :offtopic_topic }
 
   describe '#create' do
     before { post :create, topic_id: topic.id }

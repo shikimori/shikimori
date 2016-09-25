@@ -5,10 +5,10 @@ class StatisticsController < ShikimoriController
   include CacheHelper
 
   def index
-    @page_title = 'История аниме'
-    @page_description = 'Никогда не задумывались, сколько всего существует аниме, каких оно жанров и типов, и как оно менялось по прошествии лет? На данной странице представлены несколько графиков со статистикой по истории аниме за последние четверть века.'
+    @page_title = i18n_t('page_title')
+    @page_description = i18n_t('page_description')
     set_meta_tags description: @page_description
-    set_meta_tags keywords: 'история аниме, статистка аниме сериалов, индустрия аниме, рейтинги аниме, студии аниме, жанры аниме'
+    set_meta_tags keywords: i18n_t('keywords')
 
     @kinds = Anime.kind.values#.select {|v| v != 'music' }
     @rating_kinds = ['tv', 'movie', 'ova']
@@ -19,8 +19,9 @@ class StatisticsController < ShikimoriController
         [total_stats, stats_by_kind, stats_by_rating, stats_by_genre, stats_by_studio]
       end
 
-    # TODO: choose topic based on locale from domain
-    @topic = Topics::TopicViewFactory.new(false, false).build Topic.find(81906)
+    site_topic_ids = Topic::TOPIC_IDS[Forum::SITE_ID]
+    topic = Topic.find site_topic_ids[:anime_industry][locale_from_domain]
+    @topic_view = Topics::TopicViewFactory.new(false, false).build topic
   end
 
 private
@@ -30,7 +31,7 @@ private
     grouped = @animes.group_by(&:kind).sort
 
     by_kind = {
-      name: 'Тип',
+      name: i18n_t('kind'),
       data: grouped.map do |kind, group|
         {
           name: I18n.t("enumerize.anime.kind.#{kind}"),
@@ -39,7 +40,7 @@ private
       end
     }
     by_score = {
-      name: 'Оценка',
+      name: i18n_t('score'),
       data: grouped.map do |kind, group|
         group.group_by do |v|
           if v.score >= 8
@@ -84,9 +85,11 @@ private
     end
 
     # отключаем второстепенные жанры
-    data.each do |kind,stats|
+    data.each do |kind, stats|
       stats[:series].each do |stat|
-        stat[:visible] = (top_genres[kind].include?(stat[:name]) && stat[:name] != 'Детское') || (kind == 'tv' && stat[:name] == 'Гарем')
+        stat[:visible] =
+          (top_genres[kind].include?(stat[:name]) && stat[:name] !~ /^Детское|Kids$/) ||
+          (kind == 'tv' && stat[:name] =~ /^Гарем|Harem$/)
       end
     end
 
@@ -98,9 +101,9 @@ private
     animes_10 = @tv.select { |v| v.aired_on >= Time.zone.parse("#{Time.zone.now.year}-01-01") - 10.years }
     #top_studios = normalize(stats_data(animes_10.map { |v| v[:mapped_studios] }.flatten, :studio, @studios), 0.75)[:series].map { |v| v[:name] }
 
-    data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + ['Прочее'])
+    data = stats_data(animes_10.map(&:mapped_studios).flatten, :studio, @studios + [i18n_t('other')])
     other = {
-      name: 'Прочее',
+      name: i18n_t('other'),
       data: [0,0,0,0,0,0,0,0,0,0,0],
       visible: false
     }
@@ -114,7 +117,7 @@ private
         false
       end
     end
-    data[:series].insert -1, other
+    data[:series].insert(-1, other)
 
     data
   end
@@ -126,11 +129,9 @@ private
 
   # подготовка общих данных
   def prepare
-    @genres = Genre.order(:position).all.map {|v| UsersHelper.localized_name v, current_user }
-    @studios_by_id = Studio.all.each_with_object({}) do |v, memo|
-      memo[v.id] = v
-    end
-    @studios = @studios_by_id.select { |v| v.real? }.map { |k,v| v.filtered_name }
+    @genres = Genre.order(:position).map { |v| UsersHelper.localized_name v, current_user }
+    @studios_by_id = Studio.all.each_with_object({}) { |v, memo| memo[v.id] = v }
+    @studios = @studios_by_id.select { |v| v.real? }.map { |k, v| v.filtered_name }
 
     start_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - YEARS_AGO
     finish_on = Time.zone.parse("#{Time.zone.now.year}-01-01") - 1.day + 1.year
@@ -167,8 +168,8 @@ private
   end
 
   # выборка статистики
-  def stats_data(animes, grouping, categories)
-    years = animes.group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.keys
+  def stats_data animes, grouping, categories
+    years = animes.group_by { |v| v[:aired_on].strftime('%Y') }.keys
 
     groups = categories.each_with_object({}) do |group, memo|
       memo[group] = nil
@@ -176,19 +177,19 @@ private
 
     data = animes
       .group_by {|v| v.respond_to?(grouping) ? v.send(grouping) : v[grouping] }
-      .each_with_object(groups) do |entry,data|
+      .each_with_object(groups) do |entry, data|
         next unless data.include? entry[0]
         data[entry[0]] = years.each_with_object({}) { |v, memo| memo[v] = 0 }
 
-        entry[1].group_by { |v| Russian.strftime(v[:aired_on], '%Y') }.each do |k,v|
+        entry[1].group_by { |v| v[:aired_on].strftime('%Y') }.each do |k, v|
           data[entry[0]][k] = v.size
         end
       end
-      .select { |k,v| v.present? }
+      .select { |k, v| v.present? }
 
     {
       categories: years,
-      series: data.map do |k,v|
+      series: data.map do |k, v|
         {
           name: [:kind, :rating].include?(grouping) ? I18n.t("enumerize.anime.#{grouping}.#{k}") : k,
           data: v.values

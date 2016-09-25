@@ -1,11 +1,11 @@
 class AddEnglishOfftopicTopic < ActiveRecord::Migration
-  EN_OFFTOPIC_TOPIC_ID = 210_000
+  TOPIC_ID = Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:offtopic][:en]
 
   def up
     return if Rails.env.test?
 
     Topic.create!(
-      id: EN_OFFTOPIC_TOPIC_ID,
+      id: TOPIC_ID,
       user_id: en_offtopic_user.id,
       forum_id: Forum::OFFTOPIC_ID,
       title: 'Off-topic thread',

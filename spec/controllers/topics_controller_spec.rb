@@ -28,11 +28,10 @@ describe TopicsController do
     context 'offtopic' do
       before { get :index, forum: offtopic_forum.permalink }
 
-      # offtopic_topic_1 + 6 sticky topics
-      # (because they belong to offtopic forum)
+      # offtopic_topic_1 + 6 seeded offtopic topics
+      # (offtopic topic itself + 5 offtopic sticky topics)
       it do
-        expect(assigns(:forums_view).topic_views)
-          .to have(1 + sticky_topics_count).items
+        expect(assigns(:forums_view).topic_views).to have(7).items
         expect(response).to have_http_status :success
       end
     end
