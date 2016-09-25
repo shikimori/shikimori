@@ -300,7 +300,7 @@ describe Comment do
     end
   end
 
-  describe 'permissions', :focus do
+  describe 'permissions' do
     subject { Ability.new user }
 
     context 'guest' do
