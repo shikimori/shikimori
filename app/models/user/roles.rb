@@ -15,8 +15,11 @@ class User
     COSPLAY_MODERATORS = (ADMINS + [2043, 2046]).uniq # 2043 - laitqwerty, 2046 - Котейка
     # 11496 - АлхимиК, 4099 - sttany, 12771 - spinosa, 13893 - const, 11883 - Tenno Haruka, 5064 - Heretic, 5779 - Lumennes,
     # 14633 - Dracule404, 5255 - GArtem, 7028 - Drako Black, 15905 - Youkai_Ririko, 3954 - Xellos("ゼロス"), 23616 - Vi Vi,
-    # 25082 - SkywalterDBZ
-    VIDEO_MODERATORS = (ADMINS + [11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905, 3954, 23616, 25082]).uniq
+    # 25082 - SkywalterDBZ, 30214 - baksIII
+    VIDEO_MODERATORS = (ADMINS + [
+      11496, 4099, 12771, 13893, 11883, 5064, 5779, 14633, 5255, 7028, 15905,
+      3954, 23616, 25082, 30214
+    ]).uniq
     API_VIDEO_UPLOADERS = [4193]
     TRUSTED_VIDEO_UPLOADERS = (ADMINS + VIDEO_MODERATORS + API_VIDEO_UPLOADERS + [
       16750, 16774, 10026, 20455, 10026, 12023, 8237, 17423, 11834, 21347,
