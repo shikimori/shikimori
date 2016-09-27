@@ -1,3 +1,6 @@
+- other_versions = Version.where(state: :pending).where.not(item_type: AnimeVideo.name).size
+- video_versions = Version.where(state: :pending).where(item_type: AnimeVideo.name).size
+
 .moderation style="#{page_background}"
   - if current_user.moderator? && (AbuseRequest.has_abuses? || AbuseRequest.has_changes?)
     .mod-block
@@ -7,24 +10,33 @@
         title=t('moderations.show.forum_journal')
       ] = AbuseRequest.abuses.count + AbuseRequest.pending.count
 
-  - if current_user.versions_moderator? && Version.has_changes?
+  - if current_user.versions_moderator? && other_versions > 0
     .mod-block
       span #{i18n_i 'Content_change', :other}:
       a[
         href="#{index_moderations_versions_url type: :content}"
         title=t('moderations.show.versions_journal')
-      ] = Version.pending_count
+      ] = other_versions
 
   /- if current_user.reviews_moderator? && Review.has_changes?
     .mod-block
       span Рецензии:
       a href="#{moderations_reviews_url}" title="Модерация рецензий" #{Review.pending.count}
 
-  - if current_user.video_moderator? && AnimeVideoReport.pending.count > 0
-    - unless current_user.id == User::MORR_ID && AnimeVideoReport.pending.count < 1000
+  - if current_user.video_moderator?
+    - if video_versions > 0
       .mod-block
-        span #{i18n_i 'Video_change', :other}:
+        span #{i18n_i 'Videos_change', :other}:
         a[
-          href="#{moderations_anime_video_reports_url}"
-          title=t('moderations.show.uploaded_videos_journal')
-        ] = AnimeVideoReport.pending.count
+          href="#{index_moderations_versions_url type: :anime_video}"
+          title=t('moderations.show.versions_journal')
+        ] = video_versions
+
+    - if AnimeVideoReport.pending.count > 0
+      - unless current_user.id == User::MORR_ID && AnimeVideoReport.pending.count < 1000
+        .mod-block
+          span #{i18n_i 'Video_change', :other}:
+          a[
+            href="#{moderations_anime_video_reports_url}"
+            title=t('moderations.show.uploaded_videos_journal')
+          ] = AnimeVideoReport.pending.count

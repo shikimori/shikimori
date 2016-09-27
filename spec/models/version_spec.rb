@@ -96,24 +96,6 @@ describe Version do
     end
   end
 
-  describe 'class methods' do
-    describe '.pending_count & .has_changes?' do
-      let!(:version_1) { create :version, state: 'accepted' }
-
-      context 'has pending versions' do
-        let!(:version_2) { create :version, state: 'pending' }
-
-        it { expect(Version.pending_count).to eq 1 }
-        it { expect(Version.has_changes?).to eq true }
-      end
-
-      context 'no pending versions' do
-        it { expect(Version.pending_count).to be_zero }
-        it { expect(Version.has_changes?).to eq false }
-      end
-    end
-  end
-
   describe 'instance methods' do
     let(:anime) { create :anime, episodes: 10 }
     let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] } }

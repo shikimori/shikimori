@@ -55,16 +55,6 @@ class Version < ActiveRecord::Base
     end
   end
 
-  class << self
-    def pending_count
-      Version.where(state: :pending).where.not(item_type: AnimeVideo.name).size
-    end
-
-    def has_changes?
-      pending_count > 0
-    end
-  end
-
   def reason= value
     if !value || value.size <= MAXIMUM_REASON_SIZE
       super
