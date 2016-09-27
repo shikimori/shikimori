@@ -6,5 +6,8 @@ class Abilities::VideoModerator
     can [:new, :create, :edit, :update], AnimeVideo do |anime_video|
       !user.banned? && !anime_video.banned? && !anime_video.copyrighted?
     end
+    can :manage, Version do |version|
+      version.item_type == AnimeVideo.name
+    end
   end
 end

@@ -185,14 +185,14 @@ describe Version do
       describe 'own version' do
         let(:version) { build_stubbed :version, user_id: User::GUEST_ID,
           item_diff: item_diff }
-        let(:item_diff) {{ russian: ['a','b'] }}
+        let(:item_diff) { { russian: ['a', 'b'] } }
 
         describe 'common change'do
           it { is_expected.to be_able_to :create, version }
         end
 
         describe 'significant change' do
-          let(:item_diff) {{ name: ['a','b'] }}
+          let(:item_diff) { { name: ['a', 'b'] } }
           it { is_expected.to_not be_able_to :create, version }
         end
 
@@ -217,7 +217,7 @@ describe Version do
 
       describe 'own version' do
         let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
-        let(:item_diff) {{ russian: ['a','b'] }}
+        let(:item_diff) { { russian: ['a', 'b'] } }
 
         describe 'common change'do
           it { is_expected.to be_able_to :create, version }
@@ -231,7 +231,7 @@ describe Version do
         end
 
         describe 'significant change' do
-          let(:item_diff) {{ name: ['a','b'] }}
+          let(:item_diff) { { name: ['a', 'b'] } }
           it { is_expected.to_not be_able_to :create, version }
           it { is_expected.to_not be_able_to :destroy, version }
         end
@@ -248,6 +248,22 @@ describe Version do
         it { is_expected.to_not be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
+      end
+    end
+
+    context 'video_moderator' do
+      let(:user) { build_stubbed :user, :video_moderator }
+      subject { Ability.new user }
+      let(:version) { build_stubbed :version, user: user, item: item }
+
+      context 'not anime video' do
+        let(:item) { build_stubbed :anime }
+        it { is_expected.to_not be_able_to :manage, version }
+      end
+
+      context 'anime video' do
+        let(:item) { build_stubbed :anime_video }
+        it { is_expected.to be_able_to :manage, version }
       end
     end
   end

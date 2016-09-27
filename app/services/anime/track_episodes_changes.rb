@@ -4,7 +4,7 @@
 class Anime::TrackEpisodesChanges < ServiceObjectBase
   pattr_initialize :anime
 
-  delegate :episodes, :episodes_aired_change, to: :anime 
+  delegate :episodes, :episodes_aired_change, to: :anime
 
   def call
     return unless anime.episodes_aired_changed?
