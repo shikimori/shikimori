@@ -7,6 +7,7 @@ class FixAnimeVideoAuthors
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound AnimeReactor NekoProject AnimeJet FreeDub AniFame AniChaos
+    RainDub
   ) + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group'
   ]
@@ -103,6 +104,7 @@ private
     end
   end
 
+  # rubocop:disable MethodLength
   def fix_misc name
     name
       .gsub(/\[+/, '(')
@@ -114,7 +116,10 @@ private
       .gsub(' и ', ' & ')
       .gsub(/\A[^ivx\d] /i, '')
       .gsub(/ &[)($]/, '')
+      .gsub('  ', ' ')
+      .gsub(/ [)\]]|[(\[] /, '\1')
   end
+  # rubocop:enable MethodLength
 
   def fix_studio name
     fixed_name = STUDIOS_REPLACEMENTS

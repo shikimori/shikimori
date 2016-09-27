@@ -111,6 +111,16 @@ describe FixAnimeVideoAuthors do
             it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
           end
 
+          context 'name with double spaces' do
+            let(:name) { 'AniDUB  (Test,  Foo)' }
+            it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
+          end
+
+          context 'name with space inside brackets' do
+            let(:name) { 'AniDUB (Test, Foo )' }
+            it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
+          end
+
           context 'name with russian and' do
             let(:name) { 'AniDUB (Test и Foo)' }
             it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
