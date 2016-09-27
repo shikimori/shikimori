@@ -117,7 +117,7 @@ describe FixAnimeVideoAuthors do
           end
 
           context 'name with space inside brackets' do
-            let(:name) { 'AniDUB (Test, Foo )' }
+            let(:name) { 'AniDUB ( Test, Foo )' }
             it { expect(author_1.reload.name).to eq 'AniDUB (Test & Foo)' }
           end
 

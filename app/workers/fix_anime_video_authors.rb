@@ -6,8 +6,7 @@ class FixAnimeVideoAuthors
   TRASH = /[^\[\]() &,-]{0,4}/.source
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
-    AniUchi AniSound AnimeReactor NekoProject AnimeJet FreeDub AniFame AniChaos
-    RainDub
+    AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
   ) + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group'
   ]
@@ -82,9 +81,7 @@ private
       author.name = fix_studio(fix_misc(fix_quality(author.name)))
       change_videos_quality author, quality if quality
 
-      if author.changes.any?
-        transfer_videos author
-      end
+      transfer_videos author if author.changes.any?
     end
   end
 
