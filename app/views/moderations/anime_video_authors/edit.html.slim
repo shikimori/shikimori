@@ -1,0 +1,14 @@
+header.head
+  h2
+    a.back href="#{@back_url}" data-text="#{t 'back'}"
+    = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+= simple_form_for [:moderations, @resource] do |f|
+  .cc-2
+    .c-column
+      = f.input :name
+
+      .buttons
+        a.cancel href="#{@back_url}" = t 'actions.cancel'
+        = f.button :magic_submit

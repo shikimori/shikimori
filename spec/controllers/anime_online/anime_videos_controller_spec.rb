@@ -85,24 +85,26 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   end
 
   describe '#new' do
-    let(:params) {{ anime_id: @resource, state: 'uploaded' }}
+    let(:params) { { anime_id: @resource, state: 'uploaded' } }
     before { get :new, anime_id: anime.to_param, anime_video: params }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
     let!(:guest) { create :user, :guest }
-    let(:video_params) {{
-      state: 'uploaded',
-      kind: 'fandub',
-      author_name: 'test',
-      episode: 3,
-      url: 'https://vk.com/video-16326869_166521208',
-      source: 'test',
-      language: 'russian',
-      quality: 'bd',
-      anime_id: anime_id
-    }}
+    let(:video_params) do
+      {
+        state: 'uploaded',
+        kind: 'fandub',
+        author_name: 'test',
+        episode: 3,
+        url: 'https://vk.com/video-16326869_166521208',
+        source: 'test',
+        language: 'russian',
+        quality: 'bd',
+        anime_id: anime_id
+      }
+    end
     let(:continue) { '' }
 
     before { post :create, anime_id: anime.to_param, anime_video: video_params, continue: continue }
@@ -165,16 +167,17 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     include_context :authenticated, :user
 
     let(:anime_video) { create :anime_video, anime: anime, state: 'uploaded' }
-    let(:video_params) {{ kind: kind, author_name: 'test', episode: 3 }}
+    let(:video_params) { { kind: kind, author_name: 'test', episode: 3 } }
 
     let(:video) { assigns :video }
 
-    before { patch :update,
-      anime_id: anime.to_param,
-      id: anime_video.id,
-      anime_video: video_params,
-      reason: 'test'
-    }
+    before do
+      patch :update,
+        anime_id: anime.to_param,
+        id: anime_video.id,
+        anime_video: video_params,
+        reason: 'test'
+    end
 
     context 'valid params' do
       let(:kind) { 'fandub' }

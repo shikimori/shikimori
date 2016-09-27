@@ -160,6 +160,8 @@ ru:
         state: Статус
         author_name: Автор
         anime_video_author_id: Автор
+      anime_video_author:
+        name: Название
       video:
         url: Url
         kind: Тип

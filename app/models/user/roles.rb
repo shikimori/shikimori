@@ -5,6 +5,8 @@ class User
     BANHAMMER_ID = 6942
     COSPLAYER_ID = 1680
 
+    BAKSIII_ID = 30214
+
     # access rights
     ADMINS = [MORR_ID, 13]
     MODERATORS = (ADMINS + [921, 11, 188, 93, 861, 16148]).uniq # 2 - Adelor, 93 - lena-chan, 861 - Oniii-chan

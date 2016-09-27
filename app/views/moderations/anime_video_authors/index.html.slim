@@ -1,0 +1,18 @@
+header.head
+  h1 = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+.subheadline.m10 Группы фансаба/фандаба, которые автоматически распознаёт сайт
+.block
+  - FixAnimeVideoAuthors::STUDIOS.sort.each do |studio|
+    div = studio
+
+.subheadline.m10 Все авторы
+.block
+  - @collection.each do |author|
+    .b-log_entry
+      span.id-label #
+      span
+        a href="#{edit_moderations_anime_video_author_url author}"
+          = author.id
+      span = author.name

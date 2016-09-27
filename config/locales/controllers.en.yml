@@ -152,6 +152,10 @@ en:
     version_taken: *version_accepted
     version_auto_accepted: *version_accepted
 
+  moderations/anime_video_authors_controller:
+    <<: *moderations_controller
+    page_title: Anime video authors moderation
+
   genres_controller:
     <<: *moderations_controller
 

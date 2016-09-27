@@ -9,5 +9,9 @@ class Abilities::VideoModerator
     can :manage, Version do |version|
       version.item_type == AnimeVideo.name
     end
+
+    if user.id == User::BAKSIII_ID
+      can [:index, :edit, :update], AnimeVideoAuthor
+    end
   end
 end

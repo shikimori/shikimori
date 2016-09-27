@@ -141,6 +141,8 @@ Site::Application.routes.draw do
         get :cancel
       end
     end
+
+    resources :anime_video_authors, only: [:index, :edit, :update]
   end
 
   # api
