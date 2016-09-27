@@ -83,7 +83,7 @@ private
       change_videos_quality author, quality if quality
 
       if author.changes.any?
-        transfer_videos author unless author.save
+        transfer_videos author
       end
     end
   end
@@ -140,11 +140,7 @@ private
 
   def transfer_videos author
     log 'transfer', author
-    new_author = original_author author
-
-    author.anime_videos.update_all(
-      anime_video_author_id: new_author ? new_author.id : nil
-    )
+    AnimeVideoAuthor::Rename.call author, author.name
   end
 
   def log action, author, info = nil

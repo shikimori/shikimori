@@ -17,27 +17,13 @@ describe Moderations::AnimeVideoAuthorsController do
     before do
       patch :update,
         id: anime_video.anime_video_author_id,
-        anime_video_author: { name: name }
+        anime_video_author: { name: 'zxcvbnm' }
     end
 
-    context 'valid params' do
-      let(:name) { 'zxcvbn' }
-      it do
-        expect(resource).to be_valid
-        expect(resource).to have_attributes name: name
-        expect(response).to redirect_to moderations_anime_video_authors_url
-      end
-    end
-
-    context 'invalid params' do
-      let(:name) {}
-
-      it do
-        expect(resource).to_not be_valid
-        expect(resource).to be_persisted
-        expect(response).to render_template :edit
-        expect(response).to have_http_status :success
-      end
+    it do
+      expect(resource).to be_valid
+      expect(resource).to have_attributes name: 'zxcvbnm'
+      expect(response).to redirect_to moderations_anime_video_authors_url
     end
   end
 end

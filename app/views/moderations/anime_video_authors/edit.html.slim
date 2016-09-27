@@ -2,12 +2,13 @@ header.head
   h2
     a.back href="#{@back_url}" data-text="#{t 'back'}"
     = @page_title.last
+  .notice У автора #{@resource.anime_videos.count} видео
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = simple_form_for [:moderations, @resource] do |f|
   .cc-2
     .c-column
-      = f.input :name
+      = f.input :name, hint: 'При задании пустого имени автор будет удалён'
 
       .buttons
         a.cancel href="#{@back_url}" = t 'actions.cancel'
