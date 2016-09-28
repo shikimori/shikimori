@@ -19,7 +19,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
   end
 
   def accept_edit
-    @resource.accept_only! current_user if @resource.can_accept_only?
+    @resource.accept! current_user if @resource.can_accept?
 
     redirect_to edit_video_online_url(
       @resource.anime_video.anime_id,

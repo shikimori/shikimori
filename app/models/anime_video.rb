@@ -122,7 +122,7 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def author_name= name
-    self.author = AnimeVideoAuthor.find_or_create_by name: name.to_s.strip[0..254]
+    self.author = AnimeVideoAuthor.find_or_create_by name: name
   end
 
   def single?

@@ -8,7 +8,7 @@ class FixAnimeVideoAuthors
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
   ) + [
-    'DeadLine Studio', 'Bastion Studio', 'Onibaku Group'
+    'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project'
   ]
   QUALITIES = AnimeVideo.quality.values.reject { |v| v == 'unknown' }
 

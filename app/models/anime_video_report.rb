@@ -41,25 +41,11 @@ class AnimeVideoReport < ActiveRecord::Base
     # отклонено автоматической post модераций
     state :post_rejected
 
-    event :accept do
-      transition [:pending, :accepted] => :accepted
-    end
-
-    event :accept_only do
-      transition pending: :accepted
-    end
-
-    event :reject do
-      transition pending: :rejected
-    end
-
-    event :post_reject do
-      transition [:pending, :accepted] => :post_rejected
-    end
-
-    event :cancel do
-      transition [:accepted, :rejected] => :pending
-    end
+    event(:accept) { transition [:pending, :accepted] => :accepted }
+    event(:accept_only) { transition pending: :accepted }
+    event(:reject) { transition pending: :rejected }
+    event(:post_reject) { transition [:pending, :accepted] => :post_rejected }
+    event(:cancel) { transition [:accepted, :rejected] => :pending }
 
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
