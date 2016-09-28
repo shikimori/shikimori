@@ -1,4 +1,4 @@
-- if current_user.video_moderator?
+- if current_user.versions_moderator? || current_user.video_moderator?
   - other_versions = Version.where(state: :pending).where.not(item_type: AnimeVideo.name).size
   - video_versions = Version.where(state: :pending).where(item_type: AnimeVideo.name).size
 
