@@ -2,8 +2,11 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   respond_to :json
   load_and_authorize_resource
 
-  CREATE_PARAMS = [:target_id, :target_type, :user_id, :status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
-  UPDATE_PARAMS = [:status, :episodes, :chapters, :volumes, :score, :text, :rewatches]
+  CREATE_PARAMS = %i(
+    target_id target_type user_id status episodes chapters volumes score text
+    rewatches
+  )
+  UPDATE_PARAMS = %i(status episodes chapters volumes score text rewatches)
 
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
@@ -12,16 +15,18 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
   def create
-    present_rate = UserRate.find_by(
-      user_id: @resource.user_id,
-      target_id: @resource.target_id,
-      target_type: @resource.target_type,
-    )
+    Retryable.retryable tries: 2, on: PG::UniqueViolation, sleep: 1 do
+      present_rate = UserRate.find_by(
+        user_id: @resource.user_id,
+        target_id: @resource.target_id,
+        target_type: @resource.target_type,
+      )
 
-    if present_rate
-      update_rate present_rate
-    else
-      create_rate @resource
+      if present_rate
+        update_rate present_rate
+      else
+        create_rate @resource
+      end
     end
 
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
