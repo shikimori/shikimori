@@ -77,6 +77,7 @@ class Review < ActiveRecord::Base
     text
   end
 
+  # TODO: move to view object
   def votes_text
     if votes_for == votes_count
       <<-TEXT.squish

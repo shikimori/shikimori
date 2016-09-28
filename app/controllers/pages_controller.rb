@@ -39,7 +39,7 @@ class PagesController < ShikimoriController
 
   # rss с новостями
   def news_feed
-    @collection = TopicsQuery.fetch(current_user, locale_from_domain)
+    @collection = Topics::Query.fetch(current_user, locale_from_domain)
       .by_forum(Forum::NEWS_FORUM, current_user, censored_forbidden?)
       .limit(15)
       .as_views(true, false)

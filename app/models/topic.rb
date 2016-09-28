@@ -58,12 +58,6 @@ class Topic < ActiveRecord::Base
 
   before_save :validate_linked
 
-  # def cache_key
-    # # super + "-#{Digest::MD5.hexdigest body || ''}" +
-      # # "-#{commented_at&.utc&.to_s :nsec}"
-    # # "#{super}-#{commented_at&.utc&.to_s :nsec}"
-  # end
-
   def title
     return self[:title]&.html_safe if user&.bot?
     self[:title]

@@ -71,7 +71,7 @@ class DashboardView < ViewObjectBase
   end
 
   def news_topic_views
-    TopicsQuery
+    Topics::Query
       .fetch(h.current_user, h.locale_from_domain)
       .by_forum(Forum::NEWS_FORUM, h.current_user, h.censored_forbidden?)
       .limit(7)
@@ -80,7 +80,7 @@ class DashboardView < ViewObjectBase
   end
 
   def generated_news_topic_views
-    TopicsQuery
+    Topics::Query
       .fetch(h.current_user, h.locale_from_domain)
       .by_forum(Forum::UPDATES_FORUM, h.current_user, h.censored_forbidden?)
       .limit(15)
@@ -109,9 +109,9 @@ class DashboardView < ViewObjectBase
 
   def cache_keys
     news =
-      TopicsQuery.new(Topic).by_forum(Forum::NEWS_FORUM, nil, nil).first
+      Topics::Query.new(Topic).by_forum(Forum::NEWS_FORUM, nil, nil).first
     updates =
-      TopicsQuery.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
+      Topics::Query.new(Topic).by_forum(Forum::UPDATES_FORUM, nil, nil).first
 
     {
       reviews: Review.order(id: :desc).first,
@@ -150,7 +150,7 @@ private
   end
 
   def all_review_topic_views
-    TopicsQuery
+    Topics::Query
       .fetch(h.current_user, h.locale_from_domain)
       .by_forum(reviews_forum, h.current_user, h.censored_forbidden?)
       .limit(REVIEWS_FETCH)

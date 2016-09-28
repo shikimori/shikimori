@@ -1,4 +1,4 @@
-class TopicsQuery < QueryObjectBase
+class Topics::Query < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = <<-SQL.strip
     (

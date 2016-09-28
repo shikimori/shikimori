@@ -1,7 +1,7 @@
-describe TopicsQuery do
+describe Topics::Query do
   include_context :seeds
 
-  subject(:query) { TopicsQuery.fetch user, locale }
+  subject(:query) { Topics::Query.fetch user, locale }
 
   let(:locale) { :ru }
   let(:is_censored_forbidden) { false }
