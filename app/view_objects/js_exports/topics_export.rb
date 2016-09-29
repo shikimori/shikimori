@@ -17,6 +17,17 @@ private
       id: topic.id,
       is_viewed: topic.viewed?,
       user_id: topic.user_id
-    }
+    }.merge(vote_status(topic, user))
+  end
+
+  def vote_status topic, user
+    if topic.linked.is_a?(Review) || topic.linked.is_a?(CosplayGallery)
+      {
+        voted_yes: topic.linked.voted_yes?(user),
+        voted_no: topic.linked.voted_no?(user)
+      }
+    else
+      {}
+    end
   end
 end

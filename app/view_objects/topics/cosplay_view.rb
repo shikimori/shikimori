@@ -9,6 +9,10 @@ class Topics::CosplayView < Topics::View
     is_preview || is_mini
   end
 
+  def show_body?
+    true
+  end
+
   def render_body
     h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
   end

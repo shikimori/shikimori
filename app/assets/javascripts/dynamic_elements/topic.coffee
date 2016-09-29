@@ -45,6 +45,7 @@ class DynamicElements.Topic extends ShikiEditable
     @is_review = @$root.hasClass('b-review-topic')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
+    @_activate_vote_button() if @model
     @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
@@ -325,6 +326,12 @@ class DynamicElements.Topic extends ShikiEditable
 
   _reload_url: =>
     "/#{@_type()}s/#{@$root.attr 'id'}/reload?is_preview=#{@is_preview}"
+
+  _activate_vote_button: ->
+    if @model.voted_yes
+      @$inner.find('.vote.yes').addClass 'selected'
+    else if @model.voted_no
+      @$inner.find('.vote.no').addClass 'selected'
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>
