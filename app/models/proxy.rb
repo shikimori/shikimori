@@ -239,7 +239,6 @@ class Proxy < ActiveRecord::Base
     end
 
     def get_open_uri url, params = {}
-      binding.pry
       if url =~ /\.(jpe?g|png)$/
         open_image url, open_params(url, params)
       else
