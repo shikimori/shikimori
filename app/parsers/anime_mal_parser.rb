@@ -28,7 +28,6 @@ class AnimeMalParser < BaseMalParser
     super
   end
 
-  # загрузка информации по манге
   def fetch_model id
     content = get entry_url(id)
     raise EmptyContent.new(url) if content.include? "404 Not Found"

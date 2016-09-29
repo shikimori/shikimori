@@ -9,7 +9,7 @@ class Proxy < ActiveRecord::Base
   @@proxies_initial_size = 0
 
   # использовать ли кеш
-  @@use_cache = false#Rails.env == 'test'
+  @@use_cache = false #Rails.env == 'test'
 
   # показывать ли логи
   @@show_log = false
@@ -164,14 +164,6 @@ class Proxy < ActiveRecord::Base
       end
     end
 
-    def user_agent url
-      if url =~ /myanimelist.net/
-        'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
-      else
-        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-      end
-    end
-
     # выполнение get запроса без прокси
     def no_proxy_get url, options
       NamedLogger.proxy.info "GET #{url}"
@@ -246,13 +238,43 @@ class Proxy < ActiveRecord::Base
       @@use_proxy = true
     end
 
-    def get_open_uri url, params={}
+    def get_open_uri url, params = {}
+      binding.pry
       if url =~ /\.(jpe?g|png)$/
-        open_image url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
+        open_image url, open_params(url, params)
       else
-        open url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
+        open url, open_params(url, params)
       end
     end
+
+    def open_params url, params
+      params.merge(
+        'User-Agent' => user_agent(url),
+        'Cookie' => cookie(url),
+        allow_redirections: :all
+      )
+    end
+
+    def user_agent url
+      if url =~ /myanimelist.net/
+        'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
+      else
+        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+      end
+    end
+
+    def cookie url
+      if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
+        %w(
+          MALHLOGSESSID=b3895a92da3effb0657fe8f2ea847704;
+          MALSESSIONID=43m112gmdc17do929chqfcf194;
+          is_logged_in=1;
+        ).join
+      else
+        ''
+      end
+    end
+
   end
 
   def to_s with_http = false

@@ -165,7 +165,7 @@ class BaseMalParser < SiteParserWithCache
 private
 
   # получение страницы MAL
-  def get(url, required_text=['MyAnimeList.net</title>', '</html>'])
+  def get(url, required_text = ['MyAnimeList.net</title>', '</html>'])
     content = super(url, required_text)
     # binding.pry unless content
     raise EmptyContent.new(url) unless content

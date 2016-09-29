@@ -16,7 +16,7 @@ describe String do
   end
 
   describe '#to_underscore' do
-    subject { name.to_underscore }
+    subject { name.underscore }
 
     context 'camelized' do
       let(:name) { 'ZxcVbn' }
