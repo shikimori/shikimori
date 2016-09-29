@@ -17,7 +17,7 @@ describe Api::V1::CalendarsController, :show_in_doc do
     subject! { get :show, format: :json }
 
     it do
-      expect(collection).to have(3).items
+      expect(collection).to have(2).items
 
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
