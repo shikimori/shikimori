@@ -95,6 +95,7 @@ module Clockwork
     SakuhindbImporter.perform_async with_fail: true
     SubtitlesImporter.perform_async :latest
     BadVideosCleaner.perform_async
+    CleanupScreenshots.perform_async
 
     ImportListWorker.perform_async pages_limit: 100
     ImportListWorker.perform_async pages_limit: 100, type: Manga.name
