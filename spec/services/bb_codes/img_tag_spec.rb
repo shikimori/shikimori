@@ -33,33 +33,39 @@ describe BbCodes::ImgTag do
 
     context 'with sizes' do
       let(:text) { "[img 400x500]#{url}[/img]" }
-      it { is_expected.to include "class=\"\" width=\"400\" height=\"500\"></a>" }
+      it { is_expected.to include 'class="" width="400" height="500"></a>' }
     end
 
     context 'with width' do
       let(:text) { "[img w=400]#{url}[/img]" }
-      it { is_expected.to include "class=\"\" width=\"400\"></a>" }
+      it { is_expected.to include 'class="" width="400"></a>' }
     end
 
     context 'with height' do
       let(:text) { "[img h=500]#{url}[/img]" }
-      it { is_expected.to include "class=\"\" height=\"500\"></a>" }
+      it { is_expected.to include 'class="" height="500"></a>' }
     end
 
     context 'with width&height' do
       let(:text) { "[img width=400 height=500]#{url}[/img]" }
-      it { is_expected.to include "class=\"\" width=\"400\" height=\"500\"></a>" }
+      it { is_expected.to include 'class="" width="400" height="500"></a>' }
     end
 
     context 'with class' do
       let(:text) { "[img class=zxc]#{url}[/img]" }
-      it { is_expected.to include "class=\"check-width zxc\"></a>" }
+      it { is_expected.to include 'class="check-width zxc"></a>' }
     end
 
     context 'inside url' do
       let(:link) { '/test' }
       let(:text) { "[url=#{link}][img]#{url}[/img][/url]" }
-      it { is_expected.to include "class=\"check-width\"></a>" }
+      it do
+        is_expected.to eq(
+          '<a href="' + link + '" data-href="' + camo_url + '" rel="hash" '\
+            'class="b-image unprocessed"><img src="' + camo_url + '" '\
+            'class="check-width"></a>'
+        )
+      end
     end
   end
 end
