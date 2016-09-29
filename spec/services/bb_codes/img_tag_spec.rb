@@ -57,14 +57,30 @@ describe BbCodes::ImgTag do
     end
 
     context 'inside url' do
-      let(:link) { '/test' }
       let(:text) { "[url=#{link}][img]#{url}[/img][/url]" }
-      it do
-        is_expected.to eq(
-          '<a href="' + link + '" data-href="' + camo_url + '" rel="hash" '\
-            'class="b-image unprocessed"><img src="' + camo_url + '" '\
-            'class="check-width"></a>'
-        )
+
+      context 'normal link' do
+        let(:link) { '/test' }
+        it do
+          is_expected.to eq(
+            '<a href="' + link + '" data-href="' + camo_url + '" rel="hash" '\
+              'class="b-image unprocessed"><img src="' + camo_url + '" '\
+              'class="check-width"></a>'
+          )
+        end
+      end
+
+      context 'link to shiki image' do
+        let(:link) { 'http://shikimori.org/test.jpg' }
+        let(:camo_link_url) { UrlGenerator.instance.camo_url link }
+
+        it do
+          is_expected.to eq(
+            '<a href="' + link + '" data-href="' + camo_link_url + '" rel="hash" '\
+              'class="b-image unprocessed"><img src="' + camo_url + '" '\
+              'class="check-width"></a>'
+          )
+        end
       end
     end
   end

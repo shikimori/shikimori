@@ -26,12 +26,14 @@ class BbCodes::ImgTag
       if $LAST_MATCH_INFO[:link_url]
         html_for_image(
           $LAST_MATCH_INFO[:image_url], $LAST_MATCH_INFO[:link_url],
-          0, 0, nil, text_hash
+          0, 0,
+          nil, text_hash
         )
       else
         html_for_image(
-          $LAST_MATCH_INFO[:image_url], nil, $LAST_MATCH_INFO[:width].to_i,
-          $LAST_MATCH_INFO[:height].to_i, $LAST_MATCH_INFO[:klass], text_hash
+          $LAST_MATCH_INFO[:image_url], nil,
+          $LAST_MATCH_INFO[:width].to_i, $LAST_MATCH_INFO[:height].to_i,
+          $LAST_MATCH_INFO[:klass], text_hash
         )
       end
     end
@@ -40,19 +42,24 @@ class BbCodes::ImgTag
 private
 
   def html_for_image image_url, link_url, width, height, klass, text_hash
-    camo_url = UrlGenerator.instance.camo_url(fix_url image_url)
+    camo_url = UrlGenerator.instance.camo_url(fix_url(image_url))
+    if link_url =~ %r{shikimori\.(\w+)/.*\.(?:jpg|png)}
+      camo_link_url = UrlGenerator.instance.camo_url(fix_url(link_url))
+    end
 
     sizes_html = ''
-    sizes_html += " width=\"#{width}\"" if width > 0
-    sizes_html += " height=\"#{height.to_i}\"" if height > 0
+    sizes_html += " width=\"#{width}\"" if width.positive?
+    sizes_html += " height=\"#{height.to_i}\"" if height.positive?
     css_class = [
       ('check-width' unless sizes_html.present?),
       (klass if klass.present?)
     ].compact.join(' ')
 
     <<-HTML.squish.strip
-      <a href="#{link_url || image_url}" data-href="#{camo_url}"
-        rel="#{text_hash}" class="b-image unprocessed"><img
+      <a href="#{link_url || image_url}"
+        data-href="#{camo_link_url || camo_url}"
+        rel="#{text_hash}"
+        class="b-image unprocessed"><img
         src="#{camo_url}" class="#{css_class}"#{sizes_html}></a>
     HTML
   end
