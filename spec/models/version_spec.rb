@@ -8,19 +8,26 @@ describe Version do
   describe 'validations' do
     it { is_expected.to validate_presence_of :item }
     it { is_expected.to validate_presence_of :item_diff }
-    #it { is_expected.to validate_length_of(:reason).is_at_most Version::MAXIMUM_REASON_SIZE }
+    # it { is_expected.to validate_length_of(:reason).is_at_most Version::MAXIMUM_REASON_SIZE }
   end
 
   describe 'state_machine' do
     let(:anime) { build_stubbed :anime }
     let(:video) { create :anime_video, anime: anime, episode: 2 }
     let(:moderator) { build_stubbed :user }
-    subject(:version) { create :version_anime_video, item_id: video.id, item_diff: { episode: [1,2] }, state: state }
+    subject(:version) do
+      create :version_anime_video,
+        item_id: video.id,
+        item_diff: { episode: [1, 2] },
+        state: state
+    end
 
-    before { allow(version).to receive(:apply_changes).and_return true }
-    before { allow(version).to receive(:rollback_changes).and_return true }
-    before { allow(version).to receive :notify_acceptance }
-    before { allow(version).to receive :notify_rejection }
+    before do
+      allow(version).to receive(:apply_changes).and_return true
+      allow(version).to receive(:rollback_changes).and_return true
+      allow(version).to receive :notify_acceptance
+      allow(version).to receive :notify_rejection
+    end
 
     describe '#accept' do
       before { version.accept! moderator }
@@ -98,7 +105,7 @@ describe Version do
 
   describe 'instance methods' do
     let(:anime) { create :anime, episodes: 10 }
-    let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] } }
+    let(:version) { create :version, item: anime, item_diff: { episodes: [1, 2] } }
 
     describe '#reason=' do
       let(:version) { build :version, reason: 'a' * 3000 }
@@ -121,34 +128,44 @@ describe Version do
     end
 
     describe '#notify_acceptance' do
-      let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] },
-        user: user, moderator: moderator }
+      let(:version) do
+        create :version,
+          item: anime,
+          item_diff: { episodes: [1, 2] },
+          user: user,
+          moderator: moderator
+      end
       let(:user) { create :user }
 
       context 'user == moderator' do
         let(:moderator) { user }
-        it { expect{version.notify_acceptance}.to_not change(user.messages, :count) }
+        it { expect { version.notify_acceptance }.to_not change(user.messages, :count) }
       end
 
       context 'user != moderator' do
         let(:moderator) { create :user }
-        it { expect{version.notify_acceptance}.to change(user.messages, :count).by 1 }
+        it { expect { version.notify_acceptance }.to change(user.messages, :count).by 1 }
       end
     end
 
     describe '#notify_rejection' do
-      let(:version) { create :version, item: anime, item_diff: { episodes: [1,2] },
-        user: user, moderator: moderator }
+      let(:version) do
+        create :version,
+          item: anime,
+          item_diff: { episodes: [1, 2] },
+          user: user,
+          moderator: moderator
+      end
       let(:user) { create :user }
 
       context 'user == moderator' do
         let(:moderator) { user }
-        it { expect{version.notify_rejection 'z'}.to_not change(user.messages, :count) }
+        it { expect { version.notify_rejection 'z' }.to_not change(user.messages, :count) }
       end
 
       context 'user != moderator' do
         let(:moderator) { create :user }
-        it { expect{version.notify_rejection 'z'}.to change(user.messages, :count).by 1 }
+        it { expect { version.notify_rejection 'z' } .to change(user.messages, :count).by 1 }
       end
     end
   end
@@ -165,8 +182,11 @@ describe Version do
       subject { Ability.new nil }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user_id: User::GUEST_ID,
-          item_diff: item_diff }
+        let(:version) do
+          build_stubbed :version,
+            user_id: User::GUEST_ID,
+            item_diff: item_diff
+        end
         let(:item_diff) { { russian: ['a', 'b'] } }
 
         describe 'common change'do

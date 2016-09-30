@@ -59,7 +59,7 @@ class Version < ActiveRecord::Base
     if !value || value.size <= MAXIMUM_REASON_SIZE
       super
     else
-      super value[0..MAXIMUM_REASON_SIZE-1]
+      super value[0..MAXIMUM_REASON_SIZE - 1]
     end
   end
 
@@ -120,7 +120,7 @@ private
 
   def truncate_value field, value
     if item.class.columns_hash[field]&.limit && value.is_a?(String)
-      value[0..item.class.columns_hash[field].limit-1]
+      value[0..item.class.columns_hash[field].limit - 1]
     else
       value
     end
