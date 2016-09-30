@@ -8,6 +8,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   )
   UPDATE_PARAMS = %i(status episodes chapters volumes score text rewatches)
 
+  UNIQ_EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
   def show
@@ -15,7 +16,7 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   end
 
   def create
-    Retryable.retryable tries: 2, on: PG::UniqueViolation, sleep: 1 do
+    Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
       present_rate = UserRate.find_by(
         user_id: @resource.user_id,
         target_id: @resource.target_id,
