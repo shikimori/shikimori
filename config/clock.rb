@@ -6,7 +6,7 @@ module Clockwork
     HistoryWorker.perform_async
     ImportToshokanTorrents.perform_async
     ImportNyaaTorrents.perform_async
-    ProxyWorker.perform_async(true)
+    # ProxyWorker.perform_async(true)
     SidekiqHeartbeat.new.perform
   end
 

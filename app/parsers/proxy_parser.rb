@@ -82,7 +82,11 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources# +
+    @sources ||= Sources +
+      [
+        "http://webanetlabs.net/freeproxylist/proxylist_at_"\
+          "#{Date.today.strftime '%d.%m.%Y'}.txt"
+      ]
       #Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
       #Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
   end
@@ -102,6 +106,9 @@ private
   # http://forum.antichat.ru/thread59009.html
   Sources = [
     'http://alexa.lr2b.com/proxylist.txt',
+    'http://multiproxy.org/txt_all/proxy.txt',
+    'http://txt.proxyspy.net/proxy.txt',
+    'http://rebro.weebly.com/proxy-list.html'
     #'http://www.cybersyndrome.net/pla.html',
 
     #'http://www.freeproxy.ch/proxy.txt',
