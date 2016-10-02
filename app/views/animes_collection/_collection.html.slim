@@ -8,7 +8,7 @@
       - next unless @view.collection[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
+        = t "titles/collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
       - if @klass == Anime
         .m0 class="cc-#{data[:kind] == 'tv' || data[:kind] == 'movie' ? 'entries' : 6}"
