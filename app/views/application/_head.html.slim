@@ -49,7 +49,11 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 - if @page_title.blank?
   title = Site::NAME
 
-= display_meta_tags separator: '/', reverse: true
+/ иначе page_title обрезаться в первом слове, а не в последнем
+- @page_title.reverse! if @page_title.is_a? Array
+= display_meta_tags separator: '/'
+/ = display_meta_tags separator: '/', reverse: true
+
 = csrf_meta_tag
 
 / - if Rails.env.production?
