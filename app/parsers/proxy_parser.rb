@@ -5,7 +5,7 @@ class ProxyParser
   TEST_URL = "https://shikimori.org#{ProxyTest::TEST_PAGE_PATH}"
   WHAT_IS_MY_IP_URL ="https://#{Site::DOMAIN}#{ProxyTest::WHAT_IS_MY_IP_PATH}"
 
-  HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
+  # HIDEME_URL = "http://hideme.ru/api/proxylist.php?out=js&code=253879821"
 
   # импорт проксей
   def import
@@ -92,12 +92,12 @@ private
   end
 
   def parse_proxies
-    source_proxies = sources.map {|url| parse url }.flatten
-    hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
-      { ip: proxy['ip'], port: proxy['port'].to_i }
-    end
+    source_proxies = sources.map { |url| parse url }.flatten
+    # hideme_proxies = JSON.parse(open(HIDEME_URL).read).map do |proxy|
+      # { ip: proxy['ip'], port: proxy['port'].to_i }
+    # end
 
-    (source_proxies + hideme_proxies).uniq
+    # (source_proxies + hideme_proxies).uniq
   end
 
   #Proxies24Url = 'http://www.proxies24.org/'
