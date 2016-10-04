@@ -4,6 +4,7 @@ FactoryGirl.define do
     forum { seed :offtopic_forum }
     sequence(:title) { |n| "topic_#{n}" }
     sequence(:body) { |n| "topic_text_#{n}" }
+    type { Topic.name }
 
     locale 'ru'
 

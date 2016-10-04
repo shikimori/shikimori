@@ -182,4 +182,14 @@ describe LayoutView do
       end
     end
   end
+
+  describe '#hot_topics' do
+    before { allow(Topics::HotTopicsQuery).to receive(:call).and_return topics }
+    let(:topics) { [offtopic_topic] }
+    it do
+      expect(view.hot_topics).to have(1).item
+      expect(view.hot_topics.first).to be_kind_of Topics::View
+      expect(view.hot_topics.first.topic).to eq offtopic_topic
+    end
+  end
 end

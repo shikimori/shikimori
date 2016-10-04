@@ -36,7 +36,7 @@ html
           = render 'application/top_menu'
 
       section.l-page *itemprop style="#{page_background}"
-        - if user_signed_in? && current_user.admin? && !Rails.env.development?
+        - if current_user&.admin? && !Rails.env.development?
           javascript:
             $(function() {
               $('.admin_panel').load('/apanel');
@@ -47,6 +47,13 @@ html
             });
           .admin_panel
 
+        - if current_user&.admin?
+          .b-hot_topics
+            .topic.subject Темы дня
+
+            - @layout.hot_topics.each do |topic_view|
+              .topic
+                a.b-link href="#{topic_view.urls.topic_url}" = topic_view.poster_title_html
         div
           = sweep_js_exports do
             = yield

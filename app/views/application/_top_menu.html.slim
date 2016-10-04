@@ -86,5 +86,5 @@
     - if user_signed_in?
       a.entry.sign_out href="#{destroy_user_session_url}" = t '.sign_out'
 
-  - if user_signed_in?
+  / - if user_signed_in?
     = render 'application/top_menu/moderation'

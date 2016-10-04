@@ -46,6 +46,12 @@ class LayoutView < ViewObjectBase
     }
   end
 
+  def hot_topics
+    Topics::HotTopicsQuery.call.map do |topic|
+      Topics::TopicViewFactory.new(true, true).build topic
+    end
+  end
+
 private
 
   def background
