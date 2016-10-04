@@ -14,6 +14,12 @@ class Topics::HotTopicsQuery < ServiceObjectBase
   LIMIT = 8
 
   def call
+    topics
+  end
+
+private
+
+  def topics
     Comment
       .where(commentable_type: Topic.name)
       .where('comments.created_at > ?', INTERVAL.ago)

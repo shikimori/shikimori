@@ -53,7 +53,11 @@ html
 
             - @layout.hot_topics.each do |topic_view|
               .topic
-                a.b-link href="#{topic_view.urls.topic_url}" = topic_view.poster_title_html
+                a.b-link.b-tooltipped.unprocessed[
+                  href="#{topic_view.urls.topic_url}"
+                  title="#{topic_view.topic_title}"
+                  data-direction='bottom'
+                ] = topic_view.poster_title_html
         div
           = sweep_js_exports do
             = yield
