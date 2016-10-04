@@ -73,6 +73,7 @@ FactoryGirl.define do
     end
 
     trait :offtopic do
+      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:offtopic][:ru]
       title 'offtopic'
       body 'offtopic'
       created_at { 1.day.ago }

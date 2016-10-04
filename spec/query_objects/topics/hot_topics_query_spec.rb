@@ -1,15 +1,56 @@
 describe Topics::HotTopicsQuery do
   include_context :seeds
 
-  let(:topics) { Topics::HotTopicsQuery.call }
-  let!(:club) { create :club, :with_topics }
-
-  let!(:comment_1) { create :comment, commentable: offtopic_topic, created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago }
-  let!(:comment_2) { create :comment, commentable: offtopic_topic, created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago }
-  let!(:comment_3) { create :comment, commentable: site_rules_topic, created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago }
-  let!(:comment_4) { create :comment, commentable: club.topics.first, created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago }
+  subject { Topics::HotTopicsQuery.call 'ru' }
 
   describe '#call' do
-    it { expect(topics).to eq [offtopic_topic, site_rules_topic] }
+    describe 'order by comments count' do
+      let!(:comment_1) do
+        create :comment,
+          commentable: faq_topic,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+      let!(:comment_2) do
+        create :comment,
+          commentable: faq_topic,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+      let!(:comment_3) do
+        create :comment,
+          commentable: site_rules_topic,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+
+      it { is_expected.to eq [faq_topic, site_rules_topic] }
+    end
+
+    describe 'filter by topic locale' do
+      let!(:en_topic) { create :topic, locale: :en }
+
+      let!(:comment_1) do
+        create :comment,
+          commentable: en_topic,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+
+      it { is_expected.to be_empty }
+    end
+
+    describe 'except offtopic & club topics' do
+      let!(:club) { create :club, :with_topics }
+
+      let!(:comment_1) do
+        create :comment,
+          commentable: club.topics.first,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+      let!(:comment_2) do
+        create :comment,
+          commentable: offtopic_topic,
+          created_at: (Topics::HotTopicsQuery::INTERVAL - 1.minute).ago
+      end
+
+      it { is_expected.to be_empty }
+    end
   end
 end

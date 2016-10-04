@@ -1,6 +1,6 @@
 class LayoutView < ViewObjectBase
   prepend ActiveCacher.instance
-  instance_cache :background
+  instance_cache :background, :moderation, :hot_topics
 
   def blank_layout?
     !!h.controller.instance_variable_get('@blank_layout')
@@ -47,9 +47,13 @@ class LayoutView < ViewObjectBase
   end
 
   def hot_topics
-    Topics::HotTopicsQuery.call.map do |topic|
+    Topics::HotTopicsQuery.call(h.locale_from_domain).map do |topic|
       Topics::TopicViewFactory.new(true, true).build topic
     end
+  end
+
+  def moderation
+    ModerationView.new
   end
 
 private
