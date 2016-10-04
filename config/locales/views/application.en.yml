@@ -20,6 +20,11 @@ en:
       anime_online:
         <<: *shikimori
 
+    hot_topics:
+      hot_topics: Hot topics
+      content: Content
+      video: Video
+
     footer:
       terms: Terms
       privacy: Privacy

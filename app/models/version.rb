@@ -10,6 +10,13 @@ class Version < ActiveRecord::Base
   validates :item, :item_diff, presence: true
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
+  scope :pending_content, lambda {
+    where(state: :pending).where.not(item_type: AnimeVideo.name)
+  }
+  scope :pending_videos, lambda {
+    where(state: :pending).where(item_type: AnimeVideo.name)
+  }
+
   state_machine :state, initial: :pending do
     state :accepted
     state :auto_accepted

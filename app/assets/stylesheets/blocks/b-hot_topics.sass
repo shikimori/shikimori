@@ -1,12 +1,13 @@
 @import compass/typography/text/ellipsis
 @import mixins/column
+@import globals/variables
 
 .b-hot_topics
   +clear_left
   background-color: #EEF1F2
   border-bottom: 1px solid #D0D8DB
   margin: -15px -15px 15px -15px
-  padding: 6px 15px 4px 15px
+  padding: 6px 15px 3px 15px
 
   .topic
     +column(9, 1/9, 2%)
@@ -15,6 +16,10 @@
 
     &.subject
       color: #234
+
+    &.moderation
+      a
+        color: $red
 
     a
       +ellipsis
@@ -28,3 +33,18 @@
           margin-left: -20px
           margin-top: -2px
           position: absolute
+
+    &:nth-child(10)
+      display: none
+
+    &:nth-child(11)
+      display: none
+
+    &:nth-child(12)
+      display: none
+
+    &:nth-child(13)
+      display: none
+
+    &:nth-child(14)
+      display: none

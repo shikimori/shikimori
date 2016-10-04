@@ -27,24 +27,6 @@ ru:
           few: рецензии
           many: рецензиий
           other: рецензии
-      content_change:
-        subjective:
-          one: правка контента
-          few: правки контента
-          many: правок контента
-          other: правки контента
-      videos_change:
-        subjective:
-          one: правка видео
-          few: правки видео
-          many: правок видео
-          other: правки видео
-      video_change:
-        subjective:
-          one: правка видео
-          few: правки видео
-          many: правок видео
-          other: правок видео
       record:
         subjective:
           one: запись

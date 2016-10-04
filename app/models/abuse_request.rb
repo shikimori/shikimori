@@ -62,16 +62,4 @@ class AbuseRequest < ActiveRecord::Base
   def punishable?
     abuse? || spoiler?
   end
-
-  class << self
-    # есть ли не прнятые запросы
-    def has_changes?
-      pending.count > 0
-    end
-
-    # есть ли не прнятые жалобы
-    def has_abuses?
-      abuses.count > 0
-    end
-  end
 end

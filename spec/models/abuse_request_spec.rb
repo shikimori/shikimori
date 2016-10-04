@@ -100,36 +100,4 @@ describe AbuseRequest do
       end
     end
   end
-
-  context 'class methods' do
-    describe '#has_changes?' do
-      let(:user) { create :user }
-      subject { AbuseRequest.has_changes? }
-
-      describe 'true' do
-        before { allow(AbuseRequest).to receive_message_chain(:pending, :count).and_return 1 }
-        it { should be_truthy }
-      end
-
-      describe 'false' do
-        before { allow(AbuseRequest).to receive_message_chain(:pending, :count).and_return 0 }
-        it { should be_falsy }
-      end
-    end
-
-    describe '#has_abuses?' do
-      let(:user) { create :user }
-      subject { AbuseRequest.has_abuses? }
-
-      describe 'true' do
-        before { allow(AbuseRequest).to receive_message_chain(:abuses, :count).and_return 1 }
-        it { should be_truthy }
-      end
-
-      describe 'false' do
-        before { allow(AbuseRequest).to receive_message_chain(:abuses, :count).and_return 0 }
-        it { should be_falsy }
-      end
-    end
-  end
 end

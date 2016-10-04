@@ -20,6 +20,11 @@ ru:
       anime_online:
         <<: *shikimori
 
+    hot_topics:
+      hot_topics: Темы дня
+      content: Контент
+      video: Видео
+
     footer:
       terms: Соглашение
       privacy: Конфиденциальность

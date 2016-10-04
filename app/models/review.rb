@@ -99,8 +99,4 @@ class Review < ActiveRecord::Base
   def to_offtopic!
     topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
   end
-
-  def self.has_changes?
-    pending.count > 0
-  end
 end

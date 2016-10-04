@@ -192,4 +192,8 @@ describe LayoutView do
       expect(view.hot_topics.first.topic).to eq offtopic_topic
     end
   end
+
+  describe '#moderation_policy' do
+    it { expect(view.moderation_policy).to be_kind_of ModerationPolicy }
+  end
 end

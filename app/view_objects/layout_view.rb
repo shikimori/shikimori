@@ -1,6 +1,6 @@
 class LayoutView < ViewObjectBase
   prepend ActiveCacher.instance
-  instance_cache :background, :moderation, :hot_topics
+  instance_cache :background, :hot_topics, :moderation_policy
 
   def blank_layout?
     !!h.controller.instance_variable_get('@blank_layout')
@@ -52,8 +52,8 @@ class LayoutView < ViewObjectBase
     end
   end
 
-  def moderation
-    ModerationView.new
+  def moderation_policy
+    ModerationPolicy.new h.current_user, true
   end
 
 private

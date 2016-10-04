@@ -5,6 +5,7 @@ class ModerationsController < ShikimoriController
   before_action { page_title i18n_t('title') }
 
   def show
+    @moderation_policy = ModerationPolicy.new current_user, false
   end
 
   def missing_screenshots

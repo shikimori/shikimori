@@ -1,5 +1,55 @@
 .b-hot_topics
-  .topic.subject Темы дня
+  .topic.subject = t '.hot_topics'
+
+  - unless layout.moderation_policy.reviews_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.reviews_count < 100
+      .topic.moderation
+        a.b-link.b-tooltipped.unprocessed[
+          href="#{moderations_reviews_url}"
+          title="#{t 'moderations.show.reviews_journal'}"
+          data-direction='bottom'
+        ]
+          = "#{i18n_i 'Review'}: #{layout.moderation_policy.reviews_count}"
+
+  - unless layout.moderation_policy.abuses_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.abuses_count < 100
+      .topic.moderation
+        a.b-link.b-tooltipped.unprocessed[
+          href="#{moderations_bans_url}"
+          title="#{t 'moderations.show.forum_journal'}"
+          data-direction='bottom'
+        ]
+          = "#{i18n_i 'Forum'}: #{layout.moderation_policy.abuses_count}"
+
+  - unless layout.moderation_policy.content_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.content_count < 100
+      .topic.moderation
+        a.b-link.b-tooltipped.unprocessed[
+          href="#{index_moderations_versions_url type: :content}"
+          title="#{t 'moderations.show.versions_journal'}"
+          data-direction='bottom'
+        ]
+          = "#{t '.content'}: #{layout.moderation_policy.content_count}"
+
+  - unless layout.moderation_policy.videos_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.videos_count < 100
+      .topic.moderation
+        a.b-link.b-tooltipped.unprocessed[
+          href="#{index_moderations_versions_url type: :anime_video}"
+          title="#{t 'moderations.show.versions_journal'}"
+          data-direction='bottom'
+        ]
+          = "#{t '.video'}: #{layout.moderation_policy.videos_count}"
+
+  - unless layout.moderation_policy.video_reports_count.zero?
+    - unless current_user.admin? && layout.moderation_policy.video_reports_count < 100
+      .topic.moderation
+        a.b-link.b-tooltipped.unprocessed[
+          href="#{moderations_anime_video_reports_url}"
+          title="#{t 'moderations.show.uploaded_videos_journal'}"
+          data-direction='bottom'
+        ]
+          = "#{t '.video'}: #{layout.moderation_policy.video_reports_count}"
 
   - layout.hot_topics.each do |topic_view|
     .topic
