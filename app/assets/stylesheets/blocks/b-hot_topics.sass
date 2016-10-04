@@ -11,10 +11,9 @@
   background-color: #EEF1F2
 
   .topic
-    +column(9, 1/9, 2%)
-    overflow: hidden
-    text-align: center
+    +column(9, 1/9, 3%)
     font-size: 12px
+    text-align: center
 
     &.subject
       color: #234
@@ -22,3 +21,12 @@
     a
       +ellipsis
       display: block
+
+      &.with-author
+        padding-left: 20px
+
+        img
+          height: 16px
+          margin-left: -20px
+          margin-top: -2px
+          position: absolute
