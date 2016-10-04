@@ -46,8 +46,8 @@ module Antispam
     return unless prior
     return if BotsService.posters.include?(self.user_id)
 
-    if prior && DateTime.now.to_i - prior.created_at.to_i < 15
-      interval = 15 - (DateTime.now.to_i - prior.created_at.to_i)
+    if prior && DateTime.now.to_i - prior.created_at.to_i < 3
+      interval = 3 - (DateTime.now.to_i - prior.created_at.to_i)
       errors[:base] = 'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
       return false
     end
