@@ -10,9 +10,32 @@
   padding: 6px 15px 3px 15px
 
   .topic
-    +column(9, 1/9, 2%)
     font-size: 12px
     text-align: center
+
+    +gt_ipad
+      +column(9, 1/9, 2%)
+
+    +ipad
+      +column(8, 1/8, 2%)
+
+      &:nth-child(9)
+        display: none
+
+    +iphone_landscape
+      +column(6, 1/6, 2%)
+
+      &:nth-child(7), &:nth-child(8), &:nth-child(9)
+        display: none
+
+    +iphone_portrait
+      +column(4, 1/4, 2%)
+
+      &:nth-child(5), &:nth-child(6), &:nth-child(7), &:nth-child(8), &:nth-child(9)
+        display: none
+
+    &:nth-child(10), &:nth-child(11), &:nth-child(12), &:nth-child(13), &:nth-child(14)
+      display: none
 
     &.subject
       color: #234
@@ -33,18 +56,3 @@
           margin-left: -20px
           margin-top: -2px
           position: absolute
-
-    &:nth-child(10)
-      display: none
-
-    &:nth-child(11)
-      display: none
-
-    &:nth-child(12)
-      display: none
-
-    &:nth-child(13)
-      display: none
-
-    &:nth-child(14)
-      display: none
