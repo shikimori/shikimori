@@ -48,7 +48,8 @@ html
           .admin_panel
 
         - unless Rails.env.development? && params[:no_menu]
-          = render 'application/hot_topics', layout: @layout
+          - if @layout.hot_topics?
+            = render 'application/hot_topics', layout: @layout
         div
           = sweep_js_exports do
             = yield

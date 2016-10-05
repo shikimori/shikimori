@@ -46,6 +46,10 @@ class LayoutView < ViewObjectBase
     }
   end
 
+  def hot_topics?
+    %w(dashboards topics).include? h.params['controller']
+  end
+
   def hot_topics
     Topics::HotTopicsQuery.call(h.locale_from_domain).map do |topic|
       Topics::TopicViewFactory.new(true, true).build topic

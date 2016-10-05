@@ -183,6 +183,32 @@ describe LayoutView do
     end
   end
 
+  describe '#hot_topics?' do
+    before do
+      allow(view.h).to receive(:params).and_return 'controller' => controller_name
+    end
+
+    context 'dashboards' do
+      let(:controller_name) { 'dashboards' }
+      it { expect(view).to be_hot_topics }
+    end
+
+    context 'topics' do
+      let(:controller_name) { 'topics' }
+      it { expect(view).to be_hot_topics }
+    end
+
+    context 'animes' do
+      let(:controller_name) { 'animes' }
+      it { expect(view).to_not be_hot_topics }
+    end
+
+    context 'profiles' do
+      let(:controller_name) { 'profiles' }
+      it { expect(view).to_not be_hot_topics }
+    end
+  end
+
   describe '#hot_topics' do
     before { allow(Topics::HotTopicsQuery).to receive(:call).and_return topics }
     let(:topics) { [offtopic_topic] }
