@@ -35,6 +35,7 @@ describe User do
     it { is_expected.to have_many :ignored_users }
 
     it { is_expected.to have_many :club_roles }
+    it { is_expected.to have_many :club_admin_roles }
     it { is_expected.to have_many :clubs }
 
     it { is_expected.to have_many :contest_user_votes }

@@ -44,12 +44,19 @@ class Abilities::User
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id &&
         comment.user_id == @user.id
+      ) || (
+        comment.user_id == @user.id &&
+        comment.commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+        @user.club_admin_roles.any? { |role| role.club_id == comment.commentable.linked_id }
       )
     end
     can [:destroy], [Comment] do |comment|
       can?(:update, comment) || (
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id
+      ) || (
+        comment.commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+        @user.club_admin_roles.any? { |role| role.club_id == comment.commentable.linked_id }
       )
     end
   end

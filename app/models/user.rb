@@ -64,6 +64,7 @@ class User < ActiveRecord::Base
   has_many :ignored_users, through: :ignores, source: :target
 
   has_many :club_roles, dependent: :destroy
+  has_many :club_admin_roles, -> { where role: :admin }, class_name: ClubRole
   has_many :clubs, through: :club_roles
 
   has_many :versions, dependent: :destroy

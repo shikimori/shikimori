@@ -1,5 +1,4 @@
-# права на действия с различными сущностями
-# TODO: постепенно заменить всё на cancancan
+# TODO: refactor this code
 module PermissionsPolicy
   def self.included(base)
     base.send :include, PermissionsPolicy.const_get(base.name+'Permissions')

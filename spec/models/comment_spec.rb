@@ -384,5 +384,39 @@ describe Comment do
       let(:comment) { build_stubbed :comment, user: build_stubbed(:user) }
       it { is_expected.to be_able_to :manage, comment }
     end
+
+    describe 'club comment' do
+      let(:comment) do
+        build_stubbed :comment,
+          user: comment_owner,
+          commentable: club_topic,
+          created_at: 1.month.ago
+      end
+      let(:comment_owner) { build_stubbed :user }
+      let(:club_topic) { build_stubbed :club_topic, linked: club }
+      let(:club) { build_stubbed :club }
+
+      context 'common user' do
+        let(:user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :update, comment }
+        it { is_expected.to_not be_able_to :destroy, comment }
+      end
+
+      context 'club admin' do
+        let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
+        let(:club_admin_role) { build_stubbed :club_role, club: club, role: :admin }
+
+        it { is_expected.to be_able_to :destroy, comment }
+
+        context "another user's comment" do
+          it { is_expected.to_not be_able_to :update, comment }
+        end
+
+        context 'own comment' do
+          let(:comment_owner) { user }
+          it { is_expected.to be_able_to :update, comment }
+        end
+      end
+    end
   end
 end
