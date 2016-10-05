@@ -47,8 +47,7 @@ html
             });
           .admin_panel
 
-        - if current_user&.admin?
-          = render 'application/hot_topics', layout: @layout
+        = render 'application/hot_topics', layout: @layout
         div
           = sweep_js_exports do
             = yield
