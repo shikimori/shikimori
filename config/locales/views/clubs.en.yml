@@ -4,6 +4,7 @@ en:
       create_new_club: Create new club
       list_of_all_clubs: List of all clubs sorted by their members' activity
       favourite: Favourite
+      all_clubs: All clubs
 
     page:
       back_to_clubs_page: Back to clubs page
