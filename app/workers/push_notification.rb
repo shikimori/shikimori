@@ -37,7 +37,9 @@ private
   end
 
   def generate_body message
-    body = message.generate_body.gsub(/<.*?>/, '')
+    body = Retryable.retryable tries: 2, on: TypeError, sleep: 1 do
+      message.generate_body.gsub(/<.*?>/, '')
+    end
 
     if body.size > 199
       body[0..198] + '…'
