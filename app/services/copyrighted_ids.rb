@@ -8,7 +8,7 @@ class CopyrightedIds
       %w(z y x w v u t s r q p o n m l k j i h g f e d c b a)
     end
 
-  CONFIG_PATH = Rails.root.join 'config/app/copyrighted_ids.yml'
+  CONFIG_PATH = "#{Rails.root}/config/app/copyrighted_ids.yml"
   TEST_IDS = %w(
     9999999
     8888888 z8888888

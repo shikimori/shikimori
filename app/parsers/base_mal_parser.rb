@@ -7,6 +7,8 @@ class BaseMalParser < SiteParserWithCache
   RelatedAdaptationName = "Adaptation"
   THREADS = 50
 
+  BANNED_IDS_CONFIG_PATH = "#{Rails.root}/config/app/banned_mal_ids.yml"
+
   # инициализация кеша
   def load_cache
     super
@@ -73,7 +75,7 @@ class BaseMalParser < SiteParserWithCache
 
     print "loading %s for import\n" % [type.tableize] if Rails.env != 'test'
     # если передан id, то импортировать только элемент с указанным id
-    data = ids ? (ids.kind_of?(Enumerable) ? ids : [ids]) : prepare
+    data = (ids ? Array(ids) : prepare) - banned_ids
 
     print "%d %s to import\n" % [data.size, type.tableize] if Rails.env != 'test'
     data.send(Rails.env == 'test' ? :each : :parallel) do |id|
@@ -109,6 +111,10 @@ class BaseMalParser < SiteParserWithCache
     outdated_ids = imported.select {|k,v| v.nil? }.map {|k,v| k }
 
     new_ids + outdated_ids
+  end
+
+  def banned_ids
+    @banned_ids ||= YAML.load_file(BANNED_IDS_CONFIG_PATH)[type.to_sym]
   end
 
   # загрузка полного списка с MAL
