@@ -186,7 +186,7 @@ class Topics::View < ViewObjectBase
     CacheHelper.keys(
       @topic.cache_key,
       @topic.respond_to?(:commented_at) ? @topic.commented_at : nil,
-      @topic.linked,
+      @topic.linked&.cache_key,
       comments_view.comments_limit,
       # не заменять на preview? и minified?,
       # т.к. эти методы могут быть переопределены в наследниках

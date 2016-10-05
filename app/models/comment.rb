@@ -57,6 +57,14 @@ class Comment < ActiveRecord::Base
     self[:is_summary] = value
   end
 
+  def commentable
+    if association(:topic).loaded? && !topic.nil?
+      topic
+    else
+      super
+    end
+  end
+
   # counter_cache hack
   def increment_comments
     if commentable && commentable.attributes['comments_count']

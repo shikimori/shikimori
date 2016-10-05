@@ -44,20 +44,13 @@ class Abilities::User
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id &&
         comment.user_id == @user.id
-      ) || (
-        comment.user_id == @user.id &&
-        comment.commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
-        @user.club_admin_roles.any? { |role| role.club_id == comment.commentable.linked_id }
-      )
+      ) || can_update_club_comment?(comment, @user)
     end
     can [:destroy], [Comment] do |comment|
       can?(:update, comment) || (
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id
-      ) || (
-        comment.commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
-        @user.club_admin_roles.any? { |role| role.club_id == comment.commentable.linked_id }
-      )
+      ) || can_destroy_club_comment?(comment, @user)
     end
   end
 
@@ -190,5 +183,24 @@ class Abilities::User
     end
     can :manage, Device, user_id: @user.id
     can :read, Genre
+  end
+
+private
+
+  def can_update_club_comment? comment, user
+    commentable = comment.commentable
+
+    comment.user_id == user.id &&
+      comment.commentable_type == Topic.name &&
+      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+  end
+
+  def can_destroy_club_comment? comment, user
+    commentable = comment.commentable
+
+    comment.commentable_type == Topic.name &&
+      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
   end
 end

@@ -5,6 +5,7 @@ private
     Comment
       .with_viewed(user)
       .where(id: tracked_ids)
+      .includes(:topic)
       .select(
         "comments.id, comments.created_at, #{Comment::VIEWED_JOINS_SELECT}"
       )

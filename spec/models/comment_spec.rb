@@ -92,7 +92,7 @@ describe Comment do
 
     describe '#touch_commentable' do
       let(:topic) { create :topic }
-      let(:comment) { build :comment, :with_touch_commentable, commentable: topic }
+      let(:comment) { build :comment, :with_touch_commentable, topic: topic }
 
       before { Timecop.freeze }
       after { Timecop.return }
@@ -105,7 +105,8 @@ describe Comment do
         end
 
         context 'commentable without updated_at' do
-          let(:topic) { create :user, updated_at: 1.day.ago }
+          let(:comment) { build :comment, :with_touch_commentable, commentable: user }
+          let(:user) { create :user, updated_at: 1.day.ago }
           it { expect(topic.updated_at).to eq Time.zone.now }
         end
       end
