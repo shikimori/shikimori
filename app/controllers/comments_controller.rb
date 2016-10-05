@@ -41,7 +41,7 @@ class CommentsController < ShikimoriController
 
     query = topic
       .comments
-      .includes(:user, :commentable)
+      .includes(:user, :topic)
       .offset(from)
       .limit(to)
 
