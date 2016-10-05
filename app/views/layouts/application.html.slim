@@ -47,7 +47,8 @@ html
             });
           .admin_panel
 
-        = render 'application/hot_topics', layout: @layout
+        - unless Rails.env.development? && params[:no_menu]
+          = render 'application/hot_topics', layout: @layout
         div
           = sweep_js_exports do
             = yield
