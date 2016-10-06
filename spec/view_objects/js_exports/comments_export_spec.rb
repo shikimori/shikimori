@@ -30,7 +30,6 @@ describe JsExports::CommentsExport do
     before do
       tracker.send :track, comment_1.id
       tracker.send :track, comment_2.id
-      tracker.export user_1
     end
 
     let(:comment_1) { create :comment, user: user_1 }
@@ -39,39 +38,75 @@ describe JsExports::CommentsExport do
     let(:user_1) { create :user, :day_registered }
     let(:user_2) { create :user }
 
-    # let!(:comment_viewing_1) { create :comment_viewing, viewed: comment_1, user: user_1 }
     let!(:comment_viewing_2) { create :comment_viewing, viewed: comment_2, user: user_2 }
 
-    let(:export_1) { tracker.export user_1 }
-    let(:export_2) { tracker.export user_2 }
+    context 'user 1' do
+      subject { tracker.export user_1 }
 
-    it do
-      expect(export_1).to eq [{
-        id: comment_1.id,
-        is_viewed: true,
-        user_id: comment_1.user_id,
-        can_destroy: true,
-        can_edit: true
-      }, {
-        id: comment_2.id,
-        is_viewed: false,
-        user_id: comment_2.user_id,
-        can_destroy: false,
-        can_edit: false
-      }]
-      expect(export_2).to eq [{
-        id: comment_1.id,
-        is_viewed: false,
-        user_id: comment_1.user_id,
-        can_destroy: false,
-        can_edit: false
-      }, {
-        id: comment_2.id,
-        is_viewed: true,
-        user_id: comment_2.user_id,
-        can_destroy: false,
-        can_edit: false
-      }]
+      it do
+        is_expected.to eq [{
+          id: comment_1.id,
+          is_viewed: true,
+          user_id: comment_1.user_id,
+          can_destroy: true,
+          can_edit: true,
+          can_broadcast: false
+        }, {
+          id: comment_2.id,
+          is_viewed: false,
+          user_id: comment_2.user_id,
+          can_destroy: false,
+          can_edit: false,
+          can_broadcast: false
+        }]
+      end
+
+      context 'club comment for club admin' do
+        let(:comment_2) { create :comment, commentable: club_topic }
+        let(:club_topic) { create :club_topic, linked: club }
+        let(:club) { create :club }
+        let!(:club_role) { create :club_role, :admin, user: user_1, club: club }
+
+        it do
+          is_expected.to eq [{
+            id: comment_1.id,
+            is_viewed: true,
+            user_id: comment_1.user_id,
+            can_destroy: true,
+            can_edit: true,
+            can_broadcast: false
+          }, {
+            id: comment_2.id,
+            is_viewed: false,
+            user_id: comment_2.user_id,
+            can_destroy: true,
+            can_edit: false,
+            can_broadcast: true
+          }]
+        end
+      end
+    end
+
+    context 'user 2' do
+      subject { tracker.export user_2 }
+
+      it do
+        is_expected.to eq [{
+          id: comment_1.id,
+          is_viewed: false,
+          user_id: comment_1.user_id,
+          can_destroy: false,
+          can_edit: false,
+          can_broadcast: false
+        }, {
+          id: comment_2.id,
+          is_viewed: true,
+          user_id: comment_2.user_id,
+          can_destroy: false,
+          can_edit: false,
+          can_broadcast: false
+        }]
+      end
     end
   end
 end

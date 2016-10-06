@@ -52,6 +52,9 @@ class Abilities::User
         comment.commentable_id == @user.id
       ) || can_destroy_club_comment?(comment, @user)
     end
+    can [:broadcast], [Comment] do |comment|
+      can_broadcast_club_comment?(comment, @user)
+    end
   end
 
   def message_abilities
@@ -197,6 +200,14 @@ private
   end
 
   def can_destroy_club_comment? comment, user
+    commentable = comment.commentable
+
+    comment.commentable_type == Topic.name &&
+      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+  end
+
+  def can_broadcast_club_comment? comment, user
     commentable = comment.commentable
 
     comment.commentable_type == Topic.name &&

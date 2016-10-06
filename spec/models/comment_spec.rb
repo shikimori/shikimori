@@ -401,13 +401,15 @@ describe Comment do
         let(:user) { build_stubbed :user, :user }
         it { is_expected.to_not be_able_to :update, comment }
         it { is_expected.to_not be_able_to :destroy, comment }
+        it { is_expected.to_not be_able_to :broadcast, comment }
       end
 
       context 'club admin' do
         let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
-        let(:club_admin_role) { build_stubbed :club_role, club: club, role: :admin }
+        let(:club_admin_role) { build_stubbed :club_role, :admin, club: club }
 
         it { is_expected.to be_able_to :destroy, comment }
+        it { is_expected.to be_able_to :broadcast, comment }
 
         context "another user's comment" do
           it { is_expected.to_not be_able_to :update, comment }

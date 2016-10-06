@@ -1,15 +1,10 @@
 FactoryGirl.define do
   factory :club_role do
     club
-    user
+    user { seed :user }
     role :member
 
-    trait :admin do
-      role :admin
-    end
-
-    trait :member do
-      role :member
-    end
+    trait(:admin) { role :admin }
+    trait(:member) { role :member }
   end
 end
