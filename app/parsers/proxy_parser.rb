@@ -82,13 +82,29 @@ private
 
   # источники проксей
   def sources
-    @sources ||= Sources +
-      [
-        "http://webanetlabs.net/freeproxylist/proxylist_at_"\
-          "#{Date.today.strftime '%d.%m.%Y'}.txt"
-      ]
-      #Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
-      #Nokogiri::HTML(open(ProxyParser::Proxies24Url).read).css('.post-title.entry-title a').map {|v| v.attr('href') }
+    @sources ||= Sources + [webanetlabs] + rebro_weebly + proxy_24
+    #Nokogiri::HTML(open('http://www.italianhack.org/forum/proxy-list-739/').read).css('h3.threadtitle a').map {|v| v.attr :href }
+  end
+
+  def webanetlabs
+    'http://webanetlabs.net/freeproxylist/proxylist_at_'\
+      "#{Date.today.strftime '%d.%m.%Y'}.txt"
+  end
+
+  def rebro_weebly
+    # 20 proxies
+    Nokogiri::HTML(open('http://rebro.weebly.com/txt-lists.html').read)
+      .css('a')
+      .map { |v| v.attr :href }
+      .uniq
+      .select { |v| v =~ /\.txt$/ }
+      .map { |v| 'http://rebro.weebly.com' + v }
+  end
+
+  def proxy_24
+    Nokogiri::HTML(open('http://proxyserverlist-24.blogspot.ru/').read)
+      .css('.post-title.entry-title a')
+      .map { |v| v.attr :href }
   end
 
   def parse_proxies
@@ -105,10 +121,13 @@ private
 
   # http://forum.antichat.ru/thread59009.html
   Sources = [
-    'http://alexa.lr2b.com/proxylist.txt',
-    'http://multiproxy.org/txt_all/proxy.txt',
-    'http://txt.proxyspy.net/proxy.txt',
-    'http://rebro.weebly.com/proxy-list.html'
+    # 'http://alexa.lr2b.com/proxylist.txt',
+    # 'http://multiproxy.org/txt_all/proxy.txt', # 0 of 1526
+    # 'http://txt.proxyspy.net/proxy.txt', # 53 of 202
+    # 'http://rebro.weebly.com/proxy-list.html', # 1 of 22
+    # 'http://www.prime-speed.ru/proxy/free-proxy-list/elite-proxy.php', # 1 of 157
+    # 'http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php', # 1 of 958
+    # 'http://www.prime-speed.ru/proxy/free-proxy-list/anon-elite-proxy.php', # 0 of 354
     #'http://www.cybersyndrome.net/pla.html',
 
     #'http://www.freeproxy.ch/proxy.txt',
