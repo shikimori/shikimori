@@ -4,12 +4,7 @@
     title: 'Комментарии топика'
 
 = render layout: 'topics/page' do |f|
-  - if @topic_view.ignored_topic?
-    = render 'blocks/ignored', ignored: @topic_view.topic, kind: :ignored_topic
-  - elsif @topic_view.ignored_user?
-    = render 'blocks/ignored', ignored: @topic_view.topic, kind: :ignored_user
-  - else
-    = render partial: 'topics/topic',
-      collection: [@topic_view],
-      as: :topic_view,
-      cache: true
+  = render partial: 'topics/topic',
+    collection: [@topic_view],
+    as: :topic_view,
+    cache: true

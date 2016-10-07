@@ -16,10 +16,12 @@ class DynamicElements.Topic extends ShikiEditable
     # data attribute is set in Topics.Tracker
     @model = @$root.data('model') || @_default_model()
 
-    if SHIKI_USER.user_ignored(@model.user_id) ||
-        SHIKI_USER.topic_ignored(@model.id)
-      @$root.remove()
-      return
+    if SHIKI_USER.user_ignored(@model.user_id) || SHIKI_USER.topic_ignored(@model.id)
+      if document.body.id == 'topics_show'
+        @_toggle_ignored true
+      else
+        @$root.remove()
+        return
 
     @$body = @$inner.children('.body')
 
@@ -90,12 +92,7 @@ class DynamicElements.Topic extends ShikiEditable
         else
           SHIKI_USER.unignore_topic result.topic_id
 
-        $(e.target).toggleClass 'selected', result.is_ignored
-        $(e.target).data(method: if result.is_ignored then 'DELETE' else 'POST')
-        @$('.b-anime_status_tag.ignored').toggleClass(
-          'hidden',
-          !result.is_ignored
-        )
+        @_toggle_ignored result.is_ignored
 
     # голосование за/против рецензии
     @$('.footer-vote .vote').on 'ajax:before', ->
@@ -245,6 +242,13 @@ class DynamicElements.Topic extends ShikiEditable
     @on 'faye:comment:marked', (e, data) =>
       e.stopImmediatePropagation()
       $(".b-comment##{data.comment_id}").view().mark(data.mark_kind, data.mark_value)
+
+  # переключение топика в режим игнора/не_игнора
+  _toggle_ignored: (is_ignored) ->
+    $('.item-ignore', @$inner)
+      .toggleClass('selected', is_ignored)
+      .data(method: if is_ignored then 'DELETE' else 'POST')
+    @$('.b-anime_status_tag.ignored').toggleClass 'hidden', !is_ignored
 
   # удаляем уже имеющиеся подгруженные элементы
   _filter_present_entries: ($comments) ->
