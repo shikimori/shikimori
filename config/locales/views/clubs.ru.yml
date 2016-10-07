@@ -21,6 +21,7 @@ ru:
     actions:
       edit_club: *edit_club
       upload_image_title: Также картинки загружать можно, перетаскивая файлы на страницу клуба
+      broadcast: Комментарий-рассылка
       invite_to_club: Пригласить в клуб
       join_club: Вступить в клуб
       leave_club: Уйти из клуба

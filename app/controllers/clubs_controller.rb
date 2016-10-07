@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class ClubsController < ShikimoriController
-  load_and_authorize_resource :club, class: Club
+  load_and_authorize_resource :club, except: :index
+
+  before_action { page_title i18n_i('Club', :other) }
 
   before_action { page_title i18n_i('Club', :other) }
 

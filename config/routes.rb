@@ -457,6 +457,10 @@ Site::Application.routes.draw do
 
       resources :club_roles, only: [:create, :destroy], concerns: [:autocompletable]
       resources :club_invites, only: [:create]
+
+      resource :comments, only: [], module: :clubs do
+        get :broadcast
+      end
     end
 
     resources :club_invites, only: [] do

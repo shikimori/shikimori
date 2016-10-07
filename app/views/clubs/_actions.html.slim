@@ -6,8 +6,12 @@
         li.r-iphone.edit-entry
           a href="#{edit_club_url resource}" = t '.edit_club'
 
+      - if can? :broadcast, resource
+        li.broadcast
+          a href="#{broadcast_club_comments_url resource}" = t '.broadcast'
+
       - if can? :upload, resource
-        li.upload title=t('.upload_image_title')
+        li.upload title="#{t '.upload_image_title'}"
           = form_tag upload_club_url(resource), method: :post, multipart: true do
             span = t 'actions.upload_image'
             input type='file' name='image'

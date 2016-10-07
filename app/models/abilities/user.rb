@@ -113,8 +113,14 @@ class Abilities::User
   end
 
   def club_abilities
-    can [:new, :create, :update], Club do |club|
-      !@user.banned? && @user.day_registered? && (club.owner?(@user) || club.admin?(@user))
+    can [:new, :create], Club do |club|
+      !@user.banned? && @user.day_registered? && club.owner?(@user)
+    end
+    can [:update], Club do |club|
+      !@user.banned? && (club.owner?(@user) || club.admin?(@user))
+    end
+    can :broadcast, Club do |club|
+      !@user.banned? && (club.owner?(@user) || club.admin?(@user))
     end
     can :join, Club do |club|
       !club.joined?(@user) && (

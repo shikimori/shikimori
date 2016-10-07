@@ -20,7 +20,10 @@ class Ability
 
   def define_abilities
     alias_action :current, :read, :users, :comments, :grid, to: :see_contest
-    alias_action :read, :comments, :animes, :mangas, :characters, :members, :images, to: :see_club
+    alias_action(
+      :show, :comments, :animes, :mangas, :characters, :members, :images,
+      to: :see_club
+    )
   end
 
   def guest_restrictions
