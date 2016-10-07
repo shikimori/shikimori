@@ -181,5 +181,27 @@ describe Topic do
         it { is_expected.to be_able_to :manage, topic }
       end
     end
+
+    describe 'club topic' do
+      let(:topic) { build_stubbed :club_topic, linked: club }
+      let(:club) { build_stubbed :club }
+
+      context 'common user' do
+        let(:user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :broadcast, topic }
+      end
+
+      context 'club member' do
+        let(:user) { build_stubbed :user, :user, club_roles: [club_member_role] }
+        let(:club_member_role) { build_stubbed :club_role, :member, club: club }
+        it { is_expected.to_not be_able_to :broadcast, topic }
+      end
+
+      context 'club admin' do
+        let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
+        let(:club_admin_role) { build_stubbed :club_role, :admin, club: club }
+        it { is_expected.to be_able_to :broadcast, topic }
+      end
+    end
   end
 end

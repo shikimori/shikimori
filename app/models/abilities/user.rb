@@ -27,6 +27,9 @@ class Abilities::User
     can [:destroy], [Topic, Topics::NewsTopic.name] do |topic|
       can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
     end
+    can [:broadcast], [Topic] do |topic|
+      can_broadcast_in_club_topic?(topic, @user)
+    end
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
       topic_ignore.user_id == @user.id
     end
@@ -53,7 +56,7 @@ class Abilities::User
       ) || can_destroy_club_comment?(comment, @user)
     end
     can [:broadcast], [Comment] do |comment|
-      can_broadcast_club_comment?(comment, @user)
+      can_broadcast_in_club_topic?(comment.commentable, @user)
     end
   end
 
@@ -207,11 +210,8 @@ private
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
   end
 
-  def can_broadcast_club_comment? comment, user
-    commentable = comment.commentable
-
-    comment.commentable_type == Topic.name &&
-      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+  def can_broadcast_in_club_topic? commentable, user
+    commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
   end
 end

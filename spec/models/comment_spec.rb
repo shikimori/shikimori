@@ -404,6 +404,15 @@ describe Comment do
         it { is_expected.to_not be_able_to :broadcast, comment }
       end
 
+      context 'club member' do
+        let(:user) { build_stubbed :user, :user, club_roles: [club_member_role] }
+        let(:club_member_role) { build_stubbed :club_role, :member, club: club }
+
+        it { is_expected.to_not be_able_to :destroy, comment }
+        it { is_expected.to_not be_able_to :broadcast, comment }
+        it { is_expected.to_not be_able_to :update, comment }
+      end
+
       context 'club admin' do
         let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
         let(:club_admin_role) { build_stubbed :club_role, :admin, club: club }
