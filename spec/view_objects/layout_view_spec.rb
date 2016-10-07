@@ -185,8 +185,12 @@ describe LayoutView do
 
   describe '#hot_topics?' do
     before do
-      allow(view.h).to receive(:params).and_return 'controller' => controller_name
+      allow(view.h).to receive(:params).and_return(
+        controller: controller_name,
+        action: controller_action
+      )
     end
+    let(:controller_action) { 'index' }
 
     context 'dashboards' do
       let(:controller_name) { 'dashboards' }
@@ -195,7 +199,16 @@ describe LayoutView do
 
     context 'topics' do
       let(:controller_name) { 'topics' }
-      it { expect(view).to be_hot_topics }
+
+      context 'index' do
+        let(:controller_action) { 'index' }
+        it { expect(view).to be_hot_topics }
+      end
+
+      context 'show' do
+        let(:controller_action) { 'show' }
+        it { expect(view).to_not be_hot_topics }
+      end
     end
 
     context 'animes' do

@@ -47,7 +47,8 @@ class LayoutView < ViewObjectBase
   end
 
   def hot_topics?
-    %w(dashboards topics).include? h.params['controller']
+    h.params[:controller] == 'dashboards' ||
+      (h.params[:controller] == 'topics' && h.params[:action] == 'index')
   end
 
   def hot_topics
