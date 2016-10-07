@@ -67,12 +67,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "eeec3208c90b7b48e804919d0d2d4a41",
-      "css": "upload",
-      "code": 59404,
-      "src": "fontawesome"
-    },
-    {
       "uid": "7034e4d22866af82bef811f52fb1ba46",
       "css": "code",
       "code": 59403,
@@ -497,6 +491,18 @@
       "css": "th-list-1",
       "code": 59406,
       "src": "websymbols"
+    },
+    {
+      "uid": "31951fbb9820ed0690f675b3d495c8da",
+      "css": "chat-empty",
+      "code": 59447,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "eeec3208c90b7b48e804919d0d2d4a41",
+      "css": "upload",
+      "code": 59404,
+      "src": "fontawesome"
     }
   ]
 }
