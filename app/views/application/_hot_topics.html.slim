@@ -55,15 +55,11 @@
     - layout.hot_topics.each do |topic_view|
       .topic
         a.b-link.b-tooltipped.unprocessed[
-          class="#{'with-author' unless topic_view.user.bot?}"
           href="#{topic_view.urls.topic_url}"
           title="#{topic_view.topic_title}"
           data-direction='bottom'
         ]
-          - unless topic_view.user.bot?
-            img[
-              src="#{topic_view.user.avatar_url 16}"
-              srcset="#{topic_view.user.avatar_url 32} 2x"
-              alt="#{topic_view.user.nickname}"
-            ]
+          span.poster[
+            style="background-image: url(#{topic_view.poster false})"
+          ]
           = topic_view.poster_title_html
