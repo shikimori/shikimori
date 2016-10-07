@@ -50,40 +50,13 @@ describe JsExports::CommentsExport do
           user_id: comment_1.user_id,
           can_destroy: true,
           can_edit: true,
-          can_broadcast: false
         }, {
           id: comment_2.id,
           is_viewed: false,
           user_id: comment_2.user_id,
           can_destroy: false,
           can_edit: false,
-          can_broadcast: false
         }]
-      end
-
-      context 'club comment for club admin' do
-        let(:comment_2) { create :comment, commentable: club_topic }
-        let(:club_topic) { create :club_topic, linked: club }
-        let(:club) { create :club }
-        let!(:club_role) { create :club_role, :admin, user: user_1, club: club }
-
-        it do
-          is_expected.to eq [{
-            id: comment_1.id,
-            is_viewed: true,
-            user_id: comment_1.user_id,
-            can_destroy: true,
-            can_edit: true,
-            can_broadcast: false
-          }, {
-            id: comment_2.id,
-            is_viewed: false,
-            user_id: comment_2.user_id,
-            can_destroy: true,
-            can_edit: false,
-            can_broadcast: true
-          }]
-        end
       end
     end
 
@@ -97,14 +70,12 @@ describe JsExports::CommentsExport do
           user_id: comment_1.user_id,
           can_destroy: false,
           can_edit: false,
-          can_broadcast: false
         }, {
           id: comment_2.id,
           is_viewed: true,
           user_id: comment_2.user_id,
           can_destroy: false,
           can_edit: false,
-          can_broadcast: false
         }]
       end
     end

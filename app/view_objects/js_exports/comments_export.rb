@@ -18,16 +18,9 @@ private
     {
       can_destroy: ability.can?(:destroy, comment),
       can_edit: ability.can?(:edit, comment),
-      can_broadcast: can_broadcast?(comment, ability),
       id: comment.id,
       is_viewed: comment.viewed?,
       user_id: comment.user_id
     }
-  end
-
-  def can_broadcast? comment, ability
-    comment.commentable_type == Topic.name &&
-      comment.commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
-      ability.can?(:broadcast, comment)
   end
 end
