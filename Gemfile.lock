@@ -36,10 +36,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/cancancan.git
-  revision: 18331636f2fcdd6d26358a2a338b7438c7191c5c
+  revision: 0b4918d400882348d02bec7bd032f2a2d201914a
   branch: master
   specs:
-    cancancan (1.10.1)
+    cancancan (1.15.0)
 
 GIT
   remote: git://github.com/morr/simple_form-magic_submit.git
@@ -801,4 +801,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.13.0
+   1.13.2
