@@ -3,12 +3,13 @@
 class ClubsController < ShikimoriController
   load_and_authorize_resource :club, class: Club
 
+  before_action { page_title i18n_i('Club', :other) }
+
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
   before_action :restrict_domain, except: [:index, :create, :new]
 
   before_action :set_breadcrumbs
-  before_action { page_title i18n_i('Club', :other) }
 
   def index
     noindex

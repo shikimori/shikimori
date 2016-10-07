@@ -1,6 +1,4 @@
 class AnimesController < DbEntriesController
-  before_action -> { page_title resource_klass.model_name.human }
-
   before_action :set_breadcrumbs, if: -> { @resource }
   before_action :resource_redirect, if: -> { @resource }
 

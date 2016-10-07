@@ -1,6 +1,8 @@
 class DbEntriesController < ShikimoriController
   before_action :authenticate_user!, only: [:edit, :edit_field, :update]
 
+  # it always should be executed before :fetch_resource
+  before_action :resource_klass_page_title, if: :resource_id
   before_action :fetch_resource, if: :resource_id
 
   def tooltip
@@ -43,6 +45,10 @@ class DbEntriesController < ShikimoriController
   end
 
 private
+
+  def resource_klass_page_title
+    page_title resource_klass.model_name.human
+  end
 
   def significant_fields
     @resource.object.class::SIGNIFICANT_FIELDS

@@ -1,11 +1,12 @@
 class ContestsController < ShikimoriController
   load_and_authorize_resource
 
+  before_action { page_title i18n_t :contests }
+
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: -> { @resource }
 
   before_action :set_breadcrumbs
-  before_action { page_title i18n_t :contests }
 
   def current
     if user_signed_in?

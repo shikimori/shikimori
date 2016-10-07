@@ -2,8 +2,6 @@
 class CharactersController < PeopleController
   skip_before_action :role_redirect
 
-  before_action { page_title i18n_i('Character', :other) }
-
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,
     #cache_path: proc {
