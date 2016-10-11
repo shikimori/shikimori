@@ -66,7 +66,7 @@ class UserLibraryView < ViewObjectBase
       UserListQuery.new(
         klass,
         user,
-        h.params.merge(with_censored: true, order: sort_order)
+        h.params.merge(censored: false, order: sort_order)
       ).fetch
     end
   end

@@ -74,7 +74,10 @@ class Api::V1::AnimesController < Api::V1::ApiController
   def search
     @collection = AniMangaQuery.new(
       Anime,
-      { search: params[:q] },
+      {
+        search: params[:q],
+        censored: (params[:censored] == 'true' if params[:censored].present?)
+      },
       current_user
     ).complete
     respond_with @collection, each_serializer: AnimeSerializer

@@ -19,6 +19,7 @@ describe Api::V1::MangasController, :show_in_doc do
         search: 'Te',
         order: 'ranked',
         mylist: '1',
+        censored: 'false',
         format: :json
     end
 
@@ -93,7 +94,7 @@ describe Api::V1::MangasController, :show_in_doc do
   describe '#search' do
     let!(:manga_1) { create :manga, name: 'asdf' }
     let!(:manga_2) { create :manga, name: 'zxcv' }
-    before { get :search, q: 'asd', format: :json }
+    before { get :search, q: 'asd', censored: true, format: :json }
 
     it do
       expect(collection).to have(1).item

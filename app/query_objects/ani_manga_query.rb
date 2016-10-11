@@ -77,6 +77,7 @@ class AniMangaQuery
 
   def complete
     search!
+    censored!
     search_order(@query.limit AUTOCOMPLETE_LIMIT).reverse
   end
 
@@ -103,8 +104,8 @@ private
     @search.present?
   end
 
-  def uncensored?
-    @params[:with_censored].present?
+  def censored?
+    @params[:censored] == true
   end
 
   # фильтр по типам
@@ -169,7 +170,10 @@ private
     yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
-    unless rx || hentai || yaoi || yuri || mylist? || userlist? || uncensored? || search? || @publisher || @studio
+    if censored? || !(
+      rx || hentai || yaoi || yuri || mylist? || userlist? || search? ||
+      @publisher || @studio
+    )
       @query = @query.where(censored: false)
     end
   end

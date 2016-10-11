@@ -9,7 +9,7 @@ class Api::V1::IgnoresController < Api::V1::ApiController
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :DELETE, '/ignores/:id', 'Destroy an ignore', deprecated: true
+  api :DELETE, '/ignores/:id', 'Destroy an ignore'
   def destroy
     @user = User.find(params[:id])
     current_user.ignored_users.delete(@user)

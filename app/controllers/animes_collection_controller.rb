@@ -16,8 +16,8 @@ class AnimesCollectionController < ShikimoriController
     build_background
 
     unless shikimori?
-      params[:is_adult] = AnimeOnlineDomain::adult_host?(request)
-      params[:with_censored] = params[:is_adult]
+      params[:is_adult] = AnimeOnlineDomain.adult_host?(request)
+      params[:censored] = !params[:is_adult]
     end
 
     if params[:search]

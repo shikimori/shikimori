@@ -100,8 +100,8 @@ describe AniMangaQuery do
         it 'userlist' do
           expect(fetch userlist: true).to have(3).items
         end
-        it 'with_censored' do
-          expect(fetch with_censored: true).to have(3).items
+        it 'censored' do
+          expect(fetch censored: true).to have(1).items
         end
         it 'search' do
           allow_any_instance_of(AniMangaQuery).to receive :search!

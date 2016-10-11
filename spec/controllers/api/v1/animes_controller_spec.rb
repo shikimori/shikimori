@@ -30,6 +30,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         order: 'ranked',
         mylist: '1',
         score: '6',
+        censored: 'false',
         format: :json
     end
 
@@ -130,7 +131,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#search' do
     let!(:anime_1) { create :anime, name: 'asdf' }
     let!(:anime_2) { create :anime, name: 'zxcv' }
-    before { get :search, q: 'asd', format: :json }
+    before { get :search, q: 'asd', censored: true, format: :json }
 
     it do
       expect(collection).to have(1).item
