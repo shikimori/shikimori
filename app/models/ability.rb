@@ -1,5 +1,6 @@
 class Ability
   include CanCan::Ability
+  prepend Draper::CanCanCan
 
   def initialize user
     define_abilities

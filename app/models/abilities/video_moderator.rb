@@ -1,5 +1,6 @@
 class Abilities::VideoModerator
   include CanCan::Ability
+  prepend Draper::CanCanCan
 
   def initialize user
     can :manage, AnimeVideoReport
