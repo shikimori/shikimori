@@ -17,5 +17,18 @@ class Comments::Broadcast
 private
 
   def build_messages comment
+    comment.commentable.linked
+      .members
+      .where.not(id: comment.user_id)
+      .map { |user| build_message comment, user }
+  end
+
+  def build_message comment, user
+    Message.new(
+      from: comment.user,
+      to: user,
+      kind: MessageType::ClubBroadcast,
+      linked: comment
+    )
   end
 end
