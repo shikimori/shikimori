@@ -44,10 +44,13 @@ describe Api::V1::CommentsController do
         is_summary: true
       }
     end
+    let(:is_broadcast) { false }
+    before { allow(Comments::Broadcast).to receive :perform_async }
 
-    before do
+    subject! do
       post :create,
         frontend: is_frontend,
+        broadcast: is_broadcast,
         comment: params,
         format: :json
     end
@@ -58,6 +61,20 @@ describe Api::V1::CommentsController do
       context 'frontend' do
         let(:is_frontend) { true }
         it_behaves_like :successful_resource_change, :frontend
+      end
+
+      context 'broadcast' do
+        let(:is_frontend) { true }
+        let(:is_broadcast) { true }
+
+        context 'can broadcast' do
+          let(:user) { create :user, :admin }
+          it { expect(Comments::Broadcast).to have_received(:perform_async).with resource.id }
+        end
+
+        context 'cannot broadcast' do
+          it { expect(Comments::Broadcast).to_not have_received :perform_async }
+        end
       end
 
       context 'api', :show_in_doc do
@@ -85,7 +102,7 @@ describe Api::V1::CommentsController do
     include_context :authenticated, :user
     let(:params) { { body: body } }
 
-    before do
+    subject! do
       patch :update,
         id: comment.id,
         frontend: is_frontend,
