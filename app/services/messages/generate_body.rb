@@ -21,9 +21,9 @@ private
   def html_body
     message.html_body
   end
-  alias_method :private, :html_body
-  alias_method :notification, :html_body
-  alias_method :nickname_changed, :html_body
+  alias private html_body
+  alias notification html_body
+  alias nickname_changed html_body
 
   def anons
     i18n_t 'anons', linked_name: linked.linked.name
@@ -47,7 +47,7 @@ private
 
   def profile_commented
     profile_url = UrlGenerator.instance.profile_url message.to
-    i18n_t(".profile_comment.#{gender}", profile_url: profile_url)
+    i18n_t ".profile_comment.#{gender}", profile_url: profile_url
   end
 
   def friend_request
@@ -101,9 +101,12 @@ private
     )
   end
 
+  # rubocop:disable AbcSize
+  # rubocop:disable MethodLength
   def version_rejected
     if message.body.present?
-      BbCodeFormatter.instance.format_comment i18n_t('version_rejected_with_reason',
+      BbCodeFormatter.instance.format_comment i18n_t(
+        'version_rejected_with_reason',
         version_id: linked.id,
         item_type: linked.item_type.underscore,
         item_id: linked.item_id,
@@ -111,13 +114,16 @@ private
         reason: message.body
       )
     else
-      BbCodeFormatter.instance.format_comment i18n_t('version_rejected',
+      BbCodeFormatter.instance.format_comment i18n_t(
+        'version_rejected',
         version_id: linked.id,
         item_type: linked.item_type.underscore,
         item_id: linked.item_id
       )
     end
   end
+  # rubocop:enable MethodLength
+  # rubocop:enable AbcSize
 
   def contest_finished
     BbCodeFormatter.instance.format_comment(
@@ -125,6 +131,12 @@ private
     )
   end
 
+  def club_broadcast
+    BbCodeFormatter.instance.format_comment message.linked.body
+  end
+
+  # rubocop:disable AbcSize
+  # rubocop:disable MethodLength
   def linked_name
     if linked.is_a? Comment
       Messages::MentionSource.call(
@@ -142,4 +154,6 @@ private
       Messages::MentionSource.call message.linked, nil
     end
   end
+  # rubocop:enable MethodLength
+  # rubocop:enable AbcSize
 end

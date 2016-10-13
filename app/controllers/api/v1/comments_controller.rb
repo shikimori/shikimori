@@ -44,10 +44,15 @@ class Api::V1::CommentsController < Api::V1::ApiController
     param :is_summary, :bool, required: false
   end
   param :frontend, :bool
+  param :broadcast, :bool
   def create
-    @resource = Comment::Create.call(faye, create_params, locale_from_domain)
+    @resource = Comment::Create.call faye, create_params, locale_from_domain
 
-    if @resource.errors.blank? && frontent_request?
+    if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
+      Comments::Broadcast.perform_async @resource.id
+    end
+
+    if @resource.persisted? && frontent_request?
       render :comment
     else
       respond_with @resource.decorate

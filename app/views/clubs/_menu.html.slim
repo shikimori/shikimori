@@ -36,9 +36,13 @@
       span.linkeable data-href="#{members_club_url resource}"
         = i18n_i 'member', :other
     .cc.members
-      = render resource.members, content_by: :avatar
+      = render partial: 'users/user',
+        collection: resource.members,
+        locals: { content_by: :avatar }
 
   - if resource.admins.any?
     .subheadline.m10 = i18n_i 'administration'
     .cc-4.admin
-      = render resource.admins, content_by: :named_avatar
+      = render partial: 'users/user',
+        collection: resource.admins,
+        locals: { content_by: :named_avatar }

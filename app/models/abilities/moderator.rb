@@ -1,5 +1,6 @@
 class Abilities::Moderator
   include CanCan::Ability
+  prepend Draper::CanCanCan
 
   def initialize user
     can :manage, [Comment]

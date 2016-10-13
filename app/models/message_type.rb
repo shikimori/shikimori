@@ -35,6 +35,7 @@ class MessageType
   VersionRejected = 'VersionRejected'
   # уведомление о завершении опроса
   ContestFinished = 'ContestFinished'
+  ClubBroadcast = 'ClubBroadcast'
 
   RESPONSE_REQUIRED = [FriendRequest, ClubRequest]
   ANIME_RELATED = [Anons, Ongoing, Released, Episode]

@@ -7,7 +7,8 @@ class MessagesQuery < SimpleQueryBase
     MessageType::Episode,
     MessageType::Released,
     MessageType::SiteNews,
-    MessageType::ContestFinished
+    MessageType::ContestFinished,
+    MessageType::ClubBroadcast
   ]
   NOTIFICATION_KINDS = [
     MessageType::FriendRequest,

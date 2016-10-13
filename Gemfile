@@ -75,6 +75,7 @@ gem 'meta-tags'
 gem 'enumerize'
 gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
+gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
 
 gem 'unicode' # для downcase русских слов
 gem 'icalendar' # для аниме календраря
