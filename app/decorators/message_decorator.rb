@@ -27,7 +27,7 @@ class MessageDecorator < BaseDecorator
     elsif kind == MessageType::ContestFinished
       h.contest_url linked
     elsif kind == MessageType::ClubBroadcast
-      h.club_url linked.commentable.linked
+      h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
     elsif MessagesQuery::NEWS_KINDS.include?(kind)
       UrlGenerator.instance.topic_url(linked)
     else
