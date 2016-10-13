@@ -1,0 +1,82 @@
+aside.buttons
+  .main-controls
+    - if message.kind == MessageType::FriendRequest
+      - if message.read
+        span.item-delete title="#{t 'actions.delete'}"
+      - else
+        span.item-request-confirm[
+          data-remote='true'
+          data-method='post'
+          data-type='json'
+          action="#{api_friend_url message.from_id}"
+          title="#{t 'actions.accept'}"
+        ]
+        span.item-request-reject.friend-request title="#{t 'actions.reject'}"
+        span.item-delete[
+          title="#{t 'actions.delete'}"
+          style="#{'display: none' unless message.read}"
+        ]
+
+    - elsif message.kind == MessageType::ClubRequest
+      - if message.read
+        span.item-delete title="#{t 'actions.delete'}"
+      - else
+        span.item-request-confirm[
+          title="#{t 'actions.accept'}"
+          data-remote='true'
+          data-method='post'
+          data-type='json'
+          action="#{accept_club_invite_url message.linked}"
+        ]
+        span.item-request-reject[
+          data-remote='true'
+          data-method='post'
+          data-type='json'
+          action="#{reject_club_invite_url message.linked}"
+          title="#{t 'actions.reject'}"
+        ]
+        span.item-delete[
+          title="#{t 'actions.delete'}"
+          style="#{'display: none' unless message.read}"
+        ]
+
+    - else
+      - if message.kind == MessageType::Private
+        span.item-quote title="#{t 'actions.quote'}"
+        - if local_assigns[:reply_as_link]
+          a.item-reply[
+            href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}"
+            title="#{t 'actions.reply'}"
+          ]
+        - else
+          span.item-reply title="#{t 'actions.reply'}"
+
+        - if can? :edit, message
+          span.item-edit[
+            data-action="#{edit_message_url message}"
+            data-type='html'
+            data-remote='true'
+            title="#{t 'actions.edit'}"
+          ]
+
+      - elsif message.kind == MessageType::QuotedByUser
+        a.item-reply[
+          href="#{reply_comment_url message.linked}"
+          title="#{t 'actions.reply'}"
+        ]
+
+      - if can? :destroy, message
+        span.item-delete title="#{t 'actions.delete'}"
+
+    span.item-cancel title="#{t 'actions.cancel'}"
+
+  - if can? :destroy, message
+    .delete-controls
+      span.item-delete-confirm[
+        title="#{t 'actions.delete'}"
+        action="#{api_message_url message}"
+        data-type='json'
+        data-remote='true'
+        data-method='delete'
+      ]
+      span.item-delete-cancel title="#{t 'actions.cancel'}"

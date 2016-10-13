@@ -225,5 +225,15 @@ describe Messages::GenerateBody do
         )
       end
     end
+
+    context 'club_broadcast', :focus do
+      let(:kind) { MessageType::ClubBroadcast }
+      let(:linked) { create :comment, commentable: club.topics.first, body: '[b]z[/b]' }
+      let(:club) { create :club, :with_topics }
+
+      it do
+        is_expected.to eq '<strong>z</strong>'
+      end
+    end
   end
 end
