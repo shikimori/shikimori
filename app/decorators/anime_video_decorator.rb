@@ -1,4 +1,13 @@
 class AnimeVideoDecorator < BaseDecorator
+  HOSTINGS = {
+    'vk.com' => '_' * 1,
+    'sovetromantica.com' => '_' * 2,
+    'smotret-anime.ru' => '_' * 3,
+    'myvi.ru' => '_' * 4,
+    'sibnet.ru' => '_' * 5,
+    'rutube.ru' => '_' * 6,
+  }
+
   # NOTE: используется в ./app/views/versions/_anime_video.html.slim
   def name
     "episode ##{episode} #{anime.name}"
@@ -84,7 +93,7 @@ class AnimeVideoDecorator < BaseDecorator
   def sort_criteria
     [
       AnimeVideo.kind.values.index(kind),
-      vk? ? '' : hosting,
+      HOSTINGS[hosting] || hosting,
       author_name || '',
       AnimeVideo.language.values.index(language),
       AnimeVideo.quality.values.index(quality),

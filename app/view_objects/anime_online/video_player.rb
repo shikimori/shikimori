@@ -120,7 +120,7 @@ class AnimeOnline::VideoPlayer
     videos
       .map(&:hosting)
       .uniq
-      .sort_by { |h| h == 'vk.com' ? '' : h }
+      .sort_by { |hosting| AnimeVideoDecorator::HOSTINGS[hosting] || hosting }
       .join(', ')
   end
 
