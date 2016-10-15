@@ -4,7 +4,7 @@ class Comment::Broadcast < ServiceObjectBase
   BB_CODE = '[broadcast]'
 
   def call
-    comment.update body: "#{comment.body}\n#{BB_CODE}"
+    comment.update_column :body, "#{comment.body}\n#{BB_CODE}"
     Comments::BroadcastNotifications.perform_async comment.id
   end
 end

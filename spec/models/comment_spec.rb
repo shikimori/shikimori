@@ -27,10 +27,10 @@ describe Comment do
       it { expect(comment).to receive :clean }
     end
 
-    describe '#forbid_ban_change' do
+    describe '#forbid_tag_change' do
       let(:comment) { build :comment }
       after { comment.save }
-      it { expect(comment).to receive :forbid_ban_change }
+      it { expect(comment).to receive :forbid_tag_change }
     end
 
     describe '#check_access' do
@@ -224,12 +224,30 @@ describe Comment do
       end
     end
 
-    describe '#forbid_ban_change' do
-      subject! { build :comment, body: '[ban=1]' }
-      before { subject.valid? }
-      its(:valid?) { is_expected.to be_falsy }
+    describe '#forbid_tag_change' do
+      let(:comment) { build :comment, body: body }
+      subject! { comment.valid? }
 
-      it { expect(subject.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator') }
+      context 'no forbidden tags' do
+        let(:body) { 'zxc' }
+        it { expect(comment).to be_valid }
+      end
+
+      context '[ban]' do
+        let(:body) { '[ban=1]' }
+        it do
+          expect(comment).to_not be_valid
+          expect(comment.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+        end
+      end
+
+      context '[broadcast]' do
+        let(:body) { '[broadcast]' }
+        it do
+          expect(comment).to_not be_valid
+          expect(comment.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+        end
+      end
     end
 
     describe '#allowed_summary?' do

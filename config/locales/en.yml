@@ -202,7 +202,7 @@ en:
         invalid_transition: cannot transition
       models:
         comments:
-          not_a_moderator: 'Cannot touch [ban] tags'
+          not_a_moderator: 'Cannot touch [ban] or [broadcast] tags'
           not_a_club_member: Join the club to leave comments
           in_club_black_list: You're banned in this club. Commenting is disabled
         messages:

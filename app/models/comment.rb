@@ -32,7 +32,7 @@ class Comment < ActiveRecord::Base
 
   # callbacks
   before_validation :clean
-  before_validation :forbid_ban_change
+  before_validation :forbid_tag_change
 
   before_create :check_access
   before_create :cancel_summary
@@ -237,13 +237,15 @@ class Comment < ActiveRecord::Base
   end
 
   # запрет на изменение информации о бане
-  def forbid_ban_change
-    if changes['body']
-      prior_ban = (changes['body'].first || '').match(/(\[ban=\d+\])/).try :[], 1
-      current_ban = (changes['body'].last || '').match(/(\[ban=\d+\])/).try :[], 1
+  def forbid_tag_change
+    return unless changes['body']
 
-      prior_count = (changes['body'].first || '').scan(/(\[ban=\d+\])/).size
-      current_count = (changes['body'].last || '').scan(/(\[ban=\d+\])/).size
+    [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
+      prior_ban = (changes['body'].first || '').match(tag).try :[], 1
+      current_ban = (changes['body'].last || '').match(tag).try :[], 1
+
+      prior_count = (changes['body'].first || '').scan(tag).size
+      current_count = (changes['body'].last || '').scan(tag).size
 
       if prior_ban != current_ban || prior_count != current_count
         errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')

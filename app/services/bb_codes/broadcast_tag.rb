@@ -2,7 +2,6 @@ class BbCodes::BroadcastTag
   include Singleton
 
   REGEXP = /
-    (\n|<br>)?
     \[broadcast\]
   /mix
 
