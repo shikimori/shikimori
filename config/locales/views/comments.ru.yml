@@ -1,5 +1,7 @@
 ru:
   comments:
+    comment:
+      broadcast: рассылка
     show:
       no_bans: Нет банов
       no_abuse_requests: Нет жалоб

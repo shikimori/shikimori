@@ -3,11 +3,7 @@ class CommentDecorator < Draper::Decorator
   prepend ActiveCacher.instance
   delegate_all
 
-  instance_cache :html_body, :replies, :reply_comments_view
-
-  def can_be_edited?
-    h.can? :edit, object
-  end
+  instance_cache :html_body
 
   def html_body
     if persisted?
@@ -17,5 +13,9 @@ class CommentDecorator < Draper::Decorator
     else
       object.html_body
     end
+  end
+
+  def broadcast?
+    object.body.include? Comment::Broadcast::BB_CODE
   end
 end

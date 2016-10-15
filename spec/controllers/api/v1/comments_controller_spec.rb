@@ -45,7 +45,7 @@ describe Api::V1::CommentsController do
       }
     end
     let(:is_broadcast) { false }
-    before { allow(Comments::Broadcast).to receive :perform_async }
+    before { allow(Comment::Broadcast).to receive :call }
 
     subject! do
       post :create,
@@ -69,11 +69,11 @@ describe Api::V1::CommentsController do
 
         context 'can broadcast' do
           let(:user) { create :user, :admin }
-          it { expect(Comments::Broadcast).to have_received(:perform_async).with resource.id }
+          it { expect(Comment::Broadcast).to have_received(:call).with resource }
         end
 
         context 'cannot broadcast' do
-          it { expect(Comments::Broadcast).to_not have_received :perform_async }
+          it { expect(Comment::Broadcast).to_not have_received :call }
         end
       end
 

@@ -1,5 +1,7 @@
 en:
   comments:
+    comment:
+      broadcast: broadcast
     show:
       no_bans: No bans
       no_abuse_requests: No abuse requests

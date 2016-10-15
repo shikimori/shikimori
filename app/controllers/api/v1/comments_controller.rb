@@ -49,7 +49,7 @@ class Api::V1::CommentsController < Api::V1::ApiController
     @resource = Comment::Create.call faye, create_params, locale_from_domain
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
-      Comments::Broadcast.perform_async @resource.id
+      Comment::Broadcast.call @resource
     end
 
     if @resource.persisted? && frontent_request?

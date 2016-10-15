@@ -1,9 +1,13 @@
-describe Comments::Broadcast do
-  let(:worker) { Comments::Broadcast.new }
+describe Comments::BroadcastNotifications do
+  let(:worker) { Comments::BroadcastNotifications.new }
 
   describe '#perform' do
     let!(:club) { create :club, :with_topics }
-    let!(:comment) { create :comment, user: user_1, commentable: club.topics.first }
+    let!(:comment) do
+      create :comment,
+        user: user_1,
+        commentable: club.topics.first
+    end
 
     let!(:user_1) { create :user }
     let!(:user_2) { create :user }

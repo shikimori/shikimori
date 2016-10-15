@@ -1,4 +1,4 @@
-class Comments::Broadcast
+class Comments::BroadcastNotifications
   include Sidekiq::Worker
 
   sidekiq_options unique: :until_executed, dead: false

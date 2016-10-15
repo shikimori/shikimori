@@ -37,12 +37,15 @@
           data-type="json"
           data-remote="true"
         ]
+        - if comment.respond_to?(:broadcast?) && comment.broadcast?
+          .b-broadcast_marker data-text="#{t '.broadcast'}"
         .b-new_marker data-text="#{t 'markers.new'}"
 
       aside.moderation-ban
       = render 'comments/buttons', comment: comment
 
-    / пользователя может не быть при предпросмотре описания какой-либо другой сущности, кроме комментария
+    / пользователя может не быть при предпросмотре описания какой-либо
+    / другой сущности, кроме комментария
     - if comment.user
       header
         span.linkeable[
