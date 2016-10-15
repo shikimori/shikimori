@@ -5,8 +5,8 @@ describe Club do
     it { is_expected.to have_many :member_roles }
     it { is_expected.to have_many :members }
 
-    #it { is_expected.to have_many :moderator_roles }
-    #it { is_expected.to have_many :moderators }
+    # it { is_expected.to have_many :moderator_roles }
+    # it { is_expected.to have_many :moderators }
 
     it { is_expected.to have_many :admin_roles }
     it { is_expected.to have_many :admins }
@@ -90,7 +90,7 @@ describe Club do
       let(:user) { build_stubbed :user }
       subject { club.joined? user }
 
-      context "owner" do
+      context 'owner' do
         let(:club) { build_stubbed :club, owner: user }
         it { is_expected.to be false }
       end
@@ -100,7 +100,7 @@ describe Club do
         it { is_expected.to be true }
       end
 
-      context "not a member" do
+      context 'not a member' do
         it { is_expected.to be false }
       end
     end
@@ -156,7 +156,7 @@ describe Club do
     end
   end
 
-  describe 'permissions', :focus do
+  describe 'permissions' do
     let(:club) { build_stubbed :club, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user, :day_registered }
     let(:join_policy) { :free_join }
