@@ -43,6 +43,13 @@ describe Club do
   describe 'instance methods' do
     let(:user) { create :user }
 
+    describe '#nickname=' do
+      let(:club) { build :club, name: name }
+      let(:name) { '#[test]%&?+@' }
+
+      it { expect(club.name).to eq FixName.call(name) }
+    end
+
     describe '#ban' do
       let(:user) { create :user }
       let(:club) { create :club }

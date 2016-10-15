@@ -70,6 +70,10 @@ class Club < ActiveRecord::Base
     "#{id}-#{name.permalinked}"
   end
 
+  def name= value
+    super FixName.call(value)
+  end
+
   def joined? user
     member_role(user).present?
   end
