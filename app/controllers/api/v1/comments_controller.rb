@@ -1,4 +1,5 @@
 class Api::V1::CommentsController < Api::V1::ApiController
+  serialization_scope :view_context
   respond_to :json
 
   load_and_authorize_resource only: [:create, :update, :destroy]

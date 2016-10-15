@@ -10,4 +10,8 @@ class CommentSerializer < ActiveModel::Serializer
   def html_body
     object.html_body.gsub(%r{(?<!:)//(?=\w)}, 'http://')
   end
+
+  def can_be_edited?
+    view_context.can? :edit, object
+  end
 end
