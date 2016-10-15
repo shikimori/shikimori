@@ -15,7 +15,9 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_videos
-    videos[current_episode]&.map(&:decorate)&.sort_by(&:sort_criteria)
+    AnimeOnline::FilterSovetRomantica.call(
+      videos[current_episode]&.map(&:decorate)&.sort_by(&:sort_criteria)
+    )
   end
 
   def first_episode?
