@@ -1,6 +1,8 @@
 class VideoExtractor::BaseExtractor
   attr_reader :url
 
+  ALLOWED_EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout]
+
   def initialize url
     @url = url if URI.parse url
   rescue
@@ -8,11 +10,14 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch
-    Retryable.retryable tries: 2, on: [Errno::ECONNRESET, Net::ReadTimeout], sleep: 1 do
-      VideoData.new hosting, image_url, player_url if valid_url? && opengraph_page?
+    Retryable.retryable tries: 2, on: ALLOWED_EXCEPTIONS, sleep: 1 do
+      if valid_url? && opengraph_page?
+        VideoData.new hosting, image_url, player_url
+      end
     end
 
-  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError, SocketError, TypeError, Net::OpenTimeout
+  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError,
+      SocketError, TypeError, Net::OpenTimeout => e
   end
 
   def hosting

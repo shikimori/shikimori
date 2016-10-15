@@ -236,5 +236,15 @@ describe VideoExtractor::UrlExtractor do
       let(:html) { 'http://play.aniland.org/2147401883?player=4' }
       it { is_expected.to eq '//play.aniland.org/2147401883?player=8' }
     end
+
+    describe 'sovet romantica embed url' do
+      let(:html) { 'https://sovetromantica.com/embed/episode_116_12-subtitles' }
+      it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
+    end
+
+    describe 'sovet romantica full url' do
+      let(:html) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-subtitles' }
+      it { is_expected.to eq '//sovetromantica.com/embed/episode_116_12-subtitles' }
+    end
   end
 end

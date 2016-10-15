@@ -2,14 +2,23 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
   PARAM = /[^" ><&\n]+/.source
-  SMOTRET_ANIME_REGEXP = %r(
+  SMOTRET_ANIME_REGEXP = %r{
     #{HTTP}smotret-anime.ru
       (?:
         /catalog/[\w-]+/[\w-]+/[\w-]+?-(?<id>\d+)
         |
         /translations/embed/(?<id>\d+)
       )
-  )mix
+  }mix
+  SOVET_ROMANTICA_REGEXP = %r{
+    #{HTTP}sovetromantica.com
+      (?:
+        /embed/episode_(?<anime_id>\d+)_(?<id>\d+-\w+)
+        |
+        /anime/(?<anime_id>\d+)[\w-]+
+          /episode_(?<id>\d+-\w+)
+      )
+  }mix
 
   pattr_initialize :content
 
@@ -98,6 +107,9 @@ private
       "http://rutube.ru/play/embed/#{$1}"
     elsif html =~ %r{#{HTTP}play.aniland.org/(\w+)}
       "http://play.aniland.org/#{$1}?player=8"
+    elsif html =~ SOVET_ROMANTICA_REGEXP
+      'https://sovetromantica.com/embed/episode_'\
+        "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
 
     # elsif html =~ %r{(?:https?:)?//animeonline.su/player/videofiles}
       # puts 'animeonline.su skipped' unless Rails.env.test?
