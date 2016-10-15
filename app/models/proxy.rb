@@ -254,19 +254,21 @@ class Proxy < ActiveRecord::Base
       )
     end
 
-    def user_agent url
-      if url =~ /myanimelist.net/
-        'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
-      else
-        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-      end
+    def user_agent _url
+      'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+
+      #if url =~ /myanimelist.net/
+      #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
+      #else
+      #  'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+      #end
     end
 
     def cookie url
       if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
         %w(
-          MALHLOGSESSID=b3895a92da3effb0657fe8f2ea847704;
-          MALSESSIONID=43m112gmdc17do929chqfcf194;
+          MALHLOGSESSID=0599e043a19f3593ed8f6699bd881620;
+          MALSESSIONID=f5lskf83bo6ak76pueefi9nj92;
           is_logged_in=1;
         ).join
       else
