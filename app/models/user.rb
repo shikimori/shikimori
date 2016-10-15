@@ -142,6 +142,7 @@ class User < ActiveRecord::Base
   # зачистка никнейма от запрещённых символов
   def nickname= value
     fixed_nickname = value
+      .fix_encoding
       .gsub(/[%&#\/\\?+><\]\[:,@]+/, '')
       .gsub(/[[:space:]]+|⁤+/, ' ')
       .strip
