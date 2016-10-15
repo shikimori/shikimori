@@ -4,7 +4,7 @@ class MessageDecorator < BaseDecorator
   def image
     if anime_related?
       anime.image.url :x48
-    elsif kind == MessageType::ClubBroadcast
+    elsif club_broadcast?
       ImageUrlGenerator.instance.url linked.commentable.linked, :x48
     else
       from.avatar_url 48
@@ -14,7 +14,7 @@ class MessageDecorator < BaseDecorator
   def image_2x
     if anime_related?
       anime.image.url :x96
-    elsif kind == MessageType::ClubBroadcast
+    elsif club_broadcast?
       ImageUrlGenerator.instance.url linked.commentable.linked, :x96
     else
       from.avatar_url 80
@@ -26,7 +26,7 @@ class MessageDecorator < BaseDecorator
       linked.linked.decorate.url
     elsif kind == MessageType::ContestFinished
       h.contest_url linked
-    elsif kind == MessageType::ClubBroadcast
+    elsif club_broadcast?
       h.club_url(linked.commentable.linked) + "#comment-#{linked.id}"
     elsif MessagesQuery::NEWS_KINDS.include?(kind)
       UrlGenerator.instance.topic_url(linked)
@@ -38,7 +38,7 @@ class MessageDecorator < BaseDecorator
   def title
     if anime_related?
       h.localized_name anime
-    elsif kind == MessageType::ClubBroadcast
+    elsif club_broadcast?
       linked.commentable.linked.name
     else
       from.nickname
@@ -50,13 +50,24 @@ class MessageDecorator < BaseDecorator
     Topic::TypePolicy.new(linked).generated_news_topic?
   end
 
+  def club_broadcast?
+    kind == MessageType::ClubBroadcast
+  end
+
   def action_tag
-    OpenStruct.new(
-      type: linked.action,
-      text: linked.action == 'episode' ?
-        "#{linked.action_text} #{linked.value}" :
-        linked.action_text
-    ) if for_generated_news_topic?
+    if for_generated_news_topic?
+      OpenStruct.new(
+        type: linked.action,
+        text: linked.action == 'episode' ?
+          "#{linked.action_text} #{linked.value}" :
+          linked.action_text
+      )
+    elsif club_broadcast?
+      OpenStruct.new(
+        type: 'broadcast',
+        text: I18n.t('comments.comment.broadcast')
+      )
+    end
   end
 
   def generate_body

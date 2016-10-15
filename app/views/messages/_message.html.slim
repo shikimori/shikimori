@@ -39,6 +39,11 @@
         a.name href="#{message.url}" title="#{message.title}"
           = message.title
 
+        - if message.club_broadcast?
+          span.broadcast-by
+            = t '.broadcast_by'
+          = render 'users/user_16', user: message.linked.user
+
         - if message.persisted?
           span.time: time[
             datetime="#{message.created_at.iso8601}"
