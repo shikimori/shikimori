@@ -7,6 +7,7 @@ class FixAnimeVideoAuthors
   STUDIOS = %w(
     AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
+    SovetRomantica
   ) + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project'
   ]
@@ -23,6 +24,15 @@ class FixAnimeVideoAuthors
     /mix] = name
   end
   STUDIOS_REPOSITIONS = STUDIOS.each_with_object({}) do |name, memo|
+    space_splits = name.split ' '
+    word_splits = name.split /(?=[A-Z])/
+
+    if space_splits.size == 2
+      memo[space_splits.join('')] = name
+    elsif word_splits.size == 2
+      memo[word_splits.join(' ')] = name
+    end
+
     memo[/
       \A
       (?: \( \s* )? ([^()]+) (?: \s* \) )?

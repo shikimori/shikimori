@@ -145,6 +145,30 @@ describe FixAnimeVideoAuthors do
             let(:name) { 'Mirazell & Annie & SlyfeFreeDub' }
             it { expect(author_1.reload.name).to eq 'Mirazell & Annie & SlyfeFreeDub' }
           end
+
+          context 'AniStar' do
+            context 'with space' do
+              let(:name) { 'Ani Star' }
+              it { expect(author_1.reload.name).to eq 'AniStar' }
+            end
+
+            context 'without space' do
+              let(:name) { 'AniStar' }
+              it { expect(author_1.reload.name).to eq 'AniStar' }
+            end
+          end
+
+          context 'SovetRomantica' do
+            context 'with space' do
+              let(:name) { 'Sovet Romantica' }
+              it { expect(author_1.reload.name).to eq 'SovetRomantica' }
+            end
+
+            context 'without space' do
+              let(:name) { 'SovetRomantica' }
+              it { expect(author_1.reload.name).to eq 'SovetRomantica' }
+            end
+          end
         end
 
         describe 'author already exists' do
