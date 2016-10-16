@@ -26,7 +26,6 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
     param :url, String, required: true
   end
   def create
-    create_params['state'] = 'uploaded'
     @resource = AnimeVideosService.new(create_params).create(current_user)
     respond_with @resource
   end
@@ -48,6 +47,9 @@ private
     params
       .require(:anime_video)
       .permit(*AnimeOnline::AnimeVideosController::CREATE_PARAMS)
+      .tap do |anime_video|
+        anime_video[:state] = 'uploaded'
+      end
   end
 
   def access_granted?

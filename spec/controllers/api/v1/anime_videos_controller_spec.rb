@@ -6,7 +6,7 @@ describe Api::V1::AnimeVideosController do
     let(:make_request) do
       get :index, anime_id: anime.id, video_token: video_token, format: :json
     end
-    let(:video_token) { }
+    let(:video_token) {}
 
     context 'video_token' do
       include_context :authenticated, :user
@@ -41,7 +41,6 @@ describe Api::V1::AnimeVideosController do
     include_context :authenticated, :user
     let(:video_params) do
       {
-        state: 'uploaded',
         kind: kind,
         author_name: 'test',
         episode: 3,
