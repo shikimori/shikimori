@@ -5,7 +5,7 @@ class FixAnimeVideoAuthors
 
   TRASH = /[^\[\]() &,-]{0,4}/.source
   STUDIOS = %w(
-    AniDUB AniStar AniLibria SHIZA AnimeReactor AnimeVost AniPlay AniRecords
+    AniDUB AniStar AniLibria AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
     SovetRomantica
   ) + [
@@ -24,13 +24,13 @@ class FixAnimeVideoAuthors
     /mix] = name
   end
   STUDIOS_REPOSITIONS = STUDIOS.each_with_object({}) do |name, memo|
-    space_splits = name.split ' '
-    word_splits = name.split /(?=[A-Z])/
+    space_splits = name.split(' ')
+    word_splits = name.split(/(?=[A-Z])/)
 
     if space_splits.size == 2
-      memo[space_splits.join('')] = name
+      memo[/#{space_splits.join ''}/i] = name
     elsif word_splits.size == 2
-      memo[word_splits.join(' ')] = name
+      memo[/#{word_splits.join ' '}/i] = name
     end
 
     memo[/
@@ -49,6 +49,10 @@ class FixAnimeVideoAuthors
       \Z
     /mix] = '\1 (\2)'
   end
+  STUDIOS_FIXES = {
+    /romantica/i => 'Romantica',
+    /SHIZA(?! Project)/i => 'SHIZA Project'
+  }
 
   QUALITIES_REPLACEMENTS = QUALITIES.each_with_object({}) do |name, memo|
     memo[name] = /
@@ -64,7 +68,7 @@ class FixAnimeVideoAuthors
   JOIN_SQL = <<-TEXT.strip
     left join anime_videos
       on anime_videos.anime_video_author_id = anime_video_authors.id
-TEXT
+  TEXT
 
   def perform
     AnimeVideo.transaction do
@@ -126,11 +130,15 @@ private
       .gsub('  ', ' ')
       .gsub(/ [)\]]|[(\[] /, '\1')
   end
-  # rubocop:enable MethodLength
 
   def fix_studio name
-    fixed_name = STUDIOS_REPLACEMENTS
+    fixed_name = STUDIOS_FIXES
       .inject(name) do |memo, (regexp, replacement)|
+        memo.gsub(regexp, replacement).strip
+      end
+
+    fixed_name = STUDIOS_REPLACEMENTS
+      .inject(fixed_name) do |memo, (regexp, replacement)|
         memo.gsub(regexp, replacement).strip
       end
 
@@ -139,6 +147,7 @@ private
         memo.gsub(regexp, replacement).strip
       end
   end
+  # rubocop:enable MethodLength
 
   def change_videos_quality author, quality
     log 'quality', author, quality

@@ -169,6 +169,18 @@ describe FixAnimeVideoAuthors do
               it { expect(author_1.reload.name).to eq 'SovetRomantica' }
             end
           end
+
+          context 'SHIZA' do
+            context 'with Project' do
+              let(:name) { 'SHIZA Project' }
+              it { expect(author_1.reload.name).to eq 'SHIZA Project' }
+            end
+
+            context 'without Project' do
+              let(:name) { 'SHIZA' }
+              it { expect(author_1.reload.name).to eq 'SHIZA Project' }
+            end
+          end
         end
 
         describe 'author already exists' do
