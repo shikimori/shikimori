@@ -29,8 +29,10 @@ class FixAnimeVideoAuthors
 
     if space_splits.size == 2
       memo[/#{space_splits.join ''}/i] = name
+      memo[/#{space_splits.join '-'}/i] = name
     elsif word_splits.size == 2
       memo[/#{word_splits.join ' '}/i] = name
+      memo[/#{word_splits.join '-'}/i] = name
     end
 
     memo[/
@@ -51,7 +53,8 @@ class FixAnimeVideoAuthors
   end
   STUDIOS_FIXES = {
     /romantica/i => 'Romantica',
-    /SHIZA(?! Project)/i => 'SHIZA Project'
+    /SHIZA(?! Project)/i => 'SHIZA Project',
+    /Project-Project/i => 'Project'
   }
 
   QUALITIES_REPLACEMENTS = QUALITIES.each_with_object({}) do |name, memo|

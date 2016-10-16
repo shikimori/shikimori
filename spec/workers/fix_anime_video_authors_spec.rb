@@ -168,6 +168,11 @@ describe FixAnimeVideoAuthors do
               let(:name) { 'SovetRomantica' }
               it { expect(author_1.reload.name).to eq 'SovetRomantica' }
             end
+
+            context 'with minus' do
+              let(:name) { 'Sovet-Romantica' }
+              it { expect(author_1.reload.name).to eq 'SovetRomantica' }
+            end
           end
 
           context 'SHIZA' do
@@ -178,6 +183,11 @@ describe FixAnimeVideoAuthors do
 
             context 'without Project' do
               let(:name) { 'SHIZA' }
+              it { expect(author_1.reload.name).to eq 'SHIZA Project' }
+            end
+
+            context 'with minus' do
+              let(:name) { 'SHIZA-Project' }
               it { expect(author_1.reload.name).to eq 'SHIZA Project' }
             end
           end
