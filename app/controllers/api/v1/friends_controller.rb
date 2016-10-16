@@ -1,10 +1,10 @@
 class Api::V1::FriendsController < Api::V1::ApiController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
+  before_action :fetch_user
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/friends/:id', 'Create a friend'
   def create
-    @user = User.find params[:id]
     current_user.friends << @user
 
     # если дружба не взаимная, то надо создать сообщение с запросом в друзья
@@ -29,7 +29,6 @@ class Api::V1::FriendsController < Api::V1::ApiController
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :DELETE, '/friends/:id', 'Destroy a friend'
   def destroy
-    @user = User.find(params[:id])
     current_user.friends.delete @user
 
     notice = i18n_t(
@@ -41,6 +40,12 @@ class Api::V1::FriendsController < Api::V1::ApiController
   end
 
 private
+
+  def fetch_user
+    @user ||= User.find_by(id: params[:id]) ||
+      User.find_by(nickname: User.param_to(params[:id])) ||
+      raise(NotFound, params[:id])
+  end
 
   def success_notice
     i18n_t(
