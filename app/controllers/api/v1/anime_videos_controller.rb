@@ -14,7 +14,7 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
     respond_with @collection, each_serializer: AnimeVideoSerializer
   end
 
-  api :POST, '/animes/:anime_id/anime_videos', 'Create an anime video'
+  api :POST, '/animes/:anime_id/anime_videos', 'Create an anime episode video'
   param :anime_video, Hash, required: true do
     param :anime_id, :number, required: true
     param :author_name, :undef
