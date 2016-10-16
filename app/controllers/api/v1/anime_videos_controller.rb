@@ -22,8 +22,10 @@ class Api::V1::AnimeVideosController < Api::V1::ApiController
     param :kind, %w(raw subtitles fandub unknown), required: true
     param :language, %w(russian english original unknown), required: true
     param :quality, %w(bd web tv dvd unknown), required: true
-    param :source, String, required: true
-    param :url, String, required: true
+    param :url, String, required: true, desc: 'Link to the video'
+    param :source, String,
+      required: true,
+      desc: 'Link to the page from where you got the video'
   end
   def create
     @resource = AnimeVideosService.new(create_params).create(current_user)
