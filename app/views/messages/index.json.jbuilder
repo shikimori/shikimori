@@ -1,8 +1,8 @@
-json.content render(
+json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'messages/message',
   collection: @collection,
   formats: :html
-)
+))
 
 if @add_postloader
   json.postloader render(
@@ -11,3 +11,5 @@ if @add_postloader
     next_url: index_profile_messages_url(@resource, messages_type: @messages_type, page: @page+1)
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

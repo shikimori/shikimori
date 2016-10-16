@@ -13,5 +13,6 @@ $(document).on 'click', '.click-loader', ->
   method = if $this.data('format') == 'json' then 'getJSON' else 'get'
 
   $[method]($this.data 'href').success (data, status, xhr) ->
-    $this.data locked: false
-    $this.trigger 'ajax:success', data
+    $this
+      .data(locked: false)
+      .trigger('ajax:success', data)

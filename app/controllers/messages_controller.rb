@@ -40,9 +40,10 @@ class MessagesController < ProfilesController
       .includes(:from, :to, :linked)
       .order(:id)
       .limit(100)
-      .select {|message| can? :read, message }
+      .select { |message| can? :read, message }
+      .map(&:decorate)
 
-    render @collection.map(&:decorate)
+    render :index, formats: :json
   end
 
   # отписка от емайлов о сообщениях
