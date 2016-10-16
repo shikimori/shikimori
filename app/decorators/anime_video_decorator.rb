@@ -1,5 +1,5 @@
 class AnimeVideoDecorator < BaseDecorator
-  HOSTINGS = {
+  HOSTINGS_ORDER = {
     'vk.com' => '_' * 1,
     'sovetromantica.com' => '_' * 2,
     'smotret-anime.ru' => '_' * 3,
@@ -93,7 +93,7 @@ class AnimeVideoDecorator < BaseDecorator
   def sort_criteria
     [
       AnimeVideo.kind.values.index(kind),
-      HOSTINGS[hosting] || hosting,
+      HOSTINGS_ORDER[hosting] || hosting,
       author_name || '',
       AnimeVideo.language.values.index(language),
       AnimeVideo.quality.values.index(quality),

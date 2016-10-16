@@ -4,7 +4,7 @@ describe AnimeOnline::FilterSovetRomantica do
   describe '#call' do
     subject! { query.call }
 
-    context 'vith videos' do
+    context 'with videos' do
       let(:videos) { [video_1, video_2, video_3] }
       let(:video_1) do
         create :anime_video,
@@ -23,6 +23,12 @@ describe AnimeOnline::FilterSovetRomantica do
           author_name: 'SovetRomantica',
           url: 'https://sovetromantica.com/embed/episode_128_1-subtitles',
           kind: :fandub
+      end
+      let(:video_4) do
+        create :anime_video,
+          author_name: 'SovetRomantica',
+          url: 'https://smotret-anime.ru/catalog/haikyuu-karasuno-koukou-vs-shiratorizawa-gakuen-koukou-14801/1-seriya-140162/angliyskie-subtitry-1014041',
+          kind: :unknown
       end
 
       it { is_expected.to eq [video_1, video_3] }

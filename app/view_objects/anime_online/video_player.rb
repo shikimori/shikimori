@@ -37,21 +37,24 @@ class AnimeOnline::VideoPlayer
   end
 
   def current_video
-    video = if current_videos.present?
-      if video_id > 0
-        current_videos.find { |v| v.id == video_id }
-      else
-        try_select_by(
-          h.cookies[PREFERENCES_KIND],
-          h.cookies[PREFERENCES_HOSTING],
-          h.cookies[PREFERENCES_AUTHOR]
-        )
+    video =
+      if current_videos.present?
+        if video_id > 0
+          current_videos.find { |v| v.id == video_id }
+        else
+          try_select_by(
+            h.cookies[PREFERENCES_KIND],
+            h.cookies[PREFERENCES_HOSTING],
+            h.cookies[PREFERENCES_AUTHOR]
+          )
+        end
       end
+
+    if !video && h.params[:video_id]
+      video = AnimeVideo.find_by(id: h.params[:video_id])
     end
 
-    video = AnimeVideo.find_by(id: h.params[:video_id]) if !video && h.params[:video_id]
-
-    video.decorate if video
+    video&.decorate
   end
 
   def episode_url episode = self.current_episode
@@ -96,8 +99,12 @@ class AnimeOnline::VideoPlayer
   end
 
   def episode_videos
-    return [] if current_videos.blank?
-    current_videos.uniq(&:uniq_criteria)
+    return {} if current_videos.blank?
+
+    current_videos
+      .uniq(&:uniq_criteria)
+      .sort_by { |anime_video| AnimeVideo.kind.values.index anime_video.kind }
+      .group_by { |anime_video| anime_video.kind_text }
   end
 
   def same_videos
@@ -120,7 +127,7 @@ class AnimeOnline::VideoPlayer
     videos
       .map(&:hosting)
       .uniq
-      .sort_by { |hosting| AnimeVideoDecorator::HOSTINGS[hosting] || hosting }
+      .sort_by { |v| AnimeVideoDecorator::HOSTINGS_ORDER[v] || v }
       .join(', ')
   end
 

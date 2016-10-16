@@ -40,28 +40,30 @@ describe AnimeOnline::VideoPlayer do
     let(:anime) { create :anime }
 
     context 'without vidoes' do
-      it { is_expected.to be_blank }
+      it { is_expected.to eq({}) }
     end
 
     context 'vk first' do
-      let!(:video_vk) { create :anime_video, url: 'http://vk.com/video', anime: anime }
-      let!(:video_other) { create :anime_video, url: 'http://aaa.com/video', anime: anime }
+      let!(:video_vk) { create :anime_video, :fandub, url: 'http://vk.com/video', anime: anime }
+      let!(:video_other) { create :anime_video, :fandub, url: 'http://aaa.com/video', anime: anime }
+      let!(:video_sublitles) { create :anime_video, :subtitles, anime: anime }
 
-      its(:first) { is_expected.to eq video_vk }
+      it do
+        is_expected.to eq(
+          'озвучка' => [video_vk, video_other],
+          'субтитры' => [video_sublitles]
+        )
+      end
     end
 
-    context 'fandub first' do
-      let!(:video_fandub) { create :anime_video, kind: :fandub, anime: anime }
-      let!(:video_sublitles) { create :anime_video, kind: :subtitles, anime: anime }
+    context 'unknown grouped with fandub' do
+      let!(:video_unknown) { create :anime_video, :unknown, url: 'http://aaa.com/video', anime: anime }
+      let!(:video_vk_fandub) { create :anime_video, :fandub, url: 'http://vk.com/video', anime: anime }
 
-      its(:first) { is_expected.to eq video_fandub }
-    end
-
-    context 'unknown as fandub first' do
-      let!(:video_unknown) { create :anime_video, kind: :unknown, anime: anime }
-      let!(:video_sublitles) { create :anime_video, kind: :subtitles, anime: anime }
-
-      its(:first) { is_expected.to eq video_unknown }
+      it do
+        is_expected.to have(1).item
+        expect(subject['озвучка']).to eq [video_vk_fandub, video_unknown]
+      end
     end
   end
 

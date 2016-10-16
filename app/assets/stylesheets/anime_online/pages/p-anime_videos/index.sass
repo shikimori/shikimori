@@ -79,6 +79,24 @@ $image-path: 'anime_online/pages/anime_videos'
       color: #123
       margin-bottom: 5px
 
+  .c-videos
+    .video-variant-switcher
+      +js_link
+      font-size: 12px
+      font-weight: normal
+      margin-left: 10px
+
+      &.active
+        cursor: default
+        color: $link-active
+        border-bottom: none
+
+    .video-variant-group
+      display: none
+
+      &.active
+        display: block
+
   .video-variant
     a
       &.active

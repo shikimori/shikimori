@@ -7,6 +7,9 @@
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
+  # переключение вариантов видео
+  $('.video-variant-switcher').on 'click', switch_video_variant
+
   # показ дополнительных кнопок для видео
   $('.cc-player_controls .show-options').on 'click', toggle_options
 
@@ -74,3 +77,12 @@ toggle_options = ->
 resize_video_player = ->
   $player = $('iframe,object,embed,.player-placeholder', '.player-area')
   $player.height($player.width() * 9 / 16)
+
+switch_video_variant = (e) ->
+  kind = $(e.target).data('kind')
+
+  $('.video-variant-switcher').removeClass 'active'
+  $(e.target).addClass 'active'
+
+  $('.video-variant-group').removeClass 'active'
+  $(".video-variant-group[data-kind='#{kind}']").addClass 'active'
