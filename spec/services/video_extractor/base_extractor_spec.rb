@@ -3,6 +3,6 @@ describe VideoExtractor::BaseExtractor do
 
   describe 'hosting' do
     subject { service.hosting }
-    it { should eq :base }
+    it { is_expected.to eq :base }
   end
 end

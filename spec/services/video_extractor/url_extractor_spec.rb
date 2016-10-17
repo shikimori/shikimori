@@ -30,35 +30,37 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq Url.new(html.strip).without_protocol.to_s }
     end
 
-    describe 'vk_1' do
-      let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=1" width="730" height="480" frameborder="0"></iframe>' }
-      it { is_expected.to eq '//vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2' }
-    end
-
-    describe 'vk_2' do
-      let(:html) { '<iframe src="http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc&hd=3" width="730" height="480" frameborder="0"></iframe>' }
-      it { is_expected.to eq '//vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc' }
-    end
-
-    describe 'vk_3' do
-      let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=31645372&amp;id=163523215&amp;hash=3fba843aaeb2a8ae&amp;hd=1" width="730" height="480" frameborder="0"></iframe>' }
-      it { is_expected.to eq '//vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae' }
-    end
-
-    describe 'vk - remove misc parameters from url' do
-      context '&hd=' do
-        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&hd=1' }
-        it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+    describe 'vk' do
+      describe 'vk_1' do
+        let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2&hd=1" width="730" height="480" frameborder="0"></iframe>' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=-31193397&id=165152640&hash=924605cf891257c2' }
       end
 
-      context '&other=' do
-        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&qwe=vbn&id=163317311&hash=e446fa5312813ebc&zxc=1' }
-        it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+      describe 'vk_2' do
+        let(:html) { '<iframe src="http://vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc&hd=3" width="730" height="480" frameborder="0"></iframe>' }
+        it { is_expected.to eq '//vkontakte.ru/video_ext.php?oid=154832837&id=161773398&hash=3c74648f3d5c6cfc' }
       end
 
-      context '&param' do
-        let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&param' }
-        it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+      describe 'vk_3' do
+        let(:html) { '<iframe src="http://vk.com/video_ext.php?oid=31645372&amp;id=163523215&amp;hash=3fba843aaeb2a8ae&amp;hd=1" width="730" height="480" frameborder="0"></iframe>' }
+        it { is_expected.to eq '//vk.com/video_ext.php?oid=31645372&id=163523215&hash=3fba843aaeb2a8ae' }
+      end
+
+      describe 'remove misc parameters from url' do
+        context '&hd=' do
+          let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&hd=1' }
+          it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+        end
+
+        context '&other=' do
+          let(:html) { 'http://vk.com/video_ext.php?oid=36842689&qwe=vbn&id=163317311&hash=e446fa5312813ebc&zxc=1' }
+          it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+        end
+
+        context '&param' do
+          let(:html) { 'http://vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc&param' }
+          it { is_expected.to eq '//vk.com/video_ext.php?oid=36842689&id=163317311&hash=e446fa5312813ebc' }
+        end
       end
     end
 
@@ -152,24 +154,38 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq '//rutube.ru/play/embed/7300160' }
     end
 
-    describe 'sibnet_1' do
-      let(:html) { '<iframe width="730" height="480" src="http://video.sibnet.ru/shell.php?videoid=1186077" frameborder="0" scrolling="no" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1186077' }
-    end
+    describe 'sibnet' do
+      describe 'sibnet_1' do
+        let(:html) { '<iframe width="730" height="480" src="http://video.sibnet.ru/shell.php?videoid=1186077" frameborder="0" scrolling="no" allowfullscreen></iframe>' }
+        it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1186077' }
+      end
 
-    describe 'sibnet_2' do
-      let(:html) { 'http://data10.video.sibnet.ru/13/88/40/1388407.flv' }
-      it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1388407' }
-    end
+      describe 'sibnet_2' do
+        let(:html) { 'http://data10.video.sibnet.ru/13/88/40/1388407.flv' }
+        it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1388407' }
+      end
 
-    describe 'sibnet_3' do
-      let(:html) { 'http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0' }
-      it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=710879' }
-    end
+      describe 'sibnet_3' do
+        let(:html) { 'http://data17.video.sibnet.ru/71/08/710879.flv?st=WASnDgyViN6hucAYde9nlw&e=1349319000&format=mp4&start=0' }
+        it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=710879' }
+      end
 
-    describe 'sibnet_4' do
-      let(:html) { 'http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000' }
-      it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
+      describe 'sibnet_4' do
+        let(:html) { 'http://data9.video.sibnet.ru/12/24/22/1224221.mp4?st=FRf7r1A0LxkpPBmuFybKXA&e=1375711000' }
+        it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
+      end
+
+      describe 'remove misc parameters from url' do
+        context '&other=' do
+          let(:html) { 'http://video.sibnet.ru/shell.php?videoid=1224221&zxc=1' }
+          it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
+        end
+
+        context '&param' do
+          let(:html) { '//video.sibnet.ru/shell.php?videoid=1224221&param' }
+          it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
+        end
+      end
     end
 
     describe 'kiwi_1' do
