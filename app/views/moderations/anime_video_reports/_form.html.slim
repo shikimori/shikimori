@@ -1,11 +1,26 @@
 p.m5
   b Жалоба на видео
 
+.m15
+  = BbCodeFormatter.instance.format_comment("\
+    [p]Сайт ничего своего не добавляет к видео плеерам: ни рекламу, ни редиректы на другие сайты.[/p]\
+    [p]Всё, что происходит при просмотре видео, это действия[/p]\
+    [list]\
+      [*] либо самого видео хостинга, с которого проигрывается видео;\
+      [*] либо плагинов, установленных в вашем браузере;\
+      [*] либо вирусов, живущих на вашем компьютере;\
+    [/list]\
+    [p]Шикимори никак не влияет на работу видео плеера![/p]\
+  ")
+
 = simple_form_for [:moderations, anime_video_report], remote: true, authenticity_token: true do |f|
   = f.input :anime_video_id, as: :hidden
   = f.input :user_id, as: :hidden
   = f.input :state, as: :hidden
-  = f.input :kind, as: :select, include_blank: false, collection: AnimeVideoReport.kind.options.delete_if {|v| v[1] == 'uploaded' }
+  = f.input :kind,
+    as: :select,
+    include_blank: false,
+    collection: AnimeVideoReport.kind.options.delete_if { |v| v[1] == 'uploaded' }
   = f.input :message, as: :string, hint: 'не обязательно'
 
   .buttons
