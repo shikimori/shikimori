@@ -1,0 +1,8 @@
+- if @resource.versions_page.first.any?
+  .subheadline
+    | #{t '.changes_history'} #{t '.page', page: params[:page] || 1}
+  .block
+    = render partial: 'versions/version', collection: @resource.versions_page.first
+
+    - if @resource.versions_page.second
+      = render 'blocks/postloader', next_url: @resource.next_versions_page

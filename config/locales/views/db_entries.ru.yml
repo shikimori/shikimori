@@ -1,5 +1,8 @@
 ru:
   db_entries:
+    versions:
+      changes_history: История правок
+      page: страница %{page}
     comments:
       all_summaries: Все отзывы
       all_comments: Все комментарии

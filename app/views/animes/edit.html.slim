@@ -179,7 +179,7 @@
             = submit_tag t('.parse'), class: 'button'
 
   - if @resource.versions_page.first.any?
-    .subheadline = t '.changes_history'
+    .subheadline = t 'db_entries.versions.changes_history'
     .block
       = render partial: 'versions/version', collection: @resource.versions_page.first
 

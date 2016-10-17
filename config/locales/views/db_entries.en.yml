@@ -1,5 +1,8 @@
 en:
   db_entries:
+    versions:
+      changes_history: Changes history
+      page: page %{page}
     comments:
       all_summaries: All summaries
       all_comments: All comments

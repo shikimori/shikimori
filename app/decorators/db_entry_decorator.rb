@@ -143,7 +143,8 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def next_versions_page
-    h.send "versions_#{klass_lower}_url", object, page: (h.params[:page] || 1).to_i + 1
+    h.send "versions_#{klass_lower}_url", object,
+      page: (h.params[:page] || 1).to_i + 1
   end
 
 private
