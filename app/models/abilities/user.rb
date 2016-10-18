@@ -125,7 +125,8 @@ class Abilities::User
     end
     can :join, Club do |club|
       !club.joined?(@user) && (
-        can?(:manage, club) || (!club.banned?(@user) && club.free_join?)
+        can?(:manage, club) || club.owner?(@user) ||
+        (!club.banned?(@user) && club.free_join?)
       )
     end
     can :invite, Club do |club|

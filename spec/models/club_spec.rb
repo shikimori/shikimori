@@ -215,6 +215,27 @@ describe Club do
           it { is_expected.to be_able_to :invite, club }
         end
       end
+
+      context 'not club member' do
+        let(:club) { build_stubbed :club, owner: user, join_policy: join_policy }
+
+        describe 'join' do
+          context 'free_join' do
+            let(:join_policy) { :free_join }
+            it { is_expected.to be_able_to :join, club }
+          end
+
+          context 'admin_invite_join' do
+            let(:join_policy) { :admin_invite_join }
+            it { is_expected.to be_able_to :join, club }
+          end
+
+          context 'owner_invite_join' do
+            let(:join_policy) { :owner_invite_join }
+            it { is_expected.to be_able_to :join, club }
+          end
+        end
+      end
     end
 
     context 'club administrator' do
