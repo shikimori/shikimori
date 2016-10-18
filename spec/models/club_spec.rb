@@ -47,7 +47,7 @@ describe Club do
       let(:club) { build :club, name: name }
       let(:name) { '#[test]%&?+@' }
 
-      it { expect(club.name).to eq FixName.call(name) }
+      it { expect(club.name).to eq FixName.call(name, false) }
     end
 
     describe '#ban' do

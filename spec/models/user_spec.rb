@@ -92,7 +92,7 @@ describe User do
       let(:user) { build :user, nickname: nickname }
       let(:nickname) { '#[test]%&?+@' }
 
-      it { expect(user.nickname).to eq FixName.call(nickname) }
+      it { expect(user.nickname).to eq FixName.call(nickname, true) }
     end
 
     describe '#can_post' do

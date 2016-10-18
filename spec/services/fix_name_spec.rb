@@ -1,5 +1,6 @@
 describe FixName do
-  let(:service) { FixName.new name }
+  let(:service) { FixName.new name, is_full_cleanup }
+  let(:is_full_cleanup) { true }
   subject! { service.call }
 
   context 'nil' do
@@ -9,7 +10,15 @@ describe FixName do
 
   context 'forbidden symbols' do
     let(:name) { '#[test]%&?+@' }
-    it { is_expected.to eq 'test' }
+
+    context 'full cleanup' do
+      it { is_expected.to eq 'test' }
+    end
+
+    context 'no cleanup' do
+      let(:is_full_cleanup) { false }
+      it { is_expected.to eq '#[test]%&?+@' }
+    end
   end
 
   context 'abusive words' do

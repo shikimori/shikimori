@@ -71,7 +71,7 @@ class Club < ActiveRecord::Base
   end
 
   def name= value
-    super FixName.call(value)
+    super FixName.call(value, false)
   end
 
   def joined? user

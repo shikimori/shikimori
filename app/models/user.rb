@@ -140,7 +140,7 @@ class User < ActiveRecord::Base
   end
 
   def nickname= value
-    super FixName.call(value)
+    super FixName.call(value, true)
   end
 
   # allows for account creation from twitter

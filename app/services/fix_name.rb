@@ -1,7 +1,7 @@
 class FixName < ServiceObjectBase
-  pattr_initialize :name
+  pattr_initialize :name, :full_cleanup
 
-  BAD_SYMBOLS = %r{ [%&#/\\?+><\]\[:,@]+ }mix
+  BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@]+}
   SPACES = /[[:space:]]+|[⁤ ឵]/
   EXTENSIONS = /
     \.
@@ -10,18 +10,25 @@ class FixName < ServiceObjectBase
   /mix
 
   def call
-    Banhammer.instance.censor(fixed_name)
+    censor cleanup(fix(@name))
   end
 
 private
 
-  def fixed_name
-    (@name || '')
-      .fix_encoding
+  def censor name
+    Banhammer.instance.censor name
+  end
+
+  def cleanup name
+    return name unless @full_cleanup
+    name
       .gsub(BAD_SYMBOLS, '')
-      .gsub(SPACES, ' ')
       .strip
       .gsub(/^\.$/, 'точка')
       .gsub(EXTENSIONS, '_\1')
+  end
+
+  def fix name
+    (name || '').fix_encoding.gsub(SPACES, ' ')
   end
 end
