@@ -1,21 +1,21 @@
 describe User do
   describe 'relations' do
-    it { is_expected.to have_one :preferences }
+    it { is_expected.to have_one(:preferences).dependent(:destroy) }
 
-    it { is_expected.to have_many :versions }
+    it { is_expected.to have_many(:versions).dependent(:destroy) }
 
-    it { is_expected.to have_many :anime_rates }
-    it { is_expected.to have_many :manga_rates }
+    it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
+    it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
 
-    it { is_expected.to have_many :topic_viewings }
-    it { is_expected.to have_many :comment_viewings }
+    it { is_expected.to have_many(:topic_viewings).dependent(:delete_all) }
+    it { is_expected.to have_many(:comment_viewings).dependent(:delete_all) }
 
-    it { is_expected.to have_many :history }
+    it { is_expected.to have_many(:history).dependent(:destroy) }
 
-    it { is_expected.to have_many :friend_links }
+    it { is_expected.to have_many(:friend_links).dependent(:destroy) }
     it { is_expected.to have_many :friends }
 
-    it { is_expected.to have_many :favourites }
+    it { is_expected.to have_many(:favourites).dependent(:destroy) }
     it { is_expected.to have_many :fav_animes }
     it { is_expected.to have_many :fav_mangas }
     it { is_expected.to have_many :fav_people }
@@ -24,27 +24,27 @@ describe User do
     it { is_expected.to have_many :fav_mangakas }
     it { is_expected.to have_many :fav_characters }
 
-    it { is_expected.to have_many :abuse_requests }
-    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many(:abuse_requests).dependent(:destroy) }
+    it { is_expected.to have_many(:messages).dependent(:destroy) }
     it { is_expected.to have_many :comments }
 
-    it { is_expected.to have_many :reviews }
-    it { is_expected.to have_many :votes }
+    it { is_expected.to have_many(:reviews).dependent(:destroy) }
+    it { is_expected.to have_many(:votes).dependent(:destroy) }
 
-    it { is_expected.to have_many :ignores }
+    it { is_expected.to have_many(:ignores).dependent(:destroy) }
     it { is_expected.to have_many :ignored_users }
 
-    it { is_expected.to have_many :club_roles }
+    it { is_expected.to have_many(:club_roles).dependent(:destroy) }
     it { is_expected.to have_many :club_admin_roles }
     it { is_expected.to have_many :clubs }
 
-    it { is_expected.to have_many :contest_user_votes }
+    it { is_expected.to have_many(:contest_user_votes).dependent(:destroy) }
     it { is_expected.to have_many :topics }
-    it { is_expected.to have_many :topic_ignores }
+    it { is_expected.to have_many(:topic_ignores).dependent(:destroy) }
     it { is_expected.to have_many :ignored_topics }
 
-    it { is_expected.to have_many :nickname_changes }
-    it { is_expected.to have_many :recommendation_ignores }
+    it { is_expected.to have_many(:nickname_changes).dependent(:destroy) }
+    it { is_expected.to have_many(:recommendation_ignores).dependent(:destroy) }
 
     it { is_expected.to have_many :bans }
     it { is_expected.to have_many :club_bans }
@@ -55,6 +55,9 @@ describe User do
     it { is_expected.to have_many :user_images }
 
     it { is_expected.to have_many :anime_video_reports }
+
+    it { is_expected.to belong_to :style }
+    it { is_expected.to have_many(:styles).dependent(:destroy) }
   end
 
   describe 'enumerize' do

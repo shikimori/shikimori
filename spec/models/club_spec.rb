@@ -2,7 +2,7 @@
 
 describe Club do
   describe 'relations' do
-    it { is_expected.to have_many :member_roles }
+    it { is_expected.to have_many(:member_roles).dependent(:destroy) }
     it { is_expected.to have_many :members }
 
     # it { is_expected.to have_many :moderator_roles }
@@ -11,17 +11,21 @@ describe Club do
     it { is_expected.to have_many :admin_roles }
     it { is_expected.to have_many :admins }
 
-    it { is_expected.to have_many :links }
+    it { is_expected.to have_many(:links).dependent(:destroy) }
     it { is_expected.to have_many :animes }
+    it { is_expected.to have_many :mangas }
     it { is_expected.to have_many :characters }
 
-    it { is_expected.to have_many :images }
+    it { is_expected.to have_many(:images).dependent(:destroy) }
 
     it { is_expected.to belong_to :owner }
 
-    it { is_expected.to have_many :invites }
-    it { is_expected.to have_many :bans }
+    it { is_expected.to have_many(:invites).dependent(:destroy) }
+    it { is_expected.to have_many(:bans).dependent(:destroy) }
     it { is_expected.to have_many :banned_users }
+
+    it { is_expected.to belong_to :style }
+    it { is_expected.to have_many(:styles).dependent(:destroy) }
   end
 
   describe 'validations' do

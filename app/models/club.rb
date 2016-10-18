@@ -35,8 +35,13 @@ class Club < ActiveRecord::Base
   belongs_to :owner, class_name: User.name, foreign_key: :owner_id
 
   has_many :invites, class_name: ClubInvite.name, dependent: :destroy
-  has_many :bans, dependent: :destroy, class_name: ClubBan.name
+  has_many :bans, class_name: ClubBan.name, dependent: :destroy
   has_many :banned_users, through: :bans, source: :user
+
+  belongs_to :style
+  has_many :styles, -> { where owner_type: User.name },
+    foreign_key: :owner_id,
+    dependent: :destroy
 
   enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160918162736) do
+ActiveRecord::Schema.define(version: 20161018221437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,7 +261,10 @@ ActiveRecord::Schema.define(version: 20160918162736) do
     t.integer  "comment_policy",                default: 1,           null: false
     t.boolean  "is_censored",                   default: false,       null: false
     t.string   "locale",                                              null: false
+    t.integer  "style_id"
   end
+
+  add_index "clubs", ["style_id"], name: "index_clubs_on_style_id", using: :btree
 
   create_table "comment_viewings", force: :cascade do |t|
     t.integer "user_id"
@@ -779,6 +782,17 @@ ActiveRecord::Schema.define(version: 20160918162736) do
     t.string   "website",            limit: 255
   end
 
+  create_table "styles", force: :cascade do |t|
+    t.integer  "owner_id",   null: false
+    t.string   "owner_type", null: false
+    t.string   "name",       null: false
+    t.text     "css",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "styles", ["owner_type", "owner_id"], name: "index_styles_on_owner_type_and_owner_id", using: :btree
+
   create_table "svds", force: :cascade do |t|
     t.binary   "entry_ids"
     t.binary   "lsa"
@@ -1001,11 +1015,13 @@ ActiveRecord::Schema.define(version: 20160918162736) do
     t.string   "api_access_token"
     t.string   "locale",                             default: "ru",    null: false
     t.string   "locale_from_domain",                 default: "ru",    null: false
+    t.integer  "style_id"
   end
 
   add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree
   add_index "users", ["nickname"], name: "index_users_on_nickname", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["style_id"], name: "index_users_on_style_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",    limit: 255

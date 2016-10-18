@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   has_many :history, class_name: UserHistory.name, dependent: :destroy
 
   has_many :friend_links, foreign_key: :src_id, dependent: :destroy
-  has_many :friends, through: :friend_links, source: :dst, dependent: :destroy
+  has_many :friends, through: :friend_links, source: :dst
 
   has_many :favourites, dependent: :destroy
   has_many :favourite_seyu, -> { where kind: Favourite::Seyu }, class_name: Favourite.name, dependent: :destroy
@@ -74,7 +74,9 @@ class User < ActiveRecord::Base
   has_many :topic_ignores, dependent: :destroy
   has_many :ignored_topics, through: :topic_ignores, source: :topic
 
-  has_many :nickname_changes, class_name: UserNicknameChange.name, dependent: :destroy
+  has_many :nickname_changes,
+    class_name: UserNicknameChange.name,
+    dependent: :destroy
   has_many :recommendation_ignores, dependent: :destroy
 
   has_many :bans, dependent: :destroy
@@ -86,6 +88,11 @@ class User < ActiveRecord::Base
   has_many :user_images
 
   has_many :anime_video_reports
+
+  belongs_to :style
+  has_many :styles, -> { where owner_type: User.name },
+    foreign_key: :owner_id,
+    dependent: :destroy
 
   has_attached_file :avatar,
     styles: {
