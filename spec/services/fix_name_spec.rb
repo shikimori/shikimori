@@ -9,7 +9,7 @@ describe FixName do
   end
 
   context 'forbidden symbols' do
-    let(:name) { '#[test]%&?+@' }
+    let(:name) { 'test#[]%&?+@' }
 
     context 'full cleanup' do
       it { is_expected.to eq 'test' }
@@ -17,7 +17,7 @@ describe FixName do
 
     context 'no cleanup' do
       let(:is_full_cleanup) { false }
-      it { is_expected.to eq '#[test]%&?+@' }
+      it { is_expected.to eq 'test#[]%&?+@' }
     end
   end
 
