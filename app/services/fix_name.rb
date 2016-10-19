@@ -2,7 +2,7 @@ class FixName < ServiceObjectBase
   pattr_initialize :name, :full_cleanup
 
   BAD_SYMBOLS = %r{[%&#/\\?+><\]\[:,@]+}
-  SPACES = /[[:space:]]+|[⁤ ឵]/
+  SPACES = /[[:space:]]+|[⁤ ឵­]/
   EXTENSIONS = /
     \.
     (css|js|jpg|jpeg|png|gif|css|js|ttf|eot|otf|svg|woff|php|woff2|bmp)
@@ -29,6 +29,6 @@ private
   end
 
   def fix name
-    (name || '').fix_encoding.gsub(SPACES, ' ')
+    (name || '').fix_encoding.gsub(SPACES, ' ').strip
   end
 end
