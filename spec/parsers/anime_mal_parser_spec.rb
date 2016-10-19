@@ -80,7 +80,9 @@ describe AnimeMalParser, :vcr do
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
-    expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/anime/4/19644.jpg'
+    expect(data[:img]).to eq(
+      'https://myanimelist.cdn-dena.com/images/anime/4/19644.jpg'
+    )
     expect(data[:external_links]).to eq(
       [
         { source: 'official_site', url: 'http://www.cowboy-bebop.net/' },

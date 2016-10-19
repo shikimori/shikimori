@@ -57,7 +57,7 @@ describe MalDeployer do
         expect(entry).to be_released
       end if kind == :anime
 
-      it "changes status from Released to Ongoing" do
+      it 'changes status from Released to Ongoing' do
         entry.status = 'released'
         entry.episodes_aired = 9
         entry.episodes = 10
@@ -136,6 +136,14 @@ describe MalDeployer do
           expect {
             parser.deploy_people(entry, data[:people])
           }.to change(PersonRole, :count).by(data[:people].size)
+        end
+      end
+
+      describe 'external links' do
+        it 'linked to entry' do
+          expect {
+            parser.deploy_external_links(entry, data[:entry][:external_links])
+          }.to change(ExternalLink, :count).by(data[:entry][:external_links].size)
         end
       end
     end

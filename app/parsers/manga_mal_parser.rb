@@ -110,6 +110,8 @@ class MangaMalParser < BaseMalParser
     entry[:favorites] = parse_line("Favorites", content, false).gsub(",", "").to_i
 
     doc = Nokogiri::HTML(content)
+
+    entry[:external_links] = parse_external_links doc
     entry[:img] = parse_poster doc
 
     raise EmptyContent.new(url) if entry[:english].blank? && entry[:score].blank? && entry[:synonyms].blank? && entry[:name].blank? &&
