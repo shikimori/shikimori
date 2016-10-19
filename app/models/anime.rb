@@ -143,6 +143,12 @@ class Anime < DbEntry
     path: ':rails_root/public/system/animes/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  has_many :external_links,
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry,
+    dependent: :destroy
+
   enumerize :kind,
     in: %i(tv movie ova ona special music),
     predicates: { prefix: true }

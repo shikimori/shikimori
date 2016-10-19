@@ -88,6 +88,12 @@ class Manga < DbEntry
     path: ':rails_root/public/system/mangas/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  has_many :external_links,
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry,
+    dependent: :destroy
+
   enumerize :kind, in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin], predicates: { prefix: true }
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
