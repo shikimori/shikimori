@@ -1,5 +1,5 @@
 describe AnimeMalParser, :vcr do
-  before { allow(SiteParserWithCache).to receive(:load_cache).and_return list: {} }
+  before { allow(SiteParserWithCache).to receive(:load_cache).and_return cached_list: {} }
   before { allow(parser).to receive :save_cache }
   # after { sleep 1 } # раскоментить перед генерацией новых кассет
 
@@ -12,17 +12,17 @@ describe AnimeMalParser, :vcr do
 
   it 'fetches list page' do
     expect(parser.fetch_list_page(0, :all_catalog_url).size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
-    expect(parser.list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.cached_list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches updated list page' do
     expect(parser.fetch_list_page(0, :updated_catalog_url).size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
-    expect(parser.list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.cached_list.size).to eq(BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches 3 list pages' do
     expect(parser.fetch_list_pages(limit: 3).size).to eq(3 * BaseMalParser::ENTRIES_PER_PAGE)
-    expect(parser.list.size).to eq(3 * BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.cached_list.size).to eq(3 * BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'stops when got 0 entries' do
@@ -34,7 +34,7 @@ describe AnimeMalParser, :vcr do
     allow(parser).to receive(:all_catalog_url).and_return(urls[0], urls[1], urls[2])
 
     expect(parser.fetch_list_pages(limit: 3).size).to eq(1 * BaseMalParser::ENTRIES_PER_PAGE)
-    expect(parser.list.size).to eq(1 * BaseMalParser::ENTRIES_PER_PAGE)
+    expect(parser.cached_list.size).to eq(1 * BaseMalParser::ENTRIES_PER_PAGE)
   end
 
   it 'fetches anime data' do
@@ -75,12 +75,20 @@ describe AnimeMalParser, :vcr do
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
-    expect(data[:ranked]).to eq 22
+    expect(data[:ranked]).to eq 23
     expect(data).to include(:popularity)
     expect(data).to include(:members)
     expect(data).to include(:favorites)
 
     expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/anime/4/19644.jpg'
+    expect(data[:external_links]).to eq(
+      [
+        { source: 'official_site', url: 'http://www.cowboy-bebop.net/' },
+        { source: 'anime_db', url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=23' },
+        { source: 'anime_news_network', url: 'http://www.animenewsnetwork.com/encyclopedia/anime.php?id=13' },
+        { source: 'wikipedia', url: 'http://en.wikipedia.org/wiki/Cowboy_bebop' }
+      ]
+    )
   end
 
   it 'anime schedule' do

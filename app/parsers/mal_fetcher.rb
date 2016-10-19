@@ -261,6 +261,16 @@ private
     end
   end
 
+  def parse_external_links doc
+    external_links_h2 = doc.at_css('table td h2:contains("External Links")')
+    return [] unless external_links_h2.present?
+
+    external_links_h2
+      .next_element
+      .css('a')
+      .map { |v| { source: v.text.delete(' ').underscore, url: v['href'] } }
+  end
+
   def cleanup text
     (text || '')
       .gsub('&amp;#039;', "'")

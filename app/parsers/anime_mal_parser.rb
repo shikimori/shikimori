@@ -97,7 +97,10 @@ class AnimeMalParser < BaseMalParser
     entry[:favorites] = parse_line("Favorites", content, false).gsub(",", "").to_i
 
     doc = Nokogiri::HTML(content)
+
     entry[:img] = parse_poster doc
+    entry[:external_links] = parse_external_links doc
+
     # left_column_doc = doc.css("td.borderClass").first()
 
     # img_doc = left_column_doc.css('> div > img')
