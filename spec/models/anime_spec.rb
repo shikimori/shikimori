@@ -47,6 +47,8 @@ describe Anime do
     it { is_expected.to have_many :episode_notifications }
 
     it { is_expected.to have_many :name_matches }
+
+    it { is_expected.to have_many :external_links }
   end
 
   describe 'validations' do

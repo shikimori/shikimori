@@ -14,6 +14,7 @@ class SiteParserWithCache
     @cache_tmp_path = '/tmp/.%s.yml.tmp' % @cache_name
     @proxy_log = false
     @no_proxy = false
+
     load_cache
   end
 
@@ -27,7 +28,7 @@ class SiteParserWithCache
     cache = nil
     begin
       %x(cp #{cache_path} /tmp/.#{cache_name}.#{DateTime.now.to_s}) if File.exists?(cache_path)
-      File.open(cache_path, "rb") {|f| cache = YAML.load(f.read) } if File.exists?(cache_path)
+      File.open(cache_path, "rb") { |f| cache = YAML.load(f.read) } if File.exists?(cache_path)
     rescue Exception => e
       print "%s\n%s\n" % [e.message, e.backtrace.join("\n")]
     ensure
@@ -41,7 +42,7 @@ class SiteParserWithCache
     begin
       @mutex.synchronize do
         data = YAML.dump(@cache)
-        File.open(@cache_tmp_path, "wb") {|f| f.write(data) }
+        File.open(@cache_tmp_path, "wb") { |f| f.write(data) }
         %x(cp #{@cache_tmp_path} #{@cache_path})
       end
     rescue Exception => e
@@ -64,13 +65,15 @@ class SiteParserWithCache
     name = name.force_encoding('utf-8') if name && name.encoding.name == "ASCII-8BIT"
     name ? name.downcase.gsub(/[-:,.~"]/, '').gsub(/`/, '\'').gsub(/  +|　/, ' ').strip : nil
   end
+
   def fix_name name
     self.class.fix_name(name)
   end
 
 private
+
   # загрузка страницы через прокси
-  def get url, required_text=@required_text
+  def get url, required_text = @required_text
     Proxy.get(
       url,
       timeout: 30,

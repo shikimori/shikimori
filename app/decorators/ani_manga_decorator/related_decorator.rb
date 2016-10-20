@@ -6,7 +6,6 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
     all.map do |v|
       RelatedEntry.new (v.anime || v.manga).decorate, v.relation
     end
-    #.sort_by {|v| v.relation == BaseMalParser::RelatedAdaptationName ? 0 : 1 }
   end
 
   # похожие аниме

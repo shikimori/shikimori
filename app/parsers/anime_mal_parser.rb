@@ -28,7 +28,6 @@ class AnimeMalParser < BaseMalParser
     super
   end
 
-  # загрузка информации по манге
   def fetch_model id
     content = get entry_url(id)
     raise EmptyContent.new(url) if content.include? "404 Not Found"
@@ -41,11 +40,6 @@ class AnimeMalParser < BaseMalParser
 
     #parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
-
-    #unless entry[:related].nil?
-      #entry[:related_mangas] = entry[:related].select {|k,v| k == RelatedAdaptationName }
-      #entry[:related_animes] = entry[:related].select {|k,v| k != RelatedAdaptationName }
-    #end
 
     entry[:english] = parse_line("English", content, true)
     entry[:synonyms] = parse_line("Synonyms", content, true)
@@ -103,7 +97,10 @@ class AnimeMalParser < BaseMalParser
     entry[:favorites] = parse_line("Favorites", content, false).gsub(",", "").to_i
 
     doc = Nokogiri::HTML(content)
+
     entry[:img] = parse_poster doc
+    entry[:external_links] = parse_external_links doc
+
     # left_column_doc = doc.css("td.borderClass").first()
 
     # img_doc = left_column_doc.css('> div > img')

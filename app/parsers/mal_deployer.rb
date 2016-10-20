@@ -21,7 +21,7 @@ module MalDeployer
 
     # изменения самого элемента
     data[:entry]
-      .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios)
+      .except(:related, :genres, :authors, :publishers, :members, :seyu, :favorites, :img, :studios, :external_links)
       .except(*entry.desynced.map(&:to_sym))
       .each do |field, value|
         entry[field] = value if entry.respond_to?(field)
@@ -32,6 +32,8 @@ module MalDeployer
     if !entry.desynced.include?('image') && reload_image?(entry, data)
       entry.image = reload_image entry, data
     end
+
+    deploy_external_links(entry, data[:entry][:external_links])
 
     # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
     entry.imported_at = Time.zone.now
@@ -207,5 +209,17 @@ module MalDeployer
     end
 
     File.mtime(entry.image.path).to_datetime < DateTime.now - interval
+  end
+
+  def deploy_external_links entry, data
+    return if data.blank?
+
+    data.each do |v|
+      ExternalLink.find_or_create_by!(
+        entry_id: entry.id,
+        source: v[:source],
+        url: v[:url]
+      )
+    end
   end
 end

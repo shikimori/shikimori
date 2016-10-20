@@ -9,7 +9,7 @@ class Proxy < ActiveRecord::Base
   @@proxies_initial_size = 0
 
   # использовать ли кеш
-  @@use_cache = false#Rails.env == 'test'
+  @@use_cache = false #Rails.env == 'test'
 
   # показывать ли логи
   @@show_log = false
@@ -28,18 +28,18 @@ class Proxy < ActiveRecord::Base
     end
 
     # гет запрос через прокси
-    def get url, options={}
+    def get url, options = {}
       process url, options, :get
     end
 
     # пост запрос через прокси
-    def post url, options={}
+    def post url, options = {}
       process url, options, :post
     end
 
     # выполнение запроса через прокси или из кеша
     def process url, options, method
-      if @@use_cache && File.exists?(cache_path(url, options)) && (DateTime.now - 1.month < File.ctime(cache_path(url, options)))
+      if @@use_cache && File.exists?(cache_path(url, options)) && (1.month.ago < File.ctime(cache_path(url, options)))
         NamedLogger.proxy.info "CACHE #{url} (#{cache_path(url, options)})"
         return File.open(cache_path(url, options), "r") { |h| h.read }
       end
@@ -164,14 +164,6 @@ class Proxy < ActiveRecord::Base
       end
     end
 
-    def user_agent url
-      if url =~ /myanimelist.net/
-        'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
-      else
-        'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
-      end
-    end
-
     # выполнение get запроса без прокси
     def no_proxy_get url, options
       NamedLogger.proxy.info "GET #{url}"
@@ -204,7 +196,7 @@ class Proxy < ActiveRecord::Base
       path = uri.path
       #cookie = resp.response['set-cookie']
 
-      # POST request -> getiting data
+      # POST request -> getting data
       data = options[:data].map { |k,v| "#{k}=#{v}" }.join('&')
       headers = {
         #'Cookie' => cookie,
@@ -246,13 +238,44 @@ class Proxy < ActiveRecord::Base
       @@use_proxy = true
     end
 
-    def get_open_uri url, params={}
+    def get_open_uri url, params = {}
       if url =~ /\.(jpe?g|png)$/
-        open_image url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
+        open_image url, open_params(url, params)
       else
-        open url, params.merge('User-Agent' => user_agent(url), allow_redirections: :all)
+        open url, open_params(url, params)
       end
     end
+
+    def open_params url, params
+      params.merge(
+        'User-Agent' => user_agent(url),
+        'Cookie' => cookie(url),
+        allow_redirections: :all
+      )
+    end
+
+    def user_agent _url
+      'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+
+      #if url =~ /myanimelist.net/
+      #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
+      #else
+      #  'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+      #end
+    end
+
+    def cookie url
+      if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
+        %w(
+          MALHLOGSESSID=0599e043a19f3593ed8f6699bd881620;
+          MALSESSIONID=f5lskf83bo6ak76pueefi9nj92;
+          is_logged_in=1;
+        ).join
+      else
+        ''
+      end
+    end
+
   end
 
   def to_s with_http = false

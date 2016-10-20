@@ -31,6 +31,8 @@ describe Manga do
     it { is_expected.to have_many :manga_chapters }
 
     it { is_expected.to have_many :name_matches }
+
+    it { is_expected.to have_many :external_links }
   end
 
   describe 'validations' do
