@@ -1,22 +1,15 @@
-class MigrateUserStylesPreferencesToStyleEntities < ActiveRecord::Migration
+class ImportStylesForUsers < ActiveRecord::Migration
   def up
+    puts 'generating styles'
     styles = User.includes(:preferences).map do |user|
       user.styles.build name: '', css: css(user.preferences)
     end
-    Style.import styles
-    User.connection.execute <<-SQL
-      update users
-        set style_id = s.id
-      from
-        users u
-        inner join styles s
-          on s.owner_id = u.id and s.owner_type='User'
-    SQL
+    puts 'importing styles'
+    Style.import styles, validate: false
   end
 
   def down
     Style.delete_all
-    User.update_all style_id: nil
   end
 
 private
