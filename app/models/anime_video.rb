@@ -7,7 +7,9 @@ class AnimeVideo < ActiveRecord::Base
   SIGNIFICANT_FIELDS = []
 
   belongs_to :anime
-  belongs_to :author, class_name: AnimeVideoAuthor.name, foreign_key: :anime_video_author_id
+  belongs_to :author,
+    class_name: AnimeVideoAuthor.name,
+    foreign_key: :anime_video_author_id
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind,
@@ -24,7 +26,10 @@ class AnimeVideo < ActiveRecord::Base
     predicates: { prefix: true }
 
   validates :anime, :source, :kind, presence: true
-  validates :url, presence: true, anime_video_url: true, if: -> { new_record? || changes['url'] }
+  validates :url,
+    presence: true,
+    anime_video_url: true,
+    if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
   before_save :check_ban

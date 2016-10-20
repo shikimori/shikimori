@@ -19,19 +19,19 @@
   .x1000 &
     max-width: 1000px
 
+  &:before, &:after
+    display: block
+
   +gt_ipad
-    .bordered &
-      &:before, &:after
-        background: rgba(255,255,255,0.3)
-        content: ""
-        height: 100%
-        position: absolute
-        top: 0
-        width: 20px
+    &:before, &:after
+      background: rgba(255,255,255,0.3)
+      content: ""
+      height: 100%
+      position: absolute
+      top: 0
+      width: 20px
 
-      &:before
-        left: -20px
-
-      &:after
-        display: block!important
-        right: -20px
+    &:before
+      left: -20px
+    &:after
+      right: -20px
