@@ -32,7 +32,7 @@ header.head.ajaxable
       - next unless @collection[data[:kind]]
 
       .headline class="#{data[:color]}"
-        = t "collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
+        = t "titles/collection_title.kind.#{@view.klass.name.downcase}.long.#{data[:kind]}"
 
       .to-process data-dynamic='cutted_covers'
         - if @view.klass == Anime
