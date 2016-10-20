@@ -15,18 +15,18 @@ FactoryGirl.define do
     locale_from_domain 'ru'
 
     after :build do |user|
-      user.stub :create_history_entry
-      user.stub :ensure_api_access_token
-      user.stub :assign_style
-      user.stub :send_welcome_message
-      user.stub :grab_avatar
+      user.class.skip_callback :create, :after, :create_history_entry
+      user.class.skip_callback :create, :after, :ensure_api_access_token
+      user.class.skip_callback :create, :after, :assign_style
+      user.class.skip_callback :create, :after, :send_welcome_message
+      user.class.skip_callback :create, :after, :grab_avatar
     end
 
     trait :with_assign_style do
-      after(:build) { |anime| anime.unstub :assign_style }
+      after(:build) { |anime| anime.send :assign_style }
     end
 
-    trait(:user) { sequence :id, 23456789 }
+    trait(:user) { sequence :id, 23_456_789 }
     trait(:guest) { id User::GUEST_ID }
     trait(:admin) { id User::ADMINS.last }
     trait(:moderator) { id User::MODERATORS.last }

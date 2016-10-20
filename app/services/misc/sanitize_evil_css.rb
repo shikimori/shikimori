@@ -10,14 +10,14 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     /[\<>]/,
     # high bytes -- suspect
     # /[\x7f-\xff]/,
-    #low bytes -- suspect
+    # low bytes -- suspect
     /[\x00-\x08\x0B\x0C\x0E-\x1F]/,
     /&\#/, # bad charset
   ]
 
   def call
-    sanitized_css = css
-    EVIL_CSS.each { |regex| sanitized_css = sanitized_css.gsub regex, '' }
-    sanitized_css
+    EVIL_CSS.inject(css) do |styles, regex|
+      styles.gsub(regex, '')
+    end
   end
 end

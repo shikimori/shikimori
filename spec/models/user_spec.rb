@@ -69,7 +69,7 @@ describe User do
   let(:user2) { create :user }
   let(:topic) { create :topic }
 
-  describe 'cllbacks', :focus do
+  describe 'cllbacks' do
     describe '#create_preferences!' do
       it { expect(user.preferences).to be_persisted }
     end
@@ -77,8 +77,13 @@ describe User do
     describe '#assign_style' do
       let(:user) { create :user, :with_assign_style }
       it do
+        expect(user.style).to be_persisted
+        expect(user.style).to have_attributes(
+          css: '',
+          name: ''
+        )
+        expect(user.styles.first).to eq user.style
         expect(user.styles).to have(1).item
-        expect(user.style).to eq user.styles.first
       end
     end
 

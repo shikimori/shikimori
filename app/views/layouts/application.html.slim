@@ -6,7 +6,6 @@ html
   body[
     class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{current_user&.preferences&.body_width || 'x1200'} #{@layout.localized_names_class} #{@layout.localized_genres_class} locale-#{I18n.locale}"
     id="#{@layout.body_id}"
-    style="#{@layout.background_styles}"
     data-env="#{Rails.env}"
     data-user="#{@layout.user_data.to_json}"
     data-day_registered="#{user_signed_in? && current_user.day_registered?}"
@@ -18,6 +17,8 @@ html
     data-server_time="#{Time.zone.now.iso8601}"
   ]
     .turbolinks
+
+    = @layout.custom_styles
 
     - if defined?(notice) && notice
       p.flash-notice

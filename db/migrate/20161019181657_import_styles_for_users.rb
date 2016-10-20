@@ -38,12 +38,12 @@ private
 
     if background =~ %r{\A(https?:)?//}
       url = UrlGenerator.instance.camo_url background
-      "background: url(#{url}) fixed no-repeat;"
+      "background: url(#{url}) fixed no-repeat"
     else
       fixed_background = background.gsub(BbCodes::UrlTag::REGEXP) do
         UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
       end
-      "background: #{fixed_background};"
+      "background: #{fixed_background}"
     end
   end
 end

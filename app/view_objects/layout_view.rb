@@ -1,6 +1,6 @@
 class LayoutView < ViewObjectBase
   prepend ActiveCacher.instance
-  instance_cache :background, :hot_topics, :moderation_policy
+  instance_cache :styles, :hot_topics, :moderation_policy
 
   def blank_layout?
     !!h.controller.instance_variable_get('@blank_layout')
@@ -18,24 +18,19 @@ class LayoutView < ViewObjectBase
     ru_option?(:russian_genres) ? 'localized_genres-ru' : 'localized_genres-en'
   end
 
-  # rubocop:disable MethodLength
-  def background_styles
+  def custom_styles
     return if blank_layout?
-    return unless background
 
-    if background =~ %r{\A(https?:)?//}
-      url = UrlGenerator.instance.camo_url background
-      css = "background: url(#{url}) fixed no-repeat;"
-    else
-      fixed_background = background.gsub(BbCodes::UrlTag::REGEXP) do
-        UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
-      end
-      css = "background: #{fixed_background};"
+    style = (
+      h.controller.instance_variable_get('@user') || h.current_user
+    )&.style
+
+    if style&.css.present?
+      <<-CSS.squish.strip.html_safe
+        <style type="text/css">#{style.safe_css}</style>
+      CSS
     end
-
-    Misc::SanitizeEvilCss.call css
   end
-  # rubocop:enable MethodLength
 
   def user_data
     {
@@ -62,11 +57,6 @@ class LayoutView < ViewObjectBase
   end
 
 private
-
-  def background
-    object_with_background = h.controller.instance_variable_get('@user')
-    (object_with_background || h.current_user)&.preferences&.body_background
-  end
 
   def ru_option? option_name
     I18n.russian? && h.ru_domain? &&

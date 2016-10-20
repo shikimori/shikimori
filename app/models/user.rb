@@ -349,7 +349,7 @@ private
   end
 
   def assign_style
-    update style: styles.create!
+    create_style! css: '', name: '', owner: self
   end
 
   def check_ban
