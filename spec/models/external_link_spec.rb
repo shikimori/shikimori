@@ -5,6 +5,7 @@ describe ExternalLink do
 
   describe 'validations' do
     it do
+      is_expected.to validate_presence_of :entry
       is_expected.to validate_presence_of :source
       is_expected.to validate_presence_of :url
     end
