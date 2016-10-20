@@ -15,56 +15,29 @@ FactoryGirl.define do
     locale_from_domain 'ru'
 
     after :build do |user|
-      user.class.skip_callback :save, :before, :ensure_api_access_token
+      user.stub :create_history_entry
+      user.stub :ensure_api_access_token
+      user.stub :assign_style
+      user.stub :send_welcome_message
+      user.stub :grab_avatar
     end
 
-    trait :user do
-      sequence :id, 23456789
+    trait :with_assign_style do
+      after(:build) { |anime| anime.unstub :assign_style }
     end
 
-    trait :guest do
-      id User::GUEST_ID
-    end
-
-    trait :admin do
-      id User::ADMINS.last
-    end
-
-    trait :moderator do
-      id User::MODERATORS.last
-    end
-
-    trait :contests_moderator do
-      id User::CONTEST_MODERATORS.last
-    end
-
-    trait :reviews_moderator do
-      id User::REVIEWS_MODERATORS.last
-    end
-
-    trait :video_moderator do
-      id User::VIDEO_MODERATORS.last
-    end
-
-    trait :versions_moderator do
-      id User::VERSIONS_MODERATORS.last
-    end
-
-    trait :banhammer do
-      id User::BANHAMMER_ID
-    end
-
-    trait :cosplayer do
-      id User::COSPLAYER_ID
-    end
-
-    trait :trusted_video_uploader do
-      id User::TRUSTED_VIDEO_UPLOADERS.last
-    end
-
-    trait :api_video_uploader do
-      id User::API_VIDEO_UPLOADERS.last
-    end
+    trait(:user) { sequence :id, 23456789 }
+    trait(:guest) { id User::GUEST_ID }
+    trait(:admin) { id User::ADMINS.last }
+    trait(:moderator) { id User::MODERATORS.last }
+    trait(:contests_moderator) { id User::CONTEST_MODERATORS.last }
+    trait(:reviews_moderator) { id User::REVIEWS_MODERATORS.last }
+    trait(:video_moderator) { id User::VIDEO_MODERATORS.last }
+    trait(:versions_moderator) { id User::VERSIONS_MODERATORS.last }
+    trait(:banhammer) { id User::BANHAMMER_ID }
+    trait(:cosplayer) { id User::COSPLAYER_ID }
+    trait(:trusted_video_uploader) { id User::TRUSTED_VIDEO_UPLOADERS.last }
+    trait(:api_video_uploader) { id User::API_VIDEO_UPLOADERS.last }
 
     trait :version_vermin do
       id User::VERSION_VERMINS.last
@@ -78,21 +51,10 @@ FactoryGirl.define do
       end
     end
 
-    trait :banned do
-      read_only_at 1.year.from_now - 1.week
-    end
-
-    trait :forever_banned do
-      read_only_at 1.year.from_now + 1.week
-    end
-
-    trait :day_registered do
-      created_at 25.hours.ago
-    end
-
-    trait :week_registered do
-      created_at 8.days.ago
-    end
+    trait(:banned) { read_only_at 1.year.from_now - 1.week }
+    trait(:forever_banned) { read_only_at 1.year.from_now + 1.week }
+    trait(:day_registered) { created_at 25.hours.ago }
+    trait(:week_registered) { created_at 8.days.ago }
 
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/images/anime.jpg" }

@@ -61,22 +61,26 @@ describe User do
   end
 
   describe 'enumerize' do
-    it do
-      is_expected.to enumerize(:locale)
-        .in(:ru, :en)
-        .with_default(:ru)
-      is_expected.to enumerize(:locale_from_domain)
-        .in(:ru, :en)
-        .with_default(:ru)
-    end
+    it { is_expected.to enumerize(:locale).in(:ru, :en).with_default(:ru) }
+    it { is_expected.to enumerize(:locale_from_domain).in(:ru, :en).with_default(:ru) }
   end
 
   let(:user) { create :user }
   let(:user2) { create :user }
   let(:topic) { create :topic }
 
-  describe 'hooks' do
-    it { expect(user.preferences).to be_persisted }
+  describe 'cllbacks', :focus do
+    describe '#create_preferences!' do
+      it { expect(user.preferences).to be_persisted }
+    end
+
+    describe '#assign_style' do
+      let(:user) { create :user, :with_assign_style }
+      it do
+        expect(user.styles).to have(1).item
+        expect(user.style).to eq user.styles.first
+      end
+    end
 
     #it 'creates registration history entry' do
       #user.history.is_expected.to have(1).item

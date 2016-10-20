@@ -122,12 +122,12 @@ class User < ActiveRecord::Base
   before_update :log_nickname_change, if: -> { changes['nickname'] }
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
-  after_create :create_history_entry unless Rails.env.test?
+  after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
+  after_create :assign_style
   after_create :check_ban
-  # personal message from me
-  after_create :send_welcome_message unless Rails.env.test?
-  after_create :grab_avatar unless Rails.env.test?
+  after_create :send_welcome_message
+  after_create :grab_avatar
 
   scope :suspicious, -> {
     where('sign_in_count < 7')
@@ -346,6 +346,10 @@ private
   def self.find_by_nickname nickname
     where(nickname: nickname)
       .find { |v| v.nickname == nickname }
+  end
+
+  def assign_style
+    update style: styles.create!
   end
 
   def check_ban

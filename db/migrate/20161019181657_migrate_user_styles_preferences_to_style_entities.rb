@@ -1,12 +1,22 @@
 class MigrateUserStylesPreferencesToStyleEntities < ActiveRecord::Migration
-  def change
-    User.includes(:preferences).order(:id).each do |user|
-      puts user.id
-      user.styles.create!(
-         name: '',
-         css: css(user.preferences)
-      )
+  def up
+    styles = User.includes(:preferences).map do |user|
+      user.styles.build name: '', css: css(user.preferences)
     end
+    Style.import styles
+    User.connection.execute <<-SQL
+      update users
+        set style_id = s.id
+      from
+        users u
+        inner join styles s
+          on s.owner_id = u.id and s.owner_type='User'
+    SQL
+  end
+
+  def down
+    Style.delete_all
+    User.update_all style_id: nil
   end
 
 private
