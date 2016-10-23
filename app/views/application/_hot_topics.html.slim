@@ -51,7 +51,7 @@
         ]
           = "#{t '.video'}: #{layout.moderation_policy.video_reports_count}"
 
-  - cache :hot_topics, expire_in: 10.minutes do
+  - cache :hot_topics, expires_in: 10.minutes do
     - layout.hot_topics.each do |topic_view|
       .topic
         a.b-link[
