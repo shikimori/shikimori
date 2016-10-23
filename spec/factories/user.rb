@@ -66,6 +66,10 @@ FactoryGirl.define do
       id User::API_VIDEO_UPLOADERS.last
     end
 
+    trait :version_vermin do
+      id User::VERSION_VERMINS.last
+    end
+
     trait :without_password do
       password nil
 

@@ -23,7 +23,7 @@ class UserDataFetcherBase
 private
 
   def list_cache_key
-    "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}_#{rates >= Recommendations::RatesFetcher::MinimumScores}"
+    "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}_#{rates >= Recommendations::RatesFetcher::MINIMUM_SCORES}"
   end
 
   def cache_key
@@ -47,8 +47,8 @@ private
 
   def should_fetch?
     @user.present? &&
-      (histories >= Recommendations::RatesFetcher::MinimumScores || latest_import.present?) &&
-      rates >= Recommendations::RatesFetcher::MinimumScores
+      (histories >= Recommendations::RatesFetcher::MINIMUM_SCORES || latest_import.present?) &&
+      rates >= Recommendations::RatesFetcher::MINIMUM_SCORES
   end
 
   def load_data

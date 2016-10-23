@@ -19,8 +19,8 @@ describe RecommendationsController do
 
     context 'recommendations not calculated yet' do
       before do
-        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MINIMUM_SCORES
+        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MINIMUM_SCORES
         expect(RecommendationsWorker).to receive :perform_async
       end
       it { should be_nil }
@@ -29,8 +29,8 @@ describe RecommendationsController do
     context 'recommendations have been calculated' do
       let(:rankings) { {1=>2, 3=>4} }
       before do
-        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MinimumScores
-        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MinimumScores
+        allow(user).to receive_message_chain(:anime_rates, :count).and_return Recommendations::RatesFetcher::MINIMUM_SCORES
+        allow(user).to receive_message_chain(:history, :count).and_return Recommendations::RatesFetcher::MINIMUM_SCORES
         allow(Rails.cache).to receive(:read).and_return rankings
       end
 

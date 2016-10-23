@@ -392,6 +392,11 @@ describe AnimeVideoReport do
             let(:user) { build_stubbed :user, :user, :banned }
             it { is_expected.to_not be_able_to :create, report }
           end
+
+          context 'version vermin' do
+            let(:user) { build_stubbed :user, :user, :version_vermin }
+            it { is_expected.to_not be_able_to :create, report }
+          end
         end
       end
     end

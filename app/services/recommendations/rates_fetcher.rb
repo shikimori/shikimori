@@ -1,7 +1,7 @@
 # NOTE: в конфиге мемкеша должна быть опция -I 32M
 # иначе кеш оценок пользователей не влезет в мемкеш!
 class Recommendations::RatesFetcher
-  MinimumScores = 20
+  MINIMUM_SCORES = 20
 
   attr_writer :user_ids
   attr_writer :target_ids
@@ -30,7 +30,7 @@ class Recommendations::RatesFetcher
   def fetch_raw
     @raw_data ||= Rails.cache.fetch cache_key, expires_in: 2.weeks do
       if @with_deletion
-        fetch_rates(@klass).delete_if {|k,v| v.size < MinimumScores }
+        fetch_rates(@klass).delete_if {|k,v| v.size < MINIMUM_SCORES }
       else
         fetch_rates(@klass)
       end
@@ -78,7 +78,7 @@ private
     [
       :raw_user_rates,
       @klass.name,
-      MinimumScores,
+      MINIMUM_SCORES,
       @by_user,
       @with_deletion,
       @user_ids,

@@ -166,27 +166,30 @@ class Abilities::User
 
   def anime_video_abilities
     can [:create], AnimeVideoReport do |report|
-      !@user.banned? && report.user_id == @user.id &&
-        (report.broken? || report.wrong?)
+      !@user.banned? && !@user.verison_vermin? &&
+        report.user_id == @user.id && (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
-      !@user.banned? && anime_video.uploaded?
+      !@user.banned? && !@user.verison_vermin? &&anime_video.uploaded?
     end
     can [:edit, :update], AnimeVideo do |anime_video|
-      !@user.banned? && (anime_video.uploaded? || anime_video.working?)
+      !@user.banned? && !@user.verison_vermin? &&
+        (anime_video.uploaded? || anime_video.working?)
     end
     can [:destroy], AnimeVideo do |anime_video|
-      !@user.banned? &&
+      !@user.banned? && !@user.verison_vermin? &&
         (anime_video.uploader == @user && (
-          @user.api_video_uploader? || anime_video.created_at > 1.week.ago))
+          @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
+        )
     end
   end
 
   def version_abilities
     can [:create, :destroy], Version do |version|
-      !@user.banned? && version.user_id == @user.id && (
-        version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
-      ).none?
+      !@user.banned? && !@user.verison_vermin? &&
+        version.user_id == @user.id && (
+          version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
+        ).none?
     end
     cannot [:significant_change], Version
   end

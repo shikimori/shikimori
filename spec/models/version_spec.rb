@@ -226,7 +226,13 @@ describe Version do
           it { is_expected.to be_able_to :destroy, version }
 
           context 'banned user' do
-            let(:user) { build_stubbed :user, :user, read_only_at: 1.day.from_now }
+            let(:user) { build_stubbed :user, :user, :banned }
+            it { is_expected.to_not be_able_to :create, version }
+            it { is_expected.to_not be_able_to :destroy, version }
+          end
+
+          context 'version_vermin user' do
+            let(:user) { build_stubbed :user, :version_vermin }
             it { is_expected.to_not be_able_to :create, version }
             it { is_expected.to_not be_able_to :destroy, version }
           end

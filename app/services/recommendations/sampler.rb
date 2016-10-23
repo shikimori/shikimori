@@ -2,7 +2,7 @@ class Recommendations::Sampler
   # сколько максимум делать рекомендаций
   MaxRecommendations = 500
   # сколько минимум должно быть голосов, чтобы можно было попытаться выдать рекомендации
-  MinimumScores = 20
+  MINIMUM_SCORES = 20
 
   def initialize klass, metric, rates_fetcher, normalization, user_cache_key
     @klass = klass

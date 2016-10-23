@@ -30,58 +30,66 @@ class User
       38439, 38439, 48509, 53634, 41912, 91485
     ]).uniq
 
+    VERSION_VERMINS = [
+      65255
+    ]
+
     # администратор ли пользователь?
     def admin?
-      ADMINS.include? self.id
+      ADMINS.include? id
     end
 
     # банхаммер ли пользователь
     def banhammer?
-      self.id == BANHAMMER_ID
+      id == BANHAMMER_ID
     end
 
     # модератор ли пользователь,
     def moderator?
-      MODERATORS.include? self.id
+      MODERATORS.include? id
     end
 
     # модератор ли пользовательских правок пользователь?
     def versions_moderator?
-      VERSIONS_MODERATORS.include? self.id
+      VERSIONS_MODERATORS.include? id
     end
 
     # модератор ли обзоров пользователь?
     def reviews_moderator?
-      REVIEWS_MODERATORS.include? self.id
+      REVIEWS_MODERATORS.include? id
     end
 
     # модератор ли контестов пользователь?
     def contests_moderator?
-      CONTEST_MODERATORS.include? self.id
+      CONTEST_MODERATORS.include? id
     end
 
     # модератор ли косплея пользователь?
     def cosplay_moderator?
-      COSPLAY_MODERATORS.include? self.id
+      COSPLAY_MODERATORS.include? id
     end
 
     # модератор ли видео пользователь?
     def video_moderator?
-      VIDEO_MODERATORS.include? self.id
+      VIDEO_MODERATORS.include? id
     end
 
     # переводчик ли пользователь
     def translator?
-      TRANSLATORS.include? self.id
+      TRANSLATORS.include? id
     end
 
     # пользователь, за которым не проверяем залитое видео?
     def trusted_video_uploader?
-      TRUSTED_VIDEO_UPLOADERS.include? self.id
+      TRUSTED_VIDEO_UPLOADERS.include? id
     end
 
     def api_video_uploader?
-      API_VIDEO_UPLOADERS.include? self.id
+      API_VIDEO_UPLOADERS.include? id
+    end
+
+    def verison_vermin?
+      VERSION_VERMINS.include? id
     end
   end
 end
