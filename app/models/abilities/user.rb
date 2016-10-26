@@ -14,6 +14,7 @@ class Abilities::User
     club_abilities
     anime_video_abilities
     version_abilities
+    style_abilities
     other_abilities
   end
 
@@ -192,6 +193,12 @@ class Abilities::User
         ).none?
     end
     cannot [:significant_change], Version
+  end
+
+  def style_abilities
+    can :manage, Style do |style|
+      style.owner_id == @user.id && style.owner_type == User.name
+    end
   end
 
   def other_abilities
