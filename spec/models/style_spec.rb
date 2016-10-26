@@ -20,19 +20,38 @@ describe Style do
 
     context 'owner' do
       let(:style) { build_stubbed :style, owner: user }
-      it { is_expected.to be_able_to :mangae, style }
+
+      context 'not style of owner' do
+        it { is_expected.to be_able_to :create, style }
+        it { is_expected.to be_able_to :update, style }
+        it { is_expected.to be_able_to :destroy, style }
+      end
+
+      context 'style of owner' do
+        before { user.style = style }
+
+        it { is_expected.to be_able_to :create, style }
+        it { is_expected.to be_able_to :update, style }
+        it { is_expected.to_not be_able_to :destroy, style }
+      end
     end
 
     context 'guest' do
       let(:style) { build_stubbed :style }
       let(:user) { nil }
-      it { is_expected.to_not be_able_to :manage, style }
+
+      it { is_expected.to_not be_able_to :create, style }
+      it { is_expected.to_not be_able_to :update, style }
+      it { is_expected.to_not be_able_to :destroy, style }
     end
 
     context 'user' do
       let(:style) { build_stubbed :style }
       let(:user) { nil }
-      it { is_expected.to_not be_able_to :manage, style }
+
+      it { is_expected.to_not be_able_to :create, style }
+      it { is_expected.to_not be_able_to :update, style }
+      it { is_expected.to_not be_able_to :destroy, style }
     end
   end
 end

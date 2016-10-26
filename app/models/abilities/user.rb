@@ -196,8 +196,11 @@ class Abilities::User
   end
 
   def style_abilities
-    can :manage, Style do |style|
+    can [:create, :update], Style do |style|
       style.owner_id == @user.id && style.owner_type == User.name
+    end
+    can :destroy, Style do |style|
+      can?(:update, style) && @user.style_id != style.id
     end
   end
 
