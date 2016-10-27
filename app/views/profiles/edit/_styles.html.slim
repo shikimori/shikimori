@@ -1,76 +1,95 @@
-= simple_form_for @resource.preferences,
-    url: profile_user_preferences_url(@resource) do |f|
-  input type="hidden" name="page" value="#{@page}"
+.block
+  = simple_form_for @resource.preferences,
+      url: profile_user_preferences_url(@resource) do |f|
+    input type="hidden" name="page" value="#{@page}"
 
-  .block
-    = f.input :body_width, include_blank: false
-    = f.input :postload_in_catalog
+    .block
+      = f.input :body_width, include_blank: false
+      = f.input :postload_in_catalog
 
-  .block
-    = f.input :show_social_buttons
-    = f.input :show_smileys
-    = f.input :menu_contest
+    .block
+      = f.input :show_social_buttons
+      = f.input :show_smileys
+      = f.input :menu_contest
 
-  .subheadline Стили сайта
+    .buttons
+      a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
+      = f.button :magic_submit
 
-  .backgrounds
-    p = t '.page_background'
-    = f.input :page_background, as: :hidden
-    .range-slider.noUiSlider
+.subheadline.m10 = t '.site_styles'
+.cc-2.block.b-edit_styles
+  .c-column
+    = simple_form_for [:api, @resource.style],
+        remote: true,
+        html: { 'data-type' => :json } do |f|
+      .block
+        / = f.input :name
+        = f.input :css, label: false
 
-    = f.input :page_border
-    = f.input :body_background, hint: "#{t '.body_background_hint'}"
-    .samples
-      p #{t '.examples'}:
-      div == spoiler_to_html "[spoiler=#{t '.spoiler_one_picture'}]<div class='b-quote'>url(//desu.shikimori.org/system/user_images/original/1/100613.jpg) no-repeat fixed</div>" + '<br><a href="//dere.shikimori.org/system/user_images/original/1/106489.jpg?1434111542" rel="68989828" class="b-image unprocessed"><img src="//dere.shikimori.org/system/user_images/thumbnail/1/106489.jpg?1434111542" class=""><span class="marker">1439x804</span></a>' +  "[/spoiler]"
-      /[image=106489]
-      div == spoiler_to_html "[spoiler=#{t '.spoiler_one_repeated_picture'}]<div class='b-quote'>url(//shikimori.org/assets/background/congruent_pentagon.png) repeat</div>" + '<br><a href="//nyaa.shikimori.org/system/user_images/original/1/106490.jpg?1434111584" rel="68989828" class="b-image unprocessed"><img src="//nyaa.shikimori.org/system/user_images/thumbnail/1/106490.jpg?1434111584" class=""><span class="marker">1430x804</span></a>' + "[/spoiler]"
-      /[image=106490]
-      div == spoiler_to_html "[spoiler=#{t '.spoiler_two_pictures'}]<div class='b-quote'>url(//i63.fastpic.ru/big/2014/1016/58/0ebb3c0ec0bb976c0837a256a89b9658.png) fixed no-repeat bottom left, url(//s7.hostingkartinok.com/uploads/system/2014/10/6e932fd537e806c1bc301d38fb0db854.png) fixed no-repeat bottom right</div>" + '<br><a href="//moe.shikimori.org/system/user_images/original/1/106492.jpg?1434111616" rel="68989828" class="b-image unprocessed"><img src="//moe.shikimori.org/system/user_images/thumbnail/1/106492.jpg?1434111616" class=""><span class="marker">1440x805</span></a>' + "[/spoiler]"
-      /[image=106492]
-      div == spoiler_to_html "[spoiler=#{t '.spoiler_one_black_picture'}]<div class='b-quote'>url(//i63.fastpic.ru/big/2014/1016/58/0ebb3c0ec0bb976c0837a256a89b9658.png) no-repeat black fixed</div>" + '<br><a href="//desu.shikimori.org/system/user_images/original/1/106493.jpg?1434111639" rel="68989828" class="b-image unprocessed"><img src="//desu.shikimori.org/system/user_images/thumbnail/1/106493.jpg?1434111639" class=""><span class="marker">1440x805</span></a>' + "[/spoiler]"
-      /[image=106493]
+      .buttons
+        a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
+        = f.button :magic_submit
 
-    ul.present-backgrounds
-      li.bg1 data-background="/assets/background/square_bg.png"
-      li.bg2 data-background="/assets/background/agsquare.png"
-      li.bg3 data-background="/assets/background/fabric_of_squares_gray.png"
-      li.bg4 data-background="/assets/background/furley_bg.png"
-      li.bg5 data-background="/assets/background/gplaypattern.png"
-      li.bg6 data-background="/assets/background/grey.png"
-      li.bg7 data-background="/assets/background/greyfloral.png"
-      li.bg8 data-background="/assets/background/hexellence.png"
-      li.bg9 data-background="/assets/background/light_wool.png"
-      li.bg10 data-background="/assets/background/snow.png"
-      li.bg11 data-background="/assets/background/ice_age.png"
-      li.bg12 data-background="/assets/background/paper_fibers.png"
-      li.bg13 data-background="/assets/background/scribble_light.png"
-      li.bg14 data-background="/assets/background/redox_02.png"
-      li.bg15 data-background="/assets/background/bright_squares.png"
-      li.bg16 data-background="/assets/background/shattered.png"
-      li.bg17 data-background="/assets/background/tactile_noise.png"
-      li.bg18 data-background="/assets/background/twinkle_twinkle.png"
-      li.bg19 data-background="/assets/background/wild_oliva.png"
-      li.bg20 data-background="/assets/background/use_your_illusion.png"
-      li.bg21 data-background="/assets/background/noisy_net.png"
-      li.bg22 data-background="/assets/background/dirty_old_shirt.png"
-      li.bg23 data-background="/assets/background/cartographer.png"
-      li.bg24 data-background="/assets/background/px_by_Gre3g.png"
-      li.bg25 data-background="/assets/background/diagmonds.png"
-      li.bg26 data-background="/assets/background/type.png"
-      li.bg27 data-background="/assets/background/crissXcross.png"
-      li.bg28 data-background="/assets/background/random_grey_variations.png"
-      li.bg29 data-background="/assets/background/crossword.png"
-      li.bg30 data-background="/assets/background/congruent_pentagon.png"
-      li.bg31 data-background="/assets/background/food.png"
-      li.bg32 data-background="/assets/background/tree_bark.png"
-      li.bg33 data-background="/assets/background/geometry2.png"
-      li.bg34 data-background="/assets/background/skulls.png"
-      li.bg35 data-background="/assets/background/footer_lodyas.png"
-      li.bg36 data-background="/assets/background/pink_rice.png"
-      li.bg37 data-background="/assets/background/restaurant_icons.png"
-      li.bg38 data-background="/assets/background/restaurant.png"
+  .c-column
+    .body_opacity[
+      data-css_template="#{Style::BODY_OPACITY_CSS}"
+    ]
+      p = t '.page_background'
+      .range-slider.noUiSlider
 
-  .buttons
-    a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
-    = f.button :magic_submit
+    = simple_form_for @resource.preferences,
+        url: profile_user_preferences_url(@resource) do |f|
+      .backgrounds
+
+        = f.input :page_border
+        = f.input :body_background, hint: "#{t '.body_background_hint'}"
+        .samples
+          p #{t '.examples'}:
+          div == spoiler_to_html "[spoiler=#{t '.spoiler_one_picture'}]<div class='b-quote'>url(//desu.shikimori.org/system/user_images/original/1/100613.jpg) no-repeat fixed</div>" + '<br><a href="//dere.shikimori.org/system/user_images/original/1/106489.jpg?1434111542" rel="68989828" class="b-image unprocessed"><img src="//dere.shikimori.org/system/user_images/thumbnail/1/106489.jpg?1434111542" class=""><span class="marker">1439x804</span></a>' +  "[/spoiler]"
+          /[image=106489]
+          div == spoiler_to_html "[spoiler=#{t '.spoiler_one_repeated_picture'}]<div class='b-quote'>url(//shikimori.org/assets/background/congruent_pentagon.png) repeat</div>" + '<br><a href="//nyaa.shikimori.org/system/user_images/original/1/106490.jpg?1434111584" rel="68989828" class="b-image unprocessed"><img src="//nyaa.shikimori.org/system/user_images/thumbnail/1/106490.jpg?1434111584" class=""><span class="marker">1430x804</span></a>' + "[/spoiler]"
+          /[image=106490]
+          div == spoiler_to_html "[spoiler=#{t '.spoiler_two_pictures'}]<div class='b-quote'>url(//i63.fastpic.ru/big/2014/1016/58/0ebb3c0ec0bb976c0837a256a89b9658.png) fixed no-repeat bottom left, url(//s7.hostingkartinok.com/uploads/system/2014/10/6e932fd537e806c1bc301d38fb0db854.png) fixed no-repeat bottom right</div>" + '<br><a href="//moe.shikimori.org/system/user_images/original/1/106492.jpg?1434111616" rel="68989828" class="b-image unprocessed"><img src="//moe.shikimori.org/system/user_images/thumbnail/1/106492.jpg?1434111616" class=""><span class="marker">1440x805</span></a>' + "[/spoiler]"
+          /[image=106492]
+          div == spoiler_to_html "[spoiler=#{t '.spoiler_one_black_picture'}]<div class='b-quote'>url(//i63.fastpic.ru/big/2014/1016/58/0ebb3c0ec0bb976c0837a256a89b9658.png) no-repeat black fixed</div>" + '<br><a href="//desu.shikimori.org/system/user_images/original/1/106493.jpg?1434111639" rel="68989828" class="b-image unprocessed"><img src="//desu.shikimori.org/system/user_images/thumbnail/1/106493.jpg?1434111639" class=""><span class="marker">1440x805</span></a>' + "[/spoiler]"
+          /[image=106493]
+
+        ul.present-backgrounds
+          li.bg1 data-background="/assets/background/square_bg.png"
+          li.bg2 data-background="/assets/background/agsquare.png"
+          / li.bg3 data-background="/assets/background/fabric_of_squares_gray.png"
+          / li.bg4 data-background="/assets/background/furley_bg.png"
+          / li.bg5 data-background="/assets/background/gplaypattern.png"
+          / li.bg6 data-background="/assets/background/grey.png"
+          / li.bg7 data-background="/assets/background/greyfloral.png"
+          / li.bg8 data-background="/assets/background/hexellence.png"
+          / li.bg9 data-background="/assets/background/light_wool.png"
+          / li.bg10 data-background="/assets/background/snow.png"
+          / li.bg11 data-background="/assets/background/ice_age.png"
+          / li.bg12 data-background="/assets/background/paper_fibers.png"
+          / li.bg13 data-background="/assets/background/scribble_light.png"
+          / li.bg14 data-background="/assets/background/redox_02.png"
+          / li.bg15 data-background="/assets/background/bright_squares.png"
+          / li.bg16 data-background="/assets/background/shattered.png"
+          / li.bg17 data-background="/assets/background/tactile_noise.png"
+          / li.bg18 data-background="/assets/background/twinkle_twinkle.png"
+          / li.bg19 data-background="/assets/background/wild_oliva.png"
+          / li.bg20 data-background="/assets/background/use_your_illusion.png"
+          / li.bg21 data-background="/assets/background/noisy_net.png"
+          / li.bg22 data-background="/assets/background/dirty_old_shirt.png"
+          / li.bg23 data-background="/assets/background/cartographer.png"
+          / li.bg24 data-background="/assets/background/px_by_Gre3g.png"
+          / li.bg25 data-background="/assets/background/diagmonds.png"
+          / li.bg26 data-background="/assets/background/type.png"
+          / li.bg27 data-background="/assets/background/crissXcross.png"
+          / li.bg28 data-background="/assets/background/random_grey_variations.png"
+          / li.bg29 data-background="/assets/background/crossword.png"
+          / li.bg30 data-background="/assets/background/congruent_pentagon.png"
+          / li.bg31 data-background="/assets/background/food.png"
+          / li.bg32 data-background="/assets/background/tree_bark.png"
+          / li.bg33 data-background="/assets/background/geometry2.png"
+          / li.bg34 data-background="/assets/background/skulls.png"
+          / li.bg35 data-background="/assets/background/footer_lodyas.png"
+          / li.bg36 data-background="/assets/background/pink_rice.png"
+          / li.bg37 data-background="/assets/background/restaurant_icons.png"
+          / li.bg38 data-background="/assets/background/restaurant.png"

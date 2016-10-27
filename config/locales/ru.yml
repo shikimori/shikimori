@@ -194,6 +194,9 @@ ru:
       anime_video_report:
         kind: Причина
         message: Сообщение модератору
+      style:
+        name: Название
+        css: CSS
 
     errors:
       messages:

@@ -17,13 +17,13 @@ private
   def css preferences
     styles = []
 
-    if preferences.page_border
-      styles << Style::PAGE_BORDER_CSS
-    end
-
     if preferences.page_background.to_f > 0
       color = 255 - preferences.page_background.to_f.ceil
-      styles << Style::PAGE_BORDER_CSS % [color, color, color]
+      styles << Style::BODY_OPACITY_CSS % [color, color, color, 1]
+    end
+
+    if preferences.page_border
+      styles << Style::PAGE_BORDER_CSS
     end
 
     if preferences.body_background.present?
@@ -38,12 +38,9 @@ private
 
     if background =~ %r{\A(https?:)?//}
       url = UrlGenerator.instance.camo_url background
-      "background: url(#{url}) fixed no-repeat"
+      "background: url(#{background}) fixed no-repeat"
     else
-      fixed_background = background.gsub(BbCodes::UrlTag::REGEXP) do
-        UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
-      end
-      "background: #{fixed_background}"
+      "background: #{background}"
     end
   end
 end

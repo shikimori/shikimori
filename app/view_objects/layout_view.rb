@@ -27,7 +27,7 @@ class LayoutView < ViewObjectBase
 
     if style&.css.present?
       <<-CSS.squish.strip.html_safe
-        <style type="text/css">#{style.safe_css}</style>
+        <style type="text/css">#{style.compiled_css}</style>
       CSS
     end
   end

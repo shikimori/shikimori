@@ -9,19 +9,38 @@ class Style < ActiveRecord::Base
   PAGE_BORDER_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: page_border */
     .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: block; }
+    /* GENERATED: /page_border */
   CSS
 
   BODY_OPACITY_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: body_opacity */
-    .l-page { background-color: rgba(%d, %d, %d, 1); }
+    .l-page { background-color: rgba(%d, %d, %d, %d); }
+    /* GENERATED: /body_opacity */
   CSS
 
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: body_background */
     body { %s; }
+    /* GENERATED: /body_background */
   CSS
 
-  def safe_css
+  def compiled_css
+    sanitize(camo_images(strip_comments(css)))
+  end
+
+private
+
+  def camo_images css
+    css.gsub(BbCodes::UrlTag::URL) do
+      UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
+    end
+  end
+
+  def strip_comments css
+    css.gsub(%r{/\* .*? */}mix, '')
+  end
+
+  def sanitize css
     Misc::SanitizeEvilCss.call(css).strip.gsub(/;;+/, ';').strip
   end
 end

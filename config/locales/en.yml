@@ -194,6 +194,9 @@ en:
       anime_video_report:
         kind: Reason
         message: Message to moderators
+      style:
+        name: Name
+        css: CSS
 
     errors:
       messages:

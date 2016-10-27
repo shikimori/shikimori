@@ -58,6 +58,7 @@ class Ability
     can :see_contest, Contest
     can :see_club, Club
     can :read, Review
+    can [:show, :preview], Style
 
     can :read, Topic
   end

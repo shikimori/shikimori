@@ -302,7 +302,9 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :styles, only: [:show, :create, :update, :destroy]
+      resources :styles, only: [:show, :create, :update, :destroy] do
+        post :preview, on: :collection
+      end
     end
   end
   # /api

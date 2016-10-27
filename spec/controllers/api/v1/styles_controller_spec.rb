@@ -13,6 +13,17 @@ describe Api::V1::StylesController, :show_in_doc do
     end
   end
 
+  describe '#preview' do
+    let(:preview_params) { { css: 'xxx' } }
+    subject! { post :preview, style: preview_params, format: :json }
+
+    it do
+      expect(resource).to have_attributes preview_params
+      expect(resource).to be_new_record
+      expect(response).to have_http_status :success
+    end
+  end
+
   describe '#create' do
     let(:create_params) do
       {

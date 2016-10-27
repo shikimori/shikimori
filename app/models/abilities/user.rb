@@ -196,7 +196,6 @@ class Abilities::User
   end
 
   def style_abilities
-    can :show, Style
     can [:create, :update], Style do |style|
       style.owner_id == @user.id && style.owner_type == User.name
     end
