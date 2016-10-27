@@ -199,6 +199,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-imagesloaded'
   gem 'rails-assets-magnific-popup'
   gem 'rails-assets-nouislider'
+  gem 'rails-assets-md5-jkmyers'
 
   # it's time to experiment with a new tool
   # gem 'rails-assets-vue'

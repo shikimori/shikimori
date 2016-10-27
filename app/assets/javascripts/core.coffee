@@ -8,6 +8,7 @@
 #= require jQuery-Storage-API
 #= require pikaday
 #= require urijs
+#= require md5-jkmyers
 #= require nouislider
 
 # imagesLoaded dependency

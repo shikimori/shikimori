@@ -5,6 +5,8 @@ class Styles.Edit extends View
     @$css = @$ '#style_css'
     @$preview = @$ '.preview'
 
+    @css_cache = {}
+
     new Styles.PageBackgroundColor @$('.page_background_color'), @$css
 
     @$css.elastic()
@@ -26,24 +28,27 @@ class Styles.Edit extends View
       # сохранение по ctrl+enter
       @$form.submit()
 
-  _preview: =>
-    css = @$css.val()
-    @preview_cache ||= {}
-
-    if @preview_cache[css]
-      @_replace_custom_css(@preview_cache[css]) 
-    else
-      @$preview.show()
-      $.post(@$preview.data('url'), style: { css: css })
-        .success (style) =>
-          @preview_cache[css] = style.compiled_css
-          @_replace_custom_css style.compiled_css
-        .done =>
-          @$preview.hide()
-
   _component_update: =>
     @$css.trigger 'elastic:update'
     @debounced_preview()
+
+  _preview: =>
+    css = @$css.val().trim()
+    hash = md5(css)
+
+    if @css_cache[hash]
+      @_replace_custom_css(@css_cache[hash])
+    else
+      @$preview.show()
+      @_fetch_preview css, hash
+
+  _fetch_preview: (css, hash) ->
+    $.post(@$preview.data('url'), style: { css: css })
+      .success (style) =>
+        @css_cache[hash] = style.compiled_css
+        @_replace_custom_css style.compiled_css
+      .done =>
+        @$preview.hide()
 
   _replace_custom_css: (compiled_css) ->
     custom_css_id = @$root.data 'custom_css_id'
