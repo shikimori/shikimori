@@ -17,15 +17,19 @@
       = f.button :magic_submit
 
 .subheadline.m10 = t '.site_styles'
-.cc-2.block.b-edit_styles
+.cc-2.block.b-edit_styles[
+  data-custom_css_id="#{LayoutView::CUSTOM_CSS_ID}"
+]
   .c-column
     = simple_form_for [:api, @resource.style],
         remote: true,
         html: { 'data-type' => :json } do |f|
-      .block
-        / = f.input :name
-        = f.input :css, label: false
+      / = f.input :name
+      = f.input :css, label: false
 
+      .preview.ajax-loading.vk-like[
+        data-url="#{preview_api_styles_url}"
+      ]
       .buttons
         a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
         = f.button :magic_submit

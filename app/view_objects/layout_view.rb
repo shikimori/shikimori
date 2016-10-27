@@ -2,6 +2,8 @@ class LayoutView < ViewObjectBase
   prepend ActiveCacher.instance
   instance_cache :styles, :hot_topics, :moderation_policy
 
+  CUSTOM_CSS_ID = 'custom_css'
+
   def blank_layout?
     !!h.controller.instance_variable_get('@blank_layout')
   end
@@ -19,17 +21,9 @@ class LayoutView < ViewObjectBase
   end
 
   def custom_styles
-    return if blank_layout?
-
-    style = (
-      h.controller.instance_variable_get('@user') || h.current_user
-    )&.style
-
-    if style&.css.present?
-      <<-CSS.squish.strip.html_safe
-        <style type="text/css">#{style.compiled_css}</style>
-      CSS
-    end
+    <<-CSS.squish.strip.html_safe
+      <style id="#{CUSTOM_CSS_ID}" type="text/css">#{custom_css}</style>
+    CSS
   end
 
   def user_data
@@ -61,5 +55,15 @@ private
   def ru_option? option_name
     I18n.russian? && h.ru_domain? &&
       (!h.user_signed_in? || h.current_user&.preferences&.send(option_name))
+  end
+
+  def custom_css
+    return if blank_layout?
+
+    style = (
+      h.controller.instance_variable_get('@user') || h.current_user
+    )&.style
+
+    style.compiled_css if style&.css.present?
   end
 end

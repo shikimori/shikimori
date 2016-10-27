@@ -1,11 +1,9 @@
 using 'Styles'
 class Styles.BodyOpacity extends View
-  REGEXP = /.*GENERATED: body_opacity[\s\S]*?rgba\(([\d.]+), ([\d.]+), ([\d.]+), (\d+)[\s\S]*?GENERATED: \/body_opacity.*/
+  REGEXP = /.*GENERATED: body_opacity[\s\S]*?rgba\((\d+), (\d+), (\d+), (\d+)[\s\S]*?GENERATED: \/body_opacity.*/
 
   ZERO_OPACITY = 255
   DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1]
-
-  DEBOUNCE_INTERVAL = 100
 
   initialize: (@$css) ->
     @slider = @$('.range-slider')[0]
@@ -20,7 +18,7 @@ class Styles.BodyOpacity extends View
     matches = @$css.val().match(REGEXP)
 
     if matches
-      matches[1..4].map (v) -> parseFloat v
+      matches[1..4].map (v) -> parseFloat(v).round()
     else
       DEFAULT_OPACITIES
 
@@ -29,17 +27,16 @@ class Styles.BodyOpacity extends View
       range:
         min: 0
         max: 12
-      start: parseFloat(ZERO_OPACITY - @opacities.first()) || 0
+      start: ZERO_OPACITY - @opacities.first()
 
-    @slider.noUiSlider.on 'update', @_slider_update.debounce(DEBOUNCE_INTERVAL)
+    @slider.noUiSlider.on 'update', @_slider_update.debounce(100)
 
   _slider_update: (value) =>
     unless @first_update
       @first_update = true
       return
 
-    console.log 'slider_update'
-    opacity = ZERO_OPACITY - parseFloat(value)
+    opacity = ZERO_OPACITY - parseFloat(value).round()
     @opacities = [opacity, opacity, opacity, @opacities[3]]
     @_update_css()
 

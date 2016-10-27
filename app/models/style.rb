@@ -37,7 +37,7 @@ private
   end
 
   def strip_comments css
-    css.gsub(%r{/\* .*? */}mix, '')
+    css.gsub(%r{/\* .*? \*/[\n\r]*}mix, '')
   end
 
   def sanitize css
