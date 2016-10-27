@@ -12,10 +12,10 @@ class Style < ActiveRecord::Base
     /* GENERATED: /page_border */
   CSS
 
-  BODY_OPACITY_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /* GENERATED: body_opacity */
+  PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
+    /* GENERATED: page_background_color */
     .l-page { background-color: rgba(%d, %d, %d, %d); }
-    /* GENERATED: /body_opacity */
+    /* GENERATED: /page_background_color */
   CSS
 
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')

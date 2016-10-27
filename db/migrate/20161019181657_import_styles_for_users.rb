@@ -19,7 +19,7 @@ private
 
     if preferences.page_background.to_f > 0
       color = 255 - preferences.page_background.to_f.ceil
-      styles << Style::BODY_OPACITY_CSS % [color, color, color, 1]
+      styles << Style::PAGE_BACKGROUND_COLOR_CSS % [color, color, color, 1]
     end
 
     if preferences.page_border

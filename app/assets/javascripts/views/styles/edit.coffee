@@ -5,7 +5,7 @@ class Styles.Edit extends View
     @$css = @$ '#style_css'
     @$preview = @$ '.preview'
 
-    new Styles.BodyOpacity @$('.body_opacity'), @$css
+    new Styles.PageBackgroundColor @$('.page_background_color'), @$css
 
     @$css.elastic()
 

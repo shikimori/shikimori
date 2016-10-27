@@ -1,6 +1,6 @@
 using 'Styles'
-class Styles.BodyOpacity extends View
-  REGEXP = /.*GENERATED: body_opacity[\s\S]*?rgba\((\d+), (\d+), (\d+), (\d+)[\s\S]*?GENERATED: \/body_opacity.*/
+class Styles.PageBackgroundColor extends View
+  REGEXP = /.*GENERATED: page_background_color[\s\S]*?rgba\((\d+), (\d+), (\d+), (\d+)[\s\S]*?GENERATED: \/page_background_color.*/
 
   ZERO_OPACITY = 255
   DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1]
