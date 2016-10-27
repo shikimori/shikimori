@@ -11,6 +11,7 @@ class NameValidator < ActiveModel::EachValidator
       users |
       forum |
       info |
+      styles |
       #{BANNED_NICKNAMES.join('|')}
     )\Z | ((
       \.css |

@@ -84,7 +84,7 @@ describe Api::V1::UserRatesController do
       before { delete :destroy, id: user_rate.id, format: :json }
 
       it do
-        expect(resource).to be_new_record
+        expect(resource).to be_destroyed
         expect(response).to have_http_status :no_content
       end
     end

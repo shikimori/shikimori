@@ -301,6 +301,8 @@ Site::Application.routes.draw do
           get :smileys
         end
       end
+
+      resources :styles, only: [:show, :create, :update, :destroy]
     end
   end
   # /api

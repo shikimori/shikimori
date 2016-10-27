@@ -1,14 +1,15 @@
 class Style < ActiveRecord::Base
+  OWNER_TYPES = [User.name]
+
   belongs_to :owner, polymorphic: true, inverse_of: :style
 
   validates :owner, presence: true
+  validates :owner_type, inclusion: { in: OWNER_TYPES }
 
-  # rubocop:disable LineLength
   PAGE_BORDER_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: page_border */
     .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: block; }
   CSS
-  # rubocop:enable LineLength
 
   BODY_OPACITY_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: body_opacity */
