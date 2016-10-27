@@ -9,7 +9,7 @@ class Styles.Edit extends View
 
     @$css.elastic()
 
-    @debounced_preview = @_preview.debounce(750)
+    @debounced_preview = @_preview.debounce(500)
 
     @$form
       .on 'ajax:before', => @$css.parent().addClass 'b-ajax'
@@ -27,12 +27,19 @@ class Styles.Edit extends View
       @$form.submit()
 
   _preview: =>
-    @$preview.show()
-    $.post(@$preview.data('url'), style: { css: @$css.val() })
-      .success (style) =>
-        @_replace_custom_css style.compiled_css
-      .done =>
-        @$preview.hide()
+    css = @$css.val()
+    @preview_cache ||= {}
+
+    if @preview_cache[css]
+      @_replace_custom_css(@preview_cache[css]) 
+    else
+      @$preview.show()
+      $.post(@$preview.data('url'), style: { css: css })
+        .success (style) =>
+          @preview_cache[css] = style.compiled_css
+          @_replace_custom_css style.compiled_css
+        .done =>
+          @$preview.hide()
 
   _component_update: =>
     @$css.trigger 'elastic:update'
