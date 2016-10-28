@@ -110,6 +110,12 @@
 
     .c-generated_news
       = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
+      / center.block
+        / a href="https://shikimori.org/forum/site/208016"
+          / img[
+            / src="/assets/globals/reposts-contest.png"
+            / srcset="/assets/globals/reposts-contest@2x.png 2x"
+          / ]
 
       / .midheadline.gray.m15 = t 'sponsors'
       / .container
