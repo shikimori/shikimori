@@ -40,9 +40,6 @@ styles_page = ->
   $body_background.on 'change', ->
     $body.css background: @value
 
-  $('#user_preferences_page_border').on 'change', ->
-    $('body').toggleClass 'bordered', $(@).prop('checked')
-
 list_and_misc_page = ->
   # восстановление залокированных рекомендаций
   # выбор варианта

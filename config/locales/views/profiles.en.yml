@@ -97,6 +97,7 @@ en:
       styles:
         site_styles: Site styles
         page_background: Page background
+        page_border: Transparent page border
         examples: Examples
         body_background_hint: Choose a picture below or insert your own picture URL. Whatever works for background-image CSS property is supported.
         spoiler_one_picture: One picture

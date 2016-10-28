@@ -22,9 +22,9 @@ private
       styles << Style::PAGE_BACKGROUND_COLOR_CSS % [color, color, color, 1]
     end
 
-    if preferences.page_border
-      styles << Style::PAGE_BORDER_CSS
-    end
+    styles << Style::PAGE_BORDER_CSS % [
+      preferences.page_border ? 'block' : 'none'
+    ]
 
     if preferences.body_background.present?
       styles << Style::BODY_BACKGROUND_CSS % [background_css(preferences)]

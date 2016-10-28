@@ -5,50 +5,40 @@ class Styles.PageBackgroundColor extends View
   ZERO_OPACITY = 255
   DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1]
 
-  initialize: (@$css) ->
+  initialize: ->
     @slider = @$('.range-slider')[0]
     @css_template = @$root.data 'css_template'
-    @opacities = @_extract_opacities()
 
-    @_init_slider()
+    noUiSlider.create @slider,
+      range:
+        min: 0
+        max: 12
+      start: 0
 
-  update: ->
+    @slider.noUiSlider.on 'update', @_input_updated.debounce(100)
 
-  _extract_opacities: ->
-    matches = @$css.val().match(REGEXP)
+  update: (css) ->
+    @opacities = @_extract(css)
+
+    opacity = ZERO_OPACITY - @opacities.first()
+    @slider.noUiSlider.set opacity
+
+  _extract: (css) ->
+    matches = css.match(REGEXP)
 
     if matches
       matches[1..4].map (v) -> parseFloat(v).round()
     else
       DEFAULT_OPACITIES
 
-  _init_slider: ->
-    noUiSlider.create @slider,
-      range:
-        min: 0
-        max: 12
-      start: ZERO_OPACITY - @opacities.first()
-
-    @slider.noUiSlider.on 'update', @_slider_update.debounce(100)
-
-  _slider_update: (value) =>
+  _input_updated: (value) =>
     unless @first_update
       @first_update = true
       return
 
     opacity = ZERO_OPACITY - parseFloat(value).round()
     @opacities = [opacity, opacity, opacity, @opacities[3]]
-    @_update_css()
-
-  _update_css: ->
-    css = @$css.val()
-
-    if css.match(REGEXP)
-      @$css.val css.replace(REGEXP, @_compile())
-    else
-      @$css.val @_compile() + "\n\n" + css
-
-    @trigger 'component:update'
+    @trigger 'component:update', [REGEXP, @_compile()]
 
   _compile: ->
     @css_template

@@ -7,11 +7,14 @@ class Styles.Edit extends View
 
     @css_cache = {}
 
-    new Styles.PageBackgroundColor @$('.page_background_color'), @$css
+    @debounced_preview = @_preview.debounce(500)
+    @components = [
+      new Styles.PageBackgroundColor(@$('.page_background_color')),
+      new Styles.PageBorder(@$('.page_border'))
+    ]
 
     @$css.elastic()
-
-    @debounced_preview = @_preview.debounce(500)
+    @components.each (component) => component.update @$css.val()
 
     @$form
       .on 'ajax:before', => @$css.parent().addClass 'b-ajax'
@@ -28,7 +31,14 @@ class Styles.Edit extends View
       # сохранение по ctrl+enter
       @$form.submit()
 
-  _component_update: =>
+  _component_update: (e, regexp, replacement) =>
+    css = @$css.val()
+
+    if css.match(regexp)
+      @$css.val css.replace(regexp, replacement)
+    else
+      @$css.val replacement + "\n\n" + css.trim()
+
     @$css.trigger 'elastic:update'
     @debounced_preview()
 

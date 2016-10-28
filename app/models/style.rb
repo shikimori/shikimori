@@ -8,7 +8,7 @@ class Style < ActiveRecord::Base
 
   PAGE_BORDER_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* GENERATED: page_border */
-    .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: block; }
+    .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: %s; }
     /* GENERATED: /page_border */
   CSS
 

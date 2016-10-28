@@ -35,17 +35,27 @@
         = f.button :magic_submit
 
   .c-column
+    .page_border[
+      data-css_template="#{Style::PAGE_BORDER_CSS}"
+    ]
+      .b-input
+        label.checkbox
+          input.boolean type="checkbox"
+          = t '.page_border'
+
     .page_background_color[
       data-css_template="#{Style::PAGE_BACKGROUND_COLOR_CSS}"
     ]
       p = t '.page_background'
       .range-slider.noUiSlider
 
+    .block
+    .block
     = simple_form_for @resource.preferences,
         url: profile_user_preferences_url(@resource) do |f|
       .backgrounds
 
-        = f.input :page_border
+        / = f.input :page_border
         = f.input :body_background, hint: "#{t '.body_background_hint'}"
         .samples
           p #{t '.examples'}:
