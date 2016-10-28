@@ -15,13 +15,15 @@ class Styles.PageBackgroundColor extends View
         max: 12
       start: 0
 
-    @slider.noUiSlider.on 'update', @_input_updated.debounce(100)
+    @_silenced =>
+      @slider.noUiSlider.on 'update', @_debounced_sync
 
   update: (css) ->
     @opacities = @_extract(css)
 
     opacity = ZERO_OPACITY - @opacities.first()
-    @slider.noUiSlider.set opacity
+    @_silenced =>
+      @slider.noUiSlider.set opacity
 
   _extract: (css) ->
     matches = css.match(REGEXP)
@@ -31,12 +33,12 @@ class Styles.PageBackgroundColor extends View
     else
       DEFAULT_OPACITIES
 
-  _input_updated: (value) =>
-    unless @first_update
-      @first_update = true
-      return
+  _debounced_sync: =>
+    @_sync_lambda ||= @_sync_state.debounce(100)
+    @_sync_lambda() unless @is_silenced
 
-    opacity = ZERO_OPACITY - parseFloat(value).round()
+  _sync_state: =>
+    opacity = ZERO_OPACITY - parseFloat(@slider.noUiSlider.get()).round()
     @opacities = [opacity, opacity, opacity, @opacities[3]]
     @trigger 'component:update', [REGEXP, @_compile()]
 
@@ -46,3 +48,8 @@ class Styles.PageBackgroundColor extends View
       .replace(/%d/, @opacities[1])
       .replace(/%d/, @opacities[2])
       .replace(/%d/, @opacities[3])
+
+  _silenced: (lambda) ->
+    @is_silenced = true
+    lambda()
+    @is_silenced = false

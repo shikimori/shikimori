@@ -11,7 +11,7 @@ class Styles.PageBorder extends View
     @$input = @$('input')
     @input = @$input[0]
 
-    @$input.on 'change', @_input_updated
+    @$input.on 'change', @_sync_state
 
   update: (css) ->
     @has_border = @_extract(css)
@@ -25,7 +25,7 @@ class Styles.PageBorder extends View
     else
       false
 
-  _input_updated: =>
+  _sync_state: =>
     @has_border = @input.checked
     @trigger 'component:update', [REGEXP, @_compile()]
 
