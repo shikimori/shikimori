@@ -50,7 +50,7 @@ private
       styles.concat background_styles(preferences.body_background)
     end
 
-    styles.join("\n")
+    styles.join("\n").strip.gsub(';;', ';')
   end
 
   def background_styles background
@@ -66,7 +66,7 @@ private
       styles << body_background(backgrounds[0])
 
       if backgrounds.many?
-        styles << "body {\n  #{backgrounds[1..-1].join(";\n  ").strip}\n}"
+        styles << "body {\n  #{fix_urls backgrounds[1..-1].join(";\n  ").strip};\n}"
       end
     else
       styles << body_background(background)
@@ -83,5 +83,13 @@ private
     else
       "body {\n  background: #{style};\n}"
     end
+  end
+
+  def fix_urls css
+    css.gsub(/
+      url\("
+        ([^\n\r")]*)
+      "\)
+    /mix, 'url(\1)')
   end
 end
