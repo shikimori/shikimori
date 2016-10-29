@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020111543) do
+ActiveRecord::Schema.define(version: 20161018221432) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,10 +261,7 @@ ActiveRecord::Schema.define(version: 20161020111543) do
     t.integer  "comment_policy",                default: 1,           null: false
     t.boolean  "is_censored",                   default: false,       null: false
     t.string   "locale",                                              null: false
-    t.integer  "style_id"
   end
-
-  add_index "clubs", ["style_id"], name: "index_clubs_on_style_id", using: :btree
 
   create_table "comment_viewings", force: :cascade do |t|
     t.integer "user_id"
