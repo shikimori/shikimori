@@ -99,12 +99,7 @@ en:
         page_background_color: Page background
         page_border: Transparent page border
         body_background: Background image
-        examples: Examples
-        body_background_hint: Choose a picture below or insert your own picture URL.
-        spoiler_one_picture: One picture
-        spoiler_one_repeated_picture: One picture is repeated
-        spoiler_two_pictures: 'Two pictures: one on the left side, another on the right side'
-        spoiler_one_black_picture: Picture with black background
+        examples: Prepared backgrounds
 
       list:
         my_list_scores: Scores in my list

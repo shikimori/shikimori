@@ -31,15 +31,6 @@ styles_page = ->
       .removeClass('x1200')
       .addClass($(@).val())
 
-  $body = $('body')
-  $body_background = $('#user_preferences_body_background')
-  $('.backgrounds .present-backgrounds li').on 'click', ->
-    value = $(@).data('background')
-    $body_background.val("url(#{value}) repeat").trigger('change')
-
-  $body_background.on 'change', ->
-    $body.css background: @value
-
 list_and_misc_page = ->
   # восстановление залокированных рекомендаций
   # выбор варианта

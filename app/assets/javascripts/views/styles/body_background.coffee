@@ -13,6 +13,7 @@ class Styles.BodyBackground extends View
     @bottom = @$('#body_background_bottom')[0]
 
     @$('input').on 'change', @_sync_state
+    @$('.prepared-backgrounds li').on 'click', @_prepared_background
 
   update: (css) ->
     [
@@ -33,6 +34,28 @@ class Styles.BodyBackground extends View
     @right.checked = @is_right
     @bottom.checked = @is_bottom
 
+  _sync_state: =>
+    @background_url = @input.value
+    @is_repeat = @repeat.checked
+    @is_fixed = @fixed.checked
+    @is_left = @left.checked
+    @is_top = @top.checked
+    @is_right = @right.checked
+    @is_bottom = @bottom.checked
+
+    @trigger 'component:update', [REGEXP, @_compile()]
+
+  _prepared_background: (e) =>
+    @input.value = $(e.target).data('background')
+    @repeat.checked = true
+    @fixed.checked = false
+    @left.checked = false
+    @top.checked = false
+    @right.checked = false
+    @bottom.checked = false
+
+    @_sync_state()
+
   _extract: (css) ->
     matches = css.match(REGEXP)
 
@@ -48,17 +71,6 @@ class Styles.BodyBackground extends View
       ]
     else
       []
-
-  _sync_state: =>
-    @background_url = @input.value
-    @is_repeat = @repeat.checked
-    @is_fixed = @fixed.checked
-    @is_left = @left.checked
-    @is_top = @top.checked
-    @is_right = @right.checked
-    @is_bottom = @bottom.checked
-
-    @trigger 'component:update', [REGEXP, @_compile()]
 
   _compile: ->
     if @background_url
