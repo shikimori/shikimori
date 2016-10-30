@@ -74,18 +74,24 @@
     .submenu-toggler
     a title="#{t '.info'}" href="#{info_pages_url}"
     .submenu
-      - site_rules = StickyTopicView.site_rules(locale_from_domain)
-      a.entry href=site_rules.url title=site_rules.title = site_rules.title
-
-      - if ru_domain?
-        - faq = StickyTopicView.faq(locale_from_domain)
-        a.entry href=faq.url title=faq.title = faq.title
-
       a.entry[
         href="#{about_pages_url}"
         title="#{t 'about_site'}"
         data-no-turbolink="true"
       ] = t 'about_site'
+
+      - site_rules = StickyTopicView.site_rules(locale_from_domain)
+      a.entry href=site_rules.url title=site_rules.title = site_rules.title
+
+      - faq = StickyTopicView.faq(locale_from_domain)
+      a.entry href=faq.url title=faq.title = faq.title
+
+      - if ru_domain?
+        a.entry[
+          href="https://vk.com/shikimori"
+          title="Наша группа в vk.com"
+        ] Наша группа в vk.com
+
       a.entry[
         href="#{anime_statistics_url}"
         title="#{t 'anime_industry'}"

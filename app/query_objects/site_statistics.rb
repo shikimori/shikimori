@@ -25,7 +25,7 @@ class SiteStatistics
   end
 
   def contest_moderators
-    User.where(id: 1483)
+    User.where(id: User::CONTEST_MODERATORS - User::ADMINS)
   end
 
   def developers
@@ -45,7 +45,8 @@ class SiteStatistics
   end
 
   def retired_moderators
-    User.where(id: [942, 2033]).order(:id) # 942 - Иштаран, 2033 - zmej1987
+    # 942 - Иштаран, 2033 - zmej1987, 1483 - Zula
+    User.where(id: [942, 2033, 1483]).order(:id)
   end
 
   def forum_moderators
@@ -54,6 +55,10 @@ class SiteStatistics
 
   def cosplay_moderators
     User.where(id: User::COSPLAY_MODERATORS - User::ADMINS)
+  end
+
+  def vk_admins
+    User.where(id: 4795) # Harizmath
   end
 
   def translators
