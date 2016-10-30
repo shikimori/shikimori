@@ -20,6 +20,7 @@ class Styles.Edit extends View
     @components = [
       new Styles.PageBackgroundColor(@$('.page_background_color')),
       new Styles.PageBorder(@$('.page_border'))
+      new Styles.BodyBackground(@$('.body_background'))
     ]
 
     @_debounced_preview = @preview.debounce(500)
@@ -69,12 +70,11 @@ class Styles.Edit extends View
       true
 
   _component_updated: (e, regexp, replacement) =>
-    # console.log '_component_updated'
     css = @$css.val()
 
     if css.match(regexp)
       @$css.val css.replace(regexp, replacement)
-    else
+    else if replacement
       @$css.val replacement + "\n\n" + css.trim()
 
     @$css.trigger 'elastic:update'

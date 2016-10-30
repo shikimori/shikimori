@@ -46,10 +46,40 @@
     .page_background_color[
       data-css_template="#{Style::PAGE_BACKGROUND_COLOR_CSS}"
     ]
-      p = t '.page_background'
+      p = t '.page_background_color'
       .range-slider.noUiSlider
 
-    .block
+    .body_background[
+      data-css_template="#{Style::BODY_BACKGROUND_CSS}"
+    ]
+      .b-input
+        label for="body_background_input"
+          = t '.body_background'
+        input#body_background_input[
+          type="text"
+          value=""
+        ]
+      .b-input.checkboxes
+        label for="body_background_repeat"
+          input.boolean#body_background_repeat type="checkbox"
+          | repeat
+        label for="body_background_fixed"
+          input.boolean#body_background_fixed type="checkbox"
+          | fixed
+      .b-input.checkboxes
+        label for="body_background_left"
+          input.boolean#body_background_left type="checkbox"
+          | left
+        label for="body_background_top"
+          input.boolean#body_background_top type="checkbox"
+          | top
+        label for="body_background_right"
+          input.boolean#body_background_right type="checkbox"
+          | right
+        label for="body_background_bottom"
+          input.boolean#body_background_bottom type="checkbox"
+          | bottom
+
     .block
     = simple_form_for @resource.preferences,
         url: profile_user_preferences_url(@resource) do |f|

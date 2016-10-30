@@ -7,21 +7,21 @@ class Style < ActiveRecord::Base
   validates :owner_type, inclusion: { in: OWNER_TYPES }
 
   PAGE_BORDER_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /*[generated=page_border]*/
+    /* [generated=page_border] */
     .l-page:before, .l-page:after, .l-footer:before, .l-footer:after { display: %s; }
-    /*[/generated]*/
+    /* [/generated] */
   CSS
 
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /*[generated=page_background_color]*/
+    /* [generated=page_background_color] */
     .l-page { background-color: rgba(%d, %d, %d, %d); }
-    /*[/generated]*/
+    /* [/generated] */
   CSS
 
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /*[generated=body_background]*/
+    /* [generated=body_background] */
     body { background: %s; }
-    /*[/generated]*/
+    /* [/generated] */
   CSS
 
   def compiled_css

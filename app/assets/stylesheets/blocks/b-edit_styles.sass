@@ -1,3 +1,4 @@
+@import compass/typography/text/ellipsis
 @import compass/css3/border-radius
 @import compass/css3/box-shadow
 
@@ -23,3 +24,13 @@
       .noUi-handle
         +border-radius(0)
         +box-shadow(none)
+
+  .body_background
+    #body_background_input
+      +ellipsis
+      width: 100%
+
+    .checkboxes
+      label
+        display: inline-block
+        width: 100px

@@ -107,10 +107,11 @@ ru:
 
       styles:
         site_styles: Стили сайта
-        page_background: Фон центральной области
+        page_background_color: Фон центральной области
         page_border: Полупрозрачная рамка по бокам страницы
+        body_background: Фоновая картинка
         examples: Примеры
-        body_background_hint: Выбирайте либо среди списка картинок ниже, либо вставьте в поле адрес вашей собственной картинки. Поддерживается всё, что работает для css свойства background-image.
+        body_background_hint: Выбирайте либо среди списка картинок ниже, либо вставьте в поле адрес вашей собственной картинки.
         spoiler_one_picture: Одна картинка
         spoiler_one_repeated_picture: Одна повторяющаяся картинка
         spoiler_two_pictures: 'Две картинки: одна слева, другая справа'
