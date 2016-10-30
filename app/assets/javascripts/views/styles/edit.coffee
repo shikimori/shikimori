@@ -52,17 +52,15 @@ class Styles.Edit extends View
       @_fetch_preview css, hash
 
   sync: =>
-    # console.log 'sync'
     @preview()
     @_sync_components()
 
   _input_keypress: (e) =>
     if (e.metaKey || e.ctrlKey) && (e.keyCode == 10 || e.keyCode == 13)
-      # сохранение по ctrl+enter
+      # save on ctrl+enter
       @$form.submit()
 
   _sync_components: ->
-    # console.log '_sync_components'
     css = @$css.val()
 
     @components.each (component) ->
