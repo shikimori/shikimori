@@ -57,7 +57,7 @@ class BaseMalParser < SiteParserWithCache
     #@proxy_log = true
     @import_mutex = Mutex.new
 
-    klass = Object.const_get(type.camelize)
+    klass = type.camelize.constantize
 
     print "loading %s for import\n" % [type.tableize] if Rails.env != 'test'
     # если передан id, то импортировать только элемент с указанным id
@@ -88,7 +88,7 @@ class BaseMalParser < SiteParserWithCache
 
   # сбор списка элементов, которые будем импортировать
   def prepare
-    not_outdated_ids = type.constantize.where.not(imported_at: nil).pluck(:id)
+    not_outdated_ids = type.camelize.constantize.where.not(imported_at: nil).pluck(:id)
     cached_list.keys - not_outdated_ids
   end
 
