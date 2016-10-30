@@ -11,7 +11,7 @@ class ImportListWorker
     klass = (options[:type] || Anime.name).constantize
     pages_limit = options[:pages_limit] || 10
     hours_limit = options[:hours_limit] || 8
-    source = options[:source].to_sym || :updated
+    source = (options[:source] || :updated).to_sym
 
     parser = "#{klass.name}MalParser".constantize.new
 
