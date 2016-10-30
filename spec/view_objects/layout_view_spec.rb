@@ -86,70 +86,15 @@ describe LayoutView do
   end
 
   describe '#background_styles' do
-    let(:controller_user) { nil }
-    let(:background) { '#fff' }
-
     before do
       allow(view.h.controller).to receive(:instance_variable_get)
-        .with('@user').and_return controller_user
-    end
-    before { user.preferences.body_background = background }
-
-    subject { view.background_styles }
-
-    context 'current_user' do
-      let(:camo_url) { UrlGenerator.instance.camo_url url }
-
-      context 'url background' do
-        let(:background) { 'http://test.com' }
-        let(:camo_background_url) { UrlGenerator.instance.camo_url background }
-        it { is_expected.to eq "background: url(#{camo_background_url}) fixed no-repeat;" }
-      end
-
-      context 'simple background' do
-        it { is_expected.to eq "background: #{background};" }
-      end
-
-      context 'complex background' do
-        let(:url) { 'http://nyaa.shikimori.org/system/user_images/original/1/288070.jpg' }
-        let(:background) { "url(#{url}) no-repeat fixed" }
-        let(:fixed_background) { "url(#{camo_url}) no-repeat fixed" }
-        it { is_expected.to eq "background: #{fixed_background};" }
-      end
-
-      context 'more complex background' do
-        let(:url) { 'https://pp.vk.me/c625818/v625818569/3d111/Z_LiM2lgwuA.jpg' }
-        let(:background) { "url(#{url}); background-size: 100%; background-attachment: fixed;  background-repeat:no-repeat" }
-        let(:fixed_background) { "url(#{camo_url}); background-size: 100%; background-attachment: fixed;  background-repeat:no-repeat" }
-        it { is_expected.to eq "background: #{fixed_background};" }
-      end
+        .with('@user').and_return user
     end
 
-    context 'object_with_background' do
-      let(:controller_user) do
-        double preferences: double(body_background: controller_user_background)
-      end
-
-      context 'with current_user' do
-        let(:controller_user_background) { '#fff' }
-        it { is_expected.to eq "background: #{controller_user_background};" }
-      end
-
-      context 'without current_user' do
-        let(:current_user) { nil }
-        let(:controller_user_background) { '#fff' }
-        it { is_expected.to eq "background: #{controller_user_background};" }
-      end
-    end
-
-    context 'no current_user' do
-      let(:current_user) { nil }
-      it { is_expected.to be_nil }
-    end
-
-    context 'blank_layout' do
-      let(:is_blank_layout) { true }
-      it { is_expected.to be_nil }
+    it do
+      expect(view.custom_styles).to eq(
+        "<style id=\"#{LayoutView::CUSTOM_CSS_ID}\" type=\"text/css\"></style>"
+      )
     end
   end
 
