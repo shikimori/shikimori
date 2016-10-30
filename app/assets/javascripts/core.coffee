@@ -2,11 +2,14 @@
 #= require jquery
 #= require vendor/jquery-migrate-1.3.0
 #= require vendor/modernizr
+# require vue
 
 #= require d3
 #= require jQuery-Storage-API
 #= require pikaday
 #= require urijs
+#= require md5-jkmyers
+#= require nouislider
 
 # imagesLoaded dependency
 #= require ev-emitter

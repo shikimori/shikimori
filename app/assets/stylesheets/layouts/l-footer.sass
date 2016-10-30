@@ -24,19 +24,21 @@
     vertical-align: middle
     white-space: nowrap
 
-  +gt_ipad
-    .bordered &
-      &:after, &:before
-        background: rgba(255,255,255,0.3)
-        content: ""
-        height: 20px
-        bottom: -20px
-        position: absolute
+  &:before, &:after
+    display: block
 
-      &:before
-        left: -20px
-        width: 100%
-      &:after
-        right: -20px
-        width: 40px
+  +gt_ipad
+    &:after, &:before
+      background: rgba(255,255,255,0.3)
+      content: ""
+      height: 20px
+      bottom: -20px
+      position: absolute
+
+    &:before
+      left: -20px
+      width: 100%
+    &:after
+      right: -20px
+      width: 40px
 

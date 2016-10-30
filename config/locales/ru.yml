@@ -138,7 +138,6 @@ ru:
         manga_in_profile: Отображать мангу в профиле
         comments_in_profile: Отображать комментарии в профиле
         body_background: Фон боковой области
-        page_border: Полупрозрачная рамка по бокам страницы
         about_on_top: Отображать над статистикой
         show_social_buttons: Отображать кнопки соц сетей
         show_smileys: Отображать смайлики
@@ -194,6 +193,9 @@ ru:
       anime_video_report:
         kind: Причина
         message: Сообщение модератору
+      style:
+        name: Название
+        css: CSS
 
     errors:
       messages:

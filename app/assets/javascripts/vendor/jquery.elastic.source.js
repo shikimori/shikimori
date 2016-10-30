@@ -136,7 +136,7 @@
 				$textarea.css({'overflow':'hidden'});
 				
 				// Update textarea size on keyup, change, cut and paste
-				$textarea.bind('keyup change cut paste focus', function(){
+				$textarea.bind('keyup change cut paste focus elastic:update', function(){
 					update(); 
 				});
 				$textarea.bind('focus', function(){

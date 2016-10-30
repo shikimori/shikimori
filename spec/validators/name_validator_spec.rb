@@ -29,12 +29,13 @@ describe NameValidator, type: :validator do
       end
     end
 
-    context 'abusive' do
-      it do
-        expect(club).to_not allow_value('хуй').for :name
-        expect(club).to_not allow_value('бля').for :name
-      end
-    end
+    # abusive names are now replaced with 'xxx'
+    # context 'abusive' do
+      # it do
+        # expect(club).to_not allow_value('хуй').for :name
+        # expect(club).to_not allow_value('бля').for :name
+      # end
+    # end
 
     context 'banned nickname' do
       it do
@@ -66,12 +67,13 @@ describe NameValidator, type: :validator do
         it { expect(message).to eq I18n.t('activerecord.errors.messages.taken') }
       end
 
-      context 'abusive' do
-        let(:club) { build :club, name: 'хуй' }
-        before { club.validate }
+      # abusive names are now replaced with 'xxx'
+      # context 'abusive' do
+        # let(:club) { build :club, name: 'хуй' }
+        # before { club.validate }
 
-        it { expect(message).to eq I18n.t('activerecord.errors.messages.abusive') }
-      end
+        # it { expect(message).to eq I18n.t('activerecord.errors.messages.abusive') }
+      # end
     end
   end
 end
