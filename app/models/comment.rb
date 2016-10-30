@@ -162,9 +162,9 @@ class Comment < ActiveRecord::Base
 
   def touch_commentable
     if commentable.respond_to? :commented_at
-      commentable.update_column :commented_at, updated_at
+      commentable.update_column :commented_at, Time.zone.now
     else
-      commentable.update_column :updated_at, updated_at
+      commentable.update_column :updated_at, Time.zone.now
     end
   end
 

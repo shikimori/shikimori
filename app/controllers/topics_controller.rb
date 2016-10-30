@@ -70,6 +70,7 @@ class TopicsController < ShikimoriController
 
   def update
     updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
+    @resource.update commented_at: Time.zone.now if updated
 
     if updated
       redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик изменён'

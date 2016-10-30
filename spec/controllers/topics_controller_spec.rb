@@ -250,13 +250,14 @@ describe TopicsController do
           id: topic.id,
           topic: params
       end
+
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       before { sign_in user }
 
-      context 'valid_params params' do
+      context 'invalid params' do
         let(:params) { { user_id: user.id, title: '' } }
         before { post :update, id: topic.id, topic: params }
 
@@ -267,7 +268,10 @@ describe TopicsController do
       end
 
       context 'valid params' do
-        before do
+        before { Timecop.freeze }
+        after { Timecop.return }
+
+        subject! do
           post :update,
             forum: animanga_forum.to_param,
             id: topic.id,
@@ -276,6 +280,7 @@ describe TopicsController do
 
         it do
           expect(resource).to have_attributes params
+          expect(resource.updated_at).to eq Time.zone.now
           expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end
