@@ -71,6 +71,7 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
   = yield :head
 
   - unless Rails.env.test?
+    = javascript_include_tag :core, data: { 'turbolinks-track' => ''}
     = javascript_include_tag :application, data: { 'turbolinks-track' => ''}
     - if anime_online?
       = javascript_include_tag 'anime_online/application', data: { 'turbolinks-track' => ''}

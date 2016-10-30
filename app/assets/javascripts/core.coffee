@@ -8,7 +8,7 @@
 #= require jQuery-Storage-API
 #= require pikaday
 #= require urijs
-#= require md5-jkmyers
+#= require js-md5/js/md5
 #= require nouislider
 
 # imagesLoaded dependency
@@ -40,21 +40,6 @@
 #= require_tree ./vendor
 
 #= require_self
-
-#= require ./views/application/view
-#= require ./views/application/shiki_view
-#= require ./views/application/shiki_editable
-#= require_tree ./views
-
-#= require_tree ./models
-#= require_tree ./dynamic_elements
-#= require_tree ./services
-#= require_tree ./lib
-#= require_tree ./blocks
-
-#= require turbolinks
-
-#= require_tree ./pages
 
 bindings =
   'page:load': []
