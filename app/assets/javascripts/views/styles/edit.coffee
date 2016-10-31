@@ -73,7 +73,7 @@ class Styles.Edit extends View
     if css.match(regexp)
       @$css.val css.replace(regexp, replacement)
     else if replacement
-      @$css.val replacement + "\n\n" + css.trim()
+      @$css.val replacement + "\n" + css.trim()
 
     @$css.trigger 'elastic:update'
     @_debounced_preview()

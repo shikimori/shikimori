@@ -1,6 +1,6 @@
 using 'Styles'
 class Styles.PageBackgroundColor extends View
-  REGEXP = /.*\[generated=page_background_color[\s\S]*?rgba\((\d+), (\d+), (\d+), (\d+)[\s\S]*?\[\/generated].*/
+  REGEXP = /\/\* AUTO=page_background_color.*?rgba\((\d+), (\d+), (\d+), (\d+).*/
 
   ZERO_OPACITY = 255
   DEFAULT_OPACITIES = [ZERO_OPACITY, ZERO_OPACITY, ZERO_OPACITY, 1]

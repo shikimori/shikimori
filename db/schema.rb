@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161020111543) do
+ActiveRecord::Schema.define(version: 20161031103024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -349,7 +349,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   add_index "contest_user_votes", ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
   add_index "contest_user_votes", ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
   add_index "contest_user_votes", ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
-  add_index "contest_user_votes", ["contest_match_id"], name: "index_contest_user_votes_on_contest_vote_id", using: :btree
 
   create_table "contests", force: :cascade do |t|
     t.string   "title",                limit: 255
@@ -496,7 +495,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   end
 
   add_index "friend_links", ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true, using: :btree
-  add_index "friend_links", ["src_id"], name: "index_friend_links_on_src_id", using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -696,7 +694,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   end
 
   add_index "recommendation_ignores", ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true, using: :btree
-  add_index "recommendation_ignores", ["user_id"], name: "index_recommendation_ignores_on_user_id", using: :btree
 
   create_table "related_animes", force: :cascade do |t|
     t.integer  "source_id"
@@ -719,7 +716,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   end
 
   add_index "related_mangas", ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
-  add_index "related_mangas", ["source_id"], name: "index_related_mangas_on_source_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "target_id"
@@ -756,7 +752,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   end
 
   add_index "screenshots", ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true, using: :btree
-  add_index "screenshots", ["anime_id"], name: "index_screenshots_on_anime_id", using: :btree
 
   create_table "similar_animes", force: :cascade do |t|
     t.integer  "src_id"
@@ -838,7 +833,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
 
   add_index "topic_ignores", ["topic_id"], name: "index_topic_ignores_on_topic_id", using: :btree
   add_index "topic_ignores", ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true, using: :btree
-  add_index "topic_ignores", ["user_id"], name: "index_topic_ignores_on_user_id", using: :btree
 
   create_table "topic_viewings", force: :cascade do |t|
     t.integer "user_id"
@@ -931,7 +925,6 @@ ActiveRecord::Schema.define(version: 20161020111543) do
   end
 
   add_index "user_nickname_changes", ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true, using: :btree
-  add_index "user_nickname_changes", ["user_id"], name: "index_user_nickname_changes_on_user_id", using: :btree
 
   create_table "user_preferences", force: :cascade do |t|
     t.integer "user_id"

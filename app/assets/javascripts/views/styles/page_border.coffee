@@ -1,6 +1,6 @@
 using 'Styles'
 class Styles.PageBorder extends View
-  REGEXP = /.*\[generated=page_border[\s\S]*? { display: (\w+); }[\s\S]*?\[\/generated].*/
+  REGEXP = /\/\* AUTO=page_border.*? { display: (\w+); }.*/
 
   BORDER_STYLE =
     true: 'block'
