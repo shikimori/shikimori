@@ -88,7 +88,10 @@ class BaseMalParser < SiteParserWithCache
 
   # сбор списка элементов, которые будем импортировать
   def prepare
-    not_outdated_ids = type.camelize.constantize.where.not(imported_at: nil).pluck(:id)
+    not_outdated_ids = type.camelize.constantize
+      .where.not(imported_at: nil)
+      .pluck(:id)
+
     cached_list.keys - not_outdated_ids
   end
 

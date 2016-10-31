@@ -28,12 +28,11 @@ module MalDeployer
       end
 
     entry.mal_scores = data[:scores] if data.include? :scores
+    deploy_external_links(entry, data[:entry][:external_links])
 
     if !entry.desynced.include?('image') && reload_image?(entry, data)
       entry.image = reload_image entry, data
     end
-
-    deploy_external_links(entry, data[:entry][:external_links])
 
     # дата импорта и сохранение элемента, делать надо обязательно в последнюю очередь
     entry.imported_at = Time.zone.now
@@ -216,7 +215,7 @@ module MalDeployer
 
     data.each do |v|
       ExternalLink.find_or_create_by!(
-        entry_id: entry.id,
+        entry: entry,
         source: v[:source],
         url: v[:url]
       )
