@@ -1,0 +1,105 @@
+.cc-2.block.b-edit_styles[
+  data-custom_css_id="#{LayoutView::CUSTOM_CSS_ID}"
+]
+  .c-column
+    = simple_form_for [:api, style],
+        remote: true,
+        html: { 'data-type' => :json } do |f|
+      / = f.input :name
+      = f.input :css, label: false
+
+      .preview.ajax-loading.vk-like[
+        data-url="#{preview_api_styles_url}"
+      ]
+      .buttons
+        a.cancel href="#{cancel_url}" = t 'actions.cancel'
+        = f.button :magic_submit
+
+  .c-column
+    .page_border[
+      data-css_template="#{Style::PAGE_BORDER_CSS}"
+    ]
+      .b-input
+        label.checkbox
+          input.boolean type="checkbox"
+          = t '.page_border'
+
+    .page_background_color[
+      data-css_template="#{Style::PAGE_BACKGROUND_COLOR_CSS}"
+    ]
+      p = t '.page_background_color'
+      .range-slider.noUiSlider
+
+    .body_background[
+      data-css_template="#{Style::BODY_BACKGROUND_CSS}"
+    ]
+      .block
+        .b-input
+          label for="body_background_input"
+            = t '.body_background'
+          input#body_background_input[
+            type="text"
+            value=""
+          ]
+        .b-input.checkboxes
+          label for="body_background_repeat"
+            input.boolean#body_background_repeat type="checkbox"
+            | repeat
+          label for="body_background_fixed"
+            input.boolean#body_background_fixed type="checkbox"
+            | fixed
+        .b-input.checkboxes
+          label for="body_background_left"
+            input.boolean#body_background_left type="checkbox"
+            | left
+          label for="body_background_top"
+            input.boolean#body_background_top type="checkbox"
+            | top
+          label for="body_background_right"
+            input.boolean#body_background_right type="checkbox"
+            | right
+          label for="body_background_bottom"
+            input.boolean#body_background_bottom type="checkbox"
+            | bottom
+
+      .block
+        .subheadline #{t '.examples'}
+        ul.prepared-backgrounds
+          li.bg1 data-background="/assets/background/square_bg.png"
+          li.bg2 data-background="/assets/background/agsquare.png"
+          li.bg3 data-background="/assets/background/fabric_of_squares_gray.png"
+          li.bg4 data-background="/assets/background/furley_bg.png"
+          li.bg5 data-background="/assets/background/gplaypattern.png"
+          li.bg6 data-background="/assets/background/grey.png"
+          li.bg7 data-background="/assets/background/greyfloral.png"
+          li.bg8 data-background="/assets/background/hexellence.png"
+          li.bg9 data-background="/assets/background/light_wool.png"
+          li.bg10 data-background="/assets/background/snow.png"
+          li.bg11 data-background="/assets/background/ice_age.png"
+          li.bg12 data-background="/assets/background/paper_fibers.png"
+          li.bg13 data-background="/assets/background/scribble_light.png"
+          li.bg14 data-background="/assets/background/redox_02.png"
+          li.bg15 data-background="/assets/background/bright_squares.png"
+          li.bg16 data-background="/assets/background/shattered.png"
+          li.bg17 data-background="/assets/background/tactile_noise.png"
+          li.bg18 data-background="/assets/background/twinkle_twinkle.png"
+          li.bg19 data-background="/assets/background/wild_oliva.png"
+          li.bg20 data-background="/assets/background/use_your_illusion.png"
+          li.bg21 data-background="/assets/background/noisy_net.png"
+          li.bg22 data-background="/assets/background/dirty_old_shirt.png"
+          li.bg23 data-background="/assets/background/cartographer.png"
+          li.bg24 data-background="/assets/background/px_by_Gre3g.png"
+          li.bg25 data-background="/assets/background/diagmonds.png"
+          li.bg26 data-background="/assets/background/type.png"
+          li.bg27 data-background="/assets/background/crissXcross.png"
+          li.bg28 data-background="/assets/background/random_grey_variations.png"
+          li.bg29 data-background="/assets/background/crossword.png"
+          li.bg30 data-background="/assets/background/congruent_pentagon.png"
+          li.bg31 data-background="/assets/background/food.png"
+          li.bg32 data-background="/assets/background/tree_bark.png"
+          li.bg33 data-background="/assets/background/geometry2.png"
+          li.bg34 data-background="/assets/background/skulls.png"
+          li.bg35 data-background="/assets/background/footer_lodyas.png"
+          li.bg36 data-background="/assets/background/pink_rice.png"
+          li.bg37 data-background="/assets/background/restaurant_icons.png"
+          li.bg38 data-background="/assets/background/restaurant.png"

@@ -107,10 +107,6 @@ ru:
 
       styles:
         site_styles: Стили сайта
-        page_background_color: Фон центральной области
-        page_border: Полупрозрачная рамка по бокам страницы
-        body_background: Фоновая картинка
-        examples: Готовые фоны
 
       list:
         my_list_scores: Оценки в моём списке
