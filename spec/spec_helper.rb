@@ -11,7 +11,7 @@ RSpec.configure do |config|
   end
 
   config.filter_run show_in_doc: true if ENV['APIPIE_RECORD']
-  unless ENV['RSPEC_IGNORE_FOCUSED']
+  unless ENV['RSPEC_IGNORE_FOCUSED'] || ENV['CIRCLE_CI']
     config.filter_run focus: true
     config.run_all_when_everything_filtered = true
   end
