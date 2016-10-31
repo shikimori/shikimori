@@ -180,7 +180,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     end
 
 
-    describe 'premoderate', :focus do
+    describe 'premoderate' do
       let(:video_versions) { Version.where item: anime_video }
       let(:kind) { 'subtitles' }
 
