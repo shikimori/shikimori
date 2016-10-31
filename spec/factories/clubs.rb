@@ -9,16 +9,22 @@ FactoryGirl.define do
     locale :ru
 
     after :build do |club|
-      club.stub :join_owner
+      club.class.skip_callback :create, :after, :join_owner
+      club.class.skip_callback :create, :after, :assign_style
     end
 
-    trait :free_join do
-      join_policy :free_join
+    trait :with_owner_join do
+      after(:build) { |club| club.send :join_owner }
+    end
+    trait :with_assign_style do
+      after(:build) { |club| club.send :assign_style }
+    end
+    trait :with_topics do
+      after(:create) { |club| club.generate_topics club.locale }
     end
 
-    trait :owner_invite_join do
-      join_policy :owner_invite_join
-    end
+    trait(:free_join) { join_policy :free_join }
+    trait(:owner_invite_join) { join_policy :owner_invite_join }
 
     trait :linked_anime do
       after :build do |club|
@@ -42,16 +48,6 @@ FactoryGirl.define do
       after :build do |club|
         FactoryGirl.create :club_role, club: club
       end
-    end
-
-    trait :with_owner_join do
-      after :build do |club|
-        club.unstub :join_owner
-      end
-    end
-
-    trait :with_topics do
-      after(:create) { |club| club.generate_topics club.locale }
     end
 
     trait :with_logo do

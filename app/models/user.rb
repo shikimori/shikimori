@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   include Commentable
   include User::Roles
   include User::TokenAuthenticatable
+  include StylesConcern
 
   MAX_NICKNAME_LENGTH = 20
   LAST_ONLINE_CACHE_INTERVAL = 5.minutes
@@ -89,11 +90,6 @@ class User < ActiveRecord::Base
 
   has_many :anime_video_reports
 
-  belongs_to :style
-  has_many :styles, -> { where owner_type: User.name },
-    foreign_key: :owner_id,
-    dependent: :destroy
-
   has_attached_file :avatar,
     styles: {
       #original: ['300x300>', :png],
@@ -124,7 +120,6 @@ class User < ActiveRecord::Base
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
-  after_create :assign_style
   after_create :check_ban
   after_create :send_welcome_message
   after_create :grab_avatar
@@ -346,10 +341,6 @@ private
   def self.find_by_nickname nickname
     where(nickname: nickname)
       .find { |v| v.nickname == nickname }
-  end
-
-  def assign_style
-    create_style! css: '', name: '', owner: self
   end
 
   def check_ban

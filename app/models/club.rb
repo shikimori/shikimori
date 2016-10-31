@@ -3,14 +3,20 @@
 # TODO: удалить поле permalinked
 class Club < ActiveRecord::Base
   include TopicsConcern
+  include StylesConcern
 
-  has_many :member_roles, class_name: ClubRole.name, dependent: :destroy
+  has_many :member_roles,
+    class_name: ClubRole.name,
+    dependent: :destroy,
+    inverse_of: :club
   has_many :members, through: :member_roles, source: :user
 
   #has_many :moderator_roles, -> { where role: ClubRole::Moderator }, class_name: ClubRole.name
   #has_many :moderators, through: :moderator_roles, source: :user
 
-  has_many :admin_roles, -> { where role: :admin }, class_name: ClubRole.name
+  has_many :admin_roles, -> { where role: :admin },
+    class_name: ClubRole.name,
+    inverse_of: :club
   has_many :admins, through: :admin_roles, source: :user
 
   has_many :links, class_name: ClubLink.name, dependent: :destroy
@@ -37,11 +43,6 @@ class Club < ActiveRecord::Base
   has_many :invites, class_name: ClubInvite.name, dependent: :destroy
   has_many :bans, class_name: ClubBan.name, dependent: :destroy
   has_many :banned_users, through: :bans, source: :user
-
-  belongs_to :style
-  has_many :styles, -> { where owner_type: User.name },
-    foreign_key: :owner_id,
-    dependent: :destroy
 
   enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }
