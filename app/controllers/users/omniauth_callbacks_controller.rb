@@ -26,7 +26,7 @@ private
 
       flash[:notice] = i18n_t 'account_linked', provider: provider
     end
-    redirect_to edit_profile_url current_user
+    redirect_to edit_profile_url(current_user, page: 'account')
   end
 
   def omniauth_sign_in
