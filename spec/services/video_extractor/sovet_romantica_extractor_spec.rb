@@ -16,7 +16,7 @@ describe VideoExtractor::SovetRomanticaExtractor, :vcr do
       its(:player_url) { is_expected.to eq player_url }
     end
 
-    context 'embed url', :focus do
+    context 'embed url' do
       let(:url) { embed_url }
 
       its(:hosting) { is_expected.to eq :sovet_romantica }

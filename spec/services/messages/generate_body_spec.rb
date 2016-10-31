@@ -226,7 +226,7 @@ describe Messages::GenerateBody do
       end
     end
 
-    context 'club_broadcast', :focus do
+    context 'club_broadcast' do
       let(:kind) { MessageType::ClubBroadcast }
       let(:linked) { create :comment, commentable: club.topics.first, body: '[b]z[/b]' }
       let(:club) { create :club, :with_topics }
