@@ -23,7 +23,7 @@ FactoryGirl.define do
     end
 
     trait :with_assign_style do
-      after(:build) { |anime| anime.send :assign_style }
+      after(:build) { |user| user.send :assign_style }
     end
 
     trait(:user) { sequence :id, 23_456_789 }

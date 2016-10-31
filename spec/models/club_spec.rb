@@ -36,11 +36,22 @@ describe Club do
   end
 
   describe 'callbacks' do
-    before { club.save }
-
     describe '#join_owner' do
-      let(:club) { build :club, :with_owner_join }
+      let(:club) { create :club, :with_owner_join }
       it { expect(club.joined? club.owner).to eq true }
+    end
+
+    describe '#assign_style' do
+      let(:club) { create :club, :with_assign_style }
+      it do
+        expect(club.style).to be_persisted
+        expect(club.style).to have_attributes(
+          css: '',
+          name: ''
+        )
+        expect(club.styles.first).to eq club.style
+        expect(club.styles).to have(1).item
+      end
     end
   end
 
