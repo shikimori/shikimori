@@ -22,7 +22,7 @@ http_interactions:
       Server:
       - nginx/1.10.0 (Ubuntu)
       Date:
-      - Sat, 15 Oct 2016 18:28:30 GMT
+      - Mon, 31 Oct 2016 20:09:15 GMT
       Content-Type:
       - text/html
       Content-Length:
@@ -36,7 +36,7 @@ http_interactions:
       string: "<html>\r\n<head><title>302 Found</title></head>\r\n<body bgcolor=\"white\">\r\n<center><h1>302
         Found</h1></center>\r\n<hr><center>nginx/1.10.0 (Ubuntu)</center>\r\n</body>\r\n</html>\r\n"
     http_version: 
-  recorded_at: Sat, 15 Oct 2016 18:28:30 GMT
+  recorded_at: Mon, 31 Oct 2016 20:09:15 GMT
 - request:
     method: get
     uri: https://sovetromantica.com/embed/episode_116_12-subtitles
@@ -59,7 +59,7 @@ http_interactions:
       Server:
       - nginx/1.10.0 (Ubuntu)
       Date:
-      - Sat, 15 Oct 2016 18:28:30 GMT
+      - Mon, 31 Oct 2016 20:09:15 GMT
       Content-Type:
       - text/html; charset=utf-8
       Transfer-Encoding:
@@ -72,25 +72,28 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '<!DOCTYPE html><html><head><title>SovetRomantica</title><meta charset
         = ''utf8''><meta name = ''viewport'' content = ''width=device-width, initial-scale=1.0''><link
-        rel = ''stylesheet'' href = ''/assets/compiled-ccdc46bd38e10e9c47247b6a25b32208.css''><link
+        rel = ''stylesheet'' href = ''/assets/compiled-bfbf9574e643a8953c2fb11c5c6a1700.css''><link
         rel = ''stylesheet'' href = ''/assets/videojs/video-js.css''><link rel = ''stylesheet''
         href = ''https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&subset=latin,cyrillic''><link
         rel = ''stylesheet'' href = ''/assets/videojs/plugins/videojs-brand.css''><script
         src = ''https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js''></script><script
-        src = ''/assets/videojs/video.js''></script><script src = ''/assets/videojs/plugins/videojs-brand.min.js''></script><style>
+        src = ''/assets/videojs/video.js''></script><script src = ''/assets/videojs/plugins/videojs-brand.min.js''></script><script
+        src = ''/assets/videojs/plugins/videojs.hotkeys.min.js''></script><script
+        src = ''/assets/videojs/plugins/videojs.persistvolume.js''></script><style>
         .vjs-brand-container-link {  width: 30px; float: left; text-align: center;
         margin-top: 7px; font-size: 0; } .vjs-brand-container-link img {  width: 15px;
         height: auto; display: inline-block; } </style></head><body>   <video width
         = ''640'' height = ''360'' style = ''float: left; width: 100vw; height: 100vh;''
-        poster = ''https://chitoge.sovetromantica.com/anime/116_91-days/images/episode_12_sub.jpg?1475282218''
+        poster = ''https://chitoge.sovetromantica.com/anime/116_91-days/images/episode_12_sub.jpg?1476637107''
         class = ''video-js vjs-default-skin'' data-setup = ''{"controls":true, "language":"ru"}''><source
         src = ''https://chitoge.sovetromantica.com/anime/116_91-days/episodes/subtitles/episode_12.mp4''
         type = ''video/mp4''></video>  <script> $(document).ready(function() {  player
         = videojs($(''video'')[0]); player.brand({  image: ''/assets/images/logovideo.png'',
         title: ''SovetRomantica'', destination: ''https://sovetromantica.com'', destinationTarget:
-        ''_blank'' });    }); </script><script type="text/javascript"> (function (d,
-        w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter31654222 =
-        new Ya.Metrika({ id:31654222, clickmap:true, trackLinks:true, accurateTrackBounce:true,
+        ''_blank'' }); player.hotkeys({  enableVolumeScroll: false }); player.persistvolume({  namespace:
+        ''sovetromantica_volume'' });    }); </script><script type="text/javascript">
+        (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter31654222
+        = new Ya.Metrika({ id:31654222, clickmap:true, trackLinks:true, accurateTrackBounce:true,
         webvisor:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0],
         s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s,
         n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js";
@@ -103,5 +106,5 @@ http_interactions:
         })(window,document,''script'',''https://www.google-analytics.com/analytics.js'',''ga'');
         ga(''create'', ''UA-59221793-1'', ''auto''); ga(''send'', ''pageview''); </script>  </body></html>'
     http_version: 
-  recorded_at: Sat, 15 Oct 2016 18:28:30 GMT
+  recorded_at: Mon, 31 Oct 2016 20:09:15 GMT
 recorded_with: VCR 3.0.3
