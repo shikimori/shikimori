@@ -10,7 +10,8 @@ describe ClubsController do
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
     describe 'no_pagination' do
-      before { get :index }
+      subject! { get :index }
+
       it do
         expect(collection).to eq [club]
         expect(response).to have_http_status :success
@@ -18,7 +19,8 @@ describe ClubsController do
     end
 
     describe 'pagination' do
-      before { get :index, page: 1 }
+      subject! { get :index, page: 1 }
+
       it { expect(response).to have_http_status :success }
     end
   end
@@ -28,7 +30,8 @@ describe ClubsController do
     let(:make_request) { get :show, id: club.to_param }
 
     context 'club locale == locale from domain' do
-      before { make_request }
+      subject! { make_request }
+
       it { expect(response).to have_http_status :success }
     end
 
@@ -40,14 +43,15 @@ describe ClubsController do
 
   describe '#new' do
     include_context :authenticated, :user
-    before { get :new, club: { owner_id: user.id } }
+    subject! { get :new, club: { owner_id: user.id } }
+
     it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
     include_context :authenticated, :user
     let(:club) { create :club, owner: user }
-    before { get :edit, id: club.to_param }
+    subject! { get :edit, id: club.to_param, page: 'main' }
 
     it { expect(response).to have_http_status :success }
   end
@@ -56,15 +60,19 @@ describe ClubsController do
     include_context :authenticated, :user
 
     context 'valid params' do
-      before { post :create, club: { name: 'test', owner_id: user.id } }
+      subject! { post :create, club: params }
+      let(:params) { { name: 'test', owner_id: user.id } }
+
       it do
         expect(resource).to be_persisted
-        expect(response).to redirect_to edit_club_url(resource)
+        expect(response).to redirect_to edit_club_url(resource, page: 'main')
       end
     end
 
     context 'invalid params' do
-      before { post :create, club: { owner_id: user.id } }
+      subject! { post :create, club: params }
+      let(:params) { { owner_id: user.id } }
+
       it do
         expect(resource).to be_new_record
         expect(response).to have_http_status :success
@@ -77,15 +85,19 @@ describe ClubsController do
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do
-      before { patch :update, id: club.id, club: { name: 'test club' } }
+      subject! { patch :update, id: club.id, club: params, page: 'description' }
+      let(:params) { { name: 'test club' } }
+
       it do
         expect(resource.errors).to be_empty
-        expect(response).to redirect_to edit_club_url(resource)
+        expect(response).to redirect_to edit_club_url(resource, page: :description)
       end
     end
 
     context 'invalid params' do
-      before { patch 'update', id: club.id, club: { name: '' } }
+      subject! { patch 'update', id: club.id, club: params, page: 'description' }
+      let(:params) { { name: '' } }
+
       it do
         expect(resource.errors).to be_present
         expect(response).to have_http_status :success

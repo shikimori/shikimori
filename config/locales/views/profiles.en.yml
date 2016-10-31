@@ -25,13 +25,13 @@ en:
       banned: banned
 
     page:
-      account: Account
-      profile: Profile
-      site_appearance_html: Site&nbsp;Appearance
-      anime_and_manga_list_html: Anime&nbsp;&&nbsp;Manga&nbsp;List
-      notifications: Notifications
-      misc: Misc
-      errors: Errors
+      pages:
+        account: Account
+        profile: Profile
+        styles: Site Appearance
+        list: Anime & Manga List
+        notifications: Notifications
+        misc: Misc
       to_anime: to anime
       to_manga: to manga
       search_by_name: Search by name...

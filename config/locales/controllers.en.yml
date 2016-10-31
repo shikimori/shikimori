@@ -93,7 +93,6 @@ en:
   clubs_controller:
     new_club: New club
     club_created: Club created
-    edit_club: Edit club
     club_members: Club members
     club_anime: Club anime
     club_manga: Club manga

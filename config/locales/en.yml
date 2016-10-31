@@ -179,6 +179,7 @@ en:
           free_comment: Unrestricted
           members_comment: Club Members Only
         is_censored: Contains adult content (18+)
+        logo: Logo
       club_invite:
         dst: User
       topic:

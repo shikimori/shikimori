@@ -445,7 +445,7 @@ Site::Application.routes.draw do
 
     resource :translations, only: [:show]
 
-    resources :clubs do
+    resources :clubs, except: [:edit, :destroy] do
       member do
         get :members
         get :animes
@@ -453,6 +453,8 @@ Site::Application.routes.draw do
         get :characters
         get :images
         post :upload
+
+        get 'edit/:page' => :edit, as: :edit, page: /main|description|links|members|styles/
       end
 
       collection do
@@ -773,7 +775,7 @@ Site::Application.routes.draw do
         get :ban
         get :feed
         #get :stats
-        get 'edit(/:page)' => :edit,
+        get 'edit/:page' => :edit,
           as: :edit,
           page: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 

@@ -47,7 +47,7 @@
               data-direction="top"
             ]
             a.settings.b-tooltipped.unprocessed[
-              href="#{edit_profile_url @resource}"
+              href="#{edit_profile_url @resource, page: :account}"
               title="#{t '.my_profile_settings'}"
               data-direction="top"
             ]
@@ -101,7 +101,7 @@
             ]
             - if can? :edit, @resource
               a.settings.b-tooltipped.unprocessed[
-                href="#{edit_profile_url @resource}"
+                href="#{edit_profile_url @resource, page: :account}"
                 title="#{t '.user_profile_settings'}"
                 data-direction="top"
               ]
@@ -141,7 +141,7 @@
     - if user_signed_in?
       - if @resource.own_profile?
         a href="#{profile_dialogs_url @resource}" = t '.my_mail'
-        a href="#{edit_profile_url @resource}" = t '.my_profile_settings'
+        a href="#{edit_profile_url @resource, page: :account}" = t '.my_profile_settings'
         a href="#{ban_profile_url @resource}" = t '.my_bans'
 
       - else
@@ -180,7 +180,8 @@
         - else
           a href="#{ban_profile_url @resource}" = t '.ban_history'
         - if can? :edit, @resource
-          a href="#{edit_profile_url @resource}" = t '.user_profile_settings'
+          a href="#{edit_profile_url @resource, page: :account}"
+            = t '.user_profile_settings'
 
   .c-info
     .c-lists-info

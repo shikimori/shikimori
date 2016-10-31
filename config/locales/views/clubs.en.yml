@@ -10,13 +10,21 @@ en:
       back_to_clubs_page: Back to clubs page
       new_club: New club
       edit_club: &edit_club Edit club
+      pages:
+        main: Main
+        description: Description
+        links: Links
+        members: Members
 
-    form:
-      required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
-      anime_title: Anime title
-      manga_title: Manga title
-      character_name: Character name
-      remove_users: Remove users
+    edit:
+      main:
+        required_option_for_adult_clubs: Required option for clubs with "adult" images and texts
+      links:
+        anime_title: Anime title
+        manga_title: Manga title
+        character_name: Character name
+      members:
+        remove_users: Remove users
 
     actions:
       edit_club: *edit_club

@@ -9,14 +9,22 @@ ru:
     page:
       back_to_clubs_page: Назад на страницу клуба
       new_club: Новый клуб
-      edit_club: &edit_club Изменить клуб
+      edit_club: &edit_club Редактировать клуб
+      pages:
+        main: Основное
+        description: Описание
+        links: Ссылки
+        members: Участники
 
-    form:
-      required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
-      anime_title: Название аниме
-      manga_title: Название манги
-      character_name: Имя персонажа
-      remove_users: Удаление пользователей
+    edit:
+      main:
+        required_option_for_adult_clubs: Обязательная опция для клубов со "взрослыми" картинками и текстами
+      links:
+        anime_title: Название аниме
+        manga_title: Название манги
+        character_name: Имя персонажа
+      members:
+        remove_users: Удаление пользователей
 
     actions:
       edit_club: *edit_club

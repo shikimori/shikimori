@@ -120,6 +120,7 @@ describe ProfilesController do
       end
 
       describe 'styles' do
+        let!(:user) { create :user, :with_assign_style }
         let(:page) { 'styles' }
         it { expect(response).to have_http_status :success }
       end
@@ -156,7 +157,7 @@ describe ProfilesController do
         before { make_request }
 
         context 'common change' do
-          let(:update_params) {{ nickname: 'morr' }}
+          let(:update_params) { { nickname: 'morr' } }
 
           it do
             expect(resource.nickname).to eq 'morr'
@@ -167,7 +168,7 @@ describe ProfilesController do
 
         context 'association change' do
           let(:user_2) { create :user }
-          let(:update_params) {{ ignored_user_ids: [user_2.id] }}
+          let(:update_params) { { ignored_user_ids: [user_2.id] } }
 
           it do
             expect(resource.ignores?(user_2)).to be true
@@ -178,7 +179,7 @@ describe ProfilesController do
         context 'password change' do
           context 'when current password is set' do
             let(:user) { create :user, password: '1234' }
-            let(:update_params) {{ current_password: '1234', password: 'yhn' }}
+            let(:update_params) { { current_password: '1234', password: 'yhn' } }
 
             it do
               expect(resource.valid_password?('yhn')).to be true
@@ -188,7 +189,7 @@ describe ProfilesController do
 
           context 'when current password is not set' do
             let(:user) { create :user, :without_password }
-            let(:update_params) {{ password: 'yhn' }}
+            let(:update_params) { { password: 'yhn' } }
 
             it do
               expect(resource.valid_password?('yhn')).to be true
@@ -200,7 +201,7 @@ describe ProfilesController do
 
       context 'when validation errors' do
         let!(:user_2) { create :user }
-        let(:update_params) {{ nickname: user_2.nickname }}
+        let(:update_params) { { nickname: user_2.nickname } }
         before { make_request }
 
         it do
@@ -211,7 +212,7 @@ describe ProfilesController do
     end
 
     context 'when invalid access' do
-      let(:update_params) {{ nickname: '123' }}
+      let(:update_params) { { nickname: '123' } }
       it { expect{make_request}.to raise_error CanCan::AccessDenied }
     end
   end

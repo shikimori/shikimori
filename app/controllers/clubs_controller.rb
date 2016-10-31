@@ -13,6 +13,23 @@ class ClubsController < ShikimoriController
 
   before_action :set_breadcrumbs
 
+  CREATE_PARAMS = [:owner_id, :name, :logo, :is_censored]
+  UPDATE_PARAMS = [
+    :name,
+    :join_policy,
+    :description,
+    :upload_policy,
+    :display_images,
+    :comment_policy,
+    :logo,
+    :is_censored,
+    anime_ids: [],
+    manga_ids: [],
+    character_ids: [],
+    admin_ids: [],
+    banned_user_ids: []
+  ]
+
   def index
     noindex
     @page = [params[:page].to_i, 1].max
@@ -34,10 +51,11 @@ class ClubsController < ShikimoriController
   end
 
   def create
-    @resource = Club::Create.call resource_params, locale_from_domain
+    @resource = Club::Create.call create_params, locale_from_domain
 
     if @resource.errors.blank?
-      redirect_to edit_club_url(@resource), notice: i18n_t('club_created')
+      redirect_to edit_club_url(@resource, page: 'main'),
+        notice: i18n_t('club_created')
     else
       new
       render :new
@@ -45,16 +63,18 @@ class ClubsController < ShikimoriController
   end
 
   def edit
-    page_title i18n_t('edit_club')
+    page_title t(:settings)
+    @page = params[:page]
   end
 
   def update
     Club::Update.call @resource, params[:kick_ids], update_params
 
     if @resource.errors.blank?
-      redirect_to edit_club_url(@resource), notice: t('changes_saved')
+      redirect_to edit_club_url(@resource, page: params[:page]),
+        notice: t('changes_saved')
     else
-      flash[:alert] = t 'changes_not_saved'
+      flash[:alert] = t('changes_not_saved')
       edit
       render :edit
     end
@@ -122,28 +142,12 @@ private
     end
   end
 
-  def resource_params
-    params
-      .require(:club)
-      .permit(
-        :owner_id,
-        :name,
-        :join_policy,
-        :description,
-        :upload_policy,
-        :display_images,
-        :comment_policy,
-        :logo,
-        :is_censored,
-        anime_ids: [],
-        manga_ids: [],
-        character_ids: [],
-        admin_ids: [],
-        banned_user_ids: []
-      )
+  def create_params
+    params.require(:club).permit(*CREATE_PARAMS)
   end
+  alias :new_params :create_params
 
   def update_params
-    resource_params.except(:owner_id)
+    params.require(:club).permit(*UPDATE_PARAMS)
   end
 end

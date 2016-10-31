@@ -25,13 +25,13 @@ ru:
       banned: '@{f:забанена|m:забанен}'
 
     page:
-      account: Аккаунт
-      profile: Профиль
-      site_appearance_html: Внешний&nbsp;вид&nbsp;сайта
-      anime_and_manga_list_html: Список&nbsp;аниме&nbsp;и&nbsp;манги
-      notifications: Уведомления
-      misc: Прочее
-      errors: Ошибки
+      pages:
+        account: Аккаунт
+        profile: Профиль
+        styles: Внешний вид сайта
+        list: Список аниме и манги
+        notifications: Уведомления
+        misc: Прочее
       to_anime: к аниме
       to_manga: к манге
       search_by_name: Поиск по названию...

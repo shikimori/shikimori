@@ -1,2 +1,17 @@
 = render layout: 'page' do
-  = render 'form'
+  - if @resource.errors.any?
+    .b-errors
+      .subheadline = i18n_i 'error', :other
+      == @resource.errors.full_messages.join('<br>')
+
+  .b-options-floated.mobile-phone
+    / - %w(main description links members styles).each do |page|
+    - %w(main description links members).each do |page|
+      a[
+        class="#{:selected if @page == page}"
+        href="#{edit_club_url @resource, page: page}"
+      ] = t ".pages.#{page}"
+  h2.subheadline.m10 = @page_title.last
+
+  .block.edit-page class="#{@page}"
+    = render "clubs/edit/#{@page}"

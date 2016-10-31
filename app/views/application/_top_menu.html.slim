@@ -55,7 +55,9 @@
               span.sep.zero.inline
                 | ]
 
-          a.entry href="#{edit_profile_url current_user, subdomain: nil}" = t :settings
+          a.entry[
+            href="#{edit_profile_url current_user, page: :account, subdomain: nil}"
+          ] = t :settings
           a.entry href="#{destroy_user_session_url subdomain: nil}" = t '.sign_out'
 
     - else

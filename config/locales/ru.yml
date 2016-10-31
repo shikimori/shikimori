@@ -179,6 +179,7 @@ ru:
           free_comment: Свободное для всех
           members_comment: Только для участников клуба
         is_censored: Содержит материалы для взрослых (18+)
+        logo: Логотип
       club_invite:
         dst: Пользователь
       topic:

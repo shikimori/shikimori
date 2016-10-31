@@ -93,7 +93,6 @@ ru:
   clubs_controller:
     new_club: Новый клуб
     club_created: Клуб создан
-    edit_club: Изменение клуба
     club_members: Участники клуба
     club_anime: Аниме клуба
     club_manga: Манга клуба

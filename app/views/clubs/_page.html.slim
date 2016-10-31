@@ -15,9 +15,9 @@ header.head
     - else
       = t '.new_club'
 
-  - if can?(:edit, @resource) && @resource.persisted?
+  - if can?(:edit, @resource) && @resource.persisted? && params[:action] != 'edit'
     a.edit[
-      href="#{edit_club_url @resource}"
+      href="#{edit_club_url @resource, page: :main}"
       title="#{t '.edit_club'}"
     ] = t('actions.edit').downcase
 

@@ -120,7 +120,7 @@ class ProfilesController < ShikimoriController
   def edit
     authorize! :edit, @resource
     page_title t(:settings)
-    @page = params[:page] || 'account'
+    @page = params[:page]
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
   end
 
@@ -142,7 +142,8 @@ class ProfilesController < ShikimoriController
         @resource.update associations_params
       end
 
-      redirect_to edit_profile_url(@resource, page: params[:page]), notice: t('changes_saved')
+      redirect_to edit_profile_url(@resource, page: params[:page]),
+        notice: t('changes_saved')
     else
       flash[:alert] = t('changes_not_saved')
       edit

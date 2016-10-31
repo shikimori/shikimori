@@ -1,0 +1,45 @@
+= simple_form_for @resource do |f|
+  input type="hidden" name="page" value="#{@page}"
+
+  .cc-2a
+    .c-column.block_m
+      input.admin-suggest.subheadline-input.downgrade_landscape[
+        type='text'
+        placeholder=t('username')
+        data-variant_name='club[admin_ids][]'
+        data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
+      ]
+      .subheadline = i18n_i 'admin', :other
+      .variants
+        - @resource.admins.each do |user|
+          .variant
+            = check_box_tag 'club[admin_ids][]', user.id, checked: true
+            a href="#{profile_url user}" = user.nickname
+
+    .c-column.block_m
+      input.ban-suggest.subheadline-input.downgrade_landscape[
+        type='text'
+        placeholder=t('username')
+        data-variant_name='club[banned_user_ids][]'
+        data-autocomplete="#{autocomplete_users_url}"
+      ]
+      .subheadline = i18n_i 'ban', :other
+      .variants
+        - @resource.banned_users.each do |user|
+          .variant
+            = check_box_tag 'club[banned_user_ids][]', user.id, checked: true
+            a href="#{profile_url user}" = user.nickname
+
+  .block
+    input.kick-suggest.subheadline-input[
+      type='text'
+      placeholder=t('username')
+      data-variant_name='kick_ids[]'
+      data-autocomplete="#{autocomplete_club_club_roles_url @resource}"
+    ]
+    .subheadline = t '.remove_users'
+    .variants
+
+  .buttons
+    a.cancel href="#{club_url @resource}" = t 'actions.cancel'
+    = f.button :magic_submit
