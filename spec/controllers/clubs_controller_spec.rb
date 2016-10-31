@@ -10,7 +10,7 @@ describe ClubsController do
     let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
     describe 'no_pagination' do
-      subject! { get :index }
+      before { get :index }
 
       it do
         expect(collection).to eq [club]
@@ -19,8 +19,7 @@ describe ClubsController do
     end
 
     describe 'pagination' do
-      subject! { get :index, page: 1 }
-
+      before { get :index, page: 1 }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -30,8 +29,7 @@ describe ClubsController do
     let(:make_request) { get :show, id: club.to_param }
 
     context 'club locale == locale from domain' do
-      subject! { make_request }
-
+      before { make_request }
       it { expect(response).to have_http_status :success }
     end
 
@@ -43,15 +41,14 @@ describe ClubsController do
 
   describe '#new' do
     include_context :authenticated, :user
-    subject! { get :new, club: { owner_id: user.id } }
-
+    before { get :new, club: { owner_id: user.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
     include_context :authenticated, :user
     let(:club) { create :club, owner: user }
-    subject! { get :edit, id: club.to_param, page: 'main' }
+    before { get :edit, id: club.to_param, page: 'main' }
 
     it { expect(response).to have_http_status :success }
   end
@@ -60,7 +57,7 @@ describe ClubsController do
     include_context :authenticated, :user
 
     context 'valid params' do
-      subject! { post :create, club: params }
+      before { post :create, club: params }
       let(:params) { { name: 'test', owner_id: user.id } }
 
       it do
@@ -70,7 +67,7 @@ describe ClubsController do
     end
 
     context 'invalid params' do
-      subject! { post :create, club: params }
+      before { post :create, club: params }
       let(:params) { { owner_id: user.id } }
 
       it do
@@ -85,7 +82,7 @@ describe ClubsController do
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do
-      subject! { patch :update, id: club.id, club: params, page: 'description' }
+      before { patch :update, id: club.id, club: params, page: 'description' }
       let(:params) { { name: 'test club' } }
 
       it do
@@ -95,7 +92,7 @@ describe ClubsController do
     end
 
     context 'invalid params' do
-      subject! { patch 'update', id: club.id, club: params, page: 'description' }
+      before { patch 'update', id: club.id, club: params, page: 'description' }
       let(:params) { { name: '' } }
 
       it do

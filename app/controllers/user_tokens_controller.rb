@@ -11,6 +11,6 @@ class UserTokensController < ShikimoriController
     @resource.destroy
 
     flash[:notice] = "Отключена авторизация через #{@resource.provider.titleize}"
-    redirect_to edit_profile_url(@resource.user)
+    redirect_to edit_profile_url(@resource.user, page: 'account')
   end
 end

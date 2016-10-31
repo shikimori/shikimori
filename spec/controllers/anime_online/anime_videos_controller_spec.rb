@@ -27,7 +27,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       end
 
       context 'without any video' do
-        let!(:anime_video) { }
+        let!(:anime_video) {}
         it { expect(response).to have_http_status :success }
       end
     end
@@ -35,8 +35,8 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     describe 'verify adult' do
       let!(:anime) { create :anime }
       let!(:anime_video) { create :anime_video, episode: 1, anime: anime }
-      let(:episode) { }
-      let(:video_id) { }
+      let(:episode) {}
+      let(:video_id) {}
 
       before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
       before { @request.host = domain }
@@ -145,7 +145,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     end
 
     context 'invalid params' do
-      let(:anime_id) { }
+      let(:anime_id) {}
 
       it do
         expect(response).to have_http_status :success
@@ -179,25 +179,40 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         reason: 'test'
     end
 
-    context 'valid params' do
-      let(:kind) { 'fandub' }
+
+    describe 'premoderate', :focus do
+      let(:video_versions) { Version.where item: anime_video }
+      let(:kind) { 'subtitles' }
+
       it do
-        expect(video).to be_valid
-        expect(video).to have_attributes video_params
+        expect(video_versions).to have(1).item
+        expect(video).to_not have_attributes video_params
         expect(response).to redirect_to play_video_online_index_url(
           anime, video.episode, video.id)
       end
     end
 
-    context 'invalid params' do
-      let(:kind) { }
+    # describe 'postmoderate' do
+      # context 'valid params' do
+        # let(:kind) { 'fandub' }
+        # it do
+          # expect(video).to be_valid
+          # expect(video).to have_attributes video_params
+          # expect(response).to redirect_to play_video_online_index_url(
+            # anime, video.episode, video.id)
+        # end
+      # end
 
-      it do
-        expect(response).to have_http_status :success
-        expect(video).to_not be_valid
-        expect(video).to be_persisted
-      end
-    end
+      # context 'invalid params' do
+        # let(:kind) {}
+
+        # it do
+          # expect(response).to have_http_status :success
+          # expect(video).to_not be_valid
+          # expect(video).to be_persisted
+        # end
+      # end
+    # end
   end
 
   describe 'extract_url' do
@@ -235,7 +250,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   describe '#viewed' do
     include_context :authenticated, :user
     let(:video) { create :anime_video, episode: 10, anime: anime }
-    let!(:user_rate) { }
+    let!(:user_rate) {}
 
     before { post :viewed, anime_id: anime.to_param, id: video.id }
 
@@ -263,7 +278,9 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
     it do
       expect(resource).to be_destroyed
       expect(response).to redirect_to play_video_online_index_url(
-        anime, video.episode)
+        anime,
+        video.episode
+      )
     end
   end
 end

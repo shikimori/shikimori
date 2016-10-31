@@ -7,11 +7,11 @@ class Versioneers::FieldsVersioneer
     $
   /mix
 
-  def premoderate params, author=nil, reason=nil
+  def premoderate params, author = nil, reason = nil
     create_version params, author, reason
   end
 
-  def postmoderate params, author=nil, reason=nil
+  def postmoderate params, author = nil, reason = nil
     version = premoderate params, author, reason
     version.auto_accept! if version.persisted? && version.can_auto_accept?
     version
@@ -44,17 +44,21 @@ private
       Version
   end
 
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def convert_dates hash
     hash.each_with_object({}) do |(key, value), memo|
       if key =~ SPLITTED_DATE_FIELD
-        memo[$~[:field]] ||= Date.new(
-          hash[$~[:field] + '(1i)'].to_i,
-          hash[$~[:field] + '(2i)'].to_i,
-          hash[$~[:field] + '(3i)'].to_i
+        memo[$LAST_MATCH_INFO[:field]] ||= Date.new(
+          hash[$LAST_MATCH_INFO[:field] + '(1i)'].to_i,
+          hash[$LAST_MATCH_INFO[:field] + '(2i)'].to_i,
+          hash[$LAST_MATCH_INFO[:field] + '(3i)'].to_i
         )
       else
         memo[key] = value
       end
     end
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 end
