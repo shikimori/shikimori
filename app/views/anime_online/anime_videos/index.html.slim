@@ -37,6 +37,8 @@
               class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.episode_videos.keys.first)}"
               data-kind="#{kind_text}"
             ] = kind_text
+          - if @player.episode_videos.many?
+            .video-variant-switcher data-kind="all" все
 
         - if @player.episode_videos.any?
           - @player.episode_videos.each do |kind_text, videos|
@@ -48,6 +50,14 @@
                 = render 'anime_online/anime_videos/video_variant',
                   video: video,
                   is_special: false
+
+          - if @player.episode_videos.many?
+            .video-variant-group data-kind="all"
+              - @player.episode_videos.each do |kind_text, videos|
+                - videos.each do |video|
+                  = render 'anime_online/anime_videos/video_variant',
+                    video: video,
+                    is_special: false
         - else
           .b-nothing_here Нет видео
 
