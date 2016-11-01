@@ -66,14 +66,62 @@ describe AnimeVideosService do
   describe '#update' do
     let(:video_params) { { kind: kind, author_name: 'test', episode: 3 } }
     let(:anime_video) { create :anime_video }
-    let(:author) { create :user }
+    let(:author) { create :user, author_role }
     subject(:video) { service.update anime_video, author, nil }
 
-    describe 'premoderate' do
-      let(:video_versions) { Version.where item: anime_video }
+    # describe 'premoderate' do
+      # let(:author_role) { :user }
+      # let(:video_versions) { Version.where item: anime_video }
 
-      context 'valid video' do
+      # context 'valid video' do
+        # let(:kind) { 'subtitles' }
+        # it do
+          # expect { video }.to change(video_versions, :count).by 1
+          # expect(video).to_not have_attributes video_params.except(:author_name)
+          # expect(video_versions.first).to have_attributes(
+            # state: 'pending',
+            # user_id: author.id,
+            # item_diff: {
+              # 'kind' => ['fandub', 'subtitles'],
+              # 'episode' => [1, 3],
+              # 'author_name' => [nil, 'test']
+            # }
+          # )
+        # end
+      # end
+
+      # # context 'invalid video' do
+        # # let(:kind) {}
+        # # it { expect { video }.to_not change Version, :count }
+      # # end
+    # end
+
+    describe 'postmoderate' do
+      context 'moderator' do
+        let(:author_role) { :video_moderator }
+
+        context 'valid video' do
+          let(:kind) { 'subtitles' }
+          it do
+            expect(video).to be_valid
+            expect(video).to be_persisted
+
+            expect(video).to have_attributes video_params.except(:author_name)
+            expect(video.author_name).to eq video_params[:author_name]
+          end
+        end
+
+        context 'invalid video' do
+          let(:kind) {}
+          it { expect(video).to_not be_valid }
+        end
+      end
+
+      context 'common user' do
+        let(:video_versions) { Version.where item: anime_video }
+        let(:author_role) { :user }
         let(:kind) { 'subtitles' }
+
         it do
           expect { video }.to change(video_versions, :count).by 1
           expect(video).to_not have_attributes video_params.except(:author_name)
@@ -88,29 +136,6 @@ describe AnimeVideosService do
           )
         end
       end
-
-      # context 'invalid video' do
-        # let(:kind) {}
-        # it { expect { video }.to_not change Version, :count }
-      # end
     end
-
-    # describe 'postmoderate' do
-      # context 'valid video' do
-        # let(:kind) { 'subtitles' }
-        # it do
-          # expect(video).to be_valid
-          # expect(video).to be_persisted
-
-          # expect(video).to have_attributes video_params.except(:author_name)
-          # expect(video.author_name).to eq video_params[:author_name]
-        # end
-      # end
-
-      # context 'invalid video' do
-        # let(:kind) {}
-        # it { expect(video).to_not be_valid }
-      # end
-    # end
   end
 end

@@ -30,7 +30,7 @@ private
   def create_version video, current_user, reason
     Versioneers::FieldsVersioneer
       .new(video)
-      .premoderate(params, current_user, reason)
+      .postmoderate(params, current_user, reason)
 
   rescue StateMachine::InvalidTransition
   end

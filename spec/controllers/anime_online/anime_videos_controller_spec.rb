@@ -164,14 +164,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   end
 
   describe '#update' do
-    include_context :authenticated, :user
-
     let(:anime_video) { create :anime_video, anime: anime, state: 'uploaded' }
     let(:video_params) { { kind: kind, author_name: 'test', episode: 3 } }
 
     let(:video) { assigns :video }
 
-    before do
+    let(:make_request) do
       patch :update,
         anime_id: anime.to_param,
         id: anime_video.id,
@@ -179,10 +177,12 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         reason: 'test'
     end
 
-
     describe 'premoderate' do
       let(:video_versions) { Version.where item: anime_video }
       let(:kind) { 'subtitles' }
+
+      include_context :authenticated, :user
+      before { make_request }
 
       it do
         expect(video_versions).to have(1).item
@@ -192,27 +192,30 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       end
     end
 
-    # describe 'postmoderate' do
-      # context 'valid params' do
-        # let(:kind) { 'fandub' }
-        # it do
-          # expect(video).to be_valid
-          # expect(video).to have_attributes video_params
-          # expect(response).to redirect_to play_video_online_index_url(
-            # anime, video.episode, video.id)
-        # end
-      # end
+    describe 'postmoderate' do
+      include_context :authenticated, :video_moderator
+      before { make_request }
 
-      # context 'invalid params' do
-        # let(:kind) {}
+      context 'valid params' do
+        let(:kind) { 'fandub' }
+        it do
+          expect(video).to be_valid
+          expect(video).to have_attributes video_params
+          expect(response).to redirect_to play_video_online_index_url(
+            anime, video.episode, video.id)
+        end
+      end
 
-        # it do
-          # expect(response).to have_http_status :success
-          # expect(video).to_not be_valid
-          # expect(video).to be_persisted
-        # end
-      # end
-    # end
+      context 'invalid params' do
+        let(:kind) {}
+
+        it do
+          expect(response).to have_http_status :success
+          expect(video).to_not be_valid
+          expect(video).to be_persisted
+        end
+      end
+    end
   end
 
   describe 'extract_url' do
