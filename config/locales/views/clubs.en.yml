@@ -15,6 +15,7 @@ en:
         description: Description
         links: Links
         members: Members
+        styles: Styles
 
     edit:
       main:

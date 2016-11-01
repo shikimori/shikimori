@@ -14,7 +14,7 @@
         class="#{:selected if @page == page}"
         href="#{edit_profile_url @resource, page: page}"
       ] = t ".pages.#{page}"
-  h2.subheadline.m10 = @page_title.last
+  h2.subheadline.m10 = t :settings
 
   .block.edit-page class="#{@page}"
     = render "profiles/edit/#{@page}"

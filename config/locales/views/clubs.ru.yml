@@ -15,6 +15,7 @@ ru:
         description: Описание
         links: Ссылки
         members: Участники
+        styles: Стили
 
     edit:
       main:

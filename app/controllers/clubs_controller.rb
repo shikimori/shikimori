@@ -5,8 +5,6 @@ class ClubsController < ShikimoriController
 
   before_action { page_title i18n_i('Club', :other) }
 
-  before_action { page_title i18n_i('Club', :other) }
-
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
   before_action :restrict_domain, except: [:index, :create, :new]
@@ -64,6 +62,7 @@ class ClubsController < ShikimoriController
 
   def edit
     page_title t(:settings)
+    page_title t("clubs.page.pages.#{params[:page]}")
     @page = params[:page]
   end
 

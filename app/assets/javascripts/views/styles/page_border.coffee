@@ -2,9 +2,7 @@ using 'Styles'
 class Styles.PageBorder extends View
   REGEXP = /\/\* AUTO=page_border.*? { display: (\w+); }.*/
 
-  BORDER_STYLE =
-    true: 'block'
-    false: 'none'
+  BORDER_STYLE = 'block'
 
   initialize: ->
     @css_template = @$root.data 'css_template'
@@ -20,7 +18,7 @@ class Styles.PageBorder extends View
   _extract: (css) ->
     matches = css.match(REGEXP)
 
-    if matches && matches[1] == BORDER_STYLE['true']
+    if matches && matches[1] == BORDER_STYLE
       true
     else
       false
@@ -30,4 +28,7 @@ class Styles.PageBorder extends View
     @trigger 'component:update', [REGEXP, @_compile()]
 
   _compile: ->
-    @css_template.replace(/%s/, BORDER_STYLE[@has_border.toString()])
+    if @has_border
+      @css_template.replace(/%s/, BORDER_STYLE)
+    else
+      ''

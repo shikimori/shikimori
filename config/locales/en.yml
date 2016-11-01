@@ -168,6 +168,7 @@ en:
         hosting: Hosting
       club:
         name: Name
+        owner: Founder
         display_images: Show Images
         join_policy: Terms of Joining
         join_policies:
