@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   DAY_LIFE_INTERVAL = 1.day
   WEEK_LIFE_INTERVAL = 1.week
 
+  ACTIVE_SITE_USER_INTERVAL = 1.month
+
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
@@ -280,6 +282,14 @@ class User < ActiveRecord::Base
 
   def banned?
     !!(read_only_at && read_only_at > Time.zone.now)
+  end
+
+  def active?
+    (last_sign_in_at && last_sign_in_at > ACTIVE_SITE_USER_INTERVAL.ago) ||
+      (
+        self[:last_online_at] &&
+        self[:last_online_at] > ACTIVE_SITE_USER_INTERVAL.ago
+      )
   end
 
   def remember_me

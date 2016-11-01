@@ -205,6 +205,39 @@ describe User do
       end
     end
 
+    describe '#active?' do
+      subject(:user) do
+        build :user,
+          last_online_at: last_online_at,
+          last_sign_in_at: last_sign_in_at
+      end
+
+      let(:last_sign_in_at) { nil }
+      let(:last_online_at) { nil }
+
+      it { is_expected.to_not be_active }
+
+      describe 'last_sign_in_at > ACTIVE_SITE_USER_INTERVAL' do
+        let(:last_sign_in_at) { User::ACTIVE_SITE_USER_INTERVAL.ago + 1.minute }
+        it { is_expected.to be_active }
+      end
+
+      describe 'last_sign_in_at < ACTIVE_SITE_USER_INTERVAL' do
+        let(:last_sign_in_at) { User::ACTIVE_SITE_USER_INTERVAL.ago - 1.minute }
+        it { is_expected.to_not be_active }
+      end
+
+      describe 'last_online_at > ACTIVE_SITE_USER_INTERVAL' do
+        let(:last_online_at) { User::ACTIVE_SITE_USER_INTERVAL.ago + 1.minute }
+        it { is_expected.to be_active }
+      end
+
+      describe 'last_online_at < ACTIVE_SITE_USER_INTERVAL' do
+        let(:last_online_at) { User::ACTIVE_SITE_USER_INTERVAL.ago - 1.minute }
+        it { is_expected.to_not be_active }
+      end
+    end
+
     describe '#friended?' do
       subject { user.friended? user_2 }
       let(:user_2) { build_stubbed :user }

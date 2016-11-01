@@ -93,6 +93,8 @@ private
   end
 
   def send_push_notifications
+    return unless to.active?
+
     to.devices.each do |device|
       PushNotification.perform_async id, device.id
     end
