@@ -6,9 +6,18 @@ describe Version do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :item }
     it { is_expected.to validate_presence_of :item_diff }
     # it { is_expected.to validate_length_of(:reason).is_at_most Version::MAXIMUM_REASON_SIZE }
+
+    context 'new record' do
+      subject { build :version }
+      it { is_expected.to validate_presence_of :item }
+    end
+
+    context 'persisted' do
+      subject { build_stubbed :version }
+      it { is_expected.to_not validate_presence_of :item }
+    end
   end
 
   describe 'state_machine' do
@@ -189,7 +198,7 @@ describe Version do
         end
         let(:item_diff) { { russian: ['a', 'b'] } }
 
-        describe 'common change'do
+        describe 'common change' do
           it { is_expected.to be_able_to :create, version }
         end
 

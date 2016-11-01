@@ -106,7 +106,7 @@
               /a.action href="#{finish_contest_url(contest)}" data-confirm="Вы уверены?" Остановить
               /span.action-misc действие перезагрузит страницу без сохранения прочих изменений
 
-      - if contest.rounds.any?
+      - if contest.rounds.any? && !contest.swiss?
         .subheadline = t 'tournament_bracket'
         .block_m.grid
           a href="#{grid_contest_url contest}" title=t('tournament_bracket') = "#{t 'goto'} →"

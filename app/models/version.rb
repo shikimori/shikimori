@@ -7,7 +7,8 @@ class Version < ActiveRecord::Base
   belongs_to :moderator, class_name: User
   belongs_to :item, polymorphic: true, touch: true
 
-  validates :item, :item_diff, presence: true
+  validates :item_diff, presence: true
+  validates :item, presence: true, if: :new_record?
   validates :reason, length: { maximum: MAXIMUM_REASON_SIZE }
 
   scope :pending_content, lambda {
