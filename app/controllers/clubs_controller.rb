@@ -67,7 +67,7 @@ class ClubsController < ShikimoriController
   end
 
   def update
-    Club::Update.call @resource, params[:kick_ids], update_params
+    Club::Update.call @resource, params[:kick_ids], update_params, params[:page]
 
     if @resource.errors.blank?
       redirect_to edit_club_url(@resource, page: params[:page]),

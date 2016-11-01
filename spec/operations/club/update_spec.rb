@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 describe Club::Update do
-  subject { Club::Update.call club, kick_ids, params }
+  subject { Club::Update.call club, kick_ids, params, page }
 
   let(:user) { create :user }
   let(:club) { create :club, :with_topics, owner: user }
+  let(:page) { 'account' }
   let(:kick_ids) { nil }
 
   context 'valid params' do

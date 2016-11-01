@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 class Club::Update < ServiceObjectBase
-  pattr_initialize :model, :kick_ids, :params
+  pattr_initialize :model, :kick_ids, :params, :page
 
   def call
     kick_users
     update_club
 
-    model
+    @model
   end
 
 private
 
   def kick_users
-    users_to_kick = User.where id: (kick_ids || [])
-    users_to_kick.each { |user| model.leave user }
+    users_to_kick = User.where id: (@kick_ids || [])
+    users_to_kick.each { |user| @model.leave user }
   end
 
   # rubocop:disable MethodLength
@@ -23,17 +23,29 @@ private
 
     Retryable.retryable tries: 2, on: exceptions, sleep: 1 do
       Club.transaction do
-        model.animes = []
-        model.mangas = []
-        model.characters = []
-        model.banned_users = []
+        if links_page?
+          @model.animes = []
+          @model.mangas = []
+          @model.characters = []
+        end
 
-        model.member_roles.where(role: :admin).destroy_all
-        model.member_roles.where(user_id: params[:admin_ids]).destroy_all
+        if members_page?
+          @model.banned_users = []
+          @model.member_roles.where(role: :admin).destroy_all
+          @model.member_roles.where(user_id: @params[:admin_ids]).destroy_all
+        end
 
-        model.update params
+        @model.update @params
       end
     end
   end
   # rubocop:enable MethodLength
+
+  def links_page?
+    @page == 'links'
+  end
+
+  def members_page?
+    @page == 'members'
+  end
 end
