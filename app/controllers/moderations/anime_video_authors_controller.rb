@@ -2,8 +2,17 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   load_and_authorize_resource
 
   def index
+    @anime = Anime.find_by id: params[:anime_id] if params[:anime_id]
+
     @collection = Rails.cache.fetch cache_key do
-      AnimeVideoAuthor.order(:name, :id).to_a
+      scope =
+        if @anime
+          AnimeVideoAuthor.where(id: filter_authors(@anime))
+        else
+          AnimeVideoAuthor.all
+        end
+
+      scope.order(:name, :id).to_a
     end
   end
 
@@ -24,12 +33,21 @@ private
     params.require(:anime_video_author).permit(:name)
   end
 
+  def filter_authors anime
+    anime.anime_videos
+      .except(:order)
+      .distinct
+      .pluck(:anime_video_author_id)
+      .compact
+  end
+
   def cache_key
     [
       :anime_video_authors,
       AnimeVideoAuthor.order(:updated_at).last.updated_at,
       AnimeVideoAuthor.last.id,
-      AnimeVideoAuthor.count
+      AnimeVideoAuthor.count,
+      params[:anime_id]
     ]
   end
 end

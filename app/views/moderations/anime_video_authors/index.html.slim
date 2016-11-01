@@ -5,14 +5,29 @@ header.head
 .subheadline.m10 Группы фансаба/фандаба, которые автоматически распознаёт сайт
 .block
   - FixAnimeVideoAuthors::STUDIOS.sort.each do |studio|
-    div = studio
+    .b-tag = studio
 
-.subheadline.m10 Все авторы
 .block
-  - @collection.each do |author|
-    .b-log_entry
-      span.id-label #
-      span
-        a href="#{edit_moderations_anime_video_author_url author}"
-          = author.id
-      span = author.name
+  form
+    input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
+    input.anime-suggest.subheadline-input.downgrade_landscape[
+      data-autocomplete="#{autocomplete_animes_url}"
+      placeholder="#{t 'anime_title'}"
+      type="text"
+    ]
+  .subheadline.m10
+    - if @anime
+      ' Авторы аниме
+      a.b-link.bubbled href="#{anime_url @anime}"
+        = localization_span @anime
+      a.misc-link href="#{moderations_anime_video_authors_url}" без аниме
+    - else
+      | Все авторы
+  .block
+    - @collection.each do |author|
+      .b-log_entry
+        span.id-label #
+        span
+          a href="#{edit_moderations_anime_video_author_url author}"
+            = author.id
+        span = author.name
