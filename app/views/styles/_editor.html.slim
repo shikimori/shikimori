@@ -6,7 +6,7 @@
         remote: true,
         html: { 'data-type' => :json } do |f|
       / = f.input :name
-      = f.input :css
+      = f.input :css, hint: local_assigns[:css_hint]
 
       .preview.ajax-loading.vk-like[
         data-url="#{preview_api_styles_url}"
@@ -62,7 +62,7 @@
             input.boolean#body_background_bottom type="checkbox"
             | bottom
 
-      - if style.owner_type == User.name
+      - if default_backgrounds
         .block
           .subheadline #{t '.examples'}
           ul.prepared-backgrounds
