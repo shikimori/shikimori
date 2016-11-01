@@ -120,7 +120,7 @@ class ProfilesController < ShikimoriController
   def edit
     authorize! :edit, @resource
     page_title t(:settings)
-    page_title t("profiles.page.pages.#{params[:page]}")
+    page_title t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
 
     @page = params[:page]
     @resource.email = '' if @resource.email =~ /^generated_/ && params[:action] == 'edit'
