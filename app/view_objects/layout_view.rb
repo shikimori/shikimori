@@ -60,10 +60,12 @@ private
   def custom_css
     return if blank_layout?
 
-    style = (
-      h.controller.instance_variable_get('@user') || h.current_user
-    )&.style
+    try_style(h.controller.instance_variable_get('@user')) ||
+      try_style(h.controller.instance_variable_get('@club')) ||
+        try_style(h.current_user)
+  end
 
-    style.compiled_css if style&.css.present?
+  def try_style target
+    target.style.compiled_css if target&.style&.css&.strip.present?
   end
 end
