@@ -7,7 +7,8 @@ class Misc::SanitizeEvilCss < ServiceObjectBase
     /behaviou?r|expression|moz-binding|@import|@charset/i,
     /(java|vb)?script|[\<]|\\\w/i,
     # back slash, html tags,
-    /[\<>]/,
+    # /[\<>]/,
+    /[\<]/,
     # high bytes -- suspect
     # /[\x7f-\xff]/,
     # low bytes -- suspect

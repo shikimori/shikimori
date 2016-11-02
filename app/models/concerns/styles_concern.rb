@@ -15,6 +15,6 @@ module StylesConcern
 private
 
   def assign_style
-    create_style! css: '', name: '', owner: self
+    create_style! owner: self
   end
 end
