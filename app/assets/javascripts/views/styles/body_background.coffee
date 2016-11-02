@@ -1,6 +1,6 @@
 using 'Styles'
 class Styles.BodyBackground extends View
-  REGEXP = /\/\* AUTO=body_background.*?body { background: url\((.+?)\)(.*)}.*/
+  REGEXP = /\/\* AUTO=body_background.*?body { background: url\((.+?)\)(.*)}.*[\r\n]?/
 
   initialize: ->
     @css_template = @$root.data 'css_template'
