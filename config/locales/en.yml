@@ -137,7 +137,6 @@ en:
         anime_in_profile: Show Anime List in Profile
         manga_in_profile: Show Manga List in Profile
         comments_in_profile: Show Comments in Profile
-        body_background: Sidebar Background
         about_on_top: Show Above Stats
         show_social_buttons: Show Social Media Icons
         show_smileys: Show Smileys
@@ -146,6 +145,7 @@ en:
         is_comments_auto_collapsed: Collapse Long Comments
         is_comments_auto_loaded: Load New Comments Automatically
         list_privacy: Can See My Lists
+        comment_policy: Can Comment My Profile
         #russian_genres: Anime Genres in Russian
         #russian_names: Anime and Manga Titles in Russian
         postload_in_catalog: Autoload Pages in Anime Catalog
@@ -288,6 +288,10 @@ en:
       list_privacy:
         public: All Visitors
         users: Registered Users
+        friends: My Friends Only
+        owner: Only Me
+      comment_policy:
+        users: All Site Users
         friends: My Friends Only
         owner: Only Me
     anime:

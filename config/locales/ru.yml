@@ -137,7 +137,6 @@ ru:
         anime_in_profile: Отображать аниме в профиле
         manga_in_profile: Отображать мангу в профиле
         comments_in_profile: Отображать комментарии в профиле
-        body_background: Фон боковой области
         about_on_top: Отображать над статистикой
         show_social_buttons: Отображать кнопки соц сетей
         show_smileys: Отображать смайлики
@@ -146,6 +145,7 @@ ru:
         is_comments_auto_collapsed: Сворачивать длинные комментарии
         is_comments_auto_loaded: Автоподгрузка новых комментариев
         list_privacy: Могут видеть мой список
+        comment_policy: Могут комментировать мой профиль
         russian_genres: Русские названия жанров
         russian_names: Русские названия аниме и манги
         postload_in_catalog: Подгрузка следующих страниц по мере прокрутки текущей страницы в каталоге аниме
@@ -290,6 +290,10 @@ ru:
         users: Зарегистрированные пользователи сайта
         friends: Только мои друзья
         owner: Никто, кроме меня
+      comment_policy:
+        users: Все пользователи сайта
+        friends: Только мои друзья
+        owner: Никто, только я
     anime:
       status:
         anons: Анонс
