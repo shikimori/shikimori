@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101232615) do
+ActiveRecord::Schema.define(version: 20161103103137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -938,9 +938,6 @@ ActiveRecord::Schema.define(version: 20161101232615) do
     t.boolean "about_on_top",                           default: false
     t.boolean "russian_genres",                         default: true,     null: false
     t.boolean "menu_contest",                           default: true,     null: false
-    t.string  "page_background",            limit: 255
-    t.boolean "page_border",                            default: false
-    t.string  "body_background",            limit: 512
     t.boolean "show_smileys",                           default: true
     t.boolean "show_social_buttons",                    default: true
     t.boolean "show_hentai_images",                     default: false
