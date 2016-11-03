@@ -71,9 +71,9 @@ class Styles.Edit extends View
     css = @$css.val()
 
     if css.match(regexp)
-      @$css.val css.replace(regexp, replacement)
+      @$css.val css.replace(regexp, replacement + "\n").trim()
     else if replacement
-      @$css.val replacement + "\n" + css.trim()
+      @$css.val (replacement + "\n" + css).trim()
 
     @$css.trigger 'elastic:update'
     @_debounced_preview()
