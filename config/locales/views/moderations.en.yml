@@ -85,6 +85,7 @@ en:
         notice: This is the history of bans and warnings
         instruction: Instructions
         instructions:
+          - User profiles and clubs are not moderated.
           - Don't discuss moderation related issues and the fact of you being
             a moderator with other members.
           - Don't discuss your reasons for banning a particular member
