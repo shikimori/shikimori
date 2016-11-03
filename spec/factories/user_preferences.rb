@@ -2,6 +2,7 @@ FactoryGirl.define do
   factory :user_preferences do
     user { seed :user }
     list_privacy :public
+    comment_policy 'users'
     forums [
       Topic::FORUM_IDS['Review'],
       Topic::FORUM_IDS['Anime'],

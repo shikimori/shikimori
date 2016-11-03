@@ -5,8 +5,13 @@ class UserPreferences < ActiveRecord::Base
 
   enumerize :list_privacy,
     in: [:public, :users, :friends, :owner],
-    predicates: { prefix: true }
-  enumerize :body_width, in: [:x1200, :x1000]
+    predicates: { prefix: true },
+    default: :public
+  enumerize :body_width, in: [:x1200, :x1000], default: :x1200
+  enumerize :comment_policy,
+    in: [:users, :friends, :owner],
+    predicates: { prefix: true },
+    default: :users
 
   boolean_attribute :comments_auto_collapsed
   boolean_attribute :comments_auto_loaded

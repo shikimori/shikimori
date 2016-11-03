@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103103137) do
+ActiveRecord::Schema.define(version: 20161103205315) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -789,12 +789,12 @@ ActiveRecord::Schema.define(version: 20161103103137) do
   end
 
   create_table "styles", force: :cascade do |t|
-    t.integer  "owner_id",                                   null: false
-    t.string   "owner_type",                                 null: false
-    t.string   "name",       default: "---\n:default: ''\n", null: false
-    t.text     "css",        default: "---\n:default: ''\n", null: false
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.integer  "owner_id",                null: false
+    t.string   "owner_type",              null: false
+    t.string   "name",       default: "", null: false
+    t.text     "css",        default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_index "styles", ["owner_type", "owner_id"], name: "index_styles_on_owner_type_and_owner_id", using: :btree
@@ -947,6 +947,7 @@ ActiveRecord::Schema.define(version: 20161103103137) do
     t.boolean "is_comments_auto_loaded",                default: true
     t.string  "body_width",                             default: "x1200",  null: false
     t.text    "forums",                                 default: [],       null: false, array: true
+    t.string  "comment_policy",                         default: "users",  null: false
   end
 
   add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree
