@@ -11,10 +11,9 @@ class UserPreferences < ActiveRecord::Base
   boolean_attribute :comments_auto_collapsed
   boolean_attribute :comments_auto_loaded
 
-  validates :default_sort, :page_background,
+  validates :default_sort,
     length: { maximum: 255 },
     allow_blank: true
-  validates :body_background, length: { maximum: 512 }, allow_blank: true
 
   before_create :set_forums unless Rails.env.test?
 
