@@ -24,7 +24,7 @@ private
       :about_on_top, :about,
       :show_hentai_images, :show_social_buttons, :show_smileys, :menu_contest,
       :russian_genres, :russian_names, :postload_in_catalog,
-      :list_privacy, :volumes_in_manga,
+      :list_privacy, :comment_policy, :volumes_in_manga,
       :is_comments_auto_collapsed, :is_comments_auto_loaded, :body_width,
       forums: []
     )

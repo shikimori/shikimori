@@ -209,6 +209,8 @@ en:
           not_a_moderator: 'Cannot touch [ban] or [broadcast] tags'
           not_a_club_member: Join the club to leave comments
           in_club_black_list: You're banned in this club. Commenting is disabled
+          not_a_friend: Commenting is allowed to a friends only
+          not_a_owner: Commenting is disabled
         messages:
           ignored: You can't send messages to this user
         club_invite:

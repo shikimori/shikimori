@@ -58,11 +58,25 @@ module PermissionsPolicy
 
     # может профиль пользователя быть прокомментирован комментарием
     def can_be_commented_by?(comment)
-      unless self.ignores.any? {|v| v.target_id == comment.user_id }
-        true
-      else
-        comment.errors[:forbidden] = I18n.t('activerecord.errors.models.messages.ignored')
+      if self.ignores.any? {|v| v.target_id == comment.user_id }
+        comment.errors[:base] = I18n.t('activerecord.errors.models.messages.ignored')
         false
+      elsif self.preferences.comment_policy_users?
+        true
+      elsif self.preferences.comment_policy_friends?
+        if self.friended? comment.user
+          true
+        else
+          comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_friend')
+          false
+        end
+      elsif self.preferences.comment_policy_owner?
+        if self == comment.user
+          true
+        else
+          comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_owner')
+          false
+        end
       end
     end
   end
