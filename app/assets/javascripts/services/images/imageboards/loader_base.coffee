@@ -38,6 +38,7 @@ class Images.Imageboard.LoaderBase
     @_censor(images).reverse()
 
   _build_images: (xhr_images) ->
+    xhr_images = [xhr_images] if Object.isObject(xhr_images)
     xhr_images.map (image) =>
       extension = '.' + image.file_url.replace(/.*\./, '')
       filename = [

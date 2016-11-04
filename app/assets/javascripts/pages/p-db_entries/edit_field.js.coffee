@@ -35,14 +35,18 @@
     $('.videos-deleter .b-video').image_editable()
 
   if $('.edit-page.tags').exists()
+    $gallery = $('.b-gallery')
+    gallery_html = $gallery.html()
+
+    new Images.ImageboardGallery $gallery
+
     $('#anime_tags, #manga_tags, #character_tags')
       .completable()
       .on 'autocomplete:success autocomplete:text', (e, result) ->
         @value = if Object.isString(result) then result else result.value
-        $('.b-gallery').data(tags: @value)
-        $('.b-gallery').view().refresh()
-
-    new Images.ImageboardGallery '.b-gallery'
+        $gallery.data(tags: @value)
+        $gallery.html(gallery_html)
+        new Images.ImageboardGallery $gallery
 
   if $('.edit-page.genres').exists()
     $current_genres = $('.c-current_genres').children().last()
