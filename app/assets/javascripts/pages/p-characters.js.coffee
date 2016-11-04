@@ -13,7 +13,7 @@
 
 # арт с имиджборд
 @on 'page:load', 'characters_art', ->
-  new Animes.ArtGallery '.b-gallery'
+  new Images.ImageboardGallery '.b-gallery'
 
 # косплей
 @on 'page:load', 'characters_cosplay', ->

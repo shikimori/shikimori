@@ -31,7 +31,7 @@ class ClubsController < ShikimoriController
   def index
     noindex
     @page = [params[:page].to_i, 1].max
-    @limit = [[params[:limit].to_i, 48].max, 96].min
+    @limit = [[params[:limit].to_i, 24].max, 48].min
 
     clubs_query = ClubsQuery.new(locale_from_domain)
 

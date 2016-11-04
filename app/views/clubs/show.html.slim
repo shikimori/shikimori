@@ -15,11 +15,17 @@
       .subheadline.m5
         span.linkeable data-href="#{images_club_url @resource}"
           = i18n_i 'picture', :other
-      .b-gallery data-upload="#{can? :upload, @resource}"
+      .b-gallery[
+        data-can_upload="#{can? :upload, @resource}"
+        data-can_destroy="#{can? :destroy, @resource.images(1).first}"
+        data-rel="club_gallery"
+        data-images="#{ActiveModel::ArraySerializer.new(@resource.images(12)).to_json}"
+      ]
         = render 'blocks/upload_progress'
-        .container data-upload_url="#{upload_club_url @resource}"
+        .container[
+          data-upload_url="#{upload_club_url @resource}"
+        ]
           .grid_sizer
-          = render @resource.images(12), rel: 'club'
 
   - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
     .subheadline.m3

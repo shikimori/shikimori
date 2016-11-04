@@ -62,12 +62,6 @@
             $container.packery.bind($container, 'prepended', $image).delay 50
             $image.shiki_image()
 
-      if options.imageboard
-        $container.on 'imageboard:success', (e, $image) ->
-          $container.append($image.css(bottom: 9999))
-          $container.packery.bind($container, 'appended', $image).delay 50
-          $image.shiki_image()
-
       unless resize_binded
         resize_binded = true
         $(window).resize_delayed ->

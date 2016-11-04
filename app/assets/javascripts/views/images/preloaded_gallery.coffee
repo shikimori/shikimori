@@ -1,6 +1,6 @@
 using 'Images'
 class Images.PreloadedGallery extends View
-  IMAGES_PER_FETCH = 12
+  @BATCH_SIZE = 12
   TEMPLATE = 'templates/images/image'
 
   APPEAR_MARKER_HTML =
@@ -22,38 +22,41 @@ class Images.PreloadedGallery extends View
     @packery = @$root.packery
 
     @loader = @_build_loader()
-    @loader.on Images.Loader.FETCH_EVENT, @_images_load
+    @loader.on Images.StaticLoader.FETCH_EVENT, @_images_load
 
     @_appear_marker()
     @_fetch()
 
-  # handlers
-  _images_load: (images, is_finished) =>
+  # callbacks
+  # loader returned images
+  _images_load: (images) =>
     images_html = images.map (image) =>
       JST[TEMPLATE](image: image, rel: @rel, can_destroy: @can_destroy)
 
     $batch = $(images_html.join(''))
     $batch.imagesLoaded @_deploy_batch
 
-    @$appear_marker.remove() if is_finished
+  _after_batch_deploy: =>
+    if @loader.is_finished()
+      @$appear_marker.remove()
+    else
+      @_start_postload()
 
-  # private functions
+  # private methods
   _build_loader: ->
     images = @$root.data 'images'
-    new Images.Loader images
+    new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
     @$appear_marker = $(APPEAR_MARKER_HTML).insertAfter @$container
     @$appear_marker.on 'appear', @_fetch
 
   _fetch: (e) =>
-    console.log 'fetch', @can_load
-
     if @can_load
-      @loader.fetch(IMAGES_PER_FETCH)
+      @loader.fetch()
       @_stop_postload()
 
-  _start_postload: =>
+  _start_postload: ->
     @can_load = true
     @_fetch() if @$appear_marker.is(':appeared')
     $.force_appear()
@@ -64,7 +67,7 @@ class Images.PreloadedGallery extends View
   _deploy_batch: (images) =>
     images.elements.each @_deploy_image
     # recheck postloader appearence after all images are deployed
-    @_start_postload.delay((images.elements.length + 1) * DEPLOY_INTERVAL)
+    @_after_batch_deploy.delay((images.elements.length + 1) * DEPLOY_INTERVAL)
 
   _deploy_image: (image, index) =>
     $image = $(image)

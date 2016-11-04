@@ -42,10 +42,10 @@ function ImagesLoader(options) {
 
     return _.map(images, function(image) {
       return {
-        preview_url: (options.preview_url_builder || preview_url_builder)(image, tags),
+        preview_url: (options.preview_url || preview_url)(image, tags),
         preview_width: image.preview_width,
         preview_height: image.preview_height,
-        url: (options.image_url_builder || image_url_builder)(image, tags),
+        url: (options.image_url || image_url)(image, tags),
         md5: image.md5,
         tags: image.tags
       };
@@ -53,16 +53,16 @@ function ImagesLoader(options) {
   }
 
   // построитель урла к выдаче борды
-  var remote_url_builder = function(base_url, page, limit, tags) {
+  var remote_url = function(base_url, page, limit, tags) {
     return base_url + '/post/index.json?page=' + page + '&limit=' + limit + '&tags=' + tags;
   };
 
   // построитель урла к картинке
-  var image_url_builder = function(image, tags) {
+  var image_url = function(image, tags) {
     return camo_url(image, image.file_url, tags);
   };
 
-  var preview_url_builder = function(image, tags) {
+  var preview_url = function(image, tags) {
     return image.preview_url.indexOf('http') == 0 ? image.preview_url : base_url + image.preview_url;
   }
 
@@ -77,8 +77,8 @@ function ImagesLoader(options) {
     },
     // получение из галереи данных
     fetch: function(tags, callback) {
-      _log(options.name + ' fetch');
-      var url = (options.remote_url_builder || remote_url_builder)(base_url, page, limit, tags);
+      console.log(options.name + ' fetch');
+      var url = (options.remote_url || remote_url)(base_url, page, limit, tags);
       is_loading = true;
 
       if (options.local_load) {
@@ -87,12 +87,12 @@ function ImagesLoader(options) {
           page += 1;
           is_loading = false;
 
-          _log(options.name + ' fetched: ' + images.length + ', empty: '+is_empty);
+          console.log(options.name + ' fetched: ' + images.length + ', empty: '+is_empty);
 
           callback(tags, images);
         }).fail(function() {
-          _log('getJSON error');
-          _log(arguments);
+          console.log('getJSON error');
+          console.log(arguments);
         });
 
       } else {
@@ -101,12 +101,12 @@ function ImagesLoader(options) {
           page += 1;
           is_loading = false;
 
-          _log(options.name + ' fetched: ' + images.length + ', empty: '+is_empty);
+          console.log(options.name + ' fetched: ' + images.length + ', empty: '+is_empty);
 
           callback(tags, images);
         }, function() {
-          _log('yql error');
-          _log(arguments);
+          console.log('yql error');
+          console.log(arguments);
           is_loading = false;
         });
       }
@@ -142,11 +142,11 @@ function SafebooruLoader(forbidden_tags) {
     data_format: 'XML',
     forbidden_tags: forbidden_tags,
     name: 'Safebooru',
-    remote_url_builder: function(base_url, page, limit, tags) {
+    remote_url: function(base_url, page, limit, tags) {
       return base_url + '/index.php?page=dapi&s=post&q=index&pid=' + (page-1) +
         '&limit=' + limit + '&tags=' + tags;
     },
-    image_url_builder: function(image) {
+    image_url: function(image) {
       return image.file_url;
     }
   });
@@ -158,10 +158,10 @@ function DanbooruLoader(forbidden_tags) {
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
     name: 'Danbooru',
-    image_url_builder: function(image, tags) {
+    image_url: function(image, tags) {
       return camo_url(image, BASE_URL + image.file_url, tags);
     },
-    preview_url_builder: function(image, tags) {
+    preview_url: function(image, tags) {
       return camo_url(image, BASE_URL + image.preview_url);
     }
   });
@@ -181,7 +181,7 @@ function KonachanLoader(forbidden_tags) {
     data_format: 'JSON',
     forbidden_tags: forbidden_tags,
     name: 'Konachan',
-    preview_url_builder: function(image, tags) {
+    preview_url: function(image, tags) {
       return camo_url(image, image.preview_url, tags);
     }
   });
