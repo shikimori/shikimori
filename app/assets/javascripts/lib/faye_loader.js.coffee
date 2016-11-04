@@ -22,7 +22,7 @@ class @FayeLoader
         #websocket: "#{location.protocol}//#{location.hostname}:9292/faye-server"
 
     #client.disable 'eventsource'
-    _log 'faye connected'
+    console.log 'faye connected'
 
   # отписка ото всех не актуальных каналов
   unsubscribe: (channels) ->
@@ -33,7 +33,7 @@ class @FayeLoader
       @client.unsubscribe channel
       delete @subscriptions[channel]
 
-      _log "faye unsubscribed #{channel}"
+      console.log "faye unsubscribed #{channel}"
 
   # обновление уже существующих каналов
   update: (channels) ->
@@ -47,7 +47,7 @@ class @FayeLoader
     keys.each (channel) =>
       subscription = @client.subscribe channel, (data) =>
         # это колбек, в котором мы получили уведомление от faye
-        _log ['faye:received', channel, data]
+        console.log ['faye:received', channel, data]
         # сообщения от самого себя не принимаем
         return if data.publisher_faye_id == @id()
 
@@ -57,7 +57,7 @@ class @FayeLoader
         node: channels[channel]
         channel: subscription
 
-      _log "faye subscribed #{channel}"
+      console.log "faye subscribed #{channel}"
 
   # подписка/отписка на актуальные каналы Faye исходя из контента страницы
   apply: =>
@@ -69,7 +69,7 @@ class @FayeLoader
     channels = {}
     $targets.each (index, node) ->
       found_channels = $(node).data('faye') || []
-      _warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
+      console.warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
 
       found_channels.each (channel) ->
         channels["/#{channel}"] = $(node)

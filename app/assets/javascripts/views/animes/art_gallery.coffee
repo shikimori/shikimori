@@ -64,7 +64,7 @@ class Animes.ArtGallery extends View
   # загрузка картинок
   _load: ->
     active_loaders = @loaders.filter((v) -> !v.is_empty()).map((v) -> v.name()).join(',')
-    _log "load... awaiting loaders: #{@awaiting_loaders}, awaiting_preload: #{@awaiting_preload}, cache: #{@cache.length}, active_loaders: [#{active_loaders}]"
+    console.log "load... awaiting loaders: #{@awaiting_loaders}, awaiting_preload: #{@awaiting_preload}, cache: #{@cache.length}, active_loaders: [#{active_loaders}]"
 
     # все лоадеры загрузили всё, что смогли
     return unless @_check_status()
