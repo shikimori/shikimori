@@ -70,10 +70,11 @@ class Styles.Edit extends View
   _component_updated: (e, regexp, replacement) =>
     css = @$css.val()
 
+    fixed_replacement = if replacement then replacement + "\n" else ''
     if css.match(regexp)
-      @$css.val css.replace(regexp, replacement + "\n").trim()
+      @$css.val css.replace(regexp, fixed_replacement).trim()
     else if replacement
-      @$css.val (replacement + "\n" + css).trim()
+      @$css.val (fixed_replacement + css).trim()
 
     @$css.trigger 'elastic:update'
     @_debounced_preview()
