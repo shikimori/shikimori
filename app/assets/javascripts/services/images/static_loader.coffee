@@ -7,7 +7,7 @@ class Images.StaticLoader
 
   # public methods
   fetch: ->
-    @_load_from_cache()
+    @_return_from_cache()
 
   is_finished: ->
     @cache.length == 0
