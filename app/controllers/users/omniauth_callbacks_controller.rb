@@ -81,7 +81,7 @@ private
       flash[:alert] = i18n_t 'authentication_failed'
 
       if user_signed_in?
-        redirect_to edit_profile_url(current_user)
+        redirect_to edit_profile_url(current_user, page: 'account')
       else
         redirect_to root_url
       end
