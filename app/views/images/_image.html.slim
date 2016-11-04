@@ -2,10 +2,16 @@ a.b-image href="#{cdn_image image, :original}" id="#{image.id}" rel="#{rel if de
   - if defined?(topic_poster_edit) || can?(:destroy, image)
     .mobile-edit
     .controls
-      .delete title="Удалить картинку"
+      .delete title="#{t 'frontend.images.delete'}"
       - if defined? topic_poster_edit
-        .confirm title="Подтвердить удаление"
+        .confirm title="#{t 'frontend.images.confirm'}"
       - else
-        .confirm title="Подтвердить удаление" data-remote="true" action="#{url_for image}" data-method="delete" data-type="json"
-      .cancel title="Отменить удаление"
+        .confirm[
+          title="#{t 'frontend.images.confirm'}"
+          data-remote="true"
+          data-action="#{url_for image}"
+          data-method="delete"
+          data-type="json"
+        ]
+      .cancel title="#{t 'frontend.images.cancel'}"
   img src="#{cdn_image image, :preview}"

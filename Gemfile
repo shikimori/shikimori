@@ -200,6 +200,7 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-magnific-popup'
   gem 'rails-assets-nouislider'
   gem 'rails-assets-js-md5'
+  gem 'rails-assets-uevent'
 
   # it's time to experiment with a new tool
   # gem 'rails-assets-vue'

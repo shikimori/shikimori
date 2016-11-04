@@ -4,6 +4,7 @@
 #= require vendor/modernizr
 # require vue
 
+#= require uevent
 #= require d3
 #= require jQuery-Storage-API
 #= require pikaday

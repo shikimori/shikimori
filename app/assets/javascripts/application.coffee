@@ -1,3 +1,5 @@
+#= require_tree ./services
+
 #= require ./views/application/view
 #= require ./views/application/shiki_view
 #= require ./views/application/shiki_editable
@@ -5,7 +7,6 @@
 
 #= require_tree ./models
 #= require_tree ./dynamic_elements
-#= require_tree ./services
 #= require_tree ./lib
 #= require_tree ./blocks
 

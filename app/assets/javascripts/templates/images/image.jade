@@ -1,0 +1,22 @@
+a.b-image(
+  href="#{image.original_url}"
+  id="#{image.id}"
+  rel="#{rel}"
+)
+  if can_destroy
+    .mobile-edit
+    .controls
+      .delete(
+        title=t('frontend.images.delete')
+      )
+      .confirm(
+        title=t('frontend.images.confirm')
+        data-action="/iimages#{image.id}"
+        data-method="delete"
+        data-remote="true"
+        data-type="json"
+      )
+      .cancel(
+        title=t('frontend.images.cancel')
+      )
+  img(src="#{image.preview_url}")

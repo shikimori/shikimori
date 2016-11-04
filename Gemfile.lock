@@ -484,6 +484,7 @@ GEM
       rails-assets-outlayer (>= 2.0.0, < 3)
     rails-assets-pikaday (1.5.1)
     rails-assets-sugar (1.4.1)
+    rails-assets-uevent (1.0.0)
     rails-assets-urijs (1.18.2)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
@@ -756,6 +757,7 @@ DEPENDENCIES
   rails-assets-packery!
   rails-assets-pikaday!
   rails-assets-sugar!
+  rails-assets-uevent!
   rails-assets-urijs!
   rails-i18n
   rake

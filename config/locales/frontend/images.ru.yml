@@ -1,0 +1,6 @@
+ru:
+  frontend:
+    images:
+      delete: Удалить
+      confirm: Подтвердить
+      cancel: Отменить
