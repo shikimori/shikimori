@@ -42,7 +42,7 @@
         $('.b-gallery').data(tags: @value)
         $('.b-gallery').view().refresh()
 
-    $('.b-gallery').imageboard()
+    new Animes.ArtGallery '.b-gallery'
 
   if $('.edit-page.genres').exists()
     $current_genres = $('.c-current_genres').children().last()
