@@ -1,17 +1,14 @@
-(($) ->
-  $.fn.extend imageboard: ->
-    @each ->
-      new ImageboardGallery(@).start()
-
-) jQuery
-
+using 'Animes'
 # динамическая загрузка картинок с борд danbooru, oreno.imouto, konachan, safebooru
-class ImageboardGallery
+class Animes.ArtGallery extends View
   # какие теги отфильтровывать
   FORBIDDEN_TAGS = [
-    'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude', 'nipples', 'spread_legs', 'flat_color', 'micro_bikini', 'monochrome',
-    'bottomless', 'censored', 'chibi', 'meme', 'dakimakura', 'undressing', 'lowres', 'plump', 'cameltoe', 'bandaid_on_pussy', 'bandaids_on_nipples',
-    'oral', 'footjob', "erect_nipples\b.*\bpanties", "breasts\b.*\btopless", 'crotch_zipper', 'bdsm', 'side-tie_panties', 'anal', 'masturbation',
+    'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude',
+    'nipples', 'spread_legs', 'flat_color', 'micro_bikini', 'monochrome',
+    'bottomless', 'censored', 'chibi', 'meme', 'dakimakura', 'undressing',
+    'lowres', 'plump', 'cameltoe', 'bandaid_on_pussy', 'bandaids_on_nipples',
+    'oral', 'footjob', "erect_nipples\b.*\bpanties", "breasts\b.*\btopless",
+    'crotch_zipper', 'bdsm', 'side-tie_panties', 'anal', 'masturbation',
     'panty_pull', 'loli', 'print_panties'
   ]
 
@@ -20,33 +17,23 @@ class ImageboardGallery
   # по сколько картинок за раз отображать
   BATCH_SIZE = 12
 
-  constructor: (root) ->
-    @$root = $(root).view(@)
-    @container_html = root.innerHTML
-
+  initialize: ->
+    @container_html = @root.innerHTML
     @forbidden_tags = if @$root.data('with-hentai-images')
       null
     else
       new RegExp FORBIDDEN_TAGS.map((v) -> "\\b#{v}\\b").join('|')
 
-    @_init()
-
-  start: ->
-    return unless @tags
-    @$root.gallery(imageboard: true)
-    @$loader = $('<p class="ajax-loading vk-like b-appear_marker active" data-appear-top-offset="900"></p>')
-      .appendTo(@$root)
-      .on 'appear', =>
-        @_load() unless @awaiting_preload || @awaiting_loaders
-    @_load()
+    @_setup()
+    @_start()
 
   refresh: ->
     @$container.packery('destroy')
     @$root.html @container_html
-    @_init()
-    @start()
+    @_setup()
+    @_start()
 
-  _init: ->
+  _setup: ->
     @$container = @$root.find('.container')
 
     # что будем грузить
@@ -64,6 +51,15 @@ class ImageboardGallery
     @hashes_count = 0
     # загрузчики картинок
     @loaders = LOADERS.map (klass) => new klass(@forbidden_tags)
+
+  _start: ->
+    return unless @tags
+    @$root.gallery(imageboard: true)
+    @$loader = $('<p class="ajax-loading vk-like b-appear_marker active" data-appear-top-offset="900"></p>')
+      .appendTo(@$root)
+      .on 'appear', =>
+        @_load() unless @awaiting_preload || @awaiting_loaders
+    @_load()
 
   # загрузка картинок
   _load: ->
