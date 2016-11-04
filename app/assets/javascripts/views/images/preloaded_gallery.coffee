@@ -1,6 +1,6 @@
 using 'Images'
 class Images.PreloadedGallery extends View
-  @BATCH_SIZE = 12
+  @BATCH_SIZE = 5
   TEMPLATE = 'templates/images/image'
 
   APPEAR_MARKER_HTML =
