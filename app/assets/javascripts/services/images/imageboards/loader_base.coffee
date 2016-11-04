@@ -50,6 +50,7 @@ class Images.Imageboard.LoaderBase
       image_url = @_image_url image.file_url, filename
       preview_url = @_preview_url image.preview_url, filename
 
+      id: image.id
       md5: image.md5
       tags: image.tags
       rating: image.rating

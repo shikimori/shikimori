@@ -38,7 +38,8 @@
     $gallery = $('.b-gallery')
     gallery_html = $gallery.html()
 
-    new Images.ImageboardGallery $gallery
+    if $gallery.data 'tags'
+      new Images.ImageboardGallery $gallery
 
     $('#anime_tags, #manga_tags, #character_tags')
       .completable()
