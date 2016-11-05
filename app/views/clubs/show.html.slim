@@ -15,15 +15,16 @@
       .subheadline.m5
         span.linkeable data-href="#{images_club_url @resource}"
           = i18n_i 'picture', :other
+
       .b-gallery[
         data-can_upload="#{can? :upload, @resource}"
         data-can_destroy="#{can? :destroy, @resource.images(1).first}"
         data-rel="club_gallery"
-        data-images="#{ActiveModel::ArraySerializer.new(@resource.images(12)).to_json}"
       ]
         = render 'blocks/upload_progress'
         .container[
           data-upload_url="#{upload_club_url @resource}"
+          data-images="#{ActiveModel::ArraySerializer.new(@resource.images(12)).to_json}"
         ]
           .grid_sizer
 

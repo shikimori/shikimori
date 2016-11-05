@@ -1,49 +1,50 @@
-.b-clubs-menu
-  - if resource.logo.exists?
-    .b-menu_logo
-      center: a[
-        href="#{resource.url}"
-        title="#{resource.name}"
-      ]
-        img[
-          src="#{cdn_image resource, :main}"
-          alt="#{resource.name}"
+= cache resource do
+  .b-clubs-menu
+    - if resource.logo.exists?
+      .b-menu_logo
+        center: a[
+          href="#{resource.url}"
+          title="#{resource.name}"
         ]
+          img[
+            src="#{cdn_image resource, :main}"
+            alt="#{resource.name}"
+          ]
 
-  = render 'clubs/actions', resource: resource
+    = render 'clubs/actions', resource: resource
 
-  - if params[:controller] == 'clubs'
-    - if resource.animes.any?
-      = render 'clubs/menu_linked_entries',
-        collection: resource.menu_animes,
-        url: animes_club_url(resource),
-        name: i18n_i('anime')
+    - if params[:controller] == 'clubs'
+      - if resource.animes.any?
+        = render 'clubs/menu_linked_entries',
+          collection: resource.menu_animes,
+          url: animes_club_url(resource),
+          name: i18n_i('anime')
 
-    - if resource.mangas.any?
-      = render 'clubs/menu_linked_entries',
-        collection: resource.menu_mangas,
-        url: mangas_club_url(resource),
-        name: i18n_i('manga')
+      - if resource.mangas.any?
+        = render 'clubs/menu_linked_entries',
+          collection: resource.menu_mangas,
+          url: mangas_club_url(resource),
+          name: i18n_i('manga')
 
-    - if resource.characters.any?
-      = render 'clubs/menu_linked_entries',
-        collection: resource.menu_characters,
-        url: characters_club_url(resource),
-        name: i18n_i('character', :other),
-        ratio_type: 'person'
+      - if resource.characters.any?
+        = render 'clubs/menu_linked_entries',
+          collection: resource.menu_characters,
+          url: characters_club_url(resource),
+          name: i18n_i('character', :other),
+          ratio_type: 'person'
 
-  - if resource.members.any?
-    .subheadline.m10
-      span.linkeable data-href="#{members_club_url resource}"
-        = i18n_i 'member', :other
-    .cc.members
-      = render partial: 'users/user',
-        collection: resource.members,
-        locals: { content_by: :avatar }
+    - if resource.members.any?
+      .subheadline.m10
+        span.linkeable data-href="#{members_club_url resource}"
+          = i18n_i 'member', :other
+      .cc.members
+        = render partial: 'users/user',
+          collection: resource.members,
+          locals: { content_by: :avatar }
 
-  - if resource.admins.any?
-    .subheadline.m10 = i18n_i 'administration'
-    .cc-4.admin
-      = render partial: 'users/user',
-        collection: resource.admins,
-        locals: { content_by: :named_avatar }
+    - if resource.admins.any?
+      .subheadline.m10 = i18n_i 'administration'
+      .cc-4.admin
+        = render partial: 'users/user',
+          collection: resource.admins,
+          locals: { content_by: :named_avatar }

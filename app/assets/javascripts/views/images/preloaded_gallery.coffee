@@ -44,7 +44,7 @@ class Images.PreloadedGallery extends View
 
   # private methods
   _build_loader: ->
-    images = @$root.data 'images'
+    images = @$container.data 'images'
     new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
