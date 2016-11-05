@@ -1,4 +1,6 @@
 = render layout: 'page' do
   h2.subheadline.m10 = @page_title.last
   .cc-8
-    = render @resource.all_members, content_by: :named_avatar
+    = render @collection, content_by: :named_avatar
+    = render partial: 'blocks/postloader',
+      locals: { next_url: members_club_url(@resource, page: @page+1) }

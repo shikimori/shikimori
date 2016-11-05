@@ -115,7 +115,7 @@ describe ClubsController do
     end
   end
 
-  describe '#members' do
+  describe '#members', :focus do
     let(:club) { create :club }
     before { get :members, id: club.to_param }
     it { expect(response).to have_http_status :success }

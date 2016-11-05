@@ -447,7 +447,7 @@ Site::Application.routes.draw do
 
     resources :clubs, except: [:edit, :destroy] do
       member do
-        get :members
+        get 'members(/page/:page)' => :members, as: :members
         get :animes
         get :mangas
         get :characters

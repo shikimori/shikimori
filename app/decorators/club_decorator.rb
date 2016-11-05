@@ -1,7 +1,7 @@
 class ClubDecorator < DbEntryDecorator
   MENU_ENTRIES = 12
 
-  rails_cache :all_members, :all_animes, :all_mangas, :all_characters, :all_images
+  rails_cache :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
 
   def url
@@ -12,11 +12,10 @@ class ClubDecorator < DbEntryDecorator
     object.logo
   end
 
-  def all_members
-    @members ||= member_roles
+  def all_member_roles
+    member_roles
       .includes(:user)
       .order(created_at: :desc)
-      .map(&:user)
   end
 
   def user_role
@@ -26,7 +25,7 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def members
-    all_members.take 12
+    all_member_roles.limit(12).map(&:user)
   end
 
   def animes
@@ -62,7 +61,7 @@ class ClubDecorator < DbEntryDecorator
       .sort_by(&:name)
   end
 
-  def images limit = 999
+  def images limit = 10_000
     all_images.take limit
   end
 

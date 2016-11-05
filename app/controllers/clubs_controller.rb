@@ -82,6 +82,11 @@ class ClubsController < ShikimoriController
   def members
     noindex
     page_title i18n_t('club_members')
+
+    roles = postload_paginate(params[:page], 48) do
+      @resource.all_member_roles
+    end
+    @collection = roles.map(&:user)
   end
 
   def animes
