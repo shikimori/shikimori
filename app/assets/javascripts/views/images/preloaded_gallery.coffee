@@ -59,7 +59,6 @@ class Images.PreloadedGallery extends View
   _start_postload: ->
     @can_load = true
     @_fetch() if @$appear_marker.is(':appeared')
-    $.force_appear()
 
   _stop_postload: ->
     @can_load = false
