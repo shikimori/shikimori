@@ -22,10 +22,11 @@ class Images.PreloadedGallery extends View
     @packery = @$root.packery
 
     @loader = @_build_loader()
-    @loader.on Images.StaticLoader.FETCH_EVENT, @_images_load
+    if @loader
+      @loader.on Images.StaticLoader.FETCH_EVENT, @_images_load
 
-    @_appear_marker()
-    @_fetch()
+      @_appear_marker()
+      @_fetch()
 
   # callbacks
   # loader returned images
@@ -45,7 +46,8 @@ class Images.PreloadedGallery extends View
   # private methods
   _build_loader: ->
     images = @$container.data 'images'
-    new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
+    if images
+      new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
     @$appear_marker = $(APPEAR_MARKER_HTML).insertAfter @$container
