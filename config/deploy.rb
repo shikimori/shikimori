@@ -215,3 +215,5 @@ end
 
 after 'deploy:published', 'unicorn:restart'
 after 'deploy:finishing', 'deploy:cleanup'
+
+require 'appsignal/capistrano'

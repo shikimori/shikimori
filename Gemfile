@@ -99,6 +99,7 @@ gem 'i18n-inflector-rails'
 
 group :beta, :production do
   gem 'honeybadger'
+  gem 'appsignal'
   gem 'lograge'
 end
 
