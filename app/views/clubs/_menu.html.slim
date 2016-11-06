@@ -12,7 +12,7 @@
 
   = render 'clubs/actions', resource: resource
 
-  = cache resource do
+  = cache [resource, :menu] do
     - if params[:controller] == 'clubs'
       - if resource.animes.any?
         = render 'clubs/menu_linked_entries',
