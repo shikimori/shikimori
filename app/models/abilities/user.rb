@@ -171,7 +171,7 @@ class Abilities::User
         report.user_id == @user.id && (report.broken? || report.wrong?)
     end
     can [:new, :create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.verison_vermin? &&anime_video.uploaded?
+      !@user.banned? && !@user.verison_vermin? && anime_video.uploaded?
     end
     can [:edit, :update], AnimeVideo do |anime_video|
       !@user.banned? && !@user.verison_vermin? &&
@@ -197,11 +197,15 @@ class Abilities::User
 
   def style_abilities
     can [:create, :update], Style do |style|
-      style.owner_id == @user.id && style.owner_type == User.name
+      if style.owner_type == User.name
+        style.owner_id == @user.id
+      elsif style.owner_type == Club.name
+        can? :update, style.owner
+      end
     end
-    can :destroy, Style do |style|
-      can?(:update, style) && @user.style_id != style.id
-    end
+    # can :destroy, Style do |style|
+      # can?(:update, style) && @user.style_id != style.id
+    # end
   end
 
   def other_abilities

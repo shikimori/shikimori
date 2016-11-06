@@ -38,24 +38,51 @@ describe Style do
     subject { Ability.new user }
 
     context 'owner' do
-      let(:style) { build_stubbed :style, owner: user }
+      context 'user' do
+        let(:style) { build_stubbed :style, owner: user }
 
-      context 'not style of owner' do
-        it { is_expected.to be_able_to :show, style }
-        it { is_expected.to be_able_to :preview, style }
-        it { is_expected.to be_able_to :create, style }
-        it { is_expected.to be_able_to :update, style }
-        it { is_expected.to be_able_to :destroy, style }
+        context 'not style of owner' do
+          it { is_expected.to be_able_to :show, style }
+          it { is_expected.to be_able_to :preview, style }
+          it { is_expected.to be_able_to :create, style }
+          it { is_expected.to be_able_to :update, style }
+          it { is_expected.to_not be_able_to :destroy, style }
+        end
+
+        context 'style of owner' do
+          before { user.style = style }
+
+          it { is_expected.to be_able_to :show, style }
+          it { is_expected.to be_able_to :preview, style }
+          it { is_expected.to be_able_to :create, style }
+          it { is_expected.to be_able_to :update, style }
+          it { is_expected.to_not be_able_to :destroy, style }
+        end
       end
 
-      context 'style of owner' do
-        before { user.style = style }
+      context 'club' do
+        let(:style) { build_stubbed :style, owner: club }
+        let(:club) { build_stubbed :club, member_roles: [club_role] }
 
-        it { is_expected.to be_able_to :show, style }
-        it { is_expected.to be_able_to :preview, style }
-        it { is_expected.to be_able_to :create, style }
-        it { is_expected.to be_able_to :update, style }
-        it { is_expected.to_not be_able_to :destroy, style }
+        context 'not club admin' do
+          let(:club_role) { build_stubbed :club_role, :member, user: user }
+
+          it { is_expected.to be_able_to :show, style }
+          it { is_expected.to be_able_to :preview, style }
+          it { is_expected.to_not be_able_to :create, style }
+          it { is_expected.to_not be_able_to :update, style }
+          it { is_expected.to_not be_able_to :destroy, style }
+        end
+
+        context 'club admin' do
+          let(:club_role) { build_stubbed :club_role, :admin, user: user }
+
+          it { is_expected.to be_able_to :show, style }
+          it { is_expected.to be_able_to :preview, style }
+          it { is_expected.to be_able_to :create, style }
+          it { is_expected.to be_able_to :update, style }
+          it { is_expected.to_not be_able_to :destroy, style }
+        end
       end
     end
 
