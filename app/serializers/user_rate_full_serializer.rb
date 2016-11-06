@@ -1,7 +1,7 @@
 # TODO:
 # change status (it is digit now) and status_name to status (string)
 # rename UserRateFullSerializer to UserRateSerializer
-# get rid of api::v2::user_rates_controller
+# get rid of Api::V2::UserRatesController
 class UserRateFullSerializer < ActiveModel::Serializer
   attributes :id, :score, :status, :status_name, :text, :episodes, :chapters, :volumes, :text_html, :rewatches
 

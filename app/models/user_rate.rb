@@ -71,6 +71,14 @@ class UserRate < ActiveRecord::Base
     self.class.status_name status, target_type
   end
 
+  def target
+    if target_type == Anime.name
+      association(:anime).loaded? && !anime.nil? ? anime : super
+    else
+      association(:manga).loaded? && !manga.nil? ? manga : super
+    end
+  end
+
 private
 
   # перед сохранением модели, смотрим, что изменилось, и соответствующе меняем остальные поля, и заносим запись в историю
