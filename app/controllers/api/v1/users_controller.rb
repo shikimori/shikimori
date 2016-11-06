@@ -4,6 +4,11 @@ class Api::V1::UsersController < Api::V1::ApiController
 
   respond_to :json
 
+  caches_action :anime_rates, :manga_rates,
+    cache_path: proc {
+      "#{user.cache_key}|#{Digest::MD5.hexdigest params.to_json}"
+    }
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users', 'List users'
   def index
