@@ -22,3 +22,7 @@ exceptions:
     - Net::SMTPFatalError
     - Interrupt
     - Apipie::ParamMissing
+metrics:
+  enabled: false
+traces:
+  enabled: false
