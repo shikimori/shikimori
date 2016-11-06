@@ -136,6 +136,10 @@ private
 
   def auto_acceptable?
     !ABUSE_USER_IDS.include?(user_id) &&
-      (item_type != AnimeVideo.name || user.video_moderator?)
+      (
+        item_type != AnimeVideo.name ||
+        user.video_moderator? ||
+        user.trusted_video_changer?
+      )
   end
 end
