@@ -4,7 +4,20 @@ describe Api::V1::UserRatesController do
 
     describe '#create' do
       let(:target) { create :anime }
-      let(:create_params) {{ user_id: user.id, target_id: target.id, target_type: target.class.name, score: 10, status: 1, episodes: 2, volumes: 3, chapters: 4, text: 'test', rewatches: 5 }}
+      let(:create_params) do
+        {
+          user_id: user.id,
+          target_id: target.id,
+          target_type: target.class.name,
+          score: 10,
+          status: 1,
+          episodes: 2,
+          volumes: 3,
+          chapters: 4,
+          text: 'test',
+          rewatches: 5
+        }
+      end
       before do
         @request.headers['X-User-Nickname'] = user.nickname
         @request.headers['X-User-Api-Access-Token'] = user.api_access_token

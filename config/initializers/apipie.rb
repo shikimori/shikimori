@@ -12,6 +12,8 @@ Do not mimic a browser. Put your application name or website url in User-Agent r
 
 API access limits: 5 requests per second, 90 requests per minute
 
+API works on HTTPS protocol only. Don't do HTTP requests to the site.
+
 Message me (http://shikimori.org/morr or takandar@gmail.com) if you have any questions or you need more data in api.
 
 
