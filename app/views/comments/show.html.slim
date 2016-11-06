@@ -42,8 +42,5 @@
       / .b-options-floated.count = @view.replies.size
       .subheadline.m3 = t '.replies'
       .block
-        .b-topic.to-process[
-          data-dynamic='topic'
-          data-no-faye='true'
-        ]
+        .b-topic
           = render 'topics/comments', comments_view: @view
