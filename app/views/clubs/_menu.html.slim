@@ -1,18 +1,18 @@
-= cache resource do
-  .b-clubs-menu
-    - if resource.logo.exists?
-      .b-menu_logo
-        center: a[
-          href="#{resource.url}"
-          title="#{resource.name}"
+.b-clubs-menu
+  - if resource.logo.exists?
+    .b-menu_logo
+      center: a[
+        href="#{resource.url}"
+        title="#{resource.name}"
+      ]
+        img[
+          src="#{cdn_image resource, :main}"
+          alt="#{resource.name}"
         ]
-          img[
-            src="#{cdn_image resource, :main}"
-            alt="#{resource.name}"
-          ]
 
-    = render 'clubs/actions', resource: resource
+  = render 'clubs/actions', resource: resource
 
+  = cache resource do
     - if params[:controller] == 'clubs'
       - if resource.animes.any?
         = render 'clubs/menu_linked_entries',
