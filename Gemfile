@@ -60,7 +60,6 @@ gem 'redis-mutex'
 gem 'sinatra', '>= 1.3.0', require: nil
 
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
-gem 'newrelic_rpm'
 #gem 'exception_notification', github: 'smartinez87/exception_notification'
 #gem 'slack-notifier'
 gem 'awesome_print'
@@ -99,7 +98,8 @@ gem 'i18n-inflector-rails'
 
 group :beta, :production do
   gem 'honeybadger'
-  gem 'appsignal'
+  # gem 'appsignal'
+  gem 'newrelic_rpm'
   gem 'lograge'
 end
 
