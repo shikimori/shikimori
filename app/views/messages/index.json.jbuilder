@@ -1,6 +1,7 @@
 json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'messages/message',
   collection: @collection,
+  locals: { reply_as_link: @messages_type == :private },
   formats: :html
 ))
 

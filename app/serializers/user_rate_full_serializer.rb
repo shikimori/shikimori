@@ -3,7 +3,8 @@
 # rename UserRateFullSerializer to UserRateSerializer
 # get rid of Api::V2::UserRatesController
 class UserRateFullSerializer < ActiveModel::Serializer
-  attributes :id, :score, :status, :status_name, :text, :episodes, :chapters, :volumes, :text_html, :rewatches
+  attributes :id, :score, :status, :status_name, :text,
+    :episodes, :chapters, :volumes, :text_html, :rewatches
 
   has_one :user
   has_one :anime
@@ -34,6 +35,10 @@ class UserRateFullSerializer < ActiveModel::Serializer
   end
 
   def status_name
-    UserListParsers::XmlListParser.status_to_string(object.status, object.target.class, false)
+    UserListParsers::XmlListParser.status_to_string(
+      object.status,
+      object.target.class,
+      false
+    )
   end
 end

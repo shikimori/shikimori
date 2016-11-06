@@ -19,7 +19,9 @@
             data-text="#{t 'markers.new'}"
           ]
 
-      = render 'messages/buttons', message: message
+      = render 'messages/buttons',
+        message: message,
+        reply_as_link: local_assigns[:reply_as_link]
 
     header
       - unless message.for_generated_news_topic?
