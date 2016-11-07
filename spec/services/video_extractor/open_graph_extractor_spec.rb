@@ -4,14 +4,6 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
   describe 'fetch' do
     subject { service.fetch }
 
-    context 'coub' do
-      let(:url) { 'http://coub.com/view/bqn2pda' }
-
-      its(:hosting) { is_expected.to eq :coub }
-      its(:image_url) { is_expected.to eq '//ell.akamai.coub.com/get/bucket:32.11/p/coub/simple/cw_image/5539bc828be/56c75c0364d0a378cc3b9/med_1409156756_1381592378_00032.jpg' }
-      its(:player_url) { is_expected.to eq '//c-cdn.coub.com/fb-player.swf?bot_type=unknown&coubID=bqn2pda' }
-    end
-
     context 'twitch' do
       let(:url) { 'http://www.twitch.tv/joindotared/c/3661348' }
 
