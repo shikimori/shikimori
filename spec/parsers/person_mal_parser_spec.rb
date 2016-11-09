@@ -8,7 +8,7 @@ describe PersonMalParser, :vcr do
 
   subject(:data) { parser.fetch_model person_id }
 
-  it 'have correct type' do
+  it 'has correct type' do
     expect(parser.instance_eval { type }).to eq('person')
   end
 
