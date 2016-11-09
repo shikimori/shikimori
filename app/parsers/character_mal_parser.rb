@@ -27,7 +27,7 @@ class CharacterMalParser < BaseMalParser
   def fetch_model id
     content = get entry_url(id)
 
-    entry = {seyu: []}
+    entry = { seyu: [] }
 
     doc = Nokogiri::HTML(content)
 

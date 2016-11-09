@@ -58,6 +58,7 @@ module Site
     # Enable the asset pipeline
     config.assets.enabled = true
     # load fonts assets
+
     config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     ActiveRecord::Base.include_root_in_json = false

@@ -42,6 +42,9 @@ Site::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  config.assets.enabled = false
+  config.assets.precompile = []
+
   if defined?(Pry)
     Pry.config.auto_indent = false
   end
