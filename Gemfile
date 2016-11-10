@@ -99,6 +99,8 @@ gem 'i18n-js', '3.0.0.rc14'
 gem 'rails-i18n'
 gem 'i18n-inflector-rails'
 
+gem 'dry-struct'
+
 group :beta, :production do
   gem 'honeybadger'
   gem 'appsignal'
