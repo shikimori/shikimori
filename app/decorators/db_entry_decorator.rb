@@ -1,5 +1,5 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_ru, :description_en, :description_html
+  instance_cache :description_html
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
   instance_cache :main_topic_view, :preview_topic_view
@@ -14,51 +14,50 @@ class DbEntryDecorator < BaseDecorator
       .html_safe
   end
 
-  # хак, т.к. source переопределяется в декораторе
-  def source
-    object.source
+  def description_ru?
+    h.ru_domain? && object.description_ru.present?
   end
 
   def description_en?
     object.description_en.present?
   end
 
-  def description_ru?
-    h.ru_domain? && object.description_ru.present?
-  end
-
   def description_html
-    if description_ru?
-      description_ru
-    else
-      description_en
-    end
+    description_ru? ? description_html_ru : description_html_en
   end
 
-  def description_ru
-    Rails.cache.fetch [:description, object, I18n.locale] do
-      BbCodeFormatter.instance.format_description object.description_ru, object
-    end
-  end
-
-  def description_en
-    if object.respond_to?(:description_en) && object.description_en.present?
-      Rails.cache.fetch [:descrption_en, object, I18n.locale] do
-        BbCodeFormatter.instance.format_comment object.description_en
-      end
-    else
-      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
-    end
-  end
-
-  def description_html_truncated length=150
+  def description_html_truncated length = 150
     h.truncate_html(
       description_html,
-      length: length, separator: ' ', word_boundary: /\S[\.\?\!<>]/
+      length: length,
+      separator: ' ',
+      word_boundary: /\S[\.\?\!<>]/
     ).html_safe
   end
 
+  # хак, т.к. source переопределяется в декораторе
+  #def source
+  #  object.source
+  #end
+
+  def description_source
+    description_ru? ? description_source_ru : description_source_en
+  end
+
+  def description_source_ru
+    Rails.cache.fetch [:description_source_ru, object] do
+      DbEntries::Description.new(value: object.description_ru).source
+    end
+  end
+
+  def description_source_en
+    Rails.cache.fetch [:description_source_en, object] do
+      DbEntries::Description.new(value: object.description_en).source
+    end
+  end
+
   # адрес на mal'е
+  # don't remove: used in menu
   def mal_url
     "http://myanimelist.net/#{klass_lower}/#{object.id}"
   end
@@ -148,6 +147,27 @@ class DbEntryDecorator < BaseDecorator
   end
 
 private
+
+  def description_html_ru
+    Rails.cache.fetch [:description_html_ru, object] do
+      BbCodeFormatter.instance.format_description(
+        DbEntries::Description.new(value: object.description_ru).html,
+        object
+      )
+    end
+  end
+
+  def description_html_en
+    if object.respond_to?(:description_en) && object.description_en.present?
+      Rails.cache.fetch [:descrption_html_en, object] do
+        BbCodeFormatter.instance.format_comment(
+          DbEntries::Description.new(value: object.description_en).html
+        )
+      end
+    else
+      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
+    end
+  end
 
   def clubs_for_domain
     object.clubs.where(locale: h.locale_from_domain)

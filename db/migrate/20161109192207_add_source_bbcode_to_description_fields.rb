@@ -19,10 +19,12 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   end
 
   def new_description_ru model
+    return model.description_ru if model.description_ru =~ /\[source\]/
     "#{model.description_ru}[source]#{model.source}[/source]"
   end
 
   def new_description_en model
+    return model.description_en if model.description_en =~ /\[source\]/
     klass_name = model.class.name.downcase
     mal_url = "http://myanimelist.net/#{klass_name}/#{model.id}"
     "#{model.description_en}[source]#{mal_url}[/source]"
