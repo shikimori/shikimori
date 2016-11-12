@@ -65,10 +65,4 @@ Site::Application.configure do
     # # If this value is true, nested Hash parameter is formatted coercively in any situation
     # config.force_on_nested_params = false
   # end
-
-  # if defined? BetterErrors
-    # BetterErrors::Middleware.allow_ip! '127.0.0.1'
-    # BetterErrors.editor = :macvim
-    # BetterErrors.use_pry!
-  # end
 end
