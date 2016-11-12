@@ -4,8 +4,7 @@ gem 'rake'
 gem 'rails', '4.2.7.1'
 
 gem 'pg'
-# NOTE: в конфиге мемкеша должна быть опция -I 16M
-gem 'dalli'
+gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'redis'
 gem 'redis-namespace'
 
@@ -20,6 +19,7 @@ gem 'd3_rails'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
+gem 'activerecord-collection_cache_key' # NOTE: remove after upgrading to rails 5
 
 gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'

@@ -7,22 +7,22 @@ describe AnimeOnline::VideoPlayer do
     let(:anime) { create :anime }
     let(:episode) { 1 }
 
-    context 'anime_without_videos' do
+    context 'anime without videos' do
       it { is_expected.to be_blank }
     end
 
-    context 'anime_with_one_video' do
+    context 'anime with one video' do
       let!(:video) { create :anime_video, episode: episode, anime: anime }
-      it { is_expected.to eq episode => [video] }
+      it { is_expected.to eq [video] }
     end
 
-    context 'anime_with_two_videos' do
+    context 'anime with two videos' do
       let!(:video_1) { create :anime_video, episode: episode, anime: anime }
       let!(:video_2) { create :anime_video, episode: episode, anime: anime }
-      it { is_expected.to eq episode => [video_1, video_2] }
+      it { is_expected.to eq [video_2, video_1] }
     end
 
-    context 'no_working' do
+    context 'not working' do
       let!(:video_1) { create :anime_video, episode: episode, state: :broken }
       it { is_expected.to be_empty }
     end
@@ -31,12 +31,12 @@ describe AnimeOnline::VideoPlayer do
       let!(:video_1) { create :anime_video, episode: episode, state: 'working', anime: anime }
       let!(:video_2) { create :anime_video, episode: episode, state: 'broken', anime: anime }
       let!(:video_3) { create :anime_video, episode: episode, state: 'wrong', anime: anime }
-      it { is_expected.to eq episode => [video_1] }
+      it { is_expected.to eq [video_1] }
     end
   end
 
-  describe '#episode_videos' do
-    subject { player.episode_videos }
+  describe '#videos_by_kind' do
+    subject { player.videos_by_kind }
     let(:anime) { create :anime }
 
     context 'without vidoes' do
@@ -91,60 +91,45 @@ describe AnimeOnline::VideoPlayer do
     end
   end
 
-  describe 'last_episode' do
-    subject { player.last_episode }
-    let(:anime) { create :anime }
+  # describe '#compatible?' do
+    # subject { player.compatible?(video) }
+    # let(:video) { build :anime_video, url: url }
+    # let(:url) { 'http://rutube.ru?video=1' }
+    # let(:h) { OpenStruct.new request: request, mobile?: is_mobile }
+    # let(:request) { OpenStruct.new user_agent: user_agent }
+    # let(:user_agent) { 'Mozilla/5.0 (Windows 2000; U) Opera 6.01 [en]' }
+    # before { allow(player).to receive(:h).and_return h }
 
-    context 'without_video' do
-      it { is_expected.to be_nil }
-    end
+    # context 'desktop' do
+      # let(:is_mobile) { false }
+      # it { is_expected.to eq true }
+    # end
 
-    context 'with_video' do
-      let!(:video_1) { create :anime_video, episode: 1, anime: anime }
-      let!(:video_2) { create :anime_video, episode: 2, anime: anime }
-      it { is_expected.to eq 2 }
-    end
-  end
+    # context 'mobile' do
+      # let(:is_mobile) { true }
 
-  describe '#compatible?' do
-    subject { player.compatible?(video) }
-    let(:video) { build :anime_video, url: url }
-    let(:url) { 'http://rutube.ru?video=1' }
-    let(:h) { OpenStruct.new request: request, mobile?: is_mobile }
-    let(:request) { OpenStruct.new user_agent: user_agent }
-    let(:user_agent) { 'Mozilla/5.0 (Windows 2000; U) Opera 6.01 [en]' }
-    before { allow(player).to receive(:h).and_return h }
+      # context 'android' do
+        # let(:user_agent) { 'Android' }
+        # it { is_expected.to eq true }
+      # end
 
-    context 'desktop' do
-      let(:is_mobile) { false }
-      it { is_expected.to eq true }
-    end
+      # context 'ios' do
+        # let(:user_agent) { 'ios' }
 
-    context 'mobile' do
-      let(:is_mobile) { true }
+        # context 'not allowed hostings' do
+          # it { is_expected.to eq false }
+        # end
 
-      context 'android' do
-        let(:user_agent) { 'Android' }
-        it { is_expected.to eq true }
-      end
+        # context 'vk' do
+          # let(:url) { 'http://vk.com?video=1' }
+          # it { is_expected.to eq true }
+        # end
 
-      context 'ios' do
-        let(:user_agent) { 'ios' }
-
-        context 'not allowed hostings' do
-          it { is_expected.to eq false }
-        end
-
-        context 'vk' do
-          let(:url) { 'http://vk.com?video=1' }
-          it { is_expected.to eq true }
-        end
-
-        context 'smotret-anime' do
-          let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
-          it { is_expected.to eq true }
-        end
-      end
-    end
-  end
+        # context 'smotret-anime' do
+          # let(:url) { 'http://smotret-anime.ru/translations/embed/960633' }
+          # it { is_expected.to eq true }
+        # end
+      # end
+    # end
+  # end
 end

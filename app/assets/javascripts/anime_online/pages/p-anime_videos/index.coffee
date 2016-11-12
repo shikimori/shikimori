@@ -7,6 +7,13 @@
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
+  # highlight current episode
+  $anime_video_episodes = $('.c-anime_video_episodes')
+  current_episode = $anime_video_episodes.data 'episode'
+  $(
+    ".video-variant[data-episode='#{current_episode}'] a", $anime_video_episodes
+  ).addClass 'active'
+
   # переключение вариантов видео
   $('.video-variant-switcher').on 'click', switch_video_variant
 

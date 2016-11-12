@@ -44,7 +44,7 @@ class AnimeVideo < ActiveRecord::Base
   scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
   scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
 
-  scope :available, -> { where state: ['working', 'uploaded'] }
+  scope :available, -> { where state: %w(working uploaded) }
 
   CopyrightBanAnimeIDs = [-1] # 10793
 

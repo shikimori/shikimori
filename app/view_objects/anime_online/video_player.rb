@@ -3,8 +3,8 @@ class AnimeOnline::VideoPlayer
   prepend ActiveCacher.instance
 
   vattr_initialize :anime
-  instance_cache :nav, :videos, :current_video, :current_videos,
-    :last_episode, :episode_videos, :episode_topic_view
+  instance_cache :nav, :current_video, :videos, :anime_video_episodes,
+    :episode_topic_view, :cache_key
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -14,40 +14,16 @@ class AnimeOnline::VideoPlayer
     AnimeOnline::VideoPlayerNavigation.new self
   end
 
-  def current_videos
-    AnimeOnline::FilterSovetRomantica.call(
-      videos[current_episode]&.map(&:decorate)&.sort_by(&:sort_criteria)
-    )
-  end
-
-  def first_episode?
-    current_episode == 1
-  end
-
-  def last_episode?
-    current_episode == videos.keys.last
-  end
-
-  def current_episode
-    if h.params[:episode]
-      h.params[:episode].to_i
-    else
-      videos.first&.try(:first).to_i
-    end
-  end
-
   def current_video
     video =
-      if current_videos.present?
-        if video_id > 0
-          current_videos.find { |v| v.id == video_id }
-        else
-          try_select_by(
-            h.cookies[PREFERENCES_KIND],
-            h.cookies[PREFERENCES_HOSTING],
-            h.cookies[PREFERENCES_AUTHOR]
-          )
-        end
+      if video_id > 0
+        videos.find { |v| v.id == video_id }
+      else
+        try_select_by(
+          h.cookies[PREFERENCES_KIND],
+          h.cookies[PREFERENCES_HOSTING],
+          h.cookies[PREFERENCES_AUTHOR]
+        )
       end
 
     if !video && h.params[:video_id]
@@ -57,28 +33,51 @@ class AnimeOnline::VideoPlayer
     video&.decorate
   end
 
+  def videos
+    videos = @anime.anime_videos
+      .includes(:author)
+      .where(episode: current_episode)
+      .select { |v| all? || v.allowed? }
+      # .select { |v| compatible?(v) }
+
+    AnimeOnline::FilterSovetRomantica.call(videos)
+      .map(&:decorate)
+      .sort_by(&:sort_criteria)
+  end
+
+  def videos_by_kind
+    return {} if videos.blank?
+
+    videos
+      .uniq(&:uniq_criteria)
+      .sort_by { |anime_video| AnimeVideo.kind.values.index anime_video.kind }
+      .group_by { |anime_video| anime_video.kind_text }
+  end
+
+  def anime_video_episodes
+    AnimeOnline::AnimeVideoEpisodes.call(@anime)
+  end
+
+  def current_episode
+    if h.params[:episode]
+      h.params[:episode].to_i
+    else
+      1
+    end
+  end
+
   def episode_url episode = self.current_episode
-    h.play_video_online_index_url anime, episode, h.params[:all]
+    h.play_video_online_index_url @anime, episode, h.params[:all]
   end
 
   def prev_url
-    return if videos.none?
-
-    if videos.keys.index(current_episode)
-      episode_url videos.keys[videos.keys.index(current_episode)-1]
-    else
-      episode_url videos.keys.sort.last
-    end
+    return if videos.none? || current_episode == 1
+    episode_url(current_episode - 1)
   end
 
   def next_url
-    return if videos.none?
-
-    if videos.keys.index(current_episode)
-      episode_url videos.keys[videos.keys.index(current_episode)+1]
-    else
-      episode_url videos.keys.first
-    end
+    return if videos.none? || current_episode == episodes.last
+    episode_url(current_episode + 1)
   end
 
   def report_url kind
@@ -98,18 +97,9 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  def episode_videos
-    return {} if current_videos.blank?
-
-    current_videos
-      .uniq(&:uniq_criteria)
-      .sort_by { |anime_video| AnimeVideo.kind.values.index anime_video.kind }
-      .group_by { |anime_video| anime_video.kind_text }
-  end
-
   def same_videos
-    return [] unless current_videos && current_video
-    current_videos.group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
+    return [] unless current_video
+    videos.group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
   end
 
   # список типов коллекции видео
@@ -131,10 +121,6 @@ class AnimeOnline::VideoPlayer
       .join(', ')
   end
 
-  def last_episode
-    videos.max.first unless videos.blank?
-  end
-
   def new_report
     AnimeVideoReport.new(
       anime_video_id: current_video.id,
@@ -146,7 +132,7 @@ class AnimeOnline::VideoPlayer
 
   def new_video_url
     h.new_video_online_url(
-      'anime_video[anime_id]' => anime.id,
+      'anime_video[anime_id]' => @anime.id,
       'anime_video[source]' => Site::DOMAIN,
       'anime_video[state]' => 'uploaded',
       'anime_video[kind]' => 'fandub',
@@ -164,14 +150,14 @@ class AnimeOnline::VideoPlayer
     end
   end
 
-  def compatible? video
-    !(h.mobile?) ||
-      !!(h.request.user_agent =~ /android/i) ||
-      video.vk? || video.smotret_anime?
-  end
+  # def compatible? video
+    # !(h.mobile?) ||
+      # !!(h.request.user_agent =~ /android/i) ||
+      # video.vk? || video.smotret_anime?
+  # end
 
   def episode_topic_view
-    topic = anime.object.news_topics.find_by(
+    topic = @anime.object.news_topics.find_by(
       action: :episode,
       value: current_episode,
       locale: :ru
@@ -180,23 +166,22 @@ class AnimeOnline::VideoPlayer
     Topics::TopicViewFactory.new(true, false).build topic if topic
   end
 
+  def cache_key
+    [@anime.id, @anime.anime_videos.cache_key]
+  end
+
 private
 
-  def videos
-    @anime.anime_videos
-      .includes(:author)
-      .select { |v| all? || v.allowed? }
-      .select { |v| compatible?(v) }
-      .sort_by { |v| [v.episode.zero? ? 1 : 0, v.episode, v.id] }
-      .group_by(&:episode)
+  def episodes
+    anime_video_episodes.map(&:episode)
   end
 
   def try_select_by kind, hosting, fixed_author_name
-    by_kind = current_videos.select { |v| v.kind == kind }
+    by_kind = videos.select { |v| v.kind == kind }
     by_hosting = by_kind.select { |v| v.hosting == hosting }
     by_author = by_hosting.select { |v| cleanup_author_name(v.author_name) == fixed_author_name }
 
-    by_author.first || by_hosting.first || by_kind.first || current_videos.first
+    by_author.first || by_hosting.first || by_kind.first || videos.first
   end
 
   def all?

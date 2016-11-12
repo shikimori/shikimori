@@ -1,4 +1,7 @@
-.b-video_player data-watch-delay="#{@video.watch_increment_delay}" data-watch-url="#{track_view_video_online_url @anime, @video}"
+.b-video_player[
+  data-watch-delay="#{@video.watch_increment_delay}"
+  data-watch-url="#{track_view_video_online_url @anime, @video}"
+]
   .player-area
     = @video.player_html
 
