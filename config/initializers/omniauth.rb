@@ -1,1 +1,1 @@
-OmniAuth.config.logger = NamedLogger.omniauth
+# OmniAuth.config.logger = NamedLogger.omniauth
