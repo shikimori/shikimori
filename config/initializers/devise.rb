@@ -152,19 +152,35 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :get.
   # config.sign_out_via = :get
 
-  config.omniauth :vkontakte,
-                  Rails.application.secrets.oauth[:vkontakte][:app_id],
-                  Rails.application.secrets.oauth[:vkontakte][:app_secret],
-                  scope: Rails.application.secrets.oauth[:vkontakte][:app_permissions]
-                  #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
+  config.omniauth(
+    :vkontakte,
+    Rails.application.secrets.oauth[:vkontakte][:app_id],
+    Rails.application.secrets.oauth[:vkontakte][:app_secret],
+    scope: Rails.application.secrets.oauth[:vkontakte][:app_permissions],
+    proxy: ENV['http_proxy'] ? URI(ENV['http_proxy']) : nil,
+    client_options: {
+      connection_opts: {
+        proxy: {
+          # FLOPS Russia
+          uri: 'http://91.239.26.54:3128',
+          user: 'uptimus',
+          password: 'holy_grail'
+        }
+      }
+    }
+  )
 
-  config.omniauth :facebook,
-                  Rails.application.secrets.oauth[:facebook][:app_id],
-                  Rails.application.secrets.oauth[:facebook][:app_secret],
-                  scope: Rails.application.secrets.oauth[:facebook][:app_permissions]
-                  #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
+  config.omniauth(
+    :facebook,
+    Rails.application.secrets.oauth[:facebook][:app_id],
+    Rails.application.secrets.oauth[:facebook][:app_secret],
+    scope: Rails.application.secrets.oauth[:facebook][:app_permissions]
+    #client_options: { ssl: { ca_path: '/etc/ssl/certs' } }
+  )
 
-  config.omniauth :twitter,
-                  Rails.application.secrets.oauth[:twitter][:consumer_key],
-                  Rails.application.secrets.oauth[:twitter][:secret_key]
+  config.omniauth(
+    :twitter,
+    Rails.application.secrets.oauth[:twitter][:consumer_key],
+    Rails.application.secrets.oauth[:twitter][:secret_key]
+  )
 end
