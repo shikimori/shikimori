@@ -34,7 +34,7 @@
           | Варианты видео
           - @player.videos_by_kind.each do |kind_text, videos|
             .video-variant-switcher[
-              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos.keys.first)}"
+              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos_by_kind.keys.first)}"
               data-kind="#{kind_text}"
             ] = kind_text
           - if @player.videos_by_kind.many?
@@ -43,7 +43,7 @@
         - if @player.videos_by_kind.any?
           - @player.videos_by_kind.each do |kind_text, videos|
             .video-variant-group[
-              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos.keys.first)}"
+              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos_by_kind.keys.first)}"
               data-kind="#{kind_text}"
             ]
               - videos.each do |video|
