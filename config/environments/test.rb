@@ -43,6 +43,7 @@ Site::Application.configure do
   config.active_support.deprecation = :stderr
 
   config.assets.enabled = false
+  config.assets.compile = false
   config.assets.precompile = []
 
   if defined?(Pry)
