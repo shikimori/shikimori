@@ -97,7 +97,7 @@ describe ProfilesController do
     #it { expect(response).to have_http_status :success }
   #end
 
-  describe '#edit', :focus do
+  describe '#edit' do
     let(:make_request) { get :edit, id: user.to_param, page: page }
 
     context 'when valid access' do
