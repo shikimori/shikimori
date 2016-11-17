@@ -12,8 +12,14 @@ class Api::V1::SessionsController < Devise::SessionsController
     param :password, :undef
   end
   def create
-    self.resource = warden.authenticate!(auth_options)
-    sign_in(resource_name, resource)
-    respond_with resource
+    user = warden.authenticate!(auth_options)
+    sign_in resource_name, user
+
+    render json: {
+      id: user.id,
+      nickname: user.nickname,
+      email: user.email,
+      avatar: user.avatar.url(:x32)
+    }
   end
 end
