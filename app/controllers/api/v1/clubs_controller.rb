@@ -7,6 +7,11 @@ class Api::V1::ClubsController < Api::V1::ApiController
 
   LIMIT = 30
 
+  caches_action :animes, :mangas, :characters, :members, :images,
+    cache_path: proc {
+      "#{@club.cache_key}|#{params[:action]}"
+    }
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/clubs', 'List clubs'
   def index
@@ -47,7 +52,7 @@ class Api::V1::ClubsController < Api::V1::ApiController
 
   api :GET, "/clubs/:id/members", "Show club's members"
   def members
-    respond_with @club.all_members
+    respond_with @club.all_member_roles.map(&:user)
   end
 
   api :GET, "/clubs/:id/images", "Show club's images"
