@@ -16,8 +16,10 @@ en:
         aired_on: Start date
         cosplay: Cosplay
         description: Synopsis
-        description_ru: Synopsis (rus)
-        description_en: Synopsis
+        description_ru_text: Synopsis (rus)
+        description_en_text: Synopsis
+        description_ru_source: Synopsis source (rus)
+        description_en_source: Synopsis source
         duration: Episode duration
         episodes: Episodes
         genres: Genres
