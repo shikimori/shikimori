@@ -1,20 +1,23 @@
 # TODO: refactor from "expect((...).size).to eq(...)" to expect(...).to eq [...]
 describe AniMangaQuery do
+  # describe '#complete', :focus do
   describe '#complete' do
     let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
     let!(:anime_2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
     let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада То' }
     let!(:anime_4) { create :anime, name: 'Test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
 
-    it { expect(AniMangaQuery.new(Anime, { search: 'test' }, nil).complete).to have(2).items }
-    it { expect(AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete).to have(2).items }
-    it { expect(AniMangaQuery.new(Anime, { search: 'z z' }, nil).complete).to have(1).item }
-    it { expect(AniMangaQuery.new(Anime, { search: 'fofo' }, nil).complete).to have(0).items }
-    it { expect(AniMangaQuery.new(Anime, { search: 'То' }, nil).complete).to have(1).item }
+    it do
+      expect(AniMangaQuery.new(Anime, { search: 'test' }, nil).complete).to have(2).items
+      expect(AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete).to have(2).items
+      expect(AniMangaQuery.new(Anime, { search: 'z z' }, nil).complete).to have(1).item
+      expect(AniMangaQuery.new(Anime, { search: 'fofo' }, nil).complete).to have(0).items
+      expect(AniMangaQuery.new(Anime, { search: 'То' }, nil).complete).to have(1).item
+    end
   end
 
   describe '#fetch' do
-    def fetch options={}, user=nil, page=nil, limit=nil
+    def fetch options = {}, user = nil, page = nil, limit = nil
       AniMangaQuery.new(Anime, options, user).fetch(page, limit).to_a
     end
 
@@ -88,14 +91,14 @@ describe AniMangaQuery do
       let!(:anime_2) { create :anime, censored: true, genres: [yaoi], studios: [porn] }
       let!(:anime_3) { create :anime }
 
-      describe 'no censored'do
+      describe 'no censored' do
         it { expect(fetch).to have(1).item }
       end
 
       describe 'with censored' do
         it 'mylist' do
           allow_any_instance_of(AniMangaQuery).to receive :mylist!
-          expect(fetch mylist: "#{UserRate.statuses[:planned]}").to have(3).items
+          expect(fetch mylist: UserRate.statuses[:planned]).to have(3).items
         end
         it 'userlist' do
           expect(fetch userlist: true).to have(3).items
@@ -108,16 +111,16 @@ describe AniMangaQuery do
           expect(fetch search: 'test').to have(3).items
         end
         it 'yaoi' do
-          expect(fetch genre: "#{Genre::YAOI_IDS.first}").to have(2).items
+          expect(fetch genre: Genre::YAOI_IDS.first.to_s).to have(2).items
         end
         it 'hentai' do
-          expect(fetch genre: "#{Genre::HENTAI_IDS.first}").to have(1).item
+          expect(fetch genre: Genre::HENTAI_IDS.first.to_s).to have(1).item
         end
-        #it 'publisher' do
-          #fetch(publisher: '1').should have(3).items
-        #end
+        # it 'publisher' do
+          # fetch(publisher: '1').should have(3).items
+        # end
         it 'studio' do
-          expect(fetch studio: "#{porn.to_param}").to have(2).items
+          expect(fetch studio: porn.to_param).to have(2).items
         end
       end
     end
@@ -157,8 +160,8 @@ describe AniMangaQuery do
 
       describe 'genre' do
         it 'inclusive' do
-          expect(fetch genre: "#{shounen.to_param}").to have(3).items
-          expect(fetch genre: "#{shoujo.to_param}").to have(2).items
+          expect(fetch genre: shounen.to_param.to_s).to have(3).items
+          expect(fetch genre: shoujo.to_param.to_s).to have(2).items
           expect(fetch genre: "#{shounen.to_param},#{shoujo.to_param}").to have(1).item
         end
 
@@ -176,8 +179,8 @@ describe AniMangaQuery do
 
       describe 'studio' do
         it 'inclusive' do
-          expect(fetch studio: "#{ghibli.to_param}").to have(3).items
-          expect(fetch studio: "#{shaft.to_param}").to have(2).items
+          expect(fetch studio: ghibli.to_param).to have(3).items
+          expect(fetch studio: shaft.to_param).to have(2).items
           expect(fetch studio: "#{ghibli.to_param},#{shaft.to_param}").to have(1).item
         end
 
@@ -205,18 +208,15 @@ describe AniMangaQuery do
         let!(:manga3) { create :manga }
 
         it 'inclusive' do
-          expect(AniMangaQuery.new(Manga, publisher: "#{jump.to_param}").fetch().to_a).to have(2).items
+          expect(AniMangaQuery.new(Manga, publisher: jump.to_param).fetch.to_a).to have(2).items
         end
 
         it 'exclusive' do
-          expect(AniMangaQuery.new(Manga, publisher: "!#{jump.to_param}").fetch().to_a).to have(1).item
+          expect(AniMangaQuery.new(Manga, publisher: "!#{jump.to_param}").fetch.to_a).to have(1).item
         end
 
         it 'with genres' do
-          expect(AniMangaQuery.new(Manga,
-            publisher: "#{jump.to_param}",
-            genre: "#{shounen.to_param},!#{shoujo.to_param}"
-          ).fetch().to_a).to have(1).item
+          expect(AniMangaQuery.new(Manga, publisher: jump.to_param, genre: "#{shounen.to_param},!#{shoujo.to_param}").fetch.to_a).to have(1).item
         end
       end
     end
@@ -311,11 +311,11 @@ describe AniMangaQuery do
       let!(:anime_6) { create :anime, :released, aired_on: 6.months.ago, released_on: 2.months.ago }
 
       it 'inclusive' do
-         expect(fetch status: 'ongoing').to have(1).item
-         expect(fetch status: 'latest').to have(1).item
-         expect(fetch status: 'planned').to have(2).items
-         expect(fetch status: 'released').to have(3).items
-         expect(fetch status: 'ongoing,planned').to have(3).items
+        expect(fetch status: 'ongoing').to have(1).item
+        expect(fetch status: 'latest').to have(1).item
+        expect(fetch status: 'planned').to have(2).items
+        expect(fetch status: 'released').to have(3).items
+        expect(fetch status: 'ongoing,planned').to have(3).items
       end
 
       it 'exclusive' do
@@ -342,18 +342,18 @@ describe AniMangaQuery do
       let!(:anime_5) { create :anime }
 
       it 'inclusive' do
-        expect(fetch({mylist: "#{UserRate.statuses[:planned]}"}, user)).to have(1).item
-        expect(fetch({mylist: "#{UserRate.statuses[:watching]}"}, user)).to have(2).items
-        expect(fetch({mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}"}, user)).to have(3).items
+        expect(fetch({ mylist: UserRate.statuses[:planned].to_s }, user)).to have(1).item
+        expect(fetch({ mylist: UserRate.statuses[:watching].to_s }, user)).to have(2).items
+        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}" }, user)).to have(3).items
       end
 
       it 'exclusive' do
-        expect(fetch({mylist: "!#{UserRate.statuses[:planned]}"}, user)).to have(4).items
-        expect(fetch({mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user)).to have(2).items
+        expect(fetch({ mylist: "!#{UserRate.statuses[:planned]}" }, user)).to have(4).items
+        expect(fetch({ mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}" }, user)).to have(2).items
       end
 
       it 'both' do
-        expect(fetch({mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}"}, user)).to have(1).item
+        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}" }, user)).to have(1).item
       end
     end
 
@@ -375,12 +375,19 @@ describe AniMangaQuery do
 
       it do
         # male
-        expect(fetch options, build_stubbed(:user, sex: 'male')).to eq(
-          [common_anime, anime_hentai, anime_yuri, anime_shoujo_ai])
+        expect(fetch options, build_stubbed(:user, sex: 'male')).to eq [
+          common_anime,
+          anime_hentai,
+          anime_yuri,
+          anime_shoujo_ai
+        ]
 
         # female
-        expect(fetch options, build_stubbed(:user, sex: 'female')).to eq(
-          [common_anime, anime_yaoi, anime_shounen_ai])
+        expect(fetch options, build_stubbed(:user, sex: 'female')).to eq [
+          common_anime,
+          anime_yaoi,
+          anime_shounen_ai
+        ]
 
         # unknown gender
         expect(fetch options, build_stubbed(:user)).to eq [common_anime]
@@ -404,9 +411,9 @@ describe AniMangaQuery do
       let!(:anime_2) { create :anime, ranked: 5, name: 'BBB', episodes: 20 }
 
       it do
-        expect((fetch ).first.id).to eq anime_2.id
-        expect((fetch order: 'name').first.id).to eq anime_1.id
-        expect((fetch order: 'id').first.id).to eq anime_2.id
+        expect(fetch.first.id).to eq anime_2.id
+        expect(fetch(order: 'name').first.id).to eq anime_1.id
+        expect(fetch(order: 'id').first.id).to eq anime_2.id
       end
 
       describe 'episodes' do
