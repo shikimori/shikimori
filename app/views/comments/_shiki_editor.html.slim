@@ -145,14 +145,20 @@ aside.buttons
       - else
         - raise ArgumentError, f.object
 
-      = f.input :body, as: :text,
-        input_html: { class: "b-#{f.object.class.name.downcase} editor-area",
-          placeholder: (browser.ie? ? '' : t('.comment')), tabindex: 0,
+      = f.input :body,
+        as: :text,
+        input_html: {\
+          class: "b-#{f.object.class.name.downcase} editor-area",
+          placeholder: (browser.ie? ? '' : t('.comment')),
+          tabindex: 0,
           'data-upload_url' => api_user_images_url(linked_type: Comment.name),
-          'data-item_type' => item_type }
+          'data-item_type' => item_type\
+        }
     - else
-      = text_area_tag field_name, text, class: 'comment_body editor-area',
-        placeholder: (browser.ie? ? '' : t('.text')), tabindex: 0,
+      = text_area_tag field_name, text,
+        class: 'comment_body editor-area',
+        placeholder: (browser.ie? ? '' : t('.text')),
+        tabindex: 0,
         'data-upload_url' => api_user_images_url(linked_type: nil),
         'data-item_type' => item_type
   .preview
