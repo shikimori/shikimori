@@ -11,6 +11,10 @@ class Topics::NewsView < Topics::View
     topic.title
   end
 
+  def topic_title_html
+    topic_title
+  end
+
   def action_tag
     OpenStruct.new(
       type: 'news',
