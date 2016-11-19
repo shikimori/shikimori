@@ -14,7 +14,7 @@ class AnimesCollection::PageQuery
 private
 
   def page
-    @page ||= (params[:page] || 1).to_i
+    @page ||= (@params[:page] || 1).to_i
   end
 
   def pages_count
@@ -35,6 +35,6 @@ private
   end
 
   def query
-    AniMangaQuery.new(klass, params, user).fetch
+    AniMangaQuery.new(@klass, @params, @user).fetch
   end
 end

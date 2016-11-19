@@ -13,7 +13,7 @@ class AnimesCollection::View < ViewObjectBase
       results.collection&.map(&:decorate)
     end
   end
- 
+
   def season_page?
     !recommendations? &&
       h.params[:season].present? &&
@@ -30,11 +30,12 @@ class AnimesCollection::View < ViewObjectBase
 
   def cache_key
     user_key = user if h.params[:mylist]
+    initial_key = [:v2, klass.name, user_key]
 
     h.params
       .except(:format, :controller, :action)
       .sort_by(&:first)
-      .inject([klass.name, user_key]) { |memo, (k, v)| memo.push "#{k}:#{v}" }
+      .inject(initial_key) { |memo, (k, v)| memo.push "#{k}:#{v}" }
       .compact
   end
 
