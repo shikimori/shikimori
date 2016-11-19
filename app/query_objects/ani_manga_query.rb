@@ -9,7 +9,7 @@ class AniMangaQuery
     'D' => "(duration > 10 and duration <= 30)",
     'F' => "(duration > 30)"
   }
-  DefaultOrder = 'ranked'
+  DEFAULT_ORDER = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
     'male' => Genre::YAOI_IDS + Genre::SHOUNEN_AI_IDS,
     'female' => Genre::HENTAI_IDS + Genre::SHOUJO_AI_IDS + Genre::YURI_IDS,
@@ -43,7 +43,7 @@ class AniMangaQuery
     @user = user
 
     #TODO: remove all after ||
-    @order = params[:order] || (@search.blank? ? DefaultOrder : nil)
+    @order = params[:order] || (@search.blank? ? DEFAULT_ORDER : nil)
   end
 
   # выборка аниме или манги по заданным параметрам
@@ -446,40 +446,68 @@ private
 
     case field
       when 'name'
-        "#{klass.table_name}.name"
+        "#{klass.table_name}.name, id"
 
       when 'russian'
-        "(case when #{klass.table_name}.russian is null \
-          or #{klass.table_name}.russian=''
-          then #{klass.table_name}.name else #{klass.table_name}.russian end)"
+        <<-SQL.squish.strip
+          (case
+            when #{klass.table_name}.russian is null
+              or #{klass.table_name}.russian=''
+            then #{klass.table_name}.name
+            else #{klass.table_name}.russian
+          end), id
+        SQL
 
       when 'episodes'
-        "(case when #{klass.table_name}.episodes = 0
-          then #{klass.table_name}.episodes_aired \
-          else #{klass.table_name}.episodes end) desc"
+        <<-SQL.squish.strip
+          (case
+            when #{klass.table_name}.episodes = 0
+            then #{klass.table_name}.episodes_aired \
+            else #{klass.table_name}.episodes
+          end) desc, id"
+        SQL
 
       when 'chapters'
-        "#{klass.table_name}.chapters desc"
+        "#{klass.table_name}.chapters desc, id"
 
       when 'volumes'
-        "#{klass.table_name}.volumes desc"
+        "#{klass.table_name}.volumes desc, id"
 
       when 'status'
-        "(case when #{klass.table_name}.status='Not yet aired' \
-          or #{klass.table_name}.status='Not yet published'
-          then 'AAA' else (case when #{klass.table_name}.status='Publishing'
-          then 'Currently Airing' else #{klass.table_name}.status end) end)"
+        <<-SQL.squish.strip
+          (case
+            when #{klass.table_name}.status='Not yet aired'
+              or #{klass.table_name}.status='Not yet published'
+            then 'AAA'
+            else
+              (case
+                when #{klass.table_name}.status='Publishing'
+                then 'Currently Airing'
+                else #{klass.table_name}.status
+              end)
+          end), id
+        SQL
 
       when 'popularity'
-        '(case when popularity=0 then 999999 else popularity end)'
+        '(case when popularity=0 then 999999 else popularity end), id'
 
       when 'ranked'
-        "(case when ranked=0 then 999999 else ranked end), \
-        #{klass.table_name}.score desc"
+        <<-SQL.squish.strip
+          (case
+            when ranked=0
+            then 999999
+            else ranked
+          end), #{klass.table_name}.score desc, id
+        SQL
 
       when 'released_on'
-        "(case when released_on is null then aired_on \
-        else released_on end) desc"
+        <<-SQL.squish.strip
+          (case
+            when released_on is null
+            then aired_on
+            else released_on
+          end) desc, id
+        SQL
 
       when 'aired_on'
         'aired_on desc'
@@ -488,16 +516,16 @@ private
         "#{klass.table_name}.id desc"
 
       when 'rate_id'
-        "user_rates.id"
+        "user_rates.id, id"
 
       when 'my', 'rate'
-        "user_rates.score desc, #{klass.table_name}.name"
+        "user_rates.score desc, #{klass.table_name}.name, id"
 
       when 'site_score'
-        "#{klass.table_name}.site_score desc"
+        "#{klass.table_name}.site_score desc, id"
 
       when 'kind'
-        "#{klass.table_name}.kind"
+        "#{klass.table_name}.kind, id"
 
       when 'user_1', 'user_2' # кастомные сортировки
         nil
@@ -507,7 +535,7 @@ private
 
       else
         #raise ArgumentError, "unknown order '#{field}'"
-        order_sql AniMangaQuery::DefaultOrder, klass
+        order_sql DEFAULT_ORDER, klass
     end
   end
 end
