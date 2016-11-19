@@ -446,35 +446,35 @@ private
 
     case field
       when 'name'
-        "#{klass.table_name}.name, id"
+        "#{klass.table_name}.name, #{klass.table_name}.id"
 
       when 'russian'
-        <<-SQL.squish.strip
+        <<-SQL.squish
           (case
             when #{klass.table_name}.russian is null
               or #{klass.table_name}.russian=''
             then #{klass.table_name}.name
             else #{klass.table_name}.russian
-          end), id
+          end), #{klass.table_name}.id
         SQL
 
       when 'episodes'
-        <<-SQL.squish.strip
+        <<-SQL.squish
           (case
             when #{klass.table_name}.episodes = 0
-            then #{klass.table_name}.episodes_aired \
+            then #{klass.table_name}.episodes_aired
             else #{klass.table_name}.episodes
-          end) desc, id"
+          end) desc, #{klass.table_name}.id"
         SQL
 
       when 'chapters'
-        "#{klass.table_name}.chapters desc, id"
+        "#{klass.table_name}.chapters desc, #{klass.table_name}.id"
 
       when 'volumes'
-        "#{klass.table_name}.volumes desc, id"
+        "#{klass.table_name}.volumes desc, #{klass.table_name}.id"
 
       when 'status'
-        <<-SQL.squish.strip
+        <<-SQL.squish
           (case
             when #{klass.table_name}.status='Not yet aired'
               or #{klass.table_name}.status='Not yet published'
@@ -485,19 +485,25 @@ private
                 then 'Currently Airing'
                 else #{klass.table_name}.status
               end)
-          end), id
+          end), #{klass.table_name}.id
         SQL
 
       when 'popularity'
-        '(case when popularity=0 then 999999 else popularity end), id'
+        <<-SQL.squish
+          (case
+            when popularity=0
+            then 999999
+            else popularity
+          end), #{klass.table_name}.id
+        SQL
 
       when 'ranked'
-        <<-SQL.squish.strip
+        <<-SQL.squish
           (case
             when ranked=0
             then 999999
             else ranked
-          end), #{klass.table_name}.score desc, id
+          end), #{klass.table_name}.score desc, #{klass.table_name}.id
         SQL
 
       when 'released_on'
@@ -506,26 +512,30 @@ private
             when released_on is null
             then aired_on
             else released_on
-          end) desc, id
+          end) desc, #{klass.table_name}.id
         SQL
 
       when 'aired_on'
-        'aired_on desc'
+        'aired_on desc, #{klass.table_name}.id'
 
       when 'id'
         "#{klass.table_name}.id desc"
 
       when 'rate_id'
-        "user_rates.id, id"
+        "user_rates.id, #{klass.table_name}.id"
 
       when 'my', 'rate'
-        "user_rates.score desc, #{klass.table_name}.name, id"
+        <<-SQL.squish
+          user_rates.score desc,
+          #{klass.table_name}.name,
+          #{klass.table_name}.id
+        SQL
 
       when 'site_score'
-        "#{klass.table_name}.site_score desc, id"
+        "#{klass.table_name}.site_score desc, #{klass.table_name}.id"
 
       when 'kind'
-        "#{klass.table_name}.kind, id"
+        "#{klass.table_name}.kind, #{klass.table_name}.id"
 
       when 'user_1', 'user_2' # кастомные сортировки
         nil
