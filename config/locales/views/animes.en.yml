@@ -10,9 +10,15 @@ en:
           released: Finished
           latest: Aired Recently
         kind:
-          tv_13: Short
-          tv_24: Average
-          tv_48: Long
+          tv_13:
+            name: Short
+            tooltip: '~13 episodes'
+          tv_24:
+            name: Average
+            tooltip: '~24 episodes'
+          tv_48:
+            name: Long
+            tooltip: ">30 episodes"
         duration:
           S: Less than 10 minutes
           D: Less than 30 minutes

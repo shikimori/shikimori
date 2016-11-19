@@ -38,17 +38,14 @@
           = kind.title
 
         - if kind.text == 'tv'
-          li.type-tv_13.sub
-            input type='checkbox' autocomplete='off'
-              = t '.anime.kind.tv_13'
-
-          li.type-tv_24.sub
-            input type='checkbox' autocomplete='off'
-              = t '.anime.kind.tv_24'
-
-          li.type-tv_48.sub
-            input type='checkbox' autocomplete='off'
-              = t '.anime.kind.tv_48'
+          - %w(13 24 48).each do |episodes_kind|
+            li.sub class="type-tv_#{episodes_kind}"
+              input type='checkbox' autocomplete='off'
+                = t ".anime.kind.name.tv_#{episodes_kind}"
+                span.b-question.b-tooltipped.mobile.unprocessed[
+                  title="#{t ".anime.kind.tv_#{episodes_kind}.tooltip"}"
+                  data-direction="top"
+                ]
 
   - if show_social?
     .addthis_toolbox.addthis_default_style
