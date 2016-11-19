@@ -516,7 +516,7 @@ private
         SQL
 
       when 'aired_on'
-        'aired_on desc, #{klass.table_name}.id'
+        "aired_on desc, #{klass.table_name}.id"
 
       when 'id'
         "#{klass.table_name}.id desc"
