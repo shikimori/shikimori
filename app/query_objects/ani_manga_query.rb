@@ -464,7 +464,7 @@ private
             when #{klass.table_name}.episodes = 0
             then #{klass.table_name}.episodes_aired
             else #{klass.table_name}.episodes
-          end) desc, #{klass.table_name}.id"
+          end) desc, #{klass.table_name}.id
         SQL
 
       when 'chapters'
