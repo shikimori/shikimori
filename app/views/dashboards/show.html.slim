@@ -110,19 +110,19 @@
 
     .c-generated_news
       / = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
-      center.block
-        a href="https://shikimori.org/forum/site/208016-gruppa-sayta-v-vk-com"
-          img[
-            src="/assets/globals/reposts-contest.png"
-            srcset="/assets/globals/reposts-contest@2x.png 2x"
-          ]
+      / center.block
+        / a href="https://shikimori.org/forum/site/208016-gruppa-sayta-v-vk-com"
+          / img[
+            / src="/assets/globals/reposts-contest.png"
+            / srcset="/assets/globals/reposts-contest@2x.png 2x"
+          / ]
 
-      / .midheadline.gray.m15 = t 'sponsors'
-      / .container
-        / / - if Rails.env.production?
-          / / = render 'dashboards/ad'
-        / / - else
-        / div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+      .midheadline.gray.m15 = t 'sponsors'
+      .container
+        / - if Rails.env.production?
+          / = render 'dashboards/ad'
+        / - else
+        div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
       - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
         .block
