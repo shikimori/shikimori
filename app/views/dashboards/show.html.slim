@@ -119,10 +119,10 @@
 
       .midheadline.gray.m15 = t 'sponsors'
       .container
-        / - if Rails.env.production?
-          / = render 'dashboards/ad'
-        / - else
-        div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
+        - if Rails.env.production?
+          = render 'dashboards/ad'
+        - else
+          div style="width: 240px; height: 400px; margin: 0 auto; background: #ddd; border: 1px solid #aaa;" &nbsp;AD
 
       - cache [@dashboard_view.cache_keys[:reviews], @dashboard_view.cache_keys[:reviews_index]] do
         .block
