@@ -3,6 +3,8 @@
     data-target_id="#{resource.id}"
     data-target_type="#{resource.object.class.name}"
   ]
+    = f.input :description_en, as: :hidden
+
     / description_en_text is a virtual field -
     / it will be filtered out by permitted params
     = render 'comments/shiki_editor',
