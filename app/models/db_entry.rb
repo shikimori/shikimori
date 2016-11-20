@@ -38,4 +38,8 @@ class DbEntry < ActiveRecord::Base
     return unless changes[:name] || changes[:russian]
     DbEntries::TouchRelated.perform_async id
   end
+
+  def mal_url
+    "http://myanimelist.net/#{self.class.name.downcase}/#{id}"
+  end
 end

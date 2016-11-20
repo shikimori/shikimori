@@ -63,11 +63,6 @@ class DbEntryDecorator < BaseDecorator
     ).html_safe
   end
 
-  # don't remove: used in menu
-  def mal_url
-    "http://myanimelist.net/#{klass_lower}/#{object.id}"
-  end
-
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
       object.maybe_topic(h.locale_from_domain)

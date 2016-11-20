@@ -180,9 +180,9 @@ private
   end
 
   def parse_synopsis(content)
-    return nil if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
+    return if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
 
-    content.match(/
+    match_result = content.match /
       Synopsis<\/h2>
         (?:
           <span\sitemprop="description">
@@ -191,9 +191,15 @@ private
           |
           (?<text> [\s\S]*? )
         )
-
       (?: <\/td>|<h2 )
-    /mix) ? Mal::TextSanitizer.new($~[:text]).call : ""
+    /mix
+
+    if match_result.present?
+      synopsis = Regexp.last_match[:text]
+      Mal::TextSanitizer.new(synopsis).()
+    else
+      ''
+    end
   end
 
   def parse_line(line_name, content, multiple_results)

@@ -49,6 +49,7 @@ class CharacterMalParser < BaseMalParser
     entry[:fullname] = cleanup doc.css('h1').text.gsub('  ', ' ')
 
     description_doc = doc.css('#content > table > tr > td:nth-child(2)')
+    # TODO: add source to character too? (just like for anime and manga)
     entry[:description_en] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
       Mal::TextSanitizer.new($1).call
     else
