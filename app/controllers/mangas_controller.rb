@@ -12,8 +12,11 @@ private
     params
       .require(:manga)
       .permit(
-        :russian, :tags, :source,
-        :description_ru, :description_en,
+        :russian,
+        :tags,
+        :source,
+        :description_ru,
+        :description_en,
         *Manga::DESYNCABLE
       )
   end

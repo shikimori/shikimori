@@ -1,5 +1,7 @@
 @on 'page:load', '.db_entries-edit_field', ->
-  if $('.edit-page.description_ru, .edit-page.description_en').exists()
+  $description = $('.edit-page.description_ru, .edit-page.description_en')
+
+  if $description.exists()
     $editor = $('.b-shiki_editor')
     $editor
       .shiki_editor()
@@ -7,6 +9,24 @@
         body: $(@).view().$textarea.val()
         target_id: $editor.data('target_id')
         target_type: $editor.data('target_type')
+
+    $('form', $description).on 'submit', ->
+      $form = $(@)
+      new_description = (text, source) ->
+        "#{text}[source]#{source}[/source]"
+
+      $('#anime_description_ru', $form).val(
+        new_description(
+          $('#anime_description_ru_text', $form).val(),
+          $('#anime_description_ru_source', $form).val()
+        )
+      )
+      $('#anime_description_en', $form).val(
+        new_description(
+          $('#anime_description_en_text', $form).val(),
+          $('#anime_description_en_source', $form).val()
+        )
+      )
 
   if $('.edit-page.screenshots').exists()
     $('.c-screenshot').shiki_image()
