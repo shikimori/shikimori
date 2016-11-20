@@ -105,7 +105,6 @@ private
       .permit(
         :russian,
         :tags,
-        :source,
         :description_ru,
         :description_en,
         *Character::DESYNCABLE

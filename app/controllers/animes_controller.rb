@@ -164,7 +164,6 @@ private
         :russian,
         :torrents_name,
         :tags,
-        :source,
         :description_ru,
         :description_en,
         *Anime::DESYNCABLE

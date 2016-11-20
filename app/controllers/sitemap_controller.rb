@@ -1,5 +1,6 @@
 class SitemapController < ShikimoriController
   def index
+    # TODO: exclude db entries where source in description_ru is empty
     if params[:format] == 'xml'
       @animes = Anime
         .where("description_ru != '' and description_ru is not null")

@@ -5,6 +5,8 @@
       .english: .text
         = resource.description_html_en
 
+        / field 'description' is not used inside forms -
+        / can be any name just to distinguish description
         = render 'blocks/source',
           entry: resource,
           authors: resource.versions.authors(:description_en),
