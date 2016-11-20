@@ -4,11 +4,11 @@ class DbEntries::Description < Dry::Struct
   def text
     return unless value.present?
     return value if value !~ /\[source\]/
-    value[/(.*)(?=\[source\])/, 1]
+    value[/(.+)(?=\[source\])/, 1]
   end
 
   def source
     return unless value.present?
-    value[%r{\[source\](.*)\[/source\]}, 1]
+    value[%r{\[source\](.+)\[/source\]}, 1]
   end
 end

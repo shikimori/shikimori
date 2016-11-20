@@ -197,4 +197,11 @@ private
   def type
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
   end
+
+  def synonpsis_with_source entry, content
+    text = parse_synopsis(content)
+    source = "http://myanimelist.net/#{type}/#{entry[:id]}"
+
+    "#{text}[source]#{source}[/source]"
+  end
 end
