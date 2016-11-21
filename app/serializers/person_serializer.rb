@@ -1,5 +1,5 @@
 class PersonSerializer < ActiveModel::Serializer
-  attributes :id, :name, :image, :url
+  attributes :id, :name, :russian, :image, :url
 
   def image
     {
