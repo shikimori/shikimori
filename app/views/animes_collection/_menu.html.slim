@@ -41,7 +41,7 @@
           - %w(13 24 48).each do |episodes_kind|
             li.sub class="type-tv_#{episodes_kind}"
               input type='checkbox' autocomplete='off'
-                = t ".anime.kind.name.tv_#{episodes_kind}"
+                = t ".anime.kind.tv_#{episodes_kind}.name"
                 span.b-question.b-tooltipped.mobile.unprocessed[
                   title="#{t ".anime.kind.tv_#{episodes_kind}.tooltip"}"
                   data-direction="top"
@@ -118,7 +118,7 @@
     .block.durations
       .subheadline = i18n_i 'Episode'
       ul.block-list.durations.anime-params
-        - AniMangaQuery::Durations.keys.each do |v|
+        - AniMangaQuery::DURATIONS.keys.each do |v|
           li class="duration-#{v}"
             input type="checkbox" autocomplete="off"
             = t ".anime.duration.#{v}"
