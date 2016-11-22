@@ -240,7 +240,8 @@ private
       !e.is_a?(Forbidden)
     )
 
-    with_json_response = self.kind_of?(Api::V1::ApiController) || json?
+    with_json_response = json? ||
+      (self.kind_of?(Api::V1::ApiController) && !params[:frontend])
 
     if NOT_FOUND_ERRORS.include? e.class
       @sub_layout = nil
