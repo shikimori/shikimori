@@ -79,6 +79,8 @@ gem 'activerecord-import' # для быстрого импорта тегов
 gem 'amatch', github: 'flori/amatch' # для поиска русских имён из википедии
 gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. ruby 2.0
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
+gem 'faraday'
+gem 'faraday_middleware'
 
 gem 'jbuilder' # для рендеринга json
 gem 'rack-contrib' # для поддержки jsonp в api

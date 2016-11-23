@@ -1,7 +1,7 @@
 class NameMatches::FindMatches < ServiceObjectBase
   pattr_initialize :names, :type_klass, :options
 
-  instance_cache :phraser, :cleaner, :phrase_variants
+  instance_cache :phrase_variants
 
   def call
     entries = match_entries
@@ -9,7 +9,7 @@ class NameMatches::FindMatches < ServiceObjectBase
     if entries.one?
       entries
     else
-      NameMatches::ResolveAmbiguousity.call entries, options
+      NameMatches::ResolveAmbiguousity.call entries, @options
     end
   end
 
@@ -38,30 +38,17 @@ private
     end
   end
 
+  def phrase_variants
+    NameMatches::PhraseToSearchVariants.call @names
+  end
+
   def db_matches phrases
     NameMatch
       .includes(entry_type)
       .where(phrase: phrases)
   end
 
-  def phrase_variants
-    phrases = cleaner.cleanup Array(names)
-    [
-      cleaner.finalize(phrases),
-      cleaner.finalize(phraser.variate(phrases, do_splits: false)),
-      cleaner.finalize(phraser.variate(phrases, do_splits: true))
-    ]
-  end
-
   def entry_type
-    type_klass.name.downcase.to_sym
-  end
-
-  def phraser
-    NameMatches::Phraser.instance
-  end
-
-  def cleaner
-    NameMatches::Cleaner.instance
+    @type_klass.name.downcase.to_sym
   end
 end

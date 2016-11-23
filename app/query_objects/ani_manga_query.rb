@@ -1,13 +1,11 @@
 # TODO: refactor to bunch of simplier query objects
 class AniMangaQuery
-  include CompleteQuery
-
   EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
-  Durations = {
-    'S' => "(duration >= 0 and duration <= 10)",
-    'D' => "(duration > 10 and duration <= 30)",
-    'F' => "(duration > 30)"
+  DURATIONS = {
+    'S' => '(duration >= 0 and duration <= 10)',
+    'D' => '(duration > 10 and duration <= 30)',
+    'F' => '(duration > 30)'
   }
   DEFAULT_ORDER = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
@@ -16,11 +14,13 @@ class AniMangaQuery
     '' => Genre::CENSORED_IDS + Genre::SHOUNEN_AI_IDS + Genre::SHOUJO_AI_IDS
   }
 
+  SEARCH_IDS_LIMIT = 250
+
   def initialize klass, params, user=nil
     @params = params
 
     @klass = klass
-    @query = @klass
+    @query = @klass.all
 
     @type = params[:type] || ''
 
@@ -35,7 +35,7 @@ class AniMangaQuery
     @status = params[:status]
 
     @mylist = params[:mylist]
-    @search = SearchHelper.unescape params[:search]
+    @search_phrase = SearchHelper.unescape params[:search]
 
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
     @exclude_ids = params[:exclude_ids]
@@ -43,11 +43,11 @@ class AniMangaQuery
     @user = user
 
     #TODO: remove all after ||
-    @order = params[:order] || (@search.blank? ? DEFAULT_ORDER : nil)
+    @order = params[:order] || (@search_phrase.blank? ? DEFAULT_ORDER : nil)
   end
 
   # выборка аниме или манги по заданным параметрам
-  def fetch page = nil, limit = nil
+  def fetch# page = nil, limit = nil
     @query = @query.preload(:genres) # важно! не includes
     @query = @query.preload(@klass == Anime ? :studios : :publishers) # важно! не includes
 
@@ -70,23 +70,20 @@ class AniMangaQuery
     search!
     video!
 
-    paginate! page, limit if page && limit
-
     order @query
   end
 
   def complete
     search!
-    censored!
-    search_order(@query.limit AUTOCOMPLETE_LIMIT).reverse
+    @query.limit(AUTOCOMPLETE_LIMIT).reverse
   end
 
   # сортировка по параметрам
   def order query
-    if @search.present? && @order.blank?
-      search_order query
-    else
+    if @search_phrase.blank?
       params_order query
+    else
+      query
     end
   end
 
@@ -101,7 +98,7 @@ private
   end
 
   def search?
-    @search.present?
+    @search_phrase.present?
   end
 
   def censored?
@@ -171,7 +168,7 @@ private
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
     if censored? || !(
-      rx || hentai || yaoi || yuri || mylist? || userlist? || search? ||
+      rx || hentai || yaoi || yuri || mylist? || search? || userlist? ||
       @publisher || @studio
     )
       @query = @query.where(censored: false)
@@ -242,8 +239,8 @@ private
     return if @duration.blank?
     durations = bang_split(@duration.split(','))
 
-    @query = @query.where durations[:include].map {|duration| Durations[duration] }.join(' or ') if durations[:include].any?
-    @query = @query.where "not (#{durations[:exclude].map {|duration| Durations[duration] }.join(' or ')})" if durations[:exclude].any?
+    @query = @query.where durations[:include].map {|duration| DURATIONS[duration] }.join(' or ') if durations[:include].any?
+    @query = @query.where "not (#{durations[:exclude].map {|duration| DURATIONS[duration] }.join(' or ')})" if durations[:exclude].any?
   end
 
   # фильтрация по сезонам
@@ -301,17 +298,20 @@ private
 
   # фильтрация по id
   def exclude_ids!
-    if @exclude_ids.present?
-      ids = @exclude_ids.map(&:to_i)
-      @query = @query.where.not(id: ids)
-    end
+    return if @exclude_ids.blank?
+
+    @query = @query.where.not(id: @exclude_ids.map(&:to_i))
   end
 
   # поиск по названию
   def search!
-    return if @search.blank?
+    return if @search_phrase.blank?
 
-    @query = @query.where(search_queries.join(' or '))
+    @query = Animes::SearchQuery.call(
+      scope: @query,
+      phrase: @search_phrase,
+      ids_limit: SEARCH_IDS_LIMIT
+    )
   end
 
   # фильтрация по наличию видео
@@ -321,76 +321,6 @@ private
     @query = @query
       .where('animes.id in (select distinct(anime_id) from anime_videos)')
       .where(@params[:is_adult] ? AnimeVideo::XPLAY_CONDITION : AnimeVideo::PLAY_CONDITION)
-  end
-
-  # пагинация
-  def paginate! page, limit
-    @query = @query
-      .offset(limit * (page-1))
-      .limit(limit + 1)
-  end
-
-  # варианты, которые будем перебирать при поиске
-  def search_queries
-    search_fields(@search).map {|field| field_search_query field }.flatten.compact
-  end
-
-  # поля, по которым будет осуществлён поиск
-  def search_fields term
-    if term.contains_cjkv?
-      [:japanese]
-    else
-      [:name, :russian, :synonyms, :english]
-    end
-  end
-
-  def field_search_query field
-    term = @search.gsub(/\\(['"])/, '\1')
-    pterm = term.gsub(' ', '% ')
-    queries = []
-
-    table_field = transalted_field "#{table_name}.#{field}"
-
-    if field == :japanese || field == :english || field == :synonyms
-      queries << [
-        "#{table_field} ilike #{Topic.sanitize "% #{term.gsub('*', '%')}%"}",
-        "#{table_field} ilike #{Topic.sanitize "%#{term.gsub('*', '%')}%"}"
-      ]
-      if field == :japanese
-        queries << "#{table_field} ilike #{Topic.sanitize "%#{term.to_yaml.gsub(/^--- !binary \|\n|\n\n$/, '').gsub('*', '%')}%"}"
-      end
-
-    else
-      queries = [
-        "#{table_field} = #{Topic.sanitize term}",
-        "#{table_field} ilike #{Topic.sanitize "#{term}%"}",
-        "#{table_field} ilike #{Topic.sanitize term.gsub(/([A-zА-я0-9])/, '\1% ').sub(/ $/, '')}"
-      ]
-
-      if field == :english || field == :synonyms || field == :name || field == :russian
-        queries << "#{table_field} ilike #{Topic.sanitize term.broken_translit.gsub(/'/, '')}" if field != :russian
-        queries << "#{table_field} ilike #{Topic.sanitize "% #{term}%"}"
-        queries << "#{table_field} ilike #{Topic.sanitize "% _#{term}%"}"
-        queries << "#{table_field} ilike #{Topic.sanitize "% #{term}%"}"
-        queries << "#{table_field} ilike #{Topic.sanitize "%#{term}%"}"
-
-        if term != pterm
-          queries << "#{table_field} ilike #{Topic.sanitize "#{pterm.broken_translit.gsub(/'/, '')}%"}"
-        end
-      end
-
-      unless term.eql? pterm
-        queries << "#{table_field} ilike #{Topic.sanitize "#{pterm}%"}"
-      end
-
-      if field == :name && term.include?('*')
-        queries << "#{table_field} ilike #{Topic.sanitize term.gsub('*', '%')}"
-        queries << "#{table_field} ilike #{Topic.sanitize "#{term.gsub '*', '%'}%"}"
-        queries << "#{table_field} ilike #{Topic.sanitize "%#{term.gsub '*', '%'}%"}"
-      end
-    end
-
-    queries
   end
 
   # сортировка по параметрам запроса
@@ -544,7 +474,7 @@ private
         'random()'
 
       else
-        #raise ArgumentError, "unknown order '#{field}'"
+        # raise ArgumentError, "unknown order '#{field}'"
         order_sql DEFAULT_ORDER, klass
     end
   end

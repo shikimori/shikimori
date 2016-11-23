@@ -1,0 +1,76 @@
+---
+  :analysis: &analysis
+    filter:
+      word_split:
+        type: word_delimiter
+        preserve_original: 1
+      edgeNGram_filter:
+        type: edgeNGram
+        min_gram: 2
+        max_gram: 30
+        side: front
+      stop_small_words:
+        type: length
+        min: 2
+      stop_junk_words:
+        type: stop
+        stopwords:
+          - the
+    # char_filter:
+      # fix_synonyms:
+        # type: mapping
+        # mappings:
+          # - 'wo => o'
+          # - 'ou => o'
+          # - 'oh => o'
+          # - 'uu => u'
+          # - 'sh => s'
+    tokenizer:
+      edge_ngram_tokenizer:
+        type: edgeNGram
+        min_gram: '3'
+        max_gram: '12'
+        token_chars:
+          - letter
+          - digit
+    analyzer:
+      ngram_analyzer:
+        type: custom
+        tokenizer: edge_ngram_tokenizer
+        filter:
+          - lowercase
+          - asciifolding
+          - word_split
+          # - stop_small_words
+          - stop_junk_words
+          - edgeNGram_filter
+        # char_filter:
+          # - fix_synonyms
+      input_analyzer:
+        type: custom
+        tokenizer: whitespace
+        filter:
+          - lowercase
+          - asciifolding
+          # - stop_small_words
+          - stop_junk_words
+          - word_split
+        # char_filter:
+          # - fix_synonyms
+
+  :version:
+    1.0
+  :anime:
+    settings:
+      analysis:
+        <<: *analysis
+    mappings:
+      anime:
+        # _all:
+          # analyzer: ngram_analyzer
+          # search_analyzer: input_analyzer
+        properties:
+          names:
+            type: string
+            analyzer: ngram_analyzer
+            search_analyzer: input_analyzer
