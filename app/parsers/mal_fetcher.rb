@@ -182,7 +182,7 @@ private
   def parse_synopsis(content)
     return if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
 
-    match_result = content.match /
+    match_result = content.match(/
       Synopsis<\/h2>
         (?:
           <span\sitemprop="description">
@@ -192,7 +192,7 @@ private
           (?<text> [\s\S]*? )
         )
       (?: <\/td>|<h2 )
-    /mix
+    /mix)
 
     if match_result.present?
       synopsis = Regexp.last_match[:text]
