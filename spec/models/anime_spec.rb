@@ -62,6 +62,17 @@ describe Anime do
     it { is_expected.to enumerize(:origin) }
   end
 
+  describe 'scopes' do
+    describe '#with_description_ru_source' do
+      subject { Anime.with_description_ru_source }
+
+      let!(:anime_1) { create :anime, description_ru: 'foo[source]bar[/source]' }
+      let!(:anime_2) { create :anime, description_ru: 'foo[source][/source]' }
+
+      it { is_expected.to eq [anime_1] }
+    end
+  end
+
   describe 'callbacks' do
     describe 'news topics generation' do
       context 'news topics already generated' do

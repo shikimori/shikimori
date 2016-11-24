@@ -126,15 +126,18 @@ class WikipediaImporter
         #end
 
         if names_matched?(db_char, ambiguous_names[0], wiki_char, ambiguous_names[1])
-          db_char.description_ru = wiki_char[:description_ru]
+          raise "bad description for #{db_char[:id]}-#{db_char[:name]}: \n#{wiki_char[:description_ru]}" if wiki_char[:description_ru] =~ /\*\*|\{\{|\}\}/
+
+          description = DbEntries::Description.from_text_source(
+            wiki_char[:description_ru],
+            wiki_char[:source]
+          )
+          db_char.description_ru = description.description
+
           db_char.russian = wiki_char[:russian].sub('Сяна', 'Шана')
           db_char.japanese = wiki_char[:japanese] if !db_char[:japanese] && wiki_char[:japanese]
 
-          raise "bad description for #{db_char[:id]}-#{db_char[:name]}: \n#{wiki_char[:description_ru]}" if wiki_char[:description_ru] =~ /\*\*|\{\{|\}\}/
-          if db_char.changes.any?
-            db_char.source = wiki_char[:source]
-            db_char.save
-          end
+          db_char.save
           imported += 1
           break
         end

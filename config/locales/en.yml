@@ -32,7 +32,6 @@ en:
         russian: Russian name
         score: Score
         screenshots: Screenshots
-        source: Description source
         status: Status
         tags: Imageboards tag
         torrents_name: Torrents name
@@ -51,7 +50,6 @@ en:
         poster: *poster
         image: *poster
         russian: Russian name
-        source: Description source
         tags: Imageboards tag
       person:
         <<: *character_attributes

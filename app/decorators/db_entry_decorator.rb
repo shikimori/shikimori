@@ -15,42 +15,40 @@ class DbEntryDecorator < BaseDecorator
   end
 
   # description object used to get text or source
-  # (text is bbcode - used when editing descriptino e.g.)
+  # (text is bbcode - used when editing description e.g.)
   def description
     show_description_ru? ? description_ru : description_en
   end
 
   def description_ru
-    DbEntries::Description.new(value: object.description_ru)
+    DbEntries::Description.from_description(object.description_ru)
   end
 
   def description_en
-    DbEntries::Description.new(value: object.description_en)
+    DbEntries::Description.from_description(object.description_en)
   end
 
   # description text (bbcode) formatted as html
   # (displayed on specific anime main page)
   def description_html
-    show_description_ru? ? description_html_ru : description_html_en
+    html = show_description_ru? ? description_html_ru : description_html_en
+
+    if html.blank?
+      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    else
+      html
+    end
   end
 
   def description_html_ru
-    if object.description_ru.present?
-      Rails.cache.fetch [:description_html_ru, object] do
-        BbCodeFormatter.instance.format_description(description_ru.text, object)
-      end
-    else
-      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    Rails.cache.fetch [:description_html_ru, object] do
+      BbCodeFormatter.instance.format_description(description_ru.text, object)
     end
   end
 
   def description_html_en
-    if object.description_en.present?
-      Rails.cache.fetch [:descrption_html_en, object] do
-        BbCodeFormatter.instance.format_comment(description_en.text)
-      end
-    else
-      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    Rails.cache.fetch [:descrption_html_en, object] do
+      BbCodeFormatter.instance.format_comment(description_en.text)
     end
   end
 

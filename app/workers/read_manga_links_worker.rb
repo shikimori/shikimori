@@ -3,18 +3,18 @@ class ReadMangaLinksWorker
   sidekiq_options unique: :until_executed
 
   def perform
-    Manga.where("source ilike '%readmanga%'").find_each do |manga|
-      id = "rm_#{manga.source.sub /^.*\//, ''}"
-      if id != manga.read_manga_id
-        manga.update_column :read_manga_id, id
+    Manga
+      .where("description_ru ilike '%readmanga%'")
+      .find_each do |manga|
+        id = "rm_#{manga.decorate.description_ru.source.sub /^.*\//, ''}"
+        manga.update_column(:read_manga_id, id) if id != manga.read_manga_id
       end
-    end
 
-    Manga.where("source ilike '%adultmanga%'").find_each do |manga|
-      id = "am_#{manga.source.sub /^.*\//, ''}"
-      if id != manga.read_manga_id
-        manga.update_column :read_manga_id, id
+    Manga
+      .where("description_ru ilike '%adultmanga%'")
+      .find_each do |manga|
+        id = "am_#{manga.decorate.description_ru.source.sub /^.*\//, ''}"
+        manga.update_column(:read_manga_id, id) if id != manga.read_manga_id
       end
-    end
   end
 end

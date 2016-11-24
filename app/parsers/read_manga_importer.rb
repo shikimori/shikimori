@@ -35,7 +35,7 @@ class ReadMangaImporter
   # выборка из базы того, куда импортироватьс
   def prepare_db_data
     all_mangas = Manga
-      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :read_manga_scores, :read_manga_id, :source, :kind])
+      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :read_manga_scores, :read_manga_id, :kind])
       .order(:kind)
       .all
 
@@ -71,8 +71,13 @@ class ReadMangaImporter
           unless import_entry[:description_ru].blank? ||
               ids_with_description.include?(db_entry[:id]) ||
               import_entry[:description_ru].length < 60
-            db_entry[:entry].description_ru = import_entry[:description_ru]
-            db_entry[:entry].source = import_entry[:source]
+
+            description = DbEntries::Description.from_text_source(
+              import_entry[:description_ru],
+              import_entry[:source]
+            )
+
+            db_entry[:entry].description_ru = description.description
           end
 
           if import_entry[:russian].present? &&

@@ -39,11 +39,7 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def description
-    if scope.ru_domain?
-      object[:description_ru] || object[:description_en]
-    else
-      object[:description_en]
-    end
+    object.description.text
   end
 
   def description_html
@@ -51,7 +47,7 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def description_source
-    object.source
+    object.description.source
   end
 
   def videos
