@@ -202,6 +202,6 @@ private
     text = parse_synopsis(content)
     source = "http://myanimelist.net/#{type}/#{entry[:id]}"
 
-    "#{text}[source]#{source}[/source]"
+    DbEntries::Description.from_text_source(text, source).description
   end
 end

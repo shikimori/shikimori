@@ -55,7 +55,8 @@ en:
       version:
         reason: &optional Optional
       anime: &anime_hints
-        source: *optional
+        description_ru_source: *optional
+        description_en_source: *optional
         episodes: It must be "0" for ongoings with an unknown total number of episodes
       manga:
         <<: *anime_hints

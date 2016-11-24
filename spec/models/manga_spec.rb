@@ -45,20 +45,35 @@ describe Manga do
   end
 
   describe 'scopes' do
-    before do
-      [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
-        create :manga, read_manga_id: read_manga_id
-      end
-    end
-
     describe '#read_manga' do
+      before do
+        [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
+          create :manga, read_manga_id: read_manga_id
+        end
+      end
+
       it { expect(Manga.read_manga).to have(1).item }
       it { expect(Manga.read_manga.first.read_manga_id).to eq 'rm_katana' }
     end
 
     describe '#read_manga_adult' do
+      before do
+        [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
+          create :manga, read_manga_id: read_manga_id
+        end
+      end
+
       it { expect(Manga.read_manga_adult).to have(1).item }
       it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
+    end
+
+    describe '#with_description_ru_source' do
+      subject { Manga.with_description_ru_source }
+
+      let!(:manga_1) { create :manga, description_ru: 'foo[source]bar[/source]' }
+      let!(:manga_2) { create :manga, description_ru: 'foo[source][/source]' }
+
+      it { is_expected.to eq [manga_1] }
     end
   end
 

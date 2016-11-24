@@ -183,6 +183,9 @@ class Anime < DbEntry
   before_save :generate_news
   after_create :generate_name_matches
 
+  scope :with_description_ru_source,
+    -> { where.not("description_ru LIKE '%[source][/source]'") }
+
   def episodes= value
     value.blank? ? super(0) : super(value)
   end

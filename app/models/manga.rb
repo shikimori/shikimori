@@ -104,6 +104,9 @@ class Manga < DbEntry
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
 
+  scope :with_description_ru_source,
+    -> { where.not("description_ru LIKE '%[source][/source]'") }
+
   after_create :generate_name_matches
 
   def name
