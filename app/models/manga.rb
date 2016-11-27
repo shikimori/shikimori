@@ -94,7 +94,9 @@ class Manga < DbEntry
     inverse_of: :entry,
     dependent: :destroy
 
-  enumerize :kind, in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin], predicates: { prefix: true }
+  enumerize :kind,
+    in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin],
+    predicates: { prefix: true }
   enumerize :status, in: [:anons, :ongoing, :released], predicates: true
 
   validates :name, presence: true

@@ -16,9 +16,8 @@ class Animes::SearchQuery
 private
 
   def elastic_results
-    Elasticsearch::Search.call(
+    Elasticsearch::Search::Anime.call(
       phrase: @phrase,
-      type: @scope.model.name.downcase,
       limit: @ids_limit
     )
   end

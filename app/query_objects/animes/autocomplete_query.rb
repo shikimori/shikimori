@@ -4,6 +4,10 @@ class Animes::AutocompleteQuery
   LIMIT = 16
 
   def call
-    Animes::SearchQuery.call scope: @scope, phrase: @phrase, ids_limit: LIMIT
+    Animes::SearchQuery.call(
+      scope: @scope,
+      phrase: @phrase,
+      ids_limit: LIMIT
+    ).reverse
   end
 end

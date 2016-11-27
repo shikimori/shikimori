@@ -6,6 +6,7 @@ class Elasticsearch::Config
   include Singleton
 
   CONFIG_FILE = Rails.root.join('config/app/elasticsearch.yml')
+  INDEX = :shikimori
 
   def [] key
     config[key]
