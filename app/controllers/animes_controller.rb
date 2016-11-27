@@ -149,7 +149,7 @@ class AnimesController < DbEntriesController
   end
 
   def autocomplete
-    @collection = Animes::AutocompleteQuery.call(
+    @collection = Autocomplete::Anime.call(
       scope: Anime.all,
       phrase: params[:search] || params[:q]
     )

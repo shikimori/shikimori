@@ -1,4 +1,4 @@
-class NameMatches::Search < ServiceObjectBase
+class NameMatches::LikeSearch < ServiceObjectBase
   vattr_initialize :scope, :phrase
 
   JOIN_ALIAS = 'name_matches'

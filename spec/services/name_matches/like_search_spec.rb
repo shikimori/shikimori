@@ -1,5 +1,5 @@
-describe NameMatches::Search do
-  let(:service) { NameMatches::Search.new scope, phrase }
+describe NameMatches::LikeSearch do
+  let(:service) { NameMatches::LikeSearch.new scope, phrase }
 
   let!(:anime_1) { create :anime, name: 'Tes' }
   let!(:anime_2) { create :anime, name: 'Tea' }

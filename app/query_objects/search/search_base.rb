@@ -1,7 +1,8 @@
 # how to order by id position
 #   https://gist.github.com/cpjolicoeur/3590737#gistcomment-1606739
-class Animes::SearchQuery
+class Search::SearchBase
   method_object [:scope, :phrase, :ids_limit]
+  attr_implement :search_klass
 
   def call
     search_ids = elastic_results.map { |v| v['_id'] }
@@ -16,20 +17,24 @@ class Animes::SearchQuery
 private
 
   def elastic_results
-    Elasticsearch::Search::Anime.call(
+    search_klass.call(
       phrase: @phrase,
       limit: @ids_limit
     )
+  end
+
+  def search_klass
+    "Elasticsearch::Search::#{self.class.name.split('::').last}".constantize
   end
 
   def order_sql search_ids
     ids = search_ids.join(',')
 
     <<-SQL.squish
-      censored,
       position(
         #{@scope.model.table_name}.id::text in #{@scope.sanitize ids}
       )
     SQL
   end
 end
+

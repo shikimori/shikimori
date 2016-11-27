@@ -1,6 +1,6 @@
-describe Animes::SearchQuery do
+describe Search::Anime do
   subject(:query) do
-    Animes::SearchQuery.call(
+    Search::Anime.call(
       scope: scope,
       phrase: phrase,
       ids_limit: ids_limit

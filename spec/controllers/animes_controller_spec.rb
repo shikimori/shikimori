@@ -154,7 +154,7 @@ describe AnimesController do
     let(:anime) { build_stubbed :anime }
     let(:phrase) { 'qqq' }
 
-    before { allow(Animes::AutocompleteQuery).to receive(:call).and_return [anime] }
+    before { allow(Autocomplete::Anime).to receive(:call).and_return [anime] }
     before { get :autocomplete, search: 'Fff' }
 
     it do

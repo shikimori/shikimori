@@ -1,0 +1,19 @@
+class Autocomplete::AutocompleteBase
+  method_object [:scope, :phrase]
+
+  LIMIT = 16
+
+  def call
+    autocomplete_klass.call(
+      scope: @scope,
+      phrase: @phrase,
+      ids_limit: LIMIT
+    ).reverse
+  end
+
+private
+
+  def autocomplete_klass
+    "Search::#{self.class.name.split('::').last}".constantize
+  end
+end
