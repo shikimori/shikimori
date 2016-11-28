@@ -12,7 +12,7 @@ class Elasticsearch::Reindex < ServiceObjectBase
     people
     users
 
-    Rails.cache.write(CACHE_KEY) { Time.zone.now }
+    Rails.cache.write CACHE_KEY, Time.zone.now
   end
 
   def self.time
