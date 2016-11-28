@@ -3,7 +3,10 @@ describe Search::Person do
     Search::Person.call(
       scope: scope,
       phrase: phrase,
-      ids_limit: ids_limit
+      ids_limit: ids_limit,
+      is_mangaka: is_mangaka,
+      is_seyu: is_seyu,
+      is_producer: is_producer
     )
   end
 
@@ -11,6 +14,9 @@ describe Search::Person do
     let(:scope) { Person.all }
     let(:phrase) { 'Kaichou' }
     let(:ids_limit) { 10 }
+    let(:is_mangaka) { false }
+    let(:is_producer) { true }
+    let(:is_seyu) { false }
 
     let!(:person_1) { create :person }
     let!(:person_2) { create :person }
@@ -18,7 +24,13 @@ describe Search::Person do
 
     before do
       allow(Elasticsearch::Search::Person).to receive(:call)
-        .with(phrase: phrase, limit: ids_limit)
+        .with(
+          phrase: phrase,
+          limit: ids_limit,
+          is_mangaka: is_mangaka,
+          is_producer: is_producer,
+          is_seyu: is_seyu
+        )
         .and_return [
           { '_id' => person_3.id },
           { '_id' => person_1.id }

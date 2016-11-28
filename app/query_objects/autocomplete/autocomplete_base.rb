@@ -1,5 +1,5 @@
 class Autocomplete::AutocompleteBase
-  method_object [:scope, :phrase]
+  method_object %i(scope phrase)
 
   LIMIT = 16
 

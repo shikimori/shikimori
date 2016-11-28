@@ -1,7 +1,7 @@
 # how to order by id position
 #   https://gist.github.com/cpjolicoeur/3590737#gistcomment-1606739
 class Search::SearchBase
-  method_object [:scope, :phrase, :ids_limit]
+  method_object %i(scope phrase ids_limit)
   attr_implement :search_klass
 
   def call

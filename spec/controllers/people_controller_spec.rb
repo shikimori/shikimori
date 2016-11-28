@@ -1,12 +1,21 @@
 describe PeopleController do
   let!(:person) { create :person }
 
-  describe '#index' do
-    let!(:person_2) { create :person, name: 'test', mangaka: true }
-    before { get :index, search: 'test', kind: 'mangaka' }
+  describe '#autocomplete' do
+    let(:phrase) { 'qqq' }
+    let(:kind) { 'mangaka' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(assigns :collection).to eq [person_2] }
+    before do
+      allow(Search::Person)
+        .to receive(:call)
+        .and_return Person.where(id: person.id)
+    end
+    before { get :index, search: 'Fff', kind: kind }
+
+    it do
+      expect(collection).to eq [person]
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#show' do
@@ -33,16 +42,17 @@ describe PeopleController do
   end
 
   describe '#autocomplete' do
-    %w(mangaka seyu producer).each do |kind|
-      describe kind do
-        let!(:person_1) { create :person, kind => true, name: 'Fffff' }
-        let!(:person_2) { create :person, kind => true, name: 'zzz Ffff' }
-        let!(:person_3) { create :person, name: 'Ffff' }
-        before { get :autocomplete, search: 'Fff', kind: kind }
+    let(:person) { build_stubbed :person }
+    let(:phrase) { 'qqq' }
+    let(:kind) { 'mangaka' }
 
-        it { expect(response).to have_http_status :success }
-        it { expect(response.content_type).to eq 'application/json' }
-      end
+    before { allow(Autocomplete::Person).to receive(:call).and_return [person] }
+    before { get :autocomplete, search: 'Fff', kind: kind }
+
+    it do
+      expect(collection).to eq [person]
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
     end
   end
 end

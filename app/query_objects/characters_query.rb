@@ -1,8 +1,4 @@
 class CharactersQuery < PeopleQuery
-  def initialize params
-    super params, Character
-  end
-
   def fill_works fetched_query
     people_by_id = fill_by_id fetched_query
 

@@ -410,7 +410,7 @@ describe AniMangaQuery do
       let!(:anime_2) { create :anime }
 
       before do
-        allow(Animes::SearchQuery).to receive(:call)
+        allow(Search::Anime).to receive(:call)
           .and_return(Anime.where(id: anime_2.id))
           # .with(scope: Anime.all, phrase: phrase, ids_limit: AniMangaQuery::SEARCH_IDS_LIMIT)
       end
