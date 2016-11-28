@@ -1,5 +1,5 @@
-describe Elasticsearch::Search::Character do
-  let(:service) { Elasticsearch::Search::Character.new phrase: phrase, limit: limit }
+describe Elasticsearch::Query::Character do
+  let(:service) { Elasticsearch::Query::Character.new phrase: phrase, limit: limit }
 
   describe '#call', :vcr do
     let(:phrase) { 'nana' }

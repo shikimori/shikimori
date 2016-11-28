@@ -23,7 +23,7 @@ describe Search::Person do
     let!(:person_3) { create :person }
 
     before do
-      allow(Elasticsearch::Search::Person).to receive(:call)
+      allow(Elasticsearch::Query::Person).to receive(:call)
         .with(
           phrase: phrase,
           limit: ids_limit,

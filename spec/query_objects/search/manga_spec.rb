@@ -17,7 +17,7 @@ describe Search::Manga do
     let!(:manga_3) { create :manga }
 
     before do
-      allow(Elasticsearch::Search::Manga).to receive(:call)
+      allow(Elasticsearch::Query::Manga).to receive(:call)
         .with(phrase: phrase, limit: ids_limit)
         .and_return [
           { '_id' => manga_3.id },

@@ -17,7 +17,7 @@ describe Search::Anime do
     let!(:anime_3) { create :anime }
 
     before do
-      allow(Elasticsearch::Search::Anime).to receive(:call)
+      allow(Elasticsearch::Query::Anime).to receive(:call)
         .with(phrase: phrase, limit: ids_limit)
         .and_return [
           { '_id' => anime_3.id },

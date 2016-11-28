@@ -17,7 +17,7 @@ describe Search::Character do
     let!(:character_3) { create :character }
 
     before do
-      allow(Elasticsearch::Search::Character).to receive(:call)
+      allow(Elasticsearch::Query::Character).to receive(:call)
         .with(phrase: phrase, limit: ids_limit)
         .and_return [
           { '_id' => character_3.id },

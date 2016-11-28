@@ -17,7 +17,7 @@ describe Search::User do
     let!(:user_3) { create :user }
 
     before do
-      allow(Elasticsearch::Search::User).to receive(:call)
+      allow(Elasticsearch::Query::User).to receive(:call)
         .with(phrase: phrase, limit: ids_limit)
         .and_return [
           { '_id' => user_3.id },

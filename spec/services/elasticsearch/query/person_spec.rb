@@ -1,6 +1,6 @@
-describe Elasticsearch::Search::Person do
+describe Elasticsearch::Query::Person do
   let(:service) do
-    Elasticsearch::Search::Person.new(
+    Elasticsearch::Query::Person.new(
       phrase: phrase,
       limit: limit,
       is_mangaka: is_mangaka,

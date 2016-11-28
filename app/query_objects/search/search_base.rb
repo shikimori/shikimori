@@ -24,7 +24,7 @@ private
   end
 
   def search_klass
-    "Elasticsearch::Search::#{self.class.name.split('::').last}".constantize
+    "Elasticsearch::Query::#{self.class.name.split('::').last}".constantize
   end
 
   def order_sql search_ids

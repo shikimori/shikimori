@@ -1,5 +1,5 @@
-describe Elasticsearch::Search::Manga do
-  let(:service) { Elasticsearch::Search::Manga.new phrase: phrase, limit: limit }
+describe Elasticsearch::Query::Anime do
+  let(:service) { Elasticsearch::Query::Anime.new phrase: phrase, limit: limit }
 
   describe '#call', :vcr do
     let(:phrase) { 'kai' }

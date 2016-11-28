@@ -1,4 +1,4 @@
-class Elasticsearch::Search::Person < Elasticsearch::Search::SearchBase
+class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBase
   method_object [:phrase, :limit, :is_mangaka, :is_seyu, :is_producer]
 
 private

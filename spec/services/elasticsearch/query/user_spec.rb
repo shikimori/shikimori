@@ -1,5 +1,5 @@
-describe Elasticsearch::Search::User do
-  let(:service) { Elasticsearch::Search::User.new phrase: phrase, limit: limit }
+describe Elasticsearch::Query::User do
+  let(:service) { Elasticsearch::Query::User.new phrase: phrase, limit: limit }
 
   describe '#call', :vcr do
     let(:phrase) { 'morr' }
