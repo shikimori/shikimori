@@ -305,7 +305,7 @@ private
   def search!
     return if @search_phrase.blank?
 
-    @query = "::Search::#{@klass.name}".constantize.call(
+    @query = "Search::#{@klass.name}".constantize.call(
       scope: @query,
       phrase: @search_phrase,
       ids_limit: SEARCH_IDS_LIMIT

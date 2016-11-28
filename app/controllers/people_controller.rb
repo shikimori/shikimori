@@ -15,7 +15,7 @@ class PeopleController < DbEntriesController
     page_title search_title
 
     @collection = postload_paginate(params[:page], 48) do
-      ::Search::Person.call search_params.merge(ids_limit: 480)
+      Search::Person.call search_params.merge(ids_limit: 480)
     end
   end
 
