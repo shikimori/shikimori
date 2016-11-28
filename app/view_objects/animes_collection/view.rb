@@ -43,7 +43,13 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache_expires_in
-    h.params[:season] || h.params[:status] ? 1.day : 3.days
+    if h.params[:search] || h.params[:q]
+      1.hour
+    elsif h.params[:season] || h.params[:status]
+      1.day
+    else
+      3.days
+    end
   end
 
   def url changed_params
