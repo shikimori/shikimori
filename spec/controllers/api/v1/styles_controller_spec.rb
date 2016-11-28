@@ -59,13 +59,13 @@ describe Api::V1::StylesController, :show_in_doc do
     end
   end
 
-  describe '#destroy' do
-    let(:style) { create :style, owner: user }
-    before { delete :destroy, id: style.id, format: :json }
+  # describe '#destroy' do
+    # let(:style) { create :style, owner: user }
+    # before { delete :destroy, id: style.id, format: :json }
 
-    it do
-      expect(resource).to be_destroyed
-      expect(response).to have_http_status :no_content
-    end
-  end
+    # it do
+      # expect(resource).to be_destroyed
+      # expect(response).to have_http_status :no_content
+    # end
+  # end
 end

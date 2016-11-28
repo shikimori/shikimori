@@ -1,24 +1,7 @@
-# TODO: refactor from "expect((...).size).to eq(...)" to expect(...).to eq [...]
 describe AniMangaQuery do
-  # describe '#complete', :focus do
-  describe '#complete' do
-    let!(:anime_1) { create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'] }
-    let!(:anime_2) { create :anime, name: 'testt', synonyms: ['xxxx'] }
-    let!(:anime_3) { create :anime, name: 'zula zula', russian: 'дада То' }
-    let!(:anime_4) { create :anime, name: 'Test', english: ['bbbb'], japanese: ['シュタインズ ゲー'] }
-
-    it do
-      expect(AniMangaQuery.new(Anime, { search: 'test' }, nil).complete).to have(2).items
-      expect(AniMangaQuery.new(Anime, { search: 'シュタインズ' }, nil).complete).to have(2).items
-      expect(AniMangaQuery.new(Anime, { search: 'z z' }, nil).complete).to have(1).item
-      expect(AniMangaQuery.new(Anime, { search: 'fofo' }, nil).complete).to have(0).items
-      expect(AniMangaQuery.new(Anime, { search: 'То' }, nil).complete).to have(1).item
-    end
-  end
-
   describe '#fetch' do
-    def fetch options = {}, user = nil, page = nil, limit = nil
-      AniMangaQuery.new(Anime, options, user).fetch(page, limit).to_a
+    def fetch options = {}, user = nil
+      AniMangaQuery.new(Anime, options, user).fetch.to_a
     end
 
     context 'type' do
@@ -423,71 +406,17 @@ describe AniMangaQuery do
     end
 
     describe 'search' do
+      let!(:anime_1) { create :anime }
+      let!(:anime_2) { create :anime }
+
       before do
-        create :anime, name: 'ffff', japanese: ['kkkk', 'シュタインズ ゲート'], ranked: 1
-        @ranked = create :anime, name: 'testt', synonyms: ['xxxx'], ranked: 2
-        create :anime, name: 'zula zula', russian: 'дада', ranked: 3
-        @exact = create :anime, name: 'test', english: ['bbbb'], japanese: ['シュタインズ ゲー'], ranked: 4
+        allow(Search::Anime).to receive(:call)
+          .and_return(Anime.where(id: anime_2.id))
+          # .with(scope: Anime.all, phrase: phrase, ids_limit: AniMangaQuery::SEARCH_IDS_LIMIT)
       end
+      let(:phrase) { 'search query' }
 
-      it 'abbreviations match' do
-        expect(fetch search: 'zz').to have(1).item
-      end
-      it 'partial match' do
-        expect(fetch search: 'test').to have(2).items
-      end
-      it 'correct sort order in partial search' do
-        expect(fetch(search: 'test').first).to eq @exact
-      end
-      it 'correct sort order with order param' do
-        expect(fetch(search: 'test', order: 'ranked').first).to eq @ranked
-      end
-      it 'full match' do
-        expect(fetch search: 'testt').to have(1).item
-      end
-      it 'two words' do
-        expect(fetch search: 'zz').to have(1).item
-      end
-      it 'two split words' do
-        expect(fetch search: 'zu zu').to have(1).item
-      end
-      it 'broken translit' do
-        expect(fetch search: 'ягдф ягдф').to have(1).item
-      end
-      it 'broken translit split words' do
-        expect(fetch search: 'яг яг').to have(1).item
-      end
-      it 'russian' do
-        expect(fetch search: 'да').to have(1).item
-      end
-      it 'synonyms' do
-        expect(fetch search: 'xxx').to have(1).item
-      end
-      it 'english' do
-        expect(fetch search: 'bbbb').to have(1).item
-      end
-      it 'japanese' do
-        expect(fetch search: 'シュタインズ').to have(2).items
-      end
-      it 'star mark english' do
-        expect(fetch search: 'z*la').to have(1).item
-      end
-      it 'star mark japanese' do
-        expect(fetch search: 'シュ*ンズ*ート').to have(1).item
-      end
-    end
-
-    describe 'paginated' do
-      let!(:anime_1) { create :anime, :tv, episodes: 13 }
-      let!(:anime_2) { create :anime, :tv, episodes: 0, episodes_aired: 13 }
-
-      it 'first page' do
-        expect(fetch({}, nil, 1, 1)).to eq [anime_1, anime_2]
-      end
-
-      it 'second page' do
-        expect(fetch({}, nil, 2, 1)).to eq [anime_2]
-      end
+      it { expect(fetch search: phrase).to eq [anime_2] }
     end
 
     describe 'with_video' do

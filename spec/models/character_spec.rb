@@ -15,6 +15,7 @@ describe Character do
     it { is_expected.to have_many :cosplay_galleries }
   end
 
-  it_behaves_like :touch_related_in_db_entry, :manga
+  it_behaves_like :touch_related_in_db_entry, :character
   it_behaves_like :topics_concern_in_db_entry, :character
+  it_behaves_like :elasticsearch_concern, :character
 end

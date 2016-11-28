@@ -48,7 +48,7 @@ shared_examples :db_entry_controller do |entry_name|
 
       describe 'name' do
         let(:field) { 'name' }
-        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+        it { expect { make_request }.to raise_error CanCan::AccessDenied }
       end
     end
 
@@ -72,8 +72,9 @@ shared_examples :db_entry_controller do |entry_name|
   end
 
   describe '#update' do
-    let(:make_request) { patch :update,
-      { id: entry.id }.merge(entry_name => changes) }
+    let(:make_request) do
+      patch :update, { id: entry.id }.merge(entry_name => changes)
+    end
     let(:role) { :user }
 
     describe 'common user' do
@@ -81,7 +82,7 @@ shared_examples :db_entry_controller do |entry_name|
 
       context 'common change' do
         before { make_request }
-        let(:changes) {{ russian: 'test' }}
+        let(:changes) { { russian: 'test' } }
 
         it do
           expect(resource).to_not have_attributes changes
@@ -92,14 +93,14 @@ shared_examples :db_entry_controller do |entry_name|
       end
 
       context 'significant change' do
-        let(:changes) {{ name: 'test' }}
-        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+        let(:changes) { { name: 'test' } }
+        it { expect { make_request }.to raise_error CanCan::AccessDenied }
       end
     end
 
     describe 'moderator' do
       include_context :authenticated, :versions_moderator
-      let(:changes) {{ russian: 'test' }}
+      let(:changes) { { russian: 'test' } }
       before { make_request }
 
       it do
@@ -178,6 +179,75 @@ shared_examples :topics_concern_in_db_entry do |db_entry|
   end
 end
 
+shared_examples :elasticsearch_concern do |type|
+  describe 'elasticsearch concern' do
+    let(:client) { Elasticsearch::Client.instance }
+    let(:url) { "#{Elasticsearch::Config::INDEX}/#{type}/#{entry.id}" }
+    let(:data_klass) { "Elasticsearch::Data::#{entry.class.name}".constantize }
+    let(:data) { data_klass.call entry }
+
+    before do
+      allow(Elasticsearch::Create).to receive :perform_async
+      allow(Elasticsearch::Update).to receive :perform_async
+      allow(Elasticsearch::Destroy).to receive :perform_async
+    end
+
+    describe '#post_elastic' do
+      let!(:entry) { create type, :with_elasticserach }
+
+      it do
+        expect(Elasticsearch::Create).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
+        expect(Elasticsearch::Update).to_not have_received :perform_async
+        expect(Elasticsearch::Destroy).to_not have_received :perform_async
+      end
+    end
+
+    describe '#put_elastic' do
+      let!(:entry) { create type, :with_elasticserach }
+
+      before { entry.update! field => Date.today.to_s }
+
+      context 'not elastic field' do
+        let(:field) { :updated_at }
+
+        it do
+          expect(Elasticsearch::Create).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Update).to_not have_received :perform_async
+          expect(Elasticsearch::Destroy).to_not have_received :perform_async
+        end
+      end
+
+      context 'elastic field' do
+        let(:field) { data_klass::ALL_FIELDS.first }
+
+        it do
+          expect(Elasticsearch::Create).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Update).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Destroy).to_not have_received :perform_async
+        end
+      end
+    end
+
+    describe '#delete_elastic' do
+      let!(:entry) { create type, :with_elasticserach }
+
+      before { entry.destroy! }
+
+      it do
+        expect(Elasticsearch::Create).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
+        expect(Elasticsearch::Update).to_not have_received :perform_async
+        expect(Elasticsearch::Destroy).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
+      end
+    end
+  end
+end
+
 shared_examples :touch_related_in_db_entry do |db_entry|
   describe '#touch_related' do
     let(:model) { create db_entry }
@@ -201,7 +271,7 @@ shared_examples :touch_related_in_db_entry do |db_entry|
     end
 
     context 'other fields' do
-      let(:field) { :description_ru }
+      let(:field) { :updated_at }
       it { expect(DbEntries::TouchRelated).to_not have_received :perform_async }
     end
   end

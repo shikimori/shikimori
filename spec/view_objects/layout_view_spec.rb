@@ -87,8 +87,14 @@ describe LayoutView do
 
   describe '#background_styles' do
     before do
-      allow(view.h.controller).to receive(:instance_variable_get)
-        .with('@user').and_return user
+      allow(view.h.controller)
+        .to receive(:instance_variable_get)
+        .with('@user')
+        .and_return user
+      allow(view.h.controller)
+        .to receive(:instance_variable_get)
+        .with('@club')
+        .and_return nil
     end
 
     it do

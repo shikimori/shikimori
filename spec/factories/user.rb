@@ -20,6 +20,18 @@ FactoryGirl.define do
       user.class.skip_callback :create, :after, :assign_style
       user.class.skip_callback :create, :after, :send_welcome_message
       user.class.skip_callback :create, :after, :grab_avatar
+
+      user.class.skip_callback :create, :after, :post_elastic
+      user.class.skip_callback :update, :after, :put_elastic
+      user.class.skip_callback :destroy, :after, :delete_elastic
+    end
+
+    trait :with_elasticserach do
+      after :build do |user|
+        user.class.set_callback :create, :after, :post_elastic
+        user.class.set_callback :update, :after, :put_elastic
+        user.class.set_callback :destroy, :after, :delete_elastic
+      end
     end
 
     trait :with_assign_style do

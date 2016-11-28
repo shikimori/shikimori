@@ -1,5 +1,12 @@
 describe AnimesCollection::RecommendationsQuery do
-  let(:query) { AnimesCollection::RecommendationsQuery.new Anime, params, nil }
+  let(:query) do
+    AnimesCollection::RecommendationsQuery.new(
+      klass: Anime,
+      params: params,
+      user: nil,
+      limit: 20
+    )
+  end
   let(:params) do
     {
       AnimesCollection::RecommendationsQuery::IDS_KEY => [
@@ -13,7 +20,7 @@ describe AnimesCollection::RecommendationsQuery do
   let(:exclude_ids) { [] }
 
   describe '#fetch' do
-    subject(:page) { query.fetch }
+    subject(:page) { query.call }
 
     let!(:anime_1) { create :anime, ranked: 1 }
     let!(:anime_2) { create :anime, ranked: 2 }

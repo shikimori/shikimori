@@ -4,11 +4,19 @@ describe CharactersController do
   include_examples :db_entry_controller, :character
 
   describe '#index' do
-    let!(:character_2) { create :character, name: 'zzz' }
-    before { get :index, search: 'zzz' }
+    let(:phrase) { 'qqq' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(assigns :collection).to eq [character_2] }
+    before do
+      allow(Search::Character)
+        .to receive(:call)
+        .and_return Character.where(id: character.id)
+    end
+    before { get :index, search: 'Fff' }
+
+    it do
+      expect(collection).to eq [character]
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#show' do
@@ -88,10 +96,16 @@ describe CharactersController do
   end
 
   describe '#autocomplete' do
-    let!(:character_1) { create :character, name: 'Fffff' }
+    let(:character) { build_stubbed :character }
+    let(:phrase) { 'qqq' }
+
+    before { allow(Autocomplete::Character).to receive(:call).and_return [character] }
     before { get :autocomplete, search: 'Fff' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(response.content_type).to eq 'application/json' }
+    it do
+      expect(collection).to eq [character]
+      expect(response.content_type).to eq 'application/json'
+      expect(response).to have_http_status :success
+    end
   end
 end

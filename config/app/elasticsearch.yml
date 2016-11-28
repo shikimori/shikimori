@@ -1,0 +1,187 @@
+---
+  :analysis: &analysis
+    filter:
+      word_split:
+        type: word_delimiter
+        preserve_original: 1
+      edgeNGram_filter:
+        type: edgeNGram
+        min_gram: 2
+        max_gram: 30
+        side: front
+      stop_small_words:
+        type: length
+        min: 2
+      stop_junk_words:
+        type: stop
+        stopwords:
+          - the
+      distinct_words:
+        type: unique
+        only_on_same_position: false
+    # чтобы он работал нормально, все отправляемое в elastic должно быть downcase
+    char_filter:
+      fix_synonyms:
+        type: mapping
+        mappings:
+          - 'wo => o'
+          - 'ou => o'
+          - 'oh => o'
+          - 'uu => u'
+          - 'sh => s'
+          # - 'i => 1'
+          # - 'ii => 2'
+          # - 'iii => 3'
+    tokenizer:
+      edge_ngram_tokenizer:
+        type: edgeNGram
+        min_gram: '3'
+        max_gram: '12'
+        token_chars:
+          - letter
+          - digit
+    analyzer:
+      ngram_analyzer:
+        type: custom
+        tokenizer: edge_ngram_tokenizer
+        filter:
+          - lowercase
+          - asciifolding
+          - word_split
+          - stop_small_words
+          # - stop_junk_words
+          - edgeNGram_filter
+          - distinct_words
+        char_filter:
+          - fix_synonyms
+      input_analyzer:
+        type: custom
+        tokenizer: whitespace
+        filter:
+          - lowercase
+          - asciifolding
+          - stop_small_words
+          # - stop_junk_words
+          - word_split
+          - distinct_words
+        char_filter:
+          - fix_synonyms
+      original_analyzer:
+        type: custom
+        tokenizer: keyword
+        filter:
+          - lowercase
+          - asciifolding
+        char_filter:
+          - fix_synonyms
+
+  :default_index_data: &default_index_data
+    _source:
+      enabled: false
+    _all:
+      enabled: false
+
+  :name_properties: &name_properties
+    type: string
+    analyzer: input_analyzer
+    search_analyzer: input_analyzer
+
+    fields:
+      original:
+        type: string
+        analyzer: original_analyzer
+        search_analyzer: original_analyzer
+      ngram:
+        type: string
+        analyzer: ngram_analyzer
+        search_analyzer: input_analyzer
+
+  :node:
+    settings:
+      analysis:
+        <<: *analysis
+    mappings:
+      anime:
+        <<: *default_index_data
+        properties:
+          weight:
+            type: half_float
+            index: not_analyzed
+          name:
+            <<: *name_properties
+          russian:
+            <<: *name_properties
+          english:
+            <<: *name_properties
+          japanese:
+            <<: *name_properties
+          synonym_0:
+            <<: *name_properties
+          synonym_1:
+            <<: *name_properties
+          synonym_2:
+            <<: *name_properties
+          synonym_3:
+            <<: *name_properties
+          synonym_4:
+            <<: *name_properties
+          synonym_5:
+            <<: *name_properties
+      manga:
+        <<: *default_index_data
+        properties:
+          weight:
+            type: half_float
+            index: not_analyzed
+          name:
+            <<: *name_properties
+          russian:
+            <<: *name_properties
+          english:
+            <<: *name_properties
+          japanese:
+            <<: *name_properties
+          synonym_0:
+            <<: *name_properties
+          synonym_1:
+            <<: *name_properties
+          synonym_2:
+            <<: *name_properties
+          synonym_3:
+            <<: *name_properties
+          synonym_4:
+            <<: *name_properties
+          synonym_5:
+            <<: *name_properties
+      character:
+        <<: *default_index_data
+        properties:
+          fullname:
+            <<: *name_properties
+          russian:
+            <<: *name_properties
+          japanese:
+            <<: *name_properties
+      person:
+        <<: *default_index_data
+        properties:
+          name:
+            <<: *name_properties
+          russian:
+            <<: *name_properties
+          japanese:
+            <<: *name_properties
+          is_seyu:
+            type: boolean
+            index: not_analyzed
+          is_producer:
+            type: boolean
+            index: not_analyzed
+          is_mangaka:
+            type: boolean
+            index: not_analyzed
+      user:
+        <<: *default_index_data
+        properties:
+          nickname:
+            <<: *name_properties

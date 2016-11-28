@@ -2,6 +2,7 @@
 
 class Character < DbEntry
   include TopicsConcern
+  include ElasticsearchConcern
 
   DESYNCABLE = %w(name japanese description_en image)
 

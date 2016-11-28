@@ -22,6 +22,12 @@ describe Api::V1::PeopleController, :show_in_doc do
   describe '#search' do
     let!(:person_1) { create :person, name: 'asdf' }
     let!(:person_2) { create :person, name: 'zxcv' }
+
+    before do
+      allow(Autocomplete::Person).to receive(:call) do |params|
+        params[:scope].where(id: person_1.id)
+      end
+    end
     before { get :search, q: 'asd', format: :json }
 
     it do

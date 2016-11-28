@@ -6,10 +6,10 @@ describe VideoExtractor::SovetRomanticaExtractor, :vcr do
     let(:embed_url) { 'https://sovetromantica.com/embed/episode_116_12-subtitles' }
 
     let(:player_url) { '//sovetromantica.com/embed/episode_116_12-subtitles' }
-    let(:image_url) { '//chitoge.sovetromantica.com/anime/116_91-days/images/episode_12_sub.jpg?1476637107' }
 
     context 'full url' do
       let(:url) { 'https://sovetromantica.com/anime/116-watashi-ga-motete-dousunda/episode_12-subtitles' }
+      let(:image_url) { '//chitoge.sovetromantica.com/anime/116_91-days/images/episode_12_sub.jpg?1476629907' }
 
       it do
         expect(subject.hosting).to eq :sovet_romantica
@@ -20,6 +20,7 @@ describe VideoExtractor::SovetRomanticaExtractor, :vcr do
 
     context 'embed url' do
       let(:url) { embed_url }
+      let(:image_url) { '//chitoge.sovetromantica.com/anime/116_91-days/images/episode_12_sub.jpg?1476637107' }
 
       it do
         expect(subject.hosting).to eq :sovet_romantica

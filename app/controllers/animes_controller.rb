@@ -149,7 +149,10 @@ class AnimesController < DbEntriesController
   end
 
   def autocomplete
-    @collection = AniMangaQuery.new(resource_klass, params, current_user).complete
+    @collection = Autocomplete::Anime.call(
+      scope: Anime.all,
+      phrase: params[:search] || params[:q]
+    )
   end
 
 private

@@ -35,9 +35,9 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
           it do
             expect(imported).to be_working
             expect(imported.anime_id).to eq anime.id
-            expect(imported.url).to eq 'http://video.sibnet.ru/shell.php?videoid=1537766'
-            expect(imported.source).to eq 'http://findanime.ru/xxxholic__shunmuki/series2?mature=1'
-            expect(imported.episode).to eq 2
+            expect(imported.url).to eq 'http://video.sibnet.ru/shell.php?videoid=1537764'
+            expect(imported.source).to eq 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1'
+            expect(imported.episode).to eq 1
             expect(imported.kind).to eq 'fandub'
             expect(imported.language).to eq 'russian'
             expect(imported.anime_video_author_id).to be_present

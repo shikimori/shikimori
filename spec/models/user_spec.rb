@@ -445,4 +445,6 @@ describe User do
       end
     end
   end
+
+  it_behaves_like :elasticsearch_concern, :user
 end

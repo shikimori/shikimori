@@ -1,3 +1,9 @@
+# `phrase` should have `varchar_pattern_ops` index:
+#   select * from pg_indexes where tablename = 'name_matches'
+#     CREATE INDEX target_type_phrase_search_index ON name_matches USING btree (
+#       target_type,
+#       phrase varchar_pattern_ops
+#     )
 class NameMatch < ActiveRecord::Base
   belongs_to :target, polymorphic: true
   belongs_to :anime,

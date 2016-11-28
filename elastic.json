@@ -1,0 +1,190 @@
+curl -XDELETE 'http://localhost:9200/tests' | jq
+curl -XPUT 'http://localhost:9200/tests' -d'{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "edge_ngram_tokenizer",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      },
+      "tokenizer": {
+        "edge_ngram_tokenizer": {
+          "type": "edgeNGram",
+          "min_gram": "3",
+          "max_gram": "12",
+          "token_chars": ["letter", "digit"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "test": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "analyzer":"my_analyzer"
+        }
+      }
+    }
+  }
+}' | jq
+
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi 2"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi", "watashi"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi watashi"] }' | jq
+
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "id": 1, "name": "watashi", "weight": "1" }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "id": 1, "name": "watashi", "weight": "6" }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "id": 1, "name": "watashi", "weight": "7" }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "id": 1, "name": "watashi", "weight": "8" }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "id": 2, "name": "watashi", "weight": "9" }' | jq
+
+sleep 1
+
+curl -XGET 'http://localhost:9200/tests/test/_search' -d'{
+  "query": {
+    "function_score": {
+      "query": {
+        "match": {
+          "name": "watashi"
+        }
+      },
+      "field_value_factor": {
+        "field": "weight",
+        "factor": 1,
+        "modifier": "none"
+      }
+    }
+  }
+}' | jq
+
+curl -XGET 'http://localhost:9200/tests/test/_search' -d'{
+    "query": {
+      "match": {
+        "name": "watashi"
+      }
+    }
+  }
+}' | jq
+
+
+
+
+
+
+
+
+
+
+curl -XDELETE 'http://localhost:9200/tests' | jq
+curl -XPUT 'http://localhost:9200/tests' -d'{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "test": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "analyzer":"my_analyzer"
+        }
+      }
+    }
+  }
+}' | jq
+
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi 2"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi watashi"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi", "watashifo"] }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": ["watashi watashifo"] }' | jq
+
+sleep 1
+
+curl -XGET 'http://localhost:9200/tests/test/_search' -d'{
+    "query": {
+      "match": {
+        "name": "watashi"
+      }
+    }
+  }
+}' | jq
+
+
+
+
+
+
+
+
+
+
+
+
+
+curl -XDELETE 'http://localhost:9200/tests' | jq
+curl -XPUT 'http://localhost:9200/tests' -d'{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_analyzer": {
+          "type": "custom",
+          "tokenizer": "keyword",
+          "filter": ["lowercase", "asciifolding"]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "test": {
+     "_source": {
+        "enabled": false
+      },
+      "properties": {
+        "name": {
+          "type": "string",
+          "analyzer":"my_analyzer"
+        },
+        "weight": {
+          "type": "half_float"
+        }
+      }
+    }
+  }
+}' | jq
+
+
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": "Gun x Sword", "weight": "1" }' | jq
+curl -XPOST 'http://localhost:9200/tests/test' -d'{ "name": "Sword Art Online", "weight": "1" }' | jq
+
+sleep 1
+
+curl -XGET 'http://localhost:9200/tests/test/_search' -d'{
+  "query": {
+    "function_score": {
+      "query": {
+        "match": {
+          "name": "Sword"
+        }
+      },
+      "field_value_factor": {
+        "field": "weight",
+        "factor": 1,
+        "modifier": "none"
+      }
+    }
+  }
+}' | jq
+
+

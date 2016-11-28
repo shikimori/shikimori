@@ -1,9 +1,7 @@
 class AnimesCollection::PageQuery
-  pattr_initialize :klass, :params, :user
+  method_object [:klass, :params, :user, :limit]
 
-  LIMIT = 20
-
-  def fetch
+  def call
     AnimesCollection::Page.new(
       collection: process(query),
       page: page,
@@ -24,10 +22,6 @@ private
   def entries_count
     size = query.size
     size.kind_of?(Hash) ? size.count : size
-  end
-
-  def limit
-    LIMIT
   end
 
   def process query

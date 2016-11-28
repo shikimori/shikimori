@@ -151,14 +151,14 @@ describe AnimesController do
   end
 
   describe '#autocomplete' do
-    let!(:anime_1) { create :anime, name: 'zzz Ffff' }
-    let!(:anime_2) { create :anime, name: 'Fffff' }
-    let!(:anime_3) { create :anime, name: 'Ff' }
+    let(:anime) { build_stubbed :anime }
+    let(:phrase) { 'qqq' }
 
+    before { allow(Autocomplete::Anime).to receive(:call).and_return [anime] }
     before { get :autocomplete, search: 'Fff' }
 
     it do
-      expect(collection).to eq [anime_1, anime_2]
+      expect(collection).to eq [anime]
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :success
     end

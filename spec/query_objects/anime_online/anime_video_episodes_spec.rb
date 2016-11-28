@@ -29,13 +29,13 @@ describe AnimeOnline::FilterSovetRomantica do
       expect(anime_video_episodes.first).to be_kind_of AnimeOnline::AnimeVideoEpisode
       expect(anime_video_episodes.first).to have_attributes(
         episode: 1,
-        kinds: %w(fandub subtitles),
-        hostings: %w(vk.com myvi.ru)
+        kinds: %i(fandub subtitles),
+        hostings: %i(vk myvi)
       )
       expect(anime_video_episodes.last).to have_attributes(
         episode: 2,
-        kinds: %w(fandub),
-        hostings: %w(myvi.ru)
+        kinds: %i(fandub),
+        hostings: %i(myvi)
       )
     end
   end

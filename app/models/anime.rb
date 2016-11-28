@@ -5,6 +5,7 @@
 class Anime < DbEntry
   include AniManga
   include TopicsConcern
+  include ElasticsearchConcern
 
   DESYNCABLE = %w(
     name kind episodes rating aired_on released_on status genres

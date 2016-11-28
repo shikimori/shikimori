@@ -10,6 +10,7 @@ describe Person do
     it { is_expected.to have_attached_file :image }
   end
 
-  it_behaves_like :touch_related_in_db_entry, :manga
+  it_behaves_like :touch_related_in_db_entry, :person
   it_behaves_like :topics_concern_in_db_entry, :person
+  it_behaves_like :elasticsearch_concern, :person
 end

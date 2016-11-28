@@ -1,3 +1,4 @@
+# refactor to models/concerns
 # модуль с логикой для модерируемых сущностей
 module Moderatable
   def moderated?

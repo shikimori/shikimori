@@ -17,6 +17,9 @@ describe Api::V1::AnimesController, :show_in_doc do
     end
 
     before do
+      allow(Search::Anime).to receive(:call) { |params| params[:scope] }
+    end
+    before do
       get :index,
         page: 1,
         limit: 1,
@@ -131,6 +134,11 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#search' do
     let!(:anime_1) { create :anime, name: 'asdf' }
     let!(:anime_2) { create :anime, name: 'zxcv' }
+    before do
+      allow(Search::Anime).to receive(:call) do |params|
+        params[:scope].where(id: anime_1)
+      end
+    end
     before { get :search, q: 'asd', censored: true, format: :json }
 
     it do

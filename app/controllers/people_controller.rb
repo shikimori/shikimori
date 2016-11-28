@@ -14,7 +14,9 @@ class PeopleController < DbEntriesController
     noindex
     page_title search_title
 
-    @collection = postload_paginate(params[:page], 48) { search_query.fetch }
+    @collection = postload_paginate(params[:page], 48) do
+      Search::Person.call search_params.merge(ids_limit: 480)
+    end
   end
 
   def show
@@ -37,7 +39,7 @@ class PeopleController < DbEntriesController
   end
 
   def autocomplete
-    @collection = PeopleQuery.new(params).complete
+    @collection = Autocomplete::Person.call search_params
   end
 
 private
@@ -48,6 +50,16 @@ private
       .permit(:russian, *Person::DESYNCABLE)
   rescue ActionController::ParameterMissing
     {}
+  end
+
+  def search_params
+    {
+      scope: Person.all,
+      phrase: SearchHelper.unescape(params[:search] || params[:q]),
+      is_seyu: params[:kind] == 'seyu',
+      is_mangaka: params[:kind] == 'mangaka',
+      is_producer: params[:kind] == 'producer'
+    }
   end
 
   def search_title
@@ -68,10 +80,6 @@ private
     else
       search_people_url(*args)
     end
-  end
-
-  def search_query
-    PeopleQuery.new params
   end
 
   def role_redirect

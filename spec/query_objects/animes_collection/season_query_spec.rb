@@ -1,9 +1,17 @@
 describe AnimesCollection::SeasonQuery do
-  let(:query) { AnimesCollection::SeasonQuery.new klass, params, nil }
+  let(:query) do
+    AnimesCollection::SeasonQuery.new(
+      klass: klass,
+      params: params,
+      user: nil,
+      limit: 20
+    )
+  end
   let(:klass) { Anime }
 
-  describe '#fetch' do
-    subject(:page) { query.fetch }
+  describe '#call' do
+    subject(:page) { query.call }
+
     let!(:anime_1) { create :anime, :tv, ranked: 1, aired_on: Date.parse('10-10-2016') }
     let!(:anime_2) { create :anime, :tv, ranked: 1, aired_on: Date.parse('10-10-2017') }
     let!(:anime_3) { create :anime, :ova, ranked: 2, aired_on: Date.parse('10-10-2016') }

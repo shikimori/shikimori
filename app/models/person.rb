@@ -2,6 +2,7 @@
 
 class Person < DbEntry
   include TopicsConcern
+  include ElasticsearchConcern
 
   DESYNCABLE = %w(name japanese website birthday image)
 

@@ -302,7 +302,7 @@ Site::Application.routes.draw do
         end
       end
 
-      resources :styles, only: [:show, :create, :update, :destroy] do
+      resources :styles, only: [:show, :create, :update] do #, :destroy
         post :preview, on: :collection
       end
     end

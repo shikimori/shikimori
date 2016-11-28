@@ -11,6 +11,19 @@ class CharactersController < PeopleController
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
 
+  def index
+    noindex
+    page_title search_title
+
+    @collection = postload_paginate(params[:page], 48) do
+      Search::Character.call(
+        scope: Character.all,
+        phrase: SearchHelper.unescape(params[:search] || params[:q]),
+        ids_limit: 480
+      )
+    end
+  end
+
   def show
     @itemtype = @resource.itemtype
   end
@@ -78,7 +91,10 @@ class CharactersController < PeopleController
   end
 
   def autocomplete
-    @collection = CharactersQuery.new(params).complete
+    @collection = Autocomplete::Character.call(
+      scope: Character.all,
+      phrase: params[:search] || params[:q]
+    )
   end
 
 private
@@ -101,9 +117,5 @@ private
 
   def search_url *args
     search_characters_url(*args)
-  end
-
-  def search_query
-    CharactersQuery.new params
   end
 end

@@ -12,6 +12,12 @@ describe Api::V1::CharactersController, :show_in_doc do
   describe '#search' do
     let!(:character_1) { create :character, name: 'asdf' }
     let!(:character_2) { create :character, name: 'zxcv' }
+
+    before do
+      allow(Autocomplete::Character).to receive(:call) do |params|
+        params[:scope].where(id: character_1.id)
+      end
+    end
     before { get :search, q: 'asd', format: :json }
 
     it do

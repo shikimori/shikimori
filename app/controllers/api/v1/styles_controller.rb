@@ -41,11 +41,11 @@ class Api::V1::StylesController < Api::V1::ApiController
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :DELETE, '/styles/:id', 'Destroy a style'
-  def destroy
-    @resource.destroy
-    head 204
-  end
+  # api :DELETE, '/styles/:id', 'Destroy a style'
+  # def destroy
+    # @resource.destroy
+    # head 204
+  # end
 
 private
 

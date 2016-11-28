@@ -8,13 +8,14 @@ class Api::V1::MangasController < Api::V1::ApiController
   api :GET, '/mangas', 'List mangas'
   def index
     limit = [[params[:limit].to_i, 1].max, 30].min
-    page = [params[:page].to_i, 1].max
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
-      AniMangaQuery
-        .new(Manga, params, current_user)
-        .fetch(page, limit)
-        .to_a
+      AnimesCollection::PageQuery.call(
+        klass: Manga,
+        params: params,
+        user: current_user,
+        limit: limit
+      ).collection
     end
 
     respond_with @collection, each_serializer: MangaSerializer
@@ -56,17 +57,10 @@ class Api::V1::MangasController < Api::V1::ApiController
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/mangas/search'
+  api :GET, '/mangas/search', 'Use "List mangas" API instead', deprecated: true
   def search
-    @collection = AniMangaQuery.new(
-      Manga,
-      {
-        search: params[:q],
-        censored: (params[:censored] == 'true' if params[:censored].present?)
-      },
-      current_user
-    ).complete
-    respond_with @collection, each_serializer: MangaSerializer
+    params[:limit] ||= 16
+    index
   end
 
 private

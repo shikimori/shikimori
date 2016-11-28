@@ -118,7 +118,7 @@
     .block.durations
       .subheadline = i18n_i 'Episode'
       ul.block-list.durations.anime-params
-        - AniMangaQuery::Durations.keys.each do |v|
+        - AniMangaQuery::DURATIONS.keys.each do |v|
           li class="duration-#{v}"
             input type="checkbox" autocomplete="off"
             = t ".anime.duration.#{v}"

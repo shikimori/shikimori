@@ -4,6 +4,8 @@ class AnimesCollection::View < ViewObjectBase
   instance_cache :collection, :results, :filtered_params
   delegate :page, :pages_count, to: :results
 
+  LIMIT = 20
+
   def collection
     if season_page?
       results.collection.each_with_object({}) do |(key, entries), memo|
@@ -30,7 +32,8 @@ class AnimesCollection::View < ViewObjectBase
 
   def cache_key
     user_key = user if h.params[:mylist]
-    initial_key = [:v2, klass.name, user_key]
+    reindex = Elasticsearch::Reindex.time if h.params[:search] || h.params[:q]
+    initial_key = ['v2', klass.name, user_key, reindex]
 
     h.params
       .except(:format, :controller, :action)
@@ -40,7 +43,13 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def cache_expires_in
-    h.params[:season] || h.params[:status] ? 1.day : 3.days
+    if h.params[:search] || h.params[:q]
+      1.hour
+    elsif h.params[:season] || h.params[:status]
+      1.day
+    else
+      3.days
+    end
   end
 
   def url changed_params
@@ -94,14 +103,29 @@ private
   end
 
   def recommendations_query
-    AnimesCollection::RecommendationsQuery.new(klass, h.params, user).fetch
+    AnimesCollection::RecommendationsQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 
   def season_query
-    AnimesCollection::SeasonQuery.new(klass, h.params, user).fetch
+    AnimesCollection::SeasonQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 
   def page_query
-    AnimesCollection::PageQuery.new(klass, h.params, user).fetch
+    AnimesCollection::PageQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 end
