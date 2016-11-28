@@ -1,12 +1,17 @@
 describe Api::V1::MangasController, :show_in_doc do
   describe '#index' do
+    include_context :authenticated, :user
+
     let(:user) { create :user }
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
     let(:manga) { create :manga, name: 'Test', aired_on: Date.parse('2014-01-01'), publishers: [publisher], genres: [genre], rating: :r }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
 
-    before { sign_in user }
+    before do
+      allow(Search::Manga).to receive(:call) { |params| params[:scope] }
+    end
+
     before do
       get :index,
         page: 1,
@@ -94,6 +99,11 @@ describe Api::V1::MangasController, :show_in_doc do
   describe '#search' do
     let!(:manga_1) { create :manga, name: 'asdf' }
     let!(:manga_2) { create :manga, name: 'zxcv' }
+    before do
+      allow(Search::Manga).to receive(:call) do |params|
+        params[:scope].where(id: manga_1)
+      end
+    end
     before { get :search, q: 'asd', censored: true, format: :json }
 
     it do

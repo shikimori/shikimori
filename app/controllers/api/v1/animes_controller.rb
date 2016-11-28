@@ -8,13 +8,14 @@ class Api::V1::AnimesController < Api::V1::ApiController
   api :GET, '/animes', 'List animes'
   def index
     limit = [[params[:limit].to_i, 1].max, 30].min
-    page = [params[:page].to_i, 1].max
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
-      AniMangaQuery
-        .new(Anime, params, current_user)
-        .fetch(page, limit)
-        .to_a
+      AnimesCollection::PageQuery.call(
+        klass: Anime,
+        params: params,
+        user: current_user,
+        limit: limit
+      ).collection
     end
 
     respond_with @collection, each_serializer: AnimeSerializer
@@ -70,23 +71,20 @@ class Api::V1::AnimesController < Api::V1::ApiController
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, '/animes/search'
+  api :GET, '/animes/search', 'Use "List animes" API instead', deprecated: true
   def search
-    @collection = AniMangaQuery.new(
-      Anime,
-      {
-        search: params[:q],
-        censored: (params[:censored] == 'true' if params[:censored].present?)
-      },
-      current_user
-    ).complete
-    respond_with @collection, each_serializer: AnimeSerializer
+    params[:limit] ||= 16
+    index
   end
 
 private
 
   def cache_key
-    Digest::MD5.hexdigest "#{request.path}|#{params.to_json}|#{params[:mylist].present? ? current_user.try(:cache_key) : nil}"
+    Digest::MD5.hexdigest([
+      request.path,
+      params.to_json,
+      params[:mylist].present? ? current_user.try(:cache_key) : nil
+    ].join('|'))
   end
 
   def fetch_resource

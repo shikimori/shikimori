@@ -1,7 +1,7 @@
 describe PeopleController do
   let!(:person) { create :person }
 
-  describe '#autocomplete' do
+  describe '#index' do
     let(:phrase) { 'qqq' }
     let(:kind) { 'mangaka' }
 

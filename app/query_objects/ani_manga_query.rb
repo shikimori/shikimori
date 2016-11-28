@@ -35,7 +35,7 @@ class AniMangaQuery
     @status = params[:status]
 
     @mylist = params[:mylist]
-    @search_phrase = SearchHelper.unescape params[:search]
+    @search_phrase = SearchHelper.unescape(params[:search] || params[:q])
 
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
     @exclude_ids = params[:exclude_ids]
@@ -101,10 +101,6 @@ private
     @search_phrase.present?
   end
 
-  def censored?
-    @params[:censored] == true
-  end
-
   # фильтр по типам
   def type!
     return if @type.blank?
@@ -167,11 +163,13 @@ private
     yaoi = genres && (genres[:include] & Genre::YAOI_IDS).any?
     yuri = genres && (genres[:include] & Genre::YURI_IDS).any?
 
-    if censored? || !(
-      rx || hentai || yaoi || yuri || mylist? || search? || userlist? ||
-      @publisher || @studio
-    )
-      @query = @query.where(censored: false)
+    if @params[:censored] != false && @params[:censored] != 'false'
+      if @params[:censored] == true || @params[:censored] == 'true' || !(
+        rx || hentai || yaoi || yuri || mylist? || search? || userlist? ||
+        @publisher || @studio
+      )
+        @query = @query.where(censored: false)
+      end
     end
   end
 

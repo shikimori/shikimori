@@ -4,6 +4,8 @@ class AnimesCollection::View < ViewObjectBase
   instance_cache :collection, :results, :filtered_params
   delegate :page, :pages_count, to: :results
 
+  LIMIT = 20
+
   def collection
     if season_page?
       results.collection.each_with_object({}) do |(key, entries), memo|
@@ -94,14 +96,29 @@ private
   end
 
   def recommendations_query
-    AnimesCollection::RecommendationsQuery.new(klass, h.params, user).fetch
+    AnimesCollection::RecommendationsQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 
   def season_query
-    AnimesCollection::SeasonQuery.new(klass, h.params, user).fetch
+    AnimesCollection::SeasonQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 
   def page_query
-    AnimesCollection::PageQuery.new(klass, h.params, user).fetch
+    AnimesCollection::PageQuery.call(
+      klass: klass,
+      params: h.params,
+      user: user,
+      limit: LIMIT
+    )
   end
 end

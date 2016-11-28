@@ -15,7 +15,7 @@ class PeopleController < DbEntriesController
     page_title search_title
 
     @collection = postload_paginate(params[:page], 48) do
-      Search::Person.call search_params.merge(ids_limit: 1000)
+      Search::Person.call search_params.merge(ids_limit: 480)
     end
   end
 
@@ -55,7 +55,7 @@ private
   def search_params
     {
       scope: Person.all,
-      phrase: params[:search] || params[:q],
+      phrase: SearchHelper.unescape(params[:search] || params[:q]),
       is_seyu: params[:kind] == 'seyu',
       is_mangaka: params[:kind] == 'mangaka',
       is_producer: params[:kind] == 'producer'

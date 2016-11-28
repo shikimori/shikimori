@@ -4,11 +4,19 @@ describe CharactersController do
   include_examples :db_entry_controller, :character
 
   describe '#index' do
-    let!(:character_2) { create :character, name: 'zzz' }
-    before { get :index, search: 'zzz' }
+    let(:phrase) { 'qqq' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(assigns :collection).to eq [character_2] }
+    before do
+      allow(Search::Character)
+        .to receive(:call)
+        .and_return Character.where(id: character.id)
+    end
+    before { get :index, search: 'Fff' }
+
+    it do
+      expect(collection).to eq [character]
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#show' do

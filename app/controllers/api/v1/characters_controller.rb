@@ -14,7 +14,10 @@ class Api::V1::CharactersController < Api::V1::ApiController
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/characters/search'
   def search
-    @collection = CharactersQuery.new(search: params[:q]).complete
+    @collection = Autocomplete::Character.call(
+      scope: Character.all,
+      phrase: SearchHelper.unescape(params[:search] || params[:q])
+    )
     respond_with @collection, each_serializer: CharacterSerializer
   end
 

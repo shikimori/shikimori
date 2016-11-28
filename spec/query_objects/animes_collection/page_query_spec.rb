@@ -1,13 +1,21 @@
 describe AnimesCollection::PageQuery do
-  let(:query) { AnimesCollection::PageQuery.new klass, params, nil }
+  let(:query) do
+    AnimesCollection::PageQuery.new(
+      klass: klass,
+      params: params,
+      user: nil,
+      limit: 20
+    )
+  end
 
-  describe '#fetch' do
-    subject(:page) { query.fetch }
+  describe '#call' do
+    subject(:page) { query.call }
+
     let!(:anime_1) { create :anime, :tv, ranked: 1 }
     let!(:anime_2) { create :anime, :ova, ranked: 2 }
     let!(:manga) { create :manga }
 
-    let(:params) {{ type: type }}
+    let(:params) { { type: type } }
     let(:type) { }
 
     context 'anime' do
