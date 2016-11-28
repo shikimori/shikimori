@@ -78,7 +78,10 @@ class CharactersController < PeopleController
   end
 
   def autocomplete
-    @collection = CharactersQuery.new(params).complete
+    @collection = Autocomplete::Character.call(
+      scope: Character.all,
+      phrase: params[:search] || params[:q]
+    )
   end
 
 private
