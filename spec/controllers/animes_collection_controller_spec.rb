@@ -28,15 +28,6 @@ describe AnimesCollectionController do
             end
           end
 
-          describe '#search' do
-            before { get :index, klass: type, search: 'test' }
-
-            it do
-              expect(response.content_type).to eq 'text/html'
-              expect(response).to have_http_status :success
-            end
-          end
-
           describe '#season' do
             describe 'html' do
               before { get :index, klass: type, season: 'summer_2012' }
@@ -48,7 +39,7 @@ describe AnimesCollectionController do
             end
 
             describe 'json' do
-              before { get :index, klass: type, season: 'summer_2012', format: 'json' } 
+              before { get :index, klass: type, season: 'summer_2012', format: 'json' }
 
               it do
                 expect(response.content_type).to eq 'application/json'

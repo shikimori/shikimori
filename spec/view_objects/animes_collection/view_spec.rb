@@ -36,17 +36,32 @@ describe AnimesCollection::View do
     describe 'query method' do
       before do
         allow(AnimesCollection::RecommendationsQuery)
-          .to receive(:new).with(klass, params, user).and_return recommendations_query
+          .to receive(:call).with(
+            klass: klass,
+            params: params,
+            user: user,
+            limit: AnimesCollection::View::LIMIT
+          ).and_return page
+
         allow(AnimesCollection::SeasonQuery)
-          .to receive(:new).with(klass, params, user).and_return season_query
+          .to receive(:call).with(
+            klass: klass,
+            params: params,
+            user: user,
+            limit: AnimesCollection::View::LIMIT
+          ).and_return page
+
         allow(AnimesCollection::PageQuery)
-          .to receive(:new).with(klass, params, user).and_return page_query
+          .to receive(:call).with(
+            klass: klass,
+            params: params,
+            user: user,
+            limit: AnimesCollection::View::LIMIT
+          ).and_return page
+
       end
 
       let(:page) { AnimesCollection::Page.new collection: [] }
-      let(:recommendations_query) { double fetch: page }
-      let(:season_query) { double fetch: page }
-      let(:page_query) { double fetch: page }
 
       subject { view.collection }
 
@@ -54,9 +69,9 @@ describe AnimesCollection::View do
         before { allow(view).to receive(:recommendations?).and_return true }
         it do
           is_expected.to be_empty
-          expect(recommendations_query).to have_received :fetch
-          expect(season_query).to_not have_received :fetch
-          expect(page_query).to_not have_received :fetch
+          expect(AnimesCollection::RecommendationsQuery).to have_received :call
+          expect(AnimesCollection::SeasonQuery).to_not have_received :call
+          expect(AnimesCollection::PageQuery).to_not have_received :call
         end
       end
 
@@ -64,18 +79,18 @@ describe AnimesCollection::View do
         before { allow(view).to receive(:season_page?).and_return true }
         it do
           is_expected.to be_empty
-          expect(recommendations_query).to_not have_received :fetch
-          expect(season_query).to have_received :fetch
-          expect(page_query).to_not have_received :fetch
+          expect(AnimesCollection::RecommendationsQuery).to_not have_received :call
+          expect(AnimesCollection::SeasonQuery).to have_received :call
+          expect(AnimesCollection::PageQuery).to_not have_received :call
         end
       end
 
       context 'common query' do
         it do
           is_expected.to be_empty
-          expect(recommendations_query).to_not have_received :fetch
-          expect(season_query).to_not have_received :fetch
-          expect(page_query).to have_received :fetch
+          expect(AnimesCollection::RecommendationsQuery).to_not have_received :call
+          expect(AnimesCollection::SeasonQuery).to_not have_received :call
+          expect(AnimesCollection::PageQuery).to have_received :call
         end
       end
     end
@@ -147,7 +162,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w(Anime page:1 status:ongoing) }
+    it { is_expected.to eq %w(v2 Anime page:1 status:ongoing) }
   end
 
   describe '#cache_expires_in' do

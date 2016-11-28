@@ -4,10 +4,17 @@ describe SeyuController do
 
   describe '#index' do
     let!(:person_2) { create :person, seyu: false }
+    before do
+      allow(Search::Person).to receive(:call) do |params|
+        params[:scope].where(id: seyu.id)
+      end
+    end
     before { get :index, search: 'test', kind: 'seyu' }
 
-    it { expect(response).to have_http_status :success }
-    it { expect(assigns :collection).to eq [seyu] }
+    it do
+      expect(response).to have_http_status :success
+      expect(assigns :collection).to eq [seyu]
+    end
   end
 
   describe '#show' do
