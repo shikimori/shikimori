@@ -14,6 +14,6 @@ class Autocomplete::AutocompleteBase
 private
 
   def autocomplete_klass
-    "Search::#{self.class.name.split('::').last}".constantize
+    "::Search::#{self.class.name.split('::').last}".constantize
   end
 end

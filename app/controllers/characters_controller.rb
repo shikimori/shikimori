@@ -16,7 +16,7 @@ class CharactersController < PeopleController
     page_title search_title
 
     @collection = postload_paginate(params[:page], 48) do
-      Search::Character.call(
+      ::Search::Character.call(
         scope: Character.all,
         phrase: SearchHelper.unescape(params[:search] || params[:q]),
         ids_limit: 480
