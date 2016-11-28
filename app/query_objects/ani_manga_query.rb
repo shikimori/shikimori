@@ -307,7 +307,7 @@ private
   def search!
     return if @search_phrase.blank?
 
-    @query = Animes::SearchQuery.call(
+    @query = "Search::#{@klass.name}".constantize.call(
       scope: @query,
       phrase: @search_phrase,
       ids_limit: SEARCH_IDS_LIMIT
