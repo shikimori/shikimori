@@ -187,16 +187,19 @@ shared_examples :elasticsearch_concern do |type|
     let(:data) { data_klass.call entry }
 
     before do
-      allow(client).to receive :post
-      allow(client).to receive :delete
+      allow(Elasticsearch::Create).to receive :perform_async
+      allow(Elasticsearch::Update).to receive :perform_async
+      allow(Elasticsearch::Destroy).to receive :perform_async
     end
 
     describe '#post_elastic' do
       let!(:entry) { create type, :with_elasticserach }
 
       it do
-        expect(client).to have_received(:post).with url, data
-        expect(client).to_not have_received :delete
+        expect(Elasticsearch::Create).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
+        expect(Elasticsearch::Update).to_not have_received :perform_async
+        expect(Elasticsearch::Destroy).to_not have_received :perform_async
       end
     end
 
@@ -209,8 +212,10 @@ shared_examples :elasticsearch_concern do |type|
         let(:field) { :updated_at }
 
         it do
-          expect(client).to have_received(:post).once
-          expect(client).to_not have_received :delete
+          expect(Elasticsearch::Create).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Update).to_not have_received :perform_async
+          expect(Elasticsearch::Destroy).to_not have_received :perform_async
         end
       end
 
@@ -218,8 +223,11 @@ shared_examples :elasticsearch_concern do |type|
         let(:field) { data_klass::ALL_FIELDS.first }
 
         it do
-          expect(client).to have_received(:post).twice
-          expect(client).to_not have_received :delete
+          expect(Elasticsearch::Create).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Update).to have_received(:perform_async)
+            .with(entry.id, entry.class.name)
+          expect(Elasticsearch::Destroy).to_not have_received :perform_async
         end
       end
     end
@@ -230,8 +238,11 @@ shared_examples :elasticsearch_concern do |type|
       before { entry.destroy! }
 
       it do
-        expect(client).to have_received(:post).with url, data
-        expect(client).to have_received(:delete).with url
+        expect(Elasticsearch::Create).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
+        expect(Elasticsearch::Update).to_not have_received :perform_async
+        expect(Elasticsearch::Destroy).to have_received(:perform_async)
+          .with(entry.id, entry.class.name)
       end
     end
   end

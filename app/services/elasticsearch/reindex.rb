@@ -23,26 +23,19 @@ private
 
   def animes
     Anime.find_each do |entry|
-      client.post(
-        "#{INDEX}/anime/#{entry.id}", Elasticsearch::Data::Anime.call(entry)
-      )
+      Elasticsearch::Create.new.sync entry
     end
   end
 
   def mangas
     Manga.find_each do |entry|
-      client.post(
-        "#{INDEX}/manga/#{entry.id}", Elasticsearch::Data::Manga.call(entry)
-      )
+      Elasticsearch::Create.new.sync entry
     end
   end
 
   def characters
     Character.find_each do |entry|
-      client.post(
-        "#{INDEX}/character/#{entry.id}",
-        Elasticsearch::Data::Character.call(entry)
-      )
+      Elasticsearch::Create.new.sync entry
     end
   end
 

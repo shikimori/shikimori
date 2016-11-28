@@ -10,10 +10,7 @@ module ElasticsearchConcern
 private
 
   def post_elastic
-    Elasticsearch::Client.instance.post(
-      "#{Elasticsearch::Config::INDEX}/#{self.class.name.downcase}/#{id}",
-      "Elasticsearch::Data::#{self.class.name}".constantize.call(self)
-    )
+    Elasticsearch::Create.perform_async id, self.class.name
   end
 
   def put_elastic
@@ -21,12 +18,10 @@ private
       .constantize
       .any? { |field| changes[field] }
 
-    post_elastic if elastic_changes
+    Elasticsearch::Update.perform_async id, self.class.name if elastic_changes
   end
 
   def delete_elastic
-    Elasticsearch::Client.instance.delete(
-      "#{Elasticsearch::Config::INDEX}/#{self.class.name.downcase}/#{id}"
-    )
+    Elasticsearch::Destroy.perform_async id, self.class.name
   end
 end
