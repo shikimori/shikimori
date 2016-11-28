@@ -18,12 +18,24 @@ FactoryGirl.define do
       anime.stub :generate_news
       anime.stub :generate_name_matches
       anime.class.skip_callback :update, :after, :touch_related
+
+      anime.class.skip_callback :create, :after, :post_elastic
+      anime.class.skip_callback :update, :after, :put_elastic
+      anime.class.skip_callback :destroy, :after, :delete_elastic
     end
 
     trait :with_callbacks do
       after :build do |anime|
         anime.unstub :track_changes
         anime.unstub :generate_news
+      end
+    end
+
+    trait :with_elasticserach do
+      after :build do |anime|
+        anime.class.set_callback :create, :after, :post_elastic
+        anime.class.set_callback :update, :after, :put_elastic
+        anime.class.set_callback :destroy, :after, :delete_elastic
       end
     end
 

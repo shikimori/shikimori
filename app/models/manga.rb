@@ -3,6 +3,7 @@
 class Manga < DbEntry
   include AniManga
   include TopicsConcern
+  include ElasticsearchConcern
 
   EXCLUDED_ONGOINGS = [-1]
 

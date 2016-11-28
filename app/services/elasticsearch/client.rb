@@ -1,4 +1,6 @@
 class Elasticsearch::Client
+  include Singleton
+
   ELASTIC_URL = 'http://localhost:9200'
 
   def post path, data

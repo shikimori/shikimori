@@ -23,7 +23,7 @@ private
   end
 
   def api_call
-    client.get "#{INDEX}/#{type}/_search",
+    Elasticsearch::Client.instance.get "#{INDEX}/#{type}/_search",
       from: 0,
       size: @limit,
       query: query
@@ -69,9 +69,5 @@ private
       @limit,
       Elasticsearch::Reindex.time
     ]
-  end
-
-  def client
-    @client ||= Elasticsearch::Client.new
   end
 end

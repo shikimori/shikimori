@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# refactor to models/concerns
 # either Topic or Comment so far
 module Viewable
   extend ActiveSupport::Concern

@@ -63,6 +63,6 @@ private
   end
 
   def client
-    @client ||= Elasticsearch::Client.new
+    Elasticsearch::Client.instance
   end
 end

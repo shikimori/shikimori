@@ -12,6 +12,18 @@ FactoryGirl.define do
     after :build do |manga|
       manga.stub :generate_name_matches
       manga.class.skip_callback :update, :after, :touch_related
+
+      manga.class.skip_callback :create, :after, :post_elastic
+      manga.class.skip_callback :update, :after, :put_elastic
+      manga.class.skip_callback :destroy, :after, :delete_elastic
+    end
+
+    trait :with_elasticserach do
+      after :build do |manga|
+        manga.class.set_callback :create, :after, :post_elastic
+        manga.class.set_callback :update, :after, :put_elastic
+        manga.class.set_callback :destroy, :after, :delete_elastic
+      end
     end
 
     trait :with_topics do

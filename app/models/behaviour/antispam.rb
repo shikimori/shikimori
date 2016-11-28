@@ -1,3 +1,4 @@
+# refactor to models/concerns
 module Antispam
   extend ActiveSupport::Concern
 

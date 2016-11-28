@@ -1,3 +1,4 @@
+# refactor to models/concerns
 module Commentable
   extend ActiveSupport::Concern
 

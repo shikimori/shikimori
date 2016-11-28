@@ -14,6 +14,7 @@ class Elasticsearch::Data::Anime < Elasticsearch::Data::DataBase
     name russian english japanese
     synonym_0 synonym_1 synonym_2 synonym_3 synonym_4 synonym_5
   )
+  ALL_FIELDS = %i(name russian english japanese synonyms score kind)
 
   def call
     super.merge(weight: rating)

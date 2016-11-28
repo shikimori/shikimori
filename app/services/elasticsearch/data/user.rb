@@ -1,5 +1,6 @@
 class Elasticsearch::Data::User < Elasticsearch::Data::DataBase
   NAMES = %i(nickname)
+  ALL_FIELDS = NAMES
 
 private
 

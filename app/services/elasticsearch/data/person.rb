@@ -1,5 +1,6 @@
 class Elasticsearch::Data::Person < Elasticsearch::Data::DataBase
   NAMES = %i(name russian japanese)
+  ALL_FIELDS = NAMES + %i(is_seyu is_producer is_mangaka)
 
   def call
     super.merge(
