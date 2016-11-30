@@ -133,7 +133,12 @@ class Api::V1::UsersController < Api::V1::ApiController
 
     if params[:updated_at_gte]
       @collection = @collection.where(
-        'updated_at > ?', Time.zone.parse(params[:updated_at_gte])
+        'updated_at >= ?', Time.zone.parse(params[:updated_at_gte])
+      )
+    end
+    if params[:updated_at_lte]
+      @collection = @collection.where(
+        'updated_at <= ?', Time.zone.parse(params[:updated_at_lte])
       )
     end
 

@@ -151,6 +151,7 @@ describe Api::V1::UsersController, :show_in_doc do
         limit: 10,
         page: 1,
         updated_at_gte: 1.hour.ago.strftime('%Y-%m-%d %H:%M:%S'),
+        updated_at_lte: 1.hour.from_now.strftime('%Y-%m-%d %H:%M:%S'),
         format: :json
     end
     it { expect(response).to have_http_status :success }
