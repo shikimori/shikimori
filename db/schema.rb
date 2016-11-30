@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20161225111506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -128,6 +127,7 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.datetime "imported_at"
     t.datetime "next_episode_at"
     t.string   "tags",               limit: 255
+    t.string   "source",             limit: 255
     t.string   "torrents_name",      limit: 255
     t.float    "site_score",                     default: 0.0,   null: false
     t.text     "desynced",                       default: [],    null: false, array: true
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.datetime "imported_at"
     t.string   "tags",               limit: 255
     t.string   "russian"
+    t.string   "source",             limit: 255
     t.text     "desynced",                       default: [], null: false, array: true
   end
 
@@ -583,6 +584,7 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags",               limit: 255
+    t.string   "source",             limit: 255
     t.string   "read_manga_id",      limit: 255
     t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: 0.0
     t.float    "site_score",                                             default: 0.0,   null: false

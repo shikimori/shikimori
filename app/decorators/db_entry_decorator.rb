@@ -14,10 +14,22 @@ class DbEntryDecorator < BaseDecorator
       .html_safe
   end
 
+  #----------------------------------------------------------------------------
+
   # description object used to get text or source
   # (text is bbcode - used when editing description e.g.)
   def description
-    show_description_ru? ? description_ru : description_en
+    if object.respond_to?(:description)
+      description_no_locale
+    elsif show_description_ru?
+      description_ru
+    else
+      description_en
+    end
+  end
+
+  def description_no_locale
+    object.description
   end
 
   def description_ru
@@ -28,15 +40,30 @@ class DbEntryDecorator < BaseDecorator
     DbEntries::Description.from_description(object.description_en)
   end
 
+  #----------------------------------------------------------------------------
+
   # description text (bbcode) formatted as html
   # (displayed on specific anime main page)
   def description_html
-    html = show_description_ru? ? description_html_ru : description_html_en
+    html =
+      if object.respond_to?(:description)
+        description_html_no_locale
+      elsif show_description_ru?
+        description_html_ru
+      else
+        description_html_en
+      end
 
     if html.blank?
       "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
     else
       html
+    end
+  end
+
+  def description_html_no_locale
+    Rails.cache.fetch [:description_html_no_locale, object] do
+      BbCodeFormatter.instance.format_description(object.description, object)
     end
   end
 
@@ -60,6 +87,8 @@ class DbEntryDecorator < BaseDecorator
       word_boundary: /\S[\.\?\!<>]/
     ).html_safe
   end
+
+  #----------------------------------------------------------------------------
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(

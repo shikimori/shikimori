@@ -1,4 +1,10 @@
 class CharacterMalParser < BaseMalParser
+  DESCRIPTION_REGEXP = /
+    <div class="normal_header"[\s\S]*?<\/div>
+    ([\s\S]*?)
+    <div class="(normal_header)"
+  /mix
+
   # сбор списка элементов, которые будем импортировать
   def prepare
     ids = super
@@ -47,14 +53,7 @@ class CharacterMalParser < BaseMalParser
     end
 
     entry[:fullname] = cleanup doc.css('h1').text.gsub('  ', ' ')
-
-    description_doc = doc.css('#content > table > tr > td:nth-child(2)')
-    # TODO: add source to character too? (just like for anime and manga)
-    entry[:description_en] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
-      Mal::TextSanitizer.new($1).call
-    else
-      ""
-    end
+    entry[:description_en] = description_en_with_source(id, doc)
 
     # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
@@ -91,5 +90,17 @@ class CharacterMalParser < BaseMalParser
     ActiveRecord::Base.connection.
       execute("insert into person_roles (role, character_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
+  end
+
+  private
+
+  def description_en_with_source id, doc
+    description_node = doc.css('#content > table > tr > td:nth-child(2)')
+    match = description_node.to_html.match(DESCRIPTION_REGEXP)
+
+    text = match ? Mal::TextSanitizer.new(match.captures.first).() : ''
+    source = "http://myanimelist.net/#{type}/#{id}"
+
+    DbEntries::Description.from_text_source(text, source).description
   end
 end
