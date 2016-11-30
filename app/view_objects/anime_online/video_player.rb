@@ -37,8 +37,10 @@ class AnimeOnline::VideoPlayer
     videos = @anime.anime_videos
       .includes(:author)
       .where(episode: current_episode)
-      .select { |v| all? || v.allowed? }
+      # .select { |v| all? || v.allowed? }
       # .select { |v| compatible?(v) }
+
+    videos = videos.allowed unless all?
 
     AnimeOnline::FilterSovetRomantica.call(videos)
       .map(&:decorate)

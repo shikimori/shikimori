@@ -16,7 +16,7 @@ $image-path: 'anime_online/pages/anime_videos'
     input[type=text]
       width: 100%
 
-    .broken, .wrong
+    .broken, .wrong, .rejected
       margin-right: 20px
 
   .c-video_stats
@@ -121,7 +121,7 @@ $image-path: 'anime_online/pages/anime_videos'
         &:last-child
           padding-right: 0
 
-      &.broken:after, &.wrong:after
+      &.broken:after, &.wrong:after, &.rejected:after
         float: left
         font-weight: normal
 
@@ -133,6 +133,11 @@ $image-path: 'anime_online/pages/anime_videos'
       &.wrong:after
         color: $orange
         content: 'wrong'
+        padding-right: 5px
+
+      &.rejected:after
+        color: $purple
+        content: 'rejected'
         padding-right: 5px
 
     .episode-num

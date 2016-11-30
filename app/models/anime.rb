@@ -122,7 +122,7 @@ class Anime < DbEntry
 
   has_many :anime_calendars, dependent: :destroy
 
-  has_many :anime_videos, -> { available }, dependent: :destroy
+  has_many :anime_videos, dependent: :destroy
   has_many :episode_notifications, dependent: :destroy
 
   has_many :name_matches,
