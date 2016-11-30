@@ -167,7 +167,7 @@ class BaseMalParser < SiteParserWithCache
     entries_found
   end
 
-private
+  private
 
   # получение страницы MAL
   def get(url, required_text = ['MyAnimeList.net</title>', '</html>'])
@@ -198,9 +198,9 @@ private
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
   end
 
-  def synonpsis_with_source entry, content
+  def description_en_with_source id, content
     text = parse_synopsis(content)
-    source = "http://myanimelist.net/#{type}/#{entry[:id]}"
+    source = "http://myanimelist.net/#{type}/#{id}"
 
     DbEntries::Description.from_text_source(text, source).description
   end

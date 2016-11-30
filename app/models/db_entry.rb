@@ -42,4 +42,9 @@ class DbEntry < ActiveRecord::Base
   def mal_url
     "http://myanimelist.net/#{self.class.name.downcase}/#{id}"
   end
+
+  # TODO: remove when source field is removed from anime, manga and character
+  def source
+    raise 'use DbEntryDecorator#description.source instead!'
+  end
 end

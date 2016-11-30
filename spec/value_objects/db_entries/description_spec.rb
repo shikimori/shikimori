@@ -1,5 +1,5 @@
 describe DbEntries::Description do
-  describe '.from_value' do
+  describe '.from_description' do
     let(:struct) { described_class.from_description description }
 
     context 'nil' do

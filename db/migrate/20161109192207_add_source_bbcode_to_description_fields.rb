@@ -11,10 +11,12 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   private
 
   def update_descriptions klass
-    klass.find_each do |model|
+    klass.find_each.with_index(1) do |model, index|
       model.description_ru = new_description_ru(model)
       model.description_en = new_description_en(model)
       model.save!
+
+      puts "#{index} descriptions updated" if index % 5_000 == 0
     end
   end
 
@@ -24,22 +26,14 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   end
 
   def new_description_en model
-    description = DbEntries::Description.new(value: model.description_en)
+    description = DbEntries::Description.from_description(model.description_en)
+    text = description.text
+    source = new_description_en_source(model, description)
 
-    current_text = description.text
-    current_source = description.source
-
-    new_source = new_description_en_source(model, description)
-
-    "#{current_text}[source]#{new_source}[/source]"
+    "#{text}[source]#{source}[/source]"
   end
 
   def new_description_en_source model, description
-    description.source == 'ANN' ? 'animenewsnetwork.com' : mal_url(model)
-  end
-
-  def mal_url model
-    klass_name = model.class.name.downcase
-    "http://myanimelist.net/#{klass_name}/#{model.id}"
+    description.source == 'ANN' ? 'animenewsnetwork.com' : model.mal_url
   end
 end
