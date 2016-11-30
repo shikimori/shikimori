@@ -159,6 +159,11 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq '//rutube.ru/player.swf?hash=2ebdd7a1645cf60b0b60542689a54031' }
     end
 
+    describe 'rutube_8' do
+      let(:html) { 'http://video.rutube.ru/?v=e9c211bd5a5f8bb848eef97ad21b046f' }
+      it { is_expected.to eq '//rutube.ru/player.swf?hash=e9c211bd5a5f8bb848eef97ad21b046f' }
+    end
+
     describe 'sibnet' do
       describe 'sibnet_1' do
         let(:html) { '<iframe width="730" height="480" src="http://video.sibnet.ru/shell.php?videoid=1186077" frameborder="0" scrolling="no" allowfullscreen></iframe>' }
