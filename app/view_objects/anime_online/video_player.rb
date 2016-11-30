@@ -40,7 +40,7 @@ class AnimeOnline::VideoPlayer
       # .select { |v| all? || v.allowed? }
       # .select { |v| compatible?(v) }
 
-    videos = videos.allowed unless all?
+    videos = videos.available unless all?
 
     AnimeOnline::FilterSovetRomantica.call(videos)
       .map(&:decorate)
