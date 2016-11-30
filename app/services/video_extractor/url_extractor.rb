@@ -34,8 +34,14 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   RUTUBE_EMBED_REGEXP = %r{
     #{HTTP}
       (video\.)?rutube.ru
-      (?: /embed | /video/embed | /play/embed )
-      / (?<id> \w+ )
+
+      (?:
+        (?: /embed | /video/embed | /play/embed )
+        / (?<id> \w+ )
+          |
+        / embed
+        /\?v= (?<id> \w+ )
+      )
   }mix
 
   pattr_initialize :content
