@@ -156,17 +156,7 @@ Devise.setup do |config|
     :vkontakte,
     Rails.application.secrets.oauth[:vkontakte][:app_id],
     Rails.application.secrets.oauth[:vkontakte][:app_secret],
-    scope: Rails.application.secrets.oauth[:vkontakte][:app_permissions],
-    client_options: {
-      connection_opts: {
-        proxy: {
-          # FLOPS Russia
-          uri: 'http://91.239.26.54:3128',
-          user: 'uptimus',
-          password: 'holy_grail'
-        }
-      }
-    }
+    scope: Rails.application.secrets.oauth[:vkontakte][:app_permissions]
   )
 
   config.omniauth(
