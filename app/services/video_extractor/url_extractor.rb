@@ -1,7 +1,7 @@
 class VideoExtractor::UrlExtractor < ServiceObjectBase
   HTTP = %r{(?:https?:)?//(?:www\.)?}.source
   CONTENT = /[^" ><\n]+/.source
-  PARAM = /[^" ><&?\n\/]+/.source
+  PARAM = %r{[^" ><&?\n\/]+}.source
   SMOTRET_ANIME_REGEXP = %r{
     #{HTTP}smotret-anime.ru
       (?:
@@ -119,8 +119,8 @@ private
       "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ RUTUBE_EMBED_REGEXP
       "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:id]}"
-    # elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
-      # "http://rutube.ru/play/embed/#{$1}"
+    elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
+      "http://rutube.ru/play/embed/#{$1}"
     elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
       "http://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP

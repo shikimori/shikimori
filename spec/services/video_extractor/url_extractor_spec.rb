@@ -167,10 +167,15 @@ describe VideoExtractor::UrlExtractor do
         it { is_expected.to eq '//rutube.ru/player.swf?hash=e9c211bd5a5f8bb848eef97ad21b046f' }
       end
 
-      describe 'rutube_5' do
+      describe 'rutube_4' do
         let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32"></PARAM><PARAM name="wmode" value="window"></PARAM><PARAM name="allowFullScreen" value="true"></PARAM><EMBED src="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32" type="application/x-shockwave-flash" wmode="window" width="730" height="480" allowFullScreen="true" ></EMBED></OBJECT>' }
         it { is_expected.to eq '//rutube.ru/player.swf?hash=28c276bcec9a0619affa8e2443551b32' }
       end
+
+      # describe 'rutube_5', focus: true, vcr: { cassette_name: 'url_extractor' } do
+        # let(:html) { 'http://rutube.ru/video/ae6031d81001fbbbc51fd2078ceaeaf3/' }
+        # it { is_expected.to eq '//rutube.ru/player.swf?hash=f39eb2639050f64b5ebf4c4a9436f2c3' }
+      # end
     end
 
     describe 'sibnet' do

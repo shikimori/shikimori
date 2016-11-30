@@ -12,7 +12,7 @@ class Abilities::VideoModerator
     end
 
     if user.id == User::BAKSIII_ID
-      can [:index, :edit, :update], AnimeVideoAuthor
+      can [:index, :show, :edit, :update], AnimeVideoAuthor
     end
   end
 end

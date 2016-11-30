@@ -22,6 +22,7 @@ private
   def select_videos
     @anime
       .anime_videos
+      .available
       .group(:episode)
       .order(:episode)
       .select(GROUP_SQL)
