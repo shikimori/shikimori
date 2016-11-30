@@ -1,0 +1,17 @@
+header.head
+  h1 = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+- cache @resource.anime_videos.cache_key do
+  - @resource.anime_videos.order(:episode, :kind, :id).includes(:anime).group_by(&:anime).each do |anime, anime_videos|
+    .block
+      .subheadline
+        a.b-link.bubbled href="#{anime_url anime}"
+          = localization_span anime
+
+      - anime_videos.each do |anime_video|
+        .b-video_variant data-episode="#{anime_video.episode}"
+          a href="#{play_video_online_index_url anime, anime_video.episode, anime_video.id, subdomain: 'play'}"
+            span.episode-num ##{anime_video.episode}
+            span.episode-kinds = anime_video.kind_text
+            span.episode-hostings = anime_video.hosting

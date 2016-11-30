@@ -142,7 +142,7 @@ Site::Application.routes.draw do
       end
     end
 
-    resources :anime_video_authors, only: [:index, :edit, :update]
+    resources :anime_video_authors, only: [:index, :edit, :update, :show]
   end
 
   # api

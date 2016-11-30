@@ -1,0 +1,75 @@
+@import mixins/link
+
+.b-video_variant
+  color: red
+  a
+    &.active
+      color: $link-4
+      border-bottom: 1px dotted $link-4
+      span, span:before, span:after
+        color: inherit
+
+    +link
+    &:hover
+      text-decoration: none
+      border-bottom: 1px solid $link-border-hover
+      span, span:before, span:after
+        color: inherit
+
+    &>span
+      display: inline-block
+      padding-right: 5px
+
+      &:first-child:first-letter
+        text-transform: uppercase
+      &:last-child
+        padding-right: 0
+
+    &.broken:after, &.wrong:after, &.rejected:after
+      float: left
+      font-weight: normal
+
+    &.broken:after
+      color: $red
+      content: 'broken'
+      padding-right: 5px
+
+    &.wrong:after
+      color: $orange
+      content: 'wrong'
+      padding-right: 5px
+
+    &.rejected:after
+      color: $purple
+      content: 'rejected'
+      padding-right: 5px
+
+  .episode-num
+    font-weight: bold
+
+  .episode-num, .video-id
+    color: #123
+
+  .video-author
+    color: #123
+
+  .video-kind
+    &.english:before
+      color: $gray-2
+      content: 'EN'
+      font-family: sans-serif
+      font-size: 10px
+      margin-left: -21px
+      margin-top: 3px
+      position: absolute
+
+  .episode-hostings, .video-hosting, .video-language
+    color: $gray-3
+
+    &:before, &:after
+      color: $gray-1
+    &:before
+      content: '('
+    &:after
+      content: ')'
+

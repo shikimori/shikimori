@@ -11,7 +11,7 @@
   $anime_video_episodes = $('.c-anime_video_episodes')
   current_episode = $anime_video_episodes.data 'episode'
   $(
-    ".video-variant[data-episode='#{current_episode}'] a", $anime_video_episodes
+    ".b-video_variant[data-episode='#{current_episode}'] a", $anime_video_episodes
   ).addClass 'active'
 
   # переключение вариантов видео

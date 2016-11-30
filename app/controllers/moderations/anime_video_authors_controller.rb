@@ -16,6 +16,12 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     end
   end
 
+  def show
+    page_title @resource.name
+    @back_url = moderations_anime_video_authors_url
+    breadcrumb i18n_t('page_title'), @back_url
+  end
+
   def edit
     page_title "Редактирование автора ##{@resource.id}"
     @back_url = moderations_anime_video_authors_url
