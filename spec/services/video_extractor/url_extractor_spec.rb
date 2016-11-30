@@ -126,27 +126,27 @@ describe VideoExtractor::UrlExtractor do
 
     describe 'rutube_1' do
       let(:html) { '<iframe type="text/html" width="730" height="480" src="http://rutube.ru/video/embed/6504640" frameborder="0"></iframe>' }
-      it { is_expected.to eq '//rutube.ru/video/embed/6504640' }
+      it { is_expected.to eq '//rutube.ru/play/embed/6504640' }
     end
 
     describe 'rutube_2' do
       let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32"></PARAM><PARAM name="wmode" value="window"></PARAM><PARAM name="allowFullScreen" value="true"></PARAM><EMBED src="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32" type="application/x-shockwave-flash" wmode="window" width="730" height="480" allowFullScreen="true" ></EMBED></OBJECT>' }
-      it { is_expected.to eq '//video.rutube.ru/28c276bcec9a0619affa8e2443551b32' }
+      it { is_expected.to eq '//rutube.ru/player.swf?hash=28c276bcec9a0619affa8e2443551b32' }
     end
 
     describe 'rutube_3' do
       let(:html) { '<iframe width="730" height="480" src="http://rutube.ru/embed/6127963" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen scrolling="no"> </iframe>' }
-      it { is_expected.to eq '//rutube.ru/embed/6127963' }
+      it { is_expected.to eq '//rutube.ru/play/embed/6127963' }
     end
 
     describe 'rutube_4' do
       let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/6661157" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-      it { is_expected.to eq '//rutube.ru/video/embed/6661157' }
+      it { is_expected.to eq '//rutube.ru/play/embed/6661157' }
     end
 
     describe 'rutube_5' do
       let(:html) { 'http://rutube.ru/tracks/2300012.html?v=8c8bbdc632726555649d45c2c6a273c0' }
-      it { is_expected.to eq '//video.rutube.ru/8c8bbdc632726555649d45c2c6a273c0' }
+      it { is_expected.to eq '//rutube.ru/player.swf?hash=8c8bbdc632726555649d45c2c6a273c0' }
     end
 
     describe 'rutube_6' do
