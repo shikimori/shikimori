@@ -44,7 +44,7 @@ Site::Application.configure do
   # config.active_record.logger = ActiveSupport::Logger.new('log/sql.log')
 
   #if defined? Rails::Console
-    #ActiveRecord::Base.logger = Logger.new(STDOUT)
+    #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
     ###ActiveRecord::Base.logger.level = 3
     ##ActiveRecord::Base.logger.level = 1
     #ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
