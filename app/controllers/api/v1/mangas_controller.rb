@@ -56,7 +56,6 @@ class Api::V1::MangasController < Api::V1::ApiController
     respond_with @resource, serializer: FranchiseSerializer
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/mangas/search', 'Use "List mangas" API instead', deprecated: true
   def search
     params[:limit] ||= 16

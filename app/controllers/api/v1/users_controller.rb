@@ -120,16 +120,24 @@ class Api::V1::UsersController < Api::V1::ApiController
     )
   end
 
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, "/users/:id/history", "Show user's history"
   def history
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
 
-    respond_with user
+    @collection = user
       .all_history
       .offset(@limit * (@page-1))
       .limit(@limit + 1)
-      .decorate
+
+    if params[:updated_at_gte]
+      @collection = @collection.where(
+        'updated_at > ?', Time.zone.parse(params[:updated_at_gte])
+      )
+    end
+
+    respond_with @collection.decorate
   end
 
   api :GET, '/users/:id/bans', "Show user's bans"
