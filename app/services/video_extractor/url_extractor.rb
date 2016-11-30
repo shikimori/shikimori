@@ -21,8 +21,7 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   }mix
   RUTUBE_REGEXP = %r{
     #{HTTP}(video\.)?rutube.ru
-      (?: /video | /play )?
-      (?: /embed )?
+      (?: /embed | /video/embed | /play/embed )
       / (?<id> \w+ )
   }mix
 
@@ -97,10 +96,12 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
-    elsif html =~ %r{#{HTTP}rutube.ru/tracks/#{PARAM}\.html\?v=(?<hash>#{PARAM})}
-      "rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
-    elsif html =~ %r{#{HTTP}video.rutube.ru/(?<hash>#{PARAM})(?:$|"|'|>)}
-      "rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
+    elsif html =~ %r{#{HTTP}rutube\.ru/tracks/#{PARAM}\.html\?v=(?<hash>#{PARAM})}
+      "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
+    elsif html =~ %r{#{HTTP}rutube\.ru/player\.swf\?hash=(?<hash>#{PARAM})}
+      "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
+    elsif html =~ %r{#{HTTP}video\.rutube\.ru/(?<hash>#{PARAM})(?:$|"|'|>)}
+      "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ RUTUBE_REGEXP
       "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:id]}"
     # elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
