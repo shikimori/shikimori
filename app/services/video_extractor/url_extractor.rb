@@ -98,7 +98,7 @@ private
       "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ %r{#{HTTP}rutube\.ru/tracks/#{PARAM}\.html\?v=(?<hash>#{PARAM})}
       "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
-    elsif html =~ %r{#{HTTP}rutube\.ru/player\.swf\?hash=(?<hash>#{PARAM})}
+    elsif html =~ %r{#{HTTP}rutube\.ru/player\.swf\?(?:hash|v)=(?<hash>#{PARAM})}
       "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ %r{#{HTTP}video\.rutube\.ru/(?<hash>#{PARAM})(?:$|"|'|>)}
       "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
