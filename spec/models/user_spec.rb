@@ -77,7 +77,7 @@ describe User do
     describe '#assign_style' do
       let(:user) { create :user, :with_assign_style }
       it do
-        expect(user.style).to be_persisted
+        expect(user.reload.style).to be_persisted
         expect(user.style).to have_attributes(
           css: '',
           name: ''

@@ -44,7 +44,7 @@ describe Club do
     describe '#assign_style' do
       let(:club) { create :club, :with_assign_style }
       it do
-        expect(club.style).to be_persisted
+        expect(club.reload.style).to be_persisted
         expect(club.style).to have_attributes(
           css: '',
           name: ''
