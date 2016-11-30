@@ -141,21 +141,19 @@ describe Api::V1::UsersController, :show_in_doc do
     end unless ENV['APIPIE_RECORD']
   end
 
-  describe '#history', :focus do
+  describe '#history' do
     let!(:entry_1) { create :user_history, user: user, action: 'mal_anime_import', value: '522' }
     let!(:entry_2) { create :user_history, target: create(:anime), user: user, action: 'status' }
 
-    describe 'index' do
-      before do
-        get :history,
-          id: user.id,
-          limit: 10,
-          page: 1,
-          updated_at_gte: Time.zone.now.strftime('%Y-%m-%d %H-%M'),
-          format: :json
-      end
-      it { expect(response).to have_http_status :success }
+    before do
+      get :history,
+        id: user.id,
+        limit: 10,
+        page: 1,
+        updated_at_gte: 1.hour.ago.strftime('%Y-%m-%d %H-%M'),
+        format: :json
     end
+    it { expect(response).to have_http_status :success }
   end
 
   describe '#bans' do

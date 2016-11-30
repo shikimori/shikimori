@@ -121,7 +121,7 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :GET, "/users/:id/history", "Show user's history"
+  api :GET, '/users/:id/history', 'Show user history'
   def history
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
