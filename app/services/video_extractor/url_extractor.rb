@@ -43,6 +43,13 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
         /\?v= (?<id> \w+ )
       )
   }mix
+  ANIMEDIA_REGEXP = %r{
+    (?<url>
+      #{HTTP}online.animedia.tv
+        /embed
+        (?:/#{PARAM})+
+    )
+  }mix
 
   pattr_initialize :content
 
@@ -126,6 +133,8 @@ private
     elsif html =~ SOVET_ROMANTICA_REGEXP
       'https://sovetromantica.com/embed/episode_'\
         "#{$LAST_MATCH_INFO[:anime_id]}_#{$LAST_MATCH_INFO[:id]}"
+    elsif html =~ ANIMEDIA_REGEXP
+      "#{$LAST_MATCH_INFO[:url]}"
     else
       puts "can't extract video url: '#{html}'" unless Rails.env.test?
       nil
