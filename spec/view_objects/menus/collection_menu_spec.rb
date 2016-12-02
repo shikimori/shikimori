@@ -49,14 +49,26 @@ describe Menus::CollectionMenu do
   describe '#show_sorting?' do
     before { allow(view.h).to receive(:params).and_return params }
 
+    let(:params) { { controller: controller_name, search: search, q: q } }
+    let(:controller_name) { 'animes_collection' }
+    let(:search) { '' }
+    let(:q) { '' }
+
+    it { expect(view).to be_show_sorting }
+
     context 'recommendations' do
-      let(:params) {{ controller: 'recommendations' }}
+      let(:controller_name) { 'recommendations' }
       it { expect(view).to_not be_show_sorting }
     end
 
-    context 'not recommendations' do
-      let(:params) {{ controller: 'animes_collection' }}
-      it { expect(view).to be_show_sorting }
+    context 'search' do
+      let(:search) { 'z' }
+      it { expect(view).to_not be_show_sorting }
+    end
+
+    context 'q' do
+      let(:q) { 'z' }
+      it { expect(view).to_not be_show_sorting }
     end
   end
 end

@@ -53,7 +53,8 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def show_sorting?
-    h.params[:controller] != 'recommendations'
+    h.params[:controller] != 'recommendations' &&
+      h.params[:search].blank? && h.params[:q].blank?
   end
 
 private
