@@ -6,7 +6,7 @@ class RecommendationsController < AnimesCollectionController
 
   COOKIE_NAME = 'recommendations_url'
   THRESHOLDS = {
-    Anime => [150, 900, 1500, 2200, 3000],
+    Anime => [150, 1250, 2000, 3000, 5000],
     Manga => [30, 150, 300, 450]
   }
   TOPIC_URL = '//shikimori.org/s/104346-spisok-otbornyh-i-vkusnyh-animeh'
