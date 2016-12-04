@@ -3,7 +3,7 @@ class UserProfileSerializer < UserSerializer
   attributes :name, :sex, :full_years, :last_online, :last_online_at,
     :website, :location, :last_online_at, :banned?, :about, :about_html,
     :common_info, :last_online, :show_comments?, :in_friends, :is_ignored,
-    :stats
+    :stats, :style_id
 
   def website
     (object.object.website || '').sub(/^https?:\/\//, '')

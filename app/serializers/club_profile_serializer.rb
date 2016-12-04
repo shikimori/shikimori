@@ -1,6 +1,6 @@
 class ClubProfileSerializer < ClubSerializer
   attributes :description, :description_html, :mangas, :characters, :thread_id,
-    :topic_id, :user_role
+    :topic_id, :user_role, :style_id
   has_many :members, :animes, :mangas, :characters, :images
 
   # TODO: deprecated
