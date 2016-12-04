@@ -50,7 +50,8 @@ class SiteStatistics
     # 1483 - Zula
     # 94 - acid_emily
     # 11 - BlackMetalFan
-    User.where(id: [942, 2033, 1483, 94, 11]).order(:id)
+    # 188 - Forever Autumn
+    User.where(id: [942, 2033, 1483, 94, 11, 188]).order(:id)
   end
 
   def forum_moderators
