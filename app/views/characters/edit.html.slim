@@ -28,12 +28,17 @@
     .c-column.m0
       ul.b-list
         li
-          .field = Character.human_attribute_name :image
-          - if can? :significant_change, Version
-            a.b-js-action href="#{@resource.edit_field_url :image}"
-              = t '.moderators_only'
+          .field = @resource.class.human_attribute_name :image
+          - if @resource.image.exists?
+            - if can? :significant_change, Version
+              a.b-js-action href="#{@resource.edit_field_url :image}"
+                = t '.moderators_only'
+            - else
+              .b-js-action = t '.moderators_only'
+
           - else
-            .b-js-action = t '.moderators_only'
+            a.b-js-action href="#{@resource.edit_field_url :image}"
+              = t 'actions.edit'
 
         - if ru_domain?
           li

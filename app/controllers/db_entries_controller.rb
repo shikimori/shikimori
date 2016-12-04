@@ -22,13 +22,17 @@ class DbEntriesController < ShikimoriController
     page_title i18n_t 'entry_edit'
     @field = params[:field]
 
-    authorize! :significant_change, Version if significant_fields.include?(@field)
+    if significant_fields.include? @field
+      authorize! :significant_change, Version
+    end
 
     render template: 'db_entries/edit_field'
   end
 
   def update
-    authorize! :significant_change, Version if (update_params.keys & significant_fields).any?
+    if (update_params.keys & significant_fields).any?
+      authorize! :significant_change, Version
+    end
 
     version = if update_params[:image]
       update_image
@@ -50,7 +54,9 @@ private
   end
 
   def significant_fields
-    @resource.object.class::SIGNIFICANT_FIELDS
+    @resource.object.class::SIGNIFICANT_FIELDS.select do |field|
+      field != 'image' || @resource.image.exists?
+    end
   end
 
   def update_version
@@ -62,7 +68,20 @@ private
   end
 
   def update_image
-    Versioneers::PostersVersioneer.new(@resource.object)
-      .postmoderate(update_params[:image], current_user, params[:reason])
+    versioneer = Versioneers::PostersVersioneer.new(@resource.object)
+
+    if can? :significant_change, @resource.object
+      versioneer.postmoderate(
+        update_params[:image],
+        current_user,
+        params[:reason]
+      )
+    else
+      versioneer.premoderate(
+        update_params[:image],
+        current_user,
+        params[:reason]
+      )
+    end
   end
 end

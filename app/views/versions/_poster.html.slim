@@ -1,0 +1,14 @@
+/ old poster versions does not have image item_diff
+- if version.item_diff['image']
+  ul.diff
+    li.old-value
+      span #{t 'versions.text_diff.before'}:
+      = version.item_diff['image'][0]
+
+    li.new-value
+      span #{t 'versions.text_diff.after'}:
+      = version.item_diff['image'][1]
+
+    - if version.latest_image?
+      li.diff-value
+        img src="#{version.item.image.url :preview}"
