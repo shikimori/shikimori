@@ -11,7 +11,7 @@ class User
     ADMINS = [MORR_ID, 13]
     MODERATORS = (ADMINS + [921, 11, 188, 93, 861, 16_148]).uniq # 2 - Adelor, 93 - lena-chan, 861 - Oniii-chan
     REVIEWS_MODERATORS = (ADMINS + [16_148]).uniq # 16148 - Alex Minson,
-    VERSIONS_MODERATORS = (ADMINS + [11, 921, 188, 94, 392, 16_148, 21_887]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph
+    VERSIONS_MODERATORS = (ADMINS + [921, 188, 392, 16_148, 21_887]).uniq # 921 - sfairat, 188 - Forever Autumn, 11 - BlackMetalFan, 94 - AcidEmily, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph
     TRANSLATORS = (ADMINS + VERSIONS_MODERATORS + [28, 19, 31, 41]).uniq
     CONTEST_MODERATORS = (ADMINS + []).uniq # 1483 - Zula
     COSPLAY_MODERATORS = (ADMINS + [2043, 20_46]).uniq # 2043 - laitqwerty, 2046 - Котейка
