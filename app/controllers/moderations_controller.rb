@@ -6,6 +6,35 @@ class ModerationsController < ShikimoriController
 
   def show
     @moderation_policy = ModerationPolicy.new current_user, false
+
+    if current_user.admin?
+      @abuse_requests = AbuseRequest
+        .where('created_at > ?', 3.month.ago)
+        .where('user_id != approver_id')
+        .group(:approver_id)
+        .select('approver_id, count(*) as count')
+        .where(approver_id: User::Roles::MODERATORS - User::Roles::ADMINS)
+        .sort_by(&:count)
+        .reverse
+
+      @bans = Ban
+        .where("created_at > ?", 3.month.ago)
+        .where('user_id != moderator_id')
+        .group(:moderator_id)
+        .select('moderator_id, count(*) as count')
+        .where(moderator_id: User::Roles::MODERATORS - User::Roles::ADMINS)
+        .sort_by(&:count)
+        .reverse
+
+      @versions = Version
+        .where("created_at > ?", 6.month.ago)
+        .where('user_id != moderator_id')
+        .group(:moderator_id)
+        .select('moderator_id, count(*) as count')
+        .where(moderator_id: User::Roles::VERSIONS_MODERATORS - User::Roles::ADMINS)
+        .sort_by(&:count)
+        .reverse
+    end
   end
 
   def missing_screenshots

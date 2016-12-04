@@ -95,3 +95,23 @@ header.head
               href="#{forums_url}"
               title="#{'.forums'}"
             ] = t '.forums'
+
+- if @abuse_requests
+  .cc-3a
+    .c-column
+      .subheadline Abuse Requests
+      ul.b-list
+        - @abuse_requests.each do |stat|
+            li = "#{stat.approver.nickname}: #{stat.count}"
+
+    .c-column
+      .subheadline Bans
+      ul.b-list
+        - @bans.each do |stat|
+            li = "#{stat.moderator.nickname}: #{stat.count}"
+
+    .c-column
+      .subheadline Versions
+      ul.b-list
+        - @versions.each do |stat|
+            li = "#{stat.moderator.nickname}: #{stat.count}"
