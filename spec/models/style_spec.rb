@@ -13,7 +13,7 @@ describe Style do
 
       context '#strip_comments' do
         let(:css) { '/* test */ test' }
-        it { expect(style.compiled_css).to eq 'test' }
+        it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { test }" }
       end
 
       context '#camo_images' do
@@ -21,14 +21,33 @@ describe Style do
         let(:css) { "body { background: url(#{image_url}); };" }
         it do
           expect(style.compiled_css).to eq(
-            "body { background: url(#{UrlGenerator.instance.camo_url image_url}); };"
+            "#{Style::MEDIA_QUERY_CSS} { body { background: url(#{UrlGenerator.instance.camo_url image_url}); }; }"
           )
         end
       end
 
       context '#sanitize' do
         let(:css) { 'body { color: red; }; javascript:blablalba;;' }
-        it { expect(style.compiled_css).to eq 'body { color: red; }; :blablalba;' }
+        it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { body { color: red; }; :blablalba; }" }
+      end
+
+      describe '#media_query' do
+        context 'with styles' do
+          context 'with media' do
+            let(:css) { '@media only screen and (min-width: 100px) { test }' }
+            it { expect(style.compiled_css).to eq css }
+          end
+
+          context 'without media' do
+            let(:css) { 'test' }
+            it { expect(style.compiled_css).to eq "#{Style::MEDIA_QUERY_CSS} { test }" }
+          end
+        end
+
+        context 'without styles' do
+          let(:css) { '' }
+          it { expect(style.compiled_css).to eq '' }
+        end
       end
     end
   end

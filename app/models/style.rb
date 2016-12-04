@@ -17,12 +17,21 @@ class Style < ActiveRecord::Base
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')
     /* AUTO=body_background */ body { background: %s; }
   CSS
+  MEDIA_QUERY_CSS = '@media only screen and (min-width: 1024px)'
 
   def compiled_css
-    sanitize(camo_images(strip_comments(css)))
+    media_query(sanitize(camo_images(strip_comments(css))))
   end
 
 private
+
+  def media_query css
+    if css.include?('@media') || css.blank?
+      css
+    else
+      "#{MEDIA_QUERY_CSS} { #{css} }"
+    end
+  end
 
   def camo_images css
     css.gsub(BbCodes::UrlTag::URL) do
