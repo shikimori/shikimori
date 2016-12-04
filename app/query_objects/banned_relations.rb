@@ -1,6 +1,8 @@
 class BannedRelations
   include Singleton
 
+  CONFIG_PATH = Rails.root.join 'config/app/banned-franchise-coupling.lst'
+
   def anime id
     animes[id] || []
   end
@@ -53,7 +55,7 @@ private
 
   # TODO: migrate to https://github.com/anime-plus/graph/blob/master/data/banned-franchise-coupling.json
   def malgraph_data
-    data = open(Rails.root.join 'config/app//banned-franchise-coupling.lst').read
+    data = open(CONFIG_PATH).read
     LstParser.new.parse(data)
   end
 end
