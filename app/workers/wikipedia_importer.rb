@@ -132,7 +132,7 @@ class WikipediaImporter
             wiki_char[:description_ru],
             wiki_char[:source]
           )
-          db_char.description_ru = description.description
+          db_char.description_ru = description.raw
 
           db_char.russian = wiki_char[:russian].sub('Сяна', 'Шана')
           db_char.japanese = wiki_char[:japanese] if !db_char[:japanese] && wiki_char[:japanese]

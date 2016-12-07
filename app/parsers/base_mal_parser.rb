@@ -198,10 +198,8 @@ class BaseMalParser < SiteParserWithCache
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
   end
 
-  def description_en_with_source id, content
-    text = parse_synopsis(content)
-    source = "http://myanimelist.net/#{type}/#{id}"
-
-    DbEntries::Description.from_text_source(text, source).description
+  def processed_description_en id, content
+    value = parse_synopsis(content)
+    DbEntries::ProcessDescription.new.(value, type, id)
   end
 end

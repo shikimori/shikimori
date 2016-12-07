@@ -33,11 +33,11 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_ru
-    DbEntries::Description.from_description(object.description_ru)
+    DbEntries::Description.from_value(object.description_ru)
   end
 
   def description_en
-    DbEntries::Description.from_description(object.description_en)
+    DbEntries::Description.from_value(object.description_en)
   end
 
   #----------------------------------------------------------------------------
