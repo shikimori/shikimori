@@ -45,7 +45,7 @@ class Mal::TextSanitizer < ServiceObjectBase
       (?:
         (?:<!--link-->)?<a [^>]*? href="(?<url>.*?)" [^>]*? >.*?</a>
         .*{0,8}
-          |
+        |
         (?<text> [^<]{0,100}? )
       )
       ["']?
@@ -96,7 +96,7 @@ class Mal::TextSanitizer < ServiceObjectBase
   }mix
 
   def call
-    finalize comments bb_codes cleanup finalize raw_text
+    finalize(comments(bb_codes(cleanup(finalize(raw_text)))))
   end
 
 private

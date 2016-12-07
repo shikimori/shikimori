@@ -65,7 +65,8 @@ aggressive and socially hostile half of the couple. When embarrassed by \
 Oomori, she often attacks her physically but she controls herself to \
 the point of never actually doing physical damage.[br][br]Her clothing \
 styles are a reference to the La Croix designs from \
-[manga=6236]Alice Quartet[/manga]."
+[manga=6236]Alice Quartet[/manga].\
+[source]http://myanimelist.net/character/87143[/source]"
     )
   end
 
@@ -77,8 +78,8 @@ styles are a reference to the La Croix designs from \
 [character=21782]Kitagawa Mimi[/character]. There was once a time \
 where Kaho did not go to school for a while. Mimi decided to visit her \
 and found out that she was in love and was afraid to go out because of \
-acne problems. With Mimi's help, Kaho was able to cure her \
-acne and meet her date once again."
+acne problems. With Mimi's help, Kaho was able to cure her acne and meet \
+her date once again.[source]http://myanimelist.net/character/25023[/source]"
     )
   end
 end

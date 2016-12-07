@@ -26,7 +26,7 @@ describe Versioneers::FieldsVersioneer do
     end
 
     describe 'description change' do
-      let(:changes) {{ description_ru: 'zzz', source: '7' }}
+      let(:changes) { { description_ru: 'zzz' } }
 
       it do
         expect(version).to be_persisted
@@ -36,7 +36,7 @@ describe Versioneers::FieldsVersioneer do
     end
 
     describe 'nil -> "" change' do
-      let(:changes) {{ name: 'zzz', source: '' }}
+      let(:changes) { { name: 'zzz' } }
 
       it do
         expect(version.item_diff).to eq 'name' => ['test', 'zzz']

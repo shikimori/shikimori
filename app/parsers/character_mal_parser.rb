@@ -1,8 +1,8 @@
 class CharacterMalParser < BaseMalParser
   DESCRIPTION_REGEXP = /
-    <div class="normal_header"[\s\S]*?<\/div>
+    <div \s class="normal_header"[\s\S]*?<\/div>
     ([\s\S]*?)
-    <div class="(normal_header)"
+    <div \s class="normal_header"
   /mix
 
   # сбор списка элементов, которые будем импортировать
@@ -16,7 +16,7 @@ class CharacterMalParser < BaseMalParser
                     where
                       pr.#{type}_id is not null
                       and c.id is null").
-          each {|v| ids << v["#{type}_id"].to_i }
+          each { |v| ids << v["#{type}_id"].to_i }
     ids
   end
 
@@ -53,7 +53,7 @@ class CharacterMalParser < BaseMalParser
     end
 
     entry[:fullname] = cleanup doc.css('h1').text.gsub('  ', ' ')
-    entry[:description_en] = description_en_with_source(id, doc)
+    entry[:description_en] = processed_description_en(id, doc)
 
     # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
@@ -94,13 +94,11 @@ class CharacterMalParser < BaseMalParser
 
   private
 
-  def description_en_with_source id, doc
+  def processed_description_en id, doc
     description_node = doc.css('#content > table > tr > td:nth-child(2)')
     match = description_node.to_html.match(DESCRIPTION_REGEXP)
 
-    text = match ? Mal::TextSanitizer.new(match.captures.first).() : ''
-    source = "http://myanimelist.net/#{type}/#{id}"
-
-    DbEntries::Description.from_text_source(text, source).description
+    value = match ? Mal::TextSanitizer.new(match.captures.first).() : ''
+    DbEntries::ProcessDescription.new.(value, type, id)
   end
 end

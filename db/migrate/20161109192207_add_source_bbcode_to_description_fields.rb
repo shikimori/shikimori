@@ -26,14 +26,8 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   end
 
   def new_description_en model
-    description = DbEntries::Description.from_description(model.description_en)
-    text = description.text
-    source = new_description_en_source(model, description)
-
-    "#{text}[source]#{source}[/source]"
-  end
-
-  def new_description_en_source model, description
-    description.source == 'ANN' ? 'animenewsnetwork.com' : model.mal_url
+    value = model.description_en
+    type = model.class.name.downcase
+    DbEntries::ProcessDescription.new.(value, type, model.id)
   end
 end
