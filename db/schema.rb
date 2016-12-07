@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20161225111506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -784,8 +785,8 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.datetime "image_updated_at"
     t.integer  "ani_db_id"
     t.string   "ani_db_name",        limit: 255
-    t.text     "description"
-    t.text     "ani_db_description"
+    t.text     "description_ru"
+    t.text     "description_en"
     t.string   "website",            limit: 255
   end
 
