@@ -193,7 +193,7 @@ class BaseMalParser < SiteParserWithCache
     "https://myanimelist.net/#{type}/#{id}"
   end
 
-  # AnimeMalParser => 'anime'
+  # AnimeMalParser => anime
   def type
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
   end
