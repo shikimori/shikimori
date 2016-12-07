@@ -291,7 +291,7 @@
           #studio.japanese = w_studio[:japanese] if w_studio[:japanese]
           #studio.ani_db_id = w_id
           #studio.ani_db_name = w_studio[:name]
-          #studio.ani_db_description = w_studio[:description]
+          #studio.description_en = w_studio[:description]
           #if w_studio[:logo]
             #studio.image = open(w_studio[:logo])
             #raise "проверить сохраняется ли корректно картинка"

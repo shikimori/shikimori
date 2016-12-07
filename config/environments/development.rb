@@ -13,12 +13,11 @@ Site::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = true
 
-  #config.cache_store = :dalli_store, 'localhost', {
-  #  namespace: 'shikimori_development',
-  #  compress: true,
-  #  value_max_bytes: 1024 * 1024 * 128
-  #}
-  config.cache_store = :null_store
+  config.cache_store = :dalli_store, 'localhost', {
+    namespace: 'shikimori_development',
+    compress: true,
+    value_max_bytes: 1024 * 1024 * 128
+  }
 
   # Expands the lines which load the assets
   #config.assets.debug = true
