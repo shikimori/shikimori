@@ -9,7 +9,7 @@
           == @video.errors.full_messages.join('<br>')
 
           - if @video.errors['url'].present?
-            - duplicate = AnimeVideo.order(id: :desc).find_by(url: @video.url)
+            - duplicate = AnimeVideo.available.find_by(url: @video.url)
             - if duplicate
               p
                 ' Уже добавленное видео:
