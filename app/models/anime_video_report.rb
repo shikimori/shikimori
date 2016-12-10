@@ -45,7 +45,7 @@ class AnimeVideoReport < ActiveRecord::Base
     event(:accept_only) { transition pending: :accepted }
     event(:reject) { transition pending: :rejected }
     event(:post_reject) { transition [:pending, :accepted] => :post_rejected }
-    event(:cancel) { transition [:accepted, :rejected] => :pending }
+    event(:cancel) { transition [:accepted, :rejected, :post_rejected] => :pending }
 
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
