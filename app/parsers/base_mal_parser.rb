@@ -79,7 +79,7 @@ class BaseMalParser < SiteParserWithCache
         end
         print "successfully imported %s %s %s\n" % [type, id, entry.name] if Rails.env != 'test'
       rescue Exception => e
-        print "%s\n%s\n" % [e.message, e.backtrace.join("\n")] if Rails.env == 'test' || e.class != EmptyContent
+        print "%s\n%s\n" % [e.message, e.backtrace.join("\n")] if Rails.env == 'test' || e.class != EmptyContentError
         print "failed import for %s %s\n" % [type, id] if Rails.env != 'test'
         exit if e.class == Interrupt
       end
@@ -172,9 +172,8 @@ class BaseMalParser < SiteParserWithCache
   # получение страницы MAL
   def get(url, required_text = ['MyAnimeList.net</title>', '</html>'])
     content = super(url, required_text)
-    # binding.pry unless content
-    raise EmptyContent.new(url) unless content
-    raise InvalidId.new(url) if content.include?("Invalid ID provided") ||
+    raise EmptyContentError.new(url) unless content
+    raise InvalidIdError.new(url) if content.include?("Invalid ID provided") ||
                                 content.include?("No manga found, check the manga id and try again") ||
                                 content.include?("No series found, check the series id and try again")
     raise ServerUnavailable.new(url) if content.include?("MyAnimeList servers are under heavy load")

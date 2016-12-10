@@ -13,7 +13,7 @@ private
 
   def parsed_data
     @parsed_data ||= parser.fetch_model @entry.id
-  rescue InvalidId
+  rescue InvalidIdError
   end
 
   def parser

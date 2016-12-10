@@ -100,6 +100,7 @@ gem 'rails-i18n'
 gem 'i18n-inflector-rails'
 
 gem 'dry-struct'
+gem 'chainable_methods'
 
 group :beta, :production do
   gem 'honeybadger'

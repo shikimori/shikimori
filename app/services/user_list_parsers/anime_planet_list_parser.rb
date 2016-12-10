@@ -96,8 +96,8 @@ private
   def get url
     #content = Proxy.get url, timeout: 30, required_text: 'Anime-Planet</title>'
     content = open(url).read
-    raise EmptyContent, url unless content
-    raise InvalidId, url if content.include?("You searched for")
+    raise EmptyContentError, url unless content
+    raise InvalidIdError, url if content.include?("You searched for")
     content
   end
 end
