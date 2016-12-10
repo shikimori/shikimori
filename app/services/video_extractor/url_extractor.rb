@@ -123,7 +123,7 @@ private
     elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ RUTUBE_HASH_REGEXP
-      "http://rutube.ru/player.swf?hash=#{$LAST_MATCH_INFO[:hash]}"
+      "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ RUTUBE_EMBED_REGEXP
       "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX

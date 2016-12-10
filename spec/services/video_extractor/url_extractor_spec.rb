@@ -149,27 +149,25 @@ describe VideoExtractor::UrlExtractor do
         let(:html) { 'http://rutube.ru/embed/?v=4858718' }
         it { is_expected.to eq '//rutube.ru/play/embed/4858718' }
       end
-    end
 
-    describe 'rutube hash' do
       describe 'rutube_1' do
         let(:html) { 'http://rutube.ru/tracks/2300012.html?v=8c8bbdc632726555649d45c2c6a273c0' }
-        it { is_expected.to eq '//rutube.ru/player.swf?hash=8c8bbdc632726555649d45c2c6a273c0' }
+        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
       end
 
       describe 'rutube_2' do
         let(:html) { 'http://rutube.ru/player.swf?hash=2ebdd7a1645cf60b0b60542689a54031' }
-        it { is_expected.to eq '//rutube.ru/player.swf?hash=2ebdd7a1645cf60b0b60542689a54031' }
+        it { is_expected.to eq '//rutube.ru/play/embed/2ebdd7a1645cf60b0b60542689a54031' }
       end
 
       describe 'rutube_3' do
         let(:html) { 'http://video.rutube.ru/?v=e9c211bd5a5f8bb848eef97ad21b046f' }
-        it { is_expected.to eq '//rutube.ru/player.swf?hash=e9c211bd5a5f8bb848eef97ad21b046f' }
+        it { is_expected.to eq '//rutube.ru/play/embed/e9c211bd5a5f8bb848eef97ad21b046f' }
       end
 
       describe 'rutube_4' do
         let(:html) { '<OBJECT width="730" height="480"><PARAM name="movie" value="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32"></PARAM><PARAM name="wmode" value="window"></PARAM><PARAM name="allowFullScreen" value="true"></PARAM><EMBED src="http://video.rutube.ru/28c276bcec9a0619affa8e2443551b32" type="application/x-shockwave-flash" wmode="window" width="730" height="480" allowFullScreen="true" ></EMBED></OBJECT>' }
-        it { is_expected.to eq '//rutube.ru/player.swf?hash=28c276bcec9a0619affa8e2443551b32' }
+        it { is_expected.to eq '//rutube.ru/play/embed/28c276bcec9a0619affa8e2443551b32' }
       end
 
       # describe 'rutube_5', focus: true, vcr: { cassette_name: 'url_extractor' } do
