@@ -267,8 +267,8 @@ class Proxy < ActiveRecord::Base
     def cookie url
       if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
         %w(
-          MALHLOGSESSID=0599e043a19f3593ed8f6699bd881620;
-          MALSESSIONID=f5lskf83bo6ak76pueefi9nj92;
+          MALHLOGSESSID=94988ef1f0cc270c6541e35258eb08f9;
+          MALSESSIONID=9tp6dm89d1up518icv73hjelm0;
           is_logged_in=1;
         ).join
       else

@@ -37,7 +37,8 @@ module MalFetcher
     "Cannot connect to the configuration database",
     "Document Error: Unauthorized",
     "Error 404: Not Found",
-    'Сервер на техосмотре, пожалуйста, зайдите через полчасика.'
+    'Сервер на техосмотре, пожалуйста, зайдите через полчасика.',
+    'YOU HAVE BEEN AUTO-BANNED FROM ANIDB FOR EXCESSIVE USAGE'
   ]
 
   NO_SYNOPSYS = [

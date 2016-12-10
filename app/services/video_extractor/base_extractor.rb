@@ -16,7 +16,7 @@ class VideoExtractor::BaseExtractor
       end
     end
 
-  rescue OpenURI::HTTPError, EmptyContent, URI::InvalidURIError,
+  rescue OpenURI::HTTPError, EmptyContentError, URI::InvalidURIError,
       SocketError, TypeError, Net::OpenTimeout => e
   end
 
