@@ -104,35 +104,32 @@ describe AnimeVideo do
 
   describe 'callbacks' do
     describe 'before_save' do
-      before { anime_video.save }
-
-      describe '#check_ban' do
-        subject { anime_video.banned? }
-        let(:anime_video) { build :anime_video, url: url }
+      describe '#check_banned_hostings' do
+        subject(:anime_video) { create :anime_video, url: url }
 
         context 'in_ban' do
           let(:url) { 'http://v.kiwi.kz/v2/9l7tsj8n3has/' }
-          it { is_expected.to be_truthy }
+          it { is_expected.to be_banned }
         end
 
         context 'no_ban' do
-          let(:url) { 'http://vk.com/j8n3/' }
-          it { is_expected.to be_falsy }
+          let(:url) { attributes_for(:anime_video)[:url] }
+          it { is_expected.to_not be_banned }
         end
       end
 
-      describe '#copyrighted' do
-        let(:anime_video) { build :anime_video, anime: create(:anime, id: anime_id) }
-        subject { anime_video.copyrighted? }
+      describe '#check_copyrighted_animes' do
+        subject(:anime_video) { create :anime_video, anime: anime }
+        let(:anime) { create :anime, id: anime_id }
 
-        context 'ban' do
+        context 'banned anime_id' do
           let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-          it { is_expected.to be_truthy }
+          it { is_expected.to be_copyrighted }
         end
 
-        context 'not_ban' do
+        context 'not banned anime_id' do
           let(:anime_id) { 1 }
-          it { is_expected.to be_falsy }
+          it { is_expected.to_not be_copyrighted }
         end
       end
     end
@@ -140,8 +137,8 @@ describe AnimeVideo do
     describe 'after_create' do
       describe '#create_episode_notificaiton' do
         let(:anime) { build_stubbed :anime }
-        let(:url_1) { 'http://foo/1' }
-        let(:url_2) { 'http://foo/2' }
+        let(:url_1) { attributes_for(:anime_video)[:url] }
+        let(:url_2) { attributes_for(:anime_video)[:url] + 'z' }
 
         context 'new_video' do
           subject { EpisodeNotification.first }
@@ -279,16 +276,16 @@ describe AnimeVideo do
       describe 'new record' do
         context 'normal url' do
           let(:url) { 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
-          it { expect(video.url).to eq url }
+          it { expect(video.url).to eq 'http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16' }
         end
 
         context 'url w/o http' do
-          let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16&hd=2' }
+          let(:url) { 'vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16' }
           it { expect(video.url).to eq "http://#{url}" }
         end
       end
 
-      describe 'persisted video' do
+      describe 'persisted video', :vcr do
         let(:video) { build_stubbed :anime_video, url: url }
         let(:url) { 'http://rutube.ru/video/ef370e68cd9687a30ea67a68658c6ef8/?ref=logo' }
         before { video.url = new_url }
@@ -306,19 +303,21 @@ describe AnimeVideo do
     end
 
     describe '#hosting' do
-      subject { build(:anime_video, url: url).hosting }
+      let(:anime_video) { build :anime_video }
+      before { anime_video[:url] = url }
+      subject! { anime_video.hosting }
 
-      context 'valid_url' do
-        let(:url) { 'http://vk.com/video_ext.php?oid=1' }
+      context 'valid url' do
+        let(:url) { attributes_for(:anime_video)[:url] }
         it { is_expected.to eq 'vk.com' }
       end
 
-      context 'remove_www' do
+      context 'remove www' do
         let(:url) { 'http://www.vk.com?id=1' }
         it { is_expected.to eq 'vk.com' }
       end
 
-      context 'second_level_domain' do
+      context 'second level domain' do
         let(:url) { 'http://www.foo.bar.com/video?id=1' }
         it { is_expected.to eq 'bar.com' }
       end
@@ -333,7 +332,7 @@ describe AnimeVideo do
       let(:video) { build :anime_video, url: url }
 
       context 'vk' do
-        let(:url) { 'http://www.vk.com?id=1' }
+        let(:url) { attributes_for(:anime_video)[:url] }
         it { expect(video).to be_vk }
         it { expect(video).to_not be_smotret_anime }
       end

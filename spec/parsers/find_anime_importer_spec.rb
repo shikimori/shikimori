@@ -20,13 +20,13 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
     describe 'video' do
       context 'no_videos' do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
-        it { expect{subject}.to change(videos, :count).by 8 }
+        it { expect { subject }.to change(videos, :count).by 8 }
       end
 
       context 'with_videos' do
         let(:videos) { AnimeVideo.where anime_id: anime.id }
         let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://vk.com/video_ext.php?oid=-41880554&id=163351742&hash=f6a6a450e7aa72a9', source: 'http://findanime.ru/xxxholic__shunmuki/series1?mature=1' }
-        it { expect{subject}.to change(videos, :count).by 7 }
+        it { expect { subject }.to change(videos, :count).by 7 }
 
         describe 'anime_video' do
           before { import }
@@ -47,7 +47,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
       context 'same anime twice' do
         before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier] }
-        it { expect{subject}.to change(AnimeVideo, :count).by 8 }
+        it { expect { subject }.to change(AnimeVideo, :count).by 8 }
       end
     end
 
@@ -109,46 +109,46 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
           context 'check hosting, episode and author:' do
             let(:videos) { [build(:anime_video, anime: anime, author: author, url: url, episode: episode, kind: kind)] }
-            let(:url) { 'http://video.sibnet.ru/1' }
+            let(:url) { 'http://video.sibnet.ru/shell.php?videoid=1186077' }
             let(:episode) { 2 }
             let(:kind) { :fandub }
             let(:author) { create(:anime_video_author) }
             after { subject }
 
             context 'saved' do
-              context ' - other hosting, other episode, other kind and other author' do
+              context 'other hosting, other episode, other kind and other author' do
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
               end
 
-              context ' - eq hosting, other episode, other kind and other author' do
-                let(:url) { 'http://vk.com/video/other' }
+              context 'eq hosting, other episode, other kind and other author', :focis do
+                let(:url) { attributes_for(:anime_video)[:url] }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
               end
 
-              context ' - other hosting, eq episode, other kind and other author' do
+              context 'other hosting, eq episode, other kind and other author' do
                 let(:episode) { 1 }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
               end
 
-              context ' - other hosting, other episode, other kind and eq author' do
+              context 'other hosting, other episode, other kind and eq author' do
                 let(:author) { author_1 }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!).once }
               end
 
-              context ' - eq hosting, eq episode, other kind and other author' do
-                let(:url) { 'http://vk.com/video/other' }
+              context 'eq hosting, eq episode, other kind and other author' do
+                let(:url) { attributes_for(:anime_video)[:url] }
                 let(:episode) { 1 }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
               end
 
-              context ' - other hosting, eq episode, other kind and eq author' do
+              context 'other hosting, eq episode, other kind and eq author' do
                 let(:episode) { 1 }
                 let(:author) { author_1 }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
               end
 
-              context ' - eq hosting, eq episode, other kind and eq author' do
-                let(:url) { 'http://vk.com/video/other' }
+              context 'eq hosting, eq episode, other kind and eq author' do
+                let(:url) { attributes_for(:anime_video)[:url] }
                 let(:episode) { 1 }
                 let(:author) { author_1 }
                 it { expect_any_instance_of(AnimeVideo).to receive(:save!) }
@@ -157,7 +157,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
 
             context 'not saved' do
               context ' - eq hosting, eq episode, eq kind and eq author' do
-                let(:url) { 'http://vk.com/video/other' }
+                let(:url) { attributes_for(:anime_video)[:url] }
                 let(:episode) { 1 }
                 let(:author) { author_1 }
                 let(:kind) { :raw }
@@ -184,13 +184,13 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
     describe 'anime_link' do
       context 'no_link' do
         let(:links) { AnimeLink.where service: FindAnimeImporter::SERVICE.to_s, anime_id: anime.id, identifier: identifier }
-        it { expect{subject}.to change(links, :count).by 1 }
+        it { expect { subject }.to change(links, :count).by 1 }
       end
 
       context 'with_link' do
         let!(:link) { create :anime_link, service: FindAnimeImporter::SERVICE.to_s, anime_id: anime.id, identifier: identifier }
         let(:links) { AnimeLink }
-        it { expect{subject}.to_not change AnimeLink, :count }
+        it { expect { subject }.to_not change AnimeLink, :count }
       end
     end
 
@@ -199,12 +199,12 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
       let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
 
       context 'new_author' do
-        it { expect{subject}.to change(AnimeVideoAuthor, :count).by 1 }
+        it { expect { subject }.to change(AnimeVideoAuthor, :count).by 1 }
       end
 
       context 'existing_author' do
         let!(:author) { create :anime_video_author, name: 'Ancord & Nika Lenina' }
-        it { expect{subject}.to_not change AnimeVideoAuthor, :count }
+        it { expect { subject }.to_not change AnimeVideoAuthor, :count }
       end
     end
 
@@ -212,13 +212,13 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
       describe 'unmatched' do
         let(:identifier) { 'dakara_boku_wa__h_ga_dekinai_ova' }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
-        it { expect{subject}.to raise_error MismatchedEntries, "unmatched:\n#{identifier}\n" }
+        it { expect { subject }.to raise_error MismatchedEntries, "unmatched:\n#{identifier}\n" }
       end
 
       describe 'ambiguous' do
         let!(:anime_2) { create :anime, name: 'Триплексоголик OVA-1' }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
-        it { expect{subject}.to raise_error MismatchedEntries, "ambiguous:\n#{identifier} (#{anime.id}, #{anime_2.id})\n" }
+        it { expect { subject }.to raise_error MismatchedEntries, "ambiguous:\n#{identifier} (#{anime.id}, #{anime_2.id})\n" }
       end
 
       describe 'twice_matched' do
@@ -228,7 +228,7 @@ describe FindAnimeImporter, vcr: { cassette_name: 'find_anime_parser' } do
         before { allow_any_instance_of(FindAnimeParser).to receive(:fetch_page_links).and_return [identifier, identifier2] }
         before { expect(importer).to receive(:import_videos).exactly(0).times }
 
-        it { expect{subject}.to raise_error MismatchedEntries, "twice matched:\n#{anime.id} (#{identifier}, #{identifier2})\n" }
+        it { expect { subject }.to raise_error MismatchedEntries, "twice matched:\n#{anime.id} (#{identifier}, #{identifier2})\n" }
 
         it 'does not creates links' do
           expect {

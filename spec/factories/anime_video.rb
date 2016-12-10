@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :anime_video do
-    sequence(:url) { |n| "http://vk.com/video/#{n}" }
+    sequence(:url) { |n| "http://vk.com/video_ext.php?oid=-49842926&id=171419019&hash=5ca0a0daa459cd16#{n}" }
     source 'http://source.com'
     kind AnimeVideo.kind.values.first
     anime { seed :anime }
@@ -9,7 +9,7 @@ FactoryGirl.define do
     state 'working'
 
     after :build do |video|
-      #video.class.skip_callback(:create, :after, :create_episode_notificaiton)
+      # video.class.skip_callback(:create, :after, :create_episode_notificaiton)
       video.stub :create_episode_notificaiton
     end
 
@@ -22,7 +22,7 @@ FactoryGirl.define do
     end
 
     trait :with_notification do
-      #after(:create) { |video| video.send(:create_episode_notificaiton) }
+      # after(:create) { |video| video.send(:create_episode_notificaiton) }
       after(:build) { |video| video.unstub :create_episode_notificaiton }
     end
   end

@@ -4,7 +4,8 @@ describe AnimeVideoDecorator, type: :controller do
 
   describe '#player_html' do
     subject { decorator.player_html }
-    let(:video) { build :anime_video, url: url }
+    let(:video) { build :anime_video }
+    before { video[:url] = url }
 
     context 'myvi.ru' do
       context 'embeded' do
@@ -65,7 +66,7 @@ describe AnimeVideoDecorator, type: :controller do
   describe '#player_url' do
     subject { decorator.player_url }
     let(:video) { create :anime_video, url: url }
-    let(:url) { 'http://www.vk.com?id=1' }
+    let(:url) { attributes_for(:anime_video)[:url] }
 
     it { is_expected.to eq url }
   end

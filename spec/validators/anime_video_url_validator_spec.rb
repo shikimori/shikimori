@@ -33,7 +33,7 @@ describe AnimeVideoUrlValidator, type: :validator do
   context 'uniqueness' do
     let(:other_anime_video) { create :anime_video, anime: anime, url: other_url }
     let(:anime) { build_stubbed :anime }
-    let(:link) { 'foo.com/video/1' }
+    let(:link) { 'video.sibnet.ru/shell.php?videoid=1186077' }
     let(:other_url) { "http://#{link}" }
 
     context 'other url' do

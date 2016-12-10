@@ -44,8 +44,16 @@ describe AnimeOnline::VideoPlayer do
     end
 
     context 'vk first' do
-      let!(:video_vk) { create :anime_video, :fandub, url: 'http://vk.com/video', anime: anime }
-      let!(:video_other) { create :anime_video, :fandub, url: 'http://aaa.com/video', anime: anime }
+      let!(:video_vk) do
+        create :anime_video, :fandub,
+          url: attributes_for(:anime_video)[:url],
+          anime: anime
+      end
+      let!(:video_other) do
+        create :anime_video, :fandub,
+          url: 'http://online.animedia.tv/embed/14678/1/8',
+          anime: anime
+      end
       let!(:video_sublitles) { create :anime_video, :subtitles, anime: anime }
 
       it do
@@ -57,8 +65,16 @@ describe AnimeOnline::VideoPlayer do
     end
 
     context 'unknown grouped with fandub' do
-      let!(:video_unknown) { create :anime_video, :unknown, url: 'http://aaa.com/video', anime: anime }
-      let!(:video_vk_fandub) { create :anime_video, :fandub, url: 'http://vk.com/video', anime: anime }
+      let!(:video_unknown) do
+        create :anime_video, :unknown,
+          url: 'http://online.animedia.tv/embed/14678/1/8',
+          anime: anime
+      end
+      let!(:video_vk_fandub) do
+        create :anime_video, :fandub,
+          url: attributes_for(:anime_video)[:url],
+          anime: anime
+      end
 
       it do
         is_expected.to have(1).item
@@ -70,9 +86,21 @@ describe AnimeOnline::VideoPlayer do
   describe '#same_videos' do
     let(:anime) { create :anime }
 
-    let!(:video_vk_1) { create :anime_video, url: 'http://vk.com/video', anime: anime }
-    let!(:video_vk_2) { create :anime_video, url: 'http://vk.com/video2', anime: anime }
-    let!(:video_other) { create :anime_video, url: 'http://abc.com/video2', anime: anime }
+    let!(:video_vk_1) do
+      create :anime_video,
+        url: attributes_for(:anime_video)[:url],
+        anime: anime
+    end
+    let!(:video_vk_2) do
+      create :anime_video,
+        url: attributes_for(:anime_video)[:url] + 'a',
+        anime: anime
+    end
+    let!(:video_other) do
+      create :anime_video,
+      url: 'http://online.animedia.tv/embed/14678/1/8',
+      anime: anime
+    end
 
     before { allow(player).to receive(:current_video).and_return video_vk_1.decorate }
     it { expect(player.same_videos).to have(2).items }
@@ -86,7 +114,7 @@ describe AnimeOnline::VideoPlayer do
       let(:kind) { :fandub }
       let(:hosting) { 'vk.com' }
       let(:author_id) { 1 }
-      let!(:video) { create :anime_video, kind: kind, url: 'http://vk.com', author: nil, anime: anime }
+      let!(:video) { create :anime_video, kind: kind, url: attributes_for(:anime_video)[:url], author: nil, anime: anime }
       it { is_expected.to eq video }
     end
   end

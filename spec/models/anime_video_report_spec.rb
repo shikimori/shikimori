@@ -146,7 +146,7 @@ describe AnimeVideoReport do
     let(:anime_video) { create :anime_video, state: anime_video_state }
     let(:anime_video_state) { 'working' }
     let(:report_kind) { 'broken' }
-    let!(:initial_report) { }
+    let!(:initial_report) {}
     subject(:report) { create :anime_video_report, :pending, anime_video: anime_video, kind: report_kind }
 
     describe '#accept' do
@@ -205,7 +205,7 @@ describe AnimeVideoReport do
     context 'Accept already accepted - https://github.com/morr/shikimori/issues/463' do
       let(:anime) { create :anime }
       let(:anime_video) { create :anime_video, :uploaded, anime: anime }
-      let(:user) { create :user, id: 43311 }
+      let(:user) { create :user, id: 43_311 }
       let(:approver_1) { create :user }
       let(:approver_2) { create :user }
       let(:report) { create :anime_video_report, :pending, :uploaded, anime_video: anime_video, user: user }
@@ -218,7 +218,7 @@ describe AnimeVideoReport do
     end
 
     context 'Fix : https://github.com/morr/shikimori/issues/427' do
-      let(:url) { 'http://vkontakte.ru/video_ext.php?oid=154832837&id=161510385&hash=b66257a02ef35fc0&hd=3' }
+      let(:url) { attributes_for(:anime_video)[:url] }
       let!(:other_video) { create :anime_video, :working, kind: 'fandub', url: url }
       let!(:anime_video) { create :anime_video, :working, kind: 'fandub', url: url + '1' }
       let!(:report) { create :anime_video_report, :pending, anime_video: anime_video, kind: 'broken', approver_id: approver.id }
@@ -261,7 +261,6 @@ describe AnimeVideoReport do
         it { is_expected.to be_working }
       end
     end
-
 
     describe 'repeat event for doubles' do
       let(:report_user_1) { create :user, :user }

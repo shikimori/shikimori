@@ -19,12 +19,12 @@ class AnimeOnline::Activists
   private
     def resposible_users hosting
       active_users = AnimeVideoReport
-        .select(:user_id, "count(*) as videos")
+        .select(:user_id, 'count(*) as videos')
         .joins(:anime_video)
         .where(kind: :broken, state: :accepted)
         .where("url like 'http://#{hosting}%'")
         .group(:user_id)
-        .having("count(*) >= ?", ENOUGH_TO_TRUST_RUTUBE)
+        .having('count(*) >= ?', ENOUGH_TO_TRUST_RUTUBE)
         .map(&:user_id)
 
       user_with_rejected = AnimeVideoReport

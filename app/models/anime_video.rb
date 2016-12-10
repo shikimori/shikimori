@@ -32,8 +32,8 @@ class AnimeVideo < ActiveRecord::Base
     if: -> { new_record? || changes['url'] }
   validates :episode, numericality: { greater_than_or_equal_to: 0 }
 
-  before_save :check_ban
-  before_save :check_copyright
+  before_save :check_banned_hostings
+  before_save :check_copyrighted_animes
   after_create :create_episode_notificaiton, if: :single?
 
   R_OVA_EPISODES = 2
@@ -85,10 +85,14 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def url= value
-    if persisted?
-      super Url.new(VideoExtractor::UrlExtractor.call(value)).with_http.to_s
+    video_url = Url.new(value).with_http.to_s if value.present?
+    extracted_url =
+      VideoExtractor::UrlExtractor.call video_url if video_url.present?
+
+    if extracted_url.present?
+      super Url.new(extracted_url).with_http.to_s
     else
-      super value.present? ? Url.new(value).with_http.to_s : value
+      super extracted_url
     end
   end
 
@@ -96,6 +100,7 @@ class AnimeVideo < ActiveRecord::Base
     parts = URI.parse(url).host.split('.')
     domain = "#{parts[-2]}.#{parts[-1]}"
     domain == 'vkontakte.ru' ? 'vk.com' : domain
+
   rescue URI::InvalidURIError
   end
 
@@ -143,11 +148,11 @@ class AnimeVideo < ActiveRecord::Base
 
 private
 
-  def check_ban
+  def check_banned_hostings
     self.state = 'banned' if hosting == 'kiwi.kz'
   end
 
-  def check_copyright
+  def check_copyrighted_animes
     self.state = 'copyrighted' if copyright_ban?
   end
 
