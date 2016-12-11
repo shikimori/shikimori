@@ -1,6 +1,4 @@
 class Svd < ActiveRecord::Base
-  extend Enumerize
-
   serialize :lsa
   serialize :entry_ids
   serialize :user_ids

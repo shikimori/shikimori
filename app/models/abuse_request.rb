@@ -1,6 +1,4 @@
 class AbuseRequest < ActiveRecord::Base
-  extend Enumerize
-
   MAXIMUM_REASON_SIZE = 255
 
   belongs_to :comment

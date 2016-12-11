@@ -22,7 +22,8 @@ class ImportListWorker
           url_getter: :updated_catalog_url
         )
 
-      when :all # 36750 (735 pages) mangas, 10900 (218 pages) animes
+      # 36750 (735 pages) mangas, 10900 (218 pages) animes
+      when :all
         parser.fetch_list_pages(
           limit: pages_limit,
           url_getter: :all_catalog_url

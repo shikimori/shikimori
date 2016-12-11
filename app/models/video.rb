@@ -1,6 +1,5 @@
 # TODO: refactor kind to enumerize
 class Video < ActiveRecord::Base
-  extend Enumerize
   ALLOWED_HOSTINGS = %i(youtube vk rutube sibnet dailymotion smotret_anime)
 
   belongs_to :anime

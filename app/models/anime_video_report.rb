@@ -1,6 +1,4 @@
 class AnimeVideoReport < ActiveRecord::Base
-  extend Enumerize
-
   belongs_to :anime_video
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id

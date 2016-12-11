@@ -1,6 +1,4 @@
 class UserPreferences < ActiveRecord::Base
-  extend Enumerize
-
   belongs_to :user, touch: true
 
   enumerize :list_privacy,
