@@ -25,4 +25,4 @@ development:
 
 production:
   <<: *defaults
-  active: true
+  active: false
