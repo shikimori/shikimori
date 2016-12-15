@@ -16,8 +16,8 @@ class DbEntryDecorator < BaseDecorator
 
   #----------------------------------------------------------------------------
 
-  # description object used to get text or source
-  # (text is bbcode - used when editing description e.g.)
+  # description object is used to get text (bbcode) or source
+  # (e.g. used when editing description)
   def description
     if object.respond_to?(:description)
       description_no_locale

@@ -1,7 +1,7 @@
-describe Mal::TextSanitizer do
-  let(:parser) { Mal::TextSanitizer }
+describe Mal::SanitizeText do
+  let(:parser) { Mal::SanitizeText }
 
-  subject { parser.call text }
+  subject { parser.new.call text }
 
   describe '#call' do
     describe '#cleanup' do

@@ -1,19 +1,22 @@
 class Anidb::ParseDescription
+  include ChainableMethods
+
   UNKNOWN_ID_ERRORS = ['Unknown anime id', 'Unknown character id']
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
+  # TODO: parsed description contains links to anidb pages -
+  #       should we sanitize them?
   def call url
-    content = get(url)
-    html = parse(content)
-    sanitize(html)
+    chain_from(url).get.parse.sanitize.unwrap
   end
 
   private
 
   def get url
     content = Proxy.get(url, proxy_options)
-    raise EmptyContentError.new(url) if content.blank?
-    raise InvalidIdError.new(url) if unknown_id?(content)
+
+    raise EmptyContentError, url if content.blank?
+    raise InvalidIdError, url if unknown_id?(content)
 
     content
   end
@@ -23,7 +26,7 @@ class Anidb::ParseDescription
   end
 
   def sanitize html
-    Mal::TextSanitizer.new(html).()
+    Anidb::SanitizeText.new.(html)
   end
 
   def proxy_options

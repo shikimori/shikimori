@@ -1,4 +1,4 @@
-describe DbEntries::ProcessDescription do
+describe Mal::ProcessDescription do
   subject { service.call value, type, id }
   let(:service) { described_class.new }
 
@@ -14,7 +14,7 @@ describe DbEntries::ProcessDescription do
     end
   end
 
-  context 'with empt source' do
+  context 'with empty source' do
     let(:value) { 'foo[source][/source]' }
     it do
       is_expected.to eq(
