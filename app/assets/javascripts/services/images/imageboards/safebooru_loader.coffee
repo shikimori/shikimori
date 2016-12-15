@@ -8,7 +8,7 @@ class Images.Imageboard.SafebooruLoader extends Images.Imageboard.LoaderBase
 
   # private methods
   _images_source_url: ->
-    "#{@base_url}/index.php" + 
+    "#{@base_url}/index.php" +
       "?page=dapi&s=post&q=index&pid=#{@page - 1}&limit=#{@limit}&tags=#{@tags}"
 
   _parse: (xhr_data) ->

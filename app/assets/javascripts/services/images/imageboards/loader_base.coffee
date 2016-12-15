@@ -71,7 +71,9 @@ class Images.Imageboard.LoaderBase
       "?filename=#{filename}&url=#{image_url}"
 
   _image_url: (image_url, filename) ->
+    image_url = "https:#{image_url}" if image_url.match /^\/\//
     @_camo_url image_url, filename
 
   _preview_url: (preview_url, filename) ->
+    preview_url = "https:#{preview_url}" if preview_url.match /^\/\//
     @_camo_url preview_url, filename
