@@ -98,7 +98,7 @@ class CharacterMalParser < BaseMalParser
     description_node = doc.css('#content > table > tr > td:nth-child(2)')
     match = description_node.to_html.match(DESCRIPTION_REGEXP)
 
-    value = match ? Mal::TextSanitizer.new(match.captures.first).() : ''
-    DbEntries::ProcessDescription.new.(value, type, id)
+    value = match ? Mal::SanitizeText.new.(match.captures.first) : ''
+    Mal::ProcessDescription.new.(value, type, id)
   end
 end

@@ -199,6 +199,6 @@ class BaseMalParser < SiteParserWithCache
 
   def processed_description_en id, content
     value = parse_synopsis(content)
-    DbEntries::ProcessDescription.new.(value, type, id)
+    Mal::ProcessDescription.new.(value, type, id)
   end
 end

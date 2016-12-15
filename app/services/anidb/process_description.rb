@@ -1,5 +1,5 @@
-class DbEntries::ProcessDescription
-  def call value, type, id
+class Anidb::ProcessDescription
+  def call value
     description = DbEntries::Description.from_value(value)
 
     text = description.text
