@@ -13,7 +13,7 @@ class User
     REVIEWS_MODERATORS = (ADMINS + [16_148]).uniq # 16148 - Alex Minson,
     VERSIONS_MODERATORS = (ADMINS + [921, 392, 16_148, 21_887]).uniq # 921 - sfairat, 11 - BlackMetalFan, 94 - AcidEmily, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph
     TRANSLATORS = (ADMINS + VERSIONS_MODERATORS + [28, 19, 31, 41]).uniq
-    CONTEST_MODERATORS = (ADMINS + []).uniq # 1483 - Zula
+    CONTEST_MODERATORS = (ADMINS + [4261]).uniq # 4261 - Zepheles
     COSPLAY_MODERATORS = (ADMINS + [2043, 20_46]).uniq # 2043 - laitqwerty, 2046 - Котейка
     # 11496 - АлхимиК, 4099 - sttany, 12771 - spinosa, 13893 - const, 11883 - Tenno Haruka, 5064 - Heretic, 5779 - Lumennes,
     # 14633 - Dracule404, 5255 - GArtem, 7028 - Drako Black, 15905 - Youkai_Ririko, 3954 - Xellos("ゼロス"), 23616 - Vi Vi,
