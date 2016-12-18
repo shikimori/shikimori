@@ -31,11 +31,11 @@ class AnimeProfileSerializer < AnimeSerializer
   end
 
   def english
-    [english]
+    [object.english]
   end
 
   def japanese
-    [japanese]
+    [object.japanese]
   end
 
   def description
