@@ -21,6 +21,8 @@ gem 'uglifier'
 gem 'non-stupid-digest-assets'
 gem 'activerecord-collection_cache_key' # NOTE: remove after upgrading to rails 5
 
+gem 'mal_parser', github: 'shikimori/mal_parser'
+
 gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'unicorn'
 gem 'rack-cors'
