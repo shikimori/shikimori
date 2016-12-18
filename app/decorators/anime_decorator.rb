@@ -50,7 +50,7 @@ class AnimeDecorator < AniMangaDecorator
         calendars[1].start_at
       end
 
-      date || object.next_episode_at || next_schedule_at
+      date || object.next_episode_at || next_broadcast_at
     end
   end
 
@@ -78,9 +78,9 @@ class AnimeDecorator < AniMangaDecorator
 
 private
 
-  def next_schedule_at
-    if schedule_at && schedule_at > 1.week.ago
-      schedule_at < 1.hour.ago ? schedule_at + 1.week : schedule_at
+  def next_broadcast_at
+    if broadcast_at && broadcast_at > 1.week.ago
+      broadcast_at < 1.hour.ago ? broadcast_at + 1.week : broadcast_at
     end
   end
 end

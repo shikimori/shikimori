@@ -1,4 +1,4 @@
-class Schedule
+class BroadcastDate
   pattr_initialize :schedule, :start_on
 
   DAYS = %w(

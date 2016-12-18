@@ -39,7 +39,7 @@ class CalendarEntry < SimpleDelegator
     anime.next_episode_at ||
       anime_calendars.first&.start_at ||
       aired_at ||
-      schedule_at
+      broadcast_at
   end
 
   def next_episode_end_at
@@ -81,13 +81,13 @@ private
     anime.aired_on.to_datetime if anime.aired_on.to_datetime >= 1.day.ago
   end
 
-  def schedule_at
-    return unless anime.schedule_at
+  def broadcast_at
+    return unless anime.broadcast_at
 
-    if anime.schedule_at > 1.hour.ago
-      anime.schedule_at
-     elsif last_news && anime.schedule_at - last_news.created_at < 14.days
-      anime.schedule_at + 1.week
+    if anime.broadcast_at > 1.hour.ago
+      anime.broadcast_at
+     elsif last_news && anime.broadcast_at - last_news.created_at < 14.days
+      anime.broadcast_at + 1.week
     end
   end
 

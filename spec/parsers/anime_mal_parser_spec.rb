@@ -71,7 +71,7 @@ describe AnimeMalParser, :vcr do
       # { id: 233, name: 'Bandai Entertainment' }
     ]
     expect(data).to include(:duration)
-    expect(data[:schedule]).to eq nil
+    expect(data[:broadcast]).to eq nil
 
     expect(data[:rating]).to eq 'r'
     expect(data[:score]).to eq 8.83
@@ -93,9 +93,9 @@ describe AnimeMalParser, :vcr do
     )
   end
 
-  it 'anime schedule' do
+  it 'anime broadcast' do
     recs = parser.fetch_model(31_240)
-    expect(recs[:schedule]).to eq 'Mondays at 01:05 (JST)'
+    expect(recs[:broadcast]).to eq 'Mondays at 01:05 (JST)'
   end
 
   it 'correct synopsis' do

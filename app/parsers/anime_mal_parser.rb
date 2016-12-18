@@ -86,8 +86,8 @@ class AnimeMalParser < BaseMalParser
 
     duration = parse_line("Duration", content, false)
     entry[:duration] = (duration.match(/(\d+) hr./) ? $1.to_i*60 : 0) + (duration.match(/(\d+) min./) ? $1.to_i : 0)
-    entry[:schedule] = parse_line("Broadcast", content, false)
-    entry[:schedule] = nil if entry[:schedule] == 'Unknown' || entry[:schedule].blank?
+    entry[:broadcast] = parse_line("Broadcast", content, false)
+    entry[:broadcast] = nil if entry[:broadcast] == 'Unknown' || entry[:broadcast].blank?
 
     entry[:rating] = RATINGS[CGI::unescapeHTML(parse_line 'Rating', content, false)]
     entry[:score] = parse_score(content)

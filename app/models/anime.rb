@@ -212,8 +212,8 @@ class Anime < DbEntry
     BlobData.get("anime_%d_subtitles" % id) || {}
   end
 
-  def schedule_at
-    Schedule.parse(schedule, aired_on) if schedule && (ongoing? || anons?)
+  def broadcast_at
+    BroadcastDate.parse(broadcast, aired_on) if broadcast && (ongoing? || anons?)
   end
 
   # torrents

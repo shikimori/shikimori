@@ -1,9 +1,9 @@
-describe Schedule do
+describe BroadcastDate do
   before { Timecop.freeze '06-04-2016' }
   after { Timecop.return }
 
   describe '.parse' do
-    subject { Schedule.parse schedule, start_on }
+    subject { BroadcastDate.parse schedule, start_on }
     let(:start_on) { Date.parse '06-04-2016' }
 
     context 'nil' do
