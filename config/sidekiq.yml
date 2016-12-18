@@ -5,7 +5,7 @@ staging:
   :concurrency: 5
 
 production:
-  :concurrency: 12
+  :concurrency: 60
 
 :queues:
   - [high_priority, 8]
@@ -15,6 +15,7 @@ production:
   - [cpu_intensive, 5]
   - [slow_parsers, 5]
   - [torrents_parsers, 5]
+  - [mal_parsers, 3]
   - [anime_online_parsers, 5]
   - [manga_online_parsers, 5]
   - [webm_thumbnails, 5]
@@ -29,3 +30,5 @@ production:
   manga_online_parsers: 1
   webm_thumbnails: 1
   similar_users: 1
+  mal_parsers: 50
+  push_notifications: 5
