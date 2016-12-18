@@ -36,16 +36,16 @@ describe CharacterMalParser, :vcr do
     let!(:character_1) { create :character, :with_topics, id: 8_177 }
     let!(:character_2) { create :character, :with_topics, id: 26_201, imported_at: Time.zone.now }
 
-    it { expect(parser.prepare.size).to eq(1) }
+    # it { expect(parser.prepare.size).to eq(1) }
 
-    it 'import' do
-      create :person_role, character_id: 1
-      create :person_role, character_id: 2
+    # it 'import' do
+      # create :person_role, character_id: 1
+      # create :person_role, character_id: 2
 
-      expect {
-        expect(parser.import.size).to eq(3)
-      }.to change(Character, :count).by(2)
-    end
+      # expect {
+        # expect(parser.import.size).to eq(3)
+      # }.to change(Character, :count).by(2)
+    # end
 
     it 'import seyu' do
       create :person_role, character_id: 1

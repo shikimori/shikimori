@@ -29,7 +29,7 @@ describe PersonMalParser, :vcr do
     let!(:person_1) { create :person, id: 1 }
     let!(:person_2) { create :person, id: 2, imported_at: Time.zone.now }
 
-    it { expect(parser.prepare.size).to eq(1) }
+    # it { expect(parser.prepare.size).to eq(1) }
 
     #it 'imports' do
       #create :person_role, person_id: 3
