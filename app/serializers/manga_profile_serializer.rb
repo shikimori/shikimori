@@ -16,11 +16,11 @@ class MangaProfileSerializer < MangaSerializer
   end
 
   def english
-    [english]
+    [object.english]
   end
 
   def japanese
-    [japanese]
+    [object.japanese]
   end
 
   # TODO: deprecated

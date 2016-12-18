@@ -12,15 +12,11 @@ describe NameMatches::Namer do
         'Hunter x Hunter',
         'Hunters'
       ],
-      english: [
-        'English Hunter'
-      ],
-      japanese: [
-        'ハンターxハンター'
-      ]
+      english: 'English Hunter',
+      japanese: 'ハンターxハンター'
   end
 
-  let(:id) { 99999999999 }
+  let(:id) { 99_999_999_999 }
   let(:kind) { :tv }
   let(:russian) { 'Охотник!' }
   let(:aired_on) { Date.parse '2000-01-01' }
@@ -32,7 +28,7 @@ describe NameMatches::Namer do
     end
 
     context 'matched' do
-      let(:id) { 9999999 }
+      let(:id) { 9_999_999 }
       it { expect(service.predefined entry).to eq [] }
     end
   end

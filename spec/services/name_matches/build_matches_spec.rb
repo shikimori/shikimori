@@ -11,12 +11,8 @@ describe NameMatches::BuildMatches do
         'Hunter x Hunter',
         'Hunters'
       ],
-      english: [
-        'English Hunter'
-      ],
-      japanese: [
-        'ハンターxハンター'
-      ]
+      english: 'English Hunter',
+      japanese: 'ハンターxハンター'
   end
 
   let(:id) { 9_999_999 }

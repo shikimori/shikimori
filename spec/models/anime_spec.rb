@@ -227,14 +227,14 @@ describe Anime do
       before { Timecop.freeze '06-04-2016' }
       after { Timecop.return }
 
-      let(:anime) { build :anime, state, schedule: schedule, aired_on: nil }
+      let(:anime) { build :anime, state, broadcast: broadcast, aired_on: nil }
       let(:state) { :ongoing }
-      let(:schedule) { 'Thursdays at 22:00 (JST)' }
+      let(:broadcast) { 'Thursdays at 22:00 (JST)' }
 
       it { expect(anime.broadcast_at).to eq Time.zone.parse('07-04-2016 16:00') }
 
-      context 'no schedule' do
-        let(:schedule) { '' }
+      context 'no broadcast' do
+        let(:broadcast) { '' }
         it { expect(anime.broadcast_at).to be_nil }
       end
 

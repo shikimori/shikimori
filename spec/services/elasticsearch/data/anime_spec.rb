@@ -5,8 +5,8 @@ describe Elasticsearch::Data::Anime do
       name: 'zzz',
       score: 7,
       russian: 'ттт',
-      english: ['qq'],
-      japanese: ['ff'],
+      english: 'qq',
+      japanese: 'ff',
       synonyms: ['aa', 'bb']
   end
 

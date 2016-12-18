@@ -35,7 +35,7 @@ class WikipediaParser < SiteParserWithCache
     name = anime.name.gsub(/†/, ' ').gsub(/☆/, ' ').gsub(/★/, ' ')
     pages = [name] +
       (anime.russian.blank? ? [] : [anime.russian]) +
-      (anime.english ? anime.english : []) +
+      (anime.english.present? ? [anime.english] : []) +
       (anime.synonyms ? anime.synonyms : [])
 
     pages << name.sub(/^(.*?): (.*)$/, '\1 (\2)') if name =~ /.*: .*/

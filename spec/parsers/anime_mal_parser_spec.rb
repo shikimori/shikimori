@@ -46,9 +46,9 @@ describe AnimeMalParser, :vcr do
     expect(data[:origin]).to eq 'original'
     expect(data[:description_en]).to be_present
     expect(data[:related]).not_to be_empty
-    expect(data).to include(:english)
+    expect(data[:english]).to eq 'Cowboy Bebop'
     expect(data).to include(:synonyms)
-    expect(data[:japanese]).to eq ['カウボーイビバップ']
+    expect(data[:japanese]).to eq 'カウボーイビバップ'
 
     expect(data[:episodes]).to eq 26
 
