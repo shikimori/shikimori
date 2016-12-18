@@ -25,8 +25,6 @@ class Anime < DbEntry
   SUB_ADULT_RATING = 'r_plus'
 
   # TODO: refactor to postgres array
-  serialize :english
-  serialize :japanese
   serialize :synonyms
   # TODO: remove this fields
   serialize :world_art_synonyms

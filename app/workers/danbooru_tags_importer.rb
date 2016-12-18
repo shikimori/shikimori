@@ -11,7 +11,8 @@ class DanbooruTagsImporter
       entries = klass.where(tags: nil).all
 
       entries.each do |v|
-        tag = DanbooruTag.match([v.name] + (v.english || []) + (v.synonyms || []), tags, false)
+        names = ([v.name, v.english] + (v.synonyms || [])).select(&:present?)
+        tag = DanbooruTag.match(, tags, false)
         v.update_attribute(:tags, tag) if tag
       end
     end

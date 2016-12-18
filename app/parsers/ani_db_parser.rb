@@ -198,7 +198,7 @@
                   ##select('id, name, synonyms, english, japanese, status, episodes_aired, episodes').all
                   #all
     #animes = animes.map {|a| {:names => [fix_name(a.name)] +
-                                        #(a.english ? a.english.map {|v| fix_name(v) } : []) +
+                                        #(a.english ? [fix_name(a.english)] : []) +
                                         #(a.synonyms ? a.synonyms.map {|v| fix_name(v) } : []),
                               #:anime => a} }
     #print "fetched #{animes.size} animes from database\n"

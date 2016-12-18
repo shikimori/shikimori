@@ -63,7 +63,9 @@ class NameMatches::Namer
 private
 
   def alternatives entry
-    Array(entry.synonyms) + Array(entry.english) + Array(entry.japanese)
+    (
+      Array(entry.synonyms) + Array(entry.english) + Array(entry.japanese)
+    ).compact
   end
 
   def with_kind name, entry

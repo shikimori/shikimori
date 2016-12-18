@@ -31,11 +31,11 @@ private
   end
 
   def english
-    fix @entry.english.first
+    fix @entry.english
   end
 
   def japanese
-    fix @entry.japanese.first
+    fix @entry.japanese
   end
 
   def synonym_0

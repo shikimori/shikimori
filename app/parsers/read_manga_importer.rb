@@ -42,9 +42,9 @@ class ReadMangaImporter
     all_mangas.map do |m|
       {
         names: [SiteParserWithCache.fix_name(m.name)] +
-          (m.english ? m.english.map {|v| SiteParserWithCache.fix_name(v) } : []) +
+          (m.english ? [SiteParserWithCache.fix_name(m.english)] : []) +
           (m.synonyms ? m.synonyms.map {|v| SiteParserWithCache.fix_name(v) } : []) +
-          (m.japanese ? m.japanese.map {|v| SiteParserWithCache.fix_name(v) } : []),
+          (m.japanese ? [SiteParserWithCache.fix_name(m.japanese)] : []),
         entry: m,
         id: m[:id]
       }

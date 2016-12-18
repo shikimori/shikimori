@@ -30,6 +30,14 @@ class AnimeProfileSerializer < AnimeSerializer
     object.id
   end
 
+  def english
+    [english]
+  end
+
+  def japanese
+    [japanese]
+  end
+
   def description
     if scope.ru_domain?
       object[:description_ru] || object[:description_en]

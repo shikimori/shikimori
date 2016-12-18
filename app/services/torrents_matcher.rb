@@ -56,8 +56,8 @@ class TorrentsMatcher
     names = [anime.torrents_name || anime.name]
     unless options[:only_name] || anime.torrents_name
       unless anime.kind_special?
-        names.concat(anime.english) unless !anime.english || anime.english.empty?
-        names.concat(anime.synonyms) unless !anime.synonyms || anime.synonyms.empty?
+        names.concat([anime.english]) unless anime.english.blank?
+        names.concat([anime.synonyms]) unless !anime.synonyms.blank?
       end
       names << anime.name.sub(/ (\d)$/, '\1') if anime.name =~ / \d$/
       names << anime.name.sub(/ (\d)$/, ' S\1') if anime.name =~ / \d$/

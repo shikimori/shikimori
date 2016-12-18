@@ -41,9 +41,9 @@ class AnimeMalParser < BaseMalParser
     #parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
 
-    entry[:english] = parse_line("English", content, true)
+    entry[:english] = parse_line("English", content, true).first
     entry[:synonyms] = parse_line("Synonyms", content, true)
-    entry[:japanese] = parse_line("Japanese", content, true)
+    entry[:japanese] = parse_line("Japanese", content, true).first
 
     alt = entry[:name].permalinked.gsub(/-/, ' ').titleize
     entry[:synonyms] = entry[:synonyms] + [alt] unless entry[:name] == alt || entry[:synonyms].include?(alt)

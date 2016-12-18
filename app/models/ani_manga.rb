@@ -5,15 +5,6 @@ module AniManga
     aired_on ? aired_on.year : nil
   end
 
-  # костыль от миграеции на 1.9.3
-  def japanese
-    self[:japanese] ? self[:japanese].map {|v| v.force_encoding('utf-8') } : []
-  end
-
-  def english
-    self[:english] || []
-  end
-
   # временный костыль после миграции на 1.9.3
   def synonyms
     self[:synonyms] ? self[:synonyms].map {|v| v.encode('utf-8', undef: :replace, invalid: :replace, replace: '') } : []

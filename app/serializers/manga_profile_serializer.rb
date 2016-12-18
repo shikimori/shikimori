@@ -15,6 +15,14 @@ class MangaProfileSerializer < MangaSerializer
     object.current_rate
   end
 
+  def english
+    [english]
+  end
+
+  def japanese
+    [japanese]
+  end
+
   # TODO: deprecated
   def thread_id
     object.maybe_topic(scope.locale_from_domain).id
