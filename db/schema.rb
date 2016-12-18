@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117215127) do
+ActiveRecord::Schema.define(version: 20161218120737) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,8 @@ ActiveRecord::Schema.define(version: 20161117215127) do
     t.text     "desynced",                       default: [],    null: false, array: true
     t.string   "origin"
     t.string   "schedule"
+    t.string   "english_new"
+    t.string   "japanese_new"
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
@@ -593,6 +595,8 @@ ActiveRecord::Schema.define(version: 20161117215127) do
     t.float    "site_score",                                             default: 0.0,   null: false
     t.datetime "parsed_at"
     t.text     "desynced",                                               default: [],    null: false, array: true
+    t.string   "english_new"
+    t.string   "japanese_new"
   end
 
   add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree
@@ -635,6 +639,13 @@ ActiveRecord::Schema.define(version: 20161117215127) do
 
   add_index "name_matches", ["target_type", "phrase"], name: "target_type_phrase_search_index", using: :btree
   add_index "name_matches", ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id", using: :btree
+
+  create_table "parser_queues", force: :cascade do |t|
+    t.string   "url",          null: false
+    t.string   "kind",         null: false
+    t.datetime "attempted_at"
+    t.datetime "created_at",   null: false
+  end
 
   create_table "people", force: :cascade do |t|
     t.string   "name",               limit: 255
