@@ -9,9 +9,10 @@ class AniMangaDecorator::Files
       entry.name.sub(/\d+$/, ''),
       entry.name.sub(/:.*/, ''),
       entry.name.sub(/:.*/, '').sub(/\d+$/, ''),
-      entry.name.sub(/\(.*\)/, '')
-    ] + (entry.english || []) + (entry.synonyms || []))
-        .compact
+      entry.name.sub(/\(.*\)/, ''),
+      entry.english
+    ] + (entry.synonyms || []))
+        .select(&:present?)
         .uniq
         .map {|v| v.gsub(/[():]/, '').sub(/\/div>[\s\S]*/, '').strip }
         .uniq
@@ -29,7 +30,7 @@ class AniMangaDecorator::Files
   end
 
   def toshokan_search
-    (search_phrases + (entry.japanese || [])).compact.uniq
+    (search_phrases + [entry.japanese]).select(&:present?).uniq
   end
 
   def subtitles
