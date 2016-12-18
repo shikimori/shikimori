@@ -12,7 +12,7 @@ class DanbooruTagsImporter
 
       entries.each do |v|
         names = ([v.name, v.english] + (v.synonyms || [])).select(&:present?)
-        tag = DanbooruTag.match(, tags, false)
+        tag = DanbooruTag.match(names, tags, false)
         v.update_attribute(:tags, tag) if tag
       end
     end
