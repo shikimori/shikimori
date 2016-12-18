@@ -4,6 +4,6 @@ class ExternalLink < ActiveRecord::Base
 
   # sources are external link types from MAL
   enumerize :source,
-    in: %i(official_site anime_db anime_news_network wikipedia),
+    in: Types::ExternalLink::Source.values,
     predicates: { prefix: true }
 end

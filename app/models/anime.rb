@@ -148,6 +148,11 @@ class Anime < DbEntry
     as: :entry,
     inverse_of: :entry,
     dependent: :destroy
+  has_one :anidb_external_link,
+    -> { where(source: Types::ExternalLink::Source['anime_db']) },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
 
   enumerize :kind,
     in: %i(tv movie ova ona special music),
@@ -182,9 +187,6 @@ class Anime < DbEntry
   before_save :track_changes
   before_save :generate_news
   after_create :generate_name_matches
-
-  scope :with_description_ru_source,
-    -> { where.not("description_ru LIKE '%[source][/source]'") }
 
   def episodes= value
     value.blank? ? super(0) : super(value)

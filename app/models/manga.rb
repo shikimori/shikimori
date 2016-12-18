@@ -92,6 +92,11 @@ class Manga < DbEntry
     as: :entry,
     inverse_of: :entry,
     dependent: :destroy
+  has_one :anidb_external_link,
+    -> { where(source: Types::ExternalLink::Source['anime_db']) },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
 
   enumerize :kind,
     in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin],
@@ -103,9 +108,6 @@ class Manga < DbEntry
 
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
-
-  scope :with_description_ru_source,
-    -> { where.not("description_ru LIKE '%[source][/source]'") }
 
   after_create :generate_name_matches
 

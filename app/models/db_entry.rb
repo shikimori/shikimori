@@ -43,8 +43,8 @@ class DbEntry < ActiveRecord::Base
     "http://myanimelist.net/#{self.class.name.downcase}/#{id}"
   end
 
-  # TODO: remove when source field is removed from anime, manga and character
-  def source
-    raise 'use DbEntryDecorator#description.source instead!'
-  end
+  # TODO: uncomment when source field is removed from Anime and Manga
+  #def source
+  #  raise 'use DbEntryDecorator#description.source instead!'
+  #end
 end

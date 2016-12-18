@@ -2,12 +2,12 @@ class SitemapController < ShikimoriController
   def index
     # TODO: exclude db entries where source in description_ru is empty
     if params[:format] == 'xml'
-      @animes = Anime
-        .with_description_ru_source
+      @animes = DbEntries::WithDescriptionQuery
+        .with_description_ru_source(Anime)
         .where.not(kind: :special)
         .order(updated_at: :desc)
-      @mangas = Manga
-        .with_description_ru_source
+      @mangas = DbEntries::WithDescriptionQuery
+        .with_description_ru_source(Manga)
         .order(updated_at: :desc)
     end
 
