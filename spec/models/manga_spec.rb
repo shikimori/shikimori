@@ -33,6 +33,7 @@ describe Manga do
     it { is_expected.to have_many :name_matches }
 
     it { is_expected.to have_many :external_links }
+    it { is_expected.to have_one :anidb_external_link }
   end
 
   describe 'validations' do
@@ -65,15 +66,6 @@ describe Manga do
 
       it { expect(Manga.read_manga_adult).to have(1).item }
       it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
-    end
-
-    describe '#with_description_ru_source' do
-      subject { Manga.with_description_ru_source }
-
-      let!(:manga_1) { create :manga, description_ru: 'foo[source]bar[/source]' }
-      let!(:manga_2) { create :manga, description_ru: 'foo[source][/source]' }
-
-      it { is_expected.to eq [manga_1] }
     end
   end
 

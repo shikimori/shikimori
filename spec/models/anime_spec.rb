@@ -49,6 +49,7 @@ describe Anime do
     it { is_expected.to have_many :name_matches }
 
     it { is_expected.to have_many :external_links }
+    it { is_expected.to have_one :anidb_external_link }
   end
 
   describe 'validations' do
@@ -60,17 +61,6 @@ describe Anime do
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
     it { is_expected.to enumerize(:rating).in :none, :g, :pg, :pg_13, :r, :r_plus, :rx }
     it { is_expected.to enumerize(:origin) }
-  end
-
-  describe 'scopes' do
-    describe '#with_description_ru_source' do
-      subject { Anime.with_description_ru_source }
-
-      let!(:anime_1) { create :anime, description_ru: 'foo[source]bar[/source]' }
-      let!(:anime_2) { create :anime, description_ru: 'foo[source][/source]' }
-
-      it { is_expected.to eq [anime_1] }
-    end
   end
 
   describe 'callbacks' do
