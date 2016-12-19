@@ -1,5 +1,5 @@
 describe Anidb::ProcessDescription do
-  subject { described_class.new.call value, anidb_url }
+  subject { described_class.call value, anidb_url }
   let(:anidb_url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=3395' }
 
   context 'without source' do

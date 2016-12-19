@@ -1,23 +1,10 @@
-class Anidb::ImportDescriptions < ActiveJob::Base
+class Anidb::ImportDescriptionsJob < ActiveJob::Base
   def perform
-    import_anime_descriptions
-    import_manga_descriptions
+    import_descriptions(animes)
+    import_descriptions(mangas)
   end
 
   private
-
-  # TODO: use chainable_methods?
-  def import_anime_descriptions
-    animes.find_each do |v|
-      anidb_url = v.anidb_external_link.url
-      value = Anidb::ParseDescription.new.(anidb_url)
-      description = Anidb::ProcessDescription.new.(value, anidb_url)
-    end
-  end
-
-  def import_manga_descriptions
-
-  end
 
   def animes
     Anidb::ImportDescriptionsQuery.for_import(Anime)
@@ -25,5 +12,27 @@ class Anidb::ImportDescriptions < ActiveJob::Base
 
   def mangas
     Anidb::ImportDescriptionsQuery.for_import(Manga)
+  end
+
+  def import_descriptions db_entries
+    db_entries.find_each do |v|
+      update_description_en(v)
+      update_anidb_external_link(v)
+    end
+  end
+
+  def update_description_en db_entry
+    description_en = anidb_description_en(db_entry)
+    db_entry.update!(description_en: description_en)
+  end
+
+  def update_anidb_external_link db_entry
+    db_entry.anidb_external_link.update!(imported_at: Time.zone.now)
+  end
+
+  def anidb_description_en db_entry
+    anidb_url = db_entry.anidb_external_link.url
+    description_en = Anidb::ParseDescription.(anidb_url)
+    Anidb::ProcessDescription.(description_en, anidb_url)
   end
 end

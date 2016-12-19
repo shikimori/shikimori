@@ -1,4 +1,4 @@
-class Mal::ProcessDescription
+class Mal::ProcessDescription < ServiceObjectBase2
   def call value, type, id
     description = DbEntries::Description.from_value(value)
 

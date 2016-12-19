@@ -99,6 +99,6 @@ class CharacterMalParser < BaseMalParser
     match = description_node.to_html.match(DESCRIPTION_REGEXP)
 
     value = match ? Mal::SanitizeText.new.(match.captures.first) : ''
-    Mal::ProcessDescription.new.(value, type, id)
+    Mal::ProcessDescription.(value, type, id)
   end
 end

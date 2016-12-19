@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 describe Anidb::ParseDescription, :vcr do
-  subject(:call) { service.call url }
-  let(:service) { described_class.new }
+  subject(:call) { described_class.call url }
 
   context 'valid anime url' do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=3395' }
