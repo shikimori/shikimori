@@ -1,7 +1,6 @@
 describe Mal::SanitizeText do
-  let(:parser) { Mal::SanitizeText }
-
-  subject { parser.new.call text }
+  subject { parser.call text }
+  let(:parser) { described_class.new }
 
   describe '#call' do
     describe '#cleanup' do
@@ -9,7 +8,7 @@ describe Mal::SanitizeText do
         it { expect(parser.call '&amp;').to eq '&' }
         it { expect(parser.call '&quot;').to eq '"' }
         it { expect(parser.call '&#039;').to eq "'" }
-        it { expect(parser.call '&hellip;').to eq "…" }
+        it { expect(parser.call '&hellip;').to eq '…' }
       end
 
       context '#fix_html' do

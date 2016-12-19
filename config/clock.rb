@@ -22,6 +22,10 @@ module Clockwork
     PostgresFix.perform_async
   end
 
+  every 1.week, 'import anidb descriptions', at: ['02:00'] do
+    Anidb::ImportDescriptionsJob.perform_later
+  end
+
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
     FindAnimeWorker.perform_async :last_15_entries
     HentaiAnimeWorker.perform_async :last_15_entries

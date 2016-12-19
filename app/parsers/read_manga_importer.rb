@@ -77,7 +77,7 @@ class ReadMangaImporter
               import_entry[:source]
             )
 
-            db_entry[:entry].description_ru = description.raw
+            db_entry[:entry].description_ru = description.value
           end
 
           if import_entry[:russian].present? &&

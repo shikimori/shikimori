@@ -4,7 +4,7 @@ class Anidb::SanitizeText < Mal::SanitizeText
     <i>
     Source:\s(?<source>.+?)
     </i>
-    \Z
+    \n*
   }mix
 
   private
