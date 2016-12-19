@@ -1,11 +1,11 @@
-class Anidb::ParseDescription
+# frozen_string_literal: true
+
+class Anidb::ParseDescription < ServiceObjectBase2
   include ChainableMethods
 
   UNKNOWN_ID_ERRORS = ['Unknown anime id', 'Unknown character id']
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
-  # TODO: parsed description contains links to anidb pages -
-  #       should we sanitize them?
   def call url
     chain_from(url).get.parse.sanitize.unwrap
   end

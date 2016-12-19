@@ -28,6 +28,6 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   def new_description_en model
     value = model.description_en
     type = model.class.name.downcase
-    Mal::ProcessDescription.new.(value, type, model.id)
+    Mal::ProcessDescription.(value, type, model.id)
   end
 end

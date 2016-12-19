@@ -1,6 +1,5 @@
 describe Mal::ProcessDescription do
-  subject { service.call value, type, id }
-  let(:service) { described_class.new }
+  subject { described_class.call value, type, id }
 
   let(:type) { 'anime' }
   let(:id) { 123 }

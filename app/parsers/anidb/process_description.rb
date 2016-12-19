@@ -1,4 +1,4 @@
-class Anidb::ProcessDescription
+class Anidb::ProcessDescription < ServiceObjectBase2
   def call value, anidb_url
     description = DbEntries::Description.from_value(value)
 
