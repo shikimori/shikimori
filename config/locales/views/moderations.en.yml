@@ -148,7 +148,6 @@ en:
 
     versions:
       index:
-        date: Date
         notice: This is the history of content changes authored by members.
         instruction: Instructions
         instructions:
@@ -200,3 +199,7 @@ en:
           moderation after processing the ones above.
         queue_empty: Queue is empty
         history: History of content changes
+
+    users:
+      index:
+        users: Users

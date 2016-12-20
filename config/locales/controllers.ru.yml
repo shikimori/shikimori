@@ -138,6 +138,10 @@ ru:
     <<: *moderations_controller
     page_title: Модерация рецензий
 
+  moderations/users_controller:
+    <<: *moderations_controller
+    page_title: Новые пользователи
+
   moderations/versions_controller:
     <<: *moderations_controller
     content_change: 'Правка #%{version_id}'

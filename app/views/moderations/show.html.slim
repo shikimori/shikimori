@@ -55,8 +55,13 @@ header.head
             = t '.reviews_journal'
             span.size = @moderation_policy.reviews_count
 
-    - if can? :edit, AnimeVideoAuthor
-      ul.b-list
+    ul.b-list
+      li
+        a.b-link[
+          href="#{moderations_users_path}"
+          title="#{t 'moderations/users_controller.page_title'}"
+        ] = t '.new_users'
+      - if can? :edit, AnimeVideoAuthor
         li
           a.b-link[
             href="#{moderations_anime_video_authors_url}"

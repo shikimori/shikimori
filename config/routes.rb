@@ -94,6 +94,7 @@ Site::Application.routes.draw do
   resources :sponsors, only: [:show]
 
   namespace :moderations do
+    resources :users, only: [:index]
     resources :versions, only: [:show, :create, :destroy] do
       member do
         get :tooltip

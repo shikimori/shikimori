@@ -1,8 +1,9 @@
 class @DatePicker extends View
-  INPUT_FORMAT = 'DD.MM.YYYY'
+  INPUT_FORMAT = 'YYYY-MM-DD'
 
   initialize: ->
-    initial_value = @root.value
+    initial_value = moment(@root.value).toDate()
+    console.log initial_value
 
     new Pikaday
       field: @root

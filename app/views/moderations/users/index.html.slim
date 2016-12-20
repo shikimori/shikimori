@@ -1,0 +1,34 @@
+header.head
+  h1 = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+
+.block
+  input.subheadline-input.date-filter[
+    type="text"
+    data-name="created_on"
+    placeholder="#{t 'date_field'}"
+    value="#{params[:created_on]}"
+  ]
+  .subheadline = t '.users'
+  .cc-3
+    - @collection.each do |user|
+      .b-user.c-column.detailed
+        .info
+          .image-name
+            a.name[
+              href="#{profile_url user, subdomain: false}"
+              title="#{user.nickname}"
+            ] = user.nickname
+
+            a[
+              href="#{profile_url user, subdomain: false}"
+              title="#{user.nickname}"
+            ]
+              img.image[
+                src="#{user.avatar_url 73}"
+                srcset="#{user.avatar_url 148} 2x"
+                alt="#{user.nickname}"
+              ]
+          p.last-online
+            = I18n.l user.created_at, format: :full

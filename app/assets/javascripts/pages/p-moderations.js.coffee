@@ -16,7 +16,7 @@ $moderation = (node) ->
         .data(html: '')
 
 # страница модерации правок
-@on 'page:load', 'versions_index', ->
+@on 'page:load', 'versions_index', 'users_index', ->
   picker = new DatePicker('.date-filter')
   picker.on 'date:picked', ->
     new_url = new URI(location.href).setQuery('created_on', @value).href()
