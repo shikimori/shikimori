@@ -1,5 +1,5 @@
-describe Import::Base do
-  class Import::Test < Import::Base
+describe Import::ImportBase do
+  class Import::Test < Import::ImportBase
     SPECIAL_FIELDS = %i(japanese)
 
     def klass

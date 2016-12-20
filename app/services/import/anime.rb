@@ -1,4 +1,4 @@
-class Import::Anime < Import::Base
+class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
     genres studios related
   )

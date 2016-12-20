@@ -1,4 +1,4 @@
-class Import::Base
+class Import::ImportBase
   method_object :data
   attr_implement :klass
 
@@ -6,11 +6,8 @@ class Import::Base
 
   def call
     entry.assign_attributes data_to_assign
-
-    self.class::SPECIAL_FIELDS.each do |field|
-      send "assign_#{field}", @data[field] unless field.in? desynced_fields
-    end
     entry.imported_at = Time.zone.now
+    assign_special_fields
     entry.save!
 
     entry
@@ -20,6 +17,12 @@ private
 
   def entry
     @entry ||= klass.find_or_initialize_by id: @data[:id]
+  end
+
+  def assign_special_fields
+    self.class::SPECIAL_FIELDS.each do |field|
+      send "assign_#{field}", @data[field] unless field.in? desynced_fields
+    end
   end
 
   def data_to_assign
