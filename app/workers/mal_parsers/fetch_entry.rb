@@ -21,10 +21,10 @@ class MalParsers::FetchEntry
     person: { DATA => MalParser::Entry::Person }
   }
   IMPORTS = {
-    anime: Imports::Anime,
-    manga: Imports::Manga,
-    character: Imports::Character,
-    person: Imports::Person
+    anime: Import::Anime,
+    manga: Import::Manga,
+    character: Import::Character,
+    person: Import::Person
   }
 
   def perform id, type

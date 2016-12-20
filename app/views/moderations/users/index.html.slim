@@ -12,23 +12,26 @@ header.head
   ]
   .subheadline = t '.users'
   .cc-3
-    - @collection.each do |user|
-      .b-user.c-column.detailed
-        .info
-          .image-name
-            a.name[
-              href="#{profile_url user, subdomain: false}"
-              title="#{user.nickname}"
-            ] = user.nickname
+    - if @collection.none?
+      .b-nothing_here = t '.nothing_here'
+    - else
+      - @collection.each do |user|
+        .b-user.c-column.detailed
+          .info
+            .image-name
+              a.name[
+                href="#{profile_url user, subdomain: false}"
+                title="#{user.nickname}"
+              ] = user.nickname
 
-            a[
-              href="#{profile_url user, subdomain: false}"
-              title="#{user.nickname}"
-            ]
-              img.image[
-                src="#{user.avatar_url 73}"
-                srcset="#{user.avatar_url 148} 2x"
-                alt="#{user.nickname}"
+              a[
+                href="#{profile_url user, subdomain: false}"
+                title="#{user.nickname}"
               ]
-          p.last-online
-            = I18n.l user.created_at, format: :full
+                img.image[
+                  src="#{user.avatar_url 73}"
+                  srcset="#{user.avatar_url 148} 2x"
+                  alt="#{user.nickname}"
+                ]
+            p.last-online
+              = I18n.l user.created_at, format: :full

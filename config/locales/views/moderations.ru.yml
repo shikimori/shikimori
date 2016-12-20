@@ -203,3 +203,4 @@ ru:
     users:
       index:
         users: Пользователи
+        nothing_here: Нет пользователей

@@ -19,7 +19,7 @@ describe MalParsers::FetchEntry do
         .with(id, type)
         .and_return(recommendations_data)
 
-      allow(Imports::Anime).to receive(:call).with import_data
+      allow(Import::Anime).to receive(:call).with import_data
     end
     let(:anime_data) do
       { kind: 'Movie', name: 'Koe no Katachi' }
@@ -43,7 +43,7 @@ describe MalParsers::FetchEntry do
     subject! { worker.perform id, type }
 
     it do
-      expect(Imports::Anime).to have_received(:call).with import_data
+      expect(Import::Anime).to have_received(:call).with import_data
     end
   end
 end

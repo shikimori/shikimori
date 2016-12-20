@@ -203,3 +203,4 @@ en:
     users:
       index:
         users: Users
+        nothing_here: No users

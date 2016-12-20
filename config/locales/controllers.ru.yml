@@ -140,7 +140,7 @@ ru:
 
   moderations/users_controller:
     <<: *moderations_controller
-    page_title: Новые пользователи
+    page_title: Регистрация пользователей
 
   moderations/versions_controller:
     <<: *moderations_controller

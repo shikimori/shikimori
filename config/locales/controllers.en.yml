@@ -140,7 +140,7 @@ en:
 
   moderations/users_controller:
     <<: *moderations_controller
-    page_title: New users
+    page_title: Users registration
 
   moderations/versions_controller:
     <<: *moderations_controller
