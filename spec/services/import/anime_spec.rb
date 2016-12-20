@@ -8,9 +8,9 @@ describe Import::Anime do
     }
   end
 
-  subject { service.call }
+  subject(:entry) { service.call }
 
   it do
-    expect { subject }.to change(Anime, :count).by 1
+    expect(entry).to be_persisted
   end
 end
