@@ -1,10 +1,9 @@
-class AnimesCollection::Page
-  include Virtus.model
+class AnimesCollection::Page < Dry::Struct
+  constructor_type(:schema)
 
-  attribute :collection
-
-  attribute :page, Integer
-  attribute :pages_count, Integer
+  attribute :collection, Types::Strict::Array
+  attribute :page, Types::Coercible::Int
+  attribute :pages_count, Types::Coercible::Int
 
   def next_page
     page + 1 if page < pages_count

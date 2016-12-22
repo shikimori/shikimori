@@ -5,7 +5,7 @@ class AnimesCollection::PageQuery
     AnimesCollection::Page.new(
       collection: process(query),
       page: page,
-      pages_count: pages_count,
+      pages_count: pages_count
     )
   end
 
