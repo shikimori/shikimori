@@ -33,8 +33,13 @@ describe Anidb::ParseDescription, :vcr do
     end
   end
 
+  # cassette is not recorded for site whose DNS address
+  # cannot be found - it causes spec to fail on CI server
+  # since HTTP request is performed again which is prohibited
+  # by VCR configuration -> just stub Proxy.get response
   context 'invalid url' do
     let(:url) { 'http://foofoofoofoo.com' }
+    before { allow(Proxy).to receive(:get).and_return '' }
     it { expect { call }.to raise_error EmptyContentError }
   end
 

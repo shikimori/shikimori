@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-class Anidb::ParseDescription < ServiceObjectBase2
+class Anidb::ParseDescription
   include ChainableMethods
+  method_object :url
 
   UNKNOWN_ID_ERRORS = ['Unknown anime id', 'Unknown character id']
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
-  def call url
-    chain_from(url).get.parse.sanitize.unwrap
+  def call
+    chain_from(get).parse.sanitize.unwrap
   end
 
   private
 
-  def get url
+  def get
     content = Proxy.get(url, proxy_options)
 
     raise EmptyContentError, url if content.blank?
