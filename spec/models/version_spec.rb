@@ -230,9 +230,10 @@ describe Version do
         let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
         let(:item_diff) { { russian: ['a', 'b'] } }
 
-        describe 'common change'do
+        describe 'common change' do
           it { is_expected.to be_able_to :create, version }
           it { is_expected.to be_able_to :destroy, version }
+          it { is_expected.to_not be_able_to :accept, version }
 
           context 'banned user' do
             let(:user) { build_stubbed :user, :user, :banned }
@@ -265,6 +266,21 @@ describe Version do
         it { is_expected.to_not be_able_to :create, version }
         it { is_expected.to_not be_able_to :destroy, version }
         it { is_expected.to_not be_able_to :manage, version }
+      end
+    end
+
+    context 'trusted_version_changer' do
+      let(:user) { build_stubbed :user, :trusted_version_changer }
+      subject { Ability.new user }
+
+      describe 'own version' do
+        let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
+        let(:item_diff) { { russian: ['a', 'b'] } }
+        it { is_expected.to be_able_to :accept, version }
+      end
+
+      describe 'user version' do
+        it { is_expected.to_not be_able_to :accept, version }
       end
     end
 

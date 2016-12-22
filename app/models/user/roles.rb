@@ -29,7 +29,8 @@ class User
       40_713, 16_178, 17_532, 33_635, 44_418, 15_511, 17_916, 30_214, 16_178,
       47_440, 11942, 52936, 38_439, 38_439, 48_509, 53_634, 41_912, 91_485
     ]).uniq
-    TRUSTED_VIDEO_CHANGERS = [101_610]
+    TRUSTED_VIDEO_CHANGERS = [101_610] # 10610 - s.t.a.l.k.e.r
+    TRUSTED_VERSION_CHANGERS = [188], 94 # 188 - Autumn, acid_emily
 
     VERSION_VERMINS = [
       65_255
@@ -83,6 +84,11 @@ class User
     # пользователь, за которым не проверяем залитое видео?
     def trusted_video_uploader?
       TRUSTED_VIDEO_UPLOADERS.include? id
+    end
+
+    # пользователь, за которым не проверяем измененный контент?
+    def trusted_version_changer?
+      TRUSTED_VERSION_CHANGERS.include? id
     end
 
     # пользователь, за которым не проверяем измененное видео?

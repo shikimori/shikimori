@@ -193,6 +193,10 @@ class Abilities::User
         ).none?
     end
     cannot [:significant_change], Version
+
+    can [:accept], Version do |version|
+      @user.trusted_version_changer? && version.user_id == @user.id
+    end
   end
 
   def style_abilities

@@ -41,7 +41,7 @@ class Moderations::VersionsController < ModerationsController
 
   def create
     if @resource.save
-      @resource.accept current_user if can? :manage, @resource
+      @resource.accept current_user if can? :accept, @resource
       redirect_to :back, notice: i18n_t("version_#{@resource.state}")
 
     else

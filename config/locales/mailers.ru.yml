@@ -13,7 +13,7 @@ ru:
         %{unsubscribe_link}
 
     reset_password_instructions:
-      subject: Инструкции по сбросу пароля
+      subject: Инструкция по сбросу пароля
       body: |-
         Привет!
 

@@ -49,6 +49,7 @@ FactoryGirl.define do
     trait(:banhammer) { id User::BANHAMMER_ID }
     trait(:cosplayer) { id User::COSPLAYER_ID }
     trait(:trusted_video_uploader) { id User::TRUSTED_VIDEO_UPLOADERS.last }
+    trait(:trusted_version_changer) { id User::TRUSTED_VERSION_CHANGERS.last }
     trait(:api_video_uploader) { id User::API_VIDEO_UPLOADERS.last }
 
     trait :version_vermin do
