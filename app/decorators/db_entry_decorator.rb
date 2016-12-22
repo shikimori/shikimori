@@ -19,17 +19,11 @@ class DbEntryDecorator < BaseDecorator
   # description object is used to get text (bbcode) or source
   # (e.g. used when editing description)
   def description
-    if object.respond_to?(:description)
-      description_no_locale
-    elsif show_description_ru?
+    if show_description_ru?
       description_ru
     else
       description_en
     end
-  end
-
-  def description_no_locale
-    object.description
   end
 
   def description_ru
@@ -46,9 +40,7 @@ class DbEntryDecorator < BaseDecorator
   # (displayed on specific anime main page)
   def description_html
     html =
-      if object.respond_to?(:description)
-        description_html_no_locale
-      elsif show_description_ru?
+      if show_description_ru?
         description_html_ru
       else
         description_html_en
@@ -58,12 +50,6 @@ class DbEntryDecorator < BaseDecorator
       "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
     else
       html
-    end
-  end
-
-  def description_html_no_locale
-    Rails.cache.fetch [:description_html_no_locale, object] do
-      BbCodeFormatter.instance.format_description(object.description, object)
     end
   end
 
