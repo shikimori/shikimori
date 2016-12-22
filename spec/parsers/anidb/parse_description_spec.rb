@@ -8,9 +8,8 @@ describe Anidb::ParseDescription, :vcr do
     it do
       is_expected.to eq(
         <<-TEXT.squish
-          * Based on the manga by [url=https://anidb.net/cr10211]Hiroe
-          Rei[/url].[br][br]When [url=https://anidb.net/ch1194]Okajima
-          Rokuro[/url] (aka [i]Rock[/i]) visits Southeast Asia carrying a top
+          * Based on the manga by [Hiroe Rei].[br][br]When [Okajima Rokuro]
+          (aka [i]Rock[/i]) visits Southeast Asia carrying a top
           secret disk, he is kidnapped by pirates riding in the torpedo boat,
           [i]Black Lagoon[/i]. Although he thought he would be rescued soon,
           the company actually abandons him, and sends mercenaries to retrieve
