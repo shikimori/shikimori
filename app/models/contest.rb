@@ -186,6 +186,11 @@ public
     description
   end
 
+  # для совместимости с DbEntry
+  def description_en
+    description
+  end
+
   def topic_user
     user
   end
