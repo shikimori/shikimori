@@ -640,8 +640,6 @@ ActiveRecord::Schema.define(version: 20161225111506) do
   create_table "people", force: :cascade do |t|
     t.string   "name",               limit: 255
     t.string   "japanese",           limit: 255
-    t.text     "description"
-    t.text     "description_mal"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name",    limit: 255
