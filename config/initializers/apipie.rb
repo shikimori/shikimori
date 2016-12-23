@@ -18,7 +18,7 @@ Message me (http://shikimori.org/morr or takandar@gmail.com) if you have any que
 
 
 Authentication:
-1. Retrieve an api access token from http://shikimori.org/api/doc/1/access_tokens/show.html
+1. Retrieve an api access token from https://shikimori.org/api/doc/1.0/access_tokens/create
 2. Add X-User-Nickname & X-User-Api-Access-Token request headers to each your api request
 
 X-User-Nickname=user_nickname

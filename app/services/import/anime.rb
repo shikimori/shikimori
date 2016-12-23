@@ -6,6 +6,7 @@ class Import::Anime < Import::ImportBase
 private
 
   def assign_genres genres
+    ap genres
   end
 
   def assign_studios studios
