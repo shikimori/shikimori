@@ -96,6 +96,10 @@ RSpec.configure do |config|
   end
 
   config.after :each do
+    Genres.instance.reset
+    Studios.instance.reset
+    Publishers.instance.reset
+
     if respond_to?(:controller) && controller
       # в каких-то случаях params почему-то не очищается
       # словил падение view object спеки от того, что в params лежали данные от
