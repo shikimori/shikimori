@@ -21,7 +21,9 @@ private
 
   def assign_special_fields
     self.class::SPECIAL_FIELDS.each do |field|
-      send "assign_#{field}", @data[field] unless field.in? desynced_fields
+      unless field.in?(desynced_fields) || @data[field].blank?
+        send "assign_#{field}", @data[field]
+      end
     end
   end
 

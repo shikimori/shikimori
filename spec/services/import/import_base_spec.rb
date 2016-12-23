@@ -47,6 +47,14 @@ describe Import::ImportBase do
         expect(entry).to be_persisted
       end
 
+      describe 'blank special field' do
+        let!(:anime) do
+          create :anime, id: data[:id], japanese: 'q', desynced: %w(name)
+        end
+        before { data[:japanese] = nil }
+        it { expect(entry.japanese).to eq 'q' }
+      end
+
       describe 'desynced data field' do
         let!(:anime) do
           create :anime, id: data[:id], name: 'q', desynced: %w(name)
