@@ -7,6 +7,13 @@ class Repos::RepositoryBase
 
   def reset
     @collection = nil
+    true
+  end
+
+  def find id
+    collection[id] ||
+      (reset && collection[id]) ||
+      raise(ActiveRecord::RecordNotFound)
   end
 
 private
