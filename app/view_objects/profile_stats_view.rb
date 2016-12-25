@@ -1,19 +1,30 @@
-class ProfileStatsView
+class ProfileStatsView < Dry::Struct
   include Translation
-  include Virtus.model
   prepend ActiveCacher.instance
 
-  ProfileStatsQuery::STAT_FIELDS.each do |field|
-    attribute field.to_s.sub(/\?/, '')
-  end
+  constructor_type(:schema)
 
-  attribute :activity
-  attribute :list_counts
-  attribute :scores
-  attribute :types
+  # attributes from ProfileStatsQuery::STAT_FIELDS
+  # NOTE: sync with ProfileStatsQuery::STAT_FIELDS manually!
+  attribute :stats_bars, Types::Strict::Array
+  attribute :anime_spent_time, Types::SpentTime.optional
+  attribute :manga_spent_time, Types::SpentTime.optional
+  attribute :spent_time, Types::SpentTime
+  attribute :statuses, Types::Strict::Hash
+  attribute :full_statuses, Types::Strict::Hash
+  attribute :anime_ratings, Types::Strict::Array
+  attribute :anime, Types::Strict::Bool
+  attribute :manga, Types::Strict::Bool
+  attribute :user, Types::User
 
-  instance_cache :comments_count, :summaries_count, :reviews_count,
-    :versions_count, :videos_changes_count
+  # own attributes
+  attribute :activity, Types::Strict::Hash
+  attribute :list_counts, Types::Strict::Hash
+  attribute :scores, Types::Strict::Hash
+  attribute :types, Types::Strict::Hash
+
+  instance_cache :comments_count, :summaries_count, :reviews_count
+  instance_cache :versions_count, :videos_changes_count
 
   def anime?
     anime

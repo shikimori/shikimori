@@ -90,18 +90,40 @@ class AnimeSpiritParser
     entry[:videos] = entry[:videos].compact.select(&:url)
     videos = entry[:videos]
 
-    videos.each { |v| v[:episode] = 1 } if videos.all? { |v| v[:episode].zero? }
-    videos.each { |v| v[:author] = entry[:author] if v[:kind] == :fandub } if entry[:author] && videos.none? {|v| v[:author] }
-    videos.each do |v|
-      v[:author] = nil if v[:author] && (v[:author].size > 70 || v[:author] =~ /^\d+/ || v[:author] =~ /\d+-\d+/ || v[:author] =~ /^[^A-zА-я]+$/)
+    if videos.all? { |v| v.episode.zero? }
+      videos = videos.map { |v| ParsedVideo.new(v.to_h.merge(episode: 1)) }
     end
 
-    authors = videos.map {|v| v[:author] }.uniq.size
-    episodes = videos.map {|v| v[:episode] }.uniq.size
-    videos.each { |v| v[:author] = nil } if authors > episodes/2 && episodes >= 12
+    if entry[:author] && videos.none? { |v| v.author.present? }
+      videos = videos.map do |v|
+        if v.kind == :fandub
+          ParsedVideo.new(v.to_h.merge(author: entry[:author]))
+        else
+          v
+        end
+      end
+    end
+
+    videos = videos.map do |v|
+      if invalid_author?(v.author)
+        ParsedVideo.new(v.to_h.merge(author: nil))
+      else
+        v
+      end
+    end
+
+    authors = videos.map { |v| v[:author] }.uniq.size
+    episodes = videos.map { |v| v[:episode] }.uniq.size
+
+    if authors > episodes/2 && episodes >= 12
+      videos = videos.map do |v|
+        ParsedVideo.new(v.to_h.merge(author: nil))
+      end
+    end
 
     binding.pry if Rails.env.development? && entry[:year] && (entry[:year] < 1900 && entry[:year] > DateTime.now.year + 5.years)
 
+    entry[:videos] = videos
     entry
   end
 
@@ -171,6 +193,17 @@ class AnimeSpiritParser
   end
 
 private
+
+  def invalid_author? author
+    return false if author.blank?
+    return true if author.size > 70
+    return true if author =~ /^\d+/
+    return true if author =~ /\d+-\d+/
+    return true if author =~ /^[^A-zА-я]+$/
+
+    false
+  end
+
   # страница каталога сайта
   def catalog_url page
     "http://www.animespirit.ru/page/#{page}/"
