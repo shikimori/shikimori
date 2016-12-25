@@ -53,4 +53,9 @@ describe Repos::RepositoryBase do
       end
     end
   end
+
+  describe '#all' do
+    let!(:entry) { create :genre }
+    it { expect(query.all).to eq [entry] }
+  end
 end

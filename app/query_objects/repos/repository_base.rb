@@ -16,6 +16,10 @@ class Repos::RepositoryBase
       raise(ActiveRecord::RecordNotFound)
   end
 
+  def all
+    collection.values
+  end
+
 private
 
   def collection
