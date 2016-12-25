@@ -181,16 +181,6 @@ public
     member_type.classify.constantize
   end
 
-  # для совместимости с DbEntry
-  def description_ru
-    description
-  end
-
-  # для совместимости с DbEntry
-  def description_en
-    description
-  end
-
   def topic_user
     user
   end

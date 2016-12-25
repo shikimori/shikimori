@@ -165,7 +165,7 @@ private
   def contest_params
     params
       .require(:contest)
-      .permit(:title, :description, :started_on, :phases, :matches_per_round, :match_duration,
+      .permit(:title, :started_on, :phases, :matches_per_round, :match_duration,
         :matches_interval, :user_vote_key, :wave_days, :strategy_type, :suggestions_per_user, :member_type)
   end
 end
