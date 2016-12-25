@@ -121,7 +121,6 @@ describe ContestsController do
       end
 
       it do
-        expect(resource.description).to eq 'zxc'
         expect(resource.errors).to be_empty
         expect(response).to redirect_to edit_contest_url(resource)
       end
