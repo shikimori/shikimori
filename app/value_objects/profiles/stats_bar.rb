@@ -1,25 +1,21 @@
-class Profiles::StatsBar < ViewObjectBase
-  include Virtus.model
-
-  attribute :type, String
-  attribute :lists_stats, Array[Profiles::ListStats]
-
-  instance_cache :total, :completed, :dropped
+class Profiles::StatsBar < Dry::Struct
+  attribute :type, Types::Strict::String
+  attribute :lists_stats, Types::Strict::Array.member(Profiles::ListStats)
 
   def any?
     total > 0
   end
 
   def total
-    lists_stats.sum(&:size)
+    @total ||= lists_stats.sum(&:size)
   end
 
   def completed
-    by_status(:completed).sum(&:size)
+    @completed ||= by_status(:completed).sum(&:size)
   end
 
   def dropped
-    by_status(:dropped).sum(&:size)
+    @dropped ||= by_status(:dropped).sum(&:size)
   end
 
   def incompleted
@@ -38,7 +34,7 @@ class Profiles::StatsBar < ViewObjectBase
     (incompleted * 100.0 / total).round 2
   end
 
-private
+  private
 
   def by_status status
     lists_stats.select { |stat| stat.id == UserRate.statuses[status] }

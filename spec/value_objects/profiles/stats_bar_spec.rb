@@ -1,19 +1,27 @@
 describe Profiles::StatsBar do
-  let(:lists_bar) { Profiles::StatsBar.new type: Anime.name, lists_stats: stats }
+  let(:struct) { Profiles::StatsBar.new type: Anime.name, lists_stats: stats }
   let(:stats) { [completed_list, dropped_list, planned_list] }
 
-  let(:completed_list) { Profiles::ListStats.new name: 'completed', size: 10 }
-  let(:dropped_list) { Profiles::ListStats.new name: 'dropped', size: 5 }
-  let(:planned_list) { Profiles::ListStats.new name: 'planned', size: 2 }
+  let(:completed_list) do
+    Profiles::ListStats.new id: 2, name: 'completed', size: 10
+  end
+  let(:dropped_list) do
+    Profiles::ListStats.new id: 4, name: 'dropped', size: 5
+  end
+  let(:planned_list) do
+    Profiles::ListStats.new id: 0, name: 'planned', size: 2
+  end
 
-  it { expect(lists_bar.any?).to eq true }
+  it do
+    expect(struct.any?).to eq true
 
-  it { expect(lists_bar.total).to eq 17 }
-  it { expect(lists_bar.completed).to eq 10 }
-  it { expect(lists_bar.dropped).to eq 5 }
-  it { expect(lists_bar.incompleted).to eq 2 }
+    expect(struct.total).to eq 17
+    expect(struct.completed).to eq 10
+    expect(struct.dropped).to eq 5
+    expect(struct.incompleted).to eq 2
 
-  it { expect(lists_bar.completed_percent).to eq 58.82 }
-  it { expect(lists_bar.dropped_percent).to eq 29.42 }
-  it { expect(lists_bar.incompleted_percent).to eq 11.76 }
+    expect(struct.completed_percent).to eq 58.82
+    expect(struct.dropped_percent).to eq 29.42
+    expect(struct.incompleted_percent).to eq 11.76
+  end
 end

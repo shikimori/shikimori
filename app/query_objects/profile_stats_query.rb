@@ -18,7 +18,7 @@ class ProfileStatsQuery
     :anime_ratings,
     :anime?,
     :manga?,
-    :user,
+    :user
   ]
 
   def to_hash
