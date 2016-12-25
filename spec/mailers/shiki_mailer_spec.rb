@@ -90,7 +90,7 @@ describe ShikiMailer do
     context 'recipient uses ru locale' do
       let(:user_locale) { :ru }
       it do
-        expect(mail.subject).to eq 'Инструкции по сбросу пароля'
+        expect(mail.subject).to eq 'Инструкция по сбросу пароля'
         expect(mail.body.raw_source).to eq "
           Привет!
 
