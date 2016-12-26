@@ -12,7 +12,7 @@ class MangaProfileSerializer < MangaSerializer
   has_one :user_rate
 
   def user_rate
-    object.current_rate
+    UserRateFullSerializer.new(object.current_rate)
   end
 
   def english
