@@ -1,7 +1,7 @@
 class ClubsQuery < SimpleQueryBase
   pattr_initialize :locale
 
-  FAVOURITE = [72, 19, 202, 113, 315, 293]
+  FAVOURITE = [72, 19, 202, 113, 315, 811]
 
   def favourite
     clubs.where(id: FAVOURITE)
