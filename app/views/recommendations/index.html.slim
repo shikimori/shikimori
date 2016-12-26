@@ -113,5 +113,5 @@ header.head.misc
             .postloaded data-href="#{@menu.url}"
               .ajax-loading title="#{t 'loading'}"
 
-  - if user_signed_in? && !current_user.preferences.postload_in_catalog
-    = render 'animes_collection/pagination'
+  / - if user_signed_in? && !current_user.preferences.postload_in_catalog
+  = render 'animes_collection/pagination'

@@ -33,9 +33,9 @@
         locals: { cover_notice: :year_kind, content_by: :mini_tooltip },
         cache: ->(entry, _) { CacheHelper.keys entry, :year_kind, :mini_tooltip }
 
-  - if !user_signed_in? || current_user.preferences.postload_in_catalog
-    - if @view.next_page_url
-      = render 'blocks/postloader',
-        next_url: @view.next_page_url,
-        prev_url: @view.prev_page_url,
-        filter: nil
+  / - if !user_signed_in? || current_user.preferences.postload_in_catalog
+  - if @view.next_page_url
+    = render 'blocks/postloader',
+      next_url: @view.next_page_url,
+      prev_url: @view.prev_page_url,
+      filter: nil
