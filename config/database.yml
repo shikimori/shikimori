@@ -5,7 +5,6 @@ development: &defaults
   encoding: utf8
   database: shikimori_production
   username: shikimori_production
-  password: bimpQscuJvkkL4Y
   host: localhost
   pool: 100
   timeout: 5000
@@ -17,4 +16,3 @@ test:
   <<: *defaults
   database: shikimori_test
   username: shikimori_test
-  password: bimpQscuJvkkL4Y
