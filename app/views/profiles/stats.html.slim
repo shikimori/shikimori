@@ -33,7 +33,7 @@
 
         /.types
           /.subheadline Типы
-          /#types data-stats="#{@resource.stats.types[@kind].to_json}" data-bar="horizontal"
+          /#types data-stats="#{@resource.stats.kinds[@kind].to_json}" data-bar="horizontal"
 
         /- if @kind != :manga
           /.ratings
