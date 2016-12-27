@@ -2,11 +2,11 @@ class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
     genres studios related recommendations
   )
-  # characters image description_en
+  # characters image synopsis
+  IGNORED_FIELDS = %i(members favorites synopsis characters external_links)
 
 private
 
-  # rubocop:disable MethodLength
   def assign_genres genres
     genres.each do |genre|
       db_genre = Repos::AnimeGenres.instance.all.find do |db_entry|

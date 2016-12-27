@@ -1,6 +1,7 @@
 describe Import::ImportBase do
   class Import::Test < Import::ImportBase
     SPECIAL_FIELDS = %i(japanese)
+    IGNORED_FIELDS = %i(zzz)
 
     def klass
       Anime
@@ -16,7 +17,8 @@ describe Import::ImportBase do
       id: 9_876_543,
       name: 'Zzzz',
       english: 'Xxxxx',
-      japanese: 'Kkkkkk'
+      japanese: 'Kkkkkk',
+      zzz: 'xxx'
     }
   end
 
@@ -30,7 +32,7 @@ describe Import::ImportBase do
       expect(entry).to be_persisted
       expect(entry).to be_valid
       expect(entry.imported_at).to eq Time.zone.now
-      expect(entry).to have_attributes data
+      expect(entry).to have_attributes data.except(:zzz)
     end
 
     describe 'create' do

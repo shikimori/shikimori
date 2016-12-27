@@ -3,6 +3,7 @@ class Import::ImportBase
   attr_implement :klass
 
   SPECIAL_FIELDS = %i()
+  IGNORED_FIELDS = %i()
 
   def call
     entry.assign_attributes data_to_assign
@@ -28,7 +29,11 @@ private
   end
 
   def data_to_assign
-    @data.except(*(self.class::SPECIAL_FIELDS + desynced_fields))
+    ignored_fields = self.class::SPECIAL_FIELDS +
+      self.class::IGNORED_FIELDS +
+      desynced_fields
+
+    @data.except(*ignored_fields)
   end
 
   def desynced_fields
