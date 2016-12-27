@@ -30,12 +30,19 @@ class ProfileStatsQuery
   def anime_spent_time
     time = stats.anime_rates
       .select(&:duration)
-      .sum { |v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
-    SpentTime.new time / 60.0 / 24
+      .sum do |v|
+        SpentTimeDuration.new(v).anime_hours(
+          v.entry_episodes, v.duration
+        )
+      end
+    SpentTime.new(time / 60.0 / 24)
   end
 
   def full_statuses
-    { anime: stats.anime_statuses(true), manga: stats.manga_statuses(true) }
+    {
+      anime: stats.anime_statuses(true),
+      manga: stats.manga_statuses(true)
+    }
   end
 
   def is_anime
@@ -70,7 +77,7 @@ class ProfileStatsQuery
   end
 
   def spent_time
-    SpentTime.new anime_spent_time.days + manga_spent_time.days
+    SpentTime.new(anime_spent_time.days + manga_spent_time.days)
   end
 
   def stats_bars
