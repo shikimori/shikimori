@@ -4,6 +4,7 @@ class Anidb::ParseDescription
   include ChainableMethods
   method_object :url
 
+  REQUIRED_TEXT = 'AniDB</title>'
   UNKNOWN_ID_ERRORS = ['Unknown anime id', 'Unknown character id']
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
@@ -31,7 +32,11 @@ class Anidb::ParseDescription
   end
 
   def proxy_options
-    { ban_texts: MalFetcher.ban_texts, no_proxy: Rails.env.test? }
+    {
+      ban_texts: MalFetcher.ban_texts,
+      no_proxy: Rails.env.test?,
+      required_text: REQUIRED_TEXT
+    }
   end
 
   def unknown_id? content

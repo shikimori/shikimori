@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 15 Dec 2016 19:51:39 GMT
+      - Tue, 27 Dec 2016 18:40:07 GMT
       Server:
       - Apache
       Cache-Control:
@@ -37,9 +37,9 @@ http_interactions:
       Content-Type:
       - text/html; charset=UTF-8
       Expires:
-      - Thu, 15 Dec 2016 19:51:39 GMT
+      - Tue, 27 Dec 2016 18:40:07 GMT
       Set-Cookie:
-      - adbuin=1481831499-ZAMf; path=/; expires=Sun, 13-Dec-2026 19:51:39 GMT
+      - adbuin=1482864007-FcTu; path=/; expires=Fri, 25-Dec-2026 18:40:07 GMT
       Vary:
       - Accept-Encoding
       Transfer-Encoding:
@@ -66,28 +66,27 @@ http_interactions:
         title=\"AniDB Latest Files\" href=\"http://anidb.net/feeds/files.atom\"/>\n\t\t<link
         rel=\"alternate\" type=\"application/atom+xml\" title=\"AniDB Latest News\"
         href=\"http://anidb.net/feeds/news.atom\"/>\n\t\t<link rel=\"stylesheet\"
-        href=\"http://static.anidb.net/css-2016-12-15T00-27-10/anidbstyle3/anidbstyle3.css\"
-        type=\"text/css\" title=\"Style\"/>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/js.cookie.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.form.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.fancybox.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.sortable.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.tablesorter.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.uploadfile.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jquery.wysibb.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/jqueryui.position.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/libs/select2.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/legacy/legacy.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/WordSuggest.min.js\"
-        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-14T18-46-54/global.min.js\"
+        href=\"http://static.anidb.net/css-2016-12-21T06-20-48/anidbstyle3/anidbstyle3.css\"
+        type=\"text/css\" title=\"Style\"/>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/js.cookie.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.form.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.fancybox.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.sortable.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.tablesorter.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.uploadfile.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.wysibb.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jqueryui.position.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/select2.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/legacy/legacy.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/WordSuggest.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/global.min.js\"
         type=\"text/javascript\"></script>\n\t</head>\n\t<body id=\"anidb\" class=\"anime\">\n<div
-        id=\"layout-hint\"><span class=\"head\">HINT:</span>\n\t<span class=\"msg\">\n\t\tAniDB
-        can fully automatically create a list of all anime on your harddisk. Get <a
-        href=\"http://wiki.anidb.net/w/AniDB_Clients\">organised now</a>!\n\t</span>\n</div>\n<div
-        id=\"layout-nav\" class=\"anime_nav\">\n\t<ul id=\"layout-menu\" class=\"anime_menu\">\n\t\t<li
-        class=\"sub-menu main\" title=\"Main\" onClick=\"return true\">\n\t\t\t<span
-        class=\"tab\">Main</span>\n\t\t\t<ul id=\"menu-main\">\n\t\t\t\t<li class=\"main\"><a
-        title=\"Main\" href=\"animedb.pl?show=main\"><span>main</span></a></li>\n\t\t\t\t<li
+        id=\"layout-hint\"><span class=\"head\">HINT:</span>\n\t<span class=\"msg\">\n\t\tYou're
+        missing out on most features of AniDB. Why not <a href=\"animedb.pl?show=signup\">sign
+        up now</a>? It's free!\n\t</span>\n</div>\n<div id=\"layout-nav\" class=\"anime_nav\">\n\t<ul
+        id=\"layout-menu\" class=\"anime_menu\">\n\t\t<li class=\"sub-menu main\"
+        title=\"Main\" onClick=\"return true\">\n\t\t\t<span class=\"tab\">Main</span>\n\t\t\t<ul
+        id=\"menu-main\">\n\t\t\t\t<li class=\"main\"><a title=\"Main\" href=\"animedb.pl?show=main\"><span>main</span></a></li>\n\t\t\t\t<li
         class=\"search\"><a title=\"Advanced search\" href=\"animedb.pl?show=search\"><span>search</span></a></li>\n\t\t\t\t<li
         class=\"calendar\"><a title=\"Anime calendar\" href=\"animedb.pl?show=calendar&amp;do.filter=1\"><span>season
         chart</span></a></li>\n\t\t\t\t<li class=\"schedule\"><a title=\"Episode schedule\"
@@ -117,9 +116,10 @@ http_interactions:
         class=\"staff\"><a title=\"AniDB staff\" href=\"animedb.pl?show=admin&amp;adm=user\"><span>staff</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
         class=\"sub-menu login\" title=\"Signup or login\" onClick=\"return true\">\n\t\t\t<span
         class=\"tab\">Signup or login</span>\n\t\t\t<form action=\"animedb.pl\" method=\"post\"><div><fieldset><input
-        type=\"hidden\" name=\"aid\" value=\"33911111\" /></fieldset><fieldset><input
-        type=\"hidden\" name=\"show\" value=\"anime\" /></fieldset>\n\t\t\t\t<ul id=\"menu-login\">\n\t\t\t\t\t<li
-        id=\"user-login\" class=\"user-login\"><a title=\"Show login page\" href=\"animedb.pl?show=login\"><span>login</span></a></li>\n\t\t\t\t\t<li
+        type=\"hidden\" name=\"show\" value=\"anime\" /></fieldset><fieldset><input
+        type=\"hidden\" name=\"aid\" value=\"33911111\" /></fieldset>\n\t\t\t\t<ul
+        id=\"menu-login\">\n\t\t\t\t\t<li id=\"user-login\" class=\"user-login\"><a
+        title=\"Show login page\" href=\"animedb.pl?show=login\"><span>login</span></a></li>\n\t\t\t\t\t<li
         id=\"user-signup\" class=\"user-signup\"><a title=\"Signup now\" href=\"animedb.pl?show=signup\"><span>signup</span></a></li>\n\t\t\t\t\t<li
         id=\"user-xname\" class=\"user-xname\" title=\"User name\"><span><input name=\"xuser\"
         class=\"text\" maxlength=\"16\" type=\"text\" value=\"\"/></span></li>\n\t\t\t\t\t<li
@@ -153,10 +153,10 @@ http_interactions:
         type=\"hidden\" name=\"do.random\" value=\"1\" />\n\t\t\t\t\t<input type=\"hidden\"
         name=\"show\" value=\"anime\" />\n\t\t\t\t</fieldset>\n\t\t\t\t<button type=\"submit\"
         value=\"lucky\" class=\"submit random\">I'm Feeling Lucky</button>\n\t\t\t</form>\n\t\t\t<a
-        title=\"advsearch\" class=\"advsearch\" href=\"animedb.pl?show=search\"><span>advanced
+        class=\"advsearch\" title=\"advsearch\" href=\"animedb.pl?show=search\"><span>advanced
         search</span></a>\n\t\t</div>\n\t</div>\n</div>\n<div id=\"layout-content\">\n\t<div
         id=\"layout-main\">\n\t\t<h1 class=\"anime\">ERROR</h1>\n\t\t<div class=\"g_content
-        anime_all sidebar\">\n\t\t<a href=\"animedb.pl?show=vbvurckvukctc\" style=\"display:none;\">Download
+        anime_all sidebar\">\n\t\t<a href=\"animedb.pl?show=rlfvoeomvsunpcwh\" style=\"display:none;\">Download
         (Do <b>NOT</b> click!)</a>\n\t<div class=\"g_msg g_bubble error\">\n\t\t<h3>ERROR</h3>\n\t\t<p>Unknown
         anime id.<br />This entry may have been deleted from the database.\n\t\t</p>\n\t</div>\n\t\t</div><!--g_content-->\n\t\t<div
         class=\"g_end\"></div>\n\t</div><!--layout-main-->\n</div><!--layout-content-->\n\n<div
@@ -165,9 +165,9 @@ http_interactions:
         src=\"https://static.anidb.net/css/icons/touch/android-chrome-192x192.png\"
         />\n\t\t<a itemprop=\"sameAs\" href=\"https://twitter.com/AniDBStatus\">Twitter</a>\n\t\t<meta
         itemprop=\"name\" content=\"AniDB\"/>\n\t</div>\n\t<p>v 2016-12, &copy; 2002-2016
-        by AniDB, all rights reserved [0s] - <span title=\"generated at\">15.12.2016
-        19:51:39</span></p>\n\t\t<a href=\"animedb.pl?show=vbvurckvukctc\" style=\"display:none;\">Download
+        by AniDB, all rights reserved [0s] - <span title=\"generated at\">27.12.2016
+        18:40:07</span></p>\n\t\t<a href=\"animedb.pl?show=rlfvoeomvsunpcwh\" style=\"display:none;\">Download
         (Do <b>NOT</b> click!)</a>\n</div>\n\t</body>\n</html>"
     http_version: 
-  recorded_at: Thu, 15 Dec 2016 19:51:40 GMT
+  recorded_at: Tue, 27 Dec 2016 18:40:12 GMT
 recorded_with: VCR 3.0.3
