@@ -32,9 +32,7 @@ class ProfileStatsView
     profile_stats.scores[list_type.to_sym]
   end
 
-  # TODO: can't rename to `kinds` because
-  #       it's serialized in UserProfileSerializer
-  def types list_type
+  def kinds list_type
     profile_stats.kinds[list_type.to_sym]
   end
 
