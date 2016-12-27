@@ -34,11 +34,10 @@ describe MalParsers::FetchEntry do
       [{ id: 28_735, type: :anime }]
     end
     let(:import_data) do
-      {
-        data: anime_data,
+      anime_data.merge(
         characters: characters_data,
         recommendations: recommendations_data
-      }
+      )
     end
     subject! { worker.perform id, type }
 

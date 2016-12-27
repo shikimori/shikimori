@@ -6,13 +6,15 @@ describe Import::Anime do
       name: 'Test test 2',
       genres: genres,
       studios: studios,
-      related: related
+      related: related,
+      recommendations: recommendations
     }
   end
   let(:id) { 987_654_321 }
   let(:genres) { [] }
   let(:studios) { [] }
   let(:related) { {} }
+  let(:recommendations) { [] }
 
   subject(:entry) { service.call }
 
@@ -85,7 +87,32 @@ describe Import::Anime do
     describe 'method call' do
       before { allow(Import::Related).to receive :call }
       it do
-        expect(Import::Related).to have_received(:call).with entry, related
+        expect(Import::Related)
+          .to have_received(:call)
+          .with entry, related
+      end
+    end
+  end
+
+  describe '#assign_recommendations' do
+    let(:recommendations) { [{ id: 16_099, type: :anime }] }
+
+    describe 'import' do
+      it do
+        expect(entry.similar).to have(1).item
+        expect(entry.similar.first).to have_attributes(
+          src_id: entry.id,
+          dst_id: 16_099
+        )
+      end
+    end
+
+    describe 'method call' do
+      before { allow(Import::Recommendations).to receive :call }
+      it do
+        expect(Import::Recommendations)
+          .to have_received(:call)
+          .with entry, recommendations
       end
     end
   end

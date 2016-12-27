@@ -30,12 +30,11 @@ class MalParsers::FetchEntry
   def perform id, type
     import_data = PARSERS[type.to_sym]
       .each_with_object({}) do |(parser_kind, parser_klass), memo|
-        memo[parser_kind] =
-          if parser_kind == DATA
-            parser_klass.call id
-          else
-            parser_klass.call id, type
-         end
+        if parser_kind == DATA
+          memo.merge! parser_klass.call(id)
+        else
+          memo[parser_kind] = parser_klass.call(id, type)
+        end
       end
 
     IMPORTS[type.to_sym].call import_data

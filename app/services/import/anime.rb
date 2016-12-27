@@ -1,6 +1,6 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
-    genres studios related
+    genres studios related recommendations
   )
 
 private
@@ -33,6 +33,10 @@ private
 
   def assign_related related
     Import::Related.call entry, related
+  end
+
+  def assign_recommendations recommendations
+    Import::Recommendations.call entry, recommendations
   end
 
   def klass

@@ -21,7 +21,7 @@ private
   end
 
   def build_relations
-    related.flat_map do |relation, related_datas|
+    @related.flat_map do |relation, related_datas|
       related_datas.map do |related_data|
         related_klass.new(
           source_id: @target.id,
