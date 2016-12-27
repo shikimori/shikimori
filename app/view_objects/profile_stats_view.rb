@@ -6,6 +6,7 @@ class ProfileStatsView < Dry::Struct
 
   # attributes from ProfileStatsQuery::STAT_FIELDS
   # NOTE: sync with ProfileStatsQuery::STAT_FIELDS manually!
+  # TODO: if it doesn't look well - return Virtus :)
   attribute :stats_bars, Types::Strict::Array
   attribute :anime_spent_time, Types::SpentTime.optional
   attribute :manga_spent_time, Types::SpentTime.optional

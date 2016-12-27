@@ -117,7 +117,7 @@ describe ContestsController do
         )
       end
       before do
-        patch :update, id: contest.id, contest: attr.merge(description: 'zxc')
+        patch :update, id: contest.id, contest: attr
       end
 
       it do

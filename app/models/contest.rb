@@ -185,6 +185,16 @@ public
     user
   end
 
+  # for DbEntryDecorator
+  def description_ru
+    nil
+  end
+
+  # for DbEntryDecorator
+  def description_en
+    nil
+  end
+
 private
 
   # TODO: remove field permalink
