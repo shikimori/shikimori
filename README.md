@@ -1,4 +1,4 @@
-[![Circle CI](https://circleci.com/gh/morr/shikimori.svg?style=svg)](https://circleci.com/gh/morr/shikimori)
+[![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg)](https://circleci.com/gh/morr/shikimori)
 
 # настройка постгреса
 ```
