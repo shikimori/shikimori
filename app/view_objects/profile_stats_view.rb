@@ -1,54 +1,39 @@
-class ProfileStatsView < Dry::Struct
+class ProfileStatsView
+  pattr_initialize :profile_stats
+
   include Translation
   prepend ActiveCacher.instance
-
-  constructor_type(:schema)
-
-  # attributes from ProfileStatsQuery::STAT_FIELDS
-  # NOTE: sync with ProfileStatsQuery::STAT_FIELDS manually!
-  # TODO: if it doesn't look well - return Virtus :)
-  attribute :stats_bars, Types::Strict::Array
-  attribute :anime_spent_time, Types::SpentTime.optional
-  attribute :manga_spent_time, Types::SpentTime.optional
-  attribute :spent_time, Types::SpentTime
-  attribute :statuses, Types::Strict::Hash
-  attribute :full_statuses, Types::Strict::Hash
-  attribute :anime_ratings, Types::Strict::Array
-  attribute :anime, Types::Strict::Bool
-  attribute :manga, Types::Strict::Bool
-  attribute :user, Types::User
-
-  # own attributes
-  attribute :activity, Types::Strict::Hash
-  attribute :list_counts, Types::Strict::Hash
-  attribute :scores, Types::Strict::Hash
-  attribute :types, Types::Strict::Hash
 
   instance_cache :comments_count, :summaries_count, :reviews_count
   instance_cache :versions_count, :videos_changes_count
 
+  delegate *%i(
+    anime_ratings anime_spent_time full_statuses manga list_counts
+    manga_spent_time spent_time stats_bars statuses user
+  ), to: :profile_stats
+
   def anime?
-    anime
+    profile_stats.is_anime
   end
 
   def manga?
-    manga
+    profile_stats.is_manga
   end
 
   def activity size
-    @activity[size]
+    profile_stats.activity[size]
   end
 
   def list_counts list_type
-    @list_counts[list_type.to_sym]
+    profile_stats.list_counts[list_type.to_sym]
   end
 
   def scores list_type
-    @scores[list_type.to_sym]
+    profile_stats.scores[list_type.to_sym]
   end
 
-  def types list_type
-    @types[list_type.to_sym]
+  def kinds list_type
+    profile_stats.kinds[list_type.to_sym]
   end
 
   def spent_time_percent
@@ -127,13 +112,14 @@ class ProfileStatsView < Dry::Struct
   end
 
   def spent_time_label
-    i18n_key = if anime? && manga?
-      'anime_manga'
-    elsif manga?
-      'manga'
-    else
-      'anime'
-    end
+    i18n_key =
+      if anime? && manga?
+        'anime_manga'
+      elsif manga?
+        'manga'
+      else
+        'anime'
+      end
 
     i18n_t "time_spent.#{i18n_key}"
   end
@@ -167,7 +153,7 @@ class ProfileStatsView < Dry::Struct
   def videos_changes_count
     AnimeVideoReport
       .where(user: user)
-      .where.not(state: ['rejected', 'post_rejected'])
+      .where.not(state: %w(rejected post_rejected))
       .count
   end
 end

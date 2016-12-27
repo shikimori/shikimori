@@ -41,8 +41,8 @@ class UserDecorator < BaseDecorator
 
   def stats
     Rails.cache.fetch [:profile_stats, object] do
-      stats_hash = ProfileStatsQuery.new(object).to_hash.symbolize_keys
-      ProfileStatsView.new(stats_hash)
+      profile_stats = ProfileStatsQuery.new(object).to_profile_stats
+      ProfileStatsView.new(profile_stats)
     end
   end
 
