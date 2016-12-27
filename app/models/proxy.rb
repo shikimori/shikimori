@@ -120,7 +120,7 @@ class Proxy < ActiveRecord::Base
             requires = if options[:required_text].kind_of?(Array)
               options[:required_text]
             else
-              [ options[:required_text] ]
+              [options[:required_text]]
             end
 
             stripped_content = content.gsub(/[ \n\r]+/, '').downcase

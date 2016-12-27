@@ -143,7 +143,7 @@ describe ProfilesController do
 
     context 'when invalid access' do
       let(:page) { 'account' }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -213,7 +213,7 @@ describe ProfilesController do
 
     context 'when invalid access' do
       let(:update_params) { { nickname: '123' } }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 end
