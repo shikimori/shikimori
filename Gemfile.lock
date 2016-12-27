@@ -73,7 +73,7 @@ GIT
 
 GIT
   remote: git://github.com/shikimori/mal_parser.git
-  revision: d2b185210a3f2f7d15570709647937f95432f3d2
+  revision: e040d8efb91197bd093b1eedfb124f484dd17b07
   specs:
     mal_parser (0.1.0)
       attr_extras

@@ -2,6 +2,7 @@ class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
     genres studios related recommendations
   )
+  # characters image description_en
 
 private
 
