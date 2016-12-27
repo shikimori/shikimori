@@ -32,6 +32,7 @@ private
   end
 
   def assign_related related
+    Import::Related.call entry, related
   end
 
   def klass

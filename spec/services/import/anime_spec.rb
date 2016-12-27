@@ -5,12 +5,14 @@ describe Import::Anime do
       id: id,
       name: 'Test test 2',
       genres: genres,
-      studios: studios
+      studios: studios,
+      related: related
     }
   end
   let(:id) { 987_654_321 }
   let(:genres) { [] }
   let(:studios) { [] }
+  let(:related) { {} }
 
   subject(:entry) { service.call }
 
@@ -62,6 +64,28 @@ describe Import::Anime do
           id: studio.id,
           name: studio.name
         )
+      end
+    end
+  end
+
+  describe '#assign_related' do
+    let(:related) { { other: [{ id: 16_099, type: :anime }] } }
+
+    describe 'import' do
+      it do
+        expect(entry.related).to have(1).item
+        expect(entry.related.first).to have_attributes(
+          anime_id: 16_099,
+          manga_id: nil,
+          relation: 'Other'
+        )
+      end
+    end
+
+    describe 'method call' do
+      before { allow(Import::Related).to receive :call }
+      it do
+        expect(Import::Related).to have_received(:call).with entry, related
       end
     end
   end
