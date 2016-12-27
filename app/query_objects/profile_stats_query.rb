@@ -8,9 +8,8 @@ class ProfileStatsQuery
 
   def to_profile_stats
     stats_keys = ProfileStats.schema.keys
-    stats_hash = stats_keys.reduce({}) do |memo, k|
+    stats_hash = stats_keys.each_with_object({}) do |k, memo|
       memo[k] = public_send(k)
-      memo
     end
     ProfileStats.new(stats_hash)
   end
