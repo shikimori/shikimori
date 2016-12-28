@@ -1,5 +1,5 @@
-class Import::Recommendations
-  method_object :target, :recommendations
+class Import::PersonRoles
+  method_object :target, :similars, :id_key
 
   def call
     similar_klass.transaction do
@@ -15,14 +15,14 @@ private
   end
 
   def import
-    similar_klass.import build_recommendations
+    similar_klass.import build_similars
   end
 
-  def build_recommendations
-    @recommendations.map do |recommendation|
+  def build_similars
+    @similars.map do |similar|
       similar_klass.new(
         src_id: @target.id,
-        dst_id: recommendation[:id]
+        dst_id: similar[:id]
       )
     end
   end

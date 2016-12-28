@@ -1,7 +1,7 @@
-describe Import::Recommendations do
-  let(:service) { Import::Recommendations.new target, recommendations }
+describe Import::PersonRoles do
+  let(:service) { Import::PersonRoles.new target, similars, id_key }
   let(:target) { create :anime }
-  let(:recommendations) do
+  let(:similars) do
     [
       {
         id: 28_735,
@@ -17,6 +17,7 @@ describe Import::Recommendations do
       src_id: target.id,
       dst_id: 28_735
   end
+  let(:id_key) { :character_id }
 
   subject! { service.call }
 

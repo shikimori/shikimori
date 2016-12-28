@@ -7,7 +7,8 @@ describe Import::Anime do
       genres: genres,
       studios: studios,
       related: related,
-      recommendations: recommendations
+      recommendations: recommendations,
+      characters: characters_data
     }
   end
   let(:id) { 987_654_321 }
@@ -15,6 +16,9 @@ describe Import::Anime do
   let(:studios) { [] }
   let(:related) { {} }
   let(:recommendations) { [] }
+  let(:characters_data) { { characters: characters, staff: staff } }
+  let(:characters) { [] }
+  let(:staff) { [] }
 
   subject(:entry) { service.call }
 
@@ -92,6 +96,10 @@ describe Import::Anime do
           .with entry, related
       end
     end
+
+    describe 'does not clear' do
+      pending
+    end
   end
 
   describe '#assign_recommendations' do
@@ -108,11 +116,77 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::Recommendations).to receive :call }
+      before { allow(Import::Similars).to receive :call }
       it do
-        expect(Import::Recommendations)
+        expect(Import::Similars)
           .to have_received(:call)
           .with entry, recommendations
+      end
+    end
+
+    describe 'does not clear' do
+      pending
+    end
+  end
+
+  describe '#assign_characters' do
+    describe 'characters' do
+      let(:characters) { [{ id: 143_628, role: 'Main' }] }
+
+      describe 'import' do
+        it do
+          expect(entry.person_roles).to have(1).item
+          expect(entry.person_roles.first).to have_attributes(
+            anime_id: entry.id,
+            manga_id: nil,
+            character_id: 143_628,
+            person_id: nil,
+            role: 'Main'
+          )
+        end
+      end
+
+      describe 'method call' do
+        before { allow(Import::PersonRoles).to receive :call }
+        it do
+          expect(Import::PersonRoles)
+            .to have_received(:call)
+            .with entry, characters, :character_id
+        end
+      end
+
+      describe 'does not clear' do
+        pending
+      end
+    end
+
+    describe 'staff' do
+      let(:staff) { [{ id: 33_365, role: 'Director' }] }
+
+      describe 'import' do
+        it do
+          expect(entry.person_roles).to have(1).item
+          expect(entry.person_roles.first).to have_attributes(
+            anime_id: entry.id,
+            manga_id: nil,
+            character_id: nil,
+            person_id: 33_365,
+            role: 'Director'
+          )
+        end
+      end
+
+      describe 'method call' do
+        before { allow(Import::PersonRoles).to receive :call }
+        it do
+          expect(Import::PersonRoles)
+            .to have_received(:call)
+            .with entry, staff, :person_id
+        end
+      end
+
+      describe 'does not clear' do
+        pending
       end
     end
   end

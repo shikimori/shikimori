@@ -1,9 +1,9 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
-    genres studios related recommendations
+    genres studios related recommendations characters
   )
   # characters image synopsis
-  IGNORED_FIELDS = %i(members favorites synopsis characters external_links)
+  IGNORED_FIELDS = %i(members favorites synopsis external_links)
 
 private
 
@@ -36,8 +36,18 @@ private
     Import::Related.call entry, related
   end
 
-  def assign_recommendations recommendations
-    Import::Recommendations.call entry, recommendations
+  def assign_recommendations similars
+    Import::Similars.call entry, similars
+  end
+
+  def assign_characters data
+    if data[:characters].any?
+      Import::PersonRoles.call entry, data[:characters], :character_id
+    end
+
+    if data[:staff].any?
+      Import::PersonRoles.call entry, data[:staff], :person_id
+    end
   end
 
   def klass
