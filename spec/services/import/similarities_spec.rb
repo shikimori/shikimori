@@ -1,7 +1,7 @@
-describe Import::Similars do
-  let(:service) { Import::Similars.new target, recommendations }
+describe Import::Similarities do
+  let(:service) { Import::Similarities.new target, similarities }
   let(:target) { create :anime }
-  let(:recommendations) do
+  let(:similarities) do
     [
       {
         id: 28_735,

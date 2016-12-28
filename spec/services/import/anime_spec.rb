@@ -7,7 +7,7 @@ describe Import::Anime do
       genres: genres,
       studios: studios,
       related: related,
-      recommendations: recommendations,
+      recommendations: similarities,
       characters: characters_data
     }
   end
@@ -15,7 +15,7 @@ describe Import::Anime do
   let(:genres) { [] }
   let(:studios) { [] }
   let(:related) { {} }
-  let(:recommendations) { [] }
+  let(:similarities) { [] }
   let(:characters_data) { { characters: characters, staff: staff } }
   let(:characters) { [] }
   let(:staff) { [] }
@@ -103,7 +103,7 @@ describe Import::Anime do
   end
 
   describe '#assign_recommendations' do
-    let(:recommendations) { [{ id: 16_099, type: :anime }] }
+    let(:similarities) { [{ id: 16_099, type: :anime }] }
 
     describe 'import' do
       it do
@@ -116,11 +116,11 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::Similars).to receive :call }
+      before { allow(Import::Similarities).to receive :call }
       it do
-        expect(Import::Similars)
+        expect(Import::Similarities)
           .to have_received(:call)
-          .with entry, recommendations
+          .with entry, similarities
       end
     end
 

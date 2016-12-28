@@ -36,8 +36,8 @@ private
     Import::Related.call entry, related
   end
 
-  def assign_recommendations similars
-    Import::Similars.call entry, similars
+  def assign_recommendations similarities
+    Import::Similarities.call entry, similarities
   end
 
   def assign_characters data

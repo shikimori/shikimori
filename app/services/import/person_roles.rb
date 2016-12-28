@@ -1,8 +1,8 @@
 class Import::PersonRoles
-  method_object :target, :similars, :id_key
+  method_object :target, :person_roles, :target_id_key
 
   def call
-    similar_klass.transaction do
+    PersonRole.transaction do
       cleanup
       import
     end
@@ -11,23 +11,24 @@ class Import::PersonRoles
 private
 
   def cleanup
-    similar_klass.where(src_id: @target.id).delete_all
+    PersonRole.where(entry_id_key => @target.id).delete_all
   end
 
   def import
-    similar_klass.import build_similars
+    PersonRole.import person_roles
   end
 
-  def build_similars
-    @similars.map do |similar|
-      similar_klass.new(
-        src_id: @target.id,
-        dst_id: similar[:id]
+  def person_roles
+    @person_roles.map do |person_role|
+      PersonRole.new(
+        entry_id_key => @target.id,
+        @target_id_key => person_role[:id],
+        role: person_role[:role]
       )
     end
   end
 
-  def similar_klass
-    @target.is_a?(Anime) ? SimilarAnime : SimilarManga
+  def entry_id_key
+    "#{@target.class.name.downcase}_id".to_sym
   end
 end
