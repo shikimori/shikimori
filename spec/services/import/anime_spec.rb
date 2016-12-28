@@ -98,7 +98,16 @@ describe Import::Anime do
     end
 
     describe 'does not clear' do
-      pending
+      let!(:related_anime) do
+        create :related_anime,
+          source_id: id,
+          relation: 'Adaptation',
+          manga_id: 21_479
+      end
+      let(:related) { {} }
+      before { subject }
+
+      it { expect(related_anime.reload).to be_persisted }
     end
   end
 
@@ -125,69 +134,64 @@ describe Import::Anime do
     end
 
     describe 'does not clear' do
-      pending
+      let!(:similar_anime) do
+        create :similar_anime,
+          src_id: id,
+          dst_id: 28_735
+      end
+      let(:similarities) { [] }
+      before { subject }
+
+      it { expect(similar_anime.reload).to be_persisted }
     end
   end
 
   describe '#assign_characters' do
-    describe 'characters' do
-      let(:characters) { [{ id: 143_628, role: 'Main' }] }
+    let(:characters) { [{ id: 143_628, role: 'Main' }] }
+    let(:staff) { [{ id: 33_365, role: 'Director' }] }
 
-      describe 'import' do
-        it do
-          expect(entry.person_roles).to have(1).item
-          expect(entry.person_roles.first).to have_attributes(
-            anime_id: entry.id,
-            manga_id: nil,
-            character_id: 143_628,
-            person_id: nil,
-            role: 'Main'
-          )
-        end
-      end
-
-      describe 'method call' do
-        before { allow(Import::PersonRoles).to receive :call }
-        it do
-          expect(Import::PersonRoles)
-            .to have_received(:call)
-            .with entry, characters, :character_id
-        end
-      end
-
-      describe 'does not clear' do
-        pending
+    describe 'import' do
+      let(:person_roles) { entry.person_roles.order :id }
+      it do
+        expect(person_roles).to have(2).items
+        expect(person_roles.first).to have_attributes(
+          anime_id: entry.id,
+          manga_id: nil,
+          character_id: 143_628,
+          person_id: nil,
+          role: 'Main'
+        )
+        expect(person_roles.last).to have_attributes(
+          anime_id: entry.id,
+          manga_id: nil,
+          character_id: nil,
+          person_id: 33_365,
+          role: 'Director'
+        )
       end
     end
 
-    describe 'staff' do
-      let(:staff) { [{ id: 33_365, role: 'Director' }] }
-
-      describe 'import' do
-        it do
-          expect(entry.person_roles).to have(1).item
-          expect(entry.person_roles.first).to have_attributes(
-            anime_id: entry.id,
-            manga_id: nil,
-            character_id: nil,
-            person_id: 33_365,
-            role: 'Director'
-          )
-        end
+    describe 'method call' do
+      before { allow(Import::PersonRoles).to receive :call }
+      it do
+        expect(Import::PersonRoles)
+          .to have_received(:call)
+          .with entry, characters, staff
       end
+    end
 
-      describe 'method call' do
-        before { allow(Import::PersonRoles).to receive :call }
-        it do
-          expect(Import::PersonRoles)
-            .to have_received(:call)
-            .with entry, staff, :person_id
-        end
+    describe 'does not clear' do
+      let!(:person_role) do
+        create :person_role,
+          anime_id: id,
+          character_id: 28_735,
+          role: 'Main'
       end
+      let(:characters) { [] }
+      let(:staff) { [] }
+      before { subject }
 
-      describe 'does not clear' do
-        pending
-      end
+      it { expect(person_role.reload).to be_persisted }
     end
   end
 end

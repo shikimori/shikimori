@@ -1,10 +1,10 @@
 class Import::PersonRoles
-  method_object :target, :person_roles, :target_id_key
+  method_object :target, :characters, :staff
 
   def call
     PersonRole.transaction do
       cleanup
-      import
+      import(build(@characters, :character_id) + build(@staff, :person_id))
     end
   end
 
@@ -14,15 +14,15 @@ private
     PersonRole.where(entry_id_key => @target.id).delete_all
   end
 
-  def import
+  def import person_roles
     PersonRole.import person_roles
   end
 
-  def person_roles
-    @person_roles.map do |person_role|
+  def build person_roles, target_id_key
+    person_roles.map do |person_role|
       PersonRole.new(
         entry_id_key => @target.id,
-        @target_id_key => person_role[:id],
+        target_id_key => person_role[:id],
         role: person_role[:role]
       )
     end

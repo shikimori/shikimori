@@ -1,7 +1,16 @@
 describe Import::PersonRoles do
-  let(:service) { Import::PersonRoles.new target, person_roles, id_key }
+  let(:service) { Import::PersonRoles.new target, characters, staff }
   let(:target) { create :anime }
-  let(:person_roles) do
+  let(:characters) do
+    [{
+      id: 143_628,
+      role: 'Main'
+    }, {
+      id: 145_176,
+      role: 'Supporting'
+    }]
+  end
+  let(:staff) do
     [{
       id: 33_365,
       role: 'Director'
@@ -15,25 +24,39 @@ describe Import::PersonRoles do
       anime_id: target.id,
       character_id: 28_735
   end
-  let(:id_key) { :character_id }
 
+  let(:person_roles) { target.person_roles.order :id }
   subject! { service.call }
 
   it do
     expect { person_role.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(target.person_roles).to have(2).items
-    expect(target.person_roles.first).to have_attributes(
+    expect(person_roles).to have(4).items
+    expect(person_roles[0]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
-      character_id: 33_365,
+      character_id: 143_628,
       person_id: nil,
+      role: 'Main'
+    )
+    expect(person_roles[1]).to have_attributes(
+      anime_id: target.id,
+      manga_id: nil,
+      character_id: 145_176,
+      person_id: nil,
+      role: 'Supporting'
+    )
+    expect(person_roles[2]).to have_attributes(
+      anime_id: target.id,
+      manga_id: nil,
+      character_id: nil,
+      person_id: 33_365,
       role: 'Director'
     )
-    expect(target.person_roles.second).to have_attributes(
+    expect(person_roles[3]).to have_attributes(
       anime_id: target.id,
       manga_id: nil,
-      character_id: 30_337,
-      person_id: nil,
+      character_id: nil,
+      person_id: 30_337,
       role: 'Sound Director'
     )
   end

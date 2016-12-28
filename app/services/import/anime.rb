@@ -41,12 +41,8 @@ private
   end
 
   def assign_characters data
-    if data[:characters].any?
-      Import::PersonRoles.call entry, data[:characters], :character_id
-    end
-
-    if data[:staff].any?
-      Import::PersonRoles.call entry, data[:staff], :person_id
+    if data[:characters].any? || data[:staff].any?
+      Import::PersonRoles.call entry, data[:characters], data[:staff]
     end
   end
 
