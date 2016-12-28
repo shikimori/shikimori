@@ -1,11 +1,14 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
-    genres studios related recommendations characters
+    synopsis genres studios related recommendations characters
   )
-  # characters image synopsis
+  # image
   IGNORED_FIELDS = %i(members favorites synopsis external_links)
 
 private
+
+  def assign_synopsis synopsis
+  end
 
   def assign_genres genres
     genres.each do |genre|
