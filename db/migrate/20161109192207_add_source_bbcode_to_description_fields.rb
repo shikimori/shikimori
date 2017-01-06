@@ -1,22 +1,24 @@
 class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
   def change
     update_descriptions Anime
-    puts 'anime descriptions updated'
     update_descriptions Manga
-    puts 'manga descriptions updated'
     update_descriptions Character
-    puts 'character descriptions updated'
   end
 
   private
 
   def update_descriptions klass
-    klass.find_each.with_index(1) do |model, index|
+    count = klass.count
+    puts "updating #{count} #{klass.name}"
+    index = 0
+
+    klass.find_each do |model|
+      index += 1
+      puts "#{index} / #{count}"
+
       model.description_ru = new_description_ru(model)
       model.description_en = new_description_en(model)
       model.save!
-
-      puts "#{index} descriptions updated" if index % 5_000 == 0
     end
   end
 
