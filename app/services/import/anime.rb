@@ -8,6 +8,11 @@ class Import::Anime < Import::ImportBase
 private
 
   def assign_synopsis synopsis
+    entry.description_en = Mal::ProcessDescription.(
+      Mal::SanitizeText.(synopsis),
+      entry.class.name.downcase,
+      entry.id
+    )
   end
 
   def assign_genres genres

@@ -197,7 +197,7 @@ private
 
     if match_result.present?
       synopsis = Regexp.last_match[:text]
-      Mal::SanitizeText.new().(synopsis)
+      Mal::SanitizeText.(synopsis)
     else
       ''
     end

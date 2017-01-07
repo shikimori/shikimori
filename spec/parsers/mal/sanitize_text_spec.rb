@@ -1,6 +1,7 @@
 describe Mal::SanitizeText do
+  let(:parser) { described_class }
+
   subject { parser.call text }
-  let(:parser) { described_class.new }
 
   describe '#call' do
     describe '#cleanup' do

@@ -8,7 +8,8 @@ describe Import::Anime do
       studios: studios,
       related: related,
       recommendations: similarities,
-      characters: characters_data
+      characters: characters_data,
+      synopsis: synopsis
     }
   end
   let(:id) { 987_654_321 }
@@ -19,10 +20,23 @@ describe Import::Anime do
   let(:characters_data) { { characters: characters, staff: staff } }
   let(:characters) { [] }
   let(:staff) { [] }
+  let(:synopsis) { '' }
 
   subject(:entry) { service.call }
 
   it { expect(entry).to be_persisted }
+
+  describe '#assign_synopsis' do
+    let(:synopsis) { '<b>test</b>' }
+
+    it do
+      expect(entry.description_en).to eq(
+        "[b]test[/b][source]http://myanimelist.net/anime/#{id}[/source]"
+      )
+    end
+
+    pending 'does not rewrite anidb text'
+  end
 
   describe '#assign_genres' do
     let(:genres) { [{ id: 1, name: 'test' }] }

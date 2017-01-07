@@ -93,8 +93,10 @@ class Mal::SanitizeText
     (?: </span>\n?</div> )
   }mix
 
-  def call raw_text
-    finalize(comments(bb_codes(cleanup(finalize(raw_text)))))
+  method_object :raw_text
+
+  def call
+    finalize(comments(bb_codes(cleanup(finalize(@raw_text)))))
   end
 
 private
