@@ -38,11 +38,11 @@ end
 faye_server = Faye::RackAdapter.new(
   mount: CONFIG[:endpoint],
   timeout: 60,#ENV['RAILS_ENV'] == 'development' ? 1 : 25,
-  # engine: {
-    # type: Faye::Redis,
-    # host: 'localhost',
-    # port: 6379
-  # }
+  engine: {
+    type: Faye::Redis,
+    host: 'localhost',
+    port: 6379
+  }
 )
 
 faye_server.on(:handshake) do |client_id|
