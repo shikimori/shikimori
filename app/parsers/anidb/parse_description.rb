@@ -28,7 +28,7 @@ class Anidb::ParseDescription
   end
 
   def sanitize html
-    Anidb::SanitizeText.new.(html)
+    Anidb::SanitizeText.call html
   end
 
   def proxy_options
