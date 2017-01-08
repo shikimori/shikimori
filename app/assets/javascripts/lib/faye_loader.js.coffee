@@ -10,7 +10,7 @@ class @FayeLoader
     @apply()
 
   id: ->
-    (if @client then @client._clientId else null)
+    @client?._dispatcher?.clientId
 
   # подключение к Faye серверу
   connect: ->
