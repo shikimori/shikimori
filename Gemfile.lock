@@ -261,7 +261,7 @@ GEM
       activesupport (>= 3.2)
     equalizer (0.0.11)
     erubis (2.7.0)
-    eventmachine (1.2.0.1)
+    eventmachine (1.2.1)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
