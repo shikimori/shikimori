@@ -16,11 +16,11 @@ class @FayeLoader
   connect: ->
     port = (if ENV == 'development' then ':9292' else '')
     hostname = (if ENV == 'development' then 'localhost' else location.hostname)
-    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye-server",
+    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye",
       timeout: 300
       retry: 5
       #endpoints:
-        #websocket: "#{location.protocol}//#{location.hostname}:9292/faye-server"
+        #websocket: "#{location.protocol}//#{location.hostname}:9292/faye"
 
     #@client.disable 'eventsource'
     console.log 'faye connected'
