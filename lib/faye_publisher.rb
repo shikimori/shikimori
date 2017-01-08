@@ -1,6 +1,5 @@
 # Публикация различных уведомлений через Faye
-# FayePublisher.publish({ data: { comment_id: 2919 } }, ['/topic-77141'])
-# FayePublisher.publish({ data: { comment_id: 2919, topic_id: 77141 } }, ['/forum-1/ru'])
+# FayePublisher.new(User.first, nil).publish({ data: { comment_id: 999999999, topic_id: 79981 } }, ['/topic-79981'])
 class FayePublisher
   BroadcastFeed = 'myfeed'
 

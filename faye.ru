@@ -38,15 +38,25 @@ end
 faye_server = Faye::RackAdapter.new(
   mount: CONFIG[:endpoint],
   timeout: 60,#ENV['RAILS_ENV'] == 'development' ? 1 : 25,
-  engine: {
-    type: Faye::Redis,
-    host: 'localhost',
-    port: 6379
-  }
+  # engine: {
+    # type: Faye::Redis,
+    # host: 'localhost',
+    # port: 6379
+  # }
 )
 
+faye_server.on(:handshake) do |client_id|
+  puts "handshake of #{client_id}"
+end
+faye_server.on(:subscribe) do |client_id, channel|
+  puts "subscription of #{client_id} for #{channel}"
+end
+faye_server.on(:publish) do |client_id, channel, data|
+  puts "publish of #{client_id} for #{channel} with #{data}"
+end
+
 faye_server.add_extension ServerAuth.new
-faye_server.add_extension FayeLogger.new
+# faye_server.add_extension FayeLogger.new
 
 EM.epoll
 EM.set_descriptor_table_size 100000

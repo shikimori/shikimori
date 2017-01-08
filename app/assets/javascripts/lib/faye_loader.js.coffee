@@ -15,13 +15,14 @@ class @FayeLoader
   # подключение к Faye серверу
   connect: ->
     port = (if ENV == 'development' then ':9292' else '')
-    @client = new Faye.Client "#{location.protocol}//#{location.hostname}#{port}/faye-server",
+    hostname = (if ENV == 'development' then 'localhost' else location.hostname)
+    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye-server",
       timeout: 300
       retry: 5
       #endpoints:
         #websocket: "#{location.protocol}//#{location.hostname}:9292/faye-server"
 
-    #client.disable 'eventsource'
+    #@client.disable 'eventsource'
     console.log 'faye connected'
 
   # отписка ото всех не актуальных каналов
