@@ -1,5 +1,5 @@
 describe Anidb::SanitizeText do
-  subject { described_class.new.(html) }
+  subject { described_class.(html) }
 
   describe '#bb_source' do
     context 'with source in the end' do
