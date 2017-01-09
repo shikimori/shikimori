@@ -9,7 +9,8 @@ describe Import::Anime do
       related: related,
       recommendations: similarities,
       characters: characters_data,
-      synopsis: synopsis
+      synopsis: synopsis,
+      external_links: external_links
     }
   end
   let(:id) { 987_654_321 }
@@ -21,6 +22,7 @@ describe Import::Anime do
   let(:characters) { [] }
   let(:staff) { [] }
   let(:synopsis) { '' }
+  let(:external_links) { [] }
 
   subject(:entry) { service.call }
 
@@ -157,6 +159,36 @@ describe Import::Anime do
       before { subject }
 
       it { expect(similar_anime.reload).to be_persisted }
+    end
+  end
+
+  describe '#assign_external_links' do
+    let(:external_links) do
+      [{
+        source: 'official_site',
+        url: 'http://www.cowboy-bebop.net/'
+      }]
+    end
+
+    describe 'import' do
+      it do
+        expect(entry.reload.external_links).to have(1).item
+        expect(entry.external_links.first).to have_attributes(
+          entry_id: entry.id,
+          entry_type: entry.class.name,
+          source: 'official_site',
+          url: 'http://www.cowboy-bebop.net/'
+        )
+      end
+    end
+
+    describe 'method call' do
+      before { allow(Import::ExternalLinks).to receive :call }
+      it do
+        expect(Import::ExternalLinks)
+          .to have_received(:call)
+          .with entry, external_links
+      end
     end
   end
 

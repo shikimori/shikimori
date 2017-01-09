@@ -1,19 +1,11 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
-    synopsis genres studios related recommendations characters
+    synopsis genres studios related recommendations external_links characters
   )
   # image
-  IGNORED_FIELDS = %i(members favorites synopsis external_links)
+  IGNORED_FIELDS = %i(members favorites)
 
 private
-
-  def assign_synopsis synopsis
-    entry.description_en = Mal::ProcessDescription.(
-      Mal::SanitizeText.(synopsis),
-      entry.class.name.downcase,
-      entry.id
-    )
-  end
 
   def assign_genres genres
     genres.each do |genre|
@@ -46,6 +38,10 @@ private
 
   def assign_recommendations similarities
     Import::Similarities.call entry, similarities
+  end
+
+  def assign_external_links external_links
+    Import::ExternalLinks.call entry, external_links
   end
 
   def assign_characters data

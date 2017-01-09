@@ -28,6 +28,14 @@ private
     end
   end
 
+  def assign_synopsis synopsis
+    entry.description_en = Mal::ProcessDescription.call(
+      Mal::SanitizeText.call(synopsis),
+      entry.class.name.downcase,
+      entry.id
+    )
+  end
+
   def data_to_assign
     ignored_fields = self.class::SPECIAL_FIELDS +
       self.class::IGNORED_FIELDS +
