@@ -30,14 +30,31 @@ describe Import::Anime do
 
   describe '#assign_synopsis' do
     let(:synopsis) { '<b>test</b>' }
-
-    it do
-      expect(entry.description_en).to eq(
-        "[b]test[/b][source]http://myanimelist.net/anime/#{id}[/source]"
-      )
+    let(:synopsis_with_source) do
+      "[b]test[/b][source]http://myanimelist.net/anime/#{id}[/source]"
     end
 
-    pending 'does not rewrite anidb text'
+    it { expect(entry.description_en).to eq synopsis_with_source }
+
+    describe 'anidb external_link' do
+      let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
+      let!(:external_link) do
+        create :external_link,
+          entry: anime,
+          source: :anime_db,
+          imported_at: imported_at
+      end
+
+      describe 'imported' do
+        let(:imported_at) { Time.zone.now }
+        it { expect(entry.description_en).to eq 'old' }
+      end
+
+      describe 'not imported' do
+        let(:imported_at) { nil }
+        it { expect(entry.description_en).to eq synopsis_with_source }
+      end
+    end
   end
 
   describe '#assign_genres' do
