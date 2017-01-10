@@ -9,9 +9,8 @@ shared_path = "#{app_root}/shared"
 
 # Set unicorn options
 worker_processes 17
-timeout 90 # 180
+timeout 90
 listen "#{shared_path}/tmp/sockets/unicorn.socket", backlog: 2048
-#listen "127.0.0.1:9000"
 
 # Spawn unicorn master worker for user apps (group: apps)
 user 'devops'
@@ -22,7 +21,6 @@ working_directory app_path
 # Log everything to one file
 stderr_path "#{shared_path}/log/unicorn.error.log"
 # stdout_path "#{shared_path}/log/unicorn.log"
-# stdout_path '/dev/null'
 
 # Set master PID location
 pid "#{shared_path}/tmp/pids/unicorn.pid"
