@@ -18,7 +18,7 @@ class Elasticsearch::Client
   def delete path
     url = "#{ELASTIC_URL}/#{path}"
 
-    NamedLogger.elasticserach_api.info "DELETE #{url}"
+    # NamedLogger.elasticserach_api.info "DELETE #{url}"
     process faraday.delete(url)
 
   rescue ElasticsearchError => e
@@ -30,9 +30,9 @@ private
   def request method, path, data
     url = "#{ELASTIC_URL}/#{path}"
 
-    NamedLogger.elasticserach_api.info <<-LOG.strip
-      #{method.upcase} #{url}\n#{data.to_json}
-    LOG
+    # NamedLogger.elasticserach_api.info <<-LOG.strip
+      # #{method.upcase} #{url}\n#{data.to_json}
+    # LOG
     response = faraday
       .send(method, "#{ELASTIC_URL}/#{path}") { |r| r.body = data.to_json }
 
