@@ -2,24 +2,19 @@ class Import::ExternalLinks
   method_object :target, :external_links
 
   def call
-    ExternalLink.import build_external_links
-  end
-
-private
-
-  def cleanup
-    ExternalLink.where(src_id: @target.id).delete_all
-  end
-
-  def build_external_links
-    new_external_links.map do |external_link|
-      ExternalLink.new(
+    # I purposely do not use "ExternalLink.import" here.
+    # "ExternalLink.create!" should fail with exception when
+    # unknown "source" is encountered
+    new_external_links.each do |external_link|
+      ExternalLink.create!(
         entry: @target,
         source: external_link[:source],
         url: external_link[:url]
       )
     end
   end
+
+private
 
   def new_external_links
     @external_links.select do |external_link|

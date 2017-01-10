@@ -88,8 +88,8 @@ class User < ActiveRecord::Base
 
   has_many :devices, dependent: :destroy
 
-  has_many :user_tokens
-  has_many :user_images
+  has_many :user_tokens, dependent: :destroy
+  has_many :user_images, dependent: :destroy
 
   has_many :anime_video_reports
 
