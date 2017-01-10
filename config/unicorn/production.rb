@@ -21,7 +21,8 @@ working_directory app_path
 
 # Log everything to one file
 stderr_path "#{shared_path}/log/unicorn.error.log"
-stdout_path "#{shared_path}/log/unicorn.log"
+# stdout_path "#{shared_path}/log/unicorn.log"
+# stdout_path '/dev/null'
 
 # Set master PID location
 pid "#{shared_path}/tmp/pids/unicorn.pid"
