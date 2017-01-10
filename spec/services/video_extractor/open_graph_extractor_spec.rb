@@ -17,7 +17,7 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
 
       its(:hosting) { is_expected.to eq :rutube }
       its(:image_url) { is_expected.to eq '//pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
-      its(:player_url) { is_expected.to eq '//rutube.ru/play/embed/6797624?isFullTab=true' }
+      its(:player_url) { is_expected.to eq '//rutube.ru/play/embed/6797624' }
     end
 
     context 'vimeo' do

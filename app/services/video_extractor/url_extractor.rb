@@ -28,7 +28,7 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
         ( /player\.swf | /tracks/#{PARAM}\.html | / )
         \? (?: hash|v ) = (?<hash>#{PARAM})
           |
-        / (?<hash>#{PARAM}) (?:$|"|'|>)
+        (?: /video )? / (?<hash>#{PARAM}) /? (?:$|"|'|>)
       )
   }mix
   RUTUBE_EMBED_REGEXP = %r{
@@ -127,7 +127,7 @@ private
     elsif html =~ RUTUBE_EMBED_REGEXP
       "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:id]}"
     elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
-      "http://rutube.ru/play/embed/#{$1}"
+      "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
     elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
       "http://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP

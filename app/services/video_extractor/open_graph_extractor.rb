@@ -17,7 +17,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   }xi
 
   RUTUBE_SRC_REGEX = %r{
-    //rutube.ru/play/embed/(\d+)
+    //rutube.ru/play/embed/(?<hash>\d+)
   }xi
 
   IMAGE_PROPERTIES = %w(
@@ -36,7 +36,16 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   end
 
   def player_url
-    Url.new(parsed_data.second).without_protocol.to_s if parsed_data.second
+    return unless parsed_data.second
+    cleanup Url.new(parsed_data.second).without_protocol.to_s
+  end
+
+  def cleanup url
+    if url =~ RUTUBE_SRC_REGEX
+      "//rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
+    else
+      url
+    end
   end
 
   def hosting
