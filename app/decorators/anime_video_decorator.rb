@@ -93,6 +93,7 @@ class AnimeVideoDecorator < BaseDecorator
   def sort_criteria
     [
       AnimeVideo.kind.values.index(kind),
+      AnimeVideo.language.values.index(language),
       HOSTINGS_ORDER[hosting] || hosting,
       author_name || '',
       AnimeVideo.language.values.index(language),

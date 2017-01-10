@@ -52,7 +52,7 @@ class AnimeOnline::VideoPlayer
 
     videos
       .uniq(&:uniq_criteria)
-      .sort_by { |anime_video| AnimeVideo.kind.values.index anime_video.kind }
+      .sort_by(&:sort_criteria)
       .group_by { |anime_video| anime_video.kind_text }
   end
 
@@ -172,7 +172,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def cache_key
-    [:v3, @anime.id, @anime.anime_videos.cache_key]
+    [@anime.id, @anime.anime_videos.cache_key, :v4]
   end
 
 private
