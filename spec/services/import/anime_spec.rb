@@ -28,7 +28,14 @@ describe Import::Anime do
 
   subject(:entry) { service.call }
 
-  it { expect(entry).to be_persisted }
+  it do
+    expect(entry).to be_persisted
+    expect(entry).to be_kind_of Anime
+    expect(entry).to have_attributes data.except(
+      :synopsis, :image, :genres, :studios, :related, :recommendations,
+      :characters, :external_links
+    )
+  end
 
   describe '#assign_synopsis' do
     let(:synopsis) { '<b>test</b>' }

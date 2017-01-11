@@ -31,6 +31,18 @@ private
     end
   end
 
+  def assign_synopsis synopsis
+    entry.description_en = Mal::ProcessDescription.call(
+      Mal::SanitizeText.call(synopsis),
+      klass.name.downcase,
+      entry.id
+    )
+  end
+
+  def assign_image image
+    Import::MalImage.call entry, image
+  end
+
   def data_to_assign
     ignored_fields = self.class::SPECIAL_FIELDS +
       self.class::IGNORED_FIELDS +

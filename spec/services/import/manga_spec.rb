@@ -26,7 +26,14 @@ describe Import::Manga do
 
   subject(:entry) { service.call }
 
-  it { expect(entry).to be_persisted }
+  it do
+    expect(entry).to be_persisted
+    expect(entry).to be_kind_of Manga
+    expect(entry).to have_attributes data.except(
+      :synopsis, :image, :genres, :publishers, :related, :recommendations,
+      :characters
+    )
+  end
 
   describe '#assign_synopsis' do
     let(:synopsis) { '<b>test</b>' }
@@ -225,4 +232,3 @@ describe Import::Manga do
     end
   end
 end
-

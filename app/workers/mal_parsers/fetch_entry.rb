@@ -17,7 +17,7 @@ class MalParsers::FetchEntry
       characters: MalParser::Entry::Characters,
       recommendations: MalParser::Entry::Recommendations
     },
-    character: { DATA => MalParser::Entry::Anime },
+    character: { DATA => MalParser::Entry::Character },
     person: { DATA => MalParser::Entry::Person }
   }
   IMPORTS = {

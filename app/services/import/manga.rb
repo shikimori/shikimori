@@ -5,14 +5,6 @@ class Import::Manga < Import::Anime
 
 private
 
-  def assign_synopsis synopsis
-    entry.description_en = Mal::ProcessDescription.call(
-      Mal::SanitizeText.call(synopsis),
-      klass.name.downcase,
-      entry.id
-    )
-  end
-
   def assign_publishers publishers
     publishers.each do |publisher|
       db_publisher = Repos::Publishers.instance.all.find do |db_entry|

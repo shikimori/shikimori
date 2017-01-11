@@ -1,7 +1,8 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
-    synopsis genres studios related recommendations external_links characters
-    image
+    image synopsis
+    genres studios related recommendations characters
+    external_links
   )
   IGNORED_FIELDS = %i(members favorites)
 
@@ -10,11 +11,7 @@ private
   def assign_synopsis synopsis
     return if anidb_synopsis?
 
-    entry.description_en = Mal::ProcessDescription.call(
-      Mal::SanitizeText.call(synopsis),
-      klass.name.downcase,
-      entry.id
-    )
+    super
   end
 
   def assign_genres genres
@@ -58,10 +55,6 @@ private
     if data[:characters].any? || data[:staff].any?
       Import::PersonRoles.call entry, data[:characters], data[:staff]
     end
-  end
-
-  def assign_image image
-    Import::MalImage.call entry, image
   end
 
   def anidb_synopsis?
