@@ -41,11 +41,10 @@ private
   end
 
   def belongs_to_ongoing?
-    @target.kind_of?(Character) && @target.animes.where(status: :ongoing).any?
+    @target.is_a?(Character) && @target.animes.where(status: :ongoing).any?
   end
 
   def latest?
     @target.respond_to?(:latest?) && @target.latest?
   end
 end
-

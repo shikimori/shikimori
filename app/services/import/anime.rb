@@ -1,8 +1,8 @@
 class Import::Anime < Import::ImportBase
   SPECIAL_FIELDS = %i(
     synopsis genres studios related recommendations external_links characters
+    image
   )
-  # image
   IGNORED_FIELDS = %i(members favorites)
 
 private
@@ -58,6 +58,10 @@ private
     if data[:characters].any? || data[:staff].any?
       Import::PersonRoles.call entry, data[:characters], data[:staff]
     end
+  end
+
+  def assign_image image
+    Import::MalImage.call entry, image
   end
 
   def klass

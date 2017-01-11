@@ -10,7 +10,8 @@ describe Import::Anime do
       recommendations: similarities,
       characters: characters_data,
       synopsis: synopsis,
-      external_links: external_links
+      external_links: external_links,
+      image: image
     }
   end
   let(:id) { 987_654_321 }
@@ -23,6 +24,7 @@ describe Import::Anime do
   let(:staff) { [] }
   let(:synopsis) { '' }
   let(:external_links) { [] }
+  let(:image) { nil }
 
   subject(:entry) { service.call }
 
@@ -255,6 +257,23 @@ describe Import::Anime do
       before { subject }
 
       it { expect(person_role.reload).to be_persisted }
+    end
+  end
+
+  describe '#assign_image' do
+    let(:image) { 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png' }
+
+    describe 'import', :vcr do
+      it { expect(entry.image).to be_present }
+    end
+
+    describe 'method call' do
+      before { allow(Import::MalImage).to receive :call }
+      it do
+        expect(Import::MalImage)
+          .to have_received(:call)
+          .with entry, image
+      end
     end
   end
 end
