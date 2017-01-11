@@ -12,14 +12,14 @@ private
 
     entry.description_en = Mal::ProcessDescription.call(
       Mal::SanitizeText.call(synopsis),
-      entry.class.name.downcase,
+      klass.name.downcase,
       entry.id
     )
   end
 
   def assign_genres genres
     genres.each do |genre|
-      db_genre = Repos::AnimeGenres.instance.all.find do |db_entry|
+      db_genre = genres_repo.all.find do |db_entry|
         db_entry.mal_id == genre[:id]
       end
       db_genre ||= Genre.create!(
@@ -64,13 +64,13 @@ private
     Import::MalImage.call entry, image
   end
 
-  def klass
-    Anime
-  end
-
   def anidb_synopsis?
     entry.external_links.any? do |external_link|
       external_link.source_anime_db? && external_link.imported_at.present?
     end
+  end
+
+  def genres_repo
+    Repos::AnimeGenres.instance
   end
 end

@@ -1,6 +1,5 @@
 class Import::ImportBase
   method_object :data
-  attr_implement :klass
 
   SPECIAL_FIELDS = %i()
   IGNORED_FIELDS = %i()
@@ -18,6 +17,10 @@ private
 
   def entry
     @entry ||= klass.find_or_initialize_by id: @data[:id]
+  end
+
+  def klass
+    self.class.name.gsub(/.*:/, '').constantize
   end
 
   def assign_special_fields

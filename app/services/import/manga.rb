@@ -1,6 +1,32 @@
-class Import::Manga < Import::ImportBase
-  method_object :data
+class Import::Manga < Import::Anime
+  SPECIAL_FIELDS = Import::Anime::SPECIAL_FIELDS + %i(publishers) - %i(
+    studios external_links
+  )
 
-  def call
+private
+
+  def assign_synopsis synopsis
+    entry.description_en = Mal::ProcessDescription.call(
+      Mal::SanitizeText.call(synopsis),
+      klass.name.downcase,
+      entry.id
+    )
+  end
+
+  def assign_publishers publishers
+    publishers.each do |publisher|
+      db_publisher = Repos::Publishers.instance.all.find do |db_entry|
+        db_entry.id == publisher[:id]
+      end
+      db_publisher ||= Publisher.create!(
+        id: publisher[:id],
+        name: publisher[:name]
+      )
+      entry.publishers << db_publisher
+    end
+  end
+
+  def genres_repo
+    Repos::MangaGenres.instance
   end
 end
