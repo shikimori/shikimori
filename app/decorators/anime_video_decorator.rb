@@ -89,11 +89,11 @@ class AnimeVideoDecorator < BaseDecorator
     h.viewed_video_online_url(anime, id)
   end
 
-  # сортировка [[озвучка,сабы], [vk.com, остальное], переводчик, язык, качество]
   def sort_criteria
     [
       AnimeVideo.kind.values.index(kind),
-      AnimeVideo.language.values.index(language),
+      # unknown language приравниваем к russian language
+      AnimeVideo.language.values.index(language.gsub('unknown', 'russian')),
       HOSTINGS_ORDER[hosting] || hosting,
       author_name || '',
       AnimeVideo.language.values.index(language),

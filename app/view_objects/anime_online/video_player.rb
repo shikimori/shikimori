@@ -172,7 +172,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def cache_key
-    [@anime.id, @anime.anime_videos.cache_key, :v4]
+    [@anime.id, @anime.anime_videos.cache_key, :v5]
   end
 
 private
