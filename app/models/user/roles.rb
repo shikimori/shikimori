@@ -31,7 +31,7 @@ class User
       13_7461
     ]).uniq
     TRUSTED_VIDEO_CHANGERS = [101_610] # 10610 - s.t.a.l.k.e.r
-    TRUSTED_VERSION_CHANGERS = [188], 94 # 188 - Autumn, acid_emily
+    TRUSTED_VERSION_CHANGERS = [188, 94] # 188 - Autumn, 94 - acid_emily
 
     VERSION_VERMINS = [
       65_255
