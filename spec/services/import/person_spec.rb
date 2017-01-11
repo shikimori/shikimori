@@ -6,7 +6,8 @@ describe Import::Person do
       name: 'Anja Stadlober',
       image: image,
       japanese: '戦場ヶ原 ひたぎ',
-      website: 'http://lenta.ru'
+      website: 'http://lenta.ru',
+      birthday: Date.parse('Wed, 04 Apr 1984')
     }
   end
   let(:id) { 22_037 }
