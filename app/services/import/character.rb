@@ -1,6 +1,9 @@
 class Import::Character < Import::ImportBase
-  method_object :data
+  SPECIAL_FIELDS = %i(synopsis image seyu)
 
-  def call
+private
+
+  def assign_seyu seyu
+    Import::PersonRoles.call entry, [], seyu
   end
 end
