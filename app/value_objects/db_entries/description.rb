@@ -16,7 +16,11 @@ class DbEntries::Description < Dry::Struct
   end
 
   def value
-    "#{text}[source]#{source}[/source]"
+    if source.present?
+      "#{text}[source]#{source}[/source]"
+    else
+      "#{text}"
+    end
   end
 
   private_class_method

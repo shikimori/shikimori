@@ -24,7 +24,11 @@ class AddSourceBbcodeToDescriptionFields < ActiveRecord::Migration
 
   def new_description_ru model
     return model.description_ru if model.description_ru =~ /\[source\]/
-    "#{model.description_ru}[source]#{model.source}[/source]"
+    if model.source.blank?
+      "#{model.description_ru}[source]#{model.source}[/source]"
+    else
+      "#{model.description_ru}"
+    end
   end
 
   def new_description_en model

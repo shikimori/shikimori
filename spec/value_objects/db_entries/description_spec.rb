@@ -7,7 +7,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq nil
         expect(struct.source).to eq nil
-        expect(struct.value).to eq '[source][/source]'
+        expect(struct.value).to eq ''
       end
     end
 
@@ -16,7 +16,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq nil
         expect(struct.source).to eq nil
-        expect(struct.value).to eq '[source][/source]'
+        expect(struct.value).to eq ''
       end
     end
 
@@ -34,7 +34,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq 'foo'
         expect(struct.source).to eq nil
-        expect(struct.value).to eq 'foo[source][/source]'
+        expect(struct.value).to eq 'foo'
       end
     end
 
@@ -43,7 +43,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq 'foo'
         expect(struct.source).to eq nil
-        expect(struct.value).to eq 'foo[source][/source]'
+        expect(struct.value).to eq 'foo'
       end
     end
 
@@ -85,7 +85,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq 'foo'
         expect(struct.source).to eq nil
-        expect(struct.value).to eq 'foo[source][/source]'
+        expect(struct.value).to eq 'foo'
       end
     end
 
@@ -95,7 +95,7 @@ describe DbEntries::Description do
       it do
         expect(struct.text).to eq 'foo'
         expect(struct.source).to eq nil
-        expect(struct.value).to eq 'foo[source][/source]'
+        expect(struct.value).to eq 'foo'
       end
     end
 
@@ -117,6 +117,25 @@ describe DbEntries::Description do
         expect(struct.source).to eq 'bar'
         expect(struct.value).to eq '[source]bar[/source]'
       end
+    end
+  end
+
+  describe '.value' do
+    let(:struct) { described_class.from_value value }
+
+    context 'with source' do
+      let(:value) { 'foo[source]bar[/source]' }
+      it { expect(struct.value).to eq value }
+    end
+
+    context 'without source' do
+      let(:value) { 'foo' }
+      it { expect(struct.value).to eq value }
+    end
+
+    context 'with empty source' do
+      let(:value) { 'foo[source][/source]' }
+      it { expect(struct.value).to eq 'foo' }
     end
   end
 end

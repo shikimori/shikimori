@@ -13,7 +13,10 @@
     $('form', $description).on 'submit', ->
       $form = $(@)
       new_description = (text, source) ->
-        "#{text}[source]#{source}[/source]"
+        if source
+          "#{text}[source]#{source}[/source]"
+        else
+          "#{text}"
 
       $('[id$=_description_ru]', $form).val(
         new_description(
