@@ -17,7 +17,7 @@
             ]
             span = author.nickname
 
-  .source
-    .key Источник:
-    .val
-      == source_link entry.description.source
+  - if field == 'description' && source.present?
+    .source
+      .key Источник:
+      .val == source_link source

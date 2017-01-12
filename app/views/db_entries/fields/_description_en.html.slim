@@ -12,8 +12,8 @@
       field_name: "#{resource.object.class.name.downcase}[description_en_text]"
 
     = render 'blocks/source',
-      entry: resource,
-      authors: resource.versions.authors(:description_ru),
+      authors: resource.versions.authors(:description_en),
+      source: resource.description_en.source,
       field: 'description'
 
   / description_en_source is a virtual field -

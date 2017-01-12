@@ -2,14 +2,15 @@
   - if ru_domain?
     - if user_signed_in?
       .b-lang_trigger: span eng
-      .english: .text
-        = resource.description_html_en
+      .english
+        .text
+          = resource.description_html_en
 
         / field 'description' is not used inside forms -
         / can be any name just to distinguish description
         = render 'blocks/source',
-          entry: resource,
           authors: resource.versions.authors(:description_en),
+          source: resource.description_en.source,
           field: 'description'
 
     .russian
@@ -17,8 +18,8 @@
         = resource.description_html_ru
 
       = render 'blocks/source',
-        entry: resource,
         authors: resource.versions.authors(:description_ru),
+        source: resource.description_ru.source,
         field: 'description'
 
   - else
@@ -26,6 +27,6 @@
       = resource.description_html_en
 
     = render 'blocks/source',
-      entry: resource,
       authors: resource.versions.authors(:description_en),
+      source: resource.description_en.source,
       field: 'description'

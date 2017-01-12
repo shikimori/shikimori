@@ -39,12 +39,17 @@ class DbEntryDecorator < BaseDecorator
   # description text (bbcode) formatted as html
   # (displayed on specific anime main page)
   def description_html
-    html =
-      if show_description_ru?
-        description_html_ru
-      else
-        description_html_en
-      end
+    if show_description_ru?
+      description_html_ru
+    else
+      description_html_en
+    end
+  end
+
+  def description_html_ru
+    html = Rails.cache.fetch [:description_html_ru, object] do
+      BbCodeFormatter.instance.format_description(description_ru.text, object)
+    end
 
     if html.blank?
       "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
@@ -53,15 +58,15 @@ class DbEntryDecorator < BaseDecorator
     end
   end
 
-  def description_html_ru
-    Rails.cache.fetch [:description_html_ru, object] do
-      BbCodeFormatter.instance.format_description(description_ru.text, object)
-    end
-  end
-
   def description_html_en
-    Rails.cache.fetch [:descrption_html_en, object] do
+    html = Rails.cache.fetch [:descrption_html_en, object] do
       BbCodeFormatter.instance.format_comment(description_en.text)
+    end
+
+    if html.blank?
+      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    else
+      html
     end
   end
 
