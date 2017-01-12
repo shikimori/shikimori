@@ -15,8 +15,6 @@ describe PersonMalParser, :vcr do
   it 'fetches person data' do
     expect(data[:name]).to eq 'Tomokazu Seki'
     expect(data[:img]).to eq 'https://myanimelist.cdn-dena.com/images/voiceactors/3/44649.jpg'
-    expect(data).to include :given_name
-    expect(data).to include :family_name
     expect(data).to include :japanese
     expect(data).to include :birthday
   end
