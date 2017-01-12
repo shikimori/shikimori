@@ -11,10 +11,16 @@ module Clockwork
   end
 
   every 30.minutes, 'half-hourly.import', at: ['**:15', '**:45'] do
-    ImportListWorker.perform_async pages_limit: 3
-    ImportListWorker.perform_async pages_limit: 5, type: Manga.name
-    ImportListWorker.perform_async source: :anons, hours_limit: 12
-    ImportListWorker.perform_async source: :ongoing, hours_limit: 8
+    MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 3
+    MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 5
+
+    MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
+    MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
+
+    # ImportListWorker.perform_async pages_limit: 3
+    # ImportListWorker.perform_async pages_limit: 5, type: Manga.name
+    # ImportListWorker.perform_async source: :anons, hours_limit: 12
+    # ImportListWorker.perform_async source: :ongoing, hours_limit: 8
   end
 
   every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do

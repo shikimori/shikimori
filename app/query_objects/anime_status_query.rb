@@ -4,7 +4,7 @@ class AnimeStatusQuery
   LATEST_INTERVAL = 3.month
 
   def by_status status
-    case status.to_sym
+    case Types::Anime::Status[status]
       when :anons, :ongoing, :released
         relation.where(status: status.to_s)
 
@@ -16,9 +16,6 @@ class AnimeStatusQuery
         relation
           .where(status: :released)
           .where('released_on > ?', LATEST_INTERVAL.ago)
-
-      else
-        raise ArgumentError
     end
   end
 end

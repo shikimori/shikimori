@@ -30,7 +30,7 @@ describe AnimeStatusQuery do
 
     context 'bad status' do
       let(:status) { :zzz }
-      it { expect{result}.to raise_error ArgumentError }
+      it { expect { result }.to raise_error Dry::Types::ConstraintError }
     end
   end
 end
