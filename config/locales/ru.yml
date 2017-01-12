@@ -16,8 +16,8 @@ ru:
         aired_on: Дата начала показа
         cosplay: Косплей
         description: Описание
-        description_ru_text: Описание
-        description_en_text: Описание (англ)
+        description_ru: Описание
+        description_en: Описание (англ)
         description_ru_source: Источник описания
         description_en_source: Источник описания (англ)
         duration: Длительность эпизода
@@ -43,8 +43,6 @@ ru:
       character: &character_attributes
         cosplay: Косплей
         description: Описание
-        description_ru: Описание
-        description_en: Описание (англ)
         japanese: Японское имя
         name: Английское имя
         poster: *poster

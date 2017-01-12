@@ -88,12 +88,12 @@
 
         - if ru_domain?
           li
-            .field = @resource.class.human_attribute_name(:description_ru_text)
+            .field = @resource.class.human_attribute_name(:description_ru)
             a.b-js-action href="#{@resource.edit_field_url(:description_ru)}"
               = t 'actions.edit'
 
         li
-          .field = @resource.class.human_attribute_name(:description_en_text)
+          .field = @resource.class.human_attribute_name(:description_en)
           a.b-js-action href="#{@resource.edit_field_url(:description_en)}"
             = t 'actions.edit'
 
