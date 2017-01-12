@@ -9,9 +9,7 @@ class Import::Anime < Import::ImportBase
 private
 
   def assign_synopsis synopsis
-    return if anidb_synopsis?
-
-    super
+    super unless anidb_synopsis?
   end
 
   def assign_genres genres
