@@ -15,16 +15,16 @@
       new_description = (text, source) ->
         "#{text}[source]#{source}[/source]"
 
-      $('#anime_description_ru', $form).val(
+      $('[id$=_description_ru]', $form).val(
         new_description(
-          $('#anime_description_ru_text', $form).val(),
-          $('#anime_description_ru_source', $form).val()
+          $('[id$=_description_ru_text]', $form).val(),
+          $('[id$=_description_ru_source]', $form).val()
         )
       )
-      $('#anime_description_en', $form).val(
+      $('[id$=_description_en]', $form).val(
         new_description(
-          $('#anime_description_en_text', $form).val(),
-          $('#anime_description_en_source', $form).val()
+          $('[id$=_description_en_text]', $form).val(),
+          $('[id$=_description_en_source]', $form).val()
         )
       )
 
