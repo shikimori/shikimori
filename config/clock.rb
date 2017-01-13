@@ -16,6 +16,7 @@ module Clockwork
 
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
+    # MalParsers::ScheduleExpired.perform_async 'anime'
 
     # ImportListWorker.perform_async pages_limit: 3
     # ImportListWorker.perform_async pages_limit: 5, type: Manga.name
