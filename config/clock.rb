@@ -16,7 +16,7 @@ module Clockwork
 
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
-    # MalParsers::ScheduleExpired.perform_async 'anime'
+    MalParsers::ScheduleExpired.perform_async 'anime'
 
     # ImportListWorker.perform_async pages_limit: 3
     # ImportListWorker.perform_async pages_limit: 5, type: Manga.name
@@ -30,7 +30,7 @@ module Clockwork
   end
 
   every 1.week, 'import anidb descriptions', at: ['02:00'] do
-    Anidb::ImportDescriptionsJob.perform_later
+    Anidb::ImportDescriptionsJob.perform_async
   end
 
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
@@ -66,7 +66,7 @@ module Clockwork
     AutobanFix.perform_async
   end
 
-  every 1.day, 'daily.log-stuff', at: '03:00' do
+  every 1.day, 'daily.long-stuff', at: '03:00' do
     ImportListWorker.perform_async source: :latest, hours_limit: 24*7
     SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
