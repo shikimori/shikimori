@@ -27,7 +27,7 @@ class DbEntries::Description < Dry::Struct
   def self.parse_text value
     return unless value.present?
     return value if value !~ /\[source\]/
-    value[/(.+)(?=\[source\])/, 1]
+    value[/(.+)(?=\[source\])/m, 1]
   end
 
   def self.parse_source value

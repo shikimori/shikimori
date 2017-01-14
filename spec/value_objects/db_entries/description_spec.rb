@@ -21,11 +21,11 @@ describe DbEntries::Description do
     end
 
     context 'with text and source' do
-      let(:value) { 'foo[source]bar[/source]' }
+      let(:value) { "foo\nbar[source]baz[/source]" }
       it do
-        expect(struct.text).to eq 'foo'
-        expect(struct.source).to eq 'bar'
-        expect(struct.value).to eq 'foo[source]bar[/source]'
+        expect(struct.text).to eq "foo\nbar"
+        expect(struct.source).to eq 'baz'
+        expect(struct.value).to eq "foo\nbar[source]baz[/source]"
       end
     end
 
