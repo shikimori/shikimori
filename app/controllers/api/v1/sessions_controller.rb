@@ -7,9 +7,9 @@ class Api::V1::SessionsController < Devise::SessionsController
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/sessions', 'Create a session'
-  param :user, Hash do
-    param :nickname, String
-    param :password, String
+  param :user, :boolean do
+    param :nickname, :boolean
+    param :password, :boolean
   end
   def create
     user = warden.authenticate!(auth_options)

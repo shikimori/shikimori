@@ -15,8 +15,8 @@ class Api::V1::AccessTokensController < Api::V1::ApiController
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/access_token', 'Get an access token by POST'
-  param :nickname, String
-  param :password, String
+  param :nickname, :boolean
+  param :password, :boolean
   def create
     user = User.find_by nickname: params[:nickname]
 
