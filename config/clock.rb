@@ -17,16 +17,18 @@ module Clockwork
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
     MalParsers::ScheduleExpired.perform_async 'anime'
-
-    # ImportListWorker.perform_async pages_limit: 3
-    # ImportListWorker.perform_async pages_limit: 5, type: Manga.name
-    # ImportListWorker.perform_async source: :anons, hours_limit: 12
-    # ImportListWorker.perform_async source: :ongoing, hours_limit: 8
   end
 
   every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do
     AnimesImporter.perform_async
     PostgresFix.perform_async
+  end
+
+  every 1.hour, 'hourly', at: '**:45' do
+    ProxyWorker.perform_async(false)
+    FindAnimeWorker.perform_async :last_3_entries
+    AnimeSpiritWorker.perform_async :last_3_entries
+    BadReviewsCleaner.perform_async
   end
 
   every 1.week, 'import anidb descriptions', at: ['02:00'] do
@@ -39,19 +41,16 @@ module Clockwork
     AnimeSpiritWorker.perform_async :two_pages
   end
 
-  every 1.hour, 'hourly', at: '**:45' do
-    ProxyWorker.perform_async(false)
-    FindAnimeWorker.perform_async :last_3_entries
-    AnimeSpiritWorker.perform_async :last_3_entries
-    BadReviewsCleaner.perform_async
-  end
-
   every 1.day, 'daily.stuff', at: '00:02' do
     ImportAnimeCalendars.perform_async
     ProgressContests.perform_async
   end
 
   every 1.day, 'daily.stuff', at: '00:30' do
+    MalParsers::ScheduleExpired.perform_async 'manga'
+    MalParsers::ScheduleExpired.perform_async 'character'
+    MalParsers::ScheduleExpired.perform_async 'person'
+
     SakuhindbImporter.perform_async with_fail: false
     ReadMangaLinksWorker.perform_async
 
@@ -67,7 +66,7 @@ module Clockwork
   end
 
   every 1.day, 'daily.long-stuff', at: '03:00' do
-    ImportListWorker.perform_async source: :latest, hours_limit: 24*7
+    MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
     SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
     FixAnimeVideoAuthors.perform_async
@@ -108,8 +107,9 @@ module Clockwork
     BadVideosCleaner.perform_async
     CleanupScreenshots.perform_async
 
-    ImportListWorker.perform_async pages_limit: 100
-    ImportListWorker.perform_async pages_limit: 100, type: Manga.name
+    MalParsers::FetchPage.perform_async 'anime', 'updated_at', 0, 100
+    MalParsers::FetchPage.perform_async 'manga', 'updated_at', 0, 100
+
     PeopleJobsActualzier.perform_async
   end
 
