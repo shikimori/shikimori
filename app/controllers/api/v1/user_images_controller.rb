@@ -3,8 +3,8 @@ class Api::V1::UserImagesController < Api::V1::ApiController
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/user_images', 'Create an user image'
-  param :image, :undef
-  param :linked_type, :undef
+  param :image, String
+  param :linked_type, String
   def create
     @resource = UserImage.new do |image|
       image.user = current_user

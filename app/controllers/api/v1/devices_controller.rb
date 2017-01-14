@@ -33,7 +33,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
   api :PATCH, '/devices/:id', 'Update a device'
   api :PUT, '/devices/:id', 'Update a device'
   param :device, Hash do
-    param :token, :undef
+    param :token, String
   end
   def update
     @device.update device_params

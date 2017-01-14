@@ -7,6 +7,14 @@ GIT
       tilt
 
 GIT
+  remote: git://github.com/KjellMorgenstern/apipie-rails.git
+  revision: 16c59856ac3e0edc9e8f97037de7d23c25bd77e4
+  branch: rails-5
+  specs:
+    apipie-rails (0.3.7)
+      json
+
+GIT
   remote: git://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
@@ -137,8 +145,6 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.1.2)
       sshkit (>= 1.6.1, != 1.7.0)
-    apipie-rails (0.3.3)
-      json
     appsignal (2.0.5)
       rack
       thread_safe
@@ -696,7 +702,7 @@ DEPENDENCIES
   acts_as_voteable!
   airbrussh
   amatch!
-  apipie-rails (= 0.3.3)
+  apipie-rails!
   appsignal
   attr_extras
   attribute-defaults
