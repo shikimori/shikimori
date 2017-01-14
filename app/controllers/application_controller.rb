@@ -243,7 +243,7 @@ private
     )
 
     with_json_response = json? ||
-      (self.kind_of?(Api::V1::ApiController) && !params[:frontend])
+      (self.kind_of?(Api::V1Controller) && !params[:frontend])
 
     if NOT_FOUND_ERRORS.include? e.class
       @sub_layout = nil
@@ -278,7 +278,7 @@ private
       end
 
     else
-      if self.kind_of?(Api::V1::ApiController) || json?
+      if self.kind_of?(Api::V1Controller) || json?
         render(
           json: {
             code: 503,

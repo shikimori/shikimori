@@ -1,4 +1,4 @@
-class Api::V1::TopicIgnoresController < Api::V1::ApiController
+class Api::V1::TopicIgnoresController < Api::V1Controller
   load_and_authorize_resource
 
   api :POST, '/topic_ignores', 'Create an ignore', deprecated: true

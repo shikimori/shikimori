@@ -1,4 +1,4 @@
-class Api::V1::StatsController < Api::V1::ApiController
+class Api::V1::StatsController < Api::V1Controller
   respond_to :json
 
   MINIMUM_COMPLETED_ANIMES = Rails.env.test? ? 1 : 30

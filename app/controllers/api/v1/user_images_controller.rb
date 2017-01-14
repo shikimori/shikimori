@@ -1,9 +1,9 @@
-class Api::V1::UserImagesController < Api::V1::ApiController
+class Api::V1::UserImagesController < Api::V1Controller
   before_filter :authenticate_user!
 
   api :POST, '/user_images', 'Create an user image'
-  param :image, String
-  param :linked_type, String
+  param :image, :undef, require: true
+  param :linked_type, String, require: true
   def create
     @resource = UserImage.new do |image|
       image.user = current_user

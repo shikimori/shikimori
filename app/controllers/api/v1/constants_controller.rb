@@ -1,4 +1,4 @@
-class Api::V1::ConstantsController < Api::V1::ApiController
+class Api::V1::ConstantsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/constants/anime'
   def anime

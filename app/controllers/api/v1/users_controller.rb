@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::V1::ApiController
+class Api::V1::UsersController < Api::V1Controller
   before_action :authenticate_user!, only: [:messages, :unread_messages]
   before_action :authorize_lists_access, only: [:anime_rates, :manga_rates]
 

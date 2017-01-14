@@ -1,4 +1,4 @@
-class Api::V2::Users::IgnoresController < Api::V1::ApiController
+class Api::V2::Users::IgnoresController < Api::V2Controller
   before_action :authenticate_user!
 
   resource_description do

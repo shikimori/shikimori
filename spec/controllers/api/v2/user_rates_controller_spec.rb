@@ -32,8 +32,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
       before { make_request }
 
       it do
-        expect(resource).to have_attributes create_params.except(:status)
-        expect(resource.status).to eq 'watching'
+        expect(resource).to have_attributes create_params
         expect(response).to have_http_status :success
       end
     end
@@ -43,8 +42,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
       before { make_request }
 
       it do
-        expect(resource).to have_attributes create_params.except(:status)
-        expect(resource.status).to eq 'watching'
+        expect(resource).to have_attributes create_params
         expect(resource.id).to eq user_rate.id
         expect(response).to have_http_status :success
       end
@@ -67,8 +65,7 @@ describe Api::V2::UserRatesController, :show_in_doc do
     before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
 
     it do
-      expect(resource).to have_attributes update_params.except(:status)
-      expect(resource.status).to eq 'watching'
+      expect(resource).to have_attributes update_params
       expect(response).to have_http_status :success
     end
   end

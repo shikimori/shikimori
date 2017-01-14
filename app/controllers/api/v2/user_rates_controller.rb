@@ -1,4 +1,7 @@
-class Api::V2::UserRatesController < Api::V1::UserRatesController
+class Api::V2::UserRatesController < Api::V2Controller
+  respond_to :json
+  load_and_authorize_resource
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates/:id', 'Show an user rate'
   def show
@@ -22,7 +25,7 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
     present_rate = UserRate.find_by(
       user_id: @resource.user_id,
       target_id: @resource.target_id,
-      target_type: @resource.target_type,
+      target_type: @resource.target_type
     )
 
     if present_rate
@@ -62,5 +65,43 @@ class Api::V2::UserRatesController < Api::V1::UserRatesController
   def destroy
     @resource.destroy!
     head 204
+  end
+
+private
+
+  def create_params
+    params
+      .require(:user_rate)
+      .permit(*Api::V1::UserRatesController::CREATE_PARAMS)
+  end
+
+  def update_params
+    params
+      .require(:user_rate)
+      .permit(*Api::V1::UserRatesController::UPDATE_PARAMS)
+  end
+
+  def increment_params
+    if @resource.anime?
+      { episodes: (params[:episodes] || @resource.episodes) + 1 }
+    else
+      { chapters: (params[:chapters] || @resource.chapters) + 1 }
+    end
+  end
+
+  def create_rate user_rate
+    @resource = user_rate
+    raise NotSaved unless @resource.save
+
+  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
+    nil
+  end
+
+  def update_rate user_rate
+    @resource = user_rate
+    raise NotSaved unless @resource.update update_params
+
+  rescue *Api::V1::UserRatesController::ALLOWED_EXCEPTIONS
+    nil
   end
 end

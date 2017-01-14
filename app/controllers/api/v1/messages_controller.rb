@@ -1,4 +1,4 @@
-class Api::V1::MessagesController < Api::V1::ApiController
+class Api::V1::MessagesController < Api::V1Controller
   load_and_authorize_resource except: [:read_all, :delete_all]
   before_action :prepare_group_action, only: [:read_all, :delete_all]
   before_action :append_info, only: [:create]

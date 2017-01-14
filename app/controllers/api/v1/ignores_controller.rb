@@ -1,4 +1,4 @@
-class Api::V1::IgnoresController < Api::V1::ApiController
+class Api::V1::IgnoresController < Api::V1Controller
   before_filter :authenticate_user!
 
   api :POST, '/ignores/:id', 'Create an ignore', deprecated: true
@@ -8,8 +8,7 @@ class Api::V1::IgnoresController < Api::V1::ApiController
     render json: { notice: i18n_t('ignored', nickname: @target_user.nickname) }
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :DELETE, '/ignores/:id', 'Destroy an ignore'
+  api :DELETE, '/ignores/:id', 'Destroy an ignore', deprecated: true
   def destroy
     @user = User.find(params[:id])
     current_user.ignored_users.delete(@user)

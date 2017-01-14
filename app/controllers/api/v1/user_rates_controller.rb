@@ -1,4 +1,4 @@
-class Api::V1::UserRatesController < Api::V1::ApiController
+class Api::V1::UserRatesController < Api::V1Controller
   respond_to :json
   load_and_authorize_resource
 
@@ -11,16 +11,30 @@ class Api::V1::UserRatesController < Api::V1::ApiController
   UNIQ_EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
 
+  api :GET, '/user_rates/:id', 'Show an user rate', deprecated: true
   def show
     respond_with @resource
   end
 
+  api :POST, '/user_rates', 'Create an user rate', deprecated: true
+  param :user_rate, Hash do
+    param :user_id, :number, required: true
+    param :target_id, :number, required: true
+    param :target_type, %w(Anime Manga), required: true
+    param :status, UserRate.statuses.keys, required: true
+    param :score, :undef, required: false
+    param :chapters, :undef, required: false
+    param :episodes, :undef, required: false
+    param :volumes, :undef, required: false
+    param :rewatches, :undef, required: false
+    param :text, String, required: false
+  end
   def create
     Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
       present_rate = UserRate.find_by(
         user_id: @resource.user_id,
         target_id: @resource.target_id,
-        target_type: @resource.target_type,
+        target_type: @resource.target_type
       )
 
       if present_rate
@@ -33,16 +47,29 @@ class Api::V1::UserRatesController < Api::V1::ApiController
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
+  api :PATCH, '/user_rates/:id', 'Update an user rate', deprecated: true
+  api :PUT, '/user_rates/:id', 'Update an user rate', deprecated: true
+  param :user_rate, Hash do
+    param :status, UserRate.statuses.keys, required: false
+    param :score, :undef, required: false
+    param :chapters, :undef, required: false
+    param :episodes, :undef, required: false
+    param :volumes, :undef, required: false
+    param :rewatches, :undef, required: false
+    param :text, String, required: false
+  end
   def update
     update_rate @resource
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
+  api :POST, '/user_rates/:id/increment', deprecated: true
   def increment
     @resource.update increment_params
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
+  api :DELETE, '/user_rates/:id', 'Destroy an user rate', deprecated: true
   def destroy
     @resource.destroy!
     head 204

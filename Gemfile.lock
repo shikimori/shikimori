@@ -394,6 +394,7 @@ GEM
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
     marco-polo (1.2.1)
+    maruku (0.7.2)
     meta-tags (2.4.0)
       actionpack (>= 3.2.0, <= 5.1.0)
     method_source (0.8.2)
@@ -758,6 +759,7 @@ DEPENDENCIES
   mactag
   mal_parser!
   marco-polo
+  maruku
   meta-tags
   metrika
   multi_fetch_fragments!

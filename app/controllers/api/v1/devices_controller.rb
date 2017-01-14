@@ -1,4 +1,4 @@
-class Api::V1::DevicesController < Api::V1::ApiController
+class Api::V1::DevicesController < Api::V1Controller
   load_and_authorize_resource
   respond_to :json
 
@@ -22,7 +22,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
     param :platform, ['ios', 'android'], required: true
     param :token, String, desc: 'ID of mobile device', required: true
     param :user_id, :undef, required: true
-    param :name, String
+    param :name, String, required: false
   end
   def create
     @device.save
@@ -32,10 +32,11 @@ class Api::V1::DevicesController < Api::V1::ApiController
   api :PATCH, '/devices/:id', 'Update a device'
   api :PUT, '/devices/:id', 'Update a device'
   param :device, Hash do
-    param :token, String
+    param :token, String, required: false
+    param :name, String, required: false
   end
   def update
-    @device.update device_params
+    @device.update update_params
     respond_with @device, location: nil
   end
 
@@ -50,5 +51,9 @@ private
 
   def device_params
     params.require(:device).permit :user_id, :platform, :token, :name
+  end
+
+  def update_params
+    params.require(:device).permit :token, :name
   end
 end

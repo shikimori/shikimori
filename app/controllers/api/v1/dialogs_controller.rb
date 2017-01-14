@@ -1,4 +1,4 @@
-class Api::V1::DialogsController < Api::V1::ApiController
+class Api::V1::DialogsController < Api::V1Controller
   MESSAGES_PER_PAGE = 10
 
   respond_to :json

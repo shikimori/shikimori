@@ -1,4 +1,4 @@
-class Api::V1::AnimeVideosController < Api::V1::ApiController
+class Api::V1::AnimeVideosController < Api::V1Controller
   respond_to :json
   before_action :fetch_anime
 

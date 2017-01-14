@@ -91,6 +91,7 @@ gem 'responders' # для json responder'а, который нужен для р
 gem 'zaru'
 
 gem 'apipie-rails', github: 'Apipie/apipie-rails', branch: 'master'
+gem 'maruku'
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 

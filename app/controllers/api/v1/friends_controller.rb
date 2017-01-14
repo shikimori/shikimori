@@ -1,4 +1,4 @@
-class Api::V1::FriendsController < Api::V1::ApiController
+class Api::V1::FriendsController < Api::V1Controller
   before_action :authenticate_user!
   before_action :fetch_user
 

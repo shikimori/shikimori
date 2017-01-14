@@ -1,4 +1,4 @@
-class Api::V1::AccessTokensController < Api::V1::ApiController
+class Api::V1::AccessTokensController < Api::V1Controller
   skip_before_action :verify_authenticity_token
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
@@ -14,8 +14,8 @@ class Api::V1::AccessTokensController < Api::V1::ApiController
   end
 
   api :POST, '/access_token', 'Get an access token by POST'
-  param :nickname, String
-  param :password, String
+  param :nickname, String, required: true
+  param :password, String, required: true
   def create
     user = User.find_by nickname: params[:nickname]
 

@@ -64,10 +64,18 @@ FactoryGirl.define do
       end
     end
 
-    trait(:banned) { read_only_at 1.year.from_now - 1.week }
-    trait(:forever_banned) { read_only_at 1.year.from_now + 1.week }
-    trait(:day_registered) { created_at 25.hours.ago }
-    trait(:week_registered) { created_at 8.days.ago }
+    trait :banned do
+      read_only_at { 1.year.from_now - 1.week }
+    end
+    trait :forever_banned do
+      read_only_at { 1.year.from_now + 1.week }
+    end
+    trait :day_registered do
+      created_at { 25.hours.ago }
+    end
+    trait :week_registered do
+      created_at { 8.days.ago }
+    end
 
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/images/anime.jpg" }

@@ -1,4 +1,4 @@
-class Api::V1::VideosController < Api::V1::ApiController
+class Api::V1::VideosController < Api::V1Controller
   respond_to :json
 
   before_action :authenticate_user!, except: [:index]
@@ -13,9 +13,9 @@ class Api::V1::VideosController < Api::V1::ApiController
 
   api :POST, '/animes/:anime_id/videos', 'Create a video'
   param :video, Hash do
-    param :kind, Video.kind.values
-    param :name, String
-    param :url, String
+    param :kind, Video.kind.values, required: true
+    param :name, String, required: true
+    param :url, String, required: true
   end
   def create
     @resource, @version = versioneer.upload video_params, current_user

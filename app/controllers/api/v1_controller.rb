@@ -1,4 +1,4 @@
-class Api::V1::ApiController < ShikimoriController
+class Api::V1Controller < ShikimoriController
   LOGIN_HEADER = 'X-User-Nickname'
   TOKEN_HEADER = 'X-User-Api-Access-Token'
 

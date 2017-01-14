@@ -1,14 +1,14 @@
 class Api::V1::SessionsController < Devise::SessionsController
   resource_description do
-    api_version '1'
+    api_version '1.0'
   end
 
   respond_to :json
 
   api :POST, '/sessions', 'Create a session'
   param :user, Hash do
-    param :nickname, String
-    param :password, String
+    param :nickname, String, required: true
+    param :password, String, required: true
   end
   def create
     user = warden.authenticate!(auth_options)

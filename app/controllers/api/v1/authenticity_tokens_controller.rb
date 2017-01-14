@@ -1,5 +1,5 @@
 # TODO: выпилить "token" ключ
-class Api::V1::AuthenticityTokensController < Api::V1::ApiController
+class Api::V1::AuthenticityTokensController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/authenticity_token', 'Show an authenticity token'
   def show

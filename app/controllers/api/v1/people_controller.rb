@@ -1,4 +1,4 @@
-class Api::V1::PeopleController < Api::V1::ApiController
+class Api::V1::PeopleController < Api::V1Controller
   serialization_scope :view_context
 
   respond_to :json

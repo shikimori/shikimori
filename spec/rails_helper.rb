@@ -32,7 +32,14 @@ Capybara.ignore_hidden_elements = false
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-Apipie.record(nil) unless ENV['APIPIE_RECORD']
+if ENV['APIPIE_RECORD']
+  RSpec.configure do |config|
+    config.before(:each) { Timecop.freeze '2017-01-01 20:00:00' }
+    config.after(:each) { Timecop.return }
+  end
+else
+  Apipie.record(nil)
+end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

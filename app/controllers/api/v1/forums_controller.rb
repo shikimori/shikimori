@@ -1,4 +1,4 @@
-class Api::V1::ForumsController < Api::V1::ApiController
+class Api::V1::ForumsController < Api::V1Controller
   respond_to :json
 
   api :GET, '/forums', 'List of forums'

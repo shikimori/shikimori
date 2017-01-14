@@ -1,4 +1,4 @@
-class Api::V1::AppearController < Api::V1::ApiController
+class Api::V1::AppearController < Api::V1Controller
   before_filter :authenticate_user!
 
   # пометка элементов прочитанными
