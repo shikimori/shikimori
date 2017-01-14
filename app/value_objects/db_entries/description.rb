@@ -2,7 +2,6 @@ class DbEntries::Description < Dry::Struct
   attribute :text, Types::Strict::String.optional
   attribute :source, Types::Strict::String.optional
 
-  # adds empty source bbcode if it's missing
   def self.from_value value
     text = parse_text(value)
     source = parse_source(value)

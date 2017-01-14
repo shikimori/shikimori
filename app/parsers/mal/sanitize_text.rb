@@ -4,7 +4,8 @@ class Mal::SanitizeText
     Nokogiri::XML::Node::SaveOptions::NO_DECLARATION
 
   ENTRY_REGEXP = %r{
-    <a [^>]*? href="https?://myanimelist.net/(?<type>anime|manga|character|people)
+    <a [^>]*? href="
+      https?://myanimelist.net/(?<type>anime|manga|character|people)
       (?:
         .php\?id=(?<id>\d+) |
         / (?<id>\d+) (?: / [\w:/!-]* )?
@@ -178,9 +179,9 @@ private
     text
       .gsub(SOURCE_REGEXP_1) do
         source = $LAST_MATCH_INFO[:url] || $LAST_MATCH_INFO[:text]
-        "[br][source]#{source}[/source]"
+        "[source]#{source}[/source]"
       end
-      .gsub(SOURCE_REGEXP_2, '\1[br][source]\2[/source]')
+      .gsub(SOURCE_REGEXP_2, '\1[source]\2[/source]')
   end
 
   def fix_tags text
@@ -196,6 +197,7 @@ private
       .gsub(/no biography written[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
       .gsub(/no summary yet[\s\S]*/i, '')
+      .gsub(/\[Written by MAL Rewrite\]/i, '')
   end
 
   def fix_new_lines text

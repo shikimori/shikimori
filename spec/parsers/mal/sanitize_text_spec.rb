@@ -72,7 +72,7 @@ describe Mal::SanitizeText do
 
       context 'complex' do
         let(:text) { "<!--link--><a href=\"http://myanimelist.net/manga/12073\">Kinpeibai Kinden Honoo no Kuchizuke</a>.\n\n(Source: MU)" }
-        it { is_expected.to eq '[manga=12073]Kinpeibai Kinden Honoo no Kuchizuke[/manga].[br][source]MU[/source]' }
+        it { is_expected.to eq '[manga=12073]Kinpeibai Kinden Honoo no Kuchizuke[/manga].[source]MU[/source]' }
       end
 
       context '[anime] #1' do
@@ -150,52 +150,57 @@ describe Mal::SanitizeText do
 
         context 'source on first with long text' do
           let(:text) { "#{'a' * 301}<a href=\"#{url}\">#{url}</a>" }
-          it { is_expected.to eq "#{'a' * 301}[br][source]#{url}[/source]" }
+          it { is_expected.to eq "#{'a' * 301}[source]#{url}[/source]" }
         end
 
         context 'source link' do
           let(:text) { "aa\n\n(Source: <!--link--><a href=\"#{url}\">#{url}</a>)" }
-          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+          it { is_expected.to eq "aa[source]#{url}[/source]" }
         end
 
         context 'source link quoted' do
           let(:text) { "aa\n\n(Source: \"<!--link--><a href=\"#{url}\">#{url}</a>\")" }
-          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+          it { is_expected.to eq "aa[source]#{url}[/source]" }
         end
 
         context 'last link' do
           let(:text) { "aa\n\n(<!--link--><a href=\"#{url}\">#{url}</a>)" }
-          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+          it { is_expected.to eq "aa[source]#{url}[/source]" }
         end
 
         context 'last link with aftertext' do
           let(:text) { "aa\n\n<!--link--><a href=\"#{url}\">#{url}</a>fofofo" }
-          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+          it { is_expected.to eq "aa[source]#{url}[/source]" }
         end
 
         context 'broken link' do
           let(:text) { "aa\n\n(Source: <a href=\"#{url}\" target=\"_blank\"><a href=\"#{url}\" target=\"_blank\">#{url}</a></a>)" }
-          it { is_expected.to eq "aa[br][source]#{url}[/source]" }
+          it { is_expected.to eq "aa[source]#{url}[/source]" }
         end
 
         context 'source text' do
           let(:text) { "aa\n\n(Source: zxc)" }
-          it { is_expected.to eq 'aa[br][source]zxc[/source]' }
+          it { is_expected.to eq 'aa[source]zxc[/source]' }
         end
 
         context 'source text quoted' do
           let(:text) { "aa\n\n(Source: \"zxc\")" }
-          it { is_expected.to eq 'aa[br][source]zxc[/source]' }
+          it { is_expected.to eq 'aa[source]zxc[/source]' }
         end
 
         context 'source in <b>' do
           let(:text) { "aa\n<b>Source:</b> Mellow Candle" }
-          it { is_expected.to eq 'aa[br][source]Mellow Candle[/source]' }
+          it { is_expected.to eq 'aa[source]Mellow Candle[/source]' }
         end
 
         context 'source in <div>' do
           let(:text) { '<div style="text-align: right;">(source: arago.wikia.com)</div>' }
           it { is_expected.to eq '[source]arago.wikia.com[/source]' }
+        end
+
+        context 'Written by MAL Rewrite' do
+          let(:text) { "Test.\r\n\r\n[Written by MAL Rewrite]" }
+          it { is_expected.to eq 'Test.' }
         end
       end
 
