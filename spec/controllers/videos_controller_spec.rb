@@ -4,7 +4,7 @@ describe VideosController do
   let(:anime) { create :anime }
   let(:url) { 'http://youtube.com/watch?v=l1YX30AmYsA' }
   let(:name) { 'test' }
-  let(:kind) { Video::PV }
+  let(:kind) { 'pv' }
 
   let(:json) { JSON.parse response.body }
 
