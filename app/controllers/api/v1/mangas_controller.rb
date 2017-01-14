@@ -1,7 +1,4 @@
 class Api::V1::MangasController < Api::V1Controller
-  serialization_scope :view_context
-
-  respond_to :json
   before_action :fetch_resource, except: [:index, :search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING

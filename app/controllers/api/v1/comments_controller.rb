@@ -1,7 +1,4 @@
 class Api::V1::CommentsController < Api::V1Controller
-  serialization_scope :view_context
-  respond_to :json
-
   load_and_authorize_resource only: [:create, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
@@ -9,7 +6,8 @@ class Api::V1::CommentsController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
-    respond_with Comment.find(params[:id]).decorate
+    @resource = Comment.find(params[:id]).decorate
+    respond_with @resource
   end
 
   api :GET, '/comments', 'List comments'
@@ -56,7 +54,7 @@ class Api::V1::CommentsController < Api::V1Controller
     if @resource.persisted? && frontent_request?
       render :comment
     else
-      respond_with @resource.decorate
+      respond_with @resource
     end
   end
 
@@ -70,7 +68,7 @@ class Api::V1::CommentsController < Api::V1Controller
     if faye.update(@resource, update_params) && frontent_request?
       render :comment
     else
-      respond_with @resource.decorate
+      respond_with @resource
     end
   end
 

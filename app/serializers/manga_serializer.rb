@@ -12,6 +12,6 @@ class MangaSerializer < ActiveModel::Serializer
   end
 
   def url
-    manga_path object
+    UrlGenerator.instance.manga_path object
   end
 end

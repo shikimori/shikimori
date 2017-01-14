@@ -8,7 +8,7 @@ describe Versioneers::VideosVersioneer do
       {
         url: 'http://youtube.com/watch?v=l1YX30AmYsA',
         name: 'test',
-        kind: :pv,
+        kind: 'pv',
         uploader_id: user.id
       }
     end

@@ -1,5 +1,6 @@
 class ReviewSerializer < ActiveModel::Serializer
-  attributes :id, :target, :user, :votes_count, :votes_for, :body, :html_body, :overall, :storyline, :music, :characters, :animation, :created_at
+  attributes :id, :target, :user, :votes_count, :votes_for, :body, :html_body,
+    :overall, :storyline, :music, :characters, :animation, :created_at
 
   def body
     object.text

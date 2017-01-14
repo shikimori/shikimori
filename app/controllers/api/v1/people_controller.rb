@@ -1,7 +1,4 @@
 class Api::V1::PeopleController < Api::V1Controller
-  serialization_scope :view_context
-
-  respond_to :json
   before_action :fetch_resource, except: [:search]
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING

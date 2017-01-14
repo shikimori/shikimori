@@ -1,6 +1,4 @@
 class FavouriteSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
-
   attributes :id, :name, :russian, :image, :url
 
   def image
@@ -9,10 +7,10 @@ class FavouriteSerializer < ActiveModel::Serializer
 
   def url
     case object
-      when Anime then anime_path object
-      when Manga then manga_path object
-      when Character then character_path object
-      when Person then person_path object
+      when Anime then UrlGenerator.instance.anime_path object
+      when Manga then UrlGenerator.instance.manga_path object
+      when Character then UrlGenerator.instance.character_path object
+      when Person then UrlGenerator.instance.person_path object
     end
   end
 end

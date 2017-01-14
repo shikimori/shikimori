@@ -11,6 +11,6 @@ class PersonSerializer < ActiveModel::Serializer
   end
 
   def url
-    person_path object
+    UrlGenerator.instance.person_path object
   end
 end

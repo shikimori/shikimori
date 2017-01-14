@@ -1,8 +1,4 @@
-# не заменять на "class CommentDecorator < BaseDecorator" - ломает
-class CommentDecorator < Draper::Decorator
-  prepend ActiveCacher.instance
-  delegate_all
-
+class CommentDecorator < BaseDecorator
   instance_cache :html_body
 
   def html_body

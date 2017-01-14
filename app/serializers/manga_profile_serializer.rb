@@ -2,7 +2,7 @@ class MangaProfileSerializer < MangaSerializer
   attributes :english, :japanese, :synonyms, :kind, :aired_on, :released_on,
     :volumes, :chapters, :score,
     :description, :description_html, :description_source,
-    :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
+    :favoured, :anons, :ongoing, :thread_id, :topic_id,
     :read_manga_id, :myanimelist_id,
     :rates_scores_stats, :rates_statuses_stats
 
@@ -11,8 +11,12 @@ class MangaProfileSerializer < MangaSerializer
 
   has_one :user_rate
 
+  def description
+    object.description.text
+  end
+
   def user_rate
-    UserRateFullSerializer.new(object.current_rate)
+    UserRateFullSerializer.new(object.current_rate) if object.current_rate
   end
 
   def english
@@ -46,5 +50,17 @@ class MangaProfileSerializer < MangaSerializer
 
   def description_source
     object.description.source
+  end
+
+  def favoured
+    object.favoured?
+  end
+
+  def ongoing
+    object.ongoing?
+  end
+
+  def anons
+    object.anons?
   end
 end

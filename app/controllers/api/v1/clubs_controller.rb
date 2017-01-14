@@ -1,7 +1,4 @@
 class Api::V1::ClubsController < Api::V1Controller
-  serialization_scope :view_context
-  respond_to :json
-
   before_action :fetch_club, except: :index
   before_action :restrict_domain, except: [:index, :create, :new]
 

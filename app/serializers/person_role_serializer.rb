@@ -1,6 +1,7 @@
 class PersonRoleSerializer < ActiveModel::Serializer
   attributes :roles, :roles_russian
-  has_one :character, :person
+  has_one :character
+  has_one :person
 
   def roles
     object.role.split(/ *, */)

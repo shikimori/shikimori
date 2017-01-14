@@ -2,8 +2,6 @@ class Api::V1::UsersController < Api::V1Controller
   before_action :authenticate_user!, only: [:messages, :unread_messages]
   before_action :authorize_lists_access, only: [:anime_rates, :manga_rates]
 
-  respond_to :json
-
   caches_action :anime_rates, :manga_rates,
     cache_path: proc {
       "#{user.cache_key}|#{Digest::MD5.hexdigest params.to_json}"

@@ -1,5 +1,4 @@
 class Api::V1::AnimeVideosController < Api::V1Controller
-  respond_to :json
   before_action :fetch_anime
 
   before_filter :authenticate_user!, only: [:index]

@@ -1,6 +1,4 @@
 class Api::V1::PublishersController < Api::V1Controller
-  respond_to :json
-
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/publishers', 'List publishers'
   def index

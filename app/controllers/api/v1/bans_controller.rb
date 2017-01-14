@@ -1,6 +1,4 @@
 class Api::V1::BansController < Api::V1Controller
-  respond_to :json
-
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/bans', 'List bans'
   def index

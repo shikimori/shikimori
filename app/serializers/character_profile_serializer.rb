@@ -1,11 +1,15 @@
 class CharacterProfileSerializer < CharacterSerializer
   attributes :altname, :japanese, :description,
     :description, :description_html, :description_source,
-    :favoured?, :thread_id, :topic_id, :updated_at
+    :favoured, :thread_id, :topic_id, :updated_at
 
   has_many :seyu
   has_many :animes
   has_many :mangas
+
+  def description
+    object.description.text
+  end
 
   # TODO: deprecated
   def thread_id
@@ -26,5 +30,9 @@ class CharacterProfileSerializer < CharacterSerializer
 
   def description_source
     object.description.source
+  end
+
+  def favoured
+    object.favoured?
   end
 end

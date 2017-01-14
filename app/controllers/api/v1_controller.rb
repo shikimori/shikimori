@@ -3,10 +3,13 @@ class Api::V1Controller < ShikimoriController
   TOKEN_HEADER = 'X-User-Api-Access-Token'
 
   responders :json # для рендеринга контента на patch и put запросы
-  skip_before_action :touch_last_online
+  respond_to :json
+
   before_action :authenticate_user_from_token!, if: :headers_auth?
   before_action :touch_last_online
   skip_before_action :verify_authenticity_token, if: :headers_auth?
+
+  serialization_scope :view_context
 
   resource_description do
     api_version '1.0'

@@ -1,7 +1,6 @@
 class Api::V1::DialogsController < Api::V1Controller
   MESSAGES_PER_PAGE = 10
 
-  respond_to :json
   before_action :authorize_messages_access
   before_action :fetch_target_user, only: [:show, :destroy]
 

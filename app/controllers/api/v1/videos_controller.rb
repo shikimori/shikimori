@@ -1,6 +1,4 @@
 class Api::V1::VideosController < Api::V1Controller
-  respond_to :json
-
   before_action :authenticate_user!, except: [:index]
   before_action :fetch_anime
 

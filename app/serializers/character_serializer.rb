@@ -11,6 +11,6 @@ class CharacterSerializer < ActiveModel::Serializer
   end
 
   def url
-    character_path object
+    UrlGenerator.instance.character_path object
   end
 end

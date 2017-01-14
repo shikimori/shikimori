@@ -34,7 +34,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 if ENV['APIPIE_RECORD']
   RSpec.configure do |config|
-    config.before(:each) { Timecop.freeze '2017-01-01 20:00:00' }
+    config.before(:each) { Timecop.freeze '2017-01-10 15:00:00' }
     config.after(:each) { Timecop.return }
   end
 else

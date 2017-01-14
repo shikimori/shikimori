@@ -1,5 +1,4 @@
 class Api::V1::StylesController < Api::V1Controller
-  respond_to :json
   load_and_authorize_resource
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING

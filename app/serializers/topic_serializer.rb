@@ -1,7 +1,7 @@
 class TopicSerializer < ActiveModel::Serializer
   attributes :id, :topic_title, :body, :html_body, :created_at, :comments_count
   attributes :forum, :user, :type, :linked_id, :linked_type, :linked
-  attributes :viewed?, :last_comment_viewed
+  attributes :viewed, :last_comment_viewed
 
   def forum
     ForumSerializer.new object.topic.forum
@@ -35,5 +35,9 @@ class TopicSerializer < ActiveModel::Serializer
 
   def last_comment_viewed
     object.topic.comments.last.try(:viewed?)
+  end
+
+  def viewed
+    object.viewed?
   end
 end

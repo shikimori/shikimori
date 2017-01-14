@@ -3,7 +3,7 @@ FactoryGirl.define do
     sequence(:nickname) { |n| "user_#{n}" }
     email { FactoryGirl.generate :email }
     password '123'
-    last_online_at Time.zone.now
+    last_online_at { Time.zone.now }
 
     can_vote_1 false
     can_vote_2 false

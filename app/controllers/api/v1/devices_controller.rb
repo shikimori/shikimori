@@ -1,6 +1,5 @@
 class Api::V1::DevicesController < Api::V1Controller
   load_and_authorize_resource
-  respond_to :json
 
   resource_description do
     description 'Mobile devices for push notifications'

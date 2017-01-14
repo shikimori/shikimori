@@ -1,5 +1,4 @@
 class Api::V1::UserRatesController < Api::V1Controller
-  respond_to :json
   load_and_authorize_resource
 
   CREATE_PARAMS = %i(

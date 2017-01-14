@@ -12,6 +12,6 @@ class AnimeSerializer < ActiveModel::Serializer
   end
 
   def url
-    anime_path object
+    UrlGenerator.instance.anime_path object
   end
 end

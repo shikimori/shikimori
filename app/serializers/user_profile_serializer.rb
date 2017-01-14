@@ -1,8 +1,8 @@
 # TODO: выпилить anime_statuses, :manga_statuses
 class UserProfileSerializer < UserSerializer
   attributes :name, :sex, :full_years, :last_online, :last_online_at,
-    :website, :location, :last_online_at, :banned?, :about, :about_html,
-    :common_info, :last_online, :show_comments?, :in_friends, :is_ignored,
+    :website, :location, :last_online_at, :banned, :about, :about_html,
+    :common_info, :last_online, :show_comments, :in_friends, :is_ignored,
     :stats, :style_id
 
   def website
@@ -43,5 +43,13 @@ class UserProfileSerializer < UserSerializer
 
   def about_html
     object.about_html&.gsub(%r{(?<!:)//(?=\w)}, 'http://') || ''
+  end
+
+  def banned
+    object.banned?
+  end
+
+  def show_comments
+    object.show_comments?
   end
 end

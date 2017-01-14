@@ -2,7 +2,7 @@ class AnimeProfileSerializer < AnimeSerializer
   attributes :rating, :english, :japanese, :synonyms, :kind, :aired_on,
     :released_on, :episodes, :episodes_aired, :duration, :score, :description,
     :description_html, :description_source,
-    :favoured?, :anons?, :ongoing?, :thread_id, :topic_id,
+    :favoured, :anons, :ongoing, :thread_id, :topic_id,
     :world_art_id, :myanimelist_id, :ani_db_id,
     :rates_scores_stats, :rates_statuses_stats, :updated_at
 
@@ -13,8 +13,12 @@ class AnimeProfileSerializer < AnimeSerializer
 
   has_one :user_rate
 
+  def description
+    object.description.text
+  end
+
   def user_rate
-    UserRateFullSerializer.new(object.current_rate)
+    UserRateFullSerializer.new(object.current_rate) if object.current_rate
   end
 
   # TODO: deprecated
@@ -56,5 +60,17 @@ class AnimeProfileSerializer < AnimeSerializer
 
   def screenshots
     object.screenshots 2
+  end
+
+  def favoured
+    object.favoured?
+  end
+
+  def ongoing
+    object.ongoing?
+  end
+
+  def anons
+    object.anons?
   end
 end

@@ -106,7 +106,7 @@ mentality of humans into physical form that Berg Katze gave to Rui Ninomiya \
 after extracting his NOTE, has spread among the public. Prime Minister \
 Sugayama backs the plan, but not everyone agrees with his policy. A \
 mysterious organization attacks Sugayama's vehicle, marking the start of a \
-series of new conflicts.[br][source]animenewsnetwork.com[/source]"
+series of new conflicts.[source]animenewsnetwork.com[/source]"
   end
 
   it 'correct score & ranked' do

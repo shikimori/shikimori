@@ -1,4 +1,5 @@
 class Dialog
+  include ActiveModel::Serialization
   vattr_initialize :user, :message
 
   def target_user
