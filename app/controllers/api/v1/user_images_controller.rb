@@ -1,10 +1,9 @@
 class Api::V1::UserImagesController < Api::V1::ApiController
   before_filter :authenticate_user!
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/user_images', 'Create an user image'
-  param :image, :boolean
-  param :linked_type, :boolean
+  param :image, String
+  param :linked_type, String
   def create
     @resource = UserImage.new do |image|
       image.user = current_user

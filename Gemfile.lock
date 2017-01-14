@@ -1,18 +1,18 @@
 GIT
+  remote: git://github.com/Apipie/apipie-rails.git
+  revision: 150c982d2cb49ab13fd8138a578b4f1dd2a0b90b
+  branch: master
+  specs:
+    apipie-rails (0.3.7)
+      json
+
+GIT
   remote: git://github.com/GBH/jade-rails.git
   revision: 12b2f5b34720a23bc6148f0a907df9018a1c2492
   specs:
     jade-rails (1.11.0.0)
       execjs
       tilt
-
-GIT
-  remote: git://github.com/KjellMorgenstern/apipie-rails.git
-  revision: 16c59856ac3e0edc9e8f97037de7d23c25bd77e4
-  branch: rails-5
-  specs:
-    apipie-rails (0.3.7)
-      json
 
 GIT
   remote: git://github.com/fauxparse/guard-i18n-js.git

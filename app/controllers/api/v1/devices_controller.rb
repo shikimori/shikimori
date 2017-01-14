@@ -17,7 +17,7 @@ class Api::V1::DevicesController < Api::V1::ApiController
     respond_with gcm.send_notification([@device.token], data: JSON.parse(params[:data]))
   end
 
-  api :POST, "/devices", "Create a device"
+  api :POST, '/devices', 'Create a device'
   param :device, Hash do
     param :platform, ['ios', 'android'], required: true
     param :token, String, desc: 'ID of mobile device', required: true
@@ -29,11 +29,10 @@ class Api::V1::DevicesController < Api::V1::ApiController
     respond_with @device, location: nil
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :PATCH, '/devices/:id', 'Update a device'
   api :PUT, '/devices/:id', 'Update a device'
-  param :device, :boolean do
-    param :token, :boolean
+  param :device, Hash do
+    param :token, String
   end
   def update
     @device.update device_params

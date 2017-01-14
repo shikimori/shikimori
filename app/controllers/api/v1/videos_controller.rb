@@ -11,7 +11,6 @@ class Api::V1::VideosController < Api::V1::ApiController
     respond_with @collection
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/animes/:anime_id/videos', 'Create a video'
   param :video, Hash do
     param :kind, Video.kind.values
