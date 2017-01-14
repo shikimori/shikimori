@@ -3,7 +3,7 @@
 # rename UserRateFullSerializer to UserRateSerializer
 # get rid of Api::V2::UserRatesController
 class UserRateFullSerializer < ActiveModel::Serializer
-  attributes :id, :score, :status, :status_name, :text,
+  attributes :id, :score, :status, :text,
     :episodes, :chapters, :volumes, :text_html, :rewatches
 
   has_one :user
@@ -28,17 +28,5 @@ class UserRateFullSerializer < ActiveModel::Serializer
 
   def manga
     object.target.kind_of?(Manga) ? object.target : nil
-  end
-
-  def status
-    UserRate.status_id object.status
-  end
-
-  def status_name
-    UserListParsers::XmlListParser.status_to_string(
-      object.status,
-      object.target.class,
-      false
-    )
   end
 end
