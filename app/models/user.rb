@@ -88,8 +88,8 @@ class User < ActiveRecord::Base
 
   has_many :devices, dependent: :destroy
 
-  has_many :user_tokens
-  has_many :user_images
+  has_many :user_tokens, dependent: :destroy
+  has_many :user_images, dependent: :destroy
 
   has_many :anime_video_reports
 
@@ -343,6 +343,9 @@ private
       [Digest::MD5.hexdigest(email.downcase), 160]
 
     update avatar: open(gravatar_url)
+
+  rescue OpenURI::HTTPError
+    update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
   end
 
   def cached_ignores
