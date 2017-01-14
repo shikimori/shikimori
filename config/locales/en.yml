@@ -18,6 +18,8 @@ en:
         description: Synopsis
         description_ru: Synopsis (rus)
         description_en: Synopsis
+        description_ru_source: Synopsis source (rus)
+        description_en_source: Synopsis source
         duration: Episode duration
         episodes: Episodes
         genres: Genres
@@ -30,7 +32,6 @@ en:
         russian: Russian name
         score: Score
         screenshots: Screenshots
-        source: Description source
         status: Status
         tags: Imageboards tag
         torrents_name: Torrents name
@@ -49,7 +50,6 @@ en:
         poster: *poster
         image: *poster
         russian: Russian name
-        source: Description source
         tags: Imageboards tag
       person:
         <<: *character_attributes

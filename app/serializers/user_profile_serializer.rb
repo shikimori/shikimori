@@ -18,8 +18,8 @@ class UserProfileSerializer < UserSerializer
         manga: object.stats.scores(:manga),
       },
       types: {
-        anime: object.stats.types(:anime),
-        manga: object.stats.types(:manga),
+        anime: object.stats.kinds(:anime),
+        manga: object.stats.kinds(:manga),
       },
       ratings: {
         anime: object.stats.anime_ratings,

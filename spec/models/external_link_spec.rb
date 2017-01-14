@@ -13,9 +13,7 @@ describe ExternalLink do
 
   describe 'enumerize' do
     it do
-      is_expected.to enumerize(:source).in(
-        *%i(official_site anime_db anime_news_network wikipedia)
-      )
+      is_expected.to enumerize(:source).in(*Types::ExternalLink::Source.values)
     end
   end
 end

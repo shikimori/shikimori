@@ -1,42 +1,39 @@
 class ProfileStatsView
+  pattr_initialize :profile_stats
+
   include Translation
-  include Virtus.model
   prepend ActiveCacher.instance
 
-  ProfileStatsQuery::STAT_FIELDS.each do |field|
-    attribute field.to_s.sub(/\?/, '')
-  end
+  instance_cache :comments_count, :summaries_count, :reviews_count
+  instance_cache :versions_count, :videos_changes_count
 
-  attribute :activity
-  attribute :list_counts
-  attribute :scores
-  attribute :types
-
-  instance_cache :comments_count, :summaries_count, :reviews_count,
-    :versions_count, :videos_changes_count
+  delegate *%i(
+    anime_ratings anime_spent_time full_statuses manga list_counts
+    manga_spent_time spent_time stats_bars statuses user
+  ), to: :profile_stats
 
   def anime?
-    anime
+    profile_stats.is_anime
   end
 
   def manga?
-    manga
+    profile_stats.is_manga
   end
 
   def activity size
-    @activity[size]
+    profile_stats.activity[size]
   end
 
   def list_counts list_type
-    @list_counts[list_type.to_sym]
+    profile_stats.list_counts[list_type.to_sym]
   end
 
   def scores list_type
-    @scores[list_type.to_sym]
+    profile_stats.scores[list_type.to_sym]
   end
 
-  def types list_type
-    @types[list_type.to_sym]
+  def kinds list_type
+    profile_stats.kinds[list_type.to_sym]
   end
 
   def spent_time_percent
@@ -115,13 +112,14 @@ class ProfileStatsView
   end
 
   def spent_time_label
-    i18n_key = if anime? && manga?
-      'anime_manga'
-    elsif manga?
-      'manga'
-    else
-      'anime'
-    end
+    i18n_key =
+      if anime? && manga?
+        'anime_manga'
+      elsif manga?
+        'manga'
+      else
+        'anime'
+      end
 
     i18n_t "time_spent.#{i18n_key}"
   end
@@ -155,7 +153,7 @@ class ProfileStatsView
   def videos_changes_count
     AnimeVideoReport
       .where(user: user)
-      .where.not(state: ['rejected', 'post_rejected'])
+      .where.not(state: %w(rejected post_rejected))
       .count
   end
 end

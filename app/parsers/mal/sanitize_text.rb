@@ -1,7 +1,5 @@
 # rubocop:disable ClassLength
-class Mal::TextSanitizer < ServiceObjectBase
-  pattr_initialize :raw_text
-
+class Mal::SanitizeText
   NOKOGIRI_SAVE_OPTIONS = Nokogiri::XML::Node::SaveOptions::AS_HTML |
     Nokogiri::XML::Node::SaveOptions::NO_DECLARATION
 
@@ -45,7 +43,7 @@ class Mal::TextSanitizer < ServiceObjectBase
       (?:
         (?:<!--link-->)?<a [^>]*? href="(?<url>.*?)" [^>]*? >.*?</a>
         .*{0,8}
-          |
+        |
         (?<text> [^<]{0,100}? )
       )
       ["']?
@@ -95,8 +93,10 @@ class Mal::TextSanitizer < ServiceObjectBase
     (?: </span>\n?</div> )
   }mix
 
+  method_object :raw_text
+
   def call
-    finalize comments bb_codes cleanup finalize raw_text
+    finalize(comments(bb_codes(cleanup(finalize(@raw_text)))))
   end
 
 private

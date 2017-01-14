@@ -117,11 +117,10 @@ describe ContestsController do
         )
       end
       before do
-        patch :update, id: contest.id, contest: attr.merge(description: 'zxc')
+        patch :update, id: contest.id, contest: attr
       end
 
       it do
-        expect(resource.description).to eq 'zxc'
         expect(resource.errors).to be_empty
         expect(response).to redirect_to edit_contest_url(resource)
       end

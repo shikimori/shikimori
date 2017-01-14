@@ -18,14 +18,11 @@ describe AnimesCollection::SeasonQuery do
     let!(:anime_4) { create :anime, :ona, ranked: 3, aired_on: Date.parse('10-10-2016') }
     let!(:manga) { create :manga }
 
-    let(:params) {{ season: 'fall_2016' }}
+    let(:params) { { season: 'fall_2016' } }
 
     it do
       is_expected.to have_attributes(
-        collection: {
-          'tv' => [anime_1],
-          AnimesCollection::SeasonQuery::OVA_KEY => [anime_3, anime_4]
-        },
+        collection: [anime_1, anime_3, anime_4],
         page: 1,
         pages_count: 1
       )

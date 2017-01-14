@@ -58,7 +58,6 @@ describe AnimesCollection::View do
             user: user,
             limit: AnimesCollection::View::LIMIT
           ).and_return page
-
       end
 
       let(:page) { AnimesCollection::Page.new collection: [] }

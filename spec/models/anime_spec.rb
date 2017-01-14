@@ -49,6 +49,7 @@ describe Anime do
     it { is_expected.to have_many :name_matches }
 
     it { is_expected.to have_many :external_links }
+    it { is_expected.to have_one :anidb_external_link }
   end
 
   describe 'validations' do

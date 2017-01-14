@@ -2,13 +2,12 @@
 
 # views for topics to be shown in sticky topics forum section:
 # all of them belong to offtopic forum
-class StickyTopicView
+class StickyTopicView < Dry::Struct
   extend Translation
-  include Virtus.model
 
-  attribute :url, String
-  attribute :title, String
-  attribute :description, String
+  attribute :url, Types::Strict::String
+  attribute :title, Types::Strict::String
+  attribute :description, Types::Strict::String
 
   STICKY_TOPICS = %i(
     site_rules
@@ -28,23 +27,23 @@ class StickyTopicView
         instance_variable_set(
           :"@#{topic_name}_#{locale}",
           new(
-            url: url(topic_id, locale),
-            title: title(topic_id, locale),
+            url: url(topic_id),
+            title: title(topic_id),
             description: description(topic_name, locale)
           )
         )
     end
   end
 
-private
+  private_class_method
 
-  def self.url topic_id, locale
+  def self.url topic_id
     Rails.cache.fetch("sticky_topic_url_#{topic_id}") do
       UrlGenerator.instance.topic_url topics[topic_id]
     end
   end
 
-  def self.title topic_id, locale
+  def self.title topic_id
     topics[topic_id].title
   end
 

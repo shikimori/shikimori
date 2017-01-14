@@ -1,4 +1,10 @@
 class CharacterMalParser < BaseMalParser
+  DESCRIPTION_REGEXP = /
+    <div \s class="normal_header"[\s\S]*?<\/div>
+    ([\s\S]*?)
+    <div \s class="normal_header"
+  /mix
+
   # сбор списка элементов, которые будем импортировать
   def prepare
     ids = super
@@ -10,7 +16,7 @@ class CharacterMalParser < BaseMalParser
                     where
                       pr.#{type}_id is not null
                       and c.id is null").
-          each {|v| ids << v["#{type}_id"].to_i }
+          each { |v| ids << v["#{type}_id"].to_i }
     ids
   end
 
@@ -47,13 +53,7 @@ class CharacterMalParser < BaseMalParser
     end
 
     entry[:fullname] = cleanup doc.css('h1').text.gsub('  ', ' ')
-
-    description_doc = doc.css('#content > table > tr > td:nth-child(2)')
-    entry[:description_en] = if description_doc.to_html.match(/<div class="normal_header"[\s\S]*?<\/div>([\s\S]*?)<div class="(normal_header)"/)
-      Mal::TextSanitizer.new($1).call
-    else
-      ""
-    end
+    entry[:description_en] = processed_description_en(id, doc)
 
     # сэйю
     staff_doc = doc.css('#content table > tr > td') if content.include?('Voice Actors')
@@ -90,5 +90,15 @@ class CharacterMalParser < BaseMalParser
     ActiveRecord::Base.connection.
       execute("insert into person_roles (role, character_id, person_id, created_at, updated_at)
                   values #{queries.join(',')}") unless queries.empty?
+  end
+
+  private
+
+  def processed_description_en id, doc
+    description_node = doc.css('#content > table > tr > td:nth-child(2)')
+    match = description_node.to_html.match(DESCRIPTION_REGEXP)
+
+    value = match ? Mal::SanitizeText.(match.captures.first) : ''
+    Mal::ProcessDescription.(value, type, id)
   end
 end

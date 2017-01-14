@@ -103,8 +103,10 @@ private
     params
       .require(:character)
       .permit(
-        :russian, :tags, :source,
-        :description_ru, :description_en,
+        :russian,
+        :tags,
+        :description_ru,
+        :description_en,
         *Character::DESYNCABLE
       )
   rescue ActionController::ParameterMissing

@@ -2,19 +2,30 @@ p.warning Перед внесением изменений обязательн�
 
 = simple_form_for resource.object do |f|
   .b-shiki_editor.unprocessed.block[
-      data-target_id="#{resource.id}"
-      data-target_type="#{resource.object.class.name}"
-    ]
-    = render 'comments/shiki_editor', text: resource.object.description_ru,
-      field_name: "#{resource.object.class.name.downcase}[description_ru]"
+    data-target_id="#{resource.id}"
+    data-target_type="#{resource.object.class.name}"
+  ]
+    = f.input :description_ru, as: :hidden
+
+    / description_ru_text is a virtual field -
+    / it will be filtered out by permitted params
+    = render 'comments/shiki_editor',
+      text: resource.description_ru.text,
+      field_name: "#{resource.object.class.name.downcase}[description_ru_text]"
 
     = render 'blocks/source',
-      entry: resource,
       authors: resource.versions.authors(:description_ru),
-      field: 'description',
-      default_source: resource.mal_url
+      source: resource.description_ru.source,
+      field: 'description'
 
-  = f.input :source
+  / description_ru_source is a virtual field -
+  / it will be filtered out by permitted params
+  / NOTE: it's possible to use non-model input as long as
+  /       you supply value manually
+  = f.input :description_ru_source,
+    label: Anime.human_attribute_name(:description_ru_source),
+    input_html: { value: resource.description_ru.source }
+
   = render 'versions/reason'
 
   .buttons

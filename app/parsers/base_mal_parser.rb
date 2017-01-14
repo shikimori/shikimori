@@ -79,7 +79,7 @@ class BaseMalParser < SiteParserWithCache
         end
         print "successfully imported %s %s %s\n" % [type, id, entry.name] if Rails.env != 'test'
       rescue Exception => e
-        print "%s\n%s\n" % [e.message, e.backtrace.join("\n")] if Rails.env == 'test' || e.class != EmptyContent
+        print "%s\n%s\n" % [e.message, e.backtrace.join("\n")] if Rails.env == 'test' || e.class != EmptyContentError
         print "failed import for %s %s\n" % [type, id] if Rails.env != 'test'
         exit if e.class == Interrupt
       end
@@ -88,11 +88,13 @@ class BaseMalParser < SiteParserWithCache
 
   # сбор списка элементов, которые будем импортировать
   def prepare
-    not_outdated_ids = type.camelize.constantize
-      .where.not(imported_at: nil)
-      .pluck(:id)
+    klass = type.camelize.constantize
 
-    cached_list.keys - not_outdated_ids
+    all_ids = klass.pluck(:id)
+    new_ids = cached_list.keys - all_ids
+    outdated_ids = klass.where(imported_at: nil).pluck(:id)
+
+    new_ids + outdated_ids
   end
 
   def banned_ids
@@ -165,14 +167,13 @@ class BaseMalParser < SiteParserWithCache
     entries_found
   end
 
-private
+  private
 
   # получение страницы MAL
   def get(url, required_text = ['MyAnimeList.net</title>', '</html>'])
     content = super(url, required_text)
-    # binding.pry unless content
-    raise EmptyContent.new(url) unless content
-    raise InvalidId.new(url) if content.include?("Invalid ID provided") ||
+    raise EmptyContentError.new(url) unless content
+    raise InvalidIdError.new(url) if content.include?("Invalid ID provided") ||
                                 content.include?("No manga found, check the manga id and try again") ||
                                 content.include?("No series found, check the series id and try again")
     raise ServerUnavailable.new(url) if content.include?("MyAnimeList servers are under heavy load")
@@ -191,8 +192,13 @@ private
     "https://myanimelist.net/#{type}/#{id}"
   end
 
-  # AnimeMalParser => 'anime'
+  # AnimeMalParser => anime
   def type
     @type ||= self.class.name.match(/[A-Z][a-z]+/)[0].downcase
+  end
+
+  def processed_description_en id, content
+    value = parse_synopsis(content)
+    Mal::ProcessDescription.(value, type, id)
   end
 end

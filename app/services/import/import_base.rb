@@ -1,6 +1,5 @@
 class Import::ImportBase
   method_object :data
-  attr_implement :klass
 
   SPECIAL_FIELDS = %i()
   IGNORED_FIELDS = %i()
@@ -20,12 +19,28 @@ private
     @entry ||= klass.find_or_initialize_by id: @data[:id]
   end
 
+  def klass
+    self.class.name.gsub(/.*:/, '').constantize
+  end
+
   def assign_special_fields
     self.class::SPECIAL_FIELDS.each do |field|
       unless field.in?(desynced_fields) || @data[field].blank?
         send "assign_#{field}", @data[field]
       end
     end
+  end
+
+  def assign_synopsis synopsis
+    entry.description_en = Mal::ProcessDescription.call(
+      Mal::SanitizeText.call(synopsis),
+      klass.name.downcase,
+      entry.id
+    )
+  end
+
+  def assign_image image
+    Import::MalImage.call entry, image
   end
 
   def data_to_assign

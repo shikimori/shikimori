@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161225111506) do
+ActiveRecord::Schema.define(version: 20170112193531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "unaccent"
   enable_extension "pg_stat_statements"
+  enable_extension "hstore"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -353,7 +353,6 @@ ActiveRecord::Schema.define(version: 20161225111506) do
 
   create_table "contests", force: :cascade do |t|
     t.string   "title",                limit: 255
-    t.text     "description"
     t.integer  "user_id"
     t.string   "state",                limit: 255, default: "created"
     t.date     "started_on"
@@ -455,12 +454,13 @@ ActiveRecord::Schema.define(version: 20161225111506) do
   add_index "episode_notifications", ["anime_id"], name: "index_episode_notifications_on_anime_id", using: :btree
 
   create_table "external_links", force: :cascade do |t|
-    t.integer  "entry_id",   null: false
-    t.string   "entry_type", null: false
-    t.string   "source",     null: false
-    t.string   "url",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "entry_id",    null: false
+    t.string   "entry_type",  null: false
+    t.string   "source",      null: false
+    t.string   "url",         null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "imported_at"
   end
 
   add_index "external_links", ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id", using: :btree
@@ -641,8 +641,6 @@ ActiveRecord::Schema.define(version: 20161225111506) do
   create_table "people", force: :cascade do |t|
     t.string   "name",               limit: 255
     t.string   "japanese",           limit: 255
-    t.text     "description"
-    t.text     "description_mal"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "image_file_name",    limit: 255
@@ -650,8 +648,6 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.date     "birthday"
-    t.string   "given_name",         limit: 255
-    t.string   "family_name",        limit: 255
     t.string   "website",            limit: 255
     t.datetime "imported_at"
     t.boolean  "producer",                       default: false
@@ -787,8 +783,8 @@ ActiveRecord::Schema.define(version: 20161225111506) do
     t.datetime "image_updated_at"
     t.integer  "ani_db_id"
     t.string   "ani_db_name",        limit: 255
-    t.text     "description"
-    t.text     "ani_db_description"
+    t.text     "description_ru"
+    t.text     "description_en"
     t.string   "website",            limit: 255
   end
 

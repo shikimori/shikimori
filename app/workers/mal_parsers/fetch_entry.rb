@@ -17,7 +17,7 @@ class MalParsers::FetchEntry
       characters: MalParser::Entry::Characters,
       recommendations: MalParser::Entry::Recommendations
     },
-    character: { DATA => MalParser::Entry::Anime },
+    character: { DATA => MalParser::Entry::Character },
     person: { DATA => MalParser::Entry::Person }
   }
   IMPORTS = {
@@ -27,8 +27,10 @@ class MalParsers::FetchEntry
     person: Import::Person
   }
 
+  TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')
+
   def perform id, type
-    import_data = PARSERS[type.to_sym]
+    import_data = PARSERS[TYPES[type].to_sym]
       .each_with_object({}) do |(parser_kind, parser_klass), memo|
         if parser_kind == DATA
           memo.merge! parser_klass.call(id)

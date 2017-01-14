@@ -1,9 +1,8 @@
 describe Profiles::ListStats do
-  include_context :view_object_warden_stub
-
   let(:user) { seed :user }
-  let(:view) do
+  let(:list_stats) do
     Profiles::ListStats.new(
+      id: 0,
       name: 'planned',
       type: 'Anime',
       grouped_id: '1,2',
@@ -11,7 +10,7 @@ describe Profiles::ListStats do
     )
   end
 
-  it { expect(view.id).to eq 0 }
-  it { expect(view.localized_name).to eq 'Запланировано' }
-  it { expect(view.any?).to eq true }
+  it { expect(list_stats.id).to eq 0 }
+  it { expect(list_stats.localized_name).to eq 'Запланировано' }
+  it { expect(list_stats.any?).to eq true }
 end

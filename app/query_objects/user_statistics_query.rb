@@ -244,6 +244,7 @@ class UserStatisticsQuery
       rewatching_id = UserRate.statuses.find {|k,v| k == 'rewatching'}.second
 
       Profiles::ListStats.new(
+        id: status_id,
         grouped_id: !is_full && status_name == 'watching' ?
           "#{status_id},#{rewatching_id}" :
           status_id,

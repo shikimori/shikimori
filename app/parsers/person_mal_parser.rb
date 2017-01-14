@@ -8,11 +8,11 @@ class PersonMalParser < CharacterMalParser
     doc = Nokogiri::HTML content
     entry[:name] = cleanup(doc.css('h1').text.gsub('  ', ' ')).gsub(/^(.*), (.*)$/, '\2 \1')
     entry[:img] = parse_poster doc
-    entry[:given_name] = parse_line 'Given name', content, false
-    entry[:given_name] = nil if entry[:given_name] == ''
-    entry[:family_name] = parse_line 'Family name', content, false
-    entry[:family_name] = nil if entry[:family_name ] == ''
-    entry[:japanese] = "#{entry[:family_name]} #{entry[:given_name]}" if entry[:given_name] && entry[:family_name]
+    given_name = parse_line 'Given name', content, false
+    family_name = parse_line 'Family name', content, false
+    if given_name.present? && family_name.present?
+      entry[:japanese] = "#{family_name} #{given_name}"
+    end
     entry[:birthday] = parse_date parse_line('Birthday', content, false)
     entry[:website] = parse_line 'Website', content, false
 

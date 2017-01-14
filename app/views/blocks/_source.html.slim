@@ -1,32 +1,23 @@
 .b-source
-  - if defined?(default_source) && authors.empty? && entry.source.blank?
-    - unless entry.object.description_en.blank? || default_source.blank? || entry.object.description_ru.present?
-      .mal
-        .key Источник:
-        .val
-          a href="#{default_source}" rel="nofollow" myanimelist.net
+  - if authors.any?
+    .contributors
+      .key
+        - if field.to_sym != :video && field.to_sym != :screenshots
+          = authors.size > 1 ? 'Авторы:' : 'Автор:'
+        - else
+          = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
 
-  - else
-    - if authors.any?
-      .contributors
-        .key
-          - if entry.source.blank? && field.to_sym != :video && field.to_sym != :screenshots
-            = authors.size > 1 ? 'Авторы:' : 'Автор:'
-          - else
-            = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
+      - authors.each do |author|
+        .b-user16
+          a href="#{profile_url(author)}" title="#{author.nickname}"
+            img[
+              src="#{author.avatar_url(16)}"
+              srcset="#{author.avatar_url(32)} 2x"
+              alt="#{author.nickname}"
+            ]
+            span = author.nickname
 
-        - authors.each do |author|
-          .b-user16
-            a href="#{profile_url author}" title="#{author.nickname}"
-              img[
-                src="#{author.avatar_url 16}"
-                srcset="#{author.avatar_url 32} 2x"
-                alt="#{author.nickname}"
-              ]
-              span = author.nickname
-
-    - unless entry.source.blank?
-      .source
-        .key Источник:
-        .val
-          == source_link entry.source
+  - if field == 'description' && source.present?
+    .source
+      .key Источник:
+      .val == source_link source

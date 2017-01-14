@@ -41,7 +41,7 @@ class MangaMalParser < BaseMalParser
 
     entry[:name] = parse_h1(content)
     entry[:id] = id
-    entry[:description_en] = parse_synopsis(content)
+    entry[:description_en] = processed_description_en(id, content)
 
     #parse_block(entry, :related, /Related Manga?<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
@@ -114,7 +114,7 @@ class MangaMalParser < BaseMalParser
     entry[:external_links] = parse_external_links doc
     entry[:img] = parse_poster doc
 
-    raise EmptyContent.new(url) if entry[:english].blank? && entry[:score].blank? && entry[:synonyms].blank? && entry[:name].blank? &&
+    raise EmptyContentError.new(url) if entry[:english].blank? && entry[:score].blank? && entry[:synonyms].blank? && entry[:name].blank? &&
                                    entry[:status].blank? && entry[:kind].blank? && entry[:ranked].blank?
 
     entry

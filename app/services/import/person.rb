@@ -1,6 +1,3 @@
 class Import::Person < Import::ImportBase
-  method_object :data
-
-  def call
-  end
+  SPECIAL_FIELDS = %i(image)
 end

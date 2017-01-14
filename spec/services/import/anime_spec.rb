@@ -8,7 +8,10 @@ describe Import::Anime do
       studios: studios,
       related: related,
       recommendations: similarities,
-      characters: characters_data
+      characters: characters_data,
+      synopsis: synopsis,
+      external_links: external_links,
+      image: image
     }
   end
   let(:id) { 987_654_321 }
@@ -19,10 +22,49 @@ describe Import::Anime do
   let(:characters_data) { { characters: characters, staff: staff } }
   let(:characters) { [] }
   let(:staff) { [] }
+  let(:synopsis) { '' }
+  let(:external_links) { [] }
+  let(:image) { nil }
 
   subject(:entry) { service.call }
 
-  it { expect(entry).to be_persisted }
+  it do
+    expect(entry).to be_persisted
+    expect(entry).to be_kind_of Anime
+    expect(entry).to have_attributes data.except(
+      :synopsis, :image, :genres, :studios, :related, :recommendations,
+      :characters, :external_links
+    )
+  end
+
+  describe '#assign_synopsis' do
+    let(:synopsis) { '<b>test</b>' }
+    let(:synopsis_with_source) do
+      "[b]test[/b][source]http://myanimelist.net/anime/#{id}[/source]"
+    end
+
+    it { expect(entry.description_en).to eq synopsis_with_source }
+
+    describe 'anidb external_link' do
+      let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
+      let!(:external_link) do
+        create :external_link,
+          entry: anime,
+          source: :anime_db,
+          imported_at: imported_at
+      end
+
+      describe 'imported' do
+        let(:imported_at) { Time.zone.now }
+        it { expect(entry.description_en).to eq 'old' }
+      end
+
+      describe 'not imported' do
+        let(:imported_at) { nil }
+        it { expect(entry.description_en).to eq synopsis_with_source }
+      end
+    end
+  end
 
   describe '#assign_genres' do
     let(:genres) { [{ id: 1, name: 'test' }] }
@@ -146,6 +188,36 @@ describe Import::Anime do
     end
   end
 
+  describe '#assign_external_links' do
+    let(:external_links) do
+      [{
+        source: 'official_site',
+        url: 'http://www.cowboy-bebop.net/'
+      }]
+    end
+
+    describe 'import' do
+      it do
+        expect(entry.reload.external_links).to have(1).item
+        expect(entry.external_links.first).to have_attributes(
+          entry_id: entry.id,
+          entry_type: entry.class.name,
+          source: 'official_site',
+          url: 'http://www.cowboy-bebop.net/'
+        )
+      end
+    end
+
+    describe 'method call' do
+      before { allow(Import::ExternalLinks).to receive :call }
+      it do
+        expect(Import::ExternalLinks)
+          .to have_received(:call)
+          .with entry, external_links
+      end
+    end
+  end
+
   describe '#assign_characters' do
     let(:characters) { [{ id: 143_628, role: 'Main' }] }
     let(:staff) { [{ id: 33_365, role: 'Director' }] }
@@ -192,6 +264,23 @@ describe Import::Anime do
       before { subject }
 
       it { expect(person_role.reload).to be_persisted }
+    end
+  end
+
+  describe '#assign_image' do
+    let(:image) { 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png' }
+
+    describe 'import', :vcr do
+      it { expect(entry.image).to be_present }
+    end
+
+    describe 'method call' do
+      before { allow(Import::MalImage).to receive :call }
+      it do
+        expect(Import::MalImage)
+          .to have_received(:call)
+          .with entry, image
+      end
     end
   end
 end

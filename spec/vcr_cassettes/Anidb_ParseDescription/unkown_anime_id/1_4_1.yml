@@ -1,0 +1,173 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://anidb.net/perl-bin/animedb.pl?aid=33911111&show=anime
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0
+      Cookie:
+      - ''
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 27 Dec 2016 18:40:07 GMT
+      Server:
+      - Apache
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - text/html; charset=UTF-8
+      Expires:
+      - Tue, 27 Dec 2016 18:40:07 GMT
+      Set-Cookie:
+      - adbuin=1482864007-FcTu; path=/; expires=Fri, 25-Dec-2026 18:40:07 GMT
+      Vary:
+      - Accept-Encoding
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<title>ERROR - AniDB</title>\n\t\t<meta
+        name=\"Description\" content=\"Looking for information about ERROR? AniDB
+        is the right place for you. AniDB is a non-profit anime database providing
+        you with all information regarding anime.\"/>\n\t \t<meta name=\"keywords\"
+        content=\"anime, myanimelist, anime news, anime recommendations, anime reviews\"
+        />\n\t\t<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"/>\n\t\t<meta
+        name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n\t\t<meta
+        id=\"anidb-url\" data-anidb-url=\"animedb.pl?show=anime&amp;aid=33911111\"
+        />\n\t\t<link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"https://static.anidb.net/css/icons/touch/apple-touch-icon.png\"
+        />\n\t\t<link rel=\"icon\" href=\"https://static.anidb.net/favicon.ico\" sizes=\"16x16\"
+        />\n\t\t<link rel=\"manifest\" href=\"https://static.anidb.net/css/icons/touch/manifest.json\"
+        />\n\t\t<link rel=\"mask-icon\" href=\"https://static.anidb.net/css/icons/touch/safari-pinned-tab.svg\"
+        color=\"#5bbad5\" />\n\t\t<link rel=\"shortcut icon\" href=\"https://static.anidb.net/favicon.ico\"
+        />\n\t\t<meta name=\"msapplication-config\" content=\"https://static.anidb.net/css/icons/touch/browserconfig.xml\"
+        />\n\t\t<meta name=\"theme-color\" content=\"#ffffff\" />\n\t\t<link rel=\"search\"
+        type=\"application/opensearchdescription+xml\" href=\"http://anidb.net/opensearch.xml\"
+        title=\"AniDB\" />\n\t\t<link rel=\"alternate\" type=\"application/atom+xml\"
+        title=\"AniDB Latest Files\" href=\"http://anidb.net/feeds/files.atom\"/>\n\t\t<link
+        rel=\"alternate\" type=\"application/atom+xml\" title=\"AniDB Latest News\"
+        href=\"http://anidb.net/feeds/news.atom\"/>\n\t\t<link rel=\"stylesheet\"
+        href=\"http://static.anidb.net/css-2016-12-21T06-20-48/anidbstyle3/anidbstyle3.css\"
+        type=\"text/css\" title=\"Style\"/>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/js.cookie.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.form.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.fancybox.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.sortable.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.tablesorter.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.uploadfile.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jquery.wysibb.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/jqueryui.position.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/libs/select2.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/legacy/legacy.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/WordSuggest.min.js\"
+        type=\"text/javascript\"></script>\n\t\t<script src=\"http://static.anidb.net/js-2016-12-27T16-13-07/global.min.js\"
+        type=\"text/javascript\"></script>\n\t</head>\n\t<body id=\"anidb\" class=\"anime\">\n<div
+        id=\"layout-hint\"><span class=\"head\">HINT:</span>\n\t<span class=\"msg\">\n\t\tYou're
+        missing out on most features of AniDB. Why not <a href=\"animedb.pl?show=signup\">sign
+        up now</a>? It's free!\n\t</span>\n</div>\n<div id=\"layout-nav\" class=\"anime_nav\">\n\t<ul
+        id=\"layout-menu\" class=\"anime_menu\">\n\t\t<li class=\"sub-menu main\"
+        title=\"Main\" onClick=\"return true\">\n\t\t\t<span class=\"tab\">Main</span>\n\t\t\t<ul
+        id=\"menu-main\">\n\t\t\t\t<li class=\"main\"><a title=\"Main\" href=\"animedb.pl?show=main\"><span>main</span></a></li>\n\t\t\t\t<li
+        class=\"search\"><a title=\"Advanced search\" href=\"animedb.pl?show=search\"><span>search</span></a></li>\n\t\t\t\t<li
+        class=\"calendar\"><a title=\"Anime calendar\" href=\"animedb.pl?show=calendar&amp;do.filter=1\"><span>season
+        chart</span></a></li>\n\t\t\t\t<li class=\"schedule\"><a title=\"Episode schedule\"
+        href=\"animedb.pl?show=calendar&amp;do=schedule&amp;do.filter=1\"><span>schedule</span></a></li>\n\t\t\t\t<li
+        class=\"random\"><a title=\"Random anime\" href=\"animedb.pl?show=anime&amp;do.random=1\"><span>random</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu listings\" title=\"Listings\" onClick=\"return true\">\n\t\t\t<span
+        class=\"tab\">Listings</span>\n\t\t\t<ul id=\"menu-lists\">\n\t\t\t\t<li class=\"latest\"><a
+        title=\"Latest additions\" href=\"animedb.pl?show=latest2&amp;do.filter=1\"><span>latest</span></a></li>\n\t\t\t\t<li
+        class=\"anime\"><a title=\"Anime list\" href=\"animedb.pl?show=animelist&amp;do.filter=1\"><span>anime</span></a></li>\n\t\t\t\t<li
+        class=\"character\"><a title=\"Character list\" href=\"animedb.pl?show=characterlist\"><span>characters</span></a></li>\n\t\t\t\t<li
+        class=\"club\"><a title=\"Club list\" href=\"animedb.pl?show=clublist&amp;do.filter=1\"><span>clubs</span></a></li>\n\t\t\t\t<li
+        class=\"creator\"><a title=\"Creator list\" href=\"animedb.pl?show=creatorlist\"><span>creators</span></a></li>\n\t\t\t\t<li
+        class=\"collection\"><a title=\"Collection list\" href=\"animedb.pl?show=collectionlist\"><span>collections</span></a></li>\n\t\t\t\t<li
+        class=\"group\"><a title=\"Group list\" href=\"animedb.pl?show=grouplist\"><span>groups</span></a></li>\n\t\t
+        \  \t\t<li class=\"song\"><a title=\"Song list\" href=\"animedb.pl?show=songlist\"><span>songs</span></a></li>\n\t\t
+        \  \t\t<li class=\"user\"><a title=\"Tag list\" href=\"animedb.pl?show=taglist\"><span>tags</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu support\" title=\"Support\" onClick=\"return true\">\n\t\t\t<span
+        class=\"tab\">Support</span>\n\t\t\t<ul id=\"menu-support\">\n\t\t\t\t<li
+        class=\"report\"><a title=\"Report a mistake\" href=\"https://wiki.anidb.net/w/Report_mistake\"
+        data-anidb-rel=\"anidb::wiki\"><span>report error</span></a></li>\n\t\t\t\t<li
+        class=\"help\"><a title=\"Help @ wiki\" href=\"https://wiki.anidb.net/w/Main_Page\"
+        data-anidb-rel=\"anidb::wiki\"><span>help</span></a></li>\n\t\t\t\t<li class=\"forum\"><a
+        title=\"Help @ forum\" href=\"animedb.pl?show=forum\"><span>forum</span></a></li>\n\t\t\t\t<li
+        class=\"irc\"><a title=\"Help @ irc\" href=\"animedb.pl?show=irc\"><span>irc</span></a></li>\n\t\t\t\t<li
+        class=\"credits\"><a title=\"Credits\" href=\"https://wiki.anidb.net/w/Credits\"
+        data-anidb-rel=\"anidb::wiki\"><span>credits</span></a></li>\n\t\t\t\t<li
+        class=\"staff\"><a title=\"AniDB staff\" href=\"animedb.pl?show=admin&amp;adm=user\"><span>staff</span></a></li>\n\t\t\t</ul>\n\t\t\t<span></span>\n\t\t</li>\n\t\t<li
+        class=\"sub-menu login\" title=\"Signup or login\" onClick=\"return true\">\n\t\t\t<span
+        class=\"tab\">Signup or login</span>\n\t\t\t<form action=\"animedb.pl\" method=\"post\"><div><fieldset><input
+        type=\"hidden\" name=\"show\" value=\"anime\" /></fieldset><fieldset><input
+        type=\"hidden\" name=\"aid\" value=\"33911111\" /></fieldset>\n\t\t\t\t<ul
+        id=\"menu-login\">\n\t\t\t\t\t<li id=\"user-login\" class=\"user-login\"><a
+        title=\"Show login page\" href=\"animedb.pl?show=login\"><span>login</span></a></li>\n\t\t\t\t\t<li
+        id=\"user-signup\" class=\"user-signup\"><a title=\"Signup now\" href=\"animedb.pl?show=signup\"><span>signup</span></a></li>\n\t\t\t\t\t<li
+        id=\"user-xname\" class=\"user-xname\" title=\"User name\"><span><input name=\"xuser\"
+        class=\"text\" maxlength=\"16\" type=\"text\" value=\"\"/></span></li>\n\t\t\t\t\t<li
+        id=\"user-xpass\" class=\"user-xpass\" title=\"Password\"><span><input name=\"xpass\"
+        class=\"text\" maxlength=\"64\" type=\"password\"/></span></li>\n\t\t\t\t\t<li
+        id=\"user-xkeep\" class=\"user-xkeep\" title=\"Remember login data\"><span><label><input
+        name=\"xdoautologin\" type=\"checkbox\" checked=\"checked\"/> <span>remember</span></label></span></li>\n\t\t\t\t\t<li
+        id=\"user-xkeep2\" class=\"user-xkeep\" title=\"Stay logged in from multiple
+        Locations/Browser\"><span><label><input name=\"xkeepoldcookie\" type=\"checkbox\"
+        /> <span>keep cookie</span></label></span></li>\n\t\t\t\t\t<li id=\"user-xauth\"
+        class=\"user-xauth\" title=\"Login\"><span><button name=\"do.auth\" type=\"submit\"
+        value=\"login\"><span>Login</span></button></span></li>\n\t\t\t\t</ul>\n\t\t\t\t<span></span>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t</li>\n\t</ul>\n\t<div
+        class=\"menu_hr\"></div>\n\t<div id=\"layout-search\" class=\"anime_search\">\n\t\t<div
+        class=\"search\" itemscope itemtype=\"http://schema.org/WebSite\">\n\t\t\t<title
+        class=\"hide\" itemprop=\"name\">AniDB</title>\n\t\t\t<link class=\"hide\"
+        rel=\"canonical\" href=\"https://anidb.net/\" itemprop=\"url\" />\n\t\t\t<form
+        action=\"animedb.pl\" method=\"get\" itemprop=\"potentialAction\" itemscope
+        itemtype=\"http://schema.org/SearchAction\">\n\t\t\t\t<div itemprop=\"target\"
+        content=\"https://anidb.net/perl-bin/animedb.pl?show=search&amp;do.search=search&amp;adb.search={adb.search}\">\n\t\t\t\t\t<input
+        itemprop=\"query-input\" id=\"layout-searchbox\" accesskey=\"s\" type=\"text\"
+        name=\"adb.search\" value=\"\" class=\"text\"/>\n\t<select name=\"show\" id=\"layout-searchselect\"
+        size=\"1\"><option value=\"search\">all</option><option value=\"animelist\"
+        selected=\"selected\">anime</option><option value=\"characterlist\">character</option><option
+        value=\"clublist\">club</option><option value=\"collectionlist\">collections</option><option
+        value=\"creatorlist\">creator</option><option value=\"eplist\">episodes</option><option
+        value=\"grouplist\">group</option><option value=\"mylist\">mylist</option><option
+        value=\"songlist\">songs</option><option value=\"taglist\">tags</option><option
+        value=\"userlist\">user</option>\n\t</select>\n\t\t\t\t\t<button type=\"submit\"
+        name=\"do.search\" value=\"search\" class=\"submit search\">Search</button>\n\t\t\t\t\t<fieldset>\n\t\t\t\t\t</fieldset>\n\t\t\t\t</div>\n\t\t\t</form>\n\t\t\t<form
+        class=\"random\" action=\"animedb.pl\" method=\"get\">\n\t\t\t\t<fieldset>\n\t\t\t\t\t<input
+        type=\"hidden\" name=\"do.random\" value=\"1\" />\n\t\t\t\t\t<input type=\"hidden\"
+        name=\"show\" value=\"anime\" />\n\t\t\t\t</fieldset>\n\t\t\t\t<button type=\"submit\"
+        value=\"lucky\" class=\"submit random\">I'm Feeling Lucky</button>\n\t\t\t</form>\n\t\t\t<a
+        class=\"advsearch\" title=\"advsearch\" href=\"animedb.pl?show=search\"><span>advanced
+        search</span></a>\n\t\t</div>\n\t</div>\n</div>\n<div id=\"layout-content\">\n\t<div
+        id=\"layout-main\">\n\t\t<h1 class=\"anime\">ERROR</h1>\n\t\t<div class=\"g_content
+        anime_all sidebar\">\n\t\t<a href=\"animedb.pl?show=rlfvoeomvsunpcwh\" style=\"display:none;\">Download
+        (Do <b>NOT</b> click!)</a>\n\t<div class=\"g_msg g_bubble error\">\n\t\t<h3>ERROR</h3>\n\t\t<p>Unknown
+        anime id.<br />This entry may have been deleted from the database.\n\t\t</p>\n\t</div>\n\t\t</div><!--g_content-->\n\t\t<div
+        class=\"g_end\"></div>\n\t</div><!--layout-main-->\n</div><!--layout-content-->\n\n<div
+        id=\"layout-footer\">\n\t<div class=\"hide\" itemscope itemtype=\"http://schema.org/Organization\">\n\t\t<a
+        itemprop=\"url\" href=\"https://anidb.net/\">Home</a>\n\t\t<img itemprop=\"logo\"
+        src=\"https://static.anidb.net/css/icons/touch/android-chrome-192x192.png\"
+        />\n\t\t<a itemprop=\"sameAs\" href=\"https://twitter.com/AniDBStatus\">Twitter</a>\n\t\t<meta
+        itemprop=\"name\" content=\"AniDB\"/>\n\t</div>\n\t<p>v 2016-12, &copy; 2002-2016
+        by AniDB, all rights reserved [0s] - <span title=\"generated at\">27.12.2016
+        18:40:07</span></p>\n\t\t<a href=\"animedb.pl?show=rlfvoeomvsunpcwh\" style=\"display:none;\">Download
+        (Do <b>NOT</b> click!)</a>\n</div>\n\t</body>\n</html>"
+    http_version: 
+  recorded_at: Tue, 27 Dec 2016 18:40:12 GMT
+recorded_with: VCR 3.0.3

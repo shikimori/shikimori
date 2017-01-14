@@ -11,8 +11,9 @@ describe MalParsers::FetchPage do
       allow(MalParser::Catalog::Page).to receive(:call).and_return entries
       allow(MalParsers::FetchPage).to receive :perform_async
       allow(MalParsers::FetchEntry).to receive :perform_async
+      allow(Import::Refresh).to receive :call
     end
-    subject! { worker.perform type, page, sorting, max_pages }
+    subject! { worker.perform type, sorting, page, max_pages }
 
     let(:entries_count) { MalParser::Catalog::Page::ENTRIES_PER_PAGE }
     let(:entries) { Array.new(entries_count).map { { id: 1, type: :anime } } }
@@ -20,11 +21,18 @@ describe MalParsers::FetchPage do
     it do
       expect(MalParsers::FetchPage)
         .to have_received(:perform_async)
-        .with(type, page + 1, sorting, max_pages)
+        .with(type, sorting, page + 1, max_pages)
       expect(MalParsers::FetchEntry)
         .to have_received(:perform_async)
         .with(entries.first[:id], entries.first[:type])
         .exactly(entries_count).times
+      expect(Import::Refresh)
+        .to have_received(:call)
+        .with(
+          Anime,
+          entries.map { |v| v[:id] },
+          MalParsers::FetchPage::REFRESH_INTERVAL
+        )
     end
 
     context 'low entries count' do

@@ -30,13 +30,13 @@ class AnimeMalParser < BaseMalParser
 
   def fetch_model id
     content = get entry_url(id)
-    raise EmptyContent.new(url) if content.include? "404 Not Found"
+    raise EmptyContentError.new(url) if content.include? "404 Not Found"
     doc = Nokogiri::HTML(content)
 
     entry = {}
     entry[:name] = parse_h1(content)
     entry[:id] = id
-    entry[:description_en] = parse_synopsis(content)
+    entry[:description_en] = processed_description_en(id, content)
 
     #parse_block(entry, :related, /Related Anime<\/h2>([\s\S]*?)(?:<h2>|<\/td>)/, content)
     entry[:related] = parse_related doc
@@ -109,7 +109,7 @@ class AnimeMalParser < BaseMalParser
 
     # entry[:img] = img_doc.first&.attr('data-src') || img_doc.first&.attr(:src)
 
-    raise EmptyContent.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?
+    raise EmptyContentError.new(url) if entry[:english].blank? && entry[:synonyms].blank? && entry[:status].blank? && entry[:kind].blank? && entry[:rating].blank?
     entry
   end
 end

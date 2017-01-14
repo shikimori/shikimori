@@ -18,6 +18,8 @@ ru:
         description: Описание
         description_ru: Описание
         description_en: Описание (англ)
+        description_ru_source: Источник описания
+        description_en_source: Источник описания (англ)
         duration: Длительность эпизода
         episodes: Эпизоды
         genres: Жанры
@@ -30,7 +32,6 @@ ru:
         russian: Русское название
         score: Рейтинг
         screenshots: Кадры
-        source: Источник описания
         status: Статус
         tags: Тег имиджборд
         torrents_name: Название на торрентах
@@ -42,14 +43,11 @@ ru:
       character: &character_attributes
         cosplay: Косплей
         description: Описание
-        description_ru: Описание
-        description_en: Описание (англ)
         japanese: Японское имя
         name: Английское имя
         poster: *poster
         image: *poster
         russian: Русское имя
-        source: Источник описания
         tags: Тег имиджборд
       person:
         <<: *character_attributes

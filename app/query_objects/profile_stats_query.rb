@@ -6,65 +6,100 @@ class ProfileStatsQuery
   instance_cache :stats
   instance_cache :anime_spent_time, :manga_spent_time, :spent_time
 
-  delegate :stats_bars, to: :stats
-
-  STAT_FIELDS = [
-    :stats_bars,
-    :anime_spent_time,
-    :manga_spent_time,
-    :spent_time,
-    :statuses,
-    :full_statuses,
-    :anime_ratings,
-    :anime?,
-    :manga?,
-    :user,
-  ]
-
-  def to_hash
-    stats_hash = STAT_FIELDS.each_with_object({}) do |method, memo|
-      memo[method.to_s.sub(/\?/, '')] = public_send method
+  def to_profile_stats
+    stats_keys = ProfileStats.schema.keys
+    stats_hash = stats_keys.each_with_object({}) do |k, memo|
+      memo[k] = public_send(k)
     end
-
-    stats_hash.merge(
-      activity: {
-        26 => activity(26),
-        34 => activity(34)
-      },
-      list_counts: {
-        anime: list_counts(:anime),
-        manga: list_counts(:manga)
-      },
-      scores: {
-        anime: scores(:anime),
-        manga: scores(:manga)
-      },
-      types: {
-        anime: types(:anime),
-        manga: types(:manga)
-      },
-    )
+    ProfileStats.new(stats_hash)
   end
 
-  #def graph_time
-    #GrapthTime.new spent_time
-  #end
+  def activity
+    { 26 => activity_by_size(26), 34 => activity_by_size(34) }
+  end
 
-  def spent_time
-    SpentTime.new anime_spent_time.days + manga_spent_time.days
+  def anime_ratings
+    stats.by_criteria(
+      :rating,
+      Anime.rating.values.select { |v| v != 'none' },
+      'enumerize.anime.rating.%s'
+    )[:anime]
   end
 
   def anime_spent_time
     time = stats.anime_rates
       .select(&:duration)
-      .sum { |v| SpentTimeDuration.new(v).anime_hours v.entry_episodes, v.duration }
-    SpentTime.new time / 60.0 / 24
+      .sum do |v|
+        SpentTimeDuration.new(v).anime_hours(
+          v.entry_episodes, v.duration
+        )
+      end
+    SpentTime.new(time / 60.0 / 24)
+  end
+
+  def full_statuses
+    {
+      anime: stats.anime_statuses(true),
+      manga: stats.manga_statuses(true)
+    }
+  end
+
+  def is_anime
+    stats.anime_rates.any?
+  end
+
+  def is_manga
+    stats.manga_rates.any?
+  end
+
+  def list_counts
+    {
+      anime: list_counts_by_type(:anime),
+      manga: list_counts_by_type(:manga)
+    }
   end
 
   def manga_spent_time
-    time = stats.manga_rates.sum {|v| SpentTimeDuration.new(v).manga_hours v.entry_chapters, v.entry_volumes }
-    SpentTime.new time / 60.0 / 24
+    time = stats.manga_rates.sum do |v|
+      SpentTimeDuration.new(v).manga_hours(
+        v.entry_chapters, v.entry_volumes
+      )
+    end
+    SpentTime.new(time / 60.0 / 24)
   end
+
+  def scores
+    {
+      anime: scores_by_type(:anime),
+      manga: scores_by_type(:manga)
+    }
+  end
+
+  def spent_time
+    SpentTime.new(anime_spent_time.days + manga_spent_time.days)
+  end
+
+  def stats_bars
+    stats.stats_bars
+  end
+
+  def statuses
+    {
+      anime: stats.anime_statuses(false),
+      manga: stats.manga_statuses(false)
+    }
+  end
+
+  def kinds
+    {
+      anime: kinds_by_type(:anime),
+      manga: kinds_by_type(:manga)
+    }
+  end
+
+  #def graph_time
+    #GrapthTime.new spent_time
+  #end
 
   #def genres
     #{
@@ -81,60 +116,33 @@ class ProfileStatsQuery
     #{ manga: stats.by_categories('publisher', stats.publishers, nil, stats.manga_valuable_rates, 17) }
   #end
 
-  def statuses
-    { anime: stats.anime_statuses(false), manga: stats.manga_statuses(false) }
-  end
+  private
 
-  def full_statuses
-    { anime: stats.anime_statuses(true), manga: stats.manga_statuses(true) }
-  end
-
-  def manga_statuses
-  end
-
-  def anime?
-    stats.anime_rates.any?
-  end
-
-  def manga?
-    stats.manga_rates.any?
-  end
-
-  def activity size
+  def activity_by_size size
     stats.by_activity size
   end
 
-  def list_counts list_type
-    if list_type.to_sym == :anime
+  def list_counts_by_type type
+    if type.to_sym == :anime
       stats.anime_statuses true
     else
       stats.manga_statuses true
     end
   end
 
-  def scores list_type
-    stats.by_criteria(:score, 1.upto(10).to_a.reverse)[list_type.to_sym]
+  def scores_by_type type
+    stats.by_criteria(:score, 1.upto(10).to_a.reverse)[type.to_sym]
   end
 
-  def types list_type
+  def kinds_by_type type
     stats.by_criteria(
       :kind,
-      list_type.to_s.capitalize.constantize.kind.values,
-      "enumerize.#{list_type}.kind.short.%s"
-    )[list_type.to_sym]
+      type.to_s.capitalize.constantize.kind.values,
+      "enumerize.#{type}.kind.short.%s"
+    )[type.to_sym]
   end
 
-  def anime_ratings
-    stats.by_criteria(
-      :rating,
-      Anime.rating.values.select { |v| v != 'none' },
-      'enumerize.anime.rating.%s'
-    )[:anime]
-  end
-
-private
-
-  # for rails_cache
+  # for ActiveCacher
   def cache_key_object
     @user
   end

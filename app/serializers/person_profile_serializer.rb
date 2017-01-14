@@ -29,8 +29,4 @@ class PersonProfileSerializer < PersonSerializer
   def topic_id
     object.maybe_topic(scope.locale_from_domain).id
   end
-
-  def description_html
-    object.description_html.gsub(%r{(?<!:)//(?=\w)}, 'http://')
-  end
 end

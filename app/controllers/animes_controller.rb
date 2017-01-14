@@ -161,8 +161,11 @@ private
     params
       .require(:anime)
       .permit(
-        :russian, :torrents_name, :tags, :source,
-        :description_ru, :description_en,
+        :russian,
+        :torrents_name,
+        :tags,
+        :description_ru,
+        :description_en,
         *Anime::DESYNCABLE
       )
   rescue ActionController::ParameterMissing

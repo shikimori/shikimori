@@ -17,11 +17,7 @@ class CharacterProfileSerializer < CharacterSerializer
   end
 
   def description
-    if scope.ru_domain?
-      object[:description_ru] || object[:description_en]
-    else
-      object[:description_en]
-    end
+    object.description.text
   end
 
   def description_html
@@ -29,6 +25,6 @@ class CharacterProfileSerializer < CharacterSerializer
   end
 
   def description_source
-    object.source
+    object.description.source
   end
 end

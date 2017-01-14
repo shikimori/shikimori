@@ -42,7 +42,6 @@ gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'morr/simple_form-magic_submit'
 #gem 'simple_form-magic_submit', path: '/Users/morr/Develop/simple_form-magic_submit/'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-8-stable' # https://github.com/rails-api/active_model_serializers/issues/641
-gem 'virtus'
 
 #gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
@@ -95,9 +94,12 @@ gem 'apipie-rails', '0.3.3' # 0.3.4 сломан
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
-gem 'i18n-js', '3.0.0.rc14'
+gem 'i18n-js', '3.0.0.rc15'
 gem 'rails-i18n'
 gem 'i18n-inflector-rails'
+
+gem 'dry-struct'
+gem 'chainable_methods'
 
 group :beta, :production do
   gem 'honeybadger'

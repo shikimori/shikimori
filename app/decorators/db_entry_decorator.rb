@@ -1,5 +1,5 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_ru, :description_en, :description_html
+  instance_cache :description_html
   instance_cache :linked_clubs, :all_linked_clubs
   instance_cache :favoured, :favoured?, :all_favoured
   instance_cache :main_topic_view, :preview_topic_view
@@ -14,21 +14,12 @@ class DbEntryDecorator < BaseDecorator
       .html_safe
   end
 
-  # хак, т.к. source переопределяется в декораторе
-  def source
-    object.source
-  end
+  #----------------------------------------------------------------------------
 
-  def description_en?
-    object.description_en.present?
-  end
-
-  def description_ru?
-    h.ru_domain? && object.description_ru.present?
-  end
-
-  def description_html
-    if description_ru?
+  # description object is used to get text (bbcode) or source
+  # (e.g. used when editing description)
+  def description
+    if show_description_ru?
       description_ru
     else
       description_en
@@ -36,32 +27,59 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_ru
-    Rails.cache.fetch [:description, object, I18n.locale] do
-      BbCodeFormatter.instance.format_description object.description_ru, object
-    end
+    DbEntries::Description.from_value(object.description_ru)
   end
 
   def description_en
-    if object.respond_to?(:description_en) && object.description_en.present?
-      Rails.cache.fetch [:descrption_en, object, I18n.locale] do
-        BbCodeFormatter.instance.format_comment object.description_en
-      end
+    DbEntries::Description.from_value(object.description_en)
+  end
+
+  #----------------------------------------------------------------------------
+
+  # description text (bbcode) formatted as html
+  # (displayed on specific anime main page)
+  def description_html
+    if show_description_ru?
+      description_html_ru
     else
-      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
+      description_html_en
     end
   end
 
-  def description_html_truncated length=150
+  def description_html_ru
+    html = Rails.cache.fetch [:description_html_ru, object] do
+      BbCodeFormatter.instance.format_description(description_ru.text, object)
+    end
+
+    if html.blank?
+      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    else
+      html
+    end
+  end
+
+  def description_html_en
+    html = Rails.cache.fetch [:descrption_html_en, object] do
+      BbCodeFormatter.instance.format_comment(description_en.text)
+    end
+
+    if html.blank?
+      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+    else
+      html
+    end
+  end
+
+  def description_html_truncated length = 150
     h.truncate_html(
       description_html,
-      length: length, separator: ' ', word_boundary: /\S[\.\?\!<>]/
+      length: length,
+      separator: ' ',
+      word_boundary: /\S[\.\?\!<>]/
     ).html_safe
   end
 
-  # адрес на mal'е
-  def mal_url
-    "http://myanimelist.net/#{klass_lower}/#{object.id}"
-  end
+  #----------------------------------------------------------------------------
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
@@ -147,7 +165,11 @@ class DbEntryDecorator < BaseDecorator
       page: (h.params[:page] || 1).to_i + 1
   end
 
-private
+  private
+
+  def show_description_ru?
+    h.ru_domain? && object.description_ru.present?
+  end
 
   def clubs_for_domain
     object.clubs.where(locale: h.locale_from_domain)

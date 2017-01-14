@@ -37,7 +37,8 @@ module MalFetcher
     "Cannot connect to the configuration database",
     "Document Error: Unauthorized",
     "Error 404: Not Found",
-    'Сервер на техосмотре, пожалуйста, зайдите через полчасика.'
+    'Сервер на техосмотре, пожалуйста, зайдите через полчасика.',
+    'YOU HAVE BEEN AUTO-BANNED FROM ANIDB FOR EXCESSIVE USAGE'
   ]
 
   NO_SYNOPSYS = [
@@ -180,9 +181,9 @@ private
   end
 
   def parse_synopsis(content)
-    return nil if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
+    return if NO_SYNOPSYS.any? { |phrase| content.include? phrase }
 
-    content.match(/
+    match_result = content.match(/
       Synopsis<\/h2>
         (?:
           <span\sitemprop="description">
@@ -191,9 +192,15 @@ private
           |
           (?<text> [\s\S]*? )
         )
-
       (?: <\/td>|<h2 )
-    /mix) ? Mal::TextSanitizer.new($~[:text]).call : ""
+    /mix)
+
+    if match_result.present?
+      synopsis = Regexp.last_match[:text]
+      Mal::SanitizeText.(synopsis)
+    else
+      ''
+    end
   end
 
   def parse_line(line_name, content, multiple_results)

@@ -148,6 +148,11 @@ class Anime < DbEntry
     as: :entry,
     inverse_of: :entry,
     dependent: :destroy
+  has_one :anidb_external_link,
+    -> { where(source: Types::ExternalLink::Source['anime_db']) },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
 
   enumerize :kind,
     in: %i(tv movie ova ona special music),

@@ -38,4 +38,13 @@ class DbEntry < ActiveRecord::Base
     return unless changes[:name] || changes[:russian]
     DbEntries::TouchRelated.perform_async id
   end
+
+  def mal_url
+    "http://myanimelist.net/#{self.class.name.downcase}/#{id}"
+  end
+
+  # TODO: uncomment when source field is removed from Anime and Manga
+  #def source
+  #  raise 'use DbEntryDecorator#description.source instead!'
+  #end
 end

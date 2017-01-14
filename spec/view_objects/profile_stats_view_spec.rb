@@ -1,12 +1,19 @@
 describe ProfileStatsView do
   let(:user) { create :user }
 
-  let(:stats) { ProfileStatsView.new spent_time: spent_time,
-    anime_spent_time: anime_spent_time, manga_spent_time: manga_spent_time,
-    user: user }
-  let(:anime_spent_time) { }
-  let(:manga_spent_time) { }
-  let(:spent_time) { }
+  let(:profile_stats) do
+    ProfileStats.new(
+      spent_time: spent_time,
+      anime_spent_time: anime_spent_time,
+      manga_spent_time: manga_spent_time,
+      user: user
+    )
+  end
+  let(:stats) { ProfileStatsView.new(profile_stats) }
+
+  let(:anime_spent_time) {}
+  let(:manga_spent_time) {}
+  let(:spent_time) {}
 
   describe '#spent_percent' do
     let(:spent_time) { SpentTime.new interval }
@@ -211,5 +218,4 @@ describe ProfileStatsView do
 
     it { is_expected.to eq 1 }
   end
-
 end

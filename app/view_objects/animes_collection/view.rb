@@ -4,13 +4,14 @@ class AnimesCollection::View < ViewObjectBase
   instance_cache :collection, :results, :filtered_params
   delegate :page, :pages_count, to: :results
 
+  OVA_KEY = 'OVA/ONA'
   LIMIT = 20
 
   def collection
     if season_page?
-      results.collection.each_with_object({}) do |(key, entries), memo|
-        memo[key] = entries.map(&:decorate)
-      end
+      results.collection
+        .map(&:decorate)
+        .group_by { |v| anime_ova_ona?(v) ? OVA_KEY : v.kind.to_s }
     else
       results.collection&.map(&:decorate)
     end
@@ -79,6 +80,10 @@ class AnimesCollection::View < ViewObjectBase
   end
 
 private
+
+  def anime_ova_ona? db_entry
+    db_entry.anime? && (db_entry.kind_ova? || db_entry.kind_ona?)
+  end
 
   def results
     if cache?
