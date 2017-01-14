@@ -5,7 +5,7 @@ class MalParsers::ScheduleExpired
     queue: :mal_parsers
   )
 
-  TYPES = Types::Strict::String.enum('anime', 'manga', 'character', 'person')
+  TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')
 
   def perform type
     TYPES[type].classify.constantize
