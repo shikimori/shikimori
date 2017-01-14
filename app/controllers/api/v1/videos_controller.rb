@@ -13,10 +13,10 @@ class Api::V1::VideosController < Api::V1::ApiController
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/animes/:anime_id/videos', 'Create a video'
-  param :video, Hash do
-    param :kind, :undef
-    param :name, :undef
-    param :url, :undef
+  param :video, String do
+    param :kind, Video.kind.values
+    param :name, String
+    param :url, String
   end
   def create
     @resource, @version = versioneer.upload video_params, current_user

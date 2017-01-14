@@ -21,7 +21,7 @@ describe Api::V1::VideosController do
     let(:video_params) { { url: url, kind: kind, name: name } }
     let(:url) { 'http://youtube.com/watch?v=l1YX30AmYsA' }
     let(:name) { 'test' }
-    let(:kind) { Video::PV }
+    let(:kind) { :pv }
     let(:anime_id) { anime.id }
 
     context 'new video' do

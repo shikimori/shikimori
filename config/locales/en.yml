@@ -411,6 +411,11 @@ en:
         mal_anime_import: Imported from MyAnimeList
         mal_manga_import: Imported from MyAnimeList
         registration: Registration
+    video:
+      kind:
+        op: OP
+        pv: PV
+        ed: ED
 
   # в bans#create отображаются
   messages:

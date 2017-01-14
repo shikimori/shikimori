@@ -55,7 +55,7 @@ private
   # фильтрация записей от ненужных нам
   def filter_data data
     data.select! do |v|
-      v[:kind] != Video::OST &&
+      v[:kind] != 'ost' &&
         !@ignores.include?(v[:anime]) &&
         !present_videos.include?(v[:youtube]) &&
         !@deleted.include?(v[:youtube])
@@ -136,10 +136,10 @@ private
 
   def normalize_kind kind
     case kind
-      when 'opening' then Video::OP
-      when 'ending' then Video::ED
-      when 'other_music' then Video::OST
-      when 'movie' then Video::PV
+      when 'opening' then 'op'
+      when 'ending' then 'ed'
+      when 'other_music' then 'ost'
+      when 'movie' then 'pv'
       else raise "unknown kind: #{kind}"
     end
   end

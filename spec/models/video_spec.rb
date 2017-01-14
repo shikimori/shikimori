@@ -11,6 +11,11 @@ describe Video do
     #it { is_expected.to validate_presence_of :hosting }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in :pv, :op, :ed }
+  end
+
+
   describe 'validations' do
     describe 'normalize' do
       let(:url) { 'http://youtube.com/watch?v=VdwKZ6JDENc' }

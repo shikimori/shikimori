@@ -4,12 +4,14 @@ describe Versioneers::VideosVersioneer do
   let(:user) { create :user }
 
   describe '#upload' do
-    let(:params) {{
-      url: 'http://youtube.com/watch?v=l1YX30AmYsA',
-      name: 'test',
-      kind: Video::PV,
-      uploader_id: user.id
-    }}
+    let(:params) do
+      {
+        url: 'http://youtube.com/watch?v=l1YX30AmYsA',
+        name: 'test',
+        kind: :pv,
+        uploader_id: user.id
+      }
+    end
 
     subject!(:result) { versioneer.upload params, user }
 

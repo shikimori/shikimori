@@ -4,7 +4,7 @@ FactoryGirl.define do
     state 'uploaded'
     anime_id 1
     url 'http://youtube.com/watch?v=VdwKZ6JDENc'
-    kind Video::OP
+    kind :op
 
     trait :uploaded do
       state 'uploaded'

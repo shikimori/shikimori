@@ -11,6 +11,7 @@ class Video < ActiveRecord::Base
       streamable smotret_anime
     ),
     predicates: true
+  enumerize :kind, in: %i(pv op ed), predicates: true
 
   validates :uploader_id, :url, :kind, presence: true
   validates_uniqueness_of :url,
@@ -22,12 +23,6 @@ class Video < ActiveRecord::Base
   before_create :check_hosting
 
   scope :youtube, -> { where hosting: :youtube }
-
-  PV = 'PV'
-  OP = 'OP'
-  ED = 'ED'
-  AMW = 'AMW'
-  OST = 'OST'
 
   YOUTUBE_PARAM_REGEXP = /(?:&|\?)v=(.*?)(?:&|$)/
   VK_PARAM_REGEXP = %r{https?://vk.com/video-?(\d+)_(\d+)}
