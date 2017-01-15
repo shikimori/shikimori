@@ -9,7 +9,7 @@ class MalParsers::RefreshEntries
 
   def perform type, status, refresh_interval
     klass = TYPES[type].classify.constantize
-    Import::Refresh.call klass, ids(klass, status), refresh_interval
+    Import::Refresh.call klass, ids(klass, status), refresh_interval.to_i
   end
 
 private

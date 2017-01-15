@@ -2,7 +2,7 @@ describe MalParsers::RefreshEntries do
   let(:worker) { MalParsers::RefreshEntries.new }
   let(:type) { 'anime' }
   let(:status) { :ongoing }
-  let(:refresh_interval) { 123 }
+  let(:refresh_interval) { '123' }
 
   let!(:released) { create :anime, :released }
   let!(:ongoing_1) { create :anime, :ongoing }
@@ -15,6 +15,6 @@ describe MalParsers::RefreshEntries do
   it do
     expect(Import::Refresh)
       .to have_received(:call)
-      .with Anime, [ongoing_1.id, ongoing_2.id], refresh_interval
+      .with Anime, [ongoing_1.id, ongoing_2.id], refresh_interval.to_i
   end
 end
