@@ -6,6 +6,8 @@ ru:
       common:
         <<: *header_mini
         about: о
+    comments:
+      your_comment: Ваш комментарий
     inner:
       read_more: Читать дальше
     form:

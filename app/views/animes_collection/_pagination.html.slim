@@ -6,9 +6,9 @@
 
   .no-hover
     span.link-title data-text="#{i18n_i 'Page', :other}"
-      = i18n_i 'Page', :other
+      = i18n_i 'Page'
     span.link-current = @view.page
-    span из
+    span = I18n.t('of')
     span.link-total = @view.pages_count
 
   a.link.link-next[

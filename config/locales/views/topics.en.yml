@@ -6,6 +6,8 @@ en:
       common:
         <<: *header_mini
         about: about
+    comments:
+      your_comment: Your comment
     inner:
       read_more: Read more
     form:

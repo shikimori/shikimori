@@ -1,6 +1,12 @@
 ru:
   inflections:
     cardinal:
+      author:
+        subjective:
+          one: автор
+          few: автора
+          many: авторов
+          other: авторы
       comment:
         subjective:
           one: комментарий

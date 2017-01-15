@@ -12,3 +12,12 @@ en:
       zero: read
       one: read
       other: read
+    added_by:
+      male:
+        zero: added by
+        one: added by
+        other: added by
+      female:
+        zero: added by
+        one: added by
+        other: added by

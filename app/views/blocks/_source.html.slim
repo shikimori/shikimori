@@ -3,9 +3,12 @@
     .contributors
       .key
         - if field.to_sym != :video && field.to_sym != :screenshots
-          = authors.size > 1 ? 'Авторы:' : 'Автор:'
+          = "#{i18n_v('Author', authors.size)}:"
         - else
-          = authors.size > 1 ? 'Добавили:' : "Добавил#{authors.last.female? ? 'а' : ''}:"
+          - if authors.last.female?
+            = "#{i18n_v('Added_by.female', authors.size)}:"
+          - else
+            = "#{i18n_v('Added_by.male', authors.size)}:"
 
       - authors.each do |author|
         .b-user16
@@ -19,5 +22,5 @@
 
   - if field == 'description' && source.present?
     .source
-      .key Источник:
+      .key = "#{I18n.t('source')}:"
       .val == source_link source

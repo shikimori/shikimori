@@ -12,3 +12,12 @@ ru:
       one: прочитана
       few: прочитаны
       many: прочитано
+    added_by:
+      male:
+        one: добавил
+        few: добавили
+        many: добавили
+      female:
+        one: добавила
+        few: добавили
+        many: добавили

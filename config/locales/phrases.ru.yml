@@ -84,7 +84,7 @@ ru:
   no_comments: Нет комментариев
   nothing_found: Ничего не найдено.
   notifications: Уведомления
-  out_of: из
+  of: из
   page: Страница %{page}
   page_not_found: Страница не найдена
   pagination:
@@ -97,6 +97,7 @@ ru:
   seyu: Сэйю
   share: Поделиться
   shikimori: Шикимори
+  source: Источник
   sponsors: Спонсоры
   switch_to_anime: переключиться на аниме
   switch_to_manga: переключиться на мангу
