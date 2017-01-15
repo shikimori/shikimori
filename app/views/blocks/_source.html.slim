@@ -3,12 +3,9 @@
     .contributors
       .key
         - if field.to_sym != :video && field.to_sym != :screenshots
-          = "#{i18n_v('Author', authors.size)}:"
+          = "#{i18n_i('Author', authors.size > 1 ? :other : :one)}:"
         - else
-          - if authors.last.female?
-            = "#{i18n_v('Added_by.female', authors.size)}:"
-          - else
-            = "#{i18n_v('Added_by.male', authors.size)}:"
+          = "#{i18n_v('Added_by', authors.size, gender: authors.last.sex)}:"
 
       - authors.each do |author|
         .b-user16

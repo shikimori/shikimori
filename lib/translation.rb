@@ -18,11 +18,13 @@ module Translation
 
     translation =
       if I18n.russian?
-        I18n.t "inflections.cardinal.#{key.downcase}.#{ru_case}.#{count_key}",
-          default: "inflections.cardinal.#{key.downcase}.default".to_sym
+        I18n.t(
+          "inflections.cardinal.#{key.downcase}.#{ru_case}.#{count_key}",
+          default: "inflections.cardinal.#{key.downcase}.default"
+        )
       else
-        I18n.t "inflections.#{key.downcase}.#{count_key}",
-          default: key.to_s.downcase.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        default = key.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
     key != key.downcase ? translation.capitalize : translation
@@ -36,20 +38,21 @@ module Translation
       if I18n.russian?
         I18n.t "inflections.ordinal.#{key.downcase}.#{count_key}"
       else
-        I18n.t "inflections.#{key.downcase}.#{count_key}",
-          default: key.to_s.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        default = key.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
     key != key.downcase ? translation.capitalize : translation
   end
 
   # only for verbs
-  def i18n_v key, count = 1
+  def i18n_v key, count = 1, options = {}
     translation =
       if I18n.russian?
-        I18n.t "verbs.#{key.downcase}.#{count_key(count)}"
+        I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
       else
-        I18n.t "verbs.#{key.downcase}.#{count_key(count)}", default: key.tr('_', ' ')
+        options = options.merge(default: key.tr('_', ' '))
+        I18n.t "verbs.#{key.downcase}.#{count_key(count)}", options
       end
 
     key != key.downcase ? translation.capitalize : translation
@@ -65,7 +68,7 @@ module Translation
     if count.is_a?(Integer) || count.is_a?(Float)
       I18n.russian? ? ru_count_key(count) : en_count_key(count)
     else
-      I18n.russian? ? count : RU_COUNT_KEYS_TO_EN[count] || count
+      I18n.russian? ? count : (RU_COUNT_KEYS_TO_EN[count] || count)
     end
   end
 
