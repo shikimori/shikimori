@@ -34,7 +34,7 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     user_key = user if h.params[:mylist]
     reindex = Elasticsearch::Reindex.time if h.params[:search] || h.params[:q]
-    initial_key = ['v2', klass.name, user_key, reindex]
+    initial_key = [klass.name, user_key, reindex, :v3]
 
     h.params
       .except(:format, :controller, :action)
@@ -121,7 +121,7 @@ private
       klass: klass,
       params: h.params,
       user: user,
-      limit: LIMIT
+      limit: 1000
     )
   end
 
