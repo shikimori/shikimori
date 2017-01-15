@@ -3,15 +3,19 @@ class Import::PersonRoles
 
   def call
     PersonRole.transaction do
-      cleanup
+      cleanup :character_id
+      cleanup :person_id
       import(build(@characters, :character_id) + build(@staff, :person_id))
     end
   end
 
 private
 
-  def cleanup
-    PersonRole.where(entry_id_key => @target.id).delete_all
+  def cleanup target_id_key
+    PersonRole
+      .where(entry_id_key => @target.id)
+      .where.not(target_id_key => nil)
+      .delete_all
   end
 
   def import person_roles
