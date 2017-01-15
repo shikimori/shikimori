@@ -5,7 +5,8 @@ class AnimesCollection::View < ViewObjectBase
   delegate :page, :pages_count, to: :results
 
   OVA_KEY = 'OVA/ONA'
-  LIMIT = 20
+  PAGE_LIMIT = 20
+  SEASON_LIMIT = 1000
 
   def collection
     if season_page?
@@ -34,7 +35,7 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     user_key = user if h.params[:mylist]
     reindex = Elasticsearch::Reindex.time if h.params[:search] || h.params[:q]
-    initial_key = [klass.name, user_key, reindex, :v3]
+    initial_key = [klass.name, user_key, reindex, 'v3']
 
     h.params
       .except(:format, :controller, :action)
@@ -112,7 +113,7 @@ private
       klass: klass,
       params: h.params,
       user: user,
-      limit: LIMIT
+      limit: PAGE_LIMIT
     )
   end
 
@@ -121,7 +122,7 @@ private
       klass: klass,
       params: h.params,
       user: user,
-      limit: 1000
+      limit: SEASON_LIMIT
     )
   end
 
@@ -130,7 +131,7 @@ private
       klass: klass,
       params: h.params,
       user: user,
-      limit: LIMIT
+      limit: PAGE_LIMIT
     )
   end
 end

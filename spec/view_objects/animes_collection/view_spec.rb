@@ -40,7 +40,7 @@ describe AnimesCollection::View do
             klass: klass,
             params: params,
             user: user,
-            limit: AnimesCollection::View::LIMIT
+            limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
 
         allow(AnimesCollection::SeasonQuery)
@@ -48,7 +48,7 @@ describe AnimesCollection::View do
             klass: klass,
             params: params,
             user: user,
-            limit: AnimesCollection::View::LIMIT
+            limit: AnimesCollection::View::SEASON_LIMIT
           ).and_return page
 
         allow(AnimesCollection::PageQuery)
@@ -56,7 +56,7 @@ describe AnimesCollection::View do
             klass: klass,
             params: params,
             user: user,
-            limit: AnimesCollection::View::LIMIT
+            limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
       end
 
@@ -161,7 +161,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w(v2 Anime page:1 status:ongoing) }
+    it { is_expected.to eq %w(Anime v3 page:1 status:ongoing) }
   end
 
   describe '#cache_expires_in' do
