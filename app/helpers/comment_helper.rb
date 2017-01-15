@@ -184,12 +184,12 @@ module CommentHelper
             if $~[:quote].present?
               text.gsub!(
                 $~[:match],
-                <<-HTML
-<a href="#{profile_url user}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{url}">
-<img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
-<span>#{ERB::Util.h user.nickname}</span>
-</a>
-#{wrote_helper(user.sex)}
+                <<~HTML
+                <a href="#{profile_url user}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{url}">
+                <img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
+                <span>#{ERB::Util.h user.nickname}</span>
+                </a>
+                #{wrote_html(user.sex)}
                 HTML
               )
             else
@@ -220,10 +220,10 @@ module CommentHelper
             text.gsub!(
               $1,
               "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" +
-              (is_profile ? '' : wrote_helper(user.sex))
+              (is_profile ? '' : wrote_html(user.sex))
             )
           rescue
-            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{wrote_helper(user.sex)}"}"
+            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{wrote_html('male')}"}"
           end
 
         elsif klass == Ban
@@ -288,10 +288,10 @@ module CommentHelper
     html.gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1').gsub(/\[\[(.*?)\]\]/, '\1')
   end
 
-  def wrote_helper sex
-    <<-HTML
-<span class='text-ru'>#{i18n_v('wrote', 1, gender: sex, locale: :ru)}:</span>
-<span class='text-en' data-text='#{i18n_v('wrote', 1, gender: sex, locale: :en)}:'></span>
+  def wrote_html gender
+    <<~HTML.tr("\n", '')
+    <span class='text-ru'>#{i18n_v('wrote', 1, gender: gender, locale: :ru)}:</span>
+    <span class='text-en' data-text='#{i18n_v('wrote', 1, gender: gender, locale: :en)}:'></span>
     HTML
   end
 end

@@ -58,9 +58,9 @@ module Translation
     key != key.downcase ? translation.capitalize : translation
   end
 
-  private
-
   # phrases from phrases.*.yml are translated directly with I18n
+
+  private
 
   RU_COUNT_KEYS_TO_EN = { one: :one, few: :other, many: :other }
 
