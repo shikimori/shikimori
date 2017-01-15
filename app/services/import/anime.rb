@@ -20,7 +20,7 @@ private
   def assign_genre genre
     db_genre =
       begin
-        Repos::AnimeGenres.instance.find genre[:id]
+        Repos::AnimeGenres.instance.find_mal_id genre[:id]
       rescue ActiveRecord::RecordNotFound
         Genre.create! mal_id: genre[:id], name: genre[:name], kind: :anime
       end
