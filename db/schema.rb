@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114151510) do
+ActiveRecord::Schema.define(version: 20170115014859) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
+  enable_extension "pg_stat_statements"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -153,11 +153,12 @@ ActiveRecord::Schema.define(version: 20170114151510) do
 
   add_index "animes_genres", ["anime_id"], name: "index_animes_genres_on_anime_id", using: :btree
 
-  create_table "animes_studios", id: false, force: :cascade do |t|
+  create_table "animes_studios", force: :cascade do |t|
     t.integer "anime_id"
     t.integer "studio_id"
   end
 
+  add_index "animes_studios", ["anime_id", "studio_id"], name: "index_animes_studios_on_anime_id_and_studio_id", unique: true, using: :btree
   add_index "animes_studios", ["anime_id"], name: "index_animes_studios_on_anime_id", using: :btree
 
   create_table "bans", force: :cascade do |t|
@@ -601,11 +602,12 @@ ActiveRecord::Schema.define(version: 20170114151510) do
   add_index "mangas", ["name"], name: "index_mangas_on_name", using: :btree
   add_index "mangas", ["russian"], name: "index_mangas_on_russian", using: :btree
 
-  create_table "mangas_publishers", id: false, force: :cascade do |t|
+  create_table "mangas_publishers", force: :cascade do |t|
     t.integer "manga_id"
     t.integer "publisher_id"
   end
 
+  add_index "mangas_publishers", ["manga_id", "publisher_id"], name: "index_mangas_publishers_on_manga_id_and_publisher_id", unique: true, using: :btree
   add_index "mangas_publishers", ["manga_id"], name: "index_mangas_publishers_on_manga_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
