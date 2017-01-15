@@ -24,6 +24,8 @@ class TopicSerializer < ActiveModel::Serializer
   end
 
   def linked
+    return unless object.topic.linked
+
     case linked_type
       when Anime.name then AnimeSerializer.new object.topic.linked
       when Manga.name then MangaSerializer.new object.topic.linked
