@@ -11,15 +11,15 @@ class UserRateFullSerializer < ActiveModel::Serializer
   has_one :manga
 
   def episodes
-    object.episodes if object.anime?
+    object.episodes if object.anime
   end
 
   def volumes
-    object.volumes if object.manga?
+    object.volumes if object.manga
   end
 
   def chapters
-    object.chapters if object.manga?
+    object.chapters if object.manga
   end
 
   def anime
