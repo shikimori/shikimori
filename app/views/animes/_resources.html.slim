@@ -1,5 +1,5 @@
 - if @resource.related.related.any? || @resource.roles.main_people.any?
-  .cc-2.m0
+  .cc-related-authors
     / связанное
     - if @resource.related.related.any?
       .c-column.block_m
@@ -33,7 +33,7 @@
 
     / авторы
     - if @resource.roles.main_people.any?
-      .c-column.block_m
+      .c-column.c-authors.block_m
         .subheadline.m5
           span.linkeable data-href="#{@resource.staff_url}" = t '.staff'
         .to-process data-dynamic="cutted_covers" data-ratio_type="person"

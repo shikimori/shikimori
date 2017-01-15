@@ -2,6 +2,7 @@
 @import compass/utilities/general/clearfix
 @import mixins/block
 @import mixins/clear_left
+@import mixins/clear_right
 @import mixins/column
 @import mixins/icons
 @import mixins/link
@@ -120,6 +121,20 @@
   .resources-loader.postloaded
     +plashka
     +block
+
+  .cc-related-authors
+    +pie-clearfix
+    margin-bottom: 0 !important
+
+    &>.c-column
+      +gte_ipad
+        +column_b(2)
+      +iphone
+        +column_b(1)
+
+    &>.c-authors
+      +gte_ipad
+        float: right
 
   // блок "показать остальное"
   .related-shower
