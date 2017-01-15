@@ -1,7 +1,3 @@
-require_dependency 'genre'
-require_dependency 'studio'
-require_dependency 'publisher'
-
 class UserlistComparerController < ShikimoriController
   before_action :fetch_users
   before_action :authorize_lists_access

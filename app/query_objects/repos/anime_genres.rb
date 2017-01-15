@@ -8,6 +8,6 @@ class Repos::AnimeGenres < Repos::RepositoryBase
 private
 
   def scope
-    Genre.where kind: :anime
+    Genre.where(kind: :anime).order(:position)
   end
 end

@@ -1,6 +1,5 @@
 class Menus::CollectionMenu < ViewObjectBase
   vattr_initialize :klass
-  instance_cache :load_associations
 
   def url
     h.send "menu_#{klass.name.tableize}_url", rating: h.params[:rating], subdomain: false
@@ -11,15 +10,15 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    @genres || load_associations.first
+    "Repos::#{klass.name}Genres".constantize.instance.all
   end
 
   def studios
-    @studios || load_associations.second
+    Repos::Studios.instance.all
   end
 
   def publishers
-    @publishers || load_associations.third
+    Repos::Publishers.instance.all
   end
 
   def kinds
@@ -55,11 +54,5 @@ class Menus::CollectionMenu < ViewObjectBase
   def show_sorting?
     h.params[:controller] != 'recommendations' &&
       h.params[:search].blank? && h.params[:q].blank?
-  end
-
-private
-
-  def load_associations
-    AniMangaAssociationsQuery.new.fetch klass
   end
 end

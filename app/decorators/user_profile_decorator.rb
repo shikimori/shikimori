@@ -1,7 +1,3 @@
-require_dependency 'genre'
-require_dependency 'studio'
-require_dependency 'publisher'
-
 class UserProfileDecorator < UserDecorator
   instance_cache :all_compatibility, :friends, :ignored?, :stats,
     :nickname_changes, :favourites,
