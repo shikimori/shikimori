@@ -3,6 +3,17 @@
 $quote_odd: #f9f9f9
 $quote_even: #f6f6f6
 
+body
+  &.locale-ru .quoteable
+    //do nothing
+
+  &.locale-en .quoteable
+    .text-ru
+      display: none
+
+    .text-en:before
+      content: attr(data-text)
+
 .b-quote
   background: $quote_odd
   border: 1px dashed #DDDDDD

@@ -2,6 +2,7 @@ require Rails.root.join 'lib', 'string'
 
 module CommentHelper
   include SiteHelper
+  include Translation
   #include AniMangaHelper
 
   SIMPLE_BB_CODES = [
@@ -181,8 +182,17 @@ module CommentHelper
             name = $~[:text].present? ? $~[:text] : user.nickname
 
             if $~[:quote].present?
-              text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-user16\" data-href=\"#{url}\">
-<img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{ERB::Util.h user.nickname}\" /><span>#{ERB::Util.h user.nickname}</span></a>#{user.sex == 'male' ? 'написал' : 'написала'}:"
+              text.gsub!(
+                $~[:match],
+                <<-HTML
+<a href="#{profile_url user}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{url}">
+<img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
+<span>#{ERB::Util.h user.nickname}</span>
+</a>
+<span class='text-ru'>#{i18n_v('wrote', 1, gender: user.sex, locale: :ru)}:</span>
+<span class='text-en' data-text='#{i18n_v('wrote', 1, gender: user.sex, locale: :en)}:'></span>
+                HTML
+              )
             else
               text.gsub! $~[:match], "<a href=\"#{profile_url user}\" title=\"#{ERB::Util.h user.nickname}\" class=\"bubbled b-mention\" data-href=\"#{url}\"><s>@</s><span>#{name}</span></a>"
             end
@@ -208,9 +218,13 @@ module CommentHelper
               User.find $3
             end
 
-            text.gsub! $1, "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" + (is_profile ? '' : "#{user.sex == 'male' ? 'написал' : 'написала'}:")
+            text.gsub!(
+              $1,
+              "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" +
+              (is_profile ? '' : "#{i18n_v('wrote', 1, gender: user.sex)}:")
+            )
           rescue
-            text.gsub! $1, "#{$4}#{is_profile ? '' : ' написал:'}"
+            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{i18n_v('wrote')}:"}"
           end
 
         elsif klass == Ban
