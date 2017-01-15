@@ -16,7 +16,7 @@ module Clockwork
 
     MalParsers::RefreshEntries.perform_async 'anime', 'anons', 12.hours
     MalParsers::RefreshEntries.perform_async 'anime', 'ongoing', 8.hours
-    # MalParsers::ScheduleExpired.perform_async 'anime'
+    MalParsers::ScheduleExpired.perform_async 'anime'
   end
 
   every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do

@@ -24,6 +24,7 @@ exceptions:
     - Apipie::ParamMissing
     - InvalidIdError
     - EmptyContentError
+    - MalParser::RecordNotFound
 metrics:
   enabled: false
 traces:
