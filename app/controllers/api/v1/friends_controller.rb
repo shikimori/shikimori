@@ -23,7 +23,7 @@ class Api::V1::FriendsController < Api::V1Controller
 
   rescue ActiveRecord::RecordNotUnique
   ensure
-    render json: { notice: success_notice }
+    render json: { notice: add_notice }
   end
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
@@ -31,12 +31,7 @@ class Api::V1::FriendsController < Api::V1Controller
   def destroy
     current_user.friends.delete @user
 
-    notice = i18n_t(
-      "removed_from_friends.#{@user.sex || 'male'}",
-      nickname: @user.nickname
-    )
-
-    render json: { notice: notice }
+    render json: { notice: remove_notice }
   end
 
 private
@@ -47,9 +42,16 @@ private
       raise(NotFound, params[:id])
   end
 
-  def success_notice
+  def add_notice
     i18n_t(
-      "added_to_friends.#{@user.sex || 'male'}",
+      "added_to_friends.#{@user.sex.present? ? sex : 'male'}",
+      nickname: @user.nickname
+    )
+  end
+
+  def remove_notice
+    i18n_t(
+      "removed_from_friends.#{@user.sex.present? ? sex : 'male'}",
       nickname: @user.nickname
     )
   end
