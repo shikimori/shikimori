@@ -189,8 +189,7 @@ module CommentHelper
 <img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
 <span>#{ERB::Util.h user.nickname}</span>
 </a>
-<span class='text-ru'>#{i18n_v('wrote', 1, gender: user.sex, locale: :ru)}:</span>
-<span class='text-en' data-text='#{i18n_v('wrote', 1, gender: user.sex, locale: :en)}:'></span>
+#{wrote_helper(user.sex)}
                 HTML
               )
             else
@@ -221,10 +220,10 @@ module CommentHelper
             text.gsub!(
               $1,
               "<a href=\"#{profile_url user}\" class=\"b-user16\" title=\"#{$4}\"><img src=\"#{user.avatar_url 16}\" srcset=\"#{user.avatar_url 32} 2x\" alt=\"#{$4}\" /><span>#{$4}</span></a>" +
-              (is_profile ? '' : "#{i18n_v('wrote', 1, gender: user.sex)}:")
+              (is_profile ? '' : wrote_helper(user.sex))
             )
           rescue
-            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{i18n_v('wrote')}:"}"
+            text.gsub! $1, "#{$4}#{is_profile ? '' : " #{wrote_helper(user.sex)}"}"
           end
 
         elsif klass == Ban
@@ -287,5 +286,12 @@ module CommentHelper
   # удаление ббкодов википедии
   def remove_wiki_codes(html)
     html.gsub(/\[\[[^\]|]+?\|(.*?)\]\]/, '\1').gsub(/\[\[(.*?)\]\]/, '\1')
+  end
+
+  def wrote_helper sex
+    <<-HTML
+<span class='text-ru'>#{i18n_v('wrote', 1, gender: sex, locale: :ru)}:</span>
+<span class='text-en' data-text='#{i18n_v('wrote', 1, gender: sex, locale: :en)}:'></span>
+    HTML
   end
 end
