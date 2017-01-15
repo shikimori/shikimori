@@ -58,7 +58,7 @@ describe Import::Manga do
     end
 
     context 'present genre' do
-      let!(:genre) { create :genre, :manga, genres.first }
+      let!(:genre) { create :genre, :manga, name: genres.first[:name], mal_id: genres.first[:id] }
 
       describe 'imported' do
         let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
@@ -67,6 +67,7 @@ describe Import::Manga do
         it do
           expect(entry.genres).to have(1).item
           expect(entry.genres.first).to have_attributes(
+            id: genre.id,
             mal_id: genre.mal_id,
             name: genre.name
           )
@@ -77,6 +78,7 @@ describe Import::Manga do
         it do
           expect(entry.genres).to have(1).item
           expect(entry.genres.first).to have_attributes(
+            id: genre.id,
             mal_id: genre.mal_id,
             name: genre.name
           )

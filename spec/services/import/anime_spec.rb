@@ -80,7 +80,7 @@ describe Import::Anime do
     end
 
     context 'present genre' do
-      let!(:genre) { create :genre, :anime, genres.first }
+      let!(:genre) { create :genre, :anime, name: genres.first[:name], mal_id: genres.first[:id] }
 
       describe 'imported' do
         let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
@@ -89,6 +89,7 @@ describe Import::Anime do
         it do
           expect(entry.genres).to have(1).item
           expect(entry.genres.first).to have_attributes(
+            id: genre.id,
             mal_id: genre.mal_id,
             name: genre.name
           )
@@ -99,6 +100,7 @@ describe Import::Anime do
         it do
           expect(entry.genres).to have(1).item
           expect(entry.genres.first).to have_attributes(
+            id: genre.id,
             mal_id: genre.mal_id,
             name: genre.name
           )
