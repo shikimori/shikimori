@@ -24,7 +24,7 @@
         = render 'blocks/upload_progress'
         .container[
           data-upload_url="#{upload_club_url @resource}"
-          data-images="#{ActiveModel::ArraySerializer.new(@resource.images(12)).to_json}"
+          data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.images(12)).to_json}"
         ]
           .grid_sizer
 
