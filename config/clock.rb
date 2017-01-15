@@ -20,7 +20,7 @@ module Clockwork
   end
 
   every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do
-    AnimesImporter.perform_async
+    # AnimesImporter.perform_async
     PostgresFix.perform_async
   end
 
