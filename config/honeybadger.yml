@@ -22,6 +22,8 @@ exceptions:
     - Net::SMTPFatalError
     - Interrupt
     - Apipie::ParamMissing
+    - InvalidIdError
+    - EmptyContentError
 metrics:
   enabled: false
 traces:
