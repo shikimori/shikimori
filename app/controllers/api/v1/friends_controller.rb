@@ -44,14 +44,14 @@ private
 
   def add_notice
     i18n_t(
-      "added_to_friends.#{@user.sex.present? ? sex : 'male'}",
+      "added_to_friends.#{@user.sex.present? ? @user.sex : 'male'}",
       nickname: @user.nickname
     )
   end
 
   def remove_notice
     i18n_t(
-      "removed_from_friends.#{@user.sex.present? ? sex : 'male'}",
+      "removed_from_friends.#{@user.sex.present? ? @user.sex : 'male'}",
       nickname: @user.nickname
     )
   end
