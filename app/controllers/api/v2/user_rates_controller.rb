@@ -12,7 +12,8 @@ class Api::V2::UserRatesController < Api::V2Controller
     param :user_id, :number, required: true
     param :target_id, :number, required: true
     param :target_type, %w(Anime Manga), required: true
-    param :status, UserRate.statuses.keys, required: true
+    param :status, :undef, required: false
+    # param :status, UserRate.statuses.keys, required: true
     param :score, :undef, required: false
     param :chapters, :undef, required: false
     param :episodes, :undef, required: false
@@ -39,7 +40,8 @@ class Api::V2::UserRatesController < Api::V2Controller
   api :PATCH, '/v2/user_rates/:id', 'Update an user rate'
   api :PUT, '/v2/user_rates/:id', 'Update an user rate'
   param :user_rate, Hash do
-    param :status, UserRate.statuses.keys, required: false
+    param :status, :undef, required: false
+    # param :status, UserRate.statuses.keys, required: false
     param :score, :undef, required: false
     param :chapters, :undef, required: false
     param :episodes, :undef, required: false

@@ -21,6 +21,7 @@ class Api::V1::UserRatesController < Api::V1Controller
     param :target_id, :number, required: true
     param :target_type, %w(Anime Manga), required: true
     param :status, :undef, required: true
+    # param :status, UserRate.statuses.keys, required: true
     param :score, :undef, required: false
     param :chapters, :undef, required: false
     param :episodes, :undef, required: false
@@ -50,6 +51,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   api :PUT, '/user_rates/:id', 'Update an user rate', deprecated: true
   param :user_rate, Hash do
     param :status, :undef, required: false
+    # param :status, UserRate.statuses.keys, required: true
     param :score, :undef, required: false
     param :chapters, :undef, required: false
     param :episodes, :undef, required: false
