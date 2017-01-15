@@ -80,13 +80,29 @@ describe Import::Anime do
     end
 
     context 'present genre' do
-      let!(:genre) { create :genre, :anime, mal_id: genres.first[:id] }
-      it do
-        expect(entry.genres).to have(1).item
-        expect(entry.genres.first).to have_attributes(
-          mal_id: genre.mal_id,
-          name: genre.name
-        )
+      let!(:genre) { create :genre, :anime, genres.first }
+
+      describe 'imported' do
+        let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
+        before { anime.genres << genre }
+
+        it do
+          expect(entry.genres).to have(1).item
+          expect(entry.genres.first).to have_attributes(
+            mal_id: genre.mal_id,
+            name: genre.name
+          )
+        end
+      end
+
+      context 'not imported' do
+        it do
+          expect(entry.genres).to have(1).item
+          expect(entry.genres.first).to have_attributes(
+            mal_id: genre.mal_id,
+            name: genre.name
+          )
+        end
       end
     end
   end
@@ -106,12 +122,28 @@ describe Import::Anime do
 
     context 'present studio' do
       let!(:studio) { create :studio, id: studios.first[:id] }
-      it do
-        expect(entry.studios).to have(1).item
-        expect(entry.studios.first).to have_attributes(
-          id: studio.id,
-          name: studio.name
-        )
+
+      describe 'imported' do
+        let!(:anime) { create :anime, id: 987_654_321, description_en: 'old' }
+        before { anime.studios << studio }
+
+        it do
+          expect(entry.studios).to have(1).item
+          expect(entry.studios.first).to have_attributes(
+            id: studio.id,
+            name: studio.name
+          )
+        end
+      end
+
+      context 'not imported' do
+        it do
+          expect(entry.studios).to have(1).item
+          expect(entry.studios.first).to have_attributes(
+            id: studio.id,
+            name: studio.name
+          )
+        end
       end
     end
   end

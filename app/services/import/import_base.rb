@@ -5,10 +5,12 @@ class Import::ImportBase
   IGNORED_FIELDS = %i()
 
   def call
-    entry.assign_attributes data_to_assign
-    entry.imported_at = Time.zone.now
-    assign_special_fields
-    entry.save!
+    ActiveRecord::Base.transaction do
+      entry.assign_attributes data_to_assign
+      entry.imported_at = Time.zone.now
+      assign_special_fields
+      entry.save!
+    end
 
     entry
   end

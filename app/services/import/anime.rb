@@ -13,28 +13,35 @@ private
   end
 
   def assign_genres genres
-    genres.each do |genre|
-      db_genre = genres_repo.all.find do |db_entry|
-        db_entry.mal_id == genre[:id]
+    entry.genres = []
+    genres.each { |genre| assign_genre genre }
+  end
+
+  def assign_genre genre
+    db_genre =
+      begin
+        Repos::AnimeGenres.instance.find genre[:id]
+      rescue ActiveRecord::RecordNotFound
+        Genre.create! mal_id: genre[:id], name: genre[:name], kind: :anime
       end
-      db_genre ||= Genre.create!(
-        mal_id: genre[:id], name: genre[:name], kind: :anime
-      )
-      entry.genres << db_genre
-    end
+
+    entry.genres << db_genre
   end
 
   def assign_studios studios
-    studios.each do |studio|
-      db_studio = Repos::Studios.instance.all.find do |db_entry|
-        db_entry.id == studio[:id]
+    entry.studios = []
+    studios.each { |studio| assign_studio studio }
+  end
+
+  def assign_studio studio
+    db_studio =
+      begin
+        Repos::Studios.instance.find studio[:id]
+      rescue ActiveRecord::RecordNotFound
+        Studio.create! id: studio[:id], name: studio[:name]
       end
-      db_studio ||= Studio.create!(
-        id: studio[:id],
-        name: studio[:name]
-      )
-      entry.studios << db_studio
-    end
+
+    entry.studios << db_studio
   end
 
   def assign_related related
@@ -59,9 +66,5 @@ private
     entry.external_links.any? do |external_link|
       external_link.source_anime_db? && external_link.imported_at.present?
     end
-  end
-
-  def genres_repo
-    Repos::AnimeGenres.instance
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115014859) do
+ActiveRecord::Schema.define(version: 20170115021940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,11 +146,12 @@ ActiveRecord::Schema.define(version: 20170115014859) do
   add_index "animes", ["score"], name: "index_animes_on_score", using: :btree
   add_index "animes", ["status", "score", "kind"], name: "anime_online_dashboard_query", using: :btree
 
-  create_table "animes_genres", id: false, force: :cascade do |t|
+  create_table "animes_genres", force: :cascade do |t|
     t.integer "anime_id"
     t.integer "genre_id"
   end
 
+  add_index "animes_genres", ["anime_id", "genre_id"], name: "index_animes_genres_on_anime_id_and_genre_id", unique: true, using: :btree
   add_index "animes_genres", ["anime_id"], name: "index_animes_genres_on_anime_id", using: :btree
 
   create_table "animes_studios", force: :cascade do |t|
@@ -512,11 +513,12 @@ ActiveRecord::Schema.define(version: 20170115014859) do
 
   add_index "genres", ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true, using: :btree
 
-  create_table "genres_mangas", id: false, force: :cascade do |t|
+  create_table "genres_mangas", force: :cascade do |t|
     t.integer "manga_id"
     t.integer "genre_id"
   end
 
+  add_index "genres_mangas", ["genre_id", "manga_id"], name: "index_genres_mangas_on_genre_id_and_manga_id", unique: true, using: :btree
   add_index "genres_mangas", ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
 
   create_table "ignores", force: :cascade do |t|

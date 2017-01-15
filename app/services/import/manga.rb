@@ -5,20 +5,35 @@ class Import::Manga < Import::Anime
 
 private
 
-  def assign_publishers publishers
-    publishers.each do |publisher|
-      db_publisher = Repos::Publishers.instance.all.find do |db_entry|
-        db_entry.id == publisher[:id]
-      end
-      db_publisher ||= Publisher.create!(
-        id: publisher[:id],
-        name: publisher[:name]
-      )
-      entry.publishers << db_publisher
-    end
+  def assign_genres genres
+    entry.genres = []
+    genres.each { |genre| assign_genre genre }
   end
 
-  def genres_repo
-    Repos::MangaGenres.instance
+  def assign_genre genre
+    db_genre =
+      begin
+        Repos::MangaGenres.instance.find genre[:id]
+      rescue ActiveRecord::RecordNotFound
+        Genre.create! mal_id: genre[:id], name: genre[:name], kind: :manga
+      end
+
+    entry.genres << db_genre
+  end
+
+  def assign_publishers publishers
+    entry.publishers = []
+    publishers.each { |publisher| assign_publisher publisher }
+  end
+
+  def assign_publisher publisher
+    db_publisher =
+      begin
+        Repos::Publishers.instance.find publisher[:id]
+      rescue ActiveRecord::RecordNotFound
+        Publisher.create! id: publisher[:id], name: publisher[:name]
+      end
+
+    entry.publishers << db_publisher
   end
 end

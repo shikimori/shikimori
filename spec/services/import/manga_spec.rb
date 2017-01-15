@@ -58,13 +58,29 @@ describe Import::Manga do
     end
 
     context 'present genre' do
-      let!(:genre) { create :genre, :manga, mal_id: genres.first[:id] }
-      it do
-        expect(entry.genres).to have(1).item
-        expect(entry.genres.first).to have_attributes(
-          mal_id: genre.mal_id,
-          name: genre.name
-        )
+      let!(:genre) { create :genre, :manga, genres.first }
+
+      describe 'imported' do
+        let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
+        before { manga.genres << genre }
+
+        it do
+          expect(entry.genres).to have(1).item
+          expect(entry.genres.first).to have_attributes(
+            mal_id: genre.mal_id,
+            name: genre.name
+          )
+        end
+      end
+
+      context 'not imported' do
+        it do
+          expect(entry.genres).to have(1).item
+          expect(entry.genres.first).to have_attributes(
+            mal_id: genre.mal_id,
+            name: genre.name
+          )
+        end
       end
     end
   end
@@ -84,12 +100,28 @@ describe Import::Manga do
 
     context 'present publisher' do
       let!(:publisher) { create :publisher, id: publishers.first[:id] }
-      it do
-        expect(entry.publishers).to have(1).item
-        expect(entry.publishers.first).to have_attributes(
-          id: publisher.id,
-          name: publisher.name
-        )
+
+      describe 'imported' do
+        let!(:manga) { create :manga, id: 987_654_321, description_en: 'old' }
+        before { manga.publishers << publisher }
+
+        it do
+          expect(entry.publishers).to have(1).item
+          expect(entry.publishers.first).to have_attributes(
+            id: publisher.id,
+            name: publisher.name
+          )
+        end
+      end
+
+      context 'not imported' do
+        it do
+          expect(entry.publishers).to have(1).item
+          expect(entry.publishers.first).to have_attributes(
+            id: publisher.id,
+            name: publisher.name
+          )
+        end
       end
     end
   end
