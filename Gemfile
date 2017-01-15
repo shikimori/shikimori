@@ -82,6 +82,7 @@ gem 'ruby-svd', github: 'morr/Ruby-SVD' # для SVD рекомендаций. r
 gem 'xxhash' # очень быстрый несекьюрный алгоритм хеширования (для comments_helper)
 gem 'faraday'
 gem 'faraday_middleware'
+gem 'faraday-cookie_jar'
 
 gem 'jbuilder' # для рендеринга json
 gem 'rack-contrib' # для поддержки jsonp в api

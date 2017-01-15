@@ -12,15 +12,6 @@ BAN_TEXTS = [
 ]
 
 MalParser.configuration.http_get = lambda do |url|
-  cookie = %w(
-    MALHLOGSESSID=978fea4e54380b5c421580ee33e7b521;
-    MALSESSIONID=7s6s7botsaklcg3dhrp8i36in4;
-    is_logged_in=1;
-  ).join
-  headers = {
-    'Cookie' => cookie
-  }
-
   Rails.cache.fetch([url, :v2], expires_in: 1.day) do
     content = Proxy.get(
       url,
@@ -35,11 +26,5 @@ MalParser.configuration.http_get = lambda do |url|
     raise InvalidIdError, url if BAD_ID_ERRORS.any? { |v| content.include? v }
 
     content
-
-    # begin
-      # open(url, headers).read
-    # rescue OpenURI::HTTPError => e
-      # raise unless e.message =~ /404 Not Found/
-    # end
   end
 end

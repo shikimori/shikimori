@@ -1,4 +1,8 @@
 class MalParsers::AnimeAuthorized < MalParser::Entry::Anime
+  def type
+    'anime'
+  end
+
   def html
     @html ||= make_request url
 
