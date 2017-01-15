@@ -78,7 +78,7 @@ class AnimeVideoDecorator < BaseDecorator
     h.api_user_rates_path(
       'user_rate[episodes]' => 0,
       'user_rate[score]' => 0,
-      'user_rate[status]' => UserRate.statuses[:planned],
+      'user_rate[status]' => :planned,
       'user_rate[target_id]' => anime.id,
       'user_rate[target_type]' => anime.class.name,
       'user_rate[user_id]' => h.current_user.id
