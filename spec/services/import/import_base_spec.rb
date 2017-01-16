@@ -41,14 +41,18 @@ describe Import::ImportBase do
         expect { subject }.to change(Anime, :count).by 1
         expect(entry).to be_persisted
       end
+
+      describe 'InvalidIdError' do
+        before { allow(service).to receive(:import).and_raise InvalidIdError.new(data[:id]) }
+        it { expect { subject }.to raise_error InvalidIdError }
+      end
     end
 
     describe 'update' do
-      let!(:anime) { create :anime, id: data[:id], name: 'q' }
+      let!(:anime) { create :anime, id: data[:id], name: 'q', mal_id: data[:id] }
       it do
         expect { subject }.to_not change Anime, :count
         expect(entry).to be_persisted
-        expect(entry.mal_id).to eq nil
       end
 
       describe 'blank special field' do
@@ -71,6 +75,12 @@ describe Import::ImportBase do
           create :anime, id: data[:id], japanese: 'f', desynced: %w(japanese)
         end
         it { expect(entry.japanese).to eq 'f' }
+      end
+
+      describe 'InvalidIdError' do
+        before { allow(service).to receive(:import).and_raise InvalidIdError.new(data[:id]) }
+        subject! { service.call }
+        it { expect(anime.reload.mal_id).to eq nil }
       end
     end
   end

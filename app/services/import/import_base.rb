@@ -4,23 +4,30 @@ class Import::ImportBase
   SPECIAL_FIELDS = %i()
   IGNORED_FIELDS = %i()
 
-  # rubocop:disable AbcSize
   def call
-    ActiveRecord::Base.transaction do
-      entry.assign_attributes data_to_assign
-      assign_special_fields
-
-      entry.mal_id = @data[:id] if entry.new_record?
-      entry.imported_at = Time.zone.now
-
-      entry.save!
-    end
-
+    ActiveRecord::Base.transaction { import }
     entry
+
+  rescue InvalidIdError
+    if entry.persisted?
+      entry.update mal_id: nil
+    else
+      raise
+    end
   end
   # rubocop:enable AbcSize
 
 private
+
+  def import
+    entry.assign_attributes data_to_assign
+    assign_special_fields
+
+    entry.mal_id = @data[:id] if entry.new_record?
+    entry.imported_at = Time.zone.now
+
+    entry.save!
+  end
 
   def entry
     @entry ||= klass.find_or_initialize_by id: @data[:id]
