@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
   after_create :create_preferences!, unless: :preferences
-  after_create :check_ban
+  # after_create :check_ban
   after_create :send_welcome_message
   after_create :grab_avatar
 
@@ -357,7 +357,7 @@ private
       .find { |v| v.nickname == nickname }
   end
 
-  def check_ban
-    ProlongateBan.perform_in 10.seconds, id
-  end
+  # def check_ban
+    # ProlongateBan.perform_in 10.seconds, id
+  # end
 end
