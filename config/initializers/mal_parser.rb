@@ -12,7 +12,7 @@ BAN_TEXTS = [
 ]
 
 MalParser.configuration.http_get = lambda do |url|
-  html = Rails.cache.fetch([url, :v2], expires_in: 1.day) do
+  html = Rails.cache.fetch([url, :v2], expires_in: 3.days) do
     content =
       begin
         Proxy.get(
