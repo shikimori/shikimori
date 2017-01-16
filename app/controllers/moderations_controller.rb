@@ -51,7 +51,7 @@ class ModerationsController < ShikimoriController
     if params[:kind]
       breadcrumb i18n_t('missing_videos_title'), missing_videos_moderations_url
       page_title i18n_t("missing_videos.#{params[:kind]}")
-      @collection = Rails.cache.fetch [:missing_videos, params[:kind]], expires_in: 1.hour do
+      @collection = Rails.cache.fetch [:missing_videos, params[:kind], :v2], expires_in: 1.hour do
         Moderation::MissingVideosQuery.new(params[:kind]).animes
       end
     end

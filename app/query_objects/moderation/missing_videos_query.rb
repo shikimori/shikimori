@@ -6,7 +6,7 @@ class Moderation::MissingVideosQuery
 
   LIMIT = 300
 
-  MISSING_EPISODES_QUERY = <<-sql
+  MISSING_EPISODES_QUERY = <<-SQL.squish
     select
       distinct(episode), anime_id
     from
@@ -15,9 +15,9 @@ class Moderation::MissingVideosQuery
       episode != 0
       and (state = 'working' or state = 'uploaded')
       and kind != 'raw'
-sql
+  SQL
 
-  ANIME_CONDITION = <<-sql
+  ANIME_CONDITION = <<-SQL.squish
     animes.id in (
       select
         animes.id
@@ -40,9 +40,9 @@ sql
       having
         count(*) > #{Rails.env.test? ? 0 : (User.count / 1000.0).to_i}
     )
-sql
+  SQL
 
-  MISSING_VIDEOS_QUERY = <<-sql
+  MISSING_VIDEOS_QUERY = <<-SQL.squish
     select
       count(working_videos.episode) as present_episodes,
       (
@@ -67,15 +67,15 @@ sql
           else max(animes.episodes_aired) end
       )
     limit #{LIMIT}
-sql
+  SQL
 
   CONDITIONS_BY_KIND = {
     all: '',
     vk: "and (url like 'https://vk.com/%' or url like 'http://vk.com/%')",
     subbed: "and kind = 'subtitles'",
-    dubbed: "and kind = 'fandub'",
+    dubbed: "and kind in ('fandub', 'unknown')",
     vk_subbed: "and (url like 'https://vk.com/%' or url like 'http://vk.com/%') and kind = 'subtitles'",
-    vk_dubbed: "and (url like 'https://vk.com/%' or url like 'http://vk.com/%') and kind = 'fandub'"
+    vk_dubbed: "and (url like 'https://vk.com/%' or url like 'http://vk.com/%') and kind in ('fandub', 'unknown')"
   }
 
   def animes
