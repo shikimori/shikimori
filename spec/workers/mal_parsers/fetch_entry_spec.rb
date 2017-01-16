@@ -39,10 +39,31 @@ describe MalParsers::FetchEntry do
         recommendations: recommendations_data
       )
     end
-    subject! { worker.perform id, type }
+    subject { worker.perform id, type }
 
-    it do
-      expect(Import::Anime).to have_received(:call).with import_data
+    describe 'successfull import' do
+      before { subject }
+      it do
+        expect(Import::Anime).to have_received(:call).with import_data
+      end
+    end
+
+    describe 'InvalidIdError' do
+      before do
+        allow(Import::Anime)
+          .to receive(:call)
+          .and_raise InvalidIdError.new(id)
+      end
+
+      context 'present entry' do
+        let!(:entry) { create type, id: id, mal_id: id }
+        before { subject }
+        it { expect(entry.reload.mal_id).to eq nil }
+      end
+
+      context 'new entry' do
+        it { expect { subject }.to raise_error InvalidIdError }
+      end
     end
   end
 end

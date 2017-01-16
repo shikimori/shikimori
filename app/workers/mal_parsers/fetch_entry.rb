@@ -30,15 +30,31 @@ class MalParsers::FetchEntry
   TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')
 
   def perform id, type
-    import_data = PARSERS[TYPES[type].to_sym]
-      .each_with_object({}) do |(parser_kind, parser_klass), memo|
-        if parser_kind == DATA
-          memo.merge! parser_klass.call(id)
-        else
-          memo[parser_kind] = parser_klass.call(id, type)
-        end
-      end
+    IMPORTS[type.to_sym].call import_data(id, type)
 
-    IMPORTS[type.to_sym].call import_data
+  rescue InvalidIdError
+    entry = TYPES[type].classify.constantize.find_by id: id
+
+    if entry
+      entry.update mal_id: nil
+    else
+      raise
+    end
+  end
+
+private
+
+  def import_data id, type
+    parsers(type).each_with_object({}) do |(parser_kind, parser_klass), memo|
+      if parser_kind == DATA
+        memo.merge! parser_klass.call(id)
+      else
+        memo[parser_kind] = parser_klass.call(id, type)
+      end
+    end
+  end
+
+  def parsers type
+    PARSERS[TYPES[type].to_sym]
   end
 end

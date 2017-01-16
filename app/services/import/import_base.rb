@@ -7,13 +7,6 @@ class Import::ImportBase
   def call
     ActiveRecord::Base.transaction { import }
     entry
-
-  rescue InvalidIdError
-    if entry.persisted?
-      entry.update mal_id: nil
-    else
-      raise
-    end
   end
   # rubocop:enable AbcSize
 
