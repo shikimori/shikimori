@@ -31,6 +31,7 @@ describe Import::ImportBase do
     it do
       expect(entry).to be_persisted
       expect(entry).to be_valid
+      expect(entry.mal_id).to eq data[:id]
       expect(entry.imported_at).to eq Time.zone.now
       expect(entry).to have_attributes data.except(:zzz)
     end
@@ -47,6 +48,7 @@ describe Import::ImportBase do
       it do
         expect { subject }.to_not change Anime, :count
         expect(entry).to be_persisted
+        expect(entry.mal_id).to eq nil
       end
 
       describe 'blank special field' do

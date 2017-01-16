@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116083843) do
+ActiveRecord::Schema.define(version: 20170116101907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 20170116083843) do
     t.string   "broadcast"
     t.string   "english"
     t.string   "japanese"
+    t.integer  "mal_id"
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
@@ -201,6 +202,7 @@ ActiveRecord::Schema.define(version: 20170116083843) do
     t.string   "russian"
     t.string   "source",             limit: 255
     t.text     "desynced",                       default: [], null: false, array: true
+    t.integer  "mal_id"
   end
 
   add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
@@ -599,6 +601,7 @@ ActiveRecord::Schema.define(version: 20170116083843) do
     t.text     "desynced",                                               default: [],    null: false, array: true
     t.string   "english"
     t.string   "japanese"
+    t.integer  "mal_id"
   end
 
   add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree
@@ -660,6 +663,7 @@ ActiveRecord::Schema.define(version: 20170116083843) do
     t.boolean  "seyu",                           default: false
     t.text     "desynced",                       default: [],    null: false, array: true
     t.string   "russian"
+    t.integer  "mal_id"
   end
 
   add_index "people", ["name"], name: "index_people_on_name", using: :btree

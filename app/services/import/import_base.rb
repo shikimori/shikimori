@@ -4,16 +4,21 @@ class Import::ImportBase
   SPECIAL_FIELDS = %i()
   IGNORED_FIELDS = %i()
 
+  # rubocop:disable AbcSize
   def call
     ActiveRecord::Base.transaction do
       entry.assign_attributes data_to_assign
-      entry.imported_at = Time.zone.now
       assign_special_fields
+
+      entry.mal_id = @data[:id] if entry.new_record?
+      entry.imported_at = Time.zone.now
+
       entry.save!
     end
 
     entry
   end
+  # rubocop:enable AbcSize
 
 private
 
