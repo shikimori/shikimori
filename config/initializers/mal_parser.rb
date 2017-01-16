@@ -20,7 +20,7 @@ MalParser.configuration.http_get = lambda do |url|
       ban_texts: BAN_TEXTS,
       no_proxy: Rails.env.test?,
       log: !Rails.env.test?
-    ) || raise(EmptyContentError)
+    ) || raise(EmptyContentError, url)
   end
 
   raise InvalidIdError, url if BAD_ID_ERRORS.any? { |v| html.include? v }
