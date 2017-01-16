@@ -1,6 +1,9 @@
 class HistoryWorker
   include Sidekiq::Worker
-  sidekiq_options queue: :cpu_intensive
+  sidekiq_options(
+    queue: :cpu_intensive,
+    unique: :until_executed
+  )
 
   NEWS_EXPIRE_IN = 1.week
 
