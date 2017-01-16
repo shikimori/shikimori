@@ -1,6 +1,15 @@
 # sudo apt-get install libjpeg-progs
 class Proxy < ActiveRecord::Base
-  SAFE_ERRORS = /queue empty|execution expired|banned|connection refused|connection reset by peer|no route to host|end of file reached/i
+  SAFE_ERRORS = /
+    queue \s empty |
+    execution \s expired |
+    banned |
+    connection \s refused |
+    connection \s reset \s by \s peer |
+    no \s route \s to \s host |
+    end \s of \s file \s reached |
+    404 \s Not \s Found
+  /mix
   cattr_accessor :use_proxy, :use_cache, :show_log
 
   # список проксей
@@ -141,6 +150,11 @@ class Proxy < ActiveRecord::Base
 
         rescue Exception => e
           raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
+          if e.message =~ /404 Not Found/
+            @@proxies.push(proxy) unless options[:proxy]
+            raise
+          end
+
           if e.message =~ SAFE_ERRORS
             log "#{e.message}", options
           else
@@ -179,6 +193,7 @@ class Proxy < ActiveRecord::Base
 
     rescue Exception => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
+
       if e.message =~ SAFE_ERRORS
         log "#{e.message}", options
       else
