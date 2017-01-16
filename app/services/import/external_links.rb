@@ -2,19 +2,34 @@ class Import::ExternalLinks
   method_object :target, :external_links
 
   def call
+    ExternalLink.transaction do
+      cleanup
+      import
+    end
+  end
+
+private
+
+  def cleanup
+    ExternalLink
+      .where(source: :myanimelist)
+      .where(entry: @target)
+      .delete_all
+  end
+
+  def import
     # I purposely do not use "ExternalLink.import" here.
     # "ExternalLink.create!" should fail with exception when
     # unknown "source" is encountered
     new_external_links.each do |external_link|
       ExternalLink.create!(
         entry: @target,
-        source: external_link[:source],
+        source: :myanimelist,
+        kind: external_link[:kind],
         url: external_link[:url]
       )
     end
   end
-
-private
 
   def new_external_links
     @external_links.select do |external_link|

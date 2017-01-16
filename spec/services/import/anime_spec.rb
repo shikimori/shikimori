@@ -50,7 +50,7 @@ describe Import::Anime do
       let!(:external_link) do
         create :external_link,
           entry: anime,
-          source: :anime_db,
+          kind: :anime_db,
           imported_at: imported_at
       end
 
@@ -225,7 +225,7 @@ describe Import::Anime do
   describe '#assign_external_links' do
     let(:external_links) do
       [{
-        source: 'official_site',
+        kind: 'official_site',
         url: 'http://www.cowboy-bebop.net/'
       }]
     end
@@ -236,7 +236,8 @@ describe Import::Anime do
         expect(entry.external_links.first).to have_attributes(
           entry_id: entry.id,
           entry_type: entry.class.name,
-          source: 'official_site',
+          source: 'myanimelist',
+          kind: 'official_site',
           url: 'http://www.cowboy-bebop.net/'
         )
       end

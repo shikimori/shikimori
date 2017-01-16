@@ -3,33 +3,35 @@ describe Import::ExternalLinks do
   let(:target) { create :anime }
   let(:external_links) do
     [{
-      source: 'official_site',
+      kind: 'official_site',
       url: 'http://www.cowboy-bebop.net/'
     }, {
-      source: 'anime_db',
+      kind: 'anime_db',
       url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=23'
     }]
   end
-  let!(:external_link) do
-    create :external_link,
-      entry: target,
-      source: 'official_site',
-      url: 'http://lenta.ru'
-  end
+  let!(:mal_external_link) { create :external_link, :myanimelist, :official_site, entry: target }
+  let!(:shiki_external_link) { create :external_link, :shikimori, :official_site, entry: target }
 
   subject! { service.call }
   let(:new_external_links) { target.external_links.order :id }
 
   it do
-    expect(new_external_links).to have(2).items
-    expect(new_external_links.first).to have_attributes(
+    expect { mal_external_link.reload }.to raise_error ActiveRecord::RecordNotFound
+    expect(shiki_external_link.reload).to be_persisted
+
+    expect(new_external_links).to have(3).items
+    expect(new_external_links[0]).to eq shiki_external_link
+    expect(new_external_links[1]).to have_attributes(
       entry: target,
-      source: 'official_site',
-      url: 'http://lenta.ru'
+      source: 'myanimelist',
+      kind: 'official_site',
+      url: 'http://www.cowboy-bebop.net/'
     )
-    expect(new_external_links.second).to have_attributes(
+    expect(new_external_links[2]).to have_attributes(
       entry: target,
-      source: 'anime_db',
+      source: 'myanimelist',
+      kind: 'anime_db',
       url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=23'
     )
   end

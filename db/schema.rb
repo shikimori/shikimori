@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115021940) do
+ActiveRecord::Schema.define(version: 20170116083843) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
-  enable_extension "pg_stat_statements"
   enable_extension "hstore"
+  enable_extension "pg_stat_statements"
+  enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -458,11 +458,12 @@ ActiveRecord::Schema.define(version: 20170115021940) do
   create_table "external_links", force: :cascade do |t|
     t.integer  "entry_id",    null: false
     t.string   "entry_type",  null: false
-    t.string   "source",      null: false
+    t.string   "kind",        null: false
     t.string   "url",         null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.datetime "imported_at"
+    t.string   "source",      null: false
   end
 
   add_index "external_links", ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id", using: :btree

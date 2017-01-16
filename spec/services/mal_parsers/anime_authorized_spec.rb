@@ -48,37 +48,37 @@ describe MalParsers::AnimeAuthorized do
         favorites: 41_657,
         related: {
           adaptation: [{
-            id: 21479,
+            id: 21_479,
             name: 'Sword Art Online',
             type: :manga
           }, {
-            id: 43921,
+            id: 43_921,
             name: 'Sword Art Online: Progressive',
             type: :manga
           }],
           other: [{
-            id: 16099,
+            id: 16_099,
             name: 'Sword Art Online: Sword Art Offline',
             type: :anime
           }],
           sequel: [{
-            id: 20021,
+            id: 20_021,
             name: 'Sword Art Online: Extra Edition',
             type: :anime
           }]
         },
         external_links: [
           {
-            source: 'official_site',
+            kind: 'official_site',
             url: 'http://www.swordart-online.net/'
           }, {
-            source: 'anime_db',
+            kind: 'anime_db',
             url: 'http://anidb.info/perl-bin/animedb.pl?show=anime&aid=8692'
           }, {
-            source: 'anime_news_network',
+            kind: 'anime_news_network',
             url: 'http://www.animenewsnetwork.com/encyclopedia/anime.php?id=13858'
           }, {
-            source: 'wikipedia',
+            kind: 'wikipedia',
             url: 'http://en.wikipedia.org/wiki/Sword_Art_Online'
           }
         ],

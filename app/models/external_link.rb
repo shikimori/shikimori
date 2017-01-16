@@ -1,8 +1,11 @@
 class ExternalLink < ActiveRecord::Base
   belongs_to :entry, polymorphic: true, touch: true
-  validates :entry, :source, :url, presence: true
+  validates :entry, :source, :kind, :url, presence: true
 
-  # sources are external link types from MAL
+  enumerize :kind,
+    in: Types::ExternalLink::Kind.values,
+    predicates: { prefix: true }
+
   enumerize :source,
     in: Types::ExternalLink::Source.values,
     predicates: { prefix: true }
