@@ -10,6 +10,7 @@ class MalParsers::ScheduleExpired
   def perform type
     TYPES[type].classify.constantize
       .where(imported_at: nil)
+      .where.not(mal_id: nil)
       .order(:id)
       .each { |entry| MalParsers::FetchEntry.perform_async entry.id, type }
   end

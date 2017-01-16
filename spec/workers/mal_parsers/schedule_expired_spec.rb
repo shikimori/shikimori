@@ -1,9 +1,10 @@
 describe MalParsers::ScheduleExpired do
   let(:worker) { MalParsers::ScheduleExpired.new }
 
-  let!(:anime_1) { create :anime, imported_at: nil }
-  let!(:anime_2) { create :anime, imported_at: 2.days.ago }
-  let!(:anime_3) { create :anime, imported_at: nil }
+  let!(:anime_1) { create :anime, imported_at: nil, mal_id: 1 }
+  let!(:anime_2) { create :anime, imported_at: 2.days.ago, mal_id: 2 }
+  let!(:anime_3) { create :anime, imported_at: nil, mal_id: 3 }
+  let!(:anime_4) { create :anime, imported_at: nil, mal_id: nil }
 
   before { allow(MalParsers::FetchEntry).to receive :perform_async }
   subject! { worker.perform 'anime' }
