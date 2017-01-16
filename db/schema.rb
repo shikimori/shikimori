@@ -15,9 +15,9 @@ ActiveRecord::Schema.define(version: 20170115021940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
   enable_extension "unaccent"
   enable_extension "pg_stat_statements"
+  enable_extension "hstore"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"

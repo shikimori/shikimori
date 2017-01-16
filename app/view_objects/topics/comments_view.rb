@@ -79,9 +79,9 @@ class Topics::CommentsView < ViewObjectBase
     i18n_t 'load_comments' do |options|
       options[:comment_count] = num
       options[:comment_word] = comment_word(num)
-      options[:out_of_total_comments] =
+      options[:of_total_comments] =
         if folded_comments > fold_limit
-          "#{I18n.t('out_of').downcase} #{folded_comments}"
+          "#{I18n.t('of').downcase} #{folded_comments}"
         end
     end.html_safe
   end

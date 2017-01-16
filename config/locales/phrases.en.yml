@@ -84,7 +84,7 @@ en:
   no_comments: No comments
   nothing_found: Nothing found.
   notifications: Notifications
-  out_of: out of
+  of: of
   page: Page %{page}
   page_not_found: Page not found
   pagination:
@@ -97,6 +97,7 @@ en:
   seyu: Seiyu
   share: Share
   shikimori: Shikimori
+  source: Source
   sponsors: Sponsors
   switch_to_anime: switch to anime
   switch_to_manga: switch to manga

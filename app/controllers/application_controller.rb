@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   helper_method :ignore_copyright?
 
   helper_method :locale_from_domain
-  helper_method :i18n_i, :i18n_io
+  helper_method :i18n_i, :i18n_io, :i18n_v
 
   NOT_FOUND_ERRORS = [
     ActionController::RoutingError,

@@ -12,3 +12,11 @@ en:
       zero: read
       one: read
       other: read
+    added_by:
+      zero: added by
+      one: added by
+      other: added by
+    wrote:
+      zero: wrote
+      one: wrote
+      other: wrote

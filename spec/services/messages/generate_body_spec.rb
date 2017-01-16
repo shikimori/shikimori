@@ -202,7 +202,7 @@ describe Messages::GenerateBody do
         let(:body) { 'zxc' }
         it do
           is_expected.to eq(
-            'Ваша <a href="//shikimori.org/moderations/versions/1" title="правка" class="bubbled b-link" data-tooltip_url="//shikimori.org/moderations/versions/1/tooltip">правка</a> для <a href="//test.host/animes/1-test" title="test" class="bubbled b-link" data-tooltip_url="//test.host/animes/1-test/tooltip">test</a> отклонена по причине: <div class="b-quote"><div class="quoteable">from написал:</div>zxc</div>'
+            'Ваша <a href="//shikimori.org/moderations/versions/1" title="правка" class="bubbled b-link" data-tooltip_url="//shikimori.org/moderations/versions/1/tooltip">правка</a> для <a href="//test.host/animes/1-test" title="test" class="bubbled b-link" data-tooltip_url="//test.host/animes/1-test/tooltip">test</a> отклонена по причине: <div class="b-quote"><div class="quoteable">from <span class="text-ru">написал:</span><span class="text-en" data-text="wrote:"></span></div>zxc</div>'
           )
         end
       end
