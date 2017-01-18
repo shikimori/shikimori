@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include Translation
 
-  DEFAULT_PROTOCOL = 'http'
+  DEFAULT_PROTOCOL = 'https'
 
   #include Mobylette::RespondToMobileRequests
   protect_from_forgery with: :exception
