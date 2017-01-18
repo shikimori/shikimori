@@ -3,8 +3,8 @@ class Import::PersonRoles
 
   def call
     PersonRole.transaction do
-      cleanup :character_id
-      cleanup :person_id
+      cleanup :character_id if @characters.any?
+      cleanup :person_id if @staff.any?
       import(build(@characters, :character_id) + build(@staff, :person_id))
     end
   end
