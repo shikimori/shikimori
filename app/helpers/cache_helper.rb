@@ -9,7 +9,8 @@ module CacheHelper
       args + [
         I18n.locale,
         I18N_HASH[I18n.locale],
-        CacheHelperInstance.instance.subdomain
+        CacheHelperInstance.instance.subdomain,
+        CacheHelperInstance.instance.ru_domain?
       ]
     end
 
@@ -44,5 +45,9 @@ class CacheHelperInstance
 
   def subdomain
     h.request.subdomain
+  end
+
+  def ru_domain?
+    h.ru_domain?
   end
 end
