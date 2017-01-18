@@ -123,7 +123,7 @@ class AnimesController < DbEntriesController
     return redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
 
     noindex
-    page_title t('in_favourites')
+    page_title t('in_favorites')
   end
 
   def clubs

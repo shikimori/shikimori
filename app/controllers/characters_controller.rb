@@ -71,7 +71,7 @@ class CharactersController < PeopleController
   def favoured
     noindex
     redirect_to @resource.url, status: 301 if @resource.all_favoured.none?
-    page_title t('in_favourites')
+    page_title t('in_favorites')
   end
 
   def clubs
