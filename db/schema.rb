@@ -97,48 +97,49 @@ ActiveRecord::Schema.define(version: 20170120105207) do
   add_index "anime_videos", ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id", using: :btree
 
   create_table "animes", force: :cascade do |t|
-    t.string   "name",               limit: 255
+    t.string   "name",                   limit: 255
     t.text     "description_ru"
     t.text     "description_en"
-    t.string   "kind",               limit: 255
-    t.integer  "episodes",                       default: 0,     null: false
+    t.string   "kind",                   limit: 255
+    t.integer  "episodes",                           default: 0,     null: false
     t.integer  "duration"
     t.text     "synonyms"
-    t.decimal  "score",                          default: 0.0,   null: false
+    t.decimal  "score",                              default: 0.0,   null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
+    t.string   "image_file_name",        limit: 255
+    t.string   "image_content_type",     limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.date     "aired_on"
     t.date     "released_on"
-    t.string   "status",             limit: 255
-    t.string   "rating",             limit: 255
-    t.integer  "episodes_aired",                 default: 0,     null: false
+    t.string   "status",                 limit: 255
+    t.string   "rating",                 limit: 255
+    t.integer  "episodes_aired",                     default: 0,     null: false
     t.integer  "editor_id"
-    t.string   "russian",            limit: 255
-    t.integer  "world_art_id",                   default: 0
+    t.string   "russian",                limit: 255
+    t.integer  "world_art_id",                       default: 0
     t.text     "world_art_synonyms"
-    t.integer  "ani_db_id",                      default: 0
-    t.string   "mal_scores",         limit: 255
-    t.string   "ani_db_scores",      limit: 255
-    t.string   "world_art_scores",   limit: 255
-    t.boolean  "censored",                       default: false
+    t.integer  "ani_db_id",                          default: 0
+    t.string   "mal_scores",             limit: 255
+    t.string   "ani_db_scores",          limit: 255
+    t.string   "world_art_scores",       limit: 255
+    t.boolean  "censored",                           default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
-    t.string   "tags",               limit: 255
-    t.string   "source",             limit: 255
-    t.string   "torrents_name",      limit: 255
-    t.float    "site_score",                     default: 0.0,   null: false
-    t.text     "desynced",                       default: [],    null: false, array: true
+    t.string   "tags",                   limit: 255
+    t.string   "source",                 limit: 255
+    t.string   "torrents_name",          limit: 255
+    t.float    "site_score",                         default: 0.0,   null: false
+    t.text     "desynced",                           default: [],    null: false, array: true
     t.string   "origin"
     t.string   "broadcast"
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"
+    t.datetime "authorized_imported_at"
   end
 
   add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
