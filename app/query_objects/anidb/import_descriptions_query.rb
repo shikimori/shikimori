@@ -14,7 +14,7 @@ class Anidb::ImportDescriptionsQuery
           description_en IS NULL
         ".squish)
         .where(external_links: { imported_at: nil })
-        .where(external_links: { source: Types::ExternalLink::Source['anime_db'] })
+        .where(external_links: { kind: Types::ExternalLink::Kind['anime_db'] })
     end
   end
 end

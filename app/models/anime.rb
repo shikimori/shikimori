@@ -149,7 +149,7 @@ class Anime < DbEntry
     inverse_of: :entry,
     dependent: :destroy
   has_one :anidb_external_link,
-    -> { where(source: Types::ExternalLink::Source['anime_db']) },
+    -> { where(kind: Types::ExternalLink::Kind['anime_db']) },
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry
