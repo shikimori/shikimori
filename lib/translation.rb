@@ -23,7 +23,7 @@ module Translation
           default: "inflections.cardinal.#{key.downcase}.default"
         )
       else
-        default = key.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        default = key.to_s.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
         I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
@@ -38,7 +38,7 @@ module Translation
       if I18n.russian?
         I18n.t "inflections.ordinal.#{key.downcase}.#{count_key}"
       else
-        default = key.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
+        default = key.to_s.tr('_', ' ').pluralize(count_key == :one ? 1 : 2)
         I18n.t "inflections.#{key.downcase}.#{count_key}", default: default
       end
 
