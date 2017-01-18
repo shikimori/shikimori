@@ -1,4 +1,6 @@
 class Moderations::AnimeVideoReportsController < ModerationsController
+  skip_before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:create]
   load_and_authorize_resource except: :index
 
   def index
