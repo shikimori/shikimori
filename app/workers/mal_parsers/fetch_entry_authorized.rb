@@ -1,4 +1,4 @@
-class MalParsers::FetchEntryDataAuthorized
+class MalParsers::FetchEntryAuthorized
   include Sidekiq::Worker
 
   sidekiq_options(
