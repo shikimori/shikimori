@@ -1,5 +1,5 @@
-describe MalParsers::FetchEntryDataAuthorized do
-  let(:worker) { MalParsers::FetchEntryDataAuthorized.new }
+describe MalParsers::FetchEntryAuthorized do
+  let(:worker) { MalParsers::FetchEntryAuthorized.new }
 
   describe '#perform', :vcr do
     let(:anime_id) { 28_851 }

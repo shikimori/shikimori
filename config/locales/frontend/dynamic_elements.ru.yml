@@ -5,3 +5,17 @@ ru:
       day_registered_action: Действие станет доступно через сутки после <a href="/users/sign_up">регистрации</a>.
       check_height:
         expand: развернуть
+      load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
+      of: из
+      comment:
+        one: комментарий
+        few: комментария
+        many: комментариев
+      new_message_added:
+        one: Добавлено %{count} новое сообщение
+        few: Добавлены %{count} новых сообщения
+        many: Добавлено %{count} новых сообщений
+      new_comment_added:
+        one: Добавлено %{count} новое комментарий
+        few: Добавлены %{count} новых комментария
+        many: Добавлено %{count} новых комментариев

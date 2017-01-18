@@ -5,3 +5,17 @@ en:
       day_registered_action: Action will be available one day after <a href="/users/sign_up">registering</a>.
       check_height:
         expand: expand
+      load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
+      of: of
+      comment:
+        one: comment
+        few: comments
+        many: comments
+      new_message_added:
+        one: '%{count} new message added'
+        few: '%{count} new messages added'
+        many: '%{count} new messages added'
+      new_comment_added:
+        one: '%{count} new comment added'
+        few: '%{count} new comments added'
+        many: '%{count} new comments added'

@@ -1,6 +1,8 @@
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
+  I18N_KEY = 'frontend.dynamic_elements'
+
   _type: -> 'topic'
   _type_label: -> 'Топик'
 
@@ -173,9 +175,24 @@ class DynamicElements.Topic extends ShikiEditable
             skip: @$comments_loader.data('skip') + limit
             count: count
 
-          @$comments_loader.html("Загрузить ещё #{Math.min(limit, count)} " +
-            (if count > limit then "из #{count} " else '') +
-            "#{p Math.min(limit, count), 'комментарий', 'комментария', 'комментариев'}")
+          comment_count = Math.min(limit, count)
+          comment_word = p(
+            comment_count,
+            t("#{I18N_KEY}.comment.one"),
+            t("#{I18N_KEY}.comment.few"),
+            t("#{I18N_KEY}.comment.many")
+          )
+          of_total_comments = if count > limit
+            "#{t("#{I18N_KEY}.of")} #{count}"
+
+          load_comments = t(
+            "#{I18N_KEY}.load_comments"
+            comment_count: comment_count,
+            of_total_comments: of_total_comments,
+            comment_word: comment_word
+          )
+
+          @$comments_loader.html(load_comments)
           @$comments_collapser.show()
         else
           @$comments_loader.remove()
@@ -296,16 +313,16 @@ class DynamicElements.Topic extends ShikiEditable
       $placeholder.html if trackable_type == 'message'
         p(
           num,
-          "Добавлено #{num} новое сообщение",
-          "Добавлены #{num} новых сообщения",
-          "Добавлено #{num} новых сообщений"
+          t("#{I18N_KEY}.new_message_added.one", count: num),
+          t("#{I18N_KEY}.new_message_added.few", count: num),
+          t("#{I18N_KEY}.new_message_added.many", count: num)
         )
       else
         p(
           num,
-          "Добавлен #{num} новый комментарий",
-          "Добавлены #{num} новых комментария",
-          "Добавлено #{num} новых комментариев"
+          t("#{I18N_KEY}.new_comment_added.one", count: num),
+          t("#{I18N_KEY}.new_comment_added.few", count: num),
+          t("#{I18N_KEY}.new_comment_added.many", count: num)
         )
 
     $placeholder

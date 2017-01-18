@@ -26,7 +26,7 @@ en:
   topics/comments_view: &comments
     show_comments: Display %{comment_word}
     hide_comments: Hide %{comment_word}
-    load_comments: Display %{comment_count} %{of_total_comments} %{comment_word}
+    load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
 
   topics/generated_news_view:
     titles:
