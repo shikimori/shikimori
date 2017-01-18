@@ -25,8 +25,8 @@ module Clockwork
 
   every 1.hour, 'hourly', at: '**:45' do
     ProxyWorker.perform_async(false)
-    FindAnimeWorker.perform_async :last_3_entries
-    AnimeSpiritWorker.perform_async :last_3_entries
+    # FindAnimeWorker.perform_async :last_3_entries
+    # AnimeSpiritWorker.perform_async :last_3_entries
     BadReviewsCleaner.perform_async
   end
 
@@ -35,9 +35,9 @@ module Clockwork
   end
 
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
-    FindAnimeWorker.perform_async :last_15_entries
-    HentaiAnimeWorker.perform_async :last_15_entries
-    AnimeSpiritWorker.perform_async :two_pages
+    # FindAnimeWorker.perform_async :last_15_entries
+    # HentaiAnimeWorker.perform_async :last_15_entries
+    # AnimeSpiritWorker.perform_async :two_pages
   end
 
   every 1.day, 'daily.stuff', at: '00:02' do
@@ -57,7 +57,7 @@ module Clockwork
     MangasVerifier.perform_async
     CharactersVerifier.perform_async
     PeopleVerifier.perform_async
-    AnimeLinksVerifier.perform_async
+    # AnimeLinksVerifier.perform_async
 
     FinishExpiredAnimes.perform_async
 
@@ -84,13 +84,13 @@ module Clockwork
     VacuumDb.perform_async
   end
 
-  every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
-    FindAnimeWorker.perform_async :first_page
-  end
+  # every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
+    # FindAnimeWorker.perform_async :first_page
+  # end
 
   every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
-    FindAnimeWorker.perform_async :two_pages
-    HentaiAnimeWorker.perform_async :first_page
+    # FindAnimeWorker.perform_async :two_pages
+    # HentaiAnimeWorker.perform_async :first_page
     DanbooruTagsImporter.perform_async
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
