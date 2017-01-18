@@ -3,7 +3,7 @@ describe Api::V1::CommentsController do
   let(:topic) { create :topic, user: user }
   let(:comment) { create :comment, commentable: topic, user: user }
 
-  describe '#show', :show_in_doc, :focus do
+  describe '#show', :show_in_doc do
     before { get :show, id: comment.id, format: :json }
 
     it do

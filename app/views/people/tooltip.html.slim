@@ -1,3 +1,4 @@
-- cache [@resource, params[:minified]] do
-  = render partial: 'people/content',
-    locals: { person: @resource, with_image: true }
+- cache [@resource, :v3] do
+  = render 'people/content',
+    person: @resource,
+    with_image: true

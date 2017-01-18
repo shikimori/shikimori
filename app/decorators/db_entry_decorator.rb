@@ -168,7 +168,7 @@ class DbEntryDecorator < BaseDecorator
   private
 
   def show_description_ru?
-    h.ru_domain? && object.description_ru.present?
+    h.ru_domain?
   end
 
   def clubs_for_domain
