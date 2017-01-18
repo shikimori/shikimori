@@ -215,7 +215,6 @@ private
       url,
       timeout: 30,
       required_text: required_text,
-      ban_texts: required_text.present? ? nil : MalFetcher.ban_texts,
       no_proxy: @no_proxy,
       log: @proxy_log
     )

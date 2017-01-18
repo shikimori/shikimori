@@ -33,7 +33,6 @@ class Anidb::ParseDescription
 
   def proxy_options
     {
-      ban_texts: MalFetcher.ban_texts,
       no_proxy: Rails.env.test?,
       required_text: REQUIRED_TEXT
     }

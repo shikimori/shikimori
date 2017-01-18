@@ -262,11 +262,10 @@ class TorrentsParser
 
 private_class_method
 
-  def self.get url, ban_texts = nil
+  def self.get url
     Proxy.get(
       url,
       timeout: 30,
-      ban_texts: ban_texts || MalFetcher.ban_texts,
       log: PROXY_LOG,
       no_proxy: true
     )

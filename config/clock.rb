@@ -20,7 +20,6 @@ module Clockwork
   end
 
   every 30.minutes, 'half-hourly.import.another', at: ['**:00', '**:30'] do
-    # AnimesImporter.perform_async
     PostgresFix.perform_async
   end
 
@@ -73,14 +72,9 @@ module Clockwork
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do
-    # MangasImporter.perform_async
     ReadMangaWorker.perform_async
     AdultMangaWorker.perform_async
   end
-
-  # every 1.day, 'daily.characters', at: '03:00' do
-    # CharactersImporter.perform_async
-  # end
 
   every 1.day, 'daily.viewings_cleaner', at: '05:00' do
     ViewingsCleaner.perform_async
@@ -97,7 +91,6 @@ module Clockwork
   every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
     FindAnimeWorker.perform_async :two_pages
     HentaiAnimeWorker.perform_async :first_page
-    # PeopleImporter.perform_async
     DanbooruTagsImporter.perform_async
     OldMessagesCleaner.perform_async
     OldNewsCleaner.perform_async
