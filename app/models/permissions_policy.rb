@@ -58,6 +58,8 @@ module PermissionsPolicy
 
     # может профиль пользователя быть прокомментирован комментарием
     def can_be_commented_by?(comment)
+      return true if comment.user_id == id
+
       if self.ignores.any? {|v| v.target_id == comment.user_id }
         comment.errors[:base] = I18n.t('activerecord.errors.models.messages.ignored')
         false
@@ -71,12 +73,8 @@ module PermissionsPolicy
           false
         end
       elsif self.preferences.comment_policy_owner?
-        if self == comment.user
-          true
-        else
-          comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_owner')
-          false
-        end
+        comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_owner')
+        false
       end
     end
   end
