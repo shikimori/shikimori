@@ -23,7 +23,7 @@ private
     AnimeStatusQuery
       .new(klass.all)
       .by_status(status)
+      .order(:id)
       .pluck(:id)
-      .sort
   end
 end

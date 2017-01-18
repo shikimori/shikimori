@@ -19,6 +19,7 @@ class MalParsers::FetchEntryAuthorized
   end
 
   def update_authorized_imported_at! anime_id
-    Anime.find(anime_id).update!(authorized_imported_at: Time.zone.now)
+    anime = Anime.find(anime_id)
+    anime.update!(authorized_imported_at: Time.zone.now)
   end
 end
