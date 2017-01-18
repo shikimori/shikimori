@@ -182,8 +182,11 @@ class DynamicElements.Topic extends ShikiEditable
             t("#{I18N_KEY}.comment.few"),
             t("#{I18N_KEY}.comment.many")
           )
-          of_total_comments = if count > limit
-            "#{t("#{I18N_KEY}.of")} #{count}"
+          of_total_comments =
+            if count > limit
+              "#{t("#{I18N_KEY}.of")} #{count}"
+            else
+              ''
 
           load_comments = t(
             "#{I18N_KEY}.load_comments"
