@@ -4,7 +4,7 @@ a.b-image(
   rel="#{rel}"
   data-tags="#{image.tags}"
 )
-  if can_destroy
+  if destroy_url
     .mobile-edit
     .controls
       .delete(
@@ -12,7 +12,7 @@ a.b-image(
       )
       .confirm(
         title=t('frontend.images.confirm')
-        data-action="/images/#{image.id}"
+        data-action="#{destroy_url}"
         data-method="delete"
         data-remote="true"
         data-type="json"

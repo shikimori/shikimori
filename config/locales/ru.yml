@@ -43,6 +43,8 @@ ru:
       character: &character_attributes
         cosplay: Косплей
         description: Описание
+        description_ru: Описание
+        description_en: Описание (англ)
         japanese: Японское имя
         name: Английское имя
         poster: *poster
@@ -177,6 +179,7 @@ ru:
         comment_policies:
           free_comment: Свободное для всех
           members_comment: Только для участников клуба
+        image_upload_policy: Возможность загрузки картинок
         is_censored: Содержит материалы для взрослых (18+)
         logo: Логотип
       club_invite:
@@ -372,6 +375,10 @@ ru:
         anons: анонс
         ongoing: онгоинг
         episode: эпизод
+    club:
+      image_upload_policy:
+        members: Только для участников клуба
+        admins: Только для администрации клуба
     anime_video:
       kind:
         unknown: озвучка

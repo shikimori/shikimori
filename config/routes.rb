@@ -453,7 +453,6 @@ Site::Application.routes.draw do
         get :mangas
         get :characters
         get :images
-        post :upload
 
         get 'edit/:page' => :edit, as: :edit, page: /main|description|links|members|styles/
       end
@@ -468,13 +467,14 @@ Site::Application.routes.draw do
       resource :comments, only: [], module: :clubs do
         get :broadcast
       end
+
+      resources :images, only: [:create, :destroy], module: :clubs
     end
 
     resources :club_invites, only: [] do
       post :accept, on: :member
       post :reject, on: :member
     end
-    resources :images, only: [:destroy]
 
     # statistics
     get 'anime-history' => redirect('/anime-industry')

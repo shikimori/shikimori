@@ -12,21 +12,21 @@
 
       - if can? :upload, resource
         li.upload title="#{t '.upload_image_title'}"
-          = form_tag upload_club_url(resource), method: :post, multipart: true do
+          = form_tag club_images_url(resource), method: :post, multipart: true do
             span = t 'actions.upload_image'
             input type='file' name='image'
 
       - if can? :invite, resource
         li.invite = t '.invite_to_club'
 
-      - if can?(:join, resource) && !resource.joined?(current_user)
+      - if can?(:join, resource) && !resource.member?(current_user)
         li.join
           a[
             href="#{club_club_roles_path resource, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => resource.id}"
             data-method='post'
           ] = t '.join_club'
 
-      - if can?(:leave, resource) && resource.joined?(current_user)
+      - if can?(:leave, resource) && resource.member?(current_user)
         li.leave
           a[
             href="#{club_club_role_path resource, resource.member_role(current_user)}"

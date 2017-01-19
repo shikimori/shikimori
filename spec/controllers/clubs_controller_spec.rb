@@ -102,19 +102,6 @@ describe ClubsController do
     end
   end
 
-  describe '#upload' do
-    include_context :authenticated, :user
-    let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
-    let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
-    before { post :upload, id: club.to_param, image: image }
-
-    it do
-      expect(club.images).to have(1).item
-      expect(club.images.first.uploader).to eq user
-      expect(response).to redirect_to club_url(club)
-    end
-  end
-
   describe '#members' do
     let(:club) { create :club }
     before { get :members, id: club.to_param }

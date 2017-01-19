@@ -56,6 +56,6 @@ private
   end
 
   def joined?
-    errors.add :base, :joined if club.joined? dst
+    errors.add :base, :joined if club.member? dst
   end
 end

@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170116101907) do
+ActiveRecord::Schema.define(version: 20170119163343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
-  enable_extension "pg_stat_statements"
   enable_extension "hstore"
+  enable_extension "pg_stat_statements"
+  enable_extension "unaccent"
 
   create_table "abuse_requests", force: :cascade do |t|
     t.integer  "user_id"
@@ -250,23 +250,23 @@ ActiveRecord::Schema.define(version: 20170116101907) do
   add_index "club_roles", ["user_id", "club_id"], name: "uniq_user_in_group", unique: true, using: :btree
 
   create_table "clubs", force: :cascade do |t|
-    t.string   "name",              limit: 255
-    t.integer  "join_policy",                   default: 1,           null: false
+    t.string   "name",                limit: 255
+    t.integer  "join_policy",                     default: 1,     null: false
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "description"
-    t.string   "logo_file_name",    limit: 255
-    t.string   "logo_content_type", limit: 255
+    t.string   "logo_file_name",      limit: 255
+    t.string   "logo_content_type",   limit: 255
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.string   "upload_policy",     limit: 255, default: "ByMembers"
-    t.integer  "club_roles_count",              default: 0
-    t.boolean  "display_images",                default: true
-    t.integer  "comment_policy",                default: 1,           null: false
-    t.boolean  "is_censored",                   default: false,       null: false
-    t.string   "locale",                                              null: false
+    t.integer  "club_roles_count",                default: 0
+    t.boolean  "display_images",                  default: true
+    t.integer  "comment_policy",                  default: 1,     null: false
+    t.boolean  "is_censored",                     default: false, null: false
+    t.string   "locale",                                          null: false
     t.integer  "style_id"
+    t.string   "image_upload_policy",                             null: false
   end
 
   add_index "clubs", ["style_id"], name: "index_clubs_on_style_id", using: :btree

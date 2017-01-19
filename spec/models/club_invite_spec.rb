@@ -81,7 +81,7 @@ describe ClubInvite do
         let(:status) { :pending }
         it do
           expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.joined?(invite.dst)).to eq true
+          expect(invite.club.member?(invite.dst)).to eq true
           expect(invite.message.read).to eq true
         end
       end
@@ -90,7 +90,7 @@ describe ClubInvite do
         let(:status) { :accepted }
         it do
           expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.joined?(invite.dst)).to eq false
+          expect(invite.club.member?(invite.dst)).to eq false
           expect(invite.message.read).to eq true
         end
       end
@@ -99,7 +99,7 @@ describe ClubInvite do
         let(:status) { :rejected }
         it do
           expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.joined?(invite.dst)).to eq false
+          expect(invite.club.member?(invite.dst)).to eq false
           expect(invite.message.read).to eq true
         end
       end
@@ -113,7 +113,7 @@ describe ClubInvite do
         let(:status) { :pending }
         it do
           expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.joined?(invite.dst)).to eq false
+          expect(invite.club.member?(invite.dst)).to eq false
           expect(invite.message.read).to eq true
         end
       end
@@ -122,7 +122,7 @@ describe ClubInvite do
         let(:status) { :accepted }
         it do
           expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.joined?(invite.dst)).to eq false
+          expect(invite.club.member?(invite.dst)).to eq false
           expect(invite.message.read).to eq true
         end
       end
@@ -131,7 +131,7 @@ describe ClubInvite do
         let(:status) { :rejected }
         it do
           expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.joined?(invite.dst)).to eq false
+          expect(invite.club.member?(invite.dst)).to eq false
           expect(invite.message.read).to eq true
         end
       end

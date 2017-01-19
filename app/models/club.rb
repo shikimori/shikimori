@@ -46,6 +46,10 @@ class Club < ActiveRecord::Base
 
   enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
   enum comment_policy: { free_comment: 1, members_comment: 100 }
+  enumerize :image_upload_policy,
+    in: Types::Club::ImageUploadPolicy.values,
+    predicates: { prefix: true },
+    default: Types::Club::ImageUploadPolicy[:members]
 
   boolean_attribute :censored
 
@@ -80,7 +84,7 @@ class Club < ActiveRecord::Base
     super FixName.call(value, false)
   end
 
-  def joined? user
+  def member? user
     member_role(user).present?
   end
 
