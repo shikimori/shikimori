@@ -1,10 +1,7 @@
 module Types
   module ExternalLink
-    Source = Types::Strict::String.enum(
-      *%w(
-        myanimelist
-        shikimori
-      )
-    )
+    Source = Types::Strict::Symbol
+      .constructor(&:to_sym)
+      .enum(*%i(myanimelist shikimori))
   end
 end

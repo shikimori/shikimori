@@ -8,7 +8,8 @@
     - cache @resource do
       = render 'blocks/upload_progress'
       .container[
-        data-upload_url="#{upload_club_url @resource}"
+        data-upload_url="#{club_images_url @resource}"
+        data-destory_url="#{club_image_url @resource, 'ID'}"
         data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.all_images).to_json}"
       ]
         .grid_sizer

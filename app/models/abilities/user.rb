@@ -125,32 +125,29 @@ class Abilities::User
       !@user.banned? && (club.owner?(@user) || club.admin?(@user))
     end
     can :join, Club do |club|
-      !club.joined?(@user) && (
+      !club.member?(@user) && (
         can?(:manage, club) || club.owner?(@user) ||
         (!club.banned?(@user) && club.free_join?)
       )
     end
     can :invite, Club do |club|
-      club.joined?(@user) && (
+      club.member?(@user) && (
         club.free_join? ||
         (club.admin_invite_join? && (club.admin?(@user) || club.owner?(@user))) ||
         (club.owner_invite_join? && club.owner?(@user))
       )
     end
     can :leave, Club do |club|
-      club.joined? @user
+      club.member? @user
     end
     can :upload, Club do |club|
-      if club.upload_policy == ClubUploadPolicy::ByStaff
-        !@user.banned? && (club.owner?(@user) || club.admin?(@user))
-
-      elsif club.upload_policy == ClubUploadPolicy::ByMembers
-        !@user.banned? && (club.joined?(@user) && club.display_images)
-
-      else
-        raise ArgumentError, club.upload_policy
+      if club.image_upload_policy_members?
+        !@user.banned? && club.member?(@user)
+      elsif club.image_upload_policy_admins?
+        !@user.banned? && club.admin?(@user)
       end
     end
+
 
     can :create, ClubRole do |club_role|
       club_role.user_id == @user.id && can?(:join, club_role.club)
@@ -161,7 +158,7 @@ class Abilities::User
 
     can [:accept, :reject], ClubInvite, dst_id: @user.id
     can :create, ClubInvite do |club_invite|
-      club_invite.src_id == @user.id && club_invite.club.joined?(@user)
+      club_invite.src_id == @user.id && club_invite.club.member?(@user)
     end
   end
 
@@ -213,9 +210,17 @@ class Abilities::User
   end
 
   def other_abilities
-    can :destroy, Image do |image|
-      image.uploader_id == @user.id || can?(:edit, image.owner)
+    can :create, Image do |image|
+      can?(:upload, image.owner) && image.uploader == @user
     end
+
+    can :destroy, Image do |image|
+      !@user.banned? && (
+        (image.owner.member?(@user) && image.uploader == @user) ||
+        image.owner.admin?(@user)
+      )
+    end
+
     can :manage, Device, user_id: @user.id
     can :read, Genre
   end

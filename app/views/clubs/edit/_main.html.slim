@@ -8,13 +8,17 @@
     .c-column.block_m
       .block
         = f.input :name
+        = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
 
+      .block
         = f.input :join_policy, collection: ClubDecorator.join_policy_options, include_blank: false
         = f.input :comment_policy, collection: ClubDecorator.comment_policy_options, include_blank: false
 
       .block
+        .subheadline.m10
+          a.b-link href="#{images_club_url @resource}" = t 'clubs_controller.club_images'
+        = f.input :image_upload_policy, include_blank: false
         = f.input :display_images
-        = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
 
     .c-column.block_m
       = f.input :logo
@@ -25,6 +29,8 @@
           title="#{@resource.name}"
         ]
 
-  .buttons
-    a.cancel href="#{club_url(@resource)}" = t 'actions.cancel'
-    = f.button :magic_submit
+  .cc-2
+    .c-column
+      .buttons
+        a.cancel href="#{club_url @resource}" = t 'actions.cancel'
+        = f.button :magic_submit

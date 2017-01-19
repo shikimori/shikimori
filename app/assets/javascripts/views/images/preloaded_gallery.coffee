@@ -10,12 +10,14 @@ class Images.PreloadedGallery extends View
   DEPLOY_INTERVAL = 100
 
   initialize: ->
-    @can_upload = @$root.data 'can_upload'
-    @can_destroy = @$root.data 'can_destroy'
     @rel = @$root.data 'rel'
     @can_load = true
 
     @$container = @$('.container')
+
+    @can_upload = @$root.data 'can_upload'
+    @can_destroy = @$root.data 'can_destroy'
+    @destroy_url = @$container.data 'destroy_url'
 
     @$root.gallery
       shiki_upload: @$root.data('can_upload')
@@ -32,7 +34,10 @@ class Images.PreloadedGallery extends View
   # loader returned images
   _images_load: (images) =>
     images_html = images.map (image) =>
-      JST[TEMPLATE](image: image, rel: @rel, can_destroy: @can_destroy)
+      JST[TEMPLATE]
+        image: image,
+        rel: @rel
+        destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
 
     $batch = $(images_html.join(''))
     $batch.imagesLoaded @_deploy_batch

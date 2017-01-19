@@ -99,6 +99,10 @@ ru:
     club_characters: Персонажи клуба
     club_images: Картинки клуба
 
+  clubs/images_controller:
+    image_uploaded: Изображение загружено
+    image_deleted: Изображение удалено
+
   club_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"

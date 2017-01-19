@@ -15,17 +15,27 @@ describe ClubBan do
 
     context 'member' do
       let!(:club_role) { create :club_role, user: user, club: club }
-      let!(:outgoing_invite) { create :club_invite, src: user,
-        club: club, dst_id: club.owner_id }
+      let!(:outgoing_invite) do
+        create :club_invite,
+          src: user,
+          club: club,
+          dst_id: club.owner_id
+      end
       before { create :club_ban, club: club, user: user }
 
-      it { expect(club.reload.joined? user).to eq false }
-      it { expect(club.invites).to be_empty }
+      it do
+        expect(club.reload.member? user).to eq false
+        expect(club.invites).to be_empty
+      end
     end
 
     context 'not a member' do
-      let!(:incoming_invite) { create :club_invite, dst: user,
-        club: club, src_id: club.owner_id }
+      let!(:incoming_invite) do
+        create :club_invite,
+          dst: user,
+          club: club,
+          src_id: club.owner_id
+      end
       before { create :club_ban, club: club, user: user }
       it { expect(club.invites).to be_empty }
     end

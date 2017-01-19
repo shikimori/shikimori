@@ -179,6 +179,7 @@ en:
         comment_policies:
           free_comment: Unrestricted
           members_comment: Club Members Only
+        image_upload_policy: Image upload policy
         is_censored: Contains adult content (18+)
         logo: Logo
       club_invite:
@@ -374,6 +375,10 @@ en:
         ongoing: ongoing
         released: released
         episode: episode
+    club:
+      image_upload_policy:
+        members: Club Members Only
+        admins: Club Admins Only
     anime_video:
       kind:
         unknown: dub

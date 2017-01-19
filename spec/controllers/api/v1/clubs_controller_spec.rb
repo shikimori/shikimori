@@ -86,7 +86,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     before { post :join, id: club.id, format: :json }
 
     it do
-      expect(club.joined? user).to be true
+      expect(club.member? user).to be true
       expect(response).to have_http_status :success
     end
   end
@@ -97,7 +97,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     before { post :leave, id: club.id, format: :json }
 
     it do
-      expect(club.joined? user).to be false
+      expect(club.member? user).to be false
       expect(response).to have_http_status :success
     end
   end

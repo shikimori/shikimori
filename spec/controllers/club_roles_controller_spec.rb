@@ -6,7 +6,7 @@ describe ClubRolesController do
     before { post :create, club_id: club.id, club_role: { club_id: club.id, user_id: user.id } }
 
     it do
-      expect(club.joined? user).to be true
+      expect(club.member? user).to be true
       expect(response).to redirect_to club_url(club)
     end
   end
@@ -16,7 +16,7 @@ describe ClubRolesController do
     before { post :destroy, club_id: club.id, id: club_role.id }
 
     it do
-      expect(club.joined? user).to be false
+      expect(club.member? user).to be false
       expect(response).to redirect_to club_url(club)
     end
   end

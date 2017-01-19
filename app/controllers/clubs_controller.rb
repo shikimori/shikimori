@@ -16,9 +16,9 @@ class ClubsController < ShikimoriController
     :name,
     :join_policy,
     :description,
-    :upload_policy,
     :display_images,
     :comment_policy,
+    :image_upload_policy,
     :logo,
     :is_censored,
     anime_ids: [],
@@ -110,22 +110,6 @@ class ClubsController < ShikimoriController
   def images
     noindex
     page_title i18n_t('club_images')
-  end
-
-  def upload
-    image = Image.create!(
-      owner: @resource,
-      uploader: current_user,
-      image: params[:image]
-    )
-
-    if request.xhr?
-      render json: {
-        html: render_to_string(partial: 'images/image', object: image, locals: { rel: 'club' }, formats: :html)
-      }
-    else
-      redirect_to club_url(@resource), notice: t('image_uploaded')
-    end
   end
 
 private
