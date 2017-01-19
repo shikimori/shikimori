@@ -468,7 +468,7 @@ Site::Application.routes.draw do
         get :broadcast
       end
 
-      resources :images, only: [:create, :destroy], module: :clubs
+      resources :club_images, only: [:create, :destroy], module: :clubs
     end
 
     resources :club_invites, only: [] do

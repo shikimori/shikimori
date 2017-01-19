@@ -12,7 +12,7 @@
 
       - if can? :upload, resource
         li.upload title="#{t '.upload_image_title'}"
-          = form_tag club_images_url(resource), method: :post, multipart: true do
+          = form_tag club_club_images_url(resource), method: :post, multipart: true do
             span = t 'actions.upload_image'
             input type='file' name='image'
 

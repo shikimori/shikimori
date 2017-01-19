@@ -1,4 +1,4 @@
-class ImageSerializer < ActiveModel::Serializer
+class ClubImageSerializer < ActiveModel::Serializer
   attributes :id, :original_url, :main_url, :preview_url
   # NOTE: DEPRECATED. REMOFE AFTER 2017-06-01
   attributes :original, :main, :preview

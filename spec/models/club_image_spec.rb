@@ -1,14 +1,14 @@
-describe Image do
+describe ClubImage do
   describe 'relations' do
-    it { is_expected.to belong_to :uploader }
-    it { is_expected.to belong_to :owner }
+    it { is_expected.to belong_to :club }
+    it { is_expected.to belong_to :user }
   end
 
   describe 'validations' do
     it { is_expected.to have_attached_file :image }
     it { is_expected.to validate_attachment_presence :image }
-    it { is_expected.to validate_presence_of :uploader }
-    it { is_expected.to validate_presence_of :owner }
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :club }
   end
 
   describe 'permissions' do
@@ -22,7 +22,7 @@ describe Image do
         image_upload_policy: image_upload_policy,
         bans: [club_ban].compact
     end
-    let(:image) { build_stubbed :image, uploader: image_uploader, owner: club }
+    let(:image) { build_stubbed :image, user: image_uploader, club: club }
     let(:image_uploader) { user }
     let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
     let(:club_role) {}

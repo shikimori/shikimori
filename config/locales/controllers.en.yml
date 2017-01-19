@@ -99,7 +99,7 @@ en:
     club_characters: Club characters
     club_images: Club images
 
-  clubs/images_controller:
+  clubs/club_images_controller:
     image_uploaded: Image uploaded
     image_deleted: Image deleted
 

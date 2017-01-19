@@ -31,7 +31,7 @@ describe Api::V1::ClubsController, :show_in_doc do
       club.animes << create(:anime)
       club.mangas << create(:manga)
       club.characters << create(:character)
-      club.images << create(:image, uploader: build_stubbed(:user), owner: club)
+      club.images << create(:club_image, user: build_stubbed(:user), club: club)
     end
     let(:make_request) { get :show, id: club.id, format: :json }
 
@@ -75,7 +75,7 @@ describe Api::V1::ClubsController, :show_in_doc do
   end
 
   describe '#images' do
-    before { club.images << create(:image, uploader: build_stubbed(:user), owner: club) }
+    before { club.images << create(:club_image, user: build_stubbed(:user), club: club) }
     before { get :images, id: club.id, format: :json }
 
     it { expect(response).to have_http_status :success }

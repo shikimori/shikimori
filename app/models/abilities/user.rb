@@ -210,14 +210,14 @@ class Abilities::User
   end
 
   def other_abilities
-    can :create, Image do |image|
-      can?(:upload, image.owner) && image.uploader == @user
+    can :create, ClubImage do |image|
+      can?(:upload, image.club) && image.user == @user
     end
 
-    can :destroy, Image do |image|
+    can :destroy, ClubImage do |image|
       !@user.banned? && (
-        (image.owner.member?(@user) && image.uploader == @user) ||
-        image.owner.admin?(@user)
+        (image.club.member?(@user) && image.user == @user) ||
+        image.club.admin?(@user)
       )
     end
 

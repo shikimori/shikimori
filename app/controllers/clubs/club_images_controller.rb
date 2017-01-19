@@ -1,12 +1,11 @@
-# class Clubs::ImagesController < ClubsController
-class Clubs::ImagesController < ShikimoriController
+class Clubs::ClubImagesController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource only: [:destroy]
 
   def create
-    image = Image.new(
-      owner: @club,
-      uploader: current_user,
+    image = ClubImage.new(
+      club: @club,
+      user: current_user,
       image: params[:image]
     )
     authorize! :create, image
