@@ -176,12 +176,21 @@ class DynamicElements.Topic extends ShikiEditable
             count: count
 
           comment_count = Math.min(limit, count)
-          comment_word = p(
-            comment_count,
-            t("#{I18N_KEY}.comment.one"),
-            t("#{I18N_KEY}.comment.few"),
-            t("#{I18N_KEY}.comment.many")
-          )
+          comment_word =
+            if @$comments_loader.data('only-summaries-shown')
+              p(
+                comment_count,
+                t("#{I18N_KEY}.summary.one"),
+                t("#{I18N_KEY}.summary.few"),
+                t("#{I18N_KEY}.summary.many")
+              )
+            else
+              p(
+                comment_count,
+                t("#{I18N_KEY}.comment.one"),
+                t("#{I18N_KEY}.comment.few"),
+                t("#{I18N_KEY}.comment.many")
+              )
           of_total_comments =
             if count > limit
               "#{t("#{I18N_KEY}.of")} #{count}"
