@@ -38,6 +38,12 @@ describe Club do
   describe 'enumerize' do
     it do
       is_expected
+        .to enumerize(:join_policy)
+        .in(*Types::Club::JoinPolicy.values)
+      is_expected
+        .to enumerize(:comment_policy)
+        .in(*Types::Club::CommentPolicy.values)
+      is_expected
         .to enumerize(:image_upload_policy)
         .in(*Types::Club::ImageUploadPolicy.values)
     end
@@ -189,7 +195,7 @@ describe Club do
   describe 'permissions' do
     let(:club) { build_stubbed :club, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user, :day_registered }
-    let(:join_policy) { :free_join }
+    let(:join_policy) { Types::Club::JoinPolicy[:free] }
 
     subject { Ability.new user }
 
@@ -221,18 +227,18 @@ describe Club do
       end
 
       describe 'invite' do
-        context 'free_join' do
-          let(:join_policy) { :free_join }
+        context 'free' do
+          let(:join_policy) { Types::Club::JoinPolicy[:free] }
           it { is_expected.to be_able_to :invite, club }
         end
 
-        context 'admin_invite_join' do
-          let(:join_policy) { :admin_invite_join }
+        context 'admin_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
           it { is_expected.to be_able_to :invite, club }
         end
 
-        context 'owner_invite_join' do
-          let(:join_policy) { :owner_invite_join }
+        context 'owner_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
           it { is_expected.to be_able_to :invite, club }
         end
       end
@@ -242,17 +248,17 @@ describe Club do
 
         describe 'join' do
           context 'free_join' do
-            let(:join_policy) { :free_join }
+            let(:join_policy) { Types::Club::JoinPolicy[:free] }
             it { is_expected.to be_able_to :join, club }
           end
 
-          context 'admin_invite_join' do
-            let(:join_policy) { :admin_invite_join }
+          context 'admin_invite' do
+            let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
             it { is_expected.to be_able_to :join, club }
           end
 
-          context 'owner_invite_join' do
-            let(:join_policy) { :owner_invite_join }
+          context 'owner_invite' do
+            let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
             it { is_expected.to be_able_to :join, club }
           end
         end
@@ -277,18 +283,18 @@ describe Club do
       end
 
       describe 'invite' do
-        context 'free_join' do
-          let(:join_policy) { :free_join }
+        context 'free' do
+          let(:join_policy) { Types::Club::JoinPolicy[:free] }
           it { is_expected.to be_able_to :invite, club }
         end
 
-        context 'admin_invite_join' do
-          let(:join_policy) { :admin_invite_join }
+        context 'admin_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
           it { is_expected.to be_able_to :invite, club }
         end
 
-        context 'owner_invite_join' do
-          let(:join_policy) { :owner_invite_join }
+        context 'owner_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
           it { is_expected.to_not be_able_to :invite, club }
         end
       end
@@ -343,18 +349,18 @@ describe Club do
       end
 
       describe 'invite' do
-        context 'free_join' do
-          let(:join_policy) { :free_join }
+        context 'free' do
+          let(:join_policy) { Types::Club::JoinPolicy[:free] }
           it { is_expected.to be_able_to :invite, club }
         end
 
-        context 'admin_invite_join' do
-          let(:join_policy) { :admin_invite_join }
+        context 'admin_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
           it { is_expected.to_not be_able_to :invite, club }
         end
 
-        context 'owner_invite_join' do
-          let(:join_policy) { :owner_invite_join }
+        context 'owner_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
           it { is_expected.to_not be_able_to :invite, club }
         end
       end
@@ -384,18 +390,18 @@ describe Club do
       end
 
       context 'not banned in club' do
-        context 'free_join' do
-          let(:join_policy) { :free_join }
+        context 'free' do
+          let(:join_policy) { Types::Club::JoinPolicy[:free] }
           it { is_expected.to be_able_to :join, club }
         end
 
-        context 'admin_invite_join' do
-          let(:join_policy) { :admin_invite_join }
+        context 'admin_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
           it { is_expected.to_not be_able_to :join, club }
         end
 
-        context 'owner_invite_join' do
-          let(:join_policy) { :owner_invite_join }
+        context 'owner_invite' do
+          let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
           it { is_expected.to_not be_able_to :join, club }
         end
       end

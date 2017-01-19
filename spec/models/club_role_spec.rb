@@ -30,19 +30,21 @@ describe ClubRole do
     let!(:club_role) { create :club_role, club_id: club.id, user_id: user.id }
 
     it { expect(invite.reload.status).to eq ClubInviteStatus::Accepted }
-    it { expect{club_role.destroy}.to change(ClubInvite, :count).by -1 }
+    it { expect { club_role.destroy }.to change(ClubInvite, :count).by -1 }
   end
 
   describe 'permissions' do
     let(:club) { build_stubbed :club, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user }
+    let(:join_policy) { Types::Club::JoinPolicy[:free] }
+
     subject { Ability.new user }
 
     describe 'join' do
       let(:club_role) { build :club_role, user: user, club: club }
 
-      context 'owner_invite_join' do
-        let(:join_policy) { :owner_invite_join }
+      context 'owner_invite' do
+        let(:join_policy) { Types::Club::JoinPolicy[:owner_invite] }
 
         context 'club_owner' do
           let(:club) { build_stubbed :club, owner: user }
@@ -54,8 +56,8 @@ describe ClubRole do
         end
       end
 
-      context 'admin_invite_join' do
-        let(:join_policy) { :admin_invite_join }
+      context 'admin_invite' do
+        let(:join_policy) { Types::Club::JoinPolicy[:admin_invite] }
 
         context 'club_owner' do
           let(:club) { build_stubbed :club, owner: user }
@@ -67,8 +69,8 @@ describe ClubRole do
         end
       end
 
-      context 'free_join_policy' do
-        let(:join_policy) { :free_join }
+      context 'free' do
+        let(:join_policy) { Types::Club::JoinPolicy[:free] }
 
         context 'common_user' do
           it { is_expected.to be_able_to :create, club_role }
@@ -87,8 +89,6 @@ describe ClubRole do
     end
 
     describe 'leave' do
-      let(:join_policy) { :free_join }
-
       context 'club_member' do
         let(:club_role) { build_stubbed :club_role, user: user, club: club }
         it { is_expected.to be_able_to :destroy, club_role }

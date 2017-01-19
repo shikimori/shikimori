@@ -1,10 +1,12 @@
 FactoryGirl.define do
   factory :club do
     sequence(:name) { |n| "club_#{n}" }
-    join_policy :free_join
-
-    association :owner, factory: :user
+    owner { seed :user }
     description ''
+
+    join_policy Types::Club::JoinPolicy[:free]
+    comment_policy Types::Club::CommentPolicy[:free]
+    image_upload_policy Types::Club::ImageUploadPolicy[:members]
 
     locale :ru
 
@@ -22,9 +24,6 @@ FactoryGirl.define do
     trait :with_topics do
       after(:create) { |club| club.generate_topics club.locale }
     end
-
-    trait(:free_join) { join_policy :free_join }
-    trait(:owner_invite_join) { join_policy :owner_invite_join }
 
     trait :linked_anime do
       after :build do |club|

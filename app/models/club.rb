@@ -44,8 +44,16 @@ class Club < ActiveRecord::Base
   has_many :bans, class_name: ClubBan.name, dependent: :destroy
   has_many :banned_users, through: :bans, source: :user
 
-  enum join_policy: { free_join: 1, admin_invite_join: 50, owner_invite_join: 100 }
-  enum comment_policy: { free_comment: 1, members_comment: 100 }
+  enumerize :join_policy,
+    in: Types::Club::JoinPolicy.values,
+    predicates: { prefix: true },
+    default: Types::Club::JoinPolicy[:free]
+
+  enumerize :comment_policy,
+    in: Types::Club::CommentPolicy.values,
+    predicates: { prefix: true },
+    default: Types::Club::CommentPolicy[:free]
+
   enumerize :image_upload_policy,
     in: Types::Club::ImageUploadPolicy.values,
     predicates: { prefix: true },

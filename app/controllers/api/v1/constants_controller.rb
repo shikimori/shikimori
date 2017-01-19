@@ -29,8 +29,9 @@ class Api::V1::ConstantsController < Api::V1Controller
   api :GET, '/constants/club'
   def club
     render json: {
-      join_policy: Club.join_policies.keys,
-      comment_policy: Club.comment_policies.keys
+      join_policy: Club.join_policy.values,
+      comment_policy: Club.comment_policy.values,
+      image_upload_policy: Club.image_upload_policy.values
     }
   end
 

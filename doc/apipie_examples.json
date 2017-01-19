@@ -39,7 +39,7 @@
   "User Ignore#create": [
     {
       "verb": "POST",
-      "path": "/api/v2/users/500053/ignore",
+      "path": "/api/v2/users/500040/ignore",
       "versions": [
         "2.0"
       ],
@@ -47,7 +47,7 @@
       "request_data": {
       },
       "response_data": {
-        "user_id": "500053",
+        "user_id": "500040",
         "is_ignored": true
       },
       "code": "200",
@@ -58,14 +58,14 @@
   "User Ignore#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/v2/users/500054/ignore",
+      "path": "/api/v2/users/500041/ignore",
       "versions": [
         "2.0"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "user_id": "500054",
+        "user_id": "500041",
         "is_ignored": false
       },
       "code": "200",
@@ -335,8 +335,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/a68ae40d29fa7a1dcfab6ac7f7118443c6a19b5b.jpg?1484049600",
-          "preview": "/system/screenshots/x332/a68ae40d29fa7a1dcfab6ac7f7118443c6a19b5b.jpg?1484049600"
+          "original": "/system/screenshots/original/1cca7c5ecfa7ba57a8ba7908edd7db6aa4565ee5.jpg?1484049600",
+          "preview": "/system/screenshots/x332/1cca7c5ecfa7ba57a8ba7908edd7db6aa4565ee5.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -539,7 +539,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "zBW+dNva0vvoSLQSy9JCwjt8eADWc5EcBB1Mp1+dGoH2x41CzwXTFYjKAkKclUDtU18yBjUev/KiyRi/2CkaNw=="
+        "authenticity_token": "k3w002A/3aBTEboeUKgUyu/yeotmDLlcsznX79eZIeGanqrYP02dj9ng/TY2brci91INwSPND3f3svzDFYlyKw=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -685,7 +685,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2016-12-31T00:00:00.000+00:00",
+          "next_episode_at": "2017-01-05T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -702,7 +702,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2016-12-31",
+            "aired_on": "2017-01-05",
             "released_on": null
           }
         }
@@ -892,8 +892,8 @@
             "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
-          "join_policy": "free_join",
-          "comment_policy": "free_comment"
+          "join_policy": "free",
+          "comment_policy": "free"
         },
         {
           "id": 2,
@@ -906,8 +906,8 @@
             "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
-          "join_policy": "free_join",
-          "comment_policy": "free_comment"
+          "join_policy": "free",
+          "comment_policy": "free"
         }
       ],
       "code": "200",
@@ -992,8 +992,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500016,
-          "nickname": "user_21",
+          "id": 500007,
+          "nickname": "user_12",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1032,8 +1032,8 @@
           "x48": "/assets/globals/missing_x48_x48.jpg"
         },
         "is_censored": false,
-        "join_policy": "free_join",
-        "comment_policy": "free_comment",
+        "join_policy": "free",
+        "comment_policy": "free",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
         "mangas": [
@@ -1077,7 +1077,7 @@
         "members": [
           {
             "id": 23456791,
-            "nickname": "user_11",
+            "nickname": "user_8",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1161,7 +1161,7 @@
         "can_be_edited": true,
         "user": {
           "id": 23456797,
-          "nickname": "user_30",
+          "nickname": "user_18",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1221,7 +1221,7 @@
           "can_be_edited": false,
           "user": {
             "id": 23456796,
-            "nickname": "user_29",
+            "nickname": "user_17",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1249,7 +1249,7 @@
           "can_be_edited": false,
           "user": {
             "id": 23456796,
-            "nickname": "user_29",
+            "nickname": "user_17",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1292,7 +1292,7 @@
         "can_be_edited": false,
         "user": {
           "id": 23456795,
-          "nickname": "user_28",
+          "nickname": "user_16",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1339,7 +1339,7 @@
         "can_be_edited": true,
         "user": {
           "id": 23456798,
-          "nickname": "user_31",
+          "nickname": "user_19",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1398,13 +1398,17 @@
       "request_data": null,
       "response_data": {
         "join_policy": [
-          "free_join",
-          "admin_invite_join",
-          "owner_invite_join"
+          "free",
+          "admin_invite",
+          "owner_invite"
         ],
         "comment_policy": [
-          "free_comment",
-          "members_comment"
+          "free",
+          "members"
+        ],
+        "image_upload_policy": [
+          "members",
+          "admins"
         ]
       },
       "code": "200",
@@ -2141,7 +2145,7 @@
   "dialogs#destroy": [
     {
       "verb": "DELETE",
-      "path": "/api/dialogs/user_45",
+      "path": "/api/dialogs/user_33",
       "versions": [
         "1.0"
       ],
@@ -2156,7 +2160,7 @@
     },
     {
       "verb": "DELETE",
-      "path": "/api/dialogs/user_47",
+      "path": "/api/dialogs/user_35",
       "versions": [
         "1.0"
       ],
@@ -2182,8 +2186,8 @@
       "response_data": [
         {
           "target_user": {
-            "id": 500020,
-            "nickname": "user_41",
+            "id": 500008,
+            "nickname": "user_29",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2215,7 +2219,7 @@
   "dialogs#show": [
     {
       "verb": "GET",
-      "path": "/api/dialogs/user_43",
+      "path": "/api/dialogs/user_31",
       "versions": [
         "1.0"
       ],
@@ -2231,8 +2235,8 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": null,
           "from": {
-            "id": 500021,
-            "nickname": "user_43",
+            "id": 500009,
+            "nickname": "user_31",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2247,7 +2251,7 @@
           },
           "to": {
             "id": 23456808,
-            "nickname": "user_42",
+            "nickname": "user_30",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2271,7 +2275,7 @@
           "linked": null,
           "from": {
             "id": 23456808,
-            "nickname": "user_42",
+            "nickname": "user_30",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2285,8 +2289,8 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "to": {
-            "id": 500021,
-            "nickname": "user_43",
+            "id": 500009,
+            "nickname": "user_31",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2352,7 +2356,7 @@
           "url": "/forum/cosplay"
         },
         {
-          "id": 52167,
+          "id": 45762,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -2770,7 +2774,7 @@
       },
       "response_data": {
         "id": 10,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_55\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" title=\"Цитировать\"></span><span class=\"item-reply\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-type=\"html\" title=\"Изменить\"></span><span class=\"item-delete\" title=\"Удалить\"></span><span class=\"item-cancel\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_55\"><img alt=\"user_55\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_55\" title=\"user_55\">user_55</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-disabled=\"false\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_43\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" title=\"Цитировать\"></span><span class=\"item-reply\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-type=\"html\" title=\"Изменить\"></span><span class=\"item-delete\" title=\"Удалить\"></span><span class=\"item-cancel\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_43\"><img alt=\"user_43\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_43\" title=\"user_43\">user_43</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-disabled=\"false\"></div></div></div></div>",
         "notice": "Сообщение отправлено"
       },
       "code": "200",
@@ -2803,7 +2807,7 @@
         "linked": null,
         "from": {
           "id": 23456818,
-          "nickname": "user_56",
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2818,7 +2822,7 @@
         },
         "to": {
           "id": 23456818,
-          "nickname": "user_56",
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3007,7 +3011,7 @@
         "linked": null,
         "from": {
           "id": 23456815,
-          "nickname": "user_53",
+          "nickname": "user_41",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3033,7 +3037,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-14T23:16:03.358+03:00"
+          "last_online_at": "2017-01-19T21:30:24.197+03:00"
         }
       },
       "code": "200",
@@ -3057,7 +3061,7 @@
       },
       "response_data": {
         "id": 12,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_59\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" title=\"Цитировать\"></span><span class=\"item-reply\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-type=\"html\" title=\"Изменить\"></span><span class=\"item-delete\" title=\"Удалить\"></span><span class=\"item-cancel\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_59\"><img alt=\"user_59\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_59\" title=\"user_59\">user_59</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-disabled=\"false\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_47\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" title=\"Цитировать\"></span><span class=\"item-reply\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-type=\"html\" title=\"Изменить\"></span><span class=\"item-delete\" title=\"Удалить\"></span><span class=\"item-cancel\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_47\"><img alt=\"user_47\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_47\" title=\"user_47\">user_47</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-disabled=\"false\"></div></div></div></div>",
         "notice": "Сообщение изменено"
       },
       "code": "200",
@@ -3087,7 +3091,7 @@
         "linked": null,
         "from": {
           "id": 23456822,
-          "nickname": "user_60",
+          "nickname": "user_48",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3102,7 +3106,7 @@
         },
         "to": {
           "id": 23456822,
-          "nickname": "user_60",
+          "nickname": "user_48",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3346,14 +3350,14 @@
       "query": null,
       "request_data": {
         "user": {
-          "nickname": "user_73",
+          "nickname": "user_61",
           "password": "123456"
         }
       },
       "response_data": {
-        "id": 500029,
-        "nickname": "user_73",
-        "email": "email79@factory.com",
+        "id": 500017,
+        "nickname": "user_61",
+        "email": "email67@factory.com",
         "avatar": "/assets/globals/missing_avatar/x32.png"
       },
       "code": "200",
@@ -3371,7 +3375,7 @@
       "query": "",
       "request_data": null,
       "response_data": [
-        500030
+        500018
       ],
       "code": "200",
       "show_in_doc": 1,
@@ -3615,7 +3619,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-14T23:16:03.358+03:00"
+            "last_online_at": "2017-01-19T21:30:24.197+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3666,7 +3670,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-14T23:16:03.358+03:00"
+          "last_online_at": "2017-01-19T21:30:24.197+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3704,7 +3708,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-14T23:16:03.358+03:00"
+            "last_online_at": "2017-01-19T21:30:24.197+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -3799,7 +3803,7 @@
         "rewatches": 5,
         "user": {
           "id": 23456840,
-          "nickname": "user_84",
+          "nickname": "user_72",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3969,7 +3973,7 @@
         "rewatches": 0,
         "user": {
           "id": 23456842,
-          "nickname": "user_86",
+          "nickname": "user_74",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4143,7 +4147,7 @@
         "rewatches": 5,
         "user": {
           "id": 23456841,
-          "nickname": "user_85",
+          "nickname": "user_73",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4222,7 +4226,7 @@
   "users#anime_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/500041/anime_rates",
+      "path": "/api/users/500029/anime_rates",
       "versions": [
         "1.0"
       ],
@@ -4240,8 +4244,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 500041,
-            "nickname": "user_92",
+            "id": 500029,
+            "nickname": "user_80",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4283,7 +4287,7 @@
   "users#anime_video_reports": [
     {
       "verb": "GET",
-      "path": "/api/users/500050/anime_video_reports",
+      "path": "/api/users/500037/anime_video_reports",
       "versions": [
         "1.0"
       ],
@@ -4309,7 +4313,7 @@
             "author_name": null
           },
           "user": {
-            "id": 500050,
+            "id": 500037,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4334,7 +4338,7 @@
   "users#bans": [
     {
       "verb": "GET",
-      "path": "/api/users/500049/bans",
+      "path": "/api/users/500036/bans",
       "versions": [
         "1.0"
       ],
@@ -4343,24 +4347,24 @@
       "response_data": [
         {
           "id": 3,
-          "user_id": 500049,
+          "user_id": 500036,
           "comment": {
             "id": 10,
             "commentable_id": 82468,
             "commentable_type": "Topic",
             "body": "comment_body_9\n\n[ban=3]",
-            "user_id": 500049,
+            "user_id": 500036,
             "created_at": "2017-01-10T15:00:00.000+03:00",
             "updated_at": "2017-01-10T15:00:00.000+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
-          "moderator_id": 500049,
+          "moderator_id": 500036,
           "reason": "moderator comment",
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 500049,
+            "id": 500036,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4375,7 +4379,7 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "moderator": {
-            "id": 500049,
+            "id": 500036,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4399,7 +4403,7 @@
   "users#clubs": [
     {
       "verb": "GET",
-      "path": "/api/users/500044/clubs",
+      "path": "/api/users/500031/clubs",
       "versions": [
         "1.0"
       ],
@@ -4417,8 +4421,8 @@
             "x48": "/assets/globals/missing_x48_x48.jpg"
           },
           "is_censored": false,
-          "join_policy": "free_join",
-          "comment_policy": "free_comment"
+          "join_policy": "free",
+          "comment_policy": "free"
         }
       ],
       "code": "200",
@@ -4508,7 +4512,7 @@
   "users#friends": [
     {
       "verb": "GET",
-      "path": "/api/users/500040/friends",
+      "path": "/api/users/500028/friends",
       "versions": [
         "1.0"
       ],
@@ -4516,8 +4520,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500039,
-          "nickname": "user_90",
+          "id": 500027,
+          "nickname": "user_78",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4539,7 +4543,7 @@
   "users#history": [
     {
       "verb": "GET",
-      "path": "/api/users/500048/history",
+      "path": "/api/users/500035/history",
       "versions": [
         "1.0"
       ],
@@ -4592,8 +4596,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500031,
-          "nickname": "Test1",
+          "id": 500020,
+          "nickname": "Test2",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4607,8 +4611,8 @@
           "last_online_at": "2017-01-10T15:00:00.000+03:00"
         },
         {
-          "id": 500032,
-          "nickname": "Test2",
+          "id": 500021,
+          "nickname": "Test3",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4630,14 +4634,14 @@
   "users#info": [
     {
       "verb": "GET",
-      "path": "/api/users/500035/info",
+      "path": "/api/users/500023/info",
       "versions": [
         "1.0"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500035,
+        "id": 500023,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4663,7 +4667,7 @@
   "users#manga_rates": [
     {
       "verb": "GET",
-      "path": "/api/users/500042/manga_rates",
+      "path": "/api/users/500030/manga_rates",
       "versions": [
         "1.0"
       ],
@@ -4681,8 +4685,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 500042,
-            "nickname": "user_93",
+            "id": 500030,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4724,7 +4728,7 @@
   "users#messages": [
     {
       "verb": "GET",
-      "path": "/api/users/500045/messages",
+      "path": "/api/users/500032/messages",
       "versions": [
         "1.0"
       ],
@@ -4761,8 +4765,8 @@
             "released_on": null
           },
           "from": {
-            "id": 500046,
-            "nickname": "user_96",
+            "id": 500033,
+            "nickname": "user_83",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4776,7 +4780,7 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "to": {
-            "id": 500045,
+            "id": 500032,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4800,14 +4804,14 @@
   "users#show": [
     {
       "verb": "GET",
-      "path": "/api/users/500034",
+      "path": "/api/users/500022",
       "versions": [
         "1.0"
       ],
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500034,
+        "id": 500022,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -5048,7 +5052,7 @@
   "users#unread_messages": [
     {
       "verb": "GET",
-      "path": "/api/users/500047/unread_messages",
+      "path": "/api/users/500034/unread_messages",
       "versions": [
         "1.0"
       ],
@@ -5074,7 +5078,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500036,
+        "id": 500024,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -5105,7 +5109,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500037,
+        "id": 500025,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -5136,7 +5140,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500038,
+        "id": 500026,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
