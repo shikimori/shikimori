@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user_image do
-    image { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
+    image { open "#{Rails.root}/spec/images/anime.jpg" }
     user { seed :user }
     width 1000
     height 1000

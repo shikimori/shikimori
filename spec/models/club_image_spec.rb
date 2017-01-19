@@ -22,7 +22,7 @@ describe ClubImage do
         image_upload_policy: image_upload_policy,
         bans: [club_ban].compact
     end
-    let(:image) { build_stubbed :image, user: image_uploader, club: club }
+    let(:image) { build_stubbed :club_image, user: image_uploader, club: club }
     let(:image_uploader) { user }
     let(:image_upload_policy) { Types::Club::ImageUploadPolicy[:members] }
     let(:club_role) {}
