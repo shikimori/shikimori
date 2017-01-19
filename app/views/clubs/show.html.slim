@@ -23,8 +23,8 @@
       ]
         = render 'blocks/upload_progress'
         .container[
-          data-upload_url="#{club_images_url @resource}"
-          data-destroy_url="#{club_image_url @resource, 'ID'}"
+          data-upload_url="#{club_club_images_url @resource}"
+          data-destroy_url="#{club_club_image_url @resource, 'ID'}"
           data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.images(12)).to_json}"
         ]
           .grid_sizer

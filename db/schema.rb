@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119175453) do
+ActiveRecord::Schema.define(version: 20170119184338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -216,6 +216,17 @@ ActiveRecord::Schema.define(version: 20170119175453) do
 
   add_index "club_bans", ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true, using: :btree
   add_index "club_bans", ["user_id"], name: "index_club_bans_on_user_id", using: :btree
+
+  create_table "club_images", force: :cascade do |t|
+    t.integer  "club_id",                        null: false
+    t.integer  "user_id",                        null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "club_invites", force: :cascade do |t|
     t.integer  "club_id"
@@ -530,20 +541,6 @@ ActiveRecord::Schema.define(version: 20170119175453) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "images", force: :cascade do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type",         limit: 255
-    t.integer  "uploader_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-  end
-
-  add_index "images", ["owner_type", "owner_id"], name: "index_images_on_owner_type_and_owner_id", using: :btree
 
   create_table "manga_chapters", force: :cascade do |t|
     t.string   "name",       limit: 255

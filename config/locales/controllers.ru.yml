@@ -99,7 +99,7 @@ ru:
     club_characters: Персонажи клуба
     club_images: Картинки клуба
 
-  clubs/images_controller:
+  clubs/club_images_controller:
     image_uploaded: Изображение загружено
     image_deleted: Изображение удалено
 

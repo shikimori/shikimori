@@ -1,6 +1,6 @@
-class Image < ActiveRecord::Base
-  belongs_to :uploader, class_name: User.name, foreign_key: :uploader_id
-  belongs_to :owner, polymorphic: true, touch: true
+class ClubImage < ActiveRecord::Base
+  belongs_to :club, touch: true
+  belongs_to :user
 
   has_attached_file :image,
     styles: {
@@ -13,7 +13,7 @@ class Image < ActiveRecord::Base
   validates :image,
     attachment_presence: true,
     attachment_content_type: { content_type: /\Aimage/ }
-  validates :uploader, :owner, presence: true
+  validates :club, :user, presence: true
 
   def to_param
     "#{id}-#{updated_at.to_i}"

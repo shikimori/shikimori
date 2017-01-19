@@ -335,8 +335,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/1cca7c5ecfa7ba57a8ba7908edd7db6aa4565ee5.jpg?1484049600",
-          "preview": "/system/screenshots/x332/1cca7c5ecfa7ba57a8ba7908edd7db6aa4565ee5.jpg?1484049600"
+          "original": "/system/screenshots/original/68ef84f36290535193aad0d4df06e60cb25d7995.jpg?1484049600",
+          "preview": "/system/screenshots/x332/68ef84f36290535193aad0d4df06e60cb25d7995.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -539,7 +539,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "k3w002A/3aBTEboeUKgUyu/yeotmDLlcsznX79eZIeGanqrYP02dj9ng/TY2brci91INwSPND3f3svzDFYlyKw=="
+        "authenticity_token": "KyHygQXgTamthYgIchG+FAft3/YtPbIaUQj5MIx5hivUIjHvEEFbC15SN3EMUWt5C439ualV0z/6Nf0mHrxVhg=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -2356,7 +2356,7 @@
           "url": "/forum/cosplay"
         },
         {
-          "id": 45762,
+          "id": 80325,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3037,7 +3037,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-19T21:30:24.197+03:00"
+          "last_online_at": "2017-01-19T21:52:42.136+03:00"
         }
       },
       "code": "200",
@@ -3619,7 +3619,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-19T21:30:24.197+03:00"
+            "last_online_at": "2017-01-19T21:52:42.136+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3670,7 +3670,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-19T21:30:24.197+03:00"
+          "last_online_at": "2017-01-19T21:52:42.136+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3708,7 +3708,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-19T21:30:24.197+03:00"
+            "last_online_at": "2017-01-19T21:52:42.136+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,

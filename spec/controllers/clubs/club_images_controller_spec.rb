@@ -1,4 +1,4 @@
-describe Clubs::ImagesController do
+describe Clubs::ClubImagesController do
   include_context :authenticated, :user
   let(:club) { create :club, owner: user }
   let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
@@ -9,13 +9,13 @@ describe Clubs::ImagesController do
 
     it do
       expect(club.images).to have(1).item
-      expect(club.images.first.uploader).to eq user
+      expect(club.images.first.user).to eq user
       expect(response).to redirect_to club_url(club)
     end
   end
 
   describe 'destroy' do
-    let(:image) { create :image, uploader: user, owner: club }
+    let(:image) { create :club_image, user: user, club: club }
     before { delete :destroy, club_id: club.id, id: image.id }
 
     it do
