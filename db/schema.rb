@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170119163343) do
+ActiveRecord::Schema.define(version: 20170119175453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -251,7 +251,6 @@ ActiveRecord::Schema.define(version: 20170119163343) do
 
   create_table "clubs", force: :cascade do |t|
     t.string   "name",                limit: 255
-    t.integer  "join_policy",                     default: 1,     null: false
     t.integer  "owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -262,11 +261,12 @@ ActiveRecord::Schema.define(version: 20170119163343) do
     t.datetime "logo_updated_at"
     t.integer  "club_roles_count",                default: 0
     t.boolean  "display_images",                  default: true
-    t.integer  "comment_policy",                  default: 1,     null: false
     t.boolean  "is_censored",                     default: false, null: false
     t.string   "locale",                                          null: false
     t.integer  "style_id"
     t.string   "image_upload_policy",                             null: false
+    t.string   "join_policy",                                     null: false
+    t.string   "comment_policy",                                  null: false
   end
 
   add_index "clubs", ["style_id"], name: "index_clubs_on_style_id", using: :btree

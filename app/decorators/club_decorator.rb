@@ -73,20 +73,6 @@ class ClubDecorator < DbEntryDecorator
     invites.new(src: h.current_user)
   end
 
-  class << self
-    def join_policy_options
-      Club.join_policies.map do |policy_name, policy_id|
-        [I18n.t("activerecord.attributes.club.join_policies.#{policy_name}"), policy_name]
-      end
-    end
-
-    def comment_policy_options
-      Club.comment_policies.map do |policy_name, policy_id|
-        [I18n.t("activerecord.attributes.club.comment_policies.#{policy_name}"), policy_name]
-      end
-    end
-  end
-
 private
 
   def all_images

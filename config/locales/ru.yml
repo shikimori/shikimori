@@ -171,14 +171,7 @@ ru:
         owner: Основатель
         display_images: Отображать раздел картинок
         join_policy: Возможность вступления
-        join_policies:
-          free_join: Свободное для всех желающих
-          admin_invite_join: Только по приглашению администрации
-          owner_invite_join: Только по приглашению создателя
         comment_policy: Возможность комментирования
-        comment_policies:
-          free_comment: Свободное для всех
-          members_comment: Только для участников клуба
         image_upload_policy: Возможность загрузки картинок
         is_censored: Содержит материалы для взрослых (18+)
         logo: Логотип
@@ -376,6 +369,13 @@ ru:
         ongoing: онгоинг
         episode: эпизод
     club:
+      join_policy:
+        free: Свободное для всех желающих
+        admin_invite: Только по приглашению администрации
+        owner_invite: Только по приглашению создателя
+      comment_policy:
+        free: Свободное для всех
+        members: Только для участников клуба
       image_upload_policy:
         members: Только для участников клуба
         admins: Только для администрации клуба

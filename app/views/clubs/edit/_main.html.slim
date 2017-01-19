@@ -11,8 +11,8 @@
         = f.input :is_censored, hint: t('.required_option_for_adult_clubs')
 
       .block
-        = f.input :join_policy, collection: ClubDecorator.join_policy_options, include_blank: false
-        = f.input :comment_policy, collection: ClubDecorator.comment_policy_options, include_blank: false
+        = f.input :join_policy, include_blank: false
+        = f.input :comment_policy, include_blank: false
 
       .block
         .subheadline.m10

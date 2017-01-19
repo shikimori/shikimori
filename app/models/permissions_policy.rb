@@ -83,16 +83,16 @@ module PermissionsPolicy
   module Topics::EntryTopics::ClubTopicPermissions
     # может ли комментарий быть создан пользователем
     def can_be_commented_by?(comment)
-      if linked.free_comment?
-        if linked.banned?(comment.user)
+      if linked.comment_policy_free?
+        if linked.banned? comment.user
           comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.in_club_black_list')
           false
         else
           true
         end
 
-      elsif linked.members_comment?
-        if linked.member?(comment.user)
+      elsif linked.comment_policy_members?
+        if linked.member? comment.user
           true
         else
           comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')

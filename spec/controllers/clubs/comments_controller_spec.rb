@@ -2,7 +2,7 @@ describe Clubs::CommentsController do
   before { sign_in user }
 
   let(:club) { create :club }
-  let(:user) { seed :user }
+  let(:user) { create :user }
   let!(:club_role) { create :club_role, role, user: user, club: club }
 
   describe '#broadcast' do
@@ -11,7 +11,6 @@ describe Clubs::CommentsController do
     context 'admin' do
       let(:role) { :admin }
       before { make_request }
-
       it { expect(response).to have_http_status :success }
     end
 
