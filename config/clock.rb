@@ -62,6 +62,10 @@ module Clockwork
     FinishExpiredAnimes.perform_async
 
     AutobanFix.perform_async
+
+    #MalParsers::MalParsers::ScheduleExpiredAuthorized.perform_async 'anons', 1.month
+    #MalParsers::MalParsers::ScheduleExpiredAuthorized.perform_async 'ongoing', 1.month
+    #MalParsers::MalParsers::ScheduleExpiredAuthorized.perform_async nil, 1.month
   end
 
   every 1.day, 'daily.long-stuff', at: '03:00' do

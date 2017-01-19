@@ -1,10 +1,8 @@
 describe MalParsers::FetchEntryAuthorized do
-  let(:worker) { MalParsers::FetchEntryAuthorized.new }
-
   # TODO: move :vcr to MalParsers::AnimeAuthorized and
   #       stub call to MalParsers::AnimeAuthorized here
   describe '#perform', :vcr do
-    subject(:call) { worker.perform anime_id }
+    subject(:call) { described_class.new.perform anime_id }
 
     let(:anime_id) { 28_851 }
     let(:anime) { Anime.find(anime_id) }

@@ -2,7 +2,7 @@ class MalParsers::FetchEntryAuthorized
   include Sidekiq::Worker
 
   sidekiq_options(
-    unique: :until_executed,
+    unique: :while_executing,
     unique_args: ->(_args) { 'only_one_task' },
     queue: :mal_parsers
   )

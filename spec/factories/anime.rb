@@ -65,6 +65,10 @@ FactoryGirl.define do
       end
     end
 
+    trait :with_mal_id do
+      mal_id 1
+    end
+
     trait :pg_13 do
       rating :pg_13
       censored false
