@@ -1,9 +1,6 @@
 describe MalParsers::ScheduleExpiredAuthorized do
-  subject(:call) { worker.perform status, expiration_interval }
+  subject(:call) { worker.perform }
   let(:worker) { described_class.new }
-
-  let(:status) { :anons }
-  let(:expiration_interval) { 1.month }
 
   let(:schedule_interval) do
     MalParsers::ScheduleExpiredAuthorized::SCHEDULE_INTERVAL
