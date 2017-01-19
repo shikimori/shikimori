@@ -1,6 +1,9 @@
 describe MalParsers::FetchEntry do
   let(:worker) { MalParsers::FetchEntry.new }
 
+  before { Timecop.freeze }
+  after { Timecop.return }
+
   describe '#perform' do
     let(:id) { 28_851 }
     let(:type) { 'anime' }
@@ -58,7 +61,10 @@ describe MalParsers::FetchEntry do
       context 'present entry' do
         let!(:entry) { create type, id: id, mal_id: id }
         before { subject }
-        it { expect(entry.reload.mal_id).to eq nil }
+        it do
+          expect(entry.reload.mal_id).to eq nil
+          expect(entry.reload.imported_at).to eq Time.zone.now
+        end
       end
 
       context 'new entry' do

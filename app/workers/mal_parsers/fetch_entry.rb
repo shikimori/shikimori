@@ -36,7 +36,7 @@ class MalParsers::FetchEntry
     entry = TYPES[type].classify.constantize.find_by id: id
 
     if entry
-      entry.update mal_id: nil
+      entry.update mal_id: nil, imported_at: Time.zone.now
     else
       raise
     end
