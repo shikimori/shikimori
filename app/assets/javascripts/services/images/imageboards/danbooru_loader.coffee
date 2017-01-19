@@ -12,8 +12,7 @@ class Images.Imageboard.DanbooruLoader extends Images.Imageboard.LoaderBase
 
   _build_images: (xhr_images) ->
     xhr_images.each (image) =>
-      console.log image
       image.file_url = @base_url + image.file_url
-      image.preview_url = @base_url + image.preview_file_url
+      image.preview_url = @base_url + image.preview_url
 
     super xhr_images
