@@ -11,6 +11,7 @@ describe Club do
     it { is_expected.to have_many :admin_roles }
     it { is_expected.to have_many :admins }
 
+    it { is_expected.to have_many(:pages).dependent(:destroy) }
     it { is_expected.to have_many(:links).dependent(:destroy) }
     it { is_expected.to have_many :animes }
     it { is_expected.to have_many :mangas }

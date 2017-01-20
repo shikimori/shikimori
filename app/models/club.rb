@@ -19,6 +19,7 @@ class Club < ActiveRecord::Base
     inverse_of: :club
   has_many :admins, through: :admin_roles, source: :user
 
+  has_many :pages, class_name: ClubPage.name, dependent: :destroy
   has_many :links, class_name: ClubLink.name, dependent: :destroy
 
   has_many :animes, -> { order :ranked },
@@ -86,7 +87,6 @@ class Club < ActiveRecord::Base
 
   TRANSLATORSID = 2
 
-  # для урлов
   def to_param
     "#{id}-#{name.permalinked}"
   end
