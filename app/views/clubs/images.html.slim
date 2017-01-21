@@ -5,11 +5,11 @@
     data-can_destroy="#{can? :destroy, @resource.all_images.first}"
     data-rel="club_gallery"
   ]
-    - cache @resource do
+    - cache [@resource, :v2] do
       = render 'blocks/upload_progress'
       .container[
         data-upload_url="#{club_club_images_url @resource}"
-        data-destory_url="#{club_club_image_url @resource, 'ID'}"
+        data-destroy_url="#{club_club_image_url @resource, 'ID'}"
         data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.all_images).to_json}"
       ]
         .grid_sizer
