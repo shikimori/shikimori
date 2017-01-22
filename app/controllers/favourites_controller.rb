@@ -66,13 +66,8 @@ class FavouritesController < ShikimoriController
       linked_type: params[:linked_type],
       linked_id: params[:linked_id],
       user_id: current_user.id,
-      kind: params[:kind] || ''
-    ).first || raise(ActiveRecord::RecordNotFound)
-    @fav.destroy
+    ).destroy_all
 
-    render json: { success: true, notice: @notice_text }
-
-  rescue ActiveRecord::RecordNotFound
     render json: { success: true, notice: @notice_text }
   end
 end
