@@ -45,7 +45,11 @@ class AnimesVerifier
   ]
 
   def perform
-    klass.import bad_entries if bad_entries.any?
+    if bad_entries.any?
+      bad_entries.each do |id|
+        MalParsers::FetchEntry.new.perform id, klass.name.downcase
+      end
+    end
 
     if bad_entries.any?
       raise "#{bad_entries.size} broken entries found: #{bad_entries.join ', '}"
@@ -100,9 +104,5 @@ private
       .select do |entry|
         Paperclip::Geometry.from_file(entry.image.path).width.to_i < 50
       end
-  end
-
-  def klass_parser
-    "#{klass.name}MalParser".constantize
   end
 end
