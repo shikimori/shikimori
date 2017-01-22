@@ -10,6 +10,7 @@ class Import::MalImage
 
   def call
     @entry.image = download_image if image_policy.need_import?
+  rescue OpenURI::HTTPError
   end
 
 private
