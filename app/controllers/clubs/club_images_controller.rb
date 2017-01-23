@@ -14,7 +14,7 @@ class Clubs::ClubImagesController < ShikimoriController
     if request.xhr?
       render json: {
         html: render_to_string(
-          partial: 'images/image',
+          partial: 'club_images/club_image',
           object: image,
           locals: { rel: 'club' },
           formats: :html
