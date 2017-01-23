@@ -1,7 +1,7 @@
 using 'Images'
 class Images.PreloadedGallery extends View
   @BATCH_SIZE = 5
-  TEMPLATE = 'templates/club_images/club_image'
+  TEMPLATE = 'templates/images/image'
 
   APPEAR_MARKER_HTML =
     '<p class="ajax-loading vk-like b-appear_marker active" ' +
