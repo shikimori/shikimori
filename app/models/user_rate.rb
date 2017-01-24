@@ -153,12 +153,30 @@ private
   # запись в историю о занесении в список
   def log_created
     UserHistory.add user, target, UserHistoryAction::Add
+    UserHistory.add(
+      user,
+      target,
+      UserHistoryAction::Status,
+      UserRate.statuses[status]
+    ) unless planned?
+    UserHistory.add(
+      user,
+      target,
+      UserHistoryAction::Rate,
+      score,
+    ) unless score.zero?
   end
 
   # запись в историю об изменении стутса
   def log_changed
     if changes['status']
-      UserHistory.add user, target, UserHistoryAction::Status, self[:status], UserRate.statuses[changes['status'].first]
+      UserHistory.add(
+        user,
+        target,
+        UserHistoryAction::Status,
+        UserRate.statuses[changes['status'].second],
+        UserRate.statuses[changes['status'].first]
+      )
     end
 
     if (

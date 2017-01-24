@@ -8,8 +8,15 @@ class UserHistory < ActiveRecord::Base
   DeleteBackwardCheckInterval = 60.minutes
   EpisodeBackwardCheckInterval = 6.hours
 
+  # TODO: refactor >.<
   # look at spec for additional info
-  def self.add(user, item, action, value=nil, prior_value=nil)
+  def self.add(
+    user,
+    item,
+    action,
+    value=nil,
+    prior_value=nil
+  )
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
     last_entry = UserHistory
@@ -18,14 +25,28 @@ class UserHistory < ActiveRecord::Base
       .order(id: :desc)
       .first
 
-    # аниме просмотрено и сразу же поставлена оценка
-    if last_entry && last_entry.target_type == item.class.name && last_entry.target_id == item.id &&
-      ((action == UserHistoryAction::Status && value == UserRate.statuses[:completed] && last_entry.action == UserHistoryAction::Rate) ||
-        (action == UserHistoryAction::Rate && last_entry.action == UserHistoryAction::Status && last_entry.value.to_i == UserRate.statuses[:completed]))
+    unless last_entry&.target_type == item.class.name &&
+        last_entry&.target_id == item.id
+      last_entry = nil
+    end
 
-      last_entry.update_attributes(action: UserHistoryAction::CompleteWithScore,
-                                   value: action == UserHistoryAction::Status ? last_entry.value : value)
-      return
+    # аниме просмотрено и сразу же поставлена оценка
+    if last_entry && (
+          (
+            action == UserHistoryAction::Status &&
+            value == UserRate.statuses[:completed] &&
+            last_entry.action == UserHistoryAction::Rate
+          ) || (
+            action == UserHistoryAction::Rate &&
+            last_entry.action == UserHistoryAction::Status &&
+            last_entry.value.to_i == UserRate.statuses[:completed]
+          )
+        )
+
+      return last_entry.update(
+        action: UserHistoryAction::CompleteWithScore,
+        value: action == UserHistoryAction::Status ? last_entry.value : value
+      )
     end
 
     no_last_this_entry_search = false
@@ -55,7 +76,7 @@ class UserHistory < ActiveRecord::Base
           .order(:id)
           .to_a
 
-        if last_entry && last_entry.action == UserHistoryAction::Add && last_entry.target_id == item.id
+        if last_entry && last_entry.action == UserHistoryAction::Add
           last_entry.destroy
           return
         end
@@ -76,7 +97,7 @@ class UserHistory < ActiveRecord::Base
         value = 0 if value < 0
 
         # если сняли оценку(поставили 0), а недавно её поставили, то удаляем обе записи
-        if value == 0 && last_entry && last_entry.action == UserHistoryAction::Rate && last_entry.target_id == item.id
+        if value == 0 && last_entry && last_entry.action == UserHistoryAction::Rate
           last_entry.destroy
           return
         end
@@ -152,12 +173,12 @@ class UserHistory < ActiveRecord::Base
     end
 
     unless no_last_this_entry_search
-      entry = UserHistory.where("updated_at > ?", DateTime.now - BackwardCheckInterval)
-          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
-          .where(target_id: item.id)
-          .where(target_type: item.class.name)
-          .where(action: action)
-          .first
+      entry = UserHistory
+        .where("updated_at > ?", BackwardCheckInterval.ago)
+        .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+        .where(target: item)
+        .where(action: action)
+        .first
 
       if entry && action == UserHistoryAction::Rate
         # для оценок изначальную оценку не меняем

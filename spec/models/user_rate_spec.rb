@@ -121,7 +121,7 @@ describe UserRate do
         let(:old_status) { :planned }
         let(:new_status) { :watching }
         let(:new_episodes) { 1 }
-        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+        let(:update_params) { { status: new_status, episodes: new_episodes } }
 
         subject(:user_rate) { create :user_rate, old_status, target: target }
         before { user_rate.update update_params }
@@ -168,7 +168,7 @@ describe UserRate do
       end
 
       subject(:user_rate) { create :user_rate, old_status, target: target }
-      let(:update_params) {{ status: new_status }}
+      let(:update_params) { { status: new_status } }
       before { user_rate.update update_params }
 
       describe 'to planned' do
@@ -226,7 +226,7 @@ describe UserRate do
         let(:old_status) { :completed }
         let(:new_status) { :rewatching }
         let(:new_episodes) { 10 }
-        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+        let(:update_params) { { status: new_status, episodes: new_episodes } }
 
         its(:episodes) { is_expected.to eq new_episodes }
       end
@@ -236,7 +236,7 @@ describe UserRate do
         let(:old_status) { :completed }
         let(:new_status) { :on_hold }
         let(:new_episodes) { 0 }
-        let(:update_params) {{ status: new_status, episodes: new_episodes }}
+        let(:update_params) { { status: new_status, episodes: new_episodes } }
 
         it { is_expected.to be_on_hold }
         its(:episodes) { is_expected.to eq 0 }
@@ -249,7 +249,7 @@ describe UserRate do
         let(:old_episodes) { 3 }
         let(:old_status) { :watching }
         let(:new_status) { :completed }
-        let(:update_params) {{ status: new_status }}
+        let(:update_params) { { status: new_status } }
 
         it { is_expected.to be_completed }
         its(:episodes) { is_expected.to eq old_episodes }
@@ -423,15 +423,64 @@ describe UserRate do
     end
 
     describe '#log_created' do
-      subject(:user_rate) { build :user_rate, target: build_stubbed(:anime), user: build_stubbed(:user) }
-      after { user_rate.save }
-      before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Add }
+      subject(:user_rate) do
+        build :user_rate,
+          target: build_stubbed(:anime),
+          user: build_stubbed(:user),
+          status: status,
+          score: score
+      end
+      before { allow(UserHistory).to receive :add }
+      subject! { user_rate.save }
+
+      context 'no status, no score' do
+        let(:status) { :planned }
+        let(:score) { 0 }
+        it do
+          expect(UserHistory)
+            .to have_received(:add)
+            .with user_rate.user, user_rate.target, UserHistoryAction::Add
+        end
+      end
+
+      context 'status and scored' do
+        let(:status) { :completed }
+        let(:score) { 5 }
+        it do
+          expect(UserHistory)
+            .to have_received(:add)
+            .with(user_rate.user, user_rate.target, UserHistoryAction::Add)
+            .ordered
+          expect(UserHistory)
+            .to have_received(:add)
+            .with(
+              user_rate.user,
+              user_rate.target,
+              UserHistoryAction::Status,
+              UserRate.statuses['completed']
+            )
+            .ordered
+          expect(UserHistory)
+            .to have_received(:add)
+            .with(user_rate.user, user_rate.target, UserHistoryAction::Rate, 5)
+            .ordered
+        end
+      end
     end
 
     describe '#log_deleted' do
-      subject!(:user_rate) { create :user_rate, target: build_stubbed(:anime), user: build_stubbed(:user) }
-      after { user_rate.destroy }
-      before { expect(UserHistory).to receive(:add).with user_rate.user, user_rate.target, UserHistoryAction::Delete }
+      let(:user_rate) do
+        create :user_rate,
+          target: build_stubbed(:anime),
+          user: build_stubbed(:user)
+      end
+      before { allow(UserHistory).to receive :add }
+      subject! { user_rate.destroy }
+      it do
+        expect(UserHistory)
+          .to have_received(:add)
+          .with(user_rate.user, user_rate.target, UserHistoryAction::Delete)
+      end
     end
 
     describe '#text_html' do
