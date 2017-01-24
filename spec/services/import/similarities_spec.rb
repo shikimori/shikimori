@@ -17,19 +17,20 @@ describe Import::Similarities do
       src_id: target.id,
       dst_id: 28_735
   end
+  let(:new_similarities) { target.similar.order :id }
 
   subject! { service.call }
 
   it do
     expect { similar_anime.reload }.to raise_error ActiveRecord::RecordNotFound
-    expect(target.similar).to have(2).items
-    expect(target.similar.first).to have_attributes(
-      src_id: target.id,
-      dst_id: 31_771
-    )
-    expect(target.similar.second).to have_attributes(
+    expect(new_similarities).to have(2).items
+    expect(new_similarities.first).to have_attributes(
       src_id: target.id,
       dst_id: 28_735
+    )
+    expect(new_similarities.second).to have_attributes(
+      src_id: target.id,
+      dst_id: 31_771
     )
   end
 end

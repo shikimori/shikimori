@@ -63,7 +63,7 @@ describe MalParsers::FetchEntry do
         before { subject }
         it do
           expect(entry.reload.mal_id).to eq nil
-          expect(entry.reload.imported_at).to eq Time.zone.now
+          expect(entry.reload.imported_at.to_i).to eq Time.zone.now.to_i
         end
       end
 
