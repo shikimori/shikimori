@@ -1,10 +1,10 @@
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
-  I18N_KEY = 'frontend.dynamic_elements'
+  I18N_KEY = 'frontend.dynamic_elements.topic'
 
   _type: -> 'topic'
-  _type_label: -> 'Топик'
+  _type_label: -> t("#{I18N_KEY}.type_label")
 
   # similar to hash from JsExports::TopicsExport#serialzie
   _default_model: ->

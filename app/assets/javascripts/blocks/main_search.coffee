@@ -18,7 +18,7 @@ $(document).on 'page:load', ->
     .data
       type: type
       autocomplete: searcheables[type].autocomplete
-    .attr(placeholder: TRANSLATIONS[LOCALE][type])
+    .attr(placeholder: t("frontend.main_search.#{type}"))
     .completable($('.b-main_search .suggest-placeholder'))
 
     .on 'autocomplete:success', (e, entry) ->
@@ -47,7 +47,7 @@ $(document).on 'page:load', ->
 
     $search
       .data(type: type)
-      .attr(placeholder: TRANSLATIONS[LOCALE][type])
+      .attr(placeholder: t("frontend.main_search.#{type}"))
       .data(autocomplete: searcheables[type].autocomplete)
       .trigger('flushCache')
       .focus()
@@ -79,27 +79,6 @@ $(document).on 'page:load', ->
   , ->
     $main_search.removeClass 'hovered'
   , 250
-
-# TODO: refactor to i18n-js
-TRANSLATIONS =
-  ru:
-    animes: 'Поиск по аниме...'
-    mangas: 'Поиск по манге...'
-    characters: 'Поиск по персонажам...'
-    seyu: 'Поиск по сэйю...'
-    producers: 'Поиск по режиссёрам...'
-    mangakas: 'Поиск по мангакам...'
-    people: 'Поиск по всем людям...'
-    users: 'Поиск по пользователям...'
-  en:
-    animes: 'Anime search...'
-    mangas: 'Manga search...'
-    characters: 'Character search...'
-    seyu: 'Seyu search...'
-    producers: 'Producer search...'
-    mangakas: 'Mangaka search...'
-    people: 'Person search...'
-    users: 'User search...'
 
 # конфигурация автодополнений
 searcheables =

@@ -1,0 +1,6 @@
+en:
+  frontend:
+    application:
+      sure_to_leave_page: |-
+        You have not saved your comment!
+        Are you sure you want to leave this page?

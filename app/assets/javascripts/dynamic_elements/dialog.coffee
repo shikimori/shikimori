@@ -24,4 +24,4 @@ class DynamicElements.Dialog extends ShikiEditable
       true
 
   _type: -> 'dialog'
-  _type_label: -> 'Диалог'
+  _type_label: -> t('frontend.dynamic_elements.dialog.type_label')

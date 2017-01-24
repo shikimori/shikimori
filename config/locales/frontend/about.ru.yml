@@ -1,0 +1,8 @@
+ru:
+  frontend:
+    about:
+      views: Просмотры
+      visits: Посещения
+      unique_visitors: Уникальные посетители
+      comments_per_day: Комментариев за день
+      new_users_per_day: Новых пользователей за день

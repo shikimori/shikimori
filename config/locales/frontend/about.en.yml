@@ -1,0 +1,8 @@
+en:
+  frontend:
+    about:
+      views: Views
+      visits: Visits
+      unique_visitors: Unique visitors
+      comments_per_day: Comments per day
+      new_users_per_day: New users per day
