@@ -11,7 +11,7 @@ class MalParsers::ScheduleExpiredAuthorized
   ONGOING_EXPIRATION_INTERVAL = 1.month
   DEFAULT_EXPIRATION_INTERVAL = 6.months
 
-  def perform status, expiration_interval
+  def perform
     all_anime_ids.each_with_index do |anime_id, index|
       MalParsers::FetchEntryAuthorized.perform_in(
         index * SCHEDULE_INTERVAL,
