@@ -32,6 +32,7 @@ set :linked_dirs, %w{
   tmp/sockets
   public/assets
   public/system
+  public/.well-known/acme-challenge
 }
 
 def shell_exec command
