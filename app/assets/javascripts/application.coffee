@@ -52,7 +52,7 @@ $ =>
 
   $.form_navigate
     size: 250
-    message: "Вы написали и не сохранили какой-то комментарий! Уверены, что хотите покинуть страницу?"
+    message: t('frontend.application.sure_to_leave_page')
 
   if match = location.hash.match(/^#(comment-\d+)$/)
     $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()
