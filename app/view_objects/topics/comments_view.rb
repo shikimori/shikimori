@@ -65,11 +65,15 @@ class Topics::CommentsView < ViewObjectBase
   end
 
   def hide_comments_text
-    i18n_t 'hide_comments', comment_word: comment_word(5)
+    i18n_t 'hide_comments',
+      comment_word: comment_word(folded_comments),
+      comment_count: folded_comments
   end
 
   def show_comments_text
-    i18n_t 'show_comments', comment_word: comment_word(5)
+    i18n_t 'show_comments',
+      comment_word: comment_word(folded_comments),
+      comment_count: folded_comments
   end
 
   # текст для свёрнутых комментариев
