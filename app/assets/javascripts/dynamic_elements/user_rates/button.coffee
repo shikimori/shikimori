@@ -42,7 +42,7 @@ class DynamicElements.UserRate extends View
     if USER_SIGNED_IN
       @$root.addClass 'b-ajax'
     else
-      $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
+      $.info t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
       false
 
   _ajax_complete: =>

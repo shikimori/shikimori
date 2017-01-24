@@ -38,3 +38,25 @@ en:
         comment_marked_as_summary: Comment has been marked as summary
         comment_not_marked_as_offtopic: Comment is no longer marked as offtopic
         comment_not_marked_as_summary: Comment is no longer marked as summary
+
+      # dialog.coffee
+      dialog:
+        type_label: Dialog
+
+      # authorized_action.coffee
+      authorized_action:
+        register_to_complete_action: >-
+          Please <a href="/users/sign_up">register</a>
+          to complete this action.
+
+      # week_registered_action.coffee
+      day_registered_action:
+        action_will_be_available: >-
+          Action will be available one day after
+          <a href="/users/sign_up">registration</a>.
+
+      # week_registered_action.coffee
+      week_registered_action:
+        action_will_be_available: >-
+          Action will be available one day after
+          <a href="/users/sign_up">registration</a>.

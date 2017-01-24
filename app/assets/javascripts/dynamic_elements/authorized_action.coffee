@@ -4,7 +4,7 @@ class DynamicElements.AuthorizedAction extends View
 
   initialize: ->
     @$node.on 'click', (e) ->
-      unless USER_SIGNED_IN
-        $.info t(DynamicElements.AuthorizedAction.I18N_KEY)
+      if !USER_SIGNED_IN
+        $.info t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
         e.stopImmediatePropagation()
         false

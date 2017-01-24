@@ -1,8 +1,6 @@
 ru:
   frontend:
     dynamic_elements:
-      authorized_action: Для этого действия вам необходима <a href="/users/sign_up">регистрация</a> на сайте.
-      day_registered_action: Действие станет доступно через сутки после <a href="/users/sign_up">регистрации</a>.
       check_height:
         expand: развернуть
       load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
@@ -38,3 +36,25 @@ ru:
         comment_marked_as_summary: Комментарий помечен отзывом
         comment_not_marked_as_offtopic: Метка оффтопика снята
         comment_not_marked_as_summary: Метка отзыва снята
+
+      # dialog.coffee
+      dialog:
+        type_label: Диалог
+
+      # authorized_action.coffee
+      authorized_action:
+        register_to_complete_action: >-
+          Для этого действия вам необходима
+          <a href="/users/sign_up">регистрация</a> на сайте.
+
+      # week_registered_action.coffee
+      day_registered_action:
+        action_will_be_available: >-
+          Действие станет доступно через сутки после
+          <a href="/users/sign_up">регистрации</a>.
+
+      # week_registered_action.coffee
+      week_registered_action:
+        action_will_be_available: >-
+          Действие станет доступно через неделю после
+          <a href="/users/sign_up">регистрации</a>.
