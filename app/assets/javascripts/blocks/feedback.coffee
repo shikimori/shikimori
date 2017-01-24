@@ -1,8 +1,3 @@
-LOCALES = {
-  ru: 'Сообщение отправлено',
-  en: 'Message sent'
-}
-
 $(document).on 'page:load', ->
   $feedback = $('.b-feedback')
 
@@ -12,5 +7,5 @@ $(document).on 'page:load', ->
     modal = new ShikiModal $form
 
     $form.on 'ajax:success', ->
-      $.notice LOCALES[LOCALE]
+      $.notice t('frontend.feedback.message_sent')
       modal.close()

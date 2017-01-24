@@ -6,20 +6,35 @@ en:
       check_height:
         expand: expand
       load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
-      of: of
+
+      # topic.coffee
+      topic:
+        type_label: Topic
+        of: of
+        comment:
+          one: comment
+          few: comments
+          many: comments
+        summary:
+          one: summary
+          few: summaries
+          many: summaries
+        new_message_added:
+          one: '%{count} new message added'
+          few: '%{count} new messages added'
+          many: '%{count} new messages added'
+        new_comment_added:
+          one: '%{count} new comment added'
+          few: '%{count} new comments added'
+          many: '%{count} new comments added'
+
+      # comment.coffee
       comment:
-        one: comment
-        few: comments
-        many: comments
-      summary:
-        one: summary
-        few: summaries
-        many: summaries
-      new_message_added:
-        one: '%{count} new message added'
-        few: '%{count} new messages added'
-        many: '%{count} new messages added'
-      new_comment_added:
-        one: '%{count} new comment added'
-        few: '%{count} new comments added'
-        many: '%{count} new comments added'
+        type_label: Comment
+        your_request_will_be_considered: >-
+          Your request will be considered. Domo arigato.
+        comments_marked_as_offtopic: Comments have been marked as offtopic
+        comment_marked_as_offtopic: Comment has been marked as offtopic
+        comment_marked_as_summary: Comment has been marked as summary
+        comment_not_marked_as_offtopic: Comment is no longer marked as offtopic
+        comment_not_marked_as_summary: Comment is no longer marked as summary

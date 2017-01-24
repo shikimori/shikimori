@@ -1,7 +1,10 @@
+I18N_KEY = 'frontend.dynamic_elements.comment'
+
 using 'DynamicElements'
 class DynamicElements.Comment extends ShikiEditable
+
   _type: -> 'comment'
-  _type_label: -> 'Комментарий'
+  _type_label: -> t("#{I18N_KEY}.type_label")
 
   # similar to hash from JsExports::CommentsExport#serialzie
   _default_model: ->
@@ -71,7 +74,7 @@ class DynamicElements.Comment extends ShikiEditable
           $(".b-comment##{id}").view().mark(data.kind, data.value)
         $.notice marker_message(data)
       else
-        $.notice 'Ваш запрос будет рассмотрен. Домо аригато.'
+        $.notice t("#{I18N_KEY}.your_request_will_be_considered")
 
       @$('.item-moderation-cancel').trigger('click')
 
@@ -131,14 +134,14 @@ marker_message = (data) ->
   if data.value
     if data.kind == 'offtopic'
       if data.affected_ids.length > 1
-        $.notice 'Комментарии помечены оффтопиком'
+        $.notice t("#{I18N_KEY}.comments_marked_as_offtopic")
       else
-        $.notice 'Комментарий помечен оффтопиком'
+        $.notice t("#{I18N_KEY}.comment_marked_as_offtopic")
     else
-      $.notice 'Комментарий помечен отзывом'
+      $.notice t("#{I18N_KEY}.comment_marked_as_summary")
 
   else
     if data.kind == 'offtopic'
-      $.notice 'Метка оффтопика снята'
+      $.notice t("#{I18N_KEY}.comment_not_marked_as_offtopic")
     else
-      $.notice 'Метка отзыва снята'
+      $.notice t("#{I18N_KEY}.comment_not_marked_as_summary")
