@@ -20,6 +20,7 @@
           .c-column
             = ff.input :kind,
               as: :select,
+              collection: Video.kind.options,
               include_blank: false,
               label: Video.human_attribute_name(:kind),
               wrapper_html: { class: 'video-kind' },
