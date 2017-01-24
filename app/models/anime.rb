@@ -73,17 +73,14 @@ class Anime < DbEntry
     class_name: RelatedAnime.name,
     foreign_key: :source_id,
     dependent: :destroy
-  has_many :related_animes,
-    -> { where.not related_animes: { anime_id: nil } },
+  has_many :related_animes, -> { where.not related_animes: { anime_id: nil } },
     through: :related,
     source: :anime
-  has_many :related_mangas,
-    -> { where.not related_animes: { manga_id: nil } },
+  has_many :related_mangas, -> { where.not related_animes: { manga_id: nil } },
     through: :related,
     source: :manga
 
-  has_many :similar,
-    -> { order id: :desc },
+  has_many :similar, -> { order :id },
     class_name: SimilarAnime.name,
     foreign_key: :src_id,
     dependent: :destroy
@@ -92,18 +89,15 @@ class Anime < DbEntry
     source: :dst
   has_many :links, class_name: AnimeLink.name, dependent: :destroy
 
-  has_many :user_histories,
-    -> { where target_type: Anime.name },
+  has_many :user_histories, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy
-  has_many :cosplay_galleries,
-    -> { where deleted: false, confirmed: true },
+  has_many :cosplay_galleries, -> { where deleted: false, confirmed: true },
     through: :cosplay_gallery_links
 
-  has_many :reviews,
-    -> { where target_type: Anime.name },
+  has_many :reviews, -> { where target_type: Anime.name },
     foreign_key: :target_id,
     dependent: :destroy
 

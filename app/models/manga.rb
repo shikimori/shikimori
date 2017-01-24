@@ -45,7 +45,7 @@ class Manga < DbEntry
     through: :related,
     source: :manga
 
-  has_many :similar, -> { order id: :desc },
+  has_many :similar, -> { order :id },
     class_name: SimilarManga.name,
     foreign_key: :src_id,
     dependent: :destroy
