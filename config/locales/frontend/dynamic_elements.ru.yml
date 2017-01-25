@@ -3,10 +3,10 @@ ru:
     dynamic_elements:
       check_height:
         expand: развернуть
-      load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
 
       # topic.coffee
       topic:
+        load_comments: Загрузить еще %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Топик
         of: из
         comment:

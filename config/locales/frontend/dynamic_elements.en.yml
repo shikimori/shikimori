@@ -5,10 +5,10 @@ en:
       day_registered_action: Action will be available one day after <a href="/users/sign_up">registering</a>.
       check_height:
         expand: expand
-      load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
 
       # topic.coffee
       topic:
+        load_comments: Load next %{comment_count} %{of_total_comments} %{comment_word}
         type_label: Topic
         of: of
         comment:
