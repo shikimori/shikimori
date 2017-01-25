@@ -84,7 +84,7 @@
                   = info_line t('in_english'), @resource.name
                   = info_line t('in_japanese'), @resource.japanese
                   - if @resource.birthday
-                    = info_line Person.human_attribute_name(:birthday), formatted_date(@resource.birthday, false)
+                    = info_line Person.human_attribute_name(:birthday), @resource.formatted_birthday
                   = info_line Person.human_attribute_name(:website), @resource.website_html
 
           - if @resource.groupped_roles.any?
