@@ -11,7 +11,8 @@ class PersonDecorator < DbEntryDecorator
     seyu: Person::SEYU_ROLES,
     composer: ['Music', 'Theme Song Composition'],
     producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
-    mangaka: Person::MANGAKA_ROLES
+    mangaka: Person::MANGAKA_ROLES,
+    vocalist: ['Theme Song Performance']
   }
 
   def credentials?
@@ -88,6 +89,8 @@ class PersonDecorator < DbEntryDecorator
       i18n_t 'job_title.mangaka'
     elsif main_role? :composer
       i18n_t 'job_title.composer'
+    elsif main_role? :vocalist
+      i18n_t 'job_title.vocalist'
     elsif main_role? :seyu
       i18n_t 'job_title.seyu'
     elsif has_anime? && has_manga?

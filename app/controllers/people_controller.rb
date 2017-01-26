@@ -83,7 +83,9 @@ private
   end
 
   def role_redirect
-    redirect_to request.url.sub(/\/people\//, '/seyu/'), status: 301 if @resource.main_role?(:seyu)
+    if @resource.main_role? :seyu
+      redirect_to request.url.sub(/\/people\//, '/seyu/'), status: 301
+    end 
   end
 
   def set_breadcrumbs
