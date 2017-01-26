@@ -35,7 +35,7 @@ class DynamicElements.Topic extends ShikiEditable
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{t('shiki_editor.not_available')}
+          #{t('frontend.shiki_editor.not_available')}
         </div>"
       )
 
@@ -111,7 +111,7 @@ class DynamicElements.Topic extends ShikiEditable
 
       if $filtered_appeared.exists()
         interval = if by_click then 1 else 1500
-        $objects = $filtered_appeared.closest(".shiki-object")
+        $objects = $filtered_appeared.closest('.shiki-object')
         $markers = $objects.find('.b-new_marker.active')
         ids = $objects
           .map ->

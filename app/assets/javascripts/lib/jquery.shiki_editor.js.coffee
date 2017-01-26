@@ -262,7 +262,7 @@ class @ShikiEditor extends ShikiView
       @$('.editor-file').hide()
 
     # ajax загрузка файлов
-    file_text_placeholder = "[#{t 'shiki_editor.file'} #@]"
+    file_text_placeholder = "[#{t('frontend.shiki_editor.file')} #@]"
     @$textarea.shikiFile
       progress: $root.find('.b-upload_progress')
       input: $('.editor-file input', $root)
