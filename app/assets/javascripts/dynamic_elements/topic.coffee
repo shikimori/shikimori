@@ -1,7 +1,7 @@
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
-  I18N_KEY = 'frontend.dynamic_elements.topic'
+  I18N_KEY = 'dynamic_elements.topic'
 
   _type: -> 'topic'
   _type_label: -> t("#{I18N_KEY}.type_label")
@@ -35,7 +35,7 @@ class DynamicElements.Topic extends ShikiEditable
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{t 'frontend.shiki_editor.not_available'}
+          #{t('shiki_editor.not_available')}
         </div>"
       )
 

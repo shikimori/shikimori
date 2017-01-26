@@ -21,14 +21,3 @@ function search_escape(phrase) {
 var addthis_config = {
   ui_language: 'ru'
 };
-
-var I18N = {
-  nickname: "Логин",
-  subject: "Название",
-  title: "Название",
-  email: "E-mail",
-  password: "Пароль",
-  body: "Текст",
-  created_at: "",
-  forbidden: ""
-};

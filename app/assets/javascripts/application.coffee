@@ -52,7 +52,7 @@ $ =>
 
   $.form_navigate
     size: 250
-    message: t('frontend.application.sure_to_leave_page')
+    message: t('application.sure_to_leave_page')
 
   if match = location.hash.match(/^#(comment-\d+)$/)
     $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()

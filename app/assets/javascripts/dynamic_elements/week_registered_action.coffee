@@ -1,6 +1,6 @@
 using 'DynamicElements'
 class DynamicElements.WeekRegisteredAction extends View
-  I18N_KEY = 'frontend.dynamic_elements.week_registered_action'
+  I18N_KEY = 'dynamic_elements.week_registered_action'
 
   initialize: ->
     @$node.on 'click', (e) ->

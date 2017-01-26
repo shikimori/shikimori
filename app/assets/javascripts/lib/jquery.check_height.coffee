@@ -1,7 +1,4 @@
 (($) ->
-  I18N_SCOPE = 'frontend.dynamic_elements.check_height'
-  I18N_EXPAND = "#{I18N_SCOPE}.expand"
-
   $.fn.extend
     # options:
     #   max_height - высота блока, при превышении которой будет свёртка
@@ -23,7 +20,7 @@
         if options.expand_html?
           options.expand_html
         else
-          "<div class='expand'><span>#{t I18N_EXPAND}</span></div>"
+          "<div class='expand'><span>#{t('dynamic_elements.check_height.expand')}</span></div>"
 
       @each ->
         $root = $(@)
