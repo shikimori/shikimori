@@ -24,7 +24,10 @@ class Person < DbEntry
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  SEYU_ROLES = %w(English Italian Hungarian Japanese German Hebrew Brazilian French Spanish Korean)
+  SEYU_ROLES = %w(
+    English Italian Hungarian Japanese German Hebrew Brazilian French
+    Spanish Korean Hebrew
+  )
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
   # является ли человек режиссёром

@@ -8,10 +8,10 @@ class PersonDecorator < DbEntryDecorator
     :seyu_counts, :composer_counts, :producer_counts, :mangaka_counts
 
   ROLES = {
-    seyu: ['Japanese', 'English', 'Italian', 'Hungarian', 'German', 'Brazilian', 'French', 'Spanish', 'Korean', 'Hebrew'],
+    seyu: Person::SEYU_ROLES,
     composer: ['Music', 'Theme Song Composition'],
     producer: ['Chief Producer', 'Producer', 'Director', 'Episode Director'],
-    mangaka: ['Original Creator', 'Story & Art', 'Story']
+    mangaka: Person::MANGAKA_ROLES
   }
 
   def credentials?
@@ -82,15 +82,13 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def job_title
-    #if role?(:producer) && role?(:mangaka)
-      #'Режиссёр аниме и автор манги'
-    if main_role?(:producer)
+    if main_role? :producer
       i18n_t 'job_title.producer'
-    elsif main_role?(:mangaka)
+    elsif main_role? :mangaka
       i18n_t 'job_title.mangaka'
-    elsif main_role?(:composer)
+    elsif main_role? :composer
       i18n_t 'job_title.composer'
-    elsif main_role?(:seyu)
+    elsif main_role? :seyu
       i18n_t 'job_title.seyu'
     elsif has_anime? && has_manga?
       i18n_t 'job_title.anime_manga_projects_participant'
@@ -152,7 +150,15 @@ class PersonDecorator < DbEntryDecorator
 
   def best_character
     character_ids = object.character_ids
-    fav_character = FavouritesQuery.new.top_favourite([Character.name], 1).where("linked_type=? and linked_id in (?)", Character.name, character_ids).first.linked_id
+    fav_character = FavouritesQuery.new
+      .top_favourite([Character.name], 1)
+      .where(
+        "linked_type=? and linked_id in (?)",
+        Character.name,
+        character_ids
+      )
+      .first.linked_id
+
     Character.find(fav_character)
   end
 

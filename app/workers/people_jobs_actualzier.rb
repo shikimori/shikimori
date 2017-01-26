@@ -2,14 +2,22 @@ class PeopleJobsActualzier
   include Sidekiq::Worker
   sidekiq_options unique: :until_executed
 
+  PEOPLE_WITH_CUSTOMIZED_ROLES_IDS = [6024]
+
   def perform
     Person.transaction do
-      Person.update_all producer: false, mangaka: false, seyu: false
+      people.update_all producer: false, mangaka: false, seyu: false
 
-      Person.where(id: producer_ids).update_all producer: true
-      Person.where(id: mangaka_ids).update_all mangaka: true
-      Person.where(id: seyu_ids).update_all seyu: true
+      people.where(id: producer_ids).update_all producer: true
+      people.where(id: mangaka_ids).update_all mangaka: true
+      people.where(id: seyu_ids).update_all seyu: true
     end
+  end
+
+private
+
+  def people
+    Person.where.not(id: PEOPLE_WITH_CUSTOMIZED_ROLES_IDS)
   end
 
   def producer_ids
