@@ -54,7 +54,7 @@ class @ShikiEditor extends ShikiView
         if @$textarea.val().replace(/\n| |\r|\t/g, '')
           @_shade()
         else
-          $.alert t('shiki_editor.text_cant_be_blank')
+          $.alert t('frontend.shiki_editor.text_cant_be_blank')
           false
 
       .on 'ajax:complete', @_unshade
@@ -348,14 +348,3 @@ class @ShikiEditor extends ShikiView
 
   _type: ->
     @$textarea.data('item_type')
-
-# TODO: refactor to i18n-js
-TRANSLATIONS =
-  ru:
-    text_cant_be_blank: 'Текст не может быть пустым'
-    spoiler: 'спойлер'
-    file: 'файл'
-  en:
-    text_cant_be_blank: "Text can't be blank"
-    spoiler: 'spoiler'
-    file: 'file'

@@ -1,6 +1,6 @@
 using 'DynamicElements'
 class DynamicElements.UserRate extends View
-  I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
+  I18N_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
     @model = @$root.data 'model'
@@ -68,7 +68,7 @@ class DynamicElements.UserRate extends View
 
     model: @model
     user_id: SHIKI_USER.id
-    statuses: t("#{I18N_STATUS_KEY}.#{@model.target_type.toLowerCase()}")
+    statuses: t("#{I18N_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @model.id then 'PATCH' else 'POST'
     destroy_url: "/api/v2/user_rates/#{@model.id}" if @model.id

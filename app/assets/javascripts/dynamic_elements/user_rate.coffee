@@ -1,7 +1,7 @@
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Button extends View
   TEMPLATE = 'templates/user_rates/button'
-  I18N_STATUS_KEY = 'activerecord.attributes.user_rate.statuses'
+  I18N_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
     # data attribute is set in UserRates.Tracker
@@ -72,7 +72,7 @@ class DynamicElements.UserRates.Button extends View
 
     model: @model
     user_id: SHIKI_USER.id
-    statuses: t("#{I18N_STATUS_KEY}.#{@model.target_type.toLowerCase()}")
+    statuses: t("#{I18N_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @_is_persisted() then 'PATCH' else 'POST'
     destroy_url: "/api/v2/user_rates/#{@model.id}" if @_is_persisted()

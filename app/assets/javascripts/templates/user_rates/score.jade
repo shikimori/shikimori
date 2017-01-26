@@ -1,5 +1,5 @@
 .b-rate.rateable(
-  data-notices= t("activerecord.attributes.user_rate.scores")
+  data-notices= t('activerecord.attributes.user_rate.scores')
 )
   .stars-container
     .hoverable-trigger
@@ -12,6 +12,6 @@
 
     .score-notice
       if score > 0
-        = t("activerecord.attributes.user_rate.scores." + score)
+        = t('activerecord.attributes.user_rate.scores.' + score)
       else
         | &nbsp;

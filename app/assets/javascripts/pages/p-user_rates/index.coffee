@@ -2,12 +2,6 @@
 list_cache = []
 filter_timer = null
 
-# TODO: refactor to i18n-js
-LOCALES = {
-  ru: 'Недостаточно данных',
-  en: 'Insufficient data'
-}
-
 @on 'page:load', 'user_rates_index', ->
   apply_list_handlers $('.l-content')
   update_list_cache()
@@ -15,7 +9,8 @@ LOCALES = {
   # графики
   $("#scores, #types, #ratings").bar
     no_data: ($chart) ->
-      $chart.html "<p class='b-nothing_here'>#{LOCALES[LOCALE]}</p>"
+      text = t('frontend.pages.p_user_rates.insufficient_data')
+      $chart.html("<p class='b-nothing_here'>#{text}</p>")
 
   # фокус по инпуту фильтра по тайтлу
   $('.filter input').on 'focus', ->
@@ -258,7 +253,7 @@ apply_new_value_handlers = ($new_value) ->
       $.post($this.data('action'), "_method=patch&user_rate[#{$this.data 'field'}]=#{$this.attr 'value'}")
         .error ->
           $value.html prior_value
-          $.flash alert: 'Произошла ошибка'
+          $.flash alert: t('frontend.pages.p_user_rates.error_occurred')
 
     .on 'mousewheel', (e) ->
       return true unless $(@).is(':focus')
