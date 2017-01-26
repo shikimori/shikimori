@@ -1,6 +1,6 @@
 using 'DynamicElements'
 class DynamicElements.AuthorizedAction extends View
-  @I18N_KEY = 'dynamic_elements.authorized_action'
+  @I18N_KEY = 'frontend.dynamic_elements.authorized_action'
 
   initialize: ->
     @$node.on 'click', (e) ->

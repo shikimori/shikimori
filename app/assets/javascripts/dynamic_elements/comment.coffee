@@ -1,4 +1,4 @@
-I18N_KEY = 'dynamic_elements.comment'
+I18N_KEY = 'frontend.dynamic_elements.comment'
 
 using 'DynamicElements'
 class DynamicElements.Comment extends ShikiEditable

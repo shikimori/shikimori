@@ -1,6 +1,6 @@
 using 'DynamicElements'
 class DynamicElements.DayRegisteredAction extends View
-  I18N_KEY = 'dynamic_elements.day_registered_action'
+  I18N_KEY = 'frontend.dynamic_elements.day_registered_action'
 
   initialize: ->
     @$node.on 'click', (e) ->
