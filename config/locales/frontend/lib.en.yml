@@ -1,0 +1,14 @@
+en:
+  frontend:
+    lib:
+      nickname: Nickname
+      subject: Subject
+      title: Title
+      email: E-mail
+      password: Password
+      body: Text
+      created_at: ''
+      forbidden: ''
+      invalid_login_or_password: Invalid login or password
+      you_are_not_authorized: You are not authorized to perform this action
+      please_try_again_later: Please try again later

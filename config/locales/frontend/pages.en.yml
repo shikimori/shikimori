@@ -1,0 +1,53 @@
+en:
+  frontend:
+    pages:
+      # p-animes.coffee
+      p_animes:
+        no_date: No data
+
+      # p-contests
+      p_contests:
+        # p-contests/_form.coffee
+        candidate:
+          one: candidate
+          few: candidates
+          many: candidates
+
+      # p-profiles
+      p_profiles:
+        # p-profiles/ban.coffee
+        page_is_reloading: Page is reloading...
+
+        # p-profiles/show.coffee
+        hour:
+          one: hour
+          few: hours
+          many: hours
+        day:
+          one: day
+          few: days
+          many: days
+        title: >-
+          %{hours} %{hour_word} since %{from_date} till %{to_date}
+          (%{days} %{day_word})
+
+        # p-profiles/edit.coffee
+        exporting: >-
+          File export will begin shortly...
+          You can import this file into MAL later on
+          http://myanimelist.net/import.php
+
+        importing: >-
+          File import is about to begin...
+          This might take some time.
+          Please be patient and don't reload the page.
+
+      # p-user_rates
+      p_user_rates:
+        # p-user_rates/index.coffee
+        insufficient_data: Insufficient data
+        error_occurred: Error occurred
+
+      # p-recommendations-index.coffee
+      p_recommendations_index:
+        dont_recommend_franchise: Don't recommend this franchise any more

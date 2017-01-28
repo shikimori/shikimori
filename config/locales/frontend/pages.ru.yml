@@ -1,0 +1,53 @@
+ru:
+  frontend:
+    pages:
+      # p-animes.coffee
+      p_animes:
+        no_date: Нет данных
+
+      # p-contests
+      p_contests:
+        # p-contests/_form.coffee
+        candidate:
+          one: участник
+          few: участника
+          many: участников
+
+      # p-profiles
+      p_profiles:
+        # p_profiles/ban.coffee
+        page_is_reloading: Перезагрузка страницы...
+
+        # p-profiles/show.coffee
+        hour:
+          one: час
+          few: часа
+          many: часов
+        day:
+          one: день
+          few: дня
+          many: дней
+        title: >-
+          %{hours} %{hour_word} с %{from_date} по %{to_date}
+          (%{days} %{day_word})
+
+        # p-profiles/edit.coffee
+        exporting: >-
+          Начинается загрузка файла...
+          Этот файл можно импортировать в MAL на странице
+          http://myanimelist.net/import.php
+
+        importing: >-
+          Начинается импорт...
+          Это может занять некоторое время.
+          Пожалуйста, подождите и не обновляйте страницу.
+
+      # p_user-rates
+      p_user_rates:
+        # p_user-rates/index.coffee
+        insufficient_data: Недостаточно данных
+        error_occurred: Произошла ошибка
+
+      # p-recommendations-index.coffee
+      p_recommendations_index:
+        dont_recommend_franchise: Больше не рекомендовать эту франшизу

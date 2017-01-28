@@ -35,7 +35,7 @@ class DynamicElements.Topic extends ShikiEditable
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{t 'frontend.shiki_editor.not_available'}
+          #{t('frontend.shiki_editor.not_available')}
         </div>"
       )
 
@@ -111,7 +111,7 @@ class DynamicElements.Topic extends ShikiEditable
 
       if $filtered_appeared.exists()
         interval = if by_click then 1 else 1500
-        $objects = $filtered_appeared.closest(".shiki-object")
+        $objects = $filtered_appeared.closest('.shiki-object')
         $markers = $objects.find('.b-new_marker.active')
         ids = $objects
           .map ->
@@ -178,19 +178,15 @@ class DynamicElements.Topic extends ShikiEditable
           comment_count = Math.min(limit, count)
           comment_word =
             if @$comments_loader.data('only-summaries-shown')
-              p(
-                comment_count,
+              p comment_count,
                 t("#{I18N_KEY}.summary.one"),
                 t("#{I18N_KEY}.summary.few"),
                 t("#{I18N_KEY}.summary.many")
-              )
             else
-              p(
-                comment_count,
+              p comment_count,
                 t("#{I18N_KEY}.comment.one"),
                 t("#{I18N_KEY}.comment.few"),
                 t("#{I18N_KEY}.comment.many")
-              )
           of_total_comments =
             if count > limit
               "#{t("#{I18N_KEY}.of")} #{count}"
@@ -323,19 +319,15 @@ class DynamicElements.Topic extends ShikiEditable
       num = $placeholder.data('ids').length
 
       $placeholder.html if trackable_type == 'message'
-        p(
-          num,
+        p num,
           t("#{I18N_KEY}.new_message_added.one", count: num),
           t("#{I18N_KEY}.new_message_added.few", count: num),
           t("#{I18N_KEY}.new_message_added.many", count: num)
-        )
       else
-        p(
-          num,
+        p num,
           t("#{I18N_KEY}.new_comment_added.one", count: num),
           t("#{I18N_KEY}.new_comment_added.few", count: num),
           t("#{I18N_KEY}.new_comment_added.many", count: num)
-        )
 
     $placeholder
 

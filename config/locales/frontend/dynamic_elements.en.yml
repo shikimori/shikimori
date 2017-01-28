@@ -43,6 +43,10 @@ en:
       dialog:
         type_label: Dialog
 
+      # message.coffee
+      message:
+        type_label: Message
+
       # authorized_action.coffee
       authorized_action:
         register_to_complete_action: >-

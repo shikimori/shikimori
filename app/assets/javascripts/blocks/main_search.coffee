@@ -18,7 +18,7 @@ $(document).on 'page:load', ->
     .data
       type: type
       autocomplete: searcheables[type].autocomplete
-    .attr(placeholder: t("frontend.main_search.#{type}"))
+    .attr(placeholder: t("frontend.blocks.main_search.#{type}"))
     .completable($('.b-main_search .suggest-placeholder'))
 
     .on 'autocomplete:success', (e, entry) ->
@@ -47,7 +47,7 @@ $(document).on 'page:load', ->
 
     $search
       .data(type: type)
-      .attr(placeholder: t("frontend.main_search.#{type}"))
+      .attr(placeholder: t("frontend.blocks.main_search.#{type}"))
       .data(autocomplete: searcheables[type].autocomplete)
       .trigger('flushCache')
       .focus()

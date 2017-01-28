@@ -90,7 +90,7 @@ list_page = ->
   $("#export_phase .control").on "click", ->
     $this = $(@)
     $.flash
-      notice: "Начинается загрузка файла... Этот файл можно импортировать в MAL на странице http://myanimelist.net/import.php"
+      notice: t('frontend.pages.p_profiles.exporting')
       removeTimer: 10000
 
     $("#shade").trigger "click"
@@ -150,7 +150,7 @@ list_page = ->
     $(@).closest("form").submit()
     (->
       $.flash
-        notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
+        notice: t('frontend.pages.p_profiles.importing')
         removeTimer: 300000
     ).delay 250
 
@@ -160,7 +160,7 @@ list_page = ->
     $this = $(@)
     $("#import_form [name=wont_watch_strategy]").val $this.data("wont-watch-strategy")
     $.flash
-      notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
+      notice: t('frontend.pages.p_profiles.importing')
       removeTimer: 300000
 
     (-> $this.closest("form").submit()).delay 250
@@ -168,7 +168,7 @@ list_page = ->
   $("#import_form .submit.import").on "click", ->
     $this = $(@)
     $.flash
-      notice: "Начинается импорт... Это может занять некоторое время. Пожалуйста, подождите и не обновляйте страницу."
+      notice: t('frontend.pages.p_profiles.importing')
       removeTimer: 300000
 
     (-> $this.closest("form").submit()).delay 250

@@ -74,7 +74,7 @@ jQuery(function ($) {
                     error: function (xhr, status, error) {
                         $this.data('ajax:locked', false);
                         if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
-                            $.flash({alert: 'Неверный логин или пароль'});
+                            $.flash({alert: t('lib.invalid_login_or_password')});
                         //} else if (xhr.status == 401) {
                             //$.flash({alert: 'Вы не авторизованы'});
                             //$('#sign_in').trigger('click');
@@ -89,12 +89,12 @@ jQuery(function ($) {
                             } else {
                               $.alert(xhr.responseText != 'Forbidden' ?
                                 xhr.responseText :
-                                'У вас нет прав для данного действия'
+                                t('lib.you_are_not_authorized')
                               );
                             }
 
                         } else if (xhr.status == 500) {
-                            $.alert('Пожалуйста, повторите попытку позже');
+                            $.alert(t('lib.please_try_again_later'));
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -114,14 +114,17 @@ jQuery(function ($) {
                                     if (k == 'base') {
                                       return v;
                                     } else {
-                                      return "<strong>" + (k in I18N ? I18N[k] : k) + "</strong> " + (Object.isArray(v) ? v.join(', ') : v);
+                                      return "<strong>" +
+                                        t("lib." + k, { defaultValue: k }) +
+                                        "</strong> " +
+                                        (Object.isArray(v) ? v.join(', ') : v);
                                     }
                                   }).join('<br />');
 
                                   $.alert(text);
                                 }
                             } else {
-                                $.alert('Пожалуйста, повторите попытку позже')
+                                $.alert(t('lib.please_try_again_later'))
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);

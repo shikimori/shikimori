@@ -80,7 +80,7 @@ class @ShikiEditor extends ShikiView
       @$textarea.insertAtCaret '[s]', '[/s]'
 
     @$('.editor-spoiler').on 'click', =>
-      @$textarea.insertAtCaret "[spoiler=#{t 'frontend.shiki_editor.spoiler'}]", '[/spoiler]'
+      @$textarea.insertAtCaret "[spoiler=#{t 'shiki_editor.spoiler'}]", '[/spoiler]'
 
     # смайлики и ссылка
     ['smiley', 'link', 'image', 'quote', 'upload'].each (key) =>
@@ -262,7 +262,7 @@ class @ShikiEditor extends ShikiView
       @$('.editor-file').hide()
 
     # ajax загрузка файлов
-    file_text_placeholder = "[#{t 'frontend.shiki_editor.file'} #@]"
+    file_text_placeholder = "[#{t('frontend.shiki_editor.file')} #@]"
     @$textarea.shikiFile
       progress: $root.find('.b-upload_progress')
       input: $('.editor-file input', $root)
@@ -348,14 +348,3 @@ class @ShikiEditor extends ShikiView
 
   _type: ->
     @$textarea.data('item_type')
-
-# TODO: refactor to i18n-js
-TRANSLATIONS =
-  ru:
-    text_cant_be_blank: 'Текст не может быть пустым'
-    spoiler: 'спойлер'
-    file: 'файл'
-  en:
-    text_cant_be_blank: "Text can't be blank"
-    spoiler: 'spoiler'
-    file: 'file'

@@ -7,5 +7,5 @@ $(document).on 'page:load', ->
     modal = new ShikiModal $form
 
     $form.on 'ajax:success', ->
-      $.notice t('frontend.feedback.message_sent')
+      $.notice t('frontend.blocks.feedback.message_sent')
       modal.close()

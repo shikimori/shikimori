@@ -1,0 +1,14 @@
+ru:
+  frontend:
+    lib:
+      nickname: Логин
+      subject: Название
+      title: Название
+      email: E-mail
+      password: Пароль
+      body: Текст
+      created_at: ''
+      forbidden: ''
+      invalid_login_or_password: Неверный логин или пароль
+      you_are_not_authorized: У вас нет прав для данного действия
+      please_try_again_later: Пожалуйста, повторите попытку позже
