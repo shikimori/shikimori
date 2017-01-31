@@ -4,10 +4,10 @@ class MalParsers::AnimeAuthorized < MalParser::Entry::Anime
   end
 
   def html
-    @html ||= make_request url
+    @html ||= make_request(url)&.fix_encoding
 
-    if @html.nil? || @html =~ INVALID_ID_REGEXP
-      raise RecordNotFound
+    if !@html || @html =~ INVALID_ID_REGEXP
+      raise InvalidIdError, url
     else
       @html
     end
@@ -22,7 +22,7 @@ class MalParsers::AnimeAuthorized < MalParser::Entry::Anime
       open(url, headers).read
     rescue OpenURI::HTTPError => e
       if e.message =~ /404 Not Found/
-        raise RecordNotFound
+        raise InvalidIdError, url
       else
         raise
       end
