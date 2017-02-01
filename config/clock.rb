@@ -61,7 +61,7 @@ module Clockwork
 
     FinishExpiredAnimes.perform_async
 
-    AutobanFix.perform_async
+    # AutobanFix.perform_async
 
     MalParsers::ScheduleExpiredAuthorized.perform_async
   end
