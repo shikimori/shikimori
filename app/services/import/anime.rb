@@ -15,6 +15,9 @@ private
   def assign_genres genres
     entry.genres = []
     genres.each { |genre| assign_genre genre }
+
+    entry.censored = entry.rating_rx? ||
+      genres.any? { |v| Genre::CENSORED_IDS.include? v[:id] }
   end
 
   def assign_genre genre

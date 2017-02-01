@@ -1,4 +1,6 @@
 class AutobanFix
+  include Sidekiq::Worker
+
   def perform
     User
       .where('read_only_at > ?', 1.year.from_now)

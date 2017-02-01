@@ -4,6 +4,7 @@ describe Import::Anime do
     {
       id: id,
       name: 'Test test 2',
+      rating: rating,
       genres: genres,
       studios: studios,
       related: related,
@@ -15,6 +16,7 @@ describe Import::Anime do
     }
   end
   let(:id) { 987_654_321 }
+  let(:rating) { 'pg' }
   let(:genres) { [] }
   let(:studios) { [] }
   let(:related) { {} }
@@ -315,6 +317,41 @@ describe Import::Anime do
         expect(Import::MalImage)
           .to have_received(:call)
           .with entry, image
+      end
+    end
+  end
+
+  describe 'censored' do
+    let(:genres) { [{ id: genre_id, name: 'test' }] }
+
+    describe 'by rating' do
+      let(:genre_id) { 1 }
+      context 'not rx' do
+        let(:rating) { 'pg' }
+        it do
+          expect(entry.rating).to eq 'pg'
+          expect(entry.censored).to eq false
+        end
+      end
+
+      context 'rx' do
+        let(:rating) { 'rx' }
+        it do
+          expect(entry.rating).to eq 'rx'
+          expect(entry.censored).to eq true
+        end
+      end
+    end
+
+    context 'by genre' do
+      context 'not hentai' do
+        let(:genre_id) { 1 }
+        it { expect(entry.censored).to eq false }
+      end
+
+      context 'hentai' do
+        let(:genre_id) { Genre::CENSORED_IDS.sample }
+        it { expect(entry.censored).to eq true }
       end
     end
   end
