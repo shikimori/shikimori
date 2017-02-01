@@ -80,7 +80,9 @@ class @ShikiEditor extends ShikiView
       @$textarea.insertAtCaret '[s]', '[/s]'
 
     @$('.editor-spoiler').on 'click', =>
-      @$textarea.insertAtCaret "[spoiler=#{t 'shiki_editor.spoiler'}]", '[/spoiler]'
+      @$textarea.insertAtCaret(
+        "[spoiler=#{t 'frontend.shiki_editor.spoiler'}]", '[/spoiler]'
+      )
 
     # смайлики и ссылка
     ['smiley', 'link', 'image', 'quote', 'upload'].each (key) =>
