@@ -87,10 +87,10 @@ private
 
   # исходные данные с источника
   def fetch_raw_lines
-    content1 = open("http://en.music.sakuhindb.com/e/created_time/anime.html").read
+    content1 = open("https://en.music.sakuhindb.com/e/created_time/anime.html").read
     doc1 = Nokogiri::HTML content1
 
-    content2 = open("http://en.music.sakuhindb.com/e/created_time/anime_movie.html").read
+    content2 = open("https://en.music.sakuhindb.com/e/created_time/anime_movie.html").read
     doc2 = Nokogiri::HTML content2
 
     doc1.css('select[name=vid] option').map {|v| v.attr 'value' } +
@@ -100,7 +100,7 @@ private
 
   # альтернативное название с источника
   def alt_name name
-    content = open("http://en.sakuhindb.com/anime/search.asp?todo=&key=#{URI.encode name}&lang=e").read
+    content = open("https://en.sakuhindb.com/anime/search.asp?todo=&key=#{URI.encode name}&lang=e").read
     File.open('/tmp/test.html', 'w') {|v| v.write content }
     doc = Nokogiri::HTML content
     link = doc.css('.va_top td a').first
