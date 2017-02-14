@@ -39,7 +39,6 @@ describe TorrentsParser do
 
     it 'match wrong cases' do
       expect(TorrentsParser.extract_episodes_num('[Leopard-Raws] Ore no Imouto ga Konna ni Kawaii Wake ga Nai OP9 (MX 1280x720 x264).mp4')).to eq []
-      expect(TorrentsParser.extract_episodes_num('[FaggotryRaws] Tegami Bachi (REVERSE) - Letter Bee - 28 (03) (TV TOKYO 1280x720).mkv')).to eq []
     end
 
     it 'too big numbers' do
@@ -122,6 +121,11 @@ describe TorrentsParser do
         let(:name) { '[Local-Raws] Flying Witch 11 RAW (1280x720 x264 AAC NHKE).mp4' }
         it { is_expected.to eq [11] }
       end
+    end
+
+    describe 'additional number in brackets' do
+      let(:name) { '[Leopard-Raws] Rewrite 2nd Season - Moon Hen, Terra Hen - 05 (18) RAW (BS11 1280x720 x264 AAC).mp4' }
+      it { is_expected.to eq [5] }
     end
   end
 
