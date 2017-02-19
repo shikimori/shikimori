@@ -98,8 +98,12 @@ class DynamicElements.Topic extends ShikiEditable
 
     # голосование за/против рецензии
     @$('.footer-vote .vote').on 'ajax:before', ->
-      $(@).addClass('selected')
+      $(@).closest('.footer-vote').addClass 'b-ajax'
+      $(@).addClass 'selected'
       $(@).siblings('.vote').removeClass('selected')
+
+    @$('.footer-vote .vote').on 'ajax:complete', ->
+      $(@).closest('.footer-vote').removeClass 'b-ajax'
 
     # прочтение комментриев
     @on 'appear', (e, $appeared, by_click) =>
