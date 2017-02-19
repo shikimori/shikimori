@@ -1,10 +1,10 @@
 class ClubsQuery < SimpleQueryBase
   pattr_initialize :locale
 
-  FAVOURITE = [72, 19, 202, 113, 315, 811]
+  FAVOURITES = [72, 19, 202, 113, 315, 903]
 
   def favourite
-    clubs.where(id: FAVOURITE)
+    clubs.where(id: FAVOURITES)
   end
 
   def fetch page, limit, with_favourites = false
@@ -17,7 +17,7 @@ class ClubsQuery < SimpleQueryBase
     if with_favourites
       clubs
     else
-      clubs.where.not(id: FAVOURITE)
+      clubs.where.not(id: FAVOURITES)
     end
   end
 

@@ -10,7 +10,7 @@ describe ClubsQuery do
   let!(:club_3) { create :club, :with_topics, id: 3 }
   let!(:club_4) { create :club, :with_topics, id: 4 }
   let!(:club_en) { create :club, :with_topics, id: 5, locale: :en }
-  let!(:club_favoured) { create :club, :with_topics, id: ClubsQuery::FAVOURITE.max }
+  let!(:club_favoured) { create :club, :with_topics, id: ClubsQuery::FAVOURITES.max }
 
   before do
     club_1.members << user
