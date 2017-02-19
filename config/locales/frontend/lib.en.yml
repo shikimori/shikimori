@@ -1,14 +1,25 @@
 en:
   frontend:
     lib:
-      nickname: Nickname
-      subject: Subject
-      title: Title
-      email: E-mail
-      password: Password
-      body: Text
-      created_at: ''
-      forbidden: ''
-      invalid_login_or_password: Invalid login or password
-      you_are_not_authorized: You are not authorized to perform this action
-      please_try_again_later: Please try again later
+      rails_ujs_modified:
+        # line 118
+        nickname: Nickname
+        subject: Subject
+        title: Title
+        email: E-mail
+        password: Password
+        body: Text
+        created_at: ''
+        forbidden: ''
+        invalid_login_or_password: Invalid login or password
+        you_are_not_authorized: You are not authorized to perform this action
+        please_try_again_later: Please try again later
+
+      comments_notifier:
+        number_of_unread_comments: Number of unread comments
+
+      jquery_shiki_forum:
+        new_topics_added:
+          one: '%{count} new topic added'
+          few: '%{count} new topics added'
+          many: '%{count} new topics added'

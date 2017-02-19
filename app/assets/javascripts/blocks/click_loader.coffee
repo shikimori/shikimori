@@ -8,7 +8,7 @@ $(document).on 'click', '.click-loader', ->
 
   $this
     .data(html: $this.html())
-    .html('<div class="ajax-loading vk-like" title="Загрузка..." />')
+    .html("<div class='ajax-loading vk-like' title='#{t('frontend.blocks.click_loader.loading')}' />")
 
   method = if $this.data('format') == 'json' then 'getJSON' else 'get'
 

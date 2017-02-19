@@ -51,6 +51,11 @@ class @ShikiForum extends ShikiView
         href: "/topics/chosen/#{$placeholder.data("ids").join ","}"
 
       num = $placeholder.data('ids').length
-      $placeholder.html p(num, 'Добавлен ', 'Добавлены ', 'Добавлено ') + num + p(num, ' новый топик', ' новых топика', ' новых топиков')
+      $placeholder.html(
+        p num,
+          t('frontend.lib.jquery_shiki_forum.new_topics_added.one', count: num),
+          t('frontend.lib.jquery_shiki_forum.new_topics_added.few', count: num),
+          t('frontend.lib.jquery_shiki_forum.new_topics_added.many', count: num)
+      )
 
     $placeholder

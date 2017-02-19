@@ -35,7 +35,8 @@ class @CommentsNotifier
 
   # вставка в DOM счётчика
   insert: =>
-    @$notifier = $('<div class="b-comments-notifier" style="display: none;" alt="Число непрочитанных комментариев"></div>')
+    alt = t('frontend.lib.comments_notifier.number_of_unread_comments')
+    @$notifier = $("<div class='b-comments-notifier' style='display: none;' alt='#{alt}'></div>")
       .appendTo(document.body)
       .on 'click', =>
         $first_unread = $("#{@comment_selector}, #{@faye_loader_selector}").first()
