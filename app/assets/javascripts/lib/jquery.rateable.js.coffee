@@ -20,7 +20,7 @@
         offset = $(e.target).offset().left
         raw_score = (e.clientX - offset) * 10.0 / $stars.width()
         new_score = if raw_score > 0.5
-          Math.floor(raw_score) + 1
+          [Math.floor(raw_score) + 1, 10].min()
         else
           0
 
