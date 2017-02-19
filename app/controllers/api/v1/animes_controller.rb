@@ -4,7 +4,7 @@ class Api::V1::AnimesController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes', 'List animes'
   def index
-    limit = [[params[:limit].to_i, 1].max, 30].min
+    limit = [[params[:limit].to_i, 1].max, 100].min
 
     @collection = Rails.cache.fetch cache_key, expires_in: 2.days do
       AnimesCollection::PageQuery.call(
