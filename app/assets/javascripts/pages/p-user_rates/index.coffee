@@ -131,7 +131,8 @@ apply_list_handlers = ($root) ->
     $another_tr_edit = $('tr.edit-form')
 
     $tr = $(@)
-    $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>").insertAfter(@)
+    $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>")
+      .insertAfter(@)
     $form = $tr_edit.find('form')
     #original_height = $form.height()
 
@@ -146,6 +147,9 @@ apply_list_handlers = ($root) ->
     $('.cancel', $tr_edit).on 'click', ->
       $form.hide()
       $tr_edit.remove()
+
+    $form.on 'ajax:before', (e, data) ->
+      $form.addClass 'b-ajax'
 
     # применение изменений в редактировании
     $form.on 'ajax:success', (e, data) ->
