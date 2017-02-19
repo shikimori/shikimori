@@ -30,7 +30,7 @@ module Clockwork
     BadReviewsCleaner.perform_async
   end
 
-  every 1.week, 'import anidb descriptions', at: ['02:00'] do
+  every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
     Anidb::ImportDescriptionsJob.perform_async
   end
 
