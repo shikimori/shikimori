@@ -30,11 +30,11 @@
 
   $('body').on 'click', '.b-catalog_entry .mark-ignored', ->
     $node = $(@).closest '.b-catalog_entry'
-    $link = $node.find('a')
+    $link = $node.find('a').first()
 
-    if $link.attr('href').match /(anime|manga)s\/(\d+)/
+    if $link.attr('href').match /(anime|manga)s\//
       target_type = RegExp.$1
-      target_id = RegExp.$2
+      target_id = $node.prop('id')
 
       $.post '/recommendation_ignores', target_type: target_type, target_id: target_id, (data) ->
         selector = _(data).map((v) -> ".entry-#{v}").join(',')
