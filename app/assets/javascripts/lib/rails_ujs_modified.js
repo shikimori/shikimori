@@ -74,7 +74,7 @@ jQuery(function ($) {
                     error: function (xhr, status, error) {
                         $this.data('ajax:locked', false);
                         if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
-                            $.flash({alert: t('lib.rails_ujs_modified.invalid_login_or_password')});
+                            $.flash({alert: t('frontend.lib.rails_ujs_modified.invalid_login_or_password')});
                         //} else if (xhr.status == 401) {
                             //$.flash({alert: 'Вы не авторизованы'});
                             //$('#sign_in').trigger('click');
@@ -89,12 +89,12 @@ jQuery(function ($) {
                             } else {
                               $.alert(xhr.responseText != 'Forbidden' ?
                                 xhr.responseText :
-                                t('lib.rails_ujs_modified.you_are_not_authorized')
+                                t('frontend.lib.rails_ujs_modified.you_are_not_authorized')
                               );
                             }
 
                         } else if (xhr.status == 500) {
-                            $.alert(t('lib.rails_ujs_modified.please_try_again_later'));
+                            $.alert(t('frontend.lib.rails_ujs_modified.please_try_again_later'));
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -115,7 +115,7 @@ jQuery(function ($) {
                                       return v;
                                     } else {
                                       return "<strong>" +
-                                        t("lib.rails_ujs_modified." + k, { defaultValue: k }) +
+                                        t("frontend.lib.rails_ujs_modified." + k, { defaultValue: k }) +
                                         "</strong> " +
                                         (Object.isArray(v) ? v.join(', ') : v);
                                     }
@@ -124,7 +124,7 @@ jQuery(function ($) {
                                   $.alert(text);
                                 }
                             } else {
-                                $.alert(t('lib.please_try_again_later'))
+                                $.alert(t('frontend.lib.please_try_again_later'))
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);
