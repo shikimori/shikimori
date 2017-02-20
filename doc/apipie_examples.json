@@ -200,7 +200,7 @@
       "versions": [
         "1.0"
       ],
-      "query": "censored=false&duration=F&genre=1&limit=1&mylist=1&order=ranked&page=1&rating=r&score=6&search=Te&season=2014&studio=1&type=tv",
+      "query": "censored=false&duration=F&genre=1&limit=1&mylist=1&order=ranked&page=1&rating=r&score=6&search=Te&season=2014&status=released&studio=1&type=tv",
       "request_data": null,
       "response_data": [
         {
@@ -215,7 +215,7 @@
           },
           "url": "/animes/2-test",
           "kind": "tv",
-          "status": null,
+          "status": "released",
           "episodes": 0,
           "episodes_aired": 0,
           "aired_on": "2014-01-01",
@@ -335,8 +335,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/68ef84f36290535193aad0d4df06e60cb25d7995.jpg?1484049600",
-          "preview": "/system/screenshots/x332/68ef84f36290535193aad0d4df06e60cb25d7995.jpg?1484049600"
+          "original": "/system/screenshots/original/3a4798d9bd8bb49062fcde2d28764f41bcd5d5f6.jpg?1484049600",
+          "preview": "/system/screenshots/x332/3a4798d9bd8bb49062fcde2d28764f41bcd5d5f6.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -539,7 +539,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "KyHygQXgTamthYgIchG+FAft3/YtPbIaUQj5MIx5hivUIjHvEEFbC15SN3EMUWt5C439ualV0z/6Nf0mHrxVhg=="
+        "authenticity_token": "Q4nebn+vkMwAPs+89W9tgIyhnlepx+lLnqN57ip2Q9IDlRZd1rMWFotZoi/NlLbLn8bCSL3wbP5JYGhJ73CnFg=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -685,7 +685,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-01-05T00:00:00.000+00:00",
+          "next_episode_at": "2017-02-06T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -702,7 +702,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-01-05",
+            "aired_on": "2017-02-06",
             "released_on": null
           }
         }
@@ -2356,7 +2356,7 @@
           "url": "/forum/cosplay"
         },
         {
-          "id": 80325,
+          "id": 35795,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3037,7 +3037,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-19T21:52:42.136+03:00"
+          "last_online_at": "2017-02-20T23:22:43.358+03:00"
         }
       },
       "code": "200",
@@ -3619,7 +3619,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-19T21:52:42.136+03:00"
+            "last_online_at": "2017-02-20T23:22:43.358+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3670,7 +3670,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-01-19T21:52:42.136+03:00"
+          "last_online_at": "2017-02-20T23:22:43.358+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3708,7 +3708,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-01-19T21:52:42.136+03:00"
+            "last_online_at": "2017-02-20T23:22:43.358+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4551,7 +4551,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 19,
+          "id": 27,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Запланировано",
           "target": {
@@ -4574,7 +4574,7 @@
           }
         },
         {
-          "id": 18,
+          "id": 26,
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "description": "Импортировано аниме - 522 записи",
           "target": null
@@ -4596,8 +4596,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500020,
-          "nickname": "Test2",
+          "id": 500019,
+          "nickname": "Test1",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4611,8 +4611,8 @@
           "last_online_at": "2017-01-10T15:00:00.000+03:00"
         },
         {
-          "id": 500021,
-          "nickname": "Test3",
+          "id": 500020,
+          "nickname": "Test2",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",

@@ -7,6 +7,7 @@ describe Api::V1::AnimesController, :show_in_doc do
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
     let(:anime) do
       create :anime,
+        :released,
         name: 'Test',
         aired_on: Date.parse('2014-01-01'),
         studios: [studio],
@@ -24,6 +25,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         page: 1,
         limit: 1,
         type: 'tv',
+        status: 'released',
         season: '2014',
         genre: genre.id.to_s,
         studio: studio.id.to_s,
