@@ -27,6 +27,6 @@ private
   end
 
   def model
-    topic
+    @topic
   end
 end

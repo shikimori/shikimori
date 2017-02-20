@@ -58,7 +58,7 @@ class Comment < ActiveRecord::Base
   end
 
   def commentable
-    if association(:topic).loaded? && !topic.nil?
+    if association(:topic).loaded? && !topic.nil? && commentable_type == 'Topic'
       topic
     else
       super
