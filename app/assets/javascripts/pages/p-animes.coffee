@@ -8,11 +8,11 @@
   # графики
   $("#rates_scores_stats").bar
     filter: (entry, percent) -> percent >= 2
-    no_data: ($chart) -> $chart.html("<p class='b-nothing_here'>#{t('frontend.pages.p-animes.no_data')}</p>")
+    no_data: ($chart) -> $chart.html("<p class='b-nothing_here'>#{t('frontend.pages.p_animes.no_data')}</p>")
 
   $("#rates_statuses_stats").bar
     title: (entry, percent) -> if percent > 15 then entry.value else ''
-    no_data: ($chart) -> $chart.html("<p class='b-nothing_here'>#{t('frontend.pages.p-animes.no_data')}</p>")
+    no_data: ($chart) -> $chart.html("<p class='b-nothing_here'>#{t('frontend.pages.p_animes.no_data')}</p>")
 
   @init_history.delay() if USER_SIGNED_IN && DAY_REGISTERED && IGNORE_COPYRIGHT
 

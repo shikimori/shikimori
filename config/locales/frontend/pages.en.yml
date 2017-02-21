@@ -3,7 +3,7 @@ en:
     pages:
       # p-animes.coffee
       p_animes:
-        no_date: No data
+        no_data: No data
 
       # p-contests
       p_contests:
