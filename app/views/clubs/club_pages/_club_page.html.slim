@@ -1,0 +1,30 @@
+- children = club.pages.select { |v| v.parent_page_id == page.id }
+
+li
+  a.b-link[
+    href="#{edit_club_club_page_path club, page}"
+  ] = page.name
+  .club_page-actions
+    - if page.siblings.first != page
+      a.b-js-link[
+        data-method="post"
+        href="#{up_club_club_page_path club, page}"
+      ] = t '.up'
+    - if page.siblings.last != page
+      a.b-js-link[
+        data-method="post"
+        href="#{down_club_club_page_path club, page}"
+      ] = t '.down'
+    a.b-js-link[
+      date-remote="true"
+      data-method="delete"
+      data-confirm="#{t '.confirm'}"
+      href="#{club_club_page_path club, page}"
+    ] = t '.delete'
+
+  - if children.any?
+    ul.b-list
+      - children.each do |page|
+        = render 'clubs/club_pages/club_page',
+          club: club,
+          page: page

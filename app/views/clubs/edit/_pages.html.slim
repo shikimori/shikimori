@@ -1,0 +1,15 @@
+.block
+  - if @resource.pages.none?
+    .b-nothing_here = t 'clubs.club_pages.form.no_pages'
+  - else
+    ul.b-list
+      - @resource.root_pages.each do |page|
+        = render 'clubs/club_pages/club_page',
+          club: @resource,
+          page: page
+
+.block
+  a.button[
+    href="#{new_club_club_page_path @resource, club_page: { club_id: @resource.id }}"
+  ] = t 'clubs.club_pages.form.add_page'
+  a.cancel href="#{club_url @resource}" = t 'actions.cancel'

@@ -17,6 +17,9 @@ AllCops:
 Metrics/LineLength:
   Exclude:
     - spec/**/*
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
 
 Style/NestedParenthesizedCalls:
   Exclude:

@@ -16,6 +16,7 @@ en:
         links: Links
         members: Members
         styles: Styles
+        pages: Pages
 
     edit:
       main:
@@ -38,3 +39,16 @@ en:
     show:
       images: Pictures
       discussions: Discussions
+
+    club_pages:
+      form:
+        no_pages: No pages yet
+        add_page: Add page
+        parent_page_id:
+          none: None
+        child_pages: Child pages
+      club_page:
+        up: up
+        down: down
+        delete: delete
+        confirm: Are you sure?

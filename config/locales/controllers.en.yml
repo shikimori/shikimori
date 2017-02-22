@@ -103,6 +103,12 @@ en:
     image_uploaded: Image uploaded
     image_deleted: Image deleted
 
+  clubs/club_pages_controller:
+    new:
+      title: New page
+    destroy:
+      success: Page deleted
+
   club_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"

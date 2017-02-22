@@ -1,50 +1,50 @@
 .b-clubs-menu
-  - if resource.logo.exists?
+  - if club.logo.exists?
     .b-menu_logo
       center: a[
-        href="#{resource.url}"
-        title="#{resource.name}"
+        href="#{club.url}"
+        title="#{club.name}"
       ]
         img[
-          src="#{cdn_image resource, :main}"
-          alt="#{resource.name}"
+          src="#{cdn_image club, :main}"
+          alt="#{club.name}"
         ]
 
-  = render 'clubs/actions', resource: resource
+  = render 'clubs/actions', club: club
 
-  = cache [resource, :menu] do
+  = cache [club, :menu] do
     - if params[:controller] == 'clubs'
-      - if resource.animes.any?
+      - if club.animes.any?
         = render 'clubs/menu_linked_entries',
-          collection: resource.menu_animes,
-          url: animes_club_url(resource),
+          collection: club.menu_animes,
+          url: animes_club_url(club),
           name: i18n_i('anime')
 
-      - if resource.mangas.any?
+      - if club.mangas.any?
         = render 'clubs/menu_linked_entries',
-          collection: resource.menu_mangas,
-          url: mangas_club_url(resource),
+          collection: club.menu_mangas,
+          url: mangas_club_url(club),
           name: i18n_i('manga')
 
-      - if resource.characters.any?
+      - if club.characters.any?
         = render 'clubs/menu_linked_entries',
-          collection: resource.menu_characters,
-          url: characters_club_url(resource),
+          collection: club.menu_characters,
+          url: characters_club_url(club),
           name: i18n_i('character', :other),
           ratio_type: 'person'
 
-    - if resource.members.any?
+    - if club.members.any?
       .subheadline.m10
-        span.linkeable data-href="#{members_club_url resource}"
+        span.linkeable data-href="#{members_club_url club}"
           = i18n_i 'member', :other
       .cc.members
         = render partial: 'users/user',
-          collection: resource.members,
+          collection: club.members,
           locals: { content_by: :avatar }
 
-    - if resource.admins.any?
+    - if club.admins.any?
       .subheadline.m10 = i18n_i 'administration'
       .cc-4.admin
         = render partial: 'users/user',
-          collection: resource.admins,
+          collection: club.admins,
           locals: { content_by: :named_avatar }

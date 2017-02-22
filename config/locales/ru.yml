@@ -177,6 +177,10 @@ ru:
         logo: Логотип
       club_invite:
         dst: Пользователь
+      club_page:
+        parent_page_id: Родительская страница
+        name: Название
+        text: Текст
       topic:
         title: Название
         body: Текст

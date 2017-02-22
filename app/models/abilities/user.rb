@@ -148,6 +148,12 @@ class Abilities::User
       end
     end
 
+    can [:new, :create, :update, :destroy, :up, :down], ClubPage do |club_page|
+      can?(:update, club_page.club) && (
+        club_page.parent_page_id.nil? ||
+        club_page.parent_page.club_id == club_page.club_id
+      )
+    end
 
     can :create, ClubRole do |club_role|
       club_role.user_id == @user.id && can?(:join, club_role.club)

@@ -1,0 +1,54 @@
+= render layout: 'page' do
+  - if @resource.errors.any?
+    .b-errors
+      .subheadline = i18n_i 'error', :other
+      == @resource.errors.full_messages.join('<br>')
+
+  .subheadline.m10 = @page_title.last
+
+  = simple_form_for [@club, @resource] do |f|
+    = f.input :club_id, as: :hidden
+
+    .cc-2a.m15
+      .c-column.m0
+        .b-input
+          label
+            | #{ClubPage.human_attribute_name :parent_page_id}&nbsp;&nbsp;
+            - if @resource.parent_page
+              a.b-link[
+                href="#{edit_club_club_page_path @resource.club, @resource.parent_page}"
+              ] = @resource.parent_page.name
+
+          = f.input :parent_page_id,
+            collection: @club.pages.select { |v| v.id != @resource.id },
+            include_blank: t('clubs.club_pages.form.parent_page_id.none'),
+            label: false
+
+      .c-column.m0
+        - if @resource.persisted?
+          .b-input
+            .m5 = t 'clubs.club_pages.form.child_pages'
+            - if @resource.child_pages.any?
+              ul.b-list
+                - @resource.child_pages.each do |page|
+                  = render 'clubs/club_pages/club_page',
+                    club: @resource.club,
+                    page: page
+            - else
+              .b-nothing_here = t 'clubs.club_pages.form.no_pages'
+
+          a.button[
+            href="#{new_club_club_page_path @resource.club_id, club_page: { club_id: @resource.club_id, parent_page_id: @resource.id }}"
+          ] = t 'clubs.club_pages.form.add_page'
+
+    = f.input :name
+
+    .block
+      .b-shiki_editor.unprocessed
+        = render 'comments/shiki_editor',
+          text: @resource.text,
+          field_name: 'club_page[text]'
+
+    .buttons
+      a.cancel href="#{@back_url}" = t 'actions.cancel'
+      = f.button :magic_submit

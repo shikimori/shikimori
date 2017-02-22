@@ -454,7 +454,9 @@ Site::Application.routes.draw do
         get :characters
         get :images
 
-        get 'edit/:page' => :edit, as: :edit, page: /main|description|links|members|styles/
+        get 'edit/:page' => :edit,
+          as: :edit,
+          page: /main|description|links|members|styles|pages/
       end
 
       collection do
@@ -469,6 +471,10 @@ Site::Application.routes.draw do
       end
 
       resources :club_images, only: [:create, :destroy], module: :clubs
+      resources :club_pages, except: [:index, :show], module: :clubs do
+        post :up, on: :member
+        post :down, on: :member
+      end
     end
 
     resources :club_invites, only: [] do

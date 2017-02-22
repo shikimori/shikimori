@@ -2,24 +2,25 @@
   .toggler
 
 header.head
-  h1 class="#{:censored if @resource && @resource.name.present? && @resource.censored?}"
-    - if params[:action] != 'show' && @resource && @resource.persisted?
+  h1 class="#{:censored if @club && @club.name.present? && @club.censored?}"
+    - if params[:action] != 'show' && @club && @club.persisted?
       a.back[
-        href="#{club_url @resource}"
+        href="#{@back_url || club_url(@club)}"
         title="#{t '.back_to_clubs_page'}"
         data-text="#{t 'back'}"
       ]
 
-    - if @resource.name.present?
-      = @resource.name
+    - if @club.name.present?
+      = @club.name
     - else
       = t '.new_club'
 
-  - if can?(:edit, @resource) && @resource.persisted? && params[:action] != 'edit'
-    a.edit[
-      href="#{edit_club_url @resource, page: :main}"
-      title="#{t '.edit_club'}"
-    ] = t('actions.edit').downcase
+  - if can?(:edit, @club) && @club.persisted?
+    - if params[:controller] == 'clubs' && params[:action] != 'edit'
+      a.edit[
+        href="#{edit_club_url @club, page: :main}"
+        title="#{t '.edit_club'}"
+      ] = t('actions.edit').downcase
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
@@ -29,4 +30,4 @@ header.head
       = yield
 
     aside.l-menu
-      = render 'menu', resource: @resource
+      = render 'menu', club: @club

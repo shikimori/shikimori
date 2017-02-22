@@ -133,7 +133,7 @@ private
   def create_params
     params.require(:club).permit(*CREATE_PARAMS)
   end
-  alias :new_params :create_params
+  alias new_params create_params
 
   def update_params
     params.require(:club).permit(*UPDATE_PARAMS)

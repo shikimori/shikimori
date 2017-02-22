@@ -16,6 +16,7 @@ ru:
         links: Ссылки
         members: Участники
         styles: Стили
+        pages: Страницы
 
     edit:
       main:
@@ -38,3 +39,16 @@ ru:
     show:
       images: Картинки
       discussions: Обсуждения
+
+    club_pages:
+      form:
+        no_pages: Нет страниц
+        add_page: Добавить страницу
+        parent_page_id:
+          none: Нет
+        child_pages: Дочерние страницы
+      club_page:
+        up: вверх
+        down: вниз
+        delete: удалить
+        confirm: Вы уверены?

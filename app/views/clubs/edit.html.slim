@@ -1,3 +1,5 @@
+/ тут намеренно используются одновременно и @resouce, и @club.
+/ в случае сlub_pages @resource является страницей клуба
 = render layout: 'page' do
   - if @resource.errors.any?
     .b-errors
@@ -5,10 +7,10 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    - %w(main description links members styles).each do |page|
+    - %w(main description pages links members styles).each do |page|
       a[
         class="#{:selected if @page == page}"
-        href="#{edit_club_url @resource, page: page}"
+        href="#{edit_club_url @club, page: page}"
       ] = t ".pages.#{page}"
   h2.subheadline.m10 = t :settings
 

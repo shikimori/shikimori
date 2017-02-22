@@ -177,6 +177,10 @@ en:
         logo: Logo
       club_invite:
         dst: User
+      club_page:
+        parent_page_id: Parent page
+        name: Name
+        text: Text
       topic:
         title: Title
         body: Text

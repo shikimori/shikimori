@@ -1,41 +1,41 @@
-- if user_signed_in? && resource.persisted?
+- if user_signed_in? && club.persisted?
   .block.actions
     .subheadline = i18n_i 'action', :other
     ul.block-list
-      - if can? :edit, resource
+      - if can? :edit, club
         li.r-iphone.edit-entry
-          a href="#{edit_club_url resource, page: :main}" = t '.edit_club'
+          a href="#{edit_club_url club, page: :main}" = t '.edit_club'
 
-      - if can? :broadcast, resource
+      - if can? :broadcast, club
         li.broadcast
-          a href="#{broadcast_club_comments_url resource}" = t '.broadcast'
+          a href="#{broadcast_club_comments_url club}" = t '.broadcast'
 
-      - if can? :upload, resource
+      - if can? :upload, club
         li.upload title="#{t '.upload_image_title'}"
-          = form_tag club_club_images_url(resource), method: :post, multipart: true do
+          = form_tag club_club_images_url(club), method: :post, multipart: true do
             span = t 'actions.upload_image'
             input type='file' name='image'
 
-      - if can? :invite, resource
+      - if can? :invite, club
         li.invite = t '.invite_to_club'
 
-      - if can?(:join, resource) && !resource.member?(current_user)
+      - if can?(:join, club) && !club.member?(current_user)
         li.join
           a[
-            href="#{club_club_roles_path resource, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => resource.id}"
+            href="#{club_club_roles_path club, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => club.id}"
             data-method='post'
           ] = t '.join_club'
 
-      - if can?(:leave, resource) && resource.member?(current_user)
+      - if can?(:leave, club) && club.member?(current_user)
         li.leave
           a[
-            href="#{club_club_role_path resource, resource.member_role(current_user)}"
+            href="#{club_club_role_path club, club.member_role(current_user)}"
             data-method='delete'
           ] = t '.leave_club'
 
   .block.invite
     .subheadline = i18n_i 'invitation'
-    = simple_form_for [resource, resource.new_invite],
+    = simple_form_for [club, club.new_invite],
         remote: true,
         authenticity_token: true,
         html: { 'data-type' => :json } do |f|

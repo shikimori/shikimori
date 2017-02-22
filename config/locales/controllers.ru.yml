@@ -103,6 +103,12 @@ ru:
     image_uploaded: Изображение загружено
     image_deleted: Изображение удалено
 
+  clubs/club_pages_controller:
+    new:
+      title: Новая страница
+    destroy:
+      success: Страница удалена
+
   club_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"

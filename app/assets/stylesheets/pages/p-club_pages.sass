@@ -1,0 +1,15 @@
+@import mixins/bracket_action
+
+.p-club_pages
+  .b-shiki_editor .b-comment .inner header
+    display: none
+
+  .club_page-actions
+    +bracket_action
+    display: inline
+
+    .b-js-link
+      margin-right: 5px
+
+      &:last-child
+        margin-right: 0

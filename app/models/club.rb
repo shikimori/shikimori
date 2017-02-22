@@ -19,7 +19,12 @@ class Club < ActiveRecord::Base
     inverse_of: :club
   has_many :admins, through: :admin_roles, source: :user
 
-  has_many :pages, class_name: ClubPage.name, dependent: :destroy
+  has_many :pages, -> { ordered },
+    class_name: ClubPage.name,
+    dependent: :destroy
+  has_many :root_pages, -> { where(parent_page_id: nil).ordered },
+    class_name: ClubPage.name
+
   has_many :links, class_name: ClubLink.name, dependent: :destroy
 
   has_many :animes, -> { order :ranked },
