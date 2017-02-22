@@ -30,6 +30,7 @@ class User
       47_440, 11942, 52936, 38_439, 38_439, 48_509, 53_634, 41_912, 91_485,
       13_7461
     ]).uniq
+    NOT_TRUSTED_VIDEO_UPLOADERS = [56_231]
     TRUSTED_VIDEO_CHANGERS = [101_610] # 10610 - s.t.a.l.k.e.r
     TRUSTED_VERSION_CHANGERS = [188, 94] # 188 - Autumn, 94 - acid_emily
 

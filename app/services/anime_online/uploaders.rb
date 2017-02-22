@@ -18,7 +18,9 @@ class AnimeOnline::Uploaders
   end
 
   def self.trusted? user_id
-    @trusted ||= (User::TRUSTED_VIDEO_UPLOADERS + responsible).uniq
+    @trusted ||= (User::TRUSTED_VIDEO_UPLOADERS + responsible).uniq -
+      User::NOT_TRUSTED_VIDEO_UPLOADERS
+
     @trusted.include? user_id
   end
 

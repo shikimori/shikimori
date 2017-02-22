@@ -35,5 +35,6 @@ describe AnimeOnline::Uploaders do
     it { expect(AnimeOnline::Uploaders.trusted?(user.id)).to eq false }
     it { expect(AnimeOnline::Uploaders.trusted?(user_admin.id)).to eq true }
     it { expect(AnimeOnline::Uploaders.trusted?(user_responsible.id)).to eq true }
+    it { expect(AnimeOnline::Uploaders.trusted?(User::NOT_TRUSTED_VIDEO_UPLOADERS.sample)).to eq false }
   end
 end
