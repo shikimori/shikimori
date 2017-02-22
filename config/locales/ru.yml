@@ -154,7 +154,7 @@ ru:
         url: Url
         episode: Эпизод
         kind: Тип видео
-        language: На каком языке видео
+        language: Язык озвучки/субтитров
         quality: Качество видео
         state: Статус
         author_name: Автор

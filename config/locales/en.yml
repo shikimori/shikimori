@@ -154,7 +154,7 @@ en:
         url: Video Link
         episode: Episode
         kind: Video Type
-        language: Video language
+        language: Video dub/sub language
         quality: Video quality
         state: Status
         author_name: Author
