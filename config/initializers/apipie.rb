@@ -42,6 +42,7 @@ Apipie.configure do |config|
 
     ### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
+    [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.
     <br><br>
 
     ### Feedback
