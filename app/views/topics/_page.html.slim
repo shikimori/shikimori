@@ -42,7 +42,7 @@ header.head
           = render 'people/menu', resource: linked.decorate
 
         - elsif linked.kind_of? Club
-          = render 'clubs/menu', resource: linked.decorate
+          = render 'clubs/menu', club: linked.decorate
 
         - elsif linked.kind_of? Contest
           = render 'contests/menu', resource: linked.decorate
