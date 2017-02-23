@@ -442,7 +442,7 @@ describe BbCodeFormatter do
     end
 
     describe '[code]' do
-      let(:text) { '[code][b]test[/b][/code]' }
+      let(:text) { '[code] [b]test[/b] [/code]' }
       it do
         is_expected.to include '[b]test[/b]'
         is_expected.to include '<pre class="to-process" data-dynamic="code_highlight">'
