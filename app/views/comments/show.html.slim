@@ -1,7 +1,7 @@
 - if request.xhr?
   = render partial: 'comments/comment',
     layout: false,
-    object: @view.comment,
+    object: @view.decorated_comment,
     formats: :html
 
 - else
