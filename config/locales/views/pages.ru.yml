@@ -73,6 +73,26 @@ ru:
       list: Список
       list_example: '[list][*]первая строка[*]вторая строка[/list]'
 
+      code: Код
+      code_example_1: >-
+        [code]http://inline.code.block[/code]<br><br>
+        [code]<br>
+        &nbsp;&nbsp;[b]multiline code block2[/b]<br>
+        [/code]<br><br>
+        [code=html]<br>
+        &nbsp;&nbsp;&lt;b>with &lt;i>syntax&lt;/> highlight&lt;/b><br>
+        [/code]
+      code_example_2: >-
+        [code]http://inline.code.block[/code]
+
+        [code]
+          [b]multiline code block2[/b]
+        [/code]
+
+        [code=html]
+        <b>with <i>syntax</i> highlight</b>
+        [/code]
+
       mention: Упоминание пользователя
       mention_example: '@morr, привет'
       mention_notice: >-

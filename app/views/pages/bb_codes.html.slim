@@ -42,14 +42,32 @@ header.head
         = BbCodeFormatter.instance.format_comment t('.font_size_example')
       .notice == t '.font_size_notice'
 
-  .block
-    .name = t '.list'
-    .example
-      .title = t '.example_title'
-      = t '.list_example'
-    .result
-      .title = t '.result_title'
-      = BbCodeFormatter.instance.format_comment t('.list_example')
+  .cc-2
+    .block.c-column
+      .name = t '.list'
+      .example
+        .title = t '.example_title'
+        .textarea = t '.list_example'
+      .result
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.list_example')
+
+    .block_m.c-column
+      .name = t '.code'
+      .example
+        .title = t '.example_title'
+        .textarea == t '.code_example_1'
+      .result
+        .title = t '.result_title'
+        = BbCodeFormatter.instance.format_comment t('.code_example_2')
+
+      / .name = t '.code_block'
+      / .example
+        / .title = t '.example_title'
+        / .textarea == t '.code_block_example_1'
+      / .result
+        / .title = t '.result_title'
+        / = BbCodeFormatter.instance.format_comment t('.code_block_example_2')
 
   .cc-2
     .block.c-column
