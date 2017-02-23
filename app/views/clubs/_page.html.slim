@@ -3,7 +3,7 @@
 
 header.head
   h1 class="#{:censored if @club && @club.name.present? && @club.censored?}"
-    - if params[:action] != 'show' && @club && @club.persisted?
+    - if @back_url || (params[:action] != 'show' && @club && @club.persisted?)
       a.back[
         href="#{@back_url || club_url(@club)}"
         title="#{t '.back_to_clubs_page'}"
@@ -16,7 +16,7 @@ header.head
       = t '.new_club'
 
   - if can?(:edit, @club) && @club.persisted?
-    - if params[:controller] == 'clubs' && params[:action] != 'edit'
+    - if params[:action] == 'show' || (params[:controller] == 'clubs' && params[:action] != 'edit')
       a.edit[
         href="#{edit_club_url @club, page: :main}"
         title="#{t '.edit_club'}"

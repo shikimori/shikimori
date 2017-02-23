@@ -10,9 +10,11 @@ class Clubs::ClubPagesController < ClubsController
   def show
     page_title @resource.name
     breadcrumb @club.name, @club.url
+    @back_url = @club.url
 
     @resource.parents.each do |club_page|
       breadcrumb club_page.name, club_club_page_path(@club, club_page)
+      @back_url = club_club_page_path(@club, club_page)
     end
   end
 
