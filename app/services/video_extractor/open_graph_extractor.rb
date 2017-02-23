@@ -1,5 +1,5 @@
 class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
-  PARAMS_REGEXP = /(?:\?[\w=+%&]+)?/
+  PARAMS_REGEXP = /(?:\?[\w=+%&-]+)?/
   # Video.hosting should include these hostings
   # shiki_video should include these hostings too
   URL_REGEX = %r{
@@ -11,7 +11,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
       #video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>dailymotion).com/video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?:www\.)?(?<hosting>dailymotion).com/(?:embed/)?video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }xi
