@@ -3,8 +3,8 @@
     .subheadline = i18n_i 'action', :other
     ul.block-list
       - if can? :edit, club
-        li.r-iphone.edit-entry
-          a href="#{edit_club_url club, page: :main}" = t '.edit_club'
+        li.edit-entry
+          a.b-link href="#{edit_club_url club, page: :main}" = t '.edit_club'
 
       - if can? :broadcast, club
         li.broadcast
