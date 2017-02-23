@@ -10,17 +10,7 @@
           alt="#{club.name}"
         ]
 
-  - if club.persisted? && club.menu_pages(@club_page).any?
-    .block
-      .subheadline
-        = i18n_i 'Page', :other
-
-      ul.block-list
-        - club.menu_pages(@club_page).each do |club_page|
-          li
-            a.b-link href="#{club_club_page_path club, club_page}"
-              = club_page.name
-
+  = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
   = render 'clubs/actions', club: club
 
   = cache [club, :menu] do

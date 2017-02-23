@@ -5,7 +5,11 @@
   .subheadline.m10
     = @club_page.name
 
-  .block
+  .block.b-pages-container
+    = render 'clubs/club_pages/content_pages',
+      club: @club,
+      club_page: @club_page
+
     = cache @club_page do
       = BbCodeFormatter.instance.format_comment(@club_page.text)
 

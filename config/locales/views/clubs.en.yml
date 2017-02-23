@@ -52,3 +52,5 @@ en:
         down: down
         delete: delete
         confirm: Are you sure?
+      content_pages:
+        title: Sections

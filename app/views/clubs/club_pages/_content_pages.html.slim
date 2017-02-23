@@ -1,0 +1,7 @@
+- if club.content_pages(club_page).any?
+  .b-pages
+    .title = t '.title'
+    - club.content_pages(club_page).each do |club_page|
+      .section
+        a.b-link href="#{club_club_page_path club, club_page}"
+          = club_page.name
