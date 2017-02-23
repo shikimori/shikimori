@@ -1,5 +1,7 @@
 module VideoExtractor
-  EXTRACTORS = %i(vk youtube coub open_graph smotret_anime sovet_romantica)
+  EXTRACTORS = %i(
+    vk youtube coub open_graph smotret_anime sovet_romantica dailymotion
+  )
 
   class << self
     def fetch url

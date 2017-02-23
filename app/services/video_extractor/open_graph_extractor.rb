@@ -11,7 +11,6 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
       #video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?:www\.)?(?<hosting>dailymotion).com/(?:embed/)?video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }xi
@@ -24,7 +23,6 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     meta[property='og:image']
   )
 
-  # twitter:player - for dailymotion
   VIDEO_PROPERTIES = %w(
     meta[name='twitter:player']
     meta[property='og:video']
@@ -49,7 +47,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   end
 
   def hosting
-    url.match(URL_REGEX) && $LAST_MATCH_INFO[:hosting].to_sym
+    url.match(self.class::URL_REGEX) && $LAST_MATCH_INFO[:hosting].to_sym
   end
 
   def parse_data html

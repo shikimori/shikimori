@@ -1,7 +1,7 @@
 describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_video' } do
   let(:service) { VideoExtractor::OpenGraphExtractor.new url }
 
-  describe 'fetch' do
+  describe '#fetch' do
     subject { service.fetch }
 
     context 'twitch' do
@@ -56,14 +56,6 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       #its(:image_url) { is_expected.to eq 'http://static.video.yandex.ru/get/allod2008/khubzhabwp.1610/m320x240.jpg' }
       #its(:player_url) { is_expected.to eq 'http://static.video.yandex.ru/full-10/allod2008/khubzhabwp.1610/player.swf' }
     #end
-
-    context 'dailymotion' do
-      let(:url) { 'http://www.dailymotion.com/video/x1af42g_lupin-iii-vs-detective-conan-99radioservice-wonderland_shortfilms' }
-
-      its(:hosting) { is_expected.to eq :dailymotion }
-      its(:image_url) { is_expected.to eq '//s1.dmcdn.net/DeNs_/526x297-o88.jpg' }
-      its(:player_url) { is_expected.to eq '//www.dailymotion.com/embed/video/x1af42g' }
-    end
 
     context 'streamable' do
       let(:url) { 'https://streamable.com/efgm' }
