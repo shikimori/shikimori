@@ -1,21 +1,20 @@
 class AnimeVideoUrlValidator < UrlValidator
-  def validate_each(record, attribute, value)
+  def validate_each record, attribute, value
     super
-    check_uniqueness(record, attribute, value) if record.errors[attribute].blank?
+
+    if record.errors[attribute].blank?
+      check_uniqueness record, attribute, value
+    end
   end
 
   private
 
-  def check_uniqueness(record, attribute, value)
-    link = value.match(/https?:\/\/(.*)/)[1]
-    duplicate = AnimeVideo
-      .where(anime_id: record.anime_id)
-      .where(url: ["http://#{link}", "https://#{link}"])
-      .where(state: [:working, :uploaded])
+  def check_uniqueness record, attribute, value
+    duplicates = AnimeOnline::AnimeVideoDuplicates
+      .call(value)
       .where.not(id: record.id)
-      .first
 
-    if duplicate
+    if duplicates.any?
       record.errors[attribute] << I18n.t('activerecord.errors.models.videos.attributes.url.taken')
     end
   end

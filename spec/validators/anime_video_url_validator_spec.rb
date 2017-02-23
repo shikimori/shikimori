@@ -42,7 +42,8 @@ describe AnimeVideoUrlValidator, type: :validator do
 
     context 'other anime_id' do
       let(:anime_id) { anime.id + 1 }
-      it { is_expected.to allow_value(other_url).for :url }
+      # it { is_expected.to allow_value(other_url).for :url }
+      it { is_expected.to_not allow_value(other_url).for :url }
     end
 
     context 'eq url' do
