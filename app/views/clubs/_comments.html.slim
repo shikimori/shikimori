@@ -1,0 +1,15 @@
+- if user_signed_in? || club.preview_topic_view.comments_count > 0
+  .subheadline.m3
+    - if club.preview_topic_view.comments_count > 0
+      .linkeable data-href="#{club.comments_url}"
+        = i18n_i 'Discussion', :other
+    - else
+      = i18n_i 'Discussion'
+
+  div
+    .b-topic.to-process[
+      data-dynamic='topic'
+      data-faye="#{club.preview_topic_view.faye_channel}"
+    ]
+      = render 'topics/comments',
+        comments_view: club.preview_topic_view.comments_view

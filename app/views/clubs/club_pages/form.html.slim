@@ -4,7 +4,13 @@
       .subheadline = i18n_i 'error', :other
       == @resource.errors.full_messages.join('<br>')
 
-  .subheadline.m10 = @page_title.last
+  .subheadline.m10
+    - if @resource.persisted?
+      a[
+        href="#{club_club_page_path @club, @resource}"
+      ] = @page_title.last
+    - else
+      = @page_title.last
 
   = simple_form_for [@club, @resource] do |f|
     = f.input :club_id, as: :hidden

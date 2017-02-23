@@ -1,0 +1,12 @@
+= render layout: 'page' do
+  - if can? :edit, @club_page
+    .subheadline-buttons
+      a.item-edit href="#{edit_club_club_page_path @club, @club_page}"
+  .subheadline.m10
+    = @club_page.name
+
+  .block
+    = cache @club_page do
+      = BbCodeFormatter.instance.format_comment(@club_page.text)
+
+  = render 'clubs/comments', club: @club

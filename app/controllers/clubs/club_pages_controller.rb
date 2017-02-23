@@ -5,10 +5,15 @@ class Clubs::ClubPagesController < ClubsController
   CREATE_PARAMS = [:club_id, :parent_page_id, :name, :layout, :text]
   UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
-  before_action do
-    @page = 'pages'
-    @back_url = edit_club_url @club, page: @page
-    breadcrumb i18n_i('Page', :other), @back_url
+  before_action :prepare_form, except: [:show]
+
+  def show
+    page_title @resource.name
+    breadcrumb @club.name, @club.url
+
+    @resource.parents.each do |club_page|
+      breadcrumb club_page.name, club_club_page_path(@club, club_page)
+    end
   end
 
   def new
@@ -63,6 +68,12 @@ class Clubs::ClubPagesController < ClubsController
   end
 
 private
+
+  def prepare_form
+    @page = 'pages'
+    @back_url = edit_club_url @club, page: @page
+    breadcrumb i18n_i('Page', :other), @back_url
+  end
 
   def create_params
     params.require(:club_page).permit(*CREATE_PARAMS)

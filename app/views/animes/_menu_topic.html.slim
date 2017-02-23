@@ -1,13 +1,13 @@
 li
   - if defined?(with_tooltip) && with_tooltip && topic_view[:tooltip]
-    span.entry.linkeable[
-        class="#{'person-tooltip' if topic_view[:tooltip]}"
-        data-local-tooltip='true'
-        data-do-not-use-title='true'
-        data-offset-left-right='42'
-        data-place-to-left='true'
-        data-href="#{topic_view[:url]}"
-      ]
+    span.entry.linkeable.b-link[
+      class="#{'person-tooltip' if topic_view[:tooltip]}"
+      data-local-tooltip='true'
+      data-do-not-use-title='true'
+      data-offset-left-right='42'
+      data-place-to-left='true'
+      data-href="#{topic_view[:url]}"
+    ]
       span.date
         = topic_view[:date]
       span.name
@@ -17,7 +17,7 @@ li
         = render 'blocks/tooltip'
 
   - else
-    a.entry href="#{topic_view[:url]}" itemprop='discussionUrl'
+    a.entry.b-link href="#{topic_view[:url]}" itemprop='discussionUrl'
       span.date
         = topic_view[:date]
       span.name

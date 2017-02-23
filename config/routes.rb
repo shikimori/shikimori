@@ -471,7 +471,7 @@ Site::Application.routes.draw do
       end
 
       resources :club_images, only: [:create, :destroy], module: :clubs
-      resources :club_pages, except: [:index, :show], module: :clubs do
+      resources :club_pages, except: [:index], module: :clubs do
         post :up, on: :member
         post :down, on: :member
       end

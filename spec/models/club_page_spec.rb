@@ -20,6 +20,16 @@ describe ClubPage do
       it { expect(club_page.to_param).to eq '1-test' }
     end
 
+    describe '#parents' do
+      let(:club_page_1) { build :club_page, parent_page: club_page_2 }
+      let(:club_page_2) { build :club_page, parent_page: club_page_3 }
+      let(:club_page_3) { build :club_page }
+
+      it { expect(club_page_1.parents).to eq [club_page_3, club_page_2] }
+      it { expect(club_page_2.parents).to eq [club_page_3] }
+      it { expect(club_page_3.parents).to eq [] }
+    end
+
     describe '#siblings' do
       let(:club_page) { build :club_page, parent_page: parent_page, club: club }
       let(:club) { build :club }
@@ -56,6 +66,7 @@ describe ClubPage do
         it { is_expected.to be_able_to :destroy, club_page }
         it { is_expected.to be_able_to :up, club_page }
         it { is_expected.to be_able_to :down, club_page }
+        it { is_expected.to be_able_to :read, club_page }
       end
 
       context 'with parent_page' do
@@ -68,6 +79,7 @@ describe ClubPage do
           it { is_expected.to be_able_to :destroy, club_page }
           it { is_expected.to be_able_to :up, club_page }
           it { is_expected.to be_able_to :down, club_page }
+          it { is_expected.to be_able_to :read, club_page }
         end
 
         context 'another club page' do
@@ -79,6 +91,7 @@ describe ClubPage do
           it { is_expected.to_not be_able_to :destroy, club_page }
           it { is_expected.to_not be_able_to :up, club_page }
           it { is_expected.to_not be_able_to :down, club_page }
+          it { is_expected.to be_able_to :read, club_page }
         end
       end
     end
@@ -92,6 +105,7 @@ describe ClubPage do
       it { is_expected.to_not be_able_to :destroy, club_page }
       it { is_expected.to_not be_able_to :up, club_page }
       it { is_expected.to_not be_able_to :down, club_page }
+      it { is_expected.to be_able_to :read, club_page }
     end
   end
 end

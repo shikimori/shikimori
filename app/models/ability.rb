@@ -59,6 +59,7 @@ class Ability
     can :see_club, Club
     can :read, Review
     can [:show, :preview], Style
+    can :read, ClubPage
 
     can :read, Topic
   end

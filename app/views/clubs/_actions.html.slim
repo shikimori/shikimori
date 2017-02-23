@@ -8,16 +8,18 @@
 
       - if can? :broadcast, club
         li.broadcast
-          a href="#{broadcast_club_comments_url club}" = t '.broadcast'
+          a.b-link href="#{broadcast_club_comments_url club}" = t '.broadcast'
 
       - if can? :upload, club
         li.upload title="#{t '.upload_image_title'}"
           = form_tag club_club_images_url(club), method: :post, multipart: true do
-            span = t 'actions.upload_image'
-            input type='file' name='image'
+            label
+              = t 'actions.upload_image'
+              input type='file' name='image'
 
       - if can? :invite, club
-        li.invite = t '.invite_to_club'
+        li.invite
+          span = t '.invite_to_club'
 
       - if can?(:join, club) && !club.member?(current_user)
         li.join

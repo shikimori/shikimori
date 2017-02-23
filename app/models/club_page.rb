@@ -21,6 +21,10 @@ class ClubPage < ActiveRecord::Base
     "#{id}-#{name.permalinked}"
   end
 
+  def parents
+    parent_page ? parent_page.parents + [parent_page] : []
+  end
+
   def siblings
     parent_page ? parent_page.child_pages : club.root_pages
   end

@@ -2,45 +2,31 @@
   .logo.block
     center
       img[
-        src="#{cdn_image @resource, :main}"
-        alt="#{@resource.name}"
-        title="#{@resource.name}"
+        src="#{cdn_image @club, :main}"
+        alt="#{@club.name}"
+        title="#{@club.name}"
       ]
 
   .block
-    = @resource.description_html
+    = @club.description_html
 
-  - if @resource.images(12).any?
+  - if @club.images(12).any?
     .block
       .subheadline.m5
-        span.linkeable data-href="#{images_club_url @resource}"
+        span.linkeable data-href="#{images_club_url @club}"
           = i18n_i 'picture', :other
 
       .b-gallery[
-        data-can_upload="#{can? :upload, @resource}"
-        data-can_destroy="#{can? :destroy, @resource.images(1).first}"
+        data-can_upload="#{can? :upload, @club}"
+        data-can_destroy="#{can? :destroy, @club.images(1).first}"
         data-rel="club_gallery"
       ]
         = render 'blocks/upload_progress'
         .container[
-          data-upload_url="#{club_club_images_url @resource}"
-          data-destroy_url="#{club_club_image_url @resource, 'ID'}"
-          data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.images(12)).to_json}"
+          data-upload_url="#{club_club_images_url @club}"
+          data-destroy_url="#{club_club_image_url @club, 'ID'}"
+          data-images="#{ActiveModel::Serializer::CollectionSerializer.new(@club.images(12)).to_json}"
         ]
           .grid_sizer
 
-  - if user_signed_in? || @resource.preview_topic_view.comments_count > 0
-    .subheadline.m3
-      - if @resource.preview_topic_view.comments_count > 0
-        .linkeable data-href="#{@resource.comments_url}"
-          = i18n_i 'Discussion', :other
-      - else
-        = i18n_i 'Discussion'
-
-    div
-      .b-topic.to-process[
-        data-dynamic='topic'
-        data-faye="#{@resource.preview_topic_view.faye_channel}"
-      ]
-        = render 'topics/comments',
-          comments_view: @resource.preview_topic_view.comments_view
+  = render 'clubs/comments', club: @club
