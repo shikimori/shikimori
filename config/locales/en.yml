@@ -388,6 +388,7 @@ en:
       layout:
         content: Content
         menu: Menu
+        none: Hidden
     anime_video:
       kind:
         unknown: dub

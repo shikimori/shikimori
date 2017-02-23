@@ -388,6 +388,7 @@ ru:
       layout:
         content: Контент
         menu: Меню
+        none: Скрыто
     anime_video:
       kind:
         unknown: озвучка
