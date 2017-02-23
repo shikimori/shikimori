@@ -28,6 +28,8 @@ Style/WordArray:
   Exclude:
     - spec/**/*
 
+# Style/NumericPredicate:
+  # Enabled: false
 Style/GuardClause:
   Enabled: false
 Style/Documentation:

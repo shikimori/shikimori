@@ -1,12 +1,14 @@
 class BbCodes::CodeTag
   REGEXP = %r{
-    \[ code (?:=(?<language>\w+))? \]
-      (?<code>.*?)
+    \[ code (?:=(?<language>[\w+#-]+))? \]
+      (?<before> [\s\r\n]* )
+      (?<code> .*? )
+      (?<after> [\s\r\n]* )
     \[ /code \]
   }mix
 
   CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
-  NO_LANGUAGE = :nohighlight
+  NO_LANGUAGE = 'hljs nohighlight'
 
   def initialize text
     @text = text
@@ -14,8 +16,13 @@ class BbCodes::CodeTag
   end
 
   def preprocess
-    @text.gsub REGEXP do |match|
-      store $LAST_MATCH_INFO[:code], $LAST_MATCH_INFO[:language]
+    @text.gsub REGEXP do
+      store(
+        $LAST_MATCH_INFO[:code],
+        $LAST_MATCH_INFO[:language],
+        $LAST_MATCH_INFO[:before],
+        $LAST_MATCH_INFO[:after]
+      )
       CODE_PLACEHOLDER
     end
   end
@@ -24,21 +31,39 @@ class BbCodes::CodeTag
     text.gsub CODE_PLACEHOLDER do
       code = @cache.shift
 
-      <<-HTML.gsub(/\ *\n\ */, '').strip
-        <pre class='to-process' data-dynamic='code_highlight'>
-          <code class='#{code.language}'>
-            #{code.content}
-          </code>
-        </pre>
-      HTML
+      if code.language
+        code_highlight code.text, code.language
+      elsif code_block? code.text, code.content_around
+        code_highlight code.text, NO_LANGUAGE
+      else
+        code_inline code.text
+      end
     end
   end
 
 private
 
-  def store content, language
-    @cache.push(
-      OpenStruct.new(content: content, language: language || NO_LANGUAGE)
+  def code_highlight text, language
+    "<pre class='to-process' data-dynamic='code_highlight'>"\
+      "<code class='#{language}'>" +
+        text +
+      '</code>'\
+    '</pre>'
+  end
+
+  def code_inline text
+    "<code>#{text}</code>"
+  end
+
+  def code_block? text, content_around
+    text.include?("\n") || text.include?("\r") || content_around
+  end
+
+  def store text, language, before, after
+    @cache.push OpenStruct.new(
+      text: text,
+      language: language,
+      content_around: (!before.empty? if before) || (!after.empty? if after)
     )
   end
 end

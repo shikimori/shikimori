@@ -65,7 +65,7 @@ class BbCodeFormatter
     text = strip_malware text
     text = user_mention text
 
-    text = ERB::Util.h(text)
+    text = String.new ERB::Util.h(text)
     text = bb_codes text
 
     cleanup_html(text).html_safe
@@ -73,12 +73,12 @@ class BbCodeFormatter
 
   # обработка ббкодов текста
   # TODO: перенести весь код ббкодов сюда или в связанные классы
-  def bb_codes original_body
-    text_hash = XXhash.xxh32 original_body, 0
-    text = original_body.gsub %r{\r\n|\r|\n}, '<br>'
+  def bb_codes text
+    text_hash = XXhash.xxh32 text, 0
 
     code_tag = BbCodes::CodeTag.new(text)
     text = code_tag.preprocess
+    text = text.gsub %r{\r\n|\r|\n}, '<br>'
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
