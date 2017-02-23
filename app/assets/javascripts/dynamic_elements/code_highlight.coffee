@@ -1,5 +1,7 @@
 using 'DynamicElements'
 class DynamicElements.CodeHighlight extends View
+  NO_HIGHLIGHT = 'nohighlight'
+
   initialize: ->
     @klass = DynamicElements.CodeHighlight
     @klass.hljs_initialize()
@@ -8,6 +10,7 @@ class DynamicElements.CodeHighlight extends View
 
   highlight: ->
     node = @root.childNodes[0]
+    return if node.classList.contains(NO_HIGHLIGHT)
 
     if Modernizr.bloburls && Modernizr.webworkers
       node.id = "code_#{@klass.last_id}"
