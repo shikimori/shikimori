@@ -10,7 +10,7 @@
           alt="#{club.name}"
         ]
 
-  - if club.menu_pages(@club_page).any?
+  - if club.persisted? && club.menu_pages(@club_page).any?
     .block
       .subheadline
         = i18n_i 'Page', :other
