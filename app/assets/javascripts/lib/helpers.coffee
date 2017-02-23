@@ -7,3 +7,9 @@
 
 @t = (phrase, options) ->
   I18n.t phrase, options
+
+@build_worker = (func) ->
+  code = func.toString()
+  code = code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'))
+  blob = new Blob([ code ], type: 'application/javascript')
+  worker = new Worker(URL.createObjectURL(blob))

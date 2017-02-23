@@ -1,41 +1,41 @@
 using 'DynamicElements'
 class DynamicElements.CodeHighlight extends View
-  VERSION = '9.9.0'
-  THEME = 'agate'
-  HLJS_CDN_ROOT = "//cdnjs.cloudflare.com/ajax/libs/highlight.js/#{VERSION}"
-
   initialize: ->
     @klass = DynamicElements.CodeHighlight
+    @klass.hljs_initialize()
 
-    @highlight() if @is_initialized()
+    @highlight()
 
   highlight: ->
-    hljs.highlightBlock @root.childNodes[0]
+    node = @root.childNodes[0]
 
-  is_initialized: ->
-    return true if @klass.hljs_initialized
+    if Modernizr.bloburls && Modernizr.webworkers
+      node.id = "code_#{@klass.last_id}"
+      @klass.last_id += 1
 
-    @klass.queue ||= []
-    @klass.queue.push @
+      @klass.worker.postMessage
+        node_id: node.id
+        code: node.textContent
+    else
+      console.error 'webworkers are not supported'
+      # hljs.highlightBlock node
 
-    unless @klass.hljs_initializing
-      @klass.hljs_initializing = true
+  # hljs usage example https://highlightjs.org/usage/
+  @hljs_initialize: ->
+    return if @hljs_initialized
+    @hljs_initialized = true
+    @last_id = 0
+    @worker = build_worker ->
+      importScripts(
+        'https://cdnjs.cloudflare.com/ajax/libs/highlight.js' +
+          '/9.9.0/highlight.min.js'
+      )
+      onmessage = (event) ->
+        result = self.hljs.highlightAuto(event.data.code)
+        postMessage
+          html: result.value
+          node_id: event.data.node_id
+      return
 
-      style = document.createElement 'link'
-      style.rel = 'stylesheet'
-      style.href = "#{HLJS_CDN_ROOT}/styles/#{THEME}.min.css"
-      document.head.appendChild(style)
-
-      script = document.createElement 'script'
-      script.onload = @klass.hljs_callback
-      script.src = "#{HLJS_CDN_ROOT}/highlight.min.js"
-      document.head.appendChild(script)
-
-    false
-
-  @hljs_callback: ->
-    DynamicElements.CodeHighlight.hljs_initialized = true
-    DynamicElements.CodeHighlight.queue.each (code_highlight) ->
-      code_highlight.highlight()
-
-    DynamicElements.CodeHighlight.queue = []
+    @worker.onmessage = (event) ->
+      document.getElementById(event.data.node_id)?.innerHTML = event.data.html

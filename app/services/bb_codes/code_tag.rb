@@ -45,7 +45,7 @@ private
 
   def code_highlight text, language
     "<pre class='to-process' data-dynamic='code_highlight'>"\
-      "<code class='#{language}'>" +
+      "<code class='b-code #{language}'>" +
         text +
       '</code>'\
     '</pre>'

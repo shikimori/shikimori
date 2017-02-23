@@ -19,7 +19,7 @@ describe BbCodes::CodeTag do
         it do
           is_expected.to eq(
             "<pre class='to-process' data-dynamic='code_highlight'>"\
-              "<code class='#{BbCodes::CodeTag::NO_LANGUAGE}'>" +
+              "<code class='b-code #{BbCodes::CodeTag::NO_LANGUAGE}'>" +
                 content.strip +
               '</code>'\
             '</pre>'
@@ -33,7 +33,7 @@ describe BbCodes::CodeTag do
         it do
           is_expected.to eq(
             "<pre class='to-process' data-dynamic='code_highlight'>"\
-              "<code class='#{BbCodes::CodeTag::NO_LANGUAGE}'>" +
+              "<code class='b-code #{BbCodes::CodeTag::NO_LANGUAGE}'>" +
                 content +
               '</code>'\
             '</pre>'
@@ -50,7 +50,7 @@ describe BbCodes::CodeTag do
     it do
       is_expected.to eq(
         "<pre class='to-process' data-dynamic='code_highlight'>"\
-          "<code class='ruby'>" +
+          "<code class='b-code ruby'>" +
             content +
           '</code>'\
         '</pre>'
