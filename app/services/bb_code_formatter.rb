@@ -5,6 +5,8 @@ class BbCodeFormatter
   include Singleton
 
   include CommentHelper
+  BB_CODE_REPLACERS = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
+
   include Rails.application.routes.url_helpers
 
   HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
@@ -75,6 +77,9 @@ class BbCodeFormatter
     text_hash = XXhash.xxh32 original_body, 0
     text = original_body.gsub %r{\r\n|\r|\n}, '<br>'
 
+    code_tag = BbCodes::CodeTag.new(text)
+    text = code_tag.preprocess
+
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
     end
@@ -86,7 +91,7 @@ class BbCodeFormatter
     text = text.gsub '<ul><br>', '<ul>'
     text = text.gsub '</ul><br>', '</ul>'
 
-    BbCodeReplacers.each do |processor|
+    BB_CODE_REPLACERS.each do |processor|
       text = send processor, text
     end
 
@@ -97,6 +102,7 @@ class BbCodeFormatter
       text = tag_klass.instance.format text
     end
 
+    text = code_tag.postprocess text
     text
   end
 

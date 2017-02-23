@@ -441,6 +441,14 @@ describe BbCodeFormatter do
       end
     end
 
+    describe '[code]' do
+      let(:text) { '[code][b]test[/b][/code]' }
+      it do
+        is_expected.to include '[b]test[/b]'
+        is_expected.to include '<pre class="to-process" data-dynamic="code_highlight">'
+      end
+    end
+
     describe 'russian link' do
       let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
       it { is_expected.to eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }

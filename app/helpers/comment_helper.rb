@@ -109,8 +109,6 @@ module CommentHelper
     end
   end
 
-  BbCodeReplacers = COMPLEX_BB_CODES.map { |v| "#{v}_to_html".to_sym }.reverse
-
   def remove_old_tags(html)
     html
       .gsub(/(?:<|&lt;)p(?:>|&gt;)[\t\n\r]*([\s\S]*?)[\t\n\r]*(?:<|&lt;)\/p(?:>|&gt;)/i, '\1')
