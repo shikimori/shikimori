@@ -181,6 +181,7 @@ ru:
         parent_page_id: Родительская страница
         name: Название
         text: Текст
+        layout: Расположение
       topic:
         title: Название
         body: Текст
@@ -383,6 +384,10 @@ ru:
       image_upload_policy:
         members: Только для участников клуба
         admins: Только для администрации клуба
+    club_page:
+      layout:
+        content: Контент
+        menu: Меню
     anime_video:
       kind:
         unknown: озвучка

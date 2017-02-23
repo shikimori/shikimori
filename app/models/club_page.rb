@@ -8,6 +8,11 @@ class ClubPage < ActiveRecord::Base
     foreign_key: :parent_page_id,
     dependent: :destroy
 
+  enumerize :layout,
+    in: Types::ClubPage::Layout.values,
+    predicates: { prefix: true },
+    default: Types::ClubPage::Layout[:content]
+
   validates :club, :name, presence: true
 
   scope :ordered, -> { order :position, :id }

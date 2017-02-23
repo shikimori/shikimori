@@ -17,7 +17,8 @@ describe Clubs::ClubPagesController do
           club_id: club.id,
           parent_page_id: nil,
           name: 'test',
-          text: 'zxc'
+          text: 'zxc',
+          layout: 'menu'
         }
       end
 
@@ -57,7 +58,8 @@ describe Clubs::ClubPagesController do
           club_id: club.id,
           parent_page_id: nil,
           name: 'test',
-          text: 'zxc'
+          text: 'zxc',
+          layout: 'menu'
         }
       end
 

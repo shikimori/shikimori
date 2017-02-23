@@ -181,6 +181,7 @@ en:
         parent_page_id: Parent page
         name: Name
         text: Text
+        layout: Layout
       topic:
         title: Title
         body: Text
@@ -383,6 +384,10 @@ en:
       image_upload_policy:
         members: Club Members Only
         admins: Club Admins Only
+    club_page:
+      layout:
+        content: Content
+        menu: Menu
     anime_video:
       kind:
         unknown: dub

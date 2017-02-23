@@ -1,4 +1,5 @@
 @import mixins/bracket_action
+@import mixins/brackets_surrounded
 
 .p-clubs-edit
   .description, .pages
@@ -8,6 +9,12 @@
   .pages
     .button
       margin-right: 20px
+
+    .club_page-layout
+      +brackets_surrounded
+      display: inline
+      font-size: 11px
+      padding-left: 10px
 
     .club_page-actions
       +bracket_action

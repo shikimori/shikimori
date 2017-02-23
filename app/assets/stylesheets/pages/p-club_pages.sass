@@ -1,8 +1,15 @@
 @import mixins/bracket_action
+@import mixins/brackets_surrounded
 
 .p-club_pages
   .b-shiki_editor .b-comment .inner header
     display: none
+
+  .club_page-layout
+    +brackets_surrounded
+    display: inline
+    font-size: 11px
+    padding-left: 10px
 
   .club_page-actions
     +bracket_action

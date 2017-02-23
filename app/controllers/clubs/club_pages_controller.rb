@@ -2,7 +2,7 @@ class Clubs::ClubPagesController < ClubsController
   load_and_authorize_resource :club
   load_and_authorize_resource
 
-  CREATE_PARAMS = [:club_id, :parent_page_id, :name, :text]
+  CREATE_PARAMS = [:club_id, :parent_page_id, :name, :layout, :text]
   UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
   before_action do

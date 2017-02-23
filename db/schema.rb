@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222115035) do
+ActiveRecord::Schema.define(version: 20170223063456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -252,13 +252,14 @@ ActiveRecord::Schema.define(version: 20170222115035) do
   add_index "club_links", ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", using: :btree
 
   create_table "club_pages", force: :cascade do |t|
-    t.integer  "club_id",        null: false
+    t.integer  "club_id",                                              null: false
     t.integer  "parent_page_id"
-    t.string   "name",           null: false
-    t.text     "text",           null: false
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "name",                                                 null: false
+    t.text     "text",                                                 null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "position"
+    t.string   "layout",         default: "---\n:default: :content\n", null: false
   end
 
   add_index "club_pages", ["club_id"], name: "index_club_pages_on_club_id", using: :btree

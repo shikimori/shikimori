@@ -24,6 +24,8 @@
             include_blank: t('clubs.club_pages.form.parent_page_id.none'),
             label: false
 
+          = f.input :layout, include_blank: false
+
       .c-column.m0
         - if @resource.persisted?
           .b-input
@@ -41,7 +43,8 @@
             href="#{new_club_club_page_path @resource.club_id, club_page: { club_id: @resource.club_id, parent_page_id: @resource.id }}"
           ] = t 'clubs.club_pages.form.add_page'
 
-    = f.input :name
+    .m20
+      = f.input :name
 
     .block
       .b-shiki_editor.unprocessed

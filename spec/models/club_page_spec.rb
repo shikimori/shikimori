@@ -10,6 +10,10 @@ describe ClubPage do
     it { is_expected.to validate_presence_of :name }
   end
 
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:layout).in(*Types::ClubPage::Layout.values) }
+  end
+
   describe 'instance methods' do
     describe '#to_param' do
       let(:club_page) { build :club_page, id: 1, name: 'тест' }

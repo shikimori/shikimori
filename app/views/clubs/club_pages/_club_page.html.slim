@@ -4,6 +4,10 @@ li
   a.b-link[
     href="#{edit_club_club_page_path club, page}"
   ] = page.name
+
+  .club_page-layout
+    = page.layout_text.downcase
+
   .club_page-actions
     - if page.siblings.first != page
       a.b-js-link[
