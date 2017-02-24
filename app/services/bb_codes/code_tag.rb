@@ -8,7 +8,6 @@ class BbCodes::CodeTag
   }mix
 
   CODE_PLACEHOLDER = '<<-CODE-PLACEHODLER->>'
-  NO_LANGUAGE = 'hljs nohighlight'
 
   def initialize text
     @text = text
@@ -34,7 +33,7 @@ class BbCodes::CodeTag
       if code.language
         code_highlight code.text, code.language
       elsif code_block? code.text, code.content_around
-        code_highlight code.text, NO_LANGUAGE
+        code_highlight code.text, nil
       else
         code_inline code.text
       end
@@ -45,7 +44,7 @@ private
 
   def code_highlight text, language
     "<pre class='to-process' data-dynamic='code_highlight'>"\
-      "<code class='b-code #{language}'>" +
+      "<code class='b-code' data-language='#{language}'>" +
         text +
       '</code>'\
     '</pre>'

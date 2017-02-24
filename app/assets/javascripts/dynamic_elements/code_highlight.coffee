@@ -19,6 +19,7 @@ class DynamicElements.CodeHighlight extends View
       @klass.worker.postMessage
         node_id: node.id
         code: node.textContent
+        language: node.attributes['data-language'].value
     else
       console.error 'webworkers are not supported'
       # hljs.highlightBlock node
@@ -36,7 +37,7 @@ class DynamicElements.CodeHighlight extends View
       )
       # не убирать @. без этого uglifier переименует переменную onmessage
       @onmessage = (event) ->
-        result = self.hljs.highlightAuto(event.data.code)
+        result = self.hljs.highlight event.data.language, event.data.code, true
         postMessage
           html: result.value
           node_id: event.data.node_id

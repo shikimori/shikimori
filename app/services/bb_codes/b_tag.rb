@@ -4,6 +4,7 @@ class BbCodes::BTag
   def format text
     text.gsub(
       /\[b\] (.*?) \[\/b\]/mix,
-      '<strong>\1</strong>')
+      '<strong>\1</strong>'
+    )
   end
 end
