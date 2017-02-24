@@ -15,12 +15,13 @@ class BbCodes::CodeTag
   end
 
   def preprocess
-    @text.gsub REGEXP do
+    @text.gsub REGEXP do |match|
       store(
         $LAST_MATCH_INFO[:code],
         $LAST_MATCH_INFO[:language],
         $LAST_MATCH_INFO[:before],
-        $LAST_MATCH_INFO[:after]
+        $LAST_MATCH_INFO[:after],
+        match
       )
       CODE_PLACEHOLDER
     end
@@ -37,6 +38,12 @@ class BbCodes::CodeTag
       else
         code_inline code.text
       end
+    end
+  end
+
+  def restore text
+    text.gsub CODE_PLACEHOLDER do
+      @cache.shift.original
     end
   end
 
@@ -58,11 +65,12 @@ private
     text.include?("\n") || text.include?("\r") || content_around
   end
 
-  def store text, language, before, after
+  def store text, language, before, after, original
     @cache.push OpenStruct.new(
       text: text,
       language: language,
-      content_around: (!before.empty? if before) || (!after.empty? if after)
+      content_around: (!before.empty? if before) || (!after.empty? if after),
+      original: original
     )
   end
 end

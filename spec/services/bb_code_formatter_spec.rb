@@ -251,8 +251,20 @@ describe BbCodeFormatter do
     end
 
     describe '[url]' do
-      let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
-      it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+      context 'example 1' do
+        let(:text) { 'http://www.small-games.info' }
+        it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+      end
+
+      context 'example 2' do
+        let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
+        it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+      end
+
+      # context 'example 3', :focus do
+        # let(:text) { 'http://shikimori.dev/animes/1-test' }
+        # it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
+      # end
     end
 
     describe '[mention]' do

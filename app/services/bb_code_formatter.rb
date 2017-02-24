@@ -113,30 +113,37 @@ class BbCodeFormatter
 
   # замена концов строк на параграфы
   def paragraphs text
+    code_tag = BbCodes::CodeTag.new(text)
+    text = code_tag.preprocess
+
     # препроцессинг контента, чтобы теги параграфов не разрывали содержимое тегов
     text = text.gsub(/
-        (?<tag>
-          \[
-            (?:quote|list|spoiler)
-            (\[.*?\] | [^\]])*
-          \]
-          (?!\r\n|\r|\n|<br>)
-        )
-      /mix) do |line|
-        "#{$~[:tag]}\n"
-      end
+      (?<tag>
+        \[
+          (?:quote|list|spoiler)
+          (\[.*?\] | [^\]])*
+        \]
+        (?!\r\n|\r|\n|<br>)
+      )
+    /mix) do |line|
+      "#{$~[:tag]}\n"
+    end
 
-    text.gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-      unbalanced_tags = [:quote,:list,:spoiler].inject(0) do |memo, tag|
-        memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
-      end
+    text = text
+      .gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
+        unbalanced_tags = [:quote,:list,:spoiler].inject(0) do |memo, tag|
+          memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
+        end
 
-      if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/ && unbalanced_tags.zero?
-        "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
-      else
-        line
+        if line.size >= MIN_PARAGRAPH_SIZE && line !~ /^ *\[\*\]/ && unbalanced_tags.zero?
+          "[p]#{line.gsub(/\r\n|\n|<br\s?\/?>|&lt;br\s?\/?&gt;/, '')}[/p]"
+        else
+          line
+        end
       end
-    end.html_safe
+      .html_safe
+
+    code_tag.restore(text)
   end
 
   # замена имён персонажей на ббкоды
