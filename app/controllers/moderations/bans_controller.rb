@@ -10,6 +10,7 @@ class Moderations::BansController < ModerationsController
     @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
 
+    @site_rules = StickyTopicView.site_rules(locale_from_domain)
     @club = Club.find_by(id: 917)&.decorate if ru_domain?
 
     if user_signed_in? && current_user.moderator?

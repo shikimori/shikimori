@@ -9,15 +9,14 @@ header.head
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
 
   ul.b-list
-    li
-      - site_rules = StickyTopicView.site_rules(locale_from_domain)
-      a.b-link href=site_rules.url = site_rules.title
+    li: p
+      a.b-link href="#{@site_rules.url}" = @site_rules.title
 
     - if @club
         li
           a.b-link href="#{@club.url}"
             = "#{Club.model_name.human} \"#{@club.name}\""
-    - else
+    - elsif !ru_domain?
       - t('.instructions').each do |instruction|
         li: p == instruction
 
