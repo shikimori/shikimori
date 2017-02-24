@@ -10,6 +10,7 @@ ru:
       forum: Раздел
       user: Пользователь
       person: Человек
+      club: Клуб
 
     attributes:
       anime: &anime_attributes

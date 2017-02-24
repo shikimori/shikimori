@@ -10,6 +10,7 @@ en:
       forum: Forum
       user: User
       person: Person
+      club: Club
 
     attributes:
       anime: &anime_attributes

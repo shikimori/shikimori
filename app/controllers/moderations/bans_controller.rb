@@ -6,8 +6,11 @@ class Moderations::BansController < ModerationsController
   def index
     noindex && nofollow
     page_title i18n_t('page_title')
+
     @moderators = User.where(id: User::MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     @bans = postload_paginate(params[:page], 25) { Ban.includes(:comment).order(created_at: :desc) }
+
+    @club = Club.find(917).decorate if ru_domain?
 
     if user_signed_in? && current_user.moderator?
       @declined = AbuseRequest.where(state: 'rejected', kind: ['spoiler', 'abuse']).order('id desc').limit(15)

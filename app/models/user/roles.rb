@@ -8,7 +8,7 @@ class User
     BAKSIII_ID = 30_214
 
     # access rights
-    ADMINS = [MORR_ID, 13]
+    ADMINS = [MORR_ID]
     MODERATORS = (ADMINS + [921, 93, 861, 16_148]).uniq # 93 - lena-chan, 861 - Oniii-chan
     REVIEWS_MODERATORS = (ADMINS + [16_148]).uniq # 16148 - Alex Minson,
     VERSIONS_MODERATORS = (ADMINS + [921, 392, 16_148, 21_887]).uniq # 921 - sfairat, 11 - BlackMetalFan, 94 - AcidEmily, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph

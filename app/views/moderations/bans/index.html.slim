@@ -9,12 +9,20 @@ header.head
     = render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
 
   ul.b-list
-    li: p
+    li
       - site_rules = StickyTopicView.site_rules(locale_from_domain)
-      a href=site_rules.url = site_rules.title
+      a.b-link href=site_rules.url = site_rules.title
 
-    - t('.instructions').each do |instruction|
-      li: p == instruction
+    - if @club
+        li
+          a.b-link href="#{@club.url}"
+            = "#{Club.model_name.human} \"#{@club.name}\""
+    - else
+      - t('.instructions').each do |instruction|
+        li: p == instruction
+
+  - if @club
+    = @club.description_html
 
 - if user_signed_in? && current_user.moderator?
   - if @pending && @pending.any?
