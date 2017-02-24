@@ -1,9 +1,9 @@
 class BbCodes::CodeTag
   REGEXP = %r{
     \[ code (?:=(?<language>[\w+#-]+))? \]
-      (?<before> [\s\r\n]* )
+      (?<before> \ + | \ +[\r\n]+ | [\r\n]* )
       (?<code> .*? )
-      (?<after> [\s\r\n]* )
+      (?<after> [\ \r\n]* )
     \[ /code \]
   }mix
 

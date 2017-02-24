@@ -40,6 +40,21 @@ describe BbCodes::CodeTag do
           )
         end
       end
+
+      context 'spaces before first symbol' do
+        let(:text) { "[code]\n#{content}[/code]" }
+        let(:content) { "  test\n  test" }
+
+        it do
+          is_expected.to eq(
+            "<pre class='to-process' data-dynamic='code_highlight'>"\
+              "<code class='b-code #{BbCodes::CodeTag::NO_LANGUAGE}'>" +
+                content +
+              '</code>'\
+            '</pre>'
+          )
+        end
+      end
     end
   end
 

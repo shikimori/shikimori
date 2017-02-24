@@ -77,8 +77,8 @@ ru:
       code_example_1: >-
         [code]http://inline.code.block[/code]<br><br>
         [code]<br>
-        [b]multiline code[/b]<br>
-        [i]block[/b]<br>
+        &nbsp;&nbsp;[b]multiline code[/b]<br>
+        &nbsp;&nbsp;[i]block[/b]<br>
         [/code]<br><br>
         [code=css]<br>
         .p-profiles .profile-content .cc-2 {<br>
@@ -91,7 +91,7 @@ ru:
 
         [code]
           [b]multiline code[/b]
-        [i]block[/i]
+          [i]block[/i]
         [/code]
 
         [code=css]
