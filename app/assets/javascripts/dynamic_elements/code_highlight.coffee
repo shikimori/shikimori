@@ -28,12 +28,14 @@ class DynamicElements.CodeHighlight extends View
     return if @hljs_initialized
     @hljs_initialized = true
     @last_id = 0
+
     @worker = build_worker ->
       importScripts(
         'https://cdnjs.cloudflare.com/ajax/libs/highlight.js' +
           '/9.9.0/highlight.min.js'
       )
-      onmessage = (event) ->
+      # не убирать @. без этого uglifier переименует переменную onmessage
+      @onmessage = (event) ->
         result = self.hljs.highlightAuto(event.data.code)
         postMessage
           html: result.value
