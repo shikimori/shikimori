@@ -77,20 +77,27 @@ ru:
       code_example_1: >-
         [code]http://inline.code.block[/code]<br><br>
         [code]<br>
-        &nbsp;&nbsp;[b]multiline code block2[/b]<br>
+        [b]multiline code[/b]<br>
+        [i]block[/b]<br>
         [/code]<br><br>
-        [code=html]<br>
-        &nbsp;&nbsp;&lt;b>with &lt;i>syntax&lt;/> highlight&lt;/b><br>
+        [code=css]<br>
+        .p-profiles .profile-content .cc-2 {<br>
+        &nbsp;&nbsp;display: none;<br>
+        }<br>
         [/code]
       code_example_2: >-
         [code]http://inline.code.block[/code]
 
+
         [code]
-          [b]multiline code block2[/b]
+          [b]multiline code[/b]
+        [i]block[/i]
         [/code]
 
-        [code=html]
-        <b>with <i>syntax</i> highlight</b>
+        [code=css]
+        .p-profiles .profile-content .cc-2 {
+          display: none;
+        }
         [/code]
 
       mention: Упоминание пользователя
