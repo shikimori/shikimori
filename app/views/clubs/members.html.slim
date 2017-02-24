@@ -2,5 +2,6 @@
   h2.subheadline.m10 = @page_title.last
   .cc-8
     = render @collection, content_by: :named_avatar
-    = render partial: 'blocks/postloader',
-      locals: { next_url: members_club_url(@resource, page: @page+1) }
+    - if @add_postloader
+      = render partial: 'blocks/postloader',
+        locals: { next_url: members_club_url(@resource, page: @page+1) }
