@@ -42,4 +42,4 @@ class @ShikiView extends View
     $replaced = $(html)
     @$node.replaceWith $replaced
 
-    $replaced.process(JS_EXPORTS).yellowFade()
+    $replaced.process(JS_EXPORTS).yellow_fade()

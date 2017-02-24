@@ -81,7 +81,7 @@
 
       $all_genres.find('#' + $genre.attr('id'))
         .removeClass('included')
-        .yellowFade()
+        .yellow_fade()
 
     $current_genres.on 'click', '.up', ->
       $genre = $(@).closest('.genre')
@@ -90,7 +90,7 @@
       $genre
         .detach()
         .insertBefore($prior)
-        .yellowFade()
+        .yellow_fade()
 
     $current_genres.on 'click', '.down', ->
       $genre = $(@).closest('.genre')
@@ -99,7 +99,7 @@
       $genre
         .detach()
         .insertAfter($next)
-        .yellowFade()
+        .yellow_fade()
 
     $all_genres.on 'click', '.name', ->
       $genre = $(@).closest('.genre')
@@ -110,7 +110,7 @@
 
       $genre.clone()
         .appendTo($current_genres)
-        .yellowFade()
+        .yellow_fade()
 
       $genre.addClass('included')
 

@@ -19,7 +19,7 @@ class DynamicElements.CodeHighlight extends View
       @klass.worker.postMessage
         node_id: node.id
         code: node.textContent
-        language: node.attributes['data-language'].value
+        language: node.attributes['data-language']?.value
     else
       console.error 'webworkers are not supported'
       # hljs.highlightBlock node

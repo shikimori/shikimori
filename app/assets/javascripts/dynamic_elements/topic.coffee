@@ -79,7 +79,7 @@ class DynamicElements.Topic extends ShikiEditable
         else
           @$('.b-comments').prepend $new_comment
 
-        $new_comment.yellowFade()
+        $new_comment.yellow_fade()
 
         @editor.cleanup()
         @_hide_editor()
