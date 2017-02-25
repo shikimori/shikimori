@@ -20,19 +20,19 @@ class ReviewsController < AnimesController
     query = ReviewsQuery.new(
       @resource.object,
       current_user,
-      locale_from_domain,
+      locale_from_host,
       params[:id].to_i
     )
     @collection = query.fetch
       .map do |review|
-        topic = review.maybe_topic locale_from_domain
+        topic = review.maybe_topic locale_from_host
         Topics::ReviewView.new topic, true, true
       end
   end
 
   def new
     page_title i18n_t('new_review')
-    @additional_text = additinal_text if ru_domain? && I18n.russian?
+    @additional_text = additinal_text if ru_host? && I18n.russian?
   end
 
   def edit
@@ -40,10 +40,10 @@ class ReviewsController < AnimesController
   end
 
   def create
-    @review = Review::Create.call resource_params, locale_from_domain
+    @review = Review::Create.call resource_params, locale_from_host
 
     if @review.errors.blank?
-      topic = @review.maybe_topic locale_from_domain
+      topic = @review.maybe_topic locale_from_host
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
         notice: i18n_t('review.created')
@@ -58,7 +58,7 @@ class ReviewsController < AnimesController
     Review::Update.call @review, resource_params
 
     if @review.errors.blank?
-      topic = @review.maybe_topic locale_from_domain
+      topic = @review.maybe_topic locale_from_host
       redirect_to(
         UrlGenerator.instance.topic_url(topic),
         notice: i18n_t('review.updated')

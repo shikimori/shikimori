@@ -33,7 +33,7 @@ class ClubsController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
-    clubs_query = ClubsQuery.new(locale_from_domain)
+    clubs_query = ClubsQuery.new(locale_from_host)
 
     @favourite = clubs_query.favourite if @page == 1
     @collection, @add_postloader = clubs_query.postload @page, @limit
@@ -49,7 +49,7 @@ class ClubsController < ShikimoriController
   end
 
   def create
-    @resource = Club::Create.call create_params, locale_from_domain
+    @resource = Club::Create.call create_params, locale_from_host
 
     if @resource.errors.blank?
       redirect_to edit_club_url(@resource, page: 'main'),
@@ -115,7 +115,7 @@ class ClubsController < ShikimoriController
 private
 
   def restrict_domain
-    raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @resource.locale != locale_from_host
   end
 
   def resource_klass

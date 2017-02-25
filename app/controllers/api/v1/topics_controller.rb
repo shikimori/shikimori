@@ -6,7 +6,7 @@ class Api::V1::TopicsController < Api::V1Controller
     @page = [params[:page].to_i, 1].max
 
     @forum = Forum.find_by_permalink params[:forum]
-    @topics = Topics::Query.fetch(current_user, locale_from_domain)
+    @topics = Topics::Query.fetch(current_user, locale_from_host)
       .by_forum(@forum, current_user, censored_forbidden?)
       .includes(:forum, :user)
       .offset(@limit * (@page-1))

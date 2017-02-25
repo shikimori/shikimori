@@ -83,13 +83,13 @@ class DbEntryDecorator < BaseDecorator
 
   def main_topic_view
     Topics::TopicViewFactory.new(false, false).build(
-      object.maybe_topic(h.locale_from_domain)
+      object.maybe_topic(h.locale_from_host)
     )
   end
 
   def preview_topic_view
     Topics::TopicViewFactory.new(true, false).build(
-      object.maybe_topic(h.locale_from_domain)
+      object.maybe_topic(h.locale_from_host)
     )
   end
 
@@ -105,7 +105,7 @@ class DbEntryDecorator < BaseDecorator
   # все связанные клубы
   def all_linked_clubs
     query = ClubsQuery
-      .new(h.locale_from_domain)
+      .new(h.locale_from_host)
       .query(true)
       .where(id: clubs_for_domain)
 
@@ -156,7 +156,7 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def comments_url
-    topic = object.maybe_topic h.locale_from_domain
+    topic = object.maybe_topic h.locale_from_host
     UrlGenerator.instance.topic_url(topic) if topic
   end
 
@@ -168,15 +168,15 @@ class DbEntryDecorator < BaseDecorator
   private
 
   def show_description_ru?
-    h.ru_domain?
+    h.ru_host?
   end
 
   def clubs_for_domain
-    object.clubs.where(locale: h.locale_from_domain)
+    object.clubs.where(locale: h.locale_from_host)
   end
 
   def headline_array
-    if h.ru_domain?
+    if h.ru_host?
       if !h.user_signed_in? || (I18n.russian? && h.current_user.preferences.russian_names?)
         [russian, name].select(&:present?).compact
       else

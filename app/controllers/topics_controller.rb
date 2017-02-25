@@ -127,7 +127,7 @@ class TopicsController < ShikimoriController
 private
 
   def create_params
-    topic_params.merge locale: locale_from_domain
+    topic_params.merge locale: locale_from_host
   end
 
   def update_params

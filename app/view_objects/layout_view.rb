@@ -41,7 +41,7 @@ class LayoutView < ViewObjectBase
   end
 
   def hot_topics
-    Topics::HotTopicsQuery.call(h.locale_from_domain).map do |topic|
+    Topics::HotTopicsQuery.call(h.locale_from_host).map do |topic|
       Topics::TopicViewFactory.new(true, true).build topic
     end
   end
@@ -53,7 +53,7 @@ class LayoutView < ViewObjectBase
 private
 
   def ru_option? option_name
-    I18n.russian? && h.ru_domain? &&
+    I18n.russian? && h.ru_host? &&
       (!h.user_signed_in? || h.current_user&.preferences&.send(option_name))
   end
 

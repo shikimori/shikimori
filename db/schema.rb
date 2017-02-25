@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223063456) do
+ActiveRecord::Schema.define(version: 20170225112114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1036,7 +1036,7 @@ ActiveRecord::Schema.define(version: 20170223063456) do
     t.string   "remember_token",         limit: 255
     t.string   "api_access_token"
     t.string   "locale",                             default: "ru",    null: false
-    t.string   "locale_from_domain",                 default: "ru",    null: false
+    t.string   "locale_from_host",                   default: "ru",    null: false
     t.integer  "style_id"
   end
 

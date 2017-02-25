@@ -16,7 +16,7 @@ header.head
         li
           a.b-link href="#{@club.url}"
             = "#{Club.model_name.human} \"#{@club.name}\""
-    - elsif !ru_domain?
+    - elsif !ru_host?
       - t('.instructions').each do |instruction|
         li: p == instruction
 

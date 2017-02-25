@@ -20,7 +20,7 @@ class StatisticsController < ShikimoriController
       end
 
     site_topic_ids = Topic::TOPIC_IDS[Forum::SITE_ID]
-    topic = Topic.find site_topic_ids[:anime_industry][locale_from_domain]
+    topic = Topic.find site_topic_ids[:anime_industry][locale_from_host]
     @topic_view = Topics::TopicViewFactory.new(false, false).build topic
   end
 

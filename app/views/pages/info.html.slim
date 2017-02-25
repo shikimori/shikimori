@@ -5,8 +5,8 @@ header.head
 .cc-2a
   .c-column.m0
     ul.b-list
-      - site_rules = StickyTopicView.site_rules(locale_from_domain)
-      - faq = StickyTopicView.faq(locale_from_domain)
+      - site_rules = StickyTopicView.site_rules(locale_from_host)
+      - faq = StickyTopicView.faq(locale_from_host)
 
       li: a.entry[
         href="#{about_pages_url}"
@@ -21,7 +21,7 @@ header.head
         href=faq.url
         title=faq.title
       ] = faq.title
-      - if ru_domain?
+      - if ru_host?
       li: a.entry[
         href="https://vk.com/shikimori"
         title="Наша группа в vk.com"

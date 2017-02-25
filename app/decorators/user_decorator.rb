@@ -9,7 +9,7 @@ class UserDecorator < BaseDecorator
   def clubs_for_domain
     object
       .clubs
-      .where(locale: h.locale_from_domain)
+      .where(locale: h.locale_from_host)
       .decorate
       .sort_by(&:name)
   end

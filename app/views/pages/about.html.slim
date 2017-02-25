@@ -39,7 +39,7 @@ header.head
             p = t '.moderation_contests'
             = render @statistics.contest_moderators, content_by: :avatar
 
-        - if ru_domain?
+        - if ru_host?
           .members-block.left
             p = t '.vk_admins'
             = render @statistics.vk_admins, content_by: :avatar

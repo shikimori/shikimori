@@ -6,7 +6,7 @@ class CharactersController < PeopleController
   #caches_action :page, :show, :tooltip,
     #cache_path: proc {
       #entry = Character.find(params[:id].to_i)
-      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.maybe_topic(locale_from_domain).updated_at.to_i}|#{json?}"
+      #"#{Character.name}|#{params.to_json}|#{entry.updated_at.to_i}|#{entry.maybe_topic(locale_from_host).updated_at.to_i}|#{json?}"
     #},
     #unless: proc { user_signed_in? },
     #expires_in: 2.days

@@ -86,7 +86,7 @@
             a.b-js-action href="#{@resource.edit_field_url :image}"
               = t 'actions.edit'
 
-        - if ru_domain?
+        - if ru_host?
           li
             .field = @resource.class.human_attribute_name(:description_ru)
             a.b-js-action href="#{@resource.edit_field_url(:description_ru)}"

@@ -29,7 +29,7 @@ header.head
           = t '.forum_journal'
           span.size = AbuseRequest.pending.size
 
-      - if ru_domain?
+      - if ru_host?
         li
           a.b-link[
             href="#{moderations_anime_video_reports_url}"
@@ -68,7 +68,7 @@ header.head
             title="#{t '.anime_video_authors'}"
           ] = t '.anime_video_authors'
 
-  - if ru_domain?
+  - if ru_host?
     .c-column
       .subheadline = t '.content'
 

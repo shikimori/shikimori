@@ -21,11 +21,11 @@ class PersonProfileSerializer < PersonSerializer
 
   # TODO: deprecated
   def thread_id
-    object.maybe_topic(scope.locale_from_domain).id
+    object.maybe_topic(scope.locale_from_host).id
   end
 
   def topic_id
-    object.maybe_topic(scope.locale_from_domain).id
+    object.maybe_topic(scope.locale_from_host).id
   end
 
   def person_favoured

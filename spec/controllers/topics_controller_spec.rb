@@ -224,7 +224,7 @@ describe TopicsController do
 
         it do
           expect(resource).to have_attributes topic_params
-          expect(resource.locale).to eq controller.locale_from_domain.to_s
+          expect(resource.locale).to eq controller.locale_from_host.to_s
           expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end

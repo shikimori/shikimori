@@ -62,7 +62,7 @@ describe User do
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:locale).in(:ru, :en).with_default(:ru) }
-    it { is_expected.to enumerize(:locale_from_domain).in(:ru, :en).with_default(:ru) }
+    it { is_expected.to enumerize(:locale_from_host).in(:ru, :en).with_default(:ru) }
   end
 
   let(:user) { create :user }
