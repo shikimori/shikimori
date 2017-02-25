@@ -39,11 +39,11 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use 'Redirecter' unless Rails.env.development?
+    config.middleware.use 'Redirecter' if Rails.env.production?
     config.middleware.insert 0, 'Rack::UTF8Sanitizer'
     config.middleware.insert 0, 'ProxyTest'
     config.middleware.use 'Rack::JSONP'
-    config.middleware.use 'Rack::Attack' unless Rails.env.development?
+    config.middleware.use 'Rack::Attack' if Rails.env.production?
     # config.middleware.use 'LogBeforeTimeout'
 
     config.middleware.insert_before 0, 'Rack::Cors' do

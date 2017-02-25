@@ -52,7 +52,7 @@ class ProfilesController < ShikimoriController
     end
 
     @collection = collection.map do |review|
-      topic = review.maybe_topic locale_from_domain
+      topic = review.maybe_topic locale_from_host
       Topics::ReviewView.new topic, true, true
     end
 

@@ -5,7 +5,7 @@ class Forums::Menu < ViewObjectBase
   def club_topics
     Topics::EntryTopics::ClubTopic
       .includes(:linked)
-      .where(locale: h.locale_from_domain)
+      .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
   end
@@ -25,7 +25,7 @@ class Forums::Menu < ViewObjectBase
   def reviews
     @reviews ||= Review
       .where('created_at >= ?', 2.weeks.ago)
-      .where(locale: h.locale_from_domain)
+      .where(locale: h.locale_from_host)
       .visible
       .includes(:user, :target, topics: [:forum])
       .order(created_at: :desc)
@@ -33,19 +33,19 @@ class Forums::Menu < ViewObjectBase
   end
 
   def sticky_topics
-    if h.ru_domain?
+    if h.ru_host?
       [
-        StickyTopicView.site_rules(h.locale_from_domain),
-        StickyTopicView.faq(h.locale_from_domain),
-        StickyTopicView.description_of_genres(h.locale_from_domain),
-        StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
-        StickyTopicView.site_problems(h.locale_from_domain)
+        StickyTopicView.site_rules(h.locale_from_host),
+        StickyTopicView.faq(h.locale_from_host),
+        StickyTopicView.description_of_genres(h.locale_from_host),
+        StickyTopicView.ideas_and_suggestions(h.locale_from_host),
+        StickyTopicView.site_problems(h.locale_from_host)
       ]
     else
       [
-        StickyTopicView.site_rules(h.locale_from_domain),
-        StickyTopicView.ideas_and_suggestions(h.locale_from_domain),
-        StickyTopicView.site_problems(h.locale_from_domain)
+        StickyTopicView.site_rules(h.locale_from_host),
+        StickyTopicView.ideas_and_suggestions(h.locale_from_host),
+        StickyTopicView.site_problems(h.locale_from_host)
       ]
     end
   end

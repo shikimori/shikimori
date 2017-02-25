@@ -52,7 +52,7 @@ describe ReviewsController do
       end
       it do
         expect(assigns(:review)).to be_persisted
-        topic = assigns(:review).topic(controller.locale_from_domain)
+        topic = assigns(:review).topic(controller.locale_from_host)
         expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end
@@ -104,7 +104,7 @@ describe ReviewsController do
       end
       it do
         expect(assigns(:review).errors).to be_empty
-        topic = assigns(:review).topic(controller.locale_from_domain)
+        topic = assigns(:review).topic(controller.locale_from_host)
         expect(response).to redirect_to UrlGenerator.instance.topic_url topic
       end
     end

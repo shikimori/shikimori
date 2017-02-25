@@ -12,7 +12,7 @@ FactoryGirl.define do
     notifications User::DEFAULT_NOTIFICATIONS
 
     locale 'ru'
-    locale_from_domain 'ru'
+    locale_from_host 'ru'
 
     after :build do |user|
       user.class.skip_callback :create, :after, :create_history_entry

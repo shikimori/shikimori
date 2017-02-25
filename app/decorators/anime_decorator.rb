@@ -5,7 +5,7 @@ class AnimeDecorator < AniMangaDecorator
   def news_topic_views
     object
       .news_topics
-      .where(locale: h.locale_from_domain)
+      .where(locale: h.locale_from_host)
       .includes(:forum)
       .limit(NEWS_PER_PAGE)
       .order(:created_at)

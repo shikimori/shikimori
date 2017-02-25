@@ -16,7 +16,7 @@ class PagesController < ShikimoriController
   def ongoings
     @page_title = i18n_t 'calendar_of_ongoings'
 
-    @ongoings = CalendarsQuery.new.fetch_grouped locale_from_domain
+    @ongoings = CalendarsQuery.new.fetch_grouped locale_from_host
     @topic_view = Topics::TopicViewFactory.new(false, false).find ONGOINGS_TOPIC_ID
   end
 
@@ -39,7 +39,7 @@ class PagesController < ShikimoriController
 
   # rss с новостями
   def news_feed
-    @collection = Topics::Query.fetch(current_user, locale_from_domain)
+    @collection = Topics::Query.fetch(current_user, locale_from_host)
       .by_forum(Forum::NEWS_FORUM, current_user, censored_forbidden?)
       .limit(15)
       .as_views(true, false)

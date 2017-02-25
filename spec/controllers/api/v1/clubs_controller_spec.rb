@@ -41,7 +41,7 @@ describe Api::V1::ClubsController, :show_in_doc do
     end
 
     context 'club locale != locale from domain' do
-      before { allow(controller).to receive(:ru_domain?).and_return false }
+      before { allow(controller).to receive(:ru_host?).and_return false }
       it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end

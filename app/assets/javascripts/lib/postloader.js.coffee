@@ -6,7 +6,8 @@ $(document).on 'click appear', '.b-postloader', (e) ->
   $postloader = $(@)
   return if $postloader.data('locked') || (e.type == 'appear' && $postloader.data('ignore-appear'))
 
-  $postloader.html "<div class=\"ajax-loading vk-like\" title=\"Загрузка...\" />"
+  loading = t('frontend.lib.postloader.loading')
+  $postloader.html "<div class=\"ajax-loading vk-like\" title=\"#{loading}...\" />"
   url = $postloader.data('remote')
   filter = $postloader.data('filter')
 

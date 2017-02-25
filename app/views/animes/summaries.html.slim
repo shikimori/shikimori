@@ -1,7 +1,7 @@
 = render layout: 'page' do
   .b-options-floated.mobile-phone_portrait
     span.link.selected = t '.all_summaries'
-      - maybe_topic = @resource.maybe_topic(locale_from_domain)
+      - maybe_topic = @resource.maybe_topic(locale_from_host)
       span.brackets = Topic::CommentsPolicy.new(maybe_topic).summaries_count
 
     a href="#{@resource.comments_url}" = t '.all_comments'

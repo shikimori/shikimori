@@ -9,19 +9,19 @@ class Redirecter
     request = Rack::Request.new env
 
     if !VALID_HOSTS.include? request.host
-      [301, {"Location" => request.url.sub(request.host, Site::DOMAIN)}, []]
+      [301, {'Location' => request.url.sub(request.host, Site::DOMAIN)}, []]
 
     elsif request.host.starts_with? 'www.'
-      [301, {"Location" => request.url.sub('//www.', '//')}, self]
+      [301, {'Location' => request.url.sub('//www.', '//')}, self]
 
     elsif request.url.end_with?('/') && request.path != '/'
-      [301, {"Location" => request.url.sub(/\/$/, '')}, []]
+      [301, {'Location' => request.url.sub(/\/$/, '')}, []]
 
     elsif request.url.end_with?('&') && request.path != '/'
-      [301, {"Location" => request.url.sub(/&$/, '')}, []]
+      [301, {'Location' => request.url.sub(/&$/, '')}, []]
 
     elsif request.url.end_with?('.html')
-      [301, {"Location" => request.url.sub(/.html$/, '')}, []]
+      [301, {'Location' => request.url.sub(/.html$/, '')}, []]
 
     else
       @app.call(env)

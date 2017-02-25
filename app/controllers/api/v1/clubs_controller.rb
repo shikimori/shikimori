@@ -16,7 +16,7 @@ class Api::V1::ClubsController < Api::V1Controller
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
     @collection = ClubsQuery
-      .new(locale_from_domain)
+      .new(locale_from_host)
       .fetch(page, limit, true)
 
     respond_with @collection
@@ -84,6 +84,6 @@ private
   end
 
   def restrict_domain
-    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_domain
+    raise ActiveRecord::RecordNotFound if @club.locale != locale_from_host
   end
 end

@@ -7,8 +7,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   layout :set_layout
+
   before_action :set_locale
-  before_action :set_user_locale_from_domain
+  before_action :set_user_locale_from_host
   before_action :set_layout_view
   before_action :fix_googlebot
   before_action :touch_last_online
@@ -20,14 +21,14 @@ class ApplicationController < ActionController::Base
   helper_method :resource_class
   helper_method :remote_addr
   helper_method :json?
-  helper_method :domain_folder
   helper_method :adaptivity_class
-  helper_method :ru_domain?, :shikimori?, :anime_online?, :manga_online?
   helper_method :turbolinks_request?
   helper_method :base_controller_names
   helper_method :ignore_copyright?
 
-  helper_method :locale_from_domain
+  helper_method :domain_folder
+  helper_method :shikimori?, :anime_online?, :manga_online?
+  helper_method :ru_host?, :locale_from_host
   helper_method :i18n_i, :i18n_io, :i18n_v
 
   NOT_FOUND_ERRORS = [
@@ -78,36 +79,9 @@ class ApplicationController < ActionController::Base
   end
 
   # хелпер для перевода params к виду, который можно засунуть в url хелперы
-  def url_params merged=nil
+  def url_params merged = nil
     cloned_params = params.clone.except(:action, :controller).symbolize_keys
     merged ? cloned_params.merge(merged) : cloned_params
-  end
-
-  # находимся ли сейчас на домене шикимори?
-  def ru_domain?
-    request.host.include?(ShikimoriDomain::HOST) ||
-      Rails.env.test? ||
-      Rails.env.development? ||
-      request.host == 'localhost'
-  end
-
-  def locale_from_domain
-    ru_domain? ? :ru : :en
-  end
-
-  # находимся ли сейчас на домене шикимори?
-  def shikimori?
-    ShikimoriDomain::HOSTS.include? request.host
-  end
-
-  # находимся ли сейчас на домене аниме?
-  def anime_online?
-    AnimeOnlineDomain::HOSTS.include? request.host
-  end
-
-  # находимся ли сейчас на домене манги?
-  def manga_online?
-    MangaOnlineDomain::HOSTS.include? request.host
   end
 
   # запрос ли это через турболинки
@@ -117,17 +91,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @decorated_current_user ||= super.try :decorate
-  end
-
-  # каталог текущего домена
-  def domain_folder
-    if anime_online?
-      'anime_online'
-    elsif manga_online?
-      'manga_online'
-    else
-      'shikimori'
-    end
   end
 
   def base_controller_names
@@ -140,7 +103,46 @@ class ApplicationController < ActionController::Base
     [superclass_name, db_name].select(&:present?).flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
   end
 
-private
+  #-----------------------------------------------------------------------------
+  # domain helpers
+  #-----------------------------------------------------------------------------
+
+  def domain_folder
+    return 'anime_online' if anime_online?
+    return 'manga_online' if manga_online?
+
+    'shikimori'
+  end
+
+  def shikimori?
+    ShikimoriDomain::HOSTS.include?(request.host)
+  end
+
+  def anime_online?
+    AnimeOnlineDomain::HOSTS.include?(request.host)
+  end
+
+  def manga_online?
+    MangaOnlineDomain::HOSTS.include?(request.host)
+  end
+
+  #-----------------------------------------------------------------------------
+  # host helpers
+  #-----------------------------------------------------------------------------
+
+  def ru_host?
+    return true if Rails.env.test?
+    return true if anime_online?
+    return true if manga_online?
+
+    ShikimoriDomain::RU_HOSTS.include?(request.host)
+  end
+
+  def locale_from_host
+    ru_host? ? Types::Locale[:ru] : Types::Locale[:en]
+  end
+
+  private
 
   def set_layout
     if request.xhr? || (
@@ -156,6 +158,15 @@ private
     'application'
   end
 
+  def set_locale
+    I18n.locale = params[:locale] || current_user&.locale || locale_from_host
+  end
+
+  def set_user_locale_from_host
+    return unless user_signed_in?
+    current_user.update! locale_from_host: locale_from_host
+  end
+
   def set_layout_view
     @layout = LayoutView.new
   end
@@ -167,17 +178,6 @@ private
   # before фильтры с настройкой сайта
   def mailer_set_url_options
     ActionMailer::Base.default_url_options[:host] = request.host_with_port
-  end
-
-  def set_locale
-    I18n.locale = params[:locale] ||
-      current_user&.locale ||
-      locale_from_domain
-  end
-
-  def set_user_locale_from_domain
-    return unless user_signed_in?
-    current_user.update locale_from_domain: locale_from_domain
   end
 
   # гугловский бот со странным format иногда ходит

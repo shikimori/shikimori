@@ -1,6 +1,8 @@
 module ShikimoriDomain
-  HOST = "shikimori.#{Rails.env.development? ? :dev : :org}"
-  HOSTS = Rails.env.development? ? [HOST, 'localhost'] : [HOST, "beta.#{HOST}"]
+  RU_HOSTS = %w(locahost shikimori.dev ru.shikimori.dev shikimori.org)
+  EN_HOSTS = %w(en.shikimori.dev shikimori.one)
+
+  HOSTS = RU_HOSTS + EN_HOSTS
 
   def self.matches? request
     !AnimeOnlineDomain.matches?(request) &&

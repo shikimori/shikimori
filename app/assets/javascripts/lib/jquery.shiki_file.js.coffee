@@ -1,3 +1,5 @@
+I18N_KEY = 'frontend.lib.jquery_shiki_file'
+
 (($) ->
   defaults =
     maxfiles: 150
@@ -34,17 +36,17 @@
           error: (err, file) ->
             switch err
               when 'TooManyFiles'
-                $.flash alert: "Слишком много файлов: максимум #{options.maxfiles} за раз"
+                $.flash alert: t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
 
               when 'FileTooLarge'
-                $.flash alert: 'Файл слишком большой: максимум 4 мегабайта'
+                $.flash alert: t("#{I18N_KEY}.too_large_file")
 
               when 'Unprocessable Entity'
-                $.flash alert: 'Пожалуйста, повторите попытку позже'
+                $.flash alert: t("#{I18N_KEY}.please_try_again_later")
 
               #when 'BrowserNotSupported'
               else
-                $.flash alert: 'Ваш браузер не поддерживает данный функционал'
+                $.flash alert: t("#{I18N_KEY}.browser_not_supported")
 
             global_lock = false
 
@@ -55,7 +57,13 @@
 
           beforeEach: (file) ->
             #$progress_bar.width '0%'
-            $progress_bar.html "загрузка файла #{file.name} (#{Math.ceil(file.size / 10) / 100} Кб) ..."
+            filename = file.name
+            filesize = Math.ceil(file.size / 10) / 100
+            $progress_bar.html(
+              t "#{I18N_KEY}.loading_file",
+                filename: filename,
+                filesize: filesize
+            )
 
           drop: ->
             return false if global_lock
@@ -79,7 +87,11 @@
 
             height = $node.outerHeight()
             width = $node.outerWidth()
-            text = if global_lock then 'Дождитесь загрузки файлов' else 'Перетаскивайте сюда картинки'
+            text =
+              if global_lock
+                t("#{I18N_KEY}.wait_till_loaded")
+              else
+                t("#{I18N_KEY}.drop_pictures_here")
             cls = if global_lock then 'disallowed' else 'allowed'
 
             $placeholder = $("<div data-text='#{text}' class='b-dropzone-drag_placeholder #{cls}' style='width:#{width}px!important;height:#{height}px;line-height:#{Math.max(height, 75)}px;'></div>")
@@ -110,7 +122,12 @@
           uploadFinished: (i, file, response, time) ->
             if _.isString(response) || 'error' of response
               $node.trigger 'upload:failed', [response, i]
-              $.flash alert: if _.isString(response) then 'Пожалуйста, повторите попытку позже' else response.error
+              alert =
+                if _.isString(response)
+                  t("#{I18N_KEY}.please_try_again_later")
+                else
+                  response.error
+              $.flash alert: alert
             else
               $node.trigger 'upload:success', [response, i]
             #$.hideCursorMessage()

@@ -4,7 +4,7 @@ class Messages::CreateNotification
   pattr_initialize :target
 
   def user_registered
-    locale = target.locale_from_domain
+    locale = target.locale_from_host
     body = i18n_t(
       'user_registered_message',
       faq_url: StickyTopicView.faq(locale).url,

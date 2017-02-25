@@ -45,7 +45,7 @@ class Api::V1::CommentsController < Api::V1Controller
   param :frontend, :bool
   param :broadcast, :bool
   def create
-    @resource = Comment::Create.call faye, create_params, locale_from_domain
+    @resource = Comment::Create.call faye, create_params, locale_from_host
 
     if params[:broadcast] && @resource.persisted? && can?(:broadcast, @resource)
       Comment::Broadcast.call @resource

@@ -6,7 +6,7 @@ class Forums::View < ViewObjectBase
   end
 
   def topic_views
-    Topics::Query.fetch(h.current_user, h.locale_from_domain)
+    Topics::Query.fetch(h.current_user, h.locale_from_host)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
       .paginate(page, limit)
@@ -27,7 +27,7 @@ class Forums::View < ViewObjectBase
         user_forums = h.current_user.preferences.forums.select(&:present?)
         user_clubs = h.current_user.clubs_for_domain
 
-        user_forums.map { |id| forum_channel(id, h.locale_from_domain) } +
+        user_forums.map { |id| forum_channel(id, h.locale_from_host) } +
           user_clubs.map { |club| "club-#{club.id}" }
 
       #when Forum::static[:feed].permalink
