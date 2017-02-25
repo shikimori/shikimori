@@ -81,7 +81,7 @@ remove_image = ($image, $wall) ->
 
 reset_wall = ($wall) ->
   $wall.find('img').css(width: '', height: '')
-  $wall.addClass('unprocessed').shiki_wall()
+  new Wall.Gallery $wall
 
 linked_anime_id = ($linked_type, $linked_id) ->
   $linked_id.val() if $linked_type.val() == 'Anime'

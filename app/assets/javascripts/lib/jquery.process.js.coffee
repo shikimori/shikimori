@@ -26,7 +26,11 @@
   $with('.b-video.unprocessed', $root).shiki_video()
 
   # стена картинок
-  $with('.b-shiki_wall.unprocessed', $root).shiki_wall()
+  $with('.b-shiki_wall.unprocessed', $root)
+    .removeClass('unprocessed')
+    .each ->
+      new Wall.Gallery @
+
   $with('.b-forum.unprocessed', $root).shiki_forum()
 
   console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
