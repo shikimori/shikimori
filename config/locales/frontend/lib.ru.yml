@@ -23,3 +23,18 @@ ru:
           one: Добавлен %{count} новый топик
           few: Добавлены %{count} новых топика
           many: Добавлено %{count} новых топиков
+
+      jquery_shiki_file:
+        too_many_files: 'Слишком много файлов: максимум %{count} за раз'
+        too_large_file: 'Файл слишком большой: максимум 4 мегабайта'
+        please_try_again_later: Пожалуйста, повторите попытку позже
+        browser_not_supported: Ваш браузер не поддерживает данный функционал
+        loading_file: загрузка файла %{filename} (%{filesize} Кб)...
+        wait_till_loaded: Дождитесь загрузки файлов
+        drop_pictures_here: Перетаскивайте сюда картинки
+
+      postloader:
+        loading: Загрузка...
+
+      paginated_catalog:
+        please_try_again_later: Пожалуйста, повторите попытку позже
