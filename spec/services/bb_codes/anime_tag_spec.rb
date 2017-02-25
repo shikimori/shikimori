@@ -3,21 +3,29 @@ describe BbCodes::AnimeTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:anime) { create :anime, id: 9876543, name: 'test', russian: russian }
+    let(:anime) { create :anime, id: 9_876_543, name: 'test', russian: russian }
 
     let(:html) do
       <<-HTML.squish
-<a href="//test.host/animes/9876543-test" title="test"
-class="bubbled b-link"
-data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
-        HTML
+        <a href="//test.host/animes/9876543-test" title="test"
+        class="bubbled b-link"
+        data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
+      HTML
     end
     let(:name_html) { anime.name }
     let(:russian) { nil }
 
     context 'missing anime' do
-      let(:text) { "[anime=987654]" }
-      it { is_expected.to eq text }
+      context 'without fallback' do
+        let(:text) { '[anime=987654]' }
+        it { is_expected.to eq text }
+      end
+
+      context 'with fallback' do
+        let(:fallback) { 'http://ya.ru' }
+        let(:text) { "[anime=987654 fallback=#{fallback}]" }
+        it { is_expected.to eq fallback }
+      end
     end
 
     context '[anime=id]' do
@@ -25,7 +33,7 @@ data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
       it { is_expected.to eq html }
 
       context 'multiple bb codes' do
-        let(:anime2) { create :anime, id: 98765432, name: 'zxcvbn', russian: russian }
+        let(:anime2) { create :anime, id: 98_765_432, name: 'zxcvbn', russian: russian }
         let(:text) { "[anime=#{anime.id}][anime=#{anime2.id}]" }
         it do
           is_expected.to include html
@@ -37,7 +45,7 @@ data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
       context 'with russian name' do
         let(:name_html) do
           "<span class='name-en'>#{anime.name}</span>"\
-          "<span class='name-ru' data-text='#{anime.russian}'></span>"
+            "<span class='name-ru' data-text='#{anime.russian}'></span>"
         end
         let(:russian) { 'test' }
         let(:text) { "[anime=#{anime.id}]" }
@@ -58,7 +66,7 @@ data-tooltip_url="//test.host/animes/9876543-test/tooltip">#{name_html}</a>
         let(:text) { "[anime=#{anime.id}]test[/anime]" }
         let(:name_html) do
           "<span class='name-en'>#{anime.name}</span>"\
-          "<span class='name-ru' data-text='#{anime.russian}'></span>"
+            "<span class='name-ru' data-text='#{anime.russian}'></span>"
         end
         it { is_expected.to eq html }
       end

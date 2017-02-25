@@ -4,13 +4,20 @@ class BbCodes::AnimeTag
 
   dsl_attribute :klass, Anime
 
+  FALLBACK = /(?:\ fallback=(?<fallback>.*?))?/
+
   def regexp
     @regexp ||= %r{
-      \[#{name}=(?<id>\d+)\] (?<name>[^\[\]]*?) \[\/#{name}\]
+      \[#{name}=(?<id>\d+) #{FALLBACK.source} \]
+        (?<name>[^\[\]]*?)
+      \[\/#{name}\]
       |
-      \[#{name}\] (?<id>\d+) \[\/#{name}\]
+      \[#{name} #{FALLBACK.source}\]
+        (?<id>\d+)
+      \[\/#{name}\]
       |
-      \[#{name}=(?<id>\d+)\] (?!=\d)
+      \[#{name}=(?<id>\d+) #{FALLBACK.source}\]
+      (?!=\d)
     }mix
   end
 
@@ -18,10 +25,16 @@ class BbCodes::AnimeTag
     db_entries = fetch_entries text
 
     text.gsub regexp do |matched|
-      entry = db_entries[$~[:id].to_i]
+      id = $LAST_MATCH_INFO[:id].to_i
+      name = $LAST_MATCH_INFO[:name]
+      fallback = $LAST_MATCH_INFO[:fallback]
+
+      entry = db_entries[id]
 
       if entry
-        html_for entry.decorate, ($~[:name] if $~[:name] != entry.name)
+        html_for entry.decorate, (name if name != entry.name)
+      elsif fallback
+        fallback
       else
         matched
       end
@@ -33,24 +46,16 @@ private
   def html_for entry, name
     <<-HTML.squish
 <a href="#{entry_url entry}" title="#{entry.name}" class="bubbled b-link"
-  data-tooltip_url="#{tooltip_url entry}">#{name || localization_span(entry)}</a>
+data-tooltip_url="#{tooltip_url entry}">#{name || localization_span(entry)}</a>
     HTML
   end
 
   def entry_url entry
-    UrlGenerator.instance.send(
-      :"#{name}_url",
-      entry,
-      subdomain: false
-    )
+    UrlGenerator.instance.send :"#{name}_url", entry, subdomain: false
   end
 
   def tooltip_url entry
-    UrlGenerator.instance.send(
-      :"tooltip_#{name}_url",
-      entry,
-      subdomain: false
-    )
+    UrlGenerator.instance.send :"tooltip_#{name}_url", entry, subdomain: false
   end
 
   def localization_span entry
@@ -65,7 +70,7 @@ private
   def fetch_entries text
     ids = []
     text.scan(regexp) do |match|
-      ids.push $~[:id].to_i if $~[:id]
+      ids.push $LAST_MATCH_INFO[:id].to_i if $LAST_MATCH_INFO[:id]
     end
 
     if ids.any?

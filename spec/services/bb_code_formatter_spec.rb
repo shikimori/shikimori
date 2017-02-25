@@ -260,11 +260,17 @@ describe BbCodeFormatter do
         let(:text) { '[url=http://www.small-games.info]www.small-games.info[/url]' }
         it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
       end
+    end
 
-      # context 'example 3', :focus do
-        # let(:text) { 'http://shikimori.dev/animes/1-test' }
-        # it { is_expected.to eq '<a class="b-link" href="http://www.small-games.info">www.small-games.info</a>' }
-      # end
+    describe 'db_entry_url_tag -> db_entry_tag' do
+      let!(:anime) { create :anime, id: 9876543, name: 'z' }
+      let(:text) { 'http://shikimori.dev/animes/9876543-test' }
+      it do
+        is_expected.to include(
+          "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" "\
+            "class=\"bubbled b-link\""
+        )
+      end
     end
 
     describe '[mention]' do

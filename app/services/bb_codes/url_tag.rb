@@ -2,10 +2,12 @@ class BbCodes::UrlTag
   include Singleton
   MAX_SHORT_URL_SIZE = 65
 
+  BEFORE_URL = /(?<= \s|^|>|\()/
   URL = %r{
     (?<url>
-      (?: https?: )
-      ?//(?:www\.)?
+      (?: https?: )?
+      //
+      (?:www\.)?
       ( [^\s<\[\].,;:)(] | [.,;:)(] (?!=\s|$|[<\[\]\ ;,]) )+
     )
   }mix
@@ -19,8 +21,7 @@ class BbCodes::UrlTag
       (?<text> .*?)
     \[/url\]
       |
-    (?<= \s|^|>|\()
-      #{URL.source}
+    #{BEFORE_URL.source} #{URL.source}
   }mix
 
   def format text
