@@ -6,9 +6,11 @@ class SitemapController < ShikimoriController
         .with_description_ru_source(Anime)
         .where.not(kind: :special)
         .order(updated_at: :desc)
+        .limit(5)
       @mangas = DbEntries::WithDescriptionQuery
         .with_description_ru_source(Manga)
         .order(updated_at: :desc)
+        .limit(5)
     end
 
     @page_title = 'Карта сайта'
@@ -90,10 +92,5 @@ class SitemapController < ShikimoriController
       ['График онгоингов', ongoings_pages_url],
       ['Турниры и голосования', contests_url],
     ] + Forums::List.new.to_a.map { |v| [v.name, v.url] }
-
-    if params[:format] == 'xml'
-      File.open('public/sitemap.xml', 'w') {|v| v.write(render_to_string 'index.xml.builder') }
-      redirect_to sitemap_url(format: :xml)
-    end
   end
 end
