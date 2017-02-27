@@ -1,9 +1,9 @@
-wall_id = 0
-
 using 'Wall'
 class Wall.Gallery extends View
-  VERTICAL = 'vertical'
-  HORIZONTAL = 'horizontal'
+  MIN_CLUSTER_1_SIZE = 2
+  MIN_CLUSTER_2_SIZE = 3
+
+  MIN_CLUSTER_HEIGHT = 80
 
   initialize: ->
     Wall.Gallery.last_id ||= 0
@@ -12,6 +12,7 @@ class Wall.Gallery extends View
 
     @$root.imagesLoaded =>
       @_prepare()
+      @_build_clusters()
       @_mason()
 
   _prepare: ->
@@ -34,95 +35,60 @@ class Wall.Gallery extends View
       else
         new Wall.Image $(v)
 
-    @direction = HORIZONTAL
-    @margin = 4
+  _build_clusters: ->
+    cluster_1_size = 0
+    cluster_2_size = @images.length
 
-  _each: (func) -> @images.each func
-  _filter: (func) -> @images.filter func
-  _map: (func) -> @images.map func
-  _positioned: -> @_filter (v) -> v.positioned
+    if @_is_two_clusters()
+      cluster_1_size = [(@images.length - MIN_CLUSTER_2_SIZE), 3].min()
+      cluster_2_size = @images.length - cluster_1_size
+
+      @cluster_1 = new Wall.Cluster(@images[0..cluster_1_size-1])
+      @cluster_2 = new Wall.Cluster(@images[cluster_1_size..@images.length])
+
+    else
+      @cluster = new Wall.Cluster(@images)
 
   _mason: ->
-    @_each (image) => image.normalize @max_width, @max_height
-    @_each (image) => @_put image, true
-    @_each (image) => image.apply()
+    if @_is_two_clusters()
+      @_mason_2_clusters false
+      width = [@cluster_1.width(), @cluster_2.width()].max()
+      height = @cluster_1.height() + Wall.Cluster.MARGIN + @cluster_2.height()
 
-    width = (@_map (v) -> v.left + v.width).max() || 0
-    height = (@_map (v) -> v.top + v.height).max() || 0
+    else
+      @_mason_1_cluster()
+      width = @cluster.width()
+      height = @cluster.height()
 
     @$node.css
       width: ([width, @max_width]).min()
       height: ([height, @max_height]).min()
 
-  _put: (image, post_process) ->
-    left = _([0].concat _(@_positioned()).map (v) -> v.left + v.width).max() + @margin
-    left = 0 if left == @margin
+  _is_two_clusters: ->
+    @images.length >= MIN_CLUSTER_1_SIZE + MIN_CLUSTER_2_SIZE
 
-    top = _([0].concat _(@_positioned()).map (v) -> v.top + v.height).max() + @margin
-    top = 0 if top == @margin
+  _cluster_1_height: ->
+    [@max_height - MIN_CLUSTER_HEIGHT, MIN_CLUSTER_HEIGHT].max()
 
-    #delta_x = _.max [left + image.width - @max_width, 0]
-    #delta_y = _.max [top + image.height - @max_height, 0]
+  _cluster_2_height: ->
+    [
+      (@max_height - @cluster_1.height() + Wall.Cluster.MARGIN).round(),
+      MIN_CLUSTER_HEIGHT
+    ].max()
 
-    #if delta_x && !delta_y
-      #throw 'not implemented yet'
-      #image.position 0, top
+  _mason_1_cluster: ->
+    @cluster.mason 0, @max_width, @max_height
 
-    #else if !delta_x && delta_y
-      #throw 'not implemented yet'
-      #image.position left, 0
+  _mason_2_clusters: (is_reposition) ->
+    @cluster_1.mason 0, @max_width, @_cluster_1_height()
+    @cluster_2.mason(
+      @cluster_1.height() + Wall.Cluster.MARGIN,
+      @max_width,
+      @_cluster_2_height()
+    )
 
-    #else if delta_x && delta_y
-      #if @direction == HORIZONTAL
-        #image.position left, 0
-      #else
-        #image.position 0, top
-
-    #else
-      #image.position left, top
-
-    if @direction == HORIZONTAL
-      image.position left, 0
-    else
-      image.position 0, top
-
-    @_flatten()
-    @_scale()
-
-  _flatten: ->
-    images = @_positioned()
-    return if images.length == 1
-
-    if @direction == HORIZONTAL
-      heights = _(images).map (v) -> v.height
-      min = _(heights).min()
-      if min != _(heights).max()
-        _(images).each (image) ->
-          image.scale_height min
-          image.positioned = false
-
-        _(images).each (image) =>
-          @_put image, false
-
-    else
-      throw 'not implemented yet'
-
-  _scale: (image, delta_x, delta_y) ->
-    images = @_positioned()
-
-    if @direction == HORIZONTAL
-      current_width = _(images).reduce (memo, v) =>
-          memo + v.width + @margin
-        , 0.0
-
-      if current_width > @max_width
-        _(images).each (image) =>
-          image.scale @max_width / current_width
-          image.positioned = false
-
-        _(images).each (image) =>
-          @_put image, false
-
-    else
-      throw 'not implemented yet'
-
+    if !is_reposition && @cluster_2.width() < @max_width * 0.95
+      @max_height = (@max_height * 1.3).round()
+      @$node.css 'max-height', @max_height
+      @images.each (image) -> image.reset()
+      @_mason_2_clusters true

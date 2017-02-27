@@ -4,16 +4,17 @@ class Wall.Image
     @$container = $node
 
     @$image = @$container.find('img')
-
-    # @width = @$image.width() * 1.0
-    # @height = @$image.height() * 1.0
     [@width, @height] = @_image_sizes()
-
+    [@original_width, @original_height] = [@width, @height]
     @ratio = @width / @height
 
+    @reset()
+
+  reset: ->
     @positioned = false
     @left = 0
     @top = 0
+    [@width, @height] = [@original_width, @original_height]
 
   position: (left, top) ->
     @left = left
