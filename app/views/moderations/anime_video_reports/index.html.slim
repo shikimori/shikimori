@@ -9,7 +9,10 @@ header.head
     /= render partial: 'users/user', collection: @moderators, locals: { content_by: :named_avatar }
     - @moderators.each do |moderator|
       .b-user16
-        a href="#{profile_url(moderator, host: ShikimoriDomain::HOST)}" title="#{moderator.nickname}"
+        a[
+          href="#{profile_url(moderator, host: ShikimoriDomain::RU_HOSTS.first)}"
+          title="#{moderator.nickname}"
+        ]
           img src="#{moderator.avatar_url 16}" srcset="#{moderator.avatar_url 32} 2x"
           span = moderator.nickname
   ul.b-list

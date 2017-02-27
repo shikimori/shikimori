@@ -1,6 +1,6 @@
 module ShikimoriDomain
-  RU_HOSTS = %w(locahost shikimori.dev ru.shikimori.dev shikimori.org)
-  EN_HOSTS = %w(en.shikimori.dev shikimori.one)
+  RU_HOSTS = %w(shikimori.org shikimori.dev ru.shikimori.dev locahost)
+  EN_HOSTS = %w(shikimori.one en.shikimori.dev)
 
   HOSTS = RU_HOSTS + EN_HOSTS
 
