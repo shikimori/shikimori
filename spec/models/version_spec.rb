@@ -177,6 +177,14 @@ describe Version do
         it { expect { version.notify_rejection 'z' } .to change(user.messages, :count).by 1 }
       end
     end
+
+    describe '#takeable?' do
+      it { expect(version).to_not be_takeable }
+    end
+
+    describe '#deleteable?' do
+      it { expect(version).to be_deleteable }
+    end
   end
 
   describe 'permissions' do
