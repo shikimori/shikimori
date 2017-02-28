@@ -24,7 +24,7 @@
       .subheadline = t '.search_on.rutracker'
       .content
         - @resource.files.rutracker_search.compact.each do |phrase|
-          a href="http://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
+          a href="https://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
             = phrase
 
   - if @resource.files.subtitles.any?
