@@ -114,7 +114,7 @@ class Version < ActiveRecord::Base
   end
 
   def deleteable?
-    item_diff['image'].blank?
+    true
   end
 
 private

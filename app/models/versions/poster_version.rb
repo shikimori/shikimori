@@ -28,4 +28,8 @@ class Versions::PosterVersion < Version
   def latest_image?
     item.image_file_name == item_diff['image'][1]
   end
+
+  def deleteable?
+    false
+  end
 end
