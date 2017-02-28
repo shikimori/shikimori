@@ -30,7 +30,7 @@ class Version < ActiveRecord::Base
     event(:auto_accept) { transition :pending => :auto_accepted, if: :auto_acceptable? }
     event(:take) { transition :pending => :taken }
     event(:reject) { transition [:pending, :auto_accepted] => :rejected }
-    event(:to_deleted) { transition :pending => :deleted }
+    event(:to_deleted) { transition :pending => :deleted, if: :deleteable? }
 
     event(:accept_taken) { transition :taken => :accepted, if: :takeable? }
     event(:take_accepted) { transition :accepted => :taken, if: :takeable? }
@@ -111,6 +111,10 @@ class Version < ActiveRecord::Base
 
   def takeable?
     false
+  end
+
+  def deleteable?
+    item_diff['image'].blank?
   end
 
 private
