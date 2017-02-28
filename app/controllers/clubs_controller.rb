@@ -136,6 +136,6 @@ private
   alias new_params create_params
 
   def update_params
-    params.require(:club).permit(*UPDATE_PARAMS)
+    params[:club] ? params.require(:club).permit(*UPDATE_PARAMS) : {}
   end
 end

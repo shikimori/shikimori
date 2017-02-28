@@ -24,9 +24,9 @@ private
     Retryable.retryable tries: 2, on: exceptions, sleep: 1 do
       Club.transaction do
         if links_page?
-          @model.animes = []
-          @model.mangas = []
-          @model.characters = []
+          @model.links.where(linked_type: Anime.name).destroy_all
+          @model.links.where(linked_type: Manga.name).destroy_all
+          @model.links.where(linked_type: Character.name).destroy_all
         end
 
         if members_page?
