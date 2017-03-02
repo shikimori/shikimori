@@ -35,8 +35,8 @@ class Wall.Gallery extends View
       else
         new Wall.Image $(node)
 
-    console.log '-----------------------------'
-    @images.each (image) -> console.log image.weight(), image.node
+    # console.log '-----------------------------'
+    # @images.each (image) -> console.log image.weight(), image.node
 
   _build_clusters: ->
     if @_is_two_clusters()
