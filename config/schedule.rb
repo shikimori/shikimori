@@ -45,12 +45,12 @@ every 33.days, at: '4:13 am' do
   runner "SvdWorker.perform_async 'anime', 'partial', 'none'"
 end
 
-every 2.months, at: '0:09 am' do # макс цифра минус 1
-  runner "ImportListWorker.perform_async pages_limit: 1309, source: :all, type: Manga.name"
-end
-every 2.months, at: '5:09 am' do # макс цифра минус 1
-  runner "ImportListWorker.perform_async pages_limit: 424, source: :all, type: Anime.name"
-end
+# every 2.months, at: '0:09 am' do # макс цифра минус 1
+  # runner "ImportListWorker.perform_async pages_limit: 1309, source: :all, type: Manga.name"
+# end
+# every 2.months, at: '5:09 am' do # макс цифра минус 1
+  # runner "ImportListWorker.perform_async pages_limit: 424, source: :all, type: Anime.name"
+# end
 
 #every 1.days, at: '6:29 am' do
   #runner 'MangaOnline::ReadMangaWorker.perform_async'
