@@ -1,7 +1,7 @@
 using 'Wall'
 class Wall.Gallery extends View
-  MIN_CLUSTER_1_SIZE = 2
-  MIN_CLUSTER_2_SIZE = 3
+  MIN_CLUSTER_WEIGHT = 2.5
+  MIN_TWO_CLUSTERS_WEIGHT = 5.8
 
   MIN_CLUSTER_HEIGHT = 80
 
@@ -29,22 +29,31 @@ class Wall.Gallery extends View
       .css(width: '', height: '')
     $images.children().removeClass 'check-width'
 
-    @images = $images.toArray().map (v) ->
-      if v.classList.contains('b-video')
-        new Wall.Video $(v)
+    @images = $images.toArray().map (node) ->
+      if node.classList.contains('b-video')
+        new Wall.Video $(node)
       else
-        new Wall.Image $(v)
+        new Wall.Image $(node)
+
+    console.log '-----------------------------'
+    @images.each (image) -> console.log image.weight(), image.node
 
   _build_clusters: ->
-    cluster_1_size = 0
-    cluster_2_size = @images.length
-
     if @_is_two_clusters()
-      cluster_1_size = [(@images.length - MIN_CLUSTER_2_SIZE), 3].min()
-      cluster_2_size = @images.length - cluster_1_size
+      cluster_1_images = []
+      cluster_2_images = []
 
-      @cluster_1 = new Wall.Cluster(@images[0..cluster_1_size-1])
-      @cluster_2 = new Wall.Cluster(@images[cluster_1_size..@images.length])
+      @images.reduce (memo, image) ->
+          if memo > MIN_CLUSTER_WEIGHT
+            cluster_2_images.push image
+          else
+            cluster_1_images.push image
+
+          memo + image.weight()
+        , 0
+
+      @cluster_1 = new Wall.Cluster(cluster_1_images)
+      @cluster_2 = new Wall.Cluster(cluster_2_images)
 
     else
       @cluster = new Wall.Cluster(@images)
@@ -65,7 +74,7 @@ class Wall.Gallery extends View
       height: ([height, @max_height]).min()
 
   _is_two_clusters: ->
-    @images.length >= MIN_CLUSTER_1_SIZE + MIN_CLUSTER_2_SIZE
+    @images.sum((image) -> image.weight()) > MIN_TWO_CLUSTERS_WEIGHT
 
   _cluster_1_height: ->
     [@max_height - MIN_CLUSTER_HEIGHT, MIN_CLUSTER_HEIGHT].max()

@@ -1,9 +1,7 @@
 using 'Wall'
-class Wall.Image
-  constructor: ($node) ->
-    @$container = $node
-
-    @$image = @$container.find('img')
+class Wall.Image extends View
+  initialize: ->
+    @$image = @$node.find('img')
     [@width, @height] = @_image_sizes()
     [@original_width, @original_height] = [@width, @height]
     @ratio = @width / @height
@@ -26,11 +24,11 @@ class Wall.Image
       width: @width
       height: @height
 
-    @$container.css
+    @$node.css
       top: @top
       left: @left
 
-    @$container.shiki_image()
+    @$node.shiki_image()
 
   normalize: (width, height) ->
     if @width > width
@@ -50,6 +48,10 @@ class Wall.Image
   scale: (percent) ->
     @width *= percent
     @height *= percent
+
+  weight: ->
+    @ratio.round(1)
+    # (1 / @ratio).round(1)
 
   _image_sizes: ->
     [

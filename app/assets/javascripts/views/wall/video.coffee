@@ -15,7 +15,7 @@ class Wall.Video extends Wall.Image
       width: @width
       # height: @height / @_height_ratio()
 
-    @$container.css
+    @$node.css
       top: @top
       left: @left
       width: @width
