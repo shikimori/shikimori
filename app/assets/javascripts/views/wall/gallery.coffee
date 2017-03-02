@@ -96,8 +96,10 @@ class Wall.Gallery extends View
       @_cluster_2_height()
     )
 
-    if !is_reposition && @cluster_2.width() < @max_width * 0.95
-      @max_height = (@max_height * 1.3).round()
-      @$node.css 'max-height', @max_height
-      @images.each (image) -> image.reset()
-      @_mason_2_clusters true
+    unless reposition
+      width = (@max_width * 0.95).round()
+      if @cluster_2.width() < width || @cluster_1.width() < width
+        @max_height = (@max_height * 1.3).round()
+        @$node.css 'max-height', @max_height
+        @images.each (image) -> image.reset()
+        @_mason_2_clusters true
