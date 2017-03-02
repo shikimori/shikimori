@@ -96,7 +96,7 @@ class Wall.Gallery extends View
       @_cluster_2_height()
     )
 
-    unless reposition
+    unless is_reposition
       width = (@max_width * 0.95).round()
       if @cluster_2.width() < width || @cluster_1.width() < width
         @max_height = (@max_height * 1.3).round()
