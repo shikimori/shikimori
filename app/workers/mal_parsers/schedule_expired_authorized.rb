@@ -53,7 +53,7 @@ class MalParsers::ScheduleExpiredAuthorized
         expiration_interval.ago
       )
       .where.not(mal_id: nil)
-      .order(:id)
+      .order(:ranked)
   end
 
   def max_animes_to_schedule

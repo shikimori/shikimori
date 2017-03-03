@@ -82,9 +82,9 @@ module Clockwork
     VacuumDb.perform_async
   end
 
-  every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
-    Anidb::ImportDescriptionsJob.perform_async
-  end
+  # every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
+    # Anidb::ImportDescriptionsJob.perform_async
+  # end
 
   # every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
     # FindAnimeWorker.perform_async :first_page
