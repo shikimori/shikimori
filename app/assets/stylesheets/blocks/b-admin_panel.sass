@@ -1,0 +1,71 @@
+@import compass/css3
+@import mixins/column
+@import globals/variables
+
++keyframes('rotating')
+  0%
+    +transform(rotate(0deg))
+  100%
+    +transform(rotate(-360deg))
+
+.b-admin_panel + .b-hot_topics
+  border-top: 1px solid #d0d8db
+
+.b-admin_panel
+  +clear_left
+  // color: #ff8a3c
+  // background-color: #ffe8d8
+  // border-bottom: 1px solid #ffd5b8
+  margin: -15px -15px 15px -15px
+  padding: 7px 15px 5px 15px
+  position: relative
+
+  .metric
+    display: inline-block
+    font-size: 10px
+    margin-bottom: 0
+    margin-right: 13px
+
+    &.alert span
+      color: $red
+
+    span
+      padding-left: 3px
+
+  .reload
+    color: #666666
+    cursor: pointer
+    margin-top: -8px
+    position: absolute
+    right: 16px
+    top: 50%
+
+    &:before
+      content: "\E801"
+      font-family: "shikimori"
+      font-size: 14px
+
+    &:active
+      +text-shadow(#DDDDDD, 1px, 1px, 0px)
+
+    &:hover
+      color: #333333
+
+    &.active
+      +animation(rotating 0.75s linear infinite)
+
+  .sidekiq
+    .metric
+      font-size: 8px
+
+      .right
+        margin-left: 5px
+
+      .busy
+        color: $green
+
+      .enqueued
+        color: $blue
+
+      .retries
+        color: $red

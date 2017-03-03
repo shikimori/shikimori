@@ -15,6 +15,7 @@ class Anidb::ImportDescriptionsQuery
         ".squish)
         .where(external_links: { imported_at: nil })
         .where(external_links: { kind: Types::ExternalLink::Kind[:anime_db] })
+        .order(:ranked)
     end
   end
 end

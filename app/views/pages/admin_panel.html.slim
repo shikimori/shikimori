@@ -1,88 +1,100 @@
-.tooltip-left
-  .tooltip-inner
-    .tooltip-arrow
-    .clearfix
-      .tooltip-details
+.reload
 
-        .subheadline
-          .reload
-          | Disk space
-        p.m15 #{@disk_space}%
+article
+  .metric
+    b Disk:
+    span #{@disk_space}%
 
-        .subheadline class="#{:red if @mem_space.to_i > 80}" Memmory
-        p.m15 #{@mem_space}%
+  .metric class="#{:alert if @mem_space.to_i > 80}"
+    b Memory:
+    span #{@mem_space}%
 
-        .subheadline class="#{:red if @swap_space.to_i > 10}" Swap
-        p.m15 #{@swap_space}%
+  .metric class="#{:alert if @swap_space.to_i > 10}"
+    b Swap:
+    span #{@swap_space}%
 
-        .subheadline Memcached
-        p.m15 #{@memcached_space}%
+  .metric
+    b Memcached:
+    span #{@memcached_space}%
 
-        .subheadline class="#{:red if @redis_keys.zero?}" Redis keys
-        p.m15 #{@redis_keys}
+  / .metric class="#{:alert if @redis_keys.zero?}"
+    / b Redis keys:
+    / span = @redis_keys
 
-        - if @sidkiq_stats
-          a.sidekiq-link href="/sidekiq/" stats
-          .subheadline Sidekiq jobs
-          .m15.sidekiq
-            p.x2 Processed: #{@sidkiq_stats.processed}
-            p.x2 Failed: #{@sidkiq_stats.failed}
+  .metric class="#{:alert if @proxies_count < 200}"
+    b Proxies:
+    span = @proxies_count
 
-            - @sidkiq_busy.each do |job|
-              p.x2 id="#{job['jid'].to_s}"
-                span.right
-                  = time_ago_in_words Time.at(job['enqueued_at'])
-                span.busy
-                  = job['class']
+  - if @last_episodes_message
+    .metric class="#{:alert if @last_episodes_message < 1.day.ago}"
+      b Last Episode Message:
+      span = time_ago_in_words @last_episodes_message
 
-            - @sidkiq_enqueued.each do |job|
-              p.x2 id="#{job['jid'].to_s}"
-                span.right
-                  = time_ago_in_words Time.at(job['enqueued_at'])
-                span.enqueued
-                  = job['class']
+  / - if @calendar_update
+    / .metric class="#{:alert if @calendar_update < 1.day.ago}"
+      / b Calendar Update:
+      / span = time_ago_in_words @calendar_update
 
-            - @sidkiq_retries.each do |job|
-              p.x2 id="#{job['jid'].to_s}"
-                span.right
-                  = time_ago_in_words Time.at(job['enqueued_at'])
-                span.retries
-                  = job['class']
+  .metric
+    / class="#{:alert if @pending_anidb > 30}"
+    b Anidb:
+    span = @pending_anidb
+  .metric
+    b Animes:
+    span = @animes_to_import
+  .metric
+    b Mangas:
+    span = @mangas_to_import
+  .metric
+    b Characters:
+    span = @characters_to_import
+  .metric
+    b People:
+    span = @people_to_import
 
-        .subheadline class="#{:red if @proxies_count < 200}" Proxies
-        p.m15 = @proxies_count
+  / - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
+    / .subheadline Calendar Unrecognized
+    / .m15
+      / - @calendar_unrecognized.each do |name|
+        / p.m5 = name
+  / .subheadline links
+  / .m15
+    / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
 
-        - if @last_episodes_message
-          .subheadline class="#{:red if @last_episodes_message < 1.day.ago}" Last Episode Message
-          p.m15 = @last_episodes_message
+article
+  - if @sidkiq_stats
+    .metric
+      b
+        a href="/sidekiq/" Sidekiq
 
-        - if @calendar_update
-          .subheadline class="#{:red if @calendar_update < 1.day.ago}" Calendar Update
-          p.m15 = @calendar_update
+    / .metric
+      / b processed
+      / span #{@sidkiq_stats.processed}
 
-        - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
-          .subheadline Calendar Unrecognized
-          .m15
-            - @calendar_unrecognized.each do |name|
-              p.m5 = name
+    / .metric
+      / b failed
+      / span #{@sidkiq_stats.failed}
 
-        .subheadline Import
-        .m15
-          p.x2 Animes: #{@animes_to_import}
-          p.x2 Mangas: #{@mangas_to_import}
-          p.x2 Characters: #{@characters_to_import}
-          p.x2 People: #{@people_to_import}
+.sidekiq
+  .metric
+    - @sidkiq_busy.each do |job|
+      .job
+        span.right
+          = time_ago_in_words Time.at(job['enqueued_at'])
+        span.busy
+          = job['class']
 
-        .subheadline links
-        .m15
-          p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
-          p: a href="https://app.honeybadger.io/projects/42215/faults?resolved=f" Honeybadger
+    - @sidkiq_enqueued.each do |job|
+      .job
+        span.right
+          = time_ago_in_words Time.at(job['enqueued_at'])
+        span.enqueued
+          = job['class']
 
-    .dropshadow-top
-    .dropshadow-top-right
-    .dropshadow-right
-    .dropshadow-bottom-right
-    .dropshadow-bottom
-    .dropshadow-bottom-left
-    .dropshadow-left
-    .dropshadow-top-left
+    - @sidkiq_retries.each do |job|
+      .job
+        span.right
+          = time_ago_in_words Time.at(job['enqueued_at'])
+        span.retries
+          = job['class']
+

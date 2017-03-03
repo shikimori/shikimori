@@ -37,16 +37,21 @@ html
           = render 'application/top_menu'
 
       section.l-page *itemprop
-        - if current_user&.admin? && !Rails.env.development?
-          javascript:
-            $(function() {
-              $('.admin_panel').load('/apanel');
-            });
-            $('.admin_panel .reload').live('click', function() {
-              $(this).hide();
-              $('.admin_panel').load('/apanel');
-            });
-          .admin_panel
+        - unless params[:no_menu]
+          - if current_user&.admin? && request.path == root_path
+            javascript:
+              $(function() {
+                $('.b-admin_panel').load('/apanel');
+              });
+              $(document.body).on('click', '.b-admin_panel .reload', function() {
+                $('.b-admin_panel').addClass('b-ajax')
+                $(this).addClass('active');
+                $('.b-admin_panel').load('/apanel', function() {
+                  $('.b-admin_panel').removeClass('b-ajax')
+                });
+              });
+            .b-admin_panel
+              .ajax-loading.vk-like
 
         - unless Rails.env.development? && params[:no_menu]
           - if @layout.hot_topics?

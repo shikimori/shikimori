@@ -126,6 +126,11 @@ class PagesController < ShikimoriController
     end
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i
+    @pending_anidb =  ExternalLink
+      .select('distinct(entry_id)')
+      .where(kind: :anime_db)
+      .where(imported_at: nil)
+      .count
 
     unless Rails.env.test?
       @sidkiq_stats = Sidekiq::Stats.new
