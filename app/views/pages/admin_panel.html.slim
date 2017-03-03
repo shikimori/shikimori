@@ -77,24 +77,23 @@ article
 
 .sidekiq
   .metric
-    - @sidkiq_busy.each do |job|
+    - @sidkiq_busy&.each do |job|
       .job
         span.right
           = time_ago_in_words Time.at(job['enqueued_at'])
         span.busy
           = job['class']
 
-    - @sidkiq_enqueued.each do |job|
+    - @sidkiq_enqueued&.each do |job|
       .job
         span.right
           = time_ago_in_words Time.at(job['enqueued_at'])
         span.enqueued
           = job['class']
 
-    - @sidkiq_retries.each do |job|
+    - @sidkiq_retries&.each do |job|
       .job
         span.right
           = time_ago_in_words Time.at(job['enqueued_at'])
         span.retries
           = job['class']
-
