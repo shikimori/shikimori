@@ -30,10 +30,6 @@ module Clockwork
     BadReviewsCleaner.perform_async
   end
 
-  every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
-    Anidb::ImportDescriptionsJob.perform_async
-  end
-
   every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
     # FindAnimeWorker.perform_async :last_15_entries
     # HentaiAnimeWorker.perform_async :last_15_entries
@@ -84,6 +80,10 @@ module Clockwork
 
   every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
     VacuumDb.perform_async
+  end
+
+  every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
+    Anidb::ImportDescriptionsJob.perform_async
   end
 
   # every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do

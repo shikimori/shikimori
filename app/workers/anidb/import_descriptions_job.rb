@@ -1,4 +1,6 @@
-class Anidb::ImportDescriptionsJob < ActiveJob::Base
+class Anidb::ImportDescriptionsJob
+  include Sidekiq::Worker
+
   def perform
     import_descriptions(animes)
     import_descriptions(mangas)
