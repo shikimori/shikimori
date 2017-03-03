@@ -151,10 +151,22 @@ class PagesController < ShikimoriController
         .sort_by {|v| Time.at v['enqueued_at'] }
     end
 
-    @animes_to_import = Anime.where(imported_at: nil).count
-    @mangas_to_import = Manga.where(imported_at: nil).count
-    @characters_to_import = Character.where(imported_at: nil).count
-    @people_to_import = Person.where(imported_at: nil).count
+    @animes_to_import = Anime
+      .where(imported_at: nil)
+      .where.not(mal_id: nil)
+      .count
+    @mangas_to_import = Manga
+      .where(imported_at: nil)
+      .where.not(mal_id: nil)
+      .count
+    @characters_to_import = Character
+      .where(imported_at: nil)
+      .where.not(mal_id: nil)
+      .count
+    @people_to_import = Person
+      .where(imported_at: nil)
+      .where.not(mal_id: nil)
+      .count
   end
 
   def tableau
