@@ -21,6 +21,22 @@ describe VideoExtractor::YoutubeExtractor do
         its(:player_url) { is_expected.to eq '//youtube.com/embed/n5qqfOXRRaA?start=3m3s' }
       end
 
+      context 'embed url' do
+        let(:url) { 'https://www.youtube.com/embed/paezRkeNr5Q?start=3m3s' }
+
+        its(:hosting) { is_expected.to eq :youtube }
+        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/mqdefault.jpg' }
+        its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=3m3s' }
+      end
+
+      context 'www.youtube.com/v/' do
+        let(:url) { '//www.youtube.com/embed/paezRkeNr5Q?start=5s' }
+
+        its(:hosting) { is_expected.to eq :youtube }
+        its(:image_url) { is_expected.to eq '//img.youtube.com/vi/paezRkeNr5Q/mqdefault.jpg' }
+        its(:player_url) { is_expected.to eq '//youtube.com/embed/paezRkeNr5Q?start=5s' }
+      end
+
       context 'with time' do
         let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc#t=123' }
 

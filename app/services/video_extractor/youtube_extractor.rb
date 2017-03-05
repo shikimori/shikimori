@@ -1,17 +1,24 @@
 class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
+    (?:https?:)? // (?:www\.)?
     (?:
-      https?://
-      (?:www\.)? youtube\.com/
+      youtube\.com/
       .*? (?: &(?:amp;)? | \? )
       v=(?<key>[\w_-]+)
       [^ $#<\[]*
       (?:\#t=(?<time>\d+))?
-    ) | (?:
-      https?://
+
+      |
+
       youtu.be/
       (?<key>[\w_-]+)
       (?:\?t=(?<time>\w+))?
+
+      |
+
+      youtube\.com/(?:embed|v)/
+      (?<key>[\w_-]+)
+      (?:\?start=(?<time>\w+))?
     )
   }xi
 
@@ -33,7 +40,8 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
   end
 
   def exists?
-    sleep 1 unless Rails.env.test? # задержка, т.к. ютуб блочит при частых запросах
+    # задержка, т.к. ютуб блочит при частых запросах
+    sleep 1 unless Rails.env.test?
 
     open("http://i.ytimg.com/vi/#{matches[:key]}/mqdefault.jpg").read.present?
   rescue OpenURI::HTTPError

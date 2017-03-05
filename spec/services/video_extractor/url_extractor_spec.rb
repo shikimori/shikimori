@@ -225,19 +225,21 @@ describe VideoExtractor::UrlExtractor do
       it { is_expected.to eq '//p.kiwi.kz/static/player2/player.swf?config=http://p.kiwi.kz/static/player2/video.txt&url=http://farm.kiwi.kz/v/yvb2eb5r6y71/%3Fsecret%3DxrUpVyacqXt8unyeBzN4%2Bw%3D%3D&poster=http://im6.asset.kwimg.kz/screenshots/normal/yv/yvb2eb5r6y71_2.jpg&title=Mawaru+Penguin+Drum+-+23+%D1%81%D0%B5%D1%80%D0%B8%D1%8F+%28%D1%80%D1%83%D1%81.+%D1%81%D1%83%D0%B1%D1%82.+Ad...&redirect=http://kiwi.kz/watch/yvb2eb5r6y71/&page=http://kiwi.kz/watch/yvb2eb5r6y71/&embed=%3Ciframe+title%3D%22Kiwi+player%22+width%3D%22640%22+height%3D%22385%22+src%3D%22http%3A%2F%2Fv.kiwi.kz%2Fv2%2Fyvb2eb5r6y71%2F%22+frameborder%3D%220%22+allowfullscreen%3E%3C%2Fiframe%3E&related=http%3A%2F%2Fkiwi.kz%2Fapi%2Fmovies%2Frelated2%3Fhash%3Dyvb2eb5r6y71&like=http%3A%2F%2Fkiwi.kz%2Fwatch%2Fyvb2eb5r6y71%2Flike%2F&unlike=http%3A%2F%2Fkiwi.kz%2Fwatch%2Fyvb2eb5r6y71%2Funlike%2F&fave=http%3A%2F%2Fkiwi.kz%2Fwatch%2Fyvb2eb5r6y71%2Ffave%2F&unfave=http%3A%2F%2Fkiwi.kz%2Fwatch%2Fyvb2eb5r6y71%2Funfave%2F' }
     end
 
-    describe 'youtube_1' do
-      let(:html) { '<iframe width="730" height="480" src="http://www.youtube.com/embed/pOSilkJpCUI?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//www.youtube.com/embed/pOSilkJpCUI?feature=player_detailpage' }
-    end
+    describe 'youtube' do
+      describe 'youtube_1' do
+        let(:html) { '<iframe width="730" height="480" src="http://www.youtube.com/embed/pOSilkJpCUI?feature=player_detailpage" frameborder="0" allowfullscreen></iframe>' }
+        it { is_expected.to eq '//youtube.com/embed/pOSilkJpCUI' }
+      end
 
-    describe 'youtube_2' do
-      let(:html) { '<object ><param name="wmode" value="opaque"/><param name="movie" value="http://www.youtube.com/v/CezgoEWr6U0?version=3&feature=player_detailpage"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed wmode="opaque" src="http://www.youtube.com/v/CezgoEWr6U0?version=3&feature=player_detailpage" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480"></object>' }
-      it { is_expected.to eq '//www.youtube.com/v/CezgoEWr6U0?version=3&feature=player_detailpage' }
-    end
+      describe 'youtube_2' do
+        let(:html) { '<object ><param name="wmode" value="opaque"/><param name="movie" value="http://www.youtube.com/v/CezgoEWr6U0?version=3&feature=player_detailpage"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed wmode="opaque" src="http://www.youtube.com/v/CezgoEWr6U0?version=3&feature=player_detailpage" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="730" height="480"></object>' }
+        it { is_expected.to eq '//youtube.com/embed/CezgoEWr6U0' }
+      end
 
-    describe 'youtube_3' do
-      let(:html) { '<iframe width="730" height="480" src="//www.youtube.com/embed/pmLm4phNjB4" frameborder="0" allowfullscreen></iframe>' }
-      it { is_expected.to eq '//www.youtube.com/embed/pmLm4phNjB4' }
+      describe 'youtube_3' do
+        let(:html) { '<iframe width="730" height="480" src="//www.youtube.com/embed/pmLm4phNjB4?zxc=123" frameborder="0" allowfullscreen></iframe>' }
+        it { is_expected.to eq '//youtube.com/embed/pmLm4phNjB4' }
+      end
     end
 
     describe 'video.yandex' do

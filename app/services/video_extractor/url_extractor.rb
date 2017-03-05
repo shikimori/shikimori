@@ -108,8 +108,8 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}
       $LAST_MATCH_INFO[:url]
-    elsif html =~ %r{(?<url>#{HTTP}youtube.com/(?:embed|v)/#{CONTENT})}
-      $LAST_MATCH_INFO[:url].sub(%r{^//}, 'http://')
+    elsif html =~ VideoExtractor::YoutubeExtractor::URL_REGEX
+      "//youtube.com/embed/#{$LAST_MATCH_INFO[:key]}"
     elsif html =~ %r{(?<url>#{HTTP}i.i.ua/video/evp.swf\?#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ /(?<url>#{HTTP}video.yandex.ru#{CONTENT})/

@@ -35,9 +35,25 @@ class AnimeVideo < ActiveRecord::Base
   after_create :create_episode_notificaiton, if: :single?
 
   R_OVA_EPISODES = 2
-  ADULT_OVA_CONDITION = "(animes.rating = '#{Anime::SUB_ADULT_RATING}' and ((animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or animes.kind = 'Special'))"
-  PLAY_CONDITION = "animes.rating != '#{Anime::ADULT_RATING}' and animes.censored = false and not #{ADULT_OVA_CONDITION}"
-  XPLAY_CONDITION = "animes.rating = '#{Anime::ADULT_RATING}' or animes.censored = true or #{ADULT_OVA_CONDITION}"
+  ADULT_OVA_CONDITION = <<-SQL.squish
+    (
+      animes.rating = '#{Anime::SUB_ADULT_RATING}' and
+      (
+        (animes.kind = 'ova' and animes.episodes <= #{R_OVA_EPISODES}) or
+        animes.kind = 'Special'
+      )
+    )
+  SQL
+  PLAY_CONDITION = <<-SQL.squish
+    animes.rating != '#{Anime::ADULT_RATING}' and
+    animes.censored = false and
+    not #{ADULT_OVA_CONDITION}
+  SQL
+  XPLAY_CONDITION = <<-SQL.squish
+    animes.rating = '#{Anime::ADULT_RATING}' or
+    animes.censored = true or
+    #{ADULT_OVA_CONDITION}
+  SQL
 
   scope :allowed_play, -> { available.joins(:anime).where(PLAY_CONDITION) }
   scope :allowed_xplay, -> { available.joins(:anime).where(XPLAY_CONDITION) }
