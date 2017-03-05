@@ -12,11 +12,11 @@ class ImageReloader < ServiceObjectBase
 private
 
   def parsed_data
-    @parsed_data ||= parser.fetch_model @entry.id
+    @parsed_data ||= parser.call @entry.id
   rescue InvalidIdError
   end
 
   def parser
-    "#{@entry.class.name}MalParser".constantize.new
+    "MalParser::Entry::#{@entry.class.name}".constantize
   end
 end
