@@ -5,10 +5,10 @@ class Import::ImportBase
   IGNORED_FIELDS = %i()
 
   def call
+    return if Import::BannedIds.instance.banned? @data[:id], klass.name.downcase
     ActiveRecord::Base.transaction { import }
     entry
   end
-  # rubocop:enable AbcSize
 
 private
 

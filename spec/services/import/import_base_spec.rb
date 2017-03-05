@@ -14,13 +14,14 @@ describe Import::ImportBase do
   let(:service) { Import::Test.new data }
   let(:data) do
     {
-      id: 9_876_543,
+      id: id,
       name: 'Zzzz',
       english: 'Xxxxx',
       japanese: 'Kkkkkk',
       zzz: 'xxx'
     }
   end
+  let(:id) { 9_876_543 }
 
   before { Timecop.freeze }
   after { Timecop.return }
@@ -41,13 +42,26 @@ describe Import::ImportBase do
         expect { subject }.to change(Anime, :count).by 1
         expect(entry).to be_persisted
       end
+
+      context 'banned id' do
+        let(:id) { 99_999_999 }
+        it { expect { subject }.to_not change Anime, :count }
+        it { expect(entry).to be_nil }
+      end
     end
 
     describe 'update' do
       let!(:anime) { create :anime, id: data[:id], name: 'q', mal_id: data[:id] }
+
       it do
         expect { subject }.to_not change Anime, :count
         expect(entry).to be_persisted
+        expect(entry).to have_attributes(data.except(:zzz))
+      end
+
+      context 'banned id' do
+        let(:id) { 99_999_999 }
+        it { expect(entry).to be_nil }
       end
 
       describe 'blank special field' do
