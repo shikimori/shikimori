@@ -85,7 +85,9 @@ class ContestMatch < ActiveRecord::Base
     end
 
     after_transition created: :started do |match, transition|
-      User.update_all match.round.contest.user_vote_key => true
+      User
+        .where(match.round.contest.user_vote_key => false)
+        .update_all(match.round.contest.user_vote_key => true)
 
       if match.right.nil?
         match.right = nil
