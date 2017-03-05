@@ -43,7 +43,7 @@ class Topic < ActiveRecord::Base
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
   has_many :messages,
-    -> { where "linked_type = '#{self.class.name}'" },
+    -> { where "linked_type = '#{Topic.name}'" },
     foreign_key: :linked_id,
     dependent: :delete_all
 
