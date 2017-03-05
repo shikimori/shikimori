@@ -24,29 +24,40 @@ class @ShikiEditor extends ShikiView
 
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey
+        console.log e.keyCode
+
         # сохранение по ctrl+enter
         if e.keyCode is 10 || e.keyCode is 13
           @$form.submit()
           false
 
         # [b] tag
-        else if e.keyCode is 98 || e.keyCode is 66
+        # else if e.keyCode is 98 || e.keyCode is 66
+        else if e.keyCode is 66
           @$('.editor-bold').click()
           false
 
         # [i] tag
-        else if e.keyCode is 105 || e.keyCode is 73
+        # else if e.keyCode is 105 || e.keyCode is 73
+        else if e.keyCode is 73
           @$('.editor-italic').click()
           false
 
         # [u] tag
-        else if e.keyCode is 117 || e.keyCode is 85
+        # else if e.keyCode is 117 || e.keyCode is 85
+        else if e.keyCode is 85
           @$('.editor-underline').click()
           false
 
         # spoiler tag
-        else if e.keyCode is 115 || e.keyCode is 83
+        # else if e.keyCode is 115 || e.keyCode is 83
+        else if e.keyCode is 83
           @$('.editor-spoiler').click()
+          false
+
+        # code tag
+        else if e.keyCode is 67
+          @$textarea.insertAtCaret '[code]', '[/code]'
           false
 
     @$form
