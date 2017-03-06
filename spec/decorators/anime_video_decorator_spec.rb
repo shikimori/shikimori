@@ -2,7 +2,7 @@ describe AnimeVideoDecorator, type: :controller do
   subject(:decorator) { AnimeVideoDecorator.new video }
   let(:video) { build :anime_video }
 
-  describe '#player_html', :focus do
+  describe '#player_html' do
     subject { decorator.player_html }
 
     let(:video) { build :anime_video }

@@ -40,6 +40,9 @@
           loaded = true
           $html.addClass 'loaded'
 
+        $video.on 'error', ->
+          $video_container.html('<p style="color: #fff;">broken video link</p>')
+
         @appendContent $html
         @updateStatus 'ready'
 ) jQuery

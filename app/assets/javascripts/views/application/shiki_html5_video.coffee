@@ -8,9 +8,6 @@ class @ShikiHtml5Video extends View
     @on 'click', @click
     @on 'volumechange', @volumechange
 
-  error: =>
-    @$root.replaceWith('<p style="color: #fff;">broken video link</p>')
-
   click: =>
     if @root.paused
       @root.play()

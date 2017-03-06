@@ -8,7 +8,7 @@ describe AnimeOnline::AnimeVideoEpisode do
   end
   let(:episode) { 1 }
   let(:kinds) { 'subtitles' }
-  let(:hostings) { 'vk.com' }
+  let(:hostings) { 'http://vk.com' }
 
   describe '#episode_text' do
     context 'zero episode' do
@@ -29,8 +29,8 @@ describe AnimeOnline::AnimeVideoEpisode do
   end
 
   describe '#hostings, #hostings_text' do
-    let(:hostings) { %w(video.sibnet.ru videoapi.my.mail.ru vk.com) }
-    it { expect(anime_video_episode.hostings).to eq %i(vk mailru sibnet) }
-    it { expect(anime_video_episode.hostings_text).to eq 'vk, mailru, sibnet' }
+    let(:hostings) { %w(http://video.sibnet.ru http://videoapi.my.mail.ru http://vk.com) }
+    it { expect(anime_video_episode.hostings).to eq %i(vk sibnet mailru) }
+    it { expect(anime_video_episode.hostings_text).to eq 'vk, sibnet, mailru' }
   end
 end
