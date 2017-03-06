@@ -23,32 +23,21 @@ class AnimeVideoDecorator < BaseDecorator
     fixed_url = Url.new(url).without_protocol.to_s if url
 
     if (hosting == 'myvi.ru' && url.include?('flash')) || (hosting == 'sibnet.ru' && url.include?('.swf?'))
-      flash_player_html(fixed_url)
+      flash_player_html fixed_url
+
     elsif hosting == 'rutube.ru' && url =~ /\/\/video\.rutube.ru\/(.*)/
       # Простая фильтрация для http://video.rutube.ru/xxxxxxx
       if fixed_url.size > 30
-        flash_player_html("//rutube.ru/player.swf?hash=#{$1}")
+        flash_player_html "//rutube.ru/player.swf?hash=#{$1}"
       else
-        h.content_tag(:iframe,
-          src: "//rutube.ru/play/embed/#{$1}",
-          frameborder: '0',
-          webkitAllowFullScreen: 'true',
-          mozallowfullscreen: 'true',
-          scrolling: 'no',
-          allowfullscreen: 'true'
-        ) {}
+        iframe_player_html "//rutube.ru/play/embed/#{$1}"
       end
-    #elsif hosting == 'youtube.com' && url=~ /youtube\.com\/embed\/(.*)/
-      #h.content_tag(:iframe, src: url, frameborder: '0', allowfullscreen: true) {}
+
+    elsif hosting == 'animaunt.ru'
+      html5_video_player_html fixed_url
+
     else
-      h.content_tag(:iframe,
-        src: fixed_url,
-        frameborder: '0',
-        webkitAllowFullScreen: 'true',
-        mozallowfullscreen: 'true',
-        scrolling: 'no',
-        allowfullscreen: 'true'
-      ) {}
+      iframe_player_html fixed_url
     end
   end
 
@@ -134,5 +123,24 @@ private
         allowScriptAccess: 'always'
       ) {}
     end
+  end
+
+  def html5_video_player_html url
+    h.content_tag(:video,
+      src: url,
+      controls: 'controls',
+      autoplay: false
+    ) {}
+  end
+
+  def iframe_player_html url
+    h.content_tag(:iframe,
+      src: url,
+      frameborder: '0',
+      webkitAllowFullScreen: 'true',
+      mozallowfullscreen: 'true',
+      scrolling: 'no',
+      allowfullscreen: 'true'
+    ) {}
   end
 end

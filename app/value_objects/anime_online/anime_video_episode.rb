@@ -20,19 +20,13 @@ class AnimeOnline::AnimeVideoEpisode
   def hostings
     @sorted_hostings ||= @hostings
       .compact
-      .map { |hosting| extract_hosting hosting }
-      .sort_by { |hosting| hosting == :vk ? :_ : hosting }
+      .map { |hosting| AnimeOnline::ExtractHosting.call hosting }
+      .uniq
+      .sort_by { |v| AnimeVideoDecorator::HOSTINGS_ORDER[v] || v }
+      .map { |hosting| hosting.gsub(/^(?:.*\.)?([\w-]+)\.\w+$/, '\1').to_sym }
   end
 
   def hostings_text
     hostings.join(', ')
-  end
-
-private
-
-  def extract_hosting hosting
-    hosting
-      .gsub('mail.ru', 'mailru.ru')
-      .gsub(/^(?:.*\.)?([\w-]+)\.\w+$/, '\1').to_sym
   end
 end

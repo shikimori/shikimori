@@ -1,4 +1,4 @@
-describe AnimeOnline::FilterSovetRomantica do
+describe AnimeOnline::AnimeVideoEpisodes do
   let(:query) { AnimeOnline::AnimeVideoEpisodes.new anime }
 
   describe '#call' do

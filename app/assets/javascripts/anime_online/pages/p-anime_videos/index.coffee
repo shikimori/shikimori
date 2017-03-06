@@ -4,8 +4,13 @@
   resize_video_player()
 
   debounced_resize = $.debounce(250, resize_video_player)
+  debounced_resize()
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
+
+  # html 5 video player
+  $video = $('.b-video_player video')
+  new ShikiHtml5Video $video if $video.length
 
   # highlight current episode
   $anime_video_episodes = $('.c-anime_video_episodes')

@@ -1,6 +1,5 @@
 (($) ->
   NS = 'webm'
-  VOLUME_KEY = 'video_volume'
 
   FRAME_HTML = '<div class="mfp-figure mfp-webm-holder mfp-image-holder">'+
     '<button title="Close (Esc)" type="button" class="mfp-close">×</button>'+
@@ -31,29 +30,15 @@
           autoplay: true
           #preload: 'none'
         )
-        $video[0].volume = $.sessionStorage.get(VOLUME_KEY) || 1
+        new ShikiHtml5Video $video
 
         $video.appendTo($video_container)
 
         loaded = false
-        $video
-          .one 'loadedmetadata play playing canplay', ->
-            return if loaded
-            loaded = true
-            $html.addClass 'loaded'
-
-          .on 'error', (e) ->
-            $video_container.html('<p style="color: #fff;">broken video link</p>')
-
-          .on 'click', ->
-            if @paused
-              @play()
-            else
-              @pause()
-            false
-
-          .on 'volumechange', (e) ->
-            $.sessionStorage.set VOLUME_KEY, @volume
+        $video.one 'loadedmetadata play playing canplay', ->
+          return if loaded
+          loaded = true
+          $html.addClass 'loaded'
 
         @appendContent $html
         @updateStatus 'ready'

@@ -111,11 +111,7 @@ class AnimeVideo < ActiveRecord::Base
   end
 
   def hosting
-    parts = URI.parse(url).host.split('.')
-    domain = "#{parts[-2]}.#{parts[-1]}"
-    domain == 'vkontakte.ru' ? 'vk.com' : domain
-
-  rescue URI::InvalidURIError
+    AnimeOnline::ExtractHosting.call url
   end
 
   def vk?

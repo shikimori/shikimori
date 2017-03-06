@@ -2,63 +2,143 @@ describe AnimeVideoDecorator, type: :controller do
   subject(:decorator) { AnimeVideoDecorator.new video }
   let(:video) { build :anime_video }
 
-  describe '#player_html' do
+  describe '#player_html', :focus do
     subject { decorator.player_html }
+
     let(:video) { build :anime_video }
+    let(:fixed_url) { Url.new(url).without_protocol }
+
     before { video[:url] = url }
+
+    context 'mp4 html 5' do
+      let(:url) { 'http://online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
+      it do
+        is_expected.to eq <<-HTML.squish
+          <video src="#{fixed_url}" controls="controls"></video>
+        HTML
+      end
+    end
 
     context 'myvi.ru' do
       context 'embeded' do
         let(:url) { 'http://myvi.ru/player/embed/html/ol6hiPjFZDkw26HMFBhPTi8IXSDbsARIEybMzKjm6MbKQZ44GQmiStIBzPFxWba-80' }
-        it { is_expected.to eq "<iframe src=\"#{Url.new(url).without_protocol}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <iframe src="#{fixed_url}" frameborder="0"
+              webkitAllowFullScreen="true" mozallowfullscreen="true"
+              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+          HTML
+        end
       end
 
       context 'flash' do
         let(:url) { 'http://myvi.ru/player/flash/o_qym5zt9aPeL9mvSKMfUTRY4FGD0JHrHX6yr_dznWK0yDZy3cUQYVqgAkSbPgJmr0' }
-        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{Url.new(url).without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <object><param name="movie"
+              value="#{fixed_url}"></param><param
+              name="allowFullScreen" value="true"></param><param
+              name="allowScriptAccess" value="always"></param><embed
+              src="#{fixed_url}"
+              type="application/x-shockwave-flash"
+              allowfullscreen="allowfullscreen"
+              allowScriptAccess="always"></embed></object>
+          HTML
+        end
       end
     end
 
     context 'sibnet.ru' do
       context 'with .swf?' do
         let(:url) { 'http://sibnet.ru/video/1.swf?' }
-        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{Url.new(url).without_protocol}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{Url.new(url).without_protocol}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <object><param name="movie"
+              value="#{fixed_url}"></param><param
+              name="allowFullScreen" value="true"></param><param
+              name="allowScriptAccess" value="always"></param><embed
+              src="#{fixed_url}"
+              type="application/x-shockwave-flash"
+              allowfullscreen="allowfullscreen"
+              allowScriptAccess="always"></embed></object>
+          HTML
+        end
       end
 
       context 'without .swf?' do
         let(:url) { 'http://sibnet.ru/video/1' }
-        it { is_expected.to eq "<iframe src=\"#{Url.new(url).without_protocol}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <iframe src="#{fixed_url}" frameborder="0"
+              webkitAllowFullScreen="true" mozallowfullscreen="true"
+              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+          HTML
+        end
       end
     end
 
     context 'vk' do
       let(:url) { 'http://www.vk.com?id=1' }
-      it { is_expected.to eq "<iframe src=\"#{Url.new(url).without_protocol}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+      it do
+        is_expected.to eq <<-HTML.squish
+          <iframe src="#{fixed_url}" frameborder="0"
+            webkitAllowFullScreen="true" mozallowfullscreen="true" scrolling="no"
+            allowfullscreen="allowfullscreen"></iframe>
+        HTML
+      end
     end
 
     context 'rutube.ru' do
       context 'http://video.rutube.ru/7632871' do
         let(:url) { 'http://video.rutube.ru/7632871' }
         let(:expected_url) { '//rutube.ru/play/embed/7632871' }
-        it { is_expected.to eq "<iframe src=\"#{expected_url}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <iframe src="#{expected_url}" frameborder="0"
+              webkitAllowFullScreen="true" mozallowfullscreen="true"
+              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+          HTML
+        end
       end
 
       context 'http://rutube.ru/play/embed/7630847' do
         let(:url) { 'http://rutube.ru/play/embed/7630847' }
-        it { is_expected.to eq "<iframe src=\"#{Url.new(url).without_protocol}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <iframe src="#{fixed_url}" frameborder="0"
+              webkitAllowFullScreen="true" mozallowfullscreen="true"
+              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+          HTML
+        end
       end
 
       context 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' do
         let(:url) { 'http://video.rutube.ru/4f4dbbd7882342b057b4c387097e491e' }
         let(:expected_url) { '//rutube.ru/player.swf?hash=4f4dbbd7882342b057b4c387097e491e' }
-        it { is_expected.to eq "<object><param name=\"movie\" value=\"#{expected_url}\"></param><param name=\"allowFullScreen\" value=\"true\"></param><param name=\"allowScriptAccess\" value=\"always\"></param><embed src=\"#{expected_url}\" type=\"application/x-shockwave-flash\" allowfullscreen=\"allowfullscreen\" allowScriptAccess=\"always\"></embed></object>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <object><param name="movie"
+              value="#{expected_url}"></param><param name="allowFullScreen"
+              value="true"></param><param name="allowScriptAccess"
+              value="always"></param><embed src="#{expected_url}"
+              type="application/x-shockwave-flash"
+              allowfullscreen="allowfullscreen"
+              allowScriptAccess="always"></embed></object>
+          HTML
+        end
       end
     end
 
     context 'youtube.ru' do
       context 'Fix fullscreen for https://www.youtube.com/embed/q89fWhsD5z8' do
         let(:url) { 'https://www.youtube.com/embed/q89fWhsD5z8' }
-        it { is_expected.to eq "<iframe src=\"#{Url.new(url).without_protocol}\" frameborder=\"0\" webkitAllowFullScreen=\"true\" mozallowfullscreen=\"true\" scrolling=\"no\" allowfullscreen=\"allowfullscreen\"></iframe>" }
+        it do
+          is_expected.to eq <<-HTML.squish
+            <iframe src="#{fixed_url}" frameborder="0"
+              webkitAllowFullScreen="true" mozallowfullscreen="true"
+              scrolling="no" allowfullscreen="allowfullscreen"></iframe>
+          HTML
+        end
       end
     end
   end
