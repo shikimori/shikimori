@@ -33,30 +33,30 @@ class @ShikiEditor extends ShikiView
 
         # [b] tag
         # else if e.keyCode is 98 || e.keyCode is 66
-        else if e.keyCode is 66
+        else if e.keyCode is 66 # b
           @$('.editor-bold').click()
           false
 
         # [i] tag
         # else if e.keyCode is 105 || e.keyCode is 73
-        else if e.keyCode is 73
+        else if e.keyCode is 73 # i
           @$('.editor-italic').click()
           false
 
         # [u] tag
         # else if e.keyCode is 117 || e.keyCode is 85
-        else if e.keyCode is 85
+        else if e.keyCode is 85 # u
           @$('.editor-underline').click()
           false
 
         # spoiler tag
         # else if e.keyCode is 115 || e.keyCode is 83
-        else if e.keyCode is 83
+        else if e.keyCode is 83 # s
           @$('.editor-spoiler').click()
           false
 
         # code tag
-        else if e.keyCode is 67
+        else if e.keyCode is 79 # o
           @$textarea.insertAtCaret '[code]', '[/code]'
           false
 
