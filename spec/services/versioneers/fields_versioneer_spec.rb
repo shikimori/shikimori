@@ -1,11 +1,11 @@
 describe Versioneers::FieldsVersioneer do
   let(:service) { Versioneers::FieldsVersioneer.new anime }
   let(:anime) { create :anime, name: 'test', episodes: 3, episodes_aired: 5 }
-  let(:changes) {{ name: 'zzz', episodes: 7, episodes_aired: 5 }}
+  let(:changes) { { name: 'zzz', episodes: 7, episodes_aired: 5 } }
   let(:author) { build_stubbed :user }
   let(:reason) { 'change reason' }
 
-  let(:result_diff) {{ 'name' => ['test','zzz'], 'episodes' => [3,7] }}
+  let(:result_diff) { { 'name' => ['test','zzz'], 'episodes' => [3,7] } }
 
   describe '#premoderate' do
     subject!(:version) { service.premoderate changes, author, reason }
@@ -45,12 +45,50 @@ describe Versioneers::FieldsVersioneer do
 
     describe 'date change' do
       let(:anime) { create :anime, aired_on: '2007-03-02' }
-      let(:changes) {{ 'aired_on(3i)' => '5', 'aired_on(2i)' => '4', 'aired_on(1i)' => '2008' }}
+      let(:changes) do
+        {
+          'aired_on(3i)' => '5',
+          'aired_on(2i)' => '4',
+          'aired_on(1i)' => '2008'
+        }
+      end
 
       it do
         expect(version).to be_persisted
         expect(version).to be_pending
         expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '2008-04-05']
+      end
+
+      context 'partial date' do
+        let(:changes) do
+          {
+            'aired_on(3i)' => '',
+            'aired_on(2i)' => '',
+            'aired_on(1i)' => '1920'
+          }
+        end
+
+        it do
+          expect(version).to be_persisted
+          expect(version).to be_pending
+          expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', '1920-01-01']
+        end
+      end
+
+      context 'no date' do
+        let(:changes) do
+          {
+            'aired_on(3i)' => '',
+            'aired_on(2i)' => '',
+            'aired_on(1i)' => ''
+          }
+        end
+
+        it do
+          expect(version).to be_persisted
+          expect(version).to be_pending
+          expect(version.item_diff).to eq 'aired_on' => ['2007-03-02', nil]
+        end
       end
     end
   end

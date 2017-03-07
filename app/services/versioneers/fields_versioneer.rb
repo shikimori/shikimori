@@ -31,7 +31,7 @@ private
   end
 
   def changes new_values
-    convert_dates(new_values).each_with_object({}) do |(field, new_value), memo|
+    convert_hash(new_values).each_with_object({}) do |(field, new_value), memo|
       if item.send(field).to_s != new_value.to_s
         memo[field.to_s] = [item.send(field), new_value]
       end
@@ -44,21 +44,22 @@ private
       Version
   end
 
-  # rubocop:disable MethodLength
-  # rubocop:disable AbcSize
-  def convert_dates hash
+  def convert_hash hash
     hash.each_with_object({}) do |(key, value), memo|
       if key =~ SPLITTED_DATE_FIELD
-        memo[$LAST_MATCH_INFO[:field]] ||= Date.new(
-          hash[$LAST_MATCH_INFO[:field] + '(1i)'].to_i,
-          hash[$LAST_MATCH_INFO[:field] + '(2i)'].to_i,
-          hash[$LAST_MATCH_INFO[:field] + '(3i)'].to_i
-        )
+        field = $LAST_MATCH_INFO[:field]
+        memo[field] ||= convert_date hash, field
       else
         memo[key] = value
       end
     end
   end
-  # rubocop:enable AbcSize
-  # rubocop:enable MethodLength
+
+  def convert_date hash, field
+    year = hash["#{field}(1i)"].to_i
+    month = hash["#{field}(2i)"].blank? ? 1 : hash["#{field}(2i)"].to_i
+    day = hash["#{field}(3i)"].blank? ? 1 : hash["#{field}(3i)"].to_i
+
+    year.zero? ? nil : Date.new(year, month, day)
+  end
 end
