@@ -335,8 +335,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/3a4798d9bd8bb49062fcde2d28764f41bcd5d5f6.jpg?1484049600",
-          "preview": "/system/screenshots/x332/3a4798d9bd8bb49062fcde2d28764f41bcd5d5f6.jpg?1484049600"
+          "original": "/system/screenshots/original/1ad551e43bdbb1af370e8f002bd402c842436f4a.jpg?1484049600",
+          "preview": "/system/screenshots/x332/1ad551e43bdbb1af370e8f002bd402c842436f4a.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -434,6 +434,7 @@
 
         ],
         "updated_at": "2017-01-10T15:00:00.000+03:00",
+        "next_episode_at": null,
         "genres": [
 
         ],
@@ -539,7 +540,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "Q4nebn+vkMwAPs+89W9tgIyhnlepx+lLnqN57ip2Q9IDlRZd1rMWFotZoi/NlLbLn8bCSL3wbP5JYGhJ73CnFg=="
+        "authenticity_token": "4GE3oVDkKkxJiTUEJeY9PKIGXbB2dX/T+wrs7cPoplRSUAvDSJ2N4D4DKxwFc4ZIE0jR6vcM/wAxqq52pTjJ2w=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -685,7 +686,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-02-06T00:00:00.000+00:00",
+          "next_episode_at": "2017-02-21T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -702,7 +703,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-02-06",
+            "aired_on": "2017-02-21",
             "released_on": null
           }
         }
@@ -2356,7 +2357,7 @@
           "url": "/forum/cosplay"
         },
         {
-          "id": 35795,
+          "id": 79821,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3037,7 +3038,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-02-20T23:22:43.358+03:00"
+          "last_online_at": "2017-03-07T10:54:10.167+03:00"
         }
       },
       "code": "200",
@@ -3619,7 +3620,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-02-20T23:22:43.358+03:00"
+            "last_online_at": "2017-03-07T10:54:10.167+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3670,7 +3671,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-02-20T23:22:43.358+03:00"
+          "last_online_at": "2017-03-07T10:54:10.167+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3708,7 +3709,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-02-20T23:22:43.358+03:00"
+            "last_online_at": "2017-03-07T10:54:10.167+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
