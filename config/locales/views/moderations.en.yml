@@ -72,6 +72,9 @@ en:
         ban: ban
         for_reason: for reason
         old_comment: old comment
+        club_comment: club comment
+        profile_comment: profile comment
+        offtopic_comment: offtopic comment
         reject: reject
         remove: remove
         show: show

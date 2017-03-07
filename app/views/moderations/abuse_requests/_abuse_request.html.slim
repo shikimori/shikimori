@@ -37,6 +37,16 @@
     - if abuse_request.comment.created_at < 1.week.ago
       span.outdated = t '.old_comment'
 
+    - if abuse_request.comment.commentable_type == Topic.name
+      - if abuse_request.comment.commentable.linked_type == Club.name
+        span.misc-comment = t '.club_comment'
+
+      - if abuse_request.comment.commentable.forum_id == Forum::OFFTOPIC_ID
+        span.misc-comment = t '.offtopic_comment'
+
+    - if abuse_request.comment.commentable_type == User.name
+      span.misc-comment = t '.profile_comment'
+
     - if user_signed_in? && current_user.moderator?
       .spoiler.collapse
         span.action.half-hidden style="display: none;" = t '.show'

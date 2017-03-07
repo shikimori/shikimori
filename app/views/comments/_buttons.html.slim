@@ -17,7 +17,8 @@ aside.buttons
     ]
 
     span.item-delete title="#{t 'actions.delete'}"
-    span.item-moderation title='Пожаловаться'
+    - if comment.commentable_type == 'Topic'
+      span.item-moderation title='Пожаловаться'
     span.item-cancel title="#{t 'actions.cancel'}"
 
   .delete-controls
@@ -79,4 +80,5 @@ aside.buttons
         data-direction='top'
       ]
 
-    span.item-moderation-cancel title="#{t 'actions.cancel'}"
+    - if comment.commentable_type == 'Topic'
+      span.item-moderation-cancel title="#{t 'actions.cancel'}"
