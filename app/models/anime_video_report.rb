@@ -51,7 +51,9 @@ class AnimeVideoReport < ActiveRecord::Base
       report.process_doubles(:accepted)
       report.process_conflict(:uploaded, :rejected)
 
-      report.anime_video.send "#{report.kind}!" unless transition.event == :accept_only
+      unless transition.event == :accept_only
+        report.anime_video.send "#{report.kind}!"
+      end
     end
 
     before_transition pending: :rejected do |report, transition|
