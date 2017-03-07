@@ -432,6 +432,7 @@ en:
         op: OP
         pv: PV
         ed: ED
+        other: Other
 
   # в bans#create отображаются
   messages:
