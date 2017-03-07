@@ -15,21 +15,14 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
 
   def perform id
     report = AnimeVideoReport.find id
-    return unless report.pending?
+    return report unless report.pending?
+    return report if report.message.present?
 
     if report.broken?
-      if video_broken? report.anime_video
-        report.accept! approver
-
-      elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
-        report.accept! approver
-
-      elsif report.user_id == User::GUEST_ID && (report.doubles.zero? || report.doubles(:rejected) > 0)
-        report.reject! approver
-      end
+      process_broken report
 
     elsif report.uploaded?
-      report.accept! approver if AnimeOnline::Uploaders.trusted?(report.user_id)
+      process_uploaded report
     end
 
     report
@@ -44,6 +37,22 @@ class AnimeOnline::ReportWorker < SiteParserWithCache
 
 private
 
+  def process_broken report
+    if video_broken? report.anime_video
+      report.accept! approver
+
+    elsif AnimeOnline::Activists.can_trust?(report.user_id, report.anime_video.hosting)
+      report.accept! approver
+
+    elsif report.user_id == User::GUEST_ID && (report.doubles.zero? || report.doubles(:rejected) > 0)
+      report.reject! approver
+    end
+  end
+
+  def process_uploaded report
+    report.accept! approver if AnimeOnline::Uploaders.trusted?(report.user_id)
+  end
+
   def approver
     BotsService.get_poster
   end
@@ -51,7 +60,7 @@ private
   def vk_broken? video
     doc = Nokogiri::HTML get(video.url)
     text = doc.css('#page_wrap div').first.try(:text)
-    VK_BROKEN_TEXTS.any? {|v| text =~ v }
+    VK_BROKEN_TEXTS.any? { |v| text =~ v }
   end
 
   def sibnet_broken? video
