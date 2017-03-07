@@ -12,7 +12,7 @@ describe Video do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:kind).in :pv, :op, :ed }
+    it { is_expected.to enumerize(:kind).in :pv, :op, :ed, :misc }
   end
 
 
