@@ -70,7 +70,8 @@ private
     if hosting.present?
       true
     else
-      self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.url.incorrect'
+      self.errors[:url] =
+        I18n.t 'activerecord.errors.models.videos.attributes.url.incorrect'
       false
     end
   end
@@ -79,7 +80,8 @@ private
     if ALLOWED_HOSTINGS.include? hosting.to_sym
       true
     else
-      self.errors[:url] = I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'
+      self.errors[:url] =
+        I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'
       false
     end
   end

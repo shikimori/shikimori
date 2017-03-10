@@ -160,8 +160,8 @@ Devise.setup do |config|
     client_options: {
       connection_opts: {
         proxy: {
-          # FLOPS Russia
-          uri: 'http://91.239.26.54:3128',
+          # linode england
+          uri: 'http://178.79.156.106:3128',
           user: 'uptimus',
           password: 'holy_grail'
         }
