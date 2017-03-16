@@ -104,5 +104,6 @@ private
       .select do |entry|
         Paperclip::Geometry.from_file(entry.image.path).width.to_i < 50
       end
+      .map(&:id)
   end
 end
