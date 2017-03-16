@@ -23,4 +23,3 @@ describe MalParsers::ScheduleMissingPersonRoles do
       .ordered
   end
 end
-
