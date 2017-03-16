@@ -45,6 +45,8 @@ module Clockwork
     MalParsers::ScheduleExpired.perform_async 'manga'
     MalParsers::ScheduleExpired.perform_async 'character'
     MalParsers::ScheduleExpired.perform_async 'person'
+    MalParsers::ScheduleMissingPersonRoles.perform_async 'character'
+    MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
 
     SakuhindbImporter.perform_async with_fail: false
     ReadMangaLinksWorker.perform_async
