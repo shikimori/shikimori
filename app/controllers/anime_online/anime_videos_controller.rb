@@ -92,7 +92,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
         Url.new(params[:url]).with_http.to_s
       )
     end
-    render json: { player_html: AnimeVideo.new(url: url).decorate.player_html }
+
+    render json: {
+      player_html: (AnimeVideo.new(url: url).decorate.player_html if url)
+    }
   end
 
 private

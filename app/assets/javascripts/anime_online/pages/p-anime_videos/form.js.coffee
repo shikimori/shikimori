@@ -1,5 +1,6 @@
 @on 'page:load', 'anime_videos_new', 'anime_videos_edit', 'anime_videos_create', 'anime_videos_update', ->
-  once_submit $('form')
+  $form = $('form')
+  once_submit $form
 
   $video_url = $('#anime_video_url')
   $episode = $('#anime_video_episode')
@@ -15,6 +16,8 @@
 
   # клик по "Проверить видео"
   $('.do-preview').on 'click', ->
+    $form.addClass 'b-ajax'
+
     video_url = $('#anime_video_url').val()
     return unless video_url
     $('.video-preview').removeClass('hidden')
@@ -26,7 +29,11 @@
       type: 'POST'
       dataType: 'json'
       success: (data, status, xhr) ->
+        $form.removeClass 'b-ajax'
         preview_video data.player_html
+      error: ->
+        $form.removeClass 'b-ajax'
+        preview_video null
 
   # клик по "Работает и загрузить ещё"
   $('.continue').on 'click', ->
@@ -42,6 +49,9 @@ preview_video = (player_html) ->
     .show()
     .html(player_html)
   $('.create-buttons').show()
+
+  $('.create-buttons .b-errors').toggle !player_html
+  $('.create-buttons .buttons').toggle !!player_html
 
 once_submit = ($form) ->
   $form.on 'submit', ->
