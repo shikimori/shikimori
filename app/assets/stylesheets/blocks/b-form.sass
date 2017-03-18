@@ -1,9 +1,9 @@
-@import addons/ellipsis
 @import addons/clearfix
 @import mixins/block
 @import mixins/clear_left
 @import mixins/clear_right
 @import mixins/column
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
 
@@ -17,7 +17,7 @@
     margin-bottom: 0
 
     .variant
-      +ellipsis
+      +ellipsis2
       +gte_ipad
         +column(3)
 

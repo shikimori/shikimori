@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/column
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/two_line_ellipsis
 
@@ -51,7 +52,7 @@ $max_width: 167px
         width: 100%
 
     .title
-      +ellipsis
+      +ellipsis2
       +link
       display: block
       font-weight: bold
@@ -77,7 +78,7 @@ $max_width: 167px
         text-align: center
 
       span
-        +ellipsis
+        +ellipsis2
         color: #123
         display: block
         padding-right: 5px

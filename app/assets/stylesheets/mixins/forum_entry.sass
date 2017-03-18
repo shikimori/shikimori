@@ -1,6 +1,7 @@
 @import globals
 @import mixins/clear_right
 @import mixins/icons
+@import mixins/ellipsis2
 @import mixins/responsive
 @import mixins/link
 
@@ -44,7 +45,7 @@ $aside_width: 280px
           width: 32px
 
       .name-date
-        +ellipsis
+        +ellipsis2
         display: block
         font-size: 13px
         line-height: 1
@@ -54,7 +55,7 @@ $aside_width: 280px
           font-weight: bold
 
         .time
-          +ellipsis
+          +ellipsis2
           color: $gray-3
           display: inline
           font-size: 11px

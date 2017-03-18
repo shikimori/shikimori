@@ -1,13 +1,12 @@
-@import addons/ellipsis
+@import mixins/ellipsis2
 @import mixins/responsive
 
 .block-list
   li
-    +ellipsis
+    +ellipsis2
     background-color: transparent
     color: #555555
     cursor: pointer
-    display: block
     font-family: helvetica,arial,sans-serif
     font-size: 12px
     line-height: 20.34px
@@ -34,7 +33,7 @@
       display: inline-block
 
     a, span
-      +ellipsis
+      +ellipsis2
 
     a
       color: #555555

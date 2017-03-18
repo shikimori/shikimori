@@ -1,5 +1,6 @@
 @import globals
 @import mixins/responsive
+@import mixins/ellipsis2
 
 =link_button_icon($icon)
   &:before
@@ -9,7 +10,7 @@
     padding-right: 8px
 
 .b-link_button
-  +ellipsis
+  +ellipsis2
   background-color: #eeeef1
   border: 1px solid darken(#eeeef1, 3%)
   border: 0

@@ -1,4 +1,5 @@
 @import globals
+@import mixins/ellipsis2
 
 .b-animes-menu,
   #rates_statuses_stats
@@ -46,7 +47,7 @@
       font-size: 11px
 
     .b-user16
-      +ellipsis
+      +ellipsis2
       display: block
       line-height: inherit
 
@@ -60,7 +61,7 @@
       margin-top: 1px
 
     .name
-      +ellipsis
+      +ellipsis2
       display: block
 
     .date
@@ -75,4 +76,4 @@
       display: none
 
       .tooltip-details
-        +ellipsis
+        +ellipsis2

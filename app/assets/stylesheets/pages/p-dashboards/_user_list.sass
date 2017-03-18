@@ -1,5 +1,5 @@
-@import addons/ellipsis
 @import globals/variables
+@import mixins/ellipsis2
 @import mixins/link
 
 .p-dashboards .user_list
@@ -30,7 +30,7 @@
       font-size: 12px
 
   .list-change
-    +ellipsis
+    +ellipsis2
     margin-bottom: 5px
 
     &:last-child
@@ -40,7 +40,7 @@
       text-decoration: underline
 
     .title
-      +ellipsis
+      +ellipsis2
       display: inline
 
     .note

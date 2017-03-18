@@ -1,29 +1,30 @@
 @import globals
+@import mixins/ellipsis2
 
 =placeholder
   &::-webkit-input-placeholder
-    +ellipsis
+    +ellipsis2
     opacity: 1
     +transition(opacity 0.3s ease)
 
     @content
 
   &:-moz-placeholder
-    +ellipsis
+    +ellipsis2
     opacity: 1
     +transition(opacity 0.3s ease)
 
     @content
 
   &::-moz-placeholder
-    +ellipsis
+    +ellipsis2
     +transition(opacity 0.3s ease)
     opacity: 1
 
     @content
 
   &:-ms-input-placeholder
-    +ellipsis
+    +ellipsis2
     +transition(opacity 0.3s ease)
     opacity: 1
 

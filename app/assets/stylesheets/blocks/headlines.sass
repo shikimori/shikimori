@@ -1,5 +1,6 @@
 @import globals
 @import mixins/brackets_surrounded
+@import mixins/ellipsis2
 @import mixins/hover_underlined
 @import mixins/input
 @import mixins/link
@@ -77,11 +78,10 @@ header.head
 
 .headline
   +transition(color, 0.2s)
-  +ellipsis
+  +ellipsis2
   background: darken(#ebeef1, 1%)
   border-left: 5px solid darken(#dbe0e6, 1%)
   color: #123
-  display: block
   font-size: 18px
   font-weight: bold
   line-height: $line_height
@@ -92,7 +92,7 @@ header.head
   text-transform: uppercase
 
   &>a
-    +ellipsis
+    +ellipsis2
     //+transition(color, 0.2s)
     +link
     //color: #123

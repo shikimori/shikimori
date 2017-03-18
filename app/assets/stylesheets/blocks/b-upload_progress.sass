@@ -1,11 +1,12 @@
 @import globals
+@import mixins/ellipsis2
 
 .b-upload_progress
   height: 0
   overflow: hidden
 
   .bar
-    +ellipsis
+    +ellipsis2
     +transition(all 0.25s ease)
     background-color: #2586D0
     color: white
