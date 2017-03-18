@@ -75,7 +75,7 @@
 }
 
 .tooltip-arrow {
-  @include background-inline-retina('/bubble/popup-arrow-left', 'png', 22px, 26px);
+  @include background-inline-retina('/assets/bubble/popup-arrow-left', 'png', 22px, 26px);
   height:26px;
   position:absolute;
   right:100%;
@@ -84,7 +84,7 @@
   z-index:10;
 }
 .tooltip-left .tooltip-arrow {
-  @include background-inline-retina('/bubble/popup-arrow-right', 'png', 22px, 26px);
+  @include background-inline-retina('/assets/bubble/popup-arrow-right', 'png', 22px, 26px);
   left: 100%;
   right: none;
 }
@@ -93,7 +93,7 @@
 }
 
 .dropshadow-top {
-  background: inline-image("/bubble/dropshadow/top.png") repeat-x scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/top.png") repeat-x scroll 0 0 transparent;
   height: 19px;
   left: 0;
   position: absolute;
@@ -102,7 +102,7 @@
   z-index: -1;
 }
 .dropshadow-top-right {
-  background: inline-image("/bubble/dropshadow/top-right.png") no-repeat scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/top-right.png") no-repeat scroll 0 0 transparent;
   height: 19px;
   position: absolute;
   right: -19px;
@@ -111,7 +111,7 @@
   z-index: -1;
 }
 .dropshadow-right {
-  background: inline-image("/bubble/dropshadow/right.png") repeat-y scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/right.png") repeat-y scroll 0 0 transparent;
   height: 100%;
   position: absolute;
   right: -19px;
@@ -120,7 +120,7 @@
   z-index: -1;
 }
 .dropshadow-bottom-right {
-  background: inline-image("/bubble/dropshadow/bottom-right.png") no-repeat scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/bottom-right.png") no-repeat scroll 0 0 transparent;
   bottom: -19px;
   height: 19px;
   position: absolute;
@@ -129,7 +129,7 @@
   z-index: -1;
 }
 .dropshadow-bottom {
-  background: inline-image("/bubble/dropshadow/bottom.png") repeat-x scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/bottom.png") repeat-x scroll 0 0 transparent;
   clear: both;
   bottom: -19px;
   height: 19px;
@@ -139,7 +139,7 @@
   z-index: -1;
 }
 .dropshadow-bottom-left {
-  background: inline-image("/bubble/dropshadow/bottom-left.png") no-repeat scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/bottom-left.png") no-repeat scroll 0 0 transparent;
   bottom: -19px;
   height: 19px;
   left: -19px;
@@ -148,7 +148,7 @@
   z-index: -1;
 }
 .dropshadow-left {
-  background: inline-image("/bubble/dropshadow/left.png") repeat-y scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/left.png") repeat-y scroll 0 0 transparent;
   height: 100%;
   left: -19px;
   position: absolute;
@@ -157,7 +157,7 @@
   z-index: -1;
 }
 .dropshadow-top-left {
-  background: inline-image("/bubble/dropshadow/top-left.png") no-repeat scroll 0 0 transparent;
+  background: image_url("/assets/bubble/dropshadow/top-left.png") no-repeat scroll 0 0 transparent;
   height: 19px;
   left: -19px;
   position: absolute;
