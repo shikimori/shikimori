@@ -1,6 +1,4 @@
-@import compass/css3/images
-@import compass/css3/transform
-@import globals/variables
+@import globals
 @import mixins/responsive
 @import mixins/link
 
@@ -62,7 +60,8 @@ $feedback_color_to: #4b80c0
       display: block
 
     &>.marker-text
-      +background-with-css2-fallback(linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%), #4b80c0)
+      +linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%, $fallback: #4b80c0)
+      // +background-with-css2-fallback(linear-gradient(bottom, $feedback_color_from 0%, $feedback_color_to 100%), #4b80c0)
       +transform(rotate(-90deg))
       -moz-transform-origin: left top
       -webkit-transform-origin: left top
@@ -74,10 +73,12 @@ $feedback_color_to: #4b80c0
       white-space: nowrap
 
       &:hover
-        +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
+        +linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%, $fallback: lighten($feedback_color_to, 3%))
+        // +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 3%) 0%, lighten($feedback_color_to, 3%) 100%), lighten($feedback_color_to, 3%))
 
       &:active
-        +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%), lighten($feedback_color_to, 1%))
+        +linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%, $fallback: lighten($feedback_color_to, 1%))
+        // +background-with-css2-fallback(linear-gradient(bottom, lighten($feedback_color_from, 1%) 0%, lighten($feedback_color_to, 1%) 100%), lighten($feedback_color_to, 1%))
 
       &:after
         content: attr(data-text)

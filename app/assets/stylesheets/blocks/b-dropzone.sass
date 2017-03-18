@@ -1,16 +1,12 @@
-@import compass/css3/border-radius
-@import compass/css3/box-sizing
-@import compass/css3/transition
-@import compass/utilities/general/clearfix
-@import globals/variables
+@import globals
 
 $min_height: 89px
 
 .b-dropzone-drag_placeholder
-  +border-radius(1px)
   +box-sizing(border-box)
   +transition("opacity,border-color,color", 0.5s)
   background: white
+  border-radius: 1px
   border: 2px dashed #006EFF
   font-family: Verdana, Arial
   font-size: 25px

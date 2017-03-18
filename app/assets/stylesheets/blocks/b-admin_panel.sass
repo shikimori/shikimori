@@ -1,6 +1,5 @@
-@import compass/css3
+@import globals
 @import mixins/column
-@import globals/variables
 
 +keyframes('rotating')
   0%
@@ -49,7 +48,7 @@
       font-size: 14px
 
     &:active
-      +text-shadow(#DDDDDD, 1px, 1px, 0px)
+      text-shadow: #DDDDDD, 1px, 1px, 0px
 
     &:hover
       color: #333333

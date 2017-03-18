@@ -9,7 +9,7 @@
 //= require ./layouts/l-page
 //= require ./layouts/l-menu
 //= require ./layouts/l-footer
-//= require ./layouts/screen
+// require ./layouts/screen
 //= require ./localization
 //= require_directory ./layouts/top_menu
 //= require_tree ./blocks
@@ -20,122 +20,122 @@
 // require anime_online/application
 // require manga_online/application
 
-@import globals
-@import mixins/responsive
-@import mixins/link
+// @import globals
+// @import mixins/responsive
+// @import mixins/link
 
-body
-  background-image: inline-image("/background/square_bg.png")
-  font-family: $font-family
-  font-size: 13px
-  -webkit-overflow-scrolling: touch
+// body
+  // background-image: inline-image("/background/square_bg.png")
+  // font-family: $font-family
+  // font-size: 13px
+  // -webkit-overflow-scrolling: touch
 
-  +lte_ipad
-    background: none !important
+  // +lte_ipad
+    // background: none !important
 
-  &.chrome
-    text-rendering: auto
-  &.no-smileys .smiley
-    display: none
+  // &.chrome
+    // text-rendering: auto
+  // &.no-smileys .smiley
+    // display: none
 
-html.turbolinks-progress-bar:before
-  z-index: 9999 !important
-  // background-color: #ff8a3c !important
-  background: #77b6ff !important
-  box-shadow: 0 0 10px rgba(119,182,255,0.7) !important
+// html.turbolinks-progress-bar:before
+  // z-index: 9999 !important
+  // // background-color: #ff8a3c !important
+  // background: #77b6ff !important
+  // box-shadow: 0 0 10px rgba(119,182,255,0.7) !important
 
-a
-  +link_color
-  -moz-outline-style: none
-  outline: none
-  text-decoration: none
+// a
+  // +link_color
+  // -moz-outline-style: none
+  // outline: none
+  // text-decoration: none
 
-p
-  line-height: $line_height
+// p
+  // line-height: $line_height
 
-  a
-    text-decoration: underline
+  // a
+    // text-decoration: underline
 
-div.body
-  line-height: $line_height
+// div.body
+  // line-height: $line_height
 
-  //a
-    //text-decoration: none
+  // //a
+    // //text-decoration: none
 
-    //&:hover
-      //text-decoration: underline
+    // //&:hover
+      // //text-decoration: underline
 
-img
-  border: none
+// img
+  // border: none
 
-strike
-  color: #555
-em
-  font-style: italic
-strong, b
-  font-weight: bold
+// strike
+  // color: #555
+// em
+  // font-style: italic
+// strong, b
+  // font-weight: bold
 
-input, select, button, textarea
-  border: 1px solid #999999
-  font-family: $font-family
-  outline: none
+// input, select, button, textarea
+  // border: 1px solid #999999
+  // font-family: $font-family
+  // outline: none
 
-  +gte_ipad
-    font-size: 13px
+  // +gte_ipad
+    // font-size: 13px
 
-  +iphone
-    font-size: 15px
+  // +iphone
+    // font-size: 15px
 
-select
-  +gte_ipad
-    font-size: 11px
+// select
+  // +gte_ipad
+    // font-size: 11px
 
-  +iphone
-    font-size: 13px
+  // +iphone
+    // font-size: 13px
 
-textarea
-  line-height: $line_height
-input[type=radio]
-  border: none
-textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
-  -webkit-appearance: none
-  -webkit-border-radius: 0px
+// textarea
+  // line-height: $line_height
+// input[type=radio]
+  // border: none
+// textarea, input[type=submit], input[type=text], input[type=email], input[type=number]
+  // -webkit-appearance: none
+  // -webkit-border-radius: 0px
 
-li
-  list-style: none outside none
+// li
+  // list-style: none outside none
 
-p.flash-notice, p.flash-alert
-  display: none
+// p.flash-notice, p.flash-alert
+  // display: none
 
-::selection, ::-moz-selection
-  background: #FFCC89
-  color: #555
+// ::selection, ::-moz-selection
+  // background: #FFCC89
+  // color: #555
 
-hr
-  // 1
-  //border: 0
-  //height: 1px
-  //background: #333
-  //background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc)
-  //background-image:      -o-linear-gradient(left, #ccc, #333, #ccc)
+// hr
+  // // 1
+  // //border: 0
+  // //height: 1px
+  // //background: #333
+  // //background-image: -webkit-linear-gradient(left, #ccc, #333, #ccc)
+  // //background-image:    -moz-linear-gradient(left, #ccc, #333, #ccc)
+  // //background-image:     -ms-linear-gradient(left, #ccc, #333, #ccc)
+  // //background-image:      -o-linear-gradient(left, #ccc, #333, #ccc)
 
-  // 2
-  border: 0
-  height: 1px
-  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
-  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  // // 2
+  // border: 0
+  // height: 1px
+  // background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  // background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  // background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
+  // background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.65), rgba(0,0,0,0))
 
-  // 3
-  //border: 0
-  //height: 0
-  //border-top: 1px solid rgba(0, 0, 0, 0.1)
-  //border-bottom: 1px solid rgba(255, 255, 255, 0.3)
+  // // 3
+  // //border: 0
+  // //height: 0
+  // //border-top: 1px solid rgba(0, 0, 0, 0.1)
+  // //border-bottom: 1px solid rgba(255, 255, 255, 0.3)
 
-  // 4
-  //border: 0
-  //border-bottom: 1px dashed #ccc
-  //background: #999
+  // // 4
+  // //border: 0
+  // //border-bottom: 1px dashed #ccc
+  // //background: #999

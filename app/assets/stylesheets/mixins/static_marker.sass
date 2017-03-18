@@ -1,9 +1,10 @@
-@import compass/css3/box-sizing
-@import compass/css3/transition
+@import globals
 @import mixins/responsive
 
 =static_marker($color, $background)
-  +box-sizing(border-box)
+  -moz-box-sizing: border-box
+  -webkit-box-sizing: border-box
+  box-sizing: border-box
   display: inline-block
 
   &:before

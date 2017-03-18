@@ -112,9 +112,9 @@
     /*width: 19px;*/
   }
   .ruler {
-    @include opacity(0.2);
     background: white;
     height: 1px;
+    opacity: 0.2;
     position: absolute;
     width: 100%;
   }

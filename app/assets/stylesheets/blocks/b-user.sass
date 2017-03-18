@@ -1,5 +1,4 @@
-@import compass/typography/text/ellipsis
-@import globals
+@import addons/ellipsis
 @import mixins/column
 @import mixins/date
 @import mixins/link
@@ -69,8 +68,9 @@
           margin-right: 10px
 
         .name
-          +header-font
-          color: inherit
+          font-size: 15px
+          font-weight: bold
+          line-height: 17px
           padding-top: 5px
 
           &:hover

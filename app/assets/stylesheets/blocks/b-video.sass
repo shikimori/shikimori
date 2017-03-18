@@ -1,6 +1,4 @@
-@import compass/css3/opacity
-@import compass/css3/transition
-@import globals/variables
+@import globals
 @import mixins/image_editable
 @import mixins/link
 @import mixins/media_marker
@@ -35,7 +33,7 @@
     cursor: zoom-in !important
 
     &:hover
-      +opacity(0.85)
+      opacity: 0.85
 
     &:before
       // +background-inline-retina('/blocks/b-video/play', 'png', 69px, 69px)
