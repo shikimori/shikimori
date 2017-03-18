@@ -80,6 +80,9 @@ module Site
       page503.css
       page404.css
       age_restricted.css
+      highcharts.v4.2.6.js
+      lib/highcharts.js
+      about.js
     )
 
     config.action_mailer.default_url_options = { host: Site::DOMAIN }

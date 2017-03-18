@@ -45,14 +45,14 @@
             span = t :mail
             - if current_user.unread_count > 0
               | &nbsp;
-              span.sep.zero.inline
+              span.b-separator.zero.inline
                 | [
               = current_user.unread_messages
-              span.sep.zero.inline ;
+              span.b-separator.zero.inline ;
               = current_user.unread_news
-              span.sep.zero.inline ;
+              span.b-separator.zero.inline ;
               = current_user.unread_notifications
-              span.sep.zero.inline
+              span.b-separator.zero.inline
                 | ]
 
           a.entry[

@@ -20,12 +20,13 @@ header.head.m15
     .b-input
       label for="user_password"
         = User.human_attribute_name :password
-      = f.password_field :password, class: 'common'
+      .b-input
+        = f.password_field :password
 
     .b-input
       label for="user_password_confirmation"
         = User.human_attribute_name :password_confirmation
-      = f.password_field :password_confirmation, class: 'common'
+      = f.password_field :password_confirmation
 
   .block
-    = f.submit "Изменить пароль", class: 'button'
+    = f.submit "Изменить пароль", class: 'b-button'

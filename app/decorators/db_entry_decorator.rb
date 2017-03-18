@@ -10,7 +10,7 @@ class DbEntryDecorator < BaseDecorator
   def headline
     headline_array
       .map { |name| h.h name }
-      .join(' <span class="sep inline">/</span> ')
+      .join(' <span class="b-separator inline">/</span> ')
       .html_safe
   end
 

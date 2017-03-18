@@ -110,7 +110,7 @@ class @ShikiEditor extends ShikiView
         $button.toggleClass('selected')
 
     # кнопка сабмита OK
-    @$('.button.ok').on 'click', (e) =>
+    @$('.b-button.ok').on 'click', (e) =>
       type = $(e.target).data('type')
 
       $input = @$(".#{type} input[type=text]")

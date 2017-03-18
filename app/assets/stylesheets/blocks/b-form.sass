@@ -1,5 +1,6 @@
 @import addons/clearfix
 @import mixins/block
+@import mixins/shiki_button
 @import mixins/clear_left
 @import mixins/clear_right
 @import mixins/column
@@ -53,6 +54,9 @@
   //.apply
     //display: inline
     //margin-left: 20px
+
+  input[type=submit]
+    +shiki_button
 
   .inputs
     .b-input

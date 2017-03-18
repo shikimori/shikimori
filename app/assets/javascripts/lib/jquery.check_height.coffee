@@ -25,12 +25,12 @@
       @each ->
         $root = $(@)
 
-        if $root.height() > max_height && !$root.hasClass('b-shortened')
+        if $root.height() > max_height && !$root.hasClass('shortened')
           margin_bottom = parseInt $root.css('margin-bottom')
           html = "<div class='b-height_shortener' style='margin-bottom: #{margin_bottom}px'>#{shade_html}#{expand_html}</div>"
 
           $root
-            .addClass('b-shortened')
+            .addClass('shortened')
             .css(height: collapsed_height)
 
           $(html)
@@ -40,7 +40,7 @@
 
               height = $root.height()
               $root
-                .removeClass('b-shortened')
+                .removeClass('shortened')
                 .animated_expand(height)
 
               $(e.currentTarget).remove()

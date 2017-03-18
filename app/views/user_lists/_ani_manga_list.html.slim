@@ -5,9 +5,9 @@
         = UserRate.status_name stat[:name], @klass.name
         | &nbsp;
         span
-          span.sep.zero.inline = "("
+          span.b-separator.zero.inline = "("
           = stat[:size]
-          span.sep.zero.inline = ")"
+          span.b-separator.zero.inline = ")"
 
   .subheadline
     = "Список #{t("Genitive.#{params[:list_type].capitalize}").downcase}"
