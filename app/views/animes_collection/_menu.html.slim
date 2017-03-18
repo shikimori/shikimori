@@ -23,7 +23,7 @@
 
   .block
     .subheadline = Anime.human_attribute_name :status
-    ul.block-list.statuses.anime-params
+    ul.b-block_list.statuses.anime-params
       - menu.statuses.each do |status|
         li class="status-#{status.text}"
           input type="checkbox" autocomplete="off"
@@ -31,7 +31,7 @@
 
   .block
     .subheadline = Anime.human_attribute_name(:kind)
-    ul.block-list.types.anime-params
+    ul.b-block_list.types.anime-params
       - menu.kinds.each do |kind|
         li class="type-#{kind.text}"
           input type='checkbox' autocomplete='off'
@@ -60,7 +60,7 @@
   - if menu.show_sorting?
     .block
       .subheadline = i18n_i 'Sorting'
-      ul.block-list.orders.anime-params.subcontent
+      ul.b-block_list.orders.anime-params.subcontent
         li.order-by-ranked = t 'by.ranked'
         li.order-by-kind.hidden = t 'by.kind'
         li.order-by-popularity = t 'by.popularity'
@@ -91,15 +91,15 @@
 
   .block.hidden
     .subheadline = i18n_i 'Studio'
-    ul.block-list.studios.anime-params
+    ul.b-block_list.studios.anime-params
 
   .block.hidden
     .subheadline = i18n_i 'Publisher'
-    ul.block-list.publishers.anime-params
+    ul.b-block_list.publishers.anime-params
 
   .block
     .subheadline = i18n_i 'Season'
-    ul.block-list.seasons.anime-params
+    ul.b-block_list.seasons.anime-params
       - menu.seasons.each do |season|
         li class="season-#{season.text}"
           input type="checkbox" autocomplete="off"
@@ -108,7 +108,7 @@
   - unless ['user_rates', 'userlist_comparer'].include? params[:controller]
     .block.scores
       .subheadline = i18n_i 'Score'
-      ul.block-list.scores.anime-params
+      ul.b-block_list.scores.anime-params
         - [8, 7, 6].each do |score|
           li class="score-#{score}"
             input type="checkbox" autocomplete="off"
@@ -117,7 +117,7 @@
   - if menu.klass == Anime
     .block.durations
       .subheadline = i18n_i 'Episode'
-      ul.block-list.durations.anime-params
+      ul.b-block_list.durations.anime-params
         - AniMangaQuery::DURATIONS.keys.each do |v|
           li class="duration-#{v}"
             input type="checkbox" autocomplete="off"
@@ -125,7 +125,7 @@
 
     .block.ratings
       .subheadline = i18n_i 'Rating'
-      ul.block-list.ratings.anime-params
+      ul.b-block_list.ratings.anime-params
         - Anime.rating.options.each do |title,rating|
           - next if rating == 'none'
           - next if rating == 'rx' && !user_signed_in?
@@ -140,7 +140,7 @@
   .block.genres
     .subheadline = i18n_i 'Genre', :other
     = text_spoiler t('.show_list') do
-      ul.block-list.genres.anime-params.m10
+      ul.b-block_list.genres.anime-params.m10
         - menu.sorted_genres.each do |genre|
           - next if genre.censored? && !user_signed_in?
           li class="genre-#{genre.to_param} #{:m10 if genre.position && genre.position % 10 == 0}"

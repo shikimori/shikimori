@@ -11,7 +11,7 @@
         - else
           = i18n_io 'History', :one
 
-      .block-list
+      .b-block_list
         - @resource.formatted_history.each do |entry|
           .entry
             a href="#{entry.url}" title="#{entry.name}"

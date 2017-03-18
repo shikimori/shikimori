@@ -3,6 +3,6 @@ describe BbCodes::PTag do
 
   describe '#format' do
     subject { tag.format '[p]test[/p]' }
-    it { should eq '<div class="prgrph">test</div>' }
+    it { should eq '<div class="b-prgrph">test</div>' }
   end
 end

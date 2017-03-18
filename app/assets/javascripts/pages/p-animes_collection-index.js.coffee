@@ -5,7 +5,7 @@ paginated_catalog = null
 @on 'page:restore', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
-  $block_list = $block_filer.siblings('.block-list')
+  $block_list = $block_filer.siblings('.b-block_list')
   if $block_list.find('.filter').length == $block_list.find('.item-minus').length
     $block_filer
       .removeClass('item-add')

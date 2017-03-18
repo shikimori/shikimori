@@ -47,12 +47,12 @@ class DbEntryDecorator < BaseDecorator
   end
 
   def description_html_ru
-    html = Rails.cache.fetch [:description_html_ru, object] do
+    html = Rails.cache.fetch [:description_html_ru, object, :v2] do
       BbCodeFormatter.instance.format_description(description_ru.text, object)
     end
 
     if html.blank?
-      "<p class='b-nothing_here'>#{i18n_t('no_description')}</p>".html_safe
+      "<p class='b-nothing_here'>#{i18n_t 'no_description'}</p>".html_safe
     else
       html
     end

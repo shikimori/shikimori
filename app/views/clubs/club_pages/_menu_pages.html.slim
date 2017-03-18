@@ -3,7 +3,7 @@
     .subheadline
       = i18n_i 'Page', :other
 
-    ul.block-list
+    ul.b-block_list
       - club.menu_pages(club_page).each do |club_page|
         li
           a.b-link href="#{club_club_page_path club, club_page}"

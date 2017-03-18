@@ -66,7 +66,7 @@ header.head.misc
       - chronology.each do |month, group|
         .block-title
           = month
-        ul.block-list.m20
+        ul.b-block_list.m20
           - group.each do |entry|
             li class="cosplay-month#{' selected' if f.object.id == entry.id}" style="#{'text-decoration: line-through;' if entry.confirmed?}"
               a href="#{edit_cosplay_cosplay_gallery_url @cosplayer, entry}"
