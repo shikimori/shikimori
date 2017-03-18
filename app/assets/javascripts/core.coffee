@@ -2,7 +2,6 @@
 #= require jquery
 #= require vendor/jquery-migrate-1.3.0
 #= require vendor/modernizr
-# require vue
 
 #= require uevent
 #= require d3
