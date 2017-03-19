@@ -1,19 +1,15 @@
-feature 'sign in' do#, troublesome: true do
-  let(:user) { create :user, email: "test#{rand}@gmail.com", password: '123456' }
+feature 'sign in' do
+  let(:user) { create :user, nickname: "test#{(rand * 1_000_000).to_i}", password: '123456' }
 
-  pending "надо написать"
-  #scenario 'when success' do
-    #sign_in user
+  scenario 'when success' do
+    sign_in user
+    expect(current_path).to eq root_path
+  end
 
-    #expect(page).to_not have_selector '.l-landing'
-    #expect(current_path).to eq site_path(site)
-  #end
-
-  #scenario 'when fail' do
-    #user.email = user.email+'z'
-    #sign_in user
-
-    #expect(page).to have_selector '.l-landing'
-    #expect(current_path).to eq new_user_session_path
-  #end
+  scenario 'when fail' do
+    user.nickname = user.nickname + 'z'
+    sign_in user
+    expect(page).to have_selector '#sign_in'
+    expect(current_path).to eq new_user_session_path
+  end
 end
