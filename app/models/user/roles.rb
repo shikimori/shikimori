@@ -32,7 +32,7 @@ class User
     ]).uniq
     NOT_TRUSTED_VIDEO_UPLOADERS = [56_231]
     TRUSTED_VIDEO_CHANGERS = [101_610] # 10610 - s.t.a.l.k.e.r
-    TRUSTED_VERSION_CHANGERS = [188, 94] # 188 - Autumn, 94 - acid_emily
+    TRUSTED_VERSION_CHANGERS = [188, 94, 159666] # 188 - Autumn, 94 - acid_emily, 159666 - Nanochka
 
     VERSION_VERMINS = [
       65_255
