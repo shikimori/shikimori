@@ -108,7 +108,7 @@ gem 'chainable_methods'
 
 group :beta, :production do
   gem 'honeybadger'
-  gem 'appsignal'
+  # gem 'appsignal'
   gem 'newrelic_rpm'
   gem 'lograge'
 end
