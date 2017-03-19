@@ -64,6 +64,15 @@ GIT
     htmldiff (0.0.1)
 
 GIT
+  remote: git://github.com/pabse/rack-contrib.git
+  revision: 2a093289fb2722fceb4599e6893ed3b3addf0659
+  branch: rack_ruby_2+
+  specs:
+    rack-contrib (1.4.0.2.g2a09328)
+      git-version-bump (~> 0.15)
+      rack (>= 1.4)
+
+GIT
   remote: git://github.com/shikimori/mal_parser.git
   revision: 06b72c4b30921b0c806260a9d780a2229fa2e861
   specs:
@@ -94,8 +103,8 @@ GEM
       rack-test (~> 0.6.2)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
-    actionpack-action_caching (1.1.1)
-      actionpack (>= 4.0.0, < 5.0)
+    actionpack-action_caching (1.2.0)
+      actionpack (>= 4.0.0, < 6)
     actionview (4.2.8)
       activesupport (= 4.2.8)
       builder (~> 3.1)
@@ -141,8 +150,6 @@ GEM
     arel (6.0.4)
     ast (2.3.0)
     attr_extras (5.2.0)
-    attribute-defaults (0.7.0)
-      activerecord (>= 4.0.0, < 5.0.0)
     awesome_print (1.7.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
@@ -327,7 +334,7 @@ GEM
       guard-compat (~> 1.1)
       spring
     hashdiff (0.3.2)
-    hashie (3.5.3)
+    hashie (3.5.5)
     hiredis (0.5.2)
     honeybadger (3.1.0)
     htmlentities (4.3.4)
@@ -463,9 +470,6 @@ GEM
     rack (1.6.5)
     rack-attack (5.0.1)
       rack
-    rack-contrib (1.4.0)
-      git-version-bump (~> 0.15)
-      rack (~> 1.4)
     rack-cors (0.4.1)
     rack-protection (1.5.3)
       rack
@@ -698,7 +702,6 @@ DEPENDENCIES
   amatch!
   apipie-rails
   attr_extras
-  attribute-defaults
   awesome_print
   better_errors
   binding_of_caller
@@ -772,7 +775,7 @@ DEPENDENCIES
   quiet_assets
   rabl
   rack-attack
-  rack-contrib
+  rack-contrib!
   rack-cors
   rack-utf8_sanitizer
   rails (= 4.2.8)

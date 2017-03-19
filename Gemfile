@@ -40,7 +40,6 @@ gem 'rack-attack'
 
 gem 'multi_fetch_fragments', github: 'watg/multi_fetch_fragments'
 gem 'actionpack-action_caching'
-gem 'attribute-defaults'
 gem 'attr_extras'
 gem 'state_machine'
 gem 'nokogiri'
@@ -94,7 +93,7 @@ gem 'faraday_middleware'
 gem 'faraday-cookie_jar'
 
 gem 'jbuilder' # для рендеринга json
-gem 'rack-contrib' # для поддержки jsonp в api
+gem 'rack-contrib', github: 'pabse/rack-contrib', branch: 'rack_ruby_2+' # для поддержки jsonp в api
 # TODO: выпилить отовсюду rabl, заменив его на jbuilder
 gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
