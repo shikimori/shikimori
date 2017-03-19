@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.2.7.1'
+gem 'rails', '4.2.8'
 
 gem 'pg'
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -99,7 +99,7 @@ gem 'maruku'
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
 
-gem 'i18n-js', '3.0.0.rc15'
+gem 'i18n-js', '3.0.0.rc16'
 gem 'rails-i18n'
 gem 'i18n-inflector-rails'
 
