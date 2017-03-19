@@ -28,7 +28,7 @@ ru:
   messages_controller:
     <<: *profiles_controller
     site_news: Новости сайта
-    private_messages: Личные сообщения
+    private_messages: Непрочитанные личные сообщения
     site_notifications: Уведомления сайта
   user_history_controller:
     <<: *profiles_controller

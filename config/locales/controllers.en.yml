@@ -28,7 +28,7 @@ en:
   messages_controller:
     <<: *profiles_controller
     site_news: Site news
-    private_messages: Private messages
+    private_messages: Unread private messages
     site_notifications: Site notifications
   user_history_controller:
     <<: *profiles_controller
