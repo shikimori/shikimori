@@ -1,5 +1,3 @@
-@import compass/css3/transition
-@import compass/utilities/general/clearfix
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
@@ -14,10 +12,10 @@
   .l-content
     &.ajax_request
       &::before
-        +opacity(0.6)
         background: #fff
         content: ' '
         height: 100%
+        opacity: 0.6
         position: absolute
         width: 100%
         z-index: 1

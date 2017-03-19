@@ -1,12 +1,12 @@
-@import compass/typography/text/ellipsis
 @import mixins/block
 @import mixins/column
 @import mixins/comma_separated
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
 @import mixins/retina
 
-$image-path: 'anime_online/pages/anime_videos'
+$image-path: '/assets/anime_online/pages/anime_videos'
 
 .p-anime_videos-index
   .b-nothing_here
@@ -28,7 +28,7 @@ $image-path: 'anime_online/pages/anime_videos'
       padding-top: 10px
 
     .views_count
-      +ellipsis
+      +ellipsis2
       color: $gray-3
 
     .uploader

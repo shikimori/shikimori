@@ -18,12 +18,12 @@
           $label.hide()
           $content.css(display: 'inline')
 
-          $content.find('.prgrph').each ->
+          $content.find('.b-prgrph').each ->
             $content.addClass 'no-cursor'
             $(@)
               .addClass('inner-prgrph')
-              .removeClass('prgrph')
-              .wrap('<div class="spoiler-prgrph"></div>')
+              .removeClass('b-prgrph')
+              .wrap('<div class="b-spoiler_prgrph"></div>')
 
           # хак для корректной работы галерей аниме внутри спойлеров
           $content.find('.align-posters').trigger('spoiler:opened')

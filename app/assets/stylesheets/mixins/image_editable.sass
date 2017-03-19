@@ -1,5 +1,4 @@
-@import compass/css3/opacity
-@import globals/variables
+@import globals
 @import mixins/icons
 @import mixins/media_marker
 
@@ -29,7 +28,7 @@
 
   &.deletable, &.deleted
     img
-      +opacity(0.3)
+      opacity: 0.3
 
     .controls
       display: block

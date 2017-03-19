@@ -66,7 +66,7 @@ header.head.misc
       - chronology.each do |month, group|
         .block-title
           = month
-        ul.block-list.m20
+        ul.b-block_list.m20
           - group.each do |entry|
             li class="cosplay-month#{' selected' if f.object.id == entry.id}" style="#{'text-decoration: line-through;' if entry.confirmed?}"
               a href="#{edit_cosplay_cosplay_gallery_url @cosplayer, entry}"
@@ -91,8 +91,8 @@ header.head.misc
             = f.label :confirmed_false, 'Не опубликовано'
 
         .field-name Название
-        .m10
-          = f.text_field :target, class: 'common'
+        .b-input
+          = f.text_field :target
 
         - if f.object.description_cos_rain.present?
           p.m5
@@ -131,13 +131,13 @@ header.head.misc
           = label_tag :move_from_confirm, "Перенести <b>в эту</b> галерею фото из другой галереи".html_safe
           = check_box_tag 'move_from[confirm]', '1', false, 'autocomplete' => 'off'
           b style="display: none;" &nbsp;ID:&nbsp;
-          = text_field_tag 'move_from[id]', '', class: 'common', style: 'display: none; width: 50px;', 'autocomplete' => 'off'
+          = text_field_tag 'move_from[id]', '', style: 'display: none; width: 50px;', 'autocomplete' => 'off'
           span style="display: none;" &nbsp;(нажать enter для переноса)
-        p.m5
+        .b-input
           = label_tag :move_to_confirm, "Перенести <b>из этой</b> галереи фото в другую галерею".html_safe
           = check_box_tag 'move_to[confirm]', '1', false, 'autocomplete' => 'off'
           b style="display: none;" &nbsp;ID:&nbsp;
-          = text_field_tag 'move_to[id]', '', class: 'common', style: 'display: none; width: 50px;', 'autocomplete' => 'off'
+          = text_field_tag 'move_to[id]', '', style: 'display: none; width: 50px;', 'autocomplete' => 'off'
           span style="display: none;" &nbsp;(нажать enter для переноса)
         - unless f.object.deleted?
           p.m15
@@ -165,9 +165,9 @@ header.head.misc
                   = Paperclip::Geometry.from_file(ff.object.image.path)
                 - else
                   span.red файл не найден
-              p.m3
+              .b-input
                 = ff.label :position, 'Позиция'
-                = ff.text_field :position, class: 'common'
+                = ff.text_field :position
               p.m3
                 = ff.label :deleted, t(:delete)
                 = ff.check_box :deleted
@@ -199,6 +199,6 @@ header.head.misc
                 = render partial: 'club_images/club_image.html', object: ff.object, locals: {group_name: 'images', style: :original}
 
       p.buttons
-        span.save.button Сохранить
+        span.save.b-button Сохранить
 
   .clearfix

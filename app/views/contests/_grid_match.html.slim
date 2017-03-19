@@ -5,9 +5,9 @@
         p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
           - if match.finished?
             span.matches-num
-              span.sep.zero ="("
+              span.b-separator.zero ="("
               span.val = match.right_votes
-              span.sep.zero =")"
+              span.b-separator.zero =")"
           a.bubbled href="#{url_for match.right}"
             = localization_span match.right
       - else
@@ -17,9 +17,9 @@
         p class="#{match.finished? ? (match.winner == match.left ? 'winner' : 'loser') : ''}"
           - if match.finished?
             span.matches-num
-              span.sep.zero ="("
+              span.b-separator.zero ="("
               span.val = match.left_votes
-              span.sep.zero =")"
+              span.b-separator.zero =")"
 
           a.bubbled href="#{url_for match.left}"
             = localization_span match.left
@@ -31,9 +31,9 @@
         p class="#{match.finished? ? (match.winner == match.right ? 'winner' : 'loser') : ''}"
           - if match.finished?
             span.matches-num
-              span.sep.zero ="("
+              span.b-separator.zero ="("
               span.val = match.right_votes
-              span.sep.zero =")"
+              span.b-separator.zero =")"
 
           a.bubbled href="#{url_for match.right}"
             = localization_span match.right

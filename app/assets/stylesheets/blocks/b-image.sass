@@ -1,5 +1,4 @@
-@import compass/css3/transition
-@import globals/variables
+@import globals
 @import mixins/image_editable
 
 .b-image
@@ -12,7 +11,7 @@
   position: relative
 
   &:hover
-    +opacity(0.85)
+    opacity: 0.85
 
   img
     +transition(opacity 0.25s ease)

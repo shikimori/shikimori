@@ -290,7 +290,7 @@ describe BbCodeFormatter do
 
     describe '[p]' do
       let(:text) { '[p]test[/p]' }
-      it { is_expected.to eq '<div class="prgrph">test</div>' }
+      it { is_expected.to eq '<div class="b-prgrph">test</div>' }
     end
 
     describe '[image]' do

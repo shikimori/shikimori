@@ -38,7 +38,7 @@
         collection: AnimeVideo.quality.options.delete_if {|v| v[1] == 'unknown' }
 
     .block
-      .button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
+      .b-button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
         | Проверить видео
       a.cancel href="#{@back_url}" = t 'actions.cancel'
 

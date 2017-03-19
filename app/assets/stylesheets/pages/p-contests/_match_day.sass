@@ -1,9 +1,6 @@
-@import compass/typography/text/ellipsis
-@import compass/css3/opacity
-@import compass/css3/transition
-@import globals/variables
-@import mixins/link
 @import mixins/column
+@import mixins/ellipsis2
+@import mixins/link
 @import mixins/responsive
 
 .p-contests .match-day
@@ -28,7 +25,7 @@
 
   //&:hover
     .match-link
-      +opacity(0.4)
+      opacity: 0.4
 
   .match-link
     padding-left: 2px
@@ -43,7 +40,7 @@
       background-color: #e5e5e5 !important
 
     //&:hover
-      +opacity(1)
+      opacity: 1
 
     a
       +link
@@ -58,7 +55,7 @@
       margin-bottom: 0
 
       +gte_ipad
-        +ellipsis
+        +ellipsis2
 
       +iphone
         +column(2)

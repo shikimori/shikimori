@@ -1,9 +1,10 @@
-@import compass/typography/text/ellipsis
-@import compass/utilities/general/clearfix
+@import addons/clearfix
 @import mixins/block
+@import mixins/shiki_button
 @import mixins/clear_left
 @import mixins/clear_right
 @import mixins/column
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
 
@@ -17,7 +18,7 @@
     margin-bottom: 0
 
     .variant
-      +ellipsis
+      +ellipsis2
       +gte_ipad
         +column(3)
 
@@ -53,6 +54,9 @@
   //.apply
     //display: inline
     //margin-left: 20px
+
+  input[type=submit]
+    +shiki_button
 
   .inputs
     .b-input

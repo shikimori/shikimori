@@ -1,8 +1,10 @@
 @import globals
+@import mixins/ellipsis2
+@import mixins/link
 
 // второстепенный текст в меню
 =menu-block-misc-text
-  +ellipsis
+  +ellipsis2
   +clearfix
   color: $gray-3 !important
   display: block
@@ -27,9 +29,6 @@
   &:hover .title
     text-decoration: underline
 
-  //a
-    +normal-link
-
   img
     float: left
     margin: 2px 10px 5px 2px
@@ -38,7 +37,7 @@
     //max-height: 100%
 
   .title
-    +ellipsis
+    +ellipsis2
     display: block
     font-size: 14px
     font-weight: bold
@@ -90,7 +89,7 @@
       color: $link-active
 
   .title
-    +ellipsis
+    +ellipsis2
     display: block
     font-size: 14px
     font-weight: bold
@@ -119,7 +118,7 @@
         color: $link-active
 
   .notice
-    +ellipsis
+    +ellipsis2
     color: $gray-2
     display: block
     font-size: 11px

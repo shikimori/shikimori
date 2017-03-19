@@ -1,7 +1,6 @@
-@import compass/typography/text/ellipsis
-@import globals
 @import mixins/column
 @import mixins/date
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
 
@@ -29,7 +28,7 @@
       text-decoration: underline
 
     .name
-      +ellipsis
+      +ellipsis2
       +link
       display: block
       line-height: $line_height
@@ -69,8 +68,9 @@
           margin-right: 10px
 
         .name
-          +header-font
-          color: inherit
+          font-size: 15px
+          font-weight: bold
+          line-height: 17px
           padding-top: 5px
 
           &:hover
@@ -101,7 +101,7 @@
           float: right
 
         .event
-          +ellipsis
+          +ellipsis2
           color: #123
           display: block
 

@@ -77,7 +77,7 @@
   <%#test%>
     <%#<% @data.sort_by {|k,v| -1 * v[:date].to_datetime.to_i }.group_by {|k,v| Russian::strftime(v[:date], '%B %Y') }.each do |month,group| % >%>
       <%#<div class="block-title"><%=month % ></div>%>
-      <%#<ul class="block-list m20">%>
+      <%#<ul class="b-block_list m20">%>
         <%#<% group.each do |k,entry| % >%>
         <%#<li class="slider-control slider-control-info<%=" selected" if @entry[:target] == entry[:target] % >">%>
           <%#<%=link_to cosplayer_url(:id => entry[:name].first, :target => entry[:target]) do % >%>

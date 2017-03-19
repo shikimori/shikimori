@@ -34,11 +34,11 @@
                     = @user.compatibility_text @compatibility[klass.downcase.to_sym]
                   - if @compatibility[klass.downcase.to_sym] > 0
                     span.text &nbsp;
-                    span.sep.zero.inline
+                    span.b-separator.zero.inline
                       | (
                     span.rate
                       = @compatibility[klass.downcase.to_sym]
-                    span.sep.zero.inline
+                    span.b-separator.zero.inline
                       | )
             a.klass-caption href="#{ani_manga_list_url @user, list_type: klass.downcase}"
               = "Список #{t("Genitive.#{klass}").downcase}"
@@ -66,12 +66,12 @@
                   a href="#{ani_manga_list_url @user, list_type: klass.downcase, mylist: stat[:grouped_id], type: nil, studio: nil, publisher: nil}"
                     = UserRate.status_name(stat[:name], klass).capitalize
                     | &nbsp;
-                    span.sep.zero.inline
+                    span.b-separator.zero.inline
                       | (
                     = stat[:size]
-                    span.sep.zero.inline
+                    span.b-separator.zero.inline
                       | )
-                    span.sep
+                    span.b-separator
                       | /
 
     - if @favourites.any?

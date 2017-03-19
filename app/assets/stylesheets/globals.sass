@@ -1,110 +1,17 @@
-// TODO: удалить из этого файла вообще всё. и сам файл тоже удалить
-@import compass
+$asset-pipeline: true
+$output-bourbon-deprecation-warnings: true
+@import bourbon
 @import globals/variables
-@import mixins/responsive
 
-=new-header-font
-  color: #111
-  font: 26px normal tahoma, verdana, arial, sans-serif
-  border-bottom: none
-  +iphone
-    font-size: 24px
-
-=new-subheader-font
-  color: #222
-  font: 18px normal tahoma, verdana, arial, sans-serif
-  border-bottom: none
-
-=h1-font
-  color: #111
-  font-size: 18px
-  font-weight: bold
-
-=header-font-wo-color
-  font-size: 15px
-  line-height: 17px
-  font-weight: bold
-
-=header-font
-  +header-font-wo-color
-  color: #222
-
-=subheader-font
-  color: #2A2A2A
-  font-size: 15px
-  line-height: 17px
-  font-weight: bold
-
-=text-field
-  +border-radius(4px)
-  border-color: #c3c3c3
-  font-size: 12px
-  padding: 1px 3px
-
-=link-hover
-  background: transparent
-  &:hover
-    +box-shadow(#eeeeee, 5px 5px, 7px)
-    background: #FAFAFA
-    color: #222222 !important
-    outline: 0 none
-
-/* стандартная подсветка выбираемых элементов
-=selectable-decor
-  /*background-color: #FFFFFF;
-  &:hover
-    background-color: #eaeaea
-  &:active
-    background-color: #e5e5e5 !important
-
-=inner-image-selectable-decor
-  img
-    +image-selectable-decor
-  &:hover img
-    background-color: $default-image-hover-background
-  &:active img
-    background-color: $default-image-active-background
-
-$default-image-background: #e5e5e5
-$default-image-hover-background: #c9c9c9
-$default-image-active-background: #adadad
-
-=image-selectable-decor
-  +transition(background-color, 0.2s)
-  background-color: $default-image-background
-  &:hover
-    background-color: $default-image-hover-background
-  &:active
-    background-color: $default-image-active-background
-
-=link-color($color)
-  +transition(color, 0.2s)
-  color: $color
-
-  &:hover
-    color: $link-hover
-
-  &:active
-    color: $link-active
-
-/* нормальная голубая ссылка
-=normal-link
-  +transition(color, 0.2s)
-  +link-color($link)
-  cursor: pointer
-  &:hover
-    text-decoration: underline
-
-/* цвета логотипа
-$logo-color: #333333
-$logo-hover-color: #176093
-//$logo-active-color: #104265 !important
-$logo-active-color: #104265
-
-
-$default-link-color: #666666
-
-/* вертикальный отступ для ссылок more
-$more-offset: 3px
-
-/*$use-mozilla-ellipsis-binding: true;
+// +font-face("shikimori", font-files("shikimori.woff", "shikimori.woff2", "shikimori.ttf", "shikimori.svg#FontshikimoriRegular"), "shikimori.eot", normal, normal)
++font-face("shikimori", "shikimori", normal, $asset-pipeline: true, $file-formats: eot woff woff2 ttf svg);
+/*@font-face {*/
+  /*font-family: 'shikimori';*/
+  /*src: url('/font/shikimori.eot?54133551');*/
+  /*src: url('/font/shikimori.eot?54133551#iefix') format('embedded-opentype'),*/
+       /*url('/font/shikimori.woff?54133551') format('woff'),*/
+       /*url('/font/shikimori.ttf?54133551') format('truetype'),*/
+       /*url('/font/shikimori.svg?54133551#shikimori') format('svg');*/
+  /*font-weight: normal;*/
+  /*font-style: normal;*/
+/*}*/

@@ -1,11 +1,11 @@
-@import compass/typography/text/ellipsis
-@import compass/utilities/general/clearfix
+@import addons/clearfix
 @import globals/variables
 @import mixins/icons
 @import mixins/block
 @import mixins/clear_left
 @import mixins/column
 @import mixins/link
+@import mixins/ellipsis2
 
 .b-video_player
   &.copyrighted
@@ -86,7 +86,7 @@
       +link
 
     .label
-      +ellipsis
+      +ellipsis2
       +iphone_portrait
         display: none
       font-size: 10px

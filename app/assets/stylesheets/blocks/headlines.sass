@@ -1,5 +1,6 @@
 @import globals
 @import mixins/brackets_surrounded
+@import mixins/ellipsis2
 @import mixins/hover_underlined
 @import mixins/input
 @import mixins/link
@@ -9,8 +10,13 @@ header.head
   margin-bottom: 15px
 
   h1, h2
-    +new-header-font
+    border-bottom: none
+    color: #111
     display: inline-block
+    font: 26px normal tahoma, verdana, arial, sans-serif
+
+    +iphone
+      font-size: 24px
 
     a.back
       +link_color
@@ -72,13 +78,13 @@ header.head
 
 .headline
   +transition(color, 0.2s)
-  +ellipsis
+  +ellipsis2
   background: darken(#ebeef1, 1%)
   border-left: 5px solid darken(#dbe0e6, 1%)
   color: #123
   font-size: 18px
-  line-height: $line_height
   font-weight: bold
+  line-height: $line_height
   margin-bottom: 5px
   +gt_laptop
     margin-bottom: 10px
@@ -86,7 +92,7 @@ header.head
   text-transform: uppercase
 
   &>a
-    +ellipsis
+    +ellipsis2
     //+transition(color, 0.2s)
     +link
     //color: #123

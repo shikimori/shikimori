@@ -93,7 +93,7 @@ table.b-table.list-lines
               span
                 = user_rate.episodes
             span.misc-value
-              span.sep.inline
+              span.b-separator.inline
                 | /
               - if user_rate.anime.ongoing? && user_rate.anime.episodes_aired > 0
                 = user_rate.anime.episodes_aired
@@ -109,7 +109,7 @@ table.b-table.list-lines
               span
                 = user_rate.chapters
             span.misc-value
-              span.sep.inline
+              span.b-separator.inline
                 | /
               = user_rate.manga.chapters.zero? ? '?' : user_rate.manga.chapters
 
@@ -119,7 +119,7 @@ table.b-table.list-lines
                 span
                   = user_rate.volumes
               span.misc-value
-                span.sep.inline
+                span.b-separator.inline
                   | /
                 = user_rate.manga.volumes.zero? ? '?' : user_rate.manga.volumes
 

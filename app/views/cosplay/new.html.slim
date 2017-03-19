@@ -15,16 +15,16 @@ header.head.misc
       .subheadline Общая информация
 
       .field-name Косплеер
-      .m10
-        = text_field_tag 'cosplay_gallery[name]', '', class: 'common', size: 45
+      .b-input
+        = text_field_tag 'cosplay_gallery[name]', '', size: 45
 
       .field-name Что косплеится (текстом имя персонажа, совпадающее с именем персонажа на сайте)
-      .m10
-        = f.text_field :target, class: 'common', size: 30
+      .b-input
+        = f.text_field :target, size: 30
 
       .field-name Источник (ссылка на страницу, откуда взят косплей)
-      .m10
-        = f.text_field :source, class: 'common', size: 30
+      .b-input
+        = f.text_field :source, size: 30
 
     .block.links
       span.right.anime.item-add
@@ -33,4 +33,4 @@ header.head.misc
       p.m15.images
 
       p.buttons.m30
-        span.save.button Создать
+        span.save.b-button Создать

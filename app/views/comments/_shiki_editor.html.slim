@@ -102,7 +102,7 @@ aside.buttons
 
     = text_field_tag 'link_value', '', class: 'link-value ac_input'
 
-    span.button.ok data-type='links' OK
+    span.b-button.ok data-type='links' OK
 
 .images.hidden-block
   p
@@ -112,7 +112,7 @@ aside.buttons
       class: 'link-value',
       placeholder: t('.enter.image_url')
 
-    span.button.ok data-type='images' OK
+    span.b-button.ok data-type='images' OK
 
 .quotes.hidden-block
   p
@@ -123,7 +123,7 @@ aside.buttons
       placeholder: t('.enter.user_name'),
       'data-autocomplete' => autocomplete_users_url
 
-    span.button.ok data-type='quotes' OK
+    span.b-button.ok data-type='quotes' OK
 
 = render 'blocks/upload_progress'
 
@@ -172,16 +172,16 @@ footer
   - if defined?(f)
     - if comment.persisted?
       = f.button :magic_submit
-      .button.preview data-preview_url="#{preview_url}" = t '.preview'
+      .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
       .unpreview = t '.back_to_editing'
       .cancel = t 'actions.cancel'
 
     - else
       = f.button :magic_submit
       .unpreview = t '.back_to_editing'
-      .button.preview data-preview_url="#{preview_url}" = t '.preview'
+      .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
       .hide = t '.hide'
 
   - else
-    .button.preview data-preview_url="#{preview_url}" = t '.preview'
+    .b-button.preview data-preview_url="#{preview_url}" = t '.preview'
     .unpreview = t '.back_to_editing'

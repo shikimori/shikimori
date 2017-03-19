@@ -1,6 +1,4 @@
-@import compass/css3/opacity
-@import compass/css3/transition
-@import compass/css3/text-shadow
+@import globals
 @import mixins/responsive
 
 .b-to-top
@@ -18,12 +16,12 @@
     visibility: visible
 
   .slide
-    +opacity(0)
     +transition(opacity ease 0.25s)
     background: #f0f0f0
     cursor: pointer
     height: 100%
     left: 0
+    opacity: 0
     position: fixed
     top: 0
     width: 60px
@@ -32,22 +30,21 @@
     //z-index: 10
 
     .slide
-      +opacity(0.6)
+      opacity: 0.6
 
     .arrow
       &:before
-        font-family: shikimori
-        +text-shadow(0px 0px 1px #fff)
         color: #123
         content: '\e803'
+        font-family: shikimori
+        text-shadow: 0px 0px 1px #fff
 
 
   &:active
     .slide
-      +opacity(0.85)
+      opacity: 0.85
 
   .arrow
-    +text-shadow(0px 0px 1px #123)
     color: #fff
     font-family: tahoma
     font-size: 20px
@@ -56,5 +53,6 @@
     left: 0
     position: fixed
     text-align: center
+    text-shadow: 0px 0px 1px #123
     top: 5px
     width: 60px

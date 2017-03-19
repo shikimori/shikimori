@@ -1,8 +1,4 @@
-@import compass/css3/border-radius
-@import compass/css3/opacity
-@import compass/css3/transition
-@import compass/utilities/general/clearfix
-@import globals/variables
+@import globals
 @import mixins/link
 
 .p-animes-franchise, .p-mangas-franchise
@@ -25,9 +21,9 @@
     width: 500px
 
     .close
-      +border-radius(15px)
       +link_color(#555555)
       background: #fff
+      border-radius: 15px
       cursor: pointer
       font-family: Courier
       font-size: 13px

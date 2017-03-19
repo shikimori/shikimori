@@ -1,6 +1,4 @@
-@import compass/css3/opacity
-@import compass/css3/transition
-@import compass/css3/images
+@import globals
 @import mixins/link
 
 $shade_height: 15px
@@ -16,13 +14,13 @@ $text_margin: 0px
 
   &:hover
     .expand
-      //+opacity(1)
+      //opacity: 1
       &:after
         content: '↓'
 
   .expand
     +link_color
-    //+opacity(0.4)
+    //opacity: 0.4
     +transition(none)
     cursor: pointer
     font-size: 11px

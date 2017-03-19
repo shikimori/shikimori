@@ -1,0 +1,48 @@
+@import mixins/ellipsis2
+@import mixins/responsive
+
+.b-block_list
+  li
+    +ellipsis2
+    background-color: transparent
+    color: #555555
+    cursor: pointer
+    font-family: helvetica,arial,sans-serif
+    font-size: 12px
+    line-height: 20.34px
+    margin: 1px 0 2px
+    overflow: hidden
+    padding: 1px 3px 0 3px
+
+    &:hover
+      color: black
+      background-color: #eaeaea
+
+    &:active
+      background-color: #e5e5e5
+
+    &.selected
+      background-color: #e5e5e5
+      color: #123
+
+    &.sub
+      margin-left: 15px
+
+    input
+      margin-right: 5px
+      display: inline-block
+
+    a, span
+      +ellipsis2
+
+    a
+      color: #555555
+      display: block
+
+
+    +lte_ipad
+      line-height: 30px
+      font-size: 16px
+
+      input
+        margin-right: 10px

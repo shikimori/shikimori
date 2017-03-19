@@ -1,7 +1,7 @@
 - if user_signed_in? && club.persisted?
   .block.actions
     .subheadline = i18n_i 'action', :other
-    ul.block-list
+    ul.b-block_list
       - if can? :edit, club
         li.edit-entry
           a.b-link href="#{edit_club_url club, page: :main}" = t '.edit_club'

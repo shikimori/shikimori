@@ -6,10 +6,10 @@
 
 //= require_tree ./vendor
 //= require ./layouts/reset
+//= require ./layouts/screen
 //= require ./layouts/l-page
 //= require ./layouts/l-menu
 //= require ./layouts/l-footer
-//= require ./layouts/screen
 //= require ./localization
 //= require_directory ./layouts/top_menu
 //= require_tree ./blocks
@@ -25,7 +25,7 @@
 @import mixins/link
 
 body
-  background-image: inline-image("/background/square_bg.png")
+  background-image: image_url("/assets/background/square_bg.png")
   font-family: $font-family
   font-size: 13px
   -webkit-overflow-scrolling: touch

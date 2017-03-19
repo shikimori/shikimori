@@ -1,5 +1,4 @@
 @import mixins/responsive
-@import compass/css3/box-shadow
 
 .toast-title
   font-weight: bold
@@ -59,12 +58,10 @@
   box-sizing: border-box
 
 #toast-container > div
-  +box-shadow(0 0 12px #999999)
+  box-shadow: 0 0 12px #999999
   margin: 0 0 6px
   padding: 15px 15px 15px 50px
   width: 300px
-  /*-moz-border-radius: 3px 3px 3px 3px;
-  /*-webkit-border-radius: 3px 3px 3px 3px;
   /*border-radius: 3px 3px 3px 3px;
   background-position: 15px center
   background-repeat: no-repeat
@@ -74,7 +71,7 @@
     opacity: 0.9
 
 #toast-container > :hover
-  +box-shadow(0 0 12px #000000)
+  box-shadow: 0 0 12px #000000
   opacity: 1
   cursor: pointer
 

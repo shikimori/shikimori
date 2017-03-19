@@ -1,7 +1,5 @@
-@import compass/css3/transition
-@import compass/typography/text/ellipsis
 @import globals
-@import globals/fonts
+@import mixins/ellipsis2
 
 .b-animes-menu,
   #rates_statuses_stats
@@ -20,12 +18,12 @@
   .right
     margin: 0px
 
-  .block-list
+  .b-block_list
     .date
       float: right
       font-size: 10px
 
-  .block-list li, .block-list-alt li
+  .b-block_list li
     width: auto
 
     &.sub
@@ -49,7 +47,7 @@
       font-size: 11px
 
     .b-user16
-      +ellipsis
+      +ellipsis2
       display: block
       line-height: inherit
 
@@ -63,7 +61,7 @@
       margin-top: 1px
 
     .name
-      +ellipsis
+      +ellipsis2
       display: block
 
     .date
@@ -77,8 +75,5 @@
     .history-entry-tooltip
       display: none
 
-      a
-        +normal-link
-
       .tooltip-details
-        +ellipsis
+        +ellipsis2

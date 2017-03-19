@@ -1,7 +1,4 @@
-@import compass/css3/transition
-@import compass/css3/opacity
-@import compass/typography/text/ellipsis
-@import compass/utilities/general/clearfix
+@import globals
 @import mixins/block
 @import mixins/forum_entry
 @import mixins/frame_form
@@ -54,7 +51,7 @@
         padding-left: 5px
 
     // &>footer
-      // +ellipsis
+      // +ellipsis2
       // color: #555
       // font-size: 11px
       // line-height: $line_height
@@ -126,12 +123,12 @@
           content: '/'
 
       .vote
-        +opacity(0.9)
         +transition(opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease)
         +js-link
         // color: $gray-1
         // cursor: pointer
         display: inline-block
+        opacity: 0.9
 
         &:before
           font-family: 'shikimori'
@@ -143,19 +140,20 @@
 
           &:before
             content: '\e82f'
+
           &.selected, &:hover
-            +opacity(1)
-            color: $green
             border-bottom-color: $green
+            color: $green
+            opacity: 1
 
         &.no
           &:before
             content: '\e82e'
 
           &.selected, &:hover
-            +opacity(1)
-            color: $red
             border-bottom-color: $red
+            color: $red
+            opacity: 1
 
   &>.b-comments
     +transition(margin-left 0.25s ease)

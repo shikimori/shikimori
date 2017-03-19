@@ -43,7 +43,7 @@
 
     <% @chronology.each do |month, group| %>
       <div class="block-title"><%=month %></div>
-      <ul class="block-list cosplay-month m20">
+      <ul class="b-block_list cosplay-month m20">
         <% group.each do |entry| %>
         <li class="<%=" selected" if @gallery.id == entry.id %>">
           <%=link_to cosplayer_path(@cosplayer, entry) do %>

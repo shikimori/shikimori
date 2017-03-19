@@ -4,6 +4,7 @@ class BbCodes::PTag
   def format text
     text.gsub(
       /\[p\] (.*?) \[\/p\]/mix,
-      '<div class="prgrph">\1</div>')
+      '<div class="b-prgrph">\1</div>'
+    )
   end
 end

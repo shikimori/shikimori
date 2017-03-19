@@ -2,7 +2,7 @@
   - if user_signed_in?
     .block.actions.r-iphone
       .subheadline = t 'actions.actions'
-      ul.block-list
+      ul.b-block_list
         - if can?(:edit, resource) && resource.persisted?
           li.edit-entry
             a href="#{edit_contest_url resource}" = t '.edit_contest'

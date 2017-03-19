@@ -10,21 +10,21 @@
         - group.each do |entry|
           tr
             td.name
-              a href="#{{entry[:guid] || entry[:link]}}"
+              a.b-link href="#{{entry[:guid] || entry[:link]}}"
                 == entry[:title]
 
   .cc
     .c-toshokan
       .subheadline = t '.search_on.toshokan'
       - @resource.files.toshokan_search.each do |phrase|
-        a href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
+        a.b-link href="http://www.tokyotosho.info/search.php?terms=#{URI.encode phrase}"
           = phrase
 
     .c-rutracker
       .subheadline = t '.search_on.rutracker'
       .content
         - @resource.files.rutracker_search.compact.each do |phrase|
-          a href="https://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
+          a.b-link href="https://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
             = phrase
 
   - if @resource.files.subtitles.any?
@@ -50,5 +50,5 @@
                 td.num
                   = sub[:type]
               td class="name #{"full-" if subs[:link].nil?}subtitles"
-                a href="#{{subs[:link].nil? ? sub[:link] : subs[:link]}}" rel="nofollow"
+                a.b-link href="#{{subs[:link].nil? ? sub[:link] : subs[:link]}}" rel="nofollow"
                   == sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '').blank? ? 'ссылка' : sub[:title].encode('utf-8', :undef => :replace, :invalid => :replace, :replace => '')

@@ -147,26 +147,23 @@
       .subheadline = t '.new_torrent'
       .subcontent
         = form_tag torrent_anime_path(@resource.object), method: :post, class: :m20 do |f|
-          .m5
+          .b-input
             p Link
             = text_field_tag 'torrent[link]',
               params[:torrent] ? params[:torrent]['link'] : '',
-              class: 'common',
               size: 100
-          .m5
+          .b-input
             p PubDate
             = text_field_tag 'torrent[pubDate]',
               params[:torrent] ? params[:torrent]['pubDate'] : '',
-              class: 'common',
               size: 40
-          .m15
+          .b-input
             p Title
             = text_field_tag 'torrent[title]',
               params[:torrent] ? params[:torrent]['title'] : '',
-              class: 'common',
               size: 100
           .m5
-            = submit_tag t('actions.add'), class: 'button'
+            = submit_tag t('actions.add'), class: 'b-button'
 
     .block
       .subheadline-buttons
@@ -174,14 +171,13 @@
       .subheadline = t '.parse_page'
       .subcontent
         = form_tag torrent_anime_path(@resource.object), method: :post do |f|
-          .m15
+          .b-input
             p URL
             = text_field_tag 'torrent[url]',
               params[:torrent] ? params[:torrent]['url'] : '',
-              class: 'common',
               size: 100
           .m5
-            = submit_tag t('.parse'), class: 'button'
+            = submit_tag t('.parse'), class: 'b-button'
 
   - if @resource.versions_page.first.any?
     .subheadline = t 'db_entries.versions.changes_history'
