@@ -1,4 +1,3 @@
-# TODO: переделать на state_machine
 class ClubInvite < ActiveRecord::Base
   belongs_to :club
   belongs_to :src, class_name: User.name, foreign_key: :src_id
@@ -6,25 +5,31 @@ class ClubInvite < ActiveRecord::Base
   # сообщение о приглашении
   belongs_to :message, dependent: :destroy
 
+  enumerize :status,
+    in: Types::ClubInvite::Status.values,
+    predicates: true,
+    default: Types::ClubInvite::Status[:pending]
+
   validates :club, :src, :dst, presence: true
-  validate :banned?, :invited?, :joined?, if: :dst
+  validates :dst_id, uniqueness: {
+    scope: [:club_id, :status],
+    message: ->(key, _model) { I18n.t key }
+  }
+
+  before_create :check_banned
+  before_create :check_joined
 
   after_create :create_message
-  after_create :cleanup_invites
+  before_create :cleanup_invites
 
   def accept
-    if status == ClubInviteStatus::Pending
-      update status: ClubInviteStatus::Accepted
-      club.join dst
-    end
-    message.update read: true
+    close
+    club.join dst unless club.member?(dst) || club.banned?(dst)
   end
 
-  def reject
-    if status == ClubInviteStatus::Pending
-      update status: ClubInviteStatus::Rejected
-    end
-    message.update read: true
+  def close
+    update status: Types::ClubInvite::Status[:closed]
+    message&.update read: true
   end
 
 private
@@ -47,15 +52,15 @@ private
       .destroy_all
   end
 
-  def banned?
-    errors.add :base, :banned if club.banned? dst
+  def check_banned
+    return unless club.banned? dst
+    errors.add :base, :banned
+    false
   end
 
-  def invited?
-    errors.add :base, :invited if club.invited? dst
-  end
-
-  def joined?
-    errors.add :base, :joined if club.member? dst
+  def check_joined
+    return unless club.member? dst
+    errors.add :base, :joined
+    false
   end
 end

@@ -16,7 +16,7 @@ class ClubInvitesController < ShikimoriController
   end
 
   def reject
-    @resource.reject
+    @resource.close
     render json: { notice: 'Приглашение отклонено' }
   end
 

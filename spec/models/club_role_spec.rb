@@ -29,7 +29,7 @@ describe ClubRole do
     let!(:invite) { create :club_invite, src: user2, dst: user, club: club }
     let!(:club_role) { create :club_role, club_id: club.id, user_id: user.id }
 
-    it { expect(invite.reload.status).to eq ClubInviteStatus::Accepted }
+    it { expect(invite.reload).to be_closed }
     it { expect { club_role.destroy }.to change(ClubInvite, :count).by -1 }
   end
 

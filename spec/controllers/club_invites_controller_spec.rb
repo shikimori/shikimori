@@ -15,7 +15,8 @@ describe ClubInvitesController do
     before { post :accept, club_id: club_invite.club_id, id: club_invite.id }
 
     it do
-      expect(resource.status).to eq ClubInviteStatus::Accepted
+      expect(resource).to be_closed
+      expect(club_invite.club.member? user).to eq true
       expect(response).to have_http_status :success
     end
   end
@@ -25,7 +26,8 @@ describe ClubInvitesController do
     before { post :reject, club_id: club_invite.club_id, id: club_invite.id }
 
     it do
-      expect(resource.status).to eq ClubInviteStatus::Rejected
+      expect(resource).to be_closed
+      expect(club_invite.club.member? user).to eq false
       expect(response).to have_http_status :success
     end
   end

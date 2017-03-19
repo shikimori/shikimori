@@ -1,21 +1,17 @@
 FactoryGirl.define do
   factory :club_invite do
-    status ClubInviteStatus::Pending
+    status Types::ClubInvite::Status[:pending]
     club
 
-    association :src, factory: :user
-    association :dst, factory: :user
+    src { seed :user }
+    dst { seed :user }
 
     trait :pending do
-      status ClubInviteStatus::Pending
+      status Types::ClubInvite::Status[:pending]
     end
 
-    trait :accepted do
-      status ClubInviteStatus::Accepted
-    end
-
-    trait :rejected do
-      status ClubInviteStatus::Rejected
+    trait :closed do
+      status Types::ClubInvite::Status[:closed]
     end
   end
 end

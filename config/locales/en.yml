@@ -178,6 +178,7 @@ en:
         logo: Logo
       club_invite:
         dst: User
+        dst_id: User
       club_page:
         parent_page_id: Parent page
         name: Name
@@ -217,8 +218,9 @@ en:
           attributes:
             base:
               banned: User is banned in this club. Invitation is forbidden
-              invited: User has already been invited to this club
               joined: User is a member of this club
+            dst_id:
+              taken: has already been invited to this club
             dst:
               empty: Empty
               blank: Blank

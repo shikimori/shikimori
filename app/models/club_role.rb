@@ -14,13 +14,14 @@ class ClubRole < ActiveRecord::Base
 private
 
   def accept_invites
-    ClubInvite.where(dst_id: user_id, club_id: club_id).each do |v|
-      v.update_columns status: ClubInviteStatus::Accepted
-      v.message.update! read: true if v.message
-    end
+    club_invites.each(&:close)
   end
 
   def destroy_invites
-    ClubInvite.where(dst_id: user_id, club_id: club_id).destroy_all
+    club_invites.destroy_all
+  end
+
+  def club_invites
+    ClubInvite.where(dst_id: user_id, club_id: club_id)
   end
 end

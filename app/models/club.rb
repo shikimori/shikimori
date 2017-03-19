@@ -113,15 +113,15 @@ class Club < ActiveRecord::Base
   end
 
   def banned? user
-    bans.any? {|v| v.user_id == user.id }
+    bans.any? { |v| v.user_id == user.id }
   end
 
   def invited? user
-    invites.any? {|v| v.dst_id == user.id }
+    invites.any? { |v| v.dst_id == user.id }
   end
 
   def member_role user
-    member_roles.find {|v| v.user_id == user.id }
+    member_roles.find { |v| v.user_id == user.id }
   end
 
   # группа ли это переводчиков

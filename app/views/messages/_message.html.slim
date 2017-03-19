@@ -11,13 +11,14 @@
       span.item-mobile title="#{i18n_i 'Action', :other}"
       aside.markers
         - if message.to == current_user
-          .b-new_marker.active[
-            class="#{!message.read ? '' : 'off'}"
-            data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
-            data-reappear='true'
-            data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
-            data-text="#{t 'markers.new'}"
-          ]
+          - if !message.read || ![MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind)
+            .b-new_marker.active[
+              class="#{!message.read ? '' : 'off'}"
+              data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
+              data-reappear="#{true}"
+              data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
+              data-text="#{t 'markers.new'}"
+            ]
 
       = render 'messages/buttons',
         message: message,
@@ -71,5 +72,5 @@
       - if !message.read && message.to == current_user
         .b-appear_marker.active[
           class="appear-message-#{message.id}"
-          data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"
         ]
+          / data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind)}"

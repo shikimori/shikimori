@@ -18,9 +18,7 @@ aside.buttons
         ]
 
     - elsif message.kind == MessageType::ClubRequest
-      - if message.read
-        span.item-delete title="#{t 'actions.delete'}"
-      - else
+      - if message.linked.pending?
         span.item-request-confirm[
           title="#{t 'actions.accept'}"
           data-remote='true'
@@ -39,6 +37,8 @@ aside.buttons
           title="#{t 'actions.delete'}"
           style="#{'display: none' unless message.read}"
         ]
+      - else
+        span.item-delete title="#{t 'actions.delete'}"
 
     - else
       - if message.kind == MessageType::Private

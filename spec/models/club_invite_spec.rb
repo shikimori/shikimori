@@ -11,129 +11,100 @@ describe ClubInvite do
     it { is_expected.to validate_presence_of :dst }
     it { is_expected.to validate_presence_of :club }
 
-    let(:club) { create :club, owner: user }
-    let(:user) { create :user }
-    let(:club_invite) { build :club_invite, src: user, dst: user, club: club }
+    describe 'uniqueness validation' do
+      let(:club_invite) { build :club_invite, dst: to, club: club }
+      let(:club) { create :club }
+      let(:to) { build_stubbed :user }
+      let!(:club_invite_2) { create :club_invite, dst: to, club: club }
 
-    describe '#banned?' do
-      let!(:ban) { create :club_ban, club: club, user: user }
       before { club_invite.save }
-      it { expect(club_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.club_invite.attributes.base.banned')] }
-    end
 
-    describe '#invited?' do
-      let!(:invite) { create :club_invite, src: user, dst: user, club_id: club.id, status: ClubInviteStatus::Accepted }
-      before { club_invite.save }
-      it { expect(club_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.club_invite.attributes.base.invited')] }
-    end
-
-    describe '#joined?' do
-      let!(:join) { create :club_role, user: user, club: club }
-      before { club_invite.save }
-      it { expect(club_invite.errors.messages[:base]).to eq [I18n.t('activerecord.errors.models.club_invite.attributes.base.joined')] }
+      it do
+        expect(club_invite.errors.messages[:dst_id]).to eq [
+          I18n.t('activerecord.errors.models.club_invite.attributes.dst_id.taken')
+        ]
+      end
     end
   end
 
-  context 'hooks' do
+  context 'callbacks' do
+    let(:club_invite) do
+      build :club_invite, src: from, dst: to, club: club, status: status
+    end
     let(:club) { create :club }
-    let(:src) { create :user }
-    let(:dst) { create :user }
+    let(:from) { build_stubbed :user }
+    let(:to) { build_stubbed :user }
+    let(:status) { Types::ClubInvite::Status[:pending] }
 
-    it 'creates ClubRequet message' do
-      invite = nil
-      expect do
-        expect do
-          invite = ClubInvite.create src: src, dst: dst, club: club
-        end.to change(ClubInvite, :count).by 1
-      end.to change(Message, :count).by 1
-
-      message = Message.last
-      expect(message.from_id).to eq src.id
-      expect(message.to_id).to eq dst.id
-      expect(message.linked).to eq invite
-      expect(message.kind).to eq MessageType::ClubRequest
+    describe '#check_banned' do
+      let!(:ban) { create :club_ban, club: club, user: to }
+      before { club_invite.save }
+      it do
+        expect(club_invite.errors.messages[:base]).to eq [
+          I18n.t('activerecord.errors.models.club_invite.attributes.base.banned')
+        ]
+      end
     end
 
-    it 'destroys its message' do
-      invite = nil
-      expect do
-        expect do
-          invite = ClubInvite.create src: src, dst: dst, club: club
-        end.to change(Message, :count).by 1
-        invite.destroy
-      end.to change(Message, :count).by 0
+    describe '#check_joined' do
+      let!(:club_role) { create :club_role, user: to, club: club }
+      before { club_invite.save }
+      it do
+        expect(club_invite.errors.messages[:base]).to eq [
+          I18n.t('activerecord.errors.models.club_invite.attributes.base.joined')
+        ]
+      end
     end
 
-    it 'destroys previous rejected invites' do
-      ClubInvite.create src: src, dst: dst, club: club, status: ClubInviteStatus::Rejected
-      expect do
-        ClubInvite.create src: src, dst: dst, club: club, status: ClubInviteStatus::Pending
-      end.to change(ClubInvite, :count).by 0
+    describe '#create_message' do
+      let(:club_invite) { create :club_invite, src: from, dst: to, club: club }
+      let(:message) { club_invite.message }
+
+      it do
+        expect(message.from).to eq from
+        expect(message.to).to eq to
+        expect(message.linked).to eq club_invite
+        expect(message.kind).to eq MessageType::ClubRequest
+      end
+    end
+
+    describe '#cleanup_invites' do
+      let!(:club_invite_1) { create :club_invite, :closed, src: from, dst: to, club: club }
+      let!(:club_invite_2) { create :club_invite, :closed, src: from, dst: from, club: club }
+      let!(:club_invite_3) { create :club_invite, :pending, src: from, dst: to, club: club }
+
+      it do
+        expect { club_invite_1.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(club_invite_2.reload).to be_persisted
+        expect(club_invite_3.reload).to be_persisted
+      end
     end
   end
 
   describe 'instance methods' do
+    let(:from) { create :user }
+    let(:to) { create :user }
+    let(:invite) { create :club_invite, status, src: from, dst: to }
+    let(:status) { Types::ClubInvite::Status[:pending] }
+
     describe '#accept' do
-      let(:invite) { create :club_invite, status }
       before { invite.accept }
 
-      context 'pending' do
-        let(:status) { :pending }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.member?(invite.dst)).to eq true
-          expect(invite.message.read).to eq true
-        end
-      end
-
-      context 'accepted' do
-        let(:status) { :accepted }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.member?(invite.dst)).to eq false
-          expect(invite.message.read).to eq true
-        end
-      end
-
-      context 'rejected' do
-        let(:status) { :rejected }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.member?(invite.dst)).to eq false
-          expect(invite.message.read).to eq true
-        end
+      it do
+        expect(invite).to be_closed
+        expect(invite.club.member?(invite.dst)).to eq true
+        expect(invite.message.read).to eq true
       end
     end
 
-    describe '#reject' do
-      let(:invite) { create :club_invite, status }
-      before { invite.reject }
+    describe '#close' do
+      before { invite.close }
 
-      context 'pending' do
-        let(:status) { :pending }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.member?(invite.dst)).to eq false
-          expect(invite.message.read).to eq true
-        end
-      end
-
-      context 'accepted' do
-        let(:status) { :accepted }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Accepted
-          expect(invite.club.member?(invite.dst)).to eq false
-          expect(invite.message.read).to eq true
-        end
-      end
-
-      context 'rejected' do
-        let(:status) { :rejected }
-        it do
-          expect(invite.status).to eq ClubInviteStatus::Rejected
-          expect(invite.club.member?(invite.dst)).to eq false
-          expect(invite.message.read).to eq true
-        end
+      let(:status) { Types::ClubInvite::Status[:pending] }
+      it do
+        expect(invite).to be_closed
+        expect(invite.club.member?(invite.dst)).to eq false
+        expect(invite.message.read).to eq true
       end
     end
   end
@@ -147,19 +118,13 @@ describe ClubInvite do
         let(:club_invite) { build_stubbed :club_invite, dst: user, status: status }
 
         context 'pending invite' do
-          let(:status) { ClubInviteStatus::Pending }
+          let(:status) { Types::ClubInvite::Status[:pending] }
           it { is_expected.to be_able_to :accept, club_invite }
           it { is_expected.to be_able_to :reject, club_invite }
         end
 
-        context 'accepted invite' do
-          let(:status) { ClubInviteStatus::Accepted }
-          it { is_expected.to be_able_to :accept, club_invite }
-          it { is_expected.to be_able_to :reject, club_invite }
-        end
-
-        context 'rejected invite' do
-          let(:status) { ClubInviteStatus::Rejected }
+        context 'closed invite' do
+          let(:status) { Types::ClubInvite::Status[:closed] }
           it { is_expected.to be_able_to :accept, club_invite }
           it { is_expected.to be_able_to :reject, club_invite }
         end
