@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails'#, '5.0.2'
+gem 'rails', '5.0.2'
 
 gem 'pg'
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -30,12 +30,10 @@ gem 'jade-rails', github: 'GBH/jade-rails'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
-gem 'activerecord-collection_cache_key' # NOTE: remove after upgrading to rails 5
 
 gem 'mal_parser', github: 'shikimori/mal_parser'
 
 gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
-gem 'unicorn'
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 gem 'rack-attack'
@@ -45,8 +43,8 @@ gem 'actionpack-action_caching'
 gem 'attr_extras'
 gem 'state_machine'
 gem 'nokogiri'
-gem 'paperclip', '5.1.0'
-gem 'rs_russian'
+gem 'paperclip'
+gem 'rs_russian', github: 'morr/russian'
 gem 'metrika'
 gem 'simple_form'
 gem 'simple_form-magic_submit', github: 'IngateFuture/simple_form-magic_submit'
@@ -55,7 +53,7 @@ gem 'active_model_serializers'
 
 #gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
-gem 'devise', '4.2.1'
+gem 'devise'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -83,6 +81,7 @@ gem 'enumerize'
 gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
+gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'unicode' # для downcase русских слов
 gem 'icalendar' # для аниме календраря
@@ -118,12 +117,12 @@ group :beta, :production do
   # gem 'appsignal'
   gem 'newrelic_rpm'
   gem 'lograge'
+  gem 'unicorn'
 end
 
 group :development do
   gem 'spring'
   gem 'letter_opener'
-  gem 'quiet_assets'
   gem 'mactag'
   #gem 'web-console'
   gem 'better_errors'
@@ -142,7 +141,7 @@ group :development do
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
 
-  # gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
+  gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
 
 gem 'byebug'
@@ -152,7 +151,9 @@ gem 'pry-byebug'
 gem 'pry-rails'
 gem 'pry-stack_explorer'
 
-group :test, :development do
+group :development, :test do
+  gem 'puma'
+
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-fchange', require: false
@@ -186,8 +187,6 @@ group :test do
   gem 'vcr'
   gem 'webmock', require: false
 end
-
-gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
 
 gem 'whenever', require: false
 gem 'clockwork', require: false
