@@ -54,8 +54,7 @@ gem 'active_model_serializers'
 
 #gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
-gem 'devise'
-gem 'devise-async' # асинхронная отсылка писем для devise
+gem 'devise', '4.2.1'
 
 gem 'omniauth'
 gem 'omniauth-facebook'

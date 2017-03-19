@@ -150,7 +150,7 @@ Devise.setup do |config|
   # config.navigational_formats = [:html, :iphone]
 
   # The default HTTP method used to sign out a resource. Default is :get.
-  # config.sign_out_via = :get
+  config.sign_out_via = :get
 
   config.omniauth(
     :vkontakte,

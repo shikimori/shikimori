@@ -66,7 +66,7 @@
             - @resource.unconnected_providers.each do |provider|
               a.b-oauth_token[
                 class="#{provider}"
-                href="#{user_omniauth_authorize_url provider}"
+                href="#{send :"user_#{provider}_omniauth_authorize_url"}"
                 title="Подключить авторизацию через #{provider.to_s.titleize}"
               ]
 

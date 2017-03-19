@@ -17,8 +17,15 @@ class User < ActiveRecord::Base
 
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-    :trackable, :validatable, :omniauthable, :async
+  devise(*%i(
+    database_authenticatable
+    registerable
+    recoverable
+    rememberable
+    trackable
+    validatable
+    omniauthable
+  ))
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
@@ -322,6 +329,11 @@ class User < ActiveRecord::Base
   # регистрация более суток тому назад
   def week_registered?
     created_at + WEEK_LIFE_INTERVAL <= Time.zone.now
+  end
+
+  # for async mails for Devise 4
+  def send_devise_notification notification, *args
+    ShikiMailer.delay_for(0.seconds).send(notification, self, *args)
   end
 
 private

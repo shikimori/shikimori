@@ -137,7 +137,7 @@ class ProfilesController < ShikimoriController
     end
 
     if update_profile
-      sign_in @resource, bypass: true if params[:user][:password].present?
+      bypass_sign_in @resource if params[:user][:password].present?
 
       if params[:page] == 'account'
         @resource.ignored_users = []
