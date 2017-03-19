@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '4.2.8'
+gem 'rails'#, '5.0.2'
 
 gem 'pg'
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
@@ -21,10 +21,12 @@ gem 'bourbon'
 # new events https://github.com/turbolinks/turbolinks#full-list-of-events
 # old events https://github.com/turbolinks/turbolinks-classic
 # gem 'turbolinks'
+# использовать возможность раздельной загрузки скриптов:
+#   в /about сделать подгружаемую highcharts
+#   а на странице /animes/id/franchise - d3
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 
 gem 'jade-rails', github: 'GBH/jade-rails'
-gem 'd3_rails'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
@@ -200,6 +202,7 @@ source 'https://rails-assets.org' do
   # gem 'rails-assets-moment'
   gem 'rails-assets-pikaday'
   gem 'rails-assets-urijs'
+  gem 'rails-assets-d3'
 
   # dependencies for rails-assets-packery'
   gem 'rails-assets-fizzy-ui-utils', '2.0.2'
