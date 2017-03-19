@@ -94,7 +94,7 @@ gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 gem 'zaru'
 
-gem 'apipie-rails', github: 'Apipie/apipie-rails', branch: 'master'
+gem 'apipie-rails'
 gem 'maruku'
 gem 'gcm'
 gem 'open_uri_redirections' # для работы http->https редиректов. например, при загрузке видео с vimeo (http://vimeo.com/113998423)
