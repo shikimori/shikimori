@@ -11,23 +11,23 @@ describe ClubInvitesController do
   end
 
   describe '#accept' do
-    let(:club_invite) { create :club_invite, :pending, dst: user }
+    let(:club_invite) { create :club_invite, :pending, dst: user, club: club }
     before { post :accept, club_id: club_invite.club_id, id: club_invite.id }
 
     it do
       expect(resource).to be_closed
-      expect(club_invite.club.member? user).to eq true
+      expect(club.reload.member? user).to eq true
       expect(response).to have_http_status :success
     end
   end
 
   describe '#reject' do
-    let(:club_invite) { create :club_invite, :pending, dst: user }
+    let(:club_invite) { create :club_invite, :pending, dst: user, club: club }
     before { post :reject, club_id: club_invite.club_id, id: club_invite.id }
 
     it do
       expect(resource).to be_closed
-      expect(club_invite.club.member? user).to eq false
+      expect(club.reload.member? user).to eq false
       expect(response).to have_http_status :success
     end
   end
