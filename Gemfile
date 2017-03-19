@@ -15,7 +15,14 @@ gem 'coffee-rails'
 gem 'sassc-rails'
 gem 'bourbon'
 # gem 'compass-rails'
+
+# turbolinks
+# events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
+# new events https://github.com/turbolinks/turbolinks#full-list-of-events
+# old events https://github.com/turbolinks/turbolinks-classic
+# gem 'turbolinks'
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
+
 gem 'jade-rails', github: 'GBH/jade-rails'
 gem 'd3_rails'
 

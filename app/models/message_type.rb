@@ -37,6 +37,5 @@ class MessageType
   ContestFinished = 'ContestFinished'
   ClubBroadcast = 'ClubBroadcast'
 
-  RESPONSE_REQUIRED = [FriendRequest, ClubRequest]
   ANIME_RELATED = [Anons, Ongoing, Released, Episode]
 end
