@@ -1,14 +1,20 @@
 .b-dialog.shiki-object.to-process[
-  id="#{dialog.target_user.id}"
-  data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
-  data-dynamic='message'
+  id="#{dialog.message.id}"
+  data-dynamic='dialog'
+  data-appear_type='message'
   data-message_id="#{dialog.message.id}"
 ]
   .inner.check_height
     span.item-mobile title="#{i18n_i 'Action', :other}"
     aside.markers
-      - unless dialog.read
-        .b-new_marker.active data-text="#{t 'markers.new'}"
+      - unless dialog.my_message?
+        .b-new_marker.active[
+          class="#{!dialog.message.read ? '' : 'off'}"
+          data-reappear='true'
+          data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
+          data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
+          data-text="#{t 'markers.new'}"
+        ]
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user
@@ -56,3 +62,10 @@
         = render dialog.message
       - else
         = dialog.html_body
+
+        - if !dialog.message.read && dialog.message.to == current_user
+          .b-appear_marker.active[
+            class="appear-message-#{dialog.message.id}"
+            data-disabled="false"
+            data-_appear_triggered="true"
+          ]

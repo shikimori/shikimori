@@ -20,6 +20,10 @@ $aside_width: 280px
     +transition(margin-left 0.25s ease)
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
 
+    aside.markers
+      .b-new_marker.off
+        display: none
+
     aside.buttons
       display: none
 
@@ -27,6 +31,10 @@ $aside_width: 280px
         display: none
 
     &:hover
+      aside.markers
+        .b-new_marker.off
+          display: block
+
       +gt_ipad
         aside.buttons
           display: block

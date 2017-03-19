@@ -106,38 +106,7 @@ class DynamicElements.Topic extends ShikiEditable
       $(@).closest('.footer-vote').removeClass 'b-ajax'
 
     # прочтение комментриев
-    @on 'appear', (e, $appeared, by_click) =>
-      $filtered_appeared = $appeared.not ->
-        $(@).data('disabled') || !(
-          @classList.contains('b-appear_marker') &&
-            @classList.contains('active')
-        )
-
-      if $filtered_appeared.exists()
-        interval = if by_click then 1 else 1500
-        $objects = $filtered_appeared.closest('.shiki-object')
-        $markers = $objects.find('.b-new_marker.active')
-        ids = $objects
-          .map ->
-            $object = $(@)
-            item_type = $object.data('appear_type')
-            "#{item_type}-#{@id}"
-          .toArray()
-
-        $.ajax
-          url: $filtered_appeared.data('appear_url')
-          type: 'POST'
-          data:
-            ids: ids.join ","
-
-        $filtered_appeared.remove()
-
-        if $markers.data('reappear')
-          $markers.addClass 'off'
-        else
-          $markers.css.bind($markers).delay(interval, opacity: 0)
-          $markers.hide.bind($markers).delay(interval + 500)
-          $markers.removeClass.bind($markers).delay(interval + 500, 'active')
+    @on 'appear', @_appear
 
     # ответ на комментарий
     @on 'comment:reply', (e, text, is_offtopic) =>
@@ -335,6 +304,41 @@ class DynamicElements.Topic extends ShikiEditable
 
     $placeholder
 
+  # handlers
+  _appear: (e, $appeared, by_click) =>
+    $filtered_appeared = $appeared.not ->
+      $(@).data('disabled') || !(
+        @classList.contains('b-appear_marker') &&
+          @classList.contains('active')
+      )
+    return unless $filtered_appeared.exists()
+
+    interval = if by_click then 1 else 1500
+    $objects = $filtered_appeared.closest('.shiki-object')
+    $markers = $objects.find('.b-new_marker.active')
+    ids = $objects
+      .map ->
+        $object = $(@)
+        item_type = $object.data('appear_type')
+        "#{item_type}-#{@id}"
+      .toArray()
+
+    $.ajax
+      url: $markers.data('appear_url')
+      type: 'POST'
+      data:
+        ids: ids.join ","
+
+    $filtered_appeared.remove()
+
+    if $markers.data('reappear')
+      $markers.addClass 'off'
+    else
+      $markers.css.bind($markers).delay(interval, opacity: 0)
+      $markers.hide.bind($markers).delay(interval + 500)
+      $markers.removeClass.bind($markers).delay(interval + 500, 'active')
+
+  # private functions
   # проверка высоты топика. урезание,
   # если текст слишком длинный (точно такой же код в shiki_comment)
   _check_height: =>

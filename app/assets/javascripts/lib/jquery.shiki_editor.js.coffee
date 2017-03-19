@@ -24,8 +24,6 @@ class @ShikiEditor extends ShikiView
 
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey
-        console.log e.keyCode
-
         # сохранение по ctrl+enter
         if e.keyCode is 10 || e.keyCode is 13
           @$form.submit()

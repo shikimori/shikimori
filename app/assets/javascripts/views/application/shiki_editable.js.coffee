@@ -46,14 +46,14 @@ class @ShikiEditable extends ShikiView
     # по клику на 'новое' пометка прочитанным
     $new_marker.on 'click', =>
       if $('.b-new_marker.active', @$inner).hasClass('off')
-        $new_marker.removeClass('off').data(manual: true)
+        $new_marker.removeClass('off').data(click_activated: true)
         $.ajax
           url: $new_marker.data 'reappear_url'
           type: 'POST'
           data:
             ids: @$root.attr('id')
 
-      else if $('.b-new_marker.active', @$inner).data('manual')
+      else if $('.b-new_marker.active', @$inner).data('click_activated')
         $new_marker.addClass('off')
         $.ajax
           url: $new_marker.data 'appear_url'

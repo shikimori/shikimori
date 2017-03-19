@@ -75,7 +75,7 @@ class @CommentsNotifier
     @update @current_counter - $nodes.length
 
   # увеличение счётчика по появлению новых элементов
-  increment_counter: (e, $appeared, by_click) =>
+  increment_counter: (e) =>
     @update @current_counter + 1
 
   # смещение счётчика вслед за скролом страницы

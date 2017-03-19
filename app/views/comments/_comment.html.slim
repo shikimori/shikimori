@@ -39,7 +39,10 @@
         ]
         - if comment.respond_to?(:broadcast?) && comment.broadcast?
           .b-broadcast_marker data-text="#{t '.broadcast'}"
-        .b-new_marker data-text="#{t 'markers.new'}"
+        .b-new_marker[
+          data-appear_url="#{api_appears_url}"
+          data-text="#{t 'markers.new'}"
+        ]
 
       aside.moderation-ban
       = render 'comments/buttons', comment: comment
@@ -80,5 +83,4 @@
 
     .b-appear_marker[
       class="appear-comment-#{comment.id}"
-      data-appear_url="#{api_appears_url}"
     ]

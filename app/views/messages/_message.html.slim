@@ -13,9 +13,9 @@
         - if message.to == current_user
           .b-new_marker.active[
             class="#{!message.read ? '' : 'off'}"
+            data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
             data-reappear='true'
             data-reappear_url="#{mark_read_api_messages_url is_read: '0'}"
-            data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
             data-text="#{t 'markers.new'}"
           ]
 
@@ -71,6 +71,5 @@
       - if !message.read && message.to == current_user
         .b-appear_marker.active[
           class="appear-message-#{message.id}"
-          data-appear_url="#{mark_read_api_messages_url is_read: '1'}"
           data-disabled="#{[MessageType::FriendRequest, MessageType::ClubRequest].include?(message.kind) ? true : false}"
         ]
