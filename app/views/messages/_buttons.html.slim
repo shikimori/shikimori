@@ -1,7 +1,7 @@
 aside.buttons
   .main-controls
     - if message.kind == MessageType::FriendRequest
-      - if message.read
+      - if message.to.friended? message.from
         span.item-delete title="#{t 'actions.delete'}"
       - else
         span.item-request-confirm[

@@ -51,7 +51,10 @@ private
   end
 
   def friend_request
-    response = message.read ? '' : i18n_t("friend_request.add.#{gender}")
+    unless message.to.friended? message.from
+      response = i18n_t("friend_request.add.#{gender}")
+    end
+
     "#{i18n_t("friend_request.added.#{gender}")} #{response}".strip
   end
 
