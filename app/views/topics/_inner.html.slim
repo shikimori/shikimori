@@ -5,7 +5,10 @@
       span.item-mobile title="#{t 'actions.actions'}"
 
     aside.markers
-      p.b-new_marker data-text="#{t 'markers.new'}"
+      p.b-new_marker[
+        data-appear_url="#{api_appears_url}"
+        data-text="#{t 'markers.new'}"
+      ]
 
     - unless topic_view.minified?
       = render 'topics/buttons', topic_view: topic_view
@@ -68,5 +71,4 @@
 
     .b-appear_marker[
       class="appear-topic-#{topic_view.topic.id}"
-      data-appear_url="#{api_appears_url}"
     ]
