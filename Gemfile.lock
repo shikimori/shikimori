@@ -527,6 +527,10 @@ GEM
     rails-assets-sugar (1.4.1)
     rails-assets-uevent (1.0.0)
     rails-assets-urijs (1.18.9)
+    rails-controller-testing (1.0.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
     rails-dom-testing (2.0.2)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6)
@@ -799,6 +803,7 @@ DEPENDENCIES
   rails-assets-sugar!
   rails-assets-uevent!
   rails-assets-urijs!
+  rails-controller-testing
   rails-i18n
   rake
   rb-fchange

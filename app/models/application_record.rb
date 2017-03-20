@@ -1,8 +1,19 @@
 class ApplicationRecord < ActiveRecord::Base
   extend Enumerize
-  extend BooleanAttribute
 
   self.abstract_class = true
+
+  def self.boolean_attribute attribute_name
+    define_method "#{attribute_name}?" do
+      send "is_#{attribute_name}"
+    end
+  end
+
+  def self.boolean_attributes *attribute_names
+    attribute_names.each do |attribute_name|
+      boolean_attribute attribute_name
+    end
+  end
 
   def wo_timestamp
     old = record_timestamps

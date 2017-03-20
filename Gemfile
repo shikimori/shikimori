@@ -165,6 +165,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
   gem 'rspec-its'
+  gem 'rails-controller-testing' # it allows using `assigns` method in specs
 
   gem 'spring-commands-rspec'
 
