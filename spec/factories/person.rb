@@ -8,25 +8,25 @@ FactoryGirl.define do
       ]
     end
 
-    after :build do |person|
-      person.class.skip_callback :update, :after, :touch_related
+    after :build do |model|
+      stub_method model, :touch_related
 
-      person.class.skip_callback :create, :after, :post_elastic
-      person.class.skip_callback :update, :after, :put_elastic
-      person.class.skip_callback :destroy, :after, :delete_elastic
+      stub_method model, :post_elastic
+      stub_method model, :put_elastic
+      stub_method model, :delete_elastic
     end
 
     trait :with_elasticserach do
-      after :build do |person|
-        person.class.set_callback :create, :after, :post_elastic
-        person.class.set_callback :update, :after, :put_elastic
-        person.class.set_callback :destroy, :after, :delete_elastic
+      after :build do |model|
+        unstub_method model, :post_elastic
+        unstub_method model, :put_elastic
+        unstub_method model, :delete_elastic
       end
     end
 
 
     trait :with_topics do
-      after(:create) { |v| v.generate_topics :ru }
+      after(:create) { |model| model.generate_topics :ru }
     end
   end
 end

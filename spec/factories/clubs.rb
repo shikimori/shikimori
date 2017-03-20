@@ -10,42 +10,42 @@ FactoryGirl.define do
 
     locale :ru
 
-    after :build do |club|
-      club.class.skip_callback :create, :after, :join_owner
-      club.class.skip_callback :create, :after, :assign_style
+    after :build do |model|
+      stub_method model, :join_owner
+      stub_method model, :assign_style
     end
 
     trait :with_owner_join do
-      after(:build) { |club| club.send :join_owner }
+      after(:build) { |model| unstub_method model, :join_owner }
     end
     trait :with_assign_style do
-      after(:build) { |club| club.send :assign_style }
+      after(:build) { |model| unstub_method model, :assign_style }
     end
     trait :with_topics do
-      after(:create) { |club| club.generate_topics club.locale }
+      after(:create) { |model| model.generate_topics model.locale }
     end
 
     trait :linked_anime do
-      after :build do |club|
-        FactoryGirl.create :club_link, :anime, club: club
+      after :build do |model|
+        FactoryGirl.create :club_link, :anime, club: model
       end
     end
 
     trait :linked_manga do
-      after :build do |club|
-        FactoryGirl.create :club_link, :manga, club: club
+      after :build do |model|
+        FactoryGirl.create :club_link, :manga, club: model
       end
     end
 
     trait :linked_character do
-      after :build do |club|
-        FactoryGirl.create :club_link, :character, club: club
+      after :build do |model|
+        FactoryGirl.create :club_link, :character, club: model
       end
     end
 
     trait :with_member do
-      after :build do |club|
-        FactoryGirl.create :club_role, club: club
+      after :build do |model|
+        FactoryGirl.create :club_role, club: model
       end
     end
 

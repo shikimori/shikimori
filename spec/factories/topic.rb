@@ -68,8 +68,8 @@ FactoryGirl.define do
       end
     end
 
-    after :build do |topic|
-      topic.class.skip_callback :create, :before, :check_antispam
+    after :build do |model|
+      stub_method model, :check_antispam
     end
 
     trait :offtopic do

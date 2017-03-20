@@ -8,9 +8,8 @@ FactoryGirl.define do
     author nil
     state 'working'
 
-    after :build do |video|
-      # video.class.skip_callback(:create, :after, :create_episode_notificaiton)
-      video.stub :create_episode_notificaiton
+    after :build do |model|
+      stub_method model, :create_episode_notificaiton
     end
 
     AnimeVideo.kind.values.each do |video_kind|
@@ -22,8 +21,7 @@ FactoryGirl.define do
     end
 
     trait :with_notification do
-      # after(:create) { |video| video.send(:create_episode_notificaiton) }
-      after(:build) { |video| video.unstub :create_episode_notificaiton }
+      after(:build) { |model| unstub_method model, :create_episode_notificaiton }
     end
   end
 end
