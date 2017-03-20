@@ -21,11 +21,11 @@ private
 
   def entries_count
     size = query.size
-    size.kind_of?(Hash) ? size.count : size
+    size.is_a?(Hash) ? size.count : size
   end
 
   def process query
-    query.offset(limit * (page-1)).limit(limit).to_a
+    query.offset(limit * (page - 1)).limit(limit).to_a
   end
 
   def query

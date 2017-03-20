@@ -117,14 +117,12 @@ private
       raise ForceRedirect, @view.url(duration: nil)
     end
 
-    if params[:page] == '0'
-      raise ForceRedirect, @view.url(page: nil)
-    end
+    raise ForceRedirect, @view.url(page: nil) if params[:page] == '0'
   end
 
   # был ли запущен поиск, и найден ли при этом один элемент
   def one_found_redirect_check
-    if params[:search] && @view.collection.kind_of?(Array) &&
+    if params[:search] && @view.collection.is_a?(Array) &&
         @view.collection.count == 1 && @view.page == 1 && !json?
       raise ForceRedirect, url_for(@view.collection.first)
     end

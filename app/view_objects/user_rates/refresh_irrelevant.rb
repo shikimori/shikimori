@@ -29,7 +29,11 @@ private
   end
 
   def assign_entry status, index, entry
-    key = @klass.name.downcase.to_sym
-    @library[status].user_rates[index].association_cache[key].target = entry
+    association_name = @klass.name.downcase.to_sym
+    association_cache = @library[status]
+      .user_rates[index]
+      .instance_variable_get('@association_cache')
+
+    association_cache[association_name].target = entry
   end
 end

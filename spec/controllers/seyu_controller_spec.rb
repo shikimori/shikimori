@@ -1,6 +1,8 @@
 describe SeyuController do
   let!(:seyu) { create :person, name: 'test', seyu: true }
-  let!(:role) { create :person_role, anime: create(:anime), person: seyu, role: 'Japanese' }
+  let!(:role) do
+    create :person_role, anime: create(:anime), person: seyu, role: 'Japanese'
+  end
 
   describe '#index' do
     let!(:person_2) { create :person, seyu: false }
@@ -26,7 +28,7 @@ describe SeyuController do
     end
 
     context 'person' do
-      let!(:role) { }
+      let!(:role) {}
       it { expect(response).to redirect_to person_url(seyu) }
     end
   end
