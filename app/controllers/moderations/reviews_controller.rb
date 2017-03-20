@@ -1,4 +1,4 @@
-# TODO: переделать авторизацию на cancancan
+# TODO: migrate to cancancan
 class Moderations::ReviewsController < ModerationsController
   before_action :authenticate_user!
   before_action :check_permissions

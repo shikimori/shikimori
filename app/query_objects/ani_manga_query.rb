@@ -282,10 +282,15 @@ private
     animelist = @user
       .send("#{@klass.name.downcase}_rates")
       .includes(@klass.name.downcase.to_sym)
-      .inject(:include => [], :exclude => []) do |result, v|
-        result[:include] << v.target_id if statuses[:include].include?(v[:status])
-        result[:exclude] << v.target_id if statuses[:exclude].include?(v[:status])
-        result
+      .each_with_object(include: [], exclude: []) do |entry, memo|
+
+        if statuses[:include].include? UserRate.statuses[entry.status]
+          memo[:include] << entry.target_id
+        end
+
+        if statuses[:exclude].include? UserRate.statuses[entry.status]
+          memo[:exclude] << entry.target_id
+        end
       end
 
     animelist[:include] << 0 if statuses[:include].any? && animelist[:include].none?
@@ -333,7 +338,7 @@ private
   end
 
   # разбитие на 2 группы по наличию !, плюс возможная обработка элементов
-  def bang_split values, force_integer=false
+  def bang_split values, force_integer = false
     data = values.inject(:include => [], :exclude => []) do |rez,v|
       rez[v.starts_with?('!') ? :exclude : :include] << v.sub('!', '')
       rez

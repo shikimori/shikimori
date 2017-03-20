@@ -89,12 +89,6 @@ GIT
       attr_extras
       nokogiri
 
-GIT
-  remote: git://github.com/watg/multi_fetch_fragments.git
-  revision: 8cae7d8dc1c0b00b94419035854d90ba93ca8863
-  specs:
-    multi_fetch_fragments (0.0.17)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -764,7 +758,6 @@ DEPENDENCIES
   maruku
   meta-tags
   metrika
-  multi_fetch_fragments!
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets

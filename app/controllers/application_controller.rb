@@ -103,6 +103,13 @@ class ApplicationController < ActionController::Base
     [superclass_name, db_name].select(&:present?).flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
   end
 
+  # Use this in place of params when generating links to Excel etc.
+  # See https://github.com/rails/rails/issues/26289
+  def safe_params
+    params.except(:host, :port, :protocol).permit!
+  end
+  helper_method :safe_params
+
   #-----------------------------------------------------------------------------
   # domain helpers
   #-----------------------------------------------------------------------------

@@ -317,9 +317,9 @@ describe AniMangaQuery do
       let(:anime_2) { create :anime }
       let(:anime_3) { create :anime }
 
-      let!(:user_rate1) { create :user_rate, user_id: user.id, target_id: anime_1.id, target_type: Anime.name, status: UserRate.statuses[:planned] }
-      let!(:user_rate2) { create :user_rate, user_id: user.id, target_id: anime_2.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
-      let!(:user_rate3) { create :user_rate, user_id: user.id, target_id: anime_3.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
+      let!(:user_rate_1) { create :user_rate, user_id: user.id, target_id: anime_1.id, target_type: Anime.name, status: UserRate.statuses[:planned] }
+      let!(:user_rate_2) { create :user_rate, user_id: user.id, target_id: anime_2.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
+      let!(:user_rate_3) { create :user_rate, user_id: user.id, target_id: anime_3.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
 
       let!(:anime_4) { create :anime }
       let!(:anime_5) { create :anime }

@@ -58,8 +58,6 @@ module Site
     config.assets.enabled = true
 
     ActiveRecord::Base.include_root_in_json = false
-    #config.active_record.disable_implicit_join_references = true
-    config.active_record.raise_in_transactional_callbacks = true
 
     config.redis_db = 2
 

@@ -50,6 +50,7 @@ describe UserRatesImporter do
         expect(rates.first.volumes).to eq 7
         expect(rates.first.chapters).to eq 8
         expect(rates.first.text).to eq 'test'
+        expect(rates.first.status).to eq 'watching'
       end
     end
 

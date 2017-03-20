@@ -38,7 +38,6 @@ gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 gem 'rack-attack'
 
-gem 'multi_fetch_fragments', github: 'watg/multi_fetch_fragments'
 gem 'actionpack-action_caching'
 gem 'attr_extras'
 gem 'state_machine'
@@ -159,14 +158,6 @@ group :development, :test do
   gem 'rb-fchange', require: false
 
   gem 'rspec'
-  gem 'rspec-core'
-  gem 'rspec-expectations'
-  gem 'rspec-mocks'
-  gem 'rspec-rails'
-  gem 'rspec-collection_matchers'
-  gem 'rspec-its'
-  gem 'rails-controller-testing' # it allows using `assigns` method in specs
-
   gem 'spring-commands-rspec'
 
   gem 'guard', require: false
@@ -183,6 +174,13 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails', require: false
   gem 'factory_girl-seeds', require: false
+  gem 'rails-controller-testing' # it allows use `assigns` method in specs
+  gem 'rspec-core'
+  gem 'rspec-expectations'
+  gem 'rspec-mocks'
+  gem 'rspec-rails'
+  gem 'rspec-collection_matchers'
+  gem 'rspec-its'
   gem 'shoulda-matchers'
   gem 'timecop'
   gem 'vcr'
