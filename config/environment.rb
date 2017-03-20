@@ -1,9 +1,8 @@
-# Load the rails application
-require File.expand_path('../application', __FILE__)
+# Load the Rails application.
+require_relative 'application'
 
-# Initialize the rails application
-Site::Application.initialize!
-
+# Initialize the Rails application.
+Rails.application.initialize!
 require Rails.root.join('lib/string')
 require Rails.root.join('lib/i18n_hack')
 require Rails.root.join('lib/open_image')
@@ -11,5 +10,5 @@ require Rails.root.join('lib/responders/json_responder')
 require Rails.root.join('lib/named_logger')
 require Rails.root.join('lib/boolean_attribute')
 
-require 'acts_as_voteable'
-require 'open-uri'
+# require 'acts_as_voteable'
+# require 'open-uri'

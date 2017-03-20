@@ -78,7 +78,7 @@ gem 'acts-as-taggable-on'
 gem 'acts_as_list'
 gem 'meta-tags'
 gem 'enumerize'
-gem 'draper'
+gem 'draper', '3.0.0.pre1'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
 gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
@@ -141,7 +141,7 @@ group :development do
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
 
-  gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
+  # gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
 end
 
 gem 'byebug'

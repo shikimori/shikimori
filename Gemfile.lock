@@ -50,13 +50,6 @@ GIT
     cancancan (1.15.0)
 
 GIT
-  remote: git://github.com/morr/foreman.git
-  revision: f3390d413fe3a8d6951b0684c816781c3a7aec96
-  specs:
-    foreman (0.48.0.pre3)
-      thor (>= 0.13.6)
-
-GIT
   remote: git://github.com/morr/russian.git
   revision: 752e7bae6d86e7829b0caffd6eeabbfdb5d259c4
   specs:
@@ -142,6 +135,11 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.0.2)
       activesupport (= 5.0.2)
+    activemodel-serializers-xml (1.0.1)
+      activemodel (> 5.x)
+      activerecord (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (5.0.2)
       activemodel (= 5.0.2)
       activesupport (= 5.0.2)
@@ -236,10 +234,11 @@ GEM
     diff-lcs (1.3)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
+    draper (3.0.0.pre1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
       request_store (~> 1.0)
     draper-cancancan (1.1.1)
     dry-configurable (0.6.2)
@@ -725,7 +724,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   devise
-  draper
+  draper (= 3.0.0.pre1)
   draper-cancancan
   dry-struct
   enumerize
@@ -737,7 +736,6 @@ DEPENDENCIES
   faye
   faye-redis
   faye-websocket (= 0.10.0)
-  foreman!
   gcm
   guard
   guard-bundler
