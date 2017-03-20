@@ -1,5 +1,5 @@
 class ContestMatchesController < ShikimoriController
-  before_filter :authenticate_user!, only: [:vote]
+  before_action :authenticate_user!, only: [:vote]
   layout nil
 
   def show

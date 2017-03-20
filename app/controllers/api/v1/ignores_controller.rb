@@ -1,5 +1,5 @@
 class Api::V1::IgnoresController < Api::V1Controller
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   api :POST, '/ignores/:id', 'Create an ignore', deprecated: true
   def create

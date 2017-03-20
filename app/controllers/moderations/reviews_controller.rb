@@ -1,7 +1,7 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::ReviewsController < ModerationsController
-  before_filter :authenticate_user!
-  before_filter :check_permissions
+  before_action :authenticate_user!
+  before_action :check_permissions
   PENDING_PER_PAGE = 15
 
   def index

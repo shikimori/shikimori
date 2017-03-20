@@ -1,5 +1,5 @@
 class FavouritesController < ShikimoriController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   # добаавление в избранные
   def create

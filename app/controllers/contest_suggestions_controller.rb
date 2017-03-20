@@ -1,6 +1,6 @@
 class ContestSuggestionsController < ShikimoriController
-  before_filter :authenticate_user!
-  before_filter :fetch_contest
+  before_action :authenticate_user!
+  before_action :fetch_contest
 
   def show
     @suggestion = ContestSuggestion.find params[:id]

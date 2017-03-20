@@ -1,6 +1,6 @@
 # TODO: переделать авторизацию на cancancan
 class Moderations::AbuseRequestsController < ModerationsController
-  before_filter :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :summary, :spoiler, :abuse]
+  before_action :authenticate_user!, only: [:index, :show, :take, :deny, :offtopic, :summary, :spoiler, :abuse]
 
   def index
     @processed = postload_paginate(params[:page], 25) do

@@ -1,5 +1,5 @@
 class Api::V1::UserImagesController < Api::V1Controller
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   api :POST, '/user_images', 'Create an user image'
   param :image, :undef, require: true

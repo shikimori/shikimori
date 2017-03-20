@@ -1,7 +1,7 @@
 class Api::V1::AnimeVideosController < Api::V1Controller
   before_action :fetch_anime
 
-  before_filter :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index]
   load_and_authorize_resource only: [:create, :destroy]
 
   RYUTER_TOKEN = 'b904f15dbd33a8d8ada48a2895c9de00ce91d6268651d798'

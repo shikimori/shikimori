@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_filter :set_omniauth_data
+  before_action :set_omniauth_data
 
   EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
 
