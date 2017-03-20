@@ -1,8 +1,6 @@
 class Forums::List < ViewObjectBase
   include Enumerable
 
-  instance_cache :all
-
   def each
     forums.each { |forum| yield forum }
   end
