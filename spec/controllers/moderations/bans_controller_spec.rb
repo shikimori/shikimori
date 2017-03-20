@@ -13,12 +13,12 @@ describe Moderations::BansController do
   describe '#new' do
     context 'moderator' do
       context 'with abuse_request' do
-        before { get :new, comment_id: comment.id, abuse_request_id: abuse_request.id }
+        before { get :new, params: { comment_id: comment.id, abuse_request_id: abuse_request.id } }
         it { expect(response).to have_http_status :success }
       end
 
       context 'wo abuse_request' do
-        before { get :new, comment_id: comment.id }
+        before { get :new, params: { comment_id: comment.id } }
         it { expect(response).to have_http_status :success }
       end
     end
@@ -26,7 +26,7 @@ describe Moderations::BansController do
 
   describe '#create' do
     context 'moderator' do
-      before { post :create, ban: { reason: 'test', duration: '1h', comment_id: comment.id, abuse_request_id: abuse_request.id } }
+      before { post :create, params: { ban: { reason: 'test', duration: '1h', comment_id: comment.id, abuse_request_id: abuse_request.id } } }
 
       it { expect(response).to have_http_status :success }
       it { expect(response.content_type).to eq 'application/json' }

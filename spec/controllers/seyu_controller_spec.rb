@@ -9,7 +9,7 @@ describe SeyuController do
         params[:scope].where(id: seyu.id)
       end
     end
-    before { get :index, search: 'test', kind: 'seyu' }
+    before { get :index, params: { search: 'test', kind: 'seyu' } }
 
     it do
       expect(response).to have_http_status :success
@@ -19,7 +19,7 @@ describe SeyuController do
 
   describe '#show' do
     let!(:seyu) { create :person, :with_topics, seyu: true }
-    before { get :show, id: seyu.to_param }
+    before { get :show, params: { id: seyu.to_param } }
 
     context 'seyu' do
       it { expect(response).to have_http_status :success }
@@ -32,7 +32,7 @@ describe SeyuController do
   end
 
   describe '#roles' do
-    before { get :roles, id: seyu.to_param }
+    before { get :roles, params: { id: seyu.to_param } }
     it { expect(response).to have_http_status :success }
   end
 end

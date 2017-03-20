@@ -16,7 +16,7 @@ describe Api::V1::DevicesController, :show_in_doc do
 
   describe '#create' do
     let(:params) {{ user_id: user.id, token: 'test', platform: 'ios', name: 'test'}}
-    before { post :create, device: params, format: :json }
+    before { post :create, params: { device: params }, format: :json }
 
     it do
       expect(assigns :device).to be_persisted
@@ -29,7 +29,7 @@ describe Api::V1::DevicesController, :show_in_doc do
   describe '#update' do
     let(:device) { create :device, user: user }
     let(:params) {{ token: 'test zxc' }}
-    before { patch :update, id: device.id, device: params, format: :json }
+    before { patch :update, params: { id: device.id, device: params }, format: :json }
 
     it do
       expect(assigns :device).to have_attributes params
@@ -40,7 +40,7 @@ describe Api::V1::DevicesController, :show_in_doc do
 
   describe '#destroy' do
     let(:device) { create :device, user: user }
-    before { delete :destroy, id: device.id, format: :json }
+    before { delete :destroy, params: { id: device.id }, format: :json }
 
     it do
       expect(assigns :device).to be_destroyed

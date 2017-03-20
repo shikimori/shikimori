@@ -13,7 +13,7 @@ describe Moderations::AnimeVideoReportsController do
   end
 
   describe '#accept' do
-    before { get :accept, id: anime_video_report.id }
+    before { get :accept, params: { id: anime_video_report.id } }
 
     context 'broken' do
       it do
@@ -32,7 +32,7 @@ describe Moderations::AnimeVideoReportsController do
   end
 
   describe '#accept_edit' do
-    before { get :accept_edit, id: anime_video_report.id }
+    before { get :accept_edit, params: { id: anime_video_report.id } }
     it do
       expect(anime_video_report.reload).to be_accepted
       expect(anime_video.reload.state).to eq kind
@@ -49,7 +49,7 @@ describe Moderations::AnimeVideoReportsController do
         message: 'test'
       }
     end
-    before { post :create, anime_video_report: params }
+    before { post :create, params: { anime_video_report: params } }
 
     it do
       expect(response).to have_http_status :success
@@ -63,7 +63,7 @@ describe Moderations::AnimeVideoReportsController do
     let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video, state: 'accepted' }
     let(:state) { kind }
 
-    before { get :cancel, id: anime_video_report.id }
+    before { get :cancel, params: { id: anime_video_report.id } }
 
     context 'broken' do
       let(:kind) { 'broken' }
@@ -98,7 +98,7 @@ describe Moderations::AnimeVideoReportsController do
   end
 
   describe '#reject' do
-    before { get :reject, id: anime_video_report.id }
+    before { get :reject, params: { id: anime_video_report.id } }
 
     context 'broken' do
       let(:kind) { 'broken' }

@@ -21,7 +21,7 @@ describe ModerationsController do
     end
 
     describe 'all' do
-      before { get :missing_videos, kind: :all }
+      before { get :missing_videos, params: { kind: :all } }
       it { expect(response).to be_success }
     end
   end
@@ -29,7 +29,7 @@ describe ModerationsController do
   describe '#missing_episodes' do
     include_context :authenticated, :user
     let(:anime) { create :anime }
-    before { get :missing_episodes, kind: :all, anime_id: anime.id }
+    before { get :missing_episodes, params: { kind: :all, anime_id: anime.id } }
 
     it { expect(response).to be_success }
   end

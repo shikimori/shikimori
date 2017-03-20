@@ -9,7 +9,7 @@ describe Moderations::AbuseRequestsController do
 
   describe '#show' do
     let(:abuse_request) { create :abuse_request }
-    before { get :show, id: abuse_request.id }
+    before { get :show, params: { id: abuse_request.id } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -18,14 +18,14 @@ describe Moderations::AbuseRequestsController do
       let(:comment) { create :comment }
 
       describe 'response' do
-        before { post method, comment_id: comment.id, reason: 'zxcv', format: :json }
+        before { post method, params: { comment_id: comment.id, reason: 'zxcv' }, format: :json }
 
         it { expect(response).to have_http_status :success }
         it { expect(response.content_type).to eq 'application/json' }
       end
 
       describe 'result' do
-        after { post method, comment_id: comment.id, format: :json }
+        after { post method, params: { comment_id: comment.id }, format: :json }
         it { expect_any_instance_of(AbuseRequestsService).to receive method }
       end
     end

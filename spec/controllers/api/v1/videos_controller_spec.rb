@@ -3,7 +3,7 @@ describe Api::V1::VideosController do
 
   describe '#videos', :show_in_doc do
     let!(:video) { create :video, :confirmed, anime: anime }
-    before { get :index, anime_id: anime.id, format: :json }
+    before { get :index, params: { anime_id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -16,7 +16,7 @@ describe Api::V1::VideosController do
     include_context :authenticated, :user
 
     let!(:video) {}
-    before { post :create, anime_id: anime_id, video: video_params, format: :json }
+    before { post :create, params: { anime_id: anime_id, video: video_params }, format: :json }
 
     let(:video_params) { { url: url, kind: kind, name: name } }
     let(:url) { 'http://youtube.com/watch?v=l1YX30AmYsA' }
@@ -68,7 +68,7 @@ describe Api::V1::VideosController do
     include_context :authenticated, :user
 
     let(:video) { create :video, :confirmed }
-    before { delete :destroy, anime_id: anime.id, id: video.id }
+    before { delete :destroy, params: { anime_id: anime.id, id: video.id } }
 
     it do
       expect(assigns :version).to be_persisted

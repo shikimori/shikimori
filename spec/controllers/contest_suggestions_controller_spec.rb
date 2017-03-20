@@ -3,13 +3,13 @@ describe ContestSuggestionsController do
   let(:contest) { create :contest, state: 'proposing' }
 
   describe '#show' do
-    before { get :show, contest_id: contest.id, id: suggestion.id }
+    before { get :show, params: { contest_id: contest.id, id: suggestion.id } }
     let(:suggestion) { create :contest_suggestion, contest: contest, user: user }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    let(:make_request) { post :create, contest_id: contest.id, contest_suggestion: { item_id: anime.id, item_type: anime.class.name } }
+    let(:make_request) { post :create, params: { contest_id: contest.id, contest_suggestion: { item_id: anime.id, item_type: anime.class.name } } }
     let(:anime) { create :anime }
 
     context 'valid record' do
@@ -32,7 +32,7 @@ describe ContestSuggestionsController do
   end
 
   describe '#destroy' do
-    subject(:make_request) { delete :destroy, contest_id: contest.id, id: suggestion }
+    subject(:make_request) { delete :destroy, params: { contest_id: contest.id, id: suggestion } }
     let(:suggestion) { create :contest_suggestion, contest: contest, user: user }
 
     context 'valid record' do

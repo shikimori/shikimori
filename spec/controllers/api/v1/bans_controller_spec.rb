@@ -5,7 +5,7 @@ describe Api::V1::BansController, :show_in_doc do
     let!(:ban_1) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
     let!(:ban_2) { create :ban, user: user, moderator: user }
 
-    before { get :index, page: 1, limit: 1, format: :json }
+    before { get :index, params: { page: 1, limit: 1 }, format: :json }
 
     it do
       expect(response).to have_http_status :success

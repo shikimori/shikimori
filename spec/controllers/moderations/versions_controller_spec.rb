@@ -8,29 +8,29 @@ describe Moderations::VersionsController do
   let(:anime) { create :anime }
 
   describe '#show' do
-    before { get :show, id: version.id }
+    before { get :show, params: { id: version.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#tooltip' do
-    before { get :tooltip, id: version.id }
+    before { get :tooltip, params: { id: version.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#index' do
     describe 'html' do
-      before { get :index, type: 'content' }
+      before { get :index, params: { type: 'content' } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'json' do
-      before { get :index, type: 'content', page: 2, format: :json }
+      before { get :index, params: { type: 'content', page: 2 }, format: :json }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#accept' do
-    before { post :accept, id: version.id }
+    before { post :accept, params: { id: version.id } }
 
     it do
       expect(resource).to be_accepted
@@ -39,7 +39,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#take' do
-    before { post :take, id: version.id }
+    before { post :take, params: { id: version.id } }
 
     it do
       expect(resource).to be_taken
@@ -48,7 +48,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#reject' do
-    before { post :reject, id: version.id, reason: 'test' }
+    before { post :reject, params: { id: version.id, reason: 'test' } }
 
     it do
       expect(resource).to be_rejected
@@ -58,7 +58,7 @@ describe Moderations::VersionsController do
 
   describe '#accept_taken' do
     let(:version) { create :description_version, :taken, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :accept_taken, id: version.id }
+    before { post :accept_taken, params: { id: version.id } }
 
     it do
       expect(resource).to be_accepted
@@ -68,7 +68,7 @@ describe Moderations::VersionsController do
 
   describe '#take_accepted' do
     let(:version) { create :description_version, :accepted, item: anime, item_diff: { russian: ['a', 'bbb'] }, user: author }
-    before { post :take_accepted, id: version.id }
+    before { post :take_accepted, params: { id: version.id } }
 
     it do
       expect(resource).to be_taken
@@ -77,7 +77,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#destroy' do
-    let(:make_request) { delete :destroy, id: version.id }
+    let(:make_request) { delete :destroy, params: { id: version.id } }
 
     context 'moderator' do
       before { make_request }
@@ -109,7 +109,7 @@ describe Moderations::VersionsController do
   end
 
   describe '#create' do
-    let(:make_request) { post :create, version: params }
+    let(:make_request) { post :create, params: { version: params } }
     let(:params) {{
       item_id: anime.id,
       item_type: Anime.name,

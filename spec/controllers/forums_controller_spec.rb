@@ -11,13 +11,13 @@ describe ForumsController do
   end
 
   describe '#edit' do
-    before { get :edit, id: forum.id }
+    before { get :edit, params: { id: forum.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:params) {{ position: 5 }}
-    before { patch :update, id: forum.id, forum: params }
+    before { patch :update, params: { id: forum.id, forum: params } }
 
     it do
       expect(response).to redirect_to forums_url

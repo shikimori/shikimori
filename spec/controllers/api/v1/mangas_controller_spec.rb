@@ -14,17 +14,19 @@ describe Api::V1::MangasController, :show_in_doc do
 
     before do
       get :index,
-        page: 1,
-        limit: 1,
-        type: 'manga',
-        season: '2014',
-        genre: genre.id.to_s,
-        publisher: publisher.id.to_s,
-        rating: 'r',
-        search: 'Te',
-        order: 'ranked',
-        mylist: '1',
-        censored: 'false',
+        params: {
+          page: 1,
+          limit: 1,
+          type: 'manga',
+          season: '2014',
+          genre: genre.id.to_s,
+          publisher: publisher.id.to_s,
+          rating: 'r',
+          search: 'Te',
+          order: 'ranked',
+          mylist: '1',
+          censored: 'false'
+        },
         format: :json
     end
 
@@ -37,7 +39,7 @@ describe Api::V1::MangasController, :show_in_doc do
 
   describe '#show' do
     let(:manga) { create :manga, :with_topics }
-    before { get :show, id: manga.id, format: :json }
+    before { get :show, params: { id: manga.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -48,7 +50,7 @@ describe Api::V1::MangasController, :show_in_doc do
   describe '#similar' do
     let(:manga) { create :manga }
     let!(:similar) { create :similar_manga, src: manga }
-    before { get :similar, id: manga.id, format: :json }
+    before { get :similar, params: { id: manga.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -63,7 +65,7 @@ describe Api::V1::MangasController, :show_in_doc do
     let(:person) { create :person }
     let!(:role_1) { create :person_role, manga: manga, character: character, role: 'Main' }
     let!(:role_2) { create :person_role, manga: manga, person: person, role: 'Director' }
-    before { get :roles, id: manga.id, format: :json }
+    before { get :roles, params: { id: manga.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -75,7 +77,7 @@ describe Api::V1::MangasController, :show_in_doc do
   describe '#related' do
     let(:manga) { create :manga }
     let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
-    before { get :related, id: manga.id, format: :json }
+    before { get :related, params: { id: manga.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -87,7 +89,7 @@ describe Api::V1::MangasController, :show_in_doc do
   describe '#franchise' do
     let(:manga) { create :manga }
     let!(:similar) { create :related_manga, source: manga, manga: create(:manga), relation: 'Adaptation' }
-    before { get :franchise, id: manga.id, format: :json }
+    before { get :franchise, params: { id: manga.id }, format: :json }
     after { BannedRelations.instance.clear_cache! }
 
     it do
@@ -104,7 +106,7 @@ describe Api::V1::MangasController, :show_in_doc do
         params[:scope].where(id: manga_1)
       end
     end
-    before { get :search, q: 'asd', censored: true, format: :json }
+    before { get :search, params: { q: 'asd', censored: true }, format: :json }
 
     it do
       expect(collection).to have(1).item

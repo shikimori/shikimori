@@ -3,13 +3,13 @@ describe UserHistoryController do
 
   describe '#index' do
     context 'without history' do
-      before { get :index, profile_id: user.to_param }
+      before { get :index, params: { profile_id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with history' do
       let!(:history) { create :user_history, user: user, target: create(:anime) }
-      let(:make_request) { get :index, profile_id: user.to_param }
+      let(:make_request) { get :index, params: { profile_id: user.to_param } }
 
       context 'has access to list' do
         before { make_request }
@@ -27,7 +27,7 @@ describe UserHistoryController do
   describe '#reset' do
     let!(:user_history) { create :user_history, user: user, target: entry }
     let(:type) { entry.class.name.downcase }
-    let(:make_request) { delete :reset, profile_id: user.to_param, type: type }
+    let(:make_request) { delete :reset, params: { profile_id: user.to_param, type: type } }
 
     context 'has no access' do
       let(:entry) { create :anime }

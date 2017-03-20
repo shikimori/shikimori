@@ -5,7 +5,7 @@ describe VotesController do
 
   describe '#create' do
     it 'forbidden' do
-      post :create, defaults
+      post :create, params: defaults
       expect(response).to be_redirect
     end
 
@@ -13,14 +13,14 @@ describe VotesController do
       before { sign_in user }
 
       it 'success' do
-        post :create, defaults
+        post :create, params: defaults
         expect(response).to be_success
       end
 
       it 'only once' do
         expect {
-          post :create, defaults
-          post :create, defaults.merge(voting: 'no')
+          post :create, params: defaults
+          post :create, params: defaults.merge(voting: 'no')
         }.to change(Vote, :count).by(1)
 
         expect(user.votes.first.voting).to be_falsy
@@ -30,7 +30,7 @@ describe VotesController do
 
       it 'forbidden for own' do
         entry2 =  FactoryGirl.create :review, user: user
-        post :create, id: entry2.to_param, type: entry2.class.name, voting: 'yes'
+        post :create, params: { id: entry2.to_param, type: entry2.class.name, voting: 'yes' }
         expect(response).to be_forbidden
       end
     end

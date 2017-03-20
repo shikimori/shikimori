@@ -10,7 +10,7 @@ describe AnimesCollectionController do
 
           describe '#index' do
             describe 'html' do
-              before { get :index, klass: type }
+              before { get :index, params: { klass: type } }
 
               it do
                 expect(response.content_type).to eq 'text/html'
@@ -19,7 +19,7 @@ describe AnimesCollectionController do
             end
 
             describe 'json' do
-              before { get :index, klass: type, format: 'json' }
+              before { get :index, params: { klass: type }, format: 'json' }
 
               it do
                 expect(response.content_type).to eq 'application/json'
@@ -30,7 +30,7 @@ describe AnimesCollectionController do
 
           describe '#season' do
             describe 'html' do
-              before { get :index, klass: type, season: 'summer_2012' }
+              before { get :index, params: { klass: type, season: 'summer_2012' } }
 
               it do
                 expect(response.content_type).to eq 'text/html'
@@ -39,7 +39,7 @@ describe AnimesCollectionController do
             end
 
             describe 'json' do
-              before { get :index, klass: type, season: 'summer_2012', format: 'json' }
+              before { get :index, params: { klass: type, season: 'summer_2012' }, format: 'json' }
 
               it do
                 expect(response.content_type).to eq 'application/json'

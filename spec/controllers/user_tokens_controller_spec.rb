@@ -1,7 +1,7 @@
 describe UserTokensController do
   describe '#destroy' do
     include_context :authenticated, :user
-    let(:make_request) { delete :destroy, id: user_token.id }
+    let(:make_request) { delete :destroy, params: { id: user_token.id } }
 
     context 'allowed' do
       let(:user_token) { create :user_token, user: user }

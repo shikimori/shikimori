@@ -9,7 +9,7 @@ describe Moderations::ReviewsController do
 
   describe 'accept' do
     let(:review) { create :review, user: user }
-    before { post :accept, id: review.id }
+    before { post :accept, params: { id: review.id } }
 
     specify { expect(assigns(:review).accepted?).to be_truthy }
     it { expect(response).to redirect_to moderations_reviews_url }
@@ -17,7 +17,7 @@ describe Moderations::ReviewsController do
 
   describe 'reject' do
     let(:review) { create :review, :with_topics, user: user }
-    before { post :reject, id: review.id }
+    before { post :reject, params: { id: review.id } }
 
     specify { expect(assigns(:review).rejected?).to be_truthy }
     it { expect(response).to redirect_to moderations_reviews_url }

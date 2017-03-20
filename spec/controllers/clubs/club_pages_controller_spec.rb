@@ -4,12 +4,12 @@ describe Clubs::ClubPagesController do
   let(:club_page) { create :club_page, club: club }
 
   describe '#new' do
-    before { get :new, club_id: club.id, club_page: { club_id: club.id } }
+    before { get :new, params: { club_id: club.id, club_page: { club_id: club.id } } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    before { post :create, club_id: club.id, club_page: params }
+    before { post :create, params: { club_id: club.id, club_page: params } }
 
     context 'success' do
       let(:params) do
@@ -45,12 +45,12 @@ describe Clubs::ClubPagesController do
   end
 
   describe '#edit' do
-    before { get :edit, club_id: club.to_param, id: club_page.id }
+    before { get :edit, params: { club_id: club.to_param, id: club_page.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
-    before { patch :update, club_id: club.id, id: club_page.id, club_page: params }
+    before { patch :update, params: { club_id: club.id, id: club_page.id, club_page: params } }
 
     context 'success' do
       let(:params) do
@@ -88,7 +88,7 @@ describe Clubs::ClubPagesController do
   end
 
   describe '#destroy' do
-    before { delete :destroy, club_id: club.id, id: club_page.id }
+    before { delete :destroy, params: { club_id: club.id, id: club_page.id } }
 
     it do
       expect(resource).to be_destroyed
@@ -101,7 +101,7 @@ describe Clubs::ClubPagesController do
     let!(:club_page) { create :club_page, club: club, position: 2 }
     let!(:club_page_2) { create :club_page, club: club, position: 1 }
 
-    before { post :up, club_id: club.id, id: club_page.id }
+    before { post :up, params: { club_id: club.id, id: club_page.id } }
 
     it do
       expect(club_page.reload.position).to eq 1
@@ -116,7 +116,7 @@ describe Clubs::ClubPagesController do
     let!(:club_page) { create :club_page, club: club, position: 1 }
     let!(:club_page_2) { create :club_page, club: club, position: 2 }
 
-    before { post :down, club_id: club.id, id: club_page.id }
+    before { post :down, params: { club_id: club.id, id: club_page.id } }
 
     it do
       expect(club_page.reload.position).to eq 2

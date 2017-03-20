@@ -7,7 +7,7 @@ describe MangasController do
     let(:phrase) { 'qqq' }
 
     before { allow(Autocomplete::Manga).to receive(:call).and_return [manga] }
-    before { get :autocomplete, search: 'Fff' }
+    before { get :autocomplete, params: { search: 'Fff' } }
 
     it do
       expect(collection).to eq [manga]

@@ -21,7 +21,7 @@ describe Api::V1::UserRatesController do
       before do
         @request.headers['X-User-Nickname'] = user.nickname
         @request.headers['X-User-Api-Access-Token'] = user.api_access_token
-        post :create, user_rate: create_params, format: :json
+        post :create, params: { user_rate: create_params }, format: :json
       end
 
       it do
@@ -36,7 +36,7 @@ describe Api::V1::UserRatesController do
 
     describe '#show', :show_in_doc do
       let(:user_rate) { create :user_rate, user: user }
-      before { get :show, id: user_rate.id, format: :json }
+      before { get :show, params: { id: user_rate.id }, format: :json }
 
       it { expect(response).to have_http_status :success }
     end
@@ -57,7 +57,7 @@ describe Api::V1::UserRatesController do
           rewatches: 5
         }
       end
-      let(:make_request) { post :create, user_rate: create_params, format: :json }
+      let(:make_request) { post :create, params: { user_rate: create_params }, format: :json }
 
       context 'new user_rate', :show_in_doc do
         before { make_request }
@@ -93,7 +93,7 @@ describe Api::V1::UserRatesController do
           rewatches: 5
         }
       end
-      before { patch :update, id: user_rate.id, user_rate: update_params, format: :json }
+      before { patch :update, params: { id: user_rate.id, user_rate: update_params }, format: :json }
 
       it do
         expect(resource).to have_attributes update_params
@@ -103,7 +103,7 @@ describe Api::V1::UserRatesController do
 
     describe '#increment', :show_in_doc do
       let(:user_rate) { create :user_rate, user: user, episodes: 1 }
-      before { post :increment, id: user_rate.id, format: :json }
+      before { post :increment, params: { id: user_rate.id }, format: :json }
 
       it do
         expect(resource.episodes).to eq user_rate.episodes + 1
@@ -113,7 +113,7 @@ describe Api::V1::UserRatesController do
 
     describe '#destroy', :show_in_doc do
       let(:user_rate) { create :user_rate, user: user }
-      before { delete :destroy, id: user_rate.id, format: :json }
+      before { delete :destroy, params: { id: user_rate.id }, format: :json }
 
       it do
         expect(resource).to be_destroyed
@@ -127,7 +127,7 @@ describe Api::V1::UserRatesController do
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
-        before { delete :cleanup, type: :anime }
+        before { delete :cleanup, params: { type: :anime } }
 
         it do
           expect(response).to have_http_status :success
@@ -139,7 +139,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { delete :cleanup, type: :manga }
+        before { delete :cleanup, params: { type: :manga } }
 
         it do
           expect(response).to have_http_status :success
@@ -155,7 +155,7 @@ describe Api::V1::UserRatesController do
 
       context 'anime', :show_in_doc do
         let(:entry) { create :anime }
-        before { post :reset, type: :anime }
+        before { post :reset, params: { type: :anime } }
 
         it do
           expect(response).to have_http_status :success
@@ -166,7 +166,7 @@ describe Api::V1::UserRatesController do
 
       context 'manga' do
         let(:entry) { create :manga }
-        before { post :reset, type: :manga }
+        before { post :reset, params: { type: :manga } }
 
         it do
           expect(response).to have_http_status :success

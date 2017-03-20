@@ -25,7 +25,7 @@ describe AdminLogInController do
   describe '#log_in' do
     context 'admin' do
       before { sign_in admin }
-      before { get :log_in, nickname: nickname }
+      before { get :log_in, params: { nickname: nickname } }
       let(:nickname) { user.nickname }
 
       context 'known user' do
@@ -42,7 +42,7 @@ describe AdminLogInController do
 
     context 'user' do
       before { sign_in user }
-      before { get :log_in, nickname: user.nickname }
+      before { get :log_in, params: { nickname: user.nickname } }
 
       it { should respond_with :not_found }
       it { expect(session[AdminLogInController.admin_id_to_restore_key]).to be_nil }

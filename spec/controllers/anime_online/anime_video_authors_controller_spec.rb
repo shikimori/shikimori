@@ -4,7 +4,7 @@ describe AnimeOnline::AnimeVideoAuthorsController do
     let!(:author_2) { create :anime_video_author, name: 'testt' }
     let!(:author_3) { create :anime_video_author, name: 'zula zula' }
 
-    before { get :autocomplete, search: 'test' }
+    before { get :autocomplete, params: { search: 'test' } }
     it do
       expect(collection).to have(1).item
       expect(response).to be_success

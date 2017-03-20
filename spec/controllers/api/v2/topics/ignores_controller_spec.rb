@@ -4,7 +4,7 @@ describe Api::V2::Topics::IgnoresController, :show_in_doc do
   let(:topic) { seed :offtopic_topic }
 
   describe '#create' do
-    before { post :create, topic_id: topic.id }
+    before { post :create, params: { topic_id: topic.id } }
 
     it do
       expect(user.topic_ignores).to have(1).item
@@ -15,7 +15,7 @@ describe Api::V2::Topics::IgnoresController, :show_in_doc do
 
   describe '#destroy' do
     let!(:topic_ignore) { create :topic_ignore, user: user, topic: topic }
-    before { delete :destroy, topic_id: topic.id }
+    before { delete :destroy, params: { topic_id: topic.id } }
 
     it do
       expect { topic_ignore.reload }.to raise_error ActiveRecord::RecordNotFound

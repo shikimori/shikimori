@@ -2,7 +2,7 @@ describe Api::V1::MessagesController, :show_in_doc do
   include_context :authenticated, :user
 
   describe '#show' do
-    let(:make_request) { get :show, id: message.id, format: :json }
+    let(:make_request) { get :show, params: { id: message.id }, format: :json }
 
     describe 'has access' do
       before { make_request }
@@ -17,7 +17,7 @@ describe Api::V1::MessagesController, :show_in_doc do
   end
 
   describe '#create' do
-    before { post :create, frontend: is_frontend, message: params, format: :json }
+    before { post :create, params: { frontend: is_frontend, message: params }, format: :json }
     let(:params) do
       {
         kind: MessageType::Private,
@@ -60,7 +60,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     let(:message) { create :message, :private, from: user, to: user }
 
     before { sign_in user }
-    before { patch :update, id: message.id, frontend: is_frontend, message: params, format: :json }
+    before { patch :update, params: { id: message.id, frontend: is_frontend, message: params }, format: :json }
     let(:params) {{ body: body }}
 
     context 'success' do
@@ -94,7 +94,7 @@ describe Api::V1::MessagesController, :show_in_doc do
 
   describe '#destroy' do
     let(:message) { create :message, :notification, from: user, to: user }
-    before { delete :destroy, id: message.id, format: :json }
+    before { delete :destroy, params: { id: message.id }, format: :json }
 
     it do
       expect(resource).to be_destroyed
@@ -105,7 +105,7 @@ describe Api::V1::MessagesController, :show_in_doc do
   describe '#mark_read' do
     let(:message_from) { create :message, from: user }
     let(:message_to) { create :message, to: user }
-    before { post :mark_read, is_read: '1', ids: [message_to.id, message_from.id, 987654].join(',') }
+    before { post :mark_read, params: { is_read: '1', ids: [message_to.id, message_from.id, 987654].join(',') } }
 
     it do
       expect(message_from.reload.read).to be_falsy
@@ -120,7 +120,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     let!(:message_3) { create :message, :private, to: user, from: user }
 
     include_context :back_redirect
-    before { post :read_all, type: 'news', frontend: is_frontend }
+    before { post :read_all, params: { type: 'news', frontend: is_frontend } }
 
     context 'api' do
       let(:is_frontend) { false }
@@ -150,7 +150,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     let!(:message_3) { create :message, :private, to: user, from: user }
 
     include_context :back_redirect
-    before { post :delete_all, type: 'notifications', frontend: is_frontend }
+    before { post :delete_all, params: { type: 'notifications', frontend: is_frontend } }
 
     context 'api' do
       let(:is_frontend) { false }

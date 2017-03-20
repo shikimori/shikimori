@@ -6,7 +6,7 @@ describe DanbooruController do
     let!(:tag_2) { create :danbooru_tag, name: 'testt' }
     let!(:tag_3) { create :danbooru_tag, name: 'zula zula' }
 
-    before { get :autocomplete, search: 'test' }
+    before { get :autocomplete, params: { search: 'test' } }
     it do
       expect(collection).to have(1).item
       expect(response).to be_success
@@ -17,7 +17,7 @@ describe DanbooruController do
     let(:data) { { 'url' => url, 'test' => 'test' } }
 
     before { stub_request(:any, url).to_return body: data.to_json }
-    before { get :yandere, url: URI.encode(Base64.encode64(url).strip) }
+    before { get :yandere, params: { url: URI.encode(Base64.encode64(url).strip) } }
 
     context 'not allowed url' do
       let(:url) { 'http://lenta.ru/image.jpg' }

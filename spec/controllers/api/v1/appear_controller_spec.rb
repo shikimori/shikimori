@@ -4,7 +4,7 @@ describe Api::V1::AppearController do
 
   describe '#create' do
     let(:user) { create :user }
-    let(:submit) { post :create, ids: "comment-#{comment.id}" }
+    let(:submit) { post :create, params: {ids: "comment-#{comment.id}"} }
 
     let(:bulk_create_viewings) { double call: nil }
     before do
@@ -40,11 +40,13 @@ describe Api::V1::AppearController do
       context 'multiple viewed ids' do
         let(:comment_2) { create :comment, commentable: topic }
         let(:submit) do
-          post :create, ids: [
+          post :create, params: {
+ids: [
             "comment-#{comment.id}",
             "comment-#{comment_2.id}",
             "topic-#{topic.id}"
           ].join(',')
+}
         end
 
         it 'multiple views', :show_in_doc do
@@ -59,8 +61,8 @@ describe Api::V1::AppearController do
 
       context '2 same viewed ids' do
         let(:submit) do
-          post :create, ids: "comment-#{comment.id}"
-          post :create, ids: "comment-#{comment.id}"
+          post :create, params: {ids: "comment-#{comment.id}"}
+          post :create, params: {ids: "comment-#{comment.id}"}
         end
         it do
           expect(bulk_create_viewings)
@@ -72,7 +74,7 @@ describe Api::V1::AppearController do
 
       context 'not existing viewed id' do
         let(:submit) do
-          post :create, ids: 'comment-999999'
+          post :create, params: { ids: 'comment-999999' }
         end
         it 'no views for not existing' do
           expect(bulk_create_viewings)

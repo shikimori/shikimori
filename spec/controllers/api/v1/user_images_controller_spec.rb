@@ -12,7 +12,7 @@ describe Api::V1::UserImagesController do
       let(:club) { create :club }
 
       describe 'upload test' do
-        before { post :create, model: club.class.name, id: club.id, image: image }
+        before { post :create, params: { model: club.class.name, id: club.id, image: image } }
 
         it do
           expect(json).to have_key :id
@@ -29,7 +29,7 @@ describe Api::V1::UserImagesController do
 
       describe 'documentation', :show_in_doc do
         before { allow(controller).to receive(:uploaded_image).and_return image }
-        before { post :create, linked_type: 'Comment', image: 'uploaded file' }
+        before { post :create, params: { linked_type: 'Comment', image: 'uploaded file' } }
         it { expect(response).to have_http_status :success }
       end
     end

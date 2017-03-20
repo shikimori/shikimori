@@ -3,7 +3,7 @@ describe UserRatesController do
 
   describe '#index' do
     let!(:user_rate) { create :user_rate, user: user }
-    let(:make_request) { get :index, profile_id: user.to_param, list_type: 'anime' }
+    let(:make_request) { get :index, params: { profile_id: user.to_param, list_type: 'anime' } }
 
     context 'has access to list' do
       before { make_request }
@@ -19,12 +19,12 @@ describe UserRatesController do
 
   describe '#edit' do
     let(:user_rate) { create :user_rate, user: user }
-    before { get :edit, id: user_rate.id }
+    before { get :edit, params: { id: user_rate.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#export' do
-    let(:make_request) { get :export, profile_id: user.to_param, list_type: 'anime', format: 'xml' }
+    let(:make_request) { get :export, params: { profile_id: user.to_param, list_type: 'anime' }, format: 'xml' }
     let!(:user_rate) { create :user_rate, user: user, target: create(:anime) }
 
     context 'has access' do
@@ -50,7 +50,7 @@ describe UserRatesController do
     context 'has no access' do
       let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
-      it { expect{post :import, profile_id: user.to_param}.to raise_error CanCan::AccessDenied }
+      it { expect{post :import, params: { profile_id: user.to_param }}.to raise_error CanCan::AccessDenied }
     end
 
     context 'mal' do
@@ -60,7 +60,7 @@ describe UserRatesController do
       ]}
 
       let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
-      before { post :import, profile_id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json }
+      before { post :import, params: { profile_id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json } }
 
       context 'no rewrite' do
         let(:rewrite) { false }
@@ -139,7 +139,7 @@ describe UserRatesController do
   </manga>
 </myanimelist>"
       }
-      before { post :import, profile_id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml }
+      before { post :import, params: { profile_id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml } }
 
       it 'imports data' do
         expect(response).to redirect_to index_profile_messages_url(user, :notifications)

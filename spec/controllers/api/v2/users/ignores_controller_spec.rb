@@ -4,7 +4,7 @@ describe Api::V2::Users::IgnoresController, :show_in_doc do
   let(:target_user) { create :user }
 
   describe '#create' do
-    before { post :create, user_id: target_user.id }
+    before { post :create, params: { user_id: target_user.id } }
 
     it do
       expect(user.ignores).to have(1).item
@@ -15,7 +15,7 @@ describe Api::V2::Users::IgnoresController, :show_in_doc do
 
   describe '#destroy' do
     let!(:user_ignore) { create :ignore, user: user, target: target_user }
-    before { delete :destroy, user_id: target_user.id }
+    before { delete :destroy, params: { user_id: target_user.id } }
 
     it do
       expect { user_ignore.reload }.to raise_error ActiveRecord::RecordNotFound

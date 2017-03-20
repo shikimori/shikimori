@@ -1,7 +1,7 @@
 describe EmailsController do
   describe '#bounce' do
     let(:user) { create :user }
-    let(:make_request) { post :bounce, recipient: email }
+    let(:make_request) { post :bounce, params: { recipient: email } }
 
     context 'present user' do
       let(:email) { user.email }
@@ -40,7 +40,7 @@ describe EmailsController do
 
   describe '#spam' do
     let(:user) { create :user }
-    before { post :spam, recipient: user.email }
+    before { post :spam, params: { recipient: user.email } }
 
     it do
       expect(user.reload.messages).to be_empty

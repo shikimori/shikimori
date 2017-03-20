@@ -5,7 +5,7 @@ describe Api::V1::AccessTokensController, :show_in_doc do
   let!(:user) { create :user, nickname: nickname, password: password, api_access_token: token }
 
   describe '#show' do
-    before { get :show, nickname: nickname, password: password }
+    before { get :show, params: { nickname: nickname, password: password } }
 
     it do
       expect(response).to have_http_status :success
@@ -15,7 +15,7 @@ describe Api::V1::AccessTokensController, :show_in_doc do
   end
 
   describe '#create' do
-    before { post :create, nickname: nickname, password: password }
+    before { post :create, params: { nickname: nickname, password: password } }
 
     it do
       expect(response).to have_http_status :success

@@ -8,7 +8,7 @@ describe CommentsController do
 
   describe '#show' do
     context 'html' do
-      before { get :show, id: comment.id }
+      before { get :show, params: { id: comment.id } }
 
       it do
         expect(response).to have_http_status :success
@@ -17,7 +17,7 @@ describe CommentsController do
     end
 
     context 'json' do
-      before { get :show, id: comment.id, format: 'json' }
+      before { get :show, params: { id: comment.id }, format: 'json' }
 
       it do
         expect(response).to have_http_status :success
@@ -28,45 +28,45 @@ describe CommentsController do
 
   describe '#fetch' do
     it do
-      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
       expect(response).to be_success
     end
 
     it 'not_found for wrong comment' do
       expect do
-        get :fetch, comment_id: (comment.id + 1), topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+        get :fetch, params: { comment_id: (comment.id + 1), topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'not_found for wrong topic' do
       expect do
-        get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: (offtopic_topic.id + 1), skip: 1, limit: 10
+        get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: (offtopic_topic.id + 1), skip: 1, limit: 10 }
       end.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'forbidden for mismatched comment and topic' do
       comment = create :comment, topic: create(:topic)
-      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10
+      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
       expect(response).to be_forbidden
 
-      get :fetch, comment_id: comment.id, topic_type: Topic.name, topic_id: create(:topic).id, skip: 1, limit: 10
+      get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: create(:topic).id, skip: 1, limit: 10 }
       expect(response).to be_forbidden
     end
   end
 
   describe '#chosen' do
     describe 'one' do
-      before { get :chosen, ids: comment.id.to_s }
+      before { get :chosen, params: { ids: comment.id.to_s } }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'multiple' do
-      before { get :chosen, ids: "#{comment.id},#{comment2.id}" }
+      before { get :chosen, params: {ids: "#{comment.id},#{comment2.id}"} }
       it { expect(response).to have_http_status :success }
     end
 
     describe 'unexisted' do
-      before { get :chosen, ids: "#{comment2.id + 1}" }
+      before { get :chosen, params: {ids: "#{comment2.id + 1}"} }
       it { expect(response).to have_http_status :success }
     end
   end

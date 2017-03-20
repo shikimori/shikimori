@@ -3,7 +3,7 @@ describe Api::V1::IgnoresController do
   let(:user_2) { create :user, id: 1234567, nickname: 'user_1234567' }
 
   describe '#create' do
-    let(:make_request) { post :create, id: user_2.id }
+    let(:make_request) { post :create, params: { id: user_2.id } }
 
     context 'unauthorized' do
       before { make_request }
@@ -39,7 +39,7 @@ describe Api::V1::IgnoresController do
   end
 
   describe '#destroy' do
-    let(:make_request) { delete :destroy, id: user_2.id }
+    let(:make_request) { delete :destroy, params: { id: user_2.id } }
 
     context 'unauthorized' do
       before { make_request }

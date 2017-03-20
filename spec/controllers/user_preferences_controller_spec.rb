@@ -4,10 +4,12 @@ describe UserPreferencesController do
   describe '#update' do
     let(:make_request) do
       patch :update,
-        profile_id: user.to_param,
-        page: 'profile',
-        user: user_params,
-        user_preferences: preferences_params
+        params: {
+          profile_id: user.to_param,
+          page: 'profile',
+          user: user_params,
+          user_preferences: preferences_params
+        }
     end
     let(:user_params) { nil }
     let(:preferences_params) { { anime_in_profile: true } }

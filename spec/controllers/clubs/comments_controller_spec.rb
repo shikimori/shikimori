@@ -6,7 +6,7 @@ describe Clubs::CommentsController do
   let!(:club_role) { create :club_role, role, user: user, club: club }
 
   describe '#broadcast' do
-    subject(:make_request) { get :broadcast, club_id: club.to_param }
+    subject(:make_request) { get :broadcast, params: { club_id: club.to_param } }
 
     context 'admin' do
       let(:role) { :admin }

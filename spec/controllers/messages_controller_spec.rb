@@ -2,13 +2,13 @@ describe MessagesController do
   include_context :authenticated, :user
 
   describe '#index' do
-    before { get :index, profile_id: user.to_param, messages_type: 'notifications' }
+    before { get :index, params: { profile_id: user.to_param, messages_type: 'notifications' } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#show' do
     let(:message) { create :message, from: user }
-    let(:make_request) { get :show, id: message.id }
+    let(:make_request) { get :show, params: { id: message.id } }
 
     context 'has access' do
       before { make_request }
@@ -23,7 +23,7 @@ describe MessagesController do
 
   describe '#edit' do
     let(:message) { create :message, from: user }
-    let(:make_request) { get :edit, id: message.id }
+    let(:make_request) { get :edit, params: { id: message.id } }
 
     context 'has access' do
       before { make_request }
@@ -38,7 +38,7 @@ describe MessagesController do
 
   describe '#preview' do
     let(:user) { create :user }
-    before { post :preview, message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } }
+    before { post :preview, params: { message: { body: 'test', from_id: user.id, to_id: user.id, kind: MessageType::Private } } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -49,7 +49,7 @@ describe MessagesController do
     let!(:message_2) { create :message, to: target_user, from: user, created_at: 30.minutes.ago }
     let!(:message_3) { create :message, :private, to: target_user, from: build_stubbed(:user) }
 
-    before { get :chosen, ids: [message_1.id, message_2.id, message_3.id].join(',') }
+    before { get :chosen, params: { ids: [message_1.id, message_2.id, message_3.id].join(',') } }
 
     it do
       expect(response).to have_http_status :success
@@ -59,7 +59,7 @@ describe MessagesController do
 
   describe '#unsubscribe' do
     let(:user) { create :user, notifications: User::PRIVATE_MESSAGES_TO_EMAIL }
-    let(:make_request) { get :unsubscribe, name: user.nickname, kind: MessageType::Private, key: key }
+    let(:make_request) { get :unsubscribe, params: { name: user.nickname, kind: MessageType::Private, key: key } }
 
     before { sign_out user }
 

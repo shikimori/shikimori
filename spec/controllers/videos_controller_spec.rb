@@ -13,7 +13,7 @@ describe VideosController do
     let(:video_params) {{ url: url, kind: kind, name: name }}
 
     describe 'post request'do
-      before { post :create, anime_id: anime.id, video: video_params }
+      before { post :create, params: { anime_id: anime.id, video: video_params } }
       it do
         expect(assigns :video).to be_uploaded
         expect(assigns :video).to have_attributes(
@@ -95,7 +95,7 @@ describe VideosController do
 
   describe '#destroy' do
     let(:video) { create :video, :confirmed }
-    before { post :destroy, anime_id: anime.id, id: video.id }
+    before { post :destroy, params: { anime_id: anime.id, id: video.id } }
 
     it do
       expect(assigns :version).to be_persisted

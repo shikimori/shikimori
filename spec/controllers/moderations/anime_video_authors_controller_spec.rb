@@ -9,15 +9,17 @@ describe Moderations::AnimeVideoAuthorsController do
   end
 
   describe '#edit' do
-    before { get :edit, id: anime_video.anime_video_author_id }
+    before { get :edit, params: { id: anime_video.anime_video_author_id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     before do
       patch :update,
-        id: anime_video.anime_video_author_id,
-        anime_video_author: { name: 'zxcvbnm' }
+        params: {
+          id: anime_video.anime_video_author_id,
+          anime_video_author: { name: 'zxcvbnm' }
+        }
     end
 
     it do

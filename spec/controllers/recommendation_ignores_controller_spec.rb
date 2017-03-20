@@ -6,7 +6,7 @@ describe RecommendationIgnoresController do
   describe '#create' do
     let(:anime) { create :anime, :special }
 
-    before { post :create, target_type: Anime.name, target_id: anime.id }
+    before { post :create, params: { target_type: Anime.name, target_id: anime.id } }
 
     it { expect(response).to have_http_status :success }
     it { expect(response.content_type).to eq 'application/json' }
@@ -23,7 +23,7 @@ describe RecommendationIgnoresController do
       create :recommendation_ignore, user: user, target: anime2
       create :recommendation_ignore, user: create(:user), target: anime3
 
-      delete :cleanup, target_type: 'anime'
+      delete :cleanup, params: { target_type: 'anime' }
     end
 
     it { expect(response).to have_http_status :success }

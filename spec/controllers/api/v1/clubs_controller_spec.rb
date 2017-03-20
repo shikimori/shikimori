@@ -13,7 +13,7 @@ describe Api::V1::ClubsController, :show_in_doc do
       club_en.members << user
     end
 
-    before { get :index, page: 1, limit: 1, format: :json }
+    before { get :index, params: { page: 1, limit: 1 }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -33,7 +33,7 @@ describe Api::V1::ClubsController, :show_in_doc do
       club.characters << create(:character)
       club.images << create(:club_image, user: build_stubbed(:user), club: club)
     end
-    let(:make_request) { get :show, id: club.id, format: :json }
+    let(:make_request) { get :show, params: { id: club.id }, format: :json }
 
     context 'club locale == locale from domain' do
       before { make_request }
@@ -48,42 +48,42 @@ describe Api::V1::ClubsController, :show_in_doc do
 
   describe '#animes' do
     before { club.animes << create(:anime) }
-    before { get :animes, id: club.id, format: :json }
+    before { get :animes, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#mangas' do
     before { club.mangas << create(:manga) }
-    before { get :mangas, id: club.id, format: :json }
+    before { get :mangas, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#characters' do
     before { club.characters << create(:character) }
-    before { get :characters, id: club.id, format: :json }
+    before { get :characters, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#members' do
     before { club.members << create(:user) }
-    before { get :members, id: club.id, format: :json }
+    before { get :members, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#images' do
     before { club.images << create(:club_image, user: build_stubbed(:user), club: club) }
-    before { get :images, id: club.id, format: :json }
+    before { get :images, params: { id: club.id }, format: :json }
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#join' do
     include_context :authenticated, :user
-    before { post :join, id: club.id, format: :json }
+    before { post :join, params: { id: club.id }, format: :json }
 
     it do
       expect(club.member? user).to be true
@@ -94,7 +94,7 @@ describe Api::V1::ClubsController, :show_in_doc do
   describe '#leave' do
     include_context :authenticated, :user
     let!(:club_role) { create :club_role, club: club, user: user }
-    before { post :leave, id: club.id, format: :json }
+    before { post :leave, params: { id: club.id }, format: :json }
 
     it do
       expect(club.member? user).to be false
