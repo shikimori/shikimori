@@ -1,4 +1,4 @@
-class Version < ActiveRecord::Base
+class Version < ApplicationRecord
   MAXIMUM_REASON_SIZE = 255
 
   ABUSE_USER_IDS = [91184]

@@ -1,4 +1,4 @@
-class RecommendationIgnore < ActiveRecord::Base
+class RecommendationIgnore < ApplicationRecord
   belongs_to :user, touch: true
   belongs_to :target, polymorphic: true
 

@@ -1,4 +1,4 @@
-class ClubPage < ActiveRecord::Base
+class ClubPage < ApplicationRecord
   acts_as_list scope: [:club_id, :parent_page_id]
 
   belongs_to :club, touch: true

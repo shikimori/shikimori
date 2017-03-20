@@ -1,5 +1,5 @@
 # починка sequences
-# ActiveRecord::Base.connection.execute("SELECT setval('danbooru_tags_id_seq', (SELECT MAX(id) FROM danbooru_tags))").first
+# ApplicationRecord.connection.execute("SELECT setval('danbooru_tags_id_seq', (SELECT MAX(id) FROM danbooru_tags))").first
 class DanbooruImporter
   LIMIT = 1000
 

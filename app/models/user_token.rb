@@ -1,4 +1,4 @@
-class UserToken < ActiveRecord::Base
+class UserToken < ApplicationRecord
   belongs_to :user
   validates :user, presence: true
 

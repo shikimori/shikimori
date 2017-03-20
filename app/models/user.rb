@@ -1,5 +1,5 @@
 # TODO: refactor UserNotifications module inclusion
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include PermissionsPolicy
   include UserNotifications
   include Commentable

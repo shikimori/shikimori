@@ -1,4 +1,4 @@
-class AnimeLink < ActiveRecord::Base
+class AnimeLink < ApplicationRecord
   belongs_to :anime, touch: true
 
   enumerize :service, in: [:findanime, :hentaianime, :animespirit], predicates: true

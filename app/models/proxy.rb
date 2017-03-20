@@ -1,5 +1,5 @@
 # sudo apt-get install libjpeg-progs
-class Proxy < ActiveRecord::Base
+class Proxy < ApplicationRecord
   SAFE_ERRORS = /
     queue \s empty |
     execution \s expired |

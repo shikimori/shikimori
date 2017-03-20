@@ -205,7 +205,7 @@ describe User do
       end
     end
 
-    describe '#active?' do
+    describe '#active?', :focus do
       subject(:user) do
         build :user,
           last_online_at: last_online_at,

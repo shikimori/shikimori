@@ -124,7 +124,7 @@
   ## слияние данных из кеша с данными в базе
   #def merge_with_database
     #print "preparing animes for merge...\n"
-    ##ActiveRecord::Base.connection.execute("update animes set world_art_id=0, world_art_scores=null, russian=null")
+    ##ApplicationRecord.connection.execute("update animes set world_art_id=0, world_art_scores=null, russian=null")
     #animes = Anime.where { kind.not_in([:music, :special]) }.
                    ##where(:id => [355]).
                    ##select('id, name, synonyms, english, japanese, status, episodes_aired, episodes').all

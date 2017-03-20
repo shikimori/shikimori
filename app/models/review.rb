@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Review < ActiveRecord::Base
+class Review < ApplicationRecord
   include Antispam
   include Moderatable
   include TopicsConcern

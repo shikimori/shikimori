@@ -1,4 +1,9 @@
-module ActiveRecord::ShikiHacks
+class ApplicationRecord < ActiveRecord::Base
+  extend Enumerize
+  extend BooleanAttribute
+
+  self.abstract_class = true
+
   def wo_timestamp
     old = record_timestamps
     self.record_timestamps = false
@@ -9,5 +14,3 @@ module ActiveRecord::ShikiHacks
     end
   end
 end
-
-ActiveRecord::Base.send :extend, ActiveRecord::ShikiHacks

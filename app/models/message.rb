@@ -1,5 +1,5 @@
 # TODO: refactor kind = MessageType::... в enumerize kind или в enum kind
-class Message < ActiveRecord::Base
+class Message < ApplicationRecord
   include Antispam
   # для совместимости с comment
   #attr_accessor :topic_name, :topic_url

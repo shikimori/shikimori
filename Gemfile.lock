@@ -416,7 +416,7 @@ GEM
     net-ssh (4.1.0)
     newrelic_rpm (4.0.0.332)
     nio4r (2.0.0)
-    nokogiri (1.7.0.1)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)

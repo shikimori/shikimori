@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Topic < ActiveRecord::Base
+class Topic < ApplicationRecord
   include Antispam
   include Commentable
   include Moderatable

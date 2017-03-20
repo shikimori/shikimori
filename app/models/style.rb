@@ -1,4 +1,4 @@
-class Style < ActiveRecord::Base
+class Style < ApplicationRecord
   OWNER_TYPES = [User.name, Club.name]
 
   belongs_to :owner, polymorphic: true, inverse_of: :style

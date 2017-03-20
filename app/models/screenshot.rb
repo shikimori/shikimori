@@ -1,5 +1,5 @@
 # скриншоты, имеющие status не отображаются. это или только загруженные, или
-class Screenshot < ActiveRecord::Base
+class Screenshot < ApplicationRecord
   UPLOADED = 'uploaded'
   DELETED = 'deleted'
 

@@ -35,7 +35,7 @@ FactoryGirl.define do
     end
 
     trait :with_assign_style do
-      after(:build) { |model| model.send :assign_style }
+      after(:build) { |model| unstub_method model, :assign_style }
     end
 
     trait(:user) { sequence :id, 23_456_789 }

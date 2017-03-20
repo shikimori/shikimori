@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # TODO: удалить поле permalinked
-class Club < ActiveRecord::Base
+class Club < ApplicationRecord
   include TopicsConcern
   include StylesConcern
 

@@ -1,4 +1,4 @@
-class CosplayGalleryLink < ActiveRecord::Base
+class CosplayGalleryLink < ApplicationRecord
   belongs_to :linked, :polymorphic => true
   belongs_to :cosplay_gallery
   belongs_to :anime, :foreign_key => :linked_id

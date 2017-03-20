@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CosplayGallery < ActiveRecord::Base
+class CosplayGallery < ApplicationRecord
   include Translation
   include TopicsConcern
 

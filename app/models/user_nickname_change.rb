@@ -1,4 +1,4 @@
-class UserNicknameChange < ActiveRecord::Base
+class UserNicknameChange < ApplicationRecord
   belongs_to :user
 
   validates :user, :value, presence: true

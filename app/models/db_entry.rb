@@ -1,4 +1,4 @@
-class DbEntry < ActiveRecord::Base
+class DbEntry < ApplicationRecord
   self.abstract_class = true
   SIGNIFICANT_FIELDS = %w(name genres image)
 

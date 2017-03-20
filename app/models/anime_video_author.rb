@@ -1,4 +1,4 @@
-class AnimeVideoAuthor < ActiveRecord::Base
+class AnimeVideoAuthor < ApplicationRecord
   has_many :anime_videos, dependent: :restrict_with_exception
 
   validates :name, presence: true, uniqueness: true

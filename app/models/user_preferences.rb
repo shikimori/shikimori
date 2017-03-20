@@ -1,4 +1,4 @@
-class UserPreferences < ActiveRecord::Base
+class UserPreferences < ApplicationRecord
   belongs_to :user, touch: true
 
   enumerize :list_privacy,

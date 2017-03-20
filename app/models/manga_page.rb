@@ -1,4 +1,4 @@
-class MangaPage < ActiveRecord::Base
+class MangaPage < ApplicationRecord
   belongs_to :chapter, class_name: 'MangaChapter', foreign_key: :manga_chapter_id
 
   has_attached_file :image,

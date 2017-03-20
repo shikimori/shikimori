@@ -1,4 +1,4 @@
-class Forum < ActiveRecord::Base
+class Forum < ApplicationRecord
   has_many :topics, dependent: :destroy
 
   validates :permalink, presence: true

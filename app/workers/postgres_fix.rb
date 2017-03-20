@@ -9,7 +9,7 @@ class PostgresFix
 private
 
   def need_cleanup?
-    ActiveRecord::Base.connection
+    ApplicationRecord.connection
       .execute("select count(*)
         from
           pg_stat_activity
@@ -26,7 +26,7 @@ private
   def do_hard_cleanup
     NamedLogger.postgres_fix.info 'cleanup'
 
-    ActiveRecord::Base.connection
+    ApplicationRecord.connection
       .execute("select pg_terminate_backend(pid)
         from
           pg_stat_activity

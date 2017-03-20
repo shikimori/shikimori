@@ -1,4 +1,4 @@
-class Ban < ActiveRecord::Base
+class Ban < ApplicationRecord
   include Translation
 
   belongs_to :user

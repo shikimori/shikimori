@@ -1,4 +1,4 @@
-class WebmVideo < ActiveRecord::Base
+class WebmVideo < ApplicationRecord
   has_attached_file :thumbnail,
     styles: {
       normal: ['235x132#', :jpg],

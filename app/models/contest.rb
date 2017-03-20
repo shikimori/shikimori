@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Contest < ActiveRecord::Base
+class Contest < ApplicationRecord
   include TopicsConcern
 
   MINIMUM_MEMBERS = 5

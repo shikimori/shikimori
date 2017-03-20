@@ -1,4 +1,4 @@
-class Favourite < ActiveRecord::Base
+class Favourite < ApplicationRecord
   belongs_to :linked, polymorphic: true, touch: true
   belongs_to :user, touch: true
 

@@ -1,4 +1,4 @@
-class PersonRole < ActiveRecord::Base
+class PersonRole < ApplicationRecord
   belongs_to :anime, touch: true
   belongs_to :manga, touch: true
   belongs_to :character, touch: true

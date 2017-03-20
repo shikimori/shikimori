@@ -1,4 +1,4 @@
-class MangaChapter < ActiveRecord::Base
+class MangaChapter < ApplicationRecord
   belongs_to :manga
   has_many :pages, -> { order :number }, class_name: 'MangaPage', dependent: :destroy
 
