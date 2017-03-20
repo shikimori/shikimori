@@ -33,7 +33,8 @@
             alt="#{current_user.nickname}"
           ]
           - unless current_user.unread_count > 0
-            span.graphics-arrow-down
+            .arrow-container
+              .arrow-down
         .submenu.right
           a.entry[
             href="#{profile_user_rates_url current_user, list_type: 'anime', subdomain: nil}"
