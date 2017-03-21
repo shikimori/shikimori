@@ -88,7 +88,7 @@ private
 
   def webanetlabs
     'http://webanetlabs.net/freeproxylist/proxylist_at_'\
-      "#{Date.today.strftime '%d.%m.%Y'}.txt"
+      "#{Time.zone.today.strftime '%d.%m.%Y'}.txt"
   end
 
   def rebro_weebly

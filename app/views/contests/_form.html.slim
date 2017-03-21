@@ -42,8 +42,8 @@
           input_html: { min: 1 }
       = f.input :started_on,
           disabled: contest.started? || contest.finished?,
-          start_year: [contest.started_on.year, Date.today.year].min,
-          end_year: [contest.started_on.year, Date.today.year + 1].max
+          start_year: [contest.started_on.year, Time.zone.today.year].min,
+          end_year: [contest.started_on.year, Time.zone.today.year + 1].max
 
       - if contest.rounds.any?
         span.action-misc = t '.polls_will_be_reshuffled'

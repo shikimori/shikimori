@@ -1,9 +1,11 @@
 require 'deep_struct'
 
-describe Users::OmniauthCallbacksController, :vcr do
+describe Users::OmniauthCallbacksController do
   let(:uid) { 'test' }
   let(:token_number) { '123456789iouhg' }
   let(:provider) { :vkontakte }
+
+  before { allow_any_instance_of(User).to receive :grab_avatar }
 
   before do
     request.env['devise.mapping'] = Devise.mappings[:user]

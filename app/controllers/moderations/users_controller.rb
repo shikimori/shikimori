@@ -4,7 +4,7 @@ class Moderations::UsersController < ModerationsController
     noindex && nofollow
     page_title i18n_t('page_title')
 
-    params[:created_on] ||= Date.today.to_s
+    params[:created_on] ||= Time.zone.today.to_s
 
     @collection = User
       .where(

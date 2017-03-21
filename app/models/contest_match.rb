@@ -78,10 +78,10 @@ class ContestMatch < ApplicationRecord
     end
 
     event :start do
-      transition created: :started, if: lambda {|match| match.started_on <= Date.today }
+      transition created: :started, if: lambda {|match| match.started_on <= Time.zone.today }
     end
     event :finish do
-      transition started: :finished, if: lambda {|match| match.finished_on < Date.today }
+      transition started: :finished, if: lambda {|match| match.finished_on < Time.zone.today }
     end
 
     after_transition created: :started do |match, transition|

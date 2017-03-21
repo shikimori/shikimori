@@ -28,7 +28,7 @@ class ContestRound < ApplicationRecord
     end
 
     after_transition created: :started do |round, transition|
-      round.matches.select {|v| v.started_on <= Date.today }.each(&:start!)
+      round.matches.select {|v| v.started_on <= Time.zone.today }.each(&:start!)
     end
 
     before_transition started: :finished do |round, transition|

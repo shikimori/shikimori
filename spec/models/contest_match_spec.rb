@@ -9,7 +9,7 @@ describe ContestMatch do
   let(:user) { create :user }
 
   describe 'states' do
-    let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday }
+    let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday }
 
     it 'full cycle' do
       expect(match.created?).to be_truthy
@@ -37,12 +37,12 @@ describe ContestMatch do
       before { match.start! }
 
       context 'true' do
-        before { match.finished_on = Date.yesterday }
+        before { match.finished_on = Time.zone.yestarday }
         it { should be_truthy }
       end
 
       context 'false' do
-        before { match.finished_on = Date.today }
+        before { match.finished_on = Time.zone.today }
         it { should be_falsy }
       end
     end
@@ -51,12 +51,12 @@ describe ContestMatch do
       subject { match.can_start? }
 
       context 'true' do
-        before { match.started_on = Date.today }
+        before { match.started_on = Time.zone.today }
         it { should be_truthy }
       end
 
       context 'false' do
-        before { match.started_on = Date.tomorrow }
+        before { match.started_on = Time.zone.tomorrow }
         it { should be_falsy }
       end
     end
@@ -79,13 +79,13 @@ describe ContestMatch do
       end
 
       describe 'right_id = nil, right_type = Anime' do
-        let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday, right_id: nil, right_type: Anime.name }
+        let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday, right_id: nil, right_type: Anime.name }
         before { match.start! }
         it { expect(match.right_type).to be_nil }
       end
 
       describe 'left_id = nil, right_id != nil' do
-        let(:match) { create :contest_match, started_on: Date.yesterday, finished_on: Date.yesterday, left_id: nil, left_type: Anime.name }
+        let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday, left_id: nil, left_type: Anime.name }
         before { match.start! }
         it { expect(match.left_type).not_to be_nil }
         it { expect(match.left_id).not_to be_nil }

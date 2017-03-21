@@ -210,7 +210,7 @@ shared_examples :elasticsearch_concern do |type|
     describe '#put_elastic' do
       let!(:entry) { create type, :with_elasticserach }
 
-      before { entry.update! field => Date.today.to_s }
+      before { entry.update! field => Time.zone.today.to_s }
 
       context 'not elastic field' do
         let(:field) { :updated_at }

@@ -7,7 +7,7 @@ class TestsController < ShikimoriController
 
   # тестовая страница
   def show
-    @traffic = Rails.cache.fetch("traffic_#{Date.today}") { YandexMetrika.new.traffic_for_months 18 }
+    @traffic = Rails.cache.fetch("traffic_#{Time.zone.today}") { YandexMetrika.new.traffic_for_months 18 }
   rescue Faraday::ConnectionFailed
   end
 

@@ -48,7 +48,7 @@ describe Contest::PlayOffStrategy do
 
     context 'I -> II' do
       before do
-        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         1.times do
           contest.current_round.reload
           contest.current_round.finish!
@@ -68,7 +68,7 @@ describe Contest::PlayOffStrategy do
 
     context 'II -> III' do
       before do
-        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         2.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -102,7 +102,7 @@ describe Contest::PlayOffStrategy do
     before do
       contest.start!
       contest.rounds.each do |round|
-        contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
+        contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday }
         contest.progress!
         contest.reload
       end

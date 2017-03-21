@@ -14,7 +14,7 @@
           - if contest.proposing?
             | Предложите своих номинантов
 
-          - elsif contest.started_on > Date.today
+          - elsif contest.started_on > Time.zone.today
             | Голосование ещё не началось
 
           - else

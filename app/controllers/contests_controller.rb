@@ -22,7 +22,7 @@ class ContestsController < ShikimoriController
 
     @collection_groups = @collection
       .includes(rounds: :matches)
-      .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Date.today).to_time.to_i] }
+      .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Time.zone.today).to_time.to_i] }
       .group_by(&:state)
   end
 
@@ -70,7 +70,7 @@ class ContestsController < ShikimoriController
     page_title i18n_t :new_contest
 
     @resource ||= Contest.new.decorate
-    @resource.started_on ||= Date.today + 1.day
+    @resource.started_on ||= Time.zone.today + 1.day
     @resource.matches_per_round ||= 6
     @resource.match_duration ||= 2
     @resource.matches_interval ||= 1

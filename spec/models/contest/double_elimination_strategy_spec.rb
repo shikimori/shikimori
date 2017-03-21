@@ -65,7 +65,7 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'I -> II' do
       before do
-        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         1.times do
           contest.current_round.reload
           contest.current_round.finish!
@@ -86,7 +86,7 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'II -> IIa, II -> III' do
       before do
-        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         2.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -104,7 +104,7 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'IIa -> III' do
       before do
-        3.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        3.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         3.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -119,7 +119,7 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'III -> IIIa, III -> IV' do
       before do
-        4.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        4.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         4.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -137,7 +137,7 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'III -> IV' do
       before do
-        5.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday } }
+        5.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday } }
         5.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -244,7 +244,7 @@ describe Contest::DoubleEliminationStrategy do
     before do
       contest.start!
       contest.rounds.each do |round|
-        contest.current_round.matches.each { |v| v.update_attributes started_on: Date.yesterday, finished_on: Date.yesterday }
+        contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday }
         contest.progress!
         contest.reload
       end

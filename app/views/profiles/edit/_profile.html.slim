@@ -11,7 +11,7 @@
     = f.input :statistics_start_on,
         label: t('.display_activity_graph_since'),
         start_year: @resource.created_at.year,
-        end_year: Date.today.year,
+        end_year: Time.zone.today.year,
         default: @resource.created_at
 
   - unless @resource.banned_profile?

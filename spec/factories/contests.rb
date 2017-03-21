@@ -6,7 +6,7 @@ FactoryGirl.define do
     member_type { [:anime, :character].sample }
     strategy_type :double_elimination
 
-    started_on Date.today
+    started_on Time.zone.today
 
     matches_per_round 999
     match_duration 1

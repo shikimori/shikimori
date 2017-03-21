@@ -67,7 +67,7 @@ describe ContestRound do
       end
 
       it 'does not start matches in future' do
-        round.matches.each {|v| v.started_on = Date.tomorrow }
+        round.matches.each {|v| v.started_on = Time.zone.tomorrow }
         round.start!
 
         round.matches.each do |vote|
@@ -80,7 +80,7 @@ describe ContestRound do
       before do
         contest.strategy.fill_round_with_matches round
         round.start!
-        round.matches.each {|v| v.finished_on = Date.yesterday }
+        round.matches.each {|v| v.finished_on = Time.zone.yestarday }
       end
 
       describe 'finishes unfinished matches' do
@@ -94,7 +94,7 @@ describe ContestRound do
       before do
         contest.strategy.fill_round_with_matches round
         round.start!
-        round.matches.each {|v| v.finished_on = Date.yesterday }
+        round.matches.each {|v| v.finished_on = Time.zone.yestarday }
       end
       let(:next_round) { create :contest_round }
       let(:notification_service) { double round_finished: true }
