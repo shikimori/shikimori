@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: удалить поле permalinked
 class Club < ApplicationRecord
   include TopicsConcern
   include StylesConcern
@@ -11,8 +10,9 @@ class Club < ApplicationRecord
     inverse_of: :club
   has_many :members, through: :member_roles, source: :user
 
-  #has_many :moderator_roles, -> { where role: ClubRole::Moderator }, class_name: ClubRole.name
-  #has_many :moderators, through: :moderator_roles, source: :user
+  # has_many :moderator_roles, -> { where role: ClubRole::Moderator },
+  #   class_name: ClubRole.name
+  # has_many :moderators, through: :moderator_roles, source: :user
 
   has_many :admin_roles, -> { where role: :admin },
     class_name: ClubRole.name,

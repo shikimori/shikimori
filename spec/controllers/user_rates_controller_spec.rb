@@ -13,7 +13,7 @@ describe UserRatesController do
     context 'has no access to list' do
       let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -38,7 +38,7 @@ describe UserRatesController do
     context 'has no access' do
       let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -54,10 +54,12 @@ describe UserRatesController do
     end
 
     context 'mal' do
-      let(:list) {[
-        { id: anime_1.id, status: 1, score: 5.0, name: "Zombie-Loan Specials", episodes: 1 },
-        { id: anime_2.id, status: 2, score: 5.0, name: "Zombie-Loan,.", episodes: 1 }
-      ]}
+      let(:list) do
+        [
+          { id: anime_1.id, status: 1, score: 5.0, name: 'Zombie-Loan Specials', episodes: 1 },
+          { id: anime_2.id, status: 2, score: 5.0, name: 'Zombie-Loan,.', episodes: 1 }
+        ]
+      end
 
       let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
       before { post :import, params: { profile_id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json } }
@@ -66,7 +68,8 @@ describe UserRatesController do
         let(:rewrite) { false }
 
         it 'imports data' do
-          expect(response).to redirect_to index_profile_messages_url(user, :notifications)
+          expect(response)
+            .to redirect_to index_profile_messages_url(user, :notifications)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns :updated).to be_empty
@@ -76,8 +79,9 @@ describe UserRatesController do
       context 'rewrite' do
         let(:rewrite) { true }
 
-        it 'imports data' do
-          expect(response).to redirect_to index_profile_messages_url(user, :notifications)
+        it 'imports data', :focus do
+          expect(response)
+            .to redirect_to index_profile_messages_url(user, :notifications)
           expect(user.reload.anime_rates.size).to eq(2)
           expect(assigns(:added).size).to eq(1)
           expect(assigns(:updated).size).to eq(1)

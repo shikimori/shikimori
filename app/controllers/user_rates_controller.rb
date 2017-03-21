@@ -54,7 +54,8 @@ class UserRatesController < ProfilesController
 
     parser = UserListParser.new klass
     importer = UserRatesImporter.new @resource, klass
-    @added, @updated, @not_imported = importer.import(parser.parse(params), rewrite)
+    @added, @updated, @not_imported =
+      importer.import parser.parse(params), rewrite
 
     if @added.size > 0 || @updated.size > 0
       @resource.touch

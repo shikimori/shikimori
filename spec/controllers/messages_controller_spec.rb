@@ -17,7 +17,7 @@ describe MessagesController do
 
     context 'no access' do
       let(:message) { create :message }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -32,7 +32,7 @@ describe MessagesController do
 
     context 'no access' do
       let(:message) { create :message }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -76,7 +76,7 @@ describe MessagesController do
     context 'invalid key' do
       let(:key) { 'asd' }
       it do
-        expect{make_request}.to raise_error CanCan::AccessDenied
+        expect { make_request }.to raise_error CanCan::AccessDenied
         expect(user.reload.notifications).to eq User::PRIVATE_MESSAGES_TO_EMAIL
       end
     end

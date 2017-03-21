@@ -8,13 +8,12 @@ describe Video do
     it { is_expected.to validate_presence_of :uploader_id }
     it { is_expected.to validate_presence_of :url }
     it { is_expected.to validate_presence_of :kind }
-    #it { is_expected.to validate_presence_of :hosting }
+    # it { is_expected.to validate_presence_of :hosting }
   end
 
   describe 'enumerize' do
     it { is_expected.to enumerize(:kind).in :pv, :op, :ed, :other }
   end
-
 
   describe 'validations' do
     describe 'normalize' do

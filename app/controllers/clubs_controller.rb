@@ -7,11 +7,11 @@ class ClubsController < ShikimoriController
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_domain, except: [:index, :create, :new]
+  before_action :restrict_domain, except: %i(index create new)
 
   before_action :set_breadcrumbs
 
-  CREATE_PARAMS = [:owner_id, :name, :logo, :is_censored]
+  CREATE_PARAMS = %i(owner_id name logo is_censored)
   UPDATE_PARAMS = [
     :name,
     :join_policy,

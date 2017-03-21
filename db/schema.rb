@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170319090525) do
+ActiveRecord::Schema.define(version: 20170321191407) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,10 +28,9 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "state",       limit: 255
     t.integer  "approver_id"
     t.string   "reason"
+    t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)", using: :btree
+    t.index ["state", "kind"], name: "index_abuse_requests_on_state_and_kind", using: :btree
   end
-
-  add_index "abuse_requests", ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)", using: :btree
-  add_index "abuse_requests", ["state", "kind"], name: "index_abuse_requests_on_state_and_kind", using: :btree
 
   create_table "anime_calendars", force: :cascade do |t|
     t.integer  "anime_id"
@@ -40,9 +38,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "start_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["anime_id", "episode"], name: "index_anime_calendars_on_anime_id_and_episode", unique: true, using: :btree
   end
-
-  add_index "anime_calendars", ["anime_id", "episode"], name: "index_anime_calendars_on_anime_id_and_episode", unique: true, using: :btree
 
   create_table "anime_links", force: :cascade do |t|
     t.integer  "anime_id"
@@ -50,17 +47,15 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "identifier", limit: 255, null: false
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
   end
-
-  add_index "anime_links", ["anime_id", "service", "identifier"], name: "index_anime_links_on_anime_id_and_service_and_identifier", unique: true, using: :btree
 
   create_table "anime_video_authors", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["name"], name: "index_anime_video_authors_on_name", using: :btree
   end
-
-  add_index "anime_video_authors", ["name"], name: "index_anime_video_authors_on_name", using: :btree
 
   create_table "anime_video_reports", force: :cascade do |t|
     t.integer  "anime_video_id"
@@ -72,10 +67,9 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.string   "message",        limit: 1000
+    t.index ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state", using: :btree
+    t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state", using: :btree
   end
-
-  add_index "anime_video_reports", ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state", using: :btree
-  add_index "anime_video_reports", ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state", using: :btree
 
   create_table "anime_videos", force: :cascade do |t|
     t.integer  "anime_id"
@@ -90,11 +84,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "state",                 limit: 255,  default: "working", null: false
     t.integer  "watch_view_count"
     t.string   "quality"
+    t.index ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state", using: :btree
+    t.index ["anime_id"], name: "index_anime_videos_on_anime_id", using: :btree
+    t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id", using: :btree
   end
-
-  add_index "anime_videos", ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state", using: :btree
-  add_index "anime_videos", ["anime_id"], name: "index_anime_videos_on_anime_id", using: :btree
-  add_index "anime_videos", ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id", using: :btree
 
   create_table "animes", force: :cascade do |t|
     t.string   "name",                   limit: 255
@@ -104,7 +97,7 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "episodes",                           default: 0,     null: false
     t.integer  "duration"
     t.text     "synonyms"
-    t.decimal  "score",                              default: 0.0,   null: false
+    t.decimal  "score",                              default: "0.0", null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.datetime "created_at"
@@ -140,29 +133,26 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "japanese"
     t.integer  "mal_id"
     t.datetime "authorized_imported_at"
+    t.index ["kind"], name: "index_animes_on_kind", using: :btree
+    t.index ["name"], name: "index_animes_on_name", using: :btree
+    t.index ["russian"], name: "index_animes_on_russian", using: :btree
+    t.index ["score"], name: "index_animes_on_score", using: :btree
+    t.index ["status", "score", "kind"], name: "anime_online_dashboard_query", using: :btree
   end
-
-  add_index "animes", ["kind"], name: "index_animes_on_kind", using: :btree
-  add_index "animes", ["name"], name: "index_animes_on_name", using: :btree
-  add_index "animes", ["russian"], name: "index_animes_on_russian", using: :btree
-  add_index "animes", ["score"], name: "index_animes_on_score", using: :btree
-  add_index "animes", ["status", "score", "kind"], name: "anime_online_dashboard_query", using: :btree
 
   create_table "animes_genres", force: :cascade do |t|
     t.integer "anime_id"
     t.integer "genre_id"
+    t.index ["anime_id", "genre_id"], name: "index_animes_genres_on_anime_id_and_genre_id", unique: true, using: :btree
+    t.index ["anime_id"], name: "index_animes_genres_on_anime_id", using: :btree
   end
-
-  add_index "animes_genres", ["anime_id", "genre_id"], name: "index_animes_genres_on_anime_id_and_genre_id", unique: true, using: :btree
-  add_index "animes_genres", ["anime_id"], name: "index_animes_genres_on_anime_id", using: :btree
 
   create_table "animes_studios", force: :cascade do |t|
     t.integer "anime_id"
     t.integer "studio_id"
+    t.index ["anime_id", "studio_id"], name: "index_animes_studios_on_anime_id_and_studio_id", unique: true, using: :btree
+    t.index ["anime_id"], name: "index_animes_studios_on_anime_id", using: :btree
   end
-
-  add_index "animes_studios", ["anime_id", "studio_id"], name: "index_animes_studios_on_anime_id_and_studio_id", unique: true, using: :btree
-  add_index "animes_studios", ["anime_id"], name: "index_animes_studios_on_anime_id", using: :btree
 
   create_table "bans", force: :cascade do |t|
     t.integer  "user_id"
@@ -173,18 +163,16 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.text     "reason"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.index ["user_id"], name: "index_bans_on_user_id", using: :btree
   end
-
-  add_index "bans", ["user_id"], name: "index_bans_on_user_id", using: :btree
 
   create_table "blob_datas", force: :cascade do |t|
     t.string   "key",        limit: 255
     t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["key"], name: "index_blob_datas_on_key", unique: true, using: :btree
   end
-
-  add_index "blob_datas", ["key"], name: "index_blob_datas_on_key", unique: true, using: :btree
 
   create_table "characters", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -204,19 +192,17 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "source",             limit: 255
     t.text     "desynced",                       default: [], null: false, array: true
     t.integer  "mal_id"
+    t.index ["name"], name: "index_characters_on_name", using: :btree
   end
-
-  add_index "characters", ["name"], name: "index_characters_on_name", using: :btree
 
   create_table "club_bans", force: :cascade do |t|
     t.integer  "club_id",    null: false
     t.integer  "user_id",    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_club_bans_on_user_id", using: :btree
   end
-
-  add_index "club_bans", ["club_id", "user_id"], name: "index_club_bans_on_club_id_and_user_id", unique: true, using: :btree
-  add_index "club_bans", ["user_id"], name: "index_club_bans_on_user_id", using: :btree
 
   create_table "club_images", force: :cascade do |t|
     t.integer  "club_id",                        null: false
@@ -237,9 +223,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "message_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true, using: :btree
   end
-
-  add_index "club_invites", ["club_id", "dst_id", "status"], name: "uniq_group_invites", unique: true, using: :btree
 
   create_table "club_links", force: :cascade do |t|
     t.integer  "club_id"
@@ -247,9 +232,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "linked_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", unique: true, using: :btree
   end
-
-  add_index "club_links", ["club_id", "linked_id", "linked_type"], name: "index_club_links_on_club_id_and_linked_id_and_linked_type", using: :btree
 
   create_table "club_pages", force: :cascade do |t|
     t.integer  "club_id",                                              null: false
@@ -260,9 +244,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "updated_at",                                           null: false
     t.integer  "position"
     t.string   "layout",         default: "---\n:default: :content\n", null: false
+    t.index ["club_id"], name: "index_club_pages_on_club_id", using: :btree
   end
-
-  add_index "club_pages", ["club_id"], name: "index_club_pages_on_club_id", using: :btree
 
   create_table "club_roles", force: :cascade do |t|
     t.string   "role",       limit: 255, default: "member"
@@ -270,9 +253,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "club_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["user_id", "club_id"], name: "uniq_user_in_group", unique: true, using: :btree
   end
-
-  add_index "club_roles", ["user_id", "club_id"], name: "uniq_user_in_group", unique: true, using: :btree
 
   create_table "clubs", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -292,17 +274,15 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "image_upload_policy",                             null: false
     t.string   "join_policy",                                     null: false
     t.string   "comment_policy",                                  null: false
+    t.index ["style_id"], name: "index_clubs_on_style_id", using: :btree
   end
-
-  add_index "clubs", ["style_id"], name: "index_clubs_on_style_id", using: :btree
 
   create_table "comment_viewings", force: :cascade do |t|
     t.integer "user_id"
     t.integer "viewed_id"
+    t.index ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
+    t.index ["viewed_id"], name: "index_comment_viewings_on_viewed_id", using: :btree
   end
-
-  add_index "comment_viewings", ["user_id", "viewed_id"], name: "index_comment_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
-  add_index "comment_viewings", ["viewed_id"], name: "index_comment_viewings_on_viewed_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "commentable_id"
@@ -313,11 +293,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "updated_at"
     t.boolean  "is_summary",                  default: false
     t.boolean  "is_offtopic",                 default: false
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
+    t.index ["created_at"], name: "index_comments_on_created_at", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
   end
-
-  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
-  add_index "comments", ["created_at"], name: "index_comments_on_created_at", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "contest_links", force: :cascade do |t|
     t.integer  "contest_id"
@@ -325,9 +304,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "linked_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["linked_id", "linked_type", "contest_id"], name: "index_contest_links_on_linked_id_and_linked_type_and_contest_id", using: :btree
   end
-
-  add_index "contest_links", ["linked_id", "linked_type", "contest_id"], name: "index_contest_links_on_linked_id_and_linked_type_and_contest_id", using: :btree
 
   create_table "contest_matches", force: :cascade do |t|
     t.integer  "round_id"
@@ -342,9 +320,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "winner_id"
+    t.index ["round_id"], name: "index_contest_votes_on_contest_round_id", using: :btree
   end
-
-  add_index "contest_matches", ["round_id"], name: "index_contest_votes_on_contest_round_id", using: :btree
 
   create_table "contest_rounds", force: :cascade do |t|
     t.integer  "contest_id"
@@ -353,9 +330,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.boolean  "additional"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["contest_id"], name: "index_contest_rounds_on_contest_id", using: :btree
   end
-
-  add_index "contest_rounds", ["contest_id"], name: "index_contest_rounds_on_contest_id", using: :btree
 
   create_table "contest_suggestions", force: :cascade do |t|
     t.integer  "contest_id"
@@ -364,21 +340,19 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "item_type",  limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.index ["contest_id"], name: "index_contest_suggestions_on_contest_id", using: :btree
+    t.index ["user_id"], name: "index_contest_suggestions_on_user_id", using: :btree
   end
-
-  add_index "contest_suggestions", ["contest_id"], name: "index_contest_suggestions_on_contest_id", using: :btree
-  add_index "contest_suggestions", ["user_id"], name: "index_contest_suggestions_on_user_id", using: :btree
 
   create_table "contest_user_votes", force: :cascade do |t|
     t.integer "contest_match_id",             null: false
     t.integer "user_id",                      null: false
     t.integer "item_id",                      null: false
     t.string  "ip",               limit: 255, null: false
+    t.index ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
+    t.index ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
+    t.index ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
   end
-
-  add_index "contest_user_votes", ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
-  add_index "contest_user_votes", ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
-  add_index "contest_user_votes", ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
 
   create_table "contests", force: :cascade do |t|
     t.string   "title",                limit: 255
@@ -397,9 +371,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
+    t.index ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
   end
-
-  add_index "contests", ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
 
   create_table "cosplay_galleries", force: :cascade do |t|
     t.string   "cos_rain_id",          limit: 255
@@ -412,9 +385,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.boolean  "deleted",                          default: false, null: false
     t.string   "source",               limit: 255
     t.integer  "user_id"
+    t.index ["cos_rain_id"], name: "index_cosplay_galleries_on_cos_rain_id", unique: true, using: :btree
   end
-
-  add_index "cosplay_galleries", ["cos_rain_id"], name: "index_cosplay_galleries_on_cos_rain_id", unique: true, using: :btree
 
   create_table "cosplay_gallery_links", force: :cascade do |t|
     t.integer  "linked_id"
@@ -422,10 +394,9 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "cosplay_gallery_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["cosplay_gallery_id", "linked_type"], name: "i_cosplay_gallery_id_linked_type", using: :btree
+    t.index ["linked_id", "linked_type", "cosplay_gallery_id"], name: "index_cosplay_gallery_links_on_l_id_and_l_type_and_cg_id", unique: true, using: :btree
   end
-
-  add_index "cosplay_gallery_links", ["cosplay_gallery_id", "linked_type"], name: "i_cosplay_gallery_id_linked_type", using: :btree
-  add_index "cosplay_gallery_links", ["linked_id", "linked_type", "cosplay_gallery_id"], name: "index_cosplay_gallery_links_on_l_id_and_l_type_and_cg_id", unique: true, using: :btree
 
   create_table "cosplay_images", force: :cascade do |t|
     t.integer  "cosplay_gallery_id"
@@ -438,9 +409,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "image_updated_at"
     t.boolean  "deleted",                        default: false, null: false
     t.integer  "position"
+    t.index ["cosplay_gallery_id", "deleted"], name: "i_cosplay_images_gallery_id_deleted", using: :btree
   end
-
-  add_index "cosplay_images", ["cosplay_gallery_id", "deleted"], name: "i_cosplay_images_gallery_id_deleted", using: :btree
 
   create_table "cosplayers", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -448,9 +418,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "image_url",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["name"], name: "index_cosplayers_on_name", unique: true, using: :btree
   end
-
-  add_index "cosplayers", ["name"], name: "index_cosplayers_on_name", unique: true, using: :btree
 
   create_table "danbooru_tags", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -478,9 +447,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_unknown"
+    t.index ["anime_id"], name: "index_episode_notifications_on_anime_id", using: :btree
   end
-
-  add_index "episode_notifications", ["anime_id"], name: "index_episode_notifications_on_anime_id", using: :btree
 
   create_table "external_links", force: :cascade do |t|
     t.integer  "entry_id",    null: false
@@ -491,9 +459,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "updated_at",  null: false
     t.datetime "imported_at"
     t.string   "source",      null: false
+    t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id", using: :btree
   end
-
-  add_index "external_links", ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id", using: :btree
 
   create_table "favourites", force: :cascade do |t|
     t.integer  "linked_id"
@@ -502,11 +469,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "kind",        limit: 255, null: false
+    t.index ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
+    t.index ["linked_type", "linked_id"], name: "i_linked", using: :btree
+    t.index ["user_id"], name: "index_favourites_on_user_id", using: :btree
   end
-
-  add_index "favourites", ["linked_id", "linked_type", "kind", "user_id"], name: "uniq_favourites", unique: true, using: :btree
-  add_index "favourites", ["linked_type", "linked_id"], name: "i_linked", using: :btree
-  add_index "favourites", ["user_id"], name: "index_favourites_on_user_id", using: :btree
 
   create_table "forums", force: :cascade do |t|
     t.integer  "position"
@@ -523,9 +489,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true, using: :btree
   end
-
-  add_index "friend_links", ["src_id", "dst_id"], name: "index_friend_links_on_src_id_and_dst_id", unique: true, using: :btree
 
   create_table "genres", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -537,17 +502,15 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.text     "description"
     t.string   "kind",                                 null: false
     t.integer  "mal_id",                               null: false
+    t.index ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true, using: :btree
   end
-
-  add_index "genres", ["mal_id", "kind"], name: "index_genres_on_mal_id_and_kind", unique: true, using: :btree
 
   create_table "genres_mangas", force: :cascade do |t|
     t.integer "manga_id"
     t.integer "genre_id"
+    t.index ["genre_id", "manga_id"], name: "index_genres_mangas_on_genre_id_and_manga_id", unique: true, using: :btree
+    t.index ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
   end
-
-  add_index "genres_mangas", ["genre_id", "manga_id"], name: "index_genres_mangas_on_genre_id_and_manga_id", unique: true, using: :btree
-  add_index "genres_mangas", ["manga_id"], name: "index_genres_mangas_on_manga_id", using: :btree
 
   create_table "ignores", force: :cascade do |t|
     t.integer  "user_id"
@@ -587,7 +550,7 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "status",             limit: 255
     t.text     "synonyms"
     t.string   "russian",            limit: 255
-    t.decimal  "score",                                                  default: 0.0,   null: false
+    t.decimal  "score",                                                  default: "0.0", null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.string   "rating",             limit: 255
@@ -606,26 +569,24 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "tags",               limit: 255
     t.string   "source",             limit: 255
     t.string   "read_manga_id",      limit: 255
-    t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: 0.0
+    t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: "0.0"
     t.float    "site_score",                                             default: 0.0,   null: false
     t.datetime "parsed_at"
     t.text     "desynced",                                               default: [],    null: false, array: true
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"
+    t.index ["kind"], name: "index_mangas_on_kind", using: :btree
+    t.index ["name"], name: "index_mangas_on_name", using: :btree
+    t.index ["russian"], name: "index_mangas_on_russian", using: :btree
   end
-
-  add_index "mangas", ["kind"], name: "index_mangas_on_kind", using: :btree
-  add_index "mangas", ["name"], name: "index_mangas_on_name", using: :btree
-  add_index "mangas", ["russian"], name: "index_mangas_on_russian", using: :btree
 
   create_table "mangas_publishers", force: :cascade do |t|
     t.integer "manga_id"
     t.integer "publisher_id"
+    t.index ["manga_id", "publisher_id"], name: "index_mangas_publishers_on_manga_id_and_publisher_id", unique: true, using: :btree
+    t.index ["manga_id"], name: "index_mangas_publishers_on_manga_id", using: :btree
   end
-
-  add_index "mangas_publishers", ["manga_id", "publisher_id"], name: "index_mangas_publishers_on_manga_id_and_publisher_id", unique: true, using: :btree
-  add_index "mangas_publishers", ["manga_id"], name: "index_mangas_publishers_on_manga_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
     t.integer  "from_id"
@@ -640,11 +601,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.boolean  "emailed",                        default: false
     t.integer  "linked_id",                      default: 0,     null: false
     t.string   "linked_type",        limit: 255
+    t.index ["from_id", "is_deleted_by_from", "kind"], name: "private_and_notifications", using: :btree
+    t.index ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id", using: :btree
+    t.index ["to_id", "kind", "read"], name: "messages_for_profile", using: :btree
   end
-
-  add_index "messages", ["from_id", "is_deleted_by_from", "kind"], name: "private_and_notifications", using: :btree
-  add_index "messages", ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id", using: :btree
-  add_index "messages", ["to_id", "kind", "read"], name: "messages_for_profile", using: :btree
 
   create_table "name_matches", force: :cascade do |t|
     t.string  "phrase",      null: false
@@ -652,10 +612,9 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer "group",       null: false
     t.integer "target_id",   null: false
     t.string  "target_type", null: false
+    t.index ["target_type", "phrase"], name: "target_type_phrase_search_index", using: :btree
+    t.index ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id", using: :btree
   end
-
-  add_index "name_matches", ["target_type", "phrase"], name: "target_type_phrase_search_index", using: :btree
-  add_index "name_matches", ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -675,9 +634,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.text     "desynced",                       default: [],    null: false, array: true
     t.string   "russian"
     t.integer  "mal_id"
+    t.index ["name"], name: "index_people_on_name", using: :btree
   end
-
-  add_index "people", ["name"], name: "index_people_on_name", using: :btree
 
   create_table "person_roles", force: :cascade do |t|
     t.string   "role",         limit: 255
@@ -687,14 +645,13 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "manga_id"
+    t.index ["anime_id"], name: "index_person_roles_on_anime_id", using: :btree
+    t.index ["character_id"], name: "index_person_roles_on_character_id", using: :btree
+    t.index ["manga_id"], name: "index_person_roles_on_manga_id", using: :btree
+    t.index ["person_id"], name: "index_person_roles_on_person_id", using: :btree
+    t.index ["role", "anime_id", "character_id"], name: "i_person_role_role_anime_id", using: :btree
+    t.index ["role", "manga_id", "character_id"], name: "i_person_role_role_manga_id", using: :btree
   end
-
-  add_index "person_roles", ["anime_id"], name: "index_person_roles_on_anime_id", using: :btree
-  add_index "person_roles", ["character_id"], name: "index_person_roles_on_character_id", using: :btree
-  add_index "person_roles", ["manga_id"], name: "index_person_roles_on_manga_id", using: :btree
-  add_index "person_roles", ["person_id"], name: "index_person_roles_on_person_id", using: :btree
-  add_index "person_roles", ["role", "anime_id", "character_id"], name: "i_person_role_role_anime_id", using: :btree
-  add_index "person_roles", ["role", "manga_id", "character_id"], name: "i_person_role_role_manga_id", using: :btree
 
   create_table "proxies", id: false, force: :cascade do |t|
     t.string  "ip",   limit: 255
@@ -711,9 +668,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer "user_id"
     t.integer "target_id"
     t.string  "target_type", limit: 255
+    t.index ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true, using: :btree
   end
-
-  add_index "recommendation_ignores", ["user_id", "target_id", "target_type"], name: "index_recommendation_ignores_on_entry", unique: true, using: :btree
 
   create_table "related_animes", force: :cascade do |t|
     t.integer  "source_id"
@@ -722,9 +678,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "manga_id"
+    t.index ["source_id"], name: "index_related_animes_on_source_id", using: :btree
   end
-
-  add_index "related_animes", ["source_id"], name: "index_related_animes_on_source_id", using: :btree
 
   create_table "related_mangas", force: :cascade do |t|
     t.integer  "source_id"
@@ -733,9 +688,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "relation",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
   end
-
-  add_index "related_mangas", ["source_id", "manga_id"], name: "index_related_mangas_on_source_id_and_manga_id", using: :btree
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "target_id"
@@ -754,9 +708,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "state",       limit: 255, default: "pending"
     t.integer  "approver_id"
     t.string   "locale",                                      null: false
+    t.index ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type", using: :btree
   end
-
-  add_index "reviews", ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type", using: :btree
 
   create_table "screenshots", force: :cascade do |t|
     t.string   "image_file_name",    limit: 255
@@ -769,27 +722,24 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "updated_at"
     t.integer  "position",                       null: false
     t.string   "status",             limit: 255
+    t.index ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true, using: :btree
   end
-
-  add_index "screenshots", ["anime_id", "url"], name: "index_screenshots_on_anime_id_and_url", unique: true, using: :btree
 
   create_table "similar_animes", force: :cascade do |t|
     t.integer  "src_id"
     t.integer  "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["src_id"], name: "index_similar_animes_on_src_id", using: :btree
   end
-
-  add_index "similar_animes", ["src_id"], name: "index_similar_animes_on_src_id", using: :btree
 
   create_table "similar_mangas", force: :cascade do |t|
     t.integer  "src_id"
     t.integer  "dst_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["src_id"], name: "index_similar_mangas_on_src_id", using: :btree
   end
-
-  add_index "similar_mangas", ["src_id"], name: "index_similar_mangas_on_src_id", using: :btree
 
   create_table "studios", force: :cascade do |t|
     t.string   "name",               limit: 255
@@ -815,9 +765,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.text     "css",        default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.index ["owner_type", "owner_id"], name: "index_styles_on_owner_type_and_owner_id", using: :btree
   end
-
-  add_index "styles", ["owner_type", "owner_id"], name: "index_styles_on_owner_type_and_owner_id", using: :btree
 
   create_table "svds", force: :cascade do |t|
     t.binary   "entry_ids"
@@ -849,18 +798,16 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "topic_id",   null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_topic_ignores_on_topic_id", using: :btree
+    t.index ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true, using: :btree
   end
-
-  add_index "topic_ignores", ["topic_id"], name: "index_topic_ignores_on_topic_id", using: :btree
-  add_index "topic_ignores", ["user_id", "topic_id"], name: "index_topic_ignores_on_user_id_and_topic_id", unique: true, using: :btree
 
   create_table "topic_viewings", force: :cascade do |t|
     t.integer "user_id"
     t.integer "viewed_id"
+    t.index ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
+    t.index ["viewed_id"], name: "index_topic_viewings_on_viewed_id", using: :btree
   end
-
-  add_index "topic_viewings", ["user_id", "viewed_id"], name: "index_topic_viewings_on_user_id_and_viewed_id", unique: true, using: :btree
-  add_index "topic_viewings", ["viewed_id"], name: "index_topic_viewings_on_viewed_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.string   "title",          limit: 255
@@ -880,14 +827,13 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.boolean  "broadcast",                  default: false
     t.string   "locale",                                     null: false
     t.datetime "commented_at"
+    t.index ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
+    t.index ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
+    t.index ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
+    t.index ["type", "updated_at"], name: "index_topics_on_type_and_updated_at", using: :btree
+    t.index ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
+    t.index ["updated_at"], name: "index_topics_on_updated_at", using: :btree
   end
-
-  add_index "topics", ["generated", "type", "created_at"], name: "index_entries_on_in_forum_and_type_and_created_at", using: :btree
-  add_index "topics", ["linked_id", "linked_type", "comments_count", "generated"], name: "entries_total_select", using: :btree
-  add_index "topics", ["type", "linked_id", "linked_type"], name: "i_entries_type_linked_type_linked_id", using: :btree
-  add_index "topics", ["type", "updated_at"], name: "index_topics_on_type_and_updated_at", using: :btree
-  add_index "topics", ["type", "user_id"], name: "i_entries_type_user_id", using: :btree
-  add_index "topics", ["updated_at"], name: "index_topics_on_updated_at", using: :btree
 
   create_table "user_changes", force: :cascade do |t|
     t.integer  "user_id"
@@ -914,11 +860,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "prior_value", limit: 255
+    t.index ["target_type", "user_id"], name: "i_user_target", using: :btree
+    t.index ["updated_at"], name: "index_user_histories_on_updated_at", using: :btree
+    t.index ["user_id"], name: "index_user_histories_on_user_id", using: :btree
   end
-
-  add_index "user_histories", ["target_type", "user_id"], name: "i_user_target", using: :btree
-  add_index "user_histories", ["updated_at"], name: "index_user_histories_on_updated_at", using: :btree
-  add_index "user_histories", ["user_id"], name: "index_user_histories_on_user_id", using: :btree
 
   create_table "user_images", force: :cascade do |t|
     t.integer  "user_id"
@@ -932,9 +877,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "image_updated_at"
     t.integer  "width"
     t.integer  "height"
+    t.index ["linked_id", "linked_type"], name: "index_user_images_on_linked_id_and_linked_type", using: :btree
   end
-
-  add_index "user_images", ["linked_id", "linked_type"], name: "index_user_images_on_linked_id_and_linked_type", using: :btree
 
   create_table "user_nickname_changes", force: :cascade do |t|
     t.integer  "user_id"
@@ -942,9 +886,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_deleted",             default: false
+    t.index ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true, using: :btree
   end
-
-  add_index "user_nickname_changes", ["user_id", "value"], name: "index_user_nickname_changes_on_user_id_and_value", unique: true, using: :btree
 
   create_table "user_preferences", force: :cascade do |t|
     t.integer "user_id"
@@ -968,9 +911,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string  "body_width",                             default: "x1200",  null: false
     t.text    "forums",                                 default: [],       null: false, array: true
     t.string  "comment_policy",                         default: "users",  null: false
+    t.index ["user_id"], name: "index_profile_settings_on_user_id", using: :btree
   end
-
-  add_index "user_preferences", ["user_id"], name: "index_profile_settings_on_user_id", using: :btree
 
   create_table "user_rates", force: :cascade do |t|
     t.integer  "user_id"
@@ -985,10 +927,9 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "chapters",                 default: 0, null: false
     t.string   "text",        limit: 2048
     t.integer  "rewatches",                default: 0, null: false
+    t.index ["target_id", "target_type"], name: "i_target", using: :btree
+    t.index ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true, using: :btree
   end
-
-  add_index "user_rates", ["target_id", "target_type"], name: "i_target", using: :btree
-  add_index "user_rates", ["user_id", "target_id", "target_type"], name: "index_user_rates_on_user_id_and_target_id_and_target_type", unique: true, using: :btree
 
   create_table "user_tokens", force: :cascade do |t|
     t.integer  "user_id"
@@ -999,9 +940,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname",   limit: 255
+    t.index ["user_id"], name: "index_user_tokens_on_user_id", using: :btree
   end
-
-  add_index "user_tokens", ["user_id"], name: "index_user_tokens_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255
@@ -1038,12 +978,11 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "locale",                             default: "ru",    null: false
     t.string   "locale_from_host",                   default: "ru",    null: false
     t.integer  "style_id"
+    t.index ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree
+    t.index ["nickname"], name: "index_users_on_nickname", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["style_id"], name: "index_users_on_style_id", using: :btree
   end
-
-  add_index "users", ["api_access_token"], name: "index_users_on_api_access_token", unique: true, using: :btree
-  add_index "users", ["nickname"], name: "index_users_on_nickname", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-  add_index "users", ["style_id"], name: "index_users_on_style_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",    limit: 255
@@ -1056,11 +995,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "reason"
     t.string   "type"
     t.datetime "updated_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
+    t.index ["state"], name: "index_versions_on_state", using: :btree
+    t.index ["user_id", "state"], name: "index_versions_on_user_id_and_state", using: :btree
   end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
-  add_index "versions", ["state"], name: "index_versions_on_state", using: :btree
-  add_index "versions", ["user_id", "state"], name: "index_versions_on_user_id_and_state", using: :btree
 
   create_table "videos", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -1074,9 +1012,8 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.string   "image_url",   limit: 1024
     t.string   "player_url",  limit: 1024
     t.string   "hosting",     limit: 255
+    t.index ["anime_id"], name: "index_videos_on_anime_id", using: :btree
   end
-
-  add_index "videos", ["anime_id"], name: "index_videos_on_anime_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.boolean  "voting",                    default: false
@@ -1084,11 +1021,10 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.integer  "voteable_id"
     t.string   "voteable_type", limit: 255
     t.integer  "user_id"
+    t.index ["user_id"], name: "index_votes_on_user_id", using: :btree
+    t.index ["voteable_id"], name: "index_votes_on_voteable_id", using: :btree
+    t.index ["voteable_type"], name: "index_votes_on_voteable_type", using: :btree
   end
-
-  add_index "votes", ["user_id"], name: "index_votes_on_user_id", using: :btree
-  add_index "votes", ["voteable_id"], name: "index_votes_on_voteable_id", using: :btree
-  add_index "votes", ["voteable_type"], name: "index_votes_on_voteable_type", using: :btree
 
   create_table "webm_videos", force: :cascade do |t|
     t.string   "url",                    limit: 1024, null: false
@@ -1099,8 +1035,7 @@ ActiveRecord::Schema.define(version: 20170319090525) do
     t.datetime "thumbnail_updated_at"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["url"], name: "index_webm_videos_on_url", unique: true, using: :btree
   end
-
-  add_index "webm_videos", ["url"], name: "index_webm_videos_on_url", unique: true, using: :btree
 
 end

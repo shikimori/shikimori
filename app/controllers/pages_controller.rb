@@ -80,7 +80,7 @@ class PagesController < ShikimoriController
 
   # отображение юзер-агента пользователя
   def user_agent
-    render text: request.user_agent
+    render plain: request.user_agent
   end
 
   # страница для теста эксепшенов

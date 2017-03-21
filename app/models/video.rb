@@ -44,7 +44,7 @@ class Video < ApplicationRecord
 
   def url= url
     return if url.nil?
-    self[:url] = url.sub(/^https/, 'http').sub(/^http:\/\/www\./, 'http://')
+    self[:url] = url.sub(/^https/, 'http').sub(%r{^http://www\.}, 'http://')
 
     data = VideoExtractor.fetch self[:url]
     if data
@@ -67,22 +67,21 @@ class Video < ApplicationRecord
 private
 
   def check_url
-    if hosting.present?
-      true
-    else
-      self.errors[:url] =
-        I18n.t 'activerecord.errors.models.videos.attributes.url.incorrect'
-      false
-    end
+    return if hosting.present?
+    errors.add(
+      :url,
+      I18n.t('activerecord.errors.models.videos.attributes.url.incorrect')
+    )
+    throw :abort
   end
 
   def check_hosting
-    if ALLOWED_HOSTINGS.include? hosting.to_sym
+    return if ALLOWED_HOSTINGS.include? hosting.to_sym
       true
-    else
-      self.errors[:url] =
-        I18n.t 'activerecord.errors.models.videos.attributes.hosting.incorrect'
-      false
-    end
+    errors.add(
+      :url,
+      I18n.t('activerecord.errors.models.videos.attributes.hosting.incorrect')
+    )
+    throw :abort
   end
 end

@@ -7,12 +7,16 @@ shared_examples :db_entry_controller do |entry_name|
   end
 
   describe '#versions' do
-    before { get :versions, id: entry.to_param, page: 2, format: :json }
+    before do
+      get :versions, params: { id: entry.to_param, page: 2 }, format: :json
+    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
-    let(:make_request) { get :edit, id: entry.to_param }
+    let(:make_request) do
+      get :edit, params: { id: entry.to_param }
+    end
 
     context 'guest' do
       before { make_request }
@@ -27,7 +31,9 @@ shared_examples :db_entry_controller do |entry_name|
   end
 
   describe '#edit_field' do
-    let(:make_request) { get :edit_field, id: entry.to_param, field: field }
+    let(:make_request) do
+      get :edit_field, params: { id: entry.to_param, field: field }
+    end
 
     context 'guest' do
       let(:field) { 'russian' }
@@ -73,7 +79,7 @@ shared_examples :db_entry_controller do |entry_name|
 
   describe '#update' do
     let(:make_request) do
-      patch :update, { id: entry.id }.merge(entry_name => changes)
+      patch :update, params: { id: entry.id }.merge(entry_name => changes)
     end
     let(:role) { :user }
 

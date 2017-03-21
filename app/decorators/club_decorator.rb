@@ -2,7 +2,8 @@ class ClubDecorator < DbEntryDecorator
   MENU_ENTRIES = 12
 
   rails_cache :all_animes, :all_mangas, :all_characters, :all_images
-  instance_cache :description, :animes, :mangas, :characters, :images, :comments, :banned
+  instance_cache :description, :animes, :mangas, :characters, :images,
+    :comments, :banned
 
   def url
     h.club_url object
@@ -91,14 +92,14 @@ private
   end
 
   def all_animes
-    object.animes.order(:ranked).uniq(&:id).map(&:decorate)
+    object.animes.order(:ranked).decorate
   end
 
   def all_mangas
-    object.mangas.order(:ranked).uniq(&:id).map(&:decorate)
+    object.mangas.order(:ranked).decorate
   end
 
   def all_characters
-    object.characters.order(:name).uniq(&:id).map(&:decorate)
+    object.characters.order(:name).decorate
   end
 end

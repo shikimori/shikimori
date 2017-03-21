@@ -31,9 +31,12 @@ describe UserPreferencesController do
 
       context 'xhr request' do
         before do
-          xhr :put, :update,
-            profile_id: user.to_param,
-            user_preferences: { forums: ['vn'] }
+          put :update,
+            params: {
+              profile_id: user.to_param,
+              user_preferences: { forums: ['vn'] }
+            },
+            xhr: true
         end
 
         it do

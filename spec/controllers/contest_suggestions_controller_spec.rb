@@ -22,12 +22,12 @@ describe ContestSuggestionsController do
 
     context 'started contest' do
       let(:contest) { create :contest, state: 'started' }
-      it { expect{make_request}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'invalid item' do
       let(:anime) { build :anime }
-      it { expect{make_request}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
 
@@ -38,17 +38,17 @@ describe ContestSuggestionsController do
     context 'valid record' do
       before { make_request }
       it { expect(response).to redirect_to contest }
-      it { expect{suggestion.reload}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { suggestion.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'wrong record' do
       before { sign_in create(:user) }
-      it { expect{make_request}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'started contest' do
       let(:contest) { create :contest, state: 'started' }
-      it { expect{make_request}.to raise_error ActiveRecord::RecordNotFound }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
 end

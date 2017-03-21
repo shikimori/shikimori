@@ -268,7 +268,7 @@ class ApplicationController < ActionController::Base
       if with_json_response
         render json: { message: e.message, code: 403 }, status: 403
       else
-        render text: e.message, status: 403
+        render plain: e.message, status: 403
       end
 
     elsif e.is_a?(StatusCodeError)

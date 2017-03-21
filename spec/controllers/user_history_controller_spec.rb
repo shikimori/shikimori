@@ -19,7 +19,7 @@ describe UserHistoryController do
       context 'has no access to list' do
         let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
         before { sign_out user }
-        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+        it { expect { make_request }.to raise_error CanCan::AccessDenied }
       end
     end
   end
@@ -31,7 +31,7 @@ describe UserHistoryController do
 
     context 'has no access' do
       let(:entry) { create :anime }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'has access' do

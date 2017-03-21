@@ -6,7 +6,7 @@ describe EmailsController do
     context 'present user' do
       let(:email) { user.email }
       it do
-        expect{make_request}.to change(Message, :count).by 1
+        expect { make_request }.to change(Message, :count).by 1
         expect(user.reload.messages).to have(1).item
         expect(user.email).to eq ''
         expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to eq 0
@@ -18,7 +18,7 @@ describe EmailsController do
     context 'missing user' do
       let(:email) { 'zxcsdrtgfdgv' }
       it do
-        expect{make_request}.to_not change Message, :count
+        expect { make_request }.to_not change Message, :count
 
         expect(user.reload.email).to_not eq ''
         expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to_not eq 0
@@ -29,7 +29,7 @@ describe EmailsController do
     context 'missing email' do
       let(:email) { '' }
       it do
-        expect{make_request}.to_not change Message, :count
+        expect { make_request }.to_not change Message, :count
 
         expect(user.reload.email).to_not eq ''
         expect(user.notifications & User::PRIVATE_MESSAGES_TO_EMAIL).to_not eq 0
