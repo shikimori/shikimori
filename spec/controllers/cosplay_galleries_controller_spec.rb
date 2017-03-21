@@ -8,7 +8,6 @@ describe CosplayGalleriesController do
   end
 
   describe '#publish' do
-    let!(:cosplayer) { create :user, :cosplayer }
     let(:cosplay_gallery) { create :cosplay_gallery, :anime }
     before { post :publish, params: { id: cosplay_gallery.id } }
 

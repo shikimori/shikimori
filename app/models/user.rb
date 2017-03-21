@@ -219,7 +219,7 @@ class User < ApplicationRecord
 
   # last online time from memcached/or from database
   def last_online_at
-    return nil if new_record?
+    return Time.zone.now if new_record?
 
     cached = Rails.cache.read(last_online_cache_key)
     cached = Time.zone.parse(cached) if cached

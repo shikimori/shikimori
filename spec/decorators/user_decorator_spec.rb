@@ -2,7 +2,11 @@ describe UserDecorator do
   let(:decorator) { user.decorate }
 
   describe '#last_online' do
-    let(:user) { build :user, :user, last_online_at: last_online_at }
+    let(:user) do
+      build_stubbed :user, :user,
+        last_online_at: last_online_at,
+        created_at: 10.years.ago
+    end
 
     context 'admin' do
       let(:user) { build :user, :admin }
