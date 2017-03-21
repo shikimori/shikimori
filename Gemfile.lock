@@ -502,7 +502,7 @@ GEM
       railties (= 5.0.2)
       sprockets-rails (>= 2.0.0)
     rails-assets-d3 (3.5.17)
-    rails-assets-desandro-matches-selector (2.0.1)
+    rails-assets-desandro-matches-selector (2.0.2)
     rails-assets-ev-emitter (1.0.3)
     rails-assets-fizzy-ui-utils (2.0.2)
       rails-assets-desandro-matches-selector (~> 2.0.0)
