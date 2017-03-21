@@ -134,7 +134,7 @@ RSpec.configure do |config|
   end
 
   config.before :suite do
-    FactoryGirl::SeedGenerator.create :user, id: 500_000
+    FactoryGirl::SeedGenerator.create :user, id: User::COSPLAYER_ID
 
     FactoryGirl::SeedGenerator.create :reviews_forum
     FactoryGirl::SeedGenerator.create :animanga_forum

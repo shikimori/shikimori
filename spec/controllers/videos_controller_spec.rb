@@ -10,7 +10,7 @@ describe VideosController do
 
   describe '#create' do
     include_context :back_redirect
-    let(:video_params) {{ url: url, kind: kind, name: name }}
+    let(:video_params) { { url: url, kind: kind, name: name } }
 
     describe 'post request'do
       before { post :create, params: { anime_id: anime.id, video: video_params } }
@@ -67,7 +67,7 @@ describe VideosController do
       end
 
       context 'invalid video' do
-        let(:video_params) {{ kind: kind, name: name }}
+        let(:video_params) { { kind: kind, name: name } }
 
         it do
           expect(assigns :video).to_not be_persisted

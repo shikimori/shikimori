@@ -8,11 +8,17 @@ class VideosController < ShikimoriController
     if request.xhr?
       replace_video @video if duplicate? @video
     else
+      if @video.persisted?
+        flash_key = :notice
+        flash_value = i18n_t('pending_version')
+      else
+        flash_key = :alert
+        flash_value = @video.errors.full_messages.join(', ')
+      end
+
       redirect_back(
         fallback_location: @anime.decorate.edit_field_url(:videos),
-        @video.persisted? ?
-          { notice: i18n_t('pending_version') } :
-          { alert: @video.errors.full_messages.join(', ') }
+        flash_key => flash_value
       )
     end
   end
