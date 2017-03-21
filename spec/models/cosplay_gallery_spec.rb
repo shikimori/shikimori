@@ -8,7 +8,7 @@ describe CosplayGallery do
 
     describe 'instance methods' do
       let(:model) { build_stubbed :cosplay_gallery }
-      let!(:cosplayer) { create :user, id: User::COSPLAYER_ID }
+      let!(:cosplayer) { seed :user }
 
       describe '#generate_topics' do
         let(:topics) { model.topics }

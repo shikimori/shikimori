@@ -2,7 +2,8 @@ describe UserRatesController do
   include_context :authenticated, :user
 
   describe '#index' do
-    let!(:user_rate) { create :user_rate, user: user }
+    let!(:user_rate) { create :user_rate, user: user, target: anime }
+    let(:anime) { create :anime, :ongoing }
     let(:make_request) { get :index, params: { profile_id: user.to_param, list_type: 'anime' } }
 
     context 'has access to list' do
@@ -50,7 +51,11 @@ describe UserRatesController do
     context 'has no access' do
       let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
       before { sign_out user }
-      it { expect{post :import, params: { profile_id: user.to_param }}.to raise_error CanCan::AccessDenied }
+      it do
+        expect(proc do
+          post :import, params: { profile_id: user.to_param }
+        end).to raise_error CanCan::AccessDenied
+      end
     end
 
     context 'mal' do
@@ -62,7 +67,16 @@ describe UserRatesController do
       end
 
       let!(:user_rate) { create :user_rate, user: user, target: anime_1 }
-      before { post :import, params: { profile_id: user.to_param, klass: 'anime', rewrite: rewrite, list_type: :mal, data: list.to_json } }
+      before do
+        post :import,
+          params: {
+            profile_id: user.to_param,
+            klass: 'anime',
+            rewrite: rewrite,
+            list_type: :mal,
+            data: list.to_json
+          }
+      end
 
       context 'no rewrite' do
         let(:rewrite) { false }
@@ -79,7 +93,7 @@ describe UserRatesController do
       context 'rewrite' do
         let(:rewrite) { true }
 
-        it 'imports data', :focus do
+        it 'imports data' do
           expect(response)
             .to redirect_to index_profile_messages_url(user, :notifications)
           expect(user.reload.anime_rates.size).to eq(2)
@@ -95,14 +109,16 @@ describe UserRatesController do
       # let!(:anime_3) { create :anime, name: 'Zombie-Loan', aired_on: Date.parse('2008-01-01') }
       # let!(:anime_4) { create :anime, name: 'Naruto: Shippuuden' }
 
-      # let(:import_params) {{
-        # profile_id: user.to_param,
-        # klass: 'anime',
-        # rewrite: true,
-        # list_type: :anime_planet,
-        # wont_watch_strategy: 'dropped',
-        # login: 'shikitest'
-      # }}
+      # let(:import_params) do
+        # {
+          # profile_id: user.to_param,
+          # klass: 'anime',
+          # rewrite: true,
+          # list_type: :anime_planet,
+          # wont_watch_strategy: 'dropped',
+          # login: 'shikitest'
+        # }
+      # end
 
       # before { NameMatches::Refresh.new.perform Anime.name }
       # before { post :import, import_params }
@@ -118,9 +134,9 @@ describe UserRatesController do
     # end
 
     context 'xml' do
-      let(:manga_1) { create :manga, name: "07 Ghost" }
+      let(:manga_1) { create :manga, name: '07 Ghost' }
 
-      let(:xml) {
+      let(:xml) do
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
@@ -142,7 +158,7 @@ describe UserRatesController do
     <update_on_import>1</update_on_import>
   </manga>
 </myanimelist>"
-      }
+      end
       before { post :import, params: { profile_id: user.to_param, klass: 'manga', rewrite: true, list_type: :xml, file: xml } }
 
       it 'imports data' do

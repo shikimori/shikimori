@@ -16,7 +16,7 @@ class UserRatesImporter
   # :status должен быть циферкой, не словом
   def import list_to_import, rewrite_existed
     # уже имеющееся у пользователя в списке
-    rates = user_rates.each_with_object({}) { |v,memo| memo[v.target_id] = v }
+    rates = user_rates.each_with_object({}) { |v, memo| memo[v.target_id] = v }
 
     # то, что будет добавлено с нуля
     added = []

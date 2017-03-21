@@ -44,13 +44,13 @@ class UserRatesController < ProfilesController
     authorize! :update, @resource
 
     klass = Object.const_get(params[:klass].capitalize)
-    rewrite = params[:rewrite] == true || params[:rewrite] == '1'
+    rewrite = ['true', '1'].include? params[:rewrite].to_s
 
     # в ситуации, когда через yql не получилось, можно попробовать вручную скачать список
-    #if params[:mal_login].present?
-      #params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
-      #params[:list_type] = 'xml'
-    #end
+    # if params[:mal_login].present?
+      # params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
+      # params[:list_type] = 'xml'
+    # end
 
     parser = UserListParser.new klass
     importer = UserRatesImporter.new @resource, klass
