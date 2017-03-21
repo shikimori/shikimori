@@ -43,7 +43,7 @@ private
   end
 
   def sanitize query
-    ActiveRecord::Base.sanitize query.sub(/\\+$/, '')
+    ApplicationRecord.sanitize query.sub(/\\+$/, '')
   end
 
   def transalted_field field_name

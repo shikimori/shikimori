@@ -290,7 +290,7 @@ class UserStatisticsQuery
 
       rates += if ids.any?
         query = "select #{category_name}_id from #{[category_name.tableize, type.pluralize].sort.join('_')} where #{type}_id in (#{ids.join(',')})"
-        ActiveRecord::Base
+        ApplicationRecord
           .connection
           .execute(query)
           .to_enum

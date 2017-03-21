@@ -1,16 +1,16 @@
 class RobotsController < ShikimoriController
   def anime_online
-    render content_type: 'text/plain', text: <<-EOS
-User-agent: *
-Disallow: /
-EOS
+    render plain: <<~EOS
+      User-agent: *
+      Disallow: /
+    EOS
   end
 
   def manga_online
-    render content_type: 'text/plain', text: <<-EOS
-User-agent: *
-Disallow: /
-EOS
+    render plain: <<~EOS
+      User-agent: *
+      Disallow: /
+    EOS
   end
 
   def shikimori
@@ -22,7 +22,7 @@ EOS
   end
 
   def shikimori_ru
-    render content_type: 'text/plain', text: <<~ROBOTS
+    render plain: <<~ROBOTS
       User-agent: *
       Disallow: /*?
       Disallow: /*?rel=nofollow
@@ -61,7 +61,7 @@ EOS
   end
 
   def shikimori_en
-    render content_type: 'text/plain', text: <<~ROBOTS
+    render plain: <<~ROBOTS
       User-agent: *
       Disallow: /
     ROBOTS

@@ -54,9 +54,10 @@
               a.b-oauth_token[
                 class="#{token.provider}"
                 href="#{user_token_url token}"
-                data-method="delete"
-                data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?"
                 title="Отключить авторизацию через #{token.provider.to_s.titleize}"
+                data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?"
+                data-method="delete"
+                data-no-turbolink="true"
               ]
 
       - if @resource.unconnected_providers.any?
@@ -68,6 +69,7 @@
                 class="#{provider}"
                 href="#{send :"user_#{provider}_omniauth_authorize_url"}"
                 title="Подключить авторизацию через #{provider.to_s.titleize}"
+                data-no-turbolink="true"
               ]
 
       input.ignore-suggest.subheadline-input.downgrade_landscape[

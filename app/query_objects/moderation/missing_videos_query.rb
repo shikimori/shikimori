@@ -107,7 +107,7 @@ private
   end
 
   def execute query
-    ActiveRecord::Base.connection.execute(query).to_a
+    ApplicationRecord.connection.execute(query).to_a
   end
 
   def condition

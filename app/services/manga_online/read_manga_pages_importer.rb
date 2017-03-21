@@ -6,9 +6,9 @@ class MangaOnline::ReadMangaPagesImporter
   def save
     return [] if @pages.blank?
 
-    sync_pages = MangaPage.where('url in (?)', @pages.map(&:url))
+    sync_pages = MangaPage.where('url in (?)', @pages.map(&:url)).to_a
     db_urls = sync_pages.map(&:url)
-    @pages.select {|c| !db_urls.include?(c.url) }.each do |page|
+    @pages.select { |c| !db_urls.include?(c.url) }.each do |page|
       page.save(validate: false)
       sync_pages << page
     end

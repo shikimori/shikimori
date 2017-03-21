@@ -1,4 +1,4 @@
-class Genre < ActiveRecord::Base
+class Genre < ApplicationRecord
   include Translation
 
   has_and_belongs_to_many :animes

@@ -8,7 +8,7 @@ describe UserRatesQuery do
   before do
     create :friend_link, src: user, dst: user2
     create :friend_link, src: user, dst: user3
-    create :user_rate, user: user2, target: entry, score: 9, status: 1
+    create :user_rate, user: user2, target: entry, score: 9, status: :watching
     create :user_rate, user: user3, target: entry, score: 5
     create :user_rate, user: user4, target: entry, score: 9
   end
@@ -16,7 +16,7 @@ describe UserRatesQuery do
 
   describe '#friend_rates' do
     subject { query.friend_rates }
-    it { should have(2).items  }
+    it { is_expected.to have(2).items }
   end
 
   # describe '#recent_rates' do
@@ -26,11 +26,11 @@ describe UserRatesQuery do
 
   describe '#statuses_stats' do
     subject { query.statuses_stats }
-    it { should eq(0 => 2, 1 => 1) }
+    it { is_expected.to eq 'planned' => 2, 'watching' => 1 }
   end
 
   describe '#scores_stats' do
     subject { query.scores_stats }
-    it { should eq(9 => 2, 5 => 1) }
+    it { is_expected.to eq 9 => 2, 5 => 1 }
   end
 end

@@ -1,10 +1,24 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
+
+require_relative '../lib/shikimori_domain'
+require_relative '../lib/anime_online_domain'
+require_relative '../lib/string'
+require_relative '../lib/i18n_hack'
+require_relative '../lib/open_image'
+require_relative '../lib/responders/json_responder'
+require_relative '../lib/named_logger'
+
+Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
+
+# require 'acts_as_voteable'
+# require 'open-uri'
+
 
 module Site
   DOMAIN = 'shikimori.org'
@@ -15,7 +29,6 @@ module Site
   DOMAIN_LOCALES = %i(ru en)
 
   class Application < Rails::Application
-
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -39,14 +52,14 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use 'Redirecter' if Rails.env.production?
-    config.middleware.insert 0, 'Rack::UTF8Sanitizer'
-    config.middleware.insert 0, 'ProxyTest'
-    config.middleware.use 'Rack::JSONP'
-    config.middleware.use 'Rack::Attack' if Rails.env.production?
-    # config.middleware.use 'LogBeforeTimeout'
+    config.middleware.use Redirecter if Rails.env.production?
+    config.middleware.insert 0, Rack::UTF8Sanitizer
+    config.middleware.insert 0, ProxyTest
+    config.middleware.use Rack::JSONP
+    config.middleware.use Rack::Attack if Rails.env.production?
+    # config.middleware.use LogBeforeTimeout
 
-    config.middleware.insert_before 0, 'Rack::Cors' do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
         resource '*', headers: :any, methods: [:get, :post, :options]
@@ -57,33 +70,13 @@ module Site
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    # load fonts assets
-
-    config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     ActiveRecord::Base.include_root_in_json = false
-    #config.active_record.disable_implicit_join_references = true
-    config.active_record.raise_in_transactional_callbacks = true
 
     config.redis_db = 2
 
     # достали эксепшены с ханибаджера
     config.action_dispatch.ip_spoofing_check = false
-
-    # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-    # config.assets.precompile += [
-      # Proc.new { |path| !%w(.js .css).include?(File.extname(path)) },
-      # /.*.(css|js)$/
-    # ]
-    config.assets.precompile += %w(
-      core.js
-      page503.css
-      page404.css
-      age_restricted.css
-      highcharts.v4.2.6.js
-      lib/highcharts.js
-      about.js
-    )
 
     config.action_mailer.default_url_options = { host: Site::DOMAIN }
     config.action_mailer.delivery_method = :smtp

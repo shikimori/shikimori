@@ -1,4 +1,4 @@
-class TopicIgnore < ActiveRecord::Base
+class TopicIgnore < ApplicationRecord
   belongs_to :user
   belongs_to :topic
 

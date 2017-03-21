@@ -7,13 +7,13 @@ describe UsersController do
     describe 'whole collection' do
       before { get :index }
       it do
-        expect(collection).to have(4).items
+        expect(collection).to have(5).items # 3 from let + 2 from seeds
         expect(response).to have_http_status :success
       end
     end
 
     describe 'search' do
-      before { get :index, search: 'Fff' }
+      before { get :index, params: { search: 'Fff' } }
       it do
         expect(collection).to eq [user_2, user_1]
         expect(response).to have_http_status :success
@@ -22,7 +22,7 @@ describe UsersController do
   end
 
   describe '#autocomplete' do
-    before { get :autocomplete, search: 'Fff' }
+    before { get :autocomplete, params: { search: 'Fff' } }
 
     it do
       expect(collection).to eq [user_1, user_2]

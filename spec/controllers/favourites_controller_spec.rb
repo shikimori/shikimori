@@ -8,7 +8,7 @@ describe FavouritesController do
 
       describe '#create' do
         let(:make_request) do
-          post :create, linked_type: entry.class.name, linked_id: entry.id, kind: kind
+          post :create, params: { linked_type: entry.class.name, linked_id: entry.id, kind: kind }
         end
 
         context 'withput kind' do
@@ -31,7 +31,7 @@ describe FavouritesController do
       describe '#destroy' do
         let!(:favourite) { create :favourite, linked: entry, user: user }
         let(:make_request) do
-          delete :destroy, linked_type: entry.class.name, linked_id: entry.id
+          delete :destroy, params: { linked_type: entry.class.name, linked_id: entry.id }
         end
 
         it 'success' do

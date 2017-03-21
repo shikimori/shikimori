@@ -13,50 +13,51 @@ FactoryGirl.define do
     censored false
     next_episode_at nil
 
-    after :build do |anime|
-      anime.stub :track_changes
-      anime.stub :generate_news
-      anime.stub :generate_name_matches
-      anime.class.skip_callback :update, :after, :touch_related
+    after :build do |model|
+      stub_method model, :track_changes
+      stub_method model, :generate_news
+      stub_method model, :generate_name_matches
 
-      anime.class.skip_callback :create, :after, :post_elastic
-      anime.class.skip_callback :update, :after, :put_elastic
-      anime.class.skip_callback :destroy, :after, :delete_elastic
+      stub_method model, :touch_related
+
+      stub_method model, :post_elastic
+      stub_method model, :put_elastic
+      stub_method model, :delete_elastic
     end
 
     trait :with_callbacks do
-      after :build do |anime|
-        anime.unstub :track_changes
-        anime.unstub :generate_news
+      after :build do |model|
+        unstub_method model, :track_changes
+        unstub_method model, :generate_news
       end
     end
 
     trait :with_elasticserach do
-      after :build do |anime|
-        anime.class.set_callback :create, :after, :post_elastic
-        anime.class.set_callback :update, :after, :put_elastic
-        anime.class.set_callback :destroy, :after, :delete_elastic
+      after :build do |model|
+        unstub_method model, :post_elastic
+        unstub_method model, :put_elastic
+        unstub_method model, :delete_elastic
       end
     end
 
     trait :with_topics do
-      after(:create) { |anime| anime.generate_topics :ru }
+      after(:create) { |model| model.generate_topics :ru }
     end
 
     trait :with_character do
-      after(:build) { |anime| FactoryGirl.create :person_role, :character_role, anime: anime }
+      after(:build) { |model| FactoryGirl.create :person_role, :character_role, anime: model }
     end
 
     trait :with_staff do
-      after(:build) { |anime| FactoryGirl.create :person_role, :staff_role, anime: anime }
+      after(:build) { |model| FactoryGirl.create :person_role, :staff_role, anime: model }
     end
 
     trait :with_news do
-      after(:build) { |anime| anime.unstub :update_news }
+      after(:build) { |model| unstub_method model, :update_news }
     end
 
     trait :with_video do
-      after(:create) { |anime| FactoryGirl.create :anime_video, anime: anime }
+      after(:create) { |model| FactoryGirl.create :anime_video, anime: model }
     end
 
     Anime.kind.values.each do |kind_type|

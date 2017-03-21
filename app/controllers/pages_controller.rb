@@ -80,7 +80,7 @@ class PagesController < ShikimoriController
 
   # отображение юзер-агента пользователя
   def user_agent
-    render text: request.user_agent
+    render plain: request.user_agent
   end
 
   # страница для теста эксепшенов
@@ -120,9 +120,11 @@ class PagesController < ShikimoriController
 
     @proxies_count = Proxy.count
 
-    unless Rails.env.test?
+    if Rails.env.production?
       memcached_stats = Rails.cache.stats['localhost:11211']
-      @memcached_space = (memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f).round 2
+      @memcached_space = (
+        memcached_stats['bytes'].to_f / memcached_stats['limit_maxbytes'].to_f
+      ).round 2
     end
 
     @redis_keys = ($redis.info['db0'] || 'keys=0').split(',')[0].split('=')[1].to_i

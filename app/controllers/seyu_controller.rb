@@ -18,7 +18,9 @@ private
   end
 
   def role_redirect
-    redirect_to person_url(@resource), status: 301 unless @resource.main_role?(:seyu)
+    unless @resource.main_role?(:seyu)
+      redirect_to person_url(@resource), status: 301
+    end
   end
 
   def search_title

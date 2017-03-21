@@ -1,7 +1,7 @@
 describe Api::V1::CharactersController, :show_in_doc do
   describe '#show' do
     let(:character) { create :character, :with_topics }
-    before { get :show, id: character.id, format: :json }
+    before { get :show, params: { id: character.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -18,7 +18,7 @@ describe Api::V1::CharactersController, :show_in_doc do
         params[:scope].where(id: character_1.id)
       end
     end
-    before { get :search, q: 'asd', format: :json }
+    before { get :search, params: { q: 'asd' }, format: :json }
 
     it do
       expect(collection).to have(1).item

@@ -1,5 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  before_filter :set_omniauth_data
+  before_action :set_omniauth_data
 
   EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
 
@@ -75,7 +75,7 @@ private
   end
 
   def set_omniauth_data
-    @omni = env['omniauth.auth']
+    @omni = request.env['omniauth.auth']
 
     if @omni.nil?
       flash[:alert] = i18n_t 'authentication_failed'

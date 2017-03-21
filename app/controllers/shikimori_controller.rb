@@ -84,14 +84,6 @@ class ShikimoriController < ApplicationController
     set_meta_tags keywords: text
   end
 
-  def redirect_to_back_or_to default, *args
-    if request.env["HTTP_REFERER"].present? and request.env["HTTP_REFERER"] != request.env["REQUEST_URI"]
-      redirect_to :back, *args
-    else
-      redirect_to default, *args
-    end
-  end
-
   # TODO: выпилить
   # пагинация датасорса
   # задаёт переменные класса @page, @limit, @add_postloader

@@ -26,7 +26,7 @@ describe TopicsController do
     end
 
     context 'offtopic' do
-      before { get :index, forum: offtopic_forum.permalink }
+      before { get :index, params: { forum: offtopic_forum.permalink } }
 
       # offtopic_topic_1 + 6 seeded offtopic topics
       # (offtopic topic itself + 5 offtopic sticky topics)
@@ -37,7 +37,7 @@ describe TopicsController do
     end
 
     context 'forum' do
-      before { get :index, forum: animanga_forum.to_param }
+      before { get :index, params: { forum: animanga_forum.to_param } }
 
       context 'no linked' do
         it do
@@ -52,9 +52,11 @@ describe TopicsController do
         end
         before do
           get :index,
-            forum: animanga_forum.to_param,
-            linked_id: linked_id,
-            linked_type: 'anime'
+            params: {
+              forum: animanga_forum.to_param,
+              linked_id: linked_id,
+              linked_type: 'anime'
+            }
         end
 
         context 'valid linked' do
@@ -79,9 +81,11 @@ describe TopicsController do
       context 'one topic' do
         before do
           get :index,
-            forum: animanga_forum.to_param,
-            linked_type: 'anime',
-            linked_id: anime.to_param
+            params: {
+              forum: animanga_forum.to_param,
+              linked_type: 'anime',
+              linked_id: anime.to_param
+            }
         end
         it do
           expect(response).to redirect_to(
@@ -95,7 +99,7 @@ describe TopicsController do
           create :topic, forum: animanga_forum, user: user, linked: anime
         end
         before do
-          get :index, forum: animanga_forum.to_param, linked: anime.to_param
+          get :index, params: { forum: animanga_forum.to_param, linked: anime.to_param }
         end
 
         it do
@@ -111,19 +115,19 @@ describe TopicsController do
       create :topic, forum: animanga_forum, user: user, linked: anime
     end
     context 'no linked' do
-      before { get :show, id: topic.to_param, forum: animanga_forum.to_param }
+      before { get :show, params: { id: topic.to_param, forum: animanga_forum.to_param } }
       it { expect(response).to have_http_status :success }
     end
 
     context 'wrong to_param' do
-      before { get :show, id: topic.to_param[0..-2], forum: animanga_forum.to_param }
+      before { get :show, params: { id: topic.to_param[0..-2], forum: animanga_forum.to_param } }
       it do
         expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
       end
     end
 
     context 'missing linked' do
-      before { get :show, id: anime_topic.to_param, forum: animanga_forum.to_param }
+      before { get :show, params: { id: anime_topic.to_param, forum: animanga_forum.to_param } }
       it do
         expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic)
       end
@@ -132,10 +136,12 @@ describe TopicsController do
     context 'wrong linked' do
       before do
         get :show,
-          id: anime_topic.to_param,
-          forum: animanga_forum.to_param,
-          linked_type: 'anime',
-          linked_id: "#{anime.to_param}test"
+          params: {
+            id: anime_topic.to_param,
+            forum: animanga_forum.to_param,
+            linked_type: 'anime',
+            linked_id: "#{anime.to_param}test"
+          }
       end
       it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
     end
@@ -143,10 +149,12 @@ describe TopicsController do
     context 'with linked' do
       before do
         get :show,
-          id: anime_topic.to_param,
-          forum: animanga_forum.to_param,
-          linked_type: 'anime',
-          linked_id: anime.to_param
+          params: {
+            id: anime_topic.to_param,
+            forum: animanga_forum.to_param,
+            linked_type: 'anime',
+            linked_id: anime.to_param
+          }
       end
       it { expect(response).to have_http_status :success }
     end
@@ -154,21 +162,21 @@ describe TopicsController do
 
   describe '#new' do
     context 'guest' do
-      let(:make_request) { get :new, forum: animanga_forum.to_param }
+      let(:make_request) { get :new, params: { forum: animanga_forum.to_param } }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       let(:params) { { user_id: user.id, forum_id: animanga_forum.id } }
       before { sign_in user }
-      before { get :new, forum: animanga_forum.to_param, topic: params }
+      before { get :new, params: { forum: animanga_forum.to_param, topic: params } }
 
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#edit' do
-    let(:make_request) { get :edit, id: topic.id }
+    let(:make_request) { get :edit, params: { id: topic.id } }
 
     context 'guest' do
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
@@ -176,7 +184,7 @@ describe TopicsController do
 
     context 'authenticated' do
       before { sign_in user }
-      before { get :edit, id: topic.id }
+      before { get :edit, params: { id: topic.id } }
       it { expect(response).to have_http_status :success }
     end
   end
@@ -194,7 +202,7 @@ describe TopicsController do
     end
 
     context 'guest' do
-      let(:make_request) { post :create, forum: animanga_forum.to_param, topic: topic_params }
+      let(:make_request) { post :create, params: { forum: animanga_forum.to_param, topic: topic_params } }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
@@ -210,7 +218,7 @@ describe TopicsController do
             title: ''
           }
         end
-        before { post :create, forum: animanga_forum.to_param, topic: params }
+        before { post :create, params: { forum: animanga_forum.to_param, topic: params } }
 
         it do
           expect(assigns(:topic)).to_not be_valid
@@ -220,7 +228,7 @@ describe TopicsController do
 
       context 'valid params' do
         let(:body) { 'test' }
-        before { post :create, forum: animanga_forum.to_param, topic: topic_params }
+        before { post :create, params: { forum: animanga_forum.to_param, topic: topic_params } }
 
         it do
           expect(resource).to have_attributes topic_params
@@ -246,9 +254,11 @@ describe TopicsController do
     context 'guest' do
       let(:make_request) do
         post :update,
-          forum: animanga_forum.to_param,
-          id: topic.id,
-          topic: params
+          params: {
+            forum: animanga_forum.to_param,
+            id: topic.id,
+            topic: params
+          }
       end
 
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
@@ -259,7 +269,7 @@ describe TopicsController do
 
       context 'invalid params' do
         let(:params) { { user_id: user.id, title: '' } }
-        before { post :update, id: topic.id, topic: params }
+        before { post :update, params: { id: topic.id, topic: params } }
 
         it do
           expect(resource).to_not be_valid
@@ -273,9 +283,11 @@ describe TopicsController do
 
         subject! do
           post :update,
-            forum: animanga_forum.to_param,
-            id: topic.id,
-            topic: params
+            params: {
+              forum: animanga_forum.to_param,
+              id: topic.id,
+              topic: params
+            }
         end
 
         it do
@@ -290,14 +302,14 @@ describe TopicsController do
   describe '#destroy' do
     context 'guest' do
       it do
-        expect { post :destroy, id: topic.id }
+        expect { post :destroy, params: { id: topic.id } }
           .to raise_error CanCan::AccessDenied
       end
     end
 
     context 'authenticated' do
       before { sign_in user }
-      before { post :destroy, id: topic.id }
+      before { post :destroy, params: { id: topic.id } }
 
       it do
         expect(response.content_type).to eq 'application/json'
@@ -307,18 +319,18 @@ describe TopicsController do
   end
 
   describe '#tooltip' do
-    before { get :tooltip, id: topic.to_param }
+    before { get :tooltip, params: { id: topic.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#chosen' do
     let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
-    before { get :chosen, ids: [topic.to_param, offtopic_topic_1.to_param].join(','), format: :json }
+    before { get :chosen, params: { ids: [topic.to_param, offtopic_topic_1.to_param].join(',') }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#reload' do
-    before { get :reload, id: topic.to_param, is_preview: 'true', format: :json }
+    before { get :reload, params: { id: topic.to_param, is_preview: 'true' }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 end

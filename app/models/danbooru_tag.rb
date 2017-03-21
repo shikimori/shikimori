@@ -1,4 +1,4 @@
-class DanbooruTag < ActiveRecord::Base
+class DanbooruTag < ApplicationRecord
   Copyright = 3
   Character = 4
 

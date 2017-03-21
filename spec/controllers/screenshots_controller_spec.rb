@@ -4,7 +4,7 @@ describe ScreenshotsController do
 
   describe '#create' do
     let(:image) { Rack::Test::UploadedFile.new 'spec/images/anime.jpg', 'image/jpg' }
-    before { post :create, anime_id: anime.id, id: anime.id, image: image }
+    before { post :create, params: { anime_id: anime.id, id: anime.id, image: image } }
 
     it do
       expect(assigns :screenshot).to be_persisted
@@ -17,7 +17,7 @@ describe ScreenshotsController do
 
   describe '#destroy' do
     let(:screenshot) { create :screenshot, status: status, anime: anime }
-    before { delete :destroy, anime_id: anime.id, id: screenshot.id }
+    before { delete :destroy, params: { anime_id: anime.id, id: screenshot.id } }
 
     context 'uploaded screenshot' do
       let(:status) { Screenshot::UPLOADED }
@@ -46,7 +46,7 @@ describe ScreenshotsController do
     include_context :back_redirect
     let!(:screenshot_1) { create :screenshot, anime: anime, position: 5 }
     let!(:screenshot_2) { create :screenshot, anime: anime, position: 9 }
-    before { post :reposition, anime_id: anime.id, ids: "#{screenshot_2.id},#{screenshot_1.id}" }
+    before { post :reposition, params: {anime_id: anime.id, ids: "#{screenshot_2.id},#{screenshot_1.id}"} }
 
     it do
       expect(assigns :version).to be_persisted

@@ -1,6 +1,6 @@
 # комментарии должны создаваться, обновляться и удаляться через CommentsService
 # TODO: refactor fat model
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   include Moderatable
   include Antispam
   include Viewable

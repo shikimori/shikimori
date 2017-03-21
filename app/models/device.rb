@@ -1,4 +1,4 @@
-class Device < ActiveRecord::Base
+class Device < ApplicationRecord
   belongs_to :user
 
   enum platform: { android: 0, ios: 1 }

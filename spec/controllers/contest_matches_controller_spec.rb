@@ -2,7 +2,7 @@ describe ContestMatchesController do
   let(:match) { create :contest_match, state: 'started' }
 
   describe '#show' do
-    before { get :show, contest_id: match.round.contest_id, id: match.id }
+    before { get :show, params: { contest_id: match.round.contest_id, id: match.id } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -11,7 +11,7 @@ describe ContestMatchesController do
     before { sign_in user }
 
     context 'new vote' do
-      before { post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'left' }
+      before { post :vote, params: { contest_id: match.round.contest_id, id: match.id, variant: 'left' } }
 
       it do
         expect(assigns(:match).votes).to have(1).item
@@ -23,7 +23,7 @@ describe ContestMatchesController do
     context 'has user_id vote' do
       before do
         match.vote_for 'left', user, '123'
-        post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'right'
+        post :vote, params: { contest_id: match.round.contest_id, id: match.id, variant: 'right' }
       end
       let(:json) { JSON.parse response.body }
 
@@ -39,7 +39,7 @@ describe ContestMatchesController do
     context 'has ip vote' do
       before do
         match.vote_for 'left', create(:user), '0.0.0.0'
-        post :vote, contest_id: match.round.contest_id, id: match.id, variant: 'right'
+        post :vote, params: { contest_id: match.round.contest_id, id: match.id, variant: 'right' }
       end
 
       it do

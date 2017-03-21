@@ -10,10 +10,10 @@ describe VideosController do
 
   describe '#create' do
     include_context :back_redirect
-    let(:video_params) {{ url: url, kind: kind, name: name }}
+    let(:video_params) { { url: url, kind: kind, name: name } }
 
-    describe 'post request'do
-      before { post :create, anime_id: anime.id, video: video_params }
+    describe 'post request' do
+      before { post :create, params: { anime_id: anime.id, video: video_params } }
       it do
         expect(assigns :video).to be_uploaded
         expect(assigns :video).to have_attributes(
@@ -27,7 +27,8 @@ describe VideosController do
 
         expect(assigns :version).to be_persisted
         expect(assigns(:version).item_diff['action']).to eq(
-          Versions::VideoVersion::ACTIONS[:upload])
+          Versions::VideoVersion::ACTIONS[:upload]
+        )
 
         expect(response).to redirect_to back_url
       end
@@ -35,9 +36,13 @@ describe VideosController do
 
     describe 'xhr request' do
       let(:anime_id) { anime.id }
-      let!(:video) { }
+      let!(:video) {}
 
-      before { xhr :post, :create, anime_id: anime_id, video: video_params }
+      before do
+        post :create,
+          params: { anime_id: anime_id, video: video_params },
+          xhr: true
+      end
 
       context 'new video' do
         context 'with anime' do
@@ -67,7 +72,7 @@ describe VideosController do
       end
 
       context 'invalid video' do
-        let(:video_params) {{ kind: kind, name: name }}
+        let(:video_params) { { kind: kind, name: name } }
 
         it do
           expect(assigns :video).to_not be_persisted
@@ -80,7 +85,11 @@ describe VideosController do
 
       context 'already uploaded video' do
         let!(:video) { create :video, video_params }
-        before { xhr :post, :create, anime_id: anime.id, video: video_params }
+        before do
+          post :create,
+            params: { anime_id: anime.id, video: video_params },
+            xhr: true
+        end
 
         it do
           expect(assigns :video).to eq video
@@ -95,12 +104,13 @@ describe VideosController do
 
   describe '#destroy' do
     let(:video) { create :video, :confirmed }
-    before { post :destroy, anime_id: anime.id, id: video.id }
+    before { post :destroy, params: { anime_id: anime.id, id: video.id } }
 
     it do
       expect(assigns :version).to be_persisted
       expect(assigns(:version).item_diff['action']).to eq(
-        Versions::VideoVersion::ACTIONS[:delete])
+        Versions::VideoVersion::ACTIONS[:delete]
+      )
 
       expect(response).to have_http_status :success
     end

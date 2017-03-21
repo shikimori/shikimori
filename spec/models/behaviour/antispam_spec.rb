@@ -1,6 +1,6 @@
-class NoAntispam < ActiveRecord::Base; include Antispam; end
+class NoAntispam < ApplicationRecord; include Antispam; end
 NoAntispam.antispam = false
-class WithAntispam < ActiveRecord::Base; include Antispam; end
+class WithAntispam < ApplicationRecord; include Antispam; end
 
 describe Antispam do
   it 'antispam?' do

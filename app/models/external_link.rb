@@ -1,4 +1,4 @@
-class ExternalLink < ActiveRecord::Base
+class ExternalLink < ApplicationRecord
   belongs_to :entry, polymorphic: true, touch: true
   validates :entry, :source, :kind, :url, presence: true
 

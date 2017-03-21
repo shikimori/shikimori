@@ -4,10 +4,12 @@ describe UserPreferencesController do
   describe '#update' do
     let(:make_request) do
       patch :update,
-        profile_id: user.to_param,
-        page: 'profile',
-        user: user_params,
-        user_preferences: preferences_params
+        params: {
+          profile_id: user.to_param,
+          page: 'profile',
+          user: user_params,
+          user_preferences: preferences_params
+        }
     end
     let(:user_params) { nil }
     let(:preferences_params) { { anime_in_profile: true } }
@@ -29,9 +31,12 @@ describe UserPreferencesController do
 
       context 'xhr request' do
         before do
-          xhr :put, :update,
-            profile_id: user.to_param,
-            user_preferences: { forums: ['vn'] }
+          put :update,
+            params: {
+              profile_id: user.to_param,
+              user_preferences: { forums: ['vn'] }
+            },
+            xhr: true
         end
 
         it do

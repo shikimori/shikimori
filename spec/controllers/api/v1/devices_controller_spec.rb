@@ -15,12 +15,14 @@ describe Api::V1::DevicesController, :show_in_doc do
   end
 
   describe '#create' do
-    let(:params) {{ user_id: user.id, token: 'test', platform: 'ios', name: 'test'}}
-    before { post :create, device: params, format: :json }
+    let(:params) do
+      { user_id: user.id, token: 'test', platform: 'ios', name: 'test' }
+    end
+    before { post :create, params: { device: params }, format: :json }
 
     it do
-      expect(assigns :device).to be_persisted
-      expect(assigns :device).to have_attributes params
+      expect(assigns(:device)).to be_persisted
+      expect(assigns(:device)).to have_attributes params
       expect(response.content_type).to eq 'application/json'
       expect(response).to have_http_status :created
     end
@@ -28,8 +30,10 @@ describe Api::V1::DevicesController, :show_in_doc do
 
   describe '#update' do
     let(:device) { create :device, user: user }
-    let(:params) {{ token: 'test zxc' }}
-    before { patch :update, id: device.id, device: params, format: :json }
+    let(:params) { { token: 'test zxc' } }
+    before do
+      patch :update, params: { id: device.id, device: params }, format: :json
+    end
 
     it do
       expect(assigns :device).to have_attributes params
@@ -40,11 +44,10 @@ describe Api::V1::DevicesController, :show_in_doc do
 
   describe '#destroy' do
     let(:device) { create :device, user: user }
-    before { delete :destroy, id: device.id, format: :json }
+    before { delete :destroy, params: { id: device.id }, format: :json }
 
     it do
-      expect(assigns :device).to be_destroyed
-      expect(response.content_type).to eq 'application/json'
+      expect(assigns(:device)).to be_destroyed
       expect(response).to have_http_status :no_content
     end
   end
@@ -54,18 +57,18 @@ describe Api::V1::DevicesController, :show_in_doc do
 
     context 'own_device' do
       let(:device) { build :device, user: user }
-      it { should be_able_to :manage, device }
+      it { is_expected.to be_able_to :manage, device }
     end
 
     context 'foreign_device' do
       let(:device) { build :device }
-      it { should_not be_able_to :manage, device }
+      it { is_expected.to_not be_able_to :manage, device }
     end
 
     context 'guest' do
       subject { Ability.new nil }
       let(:device) { build :device, user: user }
-      it { should_not be_able_to :manage, device }
+      it { is_expected.to_not be_able_to :manage, device }
     end
   end
 end

@@ -21,6 +21,7 @@ production:
   - [webm_thumbnails, 5]
   - [similar_users, 5]
   - [low_priority, 1]
+  - [mailers, 5]
 
 :limits:
   cpu_intensive: 2

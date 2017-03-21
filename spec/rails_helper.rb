@@ -7,6 +7,7 @@ require 'rspec/rails'
 require 'draper/test/rspec_integration'
 require 'factory_girl_rails'
 require 'factory_girl-seeds'
+require 'rails-controller-testing'
 require 'paperclip/matchers'
 require 'shoulda/matchers'
 require 'sidekiq/testing'
@@ -83,6 +84,12 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveModel, type: :validator
   config.include FeatureHelpers, type: :feature
 
+  # [:controller, :view, :request].each do |type|
+    # config.include ::Rails::Controller::Testing::TestProcess, :type => type
+    # config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+    # config.include ::Rails::Controller::Testing::Integration, :type => type
+  # end
+
   config.before :suite do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with :truncation
@@ -128,6 +135,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     FactoryGirl::SeedGenerator.create :user, id: 500_000
+    FactoryGirl::SeedGenerator.create :cosplay_user
 
     FactoryGirl::SeedGenerator.create :reviews_forum
     FactoryGirl::SeedGenerator.create :animanga_forum

@@ -1,4 +1,4 @@
-class ContestLink < ActiveRecord::Base
+class ContestLink < ApplicationRecord
   belongs_to :contest
   belongs_to :linked, polymorphic: true
 end

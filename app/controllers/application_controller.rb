@@ -80,8 +80,8 @@ class ApplicationController < ActionController::Base
 
   # хелпер для перевода params к виду, который можно засунуть в url хелперы
   def url_params merged = nil
-    cloned_params = params.clone.except(:action, :controller).symbolize_keys
-    merged ? cloned_params.merge(merged) : cloned_params
+    new_params = safe_params.to_h.except(:action, :controller).symbolize_keys
+    merged ? new_params.merge(merged) : new_params
   end
 
   # запрос ли это через турболинки
@@ -102,6 +102,13 @@ class ApplicationController < ActionController::Base
 
     [superclass_name, db_name].select(&:present?).flat_map {|v| [v, "#{v}-#{params[:action]}" ] }.join(' ')
   end
+
+  # Use this in place of params when generating links to Excel etc.
+  # See https://github.com/rails/rails/issues/26289
+  def safe_params
+    params.except(:host, :port, :protocol).permit!
+  end
+  helper_method :safe_params
 
   #-----------------------------------------------------------------------------
   # domain helpers
@@ -261,7 +268,7 @@ class ApplicationController < ActionController::Base
       if with_json_response
         render json: { message: e.message, code: 403 }, status: 403
       else
-        render text: e.message, status: 403
+        render plain: e.message, status: 403
       end
 
     elsif e.is_a?(StatusCodeError)

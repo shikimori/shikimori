@@ -1,4 +1,4 @@
-class ContestSuggestion < ActiveRecord::Base
+class ContestSuggestion < ApplicationRecord
   belongs_to :contest, touch: true
   belongs_to :user
   belongs_to :item, polymorphic: true

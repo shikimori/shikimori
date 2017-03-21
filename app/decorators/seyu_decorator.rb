@@ -32,7 +32,7 @@ class SeyuDecorator < PersonDecorator
     @characters = []
     backindex = {}
 
-    characters.includes(:animes).uniq.each do |char|
+    characters.includes(:animes).to_a.uniq.each do |char|
       entry = nil
       char.animes.each do |anime|
         if backindex.include?(anime.id)

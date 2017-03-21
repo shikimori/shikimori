@@ -2,78 +2,78 @@ describe ProfilesController do
   let!(:user) { create :user }
 
   describe '#show' do
-    before { get :show, id: user.to_param }
+    before { get :show, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#friends' do
     context 'without friends' do
-      before { get :friends, id: user.to_param }
+      before { get :friends, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with friends' do
       let!(:friend_link) { create :friend_link, src: user, dst: create(:user) }
-      before { get :friends, id: user.to_param }
+      before { get :friends, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#clubs' do
     context 'without clubs' do
-      before { get :clubs, id: user.to_param }
+      before { get :clubs, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with clubs' do
       let(:club) { create :club, :with_topics }
       let!(:club_role) { create :club_role, user: user, club: club }
-      before { get :clubs, id: user.to_param }
+      before { get :clubs, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#favourites' do
     context 'without favourites' do
-      before { get :favourites, id: user.to_param }
+      before { get :favourites, params: { id: user.to_param } }
       it { expect(response).to redirect_to profile_url(user) }
     end
 
     context 'with favourites' do
       let!(:favourite) { create :favourite, user: user, linked: create(:anime) }
-      before { get :favourites, id: user.to_param }
+      before { get :favourites, params: { id: user.to_param } }
       it { expect(response).to have_http_status :success }
     end
   end
 
   describe '#reviews' do
     let!(:review) { create :review, :with_topics, user: user }
-    before { get :reviews, id: user.to_param }
+    before { get :reviews, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#feed' do
     let!(:comment) { create :comment, user: user, commentable: user }
-    before { get :feed, id: user.to_param }
+    before { get :feed, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#comments' do
     let!(:comment) { create :comment, user: user, commentable: user }
-    before { get :comments, id: user.to_param }
+    before { get :comments, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#summaries' do
     let!(:comment) { create :comment, :summary, user: user, commentable: user }
-    before { get :summaries, id: user.to_param }
+    before { get :summaries, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#versions' do
     let(:anime) { create :anime }
     let!(:version) { create :version, user: user, item: anime, item_diff: { name: ['test', 'test2'] }, state: :accepted }
-    before { get :versions, id: user.to_param }
+    before { get :versions, params: { id: user.to_param } }
 
     it do
       expect(collection).to have(1).item
@@ -83,12 +83,12 @@ describe ProfilesController do
 
   describe '#videos' do
     let!(:video) { create :video, uploader: user, state: 'confirmed', url: 'http://youtube.com/watch?v=VdwKZ6JDENc' }
-    before { get :videos, id: user.to_param }
+    before { get :videos, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#ban' do
-    before { get :ban, id: user.to_param }
+    before { get :ban, params: { id: user.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -98,7 +98,7 @@ describe ProfilesController do
   #end
 
   describe '#edit' do
-    let(:make_request) { get :edit, id: user.to_param, page: page }
+    let(:make_request) { get :edit, params: { id: user.to_param, page: page } }
 
     context 'when valid access' do
       before { sign_in user }
@@ -148,7 +148,7 @@ describe ProfilesController do
   end
 
   describe '#update' do
-    let(:make_request) { patch :update, id: user.to_param, page: 'account', user: update_params }
+    let(:make_request) { patch :update, params: { id: user.to_param, page: 'account', user: update_params } }
 
     context 'when valid access' do
       before { sign_in user }

@@ -13,7 +13,7 @@ module Viewable
       'COALESCE(v.viewed_id, 0) > 0 AS viewed'
     )
 
-    # base_class returns class descending directly from ActiveRecord::Base
+    # base_class returns class descending directly from ApplicationRecord
     # (that is either Topic or Comment model)
     viewing_klass = "#{base_class.name}Viewing".constantize
 

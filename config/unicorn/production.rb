@@ -48,8 +48,8 @@ before_fork do |server, worker|
     #Process.kill 'QUIT', Process.pid
   #end
 
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.connection.disconnect!
+  defined?(ApplicationRecord) and
+    ApplicationRecord.connection.disconnect!
 
   # The following is only recommended for memory/DB-constrained
   # installations.  It is not needed if your system can house
@@ -88,7 +88,7 @@ after_fork do |server, worker|
   # server.listen(addr, tries: -1, delay: 5, tcp_nopush: true)
 
   # the following is *required* for Rails + "preload_app true",
-  ActiveRecord::Base.establish_connection
+  ApplicationRecord.establish_connection
 
   # if preload_app is true, then you may also want to check and
   # restart any other shared sockets/descriptors such as Memcached,

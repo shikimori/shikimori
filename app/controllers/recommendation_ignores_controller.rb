@@ -1,5 +1,5 @@
 class RecommendationIgnoresController < ShikimoriController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   def create
     render json: RecommendationIgnore.block(entry, current_user)

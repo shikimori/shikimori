@@ -5,7 +5,7 @@ describe UserRates::RefreshIrrelevant do
     let!(:library) do
       {
         planned: OpenStruct.new(user_rates: [anons_rate, released_rate]),
-        watching: OpenStruct.new(user_rates: [ongoing_rate])
+        watching: OpenStruct.new(user_rates: [ongoing_rate.decorate])
       }
     end
     let(:anons_rate) { create :user_rate, anime: anons }
@@ -24,6 +24,7 @@ describe UserRates::RefreshIrrelevant do
     subject! { service.call }
 
     it do
+      expect(library[:planned].user_rates.first.anime).to be_decorated
       expect(library[:planned].user_rates.first.anime.episodes_aired).to eq 10
       expect(library[:planned].user_rates.second.anime.episodes_aired).to eq 0
       expect(library[:watching].user_rates.first.anime.episodes_aired).to eq 12

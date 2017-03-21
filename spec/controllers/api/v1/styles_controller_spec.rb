@@ -5,7 +5,7 @@ describe Api::V1::StylesController, :show_in_doc do
 
   describe '#show' do
     let(:style) { create :style, owner: user }
-    subject! { patch :show, id: style.id, format: :json }
+    subject! { patch :show, params: { id: style.id }, format: :json }
 
     it do
       expect(resource).to eq style
@@ -15,7 +15,7 @@ describe Api::V1::StylesController, :show_in_doc do
 
   describe '#preview' do
     let(:preview_params) { { css: 'xxx' } }
-    subject! { post :preview, style: preview_params, format: :json }
+    subject! { post :preview, params: { style: preview_params }, format: :json }
 
     it do
       expect(resource).to have_attributes preview_params
@@ -33,7 +33,7 @@ describe Api::V1::StylesController, :show_in_doc do
         css: 'xxx'
       }
     end
-    subject! { post :create, style: create_params, format: :json }
+    subject! { post :create, params: { style: create_params }, format: :json }
 
     it do
       expect(resource).to have_attributes create_params
@@ -50,7 +50,7 @@ describe Api::V1::StylesController, :show_in_doc do
         css: 'xxx'
       }
     end
-    subject! { patch :update, id: style.id, style: update_params, format: :json }
+    subject! { patch :update, params: { id: style.id, style: update_params }, format: :json }
 
     it do
       expect(resource).to have_attributes update_params

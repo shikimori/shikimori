@@ -3,8 +3,10 @@ describe Messages::CreateNotification do
 
   describe '#user_registered' do
     let(:target) { build_stubbed :user }
-    let!(:sender) { create :user, id: User::COSPLAYER_ID }
-    it { expect { service.user_registered }.to change(target.messages, :count).by 1 }
+    let!(:sender) { create :user, id: 999_999_999 }
+    it do
+      expect { service.user_registered }.to change(target.messages, :count).by 1
+    end
   end
 
   describe '#nickname_changed' do
@@ -17,26 +19,26 @@ describe Messages::CreateNotification do
 
     context 'disabled_notifications' do
       let(:notifications) { User::DEFAULT_NOTIFICATIONS - User::NICKNAME_CHANGE_NOTIFICATIONS }
-      it { should be nil }
+      it { is_expected.to be nil }
       it { expect { subject }.to_not change(Message, :count) }
     end
 
     context 'allowed_notifications' do
       before { allow(BotsService).to receive(:get_poster).and_return bot }
-      let(:notifications) { User::DEFAULT_NOTIFICATIONS  }
+      let(:notifications) { User::DEFAULT_NOTIFICATIONS }
       let(:bot) { create :user }
 
-      it { should be_persisted }
-      its(:from) { should eq bot }
-      its(:to) { should eq friend }
-      its(:body) { should include old_nickname }
-      its(:body) { should include new_nickname }
+      it { is_expected.to be_persisted }
+      its(:from) { is_expected.to eq bot }
+      its(:to) { is_expected.to eq friend }
+      its(:body) { is_expected.to include old_nickname }
+      its(:body) { is_expected.to include new_nickname }
       it { expect { subject }.to change(Message, :count).by 1 }
       it 'ignores antispam' do
-        expect {
+        expect(proc do
           service.nickname_changed friend, old_nickname, new_nickname
           service.nickname_changed friend, old_nickname, new_nickname
-        }.to change(Message, :count).by 2
+        end).to change(Message, :count).by 2
       end
     end
   end

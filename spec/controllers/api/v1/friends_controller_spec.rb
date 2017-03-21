@@ -4,13 +4,13 @@ describe Api::V1::FriendsController do
 
   describe '#create' do
     context 'unauthorized' do
-      before { post :create, id: user2.id }
+      before { post :create, params: { id: user2.id } }
       it { expect(response).to be_redirect }
     end
 
     context 'authorized', :show_in_doc do
       include_context :authenticated, :user
-      before { post :create, id: user2.id }
+      before { post :create, params: { id: user2.id } }
 
       it do
         expect(user.reload.messages).to be_empty
@@ -27,13 +27,13 @@ describe Api::V1::FriendsController do
 
   describe '#destroy' do
     context 'unauthorized' do
-      before { delete :destroy, id: user2.id }
+      before { delete :destroy, params: { id: user2.id } }
       it { expect(response).to be_redirect }
     end
 
     context 'authorized', :show_in_doc do
       include_context :authenticated, :user
-      before { delete :destroy, id: user2.id }
+      before { delete :destroy, params: { id: user2.id } }
 
       it do
         expect(User.find(user.id).friends.include?(user2)).to eq false

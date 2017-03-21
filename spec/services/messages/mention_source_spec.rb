@@ -12,7 +12,8 @@ describe Messages::MentionSource do
     end
 
     context 'Topic' do
-      let(:linked) { build_stubbed :topic, id: 1, title: 'xx&' }
+      let(:user) { build_stubbed :user, :user }
+      let(:linked) { build_stubbed :topic, id: 1, title: 'xx&', user: user }
       it { is_expected.to eq "в топике <a href=\"//test.host/forum/offtopic/1-xx\">xx&amp;</a>." }
     end
 

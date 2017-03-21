@@ -22,14 +22,21 @@ private
   end
 
   def reload irrelevants
-    @klass.where(id: irrelevants.keys).each do |entry|
-      status, index = irrelevants[entry.id]
-      assign_entry status, index, entry
-    end
+    @klass
+      .where(id: irrelevants.keys)
+      .decorate
+      .each do |entry|
+        status, index = irrelevants[entry.id]
+        assign_entry status, index, entry
+      end
   end
 
   def assign_entry status, index, entry
-    key = @klass.name.downcase.to_sym
-    @library[status].user_rates[index].association_cache[key].target = entry
+    association_name = @klass.name.downcase.to_sym
+    user_rate = @library[status].user_rates[index]
+    association_cache = (user_rate.decorated? ? user_rate.object : user_rate)
+      .instance_variable_get('@association_cache')
+
+    association_cache[association_name].target = entry
   end
 end

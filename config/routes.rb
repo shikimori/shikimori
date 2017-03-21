@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-Site::Application.routes.draw do
+Rails.application.routes.draw do
   user_id = /(?: [^\/.] (?! \.rss$) | [^\/] (?= \.) | \.(?! rss$) )+/x
 
   ani_manga_format = "(/type/:type)(/status/:status)(/season/:season)\

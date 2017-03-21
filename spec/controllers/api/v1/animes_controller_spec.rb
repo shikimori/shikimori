@@ -22,20 +22,22 @@ describe Api::V1::AnimesController, :show_in_doc do
     end
     before do
       get :index,
-        page: 1,
-        limit: 1,
-        type: 'tv',
-        status: 'released',
-        season: '2014',
-        genre: genre.id.to_s,
-        studio: studio.id.to_s,
-        duration: 'F',
-        rating: 'r',
-        search: 'Te',
-        order: 'ranked',
-        mylist: '1',
-        score: '6',
-        censored: 'false',
+        params: {
+          page: 1,
+          limit: 1,
+          type: 'tv',
+          status: 'released',
+          season: '2014',
+          genre: genre.id.to_s,
+          studio: studio.id.to_s,
+          duration: 'F',
+          rating: 'r',
+          search: 'Te',
+          order: 'ranked',
+          mylist: '1',
+          score: '6',
+          censored: 'false'
+        },
         format: :json
     end
 
@@ -48,7 +50,7 @@ describe Api::V1::AnimesController, :show_in_doc do
 
   describe '#show' do
     let(:anime) { create :anime, :with_topics }
-    before { get :show, id: anime.id, format: :json }
+    before { get :show, params: { id: anime.id }, format: :json }
 
     it do
       expect(json).to have_key :description_html
@@ -61,7 +63,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#similar' do
     let(:anime) { create :anime }
     let!(:similar) { create :similar_anime, src: anime }
-    before { get :similar, id: anime.id, format: :json }
+    before { get :similar, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -76,7 +78,7 @@ describe Api::V1::AnimesController, :show_in_doc do
     let(:person) { create :person }
     let!(:role_1) { create :person_role, anime: anime, character: character, role: 'Main' }
     let!(:role_2) { create :person_role, anime: anime, person: person, role: 'Director' }
-    before { get :roles, id: anime.id, format: :json }
+    before { get :roles, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(2).items
@@ -88,7 +90,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#related' do
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :related, id: anime.id, format: :json }
+    before { get :related, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -100,7 +102,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#screenshots' do
     let(:anime) { create :anime }
     let!(:screenshot) { create :screenshot, anime: anime }
-    before { get :screenshots, id: anime.id, format: :json }
+    before { get :screenshots, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -112,7 +114,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#videos' do
     let(:anime) { create :anime }
     let!(:video) { create :video, :confirmed, anime: anime }
-    before { get :videos, id: anime.id, format: :json }
+    before { get :videos, params: { id: anime.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -124,7 +126,7 @@ describe Api::V1::AnimesController, :show_in_doc do
   describe '#franchise' do
     let(:anime) { create :anime }
     let!(:similar) { create :related_anime, source: anime, anime: create(:anime), relation: 'Adaptation' }
-    before { get :franchise, id: anime.id, format: :json }
+    before { get :franchise, params: { id: anime.id }, format: :json }
     after { BannedRelations.instance.clear_cache! }
 
     it do
@@ -141,7 +143,7 @@ describe Api::V1::AnimesController, :show_in_doc do
         params[:scope].where(id: anime_1)
       end
     end
-    before { get :search, q: 'asd', censored: true, format: :json }
+    before { get :search, params: { q: 'asd', censored: true }, format: :json }
 
     it do
       expect(collection).to have(1).item

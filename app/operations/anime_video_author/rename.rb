@@ -8,7 +8,7 @@ class AnimeVideoAuthor::Rename < ServiceObjectBase
 
     new_author = AnimeVideoAuthor.find_by name: @new_name
 
-    @model.anime_videos.update_all anime_video_author_id: new_author
+    @model.anime_videos.update_all anime_video_author_id: new_author&.id
     @model.destroy!
   end
 end

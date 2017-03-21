@@ -65,7 +65,7 @@ class ProfilesController < ShikimoriController
       Comment
         .where(user: @resource.object)
         .where(params[:search].present? ?
-          "body ilike #{ActiveRecord::Base.sanitize "%#{SearchHelper.unescape params[:search]}%"}" :
+          "body ilike #{ApplicationRecord.sanitize "%#{SearchHelper.unescape params[:search]}%"}" :
           nil)
         .order(id: :desc)
     end
@@ -144,6 +144,7 @@ class ProfilesController < ShikimoriController
         @resource.update associations_params
       end
 
+      params[:page] = 'account' if params[:page] == 'password'
       redirect_to edit_profile_url(@resource, page: params[:page]),
         notice: t('changes_saved')
     else

@@ -7,7 +7,7 @@ describe ReviewsController do
   before { create :club, id: ReviewsController::REVIEWS_CLUB_ID }
 
   describe '#index' do
-    before { get :index, anime_id: anime.to_param, type: 'Anime' }
+    before { get :index, params: { anime_id: anime.to_param, type: 'Anime' } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -21,7 +21,7 @@ describe ReviewsController do
         target_type: anime.class.name
       }
     end
-    before { get :new, anime_id: anime.to_param, type: 'Anime', review: params }
+    before { get :new, params: { anime_id: anime.to_param, type: 'Anime', review: params } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -31,9 +31,11 @@ describe ReviewsController do
 
     before do
       post :create,
-        anime_id: anime.to_param,
-        type: 'Anime',
-        review: params
+        params: {
+          anime_id: anime.to_param,
+          type: 'Anime',
+          review: params
+        }
     end
 
     context 'valid params' do
@@ -78,7 +80,7 @@ describe ReviewsController do
 
   describe '#edit' do
     include_context :authenticated, :user
-    before { get :edit, anime_id: anime.to_param, type: 'Anime', id: review.id }
+    before { get :edit, params: { anime_id: anime.to_param, type: 'Anime', id: review.id } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -87,10 +89,12 @@ describe ReviewsController do
 
     before do
       patch :update,
-        id: review.id,
-        review: params,
-        anime_id: anime.to_param,
-        type: 'Anime'
+        params: {
+          id: review.id,
+          review: params,
+          anime_id: anime.to_param,
+          type: 'Anime'
+        }
     end
 
     context 'valid params' do
@@ -126,7 +130,7 @@ describe ReviewsController do
   describe '#destroy' do
     include_context :authenticated, :user
     before do
-      delete :destroy, id: review.id, anime_id: anime.to_param, type: 'Anime'
+      delete :destroy, params: { id: review.id, anime_id: anime.to_param, type: 'Anime' }
     end
 
     it do

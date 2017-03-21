@@ -4,7 +4,7 @@ describe Api::V1::CommentsController do
   let(:comment) { create :comment, commentable: topic, user: user }
 
   describe '#show', :show_in_doc do
-    before { get :show, id: comment.id, format: :json }
+    before { get :show, params: { id: comment.id }, format: :json }
 
     it do
       expect(json).to have_key :user
@@ -19,11 +19,13 @@ describe Api::V1::CommentsController do
 
     before do
       get :index,
-        commentable_type: User.name,
-        commentable_id: user.id,
-        page: 1,
-        limit: 10,
-        desc: '1',
+        params: {
+          commentable_type: User.name,
+          commentable_id: user.id,
+          page: 1,
+          limit: 10,
+          desc: '1'
+        },
         format: :json
     end
 
@@ -49,9 +51,11 @@ describe Api::V1::CommentsController do
 
     subject! do
       post :create,
-        frontend: is_frontend,
-        broadcast: is_broadcast,
-        comment: params,
+        params: {
+          frontend: is_frontend,
+          broadcast: is_broadcast,
+          comment: params
+        },
         format: :json
     end
 
@@ -104,9 +108,11 @@ describe Api::V1::CommentsController do
 
     subject! do
       patch :update,
-        id: comment.id,
-        frontend: is_frontend,
-        comment: params,
+        params: {
+          id: comment.id,
+          frontend: is_frontend,
+          comment: params
+        },
         format: :json
     end
 
@@ -141,7 +147,7 @@ describe Api::V1::CommentsController do
 
   describe '#destroy' do
     include_context :authenticated, :user
-    let(:make_request) { delete :destroy, id: comment.id, format: :json }
+    let(:make_request) { delete :destroy, params: { id: comment.id }, format: :json }
 
     context 'success', :show_in_doc do
       before { make_request }

@@ -1,4 +1,4 @@
-class Studio < ActiveRecord::Base
+class Studio < ApplicationRecord
   Merged = {
     83 => 48,
     88 => 48,
@@ -48,7 +48,7 @@ class Studio < ActiveRecord::Base
   def all_animes
     self.animes unless Merged.values.include?(self.id)
     ids = []
-    ActiveRecord::Base.connection
+    ApplicationRecord.connection
         .execute('SELECT * FROM animes_studios where studio_id in (%s)' % (Merged.select {|k,v| v == self.id }.map {|k,v| k } + [self.id]).join(',')).each do |v|
       ids << v[0]
     end

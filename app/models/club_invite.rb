@@ -1,4 +1,4 @@
-class ClubInvite < ActiveRecord::Base
+class ClubInvite < ApplicationRecord
   belongs_to :club
   belongs_to :src, class_name: User.name, foreign_key: :src_id
   belongs_to :dst, class_name: User.name, foreign_key: :dst_id
@@ -55,12 +55,12 @@ private
   def check_banned
     return unless club.banned? dst
     errors.add :base, :banned
-    false
+    throw :abort
   end
 
   def check_joined
     return unless club.member? dst
     errors.add :base, :joined
-    false
+    throw :abort
   end
 end

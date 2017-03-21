@@ -8,9 +8,8 @@ describe CosplayGalleriesController do
   end
 
   describe '#publish' do
-    let!(:cosplayer) { create :user, :cosplayer }
     let(:cosplay_gallery) { create :cosplay_gallery, :anime }
-    before { post :publish, id: cosplay_gallery.id }
+    before { post :publish, params: { id: cosplay_gallery.id } }
 
     it do
       expect(cosplay_gallery.topics).to have(2).items

@@ -35,7 +35,7 @@ class ProxyParser
 
   # сохранение проксей в базу
   def save proxies
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       if proxies.any?
         Proxy.delete_all
         Proxy.import proxies

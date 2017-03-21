@@ -1,4 +1,4 @@
-class ContestMatch < ActiveRecord::Base
+class ContestMatch < ApplicationRecord
   Undefined = 'undefined variant'
 
   belongs_to :round, class_name: ContestRound.name, touch: true

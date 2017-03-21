@@ -10,7 +10,7 @@ describe PeopleController do
         .to receive(:call)
         .and_return Person.where(id: person.id)
     end
-    before { get :index, search: 'Fff', kind: kind }
+    before { get :index, params: { search: 'Fff', kind: kind } }
 
     it do
       expect(collection).to eq [person]
@@ -20,24 +20,24 @@ describe PeopleController do
 
   describe '#show' do
     let!(:person) { create :person, :with_topics, mangaka: true }
-    before { get :show, id: person.to_param }
+    before { get :show, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#works' do
     let!(:manga) { create :manga, person_roles: [create(:person_role, person: person, role: 'Director')] }
-    before { get :works, id: person.to_param }
+    before { get :works, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#favoured' do
     let!(:favoured) { create :favourite, linked: person }
-    before { get :favoured, id: person.to_param }
+    before { get :favoured, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#tooltip' do
-    before { get :tooltip, id: person.to_param }
+    before { get :tooltip, params: { id: person.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -47,7 +47,7 @@ describe PeopleController do
     let(:kind) { 'mangaka' }
 
     before { allow(Autocomplete::Person).to receive(:call).and_return [person] }
-    before { get :autocomplete, search: 'Fff', kind: kind }
+    before { get :autocomplete, params: { search: 'Fff', kind: kind } }
 
     it do
       expect(collection).to eq [person]

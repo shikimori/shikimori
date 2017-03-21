@@ -3,7 +3,7 @@ class CosplayController < ShikimoriController
   include CosplayHelper
 
   helper_method :breadcrumbs, :chronology
-  before_filter lambda { raise Unauthorized unless user_signed_in? && current_user.cosplay_moderator? }, only: [:mod, :new, :update, :edit, :create, :delete, :undelete]
+  before_action lambda { raise Unauthorized unless user_signed_in? && current_user.cosplay_moderator? }, only: [:mod, :new, :update, :edit, :create, :delete, :undelete]
 
   # модерация косплея
   def mod

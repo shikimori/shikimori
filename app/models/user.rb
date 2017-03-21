@@ -1,5 +1,5 @@
 # TODO: refactor UserNotifications module inclusion
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include PermissionsPolicy
   include UserNotifications
   include Commentable
@@ -219,7 +219,9 @@ class User < ActiveRecord::Base
 
   # last online time from memcached/or from database
   def last_online_at
-    cached = Rails.cache.read(self.last_online_cache_key)
+    return Time.zone.now if new_record?
+
+    cached = Rails.cache.read(last_online_cache_key)
     cached = Time.zone.parse(cached) if cached
     [cached, self[:last_online_at], current_sign_in_at, created_at].compact.max
   end

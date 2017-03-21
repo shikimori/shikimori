@@ -4,7 +4,7 @@
 #       target_type,
 #       phrase varchar_pattern_ops
 #     )
-class NameMatch < ActiveRecord::Base
+class NameMatch < ApplicationRecord
   belongs_to :target, polymorphic: true
   belongs_to :anime,
     class_name: Anime.name,

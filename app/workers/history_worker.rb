@@ -26,7 +26,7 @@ private
 
     messages = build_messages topic
 
-    ActiveRecord::Base.transaction do
+    ApplicationRecord.transaction do
       topic.update_column :processed, true
       messages.each_slice(1000) { |slice| Message.import slice, validate: false }
     end

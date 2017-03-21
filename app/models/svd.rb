@@ -1,4 +1,4 @@
-class Svd < ActiveRecord::Base
+class Svd < ApplicationRecord
   serialize :lsa
   serialize :entry_ids
   serialize :user_ids

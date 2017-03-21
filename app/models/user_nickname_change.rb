@@ -1,4 +1,4 @@
-class UserNicknameChange < ActiveRecord::Base
+class UserNicknameChange < ApplicationRecord
   belongs_to :user
 
   validates :user, :value, presence: true
@@ -6,12 +6,16 @@ class UserNicknameChange < ActiveRecord::Base
 
   MINIMUM_COMMENTS_COUNT = 10
 
-  before_create :should_log?
+  before_create :check_necessity
   after_create :notify_friends
 
   default_scope -> { where is_deleted: false }
 
 private
+
+  def check_necessity
+    throw :abort unless should_log?
+  end
 
   def should_log?
     new_user_ru = I18n.t 'omniauth_service.new_user', locale: :ru
@@ -31,7 +35,10 @@ private
       friend,
       user.changes['nickname'][0],
       user.changes['nickname'][1]
-    ) rescue ActiveRecord::RecordNotUnique
+    )
+
+  rescue ActiveRecord::RecordNotUnique
+    nil
   end
 
   def user_friends

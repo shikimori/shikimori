@@ -1,4 +1,4 @@
-class ClubBan < ActiveRecord::Base
+class ClubBan < ApplicationRecord
   belongs_to :club
   belongs_to :user
 

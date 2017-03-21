@@ -11,13 +11,13 @@ describe GenresController do
   end
 
   describe '#edit' do
-    before { get :edit, id: genre.id }
+    before { get :edit, params: { id: genre.id } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
     let(:params) {{ description: 'new description' }}
-    before { patch :update, id: genre.id, genre: params }
+    before { patch :update, params: { id: genre.id, genre: params } }
 
     it do
       expect(response).to redirect_to genres_url
@@ -26,7 +26,7 @@ describe GenresController do
   end
 
   describe '#tooltip' do
-    before { get :tooltip, id: genre }
+    before { get :tooltip, params: { id: genre } }
     it { expect(response).to have_http_status :success }
   end
 end

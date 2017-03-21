@@ -1,4 +1,4 @@
-class ClubImage < ActiveRecord::Base
+class ClubImage < ApplicationRecord
   belongs_to :club, touch: true
   belongs_to :user
 

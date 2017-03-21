@@ -78,19 +78,16 @@ describe User do
       let(:user) { create :user, :with_assign_style }
       it do
         expect(user.reload.style).to be_persisted
-        expect(user.style).to have_attributes(
-          css: '',
-          name: ''
-        )
+        expect(user.style).to have_attributes css: '', name: ''
         expect(user.styles.first).to eq user.style
         expect(user.styles).to have(1).item
       end
     end
 
-    #it 'creates registration history entry' do
-      #user.history.is_expected.to have(1).item
-      #user.history.first.action.is_expected.to eq UserHistoryAction::Registration
-    #end
+    # it 'creates registration history entry' do
+      # user.history.is_expected.to have(1).item
+      # user.history.first.action.is_expected.to eq UserHistoryAction::Registration
+    # end
 
     describe '#log_nickname_change' do
       let(:user) { create :user }
@@ -139,48 +136,48 @@ describe User do
     end
 
     context 'when profile is commented' do
-      it "then new MessageType::ProfileCommented notification is created" do
+      it 'then new MessageType::ProfileCommented notification is created' do
         user1 = create :user
         user2 = create :user
-        expect {
+        expect(proc do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
-        }.to change(Message, :count).by 1
+        end).to change(Message, :count).by 1
         message = Message.last
         expect(message.kind).to eq(MessageType::ProfileCommented)
         expect(message.from_id).to eq user1.id
         expect(message.to_id).to eq user2.id
       end
 
-      it "two times, then only one MessageType::ProfileCommented notification is created" do
+      it 'two times, then only one MessageType::ProfileCommented notification is created' do
         user1 = create :user
         user2 = create :user
         user3 = create :user
-        expect {
+        expect(proc do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
-        }.to change(Message, :count).by 1
+        end).to change(Message, :count).by 1
         message = Message.last
         expect(message.kind).to eq(MessageType::ProfileCommented)
         expect(message.from_id).to eq user1.id
         expect(message.to_id).to eq user2.id
       end
 
-      it "by its owner, then no MessageType::ProfileCommented notification is created" do
+      it 'by its owner, then no MessageType::ProfileCommented notification is created' do
         user1 = create :user
-        expect {
+        expect(proc do
           create :comment, :with_creation_callbacks, user: user1, commentable: user1
-        }.to_not change Message, :count
+        end).to_not change Message, :count
       end
 
-      it "and user read it, and then commented again, then second MessageType::ProfileCommented notification is created" do
+      it 'and user read it, and then commented again, then second MessageType::ProfileCommented notification is created' do
         user1 = create :user
         user2 = create :user
         user3 = create :user
-        expect {
+        expect(proc do
           create :comment, :with_creation_callbacks, user: user1, commentable: user2
           Message.last.update_attribute(:read, true)
           create :comment, :with_creation_callbacks, user: user3, commentable: user2
-        }.to change(Message, :count).by 2
+        end).to change(Message, :count).by 2
         message = Message.last
         expect(message.kind).to eq MessageType::ProfileCommented
         expect(message.from_id).to eq user3.id
@@ -190,18 +187,18 @@ describe User do
 
     describe '#banned?' do
       let(:read_only_at) { nil }
-      subject { create(:user, read_only_at: read_only_at).banned? }
+      subject { create :user, read_only_at: read_only_at }
 
-      it { is_expected.to be_falsy }
+      it { is_expected.to_not be_banned }
 
       describe 'true' do
-        let(:read_only_at) { DateTime.now + 1.hour }
-        it { is_expected.to be_truthy }
+        let(:read_only_at) { Time.zone.now + 1.hour }
+        it { is_expected.to be_banned }
       end
 
       describe 'false' do
-        let(:read_only_at) { DateTime.now - 1.second }
-        it { is_expected.to be_falsy }
+        let(:read_only_at) { Time.zone.now - 1.second }
+        it { is_expected.to_not be_banned }
       end
     end
 

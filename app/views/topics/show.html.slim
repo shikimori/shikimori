@@ -1,6 +1,6 @@
 - content_for :head do
   = auto_discovery_link_tag :rss,
-    url_for(params.merge format: :rss),
+    url_for(safe_params.merge format: :rss),
     title: 'Комментарии топика'
 
 = render layout: 'topics/page' do |f|

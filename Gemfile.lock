@@ -44,14 +44,32 @@ GIT
 
 GIT
   remote: git://github.com/morr/cancancan.git
-  revision: 0b4918d400882348d02bec7bd032f2a2d201914a
+  revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
   specs:
-    cancancan (1.15.0)
+    cancancan (1.16.0)
+
+GIT
+  remote: git://github.com/morr/russian.git
+  revision: 752e7bae6d86e7829b0caffd6eeabbfdb5d259c4
+  specs:
+    rs_russian (0.9.5)
+      activesupport (>= 3.0.0, < 5.1.0)
+      i18n (>= 0.6.0, < 0.9.0)
+      unicode (~> 0.4.4)
+
+GIT
+  remote: git://github.com/morr/sidekiq-unique-jobs.git
+  revision: a99ac38049be65d33dd28d444c219c2a10e9ae2a
+  branch: master
+  specs:
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
 
 GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 14f4ee2215d32bdb8fcd51c49ae65ed3f46488eb
+  revision: e01896a937f339d1c3e9bc8d0dd967dd494ead0e
   branch: master
   specs:
     turbolinks (2.5.3)
@@ -80,61 +98,61 @@ GIT
       attr_extras
       nokogiri
 
-GIT
-  remote: git://github.com/watg/multi_fetch_fragments.git
-  revision: 8cae7d8dc1c0b00b94419035854d90ba93ca8863
-  specs:
-    multi_fetch_fragments (0.0.17)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
   specs:
-    actionmailer (4.2.8)
-      actionpack (= 4.2.8)
-      actionview (= 4.2.8)
-      activejob (= 4.2.8)
+    actioncable (5.0.2)
+      actionpack (= 5.0.2)
+      nio4r (>= 1.2, < 3.0)
+      websocket-driver (~> 0.6.1)
+    actionmailer (5.0.2)
+      actionpack (= 5.0.2)
+      actionview (= 5.0.2)
+      activejob (= 5.0.2)
       mail (~> 2.5, >= 2.5.4)
-      rails-dom-testing (~> 1.0, >= 1.0.5)
-    actionpack (4.2.8)
-      actionview (= 4.2.8)
-      activesupport (= 4.2.8)
-      rack (~> 1.6)
-      rack-test (~> 0.6.2)
-      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-dom-testing (~> 2.0)
+    actionpack (5.0.2)
+      actionview (= 5.0.2)
+      activesupport (= 5.0.2)
+      rack (~> 2.0)
+      rack-test (~> 0.6.3)
+      rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.2)
     actionpack-action_caching (1.2.0)
       actionpack (>= 4.0.0, < 6)
-    actionview (4.2.8)
-      activesupport (= 4.2.8)
+    actionview (5.0.2)
+      activesupport (= 5.0.2)
       builder (~> 3.1)
       erubis (~> 2.7.0)
-      rails-dom-testing (~> 1.0, >= 1.0.5)
+      rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
-    active_model_serializers (0.10.4)
+    active_model_serializers (0.10.5)
       actionpack (>= 4.1, < 6)
       activemodel (>= 4.1, < 6)
       case_transform (>= 0.2)
-      jsonapi (= 0.1.1.beta6)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.2)
     active_record_query_trace (1.5.4)
-    activejob (4.2.8)
-      activesupport (= 4.2.8)
-      globalid (>= 0.3.0)
-    activemodel (4.2.8)
-      activesupport (= 4.2.8)
+    activejob (5.0.2)
+      activesupport (= 5.0.2)
+      globalid (>= 0.3.6)
+    activemodel (5.0.2)
+      activesupport (= 5.0.2)
+    activemodel-serializers-xml (1.0.1)
+      activemodel (> 5.x)
+      activerecord (> 5.x)
+      activesupport (> 5.x)
       builder (~> 3.1)
-    activerecord (4.2.8)
-      activemodel (= 4.2.8)
-      activesupport (= 4.2.8)
-      arel (~> 6.0)
-    activerecord-collection_cache_key (0.1.3)
-      activerecord (>= 3.0, < 5.0)
-    activerecord-import (0.17.1)
+    activerecord (5.0.2)
+      activemodel (= 5.0.2)
+      activesupport (= 5.0.2)
+      arel (~> 7.0)
+    activerecord-import (0.17.2)
       activerecord (>= 3.2)
-    activesupport (4.2.8)
+    activesupport (5.0.2)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (~> 0.7)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     acts-as-taggable-on (4.0.0)
       activerecord (>= 4.0)
@@ -147,7 +165,7 @@ GEM
     apipie-rails (0.4.0)
       json
       rails (>= 4.0)
-    arel (6.0.4)
+    arel (7.1.4)
     ast (2.3.0)
     attr_extras (5.2.0)
     awesome_print (1.7.0)
@@ -186,9 +204,8 @@ GEM
       activesupport
     chainable_methods (0.2.1)
     chronic (0.10.2)
-    climate_control (0.0.3)
-      activesupport (>= 3.0)
-    clockwork (2.0.1)
+    climate_control (0.1.0)
+    clockwork (2.0.2)
       activesupport
       tzinfo
     cocaine (0.5.8)
@@ -217,13 +234,14 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
-    diff-lcs (1.2.5)
+    diff-lcs (1.3)
     domain_name (0.5.20170223)
       unf (>= 0.0.5, < 1.0.0)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
+    draper (3.0.0.pre1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
       request_store (~> 1.0)
     draper-cancancan (1.1.1)
     dry-configurable (0.6.2)
@@ -251,9 +269,9 @@ GEM
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.4, >= 0.4.0)
       inflecto (~> 0.0.0, >= 0.0.2)
-    em-hiredis (0.3.0)
+    em-hiredis (0.3.1)
       eventmachine (~> 1.0)
-      hiredis (~> 0.5.0)
+      hiredis (~> 0.6.0)
     em-http-request (1.1.5)
       addressable (>= 2.3.4)
       cookiejar (!= 0.3.1)
@@ -265,7 +283,7 @@ GEM
     enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    eventmachine (1.2.2)
+    eventmachine (1.2.3)
     execjs (2.7.0)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
@@ -296,7 +314,7 @@ GEM
     faye-websocket (0.10.0)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
-    ffi (1.9.17)
+    ffi (1.9.18)
     formatador (0.2.5)
     gcm (0.1.1)
       httparty
@@ -333,7 +351,7 @@ GEM
       spring
     hashdiff (0.3.2)
     hashie (3.5.5)
-    hiredis (0.5.2)
+    hiredis (0.6.1)
     honeybadger (3.1.0)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
@@ -341,7 +359,7 @@ GEM
     http_parser.rb (0.6.0)
     httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    i18n (0.7.0)
+    i18n (0.8.1)
     i18n-inflector (2.6.7)
       i18n (>= 0.4.1)
     i18n-inflector-rails (1.0.7)
@@ -357,11 +375,7 @@ GEM
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
     json (2.0.3)
-    jsonapi (0.1.1.beta6)
-      jsonapi-parser (= 0.1.1.beta3)
-      jsonapi-renderer (= 0.1.1.beta1)
-    jsonapi-parser (0.1.1.beta3)
-    jsonapi-renderer (0.1.1.beta1)
+    jsonapi-renderer (0.1.2)
     jwt (1.5.6)
     kgio (2.11.0)
     launchy (2.4.3)
@@ -404,7 +418,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
     newrelic_rpm (4.0.0.332)
-    nokogiri (1.7.0.1)
+    nio4r (2.0.0)
+    nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -461,11 +476,10 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (2.0.5)
-    quiet_assets (1.1.0)
-      railties (>= 3.1, < 5.0)
+    puma (3.8.2)
     rabl (0.13.1)
       activesupport (>= 2.3.14)
-    rack (1.6.5)
+    rack (2.0.1)
     rack-attack (5.0.1)
       rack
     rack-cors (0.4.1)
@@ -475,17 +489,18 @@ GEM
       rack (>= 1.0)
     rack-utf8_sanitizer (1.3.2)
       rack (>= 1.0, < 3.0)
-    rails (4.2.8)
-      actionmailer (= 4.2.8)
-      actionpack (= 4.2.8)
-      actionview (= 4.2.8)
-      activejob (= 4.2.8)
-      activemodel (= 4.2.8)
-      activerecord (= 4.2.8)
-      activesupport (= 4.2.8)
+    rails (5.0.2)
+      actioncable (= 5.0.2)
+      actionmailer (= 5.0.2)
+      actionpack (= 5.0.2)
+      actionview (= 5.0.2)
+      activejob (= 5.0.2)
+      activemodel (= 5.0.2)
+      activerecord (= 5.0.2)
+      activesupport (= 5.0.2)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.2.8)
-      sprockets-rails
+      railties (= 5.0.2)
+      sprockets-rails (>= 2.0.0)
     rails-assets-d3 (3.5.17)
     rails-assets-desandro-matches-selector (2.0.1)
     rails-assets-ev-emitter (1.0.3)
@@ -515,20 +530,22 @@ GEM
     rails-assets-sugar (1.4.1)
     rails-assets-uevent (1.0.0)
     rails-assets-urijs (1.18.9)
-    rails-deprecated_sanitizer (1.0.3)
-      activesupport (>= 4.2.0.alpha)
-    rails-dom-testing (1.0.8)
-      activesupport (>= 4.2.0.beta, < 5.0)
+    rails-controller-testing (1.0.1)
+      actionpack (~> 5.x)
+      actionview (~> 5.x)
+      activesupport (~> 5.x)
+    rails-dom-testing (2.0.2)
+      activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6)
-      rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (4.0.9)
+    rails-i18n (5.0.3)
       i18n (~> 0.7)
-      railties (~> 4.0)
-    railties (4.2.8)
-      actionpack (= 4.2.8)
-      activesupport (= 4.2.8)
+      railties (~> 5.0)
+    railties (5.0.2)
+      actionpack (= 5.0.2)
+      activesupport (= 5.0.2)
+      method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     rainbow (2.2.1)
@@ -551,10 +568,6 @@ GEM
       railties (>= 4.2.0, < 5.1)
     retryable (2.0.4)
     rmagick (2.16.0)
-    rs_russian (0.9.5)
-      activesupport (>= 3.0.0, < 5.1.0)
-      i18n (>= 0.6.0, < 0.8.0)
-      unicode (~> 0.4.4)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
       rspec-expectations (~> 3.5.0)
@@ -615,9 +628,6 @@ GEM
       redis (~> 3.2, >= 3.2.1)
     sidekiq-limit_fetch (3.4.0)
       sidekiq (>= 4)
-    sidekiq-unique-jobs (4.0.18)
-      sidekiq (>= 2.6)
-      thor
     simple_form (3.4.0)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -651,7 +661,7 @@ GEM
       rack (>= 1, < 3)
     thor (0.19.4)
     thread_safe (0.3.6)
-    tilt (2.0.6)
+    tilt (2.0.7)
     timecop (0.8.1)
     tins (0.13.2)
     truncate_html (0.9.3)
@@ -692,7 +702,6 @@ DEPENDENCIES
   actionpack-action_caching
   active_model_serializers
   active_record_query_trace
-  activerecord-collection_cache_key
   activerecord-import
   acts-as-taggable-on
   acts_as_list
@@ -718,8 +727,8 @@ DEPENDENCIES
   colorize
   dalli
   database_cleaner
-  devise (= 4.2.1)
-  draper
+  devise
+  draper (= 3.0.0.pre1)
   draper-cancancan
   dry-struct
   enumerize
@@ -755,7 +764,6 @@ DEPENDENCIES
   maruku
   meta-tags
   metrika
-  multi_fetch_fragments!
   newrelic_rpm
   nokogiri
   non-stupid-digest-assets
@@ -764,19 +772,19 @@ DEPENDENCIES
   omniauth-twitter
   omniauth-vkontakte
   open_uri_redirections
-  paperclip (= 5.1.0)
+  paperclip
   pg
   pghero
   pry-byebug
   pry-rails
   pry-stack_explorer
-  quiet_assets
+  puma
   rabl
   rack-attack
   rack-contrib!
   rack-cors
   rack-utf8_sanitizer
-  rails
+  rails (= 5.0.2)
   rails-assets-d3!
   rails-assets-fizzy-ui-utils (= 2.0.2)!
   rails-assets-get-size (= 2.0.2)!
@@ -794,6 +802,7 @@ DEPENDENCIES
   rails-assets-sugar!
   rails-assets-uevent!
   rails-assets-urijs!
+  rails-controller-testing
   rails-i18n
   rake
   rb-fchange
@@ -805,7 +814,7 @@ DEPENDENCIES
   responders
   retryable
   rmagick
-  rs_russian
+  rs_russian!
   rspec
   rspec-collection_matchers
   rspec-core
@@ -819,7 +828,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch
-  sidekiq-unique-jobs
+  sidekiq-unique-jobs!
   simple_form
   simple_form-magic_submit!
   slim-rails

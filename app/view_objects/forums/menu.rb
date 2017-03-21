@@ -19,7 +19,7 @@ class Forums::Menu < ViewObjectBase
   end
 
   def forums
-    Forums::List.new
+    Forums::List.new with_forum_size: true
   end
 
   def reviews

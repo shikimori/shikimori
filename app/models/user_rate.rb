@@ -1,5 +1,5 @@
 # аниме и манга в списке пользователя
-class UserRate < ActiveRecord::Base
+class UserRate < ApplicationRecord
   # максимальное значение эпизодов/частей
   MAXIMUM_EPISODES = 2000
   MAXIMUM_SCORE = 10

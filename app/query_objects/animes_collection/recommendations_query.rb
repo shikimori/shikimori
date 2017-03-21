@@ -5,7 +5,7 @@ class AnimesCollection::RecommendationsQuery < AnimesCollection::PageQuery
 private
 
   def process query
-    from = limit * (page-1)
+    from = limit * (page - 1)
     to = from + limit - 1
 
     query[from..to]

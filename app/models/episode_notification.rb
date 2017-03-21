@@ -1,4 +1,4 @@
-class EpisodeNotification < ActiveRecord::Base
+class EpisodeNotification < ApplicationRecord
   belongs_to :anime
 
   boolean_attribute :subtitles

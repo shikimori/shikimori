@@ -6,7 +6,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:user_2) { create :user, nickname: 'Test2' }
     let!(:user_3) { create :user, nickname: 'Test3' }
 
-    before { get :index, page: 1, limit: 1, search: 'Te', format: :json }
+    before { get :index, params: { page: 1, limit: 1, search: 'Te' }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -16,7 +16,7 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#show' do
-    before { get :show, id: user.id, format: :json }
+    before { get :show, params: { id: user.id }, format: :json }
 
     it do
       expect(json).to_not have_key :email
@@ -26,7 +26,7 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#info' do
-    before { get :info, id: user.id, format: :json }
+    before { get :info, params: { id: user.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -57,7 +57,7 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#friends' do
     let(:user) { create :user, friends: [create(:user)] }
 
-    before { get :friends, id: user.id, format: :json }
+    before { get :friends, params: { id: user.id }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
@@ -66,7 +66,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:anime) { create :anime }
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
 
-    before { get :anime_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
+    before { get :anime_rates, params: { id: user.id, status: 1, limit: 250, page: 1 }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -78,7 +78,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:user) { create :user }
     let(:manga) { create :manga }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
-    before { get :manga_rates, id: user.id, status: 1, limit: 250, page: 1, format: :json }
+    before { get :manga_rates, params: { id: user.id, status: 1, limit: 250, page: 1 }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -89,7 +89,7 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#clubs' do
     let(:user) { create :user, clubs: [create(:club)] }
 
-    before { get :clubs, id: user.id, format: :json }
+    before { get :clubs, params: { id: user.id }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
@@ -107,7 +107,7 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:fav_producer) { create :favourite, linked: person, kind: Favourite::Producer }
     let!(:fav_seyu) { create :favourite, linked: person, kind: Favourite::Seyu }
 
-    before { get :favourites, id: user.id, format: :json }
+    before { get :favourites, params: { id: user.id }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
@@ -118,12 +118,12 @@ describe Api::V1::UsersController, :show_in_doc do
 
     context 'signed_in' do
       before { sign_in user }
-      before { get :messages, id: user.id, page: 1, limit: 20, type: 'news', format: :json }
+      before { get :messages, params: { id: user.id, page: 1, limit: 20, type: 'news' }, format: :json }
       it { expect(response).to have_http_status :success }
     end
 
     context 'guest' do
-      before { get :messages, id: user.id, page: 1, limit: 20, type: 'news', format: :json }
+      before { get :messages, params: { id: user.id, page: 1, limit: 20, type: 'news' }, format: :json }
       it { should respond_with 401 }
     end unless ENV['APIPIE_RECORD']
   end
@@ -131,12 +131,12 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#unread_messages' do
     context 'signed_in' do
       before { sign_in user }
-      before { get :unread_messages, id: user.id, format: :json }
+      before { get :unread_messages, params: { id: user.id }, format: :json }
       it { expect(response).to have_http_status :success }
     end
 
     context 'guest' do
-      before { get :unread_messages, id: user.id, format: :json }
+      before { get :unread_messages, params: { id: user.id }, format: :json }
       it { should respond_with 401 }
     end unless ENV['APIPIE_RECORD']
   end
@@ -147,11 +147,13 @@ describe Api::V1::UsersController, :show_in_doc do
 
     before do
       get :history,
-        id: user.id,
-        limit: 10,
-        page: 1,
-        updated_at_gte: 1.hour.ago.strftime('%Y-%m-%d %H:%M:%S'),
-        updated_at_lte: 1.hour.from_now.strftime('%Y-%m-%d %H:%M:%S'),
+        params: {
+          id: user.id,
+          limit: 10,
+          page: 1,
+          updated_at_gte: 1.hour.ago.strftime('%Y-%m-%d %H:%M:%S'),
+          updated_at_lte: 1.hour.from_now.strftime('%Y-%m-%d %H:%M:%S')
+        },
         format: :json
     end
     it { expect(response).to have_http_status :success }
@@ -159,7 +161,7 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#bans' do
     let!(:ban) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
-    before { get :bans, id: user.id, format: :json }
+    before { get :bans, params: { id: user.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -170,7 +172,7 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#anime_video_reports' do
     let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
     let(:anime_video) { create :anime_video }
-    before { get :anime_video_reports, id: user.id, page: 1, limit: 1, format: :json }
+    before { get :anime_video_reports, params: { id: user.id, page: 1, limit: 1 }, format: :json }
 
     it do
       expect(collection).to have(1).item

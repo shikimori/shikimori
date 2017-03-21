@@ -64,8 +64,11 @@ class Api::V1::MessagesController < Api::V1Controller
     MessagesService.new(current_user).read_messages type: @messages_type
 
     if frontent_request?
-      redirect_to_back_or_to(
-        index_profile_messages_url(current_user, messages_type: @messages_type),
+      redirect_back(
+        fallback_location: index_profile_messages_url(
+          current_user,
+          messages_type: @messages_type
+        ),
         notice: i18n_t('messages.read')
       )
     else
@@ -82,8 +85,10 @@ class Api::V1::MessagesController < Api::V1Controller
     MessagesService.new(current_user).delete_messages type: @messages_type
 
     if frontent_request?
-      redirect_to_back_or_to(
-        index_profile_messages_url(current_user, messages_type: @messages_type),
+      redirect_back(
+        fallback_location: index_profile_messages_url(
+          current_user, messages_type: @messages_type
+        ),
         notice: i18n_t('messages.removed')
       )
     else

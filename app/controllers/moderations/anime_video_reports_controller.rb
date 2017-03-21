@@ -17,7 +17,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def accept
     @resource.accept! current_user if @resource.can_accept?
-    redirect_to_back_or_to moderations_anime_video_reports_url
+    redirect_back fallback_location: moderations_anime_video_reports_url
   end
 
   def accept_edit
@@ -32,17 +32,17 @@ class Moderations::AnimeVideoReportsController < ModerationsController
 
   def reject
     @resource.reject! current_user if @resource.can_reject?
-    redirect_to_back_or_to moderations_anime_video_reports_url
+    redirect_back fallback_location: moderations_anime_video_reports_url
   end
 
   def work
     @resource.work! if @resource.can_work?
-    redirect_to_back_or_to moderations_anime_video_reports_url
+    redirect_back fallback_location: moderations_anime_video_reports_url
   end
 
   def cancel
     @resource.cancel! current_user if @resource.can_cancel?
-    redirect_to_back_or_to moderations_anime_video_reports_url
+    redirect_back fallback_location: moderations_anime_video_reports_url
   end
 
 private

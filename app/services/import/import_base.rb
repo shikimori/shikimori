@@ -6,7 +6,7 @@ class Import::ImportBase
 
   def call
     return if Import::BannedIds.instance.banned? @data[:id], klass.name.downcase
-    ActiveRecord::Base.transaction { import }
+    ApplicationRecord.transaction { import }
     entry
   end
 

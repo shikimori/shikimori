@@ -1,4 +1,4 @@
-class ContestRound < ActiveRecord::Base
+class ContestRound < ApplicationRecord
   include Translation
 
   # стартовая группа

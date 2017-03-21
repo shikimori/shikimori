@@ -14,28 +14,28 @@ FactoryGirl.define do
     locale 'ru'
     locale_from_host 'ru'
 
-    after :build do |user|
-      user.class.skip_callback :create, :after, :create_history_entry
-      user.class.skip_callback :create, :after, :ensure_api_access_token
-      user.class.skip_callback :create, :after, :assign_style
-      user.class.skip_callback :create, :after, :send_welcome_message
-      user.class.skip_callback :create, :after, :grab_avatar
+    after :build do |model|
+      stub_method model, :create_history_entry
+      stub_method model, :ensure_api_access_token
+      stub_method model, :assign_style
+      stub_method model, :send_welcome_message
+      stub_method model, :grab_avatar
 
-      user.class.skip_callback :create, :after, :post_elastic
-      user.class.skip_callback :update, :after, :put_elastic
-      user.class.skip_callback :destroy, :after, :delete_elastic
+      stub_method model, :post_elastic
+      stub_method model, :put_elastic
+      stub_method model, :delete_elastic
     end
 
     trait :with_elasticserach do
-      after :build do |user|
-        user.class.set_callback :create, :after, :post_elastic
-        user.class.set_callback :update, :after, :put_elastic
-        user.class.set_callback :destroy, :after, :delete_elastic
+      after :build do |model|
+        unstub_method model, :post_elastic
+        unstub_method model, :put_elastic
+        unstub_method model, :delete_elastic
       end
     end
 
     trait :with_assign_style do
-      after(:build) { |user| user.send :assign_style }
+      after(:build) { |model| unstub_method model, :assign_style }
     end
 
     trait(:user) { sequence :id, 23_456_789 }
@@ -64,21 +64,15 @@ FactoryGirl.define do
       end
     end
 
-    trait :banned do
-      read_only_at { 1.year.from_now - 1.week }
-    end
-    trait :forever_banned do
-      read_only_at { 1.year.from_now + 1.week }
-    end
-    trait :day_registered do
-      created_at { 25.hours.ago }
-    end
-    trait :week_registered do
-      created_at { 8.days.ago }
-    end
+    trait(:banned) { read_only_at { 1.year.from_now - 1.week } }
+    trait(:forever_banned) { read_only_at { 1.year.from_now + 1.week } }
+    trait(:day_registered) { created_at { 25.hours.ago } }
+    trait(:week_registered) { created_at { 8.days.ago } }
 
     trait :with_avatar do
       avatar { File.new "#{Rails.root}/spec/images/anime.jpg" }
     end
+
+    factory :cosplay_user, traits: [:cosplayer]
   end
 end

@@ -1,6 +1,6 @@
 describe Api::V1::PeopleController, :show_in_doc do
   describe '#show' do
-    before { get :show, id: person.id, format: :json }
+    before { get :show, params: { id: person.id }, format: :json }
 
     context 'person' do
       let(:person) { create :person }
@@ -28,7 +28,7 @@ describe Api::V1::PeopleController, :show_in_doc do
         params[:scope].where(id: person_1.id)
       end
     end
-    before { get :search, q: 'asd', format: :json }
+    before { get :search, params: { q: 'asd' }, format: :json }
 
     it do
       expect(collection).to have(1).item

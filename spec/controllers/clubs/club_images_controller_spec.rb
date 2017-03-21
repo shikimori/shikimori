@@ -5,7 +5,7 @@ describe Clubs::ClubImagesController do
 
   describe '#create' do
     let(:image) { fixture_file_upload "#{Rails.root}/spec/images/anime.jpg", 'image/jpeg' }
-    before { post :create, club_id: club.id, image: image }
+    before { post :create, params: { club_id: club.id, image: image } }
 
     it do
       expect(club.images).to have(1).item
@@ -16,7 +16,7 @@ describe Clubs::ClubImagesController do
 
   describe 'destroy' do
     let(:image) { create :club_image, user: user, club: club }
-    before { delete :destroy, club_id: club.id, id: image.id }
+    before { delete :destroy, params: { club_id: club.id, id: image.id } }
 
     it do
       expect(resource).to_not be_persisted

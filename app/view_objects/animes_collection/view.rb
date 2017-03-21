@@ -39,6 +39,7 @@ class AnimesCollection::View < ViewObjectBase
 
     h.params
       .except(:format, :controller, :action)
+      .to_h
       .sort_by(&:first)
       .inject(initial_key) { |memo, (k, v)| memo.push "#{k}:#{v}" }
       .compact

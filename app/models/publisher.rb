@@ -1,4 +1,4 @@
-class Publisher < ActiveRecord::Base
+class Publisher < ApplicationRecord
   has_and_belongs_to_many :mangas
   Merged = {
     48 => 8,

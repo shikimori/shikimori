@@ -7,11 +7,12 @@ class UserListParsers::JsonListParser
   def parse json
     JSON
       .parse(json)
-      .map {|v| @klass == Anime ? parse_anime(v) : parse_manga(v) }
+      .map { |v| @klass == Anime ? parse_anime(v) : parse_manga(v) }
       .compact
   end
 
 private
+
   def parse_anime entry
     {
       id: entry['id'].to_i,

@@ -6,7 +6,7 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
 
   describe '#create' do
     let!(:topic_ignore) {}
-    before { post :create, topic_ignore: topic_ignore_params }
+    before { post :create, params: { topic_ignore: topic_ignore_params } }
 
     context 'not ignored' do
       it do
@@ -40,7 +40,7 @@ describe Api::V1::TopicIgnoresController, :show_in_doc do
 
   describe '#destroy' do
     let(:topic_ignore) { create :topic_ignore, topic_ignore_params }
-    before { delete :destroy, id: topic_ignore.id }
+    before { delete :destroy, params: { id: topic_ignore.id } }
 
     it do
       expect(resource).to be_destroyed

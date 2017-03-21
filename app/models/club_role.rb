@@ -1,6 +1,6 @@
 # TODO: переименовать в ClubRole
 # TODO: заменить status на state_machine
-class ClubRole < ActiveRecord::Base
+class ClubRole < ApplicationRecord
   belongs_to :user
   belongs_to :club, counter_cache: true, touch: true
 

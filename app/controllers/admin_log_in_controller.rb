@@ -16,7 +16,10 @@ class AdminLogInController < ShikimoriController
 
         redirect_to root_path
       else
-        render text: "пользователь с ником на \"#{params[:nickname]}\" не найден", status: :unprocessable_entity
+        render(
+          plain: "пользователь с ником на \"#{params[:nickname]}\" не найден",
+          status: :unprocessable_entity
+        )
       end
     else
       render 'pages/page404.html', layout: set_layout, status: 404

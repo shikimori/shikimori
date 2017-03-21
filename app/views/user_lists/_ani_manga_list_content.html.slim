@@ -1,6 +1,6 @@
 - @list.each do |status,data|
   header class="status-#{UserRate.statuses[status]}"
-    a name="#{UserRate.statuses[:status]}"
+    a name="#{UserRate.statuses[status]}"
     .b-options-floated.collapse id="collapse-#{UserRate.statuses[status]}"
       span.action #{t 'collapse'} (#{data[:size]})
     .subheadline

@@ -1,4 +1,4 @@
-class UserImage < ActiveRecord::Base
+class UserImage < ApplicationRecord
   belongs_to :user
   belongs_to :linked, polymorphic: true
 

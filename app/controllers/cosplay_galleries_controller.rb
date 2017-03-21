@@ -36,7 +36,7 @@ end
                             ##limit(20)
 
     #cosplayer_ids = []
-    #ActiveRecord::Base.connection.
+    #ApplicationRecord.connection.
                        #execute("select c.id, count(distinct(cg.id))
                                      #from cosplayers c
                                         #inner join cosplay_gallery_links cgl

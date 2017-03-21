@@ -53,13 +53,13 @@ class NameValidator < ActiveModel::EachValidator
 private
 
   def presence record, value, klass, field
-    query = if record.kind_of? klass
-      klass.where.not(id: record.id)
-    else
-      klass
-    end
-
-    query.where("#{postgres_word_normalizer field} = #{postgres_word_normalizer '?'}", value).any?
+    query = record.kind_of?(klass) ? klass.where.not(id: record.id) : klass
+    query
+      .where(
+        "#{postgres_word_normalizer field} = #{postgres_word_normalizer '?'}",
+        value
+      )
+      .any?
   end
 
   def postgres_word_normalizer text

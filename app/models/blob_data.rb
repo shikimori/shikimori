@@ -1,4 +1,4 @@
-class BlobData < ActiveRecord::Base
+class BlobData < ApplicationRecord
   self.table_name = 'blob_datas'
   serialize :value
 

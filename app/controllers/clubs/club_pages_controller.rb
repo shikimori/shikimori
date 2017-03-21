@@ -61,12 +61,16 @@ class Clubs::ClubPagesController < ClubsController
 
   def up
     @resource.move_higher
-    redirect_to_back_or_to edit_club_club_page_path(@resource.club, @resource)
+    redirect_back(
+      fallback_location: edit_club_club_page_path(@resource.club, @resource)
+    )
   end
 
   def down
     @resource.move_lower
-    redirect_to_back_or_to edit_club_club_page_path(@resource.club, @resource)
+    redirect_back(
+      fallback_location: edit_club_club_page_path(@resource.club, @resource)
+    )
   end
 
 private

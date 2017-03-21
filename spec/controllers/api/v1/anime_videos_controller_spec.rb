@@ -4,7 +4,7 @@ describe Api::V1::AnimeVideosController do
 
   describe '#index' do
     let(:make_request) do
-      get :index, anime_id: anime.id, video_token: video_token, format: :json
+      get :index, params: { anime_id: anime.id, video_token: video_token }, format: :json
     end
     let(:video_token) {}
 
@@ -54,8 +54,10 @@ describe Api::V1::AnimeVideosController do
 
     subject! do
       post :create,
-        anime_id: anime.id,
-        anime_video: video_params,
+        params: {
+          anime_id: anime.id,
+          anime_video: video_params
+        },
         format: :json
     end
 
@@ -77,7 +79,7 @@ describe Api::V1::AnimeVideosController do
     let(:video) { create :anime_video, anime: anime }
     let!(:upload_report) { create :anime_video_report, anime_video: video, kind: 'uploaded', user: user }
 
-    subject! { delete :destroy, anime_id: anime.id, id: video.id, format: :json }
+    subject! { delete :destroy, params: { anime_id: anime.id, id: video.id }, format: :json }
 
     it do
       expect(resource).to be_destroyed
