@@ -12,7 +12,7 @@ describe Api::V1::MessagesController, :show_in_doc do
 
     describe 'no access' do
       let(:message) { create :message }
-      it { expect{make_request}.to raise_error CanCan::AccessDenied }
+      it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
   end
 
@@ -61,7 +61,7 @@ describe Api::V1::MessagesController, :show_in_doc do
 
     before { sign_in user }
     before { patch :update, params: { id: message.id, frontend: is_frontend, message: params }, format: :json }
-    let(:params) {{ body: body }}
+    let(:params) { { body: body } }
 
     context 'success' do
       let(:body) { 'blablabla' }
@@ -105,7 +105,12 @@ describe Api::V1::MessagesController, :show_in_doc do
   describe '#mark_read' do
     let(:message_from) { create :message, from: user }
     let(:message_to) { create :message, to: user }
-    before { post :mark_read, params: { is_read: '1', ids: [message_to.id, message_from.id, 987654].join(',') } }
+    before do
+      post :mark_read, params: {
+        is_read: '1',
+        ids: [message_to.id, message_from.id, 987_654].join(',')
+      }
+    end
 
     it do
       expect(message_from.reload.read).to be_falsy
@@ -155,7 +160,7 @@ describe Api::V1::MessagesController, :show_in_doc do
     context 'api' do
       let(:is_frontend) { false }
       it do
-        expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(message_2.reload).to be_persisted
         expect(message_3.reload).to be_persisted
         expect(response).to have_http_status :success
@@ -166,7 +171,7 @@ describe Api::V1::MessagesController, :show_in_doc do
       let(:is_frontend) { true }
 
       it do
-        expect{message_1.reload}.to raise_error ActiveRecord::RecordNotFound
+        expect { message_1.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(message_2.reload).to be_persisted
         expect(message_3.reload).to be_persisted
         expect(response).to redirect_to back_url

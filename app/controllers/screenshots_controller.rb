@@ -31,8 +31,8 @@ class ScreenshotsController < ShikimoriController
   def reposition
     @version = versioneer.reposition params[:ids].split(','), current_user
 
-    redirect_to_back_or_to(
-      @anime.decorate.edit_field_url(:screenshots),
+    redirect_back(
+      fallback_location: @anime.decorate.edit_field_url(:screenshots),
       notice: i18n_t('pending_version')
     )
   end

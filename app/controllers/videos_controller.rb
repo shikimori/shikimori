@@ -8,8 +8,8 @@ class VideosController < ShikimoriController
     if request.xhr?
       replace_video @video if duplicate? @video
     else
-      redirect_to_back_or_to(
-        @anime.decorate.edit_field_url(:videos),
+      redirect_back(
+        fallback_location: @anime.decorate.edit_field_url(:videos),
         @video.persisted? ?
           { notice: i18n_t('pending_version') } :
           { alert: @video.errors.full_messages.join(', ') }

@@ -76,6 +76,7 @@ class UserPreferences < ApplicationRecord
 private
 
   def set_forums
-    self.forums = Forums::List.defaults
+    self.forums = Forums::List.new(with_forum_size: false).map(&:id) -
+      [Forum.find_by_permalink('clubs').id]
   end
 end

@@ -61,7 +61,8 @@ gem 'omniauth-twitter'
 
 gem 'pghero'
 gem 'sidekiq'
-gem 'sidekiq-unique-jobs'
+# remove form when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
+gem 'sidekiq-unique-jobs', github: 'morr/sidekiq-unique-jobs', branch: 'master'
 gem 'sidekiq-limit_fetch'
 gem 'redis-mutex'
 

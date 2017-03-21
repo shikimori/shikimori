@@ -102,7 +102,7 @@ describe Moderations::VersionsController do
       let(:author) { create :user, :user }
 
       it do
-        expect{make_request}.to raise_error CanCan::AccessDenied
+        expect { make_request }.to raise_error CanCan::AccessDenied
         expect(resource).to be_pending
       end
     end
@@ -110,13 +110,15 @@ describe Moderations::VersionsController do
 
   describe '#create' do
     let(:make_request) { post :create, params: { version: params } }
-    let(:params) {{
-      item_id: anime.id,
-      item_type: Anime.name,
-      item_diff: changes,
-      user_id: user.id,
-      reason: 'test'
-    }}
+    let(:params) do
+      {
+        item_id: anime.id,
+        item_type: Anime.name,
+        item_diff: changes,
+        user_id: user.id,
+        reason: 'test'
+      }
+    end
     let(:role) { :user }
 
     describe 'common user' do
@@ -124,7 +126,7 @@ describe Moderations::VersionsController do
 
       context 'common change' do
         before { make_request }
-        let(:changes) {{ 'russian' => ['fofofo', 'zxcvbnn'] }}
+        let(:changes) { { 'russian' => ['fofofo', 'zxcvbnn'] } }
 
         it do
           expect(resource).to be_persisted
@@ -135,14 +137,14 @@ describe Moderations::VersionsController do
       end
 
       context 'significant change' do
-        let(:changes) {{ 'name' => ['fofofo', 'zxcvbnn'] }}
-        it { expect{make_request}.to raise_error CanCan::AccessDenied }
+        let(:changes) { { 'name' => ['fofofo', 'zxcvbnn'] } }
+        it { expect { make_request }.to raise_error CanCan::AccessDenied }
       end
     end
 
     describe 'moderator' do
       include_context :authenticated, :versions_moderator
-      let(:changes) {{ 'russian' => [nil, 'zxcvbnn'] }}
+      let(:changes) { { 'russian' => [nil, 'zxcvbnn'] } }
       before { make_request }
 
       it do

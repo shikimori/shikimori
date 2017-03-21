@@ -104,7 +104,7 @@ class DashboardView < ViewObjectBase
   end
 
   def forums
-    Forums::List.new.select { |forum| !forum.is_special }
+    Forums::List.new(with_forum_size: true).select { |forum| !forum.is_special }
   end
 
   def cache_keys

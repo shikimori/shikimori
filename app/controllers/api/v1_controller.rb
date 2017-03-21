@@ -49,7 +49,7 @@ private
   # rubocop:enable MethodLength
 
   def frontent_request?
-    params[:frontend]
+    params[:frontend] && params[:frontend] != 'false'
   end
 
   def headers_auth?

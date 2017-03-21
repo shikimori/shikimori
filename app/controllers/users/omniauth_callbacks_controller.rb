@@ -75,7 +75,7 @@ private
   end
 
   def set_omniauth_data
-    @omni = env['omniauth.auth']
+    @omni = request.env['omniauth.auth']
 
     if @omni.nil?
       flash[:alert] = i18n_t 'authentication_failed'
@@ -99,6 +99,7 @@ private
   end
 
   def safe_save user
+    ap @resource
     @resource.save
 
   rescue PG::UniqueViolation, ActiveRecord::RecordNotUnique

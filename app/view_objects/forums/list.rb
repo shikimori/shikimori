@@ -1,20 +1,24 @@
 class Forums::List < ViewObjectBase
   include Enumerable
+  instance_cache :decorated_forums
+
+  pattr_initialize [:with_forum_size]
 
   def each
-    forums.each { |forum| yield forum }
-  end
-
-  def self.defaults
-    new.map(&:id) - [Forum.find_by_permalink('clubs').id]
+    cached_forums.each { |forum| yield forum }
   end
 
 private
 
-  def forums
-    Rails.cache.fetch(cache_key, expires_in: 2.weeks) do
-      visible_forums + static_forums
+  def cached_forums
+    return decorated_forums unless @with_forum_size
+    Rails.cache.fetch([:forums, :v3, Topic.last&.id], expires_in: 2.weeks) do
+      decorated_forums
     end
+  end
+
+  def decorated_forums
+    visible_forums + static_forums
   end
 
   def visible_forums
@@ -32,7 +36,7 @@ private
   end
 
   def decorate forum, is_special
-    size = is_special ? nil : forum_size(forum)
+    size = is_special || !@with_forum_size ? nil : forum_size(forum)
     ForumForList.new forum, is_special, size
   end
 
@@ -47,10 +51,6 @@ private
     h.current_user
   rescue NoMethodError
     nil
-  end
-
-  def cache_key
-    [:forums, :v3, Topic.last&.id]
   end
 
   def censored_forbidden?

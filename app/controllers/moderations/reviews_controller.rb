@@ -28,14 +28,14 @@ class Moderations::ReviewsController < ModerationsController
     @review = Review.find params[:id].to_i
     @review.accept! current_user if @review.can_accept?
 
-    redirect_to_back_or_to moderations_reviews_url
+    redirect_back fallback_location: moderations_reviews_url
   end
 
   def reject
     @review = Review.find params[:id].to_i
     @review.reject! current_user if @review.can_reject?
 
-    redirect_to_back_or_to moderations_reviews_url
+    redirect_back fallback_location: moderations_reviews_url
   end
 
 private

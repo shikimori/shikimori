@@ -10,7 +10,7 @@ class Api::V1::UserImagesController < Api::V1Controller
       image.image = uploaded_image
       image.linked_type = params[:linked_type]
     end
-    #linked = params[:linked_type].constantize.find params[:linked_id]
+    # linked = params[:linked_type].constantize.find params[:linked_id]
 
     if @resource.save
       render json: {

@@ -44,10 +44,10 @@ GIT
 
 GIT
   remote: git://github.com/morr/cancancan.git
-  revision: 0b4918d400882348d02bec7bd032f2a2d201914a
+  revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
   specs:
-    cancancan (1.15.0)
+    cancancan (1.16.0)
 
 GIT
   remote: git://github.com/morr/russian.git
@@ -59,8 +59,17 @@ GIT
       unicode (~> 0.4.4)
 
 GIT
+  remote: git://github.com/morr/sidekiq-unique-jobs.git
+  revision: a99ac38049be65d33dd28d444c219c2a10e9ae2a
+  branch: master
+  specs:
+    sidekiq-unique-jobs (4.0.18)
+      sidekiq (>= 2.6)
+      thor
+
+GIT
   remote: git://github.com/morr/turbolinks.git
-  revision: 14f4ee2215d32bdb8fcd51c49ae65ed3f46488eb
+  revision: e01896a937f339d1c3e9bc8d0dd967dd494ead0e
   branch: master
   specs:
     turbolinks (2.5.3)
@@ -619,9 +628,6 @@ GEM
       redis (~> 3.2, >= 3.2.1)
     sidekiq-limit_fetch (3.4.0)
       sidekiq (>= 4)
-    sidekiq-unique-jobs (4.0.18)
-      sidekiq (>= 2.6)
-      thor
     simple_form (3.4.0)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
@@ -822,7 +828,7 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   sidekiq-limit_fetch
-  sidekiq-unique-jobs
+  sidekiq-unique-jobs!
   simple_form
   simple_form-magic_submit!
   slim-rails
