@@ -9,7 +9,7 @@ describe ContestMatch do
   let(:user) { create :user }
 
   describe 'states' do
-    let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday }
+    let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
 
     it 'full cycle' do
       expect(match.created?).to be_truthy
@@ -37,7 +37,7 @@ describe ContestMatch do
       before { match.start! }
 
       context 'true' do
-        before { match.finished_on = Time.zone.yestarday }
+        before { match.finished_on = Time.zone.yesterday }
         it { should be_truthy }
       end
 
@@ -79,13 +79,13 @@ describe ContestMatch do
       end
 
       describe 'right_id = nil, right_type = Anime' do
-        let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday, right_id: nil, right_type: Anime.name }
+        let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday, right_id: nil, right_type: Anime.name }
         before { match.start! }
         it { expect(match.right_type).to be_nil }
       end
 
       describe 'left_id = nil, right_id != nil' do
-        let(:match) { create :contest_match, started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday, left_id: nil, left_type: Anime.name }
+        let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday, left_id: nil, left_type: Anime.name }
         before { match.start! }
         it { expect(match.left_type).not_to be_nil }
         it { expect(match.left_id).not_to be_nil }

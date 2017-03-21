@@ -80,7 +80,7 @@ describe ContestRound do
       before do
         contest.strategy.fill_round_with_matches round
         round.start!
-        round.matches.each {|v| v.finished_on = Time.zone.yestarday }
+        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
       end
 
       describe 'finishes unfinished matches' do
@@ -94,7 +94,7 @@ describe ContestRound do
       before do
         contest.strategy.fill_round_with_matches round
         round.start!
-        round.matches.each {|v| v.finished_on = Time.zone.yestarday }
+        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
       end
       let(:next_round) { create :contest_round }
       let(:notification_service) { double round_finished: true }

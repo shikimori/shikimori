@@ -72,7 +72,7 @@ describe Contest::SwissStrategy do
     before do
       contest.start!
       contest.rounds.map(&:matches).flatten.each do |v|
-        v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday
+        v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
       end
       contest.current_round.finish!
     end

@@ -57,7 +57,7 @@ describe ContestsController do
       before do
         contest.start!
         contest.rounds.each do
-          contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday }
+          contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
           contest.progress!
           contest.reload
         end
@@ -89,7 +89,7 @@ describe ContestsController do
     context 'finished' do
       let!(:contest_user_vote) { create :contest_user_vote, match: contest.current_round.matches.first, user: user, item_id: contest.current_round.matches.first.left_id, ip: '1.1.1.1' }
       before do
-        contest.current_round.matches.update_all started_on: Time.zone.yestarday, finished_on: Time.zone.yestarday
+        contest.current_round.matches.update_all started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
         contest.current_round.reload
         contest.current_round.finish!
       end
