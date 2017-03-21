@@ -1,7 +1,5 @@
 feature 'sign up' do
-  let(:user) do
-    build :user, nickname: "test#{(rand * 1_000_000).to_i}", password: '123456'
-  end
+  let(:user) { build :user, nickname: 'test+zxc123@gmail.com', password: '123456' }
   let(:created_user) { User.find_by nickname: user.nickname }
 
   scenario 'when success', :vcr do
