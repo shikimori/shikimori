@@ -80,8 +80,8 @@ class ApplicationController < ActionController::Base
 
   # хелпер для перевода params к виду, который можно засунуть в url хелперы
   def url_params merged = nil
-    cloned_params = params.clone.except(:action, :controller).symbolize_keys
-    merged ? cloned_params.merge(merged) : cloned_params
+    new_params = safe_params.to_h.except(:action, :controller).symbolize_keys
+    merged ? new_params.merge(merged) : new_params
   end
 
   # запрос ли это через турболинки

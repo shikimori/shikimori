@@ -30,7 +30,7 @@ class AnimesCollectionController < ShikimoriController
 
     if params[:rel] || request.url.include?('order') ||
         @description.blank? || @view.collection.empty? ||
-        params.any? {|k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
+        params.to_h.any? { |k,v| k != 'genre' && v.kind_of?(String) && v.include?(',') }
       noindex and nofollow
     end
 

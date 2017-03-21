@@ -77,13 +77,15 @@ class AnimeOnline::AnimeVideosController < AnimesController
     video = AnimeVideo.find params[:id]
     @user_rate = @anime.rates.find_or_initialize_by user: current_user
 
-    @user_rate.update! episodes: video.episode if @user_rate.episodes < video.episode
-    render nothing: true
+    if @user_rate.episodes < video.episode
+      @user_rate.update! episodes: video.episode
+    end
+    head 200
   end
 
   def track_view
     AnimeVideo.find(params[:id]).increment! :watch_view_count
-    render nothing: true
+    head 200
   end
 
   def extract_url

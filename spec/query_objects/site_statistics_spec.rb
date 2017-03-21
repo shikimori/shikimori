@@ -24,7 +24,7 @@ describe SiteStatistics do
       its(:users) { is_expected.to have_at_least(180).items }
       it do
         expect(query.users.last[:date]).to eq Time.zone.yesterday.to_s
-        expect(query.users.last[:count]).to be_between 2, 3
+        expect(query.users.last[:count]).to be_between 3, 4
       end
     end
   end

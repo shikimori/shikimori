@@ -5,7 +5,7 @@ describe Versioneers::FieldsVersioneer do
   let(:author) { build_stubbed :user }
   let(:reason) { 'change reason' }
 
-  let(:result_diff) { { 'name' => ['test','zzz'], 'episodes' => [3,7] } }
+  let(:result_diff) { { 'name' => ['test', 'zzz'], 'episodes' => [3, 7] } }
 
   describe '#premoderate' do
     subject!(:version) { service.premoderate changes, author, reason }

@@ -2,7 +2,7 @@ shared_examples :db_entry_controller do |entry_name|
   let(:entry) { send entry_name }
 
   describe '#tooltip' do
-    before { get :tooltip, id: entry.to_param }
+    before { get :tooltip, params: { id: entry.to_param } }
     it { expect(response).to have_http_status :success }
   end
 
@@ -14,9 +14,7 @@ shared_examples :db_entry_controller do |entry_name|
   end
 
   describe '#edit' do
-    let(:make_request) do
-      get :edit, params: { id: entry.to_param }
-    end
+    let(:make_request) { get :edit, params: { id: entry.to_param } }
 
     context 'guest' do
       before { make_request }
