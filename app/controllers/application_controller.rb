@@ -276,7 +276,7 @@ class ApplicationController < ActionController::Base
 
     elsif e.is_a?(CopyrightedResource)
       resource = e.resource
-      @new_url = url_for params.merge(resource_id_key => resource.to_param)
+      @new_url = url_for safe_params.merge(resource_id_key => resource.to_param)
 
       if params[:format] == 'rss'
         redirect_to @new_url, status: 301
