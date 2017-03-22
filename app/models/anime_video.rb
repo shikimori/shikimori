@@ -181,7 +181,7 @@ private
 
   def process_reports
     reports.each do |report|
-      if (report.wrong? || report.broken?) && report.pending?
+      if (report.wrong? || report.broken? || report.other?) && report.pending?
         report.accept_only! BotsService.get_poster
       elsif report.uploaded? && report.can_post_reject?
         report.post_reject!

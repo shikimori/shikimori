@@ -422,6 +422,7 @@ ru:
         uploaded: новое видео
         broken: видео не работает
         wrong: видео не к тому аниме
+        other: прочее
     user_history_action:
       action:
         ap_anime_import: Импорт с Anime-Planet

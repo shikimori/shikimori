@@ -256,6 +256,7 @@ describe AnimeVideo do
           let!(:uploaded_upload_report) { create :anime_video_report, :uploaded, :accepted, anime_video: video }
           let!(:wrong_report) { create :anime_video_report, :wrong, :pending, anime_video: video }
           let!(:broken_report) { create :anime_video_report, :broken, :pending, anime_video: video }
+          let!(:other_report) { create :anime_video_report, :other, :pending, anime_video: video }
 
           before { video.send action }
           it do
@@ -263,6 +264,7 @@ describe AnimeVideo do
             expect(uploaded_upload_report.reload).to be_post_rejected
             expect(wrong_report.reload).to be_accepted
             expect(broken_report.reload).to be_accepted
+            expect(other_report.reload).to be_accepted
           end
         end
       end

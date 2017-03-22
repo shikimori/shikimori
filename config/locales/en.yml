@@ -443,6 +443,7 @@ en:
         uploaded: new video
         broken: video broken
         wrong: wrong anime
+        other: other
     user_history_action:
       action:
         ap_anime_import: Imported from Anime-Planet

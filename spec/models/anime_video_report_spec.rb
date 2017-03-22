@@ -76,7 +76,8 @@ describe AnimeVideoReport do
       end
 
       describe '#auto_accept' do
-        subject { create :anime_video_report, :with_video, user: user }
+        subject { create :anime_video_report, :with_video, kind, user: user }
+        let(:kind) { :broken }
 
         context 'user' do
           let(:user) { create :user, :user }
@@ -86,6 +87,12 @@ describe AnimeVideoReport do
         context 'video moderator' do
           let(:user) { create :user, :video_moderator }
           it { is_expected.to be_accepted }
+
+          context 'kind=other' do
+            let(:kind) { :other }
+            let(:user) { create :user, :video_moderator }
+            it { is_expected.to be_pending }
+          end
         end
       end
     end
@@ -171,14 +178,20 @@ describe AnimeVideoReport do
         end
       end
 
-      context 'Fix : https://github.com/morr/shikimori/issues/414' do
+      context 'fix : https://github.com/morr/shikimori/issues/414' do
         let(:anime_video) { create :anime_video, kind: 'unknown', state: 'working' }
-        subject(:report) { create :anime_video_report, anime_video: anime_video, kind: 'broken', state: 'pending' }
+        subject(:report) do
+          create :anime_video_report,
+            anime_video: anime_video,
+            kind: 'broken',
+            state: 'pending'
+        end
+
         it { is_expected.to be_accepted }
-        it { expect(subject.anime_video).to be_broken }
+        it { expect(report.anime_video).to be_broken }
       end
 
-      context 'Accept with broken url' do
+      context 'accept with broken url' do
         let(:anime_video) do
           v = build :anime_video, url: '//youtube.ru/foo', state: 'working'
           v.save(validate: false)
@@ -187,13 +200,26 @@ describe AnimeVideoReport do
         it { is_expected.to be_accepted }
       end
 
-      context 'Accept already broken video' do
+      context 'accept kind=other report' do
+        let(:anime_video) { create :anime_video, kind: 'unknown', state: 'working' }
+        subject(:report) do
+          create :anime_video_report,
+            anime_video: anime_video,
+            kind: 'other',
+            state: 'pending'
+        end
+
+        it { is_expected.to be_accepted }
+        it { expect(report.anime_video).to be_working }
+      end
+
+      context 'accept already broken video' do
         let(:anime_video) { create :anime_video, state: 'broken' }
         it { is_expected.to be_accepted }
         it { expect(subject.anime_video).to be_broken }
       end
 
-      context 'Accept already wrong video' do
+      context 'accept already wrong video' do
         let(:anime_video) { create :anime_video, state: 'wrong' }
         let(:report_kind) { 'wrong' }
         it { is_expected.to be_accepted }

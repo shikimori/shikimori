@@ -3,7 +3,7 @@ class AnimeVideoReport < ApplicationRecord
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  enumerize :kind, in: [:uploaded, :broken, :wrong], predicates: true
+  enumerize :kind, in: [:uploaded, :broken, :wrong, :other], predicates: true
 
   validates :user, presence: true
   validates :anime_video, presence: true
@@ -15,7 +15,7 @@ class AnimeVideoReport < ApplicationRecord
   after_create :auto_check
   after_create :auto_accept
 
-  def doubles state=nil
+  def doubles state = nil
     reports = AnimeVideoReport
       .where(anime_video_id: anime_video_id)
       .where.not(id: id)
@@ -51,7 +51,7 @@ class AnimeVideoReport < ApplicationRecord
       report.process_doubles(:accepted)
       report.process_conflict(:uploaded, :rejected)
 
-      unless transition.event == :accept_only
+      unless transition.event == :accept_only || report.other?
         report.anime_video.send "#{report.kind}!"
       end
     end
@@ -102,6 +102,6 @@ private
   end
 
   def auto_accept
-    accept! user if user.video_moderator?
+    accept! user if user.video_moderator? && !other?
   end
 end
