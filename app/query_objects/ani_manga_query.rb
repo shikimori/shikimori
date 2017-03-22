@@ -2,10 +2,10 @@
 class AniMangaQuery
   EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
-  DURATIONS = {
-    'S' => '(duration >= 0 and duration <= 10)',
-    'D' => '(duration > 10 and duration <= 30)',
-    'F' => '(duration > 30)'
+  DURATION_SQL = {
+    S: '(duration >= 0 and duration <= 10)',
+    D: '(duration > 10 and duration <= 30)',
+    F: '(duration > 30)'
   }
   DEFAULT_ORDER = 'ranked'
   GENRES_EXCLUDED_BY_SEX = {
@@ -238,8 +238,19 @@ private
     return if @duration.blank?
     durations = bang_split(@duration.split(','))
 
-    @query = @query.where durations[:include].map {|duration| DURATIONS[duration] }.join(' or ') if durations[:include].any?
-    @query = @query.where "not (#{durations[:exclude].map {|duration| DURATIONS[duration] }.join(' or ')})" if durations[:exclude].any?
+    if durations[:include].any?
+      durations_sql = durations[:include]
+        .map { |duration| DURATION_SQL[Types::Anime::Duration[duration]] }
+        .join(' or ')
+      @query = @query.where durations_sql
+    end
+
+    if durations[:exclude].any?
+      durations_sql = durations[:exclude]
+        .map { |duration| DURATION_SQL[Types::Anime::Duration[duration]] }
+        .join(' or ')
+      @query = @query.where("not (#{durations_sql})")
+    end
   end
 
   # фильтрация по сезонам
