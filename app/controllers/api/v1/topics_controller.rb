@@ -3,7 +3,9 @@ class Api::V1::TopicsController < Api::V1Controller
   param :limit, :number, required: false
   param :page, :number, required: false
   param :forum,
-    %w(animanga vn games site offtopic news reviews contests my_clubs clubs),
+    %w(
+      all animanga vn games site offtopic news reviews contests my_clubs clubs
+    ),
     required: true
   def index
     @limit = [[params[:limit].to_i, 1].max, 30].min
