@@ -13,12 +13,11 @@ class AnimesCollectionController < ShikimoriController
   # страница каталога аниме/манги
   def index
     forbidden_params_redirect_check
-    build_background
-
     unless shikimori?
       params[:is_adult] = AnimeOnlineDomain.adult_host?(request)
       params[:censored] = !params[:is_adult]
     end
+    build_background # should be placed after is_adult check
 
     if params[:search]
       noindex && nofollow

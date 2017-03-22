@@ -8,5 +8,7 @@
 [/right]"
 
   .next-url
-    a.b-link href="#{url_for ({'topic[forum_id]' => Forum::ANIME_NEWS_ID}).merge(params.merge(rules_passed: true))}"
+    a.b-link[
+      href="#{url_for safe_params.merge(rules_passed: '1', 'topic[forum_id]' => Forum::ANIME_NEWS_ID)}"
+    ]
       = t '.go_next'

@@ -50,7 +50,11 @@ Rails.application.configure do
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, 'localhost', {
+    namespace: 'shikimori_production_rails5',
+    compress: true,
+    value_max_bytes: 1024 * 1024 * 32
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
