@@ -7,8 +7,9 @@ describe AnimesCollection::View do
   let(:klass) { Anime }
   let(:user) { seed :user }
   let(:params) { { controller: 'animes_collection' } }
+  let(:strong_params) { ActionController::Parameters.new params }
 
-  before { allow(view.h).to receive(:params).and_return params }
+  before { allow(view.h).to receive(:params).and_return strong_params }
 
   describe '#collection' do
     let(:collection) { view.collection }
@@ -38,7 +39,7 @@ describe AnimesCollection::View do
         allow(AnimesCollection::RecommendationsQuery)
           .to receive(:call).with(
             klass: klass,
-            params: params,
+            params: strong_params,
             user: user,
             limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
@@ -46,7 +47,7 @@ describe AnimesCollection::View do
         allow(AnimesCollection::SeasonQuery)
           .to receive(:call).with(
             klass: klass,
-            params: params,
+            params: strong_params,
             user: user,
             limit: AnimesCollection::View::SEASON_LIMIT
           ).and_return page
@@ -54,7 +55,7 @@ describe AnimesCollection::View do
         allow(AnimesCollection::PageQuery)
           .to receive(:call).with(
             klass: klass,
-            params: params,
+            params: strong_params,
             user: user,
             limit: AnimesCollection::View::PAGE_LIMIT
           ).and_return page
@@ -161,7 +162,7 @@ describe AnimesCollection::View do
         status: 'ongoing'
       }
     end
-    it { is_expected.to eq %w(Anime v3 page:1 status:ongoing) }
+    it { is_expected.to eq %w(Anime v5 page:1 status:ongoing) }
   end
 
   describe '#cache_expires_in' do

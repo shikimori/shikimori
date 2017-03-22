@@ -35,11 +35,12 @@ class AnimesCollection::View < ViewObjectBase
   def cache_key
     user_key = user if h.params[:mylist]
     reindex = Elasticsearch::Reindex.time if h.params[:search] || h.params[:q]
-    initial_key = [klass.name, user_key, reindex, 'v3']
+    initial_key = [klass.name, user_key, reindex, 'v5']
 
     h.params
       .except(:format, :controller, :action)
-      .to_h
+      .to_unsafe_h
+      .symbolize_keys
       .sort_by(&:first)
       .inject(initial_key) { |memo, (k, v)| memo.push "#{k}:#{v}" }
       .compact
@@ -74,11 +75,14 @@ class AnimesCollection::View < ViewObjectBase
   end
 
   def filtered_params
-    h.params.except(
-      :format, :template, :is_adult, :controller, :action, :klass,
-      AnimesCollection::RecommendationsQuery::IDS_KEY,
-      AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
-    )
+    h.params
+      .to_unsafe_h
+      .symbolize_keys
+      .except(
+        :format, :template, :is_adult, :controller, :action, :klass,
+        AnimesCollection::RecommendationsQuery::IDS_KEY,
+        AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
+      )
   end
 
 private
