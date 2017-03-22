@@ -22,4 +22,6 @@ Rails.application.config.assets.precompile += %w(
   highcharts.v4.2.6.js
   lib/highcharts.js
   about.js
+  jquery.js
+  vendor/jquery.cookie.js
 )
