@@ -51,7 +51,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :dalli_store, 'localhost', {
-    namespace: 'shikimori_production_rails5',
+    namespace: 'shikimori_production_v5',
     compress: true,
     value_max_bytes: 1024 * 1024 * 32
   }
