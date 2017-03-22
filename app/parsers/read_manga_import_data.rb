@@ -226,7 +226,7 @@ module ReadMangaImportData
       silver: -1,
       my_teddy_bear: 44373,
       minami_ke: 2629,
-      blue_spring: -1
+      blue_spring: -1,
       am_confidential_assassination_troop: 4421
       #katekyo_hitman_reborn__dj___sanctuary: -1
     }.inject({}) {|rez,v| rez[v[0].to_s] = v[1] and rez }
