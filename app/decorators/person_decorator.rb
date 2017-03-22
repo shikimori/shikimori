@@ -14,6 +14,9 @@ class PersonDecorator < DbEntryDecorator
     mangaka: Person::MANGAKA_ROLES,
     vocalist: ['Theme Song Performance']
   }
+  FIXED_CUSTOM_MAIN_ROLES = {
+    2337 => { producer: true }
+  }
 
   def credentials?
     japanese.present? || object.name.present?
@@ -119,9 +122,11 @@ class PersonDecorator < DbEntryDecorator
   end
 
   def main_role? role
+    return true if FIXED_CUSTOM_MAIN_ROLES.dig(object.id, role)
+
     other_roles = ROLES.keys
-      .select {|v| v != role }
-      .map {|v| roles_counts v }
+      .select { |v| v != role }
+      .map { |v| roles_counts v }
 
      roles_counts(role) >= other_roles.max && !roles_counts(role).zero?
   end

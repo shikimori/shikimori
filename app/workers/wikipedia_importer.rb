@@ -389,7 +389,7 @@ class WikipediaImporter
   # список параметров элементов, заданных руками
   def mal_fixes
     unless @mal_fixes
-      all_mal_fixes = YAML::load(File.open("#{::Rails.root.to_s}/config/mal_fixes.yml"))
+      all_mal_fixes = YAML::load(File.open("#{::Rails.root.to_s}/config/app/mal_fixes.yml"))
       @mal_fixes = all_mal_fixes[:character]
     end
     @mal_fixes
