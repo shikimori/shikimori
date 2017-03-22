@@ -137,6 +137,7 @@ Rails.application.routes.draw do
       member do
         get :accept
         get :accept_edit
+        get :close_edit
         get :reject
         get :work
         get :cancel

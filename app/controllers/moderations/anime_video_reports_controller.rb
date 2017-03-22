@@ -30,6 +30,16 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     )
   end
 
+  def close_edit
+    @resource.accept_only! current_user if @resource.can_accept_only?
+
+    redirect_to edit_video_online_url(
+      @resource.anime_video.anime_id,
+      @resource.anime_video,
+      host: AnimeOnlineDomain.host(@resource.anime_video.anime)
+    )
+  end
+
   def reject
     @resource.reject! current_user if @resource.can_reject?
     redirect_back fallback_location: moderations_anime_video_reports_url

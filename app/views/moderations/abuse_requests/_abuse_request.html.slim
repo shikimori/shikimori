@@ -48,9 +48,8 @@
       span.misc-comment = t '.profile_comment'
 
     - if user_signed_in? && current_user.moderator?
-      .spoiler.collapse
-        span.action.half-hidden style="display: none;" = t '.show'
-      .collapsed.spoiler = t '.actions'
+      .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
+      .collapsed.spoiler: span = t '.actions'
       .spoiler.target style="display: none;"
         .moderation
           - if abuse_request.punishable?

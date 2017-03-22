@@ -1,0 +1,104 @@
+= cache [anime_video_report, user_signed_in? && current_user.video_moderator?] do
+  .b-log_entry.video
+    span.id-label #
+    span
+      a[
+        target='_blank'
+        href="#{play_video_online_index_url anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, :all, subdomain: :play}"
+      ]
+        = anime_video_report.id
+    span.date #{anime_video_report.created_at.strftime '%d.%m.%Y'}
+    = render 'users/user_16', user: anime_video_report.user
+
+    span.kind class="#{anime_video_report.kind}" = anime_video_report.kind_text
+
+    span
+      a.bubbled[
+        href="#{play_video_online_index_url anime_video_report.anime_video.anime, anime_video_report.anime_video.episode, anime_video_report.anime_video.id, subdomain: :play}"
+        data-href="#{tooltip_anime_url anime_video_report.anime_video.anime}"
+      ] = anime_video_report.anime_video.anime.name
+
+    span.state class="#{anime_video_report.state.downcase}"
+      = anime_video_report.human_state_name
+
+    - if anime_video_report.approver.present?
+      span
+        = anime_video_report.approver.nickname
+
+    .spoiler.collapse: span.action.half-hidden style="display: none;" = t '.show'
+    .collapsed.spoiler: span = t '.show_changes'
+
+    .spoiler.target style="display: none;"
+      - if user_signed_in? && current_user.video_moderator?
+        .moderation
+          - if anime_video_report.pending?
+            a.b-tooltipped.unprocessed[
+              href="#{accept_edit_moderations_anime_video_report_url anime_video_report.id}"
+              title="Правка будет принята. Видео изменит статус."
+              data-direction="top"
+            ] подтвердить и редактировать
+            a.b-tooltipped.unprocessed[
+              href="#{close_edit_moderations_anime_video_report_url anime_video_report.id}"
+              title="Правка будет принята. Видео не изменит статус."
+              data-direction="top"
+            ] закрыть и редактировать
+            a[
+              href="#{accept_moderations_anime_video_report_url anime_video_report.id}"
+            ] подтвердить
+            a[
+              href="#{reject_moderations_anime_video_report_url anime_video_report.id}"
+            ] отклонить
+          - else
+            a[
+              href="#{cancel_moderations_anime_video_report_url anime_video_report.id}"
+            ] отменить
+
+      .change-details
+        ul.diff
+          li
+            span ID:
+            = anime_video_report.anime_video.id
+          li
+            span #{AnimeVideo.human_attribute_name :url}:
+            a[
+              href="#{anime_video_report.anime_video.url}"
+            ] = anime_video_report.anime_video.url
+
+          li
+            span #{AnimeVideo.human_attribute_name :episode}:
+            = anime_video_report.anime_video.episode
+          li
+            span #{AnimeVideo.human_attribute_name :kind}:
+            = anime_video_report.anime_video.kind_text
+          - unless anime_video_report.anime_video.language_unknown?
+          li
+            span #{AnimeVideo.human_attribute_name :language}:
+            = anime_video_report.anime_video.language_text
+          - unless anime_video_report.anime_video.quality_unknown?
+            li
+              span #{AnimeVideo.human_attribute_name :quality}:
+              = anime_video_report.anime_video.quality_text
+
+          - if anime_video_report.anime_video.author
+            li
+              span #{AnimeVideo.human_attribute_name :author_name}:
+              = anime_video_report.anime_video.author.name.to_s.html_safe
+
+          - if anime_video_report.user_agent.present?
+            li
+              span USER_AGENT:
+              = anime_video_report.user_agent
+
+          - if anime_video_report.message.present?
+            li
+              span Комментарий:
+              = anime_video_report.message
+
+          - if anime_video_report.doubles > 0
+            li
+              span Повторных жалоб:
+              = anime_video_report.doubles
+
+      .player[
+        data-html="#{'' + anime_video_report.anime_video.decorate.player_html}"
+      ]

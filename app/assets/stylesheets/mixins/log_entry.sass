@@ -34,16 +34,16 @@
   .spoiler
     +spoiler
 
-    &.collapsed
-      +bracket_action
-
     &.collapse, &.collapsed
       font-size: 11px
-      margin: 0 5px
+      margin: 0
       float: right
 
       span
-        +bracket_action
+        +js_link
+        font-size: 11px
+        margin-left: 10px
+        padding: 0
 
   .quoteable
     font-weight: bold
@@ -68,8 +68,10 @@
     font-size: 12px
 
     a
-      +bracket_action
-      text-decoration: underline
+      +js_link
+      margin-left: 10px
+      font-size: 11px
+      padding: 0
 
   .screenshots-compare
     .before
