@@ -3,6 +3,9 @@
 #= require vendor/jquery-migrate-1.3.0
 #= require vendor/modernizr
 
+#= require bowser
+#= require mobile-detect
+
 #= require uevent
 #= require d3
 #= require jQuery-Storage-API

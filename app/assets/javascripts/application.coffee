@@ -42,6 +42,7 @@ $ =>
 
   @MOMENT_DIFF = moment($body.data('server_time')).diff(new Date())
 
+
   $(document).trigger 'page:load', true
 
   if USER_SIGNED_IN && !window.faye_loader
@@ -70,6 +71,10 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
     Turbolinks.enableProgressBar true,  '.turbolinks'
   else
     Turbolinks.enableProgressBar true
+
+  document.body.classList.add(
+    bowser.name.toLowerCase().replace(' ', '_')
+  )
 
   #unless is_dom_content_loaded
     #turbolinks_compatibility()

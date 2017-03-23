@@ -117,13 +117,15 @@
       abs_left -= width;
     }
 
-    var tip_width = $tip.find('.tooltip-inner').outerWidth() + $tip.find('.tooltip-arrow').outerWidth();
+    // var arrow_width = $tip.find('.tooltip-arrow').outerWidth();
+    var arrow_width = 20; // hardcoded because of css arrow with width=0px
+    var tip_width = $tip.find('.tooltip-inner').outerWidth() + arrow_width;
     var tip_height = $tip.find('.tooltip-inner').outerHeight();
 
     // вписывание тултипа в экран по горизонтали
     var offscreen_right_offset = (abs_left + tip_width) - $(window).width();
     if (!$trigger.data('no-align') && (offscreen_right_offset > 0 || conf.place_to_left || $trigger.data('place-to-left'))) {
-      var tip_full_offset = (tip_width + $trigger.outerWidth() + $tip.find('.tooltip-arrow').outerWidth()) + ($trigger.data('offset-left') || 0)*2 + ($trigger.data('offset-left-right') || 0);
+      var tip_full_offset = (tip_width + $trigger.outerWidth() + arrow_width) + ($trigger.data('offset-left') || 0)*2 + ($trigger.data('offset-left-right') || 0);
       var new_left = left - tip_full_offset;
 
       var left_border = is_relative ? $trigger.offset().left - $trigger.position().left : 0;
