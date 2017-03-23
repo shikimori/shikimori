@@ -23,7 +23,7 @@ private
   end
 
   def set_topic comment
-    return unless comment.valid?
+    # return unless comment.valid?
     return if commentable_klass <= Topic
     return if commentable_klass <= User
 

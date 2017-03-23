@@ -46,8 +46,23 @@ class Api::V1::CommentsController < Api::V1Controller
     param :commentable_id, :number, required: true
     param :commentable_type, String,
       required: true,
-      desc: <<~DOC.strip
-        Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
+      desc: <<~DOC.squish
+        <p>
+          Must be one of:
+          <code>#{Types::Comment::CommentableType.values.join('</code>, <code>')}</code>,
+          <code>#{Anime.name}</code>,
+          <code>#{Manga.name}</code>,
+          <code>#{Character.name}</code>,
+          <code>#{Person.name}</code>
+        </p>
+        <p>
+          When set to
+          <code>#{Anime.name}</code>,
+          <code>#{Manga.name}</code>,
+          <code>#{Character.name}</code>,
+          <code>#{Person.name}</code>
+          comment is attached to <code>commentable</code> main topic
+        </p>
       DOC
     param :is_offtopic, :bool, required: false
     param :is_summary, :bool, required: false
