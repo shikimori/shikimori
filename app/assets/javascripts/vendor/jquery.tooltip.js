@@ -117,13 +117,14 @@
       abs_left -= width;
     }
 
-    // var arrow_width = $tip.find('.tooltip-arrow').outerWidth();
-    var arrow_width = 20; // hardcoded because of css arrow with width=0px
+    var arrow_width = $tip.find('.tooltip-arrow').outerWidth();
     var tip_width = $tip.find('.tooltip-inner').outerWidth() + arrow_width;
     var tip_height = $tip.find('.tooltip-inner').outerHeight();
+    var tip_horizontal_shadow = $tip.find('.dropshadow-left').outerWidth()
+    var tip_vertical_shadow = $tip.find('.dropshadow-top').outerHeight()
 
     // вписывание тултипа в экран по горизонтали
-    var offscreen_right_offset = (abs_left + tip_width) - $(window).width();
+    var offscreen_right_offset = (abs_left + tip_width + tip_horizontal_shadow) - $(window).width();
     if (!$trigger.data('no-align') && (offscreen_right_offset > 0 || conf.place_to_left || $trigger.data('place-to-left'))) {
       var tip_full_offset = (tip_width + $trigger.outerWidth() + arrow_width) + ($trigger.data('offset-left') || 0)*2 + ($trigger.data('offset-left-right') || 0);
       var new_left = left - tip_full_offset;
@@ -152,7 +153,7 @@
     $arrow.css('top', $arrow.data('top'));
 
     // вписывание тултипа в экран по вертикали
-    var offscreen_bottom_offset = (abs_top + tip_height) - $(window).scrollTop() - $(window).height();
+    var offscreen_bottom_offset = (abs_top + tip_height + tip_vertical_shadow) - $(window).scrollTop() - $(window).height();
     if (!$trigger.data('no-align')) {
       if (offscreen_bottom_offset > 0 && !conf.no_y_adjustment) {
         top -= offscreen_bottom_offset + 10;
