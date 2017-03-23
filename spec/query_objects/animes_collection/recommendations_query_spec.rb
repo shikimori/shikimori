@@ -9,12 +9,12 @@ describe AnimesCollection::RecommendationsQuery do
   end
   let(:params) do
     {
-      AnimesCollection::RecommendationsQuery::IDS_KEY => [
+      AniMangaQuery::IDS_KEY => [
         anime_4.id,
         anime_2.id,
         anime_3.id
       ],
-      AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY => exclude_ids
+      AniMangaQuery::EXCLUDE_IDS_KEY => exclude_ids
     }
   end
   let(:exclude_ids) { [] }

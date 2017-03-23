@@ -3,6 +3,8 @@ class Api::V1::CommentsController < Api::V1Controller
   before_action :authenticate_user!, only: [:create, :update, :destroy]
   before_action :check_post_permission, only: [:create, :update, :destroy]
 
+  LIMIT = 30
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/comments/:id', 'Show a comment'
   def show
@@ -12,13 +14,17 @@ class Api::V1::CommentsController < Api::V1Controller
 
   api :GET, '/comments', 'List comments'
   param :commentable_id, :number, required: true
-  param :commentable_type, String, required: true
+  param :commentable_type, String,
+    required: true,
+    desc: <<~DOC.strip
+      Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
+    DOC
   param :page, :number, required: false
-  param :limit, :number, required: false
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w(1 0), required: false
   # rubocop:disable AbcSize
   def index
-    @limit = [[params[:limit].to_i, 1].max, 30].min
+    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
     @desc = params[:desc].nil? || params[:desc] == '1'
 
@@ -38,7 +44,11 @@ class Api::V1::CommentsController < Api::V1Controller
   param :comment, Hash do
     param :body, String, required: true
     param :commentable_id, :number, required: true
-    param :commentable_type, String, required: true
+    param :commentable_type, String,
+      required: true,
+      desc: <<~DOC.strip
+        Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
+      DOC
     param :is_offtopic, :bool, required: false
     param :is_summary, :bool, required: false
   end

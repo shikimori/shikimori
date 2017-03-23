@@ -72,10 +72,10 @@
           li.order-by-my style="display: none" = t 'by.score'
           li.order-by-rate_id = t 'by.date_added'
           - if menu.klass == Anime
-            li.order-by-episodes style="display: none" = t 'by.number_of_episodes'
+            li.order-by-episodes style="display: none" = t 'by.episodes'
           - else
-            li.order-by-chapters style="display: none" = t 'by.number_of_chapters'
-            li.order-by-volumes style="display: none" = t 'by.number_of_volumes'
+            li.order-by-chapters style="display: none" = t 'by.chapters'
+            li.order-by-volumes style="display: none" = t 'by.volumes'
           li.order-by-status style="display: none" = t 'by.status'
         - else
           li.order-by-id = t 'by.date_added'

@@ -24,9 +24,9 @@ ru:
     date_added: По дате добавления
     kind: По типу
     name: По алфавиту
-    number_of_chapters: По числу глав
-    number_of_episodes: По числу эпизодов
-    number_of_volumes: По числу томов
+    chapters: По числу глав
+    episodes: По числу эпизодов
+    volumes: По числу томов
     popularity: По популярности
     ranked: По рейтингу
     score: По оценке

@@ -5,8 +5,6 @@ class Comment < ApplicationRecord
   include Antispam
   include Viewable
 
-  boolean_attributes :summary, :offtopic
-
   MIN_SUMMARY_SIZE = 230
 
   # associations
@@ -23,8 +21,12 @@ class Comment < ApplicationRecord
     foreign_key: :linked_id,
     dependent: :destroy
 
+  boolean_attributes :summary, :offtopic
+
   # validations
   validates :body, :user, :commentable, presence: true
+  validates :commentable_type,
+    inclusion: { in: Types::Comment::CommentableType.values }
   validates_length_of :body, minimum: 2, maximum: 10000
 
   # scopes

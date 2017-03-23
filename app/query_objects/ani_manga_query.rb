@@ -1,5 +1,7 @@
 # TODO: refactor to bunch of simplier query objects
 class AniMangaQuery
+  IDS_KEY = :ids
+  EXCLUDE_IDS_KEY = :exclude_ids
   EXCLUDE_AI_GENRES_KEY = :exclude_ai_genres
 
   DURATION_SQL = {
@@ -38,7 +40,12 @@ class AniMangaQuery
     @search_phrase = SearchHelper.unescape(params[:search] || params[:q])
 
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
-    @exclude_ids = params[:exclude_ids]
+
+    @ids = params[IDS_KEY]
+    @ids = @ids.split(',') if @ids.is_a? String
+
+    @exclude_ids = params[EXCLUDE_IDS_KEY]
+    @exclude_ids = @exclude_ids.split(',') if @exclude_ids.is_a? String
 
     @user = user
 
@@ -66,6 +73,7 @@ class AniMangaQuery
 
     mylist!
 
+    ids!
     exclude_ids!
     search!
     video!
@@ -295,11 +303,13 @@ private
       .includes(@klass.name.downcase.to_sym)
       .each_with_object(include: [], exclude: []) do |entry, memo|
 
-        if statuses[:include].include? UserRate.statuses[entry.status]
+        if statuses[:include].include?(UserRate.statuses[entry.status]) ||
+            statuses[:include].include?(entry.status)
           memo[:include] << entry.target_id
         end
 
-        if statuses[:exclude].include? UserRate.statuses[entry.status]
+        if statuses[:exclude].include?(UserRate.statuses[entry.status])
+            statuses[:exclude].include?(entry.status)
           memo[:exclude] << entry.target_id
         end
       end
@@ -309,6 +319,13 @@ private
 
     @query = @query.where(id: animelist[:include]) if animelist[:include].any?
     @query = @query.where.not(id: animelist[:exclude]) if animelist[:exclude].any?
+  end
+
+  # фильтрация по id
+  def ids!
+    return if @ids.blank?
+
+    @query = @query.where(id: @ids.map(&:to_i))
   end
 
   # фильтрация по id
@@ -479,7 +496,7 @@ private
       when 'site_score'
         "#{klass.table_name}.site_score desc, #{klass.table_name}.id"
 
-      when 'kind'
+      when 'kind', 'type'
         "#{klass.table_name}.kind, #{klass.table_name}.id"
 
       when 'user_1', 'user_2' # кастомные сортировки

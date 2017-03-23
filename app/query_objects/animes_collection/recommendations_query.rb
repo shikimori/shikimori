@@ -1,7 +1,4 @@
 class AnimesCollection::RecommendationsQuery < AnimesCollection::PageQuery
-  IDS_KEY = :ids
-  EXCLUDE_IDS_KEY = :exclude_ids
-
 private
 
   def process query
@@ -12,9 +9,7 @@ private
   end
 
   def query
-    super
-      .where(id: params[IDS_KEY])
-      .sort_by { |v| params[IDS_KEY].index v.id }
+    super.sort_by { |entry| params[AniMangaQuery::IDS_KEY].index entry.id }
   end
 
   def params

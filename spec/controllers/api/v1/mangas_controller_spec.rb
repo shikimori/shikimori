@@ -5,8 +5,14 @@ describe Api::V1::MangasController, :show_in_doc do
     let(:user) { create :user }
     let(:genre) { create :genre }
     let(:publisher) { create :publisher }
-    let(:manga) { create :manga, name: 'Test', aired_on: Date.parse('2014-01-01'), publishers: [publisher], genres: [genre], rating: :r }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
+    let(:manga) do
+      create :manga,
+        name: 'Test',
+        aired_on: Date.parse('2014-01-01'),
+        publishers: [publisher],
+        genres: [genre]
+    end
 
     before do
       allow(Search::Manga).to receive(:call) { |params| params[:scope] }
@@ -21,7 +27,6 @@ describe Api::V1::MangasController, :show_in_doc do
           season: '2014',
           genre: genre.id.to_s,
           publisher: publisher.id.to_s,
-          rating: 'r',
           search: 'Te',
           order: 'ranked',
           mylist: '1',

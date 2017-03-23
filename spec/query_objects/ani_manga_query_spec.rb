@@ -326,12 +326,14 @@ describe AniMangaQuery do
 
       it 'inclusive' do
         expect(fetch({ mylist: UserRate.statuses[:planned].to_s }, user)).to have(1).item
+        expect(fetch({ mylist: 'planned' }, user)).to have(1).item
         expect(fetch({ mylist: UserRate.statuses[:watching].to_s }, user)).to have(2).items
         expect(fetch({ mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}" }, user)).to have(3).items
       end
 
       it 'exclusive' do
         expect(fetch({ mylist: "!#{UserRate.statuses[:planned]}" }, user)).to have(4).items
+        expect(fetch({ mylist: '!planned' }, user)).to have(4).items
         expect(fetch({ mylist: "!#{UserRate.statuses[:planned]},!#{UserRate.statuses[:watching]}" }, user)).to have(2).items
       end
 
@@ -377,15 +379,29 @@ describe AniMangaQuery do
       end
     end
 
-    describe 'exclude_ids' do
-      let!(:anime_1) { create :anime, id: 1 }
-      let!(:anime_2) { create :anime, id: 2 }
-      let!(:anime_3) { create :anime, id: 3 }
+    describe 'ids' do
+      let!(:anime_1) { create :anime, score: 9 }
+      let!(:anime_2) { create :anime, score: 8 }
+      let!(:anime_3) { create :anime, score: 7 }
 
       it do
-        expect(fetch exclude_ids: ['1']).to have(2).items
-        expect(fetch exclude_ids: [2]).to have(2).items
-        expect(fetch exclude_ids: [1, 2]).to have(1).item
+        expect(fetch ids: [anime_1.id.to_s]).to eq [anime_1]
+        expect(fetch ids: [anime_2.id]).to eq [anime_2]
+        expect(fetch ids: [anime_2.id, anime_1.id]).to eq [anime_1, anime_2]
+        expect(fetch ids: "#{anime_2.id},#{anime_1.id}").to eq [anime_1, anime_2]
+      end
+    end
+
+    describe 'exclude_ids' do
+      let!(:anime_1) { create :anime, score: 9 }
+      let!(:anime_2) { create :anime, score: 8 }
+      let!(:anime_3) { create :anime, score: 7 }
+
+      it do
+        expect(fetch exclude_ids: [anime_1.id.to_s]).to eq [anime_2, anime_3]
+        expect(fetch exclude_ids: [anime_2.id]).to eq [anime_1, anime_3]
+        expect(fetch exclude_ids: [anime_1.id, anime_2.id]).to eq [anime_3]
+        expect(fetch exclude_ids: "#{anime_1.id},#{anime_2.id}").to eq [anime_3]
       end
     end
 

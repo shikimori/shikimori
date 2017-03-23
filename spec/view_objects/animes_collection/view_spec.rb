@@ -208,8 +208,8 @@ describe AnimesCollection::View do
         template: 'd',
         is_adult: 'e',
         type: 'tv',
-        AnimesCollection::RecommendationsQuery::IDS_KEY => ['c'],
-        AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY => ['b']
+        AniMangaQuery::IDS_KEY => ['c'],
+        AniMangaQuery::EXCLUDE_IDS_KEY => ['b']
       }
     end
 

@@ -40,6 +40,10 @@ Apipie.configure do |config|
     `HTTPS` protocol only.
     <br><br>
 
+    ### Pagination in API
+    When you request `N` elements from paginated API, you will get `N+1` results if API has next page.
+    <br><br>
+
     ### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
     [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.

@@ -13,6 +13,11 @@ describe Comment do
     it { is_expected.to validate_presence_of :body }
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :commentable }
+    it do
+      is_expected
+        .to validate_inclusion_of(:commentable_type)
+        .in_array Types::Comment::CommentableType.values
+    end
   end
 
   describe 'callbacks' do

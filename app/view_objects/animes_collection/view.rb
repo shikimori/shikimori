@@ -80,8 +80,8 @@ class AnimesCollection::View < ViewObjectBase
       .symbolize_keys
       .except(
         :format, :template, :is_adult, :controller, :action, :klass,
-        AnimesCollection::RecommendationsQuery::IDS_KEY,
-        AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY
+        AniMangaQuery::IDS_KEY,
+        AniMangaQuery::EXCLUDE_IDS_KEY
       )
   end
 

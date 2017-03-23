@@ -48,8 +48,8 @@ class RecommendationsController < AnimesCollectionController
             result
           end
 
-        params[AnimesCollection::RecommendationsQuery::IDS_KEY] = @rankings.keys
-        params[AnimesCollection::RecommendationsQuery::EXCLUDE_IDS_KEY] = excluded_ids
+        params[AniMangaQuery::IDS_KEY] = @rankings.keys
+        params[AniMangaQuery::EXCLUDE_IDS_KEY] = excluded_ids
       end
 
       super
