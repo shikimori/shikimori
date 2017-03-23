@@ -234,7 +234,8 @@ class DynamicElements.Topic extends ShikiEditable
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'
       if OPTIONS.comments_auto_loaded
-        $placeholder.click() if $placeholder.is(':appeared') && !$('textarea:focus').val()
+        if $placeholder.is(':appeared') && !$('textarea:focus').val()
+          $placeholder.click()
 
     # изменение метки комментария
     @on 'faye:comment:marked', (e, data) =>
@@ -271,6 +272,7 @@ class DynamicElements.Topic extends ShikiEditable
 
   # получение плейсхолдера для подгрузки новых комментариев
   _faye_placeholder: (trackable_id, trackable_type) ->
+    @$('.b-comments .b-nothing_here').remove()
     $placeholder = @$('.b-comments .faye-loader')
 
     unless $placeholder.exists()
