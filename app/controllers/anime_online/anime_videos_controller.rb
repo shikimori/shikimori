@@ -110,18 +110,21 @@ private
     params
       .require(:anime_video)
       .permit(*CREATE_PARAMS)
+      .to_h
   end
 
   def update_params
     params
       .require(:anime_video)
       .permit(:episode, :author_name, :kind, :language, :quality)
+      .to_h
   end
 
   def moderator_update_params
     params
       .require(:anime_video)
       .permit(:episode, :author_name, :kind, :url, :state, :language, :quality)
+      .to_h
   end
 
   def resource_id

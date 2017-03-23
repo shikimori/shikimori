@@ -5,12 +5,11 @@ describe Versioneers::FieldsVersioneer do
   let(:reason) { 'change reason' }
 
   let(:changes) { { name: 'zzz', episodes: 7, episodes_aired: 5 } }
-  let(:params) { ActionController::Parameters.new changes }
 
   let(:result_diff) { { 'name' => ['test', 'zzz'], 'episodes' => [3, 7] } }
 
   describe '#premoderate' do
-    subject!(:version) { service.premoderate params, author, reason }
+    subject!(:version) { service.premoderate changes, author, reason }
 
     it do
       expect(anime.name).to eq 'test'
@@ -96,7 +95,7 @@ describe Versioneers::FieldsVersioneer do
   end
 
   describe '#postmoderate' do
-    subject!(:version) { service.postmoderate params, author, reason }
+    subject!(:version) { service.postmoderate changes, author, reason }
 
     it do
       expect(anime).to have_attributes changes

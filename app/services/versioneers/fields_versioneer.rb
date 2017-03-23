@@ -8,7 +8,7 @@ class Versioneers::FieldsVersioneer
   /mix
 
   def premoderate params, author = nil, reason = nil
-    create_version params.to_unsafe_h, author, reason
+    create_version params, author, reason
   end
 
   def postmoderate params, author = nil, reason = nil
