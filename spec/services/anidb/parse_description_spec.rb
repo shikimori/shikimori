@@ -67,5 +67,10 @@ describe Anidb::ParseDescription, :vcr do
         TEXT
       )
     end
+
+    context 'auto-banned' do
+      let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
+      it { expect { call }.to raise_error AutoBannedError }
+    end
   end
 end
