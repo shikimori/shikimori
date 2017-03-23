@@ -1,5 +1,6 @@
 class Anidb::ImportDescriptionsJob
   include Sidekiq::Worker
+  sidekiq_options retry: false
 
   def perform
     import_descriptions(animes)
