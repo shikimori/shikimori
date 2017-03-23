@@ -15,7 +15,7 @@ class MalParsers::AnimeAuthorized < MalParser::Entry::Anime
 
   def make_request url
     headers = {
-      'Cookie' => MalParsers::Authorization.instance.cookie.join('')
+      'Cookie' => MalParsers::Authorization.instance.cookie.join
     }
 
     begin

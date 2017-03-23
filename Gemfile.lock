@@ -238,8 +238,6 @@ GEM
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-monads (0.2.1)
-      dry-equalizer
     dry-struct (0.2.1)
       dry-configurable (~> 0.1)
       dry-equalizer (~> 0.2)
@@ -723,7 +721,6 @@ DEPENDENCIES
   devise (= 4.2.1)
   draper
   draper-cancancan
-  dry-monads
   dry-struct
   enumerize
   factory_girl-seeds

@@ -16,13 +16,24 @@ class Anidb::ParseDescription
   private
 
   def get
-    content = Proxy.get(url, proxy_options)
+    content = get_with_proxy!(url)
+    content = get_authorized(url) if adult_content?(content)
+    content
+  end
+
+  def get_with_proxy! url
+    options = { no_proxy: Rails.env.test?, required_text: REQUIRED_TEXT }
+    content = Proxy.get(url, options)
 
     raise EmptyContentError, url if content.blank?
     raise InvalidIdError, url if unknown_id?(content)
 
-    content = get_authorized(url) if adult_content?(content)
     content
+  end
+
+  def get_authorized url
+    headers = { 'Cookie' => Anidb::Authorization.instance.cookie.join }
+    open(url, headers).read
   end
 
   def parse content
@@ -31,13 +42,6 @@ class Anidb::ParseDescription
 
   def sanitize html
     Anidb::SanitizeText.call html
-  end
-
-  def proxy_options
-    {
-      no_proxy: Rails.env.test?,
-      required_text: REQUIRED_TEXT
-    }
   end
 
   def unknown_id? content
