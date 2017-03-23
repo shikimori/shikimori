@@ -6,6 +6,7 @@ class Anidb::ParseDescription
 
   REQUIRED_TEXT = 'AniDB</title>'
   UNKNOWN_ID_ERRORS = ['Unknown anime id', 'Unknown character id']
+  ADULT_CONTENT_TEXT = 'Adult Content Warning'
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
   def call
@@ -20,6 +21,7 @@ class Anidb::ParseDescription
     raise EmptyContentError, url if content.blank?
     raise InvalidIdError, url if unknown_id?(content)
 
+    content = get_authorized(url) if adult_content?(content)
     content
   end
 
@@ -40,6 +42,10 @@ class Anidb::ParseDescription
 
   def unknown_id? content
     UNKNOWN_ID_ERRORS.any? { |v| content.include?(v) }
+  end
+
+  def adult_content? content
+    content.include? ADULT_CONTENT_TEXT
   end
 
   def doc content

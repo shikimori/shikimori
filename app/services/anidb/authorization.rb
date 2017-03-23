@@ -4,7 +4,7 @@ class Anidb::Authorization
   include Singleton
 
   CACHE_KEY = 'anidb_authorization_cookie'
-  COOKIES = %w(adbautopass adbautouser adbsessuser adbuin anidbsettings)
+  COOKIES = %w(adbautopass adbautouser adbsessuser adbuin)
 
   LOGIN_PATH = '/perl-bin/animedb.pl?show=login'
   LOGIN = 'naruto2148'
@@ -68,6 +68,6 @@ class Anidb::Authorization
   end
 
   def valid? cookies
-    cookies.size == 5
+    cookies.size == COOKIES.size
   end
 end

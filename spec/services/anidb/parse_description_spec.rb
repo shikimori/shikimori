@@ -52,4 +52,8 @@ describe Anidb::ParseDescription, :vcr do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=character&charid=33311111' }
     it { expect { call }.to raise_error InvalidIdError }
   end
+
+  context '' do
+
+  end
 end
