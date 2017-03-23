@@ -9,8 +9,9 @@ class Api::V1::ClubsController < Api::V1Controller
       "#{@club.cache_key}|#{params[:action]}"
     }
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/clubs', 'List clubs'
+  param :page, :number, required: false
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   def index
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min

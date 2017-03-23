@@ -1,14 +1,16 @@
 class Api::V1::TopicsController < Api::V1Controller
+  LIMIT = 30
+
   api :GET, '/topics', 'List topics'
-  param :limit, :number, required: false
   param :page, :number, required: false
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   param :forum,
     %w(
       all animanga vn games site offtopic news reviews contests my_clubs clubs
     ),
     required: true
   def index
-    @limit = [[params[:limit].to_i, 1].max, 30].min
+    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
 
     @forum = Forum.find_by_permalink params[:forum]
