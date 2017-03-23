@@ -53,6 +53,11 @@ describe Anidb::ParseDescription, :vcr do
     it { expect { call }.to raise_error InvalidIdError }
   end
 
+  context 'captcha' do
+    let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=313' }
+    it { expect { call }.to raise_error CaptchaError }
+  end
+
   context 'adult content' do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=314' }
     it do
@@ -68,9 +73,9 @@ describe Anidb::ParseDescription, :vcr do
       )
     end
 
-    context 'auto-banned' do
-      let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
-      it { expect { call }.to raise_error AutoBannedError }
-    end
+    #context 'auto-banned' do
+    #  let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
+    #  it { expect { call }.to raise_error AutoBannedError }
+    #end
   end
 end

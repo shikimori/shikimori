@@ -6,6 +6,7 @@ class Anidb::ParseDescription
 
   REQUIRED_TEXT = 'AniDB</title>'
   UNKNOWN_ID_TEXTS = ['Unknown anime id', 'Unknown character id']
+  CAPTCHA_TEXT = 'This website is for humans only'
   ADULT_CONTENT_TEXT = 'Adult Content Warning'
   AUTO_BANNED_TEXT = 'AniDB AntiLeech'
 
@@ -29,6 +30,7 @@ class Anidb::ParseDescription
 
     raise EmptyContentError, url if content.blank?
     raise InvalidIdError, url if unknown_id?(content)
+    raise CaptchaError, url if captcha?(content)
 
     content
   end
@@ -52,6 +54,10 @@ class Anidb::ParseDescription
 
   def unknown_id? content
     UNKNOWN_ID_TEXTS.any? { |v| content.include?(v) }
+  end
+
+  def captcha? content
+    content.include? CAPTCHA_TEXT
   end
 
   def adult_content? content
