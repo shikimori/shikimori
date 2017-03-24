@@ -31,11 +31,8 @@ class Wall.Image extends View
     @$node.shiki_image()
 
   normalize: (width, height) ->
-    if @width > width
-      @scale_width width
-
-    else if @height > height
-      @scale_height height
+    @scale_width width if @width > width
+    @scale_height height if @height > height
 
   scale_width: (width) ->
     @height *= width / @width
