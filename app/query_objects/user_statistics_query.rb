@@ -241,13 +241,12 @@ class UserStatisticsQuery
   def statuses rates, is_full, type
     UserRate.statuses.map do |status_name, status_id|
       next if !is_full && status_name == 'rewatching'
-      rewatching_id = UserRate.statuses.find {|k,v| k == 'rewatching'}.second
 
       Profiles::ListStats.new(
         id: status_id,
         grouped_id: !is_full && status_name == 'watching' ?
-          "#{status_id},#{rewatching_id}" :
-          status_id,
+          "#{status_name},rewatching" :
+          status_name,
         name: status_name,
         size: !is_full && status_name == 'watching' ?
           rates.select { |v| v.watching? || v.rewatching? }.size :

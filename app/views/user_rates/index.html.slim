@@ -8,8 +8,8 @@
         .b-options-floated.mylist.mobile-desktop
           - @library.counts.each do |stat|
             .link.always-active[
-              data-id="#{stat[:id]}"
-              class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').map(&:to_i).include?(stat[:id])}"
+              data-id="#{stat[:grouped_id]}"
+              class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').include?(stat[:grouped_id])}"
             ]
               = UserRate.status_name stat[:name], @library.klass.name
               | &nbsp;
