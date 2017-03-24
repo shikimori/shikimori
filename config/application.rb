@@ -52,9 +52,15 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use Redirecter if Rails.env.production?
+    # для clockwork он not defined
+    if defined?(Redirecter) && Rails.env.production?
+      config.middleware.use Redirecter if 
+    end
     config.middleware.insert 0, Rack::UTF8Sanitizer
-    config.middleware.insert 0, ProxyTest
+    # для clockwork он not defined
+    if defined?(ProxyTest)
+      config.middleware.insert 0, ProxyTest
+    end
     config.middleware.use Rack::JSONP
     config.middleware.use Rack::Attack if Rails.env.production?
     # config.middleware.use LogBeforeTimeout
