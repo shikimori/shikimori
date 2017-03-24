@@ -43,13 +43,39 @@ describe Anidb::ParseDescription, :vcr do
     it { expect { call }.to raise_error EmptyContentError }
   end
 
-  context 'unkown anime id' do
+  context 'unknown anime id' do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=33911111' }
     it { expect { call }.to raise_error InvalidIdError }
   end
 
-  context 'unkown character id' do
+  context 'unknown character id' do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=character&charid=33311111' }
     it { expect { call }.to raise_error InvalidIdError }
+  end
+
+  context 'captcha' do
+    let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=313' }
+    it { expect { call }.to raise_error CaptchaError }
+  end
+
+  context 'adult content' do
+    let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=314' }
+    it do
+      is_expected.to include(
+        <<-TEXT.squish
+          Orphaned at a young age, her parents victims of a brutal double
+          murder, Sawa was taken in by the detective assigned to her case.
+          Not content to just watch as the imperfect justice system lets more
+          and more criminals go loose every day, he decides to train her to
+          be his instrument of justice. After all, who'd suspect a pretty
+          college student of being a deadly vigilante!
+        TEXT
+      )
+    end
+
+    #context 'auto-banned' do
+    #  let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
+    #  it { expect { call }.to raise_error AutoBannedError }
+    #end
   end
 end

@@ -264,7 +264,7 @@ class Proxy < ApplicationRecord
     def open_params url, params
       params.merge(
         'User-Agent' => user_agent(url),
-        'Cookie' => cookie(url),
+        #'Cookie' => cookie(url),
         allow_redirections: :all
       )
     end
@@ -279,18 +279,17 @@ class Proxy < ApplicationRecord
       #end
     end
 
-    def cookie url
-      if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
-        %w(
-          MALHLOGSESSID=94988ef1f0cc270c6541e35258eb08f9;
-          MALSESSIONID=9tp6dm89d1up518icv73hjelm0;
-          is_logged_in=1;
-        ).join
-      else
-        ''
-      end
-    end
-
+    #def cookie url
+    #  if url =~ %r{myanimelist.net/(?:anime|manga)/\d+/?\w*$}
+    #    %w(
+    #      MALHLOGSESSID=94988ef1f0cc270c6541e35258eb08f9;
+    #      MALSESSIONID=9tp6dm89d1up518icv73hjelm0;
+    #      is_logged_in=1;
+    #    ).join
+    #  else
+    #    ''
+    #  end
+    #end
   end
 
   def to_s with_http = false
