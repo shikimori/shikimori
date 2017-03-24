@@ -116,7 +116,7 @@ private
   def recommendations_query
     AnimesCollection::RecommendationsQuery.call(
       klass: klass,
-      params: h.params,
+      params: h.params.to_unsafe_h,
       user: user,
       limit: PAGE_LIMIT
     )
@@ -125,7 +125,7 @@ private
   def season_query
     AnimesCollection::SeasonQuery.call(
       klass: klass,
-      params: h.params,
+      params: h.params.to_unsafe_h,
       user: user,
       limit: SEASON_LIMIT
     )
@@ -134,7 +134,7 @@ private
   def page_query
     AnimesCollection::PageQuery.call(
       klass: klass,
-      params: h.params,
+      params: h.params.to_unsafe_h,
       user: user,
       limit: PAGE_LIMIT
     )
