@@ -39,6 +39,7 @@ class RecommendationsController < AnimesCollectionController
 
     @rankings = Recommendations::Fetcher.new(user, @view.klass, @metric, @threshold).fetch
 
+    params[AniMangaQuery::IDS_KEY] = []
     if @rankings.present?
       if @rankings.any?
         excluded_ids = user
