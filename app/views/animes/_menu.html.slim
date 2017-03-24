@@ -56,7 +56,7 @@
                     = rate.user.nickname
 
           - if resource.friend_rates.size > 3
-            .b-show_more = t '.show_all'
+            .b-show_more.unprocessed = t '.show_all'
             .b-show_more-more
               - resource.friend_rates.slice(3, 99).each do |rate|
                 .friend-rate

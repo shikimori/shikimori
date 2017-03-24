@@ -1,6 +1,4 @@
 @on 'page:load', 'anime_videos_index', ->
-  $('.b-show_more').show_more()
-
   resize_video_player()
 
   debounced_resize = $.debounce(250, resize_video_player)

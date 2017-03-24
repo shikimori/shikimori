@@ -2,7 +2,6 @@
 
 @on 'page:load', '.animes', '.mangas', ->
   init_animes_menu()
-  $('.b-show_more').show_more()
 
 @init_animes_menu = ->
   # графики

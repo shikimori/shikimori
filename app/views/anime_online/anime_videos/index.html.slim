@@ -69,7 +69,7 @@
               collection: @player.anime_video_episodes[0..12]
 
             - if @player.anime_video_episodes.size > 13
-              .b-show_more + показать всё
+              .b-show_more.unprocessed + показать всё
               .b-show_more-more
                 = render partial: 'anime_online/anime_videos/anime_video_episode',
                   collection: @player.anime_video_episodes[13..-1]

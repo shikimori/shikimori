@@ -86,6 +86,10 @@
     .removeClass('unprocessed')
     .magnific_rel_gallery()
 
+  $with('.b-show_more.unprocessed', $root)
+    .removeClass('unprocessed')
+    .show_more()
+
   # сворачиваение всех нужных блоков "свернуть"
   _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
     $with("#collapse-#{v}", $root).filter(':not(.triggered)').trigger 'click', true

@@ -100,7 +100,7 @@
           span.title = topic.title
           span.notice = topic.description
     - if menu.sticky_topics.size > 3
-      .b-show_more = t '.show_more'
+      .b-show_more.unprocessed = t '.show_more'
       .b-show_more-more
         span
         - menu.sticky_topics.slice(3, 99).each do |topic|
