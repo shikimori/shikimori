@@ -147,7 +147,7 @@ private
   def cache_key
     [
       :user_list,
-      :v5,
+      :v6,
       user,
       Digest::MD5.hexdigest(h.request.url.gsub(/\.json$/, '').gsub(/\/page\/\d+/, '')),
       sort_order

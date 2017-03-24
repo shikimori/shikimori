@@ -66,7 +66,7 @@ class UserProfileDecorator < UserDecorator
   def nicknames_tooltip
     i18n_t('aka', known: (object.female? ? 'известна' : 'известен')) + ':&nbsp;' +
       nickname_changes
-        .map {|v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
+        .map { |v| "<b style='white-space: nowrap'>#{h.h v.value}</b>" }
         .join("<span color='#555'>,</span> ")
   end
 
