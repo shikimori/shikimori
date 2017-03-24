@@ -5,6 +5,8 @@ class Api::V1::AnimesController < Api::V1Controller
   ORDERS = %w(
     ranked type popularity name aired_on episodes status random
   )
+  DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
+  RATINGS = I18n.t('enumerize.anime.rating.hint', locale: :en)
 
   api :GET, '/animes', 'List animes'
   description <<~DOC
@@ -64,8 +66,28 @@ class Api::V1::AnimesController < Api::V1Controller
           DOC
         end
     end)
-  param :type, Anime.kind.values, required: false
-  param :status, Anime.status.values, required: false
+  param :type, :undef,
+    required: false,
+    desc: <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{Anime.kind.values.join('</code>, <code>')}</code>
+        </li>
+      </ul>
+    DOC
+  param :status, :undef,
+    required: false,
+    desc: <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{Anime.status.values.join('</code>, <code>')}</code>
+        </li>
+      </ul>
+    DOC
   param :season, :undef,
     required: false,
     desc: <<~DOC
@@ -76,16 +98,32 @@ class Api::V1::AnimesController < Api::V1Controller
       <p><code>199x</code></p>
     DOC
   param :score, :number, required: false, desc: 'Minimal anime score'
-  param :duration, Types::Anime::Duration.values.map(&:to_s),
+  param :duration, :undef,
     required: false,
-    desc: I18n.t('animes_collection.menu.anime.duration', locale: :en)
+    desc: DURATIONS
       .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{v.downcase}</p>" }
-      .join('')
-  param :rating, Anime.rating.values,
+      .join('') + <<~DOC
+        <p><strong>Validations:</strong></p>
+        <ul>
+          <li>
+            Must be one of:
+            <code>#{DURATIONS.keys.join '</code>, <code>'}</code>
+          </li>
+        </ul>
+      DOC
+  param :rating, :undef,
     required: false,
-    desc: I18n.t('enumerize.anime.rating.hint', locale: :en)
+    desc: RATINGS
       .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
-      .join('')
+      .join('') + <<~DOC
+        <p><strong>Validations:</strong></p>
+        <ul>
+          <li>
+            Must be one of:
+            <code>#{RATINGS.keys.join '</code>, <code>'}</code>
+          </li>
+        </ul>
+      DOC
   param :genre, :undef,
     required: false,
     desc: 'List of genre ids separated by comma'

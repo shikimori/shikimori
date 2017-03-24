@@ -64,8 +64,28 @@ class Api::V1::MangasController < Api::V1Controller
           DOC
         end
     end)
-  param :type, Manga.kind.values, required: false
-  param :status, Manga.status.values, required: false
+  param :type, :undef,
+    required: false,
+    desc: <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{Manga.kind.values.join('</code>, <code>')}</code>
+        </li>
+      </ul>
+    DOC
+  param :status, :undef,
+    required: false,
+    desc: <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{Manga.status.values.join('</code>, <code>')}</code>
+        </li>
+      </ul>
+    DOC
   param :season, :undef,
     required: false,
     desc: <<~DOC
