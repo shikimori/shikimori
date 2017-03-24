@@ -3,7 +3,7 @@ class Api::V1::AnimesController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w(
-    ranked type popularity name aired_on episodes status random
+    id ranked type popularity name aired_on episodes status random
   )
   DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
   RATINGS = I18n.t('enumerize.anime.rating.hint', locale: :en)

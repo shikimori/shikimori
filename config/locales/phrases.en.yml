@@ -20,6 +20,7 @@ en:
     upload: Upload
     upload_image: Upload image
   by:
+    id: By ID
     aired_on: By release date
     date_added: By date added
     kind: By type

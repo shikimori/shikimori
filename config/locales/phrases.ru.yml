@@ -20,6 +20,7 @@ ru:
     upload: Загрузить
     upload_image: Загрузить изображение
   by:
+    id: По ID
     aired_on: По дате выхода
     date_added: По дате добавления
     kind: По типу

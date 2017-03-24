@@ -3,7 +3,7 @@ class Api::V1::MangasController < Api::V1Controller
 
   LIMIT = 50
   ORDERS = %w(
-    ranked type popularity name aired_on volumes chapters status random
+    id ranked type popularity name aired_on volumes chapters status random
   )
 
   api :GET, '/mangas', 'List mangas'
