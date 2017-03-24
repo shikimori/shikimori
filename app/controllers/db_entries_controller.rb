@@ -61,7 +61,7 @@ private
 
   def update_version
     version = Versioneers::FieldsVersioneer.new(@resource.object)
-      .premoderate(update_params, current_user, params[:reason])
+      .premoderate(update_params.to_unsafe_h, current_user, params[:reason])
 
     version.accept current_user if version.persisted? && can?(:accept, version)
     version
