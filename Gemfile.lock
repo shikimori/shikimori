@@ -165,6 +165,9 @@ GEM
     apipie-rails (0.4.0)
       json
       rails (>= 4.0)
+    appsignal (2.1.2)
+      rack
+      thread_safe
     arel (7.1.4)
     ast (2.3.0)
     attr_extras (5.2.0)
@@ -711,6 +714,7 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
+  appsignal
   attr_extras
   awesome_print
   better_errors
