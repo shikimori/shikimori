@@ -19,11 +19,7 @@ class Dialog
   end
 
   def html_body
-    if message.from.bot? # сообщения об импорте списка
-      message.body.html_safe
-    else
-      BbCodeFormatter.instance.format_comment message.body
-    end
+    BbCodeFormatter.instance.format_comment message.body
   end
 
   def message
