@@ -30,9 +30,11 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+  # config.cache_store.logger = Logger.new("#{RAILS_ROOT}/log/cache.log")
+  # config.cache_store.logger.level = Logger::INFO
 
-  # config.middleware.use 'TurboDev'
-  config.middleware.use 'I18n::JS::Middleware'
+  # config.middleware.use TurboDev
+  config.middleware.use I18n::JS::Middleware
 
   # # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = true
@@ -59,6 +61,15 @@ Rails.application.configure do
   config.assets.raise_production_errors = true
   config.assets.raise_runtime_errors = true
   config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
+
+  #if defined? Rails::Console
+    #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
+    ###ActiveRecord::Base.logger.level = 3
+    ##ActiveRecord::Base.logger.level = 1
+    #ActiveSupport::Cache::Store.logger = Logger.new(STDOUT)
+    #Dalli.logger = Logger.new(STDOUT)
+  #end
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

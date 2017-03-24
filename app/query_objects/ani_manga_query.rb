@@ -36,7 +36,10 @@ class AniMangaQuery
     @season = params[:season]
     @status = params[:status]
 
-    @mylist = params[:mylist]
+    @mylist = params[:mylist].to_s.gsub(/\b\d\b/) do |status_id|
+      UserRate.statuses.find { |name, id| id == status_id.to_i }.first
+    end
+
     @search_phrase = SearchHelper.unescape(params[:search] || params[:q])
 
     @exclude_ai_genres = params[EXCLUDE_AI_GENRES_KEY]
@@ -98,7 +101,7 @@ class AniMangaQuery
 private
 
   def mylist?
-    @mylist && @mylist !~ /^(!\w+,?)+$/
+    @mylist.present? && @mylist !~ /^(!\w+,?)+$/
   end
 
   def userlist?
@@ -296,20 +299,18 @@ private
   # фильтрация по наличию в собственном списке
   def mylist!
     return if @mylist.blank? || @user.blank?
-    statuses = bang_split(@mylist.split(','), true)
+    statuses = bang_split(@mylist.split(','), false)
 
     animelist = @user
       .send("#{@klass.name.downcase}_rates")
       .includes(@klass.name.downcase.to_sym)
       .each_with_object(include: [], exclude: []) do |entry, memo|
 
-        if statuses[:include].include?(UserRate.statuses[entry.status]) ||
-            statuses[:include].include?(entry.status)
+        if statuses[:include].include?(entry.status)
           memo[:include] << entry.target_id
         end
 
-        if statuses[:exclude].include?(UserRate.statuses[entry.status])
-            statuses[:exclude].include?(entry.status)
+        if statuses[:exclude].include?(entry.status)
           memo[:exclude] << entry.target_id
         end
       end

@@ -313,22 +313,25 @@ describe AniMangaQuery do
 
     describe 'mylist' do
       let(:user) { create :user }
-      let(:anime_1) { create :anime }
-      let(:anime_2) { create :anime }
-      let(:anime_3) { create :anime }
+      let(:anime_1) { create :anime, score: 9 }
+      let(:anime_2) { create :anime, score: 8 }
+      let(:anime_3) { create :anime, score: 7 }
 
-      let!(:user_rate_1) { create :user_rate, user_id: user.id, target_id: anime_1.id, target_type: Anime.name, status: UserRate.statuses[:planned] }
-      let!(:user_rate_2) { create :user_rate, user_id: user.id, target_id: anime_2.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
-      let!(:user_rate_3) { create :user_rate, user_id: user.id, target_id: anime_3.id, target_type: Anime.name, status: UserRate.statuses[:watching] }
+      let!(:user_rate_1) { create :user_rate, :planned, target: anime_1, user: user }
+      let!(:user_rate_2) { create :user_rate, :watching, target: anime_2, user: user }
+      let!(:user_rate_3) { create :user_rate, :watching, target: anime_3, user: user }
 
       let!(:anime_4) { create :anime }
       let!(:anime_5) { create :anime }
 
       it 'inclusive' do
-        expect(fetch({ mylist: UserRate.statuses[:planned].to_s }, user)).to have(1).item
-        expect(fetch({ mylist: 'planned' }, user)).to have(1).item
-        expect(fetch({ mylist: UserRate.statuses[:watching].to_s }, user)).to have(2).items
-        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}" }, user)).to have(3).items
+        expect(fetch({ mylist: UserRate.statuses[:planned].to_s }, user))
+          .to eq [anime_1]
+        expect(fetch({ mylist: 'watching' }, user)).to eq [anime_2, anime_3]
+        expect(fetch({ mylist: UserRate.statuses[:watching].to_s }, user))
+          .to eq [anime_2, anime_3]
+        expect(fetch({ mylist: "#{UserRate.statuses[:planned]},#{UserRate.statuses[:watching]}" }, user))
+          .to eq [anime_1, anime_2, anime_3]
       end
 
       it 'exclusive' do
