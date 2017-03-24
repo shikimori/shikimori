@@ -31,6 +31,7 @@ class Anidb::ParseDescription
     raise EmptyContentError, url if content.blank?
     raise InvalidIdError, url if unknown_id?(content)
     raise CaptchaError, url if captcha?(content)
+    raise AutoBannedError, url if auto_banned?(content)
 
     content
   end
@@ -39,6 +40,7 @@ class Anidb::ParseDescription
     headers = { 'Cookie' => Anidb::Authorization.instance.cookie.join }
     content = open(url, headers).read
 
+    raise CaptchaError, url if captcha?(content)
     raise AutoBannedError, url if auto_banned?(content)
 
     content
