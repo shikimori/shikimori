@@ -212,7 +212,9 @@ class Anime < DbEntry
   end
 
   def broadcast_at
-    BroadcastDate.parse(broadcast, aired_on) if broadcast && (ongoing? || anons?)
+    if broadcast && (ongoing? || anons?)
+      BroadcastDate.parse broadcast, aired_on
+    end
   end
 
   # torrents

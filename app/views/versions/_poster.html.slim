@@ -11,4 +11,4 @@
 
     - if version.latest_image?
       li.diff-value
-        img src="#{version.item.image.url :preview}"
+        img src="#{cdn_image version.item, :preview}"
