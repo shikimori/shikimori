@@ -5,7 +5,7 @@ class AnimeOnline::VideoPlayer
   vattr_initialize :anime
   instance_cache :nav, :current_episode, :current_video, :videos,
     :anime_video_episodes, :episode_topic_view,
-    :cache_key, :videos_cache_key, :episode_cache_key
+    :cache_key, :videos_cache_key, :episode_cache_key, :same_videos
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
