@@ -2,13 +2,14 @@
 
 .b-video_variant
   color: red
-  a
-    &.active
-      color: $link-4
-      border-bottom: 1px dotted $link-4
-      span, span:before, span:after
-        color: inherit
 
+  &.active a
+    color: $link-4
+    border-bottom: 1px dotted $link-4
+    span, span:before, span:after
+      color: inherit
+
+  a
     +link
     &:hover
       text-decoration: none
@@ -52,6 +53,7 @@
 
   .video-author
     color: #123
+    display: inline
 
   .video-kind
     &.english:before

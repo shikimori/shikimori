@@ -184,12 +184,13 @@ class AnimeOnline::VideoPlayer
   def cache_key
     [
       @anime.id,
-      @anime.anime_videos.cache_key
+      @anime.anime_videos.cache_key,
+      :v2
     ]
   end
 
   def videos_cache_key
-    cache_key + [current_episode, :videos, :v2]
+    cache_key + [current_episode, :videos]
   end
 
   def episode_videos_cache_key
@@ -197,7 +198,8 @@ class AnimeOnline::VideoPlayer
       @anime.id,
       @anime.anime_videos.where(episode: current_episode).cache_key,
       :episode_videos,
-      current_episode
+      current_episode,
+      :v2
     ]
   end
 

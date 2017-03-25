@@ -3,6 +3,8 @@
   data-kind="#{(!@player.current_video&.uploaded? && !@player.current_video&.working?) ? 'all' : @player.current_video&.kind}"
   data-watch-delay="#{@video.watch_increment_delay}"
   data-watch-url="#{track_view_video_online_url @anime, @video}"
+  data-video_id="#{@player.current_video&.id}"
+  data-video_ids="#{@player.same_videos&.map(&:id)}"
 ]
   .player-area
     = @video.player_html

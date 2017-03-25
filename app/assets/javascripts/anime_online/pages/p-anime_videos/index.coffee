@@ -20,12 +20,22 @@
 
   # highlight current episode
   episode = $player.data 'episode'
-  $(".c-anime_video_episodes .b-video_variant[data-episode='#{episode}'] a")
-    .addClass 'active'
+  $(".c-anime_video_episodes .b-video_variant[data-episode='#{episode}']")
+    .addClass('active')
 
   # select current video kind
   kind = $player.data 'kind'
   $switcher = $(".video-variant-switcher[data-kind='#{kind}'")
+
+  # highlight current video by id
+  debugger
+  $(".b-video_variant.special[data-video_id='#{$player.data('video_id')}']")
+    .addClass('active')
+
+  $player.data('video_ids')?.each (video_id) ->
+    $(".b-video_variant:not(.special)[data-video_id='#{video_id}']")
+      .addClass('active')
+
 
   if kind && $switcher.length
     $switcher.click()
