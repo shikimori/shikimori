@@ -28,55 +28,55 @@
           as: :video,
           locals: { is_special: true }
 
-    .cc
-      .c-videos
-        .title
-          | Варианты видео
-          - @player.videos_by_kind.each do |kind_text, videos|
-            .video-variant-switcher[
-              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos_by_kind.keys.first)}"
-              data-kind="#{kind_text}"
-            ] = kind_text
-          - if @player.videos_by_kind.many?
-            .video-variant-switcher data-kind="all" все
-
-        - if @player.videos_by_kind.any?
-          - @player.videos_by_kind.each do |kind_text, videos|
-            .video-variant-group[
-              class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos_by_kind.keys.first)}"
-              data-kind="#{kind_text}"
-            ]
-              = render partial: 'anime_online/anime_videos/video_variant',
-                collection: videos,
-                as: :video,
-                locals: { is_special: false }
-
-          - if @player.videos_by_kind.many?
-            .video-variant-group data-kind="all"
+    - cache @player.videos_cache_key do
+      .cc
+        .c-videos
+          - cache [@player.cache_key, :episodes] do
+            .title
+              | Варианты видео
               - @player.videos_by_kind.each do |kind_text, videos|
-                = render partial: 'anime_online/anime_videos/video_variant',
-                  collection: videos,
-                  as: :video,
-                  locals: { is_special: false }
-        - else
-          .b-nothing_here Нет видео
+                .video-variant-switcher[
+                  data-kind="#{videos.first.kind}"
+                ] = kind_text
+              - if @player.videos_by_kind.many?
+                .video-variant-switcher data-kind="all" все
 
-      .c-anime_video_episodes data-episode="#{@player.current_episode}"
-        - cache @player.cache_key do
-          .title Эпизоды
-          - if @player.anime_video_episodes.any?
-            = render partial: 'anime_online/anime_videos/anime_video_episode',
-              collection: @player.anime_video_episodes[0..12]
+            - if @player.videos_by_kind.any?
+              - @player.videos_by_kind.each do |kind_text, videos|
+                .video-variant-group[
+                  data-kind="#{videos.first.kind}"
+                ]
+                  = render partial: 'anime_online/anime_videos/video_variant',
+                    collection: videos,
+                    as: :video,
+                    locals: { is_special: false }
 
-            - if @player.anime_video_episodes.size > 13
-              .b-show_more.unprocessed + показать всё
-              .b-show_more-more
-                = render partial: 'anime_online/anime_videos/anime_video_episode',
-                  collection: @player.anime_video_episodes[13..-1]
-                .hide-more
-                  | &mdash; спрятать
-          - else
-            .b-nothing_here Нет эпизодов
+              - if @player.videos_by_kind.many?
+                .video-variant-group data-kind="all"
+                  - @player.videos_by_kind.each do |kind_text, videos|
+                    = render partial: 'anime_online/anime_videos/video_variant',
+                      collection: videos,
+                      as: :video,
+                      locals: { is_special: false }
+            - else
+              .b-nothing_here Нет видео
+
+        .c-anime_video_episodes
+          - cache @player.episode_cache_key do
+            .title Эпизоды
+            - if @player.anime_video_episodes.any?
+              = render partial: 'anime_online/anime_videos/anime_video_episode',
+                collection: @player.anime_video_episodes[0..12]
+
+              - if @player.anime_video_episodes.size > 13
+                .b-show_more.unprocessed + показать всё
+                .b-show_more-more
+                  = render partial: 'anime_online/anime_videos/anime_video_episode',
+                    collection: @player.anime_video_episodes[13..-1]
+                  .hide-more
+                    | &mdash; спрятать
+            - else
+              .b-nothing_here Нет эпизодов
 
   - if @player.episode_topic_view
     .block.clearfix

@@ -6,22 +6,32 @@
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
 
-  # html 5 video player
-  $video = $('.b-video_player video')
-  new ShikiHtml5Video $video if $video.length
+  $player = $('.b-video_player')
 
-  # highlight current episode
-  $anime_video_episodes = $('.c-anime_video_episodes')
-  current_episode = $anime_video_episodes.data 'episode'
-  $(
-    ".b-video_variant[data-episode='#{current_episode}'] a", $anime_video_episodes
-  ).addClass 'active'
+  # html 5 video player
+  $video = $player.find('video')
+  new ShikiHtml5Video $video if $video.length
 
   # переключение вариантов видео
   $('.video-variant-switcher').on 'click', switch_video_variant
 
   # показ дополнительных кнопок для видео
   $('.cc-player_controls .show-options').on 'click', toggle_options
+
+  # highlight current episode
+  episode = $player.data 'episode'
+  $(".c-anime_video_episodes .b-video_variant[data-episode='#{episode}'] a")
+    .addClass 'active'
+
+  # select current video kind
+  kind = $player.data 'kind'
+  $switcher = $(".video-variant-switcher[data-kind='#{kind}'")
+
+  if kind && $switcher.length
+    $switcher.click()
+  else
+    $('.video-variant-switcher').first().click()
+
 
   # добавление в список
   $('.cc-player_controls').on 'ajax:success', '.create-user_rate', ->
@@ -60,7 +70,6 @@
     hide_report()
 
   # инкремент числа просмотров
-  $player = $('.b-video_player')
   video_url = location.href
   if $player.data('watch-delay')
     (->

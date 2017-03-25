@@ -1,4 +1,6 @@
 .b-video_player[
+  data-episode="#{@player.current_episode}"
+  data-kind="#{@player.current_video&.kind}"
   data-watch-delay="#{@video.watch_increment_delay}"
   data-watch-url="#{track_view_video_online_url @anime, @video}"
 ]

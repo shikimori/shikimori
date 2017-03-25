@@ -3,8 +3,9 @@ class AnimeOnline::VideoPlayer
   prepend ActiveCacher.instance
 
   vattr_initialize :anime
-  instance_cache :nav, :current_video, :videos, :anime_video_episodes,
-    :episode_topic_view, :cache_key
+  instance_cache :nav, :current_episode, :current_video, :videos,
+    :anime_video_episodes, :episode_topic_view,
+    :cache_key, :videos_cache_key, :episode_cache_key
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -172,7 +173,23 @@ class AnimeOnline::VideoPlayer
   end
 
   def cache_key
-    [@anime.id, @anime.anime_videos.cache_key, :v6]
+    [
+      @anime.id,
+      @anime.anime_videos.cache_key
+    ]
+  end
+
+  def videos_cache_key
+    cache_key + [current_episode, :videos]
+  end
+
+  def episode_cache_key
+    [
+      @anime.id,
+      @anime.anime_videos.where(episode: current_episode).cache_key,
+      :episode,
+      current_episode
+    ]
   end
 
 private
