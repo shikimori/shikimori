@@ -4,8 +4,8 @@ class AnimeOnline::VideoPlayer
 
   vattr_initialize :anime
   instance_cache :nav, :current_episode, :current_video, :videos,
-    :anime_video_episodes, :episode_topic_view,
-    :cache_key, :videos_cache_key, :episode_cache_key, :same_videos
+    :anime_video_episodes, :episode_topic_view, :same_videos,
+    :cache_key, :episode_videos_cache_key, :episode_cache_key
 
   PREFERENCES_KIND = 'anime_video_kind'
   PREFERENCES_HOSTING = 'anime_video_hosting'
@@ -52,7 +52,7 @@ class AnimeOnline::VideoPlayer
     return {} if videos.blank?
 
     videos
-      .select { |anime_video| anime_video.working? || anime_video.uploaded? }
+      .select(&:allowed?)
       .uniq(&:uniq_criteria)
       .sort_by(&:sort_criteria)
       .group_by { |anime_video| anime_video.kind_text }
@@ -110,8 +110,8 @@ class AnimeOnline::VideoPlayer
       .group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
 
 
-    if current_video.working? || current_video.uploaded?
-      filtered_videos.select { |video| video.working? || video.uploaded? }
+    if current_video.allowed?
+      filtered_videos.select(&:allowed?)
     else
       filtered_videos
     end
@@ -189,14 +189,14 @@ class AnimeOnline::VideoPlayer
   end
 
   def videos_cache_key
-    cache_key + [current_episode, :videos]
+    cache_key + [current_episode, :videos, :v2]
   end
 
-  def episode_cache_key
+  def episode_videos_cache_key
     [
       @anime.id,
       @anime.anime_videos.where(episode: current_episode).cache_key,
-      :episode,
+      :episode_videos,
       current_episode
     ]
   end
@@ -208,11 +208,14 @@ private
   end
 
   def try_select_by kind, hosting, fixed_author_name
-    by_kind = videos.select { |v| v.kind == kind }
+    by_kind = videos.select(&:allowed?).select { |v| v.kind == kind }
     by_hosting = by_kind.select { |v| v.hosting == hosting }
-    by_author = by_hosting.select { |v| cleanup_author_name(v.author_name) == fixed_author_name }
+    by_author = by_hosting.select do |anime_video|
+      cleanup_author_name(anime_video.author_name) == fixed_author_name
+    end
 
-    by_author.first || by_hosting.first || by_kind.first || videos.first
+    by_author.first || by_hosting.first || by_kind.first ||
+      videos.select(&:allowed?).first || videos.first
   end
 
   def all?

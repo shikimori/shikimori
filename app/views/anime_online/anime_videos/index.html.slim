@@ -31,7 +31,7 @@
     - cache @player.videos_cache_key do
       .cc
         .c-videos
-          - cache [@player.cache_key, :episodes] do
+          - cache @player.episode_videos_cache_key do
             .title
               | Варианты видео
               - @player.videos_by_kind.each do |kind_text, videos|
@@ -61,7 +61,7 @@
               .b-nothing_here Нет видео
 
         .c-anime_video_episodes
-          - cache @player.episode_cache_key do
+          - cache [@player.cache_key, :all_episodes] do
             .title Эпизоды
             - if @player.anime_video_episodes.any?
               = render partial: 'anime_online/anime_videos/anime_video_episode',
