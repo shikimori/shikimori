@@ -5,7 +5,6 @@ class Moderations::AbuseRequestsController < ModerationsController
   def index
     @processed = postload_paginate(params[:page], 25) do
       AbuseRequest
-        .where(kind: ['summary', 'offtopic'])
         .where.not(state: 'pending')
         .includes(:user, :approver, comment: :commentable)
         .order(updated_at: :desc)

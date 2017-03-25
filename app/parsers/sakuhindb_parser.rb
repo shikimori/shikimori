@@ -10,10 +10,9 @@ class SakuhindbParser
   end
 
   def fetch_and_merge
-    data = extract_data
-    filter_data data
-
-    fill_ids data
+    data = extract
+    data = filter data
+    data = fill_ids data
     assert_unmatched data
 
     merge data
@@ -23,7 +22,7 @@ private
 
   # мерж в базу данных
   def merge data
-    videos = data.map do |entry|
+    data.map do |entry|
       Video.create(
         name: entry[:title],
         anime_id: entry[:anime_id],
@@ -35,7 +34,7 @@ private
   end
 
   # подготовка данных к обработке
-  def extract_data
+  def extract
     fetch_raw_lines.map do |line|
       lines = line.split("\t")
       anime = decode(lines[1], false)
@@ -53,8 +52,8 @@ private
   end
 
   # фильтрация записей от ненужных нам
-  def filter_data data
-    data.select! do |v|
+  def filter data
+    data.select do |v|
       v[:kind] != 'ost' &&
         !@ignores.include?(v[:anime]) &&
         !present_videos.include?(v[:youtube]) &&
@@ -79,7 +78,7 @@ private
 
   # финальная проверка с падением при наличии незаматченных данных
   def assert_unmatched data
-    unmatched = data.select {|v| v[:anime_id].nil? }.map {|v| v[:anime] }.uniq
+    unmatched = data.select { |v| v[:anime_id].nil? }.map { |v| v[:anime] }.uniq
     if @fail_on_unmatched && unmatched.any?
       raise MismatchedEntries.new unmatched, [], []
     end
