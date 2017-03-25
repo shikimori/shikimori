@@ -5,10 +5,7 @@ div
       .close
       a.link
       .tooltip-details
-        - if defined?(template_name)
-          = render partial: template_name, locals: objects, formats: :html
-        - else
-          .ajax-loading title="#{t 'loading'}"
+        .ajax-loading title="#{t 'loading'}"
     .dropshadow-top
     .dropshadow-top-right
     .dropshadow-right

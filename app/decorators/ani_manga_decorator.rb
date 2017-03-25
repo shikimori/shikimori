@@ -7,7 +7,7 @@ class AniMangaDecorator < DbEntryDecorator
   VISIBLE_RELATED = 7
 
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?
-  instance_cache :is_favoured, :favoured, :current_rate, :changes, :versions, :versions_page
+  instance_cache :current_rate, :changes, :versions, :versions_page
   instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
   instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
 

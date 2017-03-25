@@ -1,10 +1,9 @@
-- comments_count = club.maybe_topic(locale_from_host).comments_count
-
 .b-club.c-colum[
-    id="#{club.id}"
-    class="#{content_by} #{:censored if club.censored?}"
-  ]
+  id="#{club.id}"
+  class="#{content_by} #{:censored if club.censored?}"
+]
   - if content_by == :detailed
+    - comments_count = club.maybe_topic(locale_from_host).comments_count
     a href="#{club_url club, subdomain: false}" title="#{club.name}"
       img.logo[
         src="#{cdn_image club, :x48}"

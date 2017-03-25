@@ -23,10 +23,10 @@
     - if @player.same_videos.size > 1
       .same-videos
         .title Такие же видео
-        - @player.same_videos.each do |video|
-          = render 'anime_online/anime_videos/video_variant',
-            video: video,
-            is_special: true
+        = render partial: 'anime_online/anime_videos/video_variant',
+          collection: @player.same_videos,
+          as: :video,
+          locals: { is_special: true }
 
     .cc
       .c-videos
@@ -46,18 +46,18 @@
               class="#{:active if @player.current_video&.kind_text == kind_text || (@player.current_video.nil? && kind_text == @player.videos_by_kind.keys.first)}"
               data-kind="#{kind_text}"
             ]
-              - videos.each do |video|
-                = render 'anime_online/anime_videos/video_variant',
-                  video: video,
-                  is_special: false
+              = render partial: 'anime_online/anime_videos/video_variant',
+                collection: videos,
+                as: :video,
+                locals: { is_special: false }
 
           - if @player.videos_by_kind.many?
             .video-variant-group data-kind="all"
               - @player.videos_by_kind.each do |kind_text, videos|
-                - videos.each do |video|
-                  = render 'anime_online/anime_videos/video_variant',
-                    video: video,
-                    is_special: false
+                = render partial: 'anime_online/anime_videos/video_variant',
+                  collection: videos,
+                  as: :video,
+                  locals: { is_special: false }
         - else
           .b-nothing_here Нет видео
 

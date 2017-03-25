@@ -4,7 +4,8 @@ module TopicsConcern
   included do
     has_many :topics, -> { order updated_at: :desc },
       class_name: "Topics::EntryTopics::#{name}Topic",
-      as: :linked
+      as: :linked,
+      inverse_of: :linked # topic always load know its linked
 
     # special association for dependent destroy
     has_many :all_topics,

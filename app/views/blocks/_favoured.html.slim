@@ -6,4 +6,6 @@
       - else
         = t 'in_favorites'
     .cc
-      = render partial: 'users/user', collection: favoured, locals: { content_by: :avatar }
+      = render partial: 'users/user',
+        collection: favoured,
+        locals: { content_by: :avatar }

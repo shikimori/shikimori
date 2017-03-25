@@ -78,7 +78,9 @@
                 | &mdash; #{t '.hide'}
 
   - cache [:menu, resource], expired_in: 1.day do
-    = render 'blocks/favoured', favoured: resource.favoured, url: resource.favoured_url
+    = render 'blocks/favoured',
+      favoured: resource.favoured,
+      url: resource.favoured_url
 
     - if resource.linked_clubs.any?
       .block
@@ -167,6 +169,4 @@
         a.addthis_button_odnoklassniki_ru
         a.addthis_button_compact
 
-  / - unless top_ad
-    = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
   = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true

@@ -30,8 +30,8 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
-  # config.cache_store.logger = Logger.new("#{RAILS_ROOT}/log/cache.log")
-  # config.cache_store.logger.level = Logger::INFO
+
+  Dalli.logger = ActiveSupport::Logger.new(STDOUT)
 
   # config.middleware.use TurboDev
   config.middleware.use I18n::JS::Middleware
@@ -61,6 +61,10 @@ Rails.application.configure do
   config.assets.raise_production_errors = true
   config.assets.raise_runtime_errors = true
   config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
+
+  # if defined? ActiveRecordQueryTrace
+    # ActiveRecordQueryTrace.enabled = true
+  # end
 
   #if defined? Rails::Console
     #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
