@@ -4,10 +4,20 @@ class Moderations::AbuseRequestsController < ModerationsController
 
   def index
     @processed = postload_paginate(params[:page], 25) do
-      AbuseRequest
-        .where.not(state: 'pending')
+      scope = AbuseRequest.where.not(state: :pending)
+
+      unless current_user.moderator?
+        scope = scope
+          .where(kind: %i(summary offtopic))
+          .or(AbuseRequest.where(state: :accepted))
+      end
+
+      scope
         .includes(:user, :approver, comment: :commentable)
         .order(updated_at: :desc)
+        .joins(comment: :topic)
+        # .where(kind: :abuse) # for test purposes
+        # .where(topics: { linked_type: Club.name })
     end
 
     unless request.xhr?
