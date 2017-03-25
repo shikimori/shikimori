@@ -51,13 +51,12 @@
                     as: :video,
                     locals: { is_special: false }
 
-              - if @player.videos_by_kind.many?
+              - if @player.videos.any?
                 .video-variant-group data-kind="all"
-                  - @player.videos_by_kind.each do |kind_text, videos|
-                    = render partial: 'anime_online/anime_videos/video_variant',
-                      collection: videos,
-                      as: :video,
-                      locals: { is_special: false }
+                  = render partial: 'anime_online/anime_videos/video_variant',
+                    collection: @player.videos.uniq(&:uniq_criteria).sort_by(&:sort_criteria),
+                    as: :video,
+                    locals: { is_special: false }
             - else
               .b-nothing_here Нет видео
 

@@ -41,7 +41,7 @@ class AnimeOnline::VideoPlayer
       # .select { |v| all? || v.allowed? }
       # .select { |v| compatible?(v) }
 
-    videos = videos.available unless all?
+    # videos = videos.available unless all?
 
     AnimeOnline::FilterSovetRomantica.call(videos)
       .map(&:decorate)
@@ -52,6 +52,7 @@ class AnimeOnline::VideoPlayer
     return {} if videos.blank?
 
     videos
+      .select { |anime_video| anime_video.working? || anime_video.uploaded? }
       .uniq(&:uniq_criteria)
       .sort_by(&:sort_criteria)
       .group_by { |anime_video| anime_video.kind_text }
@@ -105,7 +106,15 @@ class AnimeOnline::VideoPlayer
 
   def same_videos
     return [] unless current_video
-    videos.group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
+    filtered_videos = videos
+      .group_by(&:uniq_criteria)[current_video.uniq_criteria] || []
+
+
+    if current_video.working? || current_video.uploaded?
+      filtered_videos.select { |video| video.working? || video.uploaded? }
+    else
+      filtered_videos
+    end
   end
 
   # список типов коллекции видео

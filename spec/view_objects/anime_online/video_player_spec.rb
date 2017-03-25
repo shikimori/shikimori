@@ -27,11 +27,11 @@ describe AnimeOnline::VideoPlayer do
       it { is_expected.to be_empty }
     end
 
-    context 'only working' do
+    context 'not only working' do
       let!(:video_1) { create :anime_video, episode: episode, state: 'working', anime: anime }
       let!(:video_2) { create :anime_video, episode: episode, state: 'broken', anime: anime }
       let!(:video_3) { create :anime_video, episode: episode, state: 'wrong', anime: anime }
-      it { is_expected.to eq [video_1] }
+      it { is_expected.to eq [video_3, video_2, video_1] }
     end
   end
 
@@ -40,6 +40,11 @@ describe AnimeOnline::VideoPlayer do
     let(:anime) { create :anime }
 
     context 'without vidoes' do
+      it { is_expected.to eq({}) }
+    end
+
+    context 'not working are ignored' do
+      let!(:video_broken) { create :anime_video, state: 'broken', anime: anime }
       it { is_expected.to eq({}) }
     end
 
