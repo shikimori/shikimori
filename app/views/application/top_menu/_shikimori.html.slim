@@ -105,10 +105,17 @@
         href="#{development_pages_url}"
         title="#{t '.development'}"
       ] = t '.development'
-      a.entry[
-        href="#{club_url '950-shikimori-api'}"
-        title='API'
-      ] API
+      - if ru_host?
+        a.entry[
+          href="#{club_url '950-shikimori-api'}"
+          title='API'
+        ] API
+      - else
+        a.entry[
+          href="#{apipie_apipie_url}"
+          title='API'
+        ] API
+
 - else
   .entry.info
     a title="#{t '.info'}" href="#{info_pages_url}"
