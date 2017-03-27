@@ -47,7 +47,8 @@ class Anime < DbEntry
 
   has_many :news_topics, -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
-    as: :linked
+    as: :linked,
+    inverse_of: :linked # topic always must know its linked
 
   has_many :anons_news_topics,
     -> { where(action: AnimeHistoryAction::Anons).order(created_at: :desc) },
@@ -179,7 +180,7 @@ class Anime < DbEntry
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :track_changes
-  before_save :generate_news
+  after_save :generate_news
   after_create :generate_name_matches
 
   def episodes= value
