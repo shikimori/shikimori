@@ -6,7 +6,8 @@ class AnimeVideoAuthor::Rename < ServiceObjectBase
   # rubocop:disable MethodLength
   # updated_at is touched because it is used as cache key animes_videos#index
   def call
-    return if @model.name == @new_name
+    @model.name = @new_name
+    return unless @model.changed?
 
     if @model.update name: @new_name
       @model.anime_videos.update_all updated_at: Time.zone.now
