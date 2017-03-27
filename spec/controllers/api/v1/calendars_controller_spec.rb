@@ -1,6 +1,5 @@
 describe Api::V1::CalendarsController, :show_in_doc do
-  before { Timecop.freeze '2016-09-05 15:00' }
-  after { Timecop.return }
+  include_context :timecop, '2016-09-05 15:00'
 
   describe '#show' do
     before do

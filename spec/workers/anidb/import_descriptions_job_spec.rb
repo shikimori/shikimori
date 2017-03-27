@@ -2,8 +2,7 @@ describe Anidb::ImportDescriptionsJob do
   subject(:perform) { job.perform }
   let(:job) { described_class.new }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   let(:anime) { create :anime }
   let(:manga) { create :manga }

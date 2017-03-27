@@ -13,8 +13,7 @@ describe PagesController do
 
   describe '#about', :vcr do
     let!(:topic) { create :topic, id: PagesController::ABOUT_TOPIC_ID }
-    before { Timecop.freeze '2015-11-02' }
-    after { Timecop.return }
+    include_context :timecop, '2015-11-02'
 
     before { get :about }
 

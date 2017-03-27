@@ -2,8 +2,7 @@ describe ImageUrlGenerator do
   let(:service) { ImageUrlGenerator.instance }
 
   let(:timestamp) { '1425232393' }
-  before { Timecop.freeze '2015-03-01T20:53:13.183710+03:00' }
-  after { Timecop.return }
+  include_context :timecop, '2015-03-01T20:53:13.183710+03:00'
 
   describe '#url' do
     subject { service.url entry, image_size }

@@ -1,8 +1,7 @@
 describe ImportAnimeCalendars do
   let(:worker) { ImportAnimeCalendars.new }
 
-  before { Timecop.freeze '2015-06-01' }
-  after { Timecop.return }
+  include_context :timecop, '2015-06-01'
 
   describe '#perform', :vcr do
     let!(:ongoing) { create :anime, :ongoing, name: 'Fairy Tail' }

@@ -1,6 +1,5 @@
 describe Messages::CheckSpamAbuse do
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   before { allow(Users::BanSpamAbuse).to receive :perform_async }
 

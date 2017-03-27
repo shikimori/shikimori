@@ -87,8 +87,7 @@ describe Ban do
     end
 
     describe '#ban_user' do
-      before { Timecop.freeze }
-      after { Timecop.return }
+      include_context :timecop
 
       subject { user.read_only_at }
       let!(:ban) { create :ban, params.merge(created_at: Time.zone.now) }

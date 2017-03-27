@@ -278,8 +278,7 @@ describe TopicsController do
       end
 
       context 'valid params' do
-        before { Timecop.freeze }
-        after { Timecop.return }
+        include_context :timecop
 
         subject! do
           post :update,

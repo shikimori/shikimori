@@ -2,8 +2,7 @@ describe Menus::TopMenu do
   let(:view) { Menus::TopMenu.new }
 
   describe '#anime_seasons' do
-    before { Timecop.freeze '2015-10-11' }
-    after { Timecop.return }
+    include_context :timecop, '2015-10-11'
 
     it do
       expect(view.anime_seasons.first).to be_kind_of Titles::StatusTitle

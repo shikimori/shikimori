@@ -225,8 +225,7 @@ describe Anime do
     end
 
     describe '#broadcast_at' do
-      before { Timecop.freeze '06-04-2016' }
-      after { Timecop.return }
+      include_context :timecop, '06-04-2016'
 
       let(:anime) { build :anime, state, broadcast: broadcast, aired_on: nil }
       let(:state) { :ongoing }

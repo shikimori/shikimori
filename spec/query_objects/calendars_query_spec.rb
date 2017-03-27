@@ -2,8 +2,7 @@ describe CalendarsQuery do
   let(:query) { CalendarsQuery.new }
   let(:locale) { :ru }
 
-  before { Timecop.freeze '28-12-2015 00:00:00' }
-  after { Timecop.return }
+  include_context :timecop, '28-12-2015 00:00:00'
 
   context 'common calendar' do
     let!(:anime_1) { create :anime, name: '1' }

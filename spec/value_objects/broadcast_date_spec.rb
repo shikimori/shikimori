@@ -1,6 +1,5 @@
 describe BroadcastDate do
-  before { Timecop.freeze '06-04-2016' }
-  after { Timecop.return }
+  include_context :timecop, '06-04-2016'
 
   describe '.parse' do
     subject { BroadcastDate.parse schedule, start_on }

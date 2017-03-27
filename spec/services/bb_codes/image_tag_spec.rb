@@ -2,8 +2,7 @@ describe BbCodes::ImageTag do
   let(:tag) { BbCodes::ImageTag.instance }
   let(:text_hash) { 'hash' }
 
-  before { Timecop.freeze '2015-03-01T20:53:13.183710+03:00' }
-  after { Timecop.return }
+  include_context :timecop, '2015-03-01T20:53:13.183710+03:00'
 
   describe '#format' do
     subject { tag.format text, text_hash }

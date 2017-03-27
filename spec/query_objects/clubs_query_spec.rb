@@ -1,8 +1,7 @@
 describe ClubsQuery do
   let(:query) { ClubsQuery.new :ru }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   let(:user) { create :user }
   let!(:club_1) { create :club, :with_topics, id: 1 }

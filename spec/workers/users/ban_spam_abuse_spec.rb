@@ -1,6 +1,5 @@
 describe Users::BanSpamAbuse do
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   let(:user) { seed :user }
 

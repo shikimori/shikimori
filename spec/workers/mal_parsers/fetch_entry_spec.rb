@@ -1,8 +1,7 @@
 describe MalParsers::FetchEntry do
   let(:worker) { MalParsers::FetchEntry.new }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   describe '#perform' do
     let(:id) { 28_851 }

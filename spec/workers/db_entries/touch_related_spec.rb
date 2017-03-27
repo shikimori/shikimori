@@ -1,6 +1,5 @@
 describe DbEntries::TouchRelated do
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   let(:worker) { DbEntries::TouchRelated.new }
 

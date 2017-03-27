@@ -31,8 +31,7 @@ describe Menus::CollectionMenu do
   end
 
   describe '#seasons' do
-    before { Timecop.freeze '2015-10-11' }
-    after { Timecop.return }
+    include_context :timecop, '2015-10-11'
 
     it do
       expect(view.seasons.first).to be_kind_of Titles::SeasonTitle

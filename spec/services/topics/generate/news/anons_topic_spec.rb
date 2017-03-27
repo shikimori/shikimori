@@ -3,8 +3,7 @@
 describe Topics::Generate::News::AnonsTopic do
   subject { service.call }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   let(:service) { Topics::Generate::News::AnonsTopic.new model, user, locale }
   let(:model) { create :anime }

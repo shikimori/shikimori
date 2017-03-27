@@ -1,8 +1,7 @@
 describe ProlongateBan do
   let(:worker) { ProlongateBan.new }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   describe '#perform' do
     # let!(:user) { create :user }

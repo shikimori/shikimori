@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 describe AnimeVideoAuthor::Rename do
-  let!(:anime_video) { create :anime_video, author: author_1 }
+  include_context :timecop
+  let!(:anime_video) { create :anime_video, author: author_1, updated_at: 1.day.ago }
   let!(:author_1) { create :anime_video_author, name: 'zxc' }
   let!(:author_2) { create :anime_video_author, name: 'vbn' }
 
@@ -13,6 +14,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(anime_video.reload.author_name).to be_nil
+      expect(anime_video.updated_at).to eq Time.zone.now
     end
   end
 
@@ -22,6 +24,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(anime_video.reload.author_name).to eq author_2.name
+      expect(anime_video.updated_at).to eq Time.zone.now
     end
   end
 
@@ -31,6 +34,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect(author_1.reload.name).to eq new_name
       expect(anime_video.reload.author_name).to eq author_1.name
+      expect(anime_video.updated_at).to eq Time.zone.now
     end
   end
 
@@ -40,6 +44,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect(author_1.reload.name).to eq new_name
       expect(anime_video.reload.author_name).to eq author_1.name
+      expect(anime_video.updated_at).to eq 1.day.ago
     end
   end
 end

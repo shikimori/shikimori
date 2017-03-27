@@ -1,10 +1,7 @@
 describe FinalizeContest do
   let(:worker) { FinalizeContest.new }
 
-  let!(:now) { Time.zone.now }
-
-  before { Timecop.freeze now }
-  after { Timecop.return }
+  include_context :timecop
 
   describe '#perform' do
     let(:contest) { create :contest, user_vote_key: 'can_vote_1' }
@@ -16,7 +13,7 @@ describe FinalizeContest do
 
     it do
       expect(user.reload.can_vote_1).to eq false
-      expect(contest.reload.finished_on).to eq now.to_date
+      expect(contest.reload.finished_on).to eq Time.zone.today
       expect(notifications).to have_received :contest_finished
     end
   end

@@ -1,8 +1,7 @@
 describe VersionsView do
   let(:view) { VersionsView.new }
 
-  before { Timecop.freeze '2016-03-18 15:00:00' }
-  after { Timecop.return }
+  include_context :timecop, '2016-03-18 15:00:00'
 
   let!(:version_1) { create :version, state: 'taken', created_at: 15.hours.ago, updated_at: 1.minute.ago }
   let!(:version_2) { create :version, state: 'pending', created_at: 30.hours.ago, updated_at: 2.minutes.ago }

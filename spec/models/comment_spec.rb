@@ -96,11 +96,10 @@ describe Comment do
     end
 
     describe '#touch_commentable' do
+      include_context :timecop
+
       let(:topic) { create :topic }
       let(:comment) { build :comment, :with_touch_commentable, topic: topic }
-
-      before { Timecop.freeze }
-      after { Timecop.return }
 
       context 'create' do
         subject! { comment.save! }

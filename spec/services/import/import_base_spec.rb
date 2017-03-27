@@ -23,8 +23,7 @@ describe Import::ImportBase do
   end
   let(:id) { 9_876_543 }
 
-  before { Timecop.freeze }
-  after { Timecop.return }
+  include_context :timecop
 
   subject(:entry) { service.call }
 

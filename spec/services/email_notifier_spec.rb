@@ -1,6 +1,5 @@
 describe EmailNotifier do
-  before { Timecop.freeze }
-  before { Timecop.return }
+  include_context :timecop
 
   let(:notifier) { EmailNotifier.instance }
   let(:message) { build_stubbed :message, to: target_user }

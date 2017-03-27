@@ -8,6 +8,16 @@ shared_context :back_redirect do
   before { request.env['HTTP_REFERER'] = back_url }
 end
 
+shared_context :timecop do |datetime|
+  if datetime
+    before { Timecop.freeze datetime }
+  else
+    before { Timecop.freeze }
+  end
+
+  after { Timecop.return }
+end
+
 shared_context :view_object_warden_stub do
   before do
     view_context = view.h
