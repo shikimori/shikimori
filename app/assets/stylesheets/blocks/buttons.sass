@@ -47,8 +47,12 @@
       color: #666666
 
       &:hover
-        color: $link-3
+        color: $link-hover
         text-decoration: none
+
+      +gt_ipad
+        &:active
+          color: $link-active
 
     span:last-child, span:last-child
       margin-right: 0
