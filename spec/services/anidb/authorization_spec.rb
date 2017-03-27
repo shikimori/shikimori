@@ -12,7 +12,6 @@ describe Anidb::Authorization, :vcr do
         adbautouser=naruto2148;
         adbsessuser=naruto2148;
         adbuin=1490295269-RLyR;
-        anidbsettings=%7B%22USEAJAX%22%3A1%7D;
       )
     end
 
