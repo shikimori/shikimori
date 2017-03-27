@@ -10,6 +10,7 @@ class ProfileStatsView
   delegate *%i(
     anime_ratings anime_spent_time full_statuses manga list_counts
     manga_spent_time spent_time stats_bars statuses user
+    genres studios publishers
   ), to: :profile_stats
 
   def anime?

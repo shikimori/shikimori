@@ -31,10 +31,6 @@ filter_timer = null
 
     filter_timer = setInterval filter, 350
 
-  # клик разделам списка в b-options-floated блоке
-  $('.b-options-floated.mylist .link').on 'click', ->
-    $(".anime-params.mylist .mylist-#{$(@).data 'id'}").click()
-
   # сортировка по клику на колонку
   $('.order-control').on 'click', (e) ->
     type = $(@).data('order')

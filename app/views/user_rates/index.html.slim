@@ -7,9 +7,11 @@
       .l-content
         .b-options-floated.mylist.mobile-desktop
           - @library.counts.each do |stat|
-            .link.always-active[
+            - is_selected = params[:mylist].to_s.split(',').include?(stat[:grouped_id])
+            a.b-link.always-active[
               data-id="#{stat[:grouped_id]}"
-              class="#{:selected if params[:mylist].blank? || params[:mylist].split(',').include?(stat[:grouped_id])}"
+              class="#{:selected if is_selected}"
+              href="#{url_for safe_params.merge(mylist: is_selected ? nil : stat[:grouped_id])}"
             ]
               = UserRate.status_name stat[:name], @library.klass.name
               | &nbsp;
@@ -45,27 +47,8 @@
                 alt="#{@resource.nickname}"
               ]
 
-        .block.mini-charts
-          .scores.block
-            .subheadline = i18n_i 'Score', :other
-            #scores[
-              data-stats="#{@resource.stats.scores(params[:list_type]).to_json}"
-              data-bar="horizontal"
-            ]
-
-          .types.block
-            .subheadline = i18n_i 'Kind', :other
-            #types[
-              data-stats="#{@resource.stats.kinds(params[:list_type]).to_json}"
-              data-bar="horizontal"
-            ]
-
-          - if params[:list_type] == 'anime'
-            .ratings.block
-              .subheadline = i18n_i 'Rating', :other
-              #ratings[
-                data-stats="#{@resource.stats.anime_ratings.to_json}"
-                data-bar="horizontal"
-              ]
-
+        = render 'user_rates/stats',
+          resource: @resource,
+          stats: @resource.stats,
+          list_type: params[:list_type].to_sym
         = render 'animes_collection/menu', menu: @menu, in_user_profile: true

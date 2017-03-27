@@ -1,0 +1,62 @@
+@import globals
+@import mixins/responsive
+@import mixins/link
+
+.p-user_rates-index
+  .l-menu
+    .avatar img
+      max-width: 100%
+
+    .mini-charts
+      .bar
+        width: auto
+
+      .types, .ratings
+        .bar-container
+          margin-right: 60px
+
+    .mylist-block
+      .item-sign
+        display: none
+
+  +lte_ipad
+    .l-menu .b-collection-filters
+      display: none
+
+    .menu-expanded
+      .l-menu .b-collection-filters
+        display: block
+
+  .stat-categories
+    +clearfix
+
+    .category
+      +link
+      float: left
+      height: 21px
+      line-height: 5px
+      margin: 0 0 0 2px
+      padding: 1px 5px
+
+      &.active
+        color: $link-hover
+
+        &:hover
+          color: $link-active
+
+    .t0
+      font-size: 9px
+
+    .t1
+      font-size: 11px
+
+    .t2
+      font-size: 12px
+
+    .t3
+      font-size: 13px
+      font-weight: bold
+
+    .t4
+      font-size: 14px
+      font-weight: bold

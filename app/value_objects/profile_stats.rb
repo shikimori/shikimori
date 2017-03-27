@@ -15,4 +15,7 @@ class ProfileStats < Dry::Struct
   attribute :stats_bars, Types::Strict::Array
   attribute :statuses, Types::Strict::Hash
   attribute :user, Types::User
+  attribute :genres, Types::Strict::Hash
+  attribute :studios, Types::Strict::Hash
+  attribute :publishers, Types::Strict::Hash
 end

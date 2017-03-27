@@ -1,4 +1,4 @@
-DEFAULT_LIST_SORT = "ranked"
+DEFAULT_LIST_SORT = 'ranked'
 
 @AnimeCatalogFilters = (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
@@ -73,7 +73,7 @@ DEFAULT_LIST_SORT = "ranked"
   data = $.extend(true, {}, default_data)
 
   # клики по меню
-  $('.anime-params li', $root).on 'click', (e) ->
+  $('.anime-params', $root).on 'click', 'li', (e) ->
     return if in_new_tab(e) # игнор средней кнопки мыши
     return if e.target.classList.contains('b-question') # игнор при клике на инфо блок
     #return if $(e.target).hasClass('filter') # игнор при клике на фильтр

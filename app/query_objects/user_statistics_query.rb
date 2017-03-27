@@ -4,7 +4,7 @@ class UserStatisticsQuery
 
   attr_reader :anime_rates, :anime_valuable_rates
   attr_reader :manga_rates, :manga_valuable_rates
-  #attr_reader :genres, :studios, :publishers
+  attr_reader :genres, :studios, :publishers
 
   # стандартный формат дат для сравнения
   DATE_FORMAT = "%Y-%m-%d"
@@ -320,15 +320,15 @@ class UserStatisticsQuery
       # для жанров занижаем долю комедий
       if category_name == 'genre'
         stats.map! do |genre|
-          if genre[0] == 'Комедия'
+          if genre[0].name == 'Comedy'
             [genre[0], genre[1]*0.6]
           else
             genre
           end
         end
       end
-      max = stats.max {|l,r| l[1] <=> r[1] }[1]
-      min = stats.min {|l,r| l[1] <=> r[1] }[1]
+      max = stats.max { |l,r| l[1] <=> r[1] }[1]
+      min = stats.min { |l,r| l[1] <=> r[1] }[1]
 
       stats.map do |category|
         {

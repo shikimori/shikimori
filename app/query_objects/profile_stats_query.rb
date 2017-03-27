@@ -101,20 +101,48 @@ class ProfileStatsQuery
     #GrapthTime.new spent_time
   #end
 
-  #def genres
-    #{
-      #anime: stats.by_categories('genre', stats.genres, stats.anime_valuable_rates, [], 19),
-      #manga: stats.by_categories('genre', stats.genres, [], stats.manga_valuable_rates, 19)
-    #}
-  #end
+  def genres
+    {
+      anime: stats.by_categories(
+        'genre',
+        Repos::AnimeGenres.instance.all,
+        stats.anime_valuable_rates,
+        [],
+        19
+      ),
+      manga: stats.by_categories(
+        'genre',
+        Repos::MangaGenres.instance.all,
+        [],
+        stats.manga_valuable_rates,
+        19
+      )
+    }
+  end
 
-  #def studios
-    #{ anime: stats.by_categories('studio', stats.studios.select {|v| v.real? }, stats.anime_valuable_rates, nil, 17) }
-  #end
+  def studios
+    {
+      anime: stats.by_categories(
+        'studio',
+        Repos::Studios.instance.all.select(&:real?),
+        stats.anime_valuable_rates,
+        nil,
+        17
+      )
+    }
+  end
 
-  #def publishers
-    #{ manga: stats.by_categories('publisher', stats.publishers, nil, stats.manga_valuable_rates, 17) }
-  #end
+  def publishers
+    {
+      manga: stats.by_categories(
+        'publisher',
+        Repos::Publishers.instance.all,
+        nil,
+        stats.manga_valuable_rates,
+        17
+      )
+    }
+  end
 
   private
 
@@ -148,7 +176,7 @@ class ProfileStatsQuery
   end
 
   def stats
-    Rails.cache.fetch [:user_statistics_query, :v2, user] do
+    Rails.cache.fetch [:user_statistics_query, :v3, user] do
       UserStatisticsQuery.new user
     end
   end
