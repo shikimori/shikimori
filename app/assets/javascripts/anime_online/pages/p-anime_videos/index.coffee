@@ -58,10 +58,17 @@
       .text $link.data('increment_text')
 
   # отметка о прочтении
+  $('.cc-player_controls').on 'ajax:before', '.increment-user_rate', ->
+    $(@).addClass 'b-ajax'
+
   $('.cc-player_controls').on 'ajax:success', '.increment-user_rate', ->
     unless $('.increment-user_rate').hasClass('watched')
       $.notice 'Эпизод отмечен просмотренным'
-    (-> Turbolinks.visit $('.c-control.next').attr('href')).delay 500
+
+    (=>
+      $(@).removeClass 'b-ajax'
+      Turbolinks.visit $('.c-control.next').attr('href')
+    ).delay 500
 
   # кнопка жалобы
   $('.cc-player_controls .report').on 'click', ->
