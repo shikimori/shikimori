@@ -47,8 +47,7 @@ class Anime < DbEntry
 
   has_many :news_topics, -> { order created_at: :desc },
     class_name: Topics::NewsTopic.name,
-    as: :linked,
-    inverse_of: :linked # topic always load know its linked
+    as: :linked
 
   has_many :anons_news_topics,
     -> { where(action: AnimeHistoryAction::Anons).order(created_at: :desc) },
