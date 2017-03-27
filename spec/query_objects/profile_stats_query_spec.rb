@@ -6,7 +6,7 @@ describe ProfileStatsQuery do
   subject(:stats) { ProfileStatsQuery.new user }
 
   describe '#to_profile_stats' do
-    it { expect(stats.to_profile_stats.to_h).to have(14).items }
+    it { expect(stats.to_profile_stats.to_h).to have(17).items }
   end
 
   describe '#spent_time' do
