@@ -101,6 +101,6 @@ class ShikimoriController < ApplicationController
 
   # TODO: выпилить
   def check_post_permission
-    raise Forbidden, "Вы забанены (запрет комментирования) до #{current_user.read_only_at.strftime '%H:%M %d.%m.%Y'}" unless current_user.can_post?
+    raise Forbidden, "Вы забанены до #{current_user.read_only_at.strftime '%H:%M %d.%m.%Y'}" unless current_user.can_post?
   end
 end

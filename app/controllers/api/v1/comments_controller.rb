@@ -1,7 +1,7 @@
 class Api::V1::CommentsController < Api::V1Controller
+  before_action :check_post_permission, only: [:create, :update, :destroy]
   load_and_authorize_resource only: [:create, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :update, :destroy]
-  before_action :check_post_permission, only: [:create, :update, :destroy]
 
   LIMIT = 30
 

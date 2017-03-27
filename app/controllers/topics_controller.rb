@@ -1,12 +1,12 @@
 # TODO: move forum topics actions to Forum::TopicsController
 # other actions should stay here
 class TopicsController < ShikimoriController
+  before_action :check_post_permission, only: [:create, :update, :destroy]
   load_and_authorize_resource(
     class: Topic,
     only: %i(new create edit update show destroy)
   )
 
-  before_action :check_post_permission, only: [:create, :update, :destroy]
   before_action :compose_body, only: [:create, :update]
   before_action :set_view
   before_action :set_breadcrumbs
