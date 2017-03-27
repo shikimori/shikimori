@@ -28,7 +28,6 @@
   $switcher = $(".video-variant-switcher[data-kind='#{kind}'")
 
   # highlight current video by id
-  debugger
   $(".b-video_variant.special[data-video_id='#{$player.data('video_id')}']")
     .addClass('active')
 
