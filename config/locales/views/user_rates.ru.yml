@@ -14,3 +14,6 @@ ru:
 
     lines:
       <<: *list_page
+
+    stats:
+      insufficient_data: Недостаточно данных

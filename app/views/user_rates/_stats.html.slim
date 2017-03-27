@@ -32,7 +32,7 @@
               href="#{url_for safe_params.merge(genre: is_selected ? nil : stat[:category].to_param)}"
             ] = localized_name stat[:category]
       - else
-        .b-nothing_here = t 'profiles.show.no_stat_text'
+        .b-nothing_here = t '.insufficient_data'
 
     - if list_type == :anime
       .block
@@ -46,7 +46,7 @@
                 href="#{url_for safe_params.merge(studio: is_selected ? nil : stat[:category].to_param)}"
               ] = stat[:category].name
         - else
-          .b-nothing_here = t 'profiles.show.no_stat_text'
+          .b-nothing_here = t '.insufficient_data'
 
     - else
       .block
@@ -60,4 +60,4 @@
                 href="#{url_for safe_params.merge(publisher: is_selected ? nil : stat[:category].to_param)}"
               ] = stat[:category].name
         - else
-          .b-nothing_here = t 'profiles.show.no_stat_text'
+          .b-nothing_here = t '.insufficient_data'

@@ -14,3 +14,6 @@ en:
 
     lines:
       <<: *list_page
+
+    stats:
+      insufficient_data: Insufficient data
