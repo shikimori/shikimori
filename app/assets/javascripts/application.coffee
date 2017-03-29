@@ -56,7 +56,7 @@ $ =>
     message: t('frontend.application.sure_to_leave_page')
 
   if match = location.hash.match(/^#(comment-\d+)$/)
-    $("a[name=#{match[1]}]").closest('.b-comment').yellowFade()
+    $("a[name=#{match[1]}]").closest('.b-comment').yellow_fade()
 
   # отдельный эвент для ресайзов и скрола
   $(window).on 'resize', $.debounce(500, -> $(document.body).trigger 'resize:debounced')
