@@ -14,7 +14,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(anime_video.reload.author_name).to be_nil
-      expect(anime_video.updated_at).to eq Time.zone.now
+      expect(anime_video.updated_at).to be_within(0.1).of(Time.zone.now)
     end
   end
 
@@ -24,7 +24,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(anime_video.reload.author_name).to eq author_2.name
-      expect(anime_video.updated_at).to eq Time.zone.now
+      expect(anime_video.updated_at).to be_within(0.1).of(Time.zone.now)
     end
   end
 
@@ -34,7 +34,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect(author_1.reload.name).to eq new_name
       expect(anime_video.reload.author_name).to eq author_1.name
-      expect(anime_video.updated_at).to eq Time.zone.now
+      expect(anime_video.updated_at).to be_within(0.1).of(Time.zone.now)
     end
   end
 
@@ -44,7 +44,7 @@ describe AnimeVideoAuthor::Rename do
     it do
       expect(author_1.reload.name).to eq new_name
       expect(anime_video.reload.author_name).to eq author_1.name
-      expect(anime_video.updated_at).to eq 1.day.ago
+      expect(anime_video.updated_at).to be_within(0.1).of(1.day.ago)
     end
   end
 end
