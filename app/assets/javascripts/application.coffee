@@ -73,7 +73,7 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
     Turbolinks.enableProgressBar true
 
   document.body.classList.add(
-    bowser.name.toLowerCase().replace(' ', '_')
+    bowser.name.toLowerCase().replace(/ /g, '_')
   )
 
   #unless is_dom_content_loaded
