@@ -4,7 +4,7 @@
     <div class='clearfix'>
       <div class='close'></div>
       <div class='tooltip-details'>
-        <div class='ajax-loading' title='#{t('frontend.blocks.tooltip.loading')}' />
+        <div class='ajax-loading' title='#{I18n.t('frontend.blocks.tooltip.loading')}' />
       </div>
     </div>
     <div class='dropshadow-top'></div>

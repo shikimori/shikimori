@@ -68,7 +68,7 @@ class DynamicElements.UserRate extends View
 
     model: @model
     user_id: SHIKI_USER.id
-    statuses: t("#{I18N_KEY}.#{@model.target_type.toLowerCase()}")
+    statuses: I18n.t("#{I18N_KEY}.#{@model.target_type.toLowerCase()}")
     form_url: submit_url
     form_method: if @model.id then 'PATCH' else 'POST'
     destroy_url: "/api/v2/user_rates/#{@model.id}" if @model.id

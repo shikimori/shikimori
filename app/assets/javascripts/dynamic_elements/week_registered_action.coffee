@@ -5,11 +5,11 @@ class DynamicElements.WeekRegisteredAction extends View
   initialize: ->
     @$node.on 'click', (e) ->
       if !USER_SIGNED_IN
-        $.info t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
+        $.info I18n.t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")
         e.stopImmediatePropagation()
         false
 
       else if !WEEK_REGISTERED
-        $.info t("#{I18N_KEY}.action_will_be_available")
+        $.info I18n.t("#{I18N_KEY}.action_will_be_available")
         e.stopImmediatePropagation()
         false

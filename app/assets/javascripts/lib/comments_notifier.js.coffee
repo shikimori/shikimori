@@ -35,7 +35,7 @@ class @CommentsNotifier
 
   # вставка в DOM счётчика
   insert: =>
-    alt = t('frontend.lib.comments_notifier.number_of_unread_comments')
+    alt = I18n.t('frontend.lib.comments_notifier.number_of_unread_comments')
     @$notifier = $("<div class='b-comments-notifier' style='display: none;' alt='#{alt}'></div>")
       .appendTo(document.body)
       .on 'click', =>

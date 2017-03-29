@@ -36,17 +36,17 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
           error: (err, file) ->
             switch err
               when 'TooManyFiles'
-                $.flash alert: t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
+                $.flash alert: I18n.t("#{I18N_KEY}.too_many_files", count: options.maxfiles)
 
               when 'FileTooLarge'
-                $.flash alert: t("#{I18N_KEY}.too_large_file")
+                $.flash alert: I18n.t("#{I18N_KEY}.too_large_file")
 
               when 'Unprocessable Entity'
-                $.flash alert: t("#{I18N_KEY}.please_try_again_later")
+                $.flash alert: I18n.t("#{I18N_KEY}.please_try_again_later")
 
               #when 'BrowserNotSupported'
               else
-                $.flash alert: t("#{I18N_KEY}.browser_not_supported")
+                $.flash alert: I18n.t("#{I18N_KEY}.browser_not_supported")
 
             global_lock = false
 
@@ -60,7 +60,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
             filename = file.name
             filesize = Math.ceil(file.size / 10) / 100
             $progress_bar.html(
-              t "#{I18N_KEY}.loading_file",
+              I18n.t "#{I18N_KEY}.loading_file",
                 filename: filename,
                 filesize: filesize
             )
@@ -89,9 +89,9 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
             width = $node.outerWidth()
             text =
               if global_lock
-                t("#{I18N_KEY}.wait_till_loaded")
+                I18n.t("#{I18N_KEY}.wait_till_loaded")
               else
-                t("#{I18N_KEY}.drop_pictures_here")
+                I18n.t("#{I18N_KEY}.drop_pictures_here")
             cls = if global_lock then 'disallowed' else 'allowed'
 
             $placeholder = $("<div data-text='#{text}' class='b-dropzone-drag_placeholder #{cls}' style='width:#{width}px!important;height:#{height}px;line-height:#{Math.max(height, 75)}px;'></div>")
@@ -124,7 +124,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
               $node.trigger 'upload:failed', [response, i]
               alert =
                 if _.isString(response)
-                  t("#{I18N_KEY}.please_try_again_later")
+                  I18n.t("#{I18N_KEY}.please_try_again_later")
                 else
                   response.error
               $.flash alert: alert

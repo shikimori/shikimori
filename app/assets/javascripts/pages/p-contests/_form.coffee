@@ -23,8 +23,8 @@
     $('.members_count').html members_count
     candidate_word = p(
       members_count,
-      t('frontend.pages.p_contests.candidate.one'),
-      t('frontend.pages.p_contests.candidate.few'),
-      t('frontend.pages.p_contests.candidate.many')
+      I18n.t('frontend.pages.p_contests.candidate.one'),
+      I18n.t('frontend.pages.p_contests.candidate.few'),
+      I18n.t('frontend.pages.p_contests.candidate.many')
     )
     $('.members_count_label').html 

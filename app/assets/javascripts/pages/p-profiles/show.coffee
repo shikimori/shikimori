@@ -41,23 +41,23 @@
       days = date_diff entry.dates.from, entry.dates.to
 
       hour_word = p entry.value,
-        t('frontend.pages.p_profiles.hour.one'),
-        t('frontend.pages.p_profiles.hour.few'),
-        t('frontend.pages.p_profiles.hour.many')
+        I18n.t('frontend.pages.p_profiles.hour.one'),
+        I18n.t('frontend.pages.p_profiles.hour.few'),
+        I18n.t('frontend.pages.p_profiles.hour.many')
 
       day_word = if days == Math.round(days)
         p entry.value,
-          t('frontend.pages.p_profiles.day.one'),
-          t('frontend.pages.p_profiles.day.few'),
-          t('frontend.pages.p_profiles.day.many')
+          I18n.t('frontend.pages.p_profiles.day.one'),
+          I18n.t('frontend.pages.p_profiles.day.few'),
+          I18n.t('frontend.pages.p_profiles.day.many')
       else
-        t('frontend.pages.p_profiles.day.many')
+        I18n.t('frontend.pages.p_profiles.day.many')
 
       date_format = if LOCALE == 'en' then 'MMMM D' else 'D MMMM'
       from_date = moment(entry.dates.from).format date_format
       to_date = moment(entry.dates.to).format date_format
 
-      t 'frontend.pages.p_profiles.title',
+      I18n.t 'frontend.pages.p_profiles.title',
         hours: entry.value,
         hour_word: hour_word,
         from_date: from_date,

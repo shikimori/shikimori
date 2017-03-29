@@ -4,7 +4,7 @@ class DynamicElements.Topic extends ShikiEditable
   I18N_KEY = 'frontend.dynamic_elements.topic'
 
   _type: -> 'topic'
-  _type_label: -> t("#{I18N_KEY}.type_label")
+  _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
   # similar to hash from JsExports::TopicsExport#serialzie
   _default_model: ->
@@ -35,7 +35,7 @@ class DynamicElements.Topic extends ShikiEditable
     else
       @$editor.replaceWith(
         "<div class='b-nothing_here'>
-          #{t('frontend.shiki_editor.not_available')}
+          #{I18n.t('frontend.shiki_editor.not_available')}
         </div>"
       )
 
@@ -152,21 +152,21 @@ class DynamicElements.Topic extends ShikiEditable
           comment_word =
             if @$comments_loader.data('only-summaries-shown')
               p comment_count,
-                t("#{I18N_KEY}.summary.one"),
-                t("#{I18N_KEY}.summary.few"),
-                t("#{I18N_KEY}.summary.many")
+                I18n.t("#{I18N_KEY}.summary.one"),
+                I18n.t("#{I18N_KEY}.summary.few"),
+                I18n.t("#{I18N_KEY}.summary.many")
             else
               p comment_count,
-                t("#{I18N_KEY}.comment.one"),
-                t("#{I18N_KEY}.comment.few"),
-                t("#{I18N_KEY}.comment.many")
+                I18n.t("#{I18N_KEY}.comment.one"),
+                I18n.t("#{I18N_KEY}.comment.few"),
+                I18n.t("#{I18N_KEY}.comment.many")
           of_total_comments =
             if count > limit
-              "#{t("#{I18N_KEY}.of")} #{count}"
+              "#{I18n.t("#{I18N_KEY}.of")} #{count}"
             else
               ''
 
-          load_comments = t(
+          load_comments = I18n.t(
             "#{I18N_KEY}.load_comments"
             comment_count: comment_count,
             of_total_comments: of_total_comments,
@@ -295,14 +295,14 @@ class DynamicElements.Topic extends ShikiEditable
 
       $placeholder.html if trackable_type == 'message'
         p num,
-          t("#{I18N_KEY}.new_message_added.one", count: num),
-          t("#{I18N_KEY}.new_message_added.few", count: num),
-          t("#{I18N_KEY}.new_message_added.many", count: num)
+          I18n.t("#{I18N_KEY}.new_message_added.one", count: num),
+          I18n.t("#{I18N_KEY}.new_message_added.few", count: num),
+          I18n.t("#{I18N_KEY}.new_message_added.many", count: num)
       else
         p num,
-          t("#{I18N_KEY}.new_comment_added.one", count: num),
-          t("#{I18N_KEY}.new_comment_added.few", count: num),
-          t("#{I18N_KEY}.new_comment_added.many", count: num)
+          I18n.t("#{I18N_KEY}.new_comment_added.one", count: num),
+          I18n.t("#{I18N_KEY}.new_comment_added.few", count: num),
+          I18n.t("#{I18N_KEY}.new_comment_added.many", count: num)
 
     $placeholder
 

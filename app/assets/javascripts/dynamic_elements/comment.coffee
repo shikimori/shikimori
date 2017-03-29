@@ -4,7 +4,7 @@ using 'DynamicElements'
 class DynamicElements.Comment extends ShikiEditable
 
   _type: -> 'comment'
-  _type_label: -> t("#{I18N_KEY}.type_label")
+  _type_label: -> I18n.t("#{I18N_KEY}.type_label")
 
   # similar to hash from JsExports::CommentsExport#serialzie
   _default_model: ->
@@ -74,7 +74,7 @@ class DynamicElements.Comment extends ShikiEditable
           $(".b-comment##{id}").view().mark(data.kind, data.value)
         $.notice marker_message(data)
       else
-        $.notice t("#{I18N_KEY}.your_request_will_be_considered")
+        $.notice I18n.t("#{I18N_KEY}.your_request_will_be_considered")
 
       @$('.item-moderation-cancel').trigger('click')
 
@@ -134,14 +134,14 @@ marker_message = (data) ->
   if data.value
     if data.kind == 'offtopic'
       if data.affected_ids.length > 1
-        $.notice t("#{I18N_KEY}.comments_marked_as_offtopic")
+        $.notice I18n.t("#{I18N_KEY}.comments_marked_as_offtopic")
       else
-        $.notice t("#{I18N_KEY}.comment_marked_as_offtopic")
+        $.notice I18n.t("#{I18N_KEY}.comment_marked_as_offtopic")
     else
-      $.notice t("#{I18N_KEY}.comment_marked_as_summary")
+      $.notice I18n.t("#{I18N_KEY}.comment_marked_as_summary")
 
   else
     if data.kind == 'offtopic'
-      $.notice t("#{I18N_KEY}.comment_not_marked_as_offtopic")
+      $.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_offtopic")
     else
-      $.notice t("#{I18N_KEY}.comment_not_marked_as_summary")
+      $.notice I18n.t("#{I18N_KEY}.comment_not_marked_as_summary")

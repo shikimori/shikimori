@@ -9,7 +9,7 @@ filter_timer = null
   # графики
   $("#scores, #types, #ratings").bar
     no_data: ($chart) ->
-      text = t('frontend.pages.p_user_rates.insufficient_data')
+      text = I18n.t('frontend.pages.p_user_rates.insufficient_data')
       $chart.html("<p class='b-nothing_here'>#{text}</p>")
 
   # фокус по инпуту фильтра по тайтлу
@@ -253,7 +253,7 @@ apply_new_value_handlers = ($new_value) ->
       $.post($this.data('action'), "_method=patch&user_rate[#{$this.data 'field'}]=#{$this.attr 'value'}")
         .error ->
           $value.html prior_value
-          $.flash alert: t('frontend.pages.p_user_rates.error_occurred')
+          $.flash alert: I18n.t('frontend.pages.p_user_rates.error_occurred')
 
     .on 'mousewheel', (e) ->
       return true unless $(@).is(':focus')

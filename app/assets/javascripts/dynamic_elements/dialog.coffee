@@ -17,4 +17,4 @@ class DynamicElements.Dialog extends DynamicElements.Topic
       collapsed_height: @COLLAPSED_HEIGHT
 
   _type: -> 'dialog'
-  _type_label: -> t('frontend.dynamic_elements.dialog.type_label')
+  _type_label: -> I18n.t('frontend.dynamic_elements.dialog.type_label')

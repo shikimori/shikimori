@@ -20,7 +20,7 @@
         if options.expand_html?
           options.expand_html
         else
-          "<div class='expand'><span>#{t('frontend.dynamic_elements.check_height.expand')}</span></div>"
+          "<div class='expand'><span>#{I18n.t('frontend.dynamic_elements.check_height.expand')}</span></div>"
 
       @each ->
         $root = $(@)

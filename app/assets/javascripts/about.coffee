@@ -2,7 +2,7 @@ $ =>
   traffic = $('.traffic-chart').data 'stats'
   $('.traffic-chart').highcharts chart_options
     series: [
-      name: t('frontend.about.views')
+      name: I18n.t('frontend.about.views')
       pointInterval: 24 * 3600 * 1000
       pointStart: Date.create(traffic.first().date).getTime()
       data: traffic.map (v) -> v.page_views
@@ -16,7 +16,7 @@ $ =>
           y2: 1
         stops: [[0, Highcharts.getOptions().colors[3]], [1, Highcharts.Color(Highcharts.getOptions().colors[3]).setOpacity(0).get("rgba")]]
     ,
-      name: t('frontend.about.visits')
+      name: I18n.t('frontend.about.visits')
       pointInterval: 24 * 3600 * 1000
       pointStart: Date.create(traffic.first().date).getTime()
       data: traffic.map (v) -> v.visits
@@ -30,7 +30,7 @@ $ =>
           y2: 1
         stops: [[0, Highcharts.getOptions().colors[1]], [1, Highcharts.Color(Highcharts.getOptions().colors[1]).setOpacity(0).get("rgba")]]
     ,
-      name: t('frontend.about.unique_visitors')
+      name: I18n.t('frontend.about.unique_visitors')
       pointInterval: 24 * 3600 * 1000
       pointStart: Date.create(traffic.first().date).getTime()
       data: traffic.map (v) -> v.visitors
@@ -48,7 +48,7 @@ $ =>
   comments_color = Highcharts.getOptions().colors[5]
   $('.comments-chart').highcharts chart_options
     series: [
-      name: t('frontend.about.comments_per_day')
+      name: I18n.t('frontend.about.comments_per_day')
       pointInterval: 24 * 3600 * 1000
       pointStart: Date.create(comments.first().date).getTime()
       data: comments.map (v) -> v.count
@@ -68,7 +68,7 @@ $ =>
   users_color = Highcharts.getOptions().colors[7]
   $('.users-chart').highcharts chart_options
     series: [
-      name: t('frontend.about.new_users_per_day')
+      name: I18n.t('frontend.about.new_users_per_day')
       pointInterval: 24 * 3600 * 1000
       pointStart: Date.create(users.first().date).getTime()
       #data: users.map (v) -> v.count

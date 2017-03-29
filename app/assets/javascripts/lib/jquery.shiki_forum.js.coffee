@@ -53,9 +53,9 @@ class @ShikiForum extends ShikiView
       num = $placeholder.data('ids').length
       $placeholder.html(
         p num,
-          t('frontend.lib.jquery_shiki_forum.new_topics_added.one', count: num),
-          t('frontend.lib.jquery_shiki_forum.new_topics_added.few', count: num),
-          t('frontend.lib.jquery_shiki_forum.new_topics_added.many', count: num)
+          I18n.t('frontend.lib.jquery_shiki_forum.new_topics_added.one', count: num),
+          I18n.t('frontend.lib.jquery_shiki_forum.new_topics_added.few', count: num),
+          I18n.t('frontend.lib.jquery_shiki_forum.new_topics_added.many', count: num)
       )
 
     $placeholder
