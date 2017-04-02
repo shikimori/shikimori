@@ -1,7 +1,7 @@
 class Titles::SeasonTitle
   include Translation
 
-  YEARS_INTERVAL = /years_(?<years>\d)/
+  YEARS_INTERVAL = /years_(?<years>\d+)/
 
   pattr_initialize :date, :format, :klass
 
