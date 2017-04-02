@@ -4,11 +4,19 @@ class Anidb::Authorization
   include Singleton
 
   CACHE_KEY = 'anidb_authorization_cookie'
-  COOKIES = %w(adbautopass adbautouser adbsessuser adbuin)
+  COOKIES = %w(
+    adbuin
+    adbsess
+    adbss
+    adbsessuser
+    anidbsettings
+    adbautouser
+    adbautopass
+  )
 
   LOGIN_PATH = '/perl-bin/animedb.pl?show=login'
-  LOGIN = 'naruto2148'
-  PASSWORD = 'Qb6jT5LUZsj9'
+  LOGIN = 'naruto1451'
+  PASSWORD = 'Wy6F27yNuDFB'
 
   HEADERS = {
     'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\

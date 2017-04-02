@@ -5,13 +5,17 @@ describe Anidb::Authorization, :vcr do
 
   describe '#cookie' do
     subject { service.cookie }
+    use_vcr_cassette 'Anidb_Authorization/cookie'
 
     it do
       is_expected.to eq %w(
-        adbautopass=vbzjomexrccnxcla;
-        adbautouser=naruto2148;
-        adbsessuser=naruto2148;
-        adbuin=1490295269-RLyR;
+        adbautopass=zwsofsxfdnrzyxdj;
+        adbautouser=naruto1451;
+        adbsess=HeOtBhOHtFVJILxs;
+        adbsessuser=naruto1451;
+        adbss=740345-HeOtBhOH;
+        adbuin=1491134069-bSaf;
+        anidbsettings=%7B%22USEAJAX%22%3A1%7D;
       )
     end
 

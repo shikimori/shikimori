@@ -12,6 +12,19 @@ class Anidb::ParseDescription
 
   DESCRIPTION_XPATH = "//div[@itemprop='description']"
 
+  HEADERS_WHEN_AUTHORIZED = {
+    'Accept' => 'text/html,application/xhtml+xml,application/xml;'\
+      'q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Encoding' => 'gzip',
+    'Accept-Language' => 'en-US,en;q=0.8,ru;q=0.6,ja;q=0.4',
+    'Connection' => 'keep-alive',
+    'Host' => 'anidb.net',
+    'Upgrade-Insecure-Requests' => '1',
+    'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\
+      'AppleWebKit/537.36 (KHTML, like Gecko) '\
+      'Chrome/56.0.2924.87 Safari/537.36'
+  }
+
   def call
     chain_from(get).parse.sanitize.unwrap
   end
@@ -37,8 +50,10 @@ class Anidb::ParseDescription
   end
 
   def get_authorized! url
-    headers = { 'Cookie' => Anidb::Authorization.instance.cookie.join }
+    cookie = Anidb::Authorization.instance.cookie.join
+    headers = HEADERS_WHEN_AUTHORIZED.merge('Cookie' => cookie)
     content = open(url, headers).read
+    content = ActiveSupport::Gzip.decompress(content)
 
     raise CaptchaError, url if captcha?(content)
     raise AutoBannedError, url if auto_banned?(content)
@@ -58,12 +73,12 @@ class Anidb::ParseDescription
     UNKNOWN_ID_TEXTS.any? { |v| content.include?(v) }
   end
 
-  def captcha? content
-    content.include? CAPTCHA_TEXT
-  end
-
   def adult_content? content
     content.include? ADULT_CONTENT_TEXT
+  end
+
+  def captcha? content
+    content.include? CAPTCHA_TEXT
   end
 
   def auto_banned? content
