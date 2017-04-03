@@ -84,6 +84,8 @@ class TorrentsParser
       num.map { |v| v > 175 ? v - 175 : v }
     elsif episode_name =~ /kyousou[ _]?giga/i
       num.map { |v| v + 1 }
+    elsif episode_name =~ /my[ _]hero[ _]academia|boku[ _]no[ _]hero[ _]academia/i
+      num.map { |v| v - 13 }
     else
       num
     end.select { |v| v > 0 }
