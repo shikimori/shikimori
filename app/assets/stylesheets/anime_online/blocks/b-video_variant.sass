@@ -26,21 +26,21 @@
       &:last-child
         padding-right: 0
 
-    &.broken:after, &.wrong:after, &.rejected:after
+    &.broken:before, &.wrong:before, &.rejected:before
       float: left
       font-weight: normal
 
-    &.broken:after
+    &.broken:before
       color: $red
       content: 'broken'
       padding-right: 5px
 
-    &.wrong:after
+    &.wrong:before
       color: $orange
       content: 'wrong'
       padding-right: 5px
 
-    &.rejected:after
+    &.rejected:before
       color: $purple
       content: 'rejected'
       padding-right: 5px
