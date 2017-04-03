@@ -42,7 +42,7 @@ module UserNotifications
 
   # number of unread private messages
   def unread_messages
-    ignored_ids = cached_ignores.map(&:target_id) << 0
+    ignored_ids = ignores.map(&:target_id) << 0
 
     @unread_messages ||= Message.where(to_id: id)
       .where(kind: MessageType::Private)
@@ -53,7 +53,7 @@ module UserNotifications
 
   # number of unread notifications
   def unread_news
-    ignored_ids = cached_ignores.map(&:target_id) << 0
+    ignored_ids = ignores.map(&:target_id) + [0]
     @unread_news ||= Message.where(to_id: id)
       .where(kind: MessagesQuery::NEWS_KINDS)
       .where(read: false)
@@ -63,7 +63,7 @@ module UserNotifications
 
   # number of unread notifications
   def unread_notifications
-    ignored_ids = cached_ignores.map(&:target_id) << 0
+    ignored_ids = ignores.map(&:target_id) + [0]
     @unread_notifications ||= Message.where(to_id: id)
       .where(kind: MessagesQuery::NOTIFICATION_KINDS)
       .where(read: false)
