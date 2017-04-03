@@ -94,7 +94,7 @@ gem 'faraday_middleware'
 gem 'faraday-cookie_jar'
 
 gem 'jbuilder' # для рендеринга json
-gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+' # для поддержки jsonp в api
+gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+no-gvb' # для поддержки jsonp в api
 # TODO: выпилить отовсюду rabl, заменив его на jbuilder
 gem 'rabl' # для рендеринга json
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы

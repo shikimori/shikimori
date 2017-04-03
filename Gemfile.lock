@@ -31,11 +31,10 @@ GIT
 
 GIT
   remote: git://github.com/libc/rack-contrib.git
-  revision: 1d9310e169f50d224ac3348f95cdb96c865979af
-  branch: rack_ruby_2+
+  revision: 1b672c3551e86e7191485bffad2ec7d0d8fec012
+  branch: rack_ruby_2+no-gvb
   specs:
-    rack-contrib (1.4.0.6.g1d9310e)
-      git-version-bump (~> 0.15)
+    rack-contrib (1.4.0)
       rack (>= 1.4, < 3.0)
 
 GIT
@@ -322,7 +321,6 @@ GEM
     gcm (0.1.1)
       httparty
       json
-    git-version-bump (0.15.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     guard (2.14.1)
