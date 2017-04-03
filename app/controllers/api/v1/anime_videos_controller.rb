@@ -33,7 +33,7 @@ class Api::V1::AnimeVideosController < Api::V1Controller
 
   def destroy
     @resource.destroy
-    head 200
+    head 204
   end
 
 private
