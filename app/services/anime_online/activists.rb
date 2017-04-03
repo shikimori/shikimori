@@ -17,6 +17,7 @@ class AnimeOnline::Activists
     end
 
   private
+
     def resposible_users hosting
       active_users = AnimeVideoReport
         .select(:user_id, 'count(*) as videos')

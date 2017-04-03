@@ -126,7 +126,11 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
         before { AnimeOnline::Activists.reset }
 
         context 'auto_check' do
-          before { allow(AnimeOnline::Activists).to receive(:rutube_responsible).and_return([user.id]) }
+          before do
+            allow(AnimeOnline::Activists)
+              .to receive(:rutube_responsible)
+              .and_return([user.id])
+          end
           it { is_expected.to be_accepted }
         end
 
