@@ -77,7 +77,7 @@ gem 'truncate_html'
 gem 'acts-as-taggable-on'
 gem 'acts_as_list'
 gem 'meta-tags'
-gem 'enumerize'
+gem 'enumerize', '2.0.1'
 gem 'draper', '3.0.0.pre1'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255

@@ -283,7 +283,7 @@ GEM
       http_parser.rb (>= 0.6.0)
     em-socksify (0.3.1)
       eventmachine (>= 1.0.0.beta.4)
-    enumerize (2.1.0)
+    enumerize (2.0.1)
       activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.2.3)
@@ -737,7 +737,7 @@ DEPENDENCIES
   draper (= 3.0.0.pre1)
   draper-cancancan
   dry-struct
-  enumerize
+  enumerize (= 2.0.1)
   factory_girl-seeds
   factory_girl_rails
   faraday
@@ -857,4 +857,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
