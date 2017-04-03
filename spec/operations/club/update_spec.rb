@@ -50,13 +50,13 @@ describe Club::Update do
     let!(:club_role_3) { create :club_role, :admin, club: club, user: user_3 }
 
     let(:page) { 'members' }
-    let(:params) { { admin_ids: [user.id, user_2.id] } }
+    let(:params) { { admin_ids: [user.id] } }
     before { subject }
 
     it do
       expect(club.errors).to be_empty
-      expect(club.reload.club_roles_count).to eq 2
-      expect(club.reload.admins.to_set).to eq [user, user_2].to_set
+      expect(club.reload.members.to_set).to eq [user, user_2, user_3].to_set
+      expect(club.admins).to eq [user]
     end
   end
 end

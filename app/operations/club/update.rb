@@ -38,7 +38,7 @@ private
 
   def update_members
     @model.banned_users = []
-    @model.member_roles.where(role: :admin).destroy_all
+    @model.member_roles.where(role: :admin).update_all role: :member
     @model.member_roles.where(user_id: @params[:admin_ids]).destroy_all
   end
 
