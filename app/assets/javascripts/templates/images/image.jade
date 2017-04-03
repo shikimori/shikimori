@@ -8,16 +8,16 @@ a.b-image(
     .mobile-edit
     .controls
       .delete(
-        title=t('frontend.images.delete')
+        title= I18n.t('frontend.images.delete')
       )
       .confirm(
-        title=t('frontend.images.confirm')
+        title= I18n.t('frontend.images.confirm')
         data-action="#{destroy_url}"
         data-method="delete"
         data-remote="true"
         data-type="json"
       )
       .cancel(
-        title=t('frontend.images.cancel')
+        title= I18n.t('frontend.images.cancel')
       )
   img(src="#{image.preview_url}")

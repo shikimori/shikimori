@@ -118,75 +118,15 @@ class DynamicElements.Topic extends ShikiEditable
     # клик скрытию редактора
     @$('.b-shiki_editor').on 'click', '.hide', @_hide_editor
 
-    @$comments_loader
-      # подготовка к подгрузке новых комментов
-      .on 'ajax:before', =>
-        new_url = @$comments_loader
-          .data('href-template')
-          .replace('SKIP', @$comments_loader.data('skip'))
-
-        @$comments_loader.data(href: new_url)
-
-    @$comments_loader
-      # подгрузка новых комментов
-      .on 'ajax:success', (e, data) =>
-        $new_comments = $("<div class='comments-loaded'></div>")
-          .html(data.content)
-          .process(data.JS_EXPORTS)
-
-        @_filter_present_entries($new_comments)
-
-        $new_comments
-          .insertAfter(@$comments_loader)
-          .animated_expand()
-
-        limit = @$comments_loader.data('limit')
-        count = @$comments_loader.data('count') - limit
-
-        if count > 0
-          @$comments_loader.data
-            skip: @$comments_loader.data('skip') + limit
-            count: count
-
-          comment_count = Math.min(limit, count)
-          comment_word =
-            if @$comments_loader.data('only-summaries-shown')
-              p comment_count,
-                I18n.t("#{I18N_KEY}.summary.one"),
-                I18n.t("#{I18N_KEY}.summary.few"),
-                I18n.t("#{I18N_KEY}.summary.many")
-            else
-              p comment_count,
-                I18n.t("#{I18N_KEY}.comment.one"),
-                I18n.t("#{I18N_KEY}.comment.few"),
-                I18n.t("#{I18N_KEY}.comment.many")
-          of_total_comments =
-            if count > limit
-              "#{I18n.t("#{I18N_KEY}.of")} #{count}"
-            else
-              ''
-
-          load_comments = I18n.t(
-            "#{I18N_KEY}.load_comments"
-            comment_count: comment_count,
-            of_total_comments: of_total_comments,
-            comment_word: comment_word
-          )
-
-          @$comments_loader.html(load_comments)
-          @$comments_collapser.show()
-        else
-          @$comments_loader.remove()
-          @$comments_loader = null
-          @$comments_hider.show()
-          @$comments_collapser.remove()
-
-      # отображение комментариев
-      .on 'click', (e) =>
-        unless @$comments_loader.is('.click-loader')
-          @$comments_loader.hide()
-          @$('.comments-loaded').animated_expand()
-          @$comments_hider.show()
+    # delegated handlers becase it is replaced on postload in
+    # inherited classes (DynamicElements.FullDialog)
+    @on 'ajax:before', '.comments-loader', @_before_comments_clickload
+    @on 'ajax:success', '.comments-loader', @_comments_clickloaded
+    @on 'click', '.comments-loader', (e) =>
+      unless @$comments_loader.is('.click-loader')
+        @$comments_loader.hide()
+        @$('.comments-loaded').animated_expand()
+        @$comments_hider.show()
 
     # скрытие комментариев
     @$comments_hider.on 'click', =>
@@ -340,6 +280,25 @@ class DynamicElements.Topic extends ShikiEditable
       $markers.hide.bind($markers).delay(interval + 500)
       $markers.removeClass.bind($markers).delay(interval + 500, 'active')
 
+  _before_comments_clickload: =>
+    new_url = @$comments_loader
+      .data('href-template')
+      .replace('SKIP', @$comments_loader.data('skip'))
+
+    @$comments_loader.data(href: new_url)
+
+  _comments_clickloaded: (e, data) =>
+    $new_comments = $("<div class='comments-loaded'></div>").html(data.content)
+
+    @_filter_present_entries($new_comments)
+
+    $new_comments
+      .process(data.JS_EXPORTS)
+      .insertAfter(@$comments_loader)
+      .animated_expand()
+
+    @_update_comments_loader(data)
+
   # private functions
   # проверка высоты топика. урезание,
   # если текст слишком длинный (точно такой же код в shiki_comment)
@@ -372,3 +331,46 @@ class DynamicElements.Topic extends ShikiEditable
   _deactivate_inaccessible_buttons: =>
     @$inner.find('.item-edit').addClass 'hidden' unless @model.can_edit
     @$inner.find('.item-delete').addClass 'hidden' unless @model.can_destroy
+
+  # data is used in inherited classes (DynamicElements.FullDialog)
+  _update_comments_loader: (data) ->
+    limit = @$comments_loader.data('limit')
+    count = @$comments_loader.data('count') - limit
+
+    if count > 0
+      @$comments_loader.data
+        skip: @$comments_loader.data('skip') + limit
+        count: count
+
+      comment_count = Math.min(limit, count)
+      comment_word =
+        if @$comments_loader.data('only-summaries-shown')
+          p comment_count,
+            I18n.t("#{I18N_KEY}.summary.one"),
+            I18n.t("#{I18N_KEY}.summary.few"),
+            I18n.t("#{I18N_KEY}.summary.many")
+        else
+          p comment_count,
+            I18n.t("#{I18N_KEY}.comment.one"),
+            I18n.t("#{I18N_KEY}.comment.few"),
+            I18n.t("#{I18N_KEY}.comment.many")
+      of_total_comments =
+        if count > limit
+          "#{I18n.t("#{I18N_KEY}.of")} #{count}"
+        else
+          ''
+
+      load_comments = I18n.t(
+        "#{I18N_KEY}.load_comments"
+        comment_count: comment_count,
+        of_total_comments: of_total_comments,
+        comment_word: comment_word
+      )
+
+      @$comments_loader.html(load_comments)
+      @$comments_collapser.show()
+    else
+      @$comments_loader.remove()
+      @$comments_loader = null
+      @$comments_hider.show()
+      @$comments_collapser.remove()

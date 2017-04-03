@@ -16,7 +16,7 @@
           data-type='json'
         )
 
-    .episodes= t('activerecord.attributes.user_rate.episodes')
+    .episodes= I18n.t('activerecord.attributes.user_rate.episodes')
 
   else
     .rate-number
@@ -34,7 +34,7 @@
           data-type='json'
           data-method='post'
         )
-    .episodes= t('activerecord.attributes.user_rate.chapters')
+    .episodes= I18n.t('activerecord.attributes.user_rate.chapters')
 
   != rate_html
 

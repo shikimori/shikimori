@@ -1,7 +1,7 @@
 #= require './topic'
 
 using 'DynamicElements'
-class DynamicElements.Dialog extends DynamicElements.Topic
+class DynamicElements.ShortDialog extends DynamicElements.Topic
   initialize: ->
     @_check_height()
     @on 'appear', @_appear
@@ -11,6 +11,7 @@ class DynamicElements.Dialog extends DynamicElements.Topic
       @$('.b-new_marker.active').click()
       true
 
+  # private functions
   _check_height: ->
     @$inner.check_height
       max_height: @MAX_PREVIEW_HEIGHT

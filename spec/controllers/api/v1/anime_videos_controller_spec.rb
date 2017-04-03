@@ -84,7 +84,6 @@ describe Api::V1::AnimeVideosController do
     it do
       expect(resource).to be_destroyed
       expect(response).to have_http_status :success
-      expect(response.content_type).to eq 'application/json'
     end
   end
 end

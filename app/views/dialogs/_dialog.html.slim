@@ -1,6 +1,6 @@
 .b-dialog.shiki-object.to-process[
   id="#{dialog.message.id}"
-  data-dynamic='dialog'
+  data-dynamic='short_dialog'
   data-appear_type='message'
   data-message_id="#{dialog.message.id}"
 ]
@@ -47,9 +47,10 @@
         a.name href="#{profile_url dialog.target_user}"
           = dialog.target_user.nickname
 
-        span.time: time[
-          datetime="#{dialog.created_at.iso8601}"
-        ] = l dialog.created_at, format: '%e %B %Y'
+        - unless dialog.my_message?
+          span.time: time[
+            datetime="#{dialog.created_at.iso8601}"
+          ] = l dialog.created_at, format: '%e %B %Y'
 
         a.to_dialog[
           href="#{profile_dialog_url dialog.user, dialog.target_user.to_param}"

@@ -29,7 +29,7 @@
         .text.add-trigger(data-status= model.status)
           .plus
           span.status-name(
-            data-text= t('frontend.user_rates.button.add_to_list')
+            data-text= I18n.t('frontend.user_rates.button.add_to_list')
           )
 
     .expanded-options
@@ -45,11 +45,11 @@
           data-method='delete'
           data-remote='true'
           data-type='json'
-          value= t('frontend.user_rates.button.remove_from_my_list')
+          value= I18n.t('frontend.user_rates.button.remove_from_my_list')
         )
           .text
             span.status-name(
-              data-text= t('frontend.user_rates.button.remove_from_my_list')
+              data-text= I18n.t('frontend.user_rates.button.remove_from_my_list')
             )
 
 != extended_html

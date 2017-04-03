@@ -21,7 +21,8 @@ class DynamicElements.Parser
           when 'topic' then new DynamicElements.Topic(node)
           when 'comment' then new DynamicElements.Comment(node)
           when 'message' then new DynamicElements.Message(node)
-          when 'dialog' then new DynamicElements.Dialog(node)
+          when 'short_dialog' then new DynamicElements.ShortDialog(node)
+          when 'full_dialog' then new DynamicElements.FullDialog(node)
 
           when 'user_rate'
             if node.attributes['data-extended'].value == 'true'
