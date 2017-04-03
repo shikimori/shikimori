@@ -30,6 +30,15 @@ GIT
       tins (~> 0.3)
 
 GIT
+  remote: git://github.com/libc/rack-contrib.git
+  revision: 1d9310e169f50d224ac3348f95cdb96c865979af
+  branch: rack_ruby_2+
+  specs:
+    rack-contrib (1.4.0.6.g1d9310e)
+      git-version-bump (~> 0.15)
+      rack (>= 1.4, < 3.0)
+
+GIT
   remote: git://github.com/morr/Ruby-SVD.git
   revision: 2775ee2f257fb3c95ef94e8d9cf56ea7686531e7
   specs:
@@ -80,15 +89,6 @@ GIT
   revision: c3b9112b34e9c37e805068ae3a6a42388666e67e
   specs:
     htmldiff (0.0.1)
-
-GIT
-  remote: git://github.com/pabse/rack-contrib.git
-  revision: 2a093289fb2722fceb4599e6893ed3b3addf0659
-  branch: rack_ruby_2+
-  specs:
-    rack-contrib (1.4.0.2.g2a09328)
-      git-version-bump (~> 0.15)
-      rack (>= 1.4)
 
 GIT
   remote: git://github.com/shikimori/mal_parser.git
