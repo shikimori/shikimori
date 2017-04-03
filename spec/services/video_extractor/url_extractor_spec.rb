@@ -160,11 +160,6 @@ describe VideoExtractor::UrlExtractor do
         it { is_expected.to eq '//rutube.ru/play/embed/3c6027aa9c4ed58a565675ce80b91412' }
       end
 
-      describe 'url with hash is preferred', :focus do
-        let(:html) { '<iframe width="720" height="405" src="http://rutube.ru/play/embed/10259993" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://rutube.ru/video/2f462d5bd2040fb8f9923cf0b19f9de7/">Тёмная книга мира &#x2F; Sekai no Yami Zukan[01 из 12][Русские субтитры: Wizzar63][AnimeMovie]</a> от <a href="https://rutube.ru/video/person/183426/">Wizzar63</a> на <a href="https://rutube.ru">Rutube</a>.</p>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/2f462d5bd2040fb8f9923cf0b19f9de7' }
-      end
-
       describe 'id converted to hash', vcr: { cassette_name: 'url_extractor' } do
         let(:html) { 'http://rutube.ru/play/embed/10259595' }
         it { is_expected.to eq '//rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d' }

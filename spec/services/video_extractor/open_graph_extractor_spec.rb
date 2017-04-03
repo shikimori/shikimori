@@ -12,13 +12,13 @@ describe VideoExtractor::OpenGraphExtractor, vcr: { cassette_name: 'open_graph_v
       its(:player_url) { is_expected.to eq '//www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=joindotared&playerType=facebook' }
     end
 
-    context 'rutube' do
-      let(:url) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
+    # context 'rutube' do
+      # let(:url) { 'http://rutube.ru/video/fb428243861964d3c9942e31b5f5a43a' }
 
-      its(:hosting) { is_expected.to eq :rutube }
-      its(:image_url) { is_expected.to eq '//pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
-      its(:player_url) { is_expected.to eq '//rutube.ru/play/embed/6797624' }
-    end
+      # its(:hosting) { is_expected.to eq :rutube }
+      # its(:image_url) { is_expected.to eq '//pic.rutube.ru/video/d2/81/d281c126ac608e6f66642009f1be59e0.jpg' }
+      # its(:player_url) { is_expected.to eq '//rutube.ru/play/embed/6797624' }
+    # end
 
     context 'vimeo' do
       let(:url) { 'http://vimeo.com/85212054' }

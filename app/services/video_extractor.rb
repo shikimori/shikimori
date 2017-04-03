@@ -6,10 +6,7 @@ module VideoExtractor
 
   class << self
     def fetch url
-      extractors
-        .find { |v| v.valid_url? url }
-        &.new(url)
-        &.fetch
+      extractors.find { |v| v.valid_url? url }&.new(url)&.fetch
     end
 
     def extractors
