@@ -111,7 +111,11 @@ describe AnimeOnline::ReportWorker, vcr: { cassette_name: 'anime_video_report_wo
       end
 
       context 'trust accept broken' do
-        let(:anime_video) { create :anime_video, url: 'http://rutube.ru/1', anime: anime }
+        let(:anime_video) do
+          create :anime_video,
+            url: 'http://rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d',
+            anime: anime
+        end
         let(:report) do
           create :anime_video_report,
             anime_video: anime_video,

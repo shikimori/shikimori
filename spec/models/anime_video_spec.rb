@@ -294,12 +294,12 @@ describe AnimeVideo do
 
         describe 'indirect url' do
           let(:new_url) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/3599097" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-          it { expect(video.url).to eq 'http://rutube.ru/play/embed/3599097' }
+          it { expect(video.url).to eq 'http://rutube.ru/play/embed/ef370e68cd9687a30ea67a68658c6ef8' }
         end
 
         describe 'direct url' do
           let(:new_url) { 'http://rutube.ru/play/embed/3599097' }
-          it { expect(video.url).to eq 'http://rutube.ru/play/embed/3599097' }
+          it { expect(video.url).to eq 'http://rutube.ru/play/embed/ef370e68cd9687a30ea67a68658c6ef8' }
         end
       end
     end

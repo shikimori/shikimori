@@ -39,11 +39,12 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   end
 
   def cleanup url
-    if url =~ RUTUBE_SRC_REGEX
-      "//rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
-    else
-      url
-    end
+    url
+    # if url =~ RUTUBE_SRC_REGEX
+      # "//rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
+    # else
+      # url
+    # end
   end
 
   def hosting
