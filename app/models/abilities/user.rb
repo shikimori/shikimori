@@ -171,7 +171,9 @@ class Abilities::User
   def anime_video_abilities
     can [:create], AnimeVideoReport do |report|
       !@user.banned? && !@user.verison_vermin? &&
-        report.user_id == @user.id && (report.broken? || report.wrong?)
+        report.user_id == @user.id && (
+          report.broken? || report.wrong? || report.other?
+        )
     end
     can [:new, :create], AnimeVideo do |anime_video|
       !@user.banned? && !@user.verison_vermin? && anime_video.uploaded?
