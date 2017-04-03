@@ -1,5 +1,5 @@
 class Comments::NotifyQuoted
-  method_object [:old_body, :new_body, :comment, :user]
+  method_object %i(old_body new_body comment user)
 
   ANTISPAM_LIMIT = 15
 
@@ -18,9 +18,9 @@ class Comments::NotifyQuoted
 private
 
   def reply comments, action
-    comments
-      .select { |v| v.user_id != @user.id }
-      .each { |v| ReplyService.new(v).send :"#{action}_reply", @comment }
+    comments.each do |comment|
+      ReplyService.new(comment).send :"#{action}_reply", @comment
+    end
   end
 
   def messages_to_create

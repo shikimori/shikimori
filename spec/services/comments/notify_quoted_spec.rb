@@ -35,12 +35,12 @@ describe Comments::NotifyQuoted do
         end
       end
 
-      context 'with self comment' do
+      context 'with own comment' do
         let(:quoted_user) { comment_owner }
         let(:new_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
         it do
           expect { subject }.to_not change Message, :count
-          expect(quoted_comment.reload.body).to eq 'zzz'
+          expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
         end
       end
     end
