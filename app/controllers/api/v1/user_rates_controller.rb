@@ -64,7 +64,8 @@ class Api::V1::UserRatesController < Api::V1Controller
     respond_with @resource, location: nil, serializer: UserRateFullSerializer
   end
 
-  api :POST, '/user_rates/:id/increment', deprecated: true
+  api :POST, '/user_rates/:id/increment', 'Increment episodes/chapters by 1',
+    deprecated: true
   def increment
     @resource.update increment_params
     respond_with @resource, location: nil, serializer: UserRateFullSerializer

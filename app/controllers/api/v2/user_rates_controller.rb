@@ -54,8 +54,7 @@ class Api::V2::UserRatesController < Api::V2Controller
     respond_with @resource, location: nil
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
-  api :POST, '/v2/user_rates/:id/increment'
+  api :POST, '/v2/user_rates/:id/increment', 'Increment episodes/chapters by 1'
   def increment
     @resource.update increment_params
     respond_with @resource, location: nil

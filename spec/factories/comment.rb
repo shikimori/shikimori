@@ -11,7 +11,6 @@ FactoryGirl.define do
       comment.stub :check_access
       comment.stub :increment_comments
       comment.stub :creation_callbacks
-      comment.stub :notify_quotes
       comment.stub :release_the_banhammer!
       comment.stub :touch_commentable
     end
@@ -24,10 +23,6 @@ FactoryGirl.define do
     trait :offtopic do
       is_offtopic true
       body 'x' * Comment::MIN_SUMMARY_SIZE
-    end
-
-    trait :with_notify_quotes do
-      after(:build) { |comment| comment.unstub :notify_quotes }
     end
 
     trait :with_antispam do

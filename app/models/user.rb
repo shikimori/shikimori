@@ -282,7 +282,7 @@ class User < ApplicationRecord
   end
 
   def ignores? user
-    cached_ignores.any? { |v| v.target_id == user.id }
+    ignores.any? { |v| v.target_id == user.id }
   end
 
   def friended? user
@@ -364,10 +364,6 @@ private
 
   rescue OpenURI::HTTPError
     update avatar: open('app/assets/images/globals/missing_avatar/x160.png')
-  end
-
-  def cached_ignores
-    @ignores ||= ignores
   end
 
   def self.find_by_nickname nickname

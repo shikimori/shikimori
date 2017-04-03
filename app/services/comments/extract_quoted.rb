@@ -1,6 +1,4 @@
-class Comments::ExtractQuotes < ServiceObjectBase
-  pattr_initialize :text
-
+class Comments::ExtractQuoted
   MENTION = /(quote|comment|topic|mention)/
   REGEXP = %r{
     \[#{MENTION.source}=([^\]]+)\]
@@ -10,8 +8,13 @@ class Comments::ExtractQuotes < ServiceObjectBase
     \[/#{MENTION.source}\]
   }mx
 
-  def call
-    text.scan(REGEXP).map { |(tag, data)| extract tag, data }
+  def call text
+    results = text.to_s.scan(REGEXP).map { |(tag, data)| extract tag, data }
+
+    OpenStruct.new(
+      comments: results.map(&:first).compact.uniq,
+      users: results.map(&:second).compact.uniq
+    )
   end
 
 private
@@ -60,6 +63,7 @@ private
   def find klass, field, value
     @cache ||= {}
     @cache[klass] ||= {}
-    @cache[klass][field] ||= klass.find_by field => value
+    @cache[klass][field] ||= {}
+    @cache[klass][field][value] ||= klass.find_by field => value
   end
 end

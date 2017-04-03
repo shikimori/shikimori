@@ -71,11 +71,27 @@ describe Comment do
       it { expect(comment).to receive :creation_callbacks }
     end
 
-    describe '#notify_quotes' do
-      let(:comment) { build :comment }
-      after { comment.save }
-      it { expect(comment).to receive :notify_quotes }
-    end
+    # describe '#notify_quoted' do
+      # describe 'after_save' do
+        # context 'body changed' do
+          # let(:comment) { build :comment }
+          # after { comment.save }
+          # it { expect(comment).to receive :notify_quoted }
+        # end
+
+        # context 'body not changed' do
+          # let(:comment) { create :comment }
+          # after { comment.update is_offtopic: true }
+          # it { expect(comment).to_not receive :notify_quoted }
+        # end
+      # end
+
+      # describe 'after_destroy' do
+        # let(:comment) { create :comment }
+        # after { comment.destroy }
+        # it { expect(comment).to receive :notify_quoted }
+      # end
+    # end
 
     describe '#decrement_comments' do
       let(:comment) { create :comment }
@@ -175,58 +191,11 @@ describe Comment do
       end
     end
 
-    describe '#notify_quotes' do
-      let(:user) { create :user }
-      let(:user2) { create :user }
-      let(:topic) { create :topic, user: user }
-      let(:user_message) { Message.where(to_id: user.id, from_id: user2.id, kind: MessageType::QuotedByUser) }
-
-      subject { create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2 }
-
-      context 'quote' do
-        let(:text) { "[quote=200778;#{user.id};test2]test[/quote]" }
-        it { expect { subject }.to change(user_message, :count).by 1 }
-
-        context 'quote by ignored user' do
-          let!(:ignore) { create :ignore, user: user, target: user2 }
-          it { expect { subject }.to_not change user_message, :count }
-        end
-      end
-
-      context 'comment' do
-        let!(:comment) { create :comment, commentable: topic, user: user }
-        let(:text) { "[comment=#{comment.id}]test[/comment]" }
-        it { expect { subject }.to change(user_message, :count).by 1 }
-      end
-
-      context 'topic' do
-        let(:text) { "[topic=#{topic.id}]test[/topic]" }
-        it { expect { subject }.to change(user_message, :count).by 1 }
-      end
-
-      context 'mention' do
-        let(:text) { "[mention=#{user.id}]test[/mention]" }
-        it { expect { subject }.to change(user_message, :count).by 1 }
-      end
-
-      it 'notifies only once' do
-        text = "[mention=#{user.id}]test[/mention]"
-        expect {
-          create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2
-          Comment.wo_antispam { create :comment, body: text, commentable: topic, user: user2 }
-        }.to change(user_message, :count).by 1
-      end
-
-      it 'second notification when first one is read' do
-        text = "[mention=#{user.id}]test[/mention]"
-        create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2
-        Message.last.update_column :read, true
-
-        expect {
-          Comment.wo_antispam { create :comment, :with_notify_quotes, body: text, commentable: topic, user: user2 }
-        }.to change(user_message, :count).by 1
-      end
-    end
+    # describe '#notify_quoted' do
+      # before { allow(Comments::NotifyQuoted).to receive :call }
+      # let!(:comment) { create :comment }
+      # it { expect(Comments::NotifyQuoted).to have_received(:call).with comment }
+    # end
 
     describe '#forbid_tag_change' do
       let(:comment) { build :comment, body: body }

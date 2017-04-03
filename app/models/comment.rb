@@ -38,17 +38,18 @@ class Comment < ApplicationRecord
 
   before_create :check_access
   before_create :cancel_summary
-
   after_create :increment_comments
   after_create :creation_callbacks
-  after_create :notify_quotes
+
   after_save :release_the_banhammer!
   after_save :touch_commentable
+  after_save :notify_quoted, if: -> { body_changed? }
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
   after_destroy :remove_replies
   after_destroy :touch_commentable
+  after_destroy :remove_notifies
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
@@ -80,6 +81,7 @@ class Comment < ApplicationRecord
     end
   end
 
+  # TODO: get rid of this method
   # проверка можно ли добавлять комментарий в комментируемый объект
   def check_access
     # http://stackoverflow.com/a/3464012
@@ -96,6 +98,7 @@ class Comment < ApplicationRecord
     true
   end
 
+  # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def creation_callbacks
     commentable_klass = Object.const_get(self.commentable_type.to_sym)
@@ -108,6 +111,7 @@ class Comment < ApplicationRecord
     self.save if self.changed?
   end
 
+  # TODO: get rid of this method
   # для комментируемого объекта вызов колбеков, если они определены
   def destruction_callbacks
     commentable_klass = Object.const_get(self.commentable_type.to_sym)
@@ -117,7 +121,6 @@ class Comment < ApplicationRecord
   rescue ActiveRecord::RecordNotFound
   end
 
-  # убираение комментария из ответов
   def remove_replies
     notified_comments = []
 
@@ -129,32 +132,22 @@ class Comment < ApplicationRecord
     end
   end
 
-  # уведомление для цитируемых пользователей о том, что им ответили
-  def notify_quotes
-    notified_comments = []
-    notified_users = []
+  def notify_quoted
+    Comments::NotifyQuoted.call(
+      old_body: changes[:body].first,
+      new_body: changes[:body].second,
+      comment: self,
+      user: user
+    )
+  end
 
-    Comments::ExtractQuotes.call(body).each do |(quoted_comment, quoted_user)|
-      if quoted_comment && !notified_comments.include?(quoted_comment.id)
-        notified_comments << quoted_comment.id
-        ReplyService.new(quoted_comment).append_reply self
-      end
-
-      # игнорируем цитаты самому себе и пользователей, которым уже создали уведомления
-      if quoted_user && quoted_user.id != self.user_id &&
-          !notified_users.include?(quoted_user.id) &&
-          !quoted_user.ignores?(user)
-
-        notified_users << quoted_user.id
-
-        Message.create_wo_antispam!(
-          from_id: user_id,
-          to_id: quoted_user.id,
-          kind: MessageType::QuotedByUser,
-          linked: self
-        )
-      end
-    end
+  def remove_notifies
+    Comments::NotifyQuoted.call(
+      old_body: body,
+      new_body: '',
+      comment: self,
+      user: user
+    )
   end
 
   # автобан за мат
