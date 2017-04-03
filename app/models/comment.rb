@@ -132,7 +132,7 @@ class Comment < ApplicationRecord
   def remove_notifies
     Comments::NotifyQuoted.call(
       old_body: body,
-      new_body: '',
+      new_body: nil,
       comment: self,
       user: user
     )

@@ -71,27 +71,29 @@ describe Comment do
       it { expect(comment).to receive :creation_callbacks }
     end
 
-    # describe '#notify_quoted' do
-      # describe 'after_save' do
-        # context 'body changed' do
-          # let(:comment) { build :comment }
-          # after { comment.save }
-          # it { expect(comment).to receive :notify_quoted }
-        # end
+    describe '#notify_quoted' do
+      describe 'after_save' do
+        context 'body changed' do
+          let(:comment) { build :comment }
+          after { comment.save }
+          it { expect(comment).to receive :notify_quoted }
+        end
 
-        # context 'body not changed' do
-          # let(:comment) { create :comment }
-          # after { comment.update is_offtopic: true }
-          # it { expect(comment).to_not receive :notify_quoted }
-        # end
-      # end
+        context 'body not changed' do
+          let(:comment) { create :comment }
+          after { comment.update is_offtopic: true }
+          it { expect(comment).to_not receive :notify_quoted }
+        end
+      end
+    end
 
-      # describe 'after_destroy' do
-        # let(:comment) { create :comment }
-        # after { comment.destroy }
-        # it { expect(comment).to receive :notify_quoted }
-      # end
-    # end
+    describe '#remove_notifies' do
+      describe 'after_destroy' do
+        let(:comment) { create :comment }
+        after { comment.destroy }
+        it { expect(comment).to receive :remove_notifies }
+      end
+    end
 
     describe '#decrement_comments' do
       let(:comment) { create :comment }
@@ -147,12 +149,6 @@ describe Comment do
         it { expect(topic.commented_at).to eq Time.zone.now }
       end
     end
-
-    describe '#remove_replies' do
-      let(:comment) { create :comment }
-      after { comment.destroy }
-      it { expect(comment).to receive :remove_replies }
-    end
   end
 
   describe 'instance methods' do
@@ -191,11 +187,32 @@ describe Comment do
       end
     end
 
-    # describe '#notify_quoted' do
-      # before { allow(Comments::NotifyQuoted).to receive :call }
-      # let!(:comment) { create :comment }
-      # it { expect(Comments::NotifyQuoted).to have_received(:call).with comment }
-    # end
+    describe '#notify_quoted' do
+      before { allow(Comments::NotifyQuoted).to receive :call }
+      let!(:comment) { create :comment }
+      it do
+        expect(Comments::NotifyQuoted).to have_received(:call).with(
+          old_body: nil,
+          new_body: comment.body,
+          comment: comment,
+          user: comment.user
+        )
+      end
+    end
+
+    describe '#remove_notifies' do
+      let!(:comment) { create :comment }
+      before { allow(Comments::NotifyQuoted).to receive :call }
+      before { comment.destroy }
+      it do
+        expect(Comments::NotifyQuoted).to have_received(:call).with(
+          old_body: comment.body,
+          new_body: nil,
+          comment: comment,
+          user: comment.user
+        )
+      end
+    end
 
     describe '#forbid_tag_change' do
       let(:comment) { build :comment, body: body }
