@@ -50,7 +50,7 @@ class FayeService
   # уведомление о том, что у комментария изменился блок с ответами
   def set_replies comment
     replies_text = if comment.body =~ BbCodes::RepliesTag::REGEXP
-      $~[:tag]
+      $LAST_MATCH_INFO[:tag]
     else
       ''
     end

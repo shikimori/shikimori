@@ -47,7 +47,6 @@ class Comment < ApplicationRecord
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
-  after_destroy :remove_replies
   after_destroy :touch_commentable
   after_destroy :remove_notifies
 
@@ -119,17 +118,6 @@ class Comment < ApplicationRecord
 
     commentable.comment_deleted(self) if commentable.respond_to?(:comment_deleted)
   rescue ActiveRecord::RecordNotFound
-  end
-
-  def remove_replies
-    notified_comments = []
-
-    Comments::ExtractQuotes.call(body).each do |(quoted_comment, _)|
-      if quoted_comment && !notified_comments.include?(quoted_comment.id)
-        notified_comments << quoted_comment.id
-        ReplyService.new(quoted_comment).remove_reply self
-      end
-    end
   end
 
   def notify_quoted

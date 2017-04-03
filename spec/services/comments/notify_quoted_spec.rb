@@ -12,20 +12,36 @@ describe Comments::NotifyQuoted do
   let(:quoted_user) { create :user }
   let(:comment_owner) { comment.user }
   let(:comment) { create :comment }
+  let(:quoted_comment) { create :comment, body: 'zzz' }
 
   let(:old_body) { '' }
   let(:new_body) { "[quote=200778;#{quoted_user.id};test2]test[/quote]" }
 
   describe 'quote types' do
     context 'quote' do
-      let(:new_body) { "[quote=200778;#{quoted_user.id};test2]test[/quote]" }
-      it { expect { subject }.to change(Message, :count).by 1 }
+      context 'without comment' do
+        let(:new_body) { "[quote=9999999;#{quoted_user.id};test2]test[/quote]" }
+        it do
+          expect { subject }.to change(Message, :count).by 1
+          expect(quoted_comment.reload.body).to eq 'zzz'
+        end
+      end
+
+      context 'with comment' do
+        let(:new_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
+        it do
+          expect { subject }.to change(Message, :count).by 1
+          expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+        end
+      end
     end
 
     context 'comment' do
-      let!(:comment_2) { create :comment }
-      let(:new_body) { "[comment=#{comment_2.id}]test[/comment]" }
-      it { expect { subject }.to change(Message, :count).by 1 }
+      let(:new_body) { "[comment=#{quoted_comment.id}]test[/comment]" }
+      it do
+        expect { subject }.to change(Message, :count).by 1
+        expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+      end
     end
 
     context 'topic' do
@@ -48,7 +64,7 @@ describe Comments::NotifyQuoted do
   context 'single quote' do
     let(:new_body) do
       <<~TEXT
-        [quote=888888;#{quoted_user.id};test2]test[/quote]
+        [quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]
       TEXT
     end
     it do
@@ -58,17 +74,20 @@ describe Comments::NotifyQuoted do
         kind: MessageType::QuotedByUser,
         linked: comment
       )
+      expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
     end
   end
 
   context 'multiple quotes' do
+    let(:quoted_comment_1) { create :comment, user: quoted_user_1, body: 'xxx' }
+    let(:quoted_comment_2) { create :comment, user: quoted_user_2, body: 'ccc' }
     let(:quoted_user_1) { create :user }
     let(:quoted_user_2) { create :user }
 
     let(:new_body) do
       <<~TEXT
-        [quote=888888;#{quoted_user_1.id};test2]test[/quote]
-        [quote=999999;#{quoted_user_2.id};test2]test[/quote]
+        [quote=c#{quoted_comment_1.id};#{quoted_user_1.id};test2]test[/quote]
+        [quote=c#{quoted_comment_2.id};#{quoted_user_2.id};test3]test[/quote]
       TEXT
     end
     it do
@@ -83,17 +102,32 @@ describe Comments::NotifyQuoted do
         kind: MessageType::QuotedByUser,
         linked: comment
       )
+      expect(quoted_comment_1.reload.body).to eq "xxx\n\n[replies=#{comment.id}]"
+      expect(quoted_comment_2.reload.body).to eq "ccc\n\n[replies=#{comment.id}]"
     end
-  end
 
-  context 'same user quotes' do
-    let(:new_body) do
-      <<~TEXT
-        [quote=888888;#{quoted_user.id};test2]test[/quote]
-        [quote=999999;#{quoted_user.id};test2]test[/quote]
-      TEXT
+    context 'same user quotes' do
+      let(:new_body) do
+        <<~TEXT
+          [quote=888888;#{quoted_user.id};test2]test[/quote]
+          [quote=999999;#{quoted_user.id};test2]test[/quote]
+        TEXT
+      end
+      it { expect { subject }.to change(Message, :count).by 1 }
     end
-    it { expect { subject }.to change(Message, :count).by 1 }
+
+    context 'same comment quotes' do
+      let(:new_body) do
+        <<~TEXT
+          [quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]
+          [quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]
+        TEXT
+      end
+      it do
+        expect { subject }.to change(Message, :count).by 1
+        expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+      end
+    end
   end
 
   context 'with notification exists' do
@@ -107,7 +141,8 @@ describe Comments::NotifyQuoted do
     it { expect { subject }.to_not change Message, :count }
 
     context 'removed quote' do
-      let(:old_body) { "[quote=200778;#{quoted_user.id};test2]test[/quote]" }
+      let(:quoted_comment) { create :comment, body: "zzz\n\n[replies=#{comment.id}]" }
+      let(:old_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
       let(:new_body) { '' }
 
       let!(:message) do
@@ -118,7 +153,38 @@ describe Comments::NotifyQuoted do
           linked: comment
       end
 
-      it { expect { subject }.to change(Message, :count).by(-1) }
+      it do
+        expect { subject }.to change(Message, :count).by(-1)
+        expect(quoted_comment.reload.body).to eq 'zzz'
+      end
+    end
+
+    context 'changed quote' do
+      let(:quoted_comment_1) { create :comment, body: "zzz\n\n[replies=#{comment.id}]" }
+      let(:quoted_comment_2) { create :comment, body: 'xxx' }
+      let(:another_user) { create :user }
+      let(:old_body) { "[quote=c#{quoted_comment_1.id};#{another_user.id};test2]test[/quote]" }
+      let(:new_body) { "[quote=c#{quoted_comment_2.id};#{quoted_user.id};test2]test[/quote]" }
+
+      let!(:message) do
+        create :message,
+          to: another_user,
+          from: comment_owner,
+          kind: MessageType::QuotedByUser,
+          linked: comment
+      end
+
+      it do
+        expect { subject }.to_not change Message, :count
+        expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(quoted_user.messages.first).to have_attributes(
+          from_id: comment_owner.id,
+          kind: MessageType::QuotedByUser,
+          linked: comment
+        )
+        expect(quoted_comment_1.reload.body).to eq 'zzz'
+        expect(quoted_comment_2.reload.body).to eq "xxx\n\n[replies=#{comment.id}]"
+      end
     end
   end
 end

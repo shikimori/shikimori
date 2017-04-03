@@ -4,13 +4,30 @@ class Comments::NotifyQuoted
   ANTISPAM_LIMIT = 15
 
   def call
+    notify_messages
+    notify_quotes
+  end
+
+private
+
+  def notify_messages
     Message.wo_antispam do
       Message.import messages_to_create
     end
     messages_to_destroy.each(&:destroy)
   end
 
-private
+  # rubocop:disable AbcSize
+  def notify_quotes
+    (new_quoted.comments - old_quoted.comments).each do |comment|
+      ReplyService.new(comment).append_reply @comment
+    end
+
+    (old_quoted.comments - new_quoted.comments).each do |comment|
+      ReplyService.new(comment).remove_reply @comment
+    end
+  end
+  # rubocop:enable AbcSize
 
   def messages_to_create
     users_to_notify.map do |user|
@@ -66,29 +83,3 @@ private
     @extract_quoted_service ||= Comments::ExtractQuoted.new
   end
 end
-
-# notified_comments = []
-# notified_users = []
-
-# quotes.each_with_index do |(quoted_comment, quoted_user), index|
-  # next if index > ANTISPAM_LIMIT
-
-  # if quoted_comment && !notified_comments.include?(quoted_comment.id)
-    # notified_comments << quoted_comment.id
-    # ReplyService.new(quoted_comment).append_reply @comment
-  # end
-
-  # if quoted_user && quoted_user.id != @comment.user_id &&
-      # !notified_users.include?(quoted_user.id) &&
-      # !quoted_user.ignores?(@comment.user)
-
-    # notified_users << quoted_user.id
-
-    # Message.create_wo_antispam!(
-      # to: quoted_user,
-      # from: @comment.user,
-      # kind: MessageType::QuotedByUser,
-      # linked: @comment
-    # )
-  # end
-# end
