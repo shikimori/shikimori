@@ -3,31 +3,25 @@ class Comments::NotifyQuoted
 
   ANTISPAM_LIMIT = 15
 
+  # rubocop:disable AbcSize
   def call
-    notify_messages
-    notify_quotes
-  end
-
-private
-
-  def notify_messages
     Message.wo_antispam do
       Message.import messages_to_create
     end
     messages_to_destroy.each(&:destroy)
-  end
 
-  # rubocop:disable AbcSize
-  def notify_quotes
-    (new_quoted.comments - old_quoted.comments).each do |comment|
-      ReplyService.new(comment).append_reply @comment
-    end
-
-    (old_quoted.comments - new_quoted.comments).each do |comment|
-      ReplyService.new(comment).remove_reply @comment
-    end
+    reply new_quoted.comments - old_quoted.comments, :append
+    reply old_quoted.comments - new_quoted.comments, :remove
   end
   # rubocop:enable AbcSize
+
+private
+
+  def reply comments, action
+    comments
+      .select { |v| v.user_id != @user.id }
+      .each { |v| ReplyService.new(v).send :"#{action}_reply", @comment }
+  end
 
   def messages_to_create
     users_to_notify.map do |user|
@@ -42,7 +36,7 @@ private
 
   # rubocop:disable AbcSize
   def users_to_notify
-    users = new_quoted.users - old_quoted.users
+    users = new_quoted.users - old_quoted.users - [@user]
     return [] if users.none?
 
     ignores = Ignore.where(user_id: users.map(&:id), target: @user)

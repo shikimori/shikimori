@@ -68,7 +68,6 @@ describe Viewing::BulkCreate do
     let!(:reply_comment) do
       create(
         :comment,
-        :with_notify_quotes,
         commentable: topic,
         user: create(:user),
         body: "[comment=#{original_comment.id}]ня[/comment]"

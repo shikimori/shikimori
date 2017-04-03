@@ -12,7 +12,7 @@ describe Comments::NotifyQuoted do
   let(:quoted_user) { create :user }
   let(:comment_owner) { comment.user }
   let(:comment) { create :comment }
-  let(:quoted_comment) { create :comment, body: 'zzz' }
+  let(:quoted_comment) { create :comment, body: 'zzz', user: quoted_user }
 
   let(:old_body) { '' }
   let(:new_body) { "[quote=200778;#{quoted_user.id};test2]test[/quote]" }
@@ -34,6 +34,15 @@ describe Comments::NotifyQuoted do
           expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
         end
       end
+
+      context 'with self comment' do
+        let(:quoted_user) { comment_owner }
+        let(:new_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
+        it do
+          expect { subject }.to_not change Message, :count
+          expect(quoted_comment.reload.body).to eq 'zzz'
+        end
+      end
     end
 
     context 'comment' do
@@ -53,6 +62,11 @@ describe Comments::NotifyQuoted do
     context 'mention' do
       let(:new_body) { "[mention=#{quoted_user.id}]test[/mention]" }
       it { expect { subject }.to change(Message, :count).by 1 }
+    end
+
+    context 'self quote' do
+      let(:new_body) { "[mention=#{comment_owner.id}]test[/mention]" }
+      it { expect { subject }.to_not change Message, :count }
     end
   end
 
@@ -141,7 +155,11 @@ describe Comments::NotifyQuoted do
     it { expect { subject }.to_not change Message, :count }
 
     context 'removed quote' do
-      let(:quoted_comment) { create :comment, body: "zzz\n\n[replies=#{comment.id}]" }
+      let(:quoted_comment) do
+        create :comment,
+          body: "zzz\n\n[replies=#{comment.id}]",
+          user: quoted_user
+      end
       let(:old_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
       let(:new_body) { '' }
 
@@ -160,15 +178,23 @@ describe Comments::NotifyQuoted do
     end
 
     context 'changed quote' do
-      let(:quoted_comment_1) { create :comment, body: "zzz\n\n[replies=#{comment.id}]" }
-      let(:quoted_comment_2) { create :comment, body: 'xxx' }
+      let(:quoted_comment_1) do
+        create :comment,
+          body: "zzz\n\n[replies=#{comment.id}]",
+          user: quoted_user
+      end
+      let(:quoted_comment_2) do
+        create :comment,
+          body: 'xxx',
+          user: another_user
+      end
       let(:another_user) { create :user }
-      let(:old_body) { "[quote=c#{quoted_comment_1.id};#{another_user.id};test2]test[/quote]" }
-      let(:new_body) { "[quote=c#{quoted_comment_2.id};#{quoted_user.id};test2]test[/quote]" }
+      let(:old_body) { "[quote=c#{quoted_comment_1.id};#{quoted_user.id};test2]test[/quote]" }
+      let(:new_body) { "[quote=c#{quoted_comment_2.id};#{another_user.id};test2]test[/quote]" }
 
       let!(:message) do
         create :message,
-          to: another_user,
+          to: quoted_user,
           from: comment_owner,
           kind: MessageType::QuotedByUser,
           linked: comment
@@ -177,7 +203,7 @@ describe Comments::NotifyQuoted do
       it do
         expect { subject }.to_not change Message, :count
         expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
-        expect(quoted_user.messages.first).to have_attributes(
+        expect(another_user.messages.first).to have_attributes(
           from_id: comment_owner.id,
           kind: MessageType::QuotedByUser,
           linked: comment
