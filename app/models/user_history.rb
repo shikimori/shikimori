@@ -20,7 +20,7 @@ class UserHistory < ApplicationRecord
     # при изменении на тоже самое значение ничего не делаем
     return if value && value == prior_value
     last_entry = UserHistory
-      .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+      .where(user_id: user.is_a?(Integer) ? user : user.id)
       .where(target_type: item.class.name)
       .order(id: :desc)
       .first
@@ -55,7 +55,7 @@ class UserHistory < ApplicationRecord
 
       when UserHistoryAction::Add
         last_delete = UserHistory
-          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target_type: item.class.name)
           .where(target_id: item.id)
           .where(action: UserHistoryAction::Delete)
@@ -69,7 +69,7 @@ class UserHistory < ApplicationRecord
 
       when UserHistoryAction::Delete
         prior_entries = UserHistory
-          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target_type: item.class.name)
           .where(target_id: item.id)
           .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
@@ -90,8 +90,8 @@ class UserHistory < ApplicationRecord
       when UserHistoryAction::Rate
         # если prior_value=nil, то считаем, что это ноль
         prior_value = 0 unless prior_value
-        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Fixnum") unless prior_value.is_a?(Fixnum) || prior_value.is_a(Bignum)
-        raise RuntimeError.new("Got value #{prior_value.class.name}, but expected Fixnum") unless value.is_a?(Fixnum) || value.is_a(Bignum)
+        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Integer") unless prior_value.is_a?(Integer)
+        raise RuntimeError.new("Got value #{prior_value.class.name}, but expected Integer") unless value.is_a?(Integer)
 
         value = 10 if value > 10
         value = 0 if value < 0
@@ -117,14 +117,14 @@ class UserHistory < ApplicationRecord
         end
 
         no_last_this_entry_search = true
-        raise RuntimeError.new("Got value #{value.class.name}, but expected Fixnum") unless value.is_a?(Fixnum)
+        raise RuntimeError.new("Got value #{value.class.name}, but expected Integer") unless value.is_a?(Integer)
 
         # если prior_value=nil, то считаем, что это ноль
         prior_value = 0 unless prior_value
-        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Fixnum") unless prior_value.is_a?(Fixnum)
+        raise RuntimeError.new("Got prior_value #{prior_value.class.name}, but expected Integer") unless prior_value.is_a?(Integer)
 
         prior_entries = UserHistory
-          .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+          .where(user_id: user.is_a?(Integer) ? user : user.id)
           .where(target_type: item.class.name)
           .where(target_id: item.id)
           .where(action: action)
@@ -175,7 +175,7 @@ class UserHistory < ApplicationRecord
     unless no_last_this_entry_search
       entry = UserHistory
         .where("updated_at > ?", BackwardCheckInterval.ago)
-        .where(user_id: user.is_a?(Fixnum) ? user : user.id)
+        .where(user_id: user.is_a?(Integer) ? user : user.id)
         .where(target: item)
         .where(action: action)
         .first
@@ -194,7 +194,7 @@ class UserHistory < ApplicationRecord
     end
 
     entry ||= UserHistory.new(
-      user_id: user.is_a?(Fixnum) ? user : user.id,
+      user_id: user.is_a?(Integer) ? user : user.id,
       target_id: item.id,
       target_type: item.class.name,
       action: action

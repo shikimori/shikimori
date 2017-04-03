@@ -54,8 +54,8 @@ module AnimeHelper
 
   def average_score(scores)
     return '' unless scores
-    return '' if scores.respond_to?(:[]) && !scores.kind_of?(Fixnum) && (scores.empty? || scores.sum == 0)
-    return scores unless scores.respond_to?(:[]) && !scores.kind_of?(Fixnum)
+    return '' if scores.respond_to?(:[]) && !scores.is_a?(Integer) && (scores.empty? || scores.sum == 0)
+    return scores unless scores.respond_to?(:[]) && !scores.is_a?(Integer)
     total = 0
     scores.each_with_index do |v,k|
       total += (k+1)*v
