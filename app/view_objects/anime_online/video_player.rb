@@ -58,6 +58,12 @@ class AnimeOnline::VideoPlayer
       .group_by { |anime_video| anime_video.kind_text }
   end
 
+  def all_kind?
+    videos_by_kind.many? ||
+      videos.group_by { |anime_video| anime_video.kind_text }.many? ||
+      videos.any? { |anime_video| !anime_video.allowed? }
+  end
+
   def anime_video_episodes
     AnimeOnline::AnimeVideoEpisodes.call(@anime)
   end

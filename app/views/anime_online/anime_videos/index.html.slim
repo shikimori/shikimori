@@ -38,7 +38,7 @@
                 .video-variant-switcher[
                   data-kind="#{videos.first.kind}"
                 ] = kind_text
-              - if @player.videos_by_kind.many?
+              - if @player.all_kind?
                 .video-variant-switcher data-kind="all" все
 
             - if @player.videos_by_kind.any?

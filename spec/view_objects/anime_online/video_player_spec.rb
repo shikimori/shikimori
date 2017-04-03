@@ -88,6 +88,76 @@ describe AnimeOnline::VideoPlayer do
     end
   end
 
+  describe '#all_kind?' do
+    subject { player.all_kind? }
+
+    context 'no videos' do
+      it { is_expected.to eq false }
+    end
+
+    context 'one kind' do
+      let!(:video_1) do
+        create :anime_video, :fandub,
+          url: 'http://online.animedia.tv/embed/14678/1/8',
+          anime: anime
+      end
+      let!(:video_2) do
+        create :anime_video, :fandub,
+          url: attributes_for(:anime_video)[:url],
+          anime: anime
+      end
+
+      it { is_expected.to eq false }
+
+      context 'one is broken' do
+        let!(:video_2) do
+          create :anime_video, :fandub, :broken,
+            url: attributes_for(:anime_video)[:url],
+            anime: anime
+        end
+        it { is_expected.to eq true }
+      end
+
+      context 'all are broken' do
+        let!(:video_1) do
+          create :anime_video, :fandub, :broken,
+            url: 'http://online.animedia.tv/embed/14678/1/8',
+            anime: anime
+        end
+        let!(:video_2) do
+          create :anime_video, :fandub, :broken,
+            url: attributes_for(:anime_video)[:url],
+            anime: anime
+        end
+        it { is_expected.to eq true }
+      end
+    end
+
+    context 'two kinds' do
+      let!(:video_1) do
+        create :anime_video, :subtitles,
+          url: 'http://online.animedia.tv/embed/14678/1/8',
+          anime: anime
+      end
+      let!(:video_2) do
+        create :anime_video, :fandub,
+          url: attributes_for(:anime_video)[:url],
+          anime: anime
+      end
+
+      it { is_expected.to eq true }
+
+      context 'one is broken' do
+        let!(:video_2) do
+          create :anime_video, :fandub, :broken,
+            url: attributes_for(:anime_video)[:url],
+            anime: anime
+        end
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
   describe '#same_videos' do
     let(:anime) { create :anime }
 
