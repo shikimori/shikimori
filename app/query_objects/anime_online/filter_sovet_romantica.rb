@@ -16,7 +16,9 @@ private
   def duplicate? video
     return unless video.author_name&.include?(AUTHOR_NAME)
 
-    sv_videos.any? { |sv_video| sv_video.kind == video.kind }
+    sv_videos.any? do |sv_video|
+      sv_video.allowed? && sv_video.kind == video.kind
+    end
   end
 
   def sv_videos
