@@ -86,7 +86,7 @@ GIT
   revision: 2a093289fb2722fceb4599e6893ed3b3addf0659
   branch: rack_ruby_2+
   specs:
-    rack-contrib (1.4.0.2.g2a09328)
+    rack-contrib (0.0.0.1.ENOGVB)
       git-version-bump (~> 0.15)
       rack (>= 1.4)
 
@@ -857,4 +857,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.14.5
+   1.14.6
