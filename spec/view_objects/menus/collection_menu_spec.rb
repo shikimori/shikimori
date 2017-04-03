@@ -26,9 +26,9 @@ describe Menus::CollectionMenu do
     end
   end
 
-  describe '#seasons', :focus do
+  describe '#seasons' do
     let(:texts) { view.seasons.map(&:text) }
-    # it { expect(view.seasons.first).to be_kind_of Titles::SeasonTitle }
+    it { expect(view.seasons.first).to be_kind_of Titles::SeasonTitle }
 
     describe do
       include_context :timecop, '2015-10-11'
