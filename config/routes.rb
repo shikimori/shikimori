@@ -567,6 +567,7 @@ Rails.application.routes.draw do
 
     # seo redirects
     constraints kind: /animes|mangas/, other: /.*/, other2: /.*/ do
+      get ':kind/status/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
       get ':kind/season/planned:other' => redirect { |params, request| "/#{params[:kind]}/status/anons#{params[:other]}" }
       get ':kind/season/ongoing:other' => redirect { |params, request| "/#{params[:kind]}/status/ongoing#{params[:other]}" }
       get ':kind/season/latest:other' => redirect { |params, request| "/#{params[:kind]}/status/latest#{params[:other]}" }
