@@ -41,7 +41,7 @@
               - if @player.all_kind?
                 .video-variant-switcher data-kind="all" все
 
-            - if @player.videos_by_kind.any?
+            - if @player.videos.any?
               - @player.videos_by_kind.each do |kind_text, videos|
                 .video-variant-group[
                   data-kind="#{videos.first.kind}"
