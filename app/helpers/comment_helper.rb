@@ -85,7 +85,7 @@ module CommentHelper
   #end
 
   def spoiler_to_html text, nesting = 0
-    return text if nesting > 2
+    return text if nesting > 10
     text = spoiler_to_html text, nesting + 1
 
     #/\[spoiler\](?:<br ?\/?>|\n)?(.*?)(?:<br ?\/?>|\n)?\[\/spoiler\](?:<br ?\/?>|\n)?/mi,
