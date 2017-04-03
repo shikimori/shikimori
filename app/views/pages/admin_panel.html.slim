@@ -2,6 +2,14 @@
 
 article
   .metric
+    b Ruby:
+    span #{RUBY_VERSION}
+
+  .metric
+    b Code:
+    span #{@code[0..6]}
+
+  .metric
     b Disk:
     span #{@disk_space}%
 
@@ -27,7 +35,7 @@ article
 
   - if @last_episodes_message
     .metric class="#{:alert if @last_episodes_message < 1.day.ago}"
-      b Last Episode Message:
+      b Last Episode:
       span = time_ago_in_words @last_episodes_message
 
   / - if @calendar_update
