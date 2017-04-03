@@ -13,11 +13,17 @@ class @CommentsNotifier
     # при загрузке новой страницы вставляем в DOM счётчик
     $(document).on 'page:load', @insert
     # при прочтении комментов, декрементим счётчик
-    $(document).on 'appear', @decrement_counter
+    $(document).on 'appear', @appear
     # при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on 'faye:added', @increment_counter
     # при загрузке контента аяксом, fayer-loader'ом, postloader'ом, при перезагрузке страницы
     $(document).on 'page:load page:restore faye:loaded ajax:success postloader:success', @refresh
+
+    # явное указание о скрытии
+    $(document).on 'disappear', @decrement_counter
+    # при добавление блока о новом комментарии/топике делаем инкремент
+    $(document).on 'reappear', @increment_counter
+
 
     # смещение вверх-вниз блока уведомлялки
     @max_top = 31
@@ -67,15 +73,19 @@ class @CommentsNotifier
       @$notifier.hide()
 
   # уменьшение счётчика по исчезанию элементов
-  decrement_counter: (e, $appeared, by_click) =>
+  appear: (e, $appeared, by_click) =>
     $nodes = $appeared
       .filter("#{@comment_selector}, #{@faye_loader_selector}")
       .not -> $(@).data 'disabled'
 
     @update @current_counter - $nodes.length
 
+  # уменьшение счётчика по исчезанию элемента
+  decrement_counter: =>
+    @update @current_counter - 1
+
   # увеличение счётчика по появлению новых элементов
-  increment_counter: (e) =>
+  increment_counter: =>
     @update @current_counter + 1
 
   # смещение счётчика вслед за скролом страницы
