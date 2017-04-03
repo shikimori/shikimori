@@ -27,7 +27,7 @@ class Versions::PosterVersion < Version
 
   def latest_image?
     item.image_file_name&.gsub(/\S/, '_') ==
-      item_diff['image'][1].gsub(/\S/, '_')
+      item_diff['image'][1]&.gsub(/\S/, '_')
   end
 
   def deleteable?
