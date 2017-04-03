@@ -126,28 +126,13 @@ describe VideoExtractor::UrlExtractor do
 
     describe 'rutube' do
       describe do
-        let(:html) { '<iframe type="text/html" width="730" height="480" src="http://rutube.ru/video/embed/6504640" frameborder="0"></iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/6504640' }
+        let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/8c8bbdc632726555649d45c2c6a273c0" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
+        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
       end
 
       describe do
-        let(:html) { '<iframe width="730" height="480" src="http://rutube.ru/embed/6127963" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen scrolling="no"> </iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/6127963' }
-      end
-
-      describe do
-        let(:html) { '<iframe width="730" height="480" src="//rutube.ru/video/embed/6661157" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/6661157' }
-      end
-
-      describe do
-        let(:html) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/7300160?wmode=opaque&amp;autoStart=true" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="video_frame"></iframe>' }
-        it { is_expected.to eq '//rutube.ru/play/embed/7300160' }
-      end
-
-      describe do
-        let(:html) { 'http://rutube.ru/embed/?v=4858718' }
-        it { is_expected.to eq '//rutube.ru/play/embed/4858718' }
+        let(:html) { '<iframe width="720" height="405" src="//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0?wmode=opaque&amp;autoStart=true" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" id="video_frame"></iframe>' }
+        it { is_expected.to eq '//rutube.ru/play/embed/8c8bbdc632726555649d45c2c6a273c0' }
       end
 
       describe do
@@ -175,10 +160,15 @@ describe VideoExtractor::UrlExtractor do
         it { is_expected.to eq '//rutube.ru/play/embed/3c6027aa9c4ed58a565675ce80b91412' }
       end
 
-      # describe focus: true do
-        # let(:html) { 'http://rutube.ru/video/ae6031d81001fbbbc51fd2078ceaeaf3/' }
-        # it { is_expected.to eq '//rutube.ru/player.swf?hash=f39eb2639050f64b5ebf4c4a9436f2c3' }
-      # end
+      describe 'url with hash is preferred', :focus do
+        let(:html) { '<iframe width="720" height="405" src="http://rutube.ru/play/embed/10259993" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowfullscreen></iframe> <p><a href="https://rutube.ru/video/2f462d5bd2040fb8f9923cf0b19f9de7/">Тёмная книга мира &#x2F; Sekai no Yami Zukan[01 из 12][Русские субтитры: Wizzar63][AnimeMovie]</a> от <a href="https://rutube.ru/video/person/183426/">Wizzar63</a> на <a href="https://rutube.ru">Rutube</a>.</p>' }
+        it { is_expected.to eq '//rutube.ru/play/embed/2f462d5bd2040fb8f9923cf0b19f9de7' }
+      end
+
+      describe 'id converted to hash', vcr: { cassette_name: 'url_extractor' } do
+        let(:html) { 'http://rutube.ru/play/embed/10259595' }
+        it { is_expected.to eq '//rutube.ru/play/embed/8d2ba036c95314a62ce8a0fed801c81d' }
+      end
     end
 
     describe 'sibnet' do

@@ -20,29 +20,6 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
       )
   }mix
 
-  RUTUBE_HASH_REGEXP = %r{
-    #{HTTP}
-      (?: video\. )?
-      rutube\.ru
-      (?:
-        ( /player\.swf | /tracks/#{PARAM}\.html | / )
-        \? (?: hash|v ) = (?<hash>#{PARAM})
-          |
-        (?: /video )? / (?<hash>#{PARAM}) /? (?:$|"|'|>)
-      )
-  }mix
-  RUTUBE_EMBED_REGEXP = %r{
-    #{HTTP}
-      (video\.)?rutube.ru
-
-      (?:
-        (?: /embed | /video/embed | /play/embed )
-        / (?<id> \w+ )
-          |
-        / embed
-        /\?v= (?<id> \w+ )
-      )
-  }mix
   ANIMEDIA_REGEXP = %r{
     (?<url>
       #{HTTP}online.animedia.tv
@@ -60,20 +37,23 @@ class VideoExtractor::UrlExtractor < ServiceObjectBase
   pattr_initialize :content
 
   def call
-    if parsed_url
-      fixed_url = parsed_url
-        .gsub('&amp;', '&')
-        .sub(%r{[\]\[=\\]+$}, '')
-        .sub(%r{\|.*}, '')
-
-      Url.new(fixed_url).without_protocol.to_s
-    else
-      data = VideoExtractor.fetch url
-      data.player_url if data
-    end
+    player_url = parsed_url || extracted_url
+    Url.new(player_url).without_protocol.to_s if player_url
   end
 
 private
+
+  def parsed_url
+    parse_url
+      &.gsub('&amp;', '&')
+      &.sub(%r{[\]\[=\\]+$}, '')
+      &.sub(%r{\|.*}, '')
+  end
+
+  def extracted_url
+    data = VideoExtractor.fetch url
+    data.player_url if data
+  end
 
   def url
     @url ||= @content.to_s.strip
@@ -90,7 +70,7 @@ private
   # rubocop:disable AbcSize
   # rubocop:disable MethodLength
   # rubocop:disable LineLenghth
-  def parsed_url
+  def parse_url
     if html =~ %r{(?<url>#{HTTP}(?:vk.com|vkontakte.ru)/video_ext#{CONTENT})}
       cleanup_params $LAST_MATCH_INFO[:url], %w(oid id hash)
     elsif html =~ %r{#{HTTP}myvi.(ru|tv)/(#{CONTENT}/)+(preloader.swf\?id=)?(?<hash>#{CONTENT})}
@@ -128,12 +108,14 @@ private
       $LAST_MATCH_INFO[:url]
     elsif html =~ SMOTRET_ANIME_REGEXP
       "https://smotret-anime.ru/translations/embed/#{$LAST_MATCH_INFO[:id]}"
-    elsif html =~ RUTUBE_HASH_REGEXP
-      "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
-    elsif html =~ RUTUBE_EMBED_REGEXP
-      "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:id]}"
-    elsif html =~ VideoExtractor::OpenGraphExtractor::RUTUBE_SRC_REGEX
-      "http://rutube.ru/play/embed/#{$LAST_MATCH_INFO[:hash]}"
+    elsif html =~ VideoExtractor::RutubeExtractor::URL_REGEX
+      if $LAST_MATCH_INFO[:hash].size > 10
+        VideoExtractor::RutubeExtractor::URL_TEMPLATE % [
+          $LAST_MATCH_INFO[:hash]
+        ]
+      else
+        nil # result will be given by VideoExtractor::RutubeExtractor
+      end
     elsif html =~ %r{#{HTTP}play.aniland.org/(?<hash>\w+)}
       "http://play.aniland.org/#{$LAST_MATCH_INFO[:hash]}?player=8"
     elsif html =~ SOVET_ROMANTICA_REGEXP

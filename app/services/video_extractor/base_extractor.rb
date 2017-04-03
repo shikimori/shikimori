@@ -1,5 +1,6 @@
 class VideoExtractor::BaseExtractor
   vattr_initialize :url
+  attr_implement :parse_data
 
   ALLOWED_EXCEPTIONS = [Errno::ECONNRESET, Net::ReadTimeout]
 
@@ -7,6 +8,10 @@ class VideoExtractor::BaseExtractor
     @parsed_url ||= @url if URI.parse @url
   rescue
     @parsed_url ||= URI.encode @url
+  end
+
+  def fetch_url
+    url
   end
 
   def fetch
@@ -39,7 +44,7 @@ class VideoExtractor::BaseExtractor
   end
 
   def self.valid_url? url
-    url =~ self::URL_REGEX
+    url.match? self::URL_REGEX
   end
 
   def parsed_data
@@ -49,7 +54,7 @@ class VideoExtractor::BaseExtractor
   end
 
   def fetch_page
-    @fetched_page ||= open(url,
+    @fetched_page ||= open(fetch_url,
       'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
       allow_redirections: :all,
