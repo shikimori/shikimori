@@ -148,7 +148,11 @@ class ProfileStatsView
   end
 
   def versions_count
-    user.versions.where(state: [:taken, :accepted]).count
+    user
+      .versions
+      .where(state: [:taken, :accepted])
+      .where.not(item_type: AnimeVideo.name)
+      .count
   end
 
   def videos_changes_count

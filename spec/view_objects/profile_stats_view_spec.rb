@@ -205,6 +205,12 @@ describe ProfileStatsView do
     let!(:version_4) { create :version, user: user, item: anime, state: :rejected }
     let!(:version_5) { create :version, user: user, item: anime, state: :deleted }
     let!(:version_6) { create :version, item: anime, state: :taken }
+    let!(:version_7) do
+      create :version,
+        user: user,
+        item: build_stubbed(:anime_video),
+        state: :taken
+    end
     subject { stats.versions_count }
 
     it { is_expected.to eq 2 }
