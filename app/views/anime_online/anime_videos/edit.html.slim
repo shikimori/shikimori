@@ -22,8 +22,7 @@
           include_blank: false
         = f.input :quality,
           as: :select,
-          include_blank: false,
-          collection: AnimeVideo.quality.options.delete_if {|v| v[1] == 'unknown' && !@video.quality_unknown? }
+          include_blank: false
         - if current_user.video_moderator?
           = f.input :state,
             as: :select,

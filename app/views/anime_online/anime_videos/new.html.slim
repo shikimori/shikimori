@@ -33,8 +33,7 @@
         include_blank: false
       = f.input :quality,
         as: :select,
-        include_blank: false,
-        collection: AnimeVideo.quality.options.delete_if {|v| v[1] == 'unknown' }
+        include_blank: false
 
     .block
       .b-button.do-preview data-href="#{extract_url_video_online_index_url @anime}"
