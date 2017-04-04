@@ -30,6 +30,27 @@ private
       WebmVideo.find_or_create_by url: url
     end
 
+    if webm_video.thumbnail.exists?
+      html_with_image webm_video
+    else
+      html_without_image webm_video
+    end
+  end
+
+  def html_with_image webm_video
+    <<-HTML.squish
+      <div class="b-video fixed">
+        <img class="to-process" data-dynamic="html5_video" \
+          src="#{webm_video.thumbnail.url :normal}" \
+          srcset="#{webm_video.thumbnail.url :retina} 2x" \
+          data-video="#{webm_video.url}" \
+        />
+        <a class="marker" href="#{webm_video.url}">html5</a>
+      </div>
+    HTML
+  end
+
+  def html_without_image webm_video
     <<-HTML.squish
       <div class="b-video fixed">
         <img class="to-process" data-dynamic="html5_video" \

@@ -7,7 +7,10 @@ class DynamicElements.Html5Video extends View
       mainClass: 'mfp-no-margins mfp-img-mobile'
       closeOnContentClick: true
 
-    @_replace_image()
+    @_replace_image() if @_no_image()
+
+  _no_image: ->
+    !!@$node.data('src')
 
   _replace_image: (attempt=1) ->
     thumbnail = new Image
