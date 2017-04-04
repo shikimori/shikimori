@@ -16,13 +16,15 @@
         = f.input :kind,
           as: :select,
           include_blank: false,
-          collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
+          collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' && !@video.unknown? }
         = f.input :language,
           as: :select,
-          include_blank: false
+          include_blank: false,
+        collection: AnimeVideo.language.options.delete_if {|v| v[1] == 'unknown' && !@video.language_unknown? }
         = f.input :quality,
           as: :select,
-          include_blank: false
+          include_blank: false,
+          collection: AnimeVideo.quality.options.delete_if {|v| v[1] == 'unknown' && !@video.quality_unknown? }
         - if current_user.video_moderator?
           = f.input :state,
             as: :select,
