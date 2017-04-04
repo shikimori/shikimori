@@ -216,12 +216,17 @@ describe ProfileStatsView do
     it { is_expected.to eq 2 }
   end
 
-  describe '#videos_changes_count' do
-    let!(:report_1) { create :anime_video_report, user: user, state: 'accepted' }
-    let!(:report_2) { create :anime_video_report, user: user, state: 'rejected' }
-    let!(:report_3) { create :anime_video_report, state: 'accepted' }
-    subject { stats.videos_changes_count }
+  describe '#video_uploads_count' do
+    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_2) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_3) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_4) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_6) { create :anime_video_report, :broken, user: user, state: 'rejected' }
+    let!(:report_7) { create :anime_video_report, :broken, state: 'accepted' }
 
-    it { is_expected.to eq 1 }
+    subject { stats.video_uploads_count }
+
+    it { is_expected.to eq 4 }
   end
 end

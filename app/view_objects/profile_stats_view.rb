@@ -5,7 +5,7 @@ class ProfileStatsView
   prepend ActiveCacher.instance
 
   instance_cache :comments_count, :summaries_count, :reviews_count
-  instance_cache :versions_count, :videos_changes_count
+  instance_cache :versions_count, :video_uploads_count
 
   delegate *%i(
     anime_ratings anime_spent_time full_statuses manga list_counts
@@ -132,7 +132,7 @@ class ProfileStatsView
 
   def social_activity?
     comments_count > 0 || summaries_count > 0 || reviews_count > 0 ||
-      versions_count > 0 || videos_changes_count > 0
+      versions_count > 0 || video_uploads_count > 0
   end
 
   def comments_count
@@ -155,9 +155,10 @@ class ProfileStatsView
       .count
   end
 
-  def videos_changes_count
+  def video_uploads_count
     AnimeVideoReport
       .where(user: user)
+      .where(kind: :uploaded)
       .where.not(state: %w(rejected post_rejected))
       .count
   end

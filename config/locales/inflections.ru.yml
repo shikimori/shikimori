@@ -39,6 +39,12 @@ ru:
           few: правки контента
           many: правок контента
           other: правки контента
+      video_upload:
+        subjective:
+          one: загрузка видео
+          few: загрузки видео
+          many: загрузок видео
+          other: загрузок видео
       video_change:
         subjective:
           one: правка видео
