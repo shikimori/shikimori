@@ -3,9 +3,10 @@
 describe Anidb::Authorization do
   let(:service) { Anidb::Authorization.instance }
 
-  describe '#cookie_string' do
+  describe '#cookie_string', vcr: {
+    cassette_name: 'Anidb_Authorization/cookie_string'
+  } do
     subject { service.cookie_string }
-    use_vcr_cassette 'Anidb_Authorization/cookie_string'
 
     it do
       is_expected.to eq(
