@@ -1,13 +1,13 @@
 .bar
-  - if stats_bar.completed_percent > 1
+  - if stats_bar.completed_percent > 0
     .first style="width: #{stats_bar.completed_percent}%;"
       == stats_bar.completed_percent > 2.5 ? stats_bar.completed : '&nbsp;'
 
-  - if stats_bar.incompleted_percent > 1
+  - if stats_bar.incompleted_percent > 0
     .second style="width: #{stats_bar.incompleted_percent}%"
       == stats_bar.incompleted_percent > 2.5 ? stats_bar.incompleted : '&nbsp;'
 
-  - if stats_bar.dropped_percent > 1
+  - if stats_bar.dropped_percent > 0
     .third style="width: #{stats_bar.dropped_percent}%;"
       == stats_bar.dropped_percent > 2.5 ? stats_bar.dropped : '&nbsp;'
 
