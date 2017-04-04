@@ -30,8 +30,7 @@
         collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' }
       = f.input :language,
         as: :select,
-        include_blank: false,
-        collection: AnimeVideo.language.options.delete_if {|v| v[1] == 'unknown' }
+        include_blank: false
       = f.input :quality,
         as: :select,
         include_blank: false,
