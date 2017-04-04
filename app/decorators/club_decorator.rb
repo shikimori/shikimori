@@ -78,10 +78,6 @@ class ClubDecorator < DbEntryDecorator
     (club_page&.child_pages || object.root_pages).select(&:layout_menu?)
   end
 
-  def content_pages club_page = nil
-    (club_page&.child_pages || object.root_pages).select(&:layout_content?)
-  end
-
 private
 
   def all_images

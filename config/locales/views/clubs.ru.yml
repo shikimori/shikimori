@@ -52,5 +52,5 @@ ru:
         down: вниз
         delete: удалить
         confirm: Вы уверены?
-      content_pages:
-        title: Разделы
+      menu_pages:
+        other_pages: Другие страницы
