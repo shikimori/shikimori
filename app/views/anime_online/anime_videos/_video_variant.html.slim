@@ -17,7 +17,10 @@
 
     - else
       - if video.quality_bd?
-        span.video-quality
+        span.video-quality.bd
+
+      - elsif video.quality_dvd?
+        span.video-quality.dvd
 
       span.video-kind class="#{video.language}"
         = video.kind_text.capitalize

@@ -11,6 +11,8 @@ class AnimeOnline::VideoPlayer
   PREFERENCES_HOSTING = 'anime_video_hosting'
   PREFERENCES_AUTHOR = 'anime_video_author'
 
+  CACHE_VERSION = :v3
+
   def nav
     AnimeOnline::VideoPlayerNavigation.new self
   end
@@ -191,7 +193,7 @@ class AnimeOnline::VideoPlayer
     [
       @anime.id,
       @anime.anime_videos.cache_key,
-      :v2
+      CACHE_VERSION
     ]
   end
 
@@ -205,7 +207,7 @@ class AnimeOnline::VideoPlayer
       @anime.anime_videos.where(episode: current_episode).cache_key,
       :episode_videos,
       current_episode,
-      :v2
+      CACHE_VERSION
     ]
   end
 
