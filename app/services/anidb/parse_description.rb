@@ -15,7 +15,6 @@ class Anidb::ParseDescription
   HEADERS_WHEN_AUTHORIZED = {
     'Accept' => 'text/html,application/xhtml+xml,application/xml;'\
       'q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Encoding' => 'gzip',
     'Accept-Language' => 'en-US,en;q=0.8,ru;q=0.6,ja;q=0.4',
     'Connection' => 'keep-alive',
     'Host' => 'anidb.net',
@@ -50,10 +49,9 @@ class Anidb::ParseDescription
   end
 
   def get_authorized! url
-    cookie = Anidb::Authorization.instance.cookie.join
+    cookie = Anidb::Authorization.instance.cookie_string
     headers = HEADERS_WHEN_AUTHORIZED.merge('Cookie' => cookie)
     content = open(url, headers).read
-    content = ActiveSupport::Gzip.decompress(content)
 
     raise CaptchaError, url if captcha?(content)
     raise AutoBannedError, url if auto_banned?(content)

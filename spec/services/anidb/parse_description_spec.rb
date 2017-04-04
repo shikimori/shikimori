@@ -4,6 +4,7 @@ describe Anidb::ParseDescription do
   subject(:call) { described_class.call url }
 
   let(:cookie) { cookie_naruto2148 }
+  # banned account (daria.ingate@mail.ru)
   let(:cookie_naruto2148) do
     %w(
       adbautopass=vbzjomexrccnxcla;
@@ -12,6 +13,7 @@ describe Anidb::ParseDescription do
       adbuin=1490295269-RLyR;
     )
   end
+  # active account (temp email)
   let(:cookie_naruto1451) do
     %w(
       adbautopass=zwsofsxfdnrzyxdj;
@@ -90,7 +92,7 @@ describe Anidb::ParseDescription do
   end
 
   context 'adult content' do
-    context 'success',:focus do
+    context 'success' do
       use_vcr_cassette 'Anidb_ParseDescription/adult_content/success'
       let(:cookie) { cookie_naruto1451 }
       let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=314' }
@@ -98,7 +100,7 @@ describe Anidb::ParseDescription do
         is_expected.to include(
           <<-TEXT.squish
             Orphaned at a young age, her parents victims of a brutal double
-            murder, Sawa was taken in by the detective assigned to her case.
+            murder, [Sawa] was taken in by the detective assigned to her case.
             Not content to just watch as the imperfect justice system lets more
             and more criminals go loose every day, he decides to train her to
             be his instrument of justice. After all, who'd suspect a pretty
@@ -108,8 +110,8 @@ describe Anidb::ParseDescription do
       end
     end
 
-    context 'auto-banned' do
-      use_vcr_cassette 'Anidb_ParseDescription/adult_content/auto-banned'
+    context 'auto banned' do
+      use_vcr_cassette 'Anidb_ParseDescription/adult_content/auto_banned'
       let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
       it { expect { call }.to raise_error AutoBannedError }
     end

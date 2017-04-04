@@ -30,6 +30,11 @@ class Anidb::Authorization
     'Referer' => 'http://anidb.net/perl-bin/animedb.pl?show=login'
   }
 
+  # NOTE: space between cookies is important for anidb
+  def cookie_string
+    cookie.join(' ')
+  end
+
   def cookie
     RedisMutex.with_lock(self.class.name, block: 0) do
       Rails.cache.fetch(CACHE_KEY) { authorize }
