@@ -72,7 +72,13 @@ describe ProfilesController do
 
   describe '#versions' do
     let(:anime) { create :anime }
-    let!(:version) { create :version, user: user, item: anime, item_diff: { name: ['test', 'test2'] }, state: :accepted }
+    let!(:version) do
+      create :version,
+        user: user,
+        item: anime,
+        item_diff: { name: ['test', 'test2'] },
+        state: :accepted
+    end
     before { get :versions, params: { id: user.to_param } }
 
     it do
@@ -81,10 +87,51 @@ describe ProfilesController do
     end
   end
 
-  describe '#videos' do
-    let!(:video) { create :video, uploader: user, state: 'confirmed', url: 'http://youtube.com/watch?v=VdwKZ6JDENc' }
-    before { get :videos, params: { id: user.to_param } }
-    it { expect(response).to have_http_status :success }
+  describe '#video_versions' do
+    let(:anime_video) { create :anime_video }
+    let!(:version) do
+      create :version,
+        user: user,
+        item: anime_video,
+        item_diff: { episode: ['1', '2'] },
+        state: :accepted
+    end
+    before { get :video_versions, params: { id: user.to_param } }
+
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#videos_uploads' do
+    let(:anime) { create :anime }
+    let(:anime_video) { create :anime_video, anime: anime }
+    let!(:anime_video_report) do
+      create :anime_video_report, :uploaded, :accepted,
+        user: user,
+        anime_video: anime_video
+    end
+    before { get :video_uploads, params: { id: user.to_param } }
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+    end
+  end
+
+  describe '#videos_reports' do
+    let(:anime) { create :anime }
+    let(:anime_video) { create :anime_video, anime: anime }
+    let!(:anime_video_report) do
+      create :anime_video_report, :broken, :accepted,
+        user: user,
+        anime_video: anime_video
+    end
+    before { get :video_reports, params: { id: user.to_param } }
+    it do
+      expect(collection).to have(1).item
+      expect(response).to have_http_status :success
+    end
   end
 
   describe '#ban' do

@@ -5,7 +5,7 @@ class ProfileStatsView
   prepend ActiveCacher.instance
 
   instance_cache :comments_count, :summaries_count, :reviews_count
-  instance_cache :versions_count, :video_uploads_count
+  instance_cache :versions_count, :video_uploads_count, :video_changes_count
 
   delegate *%i(
     anime_ratings anime_spent_time full_statuses manga list_counts
@@ -132,7 +132,7 @@ class ProfileStatsView
 
   def social_activity?
     comments_count > 0 || summaries_count > 0 || reviews_count > 0 ||
-      versions_count > 0 || video_uploads_count > 0
+      versions_count > 0 || video_uploads_count > 0 || video_changes_count > 0
   end
 
   def comments_count
@@ -150,7 +150,7 @@ class ProfileStatsView
   def versions_count
     user
       .versions
-      .where(state: [:taken, :accepted])
+      .where(state: [:taken, :accepted, :auto_accepted])
       .where.not(item_type: AnimeVideo.name)
       .count
   end
@@ -160,6 +160,28 @@ class ProfileStatsView
       .where(user: user)
       .where(kind: :uploaded)
       .where.not(state: %w(rejected post_rejected))
+      .count
+  end
+
+  def video_changes_count
+    video_reports_count + video_versions_count
+  end
+
+private
+
+  def video_reports_count
+    AnimeVideoReport
+      .where(user: user)
+      .where.not(kind: :uploaded)
+      .where.not(state: %w(rejected post_rejected))
+      .count
+  end
+
+  def video_versions_count
+    user
+      .versions
+      .where(state: [:taken, :accepted, :auto_accepted])
+      .where(item_type: AnimeVideo.name)
       .count
   end
 end

@@ -229,4 +229,25 @@ describe ProfileStatsView do
 
     it { is_expected.to eq 4 }
   end
+
+  describe '#video_changes_count' do
+    let(:anime_video) { build_stubbed :anime_video }
+    let(:anime) { build_stubbed :anime }
+
+    let!(:report_1) { create :anime_video_report, :uploaded, user: user, state: 'accepted' }
+    let!(:report_2) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_3) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_4) { create :anime_video_report, :broken, user: user, state: 'accepted' }
+    let!(:report_5) { create :anime_video_report, :broken, user: user, state: 'rejected' }
+    let!(:report_6) { create :anime_video_report, :broken, state: 'accepted' }
+
+    let!(:version_1) { create :version, user: user, item: anime_video, state: :accepted }
+    let!(:version_2) { create :version, user: user, item: anime_video, state: :accepted }
+    let!(:version_3) { create :version, user: user, item: anime, state: :pending }
+
+
+    subject { stats.video_changes_count }
+
+    it { is_expected.to eq 5 }
+  end
 end

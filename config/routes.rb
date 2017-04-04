@@ -793,7 +793,9 @@ Rails.application.routes.draw do
           get 'summaries(/page/:page)' => :summaries, as: :summaries
         end
         get 'versions(/page/:page)' => :versions, as: :versions
-        get 'videos(/page/:page)' => :videos, as: :videos
+        get 'video/versions(/page/:page)' => :video_versions, as: :video_versions
+        get 'video/uploads(/page/:page)' => :video_uploads, as: :video_uploads
+        get 'video/reports(/page/:page)' => :video_reports, as: :video_reports
       end
 
       get 'manga' => redirect {|params, request| request.url.sub('/manga', '') } # редирект со старых урлов

@@ -16,7 +16,9 @@ ru:
     comments: Комментарии
     summaries: Отзывы
     content_changes: Правки контента
-    video_uploads: Видео загрузки
+    video_uploads: Загрузки видео
+    video_changes: Правки видео
+    video_reports: Жалобы на видео
     achievements: Достижения
     users: Пользователи
 

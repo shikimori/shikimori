@@ -91,14 +91,16 @@ ru:
 
       your_message: Ваше сообщение
       rss_title: История пользователя %{nickname}
+      no_video_uploads: Нет загрузок видео
+      no_content_changes: Нет правок контента
 
     edit:
       account:
         change_email_and_password: Изменить email и пароль
         connected_accounts: Подключенные сервисы
+        not_connected_accounts: Не подключенные сервисы
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
-        not_connected_accounts: Не подключенные сервисы
         username: Имя пользователя
 
       profile:

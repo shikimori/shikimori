@@ -77,11 +77,22 @@ en:
           All complaints about unfair bans are ignored.
         </li>
 
+
+
+
+
+
+
+
+
+
       admin_message_postscriptum: >-
         Don't expect me to reply to your question quickly -
         it might take a long time.
       your_message: Your message
       rss_title: '%{nickname} history'
+      no_video_uploads: No video uploads
+      no_content_changes: No content changes
 
     edit:
       account:
@@ -89,6 +100,8 @@ en:
         connected_accounts: Connected accounts
         not_connected_accounts: Not connected accounts
         ignored_users: Ignored users
+        nickname: Login (nickname)
+        username: Username
 
       profile:
         display_activity_graph_since: Display activity graph since

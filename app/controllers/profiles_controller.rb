@@ -96,7 +96,17 @@ class ProfilesController < ShikimoriController
     page_title i18n_t('content_changes')
   end
 
-  def videos
+  def video_versions
+    noindex
+    @collection = postload_paginate(params[:page], 30) do
+      @resource.versions.where(item_type: AnimeVideo.name).order(id: :desc)
+    end
+    @collection = @collection.map(&:decorate)
+
+    page_title i18n_t('video_changes')
+  end
+
+  def video_uploads
     noindex
     @collection = postload_paginate(params[:page], 30) do
       AnimeVideoReport
@@ -107,6 +117,19 @@ class ProfilesController < ShikimoriController
     end
 
     page_title i18n_t('video_uploads')
+  end
+
+  def video_reports
+    noindex
+    @collection = postload_paginate(params[:page], 30) do
+      AnimeVideoReport
+        .where(user: @resource.object)
+        .where.not(kind: :uploaded)
+        .includes(:user, anime_video: :author)
+        .order(id: :desc)
+    end
+
+    page_title i18n_t('video_reports')
   end
 
   def achievements

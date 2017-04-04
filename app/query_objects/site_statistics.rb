@@ -70,7 +70,7 @@ class SiteStatistics
     User
       .joins(:versions)
       .where.not(id: [1, User::GUEST_ID] + BotsService.posters)
-      .where(versions: { state: [:accepted, :taken] })
+      .where(versions: { state: [:accepted, :taken, :auto_accepted] })
       .where.not(versions: { item_type: AnimeVideo.name })
       .group('users.id')
       .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
