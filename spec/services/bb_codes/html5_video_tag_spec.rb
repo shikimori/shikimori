@@ -10,18 +10,20 @@ describe BbCodes::Html5VideoTag do
       expect(WebmVideo).to have(1).item
       expect(webm_video).to have_attributes(
         state: 'pending',
-        url: url,
+        url: url
       )
-      expect(html).to eq "<div class=\"b-video fixed\">
-  <img class=\"to-process\" data-dynamic=\"html5_video\" \
-src=\"#{BbCodes::Html5VideoTag::DEFAULT_THUMBNAIL_NORMAL}\" \
-srcset=\"#{BbCodes::Html5VideoTag::DEFAULT_THUMBNAIL_RETINA} 2x\" \
-data-src=\"#{webm_video.thumbnail.url :normal}\" \
-data-srcset=\"#{webm_video.thumbnail.url :retina} 2x\" \
-data-video=\"#{webm_video.url}\" \
-/>
-  <a class=\"marker\" href=\"#{webm_video.url}\">html5</a>
-</div>"
+      expect(html).to eq <<-HTML.squish
+        <div class="b-video fixed">
+          <img class="to-process" data-dynamic="html5_video"
+            src="#{BbCodes::Html5VideoTag::DEFAULT_THUMBNAIL_NORMAL}"
+            srcset="#{BbCodes::Html5VideoTag::DEFAULT_THUMBNAIL_RETINA} 2x"
+            data-src="#{webm_video.thumbnail.url :normal}"
+            data-srcset="#{webm_video.thumbnail.url :retina} 2x"
+            data-video="#{webm_video.url}"
+          />
+          <a class="marker" href="#{webm_video.url}">html5</a>
+        </div>
+      HTML
     end
   end
 end

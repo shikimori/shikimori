@@ -24,7 +24,6 @@ class @CommentsNotifier
     # при добавление блока о новом комментарии/топике делаем инкремент
     $(document).on 'reappear', @increment_counter
 
-
     # смещение вверх-вниз блока уведомлялки
     @max_top = 31
     @scroll = $(window).scrollTop()
