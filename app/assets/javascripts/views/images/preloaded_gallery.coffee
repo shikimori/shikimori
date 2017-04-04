@@ -8,6 +8,8 @@ class Images.PreloadedGallery extends View
       'data-appear-top-offset="900"></p>'
 
   DEPLOY_INTERVAL = 100
+  APPEND_ACTION = 'appended'
+  PREPEND_ACTION = 'prepended'
 
   initialize: ->
     @rel = @$root.data 'rel'
@@ -21,7 +23,11 @@ class Images.PreloadedGallery extends View
 
     @$root.gallery
       shiki_upload: @$root.data('can_upload')
+      shiki_upload_custom: true
+
     @packery = @$root.packery
+
+    @on 'upload:success', @_append_uploaded
 
     @loader = @_build_loader()
     if @loader
@@ -33,11 +39,7 @@ class Images.PreloadedGallery extends View
   # callbacks
   # loader returned images
   _images_load: (images) =>
-    images_html = images.map (image) =>
-      JST[TEMPLATE]
-        image: image,
-        rel: @rel
-        destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
+    images_html = images.map (image) => @_image_to_html(image)
 
     $batch = $(images_html.join(''))
     $batch.imagesLoaded @_deploy_batch
@@ -47,6 +49,10 @@ class Images.PreloadedGallery extends View
       @$appear_marker.remove()
     else
       @_start_postload()
+
+  _append_uploaded: (e, image) =>
+    $image = $(@_image_to_html(image))
+    $image.imagesLoaded => @_deploy_image $image, 0, PREPEND_ACTION
 
   # private methods
   _build_loader: ->
@@ -70,18 +76,25 @@ class Images.PreloadedGallery extends View
   _stop_postload: ->
     @can_load = false
 
+  _image_to_html: (image) ->
+    JST[TEMPLATE]
+      image: image,
+      rel: @rel
+      destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
+
   _deploy_batch: (images) =>
-    images.elements.each @_deploy_image
+    images.elements.each (image_node, index) =>
+      @_deploy_image image_node, index, APPEND_ACTION
     # recheck postloader appearence after all images are deployed
     @_after_batch_deploy.delay((images.elements.length + 1) * DEPLOY_INTERVAL)
 
-  _deploy_image: (image, index) =>
-    $image = $(image)
+  _deploy_image: (image_node, index, action) =>
+    $image = $(image_node)
       .shiki_image()
       .css(bottom: 9999)
 
     @packery
-      .bind(@$container, 'appended', $image)
+      .bind(@$container, action, $image)
       .delay(index * DEPLOY_INTERVAL)
 
     @$container.append($image)

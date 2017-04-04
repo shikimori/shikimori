@@ -4,13 +4,38 @@ describe Clubs::ClubImagesController do
   let!(:club_role) { create :club_role, club: club, user: user, role: 'admin' }
 
   describe '#create' do
-    let(:image) { fixture_file_upload "#{Rails.root}/spec/images/anime.jpg", 'image/jpeg' }
-    before { post :create, params: { club_id: club.id, image: image } }
+    let(:image) do
+      fixture_file_upload "#{Rails.root}/spec/images/anime.jpg", 'image/jpeg'
+    end
+    before do
+      post :create,
+        params: { club_id: club.id, image: image },
+        xhr: is_xhr
+    end
 
-    it do
-      expect(club.images).to have(1).item
-      expect(club.images.first.user).to eq user
-      expect(response).to redirect_to club_url(club)
+    context 'not xhr' do
+      let(:is_xhr) { false }
+      it do
+        expect(resource).to be_persisted
+        expect(resource).to have_attributes(
+          club_id: club.id,
+          user_id: user.id
+        )
+        expect(response).to redirect_to club_url(club)
+      end
+    end
+
+    context 'xhr' do
+      let(:is_xhr) { true }
+      it do
+        expect(resource).to be_persisted
+        expect(resource).to have_attributes(
+          club_id: club.id,
+          user_id: user.id
+        )
+        expect(json).to eq ClubImageSerializer.new(resource).to_json
+        expect(response).to have_http_status :success
+      end
     end
   end
 

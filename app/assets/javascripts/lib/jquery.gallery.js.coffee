@@ -57,6 +57,8 @@
             progress: $container.prev()
 
           .on 'upload:success', (e, response) ->
+            return if options.shiki_upload_custom
+
             $image = $(response.html)
             $container.prepend($image)
             $container.packery.bind($container, 'prepended', $image).delay 50
