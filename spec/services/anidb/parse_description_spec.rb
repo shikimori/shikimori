@@ -31,8 +31,9 @@ describe Anidb::ParseDescription do
       .and_return(cookie)
   end
 
-  context 'valid anime url' do
-    use_vcr_cassette 'Anidb_ParseDescription/valid_anime_url'
+  context 'valid anime url', vcr: {
+    cassette_name: 'Anidb_ParseDescription/valid_anime_url'
+  } do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=3395' }
     it do
       is_expected.to eq(
@@ -50,8 +51,9 @@ describe Anidb::ParseDescription do
     end
   end
 
-  context 'valid character url' do
-    use_vcr_cassette 'Anidb_ParseDescription/valid_character_url'
+  context 'valid character url', vcr: {
+    cassette_name: 'Anidb_ParseDescription/valid_character_url'
+  } do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=character&charid=3444' }
     it do
       is_expected.to eq(
@@ -73,27 +75,29 @@ describe Anidb::ParseDescription do
     it { expect { call }.to raise_error EmptyContentError }
   end
 
-  context 'unknown anime id' do
-    use_vcr_cassette 'Anidb_ParseDescription/unknown_anime_id'
+  context 'unknown anime id', vcr: {
+    cassette_name: 'Anidb_ParseDescription/unknown_anime_id'
+  } do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=33911111' }
     it { expect { call }.to raise_error InvalidIdError }
   end
 
-  context 'unknown character id' do
-    use_vcr_cassette 'Anidb_ParseDescription/unknown_character_id'
+  context 'unknown character id', vcr: {
+    cassette_name: 'Anidb_ParseDescription/unknown_character_id'
+  } do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=character&charid=33311111' }
     it { expect { call }.to raise_error InvalidIdError }
   end
 
-  context 'captcha' do
-    use_vcr_cassette 'Anidb_ParseDescription/captcha'
+  context 'captcha', vcr: { cassette_name: 'Anidb_ParseDescription/captcha' } do
     let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=313' }
     it { expect { call }.to raise_error CaptchaError }
   end
 
   context 'adult content' do
-    context 'success' do
-      use_vcr_cassette 'Anidb_ParseDescription/adult_content/success'
+    context 'success', vcr: {
+      cassette_name: 'Anidb_ParseDescription/adult_content/success'
+    } do
       let(:cookie) { cookie_naruto1451 }
       let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=314' }
       it do
@@ -110,8 +114,9 @@ describe Anidb::ParseDescription do
       end
     end
 
-    context 'auto banned' do
-      use_vcr_cassette 'Anidb_ParseDescription/adult_content/auto_banned'
+    context 'auto banned', vcr: {
+      cassette_name: 'Anidb_ParseDescription/adult_content/auto_banned'
+    } do
       let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=528' }
       it { expect { call }.to raise_error AutoBannedError }
     end

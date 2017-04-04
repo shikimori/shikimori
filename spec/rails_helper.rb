@@ -84,8 +84,6 @@ RSpec.configure do |config|
   config.include Shoulda::Matchers::ActiveModel, type: :validator
   config.include FeatureHelpers, type: :feature
 
-  config.extend VCR::RSpec::Macros
-
   # [:controller, :view, :request].each do |type|
     # config.include ::Rails::Controller::Testing::TestProcess, :type => type
     # config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
