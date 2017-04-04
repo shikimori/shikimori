@@ -19,7 +19,7 @@ class AnimeVideo < ApplicationRecord
     default: :unknown,
     predicates: { prefix: true }
   enumerize :quality,
-    in: [:bd, :web, :dvd, :tv, :unknown],
+    in: [:bd, :dvd, :web, :tv, :unknown],
     default: :unknown,
     predicates: { prefix: true }
 
