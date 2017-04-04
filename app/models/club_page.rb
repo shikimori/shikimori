@@ -1,5 +1,5 @@
 class ClubPage < ApplicationRecord
-  acts_as_list scope: [:club_id, :parent_page_id]
+  acts_as_list scope: %i(club_id parent_page_id)
 
   belongs_to :club, touch: true
   belongs_to :parent_page, class_name: ClubPage.name
@@ -11,7 +11,7 @@ class ClubPage < ApplicationRecord
   enumerize :layout,
     in: Types::ClubPage::Layout.values,
     predicates: { prefix: true },
-    default: Types::ClubPage::Layout[:content]
+    default: Types::ClubPage::Layout[:menu]
 
   validates :club, :name, presence: true
 

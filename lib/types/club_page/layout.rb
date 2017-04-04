@@ -2,6 +2,6 @@ module Types
   module ClubPage
     Layout = Types::Strict::Symbol
       .constructor(&:to_sym)
-      .enum(:content, :menu, :none)
+      .enum(:menu, :none)
   end
 end

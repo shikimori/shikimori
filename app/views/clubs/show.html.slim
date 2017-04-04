@@ -7,8 +7,7 @@
         title="#{@club.name}"
       ]
 
-  .block.b-pages-container
-    = render 'clubs/club_pages/content_pages', club: @club, club_page: nil
+  .block
     = @club.description_html
 
   - if @club.images(12).any?

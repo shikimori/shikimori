@@ -389,7 +389,6 @@ ru:
         admins: Только для администрации клуба
     club_page:
       layout:
-        content: Контент
         menu: Меню
         none: Скрыто
     anime_video:

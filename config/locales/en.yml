@@ -410,7 +410,6 @@ en:
         admins: Club Admins Only
     club_page:
       layout:
-        content: Content
         menu: Menu
         none: Hidden
     anime_video:
