@@ -7,10 +7,7 @@ class DynamicElements.Html5Video extends View
       mainClass: 'mfp-no-margins mfp-img-mobile'
       closeOnContentClick: true
 
-    @_replace_image() if @_no_image()
-
-  _no_image: ->
-    !!@$node.data('src')
+    @_replace_image()
 
   _replace_image: (attempt=1) ->
     thumbnail = new Image
@@ -21,5 +18,5 @@ class DynamicElements.Html5Video extends View
         @node.src = @$node.data('src')
         @node.srcset = @$node.data('srcset')
       .on 'fail', =>
-        if attempt <= 3
-          (=> @_replace_image attempt+1).delay(30000 * (attempt+1))
+        if attempt <= 60
+          (=> @_replace_image attempt+1).delay(5000 * (attempt+1))
