@@ -71,6 +71,7 @@ class SiteStatistics
       .joins(:versions)
       .where.not(id: [1, User::GUEST_ID] + BotsService.posters)
       .where(versions: { state: [:accepted, :taken] })
+      .where.not(versions: { item_type: AnimeVideo.name })
       .group('users.id')
       .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
       .order("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) desc")
@@ -80,6 +81,7 @@ class SiteStatistics
   def reviewers
     User
       .joins(:reviews)
+      .where.not(reviews: { state: :rejected })
       .group('users.id')
       .order('count(reviews.id) desc')
       .limit(USERS_LIMIT)
