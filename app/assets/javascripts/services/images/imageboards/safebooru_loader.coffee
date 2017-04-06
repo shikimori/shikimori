@@ -13,3 +13,9 @@ class Images.Imageboard.SafebooruLoader extends Images.Imageboard.LoaderBase
 
   _parse: (xhr_data) ->
     xhr_data?.posts?.post || []
+
+  _image_url: (image_url, filename) ->
+    image_url
+
+  _preview_url: (preview_url, filename) ->
+    preview_url
