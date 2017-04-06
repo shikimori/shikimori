@@ -270,7 +270,7 @@ class Proxy < ApplicationRecord
     end
 
     def user_agent _url
-      'Mozilla/5.0 (Windows NT 6.3; rv:36.0) Gecko/20100101 Firefox/36.0'
+      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
 
       #if url =~ /myanimelist.net/
       #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'
