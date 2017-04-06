@@ -2,6 +2,8 @@ class AnimeOnline::AnimeVideoDuplicates
   method_object :url
 
   def call
+    return [] if @url.blank?
+
     AnimeVideo
       .where(url: ["http:#{base_url}", "https:#{base_url}"])
       .where(state: [:working, :uploaded])

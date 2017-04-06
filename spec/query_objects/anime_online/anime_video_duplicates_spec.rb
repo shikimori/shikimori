@@ -7,6 +7,11 @@ describe AnimeOnline::AnimeVideoDuplicates do
 
   subject! { query.call }
 
+  context 'no url' do
+    let(:url) { nil }
+    it { is_expected.to eq [] }
+  end
+
   context 'not matched url' do
     let(:url) { "http://#{link}zzz" }
     it { is_expected.to eq [] }

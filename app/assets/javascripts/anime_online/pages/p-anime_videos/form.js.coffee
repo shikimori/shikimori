@@ -17,7 +17,12 @@
   # клик по "Проверить видео"
   $('.do-preview').on 'click', ->
     video_url = $('#anime_video_url').val()
-    return unless video_url
+
+    $('.anime_video_url .error').remove()
+    unless video_url
+      $('.anime_video_url').append('<div class="error">не может быть пустым</div>')
+      $('#anime_video_url').focus()
+      return
 
     $form.addClass 'b-ajax'
     $('.video-preview').removeClass('hidden')
