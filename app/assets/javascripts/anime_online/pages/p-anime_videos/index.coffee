@@ -106,6 +106,15 @@ init_video_player = ->
       Turbolinks.visit $('.c-control.next').attr('href')
     ).delay 500
 
+  # переключение номера эпизода
+  $('.cc-player_controls .episode-num input')
+    .on 'change', ->
+      Turbolinks.visit $(@).data('href').replace('EPISODE_NUMBER', @value)
+
+    .on 'change', (e) ->
+      if e.keyCode is 10 || e.keyCode is 13
+        $(@).trigger 'change'
+
   # кнопка жалобы
   $('.cc-player_controls .report').on 'click', ->
     if $(@).hasClass 'selected'

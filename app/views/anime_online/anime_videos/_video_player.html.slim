@@ -15,12 +15,17 @@
         a.c-control.prev href="#{@player.prev_url}"
           .icon
           .label Предыдущий
-        .c-control.episode-title
+        .c-control.episode-num
           - if @video.episode.zero?
-            | Прочее
+            span Прочее
           - else
             span Эпизод
-            b  ##{@video.episode}
+          b  #
+          input[
+            type="text"
+            value="#{@player.current_episode}"
+            data-href="#{@player.episode_url 'EPISODE_NUMBER'}"
+          ]
           .video-link
             a href="#{@video.url}" target="_blank" прямая ссылка
         a.c-control.next href="#{@player.next_url}"

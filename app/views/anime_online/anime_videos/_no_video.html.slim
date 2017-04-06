@@ -9,7 +9,15 @@
           .icon
           .label Предыдущий
 
-        .c-control.episode-title.no-video Нет видео
+        .c-control.episode-num
+          span Эпизод
+          b  #
+          input[
+            type="text"
+            value="#{@player.current_episode}"
+            data-href="#{@player.episode_url 'EPISODE_NUMBER'}"
+          ]
+          .video-link.no-video нет видео
 
         a.c-control.next href="#{@player.next_url}"
           .icon

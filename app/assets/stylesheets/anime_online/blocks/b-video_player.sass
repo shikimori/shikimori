@@ -92,7 +92,7 @@
       b
         color: #123
 
-    .episode-title
+    .episode-num
       color: #444 !important
       cursor: default
       font-size: 17px
@@ -107,21 +107,18 @@
         span
           display: none
 
-      &.no-video
-        color: $red !important
-        font-size: 14px
-        margin-top: 5px
-        line-height: 1.2
-
-        +lte_ipad
-          line-height: 1.2
-          margin-top: 10px
-
-        +iphone_portrait
-          margin-top: 2px
+      input
+        font-size: 17px
+        font-weight: bold
+        line-height: $icon_desktop_size
+        padding: 0 2px
+        width: 35px
 
       .video-link
         font-size: 11px
+
+        &.video-link
+          color: $red
 
         a
           +bordered-link
