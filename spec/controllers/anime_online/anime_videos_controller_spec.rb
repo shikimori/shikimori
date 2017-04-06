@@ -7,13 +7,23 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
   describe '#index' do
     describe 'video_content' do
       let!(:anime_video) { create :anime_video, anime: anime }
-      let(:make_request) { get :index, params: { anime_id: anime.to_param } }
+      let(:make_request) do
+        get :index,
+          params: { anime_id: anime.to_param },
+          xhr: is_xhr
+      end
+      let(:is_xhr) { false }
 
       before { allow(AnimeOnlineDomain).to receive(:valid_host?).and_return(true) }
       before { make_request }
 
       context 'with video' do
         it { expect(response).to have_http_status :success }
+
+        context 'xhr' do
+          let(:is_xhr) { true }
+          it { expect(response).to have_http_status :success }
+        end
 
         context 'without current_video' do
           let(:make_request) do

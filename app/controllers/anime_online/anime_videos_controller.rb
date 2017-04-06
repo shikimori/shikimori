@@ -20,6 +20,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
     @player = AnimeOnline::VideoPlayer.new @anime
     @video = @player.current_video
     page_title @player.episode_title
+
+    render partial: 'player_container' if request.xhr?
   end
 
   def new

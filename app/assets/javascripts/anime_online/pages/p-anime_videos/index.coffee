@@ -1,46 +1,82 @@
 @on 'page:load', 'anime_videos_index', ->
-  resize_video_player()
+  init_video_player()
 
   debounced_resize = $.debounce(250, resize_video_player)
   debounced_resize()
+
   $(window).on('resize', debounced_resize)
   $(window).one('page:before-unload', -> $(window).off 'resize', debounced_resize)
-
-  $player = $('.b-video_player')
-
-  # html 5 video player
-  $video = $player.find('video')
-  new ShikiHtml5Video $video if $video.length
 
   # переключение вариантов видео
   $('.video-variant-switcher').on 'click', switch_video_variant
 
-  # показ дополнительных кнопок для видео
-  $('.cc-player_controls .show-options').on 'click', toggle_options
-
-  # highlight current episode
-  episode = $player.data 'episode'
-  $(".c-anime_video_episodes .b-video_variant[data-episode='#{episode}']")
-    .addClass('active')
-
   # select current video kind
+  $player = $('.b-video_player')
   kind = $player.data 'kind'
   $switcher = $(".video-variant-switcher[data-kind='#{kind}']")
-
-  # highlight current video by id
-  $(".b-video_variant.special[data-video_id='#{$player.data('video_id')}']")
-    .addClass('active')
-
-  $player.data('video_ids')?.each (video_id) ->
-    $(".b-video_variant:not(.special)[data-video_id='#{video_id}']")
-      .addClass('active')
-
-
   if kind && $switcher.length
     $switcher.click()
   else
     $('.video-variant-switcher').first().click()
 
+  # выбор видео
+  $('.l-page').on 'ajax:before', '.b-video_variant a', ->
+    $('.player-container').addClass 'b-ajax'
+
+  $('.l-page').on 'ajax:success', '.b-video_variant a', (e, html) ->
+    $('.player-container')
+      .removeClass('b-ajax')
+      .html(html)
+    init_video_player()
+
+    if Modernizr.history
+      window.history.pushState(
+        { turbolinks: true, url: e.target.href },
+        '',
+        e.target.href
+      )
+
+init_video_player = ->
+  resize_video_player()
+
+  $player = $('.b-video_player')
+  # html 5 video player
+  $video = $player.find('video')
+  new ShikiHtml5Video $video if $video.length
+
+  # some logic
+  # highlight current episode
+  $player = $('.b-video_player')
+  episode = $player.data 'episode'
+  $(".c-anime_video_episodes .b-video_variant[data-episode='#{episode}']")
+    .addClass('active')
+      .siblings()
+      .removeClass('active')
+
+  # highlight current video by id
+  $(".b-video_variant.special[data-video_id='#{$player.data('video_id')}']")
+    .addClass('active')
+      .siblings()
+      .removeClass('active')
+
+  $player.data('video_ids')?.each (video_id) ->
+    $(".b-video_variant:not(.special)[data-video_id='#{video_id}']")
+      .addClass('active')
+        .siblings()
+        .removeClass('active')
+
+  # инкремент числа просмотров
+  video_url = location.href
+  if $player.data('watch-delay')
+    (->
+      if video_url == location.href
+        $.post $player.data('watch-url')
+    ).delay $player.data('watch-delay')
+
+
+  # handlers
+  # показ дополнительных кнопок для видео
+  $('.cc-player_controls .show-options').on 'click', toggle_options
 
   # добавление в список
   $('.cc-player_controls').on 'ajax:success', '.create-user_rate', ->
@@ -84,14 +120,6 @@
   $('.cc-anime_video_report-new form').on 'ajax:success', ->
     $.notice 'Жалоба успешно отправлена и вскоре будет рассмотрена модератором. Домо аригато'
     hide_report()
-
-  # инкремент числа просмотров
-  video_url = location.href
-  if $player.data('watch-delay')
-    (->
-      if video_url == location.href
-        $.post $player.data('watch-url')
-    ).delay $player.data('watch-delay')
 
 show_report = ->
   $('.cc-player_controls .report').addClass 'selected'

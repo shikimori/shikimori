@@ -124,7 +124,7 @@ jQuery(function ($) {
                                   $.alert(text);
                                 }
                             } else {
-                                $.alert(t('frontend.lib.please_try_again_later'))
+                                $.alert(t('frontend.lib.rails_ujs_modified.please_try_again_later'))
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);

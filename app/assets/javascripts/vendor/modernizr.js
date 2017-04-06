@@ -1,6 +1,6 @@
 /*!
  * modernizr v3.4.0
- * Build https://modernizr.com/download?-bloburls-cssanimations-csstransforms-csstransforms3d-csstransitions-fontface-webworkers-domprefixes-prefixes-setclasses-testallprops-testprop-teststyles-dontmin
+ * Build https://modernizr.com/download?-bloburls-cssanimations-csstransforms-csstransforms3d-csstransitions-fontface-history-webworkers-domprefixes-prefixes-setclasses-testallprops-testprop-teststyles-dontmin
  *
  * Copyright (c)
  *  Faruk Ates
@@ -25,31 +25,6 @@
 ;(function(window, document, undefined){
   var classes = [];
   
-
-  /**
-   * docElement is a convenience wrapper to grab the root element of the document
-   *
-   * @access private
-   * @returns {HTMLElement|SVGElement} The root element of the document
-   */
-
-  var docElement = document.documentElement;
-  
-
-  /**
-   * is returns a boolean if the typeof an obj is exactly type.
-   *
-   * @access private
-   * @function is
-   * @param {*} obj - A thing we want to check the type of
-   * @param {string} type - A string to compare the typeof against
-   * @returns {boolean}
-   */
-
-  function is(obj, type) {
-    return typeof obj === type;
-  }
-  ;
 
   var tests = [];
   
@@ -180,6 +155,21 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
   
 
   /**
+   * is returns a boolean if the typeof an obj is exactly type.
+   *
+   * @access private
+   * @function is
+   * @param {*} obj - A thing we want to check the type of
+   * @param {string} type - A string to compare the typeof against
+   * @returns {boolean}
+   */
+
+  function is(obj, type) {
+    return typeof obj === type;
+  }
+  ;
+
+  /**
    * Run through all tests and detect their support in the current UA.
    *
    * @access private
@@ -248,6 +238,16 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
     }
   }
   ;
+
+  /**
+   * docElement is a convenience wrapper to grab the root element of the document
+   *
+   * @access private
+   * @returns {HTMLElement|SVGElement} The root element of the document
+   */
+
+  var docElement = document.documentElement;
+  
 
   /**
    * A convenience helper to check if the document we are running in is an SVG document
@@ -701,6 +701,63 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
   
 
   /**
+   * fnBind is a super small [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) polyfill.
+   *
+   * @access private
+   * @function fnBind
+   * @param {function} fn - a function you want to change `this` reference to
+   * @param {object} that - the `this` you want to call the function with
+   * @returns {function} The wrapped version of the supplied function
+   */
+
+  function fnBind(fn, that) {
+    return function() {
+      return fn.apply(that, arguments);
+    };
+  }
+
+  ;
+
+  /**
+   * testDOMProps is a generic DOM property test; if a browser supports
+   *   a certain property, it won't return undefined for it.
+   *
+   * @access private
+   * @function testDOMProps
+   * @param {array.<string>} props - An array of properties to test for
+   * @param {object} obj - An object or Element you want to use to test the parameters again
+   * @param {boolean|object} elem - An Element to bind the property lookup again. Use `false` to prevent the check
+   * @returns {false|*} returns false if the prop is unsupported, otherwise the value that is supported
+   */
+  function testDOMProps(props, obj, elem) {
+    var item;
+
+    for (var i in props) {
+      if (props[i] in obj) {
+
+        // return the property name as a string
+        if (elem === false) {
+          return props[i];
+        }
+
+        item = obj[props[i]];
+
+        // let's bind a function
+        if (is(item, 'function')) {
+          // bind to obj unless overriden
+          return fnBind(item, elem || obj);
+        }
+
+        // return the unbound function or obj or value
+        return item;
+      }
+    }
+    return false;
+  }
+
+  ;
+
+  /**
    * Create our "modernizr" element that we do most feature tests on.
    *
    * @access private
@@ -728,6 +785,23 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
   });
 
   
+
+  /**
+   * domToCSS takes a camelCase string and converts it to kebab-case
+   * e.g. boxSizing -> box-sizing
+   *
+   * @access private
+   * @function domToCSS
+   * @param {string} name - String name of camelCase prop we want to convert
+   * @returns {string} The kebab-case version of the supplied name
+   */
+
+  function domToCSS(name) {
+    return name.replace(/([A-Z])/g, function(str, m1) {
+      return '-' + m1.toLowerCase();
+    }).replace(/^ms-/, '-ms-');
+  }
+  ;
 
 
   /**
@@ -765,23 +839,6 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
     return result;
   }
 
-  ;
-
-  /**
-   * domToCSS takes a camelCase string and converts it to kebab-case
-   * e.g. boxSizing -> box-sizing
-   *
-   * @access private
-   * @function domToCSS
-   * @param {string} name - String name of camelCase prop we want to convert
-   * @returns {string} The kebab-case version of the supplied name
-   */
-
-  function domToCSS(name) {
-    return name.replace(/([A-Z])/g, function(str, m1) {
-      return '-' + m1.toLowerCase();
-    }).replace(/^ms-/, '-ms-');
-  }
   ;
 
   /**
@@ -957,63 +1014,6 @@ Detects support for the basic `Worker` API from the Web Workers spec. Web Worker
     return testProps([prop], undefined, value, useValue);
   };
   
-
-  /**
-   * fnBind is a super small [bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) polyfill.
-   *
-   * @access private
-   * @function fnBind
-   * @param {function} fn - a function you want to change `this` reference to
-   * @param {object} that - the `this` you want to call the function with
-   * @returns {function} The wrapped version of the supplied function
-   */
-
-  function fnBind(fn, that) {
-    return function() {
-      return fn.apply(that, arguments);
-    };
-  }
-
-  ;
-
-  /**
-   * testDOMProps is a generic DOM property test; if a browser supports
-   *   a certain property, it won't return undefined for it.
-   *
-   * @access private
-   * @function testDOMProps
-   * @param {array.<string>} props - An array of properties to test for
-   * @param {object} obj - An object or Element you want to use to test the parameters again
-   * @param {boolean|object} elem - An Element to bind the property lookup again. Use `false` to prevent the check
-   * @returns {false|*} returns false if the prop is unsupported, otherwise the value that is supported
-   */
-  function testDOMProps(props, obj, elem) {
-    var item;
-
-    for (var i in props) {
-      if (props[i] in obj) {
-
-        // return the property name as a string
-        if (elem === false) {
-          return props[i];
-        }
-
-        item = obj[props[i]];
-
-        // let's bind a function
-        if (is(item, 'function')) {
-          // bind to obj unless overriden
-          return fnBind(item, elem || obj);
-        }
-
-        // return the unbound function or obj or value
-        return item;
-      }
-    }
-    return false;
-  }
-
-  ;
 
   /**
    * testPropsAll tests a list of DOM properties we want to check against.
@@ -1293,6 +1293,52 @@ Detects support for creating Blob URLs
   var url = prefixed('URL', window, false);
   url = url && window[url];
   Modernizr.addTest('bloburls', url && 'revokeObjectURL' in url && 'createObjectURL' in url);
+
+/*!
+{
+  "name": "History API",
+  "property": "history",
+  "caniuse": "history",
+  "tags": ["history"],
+  "authors": ["Hay Kranen", "Alexander Farkas"],
+  "notes": [{
+    "name": "W3C Spec",
+    "href": "https://www.w3.org/TR/html51/browsers.html#the-history-interface"
+  }, {
+    "name": "MDN documentation",
+    "href": "https://developer.mozilla.org/en-US/docs/Web/API/window.history"
+  }],
+  "polyfills": ["historyjs", "html5historyapi"]
+}
+!*/
+/* DOC
+Detects support for the History API for manipulating the browser session history.
+*/
+
+  Modernizr.addTest('history', function() {
+    // Issue #733
+    // The stock browser on Android 2.2 & 2.3, and 4.0.x returns positive on history support
+    // Unfortunately support is really buggy and there is no clean way to detect
+    // these bugs, so we fall back to a user agent sniff :(
+    var ua = navigator.userAgent;
+
+    // We only want Android 2 and 4.0, stock browser, and not Chrome which identifies
+    // itself as 'Mobile Safari' as well, nor Windows Phone (issue #1471).
+    if ((ua.indexOf('Android 2.') !== -1 ||
+        (ua.indexOf('Android 4.0') !== -1)) &&
+        ua.indexOf('Mobile Safari') !== -1 &&
+        ua.indexOf('Chrome') === -1 &&
+        ua.indexOf('Windows Phone') === -1 &&
+    // Since all documents on file:// share an origin, the History apis are
+    // blocked there as well
+        location.protocol !== 'file:'
+    ) {
+      return false;
+    }
+
+    // Return the regular check
+    return (window.history && 'pushState' in window.history);
+  });
 
 
   // Run each test
