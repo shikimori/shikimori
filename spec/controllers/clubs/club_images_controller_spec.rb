@@ -33,7 +33,9 @@ describe Clubs::ClubImagesController do
           club_id: club.id,
           user_id: user.id
         )
-        expect(json).to eq ClubImageSerializer.new(resource).to_json
+        expect(json).to eq JSON.parse(
+          ClubImageSerializer.new(resource).to_json
+        ).symbolize_keys
         expect(response).to have_http_status :success
       end
     end
