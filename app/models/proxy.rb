@@ -195,9 +195,9 @@ class Proxy < ApplicationRecord
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
 
       if e.message =~ SAFE_ERRORS
-        log "#{e.message}", options
+        log "#{e.class.name} #{e.message}", options
       else
-        log "#{e.message}\n#{e.backtrace.join("\n")}", options
+        log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
       end
 
       exit if e.class == Interrupt
@@ -225,9 +225,9 @@ class Proxy < ApplicationRecord
     rescue Exception => e
       raise if defined?(VCR) && e.kind_of?(VCR::Errors::UnhandledHTTPRequestError)
       if e.message =~ SAFE_ERRORS
-        log "#{e.message}", options
+        log "#{e.class.name} #{e.message}", options
       else
-        log "#{e.message}\n#{e.backtrace.join("\n")}", options
+        log "#{e.class.name} #{e.message}\n#{e.backtrace.join("\n")}", options
       end
 
       exit if e.class == Interrupt
