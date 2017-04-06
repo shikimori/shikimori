@@ -3,7 +3,7 @@ class ClubDecorator < DbEntryDecorator
 
   rails_cache :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
-    :comments, :banned
+    :comments, :banned, :members_sample
 
   def url
     h.club_url object
@@ -25,7 +25,7 @@ class ClubDecorator < DbEntryDecorator
     end
   end
 
-  def members
+  def members_sample
     all_member_roles.limit(12).map(&:user)
   end
 

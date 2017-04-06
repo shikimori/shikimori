@@ -34,13 +34,14 @@
           name: i18n_i('character', :other),
           ratio_type: 'person'
 
-    - if club.members.any?
+    - if club.members_sample.any?
       .subheadline.m10
         span.linkeable data-href="#{members_club_url club}"
           = i18n_i 'member', :other
+          |  (#{club.members.count})
       .cc.members
         = render partial: 'users/user',
-          collection: club.members,
+          collection: club.members_sample,
           locals: { content_by: :avatar }
 
     - if club.admins.any?
