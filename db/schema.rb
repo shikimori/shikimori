@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404074159) do
+ActiveRecord::Schema.define(version: 20170406063614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -543,14 +543,14 @@ ActiveRecord::Schema.define(version: 20170404074159) do
     t.text     "description_ru"
     t.text     "description_en"
     t.string   "kind",               limit: 255
-    t.integer  "volumes",                                                default: 0,     null: false
-    t.integer  "volumes_aired",                                          default: 0,     null: false
-    t.integer  "chapters",                                               default: 0,     null: false
-    t.integer  "chapters_aired",                                         default: 0,     null: false
+    t.integer  "volumes",                        default: 0,     null: false
+    t.integer  "volumes_aired",                  default: 0,     null: false
+    t.integer  "chapters",                       default: 0,     null: false
+    t.integer  "chapters_aired",                 default: 0,     null: false
     t.string   "status",             limit: 255
     t.text     "synonyms"
     t.string   "russian",            limit: 255
-    t.decimal  "score",                                                  default: "0.0", null: false
+    t.decimal  "score",                          default: "0.0", null: false
     t.integer  "ranked"
     t.integer  "popularity"
     t.string   "rating",             limit: 255
@@ -563,16 +563,15 @@ ActiveRecord::Schema.define(version: 20170404074159) do
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean  "censored",                                               default: false
+    t.boolean  "censored",                       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "tags",               limit: 255
     t.string   "source",             limit: 255
     t.string   "read_manga_id",      limit: 255
-    t.decimal  "read_manga_scores",              precision: 8, scale: 2, default: "0.0"
-    t.float    "site_score",                                             default: 0.0,   null: false
+    t.float    "site_score",                     default: 0.0,   null: false
     t.datetime "parsed_at"
-    t.text     "desynced",                                               default: [],    null: false, array: true
+    t.text     "desynced",                       default: [],    null: false, array: true
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"

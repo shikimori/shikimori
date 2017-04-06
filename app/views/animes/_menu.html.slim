@@ -147,8 +147,6 @@
           - if resource.respond_to?(:read_manga_id) && !resource.read_manga_id.blank?
             li
               a.b-link href="#{resource.read_manga_url}"
-                /*- if resource.read_manga_scores > 0*/
-                  span.right = resource.read_manga_scores
                 img.site-icon src="/images/favicons/readmanga.ico" title="#{resource.read_manga_name}"
                 = resource.read_manga_name
 
