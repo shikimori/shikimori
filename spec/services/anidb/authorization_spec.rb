@@ -1,22 +1,27 @@
 # frozen_string_literal: true
 
-describe Anidb::Authorization, :vcr do
+describe Anidb::Authorization do
   let(:service) { Anidb::Authorization.instance }
 
-  describe '#cookie' do
-    subject { service.cookie }
+  describe '#cookie_string', vcr: {
+    cassette_name: 'Anidb_Authorization/cookie_string'
+  } do
+    subject { service.cookie_string }
 
     it do
-      is_expected.to eq %w(
-        adbautopass=vbzjomexrccnxcla;
-        adbautouser=naruto2148;
-        adbsessuser=naruto2148;
-        adbuin=1490295269-RLyR;
+      is_expected.to eq(
+        'adbautopass=zwsofsxfdnrzyxdj; '\
+        'adbautouser=naruto1451; '\
+        'adbsess=HeOtBhOHtFVJILxs; '\
+        'adbsessuser=naruto1451; '\
+        'adbss=740345-HeOtBhOH; '\
+        'adbuin=1491134069-bSaf; '\
+        'anidbsettings=%7B%22USEAJAX%22%3A1%7D;'
       )
     end
 
     describe 'caching' do
-      let(:cookies) { 'zzz' }
+      let(:cookies) { ['zzz'] }
       before do
         allow(Rails.cache).to receive :write
         allow(service).to receive(:authorize).and_return cookies

@@ -4,11 +4,19 @@ class Anidb::Authorization
   include Singleton
 
   CACHE_KEY = 'anidb_authorization_cookie'
-  COOKIES = %w(adbautopass adbautouser adbsessuser adbuin)
+  COOKIES = %w(
+    adbuin
+    adbsess
+    adbss
+    adbsessuser
+    anidbsettings
+    adbautouser
+    adbautopass
+  )
 
   LOGIN_PATH = '/perl-bin/animedb.pl?show=login'
-  LOGIN = 'naruto2148'
-  PASSWORD = 'Qb6jT5LUZsj9'
+  LOGIN = 'naruto1451'
+  PASSWORD = 'Wy6F27yNuDFB'
 
   HEADERS = {
     'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\
@@ -21,6 +29,11 @@ class Anidb::Authorization
     'Origin' => 'http://anidb.net',
     'Referer' => 'http://anidb.net/perl-bin/animedb.pl?show=login'
   }
+
+  # NOTE: space between cookies is important for anidb
+  def cookie_string
+    cookie.join(' ')
+  end
 
   def cookie
     RedisMutex.with_lock(self.class.name, block: 0) do
