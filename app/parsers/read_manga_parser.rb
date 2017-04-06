@@ -2,7 +2,7 @@
 class ReadMangaParser < SiteParserWithCache
   include ReadMangaImportData
 
-  PageSize = 100
+  PageSize = 70
 
   # конструктор
   def initialize
@@ -77,7 +77,6 @@ class ReadMangaParser < SiteParserWithCache
     doc = Nokogiri::HTML(content.gsub(/<br ?\/?>/, "\n").gsub(/<!--[\s\S]*?-->/, ''))
 
     extract_names entry, doc
-    entry[:score] = doc.css('.rate_info b').first.text.sub(',', '.').sub('/10', '').to_f
 
     lines = extract_description_lines doc
     entry[:source] = find_source(lines, url) || url

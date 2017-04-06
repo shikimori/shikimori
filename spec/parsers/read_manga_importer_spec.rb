@@ -2,8 +2,12 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
   let(:importer) { ReadMangaImporter.new }
 
   describe 'import' do
-    let!(:manga) { create :manga, id: 61189, name: "the magician's bride",
-      description_ru: description_ru }
+    let!(:manga) do
+      create :manga,
+        id: 61189,
+        name: "the magician's bride",
+        description_ru: description_ru
+    end
     let(:description_ru) { 'test' }
     let(:identifier) { 'the_magician_s_bride' }
 
