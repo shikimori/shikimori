@@ -35,7 +35,13 @@ class Anidb::ImportDescriptionsJob
 
   def anidb_description_en db_entry
     anidb_url = db_entry.anidb_external_link.url
-    description_en = Anidb::ParseDescription.call anidb_url
+    description_en = parse_description anidb_url
     Anidb::ProcessDescription.call description_en, anidb_url
+  end
+
+  def parse_description anidb_url
+    Retryable.retryable tries: 10, on: AutoBannedError, sleep: 0 do
+      Anidb::ParseDescription.call anidb_url
+    end
   end
 end
