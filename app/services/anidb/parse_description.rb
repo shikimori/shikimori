@@ -60,7 +60,7 @@ class Anidb::ParseDescription
   end
 
   def parse content
-    doc(content).at_xpath(DESCRIPTION_XPATH).inner_html
+    doc(content).at_xpath(DESCRIPTION_XPATH)&.inner_html || ''
   end
 
   def sanitize html

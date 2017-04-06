@@ -49,6 +49,12 @@ describe Anidb::ParseDescription do
         TEXT
       )
     end
+
+    context 'no description' do
+      let(:url) { 'http://anidb.net/perl-bin/animedb.pl?show=anime&aid=2461' }
+
+      it { is_expected.to eq '' }
+    end
   end
 
   context 'valid character url', vcr: {
