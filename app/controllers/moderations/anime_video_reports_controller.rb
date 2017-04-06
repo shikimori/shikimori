@@ -30,6 +30,15 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     )
   end
 
+  def accept_broken
+    if @resource.can_accept?
+      @resource.accept! current_user
+      @resource.anime_video.broken
+    end
+
+    redirect_back fallback_location: moderations_anime_video_reports_url
+  end
+
   def close_edit
     @resource.accept_only! current_user if @resource.can_accept_only?
 

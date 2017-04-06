@@ -135,12 +135,13 @@ Rails.application.routes.draw do
       get '/page/:page', action: :index, as: :page, on: :collection
 
       member do
-        get :accept
-        get :accept_edit
-        get :close_edit
-        get :reject
-        get :work
-        get :cancel
+        post :accept
+        post :accept_edit
+        post :accept_broken
+        post :close_edit
+        post :reject
+        post :work
+        post :cancel
       end
     end
 

@@ -8,31 +8,31 @@ describe Moderations::AnimeVideoReportsController do
   let(:kind) { 'broken' }
 
   describe '#index' do
-    before { get :index }
+    before { post :index }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#accept' do
-    before { get :accept, params: { id: anime_video_report.id } }
+    before { post :accept, params: { id: anime_video_report.id } }
 
     context 'broken' do
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload.state).to eq kind
+        expect(response).to redirect_to moderations_anime_video_reports_url
       end
     end
 
     context 'wrong' do
       let(:kind) { 'wrong' }
       it do
-        expect(response).to redirect_to moderations_anime_video_reports_url
         expect(anime_video.reload.state).to eq kind
+        expect(response).to redirect_to moderations_anime_video_reports_url
       end
     end
   end
 
   describe '#accept_edit' do
-    before { get :accept_edit, params: { id: anime_video_report.id } }
+    before { post :accept_edit, params: { id: anime_video_report.id } }
     it do
       expect(anime_video_report.reload).to be_accepted
       expect(anime_video.reload.state).to eq kind
@@ -44,8 +44,18 @@ describe Moderations::AnimeVideoReportsController do
     end
   end
 
+  describe '#accept_broken' do
+    before { post :accept_broken, params: { id: anime_video_report.id } }
+    let(:kind) { 'other' }
+
+    it do
+      expect(anime_video.reload.state).to eq 'broken'
+      expect(response).to redirect_to moderations_anime_video_reports_url
+    end
+  end
+
   describe '#close_edit' do
-    before { get :close_edit, params: { id: anime_video_report.id } }
+    before { post :close_edit, params: { id: anime_video_report.id } }
     it do
       expect(anime_video_report.reload).to be_accepted
       expect(anime_video.reload).to be_working
@@ -81,7 +91,7 @@ describe Moderations::AnimeVideoReportsController do
     let!(:anime_video_report) { create :anime_video_report, user: user, kind: kind, anime_video: anime_video, state: 'accepted' }
     let(:state) { kind }
 
-    before { get :cancel, params: { id: anime_video_report.id } }
+    before { post :cancel, params: { id: anime_video_report.id } }
 
     context 'broken' do
       let(:kind) { 'broken' }
@@ -116,7 +126,7 @@ describe Moderations::AnimeVideoReportsController do
   end
 
   describe '#reject' do
-    before { get :reject, params: { id: anime_video_report.id } }
+    before { post :reject, params: { id: anime_video_report.id } }
 
     context 'broken' do
       let(:kind) { 'broken' }
