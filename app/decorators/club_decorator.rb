@@ -26,7 +26,7 @@ class ClubDecorator < DbEntryDecorator
   end
 
   def members_sample
-    all_member_roles.limit(12).map(&:user)
+    all_member_roles.where(role: :member).limit(12).map(&:user)
   end
 
   def animes

@@ -30,4 +30,5 @@ header.head
       = yield
 
     aside.l-menu
-      = render 'menu', club: @club
+      - if @club.persisted?
+        = render 'menu', club: @club
