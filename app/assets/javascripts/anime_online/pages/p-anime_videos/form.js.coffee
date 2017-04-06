@@ -16,10 +16,10 @@
 
   # клик по "Проверить видео"
   $('.do-preview').on 'click', ->
-    $form.addClass 'b-ajax'
-
     video_url = $('#anime_video_url').val()
     return unless video_url
+
+    $form.addClass 'b-ajax'
     $('.video-preview').removeClass('hidden')
 
     $.ajax
