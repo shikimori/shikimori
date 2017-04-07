@@ -29,8 +29,8 @@
     = form_tag reposition_anime_screenshots_url(@resource), method: :post do
       input#entry_ids name="ids" type="hidden"
 
-      .buttons
-        input.btn-primary.btn-submit.btn[
+      .b-form: .buttons
+        input[
           type="submit"
           value="#{t 'simple_form.magic_submit.default.submit'}"
           data-disable-with="#{{t 'simple_form.magic_submit.default.disable_with'}}"
