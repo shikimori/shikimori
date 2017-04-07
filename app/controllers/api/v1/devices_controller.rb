@@ -5,10 +5,17 @@ class Api::V1::DevicesController < Api::V1Controller
     description 'Mobile devices for push notifications'
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  LIMIT = 50
+
   api :GET, '/devices', 'List devices'
+  param :page, :number, required: false
+  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
   def index
-    respond_with @devices
+    @limit = [[params[:limit].to_i, 1].max, LIMIT].min
+    @page = [params[:page].to_i, 1].max
+
+    @collection = postload_paginate(@page, @limit) { @devices }
+    respond_with @collection
   end
 
   def test
@@ -18,7 +25,7 @@ class Api::V1::DevicesController < Api::V1Controller
 
   api :POST, '/devices', 'Create a device'
   param :device, Hash do
-    param :platform, ['ios', 'android'], required: true
+    param :platform, %w(ios android), required: true
     param :token, String, desc: 'ID of mobile device', required: true
     param :user_id, :undef, required: true
     param :name, String, required: false
