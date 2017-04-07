@@ -1,0 +1,11 @@
+en:
+  frontend:
+    statistics:
+      number: Number
+      anime_with_score: <b>%{count}</b> anime scored <b>%{score}</b>
+      anime_of_type: <b>%{count}</b> anime of type <b>%{type}</b>
+      anime_in_year: '%{count} %{type} in %{year}'
+      anime_with_rating_in_year: '%{count} %{rating} anime in %{year}'
+      share: Share
+      ratings_share: '%{percent}% share of %{rating} in %{year}'
+      genres_share: '%{percent}% share of %{genre} in %{year}'

@@ -47,6 +47,15 @@ ru:
         # p_user-rates/index.coffee
         insufficient_data: Недостаточно данных
         error_occurred: Произошла ошибка
+        changes_saved: Изменения сохранены
+        rewatch:
+          one: повторный просмотр
+          few: повторных просмотра
+          many: повторных просмотров
+        reread:
+          one: повторное прочтение
+          few: повторных прочтения
+          many: повторных прочтений
 
       # p-recommendations-index.coffee
       p_recommendations_index:

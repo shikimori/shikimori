@@ -224,6 +224,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def local_addr?
+    remote_addr == '127.0.0.1' || remote_addr == '::1'
+  end
+
   def json?
     request.format == Mime::Type.lookup_by_extension('json') || params[:format] == 'json'
   end
@@ -243,7 +247,7 @@ class ApplicationController < ActionController::Base
     NamedLogger.send("#{Rails.env}_errors").error "#{e.message}\n#{e.backtrace.join("\n")}"
     Rails.logger.error "#{e.message}\n#{e.backtrace.join("\n")}"
 
-    raise e if remote_addr == '127.0.0.1' && (
+    raise e if local_addr? && (
       !e.is_a?(AgeRestricted) &&
       !e.is_a?(CopyrightedResource) &&
       !e.is_a?(Forbidden)
