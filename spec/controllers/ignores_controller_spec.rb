@@ -6,7 +6,7 @@ describe IgnoresController do
   describe '#create' do
     let(:user_1) { create :user }
     let(:user_2) { create :user }
-    let(:user_3) { create :user }
+    let(:user_3) { create :user, id: 987536997 }
     let!(:preset_ignore) { create :ignore, user: user, target: user_3 }
 
     before { post :create, params: { user_ids: user_ids } }
