@@ -2,6 +2,12 @@ class ProfilesController < ShikimoriController
   before_action :fetch_resource
   before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
 
+  PARENT_PAGES = {
+    'password' => 'account',
+    'ignored_topics' => 'misc',
+    'ignored_users' => 'misc'
+  }
+
   def show
     noindex if @resource.created_at > 1.year.ago
 
@@ -145,6 +151,14 @@ class ProfilesController < ShikimoriController
   def edit
     authorize! :edit, @resource
     page_title t(:settings)
+
+    if PARENT_PAGES[params[:page]]
+      page_title t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}")
+      breadcrumb(
+        t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
+        edit_profile_url(@resource, page: PARENT_PAGES[params[:page]])
+      )
+    end
     page_title t("profiles.page.pages.#{params[:page]}") rescue I18n::MissingTranslation
 
     @page = params[:page]

@@ -5,13 +5,9 @@
       == @resource.errors.full_messages.join('<br>')
 
   .b-options-floated.mobile-phone
-    a[
-      class="#{:selected if @page == 'account' || @page == 'password'}"
-      href="#{edit_profile_url @resource, page: 'account'}"
-    ] = t '.pages.account'
-    - %w(profile styles list notifications misc).each do |page|
+    - %w(account profile styles list notifications misc).each do |page|
       a[
-        class="#{:selected if @page == page}"
+        class="#{:selected if @page == page || page == ProfilesController::PARENT_PAGES[params[:page]]}"
         href="#{edit_profile_url @resource, page: page}"
       ] = t ".pages.#{page}"
   h2.subheadline.m10 = t :settings
