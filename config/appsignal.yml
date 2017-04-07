@@ -4,7 +4,7 @@ default: &defaults
   push_api_key: "f699615d-b827-425b-b880-d82dca0d3634"
 
   # Your app's name
-  name: "shikimori"
+  name: "shikimori_"
 
   # Actions that should not be monitored by AppSignal
   # ignore_actions:
@@ -25,4 +25,4 @@ development:
 
 production:
   <<: *defaults
-  active: false
+  active: true
