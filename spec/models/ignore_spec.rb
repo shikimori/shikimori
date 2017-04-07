@@ -1,15 +1,12 @@
 describe Ignore do
-  it { should belong_to :user }
-  it { should belong_to :target }
+  describe '#relations' do
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :target }
+  end
 
-  #it 'should mark as read messages from blocked user' do
-    #user = FactoryGirl.create :user
-    #blocked = FactoryGirl.create :user
-    #message = FactoryGirl.create :message, :src => blocked, :dst => user
-    #message.read.should be(false)
-
-    #user.ignored_users << blocked
-
-    #Message.find(message.id).read.should be(true)
-  #end
+  describe '#validations' do
+    it { is_expected.to validate_presence_of :user }
+    it { is_expected.to validate_presence_of :target }
+    it { is_expected.to validate_uniqueness_of(:target_id).scoped_to :user_id }
+  end
 end
