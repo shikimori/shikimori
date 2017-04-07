@@ -133,3 +133,4 @@ $(document).on "click", ".by_genre .control", ->
     ),
     yAxis:
       max: 100
+  )
