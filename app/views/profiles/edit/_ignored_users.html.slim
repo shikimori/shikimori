@@ -1,21 +1,39 @@
-- if @resource.ignored_users.none?
-  .b-nothing_here Нет игнорируемых пользователей
-- else
-  table.b-table.b-editable_grid.m0
-    thead
-      tr
-        th = t '.user_nickname'
-        th.actions
-    tbody
-      - @resource.ignored_users.each do |user|
-        tr
-          td
-            = render 'users/user_16', user: user
-          td.actions
-            a.b-js-link[
-              data-action="#{api_v2_users_ignore_url user.id}"
-              data-method="DELETE"
-              data-remote="true"
-              data-type="json"
-            ] = t '.stop_ignore'
+.block
+  - if @resource.ignored_users.none?
+    .b-nothing_here = t '.no_ignored_users'
 
+  - else
+    table.b-table.b-editable_grid.m0
+      thead
+        tr
+          th = t '.user_nickname'
+          th.actions
+      tbody
+        - @resource.ignored_users.each do |user|
+          tr
+            td
+              = render 'users/user_16', user: user
+            td.actions
+              a.b-js-link[
+                data-action="#{api_v2_users_ignore_url user.id}"
+                data-method="DELETE"
+                data-remote="true"
+                data-type="json"
+              ] = t '.stop_ignore'
+
+.block
+  = form_tag ignores_url, method: :post, class: 'b-form' do |f|
+    .subheadline.m10 = t '.add_users'
+    .b-input
+      input.user_ids.m15[
+        type="text"
+        placeholder="#{t 'username'}"
+        data-variant_name="user_ids[]"
+        data-autocomplete="#{autocomplete_users_url}"
+      ]
+      .variants
+    input[
+      type="submit"
+      value="#{t 'simple_form.magic_submit.default.submit'}"
+      data-disable-with="#{{t 'simple_form.magic_submit.default.disable_with'}}"
+    ]

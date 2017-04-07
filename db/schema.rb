@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406063614) do
+ActiveRecord::Schema.define(version: 20170407113217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -517,6 +517,7 @@ ActiveRecord::Schema.define(version: 20170406063614) do
     t.integer  "target_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["user_id", "target_id"], name: "index_ignores_on_user_id_and_target_id", unique: true, using: :btree
   end
 
   create_table "manga_chapters", force: :cascade do |t|

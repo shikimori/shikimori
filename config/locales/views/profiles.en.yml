@@ -182,10 +182,13 @@ en:
         topic_name: Topic name
         topic_author: Author
         stop_ignore: stop ignore
+        no_ignored_topics: No ignored topics
 
       ignored_users:
         user_nickname: User
         stop_ignore: stop ignore
+        no_ignored_users: No ignored users
+        add_users: Add users
 
     stats_bar:
       similar_users: similar users

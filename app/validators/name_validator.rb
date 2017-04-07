@@ -2,18 +2,22 @@ class NameValidator < ActiveModel::EachValidator
   BANNED_NICKNAMES = %w(
     Youtoome
   )
+  PREDEFINED_PATHS = %i(
+    animes
+    mangas
+    contests
+    users
+    forum
+    info
+    styles
+    faye
+    ignores
+  )
   FORBIDDEN_NAMES = %r(
     \A(
       #{Forum::VARIANTS} |
-      animes |
-      mangas |
-      contests |
-      users |
-      forum |
-      info |
-      styles |
-      faye |
-      #{BANNED_NICKNAMES.join('|')}
+      #{PREDEFINED_PATHS.join '|'} |
+      #{BANNED_NICKNAMES.join '|'}
     )\Z | ((
       \.css |
       \.js |

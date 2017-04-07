@@ -182,10 +182,13 @@ ru:
         topic_name: Название топика
         topic_author: Автор
         stop_ignore: прекратить игнор
+        no_ignored_topics: Нет игнорируемых топиков
 
       ignored_users:
         user_nickname: Пользователь
         stop_ignore: прекратить игнор
+        no_ignored_users: Нет игнорируемых пользователей
+        add_users: Добавить пользователей
 
     stats_bar:
       similar_users: похожие пользователи

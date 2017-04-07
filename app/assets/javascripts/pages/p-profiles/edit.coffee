@@ -183,3 +183,9 @@ ignores_page = ->
       $('<div class="ajax-loading vk-like"></div>').insertAfter @
     .on 'ajax:success', ->
       $(@).closest('tr').remove()
+
+  $('.user_ids').completable_variant()
+  $('.user_ids').focus() if $('.user_ids').is(':appeared')
+  $('.user_ids').on 'keydown', (e) ->
+    if e.keyCode is 10 || e.keyCode is 13
+      $('.b-form').submit()

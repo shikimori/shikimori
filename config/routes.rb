@@ -773,6 +773,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :ignores, only: [:create]
     resources :profiles, path: '/', constraints: { id: user_id }, only: [:show, :update] do
       member do
         get :friends

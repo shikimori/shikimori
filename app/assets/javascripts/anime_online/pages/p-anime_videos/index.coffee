@@ -111,7 +111,7 @@ init_video_player = ->
     .on 'change', ->
       Turbolinks.visit $(@).data('href').replace('EPISODE_NUMBER', @value)
 
-    .on 'change', (e) ->
+    .on 'keydown', (e) ->
       if e.keyCode is 10 || e.keyCode is 13
         $(@).trigger 'change'
 
