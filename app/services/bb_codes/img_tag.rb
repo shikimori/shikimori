@@ -4,7 +4,7 @@ class BbCodes::ImgTag
   REGEXP = %r{
       \[url=(?<link_url>[^\[\]]+)\]
         \[img\]
-          (?<image_url>[^\[\]].*?)
+          (?<image_url> [^\[\],. ] .*? )
         \[/img\]
       \[/url\]
     |
@@ -17,7 +17,7 @@ class BbCodes::ImgTag
           (?: \s h(?:eight)?=(?<height>\d+) )?
         )*
       \]
-        (?<image_url>[^\[\]].*?)
+        (?<image_url> [^\[\],. ] .*? )
       \[/img\]
   }imx
 

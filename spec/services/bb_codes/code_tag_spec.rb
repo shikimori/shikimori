@@ -80,7 +80,7 @@ describe BbCodes::CodeTag do
     subject { tag.restore other_tag.format(tag.preprocess) }
 
     let(:text) { "[code=ruby]#{content}[/code]" }
-    let(:content) { "[b]test[/b]" }
+    let(:content) { '[b]test[/b]' }
 
     it { is_expected.to eq text }
   end
