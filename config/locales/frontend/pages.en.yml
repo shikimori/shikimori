@@ -47,6 +47,15 @@ en:
         # p-user_rates/index.coffee
         insufficient_data: Insufficient data
         error_occurred: Error occurred
+        changes_saved: Changes saved
+        rewatch:
+          one: rewatch
+          few: rewatches
+          many: rewatches
+        reread:
+          one: re-read
+          few: re-reads
+          many: re-reads
 
       # p-recommendations-index.coffee
       p_recommendations_index:

@@ -149,7 +149,7 @@ apply_list_handlers = ($root) ->
 
     # применение изменений в редактировании
     $form.on 'ajax:success', (e, data) ->
-      $.flash notice: 'Изменения сохранены'
+      $.flash notice: I18n.t('frontend.pages.p_user_rates.changes_saved')
       $('.cancel', $tr_edit).click()
 
       $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace(/^0$/, '–')
@@ -161,8 +161,19 @@ apply_list_handlers = ($root) ->
 
       $('.rate-text', $tr).html rate_text || ''
       if data.rewatches > 0
-        rewatches_text = if data.anime then "#{data.rewatches} #{p data.rewatches, 'повторный просмотр', 'повторных просмотра', 'повторных просмотров'}" else "#{data.rewatches} #{p data.rewatches, 'повторное прочтение', 'повторных прочтения', 'повторных прочтений'}"
-        $('.rewatches', $tr).html rewatches_text
+        count = data.rewatches
+        word = if data.anime
+          p count,
+            I18n.t('frontend.pages.p_user_rates.rewatch.one'),
+            I18n.t('frontend.pages.p_user_rates.rewatch.few'),
+            I18n.t('frontend.pages.p_user_rates.rewatch.many')
+        else
+          p count,
+            I18n.t('frontend.pages.p_user_rates.reread.one'),
+            I18n.t('frontend.pages.p_user_rates.reread.few'),
+            I18n.t('frontend.pages.p_user_rates.reread.many')
+
+        $('.rewatches', $tr).html "#{count} #{word}"
       else
         $('.rewatches', $tr).html ''
 

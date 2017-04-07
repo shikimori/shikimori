@@ -1,0 +1,11 @@
+ru:
+  frontend:
+    statistics:
+      number: Количество
+      anime_with_score: <b>%{count}</b> аниме с оценкой <b>%{score}</b>
+      anime_of_type: <b>%{count}</b> аниме типа <b>%{type}</b>
+      anime_in_year: '%{count} %{type} за %{year} год'
+      anime_with_rating_in_year: '%{count} аниме у %{rating} за %{year} год'
+      share: Процент
+      ratings_share: '%{percent}% у %{rating} за %{year} год'
+      genres_share: '%{percent}% у %{genre} за %{year} год'
