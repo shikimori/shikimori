@@ -4,8 +4,8 @@ class ImageReloader < ServiceObjectBase
   def call
     return if entry.desynced.include? 'image'
 
-    if parsed_data && parsed_data[:img]
-      @entry.update image: open_image(parsed_data[:img], 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)')
+    if parsed_data && parsed_data[:image]
+      @entry.update image: open_image(parsed_data[:image], 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)')
     end
   end
 
