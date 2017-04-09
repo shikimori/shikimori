@@ -17,11 +17,11 @@ header.head
         href=site_rules.url
         title=site_rules.title
       ] = site_rules.title
-      li: a.entry[
-        href=faq.url
-        title=faq.title
-      ] = faq.title
       - if ru_host?
+        li: a.entry[
+          href=faq.url
+          title=faq.title
+        ] = faq.title
         li: a.entry[
           href="https://vk.com/shikimori"
           title="Наша группа в vk.com"
