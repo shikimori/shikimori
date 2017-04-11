@@ -6,4 +6,7 @@
     a href="#{local_assigns[:url]}" title="#{local_assigns[:name]}"
       = local_assigns[:name]
   .cc-4a
-    = render collection, cover_by: :image_link
+    - type = collection.first.object.class.name.downcase
+    = render partial: "#{type.pluralize}/#{type}",
+      collection: collection,
+      locals: { cover_by: :image_link }
