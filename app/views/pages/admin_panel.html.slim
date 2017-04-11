@@ -17,9 +17,9 @@ article
     b Memory:
     span #{@mem_space}%
 
-  .metric class="#{:alert if @swap_space.to_i > 10}"
-    b Swap:
-    span #{@swap_space}%
+  / .metric class="#{:alert if @swap_space.to_i > 10}"
+    / b Swap:
+    / span #{@swap_space}%
 
   .metric
     b Memcached:

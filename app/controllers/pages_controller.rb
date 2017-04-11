@@ -115,10 +115,10 @@ class PagesController < ShikimoriController
       @mem_space = (((mem_total-mem_free) / mem_total)*100).round(2)
       @mem_space = 99 if @mem_space.nan?
 
-      swap_total = mem[19].to_f
-      swap_free = mem[21].to_f
-      @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
-      @swap_space = 99 if @swap_space.nan?
+      # swap_total = mem[19].to_f
+      # swap_free = mem[21].to_f
+      # @swap_space = (((swap_total-swap_free) / swap_total)*100).round(2)
+      # @swap_space = 99 if @swap_space.nan?
     end
 
     @calendar_update = AnimeCalendar.last.try :created_at
