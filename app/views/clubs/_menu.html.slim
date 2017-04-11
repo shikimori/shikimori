@@ -14,25 +14,24 @@
   = render 'clubs/actions', club: club
 
   = cache [club, :menu] do
-    - if params[:controller] == 'clubs'
-      - if club.animes.any?
-        = render 'clubs/menu_linked_entries',
-          collection: club.menu_animes,
-          url: animes_club_url(club),
-          name: i18n_i('anime')
+    - if club.animes.any?
+      = render 'clubs/menu_linked_entries',
+        collection: club.menu_animes,
+        url: animes_club_url(club),
+        name: i18n_i('anime')
 
-      - if club.mangas.any?
-        = render 'clubs/menu_linked_entries',
-          collection: club.menu_mangas,
-          url: mangas_club_url(club),
-          name: i18n_i('manga')
+    - if club.mangas.any?
+      = render 'clubs/menu_linked_entries',
+        collection: club.menu_mangas,
+        url: mangas_club_url(club),
+        name: i18n_i('manga')
 
-      - if club.characters.any?
-        = render 'clubs/menu_linked_entries',
-          collection: club.menu_characters,
-          url: characters_club_url(club),
-          name: i18n_i('character', :other),
-          ratio_type: 'person'
+    - if club.characters.any?
+      = render 'clubs/menu_linked_entries',
+        collection: club.menu_characters,
+        url: characters_club_url(club),
+        name: i18n_i('character', :other),
+        ratio_type: 'person'
 
     - if club.members_sample.any?
       .subheadline.m10
