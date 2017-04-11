@@ -57,6 +57,11 @@ FactoryGirl.define do
       generated true
     end
 
+    factory :club_page_topic, class: 'Topics::EntryTopics::ClubPageTopic' do
+      type 'Topics::EntryTopics::ClubPageTopic'
+      generated true
+    end
+
     factory :news_topic, class: 'Topics::NewsTopic' do
       type 'Topics::NewsTopic'
       forum { seed :animanga_forum }

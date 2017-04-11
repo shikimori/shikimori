@@ -89,6 +89,7 @@ ru:
       review: Топик обсуждения [review=%{id}]рецензии[/review].
       contest: Топик обсуждения [contest=%{id}]опроса[/contest].
       club: Топик обсуждения [club=%{id}]клуба[/club].
+      club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
       cosplay_gallery: Топик обсуждения косплея.
 
     full_title:

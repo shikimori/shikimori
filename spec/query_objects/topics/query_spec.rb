@@ -18,10 +18,36 @@ describe Topics::Query do
   end
 
   describe '#by_forum' do
-    let!(:anime_topic) { create :topic, forum: animanga_forum, updated_at: 1.day.ago }
+    let!(:anime_topic) do
+      create :topic,
+        forum: animanga_forum,
+        updated_at: 1.day.ago
+    end
     let!(:review) { create :review, :with_topics, updated_at: 10.days.ago }
-    let!(:joined_club) { create :club, :with_topics, updated_at: 15.days.ago, is_censored: true }
-    let!(:another_club) { create :club, :with_topics, updated_at: 20.days.ago, is_censored: true }
+    let!(:joined_club) do
+      create :club, :with_topics,
+        updated_at: 15.days.ago,
+        is_censored: true
+    end
+    let!(:joined_club_page) { create :club_page, club: joined_club }
+    let!(:joined_club_page_topic) do
+      create :club_page_topic,
+        linked: joined_club_page,
+        forum_id: Topic::FORUM_IDS[ClubPage.name],
+        updated_at: 9.days.ago
+    end
+    let!(:another_club) do
+      create :club, :with_topics,
+        updated_at: 20.days.ago,
+        is_censored: true
+    end
+    let!(:another_club_page) { create :club_page, club: another_club }
+    let!(:another_club_page_topic) do
+      create :club_page_topic,
+        linked: another_club_page,
+        forum_id: Topic::FORUM_IDS[ClubPage.name],
+        updated_at: 19.days.ago
+    end
     # let!(:topic_ignore) {}
 
     before { joined_club.join user if user }
@@ -57,7 +83,7 @@ describe Topics::Query do
 
       context 'my_clubs forum' do
         let(:forums) { [Forum::MY_CLUBS_FORUM.permalink] }
-        it { is_expected.to eq [joined_club.topic(locale)] }
+        it { is_expected.to eq [joined_club_page_topic, joined_club.topic(locale)] }
       end
 
       context 'common forums' do
@@ -100,7 +126,7 @@ describe Topics::Query do
       let!(:joined_club_2) { create :club, :with_topics, updated_at: 25.days.ago }
       before { joined_club_2.join user }
 
-      it { is_expected.to eq [joined_club.topic(locale), joined_club_2.topic(locale)] }
+      it { is_expected.to eq [joined_club_page_topic, joined_club.topic(locale), joined_club_2.topic(locale)] }
     end
 
     context 'clubs' do
@@ -113,7 +139,9 @@ describe Topics::Query do
         let(:is_censored_forbidden) { false }
         it do
           is_expected.to eq [
+            joined_club_page_topic,
             joined_club.topic(locale),
+            another_club_page_topic,
             another_club.topic(locale),
             joined_club_2.topic(locale),
             other_club_2.topic(locale)
@@ -125,6 +153,7 @@ describe Topics::Query do
         let(:is_censored_forbidden) { true }
         it do
           is_expected.to eq [
+            joined_club_page_topic,
             joined_club.topic(locale),
             joined_club_2.topic(locale),
             other_club_2.topic(locale)

@@ -10,6 +10,7 @@ describe Topic::TypePolicy do
   let(:review_topic) { build_stubbed :review_topic }
   let(:cosplay_gallery_topic) { build_stubbed :cosplay_gallery_topic }
   let(:contest_topic) { build_stubbed :contest_topic }
+  let(:club_page_topic) { build_stubbed :club_page_topic }
 
   describe '#forum_topic?' do
     subject { policy.forum_topic? }
@@ -100,6 +101,20 @@ describe Topic::TypePolicy do
 
     context 'contest topic' do
       let(:topic) { contest_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not contest topic' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#club_page_topic?' do
+    subject { policy.club_page_topic? }
+
+    context 'contest topic' do
+      let(:topic) { club_page_topic }
       it { is_expected.to eq true }
     end
 

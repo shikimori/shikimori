@@ -90,6 +90,8 @@ class Topics::View < ViewObjectBase
     if linked_in_avatar?
       linked = if topic_type_policy.review_topic?
         @topic.linked.target
+      elsif topic_type_policy.club_page_topic?
+        @topic.linked.club
       else
         @topic.linked
       end

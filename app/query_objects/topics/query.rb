@@ -3,7 +3,11 @@ class Topics::Query < QueryObjectBase
   MY_CLUBS_QUERY = <<-SQL.squish
     (
       type = #{Topic.sanitize Topics::EntryTopics::ClubTopic.name} and
-      #{Topic.table_name}.linked_id in (:user_clubs)
+      #{Topic.table_name}.linked_id in (:user_club_ids)
+    ) or
+    (
+      type = #{Topic.sanitize Topics::EntryTopics::ClubPageTopic.name} and
+      #{Topic.table_name}.linked_id in (:user_club_page_ids)
     )
   SQL
   NEWS_QUERY = <<-SQL.squish
@@ -15,7 +19,22 @@ class Topics::Query < QueryObjectBase
       generated = true
     )
   SQL
-  CLUBS_JOIN = "left join clubs on clubs.id=linked_id and linked_type='Club'"
+  CLUBS_JOIN = <<-SQL.squish
+    left join clubs as clubs_1 on
+      clubs_1.id = linked_id and linked_type = '#{Club.name}'
+
+    left join club_pages on
+      club_pages.id = linked_id and linked_type = '#{ClubPage.name}'
+
+    left join clubs as clubs_2 on
+      club_pages.club_id = clubs_2.id
+  SQL
+  CLUBS_WHERE = <<-SQL.squish
+    (linked_type = '#{Club.name}' and linked_id in (:user_club_ids)) or
+    (linked_type = '#{ClubPage.name}' and linked_id in (:user_club_page_ids)) or
+      clubs_1.is_censored = false or
+      clubs_2.is_censored = false
+  SQL
 
   def self.fetch user, locale
     query = new Topic
@@ -79,8 +98,9 @@ private
           user_forums scope, user
         else
           scope.where(
-            'type <> ? OR type IS NULL',
-            Topics::EntryTopics::ClubTopic.name
+            '(type <> ? and type <> ?) OR type IS NULL',
+            Topics::EntryTopics::ClubTopic.name,
+            Topics::EntryTopics::ClubPageTopic.name
           )
         end
 
@@ -91,14 +111,16 @@ private
           .order(created_at: :desc)
 
       when 'clubs'
-        new_scope = scope.where(forum_id: forum.id, linked_type: Club.name)
+        new_scope = scope
+          .where(forum_id: forum.id)
+          .where(linked_type: [Club.name, ClubPage.name])
 
         if is_censored_forbidden
           new_scope
             .joins(CLUBS_JOIN)
-            .where(
-              "(linked_id in (:user_clubs)) or clubs.is_censored = false",
-              user_clubs: user ? user.club_roles.pluck(:club_id) : []
+            .where(CLUBS_WHERE,
+              user_club_ids: user_club_ids(user),
+              user_club_page_ids: user_club_page_ids(user)
             )
         else
           new_scope
@@ -120,7 +142,8 @@ private
         scope
           .where(
             MY_CLUBS_QUERY,
-            user_clubs: user ? user.club_roles.pluck(:club_id) : []
+            user_club_ids: user_club_ids(user),
+            user_club_page_ids: user_club_page_ids(user)
           )
 
       else
@@ -134,10 +157,20 @@ private
       scope.where(
         "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
         user_forums: user.preferences.forums.map(&:to_i),
-        user_clubs: user.club_roles.pluck(:club_id)
+        user_club_ids: user_club_ids(user),
+        user_club_page_ids: user_club_page_ids(user)
       )
     else
       scope.where(FORUMS_QUERY, user_forums: user.preferences.forums.map(&:to_i))
     end
+  end
+
+  def user_club_ids user
+    @user_club_ids ||= {}
+    @user_club_ids[user.id] ||= user&.club_roles&.pluck(:club_id) || []
+  end
+
+  def user_club_page_ids user
+    ClubPage.where(club_id: user_club_ids(user)).pluck(:id)
   end
 end

@@ -30,4 +30,8 @@ class Topic::TypePolicy
   def contest_topic?
     topic.class.name == Topics::EntryTopics::ContestTopic.name
   end
+
+  def club_page_topic?
+    topic.class.name == Topics::EntryTopics::ClubPageTopic.name
+  end
 end
