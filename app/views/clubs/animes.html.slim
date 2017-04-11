@@ -2,15 +2,15 @@
   .subheadline-buttons
     = render 'blocks/list_switchers',
       name: 'club_animes',
-      values: %w(list posters)
+      values: %w(posters list)
   h2.subheadline.m10 = @page_title.last
-  - if cookies['club_animes'] == 'posters'
+  - if cookies['club_animes'] == 'list'
+    div
+      = render partial: 'animes/relation_note',
+        collection: @resource.animes
+  - else
     .cc-5.to-process data-dynamic="cutted_covers"
       = render partial: 'animes/anime',
         collection: @resource.animes,
         locals: { cover_notice: :year_kind, content_by: :mini_tooltip },
         cache: ->(entry, _) { CacheHelper.keys entry, :relation, :mini_tooltip }
-  - else
-    div
-      = render partial: 'animes/relation_note',
-        collection: @resource.animes
