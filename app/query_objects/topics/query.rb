@@ -35,6 +35,10 @@ class Topics::Query < QueryObjectBase
       clubs_1.is_censored = false or
       clubs_2.is_censored = false
   SQL
+  BY_LINKED_CLUB_SQL = <<-SQL.squish
+    (linked_id = :club_id and linked_type = '#{Club.name}') or
+    (linked_id in (:club_page_ids) and linked_type = '#{ClubPage.name}')
+  SQL
 
   def self.fetch user, locale
     query = new Topic
@@ -51,7 +55,12 @@ class Topics::Query < QueryObjectBase
   end
 
   def by_linked linked
-    if linked
+    if linked.is_a? Club
+      chain @scope.where(BY_LINKED_CLUB_SQL,
+        club_id: linked.id,
+        club_page_ids: linked.pages.pluck(:id)
+      )
+    elsif linked
       chain @scope.where(linked: linked)
     else
       self

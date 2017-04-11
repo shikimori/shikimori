@@ -169,17 +169,30 @@ describe Topics::Query do
   end
 
   describe '#by_linked' do
-    let(:linked) { create :anime }
-    let!(:topic_1) { create :topic, linked: linked, forum: animanga_forum }
-    let!(:topic_2) { create :topic, forum: animanga_forum }
+    subject { query.by_linked linked }
 
-    subject do
-      query
-        .by_forum(animanga_forum, user, is_censored_forbidden)
-        .by_linked(linked)
+    context 'not club' do
+      let(:linked) { create :anime }
+      let!(:topic_1) { create :topic, linked: linked }
+      let!(:topic_2) { create :topic }
+      it { is_expected.to eq [topic_1] }
     end
 
-    it { is_expected.to eq [topic_1] }
+    context 'club' do
+      let!(:linked) do
+        create :club, :with_topics,
+          updated_at: 15.days.ago,
+          is_censored: true
+      end
+      let!(:club_page) { create :club_page, club: linked }
+      let!(:club_page_topic) do
+        create :club_page_topic,
+          linked: club_page,
+          updated_at: 9.days.ago
+      end
+
+      it { is_expected.to eq [club_page_topic, linked.topic(locale)] }
+    end
   end
 
   describe '#as_views' do
