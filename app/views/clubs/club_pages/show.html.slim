@@ -9,4 +9,4 @@
     = cache @club_page do
       = BbCodeFormatter.instance.format_comment(@club_page.text)
 
-  = render 'clubs/comments', club: @club
+  = render 'db_entries/comments', resource: @resource

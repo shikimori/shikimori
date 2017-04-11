@@ -1,18 +1,29 @@
 - if user_signed_in? || resource.preview_topic_view.comments_count > 0
-  .b-options-floated.mobile-phone_portrait
-    - if resource.preview_topic_view.summaries_count > 0
-      span.linkeable data-href="#{resource.summaries_url}"
-        = t '.all_summaries'
-        span.brackets = resource.preview_topic_view.summaries_count
+  - if resource.preview_topic_view.summaries_count > 0
+    .b-options-floated.mobile-phone_portrait
+      - if resource.preview_topic_view.summaries_count > 0
+        span.linkeable data-href="#{resource.summaries_url}"
+          = t '.all_summaries'
+          span.brackets = resource.preview_topic_view.summaries_count
+
+      - if resource.preview_topic_view.any_comments?
+        span.linkeable data-href="#{resource.preview_topic_view.url}"
+          = t '.all_comments'
+          span.brackets = resource.preview_topic_view.comments_count
 
     - if resource.preview_topic_view.any_comments?
-      span.linkeable data-href="#{resource.comments_url}"
-        = t '.all_comments'
-        span.brackets = resource.preview_topic_view.comments_count
+      .subheadline.m3
+        = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
 
-  - if resource.preview_topic_view.any_comments?
+  - else
     .subheadline.m3
-      = i18n_io resource.preview_topic_view.any_summaries? ? 'Summary' : 'Comment', :few
+      - if resource.preview_topic_view.comments_count > 0
+        a[
+          href="#{resource.preview_topic_view.url}"
+          title="#{t '.all_comments'}"
+        ] = "#{i18n_io 'Comment', :few} (#{resource.preview_topic_view.comments_count})"
+      - else
+        = i18n_io 'Comment', :few
 
   div
     .b-topic.to-process[

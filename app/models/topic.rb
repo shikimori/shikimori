@@ -14,6 +14,7 @@ class Topic < ApplicationRecord
     'Character' => 1,
     'Person' => 1,
     'Club' => Forum::CLUBS_ID,
+    'ClubPage' => Forum::CLUBS_ID,
     'Review' => 12,
     'Contest' => Forum::CONTESTS_ID,
     'CosplayGallery' => Forum::COSPLAY_ID
@@ -127,15 +128,16 @@ private
 
   # проверка, что linked при его наличии нужного типа
   def validate_linked
-    return if self[:linked_type].blank?
+    return if linked_type.blank?
 
-    match = self[:linked_type] =~ /
+    match = linked_type =~ /
       ^(
         Anime|
         Manga|
         Character|
         Person|
         Club|
+        ClubPage|
         Review|
         Contest|
         CosplayGallery
@@ -143,7 +145,7 @@ private
     /x
     return if match.present?
 
-    errors[:linked_type] = 'Forbidden Linked Type'
-    return false
+    errors.add :linked_type, 'Forbidden Linked Type'
+    throw :abort
   end
 end

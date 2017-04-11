@@ -155,11 +155,6 @@ class DbEntryDecorator < BaseDecorator
     h.send "edit_field_#{klass_lower}_url", object, field: field
   end
 
-  def comments_url
-    topic = object.maybe_topic h.locale_from_host
-    UrlGenerator.instance.topic_url(topic) if topic
-  end
-
   def next_versions_page
     h.send "versions_#{klass_lower}_url", object,
       page: (h.params[:page] || 1).to_i + 1

@@ -5,8 +5,4 @@ class Topics::EntryTopics::CosplayGalleryTopic < Topics::EntryTopic
 
     # "Косплей #{gallery_linked.name}"
   # end
-
-  # def text
-    # title
-  # end
 end

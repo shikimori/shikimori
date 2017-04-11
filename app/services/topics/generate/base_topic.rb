@@ -8,8 +8,12 @@ class Topics::Generate::BaseTopic < ServiceObjectBase
 private
 
   def build_topic
-    model.topics.find_by(find_by_attributes) ||
-      model.topics.build(topic_attributes)
+    if model.respond_to? :topics
+      model.topics.find_by(find_by_attributes) ||
+        model.topics.build(topic_attributes)
+    else
+      model.build_topic topic_attributes
+    end
   end
 
   def topic_klass

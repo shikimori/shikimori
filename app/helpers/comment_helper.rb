@@ -5,14 +5,14 @@ module CommentHelper
   include Translation
   #include AniMangaHelper
 
-  SIMPLE_BB_CODES = [
-    :b, :s, :u, :i, :quote, :url, :img, :list, :right, :center, :solid
+  SIMPLE_BB_CODES = %i[
+    b s u i quote url img list right center solid
   ]
-  COMPLEX_BB_CODES = [
-    :smileys, :club, :contest, :mention, :version, :anime_video,
-    :user, :message, :comment, :topic, :review, :quote, :posters, :ban,
-    :spoiler
-  ]#, :wall_container
+  COMPLEX_BB_CODES = %i[
+    smileys club club_page contest mention version anime_video
+    user message comment topic review quote posters ban
+    spoiler
+  ]
 
   @@smileys_path = '/images/smileys/'
   @@smileys_synonym = {
@@ -157,6 +157,7 @@ module CommentHelper
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
+    ClubPage => [/(\[club_page(?:=(\d+))?\]([^\[]*?)\[\/club_page\])/, nil],
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
     Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }
@@ -254,6 +255,8 @@ module CommentHelper
               moderations_version_url entry
             elsif entry.kind_of? Club
               club_url entry
+            elsif entry.kind_of? ClubPage
+              club_club_page_url entry.club, entry
             elsif entry.kind_of? AnimeVideo
               entry.video_url
             else

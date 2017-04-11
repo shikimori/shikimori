@@ -2,7 +2,7 @@ class Clubs::ClubPagesController < ClubsController
   load_and_authorize_resource :club
   load_and_authorize_resource
 
-  CREATE_PARAMS = [:club_id, :parent_page_id, :name, :layout, :text]
+  CREATE_PARAMS = %i[club_id parent_page_id name layout text]
   UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
   before_action :prepare_form, except: [:show]
@@ -11,6 +11,8 @@ class Clubs::ClubPagesController < ClubsController
     page_title @resource.name
     breadcrumb @club.name, @club.url
     @back_url = @club.url
+
+    @resource = @resource.decorate
 
     @resource.parents.each do |club_page|
       breadcrumb club_page.name, club_club_page_path(@club, club_page)
@@ -24,7 +26,9 @@ class Clubs::ClubPagesController < ClubsController
   end
 
   def create
-    if @resource.save
+    @resource = ClubPage::Create.call create_params, current_user
+
+    if @resource.errors.blank?
       redirect_to(
         edit_club_club_page_path(@resource.club, @resource),
         notice: t('changes_saved')

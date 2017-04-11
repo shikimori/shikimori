@@ -39,6 +39,7 @@ private
       when NilClass then nil
       when Topic then UrlGenerator.instance.topic_url linked
       when User then UrlGenerator.instance.profile_url linked
+      when ClubPage then UrlGenerator.instance.topic_url linked
     end
   end
 

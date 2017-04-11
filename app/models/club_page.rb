@@ -8,6 +8,12 @@ class ClubPage < ApplicationRecord
     foreign_key: :parent_page_id,
     dependent: :destroy
 
+  has_one :topic,
+    class_name: Topics::EntryTopics::ClubPageTopic.name,
+    as: :linked,
+    inverse_of: :linked, # topic always load know its linked
+    dependent: :destroy
+
   enumerize :layout,
     in: Types::ClubPage::Layout.values,
     predicates: { prefix: true },

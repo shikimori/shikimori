@@ -1,12 +1,12 @@
 class Topics::Query < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
-  MY_CLUBS_QUERY = <<-SQL.strip
+  MY_CLUBS_QUERY = <<-SQL.squish
     (
       type = #{Topic.sanitize Topics::EntryTopics::ClubTopic.name} and
       #{Topic.table_name}.linked_id in (:user_clubs)
     )
   SQL
-  NEWS_QUERY = <<-SQL.strip
+  NEWS_QUERY = <<-SQL.squish
     (
       type = '#{Topics::NewsTopic.name}' and
       generated = false

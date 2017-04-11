@@ -27,7 +27,7 @@ class FayeService
   end
 
   def destroy trackable
-    if trackable.kind_of?(Message)
+    if trackable.is_a? Message
       trackable.delete_by @actor
     else
       publisher.publish trackable, :deleted

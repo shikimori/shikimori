@@ -11,6 +11,10 @@ class Topics::View < ViewObjectBase
   instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore
   instance_cache :topic_comments_policy, :topic_type_policy
 
+  def url
+    UrlGenerator.instance.topic_url @topic
+  end
+
   def ignored_topic?
     h.user_signed_in? && h.current_user.ignored_topics.include?(@topic)
   end

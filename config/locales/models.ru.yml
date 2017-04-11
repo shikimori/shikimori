@@ -82,25 +82,26 @@ ru:
   topics/entry_topic:
     title: Обсуждение
     body:
-      anime: Топик обсуждения [%{type}=%{id}]аниме[/%{type}].
-      manga: Топик обсуждения [%{type}=%{id}]манги[/%{type}].
-      character: Топик обсуждения [%{type}=%{id}]персонажа[/%{type}].
-      person: Топик обсуждения [%{type}=%{id}]человека[/%{type}].
-      review: Топик обсуждения [%{type}=%{id}]рецензии[/%{type}].
-      contest: Топик обсуждения [%{type}=%{id}]опроса[/%{type}].
-      club: Топик обсуждения [%{type}=%{id}]клуба[/%{type}].
+      anime: Топик обсуждения [anime=%{id}]аниме[/anime].
+      manga: Топик обсуждения [manga=%{id}]манги[/manga].
+      character: Топик обсуждения [character=%{id}]персонажа[/character].
+      person: Топик обсуждения [person=%{id}]человека[/person].
+      review: Топик обсуждения [review=%{id}]рецензии[/review].
+      contest: Топик обсуждения [contest=%{id}]опроса[/contest].
+      club: Топик обсуждения [club=%{id}]клуба[/club].
       cosplay_gallery: Топик обсуждения косплея.
 
     full_title:
-      anime: Обсуждение аниме [%{type}]%{id}[/%{type}]
-      manga: Обсуждение манги [%{type}]%{id}[/%{type}]
-      character: Обсуждение персонажа [%{type}]%{id}[/%{type}]
-      person: Обсуждение человека [%{type}]%{id}[/%{type}]
+      anime: Обсуждение аниме [anime]%{id}[/anime]
+      manga: Обсуждение манги [manga]%{id}[/manga]
+      character: Обсуждение персонажа [character]%{id}[/character]
+      person: Обсуждение человека [person]%{id}[/person]
       review:
         anime: Обсуждение рецензии аниме %{target_name} от %{author}
         manga: Обсуждение рецензии манги %{target_name} от %{author}
-      contest: Обсуждение опроса [%{type}]%{id}[/%{type}]
-      club: Обсуждение клуба [%{type}]%{id}[/%{type}]
+      contest: Обсуждение опроса [contest]%{id}[/contest]
+      club: Обсуждение клуба [club]%{id}[/club]
+      club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]
       cosplay_gallery: Обсуждение косплея
 
   topics/news_topic:

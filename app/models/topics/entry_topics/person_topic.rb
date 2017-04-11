@@ -1,8 +1,4 @@
 class Topics::EntryTopics::PersonTopic < Topics::EntryTopic
-  def text
-    "Обсуждение [person=#{linked_id}]#{human_role}[/person]."
-  end
-
   def human_role
     if linked.producer && linked.mangaka
       'режиссёра аниме и автора манги'
