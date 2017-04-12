@@ -5,6 +5,8 @@ class Clubs::ClubTopicsController < ClubsController
   # CREATE_PARAMS = %i[club_id parent_page_id name layout text]
   # UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
+  before_action { page_title i18n_i('Club', :other) }
+  before_action :prepare_club
   # before_action :prepare_form, except: [:show]
 
   # def show
@@ -78,6 +80,18 @@ class Clubs::ClubTopicsController < ClubsController
   # end
 
 # private
+
+  def prepare_club
+    @club = @club.decorate
+
+    if %w(new create update destroy).include? params[:page]
+      page_title t(:settings)
+    end
+    page_title t("clubs.page.pages.pages")
+
+    breadcrumb i18n_i('Club', :other), clubs_url
+    breadcrumb @club.name, club_url(@club)
+  end
 
   # def prepare_form
     # @page = 'pages'
