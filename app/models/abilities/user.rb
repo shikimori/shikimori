@@ -236,24 +236,26 @@ class Abilities::User
 private
 
   def can_update_club_comment? comment, user
-    commentable = comment.commentable
-
-    comment.user_id == user.id &&
-      comment.commentable_type == Topic.name &&
-      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
-      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+    comment.user_id == user.id && club_admin?(comment.commentable, user)
   end
 
   def can_destroy_club_comment? comment, user
-    commentable = comment.commentable
-
-    comment.commentable_type == Topic.name &&
-      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
-      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+    club_admin? comment.commentable, user
   end
 
   def can_broadcast_in_club_topic? commentable, user
-    commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
+    club_admin? commentable, user
+  end
+
+  def club_admin? commentable, user
+    return false unless comment.commentable_type == Topic.name
+
+    (
+      commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+    ) || (
+      commentable.is_a?(Topics::EntryTopics::ClubPageTopic) &&
+      user.club_admin_roles.any? { |v| v.club_id == commentable.linked.club_id }
+    )
   end
 end
