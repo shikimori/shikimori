@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411075637) do
+ActiveRecord::Schema.define(version: 20170412082942) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,6 +274,7 @@ ActiveRecord::Schema.define(version: 20170411075637) do
     t.string   "image_upload_policy",                             null: false
     t.string   "join_policy",                                     null: false
     t.string   "comment_policy",                                  null: false
+    t.string   "topic_policy",                                    null: false
     t.index ["style_id"], name: "index_clubs_on_style_id", using: :btree
   end
 

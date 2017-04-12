@@ -474,6 +474,7 @@ Rails.application.routes.draw do
         post :up, on: :member
         post :down, on: :member
       end
+      resources :club_topics
     end
 
     resources :club_invites, only: [] do

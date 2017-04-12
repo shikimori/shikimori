@@ -194,6 +194,7 @@ en:
         display_images: Show Images
         join_policy: Terms of Joining
         comment_policy: Comments Policy
+        topic_policy: Topics Policy
         image_upload_policy: Image upload policy
         is_censored: Contains adult content (18+)
         logo: Logo
@@ -405,6 +406,9 @@ en:
       comment_policy:
         free: Unrestricted
         members: Club Members Only
+      topic_policy:
+        members: Club Members Only
+        admins: Club Admins Only
       image_upload_policy:
         members: Club Members Only
         admins: Club Admins Only

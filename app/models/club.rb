@@ -63,6 +63,11 @@ class Club < ApplicationRecord
     predicates: { prefix: true },
     default: Types::Club::CommentPolicy[:free]
 
+  enumerize :topic_policy,
+    in: Types::Club::TopicPolicy.values,
+    predicates: { prefix: true },
+    default: Types::Club::TopicPolicy[:members]
+
   enumerize :image_upload_policy,
     in: Types::Club::ImageUploadPolicy.values,
     predicates: { prefix: true },

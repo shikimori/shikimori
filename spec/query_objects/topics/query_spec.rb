@@ -218,8 +218,13 @@ describe Topics::Query do
           linked: club_page,
           updated_at: 9.days.ago
       end
+      let!(:club_user_topic) do
+        create :club_user_topic,
+          linked: club_page,
+          updated_at: 8.days.ago
+      end
 
-      it { is_expected.to eq [club_page_topic, linked.topic(locale)] }
+      it { is_expected.to eq [club_user_topic, club_page_topic, linked.topic(locale)] }
     end
   end
 

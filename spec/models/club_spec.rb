@@ -46,6 +46,9 @@ describe Club do
         .to enumerize(:comment_policy)
         .in(*Types::Club::CommentPolicy.values)
       is_expected
+        .to enumerize(:topic_policy)
+        .in(*Types::Club::TopicPolicy.values)
+      is_expected
         .to enumerize(:image_upload_policy)
         .in(*Types::Club::ImageUploadPolicy.values)
     end
