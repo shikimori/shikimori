@@ -7,7 +7,10 @@ class Topics::HotTopicsQuery < ServiceObjectBase
   JOIN_SQL = <<-SQL
     inner join topics on
       topics.id = commentable_id
-      and topics.type != '#{Topics::EntryTopics::ClubTopic.name}'
+      and topics.type not in (
+        '#{Topics::EntryTopics::ClubTopic.name}',
+        '#{Topics::EntryTopics::ClubPageTopic.name}'
+      )
   SQL
 
   INTERVAL = Rails.env.development? ? 1.month : 1.day
