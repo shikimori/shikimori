@@ -5,26 +5,28 @@ class Abilities::User
   def initialize user
     @user = user
 
-    topic_abilities
-    comment_abilities
+    unless @user.banned?
+      topic_abilities unless @user.week_registered?
+      comment_abilities unless @user.day_registered?
+      review_abilities unless @user.day_registered?
+      other_abilities
+      club_abilities
+    end
+
     message_abilities
     user_abilities
     user_rate_abilities
-    review_abilities
-    club_abilities
     anime_video_abilities
     version_abilities
     style_abilities
-    other_abilities
   end
 
   def topic_abilities
     can [:new, :create], [Topic, Topics::NewsTopic.name] do |topic|
-      !@user.banned? && @user.week_registered? &&
-        topic.user_id == @user.id
+      topic.user_id == @user.id
     end
     can [:update], [Topic, Topics::NewsTopic.name] do |topic|
-      !@user.banned? && topic.user_id == @user.id
+      topic.user_id == @user.id
     end
     can [:destroy], [Topic, Topics::NewsTopic.name] do |topic|
       can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
@@ -39,8 +41,7 @@ class Abilities::User
 
   def comment_abilities
     can [:new, :create], [Comment] do |comment|
-      !@user.banned? && @user.day_registered? &&
-        comment.user_id == @user.id
+      comment.user_id == @user.id
     end
     can [:update], [Comment] do |comment|
       (
@@ -110,19 +111,19 @@ class Abilities::User
 
   def review_abilities
     can :manage, Review do |review|
-      !@user.banned? && @user.day_registered? && review.user_id == @user.id
+      review.user_id == @user.id
     end
   end
 
   def club_abilities
     can [:new, :create], Club do |club|
-      !@user.banned? && @user.day_registered? && club.owner?(@user)
+      @user.day_registered? && club.owner?(@user)
     end
     can [:update], Club do |club|
-      !@user.banned? && (club.owner?(@user) || club.admin?(@user))
+      club.owner?(@user) || club.admin?(@user)
     end
     can :broadcast, Club do |club|
-      !@user.banned? && (club.owner?(@user) || club.admin?(@user))
+      club.owner?(@user) || club.admin?(@user)
     end
     can :join, Club do |club|
       !club.member?(@user) && (
@@ -142,16 +143,16 @@ class Abilities::User
     end
     can :create_topic, Club do |club|
       if club.topic_policy_members?
-        !@user.banned? && club.member?(@user)
+        club.member?(@user)
       elsif club.topic_policy_admins?
-        !@user.banned? && club.admin?(@user)
+        club.admin?(@user)
       end
     end
     can :upload_image, Club do |club|
       if club.image_upload_policy_members?
-        !@user.banned? && club.member?(@user)
+        club.member?(@user)
       elsif club.image_upload_policy_admins?
-        !@user.banned? && club.admin?(@user)
+        club.admin?(@user)
       end
     end
 
@@ -230,10 +231,8 @@ class Abilities::User
     end
 
     can :destroy, ClubImage do |image|
-      !@user.banned? && (
-        (image.club.member?(@user) && image.user == @user) ||
+      (image.club.member?(@user) && image.user == @user) ||
         image.club.admin?(@user)
-      )
     end
 
     can :manage, Device, user_id: @user.id
