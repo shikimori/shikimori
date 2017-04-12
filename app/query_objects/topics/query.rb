@@ -175,11 +175,15 @@ private
   end
 
   def user_club_ids user
+    return [] unless user
+
     @user_club_ids ||= {}
-    @user_club_ids[user.id] ||= user&.club_roles&.pluck(:club_id) || []
+    @user_club_ids[user.id] ||= user.club_roles.pluck(:club_id)
   end
 
   def user_club_page_ids user
+    return [] unless user
+
     ClubPage.where(club_id: user_club_ids(user)).pluck(:id)
   end
 end
