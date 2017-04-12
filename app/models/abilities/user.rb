@@ -248,8 +248,6 @@ private
   end
 
   def club_admin? commentable, user
-    return false unless comment.commentable_type == Topic.name
-
     (
       commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
