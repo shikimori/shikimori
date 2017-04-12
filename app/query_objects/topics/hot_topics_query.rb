@@ -9,6 +9,7 @@ class Topics::HotTopicsQuery < ServiceObjectBase
       topics.id = commentable_id
       and topics.type not in (
         '#{Topics::EntryTopics::ClubTopic.name}',
+        '#{Topics::EntryTopics::ClubUserTopic.name}',
         '#{Topics::EntryTopics::ClubPageTopic.name}'
       )
   SQL

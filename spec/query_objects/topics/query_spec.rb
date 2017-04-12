@@ -29,6 +29,12 @@ describe Topics::Query do
         updated_at: 15.days.ago,
         is_censored: true
     end
+    let!(:joined_club_user_topic) do
+      create :club_user_topic,
+        linked: joined_club,
+        forum_id: Topic::FORUM_IDS[ClubPage.name],
+        created_at: 8.days.ago
+    end
     let!(:joined_club_page) { create :club_page, club: joined_club }
     let!(:joined_club_page_topic) do
       create :club_page_topic,
@@ -40,6 +46,12 @@ describe Topics::Query do
       create :club, :with_topics,
         updated_at: 20.days.ago,
         is_censored: true
+    end
+    let!(:another_club_user_topic) do
+      create :club_user_topic,
+        linked: another_club,
+        forum_id: Topic::FORUM_IDS[ClubPage.name],
+        updated_at: 18.days.ago
     end
     let!(:another_club_page) { create :club_page, club: another_club }
     let!(:another_club_page_topic) do
@@ -83,7 +95,13 @@ describe Topics::Query do
 
       context 'my_clubs forum' do
         let(:forums) { [Forum::MY_CLUBS_FORUM.permalink] }
-        it { is_expected.to eq [joined_club_page_topic, joined_club.topic(locale)] }
+        it do
+          is_expected.to eq [
+            joined_club_user_topic,
+            joined_club_page_topic,
+            joined_club.topic(locale)
+          ]
+        end
       end
 
       context 'common forums' do
@@ -126,7 +144,14 @@ describe Topics::Query do
       let!(:joined_club_2) { create :club, :with_topics, updated_at: 25.days.ago }
       before { joined_club_2.join user }
 
-      it { is_expected.to eq [joined_club_page_topic, joined_club.topic(locale), joined_club_2.topic(locale)] }
+      it do
+        is_expected.to eq [
+          joined_club_user_topic,
+          joined_club_page_topic,
+          joined_club.topic(locale),
+          joined_club_2.topic(locale)
+        ]
+      end
     end
 
     context 'clubs' do
@@ -139,8 +164,10 @@ describe Topics::Query do
         let(:is_censored_forbidden) { false }
         it do
           is_expected.to eq [
+            joined_club_user_topic,
             joined_club_page_topic,
             joined_club.topic(locale),
+            another_club_user_topic,
             another_club_page_topic,
             another_club.topic(locale),
             joined_club_2.topic(locale),
@@ -153,6 +180,7 @@ describe Topics::Query do
         let(:is_censored_forbidden) { true }
         it do
           is_expected.to eq [
+            joined_club_user_topic,
             joined_club_page_topic,
             joined_club.topic(locale),
             joined_club_2.topic(locale),

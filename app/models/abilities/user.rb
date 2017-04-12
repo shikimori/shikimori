@@ -252,6 +252,9 @@ private
       commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
     ) || (
+      commentable.is_a?(Topics::EntryTopics::ClubUserTopic) &&
+      user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
+    ) || (
       commentable.is_a?(Topics::EntryTopics::ClubPageTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked.club_id }
     )

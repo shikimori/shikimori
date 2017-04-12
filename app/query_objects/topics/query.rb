@@ -2,8 +2,10 @@ class Topics::Query < QueryObjectBase
   FORUMS_QUERY = 'forum_id in (:user_forums)'
   MY_CLUBS_QUERY = <<-SQL.squish
     (
-      type = #{Topic.sanitize Topics::EntryTopics::ClubTopic.name} and
-      #{Topic.table_name}.linked_id in (:user_club_ids)
+      type in (
+        #{Topic.sanitize Topics::EntryTopics::ClubTopic.name},
+        #{Topic.sanitize Topics::EntryTopics::ClubUserTopic.name}
+      ) and #{Topic.table_name}.linked_id in (:user_club_ids)
     ) or
     (
       type = #{Topic.sanitize Topics::EntryTopics::ClubPageTopic.name} and
@@ -106,11 +108,11 @@ private
         if user
           user_forums scope, user
         else
-          scope.where(
-            '(type <> ? and type <> ?) OR type IS NULL',
+          scope.where('type not in (?) OR type IS NULL', [
             Topics::EntryTopics::ClubTopic.name,
+            Topics::EntryTopics::ClubUserTopic.name,
             Topics::EntryTopics::ClubPageTopic.name
-          )
+          ])
         end
 
       when 'reviews'
@@ -163,8 +165,7 @@ private
 
   def user_forums scope, user
     if user.preferences.forums.include? Forum::MY_CLUBS_FORUM.permalink
-      scope.where(
-        "#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
+      scope.where("#{FORUMS_QUERY} or #{MY_CLUBS_QUERY}",
         user_forums: user.preferences.forums.map(&:to_i),
         user_club_ids: user_club_ids(user),
         user_club_page_ids: user_club_page_ids(user)
