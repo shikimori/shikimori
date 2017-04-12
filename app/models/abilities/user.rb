@@ -140,6 +140,13 @@ class Abilities::User
     can :leave, Club do |club|
       club.member? @user
     end
+    can :create_topic, Club do |club|
+      if club.topic_policy_members?
+        !@user.banned? && club.member?(@user)
+      elsif club.topic_policy_admins?
+        !@user.banned? && club.admin?(@user)
+      end
+    end
     can :upload_image, Club do |club|
       if club.image_upload_policy_members?
         !@user.banned? && club.member?(@user)

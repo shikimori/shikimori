@@ -206,12 +206,19 @@ describe Club do
     let(:club) { build_stubbed :club, join_policy: join_policy }
     let(:user) { build_stubbed :user, :user, :day_registered }
     let(:join_policy) { Types::Club::JoinPolicy[:free] }
+    let(:topic_policy) { Types::Club::TopicPolicy[:members] }
 
     subject { Ability.new user }
 
     context 'club owner' do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
-      let(:club) { build_stubbed :club, owner: user, join_policy: join_policy, member_roles: [club_role] }
+      let(:club) do
+        build_stubbed :club,
+          owner: user,
+          join_policy: join_policy,
+          topic_policy: topic_policy,
+          member_roles: [club_role]
+      end
 
       it { is_expected.to be_able_to :see_club, club }
 
@@ -253,8 +260,25 @@ describe Club do
         end
       end
 
+      describe 'create_topic' do
+        context 'members' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+          it { is_expected.to be_able_to :create_topic, club }
+        end
+
+        context 'admins' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
+          it { is_expected.to be_able_to :create_topic, club }
+        end
+      end
+
       context 'not club member' do
-        let(:club) { build_stubbed :club, owner: user, join_policy: join_policy }
+        let(:club) do
+          build_stubbed :club,
+            owner: user,
+            join_policy: join_policy,
+            topic_policy: topic_policy
+        end
 
         describe 'join' do
           context 'free_join' do
@@ -277,7 +301,12 @@ describe Club do
 
     context 'club administrator' do
       let(:club_role) { build_stubbed :club_role, :admin, user: user }
-      let(:club) { build_stubbed :club, member_roles: [club_role], join_policy: join_policy }
+      let(:club) do
+        build_stubbed :club,
+          member_roles: [club_role],
+          join_policy: join_policy,
+          topic_policy: topic_policy
+      end
 
       it { is_expected.to be_able_to :see_club, club }
 
@@ -308,6 +337,18 @@ describe Club do
           it { is_expected.to_not be_able_to :invite, club }
         end
       end
+
+      describe 'create_topic' do
+        context 'members' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+          it { is_expected.to be_able_to :create_topic, club }
+        end
+
+        context 'admins' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
+          it { is_expected.to be_able_to :create_topic, club }
+        end
+      end
     end
 
     context 'club member' do
@@ -315,6 +356,7 @@ describe Club do
         build_stubbed :club,
           member_roles: [club_role].compact,
           join_policy: join_policy,
+          topic_policy: topic_policy,
           image_upload_policy: image_upload_policy,
           display_images: display_images
       end
@@ -331,11 +373,11 @@ describe Club do
 
           context 'not member' do
             let(:club_role) {}
-            it { is_expected.to_not be_able_to :upload, club }
+            it { is_expected.to_not be_able_to :upload_image, club }
           end
 
           context 'member' do
-            it { is_expected.to be_able_to :upload, club }
+            it { is_expected.to be_able_to :upload_image, club }
           end
         end
 
@@ -344,17 +386,29 @@ describe Club do
 
           context 'not member' do
             let(:club_role) {}
-            it { is_expected.to_not be_able_to :upload, club }
+            it { is_expected.to_not be_able_to :upload_image, club }
           end
 
           context 'member' do
-            it { is_expected.to_not be_able_to :upload, club }
+            it { is_expected.to_not be_able_to :upload_image, club }
           end
 
           context 'admin' do
             let(:club_role) { build_stubbed :club_role, :admin, user: user }
-            it { is_expected.to be_able_to :upload, club }
+            it { is_expected.to be_able_to :upload_image, club }
           end
+        end
+      end
+
+      describe 'create_topic' do
+        context 'members' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+          it { is_expected.to be_able_to :create_topic, club }
+        end
+
+        context 'admins' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
+          it { is_expected.to_not be_able_to :create_topic, club }
         end
       end
 
@@ -382,7 +436,8 @@ describe Club do
       it { is_expected.to_not be_able_to :new, club }
       it { is_expected.to_not be_able_to :update, club }
       it { is_expected.to_not be_able_to :invite, club }
-      it { is_expected.to_not be_able_to :upload, club }
+      it { is_expected.to_not be_able_to :upload_image, club }
+      it { is_expected.to_not be_able_to :create_topic, club }
       it { is_expected.to_not be_able_to :broadcast, club }
     end
 
@@ -392,9 +447,15 @@ describe Club do
       it { is_expected.to_not be_able_to :update, club }
       it { is_expected.to_not be_able_to :invite, club }
       it { is_expected.to_not be_able_to :broadcast, club }
+      it { is_expected.to_not be_able_to :create_topic, club }
 
       context 'banned in club' do
-        let(:club) { build_stubbed :club, join_policy: join_policy, bans: [club_ban] }
+        let(:club) do
+          build_stubbed :club,
+            join_policy: join_policy,
+            topic_policy: topic_policy,
+            bans: [club_ban]
+        end
         let(:club_ban) { build_stubbed :club_ban, user: user }
         it { is_expected.to_not be_able_to :join, club }
       end
