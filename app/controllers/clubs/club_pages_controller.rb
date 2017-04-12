@@ -1,10 +1,11 @@
-class Clubs::ClubPagesController < ClubsController
+class Clubs::ClubPagesController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource
 
   CREATE_PARAMS = %i[club_id parent_page_id name layout text]
   UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
+  before_action :decorate_club
   before_action :prepare_form, except: [:show]
 
   def show
@@ -78,6 +79,10 @@ class Clubs::ClubPagesController < ClubsController
   end
 
 private
+
+  def decorate_club
+    @club = @club.decorate
+  end
 
   def prepare_form
     @page = 'pages'
