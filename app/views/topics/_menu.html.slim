@@ -76,15 +76,18 @@
       - menu.club_topics.each do |club_topic|
         - cache club_topic do
             li.entry
-              a href="#{club_url club_topic.linked}" title="#{club_topic.title}"
+              a[
+                href="#{club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : club_url(club_topic.linked)}"
+                title="#{club_topic.club.name}"
+              ]
                 .image-name
                   img[
-                    src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.linked.owner.avatar_url(48)}"
-                    alt="#{club_topic.linked.name}"
-                    title="#{club_topic.linked.name}"
+                    src="#{club_topic.comments.first ? club_topic.comments.first.user.avatar_url(48) : club_topic.user.avatar_url(48)}"
+                    alt="#{club_topic.club.name}"
+                    title="#{club_topic.club.name}"
                   ]
                   span.title
-                    = club_topic.linked.name
+                    = club_topic.club.name
                 - if club_topic.comments.first
                   span.misc title="#{truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '}"
                     == truncate club_topic.comments.first.html_body.gsub(/<.*?>/, ''), length: 40, separator: ' '

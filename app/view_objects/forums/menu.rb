@@ -3,8 +3,12 @@ class Forums::Menu < ViewObjectBase
   instance_cache :club_topics, :contests, :reviews
 
   def club_topics
-    Topics::EntryTopics::ClubTopic
+    Topic
       .includes(:linked)
+      .where(type: [
+        Topics::EntryTopics::ClubTopic,
+        Topics::EntryTopics::ClubPageTopic,
+      ])
       .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
