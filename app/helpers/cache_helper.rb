@@ -1,7 +1,19 @@
 module CacheHelper
   I18N_HASH = {
-    ru: Digest::MD5.hexdigest(I18n.backend.translate(:ru, '.').to_json),
-    en: Digest::MD5.hexdigest(I18n.backend.translate(:en, '.').to_json)
+    ru: Digest::MD5.hexdigest(
+      I18n.backend.translate(:ru, '.')
+        .except(:activerecord, :apipie)
+        .reject { |key, _| key =~ /_controller|_decorator/ }
+        .keys
+        .to_json
+    ),
+    en: Digest::MD5.hexdigest(
+      I18n.backend.translate(:en, '.')
+        .except(:activerecord, :apipie)
+        .reject { |key, _| key =~ /_controller|_decorator/ }
+        .keys
+        .to_json
+    )
   }
 
   class << self
