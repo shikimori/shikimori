@@ -195,7 +195,7 @@ en:
         join_policy: Terms of Joining
         comment_policy: Comments Policy
         topic_policy: Topics Policy
-        image_upload_policy: Image upload policy
+        image_upload_policy: Image Upload Policy
         is_censored: Contains adult content (18+)
         logo: Logo
       club_invite:

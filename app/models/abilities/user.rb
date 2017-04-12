@@ -140,7 +140,7 @@ class Abilities::User
     can :leave, Club do |club|
       club.member? @user
     end
-    can :upload, Club do |club|
+    can :upload_image, Club do |club|
       if club.image_upload_policy_members?
         !@user.banned? && club.member?(@user)
       elsif club.image_upload_policy_admins?
@@ -219,7 +219,7 @@ class Abilities::User
 
   def other_abilities
     can :create, ClubImage do |image|
-      can?(:upload, image.club) && image.user == @user
+      can?(:upload_image, image.club) && image.user == @user
     end
 
     can :destroy, ClubImage do |image|

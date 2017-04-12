@@ -10,7 +10,7 @@
         li.broadcast
           a.b-link href="#{broadcast_club_comments_url club}" = t '.broadcast'
 
-      - if can? :upload, club
+      - if can? :upload_image, club
         li.upload title="#{t '.upload_image_title'}"
           = form_tag club_club_images_url(club), method: :post, multipart: true do
             label
