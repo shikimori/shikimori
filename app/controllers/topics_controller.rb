@@ -61,7 +61,10 @@ class TopicsController < ShikimoriController
 
   def create
     if faye.create @resource
-      redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик создан'
+      redirect_to(
+        UrlGenerator.instance.topic_url(@resource),
+        notice: 'Топик создан'
+      )
     else
       new
       render :new
@@ -73,7 +76,10 @@ class TopicsController < ShikimoriController
     @resource.update commented_at: Time.zone.now if updated
 
     if updated
-      redirect_to UrlGenerator.instance.topic_url(@resource), notice: 'Топик изменён'
+      redirect_to(
+        UrlGenerator.instance.topic_url(@resource),
+        notice: 'Топик изменён'
+      )
     else
       edit
       render :edit
