@@ -6,6 +6,7 @@ describe Clubs::ClubTopicsController do
   let(:user) { create :user, :user, :week_registered }
   let(:club) { create :club, owner: user }
   let!(:club_role) { create :club_role, club: club, user: user }
+  let(:topic) { create :club_user_topic, linked: club }
 
   let(:topic_params) do
     {
@@ -21,13 +22,24 @@ describe Clubs::ClubTopicsController do
 
   describe '#show' do
     before do
-      get :new,
+      get :show,
         params: {
-          club_id: club.id,
-          topic_id: topic.to_params
+          club_id: club.to_param,
+          id: topic_id
         }
     end
-    it { expect(response).to have_http_status :success }
+
+    context 'valid path' do
+      let(:topic_id) { topic.to_param }
+      it { expect(response).to have_http_status :success }
+    end
+
+    context 'invalid path' do
+      let(:topic_id) { topic.id }
+      it do
+        expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
+      end
+    end
   end
 
   describe '#new' do
