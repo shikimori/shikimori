@@ -68,7 +68,7 @@
               a.b-oauth_token[
                 class="#{provider}"
                 href="#{send :"user_#{provider}_omniauth_authorize_url"}"
-                title=t('.enable_authentication', provider: token.provider.to_s.titleize)
+                title=t('.enable_authentication', provider: provider.to_s.titleize)
                 data-no-turbolink='true'
               ]
 

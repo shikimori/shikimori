@@ -102,8 +102,8 @@ ru:
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
         username: Имя пользователя
-        disable_authentication: >- Отключить авторизацию через %{provider}
-        enable_authentication: >- Подключить авторизацию через %{provider}
+        disable_authentication: Отключить авторизацию через %{provider}
+        enable_authentication: Подключить авторизацию через %{provider}
 
       profile:
         display_activity_graph_since: Отображать график активности начиная с даты
