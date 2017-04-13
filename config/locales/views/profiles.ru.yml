@@ -86,7 +86,7 @@ ru:
           [*] либо вирусов, живущих на вашем компьютере;
         [/list]
         [p]Шикимори никак не влияет на работу видео плеера![/p]
-      admin_message_postscriptum: ->
+      admin_message_postscriptum: >-
         Отвечать могу очень долго. Или вообще никогда.
 
       your_message: Ваше сообщение
@@ -102,6 +102,8 @@ ru:
         ignored_users: Игнорируемые пользователи
         nickname: Логин (никнейм)
         username: Имя пользователя
+        disable_authentication: >- Отключить авторизацию через %{provider}
+        enable_authentication: >- Подключить авторизацию через %{provider}
 
       profile:
         display_activity_graph_since: Отображать график активности начиная с даты

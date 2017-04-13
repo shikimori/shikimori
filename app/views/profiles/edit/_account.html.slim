@@ -1,7 +1,7 @@
 / важно заново выбрать юзера из базы, т.к. юзер может быть в процессе смены никнейма
 = simple_form_for @resource.object,
     url: profile_url(User.find(@resource.id)) do |f|
-  input type="hidden" name="page" value="#{@page}"
+  input type='hidden' name='page' value="#{@page}"
 
   .cc-2
     .c-column.block_m
@@ -54,10 +54,10 @@
               a.b-oauth_token[
                 class="#{token.provider}"
                 href="#{user_token_url token}"
-                title="Отключить авторизацию через #{token.provider.to_s.titleize}"
-                data-confirm="Отключить авторизацию через #{token.provider.to_s.titleize}?"
-                data-method="delete"
-                data-no-turbolink="true"
+                title=t('.disable_authentication', provider: token.provider.to_s.titleize)
+                data-confirm="#{t('.disable_authentication', provider: token.provider.to_s.titleize)}?"
+                data-method='delete'
+                data-no-turbolink='true'
               ]
 
       - if @resource.unconnected_providers.any?
@@ -68,15 +68,15 @@
               a.b-oauth_token[
                 class="#{provider}"
                 href="#{send :"user_#{provider}_omniauth_authorize_url"}"
-                title="Подключить авторизацию через #{provider.to_s.titleize}"
-                data-no-turbolink="true"
+                title=t('.enable_authentication', provider: token.provider.to_s.titleize)
+                data-no-turbolink='true'
               ]
 
       input.ignore-suggest.subheadline-input.downgrade_landscape[
-        type="text"
-        placeholder="#{t 'username'}"
-        data-variant_name="user[ignored_user_ids][]"
-        data-autocomplete="#{autocomplete_users_url}"
+        type='text'
+        placeholder=t('username')
+        data-variant_name='user[ignored_user_ids][]'
+        data-autocomplete=autocomplete_users_url
       ]
       .subheadline = t '.ignored_users'
       .variants
