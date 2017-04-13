@@ -450,6 +450,11 @@ ru:
             few: секунды
             many: секунд
             other: секунды
+          accusative:
+            one: секунду
+            few: секунды
+            many: секунд
+            other: секунды
         minute:
           subjective:
             one: минута
