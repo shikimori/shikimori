@@ -118,7 +118,8 @@ class ShikimoriController < ApplicationController
   def check_post_permission
     return unless user_signed_in?
     unless current_user.can_post?
-      raise Forbidden, "Вы забанены до #{current_user.read_only_at.strftime '%H:%M %d.%m.%Y'}"
+      banned_till = current_user.read_only_at.strftime('%H:%M %d.%m.%Y')
+      raise Forbidden, i18n_t('you_are_banned', datetime: banned_till)
     end
   end
 end

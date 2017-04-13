@@ -311,6 +311,9 @@ ru:
     score: Оценка
     other: Прочее
 
+  shikimori_controller:
+    you_are_banned: Вы забанены до %{datetime}
+
   api/v1/comments_controller:
     comment:
       removed: Комментарий удален
