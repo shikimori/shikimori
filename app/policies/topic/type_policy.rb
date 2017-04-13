@@ -31,7 +31,19 @@ class Topic::TypePolicy
     topic.class.name == Topics::EntryTopics::ContestTopic.name
   end
 
+  def club_topic?
+    topic.class.name == Topics::EntryTopics::ClubTopic.name
+  end
+
+  def club_user_topic?
+    topic.class.name == Topics::EntryTopics::ClubUserTopic.name
+  end
+
   def club_page_topic?
     topic.class.name == Topics::EntryTopics::ClubPageTopic.name
+  end
+
+  def any_club_topic?
+    club_page_topic? || club_topic? || club_user_topic?
   end
 end

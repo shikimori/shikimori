@@ -10,6 +10,8 @@ describe Topic::TypePolicy do
   let(:review_topic) { build_stubbed :review_topic }
   let(:cosplay_gallery_topic) { build_stubbed :cosplay_gallery_topic }
   let(:contest_topic) { build_stubbed :contest_topic }
+  let(:club_topic) { build_stubbed :club_topic }
+  let(:club_user_topic) { build_stubbed :club_user_topic }
   let(:club_page_topic) { build_stubbed :club_page_topic }
 
   describe '#forum_topic?' do
@@ -110,10 +112,62 @@ describe Topic::TypePolicy do
     end
   end
 
+  describe '#club_topic?' do
+    subject { policy.club_topic? }
+
+    context 'club topic' do
+      let(:topic) { club_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not club topic' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#club_user_topic?' do
+    subject { policy.club_user_topic? }
+
+    context 'club_user topic' do
+      let(:topic) { club_user_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not club_user topic' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
   describe '#club_page_topic?' do
     subject { policy.club_page_topic? }
 
-    context 'contest topic' do
+    context 'club_page topic' do
+      let(:topic) { club_page_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'not club_page topic' do
+      let(:topic) { forum_topic }
+      it { is_expected.to eq false }
+    end
+  end
+
+  describe '#any_club_topic?' do
+    subject { policy.any_club_topic? }
+
+    context 'club topic' do
+      let(:topic) { club_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'club_user topic' do
+      let(:topic) { club_user_topic }
+      it { is_expected.to eq true }
+    end
+
+    context 'club_page topic' do
       let(:topic) { club_page_topic }
       it { is_expected.to eq true }
     end
