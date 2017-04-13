@@ -34,12 +34,17 @@ module Routing
     elsif topic.is_a?(User)
       profile_url topic, options.merge(subdomain: false)
 
-    elsif topic_type_policy.club_page_topic?
-      forum_topic_url options.merge(
+    elsif topic_type_policy.any_club_topic?
+
+      club_id = if topic_type_policy.club_page_topic?
+        topic.linked.club_id
+      else
+        topic.linked_id
+      end
+
+      club_club_topic_path options.merge(
+        club_id: club_id,
         id: topic,
-        forum: topic.forum,
-        linked_type: topic.club.class.name.underscore,
-        linked_id: topic.club.to_param,
         format: format,
         subdomain: false
       )

@@ -39,7 +39,7 @@ class Topics::Urls < ViewObjectBase
   end
 
   def topic_url options = {}
-    UrlGenerator.instance.topic_url topic, false, options
+    UrlGenerator.instance.topic_url topic, nil, options
   end
 
   def topic_type_policy
