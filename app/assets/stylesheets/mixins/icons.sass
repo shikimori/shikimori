@@ -88,8 +88,10 @@ $icon_mobile_size: 30px
   margin-left: 0
   margin-bottom: 8px
 
-  &:after
-    content: $content
+  .locale-en &:after
+    content: attr(data-text)
+  .locale-ru &:after
+    content: attr(data-text)
 
 =icon_action($content)
   +link_color(#444444)

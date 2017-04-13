@@ -1,33 +1,47 @@
 aside.buttons
   .main-controls
     span.item-ignore.to-process[
-      title="#{t 'actions.ignore'}"
-      data-action="#{api_v2_topics_ignore_url topic_view.id}"
-      data-dynamic="authorized"
-      data-method="POST"
-      data-remote="true"
-      data-type="json"
+      title=t('actions.ignore')
+      data-text=t('actions.ignore')
+      data-action=api_v2_topics_ignore_url(topic_view.id)
+      data-dynamic='authorized'
+      data-method='POST'
+      data-remote='true'
+      data-type='json'
     ]
-    span.item-quote title="#{t 'actions.quote'}"
+    span.item-quote[
+      title=t('actions.quote')
+      data-text=t('actions.quote')
+    ]
     span.item-reply.to-process.to-process[
-      title="#{t 'actions.reply'}"
-      data-dynamic="authorized"
+      title=t('actions.reply')
+      data-text=t('actions.reply')
+      data-dynamic='authorized'
     ]
-
     a.item-edit.short[
-      href="#{topic_view.urls.edit_url}"
-      title="#{t 'actions.edit'}"
+      href=topic_view.urls.edit_url
+      data-text=t('actions.edit')
+      title=t('actions.edit')
     ]
-
-    span.item-delete.short title="#{t 'actions.delete'}"
-    span.item-cancel title="#{t 'actions.cancel'}"
+    span.item-delete.short[
+      title=t('actions.delete')
+      data-text=t('actions.delete')
+    ]
+    span.item-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]
 
   .delete-controls
     span.item-delete-confirm[
-      title="#{t 'actions.delete'}"
-      data-action="#{topic_view.urls.destroy_url}"
-      data-type="json"
-      data-remote="true"
-      data-method="DELETE"
+      title=t('actions.delete')
+      data-text=t('actions.delete')
+      data-action=topic_view.urls.destroy_url
+      data-type='json'
+      data-remote='true'
+      data-method='DELETE'
     ]
-    span.item-delete-cancel title="#{t 'actions.cancel'}"
+    span.item-delete-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]

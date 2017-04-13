@@ -2,81 +2,115 @@ aside.buttons
   .main-controls
     - if message.kind == MessageType::FriendRequest
       - if message.to.friended? message.from
-        span.item-delete title="#{t 'actions.delete'}"
+        span.item-delete[
+          title=t('actions.delete')
+          data-text=t('actions.delete')
+        ]
       - else
         span.item-request-confirm[
+          title=t('actions.accept')
+          data-text=t('actions.accept')
           data-remote='true'
           data-method='post'
           data-type='json'
           action="#{api_friend_url message.from_id}"
-          title="#{t 'actions.accept'}"
         ]
-        span.item-request-reject.friend-request title="#{t 'actions.reject'}"
+        span.item-request-reject.friend-request[
+          title=t('actions.reject')
+          data-text=t('actions.reject')
+        ]
         span.item-delete[
-          title="#{t 'actions.delete'}"
+          title=t('actions.delete')
+          data-text=t('actions.delete')
           style="#{'display: none' unless message.read}"
         ]
 
     - elsif message.kind == MessageType::ClubRequest
       - if message.linked.pending?
         span.item-request-confirm[
-          title="#{t 'actions.accept'}"
+          title=t('actions.accept')
+          data-text=t('actions.accept')
           data-remote='true'
           data-method='post'
           data-type='json'
           action="#{accept_club_invite_url message.linked}"
         ]
         span.item-request-reject[
+          title=t('actions.reject')
+          data-text=t('actions.reject')
           data-remote='true'
           data-method='post'
           data-type='json'
           action="#{reject_club_invite_url message.linked}"
-          title="#{t 'actions.reject'}"
         ]
         span.item-delete[
-          title="#{t 'actions.delete'}"
+          title=t('actions.delete')
+          data-text=t('actions.delete')
           style="#{'display: none' unless message.read}"
         ]
       - else
-        span.item-delete title="#{t 'actions.delete'}"
+        span.item-delete[
+          title=t('actions.delete')
+          data-text=t('actions.delete')
+        ]
 
     - else
       - if message.kind == MessageType::Private
-        span.item-quote title="#{t 'actions.quote'}"
+        span.item-quote[
+          title=t('actions.quote')
+          data-text=t('actions.quote')
+        ]
+
         - if local_assigns[:reply_as_link]
           a.item-reply[
             href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}"
-            title="#{t 'actions.reply'}"
+            title=t('actions.reply')
+            data-text=t('actions.reply')
           ]
         - else
-          span.item-reply title="#{t 'actions.reply'}"
+          span.item-reply[
+            title=t('actions.reply')
+            data-text=t('actions.reply')
+          ]
 
         - if can? :edit, message
           span.item-edit[
+            title=t('actions.edit')
+            data-text=t('actions.edit')
             data-action="#{edit_message_url message}"
             data-type='html'
             data-remote='true'
-            title="#{t 'actions.edit'}"
           ]
 
       - elsif message.kind == MessageType::QuotedByUser
         a.item-reply[
           href="#{reply_comment_url message.linked}"
-          title="#{t 'actions.reply'}"
+          title=t('actions.reply')
+          data-text=t('actions.reply')
         ]
 
       - if can? :destroy, message
-        span.item-delete title="#{t 'actions.delete'}"
+        span.item-delete[
+          title=t('actions.delete')
+          data-text=t('actions.delete')
+        ]
 
-    span.item-cancel title="#{t 'actions.cancel'}"
+    span.item-cancel[
+      title=t('actions.cancel')
+      data-text=t('actions.cancel')
+    ]
 
   - if can? :destroy, message
     .delete-controls
       span.item-delete-confirm[
-        title="#{t 'actions.delete'}"
+        title=t('actions.delete')
+        data-text=t('actions.delete')
         action="#{api_message_url message}"
         data-type='json'
         data-remote='true'
         data-method='delete'
       ]
-      span.item-delete-cancel title="#{t 'actions.cancel'}"
+      span.item-delete-cancel[
+        title=t('actions.cancel')
+        data-text=t('actions.cancel')
+      ]
