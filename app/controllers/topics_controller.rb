@@ -7,7 +7,6 @@ class TopicsController < ShikimoriController
     only: %i(new create edit update show destroy)
   )
 
-  before_action :compose_body, only: [:create, :update]
   before_action :set_view
   before_action :set_breadcrumbs
 
@@ -60,7 +59,9 @@ class TopicsController < ShikimoriController
   end
 
   def create
-    if faye.create @resource
+    @resource = Topic::Create.call faye, topic_params, locale_from_host
+
+    if @resource.persisted?
       redirect_to(
         UrlGenerator.instance.topic_url(@resource),
         notice: 'Топик создан'
@@ -72,10 +73,9 @@ class TopicsController < ShikimoriController
   end
 
   def update
-    updated = @resource.class.wo_timestamp { faye.update @resource, topic_params }
-    @resource.update commented_at: Time.zone.now if updated
+    is_updated = Topic::Update.call @resource, topic_params, faye
 
-    if updated
+    if is_updated
       redirect_to(
         UrlGenerator.instance.topic_url(@resource),
         notice: 'Топик изменён'
@@ -91,17 +91,9 @@ class TopicsController < ShikimoriController
     render json: { notice: 'Топик удален' }
   end
 
-  # html код для тултипа
   def tooltip
     topic = Topics::TopicViewFactory.new(true, true).find params[:id]
 
-    # превью топика отображается в формате комментария
-    # render(
-    #   partial: 'comments/comment',
-    #   layout: false,
-    #   object: topic,
-    #   formats: :html
-    # )
     render(
       partial: 'topics/topic',
       object: topic,
@@ -132,32 +124,17 @@ class TopicsController < ShikimoriController
 
 private
 
-  def create_params
-    topic_params.merge locale: locale_from_host
-  end
-
-  def update_params
-    topic_params
-  end
-
   def topic_params
-    allowed_params = [
-      # :body,
-      :title, :linked_id, :linked_type,
-      # wall_ids: [],
-      # video: [:id, :url, :kind, :name]
-    ]
+    allowed_params = %i[body title linked_id linked_type]
 
     if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
       allowed_params += [:user_id, :forum_id, :type]
     end
     allowed_params += [:broadcast] if current_user&.admin?
 
-    params.require(:topic).permit(*allowed_params)
-  end
+    params[:body] = Topics::ComposeBody.call(params[:topic])
 
-  def compose_body
-    @resource.body = Topics::ComposeBody.call(params[:topic])
+    params.require(:topic).permit(*allowed_params)
   end
 
   def set_view

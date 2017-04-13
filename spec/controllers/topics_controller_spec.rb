@@ -99,7 +99,11 @@ describe TopicsController do
           create :topic, forum: animanga_forum, user: user, linked: anime
         end
         before do
-          get :index, params: { forum: animanga_forum.to_param, linked: anime.to_param }
+          get :index,
+            params: {
+              forum: animanga_forum.to_param,
+              linked: anime.to_param
+            }
         end
 
         it do
@@ -115,12 +119,24 @@ describe TopicsController do
       create :topic, forum: animanga_forum, user: user, linked: anime
     end
     context 'no linked' do
-      before { get :show, params: { id: topic.to_param, forum: animanga_forum.to_param } }
+      before do
+        get :show,
+          params: {
+            id: topic.to_param,
+            forum: animanga_forum.to_param
+          }
+      end
       it { expect(response).to have_http_status :success }
     end
 
     context 'wrong to_param' do
-      before { get :show, params: { id: topic.to_param[0..-2], forum: animanga_forum.to_param } }
+      before do
+        get :show,
+          params: {
+            id: topic.to_param[0..-2],
+            forum: animanga_forum.to_param
+          }
+      end
       it do
         expect(response).to redirect_to UrlGenerator.instance.topic_url(topic)
       end
@@ -129,7 +145,8 @@ describe TopicsController do
     context 'missing linked' do
       before { get :show, params: { id: anime_topic.to_param, forum: animanga_forum.to_param } }
       it do
-        expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic)
+        expect(response)
+          .to redirect_to UrlGenerator.instance.topic_url(anime_topic)
       end
     end
 
@@ -143,7 +160,10 @@ describe TopicsController do
             linked_id: "#{anime.to_param}test"
           }
       end
-      it { expect(response).to redirect_to UrlGenerator.instance.topic_url(anime_topic) }
+      it do
+        expect(response)
+          .to redirect_to UrlGenerator.instance.topic_url(anime_topic)
+      end
     end
 
     context 'with linked' do
@@ -162,14 +182,22 @@ describe TopicsController do
 
   describe '#new' do
     context 'guest' do
-      let(:make_request) { get :new, params: { forum: animanga_forum.to_param } }
+      let(:make_request) do
+        get :new, params: { forum: animanga_forum.to_param }
+      end
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       let(:params) { { user_id: user.id, forum_id: animanga_forum.id } }
       before { sign_in user }
-      before { get :new, params: { forum: animanga_forum.to_param, topic: params } }
+      before do
+        get :new,
+          params: {
+            forum: animanga_forum.to_param,
+            topic: params
+          }
+      end
 
       it { expect(response).to have_http_status :success }
     end
@@ -202,12 +230,34 @@ describe TopicsController do
     end
 
     context 'guest' do
-      let(:make_request) { post :create, params: { forum: animanga_forum.to_param, topic: topic_params } }
+      let(:make_request) do
+        post :create,
+          params: {
+            forum: animanga_forum.to_param,
+            topic: topic_params
+          }
+      end
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
       before { sign_in user }
+
+      context 'valid params' do
+        before do
+          post :create,
+            params: {
+              forum: animanga_forum.to_param,
+              topic: topic_params
+            }
+        end
+
+        it do
+          expect(resource).to have_attributes topic_params
+          expect(resource.locale).to eq controller.locale_from_host.to_s
+          expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
+        end
+      end
 
       context 'invalid params' do
         let(:params) do
@@ -218,22 +268,17 @@ describe TopicsController do
             title: ''
           }
         end
-        before { post :create, params: { forum: animanga_forum.to_param, topic: params } }
+        before do
+          post :create,
+            params: {
+              forum: animanga_forum.to_param,
+              topic: params
+            }
+        end
 
         it do
           expect(assigns(:topic)).to_not be_valid
           expect(response).to have_http_status :success
-        end
-      end
-
-      context 'valid params' do
-        let(:body) { 'test' }
-        before { post :create, params: { forum: animanga_forum.to_param, topic: topic_params } }
-
-        it do
-          expect(resource).to have_attributes topic_params
-          expect(resource.locale).to eq controller.locale_from_host.to_s
-          expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
         end
       end
     end
@@ -267,16 +312,6 @@ describe TopicsController do
     context 'authenticated' do
       before { sign_in user }
 
-      context 'invalid params' do
-        let(:params) { { user_id: user.id, title: '' } }
-        before { post :update, params: { id: topic.id, topic: params } }
-
-        it do
-          expect(resource).to_not be_valid
-          expect(response).to have_http_status :success
-        end
-      end
-
       context 'valid params' do
         include_context :timecop
 
@@ -291,8 +326,18 @@ describe TopicsController do
 
         it do
           expect(resource).to have_attributes params
-          expect(resource.updated_at).to eq Time.zone.now
-          expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
+          expect(response)
+            .to redirect_to UrlGenerator.instance.topic_url(resource)
+        end
+      end
+
+      context 'invalid params' do
+        let(:params) { { user_id: user.id, title: '' } }
+        before { post :update, params: { id: topic.id, topic: params } }
+
+        it do
+          expect(resource).to_not be_valid
+          expect(response).to have_http_status :success
         end
       end
     end
@@ -324,12 +369,22 @@ describe TopicsController do
 
   describe '#chosen' do
     let!(:offtopic_topic_1) { create :topic, forum: offtopic_forum, user: user }
-    before { get :chosen, params: { ids: [topic.to_param, offtopic_topic_1.to_param].join(',') }, format: :json }
+    before do
+      get :chosen,
+        params: {
+          ids: [topic.to_param, offtopic_topic_1.to_param].join(',')
+        },
+        format: :json
+    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#reload' do
-    before { get :reload, params: { id: topic.to_param, is_preview: 'true' }, format: :json }
+    before do
+      get :reload,
+        params: { id: topic.to_param, is_preview: 'true' },
+        format: :json
+    end
     it { expect(response).to have_http_status :success }
   end
 end
