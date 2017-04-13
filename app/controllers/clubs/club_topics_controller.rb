@@ -6,11 +6,12 @@ class Clubs::ClubTopicsController < ShikimoriController
   before_action :prepare_club
   # before_action :prepare_form, except: [:show]
 
+  def index
+  end
+
   def show
     raise AgeRestricted if @club.censored? && censored_forbidden?
-
-    page_title @club.name
-    breadcrumb @club.name, @club.url
+    ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     page_title i18n_i('Topic', :other)
     breadcrumb i18n_i('Topic', :other), club_club_topics_url(@club)
@@ -19,13 +20,6 @@ class Clubs::ClubTopicsController < ShikimoriController
 
     page_title @resource.title
     @topic_view = Topics::TopicViewFactory.new(false, false).build @club_topic
-
-    # @resource = @resource.decorate
-
-    # @resource.parents.each do |club_page|
-      # breadcrumb club_page.name, club_club_page_path(@club, club_page)
-      # @back_url = club_club_page_path(@club, club_page)
-    # end
   end
 
   def new
@@ -97,12 +91,6 @@ private
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
   end
-
-  # def prepare_form
-    # @page = 'pages'
-    # @back_url = edit_club_url @club, page: @page
-    # breadcrumb i18n_i('Page', :other), @back_url
-  # end
 
   def create_params
     params.require(:topic).permit(*TopicsController::CREATE_PARAMS)

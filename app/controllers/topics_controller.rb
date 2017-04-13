@@ -38,12 +38,7 @@ class TopicsController < ShikimoriController
   end
 
   def show
-    expected_url = UrlGenerator.instance.topic_url @resource
-
-    if request.url.gsub(/\?.*|https?:/, '') != expected_url &&
-        request.format != 'rss'
-      return redirect_to expected_url, status: 301
-    end
+    ensure_redirect! UrlGenerator.instance.topic_url(@resource), 'rss'
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?

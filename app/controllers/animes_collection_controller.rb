@@ -53,8 +53,6 @@ class AnimesCollectionController < ShikimoriController
     redirect_to @view.url(status: nil), status: 301
   rescue BadSeasonError
     redirect_to @view.url(season: nil), status: 301
-  rescue ForceRedirect => e
-    redirect_to e.url, status: 301
   end
 
 private

@@ -4,6 +4,10 @@ class ShikimoriController < ApplicationController
 
   helper_method :censored_forbidden?
 
+  rescue_from ForceRedirect do |exception|
+    redirect_to exception.url, status: 301
+  end
+
   def fetch_resource
     @resource ||= resource_klass.find(
       CopyrightedIds
@@ -27,9 +31,20 @@ class ShikimoriController < ApplicationController
       params[:format] != 'rss' && params[:format] != 'os'
   end
 
+  def ensure_redirect! expected_url, allowed_format = nil
+    return if allowed_format && request.format == allowed_format
+
+    if URI(request.url).path != URI(expected_url).path
+      raise ForceRedirect, expected_url
+    end
+  end
+
   def resource_redirect
     if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
-      redirect_to url_for(url_params(resource_id_key => @resource.to_param))
+      redirect_to(
+        url_for(url_params(resource_id_key => @resource.to_param)),
+        status: 301
+      )
       false
     end
   end
