@@ -65,7 +65,7 @@ class TopicsController < ShikimoriController
     if @resource.persisted?
       redirect_to(
         UrlGenerator.instance.topic_url(@resource),
-        notice: 'Топик создан'
+        notice: i18n_t('topic_created')
       )
     else
       new
@@ -79,7 +79,7 @@ class TopicsController < ShikimoriController
     if is_updated
       redirect_to(
         UrlGenerator.instance.topic_url(@resource),
-        notice: 'Топик изменён'
+        notice: i18n_t('topic_updated')
       )
     else
       edit
@@ -89,7 +89,7 @@ class TopicsController < ShikimoriController
 
   def destroy
     faye.destroy @resource
-    render json: { notice: 'Топик удален' }
+    render json: { notice: i18n_t('topic_deleted') }
   end
 
   def tooltip

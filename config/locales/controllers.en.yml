@@ -2,10 +2,13 @@ en:
   dashboards_controller:
     h1_header: Anime and manga encyclopedia
 
-  topics_controller:
+  topics_controller: &topics_controller
     title: Shikimori Forum
     new_topic: New topic
     new_news: New news
+    topic_created: Topic created
+    topic_updated: Topic updated
+    topic_deleted: Topic deleted
 
   profiles_controller: &profiles_controller
     profile: Profile

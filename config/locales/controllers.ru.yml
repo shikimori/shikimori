@@ -2,10 +2,13 @@ ru:
   dashboards_controller:
     h1_header: Энциклопедия аниме и манги
 
-  topics_controller:
+  topics_controller: &topics_controller
     title: Форум Шикимори
     new_topic: Новый топик
     new_news: Добавление новости
+    topic_created: Топик создан
+    topic_updated: Топик обновлён
+    topic_deleted: Топик удалён
 
   profiles_controller: &profiles_controller
     profile: Профиль
