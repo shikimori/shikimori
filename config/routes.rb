@@ -470,11 +470,11 @@ Rails.application.routes.draw do
       end
 
       resources :club_images, only: [:create, :destroy], module: :clubs
-      resources :club_pages, except: [:index], module: :clubs do
+      resources :club_pages, except: [:index], module: :clubs, path: 'pages' do
         post :up, on: :member
         post :down, on: :member
       end
-      resources :club_topics, only: [:index, :show, :create, :new], module: :clubs
+      resources :club_topics, except: [:destroy], module: :clubs, path: 'topics'
     end
 
     resources :club_invites, only: [] do
