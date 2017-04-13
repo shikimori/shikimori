@@ -126,7 +126,6 @@ class Topic < ApplicationRecord
 
 private
 
-  # проверка, что linked при его наличии нужного типа
   def validate_linked
     return if linked_type.blank?
 

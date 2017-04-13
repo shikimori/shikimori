@@ -28,7 +28,7 @@ ru:
       by: от
       about: о
     menu_actions:
-      create_topic: Создать тему
+      create_topic: Создать топик
       reload_forum: обновить форум
     page:
       refresh: Обновить страницу

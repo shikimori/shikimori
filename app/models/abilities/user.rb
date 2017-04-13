@@ -6,9 +6,9 @@ class Abilities::User
     @user = user
 
     unless @user.banned?
-      topic_abilities unless @user.week_registered?
-      comment_abilities unless @user.day_registered?
-      review_abilities unless @user.day_registered?
+      topic_abilities if @user.week_registered?
+      comment_abilities if @user.day_registered?
+      review_abilities if @user.week_registered?
       other_abilities
       club_abilities
     end
@@ -22,13 +22,22 @@ class Abilities::User
   end
 
   def topic_abilities
-    can [:new, :create], [Topic, Topics::NewsTopic.name] do |topic|
-      topic.user_id == @user.id
+    can [:new, :create], [Topic] do |topic|
+      topic.user_id == @user.id &&
+        (
+          (
+            topic.type.nil? || topic.type == Topic.name ||
+            topic.type == Topics::NewsTopic.name
+          ) || (
+            topic.type == Topics::ClubUserTopic.name &&
+            can?(:create_topic, topic.linked)
+          )
+        )
     end
-    can [:update], [Topic, Topics::NewsTopic.name] do |topic|
-      topic.user_id == @user.id
+    can [:update], [Topic] do |topic|
+      can?(:create, topic)
     end
-    can [:destroy], [Topic, Topics::NewsTopic.name] do |topic|
+    can [:destroy], [Topic] do |topic|
       can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
     end
     can [:broadcast], [Topic] do |topic|
@@ -117,7 +126,7 @@ class Abilities::User
 
   def club_abilities
     can [:new, :create], Club do |club|
-      @user.day_registered? && club.owner?(@user)
+      @user.week_registered? && club.owner?(@user)
     end
     can [:update], Club do |club|
       club.owner?(@user) || club.admin?(@user)
@@ -142,18 +151,12 @@ class Abilities::User
       club.member? @user
     end
     can :create_topic, Club do |club|
-      if club.topic_policy_members?
-        club.member?(@user)
-      elsif club.topic_policy_admins?
-        club.admin?(@user)
-      end
+      (club.topic_policy_members? && club.member?(@user)) ||
+        (club.topic_policy_admins? && club.admin?(@user))
     end
     can :upload_image, Club do |club|
-      if club.image_upload_policy_members?
-        club.member?(@user)
-      elsif club.image_upload_policy_admins?
-        club.admin?(@user)
-      end
+      (club.image_upload_policy_members? && club.member?(@user)) ||
+        (club.image_upload_policy_admins? && club.admin?(@user))
     end
 
     can [:new, :create, :update, :destroy, :up, :down], ClubPage do |club_page|
@@ -258,7 +261,7 @@ private
       commentable.is_a?(Topics::EntryTopics::ClubTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
     ) || (
-      commentable.is_a?(Topics::EntryTopics::ClubUserTopic) &&
+      commentable.is_a?(Topics::ClubUserTopic) &&
       user.club_admin_roles.any? { |v| v.club_id == commentable.linked_id }
     ) || (
       commentable.is_a?(Topics::EntryTopics::ClubPageTopic) &&

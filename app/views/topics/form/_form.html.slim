@@ -7,7 +7,7 @@
 
   - if topic.errors.any?
     .b-errors
-      .subheadline Ошибки
+      .subheadline = i18n_i 'error', :other
       .block
         == topic.errors.full_messages.join('<br>')
 
@@ -15,54 +15,62 @@
   = f.input :linked_id, as: :hidden
   = f.input :linked_type, as: :hidden
 
-  .inputs
-    - if topic.persisted? && can?(:manage, Topic)
+  .inputs.m15
+    - if topic.persisted? && can?(:manage, Topic) && !topic_type_policy.any_club_topic?
       = f.input :type, as: :select, include_blank: false,
-        collection: [['Топик', 'Topic'], ['Новость', 'Topics::NewsTopic']],
+        collection: [Topic, Topics::NewsTopic].map { |v| [v.model_name.human, v.name] },
         input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
     - else
         = f.input :type, as: :hidden
 
-    = f.input :forum_id, as: :select, include_blank: false,
-      collection: Forum.public,
-      input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
+    - if topic_type_policy.any_club_topic?
+        = f.input :forum_id, as: :hidden
+    - else
+      = f.input :forum_id, as: :select, include_blank: false,
+        collection: Forum.public,
+        input_html: { disabled: !(topic.new_record? || can?(:manage, Topic)) }
 
     = f.input :title
 
-    .topic_linked
-      .b-input.string.optional
-        label.string.optional.control-label for="topic_linked"
-          = t 'activerecord.attributes.topic.linked'
-        input.string.optional#topic_linked[
-          type="text"
-          data-anime-placeholder="Название аниме"
-          data-manga-placeholder="Название манги"
-          data-character-placeholder="Имя персонажа"
-          data-person-placeholder="Имя персонажа"
-          data-anime-autocomplete="#{autocomplete_animes_url}"
-          data-manga-autocomplete="#{autocomplete_mangas_url}"
-          data-character-autocomplete="#{autocomplete_characters_url}"
-          data-person-autocomplete="#{autocomplete_people_url}"
-          style="#{'display: none;' if topic.linked.present?}"
-        ]
-        select.type[
-          style="#{'display: none;' if topic.linked.present?}"
-        ]
-          option value="#{Anime.name}" = Anime.model_name.human
-          option value="#{Manga.name}" = Manga.model_name.human
-          option value="#{Character.name}" = Character.model_name.human
-          option value="#{Person.name}" = Person.model_name.human
+    - if topic_type_policy.any_club_topic?
+      = f.input :linked_id, as: :hidden
+      = f.input :linked_type, as: :hidden
 
-      .topic-link[
-        style="#{'display: none;' unless topic.linked.present?}"
-      ]
-        - if topic.linked.present?
-          a.bubbled.b-link[
-            href="#{url_for topic.linked}"
-            title="#{topic.linked.name}"
+    - else
+      .topic_linked
+        .b-input.string.optional
+          label.string.optional.control-label for="topic_linked"
+            = t 'activerecord.attributes.topic.linked'
+          input.string.optional#topic_linked[
+            type="text"
+            data-anime-placeholder="Название аниме"
+            data-manga-placeholder="Название манги"
+            data-character-placeholder="Имя персонажа"
+            data-person-placeholder="Имя персонажа"
+            data-anime-autocomplete="#{autocomplete_animes_url}"
+            data-manga-autocomplete="#{autocomplete_mangas_url}"
+            data-character-autocomplete="#{autocomplete_characters_url}"
+            data-person-autocomplete="#{autocomplete_people_url}"
+            style="#{'display: none;' if topic.linked.present?}"
           ]
-            = topic.linked.name
-        .b-js-action.remove = t('actions.delete').downcase
+          select.type[
+            style="#{'display: none;' if topic.linked.present?}"
+          ]
+            option value="#{Anime.name}" = Anime.model_name.human
+            option value="#{Manga.name}" = Manga.model_name.human
+            option value="#{Character.name}" = Character.model_name.human
+            option value="#{Person.name}" = Person.model_name.human
+
+        .topic-link[
+          style="#{'display: none;' unless topic.linked.present?}"
+        ]
+          - if topic.linked.present?
+            a.bubbled.b-link[
+              href="#{url_for topic.linked}"
+              title="#{topic.linked.name}"
+            ]
+              = topic.linked.name
+          .b-js-action.remove = t('actions.delete').downcase
 
     - if topic_type_policy.news_topic?
       = render 'topics/form/news_form',
@@ -70,7 +78,7 @@
         f: f,
         decomposed_body: Topics::DecomposeBody.new(topic)
 
-    - if current_user.admin?
+    - if current_user.admin? && !topic_type_policy.any_club_topic?
       = f.input :broadcast
 
     .b-shiki_editor.unprocessed.block

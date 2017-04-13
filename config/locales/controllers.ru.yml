@@ -111,6 +111,10 @@ ru:
     destroy:
       success: Страница удалена
 
+  clubs/club_topics_controller:
+    new:
+      title: Новый топик
+
   club_roles_controller:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"

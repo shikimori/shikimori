@@ -9,6 +9,17 @@ class ClubDecorator < DbEntryDecorator
     h.club_url object
   end
 
+  def new_topic_url
+    h.new_club_club_topic_path(
+      object,
+      'topic[type]' => Topics::ClubUserTopic.name,
+      'topic[user_id]' => h.current_user.id,
+      'topic[forum_id]' => Forum.find_by_permalink('clubs'),
+      'topic[linked_id]' => object.id,
+      'topic[linked_type]' => Club.name
+    )
+  end
+
   def image
     object.logo
   end

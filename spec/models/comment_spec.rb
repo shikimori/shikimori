@@ -321,7 +321,7 @@ describe Comment do
 
     context 'not comment owner' do
       let(:user) { build_stubbed :user, :user, :day_registered }
-      let(:user_2) { build_stubbed :user, :user }
+      let(:user_2) { build_stubbed :user, :user, :day_registered }
       let(:comment) { build_stubbed :comment, user: user_2 }
 
       it { is_expected.to_not be_able_to :new, comment }
@@ -360,8 +360,8 @@ describe Comment do
         context 'comment in own profile' do
           let(:comment) { build_stubbed :comment, user: user, commentable: user }
 
-          it { is_expected.to be_able_to :update, comment }
-          it { is_expected.to be_able_to :destroy, comment }
+          it { is_expected.to_not be_able_to :update, comment }
+          it { is_expected.to_not be_able_to :destroy, comment }
         end
       end
 
@@ -422,7 +422,10 @@ describe Comment do
       end
 
       context 'club admin' do
-        let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
+        let(:user) do
+          build_stubbed :user, :user, :day_registered,
+            club_admin_roles: [club_admin_role]
+        end
         let(:club_admin_role) { build_stubbed :club_role, :admin, club: club }
 
         it { is_expected.to be_able_to :destroy, comment }

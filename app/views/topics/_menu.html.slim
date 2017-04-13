@@ -75,7 +75,7 @@
     - cache menu.club_topics do
       - menu.club_topics.each do |club_topic|
         - cache club_topic do
-            - topic_url = club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : (club_topic.is_a?(Topics::EntryTopics::ClubUserTopic) ? club_club_topic_url(club_topic.club, club_topic) : club_url(club_topic.linked))
+            - topic_url = club_topic.is_a?(Topics::EntryTopics::ClubPageTopic) ? club_club_page_url(club_topic.club, club_topic.linked) : (club_topic.is_a?(Topics::ClubUserTopic) ? club_club_topic_url(club_topic.club, club_topic) : club_url(club_topic.linked))
             li.entry
               a[
                 href="#{topic_url}"

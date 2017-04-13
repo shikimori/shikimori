@@ -13,7 +13,10 @@ header.head
       ]
 
     - if user_signed_in? && request.get? && ['show', 'index'].include?(params[:action])
-      a.reload href="#{request.url}" title="#{t '.refresh'}" = @page_title.last
+      a.reload[
+        href="#{request.url}"
+        title="#{t '.refresh'}"
+      ] = @page_title.last
     - else
       = @page_title.last
 

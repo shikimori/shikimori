@@ -36,7 +36,7 @@ class Topic::TypePolicy
   end
 
   def club_user_topic?
-    topic.class.name == Topics::EntryTopics::ClubUserTopic.name
+    topic.class.name == Topics::ClubUserTopic.name
   end
 
   def club_page_topic?

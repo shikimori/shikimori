@@ -10,6 +10,9 @@ class TopicsController < ShikimoriController
   before_action :set_view
   before_action :set_breadcrumbs
 
+  UPDATE_PARAMS = %i[body title linked_id linked_type]
+  CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
+
   def index
     # редирект на топик, если топик в подфоруме единственный
     if params[:linked_id] && @forums_view.topic_views.one?
@@ -48,8 +51,6 @@ class TopicsController < ShikimoriController
   end
 
   def new
-    noindex
-
     topic_type_policy = Topic::TypePolicy.new(@resource)
     page_title i18n_t("new_#{topic_type_policy.news_topic? ? :news : :topic}")
     @back_url = @breadcrumbs[@breadcrumbs.keys.last]
@@ -125,10 +126,10 @@ class TopicsController < ShikimoriController
 private
 
   def topic_params
-    allowed_params = %i[body title linked_id linked_type]
+    allowed_params = UPDATE_PARAMS
 
     if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
-      allowed_params += [:user_id, :forum_id, :type]
+      allowed_params = CREATE_PARAMS
     end
     allowed_params += [:broadcast] if current_user&.admin?
 

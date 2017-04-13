@@ -135,7 +135,7 @@ describe Topic do
         it do
           is_expected.not_to be_able_to :new, topic
           is_expected.not_to be_able_to :create, topic
-          is_expected.to be_able_to :update, topic
+          is_expected.to_not be_able_to :update, topic
         end
       end
 
@@ -159,6 +159,36 @@ describe Topic do
         context 'topic created >= 4 hours ago' do
           let(:created_at) { 1.day.ago - 1.minute }
           it { is_expected.not_to be_able_to :destroy, topic }
+        end
+      end
+
+      describe 'Topics::ClubUserTopic' do
+        let(:club_role) { build_stubbed :club_role, :member, user: user }
+        let(:topic) { build_stubbed :club_user_topic, user: user, linked: club }
+        let(:club) do
+          build_stubbed :club,
+            topic_policy: topic_policy,
+            member_roles: [club_role]
+        end
+
+        context 'can create_topic' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:members] }
+          it do
+            is_expected.to be_able_to :new, topic
+            is_expected.to be_able_to :create, topic
+            is_expected.to be_able_to :update, topic
+            is_expected.to be_able_to :destroy, topic
+          end
+        end
+
+        context 'cannot create_topic' do
+          let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
+          it do
+            is_expected.to_not be_able_to :new, topic
+            is_expected.to_not be_able_to :create, topic
+            is_expected.to_not be_able_to :update, topic
+            is_expected.to_not be_able_to :destroy, topic
+          end
         end
       end
     end
@@ -198,7 +228,10 @@ describe Topic do
       end
 
       context 'club admin' do
-        let(:user) { build_stubbed :user, :user, club_admin_roles: [club_admin_role] }
+        let(:user) do
+          build_stubbed :user, :user, :week_registered,
+            club_admin_roles: [club_admin_role]
+        end
         let(:club_admin_role) { build_stubbed :club_role, :admin, club: club }
         it { is_expected.to be_able_to :broadcast, topic }
       end

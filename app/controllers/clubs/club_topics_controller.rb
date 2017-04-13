@@ -1,9 +1,6 @@
-class Clubs::ClubTopicsController < ClubsController
+class Clubs::ClubTopicsController < ShikimoriController
   load_and_authorize_resource :club
   load_and_authorize_resource class: Topic.name
-
-  # CREATE_PARAMS = %i[club_id parent_page_id name layout text]
-  # UPDATE_PARAMS = CREATE_PARAMS - [:club_id]
 
   before_action { page_title i18n_i('Club', :other) }
   before_action :prepare_club
@@ -22,12 +19,14 @@ class Clubs::ClubTopicsController < ClubsController
     # end
   # end
 
-  # def new
-    # page_title i18n_t('new.title')
-    # render 'form'
-  # end
+  def new
+    page_title i18n_t('new.title')
+    render 'form'
+  end
 
-  # def create
+  def create
+    # binding.pry
+    # super
     # @resource = ClubPage::Create.call create_params, current_user
 
     # if @resource.errors.blank?
@@ -40,7 +39,7 @@ class Clubs::ClubTopicsController < ClubsController
       # flash[:alert] = t('changes_not_saved')
       # render 'form'
     # end
-  # end
+  end
 
   # def edit
     # page_title @resource.name
@@ -79,7 +78,7 @@ class Clubs::ClubTopicsController < ClubsController
     # )
   # end
 
-# private
+private
 
   def prepare_club
     @club = @club.decorate
@@ -99,12 +98,16 @@ class Clubs::ClubTopicsController < ClubsController
     # breadcrumb i18n_i('Page', :other), @back_url
   # end
 
-  # def create_params
-    # params.require(:club_page).permit(*CREATE_PARAMS)
-  # end
-  # alias new_params create_params
+  def create_params
+    params.require(:topic).permit(*TopicsController::CREATE_PARAMS)
+  end
+  alias new_params create_params
 
-  # def update_params
-    # params.require(:club_page).permit(*UPDATE_PARAMS)
-  # end
+  def update_params
+    params.require(:topic).permit(*TopicsController::UPDATE_PARAMS)
+  end
+
+  def faye
+    FayeService.new current_user, faye_token
+  end
 end

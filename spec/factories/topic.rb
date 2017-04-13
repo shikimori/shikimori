@@ -57,8 +57,8 @@ FactoryGirl.define do
       generated true
     end
 
-    factory :club_user_topic, class: 'Topics::EntryTopics::ClubUserTopic' do
-      type 'Topics::EntryTopics::ClubUserTopic'
+    factory :club_user_topic, class: 'Topics::ClubUserTopic' do
+      type 'Topics::ClubUserTopic'
       generated false
     end
 

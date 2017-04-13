@@ -7,7 +7,7 @@ class Forums::Menu < ViewObjectBase
       .includes(:linked)
       .where(type: [
         Topics::EntryTopics::ClubTopic,
-        Topics::EntryTopics::ClubUserTopic,
+        Topics::ClubUserTopic,
         Topics::EntryTopics::ClubPageTopic,
       ])
       .where(locale: h.locale_from_host)

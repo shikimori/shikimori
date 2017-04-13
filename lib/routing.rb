@@ -34,7 +34,7 @@ module Routing
     elsif topic.is_a?(User)
       profile_url topic, options.merge(subdomain: false)
 
-    elsif topic.is_a?(Topics::EntryTopics::ClubPageTopic)
+    elsif topic_type_policy.club_page_topic?
       forum_topic_url options.merge(
         id: topic,
         forum: topic.forum,

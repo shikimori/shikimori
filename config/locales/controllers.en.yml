@@ -111,6 +111,10 @@ en:
     destroy:
       success: Page deleted
 
+  clubs/club_topics_controller:
+    new:
+      title: New topic
+
   club_roles_controller:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"

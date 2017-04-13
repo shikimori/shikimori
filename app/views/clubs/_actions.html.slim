@@ -6,6 +6,11 @@
         li.edit-entry
           a.b-link href="#{edit_club_url club, page: :main}" = t '.edit_club'
 
+      - if can? :create_topic, club
+        li.new-topic
+          a.b-link href="#{club.new_topic_url}"
+            = t 'topics.menu_actions.create_topic'
+
       - if can? :broadcast, club
         li.broadcast
           a.b-link href="#{broadcast_club_comments_url club}" = t '.broadcast'

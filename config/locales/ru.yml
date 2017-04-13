@@ -11,6 +11,8 @@ ru:
       user: Пользователь
       person: Человек
       club: Клуб
+      topic: Топик
+      topics/news_topic: Новостной топик
 
     attributes:
       anime: &anime_attributes

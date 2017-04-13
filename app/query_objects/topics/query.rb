@@ -4,7 +4,7 @@ class Topics::Query < QueryObjectBase
     (
       type in (
         #{Topic.sanitize Topics::EntryTopics::ClubTopic.name},
-        #{Topic.sanitize Topics::EntryTopics::ClubUserTopic.name}
+        #{Topic.sanitize Topics::ClubUserTopic.name}
       ) and #{Topic.table_name}.linked_id in (:user_club_ids)
     ) or
     (
@@ -110,7 +110,7 @@ private
         else
           scope.where('type not in (?) OR type IS NULL', [
             Topics::EntryTopics::ClubTopic.name,
-            Topics::EntryTopics::ClubUserTopic.name,
+            Topics::ClubUserTopic.name,
             Topics::EntryTopics::ClubPageTopic.name
           ])
         end

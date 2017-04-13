@@ -32,6 +32,8 @@ en:
       user: User
       person: Person
       club: Club
+      topic: Topic
+      topics/news_topic: News Topic
 
     attributes:
       anime: &anime_attributes
