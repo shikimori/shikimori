@@ -15,7 +15,7 @@ describe Clubs::ClubTopicsController do
       body: 'text',
       linked_id: club.id,
       linked_type: Club.name,
-      type: 'Topics::ClubUserTopic'
+      type: Topics::ClubUserTopic.name
     }
   end
 
@@ -30,37 +30,36 @@ describe Clubs::ClubTopicsController do
     it { expect(response).to have_http_status :success }
   end
 
-  # describe '#create' do
-    # before do
-      # post :create,
-        # params: {
-          # club_id: club.id,
-          # topic: topic_params
-        # }
-    # end
+  describe '#create' do
+    before do
+      post :create,
+        params: {
+          club_id: club.id,
+          topic: topic_params
+        }
+    end
 
-    # context 'valid params', :focus do
-      # it do
-        # expect(resource).to have_attributes topic_params
-        # expect(resource.locale).to eq controller.locale_from_host.to_s
-        # expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
-      # end
-    # end
+    context 'valid params' do
+      it do
+        expect(resource).to have_attributes topic_params
+        expect(resource.locale).to eq controller.locale_from_host.to_s
+        expect(response).to redirect_to UrlGenerator.instance.topic_url(resource)
+      end
+    end
 
-    # context 'invalid params' do
-      # let(:params) do
-        # {
-          # user_id: user.id,
-          # type: Topic.name,
-          # forum_id: clubs_forum.id,
-          # title: ''
-        # }
-      # end
+    context 'invalid params' do
+      let(:topic_params) do
+        {
+          user_id: user.id,
+          forum_id: clubs_forum.id,
+          title: 'title'
+        }
+      end
 
-      # it do
-        # expect(assigns(:topic)).to_not be_valid
-        # expect(response).to have_http_status :success
-      # end
-    # end
-  # end
+      it do
+        expect(resource).to_not be_valid
+        expect(response).to have_http_status :success
+      end
+    end
+  end
 end

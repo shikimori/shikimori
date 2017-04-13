@@ -69,6 +69,7 @@ class TopicsController < ShikimoriController
       )
     else
       new
+      flash[:alert] = t('changes_not_saved')
       render :new
     end
   end
@@ -83,6 +84,7 @@ class TopicsController < ShikimoriController
       )
     else
       edit
+      flash[:alert] = t('changes_not_saved')
       render :edit
     end
   end

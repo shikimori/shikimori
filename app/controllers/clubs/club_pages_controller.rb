@@ -36,9 +36,8 @@ class Clubs::ClubPagesController < ShikimoriController
         notice: t('changes_saved')
       )
     else
-      page_title @resource.name
       flash[:alert] = t('changes_not_saved')
-      render 'form'
+      new
     end
   end
 
@@ -81,18 +80,20 @@ class Clubs::ClubPagesController < ShikimoriController
 
 private
 
+  # rubocop:disable MethodLength
   def prepare_club
     @club = @club.decorate
 
     page_title @club.name
-    if %w(new create update destroy).include? params[:page]
+    if %w[new create update destroy].include? params[:page]
       page_title t(:settings)
     end
-    page_title t("clubs.page.pages.pages")
+    page_title t('clubs.page.pages.pages')
 
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
   end
+  # rubocop:enable MethodLength
 
   def prepare_form
     @page = 'pages'

@@ -115,6 +115,7 @@ en:
       success: Page deleted
 
   clubs/club_topics_controller:
+    <<: *topics_controller
     new:
       title: New topic
 

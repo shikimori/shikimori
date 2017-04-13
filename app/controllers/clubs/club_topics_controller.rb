@@ -25,20 +25,17 @@ class Clubs::ClubTopicsController < ShikimoriController
   end
 
   def create
-    # binding.pry
-    # super
-    # @resource = ClubPage::Create.call create_params, current_user
+    @resource = Topic::Create.call faye, create_params, locale_from_host
 
-    # if @resource.errors.blank?
-      # redirect_to(
-        # edit_club_club_page_path(@resource.club, @resource),
-        # notice: t('changes_saved')
-      # )
-    # else
-      # page_title @resource.name
-      # flash[:alert] = t('changes_not_saved')
-      # render 'form'
-    # end
+    if @resource.persisted?
+      redirect_to(
+        UrlGenerator.instance.topic_url(@resource),
+        notice: i18n_t('topic_created')
+      )
+    else
+      flash[:alert] = t('changes_not_saved')
+      new
+    end
   end
 
   # def edit
@@ -83,10 +80,10 @@ private
   def prepare_club
     @club = @club.decorate
 
-    if %w(new create update destroy).include? params[:page]
+    if %w[new create update destroy].include? params[:page]
       page_title t(:settings)
     end
-    page_title t("clubs.page.pages.pages")
+    page_title t('clubs.page.pages.pages')
 
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)

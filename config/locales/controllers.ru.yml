@@ -115,6 +115,7 @@ ru:
       success: Страница удалена
 
   clubs/club_topics_controller:
+    <<: *topics_controller
     new:
       title: Новый топик
 
