@@ -72,7 +72,7 @@ describe Review do
 
   describe 'permissions' do
     let(:review) { build_stubbed :review }
-    let(:user) { build_stubbed :user, :user, :day_registered }
+    let(:user) { build_stubbed :user, :user, :week_registered }
     subject { Ability.new user }
 
     context 'review owner' do
@@ -83,7 +83,12 @@ describe Review do
       end
 
       context 'newly registered' do
-        let(:user) { build_stubbed :user, :user, created_at: 23.hours.ago }
+        let(:user) { build_stubbed :user, :user }
+        it { is_expected.not_to be_able_to :manage, review }
+      end
+
+      context 'day registered' do
+        let(:user) { build_stubbed :user, :user, :day_registered }
         it { is_expected.not_to be_able_to :manage, review }
       end
 

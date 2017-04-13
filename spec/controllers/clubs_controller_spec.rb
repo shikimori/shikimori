@@ -40,13 +40,13 @@ describe ClubsController do
   end
 
   describe '#new' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
     before { get :new, params: { club: { owner_id: user.id } } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#edit' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
     let(:club) { create :club, owner: user }
     before { get :edit, params: { id: club.to_param, page: 'main' } }
 
@@ -54,7 +54,7 @@ describe ClubsController do
   end
 
   describe '#create' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
 
     context 'valid params' do
       before { post :create, params: { club: params } }
@@ -78,7 +78,7 @@ describe ClubsController do
   end
 
   describe '#update' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do

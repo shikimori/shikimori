@@ -13,6 +13,7 @@ class Abilities::User
       club_abilities
     end
 
+    topic_ignores_abilities
     message_abilities
     user_abilities
     user_rate_abilities
@@ -43,6 +44,9 @@ class Abilities::User
     can [:broadcast], [Topic] do |topic|
       can_broadcast_in_club_topic?(topic, @user)
     end
+  end
+
+  def topic_ignores_abilities
     can [:create, :destroy], [TopicIgnore] do |topic_ignore|
       topic_ignore.user_id == @user.id
     end

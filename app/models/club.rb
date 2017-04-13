@@ -95,7 +95,7 @@ class Club < ApplicationRecord
 
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
-  TRANSLATORSID = 2
+  TRANSLATORS_ID = 2
 
   def to_param
     "#{id}-#{name.permalinked}"
@@ -131,7 +131,7 @@ class Club < ApplicationRecord
 
   # группа ли это переводчиков
   def belongs_to_translators?
-    id == TRANSLATORSID
+    id == TRANSLATORS_ID
   end
 
   # число участников группы

@@ -2,7 +2,7 @@ header.head.misc
   h1 = @page_title.last
 
   a.misc.to-process[
-    href="#{new_club_url 'club[owner_id]' => current_user.id}"
+    href="#{new_club_url 'club[owner_id]' => current_user&.id}"
     title="#{ t '.create_new_club'}"
     data-dynamic="week_registered"
   ] = t('actions.create').downcase

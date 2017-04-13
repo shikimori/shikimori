@@ -22,7 +22,7 @@ class Ability
   def define_abilities
     alias_action :current, :read, :users, :comments, :grid, to: :see_contest
     alias_action(
-      :show, :comments, :animes, :mangas, :characters, :members, :images,
+      :index, :show, :comments, :animes, :mangas, :characters, :members, :images,
       to: :see_club
     )
   end

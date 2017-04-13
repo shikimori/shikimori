@@ -204,7 +204,7 @@ describe Club do
 
   describe 'permissions' do
     let(:club) { build_stubbed :club, join_policy: join_policy }
-    let(:user) { build_stubbed :user, :user, :day_registered }
+    let(:user) { build_stubbed :user, :user, :week_registered }
     let(:join_policy) { Types::Club::JoinPolicy[:free] }
     let(:topic_policy) { Types::Club::TopicPolicy[:members] }
 
@@ -224,6 +224,12 @@ describe Club do
 
       context 'newly registered' do
         let(:user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :new, club }
+        it { is_expected.to_not be_able_to :create, club }
+      end
+
+      context 'day registered' do
+        let(:user) { build_stubbed :user, :user, :day_registered }
         it { is_expected.to_not be_able_to :new, club }
         it { is_expected.to_not be_able_to :create, club }
       end

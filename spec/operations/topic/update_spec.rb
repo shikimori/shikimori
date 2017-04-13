@@ -16,7 +16,7 @@ describe Topic::Update do
     it do
       expect(topic.errors).to be_empty
       expect(topic.reload).to have_attributes params
-      expect(topic.commented_at).to eq Time.zone.now
+      expect(topic.commented_at).to be_within(0.1).of(Time.zone.now)
     end
   end
 

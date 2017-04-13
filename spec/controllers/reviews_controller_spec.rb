@@ -12,7 +12,7 @@ describe ReviewsController do
   end
 
   describe '#new' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
 
     let(:params) do
       {
@@ -21,13 +21,20 @@ describe ReviewsController do
         target_type: anime.class.name
       }
     end
-    before { get :new, params: { anime_id: anime.to_param, type: 'Anime', review: params } }
+    before do
+      get :new,
+        params: {
+          anime_id: anime.to_param,
+          type: Anime.name,
+          review: params
+        }
+    end
 
     it { expect(response).to have_http_status :success }
   end
 
   describe '#create' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
 
     before do
       post :create,
@@ -79,13 +86,20 @@ describe ReviewsController do
   end
 
   describe '#edit' do
-    include_context :authenticated, :user
-    before { get :edit, params: { anime_id: anime.to_param, type: 'Anime', id: review.id } }
+    include_context :authenticated, :user, :week_registered
+    before do
+      get :edit,
+        params: {
+          anime_id: anime.to_param,
+          type: Anime.name,
+          id: review.id
+        }
+    end
     it { expect(response).to have_http_status :success }
   end
 
   describe '#update' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
 
     before do
       patch :update,
@@ -128,9 +142,14 @@ describe ReviewsController do
   end
 
   describe '#destroy' do
-    include_context :authenticated, :user
+    include_context :authenticated, :user, :week_registered
     before do
-      delete :destroy, params: { id: review.id, anime_id: anime.to_param, type: 'Anime' }
+      delete :destroy,
+        params: {
+          id: review.id,
+          anime_id: anime.to_param,
+          type: Anime.name
+        }
     end
 
     it do
