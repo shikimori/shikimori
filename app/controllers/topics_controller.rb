@@ -38,11 +38,11 @@ class TopicsController < ShikimoriController
   end
 
   def show
+    raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource), 'rss'
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
-    raise AgeRestricted if @resource.linked && @resource.linked.try(:censored?) && censored_forbidden?
   end
 
   def new
@@ -136,7 +136,7 @@ private
   end
 
   def set_view
-    @forums_view = Forums::View.new
+    @forums_view = Forums::View.new params[:forum]
 
     if params[:action] == 'show' && @resource
       @topic_view = Topics::TopicViewFactory.new(false, false).build @resource

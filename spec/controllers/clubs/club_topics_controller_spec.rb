@@ -20,14 +20,24 @@ describe Clubs::ClubTopicsController do
     }
   end
 
-  describe '#show' do
-    before do
-      get :show,
-        params: {
-          club_id: club.to_param,
-          id: topic_id
-        }
+  describe '#index' do
+    before { get :index, params: { club_id: club_id } }
+
+    context 'valid path' do
+      let(:club_id) { club.to_param }
+      it { expect(response).to have_http_status :success }
     end
+
+    context 'invalid path' do
+      let(:club_id) { club.id }
+      it do
+        expect(response).to redirect_to club_club_topics_url(club)
+      end
+    end
+  end
+
+  describe '#show' do
+    before { get :show, params: { club_id: club.to_param, id: topic_id } }
 
     context 'valid path' do
       let(:topic_id) { topic.to_param }

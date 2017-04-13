@@ -7,16 +7,14 @@ class Clubs::ClubTopicsController < ShikimoriController
   # before_action :prepare_form, except: [:show]
 
   def index
+    ensure_redirect! club_club_topics_url(@club)
+
+    @forums_view = Forums::View.new 'clubs', linked: @club.object
   end
 
   def show
     raise AgeRestricted if @club.censored? && censored_forbidden?
     ensure_redirect! UrlGenerator.instance.topic_url(@resource)
-
-    page_title i18n_i('Topic', :other)
-    breadcrumb i18n_i('Topic', :other), club_club_topics_url(@club)
-
-    @back_url = club_club_topics_url(@club)
 
     page_title @resource.title
     @topic_view = Topics::TopicViewFactory.new(false, false).build @club_topic
@@ -80,17 +78,23 @@ class Clubs::ClubTopicsController < ShikimoriController
 
 private
 
+  # rubocop:disable MethodLength
   def prepare_club
     @club = @club.decorate
 
-    if %w[new create update destroy].include? params[:page]
-      page_title t(:settings)
-    end
-    page_title t('clubs.page.pages.pages')
-
     breadcrumb i18n_i('Club', :other), clubs_url
     breadcrumb @club.name, club_url(@club)
+    page_title @club.name
+
+    if params[:action] == 'index'
+      @back_url = @club.url
+    else
+      @back_url = club_club_topics_url(@club)
+      breadcrumb i18n_i('Topic', :other), club_club_topics_url(@club)
+    end
+    page_title i18n_i('Topic', :other)
   end
+  # rubocop:enable MethodLength
 
   def create_params
     params.require(:topic).permit(*TopicsController::CREATE_PARAMS)

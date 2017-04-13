@@ -14,6 +14,10 @@ ru:
       form:
         topic_text: Текст топика
         news_text: Текст новости
+        edit:
+          title: Редактирование топика
+        new:
+          title: Новый топик
       type:
         pick_topic_type: Выберите тип топика
         common_topic: Обычный топик

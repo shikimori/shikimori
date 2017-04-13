@@ -14,7 +14,7 @@ class ClubDecorator < DbEntryDecorator
       object,
       'topic[type]' => Topics::ClubUserTopic.name,
       'topic[user_id]' => h.current_user.id,
-      'topic[forum_id]' => Forum.find_by_permalink('clubs'),
+      'topic[forum_id]' => Forum.find_by_permalink('clubs').id,
       'topic[linked_id]' => object.id,
       'topic[linked_type]' => Club.name
     )

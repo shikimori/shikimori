@@ -14,6 +14,10 @@ en:
       form:
         topic_text: Topic text
         news_text: News text
+        edit:
+          title: Edit topic
+        new:
+          title: New topic
       type:
         pick_topic_type: Pick topic type
         common_topic: Common topic

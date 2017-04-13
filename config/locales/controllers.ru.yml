@@ -4,7 +4,7 @@ ru:
 
   topics_controller: &topics_controller
     title: Форум Шикимори
-    new_topic: Новый топик
+    new_topic: Добавление топика
     new_news: Добавление новости
     topic_created: Топик создан
     topic_updated: Топик обновлён

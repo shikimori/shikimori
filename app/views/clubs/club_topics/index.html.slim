@@ -10,15 +10,9 @@
       href="#{{@forums_view.prev_page_url}}"
     ]
 
-  = auto_discovery_link_tag :rss,
-    forum_topics_url(forum: @forums_view.forum.try(:permalink), format: :rss),
-    title: 'Site topics'
+= render layout: 'clubs/page' do
+  .subheadline.m10 = @page_title.last
 
-  / - if @forums_view.forum[:id] == 'all'
-    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
-    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
-
-= render layout: 'topics/page' do |f|
   .b-forum.unprocessed data-faye="#{@forums_view.faye_subscriptions.to_json}"
     - if @forums_view.topic_views.any?
       = render partial: 'topics/topic',

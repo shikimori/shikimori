@@ -1,8 +1,7 @@
 - topic_type_policy = Topic::TypePolicy.new topic
+- submit_url = topic_type_policy.any_club_topic? ? (topic.persisted? ? club_club_topic_url(topic) : club_club_topics_url) : (topic.persisted? ? topic_url(topic) : topics_url)
 
-= simple_form_for topic,
-    url: (topic.persisted? ? topic_url(topic) : topics_url),
-    as: :topic do |f|
+= simple_form_for topic, url: submit_url, as: :topic do |f|
   input type="hidden" name="rules_passed" value="1"
 
   - if topic.errors.any?
@@ -10,6 +9,9 @@
       .subheadline = i18n_i 'error', :other
       .block
         == topic.errors.full_messages.join('<br>')
+
+  .subheadline.m10
+    = t topic.persisted? ? '.edit.title' : '.new.title'
 
   = f.input :user_id, as: :hidden
   = f.input :linked_id, as: :hidden

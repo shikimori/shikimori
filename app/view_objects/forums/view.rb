@@ -1,8 +1,20 @@
 class Forums::View < ViewObjectBase
-  instance_cache :topic_views, :forum, :menu, :linked
+  pattr_initialize :forum, [:linked]
+  instance_cache :forum, :linked, :topic_views, :menu
 
   def forum
-    Forum.find_by_permalink h.params[:forum]
+    Forum.find_by_permalink @forum
+  end
+
+  def linked
+    return @linked if @linked
+
+    h.params[:linked_type].camelize.constantize.find(
+      CopyrightedIds.instance.restore(
+        h.params[:linked_id],
+        h.params[:linked_type]
+      )
+    ) if h.params[:linked_id]
   end
 
   def topic_views
@@ -22,6 +34,8 @@ class Forums::View < ViewObjectBase
   end
 
   def faye_subscriptions
+    return [] unless h.user_signed_in?
+
     case forum && forum.permalink
       when nil
         user_forums = h.current_user.preferences.forums.select(&:present?)
@@ -44,15 +58,6 @@ class Forums::View < ViewObjectBase
 
   def menu
     Forums::Menu.new forum, linked
-  end
-
-  def linked
-    h.params[:linked_type].camelize.constantize.find(
-      CopyrightedIds.instance.restore(
-        h.params[:linked_id],
-        h.params[:linked_type]
-      )
-    ) if h.params[:linked_id]
   end
 
   def form

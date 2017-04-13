@@ -4,8 +4,8 @@ en:
 
   topics_controller: &topics_controller
     title: Shikimori Forum
-    new_topic: New topic
-    new_news: New news
+    new_topic: Add topic
+    new_news: Add news
     topic_created: Topic created
     topic_updated: Topic updated
     topic_deleted: Topic deleted

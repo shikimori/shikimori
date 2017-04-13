@@ -79,8 +79,22 @@ describe Forums::View do
   end
 
   describe '#faye_subscriptions' do
-    before { user.preferences.forums = [offtopic_forum.id] }
-    it { expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"] }
+    before do
+      user.preferences.forums = [offtopic_forum.id]
+      allow(view.h).to receive(:user_signed_in?).and_return is_signed_in
+    end
+
+    context 'authenticated' do
+      let(:is_signed_in) { true }
+      it do
+        expect(view.faye_subscriptions).to eq ["forum-#{offtopic_forum.id}/ru"]
+      end
+    end
+
+    context 'not authenticated' do
+      let(:is_signed_in) { false }
+      it { expect(view.faye_subscriptions).to eq [] }
+    end
   end
 
   describe '#menu' do
@@ -92,6 +106,7 @@ describe Forums::View do
       allow(view).to receive_message_chain(:forum, :permalink)
         .and_return permalink
     end
+
     let(:params) do
       {
         linked_type: entry.class.name.downcase,
