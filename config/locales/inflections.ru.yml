@@ -306,6 +306,7 @@ ru:
           one: топик
           few: топика
           many: топиков
+          other: топики
       studio:
         subjective:
           one: студия

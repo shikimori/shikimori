@@ -19,6 +19,17 @@ describe Clubs::ClubTopicsController do
     }
   end
 
+  describe '#show' do
+    before do
+      get :new,
+        params: {
+          club_id: club.id,
+          topic_id: topic.to_params
+        }
+    end
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#new' do
     before do
       get :new,

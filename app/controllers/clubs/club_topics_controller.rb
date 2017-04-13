@@ -6,10 +6,19 @@ class Clubs::ClubTopicsController < ShikimoriController
   before_action :prepare_club
   # before_action :prepare_form, except: [:show]
 
-  # def show
-    # page_title @resource.name
-    # breadcrumb @club.name, @club.url
-    # @back_url = @club.url
+  def show
+    raise AgeRestricted if @club.censored? && censored_forbidden?
+
+    page_title @club.name
+    breadcrumb @club.name, @club.url
+
+    page_title i18n_i('Topic', :other)
+    breadcrumb i18n_i('Topic', :other), club_club_topics_url(@club)
+
+    @back_url = club_club_topics_url(@club)
+
+    page_title @resource.title
+    @topic_view = Topics::TopicViewFactory.new(false, false).build @club_topic
 
     # @resource = @resource.decorate
 
@@ -17,7 +26,7 @@ class Clubs::ClubTopicsController < ShikimoriController
       # breadcrumb club_page.name, club_club_page_path(@club, club_page)
       # @back_url = club_club_page_path(@club, club_page)
     # end
-  # end
+  end
 
   def new
     page_title i18n_t('new.title')
