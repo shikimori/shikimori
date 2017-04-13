@@ -127,6 +127,11 @@ en:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
 
+  club_invites_controller:
+    invitation_sent: Invitation sent
+    invitation_accepted: Invitation accepted
+    invitation_rejected: Invitation rejected
+
   contests_controller:
     contests: Contests
     new_contest: New contest

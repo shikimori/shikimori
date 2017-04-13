@@ -4,7 +4,7 @@ class ClubInvitesController < ShikimoriController
 
   def create
     if @resource.save
-      render json: { notice: 'Приглашение отправлено' }
+      render json: { notice: i18n_t('invitation_sent') }
     else
       render json: @resource.errors.full_messages, status: :unprocessable_entity
     end
@@ -12,12 +12,12 @@ class ClubInvitesController < ShikimoriController
 
   def accept
     @resource.accept
-    render json: { notice: 'Приглашение принято' }
+    render json: { notice: i18n_t('invitation_accepted') }
   end
 
   def reject
     @resource.close
-    render json: { notice: 'Приглашение отклонено' }
+    render json: { notice: i18n_t('invitation_rejected') }
   end
 
 private
