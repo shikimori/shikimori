@@ -216,7 +216,8 @@ describe Topics::Query do
       let!(:club_page_topic) do
         create :club_page_topic,
           linked: club_page,
-          updated_at: 9.days.ago
+          updated_at: 9.days.ago,
+          comments_count: club_page_topic_comments_count
       end
       let!(:club_user_topic) do
         create :club_user_topic,
@@ -224,7 +225,23 @@ describe Topics::Query do
           updated_at: 8.days.ago
       end
 
-      it { is_expected.to eq [club_user_topic, club_page_topic, linked.topic(locale)] }
+      context 'wo comments' do
+        let(:club_page_topic_comments_count) { 0 }
+        it { is_expected.to eq [club_user_topic] }
+      end
+
+      context 'with comments' do
+        before { linked.topic(locale).update comments_count: 1 }
+        let(:club_page_topic_comments_count) { 1 }
+
+        it do
+          is_expected.to eq [
+            linked.topic(locale),
+            club_user_topic,
+            club_page_topic
+          ]
+        end
+      end
     end
   end
 

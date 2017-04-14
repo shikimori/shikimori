@@ -38,8 +38,15 @@ class Topics::Query < QueryObjectBase
       clubs_2.is_censored = false
   SQL
   BY_LINKED_CLUB_SQL = <<-SQL.squish
-    (linked_id = :club_id and linked_type = '#{Club.name}') or
-    (linked_id in (:club_page_ids) and linked_type = '#{ClubPage.name}')
+    (
+      (linked_id = :club_id and linked_type = '#{Club.name}') or
+      (linked_id in (:club_page_ids) and linked_type = '#{ClubPage.name}')
+    ) and (
+      type not in (
+        '#{Topics::EntryTopics::ClubTopic.name}',
+        '#{Topics::EntryTopics::ClubPageTopic.name}'
+      ) or comments_count != 0
+    )
   SQL
 
   def self.fetch user, locale

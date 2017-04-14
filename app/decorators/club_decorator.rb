@@ -1,9 +1,10 @@
 class ClubDecorator < DbEntryDecorator
-  MENU_ENTRIES = 12
-
   rails_cache :all_animes, :all_mangas, :all_characters, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
-    :comments, :banned, :members_sample
+    :comments, :banned, :members_sample, :forum_topics_views
+
+  MENU_ENTRIES = 12
+  FORUM_TOPICS = 4
 
   def url
     h.club_url object
@@ -87,6 +88,17 @@ class ClubDecorator < DbEntryDecorator
 
   def menu_pages club_page = nil
     (club_page&.child_pages || object.root_pages).select(&:layout_menu?)
+  end
+
+  def forum_topics_query
+    Topics::Query.fetch(h.current_user, h.locale_from_host)
+      .by_forum(Forum.find_by_permalink('clubs'), h.current_user, false)
+      .by_linked(object)
+      .where("type != '#{Topics::EntryTopics::ClubTopic.name}'")
+  end
+
+  def forum_topics_views
+    forum_topics_query.paginate(1, FORUM_TOPICS).as_views(true, true)
   end
 
 private

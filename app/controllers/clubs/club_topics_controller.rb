@@ -86,12 +86,13 @@ private
     breadcrumb @club.name, club_url(@club)
     page_title @club.name
 
-    if params[:action] == 'index'
-      @back_url = @club.url
-    else
+    unless params[:action] == 'index'
       @back_url = club_club_topics_url(@club)
       breadcrumb i18n_i('Topic', :other), club_club_topics_url(@club)
     end
+
+    @back_url = @club.url if %w[index show].include? params[:action]
+
     page_title i18n_i('Topic', :other)
   end
   # rubocop:enable MethodLength
