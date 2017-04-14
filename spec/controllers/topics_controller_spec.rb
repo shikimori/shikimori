@@ -111,6 +111,19 @@ describe TopicsController do
           expect(response).to have_http_status :success
         end
       end
+
+      context 'club linked' do
+        let(:club) { create :club }
+        before do
+          get :index,
+            params: {
+              forum: animanga_forum.to_param,
+              linked_type: 'club',
+              linked_id: club.to_param
+            }
+        end
+        it { expect(response).to redirect_to club_club_topics_url(club) }
+      end
     end
   end
 

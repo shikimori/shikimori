@@ -24,6 +24,10 @@ class TopicsController < ShikimoriController
       # редирект, исправляющий linked
       ensure_redirect! UrlGenerator.instance
         .forum_url(@forums_view.forum, @forums_view.linked)
+
+      if @forums_view.linked.is_a?(Club)
+        raise ForceRedirect, club_club_topics_url(@forums_view.linked)
+      end
     end
   end
 
