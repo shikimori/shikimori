@@ -1,3 +1,9 @@
+- if can? :create_topic, club
+  .block
+    a.b-link_button.dark.create-topic[
+      href="#{club.new_topic_url}"
+    ] = t 'topics.menu_actions.create_topic'
+
 - if user_signed_in? && club.persisted?
   .block.actions
     .subheadline = i18n_i 'action', :other
@@ -6,10 +12,10 @@
         li.edit-entry
           a.b-link href="#{edit_club_url club, page: :main}" = t '.edit_club'
 
-      - if can? :create_topic, club
-        li.new-topic
-          a.b-link href="#{club.new_topic_url}"
-            = t 'topics.menu_actions.create_topic'
+      / - if can? :create_topic, club
+        / li.new-topic
+          / a.b-link href="#{club.new_topic_url}"
+            / = t 'topics.menu_actions.create_topic'
 
       - if can? :broadcast, club
         li.broadcast

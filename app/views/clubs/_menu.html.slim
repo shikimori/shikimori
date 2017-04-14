@@ -10,8 +10,8 @@
           alt="#{club.name}"
         ]
 
-  = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
   = render 'clubs/actions', club: club
+  = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
 
   = cache [club, :menu] do
     - if club.animes.any?
