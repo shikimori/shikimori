@@ -6,6 +6,7 @@ en:
       common:
         <<: *header_mini
         about: about
+        in: in
     comments:
       your_comment: Your comment
     inner:

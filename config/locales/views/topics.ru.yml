@@ -6,6 +6,7 @@ ru:
       common:
         <<: *header_mini
         about: о
+        in: в
     comments:
       your_comment: Ваш комментарий
     inner:

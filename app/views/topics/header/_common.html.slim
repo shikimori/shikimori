@@ -22,7 +22,15 @@
     title="#{topic_view.poster_title}"
   ] = topic_view.poster_title_html
 
-  - if topic_view.topic.linked && (topic_view.topic_type_policy.forum_topic? || topic_view.topic_type_policy.not_generated_news_topic?)
+  - if topic_view.topic_type_policy.any_club_topic? && !topic_view.topic_type_policy.club_topic?
+    span.about
+      span = t '.in'
+      a.b-link[
+        href="#{topic_view.topic.club.decorate.url}"
+        title="#{topic_view.topic.club.name}"
+      ] = topic_view.topic.club.name
+
+  - elsif topic_view.topic.linked && (topic_view.topic_type_policy.forum_topic? || topic_view.topic_type_policy.not_generated_news_topic?)
     span.about
       span = t '.about'
       a.b-link.bubbled[

@@ -22,6 +22,11 @@ describe Topic::TypePolicy do
       it { is_expected.to eq true }
     end
 
+    context 'club_user_topic' do
+      let(:topic) { club_user_topic }
+      it { is_expected.to eq true }
+    end
+
     context 'not forum topic' do
       let(:topic) { news_topic }
       it { is_expected.to eq false }

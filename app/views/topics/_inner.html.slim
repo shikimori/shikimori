@@ -16,9 +16,9 @@
     /= cache [topic.object, topic.linked ? topic.linked : nil, topic.preview?, user_signed_in?, 'topic'], expires_in: 2.weeks do
     header
       - if topic_view.minified?
-        = render "topics/header/mini", topic_view: topic_view
+        = render 'topics/header/mini', topic_view: topic_view
       - else
-        = render "topics/header/common", topic_view: topic_view
+        = render 'topics/header/common', topic_view: topic_view
 
     .body
       - if topic_view.minified?

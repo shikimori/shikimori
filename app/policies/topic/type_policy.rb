@@ -4,7 +4,7 @@ class Topic::TypePolicy
   pattr_initialize :topic
 
   def forum_topic?
-    topic.class.name == Topic.name
+    topic.class.name == Topic.name || club_user_topic?
   end
 
   def news_topic?
