@@ -21,6 +21,9 @@ class Topics::TopicViewFactory
     elsif topic_type_policy.generated_news_topic?
       generated_news_topic topic
 
+    elsif topic_type_policy.club_page_topic?
+      club_page_topic topic
+
     elsif topic_type_policy.news_topic?
       news_topic topic
 
@@ -50,6 +53,10 @@ private
 
   def news_topic topic
     Topics::NewsView.new topic, is_preview, is_mini
+  end
+
+  def club_page_topic topic
+    Topics::ClubPageView.new topic, is_preview, is_mini
   end
 
   def common_topic topic

@@ -46,6 +46,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     @is_preview = @$root.hasClass('b-topic-preview')
     @is_cosplay = @$root.hasClass('b-cosplay-topic')
+    @is_club_page = @$root.hasClass('b-club_page-topic')
     @is_review = @$root.hasClass('b-review-topic')
 
     @_activate_appear_marker() if @model && !@model.is_viewed
@@ -53,7 +54,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$inner.one 'mouseover', @_deactivate_inaccessible_buttons
     $('.item-mobile', @$inner).one @_deactivate_inaccessible_buttons
 
-    if @is_preview
+    if @is_preview || @is_club_page
       @$body.imagesLoaded @_check_height
       @_check_height()
 
