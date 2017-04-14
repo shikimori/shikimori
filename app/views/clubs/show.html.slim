@@ -13,8 +13,8 @@
   - if @club.images(12).any?
     .block
       .subheadline.m5
-        span.linkeable data-href="#{images_club_url @club}"
-          = i18n_i 'picture', :other
+        a href="#{images_club_url @club}" title="#{i18n_i 'picture', :other}"
+          = "#{i18n_i 'picture', :other} (#{@club.all_images.count})"
 
       .b-gallery[
         data-can_upload="#{can? :upload, @club}"
