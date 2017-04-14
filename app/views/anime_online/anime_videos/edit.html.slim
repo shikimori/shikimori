@@ -16,7 +16,7 @@
         = f.input :kind,
           as: :select,
           include_blank: false,
-          collection: AnimeVideo.kind.options.delete_if {|v| v[1] == 'unknown' && !@video.unknown? }
+          collection: AnimeVideo.kind.options.delete_if {|k,v| v == 'unknown' && !@video.unknown? }.map { |k,v| [v == 'unknown' ? 'неизвестно' : k,v] }
         = f.input :language,
           as: :select,
           include_blank: false
