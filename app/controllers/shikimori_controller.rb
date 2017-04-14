@@ -28,11 +28,11 @@ class ShikimoriController < ApplicationController
 
   def censored_forbidden?
     cookies[COOKIE_AGE_OVER_18] != 'true' &&
-      params[:format] != 'rss' && params[:format] != 'os'
+      !%w[rss os json].include?(request.format)
   end
 
-  def ensure_redirect! expected_url, allowed_format = nil
-    return if allowed_format && request.format == allowed_format
+  def ensure_redirect! expected_url
+    return if %w[rss os json].include?(request.format)
 
     if URI(request.url).path != URI(expected_url).path
       raise ForceRedirect, expected_url

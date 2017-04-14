@@ -14,32 +14,22 @@ class TopicsController < ShikimoriController
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
   def index
-    # редирект на топик, если топик в подфоруме единственный
-    if params[:linked_id] && @forums_view.topic_views.one?
-      return redirect_to(
-        UrlGenerator.instance.topic_url(
-          @forums_view.topic_views.first.topic,
-          params[:format]
-        ),
-        status: 301
-      )
-    end
+    if params[:linked_id]
+      # редирект на топик, если топик в подфоруме единственный
+      if @forums_view.topic_views.one?
+        ensure_redirect! UrlGenerator.instance
+          .topic_url(@forums_view.topic_views.first.topic)
+      end
 
-    # редирект, исправляющий linked
-    if params[:linked_id] && @forums_view.linked.to_param != params[:linked_id]
-      return redirect_to(
-        UrlGenerator.instance.forum_url(
-          @forums_view.forum,
-          @forums_view.linked
-        ),
-        status: 301
-      )
+      # редирект, исправляющий linked
+      ensure_redirect! UrlGenerator.instance
+        .forum_url(@forums_view.forum, @forums_view.linked)
     end
   end
 
   def show
     raise AgeRestricted if @resource&.linked.try(:censored?) && censored_forbidden?
-    ensure_redirect! UrlGenerator.instance.topic_url(@resource), 'rss'
+    ensure_redirect! UrlGenerator.instance.topic_url(@resource)
 
     # новости аниме без комментариев поисковым системам не скармливаем
     noindex && nofollow if @resource.generated? && @resource.comments_count.zero?
