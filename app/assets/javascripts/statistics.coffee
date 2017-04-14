@@ -127,7 +127,7 @@ $(document).on "click", ".by_genre .control", ->
       I18n.t(
         'frontend.statistics.genres_share',
         percent: Highcharts.numberFormat(@percentage, 2, "."),
-        rating: @series.name,
+        genre: @series.name,
         year: @x
       )
     ),
