@@ -2,14 +2,15 @@ describe Forums::View do
   include_context :seeds
   include_context :view_object_warden_stub
 
-  let(:view) { Forums::View.new }
+  let(:view) { Forums::View.new forum }
+  let(:forum) { nil }
   let(:params) { {} }
 
   before { allow(view.h).to receive(:params).and_return params }
 
   describe '#forum' do
     context 'offtopic' do
-      let(:params) { { forum: 'offtopic' } }
+      let(:forum) { 'offtopic' }
       it do
         expect(view.forum).to have_attributes(
           permalink: 'offtopic'
@@ -18,6 +19,7 @@ describe Forums::View do
     end
 
     context 'all' do
+      let(:forum) { nil }
       it { expect(view.forum).to be_nil }
     end
   end
@@ -55,7 +57,7 @@ describe Forums::View do
 
   describe '#next_page_url & #prev_page_url' do
     context 'first page' do
-      let(:params) { { forum: 'all', linked_type: 'xx', linked_id: 'zz' } }
+      let(:params) { { linked_type: 'xx', linked_id: 'zz' } }
       before do
         allow(view).to receive(:topic_views).and_return double(
           next_page: 3,
@@ -70,7 +72,7 @@ describe Forums::View do
     end
 
     context 'second page' do
-      let(:params) { { forum: 'all', page: 2 } }
+      let(:params) { { page: 2 } }
       it do
         expect(view.next_page_url).to be_nil
         expect(view.prev_page_url).to eq '//test.host/forum/p-1'
