@@ -4,6 +4,9 @@
 @import mixins/link
 
 .b-clubs-menu
+  .b-menu_logo
+    margin-bottom: 0
+
   .members
     .b-user
       margin-bottom: 6px
@@ -29,41 +32,27 @@
   .b-catalog_entry
     margin-bottom: 5px !important
 
-  .actions
-    li
-      &:hover
-        color: $link-hover
-        a
+  .subheadline + .club-actions
+    text-align: left
 
-    .send-invite
-      background: transparent
-      border: none
-      line-height: 18px
-      margin: -1px 0 0 1px
-      outline: none
-      padding: 2px 0 1px
-      width: 180px
+  .club-actions
+    +block
+    text-align: center
+
+    form
+      display: inline
 
     .upload
+      border-bottom: none
+
       input
         display: none
 
-    .upload label,
-    .invite span,
-    .join a,
-    .leave a,
-      +js-link
-      border-bottom-color: transparent
-      color: inherit
-      vertical-align: middle
-
-    .upload:hover label,
-    .invite:hover span,
-    .join:hover a,
-    .leave:hover a,
-      border-bottom-color: $link-border-hover
+    .invite
+      border-bottom: none
 
   &>.invite
+    +block
     display: none
 
     .b-input

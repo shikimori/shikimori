@@ -1,52 +1,61 @@
-- if can? :create_topic, club
-  .block
-    a.b-link_button.dark.create-topic[
-      href="#{club.new_topic_url}"
-    ] = t 'topics.menu_actions.create_topic'
-
 - if user_signed_in? && club.persisted?
-  .block.actions
+  - unless club.logo.exists?
     .subheadline = i18n_i 'action', :other
-    ul.b-block_list
-      - if can? :edit, club
-        li.edit-entry
-          a.b-link href="#{edit_club_url club, page: :main}" = t '.edit_club'
 
-      / - if can? :create_topic, club
-        / li.new-topic
-          / a.b-link href="#{club.new_topic_url}"
-            / = t 'topics.menu_actions.create_topic'
+  .club-actions
+    - if can? :edit, club
+      a.edit-club.b-tooltipped.unprocessed[
+        href="#{edit_club_url club, page: :main}"
+        title="#{t '.edit_club'}"
+        data-direction="top"
+        data-text="#{t '.edit_club'}"
+      ]
 
-      - if can? :broadcast, club
-        li.broadcast
-          a.b-link href="#{broadcast_club_comments_url club}" = t '.broadcast'
+    - if can? :broadcast, club
+      a.broadcast.b-tooltipped.unprocessed[
+        href="#{broadcast_club_comments_url club}"
+        title="#{t '.broadcast'}"
+        data-direction="top"
+        data-text="#{t '.broadcast'}"
+      ]
 
-      - if can? :upload_image, club
-        li.upload title="#{t '.upload_image_title'}"
-          = form_tag club_club_images_url(club), method: :post, multipart: true do
-            label
-              = t 'actions.upload_image'
-              input type='file' name='image'
+    - if can? :upload_image, club
+      = form_tag club_club_images_url(club), method: :post, multipart: true do
+        label.upload.b-tooltipped.unprocessed[
+          title="#{t 'actions.upload_image'}"
+          data-direction="top"
+          data-text="#{t 'actions.upload_image'}"
+        ]
+          input type='file' name='image'
+        // .upload не должен быть последним элементом - ему margin 0 присвоится
+        span
 
-      - if can? :invite, club
-        li.invite
-          span = t '.invite_to_club'
+    - if can? :invite, club
+      .invite.b-tooltipped.unprocessed[
+        title="#{t '.invite_to_club'}"
+        data-direction="top"
+        data-text="#{t '.invite_to_club'}"
+      ]
 
-      - if can?(:join, club) && !club.member?(current_user)
-        li.join
-          a[
-            href="#{club_club_roles_path club, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => club.id}"
-            data-method='post'
-          ] = t '.join_club'
+    - if can?(:join, club) && !club.member?(current_user)
+      a.join.b-tooltipped.unprocessed[
+        href="#{club_club_roles_path club, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => club.id}"
+        title="#{t '.join_club'}"
+        data-direction="top"
+        data-method='post'
+        data-text="#{t '.join_club'}"
+      ]
 
-      - if can?(:leave, club) && club.member?(current_user)
-        li.leave
-          a[
-            href="#{club_club_role_path club, club.member_role(current_user)}"
-            data-method='delete'
-          ] = t '.leave_club'
+    - if can?(:leave, club) && club.member?(current_user)
+      a.leave.b-tooltipped.unprocessed[
+        href="#{club_club_role_path club, club.member_role(current_user)}"
+        title="#{t '.leave_club'}"
+        data-direction="top"
+        data-method='delete'
+        data-text="#{t '.leave_club'}"
+      ]
 
-  .block.invite
+  .invite
     .subheadline = i18n_i 'invitation'
     = simple_form_for [club, club.new_invite],
         remote: true,
@@ -57,4 +66,10 @@
       = f.input :dst_id, as: :string, placeholder: t('username')
 
       = f.button :magic_submit
-      .cancel = t 'cancel'
+      .cancel = t 'actions.cancel'
+
+- if can? :create_topic, club
+  .block
+    a.b-link_button.dark.create-topic[
+      href="#{club.new_topic_url}"
+    ] = t 'topics.menu_actions.create_topic'

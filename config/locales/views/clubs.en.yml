@@ -30,7 +30,6 @@ en:
 
     actions:
       edit_club: *edit_club
-      upload_image_title: Also you can upload images by dragging files onto club page
       broadcast: Broadcast message
       invite_to_club: Invite to the club
       join_club: Join the club
