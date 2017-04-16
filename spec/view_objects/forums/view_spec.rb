@@ -3,6 +3,7 @@ describe Forums::View do
   include_context :view_object_warden_stub
 
   let(:view) { Forums::View.new forum }
+  let(:anime) { create :anime }
   let(:forum) { nil }
   let(:params) { {} }
 
@@ -53,17 +54,17 @@ describe Forums::View do
 
   describe '#next_page_url & #prev_page_url' do
     context 'first page' do
-      let(:params) { { linked_type: 'xx', linked_id: 'zz' } }
+      let(:params) { { linked_type: anime.class.name, linked_id: anime.id } }
       before do
         allow(view).to receive(:topic_views).and_return double(
-          next_page: 3,
+          next_page: 2,
           prev_page: nil
         )
       end
 
       it do
-        expect(view.next_page_url).to eq '//test.host/forum/xx-zz/p-3'
-        expect(view.current_page_url).to eq '//test.host/forum/xx-zz/p-2'
+        expect(view.next_page_url).to eq "//test.host/forum/Anime-#{anime.id}/p-2"
+        expect(view.current_page_url).to eq "//test.host/forum/Anime-#{anime.id}"
         expect(view.prev_page_url).to be_nil
       end
     end
@@ -72,7 +73,8 @@ describe Forums::View do
       let(:params) { { page: 2 } }
       it do
         expect(view.next_page_url).to be_nil
-        expect(view.prev_page_url).to eq '//test.host/forum/p-1'
+        expect(view.current_page_url).to eq '//test.host/forum/p-2'
+        expect(view.prev_page_url).to eq '//test.host/forum'
       end
     end
   end
