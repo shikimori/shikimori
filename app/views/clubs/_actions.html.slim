@@ -68,8 +68,8 @@
         = f.button :magic_submit
         .cancel = t 'actions.cancel'
 
-  - if can? :create_topic, club
-    .block
-      a.b-link_button.dark.create-topic[
-        href="#{club.new_topic_url}"
-      ] = t 'topics.menu_actions.create_topic'
+    - if can? :create_topic, club
+      .block
+        a.b-link_button.dark.create-topic[
+          href="#{club.new_topic_url}"
+        ] = t 'topics.menu_actions.create_topic'
