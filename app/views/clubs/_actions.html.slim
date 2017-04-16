@@ -1,7 +1,7 @@
 - if user_signed_in? && club.persisted?
   - if can?(:join, club) && !club.member?(current_user)
     .block
-      a.b-link_button.dark.create-topic[
+      a.b-link_button.dark.join-club[
         href="#{club_club_roles_path club, 'club_role[user_id]' => current_user.id, 'club_role[club_id]' => club.id}"
         data-method='post'
         data-text="#{t '.join_club'}"
