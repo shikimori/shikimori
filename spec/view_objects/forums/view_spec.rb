@@ -11,11 +11,7 @@ describe Forums::View do
   describe '#forum' do
     context 'offtopic' do
       let(:forum) { 'offtopic' }
-      it do
-        expect(view.forum).to have_attributes(
-          permalink: 'offtopic'
-        )
-      end
+      it { expect(view.forum).to have_attributes permalink: 'offtopic' }
     end
 
     context 'all' do
@@ -67,6 +63,7 @@ describe Forums::View do
 
       it do
         expect(view.next_page_url).to eq '//test.host/forum/xx-zz/p-3'
+        expect(view.current_page_url).to eq '//test.host/forum/xx-zz/p-2'
         expect(view.prev_page_url).to be_nil
       end
     end

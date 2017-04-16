@@ -474,7 +474,9 @@ Rails.application.routes.draw do
         post :up, on: :member
         post :down, on: :member
       end
-      resources :club_topics, except: [:destroy], module: :clubs, path: 'topics'
+      resources :club_topics, except: [:destroy], module: :clubs, path: 'topics' do
+        get '(/p-:page)' => 'club_topics#index', as: '', on: :collection
+      end
     end
 
     resources :club_invites, only: [] do

@@ -29,6 +29,10 @@ class Forums::View < ViewObjectBase
     page_url topic_views.next_page if topic_views.next_page
   end
 
+  def current_page_url
+    page_url page
+  end
+
   def prev_page_url
     page_url topic_views.prev_page if topic_views.prev_page
   end
@@ -71,8 +75,20 @@ class Forums::View < ViewObjectBase
 private
 
   def page_url page
+    if linked.is_a? Club
+      club_topics_url page
+    else
+      forum_topics_url page
+    end
+  end
+
+  def club_topics_url page
+    h.club_club_topics_url linked, page: (page unless page == 1)
+  end
+
+  def forum_topics_url page
     h.forum_topics_url(
-      page: page,
+      page: (page unless page == 1),
       forum: forum.try(:permalink),
       linked_id: h.params[:linked_id],
       linked_type: h.params[:linked_type]

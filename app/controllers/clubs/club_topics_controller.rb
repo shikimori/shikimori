@@ -7,9 +7,8 @@ class Clubs::ClubTopicsController < ShikimoriController
   # before_action :prepare_form, except: [:show]
 
   def index
-    ensure_redirect! club_club_topics_url(@club)
-
     @forums_view = Forums::View.new 'clubs', linked: @club.object
+    ensure_redirect! @forums_view.current_page_url
   end
 
   def show

@@ -26,7 +26,7 @@ class TopicsController < ShikimoriController
         .forum_url(@forums_view.forum, @forums_view.linked)
 
       if @forums_view.linked.is_a?(Club)
-        raise ForceRedirect, club_club_topics_url(@forums_view.linked)
+        raise ForceRedirect, @forums_view.current_page_url
       end
     end
   end
