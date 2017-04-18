@@ -1,5 +1,5 @@
 class Comments::NotifyQuoted
-  method_object %i(old_body new_body comment user)
+  method_object %i[old_body new_body comment user]
 
   ANTISPAM_LIMIT = 15
 

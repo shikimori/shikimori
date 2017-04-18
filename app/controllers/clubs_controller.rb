@@ -27,7 +27,7 @@ class ClubsController < ShikimoriController
     admin_ids: [],
     banned_user_ids: []
   ]
-  CREATE_PARAMS = %i(owner_id) + UPDATE_PARAMS
+  CREATE_PARAMS = %i[owner_id] + UPDATE_PARAMS
 
   def index
     noindex

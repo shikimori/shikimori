@@ -24,40 +24,37 @@ describe Message do
       before { Message.antispam = true }
       after { Message.antispam = false }
 
-      it 'works' do
+      it 'works', :focis do
         create :message, to: user, from: user
 
-        expect {
-          expect {
-            create :message, to: user, from: user
-          }.to raise_error ActiveRecord::RecordNotSaved
-        }.to_not change Message, :count
+        expect(proc do
+          expect { create :message, to: user, from: user }
+            .to raise_error ActiveRecord::RecordNotSaved
+        end).to_not change Message, :count
       end
 
       it 'can be disabled' do
         create :message, to: user, from: user
 
-        expect {
-          Message.wo_antispam do
-            create :message, to: user, from: user
-          end
-        }.to change(Message, :count).by 1
+        expect(proc do
+          Message.wo_antispam { create :message, to: user, from: user }
+        end).to change(Message, :count).by 1
       end
 
       it 'disabled for MessageType::Notification' do
         create :message, to: user, from: user, kind: MessageType::Notification
 
-        expect {
+        expect(proc do
           create :message, to: user, from: user, kind: MessageType::Notification
-        }.to change(Message, :count).by 1
+        end).to change(Message, :count).by 1
       end
 
       it 'disabled for MessageType::GroupRequest' do
         create :message, to: user, from: user, kind: MessageType::ClubRequest
 
-        expect {
+        expect(proc do
           create :message, to: user, from: user, kind: MessageType::Notification
-        }.to change(Message, :count).by 1
+        end).to change(Message, :count).by 1
       end
     end
 
@@ -70,14 +67,18 @@ describe Message do
 
         context 'private message' do
           let(:kind) { MessageType::Private }
-          it { expect(EmailNotifier.instance)
-            .to have_received(:private_message).with message }
+          it do
+            expect(EmailNotifier.instance)
+            .to have_received(:private_message).with message
+          end
         end
 
         context 'common message' do
           let(:kind) { MessageType::Notification }
-          it { expect(EmailNotifier.instance)
-            .to_not have_received(:private_message) }
+          it do
+            expect(EmailNotifier.instance)
+            .to_not have_received(:private_message)
+          end
         end
       end
 
@@ -122,7 +123,13 @@ describe Message do
   end
 
   describe 'permissions' do
-    let(:message) { build_stubbed :message, from: from_user, to: to_user, kind: kind, created_at: created_at }
+    let(:message) do
+      build_stubbed :message,
+        from: from_user,
+        to: to_user,
+        kind: kind,
+        created_at: created_at
+    end
     let(:from_user) { build_stubbed :user, :user }
     let(:to_user) { build_stubbed :user, :user }
     let(:created_at) { 1.minute.ago }
@@ -140,7 +147,12 @@ describe Message do
       it { is_expected.to_not be_able_to :destroy, message }
 
       context 'message to admin' do
-        let(:message) { build_stubbed :message, from_id: User::GUEST_ID, to_id: User::ADMINS.first, kind: MessageType::Private }
+        let(:message) do
+          build_stubbed :message,
+            from_id: User::GUEST_ID,
+            to_id: User::ADMINS.first,
+            kind: MessageType::Private
+        end
         it { is_expected.to be_able_to :create, message }
       end
     end
@@ -177,15 +189,15 @@ describe Message do
           it { is_expected.to be_able_to :update, message }
           it { is_expected.to be_able_to :destroy, message }
 
-          #context 'new message' do
-            #let(:created_at) { 1.minute.ago }
-            #it { is_expected.to be_able_to :destroy, message }
-          #end
+          # context 'new message' do
+            # let(:created_at) { 1.minute.ago }
+            # it { is_expected.to be_able_to :destroy, message }
+          # end
 
-          #context 'old message' do
-            #let(:created_at) { 11.minute.ago }
-            #it { is_expected.to_not be_able_to :destroy, message }
-          #end
+          # context 'old message' do
+            # let(:created_at) { 11.minute.ago }
+            # it { is_expected.to_not be_able_to :destroy, message }
+          # end
         end
 
         context 'other type messages' do
@@ -236,7 +248,11 @@ describe Message do
 
   describe 'instance methods' do
     describe '#delete_by' do
-      let(:message) { create :message, to: build_stubbed(:user), from: build_stubbed(:user) }
+      let(:message) do
+        create :message,
+          to: build_stubbed(:user),
+          from: build_stubbed(:user)
+      end
       before { message.delete_by user }
 
       context 'private message' do

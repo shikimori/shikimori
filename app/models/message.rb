@@ -12,7 +12,9 @@ class Message < ApplicationRecord
   #validates_presence_of :body
 
   validates :from, :to, presence: true
-  validates :body, presence: true, if: -> { kind == MessageType::Private }
+  validates :body,
+    presence: true,
+    if: ->(message) { kind == MessageType::Private }
 
   before_create :check_spam_abuse
   after_create :send_email

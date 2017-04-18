@@ -19,7 +19,7 @@ describe Comments::NotifyQuoted do
 
   describe 'quote types' do
     context 'quote' do
-      context 'without comment' do
+      context 'without comment', :focus do
         let(:new_body) { "[quote=9999999;#{quoted_user.id};test2]test[/quote]" }
         it do
           expect { subject }.to change(Message, :count).by 1
