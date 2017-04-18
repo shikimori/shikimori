@@ -5,7 +5,7 @@ jobs:
       - image: ruby:2.4
       - image: postgres:9.5.1
         environment:
-          POSTGRES_USER: root
+          POSTGRES_USER: shikimori_production
 
     working_directory: ~/shikimori
     steps:
