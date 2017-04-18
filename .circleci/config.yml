@@ -10,13 +10,6 @@ jobs:
     working_directory: ~/shikimori
     steps:
       - checkout
-      # - run: apt-get update -qq && apt-get install -y build-essential nodejs
-      # - run: bundle install
-      # - run: bundle exec rake db:create db:schema:load --trace
-      # - run: bundle exec rake db:migrate
-      # - run: bundle exec rspec
-      # - run: RAILS_ENV=test bundle exec rake db:create db:schema:load --trace
-      # - run: RAILS_ENV=test bundle exec rspec
       - type: shell
         name: Install System Dependencies
         command: apt-get update -qq && apt-get install -y build-essential libmysqlclient-dev nodejs
