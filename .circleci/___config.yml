@@ -1,3 +1,4 @@
+# https://discuss.circleci.com/t/getting-started-ruby/8489
 version: 2
 jobs:
   build:
