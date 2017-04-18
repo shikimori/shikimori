@@ -20,7 +20,7 @@ describe Topic do
   end
 
   describe 'enumerize' do
-    it { is_expected.to enumerize(:locale).in :ru, :en }
+    it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
   describe 'instance methods' do

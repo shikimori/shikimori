@@ -16,11 +16,18 @@ describe CollectionsController do
 
     context 'valid params' do
       before { post :create, params: { collection: params } }
-      let(:params) { { user_id: user.id, name: 'test' } }
+      let(:params) do
+        {
+          user_id: user.id,
+          name: 'test',
+          text: '',
+          kind: 'anime'
+        }
+      end
 
       it do
         expect(resource).to be_persisted
-        expect(response).to redirect_to collection_url(resource, page: 'main')
+        expect(response).to redirect_to collection_url(resource)
       end
     end
 
@@ -37,7 +44,7 @@ describe CollectionsController do
 
   describe '#update' do
     include_context :authenticated, :user, :week_registered
-    let(:collection) { create :collection, :with_topics, owner: user }
+    let(:collection) { create :collection, :with_topics, user: user }
 
     context 'valid params' do
       before do

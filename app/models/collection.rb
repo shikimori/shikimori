@@ -3,10 +3,11 @@ class Collection < ApplicationRecord
 
   belongs_to :user
 
-  validates :name, :user, presence: true
+  validates :name, :user, :kind, presence: true
   validates :locale, presence: true
 
-  enumerize :locale, in: %i[ru en], predicates: { prefix: true }
+  enumerize :kind, in: Types::Collection::Kind.values, predicates: true
+  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   def to_param
     "#{id}-#{name.permalinked}"

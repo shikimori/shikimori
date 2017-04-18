@@ -7,7 +7,15 @@ describe Collection::Create do
   let(:locale) { :en }
 
   context 'valid params' do
-    let(:params) { { name: 'Test Collection', user_id: user.id } }
+    let(:params) do
+      {
+        name: 'Test Collection Name',
+        user_id: user.id,
+        kind: 'anime',
+        text: 'Test Collection Text'
+      }
+    end
+
     it do
       expect(collection).to be_persisted
       expect(collection).to have_attributes params.merge(locale: locale.to_s)
@@ -22,7 +30,7 @@ describe Collection::Create do
     let(:params) { { user_id: user.id } }
     it do
       expect(collection).to be_new_record
-      expect(collection.errors).to have(1).item
+      expect(collection).to_not be_valid
       expect(collection.topics).to be_empty
     end
   end

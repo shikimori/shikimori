@@ -4,8 +4,8 @@ class CollectionsController < ShikimoriController
   before_action { page_title i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
 
-  UPDATE_PARAMS = %i(name)
-  CREATE_PARAMS = %i(user_id) + UPDATE_PARAMS
+  UPDATE_PARAMS = %i(name text)
+  CREATE_PARAMS = %i(user_id kind) + UPDATE_PARAMS
 
   def index
     @page = [params[:page].to_i, 1].max

@@ -42,7 +42,7 @@ class Topic < ApplicationRecord
   validates :forum, :user, :locale, presence: true
   validates :title, :body, presence: true, unless: :generated?
 
-  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
+  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   has_many :messages,
     -> { where "linked_type = '#{Topic.name}'" },

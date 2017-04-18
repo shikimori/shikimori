@@ -93,7 +93,7 @@ class Club < ApplicationRecord
   validates :logo, attachment_content_type: { content_type: /\Aimage/ }
   validates :locale, presence: true
 
-  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
+  enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
   TRANSLATORS_ID = 2
 
