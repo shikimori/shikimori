@@ -59,6 +59,9 @@ article
   .metric
     b People:
     span = @people_to_import
+  .metric
+    a.build-status href="https://circleci.com/gh/morr/shikimori/tree/master"
+      img src="https://circleci.com/gh/morr/shikimori/tree/master.svg?style=svg"
 
   / - if @calendar_unrecognized.present? && @calendar_unrecognized.any?
     / .subheadline Calendar Unrecognized
@@ -69,39 +72,40 @@ article
   / .m15
     / p: a href="#{publishing_cosplay_galleries_url}" Cosplay Publishing
 
-article
-  - if @sidkiq_stats
+- if @sidkiq_busy&.any? || @sidkiq_enqueued&.any? || @sidkiq_retries&.any?
+  article
+    - if @sidkiq_stats
+      .metric
+        b
+          a href="/sidekiq/" Sidekiq
+
+      / .metric
+        / b processed
+        / span #{@sidkiq_stats.processed}
+
+      / .metric
+        / b failed
+        / span #{@sidkiq_stats.failed}
+
+  .sidekiq
     .metric
-      b
-        a href="/sidekiq/" Sidekiq
+      - @sidkiq_busy&.each do |job|
+        .job
+          span.right
+            = time_ago_in_words Time.at(job['enqueued_at'])
+          span.busy
+            = job['class']
 
-    / .metric
-      / b processed
-      / span #{@sidkiq_stats.processed}
+      - @sidkiq_enqueued&.each do |job|
+        .job
+          span.right
+            = time_ago_in_words Time.at(job['enqueued_at'])
+          span.enqueued
+            = job['class']
 
-    / .metric
-      / b failed
-      / span #{@sidkiq_stats.failed}
-
-.sidekiq
-  .metric
-    - @sidkiq_busy&.each do |job|
-      .job
-        span.right
-          = time_ago_in_words Time.at(job['enqueued_at'])
-        span.busy
-          = job['class']
-
-    - @sidkiq_enqueued&.each do |job|
-      .job
-        span.right
-          = time_ago_in_words Time.at(job['enqueued_at'])
-        span.enqueued
-          = job['class']
-
-    - @sidkiq_retries&.each do |job|
-      .job
-        span.right
-          = time_ago_in_words Time.at(job['enqueued_at'])
-        span.retries
-          = job['class']
+      - @sidkiq_retries&.each do |job|
+        .job
+          span.right
+            = time_ago_in_words Time.at(job['enqueued_at'])
+          span.retries
+            = job['class']
