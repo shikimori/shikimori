@@ -182,6 +182,8 @@ ru:
         logo: Логотип
       collection:
         name: Название
+        kind: Тип
+        text: Текст
       club_invite:
         dst: Пользователь
         dst_id: Пользователь
@@ -400,6 +402,12 @@ ru:
       layout:
         menu: Меню
         none: Скрыто
+    collection:
+      kind:
+        anime: Аниме
+        manga: Манга
+        character: Персонажи
+        person: Люди
     anime_video:
       kind:
         unknown: озвучка

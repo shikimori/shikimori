@@ -1,0 +1,25 @@
+header.head.misc
+  h1 = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+- if @resource.errors.any?
+  .b-errors
+    .subheadline = i18n_i 'error', :other
+    == @resource.errors.full_messages.join('<br>')
+
+= simple_form_for @resource do |f|
+  .subheadline = t :settings
+  .block
+    = f.input :user_id, as: :hidden
+    = f.input :name
+    = f.input :kind, include_blank: false
+
+  .block
+    .b-shiki_editor.unprocessed
+      .field-name = Collection.human_attribute_name :text
+      = render 'comments/shiki_editor',
+        text: @resource.text,
+        field_name: 'collection[text]'
+
+  = f.button :magic_submit
+  a.cancel href="#{collections_url}" = t 'actions.cancel'

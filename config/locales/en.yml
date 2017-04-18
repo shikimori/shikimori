@@ -182,6 +182,8 @@ en:
         logo: Logo
       collection:
         name: Name
+        kind: Type
+        text: Text
       club_invite:
         dst: User
         dst_id: User
@@ -400,6 +402,12 @@ en:
       layout:
         menu: Menu
         none: Hidden
+    collection:
+      kind:
+        anime: Anime
+        manga: Manga
+        character: Characters
+        person: People
     anime_video:
       kind:
         unknown: dub

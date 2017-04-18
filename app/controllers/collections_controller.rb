@@ -21,6 +21,7 @@ class CollectionsController < ShikimoriController
 
   def new
     page_title i18n_t('new_collection')
+    render :form
   end
 
   def create
@@ -31,13 +32,14 @@ class CollectionsController < ShikimoriController
         notice: i18n_t('collection_created')
     else
       new
-      render :new
+      render :form
     end
   end
 
   def edit
     page_title t(:settings)
     @page = params[:page]
+    render :form
   end
 
   def update
