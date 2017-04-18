@@ -11,6 +11,7 @@ class Topics::Generate::SiteTopic < Topics::Generate::BaseTopic
 
 private
 
+  # TODO: забыл, зачем это надо. по-моему эту шнягу уже можно выкинуть
   def updated_at
     nil
   end
