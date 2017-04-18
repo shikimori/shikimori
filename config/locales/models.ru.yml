@@ -105,6 +105,7 @@ ru:
       club: Обсуждение клуба [club]%{id}[/club]
       club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]
       cosplay_gallery: Обсуждение косплея
+      collection: Обсуждение коллекции [collection]%{id}[/collection]
 
   topics/news_topic:
     full_title:

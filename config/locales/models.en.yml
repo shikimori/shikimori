@@ -105,6 +105,7 @@ en:
       club: Club [club]%{id}[/club] discussion
       club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion
       cosplay_gallery: Cosplay discussion
+      collection: 'Collection [collection]%{id}[/collection] discussion'
 
   topics/news_topic:
     full_title:
