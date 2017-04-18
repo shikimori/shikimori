@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe IgnoresController do
   include_context :authenticated, :user
 

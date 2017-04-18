@@ -1,0 +1,2 @@
+class CollectionDecorator < DbEntryDecorator
+end

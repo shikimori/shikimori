@@ -32,35 +32,37 @@ class Ability
       user.preferences.list_privacy_public?
     end
 
-    can [:create], Message do |message|
+    can :create, Message do |message|
       message.kind == MessageType::Private &&
         message.from_id == User::GUEST_ID && message.to_id == User::ADMINS.first
     end
 
-    can [:create], AnimeVideoReport do |report|
+    can :create, AnimeVideoReport do |report|
       report.user_id == User::GUEST_ID && (report.broken? || report.wrong?)
     end
-    can [:new, :create], AnimeVideo do |anime_video|
+    can %i[new create], AnimeVideo do |anime_video|
       anime_video.uploaded?
     end
 
-    can [:create], Version do |version|
+    can :create, Version do |version|
       version.user_id == User::GUEST_ID && (
         version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
       ).none?
     end
-    cannot [:significant_change], Version
+    cannot :significant_change, Version
   end
 
   def guest_allowances
-    can [:show, :tooltip], Version
+    can %i[read tooltip], Version
     can :tooltip, Genre
     can :see_contest, Contest
     can :see_club, Club
-    can :read, Review
-    can [:show, :preview], Style
     can :read, ClubPage
 
+    can %i[read preview], Style
+
+    can :read, Review
     can :read, Topic
+    can :read, Collection
   end
 end

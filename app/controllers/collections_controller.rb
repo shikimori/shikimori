@@ -1,5 +1,5 @@
 class CollectionsController < ShikimoriController
-  load_and_authorize_resource :collection, except: %i[index show]
+  load_and_authorize_resource :collection, except: %i[index]
 
   before_action { page_title i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
@@ -17,6 +17,8 @@ class CollectionsController < ShikimoriController
   end
 
   def show
+    page_title @resource.name
+    @resource = @resource.decorate
   end
 
   def new

@@ -29,6 +29,7 @@ describe Collection do
     context 'guest' do
       let(:user) { nil }
       it { is_expected.to_not be_able_to :manage, collection }
+      it { is_expected.to be_able_to :read, collection }
     end
 
     context 'user' do
@@ -36,6 +37,7 @@ describe Collection do
       let(:user_2) { build_stubbed :user, :week_registered }
       let(:collection) { build_stubbed :collection, user: user_2 }
       it { is_expected.to_not be_able_to :manage, collection }
+      it { is_expected.to be_able_to :read, collection }
     end
   end
 

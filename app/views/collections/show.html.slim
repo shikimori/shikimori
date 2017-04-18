@@ -1,0 +1,12 @@
+header.head.misc
+  h1
+    = @page_title.last
+    - if can? :edit, @resource
+      a.misc[
+        href="#{edit_collection_url @resource}"
+        title="#{t 'actions.edit'}"
+      ] = t('actions.edit').downcase
+
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+= render 'db_entries/comments', resource: @resource
