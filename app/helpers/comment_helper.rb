@@ -9,7 +9,7 @@ module CommentHelper
     b s u i quote url img list right center solid
   ]
   COMPLEX_BB_CODES = %i[
-    smileys club club_page contest mention version anime_video
+    smileys club club_page collection contest mention version anime_video
     user message comment topic review quote posters ban
     spoiler
   ]
@@ -158,6 +158,7 @@ module CommentHelper
     Review => [/(\[review=(\d+)\]([^\[]*?)\[\/review\])/, nil],
     Club => [/(\[club(?:=(\d+))?\]([^\[]*?)\[\/club\])/, nil],
     ClubPage => [/(\[club_page(?:=(\d+))?\]([^\[]*?)\[\/club_page\])/, nil],
+    Collection => [/(\[collection(?:=(\d+))?\]([^\[]*?)\[\/collection\])/, nil],
     Contest => [/(\[contest(?:=(\d+))?\]([^\[]*?)\[\/contest\])/, nil],
     Ban => [/(\[ban(?:=(\d+))\])/, nil]
   }

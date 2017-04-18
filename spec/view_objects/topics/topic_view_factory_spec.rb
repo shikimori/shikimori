@@ -67,5 +67,10 @@ describe Topics::TopicViewFactory do
       let(:topic) { build :club_page_topic }
       it { expect(view).to be_a Topics::ClubPageView }
     end
+
+    context 'collection' do
+      let(:topic) { build :collection_topic }
+      it { expect(view).to be_a Topics::CollectionView }
+    end
   end
 end

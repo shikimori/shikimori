@@ -46,4 +46,8 @@ class Topic::TypePolicy
   def any_club_topic?
     club_page_topic? || club_topic? || club_user_topic?
   end
+
+  def collection_topic?
+    topic.class.name == Topics::EntryTopics::CollectionTopic.name
+  end
 end

@@ -91,6 +91,7 @@ ru:
       club: Топик обсуждения [club=%{id}]клуба[/club].
       club_page: Топик обсуждения [club_page=%{club_page_id}]страницы[/club_page] [club=%{club_id}]клуба[/club].
       cosplay_gallery: Топик обсуждения косплея.
+      collection: Топик обсуждения [collection=%{id}]коллекции[/collection].
 
     full_title:
       anime: Обсуждение аниме [anime]%{id}[/anime]

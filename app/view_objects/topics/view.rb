@@ -205,7 +205,8 @@ class Topics::View < ViewObjectBase
 private
 
   def linked_in_avatar?
-    @topic.linked && preview? && !topic_type_policy.forum_topic?
+    @topic.linked && preview? &&
+      !topic_type_policy.forum_topic?
   end
 
   def cleanup_preview_body html

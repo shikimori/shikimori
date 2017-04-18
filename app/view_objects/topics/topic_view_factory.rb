@@ -27,6 +27,9 @@ class Topics::TopicViewFactory
     elsif topic_type_policy.news_topic?
       news_topic topic
 
+    elsif topic_type_policy.collection_topic?
+      collection_topic topic
+
     else
       common_topic topic
     end
@@ -57,6 +60,10 @@ private
 
   def club_page_topic topic
     Topics::ClubPageView.new topic, is_preview, is_mini
+  end
+
+  def collection_topic topic
+    Topics::CollectionView.new topic, is_preview, is_mini
   end
 
   def common_topic topic

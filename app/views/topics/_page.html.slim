@@ -50,7 +50,7 @@ header.head
         - elsif linked.kind_of? Contest
           = render 'contests/menu', resource: linked.decorate
 
-        - elsif linked.kind_of? CosplayGallery
+        - elsif linked.kind_of?(CosplayGallery) || linked.kind_of?(Collection)
           = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
           = render 'menu', menu: @forums_view.menu
 
