@@ -32,7 +32,6 @@ class CollectionsController < ShikimoriController
         notice: i18n_t('collection_created')
     else
       new
-      render :form
     end
   end
 
@@ -50,7 +49,6 @@ class CollectionsController < ShikimoriController
     else
       flash[:alert] = t('changes_not_saved')
       edit
-      render :edit
     end
   end
 
