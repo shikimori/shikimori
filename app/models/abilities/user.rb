@@ -9,6 +9,7 @@ class Abilities::User
       topic_abilities if @user.week_registered?
       comment_abilities if @user.day_registered?
       review_abilities if @user.week_registered?
+      collection_abilities if @user.week_registered?
       other_abilities
       club_abilities
     end
@@ -23,7 +24,7 @@ class Abilities::User
   end
 
   def topic_abilities
-    can [:new, :create], [Topic] do |topic|
+    can [:new, :create, :update], Topic do |topic|
       topic.user_id == @user.id &&
         (
           (
@@ -35,28 +36,25 @@ class Abilities::User
           )
         )
     end
-    can [:update], [Topic] do |topic|
-      can?(:create, topic)
-    end
-    can [:destroy], [Topic] do |topic|
+    can [:destroy], Topic do |topic|
       can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
     end
-    can [:broadcast], [Topic] do |topic|
+    can [:broadcast], Topic do |topic|
       can_broadcast_in_club_topic?(topic, @user)
     end
   end
 
   def topic_ignores_abilities
-    can [:create, :destroy], [TopicIgnore] do |topic_ignore|
+    can [:create, :destroy], TopicIgnore do |topic_ignore|
       topic_ignore.user_id == @user.id
     end
   end
 
   def comment_abilities
-    can [:new, :create], [Comment] do |comment|
+    can [:new, :create], Comment do |comment|
       comment.user_id == @user.id
     end
-    can [:update], [Comment] do |comment|
+    can [:update], Comment do |comment|
       (
         can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
       ) || (
@@ -65,13 +63,13 @@ class Abilities::User
         comment.user_id == @user.id
       ) || can_update_club_comment?(comment, @user)
     end
-    can [:destroy], [Comment] do |comment|
+    can [:destroy], Comment do |comment|
       can?(:update, comment) || (
         comment.commentable_type == User.name &&
         comment.commentable_id == @user.id
       ) || can_destroy_club_comment?(comment, @user)
     end
-    can [:broadcast], [Comment] do |comment|
+    can [:broadcast], Comment do |comment|
       can_broadcast_in_club_topic?(comment.commentable, @user)
     end
   end
@@ -125,6 +123,12 @@ class Abilities::User
   def review_abilities
     can :manage, Review do |review|
       review.user_id == @user.id
+    end
+  end
+
+  def collection_abilities
+    can :manage, Collection do |collection|
+      collection.user_id == @user.id
     end
   end
 
