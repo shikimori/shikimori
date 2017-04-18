@@ -5,7 +5,7 @@ class CreateCollectionsForum < ActiveRecord::Migration[5.0]
       position: 14,
       name_ru: 'Коллекции',
       permalink: 'collections',
-      is_visible: false,
+      is_visible: true,
       name_en: 'Collections'
     )
   end
