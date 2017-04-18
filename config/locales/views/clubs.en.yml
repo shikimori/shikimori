@@ -1,8 +1,8 @@
 en:
   clubs:
     index:
-      create_new_club: Create new club
-      list_of_all_clubs: List of all clubs sorted by their members' activity
+      new: Create new club
+      notice: List of all clubs sorted by their members' activity
       favourite: Favourite
       all_clubs: All clubs
 

@@ -27,7 +27,7 @@ private
     Club
       .joins(:member_roles, :topics)
       .preload(:owner, :topics)
-      .where(locale: locale)
+      .where(locale: @locale)
       .group('clubs.id, topics.updated_at')
       .having('count(club_roles.id) > 0')
       .order('topics.updated_at desc, id')

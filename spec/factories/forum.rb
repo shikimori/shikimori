@@ -12,32 +12,38 @@ FactoryGirl.define do
     end
 
     trait :animanga do
-      id { Topic::FORUM_IDS['Anime'] }
+      id { Topic::FORUM_IDS[Anime.name] }
       permalink 'animanga'
       name_ru 'Аниме и манга'
       is_visible true
     end
 
     trait :contest do
-      id { Topic::FORUM_IDS['Contest'] }
+      id { Topic::FORUM_IDS[Contest.name] }
       permalink 'contests'
       name_ru 'Опросы'
     end
 
     trait :club do
-      id { Topic::FORUM_IDS['Club'] }
+      id { Topic::FORUM_IDS[Club.name] }
+      permalink 'clubs'
+      name_ru 'Клубы'
+    end
+
+    trait :collection do
+      id { Topic::FORUM_IDS[Collection.name] }
       permalink 'clubs'
       name_ru 'Клубы'
     end
 
     trait :cosplay do
-      id { Topic::FORUM_IDS['CosplayGallery'] }
+      id { Topic::FORUM_IDS[CosplayGallery.name] }
       permalink 'cosplay'
       name_ru 'Косплей'
     end
 
     trait :reviews do
-      id { Topic::FORUM_IDS['Review'] }
+      id { Topic::FORUM_IDS[Review.name] }
       permalink 'reviews'
       name_ru 'Рецензии'
     end
@@ -47,6 +53,7 @@ FactoryGirl.define do
     factory :offtopic_forum, traits: [:offtopic]
     factory :contests_forum, traits: [:contest]
     factory :clubs_forum, traits: [:club]
+    factory :collections_forum, traits: [:collection]
     factory :cosplay_forum, traits: [:cosplay]
   end
 end

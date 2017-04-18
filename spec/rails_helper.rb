@@ -142,6 +142,7 @@ RSpec.configure do |config|
     FactoryGirl::SeedGenerator.create :contests_forum
     FactoryGirl::SeedGenerator.create :clubs_forum
     FactoryGirl::SeedGenerator.create :cosplay_forum
+    FactoryGirl::SeedGenerator.create :collections_forum
     FactoryGirl::SeedGenerator.create :offtopic_forum
 
     FactoryGirl::SeedGenerator.create :offtopic_topic

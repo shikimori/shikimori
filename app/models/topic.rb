@@ -17,7 +17,8 @@ class Topic < ApplicationRecord
     'ClubPage' => Forum::CLUBS_ID,
     'Review' => 12,
     'Contest' => Forum::CONTESTS_ID,
-    'CosplayGallery' => Forum::COSPLAY_ID
+    'CosplayGallery' => Forum::COSPLAY_ID,
+    'Collection' => Forum::COLLECTION_ID
   }
 
   TOPIC_IDS = {
@@ -139,7 +140,8 @@ private
         ClubPage|
         Review|
         Contest|
-        CosplayGallery
+        CosplayGallery|
+        Collection
       )$
     /x
     return if match.present?

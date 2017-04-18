@@ -186,6 +186,12 @@ ru:
           few: клуба
           many: клубов
           other: клубы
+      collection:
+        subjective:
+          one: коллекция
+          few: коллекции
+          many: коллекций
+          other: коллекции
       error:
         subjective:
           one: ошибка

@@ -95,6 +95,10 @@ en:
     what_anime_to_watch: What anime I should watch next
     what_manga_to_read: What manga I should read next
 
+  collections_controller:
+    new_collection: New collection
+    collection_created: Collection created
+
   clubs_controller:
     new_club: New club
     club_created: Club created

@@ -7,7 +7,7 @@ class Club::Create < ServiceObjectBase
     club = Club.new @params
     club.locale = locale
 
-    club.generate_topics locale if club.save
+    club.generate_topics @locale if club.save
     club
   end
 end

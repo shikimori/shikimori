@@ -495,23 +495,23 @@ describe UserRate do
   end
 
   describe 'permissions' do
-    let(:user) { build_stubbed :user, :user }
+    let(:user_rate) { build_stubbed :user_rate, user: user }
     subject { Ability.new user }
 
     context 'owner' do
-      let(:user_rate) { build_stubbed :user_rate, user: user }
-      it { is_expected.to be_able_to :mangae, user_rate }
+      let(:user) { build_stubbed :user, :user }
+      it { is_expected.to be_able_to :manage, user_rate }
     end
 
     context 'guest' do
-      let(:user_rate) { build_stubbed :user_rate }
       let(:user) { nil }
       it { is_expected.to_not be_able_to :manage, user_rate }
     end
 
     context 'user' do
-      let(:user_rate) { build_stubbed :user_rate }
-      let(:user) { nil }
+      let(:user) { build_stubbed :user, :user }
+      let(:user_2) { build_stubbed :user }
+      let(:user_rate) { build_stubbed :user_rate, user: user_2 }
       it { is_expected.to_not be_able_to :manage, user_rate }
     end
   end

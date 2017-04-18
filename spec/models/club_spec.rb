@@ -51,6 +51,7 @@ describe Club do
       is_expected
         .to enumerize(:image_upload_policy)
         .in(*Types::Club::ImageUploadPolicy.values)
+      is_expected.to enumerize(:locale).in(:ru, :en)
     end
   end
 

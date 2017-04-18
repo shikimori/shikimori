@@ -13,6 +13,7 @@ en:
       club: Club
       topic: Topic
       topics/news_topic: News Topic
+      collection: Collection
 
     attributes:
       anime: &anime_attributes
@@ -179,6 +180,8 @@ en:
         image_upload_policy: Image Upload Policy
         is_censored: Contains adult content (18+)
         logo: Logo
+      collection:
+        name: Name
       club_invite:
         dst: User
         dst_id: User

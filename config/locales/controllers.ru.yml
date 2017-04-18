@@ -95,6 +95,10 @@ ru:
     what_anime_to_watch: Какие аниме посмотреть
     what_manga_to_read: Какую мангу почитать
 
+  collections_controller:
+    new_collection: Новая коллекция
+    collection_created: Коллекция создана
+
   clubs_controller:
     new_club: Новый клуб
     club_created: Клуб создан

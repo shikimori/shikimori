@@ -1,0 +1,5 @@
+en:
+  collections:
+    index:
+      new: Create new collection
+      notice: List of all collections sorted by their rating

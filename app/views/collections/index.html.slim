@@ -1,0 +1,18 @@
+header.head.misc
+  h1 = @page_title.last
+
+  a.misc.to-process[
+    href="#{new_collection_url 'collection[user_id]' => current_user&.id}"
+    title="#{ t '.new'}"
+    data-dynamic="week_registered"
+  ] = t('actions.create').downcase
+
+  p.notice.clearfix = t '.notice'
+
+.block
+  = render @collection
+
+  - if @add_postloader
+    = render 'blocks/postloader', filter: 'b-club',
+      next_url: page_collections_url(page: @page+1),
+      prev_url: (@page > 1 ? page_collections_url(page: @page-1) : nil)

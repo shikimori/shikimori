@@ -3,7 +3,7 @@ class Forum < ApplicationRecord
 
   validates :permalink, presence: true
 
-  VARIANTS = /animanga|site|offtopic|clubs|reviews|contests|news/
+  VARIANTS = /animanga|site|offtopic|clubs|reviews|contests|news|collections/
   # разделы, в которые можно создавать топики из интерфейса
   PUBLIC_SECTIONS = %w{ offtopic animanga site games vn contests }
 
@@ -12,6 +12,7 @@ class Forum < ApplicationRecord
   OFFTOPIC_ID = 8
   CLUBS_ID = 10
   CONTESTS_ID = 13
+  COLLECTION_ID = 14
   COSPLAY_ID = 15
 
   NEWS_FORUM = FakeForum.new 'news', 'Лента новостей', 'News feed'

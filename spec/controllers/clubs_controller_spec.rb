@@ -82,7 +82,14 @@ describe ClubsController do
     let(:club) { create :club, :with_topics, owner: user }
 
     context 'valid params' do
-      before { patch :update, params: { id: club.id, club: params, page: 'description' } }
+      before do
+        patch :update,
+          params: {
+            id: club.id,
+            club: params,
+            page: 'description'
+          }
+      end
       let(:params) { { name: 'test club' } }
 
       it do
@@ -92,7 +99,14 @@ describe ClubsController do
     end
 
     context 'invalid params' do
-      before { patch 'update', params: { id: club.id, club: params, page: 'description' } }
+      before do
+        patch 'update',
+          params: {
+            id: club.id,
+            club: params,
+            page: 'description'
+          }
+      end
       let(:params) { { name: '' } }
 
       it do

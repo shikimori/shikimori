@@ -11,7 +11,6 @@ class ClubsController < ShikimoriController
 
   before_action :set_breadcrumbs
 
-  CREATE_PARAMS = %i(owner_id name logo is_censored)
   UPDATE_PARAMS = [
     :name,
     :join_policy,
@@ -28,6 +27,7 @@ class ClubsController < ShikimoriController
     admin_ids: [],
     banned_user_ids: []
   ]
+  CREATE_PARAMS = %i(owner_id) + UPDATE_PARAMS
 
   def index
     noindex

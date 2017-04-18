@@ -13,7 +13,7 @@ describe UserToken do
 
     context 'owner' do
       let(:user_token) { build_stubbed :user_token, user: user }
-      it { should be_able_to :mangae, user_token }
+      it { should be_able_to :manage, user_token }
     end
 
     context 'guest' do
