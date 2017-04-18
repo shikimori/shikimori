@@ -24,7 +24,7 @@ jobs:
           - vendor/bundle
       - type: shell
         name: Create DB
-        command: bundle exec rake db:create db:schema:load --trace
+        command: RAILS_ENV=test bundle exec rake db:create db:schema:load --trace
       - type: shell
         name: Run specs
-        command: bundle exec rspec spec
+        command: RAILS_ENV=test bundle exec rspec spec
