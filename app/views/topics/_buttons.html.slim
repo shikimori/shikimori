@@ -2,7 +2,8 @@ aside.buttons
   .main-controls
     span.item-ignore.to-process[
       title=t('actions.ignore')
-      data-text=t('actions.ignore')
+      data-text-ru=t('actions.ignore', locale: 'ru')
+      data-text-en=t('actions.ignore', locale: 'en')
       data-action=api_v2_topics_ignore_url(topic_view.id)
       data-dynamic='authorized'
       data-method='POST'
@@ -11,31 +12,37 @@ aside.buttons
     ]
     span.item-quote[
       title=t('actions.quote')
-      data-text=t('actions.quote')
+      data-text-ru=t('actions.quote', locale: 'ru')
+      data-text-en=t('actions.quote', locale: 'en')
     ]
     span.item-reply.to-process.to-process[
       title=t('actions.reply')
-      data-text=t('actions.reply')
+      data-text-ru=t('actions.reply', locale: 'ru')
+      data-text-en=t('actions.reply', locale: 'en')
       data-dynamic='authorized'
     ]
     a.item-edit.short[
       href=topic_view.urls.edit_url
-      data-text=t('actions.edit')
+      data-text-ru=t('actions.edit', locale: 'ru')
+      data-text-en=t('actions.edit', locale: 'en')
       title=t('actions.edit')
     ]
     span.item-delete.short[
       title=t('actions.delete')
-      data-text=t('actions.delete')
+      data-text-ru=t('actions.delete', locale: 'ru')
+      data-text-en=t('actions.delete', locale: 'en')
     ]
     span.item-cancel[
       title=t('actions.cancel')
-      data-text=t('actions.cancel')
+      data-text-ru=t('actions.cancel', locale: 'ru')
+      data-text-en=t('actions.cancel', locale: 'en')
     ]
 
   .delete-controls
     span.item-delete-confirm[
       title=t('actions.delete')
-      data-text=t('actions.delete')
+      data-text-ru=t('actions.delete', locale: 'ru')
+      data-text-en=t('actions.delete', locale: 'en')
       data-action=topic_view.urls.destroy_url
       data-type='json'
       data-remote='true'
@@ -43,5 +50,6 @@ aside.buttons
     ]
     span.item-delete-cancel[
       title=t('actions.cancel')
-      data-text=t('actions.cancel')
+      data-text-ru=t('actions.cancel', locale: 'ru')
+      data-text-en=t('actions.cancel', locale: 'en')
     ]

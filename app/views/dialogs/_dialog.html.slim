@@ -21,21 +21,25 @@
           a.item-reply[
             href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}"
             title=t('actions.reply')
-            data-text=t('actions.reply')
+            data-text-ru=t('actions.reply', locale: 'ru')
+            data-text-en=t('actions.reply', locale: 'en')
           ]
         span.item-delete[
           title=t('actions.delete')
-          data-text=t('actions.delete')
+          data-text-ru=t('actions.delete', locale: 'ru')
+          data-text-en=t('actions.delete', locale: 'en')
         ]
         span.item-cancel[
           title=t('actions.cancel')
-          data-text=t('actions.cancel')
+          data-text-ru=t('actions.cancel', locale: 'ru')
+          data-text-en=t('actions.cancel', locale: 'en')
         ]
 
       .delete-controls
         span.item-delete-confirm[
           title=t('actions.delete')
-          data-text=t('actions.delete')
+          data-text-ru=t('actions.delete', locale: 'ru')
+          data-text-en=t('actions.delete', locale: 'en')
           action="#{profile_dialog_url dialog.user, dialog.message}"
           data-type='json'
           data-remote='true'
@@ -43,7 +47,8 @@
         ]
         span.item-delete-cancel[
           title=t('actions.cancel')
-          data-text=t('actions.cancel')
+          data-text-ru=t('actions.cancel', locale: 'ru')
+          data-text-en=t('actions.cancel', locale: 'en')
         ]
 
     header

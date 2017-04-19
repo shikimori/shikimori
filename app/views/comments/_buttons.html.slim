@@ -2,39 +2,46 @@ aside.buttons
   .main-controls
     span.item-quote.to-process[
       title=t('actions.quote')
-      data-text=t('actions.quote')
+      data-text-ru=t('actions.quote', locale: 'ru')
+      data-text-en=t('actions.quote', locale: 'en')
       data-dynamic='authorized'
     ]
     span.item-reply.to-process[
       title=t('actions.reply')
-      data-text=t('actions.reply')
+      data-text-ru=t('actions.reply', locale: 'ru')
+      data-text-en=t('actions.reply', locale: 'en')
       data-dynamic='authorized'
     ]
     span.item-edit[
       title=t('actions.edit')
-      data-text=t('actions.edit')
+      data-text-ru=t('actions.edit', locale: 'ru')
+      data-text-en=t('actions.edit', locale: 'en')
       data-action=edit_comment_path(comment)
       data-type='html'
       data-remote='true'
     ]
     span.item-delete[
       title=t('actions.delete')
-      data-text=t('actions.delete')
+      data-text-ru=t('actions.delete', locale: 'ru')
+      data-text-en=t('actions.delete', locale: 'en')
     ]
     - if comment.commentable_type == 'Topic'
       span.item-moderation[
         title=t('actions.moderate')
-        data-text=t('actions.moderate')
+        data-text-ru=t('actions.moderate', locale: 'ru')
+        data-text-en=t('actions.moderate', locale: 'en')
       ]
     span.item-cancel[
       title=t('actions.cancel')
-      data-text=t('actions.cancel')
+      data-text-ru=t('actions.cancel', locale: 'ru')
+      data-text-en=t('actions.cancel', locale: 'en')
     ]
 
   .delete-controls
     span.item-delete-confirm[
       title=t('actions.delete')
-      data-text=t('actions.delete')
+      data-text-ru=t('actions.delete', locale: 'ru')
+      data-text-en=t('actions.delete', locale: 'en')
       data-action=api_comment_url(comment)
       data-type='json'
       data-remote='true'
@@ -42,13 +49,15 @@ aside.buttons
     ]
     span.item-delete-cancel[
       title=t('actions.cancel')
-      data-text=t('actions.cancel')
+      data-text-ru=t('actions.cancel', locale: 'ru')
+      data-text-en=t('actions.cancel', locale: 'en')
     ]
 
   .moderation-controls
     span.item-ban.b-tooltipped.unprocessed[
       title=t('actions.moderation.ban')
-      data-text=t('actions.moderation.ban')
+      data-text-ru=t('actions.moderation.ban', locale: 'ru')
+      data-text-en=t('actions.moderation.ban', locale: 'en')
       data-action=new_comment_ban_path(comment)
       data-method='get'
       data-type='html'
@@ -57,7 +66,8 @@ aside.buttons
     ]
     span.item-abuse.b-tooltipped.unprocessed[
       title=t('actions.moderation.abuse')
-      data-text=t('actions.moderation.abuse')
+      data-text-ru=t('actions.moderation.abuse', locale: 'ru')
+      data-text-en=t('actions.moderation.abuse', locale: 'en')
       data-action=abuse_comment_abuse_requests_url(comment)
       data-method='post'
       data-type='json'
@@ -67,7 +77,8 @@ aside.buttons
     ]
     span.item-spoiler.b-tooltipped.unprocessed[
       title=t('actions.moderation.spoiler')
-      data-text=t('actions.moderation.spoiler')
+      data-text-ru=t('actions.moderation.spoiler', locale: 'ru')
+      data-text-en=t('actions.moderation.spoiler', locale: 'en')
       data-action=spoiler_comment_abuse_requests_url(comment)
       data-method='post'
       data-type='json'
@@ -78,8 +89,10 @@ aside.buttons
     span.item-offtopic.b-tooltipped.unprocessed[
       class="#{:selected if comment.offtopic?}"
       title=t('actions.moderation.offtopic')
-      data-text=t('actions.moderation.offtopic')
-      data-text-alternative=t('actions.moderation.not_offtopic')
+      data-text-ru=t('actions.moderation.offtopic', locale: 'ru')
+      data-text-en=t('actions.moderation.offtopic', locale: 'en')
+      data-text-alternative-ru=t('actions.moderation.not_offtopic', locale: 'ru')
+      data-text-alternative-en=t('actions.moderation.not_offtopic', locale: 'en')
       data-action=offtopic_comment_abuse_requests_url(comment)
       data-method='post'
       data-type='json'
@@ -91,8 +104,10 @@ aside.buttons
       span.item-summary.b-tooltipped.unprocessed[
         class="#{:selected if comment.summary?}"
         title=t('actions.moderation.summary')
-        data-text=t('actions.moderation.summary')
-        data-text-alternative=t('actions.moderation.not_summary')
+        data-text-ru=t('actions.moderation.summary', locale: 'ru')
+        data-text-en=t('actions.moderation.summary', locale: 'en')
+        data-text-alternative-ru=t('actions.moderation.not_summary', locale: 'ru')
+        data-text-alternative-en=t('actions.moderation.not_summary', locale: 'en')
         data-action=summary_comment_abuse_requests_url(comment)
         data-method='post'
         data-type='json'
@@ -103,5 +118,6 @@ aside.buttons
     - if comment.commentable_type == 'Topic'
       span.item-moderation-cancel[
         title=t('actions.cancel')
-        data-text=t('actions.cancel')
+        data-text-ru=t('actions.cancel', locale: 'ru')
+        data-text-en=t('actions.cancel', locale: 'en')
       ]
