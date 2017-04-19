@@ -43,6 +43,10 @@
     input_html: { min: 0 }
   = f.input :text, as: :text
 
+  .buttons
+    .b-js-link.cancel = t 'actions.cancel'
+    = f.button :magic_submit
+
   .remove-container.bottom
     a.remove[
       href="#{api_user_rate_url f.object, frontend: true}"
@@ -51,7 +55,3 @@
       data-remote="true"
       data-type="json"
     ] = t '.remove_from_my_list'
-
-  .buttons
-    .b-js-link.cancel = t 'actions.cancel'
-    = f.button :magic_submit
