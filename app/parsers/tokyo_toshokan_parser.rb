@@ -29,6 +29,7 @@ class TokyoToshokanParser < TorrentsParser
 private
 
   def get url
-    super url, required_text=['<title>Tokyo Toshokan', '</html>']
+    super(url, required_text=['<title>Tokyo Toshokan', '</html>']) ||
+      raise(EmptyContentError, url)
   end
 end

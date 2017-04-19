@@ -1,7 +1,10 @@
 # 10.downto(0) {|v| TokyoToshokanParser.grab_page "http://www.tokyotosho.info/?page=#{v}&cat=0" }
 class ImportToshokanTorrents
   include Sidekiq::Worker
-  sidekiq_options queue: :torrents_parsers
+  sidekiq_options(
+    queue: :torrents_parsers,
+    retru: false
+  )
 
   def perform
     RedisMutex.with_lock('import_toshokan_torrents', block: 0) { import }
@@ -18,5 +21,6 @@ private
         "http://www.tokyotosho.info/?page=#{page}&cat=0"
       )
     end
+  rescue EmptyContentError
   end
 end
