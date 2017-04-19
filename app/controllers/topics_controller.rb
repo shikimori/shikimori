@@ -117,11 +117,12 @@ class TopicsController < ShikimoriController
 private
 
   def topic_params
-    allowed_params = UPDATE_PARAMS
-
-    if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
-      allowed_params = CREATE_PARAMS
-    end
+    allowed_params =
+      if can?(:manage, Topic) || ['new', 'create'].include?(params[:action])
+        CREATE_PARAMS
+      else
+        UPDATE_PARAMS
+      end
     allowed_params += [:broadcast] if current_user&.admin?
 
     params[:body] = Topics::ComposeBody.call(params[:topic])

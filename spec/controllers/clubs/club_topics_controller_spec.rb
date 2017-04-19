@@ -12,13 +12,14 @@ describe Clubs::ClubTopicsController do
     {
       user_id: user.id,
       forum_id: clubs_forum.id,
-      title: 'title',
+      title: topic_title,
       body: 'text',
       linked_id: club.id,
       linked_type: Club.name,
       type: Topics::ClubUserTopic.name
     }
   end
+  let(:topic_title) { 'title' }
 
   describe '#index' do
     before { get :index, params: { club_id: club_id } }
@@ -81,14 +82,7 @@ describe Clubs::ClubTopicsController do
     end
 
     context 'invalid params' do
-      let(:topic_params) do
-        {
-          user_id: user.id,
-          forum_id: clubs_forum.id,
-          title: 'title'
-        }
-      end
-
+      let(:topic_title) { nil }
       it do
         expect(resource).to_not be_valid
         expect(response).to have_http_status :success

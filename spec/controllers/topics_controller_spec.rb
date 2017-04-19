@@ -194,23 +194,28 @@ describe TopicsController do
   end
 
   describe '#new' do
+    let(:topic_params) do
+      {
+        user_id: user.id,
+        forum_id: animanga_forum.id,
+        type: Topic.name
+      }
+    end
+    let(:make_request) do
+      get :new,
+        params: {
+          forum: animanga_forum.to_param,
+          topic: topic_params
+        }
+    end
+
     context 'guest' do
-      let(:make_request) do
-        get :new, params: { forum: animanga_forum.to_param }
-      end
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
 
     context 'authenticated' do
-      let(:params) { { user_id: user.id, forum_id: animanga_forum.id } }
       before { sign_in user }
-      before do
-        get :new,
-          params: {
-            forum: animanga_forum.to_param,
-            topic: params
-          }
-      end
+      before { make_request }
 
       it { expect(response).to have_http_status :success }
     end
@@ -237,6 +242,7 @@ describe TopicsController do
         forum_id: animanga_forum.id,
         title: 'title',
         body: 'text',
+        type: Topic.name,
         linked_id: anime.id,
         linked_type: Anime.name
       }
