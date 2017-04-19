@@ -16,4 +16,14 @@ class Collection < ApplicationRecord
   def topic_user
     user
   end
+
+  # для совместимости с DbEntry
+  def description_ru
+    text
+  end
+
+  # для совместимости с DbEntry
+  def description_en
+    text
+  end
 end

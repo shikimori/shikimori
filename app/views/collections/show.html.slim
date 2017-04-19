@@ -10,7 +10,7 @@ header.head.misc
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .block
-  
+  = @resource.description_html
 
 .block
   = render 'db_entries/comments', resource: @resource
