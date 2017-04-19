@@ -74,7 +74,7 @@ jQuery(function ($) {
                     error: function (xhr, status, error) {
                         $this.data('ajax:locked', false);
                         if (xhr.responseText.match(/invalid/)) {// || xhr.responseText.match(/unauthenticated/)) {
-                            $.flash({alert: t('frontend.lib.rails_ujs_modified.invalid_login_or_password')});
+                            $.flash({alert: I18n.t('frontend.lib.rails_ujs_modified.invalid_login_or_password')});
                         //} else if (xhr.status == 401) {
                             //$.flash({alert: 'Вы не авторизованы'});
                             //$('#sign_in').trigger('click');
@@ -89,12 +89,12 @@ jQuery(function ($) {
                             } else {
                               $.alert(xhr.responseText != 'Forbidden' ?
                                 xhr.responseText :
-                                t('frontend.lib.rails_ujs_modified.you_are_not_authorized')
+                                I18n.t('frontend.lib.rails_ujs_modified.you_are_not_authorized')
                               );
                             }
 
                         } else if (xhr.status == 500) {
-                            $.alert(t('frontend.lib.rails_ujs_modified.please_try_again_later'));
+                            $.alert(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'));
                         } else {
                             try {
                               var errors = JSON.parse(xhr.responseText);
@@ -115,16 +115,16 @@ jQuery(function ($) {
                                       return v;
                                     } else {
                                       return "<strong>" +
-                                        t("frontend.lib.rails_ujs_modified." + k, { defaultValue: k }) +
-                                        "</strong> " +
-                                        (Object.isArray(v) ? v.join(', ') : v);
+                                        I18n.t("frontend.lib.rails_ujs_modified." + k, { defaultValue: k }) +
+                                          "</strong> " +
+                                          (Object.isArray(v) ? v.join(', ') : v);
                                     }
                                   }).join('<br />');
 
                                   $.alert(text);
                                 }
                             } else {
-                                $.alert(t('frontend.lib.rails_ujs_modified.please_try_again_later'))
+                                $.alert(I18n.t('frontend.lib.rails_ujs_modified.please_try_again_later'))
                             }
                         }
                         el.trigger('ajax:failure', [xhr, status, error]);

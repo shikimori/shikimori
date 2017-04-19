@@ -21,5 +21,6 @@ header.head.misc
         text: @resource.text,
         field_name: 'collection[text]'
 
-  = f.button :magic_submit
-  a.cancel href="#{collections_url}" = t 'actions.cancel'
+  .buttons
+    a.cancel href="#{collections_url}" = t 'actions.cancel'
+    = f.button :magic_submit
