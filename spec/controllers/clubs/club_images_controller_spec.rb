@@ -7,17 +7,20 @@ describe Clubs::ClubImagesController do
     let(:image) do
       fixture_file_upload "#{Rails.root}/spec/images/anime.jpg", 'image/jpeg'
     end
-    before do
-      post :create,
-        params: { club_id: club.id, image: image },
-        xhr: is_xhr
-    end
 
     context 'not xhr' do
-      let(:is_xhr) { false }
+      before do
+        post :create,
+          params: {
+            club_id: club.id,
+            images: [image, image]
+          }
+      end
+
       it do
-        expect(resource).to be_persisted
-        expect(resource).to have_attributes(
+        expect(club.images).to have(2).items
+        expect(club.images.first).to be_persisted
+        expect(club.images.first).to have_attributes(
           club_id: club.id,
           user_id: user.id
         )
@@ -26,7 +29,15 @@ describe Clubs::ClubImagesController do
     end
 
     context 'xhr' do
-      let(:is_xhr) { true }
+      before do
+        post :create,
+          params: {
+            club_id: club.id,
+            image: image
+          },
+          xhr: true
+      end
+
       it do
         expect(resource).to be_persisted
         expect(resource).to have_attributes(
