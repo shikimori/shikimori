@@ -39,7 +39,7 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   # дата выхода следующего эпизода
-  def next_episode_at
+  def next_episode_at with_broadcast = true
     if ongoing? || anons?
       calendars = anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
 
@@ -50,13 +50,13 @@ class AnimeDecorator < AniMangaDecorator
         calendars[1].start_at
       end
 
-      date || object.next_episode_at || next_broadcast_at
+      date || object.next_episode_at || (next_broadcast_at if with_broadcast)
     end
   end
 
   # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
   def aired_on
-    anons? && next_episode_at ? next_episode_at : object.aired_on
+    anons? && next_episode_at(false) ? next_episode_at(false) : object.aired_on
   end
 
   # тип элемента для schema.org
