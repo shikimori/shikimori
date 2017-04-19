@@ -27,6 +27,7 @@ en:
         status:
           <<: *anime_statuses
           ongoing: Publishing
+          latest: Published Recently
       show_list: Show list
 
   animes: &animes
