@@ -23,12 +23,13 @@ class Contest < ApplicationRecord
     class_name: ContestRound.name,
     dependent: :destroy
 
-  validates :title, :user, :started_on, :user_vote_key, :strategy_type,
+  validates :title_ru, presence: true, if: -> { title_en.blank? }
+  validates :title_en, presence: true, if: -> { title_ru.blank? }
+
+  validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true
   validates :matches_interval, :match_duration, :matches_per_round,
     numericality: { greater_than: 0 }, presence: true
-
-private
 
   has_many :animes, -> { order :name },
     through: :links,
@@ -40,11 +41,9 @@ private
     source: :linked,
     source_type: Character.name
 
-public
-
-  has_many :suggestions, class_name: ContestSuggestion.name, dependent: :destroy
-
-  before_save :update_permalink
+  has_many :suggestions,
+    class_name: ContestSuggestion.name,
+    dependent: :destroy
 
   state_machine :state, initial: :created do
     state :created, :proposing do
@@ -143,7 +142,11 @@ public
 
   # для урлов
   def to_param
-    "#{self.id}-#{self.permalink}"
+    "#{self.id}-#{name.permalinked}"
+  end
+
+  def title locale = nil
+    I18n.russian? ? title_ru : title_en
   end
 
   # для совместимости с форумом
@@ -193,12 +196,5 @@ public
   # for DbEntryDecorator
   def description_en
     nil
-  end
-
-private
-
-  # TODO: remove field permalink
-  def update_permalink
-    self.permalink = title.permalinked if changes.include? :title
   end
 end

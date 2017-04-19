@@ -17,7 +17,7 @@ class BbCodes::RepliesTag
       ids = comment_ids $~[:ids].split(',')
       replies = ids.map { |id| "[comment=#{id}][/comment]" }.join(', ')
 
-      "<div class=\"b-replies#{' single' if ids.one?}\" " +
+      "<div class='b-replies#{' single' if ids.one?}' " +
         "data-reply-text=\"#{i18n_t 'reply'}\" " +
         "data-replies-text=\"#{i18n_t 'replies'}\">#{replies}</div>" if ids.any?
     end

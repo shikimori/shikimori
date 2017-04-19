@@ -139,3 +139,9 @@ hr
   //border: 0
   //border-bottom: 1px dashed #ccc
   //background: #999
+
+.translated
+  .locale-en &:after
+    content: attr(data-text-ru)
+  .locale-ru &:after
+    content: attr(data-text-en)

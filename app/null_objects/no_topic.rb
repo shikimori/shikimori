@@ -11,7 +11,7 @@ class NoTopic < NullObject
     0
   end
 
-private
+  private
 
   def base_klass
     Topic
