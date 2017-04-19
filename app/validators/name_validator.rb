@@ -15,7 +15,7 @@ class NameValidator < ActiveModel::EachValidator
   )
   FORBIDDEN_NAMES = %r(
     \A(
-      #{Forum::VARIANTS} |
+      #{Forum::VARIANTS.join '|'} |
       #{PREDEFINED_PATHS.join '|'} |
       #{BANNED_NICKNAMES.join '|'}
     )\Z | ((
