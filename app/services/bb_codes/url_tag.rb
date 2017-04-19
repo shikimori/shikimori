@@ -36,8 +36,7 @@ class BbCodes::UrlTag
 private
 
   def link_tag url, text
-    decoded_text = URI.decode text rescue Encoding::CompatibilityError
-    decoded_text ||= text
+    decoded_text = decode_uri text
 
     "<a class=\"b-link\" href=\"#{url}\">\
 #{decoded_text.valid_encoding? ? decoded_text : Url.new(url).domain}</a>"
@@ -63,5 +62,11 @@ private
         Url.new(url).without_http.to_s
       end
     end
+  end
+
+  def decode_uri text
+    URI.decode text
+  rescue Encoding::CompatibilityError
+    text
   end
 end
