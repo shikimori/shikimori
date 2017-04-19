@@ -1,5 +1,7 @@
 ru:
   topics:
+    show:
+      rss_title: Комментарии топика
     header:
       mini: &header_mini
         topic_ignored: в игноре

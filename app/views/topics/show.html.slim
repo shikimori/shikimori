@@ -1,7 +1,7 @@
 - content_for :head do
   = auto_discovery_link_tag :rss,
     url_for(safe_params.merge format: :rss),
-    title: 'Комментарии топика'
+    title: t('.rss_title')
 
 = render layout: 'topics/page' do |f|
   = render partial: 'topics/topic',

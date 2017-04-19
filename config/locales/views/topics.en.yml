@@ -1,5 +1,7 @@
 en:
   topics:
+    show:
+      rss_title: Topic comments
     header:
       mini: &header_mini
         topic_ignored: ignored
