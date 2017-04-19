@@ -28,9 +28,11 @@
         a.bubbled href="#{url_for review.target}" = review.target.name
       - else
         = t "deleted.#{review.model}"
+
+    = render 'reviews/votes', review: review
+
     span.state class="#{review.state}"
       = review.human_state_name
+
     - if review.approver.present?
       span = review.approver.nickname
-    span.date
-      = review.votes_text

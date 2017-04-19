@@ -63,35 +63,19 @@ $body_phone_left_padding: 42px
         padding-left: 14px
         border-left: 1px solid #acb1b4
 
-        .comments, .likes
+        .comments
           display: inline-block
           color: #333
 
           &:before
+            content: 'f'
             display: inline-block
             font-family: 'shikimori'
             font-size: 14px
             padding-right: 5px
-            text-align: center
 
-          .votes-for
-            color: #24a232
-
-          .votes-against
-            color: #c32017
-
-        .comments
-          &:before
-            content: 'f'
-
-        .likes
+        .b-review_votes
           margin-left: 15px
-
-          span
-            color: $gray
-
-          &:before
-            content: '\e819'
 
   &>.b-comments,
   &>.inner>.body,

@@ -10,7 +10,7 @@ p.review-votes_count[
   ]
   meta itemprop="ratingCount" content="#{review.votes_count}"
 
-  = review.votes_text
+  = render 'reviews/votes', review: review
 
   - if review.rejected?
     span.warn = t '.rejected'

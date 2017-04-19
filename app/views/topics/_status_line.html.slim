@@ -22,8 +22,4 @@
     span.comments = topic_view.comments_count
 
     - if topic_type_policy.review_topic? || topic_type_policy.cosplay_gallery_topic?
-      span.likes
-        span.votes-for #{topic_view.topic.linked.votes_for}+
-        span
-          | &nbsp;/&nbsp;
-        span.votes-against #{topic_view.topic.linked.votes_count - topic_view.topic.linked.votes_for}-
+      = render 'reviews/votes', review: topic_view.topic.linked
