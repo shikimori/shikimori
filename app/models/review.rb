@@ -77,25 +77,6 @@ class Review < ApplicationRecord
     text
   end
 
-  # TODO: move to view object
-  def votes_text
-    if votes_for == votes_count
-      <<-TEXT.squish
-        #{votes_count}
-        #{Russian.p votes_count, 'пользователь', 'пользователя', 'пользователей'}
-        #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}
-        этот обзор полезным
-      TEXT
-    else
-      <<-TEXT.squish
-        #{votes_for} из #{votes_count}
-        #{Russian.p votes_count, 'пользователя', 'пользователей', 'пользователей'}
-        #{Russian.p votes_for, 'посчитал', 'посчитали', 'посчитали'}
-        этот обзор полезным
-      TEXT
-    end
-  end
-
   def to_offtopic!
     topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
   end
