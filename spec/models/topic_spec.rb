@@ -236,5 +236,26 @@ describe Topic do
         it { is_expected.to be_able_to :broadcast, topic }
       end
     end
+
+    describe 'review topic' do
+      let(:topic) { build_stubbed :review_topic, user: review_owner }
+      let(:user) { build_stubbed :user, :user, :week_registered }
+
+      context 'common user' do
+        let(:review_owner) { build_stubbed :user, :user, :week_registered }
+
+        it { is_expected.to_not be_able_to :new, topic }
+        it { is_expected.to_not be_able_to :create, topic }
+        it { is_expected.to_not be_able_to :update, topic }
+      end
+
+      context 'review owner' do
+        let(:review_owner) { user }
+
+        it { is_expected.to be_able_to :new, topic }
+        it { is_expected.to be_able_to :create, topic }
+        it { is_expected.to be_able_to :update, topic }
+      end
+    end
   end
 end

@@ -2,6 +2,12 @@ class Abilities::User
   include CanCan::Ability
   prepend Draper::CanCanCan
 
+  USER_TOPIC_TYPES = [
+    Topic.name,
+    Topics::NewsTopic.name,
+    Topics::EntryTopics::ReviewTopic.name
+  ]
+
   def initialize user
     @user = user
 
@@ -24,37 +30,34 @@ class Abilities::User
   end
 
   def topic_abilities
-    can [:new, :create, :update], Topic do |topic|
+    can %i[new create update], Topic do |topic|
       topic.user_id == @user.id &&
         (
-          (
-            topic.type.nil? || topic.type == Topic.name ||
-            topic.type == Topics::NewsTopic.name
-          ) || (
+          USER_TOPIC_TYPES.include?(topic.type) || (
             topic.type == Topics::ClubUserTopic.name &&
             can?(:create_topic, topic.linked)
           )
         )
     end
-    can [:destroy], Topic do |topic|
+    can :destroy, Topic do |topic|
       can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
     end
-    can [:broadcast], Topic do |topic|
+    can :broadcast, Topic do |topic|
       can_broadcast_in_club_topic?(topic, @user)
     end
   end
 
   def topic_ignores_abilities
-    can [:create, :destroy], TopicIgnore do |topic_ignore|
+    can %i[create destroy], TopicIgnore do |topic_ignore|
       topic_ignore.user_id == @user.id
     end
   end
 
   def comment_abilities
-    can [:new, :create], Comment do |comment|
+    can %i[new create], Comment do |comment|
       comment.user_id == @user.id
     end
-    can [:update], Comment do |comment|
+    can :update, Comment do |comment|
       (
         can?(:create, comment) && comment.created_at + 1.day > Time.zone.now
       ) || (
@@ -75,20 +78,20 @@ class Abilities::User
   end
 
   def message_abilities
-    can [:mark_read], Message # пометка сообщений прочтёнными
-    can [:read], Message do |message|
+    can :mark_read, Message # пометка сообщений прочтёнными
+    can :read, Message do |message|
       message.from_id == @user.id || message.to_id == @user.id
     end
-    can [:destroy], Message do |message|
+    can :destroy, Message do |message|
       message.from_id == @user.id || message.to_id == @user.id
       #(message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
         #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
-    can [:create], Message do |message|
+    can :create, Message do |message|
       !@user.forever_banned? && message.kind == MessageType::Private &&
         message.from_id == @user.id
     end
-    can [:edit, :update], Message do |message|
+    can %i[edit update], Message do |message|
       message.kind == MessageType::Private &&
         message.from_id == @user.id &&
           message.created_at + 10.minutes > Time.zone.now
@@ -117,7 +120,7 @@ class Abilities::User
 
   def user_rate_abilities
     can :manage, UserRate, user_id: @user.id
-    can [:cleanup, :reset], UserRate
+    can %i[cleanup reset], UserRate
   end
 
   def review_abilities
@@ -133,10 +136,10 @@ class Abilities::User
   end
 
   def club_abilities
-    can [:new, :create], Club do |club|
+    can %i[new create], Club do |club|
       @user.week_registered? && club.owner?(@user)
     end
-    can [:update], Club do |club|
+    can :update, Club do |club|
       club.owner?(@user) || club.admin?(@user)
     end
     can :broadcast, Club do |club|
@@ -167,7 +170,7 @@ class Abilities::User
         (club.image_upload_policy_admins? && club.admin?(@user))
     end
 
-    can [:new, :create, :update, :destroy, :up, :down], ClubPage do |club_page|
+    can %i[new create update destroy up down], ClubPage do |club_page|
       can?(:update, club_page.club) && (
         club_page.parent_page_id.nil? ||
         club_page.parent_page.club_id == club_page.club_id
@@ -181,27 +184,27 @@ class Abilities::User
       club_role.user_id == @user.id
     end
 
-    can [:accept, :reject], ClubInvite, dst_id: @user.id
+    can %i[accept reject], ClubInvite, dst_id: @user.id
     can :create, ClubInvite do |club_invite|
       club_invite.src_id == @user.id && club_invite.club.member?(@user)
     end
   end
 
   def anime_video_abilities
-    can [:create], AnimeVideoReport do |report|
+    can :create, AnimeVideoReport do |report|
       !@user.banned? && !@user.verison_vermin? &&
         report.user_id == @user.id && (
           report.broken? || report.wrong? || report.other?
         )
     end
-    can [:new, :create], AnimeVideo do |anime_video|
+    can %i[new create], AnimeVideo do |anime_video|
       !@user.banned? && !@user.verison_vermin? && anime_video.uploaded?
     end
-    can [:edit, :update], AnimeVideo do |anime_video|
+    can %i[edit update], AnimeVideo do |anime_video|
       !@user.banned? && !@user.verison_vermin? &&
         (anime_video.uploaded? || anime_video.working?)
     end
-    can [:destroy], AnimeVideo do |anime_video|
+    can :destroy, AnimeVideo do |anime_video|
       !@user.banned? && !@user.verison_vermin? &&
         (anime_video.uploader == @user && (
           @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
@@ -210,21 +213,21 @@ class Abilities::User
   end
 
   def version_abilities
-    can [:create, :destroy], Version do |version|
+    can %i[create destroy], Version do |version|
       !@user.banned? && !@user.verison_vermin? &&
         version.user_id == @user.id && (
           version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
         ).none?
     end
-    cannot [:significant_change], Version
+    cannot :significant_change, Version
 
-    can [:accept], Version do |version|
+    can :accept, Version do |version|
       @user.trusted_version_changer? && version.user_id == @user.id
     end
   end
 
   def style_abilities
-    can [:create, :update], Style do |style|
+    can %i[create update], Style do |style|
       if style.owner_type == User.name
         style.owner_id == @user.id
       elsif style.owner_type == Club.name
