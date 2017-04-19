@@ -4,7 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 module Clockwork
   every 10.minutes, 'history.toshokan' do
     HistoryWorker.perform_async
-    ImportToshokanTorrents.perform_async
+    ImportToshokanTorrents.perform_async true
     ImportNyaaTorrents.perform_async
     # ProxyWorker.perform_async(true)
     SidekiqHeartbeat.new.perform
@@ -30,11 +30,11 @@ module Clockwork
     BadReviewsCleaner.perform_async
   end
 
-  every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
+  # every 1.day, 'find anime imports', at: ['01:00', '07:00', '13:00', '19:00'] do
     # FindAnimeWorker.perform_async :last_15_entries
     # HentaiAnimeWorker.perform_async :last_15_entries
     # AnimeSpiritWorker.perform_async :two_pages
-  end
+  # end
 
   every 1.day, 'daily.stuff', at: '00:02' do
     ImportAnimeCalendars.perform_async
@@ -69,6 +69,10 @@ module Clockwork
     SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
     FixAnimeVideoAuthors.perform_async
+  end
+
+  every 1.day, 'daily.torrents-check', at: '03:00' do
+    ImportToshokanTorrents.perform_async false
   end
 
   every 1.day, 'daily.mangas', at: '04:00' do
