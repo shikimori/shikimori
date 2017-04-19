@@ -61,3 +61,6 @@ ru:
           one: Косплеит
           few: Косплеят
           many: Косплеят
+    reviews:
+      votes_count:
+        rejected: перенесено в оффтоп

@@ -11,5 +11,6 @@ p.review-votes_count[
   meta itemprop="ratingCount" content="#{review.votes_count}"
 
   = review.votes_text
+
   - if review.rejected?
-    span.warn перенесено в оффтоп
+    span.warn = t '.rejected'

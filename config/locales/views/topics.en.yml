@@ -61,3 +61,6 @@ en:
           zero: Cosplayers
           one: Cosplayer
           other: Cosplayers
+    reviews:
+      votes_count:
+        rejected: moved to offtopic
