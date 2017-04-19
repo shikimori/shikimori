@@ -4,7 +4,7 @@ class Api::V1::TopicsController < Api::V1Controller
   api :GET, '/topics', 'List topics'
   param :page, :number, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
-  param :forum, Forum::VARIANTS, required: true
+  param :forum, %w[all] + Forum::VARIANTS, required: true
   def index
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min
     @page = [params[:page].to_i, 1].max
