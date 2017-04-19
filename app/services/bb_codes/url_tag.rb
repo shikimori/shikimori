@@ -55,12 +55,10 @@ private
 
     if Url.new(url).without_http.to_s =~ %r{(\w+\.)?shikimori.\w+/(?<path>.+)}
       "/#{$LAST_MATCH_INFO[:path]}"
+    elsif url.size > MAX_SHORT_URL_SIZE
+      Url.new(url).domain.to_s
     else
-      if url.size > MAX_SHORT_URL_SIZE
-        Url.new(url).domain.to_s
-      else
-        Url.new(url).without_http.to_s
-      end
+      Url.new(url).without_http.to_s
     end
   end
 

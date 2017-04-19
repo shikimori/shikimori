@@ -112,7 +112,7 @@ describe BbCodes::UrlTag do
         it { is_expected.to eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
       end
 
-      context 'broken tag', :focus do
+      context 'broken tag' do
         let(:link) { '[url=https://z.org/%B0«z»' }
         let(:text) { "[url=#{url}]#{link}[/url]" }
         it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">#{link}</a>" }
