@@ -127,6 +127,11 @@ ru:
     you_have_joined_club: Вы вступили в клуб "%{club_name}"
     you_have_left_club: Вы покинули клуб "%{club_name}"
 
+  club_invites_controller:
+    invitation_sent: Приглашение отправлено
+    invitation_accepted: Приглашение принято
+    invitation_rejected: Приглашение отклонено
+
   contests_controller:
     contests: Опросы
     new_contest: Новый турнир
@@ -305,6 +310,9 @@ ru:
     kind: Тип
     score: Оценка
     other: Прочее
+
+  shikimori_controller:
+    you_are_banned: Вы забанены до %{datetime}
 
   api/v1/comments_controller:
     comment:

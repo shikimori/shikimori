@@ -5,20 +5,27 @@ en:
     add: Add
     apply: Apply
     apply: Apply
-    ban: Ban
-    ban_user: Ban User
     cancel: Cancel
     create: Create
     delete: Delete
     edit: Edit
     ignore: Ignore
     quote: Quote
+    moderate: Moderate
     reject: Reject
     reply: Reply
     save_apply: Save & Apply
     take: Take
     upload: Upload
     upload_image: Upload image
+    moderation:
+      abuse: Нарушение правил
+      ban: Забанить
+      not_offtopic: Это не оффтопик
+      not_summary: Это не отзыв
+      offtopic: Это оффтопик
+      spoiler: Это спойлер
+      summary: Это отзыв
   by:
     id: By ID
     aired_on: By release date

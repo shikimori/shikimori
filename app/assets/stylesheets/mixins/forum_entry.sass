@@ -118,47 +118,51 @@ $aside_width: 280px
 
           .main-controls
             .item-ignore
-              +icon_expandable('Игнорировать')
+              +icon_expandable
             .item-reply
-              +icon_expandable('Ответить')
+              +icon_expandable
             .item-edit
-              +icon_expandable('Редактировать')
+              +icon_expandable
             .item-delete
-              +icon_expandable('Удалить')
+              +icon_expandable
             .item-moderation
-              +icon_expandable('На модерацию')
+              +icon_expandable
             .item-cancel
-              +icon_expandable('Отмена')
+              +icon_expandable
 
             .item-request-confirm
-              +icon_expandable('Принять')
+              +icon_expandable
             .item-request-reject
-              +icon_expandable('Отклонить')
+              +icon_expandable
 
           .delete-controls
             .item-delete-confirm
-              +icon_expandable('Удалить')
+              +icon_expandable
             .item-delete-cancel
-              +icon_expandable('Отмена')
+              +icon_expandable
 
           .moderation-controls
             .item-ban
-              +icon_expandable('Забанить')
+              +icon_expandable
             .item-abuse
-              +icon_expandable('Нарушение правил')
+              +icon_expandable
             .item-spoiler
-              +icon_expandable('Это спойлер')
+              +icon_expandable
             .item-summary
-              +icon_expandable('Это отзыв')
+              +icon_expandable
               &.selected
                 color: $green
-                &:after
-                  content: 'Это не отзыв'
+                .locale-ru &:after
+                  content: attr(data-text-alternative-ru)
+                .locale-en &:after
+                  content: attr(data-text-alternative-en)
             .item-offtopic
-              +icon_expandable('Это оффтопик')
+              +icon_expandable
               &.selected
                 color: $red
-                &:after
-                  content: 'Это не оффтопик'
+                .locale-en &:after
+                  content: attr(data-text-alternative-ru)
+                .locale-ru &:after
+                  content: attr(data-text-alternative-en)
             .item-moderation-cancel
-              +icon_expandable('Отмена')
+              +icon_expandable

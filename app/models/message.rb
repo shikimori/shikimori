@@ -1,6 +1,8 @@
 # TODO: refactor kind = MessageType::... в enumerize kind или в enum kind
 class Message < ApplicationRecord
+  include Translation
   include Antispam
+
   # для совместимости с comment
   #attr_accessor :topic_name, :topic_url
 
@@ -37,9 +39,11 @@ class Message < ApplicationRecord
 
     if prior_comment && Time.zone.now.to_i - prior_comment.created_at.to_i < 15
       interval = 15 - (Time.zone.now.to_i - prior_comment.created_at.to_i)
+      seconds = i18n_i('datetime.second', interval, :accusative)
+
       errors.add(
         :created_at ,
-        'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
+        i18n_t('antispam', interval: interval, seconds: seconds)
       )
       throw :abort
     end

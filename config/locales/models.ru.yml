@@ -114,3 +114,7 @@ ru:
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}
+
+  message:
+    antispam: >-
+      Защита от спама. Попробуйте снова через %{interval} %{seconds}

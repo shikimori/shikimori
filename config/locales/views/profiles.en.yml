@@ -102,6 +102,8 @@ en:
         ignored_users: Ignored users
         nickname: Login (nickname)
         username: Username
+        disable_authentication: Disable authentication with %{provider}
+        enable_authentication: Enable authentication with %{provider}
 
       profile:
         display_activity_graph_since: Display activity graph since

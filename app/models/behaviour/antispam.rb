@@ -1,5 +1,6 @@
 # refactor to models/concerns
 module Antispam
+  include Translation
   extend ActiveSupport::Concern
 
   included do
@@ -49,9 +50,10 @@ module Antispam
 
     if prior && DateTime.now.to_i - prior.created_at.to_i < 3
       interval = 3 - (DateTime.now.to_i - prior.created_at.to_i)
+      seconds = i18n_i('datetime.second', interval, :accusative)
       errors.add(
         :base,
-        'Защита от спама. Попробуйте снова через %d %s.' % [interval, Russian.p(interval, 'секунду', 'секунды', 'секунд')]
+        I18n.t('message.antispam', interval: interval, seconds: seconds)
       )
       throw :abort
     end

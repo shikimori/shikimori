@@ -127,6 +127,11 @@ en:
     you_have_joined_club: You have joined the club "%{club_name}"
     you_have_left_club: You have left the club "%{club_name}"
 
+  club_invites_controller:
+    invitation_sent: Invitation sent
+    invitation_accepted: Invitation accepted
+    invitation_rejected: Invitation rejected
+
   contests_controller:
     contests: Contests
     new_contest: New contest
@@ -261,7 +266,6 @@ en:
     description:
       List of major anime studios sorted by volume of media produced.
 
-
   reviews_controller:
     <<: *animes_controller
     new_review: New review
@@ -306,6 +310,9 @@ en:
     kind: Type
     score: Score
     other: Others
+
+  shikimori_controller:
+    you_are_banned: You are banned till %{datetime}
 
   api/v1/comments_controller:
     comment:

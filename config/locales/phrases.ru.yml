@@ -5,20 +5,27 @@ ru:
     add: Добавить
     apply: Применить
     apply: Принять
-    ban: Забанить
-    ban_user: Забанить пользователя
     cancel: Отмена
     create: Создать
     delete: Удалить
-    edit: Изменить
+    edit: Редактировать
     ignore: Игнорировать
     quote: Цитировать
+    moderate: На модерацию
     reject: Отклонить
     reply: Ответить
     take: Взять
     upload: Загрузить
     upload: Загрузить
     upload_image: Загрузить изображение
+    moderation:
+      abuse: Abuse
+      ban: Ban
+      not_offtopic: It's not offtopic
+      not_summary: It's not summary
+      offtopic: It's offtopic
+      spoiler: It's spoiler
+      summary: It's summary
   by:
     id: По ID
     aired_on: По дате выхода

@@ -114,3 +114,7 @@ en:
 
   cosplay_gallery:
     title: Cosplay of %{cosplay} by %{cosplayer}
+
+  message:
+    antispam: >-
+      Anti-spam protection. Try again in %{interval} %{seconds}

@@ -82,14 +82,16 @@ $icon_mobile_size: 30px
   font-weight: normal
   margin: 3px 10px 0
 
-=icon_expandable($content)
+=icon_expandable
   +link_color(#123)
   display: block
   margin-left: 0
   margin-bottom: 8px
 
-  &:after
-    content: $content
+  .locale-ru &:after
+    content: attr(data-text-ru)
+  .locale-en &:after
+    content: attr(data-text-en)
 
 =icon_action($content)
   +link_color(#444444)
