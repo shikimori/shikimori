@@ -14,6 +14,7 @@ class @ShikiEditor extends ShikiView
   initialize: ->
     $root = @$root
     @$form = @$('form')
+    @$form = $root.closest('form') unless @$form.exists()
     @$textarea = @$('textarea')
 
     # при вызове фокуса на shiki-editor передача сообщения в редактор
