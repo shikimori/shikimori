@@ -54,6 +54,10 @@ class CollectionsController < ShikimoriController
     end
   end
 
+  def destroy
+    @resource.destroy!
+    redirect_to collections_url, notice: i18n_t('collection_deleted')
+  end
 
 private
 

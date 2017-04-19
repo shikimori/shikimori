@@ -78,4 +78,16 @@ describe CollectionsController do
       end
     end
   end
+
+  describe '#destroy' do
+    include_context :authenticated, :user, :week_registered
+    let(:collection) { create :collection, user: user }
+    before { delete :destroy, params: { id: collection.id } }
+
+    it do
+      expect { collection.reload }.to raise_error ActiveRecord::RecordNotFound
+      expect(response).to redirect_to collections_url
+    end
+  end
+
 end

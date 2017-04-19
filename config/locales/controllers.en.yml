@@ -98,6 +98,7 @@ en:
   collections_controller:
     new_collection: New collection
     collection_created: Collection created
+    collection_deleted: Collection deleted
 
   clubs_controller:
     new_club: New club
