@@ -32,7 +32,7 @@ FactoryGirl.define do
 
     trait :collection do
       id { Topic::FORUM_IDS[Collection.name] }
-      permalink 'clubs'
+      permalink 'collections'
       name_ru 'Клубы'
     end
 
