@@ -14,7 +14,13 @@ class @ShikiEditor extends ShikiView
   initialize: ->
     $root = @$root
     @$form = @$('form')
-    @$form = $root.closest('form') unless @$form.exists()
+
+    if @$form.exists()
+      @is_inner_form = true
+    else
+      @$form = $root.closest('form')
+      @is_inner_form = false
+
     @$textarea = @$('textarea')
 
     # при вызове фокуса на shiki-editor передача сообщения в редактор
@@ -233,7 +239,7 @@ class @ShikiEditor extends ShikiView
     @$('footer .preview').on 'click', =>
       # подстановка данных о текущем элементе, если они есть
       data = {}
-      item_data = if @$form.exists()
+      item_data = if @is_inner_form
         @$form.serializeHash()[@_type()]
       else
         @$root.trigger_with_return('preview:params') || {
