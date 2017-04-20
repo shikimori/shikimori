@@ -59,7 +59,7 @@ class Api::V1::MessagesController < Api::V1Controller
   end
 
   api :POST, '/messages/read_all', 'Mark all messages as read'
-  param :type, %w(news notifications)
+  param :type, %w[news notifications]
   def read_all
     MessagesService.new(current_user).read_messages type: @messages_type
 
@@ -76,10 +76,9 @@ class Api::V1::MessagesController < Api::V1Controller
     end
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :POST, '/messages/delete_all', 'Delete all messages'
   param :frontend, :bool
-  param :type, :undef
+  param :type, %w[news notifications]
   error code: 302
   def delete_all
     MessagesService.new(current_user).delete_messages type: @messages_type

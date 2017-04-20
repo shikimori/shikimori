@@ -5,8 +5,42 @@ class Api::V1::AnimesController < Api::V1Controller
   ORDERS = %w(
     id ranked type popularity name aired_on episodes status random
   )
+  ORDERS_DESC = ORDERS.inject('') do |memo, order|
+    memo +
+      if order == 'random'
+        '<p><code>random</code> &ndash; in random order</p>'
+      else
+        <<~DOC
+          <p><code>#{order}</code> &ndash;
+          #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
+          </p>
+        DOC
+      end
+  end
   DURATIONS = I18n.t('animes_collection.menu.anime.duration', locale: :en)
+  DURATIONS_DESC = DURATIONS
+    .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{v.downcase}</p>" }
+    .join('') + <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{DURATIONS.keys.join '</code>, <code>'}</code>
+        </li>
+      </ul>
+    DOC
   RATINGS = I18n.t('enumerize.anime.rating.hint', locale: :en)
+  RATINGS_DESC = RATINGS
+    .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
+    .join('') + <<~DOC
+      <p><strong>Validations:</strong></p>
+      <ul>
+        <li>
+          Must be one of:
+          <code>#{RATINGS.keys.join '</code>, <code>'}</code>
+        </li>
+      </ul>
+    DOC
 
   api :GET, '/animes', 'List animes'
   description <<~DOC
@@ -52,20 +86,7 @@ class Api::V1::AnimesController < Api::V1Controller
   DOC
   param :page, :number, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
-  param :order, ORDERS,
-    required: false,
-    desc: (ORDERS.inject('') do |memo, order|
-      memo +
-        if order == 'random'
-          '<p><code>random</code> &ndash; in random order</p>'
-        else
-          <<~DOC
-            <p><code>#{order}</code> &ndash;
-            #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
-            </p>
-          DOC
-        end
-    end)
+  param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :type, :undef,
     required: false,
     desc: <<~DOC
@@ -98,32 +119,8 @@ class Api::V1::AnimesController < Api::V1Controller
       <p><code>199x</code></p>
     DOC
   param :score, :number, required: false, desc: 'Minimal anime score'
-  param :duration, :undef,
-    required: false,
-    desc: DURATIONS
-      .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{v.downcase}</p>" }
-      .join('') + <<~DOC
-        <p><strong>Validations:</strong></p>
-        <ul>
-          <li>
-            Must be one of:
-            <code>#{DURATIONS.keys.join '</code>, <code>'}</code>
-          </li>
-        </ul>
-      DOC
-  param :rating, :undef,
-    required: false,
-    desc: RATINGS
-      .map { |(k, v)| "<p><code>#{k}</code> &ndash; #{ERB::Util.h v}</p>" }
-      .join('') + <<~DOC
-        <p><strong>Validations:</strong></p>
-        <ul>
-          <li>
-            Must be one of:
-            <code>#{RATINGS.keys.join '</code>, <code>'}</code>
-          </li>
-        </ul>
-      DOC
+  param :duration, :undef, required: false, desc: DURATIONS_DESC
+  param :rating, :undef, required: false, desc: RATINGS_DESC
   param :genre, :undef,
     required: false,
     desc: 'List of genre ids separated by comma'

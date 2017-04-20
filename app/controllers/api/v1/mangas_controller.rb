@@ -5,6 +5,18 @@ class Api::V1::MangasController < Api::V1Controller
   ORDERS = %w(
     id ranked type popularity name aired_on volumes chapters status random
   )
+  ORDERS_DESC = ORDERS.inject('') do |memo, order|
+    memo +
+      if order == 'random'
+        '<p><code>random</code> &ndash; in random order</p>'
+      else
+        <<~DOC
+          <p><code>#{order}</code> &ndash;
+          #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
+          </p>
+        DOC
+      end
+  end
 
   api :GET, '/mangas', 'List mangas'
   description <<~DOC
@@ -50,20 +62,7 @@ class Api::V1::MangasController < Api::V1Controller
   DOC
   param :page, :number, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
-  param :order, ORDERS,
-    required: false,
-    desc: (ORDERS.inject('') do |memo, order|
-      memo +
-        if order == 'random'
-          '<p><code>random</code> &ndash; in random order</p>'
-        else
-          <<~DOC
-            <p><code>#{order}</code> &ndash;
-            #{I18n.t("by.#{order.gsub('type', 'kind')}", locale: :en).downcase}
-            </p>
-          DOC
-        end
-    end)
+  param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :type, :undef,
     required: false,
     desc: <<~DOC
@@ -128,7 +127,6 @@ class Api::V1::MangasController < Api::V1Controller
   param :search, String,
     required: false,
     desc: 'Search phrase to filter mangas by `name`'
-
   def index
     limit = [[params[:limit].to_i, 1].max, 30].min
 
