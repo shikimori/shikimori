@@ -28,7 +28,7 @@ private
 
   def import_web page
     Retryable.retryable tries: 2, on: EmptyContentError, sleep: 10 do
-      TokyoToshokanParser.grab_page PAGE_URL & page
+      TokyoToshokanParser.grab_page PAGE_URL % page
     end
   end
 end
