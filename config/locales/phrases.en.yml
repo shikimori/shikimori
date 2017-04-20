@@ -20,13 +20,12 @@ en:
     upload: Upload
     upload_image: Upload image
     moderation:
-      abuse: Нарушение правил
-      ban: Забанить
-      not_offtopic: Это не оффтопик
-      not_summary: Это не отзыв
-      offtopic: Это оффтопик
-      spoiler: Это спойлер
-      summary: Это отзыв
+      ban: Ban
+      not_offtopic: It's not offtopic
+      not_summary: It's not summary
+      offtopic: It's offtopic
+      spoiler: It's spoiler
+      summary: It's summary
   by:
     id: By ID
     aired_on: By release date

@@ -119,7 +119,7 @@ class ShikimoriController < ApplicationController
     return unless user_signed_in?
     unless current_user.can_post?
       banned_till = current_user.read_only_at.strftime('%H:%M %d.%m.%Y')
-      raise Forbidden, i18n_t('you_are_banned', datetime: banned_till)
+      raise Forbidden, t('shikimori_controller.you_are_banned', datetime: banned_till)
     end
   end
 end
