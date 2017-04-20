@@ -6,6 +6,7 @@ en:
     apply: Apply
     apply: Apply
     cancel: Cancel
+    confirm: This action is irreversible. Are you sure?
     create: Create
     delete: Delete
     edit: Edit

@@ -24,3 +24,11 @@ header.head.misc
   .buttons
     a.cancel href="#{collections_url}" = t 'actions.cancel'
     = f.button :magic_submit
+
+  - if @resource.persisted?
+    a.remove[
+      href="#{collection_url @resource}"
+      title="#{t 'actions.delete'}"
+      data-method="delete"
+      data-confirm="#{t 'actions.confirm'}"
+    ] = t 'actions.delete'

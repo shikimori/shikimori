@@ -47,11 +47,10 @@
     .b-js-link.cancel = t 'actions.cancel'
     = f.button :magic_submit
 
-  .delete-button.bottom
-    a.remove[
-      href="#{api_user_rate_url f.object, frontend: true}"
-      title="#{t '.remove_from_my_list'}"
-      data-method="delete"
-      data-remote="true"
-      data-type="json"
-    ] = t '.remove_from_my_list'
+  a.remove.bottom[
+    href="#{api_user_rate_url f.object, frontend: true}"
+    title="#{t '.remove_from_my_list'}"
+    data-method="delete"
+    data-remote="true"
+    data-type="json"
+  ] = t '.remove_from_my_list'

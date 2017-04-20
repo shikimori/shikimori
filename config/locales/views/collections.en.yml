@@ -3,3 +3,4 @@ en:
     index:
       new: Create new collection
       notice: List of all collections sorted by their rating
+      nothing_here: No collections

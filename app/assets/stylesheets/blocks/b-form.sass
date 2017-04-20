@@ -37,10 +37,6 @@
       a
         +link
 
-  .delete-button
-    a.remove
-      vertical-align: middle
-
   a.remove
     +js-link
     color: $red
@@ -49,6 +45,10 @@
     &:hover
       color: red
       border-bottom-color: rgba(255, 65, 54, 0.6)
+
+  .buttons + a.remove
+    display: inline-block
+    vertical-align: middle
 
   .actions
     +block

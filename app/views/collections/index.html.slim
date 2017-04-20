@@ -10,7 +10,10 @@ header.head.misc
   p.notice.clearfix = t '.notice'
 
 .block
-  = render @collection
+  - if @collection.any?
+    = render @collection
+  - else
+    .b-nothing_here = t '.nothing_here'
 
   - if @add_postloader
     = render 'blocks/postloader', filter: 'b-club',
