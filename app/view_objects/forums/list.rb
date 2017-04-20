@@ -12,6 +12,7 @@ private
 
   def cached_forums
     return decorated_forums unless @with_forum_size
+
     Rails.cache.fetch([:forums, :v3, Topic.last&.id], expires_in: 2.weeks) do
       decorated_forums
     end
@@ -30,6 +31,7 @@ private
       decorate(Forum::NEWS_FORUM, true),
       decorate(Forum.find_by_permalink('reviews'), true),
       decorate(Forum.find_by_permalink('contests'), true),
+      decorate(Forum.find_by_permalink('collections'), true),
       decorate(Forum::MY_CLUBS_FORUM, true),
       decorate(Forum.find_by_permalink('clubs'), true)
     ]
