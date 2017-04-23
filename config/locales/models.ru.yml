@@ -14,7 +14,7 @@ ru:
 
         demons: '%{kind} про демонов'
         drama: '%{kind} в жанре драма'
-        echi: этти %{kind}
+        ecchi: этти %{kind}
         fantasy: фэнтези %{kind}
         games: '%{kind} про игры'
 

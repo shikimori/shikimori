@@ -14,7 +14,7 @@ en:
         comedy: comedy %{kind}
         demons: '%{kind} about demons'
         drama: drama %{kind}
-        echi: echi %{kind}
+        ecchi: ecchi %{kind}
         fantasy: fantasy %{kind}
         games: '%{kind} about games'
         historical: historical %{kind}
