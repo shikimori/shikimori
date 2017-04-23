@@ -9,7 +9,7 @@ class BbCodes::ContestStatusTag
   /xi
 
   def format text
-    text.gsub REGEXP do |matched|
+    text.gsub REGEXP do |match|
       contest = Contest.find_by id: $~[:id]
 
       if contest
@@ -18,27 +18,27 @@ class BbCodes::ContestStatusTag
         ru = Types::Locale[:ru]
         en = Types::Locale[:en]
 
-        contest = "<span class='translated' "\
-          "data-text-ru='#{Contest.model_name.human(ru)}' "\
-          "data-text-en='#{Contest.model_name.human(en)}' "\
+        contest_text = "<span class='translated-after' "\
+          "data-text-ru='#{Contest.model_name.human(locale: ru)}' "\
+          "data-text-en='#{Contest.model_name.human(locale: en)}' "\
           "></span>"
-        link = "<a href='#{url}' class='b-link translated' "\
+        link_text = "<a href='#{url}' class='b-link translated-after' "\
           "data-text-ru='#{contest.title_ru}' "\
           "data-text-en='#{contest.title_en}' "\
           "></a>"
-        finished = "<span class='translated' "\
-          "data-text-ru='#{i18n_t('finished', locale: ru)} "\
-          "data-text-en='#{i18n_t('finished', locale: en)} "\
+        finished_text = "<span class='translated-after' "\
+          "data-text-ru='#{i18n_t('finished', locale: ru)}' "\
+          "data-text-en='#{i18n_t('finished', locale: en)}' "\
           "></span>"
 
-        "#{contest} #{link} #{finished}"
+        "#{contest_text} #{link_text} #{finished_text}"
       else
-        matched
+        match
       end
     end
   end
 
-private
+  private
 
   def url_generator
     UrlGenerator.instance

@@ -23,8 +23,7 @@ class Contest < ApplicationRecord
     class_name: ContestRound.name,
     dependent: :destroy
 
-  validates :title_ru, presence: true, if: -> { title_en.blank? }
-  validates :title_en, presence: true, if: -> { title_ru.blank? }
+  validates :title_ru, :title_en, presence: true
 
   validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true
@@ -140,16 +139,15 @@ class Contest < ApplicationRecord
       .compact
   end
 
-  # для урлов
   def to_param
-    "#{self.id}-#{name.permalinked}"
+    "#{self.id}-#{name&.permalinked}"
   end
 
-  def title locale = nil
+  def title
     I18n.russian? ? title_ru : title_en
   end
 
-  # для совместимости с форумом
+  # for compatibility with forum
   def name
     title
   end

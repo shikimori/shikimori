@@ -9,7 +9,7 @@ class BbCodes::ContestRoundStatusTag
   /xi
 
   def format text
-    text.gsub REGEXP do |matched|
+    text.gsub REGEXP do |match|
       round = ContestRound.find_by id: $~[:id]
 
       if round
@@ -18,23 +18,23 @@ class BbCodes::ContestRoundStatusTag
         ru = Types::Locale[:ru]
         en = Types::Locale[:en]
 
-        link = "<a href='#{url}' class='b-link translated' "\
+        link_text = "<a href='#{url}' class='b-link translated-after' "\
           "data-text-ru='#{round.title_ru}' "\
           "data-text-en='#{round.title_en}' "\
           "></a>"
-        finished = "<span class='translated' "\
-          "data-text-ru='#{i18n_t('finished', locale: ru)} "\
-          "data-text-en='#{i18n_t('finished', locale: en)} "\
+        finished_text = "<span class='translated-after' "\
+          "data-text-ru='#{i18n_t('finished', locale: ru)}' "\
+          "data-text-en='#{i18n_t('finished', locale: en)}' "\
           "></span>"
 
-        "#{link} #{finished}"
+        "#{link_text} #{finished_text}"
       else
-        matched
+        match
       end
     end
   end
 
-private
+  private
 
   def url_generator
     UrlGenerator.instance

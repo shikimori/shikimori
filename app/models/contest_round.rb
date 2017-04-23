@@ -46,6 +46,14 @@ class ContestRound < ApplicationRecord
     end
   end
 
+  def title_ru is_short = false
+    title(is_short, Types::Locale[:ru])
+  end
+
+  def title_en is_short = false
+    title(is_short, Types::Locale[:en])
+  end
+
   # название раунда
   def title is_short = false, locale = nil
     if is_short
@@ -59,14 +67,6 @@ class ContestRound < ApplicationRecord
         locale: locale
       )
     end
-  end
-
-  def title_ru is_short = false
-    title(is_short, Types::Locale[:ru])
-  end
-
-  def title_en is_short = false
-    title(is_short, Types::Locale[:en])
   end
 
   def to_param

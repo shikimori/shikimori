@@ -140,8 +140,14 @@ hr
   //border-bottom: 1px dashed #ccc
   //background: #999
 
-.translated
-  .locale-en &:after
-    content: attr(data-text-ru)
+.translated-after
   .locale-ru &:after
+    content: attr(data-text-ru)
+  .locale-en &:after
+    content: attr(data-text-en)
+
+.translated-before
+  .locale-ru &:before
+    content: attr(data-text-ru)
+  .locale-en &:before
     content: attr(data-text-en)
