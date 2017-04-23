@@ -1,12 +1,18 @@
 describe Collection do
   describe 'relations' do
     it { is_expected.to belong_to :user }
+    it { is_expected.to have_many(:links).dependent :destroy }
   end
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :name }
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :locale }
+  end
+
+  describe 'enumerize' do
+    it { is_expected.to enumerize(:kind).in(*Types::Collection::Kind.values) }
+    it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
   describe 'permissions' do

@@ -183,6 +183,15 @@ shared_examples :topics_concern_in_db_entry do |db_entry|
   end
 end
 
+shared_examples :collections_concern_in_db_entry do |db_entry|
+  describe 'collections concern' do
+    describe 'associations' do
+      it { is_expected.to have_many(:collection_links).dependent :destroy }
+      it { is_expected.to have_many :collections }
+    end
+  end
+end
+
 shared_examples :elasticsearch_concern do |type|
   describe 'elasticsearch concern' do
     let(:client) { Elasticsearch::Client.instance }

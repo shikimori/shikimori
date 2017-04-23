@@ -2,6 +2,7 @@ class Collection < ApplicationRecord
   include TopicsConcern
 
   belongs_to :user
+  has_many :links, class_name: CollectionLink.name, dependent: :destroy
 
   validates :name, :user, :kind, presence: true
   validates :locale, presence: true

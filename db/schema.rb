@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420223809) do
+ActiveRecord::Schema.define(version: 20170423091918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -276,6 +276,17 @@ ActiveRecord::Schema.define(version: 20170420223809) do
     t.string   "comment_policy",                                  null: false
     t.string   "topic_policy",                                    null: false
     t.index ["style_id"], name: "index_clubs_on_style_id", using: :btree
+  end
+
+  create_table "collection_links", force: :cascade do |t|
+    t.integer  "collection_id", null: false
+    t.string   "linked_type",   null: false
+    t.integer  "linked_id",     null: false
+    t.string   "group"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["collection_id"], name: "index_collection_links_on_collection_id", using: :btree
+    t.index ["linked_type", "linked_id"], name: "index_collection_links_on_linked_type_and_linked_id", using: :btree
   end
 
   create_table "collections", force: :cascade do |t|
