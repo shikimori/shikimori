@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :contest do
-    title_ru 'Соревнование'
+    title_ru 'Турнир'
     title_en 'Contest'
     user { seed :user }
 
