@@ -139,7 +139,7 @@ class Contest < ApplicationRecord
   end
 
   def to_param
-    "#{self.id}-#{name&.permalinked}"
+    "#{self.id}-#{name.permalinked}"
   end
 
   def title
