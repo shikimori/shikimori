@@ -2,13 +2,13 @@ aside.buttons
   .main-controls
     - if message.kind == MessageType::FriendRequest
       - if message.to.friended? message.from
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
         ]
       - else
-        span.item-request-confirm[
+        span.item-request-confirm.translated-after[
           title=t('actions.accept')
           data-text-ru=t('actions.accept', locale: 'ru')
           data-text-en=t('actions.accept', locale: 'en')
@@ -17,12 +17,12 @@ aside.buttons
           data-type='json'
           action="#{api_friend_url message.from_id}"
         ]
-        span.item-request-reject.friend-request[
+        span.item-request-reject.friend-request.translated-after[
           title=t('actions.reject')
           data-text-ru=t('actions.reject', locale: 'ru')
           data-text-en=t('actions.reject', locale: 'en')
         ]
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
@@ -31,7 +31,7 @@ aside.buttons
 
     - elsif message.kind == MessageType::ClubRequest
       - if message.linked.pending?
-        span.item-request-confirm[
+        span.item-request-confirm.translated-after[
           title=t('actions.accept')
           data-text-ru=t('actions.accept', locale: 'ru')
           data-text-en=t('actions.accept', locale: 'en')
@@ -40,7 +40,7 @@ aside.buttons
           data-type='json'
           action="#{accept_club_invite_url message.linked}"
         ]
-        span.item-request-reject[
+        span.item-request-reject.translated-after[
           title=t('actions.reject')
           data-text-ru=t('actions.reject', locale: 'ru')
           data-text-en=t('actions.reject', locale: 'en')
@@ -49,14 +49,14 @@ aside.buttons
           data-type='json'
           action="#{reject_club_invite_url message.linked}"
         ]
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
           style="#{'display: none' unless message.read}"
         ]
       - else
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
@@ -64,28 +64,28 @@ aside.buttons
 
     - else
       - if message.kind == MessageType::Private
-        span.item-quote[
+        span.item-quote.translated-after[
           title=t('actions.quote')
           data-text-ru=t('actions.quote', locale: 'ru')
           data-text-en=t('actions.quote', locale: 'en')
         ]
 
         - if local_assigns[:reply_as_link]
-          a.item-reply[
+          a.item-reply.translated-after[
             href="#{reply_profile_dialog_url message.to.to_param, message.from.to_param, message}"
             title=t('actions.reply')
             data-text-ru=t('actions.reply', locale: 'ru')
             data-text-en=t('actions.reply', locale: 'en')
           ]
         - else
-          span.item-reply[
+          span.item-reply.translated-after[
             title=t('actions.reply')
             data-text-ru=t('actions.reply', locale: 'ru')
             data-text-en=t('actions.reply', locale: 'en')
           ]
 
         - if can? :edit, message
-          span.item-edit[
+          span.item-edit.translated-after[
             title=t('actions.edit')
             data-text-ru=t('actions.edit', locale: 'ru')
             data-text-en=t('actions.edit', locale: 'en')
@@ -95,7 +95,7 @@ aside.buttons
           ]
 
       - elsif message.kind == MessageType::QuotedByUser
-        a.item-reply[
+        a.item-reply.translated-after[
           href="#{reply_comment_url message.linked}"
           title=t('actions.reply')
           data-text-ru=t('actions.reply', locale: 'ru')
@@ -103,13 +103,13 @@ aside.buttons
         ]
 
       - if can? :destroy, message
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
         ]
 
-    span.item-cancel[
+    span.item-cancel.translated-after[
       title=t('actions.cancel')
       data-text-ru=t('actions.cancel', locale: 'ru')
       data-text-en=t('actions.cancel', locale: 'en')
@@ -117,7 +117,7 @@ aside.buttons
 
   - if can? :destroy, message
     .delete-controls
-      span.item-delete-confirm[
+      span.item-delete-confirm.translated-after[
         title=t('actions.delete')
         data-text-ru=t('actions.delete', locale: 'ru')
         data-text-en=t('actions.delete', locale: 'en')
@@ -126,7 +126,7 @@ aside.buttons
         data-remote='true'
         data-method='delete'
       ]
-      span.item-delete-cancel[
+      span.item-delete-cancel.translated-after[
         title=t('actions.cancel')
         data-text-ru=t('actions.cancel', locale: 'ru')
         data-text-en=t('actions.cancel', locale: 'en')

@@ -1,18 +1,18 @@
 aside.buttons
   .main-controls
-    span.item-quote.to-process[
+    span.item-quote.to-process.translated-after[
       title=t('actions.quote')
       data-text-ru=t('actions.quote', locale: 'ru')
       data-text-en=t('actions.quote', locale: 'en')
       data-dynamic='authorized'
     ]
-    span.item-reply.to-process[
+    span.item-reply.to-process.translated-after[
       title=t('actions.reply')
       data-text-ru=t('actions.reply', locale: 'ru')
       data-text-en=t('actions.reply', locale: 'en')
       data-dynamic='authorized'
     ]
-    span.item-edit[
+    span.item-edit.translated-after[
       title=t('actions.edit')
       data-text-ru=t('actions.edit', locale: 'ru')
       data-text-en=t('actions.edit', locale: 'en')
@@ -20,25 +20,25 @@ aside.buttons
       data-type='html'
       data-remote='true'
     ]
-    span.item-delete[
+    span.item-delete.translated-after[
       title=t('actions.delete')
       data-text-ru=t('actions.delete', locale: 'ru')
       data-text-en=t('actions.delete', locale: 'en')
     ]
     - if comment.commentable_type == 'Topic'
-      span.item-moderation[
+      span.item-moderation.translated-after[
         title=t('actions.moderate')
         data-text-ru=t('actions.moderate', locale: 'ru')
         data-text-en=t('actions.moderate', locale: 'en')
       ]
-    span.item-cancel[
+    span.item-cancel.translated-after[
       title=t('actions.cancel')
       data-text-ru=t('actions.cancel', locale: 'ru')
       data-text-en=t('actions.cancel', locale: 'en')
     ]
 
   .delete-controls
-    span.item-delete-confirm[
+    span.item-delete-confirm.translated-after[
       title=t('actions.delete')
       data-text-ru=t('actions.delete', locale: 'ru')
       data-text-en=t('actions.delete', locale: 'en')
@@ -47,14 +47,14 @@ aside.buttons
       data-remote='true'
       data-method='delete'
     ]
-    span.item-delete-cancel[
+    span.item-delete-cancel.translated-after[
       title=t('actions.cancel')
       data-text-ru=t('actions.cancel', locale: 'ru')
       data-text-en=t('actions.cancel', locale: 'en')
     ]
 
   .moderation-controls
-    span.item-ban.b-tooltipped.unprocessed[
+    span.item-ban.b-tooltipped.unprocessed.translated-after[
       title=t('actions.moderation.ban')
       data-text-ru=t('actions.moderation.ban', locale: 'ru')
       data-text-en=t('actions.moderation.ban', locale: 'en')
@@ -64,7 +64,7 @@ aside.buttons
       data-remote='true'
       data-direction='top'
     ]
-    span.item-abuse.b-tooltipped.unprocessed[
+    span.item-abuse.b-tooltipped.unprocessed.translated-after[
       title=t('actions.moderation.abuse')
       data-text-ru=t('actions.moderation.abuse', locale: 'ru')
       data-text-en=t('actions.moderation.abuse', locale: 'en')
@@ -75,7 +75,7 @@ aside.buttons
       data-reason-prompt='Уточните, что за нарушение (заполнять не обязательно)'
       data-direction='top'
     ]
-    span.item-spoiler.b-tooltipped.unprocessed[
+    span.item-spoiler.b-tooltipped.unprocessed.translated-after[
       title=t('actions.moderation.spoiler')
       data-text-ru=t('actions.moderation.spoiler', locale: 'ru')
       data-text-en=t('actions.moderation.spoiler', locale: 'en')
@@ -86,7 +86,7 @@ aside.buttons
       data-reason-prompt='Уточните, что именно является спойлером (заполнять не обязательно)'
       data-direction='top'
     ]
-    span.item-offtopic.b-tooltipped.unprocessed[
+    span.item-offtopic.b-tooltipped.unprocessed.translated-after[
       class="#{:selected if comment.offtopic?}"
       title=t('actions.moderation.offtopic')
       data-text-ru=t('actions.moderation.offtopic', locale: 'ru')
@@ -101,7 +101,7 @@ aside.buttons
     ]
 
     - if comment.try :allowed_summary?
-      span.item-summary.b-tooltipped.unprocessed[
+      span.item-summary.b-tooltipped.unprocessed.translated-after[
         class="#{:selected if comment.summary?}"
         title=t('actions.moderation.summary')
         data-text-ru=t('actions.moderation.summary', locale: 'ru')
@@ -116,7 +116,7 @@ aside.buttons
       ]
 
     - if comment.commentable_type == 'Topic'
-      span.item-moderation-cancel[
+      span.item-moderation-cancel.translated-after[
         title=t('actions.cancel')
         data-text-ru=t('actions.cancel', locale: 'ru')
         data-text-en=t('actions.cancel', locale: 'en')
