@@ -13,7 +13,7 @@ class BbCodes::ContestStatusTag
       contest = Contest.find_by(id: Regexp.last_match[:id])
 
       if contest
-        url = url_generator.contest_url contest
+        url = url_generator.contest_url(contest)
 
         ru = Types::Locale[:ru]
         en = Types::Locale[:en]
@@ -31,7 +31,7 @@ class BbCodes::ContestStatusTag
           "data-text-en='#{i18n_t('finished', locale: en)}' "\
           "></span>"
 
-        "#{contest_text} #{link_text} #{finished_text}"
+        "#{contest_text} #{link_text} #{finished_text}."
       else
         match
       end

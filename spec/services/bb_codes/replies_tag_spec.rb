@@ -17,11 +17,11 @@ describe BbCodes::RepliesTag do
       it do
         is_expected.to eq(
           "<div class='b-replies translated-before single' "\
-            "data-text-ru='Ответ: ' "\
-            "data-text-en='Reply: ' "\
-            "data-text-alt-ru='Ответы: ' "\
-            "data-text-alt-en='Replies: ' >"\
-            "[comment=#{comment_1.id}][/comment]</div>"
+            "data-text-ru='Ответы: ' "\
+            "data-text-en='Replies: ' "\
+            "data-text-alt-ru='Ответ: ' "\
+            "data-text-alt-en='Reply: ' "\
+            ">[comment=#{comment_1.id}][/comment]</div>"
         )
       end
     end
@@ -31,11 +31,11 @@ describe BbCodes::RepliesTag do
       it do
         is_expected.to eq(
           "<div class='b-replies translated-before ' "\
-            "data-text-ru='Ответ: ' "\
-            "data-text-en='Reply: ' "\
-            "data-text-alt-ru='Ответы: ' "\
-            "data-text-alt-en='Replies: ' >"\
-            "[comment=#{comment_1.id}][/comment], "\
+            "data-text-ru='Ответы: ' "\
+            "data-text-en='Replies: ' "\
+            "data-text-alt-ru='Ответ: ' "\
+            "data-text-alt-en='Reply: ' "\
+            ">[comment=#{comment_1.id}][/comment], "\
             "[comment=#{comment_2.id}][/comment]</div>"
         )
       end

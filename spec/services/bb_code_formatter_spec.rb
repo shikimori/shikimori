@@ -410,7 +410,7 @@ describe BbCodeFormatter do
     describe '[replies]' do
       let(:text) { "[replies=#{comment.id}]" }
       let!(:comment) { create :comment }
-      it { is_expected.to include '<div class="b-replies single"' }
+      it { is_expected.to include '<div class="b-replies translated-before single"' }
     end
 
     describe '[contest_round]' do

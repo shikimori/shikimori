@@ -15,7 +15,7 @@ describe BbCodes::ContestRoundStatusTag do
           "data-text-en='#{round.title_en}' ></a> "\
           "<span class='translated-after' "\
           "data-text-ru='завершён' "\
-          "data-text-en='has finished' ></span>"
+          "data-text-en='has finished' ></span>."
       )
     end
   end

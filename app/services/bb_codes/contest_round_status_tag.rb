@@ -10,7 +10,7 @@ class BbCodes::ContestRoundStatusTag
 
   def format text
     text.gsub REGEXP do |match|
-      round = ContestRound.find_by id: $~[:id]
+      round = ContestRound.find_by(id: Regexp.last_match[:id])
 
       if round
         url = url_generator.round_contest_url(round.contest, round)
@@ -27,7 +27,7 @@ class BbCodes::ContestRoundStatusTag
           "data-text-en='#{i18n_t('finished', locale: en)}' "\
           "></span>"
 
-        "#{link_text} #{finished_text}"
+        "#{link_text} #{finished_text}."
       else
         match
       end
