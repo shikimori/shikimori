@@ -24,7 +24,6 @@ class Contest < ApplicationRecord
     dependent: :destroy
 
   validates :title_ru, :title_en, presence: true
-
   validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true
   validates :matches_interval, :match_duration, :matches_per_round,
