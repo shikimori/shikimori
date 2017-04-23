@@ -10,7 +10,7 @@ class BbCodes::ContestStatusTag
 
   def format text
     text.gsub REGEXP do |match|
-      contest = Contest.find_by id: $~[:id]
+      contest = Contest.find_by(id: Regexp.last_match[:id])
 
       if contest
         url = url_generator.contest_url contest
