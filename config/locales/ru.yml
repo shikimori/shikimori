@@ -252,6 +252,13 @@ ru:
           pending: ожидает модерации
           accepted: принято
           rejected: отклонено
+      collection:
+        states:
+          pending: Не опубликовано
+          published: Опубликовано
+        events:
+          publish: Опубликовать
+          unpublish: Отменить публикацию
       anime_video:
         states:
           working: работает

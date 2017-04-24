@@ -30,7 +30,7 @@ class CollectionsController < ShikimoriController
     @resource = Collection::Create.call create_params, locale_from_host
 
     if @resource.errors.blank?
-      redirect_to collection_url(@resource),
+      redirect_to edit_collection_url(@resource),
         notice: i18n_t('collection_created')
     else
       new
@@ -52,6 +52,16 @@ class CollectionsController < ShikimoriController
       flash[:alert] = t('changes_not_saved')
       edit
     end
+  end
+
+  def publish
+    @resource.publish
+    redirect_to edit_collection_url(@resource), notice: t('changes_saved')
+  end
+
+  def unpublish
+    @resource.unpublish
+    redirect_to edit_collection_url(@resource), notice: t('changes_saved')
   end
 
   def destroy

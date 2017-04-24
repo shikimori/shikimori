@@ -9,17 +9,35 @@ header.head.misc
 
 = simple_form_for @resource do |f|
   .subheadline = t :settings
-  .block
-    = f.input :user_id, as: :hidden
-    = f.input :name
-    = f.input :kind, include_blank: false
+  .cc-2.block
+    .c-column
+      .block
+        = f.input :user_id, as: :hidden
+        = f.input :name
+        = f.input :kind, include_blank: false, disabled: @resource.persisted?
 
-  .block
-    .b-shiki_editor.unprocessed
-      .field-name = Collection.human_attribute_name :text
-      = render 'comments/shiki_editor',
-        text: @resource.text,
-        field_name: 'collection[text]'
+      - if @resource.persisted?
+        .subheadline = t '.status'
+        = @resource.human_state_name
+
+        - if @resource.can_publish?
+          div: a.b-js-link[
+            href="#{publish_collection_url @resource}"
+            data-method='post'
+          ] = Collection.human_state_event_name :publish
+
+        - if @resource.can_unpublish?
+          div: a.b-js-link[
+            href="#{unpublish_collection_url @resource}"
+            data-method='post'
+          ] = Collection.human_state_event_name :unpublish
+
+    .c-column
+      .b-shiki_editor.unprocessed
+        .field-name = Collection.human_attribute_name :text
+        = render 'comments/shiki_editor',
+          text: @resource.text,
+          field_name: 'collection[text]'
 
   .buttons
     a.cancel href="#{collections_url}" = t 'actions.cancel'

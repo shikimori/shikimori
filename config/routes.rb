@@ -481,6 +481,8 @@ Rails.application.routes.draw do
 
     resources :collections do
       get '(/p-:page)' => 'collections#index', as: '', on: :collection
+      post :publish, on: :member
+      post :unpublish, on: :member
     end
 
     resources :club_invites, only: [] do

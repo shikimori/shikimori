@@ -27,7 +27,7 @@ describe CollectionsController do
 
       it do
         expect(resource).to be_persisted
-        expect(response).to redirect_to collection_url(resource)
+        expect(response).to redirect_to edit_collection_url(resource)
       end
     end
 
@@ -79,6 +79,28 @@ describe CollectionsController do
     end
   end
 
+  describe '#publish' do
+    include_context :authenticated, :user, :week_registered
+    let(:collection) { create :collection, :pending, user: user }
+    before { post :publish, params: { id: collection.id } }
+
+    it do
+      expect(resource.reload).to be_published
+      expect(response).to redirect_to edit_collection_url(resource)
+    end
+  end
+
+  describe '#unpublish' do
+    include_context :authenticated, :user, :week_registered
+    let(:collection) { create :collection, :published, user: user }
+    before { post :unpublish, params: { id: collection.id } }
+
+    it do
+      expect(resource.reload).to be_pending
+      expect(response).to redirect_to edit_collection_url(resource)
+    end
+  end
+
   describe '#destroy' do
     include_context :authenticated, :user, :week_registered
     let(:collection) { create :collection, user: user }
@@ -89,5 +111,4 @@ describe CollectionsController do
       expect(response).to redirect_to collections_url
     end
   end
-
 end

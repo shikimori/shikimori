@@ -252,6 +252,13 @@ en:
           pending: pending approval
           accepted: accepted
           rejected: rejected
+      collection:
+        states:
+          pending: Not published
+          published: Published
+        events:
+          publish: Publish
+          unpublish: Unpublish
       anime_video:
         states:
           working: working

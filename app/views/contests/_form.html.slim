@@ -52,7 +52,7 @@
       - if contest.persisted?
         .subheadline = t '.status'
         .block
-          p.m5 = t("Contest.#{contest.state}")
+          p.m5 = contest.human_state_name
 
         - if contest.object.can_propose? || contest.can_start? || contest.can_stop_propose?
           .subheadline = t '.actions'
