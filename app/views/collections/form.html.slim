@@ -39,6 +39,10 @@ header.head.misc
           text: @resource.text,
           field_name: 'collection[text]'
 
+  - if @resource.persisted?
+    .block
+      .subheadline = @resource.kind_text
+
   .buttons
     a.cancel href="#{collections_url}" = t 'actions.cancel'
     = f.button :magic_submit

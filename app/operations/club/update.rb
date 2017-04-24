@@ -23,20 +23,20 @@ private
 
   def update_club
     Club.transaction do
-      update_links if links_page?
-      update_members if members_page?
+      cleaup_links if links_page?
+      cleaup_members if members_page?
 
       @model.update @params
     end
   end
 
-  def update_links
-    @model.links.where(linked_type: Anime.name).destroy_all
-    @model.links.where(linked_type: Manga.name).destroy_all
-    @model.links.where(linked_type: Character.name).destroy_all
+  def cleaup_links
+    @model.links.where(linked_type: Anime.name).delete_all
+    @model.links.where(linked_type: Manga.name).delete_all
+    @model.links.where(linked_type: Character.name).delete_all
   end
 
-  def update_members
+  def cleaup_members
     @model.banned_users = []
     @model.member_roles.where(role: :admin).update_all role: :member
     @model.member_roles.where(user_id: @params[:admin_ids]).destroy_all
