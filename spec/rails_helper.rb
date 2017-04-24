@@ -83,6 +83,7 @@ RSpec.configure do |config|
   config.include Paperclip::Shoulda::Matchers
   config.include Shoulda::Matchers::ActiveModel, type: :validator
   config.include FeatureHelpers, type: :feature
+  config.include StateMachineRspec::Matchers, type: :model
 
   # [:controller, :view, :request].each do |type|
     # config.include ::Rails::Controller::Testing::TestProcess, :type => type

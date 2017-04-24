@@ -5,6 +5,7 @@
 class Anime < DbEntry
   include AniManga
   include TopicsConcern
+  include CollectionsConcern
   include ElasticsearchConcern
 
   DESYNCABLE = %w(
