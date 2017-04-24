@@ -3,6 +3,8 @@ class Abilities::User
   prepend Draper::CanCanCan
 
   USER_TOPIC_TYPES = [
+    # nil for NEW topic button when user must choose type between News and Topic
+    nil,
     Topic.name,
     Topics::NewsTopic.name,
     Topics::EntryTopics::ReviewTopic.name
