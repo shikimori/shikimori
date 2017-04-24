@@ -18,14 +18,22 @@ private
   end
 
   def collection_links
-    @params[:linked_ids].each_with_index.map do |linked_id, index|
+    linked_ids.each_with_index.map do |linked_id, index|
       CollectionLink.new(
         collection: @model,
         linked_id: linked_id,
         linked_type: @model.kind.capitalize,
-        group: @params[:linked_groups][index]
+        group: linked_groups[index]
       )
     end
+  end
+
+  def linked_ids
+    @params[:linked_ids] || []
+  end
+
+  def linked_groups
+    @params[:linked_groups] || []
   end
 
   def update_params

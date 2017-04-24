@@ -4,7 +4,7 @@ class CollectionsController < ShikimoriController
   before_action { page_title i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
 
-  UPDATE_PARAMS = %i[name text] + [linked_id: [], linked_groups: []]
+  UPDATE_PARAMS = %i[name text] + [linked_ids: [], linked_groups: []]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
 
   def index
@@ -44,7 +44,7 @@ class CollectionsController < ShikimoriController
   end
 
   def update
-    Collection::Update.call @resource, update_params, 
+    Collection::Update.call @resource, update_params
 
     if @resource.errors.blank?
       redirect_to collection_url(@resource), notice: t('changes_saved')

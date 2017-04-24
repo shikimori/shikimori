@@ -54,9 +54,18 @@ describe CollectionsController do
             collection: params
           }
       end
-      let(:params) { { name: 'test collection' } }
+      let(:params) do
+        {
+          name: 'test collection',
+          linked_ids: [anime.id.to_s],
+          linked_groups: ['test']
+        }
+      end
+      let(:anime) { create :anime }
 
       it do
+        expect(resource.reload).to have_attributes name: params[:name]
+        expect(resource.links).to have(1).item
         expect(resource.errors).to be_empty
         expect(response).to redirect_to collection_url(resource)
       end
