@@ -15,6 +15,16 @@ describe Collection do
     it { is_expected.to enumerize(:locale).in(*Types::Locale.values) }
   end
 
+  describe 'state_machine' do
+    it { is_expected.to have_states :pending, :published }
+
+    it { is_expected.to handle_events :publish, when: :pending }
+    it { is_expected.to reject_events :unpublish, when: :pending }
+
+    it { is_expected.to handle_events :unpublish, when: :published }
+    it { is_expected.to reject_events :publish, when: :published }
+  end
+
   describe 'permissions' do
     let(:collection) { build_stubbed :collection, user: user }
     subject { Ability.new user }

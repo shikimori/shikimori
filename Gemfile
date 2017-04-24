@@ -176,6 +176,7 @@ group :test do
   gem 'factory_girl_rails', require: false
   gem 'factory_girl-seeds', require: false
   gem 'rails-controller-testing' # it allows use `assigns` method in specs
+  gem 'state_machine_rspec'
   gem 'rspec-core'
   gem 'rspec-expectations'
   gem 'rspec-mocks'

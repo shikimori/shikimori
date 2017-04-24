@@ -657,6 +657,10 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     state_machine (1.2.0)
+    state_machine_rspec (0.2.0)
+      activesupport
+      rspec (>= 3.0.0.rc1)
+      state_machine (>= 1.1.0)
     temple (0.7.7)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
@@ -841,6 +845,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   state_machine
+  state_machine_rspec
   thin
   timecop
   truncate_html
