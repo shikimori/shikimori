@@ -125,7 +125,7 @@ private
       end
     allowed_params += [:broadcast] if current_user&.admin?
 
-    params[:body] = Topics::ComposeBody.call(params[:topic])
+    params[:topic][:body] = Topics::ComposeBody.call(params[:topic])
 
     params.require(:topic).permit(*allowed_params)
   end
