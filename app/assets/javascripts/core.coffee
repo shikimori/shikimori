@@ -6,6 +6,8 @@
 #= require bowser
 #= require mobile-detect
 
+#= require vue
+
 #= require uevent
 #= require d3
 #= require jQuery-Storage-API

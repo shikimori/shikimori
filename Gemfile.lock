@@ -685,6 +685,7 @@ GEM
       kgio (~> 2.6)
       raindrops (~> 0.7)
     vcr (3.0.3)
+    vuejs-rails (2.2.1)
     warden (1.2.7)
       rack (>= 1.0)
     webmock (2.3.2)
@@ -854,6 +855,7 @@ DEPENDENCIES
   unicode
   unicorn
   vcr
+  vuejs-rails
   webmock
   whenever
   xxhash
