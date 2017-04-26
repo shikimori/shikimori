@@ -1,3 +1,4 @@
+#= require_tree ./templates
 #= require_tree ./services
 
 #= require ./views/application/view
