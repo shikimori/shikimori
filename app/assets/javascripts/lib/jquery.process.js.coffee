@@ -91,8 +91,13 @@
     .show_more()
 
   # сворачиваение всех нужных блоков "свернуть"
-  _.each ($.cookie('collapses') || '').replace(/;$/, '').split(';'), (v, k) ->
-    $with("#collapse-#{v}", $root).filter(':not(.triggered)').trigger 'click', true
+  ($.cookie('collapses') || '')
+    .replace(/;$/, '')
+    .split(';')
+    .forEach (v, k) ->
+      $with("#collapse-#{v}", $root)
+        .filter(':not(.triggered)')
+        .trigger('click', true)
 
   # выравнивание картинок в галерее аниме постеров
   $posters = $with('.align-posters.unprocessed', $root)

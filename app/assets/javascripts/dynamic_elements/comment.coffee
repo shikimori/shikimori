@@ -70,7 +70,7 @@ class DynamicElements.Comment extends ShikiEditable
     # пометка комментария обзором/оффтопиком
     @$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
-        data.affected_ids.each (id) ->
+        data.affected_ids.forEach (id) ->
           $(".b-comment##{id}").view().mark(data.kind, data.value)
         $.notice marker_message(data)
       else

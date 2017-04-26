@@ -2,12 +2,12 @@
 
 require 'pikaday'
 require 'urijs'
-require 'sugar'
+Sugar = require 'sugar'
+Sugar.extend()
 
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
-#= require sugar
 #= require jquery
 #= require vendor/jquery-migrate-1.3.0
 #= require vendor/modernizr

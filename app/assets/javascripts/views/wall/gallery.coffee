@@ -36,7 +36,7 @@ class Wall.Gallery extends View
         new Wall.Image $(node)
 
     # console.log '-----------------------------'
-    # @images.each (image) -> console.log image.weight(), image.node
+    # @images.forEach (image) -> console.log image.weight(), image.node
 
   _build_clusters: ->
     if @_is_two_clusters()
@@ -108,5 +108,5 @@ class Wall.Gallery extends View
 
         @max_height = (@max_height * 1.3).round()
         @$node.css 'max-height', @max_height
-        @images.each (image) -> image.reset()
+        @images.forEach (image) -> image.reset()
         @_mason_2_clusters true

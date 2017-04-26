@@ -3944,9 +3944,15 @@ style-loader@^0.16.1:
   dependencies:
     loader-utils "^1.0.2"
 
-sugar@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/sugar/-/sugar-1.4.1.tgz#1310d4dedc699e5a173183718541b0d7844a7598"
+sugar-core@^2.0.0:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/sugar-core/-/sugar-core-2.0.4.tgz#9db0730e6c47eb7d28184a79c4ab18b2b7946ca0"
+
+sugar@^2.0.2:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/sugar/-/sugar-2.0.4.tgz#79a6fa4dabc587fb855a52ee7176dd042bf757b0"
+  dependencies:
+    sugar-core "^2.0.0"
 
 sugarss@^0.2.0:
   version "0.2.0"

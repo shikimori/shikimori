@@ -83,7 +83,7 @@ class Images.PreloadedGallery extends View
       destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
 
   _deploy_batch: (images) =>
-    images.elements.each (image_node, index) =>
+    images.elements.forEach (image_node, index) =>
       @_deploy_image image_node, index, APPEND_ACTION
     # recheck postloader appearence after all images are deployed
     @_after_batch_deploy.delay((images.elements.length + 1) * DEPLOY_INTERVAL)

@@ -63,7 +63,7 @@ class Styles.Edit extends View
   _sync_components: ->
     css = @$css.val()
 
-    @components.each (component) ->
+    @components.forEach (component) ->
       component.update css
       true
 

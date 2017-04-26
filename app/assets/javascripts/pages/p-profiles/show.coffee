@@ -16,7 +16,7 @@
   $('.activity .graph').bar
     before: (stats, options, $chart) ->
       # конвертируем даты
-      stats.each (stat, index) ->
+      stats.forEach (stat, index) ->
         stat.dates =
           from: new Date(stat.name[0] * 1000)
           to: new Date(stat.name[1] * 1000)

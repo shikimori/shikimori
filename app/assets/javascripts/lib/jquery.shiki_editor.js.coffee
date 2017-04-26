@@ -101,7 +101,7 @@ class @ShikiEditor extends ShikiView
       )
 
     # смайлики и ссылка
-    ['smiley', 'link', 'image', 'quote', 'upload'].each (key) =>
+    ['smiley', 'link', 'image', 'quote', 'upload'].forEach (key) =>
       @$(".editor-#{key}").on 'click', (e) =>
         $button = $(e.target)
         $block = @$(".#{key}s")

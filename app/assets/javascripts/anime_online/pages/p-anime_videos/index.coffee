@@ -59,7 +59,7 @@ init_video_player = ->
       .siblings()
       .removeClass('active')
 
-  $player.data('video_ids')?.each (video_id) ->
+  $player.data('video_ids')?.forEach (video_id) ->
     $(".b-video_variant:not(.special)[data-video_id='#{video_id}']")
       .addClass('active')
         .siblings()

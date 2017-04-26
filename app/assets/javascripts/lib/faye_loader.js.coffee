@@ -30,7 +30,7 @@ class @FayeLoader
     to_stay = Object.keys(channels)
     to_remove = _.without(Object.keys(@subscriptions), to_stay)
 
-    to_remove.each (channel) =>
+    to_remove.forEach (channel) =>
       @client.unsubscribe channel
       delete @subscriptions[channel]
 
@@ -39,13 +39,13 @@ class @FayeLoader
   # обновление уже существующих каналов
   update: (channels) ->
     keys = _.intersect(Object.keys(channels), Object.keys(@subscriptions))
-    keys.each (channel) =>
+    keys.forEach (channel) =>
       @subscriptions[channel].node = channels[channel]
 
   # подписка на ещё не подписанные каналы
   subscribe: (channels) ->
     keys = _.without(Object.keys(channels), Object.keys(@subscriptions))
-    keys.each (channel) =>
+    keys.forEach (channel) =>
       subscription = @client.subscribe channel, (data) =>
         # это колбек, в котором мы получили уведомление от faye
         console.log ['faye:received', channel, data]
@@ -72,7 +72,7 @@ class @FayeLoader
       found_channels = $(node).data('faye') || []
       console.warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
 
-      found_channels.each (channel) ->
+      found_channels.forEach (channel) ->
         channels["/#{channel}"] = $(node)
 
     @unsubscribe channels

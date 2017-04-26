@@ -69,7 +69,7 @@ filter = ->
   # разворачивание свёрнутых элементов
   filter_value = $('.filter input').val().toLowerCase()
   $entries = $('tr.selectable')
-  list_cache.each (block) ->
+  list_cache.forEach (block) ->
     visible = false
     num = 0
 
@@ -332,7 +332,7 @@ process_next_page = ->
   $.force_appear()
 
 update_text_in_cache = (data) ->
-  list_cache.each (cache_block) ->
+  list_cache.forEach (cache_block) ->
     cache_entry = cache_block.entries.find (row) ->
       row.target_id == data.anime?.id || row.target_id == data.manga?.id
 

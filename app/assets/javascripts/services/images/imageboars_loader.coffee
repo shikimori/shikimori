@@ -31,7 +31,7 @@ class Images.ImageboardsLoader extends Images.StaticLoader
     @awaiting_load = false
 
     @loaders = LOADERS.map (klass) => new klass(@tags, @forbidden_tags)
-    @loaders.each (loader) =>
+    @loaders.forEach (loader) =>
       loader.on Images.Imageboard.LoaderBase.FETCH_EVENT, @_loader_fetch
 
   # public methods
@@ -40,7 +40,7 @@ class Images.ImageboardsLoader extends Images.StaticLoader
       @_return_from_cache()
     else
       @awaiting_load = true
-      @_vacant_loaders().each (loader) -> loader.fetch()
+      @_vacant_loaders().forEach (loader) -> loader.fetch()
 
   is_finished: ->
     @cache.length == 0 &&
@@ -51,7 +51,7 @@ class Images.ImageboardsLoader extends Images.StaticLoader
   _loader_fetch: (images) =>
     images
       .filter (image) => (image.md5 not of @hashes)
-      .each (image) =>
+      .forEach (image) =>
         @hashes[image.md5] = true
         @cache.push image
 

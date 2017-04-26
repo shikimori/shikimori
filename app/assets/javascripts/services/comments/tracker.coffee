@@ -3,7 +3,7 @@ class Comments.Tracker
   @track: (JS_EXPORTS, $root) ->
     return if Object.isEmpty(JS_EXPORTS?.comments)
 
-    JS_EXPORTS.comments.each (comment) ->
+    JS_EXPORTS.comments.forEach (comment) ->
       new Comments.TrackComment comment, $root
 
     JS_EXPORTS.comments = null

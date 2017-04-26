@@ -18,10 +18,10 @@ $ ->
         (if @y > 20 then "<b>#{@point.name}</b>:<b>#{@y}</b>" else null)
     innerSize: "70%"
 
-  _.each total.series[0].data, (v, k) ->
+  total.series[0].data.forEach (v, k) ->
     v.color = colors[k]
 
-  _.each total.series[1].data, (v, k) ->
+  total.series[1].data.forEach (v, k) ->
     brightness = (k % 3) / 20
     index = parseInt(k / 3)
     v.color = Highcharts.Color(colors[index]).brighten(brightness).get()

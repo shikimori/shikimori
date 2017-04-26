@@ -11,7 +11,7 @@ class Images.Imageboard.DanbooruLoader extends Images.Imageboard.LoaderBase
     xhr_data?.json || []
 
   _build_images: (xhr_images) ->
-    xhr_images.each (image) =>
+    xhr_images.forEach (image) =>
       image.file_url = @base_url + image.file_url
       image.preview_url = @base_url + image.preview_url
 
