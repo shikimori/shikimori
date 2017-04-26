@@ -26,14 +26,26 @@ class LayoutView < ViewObjectBase
     CSS
   end
 
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def user_data
+    user = h.current_user
+
     {
-      id: h.current_user&.id,
-      is_moderator: !!h.current_user&.moderator?,
-      ignored_topics: h.current_user&.topic_ignores&.pluck(:topic_id) || [],
-      ignored_users: h.current_user&.ignores&.pluck(:target_id) || []
+      id: user&.id,
+      is_moderator: !!user&.moderator?,
+      ignored_topics: user&.topic_ignores&.pluck(:topic_id) || [],
+      ignored_users: user&.ignores&.pluck(:target_id) || [],
+      is_day_registered: !!user&.day_registered?,
+      is_week_registered: !!user&.week_registered?,
+      is_ignore_copyright: h.ignore_copyright?,
+      is_comments_auto_collapsed: !h.user_signed_in? ||
+        user.preferences.comments_auto_collapsed?,
+      is_comments_auto_loaded: !!user&.preferences&.comments_auto_loaded?
     }
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   def hot_topics?
     h.params[:controller] == 'dashboards' ||
