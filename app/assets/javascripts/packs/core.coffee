@@ -17,6 +17,7 @@ require_vendor = require.context('../vendor', true)
 require_vendor.keys().forEach(require_vendor)
 
 require 'magnific-popup'
+require 'imagesLoaded'
 
 #= require uevent
 #= require d3
