@@ -1,14 +1,5 @@
-(($) ->
-  $.fn.extend
-    shiki_forum: ->
-      @each ->
-        $root = $(@)
-        return unless $root.hasClass('unprocessed')
-
-        new ShikiForum($root)
-) jQuery
-
-class @ShikiForum extends ShikiView
+using 'DynamicElements'
+module.exports = class DynamicElements.Forum extends ShikiView
   initialize: ->
     @on 'faye:comment:marked faye:comment:created faye:comment:updated faye:comment:deleted faye:topic:updated faye:topic:deleted', (e, data) =>
       return if SHIKI_USER.topic_ignored(data.topic_id)

@@ -71,7 +71,7 @@ class ProfilesController < ShikimoriController
       Comment
         .where(user: @resource.object)
         .where(params[:search].present? ?
-          "body ilike #{ApplicationRecord.sanitize "%#{SearchHelper.unescape params[:search]}%"}" :
+          "body ilike #{ApplicationRecord.sanitize "%#{params[:search]}%"}" :
           nil)
         .order(id: :desc)
     end

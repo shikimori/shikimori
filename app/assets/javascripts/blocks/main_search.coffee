@@ -1,3 +1,13 @@
+# спецэкранирование некоторых символов поиска
+search_escape = (phrase) ->
+  (phrase || '')
+    .replace(/\+/g, '(l)')
+    .replace(/ +/g, '+')
+    .replace(/\\/g, '(b)')
+    .replace(/\//g, '(s)')
+    .replace(/\./g, '(d)')
+    .replace(/%/g, '(p)')
+
 # автодополнение
 $(document).on 'page:load', ->
   $main_search = $('.b-main_search')

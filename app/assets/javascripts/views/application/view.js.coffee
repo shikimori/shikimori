@@ -1,5 +1,5 @@
 # общий класс для любого вью объекта
-class @View
+module.exports = class View
   constructor: (node, arg1, arg2, arg3) ->
     @_initialize node
     @initialize arg1, arg2, arg3

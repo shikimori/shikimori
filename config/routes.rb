@@ -797,7 +797,7 @@ Rails.application.routes.draw do
           page: /account|profile|password|styles|list|notifications|misc|ignored_topics|ignored_users/
 
         get 'reviews(/page/:page)' => :reviews, as: :reviews
-        get 'comments(/page/:page)(/search/:search)' => :comments, as: :comments
+        get 'comments(/page/:page)' => :comments, as: :comments
         scope 'comments' do
           get 'summaries(/page/:page)' => :summaries, as: :summaries
         end

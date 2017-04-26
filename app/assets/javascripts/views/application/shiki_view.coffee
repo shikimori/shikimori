@@ -1,5 +1,7 @@
+View = require './view'
+
 # общий класс для комментария, топика, редактора
-class @ShikiView extends View
+module.exports = class ShikiView extends View
   MAX_PREVIEW_HEIGHT: 450
   COLLAPSED_HEIGHT: 150
 

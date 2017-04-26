@@ -7,7 +7,7 @@
 
 # обработка элементов страницы (инициализация галерей, шрифтов, ссылок)
 # TODO: переписать всю тут имеющееся на dynamic_element
-@process_current_dom = (root = document.body, JS_EXPORTS = @JS_EXPORTS) ->
+process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
   $root = $(root)
 
   UserRates.Tracker.track JS_EXPORTS, $root
@@ -30,8 +30,6 @@
     .removeClass('unprocessed')
     .each ->
       new Wall.Gallery @
-
-  $with('.b-forum.unprocessed', $root).shiki_forum()
 
   console.error 'found unprocessed topic!!!!!' if $with('.b-topic.unprocessed', $root).length
 

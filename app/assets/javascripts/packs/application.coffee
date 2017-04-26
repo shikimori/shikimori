@@ -35,7 +35,7 @@ ShikiUser = require 'models/shiki_user'
 #= require_tree ./pages
 
 $ =>
-  @JS_EXPORTS ||= {}
+  window.JS_EXPORTS ||= {}
 
   $body = $(document.body)
   window.ENV = $body.data 'env'
