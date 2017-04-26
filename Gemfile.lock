@@ -15,6 +15,16 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
+  remote: git://github.com/ellimist/better_errors.git
+  revision: 1788144c5a24054d68256e3d50aeeda8a8b313cd
+  branch: master
+  specs:
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+
+GIT
   remote: git://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
@@ -28,6 +38,14 @@ GIT
   specs:
     amatch (0.2.12)
       tins (~> 0.3)
+
+GIT
+  remote: git://github.com/imarcelolz/guard-webpack.git
+  revision: 2147e11c589cba7fc4f39c6c3e25914575c5ad1c
+  branch: master
+  specs:
+    guard-webpack (0.1.2)
+      guard (< 3.0)
 
 GIT
   remote: git://github.com/libc/rack-contrib.git
@@ -172,10 +190,6 @@ GEM
     attr_extras (5.2.0)
     awesome_print (1.7.0)
     bcrypt (3.1.11)
-    better_errors (2.1.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bourbon (4.3.4)
@@ -692,6 +706,10 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    webpacker (1.1)
+      activesupport (>= 4.2)
+      multi_json (~> 1.2)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -720,7 +738,7 @@ DEPENDENCIES
   appsignal
   attr_extras
   awesome_print
-  better_errors
+  better_errors!
   binding_of_caller
   bourbon
   browser
@@ -757,6 +775,7 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   guard-spring
+  guard-webpack!
   honeybadger
   htmldiff!
   htmlentities
@@ -857,6 +876,7 @@ DEPENDENCIES
   vcr
   vuejs-rails
   webmock
+  webpacker
   whenever
   xxhash
   zaru

@@ -1,5 +1,5 @@
 ignore %r{
-  bin | public
+  bin | public | node_modules
 }x
 
 guard :bundler do
@@ -107,3 +107,5 @@ end
 guard 'i18n-js' do
   watch(%r{config/locales/.+\.yml})
 end
+
+guard :webpack, config: './config/webpack/development.js'

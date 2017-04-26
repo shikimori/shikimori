@@ -8,13 +8,11 @@ gem 'dalli' # NOTE: в конфиге мемкеша должна быть оп�
 gem 'redis'
 gem 'redis-namespace'
 
+gem 'webpacker'
 gem 'slim-rails'
 gem 'coffee-rails'
-
-# gem 'sass-rails'
 gem 'sassc-rails'
 gem 'bourbon'
-# gem 'compass-rails'
 
 # turbolinks
 # events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
@@ -125,7 +123,7 @@ group :development do
   gem 'letter_opener'
   gem 'mactag'
   #gem 'web-console'
-  gem 'better_errors'
+  gem 'better_errors', github: 'ellimist/better_errors', branch: 'master'
   gem 'binding_of_caller'
 
   # gem 'rack-mini-profiler'
@@ -168,6 +166,7 @@ group :development, :test do
   gem 'guard-pow', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-i18n-js', require: false, github: 'fauxparse/guard-i18n-js'
+  gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 
 group :test do

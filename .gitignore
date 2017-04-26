@@ -30,3 +30,5 @@ public/system
 app/assets/javascripts/i18n/translations.js
 public/javascripts/i18n.js
 spec/test_files/*
+/public/packs
+/node_modules
