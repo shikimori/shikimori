@@ -9,16 +9,17 @@ Sugar.extend()
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
-window.$ = require 'jquery'
+window.$ = window.jQuery = require 'jquery'
 window.moment = require 'moment'
 window.I18n = require 'i18n-js'
 window.Turbolinks = require 'turbolinks'
 
-#= require jquery
-#= require vendor/jquery-migrate-1.3.0
-#= require vendor/modernizr
+require '../i18n/translations'
 
-#= require bowser
+require_vendor = require.context('../vendor', true)
+require_vendor.keys().forEach(require_vendor)
+
+require 'magnific-popup'
 
 #= require uevent
 #= require d3
@@ -44,11 +45,7 @@ window.Turbolinks = require 'turbolinks'
 #= require packery/item
 #= require packery
 
-#= require i18n
-#= require_directory ./i18n
 #= require jade/runtime
-
-#= require_tree ./vendor
 
 #= require_self
 

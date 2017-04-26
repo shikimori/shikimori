@@ -1,7 +1,19 @@
 bowser = require 'bowser'
 
-requireTest = require.context('../helpers', true)
-requireTest.keys().forEach(requireTest)
+require_helpers = require.context('../helpers', true)
+require_helpers.keys().forEach(require_helpers)
+
+# require_templates = require.context('../templates', true)
+# require_templates.keys().forEach(require_templates)
+
+# require_services = require.context('../services', true)
+# require_services.keys().forEach(require_services)
+
+require_jquery_plugins = require.context('../jquery.plugins', true)
+require_jquery_plugins.keys().forEach(require_jquery_plugins)
+
+# require_lib = require.context('../lib', true)
+# require_lib.keys().forEach(require_lib)
 
 ShikiUser = require 'models/shiki_user'
 
