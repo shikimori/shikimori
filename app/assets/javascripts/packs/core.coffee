@@ -1,18 +1,22 @@
 # import Vue from 'vue/dist/vue.esm'
 
+require 'pikaday'
+require 'urijs'
+require 'sugar'
+
+MobileDetect = require 'mobile-detect'
+window.mobile_detect = new MobileDetect(window.navigator.userAgent)
+
 #= require sugar
 #= require jquery
 #= require vendor/jquery-migrate-1.3.0
 #= require vendor/modernizr
 
 #= require bowser
-#= require mobile-detect
 
 #= require uevent
 #= require d3
 #= require jQuery-Storage-API
-#= require pikaday
-#= require urijs
 #= require js-md5/js/md5
 #= require nouislider
 
@@ -44,38 +48,7 @@
 
 #= require_self
 
-bindings =
-  'page:load': []
-  'page:restore': []
-  'page:change': []
-
-@mobile_detect = new MobileDetect(window.navigator.userAgent)
-
-@on = (event, conditions..., callback) ->
-  bindings[event].push
-    conditions: conditions
-    callback: callback
-
-@using = (names) ->
-  scope = window
-  names.split('.').forEach (name) ->
-    scope[name] ||= {}
-    scope = scope[name]
-
-# на мобильной ли мы версии (телефон)
-@is_mobile = ->
-  !!@mobile_detect.mobile() || screen.width <= 480
-
-# на мобильной ли мы версии (планшет или ниже)
-@is_tablet = ->
-  !!@mobile_detect.tablet() || screen.width <= 768
-
-# поиск селектора одновременно с добавлением root, если root удовлетворяет селектору
-@$with = (selector, $root) ->
-  if $root.is(selector)
-    $root.find(selector).add($root)
-  else
-    $root.find(selector)
+bindings = require('helpers/bindings')
 
 $(document).on 'page:load page:change page:restore', (e) ->
   for group in bindings[e.type]

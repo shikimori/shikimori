@@ -70,6 +70,7 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
 
   - unless Rails.env.test?
     = javascript_pack_tag 'core', 'data-turbolinks-track': ''
+    = javascript_pack_tag 'application', 'data-turbolinks-track': ''
     / = stylesheet_pack_tag 'calendar'
 
     = javascript_include_tag :core, data: { 'turbolinks-track' => ''}

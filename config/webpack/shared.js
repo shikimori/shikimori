@@ -14,7 +14,13 @@ const { env, paths, publicPath, loadersDir } = require('./configuration.js')
 const extensionGlob = `*{${paths.extensions.join(',')}}*`
 const packPaths = sync(join(paths.source, paths.entry, extensionGlob))
 
-console.log(JSON.stringify(packPaths))
+// console.log(JSON.stringify(packPaths.reduce(
+    // (map, entry) => {
+      // const localMap = map
+      // localMap[basename(entry, extname(entry))] = resolve(entry)
+      // return localMap
+    // }, {}
+  // )))
 
 module.exports = {
   entry: packPaths.reduce(
@@ -37,6 +43,10 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery'
+    }),
     // Avoid publishing files when compilation failed:
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
@@ -49,7 +59,10 @@ module.exports = {
     modules: [
       resolve(paths.source),
       resolve(paths.node_modules)
-    ]
+    ],
+    alias: {
+      jquery: 'jquery/src/jquery'
+    }
   },
 
   resolveLoader: {
