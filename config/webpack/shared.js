@@ -61,10 +61,10 @@ module.exports = {
     modules: [
       resolve(paths.source),
       resolve(paths.node_modules)
-    ],
-    alias: {
-      jquery: 'jquery/src/jquery'
-    }
+    ]
+    // alias: {
+      // jquery: 'jquery/src/jquery'
+    // }
   },
 
   resolveLoader: {
