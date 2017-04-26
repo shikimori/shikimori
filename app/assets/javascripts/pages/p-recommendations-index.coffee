@@ -7,7 +7,7 @@
     ).delay 5000
 
   $('body').on 'mouseover', '.b-catalog_entry', ->
-    return unless USER_SIGNED_IN
+    return unless SHIKI_USER.is_signed_in
     $node = $(@)
     return if $node.hasClass 'entry-ignored'
 

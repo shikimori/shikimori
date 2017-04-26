@@ -2,8 +2,8 @@ $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");
   xhr.setRequestHeader('X-CSRF-Token', token);
 
-  if ('faye_loader' in window && faye_loader.id()) {
-    xhr.setRequestHeader('X-Faye-Token', faye_loader.id());
+  if ('SHIKI_FAYE_LOADER' in window && SHIKI_FAYE_LOADER.id()) {
+    xhr.setRequestHeader('X-Faye-Token', SHIKI_FAYE_LOADER.id());
   }
 });
 

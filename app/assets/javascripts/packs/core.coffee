@@ -1,12 +1,18 @@
 # import Vue from 'vue/dist/vue.esm'
 
-require 'pikaday'
-require 'urijs'
-Sugar = require 'sugar'
+# require 'pikaday'
+# require 'urijs'
+
+window.Sugar = require 'sugar'
 Sugar.extend()
 
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
+
+window.$ = require 'jquery'
+window.moment = require 'moment'
+window.I18n = require 'i18n-js'
+window.Turbolinks = require 'turbolinks'
 
 #= require jquery
 #= require vendor/jquery-migrate-1.3.0
@@ -16,8 +22,6 @@ window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
 #= require uevent
 #= require d3
-#= require jQuery-Storage-API
-#= require js-md5/js/md5
 #= require nouislider
 
 # imagesLoaded dependency

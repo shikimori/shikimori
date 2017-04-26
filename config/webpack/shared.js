@@ -44,11 +44,13 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery'
+      // $: 'jquery',
+      jQuery: 'jquery',
+      // moment: 'moment',
+      // I18n: 'i18n-js'
     }),
     // Avoid publishing files when compilation failed:
-    new webpack.NoEmitOnErrorsPlugin(),
+    // new webpack.NoEmitOnErrorsPlugin(),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
     new ManifestPlugin({ fileName: 'manifest.json', publicPath, writeToFileEmit: true })

@@ -30,7 +30,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
 
-    if USER_SIGNED_IN && DAY_REGISTERED && @$editor.length
+    if SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
@@ -174,7 +174,7 @@ class DynamicElements.Topic extends ShikiEditable
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'
-      if OPTIONS.comments_auto_loaded
+      if SHIKI_USER.is_comments_auto_loaded
         if $placeholder.is(':appeared') && !$('textarea:focus').val()
           $placeholder.click()
 

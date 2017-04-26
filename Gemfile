@@ -195,29 +195,3 @@ gem 'faye'
 gem 'faye-redis'
 gem 'faye-websocket', '0.10.0' # не обновлять до 0.10.1 - ломается faye
 gem 'thin'
-
-# assets
-gem 'vuejs-rails'
-source 'https://rails-assets.org' do
-  # gem 'rails-assets-moment'
-  gem 'rails-assets-d3'
-  gem 'rails-assets-bowser'
-
-  # dependencies for rails-assets-packery'
-  gem 'rails-assets-fizzy-ui-utils', '2.0.2'
-  gem 'rails-assets-get-size', '2.0.2'
-  gem 'rails-assets-matches-selector', '2.0.1'
-  gem 'rails-assets-outlayer', '2.1.0'
-
-  gem 'rails-assets-jquery-bridget', '2.0.0' # packery dependency
-  gem 'rails-assets-packery'
-  gem 'rails-assets-jQuery-Storage-API'
-  gem 'rails-assets-imagesloaded'
-  gem 'rails-assets-magnific-popup'
-  gem 'rails-assets-nouislider'
-  gem 'rails-assets-js-md5'
-  gem 'rails-assets-uevent'
-
-  # it's time to experiment with a new tool
-  # gem 'rails-assets-vue'
-end

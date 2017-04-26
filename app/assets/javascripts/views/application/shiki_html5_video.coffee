@@ -2,7 +2,9 @@ class @ShikiHtml5Video extends View
   VOLUME_KEY = 'video_volume'
 
   initialize: ->
-    @root.volume = $.sessionStorage.get(VOLUME_KEY) || 1
+    @storage = require('js-storage').sessionStorage
+
+    @root.volume = @storage.get(VOLUME_KEY) || 1
 
     @on 'error', @error
     @on 'click', @click
@@ -16,4 +18,4 @@ class @ShikiHtml5Video extends View
     false
 
   volumechange: =>
-    $.sessionStorage.set VOLUME_KEY, @root.volume
+    @storage.set VOLUME_KEY, @root.volume

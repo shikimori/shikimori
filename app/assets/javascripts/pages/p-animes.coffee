@@ -13,7 +13,9 @@
     title: (entry, percent) -> if percent > 15 then entry.value else ''
     no_data: ($chart) -> $chart.html("<p class='b-nothing_here'>#{I18n.t('frontend.pages.p_animes.no_data')}</p>")
 
-  @init_history.delay() if USER_SIGNED_IN && DAY_REGISTERED && IGNORE_COPYRIGHT
+  if SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered &&
+      SHIKI_USER.is_ignore_copyright
+    @init_history.delay()
 
 @init_history = ->
   # генерация истории аниме/манги

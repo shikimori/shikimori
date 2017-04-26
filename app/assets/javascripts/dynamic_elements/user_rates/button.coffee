@@ -39,7 +39,7 @@ class DynamicElements.UserRate extends View
     $form.submit()
 
   _ajax_before: =>
-    if USER_SIGNED_IN
+    if SHIKI_USER.is_signed_in
       @$root.addClass 'b-ajax'
     else
       $.info t("#{DynamicElements.AuthorizedAction.I18N_KEY}.register_to_complete_action")

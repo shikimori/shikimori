@@ -153,7 +153,7 @@ class @ShikiEditable extends ShikiView
   # _replace: (html) ->
     # $replaced = super html
     # $replaced["shiki_#{@_type()}"]()
-    # window.faye_loader.apply() if @_type() == 'topic'
+    # window.SHIKI_FAYE_LOADER.apply() if @_type() == 'topic'
 
   # url перезагрузки содержимого
   _reload_url: =>

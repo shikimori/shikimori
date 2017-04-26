@@ -1,6 +1,6 @@
 $ ->
   $("#image_placeholder").hide()
-  window.comments_notifier = new CommentsNotifier() if USER_SIGNED_IN
+  window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier() if SHIKI_USER.is_signed_in
 
   colors = Highcharts.getOptions().colors
   _.extend total.series[0],

@@ -11,6 +11,7 @@ class Styles.Edit extends View
   ]
 
   initialize: ->
+    @md5 = require('blueimp-md5')
     @$form = @$ '.edit_style'
     @$css = @$ '#style_css'
     @$preview = @$ '.preview'
@@ -43,7 +44,7 @@ class Styles.Edit extends View
 
   preview: =>
     css = @$css.val().trim()
-    hash = md5(css)
+    hash = @md5(css)
 
     if @css_cache[hash]
       @_replace_custom_css(@css_cache[hash])
