@@ -6,14 +6,20 @@ require_helpers.keys().forEach(require_helpers)
 # require_templates = require.context('../templates', true)
 # require_templates.keys().forEach(require_templates)
 
-# require_services = require.context('../services', true)
-# require_services.keys().forEach(require_services)
+require_dynamic_elements = require.context('../dynamic_elements', true)
+require_dynamic_elements.keys().forEach(require_dynamic_elements)
+
+require_services = require.context('../services', true)
+require_services.keys().forEach(require_services)
 
 require_jquery_plugins = require.context('../jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
 
 # require_lib = require.context('../lib', true)
 # require_lib.keys().forEach(require_lib)
+
+require_views = require.context('../views', true)
+require_views.keys().forEach(require_views)
 
 ShikiUser = require 'models/shiki_user'
 
@@ -26,7 +32,6 @@ ShikiUser = require 'models/shiki_user'
 #= require_tree ./views
 
 #= require_tree ./models
-#= require_tree ./dynamic_elements
 #= require_tree ./lib
 #= require_tree ./blocks
 

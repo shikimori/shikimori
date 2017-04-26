@@ -1,4 +1,5 @@
-#= require ./loader_base
+require './loader_base'
+
 using 'Images.Imageboard'
 class Images.Imageboard.DanbooruLoader extends Images.Imageboard.LoaderBase
   _initialize: ->

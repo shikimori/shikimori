@@ -1,4 +1,4 @@
-#= require ./preloaded_gallery
+require './preloaded_gallery'
 
 using 'Images'
 # динамическая загрузка картинок с борд danbooru, oreno.imouto, konachan, safebooru

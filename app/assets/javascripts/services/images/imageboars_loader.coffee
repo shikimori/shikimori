@@ -1,4 +1,4 @@
-#= require ./static_loader
+require './static_loader'
 
 using 'Images'
 class Images.ImageboardsLoader extends Images.StaticLoader

@@ -1,4 +1,4 @@
-class @ShikiEditable extends ShikiView
+module.exports = class ShikiEditable extends ShikiView
   BUTTONS = [
     '.item-ignore'
     '.item-quote'
