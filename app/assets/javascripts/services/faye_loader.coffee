@@ -38,27 +38,29 @@ module.exports = class FayeLoader
 
   # обновление уже существующих каналов
   update: (channels) ->
-    keys = Object.intersect(Object.keys(channels), Object.keys(@subscriptions))
-    keys.forEach (channel) =>
-      @subscriptions[channel].node = channels[channel]
+    Object.keys(channels)
+      .intersect(Object.keys(@subscriptions))
+      .forEach (channel) =>
+        @subscriptions[channel].node = channels[channel]
 
   # подписка на ещё не подписанные каналы
   subscribe: (channels) ->
-    keys = Object.keys(channels).subtract Object.keys(@subscriptions)
-    keys.forEach (channel) =>
-      subscription = @client.subscribe channel, (data) =>
-        # это колбек, в котором мы получили уведомление от faye
-        console.log ['faye:received', channel, data]
-        # сообщения от самого себя не принимаем
-        return if data.publisher_faye_id == @id()
+    Object.keys(channels)
+      .subtract(Object.keys(@subscriptions))
+      .forEach (channel) =>
+        subscription = @client.subscribe channel, (data) =>
+          # это колбек, в котором мы получили уведомление от faye
+          console.log ['faye:received', channel, data]
+          # сообщения от самого себя не принимаем
+          return if data.publisher_faye_id == @id()
 
-        @subscriptions[channel].node.trigger "faye:#{data.event}", data
+          @subscriptions[channel].node.trigger "faye:#{data.event}", data
 
-      @subscriptions[channel] =
-        node: channels[channel]
-        channel: subscription
+        @subscriptions[channel] =
+          node: channels[channel]
+          channel: subscription
 
-      console.log "faye subscribed #{channel}"
+        console.log "faye subscribed #{channel}"
 
   # подписка/отписка на актуальные каналы Faye исходя из контента страницы
   apply: =>

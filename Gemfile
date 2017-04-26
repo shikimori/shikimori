@@ -166,7 +166,7 @@ group :development, :test do
   gem 'guard-pow', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-i18n-js', require: false, github: 'fauxparse/guard-i18n-js'
-  gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
+  # gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 
 group :test do

@@ -1,6 +1,6 @@
 # уведомлялка о новых комментариях
 # назначение класса - смотреть на странице новые комментаы и отображать информацию об этом
-class @CommentsNotifier
+module.exports = class CommentsNotifier
   constructor: ->
     # дом элемент нотификатора
     @$notifier = null

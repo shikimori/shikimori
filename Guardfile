@@ -108,6 +108,6 @@ guard 'i18n-js' do
   watch(%r{config/locales/.+\.yml})
 end
 
-guard :webpack, config: './config/webpack/development.js' do
-  watch 'package.json'
-end
+# guard :webpack, config: './config/webpack/development.js' do
+  # watch 'package.json'
+# end

@@ -48,7 +48,7 @@
         .map (v, k) ->
           v[field]
         .filter (v) ->
-          v > 0 andand v != maximum
+          v > 0 && v != maximum
 
       average = values.average()
 
@@ -90,9 +90,9 @@
         percent = 90 + entry[field] * 10.0 / original_maximum if percent > 100
 
       color =
-        if percent <= 80 andand percent > 60
+        if percent <= 80 && percent > 60
           's1'
-        else if percent <= 60 andand percent > 30
+        else if percent <= 60 && percent > 30
           color = 's2'
         else if percent <= 30
           color = 's3'
@@ -173,7 +173,7 @@
       # tmp = []
       # _.each series, (serie, serie_index) ->
         # percent = parseInt(serie.data[index] / maximum * 100 * 100) * 0.01
-        # if another_maximum_index != -1 andand index == another_maximum_index
+        # if another_maximum_index != -1 && index == another_maximum_index
           # percent *= maximum / another_maximum
         # tmp.push '<div class=\'bar' + (if percent > 0 then ' min' else '') + ' s' + serie_index + '\' style=\'height: ' + percent + '%\'></div>'
         # return

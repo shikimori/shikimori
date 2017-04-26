@@ -40,14 +40,6 @@ GIT
       tins (~> 0.3)
 
 GIT
-  remote: git://github.com/imarcelolz/guard-webpack.git
-  revision: 2147e11c589cba7fc4f39c6c3e25914575c5ad1c
-  branch: master
-  specs:
-    guard-webpack (0.1.2)
-      guard (< 3.0)
-
-GIT
   remote: git://github.com/libc/rack-contrib.git
   revision: 1b672c3551e86e7191485bffad2ec7d0d8fec012
   branch: rack_ruby_2+no-gvb
@@ -742,7 +734,6 @@ DEPENDENCIES
   guard-rspec
   guard-rubocop
   guard-spring
-  guard-webpack!
   honeybadger
   htmldiff!
   htmlentities

@@ -108,11 +108,4 @@
       return false;
     }
   });
-})(function() {
-  if (typeof module !== 'undefined') {
-    // Node
-    return require('jquery');
-  } else {
-    return jQuery;
-  }
-}());
+})(jQuery);
