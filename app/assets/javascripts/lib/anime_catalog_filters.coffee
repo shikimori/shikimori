@@ -121,7 +121,7 @@ DEFAULT_LIST_SORT = 'ranked'
       .addClass (if not to_exclude then "item-add" else "item-minus")
 
     li_info = extract_li_info $(@).parent()
-    value_key = _.indexOf(data[li_info.type], (if to_exclude then li_info.value else "!" + li_info.value))
+    value_key = data[li_info.type].indexOf(if to_exclude then li_info.value else "!" + li_info.value)
     data[li_info.type][value_key] = (if to_exclude then '!' + li_info.value else li_info.value)
     change_callback params.compile()
     false
@@ -133,14 +133,14 @@ DEFAULT_LIST_SORT = 'ranked'
     # установка значения параметра
     set: (key, value) ->
       self = this
-      _.each data[key], (value) ->
+      data[key].each (value) ->
         self.remove key, value
 
       @add key, value
 
     # выбор элемента
     add: (key, value) ->
-      if key is _.last(_.keys(data)) and data[key].length > 0
+      if key is Object.keys(data).last() and data[key].length > 0
         @set key, value
       else
         data[key].push value
@@ -172,7 +172,7 @@ DEFAULT_LIST_SORT = 'ranked'
     remove: (key, value) ->
       # т.к. сюда значение приходит как с !, так и без, то удалять надо оба варианта
       value = remove_bang(value)
-      data[key] = _.without(_.without(data[key], value), "!#{value}")
+      data[key] = data[key].subtract([value, "!#{value}"])
       $li = $(".#{key}-#{value}", $root)
       $li.removeClass 'selected'
 
@@ -184,8 +184,8 @@ DEFAULT_LIST_SORT = 'ranked'
 
     # формирование строки урла по выбранным элементам
     compile: ->
-      filters = _.map data, (values, key) -> #.replace('/order-by/ranked', '');
-        if _.isArray(values)
+      filters = data.map (values, key) -> #.replace('/order-by/ranked', '');
+        if Object.isArray(values)
           if values.length
             "/#{key}/#{values.join ','}"
           else
@@ -199,9 +199,9 @@ DEFAULT_LIST_SORT = 'ranked'
 
     # парсинг строки урла и выбор
     parse: (url) ->
-      $(".anime-params .selected", $root).toggleClass "selected"
-      $(".anime-params input[type=checkbox]:checked", $root).attr checked: false
-      $(".anime-params .filter", $root).hide()
+      $('.anime-params .selected', $root).toggleClass 'selected'
+      $('.anime-params input[type=checkbox]:checked', $root).attr checked: false
+      $('.anime-params .filter', $root).hide()
 
       data = $.extend(true, {}, default_data)
       parts = url
@@ -211,11 +211,15 @@ DEFAULT_LIST_SORT = 'ranked'
         .replace(/\?.*/, '')
         .match(/[\w\-]+\/[^\/]+/g)
 
-      _.each parts || [], (match) =>
+      (parts || []).each (match) =>
         key = match.split("/")[0]
-        return if key == "page" || (key not of default_data)
-        values = match.split("/")[1].split(",")
-        _.each values, _.bind(@add, @, key)
+        return if key == 'page' || (key not of default_data)
+
+        match
+          .split('/')[1]
+          .split(',')
+          .each (value) =>
+            @add key, value
 
   params.parse current_url
   # раскрываем жанры, если какой-то из них выбран

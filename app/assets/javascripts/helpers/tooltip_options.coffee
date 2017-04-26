@@ -1,4 +1,4 @@
-@TOOLTIP_TEMPLATE = "<div>
+TOOLTIP_TEMPLATE = "<div>
   <div class='tooltip-inner'>
     <div class='tooltip-arrow'></div>
     <div class='clearfix'>
@@ -29,7 +29,7 @@
     #$(@).hide()
     #done.call()
 
-@tooltip_options =
+TOOLTIP_OPTIONS =
   #effect: 'opacity'
   delay: 150
   predelay: 250
@@ -53,7 +53,11 @@
       if url.match(/\/genres\//)
         @getTip().find('.link').hide()
 
-@ANIME_TOOLTIP_OPTIONS = $.extend {}, @tooltip_options,
+ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
   offset: [-4, 10, -10]
   position: 'top right'
   predelay: 350
+
+module.exports =
+  COMMON_TOOLTIP: TOOLTIP_OPTIONS
+  ANIME_TOOLTIP: ANIME_TOOLTIP_OPTIONS

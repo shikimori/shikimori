@@ -119,14 +119,15 @@ module.exports = class ShikiEditable extends ShikiView
         @$root.data(selected_text: text)
         $quote = $('.item-quote', @$inner).css(display: 'inline-block')
 
-        _.delay ->
+        (->
           $(document).one 'click', ->
             unless $.getSelectionText().length
               $quote.hide()
             else
-              _.delay ->
+              (->
                 $quote.hide() unless $.getSelectionText().length
-              , 250
+              ).delay(250)
+        ).delay()
 
       # цитирование комментария
       $('.item-quote', @$inner).on 'click', (e) =>

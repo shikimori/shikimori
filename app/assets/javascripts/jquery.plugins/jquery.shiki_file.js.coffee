@@ -101,8 +101,9 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
               .on('dragleave', -> $(@).removeClass 'hovered')
               .insertBefore($node)
 
-            _.delay ->
+            (->
               $placeholder.css opacity: 0.75
+            ).delay()
 
           docLeave: (e) ->
             return unless $node.data 'placeholder_displayed'
@@ -120,10 +121,10 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
             #$progress_bar.html 'загрузка файла...'
 
           uploadFinished: (i, file, response, time) ->
-            if _.isString(response) || 'error' of response
+            if Object.isString(response) || 'error' of response
               $node.trigger 'upload:failed', [response, i]
               alert =
-                if _.isString(response)
+                if Object.isString(response)
                   I18n.t("#{I18N_KEY}.please_try_again_later")
                 else
                   response.error

@@ -6,8 +6,8 @@ var AjaxCacher = (function() {
 
   // обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
   function update_queue(url, no_delete) {
-    if (_.include(queue, url)) {
-      queue = _.without(queue, url);
+    if (queue.include(url)) {
+      queue = queue.subtract(url);
     }
     queue.push(url);
     while (!no_delete && queue.length > queue_limit) {

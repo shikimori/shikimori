@@ -44,11 +44,6 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      'View': 'views/application/view',
-      'ShikiView': 'views/application/shiki_view',
-      'ShikiEditable': 'views/application/shiki_editable'
-      // $: 'jquery',
-      // jQuery: 'jquery',
       // moment: 'moment',
       // I18n: 'i18n-js'
     }),

@@ -1,3 +1,5 @@
+TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+
 (($) ->
   $.fn.extend
     process: (JS_EXPORTS) ->
@@ -66,14 +68,16 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
 
   # подгружаемые тултипы
   $with('.anime-tooltip', $root)
-    .tooltip(ANIME_TOOLTIP_OPTIONS)
+    .tooltip(TOOLTIP_OPTIONS.ANIME_TOOLTIP)
     .removeClass('anime-tooltip')
     .removeAttr('title')
 
   $with('.bubbled', $root)
     .addClass('bubbled-processed')
     .removeClass('bubbled')
-    .tooltip($.extend(offset: [-48, 10, -10], tooltip_options))
+    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
+      offset: [-48, 10, -10]
+    )
 
   $with('.b-spoiler.unprocessed', $root).spoiler()
 

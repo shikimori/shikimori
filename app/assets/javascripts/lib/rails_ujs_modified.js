@@ -62,7 +62,7 @@ jQuery(function ($) {
                     },
                     success: function (data, status, xhr) {
                         $this.data('ajax:locked', false);
-                        if (!_.isString(data) && data && 'notice' in data && data.notice) {
+                        if (!Object.isString(data) && data && 'notice' in data && data.notice) {
                             $.flash({notice: data.notice});
                         }
                         el.trigger('ajax:success', [data, status, xhr]);
@@ -110,7 +110,7 @@ jQuery(function ($) {
                                 if (Object.isArray(errors)) {
                                   $.alert(errors.join('<br />'));
                                 } else {
-                                  var text = _.map(errors, function(v, k) {
+                                  var text = errors.map(function(v, k) {
                                     if (k == 'base') {
                                       return v;
                                     } else {

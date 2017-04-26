@@ -1,3 +1,5 @@
+TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+
 # TODO: этот гигантский файл нуждается в рефакторинге
 list_cache = []
 filter_timer = null
@@ -189,7 +191,7 @@ apply_list_handlers = ($root) ->
   $('tr.unprocessed', $root)
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip $.extend($.extend({}, tooltip_options),
+    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
       offset: [
         -95
         10
@@ -328,7 +330,7 @@ insert_next_page = (e, $data) ->
 
 process_next_page = ->
   update_list_cache()
-  filter() unless _.isEmpty($('.filter input').val())
+  filter() unless Object.isEmpty($('.filter input').val())
   $.force_appear()
 
 update_text_in_cache = (data) ->

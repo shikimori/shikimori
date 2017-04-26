@@ -6,9 +6,6 @@
 window.Sugar = require 'sugar'
 Sugar.extend()
 
-MobileDetect = require 'mobile-detect'
-window.mobile_detect = new MobileDetect(window.navigator.userAgent)
-
 window.$ = window.jQuery = require 'jquery'
 window.moment = require 'moment'
 window.I18n = require 'i18n-js'

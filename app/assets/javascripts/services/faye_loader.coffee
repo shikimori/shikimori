@@ -1,6 +1,6 @@
 # уведомлялка Faye
 # назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
-class @FayeLoader
+module.exports = class FayeLoader
   constructor: ->
     @client = null
     @subscriptions = {}
@@ -28,7 +28,7 @@ class @FayeLoader
   # отписка ото всех не актуальных каналов
   unsubscribe: (channels) ->
     to_stay = Object.keys(channels)
-    to_remove = _.without(Object.keys(@subscriptions), to_stay)
+    to_remove = Object.keys(@subscriptions).subtract(to_stay)
 
     to_remove.forEach (channel) =>
       @client.unsubscribe channel
@@ -38,13 +38,13 @@ class @FayeLoader
 
   # обновление уже существующих каналов
   update: (channels) ->
-    keys = _.intersect(Object.keys(channels), Object.keys(@subscriptions))
+    keys = Object.intersect(Object.keys(channels), Object.keys(@subscriptions))
     keys.forEach (channel) =>
       @subscriptions[channel].node = channels[channel]
 
   # подписка на ещё не подписанные каналы
   subscribe: (channels) ->
-    keys = _.without(Object.keys(channels), Object.keys(@subscriptions))
+    keys = Object.keys(channels).subtract Object.keys(@subscriptions)
     keys.forEach (channel) =>
       subscription = @client.subscribe channel, (data) =>
         # это колбек, в котором мы получили уведомление от faye

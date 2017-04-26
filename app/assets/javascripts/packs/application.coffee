@@ -1,5 +1,10 @@
 bowser = require 'bowser'
 
+window.View = require 'views/application/view'
+window.ShikiView = require 'views/application/shiki_view'
+window.ShikiEditable = require 'views/application/shiki_editable'
+window.ShikiUser = require 'models/shiki_user'
+
 require_helpers = require.context('../helpers', true)
 require_helpers.keys().forEach(require_helpers)
 
@@ -10,7 +15,10 @@ require_dynamic_elements = require.context('../dynamic_elements', true)
 require_dynamic_elements.keys().forEach(require_dynamic_elements)
 
 require_services = require.context('../services', true)
-require_services.keys().forEach(require_services)
+require_services
+  .keys()
+  .filter((module) -> module.match(/.\/\w+\//))
+  .forEach(require_services)
 
 require_jquery_plugins = require.context('../jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
@@ -21,7 +29,11 @@ require_jquery_plugins.keys().forEach(require_jquery_plugins)
 require_views = require.context('../views', true)
 require_views.keys().forEach(require_views)
 
-ShikiUser = require 'models/shiki_user'
+MobileDetect = require 'mobile-detect'
+window.mobile_detect = new MobileDetect(window.navigator.userAgent)
+
+FayeLoader = require '../services/faye_loader'
+CommentsNotifier = require '../services/comments_notifier'
 
 #= require_tree ./templates
 #= require_tree ./services
@@ -121,4 +133,3 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
 #turbolinks_compatibility = ->
   #$('#fancybox-wrap').remove()
   #$.fancybox.init()
-

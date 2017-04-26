@@ -1,4 +1,4 @@
-#= require_directory ./p-animes
+TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 
 @on 'page:load', '.animes', '.mangas', ->
   init_animes_menu()
@@ -43,19 +43,20 @@
         continue unless $tooltip.length
 
         if data[id].length
-          $tooltip.html _.map(data[id], (v, k) ->
+          $tooltip.html data[id].map((v, k) ->
             "<a class='b-link' href=\"#{v.link}\">#{v.title}</a>"
           ).join('')
         else
           $("#history-entry-#{id}-tooltip").children().remove()
 
   # anime history tooltips
-  $('.person-tooltip', $history_block).tooltip $.extend({}, @ANIME_TOOLTIP_OPTIONS,
-    position: 'top right'
-    offset: [-28, 59]
-    relative: true
-    place_to_left: true
-    predelay: 100
-    delay: 100
-    effect: 'toggle'
-  )
+  $('.person-tooltip', $history_block)
+    .tooltip Object.add(TOOLTIP_OPTIONS.ANIME_TOOLTIP,
+      position: 'top right'
+      offset: [-28, 59]
+      relative: true
+      place_to_left: true
+      predelay: 100
+      delay: 100
+      effect: 'toggle'
+    )

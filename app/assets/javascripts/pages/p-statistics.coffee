@@ -1,9 +1,10 @@
-$ ->
+@on 'page:load', 'statistics_idnex', ->
+  alert 'load highcharts'
+
   $("#image_placeholder").hide()
-  window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier() if SHIKI_USER.is_signed_in
 
   colors = Highcharts.getOptions().colors
-  _.extend total.series[0],
+  Object.merge total.series[0],
     dataLabels:
       formatter: ->
         (if @y > 5 then @point.name else null)
@@ -12,7 +13,7 @@ $ ->
       distance: -30
     size: "70%"
 
-  _.extend total.series[1],
+  Object.merge total.series[1],
     dataLabels:
       formatter: ->
         (if @y > 20 then "<b>#{@point.name}</b>:<b>#{@y}</b>" else null)

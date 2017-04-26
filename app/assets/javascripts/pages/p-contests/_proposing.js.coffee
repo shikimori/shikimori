@@ -48,5 +48,5 @@
       $(@).parents('form').submit()
 
   $('.proposing form').on 'submit', ->
-    if _.isEmpty $(@).find('#contest_suggestion_item_id').val()
+    if Object.isEmpty $(@).find('#contest_suggestion_item_id').val()
       false
