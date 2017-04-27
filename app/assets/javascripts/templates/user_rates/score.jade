@@ -1,13 +1,13 @@
 .b-rate.rateable(
-  data-notices= I18n.t('activerecord.attributes.user_rate.scores')
+  data-notices=I18n.t('activerecord.attributes.user_rate.scores')
 )
   .stars-container
     .hoverable-trigger
-    .stars.score(class="score-#{score}")
+    .stars.score(class='score-' + score)
     .stars.hover
     .stars.background
   .text-score
-    .score-value(class="score-#{score}")
+    .score-value(class='score-' + score)
       = score
 
     .score-notice

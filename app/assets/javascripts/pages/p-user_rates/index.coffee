@@ -1,4 +1,5 @@
 TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+ShikiModal = require 'views/application/shiki_modal'
 
 # TODO: этот гигантский файл нуждается в рефакторинге
 list_cache = []

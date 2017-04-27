@@ -1,23 +1,23 @@
 a.b-image(
-  href="#{image.original_url}"
-  id="#{image.id}"
-  rel="#{rel}"
-  data-tags="#{image.tags}"
+  href=image.original_url
+  id=image.id
+  rel=rel
+  data-tags=image.tags
 )
   if destroy_url
     .mobile-edit
     .controls
       .delete(
-        title= I18n.t('frontend.images.delete')
+        title=I18n.t('frontend.images.delete')
       )
       .confirm(
-        title= I18n.t('frontend.images.confirm')
-        data-action="#{destroy_url}"
+        title=I18n.t('frontend.images.confirm')
+        data-action=destroy_url
         data-method="delete"
         data-remote="true"
         data-type="json"
       )
       .cancel(
-        title= I18n.t('frontend.images.cancel')
+        title=I18n.t('frontend.images.cancel')
       )
-  img(src="#{image.preview_url}")
+  img(src=image.preview_url)

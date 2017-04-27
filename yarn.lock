@@ -2286,7 +2286,13 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-jquery@2.2.4:
+jquery-bridget@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/jquery-bridget/-/jquery-bridget-2.0.1.tgz#784d17a85e641780c5d89ac3f8a7eb47b0bce1fc"
+  dependencies:
+    jquery ">=1.4.2 <4"
+
+jquery@2.2.4, "jquery@>=1.4.2 <4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-2.2.4.tgz#2c89d6889b5eac522a7eea32c14521559c6cbf02"
 

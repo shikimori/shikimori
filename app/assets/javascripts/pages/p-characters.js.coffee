@@ -1,3 +1,5 @@
+FavouriteStar = require 'views/application/favourite_star'
+
 # отображение персонажа
 page_load 'characters_show', ->
   # сокращение высоты описания

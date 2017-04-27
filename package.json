@@ -9,6 +9,7 @@
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.tar.gz",
     "imagesloaded": "^4.1.1",
     "jquery": "2.2.4",
+    "jquery-bridget": "^2.0.1",
     "js-base64": "^2.1.9",
     "js-storage": "^1.0.1",
     "magnific-popup": "^1.1.0",

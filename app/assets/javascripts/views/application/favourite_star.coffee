@@ -1,4 +1,4 @@
-class @FavouriteStar extends View
+module.exports = class FavouriteStar extends View
   ADD_CLASS = 'fav-add'
   REMOVE_CLASS = 'fav-remove'
 

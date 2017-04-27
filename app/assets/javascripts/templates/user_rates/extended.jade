@@ -10,13 +10,14 @@
 
       if model.episodes != entry.episodes || model.episodes == 0
         span.item-add.increment(
-          data-action= increment_url
+          data-action=increment_url
           data-method='post'
           data-remote='true'
           data-type='json'
         )
 
-    .episodes= I18n.t('activerecord.attributes.user_rate.episodes')
+    .episodes
+      = I18n.t('activerecord.attributes.user_rate.episodes')
 
   else
     .rate-number
@@ -29,12 +30,13 @@
 
       if model.chapters != entry.chapters || model.chapters == 0
         span.item-add.increment(
-          data-action= increment_url
+          data-action=increment_url
           data-remote='true'
           data-type='json'
           data-method='post'
         )
-    .episodes= I18n.t('activerecord.attributes.user_rate.chapters')
+    .episodes
+      = I18n.t('activerecord.attributes.user_rate.chapters')
 
   != rate_html
 
