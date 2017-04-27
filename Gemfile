@@ -24,8 +24,6 @@ gem 'bourbon'
 #   а на странице /animes/id/franchise - d3
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
 
-gem 'jade-rails', github: 'GBH/jade-rails'
-
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
 

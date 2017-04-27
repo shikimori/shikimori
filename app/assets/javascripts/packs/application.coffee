@@ -8,8 +8,13 @@ window.ShikiUser = require 'models/shiki_user'
 require_helpers = require.context('../helpers', true)
 require_helpers.keys().forEach(require_helpers)
 
-# require_templates = require.context('../templates', true)
-# require_templates.keys().forEach(require_templates)
+require_templates = require.context('../templates', true)
+window.JST = require_templates.keys().reduce(
+  (memo, module) ->
+    memo[module.replace(/^\.\/|\.\w+$/g, '')] = require_templates module
+    memo
+  , {}
+)
 
 require_dynamic_elements = require.context('../dynamic_elements', true)
 require_dynamic_elements.keys().forEach(require_dynamic_elements)

@@ -15,6 +15,8 @@
     "nouislider": "^9.2.0",
     "packery": "^2.1.1",
     "pikaday": "^1.5.1",
+    "pug": "^2.0.0-beta.12",
+    "pug-loader": "^2.3.0",
     "sugar": "^2.0.2",
     "turbolinks": "morr/turbolinks#master",
     "uevent": "^1.0.0",
@@ -44,8 +46,8 @@
     "rails-erb-loader": "^5.0.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.16.1",
-    "webpack-dev-server": "^2.4.4",
     "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.4",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"
   }

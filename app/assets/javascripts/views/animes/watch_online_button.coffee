@@ -1,7 +1,7 @@
 using 'Animes'
 class Animes.WathOnlineButton extends View
-  WATCH_ONLINE_TEMPLATE = 'templates/animes/watch_online'
-  UPLOAD_VIDEOS_TEMPLATE = 'templates/animes/upload_videos'
+  WATCH_ONLINE_TEMPLATE = 'animes/watch_online'
+  UPLOAD_VIDEOS_TEMPLATE = 'animes/upload_videos'
 
   initialize: (@options) ->
     return unless @options.is_allowed
