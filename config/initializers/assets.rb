@@ -19,11 +19,4 @@ Rails.application.config.assets.precompile += %w(
   page404.css
   age_restricted.css
   tests/show.css
-  tests/show.js
-  highcharts.v4.2.6.js
-  lib/highcharts.js
-  statistics.js
-  about.js
-  jquery.js
-  vendor/jquery.cookie.js
 )
