@@ -1,6 +1,5 @@
 # import Vue from 'vue/dist/vue.esm'
 
-# require 'pikaday'
 # require 'urijs'
 
 require('sugar').extend()
@@ -21,6 +20,7 @@ require 'jquery-bridget'
 require 'magnific-popup'
 require 'magnific-popup/dist/magnific-popup.css'
 require 'nouislider/distribute/nouislider.css'
+require 'pikaday/scss/pikaday.scss'
 
 require 'imagesLoaded'
 require 'packery'

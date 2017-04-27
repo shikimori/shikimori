@@ -10,8 +10,7 @@ class Styles.PageBackgroundColor extends View
     @css_template = @$root.data 'css_template'
 
     @init_promise = require.ensure [], (require) =>
-      noUiSlider = require 'nouislider'
-      @_init_slider(noUiSlider)
+      @_init_slider require('nouislider')
 
   update: (css) ->
     @init_promise.then =>
