@@ -26,7 +26,7 @@
             .on('spoiler:opened', => $root.align_posters())
 
         # разбиваем по группам
-        $root.children().toArray().inGroupsOf(columns).each (group) ->
+        $root.children().toArray().inGroupsOf(columns).forEach (group) ->
           group = group.compact()
 
           # определяем высоту самого низкого постера

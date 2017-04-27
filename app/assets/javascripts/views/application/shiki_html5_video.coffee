@@ -1,4 +1,4 @@
-class @ShikiHtml5Video extends View
+module.exports = class ShikiHtml5Video extends View
   VOLUME_KEY = 'video_volume'
 
   initialize: ->

@@ -1,3 +1,5 @@
+imagesLoaded = require 'imagesLoaded'
+
 using 'DynamicElements'
 class DynamicElements.Html5Video extends View
   initialize: ->
