@@ -1,3 +1,4 @@
+ShikiEditor = require 'views/application/shiki_editor'
 I18N_KEY = 'frontend.dynamic_elements.comment'
 
 using 'DynamicElements'

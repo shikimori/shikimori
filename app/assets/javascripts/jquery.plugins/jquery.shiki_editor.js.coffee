@@ -1,3 +1,5 @@
+ShikiEditor = require 'views/application/shiki_editor'
+
 (($) ->
   $.fn.extend
     shiki_editor: ->

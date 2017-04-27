@@ -30,4 +30,4 @@ init_catalog = ->
   else if location.pathname.match(/\/comparer\//)
     base_catalog_path = _(location.pathname.split("/")).first(6).join("/")
 
-  paginated_catalog = new PaginatedCatalog(base_catalog_path)
+  paginated_catalog = new Animes.PaginatedCatalog(base_catalog_path)

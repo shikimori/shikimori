@@ -1,5 +1,8 @@
-class @PaginatedCatalog
+using 'Animes'
+module.exports = class Animes.PaginatedCatalog
   constructor: (base_catalog_path) ->
+    @ajax_cacher = require 'services/ajax_cacher'
+
     @$content = $('.l-content')
     @$pagination = $('.pagination')
     @$link_current = @$pagination.find('.link-current')
@@ -19,7 +22,7 @@ class @PaginatedCatalog
     @$pagination.on 'click', '.link', @_link_click
     @$pagination.on 'click', '.no-hover', @_page_select
 
-    @filters = new AnimeCatalogFilters base_catalog_path, location.href, @_filter_page_change
+    @filters = new Animes.CatalogFilters base_catalog_path, location.href, @_filter_page_change
 
     #$(window).on 'popstate', =>
       #@filters.last_compiled = location.href
@@ -143,7 +146,7 @@ class @PaginatedCatalog
         if @pending_request # $(@).hasClass("disabled")
           return xhr.abort()
 
-        cached_data = AjaxCacher.get(url)
+        cached_data = @ajax_cacher.get(url)
 
         if cached_data
           xhr.abort()
@@ -169,7 +172,7 @@ class @PaginatedCatalog
         #$.cursorMessage()
 
       success: (data, status, xhr) =>
-        AjaxCacher.push url, data
+        @ajax_cacher.push url, data
         return if 'aborted' of xhr && xhr.aborted
         @_process_ajax_content data, url
 

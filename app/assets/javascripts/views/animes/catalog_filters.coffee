@@ -1,6 +1,7 @@
 DEFAULT_LIST_SORT = 'ranked'
 
-@AnimeCatalogFilters = (base_path, current_url, change_callback) ->
+using 'Animes'
+module.exports = Animes.CatalogFilters = (base_path, current_url, change_callback) ->
   $root = $('.b-collection-filters')
 
   # вытаскивание из класса элемента типа и значения
@@ -133,7 +134,7 @@ DEFAULT_LIST_SORT = 'ranked'
     # установка значения параметра
     set: (key, value) ->
       self = this
-      data[key].each (value) ->
+      data[key].forEach (value) ->
         self.remove key, value
 
       @add key, value
@@ -184,16 +185,20 @@ DEFAULT_LIST_SORT = 'ranked'
 
     # формирование строки урла по выбранным элементам
     compile: ->
-      filters = data.map (values, key) -> #.replace('/order-by/ranked', '');
-        if Object.isArray(values)
-          if values.length
-            "/#{key}/#{values.join ','}"
+      filters_path = Object.reduce(
+        data,
+        (memo, values, key) -> #.replace('/order-by/ranked', '');
+          if Object.isArray(values)
+            if values.length
+              memo + "/#{key}/#{values.join ','}"
+            else
+              memo
           else
-            null
-        else
-          "/#{key}/#{values}"
+            memo + "/#{key}/#{values}"
+        , ''
+      )
 
-      @last_compiled = base_path + filters.join("") + location.search
+      @last_compiled = base_path + filters_path + location.search
 
     last_compiled: null
 
@@ -211,14 +216,14 @@ DEFAULT_LIST_SORT = 'ranked'
         .replace(/\?.*/, '')
         .match(/[\w\-]+\/[^\/]+/g)
 
-      (parts || []).each (match) =>
+      (parts || []).forEach (match) =>
         key = match.split("/")[0]
         return if key == 'page' || (key not of default_data)
 
         match
           .split('/')[1]
           .split(',')
-          .each (value) =>
+          .forEach (value) =>
             @add key, value
 
   params.parse current_url

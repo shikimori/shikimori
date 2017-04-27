@@ -19,7 +19,7 @@ $(document).on 'click appear', '.b-postloader', (e) ->
     filter_present_entries($data, $postloader.parent(), filter) if filter
 
     $postloader.trigger 'postloader:before', [$data, data]
-    process_current_dom $data, data.JS_EXPORTS
+    $data.process(data.JS_EXPORTS)
 
     $insert_content = $data.children()
     $postloader.replaceWith $insert_content

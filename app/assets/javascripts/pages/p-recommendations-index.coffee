@@ -1,4 +1,6 @@
 page_load 'recommendations_index', 'recommendations_favourites', ->
+  ajax_cacher = require 'services/ajax_cacher'
+
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()
     url = location.href
@@ -42,5 +44,5 @@ page_load 'recommendations_index', 'recommendations_favourites', ->
 
       $node.addClass 'entry-ignored'
       $(@).hide()
-      AjaxCacher.reset()
+      ajax_cacher.reset()
     false

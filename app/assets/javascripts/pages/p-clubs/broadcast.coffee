@@ -1,3 +1,5 @@
+ShikiEditor = require 'views/application/shiki_editor'
+
 page_load '.clubs-broadcast', ->
   new ShikiEditor('.b-shiki_editor')
 

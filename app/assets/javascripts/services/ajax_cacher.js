@@ -1,4 +1,4 @@
-var AjaxCacher = (function() {
+module.exports = (function() {
   var store = {};
   var queue = [];
   var queue_limit = 30;
@@ -6,7 +6,7 @@ var AjaxCacher = (function() {
 
   // обновление очереди - переданный url будет помещен в конец, и будут удалены лишние элементы, если очередь разрослась
   function update_queue(url, no_delete) {
-    if (queue.include(url)) {
+    if (queue.includes(url)) {
       queue = queue.subtract(url);
     }
     queue.push(url);
