@@ -1,6 +1,6 @@
 TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 
-@on 'page:load', '.animes', '.mangas', ->
+page_load '.animes', '.mangas', ->
   init_animes_menu()
 
 @init_animes_menu = ->

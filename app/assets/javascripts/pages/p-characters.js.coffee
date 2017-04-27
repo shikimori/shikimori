@@ -1,5 +1,5 @@
 # отображение персонажа
-@on 'page:load', 'characters_show', ->
+page_load 'characters_show', ->
   # сокращение высоты описания
   $('.text').check_height max_height: 200
 
@@ -12,11 +12,11 @@
       $editor.focus()
 
 # арт с имиджборд
-@on 'page:load', 'characters_art', ->
+page_load 'characters_art', ->
   new Images.ImageboardGallery '.b-gallery'
 
 # косплей
-@on 'page:load', 'characters_cosplay', ->
+page_load 'characters_cosplay', ->
   $('.b-gallery').gallery()
   $('.l-content').on 'postloader:success', ->
     $('.b-gallery').gallery()

@@ -1,4 +1,4 @@
-@on 'page:load', 'people_show', ->
+page_load 'people_show', ->
   $('.b-entry-info').check_height max_height: 101, without_shade: true
 
   Object.keys(is_favoured).forEach (role) ->

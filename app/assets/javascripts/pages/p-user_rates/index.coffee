@@ -4,7 +4,7 @@ TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 list_cache = []
 filter_timer = null
 
-@on 'page:load', 'user_rates_index', ->
+page_load 'user_rates_index', ->
   apply_list_handlers $('.l-content')
   update_list_cache()
 

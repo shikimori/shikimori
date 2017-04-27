@@ -1,4 +1,4 @@
-@on 'page:load', 'pages_development', ->
+page_load 'pages_development', ->
   $ajax = $ '.b-ajax'
   $iframe = $ 'iframe'
 

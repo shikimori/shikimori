@@ -2,7 +2,7 @@
 
 paginated_catalog = null
 
-@on 'page:restore', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
+page_restore 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   # восстановление плюсика у фильтра в актуальное состояние
   $block_filer = $('.block-filter.item-add')
   $block_list = $block_filer.siblings('.b-block_list')
@@ -13,7 +13,7 @@ paginated_catalog = null
 
   #paginated_catalog.bind_history()
 
-@on 'page:load', 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
+page_load 'animes_collection_index', 'recommendations_index', 'userlist_comparer_show', ->
   if $('.l-menu .ajax-loading').exists()
     $('.l-menu').one 'postloaded:success', init_catalog
   else

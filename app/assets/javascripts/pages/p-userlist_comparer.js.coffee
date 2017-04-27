@@ -1,6 +1,6 @@
 TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 
-@on 'page:load', 'userlist_comparer_show', ->
+page_load 'userlist_comparer_show', ->
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')

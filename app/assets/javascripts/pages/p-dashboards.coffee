@@ -1,4 +1,4 @@
-@on 'page:load', 'dashboards_show', ->
+page_load 'dashboards_show', ->
   $('.user_list .switch').on 'click', ->
     $(@)
       .closest('.list-type')

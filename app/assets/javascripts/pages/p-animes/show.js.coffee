@@ -1,4 +1,4 @@
-@on 'page:load', 'animes_show', 'mangas_show', ->
+page_load 'animes_show', 'mangas_show', ->
   $('.b-notice').tipsy gravity: 's'
   $('.c-screenshot').magnific_rel_gallery()
 

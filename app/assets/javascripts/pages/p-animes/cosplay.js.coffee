@@ -1,4 +1,4 @@
-@on 'page:load', 'animes_cosplay', 'mangas_cosplay', ->
+page_load 'animes_cosplay', 'mangas_cosplay', ->
   $('.b-gallery').gallery()
 
   $('.l-content').on 'postloader:success', ->

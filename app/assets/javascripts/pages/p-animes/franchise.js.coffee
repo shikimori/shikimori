@@ -1,4 +1,4 @@
-@on 'page:load', 'animes_franchise', 'mangas_franchise', =>
+page_load 'animes_franchise', 'mangas_franchise', =>
   try
     ShikiMath.rspec()
 

@@ -1,4 +1,4 @@
-@on 'page:load', 'anime_videos_index', ->
+page_load 'anime_videos_index', ->
   init_video_player()
 
   debounced_resize = $.debounce(250, resize_video_player)

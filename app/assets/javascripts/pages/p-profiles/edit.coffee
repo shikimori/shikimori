@@ -1,4 +1,4 @@
-@on 'page:load', 'profiles_edit', ->
+page_load 'profiles_edit', ->
   # account page
   if $('.edit-page.account').exists()
     $('.ignore-suggest').completable_variant()

@@ -1,4 +1,4 @@
-@on 'page:load', 'contests_show', ->
+page_load 'contests_show', ->
   $('#social_image').hide()
   $root = $('.l-content')
 

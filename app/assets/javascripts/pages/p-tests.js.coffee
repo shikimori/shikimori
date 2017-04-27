@@ -1,4 +1,4 @@
-@on 'page:load', '.tests', ->
+page_load '.tests', ->
   set_link = ->
     $('#link').val location.href.replace(/\?.*/, '') +
       '?image_url=' + $('#image_url').val() +

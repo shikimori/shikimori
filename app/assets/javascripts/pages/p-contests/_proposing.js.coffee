@@ -1,4 +1,4 @@
-@on 'page:load', 'contests_show', 'contests_edit', ->
+page_load 'contests_show', 'contests_edit', ->
   return unless $('.proposing').exists()
 
   $voters = (node) ->
@@ -36,7 +36,7 @@
     $voters(@).html(html)
 
 
-@on 'page:load', 'contests_show', ->
+page_load 'contests_show', ->
   return unless $('.proposing').exists()
 
   $suggest = $('.proposing .item-suggest')

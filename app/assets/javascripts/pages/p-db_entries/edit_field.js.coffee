@@ -1,4 +1,4 @@
-@on 'page:load', '.db_entries-edit_field', ->
+page_load '.db_entries-edit_field', ->
   $description = $('.edit-page.description_ru, .edit-page.description_en')
 
   if $description.exists()

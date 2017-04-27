@@ -1,4 +1,4 @@
-@on 'page:load', 'statistics_idnex', ->
+page_load 'statistics_idnex', ->
   alert 'load highcharts'
 
   $("#image_placeholder").hide()

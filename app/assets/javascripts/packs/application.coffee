@@ -34,6 +34,9 @@ require_jquery_plugins.keys().forEach(require_jquery_plugins)
 require_views = require.context('../views', true)
 require_views.keys().forEach(require_views)
 
+require_pages = require.context('../pages', true)
+require_pages.keys().forEach(require_pages)
+
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
@@ -42,11 +45,6 @@ CommentsNotifier = require '../services/comments_notifier'
 
 #= require_tree ./templates
 #= require_tree ./services
-
-#= require ./views/application/view
-#= require ./views/application/shiki_view
-#= require ./views/application/shiki_editable
-#= require_tree ./views
 
 #= require_tree ./models
 #= require_tree ./lib
