@@ -26,8 +26,8 @@ init_catalog = ->
   base_catalog_path = "/#{type}s"
 
   if location.pathname.match(/\/recommendations\//)
-    base_catalog_path = _(location.pathname.split("/")).first(5).join("/")
+    base_catalog_path = location.pathname.split("/").first(5).join("/")
   else if location.pathname.match(/\/comparer\//)
-    base_catalog_path = _(location.pathname.split("/")).first(6).join("/")
+    base_catalog_path = location.pathname.split("/").first(6).join("/")
 
   paginated_catalog = new Animes.PaginatedCatalog(base_catalog_path)
