@@ -1,3 +1,5 @@
+toastr = require './jquery.toastr'
+
 (($) ->
   $.extend
     flash: (options) ->
