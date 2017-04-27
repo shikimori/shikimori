@@ -31,8 +31,7 @@ module.exports = class DynamicElements.Forum extends ShikiView
         .prependTo(@$root)
         .data(ids: [])
         .on 'ajax:success', (e, data) ->
-          $html = $(data.content)
-          process_current_dom $html, data.JS_EXPORTS
+          $html = $(data.content).process(data.JS_EXPORTS)
           $placeholder.replaceWith $html
 
     if $placeholder.data('ids').indexOf(comment_id) == -1

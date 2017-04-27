@@ -38,7 +38,7 @@ page_load 'contests_show', ->
     else
       $('.item-content .warning').hide()
 
-    process_current_dom()
+    $root.process()
 
   # клик по одному из вариантов голосования
   $root.on 'click', '.match-member img', (e) ->
