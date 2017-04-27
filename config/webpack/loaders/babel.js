@@ -4,7 +4,10 @@ module.exports = {
   loader: 'babel-loader',
   options: {
     presets: [
-      ['env', { modules: false }]
-    ]
+      ['env', { modules: false }],
+    ],
+    // plugins: [
+      // require('babel-plugin-es6-promise')
+    // ]
   }
 }

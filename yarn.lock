@@ -1496,6 +1496,10 @@ error-ex@^1.2.0:
   dependencies:
     is-arrayish "^0.2.1"
 
+es6-promise@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.1.0.tgz#dda03ca8f9f89bc597e689842929de7ba8cebdf0"
+
 escape-html@~1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
@@ -3621,9 +3625,9 @@ pug-load@^2.0.6:
     object-assign "^4.1.0"
     pug-walk "^1.1.2"
 
-pug-loader@^2.3.0:
+pug-loader@pugjs/pug-loader:
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/pug-loader/-/pug-loader-2.3.0.tgz#b869294413a2218f0a7dd92a953e592283676c10"
+  resolved "https://codeload.github.com/pugjs/pug-loader/tar.gz/e667adfb0666074b430002ce64bc1b3ea27da52b"
   dependencies:
     loader-utils "~0.2.5"
     pug-walk "^1.0.0"

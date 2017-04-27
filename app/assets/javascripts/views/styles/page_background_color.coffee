@@ -9,21 +9,24 @@ class Styles.PageBackgroundColor extends View
     @slider = @$('.range-slider')[0]
     @css_template = @$root.data 'css_template'
 
+    @init_promise = require.ensure [], (require) =>
+      noUiSlider = require 'nouislider'
+      @_init_slider(noUiSlider)
+
+  update: (css) ->
+    @init_promise.then =>
+      @opacities = @_extract(css)
+      opacity = ZERO_OPACITY - @opacities.first()
+      @_silenced => @slider.noUiSlider.set opacity
+
+  _init_slider: (noUiSlider) ->
     noUiSlider.create @slider,
       range:
         min: 0
         max: 12
       start: 0
 
-    @_silenced =>
-      @slider.noUiSlider.on 'update', @_debounced_sync
-
-  update: (css) ->
-    @opacities = @_extract(css)
-
-    opacity = ZERO_OPACITY - @opacities.first()
-    @_silenced =>
-      @slider.noUiSlider.set opacity
+    @_silenced => @slider.noUiSlider.on 'update', @_debounced_sync
 
   _extract: (css) ->
     matches = css.match(REGEXP)

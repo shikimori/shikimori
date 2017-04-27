@@ -3,8 +3,8 @@
 # require 'pikaday'
 # require 'urijs'
 
-window.Sugar = require 'sugar'
-Sugar.extend()
+require('sugar').extend()
+require('es6-promise').polyfill()
 
 window.$ = window.jQuery = require 'jquery'
 window.moment = require 'moment'
@@ -17,17 +17,13 @@ require_vendor = require.context('../vendor', true)
 require_vendor.keys().forEach(require_vendor)
 
 require 'jquery-bridget'
+
 require 'magnific-popup'
+require 'magnific-popup/dist/magnific-popup.css'
+require 'nouislider/distribute/nouislider.css'
+
 require 'imagesLoaded'
 require 'packery'
 
 #= require d3
-#= require nouislider
-
-# imagesLoaded dependency
-#= require ev-emitter
-
-# magnific-popup dependency
-#= require magnific-popup
-
 #= require_self

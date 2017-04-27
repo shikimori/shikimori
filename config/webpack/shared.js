@@ -14,14 +14,6 @@ const { env, paths, publicPath, loadersDir } = require('./configuration.js')
 const extensionGlob = `*{${paths.extensions.join(',')}}*`
 const packPaths = sync(join(paths.source, paths.entry, extensionGlob))
 
-// console.log(JSON.stringify(packPaths.reduce(
-    // (map, entry) => {
-      // const localMap = map
-      // localMap[basename(entry, extname(entry))] = resolve(entry)
-      // return localMap
-    // }, {}
-  // )))
-
 module.exports = {
   entry: packPaths.reduce(
     (map, entry) => {
@@ -33,7 +25,8 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    path: resolve(paths.output, paths.entry)
+    path: resolve(paths.output, paths.entry),
+    publicPath: join('/', paths.entry, '/')
   },
 
   module: {
@@ -60,9 +53,6 @@ module.exports = {
       resolve(paths.source),
       resolve(paths.node_modules)
     ]
-    // alias: {
-      // jquery: 'jquery/src/jquery'
-    // }
   },
 
   resolveLoader: {
