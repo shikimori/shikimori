@@ -46,21 +46,3 @@ require 'imagesLoaded'
 #= require jade/runtime
 
 #= require_self
-
-bindings = require('helpers/bindings')
-
-$(document).on 'page:load page:change page:restore', (e) ->
-  for group in bindings[e.type]
-    body_classes = if group.conditions.length && group.conditions[0][0] == '.'
-      group.conditions
-        .filter (v) -> v[0] == '.'
-        .map (v) -> "p-#{v.slice 1} "
-    else
-      null
-
-    if !group.conditions.length
-      group.callback()
-    else if body_classes && body_classes.length && body_classes.any((v) -> document.body.className.indexOf(v) != -1)
-      group.callback()
-    else if group.conditions.any((v) -> document.body.id == v)
-      group.callback()

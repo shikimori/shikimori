@@ -37,6 +37,9 @@ require_views.keys().forEach(require_views)
 require_pages = require.context('../pages', true)
 require_pages.keys().forEach(require_pages)
 
+require_blocks = require.context('../blocks', true)
+require_blocks.keys().forEach(require_blocks)
+
 MobileDetect = require 'mobile-detect'
 window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 
@@ -53,6 +56,24 @@ CommentsNotifier = require '../services/comments_notifier'
 #= require turbolinks
 
 #= require_tree ./pages
+
+bindings = require('helpers/bindings')
+
+$(document).on Object.keys(bindings).join(' '), (e) ->
+  for group in bindings[e.type]
+    body_classes = if group.conditions.length && group.conditions[0][0] == '.'
+      group.conditions
+        .filter (v) -> v[0] == '.'
+        .map (v) -> "p-#{v.slice 1} "
+    else
+      null
+
+    if !group.conditions.length
+      group.callback()
+    else if body_classes && body_classes.length && body_classes.some((v) -> document.body.className.indexOf(v) != -1)
+      group.callback()
+    else if group.conditions.some((v) -> document.body.id == v)
+      group.callback()
 
 $ =>
   window.JS_EXPORTS ||= {}

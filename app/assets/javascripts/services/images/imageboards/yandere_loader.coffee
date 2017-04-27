@@ -1,4 +1,5 @@
 require './loader_base'
+Base64 = require('js-base64').Base64
 
 using 'Images.Imageboard'
 class Images.Imageboard.YandereLoader extends Images.Imageboard.LoaderBase

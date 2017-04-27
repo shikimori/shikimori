@@ -1,3 +1,5 @@
+uEvent = require 'uevent'
+
 using 'Images'
 class Images.StaticLoader
   @FETCH_EVENT = 'fetch'

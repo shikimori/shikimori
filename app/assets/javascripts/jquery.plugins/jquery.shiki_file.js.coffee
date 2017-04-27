@@ -1,3 +1,4 @@
+csrf = require 'helpers/csrf'
 I18N_KEY = 'frontend.lib.jquery_shiki_file'
 
 (($) ->
@@ -11,6 +12,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
   $.fn.extend
     shikiFile: (opts) ->
       @each ->
+
         options = $.extend {}, defaults, opts
         $node = $ @
 
@@ -27,12 +29,13 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
           if @files.length > 0
             $node.trigger 'drop', [@files]
 
+        csrf_tokens = csrf()
         $node.filedrop
           #fallback_id: 'upload_button',    # an identifier of a standard file input element
           url: $node.data('upload_url'),   # upload handler, handles each file separately
           paramname: 'image',      # POST parameter name used on serverside to reference file
-          data: CSRF.post,
-          headers: CSRF.headers,
+          data: csrf_tokens.post,
+          headers: csrf_tokens.headers,
           error: (err, file) ->
             switch err
               when 'TooManyFiles'

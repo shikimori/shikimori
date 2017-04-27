@@ -1,3 +1,5 @@
+ShikiEditor = require 'views/application/shiki_editor'
+
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable

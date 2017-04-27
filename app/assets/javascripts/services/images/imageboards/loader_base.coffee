@@ -1,3 +1,5 @@
+uEvent = require 'uevent'
+
 using 'Images.Imageboard'
 class Images.Imageboard.LoaderBase
   @FETCH_EVENT = 'fetch'

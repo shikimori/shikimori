@@ -1,3 +1,5 @@
+Faye = require 'faye'
+
 # уведомлялка Faye
 # назначение класса - слушать Faye и отправлять получившим обновление топикам и разделам события faye:success
 module.exports = class FayeLoader

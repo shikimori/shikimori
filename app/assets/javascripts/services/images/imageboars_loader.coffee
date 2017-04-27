@@ -1,4 +1,5 @@
 require './static_loader'
+uEvent = require 'uevent'
 
 using 'Images'
 class Images.ImageboardsLoader extends Images.StaticLoader
@@ -44,7 +45,7 @@ class Images.ImageboardsLoader extends Images.StaticLoader
 
   is_finished: ->
     @cache.length == 0 &&
-      @loaders.all (loader) -> loader.is_finished
+      @loaders.every (loader) -> loader.is_finished
 
   # callbacks
   # loader returned images

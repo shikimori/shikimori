@@ -78,4 +78,3 @@ $(document).on 'click', '.collapsed', ->
 $(document).on 'click', '.spoiler.target', ->
   return unless $(@).hasClass('dashed')
   $(@).hide().prev().show().prev().show()
-
