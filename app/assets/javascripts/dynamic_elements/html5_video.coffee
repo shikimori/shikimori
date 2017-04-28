@@ -21,4 +21,4 @@ class DynamicElements.Html5Video extends View
         @node.srcset = @$node.data('srcset')
       .on 'fail', =>
         if attempt <= 60
-          (=> @_replace_image attempt+1).delay(5000 * (attempt+1))
+          delay(5000 * (attempt+1)).then => @_replace_image attempt+1

@@ -89,15 +89,13 @@ class Images.PreloadedGallery extends View
     images.elements.forEach (image_node, index) =>
       @_deploy_image image_node, index, APPEND_ACTION
     # recheck postloader appearence after all images are deployed
-    @_after_batch_deploy.delay((images.elements.length + 1) * DEPLOY_INTERVAL)
+    delay((images.elements.length + 1) * DEPLOY_INTERVAL).then =>
+      @_after_batch_deploy()
 
   _deploy_image: (image_node, index, action) =>
     $image = $(image_node)
       .shiki_image()
       .css(bottom: 9999)
 
-    @packery
-      .bind(@$container, action, $image)
-      .delay(index * DEPLOY_INTERVAL)
-
+    delay(index * DEPLOY_INTERVAL).then => @$container.packery(action, $image)
     @$container.append($image)

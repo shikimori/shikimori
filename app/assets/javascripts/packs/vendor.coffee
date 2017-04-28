@@ -9,6 +9,7 @@ window.$ = window.jQuery = require 'jquery'
 window.moment = require 'moment'
 window.I18n = require 'i18n-js'
 window.Turbolinks = require 'turbolinks'
+window.delay = require 'delay'
 
 require '../i18n/translations'
 

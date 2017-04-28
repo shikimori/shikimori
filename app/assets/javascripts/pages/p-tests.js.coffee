@@ -14,7 +14,7 @@ page_load '.tests', ->
       set_link()
 
     .on 'paste', (e) ->
-      (=> $(@).trigger 'change').delay()
+      delay().then => $(@).trigger 'change'
 
     .trigger('change')
 
@@ -24,6 +24,6 @@ page_load '.tests', ->
       set_link()
 
     .on 'paste', (e) ->
-      (=> $(@).trigger 'change').delay()
+      delay().then => $(@).trigger 'change'
 
     .trigger('change')

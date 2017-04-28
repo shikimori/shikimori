@@ -133,14 +133,14 @@ apply_list_handlers = ($root) ->
     $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>")
       .insertAfter(@)
     $form = $tr_edit.find('form')
-    #original_height = $form.height()
+    # original_height = $form.height()
 
     if $another_tr_edit.exists()
       $another_tr_edit.remove()
     else
       $form.animated_expand()
-      #$form.css height: 0
-      #(-> $form.css height: original_height).delay()
+      # $form.css height: 0
+      # delay().then -> $form.css height: original_height
 
     # отмена редактирования
     $('.cancel', $tr_edit).on 'click', ->
@@ -186,7 +186,7 @@ apply_list_handlers = ($root) ->
     # удаление из списка
     $('.remove', $form).on 'ajax:success', (e, data) ->
       $('.cancel', $tr_edit).click()
-      (-> $tr.remove()).delay 250
+      delay(250).then -> $tr.remove()
       e.stopPropagation()
 
   $('tr.unprocessed', $root)

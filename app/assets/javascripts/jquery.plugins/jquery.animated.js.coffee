@@ -12,17 +12,15 @@
           .addClass('animated-overflow')
           .css(height: "#{start_heigth}px")
 
-        (->
+        delay().then ->
           $node
             .addClass('animated-height')
             .css(height: height)
             .data(animated_direction: 'expand')
-        ).delay()
 
-        (->
+        delay(500).then ->
           if $node.data('animated_direction') == 'expand'
             finish_expand $node
-        ).delay(500)
 
     # анимированное скрытие элемента
     animated_collapse: () ->
@@ -35,17 +33,15 @@
           .css(height: "#{height}px")
           .addClass('animated-overflow')
 
-        (->
+        delay().then ->
           $node
             .addClass('animated-height')
             .css(height: 0)
             .data(animated_direction: 'collapse')
-        ).delay()
 
-        (->
+        delay(500).then ->
           if $node.data('animated_direction') == 'collapse'
             finish_collapse $node
-        ).delay(500)
 
   finish_collapse = ($node) ->
     $node

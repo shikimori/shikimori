@@ -51,7 +51,7 @@ module.exports = class CommentsNotifier
 
   # пересчёт значения счётчика
   refresh: =>
-    (=>
+    delay().then =>
       $comment_new = $(@comment_selector)
       $faye_loader = $(@faye_loader_selector)
       count = $comment_new.length
@@ -60,7 +60,6 @@ module.exports = class CommentsNotifier
         count += $(@).data('ids').length
 
       @update count
-    ).delay()
 
   # установление значение счётчика
   update: (count) ->

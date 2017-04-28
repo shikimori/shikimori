@@ -18,7 +18,8 @@ module.exports = class ShikiEditor extends ShikiView
     @on 'focus', => @$textarea.trigger('focus')
 
     # по первому фокусу на редактор включаем elastic
-    @$textarea.one 'focus', => @$textarea.elastic.bind(@$textarea).delay()
+    @$textarea.one 'focus', =>
+      delay().then => @$textarea.elastic()
 
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey
@@ -262,10 +263,11 @@ module.exports = class ShikiEditor extends ShikiView
 
     # фокус на редакторе
     if @$textarea.val().length > 0
-      (=>
-        #@$textarea.focus()
-        @$textarea.focus().setCursorPosition @$textarea.val().length
-      ).delay() # delay надо, т.к. IE не может делать focus и работать с Range (внутри setCursorPosition) для невидимых элементов
+      # delay надо, т.к. IE не может делать focus и
+      # работать с Range (внутри setCursorPosition) для невидимых элементов
+      delay().then =>
+        @$textarea.focus()
+        @$textarea.setCursorPosition @$textarea.val().length
 
     if $.browser.opera && parseInt($.browser.version) < 12
       @$('.editor-file').hide()

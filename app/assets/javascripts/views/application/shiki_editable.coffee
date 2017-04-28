@@ -26,9 +26,8 @@ module.exports = class ShikiEditable extends ShikiView
     # confirm deletion
     $('.item-delete-confirm', @$inner).on 'ajax:loading', (e, data, status, xhr) =>
       $.hideCursorMessage()
-      @$root
-        .animated_collapse()
-        .remove.bind(@$root).delay(500)
+      @$root.animated_collapse()
+      delay(500).then => @$root.remove()
 
     # cancel deletion
     $('.item-delete-cancel', @$inner).on 'click', =>
@@ -119,15 +118,13 @@ module.exports = class ShikiEditable extends ShikiView
         @$root.data(selected_text: text)
         $quote = $('.item-quote', @$inner).css(display: 'inline-block')
 
-        (->
+        delay().then ->
           $(document).one 'click', ->
             unless $.getSelectionText().length
               $quote.hide()
             else
-              (->
+              delay(250).then ->
                 $quote.hide() unless $.getSelectionText().length
-              ).delay(250)
-        ).delay()
 
       # цитирование комментария
       $('.item-quote', @$inner).on 'click', (e) =>

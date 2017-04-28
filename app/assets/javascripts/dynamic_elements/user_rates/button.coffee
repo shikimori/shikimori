@@ -28,12 +28,11 @@ class DynamicElements.UserRates.Button extends View
         .css(height: 0)
         .show()
 
-    (=>
+    delay().then =>
       if @$('.b-add_to_list').hasClass 'expanded'
         @$('.expanded-options').css height: @$('.expanded-options').data('height')
       else
         @$('.expanded-options').css height: 0
-    ).delay()
 
   _submit_status: (e) =>
     $form = $(e.target).closest('form')

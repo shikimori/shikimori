@@ -8,7 +8,7 @@ class Animes.WathOnlineButton extends View
     @total_episodes = @$root.data('total_episodes') || 9999
 
     @_render()
-    @_setup_handlers.delay()
+    delay().then => @_setup_handlers()
 
   _render: ->
     if @options.has_videos

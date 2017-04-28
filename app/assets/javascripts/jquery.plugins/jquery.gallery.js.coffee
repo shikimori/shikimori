@@ -61,7 +61,7 @@
 
             $image = $(response.html)
             $container.prepend($image)
-            $container.packery.bind($container, 'prepended', $image).delay 50
+            delay(50).then -> $container.packery('prepended', $image)
             $image.shiki_image()
 
       unless resize_binded
@@ -69,7 +69,7 @@
         $(window).resize_delayed ->
           $galleries = $('.packery')
           $galleries.packery()
-          $galleries.packery.bind($galleries).delay(1250)
+          delay(1250).then -> $galleries.packery()
         , 500
 
 ) jQuery

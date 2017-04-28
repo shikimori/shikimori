@@ -81,7 +81,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
             global_lock = false
 
             $progress_container.removeClass 'active'
-            (-> $progress_bar.width '0%').delay 250
+            delay(250).then -> $progress_bar.width '0%'
 
           docOver: (e) ->
             return if $node.data('placeholder_displayed') || !$node.is(':visible')
@@ -104,9 +104,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
               .on('dragleave', -> $(@).removeClass 'hovered')
               .insertBefore($node)
 
-            (->
-              $placeholder.css opacity: 0.75
-            ).delay()
+            delay().then -> $placeholder.css opacity: 0.75
 
           docLeave: (e) ->
             return unless $node.data 'placeholder_displayed'
@@ -115,7 +113,7 @@ I18N_KEY = 'frontend.lib.jquery_shiki_file'
               .find('.b-dropzone-drag_placeholder')
               .css(opacity: 0)
 
-            (-> $placeholder.remove()).delay 350
+            delay(350).then -> $placeholder.remove()
             $node.data placeholder_displayed: false
 
           uploadStarted: (i, file, len) ->

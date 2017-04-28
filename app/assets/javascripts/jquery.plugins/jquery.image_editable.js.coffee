@@ -46,7 +46,7 @@
           $packery = $root.closest('.packery')
           if $packery.exists()
             $packery.packery('remove', $root)
-            $packery.packery.bind($packery).delay(250)
+            delay(250).then -> $packery.packery()
 
         # перемещение влево
         $('.move-left', $root).on 'click', ->

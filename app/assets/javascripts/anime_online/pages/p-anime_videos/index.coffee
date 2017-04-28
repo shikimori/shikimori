@@ -70,11 +70,9 @@ init_video_player = ->
   # инкремент числа просмотров
   video_url = location.href
   if $player.data('watch-delay')
-    (->
+    delay($player.data('watch-delay')).then ->
       if video_url == location.href
         $.post $player.data('watch-url')
-    ).delay $player.data('watch-delay')
-
 
   # handlers
   # показ дополнительных кнопок для видео
@@ -103,10 +101,9 @@ init_video_player = ->
     unless $('.increment-user_rate').hasClass('watched')
       $.notice 'Эпизод отмечен просмотренным'
 
-    (=>
+    delay(500).then =>
       $(@).removeClass 'b-ajax'
       Turbolinks.visit $('.c-control.next').attr('href')
-    ).delay 500
 
   # переключение номера эпизода
   $('.cc-player_controls .episode-num input')

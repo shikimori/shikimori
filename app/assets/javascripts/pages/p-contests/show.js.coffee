@@ -99,9 +99,7 @@ page_load 'contests_show', ->
     if $vote.length
       if data.ajax
         # и грузим следующее голосование
-        (->
-          $vote.first().trigger 'click'
-        ).delay 500
+        delay(500).then -> $vote.first().trigger 'click'
       else
         # показываем ссылку "перейти дальше"
         $('.next', $root).show()

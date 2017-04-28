@@ -279,9 +279,12 @@ class DynamicElements.Topic extends ShikiEditable
     if $markers.data('reappear')
       $markers.addClass 'off'
     else
-      $markers.css.bind($markers).delay(interval, opacity: 0)
-      $markers.hide.bind($markers).delay(interval + 500)
-      $markers.removeClass.bind($markers).delay(interval + 500, 'active')
+      delay(interval).then ->
+        $markers.css(opacity: 0)
+
+        delay(500).then ->
+          $markers.hide()
+          $markers.removeClass('active')
 
   _before_comments_clickload: =>
     new_url = @$comments_loader

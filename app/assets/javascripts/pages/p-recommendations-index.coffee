@@ -4,9 +4,8 @@ page_load 'recommendations_index', 'recommendations_favourites', ->
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()
     url = location.href
-    (->
+    delay(5000).then ->
       Turbolinks.visit(location.href, true) if url == location.href
-    ).delay 5000
 
   $('body').on 'mouseover', '.b-catalog_entry', ->
     return unless SHIKI_USER.is_signed_in

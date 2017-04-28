@@ -20,5 +20,5 @@
     @each ->
       $image = $(@)
       $image.imagesLoaded ->
-        check_image.delay 0, $image, options
+        delay().then -> check_image $image, options
 ) jQuery

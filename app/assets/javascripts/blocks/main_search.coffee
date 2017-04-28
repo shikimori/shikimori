@@ -47,7 +47,7 @@ $(document).on 'page:load', ->
 
   $search.on 'parse', ->
     $popup.addClass 'disabled'
-    (-> $('.ac_results:visible').addClass 'menu-suggest').delay()
+    delay().then -> $('.ac_results:visible').addClass 'menu-suggest'
 
   # переключение типа поиска
   $('.b-main_search .type').on 'click', ->
