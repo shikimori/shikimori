@@ -1,5 +1,7 @@
+ShikiGallery = require 'views/application/shiki_gallery'
+
 using 'Images'
-class Images.PreloadedGallery extends View
+class Images.PreloadedGallery extends ShikiGallery
   @BATCH_SIZE = 5
   TEMPLATE = 'images/image'
 
@@ -12,20 +14,16 @@ class Images.PreloadedGallery extends View
   PREPEND_ACTION = 'prepended'
 
   initialize: ->
+    super
+      shiki_upload: @$root.data('can_upload')
+      shiki_upload_custom: true
+
     @rel = @$root.data 'rel'
     @can_load = true
-
-    @$container = @$('.container')
 
     @can_upload = @$root.data 'can_upload'
     @can_destroy = @$root.data 'can_destroy'
     @destroy_url = @$container.data 'destroy_url'
-
-    @$root.gallery
-      shiki_upload: @$root.data('can_upload')
-      shiki_upload_custom: true
-
-    @packery = @$root.packery
 
     @on 'upload:success', @_append_uploaded
 
@@ -52,7 +50,8 @@ class Images.PreloadedGallery extends View
 
   _append_uploaded: (e, image) =>
     $image = $(@_image_to_html(image))
-    $image.imagesLoaded => @_deploy_image $image, 0, PREPEND_ACTION
+    $image.imagesLoaded =>
+      @_deploy_image $image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION
 
   # private methods
   _build_loader: ->
@@ -87,15 +86,7 @@ class Images.PreloadedGallery extends View
 
   _deploy_batch: (images) =>
     images.elements.forEach (image_node, index) =>
-      @_deploy_image image_node, index, APPEND_ACTION
+      @_deploy_image image_node, index * DEPLOY_INTERVAL, APPEND_ACTION
     # recheck postloader appearence after all images are deployed
     delay((images.elements.length + 1) * DEPLOY_INTERVAL).then =>
       @_after_batch_deploy()
-
-  _deploy_image: (image_node, index, action) =>
-    $image = $(image_node)
-      .shiki_image()
-      .css(bottom: 9999)
-
-    delay(index * DEPLOY_INTERVAL).then => @$container.packery(action, $image)
-    @$container.append($image)

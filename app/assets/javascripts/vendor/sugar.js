@@ -1,4 +1,4 @@
-// custom sugar build without many unused functions
+// custom minimalistic sugar build without many unused functions
 /*
  *  Sugar Custom 2017.04.28
  *
@@ -1059,6 +1059,21 @@
       defineInstancePolyfill      = wrapNamespace('defineInstancePolyfill'),
       defineInstanceAndStatic     = wrapNamespace('defineInstanceAndStatic'),
       defineInstanceWithArguments = wrapNamespace('defineInstanceWithArguments');
+
+  function defineInstanceAndStaticSimilar(sugarNamespace, set, fn, flags) {
+    defineInstanceAndStatic(sugarNamespace, collectSimilarMethods(set, fn), flags);
+  }
+
+  function collectSimilarMethods(set, fn) {
+    var methods = {};
+    if (isString(set)) {
+      set = spaceSplit(set);
+    }
+    forEach(set, function(el, i) {
+      fn(methods, el, i);
+    });
+    return methods;
+  }
 
   // This song and dance is to fix methods to a different length
   // from what they actually accept in order to stay in line with
@@ -4167,6 +4182,37 @@
     return objectMerge({}, obj1, false, resolve);
   }
 
+  /***
+   * @method is[Type]()
+   * @returns Boolean
+   * @short Returns true if the object is an object of that type.
+   *
+   * @set
+   *   isArray
+   *   isBoolean
+   *   isDate
+   *   isError
+   *   isFunction
+   *   isMap
+   *   isNumber
+   *   isRegExp
+   *   isSet
+   *   isString
+   *
+   * @example
+   *
+   *   Object.isArray([3]) -> true
+   *   Object.isNumber(3)  -> true
+   *   Object.isString(8)  -> false
+   *
+   ***/
+  function buildClassCheckMethods() {
+    var checks = [isBoolean, isNumber, isString, isDate, isRegExp, isFunction, isArray, isError, isSet, isMap];
+    defineInstanceAndStaticSimilar(sugarObject, NATIVE_TYPES, function(methods, name, i) {
+      methods['is' + name] = checks[i];
+    });
+  }
+
   defineInstanceAndStatic(sugarObject, {
 
     /***
@@ -4486,6 +4532,8 @@
     }
 
   });
+
+  buildClassCheckMethods();
 
   /***
    * @module Enumerable

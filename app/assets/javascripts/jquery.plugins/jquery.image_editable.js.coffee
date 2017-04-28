@@ -1,3 +1,5 @@
+Packery = require 'packery'
+
 (($) ->
   $.fn.extend
     image_editable: ->
@@ -43,10 +45,10 @@
             .removeClass('deletable')
             .addClass('deleted')
 
-          $packery = $root.closest('.packery')
-          if $packery.exists()
-            $packery.packery('remove', $root)
-            delay(250).then -> $packery.packery()
+          packery = $root.closest('.packery').data('packery')
+          if packery
+            packery.remove $root[0]
+            delay(250).then -> packery.layout()
 
         # перемещение влево
         $('.move-left', $root).on 'click', ->

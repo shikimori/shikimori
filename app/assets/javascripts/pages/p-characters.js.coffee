@@ -19,6 +19,4 @@ page_load 'characters_art', ->
 
 # косплей
 page_load 'characters_cosplay', ->
-  $('.b-gallery').gallery()
-  $('.l-content').on 'postloader:success', ->
-    $('.b-gallery').gallery()
+  new Animes.Cosplay '.l-content'

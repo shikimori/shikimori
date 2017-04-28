@@ -1,4 +1,5 @@
 ShikiEditor = require 'views/application/shiki_editor'
+ShikiGallery = require 'views/application/shiki_gallery'
 
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
@@ -61,7 +62,7 @@ class DynamicElements.Topic extends ShikiEditable
       @_check_height()
 
     if @is_cosplay && !@is_preview
-      @$('.b-cosplay_gallery .b-gallery').gallery()
+      new ShikiGallery @$('.b-cosplay_gallery .b-gallery')
 
     # ответ на топик
     $('.item-reply', @$inner).on 'click', =>

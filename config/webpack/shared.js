@@ -35,6 +35,7 @@ module.exports = {
     ))
   },
 
+  // visualizer: https://chrisbateman.github.io/webpack-visualizer/
   plugins: [
     new webpack.ProvidePlugin({
       moment: 'moment',

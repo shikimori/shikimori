@@ -1,3 +1,5 @@
+Packery = require 'packery'
+
 page_load 'translations_show', ->
-  $('.translations').packery
+  new Packery $('.translations')[0],
     itemSelector : '.animes'
