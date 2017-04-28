@@ -3,7 +3,7 @@ ShikiHtml5Video = require 'views/application/shiki_html5_video'
 page_load 'anime_videos_index', ->
   init_video_player()
 
-  debounced_resize = $.debounce(250, resize_video_player)
+  debounced_resize = debounce(250, resize_video_player)
   debounced_resize()
 
   $(window).on('resize', debounced_resize)

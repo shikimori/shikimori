@@ -22,7 +22,7 @@
     "pikaday": "^1.5.1",
     "pug": "^2.0.0-beta.12",
     "pug-loader": "pugjs/pug-loader",
-    "sugar": "^2.0.2",
+    "throttle-debounce": "^1.0.1",
     "turbolinks": "morr/turbolinks#master",
     "uevent": "^1.0.0",
     "urijs": "^1.18.10",

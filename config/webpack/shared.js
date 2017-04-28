@@ -36,13 +36,22 @@ module.exports = {
   },
 
   plugins: [
-    // new webpack.ProvidePlugin({
-      // moment: 'moment',
-      // I18n: 'i18n-js'
-    // }),
-    // Avoid publishing files when compilation failed:
-    // new webpack.NoEmitOnErrorsPlugin(),
-
+    new webpack.ProvidePlugin({
+      moment: 'moment',
+      I18n: 'i18n-js',
+      Turbolinks: 'turbolinks',
+      delay: 'delay',
+      throttle: 'throttle-debounce/throttle',
+      debounce: 'throttle-debounce/debounce'
+    }),
+    // https://webpack.js.org/plugins/commons-chunk-plugin/
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function (module) {
+        // this assumes your vendor imports exist in the node_modules directory
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      }
+    }),
     // load only russian momentjs locale
     // http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
