@@ -1,7 +1,6 @@
-require './loader_base'
+LoaderBase = require './loader_base'
 
-using 'Images.Imageboard'
-class Images.Imageboard.KonachanLoader extends Images.Imageboard.LoaderBase
+module.exports = class KonachanLoader extends LoaderBase
   _initialize: ->
     @name = 'Konachan'
     @base_url = 'http://konachan.com'

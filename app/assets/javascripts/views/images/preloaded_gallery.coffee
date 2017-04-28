@@ -29,12 +29,12 @@ class Images.PreloadedGallery extends View
 
     @on 'upload:success', @_append_uploaded
 
-    @loader = @_build_loader()
-    if @loader
-      @loader.on Images.StaticLoader.FETCH_EVENT, @_images_load
+    @_build_loader().then =>
+      if @loader
+        @loader.on @loader.FETCH_EVENT, @_images_load
 
-      @_appear_marker()
-      @_fetch()
+        @_appear_marker()
+        @_fetch()
 
   # callbacks
   # loader returned images
@@ -56,9 +56,12 @@ class Images.PreloadedGallery extends View
 
   # private methods
   _build_loader: ->
-    images = @$container.data 'images'
-    if images
-      new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
+    require.ensure [], (require) =>
+      StaticLoader = require 'services/images/static_loader'
+
+      images = @$container.data 'images'
+      if images
+        @loader = new StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
     @$appear_marker = $(APPEAR_MARKER_HTML).insertAfter @$container

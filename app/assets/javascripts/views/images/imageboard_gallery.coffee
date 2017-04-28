@@ -7,6 +7,9 @@ class Images.ImageboardGallery extends Images.PreloadedGallery
     @rel = 'imageboards'
 
   _build_loader: ->
-    tags = encodeURIComponent(@$root.data('tags') || '').trim()
-    if tags
-      new Images.ImageboardsLoader(Images.ImageboardGallery.BATCH_SIZE, tags)
+    require.ensure [], (require) =>
+      ImageboardsLoader = require 'services/images/imageboards_loader'
+
+      tags = encodeURIComponent(@$root.data('tags') || '').trim()
+      if tags
+        @loader = new ImageboardsLoader(ImageboardGallery.BATCH_SIZE, tags)

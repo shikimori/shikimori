@@ -1,9 +1,10 @@
-using 'Topics'
-class Topics.Tracker
+TrackTopic = require './track_topic'
+
+module.exports = class TopicsTracker
   @track: (JS_EXPORTS, $root) ->
     return if Object.isEmpty(JS_EXPORTS?.topics)
 
     JS_EXPORTS.topics.forEach (topic) ->
-      new Topics.TrackTopic topic, $root
+      new TrackTopic topic, $root
 
     JS_EXPORTS.topics = null

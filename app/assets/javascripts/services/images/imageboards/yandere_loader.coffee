@@ -1,8 +1,7 @@
-require './loader_base'
 Base64 = require('js-base64').Base64
+LoaderBase = require './loader_base'
 
-using 'Images.Imageboard'
-class Images.Imageboard.YandereLoader extends Images.Imageboard.LoaderBase
+module.exports = class YandereLoader extends LoaderBase
   _initialize: ->
     @name = 'YandeRe'
     @base_url = 'https://yande.re'

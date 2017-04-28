@@ -19,12 +19,6 @@ window.JST = require_templates.keys().reduce(
 require_dynamic_elements = require.context('../dynamic_elements', true)
 require_dynamic_elements.keys().forEach(require_dynamic_elements)
 
-require_services = require.context('../services', true)
-require_services
-  .keys()
-  .filter((module) -> module.match(/.\/\w+\//))
-  .forEach(require_services)
-
 require_jquery_plugins = require.context('../jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
 

@@ -1,7 +1,6 @@
-require './loader_base'
+LoaderBase = require './loader_base'
 
-using 'Images.Imageboard'
-class Images.Imageboard.SafebooruLoader extends Images.Imageboard.LoaderBase
+module.exports = class SafebooruLoader extends LoaderBase
   _initialize: ->
     @name = 'Safebooru'
     @base_url = 'http://safebooru.org'

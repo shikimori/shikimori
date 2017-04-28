@@ -1,5 +1,4 @@
-using 'Comments'
-class Comments.TrackComment
+module.exports = class TrackComment
   MARK = 'not-tracked'
 
   constructor: (comment, $root) ->

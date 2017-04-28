@@ -1,8 +1,11 @@
-require './static_loader'
 uEvent = require 'uevent'
+StaticLoader = require './static_loader'
+SafebooruLoader = require './imageboards/safebooru_loader'
+DanbooruLoader = require './imageboards/danbooru_loader'
+YandereLoader = require './imageboards/yandere_loader'
+KonachanLoader = require './imageboards/konachan_loader'
 
-using 'Images'
-class Images.ImageboardsLoader extends Images.StaticLoader
+module.exports = class ImageboardsLoader extends StaticLoader
   # какие теги отфильтровывать
   FORBIDDEN_TAGS = [
     'comic', 'cum', 'fellatio', 'pussy', 'penis', 'sex', 'pussy_juice', 'nude',
@@ -15,10 +18,10 @@ class Images.ImageboardsLoader extends Images.StaticLoader
   ]
 
   LOADERS = [
-    Images.Imageboard.SafebooruLoader,
-    Images.Imageboard.DanbooruLoader,
-    Images.Imageboard.YandereLoader,
-    Images.Imageboard.KonachanLoader
+    SafebooruLoader,
+    DanbooruLoader,
+    YandereLoader,
+    KonachanLoader
   ]
 
   constructor: (@batch_size, @tags) ->
@@ -33,7 +36,7 @@ class Images.ImageboardsLoader extends Images.StaticLoader
 
     @loaders = LOADERS.map (klass) => new klass(@tags, @forbidden_tags)
     @loaders.forEach (loader) =>
-      loader.on Images.Imageboard.LoaderBase.FETCH_EVENT, @_loader_fetch
+      loader.on loader.FETCH_EVENT, @_loader_fetch
 
   # public methods
   fetch: (count) ->

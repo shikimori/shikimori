@@ -1,5 +1,4 @@
-using 'Topics'
-class Topics.TrackTopic
+module.exports = class TrackTopic
   MARK = 'not-tracked'
 
   constructor: (topic, $root) ->

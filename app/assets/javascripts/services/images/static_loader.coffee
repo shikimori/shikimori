@@ -1,8 +1,7 @@
 uEvent = require 'uevent'
 
-using 'Images'
-class Images.StaticLoader
-  @FETCH_EVENT = 'fetch'
+module.exports = class StaticLoader
+  FETCH_EVENT: 'loader:fetch'
 
   constructor: (@batch_size, @cache) ->
     uEvent.mixin @
@@ -16,4 +15,4 @@ class Images.StaticLoader
 
   # private methods
   _return_from_cache: ->
-    @trigger Images.StaticLoader.FETCH_EVENT, @cache.splice(0, @batch_size)
+    @trigger @FETCH_EVENT, @cache.splice(0, @batch_size)

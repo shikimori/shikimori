@@ -1,8 +1,7 @@
 uEvent = require 'uevent'
 
-using 'Images.Imageboard'
-class Images.Imageboard.LoaderBase
-  @FETCH_EVENT = 'fetch'
+module.exports = class LoaderBase
+  FETCH_EVENT: 'loader:fetch'
 
   constructor: (@tags, @forbidden_tags) ->
     uEvent.mixin @
@@ -27,7 +26,7 @@ class Images.Imageboard.LoaderBase
 
     console.log @name, "fetched: #{images.length}", "is_finished: #{@is_finished}"
 
-    @trigger Images.Imageboard.LoaderBase.FETCH_EVENT, images
+    @trigger @FETCH_EVENT, images
 
   _fetch_fail: =>
     @is_loading = false

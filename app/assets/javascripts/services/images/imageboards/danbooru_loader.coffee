@@ -1,7 +1,6 @@
-require './loader_base'
+LoaderBase = require './loader_base'
 
-using 'Images.Imageboard'
-class Images.Imageboard.DanbooruLoader extends Images.Imageboard.LoaderBase
+module.exports = class DanbooruLoader extends LoaderBase
   _initialize: ->
     @name = 'Danbooru'
     @base_url = 'http://danbooru.donmai.us'

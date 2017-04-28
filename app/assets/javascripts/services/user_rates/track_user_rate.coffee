@@ -1,5 +1,4 @@
-using 'UserRates'
-class UserRates.TrackUserRate
+module.exports = class TrackUserRate
   MARK = 'not-tracked'
 
   constructor: (user_rate, $root) ->

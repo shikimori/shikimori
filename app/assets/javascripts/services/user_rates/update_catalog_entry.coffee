@@ -1,7 +1,6 @@
-#= require './track_catalog_entry'
+TrackCatalogEntry = require './track_catalog_entry'
 
-using 'UserRates'
-class UserRates.UpdateCatalogEntry extends UserRates.TrackCatalogEntry
+module.exports = class UpdateCatalogEntry extends TrackCatalogEntry
   constructor: (user_rate, $root) ->
     $(@_selector(user_rate)).each ->
       $node = $(@)
