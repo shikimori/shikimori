@@ -4379,6 +4379,24 @@
     },
 
     /***
+     * @method clone([deep] = false)
+     * @returns Object
+     * @short Creates a clone of the object.
+     * @extra Default is a shallow clone, unless [deep] is true.
+     *
+     * @example
+     *
+     *   Object.clone({foo:'bar'})       -> creates shallow clone
+     *   Object.clone({foo:'bar'}, true) -> creates a deep clone
+     *
+     * @param {boolean} [deep]
+     *
+     ***/
+    'clone': function(obj, deep) {
+      return clone(obj, deep);
+    },
+
+    /***
      * @method values()
      * @returns Array
      * @short Returns an array containing the values in the object.

@@ -8,6 +8,7 @@
     "delay": "^2.0.0",
     "es6-promise": "^4.1.0",
     "faye": "^1.2.4",
+    "highcharts": "^5.0.10",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.tar.gz",
     "imagesloaded": "^4.1.1",
     "jquery": "2.2.4",

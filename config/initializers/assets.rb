@@ -18,5 +18,4 @@ Rails.application.config.assets.precompile += %w(
   page503.css
   page404.css
   age_restricted.css
-  tests/show.css
 )
