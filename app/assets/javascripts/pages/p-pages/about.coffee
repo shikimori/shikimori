@@ -1,26 +1,18 @@
 page_load 'pages_about', ->
   require.ensure [], (require) =>
-    init_charts require('highcharts')
+    Highcharts = require('highcharts')
 
-init_charts = (Highcharts) ->
-  Highcharts.setOptions
-    global:
-      useUTC: false
+    Highcharts.setOptions
+      global:
+        useUTC: false
 
-  colors_old = Object.clone Highcharts.getOptions().colors
-  colors_d3 = ['#1f77b4', '#aec7e8', '#ff7f0e', '#ffbb78', '#2ca02c', '#98df8a', '#d62728', '#ff9896', '#9467bd', '#c5b0d5', '#8c564b', '#c49c94', '#e377c2', '#f7b6d2', '#7f7f7f', '#c7c7c7', '#bcbd22', '#dbdb8d', '#17becf', '#9edae5']
-  colors_hz = ['#44bbff', '#c09eda', '#9bd51f', '#f7b42c', '#f27490', '#fc575e', '#f27624', '#90d5ec', '#f49ac1', '#ca5', '#b5e4f2', '#9ab']
+    Highcharts.getOptions().colors.length = 0
+    require('vendor/highcharts_colors').forEach (color) ->
+      Highcharts.getOptions().colors.push(color)
 
-  Highcharts.getOptions().colors.length = 0
-  # colors = ['#4682b4', '#2ca02c', '#d65757', '#db843d', '#a47d7c', '#bcbd22', '#ff9896', '#f7b42c', '#80699b', '#c5b0d5'].concat(colors_hz)
-  # colors = [].concat(colors_d3)
-  colors = [].concat(colors_hz)
-
-  colors.forEach (color) -> Highcharts.getOptions().colors.push(color)
-
-  traffic_chart Highcharts
-  comments_chart Highcharts
-  users_chart Highcharts
+    traffic_chart Highcharts
+    comments_chart Highcharts
+    users_chart Highcharts
 
 traffic_chart = (Highcharts, data) ->
   data = $('.traffic-chart').data('stats')
@@ -134,7 +126,7 @@ users_chart = (Highcharts, data) ->
       enabled: false
 
 chart_options = (options) ->
-  $.extend true,
+  Object.merge
     chart:
       zoomType: 'x'
       type: 'areaspline'
@@ -173,4 +165,4 @@ chart_options = (options) ->
             lineWidth: 1
         threshold: null
     credits: false
-  , options
+  , options, deep: true
