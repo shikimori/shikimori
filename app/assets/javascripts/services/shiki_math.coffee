@@ -1,10 +1,16 @@
 module.exports = class ShikiMath
+  # detecting whether point is above or below a line
+  # x,y - point
+  # x1,y1 - point 1 of line
+  # x2,y2 - point 2 of line
   @is_above: (x,y, x1,y1, x2,y2) ->
     dx = x2 - x1
     dy = y2 - y1
 
     dy*x - dx*y + dx*y1 - dy*x1 <= 0
 
+  # detecting in which "sector" point x2,y2 is located accordingly to
+  # rectangular node with center in x1,y1 and width=rx*2 and height=ry*2
   @sector: (x1,y1, x2,y2, rx,ry) ->
     # left_bottom to right_top
     lb_to_rt = @is_above x2,y2, x1-rx,y1-ry,x1,y1
@@ -20,6 +26,8 @@ module.exports = class ShikiMath
     else
       'left'
 
+  # math for obtaining coords for link between two rectangular nodes
+  # with center in xN,yN and width=rxN*2 and height=ryN*2
   @square_cutted_line: (x1,y1, x2,y2, rx1,ry1, rx2,ry2) ->
     dx = x2 - x1
     dy = y2 - y1
@@ -63,6 +71,7 @@ module.exports = class ShikiMath
     y2: f_y2
     sector: target_sector
 
+  # tests for math
   @rspec: ->
     # is_above
     @_assert true, @is_above(-1,2, -1,-1, 1,1)
