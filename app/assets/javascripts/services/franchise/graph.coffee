@@ -1,8 +1,8 @@
 d3 = require 'd3'
 Node = require './node'
+ShikiMath = require 'services/shiki_math'
 
-using Franchise
-class Franchise.Graph
+module.exports = class FranchiseGraph
   START_MARKERS = ['prequel']
   END_MARKERS = ['sequel']
 
@@ -52,7 +52,7 @@ class Franchise.Graph
   # initial nodes positioning
   _position_nodes: ->
     # return unless @min_date && @max_date
-    @nodes_data.each (d) =>
+    @nodes_data.forEach (d) =>
       d.y = @_y_by_date(d.date)
       d.x = @w / 2.0 - d.rx
 
@@ -265,7 +265,7 @@ class Franchise.Graph
       d: @_link_truncated
 
     # collistion detection between nodes
-    @d3_node.each(@_collide(0.5))
+    @d3_node.forEach(@_collide(0.5))
 
   # math for obtaining coords for links between rectangular nodes
   _link_truncated: (d) =>
@@ -285,8 +285,8 @@ class Franchise.Graph
 
     coords = ShikiMath.square_cutted_line x1,y1, x2,y2, rx1,ry1, rx2,ry2
 
-    if !Object.isNaN(coords.x1) && !Object.isNaN(coords.y1) &&
-         !Object.isNaN(coords.x2) && !Object.isNaN(coords.y2)
+    if !Number.isNaN(coords.x1) && !Number.isNaN(coords.y1) &&
+         !Number.isNaN(coords.x2) && !Number.isNaN(coords.y2)
       "M#{coords.x1},#{coords.y1} L#{coords.x2},#{coords.y2}"
     else
       "M#{x1},#{y1} L#{x2},#{y2}"

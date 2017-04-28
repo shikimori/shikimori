@@ -166,7 +166,7 @@ class @ChronologyImages
 
   # начальное позиционирование узлов
   _position_nodes: ->
-    @nodes_data.each (d) =>
+    @nodes_data.forEach (d) =>
       d.y = @_y_by_date(d.date)
       d.x = @w / 2.0 - d.rx
 
@@ -379,7 +379,7 @@ class @ChronologyImages
     @d3_link.attr
       d: @_link_truncated
 
-    @d3_node.each(@_collide(0.5))
+    @d3_node.forEach(@_collide(0.5))
 
   # функцция для получения координат линий
   _link_truncated: (d) =>
@@ -399,8 +399,8 @@ class @ChronologyImages
 
     coords = ShikiMath.square_cutted_line x1,y1, x2,y2, rx1,ry1, rx2,ry2
 
-    if !Object.isNaN(coords.x1) && !Object.isNaN(coords.y1) &&
-         !Object.isNaN(coords.x2) && !Object.isNaN(coords.y2)
+    if !Number.isNaN(coords.x1) && !Number.isNaN(coords.y1) &&
+         !Number.isNaN(coords.x2) && !Number.isNaN(coords.y2)
       "M#{coords.x1},#{coords.y1} L#{coords.x2},#{coords.y2}"
     else
       "M#{x1},#{y1} L#{x2},#{y2}"

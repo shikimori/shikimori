@@ -1,7 +1,6 @@
 d3 = require 'd3'
 
-using Franchise
-module.exports = class Franchise.Node
+module.exports = class FranchiseNode
   SELECT_SCALE = 2
   BORDER_OFFSET = 3
 
