@@ -72,3 +72,6 @@ UserHistory.import user_histories.map {|v| UserHistory.new(v) }.each { |v| v.run
 User.find(user_id).touch; # for cache reset
 ```
 
+
+# webpack visualizer
+https://chrisbateman.github.io/webpack-visualizer/
