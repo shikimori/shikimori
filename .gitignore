@@ -20,8 +20,10 @@
 
 config/database.yml
 
+node_modules
 public/assets
 public/system
+public/packs
 
 *.swp
 .powenv

@@ -3,12 +3,11 @@ class Forum < ApplicationRecord
 
   validates :permalink, presence: true
 
-  VARIANTS = %w[
-    animanga site offtopic clubs my_clubs reviews contests news
-    collections cosplay
-  ]
   # разделы, в которые можно создавать топики из интерфейса
   PUBLIC_SECTIONS = %w[offtopic animanga site games vn contests]
+  VARIANTS = PUBLIC_SECTIONS + %w[
+    clubs my_clubs reviews news collections cosplay
+  ]
 
   ANIME_NEWS_ID = 1
   SITE_ID = 4
