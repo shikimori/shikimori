@@ -1,4 +1,6 @@
-.entry class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
+.entry[
+  class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
+]
   .submenu-toggler
   a href="#{animes_url}" title="Аниме" Аниме онлайн
   .submenu
@@ -7,3 +9,8 @@
         href="#{animes_url season.url_params}"
         title="#{season.full_title}"
       ] = season.short_title
+.entry
+  a[
+    href="#{root_url subdomain: false}"
+    title="Основной сайт"
+  ] Основной сайт →

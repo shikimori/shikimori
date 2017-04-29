@@ -1,10 +1,12 @@
+UserRatesTracker = require 'services/user_rates/tracker'
+
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Button extends View
   TEMPLATE = 'user_rates/button'
   I18N_KEY = 'activerecord.attributes.user_rate.statuses'
 
   initialize: ->
-    # data attribute is set in UserRates.Tracker
+    # data attribute is set in UserRatesTracker
     @model = @$root.data 'model'
     @_render()
 
@@ -50,7 +52,7 @@ class DynamicElements.UserRates.Button extends View
     @$root.removeClass 'b-ajax'
 
   _ajax_success: (e, model) =>
-    UserRates.Tracker.update model || @_new_user_rate()
+    UserRatesTracker.update model || @_new_user_rate()
     @_ajax_complete()
 
   # functions

@@ -1,3 +1,5 @@
+UserRatesTracker = require 'services/user_rates/tracker'
+
 using 'Animes'
 module.exports = class Animes.PaginatedCatalog
   constructor: (base_catalog_path) ->
@@ -195,7 +197,7 @@ module.exports = class Animes.PaginatedCatalog
 
     $content = $(data.content)
 
-    UserRates.Tracker.track data.JS_EXPORTS, $content
+    UserRatesTracker.track data.JS_EXPORTS, $content
 
     # чтобы cutted_covers сработал
     if @$content.data 'dynamic'

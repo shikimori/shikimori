@@ -50,6 +50,9 @@ require_views.keys().forEach(require_views)
 require_pages = require.context('../pages', true)
 require_pages.keys().forEach(require_pages)
 
+require_pages = require.context('../anime_online/pages', true)
+require_pages.keys().forEach(require_pages)
+
 require_blocks = require.context('../blocks', true)
 require_blocks.keys().forEach(require_blocks)
 
@@ -99,7 +102,7 @@ $ =>
   if 'atatus' of window
     atatus
       .config(
-        '5b46674439704888913f2a4c47addca7',
+        'e939107bae3f4735891fd79f9dee7e40',
         { customData: { SHIKI_USER: SHIKI_USER.id } }
       ).install?()
 
