@@ -20,6 +20,7 @@ en:
     upload: Upload
     upload_image: Upload image
     moderation:
+      abuse: Abuse
       ban: Ban
       not_offtopic: It's not offtopic
       not_summary: It's not summary
