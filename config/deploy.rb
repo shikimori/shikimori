@@ -33,6 +33,7 @@ set :linked_dirs, %w{
   public/assets
   public/system
   public/.well-known/acme-challenge
+  node_modules
 }
 
 def shell_exec command
@@ -41,6 +42,16 @@ end
 
 def bundle_exec command, witin_path = "#{self.deploy_to}/current"
   shell_exec "cd #{witin_path} && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
+end
+
+namespace :webpacker do
+  task :install do
+    on roles(:web) do
+      within release_path do
+        execute 'bin/yarn'
+      end
+    end
+  end
 end
 
 namespace :deploy do
@@ -195,6 +206,8 @@ namespace :whenever do
     end
   end
 end
+
+after 'bundler:install', 'webpacker:install'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
