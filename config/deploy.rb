@@ -47,9 +47,7 @@ end
 namespace :webpacker do
   task :install do
     on roles(:web) do
-      within release_path do
-        execute 'bin/yarn'
-      end
+      bundle_exec 'bin/yarn install --production', release_path
     end
   end
 end
