@@ -44,13 +44,13 @@ def bundle_exec command, witin_path = "#{self.deploy_to}/current"
   shell_exec "cd #{witin_path} && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
 end
 
-namespace :webpacker do
-  task :install do
-    on roles(:web) do
-      bundle_exec 'bin/yarn install --production', release_path
-    end
-  end
-end
+# namespace :webpacker do
+  # task :install do
+    # on roles(:web) do
+      # bundle_exec 'bin/yarn install', release_path
+    # end
+  # end
+# end
 
 namespace :deploy do
   desc 'Restart application'
@@ -205,7 +205,7 @@ namespace :whenever do
   end
 end
 
-after 'bundler:install', 'webpacker:install'
+# after 'bundler:install', 'webpacker:install'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'
