@@ -59,7 +59,7 @@ page_load 'user_rates_index', ->
 
   # фильтры каталога
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
-  new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
+  new Animes.CatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
     if $('.l-page.menu-expanded').exists()
       $(document).one 'page:change', -> $('.l-page').addClass('menu-expanded')
