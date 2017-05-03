@@ -1,5 +1,2 @@
-@on 'page:load', 'animes_cosplay', 'mangas_cosplay', ->
-  $('.b-gallery').gallery()
-
-  $('.l-content').on 'postloader:success', ->
-    $('.b-gallery').gallery()
+page_load 'animes_cosplay', 'mangas_cosplay', ->
+  new Animes.Cosplay '.l-content'

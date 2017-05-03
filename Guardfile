@@ -1,5 +1,5 @@
 ignore %r{
-  bin | public
+  bin | public | node_modules
 }x
 
 guard :bundler do
@@ -93,17 +93,21 @@ group :specs, halt_on_fail: true do
 end
 
 guard :pow do
-  watch('.powrc')
-  watch('.powenv')
-  watch('.rvmrc')
-  watch('Gemfile')
-  watch('Gemfile.lock')
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch(%r{^config/environments/.*\.rb$})
-  watch(%r{^config/initializers/.*\.rb$})
+  watch '.powrc'
+  watch '.powenv'
+  watch '.rvmrc'
+  watch 'Gemfile'
+  watch 'Gemfile.lock'
+  watch 'config/application.rb'
+  watch 'config/environment.rb'
+  watch %r{^config/environments/.*\.rb$}
+  watch %r{^config/initializers/.*\.rb$}
 end
 
 guard 'i18n-js' do
   watch(%r{config/locales/.+\.yml})
 end
+
+# guard :webpack, config: './config/webpack/development.js' do
+  # watch 'package.json'
+# end

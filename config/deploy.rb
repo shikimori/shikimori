@@ -21,19 +21,21 @@ set :user, 'devops'
 set :group, 'apps'
 set :unicorn_user, 'devops'
 
-set :linked_files, %w{
+set :linked_files, %w[
   config/database.yml
   config/secrets.yml
-}
-set :linked_dirs, %w{
+]
+set :linked_dirs, %w[
   log
   tmp/pids
   tmp/cache
   tmp/sockets
   public/assets
   public/system
+  public/packs
   public/.well-known/acme-challenge
-}
+]
+set :copy_files, %w[node_modules]
 
 def shell_exec command
   execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"
@@ -42,6 +44,14 @@ end
 def bundle_exec command, witin_path = "#{self.deploy_to}/current"
   shell_exec "cd #{witin_path} && RAILS_ENV=#{fetch :rails_env} bundle exec #{command}"
 end
+
+# namespace :webpacker do
+  # task :install do
+    # on roles(:web) do
+      # bundle_exec 'bin/yarn install', release_path
+    # end
+  # end
+# end
 
 namespace :deploy do
   desc 'Restart application'
@@ -195,6 +205,8 @@ namespace :whenever do
     end
   end
 end
+
+# after 'bundler:install', 'webpacker:install'
 
 after 'deploy:starting', 'deploy:file:lock'
 after 'deploy:published', 'deploy:file:unlock'

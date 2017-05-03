@@ -1,7 +1,18 @@
-class @ShikiUser
+module.exports = class ShikiUser
+  PUBLIC_FIELDS = [
+    'is_moderator'
+    'is_day_registered'
+    'is_week_registered'
+    'is_ignore_copyright'
+    'is_comments_auto_collapsed'
+    'is_comments_auto_loaded'
+  ]
+
   constructor: (@data) ->
     @id = @data.id
-    @is_moderator = @data.is_moderator
+    @is_signed_in = !!@id
+    PUBLIC_FIELDS.forEach (field) =>
+      @[field] = @data[field]
 
   topic_ignored: (topic_id) ->
     @data.ignored_topics.indexOf(topic_id) != -1

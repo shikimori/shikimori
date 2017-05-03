@@ -20,9 +20,8 @@ class DynamicElements.DesktopAd extends View
       # else
         # iframe.contentWindow.document
 
-      # (->
+      # delay(3.5 * 1000).then ->
         # unless $('iframe,#placeholder', doc).exists()
           # $new_content.remove()
-      # ).delay 3.5 * 1000
 
     @$node.replaceWith $new_content

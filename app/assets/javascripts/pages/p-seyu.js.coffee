@@ -1,4 +1,6 @@
-@on 'page:load', 'seyu_show', ->
+FavouriteStar = require 'views/application/favourite_star'
+
+page_load 'seyu_show', ->
   new FavouriteStar $('.c-actions .fav-add'), is_favoured.seyu
 
   # комментировать

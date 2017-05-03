@@ -1,4 +1,4 @@
-#= require './topic'
+require './topic'
 
 using 'DynamicElements'
 class DynamicElements.FullDialog extends DynamicElements.Topic

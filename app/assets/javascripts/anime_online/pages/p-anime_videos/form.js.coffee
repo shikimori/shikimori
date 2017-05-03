@@ -1,4 +1,4 @@
-@on 'page:load', 'anime_videos_new', 'anime_videos_edit', 'anime_videos_create', 'anime_videos_update', ->
+page_load 'anime_videos_new', 'anime_videos_edit', 'anime_videos_create', 'anime_videos_update', ->
   $form = $('form')
   once_submit $form
 
@@ -47,7 +47,7 @@
   $('#anime_video_author_name')
     .completable()
     .on 'autocomplete:success autocomplete:text', (e, result) ->
-      @value = result.value
+      @value = result?.value || result
 
 preview_video = (player_html) ->
   $('.video-preview')

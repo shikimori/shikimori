@@ -1,8 +1,3 @@
-- content_for :tail do
-  = javascript_include_tag 'highcharts.v4.2.6'
-  = javascript_include_tag 'lib/highcharts'
-  = javascript_include_tag 'statistics'
-
 header.head
   h1 = @page_title
   p.notice = @page_description
@@ -18,11 +13,15 @@ javascript:
   .headline.blue = t('.common')
   p = t('.breakdown_by_type_and_score')
   #image_placeholder
-    img src="/images/static/stats.png" alt=t('.anime_statistics') title=t('.anime_statistics')
-  #total style="min-width: 800px; height: 400px; margin: 0 auto"
+    img[
+      src="/images/static/stats.png"
+      alt=t('.anime_statistics')
+      title=t('.anime_statistics')
+    ]
+  #total
 
   p.m10 = t('.breakdown_by_release_date')
-  #by_kind style="min-width: 400px; height: 400px; margin: 0 auto"
+  #by_kind
 
 .block
   .headline.green = t('.age_rating')
@@ -48,7 +47,7 @@ javascript:
           class="control #{:selected if kind == @kinds.first}"
         ] = t "enumerize.anime.kind.#{kind}"
   p = t('.how_genre_preferences_changed')
-  #by_genre style="width: 975px; height: 600px; margin: 0 auto"
+  #by_genre
   p = t('.mecha_almost_disappeared')
 
 .block
@@ -62,7 +61,7 @@ javascript:
         ] = t "enumerize.anime.kind.#{kind}"
   p = t('.breakdown_by_studio')
   /= spoiler('большой график со всеми более-менее крупными студиями двухтысячных годов') do
-  #by_studio style="width: 975px; height: 800px; margin: 0 auto"
+  #by_studio
   - if show_social?
     div.social.addthis_toolbox.addthis_default_style.addthis_32x32_style
       a.addthis_button_vk

@@ -1,4 +1,4 @@
-@on 'page:load', 'profiles_show', ->
+page_load 'profiles_show', ->
   # добавление/удаление из друзей
   $('.friend-action').on 'ajax:success', ->
     $('.friend-action').toggle()
@@ -16,7 +16,7 @@
   $('.activity .graph').bar
     before: (stats, options, $chart) ->
       # конвертируем даты
-      stats.each (stat, index) ->
+      stats.forEach (stat, index) ->
         stat.dates =
           from: new Date(stat.name[0] * 1000)
           to: new Date(stat.name[1] * 1000)

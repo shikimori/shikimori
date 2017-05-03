@@ -1,4 +1,4 @@
-@on 'page:load', 'contests_show', ->
+page_load 'contests_show', ->
   $('#social_image').hide()
   $root = $('.l-content')
 
@@ -38,7 +38,7 @@
     else
       $('.item-content .warning').hide()
 
-    process_current_dom()
+    $root.process()
 
   # клик по одному из вариантов голосования
   $root.on 'click', '.match-member img', (e) ->
@@ -99,9 +99,7 @@
     if $vote.length
       if data.ajax
         # и грузим следующее голосование
-        (->
-          $vote.first().trigger 'click'
-        ).delay 500
+        delay(500).then -> $vote.first().trigger 'click'
       else
         # показываем ссылку "перейти дальше"
         $('.next', $root).show()

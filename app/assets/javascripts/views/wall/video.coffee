@@ -1,4 +1,4 @@
-#= require ./image
+require './image'
 
 using 'Wall'
 class Wall.Video extends Wall.Image

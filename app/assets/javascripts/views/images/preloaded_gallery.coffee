@@ -1,7 +1,9 @@
+ShikiGallery = require 'views/application/shiki_gallery'
+
 using 'Images'
-class Images.PreloadedGallery extends View
+class Images.PreloadedGallery extends ShikiGallery
   @BATCH_SIZE = 5
-  TEMPLATE = 'templates/images/image'
+  TEMPLATE = 'images/image'
 
   APPEAR_MARKER_HTML =
     '<p class="ajax-loading vk-like b-appear_marker active" ' +
@@ -12,29 +14,25 @@ class Images.PreloadedGallery extends View
   PREPEND_ACTION = 'prepended'
 
   initialize: ->
+    super
+      shiki_upload: @$root.data('can_upload')
+      shiki_upload_custom: true
+
     @rel = @$root.data 'rel'
     @can_load = true
-
-    @$container = @$('.container')
 
     @can_upload = @$root.data 'can_upload'
     @can_destroy = @$root.data 'can_destroy'
     @destroy_url = @$container.data 'destroy_url'
 
-    @$root.gallery
-      shiki_upload: @$root.data('can_upload')
-      shiki_upload_custom: true
-
-    @packery = @$root.packery
-
     @on 'upload:success', @_append_uploaded
 
-    @loader = @_build_loader()
-    if @loader
-      @loader.on Images.StaticLoader.FETCH_EVENT, @_images_load
+    @_build_loader().then =>
+      if @loader
+        @loader.on @loader.FETCH_EVENT, @_images_load
 
-      @_appear_marker()
-      @_fetch()
+        @_appear_marker()
+        @_fetch()
 
   # callbacks
   # loader returned images
@@ -52,13 +50,17 @@ class Images.PreloadedGallery extends View
 
   _append_uploaded: (e, image) =>
     $image = $(@_image_to_html(image))
-    $image.imagesLoaded => @_deploy_image $image, 0, PREPEND_ACTION
+    $image.imagesLoaded =>
+      @_deploy_image $image, 0 * DEPLOY_INTERVAL, PREPEND_ACTION
 
   # private methods
   _build_loader: ->
-    images = @$container.data 'images'
-    if images
-      new Images.StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
+    require.ensure [], (require) =>
+      StaticLoader = require 'services/images/static_loader'
+
+      images = @$container.data 'images'
+      if images
+        @loader = new StaticLoader(Images.PreloadedGallery.BATCH_SIZE, images)
 
   _appear_marker: ->
     @$appear_marker = $(APPEAR_MARKER_HTML).insertAfter @$container
@@ -83,18 +85,8 @@ class Images.PreloadedGallery extends View
       destroy_url: (@destroy_url.replace('ID', image.id) if @can_destroy)
 
   _deploy_batch: (images) =>
-    images.elements.each (image_node, index) =>
-      @_deploy_image image_node, index, APPEND_ACTION
+    images.elements.forEach (image_node, index) =>
+      @_deploy_image image_node, index * DEPLOY_INTERVAL, APPEND_ACTION
     # recheck postloader appearence after all images are deployed
-    @_after_batch_deploy.delay((images.elements.length + 1) * DEPLOY_INTERVAL)
-
-  _deploy_image: (image_node, index, action) =>
-    $image = $(image_node)
-      .shiki_image()
-      .css(bottom: 9999)
-
-    @packery
-      .bind(@$container, action, $image)
-      .delay(index * DEPLOY_INTERVAL)
-
-    @$container.append($image)
+    delay((images.elements.length + 1) * DEPLOY_INTERVAL).then =>
+      @_after_batch_deploy()

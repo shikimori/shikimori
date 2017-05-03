@@ -11,6 +11,7 @@ class Styles.Edit extends View
   ]
 
   initialize: ->
+    @md5 = require('blueimp-md5')
     @$form = @$ '.edit_style'
     @$css = @$ '#style_css'
     @$preview = @$ '.preview'
@@ -23,8 +24,8 @@ class Styles.Edit extends View
       new Styles.BodyBackground(@$('.body_background'))
     ]
 
-    @_debounced_preview = @preview.debounce(500)
-    @_debounced_sync = @sync.debounce(500)
+    @_debounced_preview = debounce(500, @preview)
+    @_debounced_sync = debounce(500, @sync)
 
     @$css.elastic()
     @_sync_components()
@@ -43,7 +44,7 @@ class Styles.Edit extends View
 
   preview: =>
     css = @$css.val().trim()
-    hash = md5(css)
+    hash = @md5(css)
 
     if @css_cache[hash]
       @_replace_custom_css(@css_cache[hash])
@@ -63,7 +64,7 @@ class Styles.Edit extends View
   _sync_components: ->
     css = @$css.val()
 
-    @components.each (component) ->
+    @components.forEach (component) ->
       component.update css
       true
 

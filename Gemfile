@@ -8,13 +8,11 @@ gem 'dalli' # NOTE: в конфиге мемкеша должна быть оп�
 gem 'redis'
 gem 'redis-namespace'
 
+gem 'webpacker'
 gem 'slim-rails'
 gem 'coffee-rails'
-
-# gem 'sass-rails'
 gem 'sassc-rails'
 gem 'bourbon'
-# gem 'compass-rails'
 
 # turbolinks
 # events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
@@ -25,8 +23,6 @@ gem 'bourbon'
 #   в /about сделать подгружаемую highcharts
 #   а на странице /animes/id/franchise - d3
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
-
-gem 'jade-rails', github: 'GBH/jade-rails'
 
 gem 'uglifier'
 gem 'non-stupid-digest-assets'
@@ -125,7 +121,7 @@ group :development do
   gem 'letter_opener'
   gem 'mactag'
   #gem 'web-console'
-  gem 'better_errors'
+  gem 'better_errors', github: 'ellimist/better_errors', branch: 'master'
   gem 'binding_of_caller'
 
   # gem 'rack-mini-profiler'
@@ -135,6 +131,7 @@ group :development do
   gem 'capistrano'
   gem 'capistrano-rails', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-copy-files', require: false
   #gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
   gem 'airbrussh', require: false
@@ -168,6 +165,7 @@ group :development, :test do
   gem 'guard-pow', require: false
   gem 'guard-rubocop', require: false
   gem 'guard-i18n-js', require: false, github: 'fauxparse/guard-i18n-js'
+  # gem 'guard-webpack', github: 'imarcelolz/guard-webpack', branch: 'master'
 end
 
 group :test do
@@ -196,34 +194,3 @@ gem 'faye'
 gem 'faye-redis'
 gem 'faye-websocket', '0.10.0' # не обновлять до 0.10.1 - ломается faye
 gem 'thin'
-
-# assets
-gem 'vuejs-rails'
-source 'https://rails-assets.org' do
-  # gem 'rails-assets-moment'
-  gem 'rails-assets-pikaday'
-  gem 'rails-assets-urijs'
-  gem 'rails-assets-d3'
-  gem 'rails-assets-bowser'
-  gem 'rails-assets-mobile-detect'
-
-  # dependencies for rails-assets-packery'
-  gem 'rails-assets-fizzy-ui-utils', '2.0.2'
-  gem 'rails-assets-get-size', '2.0.2'
-  gem 'rails-assets-matches-selector', '2.0.1'
-  gem 'rails-assets-outlayer', '2.1.0'
-
-  gem 'rails-assets-sugar'
-  gem 'rails-assets-jquery', '2.2.4'
-  gem 'rails-assets-jquery-bridget', '2.0.0' # packery dependency
-  gem 'rails-assets-packery'
-  gem 'rails-assets-jQuery-Storage-API'
-  gem 'rails-assets-imagesloaded'
-  gem 'rails-assets-magnific-popup'
-  gem 'rails-assets-nouislider'
-  gem 'rails-assets-js-md5'
-  gem 'rails-assets-uevent'
-
-  # it's time to experiment with a new tool
-  # gem 'rails-assets-vue'
-end

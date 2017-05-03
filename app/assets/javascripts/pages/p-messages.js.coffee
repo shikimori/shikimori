@@ -1,4 +1,4 @@
-@on 'page:load', 'messages_index', ->
+page_load 'messages_index', ->
   process()
   $('.l-page').on 'postloader:success', process
 

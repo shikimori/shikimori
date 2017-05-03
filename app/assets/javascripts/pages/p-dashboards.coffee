@@ -1,4 +1,4 @@
-@on 'page:load', 'dashboards_show', ->
+page_load 'dashboards_show', ->
   $('.user_list .switch').on 'click', ->
     $(@)
       .closest('.list-type')
@@ -18,13 +18,12 @@
         .siblings()
         .addClass('hidden')
 
-  (->
+  delay(500).then ->
     $('.cc-news').imagesLoaded ->
       $user_news = $('.c-news_topics')
       $generated_news = $('.c-generated_news')
 
       align_blocks $user_news, $generated_news
-  ).delay 500
 
 align_blocks = ($user_news, $generated_news) ->
   $topics = $generated_news.find('.b-topic')

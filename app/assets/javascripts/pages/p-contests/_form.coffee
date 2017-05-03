@@ -1,4 +1,4 @@
-@on 'page:load', 'contests_edit', ->
+page_load 'contests_edit', ->
   $suggest = $('.edit.contest .member-suggest')
 
   $('.edit .proposing .hidden').removeClass 'hidden'

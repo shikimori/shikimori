@@ -1,8 +1,10 @@
-@on 'page:load', 'userlist_comparer_show', ->
+TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+
+page_load 'userlist_comparer_show', ->
   $('tr.unprocessed')
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip $.extend($.extend({}, tooltip_options),
+    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
       offset: [
         -95
         10

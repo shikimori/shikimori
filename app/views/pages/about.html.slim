@@ -1,8 +1,3 @@
-- content_for :tail do
-  = javascript_include_tag 'highcharts.v4.2.6'
-  = javascript_include_tag 'lib/highcharts'
-  = javascript_include_tag 'about'
-
 header.head
   h1 = @page_title.last
   p.notice Статистика сайта и список особо отличившихся людей
@@ -101,10 +96,10 @@ header.head
       .b-options-floated
         span #{t '.total'}:&nbsp;&nbsp;
         a.b-link #{@statistics.comments_count}
-      .subheadline = i18n_i 'Comment', :few
+      .subheadline = i18n_i 'Comment', :other
       .block.comments-chart data-stats="#{@statistics.comments.to_json}"
 
-.subheadline.m3 = i18n_i 'Comment', :few
+.subheadline.m3 = i18n_i 'Comment', :other
 div
   .b-topic.to-process[
     data-dynamic='topic'

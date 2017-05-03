@@ -1,4 +1,4 @@
-@on 'page:load', '.clubs', ->
+page_load '.clubs', ->
   $menu = $('.b-clubs-menu')
   $actions_block = $('.club-actions', $menu)
   $invite_block = $menu.children('.invite')

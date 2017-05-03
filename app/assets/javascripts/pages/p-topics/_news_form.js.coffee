@@ -1,4 +1,4 @@
-@on 'page:load', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
+page_load 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
   $form = $ '.b-form.edit_topic, .b-form.new_topic'
   $linked_id = $ '#topic_linked_id', $form
   $linked_type = $ '#topic_linked_type', $form

@@ -1,2 +1,2 @@
-@on 'page:load', 'animes_screenshots', ->
+page_load 'animes_screenshots', ->
   $('.c-screenshot').magnific_rel_gallery()

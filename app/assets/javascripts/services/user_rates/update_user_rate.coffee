@@ -1,7 +1,6 @@
-#= require './track_user_rate'
+TrackUserRate = require './track_user_rate'
 
-using 'UserRates'
-class UserRates.UpdateUserRate extends UserRates.TrackUserRate
+module.exports = class UpdateUserRate extends TrackUserRate
   constructor: (user_rate, $root) ->
     $(@_selector(user_rate)).each ->
       $(@).view().update user_rate

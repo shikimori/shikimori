@@ -5,9 +5,9 @@ class Wall.Cluster
   constructor: (@images) ->
 
   mason: (@top, @max_width, @max_height) ->
-    @images.each (image) => image.normalize @max_width, @max_height
-    @images.each (image) => @_put image, true
-    @images.each (image) => image.apply()
+    @images.forEach (image) => image.normalize @max_width, @max_height
+    @images.forEach (image) => @_put image, true
+    @images.forEach (image) => image.apply()
 
   width: ->
     (@images.map (v) -> v.left + v.width).max() || 0
@@ -39,12 +39,12 @@ class Wall.Cluster
     min_height = heights.min()
 
     if min_height != heights.max()
-      images.each (image) ->
+      images.forEach (image) ->
         image.scale_height min_height
         image.positioned = false
         true # не убирать до замены на forEach
 
-      images.each (image) =>
+      images.forEach (image) =>
         @_put image, false
 
   _scale: (image, delta_x, delta_y) ->
@@ -55,10 +55,10 @@ class Wall.Cluster
       , 0.0
 
     if current_width > @max_width
-      images.each (image) =>
+      images.forEach (image) =>
         image.scale @max_width / current_width
         image.positioned = false
         true # не убирать до замены на forEach
 
-      images.each (image) =>
+      images.forEach (image) =>
         @_put image, false

@@ -1,4 +1,4 @@
-@on 'page:load', '.tests', ->
+page_load '.tests', ->
   set_link = ->
     $('#link').val location.href.replace(/\?.*/, '') +
       '?image_url=' + $('#image_url').val() +
@@ -14,7 +14,7 @@
       set_link()
 
     .on 'paste', (e) ->
-      (=> $(@).trigger 'change').delay()
+      delay().then => $(@).trigger 'change'
 
     .trigger('change')
 
@@ -24,6 +24,6 @@
       set_link()
 
     .on 'paste', (e) ->
-      (=> $(@).trigger 'change').delay()
+      delay().then => $(@).trigger 'change'
 
     .trigger('change')

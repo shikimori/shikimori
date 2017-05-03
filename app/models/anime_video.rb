@@ -142,7 +142,7 @@ class AnimeVideo < ApplicationRecord
   end
 
   def author_name= name
-    self.author = AnimeVideoAuthor.find_or_create_by name: name
+    self.author = AnimeVideoAuthor.find_or_create_by name: name&.strip
   end
 
   def single?

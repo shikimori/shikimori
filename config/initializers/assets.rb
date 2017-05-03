@@ -15,14 +15,7 @@ Rails.application.config.assets.paths << "#{Rails.root}/app/assets/fonts"
   # /.*.(css|js)$/
 # ]
 Rails.application.config.assets.precompile += %w(
-  core.js
   page503.css
   page404.css
   age_restricted.css
-  highcharts.v4.2.6.js
-  lib/highcharts.js
-  statistics.js
-  about.js
-  jquery.js
-  vendor/jquery.cookie.js
 )

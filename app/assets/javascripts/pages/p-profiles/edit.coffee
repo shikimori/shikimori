@@ -1,4 +1,4 @@
-@on 'page:load', 'profiles_edit', ->
+page_load 'profiles_edit', ->
   # account page
   if $('.edit-page.account').exists()
     $('.ignore-suggest').completable_variant()
@@ -94,7 +94,7 @@ list_page = ->
       removeTimer: 10000
 
     $("#shade").trigger "click"
-    (-> location.href = $this.data("target")).delay 250
+    delay(250).then -> location.href = $this.data('target')
 
     $("#export_phase .cancel").trigger 'click'
 
@@ -148,11 +148,10 @@ list_page = ->
   # импорт XML списка
   $("#import_xml .submit").on "click", ->
     $(@).closest("form").submit()
-    (->
+    delay(250).then ->
       $.flash
         notice: I18n.t('frontend.pages.p_profiles.importing')
         removeTimer: 300000
-    ).delay 250
 
 
   # выбор типа импорта с anime-planet: полный или частичный
@@ -163,7 +162,7 @@ list_page = ->
       notice: I18n.t('frontend.pages.p_profiles.importing')
       removeTimer: 300000
 
-    (-> $this.closest("form").submit()).delay 250
+    delay(250).then -> $this.closest("form").submit()
 
   $("#import_form .submit.import").on "click", ->
     $this = $(@)
@@ -171,7 +170,7 @@ list_page = ->
       notice: I18n.t('frontend.pages.p_profiles.importing')
       removeTimer: 300000
 
-    (-> $this.closest("form").submit()).delay 250
+    delay(250).then -> $this.closest("form").submit()
 
   $("#import_phase_2 form").on "submit", ->
     $.cursorMessage()

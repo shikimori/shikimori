@@ -1,3 +1,6 @@
+ShikiEditor = require 'views/application/shiki_editor'
+ShikiGallery = require 'views/application/shiki_gallery'
+
 using 'DynamicElements'
 # TODO: move code related to comments to separate class
 class DynamicElements.Topic extends ShikiEditable
@@ -30,7 +33,7 @@ class DynamicElements.Topic extends ShikiEditable
     @$editor_container = @$('.editor-container')
     @$editor = @$('.b-shiki_editor')
 
-    if USER_SIGNED_IN && DAY_REGISTERED && @$editor.length
+    if SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered && @$editor.length
       @editor = new ShikiEditor(@$editor)
     else
       @$editor.replaceWith(
@@ -59,7 +62,7 @@ class DynamicElements.Topic extends ShikiEditable
       @_check_height()
 
     if @is_cosplay && !@is_preview
-      @$('.b-cosplay_gallery .b-gallery').gallery()
+      new ShikiGallery @$('.b-cosplay_gallery .b-gallery')
 
     # ответ на топик
     $('.item-reply', @$inner).on 'click', =>
@@ -174,7 +177,7 @@ class DynamicElements.Topic extends ShikiEditable
 
       # уведомление о добавленном элементе через faye
       $(document.body).trigger 'faye:added'
-      if OPTIONS.comments_auto_loaded
+      if SHIKI_USER.is_comments_auto_loaded
         if $placeholder.is(':appeared') && !$('textarea:focus').val()
           $placeholder.click()
 
@@ -228,7 +231,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     if $placeholder.data('ids').indexOf(trackable_id) == -1
       $placeholder.data
-        ids: $placeholder.data('ids').include(trackable_id)
+        ids: $placeholder.data('ids').add(trackable_id)
       $placeholder.data
         href: "/#{trackable_type}s/chosen/#{$placeholder.data("ids").join ","}"
 
@@ -277,9 +280,12 @@ class DynamicElements.Topic extends ShikiEditable
     if $markers.data('reappear')
       $markers.addClass 'off'
     else
-      $markers.css.bind($markers).delay(interval, opacity: 0)
-      $markers.hide.bind($markers).delay(interval + 500)
-      $markers.removeClass.bind($markers).delay(interval + 500, 'active')
+      delay(interval).then ->
+        $markers.css(opacity: 0)
+
+        delay(500).then ->
+          $markers.hide()
+          $markers.removeClass('active')
 
   _before_comments_clickload: =>
     new_url = @$comments_loader

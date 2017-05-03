@@ -1,4 +1,6 @@
-@on 'page:load', '.clubs-broadcast', ->
+ShikiEditor = require 'views/application/shiki_editor'
+
+page_load '.clubs-broadcast', ->
   new ShikiEditor('.b-shiki_editor')
 
   $('.new_broadcast').on 'ajax:success', (e, comment) ->

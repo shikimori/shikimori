@@ -18,6 +18,7 @@ class DynamicElements.Parser
 
           when 'code_highlight' then new DynamicElements.CodeHighlight(node)
 
+          when 'forum' then new DynamicElements.Forum(node)
           when 'topic' then new DynamicElements.Topic(node)
           when 'comment' then new DynamicElements.Comment(node)
           when 'message' then new DynamicElements.Message(node)

@@ -1,4 +1,6 @@
-@on 'page:load', 'animes_show', 'mangas_show', ->
+FavouriteStar = require 'views/application/favourite_star'
+
+page_load 'animes_show', 'mangas_show', ->
   $('.b-notice').tipsy gravity: 's'
   $('.c-screenshot').magnific_rel_gallery()
 
@@ -9,7 +11,7 @@
   new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online
 
   $new_review = $('.new_review')
-  if USER_SIGNED_IN
+  if SHIKI_USER.is_signed_in
     new_review_url = $new_review
       .attr('href').replace(/%5Buser_id%5D=(\d+|ID)/, "%5Buser_id%5D=#{SHIKI_USER.id}")
     $new_review.attr href: new_review_url

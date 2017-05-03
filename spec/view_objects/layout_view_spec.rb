@@ -106,8 +106,12 @@ describe LayoutView do
 
   describe '#user_data' do
     context 'user' do
-      let!(:topic_ignore) { create :topic_ignore, user: current_user, topic: offtopic_topic }
-      let!(:user_ignore) { create :ignore, user: current_user, target: ignored_user }
+      let!(:topic_ignore) do
+        create :topic_ignore, user: current_user, topic: offtopic_topic
+      end
+      let!(:user_ignore) do
+        create :ignore, user: current_user, target: ignored_user
+      end
       let(:ignored_user) { create :user }
 
       it do
@@ -115,7 +119,12 @@ describe LayoutView do
           id: current_user.id,
           is_moderator: current_user.moderator?,
           ignored_topics: [offtopic_topic.id],
-          ignored_users: [ignored_user.id]
+          ignored_users: [ignored_user.id],
+          is_day_registered: false,
+          is_week_registered: false,
+          is_ignore_copyright: true,
+          is_comments_auto_collapsed: true,
+          is_comments_auto_loaded: true
         )
       end
     end
@@ -128,7 +137,12 @@ describe LayoutView do
           id: nil,
           is_moderator: false,
           ignored_topics: [],
-          ignored_users: []
+          ignored_users: [],
+          is_day_registered: false,
+          is_week_registered: false,
+          is_ignore_copyright: true,
+          is_comments_auto_collapsed: true,
+          is_comments_auto_loaded: false
         )
       end
     end

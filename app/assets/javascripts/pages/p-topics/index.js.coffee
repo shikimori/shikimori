@@ -1,8 +1,7 @@
-@on 'page:load', 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
-  if $('.b-animes-menu').exists()
-    init_animes_menu()
+page_load 'topics_index', 'topics_show', 'topics_new', 'topics_edit', 'topics_create', 'topics_update', ->
+  new Animes.Menu('.b-animes-menu') if $('.b-animes-menu').exists()
 
-@on 'page:load', 'topics_index', ->
+page_load 'topics_index', ->
   $banner = $('.naruto, .titans')
 
   # скрыть баннер

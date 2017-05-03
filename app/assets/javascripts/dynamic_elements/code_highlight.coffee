@@ -30,7 +30,7 @@ class DynamicElements.CodeHighlight extends View
     @hljs_initialized = true
     @last_id = 0
 
-    @worker = build_worker ->
+    @worker = @build_worker ->
       importScripts(
         'https://cdnjs.cloudflare.com/ajax/libs/highlight.js' +
           '/9.9.0/highlight.min.js'
@@ -45,3 +45,9 @@ class DynamicElements.CodeHighlight extends View
 
     @worker.onmessage = (event) ->
       document.getElementById(event.data.node_id)?.innerHTML = event.data.html
+
+  @build_worker: (func) ->
+    code = func.toString()
+    code = code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'))
+    blob = new Blob([ code ], type: 'application/javascript')
+    worker = new Worker(URL.createObjectURL(blob))

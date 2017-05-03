@@ -1,13 +1,14 @@
-@on 'page:load', 'recommendations_index', 'recommendations_favourites', ->
+page_load 'recommendations_index', 'recommendations_favourites', ->
+  ajax_cacher = require 'services/ajax_cacher'
+
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()
     url = location.href
-    (->
+    delay(5000).then ->
       Turbolinks.visit(location.href, true) if url == location.href
-    ).delay 5000
 
   $('body').on 'mouseover', '.b-catalog_entry', ->
-    return unless USER_SIGNED_IN
+    return unless SHIKI_USER.is_signed_in
     $node = $(@)
     return if $node.hasClass 'entry-ignored'
 
@@ -42,5 +43,5 @@
 
       $node.addClass 'entry-ignored'
       $(@).hide()
-      AjaxCacher.reset()
+      ajax_cacher.reset()
     false

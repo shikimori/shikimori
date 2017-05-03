@@ -1,4 +1,4 @@
-@on 'page:load', 'anime_video_authors_index', ->
+page_load 'anime_video_authors_index', ->
   $('.anime-suggest')
     .completable_variant()
     .on 'autocomplete:success', (e, entry) ->

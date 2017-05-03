@@ -1,5 +1,7 @@
 doctype html
 html
   head
-  body
+  body[
+    data-env="#{Rails.env}"
+  ]
     = yield

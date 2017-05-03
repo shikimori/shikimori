@@ -1,8 +1,11 @@
+TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
+ShikiModal = require 'views/application/shiki_modal'
+
 # TODO: этот гигантский файл нуждается в рефакторинге
 list_cache = []
 filter_timer = null
 
-@on 'page:load', 'user_rates_index', ->
+page_load 'user_rates_index', ->
   apply_list_handlers $('.l-content')
   update_list_cache()
 
@@ -56,7 +59,7 @@ filter_timer = null
 
   # фильтры каталога
   base_catalog_path = location.pathname.replace(/(\/list\/(?:anime|manga))(\/.+)?/, '$1')
-  new AnimeCatalogFilters base_catalog_path, location.href, (url) ->
+  new Animes.CatalogFilters base_catalog_path, location.href, (url) ->
     Turbolinks.visit url, true
     if $('.l-page.menu-expanded').exists()
       $(document).one 'page:change', -> $('.l-page').addClass('menu-expanded')
@@ -69,7 +72,7 @@ filter = ->
   # разворачивание свёрнутых элементов
   filter_value = $('.filter input').val().toLowerCase()
   $entries = $('tr.selectable')
-  list_cache.each (block) ->
+  list_cache.forEach (block) ->
     visible = false
     num = 0
 
@@ -130,14 +133,14 @@ apply_list_handlers = ($root) ->
     $tr_edit = $("<tr class='edit-form'><td colspan='#{$(@).children('td').length}'>#{html}</td></tr>")
       .insertAfter(@)
     $form = $tr_edit.find('form')
-    #original_height = $form.height()
+    # original_height = $form.height()
 
     if $another_tr_edit.exists()
       $another_tr_edit.remove()
     else
       $form.animated_expand()
-      #$form.css height: 0
-      #(-> $form.css height: original_height).delay()
+      # $form.css height: 0
+      # delay().then -> $form.css height: original_height
 
     # отмена редактирования
     $('.cancel', $tr_edit).on 'click', ->
@@ -183,13 +186,13 @@ apply_list_handlers = ($root) ->
     # удаление из списка
     $('.remove', $form).on 'ajax:success', (e, data) ->
       $('.cancel', $tr_edit).click()
-      (-> $tr.remove()).delay 250
+      delay(250).then -> $tr.remove()
       e.stopPropagation()
 
   $('tr.unprocessed', $root)
     .removeClass('unprocessed')
     .find('a.tooltipped')
-    .tooltip $.extend($.extend({}, tooltip_options),
+    .tooltip Object.add(TOOLTIP_OPTIONS.COMMON_TOOLTIP,
       offset: [
         -95
         10
@@ -328,11 +331,11 @@ insert_next_page = (e, $data) ->
 
 process_next_page = ->
   update_list_cache()
-  filter() unless _.isEmpty($('.filter input').val())
+  filter() unless Object.isEmpty($('.filter input').val())
   $.force_appear()
 
 update_text_in_cache = (data) ->
-  list_cache.each (cache_block) ->
+  list_cache.forEach (cache_block) ->
     cache_entry = cache_block.entries.find (row) ->
       row.target_id == data.anime?.id || row.target_id == data.manga?.id
 

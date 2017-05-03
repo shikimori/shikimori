@@ -1,9 +1,17 @@
-class @DatePicker extends View
+module.exports = class DatePicker extends View
   INPUT_FORMAT = 'YYYY-MM-DD'
 
   initialize: ->
-    initial_value = moment(@root.value).toDate() if @root.value
+    @init_promise = require.ensure [], (require) =>
+      @_init_picker require('pikaday')
 
+  set: (value, silent) ->
+    @init_promise.then =>
+      input_value = moment(value).format(INPUT_FORMAT) if value
+      @root.value = input_value
+      @$root.trigger 'date:picked' unless silent
+
+  _init_picker: (Pikaday) ->
     new Pikaday
       field: @root
       onSelect: (date) => @set date
@@ -14,16 +22,12 @@ class @DatePicker extends View
     # устанавливает после создания Pikaday, т.к. плагин перетирает значение
     # инпута и ставит дату в своём собственном форматировании,
     # а не в INPUT_FORMAT
+    initial_value = moment(@root.value).toDate() if @root.value
     @set initial_value, true if initial_value
 
     @$root
       .on 'keypress', (e) =>
         @$root.trigger 'date:picked' if e.keyCode == 13
-
-  set: (value, silent) ->
-    input_value = moment(value).format(INPUT_FORMAT) if value
-    @root.value = input_value
-    @$root.trigger 'date:picked' unless silent
 
   _i18n: ->
     months        : moment.months(),

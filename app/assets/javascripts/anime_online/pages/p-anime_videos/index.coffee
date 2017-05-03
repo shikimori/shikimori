@@ -1,7 +1,9 @@
-@on 'page:load', 'anime_videos_index', ->
+ShikiHtml5Video = require 'views/application/shiki_html5_video'
+
+page_load 'anime_videos_index', ->
   init_video_player()
 
-  debounced_resize = $.debounce(250, resize_video_player)
+  debounced_resize = debounce(250, resize_video_player)
   debounced_resize()
 
   $(window).on('resize', debounced_resize)
@@ -59,7 +61,7 @@ init_video_player = ->
       .siblings()
       .removeClass('active')
 
-  $player.data('video_ids')?.each (video_id) ->
+  $player.data('video_ids')?.forEach (video_id) ->
     $(".b-video_variant:not(.special)[data-video_id='#{video_id}']")
       .addClass('active')
         .siblings()
@@ -68,11 +70,9 @@ init_video_player = ->
   # инкремент числа просмотров
   video_url = location.href
   if $player.data('watch-delay')
-    (->
+    delay($player.data('watch-delay')).then ->
       if video_url == location.href
         $.post $player.data('watch-url')
-    ).delay $player.data('watch-delay')
-
 
   # handlers
   # показ дополнительных кнопок для видео
@@ -101,10 +101,9 @@ init_video_player = ->
     unless $('.increment-user_rate').hasClass('watched')
       $.notice 'Эпизод отмечен просмотренным'
 
-    (=>
+    delay(500).then =>
       $(@).removeClass 'b-ajax'
       Turbolinks.visit $('.c-control.next').attr('href')
-    ).delay 500
 
   # переключение номера эпизода
   $('.cc-player_controls .episode-num input')

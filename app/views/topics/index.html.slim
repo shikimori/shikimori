@@ -19,7 +19,10 @@
     = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
 
 = render layout: 'topics/page' do |f|
-  .b-forum.unprocessed data-faye="#{@forums_view.faye_subscriptions.to_json}"
+  .b-forum.to-process[
+    data-dynamic='forum'
+    data-faye="#{@forums_view.faye_subscriptions.to_json}"
+  ]
     - if @forums_view.topic_views.any?
       = render partial: 'topics/topic',
         collection: @forums_view.topic_views,

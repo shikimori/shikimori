@@ -1,7 +1,9 @@
+require './button'
+
 using 'DynamicElements.UserRates'
 class DynamicElements.UserRates.Extended extends DynamicElements.UserRates.Button
-  EXTENDED_TEMPLATE = 'templates/user_rates/extended'
-  SCORE_TEMPLATE = 'templates/user_rates/score'
+  EXTENDED_TEMPLATE = 'user_rates/extended'
+  SCORE_TEMPLATE = 'user_rates/score'
 
   initialize: ->
     @entry = @$root.data('entry')

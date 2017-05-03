@@ -1,6 +1,15 @@
 # https://github.com/mperham/sidekiq/issues/750
 require 'sidekiq/middleware/i18n'
 
+# The Delayed Extensions delay, delay_in and delay_until APIs are no longer
+# available by default. The extensions allow you to marshal job
+# arguments as YAML, leading to cases where job payloads could be many 100s
+# of KB or larger if not careful, leading to Redis networking timeouts or
+# other problems. As noted in the Best Practices wiki page,
+# Sidekiq is designed for jobs with small, simple arguments.
+# Add this line to your initializer to re-enable them and get the old behavior:
+Sidekiq::Extensions.enable_delay!
+
 if defined? Sidekiq::Web
   Sidekiq::Web.set :sessions, domain: 'all'
 end
