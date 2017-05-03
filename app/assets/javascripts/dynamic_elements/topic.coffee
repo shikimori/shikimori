@@ -231,7 +231,7 @@ class DynamicElements.Topic extends ShikiEditable
 
     if $placeholder.data('ids').indexOf(trackable_id) == -1
       $placeholder.data
-        ids: $placeholder.data('ids').include(trackable_id)
+        ids: $placeholder.data('ids').add(trackable_id)
       $placeholder.data
         href: "/#{trackable_type}s/chosen/#{$placeholder.data("ids").join ","}"
 
