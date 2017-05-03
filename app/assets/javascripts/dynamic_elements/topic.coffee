@@ -229,7 +229,7 @@ class DynamicElements.Topic extends ShikiEditable
 
           $html.process()
 
-    if $placeholder.data('ids').indexOf(trackable_id) == -1
+    if $placeholder.data('ids')?.indexOf(trackable_id) == -1
       $placeholder.data
         ids: $placeholder.data('ids').add(trackable_id)
       $placeholder.data
