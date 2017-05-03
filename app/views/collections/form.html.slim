@@ -42,6 +42,12 @@ header.head.misc
   - if @resource.persisted?
     .block
       .subheadline = @resource.kind_text
+      #vue_form[
+        data-links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links).to_json}"
+      ]
+        .linked v-for='link in links'
+          div
+            | {{ link.linked_id }}
 
   .buttons
     a.cancel href="#{collections_url}" = t 'actions.cancel'

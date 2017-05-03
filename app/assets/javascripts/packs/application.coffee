@@ -20,6 +20,7 @@ bowser = require 'bowser'
 require '../i18n/translations'
 
 window.View = require 'views/application/view'
+window.VueView = require 'views/application/vue_view'
 window.ShikiView = require 'views/application/shiki_view'
 window.ShikiEditable = require 'views/application/shiki_editable'
 window.ShikiUser = require 'models/shiki_user'
@@ -41,6 +42,7 @@ require_dynamic_elements.keys().forEach(require_dynamic_elements)
 require_jquery_plugins = require.context('../jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
 
+# require_views = require.context('../views', true, /^\.\/(?!collections)/)
 require_views = require.context('../views', true)
 require_views.keys().forEach(require_views)
 
