@@ -337,8 +337,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/2ff2ecfc1835c4050e0e54df2b1f1a344ad334b2.jpg?1484049600",
-          "preview": "/system/screenshots/x332/2ff2ecfc1835c4050e0e54df2b1f1a344ad334b2.jpg?1484049600"
+          "original": "/system/screenshots/original/c9e6c79a9abf8d99af1da59fe469fb66bc6cb746.jpg?1484049600",
+          "preview": "/system/screenshots/x332/c9e6c79a9abf8d99af1da59fe469fb66bc6cb746.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -542,7 +542,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "Xsdmfun3yEBoBXed+HI5oupkkQCibqGJbKGhTovwN17TiD7TqCRI2Jv2DraVv+DVKYZDyIk8qGWMcZcvQNVLoA=="
+        "authenticity_token": "HTvW4jIsc1WGa2Q44f/hNKY1HDSA2rv3QePPBS69a6kJCglXTHmVqJN3BX2IN8mpwOih77LB8tnvVRcECiGwjA=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -688,7 +688,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-04-07T00:00:00.000+00:00",
+          "next_episode_at": "2017-04-19T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -705,7 +705,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-04-07",
+            "aired_on": "2017-04-19",
             "released_on": null
           }
         }
@@ -2366,11 +2366,11 @@
           "id": 14,
           "position": 0,
           "name": "Клубы",
-          "permalink": "clubs",
-          "url": "/forum/clubs"
+          "permalink": "collections",
+          "url": "/forum/collections"
         },
         {
-          "id": 4014,
+          "id": 58118,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3054,7 +3054,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-04-21T01:24:14.844+03:00"
+          "last_online_at": "2017-05-03T18:37:54.241+03:00"
         }
       },
       "code": "200",
@@ -3637,7 +3637,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-04-21T01:24:14.844+03:00"
+            "last_online_at": "2017-05-03T18:37:54.241+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3688,7 +3688,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-04-21T01:24:14.844+03:00"
+          "last_online_at": "2017-05-03T18:37:54.241+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3726,7 +3726,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-04-21T01:24:14.844+03:00"
+            "last_online_at": "2017-05-03T18:37:54.241+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
