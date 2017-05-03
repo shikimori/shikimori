@@ -11,9 +11,16 @@ require_vendor = require.context('../vendor', true)
 require_vendor.keys().forEach(require_vendor)
 
 require 'magnific-popup'
-require 'magnific-popup/dist/magnific-popup.css'
-require 'nouislider/distribute/nouislider.css'
-require 'pikaday/scss/pikaday.scss'
+
+if process.env == 'development'
+  require "magnific-popup/dist/magnific-popup.css"
+  require "nouislider/distribute/nouislider.css"
+  require "pikaday/scss/pikaday.scss"
+else
+  prefix = 'node_modules/'
+  require "#{prefix}magnific-popup/dist/magnific-popup.css"
+  require "#{prefix}node_modules/nouislider/distribute/nouislider.css"
+  require "#{prefix}node_modules/pikaday/scss/pikaday.scss"
 
 require 'imagesLoaded'
 
