@@ -15,7 +15,7 @@ require 'magnific-popup/dist/magnific-popup.css'
 require 'nouislider/distribute/nouislider.css'
 require 'pikaday/scss/pikaday.scss'
 
-require 'imagesLoaded'
+require 'imagesloaded'
 
 bowser = require 'bowser'
 
