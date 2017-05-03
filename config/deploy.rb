@@ -32,6 +32,7 @@ set :linked_dirs, %w[
   tmp/sockets
   public/assets
   public/system
+  public/packs
   public/.well-known/acme-challenge
 ]
 set :copy_files, %w[node_modules]
