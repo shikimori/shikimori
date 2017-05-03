@@ -21,11 +21,11 @@ set :user, 'devops'
 set :group, 'apps'
 set :unicorn_user, 'devops'
 
-set :linked_files, %w{
+set :linked_files, %w[
   config/database.yml
   config/secrets.yml
-}
-set :linked_dirs, %w{
+]
+set :linked_dirs, %w[
   log
   tmp/pids
   tmp/cache
@@ -33,8 +33,8 @@ set :linked_dirs, %w{
   public/assets
   public/system
   public/.well-known/acme-challenge
-  node_modules
-}
+]
+set :copy_files, %w[node_modules]
 
 def shell_exec command
   execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"

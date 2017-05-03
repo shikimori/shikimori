@@ -189,6 +189,8 @@ GEM
     capistrano-bundler (1.2.0)
       capistrano (~> 3.1)
       sshkit (~> 1.2)
+    capistrano-copy-files (0.0.1)
+      capistrano (>= 3.0.0)
     capistrano-rails (1.2.3)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
@@ -697,6 +699,7 @@ DEPENDENCIES
   cancancan!
   capistrano
   capistrano-bundler
+  capistrano-copy-files
   capistrano-rails
   capybara
   chainable_methods
