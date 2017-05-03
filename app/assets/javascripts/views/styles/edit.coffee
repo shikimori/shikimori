@@ -24,8 +24,8 @@ class Styles.Edit extends View
       new Styles.BodyBackground(@$('.body_background'))
     ]
 
-    @_debounced_preview = @preview.debounce(500)
-    @_debounced_sync = @sync.debounce(500)
+    @_debounced_preview = debounce(500, @preview)
+    @_debounced_sync = debounce(500, @sync)
 
     @$css.elastic()
     @_sync_components()

@@ -36,7 +36,7 @@ class Styles.PageBackgroundColor extends View
       DEFAULT_OPACITIES
 
   _debounced_sync: =>
-    @_sync_lambda ||= @_sync_state.debounce(100)
+    @_sync_lambda ||= debounce(100, @_sync_state)
     @_sync_lambda() unless @is_silenced
 
   _sync_state: =>
