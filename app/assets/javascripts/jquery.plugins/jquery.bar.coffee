@@ -36,7 +36,7 @@
     stats = $chart.data('stats')
     intervals_count = $chart.data('intervals_count')
 
-    maximum = stats.max((v, k) -> v[field])[field]
+    maximum = stats.max((v, k) -> v[field])?[field]
     flattened = false
 
     if !stats || !stats.length
