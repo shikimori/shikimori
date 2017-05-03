@@ -17,6 +17,8 @@ require 'imagesloaded'
 
 bowser = require 'bowser'
 
+require '../i18n/translations'
+
 window.View = require 'views/application/view'
 window.ShikiView = require 'views/application/shiki_view'
 window.ShikiEditable = require 'views/application/shiki_editable'
@@ -38,9 +40,6 @@ require_dynamic_elements.keys().forEach(require_dynamic_elements)
 
 require_jquery_plugins = require.context('../jquery.plugins', true)
 require_jquery_plugins.keys().forEach(require_jquery_plugins)
-
-# require_lib = require.context('../lib', true)
-# require_lib.keys().forEach(require_lib)
 
 require_views = require.context('../views', true)
 require_views.keys().forEach(require_views)
