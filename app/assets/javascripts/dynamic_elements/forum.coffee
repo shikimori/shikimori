@@ -36,7 +36,7 @@ module.exports = class DynamicElements.Forum extends ShikiView
 
     if $placeholder.data('ids').indexOf(comment_id) == -1
       $placeholder.data
-        ids: $placeholder.data('ids').include(comment_id)
+        ids: $placeholder.data('ids').add(comment_id)
       $placeholder.data
         href: "/topics/chosen/#{$placeholder.data("ids").join ","}"
 
