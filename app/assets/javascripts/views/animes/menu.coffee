@@ -7,7 +7,9 @@ module.exports = class Animes.Menu extends View
     @_scores_stats_bar()
     @_statuses_stats_bar()
 
-    @_history() if @_is_history_allowed()
+    # delay is required becase span.person-tooltip
+    # is replaced by a.person-tooltip because of linkeable class
+    delay(100).then @_history if @_is_history_allowed()
 
   _scores_stats_bar: ->
     @$("#rates_scores_stats").bar
@@ -25,7 +27,7 @@ module.exports = class Animes.Menu extends View
     SHIKI_USER.is_signed_in && SHIKI_USER.is_day_registered &&
       SHIKI_USER.is_ignore_copyright
 
-  _history: ->
+  _history: =>
     $history_block = @$('.history')
 
     # тултипы истории
