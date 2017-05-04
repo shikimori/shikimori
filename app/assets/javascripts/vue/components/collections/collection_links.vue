@@ -24,7 +24,7 @@
       .b-input
         label(
           v-bind:for="collection_link.id"
-        ) {{ t('activerecord.attributes.collection_link.group') }}
+        ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
         input(
           type="text"
           v-model="collection_link.group"
@@ -44,8 +44,7 @@
 
 <script lang="coffee">
 module.exports =
-  methods:
-    t: (key) -> I18n.t key
+  methods: {}
 
   #ready: ->
     #z=arguments

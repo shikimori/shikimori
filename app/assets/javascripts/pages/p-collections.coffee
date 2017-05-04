@@ -1,10 +1,12 @@
 page_load 'collections_new', 'collections_edit', 'collections_create', 'collections_update', ->
-  require.ensure [], =>
-    Vue = require 'vue/dist/vue.js'
-    CollectionLinks = require 'vue/components/collections/collection_links.vue'
-    app Vue, CollectionLinks
+  require.ensure [], ->
+    init_app(
+      require('vue/instance').Vue,
+      require('vue/components/collections/collection_links.vue'),
+      require('vue/store')
+    )
 
-app = (Vue, CollectionLinks) ->
+init_app = (Vue, CollectionLinks, store) ->
   $root = $('#collection_form')
   collection_links = $root.data('collection_links')
   $('.b-shiki_editor', $root).shiki_editor()
@@ -14,12 +16,13 @@ app = (Vue, CollectionLinks) ->
 
   new Vue
     el: '#vue_collection_links'
+    store: store
     template: '<CollectionLinks/>',
     components: { CollectionLinks }
+    # data:
+      # collection_links: collection_links
 
     # events:
       # ready: ->
         # z=arguments
         # debugger
-
-    # data: ->
