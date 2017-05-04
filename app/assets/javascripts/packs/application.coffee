@@ -20,7 +20,6 @@ bowser = require 'bowser'
 require '../i18n/translations'
 
 window.View = require 'views/application/view'
-window.VueView = require 'views/application/vue_view'
 window.ShikiView = require 'views/application/shiki_view'
 window.ShikiEditable = require 'views/application/shiki_editable'
 window.ShikiUser = require 'models/shiki_user'
