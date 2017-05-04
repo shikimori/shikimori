@@ -45,9 +45,11 @@ header.head.misc
       #vue_form[
         data-links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links).to_json}"
       ]
-        .linked v-for='link in links'
-          div
-            | {{ link.linked_id }}
+        collection_link[
+          v-for='link of links'
+          v-bind:link="link"
+          v-bind:key="link.id"
+        ]
 
   .buttons
     a.cancel href="#{collections_url}" = t 'actions.cancel'

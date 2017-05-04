@@ -28,7 +28,7 @@
     "urijs": "^1.18.10",
     "vue": "^2.3.2",
     "vue-loader": "^12.0.3",
-    "vue-template-compiler": "^2.2.6"
+    "vue-template-compiler": "^2.3.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
@@ -38,7 +38,7 @@
     "coffee-loader": "^0.7.3",
     "coffee-script": "^1.12.5",
     "compression-webpack-plugin": "^0.4.0",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "glob": "^7.1.1",
@@ -50,7 +50,7 @@
     "precss": "^1.4.0",
     "rails-erb-loader": "^5.0.0",
     "sass-loader": "^6.0.3",
-    "style-loader": "^0.16.1",
+    "style-loader": "^0.17.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.4",
     "webpack-manifest-plugin": "^1.1.0",

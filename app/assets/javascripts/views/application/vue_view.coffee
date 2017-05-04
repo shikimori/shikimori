@@ -3,6 +3,6 @@ module.exports = class VueView extends View
     @_initialize node
 
     require.ensure [], =>
-      Vue = require 'vue/dist/vue.js'
-      @app = new Vue @initialize(arg1, arg2, arg3)
+      @Vue = require 'vue/dist/vue.js'
+      @app = new @Vue @initialize(arg1, arg2, arg3)
       @_after_initialize()
