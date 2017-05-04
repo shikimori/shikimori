@@ -161,9 +161,7 @@
 
         p
           = "#{t 'total'}:&nbsp;".html_safe
-          span.members_count = contest.members.count
-          | &nbsp;
-          span.members_count_label = i18n_i 'member', contest.members.count
+          span.members_count
 
     - if contest.suggestions.any?
       .suggestions

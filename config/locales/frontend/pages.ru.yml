@@ -9,9 +9,10 @@ ru:
       p_contests:
         # p-contests/_form.coffee
         candidate:
-          one: участник
-          few: участника
-          many: участников
+          one: '%{count} участник'
+          few: '%{count} участника'
+          many: '%{count} участников'
+          other: '%{count} участника'
 
       # p-profiles
       p_profiles:

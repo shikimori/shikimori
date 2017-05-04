@@ -9,9 +9,10 @@ en:
       p_contests:
         # p-contests/_form.coffee
         candidate:
-          one: candidate
-          few: candidates
-          many: candidates
+          one: '%{count} candidate'
+          few: '%{count} candidates'
+          many: '%{count} candidates'
+          other: '%{count} candidates'
 
       # p-profiles
       p_profiles:

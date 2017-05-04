@@ -20,11 +20,10 @@ page_load 'contests_edit', ->
   # пересчёт числа аниме
   update_members_count = ->
     members_count = $('#contest_member_ids_').next().find('input:checked').length
-    $('.members_count').html members_count
-    candidate_word = p(
-      members_count,
-      I18n.t('frontend.pages.p_contests.candidate.one'),
-      I18n.t('frontend.pages.p_contests.candidate.few'),
-      I18n.t('frontend.pages.p_contests.candidate.many')
+
+    console.log members_count
+    $('.members_count').html(
+      I18n.t('frontend.pages.p_contests.candidate', count: members_count)
     )
-    $('.members_count_label').html 
+
+  update_members_count()
