@@ -8,7 +8,7 @@
     "delay": "^2.0.0",
     "es6-promise": "^4.1.0",
     "faye": "^1.2.4",
-    "highcharts": "^5.0.10",
+    "highcharts": "^5.0.11",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.tar.gz",
     "imagesloaded": "^4.1.1",
     "jquery": "2.2.4",
@@ -51,7 +51,7 @@
     "rails-erb-loader": "^5.0.0",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.17.0",
-    "webpack": "^2.4.1",
+    "webpack": "^2.5.0",
     "webpack-dev-server": "^2.4.4",
     "webpack-manifest-plugin": "^1.1.0",
     "webpack-merge": "^4.1.0"
