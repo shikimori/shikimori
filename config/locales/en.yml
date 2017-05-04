@@ -184,6 +184,8 @@ en:
         name: Name
         kind: Type
         text: Text
+      collection_link:
+        group: Group
       club_invite:
         dst: User
         dst_id: User

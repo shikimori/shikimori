@@ -1,12 +1,28 @@
-CollectionLink = require './collection_link.vue'
+CollectionLinks = require './collection_links.vue'
+# CollectionLink = require './collection_link.vue'
+# @Vue.component 'collection_links', CollectionLinks
 
 using 'Collections'
 module.exports = class Collections.Edit extends VueView
   initialize: ->
+    @collection_links = @$root.data('collection_links')
+
+    # console.log @$root.data('collection_links')
+
     @$('.b-shiki_editor').shiki_editor()
 
-    @Vue.component 'collection_link', CollectionLink
+    CollectionLinks.data = =>
+      collection_links: @collection_links
 
-    el: '#vue_form'
-    data:
-      links: @$('#vue_form').data('links')
+    console.log CollectionLinks
+
+    el: '#vue_collection_links'
+    template: '<CollectionLinks/>',
+    components: { CollectionLinks }
+
+    # events:
+      # ready: ->
+        # z=arguments
+        # debugger
+
+    # data: ->

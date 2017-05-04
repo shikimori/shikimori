@@ -184,6 +184,8 @@ ru:
         name: Название
         kind: Тип
         text: Текст
+      collection_link:
+        group: Группа
       club_invite:
         dst: Пользователь
         dst_id: Пользователь

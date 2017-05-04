@@ -7,58 +7,59 @@ header.head.misc
     .subheadline = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
-= simple_form_for @resource do |f|
-  .subheadline = t :settings
-  .cc-2.block
-    .c-column
+#collection_form[
+  data-collection_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links, scope: self).to_json}"
+]
+  = simple_form_for @resource do |f|
+    .subheadline = t :settings
+    .cc-2.block
+      .c-column
+        .block
+          = f.input :user_id, as: :hidden
+          = f.input :name
+          = f.input :kind, include_blank: false, disabled: @resource.persisted?
+
+        - if @resource.persisted?
+          .subheadline = t '.status'
+          = @resource.human_state_name
+
+          - if @resource.can_publish?
+            div: a.b-js-link[
+              href="#{publish_collection_url @resource}"
+              data-method='post'
+            ] = Collection.human_state_event_name :publish
+
+          - if @resource.can_unpublish?
+            div: a.b-js-link[
+              href="#{unpublish_collection_url @resource}"
+              data-method='post'
+            ] = Collection.human_state_event_name :unpublish
+
+      .c-column
+        .b-shiki_editor.unprocessed
+          .field-name = Collection.human_attribute_name :text
+          = render 'comments/shiki_editor',
+            text: @resource.text,
+            field_name: 'collection[text]'
+
+    - if @resource.persisted?
+      / .block
+        / - @resource.collection_links.each do |collection_link|
+          / = f.simple_fields_for collection_link do |ff|
+            / = ff.input :group
+
       .block
-        = f.input :user_id, as: :hidden
-        = f.input :name
-        = f.input :kind, include_blank: false, disabled: @resource.persisted?
+        .subheadline = @resource.kind_text
+        #vue_collection_links
 
-      - if @resource.persisted?
-        .subheadline = t '.status'
-        = @resource.human_state_name
+    .buttons
+      a.cancel href="#{collections_url}" = t 'actions.cancel'
+      = f.button :magic_submit
 
-        - if @resource.can_publish?
-          div: a.b-js-link[
-            href="#{publish_collection_url @resource}"
-            data-method='post'
-          ] = Collection.human_state_event_name :publish
-
-        - if @resource.can_unpublish?
-          div: a.b-js-link[
-            href="#{unpublish_collection_url @resource}"
-            data-method='post'
-          ] = Collection.human_state_event_name :unpublish
-
-    .c-column
-      .b-shiki_editor.unprocessed
-        .field-name = Collection.human_attribute_name :text
-        = render 'comments/shiki_editor',
-          text: @resource.text,
-          field_name: 'collection[text]'
-
-  - if @resource.persisted?
-    .block
-      .subheadline = @resource.kind_text
-      #vue_form[
-        data-links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links).to_json}"
-      ]
-        collection_link[
-          v-for='link of links'
-          v-bind:link="link"
-          v-bind:key="link.id"
-        ]
-
-  .buttons
-    a.cancel href="#{collections_url}" = t 'actions.cancel'
-    = f.button :magic_submit
-
-  - if @resource.persisted?
-    a.remove[
-      href="#{collection_url @resource}"
-      title="#{t 'actions.delete'}"
-      data-method="delete"
-      data-confirm="#{t 'actions.confirm'}"
-    ] = t 'actions.delete'
+    - if @resource.persisted?
+      a.remove[
+        href="#{collection_url @resource}"
+        title="#{t 'actions.delete'}"
+        data-method="delete"
+        data-confirm="#{t 'actions.confirm'}"
+      ] = t 'actions.delete'
