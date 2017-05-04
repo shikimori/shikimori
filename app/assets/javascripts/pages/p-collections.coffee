@@ -9,20 +9,14 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
 init_app = (Vue, CollectionLinks, store) ->
   $root = $('#collection_form')
   collection_links = $root.data('collection_links')
-  $('.b-shiki_editor', $root).shiki_editor()
 
-  CollectionLinks.data = =>
-    collection_links: collection_links
+  $root.data('collection_links').forEach (value) ->
+    store.dispatch 'add_collection_link', value
+
+  $('.b-shiki_editor', $root).shiki_editor()
 
   new Vue
     el: '#vue_collection_links'
     store: store
     template: '<CollectionLinks/>',
     components: { CollectionLinks }
-    # data:
-      # collection_links: collection_links
-
-    # events:
-      # ready: ->
-        # z=arguments
-        # debugger

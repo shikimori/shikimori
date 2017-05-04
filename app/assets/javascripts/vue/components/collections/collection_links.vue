@@ -44,7 +44,8 @@
 
 <script lang="coffee">
 module.exports =
-  methods: {}
+  computed:
+    collection_links: -> @$store.getters.collection_links
 
   #ready: ->
     #z=arguments
