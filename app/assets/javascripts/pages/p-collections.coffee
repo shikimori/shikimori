@@ -3,7 +3,7 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
     init_app(
       require('vue/instance').Vue,
       require('vue/components/collections/collection_links.vue'),
-      require('vue/store')
+      require('vue/store').store
     )
 
 init_app = (Vue, CollectionLinks, store) ->
@@ -18,5 +18,4 @@ init_app = (Vue, CollectionLinks, store) ->
   new Vue
     el: '#vue_collection_links'
     store: store
-    template: '<CollectionLinks/>',
-    components: { CollectionLinks }
+    render: (h) -> h(CollectionLinks)

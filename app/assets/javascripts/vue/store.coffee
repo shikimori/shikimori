@@ -1,6 +1,9 @@
-Vuex = require('./instance').Vuex
+import { Vue } from 'vue/instance'
+import Vuex from 'vuex'
 
-module.exports = new Vuex.Store
+Vue.use Vuex
+
+store = new Vuex.Store
   state:
     collection_links: []
 
@@ -16,3 +19,5 @@ module.exports = new Vuex.Store
     collection_links: (store) -> store.collection_links
 
   modules: {}
+
+export { store }
