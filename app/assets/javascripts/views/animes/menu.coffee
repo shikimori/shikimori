@@ -30,16 +30,6 @@ module.exports = class Animes.Menu extends View
   _history: =>
     $history_block = @$('.history')
 
-    # тултипы истории
-    #$(".person-tooltip", $history_block).tooltip
-      #position: "top right"
-      #offset: [
-        #-28
-        #-28
-      #]
-      #relative: true
-      #place_to_left: true
-
     # подгрузка тултипов истории
     $history_block.one 'mouseover', ->
       $.getJSON $(@).attr('data-remote'), (data) ->
