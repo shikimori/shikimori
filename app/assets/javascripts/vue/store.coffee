@@ -6,10 +6,10 @@ module.exports = new Vuex.Store
 
   actions:
     add_collection_link: (context, value) ->
-      context.commit 'add_collection_link', value
+      context.commit 'ADD_COLLECTION_LINK', value
 
   mutations:
-    add_collection_link: (state, value) ->
+    ADD_COLLECTION_LINK: (state, value) ->
       state.collection_links.push value
 
   getters:
