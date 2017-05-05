@@ -7,12 +7,13 @@ module.exports = {
       [
         'env', {
           modules: false,
-          // browsers: ['> 1%', 'last 2 versions', 'ie >= 9']
+          // loose: true,
+          // useBuiltIns: true,
+          // browsers: ['> 1%', 'last 2 versions', 'ie >= 9'],
+          // debug: true
         }
-      ],
+      ]
     ],
-    // plugins: [
-      // require('babel-plugin-es6-promise')
-    // ]
+    plugins: ['transform-object-rest-spread']
   }
 }

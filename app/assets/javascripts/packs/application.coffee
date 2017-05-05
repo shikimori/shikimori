@@ -1,5 +1,3 @@
-# import Vue from 'vue/dist/vue.esm'
-
 require('../vendor/sugar').extend()
 require('es6-promise').polyfill()
 

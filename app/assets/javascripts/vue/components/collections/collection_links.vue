@@ -1,5 +1,10 @@
 <template lang="pug">
   .collection_links
+    //input(
+      type="button"
+      value="add"
+      @click="add_collection_link({})"
+
     .collection_link(
       v-for='collection_link in collection_links'
     )
@@ -39,19 +44,20 @@
       v-for='(collection_link, index) in collection_links'
       v-bind:item="collection_link"
       v-bind:key="collection_link.id"
-    // )
 </template>
 
-<script lang="coffee">
+<script>
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   computed: mapGetters([
     'collection_links'
-  ])
-  methods: mapActions([
-    'add_collection_link'
-  ])
+  ]),
+  methods: {
+    ...mapActions([
+      'add_collection_link'
+    ])
+  }
 }
 </script>
 
