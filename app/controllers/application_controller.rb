@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     ActiveRecord::RecordNotFound,
     AbstractController::ActionNotFound,
     ActionController::UnknownFormat,
-    NotFound
+    NotFoundError
   ]
 
   RUNTIME_ERRORS = [

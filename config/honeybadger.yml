@@ -12,7 +12,7 @@ exceptions:
     - ActiveRecord::RecordNotFound
     - I18n::InvalidLocale
     - Unicorn::ClientShutdown
-    - NotFound
+    - NotFoundError
     - Unauthorized
     - Forbidden
     - AgeRestricted
