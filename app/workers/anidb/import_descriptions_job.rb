@@ -1,6 +1,11 @@
+# frozen_string_literal: true
+
 class Anidb::ImportDescriptionsJob
   include Sidekiq::Worker
+
   # sidekiq_options retry: false
+
+  alias m method
 
   def perform
     import_descriptions(animes)
@@ -18,30 +23,38 @@ class Anidb::ImportDescriptionsJob
   end
 
   def import_descriptions db_entries
-    db_entries.find_each do |db_entry|
-      update_description_en db_entry
-      update_anidb_external_link db_entry
-    end
+    db_entries.find_each { |v| import_description(v) }
+  end
+
+  def import_description db_entry
+    update_description_en(db_entry)
+    update_anidb_external_link(db_entry)
+  rescue NotFound => e
+    NamedLogger.import_descriptions.error(e.message)
+    db_entry.anidb_external_link.destroy
   end
 
   def update_description_en db_entry
-    description_en = anidb_description_en db_entry
-    db_entry.update! description_en: description_en unless description_en.blank?
-  end
+    description_en = anidb_description_en(db_entry)
 
-  def update_anidb_external_link db_entry
-    db_entry.anidb_external_link.update! imported_at: Time.zone.now
+    unless description_en.blank?
+      db_entry.update!(description_en: description_en)
+    end
   end
 
   def anidb_description_en db_entry
     anidb_url = db_entry.anidb_external_link.url
-    description_en = parse_description anidb_url
-    Anidb::ProcessDescription.call description_en, anidb_url
+    description_en = parse_description(anidb_url)
+    Anidb::ProcessDescription.(description_en, anidb_url)
   end
 
   def parse_description anidb_url
     Retryable.retryable tries: 10, on: AutoBannedError, sleep: 0 do
-      Anidb::ParseDescription.call anidb_url
+      Anidb::ParseDescription.(anidb_url)
     end
+  end
+
+  def update_anidb_external_link db_entry
+    db_entry.anidb_external_link.update!(imported_at: Time.zone.now)
   end
 end
