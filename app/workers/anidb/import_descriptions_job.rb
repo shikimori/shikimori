@@ -2,10 +2,7 @@
 
 class Anidb::ImportDescriptionsJob
   include Sidekiq::Worker
-
   # sidekiq_options retry: false
-
-  alias m method
 
   def perform
     import_descriptions(animes)
