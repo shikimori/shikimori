@@ -131,7 +131,7 @@ describe Anidb::ImportDescriptionsJob do
       allow(Anidb::ParseDescription)
         .to receive(:call)
         .with(anime_external_link_2.url)
-        .and_raise NotFound, anime_external_link_2.url
+        .and_raise NotFoundError, anime_external_link_2.url
     end
 
     before { perform }

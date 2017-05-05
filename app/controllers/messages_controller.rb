@@ -60,8 +60,8 @@ class MessagesController < ProfilesController
   # rss лента уведомлений
   def feed
     @user = User.find_by_nickname(User.param_to params[:name])
-    raise NotFound.new('user not found') if @user.nil?
-    raise NotFound.new('wrong rss key') if self.class.rss_key(@user) != params[:key]
+    raise NotFoundError.new('user not found') if @user.nil?
+    raise NotFoundError.new('wrong rss key') if self.class.rss_key(@user) != params[:key]
 
     raw_messages = Rails.cache.fetch "notifications_feed_#{@user.id}", expires_in: 60.minutes do
       Message

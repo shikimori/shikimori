@@ -206,7 +206,7 @@ private
         id_key = params[:profile_id] ? :profile_id : :id
         return redirect_to url_for(url_params(id_key => nickname_change.user.to_param)), status: 301
       else
-        raise NotFound, nickname
+        raise NotFoundError, nickname
       end
     end
 

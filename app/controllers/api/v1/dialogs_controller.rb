@@ -52,6 +52,6 @@ private
   end
 
   def fetch_target_user
-    @target_user = User.find_by(id: params[:id]) || User.find_by(nickname: User.param_to(params[:id])) || raise(NotFound, params[:id])
+    @target_user = User.find_by(id: params[:id]) || User.find_by(nickname: User.param_to(params[:id])) || raise(NotFoundError, params[:id])
   end
 end

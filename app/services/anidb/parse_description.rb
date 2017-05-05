@@ -35,7 +35,7 @@ class Anidb::ParseDescription
     content = get_authorized!(url) if adult_content?(content)
     content
   rescue OpenURI::HTTPError => e
-    raise NotFound, "#{e.message} (#{url})", e.backtrace
+    raise NotFoundError, "#{e.message} (#{url})", e.backtrace
   end
 
   def get_with_proxy! url

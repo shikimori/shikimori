@@ -29,7 +29,7 @@ class Anidb::ImportDescriptionsJob
   def import_description db_entry
     update_description_en(db_entry)
     update_anidb_external_link(db_entry)
-  rescue NotFound => e
+  rescue NotFoundError => e
     NamedLogger.import_descriptions.error(e.message)
     db_entry.anidb_external_link.destroy
   end
