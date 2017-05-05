@@ -5,18 +5,40 @@ Vue.use Vuex
 
 store = new Vuex.Store
   state:
-    collection_links: []
+    collection: {}
 
   actions:
-    add_collection_link: (context, value) ->
-      context.commit 'ADD_COLLECTION_LINK', value
+    add_link: (context, value) ->
+      context.commit 'ADD_LINK', value
+
+    remove_link: (context, value) ->
+      context.commit 'REMOVE_LINK', value
 
   mutations:
-    ADD_COLLECTION_LINK: (state, value) ->
-      state.collection_links.push value
+    ADD_LINK: (state, value) ->
+      state.collection.links.push value
+
+    REMOVE_LINK: (state, value) ->
+      state.collection.links.splice(
+        state.collection.links.indexOf(value),
+        1
+      )
 
   getters:
-    collection_links: (store) -> store.collection_links
+    collection: (store) ->
+      store.collection
+
+    links: (store) ->
+      store.collection.links
+
+    groups: (store) ->
+      store.collection.links
+        .map (v) -> v.group
+        .unique()
+
+    grouped_links: (store) ->
+      store.collection.links
+        .groupBy (v) -> v.group
 
   modules: {}
 

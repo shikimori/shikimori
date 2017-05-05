@@ -1,85 +1,59 @@
 <template lang="pug">
-  .collection_links
-    //input(
-      type="button"
-      value="add"
-      @click="add_collection_link({})"
-
-    .collection_link(
-      v-for='collection_link in collection_links'
+  .cc-3
+    .c-column(
+      v-for='group_name in groups'
     )
-      input(
-        v-if="collection_link.id"
-        type="hidden"
-        v-model="collection_link.id"
-        name="collection[collection_link][id]"
-      )
-      input(
-        type="hidden"
-        v-model="collection_link.linked_id"
-        v-if="collection_link.linked_id"
-        name="collection[collection_link][linked_id]"
-      )
-      input(
-        type="hidden"
-        v-model="collection_link.linked_type"
-        v-if="collection_link.linked_id"
-        name="collection[collection_link][linked_type]"
-      )
-      .b-input
-        label(
-          :for="'collection_collection_link_group_' + collection_link.id"
-        ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-        input(
-          :id="'collection_collection_link_group_' + collection_link.id"
-          type="text"
-          v-model="collection_link.group"
-          name="collection[collection_link][group]"
-        )
+      .b-input.group
         div
-          a.b-link.bubbled(
-            :href="collection_link.url"
-          ) {{ collection_link.name }}
-      .b-input
-        label(
-          :for="'collection_collection_link_text_' + collection_link.id"
-        ) {{ I18n.t('activerecord.attributes.collection_link.text') }}
-        textarea(
-          :id="'collection_collection_link_text_' + collection_link.id"
-          v-model="collection_link.text"
-          name="collection[collection_link][text]"
-          rows="2"
+          label(
+            :for="'group_' + group_name"
+          ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
+          .add.b-js-link(
+            @click="add_link({group: group_name})"
+          ) {{ I18n.t('actions.add').toLowerCase() }}
+        input(
+          :id="'group_' + group_name"
+          :value="group_name"
+          type="text"
         )
 
-    // collection_link(
-      v-for='(collection_link, index) in collection_links'
-      v-bind:item="collection_link"
-      v-bind:key="collection_link.id"
+      .collection-links
+        CollectionLink(
+          v-for="link in grouped_links[group_name]"
+          :key="link.id"
+          :link="link"
+    )
 </template>
 
 <script>
-  import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import CollectionLink from './collection_link'
 
-  export default {
-    computed: mapGetters([
-      'collection_links'
+export default {
+  components: { CollectionLink },
+  computed: {
+    ...mapGetters([
+      'links',
+      'groups',
+      'grouped_links'
     ]),
-    methods: {
-      ...mapActions([
-        'add_collection_link'
-      ])
-    }
+  },
+  methods: {
+    ...mapActions([
+      'add_link'
+    ])
   }
+}
 </script>
 
 <style scoped lang="sass">
-  .collection_link
-    margin-bottom: 15px
-    margin-left: 30px
+.group
+  label
+    display: inline-block
 
-  textarea
-    height: auto
+  .add
+    margin-left: 6px
 
-  textarea, .b-input[type=text]
-    width: 375px
+.collection-links
+  margin-left: 30px
 </style>

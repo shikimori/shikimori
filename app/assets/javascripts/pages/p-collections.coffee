@@ -1,19 +1,17 @@
 page_load 'collections_new', 'collections_edit', 'collections_create', 'collections_update', ->
+  $('.b-shiki_editor').shiki_editor()
+  data = $('#collection_form').data('collection')
+
   require.ensure [], ->
     init_app(
       require('vue/instance').Vue,
       require('vue/components/collections/collection_links.vue'),
-      require('vue/store').store
+      require('vue/store').store,
+      data
     )
 
-init_app = (Vue, CollectionLinks, store) ->
-  $root = $('#collection_form')
-  collection_links = $root.data('collection_links')
-
-  $root.data('collection_links').forEach (value) ->
-    store.dispatch 'add_collection_link', value
-
-  $('.b-shiki_editor', $root).shiki_editor()
+init_app = (Vue, CollectionLinks, store, data) ->
+  store.state.collection = data
 
   new Vue
     el: '#vue_collection_links'

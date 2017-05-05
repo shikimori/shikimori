@@ -7,8 +7,11 @@ header.head.misc
     .subheadline = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
+/ #collection_form[
+  / data-collection_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links, scope: self).to_json}"
+/ ]
 #collection_form[
-  data-collection_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links, scope: self).to_json}"
+  data-collection="#{CollectionSerializer.new(@resource, scope: self).to_json}"
 ]
   = simple_form_for @resource do |f|
     .subheadline = t :settings
@@ -48,7 +51,7 @@ header.head.misc
           / = f.simple_fields_for collection_link do |ff|
             / = ff.input :group
 
-      .block
+      div
         .subheadline.m10 = @resource.kind_text
         #vue_collection_links
 

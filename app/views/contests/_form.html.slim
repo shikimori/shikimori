@@ -108,7 +108,10 @@
       - if contest.rounds.any? && !contest.swiss?
         .subheadline = t 'tournament_bracket'
         .block_m.grid
-          a href="#{grid_contest_url contest}" title=t('tournament_bracket') = "#{t 'goto'} →"
+          a[
+            href="#{grid_contest_url contest}"
+            title=t('tournament_bracket')
+          ] = "#{t 'goto'} →"
 
   - if contest.persisted?
     - if contest.created? || contest.proposing?

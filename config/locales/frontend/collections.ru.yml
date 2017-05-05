@@ -1,4 +1,14 @@
 ru:
   frontend:
     collections:
-      form:
+      add:
+        anime: Добавить аниме
+        manga: Добавить мангу
+        character: Добавить персонажа
+        person: Добавить человека
+
+      autocomplete:
+        anime: Название аниме
+        manga: Название манги
+        character: Имя персонажа
+        person: Имя человек
