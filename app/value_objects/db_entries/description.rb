@@ -2,6 +2,14 @@ class DbEntries::Description < Dry::Struct
   attribute :text, Types::Strict::String.optional
   attribute :source, Types::Strict::String.optional
 
+  def value
+    if source.present?
+      "#{text}[source]#{source}[/source]"
+    else
+      "#{text}"
+    end
+  end
+
   class << self
     def from_value value
       text = parse_text(value)
@@ -13,14 +21,6 @@ class DbEntries::Description < Dry::Struct
       text = text.presence
       source = source.presence
       self.new text: text, source: source
-    end
-
-    def value
-      if source.present?
-        "#{text}[source]#{source}[/source]"
-      else
-        "#{text}"
-      end
     end
 
     private
