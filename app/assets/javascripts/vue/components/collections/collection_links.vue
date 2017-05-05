@@ -28,9 +28,10 @@
       )
       .b-input
         label(
-          v-bind:for="collection_link.id"
+          :for="'collection_collection_link_group_' + collection_link.id"
         ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
         input(
+          :id="'collection_collection_link_group_' + collection_link.id"
           type="text"
           v-model="collection_link.group"
           name="collection[collection_link][group]"
@@ -39,6 +40,16 @@
           a.b-link.bubbled(
             :href="collection_link.url"
           ) {{ collection_link.name }}
+      .b-input
+        label(
+          :for="'collection_collection_link_text_' + collection_link.id"
+        ) {{ I18n.t('activerecord.attributes.collection_link.text') }}
+        textarea(
+          :id="'collection_collection_link_text_' + collection_link.id"
+          v-model="collection_link.text"
+          name="collection[collection_link][text]"
+          rows="2"
+        )
 
     // collection_link(
       v-for='(collection_link, index) in collection_links'
@@ -47,21 +58,28 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
-export default {
-  computed: mapGetters([
-    'collection_links'
-  ]),
-  methods: {
-    ...mapActions([
-      'add_collection_link'
-    ])
+  export default {
+    computed: mapGetters([
+      'collection_links'
+    ]),
+    methods: {
+      ...mapActions([
+        'add_collection_link'
+      ])
+    }
   }
-}
 </script>
 
 <style scoped lang="sass">
   .collection_link
     margin-bottom: 15px
+    margin-left: 30px
+
+  textarea
+    height: auto
+
+  textarea, .b-input[type=text]
+    width: 375px
 </style>

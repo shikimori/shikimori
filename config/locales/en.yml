@@ -186,6 +186,7 @@ en:
         text: Text
       collection_link:
         group: Group
+        text: Comment
       club_invite:
         dst: User
         dst_id: User

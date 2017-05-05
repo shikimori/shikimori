@@ -186,6 +186,7 @@ ru:
         text: Текст
       collection_link:
         group: Группа
+        text: Комментарий
       club_invite:
         dst: Пользователь
         dst_id: Пользователь
