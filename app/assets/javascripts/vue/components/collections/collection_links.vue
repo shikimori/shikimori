@@ -43,13 +43,16 @@
 </template>
 
 <script lang="coffee">
-module.exports =
-  computed:
-    collection_links: -> @$store.getters.collection_links
+import { mapGetters, mapActions } from 'vuex'
 
-  #ready: ->
-    #z=arguments
-    #debugger
+export default {
+  computed: mapGetters([
+    'collection_links'
+  ])
+  methods: mapActions([
+    'add_collection_link'
+  ])
+}
 </script>
 
 <style scoped lang="sass">
