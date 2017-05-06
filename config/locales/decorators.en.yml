@@ -37,6 +37,8 @@ en:
       manga_projects_participant: Manga projects participant
   seyu_decorator:
     <<: *person_decorator
+  collection_decorator:
+    <<: *db_entry_decorator
   user_decorator: &user_decorator
     always_online: always online
     always_online_bot: always online (bot)

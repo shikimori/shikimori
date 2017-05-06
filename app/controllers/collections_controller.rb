@@ -40,7 +40,7 @@ class CollectionsController < ShikimoriController
   end
 
   def edit
-    page_title t(:settings)
+    page_title @resource.name
     @page = params[:page]
     render :form
   end
@@ -49,21 +49,11 @@ class CollectionsController < ShikimoriController
     Collection::Update.call @resource, update_params
 
     if @resource.errors.blank?
-      redirect_to collection_url(@resource), notice: t('changes_saved')
+      redirect_to edit_collection_url(@resource), notice: t('changes_saved')
     else
       flash[:alert] = t('changes_not_saved')
       edit
     end
-  end
-
-  def publish
-    @resource.publish
-    redirect_to edit_collection_url(@resource), notice: t('changes_saved')
-  end
-
-  def unpublish
-    @resource.unpublish
-    redirect_to edit_collection_url(@resource), notice: t('changes_saved')
   end
 
   def destroy
@@ -75,6 +65,9 @@ private
 
   def set_breadcrumbs
     breadcrumb i18n_i('Collection', :other), collections_url
+    if %w[edit update].include? params[:action]
+      breadcrumb @resource.name, collection_url(@resource)
+    end
   end
 
   def create_params

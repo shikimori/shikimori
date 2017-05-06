@@ -74,7 +74,7 @@ describe CollectionsController do
         expect(resource.links).to have(1).item
         expect(resource.links.first).to have_attributes link
         expect(resource.errors).to be_empty
-        expect(response).to redirect_to collection_url(resource)
+        expect(response).to redirect_to edit_collection_url(resource)
       end
     end
 
