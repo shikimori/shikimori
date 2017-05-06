@@ -184,6 +184,7 @@ ru:
         name: Название
         kind: Тип
         text: Текст
+        state: Статус
       collection_link:
         group: Группа
         text: Комментарий
@@ -255,10 +256,6 @@ ru:
           pending: ожидает модерации
           accepted: принято
           rejected: отклонено
-      collection:
-        states:
-          pending: Не опубликовано
-          published: Опубликовано
         events:
           publish: Опубликовать
           unpublish: Отменить публикацию
@@ -418,6 +415,9 @@ ru:
         manga: Манга
         character: Персонажи
         person: Люди
+      state:
+        unpublished: Не опубликовано
+        published: Опубликовано
     anime_video:
       kind:
         unknown: озвучка

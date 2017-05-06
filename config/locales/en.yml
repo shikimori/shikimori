@@ -184,6 +184,7 @@ en:
         name: Name
         kind: Type
         text: Text
+        state: State
       collection_link:
         group: Group
         text: Comment
@@ -255,10 +256,6 @@ en:
           pending: pending approval
           accepted: accepted
           rejected: rejected
-      collection:
-        states:
-          pending: Not published
-          published: Published
         events:
           publish: Publish
           unpublish: Unpublish
@@ -418,6 +415,9 @@ en:
         manga: Manga
         character: Characters
         person: People
+      state:
+        unpublished: Not published
+        published: Published
     anime_video:
       kind:
         unknown: dub

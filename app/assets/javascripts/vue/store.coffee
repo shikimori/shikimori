@@ -8,26 +8,26 @@ store = new Vuex.Store
     collection: {}
 
   actions:
-    add_link: (context, value) ->
-      context.commit 'ADD_LINK', value
+    add_link: (context, data) ->
+      context.commit 'ADD_LINK', data
 
-    remove_link: (context, value) ->
-      context.commit 'REMOVE_LINK', value
+    remove_link: (context, data) ->
+      context.commit 'REMOVE_LINK', data
 
-    move_link: (context, from_index, to_index) ->
-      context.commit 'MOVE_LINK', from_index, to_index
+    move_link: (context, data) ->
+      context.commit 'MOVE_LINK', data
 
   mutations:
-    ADD_LINK: (state, value) ->
+    ADD_LINK: (state, data) ->
       last_in_group = state.collection.links
-        .filter (v) -> v.group == value.group
+        .filter (v) -> v.group == data.group
         .last()
       index = state.collection.links.indexOf(last_in_group)
-      state.collection.links.splice(index + 1, 0, value)
+      state.collection.links.splice(index + 1, 0, data)
 
-    REMOVE_LINK: (state, value) ->
+    REMOVE_LINK: (state, data) ->
       state.collection.links.splice(
-        state.collection.links.indexOf(value),
+        state.collection.links.indexOf(data),
         1
       )
 

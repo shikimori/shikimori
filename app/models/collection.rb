@@ -11,14 +11,8 @@ class Collection < ApplicationRecord
   validates :locale, presence: true
 
   enumerize :kind, in: Types::Collection::Kind.values, predicates: true
+  enumerize :state, in: Types::Collection::State.values, predicates: true
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
-
-  state_machine :state, initial: :pending do
-    state :pending, :published
-
-    event(:publish) { transition pending: :published }
-    event(:unpublish) { transition published: :pending }
-  end
 
   def to_param
     "#{id}-#{name.permalinked}"

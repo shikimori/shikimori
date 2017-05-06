@@ -1,5 +1,7 @@
 <template lang="pug">
-  .collection-link
+  .collection-link(
+    :list_index='links.indexOf(link)'
+  )
     .delete(
       @click="remove_link(link)"
     )
@@ -62,7 +64,8 @@ export default {
   computed: {
     ...mapGetters([
       'autocomplete_url',
-      'collection'
+      'collection',
+      'links'
     ])
   },
   methods: {

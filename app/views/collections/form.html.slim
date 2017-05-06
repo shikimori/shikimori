@@ -23,21 +23,8 @@ header.head.misc
           = f.input :name
           = f.input :kind, include_blank: false, disabled: @resource.persisted?
 
-        - if @resource.persisted?
-          .subheadline = t '.status'
-          = @resource.human_state_name
-
-          - if @resource.can_publish?
-            div: a.b-js-link[
-              href="#{publish_collection_url @resource}"
-              data-method='post'
-            ] = Collection.human_state_event_name :publish
-
-          - if @resource.can_unpublish?
-            div: a.b-js-link[
-              href="#{unpublish_collection_url @resource}"
-              data-method='post'
-            ] = Collection.human_state_event_name :unpublish
+          - if @resource.persisted?
+            = f.input :state, include_blank: false
 
       .c-column
         .b-shiki_editor.unprocessed
@@ -46,24 +33,23 @@ header.head.misc
             text: @resource.text,
             field_name: 'collection[text]'
 
-    - if @resource.persisted?
-      / .block
-        / - @resource.collection_links.each do |collection_link|
-          / = f.simple_fields_for collection_link do |ff|
-            / = ff.input :group
+    .block
+      .buttons
+        a.cancel href="#{collections_url}" = t 'actions.cancel'
+        = f.button :magic_submit
 
-      div
-        .subheadline.m10 = @resource.kind_text
-        #vue_collection_links
+      - if @resource.persisted?
+        a.remove[
+          href="#{collection_url @resource}"
+          title="#{t 'actions.delete'}"
+          data-method="delete"
+          data-confirm="#{t 'actions.confirm'}"
+        ] = t 'actions.delete'
+
+    .block
+      .subheadline.m10 = @resource.kind_text
+      #vue_collection_links
 
     .buttons
       a.cancel href="#{collections_url}" = t 'actions.cancel'
       = f.button :magic_submit
-
-    - if @resource.persisted?
-      a.remove[
-        href="#{collection_url @resource}"
-        title="#{t 'actions.delete'}"
-        data-method="delete"
-        data-confirm="#{t 'actions.confirm'}"
-      ] = t 'actions.delete'

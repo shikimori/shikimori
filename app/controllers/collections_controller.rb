@@ -4,7 +4,7 @@ class CollectionsController < ShikimoriController
   before_action { page_title i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
 
-  UPDATE_PARAMS = %i[name text] + [
+  UPDATE_PARAMS = %i[name text state] + [
     links: %w[linked_id group text]
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS

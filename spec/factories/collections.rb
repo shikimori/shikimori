@@ -3,10 +3,11 @@ FactoryGirl.define do
     sequence(:name) { |n| "Collection #{n}" }
     user { seed :user }
     kind :anime
+    state :unpublished
     text ''
     locale :ru
-    state :pending
 
+    Types::Collection::State.values.each { |value| trait(value) { state value } }
     Types::Collection::Kind.values.each { |value| trait(value) { kind value } }
 
     trait(:pending) { state :pending }
