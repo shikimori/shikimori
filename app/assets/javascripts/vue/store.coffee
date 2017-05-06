@@ -8,14 +8,10 @@ store = new Vuex.Store
     collection: {}
 
   actions:
-    add_link: (context, data) ->
-      context.commit 'ADD_LINK', data
-
-    remove_link: (context, data) ->
-      context.commit 'REMOVE_LINK', data
-
-    move_link: (context, data) ->
-      context.commit 'MOVE_LINK', data
+    add_link: (context, data) -> context.commit 'ADD_LINK', data
+    remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
+    move_link: (context, data) -> context.commit 'MOVE_LINK', data
+    rename_group: (context, data) -> context.commit 'RENAME_GROUP', data
 
   mutations:
     ADD_LINK: (state, data) ->
@@ -37,6 +33,10 @@ store = new Vuex.Store
 
       from_element.group = group unless from_element.group == group
       state.collection.links.splice(to_index, 0, from_element)
+
+    RENAME_GROUP: (state, {from_name, to_name}) ->
+      state.collection.links.forEach (link) ->
+        link.group = to_name if link.group == from_name
 
   getters:
     autocomplete_url: -> store.autocomplete_url

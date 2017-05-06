@@ -1,6 +1,5 @@
-// custom minimalistic sugar build without many unused functions
 /*
- *  Sugar Custom 2017.04.28
+ *  Sugar Custom 2017.05.06
  *
  *  Freely distributable and licensed under the MIT-style license.
  *  Copyright (c)  Andrew Plummer
@@ -886,6 +885,9 @@
   // Do strings have no keys?
   var NO_KEYS_IN_STRING_OBJECTS = !('0' in Object('a'));
 
+  // Prefix for private properties
+  var PRIVATE_PROP_PREFIX = '_sugar_';
+
   // Matches 1..2 style ranges in properties
   var PROPERTY_RANGE_REG = /^(.*?)\[([-\d]*)\.\.([-\d]*)\](.*)$/;
 
@@ -1171,6 +1173,17 @@
 
   function isUndefined(o) {
     return o === undefined;
+  }
+
+  function privatePropertyAccessor(key) {
+    var privateKey = PRIVATE_PROP_PREFIX + key;
+    return function(obj, val) {
+      if (arguments.length > 1) {
+        setProperty(obj, privateKey, val);
+        return obj;
+      }
+      return obj[privateKey];
+    };
   }
 
   function setChainableConstructor(sugarNamespace, createFn) {
@@ -5756,6 +5769,84 @@
      *
      ***/
     'floor': createRoundingFunction(floor)
+
+  });
+
+  /***
+   * @module Function
+   * @description Lazy, throttled, and memoized functions, delayed functions and
+   *              handling of timers, argument currying.
+   *
+   ***/
+
+
+  var _lock     = privatePropertyAccessor('lock');
+
+  var _partial  = privatePropertyAccessor('partial');
+
+  var createInstanceFromPrototype = Object.create || function(prototype) {
+    var ctor = function() {};
+    ctor.prototype = prototype;
+    return new ctor;
+  };
+
+  defineInstanceWithArguments(sugarFunction, {
+
+    /***
+     * @method partial([arg1], [arg2], ...)
+     * @returns Function
+     * @short Returns a new version of the function which has part of its arguments
+     *        pre-emptively filled in, also known as "currying".
+     * @extra `undefined` can be passed as any argument, and is a placeholder that
+     *        will be replaced with arguments passed when the function is executed.
+     *        This allows currying of arguments even when they occur toward the end
+     *        of an argument list (the example demonstrates this more clearly).
+     *
+     * @example
+     *
+     *   logArgs.partial(undefined, 'b')('a') -> logs a, b
+     *
+     * @param {any} [arg1]
+     * @param {any} [arg2]
+     *
+     ***/
+    'partial': function(fn, curriedArgs) {
+      var curriedLen = curriedArgs.length;
+      var partialFn = function() {
+        var argIndex = 0, applyArgs = [], self = this, lock = _lock(partialFn), result, i;
+        for (i = 0; i < curriedLen; i++) {
+          var arg = curriedArgs[i];
+          if (isDefined(arg)) {
+            applyArgs[i] = arg;
+          } else {
+            applyArgs[i] = arguments[argIndex++];
+          }
+        }
+        for (i = argIndex; i < arguments.length; i++) {
+          applyArgs.push(arguments[i]);
+        }
+        if (lock === null) {
+          lock = curriedLen;
+        }
+        if (isNumber(lock)) {
+          applyArgs.length = min(applyArgs.length, lock);
+        }
+        // If the bound "this" object is an instance of the partialed
+        // function, then "new" was used, so preserve the prototype
+        // so that constructor functions can also be partialed.
+        if (self instanceof partialFn) {
+          self = createInstanceFromPrototype(fn.prototype);
+          result = fn.apply(self, applyArgs);
+          // An explicit return value is allowed from constructors
+          // as long as they are of "object" type, so return the
+          // correct result here accordingly.
+          return isObjectType(result) ? result : self;
+        }
+        return fn.apply(self, applyArgs);
+      };
+      _partial(partialFn, true);
+      return partialFn;
+    }
 
   });
 

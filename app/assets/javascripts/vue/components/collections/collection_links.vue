@@ -14,13 +14,15 @@
         input(
           :id="'group_' + group_name"
           :value="group_name"
+          :original_value="group_name"
+          @input="on_group_rename"
           type="text"
         )
 
       draggable.collection-links(
         :options="drag_options"
-        @update="drag_update"
-        @add="drag_add"
+        @update="on_drag_update"
+        @add="on_drag_add"
       )
         CollectionLink(
           v-for="link in grouped_links[group_name]"
@@ -71,7 +73,13 @@ export default {
     ]),
   },
   methods: {
-    drag_update (e) {
+    on_group_rename (e) {
+      this.rename_group({
+        from_name: e.target.getAttribute('original_value'),
+        to_name: e.target.value
+      })
+    },
+    on_drag_update (e) {
       restore_node(e)
 
       let from_index = list_index(e.to, e.oldIndex)
@@ -83,7 +91,7 @@ export default {
         group_index: to_index
       });
     },
-    drag_add (e) {
+    on_drag_add (e) {
       restore_node(e)
       let from_index = list_index(e.from, e.oldIndex)
       let is_last_column_position = !e.to.childNodes[e.newIndex]
@@ -110,7 +118,8 @@ export default {
     },
     ...mapActions([
       'add_link',
-      'move_link'
+      'move_link',
+      'rename_group'
     ])
   }
 }

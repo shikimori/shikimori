@@ -77,11 +77,13 @@ export default {
       'remove_link'
     ])
   },
-  // mounted () {
-    //this.$nextTick(() => {
-      //console.log('mounted next tick')
-    //})
-  //}
+  mounted () {
+    this.$nextTick(() => {
+      if (this.link.text.includes("\n")) {
+        $('textarea', this.$el).elastic()
+      }
+    })
+  }
 }
 </script>
 
