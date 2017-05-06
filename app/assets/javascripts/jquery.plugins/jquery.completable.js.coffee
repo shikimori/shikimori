@@ -1,3 +1,13 @@
+DB_ENTRY_URL_REGEXP =
+  /\/(?:animes|mangas|characters|people|ranobe)\/[A-z]*(\d+)([\w-]+)/
+
+param_to_name = (param) ->
+  param
+    .split('-')
+    .filter((v) -> !Object.isEmpty(v))
+    .map((v) -> v.capitalize())
+    .join(' ')
+
 (($) ->
   $.fn.extend
     completable: ($anchor) ->
@@ -8,10 +18,19 @@
           .on 'result', (e, entry) ->
             if entry
               entry.id = entry.data
+
               entry.name = entry.value
               $element.trigger 'autocomplete:success', [entry]
+
             else if @value
-              $element.trigger 'autocomplete:text', [@value]
+              if matches = @value.match(DB_ENTRY_URL_REGEXP)
+                $element.trigger 'autocomplete:success', [{
+                  url: @value
+                  id: matches[1]
+                  name: param_to_name(matches[2])
+                }]
+              else
+                $element.trigger 'autocomplete:text', [@value]
 
           .autocomplete 'data-autocomplete',
             #autoFill: true,
