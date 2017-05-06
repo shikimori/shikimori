@@ -38,6 +38,12 @@
           @click="add_new_group"
         ) {{ I18n.t('actions.add') }}
 
+    .block(
+      v-if="node_env == 'development'"
+    )
+      pre(style="white-space: pre-wrap; font-size: 11px;")
+        | {{ JSON.stringify(links) }}
+
 </template>
 
 <script>
@@ -77,7 +83,8 @@ export default {
     ...mapGetters([
       'links',
       'groups',
-      'grouped_links'
+      'grouped_links',
+      'node_env'
     ]),
   },
   methods: {

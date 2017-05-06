@@ -10,6 +10,7 @@ store = new Vuex.Store
   state:
     collection: {}
     autocomplete_url: ''
+    node_env: ''
 
   actions:
     add_link: (context, data) ->
@@ -61,6 +62,7 @@ store = new Vuex.Store
     links: (store) -> store.collection.links
     groups: (store) -> store.collection.links.map((v) -> v.group).unique()
     grouped_links: (store) -> store.collection.links.groupBy((v) -> v.group)
+    node_env: (store) -> store.node_env
 
   modules: {}
 

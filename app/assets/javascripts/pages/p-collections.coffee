@@ -19,6 +19,7 @@ init_app = (Vue, CollectionLinks, store) ->
 
   store.state.collection = sort_by_groups collection
   store.state.autocomplete_url = autocomplete_url
+  store.state.node_env = process.env.NODE_ENV
 
   new Vue
     el: '#vue_collection_links'

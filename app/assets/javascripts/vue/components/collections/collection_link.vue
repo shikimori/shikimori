@@ -1,5 +1,6 @@
 <template lang="pug">
   .collection-link(
+    :id="link.id"
     :list_index='links.indexOf(link)'
   )
     .delete(
@@ -72,17 +73,17 @@ export default {
   },
   methods: {
     assign({id, name, url}) {
-      //this.link.linked_id = id
-      //this.link.name = name
-      //return
-
-      this.add_link({
-        group: this.link.group,
-        linked_id: id,
-        name: name,
-        url: url
-      })
-      this.remove_link(this.link)
+      if (this.links.some((v) => v.linked_id == id)) {
+        this.remove_link(this.link)
+      } else {
+        this.add_link({
+          group: this.link.group,
+          linked_id: id,
+          name: name,
+          url: url
+        })
+        this.remove_link(this.link)
+      }
     },
     ...mapActions([
       'add_link',
