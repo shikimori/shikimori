@@ -3,6 +3,7 @@ class CollectionsController < ShikimoriController
 
   before_action { page_title i18n_i('Collection', :other) }
   before_action :set_breadcrumbs, except: :index
+  before_action :resource_redirect, if: :resource_id
 
   UPDATE_PARAMS = %i[name text state] + [
     links: %w[linked_id group text]

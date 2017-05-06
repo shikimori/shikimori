@@ -15,7 +15,7 @@
           input(
             :id="'group_' + group_name"
             :value="group_name"
-            :original_value="group_name"
+            :data-original_value="group_name"
             :placeholder="I18n.t(`frontend.collections.group_name`)"
             @input="on_group_rename"
             type="text"
@@ -52,7 +52,7 @@ import CollectionLink from './collection_link'
 import draggable from 'vuedraggable'
 
 function list_index(node, index) {
-  return parseInt(node.childNodes[index].getAttribute('list_index'))
+  return parseInt(node.childNodes[index].getAttribute('data-list_index'))
 }
 function restore_node(e) {
   removeNode(e.item)
@@ -94,7 +94,7 @@ export default {
     },
     on_group_rename (e) {
       this.rename_group({
-        from_name: e.target.getAttribute('original_value'),
+        from_name: e.target.getAttribute('data-original_value'),
         to_name: e.target.value
       })
     },

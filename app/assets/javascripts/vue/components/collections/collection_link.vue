@@ -1,7 +1,7 @@
 <template lang="pug">
   .collection-link(
-    :id="link.id"
-    :list_index='links.indexOf(link)'
+    :data-linked_id="link.linked_id"
+    :data-list_index='links.indexOf(link)'
   )
     .delete(
       @click="remove_link(link)"
@@ -59,6 +59,16 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
+function highlight(selector) {
+  let $node = $(selector)
+
+  if (!$node.is(':appeared')) {
+    $.scrollTo($node, () => $node.yellow_fade())
+  } else {
+    $node.yellow_fade()
+  }
+}
+
 export default {
   props: {
     link: Object,
@@ -75,6 +85,7 @@ export default {
     assign({id, name, url}) {
       if (this.links.some((v) => v.linked_id == id)) {
         this.remove_link(this.link)
+        highlight(`.collection-link[data-linked_id=${id}]`)
       } else {
         this.add_link({
           group: this.link.group,

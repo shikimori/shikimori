@@ -6,7 +6,7 @@ describe CollectionLink do
 
   describe 'validations' do
     it { is_expected.to validate_presence_of :collection }
-    it { is_expected.to validate_presence_of :linked }
+    # it { is_expected.to validate_uniqueness_of(:linked_id).scoped_to(:collection_id) }
   end
 
   describe 'enumerize' do
