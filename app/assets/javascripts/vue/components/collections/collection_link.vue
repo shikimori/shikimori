@@ -1,8 +1,11 @@
 <template lang="pug">
-  .collection-link
+  .collection-link(
+    :index='links.indexOf(link)'
+  )
     .delete(
       @click="remove_link(link)"
     )
+    .drag-handle
     input(
       v-if="link.id"
       type="hidden"
@@ -63,6 +66,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'links',
       'collection'
     ])
   },
@@ -70,7 +74,12 @@ export default {
     ...mapActions([
       'remove_link'
     ])
-  }
+  },
+  //mounted () {
+    //this.$nextTick(() => {
+      //console.log('mounted next tick')
+    //})
+  //}
 }
 </script>
 
@@ -78,24 +87,40 @@ export default {
 @import app/assets/stylesheets/globals/variables
 
 .collection-link
+  padding: 1px 6px 1px 31px
   margin-bottom: 15px
   position: relative
 
   &:last-child
     margin-bottom: 0
 
-  .delete
-    color: #123
+  // &.sortable-chosen
+  &.sortable-ghost
+    border: 1px dashed $gray-1
+    opacity: 0.6
+    padding: 0 5px 0 30px
+
+    .drag-handle
+      color: $gray !important
+
+    .delete, .drag-handle
+      margin-top: -2px
+
+  &.sortable-drag
+    opacity: 1
+
+    .drag-handle
+      color: $link-active !important
+
+  .delete, .drag-handle
     cursor: pointer
     margin-left: -30px
     margin-top: -1px
     position: absolute
     text-align: center
     width: 30px
-    top: 0
 
     &:before
-      content: 'x'
       font-family: shikimori
       font-size: 15px
 
@@ -105,9 +130,23 @@ export default {
     &:active
       color: $link-active
 
+  .delete
+    color: #123
+    top: 0
+
+    &:before
+      content: 'x'
+
+  .drag-handle
+    color: $gray
+    top: 21px
+
+    &:before
+      content: 'm'
+
   textarea
     height: auto
 
-  textarea, .b-input input[type=text]
+  textarea, input
     width: 100%
 </style>

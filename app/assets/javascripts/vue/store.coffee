@@ -42,4 +42,5 @@ store = new Vuex.Store
 
   modules: {}
 
+window.store = store unless process.env.NODE_ENV == 'production'
 export { store }

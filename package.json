@@ -22,6 +22,7 @@
     "pikaday": "^1.5.1",
     "pug": "^2.0.0-beta.12",
     "pug-loader": "pugjs/pug-loader",
+    "sortablejs": "^1.5.1",
     "throttle-debounce": "^1.0.1",
     "turbolinks": "morr/turbolinks#master",
     "uevent": "^1.0.0",

@@ -17,20 +17,32 @@
           type="text"
         )
 
-      .collection-links
+      draggable.collection-links(
+        v-model='$store.state.collection.links'
+        :options="drag_options"
+      )
         CollectionLink(
           v-for="link in grouped_links[group_name]"
           :key="link.id"
           :link="link"
-    )
+        )
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import CollectionLink from './collection_link'
+import draggable from '../../plugins/vuedraggable-patched'
 
 export default {
-  components: { CollectionLink },
+  components: { CollectionLink, draggable },
+  data () {
+    return {
+      drag_options: {
+        group: 'collection_links',
+        handle: '.drag-handle'
+      }
+    }
+  },
   computed: {
     ...mapGetters([
       'links',
@@ -54,6 +66,9 @@ export default {
   .add
     margin-left: 6px
 
+  input
+    width: calc(100% - 6px)
+
 .collection-links
-  margin-left: 30px
+  min-height: 70px
 </style>
