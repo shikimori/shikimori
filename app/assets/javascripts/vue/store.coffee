@@ -39,20 +39,11 @@ store = new Vuex.Store
       state.collection.links.splice(to_index, 0, from_element)
 
   getters:
-    collection: (store) ->
-      store.collection
-
-    links: (store) ->
-      store.collection.links
-
-    groups: (store) ->
-      store.collection.links
-        .map (v) -> v.group
-        .unique()
-
-    grouped_links: (store) ->
-      store.collection.links
-        .groupBy (v) -> v.group
+    autocomplete_url: -> store.autocomplete_url
+    collection: (store) -> store.collection
+    links: (store) -> store.collection.links
+    groups: (store) -> store.collection.links.map((v) -> v.group).unique()
+    grouped_links: (store) -> store.collection.links.groupBy((v) -> v.group)
 
   modules: {}
 

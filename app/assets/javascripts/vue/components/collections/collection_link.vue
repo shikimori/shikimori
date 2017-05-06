@@ -1,34 +1,9 @@
 <template lang="pug">
-  .collection-link(
-    :list_index='links.indexOf(link)'
-  )
+  .collection-link
     .delete(
       @click="remove_link(link)"
     )
     .drag-handle
-    input(
-      v-if="link.id"
-      type="hidden"
-      v-model="link.id"
-      name="collection[collection_link][id]"
-    )
-    input(
-      type="hidden"
-      v-model="link.linked_id"
-      v-if="link.linked_id"
-      name="collection[collection_link][linked_id]"
-    )
-    input(
-      type="hidden"
-      v-model="link.linked_type"
-      v-if="link.linked_id"
-      name="collection[collection_link][linked_type]"
-    )
-    input(
-      type="hidden"
-      v-model="link.group"
-      name="collection[collection_link][group]"
-    )
     .b-input.new-record(
       v-if="!link.linked_id"
     )
@@ -38,12 +13,29 @@
         input(
           type="text"
           :placeholder="I18n.t(`frontend.collections.autocomplete.${collection.kind}`)"
-          :data-autocomplete="collection.autocomplete_url"
+          :data-autocomplete="autocomplete_url"
         )
     .persisted(
       v-if="link.linked_id"
     )
-      | {{ link_index }}&nbsp;
+      input(
+        v-if="link.id"
+        type="hidden"
+        v-model="link.id"
+        name="collection[links][][id]"
+      )
+      input(
+        type="hidden"
+        v-model="link.linked_id"
+        v-if="link.linked_id"
+        name="collection[links][][linked_id]"
+      )
+      input(
+        type="hidden"
+        v-model="link.group"
+        name="collection[links][][group]"
+      )
+      // | {{ link_index }}&nbsp;
       a.b-link.bubbled(
         :href="link.url"
       ) {{ link.name }}
@@ -54,7 +46,7 @@
         textarea(
           :id="'link_text_' + link.id"
           v-model="link.text"
-          name="collection[collection_link][text]"
+          name="collection[links][][text]"
           rows="1"
         )
 </template>
@@ -69,7 +61,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'links',
+      'autocomplete_url',
       'collection'
     ])
   },

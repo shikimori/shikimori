@@ -18,25 +18,19 @@ private
   end
 
   def collection_links
-    linked_ids.each_with_index.map do |linked_id, index|
-      CollectionLink.new(
+    links.map do |link|
+      CollectionLink.new link.merge(
         collection: @model,
-        linked_id: linked_id,
-        linked_type: @model.kind.capitalize,
-        group: linked_groups[index]
+        linked_type: @model.kind.capitalize
       )
     end
   end
 
-  def linked_ids
-    @params[:linked_ids] || []
-  end
-
-  def linked_groups
-    @params[:linked_groups] || []
+  def links
+    @params[:links] || []
   end
 
   def update_params
-    params.except(:linked_ids, :linked_groups)
+    params.except(:links)
   end
 end

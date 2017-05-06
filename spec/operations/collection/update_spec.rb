@@ -10,8 +10,15 @@ describe Collection::Update do
     let(:params) do
       {
         name: 'test collection',
-        linked_ids: [anime_1.id, anime_2.id],
-        linked_groups: %w[zz xx]
+        links: [{
+          linked_id: anime_1.id,
+          group: 'zz1',
+          text: 'xx1'
+        }, {
+          linked_id: anime_2.id,
+          group: 'zz2',
+          text: 'xx2'
+        }]
       }
     end
     let!(:collection_link_1) do
@@ -28,18 +35,19 @@ describe Collection::Update do
 
     it do
       expect(collection.errors).to be_empty
-      expect(collection.reload)
-        .to have_attributes params.except(:linked_ids, :linked_groups)
+      expect(collection.reload).to have_attributes params.except(:links)
       expect(collection.links).to have(2).items
       expect(collection.links.first).to have_attributes(
         linked_id: anime_1.id,
         linked_type: Anime.name,
-        group: 'zz'
+        group: 'zz1',
+        text: 'xx1'
       )
       expect(collection.links.last).to have_attributes(
         linked_id: anime_2.id,
         linked_type: Anime.name,
-        group: 'xx'
+        group: 'zz2',
+        text: 'xx2'
       )
 
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
