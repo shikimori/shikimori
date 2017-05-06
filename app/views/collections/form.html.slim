@@ -46,10 +46,11 @@ header.head.misc
           data-confirm="#{t 'actions.confirm'}"
         ] = t 'actions.delete'
 
-    .block
-      .subheadline.m10 = @resource.kind_text
-      #vue_collection_links
+    - if @resource.persisted?
+      .block
+        .subheadline.m10 = @resource.kind_text
+        #vue_collection_links
 
-    .buttons
-      a.cancel href="#{collections_url}" = t 'actions.cancel'
-      = f.button :magic_submit
+      .buttons
+        a.cancel href="#{collections_url}" = t 'actions.cancel'
+        = f.button :magic_submit

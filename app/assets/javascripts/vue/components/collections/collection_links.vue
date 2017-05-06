@@ -1,35 +1,46 @@
 <template lang="pug">
-  .cc-3-flex
-    .c-column(
-      v-for='group_name in groups'
+  .block
+    .block(
+      v-if="!links.length"
     )
-      .b-input.group
-        div
-          label(
-            :for="'group_' + group_name"
-          ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-          .add.b-js-link(
-            @click="add_link({group: group_name})"
-          ) {{ I18n.t('actions.add').toLowerCase() }}
-        input(
-          :id="'group_' + group_name"
-          :value="group_name"
-          :original_value="group_name"
-          @input="on_group_rename"
-          type="text"
-        )
+      .b-button(
+        @click="add_new_group"
+      ) {{ I18n.t('actions.add') }}
 
-      draggable.collection-links(
-        :options="drag_options"
-        @update="on_drag_update"
-        @add="on_drag_add"
+    .cc-3-flex(
+      v-if="links.length"
+    )
+      .c-column(
+        v-for='group_name in groups'
       )
-        CollectionLink(
-          v-for="link in grouped_links[group_name]"
-          :key="link.id"
-          :link="link"
-          :link_index="links.indexOf(link)"
+        .b-input.group
+          div
+            label(
+              :for="'group_' + group_name"
+            ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
+            .add(
+              @click="add_link({group: group_name})"
+            )
+          input(
+            :id="'group_' + group_name"
+            :value="group_name"
+            :original_value="group_name"
+            @input="on_group_rename"
+            type="text"
+          )
+
+        draggable.collection-links(
+          :options="drag_options"
+          @update="on_drag_update"
+          @add="on_drag_add"
         )
+          CollectionLink(
+            v-for="link in grouped_links[group_name]"
+            :key="link.id"
+            :link="link"
+            :link_index="links.indexOf(link)"
+          )
+
 </template>
 
 <script>
@@ -73,6 +84,10 @@ export default {
     ]),
   },
   methods: {
+    add_new_group (e) {
+      if (e.target != e.currentTarget) { return }
+      this.add_link({group: ''})
+    },
     on_group_rename (e) {
       this.rename_group({
         from_name: e.target.getAttribute('original_value'),
@@ -121,22 +136,48 @@ export default {
       'move_link',
       'rename_group'
     ])
+  },
+  mounted() {
   }
 }
 </script>
 
 <style scoped lang="sass">
+@import app/assets/stylesheets/globals/variables
+
 .group
   label
     display: inline-block
 
   .add
+    color: #123
+    cursor: pointer
+    display: inline-block
+    font-family: shikimori
     margin-left: 6px
+    vertical-align: middle
+
+    &:before
+      content: '+'
+
+    &:hover
+      color: $link-hover
+
+    &:active
+      color: $link-active
 
   input
     width: calc(100% - 6px)
 
+@media only screen and (min-width: $ipad_max+1)
+  .c-column
+    max-width: 30.66667%
+
 .collection-links
   height: 100%
   min-height: 70px
+
+  .b-button
+    margin-left: 30px
+
 </style>

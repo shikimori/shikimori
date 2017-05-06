@@ -14,16 +14,16 @@ store = new Vuex.Store
     rename_group: (context, data) -> context.commit 'RENAME_GROUP', data
 
   mutations:
-    ADD_LINK: (state, data) ->
+    ADD_LINK: (state, link) ->
       last_in_group = state.collection.links
-        .filter (v) -> v.group == data.group
+        .filter (v) -> v.group == link.group
         .last()
       index = state.collection.links.indexOf(last_in_group)
-      state.collection.links.splice(index + 1, 0, data)
+      state.collection.links.splice(index + 1, 0, link)
 
-    REMOVE_LINK: (state, data) ->
+    REMOVE_LINK: (state, link) ->
       state.collection.links.splice(
-        state.collection.links.indexOf(data),
+        state.collection.links.indexOf(link),
         1
       )
 

@@ -9,7 +9,6 @@
     .b-input.new-record(
       v-if="!link.linked_id"
     )
-      div {{ link_index }}&nbsp;
       label
         | {{ I18n.t(`frontend.collections.add.${collection.kind}`) }}
         input(
@@ -42,15 +41,16 @@
         :href="link.url"
       ) {{ link.name }}
       .b-input
-        label(
-          :for="'link_text_' + link.id"
-        ) {{ I18n.t('activerecord.attributes.collection_link.text') }}
+        //label(
+        //  :for="'link_text_' + link.id"
+        //) {{ I18n.t('activerecord.attributes.collection_link.text') }}
         textarea(
           :id="'link_text_' + link.id"
-          v-model="link.text"
+          :placeholder="I18n.t('activerecord.attributes.collection_link.text')"
           name="collection[links][][text]"
+          v-autosize="true"
           rows="1"
-          @focus.once="on_textarea_focus"
+          v-model="link.text"
         )
 </template>
 
@@ -70,18 +70,13 @@ export default {
     ])
   },
   methods: {
-    on_textarea_focus(e) {
-      $(e.target).elastic()
-    },
     ...mapActions([
       'remove_link'
     ])
   },
-  mounted () {
+  mounted() {
     this.$nextTick(() => {
-      if (this.link.text.includes("\n")) {
-        $('textarea', this.$el).elastic()
-      }
+      $(this.$el).process()
     })
   }
 }
