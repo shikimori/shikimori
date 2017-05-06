@@ -33,7 +33,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import CollectionLink from './collection_link'
-import draggable from '../../plugins/vuedraggable-patched'
+import draggable from 'vuedraggable'
 
 function list_index(node, index) {
   return parseInt(node.childNodes[index].getAttribute('list_index'))

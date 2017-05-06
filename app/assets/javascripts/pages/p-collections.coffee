@@ -10,8 +10,13 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
       data
     )
 
+sort_by_groups = (data) ->
+  groups = data.links.map((v) -> v.group).unique()
+  data.links = data.links.sortBy (v) -> groups.indexOf(v.group)
+  data
+
 init_app = (Vue, CollectionLinks, store, data) ->
-  store.state.collection = data
+  store.state.collection = sort_by_groups(data)
 
   new Vue
     el: '#vue_collection_links'

@@ -19,7 +19,11 @@ store = new Vuex.Store
 
   mutations:
     ADD_LINK: (state, value) ->
-      state.collection.links.push value
+      last_in_group = state.collection.links
+        .filter (v) -> v.group == value.group
+        .last()
+      index = state.collection.links.indexOf(last_in_group)
+      state.collection.links.splice(index + 1, 0, value)
 
     REMOVE_LINK: (state, value) ->
       state.collection.links.splice(

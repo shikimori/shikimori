@@ -22,7 +22,6 @@
     "pikaday": "^1.5.1",
     "pug": "^2.0.0-beta.12",
     "pug-loader": "pugjs/pug-loader",
-    "sortablejs": "^1.5.1",
     "throttle-debounce": "^1.0.1",
     "turbolinks": "morr/turbolinks#master",
     "uevent": "^1.0.0",
@@ -30,6 +29,7 @@
     "vue": "^2.3.2",
     "vue-loader": "^12.0.3",
     "vue-template-compiler": "^2.3.2",
+    "vuedraggable": "^2.10.0",
     "vuex": "^2.3.1"
   },
   "devDependencies": {

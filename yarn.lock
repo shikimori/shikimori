@@ -4563,6 +4563,12 @@ vue@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.3.2.tgz#9e52aae3593480be235ff227557837e69f98203a"
 
+vuedraggable@^2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/vuedraggable/-/vuedraggable-2.10.0.tgz#4584838834a7d944033549d53c8d64387a7ce935"
+  dependencies:
+    sortablejs "^1.5.1"
+
 vuex@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-2.3.1.tgz#cde8e997c1f9957719bc7dea154f9aa691d981a6"

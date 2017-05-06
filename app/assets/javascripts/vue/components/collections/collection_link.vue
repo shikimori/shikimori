@@ -32,6 +32,7 @@
     .b-input.new-record(
       v-if="!link.linked_id"
     )
+      div {{ link_index }}&nbsp;
       label
         | {{ I18n.t(`frontend.collections.add.${collection.kind}`) }}
         input(
