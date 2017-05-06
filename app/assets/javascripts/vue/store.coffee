@@ -19,7 +19,12 @@ store = new Vuex.Store
         .filter (v) -> v.group == link.group
         .last()
       index = state.collection.links.indexOf(last_in_group)
-      state.collection.links.splice(index + 1, 0, link)
+
+      if index != -1
+        state.collection.links.splice(index + 1, 0, link)
+      else
+        state.collection.links.push link
+
 
     REMOVE_LINK: (state, link) ->
       state.collection.links.splice(

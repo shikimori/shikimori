@@ -47,9 +47,8 @@ header.head.misc
         ] = t 'actions.delete'
 
     - if @resource.persisted?
-      .block
-        .subheadline.m10 = @resource.kind_text
-        #vue_collection_links
+      .subheadline.m10 = @resource.kind_text
+      #vue_collection_links
 
       .buttons
         a.cancel href="#{collections_url}" = t 'actions.cancel'

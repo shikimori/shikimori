@@ -155,6 +155,13 @@ export default {
     margin-right: 5px
     margin-top: 6px
 
+    &:before
+      font-family: shikimori
+      position: absolute
+      margin-left: -12px
+      margin-top: 1px
+      content: '+'
+
   input
     width: calc(100% - 6px)
 
