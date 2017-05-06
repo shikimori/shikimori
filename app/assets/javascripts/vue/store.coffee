@@ -31,10 +31,12 @@ store = new Vuex.Store
         1
       )
 
-    MOVE_LINK: (state, {from_index, to_index}) ->
-      console.log("from_index: #{from_index}", "to_index: #{to_index}")
-      links = state.collection.links
-      links.splice(to_index, 0, links.splice(from_index, 1)[0])
+    MOVE_LINK: (state, {from_index, to_index, group_index}) ->
+      group = state.collection.links[group_index].group
+      from_element = state.collection.links.splice(from_index, 1)[0]
+
+      from_element.group = group unless from_element.group == group
+      state.collection.links.splice(to_index, 0, from_element)
 
   getters:
     collection: (store) ->

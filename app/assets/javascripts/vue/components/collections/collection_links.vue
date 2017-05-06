@@ -38,6 +38,10 @@ import draggable from 'vuedraggable'
 function list_index(node, index) {
   return parseInt(node.childNodes[index].getAttribute('list_index'))
 }
+function restore_node(e) {
+  removeNode(e.item)
+  insertNodeAt(e.from, e.item, e.oldIndex)
+}
 function removeNode(node) {
   node.parentElement.removeChild(node)
 }
@@ -68,15 +72,41 @@ export default {
   },
   methods: {
     drag_update (e) {
-      removeNode(e.item)
-      insertNodeAt(e.from, e.item, e.oldIndex)
+      restore_node(e)
 
       let from_index = list_index(e.to, e.oldIndex)
       let to_index = list_index(e.to, e.newIndex)
 
-      this.move_link({from_index: from_index, to_index: to_index});
+      this.move_link({
+        from_index: from_index,
+        to_index: to_index,
+        group_index: to_index
+      });
     },
     drag_add (e) {
+      restore_node(e)
+      let from_index = list_index(e.from, e.oldIndex)
+      let is_last_column_position = !e.to.childNodes[e.newIndex]
+      let to_index = is_last_column_position ?
+        list_index(e.to, e.newIndex - 1) :
+        list_index(e.to, e.newIndex)
+      let group_index = to_index;
+
+      let is_move_right = to_index > from_index
+      let is_move_left = to_index < from_index
+
+      if (is_move_right && !is_last_column_position) {
+        to_index -= 1
+      }
+      if (is_move_left && is_last_column_position) {
+        to_index += 1
+      }
+
+      this.move_link({
+        from_index: from_index,
+        to_index: to_index,
+        group_index: group_index
+      });
     },
     ...mapActions([
       'add_link',
