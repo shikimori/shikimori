@@ -50,6 +50,7 @@
           v-model="link.text"
           name="collection[links][][text]"
           rows="1"
+          @focus.once="on_textarea_focus"
         )
 </template>
 
@@ -69,11 +70,14 @@ export default {
     ])
   },
   methods: {
+    on_textarea_focus(e) {
+      $(e.target).elastic()
+    },
     ...mapActions([
       'remove_link'
     ])
   },
-  //mounted () {
+  // mounted () {
     //this.$nextTick(() => {
       //console.log('mounted next tick')
     //})
