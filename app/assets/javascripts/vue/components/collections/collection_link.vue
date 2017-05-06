@@ -85,8 +85,8 @@ export default {
 @import app/assets/stylesheets/globals/variables
 
 .collection-link
-  padding: 1px 6px 1px 31px
   margin-bottom: 15px
+  padding: 1px 6px 1px 31px
   position: relative
 
   &:last-child

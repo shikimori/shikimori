@@ -1,3 +1,4 @@
+@import globals
 @import mixins/block
 @import mixins/brackets_surrounded
 @import mixins/clear_left
@@ -32,6 +33,18 @@
   +clear_left
   &>.c-column
     +column_b(3)
+
+.cc-3-flex
+  +gte_ipad
+    +display(flex)
+
+  &>.c-column
+    +gte_ipad
+      +flex(1)
+      +column_bm(3)
+
+    +iphone
+      +column_bm(1)
 
 .cc-3_4
   +clear_left

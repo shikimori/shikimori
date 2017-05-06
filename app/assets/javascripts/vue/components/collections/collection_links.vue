@@ -1,5 +1,5 @@
 <template lang="pug">
-  .cc-3
+  .cc-3-flex
     .c-column(
       v-for='group_name in groups'
     )
@@ -128,5 +128,6 @@ export default {
     width: calc(100% - 6px)
 
 .collection-links
+  height: 100%
   min-height: 70px
 </style>
