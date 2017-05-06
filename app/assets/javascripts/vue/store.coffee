@@ -3,12 +3,25 @@ import Vuex from 'vuex'
 
 Vue.use Vuex
 
+uniq_id = 987654321
+new_id = -> uniq_id += 1
+
 store = new Vuex.Store
   state:
     collection: {}
+    autocomplete_url: ''
 
   actions:
-    add_link: (context, data) -> context.commit 'ADD_LINK', data
+    add_link: (context, data) ->
+      context.commit 'ADD_LINK', Object.add(data, {
+        group: null
+        linked_id: null
+        name: null
+        text: null
+        url: null
+        key: new_id()
+      }, resolve: false)
+
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
     move_link: (context, data) -> context.commit 'MOVE_LINK', data
     rename_group: (context, data) -> context.commit 'RENAME_GROUP', data
@@ -24,7 +37,6 @@ store = new Vuex.Store
         state.collection.links.splice(index + 1, 0, link)
       else
         state.collection.links.push link
-
 
     REMOVE_LINK: (state, link) ->
       state.collection.links.splice(
@@ -44,7 +56,7 @@ store = new Vuex.Store
         link.group = to_name if link.group == from_name
 
   getters:
-    autocomplete_url: -> store.autocomplete_url
+    autocomplete_url: (store) -> store.autocomplete_url
     collection: (store) -> store.collection
     links: (store) -> store.collection.links
     groups: (store) -> store.collection.links.map((v) -> v.group).unique()

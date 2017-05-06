@@ -28,7 +28,7 @@
         )
           CollectionLink(
             v-for="link in grouped_links[group_name]"
-            :key="link.id"
+            :key="link.id || link.key"
             :link="link"
             :link_index="links.indexOf(link)"
           )

@@ -18,6 +18,7 @@ init_app = (Vue, CollectionLinks, store) ->
   autocomplete_url = $('#collection_form').data('autocomplete_url')
 
   store.state.collection = sort_by_groups collection
+  store.state.autocomplete_url = autocomplete_url
 
   new Vue
     el: '#vue_collection_links'

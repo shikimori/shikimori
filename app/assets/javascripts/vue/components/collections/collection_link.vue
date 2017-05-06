@@ -38,7 +38,6 @@
         v-model="link.group"
         name="collection[links][][group]"
       )
-      // | {{ link_index }}&nbsp;
       a.b-link.bubbled(
         :href="link.url"
       ) {{ link.name }}
@@ -72,13 +71,34 @@ export default {
     ])
   },
   methods: {
+    assign({id, name, url}) {
+      //this.link.linked_id = id
+      //this.link.name = name
+      //return
+
+      this.add_link({
+        group: this.link.group,
+        linked_id: id,
+        name: name,
+        url: url
+      })
+      this.remove_link(this.link)
+    },
     ...mapActions([
+      'add_link',
       'remove_link'
     ])
   },
   mounted() {
     this.$nextTick(() => {
       $(this.$el).process()
+
+      if (!this.link.linked_id) {
+        $('input', this.$el)
+          .completable()
+          .focus()
+          .on('autocomplete:success', (e, data) => this.assign(data))
+      }
     })
   }
 }
