@@ -1,15 +1,6 @@
 <template lang="pug">
   .block
-    .block(
-      v-if="!links.length"
-    )
-      .b-button(
-        @click="add_new_group"
-      ) {{ I18n.t('actions.add') }}
-
-    .cc-3-flex(
-      v-if="links.length"
-    )
+    .cc-3-flex
       .c-column(
         v-for='group_name in groups'
       )
@@ -18,13 +9,14 @@
             label(
               :for="'group_' + group_name"
             ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-            .add(
+            .add.b-js-link(
               @click="add_link({group: group_name})"
-            )
+            ) {{ I18n.t('actions.add').toLowerCase() }}
           input(
             :id="'group_' + group_name"
             :value="group_name"
             :original_value="group_name"
+            :placeholder="I18n.t(`frontend.collections.group_name`)"
             @input="on_group_rename"
             type="text"
           )
@@ -40,6 +32,11 @@
             :link="link"
             :link_index="links.indexOf(link)"
           )
+
+      .c-column.new-group
+        .b-button(
+          @click="add_new_group"
+        ) {{ I18n.t('actions.add') }}
 
 </template>
 
@@ -145,33 +142,21 @@ export default {
 <style scoped lang="sass">
 @import app/assets/stylesheets/globals/variables
 
+.new-group
+  padding-top: 8px
+
 .group
   label
     display: inline-block
 
   .add
-    color: #123
-    cursor: pointer
-    display: inline-block
-    font-family: shikimori
-    margin-left: 6px
-    vertical-align: middle
-
-    &:before
-      content: '+'
-
-    &:hover
-      color: $link-hover
-
-    &:active
-      color: $link-active
+    float: right
+    font-size: 11px
+    margin-right: 5px
+    margin-top: 6px
 
   input
     width: calc(100% - 6px)
-
-@media only screen and (min-width: $ipad_max+1)
-  .c-column
-    max-width: 30.66667%
 
 .collection-links
   height: 100%
@@ -179,5 +164,4 @@ export default {
 
   .b-button
     margin-left: 30px
-
 </style>

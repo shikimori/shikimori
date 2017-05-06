@@ -1,11 +1,12 @@
 ru:
   frontend:
     collections:
-      add:
-        anime: Добавить аниме
-        manga: Добавить мангу
-        character: Добавить персонажа
-        person: Добавить человека
+      group_name: Название группы
+      # add:
+        # anime: Добавить аниме
+        # manga: Добавить мангу
+        # character: Добавить персонажа
+        # person: Добавить человека
 
       autocomplete:
         anime: Название аниме

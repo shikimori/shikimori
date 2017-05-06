@@ -37,10 +37,14 @@
 .cc-3-flex
   +gte_ipad
     +display(flex)
+    +flex-wrap(wrap)
+    // +align-items(stretch)
+    // +flex-direction(row)
+    // +justify-content(flex-start)
 
   &>.c-column
     +gte_ipad
-      +flex(1)
+      +flex-grow(1)
       +column_bm(3)
 
     +iphone

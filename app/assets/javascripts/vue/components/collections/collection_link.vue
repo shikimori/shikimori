@@ -5,12 +5,14 @@
     .delete(
       @click="remove_link(link)"
     )
-    .drag-handle
+    .drag-handle(
+      v-if="link.linked_id"
+    )
     .b-input.new-record(
       v-if="!link.linked_id"
     )
       label
-        | {{ I18n.t(`frontend.collections.add.${collection.kind}`) }}
+        //| {{ I18n.t(`frontend.collections.add.${collection.kind}`) }}
         input(
           type="text"
           :placeholder="I18n.t(`frontend.collections.autocomplete.${collection.kind}`)"
@@ -131,14 +133,14 @@ export default {
 
   .delete
     color: #123
-    top: 0
+    top: 1px
 
     &:before
       content: 'x'
 
   .drag-handle
     color: $gray
-    top: 21px
+    top: 24px
 
     &:before
       content: 'm'

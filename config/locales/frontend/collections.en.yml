@@ -1,11 +1,12 @@
 en:
   frontend:
     collections:
-      add:
-        anime: Add anime
-        manga: Add manga
-        character: Add character
-        person: Add person
+      group_name: Group name
+      # add:
+        # anime: Add anime
+        # manga: Add manga
+        # character: Add character
+        # person: Add person
 
       autocomplete:
         anime: Anime title
