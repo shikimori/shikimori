@@ -1,6 +1,6 @@
 <template lang="pug">
   .collection-link(
-    :index='links.indexOf(link)'
+    :list_index='links.indexOf(link)'
   )
     .delete(
       @click="remove_link(link)"
@@ -42,6 +42,7 @@
     .persisted(
       v-if="link.linked_id"
     )
+      | {{ link_index }}&nbsp;
       a.b-link.bubbled(
         :href="link.url"
       ) {{ link.name }}
@@ -62,7 +63,8 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   props: {
-    link: Object
+    link: Object,
+    link_index: Number
   },
   computed: {
     ...mapGetters([

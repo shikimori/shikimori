@@ -14,6 +14,9 @@ store = new Vuex.Store
     remove_link: (context, value) ->
       context.commit 'REMOVE_LINK', value
 
+    move_link: (context, from_index, to_index) ->
+      context.commit 'MOVE_LINK', from_index, to_index
+
   mutations:
     ADD_LINK: (state, value) ->
       state.collection.links.push value
@@ -23,6 +26,11 @@ store = new Vuex.Store
         state.collection.links.indexOf(value),
         1
       )
+
+    MOVE_LINK: (state, {from_index, to_index}) ->
+      console.log("from_index: #{from_index}", "to_index: #{to_index}")
+      links = state.collection.links
+      links.splice(to_index, 0, links.splice(from_index, 1)[0])
 
   getters:
     collection: (store) ->
