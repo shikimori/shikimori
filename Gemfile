@@ -118,11 +118,18 @@ end
 
 group :development do
   gem 'spring'
+  gem 'spring-watcher-listen'
+
   gem 'letter_opener'
   gem 'mactag'
-  #gem 'web-console'
-  gem 'better_errors', github: 'ellimist/better_errors', branch: 'master'
-  gem 'binding_of_caller'
+
+  # gem 'better_errors', github: 'ellimist/better_errors', branch: 'master'
+  # gem 'binding_of_caller'
+
+  gem 'web-console'
+  gem 'listen'
+
+  # gem 'binding_of_caller'
 
   # gem 'rack-mini-profiler'
   # gem 'flamegraph' # for flame graph in rack-mini-profiler

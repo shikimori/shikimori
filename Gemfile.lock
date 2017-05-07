@@ -7,16 +7,6 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
-  remote: git://github.com/ellimist/better_errors.git
-  revision: 1788144c5a24054d68256e3d50aeeda8a8b313cd
-  branch: master
-  specs:
-    better_errors (2.1.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-      rack (>= 0.9.0)
-
-GIT
   remote: git://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
@@ -172,6 +162,7 @@ GEM
     attr_extras (5.2.0)
     awesome_print (1.7.0)
     bcrypt (3.1.11)
+    bindex (0.5.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bourbon (4.3.4)
@@ -226,7 +217,7 @@ GEM
       safe_yaml (~> 1.0.0)
     daemons (1.2.4)
     dalli (2.7.6)
-    database_cleaner (1.5.3)
+    database_cleaner (1.6.0)
     debug_inspector (0.0.2)
     devise (4.2.1)
       bcrypt (~> 3.0)
@@ -249,19 +240,20 @@ GEM
     dry-container (0.6.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1, >= 0.1.3)
-    dry-core (0.2.4)
+    dry-core (0.3.0)
       concurrent-ruby (~> 1.0)
     dry-equalizer (0.2.0)
     dry-logic (0.4.1)
       dry-container (~> 0.2, >= 0.2.6)
       dry-core (~> 0.2)
       dry-equalizer (~> 0.2)
-    dry-struct (0.2.1)
+    dry-struct (0.3.0)
       dry-configurable (~> 0.1)
+      dry-core (~> 0.3)
       dry-equalizer (~> 0.2)
       dry-types (~> 0.9, >= 0.9.0)
       ice_nine (~> 0.11)
-    dry-types (0.10.2)
+    dry-types (0.10.3)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1)
       dry-container (~> 0.3)
@@ -482,7 +474,7 @@ GEM
     rack-attack (5.0.1)
       rack
     rack-cors (0.4.1)
-    rack-protection (1.5.3)
+    rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -509,7 +501,7 @@ GEM
       nokogiri (~> 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-i18n (5.0.3)
+    rails-i18n (5.0.4)
       i18n (~> 0.7)
       railties (~> 5.0)
     railties (5.0.2)
@@ -540,32 +532,32 @@ GEM
       railties (>= 4.2.0, < 5.3)
     retryable (2.0.4)
     rmagick (2.16.0)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
+    rspec (3.6.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
     rspec-collection_matchers (1.1.3)
       rspec-expectations (>= 2.99.0.beta1)
-    rspec-core (3.5.4)
-      rspec-support (~> 3.5.0)
-    rspec-expectations (3.5.0)
+    rspec-core (3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-expectations (3.6.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
+      rspec-support (~> 3.6.0)
     rspec-its (1.2.0)
       rspec-core (>= 3.0.0)
       rspec-expectations (>= 3.0.0)
-    rspec-mocks (3.5.0)
+    rspec-mocks (3.6.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-rails (3.5.2)
+      rspec-support (~> 3.6.0)
+    rspec-rails (3.6.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-      rspec-support (~> 3.5.0)
-    rspec-support (3.5.0)
+      rspec-core (~> 3.6.0)
+      rspec-expectations (~> 3.6.0)
+      rspec-mocks (~> 3.6.0)
+      rspec-support (~> 3.6.0)
+    rspec-support (3.6.0)
     rubocop (0.48.1)
       parser (>= 2.3.3.1, < 3.0)
       powerpack (~> 0.1)
@@ -603,8 +595,8 @@ GEM
     simple_form (3.4.0)
       actionpack (> 4, < 5.1)
       activemodel (> 4, < 5.1)
-    slim (3.0.7)
-      temple (~> 0.7.6)
+    slim (3.0.8)
+      temple (>= 0.7.6, < 0.9)
       tilt (>= 1.3.3, < 2.1)
     slim-rails (3.1.2)
       actionpack (>= 3.1)
@@ -615,6 +607,9 @@ GEM
       activesupport (>= 4.2)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
+    spring-watcher-listen (2.0.1)
+      listen (>= 2.7, < 4.0)
+      spring (>= 1.2, < 3.0)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -630,7 +625,7 @@ GEM
       activesupport
       rspec (>= 3.0.0.rc1)
       state_machine (>= 1.1.0)
-    temple (0.7.7)
+    temple (0.8.0)
     thin (1.7.0)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -656,6 +651,11 @@ GEM
     vcr (3.0.3)
     warden (1.2.7)
       rack (>= 1.0)
+    web-console (3.5.0)
+      actionview (>= 5.0)
+      activemodel (>= 5.0)
+      bindex (>= 0.4.0)
+      railties (>= 5.0)
     webmock (3.0.1)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
@@ -692,8 +692,6 @@ DEPENDENCIES
   appsignal
   attr_extras
   awesome_print
-  better_errors!
-  binding_of_caller
   bourbon
   browser
   byebug
@@ -738,6 +736,7 @@ DEPENDENCIES
   icalendar
   jbuilder
   letter_opener
+  listen
   lograge
   mactag
   mal_parser!
@@ -798,6 +797,7 @@ DEPENDENCIES
   slim-rails
   spring
   spring-commands-rspec
+  spring-watcher-listen
   state_machine
   state_machine_rspec
   thin
@@ -808,6 +808,7 @@ DEPENDENCIES
   unicode
   unicorn
   vcr
+  web-console
   webmock
   webpacker
   whenever
