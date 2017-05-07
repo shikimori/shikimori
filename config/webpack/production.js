@@ -1,5 +1,6 @@
+// Note: You must restart bin/webpack-dev-server for changes to take effect
+
 /* eslint global-require: 0 */
-// Note: You must run bin/webpack for changes to take effect
 
 const webpack = require('webpack')
 const merge = require('webpack-merge')
@@ -10,9 +11,6 @@ module.exports = merge(sharedConfig, {
   output: { filename: '[name]-[chunkhash].js' },
 
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': { 'NODE_ENV': JSON.stringify('production') }
-    }),
     new webpack.optimize.UglifyJsPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',

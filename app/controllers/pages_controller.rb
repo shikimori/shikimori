@@ -191,4 +191,7 @@ class PagesController < ShikimoriController
     sleep 120
     render json: 'ok'
   end
+
+  def vue
+  end
 end

@@ -1,24 +1,25 @@
-// Note: You must restart bin/webpack-watcher for changes to take effect
+// Note: You must restart bin/webpack-dev-server for changes to take effect
+
 /* eslint global-require: 0 */
 /* eslint import/no-dynamic-require: 0 */
 
 const webpack = require('webpack')
-const { basename, join, resolve } = require('path')
+const { basename, dirname, join, relative, resolve } = require('path')
 const { sync } = require('glob')
-const { readdirSync } = require('fs')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const extname = require('path-complete-extname')
 const { env, paths, publicPath, loadersDir } = require('./configuration.js')
 
-const extensionGlob = `*{${paths.extensions.join(',')}}*`
+const extensionGlob = `**/*{${paths.extensions.join(',')}}*`
 const packPaths = sync(join(paths.source, paths.entry, extensionGlob))
 
 module.exports = {
   entry: packPaths.reduce(
     (map, entry) => {
       const localMap = map
-      localMap[basename(entry, extname(entry))] = resolve(entry)
+      const namespace = relative(join(paths.source, paths.entry), dirname(entry))
+      localMap[join(namespace, basename(entry, extname(entry)))] = resolve(entry)
       return localMap
     }, {}
   ),
@@ -26,13 +27,12 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: resolve(paths.output, paths.entry),
-    publicPath: join('/', paths.entry, '/')
+    // publicPath: join('/', paths.entry, '/')
+    publicPath
   },
 
   module: {
-    rules: readdirSync(loadersDir).map(file => (
-      require(join(loadersDir, file))
-    ))
+    rules: sync(join(loadersDir, '*.js')).map(loader => require(loader))
   },
 
   // visualizer: https://chrisbateman.github.io/webpack-visualizer/
@@ -50,6 +50,7 @@ module.exports = {
       name: 'vendor',
       minChunks: function (module) {
         // this assumes your vendor imports exist in the node_modules directory
+        // console.log(module.context, module.context && module.context.indexOf('node_modules') !== -1)
         return module.context && module.context.indexOf('node_modules') !== -1;
       }
     }),
@@ -58,7 +59,7 @@ module.exports = {
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
-    new ManifestPlugin({ fileName: 'manifest.json', publicPath, writeToFileEmit: true })
+    new ManifestPlugin({ fileName: paths.manifest, publicPath, writeToFileEmit: true })
   ],
 
   resolve: {

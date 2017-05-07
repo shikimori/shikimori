@@ -538,6 +538,7 @@ Rails.application.routes.draw do
       get :ajax
       get :vk_video
       get :colors
+      get :vue
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end
 

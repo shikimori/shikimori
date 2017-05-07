@@ -17,6 +17,7 @@ init_app = (Vue, CollectionLinks, store) ->
   collection = $('#collection_form').data('collection')
   autocomplete_url = $('#collection_form').data('autocomplete_url')
 
+  console.log(process.env.NODE_ENV)
   store.state.collection = sort_by_groups collection
   store.state.autocomplete_url = autocomplete_url
   store.state.node_env = process.env.NODE_ENV
