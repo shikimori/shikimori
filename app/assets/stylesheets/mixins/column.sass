@@ -17,6 +17,8 @@
   margin-right: $gutter
   position: relative
   width: 100% * $column_size - $gutter * ($columns - 1) / $columns
+  // do not add max-width
+  // max-width: 100% * $column_size - $gutter * ($columns - 1) / $columns
 
   &:nth-child(#{$columns}n)
     margin-right: 0

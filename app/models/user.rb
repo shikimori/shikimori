@@ -134,11 +134,17 @@ class User < ApplicationRecord
   after_create :send_welcome_message
   after_create :grab_avatar
 
-  scope :suspicious, -> {
-    where('sign_in_count < 7')
-      .where('users.id not in (select distinct(user_id) from comments)')
-      .where('users.id not in (select distinct(user_id) from user_rates)')
-  }
+  SUSPISIOUS_USER_IDS = %w[
+    138042 178102 102017 147424
+  ].map(&:to_i)
+  SUSPISIOUS_USERS_SQL = <<~SQL.squish
+    (
+      sign_in_count < 7 and
+        users.id not in (select distinct(user_id) from comments) and
+        users.id not in (select distinct(user_id) from user_rates)
+    ) or users.id in (#{SUSPISIOUS_USER_IDS.join ','})
+  SQL
+  scope :suspicious, -> { where SUSPISIOUS_USERS_SQL }
 
   enumerize :locale,
     in: Types::Locale.values,
