@@ -2,6 +2,7 @@
 
 class Collection::Update < ServiceObjectBase
   pattr_initialize :model, :params
+  MAX_LINKS = 500
 
   def call
     Collection.transaction { update_collection }
@@ -27,7 +28,7 @@ private
   end
 
   def links
-    @params[:links] || []
+    (@params[:links] || []).take(MAX_LINKS)
   end
 
   def update_params

@@ -13,6 +13,7 @@ header.head.misc
 #collection_form[
   data-collection="#{CollectionSerializer.new(@resource, scope: self).to_json}"
   data-autocomplete_url="#{send :"autocomplete_#{@resource.kind.pluralize}_url" if @resource.persisted?}"
+  data-max_links="#{Collection::Update::MAX_LINKS}"
 ]
   = simple_form_for @resource do |f|
     .subheadline = t :settings
