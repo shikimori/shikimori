@@ -58,7 +58,10 @@ module.exports = {
     // http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
-    new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
+    new ExtractTextPlugin({
+      filename: env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css',
+      allChunks: true
+    }),
     new ManifestPlugin({ fileName: paths.manifest, publicPath, writeToFileEmit: true })
   ],
 
