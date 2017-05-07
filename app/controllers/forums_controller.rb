@@ -3,7 +3,7 @@ class ForumsController < ModerationsController
   before_action :set_breadcrumbs
 
   def index
-    @collection = @collection.order({is_visible: :desc}, :position)
+    @collection = @collection.order({ is_visible: :desc }, :position)
   end
 
   def edit

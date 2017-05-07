@@ -13,17 +13,27 @@ class BbCodes::RepliesTag
   DISPLAY_LIMIT = 100
 
   def format text
-    text.gsub REGEXP do |matched|
-      ids = comment_ids $~[:ids].split(',')
+    text.gsub REGEXP do |_match|
+      ids = comment_ids Regexp.last_match[:ids].split(',')
       replies = ids.map { |id| "[comment=#{id}][/comment]" }.join(', ')
 
-      "<div class=\"b-replies#{' single' if ids.one?}\" " +
-        "data-reply-text=\"#{i18n_t 'reply'}\" " +
-        "data-replies-text=\"#{i18n_t 'replies'}\">#{replies}</div>" if ids.any?
+      next unless ids.any?
+
+      single_class = ids.one? ? 'single' : nil
+
+      ru = Types::Locale[:ru]
+      en = Types::Locale[:en]
+
+      "<div class='b-replies translated-before #{single_class}' "\
+        "data-text-ru='#{i18n_t('replies', locale: ru)}' "\
+        "data-text-en='#{i18n_t('replies', locale: en)}' "\
+        "data-text-alt-ru='#{i18n_t('reply', locale: ru)}' "\
+        "data-text-alt-en='#{i18n_t('reply', locale: en)}' "\
+        ">#{replies}</div>"
     end
   end
 
-private
+  private
 
   def comment_ids ids
     Comment

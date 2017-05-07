@@ -10,7 +10,8 @@ describe Contest do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :title }
+    it { is_expected.to validate_presence_of :title_ru }
+    it { is_expected.to validate_presence_of :title_en }
     it { is_expected.to validate_presence_of :user }
     it { is_expected.to validate_presence_of :strategy_type }
     it { is_expected.to validate_presence_of :member_type }
@@ -113,9 +114,7 @@ describe Contest do
         contest.rounds << round
         contest.prepare
 
-        expect {
-          round.reload
-        }.to raise_error ActiveRecord::RecordNotFound
+        expect { round.reload }.to raise_error ActiveRecord::RecordNotFound
       end
 
       it 'create_rounds' do
@@ -151,7 +150,7 @@ describe Contest do
       end
 
       it 'finishes round' do
-        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
+        round.matches.each { |v| v.finished_on = Time.zone.yesterday }
         contest.progress!
         expect(round.finished?).to be_truthy
       end
@@ -344,7 +343,7 @@ describe Contest do
 
       describe '#generate_topics' do
         let(:topics) { model.topics }
-        before { model.generate_topics [:en, :ru] }
+        before { model.generate_topics %i[en ru] }
 
         it do
           expect(topics).to have(2).items
@@ -355,7 +354,7 @@ describe Contest do
 
       describe '#topic' do
         let(:topic) { model.topic locale }
-        before { model.generate_topics [:en, :ru] }
+        before { model.generate_topics %i[en ru] }
 
         context 'ru topic' do
           let(:locale) { :ru }
@@ -376,7 +375,7 @@ describe Contest do
 
       describe '#maybe_topic' do
         let(:topic) { model.maybe_topic locale }
-        before { model.generate_topics [:en, :ru] }
+        before { model.generate_topics %i[en ru] }
 
         context 'ru topic' do
           let(:locale) { :ru }

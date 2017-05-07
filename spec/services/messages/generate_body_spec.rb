@@ -218,10 +218,19 @@ describe Messages::GenerateBody do
 
     context 'contest_finished' do
       let(:kind) { MessageType::ContestFinished }
-      let(:linked) { create :contest, id: 1, title: 'asd' }
+      let(:linked) { create :contest, id: 1, title_ru: 'foo', title_en: 'bar' }
       it do
         is_expected.to eq(
-          'Опрос <a href="//test.host/contests/1-" class="b-link">asd</a> завершён.'
+          '<span class="translated-after" '\
+            'data-text-ru="Опрос" '\
+            'data-text-en="Contest"></span> '\
+            '<a href="//test.host/contests/1-foo" '\
+            'class="b-link translated-after" '\
+            'data-text-ru="foo" '\
+            'data-text-en="bar"></a> '\
+            '<span class="translated-after" '\
+            'data-text-ru="завершён" '\
+            'data-text-en="has finished"></span>.'
         )
       end
     end

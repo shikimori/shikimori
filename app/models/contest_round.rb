@@ -46,12 +46,26 @@ class ContestRound < ApplicationRecord
     end
   end
 
+  def title_ru is_short = false
+    title(is_short, Types::Locale[:ru])
+  end
+
+  def title_en is_short = false
+    title(is_short, Types::Locale[:en])
+  end
+
   # название раунда
-  def title short=false
-    if short
+  def title is_short = false, locale = nil
+    if is_short
       "#{number}#{'a' if additional}"
     else
-      i18n_t 'title', number: number, additional: additional ? 'a' : ''
+      additional_text = additional ? 'a' : ''
+      i18n_t(
+        'title',
+        number: number,
+        additional: additional_text,
+        locale: locale
+      )
     end
   end
 

@@ -127,7 +127,11 @@ describe ContestsController do
     end
 
     context 'when validation errors' do
-      before { patch 'update', params: { id: contest.id, contest: { title: '' } } }
+      before do
+        patch 'update', params: {
+          id: contest.id, contest: { title_ru: '', title_en: '' }
+        }
+      end
 
       it do
         expect(resource.errors).to_not be_empty

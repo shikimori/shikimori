@@ -34,7 +34,7 @@ module TopicsConcern
     topic(locale) || NoTopic.new(self)
   end
 
-private
+  private
 
   def generate_site_topics locales
     Array(locales).map do |locale|

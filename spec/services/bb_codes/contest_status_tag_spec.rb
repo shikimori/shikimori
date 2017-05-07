@@ -8,6 +8,19 @@ describe BbCodes::ContestStatusTag do
     let(:contest) { create :contest, :finished }
     let(:contest_url) { UrlGenerator.instance.contest_url contest }
 
-    it { is_expected.to eq "Опрос <a href='#{contest_url}' class='b-link'>#{contest.name}</a> завершён." }
+    it do
+      is_expected.to eq(
+        "<span class='translated-after' "\
+          "data-text-ru='Опрос' "\
+          "data-text-en='Contest' ></span> "\
+          "<a href='#{contest_url}' "\
+          "class='b-link translated-after' "\
+          "data-text-ru='#{contest.title_ru}' "\
+          "data-text-en='#{contest.title_en}' ></a> "\
+          "<span class='translated-after' "\
+          "data-text-ru='завершён' "\
+          "data-text-en='has finished' ></span>."
+      )
+    end
   end
 end

@@ -40,13 +40,15 @@ class ShikimoriController < ApplicationController
   end
 
   def resource_redirect
-    if resource_id != @resource.to_param && request.method == 'GET' && params[:action] != 'new'
-      redirect_to(
-        url_for(url_params(resource_id_key => @resource.to_param)),
-        status: 301
-      )
-      false
-    end
+    return if resource_id.nil?
+    return if resource_id == @resource.to_param
+    return if request.method != 'GET'
+    return if params[:action] == 'new'
+
+    url_params = url_params(resource_id_key => @resource.to_param)
+    redirect_to url_for(url_params), status: 301
+
+    false
   end
 
   def resource_id

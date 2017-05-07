@@ -1,6 +1,7 @@
 FactoryGirl.define do
   factory :contest do
-    title "MyString"
+    title_ru 'Турнир'
+    title_en 'Contest'
     user { seed :user }
 
     member_type { [:anime, :character].sample }
@@ -24,10 +25,6 @@ FactoryGirl.define do
 
     Contest.state_machine.states.map(&:value).each do |contest_state|
       trait(contest_state.to_sym) { state contest_state }
-    end
-
-    after :build do |contest|
-      contest.stub :update_permalink
     end
 
     trait :with_topics do

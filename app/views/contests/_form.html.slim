@@ -7,7 +7,8 @@
 
   .subheadline = t '.common'
   .block
-    = f.input :title
+    = f.input :title_ru
+    = f.input :title_en
     = f.input :member_type,
         as: :select,
         collection: Contest.member_type.options,

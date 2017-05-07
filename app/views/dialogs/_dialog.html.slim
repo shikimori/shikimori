@@ -18,25 +18,25 @@
     aside.buttons
       .main-controls
         - if dialog.message.from != current_user
-          a.item-reply[
+          a.item-reply.translated-after[
             href="#{reply_profile_dialog_url dialog.user, dialog.target_user.to_param, dialog.message}"
             title=t('actions.reply')
             data-text-ru=t('actions.reply', locale: 'ru')
             data-text-en=t('actions.reply', locale: 'en')
           ]
-        span.item-delete[
+        span.item-delete.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
         ]
-        span.item-cancel[
+        span.item-cancel.translated-after[
           title=t('actions.cancel')
           data-text-ru=t('actions.cancel', locale: 'ru')
           data-text-en=t('actions.cancel', locale: 'en')
         ]
 
       .delete-controls
-        span.item-delete-confirm[
+        span.item-delete-confirm.translated-after[
           title=t('actions.delete')
           data-text-ru=t('actions.delete', locale: 'ru')
           data-text-en=t('actions.delete', locale: 'en')
@@ -45,7 +45,7 @@
           data-remote='true'
           data-method='delete'
         ]
-        span.item-delete-cancel[
+        span.item-delete-cancel.translated-after[
           title=t('actions.cancel')
           data-text-ru=t('actions.cancel', locale: 'ru')
           data-text-en=t('actions.cancel', locale: 'en')

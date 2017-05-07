@@ -381,7 +381,7 @@ ActiveRecord::Schema.define(version: 20170507205447) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.string   "title",                limit: 255
+    t.string   "title_ru",             limit: 255
     t.integer  "user_id"
     t.string   "state",                limit: 255, default: "created"
     t.date     "started_on"
@@ -391,12 +391,12 @@ ActiveRecord::Schema.define(version: 20170507205447) do
     t.integer  "wave_days"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "permalink",            limit: 255
     t.date     "finished_on"
     t.string   "user_vote_key",        limit: 255
     t.string   "strategy_type",        limit: 255, default: "Contest::DoubleEliminationStrategy", null: false
     t.integer  "suggestions_per_user"
     t.string   "member_type",          limit: 255, default: "anime"
+    t.string   "title_en",             limit: 255
     t.index ["state", "started_on", "finished_on"], name: "index_contests_on_state_and_started_on_and_finished_on", using: :btree
   end
 
