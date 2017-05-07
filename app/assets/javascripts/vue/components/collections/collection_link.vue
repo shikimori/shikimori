@@ -1,6 +1,7 @@
 <template lang="pug">
   .collection-link(
     :data-linked_id="link.linked_id"
+    :data-group="link.group"
     :data-list_index='links.indexOf(link)'
   )
     .delete(
@@ -83,25 +84,22 @@ export default {
     ])
   },
   methods: {
-    assign({id, name, url}) {
-      if (this.links.some((v) => v.linked_id == id)) {
-        this.remove_link(this.link)
-        highlight(`.collection-link[data-linked_id=${id}]`)
-      } else {
-        this.add_link({
-          group: this.link.group,
-          linked_id: id,
-          name: name,
-          url: url
-        })
-        this.remove_link(this.link)
-      }
+    assign(new_link) {
+      this.replace_link({link: this.link, new_link: new_link})
+
+      this.$nextTick(() => {
+        highlight(
+          '.collection-link' +
+            `[data-linked_id=${new_link.linked_id}]` +
+            `[data-group=${new_link.group}]`
+        )
+      })
     },
     add_autosize({target}) {
       autosize(target)
     },
     ...mapActions([
-      'add_link',
+      'replace_link',
       'remove_link'
     ])
   },
@@ -113,7 +111,14 @@ export default {
         $('input', this.$el)
           .completable()
           .focus()
-          .on('autocomplete:success', (e, data) => this.assign(data))
+          .on('autocomplete:success', (e, {id, name, url}) => {
+            this.assign({
+              group: this.link.group,
+              linked_id: parseInt(id),
+              name: name,
+              url: url
+            })
+          })
       }
     })
   }

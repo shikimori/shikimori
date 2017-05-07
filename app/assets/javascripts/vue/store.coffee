@@ -6,6 +6,9 @@ Vue.use Vuex
 uniq_id = 987654321
 new_id = -> uniq_id += 1
 
+has_duplicate = (links, link) ->
+  links.some (v) -> v.linked_id == link.linked_id && v.group == link.group
+
 store = new Vuex.Store
   state:
     collection: {}
@@ -14,25 +17,27 @@ store = new Vuex.Store
     max_links: 0
 
   actions:
-    add_link: (context, data) ->
-      context.commit 'ADD_LINK', Object.add(data, {
-        group: null
-        linked_id: null
-        name: null
-        text: null
-        url: null
-        key: new_id()
-      }, resolve: false)
+    replace_link: (context, {link, new_link}) ->
+      context.commit 'REMOVE_LINK', link
+      context.commit 'ADD_LINK', new_link
 
+    add_link: (context, data) -> context.commit 'ADD_LINK', data
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
     move_link: (context, data) -> context.commit 'MOVE_LINK', data
     rename_group: (context, data) -> context.commit 'RENAME_GROUP', data
 
   mutations:
-    ADD_LINK: (state, link) ->
-      if link.linked_id &&
-          state.collection.links.some((v) -> v.linked_id == link.linked_id)
-        return
+    ADD_LINK: (state, link_data) ->
+      link = Object.add link_data, {
+          group: null
+          linked_id: null
+          name: null
+          text: null
+          url: null
+          key: new_id()
+        }, resolve: false
+
+      return if link.linked_id && has_duplicate(state.collection.links, link)
 
       last_in_group = state.collection.links
         .filter (v) -> v.group == link.group
@@ -55,7 +60,9 @@ store = new Vuex.Store
       from_element = state.collection.links.splice(from_index, 1)[0]
 
       from_element.group = group unless from_element.group == group
-      state.collection.links.splice(to_index, 0, from_element)
+
+      unless has_duplicate(state.collection.links,from_element)
+        state.collection.links.splice(to_index, 0, from_element)
 
     RENAME_GROUP: (state, {from_name, to_name}) ->
       state.collection.links.forEach (link) ->
