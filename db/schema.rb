@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170425095009) do
+ActiveRecord::Schema.define(version: 20170507205447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,7 +286,7 @@ ActiveRecord::Schema.define(version: 20170425095009) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
     t.string   "text",          limit: 2048
-    t.index ["collection_id", "linked_id", "linked_type"], name: "uniq_collections_linked_links", unique: true, using: :btree
+    t.index ["collection_id", "linked_id", "group"], name: "uniq_collections_linked_links", unique: true, using: :btree
     t.index ["collection_id"], name: "index_collection_links_on_collection_id", using: :btree
     t.index ["linked_type", "linked_id"], name: "index_collection_links_on_linked_type_and_linked_id", using: :btree
   end
