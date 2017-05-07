@@ -2,6 +2,7 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
+    "autosize": "^3.0.20",
     "blueimp-md5": "^2.7.0",
     "bowser": "^1.6.1",
     "d3": "3.5.17",
@@ -27,7 +28,6 @@
     "uevent": "^1.0.0",
     "urijs": "^1.18.10",
     "vue": "^2.3.2",
-    "vue-autosize": "morr/vue-autosize#initial-page-load-fix",
     "vue-loader": "^12.0.3",
     "vue-template-compiler": "^2.3.2",
     "vuedraggable": "^2.10.0",

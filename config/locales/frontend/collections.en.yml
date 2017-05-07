@@ -1,6 +1,11 @@
 en:
   frontend:
     collections:
+      kind:
+        anime: Anime
+        manga: Manga
+        character: Characters
+        person: People
       group_name: Group name
       # add:
         # anime: Add anime

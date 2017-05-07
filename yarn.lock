@@ -218,11 +218,7 @@ autoprefixer@^7.0.0:
     postcss "^6.0.0"
     postcss-value-parser "^3.2.3"
 
-autosize-input@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/autosize-input/-/autosize-input-0.4.0.tgz#a5cdb43110e31f6a1d9fb695ccb747495af0bb5e"
-
-autosize@^3.0.14:
+autosize@^3.0.20:
   version "3.0.20"
   resolved "https://registry.yarnpkg.com/autosize/-/autosize-3.0.20.tgz#e343ea7c5603834738169420f0349dc953e62a9e"
 
@@ -2586,12 +2582,6 @@ loose-envify@^1.0.0:
   dependencies:
     js-tokens "^3.0.0"
 
-lorem-ipsum@^1.0.3:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/lorem-ipsum/-/lorem-ipsum-1.0.4.tgz#30b72a3b1e191f55062af8c7dfab291ae4fbd912"
-  dependencies:
-    optimist "~0.3.5"
-
 loud-rejection@^1.0.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/loud-rejection/-/loud-rejection-1.6.0.tgz#5b46f80147edee578870f086d04821cf998e551f"
@@ -2983,12 +2973,6 @@ opn@4.0.2:
   dependencies:
     object-assign "^4.0.1"
     pinkie-promise "^2.0.0"
-
-optimist@~0.3.5:
-  version "0.3.7"
-  resolved "https://registry.yarnpkg.com/optimist/-/optimist-0.3.7.tgz#c90941ad59e4273328923074d2cf2e7cbc6ec0d9"
-  dependencies:
-    wordwrap "~0.0.2"
 
 original@>=0.0.5:
   version "1.0.0"
@@ -4610,14 +4594,6 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-autosize@morr/vue-autosize#initial-page-load-fix:
-  version "1.0.1"
-  resolved "https://codeload.github.com/morr/vue-autosize/tar.gz/e295d238e4e0965c3b621f7d7b8aa2c8bac8b143"
-  dependencies:
-    autosize "^3.0.14"
-    autosize-input "^0.4.0"
-    lorem-ipsum "^1.0.3"
-
 vue-hot-reload-api@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.1.0.tgz#9ca58a6e0df9078554ce1708688b6578754d86de"
@@ -4815,7 +4791,7 @@ with@^5.0.0:
     acorn "^3.1.0"
     acorn-globals "^3.0.0"
 
-wordwrap@0.0.2, wordwrap@~0.0.2:
+wordwrap@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
 

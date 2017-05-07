@@ -11,6 +11,7 @@ store = new Vuex.Store
     collection: {}
     autocomplete_url: ''
     node_env: ''
+    max_links: 0
 
   actions:
     add_link: (context, data) ->
@@ -29,6 +30,10 @@ store = new Vuex.Store
 
   mutations:
     ADD_LINK: (state, link) ->
+      if link.linked_id &&
+          state.collection.links.some((v) -> v.linked_id == link.linked_id)
+        return
+
       last_in_group = state.collection.links
         .filter (v) -> v.group == link.group
         .last()
@@ -63,6 +68,7 @@ store = new Vuex.Store
     groups: (store) -> store.collection.links.map((v) -> v.group).unique()
     grouped_links: (store) -> store.collection.links.groupBy((v) -> v.group)
     node_env: (store) -> store.node_env
+    max_links: (store) -> store.max_links
 
   modules: {}
 

@@ -50,14 +50,15 @@
           :id="'link_text_' + link.id"
           :placeholder="I18n.t('activerecord.attributes.collection_link.text')"
           name="collection[links][][text]"
-          v-autosize="true"
           rows="1"
           v-model="link.text"
+          @focus.once="add_autosize"
         )
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import autosize from 'autosize'
 
 function highlight(selector) {
   let $node = $(selector)
@@ -95,6 +96,9 @@ export default {
         })
         this.remove_link(this.link)
       }
+    },
+    add_autosize({target}) {
+      autosize(target)
     },
     ...mapActions([
       'add_link',
@@ -182,4 +186,5 @@ export default {
 
   textarea, input
     width: 100%
+    line-height: $line-height
 </style>

@@ -1,5 +1,7 @@
 <template lang="pug">
   .block
+    .b-options-floated {{ `${links.length} / ${max_links}` }}
+    .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
     .cc-3-flex
       .c-column(
         v-for='group_name in groups'
@@ -10,6 +12,7 @@
               :for="'group_' + group_name"
             ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
             .add.b-js-link(
+              v-if="links.length < max_links"
               @click="add_link({group: group_name})"
             ) {{ I18n.t('actions.add').toLowerCase() }}
           input(
@@ -21,7 +24,7 @@
             type="text"
           )
 
-        draggable.collection-links(
+        .collection-links(
           :options="drag_options"
           @update="on_drag_update"
           @add="on_drag_add"
@@ -35,12 +38,12 @@
 
       .c-column.new-group
         .b-button(
+          v-if="links.length < max_links"
           @click="add_new_group"
         ) {{ I18n.t('actions.add') }}
 
-    .block(
+    //.block(
       v-if="node_env == 'development'"
-    )
       pre(style="white-space: pre-wrap; font-size: 11px;")
         | {{ JSON.stringify(links) }}
 
@@ -81,10 +84,12 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'collection',
       'links',
       'groups',
       'grouped_links',
-      'node_env'
+      'node_env',
+      'max_links'
     ]),
   },
   methods: {
@@ -140,21 +145,19 @@ export default {
       'move_link',
       'rename_group'
     ])
-  },
-  mounted() {
   }
 }
 </script>
 
 <style scoped lang="sass">
 @import app/assets/stylesheets/globals/variables
-
 .new-group
   padding-top: 8px
 
 .group
   label
     display: inline-block
+    font-weight: bold
 
   .add
     float: right

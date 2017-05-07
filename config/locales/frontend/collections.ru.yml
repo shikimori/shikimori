@@ -1,6 +1,11 @@
 ru:
   frontend:
     collections:
+      kind:
+        anime: Аниме
+        manga: Манга
+        character: Персонажи
+        person: Люди
       group_name: Название группы
       # add:
         # anime: Добавить аниме
