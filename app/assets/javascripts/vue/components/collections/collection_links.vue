@@ -24,7 +24,7 @@
             type="text"
           )
 
-        .collection-links(
+        draggable.collection-links(
           :options="drag_options"
           @update="on_drag_update"
           @add="on_drag_add"
