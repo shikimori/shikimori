@@ -1,4 +1,4 @@
-class @ShikiModal extends View
+module.exports = class @ShikiModal extends View
   initialize: ->
     @$modal = $("<div class='b-modal'><div class='inner'></div></div>")
 

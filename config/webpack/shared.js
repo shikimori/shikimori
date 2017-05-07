@@ -50,7 +50,6 @@ module.exports = {
       name: 'vendor',
       minChunks: function (module) {
         // this assumes your vendor imports exist in the node_modules directory
-        // console.log(module.context, module.context && module.context.indexOf('node_modules') !== -1)
         return module.context && module.context.indexOf('node_modules') !== -1;
       }
     }),
