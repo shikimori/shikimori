@@ -85,6 +85,8 @@ class TranslateContests < ActiveRecord::Migration[5.0]
     Contest.where(id: 75).update_all(title_en: 'The Best Warrior Girl')
     Contest.where(id: 76).update_all(title_en: 'The Best Anime of Fall 2016')
     Contest.where(id: 77).update_all(title_en: 'The Best Scientist')
+    Contest.where(id: 78).update_all(title_en: 'The Most Underrated Anime')
+    Contest.where(id: 79).update_all(title_en: 'The Best Anime Music')
   end
 end
 
@@ -163,3 +165,5 @@ end
 #75: Лучшая девушка-боец
 #76: Лучшее аниме осеннего сезона 2016
 #77: Лучший ученый
+#78: Самое недооцененное аниме
+#79: Аниме с лучшим музыкальным сопровождением
