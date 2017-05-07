@@ -74,6 +74,10 @@ $icon_mobile_size: 30px
     color: $link-hover
     // +link_color($link)
 
+  +gt_ipad
+    &:after
+      display: none
+
 =headline_icon_button($content)
   +icon_button($content)
   +link_color(#666666)
