@@ -30,11 +30,20 @@ private
   end
 
   def user_ids
-    @user_ids ||= ContestUserVote.joins(:match, :user).merge(User.suspicious).where(contest_matches: { id: match_ids }).pluck(:user_id).uniq
+    @user_ids ||= ContestUserVote
+      .joins(:match, :user)
+      .merge(User.suspicious)
+      .where(contest_matches: { id: match_ids })
+      .pluck(:user_id)
+      .uniq
   end
 
   def ip_cleanup match
-    cleaned = match.votes.group(:ip).having('count(*) > 1').select('max(id) as id').each(&:delete)
+    cleaned = match.votes
+      .group(:ip)
+      .having('count(*) > 1')
+      .select('max(id) as id')
+      .each(&:delete)
     ip_cleanup match if cleaned.any?
   end
 end
