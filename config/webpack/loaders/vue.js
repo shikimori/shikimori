@@ -1,12 +1,12 @@
-// Change it to false if you prefer Vue styles to be inlined by javascript in runtime
-const extractStyles = true
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const { env } = require('../configuration.js')
 
+// Change it to false if you prefer Vue styles to be inlined by javascript in runtime
+const extractStyles = false
+
 const cssLoader = [
   { loader: 'css-loader', options: { minimize: env === 'production' } },
-  'postcss-loader',
+  'postcss-loader'
 ]
 const sassLoader = cssLoader.concat(['sass-loader?indentedSyntax'])
 const scssLoader = cssLoader.concat(['sass-loader'])
@@ -17,9 +17,8 @@ function vueLoader(loader) {
       fallback: 'vue-style-loader',
       use: loader
     })
-  } else {
-    return ['vue-style-loader'].concat(sassLoader)
   }
+  return ['vue-style-loader'].concat(sassLoader)
 }
 
 module.exports = {
