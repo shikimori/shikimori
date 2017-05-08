@@ -135,7 +135,7 @@ class User < ApplicationRecord
   after_create :grab_avatar
 
   SUSPISIOUS_USER_IDS = %w[
-    138042 178102 102017 147424
+    138042 178102 102017 147424 52404 39861 38300 48671
   ].map(&:to_i)
   SUSPISIOUS_USERS_SQL = <<~SQL.squish
     (
