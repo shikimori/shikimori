@@ -4,6 +4,9 @@ class CollectionsQuery < SimpleQueryBase
 private
 
   def query
-    Collection.where(locale: @locale).order(:id)
+    Collection
+      .where(locale: @locale)
+      .where(state: :published)
+      .order(:id)
   end
 end

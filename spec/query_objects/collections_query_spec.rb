@@ -3,10 +3,11 @@ describe CollectionsQuery do
 
   include_context :timecop
 
-  let!(:collection_1) { create :collection, id: 1 }
-  let!(:collection_2) { create :collection, id: 2 }
-  let!(:collection_3) { create :collection, id: 3 }
-  let!(:collection_en) { create :collection, id: 5, locale: :en }
+  let!(:collection_1) { create :collection, :published, id: 1 }
+  let!(:collection_2) { create :collection, :published, id: 2 }
+  let!(:collection_3) { create :collection, :published, id: 3 }
+  let!(:collection_en) { create :collection, :published, id: 5, locale: :en }
+  let!(:collection_en) { create :collection, :unpublished, id: 6 }
 
   describe '#fetch' do
     subject { query.fetch page, limit }
@@ -40,4 +41,3 @@ describe CollectionsQuery do
     end
   end
 end
-
