@@ -9,7 +9,7 @@ header.head
     .animes
       h3 = name
       - db_entries.each_with_index do |db_entry, index|
-        - no_description = db_entry.description_ru.blank? || db_entry.description_ru == db_entry.description_en || db_entry.source.present?
+        - no_description = db_entry.description_ru.blank? || db_entry.description_ru == db_entry.description_en || db_entry.description_ru =~ /\[source\]/
 
         p class="#{:translated unless (db_entry.too_short? || no_description) && !@changes.include?(db_entry.id)}"
           | #{index + 1}.

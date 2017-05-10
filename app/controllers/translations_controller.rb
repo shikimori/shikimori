@@ -53,8 +53,11 @@ class TranslationsController < ShikimoriController
               (description_ru || '').size < 450
           end
 
-          anime.description_ru.blank? || anime.too_short? ||
-            (anime.source.present? && !anime.censored?)
+          !anime.censored? && (
+            anime.description_ru.blank? ||
+            anime.too_short? ||
+            anime.description_ru =~ /\[source\]/
+          )
         end
 
         [key, filtered]
