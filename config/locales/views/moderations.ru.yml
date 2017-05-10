@@ -7,7 +7,8 @@ ru:
       forum_journal: Журнал модерации форума
       genres: Жанры
       header_notice: Журналы модерации и информация о контенте сайта
-      missing_descriptions: Аниме без описаний
+      missing_anime_descriptions: Аниме без описаний
+      missing_manga_descriptions: Манга без описаний
       missing_screenshots: Аниме без кадров
       missing_videos: Отсутствующие видео
       moderation: Модерация

@@ -75,9 +75,14 @@ header.head
       ul.b-list
         li
           a.b-link[
-            href="#{translations_url}"
+            href="#{anime_translations_url}"
             title="#{'.missing_descriptions'}"
-          ] = t '.missing_descriptions'
+          ] = t '.missing_anime_descriptions'
+        li
+          a.b-link[
+            href="#{manga_translations_url}"
+            title="#{'.missing_descriptions'}"
+          ] = t '.missing_manga_descriptions'
         li
           a.b-link[
             href="#{missing_screenshots_moderations_url}"

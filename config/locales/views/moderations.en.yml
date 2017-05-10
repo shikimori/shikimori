@@ -7,7 +7,8 @@ en:
       forum_journal: Forum moderation journal
       genres: Genres
       header_notice: Moderation journals
-      missing_descriptions: Animes w/o description
+      missing_anime_descriptions: Animes w/o description
+      missing_manga_descriptions: Mangas w/o description
       missing_screenshots: Animes w/o screenshots
       missing_videos: Missing videos
       moderation: Moderation
