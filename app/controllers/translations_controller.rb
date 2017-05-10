@@ -1,7 +1,6 @@
 class TranslationsController < ShikimoriController
   before_action :fetch_club
   before_action :set_breadcrumbs
-  before_action :fetch_plans
 
   ANIME_FEATURED_IDS = [
     7724, 5081, 6746, 7, 4224, 2418, 3958, 849, 2562, 1698, 2025, 2251, 1601,
@@ -14,7 +13,7 @@ class TranslationsController < ShikimoriController
     45, 627, 269, 28
   ]
 
-  TRANSLATE_IGNORES = [
+  TRANSLATE_ANIME_IGNORE_IDS = [
     19067, 19157, 21447, 3447, 3485, 2448, 1335, 8648, 1430, 1412, 1425, 10029,
     597, 1029, 7711, 1972, 1382, 10444, 10370, 10349, 10359, 10347, 10324,
     10257, 10015, 10533, 10499, 10507, 10444, 10177, 9441, 7761, 5032, 7463,
@@ -38,64 +37,71 @@ class TranslationsController < ShikimoriController
   ]
 
   def show
-    @page_title = 'Аниме без описаний'
+    @klass = request.path =~ /anime/ ? Anime : Manga
+    @page_title = "#{@klass.model_name.human} без описаний"
 
-    @changes = TranslationsController.pending_animes
+    @changes = TranslationsController.pending @klass
+    send :"fetch_#{@klass.name.downcase}_plans"
 
-    @filtered_groups = @groups.map do |key,values|
-      filtered = values.select do |anime|
-        def anime.too_short?
-          (ongoing? || anons? || latest?) && score > 7 && kind_tv? &&
-            !rating_g? &&
-            (description_ru || '').size < 450
+    @filtered_groups =
+      @groups.map do |key, values|
+        filtered = values.select do |anime|
+          def anime.too_short?
+            anime? &&
+              (ongoing? || anons? || latest?) && score > 7 && kind_tv? &&
+              !rating_g? &&
+              (description_ru || '').size < 450
+          end
+
+          anime.description_ru.blank? || anime.too_short? ||
+            (anime.source.present? && !anime.censored?)
         end
 
-        anime.description_ru.blank? || anime.too_short?
+        [key, filtered]
       end
-
-      [key, filtered]
-    end.select {|k,v| v.any? }
+      .select { |_, v| v.any? }
   end
 
   # хеш со ждущими модерации аниме
-  def self.pending_animes
+  def self.pending klass
     Version
       .where(state: :pending)
       .where("(item_diff->>:field) is not null", field: 'description_ru')
-      .where(item_type: Anime.name)
+      .where(item_type: klass)
       .includes(:user)
       .each_with_object({}) { |v, memo| memo[v.item_id] = v }
   end
 
 private
+
   # список аниме на перевод
-  def fetch_plans
+  def fetch_anime_plans
     @groups = {}
 
     @groups['Top 100 TV'] = Anime
       .where(id: Anime.where(kind: :tv).where.not(ranked: 0).order(:ranked).limit(100). pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .order(:ranked)
 
     @groups['Top 50 OVA'] = Anime
       .where(id: Anime.where.not(kind: [:tv, :movie]).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids)
       .order(:ranked)
 
     @groups['Top 50 Movies'] = Anime
       .where(id: Anime.where(kind: :movie).where.not(ranked: 0).order(:ranked).limit(50).pluck(:id))
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids)
       .order(:ranked)
 
     @groups['Избранное модераторами'] = @club
       .animes
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(id: added_ids)
       .order(:ranked)
 
@@ -106,21 +112,21 @@ private
 
     @groups['Ghost in the Shell'] = Anime
       .where("name ilike '%Ghost in the S%'")
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where('id < 10000')
       .where(censored: false)
       .order(:name)
 
     @groups['Break Blade'] = Anime
       .where("name ilike '%Break Bla%'")
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where(censored: false)
       .order(:name)
 
     @groups['Miyazaki Hayao'] = Person.find(1870)
       .animes
       .where('animes.id not in (?)', Anime::EXCLUDED_ONGOINGS)
-      .where('animes.id not in (?)', TRANSLATE_IGNORES)
+      .where('animes.id not in (?)', TRANSLATE_ANIME_IGNORE_IDS)
       .where('animes.kind != ?', 'music')
       .where(censored: false)
       .order(:ranked)
@@ -137,7 +143,7 @@ private
       .where('score != 0 and ranked != 0')
       .where.not(id: added_ids)
       .where.not(id: [10908,11385])
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(rating: :g)
       .limit(15)
 
@@ -145,62 +151,62 @@ private
       .where(AnimeSeasonQuery.new('winter_2016', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Осень 2015'] = translatable
       .where(AnimeSeasonQuery.new('fall_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Лето 2015'] = translatable
       .where(AnimeSeasonQuery.new('summer_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Весна 2015'] = translatable
       .where(AnimeSeasonQuery.new('spring_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Зима 2015'] = translatable
       .where(AnimeSeasonQuery.new('winter_2015', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Осень 2014'] = translatable
       .where(AnimeSeasonQuery.new('fall_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Лето 2014'] = translatable
       .where(AnimeSeasonQuery.new('summer_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Весна 2014'] = translatable
       .where(AnimeSeasonQuery.new('spring_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Зима 2014'] = translatable
       .where(AnimeSeasonQuery.new('winter_2014', Anime).to_sql)
       .where.not(id: added_ids)
       .where('score > 0 or ranked > 0')
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
 
     @groups['Фильмы этого года'] = Anime
       .where(AnimeSeasonQuery.new(DateTime.now.year.to_s, Anime).to_sql)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
       .where('score >= 7.5 or status = ?', :anons)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where.not(rating: :g)
       .where(kind: :movie)
       .order(:ranked)
@@ -210,14 +216,14 @@ private
       .where(id: ANIME_TV_SERIES_IDS)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .order(:ranked)
 
     @groups['Сиквелы'] = Anime
       .where(id: [477,861,793,16,71,73,3667,5355,6213,4654,1519,889,2159,5342])
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where(censored: false)
       .order(:ranked)
 
@@ -285,7 +291,7 @@ private
       .where(id: ANIME_FEATURED_IDS)
       .where.not(id: Anime::EXCLUDED_ONGOINGS)
       .where.not(id: added_ids)
-      .where.not(id: TRANSLATE_IGNORES)
+      .where.not(id: TRANSLATE_ANIME_IGNORE_IDS)
       .where(censored: false)
       .order(:ranked)
 
@@ -295,6 +301,21 @@ private
       .where(censored: false)
       .order(:ranked)
   end
+
+  def fetch_manga_plans
+    @groups = {}
+
+    @groups['Топ 500'] = Manga
+      .where.not(ranked: 0)
+      .order(:ranked)
+      .limit(500)
+
+    @groups['Избранное модераторами'] = @club
+      .mangas
+      .where.not(id: added_ids)
+      .order(:ranked)
+  end
+
 
 private
 

@@ -443,7 +443,10 @@ Rails.application.routes.draw do
       post :publish, on: :member
     end
 
-    resource :translations, only: [:show]
+    resource :translations, only: [] do
+      get :anime, action: :show
+      get :manga, action: :show
+    end
 
     resources :clubs, except: [:edit, :destroy] do
       member do

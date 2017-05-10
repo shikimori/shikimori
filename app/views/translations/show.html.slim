@@ -1,26 +1,27 @@
 header.head
-  h1 Аниме без описаний
+  h1 = @page_title
   .notice
-    p Список аниме без описаний для тех, кто хочет помочь сайту. Подробности в <a href="#{@breadcrumbs['Переводы']}">клубе переводов</a>.
+    p Список #{@klass == Anime ? 'аниме' : 'манги'} без описаний для тех, кто хочет помочь сайту. Подробности в <a href="#{@breadcrumbs['Переводы']}">клубе переводов</a>.
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 .translations
-  - @filtered_groups.each do |(name,animes)|
+  - @filtered_groups.each do |(name, db_entries)|
     .animes
       h3 = name
-      - animes.each_with_index do |anime,k|
-        - no_description = anime.description_ru.blank? || anime.description_ru == anime.description_en
+      - db_entries.each_with_index do |db_entry, index|
+        - no_description = db_entry.description_ru.blank? || db_entry.description_ru == db_entry.description_en || db_entry.source.present?
 
-        p class="#{:translated unless (anime.too_short? || no_description) && !@changes.include?(anime.id)}"
-          | #{k+1}.
+        p class="#{:translated unless (db_entry.too_short? || no_description) && !@changes.include?(db_entry.id)}"
+          | #{index + 1}.
 
-          a.bubbled class="#{anime.kind}" href="#{anime_url anime}" data-href="#{respond_to?("tooltip_#{anime.class.name.downcase}_url") ? send("tooltip_#{anime.class.name.downcase}_url", anime) : ''}"
-            = localization_span anime
+          a.bubbled class="#{db_entry.kind}" href="#{anime_url db_entry}" data-href="#{respond_to?("tooltip_#{db_entry.class.name.downcase}_url") ? send("tooltip_#{db_entry.class.name.downcase}_url", db_entry) : ''}"
+            = localization_span db_entry
 
-          - if TranslationsController::TRANSLATE_ME.include?(anime.id) && !@changes.include?(anime.id) && (anime.description_ru == nil || anime.description_ru == '' || anime.description_ru == anime.description_en)
-            span style="font-size:9px; color: red;" это в первую очередь
+          - if @klass == Anime
+            - if TranslationsController::TRANSLATE_ME.include?(db_entry.id) && !@changes.include?(db_entry.id) && (db_entry.description_ru == nil || db_entry.description_ru == '' || db_entry.description_ru == db_entry.description_en)
+              span style="font-size:9px; color: red;" это в первую очередь
 
-          - if anime.too_short? && !no_description
+          - if db_entry.too_short? && !no_description
             span style="font-size:9px; color: green;" описание очень короткое
 
   br clear="both"
