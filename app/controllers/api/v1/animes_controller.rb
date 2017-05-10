@@ -198,14 +198,14 @@ class Api::V1::AnimesController < Api::V1Controller
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/animes/:id/screenshots'
   def screenshots
-    @collection = @resource.screenshots
+    @collection = @resource.object.screenshots
     respond_with @collection
   end
 
   # TODO: delete after 01.01.2017
   api :GET, '/animes/:id/videos', 'Use Videos API instead', deprecated: true
   def videos
-    @collection = @resource.videos
+    @collection = @resource.object.videos
     respond_with @collection
   end
 
