@@ -1,5 +1,6 @@
 class CollectionsQuery < SimpleQueryBase
   pattr_initialize :locale
+  decorate_page true
 
 private
 

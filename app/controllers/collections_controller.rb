@@ -27,7 +27,6 @@ class CollectionsController < ShikimoriController
 
   def show
     page_title @resource.name
-    @resource = @resource.decorate
   end
 
   def new
