@@ -75,8 +75,11 @@ class User < ApplicationRecord
   has_many :ignored_users, through: :ignores, source: :target
 
   has_many :club_roles, dependent: :destroy
-  has_many :club_admin_roles, -> { where role: :admin }, class_name: ClubRole
+  has_many :club_admin_roles, -> { where role: :admin },
+    class_name: ClubRole
   has_many :clubs, through: :club_roles
+
+  has_many :collections, dependent: :destroy
 
   has_many :versions, dependent: :destroy
 
@@ -99,6 +102,7 @@ class User < ApplicationRecord
   has_many :user_images, dependent: :destroy
 
   has_many :anime_video_reports
+
 
   has_attached_file :avatar,
     styles: {

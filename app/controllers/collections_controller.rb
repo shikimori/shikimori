@@ -10,6 +10,7 @@ class CollectionsController < ShikimoriController
   ]
   CREATE_PARAMS = %i[user_id kind] + UPDATE_PARAMS
 
+  # rubocop:disable AbcSize
   def index
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 24].max, 48].min
@@ -17,7 +18,12 @@ class CollectionsController < ShikimoriController
     @collection, @add_postloader = CollectionsQuery
       .new(locale_from_host)
       .postload(@page, @limit)
+
+    if @page == 1 && user_signed_in?
+      @unpublished_collections = current_user.collections.unpublished
+    end
   end
+  # rubocop:enable AbcSize
 
   def show
     page_title @resource.name

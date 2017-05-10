@@ -9,6 +9,13 @@ header.head.misc
 
   p.notice.clearfix = t '.notice'
 
+- if @unpublished_collections&.any?
+  .block
+    b #{t '.my_unpublished_collections'}:&nbsp;
+    - @unpublished_collections.each do |collection|
+      a href="#{collection_url collection}" = collection.name
+      | ,&nbsp;
+
 .block
   - if @collection.any?
     = render @collection

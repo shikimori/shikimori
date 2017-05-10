@@ -2,8 +2,6 @@ describe User do
   describe 'relations' do
     it { is_expected.to have_one(:preferences).dependent(:destroy) }
 
-    it { is_expected.to have_many(:versions).dependent(:destroy) }
-
     it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
     it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
 
@@ -37,6 +35,9 @@ describe User do
     it { is_expected.to have_many(:club_roles).dependent(:destroy) }
     it { is_expected.to have_many :club_admin_roles }
     it { is_expected.to have_many :clubs }
+
+    it { is_expected.to have_many(:collections).dependent(:destroy) }
+    it { is_expected.to have_many(:versions).dependent(:destroy) }
 
     it { is_expected.to have_many(:contest_user_votes).dependent(:destroy) }
     it { is_expected.to have_many :topics }

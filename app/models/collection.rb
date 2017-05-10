@@ -14,6 +14,9 @@ class Collection < ApplicationRecord
   enumerize :state, in: Types::Collection::State.values, predicates: true
   enumerize :locale, in: Types::Locale.values, predicates: { prefix: true }
 
+  scope :unpublished, -> { where state: :unpublished }
+  scope :published, -> { where state: :published }
+
   def to_param
     "#{id}-#{name.permalinked}"
   end
