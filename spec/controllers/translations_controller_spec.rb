@@ -3,12 +3,12 @@ describe TranslationsController do
 
   describe '#anime' do
     let!(:miyazaki) { create :person, id: 1870 }
-    before { get :anime }
+    before { get :show, params: { anime: true } }
     it { expect(response).to have_http_status :success }
   end
 
   describe '#manga' do
-    before { get :manga }
+    before { get :show, params: { manga: true } }
     it { expect(response).to have_http_status :success }
   end
 end

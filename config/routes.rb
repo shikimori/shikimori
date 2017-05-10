@@ -444,8 +444,8 @@ Rails.application.routes.draw do
     end
 
     resource :translations, only: [] do
-      get :anime, action: :show
-      get :manga, action: :show
+      get :anime, action: :show, anime: true
+      get :manga, action: :show, manga: true
     end
 
     resources :clubs, except: [:edit, :destroy] do

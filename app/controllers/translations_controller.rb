@@ -37,7 +37,7 @@ class TranslationsController < ShikimoriController
   ]
 
   def show
-    @klass = request.path =~ /anime/ ? Anime : Manga
+    @klass = params[:anime] ? Anime : Manga
     @page_title = "#{@klass.model_name.human} без описаний"
 
     @changes = TranslationsController.pending @klass
@@ -67,7 +67,7 @@ class TranslationsController < ShikimoriController
     Version
       .where(state: :pending)
       .where("(item_diff->>:field) is not null", field: 'description_ru')
-      .where(item_type: klass)
+      .where(item_type: klass.name)
       .includes(:user)
       .each_with_object({}) { |v, memo| memo[v.item_id] = v }
   end
