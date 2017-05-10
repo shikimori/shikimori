@@ -6,6 +6,7 @@ private
 
   def query
     Collection
+      .includes(:topics)
       .where(locale: @locale)
       .where(state: :published)
       .order(:id)

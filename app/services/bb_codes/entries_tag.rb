@@ -12,6 +12,8 @@ class BbCodes::EntriesTag
           |
         \s columns = (?<columns>[0-9]+)
           |
+        \s class = (?<class>[\w_-]+)
+          |
         \s (?<wall>wall)
       )+
     \]
@@ -25,6 +27,7 @@ class BbCodes::EntriesTag
 
     text.gsub REGEXP do |matched|
       ids = $~[:ids].split(',').map(&:to_i).select {|v| v < 2147483647 }
+      klass = $~[:class]
 
       is_wall = $~[:wall].present?
       if is_wall
@@ -48,10 +51,12 @@ class BbCodes::EntriesTag
       end
 
       if is_wall
-        "<div class='cc-#{columns}-g0 align-posters unprocessed' data-columns='#{columns}'>#{entries_html.join ''}</div>"
+        klass = "cc-#{columns}-g0" unless klass
+        "<div class='#{klass} align-posters unprocessed' data-columns='#{columns}'>#{entries_html.join ''}</div>"
       else
+        klass = "cc-#{columns}" unless klass
         ratio_type = [Character, Person].include?(type_to_klass($~[:type])) ? " data-ratio_type='person'" :''
-        "<div class='cc-#{columns} m0 to-process' data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join ''}</div>"
+        "<div class='#{klass} m0 to-process' data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join ''}</div>"
       end
     end
   end

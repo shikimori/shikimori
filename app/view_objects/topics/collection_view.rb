@@ -3,6 +3,10 @@ class Topics::CollectionView < Topics::View
     super 'b-collection-topic'
   end
 
+  def minified?
+    is_preview || is_mini
+  end
+
   def poster is_2x
     @topic.user.avatar_url is_2x ? 80 : 48
   end
@@ -35,9 +39,9 @@ class Topics::CollectionView < Topics::View
 private
 
   def collection_links_bb_code
-    ids = collection.links.limit(8).pluck(:linked_id)
+    ids = collection.links.limit(6).pluck(:linked_id)
     tag_type = collection.kind.pluralize
-    "[#{tag_type} ids=#{ids.join ','} columns=8]"
+    "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
   end
 
   def collection

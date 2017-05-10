@@ -53,6 +53,13 @@ describe BbCodes::EntriesTag do
       it { expect(html).to include "<div class='cc-4 " }
     end
 
+    describe 'class' do
+      let(:anime) { create :anime }
+      let(:text) { "[animes ids=#{anime.id} class=zxc-vb_n]" }
+
+      it { expect(html).to include "<div class='zxc-vb_n " }
+    end
+
     describe 'cover_notice' do
       let(:anime) { create :anime, aired_on: Time.zone.parse('1987-01-01') }
       let(:text) { "[animes ids=#{anime.id} cover_notice=year_kind]" }
