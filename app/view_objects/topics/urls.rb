@@ -39,10 +39,10 @@ class Topics::Urls < ViewObjectBase
   end
 
   def topic_url options = {}
-    UrlGenerator.instance.topic_url topic, nil, options
+    @view.url options
   end
 
   def topic_type_policy
-    @topic_type_policy ||= Topic::TypePolicy.new view.topic
+    @topic_type_policy ||= Topic::TypePolicy.new @view.topic
   end
 end

@@ -11,8 +11,8 @@ class Topics::View < ViewObjectBase
   instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore
   instance_cache :topic_comments_policy, :topic_type_policy
 
-  def url
-    UrlGenerator.instance.topic_url @topic
+  def url options = {}
+    UrlGenerator.instance.topic_url @topic, nil, options
   end
 
   def canonical_url
