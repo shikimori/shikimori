@@ -5,3 +5,7 @@ en:
       notice: List of all collections sorted by their rating
       nothing_here: No collections
       my_unpublished_collections: My unpublished collections
+    form:
+      publish_hint: >-
+        The publication will make the collection visible to everyone and
+        create a topic on the forum

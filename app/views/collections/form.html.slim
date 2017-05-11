@@ -22,10 +22,15 @@ header.head.misc
         .block
           = f.input :user_id, as: :hidden
           = f.input :name
-          = f.input :kind, include_blank: false, disabled: @resource.persisted?
+          = f.input :kind,
+            include_blank: false,
+            disabled: @resource.persisted?
 
           - if @resource.persisted?
-            = f.input :state, include_blank: false
+            = f.input :state,
+              include_blank: false,
+              disabled: @resource.published?,
+              hint: (t('.publish_hint') if @resource.unpublished?)
 
       .c-column
         .b-shiki_editor.unprocessed
