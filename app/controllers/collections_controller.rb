@@ -19,6 +19,13 @@ class CollectionsController < ShikimoriController
       .new(locale_from_host)
       .postload(@page, @limit)
 
+    @collection_views = @collection.map do |collection|
+      Topics::TopicViewFactory
+        .new(true, true)
+        .build(collection.maybe_topic(locale_from_host))
+    end
+
+
     if @page == 1 && user_signed_in?
       @unpublished_collections = current_user.collections.unpublished
     end

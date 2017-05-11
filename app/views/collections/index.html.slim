@@ -18,8 +18,11 @@ header.head.misc
         | ,&nbsp;
 
 .block
-  - if @collection.any?
-    = render @collection
+  - if @collection_views.any?
+    = render partial: 'topics/topic',
+      collection: @collection_views,
+      as: :topic_view,
+      cache: true
   - else
     .b-nothing_here = t '.nothing_here'
 

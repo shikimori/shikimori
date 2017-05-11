@@ -11,6 +11,18 @@ class Topics::CollectionView < Topics::View
     @topic.user.avatar_url is_2x ? 80 : 48
   end
 
+  def url
+    if is_mini
+      canonical_url
+    else
+      super
+    end
+  end
+
+  def canonical_url
+    h.collection_url collection
+  end
+
   def html_body
     # if topic.linked.text.present?
       # Rails.cache.fetch [topic.linked, :html] do

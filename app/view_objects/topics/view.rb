@@ -15,6 +15,9 @@ class Topics::View < ViewObjectBase
     UrlGenerator.instance.topic_url @topic
   end
 
+  def canonical_url
+  end
+
   def ignored_topic?
     h.user_signed_in? && h.current_user.ignored_topics.include?(@topic)
   end

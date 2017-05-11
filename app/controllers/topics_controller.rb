@@ -9,6 +9,7 @@ class TopicsController < ShikimoriController
 
   before_action :set_view
   before_action :set_breadcrumbs
+  before_action :set_canonical, only: [:show]
 
   UPDATE_PARAMS = %i[body title linked_id linked_type]
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
@@ -172,6 +173,10 @@ private
         page_title UsersHelper.localized_name(@forums_view.linked, current_user)
       end
     end
+  end
+
+  def set_canonical
+    @canonical = @topic_view.canonical_url
   end
 
   def faye

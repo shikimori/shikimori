@@ -1,7 +1,8 @@
 json.content render(
-  partial: 'collections/collection',
-  collection: @collection,
-  formats: :html
+  partial: 'topics/topic',
+  collection: @collection_views,
+  as: :topic_view,
+  cache: true
 )
 
 if @add_postloader
