@@ -7,6 +7,16 @@ class Api::V2::UserRatesController < Api::V2Controller
     respond_with @resource
   end
 
+  param :user_id, :number, required: true
+  def index
+    user = User.find(params[:user_id])
+    @collection = Rails.cache.fetch [user, :rates] do
+      UserRate.where(user_id: params[:user_id]).to_a
+    end
+
+    respond_with @collection
+  end
+
   api :POST, '/v2/user_rates', 'Create an user rate'
   param :user_rate, Hash do
     param :user_id, :number, required: true

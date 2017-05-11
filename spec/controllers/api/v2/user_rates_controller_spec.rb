@@ -10,6 +10,17 @@ describe Api::V2::UserRatesController, :show_in_doc do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#index' do
+    let!(:user_rate_1) { create :user_rate, user: user }
+    let!(:user_rate_2) { create :user_rate, user: user }
+    before { get :index, params: { user_id: user.id }, format: :json }
+
+    it do
+      expect(json).to have(2).items
+      expect(response).to have_http_status :success
+    end
+  end
+
   describe '#create' do
     let(:target) { create :anime }
     let(:create_params) do
