@@ -164,9 +164,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
-    appsignal (2.2.0)
-      rack
-      thread_safe
     arel (7.1.4)
     ast (2.3.0)
     attr_extras (5.2.0)
@@ -226,8 +223,8 @@ GEM
       safe_yaml (~> 1.0.0)
     daemons (1.2.4)
     dalli (2.7.6)
-    database_cleaner (1.6.0)
-    debug_inspector (0.0.2)
+    database_cleaner (1.6.1)
+    debug_inspector (0.0.3)
     devise (4.2.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -371,9 +368,9 @@ GEM
     icalendar (2.4.1)
     ice_nine (0.11.2)
     inflecto (0.0.2)
-    jbuilder (2.6.3)
-      activesupport (>= 3.0.0, < 5.2)
-      multi_json (~> 1.2)
+    jbuilder (2.6.4)
+      activesupport (>= 3.0.0)
+      multi_json (>= 1.2)
     json (2.1.0)
     jsonapi-renderer (0.1.2)
     jwt (1.5.6)
@@ -386,10 +383,10 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    lograge (0.4.1)
-      actionpack (>= 4, < 5.1)
-      activesupport (>= 4, < 5.1)
-      railties (>= 4, < 5.1)
+    lograge (0.5.0)
+      actionpack (>= 4, <= 5.1.0)
+      activesupport (>= 4, <= 5.1.0)
+      railties (>= 4, <= 5.1.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     lumberjack (1.0.11)
@@ -409,7 +406,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
-    minitest (5.10.1)
+    minitest (5.10.2)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -479,7 +476,7 @@ GEM
     puma (3.8.2)
     rabl (0.13.1)
       activesupport (>= 2.3.14)
-    rack (2.0.1)
+    rack (2.0.2)
     rack-attack (5.0.1)
       rack
     rack-cors (0.4.1)
@@ -505,9 +502,9 @@ GEM
       actionpack (~> 5.x)
       actionview (~> 5.x)
       activesupport (~> 5.x)
-    rails-dom-testing (2.0.2)
-      activesupport (>= 4.2.0, < 6.0)
-      nokogiri (~> 1.6)
+    rails-dom-testing (2.0.3)
+      activesupport (>= 4.2.0)
+      nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
     rails-i18n (5.0.4)
@@ -693,7 +690,6 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
-  appsignal
   attr_extras
   awesome_print
   better_errors!
