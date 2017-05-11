@@ -4,12 +4,13 @@ describe Collection::Update do
   subject { Collection::Update.call collection, params }
 
   let(:user) { create :user }
-  let(:collection) { create :collection, :with_topics, user: user }
+  let(:collection) { create :collection, user: user }
 
   context 'valid params' do
     let(:params) do
       {
         name: 'test collection',
+        state: state,
         links: [{
           linked_id: anime_1.id,
           group: 'zz1',
@@ -21,6 +22,7 @@ describe Collection::Update do
         }]
       }
     end
+    let(:state) { 'unpublished' }
     let!(:collection_link_1) do
       create :collection_link, collection: collection, linked: anime_1
     end
@@ -50,8 +52,19 @@ describe Collection::Update do
         text: 'xx2'
       )
 
+      expect(collection.topics).to be_empty
       expect { collection_link_1.reload }.to raise_error ActiveRecord::RecordNotFound
       expect { collection_link_2.reload }.to raise_error ActiveRecord::RecordNotFound
+    end
+
+    describe 'publish' do
+      let(:state) { 'published' }
+      it do
+        expect(collection.errors).to be_empty
+        expect(collection.reload).to have_attributes params.except(:links)
+        expect(collection.topics).to have(1).item
+        expect(collection.topics.first.locale).to eq collection.locale
+      end
     end
   end
 

@@ -4,11 +4,15 @@ class Collection::Create < ServiceObjectBase
   pattr_initialize :params, :locale
 
   def call
-    collection = Collection.new @params
-    collection.state = Types::Collection::State[:unpublished]
-    collection.locale = locale
+    Collection.create params
+  end
 
-    collection.generate_topics @locale if collection.save
-    collection
+private
+
+  def params
+    @params.merge(
+      state: Types::Collection::State[:unpublished],
+      locale: @locale
+    )
   end
 end

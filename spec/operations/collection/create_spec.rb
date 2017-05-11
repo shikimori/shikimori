@@ -23,9 +23,6 @@ describe Collection::Create do
         state: 'unpublished'
       )
       expect(collection.errors).to be_empty
-
-      expect(collection.topics).to have(1).item
-      expect(collection.topics.first.locale).to eq locale.to_s
     end
   end
 

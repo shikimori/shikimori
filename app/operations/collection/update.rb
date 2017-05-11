@@ -5,7 +5,10 @@ class Collection::Update < ServiceObjectBase
   MAX_LINKS = 500
 
   def call
-    Collection.transaction { update_collection }
+    Collection.transaction do
+      update_collection
+      generate_topic if @model.published? && @model.topics.none?
+    end
     @model
   end
 
@@ -16,6 +19,10 @@ private
       @model.links.delete_all
       CollectionLink.import collection_links
     end
+  end
+
+  def generate_topic
+    @model.generate_topics @model.locale
   end
 
   def collection_links
