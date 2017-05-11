@@ -5,11 +5,6 @@ module AniManga
     aired_on ? aired_on.year : nil
   end
 
-  # временный костыль после миграции на 1.9.3
-  def synonyms
-    self[:synonyms] ? self[:synonyms].map {|v| v.encode('utf-8', undef: :replace, invalid: :replace, replace: '') } : []
-  end
-
   # если жанров слишком много, то оставляем только 6 основных
   def main_genres
     all_genres = genres.sort_by {|v| Genre::LongNameGenres.include?(v.english) ? 0 : v.id }
