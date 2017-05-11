@@ -14,7 +14,8 @@ header.head.misc
     b #{t '.my_unpublished_collections'}:&nbsp;
     - @unpublished_collections.each do |collection|
       a href="#{edit_collection_url collection}" = collection.name
-      | ,&nbsp;
+      - unless collection == @unpublished_collections.last
+        | ,&nbsp;
 
 .block
   - if @collection.any?

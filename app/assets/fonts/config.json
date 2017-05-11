@@ -503,6 +503,12 @@
       "css": "upload",
       "code": 59404,
       "src": "fontawesome"
+    },
+    {
+      "uid": "2b6bf06e87a223ccd1ddc1874932ca86",
+      "css": "th-thumb",
+      "code": 61450,
+      "src": "mfglabs"
     }
   ]
 }

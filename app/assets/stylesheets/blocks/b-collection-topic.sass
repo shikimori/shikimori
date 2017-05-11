@@ -24,31 +24,15 @@
           &:nth-child(4), &:nth-child(5)
             display: none
 
-      // +gte_ipad
+    .status-line
+      .collection-size
+        color: #333
+        display: inline-block
+        margin-right: 15px
 
-    // &>.body, &>footer
-      // padding-left: 0 !important
-
-    // .cosplay-info
-      // margin-bottom: $block_offset / 2
-
-      // .line
-        // line-height: $line-height
-
-        // .key
-          // display: inline
-
-        // .value
-          // display: inline
-          // padding-left: 6px
-
-          // a
-            // +link
-            // +comma_separated
-
-          // .cosplayer
-            // +comma_separated(4px)
-            // display: inline
-
-    // .b-cosplay_gallery .b-gallery
-      // margin-bottom: 0
+        &:before
+          content: '\f00a'
+          display: inline-block
+          font-family: 'shikimori'
+          font-size: 14px
+          padding-right: 5px

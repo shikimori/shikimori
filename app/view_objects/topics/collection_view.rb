@@ -36,6 +36,10 @@ class Topics::CollectionView < Topics::View
     )
   end
 
+  def collection_size
+    collection.links.size
+  end
+
 private
 
   def collection_links_bb_code

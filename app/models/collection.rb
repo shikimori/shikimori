@@ -1,6 +1,8 @@
 class Collection < ApplicationRecord
   include TopicsConcern
 
+  acts_as_voteable
+
   belongs_to :user
   has_many :links,
     -> { order :id },
