@@ -7,6 +7,10 @@ class Topics::ClubPageView < Topics::View
     @topic.user.avatar_url is_2x ? 80 : 48
   end
 
+  def show_body?
+    true
+  end
+
   def html_body
     return super if preview?
 

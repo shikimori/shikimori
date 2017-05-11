@@ -46,10 +46,7 @@ class Topics::View < ViewObjectBase
   end
 
   def show_body?
-    preview? ||
-      !@topic.generated? ||
-      topic_type_policy.contest_topic? ||
-      topic_type_policy.club_page_topic?
+    preview? || !@topic.generated?
   end
 
   def poster_title

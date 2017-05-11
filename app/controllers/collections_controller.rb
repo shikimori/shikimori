@@ -34,6 +34,9 @@ class CollectionsController < ShikimoriController
 
   def show
     page_title @resource.name
+    @topic_view = Topics::TopicViewFactory
+      .new(false, false)
+      .build(@resource.maybe_topic(locale_from_host))
   end
 
   def new

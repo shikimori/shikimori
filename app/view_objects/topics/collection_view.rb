@@ -1,4 +1,6 @@
 class Topics::CollectionView < Topics::View
+  instance_cache :collection
+
   def container_class
     super 'b-collection-topic'
   end
@@ -23,16 +25,19 @@ class Topics::CollectionView < Topics::View
     h.collection_url collection
   end
 
-  def html_body
-    Rails.cache.fetch [:body, collection] do
-      BbCodeFormatter.instance.format_comment(
-        collection_links_bb_code
-      )
-    end
+  def show_body?
+    true
   end
 
-  # def html_footer
-  # end
+  def html_body
+    Rails.cache.fetch [:body, collection, preview?] do
+      if preview?
+        preview_html
+      else
+        collection_html
+      end
+    end
+  end
 
   def action_tag
     OpenStruct.new(
@@ -47,13 +52,20 @@ class Topics::CollectionView < Topics::View
 
 private
 
-  def collection_links_bb_code
+  def preview_html
     ids = collection.links.limit(6).pluck(:linked_id)
     tag_type = collection.kind.pluralize
-    "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
+
+    BbCodeFormatter.instance.format_comment(
+      "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
+    )
+  end
+
+  def collection_html
+    h.render collection
   end
 
   def collection
-    @topic.linked
+    @topic.linked.decorate
   end
 end

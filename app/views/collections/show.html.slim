@@ -9,9 +9,8 @@ header.head.misc
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-- if @resource.text.present?
-  .block
-    = @resource.description_html
-
 .block
-  = render 'db_entries/comments', resource: @resource
+  = render partial: 'topics/topic',
+    collection: [@topic_view],
+    as: :topic_view,
+    cache: true
