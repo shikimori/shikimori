@@ -7,13 +7,15 @@ class Api::V2::UserRatesController < Api::V2Controller
     respond_with @resource
   end
 
-  param :user_id, :number, required: true
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates', 'List user rates'
+  param :user_id, :number, required: true
+  param :status, UserRate.statuses.keys, required: false
   def index
     user = User.find(params[:user_id])
-    @collection = Rails.cache.fetch [user, :rates] do
-      UserRate.where(user_id: params[:user_id]).to_a
+    @collection = Rails.cache.fetch [user, :rates, params[:status]] do
+      query = UserRate.where(user_id: params[:user_id])
+      query.where(status: params[:status])
+      query.to_a
     end
 
     respond_with @collection

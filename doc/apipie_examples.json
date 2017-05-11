@@ -337,8 +337,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/691a69e6f51e5dd73207e4004190cae0cb1ad747.jpg?1484049600",
-          "preview": "/system/screenshots/x332/691a69e6f51e5dd73207e4004190cae0cb1ad747.jpg?1484049600"
+          "original": "/system/screenshots/original/db1a1e8b42b142100573b5edac2283d5b255dff0.jpg?1484049600",
+          "preview": "/system/screenshots/x332/db1a1e8b42b142100573b5edac2283d5b255dff0.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -542,7 +542,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "DVHQmqgfmbe9S8HN2J/9+gB9LUkQ6VEErVhiZ+eSB6ZQu4U0ZnDAKepYbAYGE/aAiMoFxf3vTDI7ovYwGdGSaQ=="
+        "authenticity_token": "KTRDbsdwl+2IzulwOzshgDjfpBp3AzfJ4mvGLGZiG2W2Eb4OhNUOibzgnVte3bs/qKGQnZ9QCScOmyrs6hfG2w=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -2370,7 +2370,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 42178,
+          "id": 14295,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -3054,7 +3054,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-11T12:33:35.024+03:00"
+          "last_online_at": "2017-05-11T14:20:40.272+03:00"
         }
       },
       "code": "200",
@@ -3637,7 +3637,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-11T12:33:35.024+03:00"
+            "last_online_at": "2017-05-11T14:20:40.272+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3688,7 +3688,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-11T12:33:35.024+03:00"
+          "last_online_at": "2017-05-11T14:20:40.272+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3726,7 +3726,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-11T12:33:35.024+03:00"
+            "last_online_at": "2017-05-11T14:20:40.272+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -4066,7 +4066,7 @@
       "verb": "GET",
       "path": "",
       "versions": [
-
+        "2.0"
       ],
       "query": "",
       "request_data": null,
@@ -4105,7 +4105,7 @@
         }
       ],
       "code": "200",
-      "show_in_doc": 0,
+      "show_in_doc": 1,
       "recorded": true
     }
   ],
