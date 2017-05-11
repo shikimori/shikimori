@@ -150,7 +150,7 @@ Rails.application.routes.draw do
   # v2
   namespace :api, defaults: { format: 'json' } do
     namespace :v2 do
-      resources :user_rates, only: [:show, :create, :update, :destroy] do
+      resources :user_rates, only: [:show, :index, :create, :update, :destroy] do
         post :increment, on: :member
       end
       namespace :topics do

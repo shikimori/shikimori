@@ -8,6 +8,8 @@ class Api::V2::UserRatesController < Api::V2Controller
   end
 
   param :user_id, :number, required: true
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/v2/user_rates', 'List user rates'
   def index
     user = User.find(params[:user_id])
     @collection = Rails.cache.fetch [user, :rates] do

@@ -337,8 +337,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/c9e6c79a9abf8d99af1da59fe469fb66bc6cb746.jpg?1484049600",
-          "preview": "/system/screenshots/x332/c9e6c79a9abf8d99af1da59fe469fb66bc6cb746.jpg?1484049600"
+          "original": "/system/screenshots/original/691a69e6f51e5dd73207e4004190cae0cb1ad747.jpg?1484049600",
+          "preview": "/system/screenshots/x332/691a69e6f51e5dd73207e4004190cae0cb1ad747.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -542,7 +542,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "HTvW4jIsc1WGa2Q44f/hNKY1HDSA2rv3QePPBS69a6kJCglXTHmVqJN3BX2IN8mpwOih77LB8tnvVRcECiGwjA=="
+        "authenticity_token": "DVHQmqgfmbe9S8HN2J/9+gB9LUkQ6VEErVhiZ+eSB6ZQu4U0ZnDAKepYbAYGE/aAiMoFxf3vTDI7ovYwGdGSaQ=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -688,7 +688,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-04-19T00:00:00.000+00:00",
+          "next_episode_at": "2017-04-27T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -705,7 +705,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-04-19",
+            "aired_on": "2017-04-27",
             "released_on": null
           }
         }
@@ -2370,7 +2370,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 58118,
+          "id": 42178,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -2790,7 +2790,7 @@
       },
       "response_data": {
         "id": 10,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_44\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_44\"><img alt=\"user_44\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_44\" title=\"user_44\">user_44</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_44\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_44\"><img alt=\"user_44\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_44\" title=\"user_44\">user_44</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\"></div></div></div></div>",
         "notice": "Сообщение отправлено"
       },
       "code": "200",
@@ -3054,7 +3054,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-03T18:37:54.241+03:00"
+          "last_online_at": "2017-05-11T12:33:35.024+03:00"
         }
       },
       "code": "200",
@@ -3078,7 +3078,7 @@
       },
       "response_data": {
         "id": 12,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_48\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_48\"><img alt=\"user_48\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_48\" title=\"user_48\">user_48</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_48\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_48\"><img alt=\"user_48\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_48\" title=\"user_48\">user_48</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\"></div></div></div></div>",
         "notice": "Сообщение изменено"
       },
       "code": "200",
@@ -3637,7 +3637,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-03T18:37:54.241+03:00"
+            "last_online_at": "2017-05-11T12:33:35.024+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3688,7 +3688,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-03T18:37:54.241+03:00"
+          "last_online_at": "2017-05-11T12:33:35.024+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3726,7 +3726,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-03T18:37:54.241+03:00"
+            "last_online_at": "2017-05-11T12:33:35.024+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -3873,17 +3873,17 @@
           "rewatches": "5",
           "score": "10",
           "status": "watching",
-          "target_id": "51",
+          "target_id": "53",
           "target_type": "Anime",
           "text": "test",
-          "user_id": "23456851",
+          "user_id": "23456852",
           "volumes": "3"
         }
       },
       "response_data": {
-        "id": 14,
-        "user_id": 23456851,
-        "target_id": 51,
+        "id": 16,
+        "user_id": 23456852,
+        "target_id": 53,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
@@ -3914,17 +3914,17 @@
           "rewatches": "5",
           "score": "10",
           "status": "watching",
-          "target_id": "52",
+          "target_id": "54",
           "target_type": "Anime",
           "text": "test",
-          "user_id": "23456852",
+          "user_id": "23456853",
           "volumes": "3"
         }
       },
       "response_data": {
-        "id": 15,
-        "user_id": 23456852,
-        "target_id": 52,
+        "id": 17,
+        "user_id": 23456853,
+        "target_id": 54,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
@@ -4041,9 +4041,9 @@
       "request_data": {
       },
       "response_data": {
-        "id": 17,
-        "user_id": 23456854,
-        "target_id": 54,
+        "id": 19,
+        "user_id": 23456855,
+        "target_id": 56,
         "target_type": "Anime",
         "score": 0,
         "status": "planned",
@@ -4058,6 +4058,54 @@
       },
       "code": "201",
       "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
+  "user_rates#index": [
+    {
+      "verb": "GET",
+      "path": "",
+      "versions": [
+
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+        {
+          "id": 14,
+          "user_id": 23456851,
+          "target_id": 51,
+          "target_type": "Anime",
+          "score": 0,
+          "status": "planned",
+          "rewatches": 0,
+          "episodes": 0,
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "text_html": null,
+          "created_at": "2017-01-10T15:00:00.000+03:00",
+          "updated_at": "2017-01-10T15:00:00.000+03:00"
+        },
+        {
+          "id": 15,
+          "user_id": 23456851,
+          "target_id": 52,
+          "target_type": "Anime",
+          "score": 0,
+          "status": "planned",
+          "rewatches": 0,
+          "episodes": 0,
+          "volumes": 0,
+          "chapters": 0,
+          "text": null,
+          "text_html": null,
+          "created_at": "2017-01-10T15:00:00.000+03:00",
+          "updated_at": "2017-01-10T15:00:00.000+03:00"
+        }
+      ],
+      "code": "200",
+      "show_in_doc": 0,
       "recorded": true
     }
   ],
@@ -4224,9 +4272,9 @@
         }
       },
       "response_data": {
-        "id": 16,
-        "user_id": 23456853,
-        "target_id": 53,
+        "id": 18,
+        "user_id": 23456854,
+        "target_id": 55,
         "target_type": "Anime",
         "score": 10,
         "status": "watching",
