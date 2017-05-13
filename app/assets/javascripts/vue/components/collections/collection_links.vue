@@ -20,7 +20,9 @@
             :value="group_name"
             :data-original_value="group_name"
             :placeholder="I18n.t(`frontend.collections.group_name`)"
-            @input="on_group_rename"
+            @blur="on_group_rename"
+            @change="on_group_rename"
+            @keydown.enter.prevent="on_group_rename"
             type="text"
           )
 
@@ -42,8 +44,7 @@
           @click="add_new_group"
         ) {{ I18n.t('actions.add') }}
 
-    //.block(
-      v-if="node_env == 'development'"
+    //.block
       pre(style="white-space: pre-wrap; font-size: 11px;")
         | {{ JSON.stringify(links) }}
 
