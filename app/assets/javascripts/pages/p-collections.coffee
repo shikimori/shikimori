@@ -8,9 +8,11 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
       require('vue/store').store,
     )
 
+# sort with preserving initial order
 sort_by_groups = (data) ->
   groups = data.links.map((v) -> v.group).unique()
-  data.links = data.links.sortBy (v) -> groups.indexOf(v.group)
+  data.links = [].concat
+    .apply([], Object.values(data.links.groupBy((v) -> v.group)))
   data
 
 init_app = (Vue, CollectionLinks, store) ->

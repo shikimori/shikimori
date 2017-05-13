@@ -4,6 +4,7 @@
     :data-group="link.group"
     :data-list_index='links.indexOf(link)'
   )
+    | {{ link.id }}
     .delete(
       @click="remove_link(link)"
     )
