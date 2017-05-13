@@ -6,13 +6,18 @@
         remote: true,
         html: { 'data-type' => :json } do |f|
       / = f.input :name
+
+      .buttons.m15
+        / a.cancel href="#{cancel_url}" = t 'actions.cancel'
+        = f.button :magic_submit
+
       = f.input :css, hint: local_assigns[:css_hint]
 
       .preview.ajax-loading.vk-like[
         data-url="#{preview_api_styles_url}"
       ]
       .buttons
-        a.cancel href="#{cancel_url}" = t 'actions.cancel'
+        / a.cancel href="#{cancel_url}" = t 'actions.cancel'
         = f.button :magic_submit
 
       - if ru_host?

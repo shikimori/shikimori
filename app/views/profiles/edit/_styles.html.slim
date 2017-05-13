@@ -12,7 +12,10 @@
       = f.input :show_smileys
       = f.input :menu_contest
 
-    .buttons
+    .block
+      = f.button :magic_submit
+      a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
+    / .buttons
       a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
       = f.button :magic_submit
 
