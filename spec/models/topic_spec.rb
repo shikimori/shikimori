@@ -102,6 +102,7 @@ describe Topic do
 
       it do
         is_expected.not_to be_able_to :new, topic
+        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :create, topic
         is_expected.not_to be_able_to :update, topic
         is_expected.not_to be_able_to :destroy, topic
@@ -114,6 +115,7 @@ describe Topic do
 
       it do
         is_expected.not_to be_able_to :new, topic
+        is_expected.not_to be_able_to :edit, topic
         is_expected.not_to be_able_to :create, topic
         is_expected.not_to be_able_to :update, topic
         is_expected.not_to be_able_to :destroy, topic
@@ -126,6 +128,7 @@ describe Topic do
 
       it do
         is_expected.to be_able_to :new, topic
+        is_expected.to be_able_to :edit, topic
         is_expected.to be_able_to :create, topic
         is_expected.to be_able_to :update, topic
       end
@@ -134,6 +137,7 @@ describe Topic do
         let(:user) { build_stubbed :user, :user, :day_registered }
         it do
           is_expected.not_to be_able_to :new, topic
+          is_expected.not_to be_able_to :edit, topic
           is_expected.not_to be_able_to :create, topic
           is_expected.to_not be_able_to :update, topic
         end
@@ -143,6 +147,7 @@ describe Topic do
         let(:user) { build_stubbed :user, :banned, :week_registered }
         it do
           is_expected.not_to be_able_to :new, topic
+          is_expected.not_to be_able_to :edit, topic
           is_expected.not_to be_able_to :create, topic
           is_expected.not_to be_able_to :update, topic
         end
@@ -175,6 +180,7 @@ describe Topic do
           let(:topic_policy) { Types::Club::TopicPolicy[:members] }
           it do
             is_expected.to be_able_to :new, topic
+            is_expected.to be_able_to :edit, topic
             is_expected.to be_able_to :create, topic
             is_expected.to be_able_to :update, topic
             is_expected.to be_able_to :destroy, topic
@@ -185,6 +191,7 @@ describe Topic do
           let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
           it do
             is_expected.to_not be_able_to :new, topic
+            is_expected.to_not be_able_to :edit, topic
             is_expected.to_not be_able_to :create, topic
             is_expected.to_not be_able_to :update, topic
             is_expected.to_not be_able_to :destroy, topic
@@ -245,6 +252,7 @@ describe Topic do
         let(:review_owner) { build_stubbed :user, :user, :week_registered }
 
         it { is_expected.to_not be_able_to :new, topic }
+        it { is_expected.to_not be_able_to :edit, topic }
         it { is_expected.to_not be_able_to :create, topic }
         it { is_expected.to_not be_able_to :update, topic }
       end
@@ -253,6 +261,7 @@ describe Topic do
         let(:review_owner) { user }
 
         it { is_expected.to be_able_to :new, topic }
+        it { is_expected.to be_able_to :edit, topic }
         it { is_expected.to be_able_to :create, topic }
         it { is_expected.to be_able_to :update, topic }
       end
@@ -266,6 +275,7 @@ describe Topic do
         let(:collection_owner) { build_stubbed :user, :user, :week_registered }
 
         it { is_expected.to_not be_able_to :new, topic }
+        it { is_expected.to_not be_able_to :edit, topic }
         it { is_expected.to_not be_able_to :create, topic }
         it { is_expected.to_not be_able_to :update, topic }
       end
@@ -274,6 +284,7 @@ describe Topic do
         let(:collection_owner) { user }
 
         it { is_expected.to be_able_to :new, topic }
+        it { is_expected.to be_able_to :edit, topic }
         it { is_expected.to be_able_to :create, topic }
         it { is_expected.to be_able_to :update, topic }
       end

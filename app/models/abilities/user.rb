@@ -33,7 +33,7 @@ class Abilities::User
   end
 
   def topic_abilities
-    can %i[new create update], Topic do |topic|
+    can %i[new edit create update], Topic do |topic|
       topic.user_id == @user.id &&
         (
           USER_TOPIC_TYPES.include?(topic.type) || (

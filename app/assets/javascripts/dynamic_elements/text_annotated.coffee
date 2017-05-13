@@ -4,7 +4,6 @@ class DynamicElements.TextAnnotated extends View
     texts = @$node.data('texts')
     return if Object.isEmpty(texts)
 
-    console.log 'text_annotated'
     Object.forEach texts, @_add_text
 
   _add_text: (text, id) =>
