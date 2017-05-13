@@ -7,12 +7,8 @@ en:
         character: Characters
         person: People
       group_name: Group name
-      # add:
-        # anime: Add anime
-        # manga: Add manga
-        # character: Add character
-        # person: Add person
-
+      add_group_hint: >-
+        To add a new group, fill in the blank group name
       autocomplete:
         anime: Anime title
         manga: Manga title

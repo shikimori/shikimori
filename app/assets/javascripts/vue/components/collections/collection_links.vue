@@ -38,11 +38,21 @@
             :link_index="links.indexOf(link)"
           )
 
-      .c-column.new-group
-        .b-button(
-          v-if="links.length < max_links"
-          @click="add_new_group"
-        ) {{ I18n.t('actions.add') }}
+      .c-column.new-group(
+        v-if="links.length < max_links"
+      )
+        div(
+          v-if="Object.isEmpty(grouped_links[''])"
+        )
+          .b-button(
+            @click="add_new_group"
+          ) {{ I18n.t('actions.add') }}
+        div(
+          v-if="!Object.isEmpty(grouped_links[''])"
+        )
+          .button-container
+            .b-button.disabled {{ I18n.t('actions.add') }}
+          .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
     //.block
       pre(style="white-space: pre-wrap; font-size: 11px;")
@@ -154,6 +164,19 @@ export default {
 @import app/assets/stylesheets/globals/variables
 .new-group
   padding-top: 8px
+
+  .button-container
+    display: table-cell
+    margin-top: -8px
+    vertical-align: middle
+
+  .hint
+    color: #9da2a8
+    display: table-cell
+    font-size: 11px
+    line-height: $line_height
+    vertical-align: middle
+    padding-left: 15px
 
 .group
   label

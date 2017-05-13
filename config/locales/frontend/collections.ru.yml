@@ -7,12 +7,8 @@ ru:
         character: Персонажи
         person: Люди
       group_name: Название группы
-      # add:
-        # anime: Добавить аниме
-        # manga: Добавить мангу
-        # character: Добавить персонажа
-        # person: Добавить человека
-
+      disabled_add_group_hint: >-
+        Для добавления следующей группы заполните пустое название группы
       autocomplete:
         anime: Название аниме
         manga: Название манги
