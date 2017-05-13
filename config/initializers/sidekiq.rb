@@ -12,6 +12,7 @@ Sidekiq::Extensions.enable_delay!
 
 if defined? Sidekiq::Web
   Sidekiq::Web.set :sessions, domain: 'all'
+  Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 end
 
 SidekiqUniqueJobs.config.unique_args_enabled = true
