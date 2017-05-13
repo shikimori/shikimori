@@ -54,7 +54,7 @@ class BbCodes::EntriesTag
         klass = "cc-#{columns}-g0" unless klass
         "<div class='#{klass} align-posters unprocessed' data-columns='#{columns}'>#{entries_html.join ''}</div>"
       else
-        klass = "cc-#{columns}" unless klass
+        klass = "cc-#{columns}#{'-g15' if columns >= 6}" unless klass
         ratio_type = [Character, Person].include?(type_to_klass($~[:type])) ? " data-ratio_type='person'" :''
         "<div class='#{klass} m0 to-process' data-dynamic='cutted_covers'#{ratio_type}>#{entries_html.join ''}</div>"
       end
