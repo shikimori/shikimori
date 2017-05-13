@@ -7,7 +7,8 @@ class Abilities::User
     nil,
     Topic.name,
     Topics::NewsTopic.name,
-    Topics::EntryTopics::ReviewTopic.name
+    Topics::EntryTopics::ReviewTopic.name,
+    Topics::EntryTopics::CollectionTopic.name
   ]
 
   def initialize user
