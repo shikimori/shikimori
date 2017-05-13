@@ -90,8 +90,8 @@ export default {
       this.$nextTick(() => {
         highlight(
           '.collection-link' +
-            `[data-linked_id=${new_link.linked_id}]` +
-            `[data-group=${new_link.group}]`
+            `[data-linked_id='${new_link.linked_id}']` +
+            `[data-group='${new_link.group}']`
         )
       })
     },
