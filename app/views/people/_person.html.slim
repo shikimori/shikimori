@@ -5,7 +5,7 @@
 - tooltipped = content_by == :tooltip || content_by == :mini_tooltip
 
 article.c-column.b-catalog_entry.c-person[
-  class="entry-#{person.id} #{:cc if content_by == :block}"
+  class="entry-#{person.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block}"
   itemscope itemtype='http://schema.org/Person'
   itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
 ]
