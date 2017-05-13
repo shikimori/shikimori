@@ -4,9 +4,8 @@ class Abilities::Moderator
 
   def initialize user
     can :manage, [Comment]
-    can :manage, [Topic]
-    cannot :manage, [Topic] do |topic|
-      topic.generated? && !topic.is_a?(Topics::EntryTopics::ReviewTopic)
+    can :manage, [Topic] do |topic|
+      !topic.generated? || topic.user_id == user.id
     end
     can [:edit, :update], [Genre]
   end
