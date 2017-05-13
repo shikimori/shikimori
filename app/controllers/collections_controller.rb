@@ -74,7 +74,12 @@ class CollectionsController < ShikimoriController
 
   def destroy
     @resource.destroy!
-    redirect_to collections_url, notice: i18n_t('collection_deleted')
+
+    if request.xhr?
+      render json: { notice: i18n_t('collection_deleted') }
+    else
+      redirect_to collections_url, notice: i18n_t('collection_deleted')
+    end
   end
 
 private

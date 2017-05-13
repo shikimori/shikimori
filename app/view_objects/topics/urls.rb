@@ -31,6 +31,8 @@ class Topics::Urls < ViewObjectBase
     if topic_type_policy.review_topic?
       h.send "#{topic.linked.target_type.downcase}_review_url",
         topic.linked.target, topic.linked
+    elsif topic_type_policy.collection_topic?
+      h.collection_url topic.linked
     else
       h.topic_path topic
     end
