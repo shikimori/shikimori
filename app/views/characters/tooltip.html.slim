@@ -1,4 +1,4 @@
-- cache [@resource, :v4], expires_in: 1.week do
+- cache [@resource, params[:minified], :v4], expires_in: 1.week do
   = render 'characters/content',
     character: @resource,
     with_image: params[:minified] ? false : true
