@@ -1,12 +1,22 @@
 class CollectionDecorator < DbEntryDecorator
-  instance_cache :groups
+  instance_cache :loaded_links, :groups, :texts
 
   def groups
-    links
-      .includes(kind)
-      .each_with_object({}) do |link, memo|
-        memo[link.group] ||= []
-        memo[link.group] << link.send(kind).decorate
-      end
+    loaded_links.each_with_object({}) do |link, memo|
+      memo[link.group] ||= []
+      memo[link.group] << link.send(kind).decorate
+    end
+  end
+
+  def texts
+    loaded_links
+      .select { |link| link.text.present? }
+      .each_with_object({}) { |link, memo| memo[link.linked_id] = link.text }
+  end
+
+private
+
+  def loaded_links
+    links.includes(kind).order(:id).to_a
   end
 end

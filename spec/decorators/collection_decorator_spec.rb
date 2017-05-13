@@ -17,7 +17,8 @@ describe CollectionDecorator do
     create :collection_link,
       collection: collection,
       linked: anime_3,
-      group: 'b'
+      group: 'b',
+      text: 'z'
   end
   let(:anime_1) { create :anime }
   let(:anime_2) { create :anime }
@@ -30,5 +31,9 @@ describe CollectionDecorator do
         'b' => [anime_3]
       )
     end
+  end
+
+  describe '#texts' do
+    it { expect(decorator.texts).to eq anime_3.id => link_3.text }
   end
 end

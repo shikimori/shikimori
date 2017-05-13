@@ -37,6 +37,7 @@ $max_width: 167px
     .image-decor
       display: block
       line-height: 0px
+      position: relative
       //padding: 2.5%
       //max-width: $max_width
 
@@ -50,6 +51,33 @@ $max_width: 167px
 
       img
         width: 100%
+
+      &:hover
+        &>.text
+          max-height: 100%
+
+      // используется для отображения текста в коллекциях
+      &>.text
+        +transition(max-height 0.25s ease)
+        background: rgba(0,0,0,0.55)
+        bottom: 0
+        color: #fff
+        font-size: 12px
+        line-height: 1.45
+        max-height: 107px
+        overflow: hidden
+        padding: 2px 5px
+        position: absolute
+        width: 100%
+        z-index: 2
+
+        &:before
+          position: absolute
+          content: ''
+          width: 100%
+          height: 100%
+          background: rgba(255,255,255,0.25)
+          margin: -2px -5px
 
     .title
       +ellipsis2

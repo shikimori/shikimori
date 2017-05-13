@@ -33,8 +33,6 @@ article.b-topic.shiki-object.not-tracked.to-process[
   a name="topic-#{topic_view.topic.id}"
 
   - if topic_view.show_body?
-    / Template Dependency: collections/collection
-    / Helper Dependency Updated: May 6, 2012 at 6pm
     = render 'topics/inner', topic_view: topic_view
 
   / не заменять на minified?, для рецензий будет работать неправильно

@@ -9,6 +9,7 @@ class DynamicElements.Parser
       for processor in node.attributes['data-dynamic'].value.split(',')
         switch processor
           when 'cutted_covers' then new DynamicElements.CuttedCovers(node)
+          when 'text_annotated' then new DynamicElements.TextAnnotated(node)
           when 'authorized' then new DynamicElements.AuthorizedAction(node)
           when 'day_registered' then new DynamicElements.DayRegisteredAction(node)
           when 'week_registered' then new DynamicElements.WeekRegisteredAction(node)

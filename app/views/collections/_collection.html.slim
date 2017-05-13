@@ -2,7 +2,10 @@
   .block
     = collection.description_html
 
-.groups
+.groups.to-process[
+  data-dynamic="#{:text_annotated if collection.texts.any?}"
+  data-texts="#{collection.texts.to_json}"
+]
   - collection.groups.each do |group, entries|
     - if group.present?
       .midheadline = group
@@ -10,7 +13,11 @@
     .cc-8-g15.to-process[
       data-dynamic="cutted_covers"
     ]
-      = render partial: 'animes/anime',
+      /# Template Dependency: animes/anime
+      /# Template Dependency: mangas/manga
+      /# Template Dependency: characters/character
+      /# Template Dependency: people/person
+      = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
         collection: entries,
         locals: { cover_notice: :none, content_by: :mini_tooltip },
         cache: ->(entry, _) { CacheHelper.keys entry, :none, :mini_tooltip }
