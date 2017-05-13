@@ -184,7 +184,7 @@ ru:
       collection:
         name: Название
         kind: Тип
-        text: Текст
+        text: Описание
         state: Статус
       collection_link:
         group: Группа

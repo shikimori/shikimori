@@ -3,9 +3,14 @@
     = collection.description_html
 
 - collection.groups.each do |group, entries|
-  .midheadline = group
+  / .midheadline
+  .subheadline.m10
+    - if group.present?
+      = group
+    else
+      | &nbsp;
   .cc-8
     = render partial: 'animes/anime',
       collection: entries,
-      locals: { cover_notice: :studio, content_by: :mini_tooltip },
-      cache: ->(entry, _) { CacheHelper.keys entry, :studio, :mini_tooltip }
+      locals: { cover_notice: :none, content_by: :mini_tooltip },
+      cache: ->(entry, _) { CacheHelper.keys entry, :none, :mini_tooltip }

@@ -183,7 +183,7 @@ en:
       collection:
         name: Name
         kind: Type
-        text: Text
+        text: Description
         state: State
       collection_link:
         group: Group
