@@ -30,7 +30,7 @@ header.head.misc
             = f.input :state,
               include_blank: false,
               disabled: @resource.published?,
-              hint: (t('.publish_hint') if @resource.unpublished?)
+              hint: t(".hint.#{@resource.state}").html_safe
 
       .c-column
         .b-shiki_editor.unprocessed

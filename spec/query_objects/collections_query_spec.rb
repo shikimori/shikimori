@@ -17,12 +17,12 @@ describe CollectionsQuery do
 
     context 'first_page' do
       let(:page) { 1 }
-      it { is_expected.to eq [collection_1, collection_2, collection_3] }
+      it { is_expected.to eq [collection_3, collection_2, collection_1] }
     end
 
     context 'second_page' do
       let(:page) { 2 }
-      it { is_expected.to eq [collection_3] }
+      it { is_expected.to eq [collection_1] }
     end
   end
 
@@ -32,12 +32,12 @@ describe CollectionsQuery do
 
     context 'first_page' do
       let(:page) { 1 }
-      it { is_expected.to eq [[collection_1, collection_2], true] }
+      it { is_expected.to eq [[collection_3, collection_2], true] }
     end
 
     context 'second_page' do
       let(:page) { 2 }
-      it { is_expected.to eq [[collection_3], false] }
+      it { is_expected.to eq [[collection_1], false] }
     end
   end
 end

@@ -9,6 +9,6 @@ private
       .includes(:topics)
       .where(locale: @locale)
       .where(state: :published)
-      .order(:id)
+      .order(id: :desc)
   end
 end

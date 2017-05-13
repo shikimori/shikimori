@@ -6,6 +6,10 @@ en:
       nothing_here: No collections
       my_unpublished_collections: My unpublished collections
     form:
-      publish_hint: >-
-        The publication will make the collection visible to everyone and
-        create a topic on the forum
+      hint:
+        unpublished: >-
+          The publication will make the collection visible to everyone and
+          create a topic on the forum<br>
+          Cancellation of publication is not possible.
+        published: >-
+          Cancellation of publication is not possible
