@@ -18,6 +18,7 @@ private
     if @model.update update_params
       @model.links.delete_all
       CollectionLink.import collection_links
+      @model.touch
     end
   end
 
