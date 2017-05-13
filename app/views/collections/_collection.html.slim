@@ -7,7 +7,9 @@
     - if group.present?
       .midheadline = group
       / .subheadline.m10 = group
-    .cc-8
+    .cc-8-g15.to-process[
+      data-dynamic="cutted_covers"
+    ]
       = render partial: 'animes/anime',
         collection: entries,
         locals: { cover_notice: :none, content_by: :mini_tooltip },
