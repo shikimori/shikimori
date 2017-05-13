@@ -1,4 +1,10 @@
 class JsExports::TopicsExport < JsExports::ExportBase
+  VOTEABLE_TYPES = [
+    Review.name,
+    CosplayGallery.name,
+    Collection.name
+  ]
+
 private
 
   def fetch_entries user
@@ -21,7 +27,7 @@ private
   end
 
   def vote_status topic, user
-    if topic.linked.is_a?(Review) || topic.linked.is_a?(CosplayGallery)
+    if VOTEABLE_TYPES.include? topic.linked_type
       {
         voted_yes: topic.linked.voted_yes?(user),
         voted_no: topic.linked.voted_no?(user)

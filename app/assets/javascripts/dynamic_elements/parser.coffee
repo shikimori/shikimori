@@ -33,4 +33,4 @@ class DynamicElements.Parser
               new DynamicElements.UserRates.Button(node)
 
           else
-            console.error "unexpected processor: #{processor}"
+            console.error "unexpected processor: #{processor}", node

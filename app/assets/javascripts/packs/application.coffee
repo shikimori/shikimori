@@ -58,17 +58,6 @@ window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 FayeLoader = require '../services/faye_loader'
 CommentsNotifier = require '../services/comments_notifier'
 
-#= require_tree ./templates
-#= require_tree ./services
-
-#= require_tree ./models
-#= require_tree ./lib
-#= require_tree ./blocks
-
-#= require turbolinks
-
-#= require_tree ./pages
-
 bindings = require('helpers/bindings')
 
 $(document).on Object.keys(bindings).join(' '), (e) ->
@@ -110,8 +99,9 @@ $ =>
   $(document).trigger 'page:load', true
 
   if SHIKI_USER.is_signed_in && !window.SHIKI_FAYE_LOADER
-    window.SHIKI_FAYE_LOADER = new FayeLoader()
     window.SHIKI_COMMENTS_NOTIFIER = new CommentsNotifier()
+    # delay to prevent page freeze
+    delay 150, -> window.SHIKI_FAYE_LOADER = new FayeLoader()
 
   $('.b-appear_marker.active').appear()
 
@@ -140,9 +130,6 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
     bowser.name.toLowerCase().replace(/ /g, '_')
   )
 
-  #unless is_dom_content_loaded
-    #turbolinks_compatibility()
-
   # отображение flash сообщений от рельс
   $('p.flash-notice').each (k, v) ->
     $.flash notice: v.innerHTML if v.innerHTML.length
@@ -150,22 +137,9 @@ $(document).on 'page:load', (e, is_dom_content_loaded) =>
   $('p.flash-alert').each (k, v) ->
     $.flash alert: v.innerHTML if v.innerHTML.length
 
-  #$(document.body).addClass 'l-mobile' if is_mobile()
   $(document.body).process()
 
   # переключатели видов отображения списка
   $('.b-list_switchers .switcher').on 'click', ->
     $.cookie $(@).data('name'), $(@).data('value'), expires: 730, path: "/"
     Turbolinks.visit location.href
-
-#$(document).on 'page:fetch', ->
-  #$('.l-page').css opacity: 0.3
-
-#$(document).on 'page:restore', ->
-  #turbolinks_compatibility()
-  #$('.l-page').css opacity: 1
-
-# для совместимости с турболинками
-#turbolinks_compatibility = ->
-  #$('#fancybox-wrap').remove()
-  #$.fancybox.init()

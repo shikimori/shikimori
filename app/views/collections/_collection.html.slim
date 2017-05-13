@@ -2,7 +2,8 @@
   .block
     = collection.description_html
 
-.groups.to-process[
+.groups[
+ class="#{'to-process' if collection.texts.any?}"
   data-dynamic="#{:text_annotated if collection.texts.any?}"
   data-texts="#{collection.texts.to_json}"
 ]

@@ -3,7 +3,7 @@ recalc_styles = ->
   $(".#{DynamicElements.CuttedCovers.CLASS_NAME}").each ->
     $(@).data(DynamicElements.CuttedCovers.CLASS_NAME).inject_css()
 
-hanler = ->
+set_hanler = ->
   DynamicElements.CuttedCovers.GLOBAL_HANDLER = true
   $(document).on 'resize:debounced orientationchange', recalc_styles
 
@@ -29,7 +29,7 @@ class DynamicElements.CuttedCovers extends View
     @node.classList.add(DynamicElements.CuttedCovers.CLASS_NAME)
     @$node.data("#{DynamicElements.CuttedCovers.CLASS_NAME}": @)
 
-    hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
+    set_hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])
