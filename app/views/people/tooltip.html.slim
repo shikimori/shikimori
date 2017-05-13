@@ -1,4 +1,4 @@
 - cache [@resource, :v4], expires_in: 1.week do
   = render 'people/content',
     person: @resource,
-    with_image: true
+    with_image: params[:minified] ? false : true
