@@ -2,14 +2,17 @@ class Abilities::User
   include CanCan::Ability
   prepend Draper::CanCanCan
 
+  GENERATED_USER_TOPICS = [
+    Topics::EntryTopics::ReviewTopic.name,
+    Topics::EntryTopics::CollectionTopic.name
+  ]
+
   USER_TOPIC_TYPES = [
     # nil for NEW topic button when user must choose type between News and Topic
     nil,
     Topic.name,
-    Topics::NewsTopic.name,
-    Topics::EntryTopics::ReviewTopic.name,
-    Topics::EntryTopics::CollectionTopic.name
-  ]
+    Topics::NewsTopic.name
+  ] + GENERATED_USER_TOPICS
 
   def initialize user
     @user = user
