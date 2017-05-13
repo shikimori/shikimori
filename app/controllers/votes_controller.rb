@@ -15,7 +15,7 @@ class VotesController < ShikimoriController
       voteable_type: params[:type],
       voting: params[:voting] == 'yes'
     )
-    raise Forbidden if @vote.voteable && @vote.voteable.user_id == current_user.id
+    # raise Forbidden if @vote.voteable && @vote.voteable.user_id == current_user.id
 
     if @vote.save
       render json: { } # notice: 'Ваш голос учтён'
