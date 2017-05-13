@@ -32,4 +32,4 @@
     a.cancel[
       href="#{review.persisted? ? resource.review_url(review) : resource.url}"
     ] = t 'actions.cancel'
-    = f.submit
+    = f.button :magic_submit
