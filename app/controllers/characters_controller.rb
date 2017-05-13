@@ -15,14 +15,13 @@ class CharactersController < PeopleController
     noindex
     page_title search_title
 
-    collection = postload_paginate(params[:page], 48) do
+    @collection = postload_paginate(params[:page], 48) do
       Search::Character.call(
         scope: Character.all,
         phrase: SearchHelper.unescape(params[:search] || params[:q]),
         ids_limit: 480
       )
     end
-    @collection = collection.map(&:decorate)
   end
 
   def show
