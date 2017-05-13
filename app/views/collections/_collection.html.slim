@@ -2,15 +2,13 @@
   .block
     = collection.description_html
 
-- collection.groups.each do |group, entries|
-  / .midheadline
-  .subheadline.m10
+.groups
+  - collection.groups.each do |group, entries|
     - if group.present?
-      = group
-    else
-      | &nbsp;
-  .cc-8
-    = render partial: 'animes/anime',
-      collection: entries,
-      locals: { cover_notice: :none, content_by: :mini_tooltip },
-      cache: ->(entry, _) { CacheHelper.keys entry, :none, :mini_tooltip }
+      .midheadline = group
+      / .subheadline.m10 = group
+    .cc-8
+      = render partial: 'animes/anime',
+        collection: entries,
+        locals: { cover_notice: :none, content_by: :mini_tooltip },
+        cache: ->(entry, _) { CacheHelper.keys entry, :none, :mini_tooltip }

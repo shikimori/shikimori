@@ -30,12 +30,10 @@ class Topics::CollectionView < Topics::View
   end
 
   def html_body
-    Rails.cache.fetch [:body, collection, preview?] do
-      if preview?
-        preview_html
-      else
-        results_html + collection_html
-      end
+    if preview?
+      preview_html
+    else
+      results_html + collection_html
     end
   end
 

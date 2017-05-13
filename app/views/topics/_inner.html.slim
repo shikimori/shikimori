@@ -1,4 +1,11 @@
 - cache topic_view.cache_key + [topic_view.topic.linked] do
+  /# Template Dependency: topics/cosplay/*
+  /# Template Dependency: topics/reviews/*
+  /# Template Dependency: reviews/stars
+  /# Template Dependency: reviews/votes
+  /# Template Dependency: collections/collection
+  /# Helper Dependency Updated: May 6, 2017 at 6pm
+
   / класс нужен из-за проверки высоты и для отображения кнопок по hover
   .inner
     - unless topic_view.minified?
