@@ -18,7 +18,10 @@ header.head.misc
   .subheadline.m10 = t '.all_clubs'
 
 .b-clubs.index
-  = render @collection, content_by: :detailed
+  = render partial: 'clubs/club',
+    collection: @collection,
+    locals: { content_by: :detailed },
+    cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
 
   - if @add_postloader
     = render 'blocks/postloader', filter: 'b-club',

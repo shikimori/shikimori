@@ -2,6 +2,7 @@ json.content render(
   partial: 'clubs/club',
   collection: @collection,
   locals: { content_by: :detailed },
+  cache: ->(entry, _) { CacheHelper.keys entry, :detailed },
   formats: :html
 )
 
