@@ -18,8 +18,16 @@ store = new Vuex.Store
 
   actions:
     replace_link: (context, {link, new_link}) ->
-      context.commit 'REMOVE_LINK', link
       context.commit 'ADD_LINK', new_link
+
+      from_index = context.state.collection.links.indexOf(new_link)
+      to_index = context.state.collection.links.indexOf(link)
+
+      context.commit 'MOVE_LINK',
+        from_index: from_index
+        to_index: to_index
+        group_index: to_index
+      context.commit 'REMOVE_LINK', link
 
     add_link: (context, data) -> context.commit 'ADD_LINK', data
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
