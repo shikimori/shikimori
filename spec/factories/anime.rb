@@ -7,6 +7,7 @@ FactoryGirl.define do
     description_en ''
     duration 0
     score 1
+    synonyms []
     mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :tv
     rating :pg_13
