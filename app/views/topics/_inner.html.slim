@@ -53,10 +53,8 @@
     footer
       = topic_view.html_footer
 
-      - if topic_view.topic_type_policy.review_topic? && !topic_view.minified?
-        = render 'topics/reviews/footer_vote', topic_view: topic_view
-      - elsif topic_view.topic_type_policy.cosplay_gallery_topic?
-        = render 'topics/cosplay/footer_vote', topic_view: topic_view
+      - if topic_view.footer_vote?
+        = render 'topics/footer/vote', topic_view: topic_view
 
       / p.tags
         - if user_signed_in?

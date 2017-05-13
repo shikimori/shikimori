@@ -1,5 +1,14 @@
 .footer-vote
-  .notice Эта рецензия полезна?
+  .notice
+    - if topic_view.topic_type_policy.review_topic?
+      = t '.question.review'
+    - elsif topic_view.topic_type_policy.cosplay_gallery_topic?
+      = t '.question.cosplay'
+    - elsif topic_view.topic_type_policy.collection_topic?
+      = t '.question.collection'
+    - else
+      - raise "unknown topic type for topic_id=#{topic_view.id}"
+
   .vote-group
     .vote.yes.to-process[
       data-action="#{vote_yes_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
@@ -7,7 +16,7 @@
       data-method="post"
       data-remote="true"
       data-type="json"
-    ] Да
+    ] = t('answers.yes').capitalize
     .separator
     .vote.no.to-process[
       action="#{vote_no_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
@@ -15,4 +24,4 @@
       data-method="post"
       data-remote="true"
       data-type="json"
-    ] Нет
+    ] = t('answers.no').capitalize

@@ -2,7 +2,11 @@ class VotesController < ShikimoriController
   before_action :authenticate_user!
 
   def create
-    @vote = Vote.find_by(user_id: current_user.id, voteable_id: params[:id], voteable_type: params[:type])
+    @vote = Vote.find_by(
+      user_id: current_user.id,
+      voteable_id: params[:id],
+      voteable_type: params[:type]
+    )
     @vote.destroy if @vote
 
     @vote = Vote.new(

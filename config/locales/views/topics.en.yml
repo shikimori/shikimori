@@ -9,6 +9,12 @@ en:
         <<: *header_mini
         about: about
         in: in
+    footer:
+      vote:
+        question:
+          review: Is this review useful?
+          cosplay: Do you like it?
+          collection: Is this collection useful?
     comments:
       your_comment: Your comment
     inner:

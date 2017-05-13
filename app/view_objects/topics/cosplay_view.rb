@@ -13,6 +13,10 @@ class Topics::CosplayView < Topics::View
     true
   end
 
+  def footer_vote?
+    !preview?
+  end
+
   def render_body
     h.render 'topics/cosplay/info', cosplay_view: self, gallery: topic.linked
   end

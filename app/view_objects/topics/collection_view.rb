@@ -29,6 +29,10 @@ class Topics::CollectionView < Topics::View
     true
   end
 
+  def footer_vote?
+    !preview?
+  end
+
   def html_body
     if preview?
       preview_html

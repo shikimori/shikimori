@@ -49,6 +49,10 @@ class Topics::View < ViewObjectBase
     preview? || !@topic.generated?
   end
 
+  def footer_vote?
+    false
+  end
+
   def poster_title
     if !preview?
       @topic.user.nickname

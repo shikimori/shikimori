@@ -11,6 +11,10 @@ class Topics::ReviewView < Topics::View
     true
   end
 
+  def footer_vote?
+    !preview?
+  end
+
   def action_tag
     OpenStruct.new(
       type: 'review',

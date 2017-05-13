@@ -9,6 +9,12 @@ ru:
         <<: *header_mini
         about: о
         in: в
+    footer:
+      vote:
+        question:
+          review: Эта рецензия полезна?
+          cosplay: Тебе нравится?
+          collection: Эта коллекция полезна?
     comments:
       your_comment: Ваш комментарий
     inner:
