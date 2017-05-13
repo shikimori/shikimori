@@ -15,21 +15,21 @@ class Topics::ReviewView < Topics::View
     OpenStruct.new(
       type: 'review',
       text: i18n_i('review', :one)
-    ) if is_preview
+    )
   end
 
   def offtopic_tag
-    I18n.t 'markers.offtopic' if topic.linked.rejected?
+    I18n.t 'markers.offtopic' if review.rejected?
   end
 
   # rubocop:disable AbcSize
   def topic_title
     if preview?
-      topic.linked.target.name
+      review.target.name
     else
       i18n_t(
-        "title.#{topic.linked.target_type.downcase}",
-        target_name: h.h(h.localized_name(topic.linked.target))
+        "title.#{review.target_type.downcase}",
+        target_name: h.h(h.localized_name(review.target))
       ).html_safe
     end
   end
@@ -37,18 +37,18 @@ class Topics::ReviewView < Topics::View
 
   def topic_title_html
     if preview?
-      h.localization_span topic.linked.target
+      h.localization_span review.target
     else
       topic_title
     end
   end
 
   def render_body
-    preview? ? html_body_truncated : (render_results + render_stars + html_body)
+    preview? ? html_body_truncated : (results_html + stars_html + html_body)
   end
 
   def vote_results?
-    topic.linked.votes_count > 0
+    review.votes_count > 0
   end
 
   def read_more_link?
@@ -71,21 +71,25 @@ private
 
   def format_body
     BbCodeFormatter.instance.format_description(
-      topic.linked.text, topic.linked
+      review.text, review
     )
   end
 
   def body
-    topic.linked.text
+    review.text
   end
 
-  def render_stars
+  def stars_html
     h.render 'reviews/stars',
-      review: topic.linked,
-      with_music: topic.linked.entry.is_a?(Anime)
+      review: review,
+      with_music: review.entry.is_a?(Anime)
   end
 
-  def render_results
-    h.render 'topics/reviews/votes_count', review: topic.linked
+  def results_html
+    h.render 'topics/reviews/votes_count', review: review
+  end
+
+  def review
+    @topic.linked
   end
 end

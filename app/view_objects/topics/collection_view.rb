@@ -34,7 +34,7 @@ class Topics::CollectionView < Topics::View
       if preview?
         preview_html
       else
-        collection_html
+        results_html + collection_html
       end
     end
   end
@@ -63,6 +63,10 @@ private
 
   def collection_html
     h.render collection
+  end
+
+  def results_html
+    h.render 'reviews/votes', review: collection
   end
 
   def collection
