@@ -147,6 +147,11 @@ class DbEntryDecorator < BaseDecorator
     h.send "#{klass_lower}_url", object, subdomain: subdomain
   end
 
+  def tooltip_url minified = false
+    h.send "tooltip_#{klass_lower}_url", object,
+      minified: minified ? :minified : nil
+  end
+
   def edit_url
     h.send "edit_#{klass_lower}_url", object
   end

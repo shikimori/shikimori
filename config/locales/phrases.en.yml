@@ -41,8 +41,8 @@ en:
     score: By score
     status: By status
   answers:
-    'no': нет
-    'yes': да
+    'no': 'no'
+    'yes': 'yes'
   about_site: About site
   anime_industry: Anime industry
   anime_list: Anime List

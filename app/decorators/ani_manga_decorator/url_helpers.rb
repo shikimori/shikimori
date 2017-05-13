@@ -131,9 +131,4 @@ module AniMangaDecorator::UrlHelpers
       subdomain: false
     )
   end
-
-  def tooltip_url minified = false
-    h.send "tooltip_#{klass_lower}_url", object,
-      minified: minified ? :minified : nil
-  end
 end
