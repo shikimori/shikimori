@@ -58,11 +58,11 @@ class VideoExtractor::BaseExtractor
       'User-Agent' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36',
       ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE,
       allow_redirections: :all,
-      # proxy_http_basic_authentication: [
-        # URI.parse('http://178.79.156.106:3128'),
-        # 'uptimus',
-        # 'holy_grail'
-      # ]
+      proxy_http_basic_authentication: Rails.env.production? ? nil : [
+        URI.parse('http://178.79.156.106:3128'),
+        'uptimus',
+        'holy_grail'
+      ]
     ).read
   end
 end

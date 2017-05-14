@@ -4,20 +4,31 @@ describe VideoExtractor::DailymotionExtractor, :vcr do
   describe '#fetch' do
     subject { service.fetch }
 
-    context 'example 1' do
-      let(:url) { 'http://www.dailymotion.com/video/x3xnqk4_mitsuyo-seo-tekusuke-monogatari-%E3%83%86%E3%82%AF%E5%8A%A9%E7%89%A9%E8%AA%9E_shortfilms' }
+    let(:image_url) { '//s1-ssl.dmcdn.net/L8Mws/526x297-zue.jpg' }
+    let(:player_url) { '//www.dailymotion.com/embed/video/x2wv4l8?autoPlay=0' }
+
+    context 'embed url' do
+      let(:url) { 'http://www.dailymotion.com/embed/video/x2wv4l8' }
 
       its(:hosting) { is_expected.to eq :dailymotion }
-      its(:image_url) { is_expected.to eq '//s1-ssl.dmcdn.net/Ua6Tl/526x297-ekd.jpg' }
-      its(:player_url) { is_expected.to eq '//www.dailymotion.com/embed/video/x3xnqk4' }
+      its(:image_url) { is_expected.to eq image_url }
+      its(:player_url) { is_expected.to eq player_url }
     end
 
-    context 'example 2' do
-      let(:url) { 'http://www.dailymotion.com/embed/video/x3xnqk4' }
+    context 'svf url' do
+      let(:url) { 'http://www.dailymotion.com/swf/video/x2wv4l8' }
 
       its(:hosting) { is_expected.to eq :dailymotion }
-      its(:image_url) { is_expected.to eq '//s1-ssl.dmcdn.net/Ua6Tl/526x297-ekd.jpg' }
-      its(:player_url) { is_expected.to eq '//www.dailymotion.com/embed/video/x3xnqk4' }
+      its(:image_url) { is_expected.to eq image_url }
+      its(:player_url) { is_expected.to eq player_url }
+    end
+
+    context 'short url' do
+      let(:url) { 'http://dai.ly/x2wv4l8' }
+
+      its(:hosting) { is_expected.to eq :dailymotion }
+      its(:image_url) { is_expected.to eq image_url }
+      its(:player_url) { is_expected.to eq player_url }
     end
   end
 end
