@@ -1,7 +1,7 @@
 class NyaaParser < TorrentsParser
   # адрес ленты
   def self.rss_url
-    "http://www.nyaa.eu/?page=rss"
+    "http://www.nyaa.si/?page=rss"
   end
 
 private
