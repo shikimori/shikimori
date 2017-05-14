@@ -49,3 +49,21 @@
 
   footer .footer-vote
     margin-top: -10px
+
+  .cc-collection-groups
+    +clear_left
+
+    &>.c-column
+      +iphone-landscape
+        +column_bm(5, 1/5, 1.5%)
+      +iphone-portrait
+        +column_bm(3, 1/3, 1.5%)
+      +ipad
+        +column_bm(7, 1/7, 1.5%)
+
+    +gt_ipad
+      .x1000 & > .c-column
+        +column_bm(7, 1/7, 1.5%)
+
+      .x1200 & > .c-column
+        +column_bm(8, 1/8, 1.5%)
