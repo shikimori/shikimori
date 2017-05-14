@@ -143,7 +143,7 @@ group :development do
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
 
-  # gem 'foreman', github: 'morr/foreman' # для управления бекграунд процессами
+  gem 'foreman'#, github: 'morr/foreman' # для управления бекграунд процессами
 end
 
 gem 'byebug'
