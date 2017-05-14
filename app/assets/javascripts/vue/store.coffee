@@ -12,6 +12,10 @@ has_duplicate = (links, link) ->
       v.linked_id == link.linked_id &&
       v.group == link.group
 
+no_links_to_fill = (links, group) ->
+  links.none (v) ->
+    v.group == group && !v.linked_id
+
 store = new Vuex.Store
   state:
     collection: {}
@@ -26,7 +30,8 @@ store = new Vuex.Store
       if has_duplicate(context.state.collection.links, link)
         context.commit 'REMOVE_LINK', link
 
-      # добавить новую ссылку, если не осталось ссылок без аниме в данный группе
+      if no_links_to_fill(context.state.collection.links, link.group)
+        context.commit 'ADD_LINK', { group: link.group }
 
     add_link: (context, data) -> context.commit 'ADD_LINK', data
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
