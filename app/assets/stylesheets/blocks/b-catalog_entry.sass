@@ -54,18 +54,18 @@ $max_width: 167px
 
       &:hover
         &>.text
-          max-height: 100%
+          display: block
+          height: auto
 
       // используется для отображения текста в коллекциях
       &>.text
-        +transition(max-height 0.25s ease)
+        +two_line_ellipsis(12px, $line_height)
+        +transition(all 0.25s ease)
         background: rgba(0,0,0,0.55)
         bottom: 0
         color: #fff
         font-size: 12px
         line-height: 1.45
-        max-height: 107px
-        overflow: hidden
         padding: 2px 5px
         position: absolute
         width: 100%
@@ -89,7 +89,7 @@ $max_width: 167px
       //max-width: $max_width
 
       &.two_lined
-        +two_line_ellipsis
+        +two_line_ellipsis(13px, $line_height)
 
     &:hover .title
       color: $link-hover

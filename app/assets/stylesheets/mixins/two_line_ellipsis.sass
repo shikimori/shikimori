@@ -1,7 +1,13 @@
-=two_line_ellipsis
+=two_line_ellipsis($font-size, $line-height)
+  $lines-to-show: 2
+
   -webkit-box-orient: vertical
-  -webkit-line-clamp: 2
+  -webkit-line-clamp: $lines-to-show
   display: -webkit-box
+  font-size: $font-size
+  height: $font-size * $line-height * $lines-to-show
+  line-height: $line-height
+  overflow: hidden
   text-overflow: ellipsis
   white-space: normal
   word-wrap: break-word
