@@ -7,7 +7,7 @@ en:
         character: Characters
         person: People
       group_name: Group name
-      add_group_hint: >-
+      disabled_add_group_hint: >-
         To add a new group, fill in the blank group name
       autocomplete:
         anime: Anime title
