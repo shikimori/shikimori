@@ -7,7 +7,10 @@ uniq_id = 987654321
 new_id = -> uniq_id += 1
 
 has_duplicate = (links, link) ->
-  links.some (v) -> v.linked_id == link.linked_id && v.group == link.group
+  links.some (v) ->
+    v != link &&
+      v.linked_id == link.linked_id &&
+      v.group == link.group
 
 store = new Vuex.Store
   state:
@@ -17,17 +20,13 @@ store = new Vuex.Store
     max_links: 0
 
   actions:
-    replace_link: (context, {link, new_link}) ->
-      context.commit 'ADD_LINK', new_link
+    fill_link: (context, {link, changes}) ->
+      context.commit 'FILL_LINK', {link, changes}
 
-      from_index = context.state.collection.links.indexOf(new_link)
-      to_index = context.state.collection.links.indexOf(link)
+      if has_duplicate(context.state.collection.links, link)
+        context.commit 'REMOVE_LINK', link
 
-      context.commit 'MOVE_LINK',
-        from_index: from_index
-        to_index: to_index
-        group_index: to_index
-      context.commit 'REMOVE_LINK', link
+      # добавить новую ссылку, если не осталось ссылок без аниме в данный группе
 
     add_link: (context, data) -> context.commit 'ADD_LINK', data
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
@@ -75,6 +74,10 @@ store = new Vuex.Store
     RENAME_GROUP: (state, {from_name, to_name}) ->
       state.collection.links.forEach (link) ->
         link.group = to_name if link.group == from_name
+
+    FILL_LINK: (state, {link, changes}) ->
+      Object.forEach changes, (value, key) ->
+        link[key] = value
 
   getters:
     autocomplete_url: (store) -> store.autocomplete_url

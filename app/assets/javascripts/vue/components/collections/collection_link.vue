@@ -42,6 +42,7 @@
       )
       a.b-link.bubbled(
         :href="link.url"
+        data-predelay="600"
       ) {{ link.name }}
       .b-input
         //label(
@@ -84,14 +85,16 @@ export default {
     ])
   },
   methods: {
-    assign(new_link) {
-      this.replace_link({link: this.link, new_link: new_link})
+    assign(changes) {
+      this.fill_link({link: this.link, changes: changes})
 
       this.$nextTick(() => {
+        $(this.$el).process()
+
         highlight(
           '.collection-link' +
-            `[data-linked_id='${new_link.linked_id}']` +
-            `[data-group='${new_link.group}']`
+            `[data-linked_id='${this.link.linked_id}']` +
+            `[data-group='${this.link.group}']`
         )
       })
     },
@@ -99,7 +102,7 @@ export default {
       autosize(target)
     },
     ...mapActions([
-      'replace_link',
+      'fill_link',
       'remove_link'
     ])
   },
@@ -113,10 +116,9 @@ export default {
           .focus()
           .on('autocomplete:success', (e, {id, name, url}) => {
             this.assign({
-              group: this.link.group,
               linked_id: parseInt(id),
-              name: name,
-              url: url
+              name,
+              url
             })
           })
       }
