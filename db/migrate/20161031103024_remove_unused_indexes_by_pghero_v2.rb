@@ -10,5 +10,6 @@ class RemoveUnusedIndexesByPgheroV2 < ActiveRecord::Migration
   end
 
   def down
+    raise ActiveRecord::IrreversibleMigration
   end
 end

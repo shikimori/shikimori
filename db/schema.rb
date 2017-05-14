@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170507205447) do
+ActiveRecord::Schema.define(version: 20170514143202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,7 +85,6 @@ ActiveRecord::Schema.define(version: 20170507205447) do
     t.integer  "watch_view_count"
     t.string   "quality"
     t.index ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state", using: :btree
-    t.index ["anime_id"], name: "index_anime_videos_on_anime_id", using: :btree
     t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id", using: :btree
   end
 
@@ -144,14 +143,12 @@ ActiveRecord::Schema.define(version: 20170507205447) do
     t.integer "anime_id"
     t.integer "genre_id"
     t.index ["anime_id", "genre_id"], name: "index_animes_genres_on_anime_id_and_genre_id", unique: true, using: :btree
-    t.index ["anime_id"], name: "index_animes_genres_on_anime_id", using: :btree
   end
 
   create_table "animes_studios", force: :cascade do |t|
     t.integer "anime_id"
     t.integer "studio_id"
     t.index ["anime_id", "studio_id"], name: "index_animes_studios_on_anime_id_and_studio_id", unique: true, using: :btree
-    t.index ["anime_id"], name: "index_animes_studios_on_anime_id", using: :btree
   end
 
   create_table "bans", force: :cascade do |t|
@@ -287,7 +284,6 @@ ActiveRecord::Schema.define(version: 20170507205447) do
     t.datetime "updated_at",                 null: false
     t.string   "text",          limit: 2048
     t.index ["collection_id", "linked_id", "group"], name: "uniq_collections_linked_links", unique: true, using: :btree
-    t.index ["collection_id"], name: "index_collection_links_on_collection_id", using: :btree
     t.index ["linked_type", "linked_id"], name: "index_collection_links_on_linked_type_and_linked_id", using: :btree
   end
 
@@ -611,7 +607,6 @@ ActiveRecord::Schema.define(version: 20170507205447) do
     t.integer "manga_id"
     t.integer "publisher_id"
     t.index ["manga_id", "publisher_id"], name: "index_mangas_publishers_on_manga_id_and_publisher_id", unique: true, using: :btree
-    t.index ["manga_id"], name: "index_mangas_publishers_on_manga_id", using: :btree
   end
 
   create_table "messages", force: :cascade do |t|
