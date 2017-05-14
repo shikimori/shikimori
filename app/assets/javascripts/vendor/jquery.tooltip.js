@@ -209,7 +209,6 @@
 
     // trigger --> show
     trigger.on(evt[0], function(e) {
-      // console.log('mouseover')
       clearTimeout(pretimer);
 
       var predelay = trigger.data('predelay') || conf.predelay;
@@ -220,7 +219,6 @@
       }
     // trigger --> hide
     }).on(evt[1], function(e)  {
-      console.log('mouseout')
       clearTimeout(pretimer);
 
       var delay = trigger.data('delay') || conf.delay;
@@ -257,7 +255,6 @@
 
     $.extend(self, {
       show: function(e) {
-        // console.log('show')
         // для устройств с тачскрином и узких экранов тултипы отключаем
         if (!e.target.classList.contains('mobile') && (
             ('ontouchstart' in window) ||
