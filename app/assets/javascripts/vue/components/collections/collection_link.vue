@@ -190,6 +190,7 @@ export default {
 
   textarea
     height: auto
+    resize: none
 
   textarea, input
     width: 100%
