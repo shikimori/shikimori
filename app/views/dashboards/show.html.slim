@@ -12,9 +12,10 @@
       / ] = t '.mangas'
 
     .cc-ongoings.to-process data-dynamic="cutted_covers"
-      = render @dashboard_view.ongoings,
-        cover_notice: :studio,
-        content_by: :mini_tooltip
+      = render partial: 'animes/anime',
+        collection: @dashboard_view.ongoings,
+        locals: { cover_notice: :studio },
+        cache: ->(entry, _) { CacheHelper.keys entry, :studio }
 
 .cc-second
   .cc-inner

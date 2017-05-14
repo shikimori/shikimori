@@ -12,5 +12,5 @@
     .cc-5.to-process data-dynamic="cutted_covers"
       = render partial: 'mangas/manga',
         collection: @resource.mangas,
-        locals: { cover_notice: :year_kind, content_by: :mini_tooltip },
-        cache: ->(entry, _) { CacheHelper.keys entry, :relation, :mini_tooltip }
+        locals: { cover_notice: :year_kind },
+        cache: ->(entry, _) { CacheHelper.keys entry, :relation }

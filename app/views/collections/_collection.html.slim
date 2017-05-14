@@ -20,5 +20,5 @@
       /# Template Dependency: people/person
       = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
         collection: entries,
-        locals: { cover_notice: :none, content_by: :mini_tooltip },
-        cache: ->(entry, _) { CacheHelper.keys entry, :none, :mini_tooltip }
+        locals: { cover_notice: :none },
+        cache: ->(entry, _) { CacheHelper.keys entry, :none }

@@ -2,10 +2,8 @@
 - cover_title ||= :present
 - content_by ||= :tooltip
 
-- tooltipped = content_by == :tooltip || content_by == :mini_tooltip
-
 article.c-column.b-catalog_entry.c-person[
-  class="entry-#{person.id} #{:tooltipped if content_by == :mini_tooltip} #{:cc if content_by == :block}"
+  class="entry-#{person.id} #{:cc if content_by == :block}"
   itemscope itemtype='http://schema.org/Person'
   itemprop="#{person.kind_of?(RoleEntry) ? (person.role.include?('Director') ? 'director' : (person.role.include?('Producer') ? 'producer' : 'none')) : 'none'}"
 ]
@@ -19,13 +17,11 @@ article.c-column.b-catalog_entry.c-person[
   ]
 
   a.cover[
-    class="#{'anime-tooltip' if tooltipped}"
+    class="#{'anime-tooltip' if content_by == :tooltip}"
     href="#{person_url person}"
     data-delay="150"
     data-predelay="#{tooltip_predelay if defined? tooltip_predelay}"
-    data-insert-tooltip-after="#{content_by == :mini_tooltip}"
-    data-relative="#{content_by == :mini_tooltip}"
-    data-tooltip_url="#{tooltip_person_url person, subdomain: false, minified: content_by == :mini_tooltip ? :minified : nil}"
+    data-tooltip_url="#{tooltip_person_url person, subdomain: false}"
   ]
     span.image-decor
       span.image-cutter
@@ -48,7 +44,7 @@ article.c-column.b-catalog_entry.c-person[
           span.role itemprop='jobTitle'
             = person.formatted_role
 
-  - unless tooltipped || content_by == :none
+  - unless content_by == :tooltip || content_by == :none
     .content
       - if content_by == :block
         = render partial: 'characters/content',

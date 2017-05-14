@@ -22,10 +22,8 @@ page_load 'versions_index', 'users_index', ->
   if $('.date-filter').exists()
     picker = new DatePicker('.date-filter')
     picker.on 'date:picked', ->
-      require.ensure [], (require) =>
-        URI = require 'urijs'
-        new_url = new URI(location.href).setQuery('created_on', @value).href()
-        Turbolinks.visit new_url
+      new_url = new URI(location.href).setQuery('created_on', @value).href()
+      Turbolinks.visit new_url
 
 # страницы модерации
 page_load 'bans_index', 'abuse_requests_index', 'versions_index', 'review_index', ->

@@ -57,6 +57,26 @@ ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
   offset: [-4, 10, -10]
   position: 'top right'
   predelay: 350
+  onBeforeFetch: ->
+    # добавляем к ссылке minified, если у $trigger нет собственной картинки
+    $trigger = @getTrigger()
+    $image = $trigger.find('.image-decor img')
+
+    if !$image.exists() || $image.width() < 80
+      # $trigger.data
+        # 'insert-tooltip-after': false
+        # relative: false
+
+    else
+      minified_tooltip_url =
+        URI($trigger.data('tooltip_url')).search(minified: '1').toString()
+
+      $trigger.data
+        tooltip_url: minified_tooltip_url
+        # 'insert-tooltip-after': true
+        # relative: true
+
+      @getTip().addClass 'minified'
 
 module.exports =
   COMMON_TOOLTIP: TOOLTIP_OPTIONS
