@@ -4,7 +4,7 @@ class AnimeOnline::AnimeVideoEpisodes < ServiceObjectBase
   GROUP_SQL = <<-SQL.strip
     episode,
     array_agg(distinct kind) as kinds,
-    array_agg(distinct substring(url from '\(.*://[^/]*)')) as hostings
+    array_agg(distinct substring(url from '\((?:.*:)?//[^/]*)')) as hostings
   SQL
 
   def call
