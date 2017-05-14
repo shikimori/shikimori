@@ -57,6 +57,7 @@ ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
   offset: [-4, 10, -10]
   position: 'top right'
   predelay: 350
+  ignoreSelector: '.text'
   onBeforeFetch: ->
     # добавляем к ссылке minified, если у $trigger нет собственной картинки
     $trigger = @getTrigger()

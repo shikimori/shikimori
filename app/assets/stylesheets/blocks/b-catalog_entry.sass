@@ -23,6 +23,10 @@ $max_width: 167px
         .content
           +column(2, 0.65)
 
+  &:hover .cover .image-decor > .text
+    display: block
+    max-height: none
+
   .cover
     +link_color(#333333)
     font-size: 12px
@@ -51,11 +55,6 @@ $max_width: 167px
 
       img
         width: 100%
-
-      &:hover
-        &>.text
-          display: block
-          max-height: none
 
       // используется для отображения текста в коллекциях
       &>.text

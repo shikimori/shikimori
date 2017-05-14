@@ -39,7 +39,9 @@
 
       // 1.2
       layout: '<div/>',
-      tipClass: 'tooltip'
+      tipClass: 'tooltip',
+
+      ignoreSelector: ''
     },
 
     addEffect: function(name, loadFn, hideFn) {
@@ -206,30 +208,46 @@
 
 
     // trigger --> show
-    trigger.bind(evt[0], function(e) {
+    trigger.on(evt[0], function(e) {
+      // console.log('mouseover')
       clearTimeout(pretimer);
+
       var predelay = trigger.data('predelay') || conf.predelay;
       if (predelay) {
         pretimer = setTimeout(function() { self.show(e); }, predelay);
-
       } else {
         self.show(e);
       }
-
     // trigger --> hide
-    }).bind(evt[1], function(e)  {
+    }).on(evt[1], function(e)  {
+      console.log('mouseout')
       clearTimeout(pretimer);
 
       var delay = trigger.data('delay') || conf.delay;
       if (delay)  {
         timer = setTimeout(function() { self.hide(e); }, delay);
-
       } else {
         self.hide(e);
       }
-
     });
 
+    if (conf.ignoreSelector) {
+      trigger
+        .on('mouseover', conf.ignoreSelector, function(e) {
+          // event with delay because this event is triggered before same event for 'trigger'
+          delay().then(function() {
+            clearTimeout(pretimer);
+            self.hide(e);
+          });
+        })
+        .on('mouseout', conf.ignoreSelector, function(e) {
+          // event without delay because this event must be triggered before same event for 'trigger'
+          if (e.target == trigger[0] || $(e.target).closest(trigger)) {
+            trigger.trigger('mouseover', [{target: trigger[0]}]);
+          }
+        }
+      )
+    }
 
     // remove default title
     if (title && conf.cancelDefault) {
@@ -239,6 +257,7 @@
 
     $.extend(self, {
       show: function(e) {
+        // console.log('show')
         // для устройств с тачскрином и узких экранов тултипы отключаем
         if (!e.target.classList.contains('mobile') && (
             ('ontouchstart' in window) ||
@@ -360,13 +379,13 @@
 
         if (!tip.data("__set")) {
 
-          tip.bind(event[0], function() {
+          tip.on(event[0], function() {
             clearTimeout(timer);
             clearTimeout(pretimer);
           });
 
           if (event[1] && !trigger.is("input:not(:checkbox, :radio), textarea")) {
-            tip.bind(event[1], function(e) {
+            tip.on(event[1], function(e) {
 
               // being moved to the trigger element
               if (e.relatedTarget != trigger[0]) {
@@ -422,12 +441,12 @@
 
       // configuration
       if ($.isFunction(conf[name])) {
-        $(self).bind(name, conf[name]);
+        $(self).on(name, conf[name]);
       }
 
       // API
       self[name] = function(fn) {
-        if (fn) { $(self).bind(name, fn); }
+        if (fn) { $(self).on(name, fn); }
         return self;
       };
     });
