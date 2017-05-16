@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514143202) do
+ActiveRecord::Schema.define(version: 20170516211126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -598,6 +598,7 @@ ActiveRecord::Schema.define(version: 20170514143202) do
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"
+    t.string   "type"
     t.index ["kind"], name: "index_mangas_on_kind", using: :btree
     t.index ["name"], name: "index_mangas_on_name", using: :btree
     t.index ["russian"], name: "index_mangas_on_russian", using: :btree
