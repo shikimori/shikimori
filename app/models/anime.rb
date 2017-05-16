@@ -139,6 +139,8 @@ class Anime < DbEntry
     path: ':rails_root/public/system/animes/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  before_post_process { translit_paperclip_file_name :image }
+
   has_many :external_links,
     class_name: ExternalLink.name,
     as: :entry,

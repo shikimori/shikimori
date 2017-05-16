@@ -23,6 +23,8 @@ class Person < DbEntry
     path: ':rails_root/public/system/people/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  before_post_process { translit_paperclip_file_name :image }
+
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   SEYU_ROLES = %w(

@@ -27,6 +27,8 @@ class Character < DbEntry
     path: ':rails_root/public/system/characters/:style/:id.:extension',
     default_url: '/assets/globals/missing_:style.jpg'
 
+  before_post_process { translit_paperclip_file_name :image }
+
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   has_many :cosplay_gallery_links, as: :linked, dependent: :destroy

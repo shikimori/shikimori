@@ -124,14 +124,15 @@ class String
   end
 
   def permalinked
-    Russian.translit self
+    Russian.translit(self)
       .gsub(/&#szlig;|ß/, 'ss')
       .gsub(/&#\d{4};/, '-')
       .gsub(/[^A-zА-я0-9]/, '-')
-      .gsub(/\]|\[|-+/, '-')
+      .gsub(/[\]\[_-]+/, '-')
       .gsub('Ä', 'A')
       .gsub(/^-|-$|[`'"]|\[|\]/, '')
       .downcase
+      .parameterize
   end
 
   def pretext?
