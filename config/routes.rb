@@ -725,13 +725,32 @@ Rails.application.routes.draw do
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
     post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
 
-    get 'kakie-anime-postmotret' => 'recommendations#favourites', as: :recommendations_favourites_anime, action: :favourites, klass: Anime.name.downcase
-    get 'kakuyu-mangu-pochitat' => 'recommendations#favourites', as: :recommendations_favourites_manga, action: :favourites, klass: Manga.name.downcase
+    get 'kakie-anime-postmotret' => 'recommendations#favourites',
+      as: :recommendations_favourites_anime,
+      action: :favourites,
+      klass: Anime.name.downcase
+
+    get 'kakuyu-mangu-pochitat' => 'recommendations#favourites',
+      as: :recommendations_favourites_manga,
+      action: :favourites,
+      klass: Manga.name.downcase
+
+    get 'kakie-ranobe-pochitat' => 'recommendations#favourites',
+      as: :recommendations_favourites_ranobe,
+      action: :favourites,
+      klass: Ranobe.name.downcase
+
     # recommendations
     if Rails.env.development?
-      get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test', defaults: { users: 10, threshold: 0 }
+      get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test',
+        defaults: { users: 10, threshold: 0 }
     end
-    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index', as: :recommendations, klass: /anime|manga/, metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/, votes: /\d+/
+
+    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index',
+      as: :recommendations,
+      klass: /anime|manga|ranobe/,
+      metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/,
+      votes: /\d+/
     get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
     get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
     resources :recommendation_ignores, only: [:create] do

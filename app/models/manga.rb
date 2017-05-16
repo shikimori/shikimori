@@ -102,7 +102,7 @@ class Manga < DbEntry
 
   enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
-    in: %i[manga manhwa manhua novel one_shot roujin],
+    in: %i[manga manhwa manhua novel one_shot doujin],
     predicates: { prefix: true }
   enumerize :status, in: %i[anons ongoing released], predicates: true
 
