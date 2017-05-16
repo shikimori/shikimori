@@ -36,6 +36,12 @@
         title="#{kind.title}"
       ] = kind.title
 
+.entry class="#{:selected if params[:controller] == 'renobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe')}"
+  a[
+    href="#{ranobe_url}"
+    title="#{Ranobe.model_name.human}"
+  ] = Ranobe.model_name.human
+
 .entry
   - if user_signed_in? && current_user.show_contest_link?
     a.contest[

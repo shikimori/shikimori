@@ -3,17 +3,18 @@ ru:
     models:
       anime: Аниме
       character: Персонаж
+      club: Клуб
+      collection: Коллекция
       comment: Комментарий
       contest: Опрос
+      forum: Раздел
       genre: Жанр
       manga: Манга
-      forum: Раздел
-      user: Пользователь
       person: Человек
-      club: Клуб
+      ranobe: Ранобэ
       topic: Топик
       topics/news_topic: Новостной топик
-      collection: Коллекция
+      user: Пользователь
 
     attributes:
       anime: &anime_attributes

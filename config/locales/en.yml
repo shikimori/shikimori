@@ -3,17 +3,18 @@ en:
     models:
       anime: Anime
       character: Character
+      club: Club
+      collection: Collection
       comment: Comment
       contest: Contest
+      forum: Forum
       genre: Genre
       manga: Manga
-      forum: Forum
-      user: User
       person: Person
-      club: Club
+      ranobe: Light Novel
       topic: Topic
       topics/news_topic: News Topic
-      collection: Collection
+      user: User
 
     attributes:
       anime: &anime_attributes
@@ -358,14 +359,14 @@ en:
         manga: Manga
         manhua: Manhua
         manhwa: Manhwa
-        novel: Novel
+        novel: Light Novel
         one_shot: One Shot
         short:
           doujin: Doujin
           manga: Manga
           manhua: Manhua
           manhwa: Manhwa
-          novel: Novel
+          novel: Light Novel
           one_shot: One Shot
     genre:
       kind:
