@@ -101,6 +101,7 @@ class Manga < DbEntry
     as: :entry,
     inverse_of: :entry
 
+  enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
     in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin],
     predicates: { prefix: true }

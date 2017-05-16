@@ -1,0 +1,2 @@
+class Ranobe < Manga
+end
