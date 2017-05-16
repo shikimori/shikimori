@@ -102,9 +102,9 @@ class Manga < DbEntry
 
   enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
-    in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin],
+    in: %i[manga manhwa manhua novel one_shot roujin],
     predicates: { prefix: true }
-  enumerize :status, in: [:anons, :ongoing, :released], predicates: true
+  enumerize :status, in: %i[anons ongoing released], predicates: true
 
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
