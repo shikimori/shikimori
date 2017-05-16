@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170516211126) do
+ActiveRecord::Schema.define(version: 20170516211442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,7 +115,6 @@ ActiveRecord::Schema.define(version: 20170516211126) do
     t.integer  "world_art_id",                       default: 0
     t.text     "world_art_synonyms"
     t.integer  "ani_db_id",                          default: 0
-    t.string   "mal_scores",             limit: 255
     t.string   "ani_db_scores",          limit: 255
     t.string   "world_art_scores",       limit: 255
     t.boolean  "censored",                           default: false
@@ -580,7 +579,6 @@ ActiveRecord::Schema.define(version: 20170516211126) do
     t.date     "aired_on"
     t.date     "released_on"
     t.date     "imported_at"
-    t.string   "mal_scores",         limit: 255
     t.integer  "editor_id"
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255

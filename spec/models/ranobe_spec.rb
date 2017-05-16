@@ -1,0 +1,2 @@
+describe Ranobe do
+end

@@ -29,7 +29,6 @@ class Anime < DbEntry
   serialize :synonyms
   # TODO: remove this fields
   serialize :world_art_synonyms
-  serialize :mal_scores
   serialize :ani_db_scores
   serialize :world_art_scores
 

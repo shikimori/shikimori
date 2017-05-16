@@ -16,7 +16,6 @@ class Manga < DbEntry
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
   serialize :synonyms
-  serialize :mal_scores
   #serialize :ani_db_scores
   #serialize :world_art_scores
 
