@@ -6,7 +6,6 @@ FactoryGirl.define do
     description_ru ''
     description_en ''
     score 1
-    mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :manga
 
     after :build do |model|
