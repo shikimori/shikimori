@@ -18,7 +18,14 @@ private
   end
 
   def job_args
-    [@user.id, @klass.name, @metric, @threshold, cache_key, list_cache_key]
+    [
+      @user.id,
+      @klass.base_class.name,
+      @metric,
+      @threshold,
+      cache_key,
+      list_cache_key
+    ]
   end
 
   def cache_key
