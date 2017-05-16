@@ -19,7 +19,7 @@ describe Menus::TopMenu do
     it do
       expect(view.manga_kinds.first).to be_kind_of Titles::KindTitle
       expect(view.manga_kinds.map(&:text)).to eq %w(
-        manga manhwa manhua novel one_shot doujin
+        manga manhwa manhua one_shot doujin
       )
     end
   end
