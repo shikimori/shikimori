@@ -10,7 +10,7 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    "Repos::#{klass.name}Genres".constantize.instance.all
+    "Repos::#{klass.base_class.name}Genres".constantize.instance.all
   end
 
   def studios

@@ -30,13 +30,6 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
-  resources :animes, only: [], concerns: [:autocompletable]
-  resources :mangas, only: [], concerns: [:autocompletable]
-  resources :characters, only: [], concerns: [:autocompletable]
-  resources :people, only: [], concerns: [:autocompletable]
-  resources :seyu, only: [], concerns: [:autocompletable]
-  resources :users, only: [], concerns: [:autocompletable]
-
   resources :pages, path: '/', only: [] do
     collection do
       get :info
@@ -327,10 +320,6 @@ Rails.application.routes.draw do
 
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
-
-    resources :animes, only: [] do
-      get 'tooltip(/:minified)' => :tooltip, as: :anime_tooltip, minified: /minified/
-    end
 
     scope '', module: 'anime_online' do
       resources :anime_video_authors, only: [], concerns: [:autocompletable]
@@ -631,6 +620,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :users, only: [], concerns: [:autocompletable]
     resources :user_rates, only: [:edit]
 
     resources :animes, only: [:edit, :update] do
@@ -639,6 +629,7 @@ Rails.application.routes.draw do
         kind episodes rating
         screenshots videos torrents_name tags aired_on released_on genres
       }.join('|'))
+      concerns :autocompletable
 
       post 'torrent' => 'torrents#create', on: :member
 
@@ -648,12 +639,15 @@ Rails.application.routes.draw do
       resources :videos, only: [:create, :destroy]
     end
 
-    resources :mangas, only: [:edit, :update] do
-      concerns :db_entry, fields: Regexp.new(%w{
-        name russian description_ru description_en image
-        kind rating volumes chapters
-        tags aired_on released_on status genres
-      }.join('|'))
+    [:mangas, :ranobe].each do |type|
+      resources type, only: [:edit, :update] do
+        concerns :db_entry, fields: Regexp.new(%w{
+          name russian description_ru description_en image
+          kind rating volumes chapters
+          tags aired_on released_on status genres
+        }.join('|'))
+        concerns :autocompletable
+      end
     end
 
     resources :characters, only: [:show, :edit, :update] do
@@ -661,6 +655,7 @@ Rails.application.routes.draw do
         name russian japanese image description_ru description_en tags
       }.join('|'))
       concerns :searcheable
+      concerns :autocompletable
 
       member do
         get :seyu
@@ -678,6 +673,7 @@ Rails.application.routes.draw do
         name russian japanese image website birthday
       }.join('|'))
       concerns :searcheable
+      concerns :autocompletable
 
       member do
         get 'time' => redirect {|params, request| request.url.sub('/time', '') } # редирект со старых урлов
@@ -691,6 +687,7 @@ Rails.application.routes.draw do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
+      concerns :autocompletable
       concerns :searcheable
 
       member do
