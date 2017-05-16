@@ -112,6 +112,8 @@ class Manga < DbEntry
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
 
+  before_create :set_type
+  before_save :set_type, if: -> { kind_changed? }
   after_create :generate_name_matches
 
   def name
@@ -140,5 +142,11 @@ class Manga < DbEntry
 
   def duration
     Manga::DURATION
+  end
+
+private
+
+  def set_type
+    self.type = kind_novel? ? Ranobe.name : Manga.name
   end
 end

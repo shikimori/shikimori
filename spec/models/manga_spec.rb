@@ -69,6 +69,27 @@ describe Manga do
     end
   end
 
+  describe 'callbacks' do
+    describe '#set_type' do
+      let(:manga) { create :manga, kind: kind }
+
+      context 'not set' do
+        let(:kind) { nil }
+        it { expect(manga.type).to eq Manga.name }
+      end
+
+      context 'not novel' do
+        let(:kind) { %i[manga manhwa manhua one_shot doujin].sample }
+        it { expect(manga.type).to eq Manga.name }
+      end
+
+      context 'novel' do
+        let(:kind) { :novel }
+        it { expect(manga.type).to eq Ranobe.name }
+      end
+    end
+  end
+
   it_behaves_like :touch_related_in_db_entry, :manga
   it_behaves_like :topics_concern_in_db_entry, :manga
   it_behaves_like :collections_concern_in_db_entry, :manga
