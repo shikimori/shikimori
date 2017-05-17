@@ -1,13 +1,13 @@
 .entry class="#{:selected if params[:controller] == 'animes' || (params[:controller] == 'animes_collection' && params[:klass] == 'anime')}"
   .submenu-toggler
   a[
-    href="#{animes_url}"
+    href="#{animes_collection_url}"
     title="#{Anime.model_name.human}"
   ] = Anime.model_name.human
   .submenu
     - menu.anime_seasons.each do |season|
       a.entry[
-        href="#{animes_url season.url_params}"
+        href="#{animes_collection_url season.url_params}"
         title="#{season.full_title}"
       ] = season.short_title
 
@@ -26,19 +26,19 @@
 .entry class="#{:selected if params[:controller] == 'mangas' || (params[:controller] == 'animes_collection' && params[:klass] == 'manga')}"
   .submenu-toggler
   a[
-    href="#{mangas_url}"
+    href="#{mangas_collection_url}"
     title="#{Manga.model_name.human}"
   ] = Manga.model_name.human
   .submenu
     - menu.manga_kinds.each do |kind|
       a.entry[
-        href="#{mangas_url kind.url_params}"
+        href="#{mangas_collection_url kind.url_params}"
         title="#{kind.title}"
       ] = kind.title
 
 .entry class="#{:selected if params[:controller] == 'renobe' || (params[:controller] == 'animes_collection' && params[:klass] == 'ranobe')}"
   a[
-    href="#{ranobe_url}"
+    href="#{ranobe_collection_url}"
     title="#{Ranobe.model_name.human}"
   ] = Ranobe.model_name.human
 

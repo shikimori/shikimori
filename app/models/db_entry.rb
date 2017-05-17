@@ -20,14 +20,16 @@ class DbEntry < ApplicationRecord
     "#{changed_id}-#{name.permalinked}"
   end
 
-  # аниме ли это?
   def anime?
     self.class == Anime
   end
 
-  # манга ли это?
   def manga?
     self.class == Manga
+  end
+
+  def ranobe?
+    self.class == Ranobe
   end
 
   def topic_user

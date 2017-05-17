@@ -221,15 +221,21 @@ ru:
       manga: Отзывы о манге
     breadcrumbs:
       anime:
-        list: Список аниме
+        list: Аниме
         tv: Сериалы
         movie: Полнометражные
       manga:
-        list: Список манги
+        list: Манга
+      ranobe:
+        list: Ранобэ
 
   mangas_controller:
     <<: *animes_controller
     entry_edit: Редактирование манги
+
+  ranobe_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование ранобэ
 
   characters_controller:
     <<: *animes_controller

@@ -1,5 +1,5 @@
 - entry.publishers.each do |publisher|
   a.b-tag[
-    href="#{mangas_path publisher: publisher}"
+    href="#{mangas_collection_url publisher: publisher}"
     title="#{t '.publisher_mangas', publisher_name: publisher.name}"
   ] = "#{publisher.name}\n"

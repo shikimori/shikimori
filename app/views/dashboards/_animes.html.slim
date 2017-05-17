@@ -2,17 +2,17 @@
   .c-column.m0
     / .midheadline.red
       / = t '.title'
-      / a.b-link href="#{animes_url}" = t '.all_animes'
+      / a.b-link href="#{animes_collection_url}" = t '.all_animes'
     .midheadline.red.linkheadline
       a[
-        href="#{animes_url}"
+        href="#{animes_collection_url}"
         title="#{t '.title'}"
       ] = t '.title'
 
     - dashboard_view.db_seasons(Anime).each do |season|
       a.b-link_button[
         class="#{season.text.split('_').first}"
-        href="#{animes_url season.url_params}"
+        href="#{animes_collection_url season.url_params}"
         title="#{season.full_title}"
       ] = season.short_title
 
@@ -41,6 +41,6 @@
 
   - dashboard_view.db_others(Anime).each do |season|
     a.b-link[
-      href="#{animes_url season.url_params}"
+      href="#{animes_collection_url season.url_params}"
       title="#{season.full_title}"
     ] = season.catalog_title

@@ -7,6 +7,11 @@ FactoryGirl.define do
     description_en ''
     score 1
     kind :manga
+    type 'Manga'
+
+    factory :ranobe do
+      type 'Ranobe'
+    end
 
     after :build do |model|
       stub_method model, :generate_name_matches

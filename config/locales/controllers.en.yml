@@ -221,15 +221,21 @@ en:
       manga: Manga reviews
     breadcrumbs:
       anime:
-        list: Anime list
+        list: Anime
         tv: TV series
         movie: Anime movies
       manga:
-        list: Manga list
+        list: Manga
+      ranobe:
+        list: Light Novel
 
   mangas_controller:
     <<: *animes_controller
     entry_edit: Edit manga
+
+  ranobe_controller:
+    <<: *animes_controller
+    entry_edit: Edit light novel
 
   characters_controller:
     <<: *animes_controller

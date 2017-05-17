@@ -62,7 +62,7 @@ class AnimesCollection::View < ViewObjectBase
     if recommendations?
       h.recommendations_url params
     else
-      h.send "#{klass.name.downcase.pluralize}_url", params
+      h.send "#{klass.name.downcase.pluralize}_collection_url", params
     end
   end
 

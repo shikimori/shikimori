@@ -4,10 +4,10 @@
 - cache [:ongoings, rand(5)], expires_in: 1.day do
   .block2
     .midheadline.linkheadline
-      a href="#{animes_url status: :ongoing}"
+      a href="#{animes_collection_url status: :ongoing}"
         = t '.currently_airing'
       / a.b-link[
-        / href="#{animes_url}"
+        / href="#{animes_collection_url}"
         / title="#{t '.all_animess'}"
       / ] = t '.mangas'
 

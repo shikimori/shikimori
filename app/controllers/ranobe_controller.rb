@@ -1,7 +1,7 @@
-class MangasController < AnimesController
+class RanobeController < AnimesController
   def autocomplete
     @collection = Autocomplete::Manga.call(
-      scope: Manga.where.not(kind: Ranobe::KIND),
+      scope: Manga.where(kind: Ranobe::KIND),
       phrase: params[:search] || params[:q]
     )
   end

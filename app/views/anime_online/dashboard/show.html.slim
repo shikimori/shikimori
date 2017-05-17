@@ -54,7 +54,7 @@
       .block
         - @seasons.each do |season|
           a.season[
-            href="#{animes_url season.url_params}"
+            href="#{animes_collection_url season.url_params}"
             title="#{season.full_title}"
           ]
             span.title = season.short_title
