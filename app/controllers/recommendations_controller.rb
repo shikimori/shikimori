@@ -72,7 +72,7 @@ class RecommendationsController < AnimesCollectionController
     cache_key = [:favourites_recommendations, @view.klass, current_user, current_user.try(:sex)]
 
     all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do
-      limit = @view.klass == Anime ? 500 : 1000
+      limit = @view.klass == Anime ? 750 : 1250
       FavouritesQuery.new.global_top(@view.klass, limit, current_user)
     end
 

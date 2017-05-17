@@ -106,20 +106,23 @@ describe Menus::CollectionMenu do
     end
   end
 
-  describe '#anime?' do
+  describe '#anime?, #ranobe?' do
     context 'anime' do
       let(:klass) { Anime }
       it { expect(view).to be_anime }
+      it { expect(view).to_not be_ranobe }
     end
 
     context 'manga' do
       let(:klass) { Manga }
       it { expect(view).to_not be_anime }
+      it { expect(view).to_not be_ranobe }
     end
 
     context 'ranobe' do
       let(:klass) { Ranobe }
       it { expect(view).to_not be_anime }
+      it { expect(view).to be_ranobe }
     end
   end
 end

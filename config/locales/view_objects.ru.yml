@@ -90,7 +90,7 @@ ru:
           manga: Манга
           manhua: Маньхуа
           manhwa: Манхва
-          novel: Новеллы
+          novel: Ранобэ
           one_shot: Ваншоты
         short:
           <<: *manga_long

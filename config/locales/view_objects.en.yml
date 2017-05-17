@@ -90,7 +90,7 @@ en:
           manga: Manga
           manhua: Manhua
           manhwa: Manhwa
-          novel: Novels
+          novel: Light Novels
           one_shot: One Shots
         short:
           <<: *manga_long

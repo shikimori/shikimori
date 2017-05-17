@@ -16,7 +16,7 @@ class FavouritesQuery
     fav_ids = FavouritesQuery.new.top_favourite_ids(klass, limit)
 
     in_list_ids = !user ? [] : user
-      .send("#{klass.name.downcase}_rates")
+      .send("#{klass.base_class.name.downcase}_rates")
       .where.not(status: UserRate.statuses['planned'])
       .pluck(:target_id)
 
@@ -25,11 +25,11 @@ class FavouritesQuery
       .where(target_type: klass.name)
       .pluck(:target_id)
 
-    # выкидываем жанры по гендерному признаку§
-    ai_censored_ids = Anime
+    # выкидываем жанры по гендерному признаку
+    ai_censored_ids = klass
       .joins(:genres)
       .where(genres: { id: AniMangaQuery::GENRES_EXCLUDED_BY_SEX[user.try(:sex) || ''] })
-      .select(:id)
+      .pluck(:id)
 
     klass
       .where(id: fav_ids - in_list_ids - ignored_ids)

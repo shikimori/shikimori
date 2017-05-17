@@ -15,9 +15,10 @@
           href="#{RecommendationsController::TOPIC_URL}"
         ] = t 'dashboards.animes.recommended.by_community'
 
-      li: a.b-link[
-        href="#{recommendations_url klass: menu.klass.name.downcase}"
-      ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
+      - unless menu.ranobe?
+        li: a.b-link[
+          href="#{recommendations_url klass: menu.klass.name.downcase}"
+        ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
 

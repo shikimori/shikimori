@@ -64,4 +64,8 @@ class Menus::CollectionMenu < ViewObjectBase
   def anime?
     klass == Anime
   end
+
+  def ranobe?
+    klass == Ranobe
+  end
 end
