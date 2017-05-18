@@ -302,8 +302,8 @@ private
     statuses = bang_split(@mylist.split(','), false)
 
     animelist = @user
-      .send("#{@klass.name.downcase}_rates")
-      .includes(@klass.name.downcase.to_sym)
+      .send("#{@klass.base_class.name.downcase}_rates")
+      .includes(@klass.base_class.name.downcase.to_sym)
       .each_with_object(include: [], exclude: []) do |entry, memo|
 
         if statuses[:include].include?(entry.status)
