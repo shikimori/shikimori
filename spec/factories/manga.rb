@@ -7,10 +7,11 @@ FactoryGirl.define do
     description_en ''
     score 1
     kind :manga
-    type 'Manga'
+    type { Manga.name }
 
     factory :ranobe do
-      type 'Ranobe'
+      type Ranobe.name
+      kind Ranobe::KIND
     end
 
     after :build do |model|

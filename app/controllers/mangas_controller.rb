@@ -8,6 +8,16 @@ class MangasController < AnimesController
 
 private
 
+  def resource_redirect
+    super
+
+    if @resource.ranobe?
+      redirect_url =
+        url_for(url_params.merge(action: params[:action], controller: 'ranobe'))
+      redirect_to redirect_url, status: 301
+    end
+  end
+
   def update_params
     params
       .require(:manga)
