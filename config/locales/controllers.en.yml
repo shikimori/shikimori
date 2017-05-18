@@ -209,19 +209,24 @@ en:
     characters:
       anime: Anime characters
       manga: Manga characters
+      ranobe: Light novel characters
     producers:
       anime: Anime producers
-      manga: Manga producers
+      manga: Manga authors
+      ranobe: Light novel authors
     files: Files
     similar:
       anime: Similar animes
       manga: Similar mangas
+      ranobe: Similar light novels
     related:
       anime: Related to anime
       manga: Related to manga
+      ranobve: Related to light novel
     reviews:
       anime: Anime reviews
       manga: Manga reviews
+      ranobe: Light novel reviews
     breadcrumbs:
       anime:
         list: Anime

@@ -209,19 +209,24 @@ ru:
     characters:
       anime: Персонажи аниме
       manga: Персонажи манги
+      ranobe: Персонажи ранобэ
     producers:
       anime: Создатели аниме
-      manga: Создатели манги
+      manga: Авторы манги
+      ranobe: Авторы ранобэ
     files: Файлы
     similar:
       anime: Похожие аниме
       manga: Похожая манга
+      ranobe: Похожие ранобэ
     related:
       anime: Связанное с аниме
       manga: Связанное с мангой
+      ranobe: Связанное с ранобэ
     reviews:
       anime: Отзывы об аниме
       manga: Отзывы о манге
+      ranobe: Отзывы о ранобэ
     breadcrumbs:
       anime:
         list: Аниме
