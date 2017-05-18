@@ -53,9 +53,10 @@ private
       .where("#{related_field} is not null")
 
     unless @with_specials
+      base_class = @entry.class.base_class
       query = query.joins("
         inner join #{@entry.class.table_name} on
-          #{@entry.class.table_name}.id=#{@entry.class.name.downcase}_id
+          #{@entry.class.table_name}.id=#{base_class.name.downcase}_id
         ")
     end
 
