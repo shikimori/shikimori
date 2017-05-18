@@ -11,6 +11,7 @@ class Topic < ApplicationRecord
   FORUM_IDS = {
     'Anime' => 1,
     'Manga' => 1,
+    'Ranobe' => 1,
     'Character' => 1,
     'Person' => 1,
     'Club' => Forum::CLUBS_ID,

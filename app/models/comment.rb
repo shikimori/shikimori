@@ -238,7 +238,8 @@ class Comment < ApplicationRecord
 
   def allowed_summary?
     commentable.instance_of?(Topics::EntryTopics::AnimeTopic) ||
-      commentable.instance_of?(Topics::EntryTopics::MangaTopic)
+      commentable.instance_of?(Topics::EntryTopics::MangaTopic) ||
+        commentable.instance_of?(Topics::EntryTopics::RanobeTopic)
   end
 
   private
