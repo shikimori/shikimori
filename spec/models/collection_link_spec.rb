@@ -16,7 +16,7 @@ describe CollectionLink do
     it do
       is_expected
         .to enumerize(:linked_type)
-        .in(:Anime, :Manga, :Character, :Person)
+        .in(*Types::Collection::Kind.values.map(&:to_s).map(&:classify))
     end
   end
 end

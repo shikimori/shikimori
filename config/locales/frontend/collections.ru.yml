@@ -4,6 +4,7 @@ ru:
       kind:
         anime: Аниме
         manga: Манга
+        ranobe: Ранобэ
         character: Персонажи
         person: Люди
       group_name: Название группы
@@ -12,5 +13,6 @@ ru:
       autocomplete:
         anime: Название аниме
         manga: Название манги
+        ranobe: Название ранобэ
         character: Имя персонажа
         person: Имя человек

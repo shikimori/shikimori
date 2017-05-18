@@ -9,5 +9,7 @@ class CollectionLink < ApplicationRecord
   validates :collection, :linked, presence: true
   validates :linked_id, uniqueness: { scope: [:collection_id, :group] }
 
-  enumerize :linked_type, in: %i[Anime Manga Character Person], predicates: true
+  enumerize :linked_type,
+    in: Types::Collection::Kind.values.map(&:to_s).map(&:classify),
+    predicates: true
 end
