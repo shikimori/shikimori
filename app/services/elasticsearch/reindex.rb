@@ -45,17 +45,13 @@ private
 
   def person
     Person.find_each do |entry|
-      client.post(
-        "#{INDEX}/person/#{entry.id}", Elasticsearch::Data::Person.call(entry)
-      )
+      Elasticsearch::Create.new.sync entry
     end
   end
 
   def user
     User.find_each do |entry|
-      client.post(
-        "#{INDEX}/user/#{entry.id}", Elasticsearch::Data::User.call(entry)
-      )
+      Elasticsearch::Create.new.sync entry
     end
   end
 
