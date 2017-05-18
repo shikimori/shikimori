@@ -30,6 +30,13 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  resources :animes, only: [], concerns: [:autocompletable]
+  resources :mangas, only: [], concerns: [:autocompletable]
+  resources :characters, only: [], concerns: [:autocompletable]
+  resources :people, only: [], concerns: [:autocompletable]
+  resources :seyu, only: [], concerns: [:autocompletable]
+  resources :users, only: [], concerns: [:autocompletable]
+
   resources :pages, path: '/', only: [] do
     collection do
       get :info
@@ -623,7 +630,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: [], concerns: [:autocompletable]
     resources :user_rates, only: [:edit]
 
     resources :animes, only: [:edit, :update] do
@@ -632,7 +638,6 @@ Rails.application.routes.draw do
         kind episodes rating
         screenshots videos torrents_name tags aired_on released_on genres
       }.join('|'))
-      concerns :autocompletable
 
       post 'torrent' => 'torrents#create', on: :member
 
@@ -649,7 +654,6 @@ Rails.application.routes.draw do
           kind rating volumes chapters
           tags aired_on released_on status genres
         }.join('|'))
-        concerns :autocompletable
       end
     end
 
@@ -658,7 +662,6 @@ Rails.application.routes.draw do
         name russian japanese image description_ru description_en tags
       }.join('|'))
       concerns :searcheable
-      concerns :autocompletable
 
       member do
         get :seyu
@@ -676,7 +679,6 @@ Rails.application.routes.draw do
         name russian japanese image website birthday
       }.join('|'))
       concerns :searcheable
-      concerns :autocompletable
 
       member do
         get 'time' => redirect {|params, request| request.url.sub('/time', '') } # редирект со старых урлов
@@ -690,7 +692,6 @@ Rails.application.routes.draw do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
-      concerns :autocompletable
       concerns :searcheable
 
       member do
