@@ -5,6 +5,7 @@ class NameValidator < ActiveModel::EachValidator
   PREDEFINED_PATHS = %i(
     animes
     mangas
+    ranobe
     contests
     users
     forum
