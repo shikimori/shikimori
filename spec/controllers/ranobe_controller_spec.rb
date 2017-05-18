@@ -26,7 +26,7 @@ describe RanobeController do
     let(:manga) { build_stubbed :manga }
     let(:phrase) { 'qqq' }
 
-    before { allow(Autocomplete::Manga).to receive(:call).and_return [manga] }
+    before { allow(Autocomplete::Ranobe).to receive(:call).and_return [manga] }
     before { get :autocomplete, params: { search: 'Fff' } }
 
     it do
