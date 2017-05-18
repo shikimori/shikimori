@@ -2,15 +2,13 @@ class Elasticsearch::Reindex < ServiceObjectBase
   INDEX = Elasticsearch::Config::INDEX
   CACHE_KEY = 'elastic_reindex'
 
+  TYPES = %i[anime manga ranobe character person user]
+
   def call
     client.delete INDEX
     client.put INDEX, Elasticsearch::Config.instance[:node]
 
-    animes
-    mangas
-    characters
-    people
-    users
+    TYPES.each { |type| send type }
 
     Rails.cache.write CACHE_KEY, Time.zone.now
   end
@@ -21,25 +19,31 @@ class Elasticsearch::Reindex < ServiceObjectBase
 
 private
 
-  def animes
+  def anime
     Anime.find_each do |entry|
       Elasticsearch::Create.new.sync entry
     end
   end
 
-  def mangas
-    Manga.find_each do |entry|
+  def manga
+    Manga.where.not(kind: Ranobe::KIND).find_each do |entry|
       Elasticsearch::Create.new.sync entry
     end
   end
 
-  def characters
+  def ranobe
+    Ranobe.find_each do |entry|
+      Elasticsearch::Create.new.sync entry
+    end
+  end
+
+  def character
     Character.find_each do |entry|
       Elasticsearch::Create.new.sync entry
     end
   end
 
-  def people
+  def person
     Person.find_each do |entry|
       client.post(
         "#{INDEX}/person/#{entry.id}", Elasticsearch::Data::Person.call(entry)
@@ -47,7 +51,7 @@ private
     end
   end
 
-  def users
+  def user
     User.find_each do |entry|
       client.post(
         "#{INDEX}/user/#{entry.id}", Elasticsearch::Data::User.call(entry)
