@@ -11,7 +11,7 @@ describe FavouritesController do
           post :create, params: { linked_type: entry.class.name, linked_id: entry.id, kind: kind }
         end
 
-        context 'withput kind', :focus do
+        context 'without kind' do
           let(:kind) { nil }
           it do
             expect { make_request }.to change(Favourite, :count).by(1)

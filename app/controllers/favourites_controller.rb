@@ -24,7 +24,8 @@ class FavouritesController < ShikimoriController
     else
       linked = params[:linked_type].constantize.find(params[:linked_id])
       Favourite.create!(
-        linked: linked,
+        linked_id: linked.id,
+        linked_type: linked.class.name,
         user_id: current_user.id,
         kind: params[:kind] || ''
       )
