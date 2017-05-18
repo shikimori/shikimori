@@ -17,8 +17,8 @@ describe RanobeController do
 
     describe 'not ranobe' do
       let(:ranobe) { create :manga }
-      before { get :show, params: { id: ranobe.to_param } }
-      it { expect(response).to redirect_to manga_url(ranobe) }
+      let(:make_request) { get :show, params: { id: ranobe.to_param } }
+      it { expect { make_request }.to raise_error ActiveRecord::RecordNotFound }
     end
   end
 

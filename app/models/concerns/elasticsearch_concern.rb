@@ -10,18 +10,23 @@ module ElasticsearchConcern
 private
 
   def post_elastic
-    Elasticsearch::Create.perform_async id, self.class.name
+    Elasticsearch::Create.perform_async id, class_name
   end
 
   def put_elastic
-    elastic_changes = "Elasticsearch::Data::#{self.class.name}::ALL_FIELDS"
-      .constantize
-      .any? { |field| changes[field] }
-
-    Elasticsearch::Update.perform_async id, self.class.name if elastic_changes
+    elastic_changes = data_klass.any? { |field| changes[field] }
+    Elasticsearch::Update.perform_async id, class_name if elastic_changes
   end
 
   def delete_elastic
-    Elasticsearch::Destroy.perform_async id, self.class.name
+    Elasticsearch::Destroy.perform_async id, class_name
+  end
+
+  def data_klass
+    "Elasticsearch::Data::#{class_name}::ALL_FIELDS".constantize
+  end
+
+  def class_name
+    self.class.base_class.name
   end
 end

@@ -20,7 +20,7 @@ private
 
   def update_params
     params
-      .require(:manga)
+      .require(:ranobe)
       .permit(
         :russian,
         :tags,

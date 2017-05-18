@@ -24,6 +24,10 @@ class DbEntry < ApplicationRecord
     self.class == Anime
   end
 
+  def kinda_manga?
+    self.class <= Manga
+  end
+
   def manga?
     self.class == Manga
   end

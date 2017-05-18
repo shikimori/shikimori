@@ -6,10 +6,10 @@ class UserRateEntrySerializer < ActiveModel::Serializer
   end
 
   def volumes
-    object.volumes if object.manga?
+    object.volumes if object.kinda_manga?
   end
 
   def chapters
-    object.chapters if object.manga?
+    object.chapters if object.kinda_manga?
   end
 end

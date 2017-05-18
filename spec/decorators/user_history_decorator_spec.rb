@@ -3,7 +3,7 @@ describe UserHistoryDecorator do
     build :user_history,
       target: target,
       anime: (target if target&.anime?),
-      manga: (target if target&.manga?),
+      manga: (target if target&.kinda_manga?),
       action: action,
       value: value,
       prior_value: prior_value
