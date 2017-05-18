@@ -23,7 +23,7 @@ page_load 'animes_collection_index', 'recommendations_index', 'userlist_comparer
 
 init_catalog = ->
   type = if $('.anime-params-controls').exists() then 'anime' else 'manga'
-  base_catalog_path = "/#{type}s"
+  base_catalog_path = $('.b-collection-filters').data('base_path')
 
   if location.pathname.match(/\/recommendations\//)
     base_catalog_path = location.pathname.split("/").first(5).join("/")
