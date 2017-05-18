@@ -1,7 +1,7 @@
 class RanobeController < AnimesController
   def autocomplete
-    @collection = Autocomplete::Manga.call(
-      scope: Manga.where(kind: Ranobe::KIND),
+    @collection = Autocomplete::Ranobe.call(
+      scope: Ranobe.all,
       phrase: params[:search] || params[:q]
     )
   end
