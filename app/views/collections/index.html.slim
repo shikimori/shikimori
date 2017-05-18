@@ -28,5 +28,5 @@ header.head.misc
 
   - if @add_postloader
     = render 'blocks/postloader', filter: 'b-club',
-      next_url: page_collections_url(page: @page+1),
-      prev_url: (@page > 1 ? page_collections_url(page: @page-1) : nil)
+      next_url: collections_url(page: @page+1),
+      prev_url: (@page > 1 ? collections_url(page: @page-1) : nil)
