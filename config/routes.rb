@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  # do not move these autocompletable concerns into resources definition.
+  # they will confict with resource#show routes
   resources :animes, only: [], concerns: [:autocompletable]
   resources :mangas, only: [], concerns: [:autocompletable]
   resources :characters, only: [], concerns: [:autocompletable]
