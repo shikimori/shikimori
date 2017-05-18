@@ -126,10 +126,10 @@ en:
   titles/anime_keywords:
     type:
       tv: anime TV series
-      novel: visual novels
       movie: anime movie
       anime: anime
       manga: manga
+      ranobe: light novel
     other: list catalogue catalog base
 
   titles/generate_season:

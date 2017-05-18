@@ -23,7 +23,10 @@ class Menus::CollectionMenu < ViewObjectBase
 
   def kinds
     return [] if klass == Ranobe
-    klass.kind.values.map { |kind| Titles::KindTitle.new kind, klass }
+
+    (klass.kind - [Ranobe::KIND]).values.map do |kind|
+      Titles::KindTitle.new kind, klass
+    end
   end
 
   def statuses

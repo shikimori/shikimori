@@ -34,14 +34,9 @@ private
 
   def type_keywords
     case type
-      when 'tv'
-        i18n_t 'type.tv'
-      when 'novel'
-        i18n_t 'type.novel'
-      when 'movie'
-        i18n_t 'type.movie'
-      else
-        klass == Anime ? i18n_t('type.anime') : i18n_t('type.manga')
+      when 'tv' then i18n_t 'type.tv'
+      when 'movie' then i18n_t 'type.movie'
+      else i18n_t("type.#{klass.name.downcase}")
     end
   end
 

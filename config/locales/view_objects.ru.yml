@@ -126,10 +126,10 @@ ru:
   titles/anime_keywords:
     type:
       tv: аниме сериалы
-      novel: визуальные новеллы
       movie: полнометражные аниме
       anime: аниме анимэ
       manga: манга
+      ranobe: ранобэ
     other: список каталог база
 
   titles/generate_season:
