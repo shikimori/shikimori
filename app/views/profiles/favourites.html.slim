@@ -1,49 +1,43 @@
 = render layout: 'page' do
-  = cache @resource.object.favourites do
+  // remember that cache digest does not work properly inside render layoyt: ...
+  // don't forget to change cache version here
+  = cache [@resource.object.favourites, :v1] do
     - if @resource.fav_animes.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.anime'
-        .cc.to-process data-dynamic="cutted_covers"
-          = render @resource.fav_animes.decorate
+      .subheadline.m10 = t '.favourite.anime'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
+        = render @resource.fav_animes.decorate
 
     - if @resource.fav_mangas.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.manga'
-        .cc.to-process data-dynamic="cutted_covers"
-          = render @resource.fav_mangas.decorate
+      .subheadline.m10 = t '.favourite.manga'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
+        = render @resource.fav_mangas.decorate
 
     - if @resource.fav_ranobe.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.ranobe'
-        .cc.to-process data-dynamic="cutted_covers"
-          = render @resource.fav_ranobe.decorate
+      .subheadline.m10 = t '.favourite.ranobe'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
+        = render @resource.fav_ranobe.decorate
 
     - if @resource.fav_characters.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.character'
-        .cc.to-process data-dynamic="cutted_covers" data-ratio_type="character"
-          = render @resource.fav_characters.decorate
+      .subheadline.m10 = t '.favourite.character'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="character"
+        = render @resource.fav_characters.decorate
 
     - if @resource.fav_seyu.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.seyu'
-        .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @resource.fav_seyu.decorate
+      .subheadline.m10 = t '.favourite.seyu'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render @resource.fav_seyu.decorate
 
     - if @resource.fav_producers.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.producer'
-        .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @resource.fav_producers.decorate
+      .subheadline.m10 = t '.favourite.producer'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render @resource.fav_producers.decorate
 
     - if @resource.fav_mangakas.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.mangaka'
-        .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @resource.fav_mangakas.decorate
+      .subheadline.m10 = t '.favourite.mangaka'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render @resource.fav_mangakas.decorate
 
     - if @resource.fav_persons.any?
-      .block.m0
-        .subheadline.m10 = t '.favourite.person'
-        .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
-          = render @resource.fav_persons.decorate
+      .subheadline.m10 = t '.favourite.person'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+        = render @resource.fav_persons.decorate
