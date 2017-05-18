@@ -63,12 +63,7 @@ ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
     $trigger = @getTrigger()
     $image = $trigger.find('.image-decor img')
 
-    if !$image.exists() || $image.width() < 80
-      # $trigger.data
-        # 'insert-tooltip-after': false
-        # relative: false
-
-    else
+    if $image.exists() && $image.width() >= 110
       minified_tooltip_url =
         URI($trigger.data('tooltip_url')).search(minified: '1').toString()
 
@@ -78,6 +73,11 @@ ANIME_TOOLTIP_OPTIONS = Object.add TOOLTIP_OPTIONS,
         # relative: true
 
       @getTip().addClass 'minified'
+
+    else
+      # $trigger.data
+        # 'insert-tooltip-after': false
+        # relative: false
 
 module.exports =
   COMMON_TOOLTIP: TOOLTIP_OPTIONS
