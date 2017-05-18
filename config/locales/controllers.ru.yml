@@ -92,8 +92,10 @@ ru:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Персонализированные рекомендации
-    what_anime_to_watch: Какие аниме посмотреть
-    what_manga_to_read: Какую мангу почитать
+    page_title:
+      anime: Какие аниме посмотреть
+      manga: Какую мангу почитать
+      ranobe: Какие ранобэ почитать
 
   collections_controller:
     new_collection: Новая коллекция

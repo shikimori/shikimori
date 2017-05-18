@@ -92,8 +92,10 @@ en:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
-    what_anime_to_watch: What anime I should watch next
-    what_manga_to_read: What manga I should read next
+    page_title:
+      anime: What anime I should watch next
+      manga: What manga I should read next
+      ranobe: What light novel I should read next
 
   collections_controller:
     new_collection: New collection

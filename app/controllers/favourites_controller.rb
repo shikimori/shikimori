@@ -22,9 +22,9 @@ class FavouritesController < ShikimoriController
         status: :unprocessable_entity
       )
     else
+      linked = params[:linked_type].constantize.find(params[:linked_id])
       Favourite.create!(
-        linked_type: params[:linked_type],
-        linked_id: params[:linked_id],
+        linked: linked,
         user_id: current_user.id,
         kind: params[:kind] || ''
       )

@@ -68,7 +68,7 @@ class RecommendationsController < AnimesCollectionController
   end
 
   def favourites
-    page_title @view.klass == Anime ? i18n_t('what_anime_to_watch') : i18n_t('what_manga_to_read')
+    page_title i18n_t("page_title.#{@view.klass.name.downcase}")
     cache_key = [:favourites_recommendations, @view.klass, current_user, current_user.try(:sex)]
 
     all_entries = Rails.cache.fetch cache_key, expires_in: 1.week do
@@ -81,6 +81,8 @@ class RecommendationsController < AnimesCollectionController
       .each_with_object({}) do |(kind, group), memo|
         limit = if @view.klass == Anime
           kind == :tv ? 18 : (kind == :movie ? 12 : 8)
+        elsif @view.klass == Ranobe
+          30
         else
           kind == :manga ? 18 : (kind == :one_shot || kind == :doujin ? 8 : 12)
         end

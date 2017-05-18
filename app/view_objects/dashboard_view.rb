@@ -41,7 +41,9 @@ class DashboardView < ViewObjectBase
   end
 
   def manga_kinds
-    Manga.kind.values.map { |kind| Titles::KindTitle.new kind, Manga }
+    (Manga.kind.values - [Ranobe::KIND]).map do |kind|
+      Titles::KindTitle.new kind, Manga
+    end
   end
 
   def db_others klass

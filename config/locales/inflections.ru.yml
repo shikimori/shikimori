@@ -180,6 +180,12 @@ ru:
           few: лучших манг
           many: лучших манг
           other: лучших манг
+      best_ranobe:
+        genitive:
+          one: лучшего ранобэ
+          few: лучших ранобэ
+          many: лучших ранобэ
+          other: лучших ранобэ
       club:
         subjective:
           one: клуб

@@ -9,7 +9,7 @@
         title="#{t '.title'}"
       ] = t '.title'
 
-    - dashboard_view.manga_kinds[0..-2].each do |season|
+    - dashboard_view.manga_kinds.each do |season|
       a.b-link_button[
         class="#{season.text}"
         href="#{mangas_collection_url season.url_params}"
@@ -26,13 +26,6 @@
     a.b-link_button.personalized[
       href="#{recommendations_url klass: 'manga'}"
     ] = t '.recommended.personalized'
-
-    - dashboard_view.manga_kinds[-1..-1].each do |season|
-      a.b-link_button[
-        class="#{season.text}"
-        href="#{mangas_collection_url season.url_params}"
-        title="#{season.title}"
-      ] = season.title
 
 .others
   .note #{t '.others'}:
