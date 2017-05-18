@@ -10,7 +10,7 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def genres
-    "Repos::#{klass.name}Genres".constantize.instance.all
+    "Repos::#{klass.base_class.name}Genres".constantize.instance.all
   end
 
   def studios
@@ -22,6 +22,7 @@ class Menus::CollectionMenu < ViewObjectBase
   end
 
   def kinds
+    return [] if klass == Ranobe
     klass.kind.values.map { |kind| Titles::KindTitle.new kind, klass }
   end
 
@@ -58,5 +59,13 @@ class Menus::CollectionMenu < ViewObjectBase
   def show_sorting?
     h.params[:controller] != 'recommendations' &&
       h.params[:search].blank? && h.params[:q].blank?
+  end
+
+  def anime?
+    klass == Anime
+  end
+
+  def ranobe?
+    klass == Ranobe
   end
 end

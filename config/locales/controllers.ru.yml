@@ -92,8 +92,10 @@ ru:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Персонализированные рекомендации
-    what_anime_to_watch: Какие аниме посмотреть
-    what_manga_to_read: Какую мангу почитать
+    page_title:
+      anime: Какие аниме посмотреть
+      manga: Какую мангу почитать
+      ranobe: Какие ранобэ почитать
 
   collections_controller:
     new_collection: Новая коллекция
@@ -106,6 +108,7 @@ ru:
     club_members: Участники клуба
     club_anime: Аниме клуба
     club_manga: Манга клуба
+    club_ranobe: Ранобэ клуба
     club_characters: Персонажи клуба
     club_images: Картинки клуба
 
@@ -221,15 +224,21 @@ ru:
       manga: Отзывы о манге
     breadcrumbs:
       anime:
-        list: Список аниме
+        list: Аниме
         tv: Сериалы
         movie: Полнометражные
       manga:
-        list: Список манги
+        list: Манга
+      ranobe:
+        list: Ранобэ
 
   mangas_controller:
     <<: *animes_controller
     entry_edit: Редактирование манги
+
+  ranobe_controller:
+    <<: *animes_controller
+    entry_edit: Редактирование ранобэ
 
   characters_controller:
     <<: *animes_controller
@@ -252,6 +261,16 @@ ru:
   screenshots_controller: &screenshots_controller
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!
     screenshot_deleted: Скриншот удалён
+
+  favourites_controller:
+    cant_add:
+      character: Лишь %{limit} персонажей могут быть добавлены в избранное
+      anime: Лишь %{limit} аниме могут быть добавлены в избранное
+      manga: Лишь %{limit} наименований манги могут быть добавлены в избранное
+      ranobe: Лишь %{limit} ранобэ могут быть добавлены в избранное
+      person: Лишь %{limit} человек могут быть добавлены в избранное
+    added: Добавлено в избранное
+    removed: Удалено из избранного
 
   videos_controller:
     pending_version: Запрос принят и в ближайшее время будет рассмотрен модератором. Спасибо!

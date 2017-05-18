@@ -92,8 +92,10 @@ en:
   recommendations_controller:
     <<: *animes_collection_controller
     personalized_recommendations: Personalized recommendations
-    what_anime_to_watch: What anime I should watch next
-    what_manga_to_read: What manga I should read next
+    page_title:
+      anime: What anime I should watch next
+      manga: What manga I should read next
+      ranobe: What light novel I should read next
 
   collections_controller:
     new_collection: New collection
@@ -104,8 +106,9 @@ en:
     new_club: New club
     club_created: Club created
     club_members: Club members
-    club_anime: Club anime
-    club_manga: Club manga
+    club_anime: Club animes
+    club_manga: Club mangas
+    club_ranobe: Club light novels
     club_characters: Club characters
     club_images: Club images
 
@@ -221,15 +224,21 @@ en:
       manga: Manga reviews
     breadcrumbs:
       anime:
-        list: Anime list
+        list: Anime
         tv: TV series
         movie: Anime movies
       manga:
-        list: Manga list
+        list: Manga
+      ranobe:
+        list: Light Novel
 
   mangas_controller:
     <<: *animes_controller
     entry_edit: Edit manga
+
+  ranobe_controller:
+    <<: *animes_controller
+    entry_edit: Edit light novel
 
   characters_controller:
     <<: *animes_controller
@@ -252,6 +261,16 @@ en:
   screenshots_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!
     screenshot_deleted: Screenshot deleted
+
+  favourites_controller:
+    cant_add:
+      character: Only %{limit} characters can be added to favorite
+      anime: Only %{limit} animes can be added to favorite
+      manga: Only %{limit} mangas can be added to favorite
+      ranobe: Only %{limit} light novels can be added to favorite
+      person: Only %{limit} people can be added to favorite
+    added: Added to favorite
+    removed: Removed from favorite
 
   videos_controller:
     pending_version: Request have been accepted successfully and will be moderated soon. Thanks!

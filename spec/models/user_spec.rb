@@ -16,6 +16,7 @@ describe User do
     it { is_expected.to have_many(:favourites).dependent(:destroy) }
     it { is_expected.to have_many :fav_animes }
     it { is_expected.to have_many :fav_mangas }
+    it { is_expected.to have_many :fav_ranobe }
     it { is_expected.to have_many :fav_people }
     it { is_expected.to have_many :fav_seyu }
     it { is_expected.to have_many :fav_producers }

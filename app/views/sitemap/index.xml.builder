@@ -42,6 +42,13 @@ cache [:sitemap, ru_host?], expires_in: 1.day do
         xml.tag! 'priority', '0.70'
       end
     end
+    @ranobe_forums.each do |title,url|
+      xml.url do
+        xml.loc url
+        xml.tag! 'changefreq', 'weekly'
+        xml.tag! 'priority', '0.70'
+      end
+    end
 
     @animes.each do |entry|
       xml.url do

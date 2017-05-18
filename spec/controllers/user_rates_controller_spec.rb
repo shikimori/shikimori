@@ -12,7 +12,10 @@ describe UserRatesController do
     end
 
     context 'has no access to list' do
-      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      let(:user) do
+        create :user,
+          preferences: create(:user_preferences, list_privacy: :owner)
+      end
       before { sign_out user }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
@@ -25,7 +28,14 @@ describe UserRatesController do
   end
 
   describe '#export' do
-    let(:make_request) { get :export, params: { profile_id: user.to_param, list_type: 'anime' }, format: 'xml' }
+    let(:make_request) do
+      get :export,
+        params: {
+          profile_id: user.to_param,
+          list_type: 'anime'
+        },
+        format: 'xml'
+    end
     let!(:user_rate) { create :user_rate, user: user, target: create(:anime) }
 
     context 'has access' do
@@ -37,7 +47,10 @@ describe UserRatesController do
     end
 
     context 'has no access' do
-      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      let(:user) do
+        create :user,
+          preferences: create(:user_preferences, list_privacy: :owner)
+      end
       before { sign_out user }
       it { expect { make_request }.to raise_error CanCan::AccessDenied }
     end
@@ -49,7 +62,10 @@ describe UserRatesController do
     let!(:anime_2) { create :anime, name: 'Zombie-Loan Specials' }
 
     context 'has no access' do
-      let(:user) { create :user, preferences: create(:user_preferences, list_privacy: :owner) }
+      let(:user) do
+        create :user,
+          preferences: create(:user_preferences, list_privacy: :owner)
+      end
       before { sign_out user }
       it do
         expect(proc do

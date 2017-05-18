@@ -24,7 +24,7 @@ ru:
           summer: Летний сезон %{year} года
           fall: Осенний сезон %{year} года
         year: Аниме %{year} года
-    manga:
+    manga: &manga_titles
       <<: *anime_titles
       full:
         season:
@@ -33,6 +33,8 @@ ru:
           summer: Летний сезон %{year} года
           fall: Осенний сезон %{year} года
         year: Манга %{year} года
+    ranobe:
+      <<: *manga_titles
 
   titles/status_title:
     anime:

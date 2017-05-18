@@ -1,42 +1,43 @@
 = render layout: 'page' do
-  - if @resource.fav_animes.any?
-    .block.m0
-      .subheadline.m10 Аниме
-      .cc.to-process data-dynamic="cutted_covers"
+  // remember that cache digest does not work properly inside render layoyt: ...
+  // don't forget to change cache version here
+  = cache [@resource.object.favourites, :v1] do
+    - if @resource.fav_animes.any?
+      .subheadline.m10 = t '.favourite.anime'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
         = render @resource.fav_animes.decorate
 
-  - if @resource.fav_mangas.any?
-    .block.m0
-      .subheadline.m10 Манга
-      .cc.to-process data-dynamic="cutted_covers"
+    - if @resource.fav_mangas.any?
+      .subheadline.m10 = t '.favourite.manga'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
         = render @resource.fav_mangas.decorate
 
-  - if @resource.fav_characters.any?
-    .block.m0
-      .subheadline.m10 Герои
-      .cc.to-process data-dynamic="cutted_covers" data-ratio_type="character"
+    - if @resource.fav_ranobe.any?
+      .subheadline.m10 = t '.favourite.ranobe'
+      .cc-favourites.to-process data-dynamic="cutted_covers"
+        = render @resource.fav_ranobe.decorate
+
+    - if @resource.fav_characters.any?
+      .subheadline.m10 = t '.favourite.character'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="character"
         = render @resource.fav_characters.decorate
 
-  - if @resource.fav_seyu.any?
-    .block.m0
-      .subheadline.m10 Сэйю
-      .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+    - if @resource.fav_seyu.any?
+      .subheadline.m10 = t '.favourite.seyu'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.fav_seyu.decorate
 
-  - if @resource.fav_producers.any?
-    .block.m0
-      .subheadline.m10 Режиссёры
-      .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+    - if @resource.fav_producers.any?
+      .subheadline.m10 = t '.favourite.producer'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.fav_producers.decorate
 
-  - if @resource.fav_mangakas.any?
-    .block.m0
-      .subheadline.m10 Мангаки
-      .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+    - if @resource.fav_mangakas.any?
+      .subheadline.m10 = t '.favourite.mangaka'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.fav_mangakas.decorate
 
-  - if @resource.fav_persons.any?
-    .block.m0
-      .subheadline.m10 Прочие люди
-      .cc.to-process data-dynamic="cutted_covers" data-ratio_type="person"
+    - if @resource.fav_persons.any?
+      .subheadline.m10 = t '.favourite.person'
+      .cc-favourites.to-process data-dynamic="cutted_covers" data-ratio_type="person"
         = render @resource.fav_persons.decorate

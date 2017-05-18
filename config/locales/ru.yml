@@ -3,17 +3,18 @@ ru:
     models:
       anime: Аниме
       character: Персонаж
+      club: Клуб
+      collection: Коллекция
       comment: Комментарий
       contest: Опрос
+      forum: Раздел
       genre: Жанр
       manga: Манга
-      forum: Раздел
-      user: Пользователь
       person: Человек
-      club: Клуб
+      ranobe: Ранобэ
       topic: Топик
       topics/news_topic: Новостной топик
-      collection: Коллекция
+      user: Пользователь
 
     attributes:
       anime: &anime_attributes
@@ -40,10 +41,12 @@ ru:
         tags: Тег имиджборд
         torrents_name: Название на торрентах
         videos: Видео
-      manga:
+      manga: &manga_attributes
         <<: *anime_attributes
         volumes: Тома
         chapters: Главы
+      ranobe:
+        <<: &manga_attributes
       character: &character_attributes
         cosplay: Косплей
         description: Описание
@@ -122,13 +125,15 @@ ru:
             completed: Просмотрено
             on_hold: Отложено
             dropped: Брошено
-          manga:
+          manga: &manga_statuses
             planned: Запланировано
             watching: Читаю
             rewatching: Перечитываю
             completed: Прочитано
             on_hold: Отложено
             dropped: Брошено
+          ranobe:
+            <<: *manga_statuses
       review:
         text: Текст
         storyline: Сюжет
@@ -349,11 +354,11 @@ ru:
           r: R - Лицам до 17 лет обязательно присутствие взрослого
           r_plus: R+ - Лицам до 17 лет просмотр запрещен
           rx: Rx - Хентай
-    manga:
+    manga: &manga_enumerize
       status:
         anons: Анонс
         ongoing: Выходит
-        released: Вышло
+        released: Издано
       kind:
         doujin: Додзинси
         manga: Манга
@@ -368,6 +373,8 @@ ru:
           manhwa: Манхва
           novel: Ранобэ
           one_shot: Ваншот
+    ranobe:
+      <<: *manga_enumerize
     genre:
       kind:
         anime: Аниме
@@ -414,6 +421,7 @@ ru:
       kind:
         anime: Аниме
         manga: Манга
+        ranobe: Ранобэ
         character: Персонажи
         person: Люди
       state:

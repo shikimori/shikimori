@@ -257,6 +257,11 @@ describe Comment do
         let(:commentable) { build :manga_topic }
         it { expect(comment).to be_allowed_summary }
       end
+
+      context 'Topics::EntryTopics::RanobeTopic commentable' do
+        let(:commentable) { build :ranobe_topic }
+        it { expect(comment).to be_allowed_summary }
+      end
     end
 
     describe '#mark_offtopic' do

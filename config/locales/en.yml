@@ -3,17 +3,18 @@ en:
     models:
       anime: Anime
       character: Character
+      club: Club
+      collection: Collection
       comment: Comment
       contest: Contest
+      forum: Forum
       genre: Genre
       manga: Manga
-      forum: Forum
-      user: User
       person: Person
-      club: Club
+      ranobe: Light Novel
       topic: Topic
       topics/news_topic: News Topic
-      collection: Collection
+      user: User
 
     attributes:
       anime: &anime_attributes
@@ -40,10 +41,12 @@ en:
         tags: Imageboards tag
         torrents_name: Torrents name
         videos: Videos
-      manga:
+      manga: &manga_attributes
         <<: *anime_attributes
         volumes: Volumes
         chapters: Chapters
+      ranobe:
+        <<: &manga_attributes
       character: &character_attributes
         cosplay: Cosplay
         description: Description
@@ -64,7 +67,8 @@ en:
       message:
         body: Text
       contest:
-        title: Title
+        title_ru: Title (in russian)
+        title_en: Title
         description: Synopsis
         matches_per_round: Matches per round
         match_duration: Match duration
@@ -121,13 +125,15 @@ en:
             completed: Completed
             on_hold: On Hold
             dropped: Dropped
-          manga:
+          manga: &manga_statuses
             planned: Planned to Read
             watching: Reading
             rewatching: Rereading
             completed: Completed
             on_hold: On Hold
             dropped: Dropped
+          ranobe:
+            <<: *manga_statuses
       review:
         text: Text
         storyline: Story
@@ -348,25 +354,27 @@ en:
           r: R - 17+ recommended (violence & profanity)
           r_plus: R+ - Mild Nudity (may also contain violence & profanity)
           rx: Rx - Hentai (extreme sexual content/nudity)
-    manga:
+    manga: &manga_enumerize
       status:
         anons: Planned
         ongoing: Publishing
-        released: Released
+        released: Published
       kind:
         doujin: Doujin
         manga: Manga
         manhua: Manhua
         manhwa: Manhwa
-        novel: Novel
+        novel: Light Novel
         one_shot: One Shot
         short:
           doujin: Doujin
           manga: Manga
           manhua: Manhua
           manhwa: Manhwa
-          novel: Novel
+          novel: Light Novel
           one_shot: One Shot
+    ranobe:
+      <<: *manga_enumerize
     genre:
       kind:
         anime: Anime
@@ -413,6 +421,7 @@ en:
       kind:
         anime: Anime
         manga: Manga
+        ranobe: Light Novels
         character: Characters
         person: People
       state:

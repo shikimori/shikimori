@@ -86,7 +86,7 @@ describe Titles::CollectionTitle do
         context 'novel' do
           let(:klass) { Manga }
           let(:type) { 'novel' }
-          it { is_expected.to eq 'Вышедшие новеллы' }
+          it { is_expected.to eq 'Вышедшие ранобэ' }
         end
       end
     end

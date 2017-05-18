@@ -30,8 +30,11 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  # do not move these autocompletable concerns into resources definition.
+  # they will confict with resource#show routes
   resources :animes, only: [], concerns: [:autocompletable]
   resources :mangas, only: [], concerns: [:autocompletable]
+  resources :ranobe, only: [], concerns: [:autocompletable]
   resources :characters, only: [], concerns: [:autocompletable]
   resources :people, only: [], concerns: [:autocompletable]
   resources :seyu, only: [], concerns: [:autocompletable]
@@ -219,6 +222,7 @@ Rails.application.routes.draw do
           get :members
           get :animes
           get :mangas
+          get :ranobe
           get :characters
           get :images
 
@@ -327,10 +331,6 @@ Rails.application.routes.draw do
 
     get "animes#{ani_manga_format}" => "animes_collection#index", klass: 'anime',
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
-
-    resources :animes, only: [] do
-      get 'tooltip(/:minified)' => :tooltip, as: :anime_tooltip, minified: /minified/
-    end
 
     scope '', module: 'anime_online' do
       resources :anime_video_authors, only: [], concerns: [:autocompletable]
@@ -453,6 +453,7 @@ Rails.application.routes.draw do
         get 'members(/page/:page)' => :members, as: :members
         get :animes
         get :mangas
+        get :ranobe
         get :characters
         get :images
 
@@ -588,9 +589,12 @@ Rails.application.routes.draw do
     # /seo redirects
 
     # аниме и манга
-    ['animes', 'mangas'].each do |kind|
-      get "#{kind}#{ani_manga_format}" => 'animes_collection#index', as: kind,
-        klass: kind.singularize, constraints: { page: /\d+/, studio: /[^\/]+/ }
+    ['animes', 'mangas', 'ranobe'].each do |kind|
+      get "#{kind}#{ani_manga_format}" => 'animes_collection#index',
+        as: "#{kind}_collection",
+        klass: kind.singularize,
+        constraints: { page: /\d+/, studio: /[^\/]+/ }
+
       get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
         as: "menu_#{kind}", klass: kind.singularize
 
@@ -648,12 +652,14 @@ Rails.application.routes.draw do
       resources :videos, only: [:create, :destroy]
     end
 
-    resources :mangas, only: [:edit, :update] do
-      concerns :db_entry, fields: Regexp.new(%w{
-        name russian description_ru description_en image
-        kind rating volumes chapters
-        tags aired_on released_on status genres
-      }.join('|'))
+    [:mangas, :ranobe].each do |type|
+      resources type, only: [:edit, :update] do
+        concerns :db_entry, fields: Regexp.new(%w{
+          name russian description_ru description_en image
+          kind rating volumes chapters
+          tags aired_on released_on status genres
+        }.join('|'))
+      end
     end
 
     resources :characters, only: [:show, :edit, :update] do
@@ -728,13 +734,32 @@ Rails.application.routes.draw do
     post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
     post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
 
-    get 'kakie-anime-postmotret' => 'recommendations#favourites', as: :recommendations_favourites_anime, action: :favourites, klass: Anime.name.downcase
-    get 'kakuyu-mangu-pochitat' => 'recommendations#favourites', as: :recommendations_favourites_manga, action: :favourites, klass: Manga.name.downcase
+    get 'kakie-anime-postmotret' => 'recommendations#favourites',
+      as: :recommendations_favourites_anime,
+      action: :favourites,
+      klass: Anime.name.downcase
+
+    get 'kakuyu-mangu-pochitat' => 'recommendations#favourites',
+      as: :recommendations_favourites_manga,
+      action: :favourites,
+      klass: Manga.name.downcase
+
+    get 'kakie-ranobe-pochitat' => 'recommendations#favourites',
+      as: :recommendations_favourites_ranobe,
+      action: :favourites,
+      klass: Ranobe.name.downcase
+
     # recommendations
     if Rails.env.development?
-      get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test', defaults: { users: 10, threshold: 0 }
+      get "recommendations/test(/:users(/:threshold))(/user/:user)" => 'recommendations#test',
+        defaults: { users: 10, threshold: 0 }
     end
-    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index', as: :recommendations, klass: /anime|manga/, metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/, votes: /\d+/
+
+    get "recommendations/:klass(/:metric(/:threshold))(/user/:user)/#{ani_manga_format}" => 'recommendations#index',
+      as: :recommendations,
+      klass: /anime|manga|ranobe/,
+      metric: /euclid|euclid_z|pearson|pearson_mean|pearson_z|svd|svd_z|svd_mean/,
+      votes: /\d+/
     get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
     get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
     resources :recommendation_ignores, only: [:create] do

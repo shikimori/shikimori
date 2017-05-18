@@ -13,6 +13,7 @@ ru:
       news_feed: Лента новостей
       # other: Прочее
       reviews: Рецензии
+      ranobe: Ранобэ
 
     animes:
       title: Аниме
@@ -27,6 +28,13 @@ ru:
     mangas:
       title: Манга
       all_mangas: вся манга
+      recommended:
+        <<: *anime_recommended
+      others: Прочее
+
+    ranobe:
+      title: Ранобэ
+      all_ranobe: все ранобэ
       recommended:
         <<: *anime_recommended
       others: Прочее

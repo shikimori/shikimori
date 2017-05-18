@@ -37,6 +37,11 @@ class Club < ApplicationRecord
     source: :linked,
     source_type: Manga.name
 
+  has_many :ranobe, -> { order :ranked },
+    through: :links,
+    source: :linked,
+    source_type: Ranobe.name
+
   has_many :characters, -> { order :name },
     through: :links,
     source: :linked,

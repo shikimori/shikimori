@@ -1,7 +1,7 @@
 - entry.real_studios.uniq(&:name).each do |studio|
   - if studio.image.exists? && entry.real_studios.uniq(&:name).size == 1
     a[
-      href="#{animes_url studio: studio}"
+      href="#{entry.collection_url studio: studio}"
       title="#{{t '.studio_animes', studio_name: studio.name}}"
     ]
       img.studio-logo[
@@ -10,6 +10,6 @@
       ]
   - else
     a.b-tag[
-      href="#{animes_url studio: studio}"
+      href="#{entry.collection_url studio: studio}"
       title="#{{t ".studio_animes", studio_name: studio.name}}"
     ] == "#{studio.name}\n"

@@ -6,8 +6,15 @@ FactoryGirl.define do
     description_ru ''
     description_en ''
     score 1
-    mal_scores [1,1,1,1,1,1,1,1,1,1]
     kind :manga
+    type { Manga.name }
+
+    factory :ranobe, class: 'Ranobe' do
+      sequence(:name) { |n| "ranobe_#{n}" }
+      sequence(:russian) { |n| "ранобэ_#{n}" }
+      type Ranobe.name
+      kind Ranobe::KIND
+    end
 
     after :build do |model|
       stub_method model, :generate_name_matches

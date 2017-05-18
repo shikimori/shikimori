@@ -41,6 +41,7 @@ describe Manga do
   end
 
   describe 'enumerize' do
+    it { is_expected.to enumerize(:type).in :Manga, :Ranobe }
     it { is_expected.to enumerize(:kind).in :doujin, :manga, :manhua, :manhwa, :novel, :one_shot }
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
   end
@@ -66,6 +67,27 @@ describe Manga do
 
       it { expect(Manga.read_manga_adult).to have(1).item }
       it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
+    end
+  end
+
+  describe 'callbacks' do
+    describe '#set_type' do
+      let(:manga) { create :manga, kind: kind }
+
+      context 'not set' do
+        let(:kind) { nil }
+        it { expect(manga.type).to eq Manga.name }
+      end
+
+      context 'not novel' do
+        let(:kind) { %i[manga manhwa manhua one_shot doujin].sample }
+        it { expect(manga.type).to eq Manga.name }
+      end
+
+      context 'novel' do
+        let(:kind) { :novel }
+        it { expect(manga.type).to eq Ranobe.name }
+      end
     end
   end
 

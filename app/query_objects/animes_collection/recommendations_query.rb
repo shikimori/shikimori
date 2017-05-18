@@ -9,7 +9,11 @@ private
   end
 
   def query
-    super.sort_by { |entry| params[AniMangaQuery::IDS_KEY].index entry.id }
+    return [] if params[AniMangaQuery::IDS_KEY].blank?
+
+    @query ||= super.sort_by do |entry|
+      params[AniMangaQuery::IDS_KEY].index entry.id
+    end
   end
 
   def params

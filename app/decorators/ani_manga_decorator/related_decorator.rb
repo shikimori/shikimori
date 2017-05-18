@@ -11,7 +11,7 @@ class AniMangaDecorator::RelatedDecorator < BaseDecorator
   # похожие аниме
   def similar
     object
-      .send("similar_#{object.class.name.downcase.pluralize}")
+      .send("similar_#{object.class.base_class.name.downcase.pluralize}")
       .map(&:decorate)
   end
 

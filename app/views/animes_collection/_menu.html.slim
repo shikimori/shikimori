@@ -10,42 +10,44 @@
         href="#{send :"recommendations_favourites_#{menu.klass.name.downcase}_url"}"
       ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
 
-      - if menu.klass == Anime
+      - if menu.anime?
         li: a.b-link[
           href="#{RecommendationsController::TOPIC_URL}"
         ] = t 'dashboards.animes.recommended.by_community'
 
-      li: a.b-link[
-        href="#{recommendations_url klass: menu.klass.name.downcase}"
-      ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
+      - unless menu.ranobe?
+        li: a.b-link[
+          href="#{recommendations_url klass: menu.klass.name.downcase}"
+        ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
 
   .block
-    .subheadline = Anime.human_attribute_name :status
+    .subheadline = menu.klass.human_attribute_name :status
     ul.b-block_list.statuses.anime-params
       - menu.statuses.each do |status|
         li class="status-#{status.text}"
           input type="checkbox" autocomplete="off"
           = status.catalog_title
 
-  .block
-    .subheadline = Anime.human_attribute_name(:kind)
-    ul.b-block_list.types.anime-params
-      - menu.kinds.each do |kind|
-        li class="type-#{kind.text}"
-          input type='checkbox' autocomplete='off'
-          = kind.title
+  - if menu.kinds.any?
+    .block
+      .subheadline = menu.klass.human_attribute_name(:kind)
+      ul.b-block_list.types.anime-params
+        - menu.kinds.each do |kind|
+          li class="type-#{kind.text}"
+            input type='checkbox' autocomplete='off'
+            = kind.title
 
-        - if kind.text == 'tv'
-          - %w(13 24 48).each do |episodes_kind|
-            li.sub class="type-tv_#{episodes_kind}"
-              input type='checkbox' autocomplete='off'
-                = t ".anime.kind.tv_#{episodes_kind}.name"
-                span.b-question.b-tooltipped.mobile.unprocessed[
-                  title="#{t ".anime.kind.tv_#{episodes_kind}.tooltip"}"
-                  data-direction="top"
-                ]
+          - if kind.text == 'tv'
+            - %w(13 24 48).each do |episodes_kind|
+              li.sub class="type-tv_#{episodes_kind}"
+                input type='checkbox' autocomplete='off'
+                  = t ".anime.kind.tv_#{episodes_kind}.name"
+                  span.b-question.b-tooltipped.mobile.unprocessed[
+                    title="#{t ".anime.kind.tv_#{episodes_kind}.tooltip"}"
+                    data-direction="top"
+                  ]
 
   - if show_social?
     .addthis_toolbox.addthis_default_style

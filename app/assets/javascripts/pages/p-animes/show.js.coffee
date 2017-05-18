@@ -1,6 +1,6 @@
 FavouriteStar = require 'views/application/favourite_star'
 
-page_load 'animes_show', 'mangas_show', ->
+page_load 'animes_show', 'mangas_show', 'ranobe_show', ->
   $('.b-notice').tipsy gravity: 's'
   $('.c-screenshot').magnific_rel_gallery()
 

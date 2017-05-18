@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170514143202) do
+ActiveRecord::Schema.define(version: 20170518204117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,9 +115,6 @@ ActiveRecord::Schema.define(version: 20170514143202) do
     t.integer  "world_art_id",                       default: 0
     t.text     "world_art_synonyms"
     t.integer  "ani_db_id",                          default: 0
-    t.string   "mal_scores",             limit: 255
-    t.string   "ani_db_scores",          limit: 255
-    t.string   "world_art_scores",       limit: 255
     t.boolean  "censored",                           default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
@@ -580,7 +577,6 @@ ActiveRecord::Schema.define(version: 20170514143202) do
     t.date     "aired_on"
     t.date     "released_on"
     t.date     "imported_at"
-    t.string   "mal_scores",         limit: 255
     t.integer  "editor_id"
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
@@ -598,6 +594,7 @@ ActiveRecord::Schema.define(version: 20170514143202) do
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"
+    t.string   "type"
     t.index ["kind"], name: "index_mangas_on_kind", using: :btree
     t.index ["name"], name: "index_mangas_on_name", using: :btree
     t.index ["russian"], name: "index_mangas_on_russian", using: :btree

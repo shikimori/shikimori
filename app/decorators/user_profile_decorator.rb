@@ -172,7 +172,7 @@ class UserProfileDecorator < UserDecorator
 
   # добавленное пользователем в избранное
   def favourites
-    (fav_animes + fav_mangas + fav_characters + fav_people)
+    (fav_animes + fav_mangas + fav_ranobe + fav_characters + fav_people)
       .shuffle# .uniq {|fav| [fav.id, fav.class] }
       .take(8)
       .sort_by do |fav|

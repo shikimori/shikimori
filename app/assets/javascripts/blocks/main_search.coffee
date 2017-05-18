@@ -104,6 +104,12 @@ searcheables =
     id: "/mangas/[id]"
     regexp: /.*\/search\/(.*?)\/.*/
 
+  ranobe:
+    autocomplete: "/ranobe/autocomplete/"
+    phrase: "/ranobe/search/[phrase]"
+    id: "/ranobe/[id]"
+    regexp: /^\/ranobe\/(.*?)/
+
   characters:
     autocomplete: "/characters/autocomplete/"
     phrase: "/characters/search/[phrase]"

@@ -25,7 +25,7 @@
       /.mini-charts
         /.scores
           /.b-options-floated
-            /- if @resource.stats.anime? && @resource.stats.manga?
+            /- if @resource.stats.anime? && @resource.stats.kinda_manga?
               /a.link class="#{@kind == :anime ? 'selected' : ''}" href="#{profile_url @resource, :anime}" Аниме
               /a.link class="#{@kind == :manga ? 'selected' : ''}" href="#{profile_url @resource, :manga}" Манга
           /.subheadline Оценки

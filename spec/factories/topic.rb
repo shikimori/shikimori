@@ -24,6 +24,12 @@ FactoryGirl.define do
       generated true
     end
 
+    factory :ranobe_topic, class: 'Topics::EntryTopics::RanobeTopic' do
+      type 'Topics::EntryTopics::RanobeTopic'
+      forum { seed :animanga_forum }
+      generated true
+    end
+
     factory :character_topic, class: 'Topics::EntryTopics::CharacterTopic' do
       type 'Topics::EntryTopics::CharacterTopic'
       forum { seed :animanga_forum }

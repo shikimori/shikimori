@@ -1,0 +1,31 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori/ranobe/_search
+    body:
+      encoding: UTF-8
+      string: '{"from":0,"size":10,"query":{"function_score":{"query":{"dis_max":{"queries":[{"bool":{"should":[{"match":{"name.original":{"query":"utsuro","boost":6}}},{"match":{"name":{"query":"utsuro","boost":3}}},{"match":{"name.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"russian.original":{"query":"utsuro","boost":6}}},{"match":{"russian":{"query":"utsuro","boost":3}}},{"match":{"russian.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"english.original":{"query":"utsuro","boost":6}}},{"match":{"english":{"query":"utsuro","boost":3}}},{"match":{"english.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"japanese.original":{"query":"utsuro","boost":6}}},{"match":{"japanese":{"query":"utsuro","boost":3}}},{"match":{"japanese.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_0.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_0":{"query":"utsuro","boost":3}}},{"match":{"synonym_0.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_1.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_1":{"query":"utsuro","boost":3}}},{"match":{"synonym_1.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_2.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_2":{"query":"utsuro","boost":3}}},{"match":{"synonym_2.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_3.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_3":{"query":"utsuro","boost":3}}},{"match":{"synonym_3.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_4.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_4":{"query":"utsuro","boost":3}}},{"match":{"synonym_4.ngram":{"query":"utsuro"}}}]}},{"bool":{"should":[{"match":{"synonym_5.original":{"query":"utsuro","boost":6}}},{"match":{"synonym_5":{"query":"utsuro","boost":3}}},{"match":{"synonym_5.ngram":{"query":"utsuro"}}}]}}]}},"field_value_factor":{"field":"weight","modifier":"log","factor":1}}}}'
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        eyJ0b29rIjoxLCJ0aW1lZF9vdXQiOmZhbHNlLCJfc2hhcmRzIjp7InRvdGFsIjo1LCJzdWNjZXNzZnVsIjo1LCJmYWlsZWQiOjB9LCJoaXRzIjp7InRvdGFsIjoxLCJtYXhfc2NvcmUiOjUuNDk3OTM4LCJoaXRzIjpbeyJfaW5kZXgiOiJzaGlraW1vcmkiLCJfdHlwZSI6InJhbm9iZSIsIl9pZCI6IjU1MjE1IiwiX3Njb3JlIjo1LjQ5NzkzOCwiX3NvdXJjZSI6eyJuYW1lIjoidXRzdXJvIG5vIGhha28gdG8gemVybyBubyBtYXJpYSIsInJ1c3NpYW4iOiLQv9GD0YHRgtCw0Y8g0YjQutCw0YLRg9C70LrQsCDQuCDQvdGD0LvQtdCy0LDRjyDQvNCw0YDQuNGPIiwiZW5nbGlzaCI6InRoZSBlbXB0eSBib3ggYW5kIHRoZSB6ZXJvdGggbWFyaWEiLCJqYXBhbmVzZSI6IuepuuOCjeOBrueuseOBqOmbtuOBruODnuODquOCoiIsInN5bm9ueW1fMCI6Imhha29tYXJpIiwic3lub255bV8xIjpudWxsLCJzeW5vbnltXzIiOm51bGwsInN5bm9ueW1fMyI6bnVsbCwic3lub255bV80IjpudWxsLCJzeW5vbnltXzUiOm51bGwsIndlaWdodCI6MS45MTZ9fV19fQ==
+    http_version: 
+  recorded_at: Thu, 18 May 2017 19:40:07 GMT
+recorded_with: VCR 3.0.3

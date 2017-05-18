@@ -31,6 +31,13 @@ describe BbCodes::EntriesTag do
         it { expect(html.scan('b-catalog_entry')).to have(1).items }
       end
 
+      context 'ranobe' do
+        let(:ranobe) { create :ranobe }
+        let(:text) { "[ranobe ids=#{ranobe.id}]" }
+
+        it { expect(html.scan('b-catalog_entry')).to have(1).items }
+      end
+
       context 'characters' do
         let(:character) { create :character }
         let(:text) { "[characters ids=#{character.id}]" }

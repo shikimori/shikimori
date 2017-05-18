@@ -29,9 +29,6 @@ class Anime < DbEntry
   serialize :synonyms
   # TODO: remove this fields
   serialize :world_art_synonyms
-  serialize :mal_scores
-  serialize :ani_db_scores
-  serialize :world_art_scores
 
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
@@ -153,10 +150,10 @@ class Anime < DbEntry
     inverse_of: :entry
 
   enumerize :kind,
-    in: %i(tv movie ova ona special music),
+    in: %i[tv movie ova ona special music],
     predicates: { prefix: true }
   enumerize :origin,
-    in: %i(
+    in: %i[
       original
       manga
       web_manga
@@ -173,8 +170,8 @@ class Anime < DbEntry
       picture_book
       other
       unknown
-    )
-  enumerize :status, in: [:anons, :ongoing, :released], predicates: true
+    ]
+  enumerize :status, in: %i[anons ongoing released], predicates: true
   enumerize :rating,
     in: %i(none g pg pg_13 r r_plus rx),
     predicates: { prefix: true }

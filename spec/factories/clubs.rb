@@ -37,6 +37,12 @@ FactoryGirl.define do
       end
     end
 
+    trait :linked_ranobe do
+      after :build do |model|
+        FactoryGirl.create :club_link, :ranobe, club: model
+      end
+    end
+
     trait :linked_character do
       after :build do |model|
         FactoryGirl.create :club_link, :character, club: model

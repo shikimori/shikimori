@@ -154,6 +154,19 @@ describe ClubsController do
     end
   end
 
+  describe '#ranobe' do
+    context 'without_ranobe' do
+      before { get :ranobe, params: { id: club.to_param } }
+      it { expect(response).to redirect_to club_url(club) }
+    end
+
+    context 'with_ranobe' do
+      let(:club) { create :club, :with_topics, :linked_ranobe }
+      before { get :ranobe, params: { id: club.to_param } }
+      it { expect(response).to have_http_status :success }
+    end
+  end
+
   describe '#characters' do
     context 'without_characters' do
       before { get :characters, params: { id: club.to_param } }

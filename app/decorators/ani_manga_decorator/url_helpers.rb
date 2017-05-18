@@ -75,8 +75,8 @@ module AniMangaDecorator::UrlHelpers
     h.send "files_#{klass_lower}_url", object
   end
 
-  def catalog_url *args
-    h.send "#{klass_lower}s_url", *args
+  def collection_url *args
+    h.send "#{klass_lower.pluralize}_collection_url", *args
   end
 
   # адрес косплея персонажа

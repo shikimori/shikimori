@@ -16,6 +16,8 @@ class Menus::TopMenu < ViewObjectBase
   end
 
   def manga_kinds
-    Manga.kind.values.map { |kind| Titles::KindTitle.new kind, Manga }
+    (Manga.kind.values - %w[novel]).map do |kind|
+      Titles::KindTitle.new kind, Manga
+    end
   end
 end

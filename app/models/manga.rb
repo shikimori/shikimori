@@ -16,7 +16,6 @@ class Manga < DbEntry
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
   serialize :synonyms
-  serialize :mal_scores
   #serialize :ani_db_scores
   #serialize :world_art_scores
 
@@ -101,10 +100,11 @@ class Manga < DbEntry
     as: :entry,
     inverse_of: :entry
 
+  enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
-    in: [:manga, :manhwa, :manhua, :novel, :one_shot, :doujin],
+    in: %i[manga manhwa manhua novel one_shot doujin],
     predicates: { prefix: true }
-  enumerize :status, in: [:anons, :ongoing, :released], predicates: true
+  enumerize :status, in: %i[anons ongoing released], predicates: true
 
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
@@ -112,6 +112,8 @@ class Manga < DbEntry
   scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
   scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
 
+  before_create :set_type
+  before_save :set_type, if: -> { kind_changed? }
   after_create :generate_name_matches
 
   def name
@@ -140,5 +142,11 @@ class Manga < DbEntry
 
   def duration
     Manga::DURATION
+  end
+
+private
+
+  def set_type
+    self.type = kind_novel? ? Ranobe.name : Manga.name
   end
 end

@@ -4,10 +4,10 @@
 - cache [:ongoings, rand(5)], expires_in: 1.day do
   .block2
     .midheadline.linkheadline
-      a href="#{animes_url status: :ongoing}"
+      a href="#{animes_collection_url status: :ongoing}"
         = t '.currently_airing'
       / a.b-link[
-        / href="#{animes_url}"
+        / href="#{animes_collection_url}"
         / title="#{t '.all_animess'}"
       / ] = t '.mangas'
 
@@ -24,6 +24,7 @@
         / .option = t '.reviews'
         .option.selected = t '.animes'
         .option = t '.mangas'
+        .option = t '.ranobe'
         / .option = t '.other'
 
       .slides
@@ -33,6 +34,10 @@
 
         .slide.mangas.hidden
           = render 'dashboards/mangas',
+            dashboard_view: @dashboard_view
+
+        .slide.ranobe.hidden
+          = render 'dashboards/ranobe',
             dashboard_view: @dashboard_view
 
         / .slide.hidden

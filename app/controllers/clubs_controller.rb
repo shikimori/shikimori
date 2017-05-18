@@ -23,6 +23,7 @@ class ClubsController < ShikimoriController
     :is_censored,
     anime_ids: [],
     manga_ids: [],
+    ranobe_ids: [],
     character_ids: [],
     admin_ids: [],
     banned_user_ids: []
@@ -100,6 +101,12 @@ class ClubsController < ShikimoriController
     noindex
     redirect_to club_url(@resource) if @resource.mangas.none?
     page_title i18n_t('club_manga')
+  end
+
+  def ranobe
+    noindex
+    redirect_to club_url(@resource) if @resource.ranobe.none?
+    page_title i18n_t('club_ranobe')
   end
 
   def characters

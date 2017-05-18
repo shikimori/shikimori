@@ -24,6 +24,7 @@ en:
       links:
         anime_title: Anime title
         manga_title: Manga title
+        ranobe_title: Light Novel title
         character_name: Character name
       members:
         remove_users: Remove users
@@ -52,4 +53,4 @@ en:
         delete: delete
         confirm: Are you sure?
       menu_pages:
-        title: Other pages
+        other_pages: Other pages

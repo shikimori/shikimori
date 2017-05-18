@@ -26,6 +26,12 @@
         url: mangas_club_url(club),
         name: i18n_i('manga')
 
+    - if club.ranobe.any?
+      = render 'clubs/menu_linked_entries',
+        collection: club.menu_ranobe,
+        url: ranobe_club_url(club),
+        name: i18n_i('ranobe')
+
     - if club.characters.any?
       = render 'clubs/menu_linked_entries',
         collection: club.menu_characters,

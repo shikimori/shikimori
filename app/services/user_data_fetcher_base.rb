@@ -4,11 +4,14 @@ class UserDataFetcherBase
     Manga => [UserHistoryAction::MalMangaImport, UserHistoryAction::ApMangaImport, UserHistoryAction::MangaHistoryClear]
   }
 
+  # REALTIME_LOAD_IN_DEVELOPMENT = Rails.env.development?
+  REALTIME_LOAD_IN_DEVELOPMENT = false
+
   def fetch
     return [] unless should_fetch?
     return postprocess(load_data) if load_data
 
-    if Rails.env.development? && false
+    if REALTIME_LOAD_IN_DEVELOPMENT
       postprocess(job.new.perform *job_args)
     else
       job.perform_async *job_args
@@ -23,19 +26,26 @@ class UserDataFetcherBase
 private
 
   def list_cache_key
-    "userlist_#{@klass}_#{@user.id}_#{latest_import[:id]}_#{(histories/10).to_i}_#{rates >= Recommendations::RatesFetcher::MINIMUM_SCORES}"
+    [
+      :userlist,
+      @klass,
+      @user.id,
+      latest_import[:id],
+      (histories_count / 10).to_i,
+      rates_count >= Recommendations::RatesFetcher::MINIMUM_SCORES
+    ].join('_')
   end
 
   def cache_key
     "#{self.class}_#{list_cache_key}"
   end
 
-  def histories
-    @histories ||= @user.history.count
+  def histories_count
+    @histories_count ||= @user.history.count
   end
 
-  def rates
-    @rates ||= @user.send("#{@klass.name.downcase}_rates").count
+  def rates_count
+    @rates_count ||= @user.send("#{@klass.name.downcase}_rates").count
   end
 
   def latest_import
@@ -47,8 +57,11 @@ private
 
   def should_fetch?
     @user.present? &&
-      (histories >= Recommendations::RatesFetcher::MINIMUM_SCORES || latest_import.present?) &&
-      rates >= Recommendations::RatesFetcher::MINIMUM_SCORES
+      (
+        histories_count >= Recommendations::RatesFetcher::MINIMUM_SCORES ||
+        latest_import.present?
+      ) &&
+      rates_count >= Recommendations::RatesFetcher::MINIMUM_SCORES
   end
 
   def load_data

@@ -59,6 +59,7 @@ class User < ApplicationRecord
 
   has_many :fav_animes, through: :favourites, source: :linked, source_type: Anime.name
   has_many :fav_mangas, through: :favourites, source: :linked, source_type: Manga.name
+  has_many :fav_ranobe, through: :favourites, source: :linked, source_type: Ranobe.name
   has_many :fav_characters, through: :favourites, source: :linked, source_type: Character.name
   has_many :fav_persons, through: :favourite_persons, source: :linked, source_type: Person.name
   has_many :fav_people, through: :favourites, source: :linked, source_type: Person.name

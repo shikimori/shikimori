@@ -25,7 +25,7 @@
           a.b-js-action href="#{@resource.edit_field_url(:kind)}"
             = t 'actions.edit'
 
-        - if @resource.manga?
+        - if @resource.kinda_manga?
           li
             .field = @resource.class.human_attribute_name(:status)
             .value = @resource.status

@@ -81,7 +81,7 @@ class PersonDecorator < DbEntryDecorator
     selected_manga_ids = sorted_works.select {|v| v[1] == Manga.name }.map(&:first)
     (
       works.select {|v| v.anime? && selected_anime_ids.include?(v.id) } +
-        works.select {|v| v.manga? && selected_manga_ids.include?(v.id) }
+        works.select {|v| v.kinda_manga? && selected_manga_ids.include?(v.id) }
     ).sort_by {|v| sorted_works.index [v.id, v.object.class.name] }
   end
 

@@ -3,13 +3,18 @@ header.head.ajaxable
     = @page_title.last
 
   - if @view.klass == Anime
-    a.misc href="#{recommendations_favourites_manga_url}" = t 'switch_to_manga'
+    a.misc href="#{recommendations_favourites_manga_url}" = Manga.model_name.human.downcase
+    a.misc href="#{recommendations_favourites_ranobe_url}" = Ranobe.model_name.human.downcase
+  - elsif @view.klass == Manga
+    a.misc href="#{recommendations_favourites_anime_url}" = Anime.model_name.human.downcase
+    a.misc href="#{recommendations_favourites_ranobe_url}" = Ranobe.model_name.human.downcase
   - else
-    a.misc href="#{recommendations_favourites_anime_url}" = t 'switch_to_anime'
+    a.misc href="#{recommendations_favourites_anime_url}" = Anime.model_name.human.downcase
+    a.misc href="#{recommendations_favourites_manga_url}" = Manga.model_name.human.downcase
 
   .notice
-    p = t '.here_we_have_put_together',
-          kind: (@view.klass == Anime ? i18n_i('best_anime', 1, :genitive) : i18n_i('best_manga', 1, :genitive))
+    p = t '.here_we_have_put_together', kind: i18n_i("best_#{@view.klass.name.downcase}", 1, :genitive)
+
     - if @view.klass == Anime
       p
         = t '.not_interested'
@@ -21,8 +26,13 @@ header.head.ajaxable
         == t '.get_personalized_anime_recommendations',
           user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
           url: recommendations_url(klass: @view.klass.name.downcase)
-      - else
+      - elsif @view.klass == Manga
         == t '.get_personalized_manga_recommendations',
+          user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
+          url: recommendations_url(klass: @view.klass.name.downcase)
+      / no personalized recommendations fo ranobe yet
+      / - else
+        == t '.get_personalized_ranobe_recommendations',
           user_signed_in: (user_signed_in? ? :signed_in : :not_signed_in),
           url: recommendations_url(klass: @view.klass.name.downcase)
 

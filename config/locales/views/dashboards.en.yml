@@ -13,6 +13,7 @@ en:
       news_feed: News Feed
       # other: Other
       reviews: Reviews
+      ranobe: Light Novels
 
     animes:
       title: Animes
@@ -27,6 +28,13 @@ en:
     mangas:
       title: Mangas
       all_mangas: all mangas
+      recommended:
+        <<: *anime_recommended
+      others: Others
+
+    ranobe:
+      title: Light Novels
+      all_ranobe: all light novels
       recommended:
         <<: *anime_recommended
       others: Others

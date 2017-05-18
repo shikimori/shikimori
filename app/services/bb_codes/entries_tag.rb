@@ -4,7 +4,7 @@ class BbCodes::EntriesTag
   include Draper::ViewHelpers
 
   REGEXP = /
-    \[(?<type>animes|mangas|characters|people)
+    \[(?<type>animes|mangas|ranobe|characters|people)
       (?:
         \s ids = (?<ids>[0-9,]+)
           |
@@ -87,6 +87,7 @@ private
     case type.downcase
       when 'animes' then Anime
       when 'mangas' then Manga
+      when 'ranobe' then Ranobe
       when 'characters' then Character
       when 'people' then Person
     end

@@ -24,7 +24,7 @@ en:
           summer: Summer %{year} Anime
           fall: Fall %{year} Anime
         year: Anime %{year}
-    manga:
+    manga: &manga_titles
       <<: *anime_titles
       full:
         season:
@@ -33,6 +33,8 @@ en:
           summer: Summer %{year} Manga
           fall: Fall %{year} Manga
         year: Manga %{year}
+    ranobe:
+      <<: *manga_titles
 
   titles/status_title:
     anime:

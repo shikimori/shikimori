@@ -23,10 +23,14 @@ ru:
           S: До 10 минут
           D: До 30 минут
           F: Более 30 минут
-      manga:
+      manga: &manga_menu
         status:
           <<: *anime_statuses
           ongoing: Сейчас издаётся
+          released: Изданное
+          latest: Недавно изданное
+      ranobe:
+        <<: *manga_menu
       show_list: Показать список
 
   animes: &animes

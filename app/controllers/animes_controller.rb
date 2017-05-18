@@ -174,19 +174,21 @@ private
 
   def set_breadcrumbs
     if @resource.anime?
-      breadcrumb i18n_t('breadcrumbs.anime.list'), animes_url
+      breadcrumb i18n_t('breadcrumbs.anime.list'), animes_collection_url
 
       if @resource.kind_tv?
         breadcrumb i18n_t('breadcrumbs.anime.tv'),
-          animes_url(type: @resource.kind)
+          animes_collection_url(type: @resource.kind)
       end
 
       if @resource.kind_movie?
         breadcrumb i18n_t('breadcrumbs.anime.movie'),
-          animes_url(type: @resource.kind)
+          animes_collection_url(type: @resource.kind)
       end
+    elsif @resource.ranobe?
+      breadcrumb i18n_t('breadcrumbs.ranobe.list'), ranobe_collection_url
     else
-      breadcrumb i18n_t('breadcrumbs.manga.list'), mangas_url
+      breadcrumb i18n_t('breadcrumbs.manga.list'), mangas_collection_url
     end
 
     if @resource.aired_on &&
@@ -196,23 +198,24 @@ private
         @resource.object.class,
         @resource.aired_on.year.to_s
       ).title
-      url = send(
-        "#{@resource.object.class.name.downcase.pluralize}_url",
-        season: @resource.aired_on.year
+      breadcrumb(
+        season_text,
+        @resource.collection_url(season: @resource.aired_on.year)
       )
-
-      breadcrumb season_text, url
     end
 
     if @resource.genres.any?
       breadcrumb UsersHelper.localized_name(@resource.main_genre, current_user),
-        send("#{@resource.object.class.name.downcase.pluralize}_url", genre: @resource.main_genre.to_param)
+        @resource.collection_url(genre: @resource.main_genre.to_param)
     end
 
     if @resource
       # все страницы, кроме animes#show
       if (params[:action] != 'show' || params[:controller] == 'reviews')
-        breadcrumb UsersHelper.localized_name(@resource, current_user), @resource.url(false)
+        breadcrumb(
+          UsersHelper.localized_name(@resource, current_user),
+          @resource.url(false)
+        )
       end
 
       if params[:action] == 'edit_field' && params[:field].present?
