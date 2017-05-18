@@ -50,7 +50,7 @@ ru:
         many_types:
           <<: *anime_one_type
       manga:
-        one_type:
+        one_type: &manga_one_type
           anons: анонсы %{type}
           ongoing: онгоинги %{type}
           released: вышедшие %{type}
@@ -60,6 +60,15 @@ ru:
           ongoing: онгоинги манги
           released: вышедшая манга
           latest: недавно вышедшая манга
+      ranobe:
+        one_type:
+          <<: *manga_one_type
+        many_types:
+          anons: анонсы ранобэ
+          ongoing: онгоинги ранобэ
+          released: вышедшиея ранобэ
+          latest: недавно вышедшие ранобэ
+
     kind:
       anime:
         long:

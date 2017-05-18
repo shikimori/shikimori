@@ -32,6 +32,13 @@ en:
         <<: *anime_recommended
       others: Others
 
+    ranobe:
+      title: Light Novels
+      all_ranobe: all light novels
+      recommended:
+        <<: *anime_recommended
+      others: Others
+
     user_list:
       my_anime_list: My Anime List
       my_manga_list: My Manga List

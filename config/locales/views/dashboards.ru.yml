@@ -32,6 +32,13 @@ ru:
         <<: *anime_recommended
       others: Прочее
 
+    ranobe:
+      title: Ранобэ
+      all_ranobe: все ранобэ
+      recommended:
+        <<: *anime_recommended
+      others: Прочее
+
     user_list:
       my_anime_list: Мой список аниме
       my_manga_list: Мой список манги
