@@ -18,6 +18,22 @@
               = anime.name
 
     .c-column.block_m
+      input.character-suggest.subheadline-input[
+        type='text'
+        placeholder=t('.character_name')
+        data-variant_name='club[character_ids][]'
+        data-autocomplete="#{autocomplete_characters_url}"
+      ]
+      .subheadline = i18n_i 'character', :other
+      .variants
+        - @resource.all_characters.uniq(&:id).each do |character|
+          .variant
+            = check_box_tag 'club[character_ids][]', character.id, checked: true
+            a.bubbled href="#{character_url character}"
+              = character.name
+
+  .cc-2a
+    .c-column.block_m
       input.manga-suggest.subheadline-input.downgrade_landscape[
         type='text'
         placeholder=t('.manga_title')
@@ -32,20 +48,20 @@
             a.bubbled href="#{manga_url manga}"
               = manga.name
 
-  .block
-    input.character-suggest.subheadline-input[
-      type='text'
-      placeholder=t('.character_name')
-      data-variant_name='club[character_ids][]'
-      data-autocomplete="#{autocomplete_characters_url}"
-    ]
-    .subheadline = i18n_i 'character', :other
-    .variants
-      - @resource.all_characters.uniq(&:id).each do |character|
-        .variant
-          = check_box_tag 'club[character_ids][]', character.id, checked: true
-          a.bubbled href="#{character_url character}"
-            = character.name
+    .c-column.block_m
+      input.ranobe-suggest.subheadline-input.downgrade_landscape[
+        type='text'
+        placeholder=t('.ranobe_title')
+        data-variant_name='club[ranobe_ids][]'
+        data-autocomplete="#{autocomplete_ranobe_index_url}"
+      ]
+      .subheadline = i18n_i 'ranobe'
+      .variants
+        - @resource.all_ranobe.uniq(&:id).each do |ranobe|
+          .variant
+            = check_box_tag 'club[ranobe_ids][]', ranobe.id, checked: true
+            a.bubbled href="#{ranobe_url ranobe}"
+              = ranobe.name
 
   /- if @resource && @resource.admins.include?(current_user)
     div style="display: none;"

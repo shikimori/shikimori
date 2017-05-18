@@ -33,6 +33,7 @@ private
   def cleaup_links
     @model.links.where(linked_type: Anime.name).delete_all
     @model.links.where(linked_type: Manga.name).delete_all
+    @model.links.where(linked_type: Ranobe.name).delete_all
     @model.links.where(linked_type: Character.name).delete_all
   end
 

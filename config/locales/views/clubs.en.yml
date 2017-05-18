@@ -24,6 +24,7 @@ en:
       links:
         anime_title: Anime title
         manga_title: Manga title
+        ranobe_title: Light Novel title
         character_name: Character name
       members:
         remove_users: Remove users

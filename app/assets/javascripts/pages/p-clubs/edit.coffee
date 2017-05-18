@@ -10,7 +10,7 @@ page_load 'clubs_edit', ->
 
   # links page
   if $('.edit-page.links').exists()
-    $('.anime-suggest, .manga-suggest, .character-suggest').completable_variant()
+    $('.anime-suggest, .manga-suggest, .ranobe-suggest, .character-suggest').completable_variant()
 
   # members page
   if $('.edit-page.members').exists()

@@ -43,6 +43,11 @@ class Api::V1::ClubsController < Api::V1Controller
     respond_with @club.all_mangas
   end
 
+  api :GET, "/clubs/:id/ranobe", "Show club's ranobe"
+  def ranobe
+    respond_with @club.all_ranobe
+  end
+
   api :GET, "/clubs/:id/characters", "Show club's characters"
   def characters
     respond_with @club.all_characters

@@ -60,6 +60,13 @@ describe Api::V1::ClubsController, :show_in_doc do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#ranobe' do
+    before { club.mangas << create(:ranobe) }
+    before { get :ranobe, params: { id: club.id }, format: :json }
+
+    it { expect(response).to have_http_status :success }
+  end
+
   describe '#characters' do
     before { club.characters << create(:character) }
     before { get :characters, params: { id: club.id }, format: :json }

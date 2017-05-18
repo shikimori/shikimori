@@ -222,6 +222,7 @@ Rails.application.routes.draw do
           get :members
           get :animes
           get :mangas
+          get :ranobe
           get :characters
           get :images
 
@@ -452,6 +453,7 @@ Rails.application.routes.draw do
         get 'members(/page/:page)' => :members, as: :members
         get :animes
         get :mangas
+        get :ranobe
         get :characters
         get :images
 

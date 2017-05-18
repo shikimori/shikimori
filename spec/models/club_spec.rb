@@ -16,6 +16,7 @@ describe Club do
     it { is_expected.to have_many(:links).dependent(:destroy) }
     it { is_expected.to have_many :animes }
     it { is_expected.to have_many :mangas }
+    it { is_expected.to have_many :ranobe }
     it { is_expected.to have_many :characters }
 
     it { is_expected.to have_many(:images).dependent(:destroy) }

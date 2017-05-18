@@ -128,7 +128,8 @@ module.exports = class ShikiEditor extends ShikiView
       .completable()
       .on 'autocomplete:success autocomplete:text',  (e, result) =>
         $radio = @$('.links input[type=radio]:checked')
-        radio_type = $radio.prop('id').replace('link_type_', '')
+        radio_type = $radio.data('link_type') ||
+          $radio.prop('id').replace('link_type_', '')
 
         param = if Object.isString(result)
           if radio_type == 'url'
@@ -196,8 +197,21 @@ module.exports = class ShikiEditor extends ShikiView
       @$textarea.insertAtCaret "[url=#{value}]", "[/url]", value.replace(/^https?:\/\/|\/.*/g, "")
 
     # построение бб-кода для аниме,манги,персонажа и человека
-    @$('.links #link_type_anime,.links #link_type_manga,.links #link_type_character,.links #link_type_person').on 'tag:build', (e, data) =>
-      @$textarea.insertAtCaret "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
+    LINK_TYPES = [
+      '.links #link_type_anime'
+      '.links #link_type_manga'
+      '.links #link_type_ranobe'
+      '.links #link_type_character'
+      '.links #link_type_person'
+    ]
+    @$(LINK_TYPES.join(',')).on 'tag:build', (e, data) =>
+      @$textarea.insertAtCaret(
+        "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
+      )
+    # @$('.links #link_type_ranobe').on 'tag:build', (e, data) =>
+      # @$textarea.insertAtCaret(
+        # "[#{data.type}=#{data.id}]", "[/#{data.type}]", data.text
+      # )
 
     # открытие блока со смайлами
     @$('.smileys').on 'click:open', (e) =>

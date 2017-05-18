@@ -1,5 +1,6 @@
 class ClubDecorator < DbEntryDecorator
-  rails_cache :all_animes, :all_mangas, :all_characters, :all_images
+  rails_cache :all_animes, :all_mangas, :all_ranobe, :all_characters,
+    :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
     :comments, :banned, :members_sample, :forum_topics_views
 
@@ -49,6 +50,10 @@ class ClubDecorator < DbEntryDecorator
     all_mangas
   end
 
+  def ranobe
+    all_ranobe
+  end
+
   def characters
     all_characters
   end
@@ -62,6 +67,13 @@ class ClubDecorator < DbEntryDecorator
 
   def menu_mangas
     all_mangas
+      .shuffle
+      .take(MENU_ENTRIES)
+      .sort_by(&:ranked)
+  end
+
+  def menu_ranobe
+    all_ranobe
       .shuffle
       .take(MENU_ENTRIES)
       .sort_by(&:ranked)
@@ -116,6 +128,10 @@ private
 
   def all_mangas
     object.mangas.order(:ranked).decorate
+  end
+
+  def all_ranobe
+    object.ranobe.order(:ranked).decorate
   end
 
   def all_characters

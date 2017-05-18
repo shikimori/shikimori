@@ -127,6 +127,27 @@ ru:
           few: манги
           many: манги
           other: манги
+      ranobe:
+        subjective:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        dative:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        genitive:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
+        accusative:
+          one: ранобэ
+          few: ранобэ
+          many: ранобэ
+          other: ранобэ
       screenshot:
         subjective:
           one: кадр
