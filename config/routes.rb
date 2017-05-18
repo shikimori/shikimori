@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   # they will confict with resource#show routes
   resources :animes, only: [], concerns: [:autocompletable]
   resources :mangas, only: [], concerns: [:autocompletable]
+  resources :ranobe, only: [], concerns: [:autocompletable]
   resources :characters, only: [], concerns: [:autocompletable]
   resources :people, only: [], concerns: [:autocompletable]
   resources :seyu, only: [], concerns: [:autocompletable]
