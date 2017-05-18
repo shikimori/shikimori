@@ -93,6 +93,15 @@ en:
       rss_title: '%{nickname} history'
       no_video_uploads: No video uploads
       no_content_changes: No content changes
+      favourite:
+        anime: Animes
+        manga: Mangas
+        ranobe: Light Novels
+        character: Characters
+        seyu: Seiyu
+        producer: Producers
+        mangaka: Mangakas
+        person: Other people
 
     edit:
       account:

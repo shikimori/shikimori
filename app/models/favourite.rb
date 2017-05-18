@@ -7,8 +7,11 @@ class Favourite < ApplicationRecord
   Producer = 'producer'
   Person = 'person'
 
-  EntriesPerCharacter = 18
-  EntriesPerAnime = 7
-  EntriesPerManga = 7
-  EntriesPerPerson = 9
+  LIMITS = {
+    character: 18,
+    anime: 7,
+    manga: 7,
+    ranobe: 7,
+    person: 9
+  }
 end

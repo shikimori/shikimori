@@ -1,7 +1,7 @@
 describe FavouritesController do
   include_context :authenticated, :user
 
-  [Anime, Manga, Character, Person].each do |klass|
+  [Anime, Manga, Character, Person, Ranobe].each do |klass|
     context klass.to_s do
       let(:entry) { create klass.name.downcase.to_sym }
       let(:method_name) { "fav_#{klass.name.downcase.pluralize}" }
@@ -11,7 +11,7 @@ describe FavouritesController do
           post :create, params: { linked_type: entry.class.name, linked_id: entry.id, kind: kind }
         end
 
-        context 'withput kind' do
+        context 'withput kind', :focus do
           let(:kind) { nil }
           it do
             expect { make_request }.to change(Favourite, :count).by(1)

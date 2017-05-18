@@ -9,7 +9,9 @@ FactoryGirl.define do
     kind :manga
     type { Manga.name }
 
-    factory :ranobe do
+    factory :ranobe, class: 'Ranobe' do
+      sequence(:name) { |n| "ranobe_#{n}" }
+      sequence(:russian) { |n| "ранобэ_#{n}" }
       type Ranobe.name
       kind Ranobe::KIND
     end

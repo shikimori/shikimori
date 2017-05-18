@@ -93,6 +93,15 @@ ru:
       rss_title: История пользователя %{nickname}
       no_video_uploads: Нет загрузок видео
       no_content_changes: Нет правок контента
+      favourite:
+        anime: Аниме
+        manga: Манга
+        ranobe: Ранобэ
+        character: Персонажи
+        seyu: Сэйю
+        producer: Режиссёры
+        mangaka: Мангаки
+        person: Прочие люди
 
     edit:
       account:
