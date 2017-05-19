@@ -37,6 +37,7 @@ ru:
     site_notifications: Уведомления сайта
   user_history_controller:
     <<: *profiles_controller
+    page_title: История
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:

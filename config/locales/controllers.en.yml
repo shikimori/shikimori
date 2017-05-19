@@ -37,6 +37,7 @@ en:
     site_notifications: Site notifications
   user_history_controller:
     <<: *profiles_controller
+    page_title: History
   user_preferences_controller:
     <<: *profiles_controller
   user_rates_controller:
@@ -290,6 +291,7 @@ en:
     page_title: Anime studios
     description:
       List of major anime studios sorted by volume of media produced.
+
 
   reviews_controller:
     <<: *animes_controller

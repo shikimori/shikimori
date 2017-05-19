@@ -6,7 +6,7 @@ class UserHistoryController < ProfilesController
 
     @view = UserHistoryView.new @resource
 
-    page_title 'История'
+    page_title i18n_t('page_title')
   end
 
   def reset

@@ -1,6 +1,7 @@
 class UserHistory < ApplicationRecord
   belongs_to :user, touch: true
   belongs_to :target, polymorphic: true
+
   belongs_to :anime, foreign_key: :target_id
   belongs_to :manga, foreign_key: :target_id
 
@@ -21,11 +22,11 @@ class UserHistory < ApplicationRecord
     return if value && value == prior_value
     last_entry = UserHistory
       .where(user_id: user.is_a?(Integer) ? user : user.id)
-      .where(target_type: item.class.name)
+      .where(target_type: item.class.base_class.name)
       .order(id: :desc)
       .first
 
-    unless last_entry&.target_type == item.class.name &&
+    unless last_entry&.target_type == item.class.base_class.name &&
         last_entry&.target_id == item.id
       last_entry = nil
     end
@@ -56,22 +57,18 @@ class UserHistory < ApplicationRecord
       when UserHistoryAction::Add
         last_delete = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target_type: item.class.name)
-          .where(target_id: item.id)
+          .where(target: item)
           .where(action: UserHistoryAction::Delete)
           .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
           .order(:id)
           .first
-        if last_delete
-          last_delete.destroy
-          return
-        end
+
+        return last_delete.destroy if last_delete
 
       when UserHistoryAction::Delete
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target_type: item.class.name)
-          .where(target_id: item.id)
+          .where(target: item)
           .where("updated_at > ?", DateTime.now - DeleteBackwardCheckInterval)
           .order(:id)
           .to_a
@@ -125,8 +122,7 @@ class UserHistory < ApplicationRecord
 
         prior_entries = UserHistory
           .where(user_id: user.is_a?(Integer) ? user : user.id)
-          .where(target_type: item.class.name)
-          .where(target_id: item.id)
+          .where(target: item)
           .where(action: action)
           .where("updated_at > ?", DateTime.now - EpisodeBackwardCheckInterval)
           .order(:id)
@@ -195,8 +191,7 @@ class UserHistory < ApplicationRecord
 
     entry ||= UserHistory.new(
       user_id: user.is_a?(Integer) ? user : user.id,
-      target_id: item.id,
-      target_type: item.class.name,
+      target: item,
       action: action
     )
 

@@ -1,19 +1,19 @@
 describe UserHistory do
   describe 'relations' do
-    it { should belong_to :user }
-    it { should belong_to :target }
-    it { should belong_to :anime }
-    it { should belong_to :manga }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to belong_to :target }
+    it { is_expected.to belong_to :anime }
+    it { is_expected.to belong_to :manga }
   end
 
   let(:user) { build_stubbed :user, id: 1 }
   let(:user2) { build_stubbed :user, id: 2 }
 
-  let(:anime) { build_stubbed :anime, id: 1 }
-  let(:anime2) { build_stubbed :anime, id: 2 }
+  let(:kind) { %i[anime manga ranobe].sample }
+  let(:anime) { build_stubbed kind, id: 1 }
+  let(:anime_2) { build_stubbed kind, id: 2 }
 
   it 'added anime successfully' do
-    UserHistory.delete_all
     expect {
       UserHistory.add user, anime, UserHistoryAction::Add
     }.to change(UserHistory, :count).by 1
@@ -21,10 +21,7 @@ describe UserHistory do
   end
 
   describe 'added anime and' do
-    before do
-      UserHistory.delete_all
-      UserHistory.add(user, anime, UserHistoryAction::Add)
-    end
+    before { UserHistory.add user, anime, UserHistoryAction::Add }
 
     it 'again added anime' do
       expect {
@@ -32,10 +29,10 @@ describe UserHistory do
       }.to change(UserHistory, :count).by 0
     end
 
-    it 'again added anime and then added anime2' do
+    it 'again added anime and then added anime_2' do
       expect {
         UserHistory.add user, anime, UserHistoryAction::Add
-        UserHistory.add user, anime2, UserHistoryAction::Add
+        UserHistory.add user, anime_2, UserHistoryAction::Add
       }.to change(UserHistory, :count).by 1
     end
 
@@ -52,10 +49,10 @@ describe UserHistory do
       }.to change(UserHistory, :count).by -1
     end
 
-    it 'added anime2 and then deleted it after UserHistory::DeleteBackwardCheckInterval' do
+    it 'added anime_2 and then deleted it after UserHistory::DeleteBackwardCheckInterval' do
       UserHistory.last.update_attributes created_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval - 1.minute, updated_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval - 1.minute
       expect {
-        UserHistory.add user, anime2, UserHistoryAction::Add
+        UserHistory.add user, anime_2, UserHistoryAction::Add
         UserHistory.add user, anime, UserHistoryAction::Delete
       }.to change(UserHistory, :count).by 2
       expect(UserHistory.last.action).to eq UserHistoryAction::Delete
@@ -67,7 +64,7 @@ describe UserHistory do
         # and did some actions with it and with other animes
         UserHistory.add user, anime, UserHistoryAction::Rate, 1
         UserHistory.last.update_attributes created_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 2.minutes, updated_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 2.minutes
-        UserHistory.add user, anime2, UserHistoryAction::Add
+        UserHistory.add user, anime_2, UserHistoryAction::Add
         UserHistory.last.update_attributes created_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 3.minutes, updated_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 3.minutes
 
         # and then deleted first added anime
@@ -81,7 +78,7 @@ describe UserHistory do
         # and did some actions with it and with other animes
         UserHistory.add user, anime, UserHistoryAction::Rate, 1
         UserHistory.last.update_attributes created_at: DateTime.now - 5.minutes, updated_at: DateTime.now - 5.minutes
-        UserHistory.add user, anime2, UserHistoryAction::Add
+        UserHistory.add user, anime_2, UserHistoryAction::Add
         UserHistory.last.update_attributes created_at: DateTime.now - 4.minutes, updated_at: DateTime.now - 4.minutes
 
         # and then deleted first added anime
@@ -89,9 +86,9 @@ describe UserHistory do
       }.to change(UserHistory, :count).by 2
     end
 
-    it 'added anime2 and deleted anime and then added it again' do
+    it 'added anime_2 and deleted anime and then added it again' do
       UserHistory.last.update_attributes created_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 1.minute, updated_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval + 1.minute
-      UserHistory.add user, anime2, UserHistoryAction::Delete
+      UserHistory.add user, anime_2, UserHistoryAction::Delete
       expect {
         UserHistory.add user, anime, UserHistoryAction::Delete
         UserHistory.last.update_attributes created_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval - 1.minute, updated_at: DateTime.now - UserHistory::DeleteBackwardCheckInterval - 1.minute
@@ -138,7 +135,6 @@ describe UserHistory do
   describe 'rated anime and' do
     let(:prior_rate) { 5 }
     before do
-      UserHistory.delete_all
       UserHistory.add user, anime, UserHistoryAction::Rate, prior_rate, nil
     end
 
@@ -191,7 +187,6 @@ describe UserHistory do
   describe 'watched episode and' do
     let(:prior_episode) { 1 }
     before do
-      UserHistory.delete_all
       UserHistory.add user, anime, UserHistoryAction::Episodes, prior_episode
     end
 
@@ -229,13 +224,13 @@ describe UserHistory do
 
     it 'watched episode from another anime' do
       expect {
-        UserHistory.add user, anime2, UserHistoryAction::Episodes, 1, 0
+        UserHistory.add user, anime_2, UserHistoryAction::Episodes, 1, 0
       }.to change(UserHistory, :count).by 1
     end
 
     it 'watched episode from another anime and watched next episode from first anime' do
       expect {
-        UserHistory.add user, anime2, UserHistoryAction::Episodes, 1, 0
+        UserHistory.add user, anime_2, UserHistoryAction::Episodes, 1, 0
         UserHistory.add user, anime, UserHistoryAction::Episodes, 2, prior_episode
       }.to change(UserHistory, :count).by 1
     end
@@ -320,7 +315,7 @@ describe UserHistory do
 
   it "merges :completed and #{UserHistoryAction::Rate} into #{UserHistoryAction::CompleteWithScore} only for the same anime" do
     expect {
-      UserHistory.add user, anime2, UserHistoryAction::Status, UserRate.statuses[:completed]
+      UserHistory.add user, anime_2, UserHistoryAction::Status, UserRate.statuses[:completed]
       UserHistory.add user, anime, UserHistoryAction::Rate, 5
     }.to change(UserHistory, :count).by 2
   end
