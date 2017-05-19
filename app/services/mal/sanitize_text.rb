@@ -173,6 +173,8 @@ private
       .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
       .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
       .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
+      .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
+      .gsub(SPOILER_REGEXP, '[br][spoiler]\1[/spoiler]')
   end
 
   def bb_source text
