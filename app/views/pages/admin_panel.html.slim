@@ -46,7 +46,7 @@ article
   .metric
     / class="#{:alert if @pending_anidb > 30}"
     b Anidb:
-    span = @pending_anidb
+    span #{@pending_anidb} (#{@missing_anidb})
   .metric
     b Animes:
     span = @animes_to_import

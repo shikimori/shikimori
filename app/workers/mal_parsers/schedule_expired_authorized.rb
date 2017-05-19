@@ -25,6 +25,7 @@ class MalParsers::ScheduleExpiredAuthorized
   def all_anime_ids
     [anons_anime_ids, ongoing_anime_ids, other_anime_ids]
       .flatten
+      .uniq
       .take(max_animes_to_schedule)
   end
 
