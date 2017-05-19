@@ -29,7 +29,7 @@ class BbCodeFormatter
     BbCodes::AnimeTag, BbCodes::MangaTag, BbCodes::RanobeTag,
     BbCodes::CharacterTag, BbCodes::PersonTag,
   ]
-  DB_ENTRY_BB_CODES = [:anime, :manga, :character, :person]
+  DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
 
   default_url_options[:protocol] = false
   default_url_options[:host] ||= if Rails.env.development?

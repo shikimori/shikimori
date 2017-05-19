@@ -219,6 +219,12 @@ ru:
           few: коллекции
           many: коллекций
           other: коллекции
+      contest:
+        subjective:
+          one: опрос
+          few: опроса
+          many: опросов
+          other: опросы
       error:
         subjective:
           one: ошибка
