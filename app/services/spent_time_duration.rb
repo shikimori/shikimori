@@ -1,7 +1,7 @@
 class SpentTimeDuration
   pattr_initialize :user_rate
 
-  MAXIMUM_REWATCHES = 15
+  MAXIMUM_REWATCHES = 50
 
   def anime_hours entry_episodes, episode_duration
     rewatched_hours = rewatches_count * entry_episodes * episode_duration
