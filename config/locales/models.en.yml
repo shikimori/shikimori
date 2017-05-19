@@ -60,9 +60,25 @@ en:
 
 
 
+        ranobe:
+          <<: *common
+
+
+
+
+
+
 
       genitive:
         <<: *subjective
+
+
+
+
+
+
+
+
 
 
 
@@ -84,6 +100,7 @@ en:
     body:
       anime: '[anime=%{id}]Anime[/anime] discussion thread.'
       manga: '[manga=%{id}]Manga[/manga] discussion thread.'
+      ranobe: '[ranove=%{id}]Light novel[/ranobe] discussion thread.'
       character: '[character=%{id}]Character[/character] discussion thread.'
       person: '[person=%{id}]Person[/person] discussion thread.'
       review: '[review=%{id}]Review[/review] discussion thread.'
@@ -96,11 +113,13 @@ en:
     full_title:
       anime: Anime [anime]%{id}[/anime] discussion
       manga: Manga [manga]%{id}[/manga] discussion
+      ranobe: Light novel [ranobe]%{id}[/ranobe] discussion
       character: Character [character]%{id}[/character] discussion
       person: Person [person]%{id}[/person] discussion
       review:
         anime: Anime %{target_name} review by %{author} discussion
         manga: Manga %{target_name} review by %{author} discussion
+        ranobe: Light novel %{target_name} review by %{author} discussion
       contest: Contest [contest]%{id}[/contest] discussion
       club: Club [club]%{id}[/club] discussion
       club_page: Club [club_page]%{club_id}[/club_page] page [club_page]%{club_page_id}[/club_page] discussion
@@ -111,6 +130,7 @@ en:
     full_title:
       anime: 'Anime [%{type}]%{id}[/%{type}] %{action_name_lower}'
       manga: 'Manga [%{type}]%{id}[/%{type}] %{action_name_lower}'
+      ranobe: 'Light novel [%{type}]%{id}[/%{type}] %{action_name_lower}'
 
   cosplay_gallery:
     title: Cosplay of %{cosplay} by %{cosplayer}

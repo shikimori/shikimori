@@ -44,7 +44,7 @@ ru:
         yuri: юри %{kind}
 
       subjective:
-        anime: &subjective_anime
+        anime:
           <<: *common
           comedy: комедийные аниме
           mystery: детективные аниме
@@ -52,7 +52,7 @@ ru:
           historical: исторические аниме
           supernatural: сверхъестественные аниме
           kids: детские %{kind}
-        manga: &subjective_manga
+        manga:
           <<: *common
           comedy: комедийная манга
           mystery: детективная манга
@@ -60,10 +60,18 @@ ru:
           historical: историческая манга
           supernatural: сверхъестественная манга
           kids: детская %{kind}
+        ranobe:
+          <<: *common
+          comedy: комедийные ранобэ
+          mystery: детективные ранобэ
+          romance: романтические ранобэ про любовь
+          historical: исторические ранобэ
+          supernatural: сверхъестественные ранобэ
+          kids: детские ранобэ
 
       genitive:
         anime:
-          <<: *subjective_anime
+          <<: *common
           comedy: комедийных аниме
           mystery: детективных аниме
           romance: романтических аниме про любовь
@@ -71,19 +79,28 @@ ru:
           supernatural: сверхъестественных аниме
           kids: детских %{kind}
         manga:
-          <<: *subjective_manga
+          <<: *common
           comedy: комедийной манги
           mystery: детективной манги
           romance: романтической манги про любовь
           historical: исторической манги
           supernatural: сверхъестественной манги
           kids: детской %{kind}
+        ranobe:
+          <<: *common
+          comedy: комедийных ранобэ
+          mystery: детективных ранобэ
+          romance: романтических ранобэ про любовь
+          historical: исторических ранобэ
+          supernatural: сверхъестественных ранобэ
+          kids: детских ранобэ
 
   topics/entry_topic:
     title: Обсуждение
     body:
       anime: Топик обсуждения [anime=%{id}]аниме[/anime].
       manga: Топик обсуждения [manga=%{id}]манги[/manga].
+      ranobe: Топик обсуждения [ranobe=%{id}]ранобэ[/ranobe].
       character: Топик обсуждения [character=%{id}]персонажа[/character].
       person: Топик обсуждения [person=%{id}]человека[/person].
       review: Топик обсуждения [review=%{id}]рецензии[/review].
@@ -96,11 +113,13 @@ ru:
     full_title:
       anime: Обсуждение аниме [anime]%{id}[/anime]
       manga: Обсуждение манги [manga]%{id}[/manga]
+      ranobe: Обсуждение ранобэ [ranobe]%{id}[/ranobe]
       character: Обсуждение персонажа [character]%{id}[/character]
       person: Обсуждение человека [person]%{id}[/person]
       review:
         anime: Обсуждение рецензии аниме %{target_name} от %{author}
         manga: Обсуждение рецензии манги %{target_name} от %{author}
+        ranobe: Обсуждение рецензии ранобэ %{target_name} от %{author}
       contest: Обсуждение опроса [contest]%{id}[/contest]
       club: Обсуждение клуба [club]%{id}[/club]
       club_page: Страница [club_page]%{club_page_id}[/club_page] клуба [club]%{club_id}[/club]
@@ -111,6 +130,7 @@ ru:
     full_title:
       anime: '%{action_name} аниме [%{type}]%{id}[/%{type}]'
       manga: '%{action_name} манги [%{type}]%{id}[/%{type}]'
+      ranobe: '%{action_name} ранобэ [%{type}]%{id}[/%{type}]'
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}

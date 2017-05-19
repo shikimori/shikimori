@@ -1,2 +1,2 @@
-class Topics::EntryTopics::RanobeTopic < Topics::EntryTopics::MangaTopic
+class Topics::EntryTopics::RanobeTopic < Topics::EntryTopic
 end

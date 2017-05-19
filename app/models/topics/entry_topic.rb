@@ -8,12 +8,16 @@ class Topics::EntryTopic < Topic
     return title unless generated?
 
     BbCodeFormatter.instance.format_comment(I18n.t(
-      "topics/entry_topic.full_title.#{linked_type.underscore}", i18n_params
+      "topics/entry_topic.full_title.#{linked.class.name.underscore}",
+      i18n_params
     )).gsub(/<.*?>/, '')
   end
 
   def body
-    I18n.t "topics/entry_topic.body.#{linked_type.underscore}", i18n_params
+    I18n.t(
+      "topics/entry_topic.body.#{linked.class.name.underscore}",
+      i18n_params
+    )
   end
 
 private
