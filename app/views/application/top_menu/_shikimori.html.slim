@@ -70,6 +70,15 @@
       title="#{i18n_i 'Club', :other}"
     ] = i18n_i 'Club', :other
     a.entry[
+      class="#{:active if params[:controller] == 'collections'}"
+      href="#{collections_url}"
+      title="#{i18n_i 'Collection', :other}"
+    ] = i18n_i 'Collection', :other
+    a.entry[
+      href="#{forum_topics_url :reviews}"
+      title="#{i18n_i 'Review', :other}"
+    ] = i18n_i 'Review', :other
+    a.entry[
       class="#{:active if params[:controller] == 'users'}"
       href="#{users_url}"
       title="#{i18n_i 'User', :other}"

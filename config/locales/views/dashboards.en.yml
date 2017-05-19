@@ -6,14 +6,9 @@ en:
       # all_reviews: all reviews
       anime_updates: Anime Updates
       # all_updates: all updates
-      animes: Animes
-      contests: Contests
       currently_airing: Currently Airing
-      mangas: Mangas
       news_feed: News Feed
       # other: Other
-      reviews: Reviews
-      ranobe: Light Novels
 
     animes:
       title: Animes

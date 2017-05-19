@@ -21,11 +21,9 @@
   .cc-inner
     .c-content
       .options
-        / .option = t '.reviews'
-        .option.selected = t '.animes'
-        .option = t '.mangas'
-        .option = t '.ranobe'
-        / .option = t '.other'
+        .option.selected = i18n_i 'Anime', :other
+        .option = i18n_i 'Manga', :other
+        .option = i18n_i 'Ranobe', :other
 
       .slides
         .slide.animes
@@ -77,8 +75,8 @@
         h2.midheadline.green.linkheadline.m5
           a[
             href="#{contests_url}"
-            title="#{t '.contests'}"
-          ] = t '.contests'
+            title="#{i18n_i 'Contest', :other}"
+          ] = i18n_i 'Contest', :other
           / h2 = t '.contests'
           / a.b-link[
             / href="#{contests_url}"
@@ -134,8 +132,8 @@
           h2.midheadline.magenta.linkheadline
             a[
               href="#{forum_topics_url :reviews}"
-              title="#{t '.reviews'}"
-            ] = t '.reviews'
+              title="#{i18n_i 'Review', :other}"
+            ] = i18n_i 'Review', :other
             / h2 = t '.reviews'
             / a.b-link[
               / href="#{forum_topics_url :reviews}"
