@@ -46,7 +46,7 @@ class DbEntry < ApplicationRecord
   end
 
   def mal_url
-    "http://myanimelist.net/#{self.class.name.downcase}/#{id}"
+    "http://myanimelist.net/#{self.class.base_class.name.downcase}/#{id}"
   end
 
   # TODO: uncomment when source field is removed from Anime and Manga
