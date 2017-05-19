@@ -33,6 +33,8 @@ class CollectionsController < ShikimoriController
   # rubocop:enable AbcSize
 
   def show
+    raise ActiveRecord::RecordNotFound unless @resource.published?
+
     page_title @resource.name
     @topic_view = Topics::TopicViewFactory
       .new(false, false)
@@ -86,8 +88,13 @@ private
 
   def set_breadcrumbs
     breadcrumb i18n_i('Collection', :other), collections_url
+
     if %w[edit update].include? params[:action]
-      breadcrumb @resource.name, collection_url(@resource)
+      breadcrumb(
+        @resource.name,
+        @resource.published? ? collection_url(@resource) :
+          edit_collection_url(@resource)
+      )
     end
   end
 
