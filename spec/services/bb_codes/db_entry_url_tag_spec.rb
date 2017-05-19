@@ -23,6 +23,11 @@ describe BbCodes::DbEntryUrlTag do
         it { is_expected.to eq "[manga=1 fallback=#{text}]" }
       end
 
+      context 'ranobe' do
+        let(:text) { '//shikimori.org/ranobe/1-qwe' }
+        it { is_expected.to eq "[ranobe=1 fallback=#{text}]" }
+      end
+
       context 'character' do
         let(:text) { '//shikimori.org/characters/1-qwe' }
         it { is_expected.to eq "[character=1 fallback=#{text}]" }

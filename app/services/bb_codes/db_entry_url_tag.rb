@@ -1,22 +1,23 @@
 class BbCodes::DbEntryUrlTag
   include Singleton
 
+  TYPES = {
+    'animes' => 'anime',
+    'mangas' => 'manga',
+    'ranobe' => 'ranobe',
+    'characters' => 'character',
+    'people' => 'person'
+  }
+
   REGEXP = %r{
     #{BbCodes::UrlTag::BEFORE_URL.source}
     (?<url>
       (?: https?: )?
       //shikimori.\w+
-      /(?<type> animes|mangas|characters|people )
+      /(?<type> #{TYPES.keys.join '|'} )
       /[A-u]* (?<id>\d+) (?<other> [^\s<\[\].,;:)(]* )
     )
   }mix
-
-  TYPES = {
-    'animes' => 'anime',
-    'mangas' => 'manga',
-    'characters' => 'character',
-    'people' => 'person'
-  }
 
   def format text
     text.gsub REGEXP do |match|

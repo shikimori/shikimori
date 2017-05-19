@@ -75,7 +75,7 @@ class Genre < ApplicationRecord
   end
 
   def to_param
-    "%d-%s" % [id, self.english.gsub(' ', '-')]
+    "#{id}-#{english.gsub ' ', '-'}"
   end
 
   def censored?
