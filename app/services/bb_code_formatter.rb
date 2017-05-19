@@ -26,7 +26,7 @@ class BbCodeFormatter
   )mix
 
   DB_ENTRY_TAGS = [
-    BbCodes::AnimeTag, BbCodes::MangaTag,
+    BbCodes::AnimeTag, BbCodes::MangaTag, BbCodes::RanobeTag,
     BbCodes::CharacterTag, BbCodes::PersonTag,
   ]
   DB_ENTRY_BB_CODES = [:anime, :manga, :character, :person]

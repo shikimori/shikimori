@@ -91,8 +91,7 @@ aside.buttons
     = label_tag :link_type_ranobe do
       = radio_button_tag 'link_type', :ranobe, false,
         'data-placeholder' => t('.links.placeholder.ranobe_title'),
-        'data-autocomplete' => autocomplete_ranobe_index_url,
-        'data-link_type' => 'manga'
+        'data-autocomplete' => autocomplete_ranobe_index_url
       span = Ranobe.model_name.human.downcase
 
     = label_tag :link_type_character do

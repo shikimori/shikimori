@@ -128,8 +128,7 @@ module.exports = class ShikiEditor extends ShikiView
       .completable()
       .on 'autocomplete:success autocomplete:text',  (e, result) =>
         $radio = @$('.links input[type=radio]:checked')
-        radio_type = $radio.data('link_type') ||
-          $radio.prop('id').replace('link_type_', '')
+        radio_type = $radio.prop('id').replace('link_type_', '')
 
         param = if Object.isString(result)
           if radio_type == 'url'
