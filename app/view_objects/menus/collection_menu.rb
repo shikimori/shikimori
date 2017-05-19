@@ -23,10 +23,7 @@ class Menus::CollectionMenu < ViewObjectBase
 
   def kinds
     return [] if klass == Ranobe
-
-    (klass.kind.values - [Ranobe::KIND]).map do |kind|
-      Titles::KindTitle.new kind, klass
-    end
+    allowed_kinds.map { |kind| Titles::KindTitle.new kind, klass }
   end
 
   def statuses
@@ -70,5 +67,15 @@ class Menus::CollectionMenu < ViewObjectBase
 
   def ranobe?
     klass == Ranobe
+  end
+
+private
+
+  def allowed_kinds
+    if h.params[:controller] == 'user_rates'
+      klass.kind.values
+    else
+      klass.kind.values - [Ranobe::KIND]
+    end
   end
 end
