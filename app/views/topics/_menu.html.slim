@@ -60,8 +60,8 @@
     h2.midheadline.m5
       a [
         href="#{contests_url}"
-        title="#{t '.contests'}"
-      ] = t '.contests'
+        title="#{i18n_i 'Contest', :other}"
+      ] = i18n_i 'Contest', :other
     .block
       = render 'dashboards/contests', collection: menu.contests
 
