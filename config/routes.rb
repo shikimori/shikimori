@@ -407,7 +407,7 @@ Rails.application.routes.draw do
       scope(
         '(/:forum)(/:linked_type-:linked_id)',
         forum: /animanga|site|offtopic|clubs|my_clubs|reviews|cosplay|contests|news|updates|games|vn|collections/,
-        linked_type: /anime|manga|character|person|club|collection|cosplay_gallery/,
+        linked_type: /anime|manga|ranobe|character|person|club|collection|cosplay_gallery/,
         format: /html|json|rss/
       ) do
         get '/new' => 'topics#new', as: :new_topic
