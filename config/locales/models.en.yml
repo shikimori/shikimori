@@ -100,7 +100,7 @@ en:
     body:
       anime: '[anime=%{id}]Anime[/anime] discussion thread.'
       manga: '[manga=%{id}]Manga[/manga] discussion thread.'
-      ranobe: '[ranove=%{id}]Light novel[/ranobe] discussion thread.'
+      ranobe: '[ranobe=%{id}]Light novel[/ranobe] discussion thread.'
       character: '[character=%{id}]Character[/character] discussion thread.'
       person: '[person=%{id}]Person[/person] discussion thread.'
       review: '[review=%{id}]Review[/review] discussion thread.'
