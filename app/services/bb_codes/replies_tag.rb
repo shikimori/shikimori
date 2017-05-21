@@ -4,7 +4,7 @@ class BbCodes::RepliesTag
 
   REGEXP = /
     (?<tag>
-      \n*
+      (?<brs> \n* ) # group name used in reply service
       \[
         replies=(?<ids> [\d,]+ )
       \]
