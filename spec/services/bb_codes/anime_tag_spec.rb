@@ -53,9 +53,19 @@ describe BbCodes::AnimeTag do
         it { is_expected.to eq html }
       end
 
-      context 'with forbidden text' do
-        let(:text) { "[anime=#{anime.id}]\n[/anime]" }
-        it { is_expected.to eq html + "\n[/anime]" }
+      context 'with new lines or spaces text' do
+        let(:text) { "[anime=#{anime.id}]#{suffix}" }
+        let(:separator) { ["\n", ' '].sample }
+        let(:suffix) { "#{separator}[/anime]" }
+        it { is_expected.to eq html + suffix }
+      end
+
+      context 'broken tags' do
+        let(:text) do
+          "[anime=#{anime.id} fallback=http://shikimori.org/animes/32866]#{suffix}"
+        end
+        let(:suffix) { "\n[/anime][/quote]\n[/anime]" }
+        it { is_expected.to eq html + suffix }
       end
     end
 

@@ -9,7 +9,7 @@ class BbCodes::AnimeTag
   def regexp
     @regexp ||= %r{
       \[#{name}=(?<id>\d+) #{FALLBACK.source} \]
-        (?! [\ \n] )
+        (?! [\ ] )
         (?<name>.*?)
       \[\/#{name}\]
       |
@@ -19,7 +19,7 @@ class BbCodes::AnimeTag
       |
       \[#{name}=(?<id>\d+) #{FALLBACK.source}\]
       (?!\d)
-    }mix
+    }ix
   end
 
   def format text
