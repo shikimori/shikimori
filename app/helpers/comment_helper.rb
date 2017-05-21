@@ -93,13 +93,13 @@ module CommentHelper
 
     text.gsub(/
       \[spoiler (?:= (?<label> [^\[\]\n\r]*? ) )? \]
-        (?:<br ?\/?> | \n | \r )?
+        \n?
         (?<content>
           (?:
             (?! \[\/?spoiler\] ) (?>[\s\S])
           )+
         )
-        (?: <br ?\/?> | \n | \r )?
+        \n?
       \[\/spoiler\]
     /xi) do |match|
       '<div class="b-spoiler unprocessed">' +
@@ -121,17 +121,17 @@ module CommentHelper
     return text unless text.include?("[quote") && text.include?("[/quote]")
 
     text
-      .gsub(/\[quote\](?:\r\n|\r|\n|<br>)?/,
+      .gsub(/\[quote\]\n?/,
         '<div class="b-quote">')
-      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
+      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]\n?/,
         '<div class="b-quote"><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
-      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
+      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]\n?/,
         '<div class="b-quote"><div class="quoteable">[message=\1 quote]\3[/message]</div>')
-      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
+      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]\n?/,
         '<div class="b-quote"><div class="quoteable">[topic=\1 quote]\3[/topic]</div>')
-      .gsub(/\[quote=([^\]]+)\](?:\r\n|\r|\n|<br>)?/,
+      .gsub(/\[quote=([^\]]+)\]\n?/,
         '<div class="b-quote"><div class="quoteable">[user]\1[/user]</div>')
-      .gsub(/\[\/quote\](?:\r\n|\r|\n|<br>)?/, '</div>')
+      .gsub(/\[\/quote\]\n?/, '</div>')
   end
 
   def posters_to_html text, poster=nil
@@ -184,7 +184,7 @@ module CommentHelper
             if $~[:quote].present?
               text.gsub!(
                 $~[:match],
-                <<~HTML
+                <<~HTML.tr("\n", '')
                 <a href="#{profile_url user}" title="#{ERB::Util.h user.nickname}" class="bubbled b-user16" data-href="#{url}">
                 <img src="#{user.avatar_url 16}" srcset="#{user.avatar_url 32} 2x" alt="#{ERB::Util.h user.nickname}" />
                 <span>#{ERB::Util.h user.nickname}</span>
