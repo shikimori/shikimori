@@ -59,6 +59,7 @@ class Ability
     can :see_contest, Contest
     can :see_club, Club
     can :read, ClubPage
+    can :read, UserRate
 
     can %i[read preview], Style
 
