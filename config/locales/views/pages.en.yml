@@ -46,6 +46,9 @@ en:
         - Release dates of new episodes are either retrieved from
           <a href="http://animecalendar.net/">animecalendar.net</a>
           or calculated based on release dates of previous episodes.
+
+
+
       currently_airing: Currently airing
 
     bb_codes:
@@ -69,6 +72,33 @@ en:
 
       list: List
       list_example: '[list][*]first item[*]second item[/list]'
+
+      code: Code
+      code_example_1: >-
+        [code]http://inline.code.block[/code]<br><br>
+        [code]<br>
+        &nbsp;&nbsp;[b]multiline code[/b]<br>
+        &nbsp;&nbsp;[i]block[/b]<br>
+        [/code]<br><br>
+        [code=css]<br>
+        .p-profiles .profile-content .cc-2 {<br>
+        &nbsp;&nbsp;display: none;<br>
+        }<br>
+        [/code]
+      code_example_2: >-
+        [code]http://inline.code.block[/code]
+
+
+        [code]
+          [b]multiline code[/b]
+          [i]block[/i]
+        [/code]
+
+        [code=css]
+        .p-profiles .profile-content .cc-2 {
+          display: none;
+        }
+        [/code]
 
       mention: Mention
       mention_example: '@morr, hi'
@@ -97,6 +127,7 @@ en:
         [quote=775324;1;morr]quoted comment[/quote]
       quote_notice: >-
         User will receive notification that he has been quoted.
+
 
       anime_title_to_link: Anime title becoming a link with tooltip
       anime_title_to_link_example: >-
@@ -235,6 +266,7 @@ en:
         If you want your image to use all space available
         (limited by page width) use [poster] tag instead.
 
+
       uploaded_image: Uploaded image
       uploaded_image_example: '[image=35894]'
       uploaded_image_notice: >-
@@ -247,6 +279,7 @@ en:
         <br>
         If you want your image to use all space available
         (limited by page width) use [poster] tag instead.
+
 
       poster: >-
         Full width image (poster) without preview
@@ -269,14 +302,7 @@ en:
         <br>
         [solid]
         <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
         [/solid]
         <br>
@@ -284,34 +310,13 @@ en:
         <br>
         <span>ordinary set of images - without [solid] tag</span>
         <br>
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         <br>
       images_without_spaces_example_2: >-
         [solid]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
         [/solid]
         [br][br][br]
         [hr]
         [br][br]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img]
-        [img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img]
-        [img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img]
-        [img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img]
-        [img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img]
-        [img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img]
-        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+        [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]

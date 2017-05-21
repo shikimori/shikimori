@@ -28,6 +28,10 @@ class PagesController < ShikimoriController
     @topic_view = Topics::TopicViewFactory.new(false, false).find ABOUT_TOPIC_ID
   end
 
+  def for_right_holders
+    page_title t('application.footer.for_right_holders')
+  end
+
   def info
     page_title i18n_t('.info')
   end

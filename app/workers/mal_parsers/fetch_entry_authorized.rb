@@ -15,7 +15,7 @@ class MalParsers::FetchEntryAuthorized
   private
 
   def parsed_data anime_id
-    MalParsers::AnimeAuthorized.(anime_id)
+    MalParsers::AnimeAuthorized.call(anime_id)
   end
 
   def update_authorized_imported_at! anime_id

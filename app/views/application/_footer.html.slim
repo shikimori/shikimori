@@ -2,8 +2,21 @@
   |&copy; #{Site::DOMAIN}&nbsp;
   span.date 2011-#{Time.zone.today.year}
 
-- if shikimori?
-  .links
-    a href="#{terms_pages_url}" title="#{t '.terms'}" = t '.terms'
-    a href="#{privacy_pages_url}" title="#{t '.privacy'}" = t '.privacy'
-    a href="#{sitemap_url}" title="#{t '.sitemap'}" = t '.sitemap'
+.links
+  a[
+    href="#{terms_pages_url subdomain: false}"
+    title="#{t '.terms'}"
+  ] = t '.terms'
+  a[
+    href="#{privacy_pages_url subdomain: false}"
+    title="#{t '.privacy'}"
+  ] = t '.privacy'
+  - if ru_host?
+    a[
+      href="#{for_right_holders_pages_url subdomain: false}"
+      title="#{t '.for_right_holders'}"
+    ] = t '.for_right_holders'
+  a[
+    href="#{sitemap_url subdomain: false}"
+    title="#{t '.sitemap'}"
+  ] = t '.sitemap'

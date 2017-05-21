@@ -52,6 +52,11 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
+  describe '#for_right_holders' do
+    before { get :for_right_holders }
+    it { expect(response).to have_http_status :success }
+  end
+
   describe 'pages404' do
     before { get :page404 }
     it { should respond_with 404 }

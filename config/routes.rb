@@ -505,6 +505,7 @@ Rails.application.routes.draw do
 
         get :terms
         get :privacy
+        get :for_right_holders
         get :user_agent
 
         get 'site-news' => redirect('/news_feed.rss')
