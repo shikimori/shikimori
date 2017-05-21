@@ -1,5 +1,12 @@
 header.head
-  h1 = @page_title.last
+  h1
+    - if I18n.russian?
+      | #{@page_title.last} / #{t 'application.footer.for_right_holders', locale: 'en'}
+      a.misc href="#{for_right_holders_pages_url locale: 'en'}" english
+    - else
+      = @page_title.last
+      - if ru_host?
+        a.misc href="#{for_right_holders_pages_url locale: 'ru'}" russian
   p.notice Last updated: 01.04.2017
 
-== BbCodeFormatter.instance.format_comment t('.text')
+.text = BbCodeFormatter.instance.format_comment t('.text')

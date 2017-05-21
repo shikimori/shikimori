@@ -320,3 +320,15 @@ ru:
         [hr]
         [br][br]
         [img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img][img]http://%{domain}/images/static/embed/ZHBE0Kavy-o.jpg[/img][img]http://%{domain}/images/static/embed/ukGtG8wbBJc.jpg[/img][img]http://%{domain}/images/static/embed/hFT-H0phBKs.jpg[/img][img]http://%{domain}/images/static/embed/QGin9ZjfGWg.jpg[/img][img]http://%{domain}/images/static/embed/gPVKwBuneIo.jpg[/img][img]http://%{domain}/images/static/embed/sC6BfT6LVj8.jpg[/img][img]http://%{domain}/images/static/embed/F3G8LVGAbXw.jpg[/img]
+
+    for_right_holders:
+      text: >-
+        [p]Если вы обнаружили материал, представленный на нашем сайте, который нарушает ваши авторские права, или же дискредитирует Вашу компанию, предоставляя неверную или искаженную информацию, пожалуйста свяжитесь с нами для решения этого вопроса.[/p]
+        [p]Для этого необходимо отправить e-mail с вашего корпоративного почтового ящика содержащий:[/p][list]
+        [*] контактные данные, реквизиты вашей компании;
+        [*] прямую ссылку(ссылки) на материал, который вы считаете спорным;
+        [*] заверенные сканированные копии документов, подтверждающих ваше эксклюзивное право на материал;
+        [*] в случае, если вы представляете интересы другой компании – копии документов на посреднические услуги;
+        [/list][p]На адрес [color=#FF4136]copyright(собачка)shikimori.org[/color][/p]
+        [p]Вся информация будет проверенна, и администрация сайта в кратчайшие сроки свяжется с вами для урегулирования спорного вопроса.[/p]
+        [p]Мы не продаем материалы на нашем сайте, весь контент предоставлен для бесплатного домашнего ознакомительного просмотра.[/p]
