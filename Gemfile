@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'rails', '5.0.3'
+gem 'rails', '5.0.2'
 
 gem 'pg'
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M

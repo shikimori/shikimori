@@ -23,7 +23,7 @@ describe Contest do
     let(:contest) { create :contest, :with_5_members, :created }
 
     it 'full cycle' do
-      expect(contest.created?).to be_truthy
+      expect(contest.created?).to eq true
       contest.propose!
       contest.start!
       contest.finish!
@@ -31,7 +31,7 @@ describe Contest do
 
     describe 'can_propose?' do
       subject { contest.can_propose? }
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq true }
     end
 
     describe '#can_start?' do
@@ -39,17 +39,17 @@ describe Contest do
 
       context 'normal count' do
         before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS + 1 }
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq true }
       end
 
       context 'Contest::MINIMUM_MEMBERS' do
         before { allow(contest.links).to receive(:count).and_return Contest::MINIMUM_MEMBERS - 1 }
-        it { is_expected.to be_falsy }
+        it { is_expected.to eq false }
       end
 
       context 'Contest::MAXIMUM_MEMBERS' do
         before { allow(contest.links).to receive(:count).and_return Contest::MAXIMUM_MEMBERS + 1 }
-        it { is_expected.to be_falsy }
+        it { is_expected.to eq false }
       end
     end
 
@@ -140,19 +140,19 @@ describe Contest do
       it 'starts matches' do
         round.matches.last.state = 'created'
         contest.progress!
-        expect(round.matches.last.started?).to be_truthy
+        expect(round.matches.last.started?).to eq true
       end
 
       it 'finishes matches' do
         round.matches.last.finished_on = Time.zone.yesterday
         contest.progress!
-        expect(round.matches.last.finished?).to be_truthy
+        expect(round.matches.last.finished?).to eq true
       end
 
       it 'finishes round' do
         round.matches.each { |v| v.finished_on = Time.zone.yesterday }
         contest.progress!
-        expect(round.finished?).to be_truthy
+        expect(round.finished?).to eq true
       end
 
       context 'something was changed' do

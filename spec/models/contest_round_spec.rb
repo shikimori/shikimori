@@ -1,7 +1,7 @@
 describe ContestRound do
   describe 'relations' do
-    it { should belong_to :contest }
-    it { should have_many :matches }
+    it { is_expected.to belong_to :contest }
+    it { is_expected.to have_many :matches }
   end
 
   describe 'state_machine' do
@@ -24,12 +24,12 @@ describe ContestRound do
       subject { round.can_start? }
 
       context 'no matches' do
-        it { should eq false }
+        it { is_expected.to eq false }
       end
 
       context 'has matches' do
         before { allow(round.matches).to receive(:any?).and_return true }
-        it { should eq true }
+        it { is_expected.to eq true }
       end
     end
 
@@ -40,17 +40,17 @@ describe ContestRound do
         before { contest.strategy.fill_round_with_matches round }
         before { round.start! }
 
-        it { should eq false }
+        it { is_expected.to eq false }
 
         context 'finished matches' do
           context 'all finished' do
             before { round.matches.each {|v| v.state = 'finished' } }
-            it { should eq true }
+            it { is_expected.to eq true }
           end
 
           context 'all can_finish' do
             before { round.matches.each {|v| allow(v).to receive(:can_finish?).and_return true } }
-            it { should eq true }
+            it { is_expected.to eq true }
           end
         end
       end
@@ -145,7 +145,7 @@ describe ContestRound do
 
   describe '#strategy' do
     subject(:contest_round) { build_stubbed :contest_round }
-    its(:strategy) { should eq contest_round.contest.strategy }
+    its(:strategy) { is_expected.to eq contest_round.contest.strategy }
   end
 
   describe '#title' do
