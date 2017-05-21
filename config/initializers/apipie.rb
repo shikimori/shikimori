@@ -11,7 +11,9 @@ Apipie.configure do |config|
 
   version_placeholder = '%%VERSION_PLACEHOLDER%%'
   documentation_placeholder = '%%DOCUMENTATION_PLACEHOLDER%%'
-  app_info = <<-MARKDOWN
+  pagination_placeholder = '%%PAGINATION_PLACEHOLDER%%'
+
+  app_info = <<~MARKDOWN
     ## Welcome to Shikimori API #{version_placeholder}
     This API has two versions:
       [**v2**](https://shikimori.org/api/doc/2.0.html) and
@@ -19,6 +21,7 @@ Apipie.configure do |config|
       `v2` consists of newly updated methods.
       Prefer using `v2` over `v1` when it is possible.
     <br><br>
+
 
     #{documentation_placeholder}
 
@@ -40,11 +43,7 @@ Apipie.configure do |config|
     `HTTPS` protocol only.
     <br><br>
 
-    ### Pagination in API
-    When you request `N` elements from paginated API, you will get `N+1` results if API has next page.
-    <br><br>
-
-    ### Third party
+    #{pagination_placeholder}### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
     [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.
     <br><br>
@@ -54,8 +53,7 @@ Apipie.configure do |config|
     <br><br>
   MARKDOWN
 
-  v1_placeholder = <<-MARKDOWN
-
+  v1_documentation = <<~MARKDOWN
     ### Documentation for v1
     On this page below.
     <br><br>
@@ -65,8 +63,7 @@ Apipie.configure do |config|
     <br><br>
   MARKDOWN
 
-  v2_placeholder = <<-MARKDOWN
-
+  v2_documentation = <<~MARKDOWN
     ### Documentation for v1
     [Click here](https://shikimori.org/api/doc/1.0.html).
     <br><br>
@@ -76,11 +73,23 @@ Apipie.configure do |config|
     <br><br>
   MARKDOWN
 
+  v1_pagination = <<~MARKDOWN
+    ### Pagination in API
+    When you request `N` elements from paginated API, you will get `N+1` results if API has next page.
+    <br><br>
+
+  MARKDOWN
+
+  v2_pagination = <<~MARKDOWN
+  MARKDOWN
+
   config.app_info['1.0'] = app_info
     .gsub(version_placeholder, 'v1')
-    .gsub(documentation_placeholder, v1_placeholder)
+    .gsub(documentation_placeholder, v1_documentation)
+    .gsub(pagination_placeholder, v1_pagination)
 
   config.app_info['2.0'] = app_info
     .gsub(version_placeholder, 'v2')
-    .gsub(documentation_placeholder, v2_placeholder)
+    .gsub(documentation_placeholder, v2_documentation)
+    .gsub(pagination_placeholder, v2_pagination)
 end
