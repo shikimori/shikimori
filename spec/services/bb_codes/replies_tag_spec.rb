@@ -8,12 +8,12 @@ describe BbCodes::RepliesTag do
     let(:comment_2) { create :comment }
 
     context 'no comments' do
-      let(:text) { '<br><br>[replies=12345]' }
+      let(:text) { "\n\n[replies=12345]" }
       it { is_expected.to eq '' }
     end
 
     context 'one reply' do
-      let(:text) { "<br><br>[replies=#{comment_1.id}]" }
+      let(:text) { "\n\n[replies=#{comment_1.id}]" }
       it do
         is_expected.to eq(
           "<div class='b-replies translated-before single' "\

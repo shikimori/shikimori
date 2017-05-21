@@ -54,8 +54,8 @@ describe BbCodes::AnimeTag do
       end
 
       context 'with forbidden text' do
-        let(:text) { "[anime=#{anime.id}]<br>[/anime]" }
-        it { is_expected.to eq html + '<br>[/anime]' }
+        let(:text) { "[anime=#{anime.id}]\n[/anime]" }
+        it { is_expected.to eq html + "\n[/anime]" }
       end
     end
 

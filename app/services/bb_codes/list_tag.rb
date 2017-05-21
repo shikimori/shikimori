@@ -1,17 +1,19 @@
 class BbCodes::ListTag
   include Singleton
 
-  LIST_REGEXP = /
-    \[list\] (?: <br>)?
+  LIST_REGEXP = %r{
+    \[list\] (?: \n )?
       (?<ul> .*?)
-    \[\/list\]
-  /mix
+    \[/list\]
+  }mix
 
-  LIST_ITEM_REGEXP = /
-    \[\*\] (?<li>
-      (?: (?! \[\* | \[\/list\] | <br><br>). )+
-    ) (?<brs><br><br>)?
-  /mix
+  LIST_ITEM_REGEXP = %r{
+    \[\*\]
+    (?<li>
+      (?: (?! \[\* | \[/list\] | \n\n). )+
+    )
+    (?<brs> \n\n )?
+  }mix
 
   def format text
     format_list_items format_lists(text)
@@ -21,8 +23,8 @@ private
 
   def format_lists text
     text.gsub LIST_REGEXP do
-      items = $~[:ul].gsub(LIST_ITEM_REGEXP) do |match|
-        "<li>#{$~[:li]}</li>"
+      items = $LAST_MATCH_INFO[:ul].gsub(LIST_ITEM_REGEXP) do
+        "<li>#{$LAST_MATCH_INFO[:li]}</li>"
       end
 
       "<ul class=\"b-list\">#{items}</ul>"
@@ -30,8 +32,9 @@ private
   end
 
   def format_list_items text
-    text.gsub(LIST_ITEM_REGEXP) do |match|
-      "<ul class=\"b-list\"><li>#{$~[:li]}</li></ul>#{'<br>' if $~[:brs].present?}"
+    text.gsub(LIST_ITEM_REGEXP) do
+      "<ul class=\"b-list\"><li>#{$LAST_MATCH_INFO[:li]}</li></ul>" +
+        ($LAST_MATCH_INFO[:brs] ? "\n" : '')
     end
   end
 end

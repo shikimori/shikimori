@@ -13,8 +13,8 @@ describe BbCodes::ListTag do
     end
 
     context '[*] with brs' do
-      subject { tag.format '[*]первая строка<br>test<br><br>test2' }
-      it { should eq '<ul class="b-list"><li>первая строка<br>test</li></ul><br>test2' }
+      subject { tag.format "[*]первая строка\ntest\n\ntest2" }
+      it { should eq "<ul class=\"b-list\"><li>первая строка\ntest</li></ul>\ntest2" }
     end
   end
 end

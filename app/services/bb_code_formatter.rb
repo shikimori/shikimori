@@ -78,7 +78,7 @@ class BbCodeFormatter
 
     code_tag = BbCodes::CodeTag.new(text)
     text = code_tag.preprocess
-    text = text.gsub %r{\r\n|\r|\n}, '<br>'
+    text = text.gsub %r{\r\n|\r}, "\n"
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
@@ -87,9 +87,6 @@ class BbCodeFormatter
     TAGS.each do |tag_klass|
       text = tag_klass.instance.format text
     end
-
-    text = text.gsub '<ul><br>', '<ul>'
-    text = text.gsub '</ul><br>', '</ul>'
 
     BB_CODE_REPLACERS.each do |processor|
       text = send processor, text
@@ -102,6 +99,7 @@ class BbCodeFormatter
       text = tag_klass.instance.format text
     end
 
+    text = text.gsub %r{\r\n|\r|\n}, '<br>'
     text = code_tag.postprocess text
     text
   end
