@@ -2,6 +2,15 @@ doctype html
 html
   head
     = render 'application/head'
+
+  - if Rails.env.production? && shikimori?
+    script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+    javascript:
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-9358129264790891",
+        enable_page_level_ads: true
+      });
+
   / refactor to LayoutView. put top_menu to LayoutView
   body[
     class="p-#{controller_name} #{base_controller_names} p-#{controller_name}-#{action_name} #{'no-smileys' if user_signed_in? && !current_user.preferences.show_smileys?} #{current_user&.preferences&.body_width || 'x1200'} #{@layout.localized_names_class} #{@layout.localized_genres_class} locale-#{I18n.locale}"
