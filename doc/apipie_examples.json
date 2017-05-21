@@ -173,7 +173,7 @@
             "date": 1484049600,
             "name": "anime_12",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "/animes/13-anime_12",
+            "url": "/animes/13-anime-12",
             "year": null,
             "kind": "TV Сериал",
             "weight": 0
@@ -183,7 +183,7 @@
             "date": 1484049600,
             "name": "anime_11",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "/animes/12-anime_11",
+            "url": "/animes/12-anime-11",
             "year": null,
             "kind": "TV Сериал",
             "weight": 1
@@ -252,7 +252,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/9-anime_8",
+            "url": "/animes/9-anime-8",
             "kind": "tv",
             "status": null,
             "episodes": 0,
@@ -296,7 +296,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/people/1-person_1"
+            "url": "/people/1-person-1"
           }
         },
         {
@@ -316,7 +316,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/1-character_1"
+            "url": "/characters/1-character-1"
           },
           "person": null
         }
@@ -337,8 +337,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/db1a1e8b42b142100573b5edac2283d5b255dff0.jpg?1484049600",
-          "preview": "/system/screenshots/x332/db1a1e8b42b142100573b5edac2283d5b255dff0.jpg?1484049600"
+          "original": "/system/screenshots/original/d92058e466fcdd518457ec0c4aaab70b3bd0dc25.jpg?1484049600",
+          "preview": "/system/screenshots/x332/d92058e466fcdd518457ec0c4aaab70b3bd0dc25.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -399,7 +399,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/animes/3-anime_2",
+        "url": "/animes/3-anime-2",
         "kind": "tv",
         "status": null,
         "episodes": 0,
@@ -476,7 +476,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/5-anime_4",
+          "url": "/animes/5-anime-4",
           "kind": "tv",
           "status": null,
           "episodes": 0,
@@ -542,7 +542,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "KTRDbsdwl+2IzulwOzshgDjfpBp3AzfJ4mvGLGZiG2W2Eb4OhNUOibzgnVte3bs/qKGQnZ9QCScOmyrs6hfG2w=="
+        "authenticity_token": "QKghlBEmb/pMy9I8EiXNswwJ61Zv3xshs4UTpBS1AKbG/fJ95BSPZEg5ESYGbcRHhM09OEq5IoSIPuBl8O3NQA=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -677,7 +677,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/23-anime_20",
+            "url": "/animes/23-anime-20",
             "kind": "tv",
             "status": "anons",
             "episodes": 0,
@@ -688,7 +688,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-04-27T00:00:00.000+00:00",
+          "next_episode_at": "2017-05-07T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 18,
@@ -700,12 +700,12 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/18-anime_15",
+            "url": "/animes/18-anime-15",
             "kind": "tv",
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-04-27",
+            "aired_on": "2017-05-07",
             "released_on": null
           }
         }
@@ -762,7 +762,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/characters/2-character_2",
+        "url": "/characters/2-character-2",
         "altname": null,
         "japanese": null,
         "description": null,
@@ -807,7 +807,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/26-anime_23",
+          "url": "/animes/26-anime-23",
           "kind": "tv",
           "status": null,
           "episodes": 0,
@@ -841,7 +841,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/characters/7-character_5"
+          "url": "/characters/7-character-5"
         }
       ],
       "code": "200",
@@ -970,7 +970,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/3-manga_3",
+          "url": "/mangas/3-manga-3",
           "kind": "manga",
           "status": null,
           "volumes": 0,
@@ -1015,6 +1015,23 @@
       "recorded": true
     }
   ],
+  "clubs#ranobe": [
+    {
+      "verb": "GET",
+      "path": "",
+      "versions": [
+        "1.0"
+      ],
+      "query": "",
+      "request_data": null,
+      "response_data": [
+
+      ],
+      "code": "200",
+      "show_in_doc": 1,
+      "recorded": true
+    }
+  ],
   "clubs#show": [
     {
       "verb": "GET",
@@ -1050,7 +1067,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/1-manga_1",
+            "url": "/mangas/1-manga-1",
             "kind": "manga",
             "status": null,
             "volumes": 0,
@@ -1070,7 +1087,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/5-character_3"
+            "url": "/characters/5-character-3"
           }
         ],
         "thread_id": 103560,
@@ -1105,7 +1122,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/24-anime_21",
+            "url": "/animes/24-anime-21",
             "kind": "tv",
             "status": null,
             "episodes": 0,
@@ -2370,7 +2387,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 14295,
+          "id": 3336,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -2491,11 +2508,11 @@
         ],
         "nodes": [
           {
-            "id": 11,
+            "id": 12,
             "date": 1484049600,
             "name": "манга_11",
             "image_url": "/assets/globals/missing_x96.jpg",
-            "url": "/mangas/11-manga_10",
+            "url": "/mangas/12-manga-10",
             "year": null,
             "kind": "Манга",
             "weight": 1
@@ -2518,7 +2535,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 4,
+          "id": 5,
           "name": "Test",
           "russian": "манга_4",
           "image": {
@@ -2527,7 +2544,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/4-test",
+          "url": "/mangas/5-test",
           "kind": "manga",
           "status": null,
           "volumes": 0,
@@ -2556,7 +2573,7 @@
           "relation_russian": "Адаптация",
           "anime": null,
           "manga": {
-            "id": 10,
+            "id": 11,
             "name": "manga_9",
             "russian": "манга_10",
             "image": {
@@ -2565,7 +2582,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/10-manga_9",
+            "url": "/mangas/11-manga-9",
             "kind": "manga",
             "status": null,
             "volumes": 0,
@@ -2608,7 +2625,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/people/2-person_2"
+            "url": "/people/2-person-2"
           }
         },
         {
@@ -2628,7 +2645,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/characters/8-character_6"
+            "url": "/characters/8-character-6"
           },
           "person": null
         }
@@ -2649,7 +2666,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 13,
+          "id": 14,
           "name": "asdf",
           "russian": "манга_13",
           "image": {
@@ -2658,7 +2675,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/13-asdf",
+          "url": "/mangas/14-asdf",
           "kind": "manga",
           "status": null,
           "volumes": 0,
@@ -2682,7 +2699,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 5,
+        "id": 6,
         "name": "manga_4",
         "russian": "манга_5",
         "image": {
@@ -2691,7 +2708,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/mangas/5-manga_4",
+        "url": "/mangas/6-manga-4",
         "kind": "manga",
         "status": null,
         "volumes": 0,
@@ -2704,9 +2721,7 @@
         "japanese": [
           null
         ],
-        "synonyms": [
-
-        ],
+        "synonyms": null,
         "score": "1.0",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
@@ -2717,7 +2732,7 @@
         "thread_id": 103566,
         "topic_id": 103566,
         "read_manga_id": null,
-        "myanimelist_id": 5,
+        "myanimelist_id": 6,
         "rates_scores_stats": [
 
         ],
@@ -2748,7 +2763,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 7,
+          "id": 8,
           "name": "manga_6",
           "russian": "манга_7",
           "image": {
@@ -2757,7 +2772,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/mangas/7-manga_6",
+          "url": "/mangas/8-manga-6",
           "kind": "manga",
           "status": null,
           "volumes": 0,
@@ -3054,7 +3069,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-11T14:20:40.272+03:00"
+          "last_online_at": "2017-05-21T22:26:26.331+03:00"
         }
       },
       "code": "200",
@@ -3233,7 +3248,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/people/3-person_3",
+        "url": "/people/3-person-3",
         "japanese": null,
         "job_title": "Режиссер аниме",
         "birthday": null,
@@ -3259,7 +3274,7 @@
                 "x96": "/assets/globals/missing_x96.jpg",
                 "x48": "/assets/globals/missing_x48.jpg"
               },
-              "url": "/animes/28-anime_25",
+              "url": "/animes/28-anime-25",
               "kind": "tv",
               "status": null,
               "episodes": 0,
@@ -3304,7 +3319,7 @@
           "x96": "/assets/globals/missing_x96.jpg",
           "x48": "/assets/globals/missing_x48.jpg"
         },
-        "url": "/people/4-person_4",
+        "url": "/people/4-person-4",
         "japanese": null,
         "job_title": "Режиссер аниме",
         "birthday": null,
@@ -3637,7 +3652,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-11T14:20:40.272+03:00"
+            "last_online_at": "2017-05-21T22:26:26.331+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3688,7 +3703,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-11T14:20:40.272+03:00"
+          "last_online_at": "2017-05-21T22:26:26.331+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3705,7 +3720,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/33-anime_30",
+            "url": "/animes/33-anime-30",
             "kind": "tv",
             "status": null,
             "episodes": 0,
@@ -3726,7 +3741,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-11T14:20:40.272+03:00"
+            "last_online_at": "2017-05-21T22:26:26.331+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -3845,7 +3860,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/35-anime_32",
+          "url": "/animes/35-anime-32",
           "kind": "tv",
           "status": null,
           "episodes": 0,
@@ -4017,7 +4032,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/37-anime_34",
+          "url": "/animes/37-anime-34",
           "kind": "tv",
           "status": null,
           "episodes": 0,
@@ -4239,7 +4254,7 @@
             "x96": "/assets/globals/missing_x96.jpg",
             "x48": "/assets/globals/missing_x48.jpg"
           },
-          "url": "/animes/36-anime_33",
+          "url": "/animes/36-anime-33",
           "kind": "tv",
           "status": null,
           "episodes": 0,
@@ -4337,7 +4352,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/41-anime_38",
+            "url": "/animes/41-anime-38",
             "kind": "tv",
             "status": null,
             "episodes": 0,
@@ -4480,8 +4495,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 13,
-          "name": "club_13",
+          "id": 14,
+          "name": "club_14",
           "logo": {
             "original": "/assets/globals/missing_original_original.jpg",
             "main": "/assets/globals/missing_main_main.jpg",
@@ -4515,16 +4530,16 @@
             "name": "anime_39",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/animes/42-anime_39"
+            "url": "/animes/42-anime-39"
           }
         ],
         "mangas": [
           {
-            "id": 16,
+            "id": 17,
             "name": "manga_13",
             "russian": "манга_16",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/mangas/16-manga_13"
+            "url": "/mangas/17-manga-13"
           }
         ],
         "characters": [
@@ -4533,7 +4548,7 @@
             "name": "character_7",
             "russian": "персонаж_9",
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/characters/9-character_7"
+            "url": "/characters/9-character-7"
           }
         ],
         "people": [
@@ -4542,7 +4557,7 @@
             "name": "person_5",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/7-person_5"
+            "url": "/people/7-person-5"
           }
         ],
         "mangakas": [
@@ -4551,7 +4566,7 @@
             "name": "person_5",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/7-person_5"
+            "url": "/people/7-person-5"
           }
         ],
         "seyu": [
@@ -4560,7 +4575,7 @@
             "name": "person_5",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/7-person_5"
+            "url": "/people/7-person-5"
           }
         ],
         "producers": [
@@ -4569,7 +4584,7 @@
             "name": "person_5",
             "russian": null,
             "image": "/assets/globals/missing_x64.jpg",
-            "url": "/people/7-person_5"
+            "url": "/people/7-person-5"
           }
         ]
       },
@@ -4633,7 +4648,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/45-anime_42",
+            "url": "/animes/45-anime-42",
             "kind": "tv",
             "status": null,
             "episodes": 0,
@@ -4770,7 +4785,7 @@
           },
           "anime": null,
           "manga": {
-            "id": 15,
+            "id": 16,
             "name": "manga_12",
             "russian": "манга_15",
             "image": {
@@ -4779,7 +4794,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/mangas/15-manga_12",
+            "url": "/mangas/16-manga-12",
             "kind": "manga",
             "status": null,
             "volumes": 0,
@@ -4813,7 +4828,7 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": {
             "id": 44,
-            "topic_url": "//test.host/forum/animanga/103569-topic_8",
+            "topic_url": "//test.host/forum/animanga/103569-topic-8",
             "thread_id": 103569,
             "topic_id": 103569,
             "type": "Anime",
@@ -4825,7 +4840,7 @@
               "x96": "/assets/globals/missing_x96.jpg",
               "x48": "/assets/globals/missing_x48.jpg"
             },
-            "url": "/animes/44-anime_41",
+            "url": "/animes/44-anime-41",
             "kind": "tv",
             "status": null,
             "episodes": 0,

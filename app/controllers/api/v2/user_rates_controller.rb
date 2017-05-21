@@ -1,6 +1,8 @@
 class Api::V2::UserRatesController < Api::V2Controller
   load_and_authorize_resource
 
+  MAX_LIMIT = 1000
+
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates/:id', 'Show an user rate'
   def show
@@ -8,15 +10,34 @@ class Api::V2::UserRatesController < Api::V2Controller
   end
 
   api :GET, '/v2/user_rates', 'List user rates'
-  param :user_id, :number, required: true
+  param :user_id, :number, required: false
+  param :target_id, :number, required: false
+  param :target_type, %w[Anime Manga], required: false
   param :status, UserRate.statuses.keys, required: false
+  param :page, :number, required: false,
+    desc: 'This field is ignored when user_id is set'
+  param :limit, :number, required: false,
+    desc: "#{MAX_LIMIT} maximum. This field is ignored when user_id is set"
   def index
-    user = User.find(params[:user_id])
-    @collection = Rails.cache.fetch [user, :rates, params[:status]] do
-      query = UserRate.where(user_id: params[:user_id])
-      query.where(status: params[:status])
-      query.to_a
+    limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
+    page = [params[:page].to_i, 1].max
+
+    if params[:target_type].present? && params[:target_id].blank?
+      raise MissingApiParameter, 'target_id'
     end
+
+    if %i[target_type target_id user_id].all? { |field| params[field].blank? }
+      raise MissingApiParameter, 'user_id'
+    end
+
+    scope = %i[user_id status target_type target_id]
+      .each_with_object(UserRate.all) do |field, scope|
+        scope.where! field => params[field] if params[field].present?
+      end
+
+    scope.offset!(limit * (page-1)).limit!(limit) unless params[:user_id]
+
+    @collection = Rails.cache.fetch(scope) { scope.to_a }
 
     respond_with @collection
   end

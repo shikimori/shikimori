@@ -16,12 +16,13 @@ class Api::V1Controller < ShikimoriController
   end
 
   rescue_from MissingApiParameter, with: :missing_api_parameter
+  rescue_from Apipie::ParamMissing, with: :missing_api_parameter
 
 private
 
   def missing_api_parameter exception
     render(
-      json: ["missing parameter: #{exception.message}"],
+      json: [exception.message],
       status: :unprocessable_entity
     )
   end
