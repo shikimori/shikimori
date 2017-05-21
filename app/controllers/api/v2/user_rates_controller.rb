@@ -26,6 +26,10 @@ class Api::V2::UserRatesController < Api::V2Controller
       raise MissingApiParameter, 'target_id'
     end
 
+    if params[:target_id].present? && params[:target_type].blank?
+      raise MissingApiParameter, 'target_type'
+    end
+
     if %i[target_type target_id user_id].all? { |field| params[field].blank? }
       raise MissingApiParameter, 'user_id'
     end
