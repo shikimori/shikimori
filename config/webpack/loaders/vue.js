@@ -11,14 +11,14 @@ const cssLoader = [
 const sassLoader = cssLoader.concat(['sass-loader?indentedSyntax'])
 const scssLoader = cssLoader.concat(['sass-loader'])
 
-function vueLoader(loader) {
+function vueStyleLoader(loader) {
   if (extractStyles) {
     return ExtractTextPlugin.extract({
       fallback: 'vue-style-loader',
       use: loader
     })
   }
-  return ['vue-style-loader'].concat(sassLoader)
+  return ['vue-style-loader'].concat(loader)
 }
 
 module.exports = {
@@ -28,9 +28,9 @@ module.exports = {
     loaders: {
       js: 'babel-loader',
       file: 'file-loader',
-      css: vueLoader(cssLoader),
-      scss: vueLoader(scssLoader),
-      sass: vueLoader(sassLoader)
+      css: vueStyleLoader(cssLoader),
+      scss: vueStyleLoader(scssLoader),
+      sass: vueStyleLoader(sassLoader)
     }
   }
 }
