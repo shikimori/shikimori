@@ -67,6 +67,11 @@ describe BbCodes::AnimeTag do
         let(:suffix) { "\n[/anime][/quote]\n[/anime]" }
         it { is_expected.to eq html + suffix }
       end
+
+      context 'tag after tag' do
+        let(:text) { "[anime=#{anime.id}], [anime=#{anime.id}]z[/anime]" }
+        it { is_expected.to_not include '[anime' }
+      end
     end
 
     context '[anime]id[/anime]' do
