@@ -132,3 +132,9 @@
 - else
   .entry.info
     a title="#{t '.info'}" href="#{info_pages_url}"
+
+  .entry
+    a[
+      title="#{t 'application.footer.for_right_holders'}"
+      href="#{for_right_holders_pages_url subdomain: false}"
+    ] = t 'application.footer.for_right_holders'
