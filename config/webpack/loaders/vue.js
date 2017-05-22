@@ -5,11 +5,16 @@ const { env } = require('../configuration.js')
 const extractStyles = false
 
 const cssLoader = [
-  { loader: 'css-loader', options: { minimize: env === 'production' } },
-  'postcss-loader'
+  { loader: 'css-loader', options: { minimize: env.NODE_ENV === 'production' } },
+  { loader: 'postcss-loader', options: { sourceMap: true } },
+  'resolve-url-loader'
 ]
-const sassLoader = cssLoader.concat(['sass-loader?indentedSyntax'])
-const scssLoader = cssLoader.concat(['sass-loader'])
+const sassLoader = cssLoader.concat([
+  { loader: 'sass-loader', options: { sourceMap: true, indentedSyntax: true } }
+])
+const scssLoader = cssLoader.concat([
+  { loader: 'sass-loader', options: { sourceMap: true } }
+])
 
 function vueStyleLoader(loader) {
   if (extractStyles) {

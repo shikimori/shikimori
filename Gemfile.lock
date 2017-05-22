@@ -92,6 +92,15 @@ GIT
     htmldiff (0.0.1)
 
 GIT
+  remote: git://github.com/rails/webpacker.git
+  revision: 158987a82b605b534bcdc9468efca2602313c791
+  specs:
+    webpacker (1.2)
+      activesupport (>= 4.2)
+      multi_json (~> 1.2)
+      railties (>= 4.2)
+
+GIT
   remote: git://github.com/shikimori/mal_parser.git
   revision: c548f46e135a6e4d080d54e978e855f0a0bee509
   specs:
@@ -663,10 +672,6 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    webpacker (1.2)
-      activesupport (>= 4.2)
-      multi_json (~> 1.2)
-      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -813,7 +818,7 @@ DEPENDENCIES
   unicorn
   vcr
   webmock
-  webpacker
+  webpacker!
   whenever
   xxhash
   zaru

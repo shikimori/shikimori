@@ -1,8 +1,8 @@
 // Note: You must restart bin/webpack-dev-server for changes to take effect
 
-const webpack = require('webpack')
 const merge = require('webpack-merge')
 const sharedConfig = require('./shared.js')
+const { settings, output } = require('./configuration.js')
 const { join } = require('path')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
@@ -10,7 +10,7 @@ const notifier = require('node-notifier')
 const ICON = join(__dirname, '../../public/favicons/favicon-144x144.png')
 
 module.exports = merge(sharedConfig, {
-  devtool: 'sourcemap',
+  devtool: 'cheap-eval-source-map',
 
   plugins: [
     new FriendlyErrorsWebpackPlugin({
@@ -39,5 +39,21 @@ module.exports = merge(sharedConfig, {
 
   output: {
     pathinfo: true
+  },
+
+  devServer: {
+    clientLogLevel: 'none',
+    https: settings.dev_server.https,
+    host: settings.dev_server.host,
+    port: settings.dev_server.port,
+    contentBase: output.path,
+    publicPath: output.publicPath,
+    compress: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    historyApiFallback: true,
+    watchOptions: {
+      ignored: /node_modules/
+    },
+    disableHostCheck: true
   }
 })
