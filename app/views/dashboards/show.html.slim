@@ -117,6 +117,9 @@
           #yandex_rtb_R-A-227837-1
           javascript:
               (function(w, d, n, s, t) {
+                  if (mobile_detect.tablet() || mobile_detect.phone()) {
+                    return;
+                  }
                   w[n] = w[n] || [];
                   w[n].push(function() {
                       Ya.Context.AdvManager.render({
