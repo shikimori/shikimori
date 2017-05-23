@@ -643,6 +643,7 @@ Rails.application.routes.draw do
         name russian description_ru description_en image
         kind episodes rating
         screenshots videos torrents_name tags aired_on released_on genres
+        external_links
       }.join('|'))
 
       post 'torrent' => 'torrents#create', on: :member
@@ -659,6 +660,7 @@ Rails.application.routes.draw do
           name russian description_ru description_en image
           kind rating volumes chapters
           tags aired_on released_on status genres
+          external_links
         }.join('|'))
       end
     end

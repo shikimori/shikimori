@@ -137,6 +137,12 @@
             a.b-js-action href="#{@resource.edit_field_url(:torrents_name)}"
               = t 'actions.edit'
 
+        - if current_user&.admin?
+          li
+            .field = t '.external_links'
+            a.b-js-action href="#{@resource.edit_field_url(:external_links)}"
+              = t 'actions.edit'
+
   - if @resource.desynced.any?
     .block
       b Desynced:
