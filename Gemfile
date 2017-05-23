@@ -8,7 +8,7 @@ gem 'dalli' # NOTE: в конфиге мемкеша должна быть оп�
 gem 'redis'
 gem 'redis-namespace'
 
-gem 'webpacker', github: 'rails/webpacker'
+gem 'webpacker'
 gem 'slim-rails'
 gem 'coffee-rails'
 gem 'sassc-rails'
