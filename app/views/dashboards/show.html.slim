@@ -114,7 +114,7 @@
     .c-generated_news
       - if Rails.env.production?
         - if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
-          .y-sponsored#yandex_rtb_R-A-227837-1
+          .yandex-adaptive#yandex_rtb_R-A-227837-1
             javascript:
                 (function(w, d, n, s, t) {
                     if (mobile_detect.tablet() || mobile_detect.phone()) {
@@ -127,8 +127,6 @@
                             renderTo: "yandex_rtb_R-A-227837-1",
                             horizontalAlign: true,
                             async: true
-                        }, function() {
-                          console.log('not loaded')
                         });
                     });
                     t = d.getElementsByTagName("script")[0];
