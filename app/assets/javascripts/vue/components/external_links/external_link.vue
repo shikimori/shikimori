@@ -5,19 +5,39 @@
     )
     .drag-handle
     input(
-      name="external_links[][id]"
       type="hidden"
-      v-model="link.id"
+      v-model="link.entry_id"
+      :name="field_name('entry_id')"
     )
     input(
-      name="external_links[][source]"
+      type="hidden"
+      v-model="link.entry_type"
+      :name="field_name('entry_type')"
+    )
+    input(
+      type="hidden"
+      v-model="link.created_at"
+      :name="field_name('created_at')"
+    )
+    input(
+      type="hidden"
+      v-model="link.updated_at"
+      :name="field_name('updated_at')"
+    )
+    input(
+      type="hidden"
+      v-model="link.imported_at"
+      :name="field_name('imported_at')"
+    )
+    input(
       type="hidden"
       v-model="link.source"
+      :name="field_name('source')"
     )
     .b-input
       select(
-        name="external_links[][kind]"
         v-model="link.kind"
+        :name="field_name('kind')"
       )
         option(
           v-for="kind_option in kind_options"
@@ -25,9 +45,9 @@
         ) {{ kind_option.first() }}
     .b-input
       input(
-        name="external_links[][url]"
         type="text"
         v-model="link.url"
+        :name="field_name('url')"
         :placeholder="I18n.t('activerecord.attributes.external_link.url')"
       )
 </template>
@@ -38,13 +58,22 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   props: {
     link: Object,
-    kind_options: Array
+    kind_options: Array,
+    entry_type: String,
+    entry_id: Number
   },
   computed: {
     ...mapGetters([
     ]),
   },
   methods: {
+    field_name(name) {
+      if (!Object.isEmpty(this.link.url)) {
+        return `${this.entry_type}[external_links][][${name.toLowerCase()}]`
+      } else {
+        return ''
+      }
+    },
     ...mapActions([
       'remove_link'
     ])

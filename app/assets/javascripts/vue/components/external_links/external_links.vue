@@ -1,5 +1,10 @@
 <template lang="pug">
   .block
+    input(
+      type="hidden"
+      v-if="no_links()"
+      :name="`${entry_type}[external_links][]`"
+    )
     draggable.block(
       :options="drag_options"
       v-model="external_links"
@@ -9,6 +14,8 @@
         :key="link.id || link.key"
         :link="link"
         :kind_options="kind_options"
+        :entry_type="entry_type"
+        :entry_id="entry_id"
       )
     .b-button(
       @click="add_link"
@@ -22,7 +29,9 @@ import draggable from 'vuedraggable'
 export default {
   components: { ExternalLink, draggable },
   props: {
-    kind_options: Array
+    kind_options: Array,
+    entry_type: String,
+    entry_id: Number
   },
   data () {
     return {
@@ -48,8 +57,13 @@ export default {
         kind: this.kind_options.first().last(),
         source: 'shikimori',
         url: '',
-        id: ''
+        id: '',
+        entry_id: this.entry_id,
+        entry_type: this.entry_type
       })
+    },
+    no_links() {
+      return this.external_links.every((link) => Object.isEmpty(link.url))
     }
   }
 }

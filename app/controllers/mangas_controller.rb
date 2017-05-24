@@ -1,4 +1,11 @@
 class MangasController < AnimesController
+  UPDATE_PARAMS = %i[
+    russian
+    tags
+    description_ru
+    description_en
+  ] + [*Manga::DESYNCABLE, external_links: []]
+
   def autocomplete
     @collection = Autocomplete::Manga.call(
       scope: Manga.where.not(kind: Ranobe::KIND),
@@ -21,12 +28,8 @@ private
   def update_params
     params
       .require(:manga)
-      .permit(
-        :russian,
-        :tags,
-        :description_ru,
-        :description_en,
-        *Manga::DESYNCABLE
-      )
+      .permit(UPDATE_PARAMS)
+  rescue ActionController::ParameterMissing
+    {}
   end
 end

@@ -14,12 +14,14 @@ describe Versioneers::PostersVersioneer do
 
       expect(version).to be_persisted
       expect(version).to be_pending
-      expect(version.class).to eq Versions::PosterVersion
-      expect(version.user).to eq author
-      expect(version.reason).to eq reason
-      expect(version.item_diff).to eq 'image' => [nil, 'anime.jpg']
-      expect(version.item).to eq anime
-      expect(version.moderator).to be_nil
+      expect(version).to be_instance_of Versions::PosterVersion
+      expect(version).to have_attributes(
+        user: author,
+        reason: reason,
+        item_diff: { 'image' => [nil, 'anime.jpg'] },
+        item: anime,
+        moderator: nil
+      )
     end
   end
 
@@ -32,12 +34,14 @@ describe Versioneers::PostersVersioneer do
 
       expect(version).to be_persisted
       expect(version).to be_auto_accepted
-      expect(version.class).to eq Versions::PosterVersion
-      expect(version.user).to eq author
-      expect(version.reason).to eq reason
-      expect(version.item_diff).to eq 'image' => [nil, 'anime.jpg']
-      expect(version.item).to eq anime
-      expect(version.moderator).to be_nil
+      expect(version).to be_instance_of Versions::PosterVersion
+      expect(version).to have_attributes(
+        user: author,
+        reason: reason,
+        item_diff: { 'image' => [nil, 'anime.jpg'] },
+        item: anime,
+        moderator: nil
+      )
     end
   end
 end

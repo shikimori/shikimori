@@ -89,7 +89,7 @@ class Manga < DbEntry
 
   before_post_process { translit_paperclip_file_name :image }
 
-  has_many :external_links,
+  has_many :external_links, -> { order :id },
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry,

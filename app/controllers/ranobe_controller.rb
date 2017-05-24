@@ -21,12 +21,8 @@ private
   def update_params
     params
       .require(:ranobe)
-      .permit(
-        :russian,
-        :tags,
-        :description_ru,
-        :description_en,
-        *Manga::DESYNCABLE
-      )
+      .permit(UPDATE_PARAMS)
+  rescue ActionController::ParameterMissing
+    {}
   end
 end

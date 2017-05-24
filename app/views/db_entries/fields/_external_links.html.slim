@@ -5,7 +5,17 @@
 - else
   - except_keys = [::Types::ExternalLink::Kind[:world_art], ::Types::ExternalLink::Kind[:kage_project], ::Types::ExternalLink::Kind[:anime_db]]
 
-#vue_external_links[
-  data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
-  data-kind_options="#{ExternalLink.kind.options.select {|_, key| !except_keys.include?(key.to_sym) }.to_json}"
-]
+= simple_form_for resource.object do |f|
+  #vue_external_links[
+    data-entry_type="#{@resource.object.class.name}"
+    data-entry_id="#{@resource.id}"
+    data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
+    data-kind_options="#{ExternalLink.kind.options.select {|_, key| !except_keys.include?(key.to_sym) }.to_json}"
+  ]
+  .cc-2
+    .c-column
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+        = f.button :magic_submit

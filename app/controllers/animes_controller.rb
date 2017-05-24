@@ -12,6 +12,14 @@ class AnimesController < DbEntriesController
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
 
+  UPDATE_PARAMS = %i[
+    russian
+    torrents_name
+    tags
+    description_ru
+    description_en
+  ] + [*Anime::DESYNCABLE, external_links: []]
+
   # display anime or manga
   def show
     @itemtype = @resource.itemtype
@@ -160,14 +168,7 @@ private
   def update_params
     params
       .require(:anime)
-      .permit(
-        :russian,
-        :torrents_name,
-        :tags,
-        :description_ru,
-        :description_en,
-        *Anime::DESYNCABLE
-      )
+      .permit(UPDATE_PARAMS)
   rescue ActionController::ParameterMissing
     {}
   end

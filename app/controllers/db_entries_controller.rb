@@ -34,8 +34,11 @@ class DbEntriesController < ShikimoriController
       authorize! :significant_change, Version
     end
 
+    1/0
     version = if update_params[:image]
       update_image
+    elsif update_params[:external_links]
+      update_external_links
     else
       update_version
     end
@@ -60,8 +63,13 @@ private
   end
 
   def update_version
-    version = Versioneers::FieldsVersioneer.new(@resource.object)
-      .premoderate(update_params.to_unsafe_h, current_user, params[:reason])
+    version = Versioneers::FieldsVersioneer
+      .new(@resource.object)
+      .premoderate(
+        update_params[:external_links],
+        current_user,
+        params[:reason]
+      )
 
     version.accept current_user if version.persisted? && can?(:accept, version)
     version
@@ -83,5 +91,18 @@ private
         params[:reason]
       )
     end
+  end
+
+  def update_external_links
+    version = Versioneers::CollectionVersioneer
+      .new(@resource.object)
+      .premoderate(
+        update_params[:external_links],
+        current_user,
+        params[:reason]
+      )
+
+    version.accept current_user if version.persisted? && can?(:accept, version)
+    version
   end
 end

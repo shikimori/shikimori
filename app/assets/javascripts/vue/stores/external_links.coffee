@@ -17,7 +17,7 @@ module.exports = new Vuex.Store
       state.external_links = reordered_external_links
 
     ADD_LINK: (state, link_data) ->
-      state.external_links.push link_data
+      state.external_links.push Object.add(link_data, key: new_id())
 
     REMOVE_LINK: (state, link) ->
       state.external_links.splice(
