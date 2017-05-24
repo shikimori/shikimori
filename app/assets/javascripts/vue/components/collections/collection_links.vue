@@ -19,7 +19,7 @@
             :id="'group_' + group_name"
             :value="group_name"
             :data-original_value="group_name"
-            :placeholder="I18n.t(`frontend.collections.group_name`)"
+            :placeholder="I18n.t('frontend.collections.group_name')"
             @blur="on_group_rename"
             @change="on_group_rename"
             @keydown.enter.prevent="on_group_rename"

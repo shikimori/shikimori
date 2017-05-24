@@ -77,6 +77,11 @@ export default {
     ...mapActions([
       'remove_link'
     ])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      $('input', this.$el).focus()
+    })
   }
 }
 </script>
