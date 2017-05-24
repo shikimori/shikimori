@@ -379,6 +379,16 @@ ru:
       kind:
         anime: Аниме
         manga: Манга
+    external_link:
+      kind:
+        official_site: Официальный сайт
+        wikipedia_ru: Википедия
+        wikipedia_en: Wikipedia
+        wikipedia_jp: ウィキペディア
+        anime_news_network: Anime News Network
+        anime_db: AniDB
+        kage_project: Kage Project
+        ruranobe: РуРанобэ
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

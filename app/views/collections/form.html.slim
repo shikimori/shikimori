@@ -7,9 +7,6 @@ header.head.misc
     .subheadline = i18n_i 'error', :other
     == @resource.errors.full_messages.join('<br>')
 
-/ #collection_form[
-  / data-collection_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.links, scope: self).to_json}"
-/ ]
 #collection_form[
   data-collection="#{CollectionSerializer.new(@resource, scope: self).to_json}"
   data-autocomplete_url="#{url_for(controller: @resource.kind.pluralize, action: :autocomplete) if @resource.persisted?}"

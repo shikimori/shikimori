@@ -127,4 +127,18 @@ page_load '.db_entries-edit_field', ->
       $item_diff.find('input').val JSON.stringify(diff)
 
   if $('.edit-page.external_links').exists()
-    console.log 'external_links'
+    require.ensure [], ->
+      init_app(
+        require('vue/instance').Vue,
+        require('vue/components/external_links/external_links.vue'),
+        require('vue/stores').external_links,
+      )
+
+init_app = (Vue, ExternalLinks, store) ->
+  collection = $('#vue_external_links').data('collection')
+  store.state.collection = collection
+
+  new Vue
+    el: '#vue_external_links'
+    store: store
+    render: (h) -> h(ExternalLinks)
