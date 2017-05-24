@@ -125,3 +125,6 @@ page_load '.db_entries-edit_field', ->
 
       diff = genres: [current_ids, new_ids]
       $item_diff.find('input').val JSON.stringify(diff)
+
+  if $('.edit-page.external_links').exists()
+    console.log 'external_links'

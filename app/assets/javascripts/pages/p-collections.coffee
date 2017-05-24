@@ -5,7 +5,7 @@ page_load 'collections_new', 'collections_edit', 'collections_create', 'collecti
     init_app(
       require('vue/instance').Vue,
       require('vue/components/collections/collection_links.vue'),
-      require('vue/store').store,
+      require('vue/store').collection_links,
     )
 
 # sort with preserving initial order
