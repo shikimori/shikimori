@@ -135,6 +135,7 @@ page_load '.db_entries-edit_field', ->
       )
 
 init_app = (Vue, ExternalLinks, store) ->
+  resource_type = $('#vue_external_links').data('resource_type')
   entry_type = $('#vue_external_links').data('entry_type')
   entry_id = $('#vue_external_links').data('entry_id')
   external_links = $('#vue_external_links').data('external_links')
@@ -147,6 +148,7 @@ init_app = (Vue, ExternalLinks, store) ->
     store: store
     render: (h) -> h(ExternalLinks, props: {
       kind_options: kind_options,
+      resource_type: resource_type,
       entry_type: entry_type
       entry_id: entry_id
     })

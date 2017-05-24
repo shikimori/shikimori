@@ -59,6 +59,7 @@ export default {
   props: {
     link: Object,
     kind_options: Array,
+    resource_type: String,
     entry_type: String,
     entry_id: Number
   },
@@ -69,7 +70,7 @@ export default {
   methods: {
     field_name(name) {
       if (!Object.isEmpty(this.link.url)) {
-        return `${this.entry_type}[external_links][][${name.toLowerCase()}]`
+        return `${this.resource_type.toLowerCase()}[external_links][][${name}]`
       } else {
         return ''
       }
@@ -87,10 +88,14 @@ export default {
 </script>
 
 <style scoped lang="sass">
-  .b-input input
-    width: 100%
+  .b-collection_item
+    &:first-child:last-child
+      .drag-handle
+        display: none
 
-  .b-collection_item:first-child:last-child
-    .drag-handle
-      display: none
+    .b-input
+      margin-bottom: 2px
+
+      input
+        width: 100%
 </style>

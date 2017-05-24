@@ -4,7 +4,7 @@ class MangasController < AnimesController
     tags
     description_ru
     description_en
-  ] + [*Manga::DESYNCABLE, external_links: []]
+  ] + [*Manga::DESYNCABLE, external_links: [EXTERNAL_LINK_PARAMS]]
 
   def autocomplete
     @collection = Autocomplete::Manga.call(

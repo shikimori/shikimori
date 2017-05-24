@@ -34,7 +34,6 @@ class DbEntriesController < ShikimoriController
       authorize! :significant_change, Version
     end
 
-    1/0
     version = if update_params[:image]
       update_image
     elsif update_params[:external_links]
@@ -95,7 +94,7 @@ private
 
   def update_external_links
     version = Versioneers::CollectionVersioneer
-      .new(@resource.object)
+      .new(@resource.object, :external_links)
       .premoderate(
         update_params[:external_links],
         current_user,

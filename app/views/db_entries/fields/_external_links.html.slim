@@ -7,8 +7,9 @@
 
 = simple_form_for resource.object do |f|
   #vue_external_links[
-    data-entry_type="#{@resource.object.class.name}"
+    data-resource_type="#{@resource.object.class.name}"
     data-entry_id="#{@resource.id}"
+    data-entry_type="#{@resource.object.class.base_class.name}"
     data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
     data-kind_options="#{ExternalLink.kind.options.select {|_, key| !except_keys.include?(key.to_sym) }.to_json}"
   ]

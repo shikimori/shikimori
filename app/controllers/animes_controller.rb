@@ -12,13 +12,16 @@ class AnimesController < DbEntriesController
     #unless: proc { user_signed_in? },
     #expires_in: 2.days
 
+  EXTERNAL_LINK_PARAMS = %i[
+    entry_id entry_type created_at updated_at imported_at source kind url
+  ]
   UPDATE_PARAMS = %i[
     russian
     torrents_name
     tags
     description_ru
     description_en
-  ] + [*Anime::DESYNCABLE, external_links: []]
+  ] + [*Anime::DESYNCABLE, external_links: [EXTERNAL_LINK_PARAMS]]
 
   # display anime or manga
   def show

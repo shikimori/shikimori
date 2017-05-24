@@ -21,17 +21,18 @@ ru:
         aired_on: Дата начала показа
         cosplay: Косплей
         description: Описание
-        description_ru: Описание
         description_en: Описание (англ)
-        description_ru_source: Источник описания
         description_en_source: Источник описания (англ)
+        description_ru: Описание
+        description_ru_source: Источник описания
         duration: Длительность эпизода
         episodes: Эпизоды
+        external_links: Ссылки
         genres: Жанры
+        image: &poster Постер
         kind: Тип
         name: Английское название
-        poster: &poster Постер
-        image: *poster
+        poster: *poster
         rating: Рейтинг
         released_on: Дата конца показа
         russian: Русское название

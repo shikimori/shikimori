@@ -31,6 +31,7 @@ private
   def fix hash
     hash.each_with_object({}) do |(key, value), memo|
       next if key == 'id'
+      next if value.blank?
 
       memo[key] =
         if key.match?(/^[\w_]+_at$/) && value.present?

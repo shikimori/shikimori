@@ -27,5 +27,7 @@ module.exports = new Vuex.Store
 
   getters:
     external_links: (store) -> store.external_links
+    is_no_links: (store) ->
+      store.external_links.every (link) -> Object.isEmpty(link.url)
 
   modules: {}

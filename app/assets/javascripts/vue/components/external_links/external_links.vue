@@ -2,8 +2,8 @@
   .block
     input(
       type="hidden"
-      :name="`${entry_type}[external_links][]`"
-      v-if="no_links"
+      :name="`${resource_type.toLowerCase()}[external_links][]`"
+      v-if="is_no_links"
     )
     .b-nothing_here(
       v-if="!external_links.length"
@@ -19,6 +19,7 @@
         :key="link.id || link.key"
         :link="link"
         :kind_options="kind_options"
+        :resource_type="resource_type"
         :entry_type="entry_type"
         :entry_id="entry_id"
       )
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import ExternalLink from './external_link'
 import draggable from 'vuedraggable'
 
@@ -35,6 +37,7 @@ export default {
   components: { ExternalLink, draggable },
   props: {
     kind_options: Array,
+    resource_type: String,
     entry_type: String,
     entry_id: Number
   },
@@ -54,7 +57,10 @@ export default {
       set(value) {
         this.$store.dispatch('reorder', value)
       }
-    }
+    },
+    ...mapGetters([
+      'is_no_links'
+    ]),
   },
   methods: {
     add_link() {
@@ -66,9 +72,6 @@ export default {
         entry_id: this.entry_id,
         entry_type: this.entry_type
       })
-    },
-    no_links() {
-      return this.external_links.every((link) => Object.isEmpty(link.url))
     }
   }
 }
