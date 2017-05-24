@@ -21,11 +21,11 @@ init_app = (Vue, CollectionLinks, store) ->
   max_links = $('#collection_form').data('max_links')
 
   store.state.collection = sort_by_groups collection
-  store.state.autocomplete_url = autocomplete_url
-  store.state.node_env = process.env.NODE_ENV
-  store.state.max_links = max_links
 
   new Vue
     el: '#vue_collection_links'
     store: store
-    render: (h) -> h(CollectionLinks)
+    render: (h) -> h(CollectionLinks, props: {
+      max_links: max_links
+      autocomplete_url: autocomplete_url
+    })

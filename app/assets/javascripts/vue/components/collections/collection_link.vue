@@ -1,5 +1,5 @@
 <template lang="pug">
-  .collection-link(
+  .b-collection_item(
     :data-linked_id="link.linked_id"
     :data-group="link.group"
     :data-list_index='links.indexOf(link)'
@@ -75,11 +75,10 @@ function highlight(selector) {
 export default {
   props: {
     link: Object,
-    link_index: Number
+    autocomplete_url: String
   },
   computed: {
     ...mapGetters([
-      'autocomplete_url',
       'collection',
       'links'
     ])
@@ -92,7 +91,7 @@ export default {
         $(this.$el).process()
 
         highlight(
-          '.collection-link' +
+          '.b-collection_item' +
             `[data-linked_id='${this.link.linked_id}']` +
             `[data-group='${this.link.group}']`
         )
@@ -128,71 +127,10 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import app/assets/stylesheets/globals/variables
-
-.collection-link
-  margin-bottom: 15px
-  padding: 1px 6px 1px 31px
-  position: relative
-
-  &:last-child
-    margin-bottom: 0
-
-  // &.sortable-chosen
-  &.sortable-ghost
-    border: 1px dashed $gray-1
-    opacity: 0.6
-    padding: 0 5px 0 30px
-
-    .drag-handle
-      color: $gray !important
-
-    .delete, .drag-handle
-      margin-top: -2px
-
-  &.sortable-drag
-    opacity: 1
-
-    .drag-handle
-      color: $link-active !important
-
-  .delete, .drag-handle
-    cursor: pointer
-    margin-left: -30px
-    margin-top: -1px
-    position: absolute
-    text-align: center
-    width: 30px
-
-    &:before
-      font-family: shikimori
-      font-size: 15px
-
-    &:hover
-      color: $link-hover
-
-    &:active
-      color: $link-active
-
-  .delete
-    color: #123
-    top: 1px
-
-    &:before
-      content: 'x'
-
-  .drag-handle
-    color: $gray
-    top: 24px
-
-    &:before
-      content: 'm'
-
   textarea
     height: auto
     resize: none
 
   textarea, input
     width: 100%
-    line-height: $line-height
 </style>

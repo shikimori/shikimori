@@ -26,7 +26,7 @@
             type="text"
           )
 
-        draggable.collection-links(
+        draggable.collection_links(
           :options="drag_options"
           @update="on_drag_update"
           @add="on_drag_add"
@@ -35,7 +35,7 @@
             v-for="link in grouped_links[group_name]"
             :key="link.id || link.key"
             :link="link"
-            :link_index="links.indexOf(link)"
+            :autocomplete_url="autocomplete_url"
           )
 
       .c-column.new-group(
@@ -85,6 +85,10 @@ function insertNodeAt(fatherNode, node, position) {
 
 export default {
   components: { CollectionLink, draggable },
+  props: {
+    max_links: Number,
+    autocomplete_url: String
+  },
   data () {
     return {
       drag_options: {
@@ -99,8 +103,6 @@ export default {
       'links',
       'groups',
       'grouped_links',
-      'node_env',
-      'max_links'
     ]),
   },
   methods: {
@@ -161,48 +163,48 @@ export default {
 </script>
 
 <style scoped lang="sass">
-@import app/assets/stylesheets/globals/variables
-.new-group
-  padding-top: 8px
+  @import app/assets/stylesheets/globals/variables
+  .new-group
+    padding-top: 8px
 
-  .button-container
-    display: table-cell
-    margin-top: -8px
-    vertical-align: middle
+    .button-container
+      display: table-cell
+      margin-top: -8px
+      vertical-align: middle
 
-  .hint
-    color: #9da2a8
-    display: table-cell
-    font-size: 11px
-    line-height: $line_height
-    vertical-align: middle
-    padding-left: 15px
+    .hint
+      color: #9da2a8
+      display: table-cell
+      font-size: 11px
+      line-height: $line_height
+      vertical-align: middle
+      padding-left: 15px
 
-.group
-  label
-    display: inline-block
-    font-weight: bold
+  .group
+    label
+      display: inline-block
+      font-weight: bold
 
-  .add
-    float: right
-    font-size: 11px
-    margin-right: 5px
-    margin-top: 6px
+    .add
+      float: right
+      font-size: 11px
+      margin-right: 5px
+      margin-top: 6px
 
-    &:before
-      font-family: shikimori
-      position: absolute
-      margin-left: -12px
-      margin-top: 1px
-      content: '+'
+      &:before
+        font-family: shikimori
+        position: absolute
+        margin-left: -12px
+        margin-top: 1px
+        content: '+'
 
-  input
-    width: calc(100% - 6px)
+    input
+      width: calc(100% - 6px)
 
-.collection-links
-  height: 100%
-  min-height: 70px
+  .collection_links
+    height: 100%
+    min-height: 70px
 
-  .b-button
-    margin-left: 30px
+    .b-button
+      margin-left: 30px
 </style>

@@ -16,9 +16,6 @@ no_links_to_fill = (links, group) ->
 module.exports = new Vuex.Store
   state:
     collection: {}
-    autocomplete_url: ''
-    node_env: ''
-    max_links: 0
 
   actions:
     fill_link: (context, {link, changes}) ->
@@ -82,12 +79,9 @@ module.exports = new Vuex.Store
         link[key] = value
 
   getters:
-    autocomplete_url: (store) -> store.autocomplete_url
     collection: (store) -> store.collection
     links: (store) -> store.collection.links
     groups: (store) -> store.collection.links.map((v) -> v.group).unique()
     grouped_links: (store) -> store.collection.links.groupBy((v) -> v.group)
-    node_env: (store) -> store.node_env
-    max_links: (store) -> store.max_links
 
   modules: {}
