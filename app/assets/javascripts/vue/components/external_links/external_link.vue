@@ -55,4 +55,8 @@ export default {
 <style scoped lang="sass">
   .b-input input
     width: 100%
+
+  .b-collection_item:first-child:last-child
+    .drag-handle
+      display: none
 </style>

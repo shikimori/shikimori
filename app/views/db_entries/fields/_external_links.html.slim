@@ -1,4 +1,11 @@
+- if @resource.anime?
+  - except_keys = [::Types::ExternalLink::Kind[:ruranobe]]
+- elsif @resource.manga?
+  - except_keys = [::Types::ExternalLink::Kind[:world_art], ::Types::ExternalLink::Kind[:kage_project], ::Types::ExternalLink::Kind[:anime_db], ::Types::ExternalLink::Kind[:ruranobe]]
+- else
+  - except_keys = [::Types::ExternalLink::Kind[:world_art], ::Types::ExternalLink::Kind[:kage_project], ::Types::ExternalLink::Kind[:anime_db]]
+
 #vue_external_links[
   data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
-  data-kind_options="#{ ExternalLink.kind.options.to_json}"
+  data-kind_options="#{ExternalLink.kind.options.select {|_, key| !except_keys.include?(key.to_sym) }.to_json}"
 ]
