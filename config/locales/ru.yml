@@ -62,6 +62,8 @@ ru:
         <<: *character_attributes
         birthday: Дата рождения
         website: Сайт
+      external_link:
+        url: Ссылка
       comment:
         body: Текст
       message:
@@ -382,13 +384,12 @@ ru:
     external_link:
       kind:
         official_site: Официальный сайт
-        wikipedia_ru: Википедия
-        wikipedia_en: Wikipedia
-        wikipedia_jp: ウィキペディア
+        wikipedia: Википедия
         anime_news_network: Anime News Network
         anime_db: AniDB
         kage_project: Kage Project
         ruranobe: РуРанобэ
+        world_art: World Art
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

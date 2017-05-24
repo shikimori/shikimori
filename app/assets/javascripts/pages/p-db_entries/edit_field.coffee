@@ -135,10 +135,12 @@ page_load '.db_entries-edit_field', ->
       )
 
 init_app = (Vue, ExternalLinks, store) ->
-  collection = $('#vue_external_links').data('collection')
-  store.state.collection = collection
+  external_links = $('#vue_external_links').data('external_links')
+  kind_options = $('#vue_external_links').data('kind_options')
+
+  store.state.external_links = external_links
 
   new Vue
     el: '#vue_external_links'
     store: store
-    render: (h) -> h(ExternalLinks)
+    render: (h) -> h(ExternalLinks, props: { kind_options: kind_options })

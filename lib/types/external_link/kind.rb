@@ -8,6 +8,7 @@ module Types
         anime_news_network
         anime_db
         kage_project
+        world_art
         ruranobe
       ))
   end

@@ -1,3 +1,4 @@
 #vue_external_links[
-  data-collection="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
+  data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
+  data-kind_options="#{ ExternalLink.kind.options.to_json}"
 ]
