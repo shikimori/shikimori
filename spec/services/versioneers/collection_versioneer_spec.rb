@@ -1,0 +1,74 @@
+describe Versioneers::CollectionVersioneer do
+  let(:service) { Versioneers::CollectionVersioneer.new anime, :external_links }
+  let(:anime) { create :anime }
+  let(:author) { build_stubbed :user }
+  let(:reason) { 'change reason' }
+
+  let!(:external_link) { create :external_link, entry: anime }
+  let(:external_links_data) do
+    [{
+      'url' => 'http://ya.ru',
+      'kind' => 'wikipedia',
+      'source' => 'shikimori',
+      'entry_type' => anime.class.name,
+      'entry_id' => anime.id
+    }, {
+      'url' => 'http://google.com',
+      'kind' => 'anime_db',
+      'source' => 'shikimori',
+      'entry_type' => anime.class.name,
+      'entry_id' => anime.id
+    }]
+  end
+
+  describe '#premoderate' do
+    subject!(:version) { service.premoderate external_links_data, author, reason }
+
+    it do
+      expect(anime.reload.external_links).to eq [external_link]
+      expect(external_link.reload).to be_persisted
+
+      expect(version).to be_persisted
+      expect(version).to be_pending
+      expect(version).to be_instance_of Versions::CollectionVersion
+      expect(version).to have_attributes(
+        user: author,
+        reason: reason,
+        item_diff: {
+          'external_links' => [
+            [JSON.parse(external_link.attributes.except('id').to_json)],
+            external_links_data
+          ]
+        },
+        item: anime,
+        moderator: nil
+      )
+    end
+  end
+
+  describe '#postmoderate' do
+    subject!(:version) { service.postmoderate external_links_data, author, reason }
+
+    it do
+      expect(anime.reload.external_links).to have(2).items
+      expect { external_link.reload }.to raise_error ActiveRecord::RecordNotFound
+
+      expect(version).to be_persisted
+      expect(version).to be_auto_accepted
+
+      expect(version).to be_instance_of Versions::CollectionVersion
+      expect(version).to have_attributes(
+        user: author,
+        reason: reason,
+        item_diff: {
+          'external_links' => [
+            [JSON.parse(external_link.attributes.except('id').to_json)],
+            external_links_data
+          ]
+        },
+        item: anime,
+        moderator: nil
+      )
+    end
+  end
+end
