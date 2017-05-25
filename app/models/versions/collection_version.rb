@@ -1,6 +1,10 @@
 class Versions::CollectionVersion < Version
   def current_value association_name
-    item.send(association_name).map { |v| v.attributes.except('id') }
+    item
+      .send(association_name)
+      .map do |entry|
+        JSON.parse(entry.attributes.except('id').to_json)
+      end
   end
 
   def apply_changes

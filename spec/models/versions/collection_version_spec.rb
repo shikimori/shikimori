@@ -37,7 +37,7 @@ describe Versions::CollectionVersion do
     describe '#current_value' do
       it do
         expect(version.current_value(:external_links))
-          .to eq [external_link.attributes.except('id')]
+          .to eq JSON.parse([external_link.attributes.except('id')].to_json)
       end
     end
 
