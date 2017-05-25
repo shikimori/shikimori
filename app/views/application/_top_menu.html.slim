@@ -86,6 +86,10 @@
           li.type data-type="users" = User.model_name.human
 
   .menu.menu-items
-    = render "application/top_menu/#{domain_folder}", menu: Menus::TopMenu.new
+    - if anime_online?
+      = render "application/top_menu/anime_online", menu: Menus::TopMenu.new
+    - else
+      = render "application/top_menu/shikimori", menu: Menus::TopMenu.new
+
     - if user_signed_in?
       a.entry.sign_out href="#{destroy_user_session_url}" = t '.sign_out'

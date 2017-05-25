@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
   helper_method :base_controller_names
   helper_method :ignore_copyright?
 
-  helper_method :domain_folder
   helper_method :shikimori?, :anime_online?, :manga_online?
   helper_method :ru_host?, :locale_from_host
   helper_method :i18n_i, :i18n_io, :i18n_v
@@ -113,13 +112,6 @@ class ApplicationController < ActionController::Base
   #-----------------------------------------------------------------------------
   # domain helpers
   #-----------------------------------------------------------------------------
-
-  def domain_folder
-    return 'anime_online' if anime_online?
-    return 'manga_online' if manga_online?
-
-    'shikimori'
-  end
 
   def shikimori?
     ShikimoriDomain::HOSTS.include?(request.host)

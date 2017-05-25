@@ -73,4 +73,9 @@ link rel="yandex-tableau-widget" href="//#{Site::DOMAIN}/yandex-tableau-widget-m
     = javascript_pack_tag 'application', data: { 'turbolinks-track' => '' }
 
 - if Rails.env.production?
-  = render partial: "application/counters/#{domain_folder}"
+  - if anime_online?
+    = render partial: 'application/counters/anime_online'
+  - elsif ru_host?
+    = render partial: 'application/counters/shikimori_org'
+  - else
+    = render partial: 'application/counters/shikimori_one'
