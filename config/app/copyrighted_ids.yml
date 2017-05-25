@@ -1,472 +1,616 @@
-# append new ids to the end only
+---
 :anime:
-  - 10743
-  - 11887
-  - 13655
-  - 944
-  - 569
-  - 145
-  - 12413
-  - 13601
-  - 14921
-  - 26
-  - 4725
-  - 19769
-  - 429
-  - 14345
-  - 16397
-  - 12611
-  - 16706
-  - 2563
-  - 1846
-  - 11837
-  - 6974
-  - 12611
-  - 13599
-  - 6974
-  - 12403
-  - 21881
-  - 277
-  - 5079
-  - 493
-  - 13333
-  - 4975
-  - 369
-  - 8917
-  - 11375
-  - 11531
-  - 21843
-  - 3297
-  - 3269
-  - 23311
-  - 2130
-  - 9379
-  - 276
-  - 2158
-  - 16706
-  - 4970
-  - 158
-  - 1728
-  - 18229
-  - 10805
-  - 6758
-  - 15439
-  - 483
-  - 10418
-  - 10372
-  - 12175
-  - 369
-  - 9934
-  - 878
-  - 21339
-  - 1846
-  - 962
-  - 15863
-  - 13585
-  - 2942
-  - 6046
-  - 9938
-  - 23153
-  - 12711
-  - 16051
-  - 1543
-  - 13047
-  - 9220
-  - 28223
-  - 29255
-  - 8525
-  - 25681
-  - 2035
-  - 16782
-  - 2933
-  - 25397
-  - 2965
-  - 116
-  - 8726
-  - 22241
-  - 10080
-  - 22199
-  - 26243
-  - 3153
-  - 492
-  - 13335
-  - 3153
-  - 10568
-  - 4772
-  - 2026
-  - 11241
-  - 6374
-  - 790
-  - 28215
-  - 23587
-  - 1169
-  - 1756
-  - 29786
-  - 7647
-  - 23623
-  - 30205
-  - 3750
-  - 24439
-  - 29093
-  - 6616
-  - 2517
-  - 31165
-  - 30251
-  - 29095
-  - 412
-  - 4772
-  - 19117
-  - 25013
-  - 2267
-  - 387
-  - 10216
-  - 5072
-  - 3298
-  - 20973
-  - 1184
-  - 5196
-  - 13391
-  - 762
-  - 834
-  - 21167
-  - 2964
-  - 4015
-  - 398
-  - 28805
-  - 24469
-  - 290
-  - 13639
-  - 4549
-  - 30901
-  - 12753
-  - 2596
-  - 28621
-  - 17677
-  - 31821
-  - 10464
-  - 8100
-  - 1519
-  - 5734
-  - 11597
-  - 24629
-  - 7338
-  - 6375
-  - 5074
-  - 24997
-  - 1350
-  - 2889
-  - 8297
-  - 2452
-  - 6958
-  - 1104
-  - 10624
-  - 12053
-  - 631
-  - 1524
-  - 209
-  - 1682
-  - 28791
-  - 1152
-  - 1554
-  - 1576
-  - 1079
-  - 12343
-  - 22189
-  - 3702
-  - 3974
-  - 590
-  - 1380
-  - 9515
-  - 4901
-  - 12367
-  - 14515
-  - 1792
-  - 4066
-  - 444
-  - 578
-  - 19257
-  - 1729
-  - z762
-  - z10372
-  - z12053
-  - z13585
-  - z3702
-  - z5079
-  - 1163
-  - z13391
-  - 1045
-  - z13333
-  - 3713
-  - 397
-  - 9712
-  - zz12053
-  - 16918
-  - 28571
-  - 109
-  - 4173
-  - 1572
-  - z2563
-  - 9737
-  - z15439
-  - z12753
-  - z2596
-  - 30831
-  - 506
-  - z7338
-  - 31559
-  - 1018
-  - z12611
-  - z2517
-  - z2889
-  - z2964
-  - z369
-  - z569
-  - z834
-  - zz2563
-  - 31108
-  - z28805
-  - zz12753
-  - zzz12053
-  - z17677
-  - z6616
-  - 2927
-  - zz15439
-  - 396
-  - z290
-  - z5074
-  - 17074
-  - zz762
-  - 10798
-  - 2508
-  - z397
-  - z9934
-  - 30355
-  - z1045
-  - 1587
-  - zz6616
-  - 919
-  - 10717
-  - 10109
-  - 31163
-  - z3153
-  - 857
-  - zzz12753
-  - 1252
-  - 28555
-  - z1524
-  - z9515
-  - zz17677
-  - 1017
-  - 27785
-  - 10716
-  - zz2517
-  - zz17677
-  - 13233
-  - z10624
-  - 28581
-  - 3652
-  - z24469
-  - 168
-  - 6211
-  - 17549
-  - 19369
-  - 23309
-  - z1350
-  - z1792
-  - zzz6616
-  - 31710
-  - 21603
-  - zz2964
-  - 8676
-  - 31452
-  - z919
-  - zzz17677
-  - z1576
-  - zzzz12753
-  - zz290
-  - zz397
-  - 6380
-  - zz10624
-  - 8311
-  - 10681
-  - zzzz6616
-  - zzz2964
-  - 21353
-  - 31636
-  - 32093
-  - z28621
-  - z8100
-  - 3615
-  - z10464
-  - z578
-  - z1519
-  - z1079
-  - zz28805
-  - z13233
-  - z6758
-  - z2508
-  - zz5079
-  - z14515
-  - z878
-  - zz1045
-  - 8841
-  - 4646
-  - 488
-  - 162
-  - zz919
-  - 14833
-  - z1554
-  - zzzz12053
-  - 22225
-  - z4549
-  - 3248
-  - z1682
-  - z21167
-  - z30831
-  - 3593
-  - 584
-  - 6610
-  - 953
-  - 1140
-  - 10357
-  - 28825
-  - y17677
-  - z2933
-  - y21167
-  - z8726
-  - y1350
-  - 28579
-  - z590
-  - z12367
-  - y2964
-  - y12053
-  - y15439
-  - 1046
-  - y1045
-  - y13391
-  - 1220
-  - 9782
-  - 31289
-  - 3848
-  - 33513
-  - 28405
-  - 30654
-  - 24833
-  - 31867
-  - 31914
-  - 31223
-
-# http://shikimori.org/a/s-31223-phantasy-star-online-2-the-animation/179340-obsuzhdenie
-# http://shikimori.org/news/179341-anons
-# http://shikimori.org/a/s-31914-shoujo-tachi-wa-kouya-wo-mezasu/186484-obsuzhdenie
-# http://shikimori.org/news/186301-shoujo-tachi-wa-kouya-wo-mezasu-poluchit-tv-serial-zimoy-2016-ogo
-# http://shikimori.org/a/s-30654-ansatsu-kyoushitsu-tv-2nd-season/174202-obsuzhdenie
-# http://shikimori.org/m/s-39883-ansatsu-kyoushitsu/81339-obsuzhdenie
-# http://shikimori.org/forum/animanga/213937-fairy-tail-movie-2-dragon-cry
-# http://shikimori.org/forum/animanga/213954-poslednyaya-arka-mangi-fairy-tail
-# http://shikimori.org/a/s-19759-ansatsu-kyoushitsu/104020-obsuzhdenie
-# http://shikimori.org/a/s-24833-ansatsu-kyoushitsu-tv/126723-obsuzhdenie
-# http://shikimori.org/news/175421-17-epizod
-# http://shikimori.org/news/177375-21-epizod
-# http://shikimori.org/news/170139-13-epizod
-# http://shikimori.org/news/180431-vyshel-69-epizod
-# http://shikimori.org/news/183882-vyshel-73-epizod
-# http://shikimori.org/news/121439-1-epizod
-# http://shikimori.org/news/122504-4-epizod
-# http://shikimori.org/news/177497-55-epizod
-# http://shikimori.org/news/185492-vyshel-78-epizod
-# http://shikimori.org/news/122172-641-epizod
-# http://shikimori.org/news/182940-vyshel-706-epizod
-# http://shikimori.org/news/179336-701-epizod
-# http://shikimori.org/news/189314-vyshel-722-epizod
-# http://shikimori.org/news/118036-vtoroy-sezon-seriala-psycho-pass-vyydet-v-osennem-sezone-a-polnometrazhka-zimoy
-# http://shikimori.org/news/186438-vyshel-716-epizod
-# http://shikimori.org/forum/animanga/131507-pervoe-preveryu-i-treyler-vtorogo-sezona-psycho-pass
-# http://shikimori.org/news/131507-pervoe-preveryu-i-treyler-vtorogo-sezona-psycho-pass
-# http://shikimori.org/reviews/117172-obzor-anime-psycho-pass
-# http://shikimori.org/a/s-21339-psycho-pass-movie/112737-obsuzhdenie
-# http://shikimori.org/a/s-z21339-psycho-pass-movie/112737-obsuzhdenie
-# http://shikimori.org/forum/animanga/118036-vtoroy-sezon-seriala-psycho-pass-vyydet-v-osennem-sezone-a-polnometrazhka-zimoy
-# http://shikimori.org/a/s-12049-fairy-tail-movie-1-houou-no-miko/30184-obsuzhdenie
-# http://shikimori.org/a/s-30778-fairy-tail-movie-2/175492-obsuzhdenie
-# http://shikimori.org/a/s-32081-fairy-tail-zer/188432-obsuzhdenie
-# http://shikimori.org/forum/animanga/211455-anonsirovan-film-fairy-tail-dragon-cry
-# http://shikimori.org/m/s-94183-fairy-tail-gaiden-road-knight/187974-obsuzhdenie
-# http://shikimori.org/news/130189-23-epizod
-# http://shikimori.org/news/170516-55-epizod
-# http://shikimori.org/news/182881-vyshel-72-epizod
-# http://shikimori.org/news/184175-vyshel-74-epizod
-# http://shikimori.org/news/185270-vyshel-77-epizod
-# http://shikimori.org/news/185880-vyshel-79-epizod
-# http://shikimori.org/news/186173-vyshel-80-epizod
-# http://shikimori.org/news/189523-vyshel-89-epizod
-# http://shikimori.org/reviews/183726-obzor-anime-fairy-tail
-# http://shikimori.org/news/162549-44-epizod
-# http://shikimori.org/news/181057-vyshel-71-epizod
-# http://shikimori.org/a/s-17535-fairy-tail-houou-no-miko-hajimari-no-asa/91569-obsuzhdenie
-# http://shikimori.org/a/s-17535-fairy-tail-movie-1-houou-no-miko-hajimari-no-asa/91569-obsuzhdenie
-# http://shikimori.org/a/s-18393-fairy-tail-x-rave/95443-obsuzhdenie
-# http://shikimori.org/a/s-22043-fairy-tail-2014/116019-obsuzhdenie
-# http://shikimori.org/m/s-598-fairy-tail/16247-obsuzhdenie
-# http://shikimori.org/m/s-69903-fairy-tail-zer/121666-obsuzhdenie
-# http://shikimori.org/news/158209-36-epizod
-# http://shikimori.org/news/164447-47-epizod
-# http://shikimori.org/news/166007-48-epizod
-# http://shikimori.org/news/167355-51-epizod
-# http://shikimori.org/news/177423-62-epizod
-# http://shikimori.org/news/180106-vyshel-68-epizod
-# http://shikimori.org/news/188239-vyshel-84-epizod
-# http://shikimori.org/news/188433-anonsirovano-anime
-# http://shikimori.org/news/189035-vyshel-87-epizod
-# http://shikimori.org/animes/genre/24-Sci-Fi,29-Space,!18-Mecha/page/6
-# http://shikimori.org/animes/season/winter_2011
-# http://shikimori.org/a/s-13601-psycho-pass/77110-obsuzhdenie
-# http://shikimori.org/a/s-6702-fairy-tail/3471-obsuzhdenie
-# http://shikimori.org/a/s-593-mugen-no-ryvius/4261-obsuzhdenie
-# http://shikimori.org/a/s-5079-kurokami-the-animation/8020-obsuzhdenie
-# http://shikimori.org/a/s-17677-buki-yo-saraba/93020-obsuzhdenie
-# http://shikimori.org/a/s-7338-darker-than-black-kuro-no-keiyakusha-gaiden/3429-obsuzhdenie
-# http://shikimori.org/a/s-4262-koihime-musou/4247-obsuzhdenie
-# http://shikimori.org/a/s-21167-escha-logy-no-atelier-tasogare-no-sora-no-renkinjutsushi/111083-obsuzhdenie
-# http://shikimori.org/a/s-30279-yuru-yuri-san-hai/167555-obsuzhdenie
-# http://shikimori.org/a/s-1735-naruto-shippuuden/3560-obsuzhdenie
-# http://shikimori.org/a/s-492-armitage-iii-dual-matrix/4704-obsuzhdenie
-# http://shikimori.org/a/s-69-cluster-edge
-# http://shikimori.org/a/s-9934-nekogami-yaoyorozu/9909-obsuzhdenie
-# http://shikimori.org/a/s-15649-puchimas-petit-idolm-ster/85251-obsuzhdenie
-# http://shikimori.org/a/s-2107-one-piece-episode-of-alabaster-sabaku-no-ojou-to-kaizoku-tachi/6082-obsuzhdenie
-# http://shikimori.org/a/s-16870-naruto-shippuuden-movie-7-the-last/89171-obsuzhdenie
-# http://shikimori.org/a/s-23281-psycho-pass-2/118020-obsuzhdenie
-# http://shikimori.org/forum/animanga/anime-23281-psycho-pass-2/118020-obsuzhdenie
-# http://shikimori.org/forum/animanga/anime-3848-one-piece-movie-9-episode-of-chopper-plus-fuyu-ni-saku-kiseki-no-sakura/7432-obsuzhdenie
-# http://shikimori.org/a/s-31289-one-piece-episode-of-sabo-3-kyoudai-no-kizuna-kiseki-no-saikai-to-uketsugareru-ishi/182906-obsuzhdenie
-# http://shikimori.org/news/113458-623-epizod
-# http://shikimori.org/a/s-3848-one-piece-episode-of-chopper-plus-fuyu-ni-saku-kiseki-no-sakura/7432-obsuzhdenie
-# http://shikimori.org/news/179810-702-epizod
-
+- '369'
+- '32995'
+- '2964'
+- '30831'
+- '11887'
+- '13655'
+- '145'
+- '1846'
+- '11241'
+- '11633'
+- '12967'
+- '145'
+- '1181'
+- '33988'
+- '34051'
+- z13585
+- z12053
+- z5079
+- z10372
+- z3702
+- '6211'
+- '168'
+- '11633'
+- '13335'
+- '19117'
+- '569'
+- '2508'
+- '4975'
+- z12611
+- z569
+- '32555'
+- z16782
+- '3593'
+- '32937'
+- zz2517
+- '3298'
+- z8726
+- '12413'
+- '13601'
+- '14921'
+- '26'
+- '4725'
+- '23309'
+- z1350
+- z1792
+- '19369'
+- '17549'
+- '23309'
+- z1350
+- z1792
+- '19369'
+- '17549'
+- z369
+- zz2563
+- '7647'
+- z9934
+- '6380'
+- '1018'
+- '387'
+- '20973'
+- '16706'
+- z30831
+- '33240'
+- '944'
+- z1576
+- '20267'
+- z31636
+- '19769'
+- '33840'
+- '834'
+- '762'
+- '15911'
+- '204'
+- '285'
+- '306'
+- '21881'
+- '162'
+- '10884'
+- '12021'
+- '5914'
+- '14765'
+- z28805
+- '31108'
+- '12461'
+- '16353'
+- '1350'
+- '293'
+- '1754'
+- '1755'
+- y5074
+- y290
+- '1140'
+- z2964
+- '28215'
+- z10464
+- zz1792
+- '3615'
+- z1152
+- z17074
+- '369'
+- '12367'
+- '14515'
+- '1792'
+- z9515
+- '28555'
+- z1524
+- '1252'
+- zz17677
+- z10568
+- '17679'
+- '8142'
+- '9712'
+- zz12053
+- '20555'
+- y2933
+- y8100
+- y10464
+- y13233
+- x12053
+- '5454'
+- '12611'
+- '397'
+- '30205'
+- z17549
+- z11887
+- y6616
+- '11679'
+- zzzz6616
+- '28'
+- '2565'
+- '6547'
+- '69'
+- '15687'
+- '4744'
+- y6758
+- '1693'
+- '23421'
+- '30205'
+- '21167'
+- '831'
+- '18411'
+- '4173'
+- '610'
+- x1350
+- '158'
+- '1728'
+- '6610'
+- '9782'
+- '1220'
+- '21039'
+- '13585'
+- '16397'
+- zz28805
+- z1079
+- '1576'
+- '1554'
+- '15439'
+- '256'
+- '1852'
+- '1184'
+- '5034'
+- '3420'
+- '33371'
+- '1519'
+- '11531'
+- '9379'
+- '878'
+- z2508
+- zzz6616
+- '8311'
+- '33023'
+- z4066
+- z28621
+- '32093'
+- z6616
+- z17677
+- z412
+- '2389'
+- '21353'
+- '3297'
+- '19257'
+- '22189'
+- '1380'
+- '29093'
+- '25875'
+- '17677'
+- '2158'
+- '2563'
+- '3702'
+- zz6616
+- z878
+- '5196'
+- '15439'
+- '209'
+- '4066'
+- '18229'
+- '11241'
+- '25013'
+- '4772'
+- '18617'
+- zz2596
+- '65'
+- z919
+- '31452'
+- zz15439
+- '2927'
+- zz12753
+- zzz12053
+- y919
+- '30016'
+- '7720'
+- '196'
+- z444
+- '34892'
+- '12053'
+- '10624'
+- '631'
+- '21033'
+- '30503'
+- z31163
+- '32829'
+- '4051'
+- '17082'
+- zzzz12753
+- zzz15439
+- '33105'
+- '25159'
+- '28545'
+- y1524
+- '1572'
+- z2563
+- zz397
+- zz290
+- '593'
+- '10397'
+- '16782'
+- '412'
+- '1251'
+- '3652'
+- '28581'
+- z2596
+- z12753
+- '31821'
+- '8100'
+- '23587'
+- '7338'
+- z578
+- '21603'
+- '1163'
+- '345'
+- '6616'
+- '31165'
+- '10216'
+- y13585
+- '28851'
+- '10464'
+- '953'
+- '24439'
+- '4772'
+- '33573'
+- z9782
+- '28621'
+- '2596'
+- '12753'
+- '6375'
+- '12175'
+- zz10624
+- z6758
+- z13233
+- '9934'
+- '23311'
+- '10308'
+- '12343'
+- z762
+- '8297'
+- '10717'
+- '14345'
+- '6374'
+- '2517'
+- y2964
+- '32979'
+- '24629'
+- '6758'
+- '12883'
+- '1152'
+- '578'
+- '109'
+- '1729'
+- '22225'
+- '28817'
+- '412'
+- '2267'
+- '3750'
+- z1220
+- '12883'
+- '11597'
+- '8676'
+- '9515'
+- '1079'
+- '444'
+- '429'
+- '16001'
+- '24469'
+- '28805'
+- '4550'
+- '12611'
+- '10805'
+- '5734'
+- '2596'
+- '6758'
+- '28567'
+- '6974'
+- z590
+- '28579'
+- y2596
+- '15505'
+- '22663'
+- '31174'
+- '6116'
+- '477'
+- '10681'
+- '11375'
+- '20709'
+- '4549'
+- '13639'
+- '10357'
+- '10491'
+- z28579
+- x17677
+- z1543
+- '19573'
+- '9737'
+- '506'
+- z3153
+- zz2964
+- '590'
+- z1045
+- '14833'
+- '12403'
+- '5079'
+- '369'
+- '13233'
+- z10624
+- z9712
+- x15439
+- '21843'
+- '18229'
+- '857'
+- '3713'
+- '28571'
+- '31559'
+- z21167
+- '1756'
+- '3604'
+- y17677
+- '15883'
+- z3974
+- y397
+- '1017'
+- '145'
+- '860'
+- '30654'
+- '29095'
+- '4997'
+- z4549
+- zz762
+- '28791'
+- '5072'
+- '31289'
+- '3848'
+- '5041'
+- y21167
+- '3269'
+- '10568'
+- '919'
+- '24997'
+- zz1350
+- '10397'
+- '493'
+- '32608'
+- '24833'
+- '3248'
+- '1682'
+- zzz12753
+- z1519
+- '28907'
+- y12053
+- y15439
+- y1576
+- x21167
+- '8915'
+- '33487'
+- '276'
+- '1045'
+- z13333
+- z14515
+- zz5079
+- '28553'
+- '33048'
+- '5772'
+- '13391'
+- '9493'
+- z15439
+- z13391
+- '4901'
+- zzz17677
+- '790'
+- '13163'
+- '7066'
+- z5074
+- '396'
+- z290
+- '2026'
+- '30355'
+- '30251'
+- z209
+- '28825'
+- z2933
+- y8726
+- '4715'
+- '23281'
+- '185'
+- '18'
+- '10418'
+- '433'
+- '31636'
+- '5074'
+- '10716'
+- '23623'
+- z19257
+- z11837
+- '2452'
+- '6958'
+- z1046
+- x1045
+- z4646
+- '10372'
+- '2130'
+- '18767'
+- '10798'
+- '31710'
+- '8841'
+- '31867'
+- x13391
+- '28725'
+- y1519
+- y28805
+- z834
+- z2889
+- '1524'
+- '31163'
+- '10109'
+- z397
+- z12367
+- z493
+- '5597'
+- '30901'
+- '16706'
+- z2517
+- '1587'
+- '27631'
+- z6046
+- z11597
+- z28791
+- '5081'
+- '3848'
+- z1169
+- '15117'
+- '21653'
+- '18195'
+- '1284'
+- '17549'
+- '1723'
+- '488'
+- '11837'
+- '9479'
+- '32887'
+- '8206'
+- '31223'
+- '277'
+- '584'
+- zzzz12053
+- '27775'
+- y1350
+- '4811'
+- z109
+- '141'
+- '1530'
+- x2964
+- z10109
+- '17187'
+- '449'
+- '22135'
+- '21339'
+- '483'
+- '1846'
+- z7338
+- zz17677
+- '1169'
+- '1104'
+- '16918'
+- zz919
+- '10713'
+- y1682
+- '2205'
+- z1554
+- '19191'
+- '14293'
+- '6748'
+- y1045
+- '1046'
+- '3420'
+- '187'
+- zz1045
+- '27785'
+- '29786'
+- '6979'
+- '13599'
+- z24469
+- z28581
+- z4970
+- '451'
+- '28405'
+- '6974'
+- z8100
+- '4646'
+- '14515'
+- y13391
+- z1163
+- '16512'
+- '16518'
+- '4970'
+- '2889'
+- '51'
+- '29976'
+- '13333'
+- '398'
+- '290'
+- '4015'
+- '269'
+- zzz2964
+- '16668'
+- '34389'
+- '3974'
+- '6291'
+- '2786'
+- '3848'
+- '33513'
+- z1682
+- '17074'
 :manga:
-  - 17
-  - 74565
-  - 15038
-  - 10078
-  - 23365
-  - 5490
-  - 1910
-  - 19327
-  - 71773
-  - 4065
-  - 7247
-  - 3042
-  - 11039
-  - 16065
-  - z10078
-  - 39349
-  - 39883
-
+- '14483'
+- '3042'
+- '39349'
+- '23365'
+- z7247
+- '23800'
+- '1771'
+- '1910'
+- '628'
+- '10078'
+- '4065'
+- '10743'
+- z10078
+- '16065'
+- '15038'
+- '7247'
+- '71773'
+- '19327'
+- '39883'
+- '17'
+- '11558'
+- '3489'
+- '5490'
+- '11039'
+- '1063'
+- '3636'
+- '60679'
+:ranobe:
+- '14483'
+- '3042'
+- '39349'
+- '23365'
+- z7247
+- '23800'
+- '1771'
+- '1910'
+- '628'
+- '10078'
+- '4065'
+- '10743'
+- z10078
+- '16065'
+- '15038'
+- '7247'
+- '71773'
+- '19327'
+- '39883'
+- '17'
+- '11558'
+- '3489'
+- '5490'
+- '11039'
+- '1063'
+- '3636'
+- '60679'
+:person:
+- '5572'
 :character:
-  - 50295
-  - 20924
-  - 79789
-  - 19899
-  - 14903
-  - z79789
+- '19899'
+- '14903'
+- z79789
+- '79789'
+- y79789
