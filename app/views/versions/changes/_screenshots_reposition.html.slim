@@ -1,0 +1,9 @@
+.field-changes.screenshots-reposition
+  .changes
+    .change
+      .label #{t '.before'}:
+      = render partial: 'screenshots/screenshot', collection: version.screenshots
+
+    .change
+      .label #{t '.after'}:
+      = render partial: 'screenshots/screenshot', collection: version.screenshots_prior

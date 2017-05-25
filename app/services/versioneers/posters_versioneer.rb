@@ -23,7 +23,7 @@ private
     Versions::PosterVersion
   end
 
-  def changes image
+  def changes image, version
     {
       image: [@item.image_file_name, image.original_filename]
     }

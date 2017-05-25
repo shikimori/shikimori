@@ -34,6 +34,13 @@ describe Versions::CollectionVersion do
   end
 
   describe 'instance methods' do
+    describe '#current_value' do
+      it do
+        expect(version.current_value(:external_links))
+          .to eq [external_link.attributes.except('id')]
+      end
+    end
+
     describe '#apply_changes' do
       before { version.apply_changes }
 

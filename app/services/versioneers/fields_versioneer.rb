@@ -20,26 +20,22 @@ class Versioneers::FieldsVersioneer
 private
 
   def create_version params, user, reason
-    diff = changes params
-
-    version_klass(diff).create(
-      item: item,
-      user: user,
-      item_diff: diff,
-      reason: reason
-    )
+    version_klass(params)
+      .create(item: item, user: user, reason: reason) do |version|
+        version.item_diff = changes params, version
+      end
   end
 
-  def changes new_values
+  def changes new_values, version
     convert_hash(new_values).each_with_object({}) do |(field, new_value), memo|
       if item.send(field).to_s != new_value.to_s
-        memo[field.to_s] = [item.send(field), new_value]
+        memo[field.to_s] = [version.current_value(field), new_value]
       end
     end
   end
 
-  def version_klass diff
-    diff['description_ru'] || diff['description_en'] ?
+  def version_klass params
+    params[:description_ru] || params[:description_en] ?
       Versions::DescriptionVersion :
       Version
   end

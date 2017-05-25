@@ -16,11 +16,18 @@ en:
       take: take
       take_changes: Take changes
       taken_to_accepted: taken → accepted
-    text_diff: &text_diff
-      before: Before change
-      after: After change
-      change: Change
-    versions:
-      <<: *text_diff
-    video:
-      deleted: Video deleted
+    changes:
+      text_diff: &text_diff
+        before: Before change
+        after: After change
+        change: Change
+      versions:
+        <<: *text_diff
+      collection:
+        <<: *text_diff
+      poster:
+        <<: *text_diff
+      screenshots_reposition:
+        <<: *text_diff
+      video:
+        deleted: Video deleted

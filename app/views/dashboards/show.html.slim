@@ -112,7 +112,7 @@
               next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
     .c-generated_news
-      - if Rails.env.production?
+      - if Rails.env.production? && ru_host?
         - if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
           .y-sponsored#yandex_rtb_R-A-227837-1
             javascript:
@@ -127,8 +127,6 @@
                             renderTo: "yandex_rtb_R-A-227837-1",
                             horizontalAlign: true,
                             async: true
-                        }, function() {
-                          console.log('not loaded')
                         });
                     });
                     t = d.getElementsByTagName("script")[0];

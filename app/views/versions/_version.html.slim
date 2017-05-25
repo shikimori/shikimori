@@ -13,7 +13,10 @@
 
     span.id
       - if version.item
-        = render version.item_template, version: version
+        - if version.item_type == AnimeVideo.name
+          = render 'versions/anime_video', version: version
+        - else
+          = render 'versions/db_entry', version: version
       - else
         = t("deleted.#{version.item_type.underscore}").downcase
 
@@ -79,14 +82,19 @@
             = version.reason
 
         - if version.kind_of? Versions::VideoVersion
-          = render 'versions/video', version: version
+          = render 'versions/changes/video', version: version
         - elsif version.kind_of? Versions::ScreenshotsVersion
-          = render "versions/screenshots_#{version.action}", version: version
+          /# Template Dependency: versions/changes/screenshots_reposition
+          /# Template Dependency: versions/changes/screenshots_delete
+          /# Template Dependency: versions/changes/screenshots_upload
+          = render "versions/changes/screenshots_#{version.action}", version: version
         - elsif version.kind_of? Versions::PosterVersion
-          = render 'versions/poster', version: version
+          = render 'versions/changes/poster', version: version
+        - elsif version.kind_of? Versions::CollectionVersion
+          = render 'versions/changes/collection', version: version
         - else
           - version.item_diff.each do |field, (old_value, new_value)|
-            = render version.changes_tempalte(field),
+            = render 'versions/changes/text_diff',
               version: version,
               field: field,
               only_one: version.item_diff.keys.one?

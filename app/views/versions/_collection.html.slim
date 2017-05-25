@@ -1,0 +1,31 @@
+- if version.item_diff['external_links'].present?
+  .cc-2a.diff
+    .c-column.old-value
+      span #{t '.before'}:
+      = version.old_value('external_links')
+
+    .c-column.new-value
+      span #{t '.after'}:
+      = version.new_value('external_links')
+
+  / ul.diff class="#{field}"
+    / = field
+    / - unless local_assigns[:only_one]
+      / li.field-name
+        / = version.item_type.constantize.human_attribute_name field
+
+    / li.old-value
+      / span #{t '.before'}:
+      / = version.old_value(field)
+
+    / li.new-value
+      / span #{t '.after'}:
+      / = version.new_value(field)
+
+    / - if version.old_value(field).present? && version.new_value(field).present?
+      / li.diff-value
+        / span Diff:
+        / = sanitize version.field_diff(field)
+
+- else
+  - raise 'unknown collection'

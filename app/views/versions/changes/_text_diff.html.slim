@@ -1,0 +1,18 @@
+.field-changes class="#{field}"
+  - unless local_assigns[:only_one]
+    .field-name
+      = version.item_type.constantize.human_attribute_name field
+
+  .changes
+    .change
+      .label #{t '.before'}:
+      = version.old_value(field)
+
+    .change
+      .label #{t '.after'}:
+      = version.new_value(field)
+
+  - if version.old_value(field).present? && version.new_value(field).present?
+    .diff
+      .label Diff:
+      = sanitize version.field_diff(field)

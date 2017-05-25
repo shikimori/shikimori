@@ -15,19 +15,6 @@ class VersionDecorator < BaseDecorator
     end
   end
 
-  def changes_tempalte field
-    'versions/text_diff'
-  end
-
-  def item_template
-    if item_type == AnimeVideo.name
-      'versions/anime_video'
-
-    else
-      'versions/db_entry'
-    end
-  end
-
   def field_diff field
     diff old_value(field).to_s, new_value(field).to_s
   end

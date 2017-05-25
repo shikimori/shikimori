@@ -1,4 +1,8 @@
 class Versions::CollectionVersion < Version
+  def current_value association_name
+    item.send(association_name).map { |v| v.attributes.except('id') }
+  end
+
   def apply_changes
     item.class.transaction do
       item_diff.each do |(association, (_old_collection, new_collection))|

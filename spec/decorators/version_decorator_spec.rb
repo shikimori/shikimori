@@ -1,7 +1,12 @@
 describe VersionDecorator do
   let(:decorator) { version.decorate }
-  let(:version) { build_stubbed :version, user: user, item: item, state: state,
-    item_diff: { name: ['1','2'], russian: ['3','4'] } }
+  let(:version) do
+    build_stubbed :version,
+      user: user,
+      item: item,
+      state: state,
+      item_diff: { name: %w[1 2], russian: %w[3 4] }
+  end
   let(:user) { build_stubbed :user }
   let(:item) { build_stubbed :anime }
   let(:state) { 'pending' }
@@ -19,21 +24,9 @@ describe VersionDecorator do
   end
 
   describe '#changed_fields' do
-    it { expect(decorator.changed_fields).to eq ['Английское название', 'Русское название'] }
-  end
-
-  describe '#changes_template' do
-    it { expect(decorator.changes_tempalte :name).to eq 'versions/text_diff' }
-  end
-
-  describe '#item_template' do
-    describe 'anime video' do
-      let(:item) { build_stubbed :anime_video }
-      it { expect(decorator.item_template).to eq 'versions/anime_video' }
-    end
-
-    describe 'db_entry' do
-      it { expect(decorator.item_template).to eq 'versions/db_entry' }
+    it do
+      expect(decorator.changed_fields)
+        .to eq ['Английское название', 'Русское название']
     end
   end
 
@@ -50,7 +43,10 @@ describe VersionDecorator do
 
     context 'other' do
       let(:state) { 'accepted' }
-      it { expect(decorator.old_value :name).to eq version.item_diff['name'].first }
+      it do
+        expect(decorator.old_value :name)
+          .to eq version.item_diff['name'].first
+      end
     end
   end
 
@@ -58,11 +54,16 @@ describe VersionDecorator do
     describe 'anime_video_author_id' do
       context 'present author' do
         let(:author) { create :anime_video_author }
-        it { expect(decorator.field_value :anime_video_author_id, author.id).to eq author.name }
+        it do
+          expect(decorator.field_value :anime_video_author_id, author.id)
+            .to eq author.name
+        end
       end
 
       context 'no author' do
-        it { expect(decorator.field_value :anime_video_author_id, '').to be_nil }
+        it do
+          expect(decorator.field_value :anime_video_author_id, '').to be_nil
+        end
       end
     end
 

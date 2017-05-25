@@ -5,10 +5,10 @@ class Versioneers::CollectionVersioneer < Versioneers::FieldsVersioneer
     Versions::CollectionVersion
   end
 
-  def changes collection
+  def changes collection, version
     {
       @association_name => [
-        @item.send(@association_name).map { |v| v.attributes.except('id') },
+        version.current_value(@association_name),
         collection
       ]
     }
