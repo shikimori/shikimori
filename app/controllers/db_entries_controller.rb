@@ -65,7 +65,7 @@ private
     version = Versioneers::FieldsVersioneer
       .new(@resource.object)
       .premoderate(
-        update_params,
+        update_params.to_unsafe_h,
         current_user,
         params[:reason]
       )
