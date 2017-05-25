@@ -65,7 +65,7 @@ private
     version = Versioneers::FieldsVersioneer
       .new(@resource.object)
       .premoderate(
-        update_params[:external_links],
+        update_params,
         current_user,
         params[:reason]
       )
