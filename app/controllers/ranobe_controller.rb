@@ -1,4 +1,6 @@
 class RanobeController < AnimesController
+  UPDATE_PARAMS = MangasController::UPDATE_PARAMS
+
   def autocomplete
     @collection = Autocomplete::Ranobe.call(
       scope: Ranobe.all,

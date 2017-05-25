@@ -5,7 +5,7 @@ class GenerateCopyrightedIds < ServiceObjectBase
   VALID_PATH = %r{/(animes|mangas|ranobe|characters|people)/\w+(?=-)}
   FAIL_TEXT = 'Search Temporarily Unavailable'
 
-  CONFIG_FILE = "#{::Rails.root.to_s}/config/app/copyrighted_ids.yml"
+  CONFIG_FILE = "#{::Rails.root}/config/app/copyrighted_ids.yml"
 
   def call
     hash = copyrighted_entries
@@ -13,6 +13,7 @@ class GenerateCopyrightedIds < ServiceObjectBase
     hash
   end
 
+  # rubocop:disable AbcSize
   def copyrighted_entries
     all_links.each_with_object({}) do |url, memo|
       path = URI(url).path
@@ -26,6 +27,7 @@ class GenerateCopyrightedIds < ServiceObjectBase
       (memo[:ranobe] ||= []).push id if type == :manga
     end
   end
+  # rubocop:enable AbcSize
 
   def all_links
     1.upto(total_pages).flat_map do |page|

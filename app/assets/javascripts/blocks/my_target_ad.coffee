@@ -1,4 +1,4 @@
-$(document).on 'page:load', ->
+$(document).one 'page:load', ->
   return if document.body.id == 'pages_my_target_ad'
   return unless ENV == 'production'
   return unless mobile_detect.phone() || mobile_detect.tablet()

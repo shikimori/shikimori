@@ -197,5 +197,6 @@ class PagesController < ShikimoriController
   end
 
   def my_target_ad
+    raise 'allowed on production only' unless Rails.env.production?
   end
 end
