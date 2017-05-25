@@ -14,17 +14,17 @@ header.head
       ] = t 'about_site'
       li: a.entry[
         href=site_rules.url
-        title=site_rules.title
-      ] = site_rules.title
+        title="#{t 'application.top_menu.shikimori.site_rules'}"
+      ] = t 'application.top_menu.shikimori.site_rules'
       - if ru_host?
         li: a.entry[
           href=faq.url
-          title=faq.title
-        ] = faq.title
+          title="#{t 'application.top_menu.shikimori.faq'}"
+        ] = t 'application.top_menu.shikimori.faq'
         li: a.entry[
           href="https://vk.com/shikimori"
-          title="Наша группа в vk.com"
-        ] Наша группа в vk.com
+          title="#{t 'application.top_menu.shikimori.vk_group'}"
+        ] = t 'application.top_menu.shikimori.vk_group'
       li: a.entry[
         href="#{moderations_url}"
         title="#{t 'application.top_menu.shikimori.moderation'}"

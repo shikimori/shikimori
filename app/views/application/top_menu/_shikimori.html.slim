@@ -95,16 +95,22 @@
       ] = t 'about_site'
 
       - site_rules = StickyTopicView.site_rules(locale_from_host)
-      a.entry href=site_rules.url title=site_rules.title = site_rules.title
+      a.entry[
+        href=site_rules.url
+        title="#{t '.site_rules'}"
+      ] = t '.site_rules'
 
       - if ru_host?
         - faq = StickyTopicView.faq(locale_from_host)
-        a.entry href=faq.url title=faq.title = faq.title
+        a.entry[
+          href=faq.url
+          title="#{t '.faq'}"
+        ] = t '.faq'
 
         a.entry[
           href="https://vk.com/shikimori"
-          title="Наша группа в vk.com"
-        ] Наша группа в vk.com
+          title="#{t '.vk_group'}"
+        ] = t '.vk_group'
 
       a.entry[
         href="#{anime_statistics_url}"

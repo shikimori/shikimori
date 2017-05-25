@@ -14,9 +14,12 @@ ru:
         contests: Опросы
         current_contest: Текущий опрос
         currently_airing: Сейчас выходит
-        info: Инфо
         development: Разработка сайта
+        faq: FAQ - Часто задаваемые вопросы
+        info: Инфо
         moderation: Модерация и контент
+        site_rules: Правила сайта
+        vk_group: Наша группа в vk.com
       anime_online:
         <<: *shikimori
 

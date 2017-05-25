@@ -14,9 +14,12 @@ en:
         contests: Contests
         current_contest: Current Contest
         currently_airing: Currently Airing
-        info: Info
         development: Website development
+        faq: FAQ
+        info: Info
         moderation: Moderation
+        site_rules: Site rules
+        vk_group: Group in vk.com
       anime_online:
         <<: *shikimori
 
