@@ -103,6 +103,11 @@ ru:
           one_shot: Ваншоты
         short:
           <<: *manga_long
+      ranobe:
+        long:
+          novel: Ранобэ
+        short:
+          novel: Ранобэ
     of_genres: '%{genres} %{list}'
 
   titles/localized_season_text:
