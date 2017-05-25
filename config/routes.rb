@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       get :page503
       get :raise_exception
       get :timeout_120s
+      get :my_target_ad
 
       get :bb_codes
       get :feedback

@@ -195,4 +195,7 @@ class PagesController < ShikimoriController
 
   def vue
   end
+
+  def my_target_ad
+  end
 end
