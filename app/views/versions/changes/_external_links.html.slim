@@ -16,7 +16,8 @@
           a href="#{link.url}" = link.label
           .url = link.url
 
-  / - if version.old_value('external_links').present? && version.new_value('external_links').present?
+  - if version.old_value('external_links').present? && version.new_value('external_links').present?
     .diff
       .label Diff:
-      = sanitize version.field_diff('external_links')
+      .value
+        = sanitize version.field_diff('external_links')
