@@ -119,7 +119,7 @@
     - if resource.display_sensitive?
   .block
     .subheadline = t '.on_other_sites'
-    = render resource.external_links
+    = render resource.all_external_links
 
   - if show_social?
     .block

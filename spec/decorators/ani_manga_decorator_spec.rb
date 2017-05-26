@@ -1,4 +1,6 @@
 describe AniMangaDecorator do
+  subject(:decorator) { anime.decorate }
+
   describe '#release_date_text & #release_date_tooltip' do
     let(:anime) { build :anime, status: status, aired_on: aired_date, released_on: released_date }
 
@@ -7,8 +9,6 @@ describe AniMangaDecorator do
 
     let(:aired_date) { aired_on ? Time.zone.parse(aired_on) : nil }
     let(:released_date) { released_on ? Time.zone.parse(released_on) : nil }
-
-    subject(:decorator) { anime.decorate }
 
     context 'no dates' do
       let(:status) { :released }
@@ -106,6 +106,26 @@ describe AniMangaDecorator do
 
         its(:release_date_text) { is_expected.to eq 'с 3 марта 2011 г.' }
         its(:release_date_tooltip) { is_expected.to be_nil }
+      end
+    end
+  end
+
+  describe '#all_external_links' do
+    let(:anime) { build :anime, mal_id: mal_id }
+    let!(:external_link) { create :external_link, entry: anime }
+
+    context 'without mal_id' do
+      let(:mal_id) { nil }
+      it { expect(decorator.all_external_links).to eq [external_link] }
+    end
+
+    context 'with mal_id' do
+      let(:mal_id) { 123 }
+      it do
+        expect(decorator.all_external_links).to eq [
+          external_link,
+          decorator.send(:mal_external_link)
+        ]
       end
     end
   end

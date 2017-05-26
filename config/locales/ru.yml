@@ -391,6 +391,7 @@ ru:
         kage_project: Kage Project
         ruranobe: РуРанобэ
         world_art: World Art
+        myanimelist: MyAnimeList
     contest:
       strategy_type:
         double_elimination: Вылет после двух поражений

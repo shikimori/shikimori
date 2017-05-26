@@ -5,11 +5,12 @@ module Types
       .enum(*%i(
         official_site
         wikipedia
-        anime_news_network
         anime_db
-        kage_project
-        world_art
+        anime_news_network
+        myanimelist
         ruranobe
+        world_art
+        kage_project
       ))
   end
 end

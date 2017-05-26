@@ -6,10 +6,11 @@ class AniMangaDecorator < DbEntryDecorator
   NEWS_PER_PAGE = 12
   VISIBLE_RELATED = 7
 
-  instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?
-  instance_cache :current_rate, :changes, :versions, :versions_page
-  instance_cache :roles, :related, :friend_rates, :recent_rates, :chronology
-  instance_cache :rates_scores_stats, :rates_statuses_stats, :rates_size
+  instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
+    :current_rate, :changes, :versions, :versions_page,
+    :roles, :related, :friend_rates, :recent_rates, :chronology,
+    :rates_scores_stats, :rates_statuses_stats, :rates_size,
+    :all_external_links
 
   # топики
   def topic_views
@@ -167,6 +168,10 @@ class AniMangaDecorator < DbEntryDecorator
     I18n.russian? ? text.capitalize : text
   end
 
+  def all_external_links
+    object.external_links + (mal_id ? [mal_external_link] : [])
+  end
+
 private
 
   def format_menu_topic topic_view, order
@@ -185,5 +190,13 @@ private
 
   def rates_query
     UserRatesQuery.new(object, h.current_user)
+  end
+
+  def mal_external_link
+    @mal_external_link ||= ExternalLink.new(
+      entry: object,
+      kind: :myanimelist,
+      url: object.mal_url
+    )
   end
 end

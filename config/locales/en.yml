@@ -391,6 +391,7 @@ en:
         kage_project: Kage Project
         ruranobe: RuRanobe
         world_art: World Art
+        myanimelist: MyAnimeList
     contest:
       strategy_type:
         double_elimination: Double elimination
