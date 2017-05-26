@@ -18,6 +18,11 @@ describe ExternalLink do
   end
 
   describe 'instance methods' do
+    describe '#url=' do
+      let(:external_link) { build :external_link, url: 'zzz' }
+      it { expect(external_link.url).to eq 'http://zzz' }
+    end
+
     describe '#label' do
       let(:external_link) { build :external_link, kind, url: url }
       subject { external_link.label }

@@ -31,6 +31,14 @@ class ExternalLink < ApplicationRecord
     zh: '维基百科'
   }
 
+  def url= value
+    if value.present?
+      super Url.new(value).with_protocol.to_s
+    else
+      super
+    end
+  end
+
   def label
     if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh)\.wikipedia\.org/}
       WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
