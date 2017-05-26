@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526183656) do
+ActiveRecord::Schema.define(version: 20170526185238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,7 +112,6 @@ ActiveRecord::Schema.define(version: 20170526183656) do
     t.integer  "episodes_aired",                     default: 0,     null: false
     t.integer  "editor_id"
     t.string   "russian",                limit: 255
-    t.integer  "ani_db_id",                          default: 0
     t.boolean  "censored",                           default: false
     t.datetime "imported_at"
     t.datetime "next_episode_at"
