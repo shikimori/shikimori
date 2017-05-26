@@ -45,41 +45,33 @@ describe CopyrightedIds do
     context 'copyrighted' do
       context 'changed' do
         it do
-          expect(service.restore 'z9999999-neo-ranga', :anime, false)
-            .to eq 9_999_999
-          expect(service.restore 'z9999999-neo-ranga', :anime, true)
-            .to eq 9_999_999
+          expect(service.restore 'z9999999-neo-ranga', :anime).to eq 9_999_999
         end
       end
 
       context 'original' do
         let!(:anime) { create :anime, id: 9_999_999 }
         it do
-          expect { service.restore '9999999-neo-ranga', :anime, false }
+          expect { service.restore '9999999-neo-ranga', :anime }
             .to raise_error CopyrightedResource
-          expect(service.restore '9999999-neo-ranga', :anime, true)
-            .to eq 9_999_999
         end
       end
     end
 
     context 'twice copyrighted' do
       it do
-        expect(service.restore 'a8888888', :anime, false).to eq 8_888_888
-        expect(service.restore 'a8888888', :anime, true).to eq 8_888_888
+        expect(service.restore 'a8888888', :anime).to eq 8_888_888
       end
     end
 
     context 'thrice copyrighted' do
       it do
-        expect(service.restore 'za7777777', :anime, false).to eq 7_777_777
-        expect(service.restore 'za7777777', :anime, true).to eq 7_777_777
+        expect(service.restore 'za7777777', :anime).to eq 7_777_777
       end
     end
 
     context 'not copyrighted' do
-      it { expect(service.restore '25', :anime, false).to eq 25 }
-      it { expect(service.restore '25', :anime, true).to eq 25 }
+      it { expect(service.restore '25', :anime).to eq 25 }
     end
   end
 
