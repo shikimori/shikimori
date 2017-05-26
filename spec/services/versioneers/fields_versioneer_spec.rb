@@ -26,6 +26,11 @@ describe Versioneers::FieldsVersioneer do
       expect(version.moderator).to be_nil
     end
 
+    describe 'no changes' do
+      let(:changes) { { name: 'test' } }
+      it { expect(version).to be_new_record }
+    end
+
     describe 'description change' do
       let(:changes) { { description_ru: 'zzz' } }
 
@@ -36,10 +41,12 @@ describe Versioneers::FieldsVersioneer do
       end
     end
 
-    describe 'nil -> "" change' do
+    describe 'field change' do
       let(:changes) { { name: 'zzz' } }
 
       it do
+        expect(version).to be_persisted
+        expect(version).to be_pending
         expect(version.item_diff).to eq 'name' => ['test', 'zzz']
       end
     end

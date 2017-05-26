@@ -22,7 +22,9 @@ describe Versioneers::CollectionVersioneer do
   end
 
   describe '#premoderate' do
-    subject!(:version) { service.premoderate external_links_data, author, reason }
+    subject!(:version) do
+      service.premoderate external_links_data, author, reason
+    end
 
     it do
       expect(anime.reload.external_links).to eq [external_link]
@@ -43,6 +45,20 @@ describe Versioneers::CollectionVersioneer do
         item: anime,
         moderator: nil
       )
+    end
+
+    describe 'no changes', :focus do
+      let(:external_links_data) do
+        [
+          JSON.parse(
+            external_link.attributes
+              .except('id', 'entry_id', 'imported_at')
+              .merge('imported_at' => '', 'entry_id' => external_link.entry_id.to_s )
+              .to_json
+            )
+        ]
+      end
+      it { expect(version).to be_new_record }
     end
   end
 
