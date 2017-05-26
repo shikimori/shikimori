@@ -4,7 +4,7 @@
     data-entry_id="#{@resource.id}"
     data-entry_type="#{@resource.object.class.base_class.name}"
     data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
-    data-kind_options="#{ExternalLink.kind.options.select {|_, key| ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json}"
+    data-kind_options="#{ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json}"
   ]
   .cc-2
     .c-column
