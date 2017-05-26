@@ -26,7 +26,7 @@ class Versions::PosterVersion < Version
   end
 
   def latest_image?
-    item.image_file_name&.permalinked == item_diff['image'][1]&.permalinked
+    item&.image_file_name&.permalinked == item_diff['image'][1]&.permalinked
   end
 
   def deleteable?
