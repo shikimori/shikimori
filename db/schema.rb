@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526185721) do
+ActiveRecord::Schema.define(version: 20170526213026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -582,7 +582,6 @@ ActiveRecord::Schema.define(version: 20170526185721) do
     t.datetime "updated_at"
     t.string   "tags",               limit: 255
     t.string   "source",             limit: 255
-    t.string   "read_manga_id",      limit: 255
     t.float    "site_score",                     default: 0.0,   null: false
     t.datetime "parsed_at"
     t.text     "desynced",                       default: [],    null: false, array: true

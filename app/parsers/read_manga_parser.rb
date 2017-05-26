@@ -72,13 +72,14 @@ class ReadMangaParser < SiteParserWithCache
     content = get url
     return nil if moved_entry? content
 
-    entry = { id: id }
+    entry = { id: id, url: url }
 
     doc = Nokogiri::HTML(content.gsub(/<br ?\/?>/, "\n").gsub(/<!--[\s\S]*?-->/, ''))
 
     extract_names entry, doc
 
     lines = extract_description_lines doc
+
     entry[:source] = find_source(lines, url) || url
     entry[:read_first_url] = extract_read_first_url doc
 

@@ -49,7 +49,6 @@ module Clockwork
     MalParsers::ScheduleMissingPersonRoles.perform_async 'person'
 
     SakuhindbImporter.perform_async with_fail: false
-    ReadMangaLinksWorker.perform_async
 
     # AnimeLinksVerifier.perform_async
 

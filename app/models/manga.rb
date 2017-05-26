@@ -99,6 +99,11 @@ class Manga < DbEntry
     class_name: ExternalLink.name,
     as: :entry,
     inverse_of: :entry
+  has_one :readmanga_external_link,
+    -> { where(kind: Types::ExternalLink::Kind[:readmanga]) },
+    class_name: ExternalLink.name,
+    as: :entry,
+    inverse_of: :entry
 
   enumerize :type, in: %i[Manga Ranobe]
   enumerize :kind,
@@ -108,9 +113,6 @@ class Manga < DbEntry
 
   validates :name, presence: true
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
-
-  scope :read_manga, -> { where('read_manga_id like ?', 'rm_%') }
-  scope :read_manga_adult, -> { where('read_manga_id like ?', 'am_%') }
 
   before_create :set_type
   before_save :set_type, if: -> { kind_changed? }
@@ -126,18 +128,6 @@ class Manga < DbEntry
 
   def chapters= value
     value.blank? ? super(0) : super(value)
-  end
-
-  # имя сайта ридманги
-  def read_manga_name
-    read_manga_id.starts_with?(ReadMangaImporter::Prefix) ? 'ReadManga' : 'AdultManga'
-  end
-
-  # url сайта ридманги
-  def read_manga_url
-    read_manga_id.starts_with?(ReadMangaImporter::Prefix) ?
-      "http://readmanga.ru/#{read_manga_id.sub(ReadMangaImporter::Prefix, '')}" :
-      "http://adultmanga.ru/#{read_manga_id.sub(AdultMangaImporter::Prefix, '')}"
   end
 
   def duration

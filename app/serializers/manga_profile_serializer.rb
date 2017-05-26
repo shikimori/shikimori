@@ -3,7 +3,7 @@ class MangaProfileSerializer < MangaSerializer
     :volumes, :chapters, :score,
     :description, :description_html, :description_source,
     :favoured, :anons, :ongoing, :thread_id, :topic_id,
-    :read_manga_id, :myanimelist_id,
+    :myanimelist_id,
     :rates_scores_stats, :rates_statuses_stats
 
   has_many :genres

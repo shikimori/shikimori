@@ -35,7 +35,8 @@ class ReadMangaImporter
   # выборка из базы того, куда импортироватьс
   def prepare_db_data
     all_mangas = Manga
-      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :read_manga_id, :kind])
+      .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :kind])
+      .includes(:readmanga_external_link)
       .order(:kind)
       .all
 
@@ -87,7 +88,19 @@ class ReadMangaImporter
             db_entry[:entry].russian = import_entry[:russian]
           end
 
-          db_entry[:entry].read_manga_id = self.class::Prefix+import_entry[:id]
+          if db_entry[:entry].readmanga_external_link
+            db_entry[:entry].readmanga_external_link.update!(
+              url: import_entry[:url],
+              source: Types::ExternalLink::Source[:myanimelist]
+            )
+          else
+            db_entry[:entry].create_readmanga_external_link.update!(
+              url: import_entry[:url],
+              kind: Types::ExternalLink::Kind[:readmanga],
+              source: Types::ExternalLink::Source[:myanimelist]
+            )
+          end
+
           db_entry[:entry].save validate: false if db_entry[:entry].changes.any?
 
           matched += 1

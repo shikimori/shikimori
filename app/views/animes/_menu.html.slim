@@ -117,9 +117,10 @@
 
   / - if user_signed_in?
     - if resource.display_sensitive?
-  .block
-    .subheadline = t '.on_other_sites'
-    = render resource.all_external_links
+  - if resource.all_external_links.any?
+    .block
+      .subheadline = t '.on_other_sites'
+      = render resource.all_external_links
 
   - if show_social?
     .block

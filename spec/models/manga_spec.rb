@@ -46,30 +46,6 @@ describe Manga do
     it { is_expected.to enumerize(:status).in :anons, :ongoing, :released }
   end
 
-  describe 'scopes' do
-    describe '#read_manga' do
-      before do
-        [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
-          create :manga, read_manga_id: read_manga_id
-        end
-      end
-
-      it { expect(Manga.read_manga).to have(1).item }
-      it { expect(Manga.read_manga.first.read_manga_id).to eq 'rm_katana' }
-    end
-
-    describe '#read_manga_adult' do
-      before do
-        [nil, 'rm_katana', 'am_love_knot'].each do |read_manga_id|
-          create :manga, read_manga_id: read_manga_id
-        end
-      end
-
-      it { expect(Manga.read_manga_adult).to have(1).item }
-      it { expect(Manga.read_manga_adult.first.read_manga_id).to eq 'am_love_knot' }
-    end
-  end
-
   describe 'callbacks' do
     describe '#set_type' do
       let(:manga) { create :manga, kind: kind }

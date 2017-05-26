@@ -8,6 +8,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
         name: "the magician's bride",
         description_ru: description_ru
     end
+    let!(:external_link) {}
     let(:description_ru) { 'test' }
     let(:identifier) { 'the_magician_s_bride' }
 
@@ -20,21 +21,60 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
     end
 
     describe 'ids' do
-      context 'not changed manga' do
+      describe 'readmanga_external_link' do
         before { importer.import ids: [identifier] }
 
-        it do
-          expect(manga.reload.description_ru).to be_present
-          expect(manga.description_ru).to_not eq description_ru
+        context 'no external link' do
+          it do
+            expect(manga.readmanga_external_link).to be_persisted
+            expect(manga.readmanga_external_link).to have_attributes(
+              url: 'http://readmanga.ru/the_magician_s_bride',
+              kind: 'readmanga',
+              source: 'myanimelist'
+            )
+          end
+        end
+
+        context 'with external link' do
+          let!(:external_link) do
+            create :external_link,
+              entry: manga,
+              kind: Types::ExternalLink::Kind[:readmanga],
+              url: 'zzz.com'
+          end
+
+          it do
+            expect(manga.readmanga_external_link).to have_attributes(
+              id: external_link.id,
+              url: 'http://readmanga.ru/the_magician_s_bride',
+              kind: 'readmanga',
+              source: 'myanimelist'
+            )
+          end
         end
       end
 
-      context 'changed manga' do
-        let!(:version) { create :version, item: manga,
-          item_diff: { 'description_ru': ['1','2'] }, state: :taken }
-        before { importer.import ids: [identifier] }
+      describe 'description_ru' do
+        context 'not changed manga' do
+          before { importer.import ids: [identifier] }
 
-        it { expect(manga.reload.description_ru).to eq description_ru }
+          it do
+            expect(manga.reload.description_ru).to be_present
+            expect(manga.description_ru).to_not eq description_ru
+          end
+        end
+
+        context 'changed manga' do
+          let!(:version) do
+            create :version,
+              item: manga,
+              item_diff: { 'description_ru': %w[1 2] },
+              state: :taken
+          end
+          before { importer.import ids: [identifier] }
+
+          it { expect(manga.reload.description_ru).to eq description_ru }
+        end
       end
     end
   end
