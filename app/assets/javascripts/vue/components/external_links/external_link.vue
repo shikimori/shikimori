@@ -34,7 +34,7 @@
       v-model="link.source"
       :name="field_name('source')"
     )
-    .b-input
+    .b-input.select
       select(
         v-model="link.kind"
         :name="field_name('kind')"
@@ -95,6 +95,9 @@ export default {
 
     .b-input
       margin-bottom: 2px
+
+      &.select
+      margin-bottom: 5px
 
       input
         width: 100%
