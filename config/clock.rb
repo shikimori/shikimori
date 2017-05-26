@@ -51,10 +51,6 @@ module Clockwork
     SakuhindbImporter.perform_async with_fail: false
     ReadMangaLinksWorker.perform_async
 
-    AnimesVerifier.perform_async
-    MangasVerifier.perform_async
-    CharactersVerifier.perform_async
-    PeopleVerifier.perform_async
     # AnimeLinksVerifier.perform_async
 
     FinishExpiredAnimes.perform_async
@@ -89,6 +85,11 @@ module Clockwork
   end
 
   every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
+    AnimesVerifier.perform_async
+    MangasVerifier.perform_async
+    CharactersVerifier.perform_async
+    PeopleVerifier.perform_async
+
     Anidb::ImportDescriptionsJob.perform_async
   end
 
