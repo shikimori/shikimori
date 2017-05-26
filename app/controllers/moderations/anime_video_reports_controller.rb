@@ -24,7 +24,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     @resource.accept! current_user if @resource.can_accept?
 
     redirect_to edit_video_online_url(
-      @resource.anime_video.anime_id,
+      @resource.anime_video.anime,
       @resource.anime_video,
       host: AnimeOnlineDomain.host(@resource.anime_video.anime)
     )
@@ -43,7 +43,7 @@ class Moderations::AnimeVideoReportsController < ModerationsController
     @resource.accept_only! current_user if @resource.can_accept_only?
 
     redirect_to edit_video_online_url(
-      @resource.anime_video.anime_id,
+      @resource.anime_video.anime,
       @resource.anime_video,
       host: AnimeOnlineDomain.host(@resource.anime_video.anime)
     )
