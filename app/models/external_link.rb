@@ -10,10 +10,18 @@ class ExternalLink < ApplicationRecord
     in: Types::ExternalLink::Source.values,
     predicates: { prefix: true }
 
-  # def kind_text
-    # wikipedia_ru: Википедия
-    # wikipedia_en: Wikipedia
-    # wikipedia_ja: ウィキペディア
-    # wikipedia_zh: 维基百科
-  # end
+  WIKIPEDIA_LABELS = {
+    ru: 'Википедия',
+    en: 'Wikipedia',
+    ja: 'ウィキペディア',
+    zh: '维基百科'
+  }
+
+  def label
+    if kind_wikipedia? && url =~ %r{/(?<lang>ru|en|ja|zh)\.wikipedia\.org/}
+      WIKIPEDIA_LABELS[$LAST_MATCH_INFO[:lang].to_sym] || kind_text
+    else
+      kind_text
+    end
+  end
 end

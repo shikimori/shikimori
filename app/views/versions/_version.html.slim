@@ -83,15 +83,22 @@
 
         - if version.kind_of? Versions::VideoVersion
           = render 'versions/changes/video', version: version
+
         - elsif version.kind_of? Versions::ScreenshotsVersion
           /# Template Dependency: versions/changes/screenshots_reposition
           /# Template Dependency: versions/changes/screenshots_delete
           /# Template Dependency: versions/changes/screenshots_upload
           = render "versions/changes/screenshots_#{version.action}", version: version
+
         - elsif version.kind_of? Versions::PosterVersion
           = render 'versions/changes/poster', version: version
+
         - elsif version.kind_of? Versions::CollectionVersion
-          = render 'versions/changes/collection', version: version
+          - if version.item_diff['external_links'].present?
+            = render 'versions/changes/external_links', version: version
+          - else
+            - raise 'unknown collection'
+
         - else
           - version.item_diff.each do |field, (old_value, new_value)|
             = render 'versions/changes/text_diff',

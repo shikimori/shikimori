@@ -1,0 +1,22 @@
+.field-changes.external_links
+  .changes
+    .change
+      .label #{t '.before'}:
+      - version.old_value('external_links').each do |link_data|
+        - link = ExternalLink.new link_data
+        .b-external_link
+          a href="#{link.url}" = link.label
+          .url = link.url
+
+    .change
+      .label #{t '.after'}:
+      - version.new_value('external_links').each do |link_data|
+        - link = ExternalLink.new link_data
+        .b-external_link
+          a href="#{link.url}" = link.label
+          .url = link.url
+
+  / - if version.old_value('external_links').present? && version.new_value('external_links').present?
+    .diff
+      .label Diff:
+      = sanitize version.field_diff('external_links')

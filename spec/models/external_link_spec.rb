@@ -16,4 +16,46 @@ describe ExternalLink do
     it { is_expected.to enumerize(:kind).in(*Types::ExternalLink::Kind.values) }
     it { is_expected.to enumerize(:source).in(*Types::ExternalLink::Source.values) }
   end
+
+  describe 'instance methods' do
+    describe '#label' do
+      let(:external_link) { build :external_link, kind, url: url }
+      subject { external_link.label }
+
+      context 'not wikipedia' do
+        let(:kind) { :official_site }
+        let(:url) { 'zzz' }
+        it { is_expected.to eq external_link.kind_text }
+      end
+
+      context 'wikipedia' do
+        let(:kind) { :wikipedia }
+
+        context 'ru' do
+          let(:url) { 'https://ru.wikipedia.org/wiki/Tsuki_ga_Kirei' }
+          it { is_expected.to eq 'Википедия' }
+        end
+
+        context 'en' do
+          let(:url) { 'https://en.wikipedia.org/wiki/Tsuki_ga_Kirei' }
+          it { is_expected.to eq 'Wikipedia' }
+        end
+
+        context 'ja' do
+          let(:url) { 'https://ja.wikipedia.org/wiki/Tsuki_ga_Kirei' }
+          it { is_expected.to eq 'ウィキペディア' }
+        end
+
+        context 'zh' do
+          let(:url) { 'https://zh.wikipedia.org/wiki/Tsuki_ga_Kirei' }
+          it { is_expected.to eq '维基百科' }
+        end
+
+        context 'other variants' do
+          let(:url) { 'https://ru.wikipedia.org/wiki/Tsuki_ga_Kirei' }
+          it { is_expected.to eq external_link.kind_text }
+        end
+      end
+    end
+  end
 end

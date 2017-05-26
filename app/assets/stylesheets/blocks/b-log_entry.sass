@@ -75,7 +75,7 @@
       .changes .change
         margin-bottom: 3px
 
-      &.collection, &.description_ru, &.description_en, &.description
+      &.external_links, &.description_ru, &.description_en, &.description
         .label
           display: block
           padding: 0
@@ -118,6 +118,16 @@
 
           .change:last-child
             margin-right: 0
+
+      &.external_links
+        .label
+          margin-bottom: 5px
+
+        .b-external_link
+          margin-bottom: 5px
+
+          .url
+            font-size: 11px
 
   &>.reason
     color: $maroon
