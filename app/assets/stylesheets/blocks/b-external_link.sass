@@ -7,16 +7,17 @@ $image-size: 19px
 $image-path: 'blocks/b-external_links'
 
 .b-external_link
-  a
+  .linkeable, a
     display: inline-block
     margin-left: $image-size + 5px
 
   @each $kind in $kinds
-    &.#{$kind} a:before
-      +background-inline-retina('#{$image-path}/#{$kind}', 'png', $image-size, $image-size)
-      content: ''
-      position: absolute
-      height: $image-size
-      width: $image-size
-      margin-left: -($image-size + 5px)
-      margin-top: 1px
+    &.#{$kind}
+      .linkeable:before, a:before
+        +background-inline-retina('#{$image-path}/#{$kind}', 'png', $image-size, $image-size)
+        content: ''
+        position: absolute
+        height: $image-size
+        width: $image-size
+        margin-left: -($image-size + 5px)
+        margin-top: 1px

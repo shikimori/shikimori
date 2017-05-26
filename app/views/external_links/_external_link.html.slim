@@ -1,3 +1,4 @@
 .b-external_link class="#{external_link.kind}"
-  a href="#{external_link.url}"
-    = external_link.label
+  .linkeable[
+    data-href="#{external_link.url}"
+  ] = external_link.label
