@@ -38,8 +38,10 @@ describe Versioneers::CollectionVersioneer do
         reason: reason,
         item_diff: {
           'external_links' => [
-            [JSON.parse(external_link.attributes.except('id').to_json)],
-            external_links_data
+            [
+              JSON.parse(external_link.attributes.except('id').to_json)
+            ].map { |v| service.send :convert, v },
+            external_links_data.map { |v| service.send :convert, v }
           ]
         },
         item: anime,
@@ -47,15 +49,15 @@ describe Versioneers::CollectionVersioneer do
       )
     end
 
-    describe 'no changes', :focus do
+    describe 'no changes' do
       let(:external_links_data) do
         [
           JSON.parse(
             external_link.attributes
               .except('id', 'entry_id', 'imported_at')
-              .merge('imported_at' => '', 'entry_id' => external_link.entry_id.to_s )
+              .merge('imported_at' => '', 'entry_id' => external_link.entry_id.to_s)
               .to_json
-            )
+          )
         ]
       end
       it { expect(version).to be_new_record }
@@ -78,8 +80,10 @@ describe Versioneers::CollectionVersioneer do
         reason: reason,
         item_diff: {
           'external_links' => [
-            [JSON.parse(external_link.attributes.except('id').to_json)],
-            external_links_data
+            [
+              JSON.parse(external_link.attributes.except('id').to_json)
+            ].map { |v| service.send :convert, v },
+            external_links_data.map { |v| service.send :convert, v }
           ]
         },
         item: anime,
