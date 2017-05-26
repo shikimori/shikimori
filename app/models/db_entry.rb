@@ -2,6 +2,10 @@ class DbEntry < ApplicationRecord
   self.abstract_class = true
   SIGNIFICANT_FIELDS = %w(name genres image)
 
+  def cache_key
+    super + '/' + to_param
+  end
+
   def self.inherited klass
     super
 
@@ -15,9 +19,11 @@ class DbEntry < ApplicationRecord
   end
 
   def to_param
-    # change ids to new ones because of google bans
-    changed_id = CopyrightedIds.instance.change id, self.class.name.downcase
-    "#{changed_id}-#{name.permalinked}"
+    @to_param ||= begin
+      # change ids to new ones because of google DMCA bans
+      changed_id = CopyrightedIds.instance.change id, self.class.name.downcase
+      "#{changed_id}-#{name.permalinked}"
+    end
   end
 
   def anime?
