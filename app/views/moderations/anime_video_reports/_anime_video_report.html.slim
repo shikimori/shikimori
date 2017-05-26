@@ -68,50 +68,51 @@
             ] отменить
 
       .change-details
-        ul.diff
-          li
-            span ID:
-            = anime_video_report.anime_video.id
-          li
-            span #{AnimeVideo.human_attribute_name :url}:
-            a[
-              href="#{anime_video_report.anime_video.url}"
-            ] = anime_video_report.anime_video.url
+        .field-changes
+          .changes
+            .change
+              .label ID:
+              = anime_video_report.anime_video.id
+            .change
+              .label #{AnimeVideo.human_attribute_name :url}:
+              a[
+                href="#{anime_video_report.anime_video.url}"
+              ] = anime_video_report.anime_video.url
 
-          li
-            span #{AnimeVideo.human_attribute_name :episode}:
-            = anime_video_report.anime_video.episode
-          li
-            span #{AnimeVideo.human_attribute_name :kind}:
-            = anime_video_report.anime_video.kind_text
-          - unless anime_video_report.anime_video.language_unknown?
-          li
-            span #{AnimeVideo.human_attribute_name :language}:
-            = anime_video_report.anime_video.language_text
-          - unless anime_video_report.anime_video.quality_unknown?
-            li
-              span #{AnimeVideo.human_attribute_name :quality}:
-              = anime_video_report.anime_video.quality_text
+            .change
+              .label #{AnimeVideo.human_attribute_name :episode}:
+              = anime_video_report.anime_video.episode
+            .change
+              .label #{AnimeVideo.human_attribute_name :kind}:
+              = anime_video_report.anime_video.kind_text
+            - unless anime_video_report.anime_video.language_unknown?
+              .change
+                .label #{AnimeVideo.human_attribute_name :language}:
+                = anime_video_report.anime_video.language_text
+            - unless anime_video_report.anime_video.quality_unknown?
+              .change
+                .label #{AnimeVideo.human_attribute_name :quality}:
+                = anime_video_report.anime_video.quality_text
 
-          - if anime_video_report.anime_video.author
-            li
-              span #{AnimeVideo.human_attribute_name :author_name}:
-              = anime_video_report.anime_video.author.name.to_s.html_safe
+            - if anime_video_report.anime_video.author
+              .change
+                .label #{AnimeVideo.human_attribute_name :author_name}:
+                = anime_video_report.anime_video.author.name.to_s.html_safe
 
-          - if anime_video_report.user_agent.present?
-            li
-              span USER_AGENT:
-              = anime_video_report.user_agent
+            - if anime_video_report.user_agent.present?
+              .change
+                .label USER_AGENT:
+                = anime_video_report.user_agent
 
-          - if anime_video_report.message.present?
-            li
-              span Комментарий:
-              = anime_video_report.message
+            - if anime_video_report.message.present?
+              .change
+                .label Комментарий:
+                = anime_video_report.message
 
-          - if anime_video_report.doubles > 0
-            li
-              span Повторных жалоб:
-              = anime_video_report.doubles
+            - if anime_video_report.doubles > 0
+              .change
+                .label Повторных жалоб:
+                = anime_video_report.doubles
 
       .player[
         data-html="#{'' + anime_video_report.anime_video.decorate.player_html}"
