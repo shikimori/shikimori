@@ -139,6 +139,7 @@
 
         li
           .field = t '.external_links'
+          .value = @resource.external_links.map(&:label).join(', ').html_safe
           a.b-js-action href="#{@resource.edit_field_url(:external_links)}"
             = t 'actions.edit'
 
