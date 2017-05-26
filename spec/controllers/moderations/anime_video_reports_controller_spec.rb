@@ -37,7 +37,7 @@ describe Moderations::AnimeVideoReportsController do
       expect(anime_video_report.reload).to be_accepted
       expect(anime_video.reload.state).to eq kind
       expect(response).to redirect_to edit_video_online_url(
-        anime_video.anime_id,
+        anime_video.anime,
         anime_video,
         host: AnimeOnlineDomain.host(anime_video.anime)
       )
@@ -60,7 +60,7 @@ describe Moderations::AnimeVideoReportsController do
       expect(anime_video_report.reload).to be_accepted
       expect(anime_video.reload).to be_working
       expect(response).to redirect_to edit_video_online_url(
-        anime_video.anime_id,
+        anime_video.anime,
         anime_video,
         host: AnimeOnlineDomain.host(anime_video.anime)
       )
