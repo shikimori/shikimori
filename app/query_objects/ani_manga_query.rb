@@ -127,12 +127,9 @@ private
     simple_queries = {
       include: simple_types[:include]
         .delete_if { |v| v == 'tv' && types[:complex].any? { |q| q =~ /^tv_/ } }
-        .map do |type|
-          "#{@klass.table_name}.kind = #{Anime.sanitize type}"
-        end,
-      exclude: simple_types[:exclude].map do |type|
-        "#{@klass.table_name}.kind = #{Anime.sanitize type}"
-      end
+        .map { |type| "#{table_name}.kind = #{Anime.sanitize type}" },
+      exclude: simple_types[:exclude]
+        .map { |type| "#{table_name}.kind = #{Anime.sanitize type}" }
     }
     complex_queries = { include: [], exclude: [] }
 
@@ -141,13 +138,13 @@ private
 
       query = case type
         when 'tv_13', '!tv_13'
-          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
+          "(#{table_name}.kind = 'tv' and episodes != 0 and episodes <= 16) or (#{table_name}.kind = 'tv' and episodes = 0 and episodes_aired <= 16)"
 
         when 'tv_24', '!tv_24'
-          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
+          "(#{table_name}.kind = 'tv' and episodes != 0 and episodes >= 17 and episodes <= 28) or (#{table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 17 and episodes_aired <= 28)"
 
         when 'tv_48', '!tv_48'
-          "(#{@klass.table_name}.kind = 'tv' and episodes != 0 and episodes >= 29) or (#{@klass.table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
+          "(#{table_name}.kind = 'tv' and episodes != 0 and episodes >= 29) or (#{table_name}.kind = 'tv' and episodes = 0 and episodes_aired >= 29)"
       end
 
       complex_queries[with_bang ? :exclude : :include] << query
@@ -188,7 +185,7 @@ private
   # отключение выборки по музыке
   def disable_music!
     unless @type =~ /music/ || mylist? || userlist?
-      @query = @query.where("#{@klass.table_name}.kind != ?", :music)
+      @query = @query.where("#{table_name}.kind != ?", :music)
     end
   end
 
@@ -219,7 +216,7 @@ private
       end if ids[:include].any?
     end
     # группировка при необходимости
-    @query = @query.group("#{@klass.table_name}.id").having(havings.join ' and ') if havings.any?
+    @query = @query.group("#{table_name}.id").having(havings.join ' and ') if havings.any?
   end
 
   # фильтрация по рейнтингу
@@ -387,18 +384,18 @@ private
   end
 
   # применение включающего и исключающего фильтра для джойнящейся сущности
-  def joined_filter filters, table_name
+  def joined_filter filters, joined_table_name
     if filters[:include].any?
-      @query = @query.joins(table_name.to_sym)
-          .where(table_name => { id: filters[:include].flatten })
+      @query = @query.joins(joined_table_name.to_sym)
+          .where(joined_table_name => { id: filters[:include].flatten })
     end
 
-    joined_table = (@klass.table_name+'_'+table_name.to_s).sub('mangas_genres', 'genres_mangas')
+    joined_table = (table_name + '_' + joined_table_name.to_s).sub('mangas_genres', 'genres_mangas')
 
-    @query = @query.where("#{@klass.table_name}.id not in (
-        select distinct(t.#{@klass.name.downcase}_id)
+    @query = @query.where("#{table_name}.id not in (
+        select distinct(t.#{table_name.singularize}_id)
           from #{joined_table} t
-            where t.#{table_name.to_s.singularize}_id in (#{filters[:exclude].flatten.join(',')})
+            where t.#{joined_table_name.to_s.singularize}_id in (#{filters[:exclude].flatten.join(',')})
       )") if filters[:exclude].any?
   end
 
