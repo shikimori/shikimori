@@ -1,0 +1,32 @@
+.block
+  .subheadline = t '.on_other_sites'
+  / ul.b-block_list.sites
+    / - if ru_host?
+      / li
+        / a.b-link href="#{resource.mal_url}"
+          / img.site-icon src='/images/favicons/myanimelist.ico' title='MyAnimeList'
+          / | MyAnimeList
+
+    / - if resource.respond_to?(:ani_db_id) && resource.ani_db_id != 0
+      / li
+        / a.b-link href="#{"http://anidb.net/perl-bin/animedb.pl?show=anime&aid=#{resource.ani_db_id}"}"
+          / img.site-icon src='/images/favicons/anidb.ico' title='AniDb'
+          / | AniDb
+
+    / - if resource.respond_to?(:world_art_id) && resource.world_art_id != 0
+      / li
+        / a.b-link href="#{"http://www.world-art.ru/animation/animation.php?id=#{resource.world_art_id}"}"
+          / img.site-icon src='/images/favicons/world-art.ico' title='WorldArt'
+          / | WorldArt
+
+    / - if resource.respond_to?(:read_manga_id) && !resource.read_manga_id.blank?
+      / li
+        / a.b-link href="#{resource.read_manga_url}"
+          / img.site-icon src="/images/favicons/readmanga.ico" title="#{resource.read_manga_name}"
+          / = resource.read_manga_name
+
+    / - if Rails.env == 'development'
+      / li
+        / a.b-link href="#{"http://#{Site::DOMAIN}#{url_for(resource)}"}"
+          / img.site-icon src="/images/favicons/shikimori.ico" title="Shikimori"
+          / | Shikimori
