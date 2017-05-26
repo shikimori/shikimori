@@ -4,7 +4,7 @@
       .label #{t '.before'}:
       - version.old_value('external_links').each do |link_data|
         - link = ExternalLink.new link_data
-        .b-external_link
+        .b-external_link class="#{link.kind}"
           a href="#{link.url}" = link.label
           .url = link.url
 
@@ -12,7 +12,7 @@
       .label #{t '.after'}:
       - version.new_value('external_links').each do |link_data|
         - link = ExternalLink.new link_data
-        .b-external_link
+        .b-external_link class="#{link.kind}"
           a href="#{link.url}" = link.label
           .url = link.url
 
