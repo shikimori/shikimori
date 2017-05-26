@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518204117) do
+ActiveRecord::Schema.define(version: 20170526182219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -477,7 +477,7 @@ ActiveRecord::Schema.define(version: 20170518204117) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.datetime "imported_at"
-    t.string   "source",      null: false
+    t.string   "source"
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id", using: :btree
   end
 
