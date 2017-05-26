@@ -120,7 +120,8 @@
   - if resource.all_external_links.any?
     .block
       .subheadline = t '.on_other_sites'
-      = render resource.all_external_links
+      = render partial: 'external_links/external_link',
+        collection: resource.all_external_links
 
   - if show_social?
     .block
