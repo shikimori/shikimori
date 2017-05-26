@@ -12,7 +12,7 @@ class ShikimoriController < ApplicationController
     @resource ||= resource_klass.find(
       CopyrightedIds
         .instance
-        .restore(resource_id, resource_klass.name.downcase)
+        .restore(resource_id, resource_klass.name.downcase, request.xhr?)
     )
     @resource = @resource.decorate
     instance_variable_set "@#{resource_klass.name.downcase}", @resource

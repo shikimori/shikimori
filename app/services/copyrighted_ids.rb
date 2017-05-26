@@ -31,10 +31,10 @@ class CopyrightedIds
     change "#{MARKERS[0]}#{id}", type
   end
 
-  def restore id, type
+  def restore id, type, is_xhr = false
     cleaned_id = id.to_s.gsub(/-.*$/, '')
 
-    if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id)
+    if ids[type.to_sym] && ids[type.to_sym].include?(cleaned_id) && !is_xhr
       raise CopyrightedResource, copyrighted_resource(type, cleaned_id)
     else
       restore_id cleaned_id
