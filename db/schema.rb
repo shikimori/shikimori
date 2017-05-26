@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526185238) do
+ActiveRecord::Schema.define(version: 20170526185721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,7 +110,6 @@ ActiveRecord::Schema.define(version: 20170526185238) do
     t.string   "status",                 limit: 255
     t.string   "rating",                 limit: 255
     t.integer  "episodes_aired",                     default: 0,     null: false
-    t.integer  "editor_id"
     t.string   "russian",                limit: 255
     t.boolean  "censored",                           default: false
     t.datetime "imported_at"
@@ -574,7 +573,6 @@ ActiveRecord::Schema.define(version: 20170526185238) do
     t.date     "aired_on"
     t.date     "released_on"
     t.date     "imported_at"
-    t.integer  "editor_id"
     t.string   "image_file_name",    limit: 255
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size"
