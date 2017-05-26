@@ -115,6 +115,7 @@ ru:
 
   clubs/club_images_controller:
     image_uploaded: Изображение загружено
+    no_images_uploaded: Изображение не загружено
     image_deleted: Изображение удалено
 
   clubs/club_pages_controller:

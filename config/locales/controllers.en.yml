@@ -115,6 +115,7 @@ en:
 
   clubs/club_images_controller:
     image_uploaded: Image uploaded
+    no_images_uploaded: No images uploaded
     image_deleted: Image deleted
 
   clubs/club_pages_controller:

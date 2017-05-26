@@ -7,9 +7,12 @@ class Clubs::ClubImagesController < ShikimoriController
       @resource = create_image params[:image]
       render json: ClubImageSerializer.new(@resource).to_json
 
-    else
+    elsif params[:images]
       params[:images].each { |image| create_image image }
       redirect_to club_url(@club), notice: i18n_t('image_uploaded')
+
+    else
+      redirect_to club_url(@club), alert: i18n_t('no_images_uploaded')
     end
   end
 
