@@ -12,8 +12,15 @@ class Versions::CollectionVersion < Version
       item_diff.each do |(association, (_old_collection, new_collection))|
         item.send(association).delete_all
         import_collection association, new_collection
+
+        add_desynced association
       end
-      item.touch
+
+      if item.changed?
+        item.save
+      else
+        item.touch
+      end
     end
   end
 

@@ -123,11 +123,15 @@ private
     changes[0] = current_value field
     item.send "#{field}=", truncate_value(field, changes.second)
 
+    add_desynced field
+
+    item.save && save
+  end
+
+  def add_desynced field
     if item.respond_to?(:desynced) && item.class::DESYNCABLE.include?(field)
       item.desynced << field unless item.desynced.include?(field)
     end
-
-    item.save && save
   end
 
   def truncate_value field, value
