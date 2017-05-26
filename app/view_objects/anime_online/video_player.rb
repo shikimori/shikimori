@@ -192,6 +192,8 @@ class AnimeOnline::VideoPlayer
   def cache_key
     [
       @anime.id,
+      # т.к. id может попасть в copyrighted_ids, что поломает ссылки
+      @anime.to_param,
       @anime.anime_videos.cache_key,
       CACHE_VERSION
     ]
@@ -204,6 +206,8 @@ class AnimeOnline::VideoPlayer
   def episode_videos_cache_key
     [
       @anime.id,
+      # т.к. id может попасть в copyrighted_ids, что поломает ссылки
+      @anime.to_param,
       @anime.anime_videos.where(episode: current_episode).cache_key,
       :episode_videos,
       current_episode,
