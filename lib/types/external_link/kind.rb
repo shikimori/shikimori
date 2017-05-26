@@ -5,8 +5,8 @@ module Types
       .enum(*%i(
         official_site
         wikipedia
-        anime_db
         anime_news_network
+        anime_db
         myanimelist
         ruranobe
         world_art

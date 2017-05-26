@@ -169,7 +169,11 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def all_external_links
-    object.external_links + (mal_id ? [mal_external_link] : [])
+    (
+      object.external_links + (mal_id ? [mal_external_link] : [])
+    ).sort_by do |link|
+      Types::ExternalLink::Kind.values.index link.kind.to_sym
+    end
   end
 
 private
