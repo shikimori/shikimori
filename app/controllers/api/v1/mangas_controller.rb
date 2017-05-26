@@ -2,9 +2,9 @@ class Api::V1::MangasController < Api::V1Controller
   before_action :fetch_resource, except: [:index, :search]
 
   LIMIT = 50
-  ORDERS = %w(
+  ORDERS = %w[
     id ranked type popularity name aired_on volumes chapters status random
-  )
+  ]
   ORDERS_DESC = ORDERS.inject('') do |memo, order|
     memo +
       if order == 'random'
@@ -103,7 +103,7 @@ class Api::V1::MangasController < Api::V1Controller
   param :publisher, :undef,
     required: false,
     desc: 'List of publisher ids separated by comma'
-  param :censored, %w(true false),
+  param :censored, %w[true false],
     required: false,
     desc: 'Set to `false` to allow hentai, yaoi and yuri'
   param :mylist, :undef,
@@ -175,6 +175,13 @@ class Api::V1::MangasController < Api::V1Controller
   api :GET, '/mangas/:id/franchise'
   def franchise
     respond_with @resource, serializer: FranchiseSerializer
+  end
+
+  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  api :GET, '/mangas/:id/external_links'
+  def external_links
+    @collection = @resource.all_external_links
+    respond_with @collection
   end
 
   api :GET, '/mangas/search', 'Use "List mangas" API instead', deprecated: true

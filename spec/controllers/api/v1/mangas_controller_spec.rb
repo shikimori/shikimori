@@ -103,6 +103,23 @@ describe Api::V1::MangasController, :show_in_doc do
     end
   end
 
+  describe '#external_links' do
+    let(:manga) { create :manga, mal_id: 123 }
+    let!(:external_links) do
+      create :external_link,
+        entry: manga,
+        kind: :wikipedia,
+        url: 'en.wikipedia.org'
+    end
+    before { get :external_links, params: { id: manga.id }, format: :json }
+
+    it do
+      expect(collection).to have(2).items
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
   describe '#search' do
     let!(:manga_1) { create :manga, name: 'asdf' }
     let!(:manga_2) { create :manga, name: 'zxcv' }

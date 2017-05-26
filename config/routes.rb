@@ -180,6 +180,7 @@ Rails.application.routes.draw do
           get :screenshots
           get :franchise
           get :videos
+          get :external_links
         end
         get :search, on: :collection
 
@@ -193,6 +194,7 @@ Rails.application.routes.draw do
           get :similar
           get :related
           get :franchise
+          get :external_links
         end
         get :search, on: :collection
       end

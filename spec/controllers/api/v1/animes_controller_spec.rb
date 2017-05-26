@@ -135,6 +135,23 @@ describe Api::V1::AnimesController, :show_in_doc do
     end
   end
 
+  describe '#external_links' do
+    let(:anime) { create :anime, mal_id: 123 }
+    let!(:external_links) do
+      create :external_link,
+        entry: anime,
+        kind: :wikipedia,
+        url: 'en.wikipedia.org'
+    end
+    before { get :external_links, params: { id: anime.id }, format: :json }
+
+    it do
+      expect(collection).to have(2).items
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
   describe '#search' do
     let!(:anime_1) { create :anime, name: 'asdf' }
     let!(:anime_2) { create :anime, name: 'zxcv' }
