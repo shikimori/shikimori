@@ -9,6 +9,7 @@ module Types
         anime_db
         myanimelist
         ruranobe
+        readmanga
         world_art
         kage_project
       ))

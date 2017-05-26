@@ -392,6 +392,7 @@ en:
         ruranobe: RuRanobe
         world_art: World Art
         myanimelist: MyAnimeList
+        readmanga: ReadManga
     contest:
       strategy_type:
         double_elimination: Double elimination

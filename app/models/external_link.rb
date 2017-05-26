@@ -12,13 +12,13 @@ class ExternalLink < ApplicationRecord
 
   KINDS = {
     anime: Types::ExternalLink::Kind.values - %i[
-      ruranobe
+      ruranobe readmanga
     ],
     manga: Types::ExternalLink::Kind.values - %i[
       world_art kage_project anime_db ruranobe
     ],
     ranobe: Types::ExternalLink::Kind.values - %i[
-      world_art kage_project anime_db
+      world_art kage_project anime_db readmanga
     ]
   }
 
