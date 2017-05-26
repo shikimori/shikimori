@@ -1,17 +1,10 @@
-- if @resource.anime?
-  - except_keys = [::Types::ExternalLink::Kind[:ruranobe]]
-- elsif @resource.manga?
-  - except_keys = [::Types::ExternalLink::Kind[:world_art], ::Types::ExternalLink::Kind[:kage_project], ::Types::ExternalLink::Kind[:anime_db], ::Types::ExternalLink::Kind[:ruranobe]]
-- else
-  - except_keys = [::Types::ExternalLink::Kind[:world_art], ::Types::ExternalLink::Kind[:kage_project], ::Types::ExternalLink::Kind[:anime_db]]
-
 = simple_form_for resource.object do |f|
   #vue_external_links[
     data-resource_type="#{@resource.object.class.name}"
     data-entry_id="#{@resource.id}"
     data-entry_type="#{@resource.object.class.base_class.name}"
     data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
-    data-kind_options="#{ExternalLink.kind.options.select {|_, key| !except_keys.include?(key.to_sym) }.to_json}"
+    data-kind_options="#{ExternalLink.kind.options.select {|_, key| ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json}"
   ]
   .cc-2
     .c-column

@@ -10,6 +10,18 @@ class ExternalLink < ApplicationRecord
     in: Types::ExternalLink::Source.values,
     predicates: { prefix: true }
 
+  KINDS = {
+    anime: Types::ExternalLink::Kind.values - %i[
+      ruranobe
+    ],
+    manga: Types::ExternalLink::Kind.values - %i[
+      world_art kage_project anime_db ruranobe
+    ],
+    ranobe: Types::ExternalLink::Kind.values - %i[
+      world_art kage_project anime_db
+    ]
+  }
+
   WIKIPEDIA_LABELS = {
     ru: 'Википедия',
     en: 'Wikipedia',
