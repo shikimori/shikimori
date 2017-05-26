@@ -28,7 +28,7 @@
         - if @resource.kinda_manga?
           li
             .field = @resource.class.human_attribute_name(:status)
-            .value = @resource.status
+            .value = @resource.status_text
             a.b-js-action href="#{@resource.edit_field_url(:status)}"
               = t 'actions.edit'
 
