@@ -9,11 +9,11 @@ article
     b Code:
     span #{@code[0..6]}
 
-  .metric class="#{:alert if @disk_space.to_i > 90}"
+  .metric class="#{:alert if (!@disk_space.respond_to?(:nan?) || !@disk_space.nan?) && @disk_space.to_i > 90}"
     b Disk:
     span #{@disk_space}%
 
-  .metric class="#{:alert if @mem_space.to_i > 80}"
+  .metric class="#{:alert if (!@mem_space.respond_to?(:nan?) || !@mem_space.nan?) && @mem_space.to_i > 80}"
     b Memory:
     span #{@mem_space}%
 
