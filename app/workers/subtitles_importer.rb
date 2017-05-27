@@ -33,6 +33,7 @@ class SubtitlesImporter
   end
 
 private
+
   def get_fansubs animes
     count = animes.count
     i = 0

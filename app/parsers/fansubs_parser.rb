@@ -1,9 +1,9 @@
 # парсер и импортер ссылок на субтитры с fansubs.ru
 class FansubsParser
-  SearchUrl = "http://fansubs.ru/search.php"
-  ArchiveUrl = "http://fansubs.ru/base.php?id=%d"
-  ForumUrl = "http://fansubs.ru/forum/viewtopic.php?t=%d"
-  DownloadUrl = "http://fansubs.ru/forum/download.php?id=%d"
+  SearchUrl = 'http://fansubs.ru/search.php'
+  ArchiveUrl = 'http://fansubs.ru/base.php?id=%d'
+  ForumUrl = 'http://fansubs.ru/forum/viewtopic.php?t=%d'
+  DownloadUrl = 'http://fansubs.ru/forum/download.php?id=%d'
 
   attr_accessor :proxy_log, :use_proxy
 

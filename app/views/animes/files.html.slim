@@ -27,7 +27,7 @@
           a.b-link href="https://rutracker.org/forum/tracker.php?nm=#{URI.encode phrase}&f=1105,1386,1387,1388,1389,1390,1391,1478,1642,2491,281,282,404,599,893"
             = phrase
 
-  - if @resource.files.subtitles.any?
+  / - if @resource.files.subtitles.any?
     .subtitles
       - @resource.files.subtitles.each do |k,subs|
         .b-options-floated.collapse

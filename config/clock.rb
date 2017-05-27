@@ -61,7 +61,7 @@ module Clockwork
 
   every 1.day, 'daily.long-stuff', at: '03:00' do
     MalParsers::RefreshEntries.perform_async 'anime', 'latest', 1.week
-    SubtitlesImporter.perform_async :ongoings
+    # SubtitlesImporter.perform_async :ongoings
     ImagesVerifier.perform_async
     FixAnimeVideoAuthors.perform_async
   end
@@ -104,7 +104,7 @@ module Clockwork
     OldNewsCleaner.perform_async
     UserImagesCleaner.perform_async
     SakuhindbImporter.perform_async with_fail: true
-    SubtitlesImporter.perform_async :latest
+    # SubtitlesImporter.perform_async :latest
     BadVideosCleaner.perform_async
     CleanupScreenshots.perform_async
 
