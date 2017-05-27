@@ -22,8 +22,8 @@ class MigrateReadmangIdToExternalLinks < ActiveRecord::Migration[5.0]
 private
 
   def url id
-    id.starts_with?(ReadMangaImporter::Prefix) ?
-      "http://readmanga.me/#{id.sub(ReadMangaImporter::Prefix, '')}" :
-      "http://mintmanga.com/#{id.sub(AdultMangaImporter::Prefix, '')}"
+    id.starts_with?(ReadMangaImporter::PREFIX) ?
+      "http://readmanga.me/#{id.sub(ReadMangaImporter::PREFIX, '')}" :
+      "http://mintmanga.com/#{id.sub(AdultMangaImporter::PREFIX, '')}"
   end
 end

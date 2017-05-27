@@ -1,6 +1,6 @@
 class ReadMangaImporter
   # префикс для id в базе
-  Prefix = "rm_"
+  PREFIX = "rm_"
 
   def initialize
     @parser = self.class.name.sub('Importer', 'Parser').constantize.new
@@ -120,7 +120,7 @@ class ReadMangaImporter
   def entries_matched? import_entry, db_entry
     link = ReadMangaImportData::CustomLinks[import_entry[:id]]
 
-    !(self.class::Prefix == AdultMangaImporter::Prefix &&
+    !(self.class::PREFIX == AdultMangaImporter::PREFIX &&
       import_entry[:kind] == :one_shot && db_entry[:entry].kind_manga?) && # адалт ваншоты с мангами не матчим
       (!link && (import_entry[:names] & db_entry[:names]).any?) || (link && link == db_entry[:id])
   end
