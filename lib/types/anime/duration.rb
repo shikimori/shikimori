@@ -5,4 +5,3 @@ module Types
       .enum(:S, :D, :F)
   end
 end
-

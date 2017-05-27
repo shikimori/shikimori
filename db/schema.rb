@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170526213026) do
+ActiveRecord::Schema.define(version: 20170527110338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20170526213026) do
     t.string   "reason"
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)", using: :btree
     t.index ["state", "kind"], name: "index_abuse_requests_on_state_and_kind", using: :btree
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.string   "neko_id",    null: false
+    t.integer  "level",      null: false
+    t.integer  "progress",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_achievements_on_user_id", using: :btree
   end
 
   create_table "anime_calendars", force: :cascade do |t|
