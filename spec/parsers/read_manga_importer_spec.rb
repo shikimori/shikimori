@@ -4,7 +4,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
   describe 'import' do
     let!(:manga) do
       create :manga,
-        id: 61189,
+        id: 61_189,
         name: "the magician's bride",
         description_ru: description_ru
     end
@@ -52,8 +52,9 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
 
             let(:url) { 'http://readmanga.ru/the_magician_s_bride' }
             it do
-              expect(manga.readmanga_external_link)
-                .to have_attributes external_link.attributes
+              expect(manga.readmanga_external_link).to have_attributes(
+                external_link.attributes.except('created_at', 'updated_at')
+              )
             end
           end
 
@@ -61,7 +62,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
             let(:url) { 'http://readmanga.ru/the_magician_s_bridezz' }
             it do
               expect { do_import }.to raise_error(
-                "unmatched external_link id=#{external_link.id} for " +
+                "unmatched external_link id=#{external_link.id} for "\
                   'http://readmanga.ru/the_magician_s_bride'
               )
             end
