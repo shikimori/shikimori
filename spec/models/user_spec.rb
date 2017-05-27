@@ -2,6 +2,7 @@ describe User do
   describe 'relations' do
     it { is_expected.to have_one(:preferences).dependent(:destroy) }
 
+    it { is_expected.to have_many(:achievements).dependent(:destroy) }
     it { is_expected.to have_many(:anime_rates).dependent(:destroy) }
     it { is_expected.to have_many(:manga_rates).dependent(:destroy) }
 

@@ -30,6 +30,7 @@ class User < ApplicationRecord
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
 
+  has_many :achievements, dependent: :destroy
   has_many :comments_all, class_name: Comment.name, dependent: :destroy
   has_many :abuse_requests, dependent: :destroy
 
