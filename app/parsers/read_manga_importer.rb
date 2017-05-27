@@ -69,47 +69,48 @@ class ReadMangaImporter
 
     import_data.each do |import_entry|
       db_data.each do |db_entry|
-        if entries_matched? import_entry, db_entry
-          unless import_entry[:description_ru].blank? ||
-              ids_with_description.include?(db_entry[:id]) ||
-              import_entry[:description_ru].length < 60
+        next if another_external_link? import_entry, db_entry, db_data
+        next unless entries_matched? import_entry, db_entry
 
-            description = DbEntries::Description.from_text_source(
-              import_entry[:description_ru],
-              import_entry[:source]
-            )
+        unless import_entry[:description_ru].blank? ||
+            ids_with_description.include?(db_entry[:id]) ||
+            import_entry[:description_ru].length < 60
 
-            db_entry[:entry].description_ru = description.value
-          end
+          description = DbEntries::Description.from_text_source(
+            import_entry[:description_ru],
+            import_entry[:source]
+          )
 
-          if import_entry[:russian].present? &&
-              db_entry[:entry].russian.blank? &&
-              db_entry[:entry].name != import_entry[:russian] &&
-              import_entry[:russian] =~ /[А-я]/
-            db_entry[:entry].russian = import_entry[:russian]
-          end
-
-          if db_entry[:entry].readmanga_external_link
-            if db_entry[:entry].readmanga_external_link.url != import_entry[:url]
-              raise(
-                "unmatched external_link id=" +
-                  db_entry[:entry].readmanga_external_link.id.to_s +
-                  " for #{import_entry[:url]}"
-              )
-            end
-          else
-            db_entry[:entry].create_readmanga_external_link.update!(
-              url: import_entry[:url],
-              kind: Types::ExternalLink::Kind[:readmanga],
-              source: Types::ExternalLink::Source[:myanimelist]
-            )
-          end
-
-          db_entry[:entry].save validate: false if db_entry[:entry].changes.any?
-
-          matched += 1
-          break
+          db_entry[:entry].description_ru = description.value
         end
+
+        if import_entry[:russian].present? &&
+            db_entry[:entry].russian.blank? &&
+            db_entry[:entry].name != import_entry[:russian] &&
+            import_entry[:russian] =~ /[А-я]/
+          db_entry[:entry].russian = import_entry[:russian]
+        end
+
+        if db_entry[:entry].readmanga_external_link
+          if db_entry[:entry].readmanga_external_link.url != import_entry[:url]
+            raise(
+              "unmatched external_link id=" +
+                db_entry[:entry].readmanga_external_link.id.to_s +
+                " for #{import_entry[:url]}"
+            )
+          end
+        else
+          db_entry[:entry].create_readmanga_external_link.update!(
+            url: import_entry[:url],
+            kind: Types::ExternalLink::Kind[:readmanga],
+            source: Types::ExternalLink::Source[:myanimelist]
+          )
+        end
+
+        db_entry[:entry].save validate: false if db_entry[:entry].changes.any?
+
+        matched += 1
+        break
       end
     end
 
@@ -118,10 +119,22 @@ class ReadMangaImporter
 
   # одинаковые ли элементы?
   def entries_matched? import_entry, db_entry
+    if db_entry[:entry].readmanga_external_link
+      return db_entry[:entry].readmanga_external_link.url == import_entry[:url]
+    end
+
     link = ReadMangaImportData::CUSTOM_LINKS[import_entry[:id]]
 
     !(self.class::PREFIX == AdultMangaImporter::PREFIX &&
       import_entry[:kind] == :one_shot && db_entry[:entry].kind_manga?) && # адалт ваншоты с мангами не матчим
       (!link && (import_entry[:names] & db_entry[:names]).any?) || (link && link == db_entry[:id])
+  end
+
+  def another_external_link? import_entry, current_db_entry, db_data
+    db_data.any? do |db_entry|
+      db_entry != current_db_entry &&
+        db_entry[:entry].readmanga_external_link &&
+        db_entry[:entry].readmanga_external_link.url == import_entry[:url]
+    end
   end
 end

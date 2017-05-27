@@ -8,7 +8,12 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
         name: "the magician's bride",
         description_ru: description_ru
     end
-    let!(:external_link) {}
+    let!(:manga_2) do
+      create :manga,
+        id: 61_190,
+        name: 'zzz',
+        description_ru: description_ru
+    end
     let(:description_ru) { 'test' }
     let(:identifier) { 'the_magician_s_bride' }
 
@@ -23,14 +28,17 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
     end
 
     describe 'ids' do
-      let(:do_import) { importer.import ids: [identifier] }
+      let!(:external_link) {}
+      let!(:version) {}
+
+      subject! { importer.import ids: [identifier] }
 
       describe 'readmanga_external_link' do
         context 'no external link' do
-          subject! { do_import }
-
           it do
-            expect(manga.description_ru).to eq description_ru
+            expect(manga.reload.description_ru).to_not eq description_ru
+            expect(manga_2.reload.description_ru).to eq description_ru
+
             expect(manga.readmanga_external_link).to be_persisted
             expect(manga.readmanga_external_link).to have_attributes(
               url: 'http://readmanga.ru/the_magician_s_bride',
@@ -43,17 +51,18 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
         context 'with external link' do
           let!(:external_link) do
             create :external_link,
-              entry: manga,
+              entry: external_link_entry,
               kind: Types::ExternalLink::Kind[:readmanga],
               url: url
           end
+          let(:external_link_entry) { manga }
 
           context 'urls are matched' do
-            subject! { do_import }
-
             let(:url) { 'http://readmanga.ru/the_magician_s_bride' }
             it do
-              expect(manga.description_ru).to eq description_ru
+              expect(manga.reload.description_ru).to_not eq description_ru
+              expect(manga_2.reload.description_ru).to eq description_ru
+
               expect(manga.readmanga_external_link).to have_attributes(
                 external_link.attributes.except('created_at', 'updated_at')
               )
@@ -62,11 +71,19 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
 
           context 'urls are not matched' do
             let(:url) { 'http://readmanga.ru/the_magician_s_bridezz' }
+
             it do
-              expect { do_import }.to raise_error(
-                "unmatched external_link id=#{external_link.id} for "\
-                  'http://readmanga.ru/the_magician_s_bride'
-              )
+              expect(manga.reload.description_ru).to eq description_ru
+              expect(manga_2.reload.description_ru).to eq description_ru
+            end
+          end
+
+          context 'another manga matched' do
+            let(:url) { 'http://readmanga.ru/the_magician_s_bride' }
+            let(:external_link_entry) { manga_2 }
+            it do
+              expect(manga.reload.description_ru).to eq description_ru
+              expect(manga_2.reload.description_ru).to_not eq description_ru
             end
           end
         end
@@ -74,11 +91,10 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
 
       describe 'description_ru' do
         context 'not changed manga' do
-          subject! { do_import }
-
           it do
+            expect(manga.reload.description_ru).to_not eq description_ru
+            expect(manga_2.reload.description_ru).to eq description_ru
             expect(manga.reload.description_ru).to be_present
-            expect(manga.description_ru).to_not eq description_ru
           end
         end
 
@@ -89,9 +105,10 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
               item_diff: { 'description_ru': %w[1 2] },
               state: :taken
           end
-          subject! { do_import }
-
-          it { expect(manga.reload.description_ru).to eq description_ru }
+          it do
+            expect(manga.reload.description_ru).to eq description_ru
+            expect(manga_2.reload.description_ru).to eq description_ru
+          end
         end
       end
     end
