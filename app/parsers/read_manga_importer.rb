@@ -89,10 +89,13 @@ class ReadMangaImporter
           end
 
           if db_entry[:entry].readmanga_external_link
-            db_entry[:entry].readmanga_external_link.update!(
-              url: import_entry[:url],
-              source: Types::ExternalLink::Source[:myanimelist]
-            )
+            if db_entry[:entry].readmanga_external_link.url != import_entry[:url]
+              raise(
+                "unmatched external_link id=" +
+                  db_entry[:entry].readmanga_external_link.id.to_s +
+                  " for #{import_entry[:url]}"
+              )
+            end
           else
             db_entry[:entry].create_readmanga_external_link.update!(
               url: import_entry[:url],

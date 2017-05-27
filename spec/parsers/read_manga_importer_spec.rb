@@ -13,18 +13,22 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
     let(:identifier) { 'the_magician_s_bride' }
 
     describe 'pages' do
-      before { allow_any_instance_of(ReadMangaParser)
-        .to receive(:fetch_page_links).and_return [identifier] }
-      before { importer.import pages: [0] }
+      before do
+        allow_any_instance_of(ReadMangaParser)
+          .to receive(:fetch_page_links).and_return [identifier]
+      end
+      subject! { importer.import pages: [0] }
 
       it { expect(manga.reload.description_ru).to be_present }
     end
 
     describe 'ids' do
-      describe 'readmanga_external_link' do
-        before { importer.import ids: [identifier] }
+      let(:do_import) { importer.import ids: [identifier] }
 
+      describe 'readmanga_external_link' do
         context 'no external link' do
+          subject! { do_import }
+
           it do
             expect(manga.readmanga_external_link).to be_persisted
             expect(manga.readmanga_external_link).to have_attributes(
@@ -40,23 +44,34 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
             create :external_link,
               entry: manga,
               kind: Types::ExternalLink::Kind[:readmanga],
-              url: 'zzz.com'
+              url: url
           end
 
-          it do
-            expect(manga.readmanga_external_link).to have_attributes(
-              id: external_link.id,
-              url: 'http://readmanga.ru/the_magician_s_bride',
-              kind: 'readmanga',
-              source: 'myanimelist'
-            )
+          context 'urls are matched' do
+            subject! { do_import }
+
+            let(:url) { 'http://readmanga.ru/the_magician_s_bride' }
+            it do
+              expect(manga.readmanga_external_link)
+                .to have_attributes external_link.attributes
+            end
+          end
+
+          context 'urls are not matched' do
+            let(:url) { 'http://readmanga.ru/the_magician_s_bridezz' }
+            it do
+              expect { do_import }.to raise_error(
+                "unmatched external_link id=#{external_link.id} for " +
+                  'http://readmanga.ru/the_magician_s_bride'
+              )
+            end
           end
         end
       end
 
       describe 'description_ru' do
         context 'not changed manga' do
-          before { importer.import ids: [identifier] }
+          subject! { do_import }
 
           it do
             expect(manga.reload.description_ru).to be_present
@@ -71,7 +86,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
               item_diff: { 'description_ru': %w[1 2] },
               state: :taken
           end
-          before { importer.import ids: [identifier] }
+          subject! { do_import }
 
           it { expect(manga.reload.description_ru).to eq description_ru }
         end
