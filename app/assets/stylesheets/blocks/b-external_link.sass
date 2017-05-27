@@ -15,6 +15,7 @@ $image-path: 'blocks/b-external_links'
     &.#{$kind}
       .linkeable:before, a:before
         +background-inline-retina('#{$image-path}/#{$kind}', 'png', $image-size, $image-size)
+        background-size: $image-size $image-size
         content: ''
         position: absolute
         height: $image-size
