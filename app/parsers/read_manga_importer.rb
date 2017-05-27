@@ -35,6 +35,7 @@ class ReadMangaImporter
   # выборка из базы того, куда импортироватьс
   def prepare_db_data
     all_mangas = Manga
+      .where(type: 'Manga')
       .select([:id, :name, :english, :japanese, :synonyms, :russian, :description_ru, :kind])
       .includes(:readmanga_external_link)
       .order(:kind)
