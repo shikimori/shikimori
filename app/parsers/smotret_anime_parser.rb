@@ -9,6 +9,9 @@ class SmotretAnimeParser < ServiceObjectBase
 
       links = extract_links(id)
       data[id] = links
+
+      ap links
+
       File.open(CONFIG_FILE, 'w') { |f| YAML.dump data, f } if (id % 100).zero?
     end
   end

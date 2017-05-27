@@ -103,7 +103,8 @@ private
   end
 
   def resource_id
-    @resource_id ||= params[:anime_id] || params[:manga_id]
+    @resource_id ||= params[:anime_id] || params[:manga_id] ||
+      params[:ranobe_id]
   end
 
   def add_breadcrumbs
@@ -131,9 +132,9 @@ private
   end
 
   def actualize_resource
-    if @resource.kind_of?(Review)
+    if @resource.is_a? Review
       @review = @resource
-      @resource = @anime || @manga
+      @resource = @anime || @manga || @ranobe
     end
   end
 
