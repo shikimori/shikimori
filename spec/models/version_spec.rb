@@ -189,6 +189,7 @@ describe Version do
 
   describe 'permissions' do
     let(:version) { build_stubbed :version }
+    subject { Ability.new user }
 
     context 'user_chagnes_moderator' do
       subject { Ability.new build_stubbed(:user, :versions_moderator) }
@@ -232,7 +233,6 @@ describe Version do
 
     context 'user' do
       let(:user) { build_stubbed :user, :user }
-      subject { Ability.new user }
 
       describe 'own version' do
         let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
@@ -279,10 +279,13 @@ describe Version do
 
     context 'trusted_version_changer' do
       let(:user) { build_stubbed :user, :trusted_version_changer }
-      subject { Ability.new user }
 
       describe 'own version' do
-        let(:version) { build_stubbed :version, user: user, item_diff: item_diff }
+        let(:version) do
+          build_stubbed :version,
+            user: user,
+            item_diff: item_diff
+        end
         let(:item_diff) { { russian: ['a', 'b'] } }
         it { is_expected.to be_able_to :accept, version }
       end
@@ -292,9 +295,56 @@ describe Version do
       end
     end
 
+    context 'trusted_ranobe_external_links_changer' do
+      let(:user) do
+        build_stubbed :user,
+          id: User::TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS.sample
+      end
+      let(:version) do
+        build_stubbed :collection_version,
+          item: item,
+          user: version_user,
+          item_diff: item_diff
+      end
+      let(:item) { build_stubbed :ranobe }
+      let(:item_diff) { { external_links: ['a', 'b'] } }
+      let(:version_user) { user }
+
+      it { is_expected.to be_able_to :accept, version }
+
+      context 'not user version' do
+        let(:version_user) { build_stubbed :user, :user }
+        it { is_expected.to_not be_able_to :accept, version }
+      end
+
+      context 'not ranobe version' do
+        let(:item) { build_stubbed :manga }
+        it { is_expected.to_not be_able_to :accept, version }
+      end
+
+      context 'not only external_links changed' do
+        let(:item_diff) { { external_links: %w[a b], name: %w[a b] } }
+        it { is_expected.to_not be_able_to :accept, version }
+      end
+
+      context 'not external_links changed' do
+        let(:item_diff) { { name: %w[a b] } }
+        it { is_expected.to_not be_able_to :accept, version }
+      end
+
+      context 'not collection version' do
+        let(:version) do
+          build_stubbed :version,
+            item: item,
+            user: version_user,
+            item_diff: item_diff
+        end
+        it { is_expected.to_not be_able_to :accept, version }
+      end
+    end
+
     context 'video_moderator' do
       let(:user) { build_stubbed :user, :video_moderator }
-      subject { Ability.new user }
       let(:version) { build_stubbed :version, user: user, item: item }
 
       context 'not anime video' do

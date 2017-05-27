@@ -228,7 +228,14 @@ class Abilities::User
     cannot :significant_change, Version
 
     can :accept, Version do |version|
-      @user.trusted_version_changer? && version.user_id == @user.id
+      version.user_id == @user.id && (
+        @user.trusted_version_changer? || (
+          version.is_a?(Versions::CollectionVersion) &&
+          @user.trusted_ranobe_external_links_changer? &&
+            version.item.ranobe? &&
+            version.item_diff.keys == ['external_links']
+        )
+      )
     end
   end
 

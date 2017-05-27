@@ -33,17 +33,16 @@ class User
     NOT_TRUSTED_VIDEO_UPLOADERS = [56_231]
     TRUSTED_VIDEO_CHANGERS = [101_610] # 10610 - s.t.a.l.k.e.r
     TRUSTED_VERSION_CHANGERS = [188, 94, 159666] # 188 - Autumn, 94 - acid_emily, 159666 - Nanochka
+    TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS = [17802, 6675] # 17802 - samogot, 6675 - Gurebu
 
     VERSION_VERMINS = [
       65_255
     ]
 
-    # администратор ли пользователь?
     def admin?
       ADMINS.include? id
     end
 
-    # банхаммер ли пользователь
     def banhammer?
       id == BANHAMMER_ID
     end
@@ -53,12 +52,10 @@ class User
       MODERATORS.include? id
     end
 
-    # модератор ли пользовательских правок пользователь?
     def versions_moderator?
       VERSIONS_MODERATORS.include? id
     end
 
-    # модератор ли обзоров пользователь?
     def reviews_moderator?
       REVIEWS_MODERATORS.include? id
     end
@@ -68,32 +65,30 @@ class User
       CONTEST_MODERATORS.include? id
     end
 
-    # модератор ли косплея пользователь?
     def cosplay_moderator?
       COSPLAY_MODERATORS.include? id
     end
 
-    # модератор ли видео пользователь?
     def video_moderator?
       VIDEO_MODERATORS.include? id
     end
 
-    # переводчик ли пользователь
     def translator?
       TRANSLATORS.include? id
     end
 
-    # пользователь, за которым не проверяем залитое видео?
     def trusted_video_uploader?
       TRUSTED_VIDEO_UPLOADERS.include? id
     end
 
-    # пользователь, за которым не проверяем измененный контент?
     def trusted_version_changer?
       TRUSTED_VERSION_CHANGERS.include? id
     end
 
-    # пользователь, за которым не проверяем измененное видео?
+    def trusted_ranobe_external_links_changer?
+      TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS.include? id
+    end
+
     def trusted_video_changer?
       TRUSTED_VIDEO_CHANGERS.include? id
     end
