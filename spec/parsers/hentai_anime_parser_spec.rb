@@ -1,7 +1,7 @@
 # describe HentaiAnimeParser, vcr: { cassette_name: 'hentai_anime_parser' } do
   # let(:parser) { HentaiAnimeParser.new }
   # it { expect(parser.fetch_pages_num).to eq 7 }
-  # it { expect(parser.fetch_page_links(0).size).to eq(HentaiAnimeParser::PageSize) }
+  # it { expect(parser.fetch_page_links(0).size).to eq(HentaiAnimeParser::PAGE_SIZE) }
 
   # describe 'fetch_entry' do
     # subject(:entry) { parser.fetch_entry identifier }

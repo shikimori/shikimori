@@ -1,5 +1,5 @@
 module ReadMangaImportData
-  FullDescription = Set.new %w{
+  FULL_DESCRIPTION = Set.new %w{
     yasashii_te
     jyun_ai_bride
     voices_in_the_dark
@@ -154,7 +154,7 @@ module ReadMangaImportData
     'dense forest'
   ]
 
-  CustomLinks = {
+  CUSTOM_LINKS = {
       nausicaa_of_the_valley_of_wind: 651,
       yotsuba: 104,
       obaku_hakairoku_kaiji: 3572,

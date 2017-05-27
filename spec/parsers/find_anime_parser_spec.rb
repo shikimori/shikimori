@@ -2,7 +2,7 @@
   # let(:parser) { FindAnimeParser.new }
 
   # it { expect(parser.fetch_pages_num).to eq 73 }
-  # it { expect(parser.fetch_page_links(0)).to have(FindAnimeParser::PageSize).items }
+  # it { expect(parser.fetch_page_links(0)).to have(FindAnimeParser::PAGE_SIZE).items }
 
   # describe '#fetch_entry' do
     # subject(:entry) { parser.fetch_entry identifier }
@@ -154,7 +154,7 @@
 
     # it 'fetches pages' do
       # items = parser.fetch_pages(0..(pages-1))
-      # expect(items.size).to be >= ReadMangaParser::PageSize * pages - 1
+      # expect(items.size).to be >= ReadMangaParser::PAGE_SIZE * pages - 1
     # end
   # end
 # end

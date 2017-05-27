@@ -2,7 +2,7 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
   let(:parser) { ReadMangaParser.new }
 
   it { expect(parser.fetch_pages_num).to eq 178 }
-  it { expect(parser.fetch_page_links(0).size).to eq(ReadMangaParser::PageSize) }
+  it { expect(parser.fetch_page_links(0).size).to eq(ReadMangaParser::PAGE_SIZE) }
   it { expect(parser.fetch_page_links(parser.fetch_pages_num - 1).last).to eq 'wild_kiss' }
 
   describe 'cleanup description_ru' do
@@ -104,6 +104,6 @@ describe ReadMangaParser, vcr: { cassette_name: 'read_manga_parser' } do
   it 'fetch pages' do
     allow(parser).to receive(:fetch_entry).and_return id: true
     items = parser.fetch_pages(0..2)
-    expect(items.size).to be >= ReadMangaParser::PageSize * 3-1
+    expect(items.size).to be >= ReadMangaParser::PAGE_SIZE * 3-1
   end
 end

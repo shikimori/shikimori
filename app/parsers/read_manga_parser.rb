@@ -2,13 +2,14 @@
 class ReadMangaParser < SiteParserWithCache
   include ReadMangaImportData
 
-  PageSize = 70
+  PAGE_SIZE = 70
 
   # конструктор
   def initialize
     super
 
-    @catalog_url = "http://#{domain}/list?type=&sortType=DATE_UPDATE&max=#{self.class::PageSize}&offset=%d"
+    @catalog_url = "http://#{domain}/list?type=&sortType=DATE_UPDATE"\
+      "&max=#{self.class::PAGE_SIZE}&offset=%d"
     @entry_url = "http://#{domain}/%s"
 
     @required_text = ["#{self.class.name.sub('Parser', '')}.ru", '</html>']
@@ -53,7 +54,7 @@ class ReadMangaParser < SiteParserWithCache
 
   # ссылки с конкретной страницы
   def fetch_page_links page
-    content = get(@catalog_url % [page * self.class::PageSize])
+    content = get(@catalog_url % [page * self.class::PAGE_SIZE])
     doc = Nokogiri::HTML(content)
 
     doc.css('.tiles .tile .img a').map do |a_tag|
@@ -219,7 +220,7 @@ class ReadMangaParser < SiteParserWithCache
       !should_stop &&
         !(line =~ /Название:/ && line.size < 40) &&
         (
-          (FullDescription.include?(id) && !extract_source(line)) ||
+          (FULL_DESCRIPTION.include?(id) && !extract_source(line)) ||
           line == lines.first ||
           content_line?(line, id)
         )

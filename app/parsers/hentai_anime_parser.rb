@@ -1,5 +1,5 @@
 # class HentaiAnimeParser < FindAnimeParser
-  # PageSize = 60
+  # PAGE_SIZE = 60
 
   # #def initialize
     # #super
@@ -30,7 +30,7 @@
 
   # # ссылки с конкретной страницы
   # def fetch_page_links page
-    # content = get(@catalog_url % [page * self.class::PageSize])
+    # content = get(@catalog_url % [page * self.class::PAGE_SIZE])
     # doc = Nokogiri::HTML(content)
 
     # doc.css('table.cTable tr a:first')[1..-2].map do |a_tag|

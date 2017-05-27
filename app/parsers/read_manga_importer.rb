@@ -118,7 +118,7 @@ class ReadMangaImporter
 
   # одинаковые ли элементы?
   def entries_matched? import_entry, db_entry
-    link = ReadMangaImportData::CustomLinks[import_entry[:id]]
+    link = ReadMangaImportData::CUSTOM_LINKS[import_entry[:id]]
 
     !(self.class::PREFIX == AdultMangaImporter::PREFIX &&
       import_entry[:kind] == :one_shot && db_entry[:entry].kind_manga?) && # адалт ваншоты с мангами не матчим

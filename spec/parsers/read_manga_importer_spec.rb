@@ -30,6 +30,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
           subject! { do_import }
 
           it do
+            expect(manga.description_ru).to eq description_ru
             expect(manga.readmanga_external_link).to be_persisted
             expect(manga.readmanga_external_link).to have_attributes(
               url: 'http://readmanga.ru/the_magician_s_bride',
@@ -52,6 +53,7 @@ describe ReadMangaImporter, vcr: { cassette_name: 'read_manga_parser' } do
 
             let(:url) { 'http://readmanga.ru/the_magician_s_bride' }
             it do
+              expect(manga.description_ru).to eq description_ru
               expect(manga.readmanga_external_link).to have_attributes(
                 external_link.attributes.except('created_at', 'updated_at')
               )
