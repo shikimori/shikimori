@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :achievement do
-    neko_id 'test'
+    neko_id Types::Achievement::NekoId[:test]
     level 1
     progress 0
     user

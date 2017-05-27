@@ -312,6 +312,7 @@ Rails.application.routes.draw do
       resources :styles, only: [:show, :create, :update] do #, :destroy
         post :preview, on: :collection
       end
+      resources :achievements, only: [:index]
     end
   end
   # /api
