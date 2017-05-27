@@ -9,7 +9,7 @@ article
     b Code:
     span #{@code[0..6]}
 
-  .metric
+  .metric class="#{:alert if @disk_space.to_i > 90}"
     b Disk:
     span #{@disk_space}%
 
