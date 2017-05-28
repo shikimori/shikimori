@@ -13,7 +13,8 @@ class TorrentsParser
     '[모에-Raws] Kuzu no Honkai #04 (CX 1280x720 x264 AAC).mp4'
   ]
   IGNORED_PHRASES = [
-    %w(Flying Witch Petit)
+    %w[Flying Witch Petit],
+    %w[Tompel Fansub]
   ]
   # аниме, для которых не будут искаться торренты
   IGNORED_ANIME_IDS = [13185, 19207, 5042, 17249, 11457, 21729, 22757, 32670, 31670, 31592, 10937]
