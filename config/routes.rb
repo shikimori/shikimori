@@ -679,6 +679,7 @@ Rails.application.routes.draw do
         get :seyu
         get :animes
         get :mangas
+        get :ranobe
         get :art
         get :images
         get 'cosplay(/page/:page)' => :cosplay, as: :cosplay

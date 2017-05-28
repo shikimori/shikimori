@@ -28,25 +28,28 @@ class CharactersController < PeopleController
     @itemtype = @resource.itemtype
   end
 
-  # все сэйю персонажа
   def seyu
     noindex
     redirect_to @resource.url, status: 301 if @resource.seyu.none?
     page_title t(:seyu)
   end
 
-  # все аниме персонажа
   def animes
     noindex
     redirect_to @resource.url, status: 301 if @resource.animes.none?
-    page_title t('animegraphy')
+    page_title i18n_i('Anime', :other)
   end
 
-  # вся манга персонажа
   def mangas
     noindex
     redirect_to @resource.url, status: 301 if @resource.mangas.none?
-    page_title t('mangagraphy')
+    page_title i18n_i('Manga', :other)
+  end
+
+  def ranobe
+    noindex
+    redirect_to @resource.url, status: 301 if @resource.ranobe.none?
+    page_title i18n_i('Ranobe', :other)
   end
 
   def art

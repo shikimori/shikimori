@@ -20,11 +20,20 @@ class CharacterDecorator < PersonDecorator
   end
 
   def animes limit = nil
-    decorated_entries object.animes.limit(limit)
+    @animes ||= {}
+    @animes[limit] ||= decorated_entries object.animes.limit(limit)
   end
 
   def mangas limit = nil
-    decorated_entries object.mangas.limit(limit)
+    @mangas ||= {}
+    @mangas[limit] ||=
+      decorated_entries object.mangas.where(type: Manga.name).limit(limit)
+  end
+
+  def ranobe limit = nil
+    @ranobe ||= {}
+    @ranobe[limit] ||=
+      decorated_entries object.mangas.where(type: Ranobe.name).limit(limit)
   end
 
   # есть ли косплей

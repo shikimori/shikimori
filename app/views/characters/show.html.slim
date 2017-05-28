@@ -84,12 +84,24 @@
 
     - if @resource.animes(7).any?
       .subheadline.m10
-        .linkeable data-href="#{animes_character_url @resource}" = t 'animegraphy'
+        .linkeable[
+          data-href="#{animes_character_url @resource}"
+        ] = i18n_i 'Anime', :other
       .cc.m0.to-process data-dynamic='cutted_covers'
         = render @resource.animes(7)
 
     - if @resource.mangas(7).any?
       .subheadline.m10
-        .linkeable data-href="#{mangas_character_url @resource}" = t 'mangagraphy'
+        .linkeable[
+          data-href="#{mangas_character_url @resource}"
+        ] = i18n_i 'Manga', :other
       .cc.m0.to-process data-dynamic='cutted_covers'
         = render @resource.mangas(7)
+
+    - if @resource.ranobe(7).any?
+      .subheadline.m10
+        .linkeable[
+          data-href="#{ranobe_character_url @resource}"
+        ] = i18n_i 'Ranobe', :other
+      .cc.m0.to-process data-dynamic='cutted_covers'
+        = render @resource.ranobe(7)
