@@ -44,6 +44,8 @@ ru:
         videos: Видео
       manga: &manga_attributes
         <<: *anime_attributes
+        aired_on: Дата начала издания
+        released_on: Дата завершения
         volumes: Тома
         chapters: Главы
       ranobe:
