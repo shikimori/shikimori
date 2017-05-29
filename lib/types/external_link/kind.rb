@@ -7,9 +7,9 @@ module Types
         wikipedia
         anime_news_network
         anime_db
-        myanimelist
         ruranobe
         readmanga
+        myanimelist
         world_art
         kage_project
       ))
