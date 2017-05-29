@@ -350,8 +350,8 @@ Rails.application.routes.draw do
 
           collection do
             get :help
-            get '(/:episode)(/:video_id)(/:all)', action: :index, as: :play,
-              episode: /\d+/, video_id: /\d+/, all: /all/
+            get '(/:episode)(/:video_id)', action: :index, as: :play,
+              episode: /\d+/, video_id: /\d+/
             post :extract_url
             get :extract_url if Rails.env.development?
           end

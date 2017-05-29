@@ -40,10 +40,6 @@ class AnimeOnline::VideoPlayer
     videos = @anime.anime_videos
       .includes(:author)
       .where(episode: current_episode)
-      # .select { |v| all? || v.allowed? }
-      # .select { |v| compatible?(v) }
-
-    # videos = videos.available unless all?
 
     AnimeOnline::FilterSovetRomantica.call(videos)
       .map(&:decorate)
@@ -79,7 +75,7 @@ class AnimeOnline::VideoPlayer
   end
 
   def episode_url episode = self.current_episode
-    h.play_video_online_index_url @anime, episode, h.params[:all]
+    h.play_video_online_index_url @anime, episode
   end
 
   def prev_url
@@ -230,10 +226,6 @@ private
 
     by_author.first || by_hosting.first || by_kind.first ||
       videos.select(&:allowed?).first || videos.first
-  end
-
-  def all?
-    h.params[:all] && h.current_user.try(:video_moderator?)
   end
 
   def video_id
