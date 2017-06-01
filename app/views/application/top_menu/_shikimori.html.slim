@@ -75,6 +75,7 @@
       title="#{i18n_i 'Collection', :other}"
     ] = i18n_i 'Collection', :other
     a.entry[
+      class="#{:active if params[:controller] == 'topics' && params[:forum] == 'reviews'}"
       href="#{forum_topics_url :reviews}"
       title="#{i18n_i 'Review', :other}"
     ] = i18n_i 'Review', :other
