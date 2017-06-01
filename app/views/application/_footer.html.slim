@@ -3,20 +3,20 @@
   span.date 2011-#{Time.zone.today.year}
 
 .links
-  a[
+  a.terms[
     href="#{terms_pages_url subdomain: false}"
     title="#{t '.terms'}"
   ] = t '.terms'
-  a[
+  a.privacy[
     href="#{privacy_pages_url subdomain: false}"
     title="#{t '.privacy'}"
   ] = t '.privacy'
   - if ru_host?
-    a[
+    a.for-right-holders[
       href="#{for_right_holders_pages_url subdomain: false}"
       title="#{t '.for_right_holders'}"
     ] = t '.for_right_holders'
-  a[
+  a.sitemap[
     href="#{sitemap_url subdomain: false}"
     title="#{t '.sitemap'}"
   ] = t '.sitemap'

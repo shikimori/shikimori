@@ -1,5 +1,8 @@
 @import mixins/responsive
 
+.l-footer + .mrg-tag > div
+  margin-top: 20px
+
 .l-footer
   clear: both
   padding-top: 15px
@@ -41,3 +44,11 @@
     &:after
       right: -20px
       width: 40px
+
+  +iphone_portrait
+    .privacy, .for-right-holders, .sitemap
+      display: none
+
+  +iphone_landscape
+    .for-right-holders, .sitemap
+      display: none
