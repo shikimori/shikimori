@@ -31,7 +31,7 @@ describe Api::V1::DialogsController, :show_in_doc do
 
       it do
         expect(response.content_type).to eq 'application/json'
-        expect(message.reload.is_deleted_by_from).to eq true
+        expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
         expect(response).to have_http_status :success
         expect(json[:notice]).to eq 'Переписка удалёна'
       end

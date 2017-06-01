@@ -27,7 +27,7 @@ class MessagesQuery < SimpleQueryBase
   def query
     Message
       .where(where_by_type)
-      .where(id_field => @user.id, del_field => false)
+      .where(where_by_sender)
       .where.not(from_id: ignores_ids, to_id: ignores_ids)
       .includes(:linked, :from, :to)
       .order(*order_by_type)
@@ -57,20 +57,11 @@ private
     end
   end
 
-
-  def id_field
+  def where_by_sender
     if @messages_type == :sent
-      :from_id
+      { from_id: @user.id }
     else
-      :to_id
-    end
-  end
-
-  def del_field
-    if @messages_type == :sent
-      :is_deleted_by_from
-    else
-      :is_deleted_by_to
+      { to_id: @user.id, is_deleted_by_to: false }
     end
   end
 end

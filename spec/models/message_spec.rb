@@ -259,7 +259,6 @@ describe Message do
 
           it { expect(message).to be_persisted }
           it { expect(message.is_deleted_by_to).to eq true }
-          it { expect(message.is_deleted_by_from).to eq false }
           it { expect(message).to be_read }
         end
       end

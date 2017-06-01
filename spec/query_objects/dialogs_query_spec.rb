@@ -31,8 +31,7 @@ describe DialogsQuery do
 
     context 'deleted messages' do
       let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_to: true }
-      let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_from: true }
-      it { is_expected.to have(1).item }
+      it { is_expected.to have(2).items }
     end
   end
 

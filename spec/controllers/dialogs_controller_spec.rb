@@ -27,7 +27,7 @@ describe DialogsController do
 
     it do
       expect(response.content_type).to eq 'application/json'
-      expect(message.reload.is_deleted_by_from).to eq true
+      expect { message.reload }.to raise_error ActiveRecord::RecordNotFound
       expect(response).to have_http_status :success
     end
   end

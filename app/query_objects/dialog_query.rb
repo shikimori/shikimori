@@ -15,7 +15,7 @@ class DialogQuery
     Message
       .where(kind: MessageType::Private)
       .where(
-        "(from_id = :user_id and to_id = :target_user_id and is_deleted_by_from=false) or
+        "(from_id = :user_id and to_id = :target_user_id) or
          (from_id = :target_user_id and to_id = :user_id and is_deleted_by_to=false)",
         user_id: user.id, target_user_id: target_user.id)
       .includes(:linked, :from, :to)
