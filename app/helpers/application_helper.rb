@@ -78,8 +78,8 @@ module ApplicationHelper
 
   def format_rss_urls text
     text
-      .gsub('href="/', "href=\"http://#{Site::DOMAIN}/")
-      .gsub('src="/', "src=\"http://#{Site::DOMAIN}/")
+      .gsub(%r{href="/(?!/)}, "href=\"https://#{Site::DOMAIN}/")
+      .gsub(%r{src="/(?!/)}, "src=\"https://#{Site::DOMAIN}/")
   end
 
   def time_ago_in_words date, format_string=nil, original=false
