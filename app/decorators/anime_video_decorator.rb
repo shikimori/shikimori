@@ -54,7 +54,7 @@ class AnimeVideoDecorator < BaseDecorator
   end
 
   def watched?
-    user_rate.episodes >= episode if in_list?
+    in_list? && user_rate.episodes >= episode
   end
 
   def user_rate

@@ -127,19 +127,19 @@ describe Url do
 
     context 'param exists' do
       let(:param_name) { :p1 }
-      it { is_expected.to eq true }
+      it { is_expected.to eq 'p1' }
     end
 
     context "param doesn't exist" do
       let(:param_name) { :p3 }
-      it { is_expected.to eq false }
+      it { is_expected.to be_nil }
     end
 
     context 'no params' do
       let(:string) { 'http://test.org/test' }
       let(:param_name) { :p3 }
 
-      it { is_expected.to eq false }
+      it { is_expected.to be_nil }
     end
   end
 end
