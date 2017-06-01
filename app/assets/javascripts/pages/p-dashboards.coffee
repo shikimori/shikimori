@@ -1,3 +1,5 @@
+getjs = require('get-js')
+
 page_load 'dashboards_show', ->
   $('.user_list .switch').on 'click', ->
     $(@)
@@ -25,6 +27,17 @@ page_load 'dashboards_show', ->
 
       align_blocks $user_news, $generated_news
 
+  delay(1000).then ->
+    if 'VK' of window
+      vk_widget()
+    else
+      getjs('http://vk.com/js/api/openapi.js?146').then(vk_widget)
+
+  delay(1500).then ->
+    $node = $('.y-sponsored')
+    if $node.children().length
+      $node.addClass 'block'
+
 align_blocks = ($user_news, $generated_news) ->
   $topics = $generated_news.find('.b-topic')
 
@@ -33,3 +46,16 @@ align_blocks = ($user_news, $generated_news) ->
   if $topics.length && height < $generated_news.outerHeight()
     $topics.last().remove()
     align_blocks $user_news, $generated_news
+
+vk_widget = ->
+  $node = $('#vk_groups').addClass('block')
+
+  VK.Widgets.Group(
+    'vk_groups',
+    {
+      mode: 4,
+      width: $node.width(),
+      height: '400'
+    },
+    9273458
+  )

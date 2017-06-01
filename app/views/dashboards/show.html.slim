@@ -169,6 +169,9 @@
               collection: @dashboard_view.review_topic_views,
               as: :topic_view
 
+      - if ru_host?
+        #vk_groups
+
       - cache @dashboard_view.cache_keys[:updates] do
         .block
           .midheadline.yellow.linkheadline
