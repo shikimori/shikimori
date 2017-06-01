@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601211125) do
+ActiveRecord::Schema.define(version: 20170601214744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -613,17 +613,16 @@ ActiveRecord::Schema.define(version: 20170601211125) do
   create_table "messages", force: :cascade do |t|
     t.integer  "from_id"
     t.integer  "to_id"
-    t.string   "kind",               limit: 255
+    t.string   "kind",             limit: 255
     t.text     "body"
-    t.boolean  "read",                           default: false, null: false
+    t.boolean  "read",                         default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_deleted_by_from",             default: false
-    t.boolean  "is_deleted_by_to",               default: false
-    t.boolean  "emailed",                        default: false
-    t.integer  "linked_id",                      default: 0,     null: false
-    t.string   "linked_type",        limit: 255
-    t.index ["from_id", "is_deleted_by_from", "kind"], name: "private_and_notifications", using: :btree
+    t.boolean  "is_deleted_by_to",             default: false
+    t.boolean  "emailed",                      default: false
+    t.integer  "linked_id",                    default: 0,     null: false
+    t.string   "linked_type",      limit: 255
+    t.index ["from_id", "kind"], name: "private_and_notifications", using: :btree
     t.index ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id", using: :btree
     t.index ["to_id", "kind", "read"], name: "messages_for_profile", using: :btree
   end
