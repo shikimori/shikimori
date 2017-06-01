@@ -53,7 +53,7 @@ class ShikiMailer < ActionMailer::Base
       nickname: user.nickname,
       reset_password_link: edit_user_password_url(
         reset_password_token: @token,
-        protocol: :http
+        protocol: :https
       ),
       locale: user.locale
     )

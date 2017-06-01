@@ -34,13 +34,13 @@ describe ShikiMailer do
         expect(mail.subject).to eq 'Личное сообщение'
         expect(mail.body.raw_source).to eq "
           #{to_user.nickname}, у вас 1 новое сообщение на shikimori.org от пользователя #{from_user.nickname}.
-          Прочитать полностью можно тут: http://test.host/#{to_user.nickname}/dialogs
+          Прочитать полностью можно тут: https://test.host/#{to_user.nickname}/dialogs
 
           Текст сообщения:
           #{message_body}
 
           Отписаться от уведомлений можно по ссылке:
-          http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+          https://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
         ".gsub(/^ +/, '').strip
       end
     end
@@ -51,13 +51,13 @@ describe ShikiMailer do
         expect(mail.subject).to eq 'Private message'
         expect(mail.body.raw_source).to eq "
           #{to_user.nickname}, you have 1 new message on shikimori.org from #{from_user.nickname}.
-          Read the full message: http://test.host/#{to_user.nickname}/dialogs
+          Read the full message: https://test.host/#{to_user.nickname}/dialogs
 
           Message:
           #{message_body}
 
           To unsubscribe from notification emails click here:
-          http://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
+          https://test.host/messages/#{to_user.nickname}/#{unsubscribe_link_key}/Private/unsubscribe
         ".gsub(/^ +/, '').strip
       end
     end
@@ -98,7 +98,7 @@ describe ShikiMailer do
 
           Ваш логин - #{user.nickname}.
 
-          Изменить пароль можно, перейдя по данной ссылке: http://test.host/users/password/edit?reset_password_token=#{token}
+          Изменить пароль можно, перейдя по данной ссылке: https://test.host/users/password/edit?reset_password_token=#{token}
 
           Если вам пришло несколько писем о восстановлении пароля, то переходить на страницу сброса пароля нужно ОБЯЗАТЕЛЬНО по ссылке из самого последнего письма.
 
@@ -120,7 +120,7 @@ describe ShikiMailer do
 
           Your acount login is #{user.nickname}.
 
-          To reset you password click this link: http://test.host/users/password/edit?reset_password_token=#{token}
+          To reset you password click this link: https://test.host/users/password/edit?reset_password_token=#{token}
 
           If you didn't make a request to reset your password just ignore this message.
 
