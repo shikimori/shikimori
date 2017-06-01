@@ -93,14 +93,9 @@ class Abilities::User
       #(message.kind == MessageType::Private && (can?(:edit, message) || message.to_id == @user.id)) ||
         #(message.kind != MessageType::Private && (message.from_id == @user.id || message.to_id == @user.id))
     end
-    can :create, Message do |message|
+    can %i[create edit update], Message do |message|
       !@user.forever_banned? && message.kind == MessageType::Private &&
         message.from_id == @user.id
-    end
-    can %i[edit update], Message do |message|
-      message.kind == MessageType::Private &&
-        message.from_id == @user.id &&
-          message.created_at + 10.minutes > Time.zone.now
     end
   end
 

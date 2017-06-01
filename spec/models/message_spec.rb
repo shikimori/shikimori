@@ -207,13 +207,6 @@ describe Message do
           it { is_expected.to_not be_able_to :update, message }
           it { is_expected.to be_able_to :destroy, message }
         end
-
-        context '11 minutes ago message' do
-          let(:created_at) { 11.minutes.ago }
-          it { is_expected.to_not be_able_to :edit, message }
-          it { is_expected.to_not be_able_to :update, message }
-          it { is_expected.to be_able_to :destroy, message }
-        end
       end
 
       context 'message target' do
@@ -258,11 +251,7 @@ describe Message do
       context 'private message' do
         context 'by from' do
           let(:user) { message.from }
-
-          it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_from).to eq true }
-          it { expect(message.is_deleted_by_to).to eq false }
-          it { expect(message).to_not be_read }
+          it { expect(message).to be_destroyed }
         end
 
         context 'by to' do

@@ -62,8 +62,8 @@ class Message < ApplicationRecord
   end
 
   def delete_by user
-    if kind == MessageType::Private
-      delete_by! user
+    if kind == MessageType::Private && to == user
+      update! is_deleted_by_to: true, read: true
     else
       destroy!
     end
@@ -84,16 +84,6 @@ private
 
   def check_spam_abuse
     Messages::CheckSpamAbuse.call self if kind == MessageType::Private
-  end
-
-  def delete_by! user
-    if from == user
-      update! is_deleted_by_from: true
-    elsif to == user
-      update! is_deleted_by_to: true, read: true
-    else
-      raise ArgumentError, "unknown deleter: #{user}"
-    end
   end
 
   def send_email
