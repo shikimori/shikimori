@@ -29,7 +29,7 @@ module Routing
     topic_type_policy = Topic::TypePolicy.new topic
 
     if topic.instance_of? NoTopic
-      db_entry_path topic.linked, options
+      db_entry_url topic.linked, options
 
     elsif topic.is_a?(User)
       profile_url topic, options.merge(subdomain: false)
@@ -42,7 +42,7 @@ module Routing
         topic.linked
       end
 
-      club_club_topic_path options.merge(
+      club_club_topic_url options.merge(
         club_id: club.to_param,
         id: topic.to_param,
         format: format,
@@ -99,8 +99,8 @@ module Routing
 
 private
 
-  def db_entry_path db_entry
-    public_send "#{db_entry.class.name.underscore}_path", db_entry
+  def db_entry_url db_entry
+    public_send "#{db_entry.class.name.underscore}_url", db_entry
   end
 
   def camo_digest url

@@ -25,12 +25,12 @@ class ShikiMailer < ActionMailer::Base
       nickname: message.to.nickname,
       site_link: Site::DOMAIN,
       from_nickname: message.from.nickname,
-      private_message_link: profile_dialogs_url(message.to, protocol: :http),
+      private_message_link: profile_dialogs_url(message.to, protocol: :https),
       message: message.body,
       unsubscribe_link: unsubscribe_messages_url(
         name: message.to.to_param,
         key: unsubscribe_link_key(message),
-        protocol: :http
+        protocol: :https
       ),
       locale: message.to.locale
     )
