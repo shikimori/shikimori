@@ -45,6 +45,6 @@ describe DialogQuery do
     subject(:postload) { query.postload 1, 15 }
 
     its(:first) { should eq [message_from_1, message_to_2, message_from_2] }
-    its(:second) { should be_truthy }
+    its(:second) { should eq true }
   end
 end

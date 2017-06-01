@@ -21,23 +21,23 @@ describe Dialog do
 
   describe '#read' do
     context 'message from user' do
-      its(:read) { should be_truthy }
+      its(:read) { should eq true }
     end
 
     context 'message to user' do
       let(:message) { build_stubbed :message, to: user, from: target_user, read: false }
-      its(:read) { should be_falsy }
+      its(:read) { should eq false }
     end
   end
 
   describe '#my_message?' do
     context 'message from user' do
-      its(:my_message?) { should be_truthy }
+      its(:my_message?) { should eq true }
     end
 
     context 'message to user' do
       let(:message) { build_stubbed :message, to: user, from: target_user }
-      its(:my_message?) { should be_falsy }
+      its(:my_message?) { should eq false }
     end
   end
 
@@ -55,8 +55,8 @@ describe Dialog do
 
     before { dialog.destroy }
 
-    it { expect(message_from.reload.is_deleted_by_from).to be_truthy }
-    it { expect(message_to.reload.is_deleted_by_to).to be_truthy }
+    it { expect(message_from.reload.is_deleted_by_from).to eq true }
+    it { expect(message_to.reload.is_deleted_by_to).to eq true }
   end
 
   describe '#new_message' do

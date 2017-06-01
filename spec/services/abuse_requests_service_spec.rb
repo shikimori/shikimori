@@ -14,7 +14,7 @@ describe AbuseRequestsService do
     describe 'offtopic?' do
       before { act }
       subject { comment.offtopic? }
-      it { is_expected.to be_truthy }
+      it { is_expected.to eq true }
     end
 
     describe 'cancel' do

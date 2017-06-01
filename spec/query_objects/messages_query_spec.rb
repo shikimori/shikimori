@@ -62,6 +62,6 @@ describe MessagesQuery do
     subject { query.postload 2, 1 }
 
     its(:first) { should eq [notification_2] }
-    its(:second) { should be_truthy }
+    its(:second) { should eq true }
   end
 end

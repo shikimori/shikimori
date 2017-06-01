@@ -105,7 +105,7 @@ describe FayeService do
         let(:trackable) { create :message, :private, to: user }
 
         it { is_expected.to be_persisted }
-        its(:is_deleted_by_to) { is_expected.to be_truthy }
+        its(:is_deleted_by_to) { is_expected.to eq true }
       end
 
       context 'notification' do

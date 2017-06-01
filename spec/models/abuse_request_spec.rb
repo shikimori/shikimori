@@ -50,7 +50,7 @@ describe AbuseRequest do
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:is_offtopic) { should be_truthy }
+        its(:is_offtopic) { should eq true }
       end
     end
 
@@ -60,7 +60,7 @@ describe AbuseRequest do
 
       context 'comment' do
         subject { abuse_request.comment }
-        its(:is_offtopic) { should be_falsy }
+        its(:is_offtopic) { should eq false }
       end
     end
   end
@@ -78,24 +78,24 @@ describe AbuseRequest do
       describe true do
         context 'abuse' do
           let(:kind) { 'abuse' }
-          it { should be_truthy }
+          it { should eq true }
         end
 
         context 'spoiler' do
           let(:kind) { 'spoiler' }
-          it { should be_truthy }
+          it { should eq true }
         end
       end
 
       describe false do
         context 'offtopic' do
           let(:kind) { 'offtopic' }
-          it { should be_falsy }
+          it { should eq false }
         end
 
         context 'summary' do
           let(:kind) { 'summary' }
-          it { should be_falsy }
+          it { should eq false }
         end
       end
     end

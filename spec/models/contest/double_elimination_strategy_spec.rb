@@ -31,25 +31,25 @@ describe Contest::DoubleEliminationStrategy do
       strategy.create_rounds
 
       expect(contest.rounds[0].number).to eq 1
-      expect(contest.rounds[0].additional).to be_falsy
+      expect(contest.rounds[0].additional).to eq false
 
       expect(contest.rounds[1].number).to eq 2
-      expect(contest.rounds[1].additional).to be_falsy
+      expect(contest.rounds[1].additional).to eq false
       expect(contest.rounds[2].number).to eq 2
-      expect(contest.rounds[2].additional).to be_truthy
+      expect(contest.rounds[2].additional).to eq true
 
       expect(contest.rounds[3].number).to eq 3
-      expect(contest.rounds[3].additional).to be_falsy
+      expect(contest.rounds[3].additional).to eq false
       expect(contest.rounds[4].number).to eq 3
-      expect(contest.rounds[4].additional).to be_truthy
+      expect(contest.rounds[4].additional).to eq true
 
       expect(contest.rounds[5].number).to eq 4
-      expect(contest.rounds[5].additional).to be_falsy
+      expect(contest.rounds[5].additional).to eq false
       expect(contest.rounds[6].number).to eq 4
-      expect(contest.rounds[6].additional).to be_truthy
+      expect(contest.rounds[6].additional).to eq true
 
       expect(contest.rounds[7].number).to eq 5
-      expect(contest.rounds[7].additional).to be_falsy
+      expect(contest.rounds[7].additional).to eq false
     end
   end
 
@@ -213,7 +213,7 @@ describe Contest::DoubleEliminationStrategy do
         before { strategy.create_matches round, animes, shuffle: false }
 
         it 'create_matchess matches with ordered animes' do
-          expect(ordered?).to be_truthy
+          expect(ordered?).to eq true
         end
       end
 
@@ -221,7 +221,7 @@ describe Contest::DoubleEliminationStrategy do
         before { strategy.create_matches round, animes, shuffle: true }
 
         it 'create_matchess matches with shuffled animes' do
-          expect(ordered?).to be_falsy
+          expect(ordered?).to eq false
         end
       end
     end
@@ -229,12 +229,12 @@ describe Contest::DoubleEliminationStrategy do
 
   describe '#with_additional_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { should be_truthy }
+    its(:with_additional_rounds?) { should eq true }
   end
 
   describe '#dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should be_falsy }
+    its(:dynamic_rounds?) { should eq false }
   end
 
   describe '#results' do

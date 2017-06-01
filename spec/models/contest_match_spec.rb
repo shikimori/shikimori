@@ -12,23 +12,23 @@ describe ContestMatch do
     let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
 
     it 'full cycle' do
-      expect(match.created?).to be_truthy
+      expect(match.created?).to eq true
       match.start!
-      expect(match.started?).to be_truthy
+      expect(match.started?).to eq true
       match.finish!
-      expect(match.finished?).to be_truthy
+      expect(match.finished?).to eq true
     end
 
     describe 'can_vote?' do
       subject { match.can_vote? }
 
       context 'created' do
-        it { should be_falsy }
+        it { should eq false }
       end
 
       context 'started' do
         before { match.start! }
-        it { should be_truthy }
+        it { should eq true }
       end
     end
 
@@ -38,12 +38,12 @@ describe ContestMatch do
 
       context 'true' do
         before { match.finished_on = Time.zone.yesterday }
-        it { should be_truthy }
+        it { should eq true }
       end
 
       context 'false' do
         before { match.finished_on = Time.zone.today }
-        it { should be_falsy }
+        it { should eq false }
       end
     end
 
@@ -52,12 +52,12 @@ describe ContestMatch do
 
       context 'true' do
         before { match.started_on = Time.zone.today }
-        it { should be_truthy }
+        it { should eq true }
       end
 
       context 'false' do
         before { match.started_on = Time.zone.tomorrow }
-        it { should be_falsy }
+        it { should eq false }
       end
     end
 
@@ -99,7 +99,7 @@ describe ContestMatch do
 
       it 'should be false' do
         match.finish!
-        expect(match.can_vote?).to be_falsy
+        expect(match.can_vote?).to eq false
       end
 
       context 'no right variant' do
@@ -245,25 +245,25 @@ describe ContestMatch do
     subject { vote_with_user_vote.voted? }
 
     context 'not_voted' do
-      it { should be_falsy }
+      it { should eq false }
     end
 
     context 'voted' do
       context 'really_voted' do
         context 'left' do
           before { match.vote_for(:left, user, '') }
-          it { should be_truthy }
+          it { should eq true }
         end
 
         context 'right' do
           before { match.vote_for(:right, user, '') }
-          it { should be_truthy }
+          it { should eq true }
         end
       end
 
       context 'right_type_is_nil' do
         before { vote_with_user_vote.right_type = nil }
-        it { should be_truthy }
+        it { should eq true }
       end
     end
   end
@@ -283,7 +283,7 @@ describe ContestMatch do
         ContestMatch.first.update_user user, 'z'
       end
 
-      it { should be_truthy }
+      it { should eq true }
     end
 
     describe 'updated' do
@@ -294,7 +294,7 @@ describe ContestMatch do
         round.matches.first.update_user user, 'z'
       end
 
-      it { should be_falsy }
+      it { should eq false }
     end
   end
 

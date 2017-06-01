@@ -44,7 +44,7 @@ describe DialogsQuery do
       let(:limit) { 1 }
 
       its(:first) { should have(1).item }
-      its(:second) { should be_truthy }
+      its(:second) { should eq true }
 
       describe 'dialog' do
         subject { postload.first.first }
@@ -58,7 +58,7 @@ describe DialogsQuery do
       let(:limit) { 1 }
 
       its(:first) { should have(1).item }
-      its(:second) { should be_falsy }
+      its(:second) { should eq false }
 
       describe 'dialog' do
         subject { postload.first.first }
@@ -72,7 +72,7 @@ describe DialogsQuery do
       let(:limit) { 2 }
 
       its(:first) { should have(2).items }
-      its(:second) { should be_falsy }
+      its(:second) { should eq false }
 
       describe 'first dialog' do
         subject { postload.first.first }

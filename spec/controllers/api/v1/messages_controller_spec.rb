@@ -113,8 +113,8 @@ describe Api::V1::MessagesController, :show_in_doc do
     end
 
     it do
-      expect(message_from.reload.read).to be_falsy
-      expect(message_to.reload.read).to be_truthy
+      expect(message_from.reload.read).to eq false
+      expect(message_to.reload.read).to eq true
       expect(response).to have_http_status :success
     end
   end

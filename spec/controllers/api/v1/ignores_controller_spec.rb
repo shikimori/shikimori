@@ -18,7 +18,7 @@ describe Api::V1::IgnoresController do
 
         it do
           expect(response).to have_http_status :success
-          expect(user.reload.ignores?(user_2)).to be_truthy
+          expect(user.reload.ignores?(user_2)).to eq true
           expect(user.reload.ignores).to have(1).item
           expect(json[:notice]).to eq 'Сообщения от user_1234567 заблокированы'
         end
@@ -30,7 +30,7 @@ describe Api::V1::IgnoresController do
 
         it do
           expect(response).to have_http_status :success
-          expect(user.reload.ignores?(user_2)).to be_truthy
+          expect(user.reload.ignores?(user_2)).to eq true
           expect(user.reload.ignores).to have(1).item
           expect(json[:notice]).to eq 'Сообщения от user_1234567 заблокированы'
         end

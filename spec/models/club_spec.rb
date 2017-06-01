@@ -108,12 +108,12 @@ describe Club do
       it { expect(club.member? user).to be true }
 
       context 'user' do
-        it { expect(club.admin? user).to be_falsy }
+        it { expect(club.admin? user).to eq false }
       end
 
       context 'club_owner' do
         let(:club) { create :club, owner: user }
-        it { expect(club.admin? user).to be_truthy }
+        it { expect(club.admin? user).to eq true }
       end
 
       describe '#leave' do

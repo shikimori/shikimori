@@ -70,12 +70,12 @@ describe Ban do
 
       describe true do
         let(:duration) { 0 }
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq true }
       end
 
       describe false do
         let(:duration) { 1 }
-        it { is_expected.to be_falsy }
+        it { is_expected.to eq false }
       end
     end
 

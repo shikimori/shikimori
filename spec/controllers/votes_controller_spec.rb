@@ -29,7 +29,7 @@ describe VotesController do
           post :create, params: params.merge(voting: 'no')
         }.to change(Vote, :count).by(1)
 
-        expect(user.votes.first.voting).to be_falsy
+        expect(user.votes.first.voting).to eq false
 
         expect(response).to be_success
       end

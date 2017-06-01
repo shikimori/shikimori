@@ -113,28 +113,28 @@ describe User do
 
       context 'no ban' do
         let(:read_only_at) { nil }
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq true }
       end
 
       context 'expired ban' do
         let(:read_only_at) { Time.zone.now - 1.second }
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq true }
       end
 
       context 'valid ban' do
         let(:read_only_at) { Time.zone.now + 1.seconds }
-        it { is_expected.to be_falsy }
+        it { is_expected.to eq false }
       end
     end
 
     describe '#ignores?' do
       it do
         user.ignored_users << user2
-        expect(user.ignores?(user2)).to be_truthy
+        expect(user.ignores?(user2)).to eq true
       end
 
       it do
-        expect(user.ignores?(user2)).to be_falsy
+        expect(user.ignores?(user2)).to eq false
       end
     end
 

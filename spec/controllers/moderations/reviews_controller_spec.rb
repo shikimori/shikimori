@@ -12,7 +12,7 @@ describe Moderations::ReviewsController do
     before { post :accept, params: { id: review.id } }
 
     it do
-      expect(assigns(:review).accepted?).to be_truthy
+      expect(assigns(:review).accepted?).to eq true
       expect(response).to redirect_to moderations_reviews_url
     end
   end
@@ -22,7 +22,7 @@ describe Moderations::ReviewsController do
     before { post :reject, params: { id: review.id } }
 
     it do
-      expect(assigns(:review).rejected?).to be_truthy
+      expect(assigns(:review).rejected?).to eq true
       expect(response).to redirect_to moderations_reviews_url
     end
   end

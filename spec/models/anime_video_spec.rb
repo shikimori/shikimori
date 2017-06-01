@@ -144,7 +144,7 @@ describe AnimeVideo do
           subject { EpisodeNotification.first }
           let!(:anime_video) { create :anime_video, :with_notification, anime: anime, kind: :raw }
 
-          its(:is_raw) { is_expected.to be_truthy }
+          its(:is_raw) { is_expected.to eq true }
           its(:is_subtitles) { is_expected.to be_nil }
           its(:is_fandub) { is_expected.to be_nil }
           it { expect(EpisodeNotification.all).to have(1).item }
@@ -161,8 +161,8 @@ describe AnimeVideo do
           let!(:anime_video_1) { create :anime_video, :with_notification, anime: anime, kind: :raw, url: url_1 }
           let!(:anime_video_2) { create :anime_video, :with_notification, anime: anime, kind: :subtitles, url: url_2 }
 
-          its(:is_raw) { is_expected.to be_truthy }
-          its(:is_subtitles) { is_expected.to be_truthy }
+          its(:is_raw) { is_expected.to eq true }
+          its(:is_subtitles) { is_expected.to eq true }
           its(:is_fandub) { is_expected.to be_nil }
           it { expect(EpisodeNotification.all).to have(1).item }
         end
@@ -332,13 +332,13 @@ describe AnimeVideo do
     describe '#allowed?' do
       context 'true' do
         ['working', 'uploaded'].each do |state|
-          it { expect(build(:anime_video, state: state).allowed?).to be_truthy }
+          it { expect(build(:anime_video, state: state).allowed?).to eq true }
         end
       end
 
       context 'false' do
         ['broken', 'wrong', 'banned'].each do |state|
-          it { expect(build(:anime_video, state: state).allowed?).to be_falsy }
+          it { expect(build(:anime_video, state: state).allowed?).to eq false }
         end
       end
     end
@@ -350,12 +350,12 @@ describe AnimeVideo do
 
       context 'ban' do
         let(:anime_id) { AnimeVideo::CopyrightBanAnimeIDs.first }
-        it { is_expected.to be_truthy }
+        it { is_expected.to eq true }
       end
 
       context 'not_ban' do
         let(:anime_id) { 1 }
-        it { is_expected.to be_falsy }
+        it { is_expected.to eq false }
       end
     end
 

@@ -260,8 +260,8 @@ describe Message do
           let(:user) { message.from }
 
           it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_from).to be_truthy }
-          it { expect(message.is_deleted_by_to).to be_falsy }
+          it { expect(message.is_deleted_by_from).to eq true }
+          it { expect(message.is_deleted_by_to).to eq false }
           it { expect(message).to_not be_read }
         end
 
@@ -269,8 +269,8 @@ describe Message do
           let(:user) { message.to }
 
           it { expect(message).to be_persisted }
-          it { expect(message.is_deleted_by_to).to be_truthy }
-          it { expect(message.is_deleted_by_from).to be_falsy }
+          it { expect(message.is_deleted_by_to).to eq true }
+          it { expect(message.is_deleted_by_from).to eq false }
           it { expect(message).to be_read }
         end
       end

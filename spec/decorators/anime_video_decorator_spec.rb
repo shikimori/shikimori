@@ -164,22 +164,22 @@ describe AnimeVideoDecorator, type: :controller do
         let(:episodes) { 99 }
 
         its(:user_rate) { is_expected.to eq user_rate }
-        its(:in_list?) { is_expected.to be_truthy }
+        its(:in_list?) { is_expected.to eq true }
 
         context 'watched episode' do
-          its(:watched?) { is_expected.to be_truthy }
+          its(:watched?) { is_expected.to eq true }
         end
 
         context 'not watched episode' do
           let(:episodes) { 0 }
-          its(:watched?) { is_expected.to be_falsy }
+          its(:watched?) { is_expected.to eq false }
         end
       end
 
       context 'without user rate' do
         its(:user_rate) { is_expected.to be_nil }
-        its(:in_list?) { is_expected.to be_falsy }
-        its(:watched?) { is_expected.to be_falsy }
+        its(:in_list?) { is_expected.to eq false }
+        its(:watched?) { is_expected.to eq false }
       end
     end
 
@@ -188,8 +188,8 @@ describe AnimeVideoDecorator, type: :controller do
       let(:user_signed_in) { false }
 
       its(:user_rate) { is_expected.to be_nil }
-      its(:in_list?) { is_expected.to be_falsy }
-      its(:watched?) { is_expected.to be_falsy }
+      its(:in_list?) { is_expected.to eq false }
+      its(:watched?) { is_expected.to eq false }
     end
   end
 end
