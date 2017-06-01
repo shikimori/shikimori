@@ -75,8 +75,10 @@ class Ban < ApplicationRecord
 
   def mention_in_comment
     return if comment.nil?
-    updated_body = (comment.body.strip + "\n\n[ban=#{id}]").gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
-    comment.update body: updated_body
+    comment.body = (comment.body.strip + "\n\n[ban=#{id}]")
+      .gsub(/(\[ban=\d+\])\s+(\[ban=\d+\])/, '\1\2')
+
+    comment.save validate: false
   end
 
   def accept_abuse_request

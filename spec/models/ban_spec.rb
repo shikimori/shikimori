@@ -21,7 +21,15 @@ describe Ban do
   let(:user) { create :user }
   let(:moderator) { user }
   let(:comment) { create :comment, user: user }
-  let(:params) {{ user: user, comment: comment, moderator: moderator, duration: duration, reason: reason }}
+  let(:params) do
+    {
+      user: user,
+      comment: comment,
+      moderator: moderator,
+      duration: duration,
+      reason: reason
+    }
+  end
 
   describe 'callbacks' do
     describe '#set_user' do
@@ -103,7 +111,7 @@ describe Ban do
     end
 
     describe '#mention_in_comment' do
-      subject { comment.body }
+      subject { comment.reload.body }
       let(:comment) { create :comment, user: user, body: "test\n" }
 
        context 'no_prior_ban' do
@@ -122,7 +130,7 @@ describe Ban do
       let(:moderator) { create :user }
       subject(:ban) { create :ban, params }
       let(:messages) { Message.where from_id: moderator.id, to_id: user.id, linked_type: Ban.name, kind: MessageType::Banned }
-      it { expect{ban}.to change(messages, :count).by 1 }
+      it { expect { ban }.to change(messages, :count).by 1 }
     end
 
     describe '#suggest_duration' do
