@@ -18,7 +18,7 @@ describe MessagesQuery do
       let(:messages_type) { :inbox }
 
       it { expect(subject).to have(2).items }
-      its(:first) { should eq private }
+      its(:first) { is_expected.to eq private }
     end
 
     context 'private' do
@@ -27,7 +27,7 @@ describe MessagesQuery do
       let(:messages_type) { :private }
 
       it { expect(subject).to have(1).item }
-      its(:first) { should eq private }
+      its(:first) { is_expected.to eq private }
     end
 
     context 'sent' do
@@ -35,13 +35,13 @@ describe MessagesQuery do
       let(:messages_type) { :sent }
 
       it { expect(subject).to have(1).item }
-      its(:first) { should eq sent }
+      its(:first) { is_expected.to eq sent }
     end
 
     context 'news' do
       let(:messages_type) { :news }
       it { expect(subject).to have(1).item }
-      its(:first) { should eq news }
+      its(:first) { is_expected.to eq news }
     end
 
     context 'notifications' do
@@ -50,7 +50,7 @@ describe MessagesQuery do
       let(:messages_type) { :notifications }
 
       it { expect(subject).to have(2).items }
-      its(:first) { should eq notification_3 }
+      its(:first) { is_expected.to eq notification_3 }
     end
   end
 
@@ -61,7 +61,7 @@ describe MessagesQuery do
 
     subject { query.postload 2, 1 }
 
-    its(:first) { should eq [notification_2] }
-    its(:second) { should eq true }
+    its(:first) { is_expected.to eq [notification_2] }
+    its(:second) { is_expected.to eq true }
   end
 end

@@ -12,7 +12,7 @@ describe DialogsQuery do
 
   describe '#fetch' do
     subject(:fetch) { query.fetch 1, 1 }
-    it { should have(2).items }
+    it { is_expected.to have(2).items }
 
     context 'with ignores' do
       let(:user_4) { create :user }
@@ -20,19 +20,19 @@ describe DialogsQuery do
       let!(:ignore_2) { create :ignore, user: user, target: user_4 }
 
       let!(:message_to_3) { create :message, from: user, to: user_4 }
-      it { should have(1).item }
+      it { is_expected.to have(1).item }
 
       describe 'dialog' do
         subject { fetch.first }
-        its(:user) { should eq user }
-        its(:message) { should eq message_from_1 }
+        its(:user) { is_expected.to eq user }
+        its(:message) { is_expected.to eq message_from_1 }
       end
     end
 
     context 'deleted messages' do
       let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_to: true }
       let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_from: true }
-      it { should have(1).item }
+      it { is_expected.to have(1).item }
     end
   end
 
@@ -43,13 +43,13 @@ describe DialogsQuery do
       let(:page) { 1 }
       let(:limit) { 1 }
 
-      its(:first) { should have(1).item }
-      its(:second) { should eq true }
+      its(:first) { is_expected.to have(1).item }
+      its(:second) { is_expected.to eq true }
 
       describe 'dialog' do
         subject { postload.first.first }
-        its(:user) { should eq user }
-        its(:message) { should eq message_to_2 }
+        its(:user) { is_expected.to eq user }
+        its(:message) { is_expected.to eq message_to_2 }
       end
     end
 
@@ -57,13 +57,13 @@ describe DialogsQuery do
       let(:page) { 2 }
       let(:limit) { 1 }
 
-      its(:first) { should have(1).item }
-      its(:second) { should eq false }
+      its(:first) { is_expected.to have(1).item }
+      its(:second) { is_expected.to eq false }
 
       describe 'dialog' do
         subject { postload.first.first }
-        its(:user) { should eq user }
-        its(:message) { should eq message_from_1 }
+        its(:user) { is_expected.to eq user }
+        its(:message) { is_expected.to eq message_from_1 }
       end
     end
 
@@ -71,19 +71,19 @@ describe DialogsQuery do
       let(:page) { 1 }
       let(:limit) { 2 }
 
-      its(:first) { should have(2).items }
-      its(:second) { should eq false }
+      its(:first) { is_expected.to have(2).items }
+      its(:second) { is_expected.to eq false }
 
       describe 'first dialog' do
         subject { postload.first.first }
-        its(:user) { should eq user }
-        its(:message) { should eq message_to_2 }
+        its(:user) { is_expected.to eq user }
+        its(:message) { is_expected.to eq message_to_2 }
       end
 
       describe 'second dialog' do
         subject { postload.first.second }
-        its(:user) { should eq user }
-        its(:message) { should eq message_from_1 }
+        its(:user) { is_expected.to eq user }
+        its(:message) { is_expected.to eq message_from_1 }
       end
     end
   end

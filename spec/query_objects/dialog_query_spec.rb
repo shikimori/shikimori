@@ -11,29 +11,29 @@ describe DialogQuery do
 
   describe '#fetch' do
     subject(:fetch) { query.fetch 1, 1, true }
-    it { should eq [message_to_1, message_from_1] }
+    it { is_expected.to eq [message_to_1, message_from_1] }
 
     describe 'message_to_1' do
       context 'deleted by receiver' do
         let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_to: true, created_at: 2.hours.ago }
-        it { should eq [message_from_1] }
+        it { is_expected.to eq [message_from_1] }
       end
 
       context 'deleted by sender' do
         let!(:message_to_1) { create :message, from: target_user, to: user, is_deleted_by_from: true, created_at: 2.hours.ago }
-        it { should eq [message_to_1, message_from_1] }
+        it { is_expected.to eq [message_to_1, message_from_1] }
       end
     end
 
     describe 'message_from_1' do
       context 'deleted by receiver' do
         let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_to: true, created_at: 2.hours.ago, id: id+1 }
-        it { should eq [message_to_1, message_from_1] }
+        it { is_expected.to eq [message_to_1, message_from_1] }
       end
 
       context 'deleted by sender' do
         let!(:message_from_1) { create :message, from: user, to: target_user, is_deleted_by_from: true, created_at: 2.hours.ago, id: id+1 }
-        it { should eq [message_to_1] }
+        it { is_expected.to eq [message_to_1] }
       end
     end
   end
@@ -44,7 +44,7 @@ describe DialogQuery do
 
     subject(:postload) { query.postload 1, 15 }
 
-    its(:first) { should eq [message_from_1, message_to_2, message_from_2] }
-    its(:second) { should eq true }
+    its(:first) { is_expected.to eq [message_from_1, message_to_2, message_from_2] }
+    its(:second) { is_expected.to eq true }
   end
 end
