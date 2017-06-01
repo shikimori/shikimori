@@ -207,7 +207,7 @@ class ApplicationController < ActionController::Base
 
     return ip if Rails.env.test?
 
-    if [231,296,3801,16029,43714,659,22828,56019,88150,93640].include? current_user&.id
+    if [231,296,3801,16029,43714,659,22828,56019,88150,93640,67810].include? current_user&.id
       ip + 'z'
     elsif [70628].include? current_user&.id
       ip + 'x'
