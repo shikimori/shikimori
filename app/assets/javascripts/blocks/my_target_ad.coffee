@@ -13,5 +13,5 @@ $(document).on 'page:load', ->
   if window.MRGtag
     window.MRGtag.push({})
   else
-    getjs('http://ad.mail.ru/static/ads-async.js').then ->
+    getjs('//ad.mail.ru/static/ads-async.js').then ->
       (window.MRGtag = window.MRGtag || []).push({})
