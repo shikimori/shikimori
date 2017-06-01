@@ -31,7 +31,7 @@ page_load 'dashboards_show', ->
     if 'VK' of window
       vk_widget()
     else
-      getjs('http://vk.com/js/api/openapi.js?146').then(vk_widget)
+      getjs('//vk.com/js/api/openapi.js?146').then(vk_widget)
 
   delay(1500).then ->
     $node = $('.y-sponsored')
