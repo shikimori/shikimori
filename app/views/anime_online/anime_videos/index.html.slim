@@ -5,6 +5,11 @@
   - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)
     = render 'anime_online/anime_videos/ivi_video'
 
+  - elsif Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(@resource.id)
+    .b-errors
+      .subheadline Просмотр недоступен
+      p Отключено по требованию правообладателя
+
   - else
     .player-container
       = render 'anime_online/anime_videos/player_container'

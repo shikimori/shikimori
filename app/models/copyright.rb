@@ -25,6 +25,10 @@ module Copyright
     20973, # World Conquest Zvezda Plot
   ]
 
+  COPYRIGHTED_WITH_EMAIL_WARNING = [
+    19157
+  ]
+
   # http://antipiracy.ivi.ru/Starz_Media_prizrak_gorod_mechty.pdf
   IVI_RU_COPYRIGHTED = [
     801 # Ghost in the Shell: Stand Alone Complex 2nd GIG

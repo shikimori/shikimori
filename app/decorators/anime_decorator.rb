@@ -74,7 +74,7 @@ class AnimeDecorator < AniMangaDecorator
     anime? && !anons? && h.ignore_copyright? && (
       h.user_signed_in? ||
       (!h.user_signed_in? && !Copyright::DAISUKI_COPYRIGHTED.include?(id))
-    )
+    ) && !Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(id)
   end
 
 private
