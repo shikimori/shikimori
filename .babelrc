@@ -1,14 +1,18 @@
 {
   "presets": [
-    [
-      "env", {
-        "modules": false
-        // loose: true,
-        // useBuiltIns: true,
-        // browsers: ["> 1%", "last 2 versions", "ie >= 9"],
-        // debug: true
-      }
-    ]
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": "> 1%",
+        "uglify": true
+      },
+      "useBuiltIns": true
+    }]
   ],
-  plugins: ["transform-object-rest-spread"]
+
+  "plugins": [
+    "transform-object-rest-spread",
+    "syntax-dynamic-import",
+    ["transform-class-properties", { "spec": true }]
+  ]
 }

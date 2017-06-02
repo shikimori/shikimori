@@ -9,16 +9,17 @@ const { sync } = require('glob')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const extname = require('path-complete-extname')
-const { env, paths, publicPath, loadersDir } = require('./configuration.js')
+const { env, settings, output, loadersDir } = require('./configuration.js')
 
-const extensionGlob = `**/*{${paths.extensions.join(',')}}*`
-const packPaths = sync(join(paths.source, paths.entry, extensionGlob))
+const extensionGlob = `**/*{${settings.extensions.join(',')}}*`
+const entryPath = join(settings.source_path, settings.source_entry_path)
+const packPaths = sync(join(entryPath, extensionGlob))
 
 module.exports = {
   entry: packPaths.reduce(
     (map, entry) => {
       const localMap = map
-      const namespace = relative(join(paths.source, paths.entry), dirname(entry))
+      const namespace = relative(join(entryPath), dirname(entry))
       localMap[join(namespace, basename(entry, extname(entry)))] = resolve(entry)
       return localMap
     }, {}
@@ -26,9 +27,8 @@ module.exports = {
 
   output: {
     filename: '[name].js',
-    path: resolve(paths.output, paths.entry),
-    // publicPath: join('/', paths.entry, '/')
-    publicPath
+    path: output.path,
+    publicPath: output.publicPath
   },
 
   module: {
@@ -58,22 +58,22 @@ module.exports = {
     // http://stackoverflow.com/questions/25384360/how-to-prevent-moment-js-from-loading-locales-with-webpack/25426019#25426019
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
-    new ExtractTextPlugin({
-      filename: env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css',
-      allChunks: true
-    }),
-    new ManifestPlugin({ fileName: paths.manifest, publicPath, writeToFileEmit: true })
+    new ExtractTextPlugin(env.NODE_ENV === 'production' ? '[name]-[hash].css' : '[name].css'),
+    new ManifestPlugin({
+      publicPath: output.publicPath,
+      writeToFileEmit: true
+    })
   ],
 
   resolve: {
-    extensions: paths.extensions,
+    extensions: settings.extensions,
     modules: [
-      resolve(paths.source),
-      resolve(paths.node_modules)
+      resolve(settings.source_path),
+      'node_modules'
     ]
   },
 
   resolveLoader: {
-    modules: [paths.node_modules]
+    modules: ['node_modules']
   }
 }
