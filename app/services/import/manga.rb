@@ -1,6 +1,6 @@
 class Import::Manga < Import::Anime
   SPECIAL_FIELDS = Import::Anime::SPECIAL_FIELDS + %i(publishers) - %i(
-    studios external_links
+    studios
   )
 
 private
