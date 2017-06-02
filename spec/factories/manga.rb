@@ -16,6 +16,10 @@ FactoryGirl.define do
       kind Ranobe::KIND
     end
 
+    trait :with_mal_id do
+      mal_id 1
+    end
+
     after :build do |model|
       stub_method model, :generate_name_matches
 

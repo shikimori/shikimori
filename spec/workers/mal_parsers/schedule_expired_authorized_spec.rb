@@ -18,22 +18,27 @@ describe MalParsers::ScheduleExpiredAuthorized do
   let!(:ongoing_anime) { create :anime, :ongoing, :with_mal_id }
   let!(:released_anime) { create :anime, :released, :with_mal_id }
 
+  let!(:manga) { create :manga, :with_mal_id }
+
   before do
     allow(MalParsers::FetchEntryAuthorized).to receive(:perform_in)
   end
 
   context 'all animes are scheduled' do
-    before { call }
+    subject! { call }
     it do
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(0, anons_anime.id)
+        .with(0 * schedule_interval, anons_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(schedule_interval, ongoing_anime.id)
+        .with(1 * schedule_interval, ongoing_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(2 * schedule_interval, released_anime.id)
+        .with(2 * schedule_interval, released_anime.id, Anime.name)
+      expect(MalParsers::FetchEntryAuthorized)
+        .to have_received(:perform_in)
+        .with(3 * schedule_interval, manga.id, Manga.name)
     end
   end
 
@@ -51,18 +56,21 @@ describe MalParsers::ScheduleExpiredAuthorized do
         authorized_imported_at: nil
     end
 
-    before { call }
+    subject! { call }
 
     it 'schedules expired and never imported animes' do
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(0, anons_anime.id)
+        .with(0 * schedule_interval, anons_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .not_to have_received(:perform_in)
-        .with(anything, ongoing_anime.id)
+        .with(anything, ongoing_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(schedule_interval, released_anime.id)
+        .with(1 * schedule_interval, released_anime.id, Anime.name)
+      expect(MalParsers::FetchEntryAuthorized)
+        .to have_received(:perform_in)
+        .with(2 * schedule_interval, manga.id, Manga.name)
     end
   end
 
@@ -71,18 +79,21 @@ describe MalParsers::ScheduleExpiredAuthorized do
     let(:ongoing_anime) { create :anime, :ongoing }
     let(:released_anime) { create :anime, :released, :with_mal_id }
 
-    before { call }
+    subject! { call }
 
     it 'does not schedule animes without mal_id' do
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(0, anons_anime.id)
+        .with(0 * schedule_interval, anons_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .not_to have_received(:perform_in)
-        .with(anything, ongoing_anime.id)
+        .with(anything, ongoing_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(schedule_interval, released_anime.id)
+        .with(1 * schedule_interval, released_anime.id, Anime.name)
+      expect(MalParsers::FetchEntryAuthorized)
+        .to have_received(:perform_in)
+        .with(2 * schedule_interval, manga.id, Manga.name)
     end
   end
 
@@ -93,18 +104,21 @@ describe MalParsers::ScheduleExpiredAuthorized do
         10.hours
       )
     end
-    before { call }
+    subject! { call }
 
     it 'schedules not more jobs than can be finished within 24 hours' do
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(0, anons_anime.id)
+        .with(0 * schedule_interval, anons_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .to have_received(:perform_in)
-        .with(schedule_interval, ongoing_anime.id)
+        .with(1 * schedule_interval, ongoing_anime.id, Anime.name)
       expect(MalParsers::FetchEntryAuthorized)
         .not_to have_received(:perform_in)
-        .with(anything, released_anime.id)
+        .with(anything, released_anime.id, Anime.name)
+      expect(MalParsers::FetchEntryAuthorized)
+        .not_to have_received(:perform_in)
+        .with(anything, manga.id, Manga.name)
     end
   end
 end

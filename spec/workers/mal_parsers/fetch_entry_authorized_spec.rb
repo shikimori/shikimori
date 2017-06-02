@@ -3,7 +3,7 @@ describe MalParsers::FetchEntryAuthorized do
   #       stub call to MalParsers::AnimeAuthorized here
   describe '#perform', :vcr do
     include_context :timecop
-    subject!(:call) { described_class.new.perform anime_id }
+    subject!(:call) { described_class.new.perform anime_id, 'Anime' }
 
     let(:anime_id) { 28_851 }
     let(:anime) { Anime.find(anime_id) }

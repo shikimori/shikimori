@@ -7,19 +7,20 @@ class MalParsers::FetchEntryAuthorized
     queue: :mal_parsers
   )
 
-  def perform anime_id
-    Import::Anime.call parsed_data(anime_id)
-    update_authorized_imported_at!(anime_id)
+  def perform entry_id, entry_type
+    "Import::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)
+    update_authorized_imported_at! entry_id, entry_type
   end
 
-  private
+private
 
-  def parsed_data anime_id
-    MalParsers::AnimeAuthorized.call(anime_id)
+  def parsed_data entry_id, entry_type
+    "MalParsers::#{entry_type}Authorized".constantize.call entry_id
   end
 
-  def update_authorized_imported_at! anime_id
-    anime = Anime.find(anime_id)
-    anime.update!(authorized_imported_at: Time.zone.now)
+  def update_authorized_imported_at! entry_id, entry_type
+    entry_type.constantize
+      .find(entry_id)
+      .update!(authorized_imported_at: Time.zone.now)
   end
 end

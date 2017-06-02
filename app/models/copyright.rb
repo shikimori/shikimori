@@ -1,7 +1,7 @@
 # модель для сбора id аниме и манги, заблокированных требованиями копирайта
 module Copyright
   # by Hetzner abuse team
-  SCREENSHOTS = [28215,23587]
+  SCREENSHOTS = [28215, 23587]
   VIDEOS = SCREENSHOTS
 
   # http://www.daisuki.net/anime/
