@@ -9,6 +9,13 @@
         href="#{animes_collection_url season.url_params}"
         title="#{season.full_title}"
       ] = season.short_title
+
+.entry
+  a[
+    title="#{t 'application.footer.for_right_holders'}"
+    href="#{for_right_holders_pages_url subdomain: false}"
+  ] = t 'application.footer.for_right_holders'
+
 .entry
   a[
     href="#{root_url subdomain: false}"

@@ -26,6 +26,8 @@ module Copyright
   ]
 
   COPYRIGHTED_WITH_EMAIL_WARNING = [
+    # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
+    # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
     19157
   ]
 
@@ -34,6 +36,6 @@ module Copyright
     801 # Ghost in the Shell: Stand Alone Complex 2nd GIG
   ]
   IVI_RU_PLAYERS = {
-    801 => 'http://www.ivi.ru/external/seriesembed/?compilationId=7561'
+    801 => '//www.ivi.ru/external/seriesembed/?compilationId=7561'
   }
 end

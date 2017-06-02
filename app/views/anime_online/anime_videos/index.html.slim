@@ -3,6 +3,10 @@
 
 = render layout: 'animes/page' do
   - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)
+    .b-errors
+      .subheadline Просмотр недоступен
+      p Отключено по требованию правообладателя
+
     = render 'anime_online/anime_videos/ivi_video'
 
   - elsif Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(@resource.id)
