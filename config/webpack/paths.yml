@@ -1,13 +1,14 @@
 # Note: You must restart bin/webpack-dev-server for changes to take effect
 
 default: &default
-  source_path: app/assets/javascripts
-  source_entry_path: packs
-  public_output_path: packs
-
+  config: config/webpack
+  entry: packs
+  output: public
+  manifest: manifest.json
+  node_modules: node_modules
+  source: app/assets/javascripts
   extensions:
     - .coffee
-    - .erb
     - .js
     - .jsx
     - .ts
@@ -24,16 +25,9 @@ default: &default
 development:
   <<: *default
 
-  dev_server:
-    host: localhost
-    port: 8080
-    https: false
-    # disableHostCheck: true
-
 test:
   <<: *default
-
-  public_output_path: packs-test
+  manifest: manifest-test.json
 
 production:
   <<: *default
