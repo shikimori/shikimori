@@ -1,12 +1,13 @@
 page_load 'collections_new', 'collections_edit', 'collections_create', 'collections_update', ->
   $('.b-shiki_editor').shiki_editor()
 
-  require.ensure [], ->
-    init_app(
-      require('vue/instance').Vue,
-      require('vue/components/collections/collection_links.vue'),
-      require('vue/stores').collection_links,
-    )
+  if $('#vue_collection_links').exists()
+    require.ensure [], ->
+      init_app(
+        require('vue/instance').Vue,
+        require('vue/components/collections/collection_links.vue'),
+        require('vue/stores').collection_links,
+      )
 
 # sort with preserving initial order
 sort_by_groups = (data) ->
