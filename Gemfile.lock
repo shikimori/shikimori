@@ -93,7 +93,7 @@ GIT
 
 GIT
   remote: git://github.com/shikimori/mal_parser.git
-  revision: 725091225c883e71b8cfd0aa00d3e2fc345ebe3c
+  revision: 4de7b94385cf50a758fc987a36aff0b51ce83d9e
   specs:
     mal_parser (0.1.0)
       attr_extras
@@ -819,4 +819,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.14.6
+   1.15.0
