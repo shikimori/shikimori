@@ -28,7 +28,9 @@ module Copyright
   COPYRIGHTED_WITH_EMAIL_WARNING = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
-    19157
+    19157,
+    # просьба от истари убрать Kimi no Na wa на которое они купили права
+    32281
   ]
 
   # http://antipiracy.ivi.ru/Starz_Media_prizrak_gorod_mechty.pdf
