@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601214744) do
+ActiveRecord::Schema.define(version: 20170602114107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -565,40 +565,41 @@ ActiveRecord::Schema.define(version: 20170601214744) do
   end
 
   create_table "mangas", force: :cascade do |t|
-    t.string   "name",               limit: 255
+    t.string   "name",                   limit: 255
     t.text     "description_ru"
     t.text     "description_en"
-    t.string   "kind",               limit: 255
-    t.integer  "volumes",                        default: 0,     null: false
-    t.integer  "volumes_aired",                  default: 0,     null: false
-    t.integer  "chapters",                       default: 0,     null: false
-    t.integer  "chapters_aired",                 default: 0,     null: false
-    t.string   "status",             limit: 255
+    t.string   "kind",                   limit: 255
+    t.integer  "volumes",                            default: 0,     null: false
+    t.integer  "volumes_aired",                      default: 0,     null: false
+    t.integer  "chapters",                           default: 0,     null: false
+    t.integer  "chapters_aired",                     default: 0,     null: false
+    t.string   "status",                 limit: 255
     t.text     "synonyms"
-    t.string   "russian",            limit: 255
-    t.decimal  "score",                          default: "0.0", null: false
+    t.string   "russian",                limit: 255
+    t.decimal  "score",                              default: "0.0", null: false
     t.integer  "ranked"
     t.integer  "popularity"
-    t.string   "rating",             limit: 255
+    t.string   "rating",                 limit: 255
     t.date     "aired_on"
     t.date     "released_on"
     t.date     "imported_at"
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
+    t.string   "image_file_name",        limit: 255
+    t.string   "image_content_type",     limit: 255
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.boolean  "censored",                       default: false
+    t.boolean  "censored",                           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "tags",               limit: 255
-    t.string   "source",             limit: 255
-    t.float    "site_score",                     default: 0.0,   null: false
+    t.string   "tags",                   limit: 255
+    t.string   "source",                 limit: 255
+    t.float    "site_score",                         default: 0.0,   null: false
     t.datetime "parsed_at"
-    t.text     "desynced",                       default: [],    null: false, array: true
+    t.text     "desynced",                           default: [],    null: false, array: true
     t.string   "english"
     t.string   "japanese"
     t.integer  "mal_id"
     t.string   "type"
+    t.datetime "authorized_imported_at"
     t.index ["kind"], name: "index_mangas_on_kind", using: :btree
     t.index ["name"], name: "index_mangas_on_name", using: :btree
     t.index ["russian"], name: "index_mangas_on_russian", using: :btree
