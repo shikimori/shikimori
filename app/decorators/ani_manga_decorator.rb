@@ -98,8 +98,16 @@ class AniMangaDecorator < DbEntryDecorator
 
   # показывать ли блок файлов
   def files?
-    h.user_signed_in? && h.current_user.day_registered? &&
-      anime? && !anons? && display_sensitive? && h.ignore_copyright?
+    allowed_watch_online? &&
+      h.user_signed_in? &&
+      h.current_user.day_registered?
+  end
+
+  def allowed_watch_online?
+    anime? && !anons? && h.ignore_copyright? && display_sensitive? && (
+      h.user_signed_in? ||
+      (!h.user_signed_in? && !Copyright::DAISUKI_COPYRIGHTED.include?(id))
+    ) && !Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(id)
   end
 
   # показывать ли ссылки, если аниме или манга для взрослых?

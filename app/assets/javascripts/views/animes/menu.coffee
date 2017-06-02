@@ -29,10 +29,12 @@ module.exports = class Animes.Menu extends View
 
   _history: =>
     $history_block = @$('.history')
+    source_url = $(@).attr('data-remote')
+    return unless source_url
 
     # подгрузка тултипов истории
     $history_block.one 'mouseover', ->
-      $.getJSON $(@).attr('data-remote'), (data) ->
+      $.getJSON source_url, (data) ->
         for id of data
           $tooltip = $('.tooltip-details', "#history-entry-#{id}-tooltip")
           continue unless $tooltip.length
