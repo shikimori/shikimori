@@ -55,7 +55,7 @@ vk_widget = ->
     {
       mode: 4,
       width: $node.width(),
-      height: '400'
+      height: '500'
     },
     9273458
   )
