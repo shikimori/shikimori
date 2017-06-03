@@ -3,6 +3,7 @@
 class Club < ApplicationRecord
   include TopicsConcern
   include StylesConcern
+  include ElasticsearchConcern
 
   has_many :member_roles,
     class_name: ClubRole.name,
