@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603151425) do
+ActiveRecord::Schema.define(version: 20170603152955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,8 +134,7 @@ ActiveRecord::Schema.define(version: 20170603151425) do
     t.string   "japanese"
     t.integer  "mal_id"
     t.datetime "authorized_imported_at"
-    t.text     "synonyms_new",                       default: [],    null: false, array: true
-    t.text     "synonyms"
+    t.text     "synonyms",                           default: [],    null: false, array: true
     t.index ["kind"], name: "index_animes_on_kind", using: :btree
     t.index ["name"], name: "index_animes_on_name", using: :btree
     t.index ["russian"], name: "index_animes_on_russian", using: :btree
@@ -600,8 +599,7 @@ ActiveRecord::Schema.define(version: 20170603151425) do
     t.integer  "mal_id"
     t.string   "type"
     t.datetime "authorized_imported_at"
-    t.text     "synonyms_new",                       default: [],    null: false, array: true
-    t.text     "synonyms"
+    t.text     "synonyms",                           default: [],    null: false, array: true
     t.index ["kind"], name: "index_mangas_on_kind", using: :btree
     t.index ["name"], name: "index_mangas_on_name", using: :btree
     t.index ["russian"], name: "index_mangas_on_russian", using: :btree

@@ -15,10 +15,6 @@ class Manga < DbEntry
   CHAPTER_DURATION = 8
   VOLUME_DURATION = (24 * 60) / 20 # 20 volumes per day
 
-  serialize :synonyms
-  #serialize :ani_db_scores
-  #serialize :world_art_scores
-
   attr_accessor :in_list
 
   # Relations

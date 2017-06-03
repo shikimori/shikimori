@@ -25,9 +25,6 @@ class Anime < DbEntry
   ADULT_RATING = 'rx'
   SUB_ADULT_RATING = 'r_plus'
 
-  # TODO: refactor to postgres array
-  serialize :synonyms
-
   has_and_belongs_to_many :genres
   has_and_belongs_to_many :studios
 
