@@ -233,7 +233,7 @@ shared_examples :elasticsearch_concern do |type|
       end
 
       context 'elastic field' do
-        let(:field) { data_klass::TRACKED_FIELDS.first }
+        let(:field) { data_klass::TRACK_CHANGES_FIELDS.first }
 
         it do
           expect(Elasticsearch::Create).to have_received(:perform_async)

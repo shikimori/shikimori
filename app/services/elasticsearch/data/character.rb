@@ -1,6 +1,7 @@
 class Elasticsearch::Data::Character < Elasticsearch::Data::DataBase
-  FIELDS = %i[fullname russian japanese]
-  TRACKED_FIELDS = FIELDS
+  text_search_fields %i[fullname russian japanese]
+  data_fields %i[]
+  track_changes_fields text_search_fields
 
 private
 

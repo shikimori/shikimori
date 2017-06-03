@@ -1,6 +1,7 @@
 class Elasticsearch::Data::Person < Elasticsearch::Data::DataBase
-  FIELDS = %i[name russian japanese is_seyu is_producer is_mangaka]
-  TRACKED_FIELDS = FIELDS
+  text_search_fields %i[name russian japanese]
+  data_fields %i[is_seyu is_producer is_mangaka]
+  track_changes_fields text_search_fields
 
 private
 

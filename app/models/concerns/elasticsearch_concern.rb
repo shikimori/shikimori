@@ -23,7 +23,7 @@ private
   end
 
   def data_fields
-    "Elasticsearch::Data::#{class_name}::TRACKED_FIELDS".constantize
+    "Elasticsearch::Data::#{class_name}::TRACK_CHANGES_FIELDS".constantize
   end
 
   def class_name

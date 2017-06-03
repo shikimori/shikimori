@@ -3,7 +3,7 @@
 # Strategies and Techniques for Relevance
 #   https://www.compose.com/articles/elasticsearch-query-time-strategies-and-techniques-for-relevance-part-ii/
 class Elasticsearch::Query::QueryBase
-  method_object [:phrase, :limit]
+  method_object %i[phrase limit]
 
   INDEX = Elasticsearch::Config::INDEX
   EXPIRES_IN = 1.hour
@@ -16,10 +16,6 @@ private
 
   def type
     self.class.name.split('::').last.downcase
-  end
-
-  def fields
-    "Elasticsearch::Data::#{type.capitalize}::FIELDS".constantize
   end
 
   def api_call
@@ -36,7 +32,8 @@ private
   end
 
   def fields_queries
-    fields.map { |field| field_query(field) }
+    "Elasticsearch::Data::#{type.capitalize}::TEXT_SEARCH_FIELDS".constantize
+      .map { |field| field_query(field) }
   end
 
   def field_query field

@@ -1,6 +1,7 @@
 class Elasticsearch::Data::Club < Elasticsearch::Data::DataBase
-  FIELDS = %i[name locale]
-  TRACKED_FIELDS = FIELDS
+  text_search_fields %i[name locale]
+  data_fields %i[]
+  track_changes_fields text_search_fields
 
 private
 

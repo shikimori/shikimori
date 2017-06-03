@@ -10,16 +10,12 @@ class Elasticsearch::Data::Anime < Elasticsearch::Data::DataBase
     special: 8,
     music: 7
   }
-  FIELDS = %i[
+  text_search_fields %i[
     name russian english japanese
     synonym_0 synonym_1 synonym_2 synonym_3 synonym_4 synonym_5
-    weight
   ]
-  TRACKED_FIELDS = %i[name russian english japanese synonyms score kind]
-
-  def call
-    super
-  end
+  data_fields %i[weight]
+  track_changes_fields %i[name russian english japanese synonyms score kind]
 
 private
 
@@ -68,7 +64,7 @@ private
   end
 
   def score
-    if @entry.score && @entry.score < 9.9 && @entry.score > 0
+    if @entry.score && @entry.score < 9.9 && @entry.score.positive?
       @entry.score
     elsif @entry.year && @entry.year < 1992
       DEFAULT_OLD_SCORE
