@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602114107) do
+ActiveRecord::Schema.define(version: 20170603151425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,7 +105,6 @@ ActiveRecord::Schema.define(version: 20170602114107) do
     t.string   "kind",                   limit: 255
     t.integer  "episodes",                           default: 0,     null: false
     t.integer  "duration"
-    t.text     "synonyms"
     t.decimal  "score",                              default: "0.0", null: false
     t.integer  "ranked"
     t.integer  "popularity"
@@ -135,6 +134,8 @@ ActiveRecord::Schema.define(version: 20170602114107) do
     t.string   "japanese"
     t.integer  "mal_id"
     t.datetime "authorized_imported_at"
+    t.text     "synonyms_new",                       default: [],    null: false, array: true
+    t.text     "synonyms"
     t.index ["kind"], name: "index_animes_on_kind", using: :btree
     t.index ["name"], name: "index_animes_on_name", using: :btree
     t.index ["russian"], name: "index_animes_on_russian", using: :btree
@@ -574,7 +575,6 @@ ActiveRecord::Schema.define(version: 20170602114107) do
     t.integer  "chapters",                           default: 0,     null: false
     t.integer  "chapters_aired",                     default: 0,     null: false
     t.string   "status",                 limit: 255
-    t.text     "synonyms"
     t.string   "russian",                limit: 255
     t.decimal  "score",                              default: "0.0", null: false
     t.integer  "ranked"
@@ -600,6 +600,8 @@ ActiveRecord::Schema.define(version: 20170602114107) do
     t.integer  "mal_id"
     t.string   "type"
     t.datetime "authorized_imported_at"
+    t.text     "synonyms_new",                       default: [],    null: false, array: true
+    t.text     "synonyms"
     t.index ["kind"], name: "index_mangas_on_kind", using: :btree
     t.index ["name"], name: "index_mangas_on_name", using: :btree
     t.index ["russian"], name: "index_mangas_on_russian", using: :btree
