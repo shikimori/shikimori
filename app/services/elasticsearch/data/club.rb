@@ -1,10 +1,14 @@
 class Elasticsearch::Data::Club < Elasticsearch::Data::DataBase
-  NAMES = %i(name)
-  ALL_FIELDS = NAMES
+  FIELDS = %i[name locale]
+  TRACKED_FIELDS = FIELDS
 
 private
 
-  def nickname
+  def name
     fix @entry.name
+  end
+
+  def locale
+    @entry.locale
   end
 end

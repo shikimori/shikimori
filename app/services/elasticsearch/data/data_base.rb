@@ -2,7 +2,7 @@ class Elasticsearch::Data::DataBase
   method_object :entry
 
   def call
-    self.class::NAMES.each_with_object({}) do |name, memo|
+    self.class::FIELDS.each_with_object({}) do |name, memo|
       memo[name] = send name
     end
   end

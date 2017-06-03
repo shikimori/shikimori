@@ -1,6 +1,6 @@
 class Elasticsearch::Data::Character < Elasticsearch::Data::DataBase
-  NAMES = %i(fullname russian japanese)
-  ALL_FIELDS = NAMES
+  FIELDS = %i[fullname russian japanese]
+  TRACKED_FIELDS = FIELDS
 
 private
 

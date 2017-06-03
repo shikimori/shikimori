@@ -1,6 +1,6 @@
 class Elasticsearch::Data::User < Elasticsearch::Data::DataBase
-  NAMES = %i(nickname)
-  ALL_FIELDS = NAMES
+  FIELDS = %i[nickname]
+  TRACKED_FIELDS = FIELDS
 
 private
 

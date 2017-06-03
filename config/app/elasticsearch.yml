@@ -185,3 +185,13 @@
         properties:
           nickname:
             <<: *name_properties
+      club:
+        <<: *default_index_data
+        properties:
+          name:
+            <<: *name_properties
+      collection:
+        <<: *default_index_data
+        properties:
+          name:
+            <<: *name_properties

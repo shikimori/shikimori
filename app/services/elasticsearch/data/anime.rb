@@ -10,14 +10,15 @@ class Elasticsearch::Data::Anime < Elasticsearch::Data::DataBase
     special: 8,
     music: 7
   }
-  NAMES = %i(
+  FIELDS = %i[
     name russian english japanese
     synonym_0 synonym_1 synonym_2 synonym_3 synonym_4 synonym_5
-  )
-  ALL_FIELDS = %i(name russian english japanese synonyms score kind)
+    weight
+  ]
+  TRACKED_FIELDS = %i[name russian english japanese synonyms score kind]
 
   def call
-    super.merge(weight: rating)
+    super
   end
 
 private
@@ -62,7 +63,7 @@ private
     fix @entry.synonyms[5]
   end
 
-  def rating
+  def weight
     (1 + Math.log10(score) * Math.log10(kind)).round(3)
   end
 

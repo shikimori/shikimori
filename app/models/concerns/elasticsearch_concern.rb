@@ -14,7 +14,7 @@ private
   end
 
   def put_elastic
-    elastic_changes = data_klass.any? { |field| changes[field] }
+    elastic_changes = data_fields.any? { |field| changes[field] }
     Elasticsearch::Update.perform_async id, class_name if elastic_changes
   end
 
@@ -22,8 +22,8 @@ private
     Elasticsearch::Destroy.perform_async id, class_name
   end
 
-  def data_klass
-    "Elasticsearch::Data::#{class_name}::ALL_FIELDS".constantize
+  def data_fields
+    "Elasticsearch::Data::#{class_name}::TRACKED_FIELDS".constantize
   end
 
   def class_name
