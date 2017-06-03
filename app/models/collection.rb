@@ -1,5 +1,6 @@
 class Collection < ApplicationRecord
   include TopicsConcern
+  include ElasticsearchConcern
 
   acts_as_voteable
 
