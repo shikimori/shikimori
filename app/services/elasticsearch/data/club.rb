@@ -1,7 +1,7 @@
 class Elasticsearch::Data::Club < Elasticsearch::Data::DataBase
-  text_search_fields %i[name locale]
-  data_fields %i[]
-  track_changes_fields text_search_fields
+  text_search_fields %i[name]
+  data_fields %i[locale]
+  track_changes_fields TEXT_SEARCH_FIELDS
 
 private
 
