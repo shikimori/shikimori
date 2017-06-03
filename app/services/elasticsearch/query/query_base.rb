@@ -19,7 +19,7 @@ private
   end
 
   def fields
-    "Elasticsearch::Data::#{type.capitalize}::NAMES".constantize
+    "Elasticsearch::Data::#{type.capitalize}::FIELDS".constantize
   end
 
   def api_call
