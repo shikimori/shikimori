@@ -1,0 +1,30 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori/club/_search
+    body:
+      encoding: UTF-8
+      string: '{"from":0,"size":10,"query":{"bool":{"should":[{"bool":{"should":[{"match":{"name.original":{"query":"ани","boost":6}}},{"match":{"name":{"query":"ани","boost":3}}},{"match":{"name.ngram":{"query":"ани"}}}]}}],"must":[{"term":{"locale":"ru"}}]}}}'
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":9,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1030,"max_score":10.508307,"hits":[{"_index":"shikimori","_type":"club","_id":"624","_score":10.508307},{"_index":"shikimori","_type":"club","_id":"421","_score":10.507594},{"_index":"shikimori","_type":"club","_id":"285","_score":10.2493925},{"_index":"shikimori","_type":"club","_id":"570","_score":10.2493925},{"_index":"shikimori","_type":"club","_id":"116","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"572","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"827","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"898","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"32","_score":9.648162},{"_index":"shikimori","_type":"club","_id":"34","_score":9.648162}]}}'
+    http_version: 
+  recorded_at: Sun, 04 Jun 2017 13:32:26 GMT
+recorded_with: VCR 3.0.3

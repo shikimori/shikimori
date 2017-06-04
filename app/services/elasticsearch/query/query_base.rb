@@ -64,7 +64,7 @@ private
       type,
       @phrase,
       @limit,
-      Elasticsearch::Reindex.time
+      Elasticsearch::Reindex.time.to_i
     ]
   end
 end
