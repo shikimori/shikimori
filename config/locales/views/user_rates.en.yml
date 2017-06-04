@@ -17,3 +17,21 @@ en:
 
     stats:
       insufficient_data: Insufficient data
+
+    user_rates:
+      tv: TV Series
+      manga: Manga
+      manhwa: Manhwa
+      manhua: Manhua
+      doujin: Doujin
+      novel: Light Novels
+      oneshot: One Shots
+      movie: Films
+      ova: OVA
+      ona: ONA
+      special: Specials
+      music: Music
+      episodes: Episodes
+      chapters: Chapters
+      volumes: Volumes
+      days: Days

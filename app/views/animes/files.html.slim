@@ -4,7 +4,7 @@
       .b-options-floated.collapse
         span.action #{t 'collapse'} (#{group.size})
         /a.rss href="#{rss_anime_url @resource, type: key}" title="RSS"
-      h2.subheadline.m10 = t "Torrents.#{key}"
+      h2.subheadline.m10 = t ".torrents.#{key}"
       .collapsed.tiny ...
       table.b-table
         - group.each do |entry|

@@ -17,3 +17,21 @@ ru:
 
     stats:
       insufficient_data: Недостаточно данных
+
+    user_rates:
+      tv: Сериалы
+      manga: Манга
+      manhwa: Манхва
+      manhua: Маньхуа
+      doujin: Додзинси
+      novel: Ранобэ
+      oneshot: Ваншоты
+      movie: Фильмы
+      ova: OVA
+      ona: ONA
+      special: Спешлы
+      music: Клипы
+      episodes: Эпизоды
+      chapters: Главы
+      volumes: Тома
+      days: Дни

@@ -59,6 +59,11 @@ ru:
       new_torrent: Новый торрент
       parse_page: Распарсить страницу
       parse: Выполнить
+      torrents:
+        torrents_480p: Эпизоды 480p
+        torrents_720p: HD Эпизоды 720p
+        torrents_1080p: FullHD Эпизоды 1080p
+        torrents: Прочие эпизоды
 
     menu:
       scores: Оценки людей

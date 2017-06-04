@@ -14,15 +14,15 @@
 
   - if list.stats
     .summary.list class="#{library.list_view}"
-      - list.stats.each do |stat,value|
-        = t "UserList.Short.#{stat}"
+      - list.stats.each do |stat, value|
+        = t ".#{stat}"
         | :&nbsp;
         span.stat-value = value
 
 - if library.total_stats.any? && !library.add_postloader?
   - if library.list_page.size > 1 || library.page > 1
     .summary.library class="#{library.list_view}"
-      - library.total_stats.each do |stat,value|
-        = t "UserList.Short.#{stat}"
+      - library.total_stats.each do |stat, value|
+        = t ".#{stat}"
         | :&nbsp;
         span.stat-value = value

@@ -59,6 +59,11 @@ en:
       new_torrent: New torrent
       parse_page: Parse page
       parse: Parse
+      torrents:
+        torrents_480p: 480p videos
+        torrents_720p: 720p HD videos
+        torrents_1080p: 1080p FullHD videos
+        torrents: Other videos
 
     menu:
       scores: Scores
