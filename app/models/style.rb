@@ -11,7 +11,7 @@ class Style < ApplicationRecord
   CSS
 
   PAGE_BACKGROUND_COLOR_CSS = <<-CSS.strip.gsub(/^ +/, '')
-    /* AUTO=page_background_color */ .l-page { background-color: rgba(%d, %d, %d, %d); }
+    /* AUTO=page_background_color */ .l-page { background-color: rgba(%d, %d, %d, %d); } .b-ajax:before { background: rgba(%d, %d, %d, 0.75); }
   CSS
 
   BODY_BACKGROUND_CSS = <<-CSS.strip.gsub(/^ +/, '')

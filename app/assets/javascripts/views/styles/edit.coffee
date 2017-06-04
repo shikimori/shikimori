@@ -31,8 +31,8 @@ class Styles.Edit extends View
     @_sync_components()
 
     @$form
-      .on 'ajax:before', => @$css.parent().addClass 'b-ajax'
-      .on 'ajax:complete', => @$css.parent().removeClass 'b-ajax'
+      .on 'ajax:before', => @$form.find('.editor-container').addClass 'b-ajax'
+      .on 'ajax:complete', => @$form.find('.editor-container').removeClass 'b-ajax'
 
     @$css
       .on 'keypress keydown', @_input_keypress

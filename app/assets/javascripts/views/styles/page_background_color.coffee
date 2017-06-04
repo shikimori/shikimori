@@ -51,6 +51,9 @@ class Styles.PageBackgroundColor extends View
         .replace(/%d/, @opacities[1])
         .replace(/%d/, @opacities[2])
         .replace(/%d/, @opacities[3])
+        .replace(/%d/, @opacities[0])
+        .replace(/%d/, @opacities[1])
+        .replace(/%d/, @opacities[2])
     else
       ''
 
