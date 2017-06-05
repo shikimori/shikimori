@@ -16,9 +16,9 @@ class Api::V1::ClubsController < Api::V1Controller
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    @collection = ClubsQuery
+    @collection = Clubs::Query
       .new(locale_from_host)
-      .fetch(page, limit, true)
+      .fetch(page, limit)
 
     respond_with @collection
   end

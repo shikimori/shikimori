@@ -104,7 +104,7 @@ class DbEntryDecorator < BaseDecorator
 
   # все связанные клубы
   def all_linked_clubs
-    query = ClubsQuery
+    query = Clubs::Query
       .new(h.locale_from_host)
       .query(true)
       .where(id: clubs_for_domain)

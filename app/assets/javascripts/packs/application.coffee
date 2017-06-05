@@ -18,6 +18,11 @@ bowser = require 'bowser'
 require '../i18n/translations'
 
 window.I18n = I18n
+window.z = require('axios')
+window.axios = require('axios').create
+  headers:
+    'X-Requested-With': 'XMLHttpRequest'
+
 window.View = require 'views/application/view'
 window.ShikiView = require 'views/application/shiki_view'
 window.ShikiEditable = require 'views/application/shiki_editable'

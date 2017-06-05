@@ -44,7 +44,7 @@ module.exports = {
       Turbolinks: 'turbolinks',
       delay: 'delay',
       throttle: 'throttle-debounce/throttle',
-      debounce: 'throttle-debounce/debounce'
+      debounce: 'throttle-debounce/debounce',
     }),
     // https://webpack.js.org/plugins/commons-chunk-plugin/
     new webpack.optimize.CommonsChunkPlugin({

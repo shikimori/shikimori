@@ -1,3 +1,4 @@
+@import globals/variables
 @import mixins/brackets_surrounded
 @import mixins/column
 @import mixins/link
@@ -26,18 +27,6 @@
     display: none
 
   .l-content
-    .filter
-      margin-bottom: $block_offset
-
-      input
-        border: none
-        font-size: 13px
-        padding: 10px
-        width: 100%
-
-        +placeholder
-          color: $gray-3
-
     .b-options-floated span
       +brackets_surrounded
 

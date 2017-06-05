@@ -3,7 +3,9 @@ en:
     index:
       new: Create new club
       notice: List of all clubs sorted by their members' activity
-      favourite: Favourite
+
+    collection:
+      favourites: Favourite
       all_clubs: All clubs
 
     page:

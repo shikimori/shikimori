@@ -1,0 +1,36 @@
+@import globals/variables
+@import mixins/placeholder
+@import mixins/retina
+
+.b-collection_search
+  .field
+    margin-bottom: $block_offset
+
+  .field
+    position: relative
+
+    input
+      border: 1px solid rgba(172, 177, 180, 0.13)
+      font-size: 13px
+      padding: 10px
+      width: 100%
+
+      +placeholder
+        color: $gray-1
+
+    // .ajax
+      // +background-inline-retina('blocks/b-ajax/ajax', 'gif', 30px, 30px)
+      // content: ''
+      // display: none
+      // height: 30px
+      // margin-top: -15px
+      // position: absolute
+      // right: 3px
+      // top: 50%
+      // width: 30px
+
+  .collection.b-ajax
+    min-height: 215px
+
+    &:after
+      top: 107px

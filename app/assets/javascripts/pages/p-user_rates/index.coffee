@@ -16,16 +16,16 @@ page_load 'user_rates_index', ->
       $chart.html("<p class='b-nothing_here'>#{text}</p>")
 
   # фокус по инпуту фильтра по тайтлу
-  $('.filter input').on 'focus', ->
+  $('.b-collection_search input').on 'focus', ->
     update_list_cache() unless list_cache.length
 
   # разворачивание свёрнутых блоков при фокусе на инпут
-  $('.filter input').on 'focus', ->
+  $('.b-collection_search input').on 'focus', ->
     $('.collapsed').each ->
       $(@).trigger 'click' if @style.display == 'block'
 
   # пишут в инпуте фильтра по тайтлу
-  $('.filter input').on 'keyup', (e) ->
+  $('.b-collection_search input').on 'keyup', (e) ->
     return if e.keyCode == 91 || e.keyCode == 18 || e.keyCode == 16 || e.keyCode == 17
 
     if filter_timer
@@ -72,7 +72,7 @@ filter = ->
   filter_timer = null
 
   # разворачивание свёрнутых элементов
-  filter_value = $('.filter input').val().toLowerCase()
+  filter_value = $('.b-collection_search input').val().toLowerCase()
   $entries = $('tr.selectable')
   list_cache.forEach (block) ->
     visible = false
@@ -333,7 +333,7 @@ insert_next_page = (e, $data) ->
 
 process_next_page = ->
   update_list_cache()
-  filter() unless Object.isEmpty($('.filter input').val())
+  filter() unless Object.isEmpty($('.b-collection_search input').val())
   $.force_appear()
 
 update_text_in_cache = (data) ->

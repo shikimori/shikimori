@@ -6,10 +6,11 @@ json.content render(
   formats: :html
 )
 
-if @add_postloader
+if @collection.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-club',
-    next_url: page_clubs_url(page: @page+1)
+    next_url: page_clubs_url(page: @collection.next_page, search: params[:search]),
+    prev_url: (page_clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
   )
 end

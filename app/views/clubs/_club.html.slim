@@ -4,15 +4,18 @@
 ]
   - if content_by == :detailed
     - comments_count = club.maybe_topic(locale_from_host).comments_count
-    a href="#{club_url club, subdomain: false}" title="#{club.name}"
+    a.name-logo[
+      href="#{club_url club, subdomain: false}"
+      title="#{club.name}"
+    ]
       img.logo[
         src="#{cdn_image club, :x48}"
         srcset="#{cdn_image club, :x96} 2x"
         alt="#{club.name}"
         title="#{club.name}"
       ]
-    a.name href="#{club_url club, subdomain: false}" title="#{club.name}"
-      = club.name
+      .name
+        = club.name
     .info
       span.grouped
         span.number #{club.members_count}

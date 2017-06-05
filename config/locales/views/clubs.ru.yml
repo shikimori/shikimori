@@ -3,7 +3,9 @@ ru:
     index:
       new: Создать новый клуб
       notice: Список всех клубов сайта в порядке активности участников
-      favourite: Избранные
+
+    collection:
+      favourites: Избранное
       all_clubs: Все клубы
 
     page:

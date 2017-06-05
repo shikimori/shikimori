@@ -35,10 +35,17 @@ class ClubsController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 24].max, 48].min
 
-    clubs_query = ClubsQuery.new(locale_from_host)
+    query = Clubs::Query.fetch(locale_from_host)
 
-    @favourite = clubs_query.favourite if @page == 1
-    @collection, @add_postloader = clubs_query.postload @page, @limit
+    if params[:search].present?
+      query = query.search params[:search], locale_from_host
+    end
+
+    if @page == 1 && params[:search].blank?
+      @favourites = query.favourites
+    end
+
+    @collection = query.paginate @page, @limit
   end
 
   def show

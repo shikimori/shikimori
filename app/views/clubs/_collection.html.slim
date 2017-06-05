@@ -1,0 +1,20 @@
+- if @favourites
+  .subheadline.m10 = t '.favourites'
+  .b-clubs.index
+    = render partial: 'clubs/club',
+      collection: @favourites,
+      locals: { content_by: :detailed },
+      cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
+
+  .subheadline.m10 = t '.all_clubs'
+
+.b-clubs.index
+  = render partial: 'clubs/club',
+    collection: @collection,
+    locals: { content_by: :detailed },
+    cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
+
+  - if @collection.next_page?
+    = render 'blocks/postloader', filter: 'b-club',
+      next_url: page_clubs_url(page: @collection.next_page, search: params[:search]),
+      prev_url: (page_clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)

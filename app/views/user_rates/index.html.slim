@@ -22,10 +22,11 @@
             name: 'list_view',
             values: ['lines', 'posters']
 
-        h2.subheadline = @page_title.last
+        .subheadline.m10 = @page_title.last
 
-        .filter
-          input placeholder="#{t '.search_by_name'}"
+        .b-collection_search
+          .field
+            input placeholder="#{t 'search'}"
 
         - if @library.any?
           .list-groups

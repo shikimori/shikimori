@@ -8,7 +8,10 @@ class Search::SearchBase
     search_ids = elastic_results.map { |v| v['_id'] }
 
     if search_ids.any?
-      @scope.where(id: search_ids).order(order_sql(search_ids))
+      @scope
+        .where(id: search_ids)
+        .except(:order)
+        .order(order_sql(search_ids))
     else
       @scope.none
     end

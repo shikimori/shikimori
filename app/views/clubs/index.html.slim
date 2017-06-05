@@ -1,29 +1,26 @@
-header.head.misc
-  h1 = @page_title.last
+- if request.xhr?
+  = render 'clubs/collection'
 
-  a.misc.to-process[
-    href="#{new_club_url 'club[owner_id]' => current_user&.id}"
-    title="#{ t '.new'}"
-    data-dynamic="week_registered"
-  ] = t('actions.create').downcase
+- else
+  header.head.misc
+    h1 = @page_title.last
 
-  p.notice.clearfix = t '.notice'
+    a.misc.to-process[
+      href="#{new_club_url 'club[owner_id]' => current_user&.id}"
+      title="#{ t '.new'}"
+      data-dynamic="week_registered"
+    ] = t('actions.create').downcase
 
-- if @favourite
-  .subheadline.m10 = t '.favourite'
-  .b-clubs.index
-    = render @favourite, content_by: :detailed
+    p.notice.clearfix = t '.notice'
 
-- if @favourite
-  .subheadline.m10 = t '.all_clubs'
+  .b-collection_search[
+    data-search_url="#{clubs_url}"
+  ]
+    .field
+      input[
+        type="text"
+        placeholder="#{t 'search'}"
+      ]
 
-.b-clubs.index
-  = render partial: 'clubs/club',
-    collection: @collection,
-    locals: { content_by: :detailed },
-    cache: ->(entry, _) { CacheHelper.keys entry, :detailed }
-
-  - if @add_postloader
-    = render 'blocks/postloader', filter: 'b-club',
-      next_url: page_clubs_url(page: @page+1),
-      prev_url: (@page > 1 ? page_clubs_url(page: @page-1) : nil)
+    .collection
+      = render 'clubs/collection'
