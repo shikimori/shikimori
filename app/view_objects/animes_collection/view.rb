@@ -34,7 +34,9 @@ class AnimesCollection::View < ViewObjectBase
 
   def cache_key
     user_key = user if h.params[:mylist]
-    reindex = Elasticsearch::Reindex.time if h.params[:search] || h.params[:q]
+    if h.params[:search] || h.params[:q]
+      reindex = Elasticsearch::Reindex.time(klass.name.downcase)
+    end
     initial_key = [klass.name, user_key, reindex, 'v6']
 
     h.params
