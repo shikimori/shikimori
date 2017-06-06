@@ -5,12 +5,13 @@
 class Elasticsearch::Query::Anime < Elasticsearch::Query::QueryBase
 private
 
+  # rubocop:disable MethodLength
   def query
     {
       function_score: {
         query: {
           dis_max: {
-            queries: fields_queries
+            queries: [name_fields_query]
           }
         },
         field_value_factor: {
@@ -21,4 +22,5 @@ private
       }
     }
   end
+  # rubocop:enable MethodLength
 end

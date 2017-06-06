@@ -75,7 +75,7 @@
         char_filter:
           - fix_synonyms
 
-  :default_index_data: &default_index_data
+  :default_type_mappings: &default_type_mappings
     _source:
       enabled: false
     _all:
@@ -96,102 +96,76 @@
         analyzer: ngram_analyzer
         search_analyzer: input_analyzer
 
-  :node:
-    settings:
-      analysis:
-        <<: *analysis
-    mappings:
-      anime:
-        <<: *default_index_data
-        properties:
-          weight:
-            type: half_float
-            index: not_analyzed
-          name:
-            <<: *name_properties
-          russian:
-            <<: *name_properties
-          english:
-            <<: *name_properties
-          japanese:
-            <<: *name_properties
-          synonym_0:
-            <<: *name_properties
-          synonym_1:
-            <<: *name_properties
-          synonym_2:
-            <<: *name_properties
-          synonym_3:
-            <<: *name_properties
-          synonym_4:
-            <<: *name_properties
-          synonym_5:
-            <<: *name_properties
-      manga:
-        <<: *default_index_data
-        properties:
-          weight:
-            type: half_float
-            index: not_analyzed
-          name:
-            <<: *name_properties
-          russian:
-            <<: *name_properties
-          english:
-            <<: *name_properties
-          japanese:
-            <<: *name_properties
-          synonym_0:
-            <<: *name_properties
-          synonym_1:
-            <<: *name_properties
-          synonym_2:
-            <<: *name_properties
-          synonym_3:
-            <<: *name_properties
-          synonym_4:
-            <<: *name_properties
-          synonym_5:
-            <<: *name_properties
-      character:
-        <<: *default_index_data
-        properties:
-          fullname:
-            <<: *name_properties
-          russian:
-            <<: *name_properties
-          japanese:
-            <<: *name_properties
-      person:
-        <<: *default_index_data
-        properties:
-          name:
-            <<: *name_properties
-          russian:
-            <<: *name_properties
-          japanese:
-            <<: *name_properties
-          is_seyu:
-            type: boolean
-            index: not_analyzed
-          is_producer:
-            type: boolean
-            index: not_analyzed
-          is_mangaka:
-            type: boolean
-            index: not_analyzed
-      user:
-        <<: *default_index_data
-        properties:
-          nickname:
-            <<: *name_properties
-      club:
-        <<: *default_index_data
-        properties:
-          name:
-            <<: *name_properties
-      collection:
-        <<: *default_index_data
-        properties:
-          name:
-            <<: *name_properties
+  :mappings:
+    :animes: &anime_mappings
+      <<: *default_type_mappings
+      properties:
+        weight:
+          type: half_float
+          index: not_analyzed
+        name:
+          <<: *name_properties
+        russian:
+          <<: *name_properties
+        english:
+          <<: *name_properties
+        japanese:
+          <<: *name_properties
+        synonym_0:
+          <<: *name_properties
+        synonym_1:
+          <<: *name_properties
+        synonym_2:
+          <<: *name_properties
+        synonym_3:
+          <<: *name_properties
+        synonym_4:
+          <<: *name_properties
+        synonym_5:
+          <<: *name_properties
+    :mangas:
+      <<: *anime_mappings
+    :ranobe:
+      <<: *anime_mappings
+    :characters:
+      <<: *default_type_mappings
+      properties:
+        fullname:
+          <<: *name_properties
+        russian:
+          <<: *name_properties
+        japanese:
+          <<: *name_properties
+    :people:
+      <<: *default_type_mappings
+      properties:
+        name:
+          <<: *name_properties
+        russian:
+          <<: *name_properties
+        japanese:
+          <<: *name_properties
+        is_seyu:
+          type: boolean
+          index: not_analyzed
+        is_producer:
+          type: boolean
+          index: not_analyzed
+        is_mangaka:
+          type: boolean
+          index: not_analyzed
+    :users:
+      <<: *default_type_mappings
+      properties:
+        nickname:
+          <<: *name_properties
+    :clubs:
+      <<: *default_type_mappings
+      properties:
+        name:
+          <<: *name_properties
+    :collections:
+      <<: *default_type_mappings
+      properties:
+        name:
+          <<: *name_properties

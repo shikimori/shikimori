@@ -8,7 +8,7 @@ describe Elasticsearch::Destroy do
 
     it do
       expect(Elasticsearch::Client.instance).to have_received(:delete).with(
-        "#{Elasticsearch::Create::INDEX}/anime/#{anime.id}"
+        "#{Elasticsearch::Create::INDEX}_animes/animes/#{anime.id}"
       )
     end
   end

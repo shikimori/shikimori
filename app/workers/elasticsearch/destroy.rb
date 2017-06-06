@@ -5,8 +5,10 @@ class Elasticsearch::Destroy
   INDEX = Elasticsearch::Config::INDEX
 
   def perform entry_id, entry_type
+    type = entry_type.downcase.pluralize
+
     Elasticsearch::Client.instance.delete(
-      "#{INDEX}/#{entry_type.downcase}/#{entry_id}"
+      "#{INDEX}_#{type}/#{type}/#{entry_id}"
     )
   end
 end

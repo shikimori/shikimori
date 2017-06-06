@@ -19,33 +19,35 @@ private
   end
 
   def api_call
-    Elasticsearch::Client.instance.get "#{INDEX}/#{type}/_search",
+    Elasticsearch::Client.instance.get(
+      "#{INDEX}_#{type.pluralize}/#{type.pluralize}/_search",
       from: 0,
       size: @limit,
       query: query
+    )
   end
 
   def query
+    name_fields_query
+  end
+
+  def name_fields_query
     {
-      bool: { should: fields_queries }
+      bool: { should: name_fields_match }
     }
   end
 
-  def fields_queries
-    "Elasticsearch::Data::#{type.capitalize}::TEXT_SEARCH_FIELDS".constantize
-      .map { |field| field_query(field) }
+  def name_fields_match
+    "Elasticsearch::Data::#{type.capitalize}::NAME_FIELDS".constantize
+      .flat_map { |field| field_query(field) }
   end
 
   def field_query field
-    {
-      bool: {
-        should: [
-          { match: { "#{field}.original" => { query: keyword, boost: 6 } } },
-          { match: { field => { query: keyword, boost: 3 } } },
-          { match: { "#{field}.ngram": { query: keyword } } }
-        ]
-      }
-    }
+    [
+      { match: { "#{field}.original" => { query: keyword, boost: 6 } } },
+      { match: { field => { query: keyword, boost: 3 } } },
+      { match: { "#{field}.ngram": { query: keyword } } }
+    ]
   end
 
   def parse api_results
@@ -64,7 +66,7 @@ private
       type,
       @phrase,
       @limit,
-      Elasticsearch::Reindex.time.to_i
+      Elasticsearch::Reindex.time(type).to_i
     ]
   end
 end

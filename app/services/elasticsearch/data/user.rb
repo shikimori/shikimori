@@ -1,7 +1,7 @@
 class Elasticsearch::Data::User < Elasticsearch::Data::DataBase
-  text_search_fields %i[nickname]
+  name_fields %i[nickname]
   data_fields %i[]
-  track_changes_fields TEXT_SEARCH_FIELDS
+  track_changes_fields NAME_FIELDS
 
 private
 

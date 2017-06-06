@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:9200/shikimori/collection/_search
+    uri: http://localhost:9200/shikimori_collections/collections/_search
     body:
       encoding: UTF-8
-      string: '{"from":0,"size":10,"query":{"bool":{"should":[{"bool":{"should":[{"match":{"name.original":{"query":"ани","boost":6}}},{"match":{"name":{"query":"ани","boost":3}}},{"match":{"name.ngram":{"query":"ани"}}}]}}],"must":[{"term":{"locale":"ru"}}]}}}'
+      string: '{"from":0,"size":10,"query":{"bool":{"must":[{"bool":{"should":[{"match":{"name.original":{"query":"ани","boost":6}}},{"match":{"name":{"query":"ани","boost":3}}},{"match":{"name.ngram":{"query":"ани"}}}]}},{"term":{"locale":"ru"}}]}}}'
     headers:
       User-Agent:
       - Faraday v0.11.0
@@ -24,7 +24,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"took":8,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":98,"max_score":9.648162,"hits":[{"_index":"shikimori","_type":"collection","_id":"32","_score":9.648162},{"_index":"shikimori","_type":"collection","_id":"146","_score":9.648162},{"_index":"shikimori","_type":"collection","_id":"126","_score":9.155991},{"_index":"shikimori","_type":"collection","_id":"70","_score":8.970406},{"_index":"shikimori","_type":"collection","_id":"135","_score":8.970406},{"_index":"shikimori","_type":"collection","_id":"17","_score":8.940539},{"_index":"shikimori","_type":"collection","_id":"31","_score":8.940539},{"_index":"shikimori","_type":"collection","_id":"53","_score":8.940539},{"_index":"shikimori","_type":"collection","_id":"7","_score":8.748568},{"_index":"shikimori","_type":"collection","_id":"140","_score":8.748568}]}}'
+      string: '{"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":15,"max_score":2.8583746,"hits":[{"_index":"shikimori_collections","_type":"collections","_id":"106","_score":2.8583746},{"_index":"shikimori_collections","_type":"collections","_id":"7","_score":2.760372},{"_index":"shikimori_collections","_type":"collections","_id":"140","_score":2.760372},{"_index":"shikimori_collections","_type":"collections","_id":"32","_score":2.7150683},{"_index":"shikimori_collections","_type":"collections","_id":"146","_score":2.7150683},{"_index":"shikimori_collections","_type":"collections","_id":"70","_score":2.582616},{"_index":"shikimori_collections","_type":"collections","_id":"135","_score":2.582616},{"_index":"shikimori_collections","_type":"collections","_id":"126","_score":2.3138587},{"_index":"shikimori_collections","_type":"collections","_id":"17","_score":2.2230115},{"_index":"shikimori_collections","_type":"collections","_id":"31","_score":2.2230115}]}}'
     http_version: 
-  recorded_at: Sun, 04 Jun 2017 13:37:26 GMT
+  recorded_at: Tue, 06 Jun 2017 00:07:38 GMT
 recorded_with: VCR 3.0.3

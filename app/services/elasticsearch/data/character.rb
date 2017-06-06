@@ -1,7 +1,7 @@
 class Elasticsearch::Data::Character < Elasticsearch::Data::DataBase
-  text_search_fields %i[fullname russian japanese]
+  name_fields %i[fullname russian japanese]
   data_fields %i[]
-  track_changes_fields TEXT_SEARCH_FIELDS
+  track_changes_fields NAME_FIELDS
 
 private
 

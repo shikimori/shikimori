@@ -1,5 +1,8 @@
 - if request.xhr?
-  = render 'clubs/collection'
+  - if @collection.empty?
+    .b-nothing_here = t 'nothing_found'
+  - else
+    = render 'clubs/collection'
 
 - else
   header.head.misc
@@ -20,7 +23,9 @@
       input[
         type="text"
         placeholder="#{t 'search'}"
+        value="#{params[:search]}"
       ]
+      .clear
 
     .collection
       = render 'clubs/collection'

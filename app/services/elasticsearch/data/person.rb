@@ -1,7 +1,7 @@
 class Elasticsearch::Data::Person < Elasticsearch::Data::DataBase
-  text_search_fields %i[name russian japanese]
+  name_fields %i[name russian japanese]
   data_fields %i[is_seyu is_producer is_mangaka]
-  track_changes_fields TEXT_SEARCH_FIELDS
+  track_changes_fields NAME_FIELDS
 
 private
 

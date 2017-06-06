@@ -7,9 +7,11 @@ class Elasticsearch::Create < Elasticsearch::Destroy
   end
 
   def sync entry
+    type = entry.class.name.pluralize.downcase
+
     Elasticsearch::Client.instance.send(
       self.class::METHOD,
-      "#{INDEX}/#{entry.class.name.downcase}/#{entry.id}",
+      "#{INDEX}_#{type}/#{type}/#{entry.id}",
       "Elasticsearch::Data::#{entry.class.name}".constantize.call(entry)
     )
   end

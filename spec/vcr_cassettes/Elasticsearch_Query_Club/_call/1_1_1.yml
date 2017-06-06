@@ -2,10 +2,10 @@
 http_interactions:
 - request:
     method: get
-    uri: http://localhost:9200/shikimori/club/_search
+    uri: http://localhost:9200/shikimori_clubs/clubs/_search
     body:
       encoding: UTF-8
-      string: '{"from":0,"size":10,"query":{"bool":{"should":[{"bool":{"should":[{"match":{"name.original":{"query":"ани","boost":6}}},{"match":{"name":{"query":"ани","boost":3}}},{"match":{"name.ngram":{"query":"ани"}}}]}}],"must":[{"term":{"locale":"ru"}}]}}}'
+      string: '{"from":0,"size":10,"query":{"bool":{"must":[{"bool":{"should":[{"match":{"name.original":{"query":"ани","boost":6}}},{"match":{"name":{"query":"ани","boost":3}}},{"match":{"name.ngram":{"query":"ани"}}}]}},{"term":{"locale":"ru"}}]}}}'
     headers:
       User-Agent:
       - Faraday v0.11.0
@@ -24,7 +24,7 @@ http_interactions:
       - chunked
     body:
       encoding: ASCII-8BIT
-      string: '{"took":9,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1030,"max_score":10.508307,"hits":[{"_index":"shikimori","_type":"club","_id":"624","_score":10.508307},{"_index":"shikimori","_type":"club","_id":"421","_score":10.507594},{"_index":"shikimori","_type":"club","_id":"285","_score":10.2493925},{"_index":"shikimori","_type":"club","_id":"570","_score":10.2493925},{"_index":"shikimori","_type":"club","_id":"116","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"572","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"827","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"898","_score":9.975733},{"_index":"shikimori","_type":"club","_id":"32","_score":9.648162},{"_index":"shikimori","_type":"club","_id":"34","_score":9.648162}]}}'
+      string: '{"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":109,"max_score":3.6988275,"hits":[{"_index":"shikimori_clubs","_type":"clubs","_id":"624","_score":3.6988275},{"_index":"shikimori_clubs","_type":"clubs","_id":"421","_score":3.6463878},{"_index":"shikimori_clubs","_type":"clubs","_id":"76","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"257","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"291","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"513","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"612","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"993","_score":3.4173803},{"_index":"shikimori_clubs","_type":"clubs","_id":"32","_score":3.4026144},{"_index":"shikimori_clubs","_type":"clubs","_id":"34","_score":3.4026144}]}}'
     http_version: 
-  recorded_at: Sun, 04 Jun 2017 13:32:26 GMT
+  recorded_at: Tue, 06 Jun 2017 00:07:38 GMT
 recorded_with: VCR 3.0.3

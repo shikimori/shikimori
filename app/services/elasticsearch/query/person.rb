@@ -1,13 +1,17 @@
 class Elasticsearch::Query::Person < Elasticsearch::Query::QueryBase
-  method_object [:phrase, :limit, :is_mangaka, :is_seyu, :is_producer]
+  method_object %i[phrase limit is_mangaka is_seyu is_producer]
 
 private
 
   def query
     {
       bool: {
-        should: fields_queries,
-        must: [mangaka_query, seyu_query, producer_query].compact
+        must: [
+          name_fields_query,
+          mangaka_query,
+          seyu_query,
+          producer_query
+        ].compact
       }
     }
   end

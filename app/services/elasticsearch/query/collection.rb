@@ -6,8 +6,7 @@ private
   def query
     {
       bool: {
-        should: fields_queries,
-        must: [locale_query]
+        must: [name_fields_query, locale_query]
       }
     }
   end

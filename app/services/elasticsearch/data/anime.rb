@@ -10,7 +10,7 @@ class Elasticsearch::Data::Anime < Elasticsearch::Data::DataBase
     special: 8,
     music: 7
   }
-  text_search_fields %i[
+  name_fields %i[
     name russian english japanese
     synonym_0 synonym_1 synonym_2 synonym_3 synonym_4 synonym_5
   ]

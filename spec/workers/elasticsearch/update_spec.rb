@@ -8,7 +8,7 @@ describe Elasticsearch::Update do
 
     it do
       expect(Elasticsearch::Client.instance).to have_received(:put).with(
-        "#{Elasticsearch::Create::INDEX}/anime/#{anime.id}",
+        "#{Elasticsearch::Create::INDEX}_animes/animes/#{anime.id}",
         Elasticsearch::Data::Anime.call(anime)
       )
     end

@@ -1,7 +1,7 @@
 describe PaginatedCollection do
   subject(:pagination) { PaginatedCollection.new collection, page, limit }
 
-  let(:collection) { [1j 2] }
+  let(:collection) { [1, 2] }
   let(:page) { 1 }
   let(:limit) { 2 }
 

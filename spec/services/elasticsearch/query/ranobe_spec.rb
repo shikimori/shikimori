@@ -7,6 +7,6 @@ describe Elasticsearch::Query::Ranobe do
 
     subject { service.call }
 
-    it { is_expected.to have(1).item }
+    it { is_expected.to have(2).items }
   end
 end

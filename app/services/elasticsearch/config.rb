@@ -12,9 +12,7 @@ class Elasticsearch::Config
     config[key]
   end
 
-private
-
   def config
-    YAML.load_file CONFIG_FILE
+    @config ||= YAML.load_file CONFIG_FILE
   end
 end
