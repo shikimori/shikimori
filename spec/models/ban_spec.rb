@@ -136,7 +136,7 @@ describe Ban do
     describe '#suggest_duration' do
       subject { ban.suggest_duration }
       let(:ban) { build_stubbed :ban, params }
-      before { allow_any_instance_of(UsersQuery).to receive(:bans_count).and_return bans_count }
+      before { allow(Users::BansCount).to receive(:call).and_return bans_count }
 
       context '0 bans' do
         let(:bans_count) { 0 }

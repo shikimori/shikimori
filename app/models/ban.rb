@@ -27,7 +27,7 @@ class Ban < ApplicationRecord
   end
 
   def suggest_duration
-    bans_count = UsersQuery.new(user_id: user_id).bans_count
+    bans_count = Users::BansCount.call user_id
 
     duration = if bans_count > 15
       '1w 3d 12h'

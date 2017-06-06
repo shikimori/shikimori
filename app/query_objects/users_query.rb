@@ -9,18 +9,6 @@ class UsersQuery
     @klass = User
   end
 
-  def bans_count
-    query = User.find(@params[:user_id])
-      .bans
-      .where('created_at > ?', Time.zone.now - Ban::ACTIVE_DURATION)
-      .where.not(moderator_id: User::BANHAMMER_ID)
-
-    warnings = query.where(duration: 0).count
-    bans = query.where.not(duration: 0).count
-
-    (warnings > 0 ? 1 : 0) + bans
-  end
-
   # для поиска на странице поиска пользователей (тут специально нет reverse, т.к. на выходе нужен relation)
   def search
     search_order @klass.where(search_queries.join(' or '))
