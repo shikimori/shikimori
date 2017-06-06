@@ -112,38 +112,39 @@
               next_url: root_page_url(page: @dashboard_view.news_topic_views.next_page)
 
     .c-generated_news
-      - if Rails.env.production? && ru_host?
-        - if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
-          .y-sponsored#yandex_rtb_R-A-227837-1
-            javascript:
-                (function(w, d, n, s, t) {
-                    if (mobile_detect.tablet() || mobile_detect.phone()) {
-                      return;
-                    }
-                    w[n] = w[n] || [];
-                    w[n].push(function() {
-                        Ya.Context.AdvManager.render({
-                            blockId: "R-A-227837-1",
-                            renderTo: "yandex_rtb_R-A-227837-1",
-                            horizontalAlign: true,
-                            async: true
-                        });
-                    });
-                    t = d.getElementsByTagName("script")[0];
-                    s = d.createElement("script");
-                    s.type = "text/javascript";
-                    s.src = "//an.yandex.ru/system/context.js";
-                    s.async = true;
-                    t.parentNode.insertBefore(s, t);
-                })(this, this.document, "yandexContextAsyncCallbacks");
+      / - if Rails.env.production? && ru_host?
+        / - if !user_signed_in? || !current_user.moderator? || !current_user.versions_moderator? || current_user.admin?
+          / .y-sponsored#yandex_rtb_R-A-227837-1
+            / javascript:
+                / (function(w, d, n, s, t) {
+                    / if (mobile_detect.tablet() || mobile_detect.phone()) {
+                      / return;
+                    / }
+                    / w[n] = w[n] || [];
+                    / w[n].push(function() {
+                        / Ya.Context.AdvManager.render({
+                            / blockId: "R-A-227837-1",
+                            / renderTo: "yandex_rtb_R-A-227837-1",
+                            / horizontalAlign: true,
+                            / async: true
+                        / });
+                    / });
+                    / t = d.getElementsByTagName("script")[0];
+                    / s = d.createElement("script");
+                    / s.type = "text/javascript";
+                    / s.src = "//an.yandex.ru/system/context.js";
+                    / s.async = true;
+                    / t.parentNode.insertBefore(s, t);
+                / })(this, this.document, "yandexContextAsyncCallbacks");
 
       / = render 'sponsors/ad', ad: Ad.new(300, 250), obtrusive: true
-      / center.block
-        / a href="https://shikimori.org/forum/site/208016-gruppa-sayta-v-vk-com"
-          / img[
-            / src="/assets/globals/reposts-contest.png"
-            / srcset="/assets/globals/reposts-contest@2x.png 2x"
-          / ]
+      - if ru_host?
+        center.block
+          a href="https://vk.com/wall-9273458_33545"
+            img[
+              src="/assets/globals/events/comicfest.jpg"
+              srcset="/assets/globals/events/comicfest@2x.jpg 2x"
+            ]
 
       / .midheadline.gray.m15 = t 'sponsors'
       / .container
