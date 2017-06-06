@@ -25,21 +25,39 @@ describe Clubs::Query do
     end
 
     describe '#search' do
-      before do
-        allow(Elasticsearch::Query::Club).to receive(:call).with(
-          phrase: 'test',
-          locale: 'ru',
-          limit: Clubs::Query::SEARCH_LIMIT
-        ).and_return(
-          [
-            { '_id' => club_3.id },
-            { '_id' => club_2.id },
-            { '_id' => club_en.id }
-          ]
-        )
+      subject { query.search phrase, 'ru' }
+
+      context 'present search phrase' do
+        before do
+          allow(Elasticsearch::Query::Club).to receive(:call).with(
+            phrase: phrase,
+            locale: 'ru',
+            limit: Clubs::Query::SEARCH_LIMIT
+          ).and_return(
+            [
+              { '_id' => club_3.id },
+              { '_id' => club_2.id },
+              { '_id' => club_en.id }
+            ]
+          )
+        end
+        let(:phrase) { 'test' }
+
+        it do
+          is_expected.to eq [club_3, club_2]
+          expect(Elasticsearch::Query::Club).to have_received(:call).once
+        end
       end
-      subject { query.search 'test', 'ru' }
-      it { is_expected.to eq [club_3, club_2] }
+
+      context 'missing search phrase' do
+        before { allow(Elasticsearch::Query::Club).to receive :call }
+        let(:phrase) { '' }
+
+        it do
+          is_expected.to eq [club_1, club_2, club_3, club_favoured]
+          expect(Elasticsearch::Query::Club).to_not have_received :call
+        end
+      end
     end
   end
 end

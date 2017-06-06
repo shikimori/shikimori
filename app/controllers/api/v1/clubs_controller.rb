@@ -12,13 +12,14 @@ class Api::V1::ClubsController < Api::V1Controller
   api :GET, '/clubs', 'List clubs'
   param :page, :number, required: false
   param :limit, :number, required: false, desc: "#{LIMIT} maximum"
+  param :search, String, required: false
   def index
     page = [params[:page].to_i, 1].max
     limit = [[params[:limit].to_i, 1].max, LIMIT].min
 
-    @collection = Clubs::Query
-      .new(locale_from_host)
-      .fetch(page, limit)
+    @collection = Clubs::Query.fetch(locale_from_host)
+      .search(params[:search], locale_from_host)
+      .paginate_n1(page, limit)
 
     respond_with @collection
   end

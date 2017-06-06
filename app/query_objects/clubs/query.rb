@@ -19,6 +19,8 @@ class Clubs::Query < QueryObjectBase
   end
 
   def search phrase, locale
+    return self if phrase.blank?
+
     chain Search::Club.call(
       scope: @scope,
       phrase: phrase,

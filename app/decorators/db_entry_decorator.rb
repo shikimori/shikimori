@@ -104,9 +104,7 @@ class DbEntryDecorator < BaseDecorator
 
   # все связанные клубы
   def all_linked_clubs
-    query = Clubs::Query
-      .new(h.locale_from_host)
-      .query(true)
+    query = Clubs::Query.fetch(h.locale_from_host)
       .where(id: clubs_for_domain)
 
     if !object.try(:censored?) && h.censored_forbidden?
@@ -143,7 +141,7 @@ class DbEntryDecorator < BaseDecorator
     h.send "#{klass_lower}_url", object
   end
 
-  def url subdomain=true
+  def url subdomain = true
     h.send "#{klass_lower}_url", object, subdomain: subdomain
   end
 
@@ -172,7 +170,7 @@ class DbEntryDecorator < BaseDecorator
 
   def headline_array
     if h.ru_host?
-      if !h.user_signed_in? || (I18n.russian? && h.current_user.preferences.russian_names?)
+      if russian_names?
         [russian, name].select(&:present?).compact
       else
         [name, russian].select(&:present?).compact
@@ -192,5 +190,12 @@ class DbEntryDecorator < BaseDecorator
     else
       object.class.name.downcase
     end
+  end
+
+  def russian_names?
+    !h.user_signed_in? || (
+      I18n.russian? &&
+      h.current_user.preferences.russian_names?
+    )
   end
 end

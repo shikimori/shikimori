@@ -2,23 +2,27 @@ describe Api::V1::ClubsController, :show_in_doc do
   let(:club) { create :club }
 
   describe '#index' do
-    let(:user) { create :user }
-    let(:club_1) { create :club, :with_topics }
-    let(:club_2) { create :club, :with_topics }
-    let(:club_en) { create :club, :with_topics, locale: :en }
+    include_context :timecop
+
+    let!(:club_en) { create :club, :with_topics, locale: :en, id: 1 }
+    let!(:club_1) { create :club, :with_topics, id: 2 }
+    let!(:club_2) { create :club, :with_topics, id: 3 }
+    let!(:club_3) { create :club, :with_topics, id: 4 }
 
     before do
-      club_1.members << user
-      club_2.members << user
-      club_en.members << user
+      get :index,
+        params: {
+          page: 1,
+          limit: 1,
+          search: ''
+        },
+        format: :json
     end
-
-    before { get :index, params: { page: 1, limit: 1 }, format: :json }
 
     it do
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(2).items
+      expect(collection).to eq [club_1, club_2]
     end
   end
 

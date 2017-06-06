@@ -15,6 +15,14 @@ class QueryObjectBase
     chain PaginatedCollection.new(new_scope, page, limit)
   end
 
+  def paginate_n1 page, limit
+    new_scope = @scope
+      .offset(limit * (page-1))
+      .limit(limit + 1)
+
+    chain PaginatedCollection.new(new_scope, page, limit)
+  end
+
   QUERY_METHODS.each do |method_name|
     define_method method_name do |*args|
       chain @scope.public_send(method_name, *args)
