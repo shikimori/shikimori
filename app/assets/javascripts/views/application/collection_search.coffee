@@ -21,13 +21,15 @@ module.exports = class CollectionSearch extends View
     phrase = @_search_phrase()
 
     return if phrase == @current_phrase
-    return if phrase.length == 1
 
-    @current_phrase = phrase
-    @debounced_search()
-    @_show_ajax()
+    if phrase.length == 1
+      @_hide_ajax()
+    else
+      @current_phrase = phrase
+      @debounced_search()
+      @_show_ajax()
 
-    @$clear.toggle !Object.isEmpty(phrase)
+      @$clear.toggle !Object.isEmpty(phrase)
 
   _clear_phrase: =>
     @$input
@@ -39,11 +41,11 @@ module.exports = class CollectionSearch extends View
   _search: =>
     phrase = @_search_phrase()
     return if @cache[phrase] == PENDING_REQUEST
-    return if phrase.length == 1
 
-    if @cache[phrase]
+    if phrase.length == 1
+      @_hide_ajax()
+    else if @cache[phrase]
       @_show_results @cache[phrase]
-
     else
       axios
         .get(@_search_url(phrase), headers: { 'Accept': 'text/html' })
