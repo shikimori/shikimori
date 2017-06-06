@@ -11,6 +11,7 @@ module.exports = class CollectionSearch extends View
     @current_phrase = @_search_phrase()
 
     @$clear.toggle !Object.isEmpty(@current_phrase)
+    @$input.focus() if @$input.is(':appeared')
 
     @$input.on 'change blur keyup paste', @_filter_changed
     @$clear.on 'click', @_clear_phrase
@@ -19,6 +20,13 @@ module.exports = class CollectionSearch extends View
   # handlers
   _filter_changed: (e) =>
     phrase = @_search_phrase()
+
+    if e.keyCode == 27
+      if Object.isEmpty(phrase)
+        @$input.blur()
+      else
+        @_clear_phrase()
+      return
 
     return if phrase == @current_phrase
 
