@@ -3,7 +3,7 @@ module.exports = class CollectionSearch extends View
 
   initialize: ->
     @cache = {}
-    @$collection = @$ '.collection'
+    @$collection = @$root.children('.collection')
     @$input = @$('.field input')
     @$clear = @$('.field .clear')
 
