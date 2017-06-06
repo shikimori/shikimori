@@ -5,11 +5,12 @@ json.content JsExports::Supervisor.instance.sweep(render(
   cache: true
 ))
 
-if @add_postloader
+if @collection.next_page?
   json.postloader render(
     'blocks/postloader',
-    filter: 'b-club',
-    next_url: collections_url(page: @page+1)
+    filter: 'b-collection-topic',
+    next_url: collections_url(page: @collection.next_page, search: params[:search]),
+    prev_url: (collections_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
   )
 end
 

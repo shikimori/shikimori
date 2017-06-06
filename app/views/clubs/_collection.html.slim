@@ -1,4 +1,4 @@
-- if @favourites
+- if @favourites&.any?
   .subheadline.m10 = t '.favourites'
   .b-clubs.index
     = render partial: 'clubs/club',

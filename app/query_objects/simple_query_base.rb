@@ -1,3 +1,5 @@
+# Deprecated
+# TODO: Get rid of this class
 class SimpleQueryBase
   extend DslAttribute
   dsl_attribute :decorate_page

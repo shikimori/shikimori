@@ -15,9 +15,9 @@ class CollectionsController < ShikimoriController
     @page = [params[:page].to_i, 1].max
     @limit = [[params[:limit].to_i, 4].max, 8].min
 
-    @collection, @add_postloader = CollectionsQuery
-      .new(locale_from_host)
-      .postload(@page, @limit)
+    @collection = Collections::Query.fetch(locale_from_host)
+      .search(params[:search], locale_from_host)
+      .paginate(@page, @limit)
 
     @collection_views = @collection.map do |collection|
       Topics::TopicViewFactory
@@ -25,8 +25,7 @@ class CollectionsController < ShikimoriController
         .build(collection.maybe_topic(locale_from_host))
     end
 
-
-    if @page == 1 && user_signed_in?
+    if @page == 1 && params[:search].blank? && user_signed_in?
       @unpublished_collections = current_user.collections.unpublished
     end
   end

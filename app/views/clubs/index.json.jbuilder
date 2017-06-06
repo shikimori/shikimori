@@ -1,10 +1,10 @@
-json.content render(
+json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'clubs/club',
   collection: @collection,
   locals: { content_by: :detailed },
   cache: ->(entry, _) { CacheHelper.keys entry, :detailed },
   formats: :html
-)
+))
 
 if @collection.next_page?
   json.postloader render(
@@ -14,3 +14,5 @@ if @collection.next_page?
     prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
   )
 end
+
+json.JS_EXPORTS JsExports::Supervisor.instance.export(current_user)

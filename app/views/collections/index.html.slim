@@ -1,32 +1,31 @@
-header.head.misc
-  h1 = @page_title.last
-
-  a.misc.to-process[
-    href="#{new_collection_url 'collection[user_id]' => current_user&.id}"
-    title="#{ t '.new'}"
-    data-dynamic="week_registered"
-  ] = t('actions.create').downcase
-
-  p.notice.clearfix = t '.notice'
-
-- if @unpublished_collections&.any?
-  .block
-    b #{t '.my_unpublished_collections'}:&nbsp;
-    - @unpublished_collections.each do |collection|
-      a href="#{edit_collection_url collection}" = collection.name
-      - unless collection == @unpublished_collections.last
-        | ,&nbsp;
-
-.block
-  - if @collection_views.any?
-    = render partial: 'topics/topic',
-      collection: @collection_views,
-      as: :topic_view,
-      cache: true
+- if request.xhr?
+  - if @collection_views.empty?
+    .b-nothing_here = t 'nothing_found'
   - else
-    .b-nothing_here = t '.nothing_here'
+    = render 'collections/collection_views'
 
-  - if @add_postloader
-    = render 'blocks/postloader', filter: 'b-club',
-      next_url: collections_url(page: @page+1),
-      prev_url: (@page > 1 ? collections_url(page: @page-1) : nil)
+- else
+  header.head.misc
+    h1 = @page_title.last
+
+    a.misc.to-process[
+      href="#{new_collection_url 'collection[user_id]' => current_user&.id}"
+      title="#{ t '.new'}"
+      data-dynamic="week_registered"
+    ] = t('actions.create').downcase
+
+    p.notice.clearfix = t '.notice'
+
+  .b-collection_search[
+    data-search_url="#{collections_url}"
+  ]
+    .field
+      input[
+        type="text"
+        placeholder="#{t 'search'}"
+        value="#{params[:search]}"
+      ]
+      .clear
+
+    .collection
+      = render 'collections/collection_views'
