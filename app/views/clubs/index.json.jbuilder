@@ -10,7 +10,7 @@ if @collection.next_page?
   json.postloader render(
     'blocks/postloader',
     filter: 'b-club',
-    next_url: page_clubs_url(page: @collection.next_page, search: params[:search]),
-    prev_url: (page_clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
+    next_url: clubs_url(page: @collection.next_page, search: params[:search]),
+    prev_url: (clubs_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)
   )
 end

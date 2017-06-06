@@ -467,7 +467,7 @@ Rails.application.routes.draw do
       end
 
       collection do
-        get '/page/:page', action: :index, as: :page
+        get '(/p-:page)' => 'clubs#index', as: ''
       end
 
       resources :club_roles, only: [:create, :destroy], concerns: [:autocompletable]
