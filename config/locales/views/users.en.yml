@@ -1,20 +1,20 @@
 en:
   users:
     index:
+      list_of_similar_users: list of similar users
       search: Search by name...
+      notice: >-
+        This page displays all users sorted by their last visit date.
+
+    similar:
       by:
         anime: by anime
         manga: by manga
-      list_of_similar_users: list of similar users
       list_of_watched_anime: 'List of watched anime:'
       list_of_read_manga: 'List of read manga:'
-      notice:
-        similar_users: >-
-          This page allows to find users with similar tastes.
-        search_user: >-
-          This page displays search results for query %{query}.
-        all_users: >-
-          This page displays all users sorted by their last visit date.
+      notice: >-
+        This page allows to find users with similar tastes.
+
       searching_for_similar_users: >-
         Searching for similar users.
         Please wait - it might take some time.
@@ -30,3 +30,4 @@ en:
         manga:
           - you are registered on the site
           - you have at least 20-30 read and scored entries in your manga list
+

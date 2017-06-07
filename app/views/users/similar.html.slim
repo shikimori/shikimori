@@ -1,11 +1,16 @@
 header.head.misc
   h1
-    = @page_title
+    = @page_title.last
 
     - if @klass == Anime
       a.misc href="#{similar_users_url klass: Manga.name.downcase}" = t '.by.manga'
     - else
       a.misc href="#{similar_users_url klass: Anime.name.downcase}" = t '.by.anime'
+
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+
+  p.notice
+    = t '.notice'
 
   .b-header_filters
     .filter-line
@@ -15,9 +20,6 @@ header.head.misc
           class="#{:current if @threshold == threshold}"
           href="#{users_url similar: 'similar', threshold: threshold}"
         ] #{threshold}+
-
-  p.notice
-    = t '.notice.similar_users'
 
 .ajax
   - if @similar_ids.nil?

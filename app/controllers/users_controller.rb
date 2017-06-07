@@ -10,28 +10,11 @@ class UsersController < ShikimoriController
     @limit = LIMIT
 
     page_title i18n_i('User', :other)
+
     @collection = Users::Query.fetch
       .search(params[:search])
       .paginate(@page, @limit)
       .transform(&:decorate)
-
-      # if params[:search].present?
-        # UsersQuery.new(params).search
-      # else
-        # User
-          # .where.not(id: 1)
-          # .where.not(last_online_at: nil)
-          # .order('(case when last_online_at > coalesce(current_sign_in_at, now()::date - 365)
-            # then last_online_at else coalesce(current_sign_in_at, now()::date - 365) end) desc')
-      # end
-    # end
-
-    # unless params[:search]
-      # @collection.sort_by!(&:last_online_at)
-      # @collection.reverse!
-    # end
-
-    # @collection.map!(&:decorate) if @collection
   end
 
   def similar
@@ -45,8 +28,12 @@ class UsersController < ShikimoriController
       return
     end
 
-    page_title i18n_t 'similar_users'
-    @similar_ids = SimilarUsersFetcher.new(user_signed_in? ? current_user.object : nil, @klass, @threshold).fetch
+    page_title i18n_t('similar_users')
+    breadcrumb i18n_i('User', :other), users_url
+
+    @similar_ids = SimilarUsersFetcher
+      .new(current_user&.object, @klass, @threshold)
+      .fetch
 
     if @similar_ids
       ids = @similar_ids
