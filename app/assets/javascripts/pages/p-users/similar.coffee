@@ -1,4 +1,4 @@
-page_load 'users_index', ->
+page_load 'users_similar', ->
   # если страница ещё не готова, перегрузимся через 5 секунд
   if $('p.pending').exists()
     url = location.href

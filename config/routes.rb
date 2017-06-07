@@ -803,9 +803,14 @@ Rails.application.routes.draw do
 
     resources :user_tokens, only: [:destroy]
 
-    # users
-    get 'users(/:similar/:klass/(:threshold))(/search/:search)(/page/:page)' => 'users#index', as: :users, page: /\d+/, similar: /similar/, klass: /anime|manga/
-    post 'users/search' => 'users#search', as: :users_search
+    resources :users, only: [:index] do
+      collection do
+        get '(/p-:page)' => 'users#index', as: ''
+        get '/similar/:klass/(:threshold)(/page/:page)' => 'users#similar',
+          as: 'similar',
+          klass: /anime|manga/
+      end
+    end
 
     # messages edit & rss & email bounce
     # create & preview урлы объявлены выше, глобально

@@ -1,6 +1,7 @@
 ru:
   users:
     index:
+      search: Поиск по имени...
       by:
         anime: по аниме
         manga: по манге

@@ -33,17 +33,17 @@ class QueryObjectBase
     chain TransformedCollection.new(@scope, block)
   end
 
-private
-
-  def chain scope
-    self.class.new scope
-  end
-
   def respond_to? *args
     super(*args) || @collection.respond_to?(*args)
   end
 
   def method_missing method, *args, &block
     @scope.send method, *args, &block
+  end
+
+private
+
+  def chain scope
+    self.class.new scope
   end
 end

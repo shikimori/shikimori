@@ -1,6 +1,7 @@
 en:
   users:
     index:
+      search: Search by name...
       by:
         anime: by anime
         manga: by manga

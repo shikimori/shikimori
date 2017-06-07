@@ -1,0 +1,8 @@
+= render partial: 'users/user',
+  collection: @collection,
+  locals: { content_by: :detailed }
+
+- if @collection.next_page?
+  = render 'blocks/postloader', filter: 'b-user',
+    next_url: users_url(page: @collection.next_page, search: params[:search]),
+    prev_url: (users_url(page: @collection.prev_page, search: params[:search]) if @collection.prev_page?)

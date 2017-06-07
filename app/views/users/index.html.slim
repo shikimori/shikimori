@@ -1,56 +1,30 @@
-header.head.misc
-  h1 style="#{'white-space: nowrap;' if !params[:similar] && user_signed_in?}"
-    = @page_title
+- if request.xhr?
+  - if @collection.empty?
+    .b-nothing_here = t 'nothing_found'
+  - else
+    = render 'users/collection'
 
-  - if params[:similar]
-    - if @klass == Anime
-      a.misc href="#{users_url similar: 'similar', klass: Manga.name.downcase}" = t '.by.manga'
-    - else
-      a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" = t '.by.anime'
-  - elsif user_signed_in?
-    a.misc href="#{users_url similar: 'similar', klass: Anime.name.downcase}" = t '.list_of_similar_users'
+- else
+  header.head.misc
+    h1
+      = @page_title.last
+      a.misc[
+        href="#{similar_users_url klass: Anime.name.downcase}"
+      ] = t '.list_of_similar_users'
 
-  - if params[:similar]
-    .b-header_filters
-      .filter-line
-        span.title = @klass == Anime ? t('.list_of_watched_anime') : t('.list_of_read_manga')
-        - UsersController::THRESHOLDS.each do |threshold|
-          a.b-link[
-            class="#{:current if @threshold == threshold}"
-            href="#{users_url similar: 'similar', threshold: threshold}"
-          ] #{threshold}+
-
-  p.notice
-    - if params[:similar]
-      = t '.notice.similar_users'
-    - elsif params[:search]
-      = t '.notice.search_user', query: params[:search]
-    - else
+    p.notice
       = t '.notice.all_users'
 
-.ajax
-  - if params[:similar] && @similar_ids.nil?
-    p.pending = t '.searching_for_similar_users'
-    .ajax-loading.vk-like.left title="#{t 'loading'}"
-    .clearfix
+  .b-collection_search[
+    data-search_url="#{users_url}"
+  ]
+    .field
+      input[
+        type="text"
+        placeholder="#{t '.search'}"
+        value="#{params[:search]}"
+      ]
+      .clear
 
-  - elsif params[:similar] && @similar_ids.empty?
-    div
-      .comment-block
-        .description
-          p.m3
-            span.fail = t '.cant_find_similar_users'
-            | &nbsp;
-            span = t '.meet_following_requirements'
-
-          ul.b-list.m10
-            - t(".similar_users_requirements.#{@klass.name.downcase}").each do |requirement|
-              li : p = requirement
-
-  - else
-    = render @collection, content_by: :detailed
-
-    - if @add_postloader
-      = render 'blocks/postloader', filter: 'b-user',
-        next_url: users_url(page: @page+1, search: params[:search]),
-        prev_url: (@page > 1 ? users_url(page: @page+1, search: params[:search]) : nil)
+    .collection
+      = render 'users/collection'

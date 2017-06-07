@@ -1,12 +1,16 @@
 class TransformedCollection < SimpleDelegator
-  def initialize collection, transformation_block
+  include Enumerable
+
+  def initialize collection, transformation
     super collection
-    @transformation_block = transformation_block
+    @transformation = transformation
+  end
+
+  def each
+    to_a.each { |item| yield item }
   end
 
   def to_a
-    map do |item|
-      @transformation_block.call item
-    end
+    __getobj__.map { |item| @transformation.call(item) }
   end
 end
