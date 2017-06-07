@@ -29,6 +29,10 @@ class QueryObjectBase
     end
   end
 
+  def transform &block
+    chain TransformedCollection.new(@scope, block)
+  end
+
 private
 
   def chain scope

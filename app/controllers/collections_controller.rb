@@ -18,12 +18,11 @@ class CollectionsController < ShikimoriController
     @collection = Collections::Query.fetch(locale_from_host)
       .search(params[:search], locale_from_host)
       .paginate(@page, @limit)
-
-    @collection_views = @collection.map do |collection|
-      Topics::TopicViewFactory
-        .new(true, true)
-        .build(collection.maybe_topic(locale_from_host))
-    end
+      .transform do |collection|
+        Topics::TopicViewFactory
+          .new(true, true)
+          .build(collection.maybe_topic(locale_from_host))
+      end
 
     if @page == 1 && params[:search].blank? && user_signed_in?
       @unpublished_collections = current_user.collections.unpublished

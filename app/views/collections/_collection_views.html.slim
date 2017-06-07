@@ -7,9 +7,9 @@
         | ,&nbsp;
 
 .block
-  - if @collection_views.any?
+  - if @collection.any?
     = render partial: 'topics/topic',
-      collection: @collection_views,
+      collection: @collection,
       as: :topic_view,
       cache: true
   - else

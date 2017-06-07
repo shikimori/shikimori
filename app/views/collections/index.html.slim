@@ -1,5 +1,5 @@
 - if request.xhr?
-  - if @collection_views.empty?
+  - if @collection.empty?
     .b-nothing_here = t 'nothing_found'
   - else
     = render 'collections/collection_views'

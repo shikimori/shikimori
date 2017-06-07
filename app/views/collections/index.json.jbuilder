@@ -1,6 +1,6 @@
 json.content JsExports::Supervisor.instance.sweep(render(
   partial: 'topics/topic',
-  collection: @collection_views,
+  collection: @collection,
   as: :topic_view,
   cache: true
 ))

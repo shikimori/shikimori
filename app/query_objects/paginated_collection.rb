@@ -11,18 +11,18 @@ class PaginatedCollection < SimpleDelegator
   end
 
   def next_page
-    page + 1 if size == limit
+    page + 1 if next_page?
   end
 
   def next_page?
-    next_page.present?
+    size == limit
   end
 
   def prev_page
-    page - 1 if page > 1
+    page - 1 if prev_page?
   end
 
   def prev_page?
-    prev_page.present?
+    page > 1
   end
 end
