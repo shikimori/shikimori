@@ -13,17 +13,10 @@ class Api::V1::UsersController < Api::V1Controller
     @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
 
-    query = if params[:search].present?
-      UsersQuery.new(params).search
-    else
-      User
-        .where.not(id: 1)
-        .where.not(last_online_at: nil)
-        .order('(case when last_online_at > coalesce(current_sign_in_at, now()::date - 365)
-          then last_online_at else coalesce(current_sign_in_at, now()::date - 365) end) desc')
-    end
+    @collection = Users::Query.fetch
+      .search(params[:search])
+      .paginate_n1(@page, @limit)
 
-    @collection = query.offset(@limit * (@page-1)).limit(@limit + 1)
     respond_with @collection
   end
 

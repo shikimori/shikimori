@@ -6,17 +6,38 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:user_2) { create :user, nickname: 'Test2' }
     let!(:user_3) { create :user, nickname: 'Test3' }
 
-    before { get :index, params: { page: 1, limit: 1, search: 'Te' }, format: :json }
+    let(:phrase) { 'Te' }
+    before do
+      allow(Elasticsearch::Query::User).to receive(:call).with(
+        phrase: phrase,
+        limit: Collections::Query::SEARCH_LIMIT
+      ).and_return(
+        [
+          { '_id' => user_1.id },
+          { '_id' => user_2.id }
+        ]
+      )
+    end
+
+    subject! do
+      get :index,
+        params: {
+          page: 1,
+          limit: 1,
+          search: phrase
+        },
+        format: :json
+    end
 
     it do
       expect(response).to have_http_status :success
       expect(response.content_type).to eq 'application/json'
-      expect(collection).to have(2).items
+      expect(collection).to eq [user_1, user_2]
     end
   end
 
   describe '#show' do
-    before { get :show, params: { id: user.id }, format: :json }
+    subject! { get :show, params: { id: user.id }, format: :json }
 
     it do
       expect(json).to_not have_key :email
@@ -26,7 +47,7 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#info' do
-    before { get :info, params: { id: user.id }, format: :json }
+    subject! { get :info, params: { id: user.id }, format: :json }
 
     it do
       expect(response).to have_http_status :success
@@ -37,27 +58,28 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#whoami' do
     describe 'signed_in' do
       before { sign_in user }
-      before { get :whoami, format: :json }
+      subject! { get :whoami, format: :json }
 
-      it { expect(response).to have_http_status :success }
-
-      context 'json' do
-        subject { OpenStruct.new JSON.parse(response.body) }
-        its(:id) { should eq user.id }
-        its(:nickname) { should eq user.nickname }
+      it do
+        expect(json).to be_a Hash
+        expect(json[:id]).to eq user.id
+        expect(json[:nickname]).to eq user.nickname
+        expect(response).to have_http_status :success
       end
     end
 
-    describe 'guest' do
-      before { get :whoami, format: :json }
-      specify { expect(response.body).to eq 'null' }
-    end unless ENV['APIPIE_RECORD']
+    unless ENV['APIPIE_RECORD']
+      describe 'guest' do
+        subject! { get :whoami, format: :json }
+        specify { expect(response.body).to eq 'null' }
+      end
+    end
   end
 
   describe '#friends' do
     let(:user) { create :user, friends: [create(:user)] }
 
-    before { get :friends, params: { id: user.id }, format: :json }
+    subject! { get :friends, params: { id: user.id }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
@@ -66,7 +88,16 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:anime) { create :anime }
     let!(:user_rate) { create :user_rate, target: anime, user: user, status: 1 }
 
-    before { get :anime_rates, params: { id: user.id, status: 1, limit: 250, page: 1 }, format: :json }
+    subject! do
+      get :anime_rates,
+        params: {
+          id: user.id,
+          status: 1,
+          limit: 250,
+          page: 1
+        },
+        format: :json
+    end
 
     it do
       expect(response).to have_http_status :success
@@ -78,7 +109,16 @@ describe Api::V1::UsersController, :show_in_doc do
     let(:user) { create :user }
     let(:manga) { create :manga }
     let!(:user_rate) { create :user_rate, target: manga, user: user, status: 1 }
-    before { get :manga_rates, params: { id: user.id, status: 1, limit: 250, page: 1 }, format: :json }
+    subject! do
+      get :manga_rates,
+        params: {
+          id: user.id,
+          status: 1,
+          limit: 250,
+          page: 1
+        },
+        format: :json
+    end
 
     it do
       expect(response).to have_http_status :success
@@ -88,8 +128,8 @@ describe Api::V1::UsersController, :show_in_doc do
 
   describe '#clubs' do
     let(:user) { create :user, clubs: [create(:club)] }
+    subject! { get :clubs, params: { id: user.id }, format: :json }
 
-    before { get :clubs, params: { id: user.id }, format: :json }
     it { expect(response).to have_http_status :success }
   end
 
@@ -107,7 +147,8 @@ describe Api::V1::UsersController, :show_in_doc do
     let!(:fav_producer) { create :favourite, linked: person, kind: Favourite::Producer }
     let!(:fav_seyu) { create :favourite, linked: person, kind: Favourite::Seyu }
 
-    before { get :favourites, params: { id: user.id }, format: :json }
+    subject! { get :favourites, params: { id: user.id }, format: :json }
+
     it { expect(response).to have_http_status :success }
   end
 
@@ -118,34 +159,50 @@ describe Api::V1::UsersController, :show_in_doc do
 
     context 'signed_in' do
       before { sign_in user }
-      before { get :messages, params: { id: user.id, page: 1, limit: 20, type: 'news' }, format: :json }
+      subject! { get :messages, params: { id: user.id, page: 1, limit: 20, type: 'news' }, format: :json }
+
       it { expect(response).to have_http_status :success }
     end
 
-    context 'guest' do
-      before { get :messages, params: { id: user.id, page: 1, limit: 20, type: 'news' }, format: :json }
-      it { should respond_with 401 }
-    end unless ENV['APIPIE_RECORD']
+    unless ENV['APIPIE_RECORD']
+      context 'guest' do
+        subject! do
+          get :messages,
+            params: {
+              id: user.id,
+              page: 1,
+              limit: 20,
+              type: 'news'
+            },
+            format: :json
+        end
+
+        it { expect(response).to have_http_status 401 }
+      end
+    end
   end
 
   describe '#unread_messages' do
     context 'signed_in' do
       before { sign_in user }
-      before { get :unread_messages, params: { id: user.id }, format: :json }
+      subject! { get :unread_messages, params: { id: user.id }, format: :json }
+
       it { expect(response).to have_http_status :success }
     end
 
-    context 'guest' do
-      before { get :unread_messages, params: { id: user.id }, format: :json }
-      it { should respond_with 401 }
-    end unless ENV['APIPIE_RECORD']
+    unless ENV['APIPIE_RECORD']
+      context 'guest' do
+        subject! { get :unread_messages, params: { id: user.id }, format: :json }
+        it { expect(response).to have_http_status 401 }
+      end
+    end
   end
 
   describe '#history' do
     let!(:entry_1) { create :user_history, user: user, action: 'mal_anime_import', value: '522' }
     let!(:entry_2) { create :user_history, target: create(:anime), user: user, action: 'status' }
 
-    before do
+    subject! do
       get :history,
         params: {
           id: user.id,
@@ -160,8 +217,13 @@ describe Api::V1::UsersController, :show_in_doc do
   end
 
   describe '#bans' do
-    let!(:ban) { create :ban, user: user, moderator: user, comment: create(:comment, user: user) }
-    before { get :bans, params: { id: user.id }, format: :json }
+    let!(:ban) do
+      create :ban,
+        user: user,
+        moderator: user,
+        comment: create(:comment, user: user)
+    end
+    subject! { get :bans, params: { id: user.id }, format: :json }
 
     it do
       expect(collection).to have(1).item
@@ -172,7 +234,15 @@ describe Api::V1::UsersController, :show_in_doc do
   describe '#anime_video_reports' do
     let!(:anime_video_report) { create :anime_video_report, user: user, anime_video: anime_video }
     let(:anime_video) { create :anime_video }
-    before { get :anime_video_reports, params: { id: user.id, page: 1, limit: 1 }, format: :json }
+    subject! do
+      get :anime_video_reports,
+        params: {
+          id: user.id,
+          page: 1,
+          limit: 1
+        },
+        format: :json
+    end
 
     it do
       expect(collection).to have(1).item
