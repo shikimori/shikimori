@@ -4,7 +4,7 @@ article.b-topic.shiki-object.not-tracked.to-process[
   data-appear_type='topic'
   data-appear_url="#{api_appears_url}"
   data-dynamic='topic'
-  data-faye="#{topic_view.faye_channel}"
+  data-faye="#{topic_view.faye_channel unless topic_view.is_mini}"
   data-generated="#{topic_view.topic.generated?}"
   data-track_topic="#{JsExports::TopicsExport.instance.placeholder topic_view.topic unless local_assigns[:do_not_track]}"
   data-user_id="#{topic_view.user.id}"
