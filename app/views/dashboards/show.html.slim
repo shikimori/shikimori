@@ -1,7 +1,7 @@
 - content_for :head do
   = auto_discovery_link_tag :rss, news_feed_pages_url(format: :rss), title: 'Shiki News'
 
-- cache [:ongoings, rand(5)], expires_in: 1.day do
+- cache [:ongoings, rand(5), :v2], expires_in: 1.day do
   .block2
     .midheadline.linkheadline
       a href="#{animes_collection_url status: :ongoing}"

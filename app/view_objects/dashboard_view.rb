@@ -21,7 +21,7 @@ class DashboardView < ViewObjectBase
     Anime
   ).to_sql
 
-  IGNORE_ONGOINGS = [31_592, 32_585]
+  IGNORE_ONGOING_IDS = [31_592, 32_585, 35_517]
 
   instance_cache :ongoings, :favourites, :reviews, :contests, :forums,
     :new_ongoings, :old_ongoings, :cache_keys
@@ -136,7 +136,7 @@ private
   def new_ongoings
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
-      .where.not(id: IGNORE_ONGOINGS)
+      .where.not(id: IGNORE_ONGOING_IDS)
       .where("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.5')
       .decorate
@@ -145,7 +145,7 @@ private
   def old_ongoings
     OngoingsQuery.new(false)
       .fetch(ONGOINGS_FETCH)
-      .where.not(id: IGNORE_ONGOINGS)
+      .where.not(id: IGNORE_ONGOING_IDS)
       .where.not("(#{THIS_SEASON_SQL}) OR (#{PRIOR_SEASON_SQL})")
       .where('score > 7.5')
       .decorate
