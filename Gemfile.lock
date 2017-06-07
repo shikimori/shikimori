@@ -309,7 +309,7 @@ GEM
       em-hiredis (>= 0.2.0)
       eventmachine (>= 0.12.0)
       multi_json (>= 1.0.0)
-    faye-websocket (0.10.0)
+    faye-websocket (0.10.7)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.5.1)
     ffi (1.9.18)
@@ -725,7 +725,6 @@ DEPENDENCIES
   faraday_middleware
   faye
   faye-redis
-  faye-websocket (= 0.10.0)
   foreman
   gcm
   guard

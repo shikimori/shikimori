@@ -112,7 +112,12 @@ private
     channels = ["/#{BroadcastFeed}"] if channels.empty?
 
     channels.each do |channel|
-      faye_client.publish channel, data.merge(token: config[:server_token], publisher_faye_id: @publisher_faye_id)
+      faye_client.publish(
+        channel, data.merge(
+          token: config[:server_token],
+          publisher_faye_id: @publisher_faye_id
+        )
+      )
     end
 
   rescue RuntimeError => e
@@ -150,11 +155,13 @@ private
   end
 
   def faye_client
-    @faye_client ||= Faye::Client.new "http://localhost:9292#{config[:endpoint]}"
+    @faye_client ||= Faye::Client.new(
+      "http://127.0.0.1:9292#{config[:endpoint]}"
+    )
   end
 
   def config
-    @config ||= YAML.load_file Rails.root.join 'config/faye.yml'
+    @config ||= YAML.load_file "#{Rails.root}/config/faye.yml"
   end
 
   def run_event_machine

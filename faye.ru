@@ -38,8 +38,7 @@ end
 faye_server = Faye::RackAdapter.new(
   mount: CONFIG[:endpoint],
   timeout: 60,#ENV['RAILS_ENV'] == 'development' ? 1 : 25,
-  # disable engine section to fix faye in development mode
-  engine: {
+  engine: ENV['RAILS_ENV'] == 'development' ? nil : {
     type: Faye::Redis,
     host: 'localhost',
     port: 6379
