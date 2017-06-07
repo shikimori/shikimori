@@ -17,6 +17,8 @@ class UsersController < ShikimoriController
       .transform(&:decorate)
   end
 
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def similar
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
@@ -40,15 +42,24 @@ class UsersController < ShikimoriController
         .drop(@limit * (@page - 1))
         .take(@limit)
 
-      @collection = User.where(id: ids).sort_by {|v| ids.index v.id }
+      @collection = User
+        .where(id: ids)
+        .sort_by { |user| ids.index user.id }
+        .map(&:decorate)
     end
 
-    @add_postloader = @similar_ids && @similar_ids.any? && @page * @limit < SimilarUsersService::MAXIMUM_RESULTS
-    @collection.map!(&:decorate) if @collection
+    @add_postloader =
+      @similar_ids && @similar_ids.any? &&
+        @page * @limit < SimilarUsersService::MAXIMUM_RESULTS
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   # автодополнение
   def autocomplete
-    @collection = UsersQuery.new(params).complete
+    @collection = Users::Query.fetch
+      .search(params[:search])
+      .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
+      .reverse
   end
 end

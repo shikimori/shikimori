@@ -18,7 +18,7 @@ header.head.misc
       - UsersController::THRESHOLDS.each do |threshold|
         a.b-link[
           class="#{:current if @threshold == threshold}"
-          href="#{users_url similar: 'similar', threshold: threshold}"
+          href="#{similar_users_url threshold: threshold}"
         ] #{threshold}+
 
 .ajax

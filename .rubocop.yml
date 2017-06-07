@@ -36,17 +36,17 @@ Style/Documentation:
   Enabled: false
 Style/MethodDefParentheses:
   Enabled: false
-Style/MultilineOperationIndentation:
+Layout/MultilineOperationIndentation:
   Enabled: false
-Style/CommentIndentation:
+Layout/CommentIndentation:
   Enabled: false
-Style/AccessModifierIndentation:
+Layout/AccessModifierIndentation:
+  Enabled: false
+Layout/CaseIndentation:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
 Style/DoubleNegation:
-  Enabled: false
-Style/CaseIndentation:
   Enabled: false
 Style/AsciiComments:
   Enabled: false
@@ -54,9 +54,9 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MutableConstant:
   Enabled: false
-Style/AlignParameters:
+Layout/AlignParameters:
   Enabled: false
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   Enabled: false
 Style/EmptyCaseCondition:
   Enabled: false
@@ -82,7 +82,7 @@ Style/StringLiteralsInInterpolation:
   - single_quotes
   - double_quotes
 
-Style/DotPosition:
+Layout/DotPosition:
   Description: Checks the position of the dot in multi-line method calls.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#consistent-multi-line-chains
   Enabled: true
