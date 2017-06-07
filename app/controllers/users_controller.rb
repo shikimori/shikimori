@@ -20,6 +20,7 @@ class UsersController < ShikimoriController
   # rubocop:disable MethodLength
   # rubocop:disable AbcSize
   def similar
+    noindex
     @page = [params[:page].to_i, 1].max
     @limit = LIMIT
     @threshold = params[:threshold].to_i
