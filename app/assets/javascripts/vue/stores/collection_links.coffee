@@ -31,6 +31,7 @@ module.exports = new Vuex.Store
     remove_link: (context, data) -> context.commit 'REMOVE_LINK', data
     move_link: (context, data) -> context.commit 'MOVE_LINK', data
     rename_group: (context, data) -> context.commit 'RENAME_GROUP', data
+    refill: (context, data) -> context.commit 'REFILL', data
 
   mutations:
     ADD_LINK: (state, link_data) ->
@@ -77,6 +78,9 @@ module.exports = new Vuex.Store
     FILL_LINK: (state, {link, changes}) ->
       Object.forEach changes, (value, key) ->
         link[key] = value
+
+    REFILL: (state, data) ->
+      state.collection.links = data
 
   getters:
     collection: (store) -> store.collection

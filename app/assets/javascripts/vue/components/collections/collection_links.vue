@@ -1,62 +1,74 @@
 <template lang="pug">
   .block
-    .b-options-floated {{ `${links.length} / ${max_links}` }}
-    .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
-    .cc-3-flex
-      .c-column(
-        v-for='group_name in groups'
-      )
-        .b-input.group
-          div
-            label(
-              :for="'group_' + group_name"
-            ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
-            .add.b-js-link(
-              v-if="links.length < max_links"
-              @click="add_link({group: group_name})"
-            ) {{ I18n.t('actions.add').toLowerCase() }}
-          input(
-            :id="'group_' + group_name"
-            :value="group_name"
-            :data-original_value="group_name"
-            :placeholder="I18n.t('frontend.collections.group_name')"
-            @blur="on_group_rename"
-            @change="on_group_rename"
-            @keydown.enter.prevent="on_group_rename"
-            type="text"
+    .block
+      .b-options-floated {{ `${links.length} / ${max_links}` }}
+      .subheadline.m10 {{ I18n.t(`frontend.collections.kind.${collection.kind}`) }}
+      .cc-3-flex
+        .c-column(
+          v-for='group_name in groups'
+        )
+          .b-input.group
+            div
+              label(
+                :for="'group_' + group_name"
+              ) {{ I18n.t('activerecord.attributes.collection_link.group') }}
+              .add.b-js-link(
+                v-if="links.length < max_links"
+                @click="add_link({group: group_name})"
+              ) {{ I18n.t('actions.add').toLowerCase() }}
+            input(
+              :id="'group_' + group_name"
+              :value="group_name"
+              :data-original_value="group_name"
+              :placeholder="I18n.t('frontend.collections.group_name')"
+              @blur="on_group_rename"
+              @change="on_group_rename"
+              @keydown.enter.prevent="on_group_rename"
+              type="text"
+            )
+
+          draggable.collection_links(
+            :options="drag_options"
+            @update="on_drag_update"
+            @add="on_drag_add"
           )
+            CollectionLink(
+              v-for="link in grouped_links[group_name]"
+              :key="link.id || link.key"
+              :link="link"
+              :autocomplete_url="autocomplete_url"
+            )
 
-        draggable.collection_links(
-          :options="drag_options"
-          @update="on_drag_update"
-          @add="on_drag_add"
+        .c-column.new-group(
+          v-if="links.length < max_links"
         )
-          CollectionLink(
-            v-for="link in grouped_links[group_name]"
-            :key="link.id || link.key"
-            :link="link"
-            :autocomplete_url="autocomplete_url"
+          div(
+            v-if="Object.isEmpty(grouped_links[''])"
           )
+            .b-button(
+              @click="add_new_group"
+            ) {{ I18n.t('actions.add') }}
+          div(
+            v-if="!Object.isEmpty(grouped_links[''])"
+          )
+            .button-container
+              .b-button.disabled {{ I18n.t('actions.add') }}
+            .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
 
-      .c-column.new-group(
-        v-if="links.length < max_links"
-      )
-        div(
-          v-if="Object.isEmpty(grouped_links[''])"
-        )
-          .b-button(
-            @click="add_new_group"
-          ) {{ I18n.t('actions.add') }}
-        div(
-          v-if="!Object.isEmpty(grouped_links[''])"
-        )
-          .button-container
-            .b-button.disabled {{ I18n.t('actions.add') }}
-          .hint {{ I18n.t('frontend.collections.disabled_add_group_hint') }}
-
-    //.block
-      pre(style="white-space: pre-wrap; font-size: 11px;")
-        | {{ JSON.stringify(links) }}
+    .block.json
+      .subheadline JSON
+      .b-spoiler.unprocessed
+        label {{ I18n.t('frontend.collections.json_warning') }}
+        .content
+          .before
+          .inner
+            .b-input
+              textarea(
+                @change="on_refill"
+                @focus.once="add_autosize"
+                v-bind:value="links_json"
+              )
+          .after
 
 </template>
 
@@ -64,6 +76,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import CollectionLink from './collection_link'
 import draggable from 'vuedraggable'
+import autosize from 'autosize'
 
 function list_index(node, index) {
   return parseInt(node.childNodes[index].getAttribute('data-list_index'))
@@ -98,6 +111,9 @@ export default {
     }
   },
   computed: {
+    links_json() {
+      return JSON.stringify(this.links)
+    },
     ...mapGetters([
       'collection',
       'links',
@@ -106,17 +122,34 @@ export default {
     ]),
   },
   methods: {
-    add_new_group (e) {
+    add_new_group(e) {
       if (e.target != e.currentTarget) { return }
       this.add_link({group: ''})
     },
-    on_group_rename (e) {
+    on_group_rename(e) {
       this.rename_group({
         from_name: e.target.getAttribute('data-original_value'),
         to_name: e.target.value
       })
     },
-    on_drag_update (e) {
+    on_refill({target}) {
+      this.$nextTick(() => {
+        let json;
+        try {
+          json = JSON.parse(target.value);
+        } catch(e) {
+          $.alert(e.toString())
+        }
+
+        if (json) {
+          this.refill(json)
+        }
+      })
+    },
+    add_autosize({target}) {
+      autosize(target)
+    },
+    on_drag_update(e) {
       restore_node(e)
 
       let from_index = list_index(e.to, e.oldIndex)
@@ -128,7 +161,7 @@ export default {
         group_index: to_index
       });
     },
-    on_drag_add (e) {
+    on_drag_add(e) {
       restore_node(e)
       let from_index = list_index(e.from, e.oldIndex)
       let is_last_column_position = !e.to.childNodes[e.newIndex]
@@ -156,8 +189,14 @@ export default {
     ...mapActions([
       'add_link',
       'move_link',
-      'rename_group'
+      'rename_group',
+      'refill'
     ])
+  },
+  mounted() {
+    this.$nextTick(() => {
+      $('.json', this.$el).process()
+    })
   }
 }
 </script>
@@ -207,4 +246,21 @@ export default {
 
     .b-button
       margin-left: 30px
+
+  .json
+    .b-spoiler
+      .before
+        display: inline-block
+        margin-bottom: 4px
+
+      .after
+        padding: 0
+
+      .b-input
+        line-height: 0
+
+      textarea
+        font-family: monospace, courier
+        font-size: 11px
+        min-height: 98px
 </style>

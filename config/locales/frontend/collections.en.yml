@@ -10,6 +10,9 @@ en:
       group_name: Group name
       disabled_add_group_hint: >-
         To add a new group, fill in the blank group name
+      json_warning: >-
+        Do not edit this if you are not sure what you are doing!
+        Inserting invalid data will break the page.
       autocomplete:
         anime: Anime title
         manga: Manga title
