@@ -28,20 +28,26 @@ header.head.misc
               include_blank: false,
               disabled: @resource.published?,
               hint: t(".hint.#{@resource.state}").html_safe
-
-      .c-column
-        .b-shiki_editor.unprocessed
-          .field-name = Collection.human_attribute_name :text
-          = render 'comments/shiki_editor',
-            text: @resource.text,
-            field_name: 'collection[text]'
-
-    .block
-      .buttons
-        a.cancel href="#{collections_url}" = t 'actions.cancel'
-        = f.button :magic_submit
+          - else
+            = f.input :text, as: :hidden
+            .buttons
+              a.cancel href="#{collections_url}" = t 'actions.cancel'
+              = f.button :magic_submit
 
       - if @resource.persisted?
+        .c-column
+          .b-shiki_editor.unprocessed
+            .field-name = Collection.human_attribute_name :text
+            = render 'comments/shiki_editor',
+              text: @resource.text,
+              field_name: 'collection[text]'
+
+    - if @resource.persisted?
+      .block
+        .buttons
+          a.cancel href="#{collections_url}" = t 'actions.cancel'
+          = f.button :magic_submit
+
         a.remove[
           href="#{collection_url @resource}"
           title="#{t 'actions.delete'}"
@@ -49,7 +55,6 @@ header.head.misc
           data-confirm="#{t 'actions.confirm'}"
         ] = t 'actions.delete'
 
-    - if @resource.persisted?
       #vue_collection_links
         .subheadline.m10 = @resource.kind_text
         .b-nothing_here
