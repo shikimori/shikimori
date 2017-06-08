@@ -58,9 +58,13 @@ private
     ids = collection.links.limit(6).pluck(:linked_id)
     tag_type = collection.kind.pluralize
 
-    BbCodeFormatter.instance.format_comment(
-      "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
-    )
+    if ids.any?
+      BbCodeFormatter.instance.format_comment(
+        "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
+      )
+    else
+      ''
+    end
   end
 
   def collection_html
