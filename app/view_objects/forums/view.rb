@@ -52,7 +52,7 @@ class Forums::View < ViewObjectBase
         #["user-#{current_user.id}", FayePublisher::BroadcastFeed]
 
       else
-        ["forum-#{forum.id}"]
+        [forum_channel(forum.id, h.locale_from_host)]
     end
   end
 
