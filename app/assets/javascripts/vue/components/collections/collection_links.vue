@@ -65,6 +65,8 @@
             .b-input
               textarea(
                 @change="on_refill"
+                @keydown.ctrl.enter="on_refill"
+                @keydown.meta.enter="on_refill"
                 @focus.once="add_autosize"
                 v-bind:value="links_json"
               )
@@ -133,18 +135,16 @@ export default {
       })
     },
     on_refill({target}) {
-      this.$nextTick(() => {
-        let json;
-        try {
-          json = JSON.parse(target.value);
-        } catch(e) {
-          $.alert(e.toString())
-        }
+      let json;
+      try {
+        json = JSON.parse(target.value);
+      } catch(e) {
+        $.alert(e.toString())
+      }
 
-        if (json) {
-          this.refill(json)
-        }
-      })
+      if (json) {
+        this.refill(json)
+      }
     },
     add_autosize({target}) {
       autosize(target)

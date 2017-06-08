@@ -39,7 +39,7 @@ module.exports = new Vuex.Store
           group: null
           linked_id: null
           name: null
-          text: null
+          text: ''
           url: null
           key: new_id()
         }, resolve: false
