@@ -40,7 +40,10 @@ class BbCodeFormatter
     Site::DOMAIN
   end
 
-  MALWARE_DOMAINS = /(https?:\/\/)?images.webpark.ru/i
+  MALWARE_DOMAINS = %r{
+    (https?://)?
+    (images.webpark.ru|shikme.ru)
+  }mix
   MIN_PARAGRAPH_SIZE = 110
 
   # форматирование описания чего-либо
