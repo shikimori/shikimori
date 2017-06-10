@@ -13,7 +13,7 @@
   div
     .b-topic.to-process[
       data-dynamic='topic'
-      data-no-faye='true'
+      data-faye='false'
     ]
       = render 'topics/comments',
         comments_view: @resource.main_topic_view.comments_view

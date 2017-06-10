@@ -76,11 +76,13 @@ module.exports = class FayeLoader
     # список актуальных каналов из текущего dom дерева
     channels = {}
     $targets.each (index, node) ->
-      found_channels = $(node).data('faye') || []
-      console.warn 'no faye channels found for', node unless found_channels.length || $targets.data('no-faye')
+      faye_channels = $(node).data('faye')
+      if faye_channels != false && Object.isEmpty(faye_channels)
+        console.warn 'no faye channels found for', node
 
-      found_channels.forEach (channel) ->
-        channels["/#{channel}"] = $(node)
+      if faye_channels
+        faye_channels.forEach (channel) ->
+          channels["/#{channel}"] = $(node)
 
     @unsubscribe channels
     @update channels
