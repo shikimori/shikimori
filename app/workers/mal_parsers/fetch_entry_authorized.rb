@@ -10,6 +10,8 @@ class MalParsers::FetchEntryAuthorized
   def perform entry_id, entry_type
     "Import::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)
     update_authorized_imported_at! entry_id, entry_type
+  rescue InvalidIdError
+    update_authorized_imported_at! entry_id, entry_type
   end
 
 private
@@ -19,8 +21,10 @@ private
   end
 
   def update_authorized_imported_at! entry_id, entry_type
-    entry_type.constantize
-      .find(entry_id)
-      .update!(authorized_imported_at: Time.zone.now)
+    entry(entry_id, entry_type).update! authorized_imported_at: Time.zone.now
+  end
+
+  def entry entry_id, entry_type
+    entry_type.constantize.find(entry_id)
   end
 end
