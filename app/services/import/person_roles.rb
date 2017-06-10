@@ -33,6 +33,6 @@ private
   end
 
   def entry_id_key
-    "#{@target.class.name.downcase}_id".to_sym
+    "#{@target.class.base_class.name.downcase}_id".to_sym
   end
 end
