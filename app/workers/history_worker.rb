@@ -20,9 +20,9 @@ class HistoryWorker
 private
 
   def process_topic topic
-    return if ignored? topic
+    return topic.update_column :processed, true if ignored? topic
     # протухшие новости тоже не нужны
-    return if expired? topic
+    return topic.update_column :processed, true if expired? topic
 
     messages = build_messages topic
 
