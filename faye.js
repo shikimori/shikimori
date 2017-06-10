@@ -55,7 +55,7 @@ bayeux.on('subscribe', function(client_id, channel) {
   console.log(`!! subscription of ${client_id} for ${channel}`)
 })
 bayeux.on('publish', function(client_id, channel, data) {
-  console.log(`!! publish of ${client_id} for ${channel} with ${data}`)
+  console.log(`!! publish of ${client_id} for ${channel} with ${JSON.stringify(data)}`)
 })
 
 bayeux.addExtension(serverAuth)

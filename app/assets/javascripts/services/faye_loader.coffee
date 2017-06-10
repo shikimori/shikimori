@@ -20,11 +20,11 @@ module.exports = class FayeLoader
     # hostname = (if ENV == 'development' then 'localhost' else location.hostname)
     hostname = location.hostname
 
-    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye-server-new",
+    @client = new Faye.Client "#{location.protocol}//#{hostname}#{port}/faye-server-v2",
       timeout: 300
       retry: 5
       # endpoints:
-        # websocket: "#{location.protocol}//#{location.hostname}#{port}/faye-server-new"
+        # websocket: "#{location.protocol}//#{location.hostname}#{port}/faye-server-v2"
 
     #@client.disable 'eventsource'
     console.log 'faye connected'
