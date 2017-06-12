@@ -48,7 +48,7 @@
       "request_data": {
       },
       "response_data": {
-        "user_id": "500040",
+        "user_id": "500037",
         "is_ignored": true
       },
       "code": "200",
@@ -67,7 +67,7 @@
       "request_data": {
       },
       "response_data": {
-        "user_id": "500041",
+        "user_id": "500038",
         "is_ignored": false
       },
       "code": "200",
@@ -154,7 +154,7 @@
       "verb": "GET",
       "path": "",
       "versions": [
-
+        "1.0"
       ],
       "query": "",
       "request_data": null,
@@ -183,7 +183,7 @@
         }
       ],
       "code": "200",
-      "show_in_doc": 0,
+      "show_in_doc": 1,
       "recorded": true
     }
   ],
@@ -375,8 +375,8 @@
       "request_data": null,
       "response_data": [
         {
-          "original": "/system/screenshots/original/58c001a90222e5e70349fffe98dfb6ecb6574084.jpg?1484049600",
-          "preview": "/system/screenshots/x332/58c001a90222e5e70349fffe98dfb6ecb6574084.jpg?1484049600"
+          "original": "/system/screenshots/original/a49345cb4b8f36905afa11b804a1c765a997fa03.jpg?1484049600",
+          "preview": "/system/screenshots/x332/a49345cb4b8f36905afa11b804a1c765a997fa03.jpg?1484049600"
         }
       ],
       "code": "200",
@@ -578,7 +578,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "authenticity_token": "M7b6OaUj2veqQYuqTOAQt665KnzC4nfnpgcV2/Sx7Q2nJJSV5x+fEHcaCp1RbCgOdik8oAAbtrhbuRJ5JkGclA=="
+        "authenticity_token": "OwzTp5rCduMNbt9XC8Qk/zYrcqYMTUUanqyMJVP4f7rvj6pmRSY1FeFaRg4YXCyoAZ35jm8pk+kP2MGLmqOhcw=="
       },
       "code": "200",
       "show_in_doc": 1,
@@ -641,7 +641,7 @@
             "id": 3,
             "commentable_id": 82468,
             "commentable_type": "Topic",
-            "body": "comment_body_3",
+            "body": "comment_body_3\n\n[ban=1]",
             "user_id": 500005,
             "created_at": "2017-01-10T15:00:00.000+03:00",
             "updated_at": "2017-01-10T15:00:00.000+03:00",
@@ -724,7 +724,7 @@
         },
         {
           "next_episode": 1,
-          "next_episode_at": "2017-05-13T00:00:00.000+00:00",
+          "next_episode_at": "2017-05-29T00:00:00.000+00:00",
           "duration": "5/288",
           "anime": {
             "id": 19,
@@ -741,7 +741,7 @@
             "status": "ongoing",
             "episodes": 0,
             "episodes_aired": 0,
-            "aired_on": "2017-05-13",
+            "aired_on": "2017-05-29",
             "released_on": null
           }
         }
@@ -921,8 +921,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 1,
-          "name": "club_1",
+          "id": 2,
+          "name": "club_2",
           "logo": {
             "original": "/assets/globals/missing_original_original.jpg",
             "main": "/assets/globals/missing_main_main.jpg",
@@ -935,8 +935,8 @@
           "comment_policy": "free"
         },
         {
-          "id": 2,
-          "name": "club_2",
+          "id": 3,
+          "name": "club_3",
           "logo": {
             "original": "/assets/globals/missing_original_original.jpg",
             "main": "/assets/globals/missing_main_main.jpg",
@@ -1031,8 +1031,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500007,
-          "nickname": "user_13",
+          "id": 500006,
+          "nickname": "user_12",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1078,8 +1078,8 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 4,
-        "name": "club_4",
+        "id": 1,
+        "name": "club_5",
         "logo": {
           "original": "/assets/globals/missing_original_original.jpg",
           "main": "/assets/globals/missing_main_main.jpg",
@@ -1126,14 +1126,14 @@
             "url": "/characters/5-character-3"
           }
         ],
-        "thread_id": 103560,
-        "topic_id": 103560,
+        "thread_id": 103561,
+        "topic_id": 103561,
         "user_role": "member",
         "style_id": null,
         "members": [
           {
             "id": 23456791,
-            "nickname": "user_9",
+            "nickname": "user_8",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1196,7 +1196,7 @@
         "broadcast": "false",
         "comment": {
           "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-          "commentable_id": "103563",
+          "commentable_id": "103564",
           "commentable_type": "Topic",
           "is_offtopic": "true",
           "is_summary": "true"
@@ -1206,7 +1206,7 @@
       "response_data": {
         "id": 7,
         "user_id": 23456797,
-        "commentable_id": 103563,
+        "commentable_id": 103564,
         "commentable_type": "Topic",
         "body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "html_body": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
@@ -1217,7 +1217,7 @@
         "can_be_edited": true,
         "user": {
           "id": 23456797,
-          "nickname": "user_19",
+          "nickname": "user_18",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1278,7 +1278,7 @@
           "can_be_edited": false,
           "user": {
             "id": 23456796,
-            "nickname": "user_18",
+            "nickname": "user_17",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1306,7 +1306,7 @@
           "can_be_edited": false,
           "user": {
             "id": 23456796,
-            "nickname": "user_18",
+            "nickname": "user_17",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1338,7 +1338,7 @@
       "response_data": {
         "id": 4,
         "user_id": 23456795,
-        "commentable_id": 103562,
+        "commentable_id": 103563,
         "commentable_type": "Topic",
         "body": "comment_body_4",
         "html_body": "comment_body_4",
@@ -1349,7 +1349,7 @@
         "can_be_edited": false,
         "user": {
           "id": 23456795,
-          "nickname": "user_17",
+          "nickname": "user_16",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -1385,7 +1385,7 @@
       "response_data": {
         "id": 8,
         "user_id": 23456798,
-        "commentable_id": 103564,
+        "commentable_id": 103565,
         "commentable_type": "Topic",
         "body": "blablabla",
         "html_body": "blablabla",
@@ -1396,7 +1396,7 @@
         "can_be_edited": true,
         "user": {
           "id": 23456798,
-          "nickname": "user_20",
+          "nickname": "user_19",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2246,8 +2246,8 @@
       "response_data": [
         {
           "target_user": {
-            "id": 500008,
-            "nickname": "user_30",
+            "id": 500007,
+            "nickname": "user_29",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2295,8 +2295,8 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": null,
           "from": {
-            "id": 500009,
-            "nickname": "user_32",
+            "id": 500008,
+            "nickname": "user_31",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2311,7 +2311,7 @@
           },
           "to": {
             "id": 23456808,
-            "nickname": "user_31",
+            "nickname": "user_30",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2335,7 +2335,7 @@
           "linked": null,
           "from": {
             "id": 23456808,
-            "nickname": "user_31",
+            "nickname": "user_30",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2349,8 +2349,8 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "to": {
-            "id": 500009,
-            "nickname": "user_32",
+            "id": 500008,
+            "nickname": "user_31",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2423,7 +2423,7 @@
           "url": "/forum/collections"
         },
         {
-          "id": 14430,
+          "id": 87974,
           "position": 0,
           "name": "форум_1",
           "permalink": "offtopic",
@@ -2534,7 +2534,7 @@
       "verb": "GET",
       "path": "",
       "versions": [
-
+        "1.0"
       ],
       "query": "",
       "request_data": null,
@@ -2563,7 +2563,7 @@
         }
       ],
       "code": "200",
-      "show_in_doc": 0,
+      "show_in_doc": 1,
       "recorded": true
     }
   ],
@@ -2795,7 +2795,9 @@
         "japanese": [
           null
         ],
-        "synonyms": null,
+        "synonyms": [
+
+        ],
         "score": "1.0",
         "description": null,
         "description_html": "<p class='b-nothing_here'>Нет описания</p>",
@@ -2803,8 +2805,8 @@
         "favoured": false,
         "anons": null,
         "ongoing": null,
-        "thread_id": 103566,
-        "topic_id": 103566,
+        "thread_id": 103567,
+        "topic_id": 103567,
         "myanimelist_id": 6,
         "rates_scores_stats": [
 
@@ -2878,7 +2880,7 @@
       },
       "response_data": {
         "id": 10,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_44\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_44\"><img alt=\"user_44\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_44\" title=\"user_44\">user_44</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456817\" data-user_nickname=\"user_43\" id=\"10\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/10/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/10\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_43\"><img alt=\"user_43\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_43\" title=\"user_43\">user_43</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx<div class=\"b-appear_marker active appear-message-10\"></div></div></div></div>",
         "notice": "Сообщение отправлено"
       },
       "code": "200",
@@ -2911,7 +2913,7 @@
         "linked": null,
         "from": {
           "id": 23456818,
-          "nickname": "user_45",
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -2926,7 +2928,7 @@
         },
         "to": {
           "id": 23456818,
-          "nickname": "user_45",
+          "nickname": "user_44",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3116,7 +3118,7 @@
         "linked": null,
         "from": {
           "id": 23456815,
-          "nickname": "user_42",
+          "nickname": "user_41",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3142,7 +3144,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-27T00:37:32.658+03:00"
+          "last_online_at": "2017-06-12T14:30:32.688+03:00"
         }
       },
       "code": "200",
@@ -3166,7 +3168,7 @@
       },
       "response_data": {
         "id": 12,
-        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_48\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_48\"><img alt=\"user_48\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_48\" title=\"user_48\">user_48</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\"></div></div></div></div>",
+        "html": "<div class=\"b-message shiki-object to-process\" data-appear_type=\"message\" data-dynamic=\"message\" data-user_id=\"23456821\" data-user_nickname=\"user_47\" id=\"12\"><div class=\"inner\"><span class=\"item-mobile\" title=\"Действия\"></span><aside class=\"markers\"><div class=\"b-new_marker active\" data-appear_url=\"//test.host/api/messages/mark_read?is_read=1\" data-reappear=\"true\" data-reappear_url=\"//test.host/api/messages/mark_read?is_read=0\" data-text=\"новое\"></div></aside><aside class=\"buttons\"><div class=\"main-controls\"><span class=\"item-quote translated-after\" data-text-en=\"Quote\" data-text-ru=\"Цитировать\" title=\"Цитировать\"></span><span class=\"item-reply translated-after\" data-text-en=\"Reply\" data-text-ru=\"Ответить\" title=\"Ответить\"></span><span class=\"item-edit translated-after\" data-action=\"//test.host/messages/12/edit\" data-remote=\"true\" data-text-en=\"Edit\" data-text-ru=\"Редактировать\" data-type=\"html\" title=\"Редактировать\"></span><span class=\"item-delete translated-after\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" title=\"Удалить\"></span><span class=\"item-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div><div class=\"delete-controls\"><span action=\"//test.host/api/messages/12\" class=\"item-delete-confirm translated-after\" data-method=\"delete\" data-remote=\"true\" data-text-en=\"Delete\" data-text-ru=\"Удалить\" data-type=\"json\" title=\"Удалить\"></span><span class=\"item-delete-cancel translated-after\" data-text-en=\"Cancel\" data-text-ru=\"Отмена\" title=\"Отмена\"></span></div></aside><header><span class=\"linkeable\" data-href=\"//test.host/user_47\"><img alt=\"user_47\" src=\"/assets/globals/missing_avatar/x48.png\" srcset=\"/assets/globals/missing_avatar/x80.png 2x\" /></span><div class=\"name-date\"><a class=\"name\" href=\"//test.host/user_47\" title=\"user_47\">user_47</a><span class=\"time\"><time datetime=\"2017-01-10T15:00:00+03:00\">10 января 2017</time></span></div></header><div class=\"body\">blablabla<div class=\"b-appear_marker active appear-message-12\"></div></div></div></div>",
         "notice": "Сообщение изменено"
       },
       "code": "200",
@@ -3196,7 +3198,7 @@
         "linked": null,
         "from": {
           "id": 23456822,
-          "nickname": "user_49",
+          "nickname": "user_48",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3211,7 +3213,7 @@
         },
         "to": {
           "id": 23456822,
-          "nickname": "user_49",
+          "nickname": "user_48",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -3455,14 +3457,14 @@
       "query": null,
       "request_data": {
         "user": {
-          "nickname": "user_62",
+          "nickname": "user_61",
           "password": "123456"
         }
       },
       "response_data": {
-        "id": 500017,
-        "nickname": "user_62",
-        "email": "email66@factory.com",
+        "id": 500016,
+        "nickname": "user_61",
+        "email": "email65@factory.com",
         "avatar": "/assets/globals/missing_avatar/x32.png"
       },
       "code": "200",
@@ -3480,7 +3482,7 @@
       "query": "",
       "request_data": null,
       "response_data": [
-        500018
+        500017
       ],
       "code": "200",
       "show_in_doc": 1,
@@ -3699,7 +3701,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 103567,
+          "id": 103568,
           "topic_title": "topic_6",
           "body": "test [spoiler=спойлер]test[/spoiler] test",
           "html_body": "test <div class=\"b-spoiler unprocessed\"><label>спойлер</label><div class=\"content\"><div class=\"before\"></div><div class=\"inner\">test</div><div class=\"after\"></div></div></div> test",
@@ -3725,7 +3727,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-27T00:37:32.658+03:00"
+            "last_online_at": "2017-06-12T14:30:32.688+03:00"
           },
           "type": "Topic",
           "linked_id": null,
@@ -3750,7 +3752,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 103568,
+        "id": 103569,
         "topic_title": "Обзор аниме &laquo;anime_31&raquo;",
         "body": "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "html_body": "<div class=\"b-prgrph\">ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>",
@@ -3776,7 +3778,7 @@
             "x32": "http:///assets/globals/missing_avatar/x32.png",
             "x16": "http:///assets/globals/missing_avatar/x16.png"
           },
-          "last_online_at": "2017-05-27T00:37:32.658+03:00"
+          "last_online_at": "2017-06-12T14:30:32.688+03:00"
         },
         "type": "Topics::EntryTopics::ReviewTopic",
         "linked_id": 1,
@@ -3814,7 +3816,7 @@
               "x32": "http:///assets/globals/missing_avatar/x32.png",
               "x16": "http:///assets/globals/missing_avatar/x16.png"
             },
-            "last_online_at": "2017-05-27T00:37:32.658+03:00"
+            "last_online_at": "2017-06-12T14:30:32.688+03:00"
           },
           "votes_count": 0,
           "votes_for": 0,
@@ -3910,7 +3912,7 @@
         "rewatches": 5,
         "user": {
           "id": 23456840,
-          "nickname": "user_73",
+          "nickname": "user_72",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4082,7 +4084,7 @@
         "rewatches": 0,
         "user": {
           "id": 23456842,
-          "nickname": "user_75",
+          "nickname": "user_74",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4304,7 +4306,7 @@
         "rewatches": 5,
         "user": {
           "id": 23456841,
-          "nickname": "user_74",
+          "nickname": "user_73",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4401,8 +4403,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 500029,
-            "nickname": "user_81",
+            "id": 500026,
+            "nickname": "user_80",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4470,7 +4472,7 @@
             "author_name": null
           },
           "user": {
-            "id": 500037,
+            "id": 500034,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4504,24 +4506,24 @@
       "response_data": [
         {
           "id": 3,
-          "user_id": 500036,
+          "user_id": 500033,
           "comment": {
             "id": 10,
             "commentable_id": 82468,
             "commentable_type": "Topic",
-            "body": "comment_body_9",
-            "user_id": 500036,
+            "body": "comment_body_9\n\n[ban=3]",
+            "user_id": 500033,
             "created_at": "2017-01-10T15:00:00.000+03:00",
             "updated_at": "2017-01-10T15:00:00.000+03:00",
             "is_summary": false,
             "is_offtopic": false
           },
-          "moderator_id": 500036,
+          "moderator_id": 500033,
           "reason": "moderator comment",
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "duration_minutes": 180,
           "user": {
-            "id": 500036,
+            "id": 500033,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4536,7 +4538,7 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "moderator": {
-            "id": 500036,
+            "id": 500033,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4568,8 +4570,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 14,
-          "name": "club_14",
+          "id": 11,
+          "name": "club_15",
           "logo": {
             "original": "/assets/globals/missing_original_original.jpg",
             "main": "/assets/globals/missing_main_main.jpg",
@@ -4677,8 +4679,8 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500027,
-          "nickname": "user_79",
+          "id": 500024,
+          "nickname": "user_78",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
             "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4753,7 +4755,7 @@
       "request_data": null,
       "response_data": [
         {
-          "id": 500019,
+          "id": 500018,
           "nickname": "Test1",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -4768,7 +4770,7 @@
           "last_online_at": "2017-01-10T15:00:00.000+03:00"
         },
         {
-          "id": 500020,
+          "id": 500019,
           "nickname": "Test2",
           "avatar": "http:///assets/globals/missing_avatar/x48.png",
           "image": {
@@ -4798,7 +4800,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500023,
+        "id": 500022,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -4842,8 +4844,8 @@
           "text_html": null,
           "rewatches": 0,
           "user": {
-            "id": 500030,
-            "nickname": "user_82",
+            "id": 500027,
+            "nickname": "user_81",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4901,9 +4903,9 @@
           "created_at": "2017-01-10T15:00:00.000+03:00",
           "linked": {
             "id": 45,
-            "topic_url": "//test.host/forum/animanga/103569-topic-8",
-            "thread_id": 103569,
-            "topic_id": 103569,
+            "topic_url": "//test.host/forum/animanga/103570-topic-8",
+            "thread_id": 103570,
+            "topic_id": 103570,
             "type": "Anime",
             "name": "anime_42",
             "russian": null,
@@ -4922,8 +4924,8 @@
             "released_on": null
           },
           "from": {
-            "id": 500033,
-            "nickname": "user_84",
+            "id": 500030,
+            "nickname": "user_83",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
               "x160": "http:///assets/globals/missing_avatar/x160.png",
@@ -4937,7 +4939,7 @@
             "last_online_at": "2017-01-10T15:00:00.000+03:00"
           },
           "to": {
-            "id": 500032,
+            "id": 500029,
             "nickname": "Test",
             "avatar": "http:///assets/globals/missing_avatar/x48.png",
             "image": {
@@ -4968,7 +4970,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500022,
+        "id": 500021,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -5235,7 +5237,7 @@
       "query": "",
       "request_data": null,
       "response_data": {
-        "id": 500024,
+        "id": 500023,
         "nickname": "Test",
         "avatar": "http:///assets/globals/missing_avatar/x48.png",
         "image": {
@@ -5255,68 +5257,6 @@
       },
       "code": "200",
       "show_in_doc": 1,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": {
-        "id": 500025,
-        "nickname": "Test",
-        "avatar": "http:///assets/globals/missing_avatar/x48.png",
-        "image": {
-          "x160": "http:///assets/globals/missing_avatar/x160.png",
-          "x148": "http:///assets/globals/missing_avatar/x148.png",
-          "x80": "http:///assets/globals/missing_avatar/x80.png",
-          "x64": "http:///assets/globals/missing_avatar/x64.png",
-          "x48": "http:///assets/globals/missing_avatar/x48.png",
-          "x32": "http:///assets/globals/missing_avatar/x32.png",
-          "x16": "http:///assets/globals/missing_avatar/x16.png"
-        },
-        "last_online_at": "2017-01-10T15:00:00.000+03:00",
-        "name": null,
-        "sex": null,
-        "website": null,
-        "birth_on": null
-      },
-      "code": "200",
-      "show_in_doc": 0,
-      "recorded": true
-    },
-    {
-      "verb": "GET",
-      "path": "",
-      "versions": [
-        "1.0"
-      ],
-      "query": "",
-      "request_data": null,
-      "response_data": {
-        "id": 500026,
-        "nickname": "Test",
-        "avatar": "http:///assets/globals/missing_avatar/x48.png",
-        "image": {
-          "x160": "http:///assets/globals/missing_avatar/x160.png",
-          "x148": "http:///assets/globals/missing_avatar/x148.png",
-          "x80": "http:///assets/globals/missing_avatar/x80.png",
-          "x64": "http:///assets/globals/missing_avatar/x64.png",
-          "x48": "http:///assets/globals/missing_avatar/x48.png",
-          "x32": "http:///assets/globals/missing_avatar/x32.png",
-          "x16": "http:///assets/globals/missing_avatar/x16.png"
-        },
-        "last_online_at": "2017-01-10T15:00:00.000+03:00",
-        "name": null,
-        "sex": null,
-        "website": null,
-        "birth_on": null
-      },
-      "code": "200",
-      "show_in_doc": 0,
       "recorded": true
     }
   ],
