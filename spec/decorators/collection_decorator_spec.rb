@@ -36,4 +36,15 @@ describe CollectionDecorator do
   describe '#texts' do
     it { expect(decorator.texts).to eq anime_3.id => '<strong>z</strong>' }
   end
+
+  describe '#entries_sample' do
+    it do
+      expect(decorator.entries_sample).to eq [anime_1, anime_2, anime_3]
+      expect(decorator.entries_sample.first).to be_decorated
+    end
+  end
+
+  describe '#size' do
+    it { expect(decorator.size).to eq 3 }
+  end
 end

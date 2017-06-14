@@ -19,17 +19,20 @@ class DynamicElements.CuttedCovers extends View
   @GLOBAL_HANDLER = false
 
   initialize: ->
-    @_fetch_poster()
-    @collection_id = "cutted_covers_#{@_increment_id()}"
-    @ratio_type = @_node_ratio @node
+    # $.process иногда выполняется ДО вставки в DOM, а этот код должен быть
+    # выполнен, когда уже @root вставлен в DOM. поэтому delay
+    delay().then =>
+      @_fetch_poster()
+      @collection_id = "cutted_covers_#{@_increment_id()}"
+      @ratio_type = @_node_ratio @node
 
-    @inject_css()
+      @inject_css()
 
-    @node.id = @collection_id
-    @node.classList.add(DynamicElements.CuttedCovers.CLASS_NAME)
-    @$node.data("#{DynamicElements.CuttedCovers.CLASS_NAME}": @)
+      @node.id = @collection_id
+      @node.classList.add(DynamicElements.CuttedCovers.CLASS_NAME)
+      @$node.data("#{DynamicElements.CuttedCovers.CLASS_NAME}": @)
 
-    set_hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
+      set_hanler() unless DynamicElements.CuttedCovers.GLOBAL_HANDLER
 
   inject_css: =>
     @_fetch_poster() unless $.contains(document.documentElement, @$poster[0])

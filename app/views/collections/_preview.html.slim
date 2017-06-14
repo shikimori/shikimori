@@ -1,0 +1,24 @@
+.collection-row.to-process[
+  data-dynamic="cutted_covers"
+]
+  /# Template Dependency: animes/anime
+  /# Template Dependency: mangas/manga
+  /# Template Dependency: characters/character
+  /# Template Dependency: people/person
+  = render partial: "#{collection.kind.pluralize}/#{collection.kind}",
+    collection: collection.entries_sample,
+    locals: { cover_notice: :none },
+    cache: ->(entry, _) { CacheHelper.keys entry, :none }
+
+  - if collection.entries_sample.size < collection.size
+    .c-column.b-catalog_entry
+      .cover
+        .image-decor
+          a.image-cutter.see-more[
+            href="#{topic_view.url}"
+          ]
+            .text
+              .inner
+                | ...
+                br
+                = t '.more', count: collection.size - collection.entries_sample.size

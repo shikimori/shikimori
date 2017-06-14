@@ -20,7 +20,7 @@
 
   span.additional
     - if topic_type_policy.collection_topic?
-      span.collection-size = topic_view.collection_size
+      span.collection-size = topic_view.collection.size
 
     span.comments = topic_view.comments_count
 

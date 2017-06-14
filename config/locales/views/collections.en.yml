@@ -13,3 +13,5 @@ en:
           Cancellation of publication is not possible.
         published: >-
           Cancellation of publication is not possible
+    preview:
+      more: +%{count} more

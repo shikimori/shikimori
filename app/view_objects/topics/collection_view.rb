@@ -48,23 +48,17 @@ class Topics::CollectionView < Topics::View
     )
   end
 
-  def collection_size
-    collection.links.size
+  def collection
+    @topic.linked.decorate
   end
 
 private
 
   def preview_html
-    ids = collection.links.limit(6).pluck(:linked_id)
-    tag_type = collection.kind.pluralize
-
-    if ids.any?
-      BbCodeFormatter.instance.format_comment(
-        "[#{tag_type} ids=#{ids.join ','} class=collection-row]"
-      )
-    else
-      ''
-    end
+    h.render(
+      partial: 'collections/preview',
+      locals: { collection: collection, topic_view: self }
+    )
   end
 
   def collection_html
@@ -73,9 +67,5 @@ private
 
   def results_html
     h.render 'reviews/votes', review: collection
-  end
-
-  def collection
-    @topic.linked.decorate
   end
 end

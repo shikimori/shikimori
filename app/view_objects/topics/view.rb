@@ -202,7 +202,8 @@ class Topics::View < ViewObjectBase
       # не заменять на preview? и minified?,
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
-      @is_mini
+      @is_mini,
+      :v2
     )
   end
 
