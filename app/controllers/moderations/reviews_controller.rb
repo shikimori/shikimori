@@ -10,14 +10,14 @@ class Moderations::ReviewsController < ModerationsController
     @moderators = User.where(id: User::REVIEWS_MODERATORS - User::ADMINS).sort_by { |v| v.nickname.downcase }
     @processed = postload_paginate(params[:page], 25) do
       Review
-        .where(state: ['accepted', 'rejected'])
+        .where(moderation_state: %i[accepted rejected])
         .includes(:user, :approver, :target, :topics)
         .order(created_at: :desc)
     end
 
     # if user_signed_in? && current_user.reviews_moderator?
     @pending = Review
-      .where(state: 'pending')
+      .where(moderation_state: :pending)
       .includes(:user, :approver, :target, :topics)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)

@@ -24,10 +24,10 @@ class Review < ApplicationRecord
 
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
 
-  scope :pending, -> { where state: 'pending' }
-  scope :visible, -> { where state: ['pending', 'accepted'] }
+  scope :pending, -> { where moderation_state: 'pending' }
+  scope :visible, -> { where moderation_state: ['pending', 'accepted'] }
 
-  state_machine :state, initial: :pending do
+  state_machine :moderation_state, initial: :pending do
     state :pending
     state :accepted do
       validates :approver, presence: true
@@ -36,13 +36,8 @@ class Review < ApplicationRecord
       validates :approver, presence: true
     end
 
-    event :accept do
-      transition pending: :accepted
-    end
-
-    event :reject do
-      transition pending: :rejected
-    end
+    event(:accept) { transition pending: :accepted }
+    event(:reject) { transition pending: :rejected }
 
     before_transition pending: :accepted do |review, transition|
       review.approver = transition.args.first

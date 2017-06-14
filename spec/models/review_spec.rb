@@ -13,12 +13,12 @@ describe Review do
     it { is_expected.to validate_presence_of :locale }
 
     context 'accepted' do
-      subject { build :review, state: 'accepted' }
+      subject { build :review, :accepted }
       it { is_expected.to validate_presence_of :approver }
     end
 
     context 'rejected' do
-      subject { build :review, state: 'rejected' }
+      subject { build :review, :rejected }
       it { is_expected.to validate_presence_of :approver }
     end
   end
@@ -28,19 +28,22 @@ describe Review do
 
     describe 'pending' do
       subject { Review.pending }
-      let!(:review1) { create :review, state: :pending }
-      let!(:review2) { create :review, state: :accepted,
-        user: build_stubbed(:user), approver: user }
+      let!(:review1) { create :review, :pending }
+      let!(:review2) do
+        create :review, :accepted, user: build_stubbed(:user), approver: user
+      end
       it { is_expected.to eq [review1] }
     end
 
     describe 'visible' do
       subject { Review.visible.order(:id) }
-      let!(:review1) { create :review, state: :pending }
-      let!(:review2) { create :review, state: :accepted,
-        user: build_stubbed(:user), approver: user }
-      let!(:review3) { create :review, state: :rejected,
-        user: build_stubbed(:user), approver: user }
+      let!(:review1) { create :review, :pending }
+      let!(:review2) do
+        create :review, :accepted, user: build_stubbed(:user), approver: user
+      end
+      let!(:review3) do
+        create :review, :rejected, user: build_stubbed(:user), approver: user
+      end
       it { is_expected.to eq [review1, review2] }
     end
   end
@@ -66,7 +69,9 @@ describe Review do
 
     describe '#to_offtopic' do
       before { review.reject! user }
-      it { expect(review.topic(review.locale).forum_id).to eq Forum::OFFTOPIC_ID }
+      it do
+        expect(review.topic(review.locale).forum_id).to eq Forum::OFFTOPIC_ID
+      end
     end
   end
 

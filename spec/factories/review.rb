@@ -2,8 +2,8 @@ FactoryGirl.define do
   factory :review do
     association :target, factory: :anime
     user { seed :user }
-
     text { 's' * Review::MINIMUM_LENGTH }
+
     overall 1
     storyline 1
     music 1
@@ -11,6 +11,14 @@ FactoryGirl.define do
     animation 1
 
     locale :ru
+
+    trait(:pending) { moderation_state :pending }
+    trait(:accepted) { moderation_state :accepted }
+    trait(:rejected) { moderation_state :rejected }
+
+    # Review.state_machine.states.map(&:value).each do |review_state|
+      # trait(review_state.to_sym) { moderation_state review_state }
+    # end
 
     trait :with_topics do
       after(:create) { |review| review.generate_topics review.locale }

@@ -1,18 +1,29 @@
 .b-log_entry
   - if review.pending?
     .moderation
-      a.accept href="#{accept_moderations_review_path review}" data-method='post' = t '.accept'
-      a.reject href="#{reject_moderations_review_path review}" data-method='post' = t '.move_to_offtopic'
+      a.accept[
+        href="#{accept_moderations_review_path review}"
+        data-method='post'
+      ] = t '.accept'
+      a.reject[
+        href="#{reject_moderations_review_path review}"
+        data-method='post'
+      ] = t '.move_to_offtopic'
 
   .info
     span.id-label #
     span
-      a href="#{UrlGenerator.instance.topic_url review.maybe_topic(locale_from_host)}" = review.id
+      a[
+        href="#{UrlGenerator.instance.topic_url review.maybe_topic(locale_from_host)}"
+      ] = review.id
     span.date
       = review.created_at.strftime '%d.%m.%Y'
 
     .b-user16
-      a href="#{profile_url review.user}" title="#{review.user.nickname}"
+      a[
+        href="#{profile_url review.user}"
+        title="#{review.user.nickname}"
+      ]
         img[
           src="#{review.user.avatar_url 16}"
           srcset="#{review.user.avatar_url 32} 2x"
@@ -25,14 +36,16 @@
       = review.target_type
     span.id
       - if review.target
-        a.bubbled href="#{url_for review.target}" = review.target.name
+        a.bubbled[
+          href="#{url_for review.target}"
+        ] = review.target.name
       - else
         = t "deleted.#{review.model}"
 
     = render 'reviews/votes', review: review
 
-    span.state class="#{review.state}"
-      = review.human_state_name
+    span.state class="#{review.moderation_state}"
+      = review.human_moderation_state_name
 
     - if review.approver.present?
       span = review.approver.nickname

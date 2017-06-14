@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614223036) do
+ActiveRecord::Schema.define(version: 20170614223334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -717,7 +717,7 @@ ActiveRecord::Schema.define(version: 20170614223036) do
 
   create_table "reviews", force: :cascade do |t|
     t.integer  "target_id"
-    t.string   "target_type", limit: 255
+    t.string   "target_type",      limit: 255
     t.integer  "user_id"
     t.text     "text"
     t.integer  "overall"
@@ -728,10 +728,10 @@ ActiveRecord::Schema.define(version: 20170614223036) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "comment_id"
-    t.string   "source",      limit: 255
-    t.string   "state",       limit: 255, default: "pending"
+    t.string   "source",           limit: 255
+    t.string   "moderation_state", limit: 255, default: "pending"
     t.integer  "approver_id"
-    t.string   "locale",                                      null: false
+    t.string   "locale",                                           null: false
     t.index ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type", using: :btree
   end
 
