@@ -101,10 +101,14 @@ class DynamicElements.Topic extends ShikiEditable
         @_toggle_ignored result.is_ignored
 
     # голосование за/против рецензии
-    @$('.footer-vote .vote').on 'ajax:before', ->
-      $(@).closest('.footer-vote').addClass 'b-ajax'
-      $(@).addClass 'selected'
-      $(@).siblings('.vote').removeClass('selected')
+    @$('.footer-vote .vote').on 'ajax:before', (e) =>
+      @$inner.find('.footer-vote').addClass 'b-ajax'
+      is_yes = $(e.target).hasClass 'yes'
+
+      @$inner.find('.vote.yes, .user-vote .voted-for')
+        .toggleClass('selected', is_yes)
+      @$inner.find('.vote.no, .user-vote .voted-against')
+        .toggleClass('selected', !is_yes)
 
     @$('.footer-vote .vote').on 'ajax:complete', ->
       $(@).closest('.footer-vote').removeClass 'b-ajax'
@@ -330,9 +334,12 @@ class DynamicElements.Topic extends ShikiEditable
 
   _activate_vote_button: ->
     if @model.voted_yes
-      @$inner.find('.vote.yes').addClass 'selected'
+      @$inner.find('.footer-vote .vote.yes, .user-vote .voted-for')
+        .addClass('selected')
+
     else if @model.voted_no
-      @$inner.find('.vote.no').addClass 'selected'
+      @$inner.find('.footer-vote .vote.no, .user-vote .voted-against')
+        .addClass('selected')
 
   # скрытие действий, на которые у пользователя нет прав
   _deactivate_inaccessible_buttons: =>

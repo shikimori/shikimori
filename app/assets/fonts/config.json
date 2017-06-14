@@ -309,7 +309,7 @@
     {
       "uid": "in76hg99crrkpcbz2rjnmgbiw74s72y0",
       "css": "ok-1",
-      "code": 59415,
+      "code": 10003,
       "src": "modernpics"
     },
     {
@@ -345,7 +345,7 @@
     {
       "uid": "06301c50d89b5d3e651bd07ebd6d7de7",
       "css": "cancel",
-      "code": 120,
+      "code": 10005,
       "src": "mfglabs"
     },
     {

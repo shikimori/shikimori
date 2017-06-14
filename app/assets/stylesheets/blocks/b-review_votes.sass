@@ -1,0 +1,45 @@
+@import globals/variables
+@import mixins/brackets_surrounded
+
+.b-review_votes
+  &:before
+    color: #333
+    content: '\e819'
+    display: inline-block
+    font-family: 'shikimori'
+    font-size: 14px
+    padding-right: 5px
+
+  .user-vote
+    .voted-for, .voted-against
+      +brackets_surrounded
+      display: none
+      font-family: shikimori
+
+      &.selected
+        display: inline-block
+        margin-left: 5px
+
+        &:before
+          padding-right: 2px
+
+        &:after
+          padding-left: 2px
+
+    .voted-for
+      color: #24a232
+
+    .voted-against
+      color: #c32017
+
+  span
+    color: $gray
+    padding: 0
+
+  .votes-for
+    color: #24a232
+    padding: 0
+
+  .votes-against
+    color: #c32017
+    padding: 0
