@@ -16,7 +16,13 @@
     time[
       itemprop="commentTime"
       datetime="#{topic_view.created_at.iso8601}"
-    ] = l topic_view.created_at, format: '%e %B %Y'
+    ] = topic_view.format_date topic_view.created_at
+
+  - if topic_view.respond_to?(:changed_at) && topic_view.changed_at
+    span.time.changed_at
+      time[
+        datetime="#{topic_view.changed_at.iso8601}"
+      ] = topic_view.format_date topic_view.changed_at
 
   span.additional
     - if topic_type_policy.collection_topic?

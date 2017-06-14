@@ -4,6 +4,19 @@
 $body_left_padding: 58px
 $body_phone_left_padding: 42px
 
+=status_line_block
+  border-left: 1px solid #acb1b4
+  margin-left: 15px
+  padding-left: 14px
+
+=status_line_block_icon($symbol)
+  color: #333
+  content: $symbol
+  display: inline-block
+  font-family: 'shikimori'
+  font-size: 14px
+  padding-right: 5px
+
 .b-topic-preview
   margin-bottom: 35px
 
@@ -44,7 +57,7 @@ $body_phone_left_padding: 42px
         // vertical-align: middle
 
       .from, .about
-        color: $gray-3
+        // color: $gray-3
 
       .b-link
         padding: 0 5px
@@ -56,23 +69,22 @@ $body_phone_left_padding: 42px
           margin-top: 1px
 
       .time
-        color: $gray-3
+        // color: $gray-3
+
+        &.changed_at
+          +status_line_block
+
+          &:before
+            +status_line_block_icon('\e808')
 
       .additional
-        margin-left: 15px
-        padding-left: 14px
-        border-left: 1px solid #acb1b4
+        +status_line_block
 
         .comments
           display: inline-block
-          color: #333
 
           &:before
-            content: 'f'
-            display: inline-block
-            font-family: 'shikimori'
-            font-size: 14px
-            padding-right: 5px
+            +status_line_block_icon('f')
 
         .b-review_votes
           margin-left: 15px

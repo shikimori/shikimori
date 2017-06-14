@@ -503,6 +503,12 @@
       "css": "link",
       "code": 128279,
       "src": "entypo"
+    },
+    {
+      "uid": "242giivkgr3e6le7b2xqi2pkdruf85mu",
+      "css": "edit",
+      "code": 59400,
+      "src": "modernpics"
     }
   ]
 }

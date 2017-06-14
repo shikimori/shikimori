@@ -207,6 +207,20 @@ class Topics::View < ViewObjectBase
     )
   end
 
+  def format_date datetime
+    h.l datetime, format: '%e %B %Y'
+  end
+
+  def changed_at
+    linked = @topic.linked
+
+    return if linked.updated_at - linked.created_at < 1.hour
+    return if format_date(linked.updated_at) ==
+      format_date(linked.created_at)
+
+    linked.updated_at
+  end
+
 private
 
   def linked_in_avatar?
