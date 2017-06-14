@@ -203,7 +203,7 @@ class Topics::View < ViewObjectBase
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      :v2
+      :v3
     )
   end
 
