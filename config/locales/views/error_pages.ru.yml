@@ -31,7 +31,7 @@ ru:
     text: |
       <p>Вам уже есть 18 лет?</p>
       <p>
-        <span class='confirm' onclick="$.cookie('%{cookie}', true, {expires: 9999, path: '/'}); location.reload()">
+        <span class='confirm' data-cookie="%{cookie}">
           Да
         </span>
         &nbsp;&nbsp;&nbsp;

@@ -9,10 +9,18 @@ html
       type='text/css'
     ]
     = stylesheet_link_tag 'age_restricted'
-    = javascript_include_tag 'jquery'
-    = javascript_include_tag 'vendor/jquery.cookie'
 
-  body
+    - unless Rails.env.test?
+      = javascript_pack_tag 'vendor', data: { 'turbolinks-track' => '' }
+      = javascript_pack_tag 'application', data: { 'turbolinks-track' => '' }
+
+  body[
+    id="age_restricted"
+    data-env="#{Rails.env}"
+    data-user="#{@layout.user_data.to_json}"
+    data-locale="#{I18n.locale}"
+    data-server_time="#{Time.zone.now.iso8601}"
+  ]
     .p-age_restricted
       .dialog
         p.age-restricted-warning == t 'age_restricted.warning'

@@ -14,6 +14,7 @@ Rails.application.config.assets.paths << "#{Rails.root}/app/assets/fonts"
   # Proc.new { |path| !%w(.js .css).include?(File.extname(path)) },
   # /.*.(css|js)$/
 # ]
+# vendor/jquery.cookie - for age_restricted.html.slim
 Rails.application.config.assets.precompile += %w(
   page503.css
   page404.css

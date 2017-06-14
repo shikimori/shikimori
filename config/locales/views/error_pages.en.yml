@@ -31,7 +31,7 @@ en:
     text: |
       <p>Are you over 18?</p>
       <p>
-        <span class='confirm' onclick="$.cookie('%{cookie}', true, {expires: 9999, path: '/'}); location.reload()">
+        <span class='confirm' data-cookie="%{cookie}">
           Yes
         </span>
         &nbsp;&nbsp;&nbsp;
