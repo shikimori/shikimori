@@ -214,6 +214,7 @@ class Topics::View < ViewObjectBase
   def changed_at
     linked = @topic.linked
 
+    return unless linked&.updated_at && linked&.created_at
     return if linked.updated_at - linked.created_at < 1.hour
     return if format_date(linked.updated_at) ==
       format_date(linked.created_at)
