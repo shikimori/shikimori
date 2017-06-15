@@ -26,6 +26,11 @@ en:
 
       If you have any questions or suggestions
       feel free to post them on the forum - we'll try to help you.
+    moderatable_banned:
+      without_reason: >-
+        Your [entry=%{topic_id}]%{entry_name}[/entry] was moved to offtopic
+      reason: >-
+        becase of [quote=%{approver_nickname}]%{reason}[/quote]
   omniauth_service:
     new_user: New user
   bb_codes/replies_tag:

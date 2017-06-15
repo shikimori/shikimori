@@ -1,11 +1,11 @@
 describe ModerationPolicy do
-  let(:policy) { ModerationPolicy.new user, moderation_filter }
+  let(:policy) { ModerationPolicy.new user, :ru, moderation_filter }
   let(:moderation_filter) { true }
 
   describe '#reviews_count' do
     before do
       allow(Review)
-        .to receive_message_chain(:pending, :size)
+        .to receive_message_chain(:pending, :where, :size)
         .and_return(reviews_count)
     end
     let(:reviews_count) { 1 }

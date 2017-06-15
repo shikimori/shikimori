@@ -1,13 +1,14 @@
 class ModerationPolicy
   prepend ActiveCacher.instance
 
-  pattr_initialize :user, :moderation_filter
+  pattr_initialize :user, :locale, :moderation_filter
+
   instance_cache :reviews_count, :abuse_abuses_count,
     :abuse_pending_count, :other_versions_count, :video_versions_count
 
   def reviews_count
     return 0 unless !@moderation_filter || @user&.reviews_moderator?
-    Review.pending.size
+    Review.pending.where(locale: @locale).size
   end
 
   def abuses_count

@@ -11,6 +11,7 @@ class Moderations::ReviewsController < ModerationsController
     @processed = postload_paginate(params[:page], 25) do
       Review
         .where(moderation_state: %i[accepted rejected])
+        .where(locale: locale_from_host)
         .includes(:user, :approver, :target, :topics)
         .order(created_at: :desc)
     end
@@ -18,6 +19,7 @@ class Moderations::ReviewsController < ModerationsController
     # if user_signed_in? && current_user.reviews_moderator?
     @pending = Review
       .where(moderation_state: :pending)
+      .where(locale: locale_from_host)
       .includes(:user, :approver, :target, :topics)
       .order(created_at: :desc)
       .limit(PENDING_PER_PAGE)

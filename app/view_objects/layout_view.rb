@@ -59,7 +59,7 @@ class LayoutView < ViewObjectBase
   end
 
   def moderation_policy
-    ModerationPolicy.new h.current_user, true
+    ModerationPolicy.new h.current_user, h.locale_from_host, true
   end
 
 private

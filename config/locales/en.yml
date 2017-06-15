@@ -11,6 +11,7 @@ en:
       genre: Genre
       manga: Manga
       person: Person
+      review: Review
       ranobe: Light Novel
       topic: Topic
       topics/news_topic: News Topic
@@ -46,6 +47,8 @@ en:
         <<: *anime_attributes
         volumes: Volumes
         chapters: Chapters
+
+
       ranobe:
         <<: &manga_attributes
       character: &character_attributes
@@ -260,7 +263,7 @@ en:
           proposing: proposing candidates
           started: active
           finished: finished
-      review:
+      review: &review_states
         states:
           pending: pending approval
           accepted: accepted
@@ -268,6 +271,8 @@ en:
         events:
           publish: Publish
           unpublish: Unpublish
+      collection:
+        <<: *review_states
       anime_video:
         states:
           working: working

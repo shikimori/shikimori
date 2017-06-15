@@ -117,7 +117,7 @@ shared_examples :db_entry_controller do |entry_name|
   end
 end
 
-shared_examples :topics_concern_in_db_entry do |db_entry|
+shared_examples :topics_concern do |db_entry|
   describe 'topics concern' do
     describe 'associations' do
       it { is_expected.to have_many :topics }
@@ -183,7 +183,7 @@ shared_examples :topics_concern_in_db_entry do |db_entry|
   end
 end
 
-shared_examples :collections_concern_in_db_entry do |db_entry|
+shared_examples :collections_concern do |db_entry|
   describe 'collections concern' do
     describe 'associations' do
       it { is_expected.to have_many(:collection_links).dependent :destroy }

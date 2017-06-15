@@ -2,8 +2,8 @@ header.head
   h1 = @page_title.last
   p.notice  = t '.header_notice'
 
-.cc-2
-  .c-column
+.cc-2.block
+  .c-column.m0
     .subheadline = t '.moderation'
 
     ul.b-list.block
@@ -69,7 +69,7 @@ header.head
           ] = t '.anime_video_authors'
 
   - if ru_host?
-    .c-column
+    .c-column.m0
       .subheadline = t '.content'
 
       ul.b-list

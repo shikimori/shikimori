@@ -26,6 +26,11 @@ ru:
 
       Если возникнут вопросы или пожелания - пишите на форуме,
       мы постараемся вам ответить.
+    moderatable_banned:
+      without_reason: >-
+        Ваша [entry=%{topic_id}]%{entry_name}[/entry] перенесена в оффтоп
+      reason: >-
+        по причине [quote=%{approver_nickname}]%{reason}[/quote]
   omniauth_service:
     new_user: Новый пользователь
   bb_codes/replies_tag:

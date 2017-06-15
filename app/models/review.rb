@@ -4,6 +4,7 @@ class Review < ApplicationRecord
   include Antispam
   include Moderatable
   include TopicsConcern
+  include ModeratableConcern
 
   acts_as_voteable
 
@@ -11,52 +12,17 @@ class Review < ApplicationRecord
 
   belongs_to :target, polymorphic: true, touch: true
   belongs_to :user
-  belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
   validates :user, :target, presence: true
   validates :text,
     length: {
       minimum: MINIMUM_LENGTH,
-      too_short: "слишком короткий (минимум #{MINIMUM_LENGTH} знаков)"
+      too_short: "too short (#{MINIMUM_LENGTH} symbols minimum)"
     },
     if: -> { changes['text'] }
   validates :locale, presence: true
 
   enumerize :locale, in: %i(ru en), predicates: { prefix: true }
-
-  scope :pending, -> { where moderation_state: 'pending' }
-  scope :visible, -> { where moderation_state: ['pending', 'accepted'] }
-
-  state_machine :moderation_state, initial: :pending do
-    state :pending
-    state :accepted do
-      validates :approver, presence: true
-    end
-    state :rejected do
-      validates :approver, presence: true
-    end
-
-    event(:accept) { transition pending: :accepted }
-    event(:reject) { transition pending: :rejected }
-
-    before_transition pending: :accepted do |review, transition|
-      review.approver = transition.args.first
-    end
-
-    before_transition pending: :rejected do |review, transition|
-      review.approver = transition.args.first
-      review.to_offtopic!
-
-      Message.create_wo_antispam!(
-        from_id: review.approver_id,
-        to_id: review.user_id,
-        kind: MessageType::Notification,
-        body: "Ваша [entry=#{review.topic(review.locale).id}]реценция[/entry] перенесена в оффтоп" +
-          (transition.args.second ?
-           " по причине: [quote=#{review.approver.nickname}]#{transition.args.second}[/quote]" : '')
-      )
-    end
-  end
 
   def topic_user
     user
@@ -70,9 +36,5 @@ class Review < ApplicationRecord
 
   def body
     text
-  end
-
-  def to_offtopic!
-    topic(locale).update_column :forum_id, Forum::OFFTOPIC_ID
   end
 end

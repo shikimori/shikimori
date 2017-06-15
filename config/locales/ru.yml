@@ -12,6 +12,7 @@ ru:
       manga: Манга
       person: Человек
       ranobe: Ранобэ
+      review: Рецензия
       topic: Топик
       topics/news_topic: Новостной топик
       user: Пользователь
@@ -262,7 +263,7 @@ ru:
           proposing: сбор номинантов
           started: активно
           finished: завершено
-      review:
+      review: &review_states
         states:
           pending: ожидает модерации
           accepted: принято
@@ -270,6 +271,8 @@ ru:
         events:
           publish: Опубликовать
           unpublish: Отменить публикацию
+      collection:
+        <<: *review_states
       anime_video:
         states:
           working: работает

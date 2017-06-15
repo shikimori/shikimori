@@ -5,7 +5,11 @@ class ModerationsController < ShikimoriController
   before_action { page_title i18n_t('title') }
 
   def show
-    @moderation_policy = ModerationPolicy.new current_user, false
+    @moderation_policy = ModerationPolicy.new(
+      current_user,
+      locale_from_host,
+      false
+    )
 
     if current_user.admin?
       @abuse_requests = AbuseRequest
