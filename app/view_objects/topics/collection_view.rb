@@ -57,6 +57,7 @@ private
   def preview_html
     h.render(
       partial: 'collections/preview',
+      formats: :html, # for /forum.rss
       locals: { collection: collection, topic_view: self }
     )
   end
