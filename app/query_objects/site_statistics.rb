@@ -81,7 +81,7 @@ class SiteStatistics
   def reviewers
     User
       .joins(:reviews)
-      .where.not(reviews: { state: :rejected })
+      .where.not(reviews: { moderation_state: :rejected })
       .group('users.id')
       .order('count(reviews.id) desc')
       .limit(USERS_LIMIT)

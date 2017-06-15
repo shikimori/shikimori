@@ -12,6 +12,10 @@ FactoryGirl.define do
 
     locale :ru
 
+    after :build do |model|
+      stub_method model, :check_antispam
+    end
+
     trait(:pending) { moderation_state :pending }
     trait(:accepted) { moderation_state :accepted }
     trait(:rejected) { moderation_state :rejected }

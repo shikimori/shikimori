@@ -11,6 +11,8 @@ FactoryGirl.define do
     Types::Collection::Kind.values.each { |value| trait(value) { kind value } }
 
     after :build do |model|
+      stub_method model, :check_antispam
+
       stub_method model, :post_elastic
       stub_method model, :put_elastic
       stub_method model, :delete_elastic

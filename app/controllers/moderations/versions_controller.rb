@@ -59,13 +59,13 @@ private
   def transition action, success_message
     @resource.send action, current_user, params[:reason]
     redirect_back(
-      fallback_location: moderations_versions_url,
+      fallback_location: moderations_versions_url(type: 'content'),
       notice: i18n_t(success_message)
     )
 
   rescue StateMachine::InvalidTransition
     redirect_back(
-      fallback_location: moderations_versions_url,
+      fallback_location: moderations_versions_url(type: 'content'),
       alert: i18n_t('changes_failed')
     )
   end
