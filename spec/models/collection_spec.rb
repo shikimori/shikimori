@@ -62,4 +62,5 @@ describe Collection do
 
   it_behaves_like :topics_concern, :collection
   it_behaves_like :elasticsearch_concern, :collection
+  it_behaves_like :moderatable_concern, :review
 end

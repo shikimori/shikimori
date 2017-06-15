@@ -1,6 +1,8 @@
 class Collection < ApplicationRecord
+  include Antispam
   include TopicsConcern
   include ElasticsearchConcern
+  include ModeratableConcern
 
   acts_as_voteable
 

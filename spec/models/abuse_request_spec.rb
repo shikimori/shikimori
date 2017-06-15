@@ -40,7 +40,7 @@ describe AbuseRequest do
     end
   end
 
-  context 'state_machine' do
+  describe 'state_machine' do
     let(:user) { create :user }
     subject(:abuse_request) { create :abuse_request, user: user }
 
