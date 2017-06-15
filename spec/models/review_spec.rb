@@ -193,4 +193,6 @@ describe Review do
       end
     end
   end
+
+  it_behaves_like :topics_concern, :review
 end

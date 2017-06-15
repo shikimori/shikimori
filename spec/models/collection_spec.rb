@@ -59,4 +59,7 @@ describe Collection do
       it { expect(model.topic_user).to eq model.user }
     end
   end
+
+  it_behaves_like :topics_concern, :collection
+  it_behaves_like :elasticsearch_concern, :collection
 end

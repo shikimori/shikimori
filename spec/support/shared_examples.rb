@@ -177,7 +177,14 @@ shared_examples :topics_concern do |db_entry|
       end
 
       describe '#topic_user' do
-        it { expect(model.topic_user).to eq BotsService.get_poster }
+        let(:poster) do
+          if model.is_a? DbEntry
+            BotsService.get_poster
+          else
+            model.user
+          end
+        end
+        it { expect(model.topic_user).to eq poster }
       end
     end
   end
