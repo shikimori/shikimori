@@ -38,6 +38,42 @@ describe ModerationPolicy do
     end
   end
 
+  describe '#collections_count' do
+    before do
+      allow(Collection)
+        .to receive_message_chain(:pending, :where, :size)
+        .and_return(collections_count)
+    end
+    let(:collections_count) { 1 }
+    let(:user) { build :user, :collections_moderator }
+
+    it { expect(policy.collections_count).to eq 1 }
+
+    context 'not moderator' do
+      let(:user) { build :user, :user }
+      it { expect(policy.collections_count).to eq 0 }
+    end
+
+    context 'no user' do
+      let(:user) { nil }
+      it { expect(policy.collections_count).to eq 0 }
+    end
+
+    context 'no moderation filter' do
+      let(:moderation_filter) { false }
+
+      context 'not moderator' do
+        let(:user) { build :user, :user }
+        it { expect(policy.collections_count).to eq 1 }
+      end
+
+      context 'no user' do
+        let(:user) { nil }
+        it { expect(policy.collections_count).to eq 1 }
+      end
+    end
+  end
+
   describe '#abuses_count' do
     before do
       allow(AbuseRequest)

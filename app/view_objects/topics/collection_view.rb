@@ -48,6 +48,10 @@ class Topics::CollectionView < Topics::View
     )
   end
 
+  def offtopic_tag
+    I18n.t 'markers.offtopic' if collection.rejected?
+  end
+
   def collection
     @topic.linked.decorate
   end
@@ -67,6 +71,6 @@ private
   end
 
   def results_html
-    h.render 'reviews/votes', review: collection
+    h.render 'topics/reviews/votes_count', review: collection
   end
 end

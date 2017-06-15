@@ -13,6 +13,7 @@ ru:
       missing_videos: Отсутствующие видео
       moderation: Модерация
       reviews_journal: Журнал рецензий
+      collections_journal: Журнал коллекций
       anime_video_authors: Авторы видео
       forums: Форумы
       uploaded_videos_journal: Журнал видео
@@ -88,6 +89,32 @@ ru:
         expand_all: раскрыть всё
         notice: История предупреждений и банов на сайте
         instruction: Инструкция
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         queue: Очередь
         queue_empty: Очередь пуста
         declined: Отклонено
@@ -121,6 +148,26 @@ ru:
         history: История
 
       review:
+        accept: принять
+        move_to_offtopic: переместить в оффтопик
+
+    collections:
+      index:
+        notice: История модерации коллекций
+        instruction: Инструкция
+        instructions:
+          - Отклонённые коллекции превращаются в топик оффтопика
+            без возможности восстановления.
+          - Отклоняйте коллекции, содержащие троллинг,
+            "быдлоязык", написанные с целью вызывать срач.
+        queue: Очередь
+        more_summaries_pending: >-
+          Это ещё не всё.
+          Прочие коллекции будут доступны после принятия отображённых выше.
+        queue_empty: Очередь пуста
+        history: История
+
+      collection:
         accept: принять
         move_to_offtopic: переместить в оффтопик
 

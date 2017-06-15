@@ -11,6 +11,7 @@ class User
     ADMINS = [MORR_ID]
     MODERATORS = (ADMINS + [921, 93, 861, 16_148]).uniq # 93 - lena-chan, 861 - Oniii-chan
     REVIEWS_MODERATORS = (ADMINS + [16_148]).uniq # 16148 - Alex Minson,
+    COLLECTIONS_MODERATORS = (ADMINS + [16_148]).uniq # 16148 - Alex Minson,
     VERSIONS_MODERATORS = (ADMINS + [921, 392, 16_148, 21_887]).uniq # 921 - sfairat, 11 - BlackMetalFan, 94 - AcidEmily, 392 - Tehanu, 16148 - Alex Minson, 21887 - Joseph
     TRANSLATORS = (ADMINS + VERSIONS_MODERATORS + [28, 19, 31, 41]).uniq
     CONTEST_MODERATORS = (ADMINS + [4261]).uniq # 4261 - Zepheles
@@ -58,6 +59,10 @@ class User
 
     def reviews_moderator?
       REVIEWS_MODERATORS.include? id
+    end
+
+    def collections_moderator?
+      COLLECTIONS_MODERATORS.include? id
     end
 
     # модератор ли контестов пользователь?

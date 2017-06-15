@@ -173,6 +173,10 @@ ru:
     <<: *moderations_controller
     page_title: Модерация рецензий
 
+  moderations/collections_controller:
+    <<: *moderations_controller
+    page_title: Модерация коллекций
+
   moderations/users_controller:
     <<: *moderations_controller
     page_title: Регистрация пользователей

@@ -6,6 +6,7 @@ class Collections::Query < QueryObjectBase
       .includes(:topics)
       .where(locale: locale)
       .where(state: :published)
+      .where.not(moderation_state: :rejected)
       .order(id: :desc)
   end
 

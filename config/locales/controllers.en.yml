@@ -173,6 +173,10 @@ en:
     <<: *moderations_controller
     page_title: Reviews moderation
 
+  moderations/collections_controller:
+    <<: *moderations_controller
+    page_title: Collections moderation
+
   moderations/users_controller:
     <<: *moderations_controller
     page_title: Users registration

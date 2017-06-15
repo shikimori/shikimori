@@ -18,9 +18,9 @@ header.head
   .subheadline = t '.queue'
   .block
     - if @pending.any?
-      = render partial: 'moderations/reviews/review',
+      = render partial: 'moderations/collections/collection',
         collection: @pending
-      - if @pending.size == Moderations::ReviewsController::PENDING_PER_PAGE
+      - if @pending.size == Moderations::CollectionsController::PENDING_PER_PAGE
         .m5
         .b-nothing_here = t '.more_summaries_pending'
     - else
@@ -29,8 +29,8 @@ header.head
 - if @processed.any?
   .subheadline = t '.history'
   .block
-    = render partial: 'moderations/reviews/review',
+    = render partial: 'moderations/collections/collection',
       collection: @processed
     - if @add_postloader
       = render 'blocks/postloader',
-        next_url: moderations_reviews_url(page: @page+1)
+        next_url: moderations_collections_url(page: @page+1)

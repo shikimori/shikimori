@@ -7,3 +7,6 @@ span.b-review_votes
   span.user-vote
     span.voted-for ✓
     span.voted-against ✕
+
+  - if review.rejected?
+    span.warn = t '.rejected'

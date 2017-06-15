@@ -13,6 +13,7 @@ en:
       missing_videos: Missing videos
       moderation: Moderation
       reviews_journal: Reviews journal
+      collections_journal: Collections journal
       anime_video_authors: Anime video authors
       forums: Forums
       uploaded_videos_journal: Uploaded videos journal
@@ -147,6 +148,26 @@ en:
         history: History
 
       review:
+        accept: accept
+        move_to_offtopic: move to offtopic
+
+    collections:
+      index:
+        notice: This is the history of collection moderation
+        instruction: Instructions
+        instructions:
+          - Rejected collection are converted to 'Off-Topic' forum topics
+            and cannot be restored.
+          - Reject collection containing either implicit or explicit trolling,
+            abusive language or which are meant to cause flaming.
+        queue: Queue
+        more_summaries_pending: >-
+          That's not all yet. Other collections will be available for
+          moderation after processing the ones above.
+        queue_empty: Queue is empty
+        history: History
+
+      collection:
         accept: accept
         move_to_offtopic: move to offtopic
 

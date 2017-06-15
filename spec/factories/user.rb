@@ -44,6 +44,7 @@ FactoryGirl.define do
     trait(:moderator) { id User::MODERATORS.last }
     trait(:contests_moderator) { id User::CONTEST_MODERATORS.last }
     trait(:reviews_moderator) { id User::REVIEWS_MODERATORS.last }
+    trait(:collections_moderator) { id User::COLLECTIONS_MODERATORS.last }
     trait(:video_moderator) { id User::VIDEO_MODERATORS.last }
     trait(:versions_moderator) { id User::VERSIONS_MODERATORS.last }
     trait(:banhammer) { id User::BANHAMMER_ID }

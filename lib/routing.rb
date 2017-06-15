@@ -99,8 +99,8 @@ module Routing
 
 private
 
-  def db_entry_url db_entry
-    public_send "#{db_entry.class.name.underscore}_url", db_entry
+  def db_entry_url db_entry, options
+    public_send "#{db_entry.class.name.underscore}_url", db_entry, options
   end
 
   def camo_digest url

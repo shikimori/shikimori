@@ -113,11 +113,6 @@ Rails.application.routes.draw do
         post :take_accepted
       end
     end
-    # scope ':type/', type: /content|anime_video/ do
-      # resources :versions, only: %i[index] do
-        # get '(/page/:page)' => :index, as: 'page', on: :collection
-      # end
-    # end
 
     resources :bans, only: %i[create] do
       get '(/page/:page)' => :index, as: '', on: :collection
@@ -131,6 +126,14 @@ Rails.application.routes.draw do
       end
     end
     resources :reviews, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
+
+      member do
+        post :accept
+        post :reject
+      end
+    end
+    resources :collections, only: [] do
       get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
