@@ -32,13 +32,13 @@ Rails.application.routes.draw do
 
   # do not move these autocompletable concerns into resources definition.
   # they will confict with resource#show routes
-  resources :animes, only: [], concerns: [:autocompletable]
-  resources :mangas, only: [], concerns: [:autocompletable]
-  resources :ranobe, only: [], concerns: [:autocompletable]
-  resources :characters, only: [], concerns: [:autocompletable]
-  resources :people, only: [], concerns: [:autocompletable]
-  resources :seyu, only: [], concerns: [:autocompletable]
-  resources :users, only: [], concerns: [:autocompletable]
+  resources :animes, only: [], concerns: %i[autocompletable]
+  resources :mangas, only: [], concerns: %i[autocompletable]
+  resources :ranobe, only: [], concerns: %i[autocompletable]
+  resources :characters, only: [], concerns: %i[autocompletable]
+  resources :people, only: [], concerns: %i[autocompletable]
+  resources :seyu, only: [], concerns: %i[autocompletable]
+  resources :users, only: [], concerns: %i[autocompletable]
 
   resources :pages, path: '/', only: [] do
     collection do
@@ -56,8 +56,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :user_images, only: [:create] # TODO: remove after 01.01.2016
-  resources :messages, only: [:create] do
+  resources :user_images, only: %i[create] # TODO: remove after 01.01.2016
+  resources :messages, only: %i[create] do
     post :preview, on: :collection
   end
 
@@ -68,11 +68,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :comments, except: [:create, :update] do
+  resources :comments, except: %i[create update] do
     # NOTE: should be before collection & member actions
-    resources :bans, only: [:new], controller: 'moderations/bans'
+    resources :bans, only: %i[new], controller: 'moderations/bans'
     resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
-      resources :bans, only: [:new], controller: 'moderations/bans'
+      resources :bans, only: %i[new], controller: 'moderations/bans'
 
       collection do
         post :abuse
@@ -95,11 +95,15 @@ Rails.application.routes.draw do
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen
 
-  resources :sponsors, only: [:show]
+  resources :sponsors, only: %i[show]
 
   namespace :moderations do
-    resources :users, only: [:index]
-    resources :versions, only: [:show, :create, :destroy] do
+    resources :users, only: %i[index]
+    resources :versions, only: %i[show create destroy] do
+      get '/:type(/page/:page)' => :index,
+        as: '',
+        on: :collection,
+        type: /content|anime_video/
       member do
         get :tooltip
         post :accept
@@ -109,25 +113,25 @@ Rails.application.routes.draw do
         post :take_accepted
       end
     end
-    scope ':type/', type: /content|anime_video/ do
-      resources :versions, only: [:index] do
-        get '(/page/:page)' => :index, as: :index, on: :collection
-      end
-    end
+    # scope ':type/', type: /content|anime_video/ do
+      # resources :versions, only: %i[index] do
+        # get '(/page/:page)' => :index, as: 'page', on: :collection
+      # end
+    # end
 
-    resources :bans, only: [:create, :index] do
-      get '/page/:page', action: :index, as: :page, on: :collection
+    resources :bans, only: %i[create] do
+      get '(/page/:page)' => :index, as: '', on: :collection
     end
-    resources :abuse_requests, only: [:index, :show] do
-      get '/page/:page', action: :index, as: :page, on: :collection
+    resources :abuse_requests, only: %i[show] do
+      get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
         post :take
         post :deny
       end
     end
-    resources :reviews, only: [:index] do
-      get '/page/:page', action: :index, as: :page, on: :collection
+    resources :reviews, only: [] do
+      get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
         post :accept
@@ -135,8 +139,8 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :anime_video_reports, only: [:index, :create] do
-      get '/page/:page', action: :index, as: :page, on: :collection
+    resources :anime_video_reports, only: %i[create] do
+      get '(/page/:page)' => :index, as: '', on: :collection
 
       member do
         %i(accept accept_edit accept_broken close_edit reject work cancel).each do |method|
@@ -146,7 +150,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :anime_video_authors, only: [:index, :edit, :update, :show]
+    resources :anime_video_authors, only: %i[index edit update show]
   end
 
   # api
@@ -154,17 +158,17 @@ Rails.application.routes.draw do
   # v2
   namespace :api, defaults: { format: 'json' } do
     namespace :v2 do
-      resources :user_rates, only: [:show, :index, :create, :update, :destroy] do
+      resources :user_rates, only: %i[show index create update destroy] do
         post :increment, on: :member
       end
       namespace :topics do
         scope ':topic_id'  do
-          resource :ignore, only: [:create, :destroy]
+          resource :ignore, only: %i[create destroy]
         end
       end
       namespace :users do
         scope ':user_id'  do
-          resource :ignore, only: [:create, :destroy]
+          resource :ignore, only: %i[create destroy]
         end
       end
     end
@@ -172,7 +176,7 @@ Rails.application.routes.draw do
   # v1
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1 do
-      resources :animes, only: [:show, :index] do
+      resources :animes, only: %i[show index] do
         member do
           get :roles
           get :similar
@@ -184,11 +188,11 @@ Rails.application.routes.draw do
         end
         get :search, on: :collection
 
-        resources :anime_videos, only: [:index, :create, :destroy]
-        resources :videos, only: [:index, :create, :destroy]
+        resources :anime_videos, only: %i[index create destroy]
+        resources :videos, only: %i[index create destroy]
       end
-      resource :calendar, only: [:show]
-      resources :mangas, only: [:show, :index] do
+      resource :calendar, only: %i[show]
+      resources :mangas, only: %i[show index] do
         member do
           get :roles
           get :similar
@@ -199,28 +203,28 @@ Rails.application.routes.draw do
         get :search, on: :collection
       end
 
-      resources :devices, only: [:create, :update, :index, :destroy] do
+      resources :devices, only: %i[create update index destroy] do
         get :test, on: :member
       end
-      resources :characters, only: [:show] do
+      resources :characters, only: %i[show] do
         get :search, on: :collection
       end
-      resources :people, only: [:show] do
+      resources :people, only: %i[show] do
         get :search, on: :collection
       end
 
-      resources :studios, only: [:index]
-      resources :genres, only: [:index]
-      resources :publishers, only: [:index]
+      resources :studios, only: %i[index]
+      resources :genres, only: %i[index]
+      resources :publishers, only: %i[index]
 
-      resources :forums, only: [:index]
-      resources :topics, only: [:index, :show]
-      resources :comments, only: [:show, :index, :create, :update, :destroy]
+      resources :forums, only: %i[index]
+      resources :topics, only: %i[index show]
+      resources :comments, only: %i[show index create update destroy]
 
-      resources :topic_ignores, only: [:create, :destroy]
-      resources :user_images, only: [:create]
+      resources :topic_ignores, only: %i[create destroy]
+      resources :user_images, only: %i[create]
 
-      resources :clubs, only: [:show, :index] do
+      resources :clubs, only: %i[show index] do
         member do
           get :members
           get :animes
@@ -234,7 +238,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :messages, only: [:show, :create, :update, :destroy] do
+      resources :messages, only: %i[show create update destroy] do
         collection do
           post :mark_read
           post :delete_all
@@ -242,7 +246,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :user_rates, only: [:show, :create, :update, :destroy] do
+      resources :user_rates, only: %i[show create update destroy] do
         post :increment, on: :member
 
         collection do
@@ -256,16 +260,16 @@ Rails.application.routes.draw do
         delete :cleanup, on: :collection
       end
 
-      resource :access_token, only: [:show, :create]
-      resource :authenticity_token, only: [:show]
+      resource :access_token, only: %i[show create]
+      resource :authenticity_token, only: %i[show]
 
-      resources :bans, only: [:index]
+      resources :bans, only: %i[index]
 
       devise_scope :user do
-        resources :sessions, only: [:create]
+        resources :sessions, only: %i[create]
       end
 
-      resources :users, only: [:index, :show], constraints: { id: user_id } do
+      resources :users, only: %i[index show], constraints: { id: user_id } do
         collection do
           get :whoami
         end
@@ -284,7 +288,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :appears, only: [:create], controller: 'appear'
+      resources :appears, only: %i[create], controller: 'appear'
       resources :friends, only: [] do
         post '/', action: :create, on: :member
         delete '/', action: :destroy, on: :member
@@ -294,7 +298,7 @@ Rails.application.routes.draw do
         delete '/', action: :destroy, on: :member
       end
 
-      resources :dialogs, only: [:index, :show, :destroy]
+      resources :dialogs, only: %i[index show destroy]
       resources :stats, only: [] do
         get :active_users, on: :collection
       end
@@ -309,10 +313,10 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :styles, only: [:show, :create, :update] do #, :destroy
+      resources :styles, only: %i[show create update] do #, :destroy
         post :preview, on: :collection
       end
-      resources :achievements, only: [:index]
+      resources :achievements, only: %i[index]
     end
   end
   # /api
@@ -337,12 +341,12 @@ Rails.application.routes.draw do
       with_video: '1', constraints: { page: /\d+/, studio: /[^\/]+/ }
 
     scope '', module: 'anime_online' do
-      resources :anime_video_authors, only: [], concerns: [:autocompletable]
+      resources :anime_video_authors, only: [], concerns: %i[autocompletable]
 
       scope 'animes/:anime_id' do
         get '' => redirect { |params, request| "#{request.url}/video_online" }
 
-        resources :video_online, controller: 'anime_videos', except: [:show] do
+        resources :video_online, controller: 'anime_videos', except: %i[show] do
           member do
             post :track_view
             post :viewed
@@ -379,14 +383,14 @@ Rails.application.routes.draw do
       get ':forum(/s-:linked)/:id' => redirect { |_, request| "/forum#{request.path}" }
     end
     {
-      o: [:offtopic, :s],
-      s: [:site, :s],
-      g: [:clubs, :s],
-      v: [:contests, :s],
-      a: [:animanga, :anime],
-      m: [:animanga, :manga],
-      c: [:animanga, :character],
-      p: [:animanga, :person]
+      o: %i[offtopic s],
+      s: %i[site s],
+      g: %i[clubs s],
+      v: %i[contests s],
+      a: %i[animanga anime],
+      m: %i[animanga manga],
+      c: %i[animanga character],
+      p: %i[animanga person]
     }.each do |old_path, (new_path, linked)|
       scope "forum/#{old_path}(/s-:linked)", format: /html|json|rss/ do
         ['/new', '(/p-:page)', '/:id'].each do |path|
@@ -405,7 +409,7 @@ Rails.application.routes.draw do
     end
 
     scope :forum do
-      resources :topics, except: [:index, :show, :new]
+      resources :topics, except: %i[index show new]
 
       get '/' => 'topics#index',  as: :forum
       scope(
@@ -452,7 +456,7 @@ Rails.application.routes.draw do
       get :manga, action: :show, manga: true
     end
 
-    resources :clubs, except: [:edit, :destroy] do
+    resources :clubs, except: %i[edit destroy] do
       member do
         get 'members(/page/:page)' => :members, as: :members
         get :animes
@@ -470,19 +474,19 @@ Rails.application.routes.draw do
         get '(/p-:page)' => 'clubs#index', as: ''
       end
 
-      resources :club_roles, only: [:create, :destroy], concerns: [:autocompletable]
-      resources :club_invites, only: [:create]
+      resources :club_roles, only: %i[create destroy], concerns: %i[autocompletable]
+      resources :club_invites, only: %i[create]
 
       resource :comments, only: [], module: :clubs do
         get :broadcast
       end
 
-      resources :club_images, only: [:create, :destroy], module: :clubs
-      resources :club_pages, except: [:index], module: :clubs, path: 'pages' do
+      resources :club_images, only: %i[create destroy], module: :clubs
+      resources :club_pages, except: %i[index], module: :clubs, path: 'pages' do
         post :up, on: :member
         post :down, on: :member
       end
-      resources :club_topics, except: [:destroy], module: :clubs, path: 'topics' do
+      resources :club_topics, except: %i[destroy], module: :clubs, path: 'topics' do
         get '(/p-:page)' => 'club_topics#index', as: '', on: :collection
       end
     end
@@ -523,7 +527,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :moderations, only: [:show] do
+    resource :moderations, only: %i[show] do
       collection do
         get :missing_screenshots
 
@@ -534,7 +538,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resource :tests, only: [:show] do
+    resource :tests, only: %i[show] do
       get :echo
       post :echo
 
@@ -552,7 +556,7 @@ Rails.application.routes.draw do
     end
 
     # картинки с danbooru
-    resources :danbooru, only: [], concerns: [:autocompletable] do
+    resources :danbooru, only: [], concerns: %i[autocompletable] do
       get 'yandere/:url' => :yandere, url: /.*/, on: :collection
     end
 
@@ -573,10 +577,10 @@ Rails.application.routes.draw do
     get 'cosplay' => 'cosplayers#index', as: :cosplayers
     get 'cosplay/:cosplayer(/:gallery)' => 'cosplayers#show', as: :cosplayer
 
-    resources :forums, only: [:index, :edit] do
+    resources :forums, only: %i[index edit] do
       patch :update, on: :member, as: :update
     end
-    resources :genres, only: [:index, :edit, :update] do
+    resources :genres, only: %i[index edit update] do
       get :tooltip, on: :member
     end
 
@@ -594,7 +598,7 @@ Rails.application.routes.draw do
     # /seo redirects
 
     # аниме и манга
-    ['animes', 'mangas', 'ranobe'].each do |kind|
+    %w[animes mangas ranobe].each do |kind|
       get "#{kind}#{ani_manga_format}" => 'animes_collection#index',
         as: "#{kind}_collection",
         klass: kind.singularize,
@@ -603,7 +607,7 @@ Rails.application.routes.draw do
       get "#{kind}/menu(/rating/:rating)" => 'animes_collection#menu',
         as: "menu_#{kind}", klass: kind.singularize
 
-      resources kind, only: [:show], format: /html/ do
+      resources kind, only: %i[show], format: /html/ do
         member do
           get :characters
           get :staff
@@ -640,9 +644,9 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :user_rates, only: [:edit]
+    resources :user_rates, only: %i[edit]
 
-    resources :animes, only: [:edit, :update] do
+    resources :animes, only: %i[edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian description_ru description_en image
         kind episodes rating
@@ -652,14 +656,14 @@ Rails.application.routes.draw do
 
       post 'torrent' => 'torrents#create', on: :member
 
-      resources :screenshots, only: [:create, :destroy] do
+      resources :screenshots, only: %i[create destroy] do
         post :reposition, on: :collection
       end
-      resources :videos, only: [:create, :destroy]
+      resources :videos, only: %i[create destroy]
     end
 
-    [:mangas, :ranobe].each do |type|
-      resources type, only: [:edit, :update] do
+    %i[mangas ranobe].each do |type|
+      resources type, only: %i[edit update] do
         concerns :db_entry, fields: Regexp.new(%w{
           name russian description_ru description_en image
           kind rating volumes chapters
@@ -669,7 +673,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :characters, only: [:show, :edit, :update] do
+    resources :characters, only: %i[show edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image description_ru description_en tags
       }.join('|'))
@@ -687,7 +691,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :people, only: [:show, :edit, :update] do
+    resources :people, only: %i[show edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
@@ -701,7 +705,7 @@ Rails.application.routes.draw do
     get 'producers/search/:search(/page/:page)' => 'people#index', as: :search_producers, kind: 'producer', constraints: { page: /\d+/ }
     get 'mangakas/search/:search(/page/:page)' => 'people#index', as: :search_mangakas, kind: 'mangaka', constraints: { page: /\d+/ }
 
-    resources :seyu, only: [:show, :edit, :update] do
+    resources :seyu, only: %i[show edit update] do
       concerns :db_entry, fields: Regexp.new(%w{
         name russian japanese image website birthday
       }.join('|'))
@@ -732,8 +736,8 @@ Rails.application.routes.draw do
         get 'rounds/:round/match/:match_id/users', action: 'users', as: 'round_match_users'
       end
 
-      resources :contest_suggestions, path: 'suggestions', only: [:show, :create, :destroy]
-      resources :contest_matches, path: 'matches', only: [:show] do
+      resources :contest_suggestions, path: 'suggestions', only: %i[show create destroy]
+      resources :contest_matches, path: 'matches', only: %i[show] do
         post 'vote/:variant' => 'contest_matches#vote', as: 'vote', on: :member
       end
     end
@@ -770,7 +774,7 @@ Rails.application.routes.draw do
       votes: /\d+/
     get "recommendations/anime" => 'recommendations#index', as: :recommendations_anime, klass: Anime.name.downcase
     get "recommendations/manga" => 'recommendations#index', as: :recommendations_manga, klass: Manga.name.downcase
-    resources :recommendation_ignores, only: [:create] do
+    resources :recommendation_ignores, only: %i[create] do
       constraints target_type: /anime|manga/ do
         delete 'cleanup/:target_type', action: :cleanup, on: :collection, as: :cleanup
       end
@@ -786,8 +790,8 @@ Rails.application.routes.draw do
         format: /json/
       }
 
-    resources :studios, only: [:index]
-    resources :proxies, only: [:index]
+    resources :studios, only: %i[index]
+    resources :proxies, only: %i[index]
 
     get 'sitemap' => 'sitemap#index'
     get 'robots.txt' => 'robots#shikimori'
@@ -801,9 +805,9 @@ Rails.application.routes.draw do
       get 'users/by-id/:user_id' => 'users#statistics', type: 'statistics', kind: 'anime'
     end
 
-    resources :user_tokens, only: [:destroy]
+    resources :user_tokens, only: %i[destroy]
 
-    resources :users, only: [:index] do
+    resources :users, only: %i[index] do
       collection do
         get '(/p-:page)' => 'users#index', as: ''
         get '/similar/:klass/(:threshold)(/page/:page)' => 'users#similar',
@@ -814,17 +818,24 @@ Rails.application.routes.draw do
 
     # messages edit & rss & email bounce
     # create & preview урлы объявлены выше, глобально
-    resources :messages, only: [:show, :edit, :update, :destroy] do
+    resources :messages, only: %i[show edit update destroy] do
       collection do
         get 'chosen/:ids' => :chosen, as: :chosen
 
-        get ':name/:key.rss' => 'messages#feed', format: :rss, type: 'notifications', name: /[^\/]+?/, as: :feed
-        get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe', name: /[^\/]+?/, kind: MessageType::Private, as: :unsubscribe
+        get ':name/:key.rss' => 'messages#feed',
+          format: :rss,
+          type: 'notifications',
+          name: /[^\/]+?/,
+          as: :feed
+        get ':name/:key/Private/unsubscribe' => 'messages#unsubscribe',
+          name: /[^\/]+?/,
+          kind: MessageType::Private,
+          as: :unsubscribe
       end
     end
 
-    resources :ignores, only: [:create]
-    resources :profiles, path: '/', constraints: { id: user_id }, only: [:show, :update] do
+    resources :ignores, only: %i[create]
+    resources :profiles, path: '/', constraints: { id: user_id }, only: %i[show update] do
       member do
         get :friends
         get :favourites
@@ -858,7 +869,9 @@ Rails.application.routes.draw do
 
       resources :user_rates, only: [], path: '/list' do
         collection do
-          get ":list_type#{ani_manga_format}" => :index, as: '', list_type: /anime|manga/
+          get ":list_type#{ani_manga_format}" => :index,
+            as: '',
+            list_type: /anime|manga/
           get ':list_type/export' => :export, as: :export
           post :import
         end
@@ -868,7 +881,7 @@ Rails.application.routes.draw do
         patch :update, on: :collection
       end
 
-      resources :dialogs, only: [:index, :show, :destroy] do
+      resources :dialogs, only: %i[index show destroy] do
         member do
           get 'page/:page' => :show, as: :show
           get 'reply/:reply_message_id' => :show, as: :reply
@@ -882,7 +895,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :achievements, only: [:index] do
+      resources :achievements, only: %i[index] do
         get :franchise, on: :collection
       end
     end

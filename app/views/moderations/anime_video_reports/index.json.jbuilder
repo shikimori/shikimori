@@ -5,5 +5,5 @@ json.content render(
 )
 
 if @add_postloader
-  json.postloader render('blocks/postloader', next_url: page_moderations_anime_video_reports_url(page: @page+1))
+  json.postloader render('blocks/postloader', next_url: moderations_anime_video_reports_url(page: @page+1))
 end
