@@ -21,9 +21,7 @@ private
   end
 
   def reviews
-    @reviews ||= Review
-      .where(state: 'pending')
-      .to_a
+    @reviews ||= Review.where(moderation_state: 'pending').to_a
   end
 
   def votes
