@@ -15,7 +15,7 @@ describe EmailNotifier do
     context 'target user allowed private emails' do
       let(:notifications) { User::PRIVATE_MESSAGES_TO_EMAIL }
 
-      it { expect(mailer_double).to have_received(:private_message_email).with(message) }
+      it { expect(mailer_double).to have_received(:private_message_email).with(message.id) }
 
       context 'target user is online' do
         let(:last_online_at) { Time.zone.now - User::LAST_ONLINE_CACHE_INTERVAL + 1.second }

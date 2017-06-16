@@ -7,14 +7,17 @@ class ShikiMailer < ActionMailer::Base
   default from: "noreply@#{Site::DOMAIN}"
 
   def test_mail email = 'takandar@gmail.com'
-    return if generated?(email)
-    mail(to: email, subject: 'Test', body: 'test body')
+    return if generated? email
+
+    mail to: email, subject: 'Test', body: 'test body'
   end
 
-  def private_message_email message
+  def private_message_email message_id
+    message = Message.find_by id: message_id
+
     return unless message
-    return if message.reload.read?
-    return if generated?(message.to.email)
+    return if message.read?
+    return if generated? message.to.email
 
     subject = i18n_t(
       'private_message_email.subject',
@@ -39,7 +42,7 @@ class ShikiMailer < ActionMailer::Base
   end
 
   def reset_password_instructions user, token, options
-    return if generated?(user.email)
+    return if generated? user.email
     @resource = user
     @token = token
 
@@ -75,7 +78,7 @@ class ShikiMailer < ActionMailer::Base
 private
 
   def unsubscribe_link_key message
-    MessagesController::unsubscribe_key message.to, MessageType::Private
+    MessagesController.unsubscribe_key message.to, MessageType::Private
   end
 
   def generated? email

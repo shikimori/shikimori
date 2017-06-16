@@ -1,6 +1,6 @@
 describe ShikiMailer do
   describe '#private_message_email' do
-    subject(:mail) { ShikiMailer.private_message_email(message).deliver_now }
+    subject(:mail) { ShikiMailer.private_message_email(message.id).deliver_now }
 
     let(:unsubscribe_link_key) { '123' }
     before do

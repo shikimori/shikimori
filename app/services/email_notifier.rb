@@ -9,7 +9,7 @@ class EmailNotifier
 
     ShikiMailer
       .delay_for(delay_interval(message.to))
-      .private_message_email(message)
+      .private_message_email(message.id)
   end
 
 private
