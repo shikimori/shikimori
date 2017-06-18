@@ -37,6 +37,7 @@
     intervals_count = $chart.data('intervals_count')
 
     maximum = stats.max((v, k) -> v[field])?[field]
+
     flattened = false
 
     if !stats || !stats.length
@@ -52,7 +53,7 @@
 
       average = values.average()
 
-      if maximum > average * 5
+      if maximum > average * 5 && average > 0
         original_maximum = maximum
         maximum = average * 3
         flattened = true
@@ -128,6 +129,7 @@
           "style='width: #{100.0 / intervals_count}%;'"
         else
           ''
+
       $chart.append(
         "<div class='line'" +
         (if options.type == 'vertical' then ' style="width: ' + (100.0 / (intervals_count)) + '%;"' else '') +
