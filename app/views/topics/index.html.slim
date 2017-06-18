@@ -1,39 +1,44 @@
-- content_for :head do
-  - if @forums_view.next_page_url
-    link[
-      rel="next"
-      href="#{{@forums_view.next_page_url}}"
-    ]
-  - if @forums_view.prev_page_url
-    link[
-      rel="prev"
-      href="#{{@forums_view.prev_page_url}}"
-    ]
+- if request.xhr?
+  - if @forums_view.topic_views.none?
+    .b-nothing_here = t 'nothing_found'
+  - else
+    = render 'topics/collection', forums_view: @forums_view
 
-  = auto_discovery_link_tag :rss,
-    forum_topics_url(forum: @forums_view.forum.try(:permalink), format: :rss),
-    title: 'Site topics'
-
-  / - if @forums_view.forum[:id] == 'all'
-    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
-    = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
-
-= render layout: 'topics/page' do |f|
-  .b-forum.to-process[
-    data-dynamic='forum'
-    data-faye="#{@forums_view.faye_subscriptions.to_json}"
-  ]
-    - if @forums_view.topic_views.any?
-      = render partial: 'topics/topic',
-        collection: @forums_view.topic_views,
-        as: :topic_view,
-        cache: true
-
-    - else
-      .b-nothing_here = t '.no_topics'
-
+- else
+  - content_for :head do
     - if @forums_view.next_page_url
-      = render 'blocks/postloader',
-        filter: 'b-topic',
-        next_url: @forums_view.next_page_url,
-        prev_url: @forums_view.prev_page_url
+      link[
+        rel="next"
+        href="#{{@forums_view.next_page_url}}"
+      ]
+    - if @forums_view.prev_page_url
+      link[
+        rel="prev"
+        href="#{{@forums_view.prev_page_url}}"
+      ]
+
+    = auto_discovery_link_tag :rss,
+      forum_topics_url(forum: @forums_view.forum.try(:permalink), format: :rss),
+      title: 'Site topics'
+
+    / - if @forums_view.forum[:id] == 'all'
+      = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/anime', title: 'Новости аниме'
+      = auto_discovery_link_tag :rss, 'http://feeds.feedburner.com/shikimori/site', title: 'Новости сайта'
+
+  = render layout: 'topics/page' do |f|
+    .b-collection_search[
+      data-search_url="#{@forums_view.page_url 1}"
+    ]
+      .field
+        input[
+          type="text"
+          placeholder="#{t 'search'}"
+          value="#{params[:search]}"
+        ]
+        .clear
+
+      .collection.b-forum.to-process[
+        data-dynamic='forum'
+        data-faye="#{@forums_view.faye_subscriptions.to_json}"
+      ]
+        = render 'topics/collection', forums_view: @forums_view

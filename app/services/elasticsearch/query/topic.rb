@@ -16,7 +16,15 @@ private
   end
 
   def forum_id_query
-    { term: { forum_id: @forum_id } }
+    if @forum_id.is_a? Array
+      {
+        bool: {
+          should: @forum_id.map { |forum_id| { term: { forum_id: forum_id } } }
+        }
+      }
+    else
+      { term: { forum_id: @forum_id } }
+    end
   end
 
   def cache_key

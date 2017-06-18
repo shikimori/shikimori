@@ -245,6 +245,47 @@ describe Topics::Query do
     end
   end
 
+  describe '#search' do
+    let!(:topic_1) { create :topic, id: 1 }
+    let!(:topic_2) { create :topic, id: 2 }
+    let!(:topic_3) { create :topic, id: 3 }
+    let!(:topic_en) { create :topic, id: 4, locale: :en }
+
+    subject { query.search phrase, 'ru' }
+
+    context 'present search phrase' do
+      before do
+        allow(Elasticsearch::Query::Topic).to receive(:call).with(
+          phrase: phrase,
+          locale: 'ru',
+          limit: Topics::Query::SEARCH_LIMIT
+        ).and_return(
+          [
+            { '_id' => topic_3.id },
+            { '_id' => topic_2.id },
+            { '_id' => topic_en.id }
+          ]
+        )
+      end
+      let(:phrase) { 'test' }
+
+      it do
+        is_expected.to eq [topic_3, topic_2]
+        expect(Elasticsearch::Query::Topic).to have_received(:call).once
+      end
+    end
+
+    context 'missing search phrase' do
+      before { allow(Elasticsearch::Query::Topic).to receive :call }
+      let(:phrase) { '' }
+
+      it do
+        is_expected.to have(9).items
+        expect(Elasticsearch::Query::Topic).to_not have_received :call
+      end
+    end
+  end
+
   describe '#as_views' do
     let(:is_preview) { true }
     let(:is_mini) { true }

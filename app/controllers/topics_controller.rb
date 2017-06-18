@@ -15,6 +15,8 @@ class TopicsController < ShikimoriController
   CREATE_PARAMS = UPDATE_PARAMS + %i[user_id forum_id type]
 
   def index
+    noindex if params[:search].present?
+
     if params[:linked_id]
       # редирект на топик, если топик в подфоруме единственный
       if @forums_view.topic_views.one?

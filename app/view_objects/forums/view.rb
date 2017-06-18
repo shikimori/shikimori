@@ -21,8 +21,17 @@ class Forums::View < ViewObjectBase
     Topics::Query.fetch(h.current_user, h.locale_from_host)
       .by_forum(forum, h.current_user, h.censored_forbidden?)
       .by_linked(linked)
+      .search(h.params[:search], forum, h.current_user, h.locale_from_host)
       .paginate(page, limit)
       .as_views(true, forum && forum.permalink == 'reviews')
+  end
+
+  def page_url page
+    if linked.is_a? Club
+      club_topics_url page
+    else
+      forum_topics_url page
+    end
   end
 
   def next_page_url
@@ -74,16 +83,10 @@ class Forums::View < ViewObjectBase
 
 private
 
-  def page_url page
-    if linked.is_a? Club
-      club_topics_url page
-    else
-      forum_topics_url page
-    end
-  end
-
   def club_topics_url page
-    h.club_club_topics_url linked, page: (page unless page == 1)
+    h.club_club_topics_url linked,
+      page: (page unless page == 1),
+      search: h.params[:search]
   end
 
   def forum_topics_url page
@@ -91,7 +94,8 @@ private
       page: (page unless page == 1),
       forum: forum.try(:permalink),
       linked_id: h.params[:linked_id],
-      linked_type: h.params[:linked_type]
+      linked_type: h.params[:linked_type],
+      search: h.params[:search]
     )
   end
 

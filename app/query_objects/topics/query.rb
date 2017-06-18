@@ -48,6 +48,7 @@ class Topics::Query < QueryObjectBase
       ) or comments_count != 0
     )
   SQL
+  SEARCH_LIMIT = 999
 
   def self.fetch user, locale
     query = new Topic
@@ -83,6 +84,25 @@ class Topics::Query < QueryObjectBase
       # self
     # end
   # end
+
+  def search phrase, forum, user, locale
+    return self if phrase.blank?
+
+    forum_id =
+      if forum
+        forum.id
+      else
+        user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID]
+      end
+
+    chain Search::Topic.call(
+      scope: @scope,
+      phrase: phrase,
+      forum_id: forum_id,
+      locale: locale,
+      ids_limit: SEARCH_LIMIT
+    )
+  end
 
   def except_hentai
     chain @scope

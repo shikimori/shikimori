@@ -52,7 +52,7 @@ describe Forums::View do
     end
   end
 
-  describe '#next_page_url & #prev_page_url' do
+  describe '#page_url' do
     context 'first page' do
       let(:params) { { linked_type: anime.class.name, linked_id: anime.id } }
       before do
@@ -63,6 +63,7 @@ describe Forums::View do
       end
 
       it do
+        expect(view.page_url 5).to eq "//test.host/forum/Anime-#{anime.id}/p-5"
         expect(view.next_page_url).to eq "//test.host/forum/Anime-#{anime.id}/p-2"
         expect(view.current_page_url).to eq "//test.host/forum/Anime-#{anime.id}"
         expect(view.prev_page_url).to be_nil
