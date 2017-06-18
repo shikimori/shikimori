@@ -4,9 +4,7 @@ class MeasureChanges
 
   MINIMAL_CHANGES_PERCENT = 25
   BBCODE_CLEANUP = /
-    (?<!\[) \[ (?!\[)
-      .*?
-    (?<!\]) \] (?!\])
+    \[ .*? \]
     |
     [!@#$%^&*(),.\r\n\d—-]
   /mix
@@ -41,6 +39,7 @@ private
 
   def fix text
     (text || '')
+      .gsub(/\[\[|\]\]/, '')
       .gsub(BBCODE_CLEANUP, '')
       .gsub(/\s\s+/, ' ')
   end
