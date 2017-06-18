@@ -67,14 +67,16 @@ page_load 'profiles_show', ->
 
     x_axis: (entry, index, stats, options) ->
       # пропуск, пока индекс меньше следующего_допустимого
-      return "" if index < options.index_label
+      return '' if index < options.index_label
+
       from = entry.dates.from
       to = entry.dates.to
+
       if index == 0
         options.index_label = 3
         label = from.getFullYear()
 
-      else if options.prior
+      else
         if options.prior.dates.from.getFullYear() != from.getFullYear()
           label = from.getFullYear()
           options.index_label = index + 3
@@ -83,7 +85,7 @@ page_load 'profiles_show', ->
           label = moment(from).format('MMM').capitalize()
           options.index_label = index + 3
 
-        else if options.range <= 120 and entry.value > 0
+        else if options.range <= 120# and entry.value > 0
           label = from.getDate()
           options.index_label = index + 2
 
