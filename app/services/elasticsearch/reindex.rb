@@ -3,10 +3,10 @@ class Elasticsearch::Reindex
 
   CACHE_KEY = 'elastic_reindex'
 
-  TYPES = %i[anime manga ranobe character person user club collection]
+  TYPES = %i[anime manga ranobe character person user club collection topic]
 
   def call
-    @types.each do |type|
+    Array(@types).each do |type|
       respond_to?("fill_#{type}") ? send("fill_#{type}") : fill_type(type)
     end
   end

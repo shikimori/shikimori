@@ -169,3 +169,8 @@
       properties:
         name:
           <<: *name_properties
+    :topics:
+      <<: *default_type_mappings
+      properties:
+        name:
+          <<: *name_properties

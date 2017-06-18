@@ -290,4 +290,6 @@ describe Topic do
       end
     end
   end
+
+  it_behaves_like :elasticsearch_concern, :anime
 end

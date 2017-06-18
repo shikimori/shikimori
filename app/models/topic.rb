@@ -5,6 +5,7 @@ class Topic < ApplicationRecord
   include Commentable
   include Moderatable
   include Viewable
+  include ElasticsearchConcern
 
   NEWS_WALL = /[\r\n]*\[wall[\s\S]+\[\/wall\]\Z/
 

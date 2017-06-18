@@ -1,0 +1,30 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://localhost:9200/shikimori_topics/topics/_search
+    body:
+      encoding: UTF-8
+      string: '{"from":0,"size":10,"query":{"bool":{"must":[{"bool":{"should":[{"match":{"name.original":{"query":"kai","boost":6}}},{"match":{"name":{"query":"kai","boost":3}}},{"match":{"name.ngram":{"query":"kai"}}}]}},{"term":{"locale":"ru"}},{"term":{"forum_id":1}}]}}}'
+    headers:
+      User-Agent:
+      - Faraday v0.11.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: '{"took":3,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":106,"max_score":30.153406,"hits":[{"_index":"shikimori_topics","_type":"topics","_id":"38349","_score":30.153406},{"_index":"shikimori_topics","_type":"topics","_id":"5654","_score":28.156036},{"_index":"shikimori_topics","_type":"topics","_id":"3543","_score":25.71096},{"_index":"shikimori_topics","_type":"topics","_id":"117344","_score":25.71096},{"_index":"shikimori_topics","_type":"topics","_id":"122504","_score":25.622625},{"_index":"shikimori_topics","_type":"topics","_id":"121439","_score":25.622625},{"_index":"shikimori_topics","_type":"topics","_id":"117277","_score":24.725933},{"_index":"shikimori_topics","_type":"topics","_id":"3504","_score":22.347795},{"_index":"shikimori_topics","_type":"topics","_id":"88914","_score":21.0177},{"_index":"shikimori_topics","_type":"topics","_id":"3501","_score":20.636652}]}}'
+    http_version: 
+  recorded_at: Sun, 18 Jun 2017 08:54:07 GMT
+recorded_with: VCR 3.0.3
