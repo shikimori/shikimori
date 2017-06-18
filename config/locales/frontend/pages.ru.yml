@@ -28,9 +28,12 @@ ru:
           one: день
           few: дня
           many: дней
-        title: >-
-          %{hours} %{hour_word} с %{from_date} по %{to_date}
-          (%{days} %{day_word})
+        label:
+          full: >-
+            %{hours} %{hour_word} с %{from_date} по %{to_date}
+            (%{days} %{day_word})
+          short: >-
+            %{hours} %{hour_word} %{date}
 
         # p-profiles/edit.coffee
         exporting: >-

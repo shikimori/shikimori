@@ -38,32 +38,37 @@ page_load 'profiles_show', ->
         $chart.html html.join("")
 
     title: (entry) ->
-      days = date_diff entry.dates.from, entry.dates.to
-
       hour_word = p entry.value,
         I18n.t('frontend.pages.p_profiles.hour.one'),
         I18n.t('frontend.pages.p_profiles.hour.few'),
         I18n.t('frontend.pages.p_profiles.hour.many')
 
-      day_word = if days == Math.round(days)
-        p entry.value,
-          I18n.t('frontend.pages.p_profiles.day.one'),
-          I18n.t('frontend.pages.p_profiles.day.few'),
-          I18n.t('frontend.pages.p_profiles.day.many')
-      else
-        I18n.t('frontend.pages.p_profiles.day.many')
-
       date_format = if LOCALE == 'en' then 'MMMM D' else 'D MMMM'
       from_date = moment(entry.dates.from).format date_format
       to_date = moment(entry.dates.to).format date_format
 
-      I18n.t 'frontend.pages.p_profiles.title',
-        hours: entry.value,
-        hour_word: hour_word,
-        from_date: from_date,
-        to_date: to_date,
-        days: days,
-        day_word: day_word
+      if from_date == to_date
+        I18n.t 'frontend.pages.p_profiles.label.short',
+          hours: entry.value,
+          hour_word: hour_word,
+          date: from_date
+      else
+        days = date_diff entry.dates.from, entry.dates.to
+        day_word = if days == Math.round(days)
+          p entry.value,
+            I18n.t('frontend.pages.p_profiles.day.one'),
+            I18n.t('frontend.pages.p_profiles.day.few'),
+            I18n.t('frontend.pages.p_profiles.day.many')
+        else
+          I18n.t('frontend.pages.p_profiles.day.many')
+
+        I18n.t 'frontend.pages.p_profiles.label.full',
+          hours: entry.value,
+          hour_word: hour_word,
+          from_date: from_date,
+          to_date: to_date,
+          days: days,
+          day_word: day_word
 
     x_axis: (entry, index, stats, options) ->
       # пропуск, пока индекс меньше следующего_допустимого

@@ -28,9 +28,12 @@ en:
           one: day
           few: days
           many: days
-        title: >-
-          %{hours} %{hour_word} since %{from_date} till %{to_date}
-          (%{days} %{day_word})
+        label:
+          full: >-
+            %{hours} %{hour_word} since %{from_date} till %{to_date}
+            (%{days} %{day_word})
+          short: >-
+            %{hours} %{hour_word} on %{date}
 
         # p-profiles/edit.coffee
         exporting: >-
