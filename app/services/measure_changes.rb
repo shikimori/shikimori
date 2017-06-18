@@ -3,6 +3,13 @@ class MeasureChanges
   pattr_initialize :old_value, :new_value
 
   MINIMAL_CHANGES_PERCENT = 25
+  BBCODE_CLEANUP = /
+    (?<!\[) \[ (?!\[)
+      .*?
+    (?<!\]) \] (?!\])
+    |
+    [!@#$%^&*(),.\r\n\d—-]
+  /mix
 
   def enough?
     new_text? || added_text? || changed_text? || false
@@ -33,7 +40,9 @@ private
   end
 
   def fix text
-    (text || '').gsub(/\[.*?\]|[!@#$%^&*(),.\r\n\d—-]/, '').gsub(/\s\s+/, ' ')
+    (text || '')
+      .gsub(BBCODE_CLEANUP, '')
+      .gsub(/\s\s+/, ' ')
   end
 
   def old
