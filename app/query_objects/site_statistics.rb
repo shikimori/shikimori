@@ -5,7 +5,7 @@ class SiteStatistics
   USERS_LIMIT = 31
 
   def traffic
-    YandexMetrika.new.traffic_for_months METRIKA_MONTHS
+    YandexMetrika.call METRIKA_MONTHS
   end
 
   def comments

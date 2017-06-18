@@ -4,7 +4,12 @@ describe SiteStatistics do
   describe 'cached_stats' do
     describe 'traffic' do
       let(:traffic) { 'traff' }
-      before { allow_any_instance_of(YandexMetrika).to receive(:traffic_for_months).with(SiteStatistics::METRIKA_MONTHS).and_return traffic }
+      before do
+        allow(YandexMetrika)
+          .to receive(:call)
+          .with(SiteStatistics::METRIKA_MONTHS)
+          .and_return traffic
+      end
 
       its(:traffic) { is_expected.to eq traffic }
     end
