@@ -91,8 +91,10 @@ class Topics::Query < QueryObjectBase
     forum_id =
       if forum
         forum.id
-      else
+      elsif user
         user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID]
+      else
+        Forum.cached.map(&:id)
       end
 
     chain Search::Topic.call(

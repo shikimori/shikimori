@@ -251,13 +251,18 @@ describe Topics::Query do
     let!(:topic_3) { create :topic, id: 3 }
     let!(:topic_en) { create :topic, id: 4, locale: :en }
 
-    subject { query.search phrase, 'ru' }
+    subject { query.search phrase, forum, user, 'ru' }
+
+    let(:forum) { seed :animanga_forum }
+    let(:forum_id) { forum.id }
+    let(:user) { nil }
 
     context 'present search phrase' do
       before do
         allow(Elasticsearch::Query::Topic).to receive(:call).with(
           phrase: phrase,
           locale: 'ru',
+          forum_id: forum_id,
           limit: Topics::Query::SEARCH_LIMIT
         ).and_return(
           [
@@ -269,9 +274,38 @@ describe Topics::Query do
       end
       let(:phrase) { 'test' }
 
-      it do
-        is_expected.to eq [topic_3, topic_2]
-        expect(Elasticsearch::Query::Topic).to have_received(:call).once
+      context 'forum is set' do
+        let(:forum) { seed :animanga_forum }
+        let(:forum_id) { forum.id }
+
+        it do
+          is_expected.to eq [topic_3, topic_2]
+          expect(Elasticsearch::Query::Topic).to have_received(:call).once
+        end
+      end
+
+      context 'forum is not set' do
+        let(:forum) { nil }
+
+        context 'user is set' do
+          let(:user) { seed :user }
+          let(:forum_id) { user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID] }
+
+          it do
+            is_expected.to eq [topic_3, topic_2]
+            expect(Elasticsearch::Query::Topic).to have_received(:call).once
+          end
+        end
+
+        context 'user is not set' do
+          let(:user) { nil }
+          let(:forum_id) { Forum.cached.map(&:id) }
+
+          it do
+            is_expected.to eq [topic_3, topic_2]
+            expect(Elasticsearch::Query::Topic).to have_received(:call).once
+          end
+        end
       end
     end
 
