@@ -87,9 +87,12 @@ private
       cleanup_params(
         $LAST_MATCH_INFO[:url].sub(/shell\.swf\?/, 'shell.php?'),
         %w(videoid)
-      )
-    elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(#{CONTENT}).(?:mp4|flv)}
-      "http://video.sibnet.ru/shell.php?videoid=#{$1.sub(/\.(flv|mp4)\?.*/, '')}"
+      ).gsub(/(videoid=\d+)\w*/, '\1')
+    elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(?<videoid>#{CONTENT}).(?:mp4|flv)}
+      video_id = $LAST_MATCH_INFO[:videoid]
+        .sub(/\.(flv|mp4)\?.*/, '')
+        .gsub(/(videoid=\d+)\w*/, '\1')
+      "http://video.sibnet.ru/shell.php?videoid=#{video_id}"
     elsif html =~ %r{(?<url>#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
     elsif html =~ %r{(?<url>#{HTTP}p.kiwi.\w+/static/player2/player.swf\?config=#{CONTENT})}

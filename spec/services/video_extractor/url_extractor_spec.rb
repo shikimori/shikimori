@@ -188,6 +188,11 @@ describe VideoExtractor::UrlExtractor do
       end
 
       describe 'remove misc parameters from url' do
+        context 'digits only in videoid' do
+          let(:html) { 'http://video.sibnet.ru/shell.php?videoid=1224221qwe' }
+          it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
+        end
+
         context '&other=' do
           let(:html) { 'http://video.sibnet.ru/shell.php?videoid=1224221&zxc=1' }
           it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
