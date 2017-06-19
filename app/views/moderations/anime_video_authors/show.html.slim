@@ -10,8 +10,10 @@ header.head
           = localization_span anime
 
       - anime_videos.each do |anime_video|
-        .b-video_variant data-episode="#{anime_video.episode}"
-          a href="#{play_video_online_index_url anime, anime_video.episode, anime_video.id, subdomain: 'play'}"
-            span.episode-num ##{anime_video.episode}
-            span.episode-kinds = anime_video.kind_text
-            span.episode-hostings = anime_video.hosting
+        .anime_video_author
+          .b-video_variant data-episode="#{anime_video.episode}"
+            a href="#{play_video_online_index_url anime, anime_video.episode, anime_video.id, subdomain: 'play'}"
+              span.episode-num ##{anime_video.episode}
+              span.episode-kinds = anime_video.kind_text
+              span.episode-hostings = anime_video.hosting
+          .url = anime_video.url
