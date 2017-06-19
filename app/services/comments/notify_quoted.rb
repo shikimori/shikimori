@@ -19,7 +19,7 @@ private
 
   def reply comments, action
     comments.each do |comment|
-      ReplyService.new(comment).send :"#{action}_reply", @comment
+      Comments::Reply.new(comment).send :"#{action}_reply", @comment
     end
   end
 

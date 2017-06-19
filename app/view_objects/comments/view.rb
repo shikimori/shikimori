@@ -47,6 +47,6 @@ class Comments::View < ViewObjectBase
 private
 
   def reply_ids
-    ReplyService.new(comment).reply_ids
+    Comments::Reply.new(comment).reply_ids
   end
 end

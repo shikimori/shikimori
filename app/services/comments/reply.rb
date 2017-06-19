@@ -1,5 +1,5 @@
 # добавление убирание ответа на комментарий
-class ReplyService
+class Comments::Reply
   pattr_initialize :comment
 
   def reply_ids

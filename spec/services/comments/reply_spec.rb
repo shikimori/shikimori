@@ -1,5 +1,5 @@
-describe ReplyService do
-  let(:service) { ReplyService.new comment }
+describe Comments::Reply do
+  let(:service) { Comments::Reply.new comment }
   let(:comment) { create :comment, body: body }
   let(:replied_comment) { create :comment }
 
