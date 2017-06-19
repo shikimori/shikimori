@@ -41,10 +41,15 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
     if @video.persisted?
       if params[:continue] == 'true'
-        redirect_to next_video_url(@video), notice: "Эпизод #{@video.episode} добавлен"
+        redirect_to(
+          next_video_url(@video),
+          notice: "Эпизод #{@video.episode} добавлен"
+        )
       else
-        redirect_to play_video_online_index_url(
-          @anime, @video.episode, @video.id), notice: 'Видео добавлено'
+        redirect_to(
+          play_video_online_index_url(@anime, @video.episode, @video.id),
+          notice: 'Видео добавлено'
+        )
       end
     else
       render :new

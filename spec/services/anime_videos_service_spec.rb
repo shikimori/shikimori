@@ -19,7 +19,8 @@ describe AnimeVideosService do
 
     before do
       allow(VideoExtractor::UrlExtractor).to receive(:call)
-        .with(video_params[:url]).and_return 'https://vk.com/video_ext.php?oid=-16326869&id=166521208&hash=3baf626a9ce18691'
+        .with(video_params[:url])
+        .and_return('https://vk.com/video_ext.php?oid=-16326869&id=166521208&hash=3baf626a9ce18691')
     end
     subject(:video) { service.create user }
 

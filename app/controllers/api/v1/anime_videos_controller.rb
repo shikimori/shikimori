@@ -54,6 +54,7 @@ private
   end
 
   def access_granted?
-    current_user.trusted_video_uploader? || params[:video_token] == RYUTER_TOKEN
+    current_user.trusted_video_uploader? ||
+      params[:video_token] == RYUTER_TOKEN
   end
 end
