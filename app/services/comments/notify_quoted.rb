@@ -36,7 +36,8 @@ private
 
   # rubocop:disable AbcSize
   def users_to_notify
-    users = new_quoted.users - old_quoted.users - [@user]
+    users = (new_quoted.users - old_quoted.users)
+      .reject { |user| user.id == @user.id }
     return [] if users.none?
 
     ignores = Ignore.where(user_id: users.map(&:id), target: @user)

@@ -4,7 +4,7 @@ describe Comments::NotifyQuoted do
       old_body: old_body,
       new_body: new_body,
       comment: comment,
-      user: comment_owner
+      user: comment_owner.decorate
     )
   end
   subject { service.call }
@@ -19,7 +19,7 @@ describe Comments::NotifyQuoted do
 
   describe 'quote types' do
     context 'quote' do
-      context 'without comment' do
+      context 'simple' do
         let(:new_body) { "[quote=9999999;#{quoted_user.id};test2]test[/quote]" }
         it do
           expect { subject }.to change(Message, :count).by 1
@@ -27,7 +27,7 @@ describe Comments::NotifyQuoted do
         end
       end
 
-      context 'with comment' do
+      context 'comment' do
         let(:new_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
         it do
           expect { subject }.to change(Message, :count).by 1
@@ -35,7 +35,7 @@ describe Comments::NotifyQuoted do
         end
       end
 
-      context 'with own comment' do
+      context 'own comment' do
         let(:quoted_user) { comment_owner }
         let(:new_body) { "[quote=c#{quoted_comment.id};#{quoted_user.id};test2]test[/quote]" }
         it do
@@ -47,9 +47,20 @@ describe Comments::NotifyQuoted do
 
     context 'comment' do
       let(:new_body) { "[comment=#{quoted_comment.id}]test[/comment]" }
-      it do
-        expect { subject }.to change(Message, :count).by 1
-        expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+
+      context 'simple' do
+        it do
+          expect { subject }.to change(Message, :count).by 1
+          expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+        end
+      end
+
+      context 'own comment' do
+        let(:quoted_user) { comment_owner }
+        it do
+          expect { subject }.to_not change Message, :count
+          expect(quoted_comment.reload.body).to eq "zzz\n\n[replies=#{comment.id}]"
+        end
       end
     end
 
