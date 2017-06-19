@@ -41,7 +41,7 @@ describe ModerationPolicy do
   describe '#collections_count' do
     before do
       allow(Collection)
-        .to receive_message_chain(:pending, :where, :size)
+        .to receive_message_chain(:pending, :published, :where, :size)
         .and_return(collections_count)
     end
     let(:collections_count) { 1 }
