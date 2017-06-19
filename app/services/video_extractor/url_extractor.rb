@@ -87,11 +87,11 @@ private
       cleanup_params(
         $LAST_MATCH_INFO[:url].sub(/shell\.swf\?/, 'shell.php?'),
         %w(videoid)
-      ).gsub(/(videoid=\d+)\w*/, '\1')
+      ).gsub(/(videoid=\d+)[\w\.]*/, '\1')
     elsif html =~ %r{#{HTTP}data\d+\.video.sibnet.ru/\d+/\d+(?:/\d+)?/(?<videoid>#{CONTENT}).(?:mp4|flv)}
       video_id = $LAST_MATCH_INFO[:videoid]
         .sub(/\.(flv|mp4)\?.*/, '')
-        .gsub(/(videoid=\d+)\w*/, '\1')
+        .gsub(/(videoid=\d+)[\w\.]*/, '\1')
       "http://video.sibnet.ru/shell.php?videoid=#{video_id}"
     elsif html =~ %r{(?<url>#{HTTP}v.kiwi.\w+/(?:v|v2)/#{CONTENT})}
       $LAST_MATCH_INFO[:url]
@@ -141,8 +141,9 @@ private
     url
       .gsub('&amp;', '&')
       .gsub(/[?&](?<param>[^=]+)$/, '')
-      .gsub(/[?&](?<param>[^=]+)=[^&]*/) do |match|
+      .gsub(/(?<=[?&])(?<param>[^=]+)=[^&]*(?:&|$)/) do |match|
         allowed_params.include?($LAST_MATCH_INFO[:param]) ? match : ''
       end
+      .gsub(/&$/, '')
   end
 end

@@ -202,6 +202,11 @@ describe VideoExtractor::UrlExtractor do
           let(:html) { '//video.sibnet.ru/shell.php?videoid=1224221&param' }
           it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=1224221' }
         end
+
+        context '?param' do
+          let(:html) { 'http://video.sibnet.ru/shell.php?autoplay=1&videoid=2677876' }
+          it { is_expected.to eq '//video.sibnet.ru/shell.php?videoid=2677876' }
+        end
       end
     end
 
