@@ -6,7 +6,7 @@ class CalendarsQuery
 
   # список онгоингов
   def fetch locale
-    Rails.cache.fetch cache_key do
+    # Rails.cache.fetch cache_key do
       entries = (fetch_ongoings + fetch_anonses).map do |anime|
         AnimeDecorator.new CalendarEntry.new(anime, locale)
       end
@@ -17,7 +17,17 @@ class CalendarsQuery
           .sort_by(&:next_episode_start_at)
       )
       #fill_in_list entries, current_user if current_user.present?
-    end
+    # end
+  end
+
+  def cache_key
+    [
+      :calendar,
+      :v2,
+      AnimeCalendar.last.try(:id),
+      Topics::NewsTopic.last.try(:id),
+      Time.zone.today.to_s
+    ]
   end
 
 private
@@ -101,15 +111,5 @@ private
       (v.next_episode_start_at && v.next_episode_start_at > Time.zone.now - 1.week) ||
         v.anons?
     end
-  end
-
-  def cache_key
-    [
-      :calendar,
-      :v2,
-      AnimeCalendar.last.try(:id),
-      Topics::NewsTopic.last.try(:id),
-      Time.zone.today.to_s
-    ]
   end
 end

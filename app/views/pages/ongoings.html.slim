@@ -6,19 +6,20 @@ header.head.m15
     - t('.notice').each do |sentence|
       p == sentence
 
-- @ongoings.each do |index, group|
-  .block.m0
-    - if index == -1
-      .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
-        span.action = t 'collapse'
-    .headline.m10[
-      class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
-    ] = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
-    .collapsed.tiny ...
-    .cc-entries.to-process data-dynamic='cutted_covers'
-      = render partial: 'animes/anime',
-        collection: group,
-        locals: { cover_notice: :next_episode }
+= cache @ongoings_query.cache_key do
+  - @ongoings_query.fetch_grouped(locale_from_host).each do |index, group|
+    .block.m0
+      - if index == -1
+        .b-options-floated.collapse.for-headline id="collapse-calendar_delayed"
+          span.action = t 'collapse'
+      .headline.m10[
+        class="#{color_by_num index == -1 ? -1 : (DateTime.now + index.days).day % 11}"
+      ] = index == -1 ? t('.currently_airing') : date_title_for_ongoing(index)
+      .collapsed.tiny ...
+      .cc-entries.to-process data-dynamic='cutted_covers'
+        = render partial: 'animes/anime',
+          collection: group,
+          locals: { cover_notice: :next_episode }
 
 .subheadline.m3 = i18n_i 'Discussion'
 div
