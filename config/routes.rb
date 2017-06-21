@@ -723,8 +723,11 @@ Rails.application.routes.draw do
     #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
     # голосования
-    resources :contests do
-      get :current, on: :collection
+    resources :contests, except: %i[index] do
+      collection do
+        get :current
+        get '(/page/:page)' => :index, as: ''
+      end
 
       member do
         post :start

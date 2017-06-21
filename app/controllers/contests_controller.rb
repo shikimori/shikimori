@@ -8,6 +8,8 @@ class ContestsController < ShikimoriController
 
   before_action :set_breadcrumbs
 
+  LIMIT = 20
+
   def current
     if user_signed_in?
       redirect_to Contest.current.select { |v| current_user.can_vote?(v) }.first || Contest.current.last || root_url
@@ -20,10 +22,8 @@ class ContestsController < ShikimoriController
     keywords i18n_t('index_keywords')
     description i18n_t('index_description')
 
-    @collection_groups = @collection
-      .includes(rounds: :matches)
-      .sort_by {|v| [['started', 'proposing', 'created', 'finished'].index(v.state), -(v.finished_on || Time.zone.today).to_time.to_i] }
-      .group_by(&:state)
+    @page = [params[:page].to_i, 1].max
+    @collection = Contests::Query.fetch.paginate(@page, LIMIT)
   end
 
   def show

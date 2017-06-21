@@ -2,22 +2,21 @@ header.head.misc
   h1
     = @page_title.last
   - if can? :create, Contest.new
-    a.misc href="#{new_contest_url}" title="#{t '.create_new_contest'}"
-      = t('actions.create').downcase
+    a.misc[
+      href="#{new_contest_url}"
+      title="#{t '.create_new_contest'}"
+    ] = t('actions.create').downcase
   p.notice.clearfix = t '.list_of_all_site_contests'
 
 .contests
-  - @collection_groups.each do |state, group|
+  - @collection.group_by(&:state).each do |state, contests|
     .block
-      .subheadline = t("activerecord.state_machines.contest.states.#{state}").capitalize
-      - group.each_with_index do |contest, index|
-        .contest
-          | #{index + 1}.
-          - if !contest.created? || can?(:edit, contest)
-            - if !contest.created? && !contest.proposing?
-              .date #{contest.started_on.strftime '%d.%m.%Y'} - #{contest.rounds.last.matches.last.finished_on.strftime '%d.%m.%Y'}
-            a href="#{contest_url contest}"
-              = contest.title
-          - else
-            span
-              = contest.title
+      .subheadline
+        = t("activerecord.state_machines.contest.states.#{state}").capitalize
+      ol
+        = render partial: 'contests/contest', collection: contests
+
+        - if @collection.next_page? && contests.last == @collection.last
+          = render 'blocks/postloader', filter: 'contest',
+            next_url: contests_url(page: @collection.next_page),
+            prev_url: (contests_url(page: @collection.prev_page) if @collection.prev_page?)

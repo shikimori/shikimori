@@ -8,6 +8,7 @@ FactoryGirl.define do
     strategy_type :double_elimination
 
     started_on Time.zone.today
+    finished_on nil
 
     matches_per_round 999
     match_duration 1
