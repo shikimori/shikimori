@@ -36,7 +36,10 @@ ru:
       to_manga: к манге
       nothing_here: Ничего нет
       banned: '@{m:Забанен|f:Забанена}'
-      ban_removal: Время снятия бана %{date}.
+      ban_removal: >-
+        Время снятия бана
+        <span datetime="%{iso_date}" data-allow-future-time="true"
+        class="ban-time">%{formatted_date}</span>.
       ban_warning_for_moderator: >
         Данной страницей следует пользоваться только в случае невозможности
         бана по комментарию. Например, если комментарий удалён.

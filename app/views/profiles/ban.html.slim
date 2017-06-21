@@ -2,7 +2,9 @@
   - if @resource.read_only_at && @resource.banned?
     .errors.block
       .subheadline.red = t '.banned', gender: @resource.sex
-      p = t '.ban_removal', date: l(@resource.read_only_at, format: :full)
+      p == t '.ban_removal',
+        formatted_date: l(@resource.read_only_at, format: :full),
+        iso_date: @resource.read_only_at.iso8601
 
   - if user_signed_in? && current_user.moderator?
     .block

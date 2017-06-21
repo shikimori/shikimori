@@ -43,7 +43,12 @@ I18N_TIME_FORMATS =
     timeinfo = {}
 
     node_time = parse_time($node)
-    timeinfo.moment = if moment().isBefore(node_time) then moment() else node_time
+    timeinfo.moment =
+      if moment().isBefore(node_time) && !$node.data('allow-future-time')
+        moment()
+      else
+        node_time
+
     timeinfo.value = $node.text()
 
     $node.data timeinfo: timeinfo

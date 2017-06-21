@@ -36,7 +36,10 @@ en:
       to_manga: to manga
       nothing_here: Nothing here
       banned: Banned
-      ban_removal: Ban will be removed at %{date}.
+      ban_removal: >-
+        Ban will be removed at
+        <span datetime="%{iso_date}" data-allow-future-time="true"
+        class="ban-time">%{formatted_date}</span>.
       ban_warning_for_moderator: >
         Use this page only if you cannot ban a user by comment.
         E.g. when a comment has been removed.
