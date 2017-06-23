@@ -1,9 +1,9 @@
 describe ContestMatch do
   describe 'relations' do
-    it { should belong_to :round }
-    it { should belong_to :left }
-    it { should belong_to :right }
-    it { should have_many :votes }
+    it { is_expected.to belong_to :round }
+    it { is_expected.to belong_to :left }
+    it { is_expected.to belong_to :right }
+    it { is_expected.to have_many :votes }
   end
 
   let(:user) { create :user }
@@ -23,12 +23,12 @@ describe ContestMatch do
       subject { match.can_vote? }
 
       context 'created' do
-        it { should eq false }
+        it { is_expected.to eq false }
       end
 
       context 'started' do
         before { match.start! }
-        it { should eq true }
+        it { is_expected.to eq true }
       end
     end
 
@@ -38,12 +38,12 @@ describe ContestMatch do
 
       context 'true' do
         before { match.finished_on = Time.zone.yesterday }
-        it { should eq true }
+        it { is_expected.to eq true }
       end
 
       context 'false' do
         before { match.finished_on = Time.zone.today }
-        it { should eq false }
+        it { is_expected.to eq false }
       end
     end
 
@@ -52,12 +52,12 @@ describe ContestMatch do
 
       context 'true' do
         before { match.started_on = Time.zone.today }
-        it { should eq true }
+        it { is_expected.to eq true }
       end
 
       context 'false' do
         before { match.started_on = Time.zone.tomorrow }
-        it { should eq false }
+        it { is_expected.to eq false }
       end
     end
 
@@ -97,7 +97,7 @@ describe ContestMatch do
     context 'after finished' do
       before { match.start! }
 
-      it 'should be false' do
+      it 'is_expected.to be false' do
         match.finish!
         expect(match.can_vote?).to eq false
       end
@@ -216,25 +216,25 @@ describe ContestMatch do
     subject { vote_with_user_vote.voted_id }
 
     context 'not_voted' do
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
 
     context 'voted' do
       context 'really_voted' do
         context 'left' do
           before { match.vote_for(:left, user, '') }
-          it { should eq match.left_id }
+          it { is_expected.to eq match.left_id }
         end
 
         context 'right' do
           before { match.vote_for(:right, user, '') }
-          it { should eq match.right_id }
+          it { is_expected.to eq match.right_id }
         end
       end
 
       context 'right_type_is_nil' do
         before { vote_with_user_vote.right_type = nil }
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
     end
   end
@@ -245,25 +245,25 @@ describe ContestMatch do
     subject { vote_with_user_vote.voted? }
 
     context 'not_voted' do
-      it { should eq false }
+      it { is_expected.to eq false }
     end
 
     context 'voted' do
       context 'really_voted' do
         context 'left' do
           before { match.vote_for(:left, user, '') }
-          it { should eq true }
+          it { is_expected.to eq true }
         end
 
         context 'right' do
           before { match.vote_for(:right, user, '') }
-          it { should eq true }
+          it { is_expected.to eq true }
         end
       end
 
       context 'right_type_is_nil' do
         before { vote_with_user_vote.right_type = nil }
-        it { should eq true }
+        it { is_expected.to eq true }
       end
     end
   end
@@ -283,7 +283,7 @@ describe ContestMatch do
         ContestMatch.first.update_user user, 'z'
       end
 
-      it { should eq true }
+      it { is_expected.to eq true }
     end
 
     describe 'updated' do
@@ -294,7 +294,7 @@ describe ContestMatch do
         round.matches.first.update_user user, 'z'
       end
 
-      it { should eq false }
+      it { is_expected.to eq false }
     end
   end
 
@@ -304,12 +304,12 @@ describe ContestMatch do
 
     describe 'left' do
       before { match.winner_id = match.left_id }
-      its(:id) { should eq match.left.id }
+      its(:id) { is_expected.to eq match.left.id }
     end
 
     describe 'right' do
       before { match.winner_id = match.right_id }
-      its(:id) { should eq match.right.id }
+      its(:id) { is_expected.to eq match.right.id }
     end
   end
 
@@ -319,12 +319,12 @@ describe ContestMatch do
 
     describe 'left' do
       before { match.winner_id = match.left_id }
-      its(:id) { should eq match.right.id }
+      its(:id) { is_expected.to eq match.right.id }
     end
 
     describe 'right' do
       before { match.winner_id = match.right_id }
-      its(:id) { should eq match.left.id }
+      its(:id) { is_expected.to eq match.left.id }
     end
 
     describe 'no loser' do
@@ -338,6 +338,6 @@ describe ContestMatch do
 
   describe 'contest' do
     subject(:match) { create :contest_match }
-    its(:contest) { should eq match.round.contest }
+    its(:contest) { is_expected.to eq match.round.contest }
   end
 end

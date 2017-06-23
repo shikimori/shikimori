@@ -17,7 +17,7 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     else
       create_matches(
         round,
-        @contest.members.size.times.map { ContestMatch::Undefined },
+        @contest.members.size.times.map { ContestMatch::UNDEFINED },
         group: round.last? ? ContestRound::F : ContestRound::W,
         date: round.prior_round.matches.last.finished_on +
           @contest.matches_interval.days

@@ -40,7 +40,7 @@ class Contest::DoubleEliminationStrategy
     if round.first?
       create_matches round, @contest.members, group: ContestRound::S, shuffle: true
     elsif round.last?
-      create_matches round, 2.times.map { ContestMatch::Undefined }, group: ContestRound::F, date: round.prior_round.matches.last.finished_on + @contest.matches_interval.days
+      create_matches round, 2.times.map { ContestMatch::UNDEFINED }, group: ContestRound::F, date: round.prior_round.matches.last.finished_on + @contest.matches_interval.days
     else
       losers_count = [
         (round.number > 2 ?
@@ -59,12 +59,12 @@ class Contest::DoubleEliminationStrategy
           .map { |v| v.right_type ? 2 : 1 }.sum / 2.0).ceil
 
       if round.additional
-        create_matches round, losers_count.times.map { ContestMatch::Undefined }, group: ContestRound::L, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
+        create_matches round, losers_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::L, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
       else
-        create_matches round, winners_count.times.map { ContestMatch::Undefined }, group: ContestRound::W, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
+        create_matches round, winners_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::W, date: round.prior_round.matches.last.finished_on+@contest.matches_interval.days
 
         if with_additional_rounds?
-          create_matches round, losers_count.times.map { ContestMatch::Undefined }, group: ContestRound::L
+          create_matches round, losers_count.times.map { ContestMatch::UNDEFINED }, group: ContestRound::L
         end
       end
     end
@@ -93,9 +93,9 @@ class Contest::DoubleEliminationStrategy
     entrires.each_slice(2).each_with_index do |(left,right), pair_index|
       matches.create(
         left_type: @contest.member_klass.name,
-        left_id: left && left != ContestMatch::Undefined ? left.id : nil,
+        left_id: left && left != ContestMatch::UNDEFINED ? left.id : nil,
         right_type: right ? @contest.member_klass.name : nil,
-        right_id: right && right != ContestMatch::Undefined ? right.id : nil,
+        right_id: right && right != ContestMatch::UNDEFINED ? right.id : nil,
         group: options[:group],
         started_on: date,
         finished_on: date + [0, @contest.match_duration - 1].max.days

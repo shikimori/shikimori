@@ -1,5 +1,5 @@
 class ContestMatch < ApplicationRecord
-  Undefined = 'undefined variant'
+  UNDEFINED = 'undefined variant'
 
   belongs_to :round, class_name: ContestRound.name, touch: true
   belongs_to :left, polymorphic: true
@@ -18,7 +18,7 @@ class ContestMatch < ApplicationRecord
     end
   }
 
-  scope :with_votes, -> {
+  scope :with_votes, lambda {
     joins("left join #{ContestUserVote.table_name} cuv on cuv.contest_match_id=#{table_name}.id")
       .group("#{table_name}.id")
       .select("#{table_name}.*,
@@ -78,10 +78,12 @@ class ContestMatch < ApplicationRecord
     end
 
     event :start do
-      transition created: :started, if: lambda {|match| match.started_on <= Time.zone.today }
+      transition :created => :started,
+        if: ->(match) { match.started_on <= Time.zone.today }
     end
     event :finish do
-      transition started: :finished, if: lambda {|match| match.finished_on < Time.zone.today }
+      transition :started => :finished,
+        if: ->(match) { match.finished_on < Time.zone.today }
     end
 
     after_transition created: :started do |match, transition|
@@ -90,13 +92,10 @@ class ContestMatch < ApplicationRecord
         .update_all(match.round.contest.user_vote_key => true)
 
       if match.right.nil?
-        match.right = nil
-        match.save!
+        match.update! right: nil
 
       elsif match.left.nil? && match.right.present?
-        match.left = match.right
-        match.right = nil
-        match.save!
+        match.update! left: match.right, right: nil
       end
     end
 
@@ -176,6 +175,7 @@ class ContestMatch < ApplicationRecord
   end
 
 private
+
   def cached_votes
     @cached_votes ||= votes.to_a
   end
