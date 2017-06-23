@@ -15,6 +15,12 @@ class Topics::TopicViewFactory
     elsif topic_type_policy.contest_topic?
       contest_topic topic
 
+    elsif topic_type_policy.contest_started_topic?
+      contest_started_topic topic
+
+    elsif topic_type_policy.contest_finished_topic?
+      contest_finished_topic topic
+
     elsif topic_type_policy.cosplay_gallery_topic?
       cosplay_topic topic
 
@@ -44,6 +50,14 @@ private
 
   def contest_topic topic
     Topics::ContestView.new topic, is_preview, is_mini
+  end
+
+  def contest_started_topic topic
+    Topics::ContestStartedView.new topic, is_preview, is_mini
+  end
+
+  def contest_finished_topic topic
+    Topics::ContestFinishedView.new topic, is_preview, is_mini
   end
 
   def cosplay_topic topic

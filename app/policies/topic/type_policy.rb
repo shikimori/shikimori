@@ -31,6 +31,14 @@ class Topic::TypePolicy
     topic.class.name == Topics::EntryTopics::ContestTopic.name
   end
 
+  def contest_started_topic?
+    topic.class.name == Topics::NewsTopics::ContestStartedTopic.name
+  end
+
+  def contest_finished_topic?
+    topic.class.name == Topics::NewsTopics::ContestFinishedTopic.name
+  end
+
   def club_topic?
     topic.class.name == Topics::EntryTopics::ClubTopic.name
   end
