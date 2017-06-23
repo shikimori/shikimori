@@ -1,5 +1,5 @@
-describe Contests::Progress do
-  let(:service) { Contests::Progress.new contest }
+describe Contest::Progress do
+  let(:service) { Contest::Progress.new contest }
 
   include_context :timecop
 

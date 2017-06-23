@@ -21,7 +21,7 @@ class ProgressContests
     end
 
     Contest.where(state: 'started').each do |contest|
-      Contests::Progress.call contest
+      Contest::Progress.call contest
     end
   end
 
