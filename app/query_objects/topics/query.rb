@@ -17,7 +17,11 @@ class Topics::Query < QueryObjectBase
       type = '#{Topics::NewsTopic.name}' and
       generated = false
     ) or (
-      type = '#{Topics::EntryTopics::CosplayGalleryTopic.name}' and
+      type in (
+        '#{Topics::EntryTopics::CosplayGalleryTopic.name}',
+        '#{Topics::NewsTopics::ContestStartedTopic.name}',
+        '#{Topics::NewsTopics::ContestFinishedTopic.name}'
+      ) and
       generated = true
     )
   SQL

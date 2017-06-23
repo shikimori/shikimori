@@ -87,24 +87,19 @@ class Messages::CreateNotification
   end
 
   def contest_finished
-    voter_ids = @target
-      .rounds
-      .joins(matches: :votes)
-      .select('distinct(user_id) as voter_id')
-      .except(:order)
-      .map(&:voter_id)
-
-    create_messages voter_ids,
-      kind: MessageType::ContestFinished,
-      from: @target.user,
-      linked: @target,
-      body: nil
-
     @target.topics.each do |topic|
       create_comment(
         @target.user,
         topic,
         "[contest_status=#{@target.id}]"
+      )
+    end
+
+    Site::DOMAIN_LOCALES.each do |locale|
+      Topics::Generate::News::ContestFinishedTopic.call(
+        @target,
+        @target.user,
+        locale
       )
     end
   end

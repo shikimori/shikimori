@@ -117,20 +117,10 @@ describe Messages::CreateNotification do
     end
   end
 
-  describe '#contest_finished' do
+  describe '#contest_finished', :focus do
     let(:target) { create :contest, :with_topics }
     let!(:round) { create :contest_round, contest: target }
     let!(:match) { create :contest_match, round: round }
-    let!(:user_vote) do
-      create :contest_user_vote,
-        match: match,
-        user: user_1,
-        item_id: 1,
-        ip: '1'
-    end
-
-    let!(:user_1) { seed :user }
-    let!(:user_2) { create :user }
 
     before { service.contest_finished }
 
@@ -138,9 +128,7 @@ describe Messages::CreateNotification do
       target.topics.each do |topic|
         expect(topic.comments).to have(1).item
       end
-
-      expect(user_1.messages).to have(1).item
-      expect(user_2.messages).to be_empty
+      ap target.news_topics
     end
   end
 end

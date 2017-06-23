@@ -57,6 +57,14 @@ FactoryGirl.define do
       type 'Topics::EntryTopics::ContestTopic'
       generated true
     end
+    factory :contest_started_topic, class: 'Topics::NewsTopics::ContestStartedTopic' do
+      type 'Topics::NewsTopics::ContestStartedTopic'
+      generated true
+    end
+    factory :contest_finished_topic, class: 'Topics::NewsTopics::ContestFinishedTopic' do
+      type 'Topics::NewsTopics::ContestFinishedTopic'
+      generated true
+    end
 
     factory :club_topic, class: 'Topics::EntryTopics::ClubTopic' do
       type 'Topics::EntryTopics::ClubTopic'

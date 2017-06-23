@@ -124,10 +124,24 @@ describe Topics::Query do
           created_at: 3.days.ago, linked: cosplay_gallery
       end
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
+      let!(:contest_started_topic) do
+        create :contest_started_topic, created_at: 4.days.ago
+      end
+      let!(:contest_finished_topic) do
+        create :contest_started_topic, created_at: 5.days.ago
+      end
 
       subject { query.by_forum Forum::NEWS_FORUM, user, is_censored_forbidden }
 
-      it { is_expected.to eq [anime_news_topic, manga_news_topic, cosplay_news_topic] }
+      it do
+        is_expected.to eq [
+          anime_news_topic,
+          manga_news_topic,
+          cosplay_news_topic,
+          contest_started_topic,
+          contest_finished_topic
+        ]
+      end
     end
 
     context 'UPDATES' do

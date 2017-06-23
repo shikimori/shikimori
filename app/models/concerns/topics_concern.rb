@@ -2,16 +2,21 @@ module TopicsConcern
   extend ActiveSupport::Concern
 
   included do
-    has_many :topics, -> { order updated_at: :desc },
-      class_name: "Topics::EntryTopics::#{name}Topic",
-      as: :linked,
-      inverse_of: :linked # topic always load know its linked
-
     # special association for dependent destroy
     has_many :all_topics,
       class_name: Topic.name,
       as: :linked,
       dependent: :destroy
+
+    has_many :topics, -> { order updated_at: :desc },
+      class_name: "Topics::EntryTopics::#{name}Topic",
+      as: :linked,
+      inverse_of: :linked # topic always load know its linked
+
+    has_many :news_topics, -> { order created_at: :desc },
+      class_name: Topics::NewsTopic.name,
+      as: :linked,
+      inverse_of: :linked # topic always must know its linked
 
     attr_implement :topic_user
   end
