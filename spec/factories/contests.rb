@@ -16,13 +16,9 @@ FactoryGirl.define do
     matches_interval 1
     suggestions_per_user 2
 
-    trait :anime do
-      member_type :anime
-    end
-
-    trait :character do
-      member_type :character
-    end
+    Types::Contest::MemberType.values.each { |value| trait(value) { member_type value } }
+    Types::Contest::StrategyType.values.each { |value| trait(value) { strategy_type value } }
+    Types::Contest::UserVoteKey.values.each { |value| trait(value) { user_vote_key value } }
 
     Contest.state_machine.states.map(&:value).each do |contest_state|
       trait(contest_state.to_sym) { state contest_state }

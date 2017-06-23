@@ -12,7 +12,7 @@ private
     Contests::GenerateRounds.call @contest if should_generate_rounds?
 
     @contest.start!
-    @contest.rounds.first.start!
+    ContestRound::Start.call @contest.rounds.first
   end
 
   def expired_started_on?

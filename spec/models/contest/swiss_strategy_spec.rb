@@ -5,7 +5,7 @@ describe Contest::SwissStrategy do
   describe '#total_rounds' do
     let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
 
-    [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
+    [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
@@ -17,7 +17,7 @@ describe Contest::SwissStrategy do
   describe '#create_rounds' do
     let(:contest) { create :contest, strategy_type: strategy_type }
 
-    [[128,9], [64,8], [32,7], [16,6], [8,5]].each do |members, rounds|
+    [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
@@ -49,15 +49,17 @@ describe Contest::SwissStrategy do
     before { Contest::Start.call contest }
 
     it 'creates correct rounds' do
-      contest.rounds.each {|v| expect(v.matches.size).to eq(3) }
-      contest.rounds.first.matches.each {|v| expect(v.left_id).to be_present }
-      contest.rounds.second.matches.each {|v| expect(v.left_id).to be_nil }
-      contest.rounds.last.matches.each {|v| expect(v.left_id).to be_nil }
+      contest.rounds.each { |round| expect(round.matches.size).to eq(3) }
+      contest.rounds.first.matches.each { |match| expect(match.left_id).to be_present }
+      contest.rounds.second.matches.each { |match| expect(match.left_id).to be_nil }
+      contest.rounds.last.matches.each { |match| expect(match.left_id).to be_nil }
     end
   end
 
   describe '#dates' do
-    let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
+    let(:contest) do
+      create :contest, :with_6_members, strategy_type: strategy_type
+    end
     before { Contests::GenerateRounds.call contest }
 
     it 'sets correct dates for matches' do
@@ -71,8 +73,8 @@ describe Contest::SwissStrategy do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before do
       Contest::Start.call contest
-      contest.rounds.map(&:matches).flatten.each do |v|
-        v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+      contest.rounds.flat_map(&:matches).each do |match|
+        match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
       end
       contest.current_round.finish!
     end
@@ -83,17 +85,17 @@ describe Contest::SwissStrategy do
     let(:l2) { strategy.statistics.members.values.at 3 }
     let(:l3) { strategy.statistics.members.values.at 5 }
 
-    describe 'sorted_scores' do
+    describe '#sorted_scores' do
       subject { strategy.statistics.sorted_scores }
       it { is_expected.to eq(w1.id => 1, w2.id => 1, w3.id => 1, l1.id => 0, l2.id => 0, l3.id => 0) }
     end
 
-    describe 'opponents_of' do
+    describe '#opponents_of' do
       subject { strategy.statistics.opponents_of l2.id }
       it { is_expected.to eq [w2.id] }
     end
 
-    describe 'advance_members' do
+    describe '#advance_members' do
       describe 'I -> II' do
         before { contest.reload }
 
@@ -110,10 +112,10 @@ describe Contest::SwissStrategy do
         end
       end
 
-      describe 'II -> III' do
+      describe 'II -> III', :focus do
         before { contest.reload.current_round.finish! }
 
-        it 'should pick up members which were not opponents in previous matches' do
+        it 'choose members which were not opponents in previous matches' do
           expect(contest.rounds[2].matches[0].left_id).to eq w1.id
           expect(contest.rounds[2].matches[0].right_id).to eq w3.id
           expect(contest.rounds[2].matches[1].left_id).to eq w2.id
@@ -126,6 +128,7 @@ describe Contest::SwissStrategy do
 
     describe 'results' do
       subject { strategy.results }
+
       before do
         contest.reload.current_round.finish!
         contest.reload.current_round.finish!

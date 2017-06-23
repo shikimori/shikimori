@@ -1,11 +1,9 @@
 describe Contest::PlayOffStrategy do
-  let(:strategy_type) { :play_off }
   let(:strategy) { contest.strategy }
+  let(:contest) { build_stubbed :contest, :play_off }
 
   describe '#total_rounds' do
-    let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
-
-    [[128,7], [64,6], [32,5], [16,4]].each do |members, rounds|
+    [[128, 7], [64, 6], [32, 5], [16, 4]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         expect(contest.total_rounds).to eq rounds
@@ -14,9 +12,9 @@ describe Contest::PlayOffStrategy do
   end
 
   describe '#create_rounds' do
-    let(:contest) { create :contest, strategy_type: strategy_type }
+    let(:contest) { create :contest, :play_off }
 
-    [[128,7], [64,6], [32,5], [16,4], [8,3]].each do |members, rounds|
+    [[128, 7], [64, 6], [32, 5], [16, 4], [8, 3]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
@@ -30,7 +28,7 @@ describe Contest::PlayOffStrategy do
       strategy.create_rounds
 
       expect(contest.rounds[0].number).to eq 1
-      expect(contest.rounds.any? {|v| v.additional }).to eq false
+      expect(contest.rounds.any?(&:additional)).to eq false
 
       expect(contest.rounds[1].number).to eq 2
       expect(contest.rounds[2].number).to eq 3
@@ -39,7 +37,7 @@ describe Contest::PlayOffStrategy do
   end
 
   describe '#advance_members' do
-    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, :play_off }
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
     let(:w3) { contest.rounds[0].matches[2].left }
@@ -53,7 +51,7 @@ describe Contest::PlayOffStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        1.times { contest.current_round.reload.finish! }
+        1.times { contest.current_round.finish! }
       end
 
       it 'winners&losers' do
@@ -74,7 +72,7 @@ describe Contest::PlayOffStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        2.times { |i| contest.current_round.reload.finish! }
+        2.times { contest.current_round.finish! }
       end
 
       it 'winners&losers' do
@@ -87,28 +85,27 @@ describe Contest::PlayOffStrategy do
   end
 
   describe '#with_additional_rounds?' do
-    subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
+    subject { build_stubbed(:contest, :play_off).strategy }
     its(:with_additional_rounds?) { is_expected.to eq false }
   end
 
   describe '#dynamic_rounds?' do
-    subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
+    subject { build_stubbed(:contest, :play_off).strategy }
     its(:dynamic_rounds?) { is_expected.to eq false }
   end
 
   describe '#results' do
-    let(:contest) { create :contest, :with_8_members, :anime, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_8_members, :anime, :play_off }
     let(:results) { contest.results }
     let(:scores) { contest.strategy.statistics.scores }
     let(:statistics) { contest.strategy.statistics }
     before do
       Contest::Start.call contest
-      contest.rounds.each do |round|
+      contest.rounds.each do |_round|
         contest.current_round.matches.each do |contest_match|
           contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
         end
         Contest::Progress.call contest
-        contest.reload
       end
 
       scores[contest.rounds[1].matches.first.loser.id] = 2

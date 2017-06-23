@@ -1,11 +1,20 @@
 describe Contest::DoubleEliminationStrategy do
-  let(:strategy_type) { :double_elimination }
   let(:strategy) { contest.strategy }
+  let(:contest) { build_stubbed :contest, :double_elimination }
 
   describe '#total_rounds' do
-    let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
-
-    [[128,14], [65,14], [64,12], [50,12], [33,12], [32,10], [16,8], [9,8], [8,6], [7,6]].each do |members, rounds|
+    [
+      [128, 14],
+      [65, 14],
+      [64, 12],
+      [50, 12],
+      [33, 12],
+      [32, 10],
+      [16, 8],
+      [9, 8],
+      [8, 6],
+      [7, 6]
+    ].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         expect(contest.total_rounds).to eq rounds
@@ -14,14 +23,13 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe '#create_rounds' do
-    let(:contest) { create :contest, strategy_type: strategy_type }
-
-    [[128,14], [64,12], [32,10], [16,8], [8,6]].each do |members, rounds|
+    [[128, 14], [64, 12], [32, 10], [16, 8], [8, 6]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
         allow(strategy).to receive :fill_round_with_matches
 
-        expect{strategy.create_rounds}.to change(ContestRound, :count).by rounds
+        expect { strategy.create_rounds }
+          .to change(ContestRound, :count).by(rounds)
       end
     end
 
@@ -54,7 +62,8 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe '#advance_members' do
-    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, :double_elimination }
+
     let(:w1) { contest.rounds[0].matches[0].left }
     let(:w2) { contest.rounds[0].matches[1].left }
     let(:w3) { contest.rounds[0].matches[2].left }
@@ -70,16 +79,10 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        # 1.times { contest.current_round.reload.finish! }
-        1.times do
-          ap contest.current_round.reload
-          ap contest.current_round.matches
-          binding.pry
-          contest.current_round.reload.finish!
-        end
+        1.times { contest.current_round.finish! }
       end
 
-      it 'winners&losers', :focus do
+      it 'winners&losers' do
         expect(contest.current_round.matches[0].left).to eq w1
         expect(contest.current_round.matches[0].right).to eq w2
 
@@ -98,10 +101,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        2.times do |i|
-          contest.current_round.reload
-          contest.current_round.finish!
-        end
+        2.times { contest.current_round.finish! }
       end
 
       it 'winners&losers' do
@@ -120,7 +120,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        3.times { |i| contest.current_round.reload.finish! }
+        3.times { contest.current_round.finish! }
       end
 
       it 'winners' do
@@ -132,11 +132,11 @@ describe Contest::DoubleEliminationStrategy do
     context 'III -> IIIa, III -> IV' do
       before do
         4.times do |i|
-          contest.rounds[i].matches.each do |contest_round|
-            contest_round.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        4.times { |i| contest.current_round.reload.finish! }
+        4.times { contest.current_round.finish! }
       end
 
       it 'winners&losers' do
@@ -151,11 +151,11 @@ describe Contest::DoubleEliminationStrategy do
     context 'III -> IV' do
       before do
         5.times do |i|
-          contest.rounds[i].matches.each do |contest_round|
-            contest_round.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        5.times { |i| contest.current_round.reload.finish! }
+        5.times { contest.current_round.finish! }
       end
 
       it 'winners' do
@@ -170,9 +170,9 @@ describe Contest::DoubleEliminationStrategy do
     let(:animes) { 1.upto(11).map { create :anime } }
 
     it 'creates animes/2 matches' do
-      expect {
+      expect(proc do
         strategy.create_matches round, animes, group: ContestRound::W
-      }.to change(ContestMatch, :count).by (animes.size.to_f / 2).ceil
+      end).to change(ContestMatch, :count).by((animes.size.to_f / 2).ceil)
     end
 
     it 'create_matchess left&right correctly' do
@@ -194,17 +194,28 @@ describe Contest::DoubleEliminationStrategy do
 
       it 'first of first round' do
         expect(round.matches[0].started_on).to eq round.contest.started_on
-        expect(round.matches[0].finished_on).to eq round.contest.started_on + (round.contest.match_duration-1).days
+        expect(round.matches[0].finished_on).to eq(
+          round.contest.started_on + (round.contest.match_duration - 1).days
+        )
       end
 
       it 'last of first round' do
-        expect(round.matches[matches_per_round - 1].started_on).to eq round.contest.started_on
-        expect(round.matches[matches_per_round - 1].finished_on).to eq round.contest.started_on + (round.contest.match_duration-1).days
+        expect(round.matches[matches_per_round - 1].started_on).to eq(
+          round.contest.started_on
+        )
+        expect(round.matches[matches_per_round - 1].finished_on).to eq(
+          round.contest.started_on + (round.contest.match_duration - 1).days
+        )
       end
 
       it 'first of second round' do
-        expect(round.matches[matches_per_round].started_on).to eq round.contest.started_on + round.contest.matches_interval.days
-        expect(round.matches[matches_per_round].finished_on).to eq round.contest.started_on + (round.contest.matches_interval-1).days + round.contest.match_duration.days
+        expect(round.matches[matches_per_round].started_on).to eq(
+          round.contest.started_on + round.contest.matches_interval.days
+        )
+        expect(round.matches[matches_per_round].finished_on).to eq(
+          round.contest.started_on + (round.contest.matches_interval - 1).days +
+            round.contest.match_duration.days
+        )
       end
 
       context 'additional create_matches' do
@@ -242,13 +253,13 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe '#with_additional_rounds?' do
-    subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { is_expected.to eq true }
+    subject { build_stubbed(:contest, :double_elimination).strategy }
+    its(:with_additional_rounds?) { should eq true }
   end
 
   describe '#dynamic_rounds?' do
-    subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { is_expected.to eq false }
+    subject { build_stubbed(:contest, :double_elimination).strategy }
+    its(:dynamic_rounds?) { should eq false }
   end
 
   describe '#results' do
@@ -257,10 +268,11 @@ describe Contest::DoubleEliminationStrategy do
     let(:average_votes) { contest.strategy.statistics.average_votes }
     before do
       Contest::Start.call contest
-      contest.rounds.each do |round|
-        contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
+      contest.rounds.each do |_round|
+        contest.current_round.matches.each do |contest_match|
+          contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+        end
         Contest::Progress.call contest
-        contest.reload
       end
 
       scores[contest.rounds[2].matches.first.loser.id] = 2
@@ -356,7 +368,7 @@ describe Contest::DoubleEliminationStrategy do
 
         it 'valid' do
           expect(round.matches.size).to eq(3)
-          round.matches.each {|vote| expect(vote.group).to eq ContestRound::S }
+          round.matches.each { |vote| expect(vote.group).to eq ContestRound::S }
           expect(round.matches.first.started_on).to eq contest.started_on
           expect(round.matches.first.right_type).not_to be_nil
           expect(round.matches.last.right_type).to be_nil
@@ -368,9 +380,12 @@ describe Contest::DoubleEliminationStrategy do
 
         it 'valid' do
           expect(round.matches.size).to eq(3)
-          round.matches[0..1].each {|vote| expect(vote.group).to eq ContestRound::W }
-          round.matches[2..2].each {|vote| expect(vote.group).to eq ContestRound::L }
-          expect(round.matches.first.started_on).to eq (round.prior_round.matches.last.finished_on+contest.matches_interval.days)
+          round.matches[0..1].each { |vote| expect(vote.group).to eq ContestRound::W }
+          round.matches[2..2].each { |vote| expect(vote.group).to eq ContestRound::L }
+          expect(round.matches.first.started_on).to eq(
+            round.prior_round.matches.last.finished_on +
+              contest.matches_interval.days
+          )
           expect(round.matches.first.right_type).not_to be_nil
         end
       end
@@ -380,8 +395,11 @@ describe Contest::DoubleEliminationStrategy do
 
         it 'valid' do
           expect(round.matches.size).to eq(1)
-          round.matches.each {|vote| expect(vote.group).to eq ContestRound::L }
-          expect(round.matches.first.started_on).to eq (round.prior_round.matches.last.finished_on+contest.matches_interval.days)
+          round.matches.each { |vote| expect(vote.group).to eq ContestRound::L }
+          expect(round.matches.first.started_on).to eq(
+            round.prior_round.matches.last.finished_on +
+              contest.matches_interval.days
+          )
           expect(round.matches.first.right_type).not_to be_nil
         end
       end
@@ -393,7 +411,10 @@ describe Contest::DoubleEliminationStrategy do
           expect(round.matches.size).to eq(2)
           expect(round.matches.first.group).to eq ContestRound::W
           expect(round.matches.last.group).to eq ContestRound::L
-          expect(round.matches.first.started_on).to eq (round.prior_round.matches.last.finished_on+contest.matches_interval.days)
+          expect(round.matches.first.started_on).to eq(
+            round.prior_round.matches.last.finished_on +
+              contest.matches_interval.days
+          )
           expect(round.matches.first.right_type).not_to be_nil
         end
       end
@@ -414,7 +435,10 @@ describe Contest::DoubleEliminationStrategy do
         it 'valid' do
           expect(round.matches.size).to eq(1)
           expect(round.matches.first.group).to eq ContestRound::F
-          expect(round.matches.first.started_on).to eq (round.prior_round.matches.last.finished_on+contest.matches_interval.days)
+          expect(round.matches.first.started_on).to eq(
+            round.prior_round.matches.last.finished_on +
+              contest.matches_interval.days
+          )
           expect(round.matches.first.right_type).not_to be_nil
         end
       end
