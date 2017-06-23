@@ -253,12 +253,12 @@ describe Contest::DoubleEliminationStrategy do
   end
 
   describe '#with_additional_rounds?' do
-    subject { build_stubbed(:contest, :double_elimination).strategy }
+    subject { contest.strategy }
     its(:with_additional_rounds?) { should eq true }
   end
 
   describe '#dynamic_rounds?' do
-    subject { build_stubbed(:contest, :double_elimination).strategy }
+    subject { contest.strategy }
     its(:dynamic_rounds?) { should eq false }
   end
 

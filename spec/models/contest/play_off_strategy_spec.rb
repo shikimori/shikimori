@@ -85,12 +85,12 @@ describe Contest::PlayOffStrategy do
   end
 
   describe '#with_additional_rounds?' do
-    subject { build_stubbed(:contest, :play_off).strategy }
+    subject { contest.strategy }
     its(:with_additional_rounds?) { is_expected.to eq false }
   end
 
   describe '#dynamic_rounds?' do
-    subject { build_stubbed(:contest, :play_off).strategy }
+    subject { contest.strategy }
     its(:dynamic_rounds?) { is_expected.to eq false }
   end
 

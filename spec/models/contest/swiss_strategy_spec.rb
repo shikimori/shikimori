@@ -1,10 +1,8 @@
 describe Contest::SwissStrategy do
-  let(:strategy_type) { :swiss }
   let(:strategy) { contest.strategy }
+  let(:contest) { build_stubbed :contest, :swiss }
 
   describe '#total_rounds' do
-    let(:contest) { build_stubbed :contest, strategy_type: strategy_type }
-
     [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
@@ -15,8 +13,6 @@ describe Contest::SwissStrategy do
   end
 
   describe '#create_rounds' do
-    let(:contest) { create :contest, strategy_type: strategy_type }
-
     [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
@@ -40,12 +36,12 @@ describe Contest::SwissStrategy do
   end
 
   describe '#dynamic_rounds?' do
-    subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
+    subject { contest.strategy }
     its(:dynamic_rounds?) { is_expected.to eq true }
   end
 
   describe '#fill_round_with_matches' do
-    let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_5_members, :swiss }
     before { Contest::Start.call contest }
 
     it 'creates correct rounds' do
@@ -58,7 +54,7 @@ describe Contest::SwissStrategy do
 
   describe '#dates' do
     let(:contest) do
-      create :contest, :with_6_members, strategy_type: strategy_type
+      create :contest, :with_6_members, :swiss
     end
     before { Contests::GenerateRounds.call contest }
 
@@ -70,7 +66,7 @@ describe Contest::SwissStrategy do
   end
 
   context 'contest_with_6_members' do
-    let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
+    let(:contest) { create :contest, :with_6_members, :swiss }
     before do
       Contest::Start.call contest
       contest.rounds.flat_map(&:matches).each do |match|
