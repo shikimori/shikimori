@@ -1,5 +1,5 @@
 describe Contest::Progress do
-  let(:service) { Contest::Progress.new contest }
+  let(:operation) { Contest::Progress.new contest }
 
   include_context :timecop
 
@@ -14,7 +14,7 @@ describe Contest::Progress do
   describe 'pending changes' do
     context 'matches to start' do
       before { round.matches.last.state = 'created' }
-      subject! { service.call }
+      subject! { operation.call }
 
       it do
         expect(contest.updated_at).to be_within(0.1).of(Time.zone.now)
@@ -24,7 +24,7 @@ describe Contest::Progress do
 
     describe 'matches to finish' do
       before { round.matches.last.finished_on = Time.zone.yesterday }
-      subject! { service.call }
+      subject! { operation.call }
 
       it do
         expect(contest.updated_at).to be_within(0.1).of(Time.zone.now)
@@ -34,7 +34,7 @@ describe Contest::Progress do
 
     describe 'round to finish' do
       before { round.matches.each { |v| v.finished_on = Time.zone.yesterday } }
-      subject! { service.call }
+      subject! { operation.call }
 
       it do
         expect(contest.updated_at).to be_within(0.1).of(Time.zone.now)
@@ -44,7 +44,7 @@ describe Contest::Progress do
   end
 
   describe 'no pending changes' do
-    subject! { service.call }
+    subject! { operation.call }
     it { expect(contest.updated_at).to be_within(0.1).of(1.hour.ago) }
   end
 end

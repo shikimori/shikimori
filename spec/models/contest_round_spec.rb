@@ -12,7 +12,7 @@ describe ContestRound do
       expect(round.created?).to eq true
 
       contest.strategy.fill_round_with_matches round
-      round.start!
+      ContestRound::Start.call round
       expect(round.started?).to eq true
 
       round.matches.each {|v| v.state = 'finished' }
@@ -37,8 +37,10 @@ describe ContestRound do
       subject { round.can_finish? }
 
       context 'not finished matches' do
-        before { contest.strategy.fill_round_with_matches round }
-        before { round.start! }
+        before do
+          contest.strategy.fill_round_with_matches round
+          ContestRound::Start.call round
+        end
 
         it { is_expected.to eq false }
 
@@ -56,30 +58,10 @@ describe ContestRound do
       end
     end
 
-    context 'after started' do
-      before { contest.strategy.fill_round_with_matches round }
-
-      it 'starts today matches' do
-        round.start!
-        round.matches.each do |vote|
-          expect(vote.started?).to eq true
-        end
-      end
-
-      it 'does not start matches in future' do
-        round.matches.each {|v| v.started_on = Time.zone.tomorrow }
-        round.start!
-
-        round.matches.each do |vote|
-          expect(vote.started?).to eq false
-        end
-      end
-    end
-
     context 'before finished' do
       before do
         contest.strategy.fill_round_with_matches round
-        round.start!
+        ContestRound::Start.call round
         round.matches.each {|v| v.finished_on = Time.zone.yesterday }
       end
 
@@ -103,7 +85,7 @@ describe ContestRound do
 
       before do
         contest.strategy.fill_round_with_matches round
-        round.start!
+        ContestRound::Start.call round
         round.matches.each { |v| v.finished_on = Time.zone.yesterday }
       end
 

@@ -1,5 +1,5 @@
 describe Contest::Finish do
-  let(:service) { Contest::Finish.new contest }
+  let(:operation) { Contest::Finish.new contest }
 
   include_context :timecop
 
@@ -13,7 +13,7 @@ describe Contest::Finish do
       .with(contest)
       .and_return(notifications)
   end
-  subject! { service.call }
+  subject! { operation.call }
 
   it do
     expect(contest.reload).to be_finished

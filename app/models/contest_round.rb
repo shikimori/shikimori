@@ -21,14 +21,11 @@ class ContestRound < ApplicationRecord
     state :finished
 
     event :start do
-      transition created: :started, if: lambda { |round| round.matches.any? }
+      transition :created => :started, if: ->(round) { round.matches.any? }
     end
     event :finish do
-      transition started: :finished, if: lambda { |round| round.matches.all? { |v| v.finished? || v.can_finish? } }
-    end
-
-    after_transition created: :started do |round, transition|
-      round.matches.select {|v| v.started_on <= Time.zone.today }.each(&:start!)
+      transition :started => :finished,
+        if: ->(round) { round.matches.all? { |v| v.finished? || v.can_finish? } }
     end
 
     before_transition started: :finished do |round, transition|
@@ -37,7 +34,7 @@ class ContestRound < ApplicationRecord
 
     after_transition started: :finished do |round, transition|
       if round.next_round
-        round.next_round.start!
+        ContestRound::Start.call round.next_round
         round.strategy.advance_members round.next_round, round
         Messages::CreateNotification.new(round).round_finished
       else
