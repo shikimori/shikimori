@@ -1,9 +1,9 @@
-describe Contests::Finalize do
-  let(:service) { Contests::Finalize.new contest }
+describe Contest::Finish do
+  let(:service) { Contest::Finish.new contest }
 
   include_context :timecop
 
-  let(:contest) { create :contest, user_vote_key: 'can_vote_1' }
+  let(:contest) { create :contest, :started, user_vote_key: 'can_vote_1' }
   let!(:user) { create :user, can_vote_1: true }
   let(:notifications) { double contest_finished: nil }
 
@@ -16,8 +16,9 @@ describe Contests::Finalize do
   subject! { service.call }
 
   it do
+    expect(contest.reload).to be_finished
+    expect(contest.finished_on).to eq Time.zone.today
     expect(user.reload.can_vote_1).to eq false
-    expect(contest.reload.finished_on).to eq Time.zone.today
     expect(notifications).to have_received :contest_finished
   end
 end

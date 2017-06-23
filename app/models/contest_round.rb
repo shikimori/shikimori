@@ -41,7 +41,7 @@ class ContestRound < ApplicationRecord
         round.strategy.advance_members round.next_round, round
         Messages::CreateNotification.new(round).round_finished
       else
-        round.contest.finish!
+        Contest::Finish.call round.contest
       end
     end
   end

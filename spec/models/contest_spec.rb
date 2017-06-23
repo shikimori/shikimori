@@ -36,13 +36,6 @@ describe Contest do
   describe 'state machine' do
     let(:contest) { create :contest, :with_5_members, :created }
 
-    it 'full cycle' do
-      expect(contest.created?).to eq true
-      contest.propose!
-      Contest::Start.call contest
-      contest.finish!
-    end
-
     describe 'can_propose?' do
       subject { contest.can_propose? }
       it { is_expected.to eq true }
@@ -73,15 +66,6 @@ describe Contest do
       it 'creates 2 topics' do
         expect(contest.topics).to have(2).items
       end
-    end
-
-    context 'after finished' do
-      let(:contest) { create :contest, :started }
-
-      before { allow(Contests::Finalize).to receive :call }
-      before { contest.finish }
-
-      it { expect(Contests::Finalize).to have_received(:call).with contest }
     end
   end
 

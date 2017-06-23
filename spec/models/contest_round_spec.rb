@@ -120,7 +120,7 @@ describe ContestRound do
 
       it 'finishes contest' do
         round.finish!
-        expect(round.contest.finished?).to eq true
+        expect(round.contest).to be_finished
         expect(notification_service).to_not receive :round_finished
         # expect(notification_service).to receive :contest_finished
       end
