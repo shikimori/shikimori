@@ -132,6 +132,12 @@ en:
       manga: 'Manga [%{type}]%{id}[/%{type}] %{action_name_lower}'
       ranobe: 'Light novel [%{type}]%{id}[/%{type}] %{action_name_lower}'
 
+  topics/contest_started_topic:
+    title: Contest started
+
+  topics/contest_finished_topic:
+    title: Contest finished
+
   cosplay_gallery:
     title: Cosplay of %{cosplay} by %{cosplayer}
 

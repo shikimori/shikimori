@@ -117,7 +117,7 @@ describe Messages::CreateNotification do
     end
   end
 
-  describe '#contest_finished', :focus do
+  describe '#contest_finished' do
     let(:target) { create :contest, :with_topics }
     let!(:round) { create :contest_round, contest: target }
     let!(:match) { create :contest_match, round: round }
@@ -128,7 +128,14 @@ describe Messages::CreateNotification do
       target.topics.each do |topic|
         expect(topic.comments).to have(1).item
       end
-      ap target.news_topics
+      target.news_topics.each do |topic|
+        expect(topic).to have_attributes(
+          linked: target,
+          action: nil,
+          value: nil,
+          processed: false
+        )
+      end
     end
   end
 end
