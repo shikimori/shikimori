@@ -13,6 +13,7 @@ class ContestRound < ApplicationRecord
   belongs_to :contest, touch: true
   has_many :matches, -> { order :id },
     class_name: ContestMatch.name,
+    inverse_of: :round,
     foreign_key: :round_id,
     dependent: :destroy
 
@@ -53,17 +54,14 @@ class ContestRound < ApplicationRecord
 
   # название раунда
   def title is_short = false, locale = nil
-    if is_short
-      "#{number}#{'a' if additional}"
-    else
-      additional_text = additional ? 'a' : ''
-      i18n_t(
-        'title',
-        number: number,
-        additional: additional_text,
-        locale: locale
-      )
-    end
+    return "#{number}#{'a' if additional}" if is_short
+
+    i18n_t(
+      'title',
+      number: number,
+      additional: ('a' if additional),
+      locale: locale
+    )
   end
 
   def to_param
@@ -74,10 +72,11 @@ class ContestRound < ApplicationRecord
   def prior_round
     @prior_round ||= begin
       index = contest.rounds.index self
-      if index == 0
+
+      if index.zero?
         nil
       else
-        contest.rounds[index-1]
+        contest.rounds[index - 1]
       end
     end
   end
@@ -86,10 +85,11 @@ class ContestRound < ApplicationRecord
   def next_round
     @next_round ||= begin
       index = contest.rounds.index self
+
       if index == contest.rounds.size - 1
         nil
       else
-        contest.rounds[index+1]
+        contest.rounds[index + 1]
       end
     end
   end

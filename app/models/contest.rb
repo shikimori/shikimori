@@ -25,6 +25,7 @@ class Contest < ApplicationRecord
 
   has_many :rounds, -> { order [:number, :additional, :id] },
     class_name: ContestRound.name,
+    inverse_of: :contest,
     dependent: :destroy
 
   validates :title_ru, :title_en, presence: true
