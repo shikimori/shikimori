@@ -41,7 +41,7 @@ describe Contest::SwissStrategy do
 
   describe '#dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should eq true }
+    its(:dynamic_rounds?) { is_expected.to eq true }
   end
 
   describe '#fill_round_with_matches' do
@@ -85,12 +85,12 @@ describe Contest::SwissStrategy do
 
     describe 'sorted_scores' do
       subject { strategy.statistics.sorted_scores }
-      it { should eq(w1.id => 1, w2.id => 1, w3.id => 1, l1.id => 0, l2.id => 0, l3.id => 0) }
+      it { is_expected.to eq(w1.id => 1, w2.id => 1, w3.id => 1, l1.id => 0, l2.id => 0, l3.id => 0) }
     end
 
     describe 'opponents_of' do
       subject { strategy.statistics.opponents_of l2.id }
-      it { should eq [w2.id] }
+      it { is_expected.to eq [w2.id] }
     end
 
     describe 'advance_members' do
@@ -136,7 +136,7 @@ describe Contest::SwissStrategy do
         strategy.statistics.users_votes[l3.id] = 2
       end
 
-      it { should eq [w1, l2, w3, w2, l3, l1] }
+      it { is_expected.to eq [w1, l2, w3, w2, l3, l1] }
     end
   end
 end

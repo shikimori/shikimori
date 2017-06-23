@@ -48,11 +48,12 @@ describe Contest::PlayOffStrategy do
 
     context 'I -> II' do
       before do
-        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
-        1.times do
-          contest.current_round.reload
-          contest.current_round.finish!
+        1.times do |i|
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
         end
+        1.times { contest.current_round.reload.finish! }
       end
 
       it 'winners&losers' do
@@ -68,11 +69,12 @@ describe Contest::PlayOffStrategy do
 
     context 'II -> III' do
       before do
-        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
         2.times do |i|
-          contest.current_round.reload
-          contest.current_round.finish!
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
         end
+        2.times { |i| contest.current_round.reload.finish! }
       end
 
       it 'winners&losers' do
@@ -86,12 +88,12 @@ describe Contest::PlayOffStrategy do
 
   describe '#with_additional_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { should eq false }
+    its(:with_additional_rounds?) { is_expected.to eq false }
   end
 
   describe '#dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should eq false }
+    its(:dynamic_rounds?) { is_expected.to eq false }
   end
 
   describe '#results' do
@@ -102,7 +104,9 @@ describe Contest::PlayOffStrategy do
     before do
       Contest::Start.call contest
       contest.rounds.each do |round|
-        contest.current_round.matches.each { |v| v.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
+        contest.current_round.matches.each do |contest_match|
+          contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+        end
         Contest::Progress.call contest
         contest.reload
       end

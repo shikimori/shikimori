@@ -12,7 +12,7 @@ describe Contest::Progress do
   end
 
   describe 'pending changes' do
-    context 'matches to start' do
+    context 'matches to start', :focus do
       before { round.matches.last.state = 'created' }
       subject! { operation.call }
 

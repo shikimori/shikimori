@@ -65,14 +65,21 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'I -> II' do
       before do
-        1.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
+        1.times do |i|
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
+        end
+        # 1.times { contest.current_round.reload.finish! }
         1.times do
-          contest.current_round.reload
-          contest.current_round.finish!
+          ap contest.current_round.reload
+          ap contest.current_round.matches
+          binding.pry
+          contest.current_round.reload.finish!
         end
       end
 
-      it 'winners&losers' do
+      it 'winners&losers', :focus do
         expect(contest.current_round.matches[0].left).to eq w1
         expect(contest.current_round.matches[0].right).to eq w2
 
@@ -86,7 +93,11 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'II -> IIa, II -> III' do
       before do
-        2.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
+        2.times do |i|
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
+        end
         2.times do |i|
           contest.current_round.reload
           contest.current_round.finish!
@@ -104,11 +115,12 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'IIa -> III' do
       before do
-        3.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
         3.times do |i|
-          contest.current_round.reload
-          contest.current_round.finish!
+          contest.rounds[i].matches.each do |contest_match|
+            contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
         end
+        3.times { |i| contest.current_round.reload.finish! }
       end
 
       it 'winners' do
@@ -119,11 +131,12 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'III -> IIIa, III -> IV' do
       before do
-        4.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
         4.times do |i|
-          contest.current_round.reload
-          contest.current_round.finish!
+          contest.rounds[i].matches.each do |contest_round|
+            contest_round.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
         end
+        4.times { |i| contest.current_round.reload.finish! }
       end
 
       it 'winners&losers' do
@@ -137,11 +150,12 @@ describe Contest::DoubleEliminationStrategy do
 
     context 'III -> IV' do
       before do
-        5.times { |i| contest.rounds[i].matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday } }
         5.times do |i|
-          contest.current_round.reload
-          contest.current_round.finish!
+          contest.rounds[i].matches.each do |contest_round|
+            contest_round.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
+          end
         end
+        5.times { |i| contest.current_round.reload.finish! }
       end
 
       it 'winners' do
@@ -229,12 +243,12 @@ describe Contest::DoubleEliminationStrategy do
 
   describe '#with_additional_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:with_additional_rounds?) { should eq true }
+    its(:with_additional_rounds?) { is_expected.to eq true }
   end
 
   describe '#dynamic_rounds?' do
     subject { build_stubbed(:contest, strategy_type: strategy_type).strategy }
-    its(:dynamic_rounds?) { should eq false }
+    its(:dynamic_rounds?) { is_expected.to eq false }
   end
 
   describe '#results' do
