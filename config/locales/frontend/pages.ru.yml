@@ -12,7 +12,7 @@ ru:
           one: '%{count} участник'
           few: '%{count} участника'
           many: '%{count} участников'
-          other: '%{count} участника'
+          other: '%{count} участников'
 
       # p-profiles
       p_profiles:

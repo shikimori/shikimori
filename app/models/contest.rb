@@ -96,7 +96,7 @@ class Contest < ApplicationRecord
         .where(
           "state in ('proposing', 'started') or
           (state = 'finished' and finished_on >= ?)",
-          Time.zone.now - 1.week
+          1.week.ago
         )
         .order(:started_on)
         .to_a
