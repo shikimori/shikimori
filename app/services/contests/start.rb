@@ -5,7 +5,6 @@ class Contests::Start
     @contest.update started_on: Time.zone.today if expired_started_on?
     Contests::GenerateRounds.call @contest if should_generate_rounds?
     @contest.rounds.first.start!
-    @contest.touch
   end
 
 private

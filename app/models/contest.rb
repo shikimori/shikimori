@@ -50,32 +50,25 @@ class Contest < ApplicationRecord
   state_machine :state, initial: :created do
     state :created, :proposing
 
-    state :proposing do
-      # очистка голосов от накруток
-      def cleanup_suggestions!
-        suggestions
-          .joins(:user)
-          .merge(User.suspicious)
-          .destroy_all
-      end
-    end
+    state :proposing
     state :started
     state :finished
 
     event(:propose) { transition created: :proposing }
     event(:stop_propose) { transition proposing: :created }
     event :start do
-      transition [:created, :proposing] => :started, :if => lambda { |contest| contest.links.count >= MINIMUM_MEMBERS && contest.links.count <= MAXIMUM_MEMBERS } # && Contest.all.none?(&:started?)
+      transition [:created, :proposing] => :started,
+        if: lambda { |contest| contest.links.count >= MINIMUM_MEMBERS && contest.links.count <= MAXIMUM_MEMBERS } # && Contest.all.none?(&:started?)
     end
     event(:finish) { transition started: :finished }
 
-    after_transition created: [:proposing, :started] do |contest, transition|
+    after_transition :created => [:proposing, :started] do |contest, transition|
       contest.generate_topics Site::DOMAIN_LOCALES
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
       Contests::Start.call contest
     end
-    after_transition started: :finished do |contest, transition|
+    after_transition :started => :finished do |contest, transition|
       Contests::Finalize.call contest
     end
   end

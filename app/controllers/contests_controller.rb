@@ -133,7 +133,7 @@ class ContestsController < ShikimoriController
 
   # очистка вариантов от накруток
   def cleanup_suggestions
-    @resource.cleanup_suggestions!
+    Contest::CleanupSuggestions.call @resource.object
     redirect_to edit_contest_url @resource
   end
 
