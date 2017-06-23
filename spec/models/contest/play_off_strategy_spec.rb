@@ -102,8 +102,8 @@ describe Contest::PlayOffStrategy do
     before do
       contest.start!
       contest.rounds.each do |round|
-        contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
-        contest.progress!
+        contest.current_round.matches.each { |v| v.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
+        Contests::Progress.call contest
         contest.reload
       end
 

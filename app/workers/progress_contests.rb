@@ -20,7 +20,9 @@ class ProgressContests
       ip_cleanup match
     end
 
-    Contest.where(state: 'started').each(&:progress!)
+    Contest.where(state: 'started').each do |contest|
+      Contests::Progress.call contest
+    end
   end
 
 private

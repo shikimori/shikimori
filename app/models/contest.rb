@@ -114,15 +114,6 @@ class Contest < ApplicationRecord
     end
   end
 
-  # наступил следующий день. обновление состояний голосований
-  def progress!
-    started = current_round.matches.select(&:can_start?).each(&:start!)
-    finished = current_round.matches.select(&:can_finish?).each(&:finish!)
-    round = current_round.finish! if current_round.can_finish?
-
-    update updated_at: Time.zone.now if started.any? || finished.any? || round
-  end
-
   # побежденные аниме данным аниме
   def defeated_by entry, round
     @defeated ||= {}

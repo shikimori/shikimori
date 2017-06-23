@@ -132,49 +132,6 @@ describe Contest do
       it { expect(contest.suggestions).to eq [contest_suggestion_2] }
     end
 
-    describe '#progress!' do
-      let(:contest) { create :contest, :with_5_members }
-      let(:round) { contest.current_round }
-      before { contest.start! }
-
-      it 'starts matches' do
-        round.matches.last.state = 'created'
-        contest.progress!
-        expect(round.matches.last.started?).to eq true
-      end
-
-      it 'finishes matches' do
-        round.matches.last.finished_on = Time.zone.yesterday
-        contest.progress!
-        expect(round.matches.last.finished?).to eq true
-      end
-
-      it 'finishes round' do
-        round.matches.each { |v| v.finished_on = Time.zone.yesterday }
-        contest.progress!
-        expect(round.finished?).to eq true
-      end
-
-      context 'something was changed' do
-        before do
-          @updated_at = contest.updated_at = Time.zone.now - 1.day
-          round.matches.each { |v| v.finished_on = Time.zone.yesterday }
-          contest.progress!
-        end
-
-        it { expect(contest.updated_at).not_to eq @updated_at }
-      end
-
-      context 'nothing was changed' do
-        before do
-          @updated_at = contest.updated_at = Time.zone.now - 1.day
-          contest.progress!
-        end
-
-        it { expect(contest.updated_at).to eq @updated_at }
-      end
-    end
-
     describe '#current_round' do
       let(:contest) { create :contest, :with_5_members }
       before { contest.prepare }
