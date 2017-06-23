@@ -7,8 +7,6 @@ class Contest < ApplicationRecord
   MINIMUM_MEMBERS = 5
   MAXIMUM_MEMBERS = 196
 
-  delegate :total_rounds, :results, to: :strategy
-
   enumerize :member_type,
     in: Types::Contest::MemberType.values,
     predicates: true
@@ -47,6 +45,8 @@ class Contest < ApplicationRecord
   has_many :suggestions,
     class_name: ContestSuggestion.name,
     dependent: :destroy
+
+  delegate :total_rounds, :results, to: :strategy
 
   state_machine :state, initial: :created do
     state :created, :proposing

@@ -15,8 +15,8 @@ describe ContestRound do
       ContestRound::Start.call round
       expect(round.started?).to eq true
 
-      round.matches.each {|v| v.state = 'finished' }
-      round.finish!
+      round.matches.each { |v| v.state = 'finished' }
+      ContestRound::Finish.call round
       expect(round.finished?).to eq true
     end
 

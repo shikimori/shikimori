@@ -51,7 +51,7 @@ describe Contest::PlayOffStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        1.times { contest.current_round.finish! }
+        1.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners&losers' do
@@ -72,7 +72,7 @@ describe Contest::PlayOffStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        2.times { contest.current_round.finish! }
+        2.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners&losers' do

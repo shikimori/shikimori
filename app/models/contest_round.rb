@@ -17,6 +17,8 @@ class ContestRound < ApplicationRecord
     foreign_key: :round_id,
     dependent: :destroy
 
+  delegate :strategy, to: :contest
+
   state_machine :state, initial: :created do
     state :started
     state :finished
@@ -88,10 +90,5 @@ class ContestRound < ApplicationRecord
   # последний ли это раунд?
   def last?
     next_round.nil?
-  end
-
-  # стратегия турнира
-  def strategy
-    contest.strategy
   end
 end

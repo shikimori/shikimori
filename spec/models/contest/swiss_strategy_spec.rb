@@ -72,7 +72,7 @@ describe Contest::SwissStrategy do
       contest.rounds.flat_map(&:matches).each do |match|
         match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
       end
-      contest.current_round.finish!
+      ContestRound::Finish.call contest.current_round
     end
     let(:w1) { strategy.statistics.members.values.at 0 }
     let(:w2) { strategy.statistics.members.values.at 2 }
@@ -109,7 +109,7 @@ describe Contest::SwissStrategy do
       end
 
       describe 'II -> III' do
-        before { contest.reload.current_round.finish! }
+        before { ContestRound::Finish.call contest.reload.current_round }
 
         it 'choose members which were not opponents in previous matches' do
           expect(contest.rounds[2].matches[0].left_id).to eq w1.id
@@ -126,8 +126,8 @@ describe Contest::SwissStrategy do
       subject { strategy.results }
 
       before do
-        contest.reload.current_round.finish!
-        contest.reload.current_round.finish!
+        ContestRound::Finish.call contest.reload.current_round
+        ContestRound::Finish.call contest.reload.current_round
 
         strategy.statistics.users_votes[l2.id] = 7
         strategy.statistics.users_votes[w3.id] = 6

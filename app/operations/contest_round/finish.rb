@@ -12,10 +12,13 @@ private
     @contest_round.finish!
 
     if last_round?
-      start_next_round
-    else
       finish_contest
+    else
+      start_next_round
     end
+
+    # must reset @strategy becase it is cached
+    @contest_round.contest.instance_variable_set('@strategy', nil)
   end
 
   def start_next_round
@@ -32,6 +35,6 @@ private
   end
 
   def last_round?
-    !!@contest_round.next_round
+    !@contest_round.next_round
   end
 end

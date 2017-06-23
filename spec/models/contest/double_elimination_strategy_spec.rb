@@ -79,7 +79,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        1.times { contest.current_round.finish! }
+        1.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners&losers' do
@@ -101,7 +101,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        2.times { contest.current_round.finish! }
+        2.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners&losers' do
@@ -120,7 +120,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        3.times { contest.current_round.finish! }
+        3.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners' do
@@ -136,7 +136,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        4.times { contest.current_round.finish! }
+        4.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners&losers' do
@@ -155,7 +155,7 @@ describe Contest::DoubleEliminationStrategy do
             contest_match.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
           end
         end
-        5.times { contest.current_round.finish! }
+        5.times { ContestRound::Finish.call contest.current_round }
       end
 
       it 'winners' do
