@@ -1,6 +1,6 @@
 describe Contest::SwissStrategy do
   let(:strategy) { contest.strategy }
-  let(:contest) { build_stubbed :contest, :swiss, :animes }
+  let(:contest) { build_stubbed :contest, :swiss }
 
   describe '#total_rounds' do
     [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
