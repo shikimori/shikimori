@@ -31,17 +31,19 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
     round.matches.each do |match|
       left_id = members_ids.shift
       right_id = (members_ids - @statistics.opponents_of(left_id)).first
+
       if right_id
         members_ids.delete right_id
       else
         right_id = members_ids.shift
       end
 
-      match.left_id = left_id
-      match.left_type = @contest.member_klass.name
-      match.right_id = right_id
-      match.right_type = @contest.member_klass.name
-      match.save!
+      match.update!(
+        left_id: left_id,
+        left_type: @contest.member_klass.name,
+        right_id: right_id,
+        right_type: @contest.member_klass.name
+      )
     end
   end
 
@@ -52,6 +54,8 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   end
 
   def results round = nil
-    @statistics.sorted_scores(round).map {|id,scores| @statistics.members[id] }
+    @statistics.sorted_scores(round).map do |id, scores|
+      @statistics.members[id]
+    end
   end
 end

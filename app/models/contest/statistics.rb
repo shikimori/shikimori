@@ -1,43 +1,49 @@
 class Contest::Statistics
-  def initialize contest
-    @contest = contest
-  end
+  pattr_initialize :contest
 
+  # rubocop:disable LineLength
   def sorted_scores round = nil
-    Hash[scores(round).sort_by {|k,v| [-v, -users_votes(round)[k], scores(round).keys.index(k)] }]
+    Hash[
+      scores(round).sort_by { |k, v| [-v, -users_votes(round)[k], scores(round).keys.index(k)] }
+    ]
   end
+  # rubocop:enable LineLength
 
   def scores round = nil
     @scores ||= {}
-    @scores[round] ||= committed_matches(round).each_with_object({}) do |match,memo|
-      memo[match.left_id] ||= 0
-      memo[match.right_id] ||= 0 if match.right_id
+    @scores[round] ||= committed_matches(round)
+      .each_with_object({}) do |match, memo|
+        memo[match.left_id] ||= 0
+        memo[match.right_id] ||= 0 if match.right_id
 
-      memo[match.winner_id] += 1
-    end
+        memo[match.winner_id] += 1
+      end
   end
 
+  # rubocop:disable AbcSize
   def users_votes round = nil
     @users_votes ||= {}
-    @users_votes[round] ||= committed_matches(round).each_with_object({}) do |match,memo|
-      memo[match.left_id] ||= 0
-      memo[match.right_id] ||= 0 if match.right_id
+    @users_votes[round] ||= committed_matches(round)
+      .each_with_object({}) do |match, memo|
+        memo[match.left_id] ||= 0
+        memo[match.right_id] ||= 0 if match.right_id
 
-      memo[match.left_id] += match.left_votes
-      memo[match.right_id] += match.right_votes if match.right
-    end
+        memo[match.left_id] += match.left_votes
+        memo[match.right_id] += match.right_votes if match.right
+      end
   end
+  # rubocop:enable AbcSize
 
   def average_votes round = nil
     @average_votes ||= {}
-    @average_votes[round] ||= users_votes(round).each_with_object({}) do |(member_id, votes), memo|
-      matches = member_matches(member_id, round).select {|v| !v.right_id.nil? }.size
-      memo[member_id] = if matches.zero?
-        0
-      else
-        (votes.to_f / matches).round 2
+    @average_votes[round] ||= users_votes(round)
+      .each_with_object({}) do |(member_id, votes), memo|
+        matches = member_matches(member_id, round)
+          .reject { |v| v.right_id.nil? }
+          .size
+
+        memo[member_id] = matches.zero? ? 0 : (votes.to_f / matches).round(2)
       end
-    end
   end
 
   def member_matches member_id, round = nil
@@ -59,8 +65,7 @@ class Contest::Statistics
   def committed_matches round = nil
     @committed_matches ||= {}
     @committed_matches[round] ||= prior_rounds(round)
-      .map {|v| matches_with_associations v }
-      .flatten
+      .flat_map { |v| matches_with_associations v }
       .select(&:finished?)
   end
 
@@ -75,16 +80,14 @@ class Contest::Statistics
 
   def members
     @members ||= rounds
-      .map {|v| matches_with_associations v }
-      .flatten
-      .map {|v| [v.left, v.right] }
-      .flatten
-      .uniq
+      .flat_map { |v| matches_with_associations v }
+      .flat_map { |v| [v.left, v.right] }
       .compact
-      .each_with_object({}) {|v,memo| memo[v.id] = v }
+      .uniq
+      .each_with_object({}) { |v, memo| memo[v.id] = v }
   end
 
   def prior_rounds round
-    rounds.select {|v| round ? v.id <= round.id : true }
+    rounds.select { |v| round ? v.id <= round.id : true }
   end
 end

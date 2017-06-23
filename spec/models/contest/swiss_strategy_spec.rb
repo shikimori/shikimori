@@ -1,6 +1,6 @@
 describe Contest::SwissStrategy do
   let(:strategy) { contest.strategy }
-  let(:contest) { build_stubbed :contest, :swiss }
+  let(:contest) { build_stubbed :contest, :swiss, :animes }
 
   describe '#total_rounds' do
     [[128, 9], [64, 8], [32, 7], [16, 6], [8, 5]].each do |members, rounds|
@@ -108,7 +108,7 @@ describe Contest::SwissStrategy do
         end
       end
 
-      describe 'II -> III', :focus do
+      describe 'II -> III' do
         before { contest.reload.current_round.finish! }
 
         it 'choose members which were not opponents in previous matches' do
