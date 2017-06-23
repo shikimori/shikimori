@@ -28,20 +28,6 @@ class ContestRound < ApplicationRecord
       transition :started => :finished,
         if: ->(round) { round.matches.all? { |v| v.finished? || v.can_finish? } }
     end
-
-    before_transition started: :finished do |round, transition|
-      round.matches.select(&:started?).each(&:finish!)
-    end
-
-    after_transition started: :finished do |round, transition|
-      if round.next_round
-        ContestRound::Start.call round.next_round
-        round.strategy.advance_members round.next_round, round
-        Messages::CreateNotification.new(round).round_finished
-      else
-        Contest::Finish.call round.contest
-      end
-    end
   end
 
   def title_ru is_short = false

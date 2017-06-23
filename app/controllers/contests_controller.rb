@@ -137,12 +137,6 @@ class ContestsController < ShikimoriController
     redirect_to edit_contest_url @resource
   end
 
-  # остановка контеста
-  #def finish
-    #@resource.finish!
-    #redirect_to edit_contest_url(@resource)
-  #end
-
   # создание голосований
   def build
     if @resource.created? || @resource.proposing?

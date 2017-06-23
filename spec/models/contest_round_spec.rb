@@ -57,56 +57,6 @@ describe ContestRound do
         end
       end
     end
-
-    context 'before finished' do
-      before do
-        contest.strategy.fill_round_with_matches round
-        ContestRound::Start.call round
-        round.matches.each {|v| v.finished_on = Time.zone.yesterday }
-      end
-
-      describe 'finishes unfinished matches' do
-        before { round.finish! }
-        it { round.matches.each {|v| expect(v.finished?).to eq true } }
-      end
-    end
-
-    context 'after finished' do
-      before do
-        allow(Messages::CreateNotification)
-          .to receive(:new)
-          .and_return notification_service
-      end
-
-      let(:next_round) { create :contest_round }
-      let(:notification_service) do
-        double round_finished: true, contest_finished: true
-      end
-
-      before do
-        contest.strategy.fill_round_with_matches round
-        ContestRound::Start.call round
-        round.matches.each { |v| v.finished_on = Time.zone.yesterday }
-      end
-
-      it 'starts&fills next round' do
-        allow(round).to receive(:next_round).and_return next_round
-
-        expect(next_round).to receive :start!
-        expect(round.strategy).to receive(:advance_members).with next_round, round
-        expect(notification_service).to receive :round_finished
-        # expect(notification_service).to_not receive :contest_finished
-
-        round.finish!
-      end
-
-      it 'finishes contest' do
-        round.finish!
-        expect(round.contest).to be_finished
-        expect(notification_service).to_not receive :round_finished
-        # expect(notification_service).to receive :contest_finished
-      end
-    end
   end
 
   describe 'instance methods' do

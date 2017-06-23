@@ -100,7 +100,7 @@ describe ContestsController do
       before do
         contest.current_round.matches.update_all started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
         contest.current_round.reload
-        contest.current_round.finish!
+        ContestRound::Finish.call contest.current_round
       end
       subject! { make_request }
       it { expect(response).to have_http_status :success }
@@ -214,17 +214,6 @@ describe ContestsController do
       expect(response).to redirect_to edit_contest_url(id: resource.to_param)
     end
   end
-
-  # describe '#finish' do
-    # let(:contest) { create :contest, :with_5_members, user: user }
-    # before do
-      # Contest::Start.call contest
-      # get 'finish', id: contest.to_param
-    # end
-
-    # it { expect(response).to redirect_to edit_contest_url(id: resource.to_param) }
-    # it { expect(resource.state).to eq 'finished' }
-  # end
 
   describe '#build' do
     let(:contest) { create :contest, :with_5_members, user: user }

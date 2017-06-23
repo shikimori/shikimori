@@ -10,7 +10,10 @@ private
   def progress_contest
     matches_to_start = matches.select(&:can_start?).each(&:start!)
     matches_to_finish = matches.select(&:can_finish?).each(&:finish!)
-    round_to_finish = current_round.finish! if current_round.can_finish?
+
+    if current_round.can_finish?
+      round_to_finish = ContestRound::Finish.call current_round
+    end
 
     if matches_to_start.any? || matches_to_finish.any? || round_to_finish
       @contest.touch
