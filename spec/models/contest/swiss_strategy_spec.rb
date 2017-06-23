@@ -27,7 +27,7 @@ describe Contest::SwissStrategy do
       strategy.create_rounds
 
       expect(contest.rounds[0].number).to eq 1
-      expect(contest.rounds.any? {|v| v.additional }).to eq false
+      expect(contest.rounds.any?(&:additional)).to eq false
 
       expect(contest.rounds[1].number).to eq 2
       expect(contest.rounds[2].number).to eq 3

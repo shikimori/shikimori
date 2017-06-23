@@ -2,12 +2,10 @@ class Users::Query < QueryObjectBase
   SEARCH_LIMIT = 999
 
   ORDER_SQL = <<-SQL
-    (
-      case when last_online_at > coalesce(current_sign_in_at, now()::date - 365)
-        then last_online_at
-        else coalesce(current_sign_in_at, now()::date - 365)
-      end
-    ) desc
+    greatest(
+      last_online_at,
+      coalesce(current_sign_in_at, now()::date - 365)
+    ) desc, id desc
   SQL
 
   def self.fetch
