@@ -47,11 +47,11 @@ class ContestRound < ApplicationRecord
   end
 
   def title_ru is_short = false
-    title(is_short, Types::Locale[:ru])
+    title is_short, Types::Locale[:ru]
   end
 
   def title_en is_short = false
-    title(is_short, Types::Locale[:en])
+    title is_short, Types::Locale[:en]
   end
 
   # название раунда

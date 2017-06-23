@@ -101,7 +101,9 @@ class ContestsController < ShikimoriController
 
     if @resource.update contest_params
       # сброс сгенерённых
-      @resource.prepare if @resource.can_start? && @resource.rounds.any?
+      if @resource.can_start? && @resource.rounds.any?
+        Contests::GenerateRounds.call @resource
+      end
 
       redirect_to edit_contest_url(@resource), notice: t('changes_saved')
     else
@@ -143,7 +145,10 @@ class ContestsController < ShikimoriController
 
   # создание голосований
   def build
-    @resource.prepare if @resource.created? || @resource.proposing?
+    if @resource.created? || @resource.proposing?
+      Contests::GenerateRounds.call @resource.object
+    end
+
     redirect_to edit_contest_url @resource
   end
 

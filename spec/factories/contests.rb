@@ -4,8 +4,9 @@ FactoryGirl.define do
     title_en 'Contest'
     user { seed :user }
 
-    member_type { [:anime, :character].sample }
-    strategy_type :double_elimination
+    member_type { Types::Contest::MemberType.values.sample }
+    strategy_type Types::Contest::StrategyType[:double_elimination]
+    user_vote_key Types::Contest::UserVoteKey[:can_vote_1]
 
     started_on Time.zone.today
     finished_on nil
@@ -13,7 +14,6 @@ FactoryGirl.define do
     matches_per_round 999
     match_duration 1
     matches_interval 1
-    user_vote_key 'can_vote_1'
     suggestions_per_user 2
 
     trait :anime do
@@ -29,10 +29,10 @@ FactoryGirl.define do
     end
 
     trait :with_topics do
-      after(:create) { |contest| contest.generate_topics [:en, :ru] }
+      after(:create) { |contest| contest.generate_topics %i[en ru] }
     end
 
-    [3,5,6,8,19].each do |members|
+    [3, 5, 6, 8, 19].each do |members|
       trait "with_#{members}_members".to_sym do
         after(:create) do |contest|
           members.times { contest.members << FactoryGirl.create(contest.member_type) }

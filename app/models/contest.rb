@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: refactor fat model
 class Contest < ApplicationRecord
   include TopicsConcern
 
@@ -8,10 +9,13 @@ class Contest < ApplicationRecord
 
   delegate :total_rounds, :results, to: :strategy
 
-  enumerize :member_type, in: [:anime, :character], predicates: true
-  enumerize :strategy_type,
-    in: [:double_elimination, :play_off, :swiss],
+  enumerize :member_type,
+    in: Types::Contest::MemberType.values,
     predicates: true
+  enumerize :strategy_type,
+    in: Types::Contest::StrategyType.values,
+    predicates: true
+  enumerize :user_vote_key, in: Types::Contest::UserVoteKey.values
 
   belongs_to :user
 
@@ -44,14 +48,7 @@ class Contest < ApplicationRecord
     dependent: :destroy
 
   state_machine :state, initial: :created do
-    state :created, :proposing do
-      # подготовка голосования к запуску
-      def prepare
-        rounds.destroy_all
-        strategy.create_rounds
-        update_attribute :updated_at, DateTime.now
-      end
-    end
+    state :created, :proposing
 
     state :proposing do
       # очистка голосов от накруток
@@ -76,16 +73,10 @@ class Contest < ApplicationRecord
       contest.generate_topics Site::DOMAIN_LOCALES
     end
     before_transition [:created, :proposing] => :started do |contest, transition|
-      contest.update_attribute :started_on, Time.zone.today if contest.started_on < Time.zone.today
-      if contest.rounds.empty? || contest.rounds.any? { |v| v.matches.any? { |v| v.started_on < Time.zone.today } }
-        contest.prepare
-      end
-    end
-    after_transition [:created, :proposing] => :started do |contest, transition|
-      contest.rounds.first.start!
+      Contests::Start.call contest
     end
     after_transition started: :finished do |contest, transition|
-      FinalizeContest.perform_async contest.id
+      Contests::Finalize.call contest
     end
   end
 
@@ -140,15 +131,6 @@ class Contest < ApplicationRecord
   # for compatibility with forum
   def name
     title
-  end
-
-  # ключ в модели пользователя для хранении статуса проголосованности опроса
-  def user_vote_key
-    case self[:user_vote_key].to_s
-      when 'can_vote_1' then 'can_vote_1'
-      when 'can_vote_2' then 'can_vote_2'
-      when 'can_vote_3' then 'can_vote_3'
-    end
   end
 
   # стратегия создания раундов

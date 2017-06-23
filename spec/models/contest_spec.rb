@@ -19,6 +19,20 @@ describe Contest do
     it { is_expected.to validate_presence_of :user_vote_key }
   end
 
+  describe 'enumerize' do
+    it do
+      is_expected
+        .to enumerize(:member_type)
+        .in(*Types::Contest::MemberType.values)
+      is_expected
+        .to enumerize(:strategy_type)
+        .in(*Types::Contest::StrategyType.values)
+      is_expected
+        .to enumerize(:user_vote_key)
+        .in(*Types::Contest::UserVoteKey.values)
+    end
+  end
+
   describe 'state machine' do
     let(:contest) { create :contest, :with_5_members, :created }
 
@@ -54,34 +68,18 @@ describe Contest do
     end
 
     context 'before started' do
-      it 'builds rounds' do
-        contest.start!
-        expect(contest.rounds).not_to be_empty
-      end
+      before { allow(Contests::Start).to receive :call }
+      subject! { contest.start! }
 
-      it 'fills first contest matches' do
-        contest.start!
-        expect(contest.rounds.first.matches).not_to be_empty
-      end
-
-      context 'when started_on expired' do
-        before { contest.update_attribute :started_on, Time.zone.yesterday }
-
-        it 'updates started_on' do
-          contest.start!
-          expect(contest.started_on).to eq Time.zone.today
-        end
-
-        it 'rebuilds matches' do
-          contest.prepare
-          expect(contest).to receive :prepare
-          contest.start!
-        end
+      it do
+        expect(contest).to be_started
+        expect(Contests::Start).to have_received(:call).with contest
       end
     end
 
     context 'after propose' do
-      before { contest.propose! }
+      subject! { contest.propose! }
+
       it 'creates 2 topics' do
         expect(contest.topics).to have(2).items
       end
@@ -98,43 +96,26 @@ describe Contest do
     context 'after finished' do
       let(:contest) { create :contest, :started }
 
-      before { allow(FinalizeContest).to receive :perform_async }
+      before { allow(Contests::Finalize).to receive :call }
       before { contest.finish }
 
-      it { expect(FinalizeContest).to have_received(:perform_async).with contest.id }
+      it { expect(Contests::Finalize).to have_received(:call).with contest }
     end
   end
 
   describe 'instance methods' do
-    describe '#prepare' do
-      let(:contest) { create :contest, :with_5_members }
-
-      it 'deletes existing rounds' do
-        round = create :contest_round, contest_id: contest.id
-        contest.rounds << round
-        contest.prepare
-
-        expect { round.reload }.to raise_error ActiveRecord::RecordNotFound
-      end
-
-      it 'create_rounds' do
-        expect(contest.strategy).to receive :create_rounds
-        contest.prepare
-      end
-    end
-
     describe '#cleanup_suggestions' do
       let(:contest) { create :contest, :proposing }
       let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: contest.user }
       let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, sign_in_count: 999) }
-
       before { contest.cleanup_suggestions! }
+
       it { expect(contest.suggestions).to eq [contest_suggestion_2] }
     end
 
     describe '#current_round' do
       let(:contest) { create :contest, :with_5_members }
-      before { contest.prepare }
+      before { Contests::GenerateRounds.call contest }
 
       it 'first round' do
         expect(contest.current_round).to eq contest.rounds.first

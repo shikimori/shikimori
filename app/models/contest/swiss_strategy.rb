@@ -14,10 +14,14 @@ class Contest::SwissStrategy < Contest::DoubleEliminationStrategy
   def fill_round_with_matches round
     if round.first?
       super
-    elsif round.last?
-      create_matches round, @contest.members.size.times.map { ContestMatch::Undefined }, group: ContestRound::F, date: round.prior_round.matches.last.finished_on + @contest.matches_interval.days
     else
-      create_matches round, @contest.members.size.times.map { ContestMatch::Undefined }, group: ContestRound::W, date: round.prior_round.matches.last.finished_on + @contest.matches_interval.days
+      create_matches(
+        round,
+        @contest.members.size.times.map { ContestMatch::Undefined },
+        group: round.last? ? ContestRound::F : ContestRound::W,
+        date: round.prior_round.matches.last.finished_on +
+          @contest.matches_interval.days
+      )
     end
   end
 

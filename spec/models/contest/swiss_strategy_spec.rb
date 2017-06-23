@@ -58,7 +58,7 @@ describe Contest::SwissStrategy do
 
   describe '#dates' do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
-    before { contest.prepare }
+    before { Contests::GenerateRounds.call contest }
 
     it 'sets correct dates for matches' do
       expect(contest.rounds[0].matches[0].started_on).to eq contest.started_on
