@@ -28,6 +28,14 @@ FactoryGirl.define do
       trait(contest_state.to_sym) { state contest_state }
     end
 
+    # trait(:created) { state :created }
+    # trait(:proposing) { state :proposing }
+    # trait :started do
+      # state :started
+      # after(:create) { |contest| Contest::Start.call contest }
+    # end
+    # trait(:finished) { state :finished }
+
     trait :with_topics do
       after(:create) { |contest| contest.generate_topics %i[en ru] }
     end

@@ -115,7 +115,7 @@ class ContestsController < ShikimoriController
 
   # запуск контеста
   def start
-    @resource.start!
+    Contest::Start.call @resource.object
     redirect_to edit_contest_url @resource
   end
 

@@ -7,7 +7,7 @@ describe Contests::Progress do
   let(:round) { contest.current_round }
 
   before do
-    contest.start!
+    Contest::Start.call contest
     contest.update_column :updated_at, 1.hour.ago
   end
 

@@ -1,5 +1,5 @@
-describe Contests::Start do
-  let(:service) { Contests::Start.new contest }
+describe Contest::Start do
+  let(:operation) { Contest::Start.new contest }
 
   include_context :timecop
 
@@ -10,10 +10,11 @@ describe Contests::Start do
   end
 
   before { allow(Contests::GenerateRounds).to receive(:call).and_call_original }
-  subject! { service.call }
+  subject! { operation.call }
 
   it do
-    expect(contest.reload.started_on).to eq Time.zone.today
+    expect(contest.reload).to be_started
+    expect(contest.started_on).to eq Time.zone.today
     expect(contest.updated_at).to be_within(0.1).of(Time.zone.now)
     expect(contest.rounds).to have(6).items
     expect(contest.rounds.first).to be_started

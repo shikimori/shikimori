@@ -1,13 +1,19 @@
-class Contests::Start
+class Contest::Start
   method_object :contest
 
   def call
-    @contest.update started_on: Time.zone.today if expired_started_on?
-    Contests::GenerateRounds.call @contest if should_generate_rounds?
-    @contest.rounds.first.start!
+    Contest.transaction { start_contest }
   end
 
 private
+
+  def start_contest
+    @contest.update started_on: Time.zone.today if expired_started_on?
+    Contests::GenerateRounds.call @contest if should_generate_rounds?
+
+    @contest.start!
+    @contest.rounds.first.start!
+  end
 
   def expired_started_on?
     @contest.started_on < Time.zone.today

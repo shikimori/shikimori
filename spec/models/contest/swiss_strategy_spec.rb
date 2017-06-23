@@ -46,7 +46,7 @@ describe Contest::SwissStrategy do
 
   describe '#fill_round_with_matches' do
     let(:contest) { create :contest, :with_5_members, strategy_type: strategy_type }
-    before { contest.start! }
+    before { Contest::Start.call contest }
 
     it 'creates correct rounds' do
       contest.rounds.each {|v| expect(v.matches.size).to eq(3) }
@@ -70,7 +70,7 @@ describe Contest::SwissStrategy do
   context 'contest_with_6_members' do
     let(:contest) { create :contest, :with_6_members, strategy_type: strategy_type }
     before do
-      contest.start!
+      Contest::Start.call contest
       contest.rounds.map(&:matches).flatten.each do |v|
         v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
       end

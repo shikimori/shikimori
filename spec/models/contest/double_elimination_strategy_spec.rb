@@ -61,7 +61,7 @@ describe Contest::DoubleEliminationStrategy do
     let(:l1) { contest.rounds[0].matches[0].right }
     let(:l2) { contest.rounds[0].matches[1].right }
 
-    before { contest.start! }
+    before { Contest::Start.call contest }
 
     context 'I -> II' do
       before do
@@ -242,7 +242,7 @@ describe Contest::DoubleEliminationStrategy do
     let(:scores) { contest.strategy.statistics.scores }
     let(:average_votes) { contest.strategy.statistics.average_votes }
     before do
-      contest.start!
+      Contest::Start.call contest
       contest.rounds.each do |round|
         contest.current_round.matches.each { |v| v.update_attributes started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
         Contests::Progress.call contest

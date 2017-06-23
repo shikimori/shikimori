@@ -65,9 +65,6 @@ class Contest < ApplicationRecord
     after_transition :created => [:proposing, :started] do |contest, transition|
       contest.generate_topics Site::DOMAIN_LOCALES
     end
-    before_transition [:created, :proposing] => :started do |contest, transition|
-      Contests::Start.call contest
-    end
     after_transition :started => :finished do |contest, transition|
       Contests::Finalize.call contest
     end

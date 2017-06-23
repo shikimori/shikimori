@@ -39,7 +39,7 @@ describe Contest do
     it 'full cycle' do
       expect(contest.created?).to eq true
       contest.propose!
-      contest.start!
+      Contest::Start.call contest
       contest.finish!
     end
 
@@ -67,28 +67,10 @@ describe Contest do
       end
     end
 
-    context 'before started' do
-      before { allow(Contests::Start).to receive :call }
-      subject! { contest.start! }
-
-      it do
-        expect(contest).to be_started
-        expect(Contests::Start).to have_received(:call).with contest
-      end
-    end
-
     context 'after propose' do
       subject! { contest.propose! }
 
       it 'creates 2 topics' do
-        expect(contest.topics).to have(2).items
-      end
-    end
-
-    context 'after start' do
-      before { contest.start! }
-      it 'starts first round and creates 2 topics' do
-        expect(contest.rounds.first.started?).to eq true
         expect(contest.topics).to have(2).items
       end
     end

@@ -44,7 +44,7 @@ describe Contest::PlayOffStrategy do
     let(:w2) { contest.rounds[0].matches[1].left }
     let(:w3) { contest.rounds[0].matches[2].left }
 
-    before { contest.start! }
+    before { Contest::Start.call contest }
 
     context 'I -> II' do
       before do
@@ -100,7 +100,7 @@ describe Contest::PlayOffStrategy do
     let(:scores) { contest.strategy.statistics.scores }
     let(:statistics) { contest.strategy.statistics }
     before do
-      contest.start!
+      Contest::Start.call contest
       contest.rounds.each do |round|
         contest.current_round.matches.each { |v| v.update started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
         Contests::Progress.call contest
