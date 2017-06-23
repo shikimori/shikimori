@@ -8,10 +8,13 @@ class Contest::Progress
 private
 
   def progress_contest
-    matches.select(&:can_start?).each(&:start!)
-    matches.select(&:can_finish?).each(&:finish!)
+    matches_to_start = matches.select(&:can_start?).each(&:start!)
+    matches_to_finish = matches.select(&:can_finish?).each(&:finish!)
+    round_to_finish = current_round.finish! if current_round.can_finish?
 
-    current_round.finish! if current_round.can_finish?
+    if matches_to_start.any? || matches_to_finish.any? || round_to_finish
+      @contest.touch
+    end
   end
 
   def matches
