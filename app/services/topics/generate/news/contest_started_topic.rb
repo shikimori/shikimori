@@ -1,19 +1,19 @@
-module Topics::Generate::News
-  class ContestStartedTopic < BaseTopic
-    def topic_klass
-      Topics::NewsTopics::ContestStartedTopic
-    end
+class Topics::Generate::News::ContestStatusTopic < Topics::Generate::News::BaseTopic
+  pattr_initialize :model, :action, :user, :locale
 
-    def action
-      nil
-    end
+  def topic_klass
+    Topics::NewsTopics::ContestStatusTopic
+  end
 
-    def processed
-      false
-    end
+  def action
+    nil
+  end
 
-    def value
-      nil
-    end
+  def processed
+    false
+  end
+
+  def value
+    nil
   end
 end

@@ -96,7 +96,7 @@ class Messages::CreateNotification
     end
 
     Site::DOMAIN_LOCALES.each do |locale|
-      Topics::Generate::News::ContestFinishedTopic.call(
+      Topics::Generate::News::ContestStatusTopic.call(
         @target,
         @target.user,
         locale

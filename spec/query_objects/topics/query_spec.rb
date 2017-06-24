@@ -124,11 +124,8 @@ describe Topics::Query do
           created_at: 3.days.ago, linked: cosplay_gallery
       end
       let(:cosplay_gallery) { create :cosplay_gallery, :anime }
-      let!(:contest_started_topic) do
-        create :contest_started_topic, created_at: 4.days.ago
-      end
-      let!(:contest_finished_topic) do
-        create :contest_started_topic, created_at: 5.days.ago
+      let!(:contest_status_topic) do
+        create :contest_status_topic, created_at: 4.days.ago
       end
 
       subject { query.by_forum Forum::NEWS_FORUM, user, is_censored_forbidden }
@@ -138,8 +135,7 @@ describe Topics::Query do
           anime_news_topic,
           manga_news_topic,
           cosplay_news_topic,
-          contest_started_topic,
-          contest_finished_topic
+          contest_status_topic
         ]
       end
     end

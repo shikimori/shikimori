@@ -19,8 +19,7 @@ class Topics::Query < QueryObjectBase
     ) or (
       type in (
         '#{Topics::EntryTopics::CosplayGalleryTopic.name}',
-        '#{Topics::NewsTopics::ContestStartedTopic.name}',
-        '#{Topics::NewsTopics::ContestFinishedTopic.name}'
+        '#{Topics::NewsTopics::ContestStatusTopic.name}'
       ) and
       generated = true
     )

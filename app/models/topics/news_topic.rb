@@ -1,6 +1,6 @@
 class Topics::NewsTopic < Topic
   enumerize :action,
-    in: [:anons, :ongoing, :released, :episode],
+    in: Types::Topic::NewsTopic::Action.values,
     predicates: true
 
   def title

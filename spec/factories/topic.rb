@@ -57,13 +57,13 @@ FactoryGirl.define do
       type 'Topics::EntryTopics::ContestTopic'
       generated true
     end
-    factory :contest_started_topic, class: 'Topics::NewsTopics::ContestStartedTopic' do
-      type 'Topics::NewsTopics::ContestStartedTopic'
+
+    factory :contest_status_topic, class: 'Topics::NewsTopics::ContestStatusTopic' do
+      type 'Topics::NewsTopics::ContestStatusTopic'
       generated true
-    end
-    factory :contest_finished_topic, class: 'Topics::NewsTopics::ContestFinishedTopic' do
-      type 'Topics::NewsTopics::ContestFinishedTopic'
-      generated true
+      Types::Topic::NewsTopic::ContestStatusTopic.values.each do |value|
+        trait(value) { state value }
+      end
     end
 
     factory :club_topic, class: 'Topics::EntryTopics::ClubTopic' do

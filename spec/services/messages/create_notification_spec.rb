@@ -131,7 +131,8 @@ describe Messages::CreateNotification do
       target.news_topics.each do |topic|
         expect(topic).to have_attributes(
           linked: target,
-          action: nil,
+          type: 'Topics::NewsTopics::ContestStatusTopic',
+          action: 'finished',
           value: nil,
           processed: false
         )
