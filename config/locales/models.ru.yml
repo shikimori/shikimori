@@ -132,11 +132,10 @@ ru:
       manga: '%{action_name} манги [%{type}]%{id}[/%{type}]'
       ranobe: '%{action_name} ранобэ [%{type}]%{id}[/%{type}]'
 
-  topics/contest_status_topic:
-    started:
-      title: Опрос запущен
-    finished:
-      title: Опрос завершён
+  topics/news_topics/contest_status_topic:
+    title:
+      started: Опрос запущен
+      finished: Опрос завершён
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}
