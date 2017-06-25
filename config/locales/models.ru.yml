@@ -134,8 +134,8 @@ ru:
 
   topics/news_topics/contest_status_topic:
     title:
-      started: Опрос запущен
-      finished: Опрос завершён
+      started: Старт опроса
+      finished: Завершение опроса
 
   cosplay_gallery:
     title: Косплей %{cosplay} от %{cosplayer}
