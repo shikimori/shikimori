@@ -35,7 +35,12 @@ class ShikimoriController < ApplicationController
     return if %w[rss os json].include?(request.format)
 
     if URI(request.url).path != URI(expected_url).path
-      raise ForceRedirect, expected_url
+      raise(
+        ForceRedirect,
+        params[:locale] ?
+          Url.new(expected_url).set_params(locale: params[:locale]).to_s :
+          expected_url
+      )
     end
   end
 
