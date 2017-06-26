@@ -43,7 +43,7 @@ module TopicsConcern
 
   def generate_site_topics locales
     Array(locales).map do |locale|
-      Topics::Generate::SiteTopic.call self, topic_user, locale
+      Topics::Generate::EntryTopic.call self, topic_user, locale
     end
   end
 

@@ -4,8 +4,10 @@ class FayeService
   pattr_initialize :actor, :publisher_faye_id
 
   def create trackable
+    was_persisted = trackable.persisted?
+
     if trackable.save
-      publisher.publish trackable, :created
+      publisher.publish trackable, was_persisted ? :updated : :created
       true
     else
       false
@@ -13,8 +15,10 @@ class FayeService
   end
 
   def create! trackable
+    was_persisted = trackable.persisted?
+
     trackable.save!
-    publisher.publish trackable, :created
+    publisher.publish trackable, was_persisted ? :updated : :created
   end
 
   def update trackable, params

@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-describe Topics::Generate::UserTopic do
+describe Topics::Generate::EntryTopic do
   subject { service.call }
 
   let(:locale) { 'ru' }
-  let(:service) { Topics::Generate::UserTopic.new model, user, locale }
+  let(:service) { Topics::Generate::EntryTopic.new model, user, locale }
+  let(:user) { BotsService.get_poster }
 
   shared_examples_for :topic do
     context 'without existing topic' do
@@ -19,7 +20,7 @@ describe Topics::Generate::UserTopic do
         )
 
         expect(subject.created_at.to_i).to eq model.created_at.to_i
-        expect(subject.updated_at.to_i).to eq model.updated_at.to_i
+        expect(subject.updated_at).to be_nil
       end
     end
 
@@ -48,27 +49,23 @@ describe Topics::Generate::UserTopic do
     end
   end
 
-  context 'contest' do
-    let(:model) { create :contest }
-    let(:user) { model.user }
+  context 'anime' do
+    let(:model) { create :anime }
     it_behaves_like :topic
   end
 
-  context 'cosplay gallery' do
-    let(:model) { create :cosplay_gallery }
-    let(:user) { seed :cosplay_user }
+  context 'manga' do
+    let(:model) { create :manga }
     it_behaves_like :topic
   end
 
-  context 'club' do
-    let(:model) { create :club }
-    let(:user) { model.owner }
+  context 'character' do
+    let(:model) { create :character }
     it_behaves_like :topic
   end
 
-  context 'review' do
-    let(:model) { create :review }
-    let(:user) { model.user }
+  context 'person' do
+    let(:model) { create :person }
     it_behaves_like :topic
   end
 end

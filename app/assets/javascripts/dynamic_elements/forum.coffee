@@ -16,7 +16,7 @@ module.exports = class DynamicElements.Forum extends ShikiView
         $(document.body).trigger 'faye:added'
 
     @on 'faye:topic:created', (e, data) =>
-      return if SHIKI_USER.ignored_users.includes data.user_id
+      return if SHIKI_USER.user_ignored(data.user_id)
 
       $placeholder = @_faye_placeholder(data.topic_id)
       # уведомление о добавленном элементе через faye

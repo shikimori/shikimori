@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # NOTE: see AnimeHistoryAction for news topic names
-class Topics::Generate::News::BaseTopic < Topics::Generate::SiteTopic
+class Topics::Generate::News::BaseTopic < Topics::Generate::Topic
   attr_implement :action, :value, :created_at
 
 private
@@ -24,5 +24,10 @@ private
 
   def find_by_attributes
     super.merge topic_attributes.slice(:action, :value)
+  end
+
+  # nil - чтобы не отображалось на форуме
+  def updated_at
+    nil
   end
 end

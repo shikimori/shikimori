@@ -32,7 +32,7 @@ describe Topics::Generate::News::ContestStatusTopic do
         value: nil
       )
       expect(subject.created_at).to be_within(0.1).of(Time.zone.now)
-      expect(subject.updated_at).to be_nil
+      expect(subject.updated_at).to be_within(0.1).of(Time.zone.now)
     end
   end
 

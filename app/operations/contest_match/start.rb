@@ -7,6 +7,10 @@ class ContestMatch::Start
       reset_user_vote_key
       update_right
       update_left
+
+      if first_match?
+        Messages::CreateNotification.new(contest).contest_started
+      end
     end
   end
 
@@ -27,7 +31,19 @@ private
 
   def reset_user_vote_key
     User
-      .where(@contest_match.round.contest.user_vote_key => false)
-      .update_all(@contest_match.round.contest.user_vote_key => true)
+      .where(contest.user_vote_key => false)
+      .update_all(contest.user_vote_key => true)
+  end
+
+  def first_match?
+    contest_round.number == 1 && @contest_match == contest_round.matches.first
+  end
+
+  def contest_round
+    @contest_match.round
+  end
+
+  def contest
+    contest_round.contest
   end
 end

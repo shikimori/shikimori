@@ -1,9 +1,19 @@
 # frozen_string_literal: true
 
-class Topics::Generate::BaseTopic < ServiceObjectBase
+class Topics::Generate::Topic < ServiceObjectBase
   pattr_initialize :model, :user, :locale
 
-  attr_implement :call
+  def call
+    topic = build_topic
+
+    if updated_at
+      faye_service.create! topic
+    else
+      Topic.wo_timestamp { topic.save! }
+    end
+
+    topic
+  end
 
 private
 
@@ -37,8 +47,7 @@ private
   end
 
   def forum_id
-    Topic::FORUM_IDS[model.class.name] ||
-      fail(ArgumentError, model.class.name)
+    Topic::FORUM_IDS[model.class.name] || raise(ArgumentError, model.class.name)
   end
 
   def created_at
@@ -47,5 +56,9 @@ private
 
   def updated_at
     model.updated_at
+  end
+
+  def faye_service
+    FayeService.new user, nil
   end
 end

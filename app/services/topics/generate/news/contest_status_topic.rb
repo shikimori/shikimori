@@ -12,4 +12,8 @@ class Topics::Generate::News::ContestStatusTopic < Topics::Generate::News::BaseT
   def created_at
     Time.zone.now
   end
+
+  def updated_at
+    Time.zone.now
+  end
 end
