@@ -3,7 +3,7 @@ class Topics::ContestStatusView < Topics::NewsView
     topic.user.avatar_url(is_2x ? 80 : 48)
   end
 
-  # def show_body?
-    # true
-  # end
+  def how_body?
+    true
+  end
 end
