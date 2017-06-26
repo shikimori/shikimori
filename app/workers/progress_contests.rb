@@ -28,7 +28,11 @@ class ProgressContests
 private
 
   def match_ids
-    @match_ids ||= Contest.where(state: 'started').map(&:rounds).flatten.map(&:matches).flatten.map(&:id)
+    @match_ids ||= Contest
+      .where(state: 'started')
+      .flat_map(&:rounds)
+      .flat_map(&:matches)
+      .map(&:id)
   end
 
   def user_ids

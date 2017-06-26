@@ -71,4 +71,5 @@ ru:
       started:
         name: Название
         rounds: Число раундов
-        date: Дата
+        members: Число участников
+        dates: Даты

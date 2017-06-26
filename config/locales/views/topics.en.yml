@@ -71,4 +71,5 @@ en:
       started:
         name: Name
         rounds: Number of Rounds
-        date: Date
+        members: Number of Participants
+        dates: Dates
