@@ -15,7 +15,7 @@ class ProgressContests
       .where(contest_matches: { id: match_ids }, user_id: user_ids)
       .delete_all
 
-    ContestMatch.where(id: match_ids).each(&:obtain_winner_id!)
+    # ContestMatch.where(id: match_ids).each(&:obtain_winner_id!)
     ContestMatch.where(id: match_ids).each do |match|
       ip_cleanup match
     end
