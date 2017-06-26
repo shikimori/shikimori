@@ -67,3 +67,8 @@ ru:
           one: Косплеит
           few: Косплеят
           many: Косплеят
+    contests:
+      started:
+        name: Название
+        rounds: Число раундов
+        date: Дата

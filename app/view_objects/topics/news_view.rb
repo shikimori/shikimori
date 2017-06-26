@@ -1,6 +1,6 @@
 class Topics::NewsView < Topics::View
-  def container_class
-    super 'b-news-topic'
+  def container_class css = nil
+    super ['b-news-topic', css]
   end
 
   # def minified?

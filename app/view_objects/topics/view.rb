@@ -34,7 +34,7 @@ class Topics::View < ViewObjectBase
     @is_mini
   end
 
-  def container_class css = ''
+  def container_class css = nil
     [
       css,
       ('b-topic-preview' if preview?),

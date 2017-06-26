@@ -1,39 +1,30 @@
 - cache [cosplay_view.topic, cosplay_view.is_preview, gallery] do
-  .cosplay-info
-    .line
-      .key #{t '.cosplayer', count: gallery.cosplayers.size}:
-      .value
-        - gallery.cosplayers.each do |cosplayer|
-          .cosplayer = cosplayer.name
+  .b-entry-info
+    = info_line t('.cosplayer', count: gallery.cosplayers.size) do
+      - gallery.cosplayers.each do |cosplayer|
+        .cosplayer = cosplayer.name
 
     - if gallery.characters.any?
-      .line
-        .key #{t '.character', count: gallery.characters.size}:
-        .value
-          - gallery.characters.each do |character|
-            a.bubbled href="#{character_url character}"
-              = localized_name character
+      = info_line t('.character', count: gallery.characters.size) do
+        - gallery.characters.each do |character|
+          a.b-link.bubbled href="#{character_url character}"
+            = localized_name character
 
     - if gallery.animes.any?
-      .line
-        .key #{Anime.model_name.human}:
-        .value
-          - gallery.animes.each do |anime|
-            a.bubbled href="#{anime_url anime}"
-              = localized_name anime
+      = info_line Anime.model_name.human do
+        - gallery.animes.each do |anime|
+          a.b-link.bubbled href="#{anime_url anime}"
+            = localized_name anime
 
     - elsif gallery.mangas.any?
-      .line
-        .key #{Manga.model_name.human}:
-        .value
-          - gallery.mangas.each do |manga|
-            a.bubbled href="#{manga_url manga}"
-              = localized_name manga
+      = info_line Manga.model_name.human do
+        - gallery.mangas.each do |manga|
+          a.b-link.bubbled href="#{manga_url manga}"
+            = localized_name manga
 
     - if cosplay_view.is_preview && gallery.images.size > Topics::CosplayView::IMAGES_IN_PREVIEW
-      .line
-        .key #{t '.in_gallery'}:
-        .value #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
+      = info_line t('.in_gallery') do
+        | #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
 
   - unless cosplay_view.minified?
     = render cosplay_view.topic.linked

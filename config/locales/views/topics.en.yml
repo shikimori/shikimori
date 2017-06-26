@@ -67,3 +67,8 @@ en:
           zero: Cosplayers
           one: Cosplayer
           other: Cosplayers
+    contests:
+      started:
+        name: Name
+        rounds: Number of Rounds
+        date: Date

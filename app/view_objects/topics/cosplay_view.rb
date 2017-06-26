@@ -5,9 +5,9 @@ class Topics::CosplayView < Topics::View
     super 'b-cosplay-topic'
   end
 
-  def minified?
-    is_preview || is_mini
-  end
+  # def minified?
+    # is_preview || is_mini
+  # end
 
   def show_body?
     true

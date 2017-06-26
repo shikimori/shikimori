@@ -6,26 +6,18 @@
     &>.body, &>footer
       padding-left: 0 !important
 
-    .cosplay-info
+    .b-entry-info
       margin-bottom: $block_offset / 2
 
-      .line
-        line-height: $line-height
+      .line-container
+        margin-bottom: 2px
 
-        .key
-          display: inline
+      .b-link
+        +comma_separated
 
-        .value
-          display: inline
-          padding-left: 6px
-
-          a
-            +link
-            +comma_separated
-
-          .cosplayer
-            +comma_separated(4px)
-            display: inline
+      .cosplayer
+        +comma_separated(4px)
+        display: inline
 
     .b-cosplay_gallery .b-gallery
       margin-bottom: 0
