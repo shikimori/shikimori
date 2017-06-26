@@ -3,12 +3,8 @@
 class Topics::Generate::News::AnonsTopic < Topics::Generate::News::BaseTopic
 private
 
-  def processed
-    false
-  end
-
   def action
-    AnimeHistoryAction::Anons
+    Types::Topic::NewsTopic::Action[AnimeHistoryAction::Anons]
   end
 
   def value

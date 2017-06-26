@@ -3,12 +3,8 @@
 class Topics::Generate::News::OngoingTopic < Topics::Generate::News::BaseTopic
 private
 
-  def processed
-    false
-  end
-
   def action
-    AnimeHistoryAction::Ongoing
+    Types::Topic::NewsTopic::Action[AnimeHistoryAction::Ongoing]
   end
 
   def value

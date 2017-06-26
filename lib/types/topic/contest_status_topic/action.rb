@@ -1,5 +1,5 @@
 module Types
-  module Topic::NewsTopic::ContestStatusTopic
+  module Topic::ContestStatusTopic
     Action = Types::Strict::Symbol
       .constructor(&:to_sym)
       .enum(*%i(

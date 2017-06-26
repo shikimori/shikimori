@@ -61,7 +61,7 @@ FactoryGirl.define do
     factory :contest_status_topic, class: 'Topics::NewsTopics::ContestStatusTopic' do
       type 'Topics::NewsTopics::ContestStatusTopic'
       generated true
-      Types::Topic::NewsTopic::ContestStatusTopic.values.each do |value|
+      Types::Topic::ContestStatusTopic::Action.values.each do |value|
         trait(value) { state value }
       end
     end

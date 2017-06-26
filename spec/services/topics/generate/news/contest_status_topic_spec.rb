@@ -1,14 +1,20 @@
 # frozen_string_literal: true
 
-describe Topics::Generate::News::ContestStartedTopic do
+describe Topics::Generate::News::ContestStatusTopic do
   subject { service.call }
 
   include_context :timecop
 
   let(:service) do
-    Topics::Generate::News::ContestStartedTopic.new model, user, locale
+    Topics::Generate::News::ContestStatusTopic.new(
+      model,
+      action,
+      user,
+      locale
+    )
   end
   let(:model) { create :contest }
+  let(:action) { Types::Topic::ContestStatusTopic::Action[:finished] }
   let(:user) { BotsService.get_poster }
   let(:locale) { 'en' }
 
@@ -22,19 +28,19 @@ describe Topics::Generate::News::ContestStartedTopic do
         user: user,
         locale: locale,
         processed: false,
-        action: nil,
+        action: action.to_s,
         value: nil
       )
-      expect(subject.created_at.to_i).to eq Time.zone.now.to_i
+      expect(subject.created_at).to be_within(0.1).of(Time.zone.now)
       expect(subject.updated_at).to be_nil
     end
   end
 
   context 'with existing topic' do
     let!(:topic) do
-      create :news_topic,
+      create :contest_status_topic,
         linked: model,
-        action: nil,
+        action: action,
         value: nil,
         locale: topic_locale
     end
@@ -56,4 +62,3 @@ describe Topics::Generate::News::ContestStartedTopic do
     end
   end
 end
-

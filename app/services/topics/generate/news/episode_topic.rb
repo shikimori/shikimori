@@ -10,12 +10,8 @@ class Topics::Generate::News::EpisodeTopic < Topics::Generate::News::BaseTopic
 
 private
 
-  def processed
-    false
-  end
-
   def action
-    AnimeHistoryAction::Episode
+    Types::Topic::NewsTopic::Action[AnimeHistoryAction::Episode]
   end
 
   def value

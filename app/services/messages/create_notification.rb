@@ -99,7 +99,7 @@ class Messages::CreateNotification
       Topics::Generate::News::ContestStatusTopic.call(
         @target,
         @target.user,
-        Types::Topic::NewsTopic::ContestStatusTopic::Action[:finished],
+        Types::Topic::ContestStatusTopic::Action[:finished],
         locale
       )
     end

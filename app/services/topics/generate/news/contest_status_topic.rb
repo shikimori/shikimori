@@ -5,15 +5,11 @@ class Topics::Generate::News::ContestStatusTopic < Topics::Generate::News::BaseT
     Topics::NewsTopics::ContestStatusTopic
   end
 
-  def action
-    nil
-  end
-
-  def processed
-    false
-  end
-
   def value
     nil
+  end
+
+  def created_at
+    Time.zone.now
   end
 end
