@@ -8,6 +8,8 @@ class ContestMatch < ApplicationRecord
   has_many :contest_user_votes
   has_many :votes, class_name: ContestUserVote.name, dependent: :destroy
 
+  delegate :contest, :strategy, to: :round
+
   scope :with_user_vote, lambda { |user, ip|
     if user
       joins("left join #{ContestUserVote.table_name} cuv on cuv.contest_match_id=#{table_name}.id and (cuv.id is null or cuv.user_id=#{sanitize user.id} or cuv.ip=#{sanitize ip})")
@@ -28,17 +30,8 @@ class ContestMatch < ApplicationRecord
   }
 
   state_machine :state, initial: :created do
-    state :created do
-      def can_vote?
-        false
-      end
-    end
-
+    state :created
     state :started do
-      def can_vote?
-        true
-      end
-
       # голосование за конкретный вариант
       def vote_for(variant, user, ip)
         votes.where(user_id: user.id).delete_all
@@ -52,38 +45,15 @@ class ContestMatch < ApplicationRecord
         end
       end
     end
-
-    state :finished do
-      def can_vote?
-        false
-      end
-
-      # победитель
-      def winner
-        if winner_id == left_id
-          left
-        else
-          right
-        end
-      end
-
-      # проигравший
-      def loser
-        if winner_id == left_id
-          right
-        else
-          left
-        end
-      end
-    end
+    state :finished
 
     event :start do
       transition :created => :started,
-        if: ->(match) { match.started_on <= Time.zone.today }
+        if: ->(match) { match.started_on && match.started_on <= Time.zone.today }
     end
     event :finish do
       transition :started => :finished,
-        if: ->(match) { match.finished_on < Time.zone.today }
+        if: ->(match) { match.finished_on && match.finished_on < Time.zone.today }
     end
   end
 
@@ -102,9 +72,31 @@ class ContestMatch < ApplicationRecord
     end
   end
 
+  def can_vote?
+    started?
+  end
+
   # за какой вариант проголосовал пользователь (работает при выборке со scope with_user_vote)
   def voted?
     voted_id.present? || (right_type.nil?)
+  end
+
+  # победитель
+  def winner
+    if winner_id == left_id
+      left
+    else
+      right
+    end
+  end
+
+  # проигравший
+  def loser
+    if winner_id == left_id
+      right
+    else
+      left
+    end
   end
 
   # число голосов за левого кандидата
@@ -123,16 +115,6 @@ class ContestMatch < ApplicationRecord
   def refrained_votes
     @refrained_votes ||= self[:refrained_votes] ||
       cached_votes.select {|v| v.item_id == 0 }.size
-  end
-
-  # турнир голосования
-  def contest
-    @contest ||= round.contest
-  end
-
-  # стратегия турнира
-  def strategy
-    round.contest.strategy
   end
 
 private
