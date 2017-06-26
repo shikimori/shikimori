@@ -1,18 +1,10 @@
-class Topics::ReviewView < Topics::View
+class Topics::ReviewView < Topics::UserContentView
   def container_class
     super 'b-review-topic'
   end
 
   def minified?
     is_preview || is_mini
-  end
-
-  def show_body?
-    true
-  end
-
-  def footer_vote?
-    !preview?
   end
 
   def action_tag

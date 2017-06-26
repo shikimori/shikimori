@@ -1,4 +1,4 @@
-class Topics::CollectionView < Topics::View
+class Topics::CollectionView < Topics::UserContentView
   instance_cache :collection
 
   def container_class
@@ -23,14 +23,6 @@ class Topics::CollectionView < Topics::View
 
   def canonical_url
     h.collection_url collection
-  end
-
-  def show_body?
-    true
-  end
-
-  def footer_vote?
-    !preview?
   end
 
   def html_body

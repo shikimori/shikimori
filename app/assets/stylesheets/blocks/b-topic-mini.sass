@@ -1,0 +1,63 @@
+@import mixins/ellipsis2
+
+=status_line_block
+  border-left: 1px solid #acb1b4
+  margin-left: 15px
+  padding-left: 14px
+
+=status_line_block_icon($symbol)
+  color: #333
+  content: $symbol
+  display: inline-block
+  font-family: 'shikimori'
+  font-size: 14px
+  padding-right: 5px
+
+.b-topic-minified
+  &>.inner
+    &>.body, &>footer
+      padding-left: 0 !important
+
+    .status-line
+      +ellipsis2
+      font-size: 12px
+      line-height: 1
+      margin-top: 5px
+      margin-bottom: 10px
+
+      .from, .author, .time, .additional
+        display: inline-block
+        // vertical-align: middle
+
+      .from, .about
+        // color: $gray-3
+
+      .b-link
+        padding: 0 5px
+
+      .author
+        padding-left: 5px
+
+        .b-user16 img
+          margin-top: 1px
+
+      .time
+        // color: $gray-3
+
+        &.changed_at
+          +status_line_block
+
+          &:before
+            +status_line_block_icon('\e808')
+
+      .additional
+        +status_line_block
+
+        .comments
+          display: inline-block
+
+          &:before
+            +status_line_block_icon('f')
+
+        .b-review_votes
+          margin-left: 15px

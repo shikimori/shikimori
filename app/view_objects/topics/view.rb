@@ -38,7 +38,7 @@ class Topics::View < ViewObjectBase
     [
       css,
       ('b-topic-preview' if preview?),
-      (:mini if minified?)
+      ('b-topic-minified' if minified?)
     ].compact.join ' '
   end
 
@@ -209,17 +209,6 @@ class Topics::View < ViewObjectBase
 
   def format_date datetime
     h.l datetime, format: '%e %B %Y'
-  end
-
-  def changed_at
-    linked = @topic.linked
-
-    return unless linked&.updated_at && linked&.created_at
-    return if linked.updated_at - linked.created_at < 1.hour
-    return if format_date(linked.updated_at) ==
-      format_date(linked.created_at)
-
-    linked.updated_at
   end
 
 private

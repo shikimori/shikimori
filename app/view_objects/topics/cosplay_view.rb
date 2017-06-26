@@ -1,20 +1,12 @@
-class Topics::CosplayView < Topics::View
+class Topics::CosplayView < Topics::UserContentView
   IMAGES_IN_PREVIEW = 7
 
   def container_class
     super 'b-cosplay-topic'
   end
 
-  # def minified?
-    # is_preview || is_mini
-  # end
-
-  def show_body?
+  def minified?
     true
-  end
-
-  def footer_vote?
-    !preview?
   end
 
   def render_body
