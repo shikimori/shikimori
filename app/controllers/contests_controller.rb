@@ -102,7 +102,7 @@ class ContestsController < ShikimoriController
     if @resource.update contest_params
       # сброс сгенерённых
       if @resource.can_start? && @resource.rounds.any?
-        Contests::GenerateRounds.call @resource
+        Contests::GenerateRounds.call @resource.object
       end
 
       redirect_to edit_contest_url(@resource), notice: t('changes_saved')
