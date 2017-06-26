@@ -13,7 +13,10 @@ class SiteStatistics
   end
 
   def users
-    by_class User, CLASS_MONTHS.month
+    by_class(
+      User.where('read_only_at is null or read_only_at < ?', 10.years.from_now),
+      CLASS_MONTHS.month
+    )
   end
 
   def comments_count
