@@ -70,10 +70,10 @@ module Clockwork
     ImportToshokanTorrents.perform_async false
   end
 
-  every 1.day, 'daily.mangas', at: '04:00' do
-    ReadMangaWorker.perform_async
-    AdultMangaWorker.perform_async
-  end
+  # every 1.day, 'daily.mangas', at: '04:00' do
+    # ReadMangaWorker.perform_async
+    # AdultMangaWorker.perform_async
+  # end
 
   every 1.day, 'daily.viewings_cleaner', at: '05:00' do
     ViewingsCleaner.perform_async
