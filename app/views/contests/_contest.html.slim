@@ -1,11 +1,16 @@
 li.contest id="#{contest.id}"
-  - unless contest.created? || contest.proposing?
+  - if !contest.created? && !contest.proposing?
     .date
       = l contest.started_on
       - if contest.finished_on
         |  &ndash; #{l contest.finished_on}
     a href="#{contest_url contest}"
       = contest.title
+
+  - elsif current_user&.contests_moderator?
+    a href="#{edit_contest_url contest}"
+      = contest.title
+
   - else
     span
       = contest.title
