@@ -49,8 +49,7 @@ module Routing
         subdomain: false
       )
 
-    elsif topic_type_policy.contest_topic? ||
-        topic_type_policy.not_generated_news_topic? ||
+    elsif topic_type_policy.not_generated_news_topic? ||
         topic_type_policy.review_topic?
 
       forum_topic_url options.merge(

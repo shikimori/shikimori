@@ -23,7 +23,7 @@ module TopicsConcern
 
   def generate_topics locales
     if self.class < DbEntry
-      generate_site_topics locales
+      generate_entry_topics locales
     else
       generate_user_topics locales
     end
@@ -41,7 +41,7 @@ module TopicsConcern
 
   private
 
-  def generate_site_topics locales
+  def generate_entry_topics locales
     Array(locales).map do |locale|
       Topics::Generate::EntryTopic.call self, topic_user, locale
     end
@@ -49,7 +49,7 @@ module TopicsConcern
 
   def generate_user_topics locales
     Array(locales).map do |locale|
-      Topics::Generate::UserTopic.call self, topic_user, locale
+      Topics::Generate::Topic.call self, topic_user, locale
     end
   end
 end
