@@ -126,17 +126,20 @@ class ContestMatch < ApplicationRecord
 
   # число голосов за левого кандидата
   def left_votes
-    @left_votes ||= self[:left_votes] || cached_votes.select {|v| v.item_id == left_id }.size
+    @left_votes ||= self[:left_votes] ||
+      cached_votes.select {|v| v.item_id == left_id }.size
   end
 
   # число голосов за правого кандидата
   def right_votes
-    @right_votes ||= self[:right_votes] || cached_votes.select {|v| v.item_id == right_id }.size
+    @right_votes ||= self[:right_votes] ||
+      cached_votes.select {|v| v.item_id == right_id }.size
   end
 
   # число голосов за правого кандидата
   def refrained_votes
-    @refrained_votes ||= self[:refrained_votes] || cached_votes.select {|v| v.item_id == 0 }.size
+    @refrained_votes ||= self[:refrained_votes] ||
+      cached_votes.select {|v| v.item_id == 0 }.size
   end
 
   # турнир голосования

@@ -8,8 +8,8 @@ describe Topics::Generate::News::ContestStatusTopic do
   let(:service) do
     Topics::Generate::News::ContestStatusTopic.new(
       model,
-      action,
       user,
+      action,
       locale
     )
   end

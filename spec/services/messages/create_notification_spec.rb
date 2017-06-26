@@ -117,10 +117,26 @@ describe Messages::CreateNotification do
     end
   end
 
+  describe '#contest_started' do
+    let(:target) { create :contest, :with_topics }
+
+    before { service.contest_started }
+
+    it do
+      target.news_topics.each do |topic|
+        expect(topic).to have_attributes(
+          linked: target,
+          type: 'Topics::NewsTopics::ContestStatusTopic',
+          action: Types::Topic::ContestStatusTopic::Action[:started].to_s,
+          value: nil,
+          processed: false
+        )
+      end
+    end
+  end
+
   describe '#contest_finished' do
     let(:target) { create :contest, :with_topics }
-    let!(:round) { create :contest_round, contest: target }
-    let!(:match) { create :contest_match, round: round }
 
     before { service.contest_finished }
 
@@ -132,7 +148,7 @@ describe Messages::CreateNotification do
         expect(topic).to have_attributes(
           linked: target,
           type: 'Topics::NewsTopics::ContestStatusTopic',
-          action: 'finished',
+          action: Types::Topic::ContestStatusTopic::Action[:finished].to_s,
           value: nil,
           processed: false
         )

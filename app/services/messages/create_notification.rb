@@ -86,6 +86,17 @@ class Messages::CreateNotification
     end
   end
 
+  def contest_started
+    Site::DOMAIN_LOCALES.each do |locale|
+      Topics::Generate::News::ContestStatusTopic.call(
+        @target,
+        @target.user,
+        Types::Topic::ContestStatusTopic::Action[:started],
+        locale
+      )
+    end
+  end
+
   def contest_finished
     @target.topics.each do |topic|
       create_comment(
