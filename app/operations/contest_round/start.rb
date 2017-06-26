@@ -2,18 +2,25 @@ class ContestRound::Start
   method_object :contest_round
 
   def call
-    ContestRound.transaction { start_round }
+    ContestRound.transaction do
+      @contest_round.start!
+
+      start_matches
+
+      # must reset @strategy becase it is cached
+      reset_strategy
+    end
   end
 
 private
 
-  def start_round
-    @contest_round.start!
+  def start_matches
     @contest_round.matches
       .select { |match| match.started_on <= Time.zone.today }
-      .each(&:start!)
+      .each { |match| ContestMatch::Start.call match }
+  end
 
-    # must reset @strategy becase it is cached
+  def reset_strategy
     @contest_round.contest.instance_variable_set('@strategy', nil)
   end
 end

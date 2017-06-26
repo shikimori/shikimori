@@ -2,22 +2,31 @@ class ContestRound::Finish
   method_object :contest_round
 
   def call
-    ContestRound.transaction { finish_round }
+    ContestRound.transaction do
+      finish_matches
+
+      @contest_round.finish!
+
+      if last_round?
+        finish_contest
+      else
+        start_next_round
+      end
+
+      # must reset @strategy becase it is cached
+      reset_strategy
+    end
   end
 
 private
 
-  def finish_round
-    @contest_round.matches.select(&:started?).each(&:finish!)
-    @contest_round.finish!
+  def finish_matches
+    @contest_round.matches
+      .select(&:started?)
+      .each { |match| ContestMatch::Finish.call match }
+  end
 
-    if last_round?
-      finish_contest
-    else
-      start_next_round
-    end
-
-    # must reset @strategy becase it is cached
+  def reset_strategy
     @contest_round.contest.instance_variable_set('@strategy', nil)
   end
 

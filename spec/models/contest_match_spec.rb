@@ -9,14 +9,10 @@ describe ContestMatch do
   let(:user) { create :user }
 
   describe 'states' do
-    let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday }
-
-    it 'full cycle' do
-      expect(match.created?).to eq true
-      match.start!
-      expect(match.started?).to eq true
-      match.finish!
-      expect(match.finished?).to eq true
+    let(:match) do
+      create :contest_match,
+        started_on: Time.zone.yesterday,
+        finished_on: Time.zone.yesterday
     end
 
     describe 'can_vote?' do
@@ -60,149 +56,48 @@ describe ContestMatch do
         it { is_expected.to eq false }
       end
     end
-
-    context 'after started' do
-      [:can_vote_1, :can_vote_2, :can_vote_3].each do |user_vote_key|
-        describe user_vote_key do
-          before do
-            match.round.contest.update_attribute :user_vote_key, user_vote_key
-            match.reload
-
-            create_list :user, 2
-
-            allow(match.round.contest).to receive(:started?).and_return true
-            match.start!
-          end
-
-          it { expect(User.all.all? {|v| v.can_vote?(match.round.contest) }).to be true }
-        end
-      end
-
-      describe 'right_id = nil, right_type = Anime' do
-        let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday, right_id: nil, right_type: Anime.name }
-        before { match.start! }
-        it { expect(match.right_type).to be_nil }
-      end
-
-      describe 'left_id = nil, right_id != nil' do
-        let(:match) { create :contest_match, started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday, left_id: nil, left_type: Anime.name }
-        before { match.start! }
-        it { expect(match.left_type).not_to be_nil }
-        it { expect(match.left_id).not_to be_nil }
-        it { expect(match.right_type).to be_nil }
-        it { expect(match.right_id).to be_nil }
-      end
-    end
-
-    context 'after finished' do
-      before { match.start! }
-
-      it 'is_expected.to be false' do
-        match.finish!
-        expect(match.can_vote?).to eq false
-      end
-
-      context 'no right variant' do
-        before do
-          match.right = nil
-          match.finish!
-        end
-
-        it { expect(match.winner_id).to eq match.left_id }
-      end
-
-      context 'left_votes > right_votes' do
-        before do
-          match.votes.create user_id: user.id, ip: '1', item_id: match.left_id
-          match.finish!
-        end
-
-        it { expect(match.winner_id).to eq match.left_id }
-      end
-
-      context 'right_votes > left_votes' do
-        before do
-          match.votes.create user_id: user.id, ip: '1', item_id: match.right_id
-          match.finish!
-        end
-
-        it { expect(match.winner_id).to eq match.right_id }
-      end
-
-      context 'left_votes == right_votes' do
-        context 'left.score > right.score' do
-          before do
-            match.left.update_attribute :score, 2
-            match.right.update_attribute :score, 1
-            match.finish!
-          end
-
-          it { expect(match.winner_id).to eq match.left_id }
-        end
-
-        context 'right.score > left.score' do
-          before do
-            match.left.update_attribute :score, 1
-            match.right.update_attribute :score, 2
-            match.finish!
-          end
-
-          it { expect(match.winner_id).to eq match.right_id }
-        end
-
-        context 'left.score == right.score' do
-          before do
-            match.left.update_attribute :score, 2
-            match.right.update_attribute :score, 2
-            match.finish!
-          end
-
-          it { expect(match.winner_id).to eq match.left_id }
-        end
-      end
-    end
   end
 
   describe 'vote_for' do
     let(:match) { create :contest_match, state: 'started' }
 
     it 'creates ContestUserVote' do
-      expect {
-        match.vote_for 'left', user, "123"
-      }.to change(ContestUserVote, :count).by 1
+      expect(proc do
+        match.vote_for 'left', user, '123'
+      end).to change(ContestUserVote, :count).by 1
     end
 
     context 'no match' do
       context 'left' do
-        before { match.vote_for 'left', user, "123" }
+        before { match.vote_for 'left', user, '123' }
         it { expect(match.votes.first.item_id).to eq match.left_id }
       end
 
       context 'right' do
-        before { match.vote_for 'right', user, "123" }
+        before { match.vote_for 'right', user, '123' }
         it { expect(match.votes.first.item_id).to eq match.right_id }
       end
 
       context 'none' do
-        before { match.vote_for 'none', user, "123" }
+        before { match.vote_for 'none', user, '123' }
         it { expect(match.votes.first.item_id).to eq 0 }
       end
 
       context 'user' do
-        before { match.vote_for 'right', user, "123" }
+        before { match.vote_for 'right', user, '123' }
         it { expect(match.votes.first.user_id).to eq user.id }
       end
 
       context 'ip' do
-        before { match.vote_for 'right', user, "123" }
+        before { match.vote_for 'right', user, '123' }
         it { expect(match.votes.first.ip).to eq '123' }
       end
     end
 
     context 'has match' do
       before do
-        match.vote_for 'left', user, "123"
-        match.vote_for 'right', user, "123"
+        match.vote_for 'left', user, '123'
+        match.vote_for 'right', user, '123'
       end
 
       it { expect(match.votes.first.item_id).to eq match.right_id }

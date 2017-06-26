@@ -4,8 +4,8 @@ FactoryGirl.define do
     right factory: :anime
     round factory: :contest_round
 
-    trait :finished do
-      state 'finished'
+    ContestMatch.state_machine.states.map(&:value).each do |contest_match_state|
+      trait(contest_match_state.to_sym) { state contest_match_state }
     end
 
     trait :no_round do

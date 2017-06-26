@@ -85,23 +85,6 @@ class ContestMatch < ApplicationRecord
       transition :started => :finished,
         if: ->(match) { match.finished_on < Time.zone.today }
     end
-
-    after_transition created: :started do |match, transition|
-      User
-        .where(match.round.contest.user_vote_key => false)
-        .update_all(match.round.contest.user_vote_key => true)
-
-      if match.right.nil?
-        match.update! right: nil
-
-      elsif match.left.nil? && match.right.present?
-        match.update! left: match.right, right: nil
-      end
-    end
-
-    after_transition started: :finished do |match, transition|
-      match.obtain_winner_id!
-    end
   end
 
   # за какой вариант проголосовал пользователь
@@ -150,31 +133,6 @@ class ContestMatch < ApplicationRecord
   # стратегия турнира
   def strategy
     round.contest.strategy
-  end
-
-  # сохранение результатов матча
-  def obtain_winner_id!
-    winner_id = if right_id.nil?
-      left_id
-
-    elsif left_votes > right_votes
-      left_id
-
-    elsif right_votes > left_votes
-      right_id
-
-    elsif left.respond_to?(:score) && right.respond_to?(:score)
-      if right.score > left.score
-        right_id
-      else
-        left_id
-      end
-
-    else
-      left_id
-    end
-
-    update_attribute :winner_id, winner_id
   end
 
 private

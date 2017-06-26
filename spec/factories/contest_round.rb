@@ -4,16 +4,8 @@ FactoryGirl.define do
     number 1
     additional false
 
-    trait :created do
-      state 'created'
-    end
-
-    trait :started do
-      state 'started'
-    end
-
-    trait :finished do
-      state 'finished'
+    ContestRound.state_machine.states.map(&:value).each do |contest_round_state|
+      trait(contest_round_state.to_sym) { state contest_round_state }
     end
   end
 end
