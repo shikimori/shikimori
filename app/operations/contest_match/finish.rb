@@ -2,7 +2,7 @@ class ContestMatch::Finish
   method_object :contest_match
 
   def call
-    ContestRound.transaction do
+    ContestMatch.transaction do
       @contest_match.finish!
       @contest_match.update winner_id: winner_id
     end

@@ -51,14 +51,9 @@ describe Topics::TopicViewFactory do
       it { expect(view).to be_a Topics::ContestView }
     end
 
-    context 'contest_started' do
-      let(:topic) { build :contest_started_topic }
-      it { expect(view).to be_a Topics::ContestStartedView }
-    end
-
-    context 'contest_finished' do
-      let(:topic) { build :contest_finished_topic }
-      it { expect(view).to be_a Topics::ContestFinishedView }
+    context 'contest_status' do
+      let(:topic) { build :contest_status_topic }
+      it { expect(view).to be_a Topics::ContestStatusView }
     end
 
     context 'anime news topic' do

@@ -2,7 +2,7 @@ class ContestMatch::Start
   method_object :contest_match
 
   def call
-    ContestRound.transaction do
+    ContestMatch.transaction do
       @contest_match.start!
       reset_user_vote_key
       update_right
