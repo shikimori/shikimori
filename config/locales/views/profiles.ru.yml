@@ -123,6 +123,9 @@ ru:
       styles:
         site_styles: Стили сайта
 
+      password:
+        new_password: Новый пароль
+
       list:
         my_list_scores: Оценки в моём списке
         reset_scores: Сбросить все оценки %{kind}

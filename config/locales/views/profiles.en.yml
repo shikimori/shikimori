@@ -123,6 +123,9 @@ en:
       styles:
         site_styles: Site styles
 
+      password:
+        new_password: New password
+
       list:
         my_list_scores: Scores in my list
         reset_scores: Reset all %{kind} scores
