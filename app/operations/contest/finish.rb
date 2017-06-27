@@ -6,8 +6,19 @@ class Contest::Finish
       @contest.finish!
       @contest.update! finished_on: Time.zone.today
 
-      User.update_all @contest.user_vote_key => false
+      cleanup_suggestions
+      reset_user_vote_key
       Messages::CreateNotification.new(@contest).contest_finished
     end
+  end
+
+private
+
+  def reset_user_vote_key
+    User.update_all @contest.user_vote_key => false
+  end
+
+  def cleanup_suggestions
+    contest.suggestions.delete_all
   end
 end
