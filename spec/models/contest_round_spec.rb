@@ -5,58 +5,52 @@ describe ContestRound do
   end
 
   describe 'state_machine' do
-    let(:contest) { create :contest, :with_5_members, state: 'started' }
-    let(:round) { create :contest_round, contest: contest }
+    it { is_expected.to have_states :created, :started, :finished }
 
-    it 'full cycle' do
-      expect(round.created?).to eq true
+    it { is_expected.to reject_events :finish, on: :created }
+    it { is_expected.to reject_events :start, on: :started }
+    it { is_expected.to reject_events :start, :finish, on: :finished }
 
-      contest.strategy.fill_round_with_matches round
-      ContestRound::Start.call round
-      expect(round.started?).to eq true
+    # let(:contest) { create :contest, :with_5_members, state: 'started' }
+    # let(:round) { create :contest_round, contest: contest }
 
-      round.matches.each { |v| v.state = 'finished' }
-      ContestRound::Finish.call round
-      expect(round.finished?).to eq true
-    end
+    # describe '#can_start?' do
+      # subject { round.can_start? }
 
-    describe '#can_start?' do
-      subject { round.can_start? }
+      # context 'no matches' do
+        # it { is_expected.to eq false }
+      # end
 
-      context 'no matches' do
-        it { is_expected.to eq false }
-      end
+      # context 'has matches' do
+        # before { allow(round.matches).to receive(:any?).and_return true }
+        # it { is_expected.to eq true }
+      # end
+    # end
 
-      context 'has matches' do
-        before { allow(round.matches).to receive(:any?).and_return true }
-        it { is_expected.to eq true }
-      end
-    end
+    # describe '#can_finish?' do
+      # subject { round.can_finish? }
 
-    describe '#can_finish?' do
-      subject { round.can_finish? }
+      # context 'not finished matches' do
+        # before do
+          # contest.strategy.fill_round_with_matches round
+          # ContestRound::Start.call round
+        # end
 
-      context 'not finished matches' do
-        before do
-          contest.strategy.fill_round_with_matches round
-          ContestRound::Start.call round
-        end
+        # it { is_expected.to eq false }
 
-        it { is_expected.to eq false }
+        # context 'finished matches' do
+          # context 'all finished' do
+            # before { round.matches.each {|v| v.state = 'finished' } }
+            # it { is_expected.to eq true }
+          # end
 
-        context 'finished matches' do
-          context 'all finished' do
-            before { round.matches.each {|v| v.state = 'finished' } }
-            it { is_expected.to eq true }
-          end
-
-          context 'all can_finish' do
-            before { round.matches.each {|v| allow(v).to receive(:can_finish?).and_return true } }
-            it { is_expected.to eq true }
-          end
-        end
-      end
-    end
+          # context 'all can_finish' do
+            # before { round.matches.each {|v| allow(v).to receive(:can_finish?).and_return true } }
+            # it { is_expected.to eq true }
+          # end
+        # end
+      # end
+    # end
   end
 
   describe 'instance methods' do
