@@ -36,12 +36,15 @@ Apipie.configure do |config|
     ### Restrictions
     Never parse the main site. Use `v2` and `v1` API.
 
-    Don't mimic a browser. Put your application name or website url into `User-Agent` request header.
-
-    API access limited by `5rps` `90rpm`
+    API access is limited by `5rps` and `90rpm`
 
     `HTTPS` protocol only.
     <br><br>
+
+    ### User-Agent
+    Add your `application name`/`website url` and `email`/`shikimori nickname ` to `User-Agent` request header.
+    Don't mimic a browser.
+    Your IP address can be banned if you use API without properly set User-Agent header.
 
     #{pagination_placeholder}### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
