@@ -8,8 +8,9 @@ class Topics::View < ViewObjectBase
   delegate :comments_count, :summaries_count, to: :topic_comments_policy
   delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
-  instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore,
-    :topic_comments_policy, :topic_type_policy, :cleaned_preview_body
+  instance_cache :html_body, :html_body_truncated, :cleaned_preview_body,
+    :comments_view, :urls, :action_tag, :topic_ignore,
+    :topic_comments_policy, :topic_type_policy
 
   BODY_TRUCATE_SIZE = 500
 
@@ -125,10 +126,6 @@ class Topics::View < ViewObjectBase
     true
   end
 
-  def read_more_link?
-    preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
-  end
-
   def html_body
     return '' if @topic.original_body.blank?
 
@@ -138,16 +135,19 @@ class Topics::View < ViewObjectBase
   end
 
   def html_body_truncated
-    if read_more_link?
-      html = h.truncate_html cleaned_preview_body,
-        length: BODY_TRUCATE_SIZE,
-        separator: ' ',
-        word_boundary: /\S[\.\?\!<>]/
+    h.truncate_html(cleaned_preview_body,
+      length: BODY_TRUCATE_SIZE,
+      separator: ' ',
+      word_boundary: /\S[\.\?\!<>]/
+    ).html_safe
+  end
 
-      html.html_safe
-    else
-      html_body
-    end
+  def need_trucation?
+    preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
+  end
+
+  def read_more_link?
+    need_trucation? && truncated_body?
   end
 
   def html_footer
@@ -206,6 +206,10 @@ private
 
   def topic_comments_policy
     Topic::CommentsPolicy.new @topic
+  end
+
+  def truncated_body?
+    html_body_truncated.include? '...'
   end
 end
 # rubocop:enable ClassLength

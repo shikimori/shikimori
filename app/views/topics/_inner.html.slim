@@ -38,7 +38,11 @@
           .body-truncated-inner[
             itemprop="#{topic_view.topic_type_policy.review_topic? ? :reviewBody : :articleBody}"
           ]
+          - if topic_view.need_trucation?
             = topic_view.html_body_truncated
+
+          - else
+            = topic_view.html_body
 
       - else
         .body-inner itemprop="articleBody"
