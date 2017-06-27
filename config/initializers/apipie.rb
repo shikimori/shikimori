@@ -20,33 +20,35 @@ Apipie.configure do |config|
       [**v1**](https://shikimori.org/api/doc/1.0.html).
       `v2` consists of newly updated methods.
       Prefer using `v2` over `v1` when it is possible.
-    <br><br>
 
+    **Never parse the main site**. Use `v2` and `v1` API instead.
+
+    API works with `HTTPS` protocol only.
+    <br><br>
 
     #{documentation_placeholder}
 
     ### Authentication
     Retrieve `<user_api_access_token>` via
-      [Access tokens API](https://shikimori.org/api/doc/1.0/access_tokens/create)
-      and add `X-User-Nickname`, `X-User-Api-Access-Token` headers to every api request.
+      [Access tokens API](https://shikimori.org/api/doc/1.0/access_tokens/create),
+      add `X-User-Nickname` and `X-User-Api-Access-Token` headers to every API request.
 
-    `X-User-Nickname=<user_nickname>` `X-User-Api-Access-Token=<user_api_access_token>`
+    `X-User-Nickname=<user_nickname>`
+
+    `X-User-Api-Access-Token=<user_api_access_token>`
     <br><br>
 
     ### Restrictions
-    Never parse the main site. Use `v2` and `v1` API.
 
     API access is limited by `5rps` and `90rpm`
-
-    `HTTPS` protocol only.
     <br><br>
 
-    ### User-Agent header requirements
-    Add your `application name`/`website url` and `email`/`shikimori nickname` to `User-Agent` requests header.
+    ### User-Agent header
+    Add your `application name` / `website url` and your `email` / `shikimori nickname` to `User-Agent` requests header.
 
     Don't mimic a browser.
 
-    Your IP address can be banned if you use API without properly set User-Agent header.
+    Your IP address will be banned if you use API without properly set `User-Agent` header.
     <br><br>
 
     #{pagination_placeholder}### Third party
