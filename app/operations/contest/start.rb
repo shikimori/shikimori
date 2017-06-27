@@ -8,6 +8,8 @@ class Contest::Start
 
       @contest.start!
       ContestRound::Start.call @contest.rounds.first
+
+      contest.suggestions.delete_all
     end
   end
 

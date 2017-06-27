@@ -8,6 +8,7 @@ describe Contest::Start do
       started_on: 1.day.ago,
       updated_at: 1.day.ago
   end
+  let!(:contest_suggestion) { create :contest_suggestion, contest: contest }
 
   before { allow(Contests::GenerateRounds).to receive(:call).and_call_original }
   subject! { operation.call }
@@ -20,5 +21,7 @@ describe Contest::Start do
     expect(contest.rounds.first).to be_started
 
     expect(Contests::GenerateRounds).to have_received(:call).with contest
+
+    expect { contest_suggestion.reload }.to raise_error ActiveRecord::RecordNotFound
   end
 end
