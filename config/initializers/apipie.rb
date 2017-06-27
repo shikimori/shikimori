@@ -42,7 +42,7 @@ Apipie.configure do |config|
     API access is limited by `5rps` and `90rpm`
     <br><br>
 
-    ### User-Agent header
+    ### Requirements
     Add your `application name` / `website url` and your `email` / `shikimori nickname` to `User-Agent` requests header.
 
     Don't mimic a browser.
