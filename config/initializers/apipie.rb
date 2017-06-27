@@ -46,6 +46,7 @@ Apipie.configure do |config|
     #{pagination_placeholder}### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
     [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.
+    [C# API implementation](https://github.com/MrModest/ShikiApiLib) by MrModest.
     <br><br>
 
     ### Feedback
