@@ -41,10 +41,13 @@ Apipie.configure do |config|
     `HTTPS` protocol only.
     <br><br>
 
-    ### User-Agent
-    Add your `application name`/`website url` and `email`/`shikimori nickname ` to `User-Agent` request header.
+    ### User-Agent header requirements
+    Add your `application name`/`website url` and `email`/`shikimori nickname` to `User-Agent` requests header.
+
     Don't mimic a browser.
+
     Your IP address can be banned if you use API without properly set User-Agent header.
+    <br><br>
 
     #{pagination_placeholder}### Third party
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
