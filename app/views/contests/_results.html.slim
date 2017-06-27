@@ -1,8 +1,9 @@
 .results
   - cache contest do
-    - contest.results.each_with_index do |entry, index|
+    - contest.winners.each do |winner|
+      - entry = winner.item.decorate
       .subheadline.m10
-        = I18n.russian? ? index + 1 : (index + 1).ordinalize
+        = I18n.russian? ? winner.position : winner.position.ordinalize
         | &nbsp;
         = t '.place'
       .cc-result
