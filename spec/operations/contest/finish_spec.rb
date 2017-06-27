@@ -12,6 +12,7 @@ describe Contest::Finish do
       .to receive(:new)
       .with(contest)
       .and_return(notifications)
+    allow(Contests::ObtainWinners).to receive(:call)
   end
   subject! { operation.call }
 
@@ -20,5 +21,7 @@ describe Contest::Finish do
     expect(contest.finished_on).to eq Time.zone.today
     expect(user.reload.can_vote_1).to eq false
     expect(notifications).to have_received :contest_finished
+
+    expect(Contests::ObtainWinners).to have_received(:call).with contest
   end
 end

@@ -86,15 +86,15 @@ class ContestDecorator < DbEntryDecorator
     #BbCodeFormatter.instance.format_description(object.description, object).html_safe
   #end
 
-  # победители контеста
-  def results round=nil
-    object.results(round).take(winners_count).map(&:decorate)
-  end
+  # # победители контеста
+  # def results round=nil
+    # strategy.results(round).take(winners_count).map(&:decorate)
+  # end
 
-  # число победителей
-  def winners_count
-    links.count > 64 ? 32 : 16
-  end
+  # # число победителей
+  # def winners_count
+    # links.count > 64 ? 32 : 16
+  # end
 
   # отображать ли результаты
   def showing_results?
@@ -162,7 +162,7 @@ class ContestDecorator < DbEntryDecorator
     @rating ||= {}
     @rating[round] ||= begin
       matches_count = round.additional? ? round.matches.size * 2 : round.matches.size
-      object.results(round).take [[[matches_count*2, 8].max, 8].min, matches_count].max
+      strategy.results(round).take [[[matches_count*2, 8].max, 8].min, matches_count].max
     end
   end
 

@@ -6,6 +6,8 @@ class Contest::Finish
       @contest.finish!
       @contest.update! finished_on: Time.zone.today
 
+      Contests::ObtainWinners.call @contest
+
       reset_user_vote_key
       Messages::CreateNotification.new(@contest).contest_finished
     end

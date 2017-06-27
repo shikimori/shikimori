@@ -51,8 +51,6 @@ class Contest < ApplicationRecord
     class_name: ContestSuggestion.name,
     dependent: :destroy
 
-  delegate :total_rounds, :results, to: :strategy
-
   state_machine :state, initial: :created do
     state :created, :proposing
 

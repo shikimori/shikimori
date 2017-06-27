@@ -6,7 +6,7 @@ describe Contest::PlayOffStrategy do
     [[128, 7], [64, 6], [32, 5], [16, 4]].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
-        expect(contest.total_rounds).to eq rounds
+        expect(strategy.total_rounds).to eq rounds
       end
     end
   end
@@ -96,7 +96,7 @@ describe Contest::PlayOffStrategy do
 
   describe '#results' do
     let(:contest) { create :contest, :with_8_members, :anime, :play_off }
-    let(:results) { contest.results }
+    let(:results) { strategy.results }
     let(:scores) { contest.strategy.statistics.scores }
     let(:statistics) { contest.strategy.statistics }
     before do

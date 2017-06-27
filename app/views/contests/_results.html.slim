@@ -1,7 +1,6 @@
 .results
   - cache contest do
-    /- contest.results.each_with_index do |entry, index|
-    - view.results.each_with_index do |entry, index|
+    - contest.results.each_with_index do |entry, index|
       .subheadline.m10
         = I18n.russian? ? index + 1 : (index + 1).ordinalize
         | &nbsp;

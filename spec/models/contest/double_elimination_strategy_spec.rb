@@ -17,7 +17,7 @@ describe Contest::DoubleEliminationStrategy do
     ].each do |members, rounds|
       it "#{members} -> #{rounds}" do
         allow(contest.members).to receive(:count).and_return members
-        expect(contest.total_rounds).to eq rounds
+        expect(strategy.total_rounds).to eq rounds
       end
     end
   end
@@ -286,7 +286,7 @@ describe Contest::DoubleEliminationStrategy do
     end
 
     context 'final' do
-      let(:results) { contest.results }
+      let(:results) { strategy.results }
       it 'has expected results' do
         # count
         expect(results.size).to eq(contest.members.size)
@@ -309,7 +309,7 @@ describe Contest::DoubleEliminationStrategy do
     end
 
     context 'intermediate_main_round' do
-      let(:results) { contest.results round }
+      let(:results) { strategy.results round }
       let(:round) { contest.rounds[3] }
 
       it 'has expected results' do
@@ -331,7 +331,7 @@ describe Contest::DoubleEliminationStrategy do
     end
 
     context 'intermediate_additional_round' do
-      let(:results) { contest.results round }
+      let(:results) { strategy.results round }
       let(:round) { contest.rounds[4] }
 
       it 'has expected results' do
