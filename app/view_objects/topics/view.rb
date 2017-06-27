@@ -8,8 +8,10 @@ class Topics::View < ViewObjectBase
   delegate :comments_count, :summaries_count, to: :topic_comments_policy
   delegate :any_comments?, :any_summaries?, to: :topic_comments_policy
 
-  instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore
-  instance_cache :topic_comments_policy, :topic_type_policy
+  instance_cache :html_body, :comments_view, :urls, :action_tag, :topic_ignore,
+    :topic_comments_policy, :topic_type_policy, :cleaned_preview_body
+
+  BODY_TRUCATE_SIZE = 500
 
   def url options = {}
     UrlGenerator.instance.topic_url @topic, nil, options
@@ -124,13 +126,8 @@ class Topics::View < ViewObjectBase
   end
 
   def read_more_link?
-    false
+    preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
   end
-
-  # def author_in_footer?
-    # preview? && (topic_type_policy.news_topic? || topic_type_policy.review_topic?) &&
-      # (!author_in_header? || poster(false) != user.avatar_url(48))
-  # end
 
   def html_body
     return '' if @topic.original_body.blank?
@@ -140,28 +137,10 @@ class Topics::View < ViewObjectBase
     end
   end
 
-  # # надо ли свёртывать длинный контент топика?
-  # def should_shorten?
-    # !news_topic? || (news_topic? && generated?) || (news_topic? && object.body !~ /\[wall\]/)
-  # end
-
-  # # тег топика
-  # def tag
-    # return nil if linked.nil? || review_topic? || contest_topic?
-
-    # if linked.kind_of? Review
-      # h.localized_name linked.target
-    # else
-      # if linked.respond_to?(:name) && linked.respond_to?(:russian)
-        # h.localized_name linked
-      # end
-    # end
-  # end
-
   def html_body_truncated
-    if preview?
-      html = h.truncate_html cleanup_preview_body(html_body),
-        length: 500,
+    if read_more_link?
+      html = h.truncate_html cleaned_preview_body,
+        length: BODY_TRUCATE_SIZE,
         separator: ' ',
         word_boundary: /\S[\.\?\!<>]/
 
@@ -218,8 +197,8 @@ private
       !topic_type_policy.forum_topic?
   end
 
-  def cleanup_preview_body html
-    html
+  def cleaned_preview_body
+    html_body
       .gsub(%r{<a [^>]* class="b-image.*?</a>}, '')
       .gsub(%r{<center></center>}, '')
       .gsub(/\A(<br>)+/, '')
