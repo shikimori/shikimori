@@ -39,7 +39,6 @@ Apipie.configure do |config|
     <br><br>
 
     ### Restrictions
-
     API access is limited by `5rps` and `90rpm`
     <br><br>
 
@@ -51,7 +50,7 @@ Apipie.configure do |config|
     Your IP address will be banned if you use API without properly set `User-Agent` header.
     <br><br>
 
-    #{pagination_placeholder}### Third party
+    #{pagination_placeholder}### Third party implementations
     [Python API implementation](https://github.com/OlegWock/PyShiki) by OlegWock.
 
     [Node.js API implementation](https://github.com/Capster/node-shikimori) by Capster.
