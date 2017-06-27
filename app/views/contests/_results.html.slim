@@ -33,10 +33,12 @@
                     span.group
                       span = match.round.title true
                       span.letter = match.group
+
                 - if match.left_id && match.right_id
                   a.bubbled [
                     href="#{url_for match.left_id == entry.id ? match.right : match.left}"
                     title="#{(match.left_id == entry.id ? match.right : match.left).name}"
                   ] = localization_span match.left_id == entry.id ? match.right : match.left
+
                 - else
                   p = t 'answers.no'
