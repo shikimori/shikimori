@@ -3,10 +3,10 @@
 describe Contest do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to have_many :links }
-    it { is_expected.to have_many :rounds }
-    it { is_expected.to have_many :suggestions }
-    it { is_expected.to have_many :topics }
+    it { is_expected.to have_many(:links).dependent :destroy }
+    it { is_expected.to have_many(:rounds).dependent :destroy }
+    it { is_expected.to have_many(:winners).dependent :destroy }
+    it { is_expected.to have_many(:suggestions).dependent :destroy }
   end
 
   describe 'validations' do
@@ -228,70 +228,5 @@ describe Contest do
     end
   end
 
-  describe 'topics concern' do
-    describe 'associations' do
-      it { is_expected.to have_many :topics }
-    end
-
-    describe 'instance methods' do
-      let(:model) { build_stubbed :contest }
-
-      describe '#generate_topics' do
-        let(:topics) { model.topics }
-        before { model.generate_topics %i[en ru] }
-
-        it do
-          expect(topics).to have(2).items
-          expect(topics.first.locale).to eq 'ru'
-          expect(topics.second.locale).to eq 'en'
-        end
-      end
-
-      describe '#topic' do
-        let(:topic) { model.topic locale }
-        before { model.generate_topics %i[en ru] }
-
-        context 'ru topic' do
-          let(:locale) { :ru }
-          it do
-            expect(topic).to be_present
-            expect(topic.locale).to eq locale.to_s
-          end
-        end
-
-        context 'en topic' do
-          let(:locale) { :en }
-          it do
-            expect(topic).to be_present
-            expect(topic.locale).to eq locale.to_s
-          end
-        end
-      end
-
-      describe '#maybe_topic' do
-        let(:topic) { model.maybe_topic locale }
-        before { model.generate_topics %i[en ru] }
-
-        context 'ru topic' do
-          let(:locale) { :ru }
-          it do
-            expect(topic).to be_present
-            expect(topic.locale).to eq locale
-          end
-        end
-
-        context 'en topic' do
-          let(:locale) { :en }
-          it do
-            expect(topic).to be_present
-            expect(topic.locale).to eq locale.to_s
-          end
-        end
-      end
-
-      describe '#topic_user' do
-        it { expect(model.topic_user).to eq model.user }
-      end
-    end
-  end
+  it_behaves_like :topics_concern, :collection
 end

@@ -26,6 +26,11 @@ class Contest < ApplicationRecord
     inverse_of: :contest,
     dependent: :destroy
 
+  has_many :winners, -> { order :position },
+    class_name: ContestWinner.name,
+    inverse_of: :contest,
+    dependent: :destroy
+
   validates :title_ru, :title_en, presence: true
   validates :user, :started_on, :user_vote_key, :strategy_type,
     :member_type, presence: true

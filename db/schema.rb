@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614223334) do
+ActiveRecord::Schema.define(version: 20170626214810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -379,6 +379,17 @@ ActiveRecord::Schema.define(version: 20170614223334) do
     t.index ["contest_match_id", "ip"], name: "index_contest_user_votes_on_contest_vote_id_and_ip", unique: true, using: :btree
     t.index ["contest_match_id", "item_id"], name: "index_contest_user_votes_on_contest_vote_id_and_item_id", using: :btree
     t.index ["contest_match_id", "user_id"], name: "index_contest_user_votes_on_contest_vote_id_and_user_id", unique: true, using: :btree
+  end
+
+  create_table "contest_winners", force: :cascade do |t|
+    t.integer  "contest_id", null: false
+    t.integer  "position",   null: false
+    t.string   "item_type",  null: false
+    t.integer  "item_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_contest_winners_on_contest_id", using: :btree
+    t.index ["item_type", "item_id"], name: "index_contest_winners_on_item_type_and_item_id", using: :btree
   end
 
   create_table "contests", force: :cascade do |t|
