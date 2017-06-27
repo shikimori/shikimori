@@ -49,12 +49,12 @@
           = topic_view.render_body
 
       - if topic_view.read_more_link?
-        .read_more
+        .read_more-link
           a.b-link[
             href="#{topic_view.urls.poster_url}"
-          ] = t '.read_more'
+          ] = t '.read_more_link'
 
-    footer
+    footer class="#{'with-read_more-link' if topic_view.read_more_link?}"
       = topic_view.html_footer
 
       - if topic_view.footer_vote?
