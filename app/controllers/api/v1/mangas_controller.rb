@@ -1,5 +1,5 @@
 class Api::V1::MangasController < Api::V1Controller
-  before_action :fetch_resource, except: [:index, :search]
+  before_action :fetch_resource, except: %i[index search]
 
   LIMIT = 50
   ORDERS = %w[
@@ -197,7 +197,8 @@ private
     Digest::MD5.hexdigest([
       request.path,
       params.to_json,
-      params[:mylist].present? ? current_user.try(:cache_key) : nil
+      params[:mylist].present? ? current_user.try(:cache_key) : nil,
+      :v2
     ].join('|'))
   end
 
