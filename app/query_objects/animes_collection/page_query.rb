@@ -1,5 +1,5 @@
 class AnimesCollection::PageQuery
-  method_object [:klass, :params, :user, :limit]
+  method_object %i[klass params user limit is_all_manga]
 
   def call
     AnimesCollection::Page.new(
@@ -31,7 +31,7 @@ private
   def query
     scope = AniMangaQuery.new(@klass, @params, @user).fetch
 
-    if @klass == Manga
+    if @klass == Manga && !@is_all_manga
       scope.where.not(kind: Ranobe::KIND)
     else
       scope

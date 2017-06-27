@@ -135,7 +135,8 @@ class Api::V1::MangasController < Api::V1Controller
         klass: Manga,
         params: params,
         user: current_user,
-        limit: limit
+        limit: limit,
+        is_all_manga: true
       ).collection
     end
 
