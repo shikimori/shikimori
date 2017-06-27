@@ -68,8 +68,11 @@ en:
           one: Cosplayer
           other: Cosplayers
     contests:
-      started:
+      started: &contest_started
         name: Name
         rounds: Number of Rounds
         members: Number of Participants
         dates: Dates
+      finished:
+        <<: *contest_started
+        winners: Winners

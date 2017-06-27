@@ -6,6 +6,10 @@ describe Contest do
     it { is_expected.to have_many(:links).dependent :destroy }
     it { is_expected.to have_many(:rounds).dependent :destroy }
     it { is_expected.to have_many(:winners).dependent :destroy }
+
+    it { is_expected.to have_many :anime_winners }
+    it { is_expected.to have_many :character_winners }
+
     it { is_expected.to have_many(:suggestions).dependent :destroy }
   end
 

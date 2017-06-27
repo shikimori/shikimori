@@ -187,6 +187,11 @@ class ContestDecorator < DbEntryDecorator
     object.members.decorate
   end
 
+  def winner_entries limit = nil
+    scope = object.anime? ? anime_winners : character_winners
+    scope.limit(limit).map(&:decorate)
+  end
+
 private
 
   def matches_with_associations

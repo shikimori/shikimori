@@ -30,6 +30,14 @@ class Contest < ApplicationRecord
     class_name: ContestWinner.name,
     inverse_of: :contest,
     dependent: :destroy
+  has_many :anime_winners,
+    through: :winners,
+    source: :item,
+    source_type: Anime.name
+  has_many :character_winners,
+    through: :winners,
+    source: :item,
+    source_type: Character.name
 
   validates :title_ru, :title_en, presence: true
   validates :user, :started_on, :user_vote_key, :strategy_type,

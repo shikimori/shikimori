@@ -68,8 +68,11 @@ ru:
           few: Косплеят
           many: Косплеят
     contests:
-      started:
+      started: &contest_started
         name: Название
         rounds: Число раундов
         members: Число участников
         dates: Даты
+      finished:
+        <<: *contest_started
+        winners: Победители
