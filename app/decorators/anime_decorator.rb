@@ -14,26 +14,31 @@ class AnimeDecorator < AniMangaDecorator
   end
 
   # скриншоты
-  def screenshots limit=nil
+  def screenshots limit = nil
     return [] if Copyright::SCREENSHOTS.include?(id)
     return [] unless h.ignore_copyright?
     return [] unless display_sensitive?
 
-    (@screenshots ||= {})[limit] ||= if object.respond_to? :screenshots
-      object.screenshots.limit limit
-    else
-      []
-    end
+    @screenshots ||= {}
+    @screenshots[limit] ||=
+      if object.respond_to? :screenshots
+        object.screenshots.limit limit
+      else
+        []
+      end
   end
 
   # видео
-  def videos limit=nil
+  def videos limit = nil
     return [] if Copyright::VIDEOS.include?(id) || !h.ignore_copyright?
-    (@videos ||= {})[limit] ||= if object.respond_to? :videos
-      object.videos.limit limit
-    else
-      []
-    end
+
+    @videos ||= {}
+    @videos[limit] ||=
+      if object.respond_to? :videos
+        object.videos.limit limit
+      else
+        []
+      end
   end
 
   # презентер файлов
@@ -44,20 +49,24 @@ class AnimeDecorator < AniMangaDecorator
   # дата выхода следующего эпизода
   def next_episode_at with_broadcast = true
     if ongoing? || anons?
-      calendars = anime_calendars.where(episode: [episodes_aired + 1, episodes_aired + 2]).to_a
+      calendars = anime_calendars
+        .where(episode: [episodes_aired + 1, episodes_aired + 2])
+        .to_a
 
-      date = if calendars[0].present? && calendars[0].start_at > Time.zone.now
-        calendars[0].start_at
+      date =
+        if calendars[0].present? && calendars[0].start_at > Time.zone.now
+          calendars[0].start_at
 
-      elsif calendars[1].present?
-        calendars[1].start_at
-      end
+        elsif calendars[1].present?
+          calendars[1].start_at
+        end
 
       date || object.next_episode_at || (next_broadcast_at if with_broadcast)
     end
   end
 
-  # для анонса перебиваем дату анонса на дату с анимекалендаря, если таковая имеется
+  # для анонса перебиваем дату анонса на дату с анимекалендаря,
+  # если таковая имеется
   def aired_on
     anons? && next_episode_at(false) ? next_episode_at(false) : object.aired_on
   end
@@ -65,11 +74,6 @@ class AnimeDecorator < AniMangaDecorator
   # тип элемента для schema.org
   def itemtype
     'http://schema.org/Movie'
-    #if kind == 'movie'
-      #'http://schema.org/Movie'
-    #elsif kind == 'tv'
-      #'http://schema.org/TVSeries'
-    #end
   end
 
 private

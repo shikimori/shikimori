@@ -2,6 +2,7 @@
 @import mixins/clear_left
 @import mixins/column
 @import mixins/comma_separated
+@import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
 
@@ -77,6 +78,34 @@
 
       +iphone
         +column(1)
+
+    .contest_winners
+      +block
+      margin-top: -10px
+
+      .medal
+        float: left
+        width: 20px
+        height: 44px
+
+        &:before
+          content: '\e817'
+          // content: '\e83b'
+          color: #f7b42c
+          font-family: shikimori
+          font-size: 37px
+          line-height: 1.2
+          text-align: center
+          width: 20px
+
+      .winners
+        margin-left: 30px
+
+        .winner
+          +ellipsis2
+
+          &:first-child:last-child
+            line-height: 44px
 
     &:after
       display: block

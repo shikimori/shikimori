@@ -1,8 +1,8 @@
 class DbEntryDecorator < BaseDecorator
-  instance_cache :description_html
-  instance_cache :linked_clubs, :all_linked_clubs
-  instance_cache :favoured, :favoured?, :all_favoured
-  instance_cache :main_topic_view, :preview_topic_view
+  instance_cache :description_html,
+    :linked_clubs, :all_linked_clubs, :contest_winners,
+    :favoured, :favoured?, :all_favoured,
+    :main_topic_view, :preview_topic_view
 
   MAX_CLUBS = 4
   MAX_FAVOURITES = 12
@@ -133,6 +133,13 @@ class DbEntryDecorator < BaseDecorator
     VersionsQuery.new object
   end
 
+  def contest_winners
+    object.contest_winners
+      .where('position <= 16')
+      .includes(:contest)
+      .order(:position, id: :desc)
+  end
+
   def versions_page
     versions.postload (h.params[:page] || 1).to_i, 15
   end
@@ -158,7 +165,7 @@ class DbEntryDecorator < BaseDecorator
       page: (h.params[:page] || 1).to_i + 1
   end
 
-  private
+private
 
   def show_description_ru?
     h.ru_host?

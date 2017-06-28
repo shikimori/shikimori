@@ -59,6 +59,7 @@ ru:
       new_torrent: Новый торрент
       parse_page: Распарсить страницу
       parse: Выполнить
+      top_in: '№%{position} в '
       torrents:
         torrents_480p: Эпизоды 480p
         torrents_720p: HD Эпизоды 720p

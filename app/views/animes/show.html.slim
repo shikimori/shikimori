@@ -84,6 +84,17 @@
                     meta itemprop="ratingCount" content="#{@resource.rates_size}"
                   = render 'blocks/rate', score: @resource.score
 
+            - if @resource.contest_winners.any?
+              .block.contest_winners
+                .medal
+                .winners
+                  - @resource.contest_winners.each do |contest_winner|
+                    .winner
+                      = t '.top_in', position: contest_winner.position
+                      a.b-link[
+                        href="#{contest_url contest_winner.contest}"
+                      ] = localized_name contest_winner.contest
+
             - if @resource.respond_to?(:studios) && @resource.studios.any?
               .block
                 .subheadline.m10

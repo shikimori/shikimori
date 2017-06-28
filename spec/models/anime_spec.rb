@@ -5,7 +5,7 @@ describe Anime do
     it { is_expected.to have_and_belong_to_many :genres }
     it { is_expected.to have_and_belong_to_many :studios }
 
-    it { is_expected.to have_many :person_roles }
+    it { is_expected.to have_many(:person_roles).dependent :destroy }
     it { is_expected.to have_many :characters }
     it { is_expected.to have_many :people }
 
@@ -16,40 +16,42 @@ describe Anime do
     it { is_expected.to have_many :ongoing_news_topics }
     it { is_expected.to have_many :released_news_topics }
 
-    it { is_expected.to have_many :related }
+    it { is_expected.to have_many(:related).dependent :destroy }
     it { is_expected.to have_many :related_animes }
     it { is_expected.to have_many :related_mangas }
 
-    it { is_expected.to have_many :similar }
+    it { is_expected.to have_many(:similar).dependent :destroy }
     it { is_expected.to have_many :similar_animes }
-    it { is_expected.to have_many :links }
 
-    it { is_expected.to have_many :user_histories }
+    it { is_expected.to have_many(:user_histories).dependent :destroy }
 
-    it { is_expected.to have_many :cosplay_gallery_links }
+    it { is_expected.to have_many(:cosplay_gallery_links).dependent :destroy }
     it { is_expected.to have_many :cosplay_galleries }
 
     it { is_expected.to have_attached_file :image }
 
     it { is_expected.to have_many :screenshots }
-    it { is_expected.to have_many :all_screenshots }
+    it { is_expected.to have_many(:all_screenshots).dependent :destroy }
 
     it { is_expected.to have_many :videos }
-    it { is_expected.to have_many :all_videos }
+    it { is_expected.to have_many(:all_videos).dependent :destroy }
 
-    it { is_expected.to have_many :anime_calendars }
+    it { is_expected.to have_many(:anime_calendars).dependent :destroy }
 
-    it { is_expected.to have_many :reviews }
+    it { is_expected.to have_many(:reviews).dependent :destroy }
 
-    it { is_expected.to have_many :recommendation_ignores }
+    it { is_expected.to have_many(:recommendation_ignores).dependent :destroy }
 
-    it { is_expected.to have_many :anime_videos }
-    it { is_expected.to have_many :episode_notifications }
+    it { is_expected.to have_many(:anime_videos).dependent :destroy }
+    it { is_expected.to have_many(:episode_notifications).dependent :destroy }
 
-    it { is_expected.to have_many :name_matches }
+    it { is_expected.to have_many(:name_matches).dependent :destroy }
 
-    it { is_expected.to have_many :external_links }
+    it { is_expected.to have_many(:links).dependent :destroy }
+    it { is_expected.to have_many(:external_links).dependent :destroy }
     it { is_expected.to have_one :anidb_external_link }
+
+    it { is_expected.to have_many(:contest_winners).dependent :destroy }
   end
 
   describe 'validations' do
