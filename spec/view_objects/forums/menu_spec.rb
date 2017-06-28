@@ -12,7 +12,7 @@ describe Forums::Menu do
   end
 
   describe '#contests' do
-    let!(:contest) { create :contest, :proposing }
+    let!(:contest) { create :contest, :started }
     it { expect(view.contests).to have(1).item }
   end
 

@@ -23,9 +23,9 @@ describe DashboardView do
   describe '#manga_kinds' do
     it do
       expect(view.manga_kinds.first).to be_kind_of Titles::KindTitle
-      expect(view.manga_kinds.map(&:text)).to eq %w(
+      expect(view.manga_kinds.map(&:text)).to eq %w[
         manga manhwa manhua one_shot doujin
-      )
+      ]
     end
   end
 
@@ -68,11 +68,11 @@ describe DashboardView do
     it { expect(view.forums).to have_at_least(2).items }
   end
 
-  #describe 'favourites' do
-    #let!(:user) { create :user, fav_animes: [anime_1] }
-    #let!(:anime_1) { create :anime }
-    #let!(:anime_2) { create :anime }
+  # describe 'favourites' do
+    # let!(:user) { create :user, fav_animes: [anime_1] }
+    # let!(:anime_1) { create :anime }
+    # let!(:anime_2) { create :anime }
 
-    #it { expect(view.favourites).to eq [anime_1] }
-  #end
+    # it { expect(view.favourites).to eq [anime_1] }
+  # end
 end
