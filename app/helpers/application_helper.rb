@@ -86,7 +86,7 @@ module ApplicationHelper
     if original || date > 1.day.ago
       format_string ? format_string % super(date) : super(date)
     else
-      I18n.l date, format: '%e %B %Y'
+      I18n.l date, format: '%e %b %Y'
     end
   end
 
