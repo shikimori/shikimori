@@ -174,43 +174,6 @@ describe Contest do
     end
   end
 
-  context '#class_methods' do
-    describe 'current' do
-      subject { Contest.current.map(&:id) }
-
-      context 'nothing' do
-        let!(:contest) { create :contest }
-        it { is_expected.to eq [] }
-      end
-
-      context 'finished not so long ago' do
-        let!(:contest) { create :contest, :finished, finished_on: Time.zone.today - 6.days }
-
-        it { is_expected.to eq [contest.id] }
-
-        context 'new one started' do
-          let!(:contest2) { create :contest, :started }
-          it { is_expected.to eq [contest.id, contest2.id] }
-
-          context 'and one more started' do
-            let!(:contest3) { create :contest, :started }
-            it { is_expected.to eq [contest.id, contest2.id, contest3.id] }
-          end
-        end
-      end
-
-      context 'finished long ago' do
-        let!(:contest) { create :contest, :finished, finished_on: Time.zone.today - 9.days }
-        it { is_expected.to be_empty }
-
-        context 'new one started' do
-          let!(:contest) { create :contest, :started }
-          it { is_expected.to eq [contest.id] }
-        end
-      end
-    end
-  end
-
   describe 'permissions' do
     let(:contest) { build_stubbed :contest }
 

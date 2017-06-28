@@ -11,11 +11,14 @@ class ContestsController < ShikimoriController
   LIMIT = 20
 
   def current
+    contests = Contests::CurrentQuery.call
+
     if user_signed_in?
-      redirect_to Contest.current.select { |v| current_user.can_vote?(v) }.first || Contest.current.last || root_url
-    else
-      redirect_to Contest.current.last || root_url
+      not_voted = contests.select { |v| current_user.can_vote?(v) }.first
+      return redirect_to(not_voted) if not_voted
     end
+
+    redirect_to contests.last || root_url
   end
 
   def index

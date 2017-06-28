@@ -16,7 +16,7 @@ class Forums::Menu < ViewObjectBase
   end
 
   def contests
-    Contest.current
+    Contests::CurrentQuery.call
   end
 
   def changeable_forums?

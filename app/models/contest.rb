@@ -79,20 +79,6 @@ class Contest < ApplicationRecord
     end
   end
 
-  class << self
-    # текущий опрос
-    def current
-      Contest
-        .where(
-          "state in ('proposing', 'started') or
-          (state = 'finished' and finished_on >= ?)",
-          1.week.ago
-        )
-        .order(:started_on)
-        .to_a
-    end
-  end
-
   # текущий раунд
   def current_round
     if finished?

@@ -94,7 +94,7 @@ class DashboardView < ViewObjectBase
   # end
 
   def contests
-    Contest.current
+    Contests::CurrentQuery.call
   end
 
   def list_counts kind
