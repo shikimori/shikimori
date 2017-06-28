@@ -57,6 +57,10 @@
                           data-href="#{art_character_url @resource}"
                         ] = t 'imageboard_art'
 
+              - if @resource.contest_winners.any?
+                = render 'db_entries/contest_winners',
+                  contest_winners: @resource.contest_winners
+
           - if @resource.seyu.present?
             .c-info-right
               .subheadline.m10

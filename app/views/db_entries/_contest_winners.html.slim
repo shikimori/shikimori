@@ -1,0 +1,9 @@
+.block.contest_winners
+  .medal
+  .winners
+    - contest_winners.each do |contest_winner|
+      .winner
+        = t '.top_in', position: contest_winner.position
+        a.b-link[
+          href="#{contest_url contest_winner.contest}"
+        ] = localized_name contest_winner.contest

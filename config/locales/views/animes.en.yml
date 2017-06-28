@@ -59,7 +59,6 @@ en:
       new_torrent: New torrent
       parse_page: Parse page
       parse: Parse
-      top_in: '#%{position} in '
       torrents:
         torrents_480p: 480p videos
         torrents_720p: 720p HD videos

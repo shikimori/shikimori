@@ -15,3 +15,5 @@ ru:
         up: вверх
       image:
         warning: Текущая картинка будет безвозвратно удалена и перестанет обновляться с MAL.
+    contest_winners:
+      top_in: '№%{position} в '
