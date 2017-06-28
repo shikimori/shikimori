@@ -42,6 +42,9 @@ class ShikimoriController < ApplicationController
           expected_url
       )
     end
+
+  rescue URI::InvalidURIError
+    raise ForceRedirect, expected_url
   end
 
   def resource_redirect
