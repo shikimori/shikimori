@@ -17,6 +17,6 @@ private
   end
 
   def parser
-    "MalParser::Entry::#{@entry.class.name}".constantize
+    "MalParser::Entry::#{@entry.class.base_class.name}".constantize
   end
 end

@@ -7,10 +7,10 @@ class ImagesVerifier
   )
 
   def perform
-    Anime.find_each {|v| check_image v }
-    Manga.find_each {|v| check_image v }
-    Character.find_each {|v| check_image v }
-    Person.find_each {|v| check_image v }
+    Anime.find_each { |entry| check_image entry }
+    Manga.find_each { |entry| check_image entry }
+    Character.find_each { |entry| check_image entry }
+    Person.find_each { |entry| check_image entry }
   end
 
   def check_image entry
