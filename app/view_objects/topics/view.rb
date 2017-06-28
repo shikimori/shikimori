@@ -143,7 +143,7 @@ class Topics::View < ViewObjectBase
   end
 
   def need_trucation?
-    preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
+    minified? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
   end
 
   def read_more_link?
