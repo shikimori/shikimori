@@ -38,7 +38,12 @@ describe VideoExtractor::YoutubeExtractor do
       end
 
       context 'with time' do
-        let(:url) { 'http://www.youtube.com/watch?v=VdwKZ6JDENc#t=123' }
+        let(:url) do
+          [
+            'http://www.youtube.com/watch?v=VdwKZ6JDENc#t=123',
+            'http://www.youtube.com/watch?v=VdwKZ6JDENc#at=123'
+          ].sample
+        end
 
         its(:hosting) { is_expected.to eq :youtube }
         its(:image_url) { is_expected.to eq '//img.youtube.com/vi/VdwKZ6JDENc/mqdefault.jpg' }

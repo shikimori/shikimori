@@ -6,13 +6,13 @@ class VideoExtractor::YoutubeExtractor < VideoExtractor::BaseExtractor
       .*? (?: &(?:amp;)? | \? )
       v=(?<key>[\w_-]+)
       [^ $#<\[]*
-      (?:\#t=(?<time>\d+))?
+      (?:\#(?:t|at)=(?<time>\d+))?
 
       |
 
       youtu.be/
       (?<key>[\w_-]+)
-      (?:\?t=(?<time>\w+))?
+      (?:\?(?:t|at)=(?<time>\w+))?
 
       |
 
