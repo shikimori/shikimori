@@ -84,7 +84,7 @@
                     meta itemprop="ratingCount" content="#{@resource.rates_size}"
                   = render 'blocks/rate', score: @resource.score
 
-            - if @resource.contest_winners.any?
+            - if @resource.anime? && @resource.contest_winners.any?
               = render 'db_entries/contest_winners',
                 contest_winners: @resource.contest_winners
 
