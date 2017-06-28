@@ -18,6 +18,11 @@ class PersonDecorator < DbEntryDecorator
     2337 => { producer: true }
   }
 
+  FAVOURITES_SQL = <<-SQL.squish
+    (linked_type = '#{Anime.name}' and linked_id in (?)) or
+    (linked_type in ('#{Manga.name}', '#{Ranobe.name}') and linked_id in (?))
+  SQL
+
   def credentials?
     japanese.present? || object.name.present?
   end
@@ -65,8 +70,7 @@ class PersonDecorator < DbEntryDecorator
 
     sorted_works = FavouritesQuery.new
       .top_favourite([Anime.name, Manga.name], 6)
-      .where("(linked_type=? and linked_id in (?)) or (linked_type=? and linked_id in (?))",
-        Anime.name, anime_ids, Manga.name, manga_ids)
+      .where(FAVOURITES_SQL, anime_ids, manga_ids)
       .map {|v| [v.linked_id, v.linked_type] }
 
     drop_index = 0
@@ -78,7 +82,7 @@ class PersonDecorator < DbEntryDecorator
     end
 
     selected_anime_ids = sorted_works.select {|v| v[1] == Anime.name }.map(&:first)
-    selected_manga_ids = sorted_works.select {|v| v[1] == Manga.name }.map(&:first)
+    selected_manga_ids = sorted_works.select {|v| [Manga.name, Ranobe.name].include?(v[1]) }.map(&:first)
     (
       works.select {|v| v.anime? && selected_anime_ids.include?(v.id) } +
         works.select {|v| v.kinda_manga? && selected_manga_ids.include?(v.id) }
