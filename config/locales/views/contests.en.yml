@@ -2,7 +2,8 @@ en:
   contests:
     index:
       create_new_contest: Create new contest
-      list_of_all_contests: List of all contests
+      list_of_all_site_contests: List of all site contests
+      scheduled: Scheduled
 
     form:
       common: Common
@@ -37,10 +38,6 @@ en:
       candidates: Candidates
       no_candidates: no candidates
       unlikely_candidates: Unlikely candidates
-
-    index:
-      create_new_contest: Create new contest
-      list_of_all_site_contests: List of all site contests
 
     page: &page
       back_to_contest_page: Back to contest page

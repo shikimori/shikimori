@@ -9,10 +9,13 @@ header.head.misc
   p.notice.clearfix = t '.list_of_all_site_contests'
 
 .contests
-  - @collection.group_by(&:state).each do |state, contests|
+  - @collection.group_by { |v| v.started? && v.started_on > Time.zone.today ? :scheduled : v.state }.each do |state, contests|
     .block
       .subheadline
-        = t("activerecord.state_machines.contest.states.#{state}").capitalize
+        - if state == :scheduled
+          = t '.scheduled'
+        - else
+          = t("activerecord.state_machines.contest.states.#{state}").capitalize
       ol
         = render partial: 'contests/contest', collection: contests
 

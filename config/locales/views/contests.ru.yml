@@ -2,7 +2,8 @@ ru:
   contests:
     index:
       create_new_contest: Создать новый турнир
-      list_of_all_contests: Список всех турниров сайта
+      list_of_all_site_contests: Список всех турниров сайта
+      scheduled: Запланировано
 
     form:
       common: Общее
@@ -38,10 +39,6 @@ ru:
       candidates: Кандидаты
       no_candidates: нет кандидатов
       unlikely_candidates: Кандидаты под вопросом
-
-    index:
-      create_new_contest: Создать новый турнир
-      list_of_all_site_contests: Список всех турниров сайта
 
     page: &page
       back_to_contest_page: Назад на страницу опроса

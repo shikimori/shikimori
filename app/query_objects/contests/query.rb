@@ -3,7 +3,9 @@ class Contests::Query < QueryObjectBase
     position(
       #{Contest.table_name}.state::text in
       #{Contest.sanitize %w[started proposing created finished].join(',')}
-    ), started_on desc
+    ),
+    case when started_on > cast(now() as date) then 2 else 1 end,
+    started_on desc
   SQL
 
   def self.fetch
