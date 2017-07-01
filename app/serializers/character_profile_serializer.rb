@@ -4,8 +4,8 @@ class CharacterProfileSerializer < CharacterSerializer
     :favoured, :thread_id, :topic_id, :updated_at
 
   has_many :seyu
-  has_many :animes
-  has_many :mangas
+  has_many :animes, serializer: AnimeWithRoleSerializer
+  has_many :mangas, serializer: MangaWithRoleSerializer
 
   def description
     object.description.text
@@ -34,5 +34,23 @@ class CharacterProfileSerializer < CharacterSerializer
 
   def favoured
     object.favoured?
+  end
+
+  def animes
+    all_roles
+      .select { |role| role.anime_id.present? }
+      .map { |role| RoleEntry.new role.anime.decorate, role.role }
+  end
+
+  def mangas
+    all_roles
+      .select { |role| role.manga_id.present? }
+      .map { |role| RoleEntry.new role.manga.decorate, role.role }
+  end
+
+private
+
+  def all_roles
+    object.person_roles.includes(:anime, :manga)
   end
 end
