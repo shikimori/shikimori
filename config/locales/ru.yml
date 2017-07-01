@@ -33,6 +33,7 @@ ru:
         image: &poster Постер
         kind: Тип
         name: Английское название
+        synonyms: Альтернативные названия
         poster: *poster
         rating: Рейтинг
         released_on: Дата конца показа

@@ -8,4 +8,8 @@ class Topics::NewsTopics::ContestStatusTopic < Topics::NewsTopic
   def title
     i18n_t "title.#{action}"
   end
+
+  def full_title
+    "#{title} #{linked.title}"
+  end
 end
