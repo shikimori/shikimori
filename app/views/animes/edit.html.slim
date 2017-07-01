@@ -20,6 +20,12 @@
             = t 'actions.edit'
 
         li
+          .field = @resource.class.human_attribute_name(:synonyms)
+          .value = @resource.synonyms.join(', ')
+          a.b-js-action href="#{@resource.edit_field_url(:synonyms)}"
+            = t 'actions.edit'
+
+        li
           .field = @resource.class.human_attribute_name(:kind)
           .value = @resource.kind_text
           a.b-js-action href="#{@resource.edit_field_url(:kind)}"

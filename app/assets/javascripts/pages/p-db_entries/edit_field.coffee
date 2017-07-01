@@ -128,27 +128,54 @@ page_load '.db_entries-edit_field', ->
 
   if $('.edit-page.external_links').exists()
     require.ensure [], ->
-      init_app(
-        require('vue/instance').Vue,
-        require('vue/components/external_links/external_links.vue'),
-        require('vue/stores').external_links,
+      init_external_links_app(
+        require('vue/instance').Vue
+        require('vue/components/external_links/external_links.vue')
+        require('vue/stores').collection
       )
 
-init_app = (Vue, ExternalLinks, store) ->
+  if $('.edit-page.synonyms').exists()
+    require.ensure [], ->
+      init_synonyms_app(
+        require('vue/instance').Vue
+        require('vue/components/synonyms.vue')
+        require('vue/stores').collection
+      )
+
+init_external_links_app = (Vue, ExternalLinks, store) ->
   resource_type = $('#vue_external_links').data('resource_type')
   entry_type = $('#vue_external_links').data('entry_type')
   entry_id = $('#vue_external_links').data('entry_id')
   external_links = $('#vue_external_links').data('external_links')
   kind_options = $('#vue_external_links').data('kind_options')
 
-  store.state.external_links = external_links
+  store.state.collection = external_links
 
   new Vue
     el: '#vue_external_links'
     store: store
     render: (h) -> h(ExternalLinks, props: {
-      kind_options: kind_options,
-      resource_type: resource_type,
+      kind_options: kind_options
+      resource_type: resource_type
+      entry_type: entry_type
+      entry_id: entry_id
+    })
+
+init_synonyms_app = (Vue, Synonyms, store) ->
+  resource_type = $('#vue_synonyms').data('resource_type')
+  entry_type = $('#vue_synonyms').data('entry_type')
+  entry_id = $('#vue_synonyms').data('entry_id')
+  synonyms = $('#vue_synonyms').data('synonyms')
+
+  store.state.collection = synonyms.map (synonym, index) ->
+    key: index
+    name: synonym
+
+  new Vue
+    el: '#vue_synonyms'
+    store: store
+    render: (h) -> h(Synonyms, props: {
+      resource_type: resource_type
       entry_type: entry_type
       entry_id: entry_id
     })

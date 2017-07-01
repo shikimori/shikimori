@@ -2,27 +2,33 @@
   .block
     input(
       type="hidden"
-      :name="`${resource_type.toLowerCase()}[external_links][]`"
+      :name="`${resource_type.toLowerCase()}[synonyms][]`"
       v-if="is_empty"
     )
     .b-nothing_here(
       v-if="!collection.length"
     )
-      | {{ I18n.t('frontend.external_links.nothing_here') }}
+      | {{ I18n.t('frontend.synonyms.nothing_here') }}
     draggable.block(
       :options="drag_options"
       v-model="collection"
       v-if="collection.length"
     )
-      ExternalLink(
-        v-for="link in collection"
-        :key="link.id || link.key"
-        :link="link"
-        :kind_options="kind_options"
-        :resource_type="resource_type"
-        :entry_type="entry_type"
-        :entry_id="entry_id"
+      .b-collection_item(
+        v-for="synonym in collection"
       )
+        .delete(
+          @click="remove(synonym)"
+        )
+        .drag-handle
+        .b-input
+          input(
+            type="text"
+            v-model="synonym.name"
+            :name="`${resource_type.toLowerCase()}[synonyms][]`"
+            :placeholder="I18n.t('frontend.synonyms.name')"
+          )
+
     .b-button(
       @click="add"
     ) {{ I18n.t('actions.add') }}
@@ -30,13 +36,11 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import ExternalLink from './external_link'
 import draggable from 'vuedraggable'
 
 export default {
-  components: { ExternalLink, draggable },
+  components: { draggable },
   props: {
-    kind_options: Array,
     resource_type: String,
     entry_type: String,
     entry_id: Number
@@ -44,7 +48,7 @@ export default {
   data() {
     return {
       drag_options: {
-        group: 'external_links',
+        group: 'synonyms',
         handle: '.drag-handle'
       }
     }
@@ -64,20 +68,28 @@ export default {
   },
   methods: {
     add() {
-      this.$store.dispatch('add', {
-        kind: this.kind_options.first().last(),
-        source: 'shikimori',
-        url: '',
-        id: '',
-        entry_id: this.entry_id,
-        entry_type: this.entry_type
-      })
-    }
+      this.$store.dispatch('add', { name: '' })
+    },
+    ...mapActions([
+      'remove'
+    ])
   }
 }
 </script>
 
 <style scoped lang="sass">
-  .b-nothing_here
-    margin-bottom: 15px
+  .b-collection_item
+    .delete
+      top: 3px
+
+    .drag-handle
+      top: 3px
+      left: 53px
+
+    &:first-child:last-child
+      .drag-handle
+        display: none
+
+    .b-input
+      margin-left: 25px
 </style>

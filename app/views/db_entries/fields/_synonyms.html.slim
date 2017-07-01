@@ -1,0 +1,14 @@
+.cc-2
+  .c-column
+    = simple_form_for resource.object do |f|
+      #vue_synonyms[
+        data-resource_type="#{@resource.object.class.name}"
+        data-entry_id="#{@resource.id}"
+        data-entry_type="#{@resource.object.class.base_class.name}"
+        data-synonyms="#{@resource.synonyms.to_json}"
+      ]
+      = render 'versions/reason'
+
+      .buttons
+        a.cancel href="#{resource.edit_url}" = t 'actions.cancel'
+        = f.button :magic_submit

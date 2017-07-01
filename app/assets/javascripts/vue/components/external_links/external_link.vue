@@ -1,7 +1,7 @@
 <template lang="pug">
   .b-collection_item
     .delete(
-      @click="remove_link(link)"
+      @click="remove(link)"
     )
     .drag-handle
     input(
@@ -76,7 +76,7 @@ export default {
       }
     },
     ...mapActions([
-      'remove_link'
+      'remove'
     ])
   },
   mounted() {
