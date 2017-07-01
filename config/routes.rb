@@ -616,7 +616,7 @@ Rails.application.routes.draw do
         member do
           get :characters
           get :staff
-          get :files
+          get :files if kind == 'animes'
           get :similar
           get :screenshots
           get :videos

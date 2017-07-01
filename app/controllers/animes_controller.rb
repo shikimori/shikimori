@@ -49,7 +49,7 @@ class AnimesController < DbEntriesController
   end
 
   def files
-    return redirect_to @resource.url, status: 301 unless @resource.display_sensitive?
+    return redirect_to @resource.url, status: 301 unless @resource.files?
 
     noindex
     page_title i18n_t 'files'

@@ -30,6 +30,10 @@ class AniMangaDecorator < DbEntryDecorator
     object.reviews.visible.count
   end
 
+  def files?
+    display_sensitive? && object.anime?
+  end
+
   # есть ли обзоры
   def reviews?
     reviews_count > 0
