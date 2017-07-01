@@ -9,7 +9,7 @@ class Anime < DbEntry
   include ElasticsearchConcern
 
   DESYNCABLE = %w[
-    name kind episodes rating aired_on released_on status genres
+    name synonyms kind episodes rating aired_on released_on status genres
     description_en image external_links
   ]
   EXCLUDED_ONGOINGS = %w[966 1199 1960 2406 4459 6149 7511 7643 8189 8336 8631

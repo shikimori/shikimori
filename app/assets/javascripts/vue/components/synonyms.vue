@@ -69,6 +69,9 @@ export default {
   methods: {
     add() {
       this.$store.dispatch('add', { name: '' })
+      this.$nextTick(() => {
+        $('input', this.$el).last().focus()
+      })
     },
     ...mapActions([
       'remove'

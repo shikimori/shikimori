@@ -17,18 +17,19 @@ module.exports = new Vuex.Store
     REPLACE: (state, new_collection) ->
       state.collection = new_collection
 
-    ADD: (state, link_data) ->
-      state.collection.push Object.add(link_data, key: new_id())
+    ADD: (state, item_data) ->
+      state.collection.push Object.add(item_data, key: new_id())
 
-    REMOVE: (state, link) ->
+    REMOVE: (state, item) ->
       state.collection.splice(
-        state.collection.indexOf(link),
+        state.collection.indexOf(item),
         1
       )
 
   getters:
     collection: (store) -> store.collection
     is_empty: (store) ->
-      store.collection.every (link) -> Object.isEmpty(link.url)
+      store.collection.every (item) ->
+        Object.isEmpty(item.url) && Object.isEmpty(item.name)
 
   modules: {}

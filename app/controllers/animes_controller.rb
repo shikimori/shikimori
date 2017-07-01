@@ -21,7 +21,11 @@ class AnimesController < DbEntriesController
     tags
     description_ru
     description_en
-  ] + [*Anime::DESYNCABLE, external_links: [EXTERNAL_LINK_PARAMS]]
+  ] + [
+    *Anime::DESYNCABLE,
+    external_links: [EXTERNAL_LINK_PARAMS],
+    synonyms: []
+  ]
 
   # display anime or manga
   def show
