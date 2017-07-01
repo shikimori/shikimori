@@ -195,15 +195,17 @@ Rails.application.routes.draw do
         resources :videos, only: %i[index create destroy]
       end
       resource :calendar, only: %i[show]
-      resources :mangas, only: %i[show index] do
-        member do
-          get :roles
-          get :similar
-          get :related
-          get :franchise
-          get :external_links
+      %i[mangas ranobe].each do |kind|
+        resources kind, only: %i[show index] do
+          member do
+            get :roles
+            get :similar
+            get :related
+            get :franchise
+            get :external_links
+          end
+          get :search, on: :collection
         end
-        get :search, on: :collection
       end
 
       resources :devices, only: %i[create update index destroy] do

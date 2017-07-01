@@ -4,8 +4,7 @@ describe AnimesCollection::PageQuery do
       klass: klass,
       params: params,
       user: nil,
-      limit: 20,
-      is_all_manga: is_all_manga
+      limit: 20
     )
   end
 
@@ -18,7 +17,6 @@ describe AnimesCollection::PageQuery do
 
   let(:params) { { type: type } }
   let(:type) { nil }
-  let(:is_all_manga) { nil }
 
   context 'anime' do
     let(:klass) { Anime }
@@ -66,18 +64,6 @@ describe AnimesCollection::PageQuery do
         page: 1,
         pages_count: 1
       )
-    end
-
-    context 'is_all_manga' do
-      let(:is_all_manga) { true }
-
-      it do
-        is_expected.to have_attributes(
-          collection: [manga, ranobe],
-          page: 1,
-          pages_count: 1
-        )
-      end
     end
   end
 

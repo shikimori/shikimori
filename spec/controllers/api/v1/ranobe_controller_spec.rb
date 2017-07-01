@@ -1,0 +1,121 @@
+describe Api::V1::RanobeController, :show_in_doc do
+  describe '#index' do
+    include_context :authenticated, :user
+
+    let(:user) { create :user }
+    let(:genre) { create :genre }
+    let(:publisher) { create :publisher }
+    let!(:user_rate) { create :user_rate, target: ranobe, user: user, status: 1 }
+    let(:ranobe) do
+      create :ranobe,
+        name: 'Test',
+        aired_on: Date.parse('2014-01-01'),
+        publishers: [publisher],
+        genres: [genre]
+    end
+
+    before do
+      allow(Search::Ranobe).to receive(:call) { |params| params[:scope] }
+    end
+
+    before do
+      get :index,
+        params: {
+          page: 1,
+          limit: 1,
+          season: '2014',
+          genre: genre.id.to_s,
+          publisher: publisher.id.to_s,
+          search: 'Te',
+          order: 'ranked',
+          mylist: '1',
+          censored: 'false'
+        },
+        format: :json
+    end
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
+  end
+
+  describe '#show' do
+    let(:ranobe) { create :ranobe, :with_topics }
+    before { get :show, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#similar' do
+    let(:ranobe) { create :ranobe }
+    let!(:similar) { create :similar_manga, src: ranobe }
+    before { get :similar, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
+  end
+
+  describe '#roles' do
+    let(:ranobe) { create :ranobe }
+    let(:character) { create :character }
+    let(:person) { create :person }
+    let!(:role_1) { create :person_role, manga: ranobe, character: character, role: 'Main' }
+    let!(:role_2) { create :person_role, manga: ranobe, person: person, role: 'Director' }
+    before { get :roles, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(2).items
+    end
+  end
+
+  describe '#related' do
+    let(:ranobe) { create :ranobe }
+    let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
+    before { get :related, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+      expect(collection).to have(1).item
+    end
+  end
+
+  describe '#franchise' do
+    let(:ranobe) { create :ranobe }
+    let!(:similar) { create :related_manga, source: ranobe, manga: create(:ranobe), relation: 'Adaptation' }
+    before { get :franchise, params: { id: ranobe.id }, format: :json }
+    after { BannedRelations.instance.clear_cache! }
+
+    it do
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+
+  describe '#external_links' do
+    let(:ranobe) { create :ranobe, mal_id: 123 }
+    let!(:external_links) do
+      create :external_link,
+        entry: ranobe,
+        kind: :wikipedia,
+        url: 'en.wikipedia.org'
+    end
+    before { get :external_links, params: { id: ranobe.id }, format: :json }
+
+    it do
+      expect(collection).to have(2).items
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
+end
