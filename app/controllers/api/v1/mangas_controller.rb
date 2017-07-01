@@ -197,7 +197,7 @@ private
       request.path,
       params.to_json,
       params[:mylist].present? ? current_user.try(:cache_key) : nil,
-      :v2
+      :v3
     ].join('|'))
   end
 
