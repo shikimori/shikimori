@@ -28,8 +28,11 @@ describe Moderations::BansController do
     context 'moderator' do
       before { post :create, params: { ban: { reason: 'test', duration: '1h', comment_id: comment.id, abuse_request_id: abuse_request.id } } }
 
-      it { expect(response).to have_http_status :success }
-      it { expect(response.content_type).to eq 'application/json' }
+      it do
+        expect(response).to have_http_status :success
+        expect(json.keys).to eq %i[id abuse_request_id comment_id notice html]
+        expect(response.content_type).to eq 'application/json'
+      end
     end
   end
 end
