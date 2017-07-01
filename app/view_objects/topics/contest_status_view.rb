@@ -16,6 +16,10 @@ class Topics::ContestStatusView < Topics::NewsView
   end
 
   def html_body
-    h.render "topics/contests/#{topic.action}", contest: topic.linked
+    h.render(
+      partial: "topics/contests/#{topic.action}",
+      locals: { contest: topic.linked },
+      formats: :html # must add format because topic also is rendered in rss xml
+    )
   end
 end
