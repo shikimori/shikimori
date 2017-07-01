@@ -43,56 +43,6 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         it { expect(response).to have_http_status :success }
       end
     end
-
-    describe 'verify adult' do
-      let!(:anime) { create :anime }
-      let!(:anime_video) { create :anime_video, episode: 1, anime: anime }
-      let(:episode) {}
-      let(:video_id) {}
-
-      before { allow_any_instance_of(Anime).to receive(:adult?).and_return adult }
-      before { @request.host = domain }
-      before { get :index, params: { anime_id: anime.to_param, episode: episode, video_id: video_id, domain: 'play' } }
-
-      context 'with redirect' do
-        let(:episode) { 2 }
-        let(:video_id) { anime_video.id }
-
-        context 'adult video' do
-          let(:adult) { true }
-          let(:domain) { 'play.shikimori.org' }
-
-          it { expect(response).to redirect_to(play_video_online_index_url anime,
-            episode: episode, video_id: video_id,
-            domain: AnimeOnlineDomain::HOST_XPLAY, subdomain: false) }
-        end
-
-        context 'adult domain' do
-          let(:adult) { false }
-          let(:domain) { 'xplay.shikimori.org' }
-
-          it { expect(response).to redirect_to(play_video_online_index_url anime,
-            episode: episode, video_id: video_id,
-            domain: AnimeOnlineDomain::HOST_PLAY, subdomain: false) }
-        end
-      end
-
-      context 'without redirect' do
-        context 'not adult' do
-          let(:adult) { false }
-          let(:domain) { 'play.shikimori.org' }
-
-          it { expect(response).to have_http_status :success }
-        end
-
-        context 'adult' do
-          let(:adult) { true }
-          let(:domain) { 'xplay.shikimori.org' }
-
-          it { expect(response).to have_http_status :success }
-        end
-      end
-    end
   end
 
   describe '#new' do

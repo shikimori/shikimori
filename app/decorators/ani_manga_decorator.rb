@@ -31,7 +31,8 @@ class AniMangaDecorator < DbEntryDecorator
   end
 
   def files?
-    display_sensitive? && object.anime?
+    anime? && display_sensitive? &&
+      h.user_signed_in? && h.current_user.day_registered?
   end
 
   # есть ли обзоры
