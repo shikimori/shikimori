@@ -96,24 +96,9 @@ class AniMangaDecorator < DbEntryDecorator
     ChronologyQuery.new(object).fetch.map(&:decorate)
   end
 
-  # показывать ли блок файлов
-  def files?
-    allowed_watch_online? &&
-      h.user_signed_in? &&
-      h.current_user.day_registered?
-  end
-
-  def allowed_watch_online?
-    anime? && !anons? && h.ignore_copyright? && display_sensitive? && (
-      h.user_signed_in? ||
-      (!h.user_signed_in? && !Copyright::DAISUKI_COPYRIGHTED.include?(id))
-    ) && !Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(id)
-  end
-
   # показывать ли ссылки, если аниме или манга для взрослых?
   def display_sensitive?
-    !object.censored?# ||
-      # (h.user_signed_in? && h.current_user.day_registered?)
+    !object.censored? && h.ignore_copyright?
   end
 
   # есть ли видео для просмотра онлайн?

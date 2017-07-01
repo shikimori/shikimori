@@ -25,7 +25,7 @@ module Copyright
     20973, # World Conquest Zvezda Plot
   ]
 
-  COPYRIGHTED_WITH_EMAIL_WARNING = [
+  ISTARI_COPYRIGHTED = [
     # письмо от post@webkontrol.ru на mail+copyright@shikimori.org
     # [Notice_ID:*IdOAQy*] Nintendo Company Ltd - Нарушение прав правообладателей / Nintendo Company Ltd - Abuse
     19157,

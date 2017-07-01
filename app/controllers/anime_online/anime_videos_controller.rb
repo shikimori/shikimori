@@ -14,8 +14,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
   ]
 
   def index
-    return redirect_to valid_host_url unless valid_host?
-    return redirect_to @resource.url unless ignore_copyright?
+    # return redirect_to valid_host_url unless valid_host?
+    # return redirect_to @resource.url unless ignore_copyright?
 
     @player = AnimeOnline::VideoPlayer.new @anime
     @video = @player.current_video

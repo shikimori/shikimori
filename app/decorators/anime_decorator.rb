@@ -76,6 +76,12 @@ class AnimeDecorator < AniMangaDecorator
     'http://schema.org/Movie'
   end
 
+  def licensed?
+    # Copyright::DAISUKI_COPYRIGHTED.include?(id) ||
+    Copyright::IVI_RU_COPYRIGHTED.include?(id) ||
+      Copyright::ISTARI_COPYRIGHTED.include?(id)
+  end
+
 private
 
   def next_broadcast_at

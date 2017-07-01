@@ -225,7 +225,10 @@ class ApplicationController < ActionController::Base
   end
 
   def ignore_copyright?
-    current_user&.day_registered? || GeoipAccess.instance.allowed?(remote_addr)
+    ru_host? && (
+      current_user&.day_registered? ||
+      GeoipAccess.instance.allowed?(remote_addr)
+    )
   end
 
   # faye токен текущего пользователя

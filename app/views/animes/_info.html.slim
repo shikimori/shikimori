@@ -75,7 +75,7 @@
           span.linkeable data-href="#{entry.preview_topic_view.url}"
             = "#{entry.preview_topic_view.comments_count} #{i18n_i 'comment', entry.preview_topic_view.comments_count}"
 
-      - if entry.display_sensitive? && (entry.files? || entry.tags.present? || entry.cosplay?)
+      - if entry.display_sensitive? || entry.tags.present? || entry.cosplay?
         .line-container
           - if entry.cosplay?
             a href="#{entry.cosplay_url}" title="#{t '.cosplay'}" = t '.cosplay'
@@ -83,5 +83,4 @@
           - if entry.tags.present?
             span.linkeable data-href="#{entry.art_url}" = t '.art'
 
-          - if entry.files?
-            span.link.linkeable data-href="#{entry.files_url}" = t '.files'
+          span.link.linkeable data-href="#{entry.files_url}" = t '.files'

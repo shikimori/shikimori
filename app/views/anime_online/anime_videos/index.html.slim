@@ -2,17 +2,28 @@
   = render 'sponsors/ad', ad: Ad.new(728, 90), obtrusive: true
 
 = render layout: 'animes/page' do
-  - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)
+  / - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)
+    / .b-errors
+      / .subheadline Просмотр недоступен
+      / p Отключено по требованию правообладателя
+
+    / = render 'anime_online/anime_videos/ivi_video'
+
+  / - elsif Copyright::ISTARI_COPYRIGHTED.include?(@resource.id)
+    / .b-errors
+      / .subheadline Просмотр недоступен
+      / p Отключено по требованию правообладателя
+
+  - if @resource.licensed?
     .b-errors
       .subheadline Просмотр недоступен
-      p Отключено по требованию правообладателя
+      p Отключено по требованию правообладателя.
 
-    = render 'anime_online/anime_videos/ivi_video'
-
-  - elsif Copyright::COPYRIGHTED_WITH_EMAIL_WARNING.include?(@resource.id)
+  - elsif @resource.censored?
     .b-errors
       .subheadline Просмотр недоступен
-      p Отключено по требованию правообладателя
+      p Отключено после принятия в 2016 году закона в РФ,
+        приравнивающего хентай к детскому порно.
 
   - else
     .player-container

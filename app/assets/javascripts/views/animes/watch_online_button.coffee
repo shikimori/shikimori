@@ -1,7 +1,6 @@
 using 'Animes'
 class Animes.WathOnlineButton extends View
-  WATCH_ONLINE_TEMPLATE = 'animes/watch_online'
-  UPLOAD_VIDEOS_TEMPLATE = 'animes/upload_videos'
+  TEMPLATE_PATH = 'animes/watch_online_button'
 
   initialize: (@options) ->
     return unless @options.is_allowed
@@ -11,11 +10,17 @@ class Animes.WathOnlineButton extends View
     delay().then => @_setup_handlers()
 
   _render: ->
-    if @options.has_videos
-      @$root.html JST[WATCH_ONLINE_TEMPLATE](url: @options.watch_url)
+    if @options.is_licensed
+      @$root.html JST["#{TEMPLATE_PATH}/licensed"]()
 
-    else if @options.can_upload
-      @$root.html JST[UPLOAD_VIDEOS_TEMPLATE](url: @options.upload_url)
+    else if @options.is_censored
+      @$root.html JST["#{TEMPLATE_PATH}/censored"]()
+
+    else if @options.has_videos
+      @$root.html JST["#{TEMPLATE_PATH}/watch"](url: @options.watch_url)
+
+    else
+      @$root.html JST["#{TEMPLATE_PATH}/upload"](url: @options.upload_url)
 
   _setup_handlers: =>
     @$('.watch-online').on 'click', @_click

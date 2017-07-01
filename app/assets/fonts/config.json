@@ -521,6 +521,12 @@
       "css": "award",
       "code": 59415,
       "src": "modernpics"
+    },
+    {
+      "uid": "98d9c83c1ee7c2c25af784b518c522c5",
+      "css": "block",
+      "code": 25269,
+      "src": "fontawesome"
     }
   ]
 }

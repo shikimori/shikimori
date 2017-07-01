@@ -62,6 +62,11 @@
       border-color: darken($link-4, 2%)
       color: #fff
 
+    &.disabled, &.disabled:hover, &.disabled:active
+      cursor: default
+      background-color: #7b8590
+      border-color: darken(#7b8590, 3%)
+
   &.maxi
     font-size: 20px
     padding: 9px 0
@@ -110,6 +115,10 @@
   // anime page
   &.watch-online
     +link_button_icon('\e831')
+  &.is-licensed
+    +link_button_icon('\e82b')
+  &.is-censored//, &.is-licensed
+    +link_button_icon('抵')
 
   &.upload-video
     +link_button_icon('\e80c')
