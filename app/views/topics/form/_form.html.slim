@@ -1,5 +1,5 @@
 - topic_type_policy = Topic::TypePolicy.new topic
-- submit_url = topic_type_policy.any_club_topic? ? (topic.persisted? ? club_club_topic_url(topic) : club_club_topics_url) : (topic.persisted? ? topic_url(topic) : topics_url)
+- submit_url = topic.persisted? ? topic_url(topic) : topics_url
 
 = simple_form_for topic, url: submit_url, as: :topic do |f|
   input type="hidden" name="rules_passed" value="1"
