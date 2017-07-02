@@ -6,6 +6,13 @@ class ShikiMailer < ActionMailer::Base
 
   default from: "noreply@#{Site::DOMAIN}"
 
+  rescue_from Net::SMTPSyntaxError do
+    user = User.find_by email: message.to.first
+
+    Messages::CreateNotification.new(user).bad_email
+    NamedLogger.email.info "failed to send email to #{user.email}"
+  end
+
   def test_mail email = 'takandar@gmail.com'
     return if generated? email
 
@@ -39,10 +46,6 @@ class ShikiMailer < ActionMailer::Base
     )
 
     mail to: message.to.email, subject: subject, body: body
-
-  rescue Net::SMTPSyntaxError
-    Messages::CreateNotification.new(message.to).bad_email
-    NamedLogger.email.info "failed to send email to #{Array(mail.to).join ', '}"
   end
 
   def reset_password_instructions user, token, options
@@ -69,10 +72,6 @@ class ShikiMailer < ActionMailer::Base
       tag: 'password-reset',
       body: body
     )
-
-  rescue Net::SMTPSyntaxError
-    Messages::CreateNotification.new(user).bad_email
-    NamedLogger.email.info "failed to send email to #{Array(mail.to).join ', '}"
   end
 
   #def mail options, *args
