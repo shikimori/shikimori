@@ -184,9 +184,6 @@ ru:
         [*]10. Модератор всегда прав(а). Действия модератора не обсуждаются.
         Требования модератора обязательны к выполнению.
         [/list]
-    faq:
-      title: FAQ
-      description: Часто задаваемые вопросы
     description_of_genres:
       title: Описания жанров
       description: Для желающих помочь сайту
@@ -209,3 +206,7 @@ ru:
         [url=http://shikimori.org/s/100943-Spisok-lyudey-s-nepravilnymi-opisaniyami]
         сюда
         [/url].
+  sticky_club_view:
+    faq:
+      # name: FAQ
+      description: Часто задаваемые вопросы

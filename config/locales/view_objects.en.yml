@@ -173,9 +173,6 @@ en:
         [*]10. Moderator is always right. All moderator's decisions are final
         and are not to be discussed.
         [/list]
-    faq:
-      title: FAQ
-      description: Frequently asked questions
     description_of_genres:
       title: Description of genres
       description: For those wishing to help the site
@@ -193,3 +190,7 @@ en:
       body: >-
         Describe the problem here if something doesn't work at all or
         doesn't work as expected.
+  sticky_club_view:
+    faq:
+      # name: FAQ
+      description: Frequently asked questions

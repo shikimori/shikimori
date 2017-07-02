@@ -8,7 +8,7 @@ class Messages::CreateNotification
     locale = @target.locale
     body = i18n_t(
       'user_registered_message',
-      faq_url: StickyTopicView.faq(locale).url,
+      faq_url: StickyClubView.faq(locale).url,
       site_rules_url: StickyTopicView.site_rules(locale).url,
       settings_path: @target.to_param,
       locale: locale

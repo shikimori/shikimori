@@ -324,7 +324,7 @@ describe Topics::Query do
       let(:phrase) { '' }
 
       it do
-        is_expected.to have(9).items
+        is_expected.to have(8).items
         expect(Elasticsearch::Query::Topic).to_not have_received :call
       end
     end
@@ -337,7 +337,7 @@ describe Topics::Query do
     subject(:views) { query.as_views(is_preview, is_mini) }
 
     it do
-      expect(views).to have(6).items
+      expect(views).to have(5).items
       expect(views.first).to be_kind_of Topics::View
       expect(views.first.is_mini).to eq true
       expect(views.first.is_preview).to eq true

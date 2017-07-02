@@ -117,14 +117,6 @@ FactoryGirl.define do
       updated_at { 2.days.ago }
       forum { seed :offtopic_forum }
     end
-    trait :faq do
-      id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:faq][:ru]
-      title 'faq'
-      body 'faq'
-      created_at { 3.days.ago }
-      updated_at { 3.days.ago }
-      forum { seed :offtopic_forum }
-    end
     trait :description_of_genres do
       id Topic::TOPIC_IDS[Forum::OFFTOPIC_ID][:description_of_genres][:ru]
       title 'description of genres'
@@ -152,7 +144,6 @@ FactoryGirl.define do
 
     factory :offtopic_topic, traits: [:offtopic]
     factory :site_rules_topic, traits: [:site_rules]
-    factory :faq_topic, traits: [:faq]
     factory :description_of_genres_topic, traits: [:description_of_genres]
     factory :ideas_and_suggestions_topic, traits: [:ideas_and_suggestions]
     factory :site_problems_topic, traits: [:site_problems]

@@ -41,7 +41,7 @@ class Forums::Menu < ViewObjectBase
     if h.ru_host?
       [
         StickyTopicView.site_rules(h.locale_from_host),
-        StickyTopicView.faq(h.locale_from_host),
+        StickyClubView.faq(h.locale_from_host),
         StickyTopicView.description_of_genres(h.locale_from_host),
         StickyTopicView.ideas_and_suggestions(h.locale_from_host),
         StickyTopicView.site_problems(h.locale_from_host)

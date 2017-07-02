@@ -58,5 +58,15 @@ FactoryGirl.define do
     trait :with_logo do
       logo { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
     end
+
+
+    trait :faq do
+      id StickyClubView::CLUB_IDS[:faq][:ru]
+      name 'faq'
+      created_at { 3.days.ago }
+      updated_at { 3.days.ago }
+    end
+
+    factory :faq_club, traits: [:faq]
   end
 end

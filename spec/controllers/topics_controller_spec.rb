@@ -31,7 +31,7 @@ describe TopicsController do
       # offtopic_topic_1 + 6 seeded offtopic topics
       # (offtopic topic itself + 5 offtopic sticky topics)
       it do
-        expect(assigns(:forums_view).topic_views).to have(7).items
+        expect(assigns(:forums_view).topic_views).to have(6).items
         expect(response).to have_http_status :success
       end
     end

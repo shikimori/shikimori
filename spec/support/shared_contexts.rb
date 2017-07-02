@@ -57,11 +57,14 @@ shared_context :seeds do
   include_context :sticky_topics
 end
 
+shared_context :sticky_clubs do
+  let(:faq_club) { seed :faq_club }
+end
+
 shared_context :sticky_topics do
   let(:offtopic_topic) { seed :offtopic_topic }
 
   let(:site_rules_topic) { seed :site_rules_topic }
-  let(:faq_topic) { seed :faq_topic }
   let(:description_of_genres_topic) { seed :description_of_genres_topic }
   let(:ideas_and_suggestions_topic) { seed :ideas_and_suggestions_topic }
   let(:site_problems_topic) { seed :site_problems_topic }
@@ -70,7 +73,6 @@ shared_context :sticky_topics do
     [
       offtopic_topic,
       site_rules_topic,
-      faq_topic,
       description_of_genres_topic,
       ideas_and_suggestions_topic,
       site_problems_topic
