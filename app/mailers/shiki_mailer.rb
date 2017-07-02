@@ -39,12 +39,14 @@ class ShikiMailer < ActionMailer::Base
     )
 
     mail to: message.to.email, subject: subject, body: body
+
+  rescue Net::SMTPSyntaxError
+    Messages::CreateNotification.new(message.to).bad_email
+    NamedLogger.email.info "failed to send email to #{Array(mail.to).join ', '}"
   end
 
   def reset_password_instructions user, token, options
     return if generated? user.email
-    @resource = user
-    @token = token
 
     subject = i18n_t(
       'reset_password_instructions.subject',
@@ -55,20 +57,21 @@ class ShikiMailer < ActionMailer::Base
       site_link: Site::DOMAIN,
       nickname: user.nickname,
       reset_password_link: edit_user_password_url(
-        reset_password_token: @token,
+        reset_password_token: token,
         protocol: :https
       ),
       locale: user.locale
     )
 
     mail(
-      to: @resource.email,
+      to: user.email,
       subject: subject,
       tag: 'password-reset',
       body: body
     )
 
   rescue Net::SMTPSyntaxError
+    Messages::CreateNotification.new(user).bad_email
     NamedLogger.email.info "failed to send email to #{Array(mail.to).join ', '}"
   end
 
