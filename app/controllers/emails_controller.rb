@@ -6,12 +6,7 @@ class EmailsController < ShikimoriController
     user = User.find_by email: email
 
     if user.present? && email.present?
-      Message.create_wo_antispam!(
-        from_id: BotsService.get_poster.id,
-        to_id: user.id,
-        kind: MessageType::Notification,
-        body: "Наш почтовый сервис не смог доставить письмо на вашу почту #{user.email}.\nВы либо указали несуществующий почтовый ящик, либо когда-то пометили одно из наших писем как спам. Рекомендуем сменить e-mail в настройках профиля, иначе при утере пароля вы не сможете восстановить свой аккаунт."
-      )
+      Messages::CreateNotification.new(user).bad_email
       shush! user
     end
 

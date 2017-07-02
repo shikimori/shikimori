@@ -116,6 +116,21 @@ class Messages::CreateNotification
     end
   end
 
+  def bad_email
+    body = i18n_t(
+      'bad_email_message',
+      email: @target.email,
+      locale: @target.locale
+    )
+
+    Message.create_wo_antispam!(
+      from_id: BotsService.get_poster.id,
+      to_id: @target.id,
+      kind: MessageType::Notification,
+      body: body
+    )
+  end
+
 private
 
   def create_comment user, topic, body

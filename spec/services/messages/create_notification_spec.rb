@@ -1,6 +1,9 @@
 describe Messages::CreateNotification do
   let(:service) { Messages::CreateNotification.new target }
 
+  before { allow(BotsService).to receive(:get_poster).and_return bot }
+  let(:bot) { seed :user }
+
   describe '#user_registered' do
     let(:target) { build_stubbed :user }
     let!(:sender) { seed :user }
@@ -76,10 +79,7 @@ describe Messages::CreateNotification do
     end
 
     context 'allowed_notifications' do
-      before { allow(BotsService).to receive(:get_poster).and_return bot }
-
       let(:notifications) { User::DEFAULT_NOTIFICATIONS }
-      let(:bot) { seed :user }
 
       it do
         expect { subject }.to change(Message, :count).by 1
@@ -108,7 +108,7 @@ describe Messages::CreateNotification do
     let(:target) { create :contest_round, contest: contest }
     let(:contest) { create :contest, :with_topics }
 
-    before { service.round_finished }
+    subject! { service.round_finished }
 
     it do
       contest.topics.each do |topic|
@@ -120,7 +120,7 @@ describe Messages::CreateNotification do
   describe '#contest_started' do
     let(:target) { create :contest, :with_topics }
 
-    before { service.contest_started }
+    subject! { service.contest_started }
 
     it do
       target.news_topics.each do |topic|
@@ -138,7 +138,7 @@ describe Messages::CreateNotification do
   describe '#contest_finished' do
     let(:target) { create :contest, :with_topics }
 
-    before { service.contest_finished }
+    subject! { service.contest_finished }
 
     it do
       target.topics.each do |topic|
@@ -153,6 +153,21 @@ describe Messages::CreateNotification do
           processed: false
         )
       end
+    end
+  end
+
+  describe '#bad_email' do
+    let(:target) { create :user }
+    subject { service.bad_email }
+
+    it do
+      expect { subject }.to change(Message, :count).by 1
+      is_expected.to be_persisted
+      is_expected.to have_attributes(
+        from: bot,
+        to: target,
+        kind: MessageType::Notification
+      )
     end
   end
 end

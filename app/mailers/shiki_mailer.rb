@@ -67,6 +67,9 @@ class ShikiMailer < ActionMailer::Base
       tag: 'password-reset',
       body: body
     )
+
+  rescue Net::SMTPSyntaxError
+    NamedLogger.email.info "failed to send email to #{Array(mail.to).join ', '}"
   end
 
   #def mail options, *args

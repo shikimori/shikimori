@@ -30,7 +30,17 @@ en:
       without_reason: >-
         Your [entry=%{topic_id}]%{entry_name}[/entry] was moved to offtopic
       reason: >-
-        becase of [quote=%{approver_nickname}]%{reason}[/quote]
+        because of [quote=%{approver_nickname}]%{reason}[/quote]
+    bad_email_message: >-
+      Our mail delivery service couldn't deliver mail to your
+      email %{email}.
+
+      You have either specified not existing email in profile settings
+      or marked one of our delivered mails as spam.
+
+      We recommend that you change your email in profile settings,
+      or else you won't be able to restore your account
+      if you forget you password.
   omniauth_service:
     new_user: New user
   bb_codes/replies_tag:
