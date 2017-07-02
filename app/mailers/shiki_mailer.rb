@@ -7,7 +7,7 @@ class ShikiMailer < ActionMailer::Base
   default from: "noreply@#{Site::DOMAIN}"
 
   rescue_from Net::SMTPSyntaxError do
-    user = User.find_by email: message.to.first
+    user = User.find_by email: message[:to].value
 
     Messages::CreateNotification.new(user).bad_email
     NamedLogger.email.info "failed to send email to #{user.email}"
