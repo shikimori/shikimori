@@ -11,7 +11,6 @@ class StickyTopicView < Dry::Struct
 
   STICKY_TOPICS = %i(
     site_rules
-    faq
     description_of_genres
     ideas_and_suggestions
     site_problems

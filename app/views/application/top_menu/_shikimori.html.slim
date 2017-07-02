@@ -102,9 +102,8 @@
       ] = t '.site_rules'
 
       - if ru_host?
-        - faq = StickyTopicView.faq(locale_from_host)
         a.entry[
-          href=faq.url
+          href="#{club_url '1093-faq-chasto-zadavaemye-voprosy'}"
           title="#{t '.faq'}"
         ] = t '.faq'
 
