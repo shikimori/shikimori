@@ -298,5 +298,10 @@ describe VideoExtractor::UrlExtractor do
       let(:html) { 'http://online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
       it { is_expected.to eq '//online.animaunt.ru/Anime%20Online/All%20Anime/%5BAniMaunt.Ru%5D%20JoJo%E2%80%99s%20Bizarre%20Adventure/jojo1.01.mp4' }
     end
+
+    describe 'kadu.ru' do
+      let(:html) { 'http://kadu.ru/embed/234689' }
+      it { is_expected.to eq '//kadu.ru/embed/234689' }
+    end
   end
 end

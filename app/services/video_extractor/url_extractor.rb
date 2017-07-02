@@ -128,6 +128,8 @@ private
       "#{$LAST_MATCH_INFO[:url]}"
     elsif html =~ ANIMAUNT_REGEXP
       "#{$LAST_MATCH_INFO[:url]}"
+    elsif html =~ %r{(?<url>#{HTTP}kadu.ru/embed#{CONTENT})}
+      $LAST_MATCH_INFO[:url]
     else
       puts "can't extract video url: '#{html}'" unless Rails.env.test?
       nil
