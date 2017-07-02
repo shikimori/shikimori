@@ -85,14 +85,15 @@ ru:
       hide: спрятать
 
     info:
-      next_episode: Следующий эпизод
-      first_episode: Первый эпизод
       anime_additionals: У аниме
-      manga_additionals: У манги
-      ranobe_additionals: У ранобэ
-      cosplay: Косплей
       art: Арт с имиджборд
+      cosplay: Косплей
       files: Файлы
+      first_episode: Первый эпизод
+      manga_additionals: У манги
+      next_episode: Следующий эпизод
+      other_names: Альтернативные названия
+      ranobe_additionals: У ранобэ
 
     other_names:
       other_names: Другие названия

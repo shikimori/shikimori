@@ -85,14 +85,15 @@ en:
       hide: hide
 
     info:
-      next_episode: Next episode
-      first_episode: First episode
       anime_additionals: Anime has
-      manga_additionals: Manga has
-      ranobe_additionals: Manga has
-      cosplay: Cosplay
       art: Imageboard
+      cosplay: Cosplay
       files: Files
+      first_episode: First episode
+      manga_additionals: Manga has
+      next_episode: Next episode
+      other_names: Alternative names
+      ranobe_additionals: Manga has
 
     other_names:
       other_names: Other names
