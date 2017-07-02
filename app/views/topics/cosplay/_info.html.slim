@@ -27,4 +27,8 @@
         | #{gallery.images.size} #{Russian.p gallery.images.size, 'кадр', 'кадра', 'кадров'}
 
   - unless cosplay_view.minified?
+    /# Template Dependency: animes/anime
+    /# Template Dependency: mangas/manga
+    /# Template Dependency: characters/character
+    /# Template Dependency: people/person
     = render cosplay_view.topic.linked
