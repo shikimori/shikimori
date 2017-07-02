@@ -87,13 +87,15 @@ en:
     info:
       next_episode: Next episode
       first_episode: First episode
-      other_names: Alternative names
       anime_additionals: Anime has
       manga_additionals: Manga has
       ranobe_additionals: Manga has
       cosplay: Cosplay
       art: Imageboard
       files: Files
+
+    other_names:
+      other_names: Other names
 
     studios_info:
       studio_animes: "%{studio_name} animes"

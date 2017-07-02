@@ -87,13 +87,15 @@ ru:
     info:
       next_episode: Следующий эпизод
       first_episode: Первый эпизод
-      other_names: Альтернативные названия
       anime_additionals: У аниме
       manga_additionals: У манги
       ranobe_additionals: У ранобэ
       cosplay: Косплей
       art: Арт с имиджборд
       files: Файлы
+
+    other_names:
+      other_names: Другие названия
 
     studios_info:
       studio_animes: Аниме студии %{studio_name}
