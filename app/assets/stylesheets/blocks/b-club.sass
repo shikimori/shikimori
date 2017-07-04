@@ -25,16 +25,16 @@
   .name, .info
     +ellipsis2
     display: block
-    font-size: 13px
-    line-height: 1
 
   .name
     +link
     font-weight: bold
+    line-height: 1
+    margin-bottom: 2px
 
   .info
-    display: inline
     font-size: 11px
+    line-height: $line-height
 
     .grouped
       +comma_separated(4px)
@@ -47,8 +47,6 @@
       color: $gray-2
 
     &.author
-      display: block
-
       .b-user16
         //font-size: 12px
 
