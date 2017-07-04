@@ -105,7 +105,7 @@
             as: :topic_view
 
     - resource.news_topic_views.any?
-      .block.menu-topics-block.history.m30[
+      .b-menu-links.menu-topics-block.history.m30[
         data-remote="#{episode_torrents_anime_url resource, subdomain: false if resource.display_sensitive? && !resource.licensed?}"
       ]
         .subheadline = t 'news'
