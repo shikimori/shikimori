@@ -1,5 +1,5 @@
 DB_ENTRY_URL_REGEXP =
-  /\/(?:animes|mangas|characters|people|ranobe)\/[A-z]*(\d+)([\w-]+)/
+  /\/(?:animes|mangas|characters|people|ranobe|clubs)\/[A-z]*(\d+)([\w-]+)/
 
 param_to_name = (param) ->
   param
