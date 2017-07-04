@@ -13,7 +13,7 @@
   = render 'clubs/actions', club: club
   = render 'clubs/club_pages/menu_pages', club: club, club_page: @club_page
 
-  = cache [club, :menu] do
+  = cache [club, club.clubs.cache_key, :menu] do
     - if club.animes.any?
       = render 'clubs/menu_linked_entries',
         collection: club.menu_animes,
@@ -56,9 +56,9 @@
           collection: club.admins,
           locals: { content_by: :named_avatar }
 
-    - if club.clubs.any?
+    - if club.menu_clubs.any?
       .subheadline.m10 = i18n_i 'club', :other
       .cc-4.admin
         = render partial: 'clubs/club',
-          collection: club.clubs,
+          collection: club.menu_clubs,
           locals: { content_by: :detailed }
