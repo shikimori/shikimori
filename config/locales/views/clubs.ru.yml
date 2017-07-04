@@ -28,6 +28,7 @@ ru:
         manga_title: Название манги
         ranobe_title: Название ранобэ
         character_name: Имя персонажа
+        club_name: Название клуба
       members:
         remove_users: Удаление пользователей
 

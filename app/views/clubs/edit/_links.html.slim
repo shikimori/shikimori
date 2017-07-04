@@ -14,8 +14,7 @@
         - @resource.all_animes.uniq(&:id).each do |anime|
           .variant
             = check_box_tag 'club[anime_ids][]', anime.id, checked: true
-            a.bubbled href="#{anime_url anime}"
-              = anime.name
+            a.bubbled href="#{anime_url anime}" = anime.name
 
     .c-column.block_m
       input.character-suggest.subheadline-input[
@@ -29,8 +28,7 @@
         - @resource.all_characters.uniq(&:id).each do |character|
           .variant
             = check_box_tag 'club[character_ids][]', character.id, checked: true
-            a.bubbled href="#{character_url character}"
-              = character.name
+            a.bubbled href="#{character_url character}" = character.name
 
   .cc-2a
     .c-column.block_m
@@ -45,8 +43,7 @@
         - @resource.all_mangas.uniq(&:id).each do |manga|
           .variant
             = check_box_tag 'club[manga_ids][]', manga.id, checked: true
-            a.bubbled href="#{manga_url manga}"
-              = manga.name
+            a.bubbled href="#{manga_url manga}" = manga.name
 
     .c-column.block_m
       input.ranobe-suggest.subheadline-input.downgrade_landscape[
@@ -60,8 +57,22 @@
         - @resource.all_ranobe.uniq(&:id).each do |ranobe|
           .variant
             = check_box_tag 'club[ranobe_ids][]', ranobe.id, checked: true
-            a.bubbled href="#{ranobe_url ranobe}"
-              = ranobe.name
+            a.bubbled href="#{ranobe_url ranobe}" = ranobe.name
+
+  .cc-2a
+    .c-column.block_m
+      input.club-suggest.subheadline-input.downgrade_landscape[
+        type='text'
+        placeholder=t('.club_name')
+        data-variant_name='club[club_ids][]'
+        data-autocomplete="#{autocomplete_clubs_url}"
+      ]
+      .subheadline = i18n_i 'club', :other
+      .variants
+        - @resource.all_clubs.uniq(&:id).each do |club|
+          .variant
+            = check_box_tag 'club[club_ids][]', club.id, checked: true
+            a href="#{club_url club}" = club.name
 
   /- if @resource && @resource.admins.include?(current_user)
     div style="display: none;"

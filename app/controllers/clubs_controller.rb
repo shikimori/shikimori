@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class ClubsController < ShikimoriController
-  load_and_authorize_resource :club, except: :index
+  load_and_authorize_resource :club, except: %i[index autocomplete]
 
   before_action { page_title i18n_i('Club', :other) }
 
   before_action :fetch_resource, if: :resource_id
   before_action :resource_redirect, if: :resource_id
-  before_action :restrict_domain, except: %i(index create new)
+  before_action :restrict_domain, except: %i[index create new autocomplete]
 
   before_action :set_breadcrumbs
 
@@ -25,6 +25,7 @@ class ClubsController < ShikimoriController
     manga_ids: [],
     ranobe_ids: [],
     character_ids: [],
+    club_ids: [],
     admin_ids: [],
     banned_user_ids: []
   ]
@@ -123,6 +124,13 @@ class ClubsController < ShikimoriController
   def images
     noindex
     page_title i18n_t('club_images')
+  end
+
+  def autocomplete
+    @collection = Clubs::Query.fetch(locale_from_host)
+      .search(params[:search], locale_from_host)
+      .paginate(1, CompleteQuery::AUTOCOMPLETE_LIMIT)
+      .reverse
   end
 
 private

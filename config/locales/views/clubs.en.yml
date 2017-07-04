@@ -28,6 +28,7 @@ en:
         manga_title: Manga title
         ranobe_title: Light Novel title
         character_name: Character name
+        club_name: Club name
       members:
         remove_users: Remove users
 

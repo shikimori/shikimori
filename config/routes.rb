@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   resources :people, only: [], concerns: %i[autocompletable]
   resources :seyu, only: [], concerns: %i[autocompletable]
   resources :users, only: [], concerns: %i[autocompletable]
+  resources :clubs, only: [], concerns: %i[autocompletable]
 
   resources :pages, path: '/', only: [] do
     collection do

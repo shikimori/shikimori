@@ -1,6 +1,6 @@
 class ClubDecorator < DbEntryDecorator
   rails_cache :all_animes, :all_mangas, :all_ranobe, :all_characters,
-    :all_images
+    :all_clubs, :all_images
   instance_cache :description, :animes, :mangas, :characters, :images,
     :comments, :banned, :members_sample, :forum_topics_views
 
@@ -86,6 +86,10 @@ class ClubDecorator < DbEntryDecorator
       .sort_by(&:name)
   end
 
+  def menu_clubs
+    all_clubs
+  end
+
   def images limit = 10_000
     all_images.take limit
   end
@@ -136,5 +140,9 @@ private
 
   def all_characters
     object.characters.order(:name).decorate
+  end
+
+  def all_clubs
+    object.clubs.order(:name)
   end
 end

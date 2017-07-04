@@ -179,4 +179,30 @@ describe ClubsController do
       it { expect(response).to have_http_status :success }
     end
   end
+
+  describe '#autocomplete' do
+    let(:phrase) { 'Fff' }
+    let(:club_1) { create :club, :with_topics }
+    let(:club_2) { create :club, :with_topics }
+
+    before do
+      allow(Elasticsearch::Query::Club).to receive(:call).with(
+        locale: :ru,
+        phrase: phrase,
+        limit: Collections::Query::SEARCH_LIMIT
+      ).and_return(
+        [
+          { '_id' => club_1.id },
+          { '_id' => club_2.id }
+        ]
+      )
+    end
+    subject! { get :autocomplete, params: { search: phrase } }
+
+    it do
+      expect(collection).to eq [club_2, club_1]
+      expect(response).to have_http_status :success
+      expect(response.content_type).to eq 'application/json'
+    end
+  end
 end

@@ -10,12 +10,18 @@ page_load 'clubs_edit', ->
 
   # links page
   if $('.edit-page.links').exists()
-    $('.anime-suggest, .manga-suggest, .ranobe-suggest, .character-suggest').completable_variant()
+    $('.anime-suggest').completable_variant()
+    $('.manga-suggest').completable_variant()
+    $('.ranobe-suggest').completable_variant()
+    $('.character-suggest').completable_variant()
+    $('.club-suggest').completable_variant()
 
   # members page
   if $('.edit-page.members').exists()
-    $('.moderator-suggest, .admin-suggest').completable_variant()
-    $('.kick-suggest, .ban-suggest').completable_variant()
+    $('.moderator-suggest').completable_variant()
+    $('.admin-suggest').completable_variant()
+    $('.kick-suggest').completable_variant()
+    $('.ban-suggest').completable_variant()
 
   # styles page
   if $('.edit-page.styles').exists()
