@@ -48,6 +48,11 @@ class Club < ApplicationRecord
     source: :linked,
     source_type: Character.name
 
+  has_many :clubs, -> { order :name },
+    through: :links,
+    source: :linked,
+    source_type: Club.name
+
   has_many :images,
     class_name: ClubImage.name,
     dependent: :destroy,
