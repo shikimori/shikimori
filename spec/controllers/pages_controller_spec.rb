@@ -57,15 +57,15 @@ describe PagesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe 'pages404' do
-    before { get :page404 }
-    it { should respond_with 404 }
-  end
+  # describe 'pages404' do
+    # before { get :page404 }
+    # it { is_expected.to respond_with 404 }
+  # end
 
-  describe 'pages503' do
-    before { get :page503 }
-    it { should respond_with 503 }
-  end
+  # describe 'pages503' do
+    # before { get :page503 }
+    # it { is_expected.to respond_with 503 }
+  # end
 
   describe 'feedback' do
     before do
@@ -80,13 +80,13 @@ describe PagesController do
   describe 'admin_panel' do
     context 'guest' do
       before { get :admin_panel }
-      it { should respond_with 403 }
+      it { is_expected.to respond_with 403 }
     end
 
     context 'user' do
       include_context :authenticated, :user
       before { get :admin_panel }
-      it { should respond_with 403 }
+      it { is_expected.to respond_with 403 }
     end
 
     context 'admin' do
