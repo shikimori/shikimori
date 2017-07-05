@@ -26,12 +26,6 @@ describe Comment do
     let(:topic) { build_stubbed :topic, user: user }
     let(:comment) { create :comment, user: user, commentable: topic }
 
-    describe '#clean' do
-      let(:comment) { build :comment }
-      after { comment.save }
-      it { expect(comment).to receive :clean }
-    end
-
     describe '#forbid_tag_change' do
       let(:comment) { build :comment }
       after { comment.save }

@@ -7,8 +7,7 @@ class Collection < ApplicationRecord
   acts_as_voteable
 
   belongs_to :user
-  has_many :links,
-    -> { order :id },
+  has_many :links, -> { order :id },
     class_name: CollectionLink.name,
     dependent: :destroy
 

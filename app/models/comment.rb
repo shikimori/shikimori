@@ -33,7 +33,6 @@ class Comment < ApplicationRecord
   scope :summaries, -> { where is_summary: true }
 
   # callbacks
-  before_validation :clean
   before_validation :forbid_tag_change
 
   before_create :check_access
@@ -151,11 +150,8 @@ class Comment < ApplicationRecord
     end
   end
 
-  def clean
-    self.body.strip! if self.body
-  end
-
-  # при изменении body будем менять и html_body для всех комментов, кроме содержащих правки модератора
+  # при изменении body будем менять и html_body для всех комментов,
+  # кроме содержащих правки модератора
   def body= text
     if text
       self[:body] = BbCodeFormatter.instance.preprocess_comment text

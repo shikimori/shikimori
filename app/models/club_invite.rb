@@ -12,7 +12,7 @@ class ClubInvite < ApplicationRecord
 
   validates :club, :src, :dst, presence: true
   validates :dst_id, uniqueness: {
-    scope: [:club_id, :status],
+    scope: %i[club_id status],
     message: ->(key, _model) { I18n.t key }
   }
 

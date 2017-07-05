@@ -7,7 +7,7 @@ class ClubRole < ApplicationRecord
   after_create :accept_invites
   before_destroy :destroy_invites
 
-  enumerize :role, in: [:member, :admin], defualt: :member, predicates: true
+  enumerize :role, in: %i[member admin], defualt: :member, predicates: true
 
   validates :user, :club, :role, presence: true
 
