@@ -24,21 +24,22 @@ class Comment < ApplicationRecord
   boolean_attributes :summary, :offtopic
 
   # validations
-  validates :body, :user, :commentable, presence: true
+  validates :user, :commentable, presence: true
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
-  validates_length_of :body, minimum: 2, maximum: 10000
+  validates :body, presence: true, length: { minimum: 2, maximum: 10000 }
 
   # scopes
   scope :summaries, -> { where is_summary: true }
 
   # callbacks
+  before_validation :forbid_tag_change, if: -> { will_save_change_to_body? }
+
   before_create :check_access
   before_create :cancel_summary
   after_create :increment_comments
   after_create :creation_callbacks
 
-  before_update :forbid_tag_change, if: -> { will_save_change_to_body? }
   after_save :release_the_banhammer!
   after_save :touch_commentable
   after_save :notify_quoted, if: -> { saved_change_to_body? }
@@ -225,7 +226,6 @@ class Comment < ApplicationRecord
 
       if prior_ban != current_ban || prior_count != current_count
         errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')
-        throw :abort
       end
     end
   end
