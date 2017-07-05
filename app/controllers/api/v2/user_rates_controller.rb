@@ -3,6 +3,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   load_and_authorize_resource
 
   MAX_LIMIT = 1000
+  UNIQ_EXCEPTIONS = Api::V1::UserRatesController::UNIQ_EXCEPTIONS
 
   # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/v2/user_rates/:id', 'Show an user rate'
@@ -63,16 +64,18 @@ class Api::V2::UserRatesController < Api::V2Controller
     param :text, String, required: false
   end
   def create
-    present_rate = UserRate.find_by(
-      user_id: @resource.user_id,
-      target_id: @resource.target_id,
-      target_type: @resource.target_type
-    )
+    Retryable.retryable tries: 2, on: UNIQ_EXCEPTIONS, sleep: 1 do
+      present_rate = UserRate.find_by(
+        user_id: @resource.user_id,
+        target_id: @resource.target_id,
+        target_type: @resource.target_type
+      )
 
-    if present_rate
-      update_rate present_rate
-    else
-      create_rate @resource
+      if present_rate
+        update_rate present_rate
+      else
+        create_rate @resource
+      end
     end
 
     respond_with @resource
