@@ -363,7 +363,7 @@ private
 
   # запоминаем предыдущие никнеймы пользователя
   def log_nickname_change
-    UserNicknameChange.create user: self, value: saved_changes[:nickname].first
+    Users::LogNicknameChange.call self, saved_changes[:nickname].first
   end
 
   # создание послерегистрационного приветственного сообщения пользователю

@@ -93,12 +93,11 @@ describe User do
     # end
 
     describe '#log_nickname_change' do
-      let(:user) { create :user }
+      let(:user) { create :user, nickname: 'old_nickname' }
       after { user.update nickname: 'test' }
       it do
-        expect(UserNicknameChange).to receive(:create).with(
-          user: user,
-          value: user.nickname
+        expect(Users::LogNicknameChange).to receive(:call).with(
+          user, 'old_nickname'
         )
       end
     end

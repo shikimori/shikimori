@@ -4,44 +4,5 @@ class UserNicknameChange < ApplicationRecord
   validates :user, :value, presence: true
   validates :value, uniqueness: { scope: [:user_id] }
 
-  MINIMUM_COMMENTS_COUNT = 10
-
-  before_create :check_necessity
-  after_create :notify_friends
-
   default_scope -> { where is_deleted: false }
-
-private
-
-  def check_necessity
-    throw :abort unless should_log?
-  end
-
-  def should_log?
-    new_user_ru = I18n.t 'omniauth_service.new_user', locale: :ru
-    new_user_en = I18n.t 'omniauth_service.new_user', locale: :en
-
-    !!(user && user.persisted? && user.day_registered? &&
-      user.saved_changes[:nickname][0] !~ /^(#{new_user_ru}|#{new_user_en})\d+/
-    )
-  end
-
-  def notify_friends
-    user_friends.each { |friend| notify_friend friend }
-  end
-
-  def notify_friend friend
-    Messages::CreateNotification.new(user).nickname_changed(
-      friend,
-      user.saved_changes[:nickname][0],
-      user.saved_changes[:nickname][1]
-    )
-
-  rescue ActiveRecord::RecordNotUnique
-    nil
-  end
-
-  def user_friends
-    FriendLink.where(dst_id: user.id).includes(:src).map(&:src)
-  end
 end
