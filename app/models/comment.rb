@@ -38,7 +38,7 @@ class Comment < ApplicationRecord
   after_create :increment_comments
   after_create :creation_callbacks
 
-  after_update :forbid_tag_change, if: -> { saved_change_to_body? }
+  before_update :forbid_tag_change, if: -> { will_save_change_to_body? }
   after_save :release_the_banhammer!
   after_save :touch_commentable
   after_save :notify_quoted, if: -> { saved_change_to_body? }
@@ -217,15 +217,15 @@ class Comment < ApplicationRecord
   # запрет на изменение информации о бане
   def forbid_tag_change
     [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
-      prior_ban = (saved_changes[:body].first || '').match(tag).try :[], 1
-      current_ban = (saved_changes[:body].last || '').match(tag).try :[], 1
+      prior_ban = (changes_to_save[:body].first || '').match(tag).try :[], 1
+      current_ban = (changes_to_save[:body].last || '').match(tag).try :[], 1
 
-      prior_count = (saved_changes[:body].first || '').scan(tag).size
-      current_count = (saved_changes[:body].last || '').scan(tag).size
+      prior_count = (changes_to_save[:body].first || '').scan(tag).size
+      current_count = (changes_to_save[:body].last || '').scan(tag).size
 
       if prior_ban != current_ban || prior_count != current_count
         errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')
-        raise ActiveRecord::Rollback
+        throw :abort
       end
     end
   end

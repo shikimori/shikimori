@@ -131,8 +131,10 @@ class User < ApplicationRecord
   validates :nickname,
     name: true,
     length: { maximum: MAX_NICKNAME_LENGTH },
-    if: -> { new_record? || nickname_changed? }
-  validates :email, presence: true, if: -> { persisted? && email_changed? }
+    if: -> { new_record? || will_save_change_to_nickname? }
+  validates :email,
+    presence: true,
+    if: -> { persisted? && will_save_change_to_email? }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
   after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
@@ -168,7 +170,9 @@ class User < ApplicationRecord
   # allows for account creation from twitter & fb
   # allows saves w/o password
   def password_required?
-    (!persisted? && user_tokens.empty?) || password.present? || password_confirmation.present?
+    (!persisted? && user_tokens.empty?) ||
+      password.present? ||
+      password_confirmation.present?
   end
 
   def nickname= value
@@ -248,7 +252,8 @@ class User < ApplicationRecord
     if self[:last_online_at].nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
       update_column :last_online_at, now
     else
-      Rails.cache.write last_online_cache_key, now.to_s # wtf? Rails is crushed when it loads Time.zone type from memcached
+      # wtf? Rails is crushed when it loads Time.zone type from memcached
+      Rails.cache.write last_online_cache_key, now.to_s
     end
   end
 
@@ -284,11 +289,8 @@ class User < ApplicationRecord
 
   # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
   def comment_added comment
-    return if self.messages.where(kind: MessageType::ProfileCommented).
-                            where(read: false).
-                            count > 0
-    return if comment.user_id == comment.commentable_id &&
-              comment.commentable_type == User.name
+    return if self.messages.where(kind: MessageType::ProfileCommented).where(read: false).any?
+    return if comment.user_id == comment.commentable_id && comment.commentable_type == User.name
 
     Message.create(
       to_id: id,
