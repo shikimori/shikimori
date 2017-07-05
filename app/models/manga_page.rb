@@ -1,5 +1,7 @@
 class MangaPage < ApplicationRecord
-  belongs_to :chapter, class_name: 'MangaChapter', foreign_key: :manga_chapter_id
+  belongs_to :chapter,
+    class_name: MangaChapter.name,
+    foreign_key: :manga_chapter_id
 
   has_attached_file :image,
     url: '/system/manga_pages/:style/:manga_id_mod/:manga_id/:chapter_name/:number.:extension',

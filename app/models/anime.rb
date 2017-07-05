@@ -177,7 +177,7 @@ class Anime < DbEntry
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
   before_save :track_changes
-  after_save :generate_news
+  after_save :generate_news, if: -> { saved_change_to_status? }
   after_create :generate_name_matches
 
   def episodes= value
@@ -264,6 +264,6 @@ private
   end
 
   def generate_news
-    Anime::GenerateNews.call self
+    Anime::GenerateNews.call self, *saved_changes[:status]
   end
 end

@@ -1,7 +1,7 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ApplicationRecord
   include PermissionsPolicy
-  include UserNotifications
+  include User::Notifications
   include Commentable
   include User::Roles
   include User::TokenAuthenticatable
@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
 
-  devise(*%i(
+  devise(*%i[
     database_authenticatable
     registerable
     recoverable
@@ -25,7 +25,7 @@ class User < ApplicationRecord
     trackable
     validatable
     omniauthable
-  ))
+  ])
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
@@ -53,10 +53,14 @@ class User < ApplicationRecord
   has_many :friends, through: :friend_links, source: :dst
 
   has_many :favourites, dependent: :destroy
-  has_many :favourite_seyu, -> { where kind: Favourite::Seyu }, class_name: Favourite.name, dependent: :destroy
-  has_many :favourite_producers, -> { where kind: Favourite::Producer }, class_name: Favourite.name, dependent: :destroy
-  has_many :favourite_mangakas, -> { where kind: Favourite::Mangaka }, class_name: Favourite.name, dependent: :destroy
-  has_many :favourite_persons, -> { where kind: Favourite::Person }, class_name: Favourite.name, dependent: :destroy
+  has_many :favourite_seyu, -> { where kind: Favourite::Seyu },
+    class_name: Favourite.name
+  has_many :favourite_producers, -> { where kind: Favourite::Producer },
+    class_name: Favourite.name
+  has_many :favourite_mangakas, -> { where kind: Favourite::Mangaka },
+    class_name: Favourite.name
+  has_many :favourite_persons, -> { where kind: Favourite::Person },
+    class_name: Favourite.name
 
   has_many :fav_animes, through: :favourites, source: :linked, source_type: Anime.name
   has_many :fav_mangas, through: :favourites, source: :linked, source_type: Manga.name
@@ -78,7 +82,7 @@ class User < ApplicationRecord
 
   has_many :club_roles, dependent: :destroy
   has_many :club_admin_roles, -> { where role: :admin },
-    class_name: ClubRole
+    class_name: ClubRole.name
   has_many :clubs, through: :club_roles
 
   has_many :collections, dependent: :destroy
@@ -127,11 +131,13 @@ class User < ApplicationRecord
   validates :nickname,
     name: true,
     length: { maximum: MAX_NICKNAME_LENGTH },
-    if: -> { new_record? || changes['nickname'] }
-  validates :email, presence: true, if: -> { persisted? && changes['email'] }
+    if: -> { new_record? || will_save_change_to_nickname? }
+  validates :email,
+    presence: true,
+    if: -> { persisted? && will_save_change_to_email? }
   validates :avatar, attachment_content_type: { content_type: /\Aimage/ }
 
-  before_update :log_nickname_change, if: -> { changes['nickname'] }
+  after_update :log_nickname_change, if: -> { saved_change_to_nickname? }
 
   # из этого хука падают спеки user_history_rate. хз почему. надо копаться.
   after_create :create_history_entry
@@ -164,7 +170,9 @@ class User < ApplicationRecord
   # allows for account creation from twitter & fb
   # allows saves w/o password
   def password_required?
-    (!persisted? && user_tokens.empty?) || password.present? || password_confirmation.present?
+    (!persisted? && user_tokens.empty?) ||
+      password.present? ||
+      password_confirmation.present?
   end
 
   def nickname= value
@@ -244,7 +252,8 @@ class User < ApplicationRecord
     if self[:last_online_at].nil? || now - User::LAST_ONLINE_CACHE_INTERVAL > self[:last_online_at]
       update_column :last_online_at, now
     else
-      Rails.cache.write last_online_cache_key, now.to_s # wtf? Rails is crushed when it loads Time.zone type from memcached
+      # wtf? Rails is crushed when it loads Time.zone type from memcached
+      Rails.cache.write last_online_cache_key, now.to_s
     end
   end
 
@@ -280,11 +289,8 @@ class User < ApplicationRecord
 
   # колбек, который вызовет comments_controller при добавлении комментария в профиле пользователя
   def comment_added comment
-    return if self.messages.where(kind: MessageType::ProfileCommented).
-                            where(read: false).
-                            count > 0
-    return if comment.user_id == comment.commentable_id &&
-              comment.commentable_type == User.name
+    return if self.messages.where(kind: MessageType::ProfileCommented).where(read: false).any?
+    return if comment.user_id == comment.commentable_id && comment.commentable_type == User.name
 
     Message.create(
       to_id: id,
@@ -359,7 +365,7 @@ private
 
   # запоминаем предыдущие никнеймы пользователя
   def log_nickname_change
-    UserNicknameChange.create user: self, value: changes['nickname'][0]
+    Users::LogNicknameChange.call self, saved_changes[:nickname].first
   end
 
   # создание послерегистрационного приветственного сообщения пользователю

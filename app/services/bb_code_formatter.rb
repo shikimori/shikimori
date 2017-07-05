@@ -176,7 +176,7 @@ class BbCodeFormatter
   end
 
   def preprocess_comment text
-    user_mention(text)
+    user_mention(text).strip
   end
 
   # удаление мусора из текста и нормализация битых тегов

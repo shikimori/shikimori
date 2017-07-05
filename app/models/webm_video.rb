@@ -18,8 +18,8 @@ class WebmVideo < ApplicationRecord
     state :processed
     state :failed
 
-    event(:process) { transition %i(pending processed failed) => :processed }
-    event(:to_failed) { transition %i(pending processed failed) => :failed }
+    event(:process) { transition %i[pending processed failed] => :processed }
+    event(:to_failed) { transition %i[pending processed failed] => :failed }
   end
 
   def schedule_thumbnail

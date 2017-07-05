@@ -2,12 +2,12 @@ class UserPreferences < ApplicationRecord
   belongs_to :user, touch: true
 
   enumerize :list_privacy,
-    in: [:public, :users, :friends, :owner],
+    in: %i[public users friends owner],
     predicates: { prefix: true },
     default: :public
-  enumerize :body_width, in: [:x1200, :x1000], default: :x1200
+  enumerize :body_width, in: %i[x1200 x1000], default: :x1200
   enumerize :comment_policy,
-    in: [:users, :friends, :owner],
+    in: %i[users friends owner],
     predicates: { prefix: true },
     default: :users
 

@@ -7,7 +7,7 @@ class CollectionLink < ApplicationRecord
   end
 
   validates :collection, :linked, presence: true
-  validates :linked_id, uniqueness: { scope: [:collection_id, :group] }
+  validates :linked_id, uniqueness: { scope: %i[collection_id group] }
 
   enumerize :linked_type,
     in: Types::Collection::Kind.values.map(&:to_s).map(&:classify),

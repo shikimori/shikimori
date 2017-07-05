@@ -1,5 +1,5 @@
 # код об уведомлениях пользователя
-module UserNotifications
+module User::Notifications
   # notification settings
   ANONS_TV_NOTIFICATIONS         = 0x000001
   ANONS_MOVIE_NOTIFICATIONS      = 0x000002

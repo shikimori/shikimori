@@ -114,12 +114,12 @@ describe Ban do
       subject { comment.reload.body }
       let(:comment) { create :comment, user: user, body: "test\n" }
 
-       context 'no_prior_ban' do
+       context 'no prior ban' do
         let!(:ban) { create :ban, params }
         it { is_expected.to eq "test\n\n[ban=#{ban.id}]" }
       end
 
-       context 'with_prior_ban' do
+       context 'with prior ban' do
         let!(:prior_ban) { create :ban, params }
         let!(:ban) { create :ban, params }
         it { is_expected.to eq "test\n\n[ban=#{prior_ban.id}][ban=#{ban.id}]" }

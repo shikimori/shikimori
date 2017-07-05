@@ -1,5 +1,5 @@
 class ClubPage < ApplicationRecord
-  acts_as_list scope: %i(club_id parent_page_id)
+  acts_as_list scope: %i[club_id parent_page_id]
 
   belongs_to :club, touch: true
   belongs_to :parent_page, class_name: ClubPage.name

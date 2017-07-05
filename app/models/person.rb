@@ -5,7 +5,7 @@ class Person < DbEntry
   include CollectionsConcern
   include ElasticsearchConcern
 
-  DESYNCABLE = %w(name japanese website birthday image)
+  DESYNCABLE = %w[name japanese website birthday image]
 
   has_many :person_roles, dependent: :destroy
   has_many :animes, -> { order :id }, through: :person_roles
@@ -27,10 +27,10 @@ class Person < DbEntry
 
   validates :image, attachment_content_type: { content_type: /\Aimage/ }
 
-  SEYU_ROLES = %w(
+  SEYU_ROLES = %w[
     English Italian Hungarian Japanese German Hebrew Brazilian French
     Spanish Korean Hebrew
-  )
+  ]
   MANGAKA_ROLES = ['Original Creator', 'Story & Art', 'Story', 'Art']
 
   # является ли человек режиссёром

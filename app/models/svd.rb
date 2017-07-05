@@ -9,9 +9,11 @@ class Svd < ApplicationRecord
   #validates :scale, presence: true, inclusion: { in: [Full, Partial] }
   #validates :kind, presence: true, inclusion: { in: [Anime.name, Manga.name] }
 
-  enumerize :scale, in: [:full, :partial], predicates: true
-  enumerize :kind, in: [:anime], predicates: true
-  enumerize :normalization, in: [:none, :mean_centering, :z_score], predicates: { prefix: true }
+  enumerize :scale, in: %i[full partial], predicates: true
+  enumerize :kind, in: %i[anime], predicates: true
+  enumerize :normalization,
+    in: %i[none mean_centering z_score],
+    predicates: { prefix: true }
 
   def rank rates
     scores_vector = Array.new(entry_ids.size, 0)

@@ -4,6 +4,17 @@ class SiteStatistics
 
   USERS_LIMIT = 31
 
+  TRANSALTION_SCORE_SQL = <<-SQL.squish
+    sum(
+      case
+        when versions.state='#{:accepted}' and
+          (item_diff->>#{ApplicationRecord.sanitize :description}) is not null
+        then 7
+        else 1
+      end
+    )
+  SQL
+
   def traffic
     YandexMetrika.call METRIKA_MONTHS
   end
@@ -76,8 +87,8 @@ class SiteStatistics
       .where(versions: { state: [:accepted, :taken, :auto_accepted] })
       .where.not(versions: { item_type: AnimeVideo.name })
       .group('users.id')
-      .having("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) > 10")
-      .order("sum(case when versions.state='#{:accepted}' and (item_diff->>#{User.sanitize :description}) is not null then 7 else 1 end) desc")
+      .having("#{TRANSALTION_SCORE_SQL} > 10")
+      .order("#{TRANSALTION_SCORE_SQL} desc")
       .limit(USERS_LIMIT * 4)
   end
 

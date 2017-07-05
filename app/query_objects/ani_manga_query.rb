@@ -127,9 +127,9 @@ private
     simple_queries = {
       include: simple_types[:include]
         .delete_if { |v| v == 'tv' && types[:complex].any? { |q| q =~ /^tv_/ } }
-        .map { |type| "#{table_name}.kind = #{Anime.sanitize type}" },
+        .map { |v| "#{table_name}.kind = #{ApplicationRecord.sanitize v}" },
       exclude: simple_types[:exclude]
-        .map { |type| "#{table_name}.kind = #{Anime.sanitize type}" }
+        .map { |v| "#{table_name}.kind = #{ApplicationRecord.sanitize v}" }
     }
     complex_queries = { include: [], exclude: [] }
 

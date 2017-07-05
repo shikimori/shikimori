@@ -3,14 +3,15 @@ class AnimeVideoReport < ApplicationRecord
   belongs_to :user
   belongs_to :approver, class_name: User.name, foreign_key: :approver_id
 
-  enumerize :kind, in: [:uploaded, :broken, :wrong, :other], predicates: true
+  enumerize :kind, in: %i[uploaded broken wrong other], predicates: true
 
   validates :user, presence: true
   validates :anime_video, presence: true
   validates :kind, presence: true
 
-  scope :pending, -> { where(state: 'pending').order(created_at: :asc) }
-  scope :processed, -> { where(state: ['accepted', 'rejected']).order(updated_at: :desc) }
+  scope :pending, -> { where(state: :pending).order(created_at: :asc) }
+  scope :processed,
+    -> { where(state: %i[accepted rejected]).order(updated_at: :desc) }
 
   after_create :auto_check
   after_create :auto_accept
@@ -39,11 +40,11 @@ class AnimeVideoReport < ApplicationRecord
     # отклонено автоматической post модераций
     state :post_rejected
 
-    event(:accept) { transition [:pending, :accepted] => :accepted }
-    event(:accept_only) { transition pending: :accepted }
-    event(:reject) { transition pending: :rejected }
-    event(:post_reject) { transition [:pending, :accepted] => :post_rejected }
-    event(:cancel) { transition [:accepted, :rejected, :post_rejected] => :pending }
+    event(:accept) { transition %i[pending accepted] => :accepted }
+    event(:accept_only) { transition :pending => :accepted }
+    event(:reject) { transition :pending => :rejected }
+    event(:post_reject) { transition %i[pending accepted] => :post_rejected }
+    event(:cancel) { transition %i[accepted rejected post_rejected] => :pending }
 
     before_transition pending: :accepted do |report, transition|
       report.approver = transition.args.first
@@ -56,13 +57,13 @@ class AnimeVideoReport < ApplicationRecord
       end
     end
 
-    before_transition pending: :rejected do |report, transition|
+    before_transition :pending => :rejected do |report, transition|
       report.approver = transition.args.first
       report.process_doubles(:rejected)
       report.anime_video.reject! if report.uploaded?
     end
 
-    before_transition [:accepted, :rejected] => :pending do |report, transition|
+    before_transition %i[accepted rejected] => :pending do |report, transition|
       report.approver = transition.args.first
       prev_state = report.uploaded? ? 'uploaded' : 'working'
       report.anime_video.update_attribute :state, prev_state

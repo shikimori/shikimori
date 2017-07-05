@@ -21,7 +21,7 @@ class Contest < ApplicationRecord
     class_name: ContestLink.name,
     dependent: :destroy
 
-  has_many :rounds, -> { order [:number, :additional, :id] },
+  has_many :rounds, -> { order %i[number additional id] },
     class_name: ContestRound.name,
     inverse_of: :contest,
     dependent: :destroy

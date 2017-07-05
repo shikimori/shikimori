@@ -4,7 +4,7 @@ class Version < ApplicationRecord
   ABUSE_USER_IDS = [91184]
 
   belongs_to :user
-  belongs_to :moderator, class_name: User
+  belongs_to :moderator, class_name: User.name
   belongs_to :item, polymorphic: true, touch: true
 
   validates :item_diff, presence: true

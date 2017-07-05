@@ -1,16 +1,15 @@
 class AnimeOnline::AnimeVideosController < AnimesController
-  load_and_authorize_resource only: [:new, :create, :edit, :update, :destroy]
+  load_and_authorize_resource only: %i[new create edit update destroy]
 
-  before_action :actualize_resource, only: [:new, :create, :edit, :update]
-  before_action :authenticate_user!, only: [:viewed]
-  before_action :add_breadcrumb, except: [:index, :destroy]
+  before_action :actualize_resource, only: %i[new create edit update]
+  before_action :authenticate_user!, only: %i[viewed]
+  before_action :add_breadcrumb, except: %i[index destroy]
 
   before_action { @anime_online_ad = true }
   after_action :save_preferences, only: :index
 
-  CREATE_PARAMS = [
-    :episode, :author_name, :url, :anime_id, :source, :state,
-    :kind, :language, :quality
+  CREATE_PARAMS = %i[
+    episode author_name url anime_id source state kind language quality
   ]
 
   def index

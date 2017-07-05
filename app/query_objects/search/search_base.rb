@@ -35,7 +35,8 @@ private
 
     <<-SQL.squish
       position(
-        #{@scope.model.table_name}.id::text in #{@scope.sanitize ids}
+        #{@scope.model.table_name}.id::text in
+          #{ApplicationRecord.sanitize ids}
       )
     SQL
   end

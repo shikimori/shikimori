@@ -24,17 +24,16 @@ class Comment < ApplicationRecord
   boolean_attributes :summary, :offtopic
 
   # validations
-  validates :body, :user, :commentable, presence: true
+  validates :user, :commentable, presence: true
   validates :commentable_type,
     inclusion: { in: Types::Comment::CommentableType.values }
-  validates_length_of :body, minimum: 2, maximum: 10000
+  validates :body, presence: true, length: { minimum: 2, maximum: 10000 }
 
   # scopes
   scope :summaries, -> { where is_summary: true }
 
   # callbacks
-  before_validation :clean
-  before_validation :forbid_tag_change
+  before_validation :forbid_tag_change, if: -> { will_save_change_to_body? }
 
   before_create :check_access
   before_create :cancel_summary
@@ -43,7 +42,7 @@ class Comment < ApplicationRecord
 
   after_save :release_the_banhammer!
   after_save :touch_commentable
-  after_save :notify_quoted, if: -> { body_changed? }
+  after_save :notify_quoted, if: -> { saved_change_to_body? }
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
@@ -107,7 +106,7 @@ class Comment < ApplicationRecord
     commentable.comment_added(self) if commentable.respond_to?(:comment_added)
     #commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
 
-    self.save if self.changed?
+    save if saved_changes?
   end
 
   # TODO: get rid of this method
@@ -122,8 +121,8 @@ class Comment < ApplicationRecord
 
   def notify_quoted
     Comments::NotifyQuoted.call(
-      old_body: changes[:body].first,
-      new_body: changes[:body].second,
+      old_body: saved_changes[:body].first,
+      new_body: saved_changes[:body].second,
       comment: self,
       user: user
     )
@@ -151,11 +150,8 @@ class Comment < ApplicationRecord
     end
   end
 
-  def clean
-    self.body.strip! if self.body
-  end
-
-  # при изменении body будем менять и html_body для всех комментов, кроме содержащих правки модератора
+  # при изменении body будем менять и html_body для всех комментов,
+  # кроме содержащих правки модератора
   def body= text
     if text
       self[:body] = BbCodeFormatter.instance.preprocess_comment text
@@ -221,14 +217,12 @@ class Comment < ApplicationRecord
 
   # запрет на изменение информации о бане
   def forbid_tag_change
-    return unless changes['body']
-
     [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
-      prior_ban = (changes['body'].first || '').match(tag).try :[], 1
-      current_ban = (changes['body'].last || '').match(tag).try :[], 1
+      prior_ban = (changes_to_save[:body].first || '').match(tag).try :[], 1
+      current_ban = (changes_to_save[:body].last || '').match(tag).try :[], 1
 
-      prior_count = (changes['body'].first || '').scan(tag).size
-      current_count = (changes['body'].last || '').scan(tag).size
+      prior_count = (changes_to_save[:body].first || '').scan(tag).size
+      current_count = (changes_to_save[:body].last || '').scan(tag).size
 
       if prior_ban != current_ban || prior_count != current_count
         errors[:base] << I18n.t('activerecord.errors.models.comments.not_a_moderator')
