@@ -11,7 +11,7 @@ class Anime::GenerateNews < ServiceObjectBase
   NEW_RELEASE_DATE_FOR_AIRED_ON = 15.months.ago.to_date
 
   def call
-    return unless anime.status_changed?
+    return unless anime.saved_change_to_status?
 
     generate_anons_topics
     generate_ongoing_topics

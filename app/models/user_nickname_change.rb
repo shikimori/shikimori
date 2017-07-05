@@ -22,7 +22,7 @@ private
     new_user_en = I18n.t 'omniauth_service.new_user', locale: :en
 
     !!(user && user.persisted? && user.day_registered? &&
-      user.changes['nickname'][0] !~ /^(#{new_user_ru}|#{new_user_en})\d+/
+      user.saved_changes[:nickname][0] !~ /^(#{new_user_ru}|#{new_user_en})\d+/
     )
   end
 
@@ -33,8 +33,8 @@ private
   def notify_friend friend
     Messages::CreateNotification.new(user).nickname_changed(
       friend,
-      user.changes['nickname'][0],
-      user.changes['nickname'][1]
+      user.saved_changes[:nickname][0],
+      user.saved_changes[:nickname][1]
     )
 
   rescue ActiveRecord::RecordNotUnique

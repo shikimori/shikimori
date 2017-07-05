@@ -4,7 +4,6 @@ class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
   class << self
-
     def boolean_attribute attribute_name
       define_method "#{attribute_name}?" do
         send "is_#{attribute_name}"
@@ -25,6 +24,10 @@ class ApplicationRecord < ActiveRecord::Base
       ensure
         self.record_timestamps = old
       end
+    end
+
+    def sanitize data
+      connection.quote data
     end
   end
 end

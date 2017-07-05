@@ -19,7 +19,7 @@ private
   def name_match_query
     NameMatch
       .where(target_type: @scope.model.name)
-      .where("phrase like #{NameMatch.sanitize "#{fixed_phrase}%"}")
+      .where("phrase like #{ApplicationRecord.sanitize "#{fixed_phrase}%"}")
       .group(:target_id)
       .select("
         #{NameMatch.table_name}.target_id,

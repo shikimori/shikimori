@@ -3,13 +3,14 @@ class Topics::Query < QueryObjectBase
   MY_CLUBS_QUERY = <<-SQL.squish
     (
       type in (
-        #{Topic.sanitize Topics::EntryTopics::ClubTopic.name},
-        #{Topic.sanitize Topics::ClubUserTopic.name}
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubTopic.name},
+        #{ApplicationRecord.sanitize Topics::ClubUserTopic.name}
       ) and #{Topic.table_name}.linked_id in (:user_club_ids)
     ) or
     (
-      type = #{Topic.sanitize Topics::EntryTopics::ClubPageTopic.name} and
-      #{Topic.table_name}.linked_id in (:user_club_page_ids)
+      type =
+        #{ApplicationRecord.sanitize Topics::EntryTopics::ClubPageTopic.name}
+        and #{Topic.table_name}.linked_id in (:user_club_page_ids)
     )
   SQL
   NEWS_QUERY = <<-SQL.squish

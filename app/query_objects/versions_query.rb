@@ -39,11 +39,13 @@ private
   end
 
   def state_condition field
-    if field.to_sym == :screenshots || field.to_sym == :videos
-      "(item_diff->>'action') in (
-        #{Version.sanitize Versions::ScreenshotsVersion::ACTIONS[:upload]},
-        #{Version.sanitize Versions::VideoVersion::ACTIONS[:upload]}
-      )"
-    end
+    return unless field.to_sym == :screenshots || field.to_sym == :videos
+
+    screenshots_sql =
+      ApplicationRecord.sanitize Versions::ScreenshotsVersion::ACTIONS[:upload]
+    videos_sql =
+        ApplicationRecord.sanitize Versions::VideoVersion::ACTIONS[:upload]
+
+    "(item_diff->>'action') in (#{screenshots_sql}, #{videos_sql})"
   end
 end

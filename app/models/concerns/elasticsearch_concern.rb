@@ -14,7 +14,7 @@ private
   end
 
   def put_elastic
-    elastic_changes = data_fields.any? { |field| changes[field] }
+    elastic_changes = data_fields.any? { |field| saved_changes[field] }
     Elasticsearch::Update.perform_async id, class_name if elastic_changes
   end
 

@@ -252,14 +252,14 @@ class CosplayController < ShikimoriController
   # TODO: выпилить
   #def chronology params
     #collection = params[:source]
-      #.where("`#{params[:date]}` >= #{Topic.sanitize params[:entry][params[:date]]}")
-      #.where("#{params[:entry].class.table_name}.id != #{Topic.sanitize params[:entry].id}")
+      #.where("`#{params[:date]}` >= #{ApplicationRecord.sanitize params[:entry][params[:date]]}")
+      #.where("#{params[:entry].class.table_name}.id != #{ApplicationRecord.sanitize params[:entry].id}")
       #.limit(20)
       #.order(params[:date])
       #.to_a + [params[:entry]]
 
     #collection += params[:source]
-      #.where("`#{params[:date]}` <= #{Topic.sanitize params[:entry][params[:date]]}")
+      #.where("`#{params[:date]}` <= #{ApplicationRecord.sanitize params[:entry][params[:date]]}")
       #.where.not(id: collection.map(&:id))
       #.limit(20)
       #.order("#{params[:date]} desc")

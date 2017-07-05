@@ -92,7 +92,8 @@ class Moderation::MissingVideosQuery
     total_episodes = anime.released? || anime.episodes_aired.zero? ?
       anime.episodes : anime.episodes_aired
     present_episodes = execute(
-      MISSING_EPISODES_QUERY + condition + " and anime_id=#{Anime.sanitize anime.id} "
+      MISSING_EPISODES_QUERY + condition +
+        " and anime_id=#{ApplicationRecord.sanitize anime.id} "
     ).map { |v| v['episode'].to_i }
 
     (1..total_episodes).to_a - present_episodes

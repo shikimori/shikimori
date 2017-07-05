@@ -43,7 +43,7 @@ class Comment < ApplicationRecord
 
   after_save :release_the_banhammer!
   after_save :touch_commentable
-  after_save :notify_quoted, if: -> { body_changed? }
+  after_save :notify_quoted, if: -> { saved_change_to_body? }
 
   before_destroy :decrement_comments
   after_destroy :destruction_callbacks
@@ -107,7 +107,7 @@ class Comment < ApplicationRecord
     commentable.comment_added(self) if commentable.respond_to?(:comment_added)
     #commentable.mark_as_viewed(self.user_id, self) if commentable.respond_to?(:mark_as_viewed)
 
-    self.save if self.changed?
+    save if saved_changes?
   end
 
   # TODO: get rid of this method
@@ -122,8 +122,8 @@ class Comment < ApplicationRecord
 
   def notify_quoted
     Comments::NotifyQuoted.call(
-      old_body: changes[:body].first,
-      new_body: changes[:body].second,
+      old_body: saved_changes[:body].first,
+      new_body: saved_changes[:body].second,
       comment: self,
       user: user
     )
@@ -221,7 +221,7 @@ class Comment < ApplicationRecord
 
   # запрет на изменение информации о бане
   def forbid_tag_change
-    return unless changes['body']
+    return unless body_changed?
 
     [/(\[ban=\d+\])/, /\[broadcast\]/].each do |tag|
       prior_ban = (changes['body'].first || '').match(tag).try :[], 1
