@@ -171,7 +171,7 @@ class ProfilesController < ShikimoriController
     params[:user][:avatar] = nil if params[:user][:avatar] == 'blank'
     if params[:user][:notifications].present?
       params[:user][:notifications] =
-        params[:user][:notifications].sum {|k,v| v.to_i } +
+        params[:user][:notifications].to_unsafe_hash.sum {|k,v| v.to_i } +
         MessagesController::DISABLED_CHECKED_NOTIFICATIONS
     end
 
