@@ -19,8 +19,8 @@ class Api::V1::CommentsController < Api::V1Controller
     desc: <<~DOC.strip
       Must be one of: `#{Types::Comment::CommentableType.values.join('`, `')}`
     DOC
-  param :page, :number, required: false
-  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :desc, %w(1 0), required: false
   # rubocop:disable AbcSize
   def index

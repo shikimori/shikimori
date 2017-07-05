@@ -90,8 +90,8 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   api :GET, "/users/:id/messages", "Show current user's messages. Authorization required."
-  param :limit, :number, required: false
-  param :page, :number, required: false
+  param :limit, :pagination, required: false
+  param :page, :pagination, required: false
   param :type, %w(inbox private sent news notifications), required: false
   def messages
     @limit = [[params[:limit].to_i, 1].max, 100].min

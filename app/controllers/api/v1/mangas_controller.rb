@@ -60,8 +60,8 @@ class Api::V1::MangasController < Api::V1Controller
       </ul>
     </p>
   DOC
-  param :page, :number, required: false
-  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :order, ORDERS, required: false, desc: ORDERS_DESC
   param :type, :undef,
     required: false,

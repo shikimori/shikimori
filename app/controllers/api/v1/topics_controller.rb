@@ -2,8 +2,8 @@ class Api::V1::TopicsController < Api::V1Controller
   LIMIT = 30
 
   api :GET, '/topics', 'List topics'
-  param :page, :number, required: false
-  param :limit, :number, required: false, desc: "#{LIMIT} maximum"
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{LIMIT} maximum"
   param :forum, %w[all] + Forum::VARIANTS, required: true
   def index
     @limit = [[params[:limit].to_i, 1].max, LIMIT].min

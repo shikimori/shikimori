@@ -16,9 +16,9 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :target_id, :number, required: false
   param :target_type, %w[Anime Manga], required: false
   param :status, UserRate.statuses.keys, required: false
-  param :page, :number, required: false,
+  param :page, :pagination, required: false,
     desc: 'This field is ignored when user_id is set'
-  param :limit, :number, required: false,
+  param :limit, :pagination, required: false,
     desc: "#{MAX_LIMIT} maximum. This field is ignored when user_id is set"
   def index
     limit = [[params[:limit].to_i, 1].max, MAX_LIMIT].min
