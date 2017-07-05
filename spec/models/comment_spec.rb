@@ -27,8 +27,8 @@ describe Comment do
     let(:comment) { create :comment, user: user, commentable: topic }
 
     describe '#forbid_tag_change' do
-      let(:comment) { build :comment }
-      after { comment.save }
+      let(:comment) { create :comment }
+      after { comment.update body: 'test zxc' }
       it { expect(comment).to receive :forbid_tag_change }
     end
 
@@ -209,27 +209,29 @@ describe Comment do
     end
 
     describe '#forbid_tag_change' do
-      let(:comment) { build :comment, body: body }
-      subject! { comment.valid? }
+      let(:comment) { create :comment, body: old_body }
+      subject! { comment.update body: new_body }
+
+      let(:old_body) { 'zxc' }
 
       context 'no forbidden tags' do
-        let(:body) { 'zxc' }
+        let(:new_body) { old_body }
         it { expect(comment).to be_valid }
       end
 
       context '[ban]' do
-        let(:body) { '[ban=1]' }
+        let(:new_body) { '[ban=1]' }
         it do
-          expect(comment).to_not be_valid
-          expect(comment.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+          expect(comment.errors.messages[:base].first)
+            .to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
         end
       end
 
       context '[broadcast]' do
-        let(:body) { '[broadcast]' }
+        let(:new_body) { '[broadcast]' }
         it do
-          expect(comment).to_not be_valid
-          expect(comment.errors.messages[:base].first).to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
+          expect(comment.errors.messages[:base].first)
+            .to eq I18n.t('activerecord.errors.models.comments.not_a_moderator')
         end
       end
     end
