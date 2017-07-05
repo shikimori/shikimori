@@ -2,7 +2,7 @@
 
 # NOTE: call in before_save callback
 class Anime::GenerateNews < ServiceObjectBase
-  pattr_initialize :anime
+  pattr_initialize :anime, :old_status, :new_status
 
   delegate :aired_on, :released_on, to: :anime
   delegate :status_change, to: :anime
@@ -11,7 +11,7 @@ class Anime::GenerateNews < ServiceObjectBase
   NEW_RELEASE_DATE_FOR_AIRED_ON = 15.months.ago.to_date
 
   def call
-    return unless anime.saved_change_to_status?
+    raise ArgumentError, 'status not changed' if @old_status == @new_status
 
     generate_anons_topics
     generate_ongoing_topics
@@ -22,7 +22,7 @@ private
 
   def generate_anons_topics
     return unless anime.anons?
-    return if status_changed? 'ongoing' => 'anons'
+    return if status_changed? 'ongoing', 'anons'
 
     Site::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::AnonsTopic.call(
@@ -33,7 +33,7 @@ private
 
   def generate_ongoing_topics
     return unless anime.ongoing?
-    return if status_changed? 'released' => 'ongoing'
+    return if status_changed? 'released', 'ongoing'
 
     Site::DOMAIN_LOCALES.each do |locale|
       Topics::Generate::News::OngoingTopic.call(
@@ -61,8 +61,8 @@ private
     false
   end
 
-  def status_changed? change
-    from, to = change.keys.first, change.values.first
-    status_change[0] == from && status_change[1] == to
+  def status_changed? from_status, to_status
+    @old_status.to_s == from_status.to_s &&
+      @new_status.to_s == to_status.to_s
   end
 end

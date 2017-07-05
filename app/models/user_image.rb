@@ -12,7 +12,9 @@ class UserImage < ApplicationRecord
     path: ':rails_root/public/system/user_images/:style/:user_id/:id.:extension'
 
   validates :user, presence: true
-  validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }
+  validates :image,
+    attachment_presence: true,
+    attachment_content_type: { content_type: /\Aimage/ }
 
   before_create :set_dimentions
 

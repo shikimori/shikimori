@@ -10,7 +10,9 @@ class Screenshot < ApplicationRecord
     url: "/system/screenshots/:style/:access_token.:extension"
 
   #validates_presence_of :anime # ну что за хрень с валидациями??
-  validates :image, attachment_presence: true, attachment_content_type: { content_type: /\Aimage/ }
+  validates :image,
+    attachment_presence: true,
+    attachment_content_type: { content_type: /\Aimage/ }
   validates :url, :anime, presence: true
 
   def access_token

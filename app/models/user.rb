@@ -1,7 +1,7 @@
 # TODO: refactor UserNotifications module inclusion
 class User < ApplicationRecord
   include PermissionsPolicy
-  include UserNotifications
+  include User::Notifications
   include Commentable
   include User::Roles
   include User::TokenAuthenticatable
@@ -17,7 +17,7 @@ class User < ApplicationRecord
 
   CENCORED_AVATAR_IDS = Set.new [4357, 24433, 48544, 28046]
 
-  devise(*%i(
+  devise(*%i[
     database_authenticatable
     registerable
     recoverable
@@ -25,7 +25,7 @@ class User < ApplicationRecord
     trackable
     validatable
     omniauthable
-  ))
+  ])
 
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences

@@ -115,7 +115,9 @@ class Manga < DbEntry
   after_create :generate_name_matches
 
   def name
-    self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip if self[:name].present?
+    if self[:name].present?
+      self[:name].gsub(/é/, 'e').gsub(/ō/, 'o').gsub(/ä/, 'a').strip
+    end
   end
 
   def volumes= value

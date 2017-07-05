@@ -6,7 +6,7 @@ class Genre < ApplicationRecord
 
   validates :name, presence: true
 
-  enumerize :kind, in: [:anime, :manga], predicates: true
+  enumerize :kind, in: %i[anime manga], predicates: true
 
   Merged = {}
 

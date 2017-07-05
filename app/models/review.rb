@@ -22,7 +22,7 @@ class Review < ApplicationRecord
     if: -> { changes['text'] }
   validates :locale, presence: true
 
-  enumerize :locale, in: %i(ru en), predicates: { prefix: true }
+  enumerize :locale, in: %i[ru en], predicates: { prefix: true }
 
   def topic_user
     user

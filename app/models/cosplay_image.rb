@@ -1,7 +1,9 @@
 class CosplayImage < ApplicationRecord
   PositionStep = 10
 
-  belongs_to :gallery, class_name: 'CosplayGallery', foreign_key: :cosplay_gallery_id
+  belongs_to :gallery,
+    class_name: CosplayGallery.name,
+    foreign_key: :cosplay_gallery_id
 
   has_attached_file :image,
     styles: { preview: "178x534>" },
