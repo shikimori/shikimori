@@ -86,7 +86,7 @@ class Comment < ApplicationRecord
     commentable_klass = commentable_type.constantize
     commentable = commentable_klass.find(commentable_id)
     if commentable.respond_to?(:can_be_commented_by?)
-      return false unless commentable.can_be_commented_by?(self)
+      throw :abort unless commentable.can_be_commented_by?(self)
     end
   end
 

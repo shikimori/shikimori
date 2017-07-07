@@ -61,7 +61,9 @@ module PermissionsPolicy
       return true if comment.user_id == id
 
       if self.ignores.any? {|v| v.target_id == comment.user_id }
-        comment.errors[:base] = I18n.t('activerecord.errors.models.messages.ignored')
+        comment.errors[:base].push(
+          I18n.t('activerecord.errors.models.messages.ignored')
+        )
         false
       elsif self.preferences.comment_policy_users?
         true
@@ -69,11 +71,15 @@ module PermissionsPolicy
         if self.friended? comment.user
           true
         else
-          comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_friend')
+          comment.errors[:base].push(
+            I18n.t('activerecord.errors.models.comments.not_a_friend')
+          )
           false
         end
       elsif self.preferences.comment_policy_owner?
-        comment.errors[:base] = I18n.t('activerecord.errors.models.comments.not_a_owner')
+        comment.errors[:base].push(
+          I18n.t('activerecord.errors.models.comments.not_a_owner')
+        )
         false
       end
     end
@@ -85,7 +91,9 @@ module PermissionsPolicy
     def can_be_commented_by?(comment)
       if club.comment_policy_free?
         if club.banned? comment.user
-          comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.in_club_black_list')
+          comment.errors[:base].push(
+            I18n.t('activerecord.errors.models.comments.in_club_black_list')
+          )
           false
         else
           true
@@ -95,7 +103,9 @@ module PermissionsPolicy
         if club.member? comment.user
           true
         else
-          comment.errors[:forbidden] = I18n.t('activerecord.errors.models.comments.not_a_club_member')
+          comment.errors[:base].push(
+            I18n.t('activerecord.errors.models.comments.not_a_club_member')
+          )
           false
         end
       else
