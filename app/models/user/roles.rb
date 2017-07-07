@@ -20,7 +20,7 @@ class User
     # 14633 - Dracule404, 5255 - GArtem, 7028 - Drako Black, 15905 - Youkai_Ririko, 3954 - Xellos("ゼロス"), 23616 - Vi Vi,
     # 25082 - SkywalterDBZ, 30214 - baksIII
     VIDEO_MODERATORS = (ADMINS + [
-      11_496, 4_099, 12_771, 13_893, 11_883, 5_064, 5_779, 146_33, 5_255,
+      11_496, 4_099, 13_893, 11_883, 5_064, 5_779, 146_33, 5_255,
       7_028, 15_905, 3_954, 23_616, 25_082, 30_214
     ]).uniq
     API_VIDEO_UPLOADERS = [4_193,  47_142]
