@@ -97,7 +97,7 @@ init_video_player = ->
   $('.cc-player_controls').on 'ajax:before', '.increment-user_rate', ->
     $(@).addClass 'b-ajax'
 
-  $('.cc-player_controls').on 'ajax:success', '.increment-user_rate', ->
+  $('.cc-player_controls').on 'ajax:complete', '.increment-user_rate', ->
     unless $('.increment-user_rate').hasClass('watched')
       $.notice 'Эпизод отмечен просмотренным'
 
