@@ -45,7 +45,10 @@ class DbEntriesController < ShikimoriController
     if version.persisted?
       redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
     else
-      redirect_to :back, alert: i18n_t('no_changes')
+      redirect_back(
+        fallback_location: @resource.edit_url,
+        alert: i18n_t('no_changes')
+      )
     end
   end
 
@@ -65,7 +68,7 @@ private
     version = Versioneers::FieldsVersioneer
       .new(@resource.object)
       .premoderate(
-        update_params.to_unsafe_h,
+        update_params.is_a?(Hash) ? update_params : update_params.to_unsafe_h,
         current_user,
         params[:reason]
       )
