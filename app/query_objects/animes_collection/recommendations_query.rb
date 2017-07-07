@@ -5,7 +5,7 @@ private
     from = limit * (page - 1)
     to = from + limit - 1
 
-    query[from..to]
+    query[from..to] || []
   end
 
   def query
