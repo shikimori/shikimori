@@ -449,9 +449,6 @@ Rails.application.routes.draw do
     post 'favourites/person/:linked_type/:linked_id' => 'favourites#create', kind: Favourite::Person, as: :favourites_person
     delete 'favourites/person/:linked_type/:linked_id' => 'favourites#destroy', kind: Favourite::Person
 
-    # рестарт джобы
-    get "job/:id/restart" => 'jobs#restart', as: 'restart_job'
-
     resources :cosplay_galleries, only: [] do
       get :publishing, on: :collection
       post :publish, on: :member
