@@ -43,6 +43,7 @@ class ClubsController < ShikimoriController
     end
 
     @collection = query
+      .without_favourites
       .search(params[:search], locale_from_host)
       .paginate(@page, @limit)
   end
