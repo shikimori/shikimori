@@ -311,6 +311,15 @@ ru:
   users_controller:
     similar_users: Похожие пользователи
 
+  user_tokens_controller:
+    success: Отключена авторизация через %{type}
+    email: e-mail
+    password: пароль
+    email_password: e-mail и пароль
+    failure: >-
+      Вы не можете отключить единственный способ авторизации, пока не зададите
+      %{auth_methods}
+
   userlist_comparer_controller:
     page_title:
       anime: Сравнение списка аниме %{user_1} и %{user_2}

@@ -6,8 +6,11 @@ describe UserTokensController do
     context 'allowed' do
       let(:user_token) { create :user_token, user: user }
       before { make_request }
-      it { expect(response).to redirect_to edit_profile_url(user, page: 'account') }
-      it { expect { user_token.reload }.to raise_error ActiveRecord::RecordNotFound }
+
+      it do
+        expect { user_token.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(response).to redirect_to edit_profile_url(user, page: 'account')
+      end
     end
 
     context 'not allowed' do

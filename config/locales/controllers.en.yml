@@ -311,6 +311,15 @@ en:
   users_controller:
     similar_users: Similar users
 
+  user_tokens_controller:
+    success: Authorization via %{type} is disabled
+    email: a email
+    password: a password
+    email_password: email and password
+    failure: >-
+      You can not disable the only authorization method until you specify
+      %{auth_methods}
+
   userlist_comparer_controller:
     page_title:
       anime: Anime list comparison of users %{user_1} and %{user_2}
