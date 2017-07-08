@@ -81,6 +81,9 @@ export default {
 </script>
 
 <style scoped lang="sass">
+  .b-nothing_here
+    margin-bottom: 15px
+
   .b-collection_item
     .delete
       top: 3px

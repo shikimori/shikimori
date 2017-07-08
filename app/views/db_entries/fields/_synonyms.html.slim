@@ -7,6 +7,7 @@
         data-entry_type="#{@resource.object.class.base_class.name}"
         data-synonyms="#{@resource.synonyms.to_json}"
       ]
+        .block_m.b-nothing_here = t 'loading'
       = render 'versions/reason'
 
       .buttons

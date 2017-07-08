@@ -6,6 +6,7 @@
     data-external_links="#{ActiveModel::Serializer::CollectionSerializer.new(@resource.external_links).to_json}"
     data-kind_options="#{ExternalLink.kind.options.select {|_, key| ::Types::ExternalLink::Kind[key] != ::Types::ExternalLink::Kind[:myanimelist] && ExternalLink::KINDS[@resource.object.class.name.downcase.to_sym].include?(key.to_sym) }.to_json}"
   ]
+    .block_m.b-nothing_here = t 'loading'
   .cc-2
     .c-column
       = render 'versions/reason'
