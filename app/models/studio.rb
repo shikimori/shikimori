@@ -87,6 +87,10 @@ class Studio < ApplicationRecord
     "madhouse",
     "madhouse studios",
 
+    # my custom
+    "daiwon media",
+    "lerche",
+
     # с википедии
     "a-1 pictures inc.",
     "a. film",
@@ -185,7 +189,6 @@ class Studio < ApplicationRecord
     "kyoto animation",
     "kyoto animation",
     "laika",
-    "lerche",
     "les' copaque production",
     "linterna magica studio",
     "littlenobody",
