@@ -53,7 +53,7 @@ class Api::V2::UserRatesController < Api::V2Controller
   param :user_rate, Hash do
     param :user_id, :number, required: true
     param :target_id, :number, required: true
-    param :target_type, %w(Anime Manga), required: true
+    param :target_type, %w[Anime Manga], required: true
     param :status, :undef, required: false
     # param :status, UserRate.statuses.keys, required: true
     param :score, :undef, required: false

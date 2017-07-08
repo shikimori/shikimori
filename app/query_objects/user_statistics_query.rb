@@ -141,10 +141,6 @@ class UserStatisticsQuery
 
       spent_time = 0
 
-      #z=history
-      #1/0 if num == 42
-      #1/0 if z.any? && z.first.id != 3585457 && z.first.id != 3585459
-
       # сортировка это важно, история должна обрабатывать в том порядке,
       # в каком её создали и затем меняли.
       # могли добавить в список (1). поставить большую часть эпизодов (2).
@@ -202,7 +198,6 @@ class UserStatisticsQuery
           end
         end
 
-        raise "negative value for entry: #{entry.action}-#{entry.id}, completed: #{completed}, episodes: #{entry.value}" if entry_time < 0
         spent_time += entry_time
       end
 

@@ -1,11 +1,11 @@
 class Api::V1::UserRatesController < Api::V1Controller
   load_and_authorize_resource
 
-  CREATE_PARAMS = %i(
+  CREATE_PARAMS = %i[
     target_id target_type user_id status episodes chapters volumes score text
     rewatches
-  )
-  UPDATE_PARAMS = %i(status episodes chapters volumes score text rewatches)
+  ]
+  UPDATE_PARAMS = %i[status episodes chapters volumes score text rewatches]
 
   UNIQ_EXCEPTIONS = [ActiveRecord::RecordNotUnique, PG::UniqueViolation]
   ALLOWED_EXCEPTIONS = [PG::Error, RangeError, NotSaved]
@@ -19,7 +19,7 @@ class Api::V1::UserRatesController < Api::V1Controller
   param :user_rate, Hash do
     param :user_id, :number, required: true
     param :target_id, :number, required: true
-    param :target_type, %w(Anime Manga), required: true
+    param :target_type, %w[Anime Manga], required: true
     param :status, :undef, required: true
     # param :status, UserRate.statuses.keys, required: true
     param :score, :undef, required: false
