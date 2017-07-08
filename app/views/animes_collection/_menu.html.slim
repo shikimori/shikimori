@@ -9,7 +9,7 @@
 
     .b-list style="margin-left: 5px"
       li: a.b-link[
-        href="#{send :"recommendations_favourites_#{menu.klass.name.downcase}_url"}"
+        href="#{send :"recommendations_favourites_#{menu.klass.name.downcase}_url", subdomain: false}"
       ] = t "dashboards.#{menu.klass.table_name}.recommended.favourite"
 
       - if menu.anime?
@@ -19,7 +19,7 @@
 
       - unless menu.ranobe?
         li: a.b-link[
-          href="#{recommendations_url klass: menu.klass.name.downcase}"
+          href="#{recommendations_url klass: menu.klass.name.downcase, subdomain: false}"
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
