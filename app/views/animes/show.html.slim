@@ -1,5 +1,5 @@
 = render layout: 'page' do
-  = cache [@resource, user_signed_in?, :v1] do
+  = cache [@resource, user_signed_in?, :v2] do
     meta itemprop="url" content="#{{@resource.url}}"
     meta itemprop="headline" content="#{@resource.name}"
 
@@ -105,6 +105,7 @@
             - if @resource.anime?
               .watch-online-placeholer[
                 data-total_episodes="#{@resource.episodes}"
+                data-episodes_aired="#{@resource.episodes_aired}"
               ]
 
       .c-description

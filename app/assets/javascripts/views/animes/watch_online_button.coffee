@@ -5,6 +5,7 @@ class Animes.WathOnlineButton extends View
   initialize: (@options) ->
     return unless @options.is_allowed
     @total_episodes = @$root.data('total_episodes') || 9999
+    @episodes_aired = @$root.data('episodes_aired') || 1
 
     @_render()
     delay().then => @_setup_handlers()
@@ -27,7 +28,13 @@ class Animes.WathOnlineButton extends View
 
   _click: (e) =>
     episode = parseInt($('.b-db_entry .b-user_rate .current-episodes').html())
-    watch_episode = if !episode || episode == @total_episodes then 1 else episode + 1
+    watch_episode =
+      if !episode || episode == @total_episodes
+        1
+      else if episode == @episodes_aired
+        episode
+      else
+        episode + 1
 
     $link = $(e.target)
     url = $link.attr('href').replace(/\d+$/, watch_episode)
