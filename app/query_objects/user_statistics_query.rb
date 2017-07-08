@@ -68,27 +68,42 @@ class UserStatisticsQuery
     cache_keys = Set.new rates_cache.keys
 
     # минимальная дата старта статистики
-    histories.select! { |v| v.created_at >= @preferences.statistics_start_on } if @preferences.statistics_start_on
+    if @preferences.statistics_start_on
+      histories.select! { |v| v.created_at >= @preferences.statistics_start_on }
+    end
 
     # добавленные аниме
-    added = histories.select { |v| v.action == UserHistoryAction::Add }.uniq { |v| [v.target_id, v.target_type] }
+    added = histories
+      .select { |v| v.action == UserHistoryAction::Add }
+      .uniq { |v| [v.target_id, v.target_type] }
+
     # удаляем все добавленыне
     histories.delete_if { |v| v.action == UserHistoryAction::Add }
+
     # кеш для быстрой проверки наличия в истории
     present_histories = histories.each_with_object({}) do |v, rez|
       rez["#{v.target_id}#{v.target_type}"] = true
     end
-    # возвращаем добавленные назад, если у добавленных нет ни ожной записи в истории,
-    # но в тоже время у добавленных есть потраченное на просмотр время
-    added = added.select { |v| !present_histories["#{v.target_id}#{v.target_type}"] }
-    added.each do |history|
-      rate = rates_cache["#{history.target_id}#{history.target_type}"]
-      history.value = rate.episodes > 0 ? rate.episodes : rate.chapters if rate
-    end
+    # возвращаем добавленные назад, если у добавленных нет
+    # ни одной записи в истории, но в тоже время у добавленных есть
+    # потраченное на просмотр время
+    added = added
+      .select { |v| !present_histories["#{v.target_id}#{v.target_type}"] }
+      .each do |history|
+        rate = rates_cache["#{history.target_id}#{history.target_type}"]
+
+        # аниме может быть запланированным с указанным числом эпизодов.
+        # такое не надо учитывать
+        if rate && !rate.planned?
+          history.value = rate.episodes > 0 ? rate.episodes : rate.chapters
+        end
+      end
+      .select { |history| history.value.to_i > 0 }
+
     histories = histories + added
 
     imported = Set.new histories
-      .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore}
+      .select { |v| v.action == UserHistoryAction::Status || v.action == UserHistoryAction::CompleteWithScore }
       .group_by { |v| v.updated_at.strftime DATE_FORMAT }
       .select { |k, v| v.size > 15 }
       .values.flatten
@@ -96,6 +111,7 @@ class UserStatisticsQuery
 
     # переписываем rates_cache на нужный нам формат данных
     rates_cache = rates.each_with_object(rates_cache) do |v, rez|
+      # запланированные не учитываем
       rez["#{v.target_id}#{v.target_type}"] = {
         duration: v[:duration],
         completed: 0,
@@ -109,14 +125,13 @@ class UserStatisticsQuery
     histories = histories.select { |v| cache_keys.include?("#{v.target_id}#{v.target_type}") }
 
     [
-      rates,
       histories,
       rates_cache
     ]
   end
 
   # вычисление статистики активности просмотра аниме / чтения манги
-  def compute_by_activity rates, histories, rates_cache, intervals
+  def compute_by_activity histories, rates_cache, intervals
     return {} if histories.none?
 
     # cleanup rates_cache because compute_by_activity is called twice
@@ -146,7 +161,7 @@ class UserStatisticsQuery
       # могли добавить в список (1). поставить большую часть эпизодов (2).
       # поменять статус (1) на completed. и получится, что запись о completed (1)
       # расположена в базе раньше, чем запись об эпизодах (2).
-      # но updated_at у (1) при это больше, чем updated_at у (2)
+      # но updated_at у (1) при этом больше, чем updated_at у (2)
       history.sort_by(&:updated_at).each do |entry|
         cached = rates_cache["#{entry.target_id}#{entry.target_type}"]
 
