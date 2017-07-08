@@ -99,7 +99,7 @@ private
     version = Versioneers::CollectionVersioneer
       .new(@resource.object, :external_links)
       .premoderate(
-        update_params[:external_links],
+        update_params[:external_links].map(&:to_unsafe_h),
         current_user,
         params[:reason]
       )
