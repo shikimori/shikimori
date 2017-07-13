@@ -25,7 +25,11 @@ class DynamicElements.Topic extends ShikiEditable
       if document.body.id == 'topics_show'
         @_toggle_ignored true
       else
-        @$root.remove()
+        # node can be not inserted into DOM yet
+        if @$root.parent().length
+          @$root.remove()
+        else
+          delay().then => @$root.remove()
         return
 
     @$body = @$inner.children('.body')

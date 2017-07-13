@@ -20,7 +20,11 @@ class DynamicElements.Comment extends ShikiEditable
     @model = @$root.data('model') || @_default_model()
 
     if SHIKI_USER.user_ignored(@model.user_id)
-      @$root.remove()
+      # node can be not inserted into DOM yet
+      if @$root.parent().length
+        @$root.remove()
+      else
+        delay().then => @$root.remove()
       return
 
     @$body = @$('.body')
