@@ -46,7 +46,11 @@ class Abilities::User
         )
     end
     can :destroy, Topic do |topic|
-      can?(:create, topic) && topic.created_at + 1.day > Time.zone.now
+      (can?(:create, topic) && topic.created_at + 1.day > Time.zone.now) || (
+        topic.type == Topics::ClubUserTopic.name &&
+        can?(:create_topic, topic.linked) &&
+        topic.comments_count < 2_000
+      )
     end
     can :broadcast, Topic do |topic|
       can_broadcast_in_club_topic?(topic, @user)

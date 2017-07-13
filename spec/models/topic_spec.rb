@@ -2,21 +2,18 @@
 
 describe Topic do
   describe 'associations' do
-    it do
-      is_expected.to belong_to :forum
-      is_expected.to belong_to :linked
-      is_expected.to belong_to :user
-      is_expected.to have_many :messages
-      is_expected.to have_many :topic_ignores
-      is_expected.to have_many :viewings
+    it { is_expected.to belong_to :forum }
+    it { is_expected.to belong_to :linked }
+    it { is_expected.to belong_to :user }
+    it { is_expected.to have_many :messages }
+    it { is_expected.to have_many :topic_ignores }
+    it { is_expected.to have_many :viewings }
     end
   end
 
   describe 'validations' do
-    it do
-      is_expected.to validate_presence_of :locale
-      is_expected.to validate_presence_of :title
-    end
+    it { is_expected.to validate_presence_of :locale }
+    it { is_expected.to validate_presence_of :title }
   end
 
   describe 'enumerize' do
@@ -178,24 +175,20 @@ describe Topic do
 
         context 'can create_topic' do
           let(:topic_policy) { Types::Club::TopicPolicy[:members] }
-          it do
-            is_expected.to be_able_to :new, topic
-            is_expected.to be_able_to :edit, topic
-            is_expected.to be_able_to :create, topic
-            is_expected.to be_able_to :update, topic
-            is_expected.to be_able_to :destroy, topic
-          end
+          it { is_expected.to be_able_to :new, topic }
+          it { is_expected.to be_able_to :edit, topic }
+          it { is_expected.to be_able_to :create, topic }
+          it { is_expected.to be_able_to :update, topic }
+          it { is_expected.to be_able_to :destroy, topic }
         end
 
         context 'cannot create_topic' do
           let(:topic_policy) { Types::Club::TopicPolicy[:admins] }
-          it do
-            is_expected.to_not be_able_to :new, topic
-            is_expected.to_not be_able_to :edit, topic
-            is_expected.to_not be_able_to :create, topic
-            is_expected.to_not be_able_to :update, topic
-            is_expected.to_not be_able_to :destroy, topic
-          end
+          it { is_expected.to_not be_able_to :new, topic }
+          it { is_expected.to_not be_able_to :edit, topic }
+          it { is_expected.to_not be_able_to :create, topic }
+          it { is_expected.to_not be_able_to :update, topic }
+          it { is_expected.to_not be_able_to :destroy, topic }
         end
       end
     end
