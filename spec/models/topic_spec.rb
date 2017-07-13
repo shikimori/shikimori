@@ -8,7 +8,6 @@ describe Topic do
     it { is_expected.to have_many :messages }
     it { is_expected.to have_many :topic_ignores }
     it { is_expected.to have_many :viewings }
-    end
   end
 
   describe 'validations' do
