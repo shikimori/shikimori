@@ -3,28 +3,28 @@ api_key: e7b546ef
 development_environments:
   - development
   - test
-# exceptions:
-  # ignore:
-    # - CanCan::AccessDenied
-    # - ActionController::InvalidAuthenticityToken
-    # - ActionController::UnknownFormat
-    # - ActionDispatch::RemoteIp::IpSpoofAttackError
-    # - ActiveRecord::RecordNotFound
-    # - I18n::InvalidLocale
-    # - Unicorn::ClientShutdown
-    # - NotFoundError
-    # - Unauthorized
-    # - Forbidden
-    # - AgeRestricted
-    # - MismatchedEntries
-    # - CopyrightedResource
-    # - Net::SMTPServerBusy
-    # - Net::SMTPFatalError
-    # - Interrupt
-    # - Apipie::ParamMissing
-    # - InvalidIdError
-    # - EmptyContentError
-    # - MalParser::RecordNotFound
+exceptions:
+  ignore:
+    - CanCan::AccessDenied
+    - ActionController::InvalidAuthenticityToken
+    - ActionController::UnknownFormat
+    - ActionDispatch::RemoteIp::IpSpoofAttackError
+    - ActiveRecord::RecordNotFound
+    - I18n::InvalidLocale
+    - Unicorn::ClientShutdown
+    - NotFoundError
+    - Unauthorized
+    - Forbidden
+    - AgeRestricted
+    - MismatchedEntries
+    - CopyrightedResource
+    - Net::SMTPServerBusy
+    - Net::SMTPFatalError
+    - Interrupt
+    - Apipie::ParamMissing
+    - InvalidIdError
+    - EmptyContentError
+    - MalParser::RecordNotFound
 metrics:
   enabled: false
 traces:
