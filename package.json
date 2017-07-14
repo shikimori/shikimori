@@ -2,7 +2,7 @@
   "name": "shikimori",
   "private": true,
   "dependencies": {
-    "autosize": "^3.0.21",
+    "autosize": "^4.0.0",
     "axios": "^0.16.2",
     "blueimp-md5": "^2.7.0",
     "bowser": "^1.7.0",
