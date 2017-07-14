@@ -238,6 +238,9 @@ export default {
         content: '+'
 
     input
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
       width: calc(100% - 6px)
 
   .collection_links
