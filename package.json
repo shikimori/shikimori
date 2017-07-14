@@ -29,9 +29,9 @@
     "turbolinks": "morr/turbolinks#master",
     "uevent": "^1.0.0",
     "urijs": "^1.18.10",
-    "vue": "^2.3.4",
-    "vue-loader": "^12.2.1",
-    "vue-template-compiler": "^2.3.4",
+    "vue": "^2.4.1",
+    "vue-loader": "^12.2.2",
+    "vue-template-compiler": "^2.4.1",
     "vuedraggable": "^2.14.1",
     "vuex": "^2.3.1"
   },
