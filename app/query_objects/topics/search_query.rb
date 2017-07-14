@@ -19,11 +19,24 @@ private
 
   def forum_id
     if @forum
-      @forum.id
+      pick_forum_id
+
     elsif user
       @user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID]
+
     else
       Forum.cached.map(&:id)
+    end
+  end
+
+  def pick_forum_id
+    if @forum == Forum::NEWS_FORUM
+      Forum.cached.map(&:id)
+
+    elsif @forum == Forum::MY_CLUBS_FORUM
+      [Forum::CLUBS_ID]
+    else
+      @forum.id
     end
   end
 end
