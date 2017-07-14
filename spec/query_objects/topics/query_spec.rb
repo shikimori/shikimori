@@ -261,73 +261,25 @@ describe Topics::Query do
     let!(:topic_3) { create :topic, id: 3 }
     let!(:topic_en) { create :topic, id: 4, locale: :en }
 
-    subject { query.search phrase, forum, user, 'ru' }
+    subject { query.search phrase, forum, user, locale }
 
+    let(:phrase) { 'test' }
     let(:forum) { seed :animanga_forum }
-    let(:forum_id) { forum.id }
     let(:user) { nil }
+    let(:locale) { 'ru' }
+    let(:topics) { [topic_1, topic_2] }
 
-    context 'present search phrase' do
-      before do
-        allow(Elasticsearch::Query::Topic).to receive(:call).with(
-          phrase: phrase,
-          locale: 'ru',
-          forum_id: forum_id,
-          limit: Topics::Query::SEARCH_LIMIT
-        ).and_return(
-          [
-            { '_id' => topic_3.id },
-            { '_id' => topic_2.id },
-            { '_id' => topic_en.id }
-          ]
-        )
-      end
-      let(:phrase) { 'test' }
-
-      context 'forum is set' do
-        let(:forum) { seed :animanga_forum }
-        let(:forum_id) { forum.id }
-
-        it do
-          is_expected.to eq [topic_3, topic_2]
-          expect(Elasticsearch::Query::Topic).to have_received(:call).once
-        end
-      end
-
-      context 'forum is not set' do
-        let(:forum) { nil }
-
-        context 'user is set' do
-          let(:user) { seed :user }
-          let(:forum_id) { user.preferences.forums.map(&:to_i) + [Forum::CLUBS_ID] }
-
-          it do
-            is_expected.to eq [topic_3, topic_2]
-            expect(Elasticsearch::Query::Topic).to have_received(:call).once
-          end
-        end
-
-        context 'user is not set' do
-          let(:user) { nil }
-          let(:forum_id) { Forum.cached.map(&:id) }
-
-          it do
-            is_expected.to eq [topic_3, topic_2]
-            expect(Elasticsearch::Query::Topic).to have_received(:call).once
-          end
-        end
-      end
+    before do
+      allow(Topics::SearchQuery).to receive(:call).with(
+        scope: anything,
+        phrase: phrase,
+        forum: forum,
+        user: user,
+        locale: locale,
+      ).and_return(topics)
     end
 
-    context 'missing search phrase' do
-      before { allow(Elasticsearch::Query::Topic).to receive :call }
-      let(:phrase) { '' }
-
-      it do
-        is_expected.to have(8).items
-        expect(Elasticsearch::Query::Topic).to_not have_received :call
-      end
-    end
+    it { is_expected.to eq topics }
   end
 
   describe '#as_views' do
