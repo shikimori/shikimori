@@ -27,7 +27,6 @@ class Styles.Edit extends View
     @_debounced_preview = debounce(500, @preview)
     @_debounced_sync = debounce(500, @sync)
 
-    @$css.elastic()
     @_sync_components()
 
     @$form
