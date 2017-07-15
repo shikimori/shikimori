@@ -101,7 +101,7 @@ Rails.application.routes.draw do
   namespace :moderations do
     resources :users, only: %i[index]
     resources :versions, only: %i[show create destroy] do
-      get '/:type(/page/:page)' => :index,
+      get '(/:type)(/page/:page)' => :index,
         as: '',
         on: :collection,
         type: /content|anime_video/
