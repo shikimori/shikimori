@@ -90,6 +90,7 @@ class Studio < ApplicationRecord
     # my custom
     "daiwon media",
     "lerche",
+    "project no.9",
 
     # с википедии
     "a-1 pictures inc.",
