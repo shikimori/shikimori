@@ -7,8 +7,11 @@ describe BbCodes::UrlTag do
     context 'without text' do
       let(:text) { "[url]#{url}[/url]" }
 
-      context 'short url' do
-        it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
+      it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
+
+      context 'with class' do
+        let(:text) { "[url aa]#{url}[/url]" }
+        it { is_expected.to eq "<a class=\"b-link aa\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
       end
 
       context 'wo protocol url' do
@@ -44,9 +47,13 @@ describe BbCodes::UrlTag do
     end
 
     context 'with text' do
-      context 'normal url' do
-        let(:text) { "[url=#{url}]text[/url]" }
-        it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">text</a>" }
+      let(:text) { "[url=#{url}]text[/url]" }
+
+      it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">text</a>" }
+
+      context 'with class' do
+        let(:text) { "[url=#{url} aa]text[/url]" }
+        it { is_expected.to eq "<a class=\"b-link aa\" href=\"#{url}\">text</a>" }
       end
 
       context 'without http' do

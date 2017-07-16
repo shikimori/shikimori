@@ -13,11 +13,11 @@ class BbCodes::UrlTag
   }mix
 
   REGEXP = %r{
-    \[url\]
+    \[ url (?:\ (?<class>[\w_-]+))? \]
       (?<url> .*?)
     \[/url\]
       |
-    \[url=(?<url>.*?)\]
+    \[ url=(?<url>.*?) (?:\ (?<class>[\w_-]+))? \]
       (?<text> .*?)
     \[/url\]
       |
@@ -28,18 +28,20 @@ class BbCodes::UrlTag
     text.gsub REGEXP do
       url = match_url $LAST_MATCH_INFO[:url]
       text = match_text $LAST_MATCH_INFO[:text], url
+      css_class = $LAST_MATCH_INFO[:class]
 
-      url.ends_with?('.webm') ? video_bb_code(url) : link_tag(url, text)
+      webm_link?(url) ? video_bb_code(url) : link_tag(url, text, css_class)
     end
   end
 
 private
 
-  def link_tag url, text
+  def link_tag url, text, css_class
     decoded_text = decode_uri text
+    css_classes = ['b-link', css_class].select(&:present?).join(' ')
 
-    "<a class=\"b-link\" href=\"#{url}\">\
-#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).domain}</a>"
+    "<a class=\"#{css_classes}\" href=\"#{url}\">"\
+      "#{decoded_text.valid_encoding? ? decoded_text : Url.new(url).domain}</a>"
   end
 
   def video_bb_code url
@@ -66,5 +68,9 @@ private
     URI.decode text
   rescue Encoding::CompatibilityError
     text
+  end
+
+  def webm_link? url
+    url.ends_with? '.webm'
   end
 end

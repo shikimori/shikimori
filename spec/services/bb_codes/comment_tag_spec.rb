@@ -3,20 +3,30 @@ describe BbCodes::CommentTag do
 
   describe '#format' do
     subject { tag.format text }
-    let(:text) { "[comment=#{comment.id}]morr[/comment], test" }
 
-    context 'valid comment_id' do
-      let(:comment) { create :comment }
+    let(:user) { seed :user }
+    let(:comment_url) { UrlGenerator.instance.comment_url comment }
+
+    context 'with author' do
+      let(:text) { "[comment=#{comment.id}]#{user.nickname}[/comment], test" }
+      let(:comment) { build_stubbed :comment }
+
       it do
-        is_expected.to eq BbCodes::UrlTag.instance.format(
-          "[url=#{UrlGenerator.instance.comment_url comment}]morr[/url], test"
+        is_expected.to eq(
+          "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
         )
       end
     end
 
-    context 'invalid comment_id' do
-      let(:comment) { build_stubbed :comment }
-      it { is_expected.to eq 'morr, test' }
+    context 'without author' do
+      let(:text) { "[comment=#{comment.id}][/comment], test" }
+      let(:comment) { create :comment, user: user }
+
+      it do
+        is_expected.to eq(
+          "[url=#{comment_url} bubbled]@#{user.nickname}[/url], test"
+        )
+      end
     end
   end
 end

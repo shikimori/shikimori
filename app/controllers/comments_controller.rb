@@ -6,7 +6,15 @@ class CommentsController < ShikimoriController
     comment = Comment.find_by(id: params[:id]) || NoComment.new(params[:id])
     @view = Comments::View.new comment, false
 
-    render :missing if comment.is_a? NoComment
+    if comment.is_a? NoComment
+      render :missing
+    else
+      render :show
+    end
+  end
+
+  def tooltip
+    show
   end
 
   def reply

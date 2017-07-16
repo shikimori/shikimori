@@ -1,4 +1,4 @@
-- if request.xhr?
+- if request.xhr? || params[:action] == 'tooltip'
   = render partial: 'comments/comment',
     layout: false,
     object: @view.decorated_comment,

@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   end
 
   resources :comments, except: %i[create update] do
-    # NOTE: should be before collection & member actions
+    # NOTE: must be before collection & member actions
     resources :bans, only: %i[new], controller: 'moderations/bans'
     resources :abuse_requests, controller: 'moderations/abuse_requests', only: [] do
       resources :bans, only: %i[new], controller: 'moderations/bans'
@@ -92,6 +92,7 @@ Rails.application.routes.draw do
 
     member do
       get :reply
+      get :tooltip
     end
   end
   get 'comments/chosen/:ids(/:order)' => 'comments#chosen', as: :comments_chosen

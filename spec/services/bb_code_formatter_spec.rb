@@ -410,7 +410,10 @@ describe BbCodeFormatter do
     describe '[replies]' do
       let(:text) { "[replies=#{comment.id}]" }
       let!(:comment) { create :comment }
-      it { is_expected.to include '<div class="b-replies translated-before single"' }
+      it do
+        is_expected.to include '<div class="b-replies translated-before single"'
+        is_expected.to_not include '[/comment]'
+      end
     end
 
     describe '[contest_round]' do
@@ -470,13 +473,6 @@ describe BbCodeFormatter do
     describe 'russian link' do
       let(:text) { 'http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/' }
       it { is_expected.to eq '<a class="b-link" href="http://www.hentasis.com/tags/%D3%F7%E8%F2%E5%EB%FC%ED%E8%F6%FB/">www.hentasis.com</a>' }
-    end
-
-    describe 'two replies' do
-      let(:text) do
-        "[comment=1260072]Viks[/comment],\n[comment=1260062]Егор Кун[/comment],"
-      end
-      it { is_expected.to eq '<span class="bubbled b-link" data-href="//shikimori.org/comments/1260072.html">@Viks</span>,<br><span class="bubbled b-link" data-href="//shikimori.org/comments/1260062.html">@Егор Кун</span>,' }
     end
 
     describe 'obsolete tags' do

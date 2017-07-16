@@ -11,16 +11,16 @@ class BbCodeFormatter
 
   HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
   TAGS = [
+    BbCodes::RepliesTag, BbCodes::CommentTag,
     BbCodes::DbEntryUrlTag, BbCodes::VideoUrlTag, BbCodes::VideoTag,
     BbCodes::PosterTag, BbCodes::WallImageTag, BbCodes::EntriesTag,
     BbCodes::WallTag, BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag,
     BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
-    BbCodes::ListTag, BbCodes::H3Tag, BbCodes::RepliesTag,
+    BbCodes::ListTag, BbCodes::H3Tag,
     BbCodes::ContestStatusTag, BbCodes::ContestRoundStatusTag,
-    BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag,
-    BbCodes::CommentTag
+    BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag
   ]
   OBSOLETE_TAGS = %r(
     \[user_change=\d+\] | \[\/user_change\]
