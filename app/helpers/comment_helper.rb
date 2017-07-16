@@ -151,7 +151,6 @@ module CommentHelper
   @@type_matchers = {
     Version => [/(\[version(?:=(\d+))?\]([^\[]*?)\[\/version\])/, :tooltip_moderations_version_url],
     AnimeVideo => [/(\[anime_video(?:=(\d+))?\]([^\[]*?)\[\/anime_video\])/, :tooltip_anime_url],
-    Comment => [/(?<match>\[comment=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/comment\])/, nil],
     Message => [/(?<match>\[message=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/message\])/, nil],
     Topic => [/(?<match>\[(?:topic|entry)=(?<id>\d+)(?<quote> quote)?\](?<text>[^\[]*?)\[\/(?:topic|entry)\])/, nil],
     User => [/(\[(user|profile)(?:=(\d+))?\]([^\[]*?)\[\/(?:user|profile)\])/, nil],
@@ -167,10 +166,8 @@ module CommentHelper
       while text =~ matcher
         Honeybadger.context text: text, matcher: matcher if defined? Honeybadger
 
-        if klass == Comment || klass == Topic || klass == Message
-          url = if klass == Comment
-            comment_url id: $~[:id], format: :html
-          elsif klass == Message
+        if klass == Topic || klass == Message
+          url = if klass == Message
             message_url id: $~[:id], format: :html
           else
             topic_tooltip_url id: $~[:id], format: :html

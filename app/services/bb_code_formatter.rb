@@ -19,7 +19,8 @@ class BbCodeFormatter
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
     BbCodes::ListTag, BbCodes::H3Tag, BbCodes::RepliesTag,
     BbCodes::ContestStatusTag, BbCodes::ContestRoundStatusTag,
-    BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag
+    BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag,
+    BbCodes::CommentTag
   ]
   OBSOLETE_TAGS = %r(
     \[user_change=\d+\] | \[\/user_change\]
