@@ -45,7 +45,7 @@ module.exports = class CommentsNotifier
       .appendTo(document.body)
       .on 'click', =>
         $first_unread = $("#{@comment_selector}, #{@faye_loader_selector}").first()
-        $.scrollTo $first_unread, 'easeInOutCirc'
+        $.scrollTo $first_unread
 
     @scroll = $(window).scrollTop()
 
