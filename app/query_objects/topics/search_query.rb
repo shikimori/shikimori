@@ -35,6 +35,10 @@ private
 
     elsif @forum == Forum::MY_CLUBS_FORUM
       [Forum::CLUBS_ID]
+
+    elsif @forum == Forum::UPDATES_FORUM
+      [Forum::ANIME_NEWS_ID]
+
     else
       @forum.id
     end
