@@ -11,7 +11,7 @@ class BbCodeFormatter
 
   HASH_TAGS = [BbCodes::ImageTag, BbCodes::ImgTag]
   TAGS = [
-    BbCodes::RepliesTag, BbCodes::CommentTag,
+    BbCodes::QuoteTag, BbCodes::RepliesTag, BbCodes::CommentTag,
     BbCodes::DbEntryUrlTag, BbCodes::VideoUrlTag, BbCodes::VideoTag,
     BbCodes::PosterTag, BbCodes::WallImageTag, BbCodes::EntriesTag,
     BbCodes::WallTag,
@@ -91,12 +91,12 @@ class BbCodeFormatter
       text = tag_klass.instance.format text, text_hash
     end
 
-    BB_CODE_REPLACERS.each do |processor|
-      text = send processor, text
-    end
-
     TAGS.each do |tag_klass|
       text = tag_klass.instance.format text
+    end
+
+    BB_CODE_REPLACERS.each do |processor|
+      text = send processor, text
     end
 
     text = text.gsub OBSOLETE_TAGS, ''

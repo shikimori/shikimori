@@ -6,11 +6,11 @@ module CommentHelper
   #include AniMangaHelper
 
   SIMPLE_BB_CODES = %i[
-    b s u i quote url img list right center solid
+    b s u i url img list right center solid
   ]
   COMPLEX_BB_CODES = %i[
     smileys club club_page collection contest mention version anime_video
-    user message topic review quote posters ban
+    user message topic review posters ban
     spoiler
   ]
 
@@ -115,23 +115,6 @@ module CommentHelper
       .gsub(/(?:<|&lt;)br ?\/?(?:>|&gt;)/, "\n")
       .strip
       #.gsub(/[\n\r\t ]+$/x, '')
-  end
-
-  def quote_to_html text, poster=nil
-    return text unless text.include?("[quote") && text.include?("[/quote]")
-
-    text
-      .gsub(/\[quote\]\n?/,
-        '<div class="b-quote">')
-      .gsub(/\[quote=c?(\d+);(\d+);([^\]]+)\]\n?/,
-        '<div class="b-quote"><div class="quoteable">[comment=\1 quote]\3[/comment]</div>')
-      .gsub(/\[quote=m(\d+);(\d+);([^\]]+)\]\n?/,
-        '<div class="b-quote"><div class="quoteable">[message=\1 quote]\3[/message]</div>')
-      .gsub(/\[quote=t(\d+);(\d+);([^\]]+)\]\n?/,
-        '<div class="b-quote"><div class="quoteable">[topic=\1 quote]\3[/topic]</div>')
-      .gsub(/\[quote=([^\]]+)\]\n?/,
-        '<div class="b-quote"><div class="quoteable">[user]\1[/user]</div>')
-      .gsub(/\[\/quote\]\n?/, '</div>')
   end
 
   def posters_to_html text, poster=nil
