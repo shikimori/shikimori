@@ -10,7 +10,11 @@ class Proxy < ApplicationRecord
     end \s of \s file \s reached |
     404 \s Not \s Found
   /mix
+  USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) '\
+    'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+
   cattr_accessor :use_proxy, :use_cache, :show_log
+
 
   # список проксей
   @@proxies = nil
@@ -270,7 +274,7 @@ class Proxy < ApplicationRecord
     end
 
     def user_agent _url
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36'
+      USER_AGENT
 
       #if url =~ /myanimelist.net/
       #  'api-malupdater-989B0AD8068FA18E49825724D2B8E68B'

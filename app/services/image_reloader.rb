@@ -3,10 +3,11 @@ class ImageReloader < ServiceObjectBase
 
   def call
     return if entry.desynced.include? 'image'
+    return unless parsed_data && parsed_data[:image]
 
-    if parsed_data && parsed_data[:image]
-      @entry.update image: open_image(parsed_data[:image], 'User-Agent' => 'Mozilla/4.0 (compatible; ICS)')
-    end
+    @entry.update(
+      image: open_image(parsed_data[:image], 'User-Agent' => Proxy::USER_AGENT)
+    )
   end
 
 private
@@ -14,6 +15,7 @@ private
   def parsed_data
     @parsed_data ||= parser.call @entry.id
   rescue InvalidIdError
+    nil
   end
 
   def parser

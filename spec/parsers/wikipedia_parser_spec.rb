@@ -583,7 +583,7 @@ ZXC")).to eq [{
     it 'Zero no Tsukaima' do
       chars = parser.extract_characters(zero_no_tsukaima)
 
-      expect(chars.size).to eq(13)
+      expect(chars.size).to eq(15)
 
       expect(chars.first[:russian]).to eq 'Луиза Франсуаза ле Блан де ла Вальер де Тристейн'
       expect(chars.first[:english]).to be_nil
@@ -606,7 +606,7 @@ ZXC")).to eq [{
     end
 
     it 'Shiki' do
-      expect(parser.extract_characters(create :anime, name: 'Shiki').size).to eq(8)
+      expect(parser.extract_characters(create :anime, name: 'Shiki').size).to eq(9)
     end
 
     it 'Myself ; Yourself' do
@@ -618,7 +618,7 @@ ZXC")).to eq [{
 
       expect(chars.select{|v| v[:russian].include? 'Deus'}.first[:japanese]).to eq 'デウス・エクス・マキナ'
 
-      expect(chars.size).to eq(18)
+      expect(chars.size).to eq(21)
       expect(chars.first[:russian]).to eq 'Юкитэру Амано'
       expect(chars.first[:japanese]).to eq '天野雪輝'
     end

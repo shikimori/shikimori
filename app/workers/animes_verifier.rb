@@ -61,7 +61,7 @@ class AnimesVerifier
     end
 
     if bad_images.any?
-      raise "#{bad_images.size} bad images found: #{bad_images.join ', '}"
+      raise "#{bad_images.size} bad #{klass.name} images found: #{bad_images.join ', '}"
     end
   end
 

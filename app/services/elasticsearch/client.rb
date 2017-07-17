@@ -21,7 +21,6 @@ class Elasticsearch::Client
     NamedLogger.elasticserach_api.info "DELETE #{url}" if Rails.env.development?
 
     process faraday.delete(url)
-
   rescue ElasticsearchError => e
     raise unless e.status == 404
   end
