@@ -49,6 +49,12 @@ page_load 'contests_show', ->
     false
 
   # успешное голосование за один из вариантов
+  $root.on 'ajax:before', '.match-member', (e) ->
+    $(e.target).find('.b-catalog_entry').yellow_fade()
+
+  $root.on 'ajax:before', '.refrain', (e) ->
+    $(e.target).yellow_fade()
+
   $root.on 'ajax:success', '.match-member, .refrain', (e, data) ->
     # скрываем всё
     $('.help, .refrained, .next, .refrain', $root).hide()
@@ -116,9 +122,11 @@ page_load 'contests_show', ->
     $('.match-link.pending').first().trigger 'click'
 
   # переключение между голосованиями
-  $root.on 'ajax:before', '.match-link', (e, data) ->
-    unless $('.match-container > img').length
-      $('.match-container').stop(true, false).animate opacity: 0.3
+  $root
+    .on 'ajax:before', '.match-link', (e, data) ->
+      $('.match-container').addClass 'b-ajax'
+    .on 'ajax:complete', '.match-link', (e, data) ->
+      $('.match-container').removeClass 'b-ajax'
 
   $root.on 'ajax:success', '.match-link', (e, data) ->
     $('.match-link').removeClass 'active'
