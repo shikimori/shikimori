@@ -14,11 +14,14 @@ class BbCodeFormatter
     BbCodes::RepliesTag, BbCodes::CommentTag,
     BbCodes::DbEntryUrlTag, BbCodes::VideoUrlTag, BbCodes::VideoTag,
     BbCodes::PosterTag, BbCodes::WallImageTag, BbCodes::EntriesTag,
-    BbCodes::WallTag, BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag,
-    BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
+    BbCodes::WallTag,
+
+    BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag, BbCodes::BTag,
+    BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
     BbCodes::ListTag, BbCodes::H3Tag,
+
     BbCodes::ContestStatusTag, BbCodes::ContestRoundStatusTag,
     BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag
   ]
@@ -88,12 +91,12 @@ class BbCodeFormatter
       text = tag_klass.instance.format text, text_hash
     end
 
-    TAGS.each do |tag_klass|
-      text = tag_klass.instance.format text
-    end
-
     BB_CODE_REPLACERS.each do |processor|
       text = send processor, text
+    end
+
+    TAGS.each do |tag_klass|
+      text = tag_klass.instance.format text
     end
 
     text = text.gsub OBSOLETE_TAGS, ''

@@ -13,7 +13,7 @@ class BbCodes::UrlTag
   }mix
 
   REGEXP = %r{
-    \[ url (?:\ (?<class>[\w_-]+))? \]
+    \[ url (?:\ (?<class>[\w_\ -]+))? \]
       (?<url> .*?)
     \[/url\]
       |

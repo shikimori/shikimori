@@ -10,8 +10,8 @@ describe BbCodes::UrlTag do
       it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
 
       context 'with class' do
-        let(:text) { "[url aa]#{url}[/url]" }
-        it { is_expected.to eq "<a class=\"b-link aa\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
+        let(:text) { "[url aa bb]#{url}[/url]" }
+        it { is_expected.to eq "<a class=\"b-link aa bb\" href=\"#{url}\">#{Url.new(url).without_http}</a>" }
       end
 
       context 'wo protocol url' do

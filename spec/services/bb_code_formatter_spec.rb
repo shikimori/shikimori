@@ -263,12 +263,12 @@ describe BbCodeFormatter do
     end
 
     describe 'db_entry_url_tag -> db_entry_tag' do
-      let!(:anime) { create :anime, id: 9876543, name: 'z' }
+      let!(:anime) { create :anime, id: 9_876_543, name: 'z' }
       let(:text) { 'http://shikimori.dev/animes/9876543-test' }
       it do
         is_expected.to include(
           "<a href=\"#{anime.decorate.url}\" title=\"#{anime.name}\" "\
-            "class=\"bubbled b-link\""
+            'class="bubbled b-link"'
         )
       end
     end
@@ -439,6 +439,18 @@ describe BbCodeFormatter do
       context 'simple' do
         let(:text) { '[quote]test[/quote]zz' }
         it { is_expected.to eq '<div class="b-quote">test</div>zz' }
+      end
+
+      context 'comment quote' do
+        let(:text) { "[quote=c#{comment.id};#{user.id};zz]test[/quote]" }
+        let(:user) { seed :user }
+        let(:comment) { create :comment, user: user }
+
+        it do
+          is_expected.to_not include '[quote='
+          is_expected.to_not include '[comment='
+          is_expected.to include '<div class="b-quote">'
+        end
       end
 
       context 'simple with \\n before' do
