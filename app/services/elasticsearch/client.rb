@@ -31,7 +31,7 @@ private
   def request method, path, data
     url = "#{ELASTIC_URL}/#{path}"
 
-    if Rails.env.development?
+    if Rails.env.development? || method != :get
       NamedLogger.elasticserach_api.info <<-LOG.strip
         #{method.upcase} #{url}\n#{data.to_json}
       LOG
