@@ -17,7 +17,7 @@ class BbCodes::UrlTag
       (?<url> .*?)
     \[/url\]
       |
-    \[ url=(?<url>.*?) (?:\ (?<class>[\w_-]+))? \]
+    \[ url=(?<url>.*?) (?:\ (?<class>[\w_\ -]+))? \]
       (?<text> .*?)
     \[/url\]
       |

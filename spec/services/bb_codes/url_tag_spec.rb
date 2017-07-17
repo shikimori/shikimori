@@ -52,8 +52,8 @@ describe BbCodes::UrlTag do
       it { is_expected.to eq "<a class=\"b-link\" href=\"#{url}\">text</a>" }
 
       context 'with class' do
-        let(:text) { "[url=#{url} aa]text[/url]" }
-        it { is_expected.to eq "<a class=\"b-link aa\" href=\"#{url}\">text</a>" }
+        let(:text) { "[url=#{url} aa bb]text[/url]" }
+        it { is_expected.to eq "<a class=\"b-link aa bb\" href=\"#{url}\">text</a>" }
       end
 
       context 'without http' do
