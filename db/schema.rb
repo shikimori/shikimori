@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170708113304) do
+ActiveRecord::Schema.define(version: 20170719151011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -556,6 +556,17 @@ ActiveRecord::Schema.define(version: 20170708113304) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["user_id", "target_id"], name: "index_ignores_on_user_id_and_target_id", unique: true
+  end
+
+  create_table "list_imports", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "list_file_name", null: false
+    t.string "list_content_type", null: false
+    t.integer "list_file_size", null: false
+    t.datetime "list_updated_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_list_imports_on_user_id"
   end
 
   create_table "manga_chapters", id: :serial, force: :cascade do |t|
