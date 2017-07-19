@@ -70,19 +70,6 @@
                 title=t('.enable_authentication', provider: provider.to_s.titleize)
               ]
 
-      input.ignore-suggest.subheadline-input.downgrade_landscape[
-        type='text'
-        placeholder=t('username')
-        data-variant_name='user[ignored_user_ids][]'
-        data-autocomplete=autocomplete_users_url
-      ]
-      .subheadline = t '.ignored_users'
-      .variants
-        - @resource.ignored_users.each do |user|
-          .variant
-            = check_box_tag 'user[ignored_user_ids][]', user.id, checked: true
-            a href="#{profile_url user}" = user.nickname
-
   .buttons
     a.cancel href="#{profile_url @resource}" = t 'actions.cancel'
     = f.button :magic_submit

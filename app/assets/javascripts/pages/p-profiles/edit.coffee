@@ -1,7 +1,6 @@
 page_load 'profiles_edit', ->
   # account page
-  if $('.edit-page.account').exists()
-    $('.ignore-suggest').completable_variant()
+  # if $('.edit-page.account').exists()
 
   # profile page
   if $('.edit-page.profile').exists()
