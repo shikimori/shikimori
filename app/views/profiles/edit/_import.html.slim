@@ -78,13 +78,13 @@
         = file_field_tag :file, class: :common
       p.form-buttons
         span#to_final_step.control.submit
-          span.b-js-link = t '.import'
+          span.b-button = t '.import'
         span class="cancel control"
           span.b-js-link = t 'actions.cancel'
 
   #import_mal
     = form_tag import_profile_user_rates_url(@resource.object) do
-      p
+      p.m5
         | #{t '.found'}&nbsp;
         span#import_found
         |  #{i18n_i 'record', :many}.
@@ -95,7 +95,7 @@
       = hidden_field_tag :list_type, :mal
       p.form-buttons
         span.import.submit.control
-          span.b-js-link = t '.import'
+          span.b-button = t '.import'
         span.cancel.control
           span.b-js-link = t 'actions.cancel'
 
@@ -108,12 +108,12 @@
       = hidden_field_tag :klass
       = hidden_field_tag :list_type, :anime_planet
 
-      p
+      p.m5
         | #{t '.what_to_do_with_status'} Won't&nbsp;
         span#import_anime_planet_status
         | (#{t '.there_is_no_such_status_on_shikimori'})?
       p.form-buttons
         span#nil.control data-wont-watch-strategy=""
-          span.b-js-link = t '.do_not_import'
+          span.b-button = t '.do_not_import'
         span#dropped.control data-wont-watch-strategy="dropped"
-          span.b-js-link = t '.import_as_dropped'
+          span.b-button = t '.import_as_dropped'
