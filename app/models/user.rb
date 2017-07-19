@@ -179,7 +179,7 @@ class User < ApplicationRecord
     super FixName.call(value, true)
   end
 
-  # allows for account creation from twitter
+  # allow account creation from twitter
   def email_required?
     user_tokens.empty?
   end

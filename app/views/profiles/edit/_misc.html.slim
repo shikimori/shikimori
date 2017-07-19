@@ -22,10 +22,10 @@
           = t '.restore_rejected_recommendations', kind: i18n_i('manga', 1, :genitive)
 
       .form.anime
-        p
+        p.m5
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_restore_recommendations', kind: i18n_i('anime', 1, :genitive)
-        a.b-js-link.control[
+        a.b-button.control[
           href="#{cleanup_recommendation_ignores_path target_type: :anime}"
           data-method='delete'
           data-remote='true'
@@ -35,10 +35,10 @@
         span.b-js-link.cancel = t 'actions.cancel'
 
       .form.manga
-        p
+        p.m5
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_restore_recommendations', kind: i18n_i('manga', 1, :genitive)
-        a.b-js-link.control[
+        a.b-button.control[
           href="#{cleanup_recommendation_ignores_path target_type: :manga}"
           data-method='delete'
           data-remote='true'
@@ -53,10 +53,10 @@
         div: .b-js-link = t '.clear_history'
 
       .form
-        p
+        p.m5
           span.warn = t 'this_action_cant_be_undone'
           span = t '.confirm_to_clear_history_of_nickname_changes'
-        a.b-js-link.control[
+        a.b-button.control[
           href="#{cleanup_api_nickname_changes_url}"
           data-method='delete'
           data-remote='true'
