@@ -1,6 +1,6 @@
 class Forums::Menu < ViewObjectBase
   pattr_initialize :forum, :linked
-  instance_cache :club_topics, :contests, :reviews
+  instance_cache :club_topics, :reviews
 
   def club_topics
     Topic
@@ -13,10 +13,6 @@ class Forums::Menu < ViewObjectBase
       .where(locale: h.locale_from_host)
       .order(updated_at: :desc)
       .limit(3)
-  end
-
-  def contests
-    Contests::CurrentQuery.call
   end
 
   def changeable_forums?

@@ -55,16 +55,6 @@
               datetime="#{review.created_at.iso8601}"
             ] = l review.created_at, format: '%e %B %Y'
 
-- if menu.contests.any?
-  .contests.block
-    h2.midheadline.m5
-      a [
-        href="#{contests_url}"
-        title="#{i18n_i 'Contest', :other}"
-      ] = i18n_i 'Contest', :other
-    .block
-      = render 'dashboards/contests', collection: menu.contests
-
 .block2.clubs
   h2.midheadline.m13
     a[
