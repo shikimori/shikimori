@@ -75,7 +75,9 @@
         = label_tag :import_login do
           | #{t '.mal_xml_file'} <a href="http://myanimelist.net/panel.php?go=export" target="_blank">#{t '.you_can_get_it_here'}</a>
           br
+      .m10
         = file_field_tag :file, class: :common
+
       p.form-buttons
         span#to_final_step.control.submit
           span.b-button = t '.import'
