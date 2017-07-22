@@ -33,6 +33,7 @@ class Abilities::User
     anime_video_abilities
     version_abilities
     style_abilities
+    list_import_abilities
   end
 
   def topic_abilities
@@ -263,6 +264,12 @@ class Abilities::User
 
     can :manage, Device, user_id: @user.id
     can :read, Genre
+  end
+
+  def list_import_abilities
+    can %i[create show], ListImport do |list_import|
+      list_import.user_id == @user.id
+    end
   end
 
 private

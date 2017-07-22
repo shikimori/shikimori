@@ -542,6 +542,8 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :list_imports, only: [:create, :show]
+
     resource :tests, only: %i[show] do
       get :echo
       post :echo
