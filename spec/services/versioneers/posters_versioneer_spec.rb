@@ -1,7 +1,7 @@
 describe Versioneers::PostersVersioneer do
   let(:service) { Versioneers::PostersVersioneer.new anime }
   let(:anime) { create :anime }
-  let(:image) { Rack::Test::UploadedFile.new 'spec/images/anime.jpg', 'image/jpg' }
+  let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
   let(:author) { build_stubbed :user }
   let(:reason) { 'change reason' }
 

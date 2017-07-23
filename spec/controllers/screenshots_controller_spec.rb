@@ -3,7 +3,7 @@ describe ScreenshotsController do
   let(:anime) { create :anime }
 
   describe '#create' do
-    let(:image) { Rack::Test::UploadedFile.new 'spec/images/anime.jpg', 'image/jpg' }
+    let(:image) { Rack::Test::UploadedFile.new 'spec/files/anime.jpg', 'image/jpg' }
     before { post :create, params: { anime_id: anime.id, id: anime.id, image: image } }
 
     it do

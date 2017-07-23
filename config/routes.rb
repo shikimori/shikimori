@@ -542,7 +542,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :list_imports, only: [:create, :show]
+    resources :list_imports, only: %i[new create show]
 
     resource :tests, only: %i[show] do
       get :echo

@@ -71,7 +71,7 @@ FactoryGirl.define do
     trait(:week_registered) { created_at { 8.days.ago } }
 
     trait :with_avatar do
-      avatar { File.new "#{Rails.root}/spec/images/anime.jpg" }
+      avatar { File.new "#{Rails.root}/spec/files/anime.jpg" }
     end
 
     factory :cosplay_user, traits: [:cosplayer]

@@ -5,7 +5,7 @@ describe Clubs::ClubImagesController do
 
   describe '#create' do
     let(:image) do
-      fixture_file_upload "#{Rails.root}/spec/images/anime.jpg", 'image/jpeg'
+      fixture_file_upload "#{Rails.root}/spec/files/anime.jpg", 'image/jpeg'
     end
 
     context 'not xhr' do

@@ -267,7 +267,7 @@ class Abilities::User
   end
 
   def list_import_abilities
-    can %i[create show], ListImport do |list_import|
+    can %i[new create show], ListImport do |list_import|
       list_import.user_id == @user.id
     end
   end

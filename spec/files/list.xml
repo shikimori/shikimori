@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<myanimelist>
+  <myinfo>
+    <user_export_type>1</user_export_type>
+  </myinfo>
+  <anime>
+    <series_title>One Piece</series_title>
+    <series_type>tv</series_type>
+    <series_episodes>0</series_episodes>
+    <series_animedb_id>21</series_animedb_id>
+    <my_watched_episodes>0</my_watched_episodes>
+    <my_times_watched>0</my_times_watched>
+    <my_score>0</my_score>
+    <my_status>Completed</my_status>
+    <shiki_status>Completed</shiki_status>
+    <my_comments/>
+    <update_on_import>1</update_on_import>
+  </anime>
+</myanimelist>

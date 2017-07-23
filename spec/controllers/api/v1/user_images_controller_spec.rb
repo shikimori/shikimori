@@ -1,6 +1,8 @@
 describe Api::V1::UserImagesController do
   describe '#create' do
-    let(:image) { fixture_file_upload Rails.root.join('spec/images/anime.jpg'), 'image/jpeg' }
+    let(:image) do
+      fixture_file_upload "#{Rails.root}/spec/files/anime.jpg", 'image/jpeg'
+    end
 
     context 'guest' do
       before { post :create }
@@ -12,7 +14,13 @@ describe Api::V1::UserImagesController do
       let(:club) { create :club }
 
       describe 'upload test' do
-        before { post :create, params: { model: club.class.name, id: club.id, image: image } }
+        before do
+          post :create, params: {
+            model: club.class.name,
+            id: club.id,
+            image: image
+          }
+        end
 
         it do
           expect(json).to have_key :id

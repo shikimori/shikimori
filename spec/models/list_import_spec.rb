@@ -16,6 +16,7 @@ describe ListImport do
     context 'import owner' do
       let(:import_user) { user }
 
+      it { is_expected.to be_able_to :new, list_import }
       it { is_expected.to be_able_to :create, list_import }
       it { is_expected.to be_able_to :show, list_import }
     end
@@ -23,6 +24,7 @@ describe ListImport do
     context 'not import owner' do
       let(:import_user) { build_stubbed :user }
 
+      it { is_expected.to_not be_able_to :new, list_import }
       it { is_expected.to_not be_able_to :create, list_import }
       it { is_expected.to_not be_able_to :show, list_import }
     end
