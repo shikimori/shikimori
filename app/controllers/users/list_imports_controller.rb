@@ -27,6 +27,6 @@ private
   def list_import_params
     params
       .require(:list_import)
-      .permit(:user_id, :list)
+      .permit(:user_id, :list, :duplicate_policy, :list_type)
   end
 end

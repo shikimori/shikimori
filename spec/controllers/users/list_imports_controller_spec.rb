@@ -23,7 +23,9 @@ describe Users::ListImportsController do
           profile_id: user.to_param,
           list_import: {
             user_id: user.id,
-            list: list
+            list: list,
+            duplicate_policy: Types::ListImport::DuplicatePolicy.values.first,
+            list_type: Types::ListImport::ListType.values.first
           }
         }
     end

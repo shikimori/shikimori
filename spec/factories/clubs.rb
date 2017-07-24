@@ -56,7 +56,7 @@ FactoryGirl.define do
     end
 
     trait :with_logo do
-      logo { File.new(Rails.root.join('spec', 'images', 'anime.jpg')) }
+      logo { File.new "#{Rails.root}/spec/files/anime.jpg" }
     end
 
 

@@ -7,6 +7,17 @@ describe ListImport do
     it { is_expected.to validate_presence_of :user }
   end
 
+  describe 'enumerize' do
+    it do
+      is_expected
+        .to enumerize(:list_type)
+        .in(*Types::ListImport::ListType.values)
+      is_expected
+        .to enumerize(:duplicate_policy)
+        .in(*Types::ListImport::DuplicatePolicy.values)
+    end
+  end
+
   describe 'state_machine' do
     it { is_expected.to have_states :pending, :finished, :failed }
 
