@@ -32,7 +32,7 @@ describe UserListParser do
 <?xml version="1.0" encoding="UTF-8"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MANGA_TYPE}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>#{manga_1.id}</manga_mangadb_id>

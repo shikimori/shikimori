@@ -2,8 +2,8 @@
 class UserRatesImporter
   Counters = [:episodes, :volumes, :chapters]
 
-  AnimeType = 1
-  MangaType = 2
+  ANIME_TYPE = 1
+  MANGA_TYPE = 2
 
   def initialize user, klass
     @user = user

@@ -27,35 +27,6 @@ describe UserRatesController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#export' do
-    let(:make_request) do
-      get :export,
-        params: {
-          profile_id: user.to_param,
-          list_type: 'anime'
-        },
-        format: 'xml'
-    end
-    let!(:user_rate) { create :user_rate, user: user, target: create(:anime) }
-
-    context 'has access' do
-      before { make_request }
-      it do
-        expect(response).to have_http_status :success
-        expect(response.content_type).to eq 'application/xml'
-      end
-    end
-
-    context 'has no access' do
-      let(:user) do
-        create :user,
-          preferences: create(:user_preferences, list_privacy: :owner)
-      end
-      before { sign_out user }
-      it { expect { make_request }.to raise_error CanCan::AccessDenied }
-    end
-  end
-
   describe '#import' do
     let(:rewrite) { false }
     let!(:anime_1) { create :anime, name: 'Zombie-Loan' }
@@ -156,7 +127,7 @@ describe UserRatesController do
         "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <myanimelist>
   <myinfo>
-    <user_export_type>#{UserRatesImporter::MangaType}</user_export_type>
+    <user_export_type>#{UserRatesImporter::MANGA_TYPE}</user_export_type>
   </myinfo>
   <manga>
     <manga_mangadb_id>#{manga_1.id}</manga_mangadb_id>

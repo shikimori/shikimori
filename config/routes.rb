@@ -909,8 +909,8 @@ Rails.application.routes.draw do
       scope module: :users do
         resources :list_imports, only: %i[new create show]
         resource :list_export, only: %i[show] do
-          get :anime
-          get :manga
+          get :animes, format: /xml|json/
+          get :mangas, format: /xml|json/
         end
       end
     end

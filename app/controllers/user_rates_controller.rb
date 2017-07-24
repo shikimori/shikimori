@@ -1,13 +1,13 @@
 # TODO: refactor list import into service object
 class UserRatesController < ProfilesController
-  load_and_authorize_resource except: %i[index export import]
+  load_and_authorize_resource except: %i[index import]
 
-  before_action :authorize_list_access, only: %i[index export import]
+  before_action :authorize_list_access, only: %i[index import]
   before_action :set_sort_order, only: %i[index], if: :user_signed_in?
   after_action :save_sort_order, only: %i[index], if: :user_signed_in?
 
   skip_before_action :fetch_resource, :set_breadcrumbs,
-    except: %i[index export import]
+    except: %i[index import]
 
   def index
     noindex
@@ -22,22 +22,6 @@ class UserRatesController < ProfilesController
   end
 
   def edit
-  end
-
-  def export
-    type = params[:list_type]
-    if type == 'anime'
-      @klass = Anime
-      @list = @resource.anime_rates.includes(:anime)
-    else
-      @klass = Manga
-      @list = @resource.manga_rates.includes(:manga)
-    end
-
-    response.headers['Content-Description'] = 'File Transfer'
-    response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml"
-
-    render :export, formats: :xml
   end
 
   # импорт списка

@@ -155,7 +155,8 @@ class ProfilesController < ShikimoriController
     if PARENT_PAGES[params[:page]]
       page_title t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}")
       breadcrumb(
-        t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
+        # t("profiles.page.pages.#{PARENT_PAGES[params[:page]]}"),
+        t(:settings),
         edit_profile_url(@resource, page: PARENT_PAGES[params[:page]])
       )
     end
