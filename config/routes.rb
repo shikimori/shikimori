@@ -542,7 +542,13 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :list_imports, only: %i[new create show]
+    scope module: :users do
+      resources :list_imports, only: %i[new create show]
+      resource :list_export, only: %i[show] do
+        get :anime
+        get :manga
+      end
+    end
 
     resource :tests, only: %i[show] do
       get :echo
