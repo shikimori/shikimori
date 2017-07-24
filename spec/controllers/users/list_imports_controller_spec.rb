@@ -2,7 +2,13 @@ describe Users::ListImportsController do
   include_context :authenticated, :user
 
   describe '#new' do
-    before { get :new, params: { list_import: { user_id: user.id } } }
+    subject! do
+      get :new,
+        params: {
+          profile_id: user.to_param,
+          list_import: { user_id: user.id }
+        }
+    end
     it { expect(response).to have_http_status :success }
   end
 
@@ -11,13 +17,15 @@ describe Users::ListImportsController do
       fixture_file_upload "#{Rails.root}/spec/files/list.xml", 'application/xml'
     end
 
-    before do
-      post :create, params: {
-        list_import: {
-          user_id: user.id,
-          list: list
+    subject! do
+      post :create,
+        params: {
+          profile_id: user.to_param,
+          list_import: {
+            user_id: user.id,
+            list: list
+          }
         }
-      }
     end
 
     it do
@@ -29,7 +37,13 @@ describe Users::ListImportsController do
 
   describe '#show' do
     let(:list_import) { create :list_import, user: user }
-    before { get :show, params: { id: list_import.id } }
+    subject! do
+      get :show,
+        params: {
+          profile_id: user.to_param,
+          idd: list_import.id
+        }
+    end
 
     it { expect(response).to have_http_status :success }
   end

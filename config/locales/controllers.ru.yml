@@ -80,6 +80,7 @@ ru:
     title: Экспорт списка
   users/list_imports_controller:
     <<: *profiles_controller
+    title: Импорт списка
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”

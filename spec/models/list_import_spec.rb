@@ -7,6 +7,14 @@ describe ListImport do
     it { is_expected.to validate_presence_of :user }
   end
 
+  describe 'state_machine' do
+    it { is_expected.to have_states :pending, :finished, :failed }
+
+    it { is_expected.to handle_events :finish, :fail, on: :pending }
+    it { is_expected.to reject_events :finish, :fail, when: :finished }
+    it { is_expected.to reject_events :finish, :fail, when: :failed }
+  end
+
   describe 'permissions' do
     let(:list_import) { build :list_import, user: import_user }
     let(:user) { build_stubbed :user }

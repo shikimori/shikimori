@@ -80,6 +80,7 @@ en:
     title: Export list
   users/list_imports_controller:
     <<: *profiles_controller
+    title: Import list
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"

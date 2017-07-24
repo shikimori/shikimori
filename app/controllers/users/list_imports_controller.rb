@@ -7,12 +7,14 @@ class Users::ListImportsController < ProfilesController
   end
 
   def new
+    page_title i18n_t(:title)
   end
 
   def create
     if @resource.save
       redirect_to list_import_url(@resource)
     else
+      new
       render :new
     end
   end

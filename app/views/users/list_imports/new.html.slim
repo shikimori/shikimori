@@ -1,0 +1,4 @@
+= render layout: 'page' do
+  = simple_form_for [:profile, @resource] do |f|
+    = f.input :user_id, as: :hidden
+    = f.input :list
