@@ -21,7 +21,7 @@ describe ListImport do
   describe 'state_machine' do
     it { is_expected.to have_states :pending, :finished, :failed }
 
-    it { is_expected.to handle_events :finish, :terminate, on: :pending }
+    it { is_expected.to handle_events :finish, :terminate, wnen: :pending }
     it { is_expected.to reject_events :finish, :terminate, when: :finished }
     it { is_expected.to reject_events :finish, :terminate, when: :failed }
   end
