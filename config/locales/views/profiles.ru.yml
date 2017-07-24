@@ -104,6 +104,8 @@ ru:
         producer: Режиссёры
         mangaka: Мангаки
         person: Прочие люди
+      export_anime: Экспорт аниме
+      export_manga: Экспорт манги и ранобэ
 
     edit:
       account:

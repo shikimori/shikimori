@@ -12,14 +12,14 @@ class Users::ListExportsController < ProfilesController
   end
 
   def animes
-    @collection = @user.anime_rates.includes(:anime)
+    @collection = @user.anime_rates.includes(:anime).order(:id)
     @export_type = UserRatesImporter::ANIME_TYPE
 
     export
   end
 
   def mangas
-    @collection = @user.manga_rates.includes(:manga)
+    @collection = @user.manga_rates.includes(:manga).order(:id)
     @export_type = UserRatesImporter::MANGA_TYPE
 
     export
@@ -29,8 +29,8 @@ private
 
   def export
     response.headers['Content-Description'] = 'File Transfer'
-    response.headers['Content-Disposition'] =
-      "attachment; filename=animelist.#{params[:format]}"
+    response.headers['Content-Disposition'] = 'attachment; filename='\
+      "#{@user.to_param}_#{params[:action]}.#{params[:format]}"
 
     render :export
   end
