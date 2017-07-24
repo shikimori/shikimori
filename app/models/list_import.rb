@@ -14,7 +14,9 @@ class ListImport < ApplicationRecord
   validates :user, presence: true
   validates_attachment :list,
     presence: true,
-    content_type: { content_type: %w[application/xml application/json] }
+    content_type: {
+      content_type: %w[application/xml application/json application/gzip]
+    }
 
   state_machine :state, initial: :pending do
     state :finished

@@ -30,4 +30,6 @@ en:
         manga:
           - you are registered on the site
           - you have at least 20-30 read and scored entries in your manga list
-
+    list_imports:
+      pending:
+        please_wait: Please wait until the end of import.
