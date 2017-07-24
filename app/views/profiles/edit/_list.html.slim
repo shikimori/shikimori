@@ -6,7 +6,13 @@
     = f.button :magic_submit
 
 .profile-action
-  = render 'profiles/edit/import'
+  .mischeadline = t '.list_import_export'
+  div: a.b-link[
+    href="#{new_list_import_url list_import: { user_id: @resource.id }}"
+  ] = t '.import_list'
+  div: a.b-link[
+    href="#{list_export_url}"
+  ] = t '.export_list'
 
 .profile-action
   .mischeadline = t '.my_list_scores'
