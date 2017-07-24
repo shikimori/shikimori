@@ -12,7 +12,7 @@ class Users::ListImportsController < ProfilesController
 
   def create
     if @resource.save
-      redirect_to list_import_url(@resource)
+      redirect_to profile_list_import_url(@user, @resource)
     else
       new
       render :new

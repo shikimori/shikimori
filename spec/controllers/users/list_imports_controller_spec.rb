@@ -31,7 +31,7 @@ describe Users::ListImportsController do
     it do
       expect(resource).to be_persisted
       expect(resource.user_id).to eq user.id
-      expect(response).to redirect_to list_import_url(resource)
+      expect(response).to redirect_to profile_list_import_url(user, resource)
     end
   end
 
@@ -41,7 +41,7 @@ describe Users::ListImportsController do
       get :show,
         params: {
           profile_id: user.to_param,
-          idd: list_import.id
+          id: list_import.id
         }
     end
 

@@ -13,6 +13,6 @@ class ListImport < ApplicationRecord
     state :failed
 
     event(:finish) { transition pending: :finished }
-    event(:fail) { transition pending: :failed }
+    event(:terminate) { transition pending: :failed }
   end
 end
