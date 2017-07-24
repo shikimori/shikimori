@@ -11,11 +11,6 @@ describe Forums::Menu do
     it { expect(view.club_topics).to eq [club_topic] }
   end
 
-  describe '#contests' do
-    let!(:contest) { create :contest, :started }
-    it { expect(view.contests).to have(1).item }
-  end
-
   describe '#changeable_forums?' do
     it { expect(view.changeable_forums?).to eq false }
   end
