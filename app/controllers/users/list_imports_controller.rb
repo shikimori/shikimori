@@ -1,5 +1,10 @@
-class Users::ListImportsController < ShikimoriController
+class Users::ListImportsController < ProfilesController
   load_and_authorize_resource
+  before_action do
+    @back_url = edit_profile_url @user, page: :list
+    breadcrumb t(:settings), edit_profile_url(@user, page: :list)
+    page_title t(:settings)
+  end
 
   def new
   end

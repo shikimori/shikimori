@@ -75,6 +75,11 @@ ru:
       nothing_imported: Ничего нового не импортировано.
       continuation_of_previous_message: (продолжение предыдущего сообщения)
     error_incorrect_file_format: Произошла ошибка. Возможно, некорректный формат файла.
+  users/list_exports_controller:
+    <<: *profiles_controller
+    title: Экспорт списка
+  users/list_imports_controller:
+    <<: *profiles_controller
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”

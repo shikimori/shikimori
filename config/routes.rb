@@ -542,14 +542,6 @@ Rails.application.routes.draw do
       end
     end
 
-    scope module: :users do
-      resources :list_imports, only: %i[new create show]
-      resource :list_export, only: %i[show] do
-        get :anime
-        get :manga
-      end
-    end
-
     resource :tests, only: %i[show] do
       get :echo
       post :echo
@@ -912,6 +904,14 @@ Rails.application.routes.draw do
 
       resources :achievements, only: %i[index] do
         get :franchise, on: :collection
+      end
+
+      scope module: :users do
+        resources :list_imports, only: %i[new create show]
+        resource :list_export, only: %i[show] do
+          get :anime
+          get :manga
+        end
       end
     end
 

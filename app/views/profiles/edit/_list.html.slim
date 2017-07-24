@@ -8,10 +8,10 @@
 .profile-action
   .mischeadline = t '.list_import_export'
   div: a.b-link[
-    href="#{new_list_import_url list_import: { user_id: @resource.id }}"
+    href="#{new_profile_list_import_url @resource, list_import: { user_id: @resource.id }}"
   ] = t '.import_list'
   div: a.b-link[
-    href="#{list_export_url}"
+    href="#{profile_list_export_url @resource}"
   ] = t '.export_list'
 
 .profile-action
