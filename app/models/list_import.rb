@@ -1,8 +1,6 @@
 class ListImport < ApplicationRecord
   belongs_to :user
 
-  has_attached_file :list
-
   enumerize :list_type,
     in: Types::ListImport::ListType.values,
     predicates: { prefix: true }
@@ -11,6 +9,16 @@ class ListImport < ApplicationRecord
     in: Types::ListImport::DuplicatePolicy.values,
     predicates: { prefix: true }
 
+  state_machine :state, initial: :pending do
+    state :finished
+    state :failed
+
+    event(:finish) { transition pending: :finished }
+    event(:terminate) { transition pending: :failed }
+  end
+
+  has_attached_file :list
+
   validates :user, presence: true
   validates_attachment :list,
     presence: true,
@@ -18,11 +26,11 @@ class ListImport < ApplicationRecord
       content_type: %w[application/xml application/json application/gzip]
     }
 
-  state_machine :state, initial: :pending do
-    state :finished
-    state :failed
+  after_create :schedule_worker
 
-    event(:finish) { transition pending: :finished }
-    event(:terminate) { transition pending: :failed }
+private
+
+  def schedule_worker
+    Users::ImportListWorker.perform_async id
   end
 end

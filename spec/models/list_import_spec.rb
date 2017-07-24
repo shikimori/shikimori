@@ -26,6 +26,20 @@ describe ListImport do
     it { is_expected.to reject_events :finish, :terminate, when: :failed }
   end
 
+  describe 'callbacks' do
+    describe '#schedule_worker' do
+      let(:list_import) { build :list_import, :with_schedule }
+      before { allow(Users::ImportListWorker).to receive :perform_async }
+      subject! { list_import.save! }
+
+      it do
+        expect(Users::ImportListWorker)
+          .to have_received(:perform_async)
+          .with list_import.id
+      end
+    end
+  end
+
   describe 'permissions' do
     let(:list_import) { build :list_import, user: import_user }
     let(:user) { build_stubbed :user }
