@@ -5,5 +5,6 @@ FactoryGirl.define do
     state :pending
     duplicate_policy Types::ListImport::DuplicatePolicy[:replace]
     list_type Types::ListImport::ListType[:anime]
+    error nil
   end
 end
