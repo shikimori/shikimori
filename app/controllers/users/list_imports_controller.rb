@@ -1,4 +1,4 @@
-class ListImportsController < ShikimoriController
+class Users::ListImportsController < ShikimoriController
   load_and_authorize_resource
 
   def new

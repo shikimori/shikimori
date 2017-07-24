@@ -1,4 +1,4 @@
-describe ListImportsController do
+describe Users::ListImportsController do
   include_context :authenticated, :user
 
   describe '#new' do
