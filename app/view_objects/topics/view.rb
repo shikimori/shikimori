@@ -143,7 +143,7 @@ class Topics::View < ViewObjectBase
   end
 
   def need_trucation?
-    minified? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
+    minified? && preview? && cleaned_preview_body.size > BODY_TRUCATE_SIZE
   end
 
   def read_more_link?
@@ -182,7 +182,7 @@ class Topics::View < ViewObjectBase
       # т.к. эти методы могут быть переопределены в наследниках
       @is_preview,
       @is_mini,
-      :v7
+      :v8
     )
   end
 
