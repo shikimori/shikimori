@@ -5,121 +5,134 @@
     = f.input :volumes_in_manga
     = f.button :magic_submit
 
-.profile-action
-  .mischeadline = t '.list_import_export'
-  div: a.b-link[
-    href="#{new_profile_list_import_url @resource, list_import: { user_id: @resource.id }}"
-  ] = t '.import_list'
-  div: a.b-link[
-    href="#{profile_list_export_url @resource}"
-  ] = t '.export_list'
+.cc-2
+  .c-column
+    .profile-action
+      .mischeadline = t '.list_import_export'
+      div: a.b-link[
+        href="#{new_profile_list_import_url @resource, list_import: { user_id: @resource.id }}"
+      ] = t '.import_list'
+      div: a.b-link[
+        href="#{profile_list_export_url @resource}"
+      ] = t '.export_list'
 
-.profile-action
-  .mischeadline = t '.my_list_scores'
-  .controls
-    div: .b-js-link data-type='anime' = t '.reset_scores', kind: i18n_i(:anime, 1, :genitive)
-    div: .b-js-link data-type='manga' = t '.reset_scores', kind: i18n_i(:manga, 1, :genitive)
+    .profile-action
+      .mischeadline = t '.my_list_scores'
+      .controls
+        div: .b-js-link data-type='anime' = t '.reset_scores', kind: i18n_i(:anime, 1, :genitive)
+        div: .b-js-link data-type='manga' = t '.reset_scores', kind: i18n_i(:manga, 1, :genitive)
 
-  .form.anime
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span
-        = t '.confirm_to_reset_scores',
-            kind_genitive: i18n_i(:anime, 1, :genitive),
-            kind_subjective: i18n_i(:anime, 1, :subjective),
-            gender: 'neuter'
-    a.b-button.control[
-      href="#{reset_api_user_rates_url :anime}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.anime
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span
+            = t '.confirm_to_reset_scores',
+                kind_genitive: i18n_i(:anime, 1, :genitive),
+                kind_subjective: i18n_i(:anime, 1, :subjective),
+                gender: 'neuter'
+        a.b-button.control[
+          href="#{reset_api_user_rates_url :anime}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:anime, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-  .form.manga
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span
-        = t '.confirm_to_reset_scores',
-            kind_genitive: i18n_i(:manga, 1, :genitive),
-            kind_subjective: i18n_i(:manga, 1, :subjective),
-            gender: 'female'
-    a.b-button.control[
-      href="#{reset_api_user_rates_url :manga}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.manga
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span
+            = t '.confirm_to_reset_scores',
+                kind_genitive: i18n_i(:manga, 1, :genitive),
+                kind_subjective: i18n_i(:manga, 1, :subjective),
+                gender: 'female'
+        a.b-button.control[
+          href="#{reset_api_user_rates_url :manga}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_reset_scores', kind: i18n_i(:manga, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-.profile-action
-  .mischeadline = t '.my_list_history'
-  .controls
-    div: .b-js-link data-type='anime' = t '.remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
-    div: .b-js-link data-type='manga' = t '.remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
+    .profile-action
+      .mischeadline = t '.my_list_history'
+      .controls
+        div: .b-js-link data-type='anime' = t '.remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
+        div: .b-js-link data-type='manga' = t '.remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
 
-  .form.anime
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
-    a.b-button.control[
-      href="#{reset_profile_user_history_index_url @resource, :anime}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.anime
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)
+        a.b-button.control[
+          href="#{reset_profile_user_history_index_url @resource, :anime}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:anime, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-  .form.manga
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
-    a.b-button.control[
-      href="#{reset_profile_user_history_index_url @resource, :manga}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.manga
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span = t '.confirm_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)
+        a.b-button.control[
+          href="#{reset_profile_user_history_index_url @resource, :manga}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_remove_history_of_list_changes', kind: i18n_i(:manga, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-.profile-action
-  .mischeadline = t '.my_list_contents'
-  .controls
-    div: .b-js-link data-type='anime' = t '.clear_list_completely', kind: i18n_i(:anime, 1, :genitive)
-    div: .b-js-link data-type='manga' = t '.clear_list_completely', kind: i18n_i(:manga, 1, :genitive)
+    .profile-action
+      .mischeadline = t '.my_list_contents'
+      .controls
+        div: .b-js-link data-type='anime' = t '.clear_list_completely', kind: i18n_i(:anime, 1, :genitive)
+        div: .b-js-link data-type='manga' = t '.clear_list_completely', kind: i18n_i(:manga, 1, :genitive)
 
-  .form.anime
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span
-        = t '.confirm_to_clear_list_completely',
-            kind_genitive: i18n_i(:anime, 1, :genitive),
-            kind_dative: i18n_i(:anime, 1, :dative)
-    a.b-button.control[
-      href="#{cleanup_api_user_rates_url :anime}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.anime
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span
+            = t '.confirm_to_clear_list_completely',
+                kind_genitive: i18n_i(:anime, 1, :genitive),
+                kind_dative: i18n_i(:anime, 1, :dative)
+        a.b-button.control[
+          href="#{cleanup_api_user_rates_url :anime}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:anime, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
 
-  .form.manga
-    p.m5
-      span.warn = t 'this_action_cant_be_undone'
-      span
-        = t '.confirm_to_clear_list_completely',
-            kind_genitive: i18n_i(:manga, 1, :genitive),
-            kind_dative: i18n_i(:manga, 1, :dative)
-    a.b-button.control[
-      href="#{cleanup_api_user_rates_url :manga}"
-      data-method='delete'
-      data-remote='true'
-      data-type='json'
-      data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
-    ] = t 'yes_i_confirm'
-    span.b-js-link.cancel = t 'actions.cancel'
+      .form.manga
+        p.m5
+          span.warn = t 'this_action_cant_be_undone'
+          span
+            = t '.confirm_to_clear_list_completely',
+                kind_genitive: i18n_i(:manga, 1, :genitive),
+                kind_dative: i18n_i(:manga, 1, :dative)
+        a.b-button.control[
+          href="#{cleanup_api_user_rates_url :manga}"
+          data-method='delete'
+          data-remote='true'
+          data-type='json'
+          data-confirm="#{t '.sure_to_clear_list_completely', kind: i18n_i(:manga, 1, :genitive)}"
+        ] = t 'yes_i_confirm'
+        span.b-js-link.cancel = t 'actions.cancel'
+
+  .c-column.list_imports-history
+    .mischeadline = t '.list_import_history'
+    = cache @resource.list_imports do
+      - if @resource.list_imports.none?
+        .b-nothing_here = t '.list_import_history_blank'
+      - else
+        - @resource.list_imports.order(id: :desc).each do |list_import|
+          div: a.b-link[
+            href="#{profile_list_import_url @resource, list_import}"
+          ] = t 'profiles.page.list_import', id: list_import.id

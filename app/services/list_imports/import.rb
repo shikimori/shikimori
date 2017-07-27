@@ -23,7 +23,7 @@ private
 
     import ListImports::Parse.call(open(ListImport.last.list.path))
 
-    @list.save!
+    @list_import.save!
     @list_import.finish!
   end
 

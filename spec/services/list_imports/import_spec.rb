@@ -6,7 +6,7 @@ describe ListImports::Import do
 
   context 'valid list' do
     let(:list_type) { %i[mal_xml mal_xml_gz shiki_json shiki_json_gz].sample }
-    let(:list_import) { create :list_import, list_type, :pending, user: user }
+    let(:list_import) { create :list_import, list_type, :anime, :pending, user: user }
 
     it do
       expect(user.anime_rates).to have(1).item
@@ -32,9 +32,25 @@ describe ListImports::Import do
     end
   end
 
-  context 'bad list' do
+  context 'wrong list type', :focus do
     let(:list_import) do
-      create :list_import, :shiki_json_broken, :pending, user: user
+      create :list_import, :shiki_json, :manga, :pending, user: user
+    end
+
+    it do
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+
+      expect(list_import).to be_failed
+      expect(list_import.output).to eq(
+        'error' => { 'type' => ListImports::Import::ERROR_WRONG_LIST_TYPE }
+      )
+    end
+  end
+
+  context 'broken list' do
+    let(:list_import) do
+      create :list_import, :shiki_json_broken, :anime, :pending, user: user
     end
 
     it do

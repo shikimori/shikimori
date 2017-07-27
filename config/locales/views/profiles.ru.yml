@@ -131,6 +131,8 @@ ru:
 
       list:
         list_import_export: Импорт / экспорт списка
+        list_import_history: История импорта списка
+        list_import_history_blank: Нет истории
         import_list: Импортировать список
         export_list: Экспортировать список
         my_list_scores: Оценки в моём списке

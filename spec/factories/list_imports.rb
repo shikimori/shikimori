@@ -16,6 +16,13 @@ FactoryGirl.define do
       end
     end
 
+    Types::ListImport::DuplicatePolicy.values.each do |value|
+      trait(value) { duplicate_policy value }
+    end
+    Types::ListImport::ListType.values.each do |value|
+      trait(value) { list_type value }
+    end
+
     trait :mal_xml do
       list { File.new "#{Rails.root}/spec/files/list.xml" }
     end
