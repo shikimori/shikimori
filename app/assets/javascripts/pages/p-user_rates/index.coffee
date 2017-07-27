@@ -117,6 +117,8 @@ update_list_cache = ->
 
 # обработчики для списка
 apply_list_handlers = ($root) ->
+  $root.process()
+
   # хендлер подгрузки очередной страницы
   $('.b-postloader', $root).on 'postloader:before', insert_next_page
   $('.l-content').on 'postloader:success', process_next_page
