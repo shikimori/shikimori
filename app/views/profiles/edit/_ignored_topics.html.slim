@@ -1,24 +1,25 @@
-- if @resource.ignored_topics.none?
-  .b-nothing_here = t '.no_ignored_topics'
-- else
-  table.b-table.b-editable_grid.m0
-    thead
-      tr
-        th = t '.topic_author'
-        th = t '.topic_name'
-        th.actions
-    tbody
-      - @resource.ignored_topics.each do |topic|
+- cache @resource.ignored_topics do
+  - if @resource.ignored_topics.none?
+    .b-nothing_here = t '.no_ignored_topics'
+  - else
+    table.b-table.b-editable_grid.m0
+      thead
         tr
-          td
-            = render 'users/user_16', user: topic.user
-          td
-            a.b-link href="#{topic.urls.topic_url}"
-              = topic.topic_title
-          td.actions
-            a.b-js-link[
-              data-action="#{api_v2_topics_ignore_url topic.id}"
-              data-method="DELETE"
-              data-remote="true"
-              data-type="json"
-            ] = t '.stop_ignore'
+          th = t '.topic_author'
+          th = t '.topic_name'
+          th.actions
+      tbody
+        - @resource.ignored_topics.each do |topic|
+          tr
+            td
+              = render 'users/user_16', user: topic.user
+            td
+              a.b-link href="#{topic.urls.topic_url}"
+                = topic.topic_title
+            td.actions
+              a.b-js-link[
+                data-action="#{api_v2_topics_ignore_url topic.id}"
+                data-method="DELETE"
+                data-remote="true"
+                data-type="json"
+              ] = t '.stop_ignore'
