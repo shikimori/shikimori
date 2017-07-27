@@ -24,24 +24,28 @@ module AnimeHelper
   end
 
   def humanize_minutes(minutes)
-    return '0 мин.' if minutes == 0
-    text = ''
+    return "0 #{t 'anime_helper.minute'}" if minutes.zero?
 
     hours = (minutes/60).floor.to_i
-    text += '%i час' % hours if hours == 1
-    text += '%i часа' % hours if hours > 1 && hours < 5
-    text += '%i часов' % hours if hours > 4
+
+    if hours > 0
+      text = "#{hours} #{t 'anime_helper.hour', count: hours}" 
+    else
+      text = ''
+    end
 
     raw_minutes = minutes % 60
     text += ' ' if hours > 0 && raw_minutes > 0
 
     if raw_minutes > 0
       if raw_minutes % 10 == 1
-        text += '%i мин.' % raw_minutes
+        text += "#{raw_minutes} #{t 'anime_helper.minute'}"
+
       elsif raw_minutes % 10 > 1 && raw_minutes % 10 < 5
-        text += '%i мин.' % raw_minutes
+        text += "#{raw_minutes} #{t 'anime_helper.minute'}"
+
       else
-        text += '%i мин.' % raw_minutes
+        text += "#{raw_minutes} #{t 'anime_helper.minute'}"
       end
     end
 

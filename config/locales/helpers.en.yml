@@ -1,0 +1,7 @@
+en:
+  anime_helper:
+    minute: min.
+    hour:
+      zero: hours
+      one: hour
+      other: hours
