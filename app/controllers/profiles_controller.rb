@@ -178,11 +178,6 @@ class ProfilesController < ShikimoriController
     if update_profile
       bypass_sign_in @resource if params[:user][:password].present?
 
-      if params[:page] == 'account'
-        @resource.ignored_users = []
-        @resource.update associations_params
-      end
-
       params[:page] = 'account' if params[:page] == 'password'
       redirect_to edit_profile_url(@resource, page: params[:page]),
         notice: t('changes_saved')
@@ -231,10 +226,6 @@ private
       ignored_user_ids: [],
       preferences_attributes: [:id, :russian_names, :russian_genres],
     )
-  end
-
-  def associations_params
-    params.require(:user).permit ignored_user_ids: []
   end
 
   def password_params
