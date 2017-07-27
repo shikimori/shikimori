@@ -25,7 +25,7 @@ describe ListImports::ParseXml do
         <?xml version=\"1.0\" encoding=\"UTF-8\"?>
         <myanimelist>
           <myinfo>
-            <user_export_type>#{UserRatesImporter::MANGA_TYPE}</user_export_type>
+            <user_export_type>#{ListImports::ParseXml::MANGA_TYPE}</user_export_type>
           </myinfo>
           <manga>
             <manga_mangadb_id>1</manga_mangadb_id>

@@ -7,7 +7,7 @@ xml.myanimelist do
       xml.series_title user_rate.target.name
       xml.series_type user_rate.target.kind
 
-      if @export_type == UserRatesImporter::ANIME_TYPE
+      if @export_type == ListImports::ParseXml::ANIME_TYPE
         xml.series_episodes user_rate.target.episodes
         xml.series_animedb_id user_rate.target_id
         xml.my_watched_episodes user_rate.episodes

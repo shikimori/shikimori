@@ -5,7 +5,7 @@ json.array! @collection do |user_rate|
   json.status user_rate.status
   json.rewatches user_rate.rewatches
 
-  if @export_type == UserRatesImporter::ANIME_TYPE
+  if @export_type == ListImports::ParseXml::ANIME_TYPE
     json.episodes user_rate.episodes
   else
     json.volumes user_rate.volumes

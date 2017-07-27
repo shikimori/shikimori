@@ -13,6 +13,9 @@ class ListImports::ParseXml
     'rereading' => 'rewatching'
   }
 
+  ANIME_TYPE = 1
+  MANGA_TYPE = 2
+
   def call
     list = data[entry_key]
 
@@ -36,8 +39,7 @@ private
   end
 
   def anime_list?
-    data['myinfo']['user_export_type'].to_s ==
-      UserRatesImporter::ANIME_TYPE.to_s
+    data['myinfo']['user_export_type'].to_s == ANIME_TYPE.to_s
   end
 
   def data

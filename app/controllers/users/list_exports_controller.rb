@@ -13,14 +13,14 @@ class Users::ListExportsController < ProfilesController
 
   def animes
     @collection = @user.anime_rates.includes(:anime).order(:id)
-    @export_type = UserRatesImporter::ANIME_TYPE
+    @export_type = ListImports::ParseXml::ANIME_TYPE
 
     export
   end
 
   def mangas
     @collection = @user.manga_rates.includes(:manga).order(:id)
-    @export_type = UserRatesImporter::MANGA_TYPE
+    @export_type = ListImports::ParseXml::MANGA_TYPE
 
     export
   end
