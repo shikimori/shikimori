@@ -130,7 +130,7 @@ en:
 
       list:
         list_import_export: List import / export
-        list_import_history: List import history
+        list_import_history: List imports history
         list_import_history_blank: No history
         import_list: Import list
         export_list: Export list

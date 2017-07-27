@@ -308,6 +308,11 @@ ru:
           rejected: отклонено
           post_rejected: отклонено
           deleted: удалено
+      list_import:
+        states:
+          pending: импортируется
+          finished: импортировано
+          failed: ошибка
 
   activemodel:
     errors:

@@ -308,6 +308,11 @@ en:
           rejected: rejected
           post_rejected: rejected
           deleted: deleted
+      list_import:
+        states:
+          pending: importing
+          finished: imported
+          failed: failed
 
   activemodel:
     errors:

@@ -132,7 +132,5 @@
       - if @resource.list_imports.none?
         .b-nothing_here = t '.list_import_history_blank'
       - else
-        - @resource.list_imports.order(id: :desc).each do |list_import|
-          div: a.b-link[
-            href="#{profile_list_import_url @resource, list_import}"
-          ] = list_import.name
+        = render partial: 'users/list_imports/list_import',
+          collection: @resource.list_imports.order(id: :desc)

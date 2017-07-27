@@ -46,6 +46,7 @@ describe ListImport do
       it { expect(list_import.name).to eq "Импорт списка ##{list_import.id}" }
     end
   end
+
   describe 'permissions' do
     let(:list_import) { build :list_import, user: import_user }
     let(:user) { build_stubbed :user }
