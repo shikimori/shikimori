@@ -43,7 +43,7 @@ describe ListImports::Import do
 
       expect(list_import).to be_failed
       expect(list_import.output).to eq(
-        'error' => { 'type' => ListImports::Import::ERROR_EMPTY_LIST }
+        'error' => { 'type' => ListImport::ERROR_EMPTY_LIST }
       )
     end
   end
@@ -59,7 +59,7 @@ describe ListImports::Import do
 
       expect(list_import).to be_failed
       expect(list_import.output).to eq(
-        'error' => { 'type' => ListImports::Import::ERROR_WRONG_LIST_TYPE }
+        'error' => { 'type' => ListImport::ERROR_MISMATCHED_LIST_TYPE }
       )
     end
   end
@@ -77,7 +77,7 @@ describe ListImports::Import do
       expect(list_import.output).to have(1).item
       expect(list_import.output['error']).to have(4).items
       expect(list_import.output['error']['type'])
-        .to eq ListImports::Import::ERROR_EXCEPTION
+        .to eq ListImport::ERROR_EXCEPTION
       expect(list_import.output['error']['class']).to eq 'JSON::ParserError'
       expect(list_import.output['error']['message'])
         .to eq "416: unexpected token at ''"

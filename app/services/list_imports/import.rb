@@ -5,10 +5,6 @@ class ListImports::Import
   UPDATED = 'updated'
   NOT_IMPORTED = 'not_imported'
 
-  ERROR_EXCEPTION = 'error_exception'
-  ERROR_EMPTY_LIST = 'empty_list'
-  ERROR_WRONG_LIST_TYPE = 'wrong_list_type'
-
   DEFAULT_OUTPUT = { ADDED => [], UPDATED => [], NOT_IMPORTED => [] }
 
   def call
@@ -23,9 +19,9 @@ private
     list = ListImports::Parse.call(open(ListImport.last.list.path))
 
     if list.empty?
-      specific_error ERROR_EMPTY_LIST
+      specific_error ListImport::ERROR_EMPTY_LIST
     elsif wrong_list_type? list
-      specific_error ERROR_WRONG_LIST_TYPE
+      specific_error ListImport::ERROR_MISMATCHED_LIST_TYPE
     else
       import list
     end
@@ -49,7 +45,7 @@ private
     @list_import.update!(
       output: {
         error: {
-          type: ERROR_EXCEPTION,
+          type: ListImport::ERROR_EXCEPTION,
           class: exception.class.name,
           message: exception.message,
           backtrace: exception.backtrace

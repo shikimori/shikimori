@@ -1,6 +1,10 @@
 class ListImport < ApplicationRecord
   include Translation
 
+  ERROR_EXCEPTION = 'error_exception'
+  ERROR_EMPTY_LIST = 'empty_list'
+  ERROR_MISMATCHED_LIST_TYPE = 'mismatched_list_type'
+
   belongs_to :user
 
   enumerize :list_type,
@@ -37,6 +41,14 @@ class ListImport < ApplicationRecord
 
   def name
     i18n_t 'name', id: id, filename: list_file_name
+  end
+
+  def empty_list_error?
+    failed? && output&.dig('error', 'type') == ERROR_EMPTY_LIST
+  end
+
+  def mismatched_list_type_error?
+    failed? && output&.dig('error', 'type') == ERROR_MISMATCHED_LIST_TYPE
   end
 
 private
