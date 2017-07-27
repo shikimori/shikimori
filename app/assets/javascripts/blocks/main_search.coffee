@@ -36,14 +36,16 @@ $(document).on 'page:load', ->
       markers = $main_search.data 'markers'
 
       if type == 'users'
-        document.location.href = "/#{search_escape entry.name}"
+        document.location.href = "/#{entry.name}"
       else
         document.location.href =
           searcheables[type].id.replace('[id]', "aaaaaaa#{entry.id}")
 
     .on 'autocomplete:text', (e, text) ->
       type = $search.data('type')
-      document.location.href = searcheables[type].phrase.replace('[phrase]', search_escape(text))
+      document.location.href = searcheables[type].phrase.replace(
+         '[phrase]', if type == 'users' then text else search_escape(text)
+      )
 
   $search.on 'parse', ->
     $popup.addClass 'disabled'
@@ -142,6 +144,6 @@ searcheables =
 
   users:
     autocomplete: "/users/autocomplete/"
-    phrase: "/users/search/[phrase]"
+    phrase: "/users?search=[phrase]"
     id: "/[id]"
     regexp: /^\/users\/(.*?)/
