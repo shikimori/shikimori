@@ -29,7 +29,10 @@ $(document).on 'click appear', '.b-postloader', (e) ->
 
 # удаляем уже имеющиеся подгруженные элементы
 filter_present_entries = ($new_entries, $root, filter) ->
-  present_ids = $(".#{filter}", $root).toArray().map (v) -> v.id
+  present_ids = $(".#{filter}", $root)
+    .toArray()
+    .map (v) -> v.id
+    .filter (v) -> v
 
   exclude_selector = present_ids.map (id) ->
       ".#{filter}##{id}"
