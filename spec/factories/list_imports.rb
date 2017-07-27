@@ -5,7 +5,6 @@ FactoryGirl.define do
     state :pending
     duplicate_policy Types::ListImport::DuplicatePolicy[:replace]
     list_type Types::ListImport::ListType[:anime]
-    error nil
 
     after :build do |model|
       stub_method model, :schedule_worker

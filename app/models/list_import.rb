@@ -14,7 +14,7 @@ class ListImport < ApplicationRecord
     state :failed
 
     event(:finish) { transition pending: :finished }
-    event(:terminate) { transition pending: :failed }
+    event(:to_failed) { transition pending: :failed }
   end
 
   has_attached_file :list

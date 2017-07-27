@@ -21,12 +21,12 @@ xml.myanimelist do
 
       xml.my_times_watched user_rate.rewatches
       xml.my_score user_rate.score || 0
-      xml.my_status UserListParsers::XmlListParser.status_to_string(
+      xml.my_status ListImports::XmlStatus.call(
         user_rate.status,
         @klass,
         true
       )
-      xml.shiki_status UserListParsers::XmlListParser.status_to_string(
+      xml.shiki_status ListImports::XmlStatus.call(
         user_rate.status,
         @klass,
         false
