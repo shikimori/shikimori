@@ -16,5 +16,22 @@ FactoryGirl.define do
         unstub_method model, :schedule_worker
       end
     end
+
+    trait :mal_xml do
+      list { File.new "#{Rails.root}/spec/files/list.xml" }
+    end
+    trait :mal_xml_gz do
+      list { File.new "#{Rails.root}/spec/files/list.xml.gz" }
+    end
+    trait :shiki_json do
+      list { File.new "#{Rails.root}/spec/files/list.json" }
+    end
+    trait :shiki_json_gz do
+      list { File.new "#{Rails.root}/spec/files/list.json.gz" }
+    end
+
+    ListImport.state_machine.states.map(&:value).each do |contest_state|
+      trait(contest_state.to_sym) { state contest_state }
+    end
   end
 end

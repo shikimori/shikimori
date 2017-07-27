@@ -23,7 +23,12 @@ class ListImport < ApplicationRecord
   validates_attachment :list,
     presence: true,
     content_type: {
-      content_type: %w[application/xml application/json application/gzip]
+      content_type: %w[
+        application/xml
+        application/json
+        application/gzip
+        text/plain
+      ]
     }
 
   after_create :schedule_worker
@@ -31,6 +36,6 @@ class ListImport < ApplicationRecord
 private
 
   def schedule_worker
-    Users::ImportListWorker.perform_async id
+    ListImports::Worker.perform_async id
   end
 end

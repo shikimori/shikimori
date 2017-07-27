@@ -28,6 +28,7 @@ public/packs
 *.swp
 .powenv
 .capistrano
+.byebug_history
 
 app/assets/javascripts/i18n/translations.js
 public/javascripts/i18n.js

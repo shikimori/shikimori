@@ -8,12 +8,12 @@
     <series_type>tv</series_type>
     <series_episodes>0</series_episodes>
     <series_animedb_id>21</series_animedb_id>
-    <my_watched_episodes>0</my_watched_episodes>
-    <my_times_watched>0</my_times_watched>
-    <my_score>0</my_score>
+    <my_watched_episodes>30</my_watched_episodes>
+    <my_times_watched>1</my_times_watched>
+    <my_score>7</my_score>
     <my_status>Completed</my_status>
     <shiki_status>Completed</shiki_status>
-    <my_comments/>
+    <my_comments>test</my_comments>
     <update_on_import>1</update_on_import>
   </anime>
 </myanimelist>
