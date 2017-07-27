@@ -8,18 +8,21 @@ describe ListImports::ParseXml do
 
     it do
       is_expected.to eq [{
-        target_id: 21,
+        target_title: 'Test name',
+        target_id: 999_999,
         target_type: 'Anime',
         score: 7,
         status: 'completed',
         rewatches: 1,
         episodes: 30,
-        text: 'test',
+        text: 'test'
       }]
     end
   end
 
   context 'manga' do
+    let(:id_field) { %w[manga_mangadb_id series_mangadb_id].sample }
+    let(:status_field) { %w[my_status shiki_status].sample }
     let(:xml) do
       <<-XML
         <?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -28,12 +31,13 @@ describe ListImports::ParseXml do
             <user_export_type>#{ListImports::ParseXml::MANGA_TYPE}</user_export_type>
           </myinfo>
           <manga>
-            <manga_mangadb_id>1</manga_mangadb_id>
+            <series_title>Test name</series_title>
+            <#{id_field}>1</#{id_field}>
             <my_read_volumes>2</my_read_volumes>
             <my_read_chapters>3</my_read_chapters>
             <my_times_watched>4</my_times_watched>
             <my_score>5</my_score>
-            <my_status>Plan to Read</my_status>
+            <#{status_field}>Plan to Read</#{status_field}>
             <my_comments><![CDATA[test test]]></my_comments>
           </manga>
         </myanimelist>
@@ -42,6 +46,7 @@ describe ListImports::ParseXml do
 
     it do
       is_expected.to eq [{
+        target_title: 'Test name',
         target_id: 1,
         target_type: 'Manga',
         status: 'planned',

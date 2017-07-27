@@ -8,7 +8,8 @@ describe ListImports::Parse do
 
   it do
     is_expected.to eq [{
-      target_id: 21,
+      target_title: 'Test name',
+      target_id: 999999,
       target_type: 'Anime',
       score: 7,
       status: 'completed',

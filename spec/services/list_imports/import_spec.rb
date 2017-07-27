@@ -10,7 +10,7 @@ describe ListImports::Import do
     expect(list_import).to be_finished
     expect(user.user_rates).to have(1).item
     expect(user.user_rates.first).to have_attributes(
-      target_id: 21,
+      target_id: 999,
       target_type: 'Anime',
       score: 7,
       status: 'completed',
