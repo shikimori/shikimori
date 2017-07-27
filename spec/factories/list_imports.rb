@@ -36,10 +36,12 @@ FactoryGirl.define do
       list { File.new "#{Rails.root}/spec/files/list.json.gz" }
     end
 
+    trait :shiki_json_empty do
+      list { File.new "#{Rails.root}/spec/files/list_empty.json" }
+    end
     trait :shiki_json_broken do
       list { File.new "#{Rails.root}/spec/files/list_broken.json" }
     end
-
 
     ListImport.state_machine.states.map(&:value).each do |contest_state|
       trait(contest_state.to_sym) { state contest_state }

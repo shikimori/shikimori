@@ -32,7 +32,23 @@ describe ListImports::Import do
     end
   end
 
-  context 'wrong list type', :focus do
+  context 'empty list' do
+    let(:list_import) do
+      create :list_import, :shiki_json_empty, :manga, :pending, user: user
+    end
+
+    it do
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+
+      expect(list_import).to be_failed
+      expect(list_import.output).to eq(
+        'error' => { 'type' => ListImports::Import::ERROR_EMPTY_LIST }
+      )
+    end
+  end
+
+  context 'wrong list type' do
     let(:list_import) do
       create :list_import, :shiki_json, :manga, :pending, user: user
     end
