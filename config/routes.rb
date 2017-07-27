@@ -880,7 +880,6 @@ Rails.application.routes.draw do
             as: '',
             list_type: /anime|manga/
           get ':list_type/export' => :export, as: :export
-          post :import
         end
       end
 
