@@ -25,6 +25,8 @@ exceptions:
     - InvalidIdError
     - EmptyContentError
     - MalParser::RecordNotFound
+    - BadImageError
+    - Errors::NotIdentifiedByImageMagickError
 metrics:
   enabled: false
 traces:

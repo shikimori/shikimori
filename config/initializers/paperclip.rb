@@ -67,10 +67,10 @@ module Paperclip
     def make
       geometry = GeometryParser.new(geometry_string.strip).make
 
-      raise(Errors::NotIdentifiedByImageMagickError.new) unless geometry
+      raise Errors::NotIdentifiedByImageMagickError unless geometry
 
-      if geometry.width.to_i > 10000 || geometry.height.to_i > 10000
-        raise 'bad image'
+      if geometry.width.to_i > 10_000 || geometry.height.to_i > 10_000
+        raise BadImageError
       else
         geometry
       end
