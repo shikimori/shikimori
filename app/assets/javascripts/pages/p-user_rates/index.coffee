@@ -157,7 +157,9 @@ apply_list_handlers = ($root) ->
       $.flash notice: I18n.t('frontend.pages.p_user_rates.changes_saved')
       $('.cancel', $tr_edit).click()
 
-      $('.current-value[data-field=score]', $tr).html String(data.score || '0').replace(/^0$/, '–')
+      $('.current-value[data-field=score]', $tr).html(
+        String(data.score || '0').replace(/^0$/, '–')
+      )
       $('.current-value[data-field=chapters]', $tr).html data.chapters
       $('.current-value[data-field=volumes]', $tr).html data.volumes
       $('.current-value[data-field=episodes]', $tr).html data.episodes
@@ -165,9 +167,10 @@ apply_list_handlers = ($root) ->
       rate_text = "<div>#{data.text_html}</div>" if data.text_html
 
       $('.rate-text', $tr).html rate_text || ''
+
       if data.rewatches > 0
         count = data.rewatches
-        word = if data.anime
+        word = if data.target_type == 'Anime'
           p count,
             I18n.t('frontend.pages.p_user_rates.rewatch.one'),
             I18n.t('frontend.pages.p_user_rates.rewatch.few'),
@@ -339,6 +342,6 @@ process_next_page = ->
 update_text_in_cache = (data) ->
   list_cache.forEach (cache_block) ->
     cache_entry = cache_block.entries.find (row) ->
-      row.target_id == data.anime?.id || row.target_id == data.manga?.id
+      row.target_id == data.target_id
 
     cache_entry.text = data.text if cache_entry
