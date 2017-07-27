@@ -135,4 +135,4 @@
         - @resource.list_imports.order(id: :desc).each do |list_import|
           div: a.b-link[
             href="#{profile_list_import_url @resource, list_import}"
-          ] = t 'profiles.page.list_import', id: list_import.id
+          ] = list_import.name

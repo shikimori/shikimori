@@ -1,4 +1,6 @@
 class ListImport < ApplicationRecord
+  include Translation
+
   belongs_to :user
 
   enumerize :list_type,
@@ -32,6 +34,10 @@ class ListImport < ApplicationRecord
     }
 
   after_create :schedule_worker
+
+  def name
+    i18n_t 'name', id: id
+  end
 
 private
 

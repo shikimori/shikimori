@@ -143,3 +143,6 @@ ru:
   message:
     antispam: >-
       Защита от спама. Попробуйте снова через %{interval} %{seconds}
+
+  list_import:
+    name: 'Импорт списка #%{id}'

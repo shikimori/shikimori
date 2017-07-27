@@ -106,7 +106,6 @@ ru:
         person: Прочие люди
       export_anime: Экспорт аниме
       export_manga: Экспорт манги и ранобэ
-      list_import: 'Импорт списка #%{id}'
 
     edit:
       account:
