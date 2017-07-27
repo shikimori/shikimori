@@ -569,7 +569,7 @@ ActiveRecord::Schema.define(version: 20170724191009) do
     t.string "state", null: false
     t.string "duplicate_policy", null: false
     t.string "list_type", null: false
-    t.text "error"
+    t.jsonb "output"
     t.index ["user_id"], name: "index_list_imports_on_user_id"
   end
 
