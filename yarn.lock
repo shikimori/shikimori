@@ -796,9 +796,9 @@ bluebird@^3.0.5, bluebird@^3.1.1:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.0.tgz#791420d7f551eea2897453a8a77653f96606d67c"
 
-blueimp-md5@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.7.0.tgz#7f518e0dd70467fefe28ecba398916092f2a02a9"
+blueimp-md5@^2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.8.0.tgz#7011a7703d1ac26c9d2e60b12a843fea09c8bb18"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.6"
@@ -2244,9 +2244,9 @@ he@^1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
-highcharts@^5.0.12:
-  version "5.0.12"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.12.tgz#f73b970fe5c7f04100220b64aa7bd7fb019d11e2"
+highcharts@^5.0.13:
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-5.0.13.tgz#80836cd8d55678caf234cc7feba81341d6e4b10c"
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
