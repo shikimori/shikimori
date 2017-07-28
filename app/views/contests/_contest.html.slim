@@ -1,5 +1,5 @@
 li.contest id="#{contest.id}"
-  - if !contest.created? && !contest.proposing?
+  - if !contest.created?
     .date
       = l contest.started_on
       - if contest.finished_on
