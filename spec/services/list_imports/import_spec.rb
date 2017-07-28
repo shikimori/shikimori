@@ -31,7 +31,8 @@ describe ListImports::Import do
           ListImports::ListEntry.build(user.anime_rates.first)
         ].to_json),
         ListImports::ImportList::UPDATED => [],
-        ListImports::ImportList::NOT_IMPORTED => []
+        ListImports::ImportList::NOT_IMPORTED => [],
+        ListImports::ImportList::NOT_CHANGED => []
       )
       expect(list_import).to_not be_changed
     end

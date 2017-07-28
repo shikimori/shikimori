@@ -40,7 +40,8 @@ describe ListImports::ImportList do
       expect(list_import.output).to eq(
         ListImports::ImportList::ADDED => JSON.parse([list[0]].to_json),
         ListImports::ImportList::UPDATED => [],
-        ListImports::ImportList::NOT_IMPORTED => []
+        ListImports::ImportList::NOT_IMPORTED => [],
+        ListImports::ImportList::NOT_CHANGED => []
       )
       expect(list_import).to_not be_changed
     end
@@ -77,7 +78,8 @@ describe ListImports::ImportList do
           ListImports::ImportList::UPDATED => JSON.parse(
             [[user_rate_list_entry, list[0]]].to_json
           ),
-          ListImports::ImportList::NOT_IMPORTED => []
+          ListImports::ImportList::NOT_IMPORTED => [],
+          ListImports::ImportList::NOT_CHANGED => []
         )
         expect(list_import).to_not be_changed
       end
@@ -100,8 +102,36 @@ describe ListImports::ImportList do
         expect(list_import.output).to eq(
           ListImports::ImportList::ADDED => [],
           ListImports::ImportList::UPDATED => [],
-          ListImports::ImportList::NOT_IMPORTED =>
-            JSON.parse([list[0]].to_json)
+          ListImports::ImportList::NOT_IMPORTED => JSON.parse([list[0]].to_json),
+          ListImports::ImportList::NOT_CHANGED => []
+        )
+        expect(list_import).to_not be_changed
+      end
+    end
+
+    context 'not changed entry' do
+      let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
+      let!(:user_rate) do
+        create :user_rate,
+          user: user,
+          target: target,
+          status: list[0].status,
+          episodes: list[0].episodes,
+          rewatches: list[0].rewatches,
+          score: list[0].score,
+          text: list[0].text
+      end
+
+      it do
+        expect(user.anime_rates).to have(1).item
+        expect(user.anime_rates.first).to eq user_rate
+        expect(user.manga_rates).to be_empty
+
+        expect(list_import.output).to eq(
+          ListImports::ImportList::ADDED => [],
+          ListImports::ImportList::UPDATED => [],
+          ListImports::ImportList::NOT_IMPORTED => [],
+          ListImports::ImportList::NOT_CHANGED => JSON.parse([list[0]].to_json)
         )
         expect(list_import).to_not be_changed
       end
@@ -118,7 +148,8 @@ describe ListImports::ImportList do
       expect(list_import.output).to eq(
         ListImports::ImportList::ADDED => [],
         ListImports::ImportList::UPDATED => [],
-        ListImports::ImportList::NOT_IMPORTED => JSON.parse([list[0]].to_json)
+        ListImports::ImportList::NOT_IMPORTED => JSON.parse([list[0]].to_json),
+        ListImports::ImportList::NOT_CHANGED => []
       )
       expect(list_import).to_not be_changed
     end

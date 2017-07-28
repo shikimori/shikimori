@@ -4,8 +4,14 @@ class ListImports::ImportList
   ADDED = 'added'
   UPDATED = 'updated'
   NOT_IMPORTED = 'not_imported'
+  NOT_CHANGED = 'not_changed'
 
-  DEFAULT_OUTPUT = { ADDED => [], UPDATED => [], NOT_IMPORTED => [] }
+  DEFAULT_OUTPUT = {
+    ADDED => [],
+    UPDATED => [],
+    NOT_IMPORTED => [],
+    NOT_CHANGED => []
+  }
 
   method_object :list_import, :list
   instance_cache :mismatched_list_entries, :matched_list_entries, :user_rates
@@ -29,6 +35,7 @@ private
     )
   end
 
+  # rubocop:disable MethodLength
   def import_mismatched
     user_rates = []
 
@@ -37,14 +44,15 @@ private
 
       if user_rate&.valid?
         user_rates << user_rate
-        output_added list_entry
+        output list_entry, ADDED
       else
-        output_not_imported list_entry
+        output list_entry, NOT_IMPORTED
       end
     end
 
     UserRate.import user_rates
   end
+  # rubocop:enable MethodLength
 
   def import_matched
     matched_list_entries.each do |list_entry|
@@ -60,12 +68,18 @@ private
     user_rate = user_rates.find { |v| v.target_id == list_entry.target_id }
     old_list_entry = ListImports::ListEntry.build user_rate
 
-    list_entry.export(user_rate).save!
-    output_updated old_list_entry, list_entry
+    list_entry.export(user_rate)
+
+    if user_rate.changed?
+      user_rate.save!
+      output_updated old_list_entry, list_entry
+    else
+      output list_entry, NOT_CHANGED
+    end
   end
 
   def ignore_duplicate list_entry
-    output_not_imported list_entry
+    output list_entry, NOT_IMPORTED
   end
 
   def mismatched_list_entries
@@ -88,15 +102,11 @@ private
     end
   end
 
-  def output_added list_entry
-    @list_import.output[ADDED] << list_entry
+  def output list_entry, key
+    @list_import.output[key] << list_entry
   end
 
   def output_updated old_list_entry, new_list_entry
     @list_import.output[UPDATED] << [old_list_entry, new_list_entry]
-  end
-
-  def output_not_imported list_entry
-    @list_import.output[NOT_IMPORTED] << list_entry
   end
 end
