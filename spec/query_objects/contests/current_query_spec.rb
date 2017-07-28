@@ -12,5 +12,5 @@ describe Contests::CurrentQuery do
 
   subject! { query.call }
 
-  it { is_expected.to eq [contest_4] }
+  it { is_expected.to eq [contest_4, contest_2] }
 end
