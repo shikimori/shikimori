@@ -33,7 +33,8 @@ describe ListImports::ListEntry do
       let(:user_rate) { build :user_rate, target: anime }
 
       it do
-        expect(user_rate).to have_attributes(
+        is_expected.to eq user_rate
+        is_expected.to have_attributes(
           status: status.to_s,
           score: score,
           episodes: episodes,
@@ -47,6 +48,7 @@ describe ListImports::ListEntry do
     context 'user_rate wo target' do
       let(:user_rate) { build :user_rate, :planned, target: nil }
       it do
+        is_expected.to be_nil
         expect(user_rate).to have_attributes(
           status: 'planned',
           score: 0,

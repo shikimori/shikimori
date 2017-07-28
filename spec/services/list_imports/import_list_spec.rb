@@ -36,7 +36,7 @@ describe ListImports::ImportList do
       expect(user.manga_rates).to be_empty
 
       expect(list_import.output).to eq(
-        ListImports::ImportList::ADDED => [list[0]],
+        ListImports::ImportList::ADDED => JSON.parse([list[0].to_hash].to_json),
         ListImports::ImportList::UPDATED => [],
         ListImports::ImportList::NOT_IMPORTED => []
       )

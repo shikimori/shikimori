@@ -23,7 +23,7 @@ class ListImports::ImportList
 private
 
   def build_user_rate list_entry
-    list_entry.to_user_rate UserRate.new(
+    list_entry.export UserRate.new(
       user: @list_import.user,
       target_id: list_entry[:target_id],
       target_type: list_entry[:target_type]
@@ -36,7 +36,7 @@ private
     mismatched_list_entries.each do |list_entry|
       user_rate = build_user_rate(list_entry)
 
-      if user_rate.valid?
+      if user_rate&.valid?
         user_rates << user_rate
         output_imported list_entry
       else

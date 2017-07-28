@@ -21,6 +21,8 @@ class ListImports::ListEntry < Dry::Struct
     %i[episodes volumes chapters].each do |counter|
       export_counter user_rate, counter if user_rate.target.respond_to? counter
     end
+
+    user_rate
   end
 
 private
