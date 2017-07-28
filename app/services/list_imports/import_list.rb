@@ -14,8 +14,7 @@ class ListImports::ImportList
     @list_import.output = DEFAULT_OUTPUT
 
     import_mismatched
-    # import_existing_list_entries
-    # import_missing_list_entries
+    import_matched
 
     @list_import.save!
   end
@@ -38,7 +37,7 @@ private
 
       if user_rate&.valid?
         user_rates << user_rate
-        output_imported list_entry
+        output_added list_entry
       else
         output_not_imported list_entry
       end
@@ -47,13 +46,32 @@ private
     UserRate.import user_rates
   end
 
-  # def import_existing_list_entries
-  # end
+  def import_matched
+    matched_list_entries.each do |list_entry|
+      if @list_import.duplicate_policy_replace?
+        replace_duplicate list_entry
+      else
+        ignore_duplicate list_entry
+      end
+    end
+  end
+
+  def replace_duplicate list_entry
+    user_rate = user_rates.find { |v| v.target_id == list_entry.target_id }
+    old_list_entry = ListImports::ListEntry.new user_rate.attributes
+
+    list_entry.export(user_rate).save!
+    output_updated old_list_entry, list_entry
+  end
+
+  def ignore_duplicate list_entry
+    output_not_imported list_entry
+  end
 
   def mismatched_list_entries
     @list.select do |list_entry|
       user_rates.none? do |user_rate|
-        user_rate.target_id == list_entry[:target_id].to_i
+        user_rate.target_id == list_entry.target_id
       end
     end
   end
@@ -70,8 +88,12 @@ private
     end
   end
 
-  def output_imported list_entry
+  def output_added list_entry
     @list_import.output[ADDED] << list_entry
+  end
+
+  def output_updated old_list_entry, new_list_entry
+    @list_import.output[UPDATED] << [old_list_entry, new_list_entry]
   end
 
   def output_not_imported list_entry

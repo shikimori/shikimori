@@ -4,13 +4,13 @@ class ListImports::ListEntry < Dry::Struct
   attribute :target_title, Types::Strict::String
   attribute :target_id, Types::Coercible::Int
   attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
-  attribute :score, Types::Coercible::Int
+  attribute :score, Types::Coercible::Int.default(0)
   attribute :status, Types::UserRate::Status
-  attribute :rewatches, Types::Coercible::Int
-  attribute :episodes, Types::Coercible::Int.optional.default(0)
-  attribute :volumes, Types::Coercible::Int.optional.default(0)
-  attribute :chapters, Types::Coercible::Int.optional.default(0)
-  attribute :text, Types::String.optional.default('')
+  attribute :rewatches, Types::Coercible::Int.default(0)
+  attribute :episodes, Types::Coercible::Int.default(0)
+  attribute :volumes, Types::Coercible::Int.default(0)
+  attribute :chapters, Types::Coercible::Int.default(0)
+  attribute :text, Types::String.default('')
 
   def export user_rate
     return unless user_rate.target

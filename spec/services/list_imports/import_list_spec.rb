@@ -1,7 +1,8 @@
 describe ListImports::ImportList do
   let(:service) { ListImports::ImportList.new list_import, list }
 
-  let(:list_import) { create :list_import, :anime, user: user }
+  let(:list_import) { create :list_import, :anime, duplicate_policy, user: user }
+  let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
   let(:user) { seed :user }
   let(:list) do
     [ListImports::ListEntry.new(
@@ -16,6 +17,7 @@ describe ListImports::ImportList do
     )]
   end
   let!(:target) { create :anime, id: list.first[:target_id] }
+  let!(:user_rate) { nil }
 
   subject! { service.call }
 
@@ -36,7 +38,7 @@ describe ListImports::ImportList do
       expect(user.manga_rates).to be_empty
 
       expect(list_import.output).to eq(
-        ListImports::ImportList::ADDED => JSON.parse([list[0].to_hash].to_json),
+        ListImports::ImportList::ADDED => JSON.parse([list[0]].to_json),
         ListImports::ImportList::UPDATED => [],
         ListImports::ImportList::NOT_IMPORTED => []
       )
@@ -45,14 +47,82 @@ describe ListImports::ImportList do
   end
 
   context 'existing entry' do
+    let!(:user_rate) do
+      create :user_rate,
+        user: user,
+        target: target,
+        status: 'planned',
+        episodes: 0,
+        rewatches: 0,
+        score: 0
+    end
+    let!(:user_rate_list_entry) do
+      ListImports::ListEntry.new user_rate.attributes
+    end
+
     context 'replace duplicate_policy' do
+      let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }
+
+      it do
+        expect(user.anime_rates).to have(1).item
+        expect(user.anime_rates.first).to eq user_rate.reload
+        expect(user_rate).to have_attributes(
+          status: list[0].status.to_s,
+          episodes: list[0].episodes,
+          rewatches: list[0].rewatches,
+          score: list[0].score
+        )
+        expect(user.manga_rates).to be_empty
+
+        expect(list_import.output).to eq(
+          ListImports::ImportList::ADDED => [],
+          ListImports::ImportList::UPDATED => JSON.parse(
+            [[user_rate_list_entry, list[0]]].to_json
+          ),
+          ListImports::ImportList::NOT_IMPORTED => []
+        )
+        expect(list_import).to_not be_changed
+      end
     end
 
     context 'ignore duplicate_policy' do
+      let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:ignore] }
+
+      it do
+        expect(user.anime_rates).to have(1).item
+        expect(user.anime_rates.first).to eq user_rate.reload
+        expect(user_rate).to have_attributes(
+          status: 'planned',
+          episodes: 0,
+          rewatches: 0,
+          score: 0
+        )
+        expect(user.manga_rates).to be_empty
+
+        expect(list_import.output).to eq(
+          ListImports::ImportList::ADDED => [],
+          ListImports::ImportList::UPDATED => [],
+          ListImports::ImportList::NOT_IMPORTED =>
+            JSON.parse([list[0]].to_json)
+        )
+        expect(list_import).to_not be_changed
+      end
     end
   end
 
   context 'not existing entry' do
     let(:target) { nil }
+
+    it do
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+
+      expect(list_import.output).to eq(
+        ListImports::ImportList::ADDED => [],
+        ListImports::ImportList::UPDATED => [],
+        ListImports::ImportList::NOT_IMPORTED => JSON.parse([list[0]].to_json)
+      )
+      expect(list_import).to_not be_changed
+    end
   end
 end
