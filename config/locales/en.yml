@@ -142,7 +142,7 @@ en:
           ranobe:
             <<: *manga_statuses
       list_import:
-        duplicate_policy: Existing records
+        duplicate_policy: Existing Records
         list_type: List Type
         list: List File
       review:

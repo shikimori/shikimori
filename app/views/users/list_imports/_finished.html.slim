@@ -11,6 +11,18 @@
           collection: view.added
 
   .block
+    - if view.not_changed.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".not_changed.#{list_import.list_type}", count: view.not_changed.size
+
+    - if view.not_changed.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.not_changed
+
+  .block
     - if view.not_imported.any?
       .b-options-floated.collapse: span.action #{t 'collapse'}
     .subheadline.m5
@@ -20,4 +32,5 @@
       .collapsed.tiny ...
       .block
         = render partial: 'users/list_imports/list_entry',
-          collection: view.not_imported
+          collection: view.not_imported,
+          locals: { not_imported: true }

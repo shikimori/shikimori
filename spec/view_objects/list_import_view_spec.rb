@@ -11,12 +11,21 @@ describe ListImportView do
         target_title: 'a',
         target_type: 'Anime'
       }],
-      ListImports::ImportList::NOT_IMPORTED => [{
-        target_id: 2,
+      ListImports::ImportList::NOT_CHANGED => [{
+        target_id: 3,
         target_title: 'z',
         target_type: 'Anime'
       }, {
-        target_id: 3,
+        target_id: 4,
+        target_title: 'a',
+        target_type: 'Anime'
+      }],
+      ListImports::ImportList::NOT_IMPORTED => [{
+        target_id: 5,
+        target_title: 'z',
+        target_type: 'Anime'
+      }, {
+        target_id: 6,
         target_title: 'a',
         target_type: 'Anime'
       }]
@@ -27,6 +36,13 @@ describe ListImportView do
     expect(view.added).to eq [
       ListImports::ListEntry.new(list_import.output['added'][1].symbolize_keys),
       ListImports::ListEntry.new(list_import.output['added'][0].symbolize_keys)
+    ]
+  end
+
+  it '#not_changed' do
+    expect(view.not_changed).to eq [
+      ListImports::ListEntry.new(list_import.output['not_changed'][1].symbolize_keys),
+      ListImports::ListEntry.new(list_import.output['not_changed'][0].symbolize_keys)
     ]
   end
 

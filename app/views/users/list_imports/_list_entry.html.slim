@@ -1,9 +1,15 @@
 .b-log_entry
   span.index #{list_entry_counter + 1}.
   span
-    a.bubbled.b-link[
-      href="#{send "#{list_entry.target_type.downcase}_url", list_entry.target_id}"
-    ] = list_entry.target_title
+    - if local_assigns[:not_imported]
+      = list_entry.target_title
+    - else
+      a.bubbled.b-link[
+        href="#{send "#{list_entry.target_type.downcase}_url", list_entry.target_id}"
+      ] = list_entry.target_title
+  - if local_assigns[:not_imported]
+    span.id-label #
+    span = list_entry.target_id
   span.details
     span.column
       = UserRate.status_name list_entry.status, list_entry.target_type
