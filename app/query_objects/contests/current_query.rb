@@ -5,6 +5,7 @@ class Contests::CurrentQuery
     Contest
       .where(state: :started)
       .where('started_on <= ?', Time.zone.today)
-      .order(:started_on)
+      .or(Contest.where(state: :proposing))
+      .order(state: :desc, started_on: :asc)
   end
 end
