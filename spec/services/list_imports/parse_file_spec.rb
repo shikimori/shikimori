@@ -15,9 +15,7 @@ describe ListImports::ParseFile do
       status: 'completed',
       rewatches: 1,
       episodes: 30,
-      text: 'test',
-      volumes: 0,
-      chapters: 0
+      text: 'test'
     )]
   end
 end

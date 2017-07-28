@@ -4,7 +4,7 @@ describe ListImports::ImportList do
   let(:list_import) { create :list_import, :anime, user: user }
   let(:user) { seed :user }
   let(:list) do
-    [{
+    [ListImports::ListEntry.new(
       target_title: 'Test name',
       target_id: 999_999,
       target_type: 'Anime',
@@ -13,7 +13,7 @@ describe ListImports::ImportList do
       rewatches: 1,
       episodes: 30,
       text: 'test'
-    }]
+    )]
   end
   let!(:target) { create :anime, id: list.first[:target_id] }
 

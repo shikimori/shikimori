@@ -15,9 +15,7 @@ describe ListImports::ParseXml do
         status: 'completed',
         rewatches: 1,
         episodes: 30,
-        text: 'test',
-        volumes: 0,
-        chapters: 0
+        text: 'test'
       )]
     end
   end
@@ -56,8 +54,7 @@ describe ListImports::ParseXml do
         chapters: 3,
         rewatches: 4,
         score: 5.0,
-        text: 'test test',
-        episodes: 0
+        text: 'test test'
       )]
     end
   end

@@ -23,14 +23,11 @@ class ListImports::ImportList
 private
 
   def build_user_rate list_entry
-    user_rate = UserRate.new(
+    list_entry.to_user_rate UserRate.new(
       user: @list_import.user,
       target_id: list_entry[:target_id],
       target_type: list_entry[:target_type]
     )
-
-    assign_attributes user_rate, list_entry
-    user_rate
   end
 
   def import_mismatched
@@ -70,42 +67,6 @@ private
       @list_import.user.anime_rates.includes(:anime).to_a
     else
       @list_import.user.manga_rates.includes(:manga).to_a
-    end
-  end
-
-  # rubocop:disable MethodLength
-  def assign_attributes user_rate, list_entry
-    return unless user_rate.target
-
-    user_rate.status = list_entry[:status]
-    user_rate.score = list_entry[:score]
-    user_rate.rewatches = list_entry[:rewatches]
-
-    text = list_entry[:text]&.gsub(%r{<br ?/?>}, "\n")&.strip
-    user_rate.text = text if text.present?
-
-    if @list_import.anime?
-      assign_counter user_rate, list_entry, :episodes
-    else
-      assign_counter user_rate, list_entry, :volumes
-      assign_counter user_rate, list_entry, :chapters
-    end
-  end
-  # rubocop:enable MethodLength
-
-  def assign_counter user_rate, list_entry, counter
-    user_rate[counter] = list_entry[counter].to_i
-
-    if user_rate.target[counter].positive?
-      # у просмотренного выставляем число эпизодов/частей/томов равное
-      # количеству у аниме/манги
-      user_rate[counter] = user_rate.target[counter] if user_rate.completed?
-
-      # нельзя указать больше/меньше эпизодов/частей/томов для просмотренного,
-      # чем имеется в аниме/манге
-      if user_rate[counter] > user_rate.target[counter]
-        user_rate[counter] = user_rate.target[counter]
-      end
     end
   end
 
