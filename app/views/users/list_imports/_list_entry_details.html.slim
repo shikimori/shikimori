@@ -1,0 +1,16 @@
+span.details
+  span.column
+    = UserRate.status_name list_entry.status, list_entry.target_type
+    - if list_entry.rewatches.positive?
+      = " #{list_entry.rewatches}x"
+
+  - if list_entry.anime?
+    span.column = t '.episodes', value: list_entry.episodes
+  - else
+    span.column = t '.chapters', value: list_entry.chapters
+    span.column = t '.volumes', value: list_entry.volumes
+
+  span.column #{list_entry.score} ★
+
+  - if list_entry.text.present?
+    span.text = list_entry.text

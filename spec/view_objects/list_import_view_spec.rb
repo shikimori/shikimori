@@ -11,21 +11,40 @@ describe ListImportView do
         target_title: 'a',
         target_type: 'Anime'
       }],
+      ListImports::ImportList::UPDATED => [
+        [{
+          target_id: 3,
+          target_title: 'z',
+          target_type: 'Anime'
+        }, {
+          target_id: 4,
+          target_title: 'x',
+          target_type: 'Anime'
+        }], [{
+          target_id: 5,
+          target_title: 'a',
+          target_type: 'Anime'
+        }, {
+          target_id: 6,
+          target_title: 'b',
+          target_type: 'Anime'
+        }]
+      ],
       ListImports::ImportList::NOT_CHANGED => [{
-        target_id: 3,
+        target_id: 7,
         target_title: 'z',
         target_type: 'Anime'
       }, {
-        target_id: 4,
+        target_id: 8,
         target_title: 'a',
         target_type: 'Anime'
       }],
       ListImports::ImportList::NOT_IMPORTED => [{
-        target_id: 5,
+        target_id: 9,
         target_title: 'z',
         target_type: 'Anime'
       }, {
-        target_id: 6,
+        target_id: 10,
         target_title: 'a',
         target_type: 'Anime'
       }]
@@ -36,6 +55,18 @@ describe ListImportView do
     expect(view.added).to eq [
       ListImports::ListEntry.new(list_import.output['added'][1].symbolize_keys),
       ListImports::ListEntry.new(list_import.output['added'][0].symbolize_keys)
+    ]
+  end
+
+  it '#updated' do
+    expect(view.updated).to eq [
+      [
+        ListImports::ListEntry.new(list_import.output['updated'][1][0].symbolize_keys),
+        ListImports::ListEntry.new(list_import.output['updated'][1][1].symbolize_keys)
+      ], [
+        ListImports::ListEntry.new(list_import.output['updated'][0][0].symbolize_keys),
+        ListImports::ListEntry.new(list_import.output['updated'][0][1].symbolize_keys)
+      ]
     ]
   end
 

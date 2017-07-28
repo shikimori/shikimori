@@ -6,6 +6,17 @@ class ListImportView < ViewObjectBase
     output_collection ListImports::ImportList::ADDED
   end
 
+  def updated
+    @list_import.output[ListImports::ImportList::UPDATED]
+      .sort_by { |list_entry_before, _| list_entry_before['target_title'] }
+      .map do |list_entry_before, list_entry_after|
+        [
+          ListImports::ListEntry.new(list_entry_before.symbolize_keys),
+          ListImports::ListEntry.new(list_entry_after.symbolize_keys)
+        ]
+      end
+  end
+
   def not_changed
     output_collection ListImports::ImportList::NOT_CHANGED
   end

@@ -1,25 +1,17 @@
-.b-log_entry
+.b-log_entry class="#{:updated if local_assigns[:is_updated]}"
   span.index #{list_entry_counter + 1}.
   span
-    - if local_assigns[:not_imported]
+    - if local_assigns[:is_not_imported]
       = list_entry.target_title
     - else
       a.bubbled.b-link[
         href="#{send "#{list_entry.target_type.downcase}_url", list_entry.target_id}"
       ] = list_entry.target_title
-  - if local_assigns[:not_imported]
+  - if local_assigns[:is_not_imported]
     span.id-label #
     span = list_entry.target_id
-  span.details
-    span.column
-      = UserRate.status_name list_entry.status, list_entry.target_type
-      - if list_entry.rewatches.positive?
-        = " #{list_entry.rewatches}x"
-    - if list_entry.anime?
-      span.column = t '.episodes', value: list_entry.episodes
-    - else
-      span.column = t '.chapters', value: list_entry.chapters
-      span.column = t '.volumes', value: list_entry.volumes
-    span.column #{list_entry.score} ★
-    - if list_entry.text.present?
-      span.text = list_entry.text
+
+  = render 'users/list_imports/list_entry_details', list_entry: list_entry
+  - if local_assigns[:is_updated]
+    span.arrow
+    = render 'users/list_imports/list_entry_details', list_entry: list_entry_after

@@ -37,31 +37,40 @@ en:
         added:
           anime:
             zero: 'No new animes added'
-            one: '1 new anime added'
+            one: '%{count} new anime added'
             other: '%{count} new animes added'
           manga:
             zero: 'No new mangas added'
-            one: '1 new manga added'
+            one: '%{count} new manga added'
             other: '%{count} new mangas added'
+        updated:
+          anime:
+            zero: 'No animes updated'
+            one: '%{count} anime updated'
+            other: '%{count} animes updated'
+          manga:
+            zero: 'No mangas updated'
+            one: '%{count} manga updated'
+            other: '%{count} mangas updated'
         not_changed:
           anime:
             zero: 'No animes w/o changes'
-            one: '1 anime w/o changes'
+            one: '%{count} anime w/o changes'
             other: '%{count} animes w/o changes'
           manga:
             zero: 'No mangas w/o changes'
-            one: '1 manga w/o changes'
+            one: '%{count} manga w/o changes'
             other: '%{count} mangas w/o changes'
         not_imported:
           anime:
             zero: 'No not imported animes'
-            one: '1 anime not imported'
+            one: '%{count} anime not imported'
             other: '%{count} animes not imported'
           manga:
             zero: 'No not imported mangas'
-            one: '1 manga not imported'
+            one: '%{count} manga not imported'
             other: '%{count} mangas not imported'
-      list_entry:
+      list_entry_details:
         episodes: '%{value} ep'
         volumes: '%{value} vol'
         chapters: '%{value} ch'

@@ -1,13 +1,32 @@
 @import globals/variables
+@import mixins/brackets_surrounded
 @import mixins/dash_separated
 
 .p-list_imports
-  // .b-entry-info
-    margin-bottom: $block_offset / 2
-
   .b-log_entry
     .index
       color: $gray-3
+
+    &.updated
+      .arrow
+        &:before
+          content: '→'
+
+      .details
+        +brackets_surrounded
+
+        &:before
+          content: '['
+          color: $red
+        &:after
+          content: ']'
+          color: $red
+
+        &:last-child
+          &:before
+            color: $green
+          &:after
+            color: $green
 
     .details > span
       +dash_separated
