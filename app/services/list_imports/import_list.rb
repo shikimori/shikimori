@@ -58,7 +58,7 @@ private
 
   def replace_duplicate list_entry
     user_rate = user_rates.find { |v| v.target_id == list_entry.target_id }
-    old_list_entry = ListImports::ListEntry.new user_rate.attributes
+    old_list_entry = ListImports::ListEntry.build user_rate
 
     list_entry.export(user_rate).save!
     output_updated old_list_entry, list_entry

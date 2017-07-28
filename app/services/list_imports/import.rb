@@ -22,7 +22,7 @@ private
   end
 
   def import list
-    ListImport::ImportEntries.call @list_import, list
+    ListImports::ImportList.call @list_import, list
 
     @list_import.save!
     @list_import.finish!

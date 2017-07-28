@@ -56,9 +56,7 @@ describe ListImports::ImportList do
         rewatches: 0,
         score: 0
     end
-    let!(:user_rate_list_entry) do
-      ListImports::ListEntry.new user_rate.attributes
-    end
+    let!(:user_rate_list_entry) { ListImports::ListEntry.build user_rate }
 
     context 'replace duplicate_policy' do
       let(:duplicate_policy) { Types::ListImport::DuplicatePolicy[:replace] }

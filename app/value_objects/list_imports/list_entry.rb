@@ -25,6 +25,23 @@ class ListImports::ListEntry < Dry::Struct
     user_rate
   end
 
+  # rubocop:disable MethodLength
+  def self.build user_rate
+    new(
+      target_title: user_rate.target&.name,
+      target_id: user_rate.target_id,
+      target_type: user_rate.target_type,
+      score: user_rate.score,
+      status: user_rate.status,
+      rewatches: user_rate.rewatches,
+      episodes: user_rate.episodes,
+      volumes: user_rate.volumes,
+      chapters: user_rate.chapters,
+      text: user_rate.text
+    )
+  end
+  # rubocop:enable MethodLength
+
 private
 
   def export_fields user_rate

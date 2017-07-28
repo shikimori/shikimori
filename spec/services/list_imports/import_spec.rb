@@ -1,12 +1,14 @@
 describe ListImports::Import do
   let(:service) { ListImports::Import.new list_import }
   let(:user) { seed :user }
+  let!(:anime) { nil }
 
   subject! { service.call }
 
   context 'valid list' do
     let(:list_type) { %i[mal_xml mal_xml_gz shiki_json shiki_json_gz].sample }
     let(:list_import) { create :list_import, list_type, :anime, :pending, user: user }
+    let!(:anime) { create :anime, id: 999_999, name: 'Test name' }
 
     it do
       expect(user.anime_rates).to have(1).item
@@ -25,7 +27,9 @@ describe ListImports::Import do
 
       expect(list_import).to be_finished
       expect(list_import.output).to eq(
-        ListImports::ImportList::ADDED => [],
+        ListImports::ImportList::ADDED => JSON.parse([
+          ListImports::ListEntry.build(user.anime_rates.first)
+        ].to_json),
         ListImports::ImportList::UPDATED => [],
         ListImports::ImportList::NOT_IMPORTED => []
       )
@@ -82,7 +86,8 @@ describe ListImports::Import do
       expect(list_import.output['error']['class']).to eq 'JSON::ParserError'
       expect(list_import.output['error']['message'])
         .to eq "416: unexpected token at ''"
-      expect(list_import.output['error']['backtrace']).to have(79).items
+      expect(list_import.output['error']['backtrace'])
+        .to have_at_least(80).items
     end
   end
 end

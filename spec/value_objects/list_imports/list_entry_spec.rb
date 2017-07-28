@@ -58,4 +58,25 @@ describe ListImports::ListEntry do
       end
     end
   end
+
+  describe '#build' do
+    let(:user_rate) { build_stubbed :user_rate, target: anime }
+    let(:anime) { build_stubbed :anime }
+    subject! { ListImports::ListEntry.build user_rate }
+
+    it do
+      is_expected.to eq ListImports::ListEntry.new(
+        target_title: user_rate.target&.name,
+        target_id: user_rate.target_id,
+        target_type: user_rate.target_type,
+        score: user_rate.score,
+        status: user_rate.status,
+        rewatches: user_rate.rewatches,
+        episodes: user_rate.episodes,
+        volumes: user_rate.volumes,
+        chapters: user_rate.chapters,
+        text: user_rate.text
+      )
+    end
+  end
 end
