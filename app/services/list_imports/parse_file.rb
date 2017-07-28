@@ -1,4 +1,4 @@
-class ListImports::Parse
+class ListImports::ParseFile
   method_object :file
 
   GZIP = 'gzip compressed data'

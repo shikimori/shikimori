@@ -9,7 +9,7 @@ class ListImport < ApplicationRecord
 
   enumerize :list_type,
     in: Types::ListImport::ListType.values,
-    predicates: { prefix: true }
+    predicates: true
 
   enumerize :duplicate_policy,
     in: Types::ListImport::DuplicatePolicy.values,

@@ -21,14 +21,15 @@ describe ListImports::Import do
         volumes: 0,
         chapters: 0
       )
-      expect(user.manga_rates).to have(1).item
+      expect(user.manga_rates).to be_empty
 
       expect(list_import).to be_finished
       expect(list_import.output).to eq(
-        ADDED => [],
-        UPDATED => [],
-        NOT_IMPORTED => []
+        ListImports::ImportList::ADDED => [],
+        ListImports::ImportList::UPDATED => [],
+        ListImports::ImportList::NOT_IMPORTED => []
       )
+      expect(list_import).to_not be_changed
     end
   end
 

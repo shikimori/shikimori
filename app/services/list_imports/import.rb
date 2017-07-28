@@ -1,12 +1,6 @@
 class ListImports::Import
   method_object :list_import
 
-  ADDED = 'added'
-  UPDATED = 'updated'
-  NOT_IMPORTED = 'not_imported'
-
-  DEFAULT_OUTPUT = { ADDED => [], UPDATED => [], NOT_IMPORTED => [] }
-
   def call
     User.transaction { do_import }
   rescue StandardError => e
@@ -16,7 +10,7 @@ class ListImports::Import
 private
 
   def do_import
-    list = ListImports::Parse.call(open(ListImport.last.list.path))
+    list = ListImports::ParseFile.call(open(ListImport.last.list.path))
 
     if list.empty?
       specific_error ListImport::ERROR_EMPTY_LIST
@@ -27,8 +21,8 @@ private
     end
   end
 
-  def import _rates_data
-    @list_import.output = DEFAULT_OUTPUT
+  def import list
+    ListImport::ImportEntries.call @list_import, list
 
     @list_import.save!
     @list_import.finish!
@@ -56,6 +50,8 @@ private
   # rubocop:enable MethodLength
 
   def wrong_list_type? list
-    list.any? { |entry| entry[:target_type].downcase != @list_import.list_type }
+    list.any? do |list_entry|
+      list_entry[:target_type].downcase != @list_import.list_type
+    end
   end
 end
