@@ -5,4 +5,3 @@ module Types
       .enum(:replace, :ignore)
   end
 end
-

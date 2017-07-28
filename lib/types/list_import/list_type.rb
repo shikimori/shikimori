@@ -5,4 +5,3 @@ module Types
       .enum(:anime, :manga)
   end
 end
-

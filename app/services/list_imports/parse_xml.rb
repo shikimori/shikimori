@@ -18,19 +18,37 @@ class ListImports::ParseXml
 
   def call
     list = data[entry_key]
+    list_data = (list.is_a?(Hash) ? [list] : list).compact
 
-    (list.is_a?(Hash) ? [list] : list)
-      .compact
-      .map { |entry| parse entry }
+    list_data.map { |list_entry_data| build(parse(list_entry_data)) }
   end
 
 private
 
-  def parse entry
-    parse_fields(entry).merge(
-      anime_list? ? parse_episodes(entry) : parse_chapters(entry)
-    )
+  def build list_entry_data
+    ListImports::ListEntry.new list_entry_data
   end
+
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
+  def parse list_entry_data
+    {
+      target_id: parse_id(list_entry_data),
+      target_type: anime_list? ? Anime.name : Manga.name,
+      target_title: list_entry_data['series_title'],
+      score: extract_number(list_entry_data['my_score']),
+      status: extract_status(
+        list_entry_data['shiki_status'] || list_entry_data['my_status']
+      ),
+      text: list_entry_data['my_comments'],
+      rewatches: extract_number(list_entry_data['my_times_watched']),
+      episodes: extract_number(list_entry_data['my_watched_episodes']),
+      volumes: extract_number(list_entry_data['my_read_volumes']),
+      chapters: extract_number(list_entry_data['my_read_chapters'])
+    }
+  end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   def entry_key
     anime_list? ? 'anime' : 'manga'
@@ -44,36 +62,11 @@ private
     @data ||= Hash.from_xml(xml)['myanimelist']
   end
 
-  def parse_fields entry
-    {
-      target_id: parse_id(entry),
-      target_type: anime_list? ? Anime.name : Manga.name,
-      target_title: entry['series_title'],
-      score: extract_number(entry['my_score']),
-      status: extract_status(entry['shiki_status'] || entry['my_status']),
-      text: entry['my_comments'],
-      rewatches: extract_number(entry['my_times_watched'])
-    }
-  end
-
-  def parse_id entry
+  def parse_id list_entry_data
     (
-      entry["series_#{entry_key}db_id"] ||
-        entry["#{entry_key}_#{entry_key}db_id"]
+      list_entry_data["series_#{entry_key}db_id"] ||
+        list_entry_data["#{entry_key}_#{entry_key}db_id"]
     ).to_i
-  end
-
-  def parse_episodes entry
-    {
-      episodes: extract_number(entry['my_watched_episodes'])
-    }
-  end
-
-  def parse_chapters entry
-    {
-      volumes: extract_number(entry['my_read_volumes']),
-      chapters: extract_number(entry['my_read_chapters'])
-    }
   end
 
   def extract_number data

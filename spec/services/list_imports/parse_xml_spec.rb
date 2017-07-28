@@ -2,12 +2,12 @@ describe ListImports::ParseXml do
   let(:parser) { ListImports::ParseXml.new xml }
   subject! { parser.call }
 
-  context 'anime', :focus do
+  context 'anime' do
     let(:file) { attributes_for(:list_import, :mal_xml)[:list] }
     let(:xml) { open(file).read }
 
     it do
-      is_expected.to eq [{
+      is_expected.to eq [ListImports::ListEntry.new(
         target_title: 'Test name',
         target_id: 999_999,
         target_type: 'Anime',
@@ -15,8 +15,10 @@ describe ListImports::ParseXml do
         status: 'completed',
         rewatches: 1,
         episodes: 30,
-        text: 'test'
-      }]
+        text: 'test',
+        volumes: 0,
+        chapters: 0
+      )]
     end
   end
 
@@ -45,7 +47,7 @@ describe ListImports::ParseXml do
     end
 
     it do
-      is_expected.to eq [{
+      is_expected.to eq [ListImports::ListEntry.new(
         target_title: 'Test name',
         target_id: 1,
         target_type: 'Manga',
@@ -54,8 +56,9 @@ describe ListImports::ParseXml do
         chapters: 3,
         rewatches: 4,
         score: 5.0,
-        text: 'test test'
-      }]
+        text: 'test test',
+        episodes: 0
+      )]
     end
   end
 end
