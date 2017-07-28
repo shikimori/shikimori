@@ -12,19 +12,6 @@ class ListImports::ListEntry < Dry::Struct
   attribute :chapters, Types::Coercible::Int.default(0)
   attribute :text, Types::String.default('')
 
-  def export user_rate
-    return unless user_rate.target
-
-    export_fields user_rate
-    export_text user_rate
-
-    %i[episodes volumes chapters].each do |counter|
-      export_counter user_rate, counter if user_rate.target.respond_to? counter
-    end
-
-    user_rate
-  end
-
   # rubocop:disable MethodLength
   def self.build user_rate
     new(
@@ -41,6 +28,23 @@ class ListImports::ListEntry < Dry::Struct
     )
   end
   # rubocop:enable MethodLength
+
+  def export user_rate
+    return unless user_rate.target
+
+    export_fields user_rate
+    export_text user_rate
+
+    %i[episodes volumes chapters].each do |counter|
+      export_counter user_rate, counter if user_rate.target.respond_to? counter
+    end
+
+    user_rate
+  end
+
+  def anime?
+    target_type == Anime.name
+  end
 
 private
 

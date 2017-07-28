@@ -4,3 +4,6 @@ page_load 'list_imports_show', ->
     url = location.href
     delay(5000).then ->
       Turbolinks.visit(location.href, true) if url == location.href
+
+  # сворачиваем все списки
+  $('.b-options-floated.collapse .action').click()

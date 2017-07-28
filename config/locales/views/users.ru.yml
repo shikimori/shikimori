@@ -35,3 +35,26 @@ ru:
     list_imports:
       pending:
         please_wait: Подождите, пожалуйста, пока не завершится импорт.
+      finished:
+        added:
+          anime:
+            one: Добавлено %{count} аниме
+            few: Добавлены %{count} аниме
+            many: Добавлены %{count} аниме
+          manga:
+            one: Добавлена %{count} манга
+            few: Добавлены %{count} манги
+            many: Добавлены %{count} манги
+        not_imported:
+          anime:
+            one: Не импортировано %{count} аниме
+            few: Не импортированы %{count} аниме
+            many: Не импортированы %{count} аниме
+          manga:
+            one: Не импортирована %{count} манга
+            few: Не импортированы %{count} манги
+            many: Не импортированы %{count} манги
+      list_entry:
+        episodes: '%{value} эп'
+        volumes: '%{value} т'
+        chapters: '%{value} гл'

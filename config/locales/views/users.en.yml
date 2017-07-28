@@ -33,3 +33,26 @@ en:
     list_imports:
       pending:
         please_wait: Please wait until the end of import.
+      finished:
+        added:
+          anime:
+            zero: Added %{count} anime
+            one: Added %{count} anime
+            other: Added %{count} animes
+          manga:
+            zero: Added %{count} manga
+            one: Added %{count} manga
+            other: Added %{count} mangas
+        not_imported:
+          anime:
+            zero: Not imported %{count} anime
+            one: Not imported %{count} anime
+            other: Not imported %{count} animes
+          manga:
+            zero: Not imported %{count} manga
+            one: Not imported %{count} manga
+            other: Not imported %{count} mangas
+      list_entry:
+        episodes: '%{value} ep'
+        volumes: '%{value} vol'
+        chapters: '%{value} ch'

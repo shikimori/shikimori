@@ -1,0 +1,18 @@
+@import globals/variables
+@import mixins/dash_separated
+
+.p-list_imports
+  // .b-entry-info
+    margin-bottom: $block_offset / 2
+
+  .b-log_entry
+    .index
+      color: $gray-3
+
+    .details > span
+      +dash_separated
+      font-size: 12px
+      padding: 0
+
+      &.text
+        font-size: 11px

@@ -1,0 +1,23 @@
+= cache list_import do
+  .block
+    - if view.added.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".added.#{list_import.list_type}", count: view.added.size
+    - if view.added.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.added
+
+  .block
+    - if view.not_imported.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".not_imported.#{list_import.list_type}", count: view.not_imported.size
+
+    - if view.not_imported.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.not_imported
