@@ -20,7 +20,9 @@ class ListImports::ParseXml
     list = data[entry_key]
     list_data = (list.is_a?(Hash) ? [list] : list).compact
 
-    list_data.map { |list_entry_data| build(parse(list_entry_data)) }
+    list_data.map do |list_entry_data|
+      build(parse(list_entry_data))
+    end
   end
 
 private

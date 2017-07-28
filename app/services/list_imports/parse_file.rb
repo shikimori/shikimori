@@ -7,7 +7,7 @@ class ListImports::ParseFile
     if xml?
       ListImports::ParseXml.call content
     else
-      JSON.parse content, symbolize_names: true
+      ListImports::ParseJson.call content
     end
   end
 
