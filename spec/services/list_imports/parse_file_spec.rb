@@ -7,7 +7,7 @@ describe ListImports::ParseFile do
   subject!(:data) { service.call }
 
   it do
-    is_expected.to eq [{
+    is_expected.to eq [ListImports::ListEntry.new(
       target_title: 'Test name',
       target_id: 999_999,
       target_type: 'Anime',
@@ -15,7 +15,9 @@ describe ListImports::ParseFile do
       status: 'completed',
       rewatches: 1,
       episodes: 30,
-      text: 'test'
-    }]
+      text: 'test',
+      volumes: 0,
+      chapters: 0
+    )]
   end
 end
