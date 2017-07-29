@@ -143,3 +143,6 @@ en:
   message:
     antispam: >-
       Anti-spam protection. Try again in %{interval} %{seconds}
+
+  list_import:
+    name: 'List Import #%{id}'

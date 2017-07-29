@@ -104,6 +104,8 @@ ru:
         producer: Режиссёры
         mangaka: Мангаки
         person: Прочие люди
+      export_anime: Экспорт аниме
+      export_manga: Экспорт манги и ранобэ
 
     edit:
       account:
@@ -127,6 +129,11 @@ ru:
         new_password: Новый пароль
 
       list:
+        list_import_export: Импорт / экспорт списка
+        list_import_history: История импортов списка
+        list_import_history_blank: Нет истории
+        import_list: Импортировать список
+        export_list: Экспортировать список
         my_list_scores: Оценки в моём списке
         reset_scores: Сбросить все оценки %{kind}
         confirm_to_reset_scores: 'Подтвердите намерение сбросить все выставленные оценки для %{kind_genitive} (@{n:само|f:сама} %{kind_subjective} из списка не удалится).'
@@ -141,27 +148,6 @@ ru:
         clear_list_completely: Очистить полностью список %{kind}
         confirm_to_clear_list_completely: Подтвердите намерение очистить свой список %{kind_genitive} и удалить всю историю по %{kind_dative}.
         sure_to_clear_list_completely: Вы действительно хотите очистить свой список %{kind} и потерять всю историю?
-
-      import:
-        list_import_export: Импорт / экспорт списка
-        what_to_import: Что будем импортировать?
-        what_to_export: Что будем экспортировать?
-        where_to_import: Откуда будем импортировать?
-        import_list: Импортировать список
-        export_list: Экспортировать список
-        replace_existing_records: Будем ли заменять уже добавленное на %{domain}?
-        no_import_new_records: Нет, импорт только нового
-        yes_full_import: Да, полный импорт
-        login_on: Логин на
-        import: Импортировать
-        try_something_else: Попробовать иначе
-        mal_xml_file: XML файл формата MAL
-        you_can_get_it_here: взять его можно отсюда
-        found: Найдено
-        do_not_import: Не импортировать
-        import_as_dropped: Импортировать как Dropped (Брошено)
-        what_to_do_with_status: Что будем делать со статусом
-        there_is_no_such_status_on_shikimori: такого статуса нет на шикимори
 
       notifications:
         type_of_notification: Тип уведомления

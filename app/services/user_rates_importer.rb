@@ -1,9 +1,9 @@
 # импортер аниме и манги в список пользователя
 class UserRatesImporter
-  Counters = [:episodes, :volumes, :chapters]
+  COUNTERS = %i[episodes volumes chapters]
 
-  AnimeType = 1
-  MangaType = 2
+  ANIME_TYPE = 1
+  MANGA_TYPE = 2
 
   def initialize user, klass
     @user = user
@@ -11,10 +11,7 @@ class UserRatesImporter
   end
 
   # импорт списка
-  # третьим параметром ожидается массив хешей с ключами
-  #   :id, :score, :status, :episodes, :chapters, :volumes
-  # :status должен быть циферкой, не словом
-  def import list_to_import, rewrite_existed
+  def import list_to_import, rewrite_existing
     # уже имеющееся у пользователя в списке
     rates = user_rates.each_with_object({}) { |v, memo| memo[v.target_id] = v }
 
@@ -29,26 +26,26 @@ class UserRatesImporter
       update = false
       add = false
 
-      rate = rates[entry[:id]]
+      rate = rates[entry[:target_id]]
 
-      if entry[:id].nil? || entry[:status].nil?
-        not_imported << (entry[:name] || entry[:id])
+      if entry[:target_id].nil? || entry[:status].nil?
+        not_imported << (entry[:name] || entry[:target_id])
         next
       elsif rate.nil?
         rate = UserRate.new(
           user_id: @user.id,
-          target_id: entry[:id],
-          target_type: @klass.name
+          target_id: entry[:target_id],
+          target_type: entry[:target_type]
         )
         add = true
-      elsif rate && !rewrite_existed
+      elsif rate && !rewrite_existing
         #not_imported << entry[:id]
         next
       else
         update = true
       end
 
-      Counters.each do |counter|
+      COUNTERS.each do |counter|
         rate[counter] = entry[counter] if entry.include? counter
       end
 
@@ -60,7 +57,7 @@ class UserRatesImporter
 
       # нельзя указать больше/меньше эпизодов/частей/томов для просмотренного,
       # чем имеется в аниме/манге
-      Counters.each do |counter|
+      COUNTERS.each do |counter|
         target = rate.target
 
         if rate.completed?

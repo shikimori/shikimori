@@ -1,0 +1,2 @@
+class BadImageError < ArgumentError
+end

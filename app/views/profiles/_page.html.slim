@@ -1,24 +1,25 @@
 header.head.misc
   h1[
-    class="#{@resource.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
-    title="#{@resource.nickname_changes? ? @resource.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
+    class="#{@user.nickname_changes? ? 'aliases' : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
+    title="#{@user.nickname_changes? ? @user.nicknames_tooltip : '' if params[:controller] == 'profiles' && params[:action] == 'show'}"
   ]
     - if params[:action] != 'show' || @back_url
       a.back[
-        href="#{@back_url || @resource.url}"
-        title="#{t 'back_to_page'} #{{@resource.name}}"
+        href="#{@back_url || @user.url}"
+        title="#{t 'back_to_page'} #{{@user.name}}"
         data-text="#{t 'back'}"
       ]
-    = @resource.nickname
+    / = @user.nickname
+    = @page_title.last
 
-  = render 'profiles/status', user: @resource
+  = render 'profiles/status', user: @user
 
   - if params[:controller] == 'user_rates'
-    - if params[:list_type] == 'anime' && @resource.stats.manga? && @resource.preferences.manga_in_profile?
-      a.misc href="#{profile_user_rates_url @resource, list_type: 'manga'}" title="#{t '.to_manga'}" = t '.to_manga'
+    - if params[:list_type] == 'anime' && @user.stats.manga? && @user.preferences.manga_in_profile?
+      a.misc href="#{profile_user_rates_url @user, list_type: 'manga'}" title="#{t '.to_manga'}" = t '.to_manga'
 
-    - if params[:list_type] == 'manga' && @resource.stats.anime? && @resource.preferences.anime_in_profile?
-      a.misc href="#{profile_user_rates_url @resource, list_type: 'anime'}" title="#{t '.to_anime'}" = t '.to_anime'
+    - if params[:list_type] == 'manga' && @user.stats.anime? && @user.preferences.anime_in_profile?
+      a.misc href="#{profile_user_rates_url @user, list_type: 'anime'}" title="#{t '.to_anime'}" = t '.to_anime'
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

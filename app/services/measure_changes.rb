@@ -1,5 +1,4 @@
 class MeasureChanges
-  include HTMLDiff
   pattr_initialize :old_value, :new_value
 
   MINIMAL_CHANGES_PERCENT = 25
@@ -53,6 +52,7 @@ private
   end
 
   def insertions
-    @insertions ||= diff(old, new).scan(/<ins.*?>(.*?)<\/ins>/).flatten.join(' ')
+    @insertions ||=
+      HTMLDiff.diff(old, new).scan(/<ins.*?>(.*?)<\/ins>/).flatten.join(' ')
   end
 end

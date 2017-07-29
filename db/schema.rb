@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170719151011) do
+ActiveRecord::Schema.define(version: 20170724191009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -566,6 +566,10 @@ ActiveRecord::Schema.define(version: 20170719151011) do
     t.datetime "list_updated_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "state", null: false
+    t.string "duplicate_policy", null: false
+    t.string "list_type", null: false
+    t.jsonb "output"
     t.index ["user_id"], name: "index_list_imports_on_user_id"
   end
 

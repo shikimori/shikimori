@@ -55,7 +55,8 @@ ru:
       version:
         reason: &optional Не обязательно
       anime: &anime_hints
-        source: *optional
+        description_ru_source: *optional
+        description_en_source: *optional
         episodes: Для онгоингов с неизвестным числом эпизодов ставьте "0"
       manga:
         <<: *anime_hints
@@ -64,6 +65,8 @@ ru:
       anime_video:
         author_name: >-
           Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
+      list_import:
+        list: Поддерживает Shikimori JSON и MyAnimeList XML списки
 
     magic_submit:
       users:
@@ -102,6 +105,10 @@ ru:
         index:
           <<: *send
 
+      list_import:
+        submit: Импортировать
+        disable_with: Импорт&#133;
+
       default:
         submit: Сохранить
         retry: Попробовать еще раз
@@ -109,6 +116,7 @@ ru:
 
         new:
           submit: Создать
+
         edit:
           submit: Сохранить
 

@@ -1,13 +1,12 @@
-# TODO: refactor list import into service object
 class UserRatesController < ProfilesController
-  load_and_authorize_resource except: %i[index export import]
+  load_and_authorize_resource except: %i[index]
 
-  before_action :authorize_list_access, only: %i[index export import]
+  before_action :authorize_list_access, only: %i[index]
   before_action :set_sort_order, only: %i[index], if: :user_signed_in?
   after_action :save_sort_order, only: %i[index], if: :user_signed_in?
 
   skip_before_action :fetch_resource, :set_breadcrumbs,
-    except: %i[index export import]
+    except: %i[index]
 
   def index
     noindex
@@ -22,113 +21,6 @@ class UserRatesController < ProfilesController
   end
 
   def edit
-  end
-
-  def export
-    type = params[:list_type]
-    if type == 'anime'
-      @klass = Anime
-      @list = @resource.anime_rates.includes(:anime)
-    else
-      @klass = Manga
-      @list = @resource.manga_rates.includes(:manga)
-    end
-
-    response.headers['Content-Description'] = 'File Transfer'
-    response.headers['Content-Disposition'] = "attachment; filename=#{type}list.xml"
-
-    render :export, formats: :xml
-  end
-
-  # импорт списка
-  def import
-    authorize! :update, @resource
-
-    klass = Object.const_get(params[:klass].capitalize)
-    rewrite = ['true', '1'].include? params[:rewrite].to_s
-
-    # в ситуации, когда через yql не получилось, можно попробовать вручную скачать список
-    # if params[:mal_login].present?
-      # params[:file] = open "http://myanimelist.net/malappinfo.php?u=#{params[:mal_login]}&status=all&type=#{params[:klass]}"
-      # params[:list_type] = 'xml'
-    # end
-
-    parser = UserListParser.new klass
-    importer = UserRatesImporter.new @resource, klass
-    @added, @updated, @not_imported =
-      importer.import parser.parse(params), rewrite
-
-    if @added.size > 0 || @updated.size > 0
-      @resource.touch
-      UserHistory.create(
-        user_id: @resource.id,
-        action: UserHistoryAction.const_get("#{params[:list_type].to_sym == :mal || params[:list_type].to_sym == :xml ? 'Mal' : 'Ap'}#{klass.name}Import"),
-        value: @added.size + @updated.size
-      )
-    end
-
-    messages = []
-
-    if @added.size > 0
-      items = klass.where(id: @added).select([:id, :name])
-
-      messages << i18n_t("messages.imported.#{klass.name.underscore}", count: @added.size)
-      messages = messages +
-        items
-          .sort_by { |v| v.name }
-          .map { |v| "[#{v.class.name.downcase}]#{v.id}[/#{v.class.name.downcase}]" }
-      messages << ''
-    end
-
-    if @updated.size > 0
-      items = klass.where(id: @updated).select([:id, :name])
-
-      messages << i18n_t("messages.updated.#{klass.name.underscore}", count: @updated.size)
-      messages = messages +
-        items
-          .sort_by { |v| v.name }
-          .map { |v| "[#{v.class.name.downcase}]#{v.id}[/#{v.class.name.downcase}]" }
-      messages << ''
-    end
-
-    if @not_imported.size > 0
-      not_imported_message = [
-        i18n_t("messages.not_imported.#{klass.name.underscore}", count: @not_imported.size),
-        i18n_t("messages.not_imported.#{klass.name.underscore}.add_manually")
-      ].join(' ')
-      messages << not_imported_message
-      messages = messages + @not_imported.sort
-    end
-
-    messages << i18n_t('messages.nothing_imported') if messages.empty?
-
-    poster = BotsService.get_poster
-    messages = messages.each_slice(100).to_a.reverse
-    messages.each_with_index do |message, index|
-      if index != messages.size - 1
-        message = [i18n_t('messages.continuation_of_previous_message')] + message
-      end
-
-      Message.create!(
-        from_id: poster.id,
-        to_id: @resource.id,
-        kind: MessageType::Notification,
-        body: message.join("\n")
-      )
-      sleep(1)
-    end
-
-    redirect_to index_profile_messages_url(@resource, :notifications)
-
-  rescue Exception => e
-    if Rails.env.production?
-      #ExceptionNotifier.notify_exception(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
-      Honeybadger.notify(e, env: request.env, data: { nickname: user_signed_in? ? @resource.nickname : nil })
-      redirect_to edit_profile_url(@resource, page: :list),
-        alert: i18n_t('error_incorrect_file_format')
-    else
-      raise
-    end
   end
 
 private

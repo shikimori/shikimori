@@ -65,7 +65,7 @@ gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлд
 #gem 'exception_notification', github: 'smartinez87/exception_notification'
 #gem 'slack-notifier'
 gem 'awesome_print'
-gem 'htmldiff', github: 'myobie/htmldiff'
+gem 'htmldiff-lcs', github: 'nbudin/htmldiff-lcs', require: 'htmldiff'
 
 gem 'retryable'
 gem 'truncate_html'
@@ -107,7 +107,7 @@ gem 'chainable_methods'
 
 group :beta, :production do
   gem 'honeybadger'
-  gem 'appsignal'
+  # gem 'appsignal'
   gem 'newrelic_rpm'
   gem 'lograge'
   gem 'unicorn'

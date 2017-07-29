@@ -9,27 +9,27 @@ describe ContestMatch do
   describe 'state_machine' do
     it { is_expected.to have_states :created, :started, :finished }
 
-    it { is_expected.to reject_events :finish, on: :created }
-    it { is_expected.to reject_events :start, on: :started }
-    it { is_expected.to reject_events :start, :finish, on: :finished }
+    it { is_expected.to reject_events :finish, when: :created }
+    it { is_expected.to reject_events :start, when: :started }
+    it { is_expected.to reject_events :start, :finish, when: :finished }
 
-    # context 'match.started_on <= Time.zone.today' do
-      # before { subject.started_on = Time.zone.yesterday }
-      # it { is_expected.to handle_events :start, on: :created }
-    # end
-    # context 'match.started_on < Time.zone.today' do
-      # before { subject.started_on = Time.zone.tomorrow }
-      # it { is_expected.to reject_events :start, on: :created }
-    # end
+    context 'match.started_on <= Time.zone.today' do
+      before { subject.started_on = Time.zone.yesterday }
+      it { is_expected.to handle_events :start, when: :created }
+    end
+    context 'match.started_on < Time.zone.today' do
+      before { subject.started_on = Time.zone.tomorrow }
+      it { is_expected.to reject_events :start, when: :created }
+    end
 
-    # context 'match.finished_on < Time.zone.today' do
-      # before { subject.finished_on = Time.zone.yesterday }
-      # it { is_expected.to handle_events :finish, on: :started }
-    # end
-    # context 'match.finished_on >= Time.zone.today' do
-      # before { subject.finished_on = Time.zone.today }
-      # it { is_expected.to handle_events :finish, on: :started }
-    # end
+    context 'match.finished_on < Time.zone.today' do
+      before { subject.finished_on = Time.zone.yesterday }
+      it { is_expected.to handle_events :finish, when: :started }
+    end
+    context 'match.finished_on >= Time.zone.today' do
+      before { subject.finished_on = Time.zone.today }
+      it { is_expected.to reject_events :finish, when: :started }
+    end
 
     let(:match) do
       create :contest_match,

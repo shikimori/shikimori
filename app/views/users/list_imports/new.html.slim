@@ -1,0 +1,10 @@
+= render layout: 'page' do
+  = simple_form_for [:profile, @resource] do |f|
+    .m15
+      = f.input :user_id, as: :hidden
+      = f.input :list_type, include_blank: false
+      = f.input :duplicate_policy, include_blank: false
+      = f.input :list
+
+    = f.button :magic_submit
+    a.cancel href="#{@back_url}" = t 'actions.cancel'

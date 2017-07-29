@@ -87,10 +87,11 @@ GIT
       coffee-rails
 
 GIT
-  remote: git://github.com/myobie/htmldiff.git
-  revision: c3b9112b34e9c37e805068ae3a6a42388666e67e
+  remote: git://github.com/nbudin/htmldiff-lcs.git
+  revision: efeec72cdedadfb310dbb6474395289287d0fcdc
   specs:
-    htmldiff (0.0.1)
+    htmldiff-lcs (0.0.1)
+      diff-lcs
 
 GIT
   remote: git://github.com/shikimori/mal_parser.git
@@ -148,7 +149,7 @@ GEM
       activemodel (= 5.1.2)
       activesupport (= 5.1.2)
       arel (~> 8.0)
-    activerecord-import (0.19.0)
+    activerecord-import (0.19.1)
       activerecord (>= 3.2)
     activesupport (5.1.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
@@ -165,8 +166,6 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
-    appsignal (2.3.0)
-      rack
     arel (8.0.0)
     ast (2.3.0)
     attr_extras (5.2.0)
@@ -177,7 +176,7 @@ GEM
     bourbon (4.3.4)
       sass (~> 3.4)
       thor (~> 0.19)
-    browser (2.3.0)
+    browser (2.4.0)
     builder (3.2.3)
     byebug (9.0.6)
     capistrano (3.8.2)
@@ -291,7 +290,7 @@ GEM
     factory_girl_rails (4.7.0)
       factory_girl (~> 4.7.0)
       railties (>= 3.0.0)
-    faraday (0.12.1)
+    faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     faraday-cookie_jar (0.0.6)
       faraday (>= 0.7.4)
@@ -352,7 +351,7 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     http_parser.rb (0.6.0)
-    httparty (0.15.5)
+    httparty (0.15.6)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
     i18n-inflector (2.6.7)
@@ -401,7 +400,7 @@ GEM
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
     mini_portile2 (2.2.0)
-    minitest (5.10.2)
+    minitest (5.10.3)
     mize (0.3.2)
       protocol
     multi_json (1.12.1)
@@ -411,7 +410,7 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
-    newrelic_rpm (4.2.0.334)
+    newrelic_rpm (4.3.0.335)
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
@@ -451,7 +450,7 @@ GEM
       cocaine (~> 0.5.5)
       mime-types
       mimemagic (~> 0.3.0)
-    parallel (1.11.2)
+    parallel (1.12.0)
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
@@ -477,7 +476,7 @@ GEM
     rack (2.0.3)
     rack-attack (5.0.1)
       rack
-    rack-cors (0.4.1)
+    rack-cors (1.0.1)
     rack-protection (2.0.0)
       rack
     rack-test (0.6.3)
@@ -571,8 +570,8 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
-    ruby_parser (3.9.0)
-      sexp_processor (~> 4.1)
+    ruby_parser (3.10.1)
+      sexp_processor (~> 4.9)
     rvm1-capistrano3 (1.4.0)
       capistrano (~> 3.0)
       sshkit (>= 1.2)
@@ -593,7 +592,7 @@ GEM
       sprockets (> 2.11)
       sprockets-rails
       tilt
-    sexp_processor (4.9.0)
+    sexp_processor (4.10.0)
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
@@ -695,7 +694,6 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
-  appsignal
   attr_extras
   awesome_print
   better_errors!
@@ -736,7 +734,7 @@ DEPENDENCIES
   guard-rubocop
   guard-spring
   honeybadger
-  htmldiff!
+  htmldiff-lcs!
   htmlentities
   i18n-inflector-rails
   i18n-js

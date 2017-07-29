@@ -22,6 +22,7 @@ production:
   - [similar_users, 5]
   - [low_priority, 1]
   - [mailers, 5]
+  - [imports, 4]
 
 :limits:
   cpu_intensive: 2
@@ -33,3 +34,4 @@ production:
   similar_users: 1
   mal_parsers: 50
   push_notifications: 5
+  imports: 2

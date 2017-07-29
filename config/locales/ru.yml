@@ -141,6 +141,11 @@ ru:
             dropped: Брошено
           ranobe:
             <<: *manga_statuses
+      list_import:
+        duplicate_policy: Уже находищееся в списке
+        list: Файл списка
+        list_type: Тип списка
+        state: Статус
       review:
         text: Текст
         storyline: Сюжет
@@ -304,6 +309,11 @@ ru:
           rejected: отклонено
           post_rejected: отклонено
           deleted: удалено
+      list_import:
+        states:
+          pending: импортируется
+          finished: импортировано
+          failed: ошибка
 
   activemodel:
     errors:
@@ -491,6 +501,13 @@ ru:
         pv: PV
         ed: ED
         other: Прочее
+    list_import:
+      list_type:
+        anime: Аниме
+        manga: Манга и ранобэ
+      duplicate_policy:
+        ignore: Не заменять
+        replace: Заменять
 
   # в bans#create отображаются
   messages:

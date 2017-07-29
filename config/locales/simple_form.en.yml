@@ -65,6 +65,8 @@ en:
       anime_video:
         author_name: >-
           Формат записи: Название_проекта/студии (Ник_даббера1 & Ник_даббера2)
+      list_import:
+        list: Import supports Shikimori JSON and MyAnimeList XML lists
 
     magic_submit:
       users:
@@ -103,6 +105,10 @@ en:
         index:
           <<: *send
 
+      list_import:
+        submit: Import
+        disable_with: Importing&#133;
+
       default:
         submit: Save
         retry: Try saving once again
@@ -116,3 +122,15 @@ en:
 
         feedback:
           <<: *comment
+
+
+
+
+
+
+
+
+
+
+
+

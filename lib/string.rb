@@ -97,7 +97,10 @@ class String
     end
 
     unless result.valid_encoding?
-      result = result.encode 'utf-8', 'utf-8', undef: :replace, invalid: :replace, replace: ''
+      result = result.encode 'utf-8', 'utf-8',
+        undef: :replace,
+        invalid: :replace,
+        replace: ''
     end
 
     result

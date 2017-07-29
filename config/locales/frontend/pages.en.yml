@@ -35,17 +35,6 @@ en:
           short: >-
             %{hours} %{hour_word} on %{date}
 
-        # p-profiles/edit.coffee
-        exporting: >-
-          File export will begin shortly...
-          You can import this file into MAL later on
-          http://myanimelist.net/import.php
-
-        importing: >-
-          File import is about to begin...
-          This might take some time.
-          Please be patient and don't reload the page.
-
       # p-user_rates
       p_user_rates:
         # p-user_rates/index.coffee

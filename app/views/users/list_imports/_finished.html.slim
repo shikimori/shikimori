@@ -1,0 +1,51 @@
+= cache list_import do
+  .block
+    - if view.added.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".added.#{list_import.list_type}", count: view.added.size
+    - if view.added.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.added
+
+  .block
+    - if view.updated.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".updated.#{list_import.list_type}", count: view.updated.size
+    - if view.updated.any?
+      .collapsed.tiny ...
+      .block
+        - view.updated.each_with_index do |(list_entry_before, list_entry_after), index|
+          = render 'users/list_imports/list_entry',
+            list_entry: list_entry_before,
+            list_entry_counter: index,
+            list_diff: view.list_diff(list_entry_before, list_entry_after),
+            is_updated: true
+
+  .block
+    - if view.not_changed.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".not_changed.#{list_import.list_type}", count: view.not_changed.size
+
+    - if view.not_changed.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.not_changed
+
+  .block
+    - if view.not_imported.any?
+      .b-options-floated.collapse: span.action #{t 'collapse'}
+    .subheadline.m5
+      = t ".not_imported.#{list_import.list_type}", count: view.not_imported.size
+
+    - if view.not_imported.any?
+      .collapsed.tiny ...
+      .block
+        = render partial: 'users/list_imports/list_entry',
+          collection: view.not_imported,
+          locals: { is_not_imported: true }

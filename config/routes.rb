@@ -542,8 +542,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :list_imports, only: %i[new create show]
-
     resource :tests, only: %i[show] do
       get :echo
       post :echo
@@ -882,7 +880,6 @@ Rails.application.routes.draw do
             as: '',
             list_type: /anime|manga/
           get ':list_type/export' => :export, as: :export
-          post :import
         end
       end
 
@@ -906,6 +903,14 @@ Rails.application.routes.draw do
 
       resources :achievements, only: %i[index] do
         get :franchise, on: :collection
+      end
+
+      scope module: :users do
+        resources :list_imports, only: %i[new create show]
+        resource :list_export, only: %i[show] do
+          get :animes, format: /xml|json/
+          get :mangas, format: /xml|json/
+        end
       end
     end
 

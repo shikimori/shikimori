@@ -9,7 +9,8 @@ describe UserRatesImporter do
     [{
       status: anime_1_status,
       score: 5,
-      id: anime_1_id,
+      target_id: anime_1_id,
+      target_type: 'Anime',
       episodes: 1,
       rewatches: 2,
       volumes: 7,
@@ -18,7 +19,8 @@ describe UserRatesImporter do
     }, {
       status: UserRate.statuses[:completed],
       score: 8,
-      id: anime_2.id,
+      target_id: anime_2.id,
+      target_type: 'Anime',
       episodes: 20
     }]
   end

@@ -1,0 +1,34 @@
+@import globals/variables
+@import mixins/brackets_surrounded
+@import mixins/dash_separated
+
+.p-list_imports-show
+  .b-entry-info
+    .state
+      &.pending
+        color: $orange
+
+      &.finished
+        color: $green
+
+      &.failed
+        color: $red
+
+  .b-log_entry
+    .index
+      color: $gray-3
+
+    .details
+      del.diffmod
+        color: $red
+
+      ins.diffmod
+        color: $green
+
+      &>span
+        +dash_separated
+        font-size: 12px
+        padding: 0
+
+        &.text
+          font-size: 11px
