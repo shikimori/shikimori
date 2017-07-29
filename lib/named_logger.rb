@@ -10,6 +10,8 @@ class NamedLogger
 
 private
   def self.build_logger name
+    return Logger.new(nil) if Rails.env.test?
+
     logfile = File.open(Rails.root.join('log', "#{name}.log"), 'a')
     logfile.sync = true
 
