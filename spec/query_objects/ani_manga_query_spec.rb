@@ -296,18 +296,18 @@ describe AniMangaQuery do
       it 'inclusive' do
         expect(fetch status: 'ongoing').to have(1).item
         expect(fetch status: 'latest').to have(1).item
-        expect(fetch status: 'planned').to have(2).items
+        expect(fetch status: 'anons').to have(2).items
         expect(fetch status: 'released').to have(3).items
-        expect(fetch status: 'ongoing,planned').to have(3).items
+        expect(fetch status: 'ongoing,anons').to have(3).items
       end
 
       it 'exclusive' do
         expect(fetch status: '!ongoing').to have(5).items
-        expect(fetch status: '!planned,!released').to have(1).item
+        expect(fetch status: '!anons,!released').to have(1).item
       end
 
       it 'both' do
-        expect(fetch status: '!planned,ongoing').to have(1).item
+        expect(fetch status: '!anons,ongoing').to have(1).item
       end
     end
 

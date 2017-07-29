@@ -8,10 +8,6 @@ class AnimeStatusQuery
       when :anons, :ongoing, :released
         relation.where(status: status.to_s)
 
-      # TODO: remove
-      when :planned
-        relation.where(status: :anons)
-
       when :latest
         relation
           .where(status: :released)
