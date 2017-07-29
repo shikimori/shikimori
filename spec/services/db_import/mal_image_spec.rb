@@ -1,10 +1,10 @@
-describe Import::MalImage do
-  let(:service) { Import::MalImage.new entry, image_url }
+describe DbImport::MalImage do
+  let(:service) { DbImport::MalImage.new entry, image_url }
   let(:entry) { build :anime }
   let(:image_url) { 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/240px-PNG_transparency_demonstration_1.png' }
 
   before do
-    allow(Import::ImagePolicy)
+    allow(DbImport::ImagePolicy)
       .to receive(:new)
       .with(entry, image_url)
       .and_return(image_policy)

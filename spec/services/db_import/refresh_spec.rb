@@ -1,5 +1,5 @@
-describe Import::Refresh do
-  let(:service) { Import::Refresh.new klass, ids, refresh_interval }
+describe DbImport::Refresh do
+  let(:service) { DbImport::Refresh.new klass, ids, refresh_interval }
   let(:klass) { Anime }
   let(:refresh_interval) { 1.day }
 

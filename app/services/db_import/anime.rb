@@ -1,4 +1,4 @@
-class Import::Anime < Import::ImportBase
+class DbImport::Anime < DbImport::ImportBase
   SPECIAL_FIELDS = %i(
     image synopsis
     genres studios related recommendations characters
@@ -48,20 +48,20 @@ private
   end
 
   def assign_related related
-    Import::Related.call entry, related
+    DbImport::Related.call entry, related
   end
 
   def assign_recommendations similarities
-    Import::Similarities.call entry, similarities
+    DbImport::Similarities.call entry, similarities
   end
 
   def assign_external_links external_links
-    Import::ExternalLinks.call entry, external_links
+    DbImport::ExternalLinks.call entry, external_links
   end
 
   def assign_characters data
     if data[:characters].any? || data[:staff].any?
-      Import::PersonRoles.call entry, data[:characters], data[:staff]
+      DbImport::PersonRoles.call entry, data[:characters], data[:staff]
     end
   end
 

@@ -21,10 +21,10 @@ class MalParsers::FetchEntry
     person: { DATA => MalParser::Entry::Person }
   }
   IMPORTS = {
-    anime: Import::Anime,
-    manga: Import::Manga,
-    character: Import::Character,
-    person: Import::Person
+    anime: DbImport::Anime,
+    manga: DbImport::Manga,
+    character: DbImport::Character,
+    person: DbImport::Person
   }
 
   TYPES = Types::Coercible::String.enum('anime', 'manga', 'character', 'person')

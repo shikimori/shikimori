@@ -1,4 +1,4 @@
-class Import::BannedIds
+class DbImport::BannedIds
   include Singleton
 
   CONFIG_FILE = Rails.root.join('config/app/banned_mal_ids.yml')

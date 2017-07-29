@@ -1,11 +1,11 @@
-class Import::ImportBase
+class DbImport::ImportBase
   method_object :data
 
   SPECIAL_FIELDS = %i()
   IGNORED_FIELDS = %i()
 
   def call
-    return if Import::BannedIds.instance.banned? @data[:id], klass.name.downcase
+    return if DbImport::BannedIds.instance.banned? @data[:id], klass.name.downcase
     ApplicationRecord.transaction { import }
     entry
   end
@@ -47,7 +47,7 @@ private
   end
 
   def assign_image image
-    Import::MalImage.call entry, image
+    DbImport::MalImage.call entry, image
   end
 
   def data_to_assign

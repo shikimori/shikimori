@@ -1,5 +1,5 @@
-describe Import::Similarities do
-  let(:service) { Import::Similarities.new target, similarities }
+describe DbImport::Similarities do
+  let(:service) { DbImport::Similarities.new target, similarities }
   let(:target) { create :anime }
   let(:similarities) do
     [

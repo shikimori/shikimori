@@ -8,7 +8,7 @@ class MalParsers::FetchEntryAuthorized
   )
 
   def perform entry_id, entry_type
-    "Import::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)
+    "DbImport::#{entry_type}".constantize.call parsed_data(entry_id, entry_type)
     update_authorized_imported_at! entry_id, entry_type
   rescue InvalidIdError
     update_authorized_imported_at! entry_id, entry_type

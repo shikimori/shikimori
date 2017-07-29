@@ -1,4 +1,4 @@
-class Import::Similarities
+class DbImport::Similarities
   method_object :target, :similarities
 
   def call

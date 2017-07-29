@@ -1,4 +1,4 @@
-class Import::ImagePolicy
+class DbImport::ImagePolicy
   pattr_initialize :target, :image_url
 
   ONGOING_INTERVAL = 2.weeks

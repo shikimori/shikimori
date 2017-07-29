@@ -9,11 +9,11 @@ describe MalParsers::RefreshEntries do
   let!(:ongoing_2) { create :anime, :ongoing }
   let!(:anons) { create :anime, :anons }
 
-  before { allow(Import::Refresh).to receive :call }
+  before { allow(DbImport::Refresh).to receive :call }
   subject! { worker.perform type, status, refresh_interval }
 
   it do
-    expect(Import::Refresh)
+    expect(DbImport::Refresh)
       .to have_received(:call)
       .with Anime, [ongoing_1.id, ongoing_2.id], refresh_interval.to_i
   end

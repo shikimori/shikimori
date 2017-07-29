@@ -1,4 +1,4 @@
-class Import::Refresh
+class DbImport::Refresh
   method_object :klass, :ids, :refresh_interval
 
   def call

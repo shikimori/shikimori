@@ -1,4 +1,4 @@
-class Import::ExternalLinks
+class DbImport::ExternalLinks
   method_object :target, :external_links
 
   def call

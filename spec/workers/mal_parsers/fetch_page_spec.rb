@@ -11,7 +11,7 @@ describe MalParsers::FetchPage do
       allow(MalParser::Catalog::Page).to receive(:call).and_return entries
       allow(MalParsers::FetchPage).to receive :perform_async
       allow(MalParsers::FetchEntry).to receive :perform_async
-      allow(Import::Refresh).to receive :call
+      allow(DbImport::Refresh).to receive :call
     end
     subject! { worker.perform type, sorting, page, max_pages }
 
@@ -26,7 +26,7 @@ describe MalParsers::FetchPage do
         .to have_received(:perform_async)
         .with(entries.first[:id], entries.first[:type])
         .exactly(entries_count).times
-      expect(Import::Refresh)
+      expect(DbImport::Refresh)
         .to have_received(:call)
         .with(
           Anime,

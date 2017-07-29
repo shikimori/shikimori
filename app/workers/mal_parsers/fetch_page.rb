@@ -44,7 +44,7 @@ private
   end
 
   def refresh type, entries
-    Import::Refresh.call(
+    DbImport::Refresh.call(
       type.classify.constantize,
       entries.map { |entry| entry[:id] },
       REFRESH_INTERVAL

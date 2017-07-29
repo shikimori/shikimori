@@ -1,5 +1,5 @@
-describe Import::PersonRoles do
-  let(:service) { Import::PersonRoles.new target, characters, staff }
+describe DbImport::PersonRoles do
+  let(:service) { DbImport::PersonRoles.new target, characters, staff }
   let(:target) { create :anime }
   let(:characters) do
     [{

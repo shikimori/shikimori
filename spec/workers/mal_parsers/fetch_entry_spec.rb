@@ -21,7 +21,7 @@ describe MalParsers::FetchEntry do
         .with(id, type)
         .and_return(recommendations_data)
 
-      allow(Import::Anime).to receive(:call).with import_data
+      allow(DbImport::Anime).to receive(:call).with import_data
     end
     let(:anime_data) do
       { kind: 'Movie', name: 'Koe no Katachi' }
@@ -46,13 +46,13 @@ describe MalParsers::FetchEntry do
     describe 'successfull import' do
       before { subject }
       it do
-        expect(Import::Anime).to have_received(:call).with import_data
+        expect(DbImport::Anime).to have_received(:call).with import_data
       end
     end
 
     describe 'InvalidIdError' do
       before do
-        allow(Import::Anime)
+        allow(DbImport::Anime)
           .to receive(:call)
           .and_raise InvalidIdError.new(id)
       end

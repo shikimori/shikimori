@@ -1,5 +1,5 @@
-describe Import::Related do
-  let(:service) { Import::Related.new target, related }
+describe DbImport::Related do
+  let(:service) { DbImport::Related.new target, related }
   let(:target) { create :anime }
   let(:related) do
     {

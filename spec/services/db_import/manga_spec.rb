@@ -1,5 +1,5 @@
-describe Import::Manga do
-  let(:service) { Import::Manga.new data }
+describe DbImport::Manga do
+  let(:service) { DbImport::Manga.new data }
   let(:data) do
     {
       id: id,
@@ -143,9 +143,9 @@ describe Import::Manga do
     end
 
     describe 'method call' do
-      before { allow(Import::Related).to receive :call }
+      before { allow(DbImport::Related).to receive :call }
       it do
-        expect(Import::Related)
+        expect(DbImport::Related)
           .to have_received(:call)
           .with entry, related
       end
@@ -179,9 +179,9 @@ describe Import::Manga do
     end
 
     describe 'method call' do
-      before { allow(Import::Similarities).to receive :call }
+      before { allow(DbImport::Similarities).to receive :call }
       it do
-        expect(Import::Similarities)
+        expect(DbImport::Similarities)
           .to have_received(:call)
           .with entry, similarities
       end
@@ -226,9 +226,9 @@ describe Import::Manga do
     end
 
     describe 'method call' do
-      before { allow(Import::PersonRoles).to receive :call }
+      before { allow(DbImport::PersonRoles).to receive :call }
       it do
-        expect(Import::PersonRoles)
+        expect(DbImport::PersonRoles)
           .to have_received(:call)
           .with entry, characters, staff
       end
@@ -257,9 +257,9 @@ describe Import::Manga do
     end
 
     describe 'method call' do
-      before { allow(Import::MalImage).to receive :call }
+      before { allow(DbImport::MalImage).to receive :call }
       it do
-        expect(Import::MalImage)
+        expect(DbImport::MalImage)
           .to have_received(:call)
           .with entry, image
       end

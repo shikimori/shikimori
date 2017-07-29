@@ -1,5 +1,5 @@
-class Import::Manga < Import::Anime
-  SPECIAL_FIELDS = Import::Anime::SPECIAL_FIELDS + %i(publishers) - %i(
+class DbImport::Manga < DbImport::Anime
+  SPECIAL_FIELDS = DbImport::Anime::SPECIAL_FIELDS + %i(publishers) - %i(
     studios
   )
 

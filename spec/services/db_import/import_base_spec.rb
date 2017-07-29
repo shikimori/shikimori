@@ -1,5 +1,5 @@
-describe Import::ImportBase do
-  class Import::Test < Import::ImportBase
+describe DbImport::ImportBase do
+  class DbImport::Test < DbImport::ImportBase
     SPECIAL_FIELDS = %i(japanese)
     IGNORED_FIELDS = %i(zzz)
 
@@ -11,7 +11,7 @@ describe Import::ImportBase do
       entry.japanese = japanese
     end
   end
-  let(:service) { Import::Test.new data }
+  let(:service) { DbImport::Test.new data }
   let(:data) do
     {
       id: id,

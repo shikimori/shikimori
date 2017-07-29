@@ -1,5 +1,5 @@
-describe Import::BannedIds do
-  let(:service) { Import::BannedIds.instance }
+describe DbImport::BannedIds do
+  let(:service) { DbImport::BannedIds.instance }
 
   describe '#banned?' do
     subject { service.banned? id, type }

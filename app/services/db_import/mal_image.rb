@@ -1,4 +1,4 @@
-class Import::MalImage
+class DbImport::MalImage
   method_object :entry, :image_url
 
   PROXY_OPTIONS = {
@@ -16,7 +16,7 @@ class Import::MalImage
 private
 
   def image_policy
-    Import::ImagePolicy.new @entry, @image_url
+    DbImport::ImagePolicy.new @entry, @image_url
   end
 
   def no_image?

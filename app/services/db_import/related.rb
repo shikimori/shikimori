@@ -1,4 +1,4 @@
-class Import::Related
+class DbImport::Related
   method_object :target, :related
 
   RELATIONS = MalParser::Entry::Anime::RELATED.invert

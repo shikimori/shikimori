@@ -1,4 +1,4 @@
-class Import::PersonRoles
+class DbImport::PersonRoles
   method_object :target, :characters, :staff
 
   def call

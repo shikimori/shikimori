@@ -1,5 +1,5 @@
-describe Import::ExternalLinks do
-  let(:service) { Import::ExternalLinks.new target, external_links }
+describe DbImport::ExternalLinks do
+  let(:service) { DbImport::ExternalLinks.new target, external_links }
   let(:target) { create :anime }
   let(:external_links) do
     [{

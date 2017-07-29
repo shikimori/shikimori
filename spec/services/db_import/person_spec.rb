@@ -1,5 +1,5 @@
-describe Import::Person do
-  let(:service) { Import::Person.new data }
+describe DbImport::Person do
+  let(:service) { DbImport::Person.new data }
   let(:data) do
     {
       id: id,
@@ -29,9 +29,9 @@ describe Import::Person do
     end
 
     describe 'method call' do
-      before { allow(Import::MalImage).to receive :call }
+      before { allow(DbImport::MalImage).to receive :call }
       it do
-        expect(Import::MalImage)
+        expect(DbImport::MalImage)
           .to have_received(:call)
           .with entry, image
       end

@@ -1,5 +1,5 @@
-describe Import::Anime do
-  let(:service) { Import::Anime.new data }
+describe DbImport::Anime do
+  let(:service) { DbImport::Anime.new data }
   let(:data) do
     {
       id: id,
@@ -167,9 +167,9 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::Related).to receive :call }
+      before { allow(DbImport::Related).to receive :call }
       it do
-        expect(Import::Related)
+        expect(DbImport::Related)
           .to have_received(:call)
           .with entry, related
       end
@@ -203,9 +203,9 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::Similarities).to receive :call }
+      before { allow(DbImport::Similarities).to receive :call }
       it do
-        expect(Import::Similarities)
+        expect(DbImport::Similarities)
           .to have_received(:call)
           .with entry, similarities
       end
@@ -246,9 +246,9 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::ExternalLinks).to receive :call }
+      before { allow(DbImport::ExternalLinks).to receive :call }
       it do
-        expect(Import::ExternalLinks)
+        expect(DbImport::ExternalLinks)
           .to have_received(:call)
           .with entry, external_links
       end
@@ -281,9 +281,9 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::PersonRoles).to receive :call }
+      before { allow(DbImport::PersonRoles).to receive :call }
       it do
-        expect(Import::PersonRoles)
+        expect(DbImport::PersonRoles)
           .to have_received(:call)
           .with entry, characters, staff
       end
@@ -312,9 +312,9 @@ describe Import::Anime do
     end
 
     describe 'method call' do
-      before { allow(Import::MalImage).to receive :call }
+      before { allow(DbImport::MalImage).to receive :call }
       it do
-        expect(Import::MalImage)
+        expect(DbImport::MalImage)
           .to have_received(:call)
           .with entry, image
       end
