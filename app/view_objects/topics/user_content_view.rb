@@ -3,6 +3,10 @@ class Topics::UserContentView < Topics::View
     true
   end
 
+  def need_trucation?
+    false
+  end
+
   def changed_at
     linked = @topic.linked
 

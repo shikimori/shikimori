@@ -3,6 +3,10 @@ class Topics::ReviewView < Topics::UserContentView
     super 'b-review-topic'
   end
 
+  def need_trucation?
+    true
+  end
+
   def minified?
     is_preview || is_mini
   end
