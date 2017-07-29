@@ -21,7 +21,7 @@ ul.b-list.block
         | &nbsp; В некоторых случаях этот способ может не работать, тогда используйте следующий способ.
       li: code = '<iframe src="http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1" width="607" height="360"...'
       li: code = 'http://vk.com/video_ext.php?oid=-14132580&id=167827617&hash=769bc0b7ba8453dc&hd=1'
-  img src="#{asset_url 'anime_online/pages/anime_videos/help/vk2.jpg'}"
+  = image_tag 'anime_online/pages/anime_videos/help/vk2.jpg'
 
 .block
   .subheadline#shotret-anime smotret-anime
@@ -68,4 +68,5 @@ ul.b-list.block
 
 .block
   .subheadline#kiwi Kiwi.kz
-  p.m5 Видео с kiwi.kz не будут допущены, т.к. этот домен заблокирован у некоторых провайдеров.
+  p.m5 Видео с kiwi.kz не будут допущены, т.к. этот домен заблокирован у
+    многих провайдеров.

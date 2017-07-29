@@ -5,10 +5,8 @@ Rails.application.config.assets.version = '1.0'
 
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
-Rails.application.config.assets.paths += %W[
-  #{Rails.root}/app/assets/fonts
-]
-#   #{Rails.root}/app/assets/images
+Rails.application.config.assets.paths << Rails.root.join('/app/assets/fonts')
+Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
@@ -18,7 +16,7 @@ Rails.application.config.assets.paths += %W[
   # /.*.(css|js)$/
 # ]
 # vendor/jquery.cookie - for age_restricted.html.slim
-Rails.application.config.assets.precompile += %w[
+Rails.application.config.assets.precompile += %W[
   page503.css
   page404.css
   age_restricted.css
