@@ -87,10 +87,11 @@ GIT
       coffee-rails
 
 GIT
-  remote: git://github.com/myobie/htmldiff.git
-  revision: c3b9112b34e9c37e805068ae3a6a42388666e67e
+  remote: git://github.com/nbudin/htmldiff-lcs.git
+  revision: efeec72cdedadfb310dbb6474395289287d0fcdc
   specs:
-    htmldiff (0.0.1)
+    htmldiff-lcs (0.0.1)
+      diff-lcs
 
 GIT
   remote: git://github.com/shikimori/mal_parser.git
@@ -733,7 +734,7 @@ DEPENDENCIES
   guard-rubocop
   guard-spring
   honeybadger
-  htmldiff!
+  htmldiff-lcs!
   htmlentities
   i18n-inflector-rails
   i18n-js

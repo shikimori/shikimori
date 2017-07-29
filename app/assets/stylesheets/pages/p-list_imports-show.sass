@@ -18,31 +18,17 @@
     .index
       color: $gray-3
 
-    &.updated
-      .arrow
-        &:before
-          content: '→'
+    .details
+      del.diffmod
+        color: $red
 
-      .details
-        +brackets_surrounded
+      ins.diffmod
+        color: $green
 
-        &:before
-          content: '['
-          color: $red
-        &:after
-          content: ']'
-          color: $red
+      &>span
+        +dash_separated
+        font-size: 12px
+        padding: 0
 
-        &:last-child
-          &:before
-            color: $green
-          &:after
-            color: $green
-
-    .details > span
-      +dash_separated
-      font-size: 12px
-      padding: 0
-
-      &.text
-        font-size: 11px
+        &.text
+          font-size: 11px

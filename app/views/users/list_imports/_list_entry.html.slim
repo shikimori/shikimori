@@ -1,4 +1,4 @@
-.b-log_entry class="#{:updated if local_assigns[:is_updated]}"
+.b-log_entry
   span.index #{list_entry_counter + 1}.
   span
     - if local_assigns[:is_not_imported]
@@ -11,7 +11,7 @@
     span.id-label #
     span = list_entry.target_id
 
-  = render 'users/list_imports/list_entry_details', list_entry: list_entry
   - if local_assigns[:is_updated]
-    span.arrow
-    = render 'users/list_imports/list_entry_details', list_entry: list_entry_after
+    = local_assigns[:list_diff]
+  - else
+    = render 'users/list_imports/list_entry_details', list_entry: list_entry

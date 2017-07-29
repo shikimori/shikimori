@@ -21,8 +21,8 @@
         - view.updated.each_with_index do |(list_entry_before, list_entry_after), index|
           = render 'users/list_imports/list_entry',
             list_entry: list_entry_before,
-            list_entry_after: list_entry_after,
             list_entry_counter: index,
+            list_diff: view.list_diff(list_entry_before, list_entry_after),
             is_updated: true
 
   .block

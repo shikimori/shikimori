@@ -1,6 +1,4 @@
 class VersionDecorator < BaseDecorator
-  include HTMLDiff
-
   def user
     object.user || User.find(User::GUEST_ID)
   end
@@ -16,7 +14,7 @@ class VersionDecorator < BaseDecorator
   end
 
   def field_diff field
-    diff old_value(field).to_s, new_value(field).to_s
+    HTMLDiff.diff old_value(field).to_s, new_value(field).to_s
   end
 
   def new_value field

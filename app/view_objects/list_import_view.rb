@@ -38,11 +38,28 @@ class ListImportView < ViewObjectBase
       @list_import.output&.dig('error', 'type') == ERROR_MISMATCHED_LIST_TYPE
   end
 
+  def list_diff list_entry_before, list_entry_after
+    html_before = render_to_string(
+      partial: 'users/list_imports/list_entry_details',
+      locals: { list_entry: list_entry_before }
+    )
+    html_after = render_to_string(
+      partial: 'users/list_imports/list_entry_details',
+      locals: { list_entry: list_entry_after }
+    )
+
+    HTMLDiff.diff(html_before, html_after).html_safe
+  end
+
 private
 
   def output_collection key
     @list_import.output[key]
       .map { |list_entry| ListImports::ListEntry.new list_entry.symbolize_keys }
       .sort_by(&:target_title)
+  end
+
+  def render_to_string *args
+    h.controller.render_to_string(*args)
   end
 end
