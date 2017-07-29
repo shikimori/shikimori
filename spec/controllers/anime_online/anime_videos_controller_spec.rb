@@ -99,7 +99,7 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
             'anime_video[language]' => video_params[:language],
             'anime_video[quality]' => video_params[:quality],
             'anime_video[episode]' => video_params[:episode] + 1,
-            'anime_video[author_name]' => video_params[:author_name],
+            'anime_video[author_name]' => video_params[:author_name]
           )
         end
       end
@@ -150,8 +150,9 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
       it do
         expect(video_versions).to have(1).item
         expect(video).to_not have_attributes video_params
-        expect(response).to redirect_to play_video_online_index_url(
-          anime, video.episode, video.id)
+        expect(response).to redirect_to(
+          play_video_online_index_url(anime, video.episode, video.id)
+        )
       end
     end
 
@@ -164,8 +165,9 @@ describe AnimeOnline::AnimeVideosController, vcr: { cassette_name: 'anime_video_
         it do
           expect(video).to be_valid
           expect(video).to have_attributes video_params
-          expect(response).to redirect_to play_video_online_index_url(
-            anime, video.episode, video.id)
+          expect(response).to redirect_to(
+            play_video_online_index_url(anime, video.episode, video.id)
+          )
         end
       end
 

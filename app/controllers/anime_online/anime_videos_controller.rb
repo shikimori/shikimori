@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 class AnimeOnline::AnimeVideosController < AnimesController
   load_and_authorize_resource only: %i[new create edit update destroy]
 
@@ -22,8 +23,10 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def new
     page_title 'Новое видео'
-    if AnimeVideo::CopyrightBanAnimeIDs.include?(@anime.id) && (!user_signed_in? || !current_user.admin?)
-      raise ActionController::RoutingError.new 'Not Found'
+
+    if AnimeVideo::CopyrightBanAnimeIDs.include?(@anime.id) &&
+        (!user_signed_in? || !current_user.admin?)
+      raise ActionController::RoutingError, 'Not Found'
     end
   end
 
@@ -32,6 +35,8 @@ class AnimeOnline::AnimeVideosController < AnimesController
     @video = @video.decorate
   end
 
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def create
     @video = AnimeVideosService.new(create_params).create(current_user)
 
@@ -54,27 +59,35 @@ class AnimeOnline::AnimeVideosController < AnimesController
 
   def update
     @video = AnimeVideosService
-      .new(current_user.video_moderator? ? moderator_update_params : update_params)
+      .new(
+        current_user.video_moderator? ? moderator_update_params : update_params
+      )
       .update(@video, current_user, params[:reason])
       .decorate
 
     if @video.valid?
-      redirect_to play_video_online_index_url(
-        @anime, @video.episode, @video.id), notice: 'Видео изменено'
+      redirect_to(
+        play_video_online_index_url(@anime, @video.episode, @video.id),
+        notice: 'Видео изменено'
+      )
     else
       page_title 'Изменение видео'
       render :edit
     end
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   def destroy
     @resource.destroy
-    redirect_to play_video_online_index_url(
-      @anime, @resource.episode), notice: 'Видео удалено'
+
+    redirect_to(
+      play_video_online_index_url(@anime, @resource.episode),
+      notice: 'Видео удалено'
+    )
   end
 
-  def help
-  end
+  def help; end
 
   def viewed
     video = AnimeVideo.find params[:id]
@@ -139,7 +152,7 @@ private
   end
 
   def save_preferences
-    @player.remember_video_preferences if @player
+    @player&.remember_video_preferences
   end
 
   def valid_host?
@@ -148,8 +161,10 @@ private
 
   def valid_host_url
     play_video_online_index_url @anime,
-      episode: params[:episode], video_id: params[:video_id],
-      domain: AnimeOnlineDomain::host(@anime), subdomain: false
+      episode: params[:episode],
+      video_id: params[:video_id],
+      domain: AnimeOnlineDomain.host(@anime),
+      subdomain: false
   end
 
   def next_video_url video
@@ -161,7 +176,7 @@ private
       'anime_video[language]' => video.language,
       'anime_video[quality]' => video.quality,
       'anime_video[episode]' => video.episode + 1,
-      'anime_video[author_name]' => video.author_name,
+      'anime_video[author_name]' => video.author_name
     )
   end
 
@@ -178,3 +193,4 @@ private
     @resource = @anime
   end
 end
+# rubocop:enable ClassLength
