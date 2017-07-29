@@ -7,11 +7,18 @@ class Api::V1::UsersController < Api::V1Controller
       "#{user.cache_key}|#{Digest::MD5.hexdigest params.to_json}"
     }
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
+  USERS_LIMIT = 100
+  MESSAGES_LIMIT = 100
+  USER_RATES_LIMIT = 5000
+  HISTORY_LIMIT = 100
+  ANIME_VIDEO_REPORTS_LIMIT = 2000
+
   api :GET, '/users', 'List users'
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{USERS_LIMIT} maximum"
   def index
-    @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, USERS_LIMIT].min
 
     @collection = Users::Query.fetch
       .search(params[:search])
@@ -47,9 +54,13 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   api :GET, "/users/:id/anime_rates", "Show user's anime list"
+  param :page, :pagination, required: false
+  param :limit, :pagination,
+    required: false,
+    desc: "#{USER_RATES_LIMIT} maximum"
   def anime_rates
-    @limit = [[params[:limit].to_i, 1].max, 5000].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
     @rates = Rails.cache.fetch [user, :anime_rates, params[:status]] do
       rates = user.anime_rates.includes(:anime, :user)
@@ -62,9 +73,13 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   api :GET, "/users/:id/manga_rates", "Show user's manga list"
+  param :page, :pagination, required: false
+  param :limit, :pagination,
+    required: false,
+    desc: "#{USER_RATES_LIMIT} maximum"
   def manga_rates
-    @limit = [[params[:limit].to_i, 1].max, 5000].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, USER_RATES_LIMIT].min
 
     @rates = Rails.cache.fetch [user, :manga_rates, params[:status]] do
       rates = user.manga_rates.includes(:manga, :user)
@@ -90,12 +105,12 @@ class Api::V1::UsersController < Api::V1Controller
   end
 
   api :GET, "/users/:id/messages", "Show current user's messages. Authorization required."
-  param :limit, :pagination, required: false
   param :page, :pagination, required: false
-  param :type, %w(inbox private sent news notifications), required: false
+  param :limit, :pagination, required: false, desc: "#{MESSAGES_LIMIT} maximum"
+  param :type, %w(inbox private sent news notifications), required: true
   def messages
-    @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, MESSAGES_LIMIT].min
 
     messages = MessagesQuery
       .new(current_user, params[:type].try(:to_sym) || '')
@@ -114,11 +129,12 @@ class Api::V1::UsersController < Api::V1Controller
     )
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users/:id/history', 'Show user history'
+  param :page, :pagination, required: false
+  param :limit, :pagination, required: false, desc: "#{HISTORY_LIMIT} maximum"
   def history
-    @limit = [[params[:limit].to_i, 1].max, 100].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, HISTORY_LIMIT].min
 
     @collection = user
       .all_history
@@ -145,11 +161,14 @@ class Api::V1::UsersController < Api::V1Controller
     respond_with @collection
   end
 
-  # AUTO GENERATED LINE: REMOVE THIS TO PREVENT REGENARATING
   api :GET, '/users/:id/anime_video_reports'
+  param :page, :pagination, required: false
+  param :limit, :pagination,
+    required: false,
+    desc: "#{ANIME_VIDEO_REPORTS_LIMIT} maximum"
   def anime_video_reports
-    @limit = [[params[:limit].to_i, 1].max, 2000].min
     @page = [params[:page].to_i, 1].max
+    @limit = [[params[:limit].to_i, 1].max, ANIME_VIDEO_REPORTS_LIMIT].min
 
     @collection = postload_paginate(@page, @limit) do
       AnimeVideoReport
