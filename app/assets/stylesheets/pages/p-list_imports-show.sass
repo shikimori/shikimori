@@ -2,7 +2,18 @@
 @import mixins/brackets_surrounded
 @import mixins/dash_separated
 
-.p-list_imports
+.p-list_imports-show
+  .b-entry-info
+    .state
+      &.pending
+        color: $orange
+
+      &.finished
+        color: $green
+
+      &.failed
+        color: $red
+
   .b-log_entry
     .index
       color: $gray-3

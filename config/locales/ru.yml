@@ -145,6 +145,7 @@ ru:
         duplicate_policy: Уже находищееся в списке
         list: Файл списка
         list_type: Тип списка
+        state: Статус
       review:
         text: Текст
         storyline: Сюжет

@@ -145,6 +145,7 @@ en:
         duplicate_policy: Existing Records
         list_type: List Type
         list: List File
+        state: State
       review:
         text: Text
         storyline: Story

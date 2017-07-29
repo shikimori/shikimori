@@ -83,4 +83,24 @@ describe ListImportView do
       ListImports::ListEntry.new(list_import.output['not_imported'][0].symbolize_keys)
     ]
   end
+
+  describe '#empty_list_error?, #mismatched_list_type_error?' do
+    context 'ERROR_EXCEPTION' do
+      let(:list_import) { build_stubbed :list_import, :error_exception }
+      it { expect(view).to_not be_empty_list_error }
+      it { expect(view).to_not be_mismatched_list_type_error }
+    end
+
+    context 'ERROR_EMPTY_LIST' do
+      let(:list_import) { build_stubbed :list_import, :error_empty_list }
+      it { expect(view).to be_empty_list_error }
+      it { expect(view).to_not be_mismatched_list_type_error }
+    end
+
+    context 'ERROR_MISMATCHED_LIST_TYPE' do
+      let(:list_import) { build_stubbed :list_import, :error_mismatched_list_type }
+      it { expect(view).to_not be_empty_list_error }
+      it { expect(view).to be_mismatched_list_type_error }
+    end
+  end
 end

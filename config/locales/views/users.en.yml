@@ -31,6 +31,9 @@ en:
           - you are registered on the site
           - you have at least 20-30 read and scored entries in your manga list
     list_imports:
+      show:
+        empty_list: Uploaded list is empty.
+        mismatched_list_type: Invalid list type selected.
       pending:
         please_wait: Please wait until the end of import.
       finished:

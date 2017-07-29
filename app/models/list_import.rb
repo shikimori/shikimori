@@ -43,14 +43,6 @@ class ListImport < ApplicationRecord
     i18n_t 'name', id: id, filename: list_file_name
   end
 
-  def empty_list_error?
-    failed? && output&.dig('error', 'type') == ERROR_EMPTY_LIST
-  end
-
-  def mismatched_list_type_error?
-    failed? && output&.dig('error', 'type') == ERROR_MISMATCHED_LIST_TYPE
-  end
-
 private
 
   def schedule_worker

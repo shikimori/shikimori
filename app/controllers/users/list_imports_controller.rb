@@ -20,6 +20,7 @@ class Users::ListImportsController < ProfilesController
   end
 
   def show
+    @view = ListImportView.new @resource
   end
 
 private

@@ -2,6 +2,9 @@ class ListImportView < ViewObjectBase
   pattr_initialize :list_import
   instance_cache :added, :updated, :not_imported
 
+  ERROR_EMPTY_LIST = ListImport::ERROR_EMPTY_LIST
+  ERROR_MISMATCHED_LIST_TYPE = ListImport::ERROR_MISMATCHED_LIST_TYPE
+
   def added
     output_collection ListImports::ImportList::ADDED
   end
@@ -23,6 +26,16 @@ class ListImportView < ViewObjectBase
 
   def not_imported
     output_collection ListImports::ImportList::NOT_IMPORTED
+  end
+
+  def empty_list_error?
+    @list_import.failed? &&
+      @list_import.output&.dig('error', 'type') == ERROR_EMPTY_LIST
+  end
+
+  def mismatched_list_type_error?
+    @list_import.failed? &&
+      @list_import.output&.dig('error', 'type') == ERROR_MISMATCHED_LIST_TYPE
   end
 
 private
