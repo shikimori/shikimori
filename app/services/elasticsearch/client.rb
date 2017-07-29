@@ -52,8 +52,8 @@ private
 
   def faraday
     Faraday.new do |builder|
-      builder.adapter :net_http
       builder.response :json
+      builder.adapter :net_http
     end
   end
 end
