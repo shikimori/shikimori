@@ -143,7 +143,7 @@ private
     if persisted? && changes[counter]
       # перевели с нуля на какую-то цифру - помечаем, что начали смотреть
       if self[counter] > 0 && (changes[counter].first || 0).zero?
-        if changes['status'].nil? && !rewatching?
+        if changes['status'].nil? && !rewatching? && !completed?
           self.status = :watching
         end
       end

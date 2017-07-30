@@ -44,7 +44,7 @@ private
 
       if user_rate&.valid?
         user_rates << user_rate
-        output list_entry, ADDED
+        output ListImports::ListEntry.build(user_rate), ADDED
       else
         output list_entry, NOT_IMPORTED
       end
@@ -72,7 +72,7 @@ private
 
     if user_rate.changed?
       user_rate.save!
-      output_updated old_list_entry, list_entry
+      output_updated old_list_entry, ListImports::ListEntry.build(user_rate)
     else
       output list_entry, NOT_CHANGED
     end

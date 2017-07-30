@@ -299,7 +299,14 @@ describe UserRate do
     end
 
     describe '#counter_changed' do
-      subject!(:user_rate) { create :user_rate, target: target, episodes: old_value, volumes: old_value, chapters: old_value, status: old_status }
+      subject!(:user_rate) do
+        create :user_rate,
+          target: target,
+          episodes: old_value,
+          volumes: old_value,
+          chapters: old_value,
+          status: old_status
+      end
 
       let(:old_value) { 1 }
       let(:old_status) { :planned }
@@ -345,19 +352,19 @@ describe UserRate do
         context 'started watching' do
           let(:old_value) { 0 }
           let(:new_value) { 5 }
-          its(:watching?) { is_expected.to be true }
+          it { is_expected.to be_watching }
         end
 
         context 'finished watching' do
           let(:new_value) { target_value }
           its(:episodes) { is_expected.to eq target_value }
-          its(:completed?) { is_expected.to be true }
+          it { is_expected.to be_completed }
         end
 
         context 'stopped watching' do
           let(:old_value) { 1 }
           let(:new_value) { 0 }
-          its(:planned?) { is_expected.to be true }
+          it { is_expected.to be_planned }
         end
 
         context 'rewatching' do
@@ -368,7 +375,7 @@ describe UserRate do
             let(:new_value) { 1 }
 
             its(:episodes) { is_expected.to eq new_value }
-            its(:rewatching?) { is_expected.to be true }
+            it { is_expected.to be_rewatching }
           end
 
           context 'finished watching' do
@@ -376,7 +383,7 @@ describe UserRate do
 
             its(:episodes) { is_expected.to eq target_value }
             its(:rewatches) { is_expected.to eq 1 }
-            its(:completed?) { is_expected.to be true }
+            it { is_expected.to be_completed }
           end
         end
       end
@@ -392,7 +399,7 @@ describe UserRate do
             let(:new_value) { target_value }
             its(:volumes) { is_expected.to eq target_value }
             its(:chapters) { is_expected.to eq other_value }
-            its(:completed?) { is_expected.to be true }
+            it { is_expected.to be_completed }
           end
 
           context 'zero volumes' do
@@ -410,7 +417,7 @@ describe UserRate do
             let(:new_value) { target_value }
             its(:volumes) { is_expected.to eq other_value }
             its(:chapters) { is_expected.to eq target_value }
-            its(:completed?) { is_expected.to be true }
+            it { is_expected.to be_completed }
           end
 
           context 'zero chapters' do
@@ -491,6 +498,28 @@ describe UserRate do
     describe '#status_name' do
       subject { build :user_rate, target_type: 'Anime' }
       its(:status_name) { is_expected.to eq 'Запланировано' }
+    end
+  end
+
+  describe 'edge cases' do
+    context '0 ep completed -> 1ep completed' do
+      let(:user_rate) do
+        create :user_rate,
+          episodes: 0,
+          status: :completed,
+          target: anime
+      end
+      let(:anime) { create :anime, :movie, episodes: 1 }
+      before { user_rate.update_column :episodes, 0 }
+      subject! { user_rate.update episodes: 1 }
+
+      it do
+        expect(user_rate).to have_attributes(
+          status: 'completed',
+          episodes: 1,
+          rewatches: 0
+        )
+      end
     end
   end
 
