@@ -112,7 +112,7 @@ private
       raise ForceRedirect, @view.url(duration: nil)
     end
 
-    if params[:status].include? 'planned'
+    if params[:status]&.include? 'planned'
       raise(
         ForceRedirect,
         @view.url(status: params['status'].gsub('planned', 'anons'))
