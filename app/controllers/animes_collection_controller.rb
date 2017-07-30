@@ -49,8 +49,6 @@ class AnimesCollectionController < ShikimoriController
     raise AgeRestricted if @model[:genre] && @model[:genre].any?(&:censored?) && censored_forbidden?
     raise AgeRestricted if params[:rating] && params[:rating].split(',').include?(Anime::ADULT_RATING) && censored_forbidden?
 
-  rescue BadStatusError
-    redirect_to @view.url(status: nil), status: 301
   rescue BadSeasonError
     redirect_to @view.url(season: nil), status: 301
   end
@@ -112,6 +110,13 @@ private
 
     if params.include?(:duration) && @view.klass == Manga
       raise ForceRedirect, @view.url(duration: nil)
+    end
+
+    if params[:status].include? 'planned'
+      raise(
+        ForceRedirect,
+        @view.url(status: params['status'].gsub('planned', 'anons'))
+      )
     end
 
     raise ForceRedirect, @view.url(page: nil) if params[:page] == '0'
