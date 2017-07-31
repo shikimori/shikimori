@@ -2,11 +2,13 @@ describe Ad do
   subject(:ad) { Ad.new width, height }
 
   before do
+    allow(ad.h).to receive(:params).and_return params
     allow(ad.h).to receive(:ru_host?).and_return is_ru_host
     allow(ad.h).to receive(:shikimori?).and_return is_shikimori
     allow(ad.h).to receive(:current_user).and_return user
   end
 
+  let(:params) { { controller: 'anime' } }
   let(:is_ru_host) { true }
   let(:is_shikimori) { true }
   let(:width) { 240 }
@@ -47,7 +49,7 @@ describe Ad do
     context 'yandex_direct' do
       it do
         expect(ad.html).to include '<div class="b-spnsrs_block_1">'
-        expect(ad.html).to include "<div id='#{ad.send :yandex_direct_id}'></div>"
+        expect(ad.html).to include "<div id='#{ad.send :yandex_direct_node_id}'></div>"
       end
     end
   end
@@ -147,7 +149,11 @@ describe Ad do
   end
 
   describe '#yandex_direct_id' do
-    it { expect(ad.send :yandex_direct_id).to eq :block_1_yd }
+    it { expect(ad.send :yandex_direct_id).to eq Ad::YANDEX_DIRECT_IDS[:default] }
+  end
+
+  describe '#yandex_direct_node_id' do
+    it { expect(ad.send :yandex_direct_node_id).to eq :block_1_yd }
   end
 
   describe '#advertur_url' do
@@ -164,12 +170,12 @@ describe Ad do
 
     context 'yandex_direct' do
       let(:is_yandex_direct) { true }
-      it { expect(ad.container_class).to eq 'spnsrs_block_1_yd_240_400' }
+      it { expect(ad.container_class).to eq 'spnsrs_block_1_240_400' }
     end
 
     context 'advertur' do
       let(:is_yandex_direct) { false }
-      it { expect(ad.container_class).to eq 'spnsrs_92129_240_400' }
+      it { expect(ad.container_class).to eq 'spnsrs_block_1_240_400' }
     end
   end
 end

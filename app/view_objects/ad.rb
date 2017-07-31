@@ -28,12 +28,12 @@ class Ad < ViewObjectBase
   end
 
   def container_class
-    "spnsrs_#{ad_id}_#{@width}_#{@height}"
+    "spnsrs_#{block_key}_#{@width}_#{@height}"
   end
 
   def params
     {
-      blockId: ad_id,
+      blockId: yandex_direct_id,
       renderTo: yandex_direct_node_id,
       async: true
     }
@@ -53,14 +53,6 @@ class Ad < ViewObjectBase
   end
 
 private
-
-  def ad_id
-    if yandex_direct?
-      yandex_direct_id
-    else
-      advertur_id
-    end
-  end
 
   def yandex_direct_ad
     "<div id='#{yandex_direct_node_id}'></div>"
