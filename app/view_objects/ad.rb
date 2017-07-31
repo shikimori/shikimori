@@ -48,8 +48,8 @@ class Ad < ViewObjectBase
   end
 
   def yandex_direct?
-    h.ru_host? && h.shikimori? && block_key == :block_1# &&
-      # !Rails.env.development? && h.current_user&.id == 1
+    h.ru_host? && h.shikimori? && block_key == :block_1 &&
+      !Rails.env.development?# && h.current_user&.id == 1
   end
 
 private
