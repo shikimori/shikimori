@@ -28,7 +28,6 @@ class DynamicElements.DesktopAd extends View
       @load_yandex_js()
 
   load_yandex_js: ->
-    debugger if SHIKI_USER.id == 1
     yandex_direct_pending_ads.push @render_yandex_ad
 
     ((w, d, n, s, t) =>
@@ -47,10 +46,13 @@ class DynamicElements.DesktopAd extends View
     )(window, window.document, 'yandexContextAsyncCallbacks');
 
   render_yandex_ad: =>
-    debugger if SHIKI_USER.id == 1
+    @replace_node()
     Ya.Context.AdvManager.render @ad_params
 
   advertur: ->
+    @replace_node()
+
+  replace_node: ->
     @$node.replaceWith $(@html).addClass(@css_class)
 
     # $new_content = $(@html).addClass(@css_class)
@@ -68,4 +70,3 @@ class DynamicElements.DesktopAd extends View
       # delay(3.5 * 1000).then ->
         # unless $('iframe,#placeholder', doc).exists()
           # $new_content.remove()
-
