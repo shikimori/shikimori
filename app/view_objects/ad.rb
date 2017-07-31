@@ -39,7 +39,7 @@ class Ad < ViewObjectBase
     <<-HTML
       <div class="b-spnsrs_#{block_key}">
         <center>
-          <iframe src="#{ad.url}" width="#{ad.width}px" height="#{ad.height}px">
+          <iframe src="#{url}" width="#{width}px" height="#{height}px">
         </center>
       </div>
     HTML
