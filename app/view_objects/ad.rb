@@ -14,11 +14,11 @@ class Ad < ViewObjectBase
   end
 
   def html
-    <<-HTML
+    <<~HTML.strip
       <div class="b-spnsrs_#{block_key}">
-        <center>
-          #{ad_html}
-        </center>
+      <center>
+      #{ad_html}
+      </center>
       </div>
     HTML
   end
