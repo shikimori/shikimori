@@ -1,5 +1,4 @@
-- if AnimeOnline::AdsPolicy.show_ad? request.host, current_user, @resource
-  = render 'spnsrs/ad', ad: Ad.new(728, 90), obtrusive: true
+= render 'spnsrs/ad', ad: Ad.new(728, 90)
 
 = render layout: 'animes/page' do
   / - if Copyright::IVI_RU_COPYRIGHTED.include?(@resource.id)

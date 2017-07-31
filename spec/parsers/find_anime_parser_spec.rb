@@ -144,7 +144,7 @@
 
     # describe 'mismatch' do
       # let(:text) { 'mismatch' }
-      # specify { expect{subject}.to raise_error RuntimeError, "unexpected russian kind: 'mismatch'" }
+      # specify { expect { subject }.to raise_error RuntimeError, "unexpected russian kind: 'mismatch'" }
     # end
   # end
 

@@ -21,7 +21,7 @@ describe Moderation::VersionsItemTypeQuery do
 
     context 'unknown type' do
       let(:type) { 'zxc' }
-      it { expect{subject}.to raise_error ArgumentError, 'unknown type: zxc' }
+      it { expect { subject }.to raise_error ArgumentError, 'unknown type: zxc' }
     end
   end
 end

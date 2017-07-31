@@ -1,76 +1,131 @@
 describe Ad do
-  let(:ad) { Ad.new width, height }
-  before { allow(ad.h).to receive(:anime_online?).and_return is_anime_online }
+  subject(:ad) { Ad.new width, height }
 
-  let(:is_anime_online) { false }
+  before do
+    allow(ad.h).to receive(:ru_host?).and_return is_ru_host
+    allow(ad.h).to receive(:shikimori?).and_return is_shikimori
+    allow(ad.h).to receive(:current_user).and_return user
+  end
+
+  let(:is_ru_host) { true }
+  let(:is_shikimori) { true }
   let(:width) { 240 }
   let(:height) { 400 }
+  let(:user) { nil }
 
-  describe '#id' do
-    subject { ad.id }
+  describe '#allowed?' do
+    context 'no user' do
+      it { is_expected.to be_allowed }
+    end
+
+    context 'user' do
+      let(:user) { build_stubbed :user, id: 9876543 }
+      it { is_expected.to be_allowed }
+    end
+
+    context 'admin' do
+      let(:user) { build_stubbed :user, :admin }
+      it { is_expected.to be_allowed }
+    end
+
+    context 'moderator' do
+      let(:user) { build_stubbed :user, :versions_moderator }
+      it { is_expected.to_not be_allowed }
+    end
+  end
+
+  describe '#html' do
+    context 'advertur' do
+      let(:is_shikimori) { false }
+      it do
+        expect(ad.html).to include '<div class="b-spnsrs_block_1">'
+        expect(ad.html).to include '<iframe src'
+        expect(ad.html).to include "width='240px' height='400px'"
+      end
+    end
+
+    context 'yandex_direct' do
+      it do
+        expect(ad.html).to include '<div class="b-spnsrs_block_1">'
+        expect(ad.html).to include "<div id='#{ad.send :yandex_direct_id}'></div>"
+      end
+    end
+  end
+
+  describe '#advertur_id' do
+    subject { ad.send :advertur_id }
 
     context 'shikimori' do
-      let(:is_anime_online) { false }
+      let(:is_shikimori) { true }
 
       context '240x400' do
         let(:width) { 240 }
         let(:height) { 400 }
-        it { is_expected.to eq Ad::IDS[:block_1][0] }
+        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_1][0] }
       end
 
       context '728x90' do
         let(:width) { 728 }
         let(:height) { 90 }
-        it { is_expected.to eq Ad::IDS[:block_2][0] }
+        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_2][0] }
       end
 
       context '300x250' do
         let(:width) { 300 }
         let(:height) { 250 }
-        it { is_expected.to eq Ad::IDS[:block_3][0] }
+        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_3][0] }
       end
 
       context 'bad size' do
         let(:width) { 728 }
         let(:height) { 91 }
-        it { expect{subject}.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error RuntimeError }
       end
     end
 
     context 'anime online' do
-      let(:is_anime_online) { true }
+      let(:is_shikimori) { false }
 
       context '240x400' do
         let(:width) { 240 }
         let(:height) { 400 }
-        it { is_expected.to eq Ad::IDS[:block_1][1] }
+        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_1][1] }
       end
 
       context '728x90' do
         let(:width) { 728 }
         let(:height) { 90 }
-        it { is_expected.to eq Ad::IDS[:block_2][1] }
+        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_2][1] }
       end
 
       context '300x250' do
         let(:width) { 300 }
         let(:height) { 250 }
-        it { expect{subject}.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error RuntimeError }
       end
 
       context 'bad size' do
         let(:width) { 728 }
         let(:height) { 91 }
-        it { expect{subject}.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error RuntimeError }
       end
     end
   end
 
-  describe '#url' do
-    it { expect(ad.url).to eq "//test.host/spnsrs/#{ad.id}?container_class=spnsrs_#{ad.id}_240_400&height=400&width=240" }
+  describe '#yandex_direct_id' do
+    it { expect(ad.send :yandex_direct_id).to eq :block_1_yd }
   end
 
-  describe '#container_class' do
-    it { expect(ad.container_class).to eq 'spnsrs_92129_240_400' }
+  describe '#advertur_url' do
+    it do
+      expect(ad.send :advertur_url).to eq(
+        "//test.host/spnsrs/#{ad.send :advertur_id}"\
+          "?container_class=#{ad.send :advertur_class}&height=400&width=240"
+      )
+    end
+  end
+
+  describe '#advertur_class' do
+    it { expect(ad.send :advertur_class).to eq 'spnsrs_92129_240_400' }
   end
 end

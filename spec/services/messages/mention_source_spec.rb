@@ -24,7 +24,7 @@ describe Messages::MentionSource do
 
     context 'other linked' do
       let(:linked) { build_stubbed :anime, id: 1, name: 'cc' }
-      it { expect{subject}.to raise_error ArgumentError, 'Anime 1-cc' }
+      it { expect { subject }.to raise_error ArgumentError, 'Anime 1-cc' }
     end
   end
 end

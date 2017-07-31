@@ -16,12 +16,12 @@
       # let(:videos) { AnimeVideo.where anime_id: anime.id }
 
       # context 'no_videos' do
-        # it { expect{subject}.to change(videos, :count).by 4 }
+        # it { expect { subject }.to change(videos, :count).by 4 }
       # end
 
       # context 'with_videos' do
         # let!(:video) { create :anime_video, anime_id: anime.id, episode: 1, url: 'http://video.sibnet.ru/shell.php?videoid=506340', source: 'http://www.animespirit.ru/anime/141-burn-up-razgon.html' }
-        # it { expect{subject}.to change(videos, :count).by 3 }
+        # it { expect { subject }.to change(videos, :count).by 3 }
       # end
     # end
   # end

@@ -21,12 +21,12 @@ describe RecommendationIgnore do
       subject { RecommendationIgnore.block anime3, user }
 
       it { should eq [anime3.id, anime2.id] }
-      it { expect{subject}.to change(RecommendationIgnore, :count).by 2 }
+      it { expect { subject }.to change(RecommendationIgnore, :count).by 2 }
 
       describe 'second run' do
         before { RecommendationIgnore.block anime3, user }
         it { should eq [anime3.id] }
-        it { expect{subject}.to_not change(RecommendationIgnore, :count) }
+        it { expect { subject }.to_not change(RecommendationIgnore, :count) }
       end
 
       describe 'block of new entry' do
@@ -39,7 +39,7 @@ describe RecommendationIgnore do
         end
 
         it { should eq [anime4.id, anime3.id] }
-        it { expect{subject}.to change(RecommendationIgnore, :count).by 1 }
+        it { expect { subject }.to change(RecommendationIgnore, :count).by 1 }
       end
     end
 

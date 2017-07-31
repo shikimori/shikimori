@@ -22,8 +22,7 @@
             prev_url: (@page > 1 ? anime_dashboard_page_url(page: @page-1) : nil)
 
     .l-menu
-      - if AnimeOnline::AdsPolicy.show_ad? request.host, current_user
-        = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: false
+      = render 'spnsrs/ad', ad: Ad.new(240, 400)
 
       .midheadline.green.m15 Онгоинги сезона
       .block

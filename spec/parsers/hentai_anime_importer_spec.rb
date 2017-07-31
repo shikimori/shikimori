@@ -13,6 +13,6 @@
     # before { allow_any_instance_of(HentaiAnimeParser).to receive(:fetch_page_links).and_return [identifier] }
 
     # let(:videos) { AnimeVideo.where anime_id: anime.id }
-    # it { expect{subject}.to change(videos, :count).by 4 }
+    # it { expect { subject }.to change(videos, :count).by 4 }
   # end
 # end
