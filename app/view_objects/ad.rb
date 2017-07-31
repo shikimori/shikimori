@@ -36,7 +36,7 @@ class Ad < ViewObjectBase
   end
 
   def type
-    if yandex_direct? && !Rails.env.development? && h.current_user&.id == 1
+    if yandex_direct?
       :yandex_direct
     else
       :advertur
@@ -44,7 +44,8 @@ class Ad < ViewObjectBase
   end
 
   def yandex_direct?
-    h.ru_host? && h.shikimori? && block_key == :block_1
+    h.ru_host? && h.shikimori? && block_key == :block_1 &&
+      !Rails.env.development? && h.current_user&.id == 1
   end
 
 private
