@@ -6,6 +6,10 @@ class Ad < ViewObjectBase
     block_2: [92_445, 1_256],
     block_3: [92_485, nil]
   }
+  YANDEX_DIRECT_IDS = {
+    topics: 'R-A-227837-3',
+    default: 'R-A-227837-2'
+  }
 
   ERROR = 'unknown ad size'
 
@@ -29,8 +33,8 @@ class Ad < ViewObjectBase
 
   def params
     {
-      blockId: 'R-A-227837-2',
-      renderTo: yandex_direct_id,
+      blockId: ad_id,
+      renderTo: yandex_direct_node_id,
       async: true
     }
   end
@@ -59,7 +63,7 @@ private
   end
 
   def yandex_direct_ad
-    "<div id='#{yandex_direct_id}'></div>"
+    "<div id='#{yandex_direct_node_id}'></div>"
   end
 
   def ad_html
@@ -111,6 +115,11 @@ private
   end
 
   def yandex_direct_id
+    YANDEX_DIRECT_IDS[h.params[:controller].to_sym] ||
+      YANDEX_DIRECT_IDS[:default]
+  end
+
+  def yandex_direct_node_id
     :block_1_yd
   end
 end
