@@ -16,7 +16,11 @@ describe ListImports::ImportList do
       text: 'test'
     )]
   end
-  let!(:target) { create :anime, id: list.first[:target_id] }
+  let!(:target) do
+    create :anime,
+      id: list.first[:target_id],
+      name: list.first[:target_title]
+  end
   let!(:user_rate) { nil }
 
   subject! { service.call }
