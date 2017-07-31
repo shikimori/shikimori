@@ -23,7 +23,7 @@
 
     .l-menu
       - if AnimeOnline::AdsPolicy.show_ad? request.host, current_user
-        = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: false
+        = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: false
 
       .midheadline.green.m15 Онгоинги сезона
       .block

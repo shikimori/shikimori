@@ -67,10 +67,10 @@ describe Ad do
   end
 
   describe '#url' do
-    it { expect(ad.url).to eq "//test.host/sponsors/#{ad.id}?container_class=sponsors_#{ad.id}_240_400&height=400&width=240" }
+    it { expect(ad.url).to eq "//test.host/spnsrs/#{ad.id}?container_class=spnsrs_#{ad.id}_240_400&height=400&width=240" }
   end
 
   describe '#container_class' do
-    it { expect(ad.container_class).to eq 'sponsors_92129_240_400' }
+    it { expect(ad.container_class).to eq 'spnsrs_92129_240_400' }
   end
 end

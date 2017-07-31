@@ -51,11 +51,11 @@ header.head
           = render 'contests/menu', resource: linked.decorate
 
         - elsif linked.kind_of?(CosplayGallery) || linked.kind_of?(Collection)
-          = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+          = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: true
           = render 'menu', menu: @forums_view.menu
 
         - else raise "unknown linked: #{linked.class}"
 
       - else
-        = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+        = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: true
         = render 'menu', menu: @forums_view.menu

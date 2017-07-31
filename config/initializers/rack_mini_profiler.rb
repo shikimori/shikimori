@@ -3,7 +3,7 @@ if defined? Rack::MiniProfiler
   # Rack::MiniProfiler.config.storage = Rack::MiniProfiler::MemoryStore
   Rack::MiniProfiler.config.position = 'right'
   Rack::MiniProfiler.config.skip_paths = %w(
-    /sponsors/
+    /spnsrs/
     /assets/
     /__better_errors/
     /sidekiq/

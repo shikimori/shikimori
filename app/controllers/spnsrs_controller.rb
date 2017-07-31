@@ -1,4 +1,4 @@
-class SponsorsController < ShikimoriController
+class SpnsrsController < ShikimoriController
   layout false
   before_action { noindex && nofollow }
 

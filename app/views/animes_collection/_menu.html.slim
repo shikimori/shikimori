@@ -22,7 +22,7 @@
           href="#{recommendations_url klass: menu.klass.name.downcase, subdomain: false}"
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
-  / = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+  / = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: true
 
   .block
     .subheadline = menu.klass.human_attribute_name :status
@@ -158,4 +158,4 @@
               ]
 
   - unless ['user_rates', 'userlist_comparer'].include? params[:controller]
-    = render 'sponsors/ad', ad: Ad.new(240, 400), obtrusive: true
+    = render 'spnsrs/ad', ad: Ad.new(240, 400), obtrusive: true

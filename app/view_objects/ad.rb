@@ -12,7 +12,7 @@ class Ad < ViewObjectBase
   end
 
   def url
-    h.sponsor_url(
+    h.spnsr_url(
       id,
       width: @width,
       height: @height,
@@ -22,7 +22,7 @@ class Ad < ViewObjectBase
   end
 
   def container_class
-    "sponsors_#{id}_#{@width}_#{@height}"
+    "spnsrs_#{id}_#{@width}_#{@height}"
   end
 
   def block_key
@@ -33,6 +33,16 @@ class Ad < ViewObjectBase
     elsif @width == 300 && @height == 250
       :block_3
     end
+  end
+
+  def html
+    <<-HTML
+      <div class="b-spnsrs_#{block_key}">
+        <center>
+          <iframe src="#{ad.url}" width="#{ad.width}px" height="#{ad.height}px">
+        </center>
+      </div>
+    HTML
   end
 
 private
