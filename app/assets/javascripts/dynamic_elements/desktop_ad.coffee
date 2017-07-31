@@ -3,6 +3,7 @@
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
 
+yandex_direct_loading = true
 yandex_direct_loaded = false
 yandex_direct_pending_ads = []
 
@@ -24,15 +25,19 @@ class DynamicElements.DesktopAd extends View
   yandex_direct: ->
     if yandex_direct_loaded
       @render_yandex_ad()
+    else if yandex_direct_loading
+      @schedule_yandex_ad()
     else
       @load_yandex_js()
 
   load_yandex_js: ->
-    yandex_direct_pending_ads.push @render_yandex_ad
+    yandex_direct_loading = true
+    @schedule_yandex_ad()
 
     ((w, d, n, s, t) =>
       w[n] = w[n] || [];
       w[n].push =>
+        yandex_direct_loading = false
         yandex_direct_loaded = true
         yandex_direct_pending_ads.forEach (render) -> render()
         yandex_direct_pending_ads = []
@@ -44,6 +49,9 @@ class DynamicElements.DesktopAd extends View
       s.async = true;
       t.parentNode.insertBefore(s, t);
     )(window, window.document, 'yandexContextAsyncCallbacks');
+
+  schedule_yandex_ad: ->
+    yandex_direct_pending_ads.push @render_yandex_ad
 
   render_yandex_ad: =>
     @replace_node()
