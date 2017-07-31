@@ -28,6 +28,7 @@ class DynamicElements.DesktopAd extends View
       @load_yandex_js()
 
   load_yandex_js: ->
+    debugger if SHIKI_USER.id == 1
     yandex_direct_pending_ads.push @render_yandex_ad
 
     ((w, d, n, s, t) =>
@@ -46,6 +47,7 @@ class DynamicElements.DesktopAd extends View
     )(window, window.document, 'yandexContextAsyncCallbacks');
 
   render_yandex_ad: =>
+    debugger if SHIKI_USER.id == 1
     Ya.Context.AdvManager.render @ad_params
 
   advertur: ->
