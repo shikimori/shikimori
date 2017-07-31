@@ -7,6 +7,8 @@ class Ad < ViewObjectBase
     block_3: [92_485, nil]
   }
 
+  ERROR = 'unknown ad size'
+
   def allowed?
     !moderator_ids.include? h.current_user&.id
   end
@@ -25,8 +27,16 @@ class Ad < ViewObjectBase
     "spnsrs_#{ad_id}_#{@width}_#{@height}"
   end
 
+  def params
+    {
+      blockId: 'R-A-227837-2',
+      renderTo: yandex_direct_id,
+      async: true
+    }
+  end
+
   def type
-    if yandex_direct?
+    if yandex_direct? && !Rails.env.development?
       :yandex_direct
     else
       :advertur
@@ -63,15 +73,15 @@ private
     "<iframe src='#{advertur_url}' width='#{width}px' height='#{height}px'>"
   end
 
+  # rubocop:disable CyclomaticComplexity
   def block_key
-    if @width == 240 && @height == 400
-      :block_1
-    elsif @width == 728 && @height == 90
-      :block_2
-    elsif @width == 300 && @height == 250
-      :block_3
-    end
+    return :block_1 if @width == 240 && @height == 400
+    return :block_2 if @width == 728 && @height == 90
+    return :block_3 if @width == 300 && @height == 250
+
+    raise ArgumentError, ERROR
   end
+  # rubocop:enable CyclomaticComplexity
 
   def domain_key
     h.shikimori? ? 0 : 1
@@ -96,7 +106,7 @@ private
   end
 
   def advertur_id
-    ADVERTUR_IDS.dig(block_key, domain_key) || fail('unknown ad')
+    ADVERTUR_IDS.dig(block_key, domain_key) || raise(ArgumentError, ERROR)
   end
 
   def yandex_direct_id

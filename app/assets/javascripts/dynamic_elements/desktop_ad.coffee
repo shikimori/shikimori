@@ -3,13 +3,55 @@
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
 
+yandex_direct_loaded = false
+yandex_direct_pending_ads = []
+
 using 'DynamicElements'
 class DynamicElements.DesktopAd extends View
   initialize: ->
     return if is_mobile() && !mobile_detect.tablet()
 
-    $new_content = $(@$node.data('html'))
-    $new_content.addClass @$node.data('ad_class')
+    @type = @$node.data 'ad_type'
+    @html = @$node.data 'ad_html'
+    @css_class = @$node.data 'ad_css_class'
+    @ad_params = @$node.data 'ad_params'
+
+    $new_content = $(@html).addClass(@css_class)
+
+    if @type == 'yandex_direct'
+      @yandex_direct()
+    else
+      @advertur()
+
+  yandex_direct: ->
+    if yandex_direct_loaded
+      @render_yandex_ad()
+    else
+      @load_yandex_js()
+
+  load_yandex_js: ->
+    yandex_direct_pending_ads.push @render_yandex_ad
+
+    ((w, d, n, s, t) =>
+      w[n] = w[n] || [];
+      w[n].push =>
+        yandex_direct_loaded = true
+        yandex_direct_pending_ads.forEach (render) -> render()
+        yandex_direct_pending_ads = []
+
+      t = d.getElementsByTagName("script")[0];
+      s = d.createElement("script");
+      s.type = "text/javascript";
+      s.src = "//an.yandex.ru/system/context.js";
+      s.async = true;
+      t.parentNode.insertBefore(s, t);
+    )(window, window.document, 'yandexContextAsyncCallbacks');
+
+  render_yandex_ad: =>
+    Ya.Context.AdvManager.render @ad_params
+
+  advertur: ->
+    @$node.replaceWith $new_content
     # $iframe = $new_content.find 'iframe'
     # console.log $new_content.html()
 
@@ -24,4 +66,3 @@ class DynamicElements.DesktopAd extends View
         # unless $('iframe,#placeholder', doc).exists()
           # $new_content.remove()
 
-    @$node.replaceWith $new_content

@@ -113,7 +113,7 @@ describe Ad do
       context 'bad size' do
         let(:width) { 728 }
         let(:height) { 91 }
-        it { expect { subject }.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
       end
     end
 
@@ -135,13 +135,13 @@ describe Ad do
       context '300x250' do
         let(:width) { 300 }
         let(:height) { 250 }
-        it { expect { subject }.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
       end
 
       context 'bad size' do
         let(:width) { 728 }
         let(:height) { 91 }
-        it { expect { subject }.to raise_error RuntimeError }
+        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
       end
     end
   end

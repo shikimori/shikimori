@@ -1,6 +1,8 @@
 - if ad.allowed?
   .to-process[
     data-dynamic="desktop_ad"
-    data-ad_class="#{ad.container_class}"
-    data-html="#{ad.html}"
+    data-ad_css_class="#{ad.container_class}"
+    data-ad_html="#{ad.html}"
+    data-ad_type="#{ad.type}"
+    data-ad_params="#{ad.params.to_json}"
   ]
