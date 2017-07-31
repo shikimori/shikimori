@@ -3,7 +3,7 @@
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
 
-yandex_direct_loading = true
+yandex_direct_loading = false
 yandex_direct_loaded = false
 yandex_direct_pending_ads = []
 
