@@ -19,7 +19,7 @@ describe Ad do
     end
 
     context 'user' do
-      let(:user) { build_stubbed :user, id: 9876543 }
+      let(:user) { build_stubbed :user, id: 9_876_543 }
       it { is_expected.to be_allowed }
     end
 
@@ -49,6 +49,40 @@ describe Ad do
         expect(ad.html).to include '<div class="b-spnsrs_block_1">'
         expect(ad.html).to include "<div id='#{ad.send :yandex_direct_id}'></div>"
       end
+    end
+  end
+
+  describe '#type' do
+    before { allow(ad).to receive(:yandex_direct?).and_return is_yandex_direct }
+
+    context 'yandex_direct' do
+      let(:is_yandex_direct) { true }
+      it { expect(ad.type).to eq :yandex_direct }
+    end
+
+    context 'advertur' do
+      let(:is_yandex_direct) { false }
+      it { expect(ad.type).to eq :advertur }
+    end
+  end
+
+  describe '#yandex_direct?' do
+    it { is_expected.to be_yandex_direct }
+
+    context 'not shikimori' do
+      let(:is_shikimori) { false }
+      it { is_expected.to_not be_yandex_direct }
+    end
+
+    context 'not ru_host' do
+      let(:is_ru_host) { false }
+      it { is_expected.to_not be_yandex_direct }
+    end
+
+    context 'not block_1' do
+      let(:width) { 728 }
+      let(:height) { 90 }
+      it { is_expected.to_not be_yandex_direct }
     end
   end
 
@@ -120,12 +154,22 @@ describe Ad do
     it do
       expect(ad.send :advertur_url).to eq(
         "//test.host/spnsrs/#{ad.send :advertur_id}"\
-          "?container_class=#{ad.send :advertur_class}&height=400&width=240"
+          "?container_class=#{ad.container_class}&height=400&width=240"
       )
     end
   end
 
-  describe '#advertur_class' do
-    it { expect(ad.send :advertur_class).to eq 'spnsrs_92129_240_400' }
+  describe '#container_class' do
+    before { allow(ad).to receive(:yandex_direct?).and_return is_yandex_direct }
+
+    context 'yandex_direct' do
+      let(:is_yandex_direct) { true }
+      it { expect(ad.container_class).to eq 'spnsrs_block_1_yd_240_400' }
+    end
+
+    context 'advertur' do
+      let(:is_yandex_direct) { false }
+      it { expect(ad.container_class).to eq 'spnsrs_92129_240_400' }
+    end
   end
 end

@@ -21,14 +21,38 @@ class Ad < ViewObjectBase
     HTML
   end
 
+  def container_class
+    "spnsrs_#{ad_id}_#{@width}_#{@height}"
+  end
+
+  def type
+    if yandex_direct?
+      :yandex_direct
+    else
+      :advertur
+    end
+  end
+
+  def yandex_direct?
+    h.ru_host? && h.shikimori? && block_key == :block_1
+  end
+
 private
+
+  def ad_id
+    if yandex_direct?
+      yandex_direct_id
+    else
+      advertur_id
+    end
+  end
 
   def yandex_direct_ad
     "<div id='#{yandex_direct_id}'></div>"
   end
 
   def ad_html
-    if h.ru_host? && h.shikimori? && block_key == :block_1
+    if yandex_direct?
       yandex_direct_ad
     else
       advertur_ad
@@ -66,7 +90,7 @@ private
       advertur_id,
       width: @width,
       height: @height,
-      container_class: advertur_class,
+      container_class: container_class,
       protocol: false
     )
   end
@@ -77,9 +101,5 @@ private
 
   def yandex_direct_id
     :block_1_yd
-  end
-
-  def advertur_class
-    "spnsrs_#{advertur_id}_#{@width}_#{@height}"
   end
 end
