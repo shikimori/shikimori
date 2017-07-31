@@ -7,7 +7,7 @@ class Ad < ViewObjectBase
     block_3: [92_485, nil]
   }
   YANDEX_DIRECT_IDS = {
-    topics: 'R-A-227837-3',
+    topics: 'R-A-227837-4',
     default: 'R-A-227837-2'
   }
 
