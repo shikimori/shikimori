@@ -36,7 +36,7 @@ class Ad < ViewObjectBase
   end
 
   def type
-    if yandex_direct? && !Rails.env.development?
+    if yandex_direct? && !Rails.env.development? && h.current_user&.id == 1
       :yandex_direct
     else
       :advertur
