@@ -6,8 +6,10 @@
 yandex_direct_state = null
 yandex_direct_pending_ads = []
 
-LOADED = 'loaded'
-LOADING = 'loading'
+YANDEX_DIRECT_STATE = {
+  LOADED:'loaded'
+  LOADING: 'loading'
+}
 
 using 'DynamicElements'
 class DynamicElements.DesktopAd extends View
@@ -25,21 +27,21 @@ class DynamicElements.DesktopAd extends View
       @advertur()
 
   yandex_direct: ->
-    if yandex_direct_state == LOADED
+    if yandex_direct_state == YANDEX_DIRECT_STATE.LOADED
       @render_yandex_ad()
-    else if yandex_direct_state == LOADING
+    else if yandex_direct_state == YANDEX_DIRECT_STATE.LOADING
       @schedule_yandex_ad()
     else
       @load_yandex_js()
 
   load_yandex_js: ->
-    yandex_direct_state = LOADING
+    yandex_direct_state = YANDEX_DIRECT_STATE.LOADING
     @schedule_yandex_ad()
 
     ((w, d, n, s, t) =>
       w[n] = w[n] || [];
       w[n].push =>
-        yandex_direct_state = LOADED
+        yandex_direct_state = YANDEX_DIRECT_STATE.LOADED
         yandex_direct_pending_ads.forEach (render) -> render()
         yandex_direct_pending_ads = []
 
