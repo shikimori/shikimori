@@ -16,8 +16,6 @@ class DynamicElements.DesktopAd extends View
     @css_class = @$node.data 'ad_css_class'
     @ad_params = @$node.data 'ad_params'
 
-    $new_content = $(@html).addClass(@css_class)
-
     if @type == 'yandex_direct'
       @yandex_direct()
     else
@@ -51,7 +49,10 @@ class DynamicElements.DesktopAd extends View
     Ya.Context.AdvManager.render @ad_params
 
   advertur: ->
-    @$node.replaceWith $new_content
+    @$node.replaceWith $(@html).addClass(@css_class)
+
+    # $new_content = $(@html).addClass(@css_class)
+
     # $iframe = $new_content.find 'iframe'
     # console.log $new_content.html()
 
