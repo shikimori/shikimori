@@ -28,13 +28,11 @@ class DynamicElements.DesktopAd extends View
       @load_yandex_js()
 
   load_yandex_js: ->
-    debugger
     yandex_direct_pending_ads.push @render_yandex_ad
 
     ((w, d, n, s, t) =>
       w[n] = w[n] || [];
       w[n].push =>
-        debugger
         yandex_direct_loaded = true
         yandex_direct_pending_ads.forEach (render) -> render()
         yandex_direct_pending_ads = []
@@ -48,7 +46,6 @@ class DynamicElements.DesktopAd extends View
     )(window, window.document, 'yandexContextAsyncCallbacks');
 
   render_yandex_ad: =>
-    debugger
     Ya.Context.AdvManager.render @ad_params
 
   advertur: ->
