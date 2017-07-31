@@ -38,7 +38,7 @@ class DynamicElements.DesktopAd extends View
     yandex_direct_state = YANDEX_DIRECT_STATE.LOADING
     @schedule_yandex_ad()
 
-    ((w, d, n, s, t) =>
+    ((w, d, n) =>
       w[n] = w[n] || [];
       w[n].push =>
         yandex_direct_state = YANDEX_DIRECT_STATE.LOADED
@@ -50,6 +50,7 @@ class DynamicElements.DesktopAd extends View
       s.type = "text/javascript";
       s.src = "//an.yandex.ru/system/context.js";
       s.async = true;
+      s.onerror = => window.remove_ad @css_class
       t.parentNode.insertBefore(s, t);
     )(window, window.document, 'yandexContextAsyncCallbacks');
 

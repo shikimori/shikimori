@@ -9,6 +9,8 @@ class AdsPolicy
   FORBIDDEN_USER_IDS = MODERATOR_IDS.uniq - User::ADMINS
 
   def allowed?
+    return false if yandex_direct? && Rails.env.development?
+
     @is_ru_host && allowed_user? && (@is_shikimori || !yandex_direct?)
   end
 

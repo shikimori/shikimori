@@ -28,9 +28,13 @@ html
             width: #{params[:width]},
             height: #{params[:height]}
           });
+
+          t = d.getElementsByTagName("script")[0];
+          s = d.createElement("script");
+          s.type = "text/javascript";
+          s.src = "//ddnk.advertur.ru/v1/s/loader.js";
+          s.async = true;
+          s.onerror = function() { no_ad_loaded() }
+          t.parentNode.insertBefore(s, t);
+
         })(window, document, 'advertur_sections');
-      script[
-        type="text/javascript"
-        src="//ddnk.advertur.ru/v1/s/loader.js"
-        async
-      ]
