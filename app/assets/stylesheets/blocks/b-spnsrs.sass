@@ -1,13 +1,18 @@
 @import mixins/block
 @import mixins/responsive
 
-.b-spnsrs_block_1
+.b-spnsrs-advrtr_240x400,
+.b-spnsrs-yd_240x400,
+.b-spnsrs-yd_horizontal_poster_2x,
   +block2
+  overflow: hidden
+
   iframe
     max-width: 100%
 
-.b-spnsrs_block_2
+.b-spnsrs-advrtr_728x90
   +block
+  overflow: hidden
 
   &:first-child
     margin-bottom: $block_offset / 2
@@ -24,7 +29,7 @@
     +gte_ipad
       max-width: 728px
 
-.b-spnsrs_block_3
-  +block2
-  iframe
-    max-width: 100%
+// .b-spnsrs_block_3
+  // +block2
+  // iframe
+    // max-width: 100%

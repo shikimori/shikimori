@@ -11,6 +11,7 @@ describe ListImports::Import do
     let!(:anime) { create :anime, id: 999_999, name: 'Test name' }
 
     it do
+      binding.pry unless user.anime_rates.size == 1
       expect(user.anime_rates).to have(1).item
       expect(user.anime_rates.first).to have_attributes(
         target_id: 999_999,

@@ -18,17 +18,17 @@ html
     - if Rails.env.development? || Rails.env.test?
       #placeholder style="box-sizing: border-box; width: #{params[:width]}px; height: #{params[:height]}px; background: #ddd; border: 1px solid #aaa;" &nbsp;
     - else
-      div id="advertur_#{params[:id]}"
+      div id="advrtr_#{params[:id]}"
       javascript:
         (function(w, d, n) {
           w[n] = w[n] || [];
           w[n].push({
             section_id: #{params[:id]},
-            place: "advertur_#{params[:id]}",
+            place: "advrtr_#{params[:id]}",
             width: #{params[:width]},
             height: #{params[:height]}
           });
-        })(window, document, "advertur_sections");
+        })(window, document, 'advertur_sections');
       script[
         type="text/javascript"
         src="//ddnk.advertur.ru/v1/s/loader.js"

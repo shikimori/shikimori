@@ -1,117 +1,122 @@
 class Ad < ViewObjectBase
-  vattr_initialize :width, :height
+  # present advertur blocks
+  # block_1: [92_129, 2_731],
+  # block_2: [92_445, 1_256],
+  # block_3: [92_485, nil]
 
-  ADVERTUR_IDS = {
-    block_1: [92_129, 2_731],
-    block_2: [92_445, 1_256],
-    block_3: [92_485, nil]
+  BANNERS = {
+    advrtr_728x90: {
+      provider: Types::Ad::Provider[:advertur],
+      advertur_id: 1_256,
+      width: 728,
+      height: 90
+    },
+    advrtr_240x400: {
+      provider: Types::Ad::Provider[:advertur],
+      advertur_id: 2_731,
+      width: 240,
+      height: 400
+    },
+    yd_horizontal_poster_2x: {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-227837-4'
+    },
+    yd_240x400: {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-227837-2'
+    },
+    yd_wo_fallback: {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: nil
+    }
   }
-  YANDEX_DIRECT_IDS = {
-    topics: 'R-A-227837-4',
-    default: 'R-A-227837-2'
+  FALLBACKS = {
+    yd_horizontal_poster_2x: :advrtr_240x400,
+    yd_240x400: :advrtr_240x400
   }
 
-  ERROR = 'unknown ad size'
+  attr_reader :banner_type, :policy
+  delegate :allowed?, to: :policy
 
-  def allowed?
-    !moderator_ids.include? h.current_user&.id
+  def initialize banner_type
+    @banner_type = banner_type
+    @policy = build_policy
+
+    if !@policy.allowed? && FALLBACKS[@banner_type]
+      @banner_type = FALLBACKS[banner_type]
+      @policy = build_policy
+    end
   end
 
-  def html
-    <<~HTML.strip
-      <div class="b-spnsrs_#{block_key}">
-      <center>
-      #{ad_html}
-      </center>
-      </div>
-    HTML
+  def provider
+    banner[:provider]
   end
 
-  def container_class
-    "spnsrs_#{block_key}_#{@width}_#{@height}"
-  end
+  def ad_params
+    return unless yandex_direct?
 
-  def params
     {
-      blockId: yandex_direct_id,
-      renderTo: yandex_direct_node_id,
+      blockId: @banner_type,
+      renderTo: @banner_type,
       async: true
     }
   end
 
-  def type
-    if yandex_direct?
-      :yandex_direct
-    else
-      :advertur
-    end
+  def css_class
+    # if yandex_direct?
+      # "spnsrs_#{@banner_type}"
+    # else
+      # "spnsrs_#{@banner_type}_#{banner[:width]}x#{banner[:height]}"
+    # end
+
+    "spnsrs_#{@banner_type}"
   end
 
-  def yandex_direct?
-    h.ru_host? && h.shikimori? && block_key == :block_1 &&
-      !Rails.env.development?# && h.current_user&.id == 1
+  def to_html
+    <<-HTML.gsub(/\n|^\ +/, '')
+      <div class="b-spnsrs-#{@banner_type}">
+        <center>
+          #{ad_html}
+        </center>
+      </div>
+    HTML
   end
 
 private
 
-  def yandex_direct_ad
-    "<div id='#{yandex_direct_node_id}'></div>"
+  def build_policy
+    AdsPolicy.new(
+      is_ru_host: h.ru_host?,
+      is_shikimori: h.shikimori?,
+      ad_provider: provider,
+      user_id: h.current_user&.id
+    )
+  end
+
+  def banner
+    BANNERS[@banner_type]
+  end
+
+  def yandex_direct?
+    provider == Types::Ad::Provider[:yandex_direct]
   end
 
   def ad_html
     if yandex_direct?
-      yandex_direct_ad
+      "<div id='#{@banner_type}'></div>"
     else
-      advertur_ad
+      "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
+        "height='#{banner[:height]}px'>"
     end
-  end
-
-  def advertur_ad
-    "<iframe src='#{advertur_url}' width='#{width}px' height='#{height}px'>"
-  end
-
-  # rubocop:disable CyclomaticComplexity
-  def block_key
-    return :block_1 if @width == 240 && @height == 400
-    return :block_2 if @width == 728 && @height == 90
-    return :block_3 if @width == 300 && @height == 250
-
-    raise ArgumentError, ERROR
-  end
-  # rubocop:enable CyclomaticComplexity
-
-  def domain_key
-    h.shikimori? ? 0 : 1
-  end
-
-  def moderator_ids
-    (
-      User::MODERATORS + User::REVIEWS_MODERATORS + User::VERSIONS_MODERATORS +
-      User::VIDEO_MODERATORS + User::TRUSTED_VERSION_CHANGERS +
-      User::TRUSTED_VIDEO_UPLOADERS
-    ).uniq - User::ADMINS
   end
 
   def advertur_url
     h.spnsr_url(
-      advertur_id,
-      width: @width,
-      height: @height,
-      container_class: container_class,
+      banner[:advertur_id],
+      width: banner[:width],
+      height: banner[:height],
+      container_class: css_class,
       protocol: false
     )
-  end
-
-  def advertur_id
-    ADVERTUR_IDS.dig(block_key, domain_key) || raise(ArgumentError, ERROR)
-  end
-
-  def yandex_direct_id
-    YANDEX_DIRECT_IDS[h.params[:controller].to_sym] ||
-      YANDEX_DIRECT_IDS[:default]
-  end
-
-  def yandex_direct_node_id
-    :block_1_yd
   end
 end

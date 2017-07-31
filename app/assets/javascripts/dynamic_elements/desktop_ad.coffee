@@ -16,12 +16,12 @@ class DynamicElements.DesktopAd extends View
   initialize: ->
     return if is_mobile() && !mobile_detect.tablet()
 
-    @type = @$node.data 'ad_type'
+    @provider = @$node.data 'ad_provider'
     @html = @$node.data 'ad_html'
     @css_class = @$node.data 'ad_css_class'
     @ad_params = @$node.data 'ad_params'
 
-    if @type == 'yandex_direct'
+    if @provider == 'yandex_direct'
       @yandex_direct()
     else
       @advertur()

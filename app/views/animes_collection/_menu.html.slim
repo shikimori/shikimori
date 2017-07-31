@@ -22,7 +22,8 @@
           href="#{recommendations_url klass: menu.klass.name.downcase, subdomain: false}"
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
-  / = render 'spnsrs/ad', ad: Ad.new(240, 400)
+  - unless %w[user_rates userlist_comparer].include? params[:controller]
+    = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)
 
   .block
     .subheadline = menu.klass.human_attribute_name :status
@@ -109,7 +110,7 @@
           input type="checkbox" autocomplete="off"
           = season.catalog_title
 
-  - unless ['user_rates', 'userlist_comparer'].include? params[:controller]
+  - unless %w[user_rates userlist_comparer].include? params[:controller]
     .block.scores
       .subheadline = i18n_i 'Score'
       ul.b-block_list.scores.anime-params
@@ -157,5 +158,5 @@
                 data-href="#{tooltip_genre_url genre, subdomain: false}"
               ]
 
-  - unless %w[user_rates userlist_comparer].include? params[:controller]
-    = render 'spnsrs/ad', ad: Ad.new(240, 400)
+  / - unless %w[user_rates userlist_comparer].include? params[:controller]
+    = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)

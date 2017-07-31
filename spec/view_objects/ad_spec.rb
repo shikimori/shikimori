@@ -1,13 +1,18 @@
 describe Ad do
-  subject(:ad) { Ad.new width, height }
+  subject(:ad) { Ad.new banner_type }
+  let(:banner_type) { :yd_horizontal_poster_2x }
 
-  before do
-    allow(ad.h).to receive(:params).and_return params
-    allow(ad.h).to receive(:ru_host?).and_return is_ru_host
-    allow(ad.h).to receive(:shikimori?).and_return is_shikimori
-    allow(ad.h).to receive(:current_user).and_return user
+  before { allow_any_instance_of(Ad).to receive(:h).and_return h }
+
+  let(:h) do
+    double(
+      params: params,
+      ru_host?: is_ru_host,
+      shikimori?: is_shikimori,
+      current_user: user,
+      spnsr_url: 'zxc'
+    )
   end
-
   let(:params) { { controller: 'anime' } }
   let(:is_ru_host) { true }
   let(:is_shikimori) { true }
@@ -15,167 +20,89 @@ describe Ad do
   let(:height) { 400 }
   let(:user) { nil }
 
+  describe '#banner_type' do
+    it { expect(ad.banner_type).to eq :yd_horizontal_poster_2x }
+
+    context 'not allowed banner type' do
+      let(:is_shikimori) { false }
+
+      context 'with fallback' do
+        it { expect(ad.banner_type).to eq :advrtr_240x400 }
+      end
+
+      context 'without fallback' do
+        let(:banner_type) { :yd_wo_fallback }
+        it { expect(ad.banner_type).to eq :yd_wo_fallback }
+      end
+    end
+  end
+
+  describe '#provider' do
+    it { expect(ad.provider).to eq Ad::BANNERS[banner_type][:provider] }
+  end
+
   describe '#allowed?' do
-    context 'no user' do
-      it { is_expected.to be_allowed }
-    end
-
-    context 'user' do
-      let(:user) { build_stubbed :user, id: 9_876_543 }
-      it { is_expected.to be_allowed }
-    end
-
-    context 'admin' do
-      let(:user) { build_stubbed :user, :admin }
-      it { is_expected.to be_allowed }
-    end
-
-    context 'moderator' do
-      let(:user) { build_stubbed :user, :versions_moderator }
-      it { is_expected.to_not be_allowed }
-    end
+    before { allow(ad.policy).to receive(:allowed?).and_return :zz }
+    it { expect(ad.allowed?).to eq :zz }
   end
 
-  describe '#html' do
-    context 'advertur' do
-      let(:is_shikimori) { false }
+  describe '#ad_params' do
+    context 'yandex direct' do
       it do
-        expect(ad.html).to include '<div class="b-spnsrs_block_1">'
-        expect(ad.html).to include '<iframe src'
-        expect(ad.html).to include "width='240px' height='400px'"
+        expect(ad.ad_params).to eq(
+          blockId: banner_type,
+          renderTo: banner_type,
+          async: true
+        )
       end
     end
 
-    context 'yandex_direct' do
+    context 'advertur' do
+      let(:banner_type) { :advrtr_240x400 }
+      it { expect(ad.ad_params).to be_nil }
+    end
+  end
+
+  describe '#css_class' do
+    context 'yandex direct' do
+      it { expect(ad.css_class).to eq "spnsrs_#{banner_type}" }
+    end
+
+    context 'advertur' do
+      let(:banner_type) { :advrtr_240x400 }
+      it { expect(ad.css_class).to eq "spnsrs_#{banner_type}" }
+    end
+  end
+
+  describe '#to_html' do
+    context 'advertur' do
+      let(:banner_type) { :advrtr_240x400 }
       it do
-        expect(ad.html).to include '<div class="b-spnsrs_block_1">'
-        expect(ad.html).to include "<div id='#{ad.send :yandex_direct_node_id}'></div>"
+        expect(ad.to_html).to eq(
+          <<-HTML.gsub(/\n|^\ +/, '')
+            <div class="b-spnsrs-advrtr_240x400">
+              <center>
+                <iframe src='zxc' width='240px' height='400px'>
+              </center>
+            </div>
+          HTML
+        )
       end
     end
-  end
-
-  describe '#type' do
-    before { allow(ad).to receive(:yandex_direct?).and_return is_yandex_direct }
 
     context 'yandex_direct' do
-      let(:is_yandex_direct) { true }
-      it { expect(ad.type).to eq :yandex_direct }
-    end
-
-    context 'advertur' do
-      let(:is_yandex_direct) { false }
-      it { expect(ad.type).to eq :advertur }
-    end
-  end
-
-  describe '#yandex_direct?' do
-    it { is_expected.to be_yandex_direct }
-
-    context 'not shikimori' do
-      let(:is_shikimori) { false }
-      it { is_expected.to_not be_yandex_direct }
-    end
-
-    context 'not ru_host' do
-      let(:is_ru_host) { false }
-      it { is_expected.to_not be_yandex_direct }
-    end
-
-    context 'not block_1' do
-      let(:width) { 728 }
-      let(:height) { 90 }
-      it { is_expected.to_not be_yandex_direct }
-    end
-  end
-
-  describe '#advertur_id' do
-    subject { ad.send :advertur_id }
-
-    context 'shikimori' do
-      let(:is_shikimori) { true }
-
-      context '240x400' do
-        let(:width) { 240 }
-        let(:height) { 400 }
-        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_1][0] }
+      let(:banner_type) { :yd_240x400 }
+      it do
+        expect(ad.to_html).to eq(
+          <<-HTML.gsub(/\n|^\ +/, '')
+            <div class="b-spnsrs-yd_240x400">
+              <center>
+                <div id='yd_240x400'></div>
+              </center>
+            </div>
+          HTML
+        )
       end
-
-      context '728x90' do
-        let(:width) { 728 }
-        let(:height) { 90 }
-        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_2][0] }
-      end
-
-      context '300x250' do
-        let(:width) { 300 }
-        let(:height) { 250 }
-        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_3][0] }
-      end
-
-      context 'bad size' do
-        let(:width) { 728 }
-        let(:height) { 91 }
-        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
-      end
-    end
-
-    context 'anime online' do
-      let(:is_shikimori) { false }
-
-      context '240x400' do
-        let(:width) { 240 }
-        let(:height) { 400 }
-        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_1][1] }
-      end
-
-      context '728x90' do
-        let(:width) { 728 }
-        let(:height) { 90 }
-        it { is_expected.to eq Ad::ADVERTUR_IDS[:block_2][1] }
-      end
-
-      context '300x250' do
-        let(:width) { 300 }
-        let(:height) { 250 }
-        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
-      end
-
-      context 'bad size' do
-        let(:width) { 728 }
-        let(:height) { 91 }
-        it { expect { subject }.to raise_error ArgumentError, Ad::ERROR }
-      end
-    end
-  end
-
-  describe '#yandex_direct_id' do
-    it { expect(ad.send :yandex_direct_id).to eq Ad::YANDEX_DIRECT_IDS[:default] }
-  end
-
-  describe '#yandex_direct_node_id' do
-    it { expect(ad.send :yandex_direct_node_id).to eq :block_1_yd }
-  end
-
-  describe '#advertur_url' do
-    it do
-      expect(ad.send :advertur_url).to eq(
-        "//test.host/spnsrs/#{ad.send :advertur_id}"\
-          "?container_class=#{ad.container_class}&height=400&width=240"
-      )
-    end
-  end
-
-  describe '#container_class' do
-    before { allow(ad).to receive(:yandex_direct?).and_return is_yandex_direct }
-
-    context 'yandex_direct' do
-      let(:is_yandex_direct) { true }
-      it { expect(ad.container_class).to eq 'spnsrs_block_1_240_400' }
-    end
-
-    context 'advertur' do
-      let(:is_yandex_direct) { false }
-      it { expect(ad.container_class).to eq 'spnsrs_block_1_240_400' }
     end
   end
 end
