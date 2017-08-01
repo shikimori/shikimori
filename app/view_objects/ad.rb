@@ -36,7 +36,7 @@ class Ad < ViewObjectBase
   }
 
   attr_reader :banner_type, :policy
-  delegate :allowed?, to: :policy
+  # delegate :allowed?, to: :policy
 
   def initialize banner_type
     @banner_type = banner_type
@@ -51,6 +51,15 @@ class Ad < ViewObjectBase
       @banner_type = :yd_horizontal_poster_2x
       @policy = build_policy
     end
+  end
+
+  def allowed?
+    # temporarily disable advertur
+    if provider == Types::Ad::Provider[:advertur] &&
+        h.params[:action] != 'advertur_test'
+      return false
+    end
+    policy.allowed?
   end
 
   def provider
