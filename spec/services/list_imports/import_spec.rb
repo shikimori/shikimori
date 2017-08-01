@@ -70,6 +70,22 @@ describe ListImports::Import do
     end
   end
 
+  context 'broken file' do
+    let(:list_import) do
+      create :list_import, :broken_file, :anime, :pending, user: user
+    end
+
+    it do
+      expect(list_import).to be_failed
+      expect(list_import.output).to eq(
+        'error' => { 'type' => ListImport::ERROR_BROKEN_FILE }
+      )
+
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
+    end
+  end
+
   context 'broken list' do
     let(:list_import) do
       create :list_import, :shiki_json_broken, :anime, :pending, user: user

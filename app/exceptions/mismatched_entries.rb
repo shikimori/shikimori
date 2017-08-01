@@ -1,4 +1,4 @@
-class MismatchedEntries < Exception
+class MismatchedEntries < ArgumentError
   def initialize unmatched, ambiguous, twice_matched
     messages = []
     messages << "unmatched:\n#{unmatched.join "\n"}\n" if unmatched.any?

@@ -2,6 +2,7 @@ class ListImport < ApplicationRecord
   include Translation
 
   ERROR_EXCEPTION = 'error_exception'
+  ERROR_BROKEN_FILE = 'broken_file'
   ERROR_EMPTY_LIST = 'empty_list'
   ERROR_MISMATCHED_LIST_TYPE = 'mismatched_list_type'
 

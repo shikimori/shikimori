@@ -3,6 +3,8 @@ class ListImports::Import
 
   def call
     User.transaction { do_import }
+  rescue ListImports::ParseFile::BrokenFileError
+    specific_error ListImport::ERROR_BROKEN_FILE
   rescue StandardError => e
     exception_error e
   end

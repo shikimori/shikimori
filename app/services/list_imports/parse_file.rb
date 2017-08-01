@@ -3,11 +3,15 @@ class ListImports::ParseFile
 
   GZIP = 'gzip compressed data'
 
+  class BrokenFileError < RuntimeError; end
+
   def call
     if xml?
       ListImports::ParseXml.call content
-    else
+    elsif json?
       ListImports::ParseJson.call content
+    else
+      raise BrokenFileError
     end
   end
 
@@ -34,6 +38,10 @@ private
   end
 
   def xml?
-     content.starts_with? '<?xml'
+    content.starts_with? '<?xml'
+  end
+
+  def json?
+    content.starts_with? '['
   end
 end

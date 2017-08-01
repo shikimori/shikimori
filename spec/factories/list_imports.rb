@@ -42,17 +42,22 @@ FactoryGirl.define do
     trait :shiki_json_broken do
       list { File.new "#{Rails.root}/spec/files/list_broken.json" }
     end
+    trait :broken_file do
+      list { File.new "#{Rails.root}/spec/files/broken_list.txt" }
+    end
 
     trait :error_exception do
       failed
       output error: { type: ListImport::ERROR_EXCEPTION }
     end
-
     trait :error_empty_list do
       failed
       output error: { type: ListImport::ERROR_EMPTY_LIST }
     end
-
+    trait :error_broken_file do
+      failed
+      output error: { type: ListImport::ERROR_BROKEN_FILE }
+    end
     trait :error_mismatched_list_type do
       failed
       output error: { type: ListImport::ERROR_MISMATCHED_LIST_TYPE }

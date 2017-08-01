@@ -3,6 +3,7 @@ class ListImportView < ViewObjectBase
   instance_cache :added, :updated, :not_imported
 
   ERROR_EMPTY_LIST = ListImport::ERROR_EMPTY_LIST
+  ERROR_BROKEN_FILE = ListImport::ERROR_BROKEN_FILE
   ERROR_MISMATCHED_LIST_TYPE = ListImport::ERROR_MISMATCHED_LIST_TYPE
 
   def added
@@ -31,6 +32,11 @@ class ListImportView < ViewObjectBase
   def empty_list_error?
     @list_import.failed? &&
       @list_import.output&.dig('error', 'type') == ERROR_EMPTY_LIST
+  end
+
+  def broken_file_error?
+    @list_import.failed? &&
+      @list_import.output&.dig('error', 'type') == ERROR_BROKEN_FILE
   end
 
   def mismatched_list_type_error?
