@@ -21,7 +21,21 @@ describe Ad do
   let(:user) { nil }
 
   describe '#banner_type' do
-    it { expect(ad.banner_type).to eq :yd_horizontal_poster_2x }
+    it { expect(ad.banner_type).to eq banner_type }
+
+    context 'topics controller' do
+      let(:params) { { controller: 'topics' } }
+
+      context 'not yd_240x400' do
+        let(:banner_type) { :advrtr_240x400 }
+        it { expect(ad.banner_type).to eq banner_type }
+      end
+
+      context 'yd_240x400' do
+        let(:banner_type) { :yd_240x400 }
+        it { expect(ad.banner_type).to eq :yd_horizontal_poster_2x }
+      end
+    end
 
     context 'not allowed banner type' do
       let(:is_shikimori) { false }

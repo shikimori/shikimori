@@ -46,6 +46,11 @@ class Ad < ViewObjectBase
       @banner_type = FALLBACKS[banner_type]
       @policy = build_policy
     end
+
+    if @banner_type == :yd_240x400 && h.params[:controller] == 'topics'
+      @banner_type = :yd_horizontal_poster_2x
+      @policy = build_policy
+    end
   end
 
   def provider
