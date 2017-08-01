@@ -18,6 +18,8 @@
     .subheadline.m5 = t '.contest_type'
     p = resource.strategy_type.text
 
+  = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)
+
   - cache resource do
     - if resource.uniq_voters > 0
       .block
@@ -62,5 +64,3 @@
         a.addthis_button_google_plusone_share
         a.addthis_button_odnoklassniki_ru
         a.addthis_button_compact
-
-  = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)
