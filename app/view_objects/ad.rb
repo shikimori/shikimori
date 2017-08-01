@@ -1,3 +1,4 @@
+# rubocop:disable ClassLength
 class Ad < ViewObjectBase
   # present advertur blocks
   # block_1: [92_129, 2_731],
@@ -43,24 +44,13 @@ class Ad < ViewObjectBase
   attr_reader :banner_type, :policy
   # delegate :allowed?, to: :policy
 
-  # rubocop:disable AbcSize
   def initialize banner_type
-    @banner_type = banner_type
-    @policy = build_policy
+    switch_banner banner_type
 
-    if !@policy.allowed? && FALLBACKS[@banner_type]
-      switch_banner FALLBACKS[banner_type]
-    end
-
-    if @banner_type == :yd_rtb_x240 && h.params[:controller] == 'topics'
-      switch_banner :yd_poster_x300_2x
-    end
-
-    if @banner_type == :yd_poster_x300_2x && body_width_x1000?
-      switch_banner :yd_poster_x240_2x
-    end
+    switch_banner :yd_poster_x300_2x if yd_rtb_in_topics?
+    switch_banner :yd_poster_x240_2x if yd_x300_body_x1000?
+    switch_banner FALLBACKS[banner_type] if not_allowed_with_fallback?
   end
-  # rubocop:enable AbcSize
 
   def allowed?
     # temporarily disable advertur
@@ -148,7 +138,17 @@ private
     )
   end
 
-  def body_width_x1000?
-    h.current_user&.preferences&.body_width_x1000?
+  def yd_rtb_in_topics?
+    @banner_type == :yd_rtb_x240 && h.params[:controller] == 'topics'
+  end
+
+  def yd_x300_body_x1000?
+    @banner_type == :yd_poster_x300_2x &&
+      h.current_user&.preferences&.body_width_x1000?
+  end
+
+  def not_allowed_with_fallback?
+    !@policy.allowed? && FALLBACKS[@banner_type]
   end
 end
+# rubocop:enable ClassLength
