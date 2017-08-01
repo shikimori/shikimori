@@ -4,12 +4,20 @@
 @import mixins/responsive
 @import mixins/retina
 
+.x1000 .menu-slide-outer
+  &.x199, &.x240
+    .l-menu
+      +gte_ipad-landscape
+        +column(2, .2625, 3%)
+
+    .l-content
+      +gte_ipad-landscape
+        +column(2, .7375, 3%) // 300px должно получиться
+
 .menu-slide-outer
   &.x199
     .l-menu
-      +gt_ipad
-        +column(2, .2202, 3%)
-      +ipad-landscape
+      +gte_ipad-landscape
         +column(2, .2202, 3%)
       +ipad-portrait
         +column(2, .23, 3%)
@@ -20,9 +28,7 @@
 
     .l-content
       +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
-      +gt_ipad
-        +column(2, .7798, 3%) // 240px должно получиться
-      +ipad-landscape
+      +gte_ipad-landscape
         +column(2, .7798, 3%) // 240px должно получиться
       +ipad-portrait
         +column(2, .77, 3%)
@@ -33,9 +39,7 @@
 
   &.x240
     .l-menu
-      +gt_ipad
-        +column(2, 0.2721, 3%)
-      +ipad-landscape
+      +gte_ipad-landscape
         +column(2, 0.2625, 3%)
       +ipad-portrait
         +column(2, 0.25, 3%)
@@ -46,10 +50,8 @@
 
     .l-content
       +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
-      +gt_ipad
+      +gte_ipad-landscape
         +column(2, 0.7279, 3%) // 300px должно получиться
-      +ipad-landscape
-        +column(2, 0.7375, 3%) // 300px должно получиться
       +ipad-portrait
         +column(2, 0.75, 3%)
       +iphone-landscape
