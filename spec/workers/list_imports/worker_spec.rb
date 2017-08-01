@@ -1,9 +1,22 @@
 describe ListImports::Worker do
   let(:worker) { ListImports::Worker.new }
-  let(:list_import) { create :list_import }
+  let(:list_import) { create :list_import, state }
 
   before { allow(ListImports::Import).to receive :call }
   subject! { worker.perform list_import.id }
 
-  it { expect(ListImports::Import).to have_received(:call).with list_import }
+  context 'pending' do
+    let(:state) { :pending }
+    it { expect(ListImports::Import).to have_received(:call).with list_import }
+  end
+
+  context 'failed' do
+    let(:state) { :failed }
+    it { expect(ListImports::Import).to_not have_received :call }
+  end
+
+  context 'finished' do
+    let(:state) { :finished }
+    it { expect(ListImports::Import).to_not have_received :call }
+  end
 end
