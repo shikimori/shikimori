@@ -5,7 +5,10 @@ class UserPreferences < ApplicationRecord
     in: %i[public users friends owner],
     predicates: { prefix: true },
     default: :public
-  enumerize :body_width, in: %i[x1200 x1000], default: :x1200
+  enumerize :body_width,
+    in: %i[x1200 x1000],
+    predicates: { prefix: true },
+    default: :x1200
   enumerize :comment_policy,
     in: %i[users friends owner],
     predicates: { prefix: true },

@@ -1,6 +1,6 @@
 describe Ad do
   subject(:ad) { Ad.new banner_type }
-  let(:banner_type) { :yd_horizontal_poster_2x }
+  let(:banner_type) { :yd_poster_x300_2x }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
 
@@ -23,17 +23,32 @@ describe Ad do
   describe '#banner_type' do
     it { expect(ad.banner_type).to eq banner_type }
 
-    context 'topics controller' do
+    describe 'yd_poster_x300_2x -> yd_rtb_x240' do
+      let(:user) { build_stubbed :user, preferences: preferences }
+      let(:preferences) { build_stubbed :user_preferences, body_width: body_width }
+
+      context 'x1000 site width' do
+        let(:body_width) { :x1000 }
+        it { expect(ad.banner_type).to eq :yd_poster_x240_2x }
+      end
+
+      context 'x1200 site width' do
+        let(:body_width) { :x1200 }
+        it { expect(ad.banner_type).to eq banner_type }
+      end
+    end
+
+    describe 'yd_rtb_x240 -> yd_poster_x300_2x' do
       let(:params) { { controller: 'topics' } }
 
-      context 'not yd_240x400' do
-        let(:banner_type) { :advrtr_240x400 }
+      context 'not yd_rtb_x240' do
+        let(:banner_type) { :advrtr_x240 }
         it { expect(ad.banner_type).to eq banner_type }
       end
 
-      context 'yd_240x400' do
-        let(:banner_type) { :yd_240x400 }
-        it { expect(ad.banner_type).to eq :yd_horizontal_poster_2x }
+      context 'yd_rtb_x240' do
+        let(:banner_type) { :yd_rtb_x240 }
+        it { expect(ad.banner_type).to eq :yd_poster_x300_2x }
       end
     end
 
@@ -41,7 +56,7 @@ describe Ad do
       let(:is_shikimori) { false }
 
       context 'with fallback' do
-        it { expect(ad.banner_type).to eq :advrtr_240x400 }
+        it { expect(ad.banner_type).to eq :advrtr_x240 }
       end
 
       context 'without fallback' do
@@ -72,7 +87,7 @@ describe Ad do
     end
 
     context 'advertur' do
-      let(:banner_type) { :advrtr_240x400 }
+      let(:banner_type) { :advrtr_x240 }
       it { expect(ad.ad_params).to be_nil }
     end
   end
@@ -83,18 +98,18 @@ describe Ad do
     end
 
     context 'advertur' do
-      let(:banner_type) { :advrtr_240x400 }
+      let(:banner_type) { :advrtr_x240 }
       it { expect(ad.css_class).to eq "spnsrs_#{banner_type}" }
     end
   end
 
   describe '#to_html' do
     context 'advertur' do
-      let(:banner_type) { :advrtr_240x400 }
+      let(:banner_type) { :advrtr_x240 }
       it do
         expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-advrtr_240x400">
+            <div class="b-spnsrs-advrtr_x240">
               <center>
                 <iframe src='zxc' width='240px' height='400px'>
               </center>
@@ -105,13 +120,13 @@ describe Ad do
     end
 
     context 'yandex_direct' do
-      let(:banner_type) { :yd_240x400 }
+      let(:banner_type) { :yd_rtb_x240 }
       it do
         expect(ad.to_html).to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-yd_240x400">
+            <div class="b-spnsrs-yd_rtb_x240">
               <center>
-                <div id='yd_240x400'></div>
+                <div id='yd_rtb_x240'></div>
               </center>
             </div>
           HTML

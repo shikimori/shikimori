@@ -23,7 +23,7 @@
         ] = t "dashboards.#{menu.klass.table_name}.recommended.personalized"
 
   - unless %w[user_rates userlist_comparer].include? params[:controller]
-    = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)
+    = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)
 
   .block
     .subheadline = menu.klass.human_attribute_name :status
@@ -159,4 +159,4 @@
               ]
 
   / - unless %w[user_rates userlist_comparer].include? params[:controller]
-    = render 'spnsrs/ad', ad: Ad.new(:yd_240x400)
+    = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)

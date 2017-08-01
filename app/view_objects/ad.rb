@@ -5,23 +5,27 @@ class Ad < ViewObjectBase
   # block_3: [92_485, nil]
 
   BANNERS = {
-    advrtr_728x90: {
+    advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
       width: 728,
       height: 90
     },
-    advrtr_240x400: {
+    advrtr_x240: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 2_731,
       width: 240,
       height: 400
     },
-    yd_horizontal_poster_2x: {
+    yd_poster_x300_2x: {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-4'
     },
-    yd_240x400: {
+    yd_poster_x240_2x: {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-227837-5'
+    },
+    yd_rtb_x240: {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-2'
     },
@@ -31,27 +35,32 @@ class Ad < ViewObjectBase
     }
   }
   FALLBACKS = {
-    yd_horizontal_poster_2x: :advrtr_240x400,
-    yd_240x400: :advrtr_240x400
+    yd_poster_x300_2x: :advrtr_x240,
+    yd_poster_x240_2x: :advrtr_x240,
+    yd_rtb_x240: :advrtr_x240
   }
 
   attr_reader :banner_type, :policy
   # delegate :allowed?, to: :policy
 
+  # rubocop:disable AbcSize
   def initialize banner_type
     @banner_type = banner_type
     @policy = build_policy
 
     if !@policy.allowed? && FALLBACKS[@banner_type]
-      @banner_type = FALLBACKS[banner_type]
-      @policy = build_policy
+      switch_banner FALLBACKS[banner_type]
     end
 
-    if @banner_type == :yd_240x400 && h.params[:controller] == 'topics'
-      @banner_type = :yd_horizontal_poster_2x
-      @policy = build_policy
+    if @banner_type == :yd_rtb_x240 && h.params[:controller] == 'topics'
+      switch_banner :yd_poster_x300_2x
+    end
+
+    if @banner_type == :yd_poster_x300_2x && body_width_x1000?
+      switch_banner :yd_poster_x240_2x
     end
   end
+  # rubocop:enable AbcSize
 
   def allowed?
     # temporarily disable advertur
@@ -98,6 +107,11 @@ class Ad < ViewObjectBase
 
 private
 
+  def switch_banner banner_type
+    @banner_type = banner_type
+    @policy = build_policy
+  end
+
   def build_policy
     AdsPolicy.new(
       is_ru_host: h.ru_host?,
@@ -132,5 +146,9 @@ private
       container_class: css_class,
       protocol: false
     )
+  end
+
+  def body_width_x1000?
+    h.current_user&.preferences&.body_width_x1000?
   end
 end
