@@ -55,7 +55,8 @@ class Ad < ViewObjectBase
   def allowed?
     # temporarily disable advertur
     if provider == Types::Ad::Provider[:advertur] &&
-        h.params[:action] != 'advertur_test' && Rails.env.production?
+        h.params[:action] != 'advertur_test' && Rails.env.production? &&
+        h.current_user&.id != 1
       return false
     end
     policy.allowed?
