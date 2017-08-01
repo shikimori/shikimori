@@ -1,7 +1,7 @@
 class ListImports::ListEntry < Dry::Struct
   constructor_type :schema
 
-  attribute :target_title, Types::Strict::String
+  attribute :target_title, Types::Strict::String.optional
   attribute :target_id, Types::Coercible::Int
   attribute :target_type, Types::Strict::String.enum('Anime', 'Manga')
   attribute :score, Types::Coercible::Int.default(0)
