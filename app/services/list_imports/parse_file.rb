@@ -14,7 +14,7 @@ class ListImports::ParseFile
 private
 
   def content
-    read_file.fix_encoding('utf-u', true)
+    @content ||= read_file.fix_encoding('utf-u', true)
   end
 
   def read_file
@@ -34,6 +34,6 @@ private
   end
 
   def xml?
-    @file.path.match?(/\.xml(?:\.gz)?$/)
+     content.starts_with? '<?xml'
   end
 end

@@ -11,7 +11,17 @@ describe ListImports::Import do
     let!(:anime) { create :anime, id: 999_999, name: 'Test name' }
 
     it do
-      binding.pry unless user.anime_rates.size == 1
+      expect(list_import).to be_finished
+      expect(list_import.output).to eq(
+        ListImports::ImportList::ADDED => JSON.parse([
+          ListImports::ListEntry.build(user.anime_rates.first)
+        ].to_json),
+        ListImports::ImportList::UPDATED => [],
+        ListImports::ImportList::NOT_IMPORTED => [],
+        ListImports::ImportList::NOT_CHANGED => []
+      )
+      expect(list_import).to_not be_changed
+
       expect(user.anime_rates).to have(1).item
       expect(user.anime_rates.first).to have_attributes(
         target_id: 999_999,
@@ -25,17 +35,6 @@ describe ListImports::Import do
         chapters: 0
       )
       expect(user.manga_rates).to be_empty
-
-      expect(list_import).to be_finished
-      expect(list_import.output).to eq(
-        ListImports::ImportList::ADDED => JSON.parse([
-          ListImports::ListEntry.build(user.anime_rates.first)
-        ].to_json),
-        ListImports::ImportList::UPDATED => [],
-        ListImports::ImportList::NOT_IMPORTED => [],
-        ListImports::ImportList::NOT_CHANGED => []
-      )
-      expect(list_import).to_not be_changed
     end
   end
 
@@ -45,13 +44,13 @@ describe ListImports::Import do
     end
 
     it do
-      expect(user.anime_rates).to be_empty
-      expect(user.manga_rates).to be_empty
-
       expect(list_import).to be_failed
       expect(list_import.output).to eq(
         'error' => { 'type' => ListImport::ERROR_EMPTY_LIST }
       )
+
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
     end
   end
 
@@ -61,13 +60,13 @@ describe ListImports::Import do
     end
 
     it do
-      expect(user.anime_rates).to be_empty
-      expect(user.manga_rates).to be_empty
-
       expect(list_import).to be_failed
       expect(list_import.output).to eq(
         'error' => { 'type' => ListImport::ERROR_MISMATCHED_LIST_TYPE }
       )
+
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
     end
   end
 
@@ -77,9 +76,6 @@ describe ListImports::Import do
     end
 
     it do
-      expect(user.anime_rates).to be_empty
-      expect(user.manga_rates).to be_empty
-
       expect(list_import).to be_failed
       expect(list_import.output).to have(1).item
       expect(list_import.output['error']).to have(4).items
@@ -90,6 +86,9 @@ describe ListImports::Import do
         .to eq "416: unexpected token at ''"
       expect(list_import.output['error']['backtrace'])
         .to have_at_least(80).items
+
+      expect(user.anime_rates).to be_empty
+      expect(user.manga_rates).to be_empty
     end
   end
 end
