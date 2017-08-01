@@ -1,4 +1,5 @@
 ShikiView = require './shiki_view'
+autosize = require 'autosize'
 
 # TODO: refactor constructor
 module.exports = class ShikiEditor extends ShikiView
@@ -17,9 +18,9 @@ module.exports = class ShikiEditor extends ShikiView
     # при вызове фокуса на shiki-editor передача сообщения в редактор
     @on 'focus', => @$textarea.trigger('focus')
 
-    # по первому фокусу на редактор включаем elastic
+    # по первому фокусу на редактор включаем autosize
     @$textarea.one 'focus', =>
-      delay().then => @$textarea.elastic()
+      delay().then => autosize @$textarea[0]
 
     @$textarea.on 'keypress keydown', (e) =>
       if e.metaKey || e.ctrlKey

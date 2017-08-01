@@ -1,3 +1,5 @@
+autosize = require 'autosize'
+
 using 'Styles'
 class Styles.Edit extends View
   SPECIAL_KEYS = [
@@ -38,6 +40,8 @@ class Styles.Edit extends View
       .on 'cut paste', @_debounced_sync
       .on 'keydown', (e) =>
         @_debounced_sync() unless SPECIAL_KEYS.includes? e.keyCode
+      .one 'focus', =>
+        delay().then => autosize @$css[0]
     @$root
       .on 'component:update', @_component_updated
 
@@ -76,7 +80,8 @@ class Styles.Edit extends View
     else if replacement
       @$css.val (fixed_replacement + css).trim()
 
-    @$css.trigger 'elastic:update'
+    @$css.trigger 'autosize:update'
+
     @_debounced_preview()
 
   _fetch_preview: (css, hash) ->
