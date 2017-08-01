@@ -42,7 +42,7 @@ class Ad < ViewObjectBase
   }
 
   attr_reader :banner_type, :policy
-  delegate :allowed?, to: :policy
+  # delegate :allowed?, to: :policy
 
   def initialize banner_type
     switch_banner banner_type
@@ -52,14 +52,14 @@ class Ad < ViewObjectBase
     switch_banner FALLBACKS[banner_type] if not_allowed_with_fallback?
   end
 
-  # def allowed?
-    # # temporarily disable advertur
-    # if provider == Types::Ad::Provider[:advertur] &&
-        # h.params[:action] != 'advertur_test' && Rails.env.production?
-      # return false
-    # end
-    # policy.allowed?
-  # end
+  def allowed?
+    # temporarily disable advertur
+    if provider == Types::Ad::Provider[:advertur] &&
+        h.params[:action] != 'advertur_test' && Rails.env.production?
+      return false
+    end
+    policy.allowed?
+  end
 
   def provider
     banner[:provider]
