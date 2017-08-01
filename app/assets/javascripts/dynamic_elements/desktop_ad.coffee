@@ -27,7 +27,6 @@ class DynamicElements.DesktopAd extends View
       @advertur()
 
   yandex_direct: ->
-    debugger if SHIKI_USER.id == 1
     if yandex_direct_state == YANDEX_DIRECT_STATE.LOADED
       @render_yandex_ad()
     else if yandex_direct_state == YANDEX_DIRECT_STATE.LOADING
@@ -42,7 +41,6 @@ class DynamicElements.DesktopAd extends View
     ((w, d, n) =>
       w[n] = w[n] || [];
       w[n].push =>
-        debugger if SHIKI_USER.id == 1
         yandex_direct_state = YANDEX_DIRECT_STATE.LOADED
         yandex_direct_pending_ads.forEach (render) -> render()
         yandex_direct_pending_ads = []
@@ -60,7 +58,6 @@ class DynamicElements.DesktopAd extends View
     yandex_direct_pending_ads.push @render_yandex_ad
 
   render_yandex_ad: =>
-    debugger if SHIKI_USER.id == 1
     @replace_node()
     Ya.Context.AdvManager.render @ad_params
 

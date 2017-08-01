@@ -64,7 +64,7 @@ describe Ad do
     context 'yandex direct' do
       it do
         expect(ad.ad_params).to eq(
-          blockId: banner_type,
+          blockId: Ad::BANNERS[banner_type][:yandex_id],
           renderTo: banner_type,
           async: true
         )

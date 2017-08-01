@@ -61,7 +61,7 @@ class Ad < ViewObjectBase
     return unless yandex_direct?
 
     {
-      blockId: @banner_type,
+      blockId: banner[:yandex_id],
       renderTo: @banner_type,
       async: true
     }
