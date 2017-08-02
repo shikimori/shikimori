@@ -97,6 +97,30 @@ describe Url do
     end
   end
 
+  describe '#protocol' do
+    subject { url.protocol.to_s }
+
+    context 'http' do
+      let(:string) { 'http://test.org' }
+      it { is_expected.to eq 'http' }
+    end
+
+    context 'https' do
+      let(:string) { 'https://test.org' }
+      it { is_expected.to eq 'https' }
+    end
+
+    context 'generic' do
+      let(:string) { '//test.org' }
+      it { is_expected.to eq '' }
+    end
+
+    context 'no protocol' do
+      let(:string) { '' }
+      it { is_expected.to eq '' }
+    end
+  end
+
   describe '#cut_www' do
     subject { url.cut_www.to_s }
 

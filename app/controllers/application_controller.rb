@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options options = {}
-    protocol = %w(xml rss).include?(params[:format]) ? Site::DEFAULT_PROTOCOL : false
+    protocol = %w(xml rss).include?(params[:format]) ? Site::ALLOWED_PROTOCOL : false
 
     if params[:locale]
       options.merge protocol: protocol, locale: params[:locale]
@@ -205,7 +205,7 @@ class ApplicationController < ActionController::Base
 
     return ip if Rails.env.test?
 
-    if [231,296,3801,16029,43714,659,22828,56019,88150,93640,67810].include? current_user&.id
+    if [231,296,3801,16029,43714,659,22828,56019,88150,93640,67810,102932].include? current_user&.id
       ip + 'z'
     elsif [70628].include? current_user&.id
       ip + 'x'
