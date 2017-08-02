@@ -104,6 +104,11 @@ ru:
       manga: Какую мангу почитать
       ranobe: Какие ранобэ почитать
 
+  recommendation_ignores_controller:
+    ignores_cleared:
+      anime: Выполнена очистка вашего списка заблокированных рекомендаций аниме
+      manga: Выполнена очистка вашего списка заблокированных рекомендаций манги
+
   collections_controller:
     new_collection: Новая коллекция
     collection_created: Коллекция создана

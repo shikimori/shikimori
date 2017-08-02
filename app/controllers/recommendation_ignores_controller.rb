@@ -6,8 +6,12 @@ class RecommendationIgnoresController < ShikimoriController
   end
 
   def cleanup
-    current_user.recommendation_ignores.where(target_type: klass.name).delete_all
-    render json: { notice: "Очистка списка заблокированных рекомендаций #{params[:target_type] == 'anime' ? 'аниме' : 'манги'} завершена" }
+    current_user
+      .recommendation_ignores
+      .where(target_type: klass.name)
+      .delete_all
+
+    render json: { notice: i18n_t("ignores_cleared.#{params[:target_type]}") }
   end
 
 private

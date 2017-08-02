@@ -104,6 +104,11 @@ en:
       manga: What manga I should read next
       ranobe: What light novel I should read next
 
+  recommendation_ignores_controller:
+    ignores_cleared:
+      anime: Your rejected anime recommendations cleared
+      manga: Your rejected manga recommendations cleared
+
   collections_controller:
     new_collection: New collection
     collection_created: Collection created
