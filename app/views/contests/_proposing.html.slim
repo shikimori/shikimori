@@ -2,7 +2,7 @@
   = render partial: 'contests/public_suggestions', locals: { contest: contest }
 
   - if user_signed_in?
-    - cache [contest, current_user.id] do
+    - cache [contest, current_user.id, current_user&.preferences&.russian_names] do
       = form_for [contest, contest.new_suggestion] do |f|
         = f.hidden_field :item_type
         = f.hidden_field :item_id
