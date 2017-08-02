@@ -1,0 +1,22 @@
+p iframe inner
+button#post_message post message
+javascript:
+  function post_message() {
+    window.parent.postMessage({
+        type: 'remove_ad',
+        ad_class: '123'
+      },
+      location.protocol + '//' + location.hostname
+    );
+  }
+
+  if (window.parent.location.href.includes('debugger')) {
+    debugger;
+  }
+
+  document
+    .getElementById('post_message')
+    .addEventListener('click', post_message);
+
+  window.parent.touch();
+  post_message();

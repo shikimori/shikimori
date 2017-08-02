@@ -1,13 +1,18 @@
-# function is called from ad iframe
-@remove_ad = (ad_class) ->
+remove_ad = (ad_class) ->
   console.log "remove ad #{ad_class}"
   $(".#{ad_class}").remove()
+
+advertur_state = null
 
 yandex_direct_state = null
 yandex_direct_pending_ads = []
 
+ADVERTUR_STATE = {
+  LODED: 'loaded'
+}
+
 YANDEX_DIRECT_STATE = {
-  LOADED:'loaded'
+  LOADED: 'loaded'
   LOADING: 'loading'
 }
 
@@ -22,21 +27,21 @@ class DynamicElements.DesktopAd extends View
     @ad_params = @$node.data 'ad_params'
 
     if @provider == 'yandex_direct'
-      @yandex_direct()
+      @_yandex_direct()
     else
-      @advertur()
+      @_advertur()
 
-  yandex_direct: ->
+  _yandex_direct: ->
     if yandex_direct_state == YANDEX_DIRECT_STATE.LOADED
-      @render_yandex_ad()
+      @_render_yandex_ad()
     else if yandex_direct_state == YANDEX_DIRECT_STATE.LOADING
-      @schedule_yandex_ad()
+      @_schedule_yandex_ad()
     else
-      @load_yandex_js()
+      @_load_yandex_js()
 
-  load_yandex_js: ->
+  _load_yandex_js: ->
     yandex_direct_state = YANDEX_DIRECT_STATE.LOADING
-    @schedule_yandex_ad()
+    @_schedule_yandex_ad()
 
     ((w, d, n) =>
       w[n] = w[n] || [];
@@ -54,17 +59,26 @@ class DynamicElements.DesktopAd extends View
       t.parentNode.insertBefore(s, t);
     )(window, window.document, 'yandexContextAsyncCallbacks');
 
-  schedule_yandex_ad: ->
-    yandex_direct_pending_ads.push @render_yandex_ad
+  _schedule_yandex_ad: ->
+    yandex_direct_pending_ads.push @_render_yandex_ad
 
-  render_yandex_ad: =>
-    @replace_node()
+  _render_yandex_ad: =>
+    @_replace_node()
     Ya.Context.AdvManager.render @ad_params
 
-  advertur: ->
-    @replace_node()
+  _advertur: ->
+    if advertur_state != ADVERTUR_STATE.LOADED
+      @_load_advertur_handler()
 
-  replace_node: ->
+    @_replace_node()
+
+  _load_advertur_handler: ->
+    advertur_state = ADVERTUR_STATE.LOADED
+    $(window).on 'message', (e) ->
+      if e.originalEvent.data?.type == 'remove_ad'
+        remove_ad(e.originalEvent.data.ad_class)
+
+  _replace_node: ->
     @$node.replaceWith $(@html).addClass(@css_class)
 
     # $new_content = $(@html).addClass(@css_class)

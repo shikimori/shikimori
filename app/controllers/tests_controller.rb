@@ -63,4 +63,11 @@ class TestsController < ShikimoriController
     #@entries = query.fetch
     #@links = query.links
   #end
+
+  def iframe
+  end
+
+  def iframe_inner
+    render :iframe_inner, layout: false
+  end
 end

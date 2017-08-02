@@ -3,7 +3,12 @@ html
     = render 'fuckadblock'
     javascript:
       function no_ad_loaded() {
-        window.parent.remove_ad('#{params[:container_class]}');
+        window.parent.postMessage({
+            type: 'remove_ad',
+            ad_class: '#{params[:container_class]}'
+          },
+          location.protocol + '//' + location.hostname
+        );
       };
       function fuck_ad_block() {
         console.warn('adblock detected');
@@ -17,6 +22,11 @@ html
 
     - if Rails.env.development? || Rails.env.test?
       #placeholder style="box-sizing: border-box; width: #{params[:width]}px; height: #{params[:height]}px; background: #ddd; border: 1px solid #aaa;" &nbsp;
+      javascript:
+        document.getElementById('placeholder').addEventListener('click', function() {
+          no_ad_loaded();
+        });
+
     - else
       div id="advrtr_#{params[:id]}"
       javascript:
