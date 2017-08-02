@@ -117,19 +117,22 @@ class ContestDecorator < DbEntryDecorator
 
   # сгруппированные предложения для турнира от пользователей
   def suggestions
-    object.suggestions.includes(:item).by_votes.sort_by {|v| [-v.votes, v.item.name] }
+    object.suggestions
+      .includes(:item)
+      .by_votes
+      .sort_by {|v| [-v.votes, v.item.send(sort_field)] }
   end
   def unordered_suggestions
-    suggestions.sort_by {|v| v.item.name }
+    suggestions.sort_by { |v| v.item.send(sort_field) }
   end
   def median_votes
     suggestions.size > 10 ? suggestions[suggestions.size/3].votes : 0
   end
   def certain_suggestions
-    suggestions.select {|v| v.votes > median_votes }
+    suggestions.select { |v| v.votes > median_votes }
   end
   def uncertain_suggestions
-    suggestions.select {|v| v.votes <= median_votes }
+    suggestions.select { |v| v.votes <= median_votes }
   end
 
   # предложения к контесту от текущего пользователя
@@ -193,6 +196,10 @@ class ContestDecorator < DbEntryDecorator
   end
 
 private
+
+  def sort_field
+    h.current_user&.preferences&.russian_names ? :russian : :name
+  end
 
   def matches_with_associations
     object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
