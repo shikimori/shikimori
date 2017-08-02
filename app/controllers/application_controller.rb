@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   include Translation
 
-  DEFAULT_PROTOCOL = 'https'
-
   #include Mobylette::RespondToMobileRequests
   protect_from_forgery with: :exception
 
@@ -68,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options options = {}
-    protocol = %w(xml rss).include?(params[:format]) ? DEFAULT_PROTOCOL : false
+    protocol = %w(xml rss).include?(params[:format]) ? Site::DEFAULT_PROTOCOL : false
 
     if params[:locale]
       options.merge protocol: protocol, locale: params[:locale]

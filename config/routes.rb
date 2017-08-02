@@ -30,6 +30,20 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  # CORS_HEADERS = Rails.application.config.action_dispatch.default_headers.merge(
+  # CORS_HEADERS = {
+    # 'Access-Control-Allow-Origin' => (
+      # ShikimoriDomain::RU_HOSTS + AnimeOnlineDomain::HOSTS +
+      # ShikimoriDomain::EN_HOSTS
+    # ).join(' '),
+    # 'Access-Control-Request-Method' => '*',
+    # # 'Content-Type' => 'text/plain'
+  # }
+  # routes to allow cors request
+  # match '/*unmatched', via: [:options], to: lambda { |env|
+    # [200, CORS_HEADERS, ["OK\n"]]
+  # }
+
   # do not move these autocompletable concerns into resources definition.
   # they will confict with resource#show routes
   resources :animes, only: [], concerns: %i[autocompletable]

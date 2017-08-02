@@ -28,6 +28,11 @@ module Site
 
   DOMAIN_LOCALES = %i(ru en)
 
+  ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + AnimeOnlineDomain::HOSTS +
+    ShikimoriDomain::EN_HOSTS
+
+  DEFAULT_PROTOCOL = Rails.env.production? ? 'https' : 'http'
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -62,8 +67,12 @@ module Site
 
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins(*(ShikimoriDomain::PUBLIC_HOSTS + [AnimeOnlineDomain::HOST]))
-        resource '*', headers: :any, methods: [:get, :post, :options]
+        origins do |source, env|
+          ALLOWED_DOMAINS.include? Url.new(source).domain.to_s
+        end
+        resource '*',
+          headers: :any,
+          methods: [:get, :options]
       end
     end
 

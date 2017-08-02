@@ -2,7 +2,7 @@ describe Url do
   let(:string) { 'lenta.ru' }
   let(:url) { Url.new string }
 
-  describe 'without_protocol' do
+  describe '#without_protocol' do
     subject { url.without_protocol.to_s }
 
     context 'has_http' do
@@ -13,6 +13,25 @@ describe Url do
     context 'no_http' do
       let(:string) { 'test.org' }
       it { is_expected.to eq '//test.org' }
+    end
+  end
+
+  describe '#without_port' do
+    subject { url.without_port.to_s }
+
+    context 'with path' do
+      let(:string) { 'http://test.org:3000/test' }
+      it { is_expected.to eq 'http://test.org/test' }
+    end
+
+    context 'without path' do
+      let(:string) { 'http://test.org:3000' }
+      it { is_expected.to eq 'http://test.org' }
+    end
+
+    context 'with params' do
+      let(:string) { 'http://test.org:3000?zxc=123' }
+      it { is_expected.to eq 'http://test.org?zxc=123' }
     end
   end
 
@@ -35,7 +54,7 @@ describe Url do
     end
   end
 
-  describe 'without_http' do
+  describe '#without_http' do
     subject { url.without_http.to_s }
 
     context 'has http' do
@@ -56,6 +75,11 @@ describe Url do
 
   describe '#domain' do
     subject { url.domain.to_s }
+
+    context 'with port' do
+      let(:string) { 'http://test.org:3000/test' }
+      it { is_expected.to eq 'test.org' }
+    end
 
     context 'with www' do
       let(:string) { 'http://www.test.org/test' }

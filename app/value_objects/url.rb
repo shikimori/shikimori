@@ -30,6 +30,10 @@ class Url
     chain '//' + without_http.to_s
   end
 
+  def without_port
+    chain @url.gsub %r{:\d+(?=/|\?|$)}, ''
+  end
+
   def with_http
     chain @url.gsub(%r{\A// | \A(?!https?://)}mix, 'http://')
   end
@@ -39,7 +43,7 @@ class Url
   end
 
   def domain
-    chain without_http.to_s.gsub(%r{/.*|\?.*}, '')
+    chain without_http.without_port.to_s.gsub(%r{/.*|\?.*}, '')
   end
 
   def cut_www
