@@ -71,36 +71,36 @@ aside.buttons
 
 .links.hidden-block
   p
-    = label_tag :link_type_url do
+    label
       = radio_button_tag 'link_type', :url, false,
         'data-placeholder' => t('.links.placeholder.page_url')
       span = t '.links.text.link'
 
-    = label_tag :link_type_anime do
+    label
       = radio_button_tag 'link_type', :anime, false,
         'data-placeholder' => t('.links.placeholder.anime_title'),
         'data-autocomplete' => autocomplete_animes_url
       span = Anime.model_name.human.downcase
 
-    = label_tag :link_type_manga do
+    label
       = radio_button_tag 'link_type', :manga, false,
         'data-placeholder' => t('.links.placeholder.manga_title'),
         'data-autocomplete' => autocomplete_mangas_url
       span = Manga.model_name.human.downcase
 
-    = label_tag :link_type_ranobe do
+    label
       = radio_button_tag 'link_type', :ranobe, false,
         'data-placeholder' => t('.links.placeholder.ranobe_title'),
         'data-autocomplete' => autocomplete_ranobe_index_url
       span = Ranobe.model_name.human.downcase
 
-    = label_tag :link_type_character do
+    label
       = radio_button_tag 'link_type', :character, false,
         'data-placeholder' => t('.links.placeholder.character_name'),
         'data-autocomplete' => autocomplete_characters_url
       span = Character.model_name.human.downcase
 
-    = label_tag :link_type_person do
+    label
       = radio_button_tag 'link_type', :person, false,
         'data-placeholder' => t('.links.placeholder.person_name'),
         'data-autocomplete' => autocomplete_people_url
@@ -112,22 +112,22 @@ aside.buttons
 
 .images.hidden-block
   p
-    = label_tag :image_value do
+    label
       = t '.insert_image'
-    = text_field_tag 'image_value', '',
-      class: 'link-value',
-      placeholder: t('.links.placeholder.image_url')
+      = text_field_tag 'image_value', '',
+        class: 'link-value',
+        placeholder: t('.links.placeholder.image_url')
 
     span.b-button.ok data-type='images' OK
 
 .quotes.hidden-block
   p
-    = label_tag :image_value do
+    label
       = t '.quote_user'
-    = text_field_tag 'quote_value', '',
-      class: 'link-value ac_input',
-      placeholder: t('.links.placeholder.user_name'),
-      'data-autocomplete' => autocomplete_users_url
+      = text_field_tag 'quote_value', '',
+        class: 'link-value ac_input',
+        placeholder: t('.links.placeholder.user_name'),
+        'data-autocomplete' => autocomplete_users_url
 
     span.b-button.ok data-type='quotes' OK
 
