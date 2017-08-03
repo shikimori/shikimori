@@ -8,10 +8,15 @@ describe Poll do
   end
 
   describe 'state_machine' do
-    it { is_expected.to have_states :pending, :started }
+    it { is_expected.to have_states :pending, :started, :stopped }
 
     it { is_expected.to handle_events :start, wnen: :pending }
+    it { is_expected.to reject_events :stop, when: :pending }
+
     # it { is_expected.to reject_events :start, wnen: :started }
+    it { is_expected.to handle_events :stop, when: :started }
+
+    it { is_expected.to reject_events :start, :stop, when: :stopped }
   end
 
   describe 'permissions' do
