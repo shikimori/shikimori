@@ -21,8 +21,9 @@ describe Poll do
   end
 
   describe 'permissions' do
-    let(:poll) { build :poll, user: poll_user }
+    let(:poll) { build :poll, poll_state, user: poll_user }
     let(:user) { build_stubbed :user }
+    let(:poll_state) { :started }
 
     subject { Ability.new user }
 
@@ -31,9 +32,31 @@ describe Poll do
 
       it { is_expected.to be_able_to :new, poll }
       it { is_expected.to be_able_to :create, poll }
-      it { is_expected.to be_able_to :start, poll }
-      it { is_expected.to be_able_to :stop, poll }
       it { is_expected.to be_able_to :show, poll }
+
+      context 'pending poll' do
+        let(:poll_state) { :pending }
+
+        it { is_expected.to be_able_to :destroy, poll }
+        it { is_expected.to be_able_to :start, poll }
+        it { is_expected.to_not be_able_to :stop, poll }
+      end
+
+      context 'started poll' do
+        let(:poll_state) { :started }
+
+        it { is_expected.to_not be_able_to :destroy, poll }
+        it { is_expected.to_not be_able_to :start, poll }
+        it { is_expected.to be_able_to :stop, poll }
+      end
+
+      context 'stopped poll' do
+        let(:poll_state) { :stopped }
+
+        it { is_expected.to_not be_able_to :destroy, poll }
+        it { is_expected.to_not be_able_to :start, poll }
+        it { is_expected.to_not be_able_to :stop, poll }
+      end
     end
 
     context 'not import owner' do
@@ -44,6 +67,7 @@ describe Poll do
       it { is_expected.to_not be_able_to :start, poll }
       it { is_expected.to_not be_able_to :stop, poll }
       it { is_expected.to be_able_to :show, poll }
+      it { is_expected.to_not be_able_to :destroy, poll }
     end
 
     context 'no user' do
@@ -55,6 +79,7 @@ describe Poll do
       it { is_expected.to_not be_able_to :start, poll }
       it { is_expected.to_not be_able_to :stop, poll }
       it { is_expected.to be_able_to :show, poll }
+      it { is_expected.to_not be_able_to :destroy, poll }
     end
   end
 end
