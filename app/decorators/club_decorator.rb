@@ -139,7 +139,7 @@ private
   end
 
   def all_characters
-    object.characters.order(:name).decorate
+    object.characters.sort_by { |v| v.send sort_field }.map(&:decorate)
   end
 
   def all_clubs
