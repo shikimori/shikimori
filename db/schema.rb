@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803170739) do
+ActiveRecord::Schema.define(version: 20170803173010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -701,6 +701,12 @@ ActiveRecord::Schema.define(version: 20170803170739) do
     t.index ["person_id"], name: "index_person_roles_on_person_id"
     t.index ["role", "anime_id", "character_id"], name: "i_person_role_role_anime_id"
     t.index ["role", "manga_id", "character_id"], name: "i_person_role_role_manga_id"
+  end
+
+  create_table "poll_variants", force: :cascade do |t|
+    t.bigint "poll_id", null: false
+    t.text "text"
+    t.index ["poll_id"], name: "index_poll_variants_on_poll_id"
   end
 
   create_table "polls", force: :cascade do |t|
