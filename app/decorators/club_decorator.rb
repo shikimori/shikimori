@@ -83,7 +83,7 @@ class ClubDecorator < DbEntryDecorator
     all_characters
       .shuffle
       .take(MENU_ENTRIES)
-      .sort_by { |v| v.send sort_field }
+      .sort_by { |v| h.localized_name(v) }
   end
 
   def menu_clubs
@@ -139,14 +139,12 @@ private
   end
 
   def all_characters
-    object.characters.sort_by { |v| v.send sort_field }.map(&:decorate)
+    object.characters
+      .sort_by { |v| h.localized_name(v) }
+      .map(&:decorate)
   end
 
   def all_clubs
     object.clubs.order(:name)
-  end
-
-  def sort_field
-    h.current_user&.preferences&.russian_names ? :russian : :name
   end
 end

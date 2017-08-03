@@ -120,10 +120,10 @@ class ContestDecorator < DbEntryDecorator
     object.suggestions
       .includes(:item)
       .by_votes
-      .sort_by {|v| [-v.votes, v.item.send(sort_field)] }
+      .sort_by {|v| [-v.votes, h.localized_name(v.item)] }
   end
   def unordered_suggestions
-    suggestions.sort_by { |v| v.item.send(sort_field) }
+    suggestions.sort_by { |v| h.localized_name(v.item) }
   end
   def median_votes
     suggestions.size > 10 ? suggestions[suggestions.size/3].votes : 0
@@ -196,10 +196,6 @@ class ContestDecorator < DbEntryDecorator
   end
 
 private
-
-  def sort_field
-    h.current_user&.preferences&.russian_names ? :russian : :name
-  end
 
   def matches_with_associations
     object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
