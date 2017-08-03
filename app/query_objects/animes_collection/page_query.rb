@@ -12,7 +12,7 @@ class AnimesCollection::PageQuery
 private
 
   def page
-    @page ||= (@params[:page] || 1).to_i
+    @page ||= [@params[:page].to_i, 1].max
   end
 
   def pages_count
