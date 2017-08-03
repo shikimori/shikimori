@@ -109,6 +109,7 @@ class User < ApplicationRecord
 
   has_many :anime_video_reports
   has_many :list_imports, dependent: :destroy
+  has_many :polls, dependent: :destroy
 
   has_attached_file :avatar,
     styles: {

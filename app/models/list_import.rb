@@ -17,6 +17,7 @@ class ListImport < ApplicationRecord
     predicates: { prefix: true }
 
   state_machine :state, initial: :pending do
+    state :pending
     state :finished
     state :failed
 

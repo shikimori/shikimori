@@ -23,6 +23,10 @@ FactoryGirl.define do
       trait(value) { list_type value }
     end
 
+    ListImport.state_machine.states.map(&:value).each do |contest_state|
+      trait(contest_state.to_sym) { state contest_state }
+    end
+
     trait :mal_xml do
       list { File.new "#{Rails.root}/spec/files/list.xml" }
     end
@@ -61,10 +65,6 @@ FactoryGirl.define do
     trait :error_mismatched_list_type do
       failed
       output error: { type: ListImport::ERROR_MISMATCHED_LIST_TYPE }
-    end
-
-    ListImport.state_machine.states.map(&:value).each do |contest_state|
-      trait(contest_state.to_sym) { state contest_state }
     end
   end
 end
