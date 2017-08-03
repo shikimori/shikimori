@@ -34,6 +34,7 @@ class Abilities::User
     version_abilities
     style_abilities
     list_import_abilities
+    poll_abilities
   end
 
   def topic_abilities
@@ -269,6 +270,12 @@ class Abilities::User
   def list_import_abilities
     can %i[new create show], ListImport do |list_import|
       list_import.user_id == @user.id
+    end
+  end
+
+  def poll_abilities
+    can %i[new create stop start], Poll do |poll|
+      poll.user_id == @user.id
     end
   end
 

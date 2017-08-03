@@ -66,5 +66,6 @@ class Ability
     can :read, Review
     can :read, Topic
     can :read, Collection
+    can :read, Poll
   end
 end
