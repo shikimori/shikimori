@@ -18,10 +18,18 @@ describe Style do
 
       context '#camo_images' do
         let(:image_url) { 'http://s8.hostingkartinok.com/uploads/images/2016/02/87303db8016e56e8a9eeea92f81f5760.jpg' }
-        let(:css) { "body { background: url(#{image_url}); };" }
+        let(:quote) { ['"', "'", '`', ''].sample }
+        let(:css) { "body { background: url(#{quote}#{image_url}#{quote}); };" }
+
         it do
           expect(style.compiled_css).to eq(
-            "#{Style::MEDIA_QUERY_CSS} { body { background: url(#{UrlGenerator.instance.camo_url image_url}); }; }"
+            <<-CSS.squish
+              #{Style::MEDIA_QUERY_CSS} {
+                body {
+                  background: url(#{quote}#{UrlGenerator.instance.camo_url image_url}#{quote});
+                };
+              }
+            CSS
           )
         end
       end

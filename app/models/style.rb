@@ -35,7 +35,13 @@ private
 
   def camo_images css
     css.gsub(BbCodes::UrlTag::URL) do
-      UrlGenerator.instance.camo_url $LAST_MATCH_INFO[:url]
+      url = $LAST_MATCH_INFO[:url]
+      if url =~ /(?<quote>["'`])$/
+        quote = $LAST_MATCH_INFO[:quote]
+        url = url.gsub(/["'`]$/, '')
+      end
+
+      "#{UrlGenerator.instance.camo_url url}#{quote}"
     end
   end
 
