@@ -845,6 +845,11 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :polls, except: %i[index] do
+      post :start, on: :member
+      post :stop, on: :member
+    end
+
     resources :ignores, only: %i[create]
     resources :profiles, path: '/', constraints: { id: user_id }, only: %i[show update] do
       member do
