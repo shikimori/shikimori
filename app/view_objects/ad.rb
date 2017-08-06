@@ -30,6 +30,10 @@ class Ad < ViewObjectBase
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: 'R-A-227837-2'
     },
+    yd_horizontal: {
+      provider: Types::Ad::Provider[:yandex_direct],
+      yandex_id: 'R-A-227837-7'
+    },
     yd_wo_fallback: {
       provider: Types::Ad::Provider[:yandex_direct],
       yandex_id: nil
@@ -38,7 +42,8 @@ class Ad < ViewObjectBase
   FALLBACKS = {
     yd_poster_x300_2x: :advrtr_x240,
     yd_poster_x240_2x: :advrtr_x240,
-    yd_rtb_x240: :advrtr_x240
+    yd_rtb_x240: :advrtr_x240,
+    yd_horizontal: :advrtr_x728
   }
 
   attr_reader :banner_type, :policy
