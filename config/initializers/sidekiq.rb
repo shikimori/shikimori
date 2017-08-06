@@ -11,7 +11,9 @@ require 'sidekiq/middleware/i18n'
 Sidekiq::Extensions.enable_delay!
 
 if defined? Sidekiq::Web
-  Sidekiq::Web.set :sessions, domain: 'all'
+  domain = ShikimoriDomain::RU_HOSTS[Rails.env.production? ? 0 : 1]
+  Sidekiq::Web.set :sessions, domain: ".#{domain}"
+  # Sidekiq::Web.set :sessions, domain: 'all'
   Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 end
 
