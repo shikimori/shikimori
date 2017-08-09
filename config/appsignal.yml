@@ -10,7 +10,7 @@ default: &defaults
   # ignore_actions:
   #   - ApplicationController#isup
 
-  # See http://docs.appsignal.com/gem-settings/configuration.html for
+  # See http://docs.appsignal.com/ruby/configuration/options.html for
   # all configuration options.
 
 # Configuration per environment, leave out an environment or set active
@@ -25,4 +25,4 @@ development:
 
 production:
   <<: *defaults
-  active: false
+  active: true
