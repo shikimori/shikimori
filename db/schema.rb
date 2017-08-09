@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170803173010) do
+ActiveRecord::Schema.define(version: 20170809220901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20170803173010) do
     t.integer "approver_id"
     t.string "reason"
     t.index ["comment_id", "kind", "value"], name: "index_abuse_requests_on_comment_id_and_kind_and_value", unique: true, where: "((state)::text = 'pending'::text)"
-    t.index ["state", "kind"], name: "index_abuse_requests_on_state_and_kind"
   end
 
   create_table "achievements", id: :serial, force: :cascade do |t|
@@ -275,7 +274,6 @@ ActiveRecord::Schema.define(version: 20170803173010) do
     t.string "join_policy", null: false
     t.string "comment_policy", null: false
     t.string "topic_policy", null: false
-    t.index ["style_id"], name: "index_clubs_on_style_id"
   end
 
   create_table "collection_links", id: :serial, force: :cascade do |t|
@@ -662,7 +660,6 @@ ActiveRecord::Schema.define(version: 20170803173010) do
     t.integer "group", null: false
     t.integer "target_id", null: false
     t.string "target_type", null: false
-    t.index ["target_type", "phrase"], name: "target_type_phrase_search_index"
     t.index ["target_type", "target_id"], name: "index_name_matches_on_target_type_and_target_id"
   end
 
@@ -829,7 +826,6 @@ ActiveRecord::Schema.define(version: 20170803173010) do
     t.text "css", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["owner_type", "owner_id"], name: "index_styles_on_owner_type_and_owner_id"
   end
 
   create_table "svds", id: :serial, force: :cascade do |t|
@@ -942,7 +938,6 @@ ActiveRecord::Schema.define(version: 20170803173010) do
     t.datetime "image_updated_at"
     t.integer "width"
     t.integer "height"
-    t.index ["linked_id", "linked_type"], name: "index_user_images_on_linked_id_and_linked_type"
   end
 
   create_table "user_nickname_changes", id: :serial, force: :cascade do |t|
