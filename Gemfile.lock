@@ -166,6 +166,8 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
+    appsignal (2.3.1)
+      rack
     arel (8.0.0)
     ast (2.3.0)
     attr_extras (5.2.0)
@@ -454,7 +456,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
-    pghero (1.7.0)
+    pghero (2.0.2)
       activerecord
     powerpack (0.1.1)
     protocol (1.0.1)
@@ -694,6 +696,7 @@ DEPENDENCIES
   airbrussh
   amatch!
   apipie-rails
+  appsignal
   attr_extras
   awesome_print
   better_errors!
