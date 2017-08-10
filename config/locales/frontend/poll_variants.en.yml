@@ -1,0 +1,5 @@
+en:
+  frontend:
+    poll_variants:
+      nothing_here: No variants
+      text: Text
