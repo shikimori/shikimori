@@ -2375,9 +2375,9 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-"i18n-js@http://github.com/fnando/i18n-js/archive/v3.0.0.tar.gz":
-  version "0.0.0"
-  resolved "http://github.com/fnando/i18n-js/archive/v3.0.0.tar.gz#15901af4a5d07527c804106a0971c01d2f181068"
+"i18n-js@http://github.com/fnando/i18n-js/archive/v3.0.1.tar.gz":
+  version "3.0.1"
+  resolved "http://github.com/fnando/i18n-js/archive/v3.0.1.tar.gz#760a07d65d89ffe3518e18ef443c3bf7f4cf0f34"
 
 icss-replace-symbols@^1.0.2:
   version "1.0.2"

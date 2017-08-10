@@ -55,6 +55,7 @@ gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 
 gem 'pghero'
+gem 'pg_query' # for suggested indexes in pghero
 gem 'sidekiq'
 # remove form when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
 gem 'sidekiq-unique-jobs', github: 'morr/sidekiq-unique-jobs', branch: 'master'
