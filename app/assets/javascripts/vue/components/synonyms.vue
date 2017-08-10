@@ -27,6 +27,9 @@
             v-model="synonym.name"
             :name="`${resource_type.toLowerCase()}[synonyms][]`"
             :placeholder="I18n.t('frontend.synonyms.name')"
+            @keydown.enter.prevent="add"
+            @keydown.8="remove_empty(synonym)"
+            @keydown.esc="remove_empty(synonym)"
           )
 
     .b-button(
@@ -69,9 +72,17 @@ export default {
   methods: {
     add() {
       this.$store.dispatch('add', { name: '' })
-      this.$nextTick(() => {
-        $('input', this.$el).last().focus()
-      })
+      this.focus_last()
+    },
+    remove_empty(synonym) {
+      if (Object.isEmpty(synonym.name) && this.$store.state.collection.length > 1) {
+        this.remove(synonym)
+        this.focus_last()
+      }
+    },
+    focus_last() {
+      // do not use this.$nextTick. it passes "backspace" event to focused input
+      delay().then(() => $('input', this.$el).last().focus())
     },
     ...mapActions([
       'remove'
