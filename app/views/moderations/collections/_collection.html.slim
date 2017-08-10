@@ -11,11 +11,12 @@
       ] = t '.move_to_offtopic'
 
   .info
-    span.id-label #
     span
       a[
         href="#{collection_url collection}"
-      ] = collection.id
+      ]
+        span.id-label #
+        = collection.id
     span.date
       = collection.created_at.strftime '%d.%m.%Y'
 

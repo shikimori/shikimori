@@ -1,7 +1,8 @@
 .b-log_entry
-  span.id-label #
   span
-    a href="#{profile_list_import_url @resource, list_import}" = list_import.id
+    a href="#{profile_list_import_url @resource, list_import}"
+      span.id-label #
+      = list_import.id
   span.date.normal
     = l list_import.created_at, format: :full
   span.column = list_import.list_file_name

@@ -11,11 +11,12 @@
       ] = t '.move_to_offtopic'
 
   .info
-    span.id-label #
     span
       a[
         href="#{UrlGenerator.instance.topic_url review.maybe_topic(locale_from_host)}"
-      ] = review.id
+      ]
+        span.id-label #
+        = review.id
     span.date
       = review.created_at.strftime '%d.%m.%Y'
 

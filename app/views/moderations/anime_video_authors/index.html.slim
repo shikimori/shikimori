@@ -26,9 +26,9 @@ header.head
   .block
     - @collection.each do |author|
       .b-log_entry
-        span.id-label #
         span
           a href="#{edit_moderations_anime_video_author_url author}"
+            .id-label #
             = author.id
         span = author.name
         span

@@ -8,8 +8,9 @@
         href="#{send "#{list_entry.target_type.downcase}_url", list_entry.target_id}"
       ] = list_entry.target_title
   - if local_assigns[:is_not_imported]
-    span.id-label #
-    span = list_entry.target_id
+    span
+      span.id-label #
+      = list_entry.target_id
 
   - if local_assigns[:is_updated]
     = local_assigns[:list_diff]

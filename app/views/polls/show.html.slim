@@ -10,12 +10,12 @@ header.head.misc
 
   .m15
     .poll-variants = t '.poll_variants'
-    ul.b-list
-      - if @resource.poll_variants.any?
-        - @resource.poll_variants.each do |poll_variant|
-          li = poll_variant.text
-      - else
-        .b-nothing_here = t '.no_variants'
+    - if @resource.poll_variants.any?
+      ul.b-list
+      - @resource.poll_variants.each do |poll_variant|
+        li = poll_variant.text
+    - else
+      .b-nothing_here = t '.no_variants'
 
   .bb-code BBCode
   = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"

@@ -2,8 +2,9 @@
   data-dynamic='abuse_request'
   data-url="#{moderations_abuse_request_url abuse_request}"
 ]
-  span.id-label #
-  span = abuse_request.id
+  span
+    span.id-label #
+    = abuse_request.id
   span.date
     = abuse_request.created_at.strftime('%d.%m.%Y')
 

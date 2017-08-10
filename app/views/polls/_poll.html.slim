@@ -1,15 +1,15 @@
 .b-log_entry
-    span.id-label #
-    span
-      a href="#{poll_url poll}" = poll.id
-    span
-      a href="#{poll_url poll}" = poll.name
-    span.date
-      = poll.created_at.strftime('%d.%m.%Y')
+  span
+    a href="#{poll_url poll}"
+      span.id-label #
+      = poll.id
+  span = poll.name
+  span.date
+    = poll.created_at.strftime('%d.%m.%Y')
 
-    span.state class="#{poll.state.downcase}"
-      = poll.human_state_name
+  span.state class="#{poll.state.downcase}"
+    = poll.human_state_name
 
-    - if poll.bb_code
-      span
-        = BbCodeFormatter.instance.format_comment "[code]#{poll.bb_code}[/code]"
+  - if poll.bb_code
+    span
+      = BbCodeFormatter.instance.format_comment "[code]#{poll.bb_code}[/code]"

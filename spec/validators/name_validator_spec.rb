@@ -40,7 +40,8 @@ describe NameValidator, type: :validator do
     context 'banned nickname' do
       it do
         expect(club)
-          .to_not allow_value(NameValidator::BANNED_NICKNAMES.first).for :name
+          .to_not allow_value(NameValidator::BANNED_NICKNAMES.sample)
+          .for :name
       end
     end
 
@@ -48,11 +49,9 @@ describe NameValidator, type: :validator do
       it do
         expect(club).to_not allow_value('.php').for :name
         expect(club).to_not allow_value('forum').for :name
-        expect(club).to_not allow_value('clubs').for :name
-        expect(club).to_not allow_value('animes').for :name
-        expect(club).to_not allow_value('mangas').for :name
-        expect(club).to_not allow_value('reviews').for :name
-        expect(club).to_not allow_value('contests').for :name
+        expect(club)
+          .to_not allow_value(NameValidator::PREDEFINED_PATHS.sample.to_s)
+          .for :name
       end
     end
 
