@@ -20,6 +20,6 @@
           locals: { cover_notice: :relation },
           cache: ->(entry, _) { CacheHelper.keys entry, :relation }
     - else
-      div
+      .block_m
         = render partial: 'animes/relation_note',
           collection: @resource.related.related

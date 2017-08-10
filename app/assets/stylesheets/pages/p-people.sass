@@ -7,24 +7,28 @@
     margin-bottom: 0
 
 .p-people-show
+  +gte_ipad
+    .b-db_entry .c-image
+      margin-bottom: 0
+
   .c-works
     overflow: hidden
     position: relative
 
     +gte_ipad
       .c-anime, .c-manga
-        +column_bm(6)
+        +column(6)
 
     +iphone-landscape
       .c-anime, .c-manga
-        +column_bm(5)
+        +column(5)
 
         &:nth-child(6n)
           display: none
 
     +iphone-portrait
       .c-anime, .c-manga
-        +column_bm(3)
+        +column(3)
 
 .p-people-works
   .b-catalog_entry

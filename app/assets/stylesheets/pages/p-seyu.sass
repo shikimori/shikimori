@@ -13,24 +13,28 @@
     max-width: 100%
 
 .p-seyu-show
+  +gte_ipad
+    .b-db_entry .c-image
+      margin-bottom: 0
+
   .c-characters
     overflow: hidden
     position: relative
 
     +gte_ipad
       .c-character
-        +column_bm(6)
+        +column(6)
 
     +iphone-landscape
       .c-character
-        +column_bm(5)
+        +column(5)
 
         &:nth-child(6n)
           display: none
 
     +iphone-portrait
       .c-character
-        +column_bm(3)
+        +column(3)
 
 .p-seyu-roles
   .c-work
