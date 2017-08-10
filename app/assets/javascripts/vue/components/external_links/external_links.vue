@@ -16,6 +16,8 @@
     )
       ExternalLink(
         v-for="link in collection"
+        @add_next="add"
+        @focus_last="focus_last"
         :key="link.id || link.key"
         :link="link"
         :kind_options="kind_options"
@@ -72,6 +74,10 @@ export default {
         entry_id: this.entry_id,
         entry_type: this.entry_type
       })
+    },
+    focus_last() {
+      // do not use this.$nextTick. it passes "backspace" event to focused input
+      delay().then(() => $('input', this.$el).last().focus())
     }
   }
 }
