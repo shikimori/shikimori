@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170809220901) do
+ActiveRecord::Schema.define(version: 20170810122617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "unaccent"
-  enable_extension "pg_stat_statements"
   enable_extension "hstore"
+  enable_extension "pg_stat_statements"
+  enable_extension "unaccent"
 
   create_table "abuse_requests", id: :serial, force: :cascade do |t|
     t.integer "user_id"
@@ -494,7 +494,7 @@ ActiveRecord::Schema.define(version: 20170809220901) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "imported_at"
-    t.string "source"
+    t.string "source", null: false
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
   end
 
@@ -698,6 +698,26 @@ ActiveRecord::Schema.define(version: 20170809220901) do
     t.index ["person_id"], name: "index_person_roles_on_person_id"
     t.index ["role", "anime_id", "character_id"], name: "i_person_role_role_anime_id"
     t.index ["role", "manga_id", "character_id"], name: "i_person_role_role_manga_id"
+  end
+
+  create_table "pghero_query_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "user"
+    t.text "query"
+    t.bigint "query_hash"
+    t.float "total_time"
+    t.bigint "calls"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_query_stats_on_database_and_captured_at"
+  end
+
+  create_table "pghero_space_stats", force: :cascade do |t|
+    t.text "database"
+    t.text "schema"
+    t.text "relation"
+    t.bigint "size"
+    t.datetime "captured_at"
+    t.index ["database", "captured_at"], name: "index_pghero_space_stats_on_database_and_captured_at"
   end
 
   create_table "poll_variants", force: :cascade do |t|

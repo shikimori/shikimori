@@ -2,6 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 module Clockwork
+  every(5.minutes, 'pghero.query_stats') { PgHero.capture_query_stats }
+  every(1.day, 'pghero.space_stats', at: '00:45') { PgHero.capture_space_stats }
+
   every 10.minutes, 'history.toshokan' do
     HistoryWorker.perform_async
     ImportToshokanTorrents.perform_async true
