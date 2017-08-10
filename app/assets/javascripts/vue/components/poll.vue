@@ -107,6 +107,9 @@ export default {
       .drag-handle
         display: none
 
+      .b-input
+        margin-left: 0
+
     .b-input
       margin-left: 25px
 </style>
