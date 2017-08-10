@@ -49,7 +49,7 @@
         v-model="link.url"
         :name="field_name('url')"
         :placeholder="I18n.t('activerecord.attributes.external_link.url')"
-        @keydown.enter.prevent="add_next"
+        @keydown.enter="submit"
         @keydown.8="remove_empty(link)"
         @keydown.esc="remove_empty(link)"
       )
@@ -78,8 +78,11 @@ export default {
         return ''
       }
     },
-    add_next() {
-      this.$emit('add_next')
+    submit(e) {
+      if (!e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        this.$emit('add_next')
+      }
     },
     remove_empty(link) {
       if (Object.isEmpty(link.url) && this.$store.state.collection.length > 1) {

@@ -27,7 +27,7 @@
             name="poll[poll_variants_attributes][][text]"
             v-model="poll_variant.text"
             :placeholder="I18n.t('frontend.poll_variants.text')"
-            @keydown.enter.prevent="add"
+            @keydown.enter="submit"
             @keydown.8="remove_empty(poll_variant)"
             @keydown.esc="remove_empty(poll_variant)"
           )
@@ -73,6 +73,12 @@ export default {
     add() {
       this.$store.dispatch('add', { text: '' })
       this.focus_last()
+    },
+    submit(e) {
+      if (!e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        this.add()
+      }
     },
     remove_empty(poll_variant) {
       if (Object.isEmpty(poll_variant.name) && this.$store.state.collection.length > 1) {

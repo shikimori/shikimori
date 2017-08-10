@@ -27,7 +27,7 @@
             v-model="synonym.name"
             :name="`${resource_type.toLowerCase()}[synonyms][]`"
             :placeholder="I18n.t('frontend.synonyms.name')"
-            @keydown.enter.prevent="add"
+            @keydown.enter="submit"
             @keydown.8="remove_empty(synonym)"
             @keydown.esc="remove_empty(synonym)"
           )
@@ -73,6 +73,12 @@ export default {
     add() {
       this.$store.dispatch('add', { name: '' })
       this.focus_last()
+    },
+    submit(e) {
+      if (!e.metaKey && !e.ctrlKey) {
+        e.preventDefault()
+        this.add()
+      }
     },
     remove_empty(synonym) {
       if (Object.isEmpty(synonym.name) && this.$store.state.collection.length > 1) {
