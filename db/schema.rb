@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810122617) do
+ActiveRecord::Schema.define(version: 20170810125018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
-  enable_extension "pg_stat_statements"
   enable_extension "unaccent"
+  enable_extension "pg_stat_statements"
+  enable_extension "hstore"
 
   create_table "abuse_requests", id: :serial, force: :cascade do |t|
     t.integer "user_id"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.datetime "updated_at", null: false
     t.string "message", limit: 1000
     t.index ["anime_video_id", "kind", "state"], name: "index_anime_video_reports_on_anime_video_id_and_kind_and_state"
+    t.index ["state", "updated_at"], name: "index_anime_video_reports_on_state_and_updated_at"
     t.index ["user_id", "state"], name: "index_anime_video_reports_on_user_id_and_state"
   end
 
@@ -95,6 +96,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.string "quality"
     t.index ["anime_id", "state"], name: "index_anime_videos_on_anime_id_and_state"
     t.index ["anime_video_author_id"], name: "index_anime_videos_on_anime_video_author_id"
+    t.index ["url"], name: "index_anime_videos_on_url"
   end
 
   create_table "animes", id: :serial, force: :cascade do |t|
@@ -192,6 +194,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.text "desynced", default: [], null: false, array: true
     t.integer "mal_id"
     t.index ["name"], name: "index_characters_on_name"
+    t.index ["russian"], name: "index_characters_on_russian"
   end
 
   create_table "club_bans", id: :serial, force: :cascade do |t|
@@ -320,6 +323,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.boolean "is_offtopic", default: false
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["created_at"], name: "index_comments_on_created_at"
+    t.index ["user_id", "id"], name: "index_comments_on_user_id_and_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
@@ -494,7 +498,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "imported_at"
-    t.string "source", null: false
+    t.string "source"
     t.index ["entry_type", "entry_id"], name: "index_external_links_on_entry_type_and_entry_id"
   end
 
@@ -649,6 +653,7 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.boolean "emailed", default: false
     t.integer "linked_id", default: 0, null: false
     t.string "linked_type", limit: 255
+    t.index ["from_id", "id"], name: "index_messages_on_from_id_and_id"
     t.index ["from_id", "kind"], name: "private_and_notifications"
     t.index ["linked_type", "linked_id"], name: "index_messages_on_linked_type_and_linked_id"
     t.index ["to_id", "kind", "read"], name: "messages_for_profile"
@@ -1059,7 +1064,9 @@ ActiveRecord::Schema.define(version: 20170810122617) do
     t.string "locale_from_host", default: "ru", null: false
     t.integer "style_id"
     t.index ["api_access_token"], name: "index_users_on_api_access_token", unique: true
+    t.index ["email"], name: "index_users_on_email"
     t.index ["nickname"], name: "index_users_on_nickname", unique: true
+    t.index ["remember_token"], name: "index_users_on_remember_token"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["style_id"], name: "index_users_on_style_id"
   end
