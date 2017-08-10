@@ -13,6 +13,7 @@ class NameValidator < ActiveModel::EachValidator
     styles
     faye
     ignores
+    polls
   )
   FORBIDDEN_NAMES = %r(
     \A(
