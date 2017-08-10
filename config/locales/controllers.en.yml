@@ -364,7 +364,7 @@ en:
     other: Others
 
   polls_controller:
-    new_poll: New poll
+    new: New poll
 
   shikimori_controller:
     you_are_banned: You are banned till %{datetime}

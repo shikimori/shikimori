@@ -1,5 +1,6 @@
 header.head.misc
   h1 = @page_title.last
+  = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 - if @resource.errors.any?
   .b-errors
@@ -19,5 +20,13 @@ header.head.misc
           .b-nothing_here = t 'loading'
 
         .buttons
-          a.cancel href="#{collections_url}" = t 'actions.cancel'
+          a.cancel href="#{polls_url}" = t 'actions.cancel'
           = f.button :magic_submit
+
+        - if @resource.persisted?
+          a.remove[
+            href="#{poll_url @resource}"
+            title="#{t 'actions.delete'}"
+            data-method="delete"
+            data-confirm="#{t 'actions.confirm'}"
+          ] = t 'actions.delete'

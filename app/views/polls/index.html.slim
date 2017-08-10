@@ -1,0 +1,11 @@
+header.head.misc
+  h1
+    = @page_title.last
+    a.misc[
+      href="#{new_poll_url 'poll[user_id]' => current_user&.id}"
+      title="#{ t '.new'}"
+    ] = t('actions.create').downcase
+
+    p.notice.clearfix = t '.notice'
+
+= render @collection

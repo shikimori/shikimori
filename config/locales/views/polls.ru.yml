@@ -1,0 +1,5 @@
+en:
+  polls:
+    index:
+      new: Create new poll
+      notice: List of all your polls

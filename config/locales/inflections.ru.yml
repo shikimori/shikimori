@@ -219,6 +219,12 @@ ru:
           few: коллекции
           many: коллекций
           other: коллекции
+      poll:
+        subjective:
+          one: опрос
+          few: опроса
+          many: опросов
+          other: опросы
       contest:
         subjective:
           one: опрос

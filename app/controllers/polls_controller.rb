@@ -1,16 +1,24 @@
 class PollsController < ShikimoriController
   load_and_authorize_resource
 
+  before_action { page_title i18n_i('Poll', :other) }
+  before_action :set_breadcrumbs, except: :index
+
   UPDATE_PARAMS = [{
     poll_variants_attributes: %i[text]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
+  def index
+    @collection = @collection.order(id: :desc)
+  end
+
   def show
+    redirect_to edit_poll_url(@resource) if @resource.pending?
   end
 
   def new
-    page_title i18n_t('new_poll')
+    page_title i18n_t('new')
     render :form
   end
 
@@ -34,12 +42,18 @@ class PollsController < ShikimoriController
   end
 
   def destroy
+    @resource.destroy
+    redirect_to polls_url
   end
 
   def start
+    @resource.start!
+    redirect_to poll_url(@resource)
   end
 
   def stop
+    @resource.stop!
+    redirect_to poll_url(@resource)
   end
 
 private
@@ -66,5 +80,13 @@ private
       params_hash[:poll_variants_attributes]
         .select { |poll_variant| poll_variant[:text]&.strip.present? }
         .uniq { |poll_variant| poll_variant[:text].strip }
+  end
+
+  def set_breadcrumbs
+    breadcrumb i18n_i('Poll', :other), polls_url
+
+    if %w[edit update].include? params[:action]
+      breadcrumb @resource.name, poll_url(@resource)
+    end
   end
 end

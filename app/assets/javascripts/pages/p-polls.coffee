@@ -1,10 +1,11 @@
 page_load '.polls', ->
-  require.ensure [], ->
-    init_app(
-      require('vue/instance').Vue
-      require('vue/components/poll.vue')
-      require('vue/stores').collection
-    )
+  if $('#vue_poll_variants').exists()
+    require.ensure [], ->
+      init_app(
+        require('vue/instance').Vue
+        require('vue/components/poll.vue')
+        require('vue/stores').collection
+      )
 
 init_app = (Vue, Poll, store) ->
   # resource_type = $('#vue_synonyms').data('resource_type')

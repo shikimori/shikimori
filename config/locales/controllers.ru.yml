@@ -364,7 +364,7 @@ ru:
     other: Прочее
 
   polls_controller:
-    new_poll: Новый опрос
+    new: Новый опрос
 
   shikimori_controller:
     you_are_banned: Вы забанены до %{datetime}

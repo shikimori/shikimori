@@ -1,11 +1,31 @@
 describe PollsController do
   include_context :authenticated, :user
 
+  describe '#index' do
+    let!(:poll_1) { create :poll, user: user }
+    let!(:poll_2) { create :poll, user: user }
+
+    before { get :index }
+
+    it do
+      expect(collection).to eq [poll_2, poll_1]
+      expect(response).to have_http_status :success
+    end
+  end
+
   describe '#show' do
-    let(:poll) { create :poll, user: user }
+    let(:poll) { create :poll, state, user: user }
     before { get :show, params: { id: poll.id } }
 
-    it { expect(response).to have_http_status :success }
+    context 'pending' do
+      let(:state) { :pending }
+      it { expect(response).to redirect_to edit_poll_url(poll) }
+    end
+
+    context 'started & stopped' do
+      let(:state) { %i[started stopped].sample }
+      it { expect(response).to have_http_status :success }
+    end
   end
 
   describe '#new' do
@@ -92,8 +112,35 @@ describe PollsController do
   end
 
   describe '#start' do
+    let(:poll) { create :poll, :pending, user: user }
+
+    before { post :start, params: { id: poll.id } }
+
+    it do
+      expect(resource.reload).to be_started
+      expect(response).to redirect_to poll_url(resource)
+    end
   end
 
   describe '#stop' do
+    let(:poll) { create :poll, :started, user: user }
+
+    before { post :stop, params: { id: poll.id } }
+
+    it do
+      expect(resource.reload).to be_stopped
+      expect(response).to redirect_to poll_url(resource)
+    end
+  end
+
+  describe '#destroy' do
+    let(:poll) { create :poll, user: user }
+
+    before { delete :destroy, params: { id: poll.id } }
+
+    it do
+      expect(resource).to be_destroyed
+      expect(response).to redirect_to polls_url
+    end
   end
 end

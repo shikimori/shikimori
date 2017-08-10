@@ -6,13 +6,13 @@
 
 - else
   header.head.misc
-    h1 = @page_title.last
-
-    a.misc.to-process[
-      href="#{new_collection_url 'collection[user_id]' => current_user&.id}"
-      title="#{ t '.new'}"
-      data-dynamic="week_registered"
-    ] = t('actions.create').downcase
+    h1
+      = @page_title.last
+      a.misc.to-process[
+        href="#{new_collection_url 'collection[user_id]' => current_user&.id}"
+        title="#{ t '.new'}"
+        data-dynamic="week_registered"
+      ] = t('actions.create').downcase
 
     p.notice.clearfix = t '.notice'
 
