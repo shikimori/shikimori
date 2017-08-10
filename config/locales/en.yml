@@ -207,6 +207,7 @@ en:
         group: Group
         text: Comment
       poll:
+        name: Name
         state: State
       club_invite:
         dst: User

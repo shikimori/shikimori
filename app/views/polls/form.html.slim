@@ -11,17 +11,33 @@ header.head.misc
   data-poll="#{PollSerializer.new(@resource).to_json}"
 ]
   = simple_form_for @resource do |f|
-    .subheadline.m10 = t '.poll_variants'
     .cc-2.block
       .c-column
         = f.input :user_id, as: :hidden
+        = f.input :name, autofocus: @resource.name.blank?
 
+        / .b-input
+          label #{Poll.human_attribute_name :state}: #{@resource.human_state_name.downcase}
+
+        .b-input
+          label = Poll.human_attribute_name :state
+          div
+            = @resource.human_state_name
+
+        .poll-variants.m5 = t '.poll_variants'
         #vue_poll_variants
           .b-nothing_here = t 'loading'
 
         .buttons
           a.cancel href="#{polls_url}" = t 'actions.cancel'
           = f.button :magic_submit
+          - if @resource.can_start?
+            a.start.b-button[
+              href="#{start_poll_url @resource}"
+              title="#{t 'actions.start'}"
+              data-method="post"
+              data-confirm="#{t 'actions.confirm'}"
+            ] = t 'actions.start'
 
         - if @resource.persisted?
           a.remove[

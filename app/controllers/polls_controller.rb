@@ -4,7 +4,7 @@ class PollsController < ShikimoriController
   before_action { page_title i18n_i('Poll', :other) }
   before_action :set_breadcrumbs, except: :index
 
-  UPDATE_PARAMS = [{
+  UPDATE_PARAMS = %i[name] + [{
     poll_variants_attributes: %i[text]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
@@ -15,6 +15,7 @@ class PollsController < ShikimoriController
 
   def show
     redirect_to edit_poll_url(@resource) if @resource.pending?
+    page_title @resource.name
   end
 
   def new
@@ -85,8 +86,8 @@ private
   def set_breadcrumbs
     breadcrumb i18n_i('Poll', :other), polls_url
 
-    if %w[edit update].include? params[:action]
-      breadcrumb @resource.name, poll_url(@resource)
-    end
+    # if %w[edit update].include? params[:action]
+      # breadcrumb @resource.name, poll_url(@resource)
+    # end
   end
 end

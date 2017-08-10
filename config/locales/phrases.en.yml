@@ -11,14 +11,7 @@ en:
     delete: Delete
     edit: Edit
     ignore: Ignore
-    quote: Quote
     moderate: Moderate
-    reject: Reject
-    reply: Reply
-    save_apply: Save & Apply
-    take: Take
-    upload: Upload
-    upload_image: Upload image
     moderation:
       abuse: Abuse
       ban: Ban
@@ -27,6 +20,15 @@ en:
       offtopic: It's offtopic
       spoiler: It's spoiler
       summary: It's summary
+    quote: Quote
+    reject: Reject
+    reply: Reply
+    save_apply: Save & Apply
+    start: Start
+    stop: Stop
+    take: Take
+    upload: Upload
+    upload_image: Upload image
   by:
     id: By ID
     aired_on: By release date

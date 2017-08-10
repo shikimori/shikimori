@@ -207,6 +207,7 @@ ru:
         group: Группа
         text: Комментарий
       poll:
+        name: Название
         state: Статус
       club_invite:
         dst: Пользователь

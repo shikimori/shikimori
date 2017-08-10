@@ -44,6 +44,7 @@ describe PollsController do
         params: {
           poll: {
             user_id: user.id,
+            name: 'test',
             poll_variants_attributes: [{
               text: 'test 1'
             }, {
@@ -59,8 +60,9 @@ describe PollsController do
 
     it do
       expect(resource).to have_attributes(
-        user_id: user.id,
-        state: 'pending'
+        name: 'test',
+        state: 'pending',
+        user_id: user.id
       )
       expect(resource.poll_variants).to have(2).items
       expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
@@ -86,6 +88,7 @@ describe PollsController do
         params: {
           id: poll.id,
           poll: {
+            name: 'test',
             poll_variants_attributes: [{
               text: 'test 1'
             }, {
@@ -97,8 +100,9 @@ describe PollsController do
 
     it do
       expect(resource).to have_attributes(
-        user_id: user.id,
-        state: 'pending'
+        name: 'test',
+        state: 'pending',
+        user_id: user.id
       )
       expect(resource.poll_variants).to have(2).items
       expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
@@ -112,8 +116,7 @@ describe PollsController do
   end
 
   describe '#start' do
-    let(:poll) { create :poll, :pending, user: user }
-
+    let(:poll) { create :poll, :pending, :with_variants, user: user }
     before { post :start, params: { id: poll.id } }
 
     it do

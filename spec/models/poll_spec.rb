@@ -11,7 +11,9 @@ describe Poll do
   describe 'state_machine' do
     it { is_expected.to have_states :pending, :started, :stopped }
 
-    it { is_expected.to handle_events :start, wnen: :pending }
+    # context 'persisted, with variants' do
+      # it { is_expected.to handle_events :start, wnen: :pending }
+    # end
     it { is_expected.to reject_events :stop, when: :pending }
 
     # it { is_expected.to reject_events :start, wnen: :started }
@@ -22,13 +24,41 @@ describe Poll do
 
   describe 'instance methods' do
     describe '#name' do
-      let(:poll) { build_stubbed :poll }
-      it { expect(poll.name).to eq "Опрос ##{poll.id}" }
+      let(:poll) { build_stubbed :poll, name: name }
+
+      context 'with name' do
+        let(:name) { 'Test' }
+        it { expect(poll.name).to eq 'Test' }
+      end
+
+      context 'without name' do
+        let(:name) { '' }
+        it { expect(poll.name).to eq "Опрос ##{poll.id}" }
+      end
+    end
+
+    describe '#bb_code' do
+      let(:poll) { build_stubbed :poll, state }
+
+      context 'pending' do
+        let(:state) { :pending }
+        it { expect(poll.bb_code).to be_nil }
+      end
+
+      context 'started, stopped' do
+        let(:state) { %i[started stopped].sample }
+        it { expect(poll.bb_code).to eq "[poll=#{poll.id}]" }
+      end
     end
   end
 
   describe 'permissions' do
-    let(:poll) { build :poll, poll_state, user: poll_user }
+    let(:poll) do
+      build_stubbed :poll, poll_state,
+        user: poll_user,
+        poll_variants: poll_variants
+    end
+    let(:poll_variants) { [] }
     let(:user) { build_stubbed :user }
     let(:poll_state) { :started }
 
@@ -36,6 +66,7 @@ describe Poll do
 
     context 'poll owner' do
       let(:poll_user) { user }
+      let(:poll_variants) { [build(:poll_variant), build(:poll_variant)] }
 
       it { is_expected.to be_able_to :show, poll }
       it { is_expected.to be_able_to :new, poll }

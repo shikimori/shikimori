@@ -11,14 +11,7 @@ ru:
     delete: Удалить
     edit: Редактировать
     ignore: Игнорировать
-    quote: Цитировать
     moderate: На модерацию
-    reject: Отклонить
-    reply: Ответить
-    take: Взять
-    upload: Загрузить
-    upload: Загрузить
-    upload_image: Загрузить изображение
     moderation:
       abuse: Нарушение правил
       ban: Забанить
@@ -27,6 +20,15 @@ ru:
       offtopic: Это оффтопик
       spoiler: Это спойлер
       summary: Это отзыв
+    quote: Цитировать
+    reject: Отклонить
+    reply: Ответить
+    start: Запустить
+    stop: Остановить
+    take: Взять
+    upload: Загрузить
+    upload: Загрузить
+    upload_image: Загрузить изображение
   by:
     id: По ID
     aired_on: По дате выхода
