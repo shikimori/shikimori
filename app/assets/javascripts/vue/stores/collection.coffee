@@ -30,6 +30,8 @@ module.exports = new Vuex.Store
     collection: (store) -> store.collection
     is_empty: (store) ->
       store.collection.every (item) ->
-        Object.isEmpty(item.url) && Object.isEmpty(item.name)
+        Object.isEmpty(item.url) &&
+          Object.isEmpty(item.name) &&
+          Object.isEmpty(item.name)
 
   modules: {}

@@ -28,6 +28,10 @@ describe PollsController do
               text: 'test 1'
             }, {
               text: 'test 2'
+            }, {
+              text: ''
+            }, {
+              text: 'test 1'
             }]
           }
         }
@@ -54,6 +58,37 @@ describe PollsController do
   end
 
   describe '#update' do
+    let(:poll) { create :poll, user: user }
+    let!(:poll_variant) { create :poll_variant, poll: poll, text: 'zzz' }
+
+    before do
+      post :update,
+        params: {
+          id: poll.id,
+          poll: {
+            poll_variants_attributes: [{
+              text: 'test 1'
+            }, {
+              text: 'test 2'
+            }]
+          }
+        }
+    end
+
+    it do
+      expect(resource).to have_attributes(
+        user_id: user.id,
+        state: 'pending'
+      )
+      expect(resource.poll_variants).to have(2).items
+      expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
+      expect(resource.poll_variants[1]).to have_attributes(text: 'test 2')
+
+      expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
+
+      expect(resource).to be_valid
+      expect(response).to redirect_to edit_poll_url(resource)
+    end
   end
 
   describe '#start' do

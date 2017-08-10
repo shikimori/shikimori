@@ -15,11 +15,8 @@ class PollsController < ShikimoriController
   end
 
   def create
-    if @resource.save
-      redirect_to edit_poll_url(@resource)
-    else
-      new
-    end
+    @resource.save!
+    redirect_to edit_poll_url(@resource)
   end
 
   def edit
@@ -28,6 +25,12 @@ class PollsController < ShikimoriController
   end
 
   def update
+    Poll.transaction do
+      @resource.poll_variants.delete_all
+      @resource.update! update_params
+    end
+
+    redirect_to edit_poll_url(@resource)
   end
 
   def destroy
@@ -42,11 +45,26 @@ class PollsController < ShikimoriController
 private
 
   def create_params
-    params.require(:poll).permit(*CREATE_PARAMS)
+    params
+      .require(:poll)
+      .permit(*CREATE_PARAMS)
+      .tap { |hash| fix_variants hash }
   end
   alias new_params create_params
 
   def update_params
-    params.require(:poll).permit(*UPDATE_PARAMS)
+    params
+      .require(:poll)
+      .permit(*UPDATE_PARAMS)
+      .tap { |hash| fix_variants hash }
+  end
+
+  def fix_variants params_hash
+    return unless params_hash[:poll_variants_attributes]
+
+    params_hash[:poll_variants_attributes] =
+      params_hash[:poll_variants_attributes]
+        .select { |poll_variant| poll_variant[:text]&.strip.present? }
+        .uniq { |poll_variant| poll_variant[:text].strip }
   end
 end

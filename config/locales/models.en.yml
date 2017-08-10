@@ -146,3 +146,6 @@ en:
 
   list_import:
     name: 'List Import #%{id}'
+
+  poll:
+    name: 'Poll #%{id}'

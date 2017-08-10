@@ -1,7 +1,7 @@
 describe Poll do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to have_many :poll_variants }
+    it { is_expected.to have_many(:poll_variants).dependent :destroy }
   end
 
   describe 'validations' do
@@ -18,6 +18,13 @@ describe Poll do
     it { is_expected.to handle_events :stop, when: :started }
 
     it { is_expected.to reject_events :start, :stop, when: :stopped }
+  end
+
+  describe 'instance methods' do
+    describe '#name' do
+      let(:poll) { build_stubbed :poll }
+      it { expect(poll.name).to eq "Опрос ##{poll.id}" }
+    end
   end
 
   describe 'permissions' do

@@ -1,6 +1,8 @@
 class Poll < ApplicationRecord
+  include Translation
+
   belongs_to :user
-  has_many :poll_variants
+  has_many :poll_variants, dependent: :destroy
 
   validates :user, presence: true
 
@@ -16,5 +18,6 @@ class Poll < ApplicationRecord
   accepts_nested_attributes_for :poll_variants
 
   def name
+    i18n_t 'name', id: id
   end
 end
