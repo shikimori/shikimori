@@ -12,4 +12,9 @@ class Poll < ApplicationRecord
     event(:start) { transition pending: :started }
     event(:stop) { transition started: :stopped }
   end
+
+  accepts_nested_attributes_for :poll_variants
+
+  def name
+  end
 end

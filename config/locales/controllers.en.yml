@@ -363,6 +363,9 @@ en:
     score: Score
     other: Others
 
+  polls_controller:
+    new_poll: New poll
+
   shikimori_controller:
     you_are_banned: You are banned till %{datetime}
 

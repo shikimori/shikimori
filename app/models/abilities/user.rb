@@ -274,16 +274,20 @@ class Abilities::User
   end
 
   def poll_abilities
-    can %i[new create edit update destroy], Poll do |poll|
-      poll.user_id == @user.id && poll.pending?
+    can %i[show new create], Poll do |poll|
+      poll.user_id == @user.id
+    end
+
+    can %i[edit update destroy], Poll do |poll|
+      can?(:show, poll) && poll.pending?
     end
 
     can %i[start], Poll do |poll|
-      poll.user_id == @user.id && poll.can_start?
+      can?(:show, poll) && poll.can_start?
     end
 
     can %i[stop], Poll do |poll|
-      poll.user_id == @user.id && poll.can_stop?
+      can?(:show, poll) && poll.can_stop?
     end
   end
 

@@ -54,6 +54,8 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MutableConstant:
   Enabled: false
+Style/EmptyMethod:
+  Enabled: false
 Layout/AlignParameters:
   Enabled: false
 Layout/MultilineMethodCallIndentation:

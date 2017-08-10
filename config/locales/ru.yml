@@ -206,6 +206,8 @@ ru:
       collection_link:
         group: Группа
         text: Комментарий
+      poll:
+        state: Статус
       club_invite:
         dst: Пользователь
         dst_id: Пользователь
@@ -279,6 +281,11 @@ ru:
           unpublish: Отменить публикацию
       collection:
         <<: *review_states
+      poll:
+        states:
+          pending: Создаётся
+          started: Запущен
+          stopped: Остановлен
       anime_video:
         states:
           working: работает

@@ -30,11 +30,13 @@ describe Poll do
     context 'poll owner' do
       let(:poll_user) { user }
 
+      it { is_expected.to be_able_to :show, poll }
+      it { is_expected.to be_able_to :new, poll }
+      it { is_expected.to be_able_to :create, poll }
+
       context 'pending poll' do
         let(:poll_state) { :pending }
 
-        it { is_expected.to be_able_to :new, poll }
-        it { is_expected.to be_able_to :create, poll }
         it { is_expected.to be_able_to :edit, poll }
         it { is_expected.to be_able_to :update, poll }
         it { is_expected.to be_able_to :destroy, poll }
@@ -45,8 +47,6 @@ describe Poll do
       context 'started poll' do
         let(:poll_state) { :started }
 
-        it { is_expected.to_not be_able_to :new, poll }
-        it { is_expected.to_not be_able_to :create, poll }
         it { is_expected.to_not be_able_to :edit, poll }
         it { is_expected.to_not be_able_to :update, poll }
         it { is_expected.to_not be_able_to :destroy, poll }
@@ -57,8 +57,6 @@ describe Poll do
       context 'stopped poll' do
         let(:poll_state) { :stopped }
 
-        it { is_expected.to_not be_able_to :new, poll }
-        it { is_expected.to_not be_able_to :create, poll }
         it { is_expected.to_not be_able_to :edit, poll }
         it { is_expected.to_not be_able_to :update, poll }
         it { is_expected.to_not be_able_to :destroy, poll }
@@ -70,6 +68,7 @@ describe Poll do
     context 'not import owner' do
       let(:poll_user) { build_stubbed :user }
 
+      it { is_expected.to_not be_able_to :show, poll }
       it { is_expected.to_not be_able_to :new, poll }
       it { is_expected.to_not be_able_to :create, poll }
       it { is_expected.to_not be_able_to :edite, poll }

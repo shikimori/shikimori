@@ -1,0 +1,23 @@
+header.head.misc
+  h1 = @page_title.last
+
+- if @resource.errors.any?
+  .b-errors
+    .subheadline = i18n_i 'error', :other
+    == @resource.errors.full_messages.join('<br>')
+
+#poll_form[
+  data-poll="#{PollSerializer.new(@resource).to_json}"
+]
+  = simple_form_for @resource do |f|
+    .subheadline.m10 = t '.poll_variants'
+    .cc-2.block
+      .c-column
+        = f.input :user_id, as: :hidden
+
+        #vue_poll_variants
+          .b-nothing_here = t 'loading'
+
+        .buttons
+          a.cancel href="#{collections_url}" = t 'actions.cancel'
+          = f.button :magic_submit

@@ -206,6 +206,8 @@ en:
       collection_link:
         group: Group
         text: Comment
+      poll:
+        state: State
       club_invite:
         dst: User
         dst_id: User
@@ -279,6 +281,11 @@ en:
           unpublish: Unpublish
       collection:
         <<: *review_states
+      poll:
+        states:
+          pending: Pending
+          started: Started
+          stopped: Stopped
       anime_video:
         states:
           working: working
