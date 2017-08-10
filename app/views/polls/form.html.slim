@@ -23,8 +23,10 @@ header.head.misc
           label = Poll.human_attribute_name :state
           div
             = @resource.human_state_name
+          - unless @resource.can_start?
+            .hint = t '.start_hint'
 
-        .poll-variants.m5 = t '.poll_variants'
+        .poll-variants = t '.poll_variants'
         #vue_poll_variants
           .b-nothing_here = t 'loading'
 

@@ -8,4 +8,8 @@ header.head.misc
 
     p.notice.clearfix = t '.notice'
 
-= render @collection
+= cache @collection do
+  - if @collection.any?
+    = render @collection
+  - else
+    .b-nothing_here = t '.no_polls'

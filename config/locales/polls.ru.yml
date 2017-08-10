@@ -1,6 +1,0 @@
-ru:
-  polls:
-    form: &form
-      poll_variants: Варианты опроса
-    show:
-      <<: *form

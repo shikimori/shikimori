@@ -1,6 +1,0 @@
-en:
-  polls:
-    form: &form
-      poll_variants: Poll Variants
-    show:
-      <<: *form

@@ -1,7 +1,12 @@
-en:
+ru:
   polls:
     index:
-      new: Create new poll
-      notice: List of all your polls
+      new: Создать новый опрос
+      notice: Список всех ваших опросов
+      no_polls: Нет опросов
+    form: &form
+      poll_variants: Варианты опроса
+      start_hint: Чтобы запустить опрос, добавьте как минимум два варианта.
     show:
-      no_variants: No variants
+      <<: *form
+      no_variants: Нет вариантов

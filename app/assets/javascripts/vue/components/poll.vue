@@ -109,6 +109,9 @@ export default {
       top: 3px
       left: 53px
 
+    &:first-child
+      margin-top: 5px
+
     &:first-child:last-child
       .drag-handle
         display: none

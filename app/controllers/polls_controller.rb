@@ -10,7 +10,9 @@ class PollsController < ShikimoriController
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index
-    @collection = @collection.order(id: :desc)
+    @collection = @collection
+      .where(user_id: current_user.id)
+      .order(id: :desc)
   end
 
   def show
