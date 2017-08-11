@@ -1,5 +1,9 @@
 ru:
   user_rates:
+    index:
+      to_anime: к аниме
+      to_manga: к манге
+
     form:
       remove_from_my_list: Удалить из списка
 

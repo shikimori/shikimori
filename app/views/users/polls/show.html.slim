@@ -2,27 +2,28 @@ header.head.misc
   h1 = @page_title.last
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
-.block
+.block.b-form.bold-labels
   .b-input
     label = Poll.human_attribute_name :state
     p
       = @resource.human_state_name
 
-  .m15
-    .poll-variants = t '.poll_variants'
+  .b-input
+    label = t 'polls.form.poll_variants'
     - if @resource.poll_variants.any?
       ul.b-list
       - @resource.poll_variants.each do |poll_variant|
         li = poll_variant.text
     - else
-      .b-nothing_here = t '.no_variants'
+      .b-nothing_here = t 'polls.form.no_variants'
 
-  .bb-code BBCode
+  .b-input.m0
+    label BBCode
   = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
 
 - if @resource.can_stop?
   a.stop.b-button[
-    href="#{stop_poll_url @resource}"
+    href="#{stop_profile_poll_url @user, @resource}"
     title="#{t 'actions.stop'}"
     data-method="post"
     data-confirm="#{t 'actions.confirm'}"

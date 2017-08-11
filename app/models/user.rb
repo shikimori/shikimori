@@ -108,8 +108,10 @@ class User < ApplicationRecord
   has_many :user_images, dependent: :destroy
 
   has_many :anime_video_reports
-  has_many :list_imports, dependent: :destroy
-  has_many :polls, dependent: :destroy
+  has_many :list_imports, -> { order id: :desc },
+    dependent: :destroy
+  has_many :polls, -> { order id: :desc },
+    dependent: :destroy
 
   has_attached_file :avatar,
     styles: {

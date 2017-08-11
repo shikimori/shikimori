@@ -1,11 +1,12 @@
-describe PollsController do
+describe Users::PollsController do
   include_context :authenticated, :user
 
   describe '#index' do
     let!(:poll_1) { create :poll, user: user }
     let!(:poll_2) { create :poll, user: user }
+    let!(:poll_3) { create :poll, user: seed(:user) }
 
-    before { get :index }
+    before { get :index, params: { profile_id: user.to_param } }
 
     it do
       expect(collection).to eq [poll_2, poll_1]
@@ -15,11 +16,11 @@ describe PollsController do
 
   describe '#show' do
     let(:poll) { create :poll, state, user: user }
-    before { get :show, params: { id: poll.id } }
+    before { get :show, params: { profile_id: user.to_param, id: poll.id } }
 
     context 'pending' do
       let(:state) { :pending }
-      it { expect(response).to redirect_to edit_poll_url(poll) }
+      it { expect(response).to redirect_to edit_profile_poll_url(user, poll) }
     end
 
     context 'started & stopped' do
@@ -32,6 +33,7 @@ describe PollsController do
     before do
       get :new,
         params: {
+          profile_id: user.to_param,
           poll: { user_id: user.id }
         }
     end
@@ -42,6 +44,7 @@ describe PollsController do
     before do
       post :create,
         params: {
+          profile_id: user.to_param,
           poll: {
             user_id: user.id,
             name: 'test',
@@ -68,13 +71,13 @@ describe PollsController do
       expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
       expect(resource.poll_variants[1]).to have_attributes(text: 'test 2')
       expect(resource).to be_valid
-      expect(response).to redirect_to edit_poll_url(resource)
+      expect(response).to redirect_to edit_profile_poll_url(user, resource)
     end
   end
 
   describe '#edit' do
     let(:poll) { create :poll, :pending, user: user }
-    before { get :edit, params: { id: poll.id } }
+    before { get :edit, params: { profile_id: user.to_param, id: poll.id } }
 
     it { expect(response).to have_http_status :success }
   end
@@ -86,6 +89,7 @@ describe PollsController do
     before do
       post :update,
         params: {
+          profile_id: user.to_param,
           id: poll.id,
           poll: {
             name: 'test',
@@ -111,39 +115,45 @@ describe PollsController do
       expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
 
       expect(resource).to be_valid
-      expect(response).to redirect_to edit_poll_url(resource)
+      expect(response).to redirect_to edit_profile_poll_url(user, resource)
     end
   end
 
   describe '#start' do
     let(:poll) { create :poll, :pending, :with_variants, user: user }
-    before { post :start, params: { id: poll.id } }
+    before { post :start, params: { profile_id: user.to_param, id: poll.id } }
 
     it do
       expect(resource.reload).to be_started
-      expect(response).to redirect_to poll_url(resource)
+      expect(response).to redirect_to profile_poll_url(user, resource)
     end
   end
 
   describe '#stop' do
     let(:poll) { create :poll, :started, user: user }
 
-    before { post :stop, params: { id: poll.id } }
+    before { post :stop, params: { profile_id: user.to_param, id: poll.id } }
 
     it do
       expect(resource.reload).to be_stopped
-      expect(response).to redirect_to poll_url(resource)
+      expect(response).to redirect_to profile_poll_url(user, resource)
     end
   end
 
   describe '#destroy' do
     let(:poll) { create :poll, user: user }
 
-    before { delete :destroy, params: { id: poll.id } }
+    before do
+      delete :destroy,
+        params: {
+          profile_id: user.to_param,
+          id: poll.id
+        }
+    end
 
     it do
       expect(resource).to be_destroyed
-      expect(response).to redirect_to polls_url
+      expect(response).to redirect_to profile_polls_url(user)
     end
   end
 end

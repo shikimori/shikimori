@@ -4,6 +4,4 @@ class PollVariant < ApplicationRecord
   acts_as_voteable
 
   validates :text, presence: true
-
-  default_scope -> { order :id }
 end

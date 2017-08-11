@@ -1,5 +1,9 @@
 en:
   user_rates:
+    index:
+      to_anime: to anime
+      to_manga: to manga
+
     form:
       remove_from_my_list: Remove from My List
 

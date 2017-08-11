@@ -1,8 +1,14 @@
-class PollsController < ShikimoriController
+class Users::PollsController < ProfilesController
   load_and_authorize_resource
 
-  before_action { page_title i18n_i('Poll', :other) }
-  before_action :set_breadcrumbs, except: :index
+  before_action do
+    @back_url = profile_url @user
+    page_title i18n_i('Poll', :other)
+
+    if params[:action] != 'index'
+      breadcrumb i18n_i('Poll', :other), profile_polls_url(@user)
+    end
+  end
 
   UPDATE_PARAMS = %i[name] + [{
     poll_variants_attributes: %i[text]
@@ -10,13 +16,11 @@ class PollsController < ShikimoriController
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
   def index
-    @collection = @collection
-      .where(user_id: current_user.id)
-      .order(id: :desc)
+    @collection = @user.polls
   end
 
   def show
-    redirect_to edit_poll_url(@resource) if @resource.pending?
+    redirect_to edit_profile_poll_url(@user, @resource) if @resource.pending?
     page_title @resource.name
   end
 
@@ -27,7 +31,7 @@ class PollsController < ShikimoriController
 
   def create
     @resource.save!
-    redirect_to edit_poll_url(@resource)
+    redirect_to edit_profile_poll_url(@user, @resource)
   end
 
   def edit
@@ -41,22 +45,22 @@ class PollsController < ShikimoriController
       @resource.update! update_params
     end
 
-    redirect_to edit_poll_url(@resource)
+    redirect_to edit_profile_poll_url(@user, @resource)
   end
 
   def destroy
     @resource.destroy
-    redirect_to polls_url
+    redirect_to profile_polls_url(@user)
   end
 
   def start
     @resource.start!
-    redirect_to poll_url(@resource)
+    redirect_to profile_poll_url(@user, @resource)
   end
 
   def stop
     @resource.stop!
-    redirect_to poll_url(@resource)
+    redirect_to profile_poll_url(@user, @resource)
   end
 
 private
@@ -83,13 +87,5 @@ private
       params_hash[:poll_variants_attributes]
         .select { |poll_variant| poll_variant[:text]&.strip.present? }
         .uniq { |poll_variant| poll_variant[:text].strip }
-  end
-
-  def set_breadcrumbs
-    breadcrumb i18n_i('Poll', :other), polls_url
-
-    # if %w[edit update].include? params[:action]
-      # breadcrumb @resource.name, poll_url(@resource)
-    # end
   end
 end

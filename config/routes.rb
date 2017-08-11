@@ -845,11 +845,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :polls do
-      post :start, on: :member
-      post :stop, on: :member
-    end
-
     resources :ignores, only: %i[create]
     resources :profiles, path: '/', constraints: { id: user_id }, only: %i[show update] do
       member do
@@ -915,6 +910,10 @@ Rails.application.routes.draw do
       end
 
       scope module: :users do
+        resources :polls do
+          post :start, on: :member
+          post :stop, on: :member
+        end
         resources :list_imports, only: %i[new create show]
         resource :list_export, only: %i[show] do
           get :animes, format: /xml|json/

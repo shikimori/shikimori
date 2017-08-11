@@ -81,6 +81,9 @@ ru:
   users/list_imports_controller:
     <<: *profiles_controller
     title: Импорт списка
+  users/polls_controller:
+    <<: *profiles_controller
+    new: Новый опрос
 
   animes_collection_controller: &animes_collection_controller
     search: Поиск “%{search}”
@@ -362,9 +365,6 @@ ru:
     kind: Тип
     score: Оценка
     other: Прочее
-
-  polls_controller:
-    new: Новый опрос
 
   shikimori_controller:
     you_are_banned: Вы забанены до %{datetime}

@@ -9,17 +9,9 @@ header.head.misc
         title="#{t 'back_to_page'} #{{@user.name}}"
         data-text="#{t 'back'}"
       ]
-    / = @user.nickname
     = @page_title.last
-
-  = render 'profiles/status', user: @user
-
-  - if params[:controller] == 'user_rates'
-    - if params[:list_type] == 'anime' && @user.stats.manga? && @user.preferences.manga_in_profile?
-      a.misc href="#{profile_user_rates_url @user, list_type: 'manga'}" title="#{t '.to_manga'}" = t '.to_manga'
-
-    - if params[:list_type] == 'manga' && @user.stats.anime? && @user.preferences.anime_in_profile?
-      a.misc href="#{profile_user_rates_url @user, list_type: 'anime'}" title="#{t '.to_anime'}" = t '.to_anime'
+    = render 'profiles/status', user: @user
+    = yield :head_misc
 
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 

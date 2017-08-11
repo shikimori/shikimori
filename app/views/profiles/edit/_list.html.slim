@@ -133,4 +133,4 @@
         .b-nothing_here = t '.list_import_history_blank'
       - else
         = render partial: 'users/list_imports/list_import',
-          collection: @resource.list_imports.order(id: :desc)
+          collection: @resource.list_imports

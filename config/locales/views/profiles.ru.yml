@@ -32,8 +32,6 @@ ru:
         list: Список аниме и манги
         notifications: Уведомления
         misc: Прочее
-      to_anime: к аниме
-      to_manga: к манге
       nothing_here: Ничего нет
       banned: '@{m:Забанен|f:Забанена}'
       ban_removal: >-

@@ -81,6 +81,9 @@ en:
   users/list_imports_controller:
     <<: *profiles_controller
     title: Import list
+  users/polls_controller:
+    <<: *profiles_controller
+    new: New poll
 
   animes_collection_controller: &animes_collection_controller
     search: Search "%{search}"
@@ -362,9 +365,6 @@ en:
     kind: Type
     score: Score
     other: Others
-
-  polls_controller:
-    new: New poll
 
   shikimori_controller:
     you_are_banned: You are banned till %{datetime}

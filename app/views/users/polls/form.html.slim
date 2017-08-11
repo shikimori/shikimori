@@ -10,7 +10,10 @@ header.head.misc
 #poll_form[
   data-poll="#{PollSerializer.new(@resource).to_json}"
 ]
-  = simple_form_for @resource do |f|
+  = simple_form_for @resource,
+      url: @resource.persisted? ? profile_poll_url(@user, @resource) : profile_polls_url(@user),
+      html: { class: 'b-form bold-labels' } do |f|
+
     .cc-2.block
       .c-column
         = f.input :user_id, as: :hidden
@@ -24,18 +27,19 @@ header.head.misc
           div
             = @resource.human_state_name
           - unless @resource.can_start?
-            .hint = t '.start_hint'
+            .hint = t 'polls.form.start_hint'
 
-        .poll-variants = t '.poll_variants'
+        .b-input.m0
+          label = t 'polls.form.poll_variants'
         #vue_poll_variants
           .b-nothing_here = t 'loading'
 
         .buttons
-          a.cancel href="#{polls_url}" = t 'actions.cancel'
+          a.cancel href="#{profile_polls_url @user}" = t 'actions.cancel'
           = f.button :magic_submit
           - if @resource.can_start?
             a.start.b-button[
-              href="#{start_poll_url @resource}"
+              href="#{start_profile_poll_url @user, @resource}"
               title="#{t 'actions.start'}"
               data-method="post"
               data-confirm="#{t 'actions.confirm'}"
@@ -43,7 +47,7 @@ header.head.misc
 
         - if @resource.persisted?
           a.remove[
-            href="#{poll_url @resource}"
+            href="#{profile_poll_url @user, @resource}"
             title="#{t 'actions.delete'}"
             data-method="delete"
             data-confirm="#{t 'actions.confirm'}"

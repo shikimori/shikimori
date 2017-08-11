@@ -1,11 +1,13 @@
 .b-log_entry
   span
-    a href="#{poll_url poll}"
+    a href="#{profile_poll_url user, poll}"
       span.id-label #
       = poll.id
-  span = poll.name
+
   span.date
     = poll.created_at.strftime('%d.%m.%Y')
+
+  span = poll.name
 
   span.state class="#{poll.state.downcase}"
     = poll.human_state_name

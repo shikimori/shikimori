@@ -2,7 +2,8 @@ class Poll < ApplicationRecord
   include Translation
 
   belongs_to :user
-  has_many :poll_variants, dependent: :destroy
+  has_many :poll_variants, -> { order :id },
+    dependent: :destroy
 
   validates :user, presence: true
 

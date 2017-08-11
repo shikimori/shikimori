@@ -1,6 +1,8 @@
 class ProfilesController < ShikimoriController
   before_action :fetch_resource
-  before_action :set_breadcrumbs, if: -> { params[:action] != 'show' || params[:controller] != 'profile' }
+  before_action :set_breadcrumbs#, if: lambda {
+    # params[:action] != 'show' || params[:controller] != 'profile'
+  # }
 
   PARENT_PAGES = {
     'password' => 'account',
