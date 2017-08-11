@@ -199,20 +199,20 @@ class Abilities::User
 
   def anime_video_abilities
     can :create, AnimeVideoReport do |report|
-      !@user.banned? && !@user.verison_vermin? &&
+      !@user.banned? && !@user.version_vermin? &&
         report.user_id == @user.id && (
           report.broken? || report.wrong? || report.other?
         )
     end
     can %i[new create], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.verison_vermin? && anime_video.uploaded?
+      !@user.banned? && !@user.version_vermin? && anime_video.uploaded?
     end
     can %i[edit update], AnimeVideo do |anime_video|
-      !@user.banned? && !@user.verison_vermin? &&
+      !@user.banned? && !@user.version_vermin? &&
         (anime_video.uploaded? || anime_video.working?)
     end
     can :destroy, AnimeVideo do |anime_video|
-      !@user.banned? && !@user.verison_vermin? &&
+      !@user.banned? && !@user.version_vermin? &&
         (anime_video.uploader == @user && (
           @user.api_video_uploader? || anime_video.created_at > 1.week.ago)
         )
@@ -221,7 +221,7 @@ class Abilities::User
 
   def version_abilities
     can %i[create destroy], Version do |version|
-      !@user.banned? && !@user.verison_vermin? &&
+      !@user.banned? && !@user.version_vermin? &&
         version.user_id == @user.id && (
           version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
         ).none?

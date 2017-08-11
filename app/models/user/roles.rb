@@ -103,7 +103,7 @@ class User
       API_VIDEO_UPLOADERS.include? id
     end
 
-    def verison_vermin?
+    def version_vermin?
       VERSION_VERMINS.include? id
     end
   end
