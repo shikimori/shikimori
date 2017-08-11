@@ -22,6 +22,10 @@ class DbEntriesController < ShikimoriController
     page_title i18n_t 'entry_edit'
     @field = params[:field]
 
+    authorize!(
+      :create,
+      Version.new(user: current_user, item: @resource, item_diff: {})
+    )
     if significant_fields.include? @field
       authorize! :significant_change, Version
     end
@@ -34,16 +38,23 @@ class DbEntriesController < ShikimoriController
       authorize! :significant_change, Version
     end
 
-    version = if update_params[:image]
-      update_image
-    elsif update_params[:external_links]
-      update_external_links
-    else
-      update_version
+    Version.transaction do
+      @version = if update_params[:image]
+        update_image
+      elsif update_params[:external_links]
+        update_external_links
+      else
+        update_version
+      end
+
+      authorize! :create, @version
     end
 
-    if version.persisted?
-      redirect_to @resource.edit_url, notice: i18n_t("version_#{version.state}")
+    if @version.persisted?
+      redirect_to(
+        @resource.edit_url,
+        notice: i18n_t("version_#{@version.state}")
+      )
     else
       redirect_back(
         fallback_location: @resource.edit_url,
