@@ -37,7 +37,8 @@ class User
     TRUSTED_RANOBE_EXTERNAL_LINKS_CHANGERS = [17802, 6675] # 17802 - samogot, 6675 - Gurebu
 
     VERSION_VERMINS = [
-      65_255
+      65_255,
+      47_807
     ]
 
     def admin?
