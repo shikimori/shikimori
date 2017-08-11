@@ -1,13 +1,13 @@
 class JsExports::Supervisor
   include Singleton
 
-  KEYS = %i(user_rates topics comments)
+  KEYS = %i[user_rates topics comments polls]
 
   def export user
     return unless user
 
     KEYS.each_with_object({}) do |key, memo|
-      memo[key] = send(key).export user
+      memo[key] = instance(key).export user
     end
   end
 
@@ -15,22 +15,14 @@ class JsExports::Supervisor
     return html if html.blank?
 
     KEYS.each do |key|
-      send(key).sweep html
+      instance(key).sweep html
     end
     html
   end
 
 private
 
-  def user_rates
-    JsExports::UserRatesExport.instance
-  end
-
-  def topics
-    JsExports::TopicsExport.instance
-  end
-
-  def comments
-    JsExports::CommentsExport.instance
+  def instance key
+    "JsExports::#{key.to_s.classify.pluralize}Export".constantize.instance
   end
 end
