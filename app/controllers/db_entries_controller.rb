@@ -24,7 +24,11 @@ class DbEntriesController < ShikimoriController
 
     authorize!(
       :create,
-      Version.new(user: current_user, item: @resource, item_diff: {})
+      Version.new(
+        user: current_user,
+        item: @resource.decorated? ? @resource.object : @resource,
+        item_diff: {}
+      )
     )
     if significant_fields.include? @field
       authorize! :significant_change, Version
