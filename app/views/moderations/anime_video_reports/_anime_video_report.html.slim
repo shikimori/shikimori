@@ -1,4 +1,4 @@
-= cache [anime_video_report, user_signed_in? && current_user.video_moderator?] do
+= cache [anime_video_report, user_signed_in? && current_user.video_moderator?, :v2] do
   .b-log_entry.video
     span
       a[
