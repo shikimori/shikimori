@@ -27,6 +27,8 @@ class User < ApplicationRecord
     omniauthable
   ])
 
+  acts_as_voter
+
   has_one :preferences, dependent: :destroy, class_name: UserPreferences.name
   accepts_nested_attributes_for :preferences
 
@@ -75,7 +77,6 @@ class User < ApplicationRecord
   has_many :messages, foreign_key: :to_id, dependent: :destroy
 
   has_many :reviews, dependent: :destroy
-  has_many :votes, dependent: :destroy
 
   has_many :ignores, dependent: :destroy
   has_many :ignored_users, through: :ignores, source: :target

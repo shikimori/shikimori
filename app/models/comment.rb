@@ -51,7 +51,7 @@ class Comment < ApplicationRecord
 
   # NOTE: install the acts_as_votable plugin if you
   # want user to vote on the quality of comments.
-  #acts_as_voteable
+  #acts_as_votable
 
   # TODO: remove when review param is removed from API (after 01.09.2016)
   def review= value

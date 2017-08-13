@@ -77,7 +77,7 @@ gem 'enumerize', '2.0.1' # в 2.1.0 Sidekiq::Extensions::DelayedMailer пада�
 gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
-gem 'acts_as_voteable', github: 'morr/acts_as_voteable', branch: 'master'
+gem 'acts_as_votable'
 
 gem 'unicode' # для downcase русских слов
 gem 'icalendar' # для аниме календраря

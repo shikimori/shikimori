@@ -47,13 +47,6 @@ GIT
     ruby-svd (0.5.4)
 
 GIT
-  remote: git://github.com/morr/acts_as_voteable.git
-  revision: 9d2b34208f790779d898f13b5505b37f0a8e3aa8
-  branch: master
-  specs:
-    acts_as_voteable (0.0.3)
-
-GIT
   remote: git://github.com/morr/cancancan.git
   revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
@@ -160,6 +153,7 @@ GEM
       activerecord (>= 4.2.8)
     acts_as_list (0.9.7)
       activerecord (>= 3.0)
+    acts_as_votable (0.10.0)
     addressable (2.5.1)
       public_suffix (~> 2.0, >= 2.0.2)
     airbrussh (1.3.0)
@@ -695,7 +689,7 @@ DEPENDENCIES
   activerecord-import
   acts-as-taggable-on
   acts_as_list
-  acts_as_voteable!
+  acts_as_votable
   airbrussh
   amatch!
   apipie-rails
