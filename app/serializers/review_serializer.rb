@@ -18,8 +18,16 @@ class ReviewSerializer < ActiveModel::Serializer
 
   def target
     case object.target_type
-      when Anime.name then AnimeSerializer.new object.target
-      when Manga.name then MangaSerializer.new object.target
+      when Anime.name then AnimeSerializer.new(object.target)
+      when Manga.name then MangaSerializer.new(object.target)
     end
+  end
+
+  def votes_for
+    object.cached_votes_up
+  end
+
+  def votes_count
+    object.cached_votes_up + object.cached_votes_down
   end
 end
