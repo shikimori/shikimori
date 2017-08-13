@@ -29,7 +29,6 @@ describe User do
     it { is_expected.to have_many :comments }
 
     it { is_expected.to have_many(:reviews).dependent(:destroy) }
-    it { is_expected.to have_many(:votes).dependent(:destroy) }
 
     it { is_expected.to have_many(:ignores).dependent(:destroy) }
     it { is_expected.to have_many :ignored_users }

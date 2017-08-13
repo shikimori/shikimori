@@ -16,10 +16,6 @@ require_relative '../lib/named_logger'
 
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
-# require 'acts_as_voteable'
-# require 'open-uri'
-
-
 module Site
   DOMAIN = 'shikimori.org'
   NAME = 'Шикимори'

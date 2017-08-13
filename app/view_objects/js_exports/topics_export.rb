@@ -29,8 +29,8 @@ private
   def vote_status topic, user
     if VOTEABLE_TYPES.include? topic.linked_type
       {
-        voted_yes: topic.linked.voted_yes?(user),
-        voted_no: topic.linked.voted_no?(user)
+        voted_yes: user.liked?(topic.linked),
+        voted_no: user.disliked?(topic.linked)
       }
     else
       {}
