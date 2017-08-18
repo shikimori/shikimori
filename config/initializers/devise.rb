@@ -25,9 +25,9 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply hash where the value is a boolean expliciting if authentication
   # should be aborted or not if the value is not present. By default is empty.
-  config.case_insensitive_keys = [ :email ]
-  config.strip_whitespace_keys = [ :email ]
-  config.authentication_keys = [ :nickname ]
+  config.case_insensitive_keys = [:email]
+  config.strip_whitespace_keys = [:email]
+  config.authentication_keys = [:nickname]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to

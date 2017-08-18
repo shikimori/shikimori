@@ -1,6 +1,6 @@
 [![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg)](https://circleci.com/gh/morr/shikimori)
 
-# настройка постгреса
+### PostgreSQL
 ```
 ~ psql -d postgres
 ```

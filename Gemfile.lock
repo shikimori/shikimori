@@ -133,9 +133,8 @@ GEM
       globalid (>= 0.3.6)
     activemodel (5.1.3)
       activesupport (= 5.1.3)
-    activemodel-serializers-xml (1.0.1)
+    activemodel-serializers-xml (1.0.2)
       activemodel (> 5.x)
-      activerecord (> 5.x)
       activesupport (> 5.x)
       builder (~> 3.1)
     activerecord (5.1.3)
@@ -160,7 +159,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.1)
       rails (>= 4.1)
-    appsignal (2.3.1)
+    appsignal (2.3.2)
       rack
     arel (8.0.0)
     ast (2.3.0)
@@ -257,7 +256,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-types (~> 0.9, >= 0.9.0)
       ice_nine (~> 0.11)
-    dry-types (0.11.0)
+    dry-types (0.11.1)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1)
       dry-container (~> 0.3)
@@ -451,7 +450,7 @@ GEM
     parser (2.4.0.0)
       ast (~> 2.2)
     pg (0.21.0)
-    pg_query (0.13.1)
+    pg_query (0.13.2)
       json (>= 1.8, < 3)
     pghero (2.0.2)
       activerecord
@@ -471,7 +470,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (2.0.5)
-    puma (3.9.1)
+    puma (3.10.0)
     rack (2.0.3)
     rack-attack (5.0.1)
       rack
@@ -551,7 +550,7 @@ GEM
     rspec-mocks (3.6.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.6.0)
-    rspec-rails (3.6.0)
+    rspec-rails (3.6.1)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
@@ -818,4 +817,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.15.1
+   1.15.3

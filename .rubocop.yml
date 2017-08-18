@@ -1,5 +1,5 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   Exclude:
     - config/**/*
     - db/**/*
@@ -12,6 +12,11 @@ AllCops:
     - spec/rails_helper.rb
     - spec/support*
     - bin/*
+    - node_modules/**/*
+    - public/packs/**/*
+    - public/packs-test/**/*
+    - lib/named_logger.rb
+    - lib/active_cacher.rb
   UseCache: false
 
 Metrics/LineLength:

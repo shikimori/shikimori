@@ -5,17 +5,6 @@ set :rails_env, fetch(:stage)
 
 #set :bundle_without, [:test]
 set :branch, ->{ `git rev-parse --abbrev-ref HEAD`.chomp }
-set :scm, :git
-
-set :keep_releases, 5
-#set :format, :pretty
-set :log_level, :info
-# set :pty, true # https://github.com/capistrano/capistrano#a-word-about-ptys
-
-set :slack_team, fetch(:application)
-set :slack_token, 'Ir0HqbTOBnhbf8hXGosJBqh6'
-set :slack_channel, ->{ '#general' }
-set :slack_username, ->{ ENV['USER'] }
 
 set :user, 'devops'
 set :group, 'apps'
@@ -36,6 +25,10 @@ set :linked_dirs, %w[
   public/.well-known/acme-challenge
 ]
 set :copy_files, %w[node_modules]
+
+set :keep_releases, 5
+set :log_level, :info
+set :format, :airbrussh
 
 def shell_exec command
   execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"

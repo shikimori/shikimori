@@ -18,7 +18,6 @@ bowser = require 'bowser'
 require '../i18n/translations'
 
 window.I18n = I18n
-window.z = require('axios')
 window.axios = require('axios').create
   headers:
     'X-Requested-With': 'XMLHttpRequest'

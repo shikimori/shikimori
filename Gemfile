@@ -65,7 +65,6 @@ gem 'redis-mutex'
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 #gem 'exception_notification', github: 'smartinez87/exception_notification'
 #gem 'slack-notifier'
-gem 'awesome_print'
 gem 'htmldiff-lcs', github: 'nbudin/htmldiff-lcs', require: 'htmldiff'
 
 gem 'retryable'
@@ -138,12 +137,13 @@ group :development do
   #gem 'slackistrano', require: false
   gem 'rvm1-capistrano3', require: false
   gem 'airbrussh', require: false
+
   # gem 'rails-flog', require: 'flog'
   gem 'active_record_query_trace'
-
   gem 'foreman'#, github: 'morr/foreman' # для управления бекграунд процессами
 end
 
+gem 'awesome_print'
 gem 'byebug'
 gem 'colorize'
 gem 'marco-polo'
