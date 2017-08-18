@@ -1,6 +1,6 @@
 class PaginationValidator < Apipie::Validator::BaseValidator
   MINUMUM = 1
-  MAXIMUM = 10_000
+  MAXIMUM = 100_000
 
   def self.build param_description, argument, options, block
     if argument == :pagination
