@@ -3,6 +3,7 @@ TOOLTIP_OPTIONS = require 'helpers/tooltip_options'
 UserRatesTracker = require 'services/user_rates/tracker'
 TopicsTracker = require 'services/topics/tracker'
 CommentsTracker = require 'services/comments/tracker'
+PollsTracker = require 'services/polls/tracker'
 
 (($) ->
   $.fn.extend
@@ -19,6 +20,7 @@ process_current_dom = (root = document.body, JS_EXPORTS = window.JS_EXPORTS) ->
   UserRatesTracker.track JS_EXPORTS, $root
   TopicsTracker.track JS_EXPORTS, $root
   CommentsTracker.track JS_EXPORTS, $root
+  PollsTracker.track JS_EXPORTS, $root
 
   new DynamicElements.Parser $with('.to-process', $root)
 
