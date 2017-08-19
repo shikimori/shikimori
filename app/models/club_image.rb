@@ -4,7 +4,7 @@ class ClubImage < ApplicationRecord
 
   has_attached_file :image,
     styles: {
-      main: '1920x1200>',
+      original: '1920x1200>',
       preview: '178x534>'
     },
     url: '/system/images/:style/:id.:extension',
