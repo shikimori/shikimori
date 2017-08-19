@@ -8,7 +8,7 @@ class ClubImageSerializer < ActiveModel::Serializer
   end
 
   def main_url
-    ImageUrlGenerator.instance.url object, :main
+    ImageUrlGenerator.instance.url object, :original
   end
 
   def preview_url
