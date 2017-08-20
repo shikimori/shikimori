@@ -10,7 +10,11 @@ describe Ad do
       ru_host?: is_ru_host,
       shikimori?: is_shikimori,
       current_user: user,
-      spnsr_url: 'zxc'
+      spnsr_url: 'zxc',
+      controller: double(
+        instance_variable_get: is_istari_shown,
+        instance_variable_set: nil
+      )
     )
   end
   let(:params) { { controller: 'anime' } }
@@ -19,6 +23,7 @@ describe Ad do
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
+  let(:is_istari_shown) { false }
 
   describe '#banner_type' do
     it { expect(ad.banner_type).to eq banner_type }
@@ -90,6 +95,11 @@ describe Ad do
       let(:banner_type) { :advrtr_x240 }
       it { expect(ad.ad_params).to be_nil }
     end
+
+    context 'istari' do
+      let(:banner_type) { :istari_x300 }
+      it { expect(ad.ad_params).to be_nil }
+    end
   end
 
   describe '#css_class' do
@@ -104,10 +114,13 @@ describe Ad do
   end
 
   describe '#to_html' do
+    subject! { ad.to_html }
+
     context 'advertur' do
       let(:banner_type) { :advrtr_x240 }
       it do
-        expect(ad.to_html).to eq(
+        expect(h.controller).to_not have_received :instance_variable_set
+        is_expected.to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
             <div class="b-spnsrs-advrtr_x240">
               <center>
@@ -119,10 +132,31 @@ describe Ad do
       end
     end
 
+    context 'istari' do
+      let(:banner_type) { :istari_x1170 }
+      it do
+        expect(h.controller)
+          .to have_received(:instance_variable_set)
+          .with(Ad::ISTARI_CONTROLLER_KEY, true)
+        is_expected.to eq(
+          <<-HTML.gsub(/\n|^\ +/, '')
+            <div class="b-spnsrs-istari_x1170">
+              <center>
+                <a href='https://vk.com/istaricomics'>
+                  <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
+                </a>
+              </center>
+            </div>
+          HTML
+        )
+      end
+    end
+
     context 'yandex_direct' do
       let(:banner_type) { :yd_rtb_x240 }
       it do
-        expect(ad.to_html).to eq(
+        expect(h.controller).to_not have_received :instance_variable_set
+        is_expected.to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
             <div class="b-spnsrs-yd_rtb_x240">
               <center>

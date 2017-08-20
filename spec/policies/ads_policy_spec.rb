@@ -4,7 +4,8 @@ describe AdsPolicy do
       is_ru_host: is_ru_host,
       is_shikimori: is_shikimori,
       ad_provider: ad_provider,
-      user_id: user_id
+      user_id: user_id,
+      is_istari_shown: is_istari_shown
     )
   end
 
@@ -12,6 +13,7 @@ describe AdsPolicy do
   let(:is_shikimori) { true }
   let(:ad_provider) { Types::Ad::Provider.values.sample }
   let(:user_id) { nil }
+  let(:is_istari_shown) { false }
 
   it { is_expected.to be_allowed }
 
@@ -47,7 +49,16 @@ describe AdsPolicy do
     describe 'shikimori & yandex_direct' do
       let(:is_shikimori) { true }
       let(:ad_provider) { Types::Ad::Provider[:yandex_direct] }
-      it { is_expected.to be_allowed }
+
+      context 'istari not shown' do
+        let(:is_istari_shown) { false }
+        it { is_expected.to be_allowed }
+      end
+
+      context 'istari shown' do
+        let(:is_istari_shown) { true }
+        it { is_expected.to_not be_allowed }
+      end
     end
 
     describe 'not shikimori & not yandex_direct' do
@@ -59,7 +70,17 @@ describe AdsPolicy do
     describe 'shikimori & not yandex_direct' do
       let(:is_shikimori) { true }
       let(:ad_provider) { Types::Ad::Provider[:advertur] }
-      it { is_expected.to be_allowed }
+
+
+      context 'istari not shown' do
+        let(:is_istari_shown) { false }
+        it { is_expected.to be_allowed }
+      end
+
+      context 'istari shown' do
+        let(:is_istari_shown) { true }
+        it { is_expected.to_not be_allowed }
+      end
     end
   end
 end

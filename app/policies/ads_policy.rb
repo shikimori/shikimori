@@ -1,5 +1,11 @@
 class AdsPolicy
-  pattr_initialize %i[is_ru_host is_shikimori ad_provider user_id]
+  pattr_initialize %i[
+    is_ru_host
+    is_shikimori
+    ad_provider
+    user_id
+    is_istari_shown
+  ]
 
   MODERATOR_IDS = User::MODERATORS + User::REVIEWS_MODERATORS +
     User::VERSIONS_MODERATORS + User::VIDEO_MODERATORS +
@@ -10,11 +16,16 @@ class AdsPolicy
 
   def allowed?
     return false if yandex_direct? && Rails.env.development?
+    return false if is_istari_shown
 
-    @is_ru_host && allowed_user? && (@is_shikimori || !yandex_direct?)
+    check_allowed
   end
 
 private
+
+  def check_allowed
+    @is_ru_host && allowed_user? && (@is_shikimori || !yandex_direct?)
+  end
 
   def yandex_direct?
     @ad_provider == Types::Ad::Provider[:yandex_direct]

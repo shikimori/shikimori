@@ -6,6 +6,20 @@ class Ad < ViewObjectBase
   # block_3: [92_485, nil]
 
   BANNERS = {
+    istari_x300: {
+      provider: Types::Ad::Provider[:istari],
+      cookie_id: 'i1_1',
+      url: 'https://vk.com/istaricomics',
+      src: '/assets/globals/events/i1_1.jpg',
+      src_2x: '/assets/globals/events/i1_1@2x.jpg'
+    },
+    istari_x1170: {
+      provider: Types::Ad::Provider[:istari],
+      cookie_id: 'i1_2',
+      url: 'https://vk.com/istaricomics',
+      src: '/assets/globals/events/i1_2.jpg',
+      src_2x: '/assets/globals/events/i1_2@2x.jpg'
+    },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
@@ -45,6 +59,7 @@ class Ad < ViewObjectBase
     yd_rtb_x240: :advrtr_x240,
     yd_horizontal: :advrtr_x728
   }
+  ISTARI_CONTROLLER_KEY = :"@is_istari_shown"
 
   attr_reader :banner_type, :policy
   delegate :allowed?, to: :policy
@@ -92,6 +107,8 @@ class Ad < ViewObjectBase
   end
 
   def to_html
+    finalize if istari?
+
     <<-HTML.gsub(/\n|^\ +/, '')
       <div class="b-spnsrs-#{@banner_type}">
         <center>
@@ -113,7 +130,8 @@ private
       is_ru_host: h.ru_host?,
       is_shikimori: h.shikimori?,
       ad_provider: provider,
-      user_id: h.current_user&.id
+      user_id: h.current_user&.id,
+      is_istari_shown: h.controller.instance_variable_get('@is_istari_shown')
     )
   end
 
@@ -125,9 +143,16 @@ private
     provider == Types::Ad::Provider[:yandex_direct]
   end
 
+  def istari?
+    provider == Types::Ad::Provider[:istari]
+  end
+
   def ad_html
     if yandex_direct?
       "<div id='#{@banner_type}'></div>"
+    elsif istari?
+      "<a href='#{banner[:url]}'>"\
+        "<img src='#{banner[:src]}' srcset='#{banner[:src_2x]} 2x'></a>"
     else
       "<iframe src='#{advertur_url}' width='#{banner[:width]}px' "\
         "height='#{banner[:height]}px'>"
@@ -155,6 +180,10 @@ private
 
   def not_allowed_with_fallback?
     !@policy.allowed? && FALLBACKS[@banner_type]
+  end
+
+  def finalize
+    h.controller.instance_variable_set ISTARI_CONTROLLER_KEY, true
   end
 end
 # rubocop:enable ClassLength

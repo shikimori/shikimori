@@ -1,10 +1,12 @@
-- unless @itemtype
+- if !@itemtype
   .b-menu_logo
     center: a href="#{resource.url}" title="#{resource.name}"
       img[
         src="#{cdn_image resource, :original}"
         alt="#{resource.name}"
       ]
+- else
+  = render 'spnsrs/ad', ad: Ad.new(:istari_x300)
 
 = cache @resource do
   = render 'blocks/favoured', favoured: resource.favoured, url: favoured_character_url(resource)
