@@ -14,7 +14,8 @@ describe Ad do
       controller: double(
         instance_variable_get: is_istari_shown,
         instance_variable_set: nil
-      )
+      ),
+      cookies: cookies
     )
   end
   let(:params) { { controller: 'anime' } }
@@ -24,6 +25,7 @@ describe Ad do
   let(:height) { 400 }
   let(:user) { nil }
   let(:is_istari_shown) { false }
+  let(:cookies) { {} }
 
   describe '#banner_type' do
     it { expect(ad.banner_type).to eq banner_type }
@@ -76,8 +78,33 @@ describe Ad do
   end
 
   describe '#allowed?' do
-    before { allow(ad.policy).to receive(:allowed?).and_return :zz }
-    it { expect(ad.allowed?).to eq :zz }
+    before do
+      allow(ad.policy).to receive(:allowed?).and_return is_allowed
+      ad.instance_variable_set :'@rules', rules
+    end
+    let(:is_allowed) { true }
+    let(:rules) { nil }
+
+    it { expect(ad).to be_allowed }
+
+    context 'not allowed' do
+      let(:is_allowed) { false }
+      it { expect(ad).to_not be_allowed }
+    end
+
+    context 'rules' do
+      let(:rules) { double show?: is_show }
+
+      context 'to show' do
+        let(:is_show) { true }
+        it { expect(ad).to be_allowed }
+      end
+
+      context 'not to show' do
+        let(:is_show) { false }
+        it { expect(ad).to_not be_allowed }
+      end
+    end
   end
 
   describe '#ad_params' do

@@ -94,7 +94,7 @@ describe Ads::Rules do
   end
 
   describe '#fast_shows?, #next_show_in, #next_show_at' do
-    let(:shows_policy) { ad_rules.shows_policy }
+    let(:shows_policy) { ad_rules.send :shows_policy }
     let(:intervals) { Ads::Rules::INTERVALS[shows_policy] }
 
     context do
@@ -103,29 +103,33 @@ describe Ads::Rules do
       context do
         let(:shows) { [6.days.ago, 5.days.ago] }
 
-        it { expect(ad_rules).to be_fast_shows }
-        it { expect(ad_rules.shows_policy).to eq Ads::Rules::FAST }
-        it { expect(ad_rules.next_show_in).to eq intervals[0] }
-        it { expect(ad_rules.next_show_at).to eq 1.minute.ago }
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq true }
+        it { expect(ad_rules.send :shows_policy).to eq Ads::Rules::FAST }
+        it { expect(ad_rules.send :next_show_in).to eq intervals[0] }
+        it { expect(ad_rules.send :next_show_at).to eq 1.minute.ago }
       end
 
       context do
         let(:shows) { [23.hours.ago] }
 
-        it { expect(ad_rules).to_not be_fast_shows }
-        it { expect(ad_rules.shows_policy).to eq Ads::Rules::SLOW }
-        it { expect(ad_rules.next_show_in).to eq intervals[1] }
-        it { expect(ad_rules.next_show_at).to eq shows.last + ad_rules.next_show_in }
+        it { expect(ad_rules).to_not be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq false }
+        it { expect(ad_rules.send :shows_policy).to eq Ads::Rules::SLOW }
+        it { expect(ad_rules.send :next_show_in).to eq intervals[1] }
+        it { expect(ad_rules.send :next_show_at).to eq shows.last + ad_rules.send(:next_show_in) }
       end
 
       context do
         let(:shows) { [2.days.ago] }
-        it { expect(ad_rules).to_not be_fast_shows }
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq false }
       end
 
       context do
         let(:shows) { [3.days.ago] }
-        it { expect(ad_rules).to be_fast_shows }
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq true }
       end
     end
 
@@ -134,17 +138,32 @@ describe Ads::Rules do
 
       context do
         let(:shows) { [] }
-        it { expect(ad_rules).to_not be_fast_shows }
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq false }
       end
 
       context do
         let(:shows) do
           [25.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago]
         end
-        it { expect(ad_rules).to_not be_fast_shows }
-        it { expect(ad_rules.shows_policy).to eq Ads::Rules::SLOW }
-        it { expect(ad_rules.next_show_in).to eq intervals[4] }
-        it { expect(ad_rules.next_show_at).to eq shows.last + ad_rules.next_show_in }
+
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq false }
+        it { expect(ad_rules.send :shows_policy).to eq Ads::Rules::SLOW }
+        it { expect(ad_rules.send :next_show_in).to eq intervals[4] }
+        it { expect(ad_rules.send :next_show_at).to eq shows.last + ad_rules.send(:next_show_in) }
+      end
+
+      context do
+        let(:shows) do
+          [5.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago]
+        end
+
+        it { expect(ad_rules).to_not be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq false }
+        it { expect(ad_rules.send :shows_policy).to eq Ads::Rules::SLOW }
+        it { expect(ad_rules.send :next_show_in).to eq intervals.last }
+        it { expect(ad_rules.send :next_show_at).to eq shows.last + ad_rules.send(:next_show_in) }
       end
 
       context do
@@ -152,10 +171,11 @@ describe Ads::Rules do
           [30.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago, 5.hours.ago]
         end
 
-        it { expect(ad_rules).to be_fast_shows }
-        it { expect(ad_rules.shows_policy).to eq Ads::Rules::FAST }
-        it { expect(ad_rules.next_show_in).to eq intervals.last }
-        it { expect(ad_rules.next_show_at).to eq shows.last + ad_rules.next_show_in }
+        it { expect(ad_rules).to be_show }
+        it { expect(ad_rules.send :fast_shows?).to eq true }
+        it { expect(ad_rules.send :shows_policy).to eq Ads::Rules::FAST }
+        it { expect(ad_rules.send :next_show_in).to eq intervals.last }
+        it { expect(ad_rules.send :next_show_at).to eq shows.last + ad_rules.send(:next_show_in) }
       end
     end
   end

@@ -56,11 +56,10 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
-  config.assets.debug = false
 
   config.assets.raise_production_errors = true
   config.assets.raise_runtime_errors = true
-  config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
+  # config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
 
   # if defined? ActiveRecordQueryTrace
     # ActiveRecordQueryTrace.enabled = true

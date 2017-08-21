@@ -8,14 +8,16 @@ class Ad < ViewObjectBase
   BANNERS = {
     istari_x300: {
       provider: Types::Ad::Provider[:istari],
-      cookie_id: 'i1_1',
       url: 'https://vk.com/istaricomics',
       src: '/assets/globals/events/i1_1.jpg',
-      src_2x: '/assets/globals/events/i1_1@2x.jpg'
+      src_2x: '/assets/globals/events/i1_1@2x.jpg',
+      rules: {
+        cookie_id: 'i1_1',
+        shows_per_week: 30
+      }
     },
     istari_x1170: {
       provider: Types::Ad::Provider[:istari],
-      cookie_id: 'i1_2',
       url: 'https://vk.com/istaricomics',
       src: '/assets/globals/events/i1_2.jpg',
       src_2x: '/assets/globals/events/i1_2@2x.jpg'
@@ -62,7 +64,6 @@ class Ad < ViewObjectBase
   ISTARI_CONTROLLER_KEY = :"@is_istari_shown"
 
   attr_reader :banner_type, :policy
-  delegate :allowed?, to: :policy
 
   def initialize banner_type
     switch_banner banner_type
@@ -72,15 +73,15 @@ class Ad < ViewObjectBase
     switch_banner FALLBACKS[banner_type] if not_allowed_with_fallback?
   end
 
-  # def allowed?
+  def allowed?
     # # temporarily disable advertur
     # if provider == Types::Ad::Provider[:advertur] &&
         # h.params[:action] != 'advertur_test' && Rails.env.production? &&
         # h.current_user&.id != 1
       # return false
     # end
-    # policy.allowed?
-  # end
+    policy.allowed? && (!@rules || @rules.show?)
+  end
 
   def provider
     banner[:provider]
@@ -123,6 +124,7 @@ private
   def switch_banner banner_type
     @banner_type = banner_type
     @policy = build_policy
+    @rules = build_rules if banner[:rules]
   end
 
   def build_policy
@@ -133,6 +135,10 @@ private
       user_id: h.current_user&.id,
       is_istari_shown: h.controller.instance_variable_get('@is_istari_shown')
     )
+  end
+
+  def build_rules
+    Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie_id]]
   end
 
   def banner

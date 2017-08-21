@@ -71,7 +71,6 @@ describe AdsPolicy do
       let(:is_shikimori) { true }
       let(:ad_provider) { Types::Ad::Provider[:advertur] }
 
-
       context 'istari not shown' do
         let(:is_istari_shown) { false }
         it { is_expected.to be_allowed }

@@ -27,6 +27,9 @@ Style/NestedParenthesizedCalls:
 Style/WordArray:
   Exclude:
     - spec/**/*
+Style/NumericLiterals:
+  Exclude:
+    - spec/**/*
 
 # Style/NumericPredicate:
   # Enabled: false
