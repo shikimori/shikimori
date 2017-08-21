@@ -184,6 +184,7 @@ private
 
   def finalize
     h.controller.instance_variable_set ISTARI_CONTROLLER_KEY, true
+    # h.controller.cookies[banner[:cookie_id]] ||= { value: [], expires: 1.week.from_now }
   end
 end
 # rubocop:enable ClassLength
