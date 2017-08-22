@@ -33,7 +33,18 @@ describe AdsPolicy do
 
     context 'moderator' do
       let(:user_id) { AdsPolicy::FORBIDDEN_USER_IDS.sample }
-      it { is_expected.to_not be_allowed }
+
+      context 'not istari' do
+        let(:ad_provider) do
+          Types::Ad::Provider.values - [Types::Ad::Provider[:istari]]
+        end
+        it { is_expected.to_not be_allowed }
+      end
+
+      context 'istari' do
+        let(:ad_provider) { Types::Ad::Provider[:istari] }
+        it { is_expected.to be_allowed }
+      end
     end
   end
 

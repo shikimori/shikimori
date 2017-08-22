@@ -30,6 +30,7 @@ private
   end
 
   def allowed_user?
-    !FORBIDDEN_USER_IDS.include?(@user_id)
+    !FORBIDDEN_USER_IDS.include?(@user_id) ||
+      ad_provider == Types::Ad::Provider[:istari]
   end
 end
