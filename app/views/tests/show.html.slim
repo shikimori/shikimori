@@ -1,11 +1,3 @@
-- unless Rails.env.test?
-  - content_for :head do
-    = stylesheet_link_tag 'tests/show'
-
-  - content_for :tail do
-    = javascript_include_tag 'highcharts.v4.2.6.js'
-    = javascript_include_tag 'tests/show'
-
 header.head
   h1 Test page
   p.description Just some tests
@@ -15,6 +7,7 @@ header.head
   ul.b-list
     li: a.b-link href="#{colors_tests_url}" Colors
     li: a.b-link href="#{ajax_tests_url}" Ajax
+    li: a.b-link href="#{polls_tests_url}" Polls
     li: a.b-link href="#{wall_tests_url}" Wall
     li: a.b-link href="#{vk_video_tests_url}" VK Video
     li: a.b-link href="#{momentjs_tests_url}" Momentjs

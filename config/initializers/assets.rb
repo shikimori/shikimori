@@ -16,7 +16,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
   # /.*.(css|js)$/
 # ]
 # vendor/jquery.cookie - for age_restricted.html.slim
-Rails.application.config.assets.precompile += %W[
+Rails.application.config.assets.precompile += %w[
   page503.css
   page404.css
   age_restricted.css

@@ -548,18 +548,23 @@ Rails.application.routes.draw do
       get :echo
       post :echo
 
-      get :momentjs
-      get :border
       get 'd3/:anime_id' => :d3, as: :d3
-      get :webm
-      get :animes
-      get :wall
-      get :ajax
-      get :vk_video
-      get :colors
-      get :vue
-      get :iframe
-      get :iframe_inner
+      %i[
+        momentjs
+        border
+        webm
+        polls
+        animes
+        wall
+        ajax
+        vk_video
+        colors
+        vue
+        iframe
+        iframe_inner
+      ].each do |page|
+        get page
+      end
       #get 'd3/:anime_id/data' => :d3_data, as: :d3_data, format: :json
     end
 

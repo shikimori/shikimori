@@ -6,7 +6,7 @@ describe BbCodes::PollTag do
     subject { tag.format text }
     it do
       is_expected.to eq '<div class="poll-placeholder not-tracked" '\
-        'data-id="13" data-track_poll="13"></div>'
+        'id="13" data-track_poll="13"></div>'
     end
   end
 end
