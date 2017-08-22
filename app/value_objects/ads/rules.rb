@@ -16,6 +16,8 @@ class Ads::Rules
     ]
   }
 
+  DELIMITER = 'x'
+
   def initialize rules, shows_cookie
     @now = Time.zone.now
     @day_ago = 1.day.ago
@@ -32,7 +34,7 @@ class Ads::Rules
   end
 
   def export_shows
-    (shows + [@now]).map(&:to_i).join('|')
+    (shows + [@now]).map(&:to_i).join(DELIMITER)
   end
 
 private
@@ -41,7 +43,7 @@ private
     return [] if shows_cookie.blank?
 
     shows_cookie
-      .split('|')
+      .split(DELIMITER)
       .map { |v| Time.zone.at v.to_i }
       .select { |v| v > @week_ago }
       .sort

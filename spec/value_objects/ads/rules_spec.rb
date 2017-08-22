@@ -8,7 +8,7 @@ describe Ads::Rules do
     }
   end
   let(:shows_per_week) { 10 }
-  let(:shows_cookie) { shows&.map(&:to_i)&.join('|') }
+  let(:shows_cookie) { shows&.map(&:to_i)&.join(Ads::Rules::DELIMITER) }
   let(:shows) { [] }
 
   describe '#shows' do
@@ -23,7 +23,7 @@ describe Ads::Rules do
     end
 
     context 'joined values' do
-      let(:shows_cookie) { '1503265526|1503266305' }
+      let(:shows_cookie) { "1503265526#{Ads::Rules::DELIMITER}1503266305" }
 
       it do
         expect(ad_rules.shows).to eq [
@@ -34,7 +34,7 @@ describe Ads::Rules do
     end
 
     context 'expired value' do
-      let(:shows_cookie) { '1503265526|1502658400' }
+      let(:shows_cookie) { "1503265526#{Ads::Rules::DELIMITER}1502658400" }
 
       it do
         expect(ad_rules.shows).to eq [
@@ -98,7 +98,7 @@ describe Ads::Rules do
 
     it do
       expect(ad_rules.export_shows).to eq(
-        ((shows || []) + [Time.zone.now]).map(&:to_i).join('|')
+        ((shows || []) + [Time.zone.now]).map(&:to_i).join(Ads::Rules::DELIMITER)
       )
     end
   end

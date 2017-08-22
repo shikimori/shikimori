@@ -15,7 +15,10 @@ describe Ad do
       shikimori?: is_shikimori,
       current_user: user,
       spnsr_url: 'zxc',
-      controller: controller_stub,
+      controller: double(
+        instance_variable_get: nil,
+        instance_variable_set: nil
+      ),
       cookies: cookies
     )
   end
@@ -25,12 +28,7 @@ describe Ad do
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
-  let(:controller_stub) do
-    double(
-      instance_variable_get: nil,
-      instance_variable_set: nil
-    )
-  end
+  let(:is_istari_shown) { false }
   let(:cookies) { {} }
 
   describe '#banner_type' do
@@ -92,12 +90,23 @@ describe Ad do
   describe '#allowed?' do
     before do
       allow(ad.policy).to receive(:allowed?).and_return is_allowed
+      allow(h.controller)
+        .to receive(:instance_variable_get)
+        .with(:"@is_#{banner[:placement]}_ad_shown")
+        .and_return is_ad_shown
+
       ad.instance_variable_set :'@rules', rules
     end
     let(:is_allowed) { true }
+    let(:is_ad_shown) { false }
     let(:rules) { nil }
 
     it { expect(ad).to be_allowed }
+
+    context 'ad shown' do
+      let(:is_ad_shown) { true }
+      it { expect(ad).to_not be_allowed }
+    end
 
     context 'not allowed' do
       let(:is_allowed) { false }
@@ -202,17 +211,17 @@ describe Ad do
         context 'without show in cookies' do
           it do
             expect(h.cookies[cookie_key]).to eq(
-              value: [Time.zone.now].map(&:to_i).join('|'),
+              value: [Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
               expires: 1.week.from_now
             )
           end
         end
 
         context 'with show in cookies' do
-          let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join('|') } }
+          let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join(Ads::Rules::DELIMITER) } }
           it do
             expect(h.cookies[Ad::BANNERS[:istari_x300][:rules][:cookie]]).to eq(
-              value: [1.day.ago, Time.zone.now].map(&:to_i).join('|'),
+              value: [1.day.ago, Time.zone.now].map(&:to_i).join(Ads::Rules::DELIMITER),
               expires: 1.week.from_now
             )
           end
