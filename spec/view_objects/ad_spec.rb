@@ -1,6 +1,10 @@
 describe Ad do
+  include_context :timecop
+
   subject(:ad) { Ad.new banner_type }
+
   let(:banner_type) { :yd_poster_x300_2x }
+  let(:banner) { Ad::BANNERS[banner_type] }
 
   before { allow_any_instance_of(Ad).to receive(:h).and_return h }
 
@@ -11,10 +15,7 @@ describe Ad do
       shikimori?: is_shikimori,
       current_user: user,
       spnsr_url: 'zxc',
-      controller: double(
-        instance_variable_get: is_istari_shown,
-        instance_variable_set: nil
-      ),
+      controller: controller_stub,
       cookies: cookies
     )
   end
@@ -24,7 +25,12 @@ describe Ad do
   let(:width) { 240 }
   let(:height) { 400 }
   let(:user) { nil }
-  let(:is_istari_shown) { false }
+  let(:controller_stub) do
+    double(
+      instance_variable_get: nil,
+      instance_variable_set: nil
+    )
+  end
   let(:cookies) { {} }
 
   describe '#banner_type' do
@@ -67,7 +73,13 @@ describe Ad do
       end
 
       context 'without fallback' do
+        before do
+          Ad::BANNERS[banner_type] = {
+            provider: Types::Ad::Provider[:yandex_direct]
+          }
+        end
         let(:banner_type) { :yd_wo_fallback }
+
         it { expect(ad.banner_type).to eq :yd_wo_fallback }
       end
     end
@@ -143,10 +155,15 @@ describe Ad do
   describe '#to_html' do
     subject! { ad.to_html }
 
+    it do
+      expect(h.controller)
+        .to have_received(:instance_variable_set)
+        .with(:"@is_#{banner[:placement]}_ad_shown", true)
+    end
+
     context 'advertur' do
       let(:banner_type) { :advrtr_x240 }
       it do
-        expect(h.controller).to_not have_received :instance_variable_set
         is_expected.to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
             <div class="b-spnsrs-advrtr_x240">
@@ -160,29 +177,52 @@ describe Ad do
     end
 
     context 'istari' do
-      let(:banner_type) { :istari_x1170 }
-      it do
-        expect(h.controller)
-          .to have_received(:instance_variable_set)
-          .with(Ad::ISTARI_CONTROLLER_KEY, true)
-        is_expected.to eq(
-          <<-HTML.gsub(/\n|^\ +/, '')
-            <div class="b-spnsrs-istari_x1170">
-              <center>
-                <a href='https://vk.com/istaricomics'>
-                  <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
-                </a>
-              </center>
-            </div>
-          HTML
-        )
+      let(:cookie_key) { Ad::BANNERS[:istari_x300][:rules][:cookie] }
+
+      context 'without rules' do
+        let(:banner_type) { :istari_x1170 }
+        it do
+          is_expected.to eq(
+            <<-HTML.gsub(/\n|^\ +/, '')
+              <div class="b-spnsrs-istari_x1170">
+                <center>
+                  <a href='https://vk.com/istaricomics'>
+                    <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
+                  </a>
+                </center>
+              </div>
+            HTML
+          )
+        end
+      end
+
+      context 'with rules' do
+        let(:banner_type) { :istari_x300 }
+
+        context 'without show in cookies' do
+          it do
+            expect(h.cookies[cookie_key]).to eq(
+              value: [Time.zone.now].map(&:to_i).join('|'),
+              expires: 1.week.from_now
+            )
+          end
+        end
+
+        context 'with show in cookies' do
+          let(:cookies) { { cookie_key => [1.day.ago].map(&:to_i).join('|') } }
+          it do
+            expect(h.cookies[Ad::BANNERS[:istari_x300][:rules][:cookie]]).to eq(
+              value: [1.day.ago, Time.zone.now].map(&:to_i).join('|'),
+              expires: 1.week.from_now
+            )
+          end
+        end
       end
     end
 
     context 'yandex_direct' do
       let(:banner_type) { :yd_rtb_x240 }
       it do
-        expect(h.controller).to_not have_received :instance_variable_set
         is_expected.to eq(
           <<-HTML.gsub(/\n|^\ +/, '')
             <div class="b-spnsrs-yd_rtb_x240">

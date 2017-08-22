@@ -1,7 +1,7 @@
 class Ads::Rules
   prepend ActiveCacher.instance
 
-  attr_accessor :shows
+  attr_reader :shows
   instance_cache :shows_policy, :shows_this_day, :shows_this_week
 
   FAST = 'fast'
@@ -31,11 +31,8 @@ class Ads::Rules
       next_show_ready?
   end
 
-  def cookie
-    {
-      value: @shows + [@now],
-      expires: 1.week.from_now
-    }
+  def export_shows
+    (shows + [@now]).map(&:to_i).join('|')
   end
 
 private

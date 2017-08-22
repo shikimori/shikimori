@@ -12,47 +12,51 @@ class Ad < ViewObjectBase
       src: '/assets/globals/events/i1_1.jpg',
       src_2x: '/assets/globals/events/i1_1@2x.jpg',
       rules: {
-        cookie_id: 'i1_1',
+        cookie: 'i1_1',
         shows_per_week: 30
-      }
+      },
+      placement: Types::Ad::Placement[:menu]
     },
     istari_x1170: {
       provider: Types::Ad::Provider[:istari],
       url: 'https://vk.com/istaricomics',
       src: '/assets/globals/events/i1_2.jpg',
-      src_2x: '/assets/globals/events/i1_2@2x.jpg'
+      src_2x: '/assets/globals/events/i1_2@2x.jpg',
+      placement: Types::Ad::Placement[:content]
     },
     advrtr_x728: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 1_256,
       width: 728,
-      height: 90
+      height: 90,
+      placement: Types::Ad::Placement[:content]
     },
     advrtr_x240: {
       provider: Types::Ad::Provider[:advertur],
       advertur_id: 2_731,
       width: 240,
-      height: 400
+      height: 400,
+      placement: Types::Ad::Placement[:menu]
     },
     yd_poster_x300_2x: {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-4'
+      yandex_id: 'R-A-227837-4',
+      placement: Types::Ad::Placement[:menu]
     },
     yd_poster_x240_2x: {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-5'
+      yandex_id: 'R-A-227837-5',
+      placement: Types::Ad::Placement[:menu]
     },
     yd_rtb_x240: {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-2'
+      yandex_id: 'R-A-227837-2',
+      placement: Types::Ad::Placement[:menu]
     },
     yd_horizontal: {
       provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: 'R-A-227837-7'
-    },
-    yd_wo_fallback: {
-      provider: Types::Ad::Provider[:yandex_direct],
-      yandex_id: nil
+      yandex_id: 'R-A-227837-7',
+      placement: Types::Ad::Placement[:content]
     }
   }
   FALLBACKS = {
@@ -61,7 +65,6 @@ class Ad < ViewObjectBase
     yd_rtb_x240: :advrtr_x240,
     yd_horizontal: :advrtr_x728
   }
-  ISTARI_CONTROLLER_KEY = :"@is_istari_shown"
 
   attr_reader :banner_type, :policy
 
@@ -80,7 +83,12 @@ class Ad < ViewObjectBase
         # h.current_user&.id != 1
       # return false
     # end
-    policy.allowed? && (!@rules || @rules.show?)
+
+    if h.controller.instance_variable_get controller_key(banner[:placement])
+      false
+    else
+      policy.allowed? && (!@rules || @rules.show?)
+    end
   end
 
   def provider
@@ -108,7 +116,7 @@ class Ad < ViewObjectBase
   end
 
   def to_html
-    finalize if istari?
+    finalize
 
     <<-HTML.gsub(/\n|^\ +/, '')
       <div class="b-spnsrs-#{@banner_type}">
@@ -132,13 +140,12 @@ private
       is_ru_host: h.ru_host?,
       is_shikimori: h.shikimori?,
       ad_provider: provider,
-      user_id: h.current_user&.id,
-      is_istari_shown: h.controller.instance_variable_get('@is_istari_shown')
+      user_id: h.current_user&.id
     )
   end
 
   def build_rules
-    Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie_id]]
+    Ads::Rules.new banner[:rules], h.cookies[banner[:rules][:cookie]]
   end
 
   def banner
@@ -189,8 +196,18 @@ private
   end
 
   def finalize
-    h.controller.instance_variable_set ISTARI_CONTROLLER_KEY, true
-    # h.controller.cookies[banner[:cookie_id]] ||= { value: [], expires: 1.week.from_now }
+    h.controller.instance_variable_set controller_key(banner[:placement]), true
+
+    if @rules
+      h.cookies[banner[:rules][:cookie]] = {
+        value: @rules.export_shows,
+        expires: 1.week.from_now
+      }
+    end
+  end
+
+  def controller_key placement
+    :"@is_#{placement}_ad_shown"
   end
 end
 # rubocop:enable ClassLength

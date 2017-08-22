@@ -4,7 +4,6 @@ class AdsPolicy
     is_shikimori
     ad_provider
     user_id
-    is_istari_shown
   ]
 
   MODERATOR_IDS = User::MODERATORS + User::REVIEWS_MODERATORS +
@@ -16,7 +15,6 @@ class AdsPolicy
 
   def allowed?
     return false if yandex_direct? && Rails.env.development?
-    return false if is_istari_shown
 
     check_allowed
   end

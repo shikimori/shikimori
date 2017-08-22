@@ -8,7 +8,7 @@ describe Ads::Rules do
     }
   end
   let(:shows_per_week) { 10 }
-  let(:shows_cookie) { shows.map(&:to_i).join('|') }
+  let(:shows_cookie) { shows&.map(&:to_i)&.join('|') }
   let(:shows) { [] }
 
   describe '#shows' do
@@ -90,6 +90,16 @@ describe Ads::Rules do
         let(:shows) { [25.hours.ago, 30.minutes.ago] }
         it { expect(ad_rules).to be_show }
       end
+    end
+  end
+
+  describe '#export_shows' do
+    let(:shows) { [[], nil, [1.day.ago]].sample }
+
+    it do
+      expect(ad_rules.export_shows).to eq(
+        ((shows || []) + [Time.zone.now]).map(&:to_i).join('|')
+      )
     end
   end
 
