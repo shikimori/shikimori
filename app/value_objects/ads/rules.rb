@@ -15,13 +15,15 @@ class Ads::Rules
       0.seconds, 30.seconds, 2.minutes, 3.minutes
     ]
   }
+  DAY_INTERVAL = 12.hours
+  WEEK_INTERVAL = 1.week
 
   DELIMITER = 'x'
 
   def initialize rules, shows_cookie
     @now = Time.zone.now
-    @day_ago = 1.day.ago
-    @week_ago = 1.week.ago
+    @day_ago = DAY_INTERVAL.ago
+    @week_ago = WEEK_INTERVAL.ago
 
     @rules = rules
     @shows = parse shows_cookie

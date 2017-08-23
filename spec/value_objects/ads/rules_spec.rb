@@ -82,12 +82,22 @@ describe Ads::Rules do
 
     context 'dayly shows' do
       context 'too many shows' do
-        let(:shows) { [23.hours.ago, 30.minutes.ago] }
+        let(:shows) do
+          [
+            (Ads::Rules::DAY_INTERVAL - 1.hour).ago,
+            30.minutes.ago
+          ]
+        end
         it { expect(ad_rules).to_not be_show }
       end
 
       context 'not enough shows' do
-        let(:shows) { [25.hours.ago, 30.minutes.ago] }
+        let(:shows) do
+          [
+            (Ads::Rules::DAY_INTERVAL + 1.hour).ago,
+            30.minutes.ago
+          ]
+        end
         it { expect(ad_rules).to be_show }
       end
     end
@@ -121,7 +131,7 @@ describe Ads::Rules do
       end
 
       context do
-        let(:shows) { [23.hours.ago] }
+        let(:shows) { [(Ads::Rules::DAY_INTERVAL - 1.hour).ago] }
 
         it { expect(ad_rules).to_not be_show }
         it { expect(ad_rules.send :fast_shows?).to eq false }
