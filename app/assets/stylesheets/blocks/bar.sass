@@ -1,0 +1,123 @@
+.bar
+  &.horizontal
+    box-sizing: initial
+
+    .line
+      clear: right
+      padding: 0 5px 0 2px
+      margin-bottom: 1px
+
+      .x_label
+        color: #444
+        font-size: 12px
+        font-weight: bold
+        float: right
+        line-height: 16px
+
+      .bar-container
+        margin-right: 30px
+
+        .bar
+          height: 16px
+          &.min
+            min-width: 1px
+
+        .value
+          color: white
+          cursor: default
+          float: right
+          font-size: 11px
+          line-height: 16px
+          padding-right: 3px
+          &.narrow
+            padding-right: 2px
+
+  &.vertical
+    border-bottom: 1px solid #999
+    box-sizing: initial
+    padding-left: 2px
+    padding-right: 2px
+    position: relative
+
+    .line
+      border-right: 1px solid transparent
+      height: inherit
+      overflow: hidden
+      display: inline-block
+
+      .x_label
+        bottom: -20px
+        color: #444
+        font-size: 10px
+        line-height: 16px
+        position: absolute
+
+      .bar-container
+        height: 100%
+        position: relative
+
+        .bar
+          bottom: 0
+          position: absolute
+          width: 100%
+
+          &:hover .value
+            display: block
+          &.min
+            min-height: 2px
+
+        .value
+          color: white
+          cursor: default
+          display: none
+          font-size: 10px
+          line-height: 16px
+          text-align: center
+          width: 100%
+          bottom: -3px
+          position: absolute
+          &.mini
+            font-size: 9px
+
+    .y_label
+      color: #444
+      font-size: 10px
+      line-height: 16px
+      position: absolute
+      left: -26px
+      margin-top: -7px
+      text-align: right
+      width: 23px
+
+    .ruler
+      background: white
+      height: 1px
+      opacity: 0.2
+      position: absolute
+      width: 100%
+
+  &.simple .bar
+    &.s0
+      background: #4682b4
+
+    &.s1
+      background: #6295bd
+
+    &.s2
+      background: #79a9cf
+
+    &.s3
+      background: #98c2e3
+
+    &:hover
+      &.s0
+        background: #6295bd
+
+      &.s1
+        background: #79a9cf
+
+      &.s2
+        background: #98c2e3
+
+      &.s3
+        background: #b3d7f2
