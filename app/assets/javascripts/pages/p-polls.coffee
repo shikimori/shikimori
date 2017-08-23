@@ -15,7 +15,7 @@ init_app = (Vue, Poll, store) ->
 
   store.state.collection = poll_variants.map (poll_variant, index) ->
     key: index
-    text: poll_variant.text
+    label: poll_variant.label
 
   new Vue
     el: '#vue_poll_variants'

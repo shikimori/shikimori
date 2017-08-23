@@ -49,13 +49,13 @@ describe Users::PollsController do
             user_id: user.id,
             name: 'test',
             variants_attributes: [{
-              text: 'test 1'
+              label: 'test 1'
             }, {
-              text: 'test 2'
+              label: 'test 2'
             }, {
-              text: ''
+              label: ''
             }, {
-              text: 'test 1'
+              label: 'test 1'
             }]
           }
         }
@@ -68,8 +68,8 @@ describe Users::PollsController do
         user_id: user.id
       )
       expect(resource.variants).to have(2).items
-      expect(resource.variants[0]).to have_attributes(text: 'test 1')
-      expect(resource.variants[1]).to have_attributes(text: 'test 2')
+      expect(resource.variants[0]).to have_attributes(label: 'test 1')
+      expect(resource.variants[1]).to have_attributes(label: 'test 2')
       expect(resource).to be_valid
       expect(response).to redirect_to edit_profile_poll_url(user, resource)
     end
@@ -84,7 +84,7 @@ describe Users::PollsController do
 
   describe '#update' do
     let(:poll) { create :poll, user: user }
-    let!(:poll_variant) { create :poll_variant, poll: poll, text: 'zzz' }
+    let!(:poll_variant) { create :poll_variant, poll: poll, label: 'zzz' }
 
     before do
       post :update,
@@ -94,9 +94,9 @@ describe Users::PollsController do
           poll: {
             name: 'test',
             variants_attributes: [{
-              text: 'test 1'
+              label: 'test 1'
             }, {
-              text: 'test 2'
+              label: 'test 2'
             }]
           }
         }
@@ -109,8 +109,8 @@ describe Users::PollsController do
         user_id: user.id
       )
       expect(resource.variants).to have(2).items
-      expect(resource.variants[0]).to have_attributes(text: 'test 1')
-      expect(resource.variants[1]).to have_attributes(text: 'test 2')
+      expect(resource.variants[0]).to have_attributes(label: 'test 1')
+      expect(resource.variants[1]).to have_attributes(label: 'test 2')
 
       expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
 

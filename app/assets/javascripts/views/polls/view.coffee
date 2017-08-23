@@ -3,7 +3,6 @@ module.exports = class Polls.View extends View
   TEMPLATE = 'polls/poll'
 
   initialize: (@model) ->
-    console.log @model
     @_render()
 
   _render: ->

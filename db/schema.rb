@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823150722) do
+ActiveRecord::Schema.define(version: 20170823173057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -731,7 +731,7 @@ ActiveRecord::Schema.define(version: 20170823150722) do
 
   create_table "poll_variants", force: :cascade do |t|
     t.bigint "poll_id", null: false
-    t.text "text"
+    t.text "label"
     t.integer "cached_votes_total", default: 0
     t.index ["poll_id"], name: "index_poll_variants_on_poll_id"
   end

@@ -24,9 +24,9 @@
         .b-input
           input(
             type="text"
-            name="poll[variants_attributes][][text]"
-            v-model="poll_variant.text"
-            :placeholder="I18n.t('frontend.poll_variants.text')"
+            name="poll[variants_attributes][][label]"
+            v-model="poll_variant.label"
+            :placeholder="I18n.t('frontend.poll_variants.label')"
             @keydown.enter="submit"
             @keydown.8="remove_empty(poll_variant)"
             @keydown.esc="remove_empty(poll_variant)"

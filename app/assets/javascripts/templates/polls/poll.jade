@@ -1,4 +1,6 @@
-.b-poll
+.b-poll(
+  data-id=model.id
+)
   .name= model.name
 
   if model.state == 'started' || model.voted
@@ -6,6 +8,24 @@
     .poll-variants
       for poll_variant in model.variants
         .poll-variant
-          .percent #{poll_variant.votes_percent}%
-          .name= poll_variant.text
-          .votes= poll_variant.votes_total
+          .votes-total= poll_variant.votes_total
+          .votes-percent #{poll_variant.votes_percent}%
+          .label= poll_variant.label
+          .bar.simple.horizontal
+            .line
+              if poll_variant.votes_percent <= 80 && poll_variant.votes_percent > 60
+                .bar.s1(
+                  style='width: ' + poll_variant.votes_percent + '%'
+                )
+              else if poll_variant.votes_percent <= 60 && poll_variant.votes_percent > 30
+                .bar.s2(
+                  style='width: ' + poll_variant.votes_percent + '%'
+                )
+              else if poll_variant.votes_percent <= 30
+                .bar.s3(
+                  style='width: ' + poll_variant.votes_percent + '%'
+                )
+              else
+                .bar.s0(
+                  style='width: ' + poll_variant.votes_percent + '%'
+                )

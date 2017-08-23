@@ -13,13 +13,15 @@ header.head.misc
     - if @resource.variants.any?
       ul.b-list
       - @resource.variants.each do |poll_variant|
-        li = poll_variant.text
+        li = poll_variant.label
     - else
       .b-nothing_here = t 'polls.form.no_variants'
 
-  .b-input.m0
+  .b-input.m20
     label BBCode
-  = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
+    = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
+
+  = BbCodeFormatter.instance.format_comment @resource.bb_code
 
 - if @resource.can_stop?
   a.stop.b-button[

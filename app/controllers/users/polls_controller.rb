@@ -11,7 +11,7 @@ class Users::PollsController < ProfilesController
   end
 
   UPDATE_PARAMS = %i[name] + [{
-    variants_attributes: %i[text]
+    variants_attributes: %i[label]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
@@ -85,7 +85,7 @@ private
 
     params_hash[:variants_attributes] =
       params_hash[:variants_attributes]
-        .select { |poll_variant| poll_variant[:text]&.strip.present? }
-        .uniq { |poll_variant| poll_variant[:text].strip }
+        .select { |poll_variant| poll_variant[:label]&.strip.present? }
+        .uniq { |poll_variant| poll_variant[:label].strip }
   end
 end

@@ -4,7 +4,7 @@ describe PollVariant do
   end
 
   describe 'validations' do
-    it { is_expected.to validate_presence_of :text }
+    it { is_expected.to validate_presence_of :label }
   end
 
   describe 'instance methods' do

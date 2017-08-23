@@ -10,7 +10,10 @@ class DynamicElements.CodeHighlight extends View
 
   highlight: ->
     node = @root.childNodes[0]
-    return if node.classList.contains(NO_HIGHLIGHT)
+    language = node.attributes['data-language']?.value
+
+    return if node.classList.contains NO_HIGHLIGHT
+    return unless language
 
     if Modernizr.bloburls && Modernizr.webworkers
       node.id = "code_#{@klass.last_id}"
@@ -19,7 +22,7 @@ class DynamicElements.CodeHighlight extends View
       @klass.worker.postMessage
         node_id: node.id
         code: node.textContent
-        language: node.attributes['data-language']?.value
+        language: language
     else
       console.error 'webworkers are not supported'
       # hljs.highlightBlock node

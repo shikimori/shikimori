@@ -1,7 +1,53 @@
 @import mixins/block
+@import addons/clearfix
+
+$bar_height: 8px
 
 .b-poll
   +block
 
-  .name
+  &>.name
     font-weight: bold
+    margin-bottom: 10px
+
+  .poll-variants
+    max-width: 350px
+
+    .poll-variant
+      +clearfix
+      margin-bottom: 15px
+
+      &:last-child
+        margin-bottom: 0
+
+      .label, .votes-percent, .votes-total
+        line-height: 21px
+        vertical-align: bottom
+
+      .votes-percent, .votes-total
+        font-size: 12px
+
+      .votes-percent
+        color: $gray-1
+        float: left
+        margin-right: 8px
+
+      .votes-total
+        color: $gray-3
+        float: right
+        margin-left: 10px
+
+      .bar
+        .line
+          padding: 0
+          background: #eef0f3
+          height: $bar_height
+          line-height: $bar_height
+          overflow: hidden
+          position: relative
+          white-space: nowrap
+          width: 100%
+
+        .bar
+          height: $bar_height
+          line-height: $bar_height
