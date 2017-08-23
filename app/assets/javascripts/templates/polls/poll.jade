@@ -6,6 +6,6 @@
     .poll-variants
       for poll_variant in model.variants
         .poll-variant
-          .percent= poll_variant.percent
+          .percent #{poll_variant.votes_percent}%
           .name= poll_variant.text
           .votes= poll_variant.votes_total

@@ -6,8 +6,12 @@ class PollVariant < ApplicationRecord
   validates :text, presence: true
 
   def votes_percent
-    (
-      100.0 * cached_votes_total / poll.variants.sum(&:cached_votes_total)
-    ).round(2)
+    total_votes = poll.variants.sum(&:cached_votes_total)
+
+    if total_votes.zero?
+      0
+    else
+      (100.0 * cached_votes_total / total).round(2)
+    end
   end
 end
