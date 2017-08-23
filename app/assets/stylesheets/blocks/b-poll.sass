@@ -16,40 +16,43 @@ $bar_height: 8px
     max-width: 350px
 
     .poll-variant
-      +clearfix
-      margin-bottom: 15px
+      line-height: 21px
 
-      &:last-child
-        margin-bottom: 0
+      label
+        display: block
 
-      .label, .votes-percent, .votes-total
-        line-height: 21px
-        vertical-align: bottom
+      &.result
+        +clearfix
+        margin-bottom: 15px
 
-      .votes-percent, .votes-total
-        font-size: 12px
+        &:last-child
+          margin-bottom: 0
 
-      .votes-percent
-        color: $gray-1
-        float: left
-        margin-right: 8px
+        .votes-percent, .votes-total
+          line-height: 21px
+          font-size: 12px
 
-      .votes-total
-        color: $gray-3
-        float: right
-        margin-left: 10px
+        .votes-percent
+          color: $gray-1
+          float: left
+          margin-right: 8px
 
-      .bar
-        .line
-          padding: 0
-          background: #eef0f3
-          height: $bar_height
-          line-height: $bar_height
-          overflow: hidden
-          position: relative
-          white-space: nowrap
-          width: 100%
+        .votes-total
+          color: $gray-3
+          float: right
+          margin-left: 10px
 
         .bar
-          height: $bar_height
-          line-height: $bar_height
+          .line
+            padding: 0
+            background: #eef0f3
+            height: $bar_height
+            line-height: $bar_height
+            overflow: hidden
+            position: relative
+            white-space: nowrap
+            width: 100%
+
+          .bar
+            height: $bar_height
+            line-height: $bar_height

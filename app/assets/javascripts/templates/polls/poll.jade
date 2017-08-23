@@ -5,14 +5,24 @@
     .name= model.name
     .text!= model.text_html
 
-  if model.state == 'started' || model.voted
-  else
-    .poll-variants
-      for poll_variant in model.variants
-        .poll-variant
+  .poll-variants
+    for poll_variant in model.variants
+      if model.state == 'started' || model.voted
+        .poll-variant.pending
+          label.b-radio
+            input(
+              name='poll_' + model.id
+              type='radio'
+            )
+            .radio-label
+              = poll_variant.label
+
+      else
+        .poll-variant.result
           .votes-total= poll_variant.votes_total
           .votes-percent #{poll_variant.votes_percent}%
-          .label= poll_variant.label
+          label= poll_variant.label
+
           .bar.simple.horizontal
             .line
               if poll_variant.votes_percent <= 80 && poll_variant.votes_percent > 60
