@@ -74,9 +74,16 @@ module CommentHelper
   end
 
   def mention_to_html text, poster=nil
-    text.gsub /\[mention=\d+\]([\s\S]*?)\[\/mention\]/ do
-      nickname = $1
-      "<a href=\"#{profile_url User.param_to(nickname)}\" class=\"b-mention\"><s>@</s><span>#{nickname}</span></a>"
+    text.gsub /\[mention=(?<user_id>\d+)\](?<nickname>[\s\S]*?)\[\/mention\]/ do |match|
+      nickname = $LAST_MATCH_INFO[:nickname]
+
+      if nickname.present?
+        url = profile_url User.param_to(nickname)
+        "<a href='#{url}' class='b-mention'>"\
+          "<s>@</s><span>#{nickname}</span></a>"
+      else
+        match
+      end
     end
   end
 
