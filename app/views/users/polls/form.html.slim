@@ -15,7 +15,7 @@ header.head.misc
       html: { class: 'b-form bold-labels' } do |f|
 
     .cc-2.block
-      .c-column
+      .c-column.m0
         = f.input :user_id, as: :hidden
         = f.input :name, autofocus: @resource.name.blank?
         = f.input :text, as: :text
@@ -55,5 +55,5 @@ header.head.misc
           ] = t 'actions.delete'
 
       - if @resource.can_start?
-        .c-column
+        .c-column.m0
           = BbCodeFormatter.instance.format_comment @resource.bb_code

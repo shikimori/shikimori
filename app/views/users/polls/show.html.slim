@@ -4,28 +4,6 @@ header.head.misc
 
 .block.b-form.bold-labels
   .b-input
-    label = Poll.human_attribute_name :name
-    p = @resource.name
-
-  - if @resource.text.present?
-    .b-input
-      label = Poll.human_attribute_name :text
-      p = @resource.text_html
-
-  .b-input
-    label = Poll.human_attribute_name :state
-    p = @resource.human_state_name
-
-  .b-input
-    label = t 'polls.form.poll_variants'
-    - if @resource.variants.any?
-      ul.b-list
-      - @resource.variants.each do |poll_variant|
-        li = poll_variant.label
-    - else
-      .b-nothing_here = t 'polls.form.no_variants'
-
-  .b-input.m20
     label BBCode
     = BbCodeFormatter.instance.format_comment "[code]\n#{@resource.bb_code}\n[/code]"
 

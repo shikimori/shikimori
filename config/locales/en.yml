@@ -11,8 +11,9 @@ en:
       genre: Genre
       manga: Manga
       person: Person
-      review: Review
+      poll: Poll
       ranobe: Light Novel
+      review: Review
       topic: Topic
       topics/news_topic: News Topic
       user: User
