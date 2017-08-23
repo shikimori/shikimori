@@ -3,7 +3,6 @@ private
 
   def fetch_entries user
     Poll
-      .where.not(state: :pending)
       .where(id: tracked_ids)
       .order(:id)
   end

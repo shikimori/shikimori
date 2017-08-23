@@ -40,6 +40,11 @@ describe JsExports::PollsExport do
 
     subject { tracker.export user }
 
-    it { is_expected.to eq [PollSerializer.new(poll_2).to_hash] }
+    it do
+      is_expected.to eq [
+        PollSerializer.new(poll_1).to_hash,
+        PollSerializer.new(poll_2).to_hash
+      ]
+    end
   end
 end
