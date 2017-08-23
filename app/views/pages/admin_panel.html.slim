@@ -6,7 +6,7 @@ article
     span #{RUBY_VERSION}
 
   .metric
-    b Code:
+    b Commit:
     span #{@code[0..6]}
 
   .metric class="#{:alert if (!@disk_space.respond_to?(:nan?) || !@disk_space.nan?) && @disk_space.to_i > 90}"

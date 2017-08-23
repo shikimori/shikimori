@@ -10,9 +10,9 @@ header.head.misc
 
   .b-input
     label = t 'polls.form.poll_variants'
-    - if @resource.poll_variants.any?
+    - if @resource.variants.any?
       ul.b-list
-      - @resource.poll_variants.each do |poll_variant|
+      - @resource.variants.each do |poll_variant|
         li = poll_variant.text
     - else
       .b-nothing_here = t 'polls.form.no_variants'

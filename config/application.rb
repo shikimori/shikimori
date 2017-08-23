@@ -16,10 +16,6 @@ require_relative '../lib/named_logger'
 
 Dir['app/middleware/*'].each { |file| require_relative "../#{file}" }
 
-# require 'acts_as_voteable'
-# require 'open-uri'
-
-
 module Site
   DOMAIN = 'shikimori.org'
   NAME = 'Шикимори'
@@ -110,10 +106,10 @@ module Site
     #}
 
     config.generators do |generator|
-      generator.fixture_replacement :factory_girl, dir: 'spec/factories'
+      generator.fixture_replacement :factory_girl, dir: 'spec/factories/'
       generator.template_engine :slim
       generator.stylesheets false
-      generator.helperfalse
+      generator.helper false
       generator.helper_specs false
       generator.view_specs false
       generator.test_framework :rspec

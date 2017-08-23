@@ -4,7 +4,7 @@ class Collection < ApplicationRecord
   include ElasticsearchConcern
   include ModeratableConcern
 
-  acts_as_voteable
+  acts_as_votable
 
   belongs_to :user
   has_many :links, -> { order :id },

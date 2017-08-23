@@ -10,7 +10,7 @@ class ReviewsQuery
 
   def fetch
     reviews = @entry.reviews
-      .includes(:user, :votes, :topics)
+      .includes(:user, :topics)
       .where(locale: @locale)
 
     if @id.present? && @id != 0
@@ -18,8 +18,12 @@ class ReviewsQuery
     else
       reviews = reviews.visible
       [
-        reviews.select { |v| v.created_at + NewReviewBubbleInterval > DateTime.now }.sort_by { |v| - v.id },
-        reviews.select { |v| v.created_at + NewReviewBubbleInterval <= DateTime.now }.sort_by { |v| -(v.votes_for - v.votes_against) }
+        reviews
+          .select { |v| v.created_at + NewReviewBubbleInterval > DateTime.now }
+          .sort_by { |v| - v.id },
+        reviews
+          .select { |v| v.created_at + NewReviewBubbleInterval <= DateTime.now }
+          .sort_by { |v| -(v.cached_votes_up - v.cached_votes_down) }
       ].compact.flatten.uniq
     end
   end

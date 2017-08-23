@@ -1,7 +1,7 @@
 describe Poll do
   describe 'relations' do
     it { is_expected.to belong_to :user }
-    it { is_expected.to have_many(:poll_variants).dependent :destroy }
+    it { is_expected.to have_many(:variants).dependent :destroy }
   end
 
   describe 'validations' do
@@ -56,7 +56,7 @@ describe Poll do
     let(:poll) do
       build_stubbed :poll, poll_state,
         user: poll_user,
-        poll_variants: poll_variants
+        variants: poll_variants
     end
     let(:poll_variants) { [] }
     let(:user) { build_stubbed :user }

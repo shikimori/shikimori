@@ -1,8 +1,8 @@
 span.b-review_votes
-  span.votes-for #{review.votes_for}+
+  span.votes-for #{review.cached_votes_up}+
   span
     | &nbsp;/&nbsp;
-  span.votes-against #{review.votes_count - review.votes_for}-
+  span.votes-against #{review.cached_votes_down}-
 
   span.user-vote
     span.voted-for ✓

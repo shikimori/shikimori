@@ -6,7 +6,7 @@ class Review < ApplicationRecord
   include TopicsConcern
   include ModeratableConcern
 
-  acts_as_voteable
+  acts_as_votable
 
   MINIMUM_LENGTH = 3000
 

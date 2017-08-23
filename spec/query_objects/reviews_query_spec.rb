@@ -23,7 +23,7 @@ describe ReviewsQuery do
       it 'has 1 item' do
         expect(subject.size).to eq(1)
       end
-      its(:first) { should eq @reviews[0] }
+      its(:first) { is_expected.to eq @reviews[0] }
     end
 
     describe 'without_id' do
@@ -32,8 +32,8 @@ describe ReviewsQuery do
       it 'has 3 items' do
         is_expected.to have(3).items
       end
-      its(:last) { should eq @reviews[1] }
-      its(:first) { should eq @reviews[2] }
+      its(:last) { is_expected.to eq @reviews[1] }
+      its(:first) { is_expected.to eq @reviews[2] }
     end
   end
 end

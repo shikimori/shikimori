@@ -2,25 +2,14 @@ class VotesController < ShikimoriController
   before_action :authenticate_user!
 
   def create
-    @vote = Vote.find_by(
-      user_id: current_user.id,
-      voteable_id: params[:id],
-      voteable_type: params[:type]
-    )
-    @vote.destroy if @vote
+    votable = params[:type].constantize.find(params[:id])
 
-    @vote = Vote.new(
-      user_id: current_user.id,
-      voteable_id: params[:id],
-      voteable_type: params[:type],
-      voting: params[:voting] == 'yes'
-    )
-    # raise Forbidden if @vote.voteable && @vote.voteable.user_id == current_user.id
-
-    if @vote.save
-      render json: { } # notice: 'Ваш голос учтён'
+    if params[:voting] == 'yes'
+      current_user.likes votable
     else
-      render json: @vote.errors, status: :unprocessable_entity
+      current_user.dislikes votable
     end
+
+    render json: {}
   end
 end

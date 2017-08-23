@@ -14,7 +14,7 @@ class BbCodeFormatter
     BbCodes::QuoteTag, BbCodes::RepliesTag, BbCodes::CommentTag,
     BbCodes::DbEntryUrlTag, BbCodes::VideoUrlTag, BbCodes::VideoTag,
     BbCodes::PosterTag, BbCodes::WallImageTag, BbCodes::EntriesTag,
-    BbCodes::WallTag,
+    BbCodes::WallTag, BbCodes::PollTag,
 
     BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag, BbCodes::BTag,
     BbCodes::ITag, BbCodes::UTag, BbCodes::STag,

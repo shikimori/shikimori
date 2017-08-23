@@ -10,6 +10,8 @@ RSpec.configure do |config|
     mocks.syntax = [:should, :expect]
   end
 
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+
   config.filter_run show_in_doc: true if ENV['APIPIE_RECORD']
   unless ENV['RSPEC_IGNORE_FOCUSED'] || ENV['CIRCLE_CI']
     config.filter_run focus: true

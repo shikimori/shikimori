@@ -1,0 +1,11 @@
+.subheadline Polls Test
+.block
+  div: b stopped poll
+  = BbCodeFormatter.instance.format_comment '[poll=12]'
+
+  div: b started poll
+  = BbCodeFormatter.instance.format_comment '[poll=6]'
+  = BbCodeFormatter.instance.format_comment '[poll=6]'
+
+  div: b pending poll
+  = BbCodeFormatter.instance.format_comment '[poll=11]'

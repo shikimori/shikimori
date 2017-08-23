@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170810222206) do
+ActiveRecord::Schema.define(version: 20170823150722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -302,6 +302,8 @@ ActiveRecord::Schema.define(version: 20170810222206) do
     t.string "state", null: false
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
     t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
@@ -425,6 +427,8 @@ ActiveRecord::Schema.define(version: 20170810222206) do
     t.boolean "deleted", default: false, null: false
     t.string "source", limit: 255
     t.integer "user_id"
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
     t.index ["cos_rain_id"], name: "index_cosplay_galleries_on_cos_rain_id", unique: true
   end
 
@@ -728,6 +732,7 @@ ActiveRecord::Schema.define(version: 20170810222206) do
   create_table "poll_variants", force: :cascade do |t|
     t.bigint "poll_id", null: false
     t.text "text"
+    t.integer "cached_votes_total", default: 0
     t.index ["poll_id"], name: "index_poll_variants_on_poll_id"
   end
 
@@ -795,6 +800,8 @@ ActiveRecord::Schema.define(version: 20170810222206) do
     t.string "moderation_state", limit: 255, default: "pending"
     t.integer "approver_id"
     t.string "locale", null: false
+    t.integer "cached_votes_up", default: 0
+    t.integer "cached_votes_down", default: 0
     t.index ["target_id", "target_type"], name: "index_reviews_on_target_id_and_target_type"
   end
 
@@ -1103,15 +1110,20 @@ ActiveRecord::Schema.define(version: 20170810222206) do
     t.index ["anime_id"], name: "index_videos_on_anime_id"
   end
 
-  create_table "votes", id: :serial, force: :cascade do |t|
-    t.boolean "voting", default: false
+  create_table "votes", force: :cascade do |t|
+    t.string "votable_type", null: false
+    t.bigint "votable_id", null: false
+    t.string "voter_type", null: false
+    t.bigint "voter_id", null: false
+    t.boolean "vote_flag"
+    t.string "vote_scope"
+    t.integer "vote_weight"
     t.datetime "created_at", null: false
-    t.integer "voteable_id"
-    t.string "voteable_type", limit: 255
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_votes_on_user_id"
-    t.index ["voteable_id"], name: "index_votes_on_voteable_id"
-    t.index ["voteable_type"], name: "index_votes_on_voteable_type"
+    t.datetime "updated_at", null: false
+    t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable_type_and_votable_id"
+    t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+    t.index ["voter_type", "voter_id"], name: "index_votes_on_voter_type_and_voter_id"
   end
 
   create_table "webm_videos", id: :serial, force: :cascade do |t|

@@ -4,7 +4,7 @@ class CosplayGallery < ApplicationRecord
   include Translation
   include TopicsConcern
 
-  acts_as_voteable
+  acts_as_votable
 
   belongs_to :user
 

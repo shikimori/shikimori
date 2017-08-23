@@ -26,3 +26,9 @@ module.exports = class View
 
   # колбек после инициализации
   _after_initialize: ->
+
+  # set root node
+  _set_root: (node) ->
+    @$root = $(node)
+    @root = @$root[0]
+    @$root.data view_object: @

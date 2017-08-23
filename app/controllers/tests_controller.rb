@@ -44,6 +44,9 @@ class TestsController < ShikimoriController
     render :webm, layout: false
   end
 
+  def polls
+  end
+
   def vk_video
     @video = AnimeVideo.find(846660).decorate
     render :vk_video, layout: false

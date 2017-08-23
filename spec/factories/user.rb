@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user do
     sequence(:nickname) { |n| "user_#{n}" }
-    email { FactoryGirl.generate :email }
+    sequence(:email) { |n| "email#{n}@factory.com" }
     password '123'
     last_online_at { Time.zone.now }
 
