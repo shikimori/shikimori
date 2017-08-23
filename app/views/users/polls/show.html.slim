@@ -4,9 +4,17 @@ header.head.misc
 
 .block.b-form.bold-labels
   .b-input
+    label = Poll.human_attribute_name :name
+    p = @resource.name
+
+  - if @resource.text.present?
+    .b-input
+      label = Poll.human_attribute_name :text
+      p = @resource.text_html
+
+  .b-input
     label = Poll.human_attribute_name :state
-    p
-      = @resource.human_state_name
+    p = @resource.human_state_name
 
   .b-input
     label = t 'polls.form.poll_variants'

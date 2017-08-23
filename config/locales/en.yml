@@ -208,6 +208,7 @@ en:
         text: Comment
       poll:
         name: Name
+        text: Text
         state: State
       club_invite:
         dst: User

@@ -208,6 +208,7 @@ ru:
         text: Комментарий
       poll:
         name: Название
+        text: Текст
         state: Статус
       club_invite:
         dst: Пользователь

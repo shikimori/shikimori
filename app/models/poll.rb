@@ -31,6 +31,10 @@ class Poll < ApplicationRecord
   end
 
   def bb_code
-    "[poll=#{id}]" unless pending?
+    "[poll=#{id}]"
+  end
+
+  def text_html
+    BbCodeFormatter.instance.format_comment text
   end
 end

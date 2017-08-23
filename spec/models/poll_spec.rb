@@ -38,17 +38,13 @@ describe Poll do
     end
 
     describe '#bb_code' do
-      let(:poll) { build_stubbed :poll, state }
+      let(:poll) { build_stubbed :poll }
+      it { expect(poll.bb_code).to eq "[poll=#{poll.id}]" }
+    end
 
-      context 'pending' do
-        let(:state) { :pending }
-        it { expect(poll.bb_code).to be_nil }
-      end
-
-      context 'started, stopped' do
-        let(:state) { %i[started stopped].sample }
-        it { expect(poll.bb_code).to eq "[poll=#{poll.id}]" }
-      end
+    describe '#text_html' do
+      let(:poll) { build_stubbed :poll, text: '[i]test[/i]' }
+      it { expect(poll.text_html).to eq '<em>test</em>' }
     end
   end
 

@@ -48,6 +48,7 @@ describe Users::PollsController do
           poll: {
             user_id: user.id,
             name: 'test',
+            text: 'zxc',
             variants_attributes: [{
               label: 'test 1'
             }, {
@@ -64,6 +65,7 @@ describe Users::PollsController do
     it do
       expect(resource).to have_attributes(
         name: 'test',
+        text: 'zxc',
         state: 'pending',
         user_id: user.id
       )
@@ -93,6 +95,7 @@ describe Users::PollsController do
           id: poll.id,
           poll: {
             name: 'test',
+            text: 'zxc',
             variants_attributes: [{
               label: 'test 1'
             }, {
@@ -105,6 +108,7 @@ describe Users::PollsController do
     it do
       expect(resource).to have_attributes(
         name: 'test',
+        text: 'zxc',
         state: 'pending',
         user_id: user.id
       )

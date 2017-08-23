@@ -1,5 +1,5 @@
 class PollSerializer < ActiveModel::Serializer
-  attributes :id, :name, :state, :votes_total
+  attributes :id, :name, :text, :text_html, :state, :votes_total
   has_many :variants
 
   def votes_total

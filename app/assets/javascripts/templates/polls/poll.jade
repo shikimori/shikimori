@@ -1,7 +1,9 @@
 .b-poll(
   data-id=model.id
 )
-  .name= model.name
+  .poll
+    .name= model.name
+    .text!= model.text_html
 
   if model.state == 'started' || model.voted
   else

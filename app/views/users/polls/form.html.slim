@@ -18,6 +18,7 @@ header.head.misc
       .c-column
         = f.input :user_id, as: :hidden
         = f.input :name, autofocus: @resource.name.blank?
+        = f.input :text, as: :text
 
         / .b-input
           label #{Poll.human_attribute_name :state}: #{@resource.human_state_name.downcase}
@@ -52,3 +53,7 @@ header.head.misc
             data-method="delete"
             data-confirm="#{t 'actions.confirm'}"
           ] = t 'actions.delete'
+
+      - if @resource.can_start?
+        .c-column
+          = BbCodeFormatter.instance.format_comment @resource.bb_code

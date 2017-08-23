@@ -10,7 +10,7 @@ class Users::PollsController < ProfilesController
     end
   end
 
-  UPDATE_PARAMS = %i[name] + [{
+  UPDATE_PARAMS = %i[name text] + [{
     variants_attributes: %i[label]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
