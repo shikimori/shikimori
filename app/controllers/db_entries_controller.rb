@@ -1,5 +1,5 @@
 class DbEntriesController < ShikimoriController
-  before_action :authenticate_user!, only: [:edit, :edit_field, :update]
+  before_action :authenticate_user!, only: %i[edit edit_field update]
 
   # it always should be executed before :fetch_resource
   before_action :resource_klass_page_title, if: :resource_id

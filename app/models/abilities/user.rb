@@ -221,10 +221,16 @@ class Abilities::User
 
   def version_abilities
     can %i[create destroy], Version do |version|
+      significant_field = (
+        version.item_diff.keys &
+          "#{version.item_type}::SIGNIFICANT_FIELDS".constantize
+      ).first
+
       !@user.banned? && !@user.version_vermin? &&
         version.user_id == @user.id && (
-          version.item_diff.keys & version.item_type.constantize::SIGNIFICANT_FIELDS
-        ).none?
+          significant_field.nil? ||
+          version.item_diff.dig(significant_field, 0).nil? # changing from nil value
+        )
     end
     cannot :significant_change, Version
 

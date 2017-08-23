@@ -257,9 +257,24 @@ describe Version do
         end
 
         describe 'significant change' do
-          let(:item_diff) { { name: ['a', 'b'] } }
-          it { is_expected.to_not be_able_to :create, version }
-          it { is_expected.to_not be_able_to :destroy, version }
+          context 'common field' do
+            let(:item_diff) { { name: ['a', 'b'] } }
+            it { is_expected.to_not be_able_to :create, version }
+          end
+
+          context 'image' do
+            let(:item_diff) { { image: [prior_image, 'zxcvbn'] } }
+
+            context 'exists' do
+              let(:prior_image) { 'zxc' }
+              it { is_expected.to_not be_able_to :create, version }
+            end
+
+            context 'not exists' do
+              let(:prior_image) { nil }
+              it { is_expected.to be_able_to :create, version }
+            end
+          end
         end
 
         it { is_expected.to be_able_to :show, version }
