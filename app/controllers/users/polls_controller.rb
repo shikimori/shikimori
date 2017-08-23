@@ -11,7 +11,7 @@ class Users::PollsController < ProfilesController
   end
 
   UPDATE_PARAMS = %i[name] + [{
-    poll_variants_attributes: %i[text]
+    variants_attributes: %i[text]
   }]
   CREATE_PARAMS = %i[user_id] + UPDATE_PARAMS
 
@@ -41,7 +41,7 @@ class Users::PollsController < ProfilesController
 
   def update
     Poll.transaction do
-      @resource.poll_variants.delete_all
+      @resource.variants.delete_all
       @resource.update! update_params
     end
 
@@ -81,10 +81,10 @@ private
   end
 
   def fix_variants params_hash
-    return unless params_hash[:poll_variants_attributes]
+    return unless params_hash[:variants_attributes]
 
-    params_hash[:poll_variants_attributes] =
-      params_hash[:poll_variants_attributes]
+    params_hash[:variants_attributes] =
+      params_hash[:variants_attributes]
         .select { |poll_variant| poll_variant[:text]&.strip.present? }
         .uniq { |poll_variant| poll_variant[:text].strip }
   end

@@ -48,7 +48,7 @@ describe Users::PollsController do
           poll: {
             user_id: user.id,
             name: 'test',
-            poll_variants_attributes: [{
+            variants_attributes: [{
               text: 'test 1'
             }, {
               text: 'test 2'
@@ -67,9 +67,9 @@ describe Users::PollsController do
         state: 'pending',
         user_id: user.id
       )
-      expect(resource.poll_variants).to have(2).items
-      expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
-      expect(resource.poll_variants[1]).to have_attributes(text: 'test 2')
+      expect(resource.variants).to have(2).items
+      expect(resource.variants[0]).to have_attributes(text: 'test 1')
+      expect(resource.variants[1]).to have_attributes(text: 'test 2')
       expect(resource).to be_valid
       expect(response).to redirect_to edit_profile_poll_url(user, resource)
     end
@@ -93,7 +93,7 @@ describe Users::PollsController do
           id: poll.id,
           poll: {
             name: 'test',
-            poll_variants_attributes: [{
+            variants_attributes: [{
               text: 'test 1'
             }, {
               text: 'test 2'
@@ -108,9 +108,9 @@ describe Users::PollsController do
         state: 'pending',
         user_id: user.id
       )
-      expect(resource.poll_variants).to have(2).items
-      expect(resource.poll_variants[0]).to have_attributes(text: 'test 1')
-      expect(resource.poll_variants[1]).to have_attributes(text: 'test 2')
+      expect(resource.variants).to have(2).items
+      expect(resource.variants[0]).to have_attributes(text: 'test 1')
+      expect(resource.variants[1]).to have_attributes(text: 'test 2')
 
       expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
 

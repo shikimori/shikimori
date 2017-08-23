@@ -2,7 +2,9 @@ class Poll < ApplicationRecord
   include Translation
 
   belongs_to :user
-  has_many :poll_variants, -> { order :id },
+  has_many :variants, -> { order :id },
+    class_name: PollVariant.name,
+    inverse_of: :poll,
     dependent: :destroy
 
   validates :user, presence: true
@@ -14,13 +16,13 @@ class Poll < ApplicationRecord
 
     event(:start) do
       transition pending: :started, if: lambda { |poll|
-        poll.persisted? && poll.poll_variants.size > 1
+        poll.persisted? && poll.variants.size > 1
       }
     end
     event(:stop) { transition started: :stopped }
   end
 
-  accepts_nested_attributes_for :poll_variants
+  accepts_nested_attributes_for :variants
 
   def name
     return super if super.present? || new_record?

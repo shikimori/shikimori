@@ -6,7 +6,7 @@ module.exports = class TrackPoll
       .removeClass(MARK)
       .data(model: poll)
       .each (_, node) ->
-        new Polls.View node
+        new Polls.View node, poll
 
   _selector: (poll) ->
     ".poll-placeholder##{poll.id}"

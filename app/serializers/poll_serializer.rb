@@ -1,4 +1,8 @@
 class PollSerializer < ActiveModel::Serializer
-  attributes :id
-  has_many :poll_variants
+  attributes :id, :name, :state, :votes_total
+  has_many :variants
+
+  def votes_total
+    object.variants.sum(&:cached_votes_total)
+  end
 end

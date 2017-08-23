@@ -2,7 +2,7 @@
   .block
     input(
       type="hidden"
-      name="poll[poll_variants_attributes][]"
+      name="poll[variants_attributes][]"
       v-if="is_empty"
     )
     .b-nothing_here(
@@ -24,7 +24,7 @@
         .b-input
           input(
             type="text"
-            name="poll[poll_variants_attributes][][text]"
+            name="poll[variants_attributes][][text]"
             v-model="poll_variant.text"
             :placeholder="I18n.t('frontend.poll_variants.text')"
             @keydown.enter="submit"
