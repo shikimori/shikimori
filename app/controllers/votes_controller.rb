@@ -2,13 +2,11 @@ class VotesController < ShikimoriController
   before_action :authenticate_user!
 
   def create
-    votable = params[:type].constantize.find(params[:id])
-
-    if params[:voting] == 'yes'
-      current_user.likes votable
-    else
-      current_user.dislikes votable
-    end
+    Votable::Vote.call(
+      votable: params[:type].constantize.find(params[:id]),
+      voter: current_user,
+      vote: params[:voting] == 'yes'
+    )
 
     render json: {}
   end

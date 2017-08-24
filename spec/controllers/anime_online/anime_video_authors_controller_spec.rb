@@ -7,7 +7,7 @@ describe AnimeOnline::AnimeVideoAuthorsController do
     before { get :autocomplete, params: { search: 'test' } }
     it do
       expect(collection).to have(1).item
-      expect(response).to be_success
+      expect(response).to have_http_status :success
     end
   end
 end

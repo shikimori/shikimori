@@ -26,7 +26,7 @@ describe Api::V1::AppearController do
       before { submit }
 
       context 'success' do
-        it { expect(response).to be_success }
+        it { expect(response).to have_http_status :success }
       end
 
       context '1 viewed id' do

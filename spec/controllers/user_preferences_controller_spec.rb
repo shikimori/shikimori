@@ -41,7 +41,7 @@ describe UserPreferencesController do
 
         it do
           expect(resource.preferences.forums).to eq ['vn']
-          expect(response).to be_success
+          expect(response).to have_http_status :success
         end
       end
 

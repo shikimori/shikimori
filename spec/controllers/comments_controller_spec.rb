@@ -29,7 +29,7 @@ describe CommentsController do
   describe '#fetch' do
     it do
       get :fetch, params: { comment_id: comment.id, topic_type: Topic.name, topic_id: offtopic_topic.id, skip: 1, limit: 10 }
-      expect(response).to be_success
+      expect(response).to have_http_status :success
     end
 
     it 'not_found for wrong comment' do
