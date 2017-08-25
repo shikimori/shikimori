@@ -12,7 +12,7 @@
 
   .vote-group
     .vote.yes.to-process[
-      data-action="#{vote_yes_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
+      data-action="#{votes_url vote: { votable_id: topic_view.topic.linked.id, votable_type: topic_view.topic.linked.class.name, vote: 'yes' }}"
       data-dynamic="authorized"
       data-method="post"
       data-remote="true"
@@ -20,7 +20,7 @@
     ] = t('answers.yes').capitalize
     .separator
     .vote.no.to-process[
-      action="#{vote_no_url id: topic_view.topic.linked.id, type: topic_view.topic.linked.class.name}"
+      data-action="#{votes_url vote: { votable_id: topic_view.topic.linked.id, votable_type: topic_view.topic.linked.class.name, vote: 'no' }}"
       data-dynamic="authorized"
       data-method="post"
       data-remote="true"

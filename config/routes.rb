@@ -732,6 +732,9 @@ Rails.application.routes.draw do
     #get "seyu/:id#{ani_manga_format}" => 'seyu#show', as: :seyu
     #get "mangaka/:id#{ani_manga_format}" => 'mangaka#show', as: :seyu
 
+    # votes
+    resources :votes, only: %i[create]
+
     # голосования
     resources :contests, except: %i[index] do
       collection do
@@ -757,10 +760,6 @@ Rails.application.routes.draw do
         post 'vote/:variant' => 'contest_matches#vote', as: 'vote', on: :member
       end
     end
-
-    # votes
-    post 'votes/:type/:id/yes' => 'votes#create', voting: 'yes', as: :vote_yes
-    post 'votes/:type/:id/no' => 'votes#create', voting: 'no', as: :vote_no
 
     get 'kakie-anime-postmotret' => 'recommendations#favourites',
       as: :recommendations_favourites_anime,
