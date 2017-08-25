@@ -10,13 +10,14 @@ AllCops:
     - Rakefile
     - spec/spec_helper.rb
     - spec/rails_helper.rb
-    - spec/support*
+    - spec/support/*
     - bin/*
     - node_modules/**/*
     - public/packs/**/*
     - public/packs-test/**/*
     - lib/named_logger.rb
     - lib/active_cacher.rb
+    - lib/dsl_attribute.rb
   UseCache: false
 
 Metrics/LineLength:
@@ -25,7 +26,6 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
-
 Style/NestedParenthesizedCalls:
   Exclude:
     - spec/**/*

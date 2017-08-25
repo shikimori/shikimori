@@ -1,5 +1,6 @@
-@import mixins/block
 @import addons/clearfix
+@import mixins/block
+@import mixins/shiki_button
 
 $bar_height: 8px
 
@@ -12,8 +13,16 @@ $bar_height: 8px
     .name
       font-weight: bold
 
+  .poll-actions
+    .vote, .abstain
+      +shiki_button
+
   .poll-variants
     max-width: 350px
+    margin-bottom: 15px
+
+    &:last-child
+      margin-bottom: 0
 
     .poll-variant
       line-height: 21px

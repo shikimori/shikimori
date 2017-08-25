@@ -1,0 +1,5 @@
+en:
+  frontend:
+    polls:
+      vote: Vote
+      abstain: Abstain

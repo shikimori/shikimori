@@ -29,6 +29,6 @@ module.exports = class View
 
   # set root node
   _set_root: (node) ->
-    @$root = $(node)
-    @root = @$root[0]
+    @$root = @$node = $(node)
+    @root = @node = @$root[0]
     @$root.data view_object: @
