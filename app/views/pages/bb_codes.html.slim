@@ -2,6 +2,17 @@ header.head
   h1 = t '.title'
   p.notice = t '.notice'
 
+- if user_signed_in?
+  .b-bb_codes-examples.block
+    .m5
+      b = t 'actions.actions'
+    ul.b-list
+      li
+        a.b-link[
+          href="#{new_profile_poll_url current_user, 'poll[user_id]' => current_user.id}"
+          title="#{ t 'polls.index.new'}"
+        ] = t 'polls.index.new'
+
 .b-bb_codes-examples
   .cc-2
     .block.c-column
