@@ -1,8 +1,8 @@
 module VideoExtractor
-  EXTRACTORS = %i(
-    vk youtube coub open_graph dailymotion rutube
+  EXTRACTORS = %i[
+    vk youtube coub open_graph rutube
     smotret_anime sovet_romantica
-  )
+  ] # dailymotion
 
   class << self
     def fetch url

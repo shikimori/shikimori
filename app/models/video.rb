@@ -1,15 +1,15 @@
 # TODO: refactor kind to enumerize
 class Video < ApplicationRecord
-  ALLOWED_HOSTINGS = %i(youtube vk rutube sibnet dailymotion smotret_anime)
+  ALLOWED_HOSTINGS = %i(youtube vk rutube sibnet smotret_anime) # dailymotion
 
   belongs_to :anime
   belongs_to :uploader, class_name: User.name
 
   enumerize :hosting,
     in: %i[
-      youtube vk coub twitch rutube vimeo myvi sibnet yandex dailymotion
+      youtube vk coub twitch rutube vimeo myvi sibnet yandex
       streamable smotret_anime
-    ],
+    ], # dailymotion
     predicates: true
   enumerize :kind, in: %i[pv op ed other], predicates: true
 

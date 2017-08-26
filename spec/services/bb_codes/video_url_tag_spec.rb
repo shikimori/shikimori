@@ -84,19 +84,19 @@ describe BbCodes::VideoUrlTag do
         # it { is_expected.to include "<div class=\"c-video b-video unprocessed yandex" }
       # end
 
-      context 'dailymotion' do
-        context 'common url' do
-          let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
-          it { is_expected.to include '<div class="c-video b-video unprocessed dailymotion' }
-          it { is_expected.to match(/\A<.*>\Z/) }
-        end
+      # context 'dailymotion' do
+        # context 'common url' do
+          # let(:text) { 'http://www.dailymotion.com/video/x19jwj5_boku-wa-tomodachi-ga-sukunai-op-ed-creditless_shortfilms?search_algo=1' }
+          # it { is_expected.to include '<div class="c-video b-video unprocessed dailymotion' }
+          # it { is_expected.to match(/\A<.*>\Z/) }
+        # end
 
-        context 'special url' do
-          let(:text) { 'http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms' }
-          it { is_expected.to include '<div class="c-video b-video unprocessed dailymotion' }
-          it { is_expected.to match %r{</div>$} }
-        end
-      end
+        # context 'special url' do
+          # let(:text) { 'http://dailymotion.com/video/x1cbf83_детектив-конан-фильм-18-снайпер-из-другого-измерения_shortfilms' }
+          # it { is_expected.to include '<div class="c-video b-video unprocessed dailymotion' }
+          # it { is_expected.to match %r{</div>$} }
+        # end
+      # end
 
       context 'streamable' do
         let(:text) { 'https://streamable.com/efgm' }
