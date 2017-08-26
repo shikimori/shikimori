@@ -1,4 +1,6 @@
 class Poll < ApplicationRecord
+  acts_as_votable
+
   include Translation
 
   belongs_to :user

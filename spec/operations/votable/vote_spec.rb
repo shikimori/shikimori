@@ -20,15 +20,14 @@ describe Votable::Vote do
   end
 
   context 'poll' do
-    let(:votable) { poll_variant_2 }
-
-    let!(:poll) { create :poll }
+    let!(:poll) { create :poll, poll_state }
+    let(:poll_state) { :started }
     let!(:poll_variant_1) { create :poll_variant, poll: poll }
     let!(:poll_variant_2) { create :poll_variant, poll: poll }
 
     let! :current_user_vote do
       ActsAsVotable::Vote.create!(
-        votable: poll_variant_1,
+        votable: [poll, poll_variant_1, poll_variant_2].sample,
         voter: voter,
         vote_flag: true,
         vote_weight: 1
@@ -43,14 +42,50 @@ describe Votable::Vote do
       )
     end
 
-    it do
-      expect { subject }.to_not change ActsAsVotable::Vote, :count
+    context 'poll variant' do
+      let(:votable) { poll_variant_2 }
 
-      expect(voter.liked? poll_variant_1).to eq false
-      expect(voter.liked? poll_variant_2).to eq true
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
 
-      expect { current_user_vote.reload }.to raise_error ActiveRecord::RecordNotFound
-      expect(another_user_vote.reload).to be_persisted
+        expect(voter.liked? poll).to eq false
+        expect(voter.liked? poll_variant_1).to eq false
+        expect(voter.liked? poll_variant_2).to eq true
+
+        expect { current_user_vote.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(another_user_vote.reload).to be_persisted
+      end
+    end
+
+    context 'poll' do
+      let(:votable) { poll }
+
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
+
+        expect(voter.liked? poll).to eq true
+        expect(voter.liked? poll_variant_1).to eq false
+        expect(voter.liked? poll_variant_2).to eq false
+
+        expect { current_user_vote.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect(another_user_vote.reload).to be_persisted
+      end
+    end
+
+    context 'not started poll' do
+      let(:poll_state) { %i[pending stopped].sample }
+      let(:votable) { [poll, poll_variant_1, poll_variant_2].sample }
+
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
+
+        expect(voter.liked? poll).to eq false
+        expect(voter.liked? poll_variant_1).to eq true
+        expect(voter.liked? poll_variant_2).to eq false
+
+        expect(current_user_vote.reload).to be_persisted
+        expect(another_user_vote.reload).to be_persisted
+      end
     end
   end
 end

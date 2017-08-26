@@ -16,11 +16,12 @@ require 'imagesloaded'
 bowser = require 'bowser'
 
 require '../i18n/translations'
+csrf = require 'helpers/csrf'
+
+window.axios = require('axios').create
+  headers: Object.merge(csrf().headers, 'X-Requested-With': 'XMLHttpRequest')
 
 window.I18n = I18n
-window.axios = require('axios').create
-  headers:
-    'X-Requested-With': 'XMLHttpRequest'
 
 window.View = require 'views/application/view'
 window.ShikiView = require 'views/application/shiki_view'
@@ -29,6 +30,7 @@ window.ShikiUser = require 'models/shiki_user'
 
 require_helpers = require.context('../helpers', true)
 require_helpers.keys().forEach(require_helpers)
+
 
 require_templates = require.context('../templates', true)
 window.JST = require_templates.keys().reduce(
@@ -63,7 +65,7 @@ window.mobile_detect = new MobileDetect(window.navigator.userAgent)
 FayeLoader = require '../services/faye_loader'
 CommentsNotifier = require '../services/comments_notifier'
 
-bindings = require('helpers/bindings')
+bindings = require 'helpers/bindings'
 
 $(document).on Object.keys(bindings).join(' '), (e) ->
   for group in bindings[e.type]

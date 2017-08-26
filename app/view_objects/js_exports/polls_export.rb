@@ -8,6 +8,6 @@ private
   end
 
   def serialize poll, user
-    PollSerializer.new(poll).to_hash
+    PollSerializer.new(poll, scope: user).to_hash
   end
 end
