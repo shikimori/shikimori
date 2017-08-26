@@ -10,7 +10,6 @@ module.exports = class Polls.View extends View
       @$abstain = @$ '.poll-actions .abstain'
       @_toggle_actions()
 
-      console.log @model
       @$('.b-radio').on 'click', @_radio_click
 
       @$vote.on 'click', @_vote_variant
