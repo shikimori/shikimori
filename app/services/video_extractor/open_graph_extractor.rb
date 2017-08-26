@@ -5,7 +5,7 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
   URL_REGEX = %r{
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?:\w+\.)?(?<hosting>twitch).tv/[\wА-я_-]+/[\wА-я_-]+/[\wА-я_-]+#{PARAMS_REGEXP.source} |
+      (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       # (?<hosting>rutube).ru/video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
