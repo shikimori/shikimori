@@ -4,6 +4,8 @@ class Autocomplete::AutocompleteBase
   LIMIT = 16
 
   def call
+    return [] if @phrase.blank?
+
     autocomplete_klass.call(
       scope: @scope,
       phrase: @phrase,
