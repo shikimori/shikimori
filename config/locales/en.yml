@@ -266,6 +266,10 @@ en:
               taken: the video you've uploaded already exists within our system
             hosting:
               incorrect: unsupported video hosting
+        collection_link:
+          attributes:
+            linked:
+              censored: hentai/yaoi is forbidden
 
     state_machines:
       contest:

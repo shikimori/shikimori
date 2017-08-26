@@ -11,8 +11,11 @@ class MangasController < AnimesController
   ]
 
   def autocomplete
+    scope = Manga.where.not(kind: Ranobe::KIND)
+    scope.where! censored: false if params[:censored] == 'false'
+
     @collection = Autocomplete::Manga.call(
-      scope: Manga.where.not(kind: Ranobe::KIND),
+      scope: scope,
       phrase: params[:search] || params[:q]
     )
   end

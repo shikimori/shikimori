@@ -10,6 +10,16 @@ describe CollectionLink do
   describe 'validations' do
     it { is_expected.to validate_presence_of :collection }
     # it { is_expected.to validate_uniqueness_of(:linked_id).scoped_to(:collection_id) }
+
+    context 'censored' do
+      before { subject.linked = build_stubbed(:anime, censored: true) }
+      it do
+        is_expected.to_not be_valid
+        expect(subject.errors[:linked]).to eq [
+          I18n.t('activerecord.errors.models.collection_link.attributes.linked.censored')
+        ]
+      end
+    end
   end
 
   describe 'enumerize' do

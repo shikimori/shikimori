@@ -12,4 +12,14 @@ class CollectionLink < ApplicationRecord
   enumerize :linked_type,
     in: Types::Collection::Kind.values.map(&:to_s).map(&:classify),
     predicates: true
+
+  validate :not_censored
+
+private
+
+  def not_censored
+    if linked.respond_to?(:censored?) && linked.censored?
+      errors.add :linked, :censored
+    end
+  end
 end

@@ -266,6 +266,10 @@ ru:
               taken: видео с такой ссылкой уже добавлено
             hosting:
               incorrect: видео с данного хостинга не поддерживается
+        collection_link:
+          attributes:
+            linked:
+              censored: хентай/яой запрещён
 
     state_machines:
       contest:

@@ -164,8 +164,11 @@ class AnimesController < DbEntriesController
   end
 
   def autocomplete
+    scope = Anime.all
+    scope.where! censored: false if params[:censored] == 'false'
+
     @collection = Autocomplete::Anime.call(
-      scope: Anime.all,
+      scope: scope,
       phrase: params[:search] || params[:q]
     )
   end
