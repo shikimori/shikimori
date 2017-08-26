@@ -1,12 +1,8 @@
 class PollVariantSerializer < ActiveModel::Serializer
-  attributes :id, :label, :votes_total, :votes_percent, :vote_for_url
+  attributes :id, :label, :votes_total, :vote_for_url
 
   def votes_total
     object.cached_votes_total
-  end
-
-  def votes_percent
-    object.votes_percent
   end
 
   def vote_for_url

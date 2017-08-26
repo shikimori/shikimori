@@ -19,27 +19,15 @@
       else
         .poll-variant.result
           .votes-total= poll_variant.votes_total
-          .votes-percent #{poll_variant.votes_percent}%
+          .votes-percent #{bar_percent(poll_variant)}%
           label= poll_variant.label
 
           .bar.simple.horizontal
             .line
-              if poll_variant.votes_percent <= 80 && poll_variant.votes_percent > 60
-                .bar.s1(
-                  style='width: ' + poll_variant.votes_percent + '%'
-                )
-              else if poll_variant.votes_percent <= 60 && poll_variant.votes_percent > 30
-                .bar.s2(
-                  style='width: ' + poll_variant.votes_percent + '%'
-                )
-              else if poll_variant.votes_percent <= 30
-                .bar.s3(
-                  style='width: ' + poll_variant.votes_percent + '%'
-                )
-              else
-                .bar.s0(
-                  style='width: ' + poll_variant.votes_percent + '%'
-                )
+              .bar(
+                class=bar_class(poll_variant)
+                style='width: ' + bar_percent(poll_variant) + '%'
+              )
 
   if can_vote
     .poll-actions

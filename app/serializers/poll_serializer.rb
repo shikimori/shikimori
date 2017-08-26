@@ -1,11 +1,6 @@
 class PollSerializer < ActiveModel::Serializer
-  attributes :id, :name, :text, :text_html, :state, :votes_total,
-    :vote_abstain_url, :vote
+  attributes :id, :name, :text, :text_html, :state, :vote_abstain_url, :vote
   has_many :variants
-
-  def votes_total
-    object.variants.sum(&:cached_votes_total)
-  end
 
   def vote_abstain_url
     UrlGenerator.instance.votes_url vote: {

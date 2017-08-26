@@ -4,36 +4,53 @@ module.exports = class Polls.View extends View
 
   initialize: (@model) ->
     @_render()
-    console.log @model.vote
 
+    console.log @model
     if @_can_vote()
       @$vote = @$ '.poll-actions .vote'
       @$abstain = @$ '.poll-actions .abstain'
       @_toggle_actions()
 
       @$('input[type=radio]')
-        .on 'click', (e) =>
-          if @variant_id == @_checked_radio()?.value
-            @_checked_radio().checked = false
-            @_toggle_actions()
-            @variant_id = null
+        .on 'click', @_radio_click
+        .on 'change', @_radio_change
 
-        .on 'change', (e) =>
-          @_toggle_actions()
-          @variant_id = @_checked_radio()?.value
+      @$vote.on 'click', @_vote_variant
+      @$abstain.on 'click', @_abstain
 
-      @$vote.on 'click', =>
-        checked_variant_id = parseInt @_checked_radio().value
-        @_vote(
-          @model.variants.find((v) => v.id == checked_variant_id).vote_for_url
-        )
+  # handlers
+  _radio_click: =>
+    if @variant_id == @_checked_radio()?.value
+      @_checked_radio().checked = false
+      @_toggle_actions()
+      @variant_id = null
 
-      @$abstain.on 'click', =>
-        @_vote @model.vote_abstain_url
+  _radio_change: =>
+    @_toggle_actions()
+    @variant_id = @_checked_radio()?.value
 
+  _vote_variant: =>
+    variant_id = parseInt @_checked_radio().value
+    variant = @model.variants.find (v) => v.id == variant_id
+
+    @model.vote = { is_abstained: false, variant_id: variant.id }
+    variant.votes_total += 1
+
+    @_vote variant.vote_for_url
+
+  _abstain: =>
+    @model.vote = { is_abstained: true, variant_id: null }
+    @_vote @model.vote_abstain_url
+
+  # private functions
   _render: ->
     $old_root = @$root
-    @_set_root JST[TEMPLATE](model: @model, can_vote: @_can_vote())
+    @_set_root JST[TEMPLATE](
+      model: @model,
+      can_vote: @_can_vote()
+      bar_percent: @_variant_percent,
+      bar_class: @_variant_class
+    )
     $old_root.replaceWith @$root
 
   _vote: (url) ->
@@ -42,11 +59,12 @@ module.exports = class Polls.View extends View
       .post(url)
       .then (response) =>
         @$root.removeClass 'b-ajax'
-
+        @_render()
 
   _can_vote: ->
     SHIKI_USER.is_signed_in &&
-      @model.state == 'started' && !@model.voted
+      @model.state == 'started' &&
+      !@model.vote.is_abstained && !@model.vote.variant_id
 
   _toggle_actions: ->
     if @_checked_radio()
@@ -58,3 +76,23 @@ module.exports = class Polls.View extends View
 
   _checked_radio: ->
     @$('input[type=radio]:checked')[0]
+
+  _variant_percent: (variant) =>
+    total_votes = @model.variants.sum('votes_total')
+
+    if total_votes == 0
+      0
+    else
+      (100.0 * variant.votes_total / total_votes).round(2)
+
+  _variant_class: (variant) =>
+    votes_percent = @_variant_percent(variant)
+
+    if votes_percent <= 80 && votes_percent > 60
+      's1'
+    else if votes_percent <= 60 && votes_percent > 30
+      's2'
+    else if votes_percent <= 30
+      's1'
+    else
+      's0'
