@@ -159,7 +159,9 @@ class AnimeVideo < ApplicationRecord
 private
 
   def check_banned_hostings
-    self.state = 'banned' if hosting == 'kiwi.kz'
+    if hosting == 'kiwi.kz' || hosting == 'dailymotion.com'
+      self.state = 'banned'
+    end
   end
 
   def check_copyrighted_animes
