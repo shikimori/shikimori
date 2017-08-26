@@ -25,9 +25,10 @@ describe Votable::Vote do
     let!(:poll_variant_1) { create :poll_variant, poll: poll }
     let!(:poll_variant_2) { create :poll_variant, poll: poll }
 
+    let(:voted_votable) { [poll, poll_variant_1, poll_variant_2].sample }
     let! :current_user_vote do
       ActsAsVotable::Vote.create!(
-        votable: [poll, poll_variant_1, poll_variant_2].sample,
+        votable: voted_votable,
         voter: voter,
         vote_flag: true,
         vote_weight: 1
@@ -75,6 +76,7 @@ describe Votable::Vote do
     context 'not started poll' do
       let(:poll_state) { %i[pending stopped].sample }
       let(:votable) { [poll, poll_variant_1, poll_variant_2].sample }
+      let(:voted_votable) { poll_variant_1 }
 
       it do
         expect { subject }.to_not change ActsAsVotable::Vote, :count

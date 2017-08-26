@@ -11,7 +11,7 @@ class PollSerializer < ActiveModel::Serializer
   end
 
   def vote
-    is_abstained = scope&.liked?(object)
+    is_abstained = !!scope&.liked?(object)
     {
       is_abstained: is_abstained,
       variant_id: (

@@ -42,8 +42,8 @@ describe JsExports::PollsExport do
 
     it do
       is_expected.to eq [
-        PollSerializer.new(poll_1).to_hash,
-        PollSerializer.new(poll_2).to_hash
+        PollSerializer.new(poll_1, scope: user).to_hash,
+        PollSerializer.new(poll_2, scope: user).to_hash
       ]
     end
   end
