@@ -114,6 +114,21 @@ header.head
         = BbCodeFormatter.instance.format_comment t('.anime_link_with_tooltip_example_2')
     .notice == t '.anime_link_with_tooltip_notice', domain: Site::DOMAIN
 
+  .block
+    .name
+      = Poll.model_name.human
+      - if user_signed_in?
+        a.misc[
+          href="#{new_profile_poll_url current_user, 'poll[user_id]' => current_user.id}"
+          title="#{ t 'polls.index.new'}"
+        ] = t('actions.create').downcase
+    .example
+      .title = t '.example_title'
+      .textarea == t '.poll_example'
+    .result
+      .title = t '.result_title'
+      = BbCodeFormatter.instance.format_comment t('.poll_example')
+
   - cache [:demo, :entries_posters, :v3] do
     .block
       .name = t '.posters_8_columns'

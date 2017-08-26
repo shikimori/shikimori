@@ -162,6 +162,8 @@ en:
         <br>
         Works for anime, manga, characters and people.
 
+      poll_example: '[poll=1]'
+
       posters_8_columns: >-
         Eight-column anime, manga, character and person posters
       posters_8_columns_example: >-
