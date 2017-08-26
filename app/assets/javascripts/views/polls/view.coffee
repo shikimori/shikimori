@@ -5,29 +5,23 @@ module.exports = class Polls.View extends View
   initialize: (@model) ->
     @_render()
 
-    console.log @model
     if @_can_vote()
       @$vote = @$ '.poll-actions .vote'
       @$abstain = @$ '.poll-actions .abstain'
       @_toggle_actions()
 
-      @$('input[type=radio]')
-        .on 'click', @_radio_click
-        .on 'change', @_radio_change
+      console.log @model
+      @$('.b-radio').on 'click', @_radio_click
 
       @$vote.on 'click', @_vote_variant
       @$abstain.on 'click', @_abstain
 
   # handlers
-  _radio_click: =>
-    if @variant_id == @_checked_radio()?.value
-      @_checked_radio().checked = false
-      @_toggle_actions()
-      @variant_id = null
-
-  _radio_change: =>
+  _radio_click: (e) =>
+    $radio = $(e.currentTarget).find('input')
+    $radio.prop checked: !$radio.prop('checked')
     @_toggle_actions()
-    @variant_id = @_checked_radio()?.value
+    false
 
   _vote_variant: =>
     variant_id = parseInt @_checked_radio().value
