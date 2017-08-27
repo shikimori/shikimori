@@ -7,8 +7,8 @@ page_load 'animes_show', 'mangas_show', 'ranobe_show', ->
   # сокращение высоты описания
   $('.text').check_height max_height: 200
 
-  new FavouriteStar $('.c-actions .fav-add'), is_favoured
-  new Animes.WathOnlineButton $('.watch-online-placeholer'), watch_online
+  new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured
+  new Animes.WathOnlineButton $('.watch-online-placeholer'), gon.watch_online
 
   $new_review = $('.new_review')
   if SHIKI_USER.is_signed_in

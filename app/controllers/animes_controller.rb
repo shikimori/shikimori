@@ -1,7 +1,4 @@
 class AnimesController < DbEntriesController
-  before_action :set_breadcrumbs, if: -> { @resource }
-  before_action :resource_redirect, if: -> { @resource }
-
   # временно отключаю, всё равно пока не тормозит
   #caches_action :page, :characters, :show, :related, :cosplay, :tooltip,
     #cache_path: proc {
@@ -26,6 +23,10 @@ class AnimesController < DbEntriesController
     external_links: [EXTERNAL_LINK_PARAMS],
     synonyms: []
   ]
+
+  before_action :set_breadcrumbs, if: -> { @resource }
+  before_action :resource_redirect, if: -> { @resource }
+  before_action :js_export, only: %i[show]
 
   # display anime or manga
   def show
@@ -233,6 +234,23 @@ private
         @back_url = @resource.edit_url
         breadcrumb i18n_t('edit'), @resource.edit_url
       end
+    end
+  end
+
+  def js_export
+    gon.push is_favoured: @resource.favoured?
+
+    if @resource.anime?
+      gon.push watch_online: {
+        is_allowed: ignore_copyright?,
+        is_licensed: @resource.licensed?,
+        is_censored: @resource.censored?,
+        has_videos: @resource.anime_videos?,
+        watch_url: @resource.video_online_url,
+        upload_url: @resource.upload_first_video_online_url
+      }
+    else
+      gon.push watch_online: { is_allowed: false }
     end
   end
 end
