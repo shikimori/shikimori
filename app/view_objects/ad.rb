@@ -8,7 +8,7 @@ class Ad < ViewObjectBase
   BANNERS = {
     istari_x300: {
       provider: Types::Ad::Provider[:istari],
-      url: 'https://vk.com/istaricomics',
+      url: 'http://kimi.istaricomics.com',
       src: '/assets/globals/events/i1_1.jpg',
       src_2x: '/assets/globals/events/i1_1@2x.jpg',
       rules: {
@@ -19,7 +19,7 @@ class Ad < ViewObjectBase
     },
     istari_x1170: {
       provider: Types::Ad::Provider[:istari],
-      url: 'https://vk.com/istaricomics',
+      url: 'http://kimi.istaricomics.com',
       src: '/assets/globals/events/i1_2.jpg',
       src_2x: '/assets/globals/events/i1_2@2x.jpg',
       placement: Types::Ad::Placement[:content]
