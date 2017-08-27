@@ -157,7 +157,6 @@ ru:
     new_contest: Новый турнир
     edit_contest: Изменение турнира
     contest_created: Турнир создан
-    votes: Голоса
     index_keywords: аниме опросы турниры голосования
     index_description: Аниме опросы и турниры сайта
     show_keywords: аниме опрос турнир голосование %{title}

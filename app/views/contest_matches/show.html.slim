@@ -61,7 +61,7 @@
               locals: { position: 'right' }
 
         - if @resource.finished?
-          a.votes-percents href="#{round_match_users_contest_url @resource.contest, round: @resource.round, match_id: @resource.id}"
+          .votes-percents
             .left-part title="#{@resource.left_votes} #{i18n_i 'vote', @resource.left_votes} #{t '.for'} «#{@resource.left.name}»"
               span #{@resource.left_percent}% (#{@resource.left_votes})
               .right-part[
@@ -76,9 +76,6 @@
           .match-members
             .match-member.voted [
               data-variant='left'
-              data-type='json'
-              data-method='post'
-              data-action="#{vote_contest_contest_match_url contest_id: @resource.round.contest_id, id: @resource.id, variant: 'left'}"
             ]
               = render @resource.left, cover_notice: :studio, content_by: :none
 

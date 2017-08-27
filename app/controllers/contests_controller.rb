@@ -40,17 +40,6 @@ class ContestsController < ShikimoriController
     page_title @resource.displayed_round.title if params[:round]
   end
 
-  # проголосовавшие в раунде
-  def users
-    unless @resource.displayed_match.finished? || (user_signed_in? && current_user.admin?)
-      return redirect_to contest_url(@resource)
-    end
-    noindex
-
-    page_title @resource.displayed_round.title
-    page_title i18n_t :votes
-  end
-
   # турнирная сетка
   def grid
     if !user_signed_in? || !current_user.contests_moderator?

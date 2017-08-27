@@ -157,7 +157,6 @@ en:
     new_contest: New contest
     edit_contest: Edit contest
     contest_created: Contest created
-    votes: Votes
     index_keywords: anime contests tournaments polls
     index_description: Anime contests and tournaments of the site
     show_keywords: anime contest tournament poll %{title}

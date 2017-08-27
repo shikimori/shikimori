@@ -11,11 +11,11 @@ class MigrateContestUserVotesToVotableVotes < ActiveRecord::Migration[5.1]
 
     ContestUserVote.includes(:match, :user).find_each do |vote|
       vote_flag = if vote.item_id == vote.match.left_id
-        true
+        ContestMatch::VOTABLE.invert['left']
       elsif vote.item_id == vote.match.right_id
-        false
+        ContestMatch::VOTABLE.invert['right']
       else
-        nil
+        ContestMatch::VOTABLE.invert['abstain']
       end
 
       votes.push ActsAsVotable::Vote.new(

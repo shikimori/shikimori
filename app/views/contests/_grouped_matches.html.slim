@@ -10,7 +10,7 @@
         span.match-link.two-columns[
           class="#{match.right ? match.status_with_voted : (match.started? ? :voted : match.state)}"
           data-remote="true"
-          data-action="#{contest_contest_match_url contest.entry, match}"
+          data-action="#{contest_contest_match_url contest, match}"
           data-type="html"
           data-id="#{match.id}"
         ]

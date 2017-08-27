@@ -45,14 +45,15 @@ class ContestDecorator < DbEntryDecorator
 
   # число участников в турнире
   def uniq_voters
-    object
-      .rounds
-      .joins(matches: :votes)
-      .select('count(distinct(user_id)) as uniq_voters')
-      .except(:order)
-        .to_a
-        .first
-        .uniq_voters
+    0
+    # object
+      # .rounds
+      # .joins(matches: :votes)
+      # .select('count(distinct(user_id)) as uniq_voters')
+      # .except(:order)
+        # .to_a
+        # .first
+        # .uniq_voters
   end
 
   # голоса за правый вариант
@@ -65,7 +66,6 @@ class ContestDecorator < DbEntryDecorator
     @grouped_matches ||= {}
     @grouped_matches[round] ||= round
       .matches
-      .with_user_vote(h.current_user, h.remote_addr)
       .includes(:left, :right)
       .map(&:decorate)
       .group_by(&:started_on)

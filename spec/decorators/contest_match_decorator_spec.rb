@@ -30,9 +30,6 @@ describe ContestMatchDecorator do
     it { expect(decorator.right_percent).to eq 66.6 }
   end
 
-  describe '#status_with_voted' do
-  end
-
   describe '#status' do
     subject { decorator.status member_id }
     let(:member_id) { left_anime.id }

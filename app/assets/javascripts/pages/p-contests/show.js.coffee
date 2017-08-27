@@ -133,9 +133,16 @@ page_load 'contests_show', ->
     $(e.target).addClass('active')
 
     $('.match-container').html(data)
-        .stop(true, false)
-        .trigger('ajax:success')
-        .animate opacity: 1
+      .stop(true, false)
+      .trigger('ajax:success')
+
+    page_url = $(e.target).data('page_url')
+    if Modernizr.history && page_url
+      window.history.replaceState(
+        { turbolinks: true, url: page_url },
+        '',
+        page_url
+      )
 
   # клик переход на следующую пару
   $root.on 'click', '.next-match', ->
