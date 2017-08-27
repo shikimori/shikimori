@@ -756,9 +756,7 @@ Rails.application.routes.draw do
       end
 
       resources :contest_suggestions, path: 'suggestions', only: %i[show create destroy]
-      resources :contest_matches, path: 'matches', only: %i[show] do
-        post 'vote/:variant' => 'contest_matches#vote', as: 'vote', on: :member
-      end
+      resources :contest_matches, path: 'matches', only: %i[show]
     end
 
     get 'kakie-anime-postmotret' => 'recommendations#favourites',

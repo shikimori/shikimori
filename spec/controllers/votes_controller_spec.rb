@@ -5,11 +5,9 @@ describe VotesController do
     let(:make_request) do
       post :create,
         params: {
-          vote: {
-            votable_id: votable.to_param,
-            votable_type: votable.class.name,
-            vote: 'yes'
-          }
+          votable_id: votable.to_param,
+          votable_type: votable.class.name,
+          vote: 'yes'
         }
     end
     let(:votable) { create :review }

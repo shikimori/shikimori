@@ -3,6 +3,11 @@
 # cached_votes_total - votes_for_right + votes_for_left + refrained_votes
 class ContestMatch < ApplicationRecord
   UNDEFINED = 'undefined variant'
+  VOTABLE = {
+    true: 'left',
+    false: 'right',
+    'abstain' => 'abstain'
+  }
 
   acts_as_votable
 
@@ -14,23 +19,16 @@ class ContestMatch < ApplicationRecord
 
   delegate :contest, :strategy, to: :round
 
+  # rubocop:disable Style/HashSyntax
   state_machine :state, initial: :created do
     state :created
     state :started
-    # state :started do
-      # # голосование за конкретный вариант
-      # def vote_for(variant, user, ip)
-        # votes.where(user_id: user.id).delete_all
-        # votes.create! user: user, contest_match_id: id, item_id: variant.to_s == 'none' ? 0 : send("#{variant}_id"), ip: ip
-      # end
-
       # # обновление статуса пользоваетля в зависимости от возможности голосовать далее
       # def update_user(user, ip)
         # if round.matches.with_user_vote(user, ip).select(&:started?).all?(&:voted?)
           # user.update_attribute round.contest.user_vote_key, false
         # end
       # end
-    # end
     state :finished
 
     event :start do
@@ -44,6 +42,7 @@ class ContestMatch < ApplicationRecord
       }
     end
   end
+  # rubocop:enable Style/HashSyntax
 
   alias can_vote? started?
 
@@ -68,11 +67,6 @@ class ContestMatch < ApplicationRecord
     # else
       # nil
     # end
-  # end
-
-  # за какой вариант проголосовал пользователь (работает при выборке со scope with_user_vote)
-  # def voted?
-    # voted_id.present? || (right_type.nil?)
   # end
 
   # победитель
