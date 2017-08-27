@@ -32,12 +32,6 @@ page_load 'contests_show', ->
     if variant
       $('.refrain', e.target).trigger 'ajax:success'
 
-    # включение/отключение предложения воздержаться
-    if $('.contest-match').data('state') == 'started'
-      $('.item-content .warning').show()
-    else
-      $('.item-content .warning').hide()
-
     $root.process()
 
   # клик по одному из вариантов голосования

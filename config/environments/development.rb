@@ -31,7 +31,7 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
-  Dalli.logger = ActiveSupport::Logger.new(STDOUT)
+  Dalli.logger = Rails.logger
 
   # config.middleware.use TurboDev
   config.middleware.use I18n::JS::Middleware

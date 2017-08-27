@@ -7,8 +7,23 @@ class ContestsController < ShikimoriController
   before_action :resource_redirect, if: -> { @resource }
 
   before_action :set_breadcrumbs
+  before_action :js_export, only: %i[show]
 
   LIMIT = 20
+  PARAMS = %i[
+    title_ru
+    title_en
+    started_on
+    phases
+    matches_per_round
+    match_duration
+    matches_interval
+    user_vote_key
+    wave_days
+    strategy_type
+    suggestions_per_user
+    member_type
+  ]
 
   def current
     contests = Contests::CurrentQuery.call
@@ -143,32 +158,18 @@ private
   # хлебные крошки
   def set_breadcrumbs
     breadcrumb i18n_t('contests'), contests_url
-    breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'edit' && !@resource.created?
-    breadcrumb @resource.title, contest_url(@resource) if params[:action] == 'grid' && !@resource.created?
-    breadcrumb @resource.title, contest_url(@resource) if params[:round].present?
-
-    if params[:action] == 'users'
+    if %w[edit grid].include?(params[:action]) && !@resource.created?
       breadcrumb @resource.title, contest_url(@resource)
-      breadcrumb @resource.displayed_round.title, round_contest_url(@resource, round: @resource.displayed_round)
     end
+    breadcrumb @resource.title, contest_url(@resource) if params[:round].present?
   end
 
   def contest_params
-    params
-      .require(:contest)
-      .permit(
-        :title_ru,
-        :title_en,
-        :started_on,
-        :phases,
-        :matches_per_round,
-        :match_duration,
-        :matches_interval,
-        :user_vote_key,
-        :wave_days,
-        :strategy_type,
-        :suggestions_per_user,
-        :member_type
+    params.require(:contest).permit(*PARAMS)
+  end
+
+  def js_export
+    gon.push(
     )
   end
 end

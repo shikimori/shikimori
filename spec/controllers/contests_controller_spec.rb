@@ -75,38 +75,6 @@ describe ContestsController do
     end
   end
 
-  describe '#users' do
-    let(:user) { create :user, :user }
-    let(:contest) { create :contest, :with_5_members, user: user }
-
-    before { Contest::Start.call contest }
-
-    let(:make_request) do
-      get :users,
-        params: {
-          id: contest.to_param,
-          round: 1,
-          match_id: contest.rounds.first.matches.first.id
-        }
-    end
-
-    context 'not finished' do
-      subject! { make_request }
-      it { expect(response).to redirect_to contest_url(contest) }
-    end
-
-    context 'finished' do
-      let!(:contest_user_vote) { create :contest_user_vote, match: contest.current_round.matches.first, user: user, item_id: contest.current_round.matches.first.left_id, ip: '1.1.1.1' }
-      before do
-        contest.current_round.matches.update_all started_on: Time.zone.yesterday, finished_on: Time.zone.yesterday
-        contest.current_round.reload
-        ContestRound::Finish.call contest.current_round
-      end
-      subject! { make_request }
-      it { expect(response).to have_http_status :success }
-    end
-  end
-
   describe '#new' do
     subject! { get :new }
     it { expect(response).to have_http_status :success }

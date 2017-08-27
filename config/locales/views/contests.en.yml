@@ -44,17 +44,11 @@ en:
       edit_contest: Edit contest
       anime_contest: Anime contest
       discussion: Discussion
-      votes_for: Votes for %{name}
-      no_voters: No voters.
-      abstainers: Abstainers
 
     show:
       <<: *page
 
     edit:
-      <<: *page
-
-    users:
       <<: *page
 
     round:
