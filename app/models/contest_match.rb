@@ -4,6 +4,8 @@
 class ContestMatch < ApplicationRecord
   UNDEFINED = 'undefined variant'
 
+  acts_as_votable
+
   belongs_to :round, class_name: ContestRound.name, touch: true
   belongs_to :left, polymorphic: true
   belongs_to :right, polymorphic: true
@@ -32,13 +34,25 @@ class ContestMatch < ApplicationRecord
     state :finished
 
     event :start do
-      transition :created => :started,
-        if: ->(match) { match.started_on && match.started_on <= Time.zone.today }
+      transition :created => :started, if: lambda { |match|
+        match.started_on && match.started_on <= Time.zone.today
+      }
     end
     event :finish do
-      transition :started => :finished,
-        if: ->(match) { match.finished_on && match.finished_on < Time.zone.today }
+      transition :started => :finished, if: lambda { |match|
+        match.finished_on && match.finished_on < Time.zone.today
+      }
     end
+  end
+
+  alias can_vote? started?
+
+  def left_votes
+    cached_votes_up
+  end
+
+  def right_votes
+    cached_votes_down
   end
 
   # за какой вариант проголосовал пользователь
@@ -55,10 +69,6 @@ class ContestMatch < ApplicationRecord
       # nil
     # end
   # end
-
-  def can_vote?
-    started?
-  end
 
   # за какой вариант проголосовал пользователь (работает при выборке со scope with_user_vote)
   # def voted?
