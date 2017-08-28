@@ -1,13 +1,10 @@
 - comments_count = @resource.maybe_topic(locale_from_host).comments_count
 
 = render layout: 'page' do
-  img#social_image[
-    src="/images/static/contest.jpg"
-    alt="#{t '.anime_contest'}"
-    title="#{t '.anime_contest'}"
+  .contest[
+    class="#{@resource.state}"
+    data-match_id="#{params[:match_id]}"
   ]
-
-  div
     - if @resource.showing_results?
       = render 'results', contest: @resource
     - elsif @resource.proposing?

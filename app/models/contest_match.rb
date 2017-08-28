@@ -6,7 +6,7 @@ class ContestMatch < ApplicationRecord
   VOTABLE = {
     true => 'left',
     false => 'right',
-    nil => 'none'
+    nil => 'abstain'
   }
 
   acts_as_votable

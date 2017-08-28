@@ -4,8 +4,7 @@ class VotesController < ShikimoriController
   VOTE = {
     'yes' => true,
     'no' => false,
-    'abstain' => nil,
-    'none' => nil
+    'abstain' => nil
   }
 
   # rubocop:disable AbcSize

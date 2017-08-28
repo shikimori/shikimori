@@ -20,8 +20,7 @@
     | &nbsp;
     = t '.warning-text'
 
-.match-container.block data-id="#{params[:match_id]}"
-  .ajax-loading.vk-like title="#{t 'loading'}"
+.match-container.block.b-ajax
 
 .cc-round_stats
   - if contest.displayed_round.finished?

@@ -178,17 +178,16 @@ class ContestDecorator < DbEntryDecorator
 
   def js_export
     matches = displayed_round&.matches&.select(&:started?)
+    return {} unless h.user_signed_in? &&
+      displayed_round&.started? && matches.present?
 
-    unless h.user_signed_in? && displayed_round&.started? && matches.present?
-      return {}
-    end
-
-    votes = matches.each_with_object({}) { |v, memo| memo[v.id] = nil }
+    votes = matches
+      .each_with_object({}) { |v, memo| memo[v.id] = { id: id, vote: nil } }
 
     h.current_user.votes
       .where(votable_type: ContestMatch.name, votable_id: matches.map(&:id))
       .each_with_object(votes) do |vote, memo|
-        memo[vote.votable_id] = ContestMatch::VOTABLE[vote.vote_flag]
+        memo[vote.votable_id][:vote] = ContestMatch::VOTABLE[vote.vote_flag]
       end
   end
 

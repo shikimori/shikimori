@@ -11,10 +11,8 @@
       / class="#{match.voted_for_class} #{match.right ? match.status_with_voted : (match.started? ? 'voted' : match.state)}"
       .match-link.cc-2a[
         class="#{match.state}"
-        data-remote="true"
-        data-action="#{contest_contest_match_url contest, match}"
-        data-type="html"
         data-id="#{match.id}"
+        data-match_url="#{contest_contest_match_url contest, match}"
         data-page_url="#{round_match_contest_url contest, round: match.round, match_id: match.id}"
       ]
         .c-column class="#{match.status match.left_id}"

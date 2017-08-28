@@ -43,7 +43,6 @@ ru:
     page: &page
       back_to_contest_page: Назад на страницу опроса
       edit_contest: Изменить опрос
-      anime_contest: Аниме турнир
       discussion: Обсуждение
 
     show:

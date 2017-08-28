@@ -3,6 +3,8 @@
 @import mixins/link
 @import mixins/responsive
 
+$line-height: 1.8
+
 .p-contests .match-day
   overflow: hidden
   //margin-left: 5px
@@ -12,7 +14,7 @@
     margin-bottom: 0
 
   &>.date
-    margin-bottom: 2px
+    line-height: $line-height
 
     .from
       color: $gray-3
@@ -67,17 +69,17 @@
       &:before
         display: inline-block
         font-family: 'shikimori'
-        font-size: 12px
         font-weight: normal !important
         margin-right: 4px
-        padding-left: 1px
-        padding-right: 3px
+        width: 20px
+        text-align: center
+        // padding-left: 1px
+        // padding-right: 3px
 
     .created:before
       color: $gray-3
-      content: '\e828'
-      font-size: 13px
-      padding-right: 5px
+      content: '🔒'
+      // font-size: 13px
 
     .started:before
       color: #123
@@ -103,11 +105,12 @@
     .winner:before
       color: $green
       content: '✓'
+      font-size: 12px
 
     .loser:before
       color: $red
       content: '✕'
-      padding-right: 5px
+      font-size: 12px
 
   .group
     color: $gray-3
