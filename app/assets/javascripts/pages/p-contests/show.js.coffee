@@ -2,16 +2,19 @@ page_load 'contests_show', ->
   $('#social_image').hide()
   $root = $('.l-content')
 
-  # выбор первого голосования в списке
-  vote_id = $('.match-container').data('id')
-  $vote = if vote_id
-    $(".match-link[data-id=#{vote_id}]")
-  else
-    $('.match-link.pending').first()
+  match_votes = gon.match_votes
 
-  $vote = $('.match-link').first() unless $vote.length
-  $vote.trigger 'click'
-  #$.hideCursorMessage()
+  # выбор первого голосования в списке
+  debugger
+  match_id = $('.match-container').data('id')
+  $match = if match_id
+    $(".match-link[data-id=#{match_id}]")
+  else
+    $('.match-link.pending')
+      .add($('.match-link.started'))
+      .add($('.match-link'))
+      .first()
+  $match.trigger 'click'
 
   # голосование загружено
   $root.on 'ajax:success', '.match-container', (e) ->

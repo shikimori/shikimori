@@ -1,0 +1,85 @@
+/ data-voted="#{@vote_status}"
+- cache contest_match.cache_key do
+  .contest-match[
+    data-state="#{contest_match.state}"
+  ]
+    .prev-match
+    .next-match
+    .current-match
+      - if contest_match.right.nil? && contest_match.left.nil?
+        .vs.empty
+          p.help = t '.candidates_not_selected'
+
+      - elsif contest_match.right && contest_match.left
+        .match-members
+          .match-member [
+            data-variant='left'
+            data-type='json'
+            data-method='post'
+            data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'yes'}"
+          ]
+            = render contest_match.left, cover_notice: :studio, content_by: :none
+          .vs
+            div vs
+            - if contest_match.started?
+              p.help = t '.click_candidate'
+              p.help.success = t '.your_vote_counted'
+              p.help.refrained = t '.you_have_abstained_from_voting'
+              span.refrain [
+                data-type='json'
+                data-method='post'
+                data-remote='true'
+                data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'abstain'}"
+              ] = t '.abstain_from_voting'
+              p.next = t '.to_the_next_pair'
+              p.finish = t '.thank_you_for_participation'
+
+            - elsif contest_match.finished?
+              p.help.success = t '.voting_finished'
+              p.help.refrained = t '.voting_finished'
+              .refrain
+
+            - else
+              p.help = t '.voting_has_not_begun_yet'
+
+          .match-member [
+            data-variant='right'
+            data-type='json'
+            data-method='post'
+            data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'no'}"
+          ]
+            = render contest_match.right, cover_notice: :studio, content_by: :none
+
+        - if contest_match.round.number > 1 && (contest_match.defeated_by(contest_match.left, contest_match.round) + contest_match.defeated_by(contest_match.right, contest_match.round)).any?
+          .match-losers.cc.to-process data-dynamic="cutted_covers"
+            = render partial: 'contest_matches/losers',
+              object: contest_match.defeated_by(contest_match.left, contest_match.round.prior_round),
+              locals: { position: 'left' }
+            = render partial: 'contest_matches/losers',
+              object: contest_match.defeated_by(contest_match.right, contest_match.round.prior_round),
+              locals: { position: 'right' }
+
+        - if contest_match.finished?
+          .votes-percents
+            .left-part title="#{contest_match.left_votes} #{i18n_i 'vote', contest_match.left_votes} #{t '.for'} «#{contest_match.left.name}»"
+              span #{contest_match.left_percent}% (#{contest_match.left_votes})
+              .right-part[
+                style="width: #{[[contest_match.right_votes.to_f / ([contest_match.left_votes + contest_match.right_votes, 1].max) * 100 - 0.75, 4].max, 95].min}%"
+                title="#{contest_match.right_votes} #{i18n_i 'vote', contest_match.right_votes} #{t '.for'} «#{contest_match.right.name}»"
+              ]
+
+                span #{contest_match.right_percent}% (#{contest_match.right_votes})
+
+      - else
+        center
+          .match-members
+            .match-member.voted [
+              data-variant='left'
+            ]
+              = render contest_match.left, cover_notice: :studio, content_by: :none
+
+          - if contest_match.defeated_by(contest_match.left, contest_match.round).any?
+            .match-losers.to-process data-dynamic="cutted_covers"
+              = render 'contest_matches/losers',
+                losers: contest_match.defeated_by(contest_match.left, contest_match.round),
+                position: 'center'

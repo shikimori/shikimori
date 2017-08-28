@@ -1,6 +1,6 @@
 class ContestDecorator < DbEntryDecorator
   instance_cache :members, :displayed_round, :prior_round, :nearby_rounds,
-    :displayed_match, :suggestions, :median_votes, :user_suggestions,
+    :suggestions, :median_votes, :user_suggestions,
     :matches_with_associations, :rounds
 
   # текущий раунд
@@ -25,11 +25,6 @@ class ContestDecorator < DbEntryDecorator
       prior_round,
       displayed_round.next_round
     ].compact
-  end
-
-  # текущий матч
-  def displayed_match
-    displayed_round.matches.where(id: h.params[:match_id]).first
   end
 
   # число участников в турнире
@@ -179,6 +174,22 @@ class ContestDecorator < DbEntryDecorator
   def winner_entries limit = nil
     scope = object.anime? ? anime_winners : character_winners
     scope.limit(limit).map(&:decorate)
+  end
+
+  def js_export
+    matches = displayed_round&.matches&.select(&:started?)
+
+    unless h.user_signed_in? && displayed_round&.started? && matches.present?
+      return {}
+    end
+
+    votes = matches.each_with_object({}) { |v, memo| memo[v.id] = nil }
+
+    h.current_user.votes
+      .where(votable_type: ContestMatch.name, votable_id: matches.map(&:id))
+      .each_with_object(votes) do |vote, memo|
+        memo[vote.votable_id] = ContestMatch::VOTABLE[vote.vote_flag]
+      end
   end
 
 private

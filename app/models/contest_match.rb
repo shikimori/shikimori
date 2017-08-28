@@ -4,9 +4,9 @@
 class ContestMatch < ApplicationRecord
   UNDEFINED = 'undefined variant'
   VOTABLE = {
-    true: 'left',
-    false: 'right',
-    nil => 'abstain'
+    true => 'left',
+    false => 'right',
+    nil => 'none'
   }
 
   acts_as_votable

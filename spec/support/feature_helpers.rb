@@ -1,20 +1,11 @@
 class Capybara::Node::Element
-  # If self is a form element, submit the form by building a
-  # parameters from all 'input' tags within this form.
   def submit
     raise "Can only submit form, not #{tag_name}" unless tag_name =~ /form/i
     unless session.driver.kind_of? Capybara::RackTest::Driver
       return session.evaluate_script "$('##{self['id']}').submit()"
     end
 
-    method = self['method'].to_sym
-    url = self['action']
-    params = all(:css, 'input').reduce({}) do |acc, input|
-      acc.store(input['name'], input['value'])
-      acc
-    end
-
-    session.driver.submit(method, url, params)
+    Capybara::RackTest::Form.new(driver, self.native).submit({})
   end
 end
 
@@ -64,7 +55,7 @@ module FeatureHelpers
   def restore_password user, public_token
     visit edit_user_password_path(reset_password_token: public_token)
     fill_in 'user[password]', with: '123456'
-    #fill_in 'user[password_confirmation]', with: '123456'
+    fill_in 'user[password_confirmation]', with: '123456'
     find('form').submit
   end
 end

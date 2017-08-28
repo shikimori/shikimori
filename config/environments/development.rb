@@ -32,6 +32,7 @@ Rails.application.configure do
   end
 
   Dalli.logger = Rails.logger
+  #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)
 
   # config.middleware.use TurboDev
   config.middleware.use I18n::JS::Middleware

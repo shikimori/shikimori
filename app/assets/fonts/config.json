@@ -457,18 +457,6 @@
       "src": "elusive"
     },
     {
-      "uid": "e2d87e7631c608efe71762a9f4c95e75",
-      "css": "check",
-      "code": 59429,
-      "src": "elusive"
-    },
-    {
-      "uid": "cc8e2a0eff0356811984b84a868524f8",
-      "css": "check-empty",
-      "code": 59416,
-      "src": "elusive"
-    },
-    {
       "uid": "9de7039d5c9559926fe13880aa03ff51",
       "css": "asterisk-1",
       "code": 59466,
@@ -526,6 +514,24 @@
       "uid": "98d9c83c1ee7c2c25af784b518c522c5",
       "css": "block",
       "code": 25269,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "1400d5103edd2fa6d2d61688fee79a5a",
+      "css": "ok-squared",
+      "code": 9745,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f755a58fb985eeb70bd47d9b31892a34",
+      "css": "minus-squared",
+      "code": 9746,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "4b900d04e8ab8c82f080c1cfbac5772c",
+      "css": "check-empty-1",
+      "code": 9744,
       "src": "fontawesome"
     }
   ]

@@ -1,15 +1,18 @@
 class MigrateContestUserVotesToVotableVotes < ActiveRecord::Migration[5.1]
   def up
+    scope = ContestUserVote.where(
+      contest_match_id: ContestMatch.where(state: :started)
+    )
     batch_num = 0
     batch_size = 5000
     votes = []
 
     puts <<-TEXT.squish
-      #{ContestUserVote.count} total =
-      #{(ContestUserVote.count * 1.0 / batch_size).ceil} batches
+      #{scope.count} total =
+      #{(scope.count * 1.0 / batch_size).ceil} batches
     TEXT
 
-    ContestUserVote.includes(:match, :user).find_each do |vote|
+    scope.includes(:match, :user).find_each do |vote|
       vote_flag = if vote.item_id == vote.match.left_id
         ContestMatch::VOTABLE.invert['left']
       elsif vote.item_id == vote.match.right_id

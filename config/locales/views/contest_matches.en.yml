@@ -7,7 +7,7 @@ en:
       from: from
       till: till
 
-    show:
+    contest_match:
       candidates_not_selected: Candidates have not been selected yet
       click_candidate: Click one of the candidates
       your_vote_counted: Your vote is counted!

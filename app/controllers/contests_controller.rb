@@ -169,7 +169,6 @@ private
   end
 
   def js_export
-    gon.push(
-    )
+    gon.push match_votes: @resource.js_export
   end
 end
