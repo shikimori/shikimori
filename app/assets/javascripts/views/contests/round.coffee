@@ -25,6 +25,11 @@ module.exports = class Contests.Round extends View
 
         @_match_loaded match_id, response.data
 
+  set_vote: (match_id, vote) ->
+    @_$match_line(match_id)
+      .removeClass("voted-left voted-rigth voted-abstain")
+      .addClass("voted-#{vote}")
+
   next_match_id: (match_id) ->
     index = @model.matches.findIndex (v) -> v.id == match_id
     (@model.matches[index+1] || @model.matches.first()).id
@@ -39,10 +44,7 @@ module.exports = class Contests.Round extends View
   # private functions
   _set_votes: (votes) ->
     Object.forEach votes, (vote) =>
-      @_set_vote vote.match_id, vote.vote if vote.vote
-
-  _set_vote: (match_id, vote) ->
-    @_$match_line(match_id).addClass("voted-#{vote}")
+      @set_vote vote.match_id, vote.vote if vote.vote
 
   _$match_line: (match_id) ->
     $(".match-day .match-link[data-id=#{match_id}]")

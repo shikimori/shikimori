@@ -13,7 +13,8 @@ module.exports = class Contests.Match extends View
 
     @$('.next-match').on 'click', @_next_match
     @$('.prev-match').on 'click', @_prev_match
-    @$('.to-next-not-voted').on 'click', @_next_not_voted_match
+    @$('.action .to-next-not-voted').on 'click', @_next_not_voted_match
+    @$('.action .abstain').on 'ajax:success', @_abstain
 
     if @_is_started()
       # подсветка по ховеру курсора
@@ -38,12 +39,17 @@ module.exports = class Contests.Match extends View
   _next_not_voted_match: =>
     @round_view.switch_match @round_view.next_not_voted_match_id(@model.id)
 
+  _abstain: =>
+    @_set_vote VOTE_ABSTAIN
+
   # private functions
   _is_started: ->
     @model.state == 'started'
 
   _set_vote: (vote) ->
+    @round_view.set_vote @model.id, vote
     @vote.vote = vote
+
     @$left
       .toggleClass('voted', vote == VOTE_LEFT)
       .toggleClass('unvoted', vote != VOTE_LEFT)
