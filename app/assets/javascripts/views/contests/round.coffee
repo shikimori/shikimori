@@ -2,7 +2,7 @@ using 'Contests'
 module.exports = class Contests.Round extends View
   initialize: (votes) ->
     @model = @$root.data('model')
-    @votes = votes || {}
+    @votes = votes || []
 
     @$match_container = @$ '.match-container'
 

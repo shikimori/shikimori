@@ -16,16 +16,10 @@ module.exports = class Contests.Match extends View
     @$('.action .to-next-not-voted').on 'click', @_next_not_voted_match
     @$('.match-member img').on 'click', @_vote_click
 
-    @$('.match-member').on 'ajax:before', (e) ->
-      $(e.target).find('.b-catalog_entry').yellow_fade()
-    @$('.action .abstain').on 'ajax:before', (e) ->
-      $(e.target).yellow_fade()
-
-    @$('.action .abstain').on 'ajax:success', @_abstain
     @$('.match-member').on 'ajax:success', @_vote_member
+    @$('.action .abstain').on 'ajax:success', @_abstain
 
     if @_is_started()
-      # подсветка по ховеру курсора
       @$('.match-member').hover(
         (e) =>
           return if @vote.vote
@@ -49,10 +43,12 @@ module.exports = class Contests.Match extends View
   _next_not_voted_match: =>
     @round_view.switch_match @_next_match_id()
 
-  _abstain: =>
+  _abstain: (e) =>
+    # $(e.target).yellow_fade()
     @_vote VOTE_ABSTAIN
 
   _vote_member: (e) =>
+    $(e.target).find('.b-catalog_entry').yellow_fade()
     @_vote $(e.target).data('variant')
 
   _vote_click: (e) =>

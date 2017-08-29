@@ -178,7 +178,7 @@ class ContestDecorator < DbEntryDecorator
 
   def js_export
     matches = displayed_round&.matches&.select(&:started?)
-    return {} unless h.user_signed_in? &&
+    return [] unless h.user_signed_in? &&
       displayed_round&.started? && matches.present?
 
     votes = matches.map { |match| { match_id: match.id, vote: nil } }
