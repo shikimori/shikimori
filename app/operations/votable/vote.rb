@@ -24,6 +24,10 @@ private
     votable.is_a?(Poll) || votable.is_a?(PollVariant)
   end
 
+  def contest_match? votable
+    votable.is_a? ContestMatch
+  end
+
   def poll votable
     votable.is_a?(Poll) ? votable : votable.poll
   end
@@ -40,6 +44,13 @@ private
   end
 
   def can_vote? votable
-    !poll?(votable) || poll(votable).started?
+    if poll?(votable)
+      poll(votable).started?
+
+    elsif contest_match?(votable)
+      votable.started?
+    else
+      true
+    end
   end
 end

@@ -19,6 +19,28 @@ describe Votable::Vote do
     end
   end
 
+  context 'contest_match' do
+    let(:votable) { create :contest_match, state }
+
+    context 'started' do
+      let(:state) { :started }
+
+      it do
+        expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+        expect(voter.liked? votable).to eq true
+      end
+    end
+
+    context 'created/finished' do
+      let(:state) { %i[created finished].sample }
+
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
+        expect(voter.liked? votable).to eq false
+      end
+    end
+  end
+
   context 'poll' do
     let!(:poll) { create :poll, poll_state }
     let(:poll_state) { :started }
