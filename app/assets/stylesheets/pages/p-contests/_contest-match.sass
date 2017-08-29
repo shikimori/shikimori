@@ -79,10 +79,10 @@
     +clear_left
     +transition(opacity 0.3s ease)
 
-    &.voted, &.hovered
+    &.voted, &.hovered, &.winner
       opacity: 1
 
-    &.unvoted, &.unhovered
+    &.unvoted, &.unhovered, &.loser
       opacity: 0.4
 
   .vs
@@ -110,9 +110,6 @@
       line-height: $line_height
       margin-bottom: 10px
       padding: 0 10px
-
-      &.success, &.refrained
-        display: none
 
     .finish
       color: darken($gray-3, 10%)

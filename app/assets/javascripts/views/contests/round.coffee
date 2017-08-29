@@ -13,16 +13,16 @@ module.exports = class Contests.Round extends View
 
   _set_votes: (votes) ->
     Object.forEach votes, (vote) =>
-      @_set_voted vote.match_id, vote.vote if vote.vote
+      @_set_vote vote.match_id, vote.vote if vote.vote
 
-  _set_voted: (match_id, vote) ->
+  _set_vote: (match_id, vote) ->
     @_$match_line(match_id).addClass("voted-#{vote}")
 
   _$match_line: (match_id) ->
     $(".match-day .match-link[data-id=#{match_id}]")
 
   _initial_match_id: ->
-    @$root.data('id') ||
+    @$root.data('match_id') ||
       @$('.match-day .match-link.started').first().data('id') ||
       @$('.match-day .match-link').first().data('id')
 
@@ -50,7 +50,7 @@ module.exports = class Contests.Round extends View
     $match = $(html).process()
     @$('.match-container').removeClass('b-ajax').html($match)
 
-    new Contests.Match($match, @votes[match_id])
+    new Contests.Match($match, @votes[match_id], @)
 
     $first_member = @$('.match-members .match-member').first()
     $.scrollTo $first_member unless $first_member.is(':appeared')

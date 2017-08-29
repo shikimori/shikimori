@@ -182,7 +182,7 @@ class ContestDecorator < DbEntryDecorator
       displayed_round&.started? && matches.present?
 
     votes = matches
-      .each_with_object({}) { |v, memo| memo[v.id] = { id: id, vote: nil } }
+      .each_with_object({}) { |v, m| m[v.id] = { match_id: v.id, vote: nil } }
 
     h.current_user.votes
       .where(votable_type: ContestMatch.name, votable_id: matches.map(&:id))

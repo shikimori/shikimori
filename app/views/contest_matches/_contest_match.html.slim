@@ -1,7 +1,7 @@
 / data-voted="#{@vote_status}"
 - cache contest_match.cache_key do
   .contest-match[
-    data-state="#{contest_match.state}"
+    data-model="#{ContestMatchSerializer.new(contest_match).to_json}"
   ]
     .prev-match
     .next-match
@@ -12,7 +12,8 @@
 
       - elsif contest_match.right && contest_match.left
         .match-members
-          .match-member [
+          .match-member[
+            class="#{contest_match.winner_id == contest_match.left_id ? :winner : :loser if contest_match.finished?}"
             data-variant='left'
             data-type='json'
             data-method='post'
@@ -36,13 +37,14 @@
 
             - elsif contest_match.finished?
               p.help.success = t '.voting_finished'
-              p.help.refrained = t '.voting_finished'
-              .refrain
+              / p.help.refrained = t '.voting_finished'
+              / .refrain
 
             - else
               p.help = t '.voting_has_not_begun_yet'
 
-          .match-member [
+          .match-member[
+            class="#{contest_match.winner_id == contest_match.right_id ? :winner : :loser if contest_match.finished?}"
             data-variant='right'
             data-type='json'
             data-method='post'
