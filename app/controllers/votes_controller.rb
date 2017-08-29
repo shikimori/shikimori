@@ -1,12 +1,6 @@
 class VotesController < ShikimoriController
   before_action :authenticate_user!
 
-  VOTE = {
-    'yes' => true,
-    'no' => false,
-    'abstain' => nil
-  }
-
   # rubocop:disable AbcSize
   def create
     Votable::Vote.call(
@@ -14,8 +8,7 @@ class VotesController < ShikimoriController
         params[:votable_id]
       ),
       voter: current_user,
-      vote: VOTE.key?(params[:vote]) ? VOTE[params[:vote]] :
-        raise(ArgumentError, params[:vote])
+      vote: params[:vote]
     )
 
     render json: {}

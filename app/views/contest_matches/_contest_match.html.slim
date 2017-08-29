@@ -27,7 +27,6 @@
               p.invitation = t '.click_candidate'
               p.vote-voted = t '.your_vote_counted'
               p.vote-abstained = t '.you_have_abstained_from_voting'
-              p.thanks = t '.thank_you_for_participation'
               .action
                 span.abstain[
                   data-type='json'
@@ -37,6 +36,7 @@
                 ] = t '.abstain_from_voting'
               .action
                 span.to-next-not-voted = t '.to_the_next_pair'
+              p.thanks = t '.thank_you_for_participation'
 
             - elsif contest_match.finished?
               p.hint = t '.voting_finished'

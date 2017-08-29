@@ -54,21 +54,6 @@ class ContestMatch < ApplicationRecord
     cached_votes_down
   end
 
-  # за какой вариант проголосовал пользователь
-  # def voted_for
-    # if voted_id && voted_id.zero?
-      # :none
-    # elsif voted_id == right_id && voted_id.nil?
-      # :auto
-    # elsif voted_id == left_id
-      # :left
-    # elsif voted_id == right_id
-      # :right
-    # else
-      # nil
-    # end
-  # end
-
   # победитель
   def winner
     if winner_id == left_id

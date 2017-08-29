@@ -14,7 +14,15 @@ module.exports = class Contests.Match extends View
     @$('.next-match').on 'click', @_next_match
     @$('.prev-match').on 'click', @_prev_match
     @$('.action .to-next-not-voted').on 'click', @_next_not_voted_match
+    @$('.match-member img').on 'click', @_vote_click
+
+    @$('.match-member').on 'ajax:before', (e) ->
+      $(e.target).find('.b-catalog_entry').yellow_fade()
+    @$('.action .abstain').on 'ajax:before', (e) ->
+      $(e.target).yellow_fade()
+
     @$('.action .abstain').on 'ajax:success', @_abstain
+    @$('.match-member').on 'ajax:success', @_vote_member
 
     if @_is_started()
       # подсветка по ховеру курсора
@@ -29,6 +37,8 @@ module.exports = class Contests.Match extends View
 
       @_set_vote @vote.vote
 
+    @initialized = true
+
   # handlers
   _next_match: =>
     @round_view.switch_match @round_view.next_match_id(@model.id)
@@ -37,12 +47,26 @@ module.exports = class Contests.Match extends View
     @round_view.switch_match @round_view.prev_match_id(@model.id)
 
   _next_not_voted_match: =>
-    @round_view.switch_match @round_view.next_not_voted_match_id(@model.id)
+    @round_view.switch_match @_next_match_id()
 
   _abstain: =>
-    @_set_vote VOTE_ABSTAIN
+    @_vote VOTE_ABSTAIN
+
+  _vote_member: (e) =>
+    @_vote $(e.target).data('variant')
+
+  _vote_click: (e) =>
+    return if in_new_tab(e)
+    if @_is_started()
+      $(e.target).closest('.match-member').callRemote()
+    false
 
   # private functions
+  _vote: (vote) ->
+    @_set_vote vote
+    if @_next_match_id()
+      delay(500).then => @_next_not_voted_match()
+
   _is_started: ->
     @model.state == 'started'
 
@@ -61,6 +85,9 @@ module.exports = class Contests.Match extends View
     @$('.vote-voted').toggle vote && vote != VOTE_ABSTAIN
     @$('.vote-abstained').toggle vote == VOTE_ABSTAIN
 
-    @$('.thanks').toggle !@round_view.next_not_voted_match_id(@model.id)
-    @$('.action .refrain').toggleClass 'hidden', vote == VOTE_ABSTAIN
-    @$('.action .to-next').toggleClass 'hidden', !vote
+    @$('.thanks').toggle !@_next_match_id()
+    @$('.action .abstain').toggleClass 'hidden', vote == VOTE_ABSTAIN
+    @$('.action .to-next-not-voted').toggleClass 'hidden', !@_next_match_id()
+
+  _next_match_id: ->
+    @round_view.next_not_voted_match_id(@model.id)

@@ -1,6 +1,12 @@
 class Votable::Vote
   method_object %i[votable vote voter]
 
+  VOTE_FLAG = {
+    'yes' => true,
+    'no' => false,
+    'abstain' => 'abstain'
+  }
+
   CLEANUP_VOTE_SQL = <<-SQL
     (
       votable_type = '#{Poll.name}' and
@@ -15,10 +21,18 @@ class Votable::Vote
     return unless can_vote? @votable
     cleanup_votes poll(@votable) if poll?(@votable)
 
-    @votable.vote_by voter: @voter, vote: @vote
+    @votable.vote_by voter: @voter, vote: vote_flag
   end
 
 private
+
+  def vote_flag
+    if VOTE_FLAG.key? @vote
+      VOTE_FLAG[@vote]
+    else
+      raise ArgumentError, @vote
+    end
+  end
 
   def poll? votable
     votable.is_a?(Poll) || votable.is_a?(PollVariant)

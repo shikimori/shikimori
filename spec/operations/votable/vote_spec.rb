@@ -17,6 +17,11 @@ describe Votable::Vote do
       expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
       expect(voter.liked? votable).to eq true
     end
+
+    context 'unknown vote' do
+      let(:vote) { 'zxc' }
+      it { expect { subject }.to raise_error ArgumentError, vote }
+    end
   end
 
   context 'contest_match' do
@@ -28,6 +33,16 @@ describe Votable::Vote do
       it do
         expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
         expect(voter.liked? votable).to eq true
+      end
+
+      describe 'abstain' do
+        let(:vote) { 'abstain' }
+
+        it do
+          expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+          expect(voter.liked? votable).to eq false
+          expect(voter.abstained? votable).to eq true
+        end
       end
     end
 
