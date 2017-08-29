@@ -83,12 +83,14 @@ gem 'retryable'
 gem 'truncate_html'
 gem 'acts-as-taggable-on'
 gem 'acts_as_list'
+# gem 'acts_as_votable'
+gem 'acts_as_votable', github: 'morr/acts_as_votable', branch: :cacheable_strategy
+# gem 'acts_as_votable', path: "../acts_as_votable"
 gem 'meta-tags'
 gem 'enumerize', '2.0.1' # в 2.1.0 Sidekiq::Extensions::DelayedMailer падает с "NoMethodError: undefined method `include?' for nil:NilClass"
 gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
-gem 'acts_as_votable'
 
 gem 'unicode' # для downcase русских слов
 gem 'icalendar' # для аниме календраря

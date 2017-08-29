@@ -9,7 +9,7 @@ class ContestMatch < ApplicationRecord
     nil => 'abstain'
   }
 
-  acts_as_votable
+  acts_as_votable cacheable_strategy: :update_columns
 
   belongs_to :round, class_name: ContestRound.name, touch: true
   belongs_to :left, polymorphic: true
