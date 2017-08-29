@@ -25,24 +25,16 @@ $line-height: 1.8
       margin-left: 5px
       margin-right: 5px
 
-  //&:hover
-    .match-link
-      opacity: 0.4
-
   .match-link
     padding-left: 2px
     cursor: pointer
 
     &.active
-      font-weight: bold
-
+      background-color: darken(#e5e5e5, 2%)
     &:hover
       background-color: #eaeaea
     &:active
       background-color: #e5e5e5 !important
-
-    //&:hover
-      opacity: 1
 
     a
       +link
@@ -69,12 +61,9 @@ $line-height: 1.8
       &:before
         display: inline-block
         font-family: 'shikimori'
-        font-weight: normal !important
         margin-right: 4px
-        width: 20px
         text-align: center
-        // padding-left: 1px
-        // padding-right: 3px
+        width: 20px
 
     .created:before
       color: $gray-3
@@ -90,8 +79,9 @@ $line-height: 1.8
       content: '☑'
       color: $green
 
-    &.voted-none .started:before
-      color: $gray-3
+    &.voted-abstain .started:before
+      content: '\e818'
+      color: $gray-2
 
     &.voted-auto .started:before
       content: '☑'

@@ -181,13 +181,13 @@ class ContestDecorator < DbEntryDecorator
     return {} unless h.user_signed_in? &&
       displayed_round&.started? && matches.present?
 
-    votes = matches
-      .each_with_object({}) { |v, m| m[v.id] = { match_id: v.id, vote: nil } }
+    votes = matches.map { |match| { match_id: match.id, vote: nil } }
 
     h.current_user.votes
       .where(votable_type: ContestMatch.name, votable_id: matches.map(&:id))
       .each_with_object(votes) do |vote, memo|
-        memo[vote.votable_id][:vote] = ContestMatch::VOTABLE[vote.vote_flag]
+        memo.find { |v| v[:match_id] == vote.votable_id }[:vote] =
+          ContestMatch::VOTABLE[vote.vote_flag]
       end
   end
 

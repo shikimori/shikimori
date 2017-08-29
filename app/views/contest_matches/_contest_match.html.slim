@@ -2,6 +2,7 @@
 - cache contest_match.cache_key do
   .contest-match[
     data-model="#{ContestMatchSerializer.new(contest_match).to_json}"
+    data-page_url="#{round_match_contest_url contest_match.round.contest, round: contest_match.round, match_id: contest_match.id}"
   ]
     .prev-match
     .next-match
@@ -23,25 +24,25 @@
           .vs
             div vs
             - if contest_match.started?
-              p.help = t '.click_candidate'
-              p.help.success = t '.your_vote_counted'
-              p.help.refrained = t '.you_have_abstained_from_voting'
-              span.refrain [
-                data-type='json'
-                data-method='post'
-                data-remote='true'
-                data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'abstain'}"
-              ] = t '.abstain_from_voting'
-              p.next = t '.to_the_next_pair'
-              p.finish = t '.thank_you_for_participation'
+              p.invitation = t '.click_candidate'
+              p.vote-voted = t '.your_vote_counted'
+              p.vote-abstained = t '.you_have_abstained_from_voting'
+              p.thanks = t '.thank_you_for_participation'
+              .action
+                span.refrain[
+                  data-type='json'
+                  data-method='post'
+                  data-remote='true'
+                  data-action="#{votes_url votable_id: contest_match.id, votable_type: ContestMatch.name, vote: 'abstain'}"
+                ] = t '.abstain_from_voting'
+              .action
+                span.to-next-not-voted = t '.to_the_next_pair'
 
             - elsif contest_match.finished?
-              p.help.success = t '.voting_finished'
-              / p.help.refrained = t '.voting_finished'
-              / .refrain
+              p.hint = t '.voting_finished'
 
             - else
-              p.help = t '.voting_has_not_begun_yet'
+              p.hint = t '.voting_has_not_begun_yet'
 
           .match-member[
             class="#{contest_match.winner_id == contest_match.right_id ? :winner : :loser if contest_match.finished?}"

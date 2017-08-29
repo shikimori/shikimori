@@ -2,7 +2,7 @@ page_load 'contests_show', ->
   # $root = $('.l-content')
 
   if $('.contest.started').length
-    new Contests.Round $('.contest.started'), gon.votes
+    new Contests.Round $('.contest_round'), gon.votes
 
   # # клик по одному из вариантов голосования
   # $root.on 'click', '.match-member img', (e) ->

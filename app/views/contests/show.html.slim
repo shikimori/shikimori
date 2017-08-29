@@ -3,7 +3,6 @@
 = render layout: 'page' do
   .contest[
     class="#{@resource.state}"
-    data-match_id="#{params[:match_id]}"
   ]
     - if @resource.showing_results?
       = render 'results', contest: @resource
