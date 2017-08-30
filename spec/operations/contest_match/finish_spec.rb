@@ -2,7 +2,7 @@ describe ContestMatch::Finish do
   include_context :seeds
   include_context :timecop
 
-  subject! { ContestMatch::Finish.call contest_match }
+  subject(:call) { ContestMatch::Finish.call contest_match }
 
   let(:contest_match) do
     create :contest_match,
@@ -16,6 +16,7 @@ describe ContestMatch::Finish do
       cached_votes_up: cached_votes_up,
       cached_votes_down: cached_votes_down
   end
+
   let(:left_id) { anime_1.id }
   let(:left_type) { Anime.name }
   let(:right_id) { anime_2.id }
@@ -27,9 +28,11 @@ describe ContestMatch::Finish do
   let(:cached_votes_up) { 0 }
   let(:cached_votes_down) { 0 }
 
-  it { expect(contest_match).to be_finished }
+  describe 'vote' do
+    subject! { call }
 
-  describe '#obtain_winner_id' do
+    it { expect(contest_match).to be_finished }
+
     context 'no right variant' do
       let(:right_id) { nil }
       it { expect(contest_match.winner_id).to eq left_id }
@@ -46,6 +49,9 @@ describe ContestMatch::Finish do
     end
 
     context 'left_votes == right_votes' do
+      let(:cached_votes_up) { 1 }
+      let(:cached_votes_down) { 1 }
+
       context 'left.score > right.score' do
         let(:anime_1) { create :anime, score: 9 }
         let(:anime_2) { create :anime, score: 5 }
@@ -65,6 +71,27 @@ describe ContestMatch::Finish do
         let(:anime_2) { create :anime, score: 5 }
 
         it { expect(contest_match.winner_id).to eq left_id }
+      end
+    end
+  end
+
+  describe 'cleanup suspicious votes' do
+    before { contest_match.disliked_by user }
+    subject! { call }
+
+    context 'normal user' do
+      let(:user) { create :user, :admin }
+      it do
+        expect(contest_match).to be_finished
+        expect(contest_match.winner_id).to eq right_id
+      end
+    end
+
+    context 'suspicious user' do
+      let(:user) { create :user, id: User::SUSPISIOUS_USER_IDS.max }
+      it do
+        expect(contest_match).to be_finished
+        expect(contest_match.winner_id).to eq left_id
       end
     end
   end

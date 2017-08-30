@@ -4,6 +4,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "email#{n}@factory.com" }
     password '123'
     last_online_at { Time.zone.now }
+    sign_in_count 7
 
     can_vote_1 false
     can_vote_2 false

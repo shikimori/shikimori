@@ -3,6 +3,7 @@ class ContestMatch::Finish
 
   def call
     ContestMatch.transaction do
+      unvote_suspicious
       @contest_match.finish!
       @contest_match.update_column :winner_id, winner_id
     end
@@ -49,5 +50,13 @@ private
     else
       @contest_match.left_id
     end
+  end
+
+  def unvote_suspicious
+    @contest_match.votes_for
+      .where(voter_id: User.suspicious, voter_type: User.name)
+      .each do |suspicious_vote|
+        @contest_match.unvote_by suspicious_vote.voter
+      end
   end
 end
