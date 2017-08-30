@@ -1,7 +1,7 @@
 FavouriteStar = require 'views/application/favourite_star'
 
 page_load 'seyu_show', ->
-  new FavouriteStar $('.c-actions .fav-add'), is_favoured.seyu
+  new FavouriteStar $('.c-actions .fav-add'), gon.is_favoured.seyu
 
   # комментировать
   $('.c-actions .new_comment').on 'click', ->

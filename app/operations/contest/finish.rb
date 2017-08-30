@@ -4,9 +4,13 @@ class Contest::Finish
   def call
     Contest.transaction do
       @contest.finish!
-      @contest.update! finished_on: Time.zone.today
+      @contest.update!(
+        finished_on: Time.zone.today,
+        cached_uniq_voters_count: Contests::UniqVotersCount.call(@contest)
+      )
 
       Contests::ObtainWinners.call @contest
+      Contests::Votes.call(@contest).delete_all
 
       reset_user_vote_key
       Messages::CreateNotification.new(@contest).contest_finished

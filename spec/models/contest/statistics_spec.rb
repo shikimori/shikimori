@@ -21,7 +21,7 @@ describe Contest::Statistics do
   before { allow(statistics).to receive(:rounds).and_return [round1, round2, round3] }
   before do
     statistics.rounds.each do |round|
-      allow(round.matches).to receive_message_chain(:with_votes, :includes).and_return round.matches
+      allow(round.matches).to receive_message_chain(:includes).and_return round.matches
 
       round.matches.each do |match|
         allow(match).to receive(:left_votes).and_return 0

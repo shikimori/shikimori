@@ -21,6 +21,9 @@ AllCops:
   UseCache: false
 
 Metrics/LineLength:
+  AllowURI: true
+  IgnoreCopDirectives: true
+  IgnoredPatterns: ['\A\ *#']
   Exclude:
     - spec/**/*
 Metrics/BlockLength:

@@ -1,5 +1,7 @@
 .losers
   - if losers.any?
     .subheadline = t '.beaten'
-    .cc-4a.to-process data-dynamic="cutted_covers"
+    / cutted_covers не нужны, т.к. они делаются на уровень выше
+    / .cc-4a#.to-process data-dynamic="cutted_covers"
+    .cc-4a
       = render losers, cover_by: :image_link

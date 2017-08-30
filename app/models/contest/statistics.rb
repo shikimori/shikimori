@@ -75,7 +75,7 @@ class Contest::Statistics
 
   def matches_with_associations round
     @matches ||= {}
-    @matches[round] ||= round.matches.with_votes.includes(:left, :right)
+    @matches[round] ||= round.matches.includes(:left, :right)
   end
 
   def members

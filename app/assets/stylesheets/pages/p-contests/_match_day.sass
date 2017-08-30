@@ -3,6 +3,8 @@
 @import mixins/link
 @import mixins/responsive
 
+$line-height: 1.8
+
 .p-contests .match-day
   overflow: hidden
   //margin-left: 5px
@@ -12,7 +14,7 @@
     margin-bottom: 0
 
   &>.date
-    margin-bottom: 2px
+    line-height: $line-height
 
     .from
       color: $gray-3
@@ -23,24 +25,16 @@
       margin-left: 5px
       margin-right: 5px
 
-  //&:hover
-    .match-link
-      opacity: 0.4
-
   .match-link
     padding-left: 2px
     cursor: pointer
 
     &.active
-      font-weight: bold
-
+      background-color: darken(#e5e5e5, 2%)
     &:hover
       background-color: #eaeaea
     &:active
       background-color: #e5e5e5 !important
-
-    //&:hover
-      opacity: 1
 
     a
       +link
@@ -67,43 +61,45 @@
       &:before
         display: inline-block
         font-family: 'shikimori'
-        font-size: 11px
-        font-weight: normal !important
         margin-right: 4px
-        padding-left: 1px
-        padding-right: 3px
+        text-align: center
+        width: 20px
 
     .created:before
       color: $gray-3
-      content: '\e828'
-      padding-right: 5px
+      content: '🔒'
+      // font-size: 13px
 
     .started:before
       color: #123
-      content: '\e818'
+      content: '☐'
 
-    &.voted-left .started:first-child:before, &.voted-right .started:last-child:before
-      content: '\e825'
+    &.voted-left .started:first-child:before,
+    &.voted-right .started:last-child:before
+      content: '☑'
       color: $green
 
-    &.voted-none .started:before
-      color: $gray-3
+    &.voted-abstain .started:before
+      content: '\e818'
+      color: $gray-2
 
     &.voted-auto .started:before
-      content: '\e825'
+      content: '☑'
       color: $gray-3
 
-    &.voted-left .started:last-child:before, &.voted-right .started:first-child:before
+    &.voted-left .started:last-child:before,
+    &.voted-right .started:first-child:before
       color: $red
 
     .winner:before
       color: $green
       content: '✓'
+      font-size: 12px
 
     .loser:before
       color: $red
       content: '✕'
-      padding-right: 5px
+      font-size: 12px
 
   .group
     color: $gray-3

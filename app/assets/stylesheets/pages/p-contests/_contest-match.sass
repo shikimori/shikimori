@@ -6,7 +6,7 @@
 @import mixins/responsive
 
 .p-contests .contest-match
-  +block_m
+  position: relative
   min-height: 300px
 
   .prev-match, .next-match
@@ -79,14 +79,14 @@
     +clear_left
     +transition(opacity 0.3s ease)
 
-    &.voted, &.hovered
+    &.voted, &.hovered, &.winner
       opacity: 1
 
-    &.unvoted, &.unhovered
+    &.unvoted, &.unhovered, &.loser
       opacity: 0.4
 
   .vs
-    color: darken($gray-3, 10%)
+    color: darken($gray-4, 10%)
     text-align: center
 
     +gte_ipad
@@ -104,27 +104,17 @@
       margin-top: 125px
       width: 100%
 
-    .help, .next, .finish, .refrain, .refrained
-      color: $gray-3
+    .invitation, .vote-voted, .vote-abstained, .thanks, .hint, .action
+      color: $gray-4
       font-size: 11px
       line-height: $line_height
       margin-bottom: 10px
       padding: 0 10px
 
-      &.success, &.refrained
-        display: none
-
-    .finish
-      color: darken($gray-3, 10%)
-      display: none
-
-    .next
-      +link
-      display: none
-
-    .refrain
-      +link
-      display: block
+    .action
+      span
+        +js_link
+        line-height: 1
 
   .match-losers
     +block
@@ -158,7 +148,6 @@
     .left-part
       background-color: #4682b4
       color: white
-      cursor: pointer
       height: 18px
       min-width: 45px
       overflow: hidden

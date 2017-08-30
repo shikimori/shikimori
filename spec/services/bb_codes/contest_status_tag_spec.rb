@@ -11,7 +11,7 @@ describe BbCodes::ContestStatusTag do
     it do
       is_expected.to eq(
         "<span class='translated-after' "\
-          "data-text-ru='Опрос' "\
+          "data-text-ru='Турнир' "\
           "data-text-en='Contest' ></span> "\
           "<a href='#{contest_url}' "\
           "class='b-link translated-after' "\

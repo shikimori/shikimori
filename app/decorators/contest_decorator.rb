@@ -1,7 +1,6 @@
 class ContestDecorator < DbEntryDecorator
   instance_cache :members, :displayed_round, :prior_round, :nearby_rounds,
-    :displayed_match, :left_voters, :right_voters, :uniq_voters,
-    :refrained_voters, :suggestions, :median_votes, :user_suggestions,
+    :suggestions, :median_votes, :user_suggestions,
     :matches_with_associations, :rounds
 
   # текущий раунд
@@ -9,7 +8,7 @@ class ContestDecorator < DbEntryDecorator
     if h.params[:round]
       number = h.params[:round].to_i
       additional = !!(h.params[:round] =~ /a$/)
-      object.rounds.where(number: number, additional: additional).first
+      object.rounds.find_by number: number, additional: additional
     else
       object.current_round
     end
@@ -28,36 +27,13 @@ class ContestDecorator < DbEntryDecorator
     ].compact
   end
 
-  # текущий матч
-  def displayed_match
-    displayed_round.matches.where(id: h.params[:match_id]).first
-  end
-
-  # голоса за левый вариант
-  def left_voters
-    displayed_match.votes.includes(:user).where(item_id: displayed_match.left_id).map(&:user)
-  end
-
-  # голоса за правый вариант
-  def right_voters
-    displayed_match.votes.includes(:user).where(item_id: displayed_match.right_id).map(&:user)
-  end
-
   # число участников в турнире
-  def uniq_voters
-    object
-      .rounds
-      .joins(matches: :votes)
-      .select('count(distinct(user_id)) as uniq_voters')
-      .except(:order)
-        .to_a
-        .first
-        .uniq_voters
-  end
-
-  # голоса за правый вариант
-  def refrained_voters
-    displayed_match.votes.includes(:user).where(item_id: 0).map(&:user)
+  def uniq_voters_count
+    if started?
+      @uniq_voters ||= Contests::UniqVotersCount.call self
+    else
+      cached_uniq_voters_count
+    end
   end
 
   # сгруппированные по дням матчи
@@ -65,7 +41,6 @@ class ContestDecorator < DbEntryDecorator
     @grouped_matches ||= {}
     @grouped_matches[round] ||= round
       .matches
-      .with_user_vote(h.current_user, h.remote_addr)
       .includes(:left, :right)
       .map(&:decorate)
       .group_by(&:started_on)
@@ -103,7 +78,9 @@ class ContestDecorator < DbEntryDecorator
 
   # голосования с аниме
   def matches_with target
-    matches_with_associations.select {|v| v.left_id == target.id || v.right_id == target.id }
+    matches_with_associations.select do |match|
+      match.left_id == target.id || match.right_id == target.id
+    end
   end
 
   # текущий статус опроса
@@ -195,9 +172,27 @@ class ContestDecorator < DbEntryDecorator
     scope.limit(limit).map(&:decorate)
   end
 
+  def js_export
+    matches = displayed_round&.matches&.select(&:started?)
+    return [] unless h.user_signed_in? &&
+      displayed_round&.started? && matches.present?
+
+    votes = matches.map { |match| { match_id: match.id, vote: nil } }
+
+    h.current_user.votes
+      .where(votable_type: ContestMatch.name, votable_id: matches.map(&:id))
+      .each_with_object(votes) do |vote, memo|
+        memo.find { |v| v[:match_id] == vote.votable_id }[:vote] =
+          ContestMatch::VOTABLE[vote.vote_flag]
+      end
+  end
+
 private
 
   def matches_with_associations
-    object.rounds.includes(matches: [ :left, :right, round: :contest ]).map(&:matches).flatten
+    object.rounds
+      .includes(matches: [:left, :right, round: :contest])
+      .map(&:matches)
+      .flatten
   end
 end

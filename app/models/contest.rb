@@ -69,12 +69,14 @@ class Contest < ApplicationRecord
     event(:propose) { transition created: :proposing }
     event(:stop_propose) { transition proposing: :created }
     event :start do
-      transition [:created, :proposing] => :started,
-        if: lambda { |contest| contest.links.count >= MINIMUM_MEMBERS && contest.links.count <= MAXIMUM_MEMBERS } # && Contest.all.none?(&:started?)
+      transition %i[created proposing] => :started, if: lambda { |contest|
+        contest.links.count >= MINIMUM_MEMBERS &&
+          contest.links.count <= MAXIMUM_MEMBERS
+      } # && Contest.all.none?(&:started?)
     end
     event(:finish) { transition started: :finished }
 
-    after_transition :created => [:proposing, :started] do |contest, transition|
+    after_transition :created => %i[proposing started] do |contest, transition|
       contest.generate_topics Site::DOMAIN_LOCALES
     end
   end
@@ -85,7 +87,7 @@ class Contest < ApplicationRecord
       rounds.last
     else
       rounds.select(&:started?).first ||
-        rounds.select { |v| !v.finished? }.first ||
+        rounds.reject(&:finished?).first ||
         rounds.first
     end
   end

@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/IngateFuture/simple_form-magic_submit.git
+  remote: https://github.com/IngateFuture/simple_form-magic_submit.git
   revision: 314287801e6030a8fcf72f706d3660d25ba4969c
   specs:
     simple_form-magic_submit (1.2.0)
@@ -7,7 +7,7 @@ GIT
       simple_form (>= 3.0.0.beta1)
 
 GIT
-  remote: git://github.com/ellimist/better_errors.git
+  remote: https://github.com/ellimist/better_errors.git
   revision: 1788144c5a24054d68256e3d50aeeda8a8b313cd
   branch: master
   specs:
@@ -17,7 +17,7 @@ GIT
       rack (>= 0.9.0)
 
 GIT
-  remote: git://github.com/fauxparse/guard-i18n-js.git
+  remote: https://github.com/fauxparse/guard-i18n-js.git
   revision: 4c99c24e55eda1b2eb795bb4e8485732a17fbc0e
   specs:
     guard-i18n-js (1.0.0)
@@ -25,7 +25,7 @@ GIT
       i18n-js (~> 3.0.0.rc3)
 
 GIT
-  remote: git://github.com/flori/amatch.git
+  remote: https://github.com/flori/amatch.git
   revision: 351285f667573340ed14e976e2b0984daca4b0e4
   specs:
     amatch (0.4.0)
@@ -33,7 +33,7 @@ GIT
       tins (~> 1.0)
 
 GIT
-  remote: git://github.com/libc/rack-contrib.git
+  remote: https://github.com/libc/rack-contrib.git
   revision: 1b672c3551e86e7191485bffad2ec7d0d8fec012
   branch: rack_ruby_2+no-gvb
   specs:
@@ -41,20 +41,27 @@ GIT
       rack (>= 1.4, < 3.0)
 
 GIT
-  remote: git://github.com/morr/Ruby-SVD.git
+  remote: https://github.com/morr/Ruby-SVD.git
   revision: 2775ee2f257fb3c95ef94e8d9cf56ea7686531e7
   specs:
     ruby-svd (0.5.4)
 
 GIT
-  remote: git://github.com/morr/cancancan.git
+  remote: https://github.com/morr/acts_as_votable.git
+  revision: 71047969b2d3f75f08e72e62a2636f152a8fed9f
+  branch: cacheable_strategy
+  specs:
+    acts_as_votable (0.10.0)
+
+GIT
+  remote: https://github.com/morr/cancancan.git
   revision: ac270003130fed41392873ab08d9d3f50d2b12c7
   branch: master
   specs:
     cancancan (1.16.0)
 
 GIT
-  remote: git://github.com/morr/russian.git
+  remote: https://github.com/morr/russian.git
   revision: 4b0c8f5c758748b8e61b5c33bad53152566df052
   specs:
     rs_russian (0.9.5)
@@ -63,7 +70,7 @@ GIT
       unicode (~> 0.4.4)
 
 GIT
-  remote: git://github.com/morr/sidekiq-unique-jobs.git
+  remote: https://github.com/morr/sidekiq-unique-jobs.git
   revision: a99ac38049be65d33dd28d444c219c2a10e9ae2a
   branch: master
   specs:
@@ -72,7 +79,7 @@ GIT
       thor
 
 GIT
-  remote: git://github.com/morr/turbolinks.git
+  remote: https://github.com/morr/turbolinks.git
   revision: be44d5717f7657ac4f0f209a6e0c851ecf35e771
   branch: master
   specs:
@@ -80,14 +87,14 @@ GIT
       coffee-rails
 
 GIT
-  remote: git://github.com/nbudin/htmldiff-lcs.git
+  remote: https://github.com/nbudin/htmldiff-lcs.git
   revision: efeec72cdedadfb310dbb6474395289287d0fcdc
   specs:
     htmldiff-lcs (0.0.1)
       diff-lcs
 
 GIT
-  remote: git://github.com/shikimori/mal_parser.git
+  remote: https://github.com/shikimori/mal_parser.git
   revision: 4c2dd7ca0036254292d5eef073dc3c4f5fe27da8
   specs:
     mal_parser (0.1.0)
@@ -152,9 +159,8 @@ GEM
       activerecord (>= 4.2.8)
     acts_as_list (0.9.7)
       activerecord (>= 3.0)
-    acts_as_votable (0.10.0)
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
+    addressable (2.5.2)
+      public_suffix (>= 2.0.2, < 4.0)
     airbrussh (1.3.0)
       sshkit (>= 1.6.1, != 1.7.0)
     apipie-rails (0.5.1)
@@ -173,7 +179,7 @@ GEM
       thor (~> 0.19)
     browser (2.5.0)
     builder (3.2.3)
-    byebug (9.0.6)
+    byebug (9.1.0)
     capistrano (3.9.0)
       airbrussh (>= 1.0.0)
       i18n
@@ -187,9 +193,9 @@ GEM
     capistrano-rails (1.3.0)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capybara (2.14.0)
+    capybara (2.15.1)
       addressable
-      mime-types (>= 1.16)
+      mini_mime (>= 0.1.3)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
@@ -312,6 +318,11 @@ GEM
       json
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    gon (6.1.0)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     guard (2.14.1)
       formatador (>= 0.2.4)
       listen (>= 2.7, < 4.0)
@@ -395,6 +406,7 @@ GEM
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
     mimemagic (0.3.2)
+    mini_mime (0.1.4)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
     mize (0.3.2)
@@ -452,7 +464,7 @@ GEM
     pg (0.21.0)
     pg_query (0.13.2)
       json (>= 1.8, < 3)
-    pghero (2.0.2)
+    pghero (2.0.3)
       activerecord
     powerpack (0.1.1)
     protocol (1.0.1)
@@ -461,15 +473,15 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    pry-byebug (3.4.2)
-      byebug (~> 9.0)
+    pry-byebug (3.5.0)
+      byebug (~> 9.1)
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    public_suffix (2.0.5)
+    public_suffix (3.0.0)
     puma (3.10.0)
     rack (2.0.3)
     rack-attack (5.0.1)
@@ -688,7 +700,7 @@ DEPENDENCIES
   activerecord-import
   acts-as-taggable-on
   acts_as_list
-  acts_as_votable
+  acts_as_votable!
   airbrussh
   amatch!
   apipie-rails
@@ -725,6 +737,7 @@ DEPENDENCIES
   faye
   foreman
   gcm
+  gon
   guard
   guard-bundler
   guard-i18n-js!
@@ -769,7 +782,6 @@ DEPENDENCIES
   rails
   rails-controller-testing
   rails-i18n
-  rake
   rb-fchange
   rb-fsevent
   rb-inotify
@@ -817,4 +829,4 @@ DEPENDENCIES
   zaru
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

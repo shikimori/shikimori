@@ -7,7 +7,7 @@ ru:
       from: с
       till: по
 
-    show:
+    contest_match:
       candidates_not_selected: Номинанты ещё не определены
       click_candidate: Кликните по одному из двух вариантов
       your_vote_counted: Ваш голос учтён!

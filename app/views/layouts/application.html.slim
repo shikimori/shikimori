@@ -96,3 +96,4 @@ html
       javascript:
         JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
     = yield :tail
+    = Gon::Base.render_data

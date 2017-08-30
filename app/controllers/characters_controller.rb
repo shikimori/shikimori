@@ -1,6 +1,7 @@
 # TODO: страница косплея, страница картинок с имиджборд
 class CharactersController < PeopleController
   skip_before_action :role_redirect
+  before_action :js_export, only: %i[show]
 
   #caches_action :index, CacheHelper.cache_settings
   #caches_action :page, :show, :tooltip,
@@ -122,5 +123,9 @@ private
 
   def search_url *args
     search_characters_url(*args)
+  end
+
+  def js_export
+    gon.push is_favoured: @resource.favoured?
   end
 end

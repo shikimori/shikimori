@@ -1,19 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'rake'
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 gem 'rails'
 
+# database & cache
 gem 'pg'
 gem 'dalli' # NOTE: в конфиге мемкеша должна быть опция -I 16M
 gem 'redis'
 gem 'redis-namespace'
+gem 'redis-mutex'
 
-gem 'webpacker'
-gem 'slim-rails'
-gem 'coffee-rails'
-gem 'sassc-rails'
+# frontend
 gem 'bourbon'
-
+gem 'coffee-rails'
+gem 'non-stupid-digest-assets'
+gem 'sassc-rails'
 # turbolinks
 # events migration https://github.com/turbolinks/turbolinks/blob/master/src/turbolinks/compatibility.coffee
 # new events https://github.com/turbolinks/turbolinks#full-list-of-events
@@ -23,10 +28,30 @@ gem 'bourbon'
 #   в /about сделать подгружаемую highcharts
 #   а на странице /animes/id/franchise - d3
 gem 'turbolinks', github: 'morr/turbolinks', branch: 'master'
-
 gem 'uglifier'
-gem 'non-stupid-digest-assets'
+gem 'webpacker'
+gem 'gon'
 
+# templates
+gem 'slim-rails'
+gem 'jbuilder' # для рендеринга json
+
+# engines
+gem 'pghero'
+gem 'pg_query' # for suggested indexes in pghero
+gem 'sidekiq'
+# remove fork when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
+gem 'sidekiq-unique-jobs', github: 'morr/sidekiq-unique-jobs', branch: 'master'
+gem 'sidekiq-limit_fetch'
+
+# auth
+gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
+
+# application
 gem 'mal_parser', github: 'shikimori/mal_parser'
 
 gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
@@ -47,20 +72,7 @@ gem 'active_model_serializers'
 
 #gem 'mobylette' # для is_mobile_request в application_controller#show_social?. гем добавляет :mobyle mime type. с ним в ипаде сайт падает сразу после регистрации
 gem 'browser' # для детекта internet explorer в рендере shiki_editor
-gem 'devise'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-vkontakte'
-gem 'omniauth-twitter'
-
-gem 'pghero'
-gem 'pg_query' # for suggested indexes in pghero
-gem 'sidekiq'
-# remove form when https://github.com/mhenrixon/sidekiq-unique-jobs/issues/212 is fixed
-gem 'sidekiq-unique-jobs', github: 'morr/sidekiq-unique-jobs', branch: 'master'
-gem 'sidekiq-limit_fetch'
-gem 'redis-mutex'
 
 gem 'htmlentities' # для конвертации &#29190; -> 爆 у ворлдарта, мала и прочих
 #gem 'exception_notification', github: 'smartinez87/exception_notification'
@@ -71,12 +83,14 @@ gem 'retryable'
 gem 'truncate_html'
 gem 'acts-as-taggable-on'
 gem 'acts_as_list'
+# gem 'acts_as_votable'
+gem 'acts_as_votable', github: 'morr/acts_as_votable', branch: :cacheable_strategy
+# gem 'acts_as_votable', path: "../acts_as_votable"
 gem 'meta-tags'
 gem 'enumerize', '2.0.1' # в 2.1.0 Sidekiq::Extensions::DelayedMailer падает с "NoMethodError: undefined method `include?' for nil:NilClass"
 gem 'draper'
 gem 'cancancan', github: 'morr/cancancan', branch: 'master'
 gem 'draper-cancancan' # because https://github.com/CanCanCommunity/cancancan/issues/255
-gem 'acts_as_votable'
 
 gem 'unicode' # для downcase русских слов
 gem 'icalendar' # для аниме календраря
@@ -88,7 +102,6 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'faraday-cookie_jar'
 
-gem 'jbuilder' # для рендеринга json
 gem 'rack-contrib', github: 'libc/rack-contrib', branch: 'rack_ruby_2+no-gvb' # для поддержки jsonp в api
 gem 'responders' # для json responder'а, который нужен для рендеринга контента на patch и put запросы
 gem 'zaru'

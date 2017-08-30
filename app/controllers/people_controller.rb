@@ -6,6 +6,7 @@ class PeopleController < DbEntriesController
   before_action :resource_redirect, if: :resource_id
   before_action :role_redirect, if: -> { resource_id && !['tooltip','update'].include?(params[:action]) }
   before_action :set_breadcrumbs, if: -> { @resource }
+  before_action :js_export, only: %i[show]
 
   helper_method :search_url
   #caches_action :index, :page, :show, :tooltip, CacheHelper.cache_settings
@@ -93,5 +94,22 @@ private
       @back_url = @resource.edit_url
       breadcrumb i18n_t('edit'), @resource.edit_url
     end
+  end
+
+  def js_export
+    gon.push(
+      person_role: {
+        producer: @resource.main_role?(:producer),
+        mangaka: @resource.main_role?(:mangaka),
+        seyu: @resource.main_role?(:seyu),
+        person: !(@resource.main_role?(:seyu) || @resource.main_role?(:producer) || @resource.main_role?(:mangaka))
+      },
+      is_favoured: {
+        producer: @resource.producer_favoured?,
+        mangaka: @resource.mangaka_favoured?,
+        seyu: @resource.seyu_favoured?,
+        person: @resource.person_favoured?
+      }
+    )
   end
 end

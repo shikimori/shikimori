@@ -21,7 +21,7 @@ FactoryGirl.define do
     trait :contest do
       id { Topic::FORUM_IDS[Contest.name] }
       permalink 'contests'
-      name_ru 'Опросы'
+      name_ru 'Турниры'
     end
 
     trait :club do

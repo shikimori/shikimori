@@ -1,9 +1,14 @@
-- cache [contest, round] do
+- cache round do
   .subheadline.m5 = t '.rating'
   .rating
     - contest.rating_stats(round).each do |stats|
       .member
         .position = stats.position
-        .progress class="#{stats.status}" = stats.progress
-        a.bubbled href="#{url_for stats.member}" title="#{stats.member.name}"
+        .progress[
+          class="#{stats.status}"
+        ] = stats.progress
+        a.bubbled[
+          href="#{url_for stats.member}"
+          title="#{stats.member.name}"
+        ]
           = localization_span stats.member

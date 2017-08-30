@@ -17,6 +17,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # ]
 # vendor/jquery.cookie - for age_restricted.html.slim
 Rails.application.config.assets.precompile += %w[
+  pghero/favicon.png
   page503.css
   page404.css
   age_restricted.css

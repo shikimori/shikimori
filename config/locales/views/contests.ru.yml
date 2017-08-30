@@ -43,19 +43,12 @@ ru:
     page: &page
       back_to_contest_page: Назад на страницу опроса
       edit_contest: Изменить опрос
-      anime_contest: Аниме турнир
       discussion: Обсуждение
-      votes_for: Голоса за %{name}
-      no_voters: Нет проголосовавших.
-      abstainers: Воздержавшиеся
 
     show:
       <<: *page
 
     edit:
-      <<: *page
-
-    users:
       <<: *page
 
     round:

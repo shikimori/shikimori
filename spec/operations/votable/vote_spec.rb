@@ -7,7 +7,7 @@ describe Votable::Vote do
     )
   end
 
-  let(:vote) { true }
+  let(:vote) { 'yes' }
   let(:voter) { seed :user }
 
   context 'review' do
@@ -16,6 +16,75 @@ describe Votable::Vote do
     it do
       expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
       expect(voter.liked? votable).to eq true
+    end
+
+    context 'unknown vote' do
+      let(:vote) { 'zxc' }
+      it { expect { subject }.to raise_error ArgumentError, vote }
+    end
+  end
+
+  context 'contest_match' do
+    let(:votable) { create :contest_match, state }
+
+    context 'started' do
+      let(:state) { :started }
+
+      it do
+        expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+        expect(voter.liked? votable).to eq true
+      end
+
+      describe 'update user_vote key' do
+        let(:votable) { create :contest_match, state, round: contest_round }
+        let!(:contet_match_2) do
+          create :contest_match, :started, round: contest_round
+        end
+        let!(:contet_match_3) do
+          create :contest_match, %i[created finished].sample,
+            round: contest_round
+        end
+        let(:contest_round) { create :contest_round, contest: contest }
+        let(:contest) { create :contest, user_vote_key: user_vote_key }
+        let(:user_vote_key) { :can_vote_1 }
+        let(:voter) { create :user, user_vote_key => true }
+
+        context "last round's not voted match" do
+          let!(:vote_2) { create :vote, votable: contet_match_2, voter: voter }
+          it do
+            expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+            expect(voter.liked? votable).to eq true
+            expect(voter.reload[user_vote_key]).to eq false
+          end
+        end
+
+        context "not last round's not voted match" do
+          it do
+            expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+            expect(voter.liked? votable).to eq true
+            expect(voter.reload[user_vote_key]).to eq true
+          end
+        end
+      end
+
+      describe 'abstain' do
+        let(:vote) { 'abstain' }
+
+        it do
+          expect { subject }.to change(ActsAsVotable::Vote, :count).by 1
+          expect(voter.liked? votable).to eq false
+          expect(voter.abstained? votable).to eq true
+        end
+      end
+    end
+
+    context 'created/finished' do
+      let(:state) { %i[created finished].sample }
+
+      it do
+        expect { subject }.to_not change ActsAsVotable::Vote, :count
+        expect(voter.liked? votable).to eq false
+      end
     end
   end
 
