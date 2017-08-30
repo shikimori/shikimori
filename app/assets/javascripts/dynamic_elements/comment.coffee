@@ -77,7 +77,7 @@ class DynamicElements.Comment extends ShikiEditable
     @$('.item-summary,.item-offtopic,.item-spoiler,.item-abuse,.b-offtopic_marker,.b-summary_marker').on 'ajax:success', (e, data, satus, xhr) =>
       if 'affected_ids' of data && data.affected_ids.length
         data.affected_ids.forEach (id) ->
-          $(".b-comment##{id}").view().mark(data.kind, data.value)
+          $(".b-comment##{id}").view()?.mark(data.kind, data.value)
         $.notice marker_message(data)
       else
         $.notice I18n.t("#{I18N_KEY}.your_request_will_be_considered")
