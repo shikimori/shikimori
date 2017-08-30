@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     add() {
-      this.$store.dispatch('add', { text: '' })
+      this.$store.dispatch('add', { label: '' })
       this.focus_last()
     },
     submit(e) {
@@ -81,7 +81,7 @@ export default {
       }
     },
     remove_empty(poll_variant) {
-      if (Object.isEmpty(poll_variant.text) && this.$store.state.collection.length > 1) {
+      if (Object.isEmpty(poll_variant.label) && this.$store.state.collection.length > 1) {
         this.remove(poll_variant)
         this.focus_last()
       }
