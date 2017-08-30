@@ -86,7 +86,7 @@ module.exports = class Contests.Match extends View
     @$('.vote-voted').toggle(!!(vote && vote != VOTE_ABSTAIN))
     @$('.vote-abstained').toggle vote == VOTE_ABSTAIN
 
-    @$('.thanks').toggle !@_next_match_id()
+    @$('.thanks').toggle !!(vote && !@_next_match_id())
     @$('.action .abstain').toggleClass 'hidden', vote == VOTE_ABSTAIN
     @$('.action .to-next-not-voted').toggleClass 'hidden', !@_next_match_id()
 
