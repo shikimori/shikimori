@@ -20,11 +20,16 @@ module.exports = class Contests.Match extends View
     @$('.action .abstain').on 'ajax:success', @_abstain
 
     if @_is_started()
-      @$('.match-member').hover(
+      @$('.match-member .b-catalog_entry').hover(
         (e) =>
           return if @vote.vote
+
           @$('.match-member').addClass('unhovered')
-          $(e.target).removeClass('unhovered').addClass('hovered')
+          $(e.target)
+            .closest('.match-member')
+            .removeClass('unhovered')
+            .addClass('hovered')
+
         , =>
           @$('.match-member').removeClass('hovered unhovered')
       )
