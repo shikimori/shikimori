@@ -28,16 +28,12 @@ class ContestDecorator < DbEntryDecorator
   end
 
   # число участников в турнире
-  def uniq_voters
-    0
-    # object
-      # .rounds
-      # .joins(matches: :votes)
-      # .select('count(distinct(user_id)) as uniq_voters')
-      # .except(:order)
-        # .to_a
-        # .first
-        # .uniq_voters
+  def uniq_voters_count
+    if contest.started?
+      @uniq_voters ||= Contests::UniqVotersCount.call self
+    else
+      object.cached_uniq_voters
+    end
   end
 
   # сгруппированные по дням матчи

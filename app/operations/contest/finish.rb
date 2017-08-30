@@ -4,7 +4,10 @@ class Contest::Finish
   def call
     Contest.transaction do
       @contest.finish!
-      @contest.update! finished_on: Time.zone.today
+      @contest.update!(
+        finished_on: Time.zone.today,
+        cached_uniq_voters_count: Contests::UniqVotersCount.call(@contest)
+      )
 
       Contests::ObtainWinners.call @contest
 

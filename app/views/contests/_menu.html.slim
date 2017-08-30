@@ -21,10 +21,10 @@
   = render 'spnsrs/ad', ad: Ad.new(:yd_rtb_x240)
 
   - cache resource do
-    - if resource.uniq_voters > 0
+    - if resource.uniq_voters_count > 0
       .block
         .subheadline.m5 = t '.voters'
-        p #{resource.uniq_voters} #{i18n_i 'site_user', resource.uniq_voters}
+        p #{resource.uniq_voters_count} #{i18n_i 'site_user', resource.uniq_voters_count}
 
     - unless resource.proposing?
       .block
