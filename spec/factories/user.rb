@@ -58,6 +58,10 @@ FactoryGirl.define do
       id User::VERSION_VERMINS.last
     end
 
+    trait :suspicious do
+      sign_in_count 5
+    end
+
     trait :without_password do
       password nil
 

@@ -88,7 +88,7 @@ describe ContestMatch::Finish do
     end
 
     context 'suspicious user' do
-      let(:user) { create :user, id: User::SUSPISIOUS_USER_IDS.max }
+      let(:user) { create :user, :suspicious }
       it do
         expect(contest_match).to be_finished
         expect(contest_match.winner_id).to eq left_id

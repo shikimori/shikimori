@@ -2,10 +2,18 @@ describe Contest::CleanupSuggestions do
   let(:operation) { Contest::CleanupSuggestions.new contest }
 
   let(:contest) { create :contest, :proposing }
-  let!(:contest_suggestion_1) { create :contest_suggestion, contest: contest, user: contest.user }
-  let!(:contest_suggestion_2) { create :contest_suggestion, contest: contest, user: create(:user, sign_in_count: 999) }
+  let!(:normal_suggestion) do
+    create :contest_suggestion,
+      contest: contest,
+      user: contest.user
+  end
+  let!(:suspicious_suggestion) do
+    create :contest_suggestion,
+      contest: contest,
+      user: create(:user, :suspicious)
+  end
 
   subject! { operation.call }
 
-  it { expect(contest.suggestions).to eq [contest_suggestion_2] }
+  it { expect(contest.suggestions).to eq [normal_suggestion] }
 end
