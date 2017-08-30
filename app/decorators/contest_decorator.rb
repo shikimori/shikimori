@@ -29,10 +29,10 @@ class ContestDecorator < DbEntryDecorator
 
   # число участников в турнире
   def uniq_voters_count
-    if contest.started?
+    if started?
       @uniq_voters ||= Contests::UniqVotersCount.call self
     else
-      object.cached_uniq_voters
+      cached_uniq_voters_count
     end
   end
 

@@ -10,6 +10,7 @@ class Contest::Finish
       )
 
       Contests::ObtainWinners.call @contest
+      Contests::Votes.call(@contest).delete_all
 
       reset_user_vote_key
       Messages::CreateNotification.new(@contest).contest_finished

@@ -7,6 +7,7 @@ describe Contest::Finish do
   let!(:user) { create :user, can_vote_1: true }
   let(:notifications) { double contest_finished: nil }
   let(:uniq_voters_count) { 100 }
+  let(:votes_scope) { double delete_all: nil }
 
   before do
     allow(Messages::CreateNotification)
@@ -18,6 +19,10 @@ describe Contest::Finish do
       .to receive(:call)
       .with(contest)
       .and_return(uniq_voters_count)
+    allow(Contests::Votes)
+      .to receive(:call)
+      .with(contest)
+      .and_return(votes_scope)
   end
   subject! { operation.call }
 
@@ -27,6 +32,7 @@ describe Contest::Finish do
       finished_on: Time.zone.today,
       cached_uniq_voters_count: uniq_voters_count
     )
+    expect(votes_scope).to have_received :delete_all
     expect(user.reload.can_vote_1).to eq false
     expect(notifications).to have_received :contest_finished
 
