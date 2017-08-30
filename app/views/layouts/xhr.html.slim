@@ -1,5 +1,9 @@
-= sweep_js_exports do
-  = yield
+- if params[:js_export] != 'skip'
+  = sweep_js_exports do
+    = yield
 
-javascript:
-  JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
+  javascript:
+    JS_EXPORTS = #{{JsExports::Supervisor.instance.export(current_user).to_json}};
+
+- else
+    = yield

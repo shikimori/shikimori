@@ -4,4 +4,11 @@
     / cutted_covers не нужны, т.к. они делаются на уровень выше
     / .cc-4a#.to-process data-dynamic="cutted_covers"
     .cc-4a
-      = render losers, cover_by: :image_link
+      - if losers.first.is_a? Anime
+        = render partial: 'animes/anime',
+          collection: losers,
+          locals: { cover_by: :image_link }
+      - else
+        = render partial: 'characters/character',
+          collection: losers,
+          locals: { cover_by: :image_link }

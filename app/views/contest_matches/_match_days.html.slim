@@ -12,7 +12,7 @@
       .match-link.cc-2a[
         class="#{match.state}"
         data-id="#{match.id}"
-        data-match_url="#{contest_contest_match_url contest, match}"
+        data-match_url="#{contest_contest_match_url contest, match, js_export: :skip}"
       ]
         .c-column class="#{match.status match.left_id}"
           - if match.left
