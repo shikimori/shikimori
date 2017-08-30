@@ -161,6 +161,8 @@ class ApplicationController < ActionController::Base
 
   def set_user_locale_from_host
     return unless user_signed_in?
+    return if current_user.locale_from_host == locale_from_host.to_s
+
     current_user.update_column :locale_from_host, locale_from_host
   end
 
