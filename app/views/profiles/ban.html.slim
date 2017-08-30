@@ -6,11 +6,23 @@
         formatted_date: l(@resource.read_only_at, format: :full),
         iso_date: @resource.read_only_at.iso8601
 
-  - if user_signed_in? && current_user.moderator?
-    .block
-      .subheadline = @page_title.last
-      p = t '.ban_warning_for_moderator'
-      = render template: 'moderations/bans/new', locals: { ban_in_profile: true }
+  - if current_user&.moderator?
+    .cc-2
+      .c-column
+        .subheadline = @page_title.last
+        p = t '.ban_warning_for_moderator'
+        = render template: 'moderations/bans/new', locals: { ban_in_profile: true }
+
+      .c-column.block_m
+        .subheadline = User.model_name.human
+        .b-entry-info
+          - %i[current_sign_in_ip last_sign_in_ip sign_in_count current_sign_in_at last_sign_in_at].each do |field|
+            - unless %i[current_sign_in_ip last_sign_in_ip].include?(field) && @resource.admin?
+              = info_line field do
+                - if @resource.send(field).respond_to? :strftime
+                  = l @resource.send(field), format: :full
+                - else
+                  = @resource.send(field)
 
   .block
     .subheadline = t 'ban_history'
