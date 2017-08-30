@@ -153,7 +153,7 @@ ru:
     invitation_rejected: Приглашение отклонено
 
   contests_controller:
-    contests: Опросы
+    contests: Турниры
     new_contest: Новый турнир
     edit_contest: Изменение турнира
     contest_created: Турнир создан
