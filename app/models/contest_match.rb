@@ -23,12 +23,6 @@ class ContestMatch < ApplicationRecord
   state_machine :state, initial: :created do
     state :created
     state :started
-      # # обновление статуса пользоваетля в зависимости от возможности голосовать далее
-      # def update_user(user, ip)
-        # if round.matches.with_user_vote(user, ip).select(&:started?).all?(&:voted?)
-          # user.update_attribute round.contest.user_vote_key, false
-        # end
-      # end
     state :finished
 
     event :start do

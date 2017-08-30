@@ -72,13 +72,13 @@ module.exports = class Contests.Match extends View
 
     @$left
       .toggleClass('voted', vote == VOTE_LEFT)
-      .toggleClass('unvoted', vote != VOTE_LEFT)
+      .toggleClass('unvoted', !!(vote && vote != VOTE_LEFT))
     @$right
       .toggleClass('voted', vote == VOTE_RIGHT)
-      .toggleClass('unvoted', vote != VOTE_RIGHT)
+      .toggleClass('unvoted', !!(vote && vote != VOTE_RIGHT))
 
     @$('.invitation').toggle !vote
-    @$('.vote-voted').toggle vote && vote != VOTE_ABSTAIN
+    @$('.vote-voted').toggle(!!(vote && vote != VOTE_ABSTAIN))
     @$('.vote-abstained').toggle vote == VOTE_ABSTAIN
 
     @$('.thanks').toggle !@_next_match_id()
