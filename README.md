@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg)](https://circleci.com/gh/morr/shikimori)
+[![CircleCI](https://circleci.com/gh/morr/shikimori.svg?style=svg&circle-token=5bd1a64ae9642ddb8d27a9585881756804ce9163)](https://circleci.com/gh/morr/shikimori)
 
 ### PostgreSQL
 ```
