@@ -37,8 +37,13 @@ describe Votable::Vote do
 
       describe 'update user_vote key' do
         let(:votable) { create :contest_match, state, round: contest_round }
-        let!(:contet_match_2) { create :contest_match, round: contest_round }
-
+        let!(:contet_match_2) do
+          create :contest_match, :started, round: contest_round
+        end
+        let!(:contet_match_3) do
+          create :contest_match, %i[created finished].sample,
+            round: contest_round
+        end
         let(:contest_round) { create :contest_round, contest: contest }
         let(:contest) { create :contest, user_vote_key: user_vote_key }
         let(:user_vote_key) { :can_vote_1 }

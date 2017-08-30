@@ -72,7 +72,7 @@ private
   end
 
   def update_user_key voter, contest_match
-    round_match_ids = contest_match.round.matches.pluck(:id)
+    round_match_ids = contest_match.round.matches.select(&:started?).map(&:id)
     round_match_votes = voter.votes.where(
       votable_type: ContestMatch.name,
       votable_id: round_match_ids
