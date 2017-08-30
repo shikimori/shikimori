@@ -51,6 +51,7 @@ module.exports = class Contests.Round extends View
 
   _initial_match_id: ->
     @$root.data('match_id') ||
+      @$('.match-day .match-link.started:not(.voted-left):not(.voted-right):not(.voted-abstain)').first().data('id') ||
       @$('.match-day .match-link.started').first().data('id') ||
       @$('.match-day .match-link').first().data('id')
 
