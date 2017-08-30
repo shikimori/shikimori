@@ -2,6 +2,7 @@
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
+@import mixins/shikimori
 
 $line-height: 1.8
 
@@ -59,8 +60,8 @@ $line-height: 1.8
 
     .voted, .winner, .loser, .created, .started, .finished
       &:before
+        +shikimori
         display: inline-block
-        font-family: 'shikimori'
         margin-right: 4px
         text-align: center
         width: 20px

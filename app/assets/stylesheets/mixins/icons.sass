@@ -1,6 +1,7 @@
 @import globals/variables
 @import mixins/link
 @import mixins/responsive
+@import mixins/shikimori
 
 $icon_desktop_size: 20px
 $icon_mobile_size: 30px
@@ -29,8 +30,7 @@ $icon_mobile_size: 30px
     text-transform: none
 
   &:before
-    content: $content
-    font-family: 'shikimori'
+    +shikimori($content)
     text-align: center
     width: $icon_desktop_size
 
@@ -119,8 +119,7 @@ $icon_mobile_size: 30px
       font-size: 22px
 
   &:before
-    content: $content
-    font-family: 'shikimori'
+    +shikimori($content)
     text-align: center
 
   +iphone-portrait

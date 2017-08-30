@@ -9,6 +9,7 @@
 @import mixins/hover_underlined
 @import mixins/link
 @import mixins/menu-blocks
+@import mixins/shikimori
 
 .p-profiles .profile-head
   +clear_left
@@ -76,10 +77,9 @@
         margin-bottom: 0
 
         &.aliases:after
+          +shikimori('\e816')
           color: #333
-          content: '\e816'
           cursor: pointer
-          font-family: 'shikimori'
           font-size: 12px
           margin-left: 8px
           margin-top: 16px

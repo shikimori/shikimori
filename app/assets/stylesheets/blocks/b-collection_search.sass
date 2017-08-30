@@ -2,6 +2,7 @@
 @import mixins/link
 @import mixins/placeholder
 @import mixins/retina
+@import mixins/shikimori
 
 .b-collection_search
   .field
@@ -24,8 +25,7 @@
       display: none
 
       &:before
-        content: '✕'
-        font-family: shikimori
+        +shikimori('✕')
         font-size: 23px
         position: absolute
         right: 9px

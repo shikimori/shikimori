@@ -1,5 +1,6 @@
 @import globals
 @import mixins/column
+@import mixins/shikimori
 
 +keyframes('rotating')
   0%
@@ -16,8 +17,9 @@
   // color: #ff8a3c
   // background-color: #ffe8d8
   // border-bottom: 1px solid #ffd5b8
-  margin-top: -8px
   margin-bottom: 5px
+  // margin-top: -8px
+  min-height: 30px
   position: relative
 
   article
@@ -43,12 +45,11 @@
     color: #666666
     cursor: pointer
     position: absolute
-    right: 16px
-    top: 9px
+    right: 0
+    top: 2px
 
     &:before
-      content: "\E801"
-      font-family: "shikimori"
+      +shikimori('\e801')
       font-size: 14px
 
     &:active

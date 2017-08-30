@@ -5,6 +5,7 @@
 @import mixins/input
 @import mixins/link
 @import mixins/responsive
+@import mixins/shikimori
 
 header.head
   margin-bottom: 15px
@@ -101,10 +102,9 @@ header.head
     padding-right: 20px
 
     &:before
+      +shikimori('\e81c')
       //+transition(color, 0.2s)
       color: $gray-2
-      content: "\e81c"
-      font-family: "shikimori"
       position: absolute
       right: 10px
 

@@ -1,5 +1,6 @@
 @import mixins/block
 @import mixins/responsive
+@import mixins/shikimori
 
 .b-rate
   white-space: nowrap
@@ -53,8 +54,8 @@
 
   .stars
     &:after
+      +shikimori
       display: block
-      font-family: shikimori
       letter-spacing: 4px
 
     &.background

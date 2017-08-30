@@ -4,6 +4,7 @@
 @import mixins/frame_form
 @import mixins/link
 @import mixins/responsive
+@import mixins/shikimori
 @import mixins/tag
 
 .b-topic
@@ -106,9 +107,8 @@
       display: inline-block
 
       &:before
-        content: '\e819'
+        +shikimori('\e819')
         display: inline-block
-        font-family: 'shikimori'
         font-size: 14px
         padding-right: 6px
 
@@ -143,7 +143,7 @@
         opacity: 0.9
 
         &:before
-          font-family: 'shikimori'
+          +shikimori
           padding-right: 7px
 
         &.yes

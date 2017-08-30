@@ -1,6 +1,7 @@
 @import globals
 @import mixins/responsive
 @import mixins/icons
+@import mixins/shikimori
 
 .usernav
   padding-bottom: 4px
@@ -28,9 +29,8 @@
 
   .contest
     &:before
+      +shikimori('✓')
       color: white
-      content: '✓'
-      font-family: 'shikimori'
       font-weight: normal
       font-size: 12px
       line-height: 17px

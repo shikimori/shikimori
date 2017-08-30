@@ -1,12 +1,11 @@
 @import globals
 @import mixins/responsive
 @import mixins/ellipsis2
+@import mixins/shikimori
 
 =link_button_icon($icon)
   &:before
-    content: $icon
-    font-family: 'shikimori'
-    font-weight: normal
+    +shikimori($icon)
     padding-right: 8px
 
 .b-link_button

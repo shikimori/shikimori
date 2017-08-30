@@ -1,4 +1,5 @@
 @import globals/variables
+@import mixins/shikimori
 
 .b-question
   border-bottom: none !important
@@ -9,9 +10,8 @@
     background: $gray-2
     border-radius: 13px
     color: #FFF
-    content: '\e82a'
+    +shikimori('\e82a')
     display: inline-block
-    font-family: "shikimori"
     font-size: 9px
     height: 14px
     line-height: 1.5

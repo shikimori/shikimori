@@ -1,4 +1,5 @@
 @import mixins/responsive
+@import mixins/shikimori
 
 $quote_odd: #f9f9f9
 $quote_even: #f6f6f6
@@ -39,9 +40,8 @@ body
       padding-right: 4px
 
     &:before
+      +shikimori('"')
       color: #333
-      content: '"'
-      font-family: "shikimori"
       font-size: 12px
       margin-right: 5px
       position: relative

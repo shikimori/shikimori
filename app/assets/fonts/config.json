@@ -283,21 +283,9 @@
       "src": "typicons"
     },
     {
-      "uid": "dbd39eb5a1d67beb54cfcb535e840e0f",
-      "css": "plus-1",
-      "code": 59428,
-      "src": "iconic"
-    },
-    {
       "uid": "96a3aff31cec6cfbe6177151b3a44d20",
       "css": "quote-left-alt",
       "code": 34,
-      "src": "iconic"
-    },
-    {
-      "uid": "929ff290f0be577d2a2d587d5a53eec1",
-      "css": "play-1",
-      "code": 59427,
       "src": "iconic"
     },
     {
@@ -352,12 +340,6 @@
       "uid": "0299bec28699eedda42f46c77239393e",
       "css": "pencil-4",
       "code": 59412,
-      "src": "mfglabs"
-    },
-    {
-      "uid": "164f35b55c3346b03fa89a711a4f3980",
-      "css": "pause-3",
-      "code": 59443,
       "src": "mfglabs"
     },
     {
@@ -527,6 +509,90 @@
       "css": "blank",
       "code": 59416,
       "src": "fontawesome"
+    },
+    {
+      "uid": "180ceba44a3c8a0e0215fcc4ae5169f4",
+      "css": "schedule",
+      "code": 59443,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M521.5 291V509.8L709 621.1 677.7 673.8 459 541V291H521.5ZM500 834C683.6 834 834 683.6 834 500S683.6 166 500 166 166 316.4 166 500 316.4 834 500 834ZM500 84C730.5 84 916 269.5 916 500S730.5 916 500 916 84 730.5 84 500 269.5 84 500 84Z",
+        "width": 1000
+      },
+      "search": [
+        "schedule"
+      ]
+    },
+    {
+      "uid": "3d3564ef8962e846646928bbf91c0dfc",
+      "css": "play_arrow",
+      "code": 59427,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M334 209L791 500 334 791V209Z",
+        "width": 1000
+      },
+      "search": [
+        "play_arrow"
+      ]
+    },
+    {
+      "uid": "98b6223826be0b4a3264a4bc3add619c",
+      "css": "replay",
+      "code": 59429,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M500 209C683.6 209 834 357.4 834 541S683.6 875 500 875 166 724.6 166 541H250C250 679.7 361.3 791 500 791S750 679.7 750 541 638.7 291 500 291V459L291 250 500 41V209Z",
+        "width": 1000
+      },
+      "search": [
+        "replay"
+      ]
+    },
+    {
+      "uid": "64887a6c4dc61d7bf5b463a3b92febe4",
+      "css": "done",
+      "code": 59428,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M375 675.8L816.4 232.4 875 291 375 791 142.6 558.6 199.2 500Z",
+        "width": 1000
+      },
+      "search": [
+        "done"
+      ]
+    },
+    {
+      "uid": "e847891cd6b1d14528603a17092d0b6d",
+      "css": "done_all",
+      "code": 59446,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M17.6 558.6L76.2 500 308.6 732.4 250 791ZM925.8 232.4L986.3 291 486.3 791 252 558.6 312.5 500 486.3 673.8ZM750 291L486.3 556.6 427.7 498 691.4 232.4Z",
+        "width": 1000
+      },
+      "search": [
+        "done_all"
+      ]
+    },
+    {
+      "uid": "61bd809ee750d7781f146dab89d60594",
+      "css": "close",
+      "code": 59432,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M791 267.6L558.6 500 791 732.4 732.4 791 500 558.6 267.6 791 209 732.4 441.4 500 209 267.6 267.6 209 500 441.4 732.4 209Z",
+        "width": 1000
+      },
+      "search": [
+        "close"
+      ]
     },
     {
       "uid": "305fa6414a0e7bd2e841130a394788bc",
@@ -2700,8 +2766,8 @@
     },
     {
       "uid": "30e9e0b0a9daa7556625da326dcdf223",
-      "css": "check",
-      "code": 99,
+      "css": "check-1",
+      "code": 59432,
       "src": "custom_icons",
       "selected": false,
       "svg": {
@@ -2864,20 +2930,6 @@
       },
       "search": [
         "clear_all"
-      ]
-    },
-    {
-      "uid": "61bd809ee750d7781f146dab89d60594",
-      "css": "close",
-      "code": 99,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M791 267.6L558.6 500 791 732.4 732.4 791 500 558.6 267.6 791 209 732.4 441.4 500 209 267.6 267.6 209 500 441.4 732.4 209Z",
-        "width": 1000
-      },
-      "search": [
-        "close"
       ]
     },
     {
@@ -3970,34 +4022,6 @@
       },
       "search": [
         "domain"
-      ]
-    },
-    {
-      "uid": "64887a6c4dc61d7bf5b463a3b92febe4",
-      "css": "done",
-      "code": 100,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M375 675.8L816.4 232.4 875 291 375 791 142.6 558.6 199.2 500Z",
-        "width": 1000
-      },
-      "search": [
-        "done"
-      ]
-    },
-    {
-      "uid": "e847891cd6b1d14528603a17092d0b6d",
-      "css": "done_all",
-      "code": 100,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M17.6 558.6L76.2 500 308.6 732.4 250 791ZM925.8 232.4L986.3 291 486.3 791 252 558.6 312.5 500 486.3 673.8ZM750 291L486.3 556.6 427.7 498 691.4 232.4Z",
-        "width": 1000
-      },
-      "search": [
-        "done_all"
       ]
     },
     {
@@ -9517,20 +9541,6 @@
       ]
     },
     {
-      "uid": "3d3564ef8962e846646928bbf91c0dfc",
-      "css": "play_arrow",
-      "code": 112,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M334 209L791 500 334 791V209Z",
-        "width": 1000
-      },
-      "search": [
-        "play_arrow"
-      ]
-    },
-    {
       "uid": "451ceacc69a4ef7c436b277a8ef88883",
       "css": "play_circle_filled",
       "code": 112,
@@ -9589,7 +9599,7 @@
     {
       "uid": "7479213bcbdb94b12e52d2e1fb12d845",
       "css": "playlist_add_check",
-      "code": 112,
+      "code": 59428,
       "src": "custom_icons",
       "selected": false,
       "svg": {
@@ -10161,20 +10171,6 @@
       ]
     },
     {
-      "uid": "98b6223826be0b4a3264a4bc3add619c",
-      "css": "replay",
-      "code": 114,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M500 209C683.6 209 834 357.4 834 541S683.6 875 500 875 166 724.6 166 541H250C250 679.7 361.3 791 500 791S750 679.7 750 541 638.7 291 500 291V459L291 250 500 41V209Z",
-        "width": 1000
-      },
-      "search": [
-        "replay"
-      ]
-    },
-    {
       "uid": "13a7112bed65b00c2df9bbb114253893",
       "css": "replay_10",
       "code": 114,
@@ -10522,20 +10518,6 @@
       },
       "search": [
         "scanner"
-      ]
-    },
-    {
-      "uid": "180ceba44a3c8a0e0215fcc4ae5169f4",
-      "css": "schedule",
-      "code": 115,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M521.5 291V509.8L709 621.1 677.7 673.8 459 541V291H521.5ZM500 834C683.6 834 834 683.6 834 500S683.6 166 500 166 166 316.4 166 500 316.4 834 500 834ZM500 84C730.5 84 916 269.5 916 500S730.5 916 500 916 84 730.5 84 500 269.5 84 500 84Z",
-        "width": 1000
-      },
-      "search": [
-        "schedule"
       ]
     },
     {

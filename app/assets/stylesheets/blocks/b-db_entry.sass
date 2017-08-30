@@ -5,6 +5,7 @@
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/responsive
+@import mixins/shikimori
 
 .b-db_entry
   +block_m
@@ -92,10 +93,9 @@
         height: 44px
 
         &:before
-          content: '\e817'
+          +shikimori('\e817')
           // content: '\e83b'
           color: #f7b42c
-          font-family: shikimori
           font-size: 37px
           line-height: 1.2
           text-align: center

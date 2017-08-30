@@ -1,5 +1,6 @@
 @import globals
 @import mixins/responsive
+@import mixins/shikimori
 
 .b-to-top
   cursor: pointer
@@ -34,11 +35,9 @@
 
     .arrow
       &:before
+        +shikimori('\e803')
         color: #123
-        content: '\e803'
-        font-family: shikimori
         text-shadow: 0px 0px 1px #fff
-
 
   &:active
     .slide

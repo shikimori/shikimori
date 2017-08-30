@@ -1,6 +1,7 @@
 @import globals
 @import mixins/ellipsis2
 @import mixins/link
+@import mixins/shikimori
 
 // второстепенный текст в меню
 =menu-block-misc-text
@@ -97,10 +98,9 @@
     padding-right: 20px
 
     &:after
+      +shikimori('\e81c')
       color: $gray-2
-      content: "\e81c"
       cursor: pointer
-      font-family: "shikimori"
       line-height: 24px
       position: absolute
       right: 10px

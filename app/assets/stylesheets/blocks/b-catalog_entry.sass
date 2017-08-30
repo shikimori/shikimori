@@ -3,6 +3,7 @@
 @import mixins/ellipsis2
 @import mixins/link
 @import mixins/two_line_ellipsis
+@import mixins/shikimori
 
 $max_minified_width: 162px
 $max_width: 167px
@@ -150,19 +151,19 @@ $max_width: 167px
       position: relative
 
       &::after
+        +shikimori
         //+transition(opacity 0.5s ease)
-        border-radius: 25px
-        border: 2px solid #fff
+        border-radius: 16px
+        border: 1px solid #fff
         //display: none
-        font-family: shikimori
-        font-size: 15px
-        height: 25px
-        line-height: 25px
+        font-size: 18px
+        height: 30px
+        line-height: 30px
         position: absolute
-        right: 3px
+        right: 4px
         text-align: center
-        top: 3px
-        width: 25px
+        top: 4px
+        width: 30px
 
   &.planned .image-decor::after
     background: $link
@@ -175,17 +176,21 @@ $max_width: 167px
     content: '\e833'
 
   &.watching .image-decor::after,
-  &.rewatching .image-decor::after
     background: $link
     color: #fff
     content: '\e823'
 
+  &.rewatching .image-decor::after
+    background: $link
+    color: #fff
+    content: '\e825'
+
   &.completed .image-decor::after
     background: $released_tag
     color: #fff
-    content: '✓'
+    content: '\e836'
 
   &.dropped .image-decor::after
     background: $anons_tag
     color: #fff
-    content: '✕'
+    content: '\e828'

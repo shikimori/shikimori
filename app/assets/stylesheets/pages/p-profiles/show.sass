@@ -3,6 +3,7 @@
 @import mixins/ellipsis2
 @import mixins/icons
 @import mixins/link
+@import mixins/shikimori
 
 .p-profiles-show
   +gt_laptop
@@ -83,9 +84,8 @@
           color: #456
 
           &:before
+            +shikimori('✓')
             color: $green
-            content: '✓'
-            font-family: 'shikimori'
             font-size: 11px
             margin-right: 4px
 

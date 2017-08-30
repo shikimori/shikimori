@@ -1,5 +1,6 @@
 @import mixins/responsive
 @import mixins/column
+@import mixins/shikimori
 // @import mixins/link
 // @import mixins/comma_separated
 
@@ -31,9 +32,8 @@
         margin-right: 15px
 
         &:before
-          content: '\f00a'
+          +shikimori('\f00a')
           display: inline-block
-          font-family: 'shikimori'
           font-size: 14px
           padding-right: 5px
 

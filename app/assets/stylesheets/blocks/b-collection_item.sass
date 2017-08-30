@@ -1,5 +1,6 @@
 @import globals/variables
 @import mixins/ellipsis2
+@import mixins/shikimori
 
 .b-collection_item
   margin-bottom: 15px
@@ -36,7 +37,7 @@
     width: 30px
 
     &:before
-      font-family: shikimori
+      +shikimori
       font-size: 15px
 
     &:hover
