@@ -54,7 +54,7 @@ gem 'omniauth-twitter'
 # application
 gem 'mal_parser', github: 'shikimori/mal_parser'
 
-gem 'rmagick' # dependence: sudo apt-get install libmagickwand-dev
+gem 'mini_magick' # dependence: sudo apt-get install libmagickwand-dev
 gem 'rack-cors'
 gem 'rack-utf8_sanitizer'
 gem 'rack-attack'

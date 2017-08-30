@@ -32,7 +32,7 @@ describe VotesController do
           .with(
             votable: votable,
             voter: user,
-            vote: true
+            vote: 'yes'
           )
         expect(response).to have_http_status :success
       end

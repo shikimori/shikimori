@@ -4,7 +4,7 @@ class ContestMatch::Finish
   def call
     ContestMatch.transaction do
       @contest_match.finish!
-      @contest_match.update winner_id: winner_id
+      @contest_match.update_column :winner_id, winner_id
     end
   end
 

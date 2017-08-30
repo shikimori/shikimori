@@ -2,7 +2,7 @@ describe ContestMatch::Finish do
   include_context :seeds
   include_context :timecop
 
-  let(:operation) { ContestMatch::Finish.new contest_match }
+  subject! { ContestMatch::Finish.call contest_match }
 
   let(:contest_match) do
     create :contest_match,
@@ -12,7 +12,9 @@ describe ContestMatch::Finish do
       left_id: left_id,
       left_type: left_type,
       right_id: right_id,
-      right_type: right_type
+      right_type: right_type,
+      cached_votes_up: cached_votes_up,
+      cached_votes_down: cached_votes_down
   end
   let(:left_id) { anime_1.id }
   let(:left_type) { Anime.name }
@@ -22,13 +24,10 @@ describe ContestMatch::Finish do
   let(:anime_1) { create :anime }
   let(:anime_2) { create :anime }
 
-  let!(:user_vote) { nil }
+  let(:cached_votes_up) { 0 }
+  let(:cached_votes_down) { 0 }
 
-  subject! { operation.call }
-
-  it do
-    expect(contest_match).to be_finished
-  end
+  it { expect(contest_match).to be_finished }
 
   describe '#obtain_winner_id' do
     context 'no right variant' do
@@ -37,26 +36,12 @@ describe ContestMatch::Finish do
     end
 
     context 'left_votes > right_votes' do
-      let!(:user_vote) do
-        create :contest_user_vote,
-          match: contest_match,
-          user_id: user.id,
-          ip: '1',
-          item_id: left_id
-      end
-
+      let(:cached_votes_up) { 1 }
       it { expect(contest_match.winner_id).to eq left_id }
     end
 
     context 'right_votes > left_votes' do
-      let!(:user_vote) do
-        create :contest_user_vote,
-          match: contest_match,
-          user_id: user.id,
-          ip: '1',
-          item_id: right_id
-      end
-
+      let(:cached_votes_down) { 1 }
       it { expect(contest_match.winner_id).to eq right_id }
     end
 

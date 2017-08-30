@@ -195,7 +195,7 @@ describe Ad do
             <<-HTML.gsub(/\n|^\ +/, '')
               <div class="b-spnsrs-istari_x1170">
                 <center>
-                  <a href='https://vk.com/istaricomics'>
+                  <a href='http://kimi.istaricomics.com'>
                     <img src='/assets/globals/events/i1_2.jpg' srcset='/assets/globals/events/i1_2@2x.jpg 2x'>
                   </a>
                 </center>

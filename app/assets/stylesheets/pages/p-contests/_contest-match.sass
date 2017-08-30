@@ -86,7 +86,6 @@
       opacity: 0.4
 
   .vs
-    color: darken($gray-4, 10%)
     text-align: center
 
     +gte_ipad
@@ -104,6 +103,11 @@
       margin-top: 125px
       width: 100%
 
+    .label
+      color: $gray-4
+      font-family: 'Arial', sans-serif
+      font-weight: 700
+
     .invitation, .vote-voted, .vote-abstained, .thanks, .hint, .action
       color: $gray-4
       font-size: 11px
@@ -111,10 +115,11 @@
       margin-bottom: 10px
       padding: 0 10px
 
-    .action
-      span
-        +js_link
-        line-height: 1
+    .actions
+      .action
+        span
+          +js_link
+          line-height: 1
 
   .match-losers
     +block
