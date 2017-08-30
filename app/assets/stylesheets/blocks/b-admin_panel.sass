@@ -2,11 +2,11 @@
 @import mixins/column
 @import mixins/shikimori
 
-+keyframes('rotating')
+@keyframes rotating
   0%
-    +transform(rotate(0deg))
+    transform: rotate(0deg)
   100%
-    +transform(rotate(-360deg))
+    transform: rotate(-360deg)
 
 .b-admin_panel + .b-hot_topics
   border-top: 1px solid #d0d8db
@@ -59,7 +59,7 @@
       color: #333333
 
     &.active
-      +animation(rotating 0.75s linear infinite)
+      animation: rotating 0.75s linear infinite
 
   .sidekiq
     .metric

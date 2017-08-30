@@ -2,8 +2,6 @@
 @import mixins/responsive
 
 =static_marker($color, $background)
-  -moz-box-sizing: border-box
-  -webkit-box-sizing: border-box
   box-sizing: border-box
   display: inline-block
 
@@ -19,4 +17,4 @@
     text-align: center
 
     +gt_ipad
-      +transition(all 0.25s ease)
+      transition: all 0.25s ease

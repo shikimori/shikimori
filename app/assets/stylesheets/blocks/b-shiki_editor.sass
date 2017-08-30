@@ -1,11 +1,11 @@
 @import globals
 @import mixins/icons
 @import mixins/link
-@import mixins/placeholder
+@import mixins/shiki_placeholder
 @import mixins/responsive
 
 .b-shiki_editor
-  +transition(opacity 0.5s ease)
+  transition: opacity 0.5s ease
 
   .field-name
     font-weight: bold
@@ -16,7 +16,7 @@
     overflow: hidden
 
     &.with-transition
-      +transition(all 0.5s ease)
+      transition: all 0.5s ease
 
   .smileys
     div
@@ -121,7 +121,7 @@
         resize: none
         width: 100%
 
-        +placeholder
+        +shiki_placeholder
           line-height: $line_height
           color: #999
 

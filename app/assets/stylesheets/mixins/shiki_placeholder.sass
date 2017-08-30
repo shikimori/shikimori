@@ -1,32 +1,31 @@
-@import globals
 @import mixins/ellipsis2
 
-=placeholder
+=shiki_placeholder
   &::-webkit-input-placeholder
     +ellipsis2
-    +transition(opacity 0.25s ease)
     opacity: 1
+    transition: opacity 0.25s ease
 
     @content
 
   &:-moz-placeholder
     +ellipsis2
-    +transition(opacity 0.25s ease)
     opacity: 1
+    transition: opacity 0.25s ease
 
     @content
 
   &::-moz-placeholder
     +ellipsis2
-    +transition(opacity 0.25s ease)
     opacity: 1
+    transition: opacity 0.25s ease
 
     @content
 
   &:-ms-input-placeholder
     +ellipsis2
-    +transition(opacity 0.25s ease)
     opacity: 1
+    transition: opacity 0.25s ease
 
     @content
 

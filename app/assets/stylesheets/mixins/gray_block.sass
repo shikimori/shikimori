@@ -1,12 +1,12 @@
-@import globals
+@import globals/variables
 
 =gray-block
-  +transition('color,background-color', 0.2s)
   background: #f9f9f9
   color: #555
   cursor: pointer
   line-height: $line_height
   padding: 5px 10px
+  transition: color,background-color 0.2s ease
 
   &:hover
     background-color: #EEEEEE

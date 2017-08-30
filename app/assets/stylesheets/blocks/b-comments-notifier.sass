@@ -1,10 +1,9 @@
-@import globals
+@import globals/variables
 @import mixins/responsive
 
 .b-comments-notifier
-  +transition(background-color 300ms)
-  +box-sizing(border-box)
   background: $link-3
+  box-sizing: border-box
   color: white
   cursor: pointer
   height: 25px
@@ -16,6 +15,7 @@
   right: 0
   text-align: center
   top: 31px
+  transition: background-color 300ms
   z-index: 10
 
   +ipad

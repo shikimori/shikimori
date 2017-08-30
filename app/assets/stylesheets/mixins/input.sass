@@ -1,14 +1,17 @@
 @import mixins/responsive
-@import mixins/placeholder
+@import mixins/shiki_placeholder
 
 =input
   border-radius: 0
+
   &[type=submit], &[type=text], &[type=password], &[type=email]
     -webkit-appearance: none
+
   &[type=file]
     background: transparent
     border: none
     padding: 0
+
   background-color: #fcfcfc
   border-color: #ddd
   color: #333
@@ -20,7 +23,7 @@
   &[type=number]
     max-width: 100px
 
-  +placeholder
+  +shiki_placeholder
     line-height: $line-height
     color: #999
     padding-top: 1px

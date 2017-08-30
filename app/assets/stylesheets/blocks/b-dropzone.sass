@@ -3,16 +3,16 @@
 $min_height: 89px
 
 .b-dropzone-drag_placeholder
-  +box-sizing(border-box)
-  +transition("opacity,border-color,color", 0.5s)
   background: white
   border-radius: 1px
   border: 2px dashed #006EFF
+  box-sizing: border-box
   font-family: Verdana, Arial
   font-size: 25px
   min-height: $min_height
   position: absolute
   text-align: center
+  transition: opacity,border-color,color 0.5s ease
   z-index: 10
 
   &.disallowed

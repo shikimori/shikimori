@@ -1,8 +1,8 @@
 @import globals
-// @import css3/transition
 @import mixins/column
 @import mixins/responsive
 @import mixins/retina
+@import mixins/shikimori
 
 .x1000 .menu-slide-outer
   &.x199, &.x240
@@ -27,7 +27,8 @@
         +column(2, .415, 3%)
 
     .l-content
-      +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
+      transition: margin 0.25s ease // возможно надо отключить, чтобы не тормозило
+
       +gte_ipad-landscape
         +column(2, .779, 3%) // 241px должно получиться
       +ipad-portrait
@@ -49,7 +50,8 @@
         +column(2, .415, 3%)
 
     .l-content
-      +transition(margin 0.25s ease) // возможно надо отключить, чтобы не тормозило
+      transition: margin 0.25s ease // возможно надо отключить, чтобы не тормозило
+
       +gte_ipad-landscape
         +column(2, 0.7276, 3%) // 301px должно получиться
       +ipad-portrait
@@ -164,11 +166,10 @@
         margin-top: 20px
 
       &:after
-        +transition(color 0.5s ease)
+        +shikimori('\e83e')
         color: #123
-        content: '\e83e'
-        font-family: shikimori
         font-size: 18px
+        transition: color 0.5s ease
 
   &.menu-expanded
     .menu-toggler .toggler:after

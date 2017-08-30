@@ -16,13 +16,13 @@ $menu_link_color: #e1e7f2
       margin-top: 0
 
       & > .entry
-        +transition(backround-color 0.3s ease)
         color: $menu_link_color
         cursor: pointer
         float: left
         font-size: 12px
         line-height: 21px
         padding: 7px 10px 4px
+        transition: backround-color 0.3s ease
 
       .arrow-container
         display: inline-block
@@ -45,10 +45,10 @@ $menu_link_color: #e1e7f2
       white-space: nowrap
 
       & > .entry
-        +transition(backround-color 0.3s ease)
         color: $menu_link_color
         cursor: pointer
         float: left
+        transition: backround-color 0.3s ease
 
         &.calendar, &.info
           & > a
@@ -100,7 +100,6 @@ $menu_link_color: #e1e7f2
             line-height: 15px
 
     .submenu
-      +transition(height 0.3s ease)
       background: #3f3f3f
       border: 2px solid #363636
       border-top: none
@@ -109,6 +108,7 @@ $menu_link_color: #e1e7f2
       margin-top: 5px
       overflow: hidden
       position: absolute
+      transition: height 0.3s ease
       z-index: 1000
 
       &.right
@@ -116,7 +116,6 @@ $menu_link_color: #e1e7f2
         margin-top: -1px
 
       &>.entry
-        +transition('backround-color,color' 0.3s ease)
         background: #3f3f3f
         border-bottom: 1px solid #aaa
         color: #f9f9f9
@@ -128,6 +127,7 @@ $menu_link_color: #e1e7f2
         line-height: 22px
         min-width: 80px
         padding: 0 8px 0 8px
+        transition: backround-color,color 0.3s ease
 
         &:hover
           background: #555

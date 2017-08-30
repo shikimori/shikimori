@@ -15,6 +15,7 @@ gem 'redis-namespace'
 gem 'redis-mutex'
 
 # frontend
+gem 'autoprefixer-rails'
 gem 'bourbon'
 gem 'coffee-rails'
 gem 'non-stupid-digest-assets'
