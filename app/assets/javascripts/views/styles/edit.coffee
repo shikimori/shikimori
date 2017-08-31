@@ -1,52 +1,42 @@
-autosize = require 'autosize'
-
 using 'Styles'
 class Styles.Edit extends View
-  SPECIAL_KEYS = [
-    37,38,39,40, # arrows
-    91, # cmd
-    18, # alt
-    17, # ctrl
-    16, # shift
-    13 # enter,
-    9 # tab
-  ]
-
   initialize: ->
-    @md5 = require('blueimp-md5')
-    @$form = @$ '.edit_style'
-    @$css = @$ '#style_css'
-    @$preview = @$ '.preview'
+    require.ensure [], (require) =>
+      Ace = require 'brace'
+      require 'brace/mode/css'
+      require 'brace/theme/solarized_light'
 
-    @css_cache = {}
+      @editor = @_init_editor(Ace)
 
-    @components = [
-      new Styles.PageBackgroundColor(@$('.page_background_color')),
-      new Styles.PageBorder(@$('.page_border'))
-      new Styles.BodyBackground(@$('.body_background'))
-    ]
+      @md5 = require('blueimp-md5')
+      @$form = @$ '.edit_style'
+      @$preview = @$ '.preview'
 
-    @_debounced_preview = debounce(500, @preview)
-    @_debounced_sync = debounce(500, @sync)
+      @css_cache = {}
 
-    @_sync_components()
+      @components = [
+        new Styles.PageBackgroundColor(@$('.page_background_color')),
+        new Styles.PageBorder(@$('.page_border'))
+        new Styles.BodyBackground(@$('.body_background'))
+      ]
 
-    @$form
-      .on 'ajax:before', => @$form.find('.editor-container').addClass 'b-ajax'
-      .on 'ajax:complete', => @$form.find('.editor-container').removeClass 'b-ajax'
+      @_debounced_preview = debounce(500, @preview)
+      @_debounced_sync = debounce(500, @sync)
 
-    @$css
-      .on 'keypress keydown', @_input_keypress
-      .on 'cut paste', @_debounced_sync
-      .on 'keydown', (e) =>
-        @_debounced_sync() unless SPECIAL_KEYS.includes? e.keyCode
-      .one 'focus', =>
-        delay().then => autosize @$css[0]
-    @$root
-      .on 'component:update', @_component_updated
+      @_sync_components()
+
+      @$form
+        .on 'ajax:before', => @$form.find('.editor-container').addClass 'b-ajax'
+        .on 'ajax:complete', => @$form.find('.editor-container').removeClass 'b-ajax'
+
+      @editor.on 'cut', @_debounced_sync
+      @editor.on 'paste', @_debounced_sync
+      @editor.on 'change', @_debounced_sync
+
+      @$root.on 'component:update', @_component_updated
 
   preview: =>
-    css = @$css.val().trim()
+    css = @editor.getValue().trim()
     hash = @md5(css)
 
     if @css_cache[hash]
@@ -56,31 +46,38 @@ class Styles.Edit extends View
       @_fetch_preview css, hash
 
   sync: =>
+    @$('#style_css').val @editor.getValue()
     @preview()
     @_sync_components()
 
-  _input_keypress: (e) =>
-    if (e.metaKey || e.ctrlKey) && (e.keyCode == 10 || e.keyCode == 13)
-      # save on ctrl+enter
-      @$form.submit()
+  _init_editor: (Ace) ->
+    editor = Ace.edit 'style_css_ace'
+
+    editor.$blockScrolling = Infinity
+    editor.setOptions
+      wrap: true
+
+    editor.getSession().setMode('ace/mode/css')
+    editor.setTheme('ace/theme/solarized_light')
+    editor
 
   _sync_components: ->
-    css = @$css.val()
+    css = @editor.getValue()
 
     @components.forEach (component) ->
       component.update css
       true
 
   _component_updated: (e, regexp, replacement) =>
-    css = @$css.val()
+    css = @editor.getValue()
 
     fixed_replacement = if replacement then replacement + "\n" else ''
     if css.match(regexp)
-      @$css.val css.replace(regexp, fixed_replacement).trim()
-    else if replacement
-      @$css.val (fixed_replacement + css).trim()
+      @editor.setValue css.replace(regexp, fixed_replacement).trim(), 1
 
-    @$css[0].dispatchEvent(new Event('autosize:update'))
+    else if replacement
+      @editor.setValue (fixed_replacement + css).trim(), 1
+
     @_debounced_preview()
 
   _fetch_preview: (css, hash) ->
