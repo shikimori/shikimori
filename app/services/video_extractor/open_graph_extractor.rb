@@ -6,11 +6,8 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     https?://(?:www\.)?(
       (?<hosting>coub).com/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?:\w+\.)?(?<hosting>twitch).tv(/[\wА-я_-]+/[\wА-я_-]+|/videos)/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      # (?<hosting>rutube).ru/video/[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      (?<hosting>vimeo).com/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?:\w+\.)?(?<hosting>myvi).ru/watch/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       video.(?<hosting>sibnet).ru/video[\wА-я_-]+#{PARAMS_REGEXP.source} |
-      #video.(?<hosting>yandex).ru/users/[\wА-я_-]+/view/[\wА-я_-]+#{PARAMS_REGEXP.source} |
       (?<hosting>streamable).com/[\wА-я_-]+#{PARAMS_REGEXP.source}
     )
   }xi
@@ -19,15 +16,15 @@ class VideoExtractor::OpenGraphExtractor < VideoExtractor::BaseExtractor
     # //rutube.ru/play/embed/(?<hash>\d+)
   # }xi
 
-  IMAGE_PROPERTIES = %w(
+  IMAGE_PROPERTIES = %w[
     meta[property='og:image']
-  )
+  ]
 
-  VIDEO_PROPERTIES = %w(
+  VIDEO_PROPERTIES = %w[
     meta[name='twitter:player']
     meta[property='og:video']
     meta[property='og:video:url']
-  )
+  ]
 
   def image_url
     Url.new(parsed_data.first).without_protocol.to_s if parsed_data.first

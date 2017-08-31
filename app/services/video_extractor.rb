@@ -1,6 +1,6 @@
 module VideoExtractor
   EXTRACTORS = %i[
-    vk youtube coub open_graph rutube
+    vk youtube coub vimeo open_graph rutube
     smotret_anime sovet_romantica
   ] # dailymotion
 
