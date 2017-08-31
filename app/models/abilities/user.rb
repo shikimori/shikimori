@@ -286,8 +286,12 @@ class Abilities::User
       can?(:read, poll)
     end
 
-    can %i[edit update destroy], Poll do |poll|
+    can %i[edit destroy], Poll do |poll|
       can?(:read, poll) && poll.pending?
+    end
+
+    can %i[update], Poll do |poll|
+      can?(:read, poll) && (poll.pending? || poll.started?)
     end
 
     can %i[start], Poll do |poll|

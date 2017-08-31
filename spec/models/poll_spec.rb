@@ -81,8 +81,8 @@ describe Poll do
       context 'started poll' do
         let(:poll_state) { :started }
 
-        it { is_expected.to_not be_able_to :edit, poll }
-        it { is_expected.to_not be_able_to :update, poll }
+        it { is_expected.to be_able_to :edit, poll }
+        it { is_expected.to be_able_to :update, poll }
         it { is_expected.to_not be_able_to :destroy, poll }
         it { is_expected.to_not be_able_to :start, poll }
         it { is_expected.to be_able_to :stop, poll }

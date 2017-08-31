@@ -85,7 +85,7 @@ describe Users::PollsController do
   end
 
   describe '#update' do
-    let(:poll) { create :poll, user: user }
+    let(:poll) { create :poll, poll_state, user: user, name: 'qqq', text: 'cc' }
     let!(:poll_variant) { create :poll_variant, poll: poll, label: 'zzz' }
 
     before do
@@ -105,21 +105,42 @@ describe Users::PollsController do
         }
     end
 
-    it do
-      expect(resource).to have_attributes(
-        name: 'test',
-        text: 'zxc',
-        state: 'pending',
-        user_id: user.id
-      )
-      expect(resource.variants).to have(2).items
-      expect(resource.variants[0]).to have_attributes(label: 'test 1')
-      expect(resource.variants[1]).to have_attributes(label: 'test 2')
+    context 'pending' do
+      let(:poll_state) { :pending }
+      it do
+        expect(resource).to have_attributes(
+          name: 'test',
+          text: 'zxc',
+          state: 'pending',
+          user_id: user.id
+        )
+        expect(resource.variants).to have(2).items
+        expect(resource.variants[0]).to have_attributes(label: 'test 1')
+        expect(resource.variants[1]).to have_attributes(label: 'test 2')
 
-      expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
+        expect { poll_variant.reload }.to raise_error ActiveRecord::RecordNotFound
 
-      expect(resource).to be_valid
-      expect(response).to redirect_to edit_profile_poll_url(user, resource)
+        expect(resource).to be_valid
+        expect(response).to redirect_to edit_profile_poll_url(user, resource)
+      end
+    end
+
+    context 'started' do
+      let(:poll_state) { :started }
+
+      it do
+        expect(resource).to have_attributes(
+          name: 'test',
+          text: 'zxc',
+          state: 'started',
+          user_id: user.id
+        )
+        expect(resource.variants).to have(1).items
+        expect(resource.variants[0]).to eq poll_variant.reload
+
+        expect(resource).to be_valid
+        expect(response).to redirect_to profile_poll_url(user, resource)
+      end
     end
   end
 

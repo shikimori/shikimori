@@ -8,5 +8,9 @@ describe PollVariant do
   end
 
   describe 'instance methods' do
+    describe '#text_html' do
+      let(:poll) { build_stubbed :poll_variant, label: '[i]test[/i]' }
+      it { expect(poll.label_html).to eq '<em>test</em>' }
+    end
   end
 end

@@ -40,12 +40,18 @@ class Users::PollsController < ProfilesController
   end
 
   def update
-    Poll.transaction do
-      @resource.variants.delete_all
-      @resource.update! update_params
-    end
+    if @resource.started?
+      @resource.update name: update_params[:name], text: update_params[:text]
 
-    redirect_to edit_profile_poll_url(@user, @resource)
+      redirect_to profile_poll_url(@user, @resource)
+    else
+      Poll.transaction do
+        @resource.variants.delete_all
+        @resource.update! update_params
+      end
+
+      redirect_to edit_profile_poll_url(@user, @resource)
+    end
   end
 
   def destroy
