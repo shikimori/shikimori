@@ -16,8 +16,8 @@ class BbCodeFormatter
     BbCodes::PosterTag, BbCodes::WallImageTag, BbCodes::EntriesTag,
     BbCodes::WallTag, BbCodes::PollTag,
 
-    BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag, BbCodes::BTag,
-    BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
+    BbCodes::DivTag, BbCodes::HrTag, BbCodes::BrTag, BbCodes::PTag,
+    BbCodes::BTag, BbCodes::ITag, BbCodes::UTag, BbCodes::STag,
     BbCodes::SizeTag, BbCodes::CenterTag, BbCodes::RightTag,
     BbCodes::ColorTag, BbCodes::SolidTag, BbCodes::UrlTag,
     BbCodes::ListTag, BbCodes::H3Tag,

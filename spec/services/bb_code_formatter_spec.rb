@@ -278,6 +278,15 @@ describe BbCodeFormatter do
       it { is_expected.to eq '<a href="//shikimori.org/test" class="b-mention"><s>@</s><span>test</span></a>' }
     end
 
+    describe '[div]' do
+      let(:text) { '[div=cc-2a][div=c-column]test[/div][/div]' }
+      it do
+        is_expected.to eq(
+          '<div class="cc-2a"><div class="c-column">test</div></div>'
+        )
+      end
+    end
+
     describe '[hr]' do
       let(:text) { '[hr]' }
       it { is_expected.to eq '<hr>' }
