@@ -70,8 +70,37 @@ ru:
       font_size_example: '[size=10]текст[/size] и [size=16]текст[/size]'
       font_size_notice: 13 &ndash; стандартный размер
 
-      list: Список
-      list_example: '[list][*]первая строка[*]вторая строка[/list]'
+      div: Div с произвольным css классом
+      div_example_1: >-
+        [div=cc-2a]
+        <br>[div=c-column]
+          <br>column 1
+          <br>column 1
+          <br>column 1
+          <br>column 1
+        <br>[/div]
+        <br>[div=c-column]
+          <br>column 2
+          <br>column 2
+          <br>column 2
+          <br>column 2
+        <br>[/div]
+        <br>[/div]
+      div_example_2: >-
+        [div=cc-2a]
+        [div=c-column]
+          column 1
+          column 1
+          column 1
+          column 1
+        [/div]
+        [div=c-column]
+          column 2
+          column 2
+          column 2
+          column 2
+        [/div]
+        [/div]
 
       code: Код
       code_example_1: >-
@@ -99,6 +128,9 @@ ru:
           display: none;
         }
         [/code]
+
+      list: Список
+      list_example: '[list][*]первая строка[*]вторая строка[/list]'
 
       mention: Упоминание пользователя
       mention_example: '@morr, привет'

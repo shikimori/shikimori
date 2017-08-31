@@ -9,6 +9,7 @@ class BbCodes::QuoteTag
       (?<nickname>[^\]]+)
     \] \n?
   /mix
+
   MESSAGE_QUOTE_START_REGEXP = /
     \[quote=
       m(?<message_id>\d+);
@@ -16,6 +17,7 @@ class BbCodes::QuoteTag
       (?<nickname>[^\]]+)
     \] \n?
   /mix
+
   TOPIC_QUOTE_START_REGEXP = /
     \[quote=
       t(?<topic_id>\d+);
@@ -23,12 +25,15 @@ class BbCodes::QuoteTag
       (?<nickname>[^\]]+)
     \] \n?
   /mix
+
   SIMPLE_QUOTE_1_START_REGEXP = /
     \[quote\] \n?
   /mix
+
   SIMPLE_QUOTE_2_START_REGEXP = /
     \[quote=(?<nickname>[^\]]+)\] \n?
   /mix
+
   QUOTE_END_REGEXP = %r{
     \[/quote\] \n?
   }mix

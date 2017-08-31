@@ -55,13 +55,13 @@ header.head
 
   .cc-2
     .block.c-column
-      .name = t '.list'
+      .name = t '.div'
       .example
         .title = t '.example_title'
-        .textarea = t '.list_example'
+        .textarea == t '.div_example_1'
       .result
         .title = t '.result_title'
-        = BbCodeFormatter.instance.format_comment t('.list_example')
+        = BbCodeFormatter.instance.format_comment t('.div_example_2')
 
     .block_m.c-column
       .name = t '.code'
@@ -71,6 +71,15 @@ header.head
       .result
         .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment t('.code_example_2')
+
+  .block
+    .name = t '.list'
+    .example
+      .title = t '.example_title'
+      .textarea = t '.list_example'
+    .result
+      .title = t '.result_title'
+      = BbCodeFormatter.instance.format_comment t('.list_example')
 
   .cc-2
     .block.c-column
@@ -87,7 +96,7 @@ header.head
       .name = t '.reply_to_comment'
       .example
         .title = t '.example_title'
-        .textarea = t '.reply_to_comment_example_1'
+        .textarea == t '.reply_to_comment_example_1'
       .result
         .title = t '.result_title'
         = BbCodeFormatter.instance.format_comment t('.reply_to_comment_example_2')

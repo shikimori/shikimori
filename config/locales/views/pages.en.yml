@@ -70,8 +70,17 @@ en:
       font_size_example: '[size=10]text[/size] and [size=16]text[/size]'
       font_size_notice: 13 &ndash; standard font size
 
-      list: List
-      list_example: '[list][*]first item[*]second item[/list]'
+      div: Div with arbitrary css class
+      div_example_1: >-
+        [div=cc-2a]<br>
+        [div=c-column]column 1[/div]<br>
+        [div=c-column]column 2[/div]<br>
+        [/div]<br>
+      div_example_2: >-
+        [div=cc-2a]
+        [div=c-column]column 1[/div]
+        [div=c-column]column 2[/div]
+        [/div]
 
       code: Code
       code_example_1: >-
@@ -99,6 +108,9 @@ en:
           display: none;
         }
         [/code]
+
+      list: List
+      list_example: '[list][*]first item[*]second item[/list]'
 
       mention: Mention
       mention_example: '@morr, hi'
