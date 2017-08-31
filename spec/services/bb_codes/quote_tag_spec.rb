@@ -51,6 +51,15 @@ describe BbCodes::QuoteTag do
     end
   end
 
+  describe 'new lines cleanup' do
+    let(:text) { "\n\n[quote]\n\n[quote]\n\ntest\n\n[/quote]\n\n[/quote]\n\n" }
+    it do
+      is_expected.to eq(
+        "\n<div class=\"b-quote\">\n<div class=\"b-quote\">\ntest\n</div>\n</div>\n"
+      )
+    end
+  end
+
   context 'unbalanced quotes' do
     let(:text) { '[quote][quote]test[/quote]' }
     it { is_expected.to eq text }

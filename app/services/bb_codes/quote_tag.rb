@@ -7,7 +7,7 @@ class BbCodes::QuoteTag
       c?(?<comment_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \] \n?
+    \]
   /mix
 
   MESSAGE_QUOTE_START_REGEXP = /
@@ -15,7 +15,7 @@ class BbCodes::QuoteTag
       m(?<message_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \] \n?
+    \]
   /mix
 
   TOPIC_QUOTE_START_REGEXP = /
@@ -23,19 +23,19 @@ class BbCodes::QuoteTag
       t(?<topic_id>\d+);
       \d+;
       (?<nickname>[^\]]+)
-    \] \n?
+    \]
   /mix
 
   SIMPLE_QUOTE_1_START_REGEXP = /
-    \[quote\] \n?
+    \[quote\]
   /mix
 
   SIMPLE_QUOTE_2_START_REGEXP = /
-    \[quote=(?<nickname>[^\]]+)\] \n?
+    \[quote=(?<nickname>[^\]]+)\]
   /mix
 
   QUOTE_END_REGEXP = %r{
-    \[/quote\] \n?
+    \[/quote\]
   }mix
 
   # rubocop:disable MethodLength
@@ -47,15 +47,22 @@ class BbCodes::QuoteTag
       simple_quote_2(*
       topic_quote(*
       message_quote(*
-      comment_quote(
+      comment_quote(*
+      cleanup_new_lines(
         text,
         0,
         text
-      ))))))
+      )))))))
   end
   # rubocop:enable MethodLength
 
 private
+
+  def cleanup_new_lines text, replacements, original_text
+    result = BbCodes::CleanupNewLines.call text, :quote
+
+    [result, replacements, original_text]
+  end
 
   def comment_quote text, replacements, original_text
     result = text.gsub COMMENT_QUOTE_START_REGEXP do

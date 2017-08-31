@@ -39,6 +39,8 @@ Style/NumericLiterals:
   Exclude:
     - spec/**/*
 
+Style/MultilineBlockChain:
+  Enabled: false
 # Style/NumericPredicate:
   # Enabled: false
 Style/GuardClause:

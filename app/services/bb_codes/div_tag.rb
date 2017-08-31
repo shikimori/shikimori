@@ -2,39 +2,16 @@ class BbCodes::DivTag
   include Singleton
 
   TAG_START_REGEXP = /
-    \[div=(?<css_class>[\w_\ \-]+)\]
+    \[
+      div
+      (?: =(?<css_class>[\w_\ \-]+) )?
+    \]
   /mix
 
   TAG_END_REGEXP = %r{
-    \[/div\]
-  }mix
-
-  TAG_START_NEW_LINES_1_REGEXP = %r{
-    (?<first>#{TAG_START_REGEXP.source})
-    [\n\r\ ]+
-    (?<second>#{TAG_START_REGEXP.source})
-  }mix
-
-  TAG_START_NEW_LINES_2_REGEXP = %r{
-    (?<first>#{TAG_START_REGEXP.source})
-    [\n\r]
-  }mix
-
-  TAG_END_START_NEW_LINES_REGEXP = %r{
-    (?<first>#{TAG_END_REGEXP.source})
-    [\n\r\ ]+
-    (?<second>#{TAG_START_REGEXP.source})
-  }mix
-
-  TAG_END_NEW_LINES_REGEXP_1 = %r{
-    [\n\r]*
-    (#{TAG_END_REGEXP.source})
-  }mix
-
-  TAG_END_NEW_LINES_REGEXP_2 = %r{
-    (#{TAG_END_REGEXP.source})
-    [\n\r\ ]+
-    (#{TAG_END_REGEXP.source})
+    \[
+      /div
+    \]
   }mix
 
   def format text
@@ -46,18 +23,7 @@ class BbCodes::DivTag
 private
 
   def cleanup_new_lines text, replacements, original_text
-    result = text
-      .gsub TAG_START_NEW_LINES_1_REGEXP do
-        "#{$LAST_MATCH_INFO[:first]}#{$LAST_MATCH_INFO[:second]}"
-      end
-      .gsub TAG_START_NEW_LINES_2_REGEXP do
-        "#{$LAST_MATCH_INFO[:first]}"
-      end
-      .gsub TAG_END_START_NEW_LINES_REGEXP do
-        "#{$LAST_MATCH_INFO[:first]}#{$LAST_MATCH_INFO[:second]}"
-      end
-      .gsub(TAG_END_NEW_LINES_REGEXP_1, '\1')
-      .gsub(TAG_END_NEW_LINES_REGEXP_2, '\1\2')
+    result = BbCodes::CleanupNewLines.call text, :div
 
     [result, replacements, original_text]
   end
@@ -65,7 +31,12 @@ private
   def div_start text, replacements, original_text
     result = text.gsub TAG_START_REGEXP do
       replacements += 1
-      "<div class=\"#{$LAST_MATCH_INFO[:css_class]}\">"
+
+      if $LAST_MATCH_INFO[:css_class]
+        "<div class=\"#{$LAST_MATCH_INFO[:css_class]}\">"
+      else
+        '<div>'
+      end
     end
 
     [result, replacements, original_text]
