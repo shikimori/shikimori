@@ -80,8 +80,11 @@
                 .scores
                   meta itemprop="bestRating" content="10"
                   meta itemprop="ratingValue" content="#{@resource.score}"
-                  - if @resource.rates_size > 0
-                    meta itemprop="ratingCount" content="#{@resource.rates_size}"
+                  - if @resource.cached_rates_count > 0
+                    meta[
+                      itemprop="ratingCount"
+                      content="#{@resource.cached_rates_count}"
+                    ]
                   = render 'blocks/rate', score: @resource.score
 
             - if @resource.anime? && @resource.contest_winners.any?

@@ -25,12 +25,13 @@
         data-stats="#{resource.rates_statuses_stats.to_json}"
         data-bar='horizontal'
       ]
-      - unless resource.rates_size.zero?
+      - rates_count = resource.rates_statuses_stats.sum { |v| v[:value] }
+      - if rates_count > 0
         .total-rates
-          - if resource.rates_size > 1
+          - if rates_count > 1
             = t '.many_users_have_it_in_their_lists',
-                user_count: resource.rates_size,
-                users: i18n_i('person', resource.rates_size, :genitive)
+                user_count: rates_count,
+                users: i18n_i('person', rates_count, :genitive)
           - else
             = t '.one_user_has_it_in_his_list'
 

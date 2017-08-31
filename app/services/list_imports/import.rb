@@ -12,7 +12,7 @@ class ListImports::Import
 private
 
   def do_import
-    list = ListImports::ParseFile.call(open(ListImport.last.list.path))
+    list = ListImports::ParseFile.call(open(@list_import.list.path))
 
     if list.empty?
       specific_error ListImport::ERROR_EMPTY_LIST

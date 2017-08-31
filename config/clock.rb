@@ -82,24 +82,12 @@ module Clockwork
     ViewingsCleaner.perform_async
   end
 
-  every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
-    VacuumDb.perform_async
-  end
-
-  every 1.week, 'import anidb descriptions', at: 'Monday 02:00' do
-    AnimesVerifier.perform_async
-    MangasVerifier.perform_async
-    CharactersVerifier.perform_async
-    PeopleVerifier.perform_async
-
+  every 1.week, 'weekly.stuff.1', at: 'Monday 00:45' do
     Anidb::ImportDescriptionsJob.perform_async
+    # FindAnimeWorker.perform_async :first_page
   end
 
-  # every 1.week, 'weekly.stuff', at: 'Thursday 01:45' do
-    # FindAnimeWorker.perform_async :first_page
-  # end
-
-  every 1.week, 'weekly.stuff', at: 'Monday 01:45' do
+  every 1.week, 'weekly.stuff.2', at: 'Monday 01:45' do
     # FindAnimeWorker.perform_async :two_pages
     # HentaiAnimeWorker.perform_async :first_page
     DanbooruTagsImporter.perform_async
@@ -117,11 +105,24 @@ module Clockwork
     PeopleJobsActualzier.perform_async
   end
 
-  every 1.week, 'weekly.stuff', at: 'Monday 05:45' do
+  every 1.week, 'weekly.stuff.3', at: 'Monday 02:45' do
+    DbEntries::UpdateCachedRatesCounts.perform_async
+
+    AnimesVerifier.perform_async
+    MangasVerifier.perform_async
+    CharactersVerifier.perform_async
+    PeopleVerifier.perform_async
+  end
+
+  every 1.week, 'weekly.vacuum', at: 'Monday 05:00' do
+    VacuumDb.perform_async
+  end
+
+  every 1.week, 'weekly.stuff.4', at: 'Monday 05:45' do
     NameMatches::Refresh.perform_async Anime.name
   end
 
-  every 1.week, 'weekly.stuff', at: 'Monday 06:15' do
+  every 1.week, 'weekly.stuff.5', at: 'Monday 06:15' do
     NameMatches::Refresh.perform_async Manga.name
   end
 end

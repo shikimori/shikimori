@@ -62,9 +62,9 @@ Rails.application.configure do
   config.assets.raise_runtime_errors = true
   # config.assets.logger = ActiveSupport::Logger.new('log/assets.log')
 
-  # if defined? ActiveRecordQueryTrace
-    # ActiveRecordQueryTrace.enabled = true
-  # end
+  if defined? ActiveRecordQueryTrace
+    ActiveRecordQueryTrace.enabled = true
+  end
 
   #if defined? Rails::Console
     #ActiveRecord::Base.logger = ActiveSupport::Logger.new(STDOUT)

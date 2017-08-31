@@ -9,8 +9,7 @@ class AniMangaDecorator < DbEntryDecorator
   instance_cache :topics, :news_topics, :reviews, :reviews_count, :cosplay?,
     :current_rate, :changes, :versions, :versions_page,
     :roles, :related, :friend_rates, :recent_rates, :chronology,
-    :rates_scores_stats, :rates_statuses_stats, :rates_size,
-    :all_external_links
+    :rates_scores_stats, :rates_statuses_stats, :all_external_links
 
   # топики
   def topic_views
@@ -74,13 +73,6 @@ class AniMangaDecorator < DbEntryDecorator
   def rates_statuses_stats
     rates_query.statuses_stats.map do |k,v|
       { name: UserRate.status_name(k, object.class.name), value: v }
-    end
-  end
-
-  # число оценок от пользователей сайта
-  def rates_size
-    Rails.cache.fetch [object, :rates], expires_in: 4.days do
-      rates_statuses_stats.map {|v| v[:value] }.sum
     end
   end
 
