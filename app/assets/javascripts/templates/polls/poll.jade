@@ -20,7 +20,10 @@
         .poll-variant.result
           .votes-total= poll_variant.votes_total
           .votes-percent #{bar_percent(poll_variant)}%
-          label= poll_variant.label
+          label
+            = poll_variant.label
+            if model.vote && model.vote.variant_id == poll_variant.id
+              .voted-for ✓
 
           .bar.simple.horizontal
             .line

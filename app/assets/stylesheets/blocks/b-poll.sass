@@ -1,6 +1,8 @@
 @import addons/clearfix
 @import mixins/block
+@import mixins/brackets_surrounded
 @import mixins/shiki_button
+@import mixins/shikimori
 
 $bar_height: 8px
 
@@ -50,6 +52,14 @@ $bar_height: 8px
           color: $gray-3
           float: right
           margin-left: 10px
+
+        label
+          .voted-for
+            +brackets_surrounded
+            +shikimori
+            color: #24a232
+            display: inline
+            padding-left: 5px
 
         .bar
           .line
