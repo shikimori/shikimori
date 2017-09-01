@@ -17,16 +17,10 @@ class BbCodes::DivTag
   def format text
     return text unless text.include?('[/div]')
 
-    div_end(*div_start(*cleanup_new_lines(text, 0, text)))
+    div_end(*div_start(text, 0, text))
   end
 
 private
-
-  def cleanup_new_lines text, replacements, original_text
-    result = BbCodes::CleanupNewLines.call text, :div
-
-    [result, replacements, original_text]
-  end
 
   def div_start text, replacements, original_text
     result = text.gsub TAG_START_REGEXP do

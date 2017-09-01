@@ -48,21 +48,14 @@ class BbCodes::QuoteTag
       topic_quote(*
       message_quote(*
       comment_quote(*
-      cleanup_new_lines(
         text,
         0,
         text
-      )))))))
+      ))))))
   end
   # rubocop:enable MethodLength
 
 private
-
-  def cleanup_new_lines text, replacements, original_text
-    result = BbCodes::CleanupNewLines.call text, :quote
-
-    [result, replacements, original_text]
-  end
 
   def comment_quote text, replacements, original_text
     result = text.gsub COMMENT_QUOTE_START_REGEXP do

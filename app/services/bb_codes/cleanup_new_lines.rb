@@ -1,7 +1,7 @@
 class BbCodes::CleanupNewLines
-  method_object :text, :tag
+  method_object :text, :tags
 
-  CLEANUP_MARKER = 'øØøØøØø'
+  TAGS = %i[div quote]
   TAG_REGEXP = {
     div: {
       start: / \[ div (?: =[^\]]+ )? \] /mix.source,
@@ -12,6 +12,7 @@ class BbCodes::CleanupNewLines
       end: %r{ \[ /quote \] }mix.source
     }
   }
+  CLEANUP_MARKER = 'øØøØøØø'
   CLEANUP_REGEXP = %i[div quote].each_with_object({}) do |tag, memo|
     memo[tag] = {}
 
@@ -37,23 +38,28 @@ class BbCodes::CleanupNewLines
     /mix
   end
 
+  def call
+    Array(@tags)
+      .inject(@text) { |text, tag| cleanup text, tag }
+      .gsub(CLEANUP_MARKER, '')
+  end
+
   # rubocop:disable MethodLength
   # rubocop:disable AbcSize
-  def call
-    @text
-      .gsub CLEANUP_REGEXP[@tag][:tag_start_1] do
+  def cleanup text, tag
+    text
+      .gsub CLEANUP_REGEXP[tag][:tag_start_1] do
         CLEANUP_MARKER + $LAST_MATCH_INFO[:tag]
       end
-      .gsub CLEANUP_REGEXP[@tag][:tag_start_2] do
+      .gsub CLEANUP_REGEXP[tag][:tag_start_2] do
         $LAST_MATCH_INFO[:tag] + CLEANUP_MARKER
       end
-      .gsub CLEANUP_REGEXP[@tag][:tag_end_1] do
+      .gsub CLEANUP_REGEXP[tag][:tag_end_1] do
         CLEANUP_MARKER + $LAST_MATCH_INFO[:tag]
       end
-      .gsub CLEANUP_REGEXP[@tag][:tag_end_2] do
+      .gsub CLEANUP_REGEXP[tag][:tag_end_2] do
         $LAST_MATCH_INFO[:tag] + CLEANUP_MARKER
       end
-      .gsub(CLEANUP_MARKER, '')
   end
   # rubocop:enablk MethodLength
   # rubocop:enable AbcSize

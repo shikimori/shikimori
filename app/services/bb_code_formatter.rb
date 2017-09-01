@@ -25,24 +25,25 @@ class BbCodeFormatter
     BbCodes::ContestStatusTag, BbCodes::ContestRoundStatusTag,
     BbCodes::Html5VideoTag, BbCodes::SourceTag, BbCodes::BroadcastTag
   ]
-  OBSOLETE_TAGS = %r(
+  OBSOLETE_TAGS = %r{
     \[user_change=\d+\] | \[\/user_change\]
-  )mix
+  }mix
 
   DB_ENTRY_TAGS = [
     BbCodes::AnimeTag, BbCodes::MangaTag, BbCodes::RanobeTag,
-    BbCodes::CharacterTag, BbCodes::PersonTag,
+    BbCodes::CharacterTag, BbCodes::PersonTag
   ]
   DB_ENTRY_BB_CODES = %i[anime manga ranobe character person]
 
   default_url_options[:protocol] = false
-  default_url_options[:host] ||= if Rails.env.development?
-    'shikimori.dev'
-  elsif Rails.env.beta?
-    "beta.#{Site::DOMAIN}"
-  else
-    Site::DOMAIN
-  end
+  default_url_options[:host] ||=
+    if Rails.env.development?
+      'shikimori.dev'
+    elsif Rails.env.beta?
+      "beta.#{Site::DOMAIN}"
+    else
+      Site::DOMAIN
+    end
 
   MALWARE_DOMAINS = %r{
     (https?://)?
@@ -54,7 +55,7 @@ class BbCodeFormatter
   def format_description text, entry
     text ||= ''
 
-    if entry.kind_of?(Review) || entry.kind_of?(Contest) || entry.kind_of?(Genre) || entry.kind_of?(Club)
+    if entry.is_a?(Review) || entry.is_a?(Contest) || entry.is_a?(Genre) || entry.is_a?(Club)
       format_comment paragraphs(text)
 
     elsif entry.respond_to? :characters
@@ -85,7 +86,8 @@ class BbCodeFormatter
 
     code_tag = BbCodes::CodeTag.new(text)
     text = code_tag.preprocess
-    text = text.gsub %r{\r\n|\r}, "\n"
+    text = text.gsub /\r\n|\r/, "\n"
+    text = BbCodes::CleanupNewLines.call text, BbCodes::CleanupNewLines::TAGS
 
     HASH_TAGS.each do |tag_klass|
       text = tag_klass.instance.format text, text_hash
@@ -106,7 +108,7 @@ class BbCodeFormatter
       text = tag_klass.instance.format text
     end
 
-    text = text.gsub %r{\r\n|\r|\n}, '<br>'
+    text = text.gsub /\r\n|\r|\n/, '<br>'
     text = code_tag.postprocess text
     text
   end
@@ -130,13 +132,13 @@ class BbCodeFormatter
         \]
         (?!\r\n|\r|\n|<br>)
       )
-    /mix) do |line|
-      "#{$~[:tag]}\n"
+    /mix) do |_line|
+      "#{$LAST_MATCH_INFO[:tag]}\n"
     end
 
     text = text
       .gsub(/(?<line>.+?)(?:\n|<br\s?\/?>|&lt;br\s?\/?&gt;|$)/x) do |line|
-        unbalanced_tags = [:quote,:list,:spoiler].inject(0) do |memo, tag|
+        unbalanced_tags = %i[quote list spoiler].inject(0) do |memo, tag|
           memo + (line.scan("[#{tag}").size - line.scan("[/#{tag}]").size).abs
         end
 
@@ -159,7 +161,7 @@ class BbCodeFormatter
   # обработка обращений к пользователю
   def user_mention text
     text.gsub(/@([^\n\r,]{1,20})/) do |matched|
-      nickname = $1
+      nickname = Regexp.last_match(1)
       text = []
 
       while nickname.present?
@@ -168,7 +170,7 @@ class BbCodeFormatter
         break if user
         break if nickname !~ / |\./
         nickname = nickname.sub(/(.*)((?: |\.).*)/, '\1')
-        text << $2
+        text << Regexp.last_match(2)
       end
 
       if user
@@ -200,24 +202,25 @@ class BbCodeFormatter
 
   # TODO: refactor to name match
   def db_entry_mention text
-    text.gsub %r{\[(?!\/|#{(SIMPLE_BB_CODES + COMPLEX_BB_CODES + DB_ENTRY_BB_CODES).map {|v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
-      name = $1.gsub('&#x27;', "'").gsub('&quot;', '"')
+    text.gsub %r{\[(?!\/|#{(SIMPLE_BB_CODES + COMPLEX_BB_CODES + DB_ENTRY_BB_CODES).map { |v| "#{v}\\b" }.join('|') })(.*?)\]} do |matched|
+      name = Regexp.last_match(1).gsub('&#x27;', "'").gsub('&quot;', '"')
 
       splitted_name = name.split(' ')
 
-      entry = if name.contains_russian?
-        Anime.order('score desc').find_by_russian(name) ||
-          Manga.order('score desc').find_by_russian(name) ||
-          Character.find_by_russian(name) ||
-          (splitted_name.size == 2 ? Character.find_by_russian(splitted_name.reverse.join ' ') : nil)
-      elsif name != 'manga' && name != 'list' && name != 'anime'
-        Anime.order('score desc').find_by_name(name) ||
-          Manga.order('score desc').find_by_name(name) ||
-          Character.find_by_name(name) ||
-          (splitted_name.size == 2 ? Character.find_by_name(splitted_name.reverse.join ' ') : nil) ||
-          Person.find_by_name(name) ||
-          (splitted_name.size == 2 ? Person.find_by_name(splitted_name.reverse.join ' ') : nil)
-      end
+      entry =
+        if name.contains_russian?
+          Anime.order('score desc').find_by_russian(name) ||
+            Manga.order('score desc').find_by_russian(name) ||
+            Character.find_by_russian(name) ||
+            (splitted_name.size == 2 ? Character.find_by_russian(splitted_name.reverse.join(' ')) : nil)
+        elsif name != 'manga' && name != 'list' && name != 'anime'
+          Anime.order('score desc').find_by_name(name) ||
+            Manga.order('score desc').find_by_name(name) ||
+            Character.find_by_name(name) ||
+            (splitted_name.size == 2 ? Character.find_by_name(splitted_name.reverse.join(' ')) : nil) ||
+            Person.find_by_name(name) ||
+            (splitted_name.size == 2 ? Person.find_by_name(splitted_name.reverse.join(' ')) : nil)
+        end
 
       entry ? "[#{entry.class.name.downcase}=#{entry.id}]" : matched
     end

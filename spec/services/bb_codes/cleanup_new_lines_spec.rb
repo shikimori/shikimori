@@ -1,6 +1,12 @@
 describe BbCodes::CleanupNewLines do
   subject { BbCodes::CleanupNewLines.call text, tag }
 
+  context 'div + quote' do
+    let(:tag) { BbCodes::CleanupNewLines::TAGS }
+    let(:text) { "\n\n[quote]\n\n[div=c-column;1;c]\n\ntest\n\n[/div]\n\n[/quote]\n\n" }
+    it { is_expected.to eq "\n[quote]\n[div=c-column;1;c]\ntest\n[/div]\n[/quote]\n" }
+  end
+
   context 'div' do
     let(:tag) { :div }
 

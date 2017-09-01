@@ -279,12 +279,8 @@ describe BbCodeFormatter do
     end
 
     describe '[div]' do
-      let(:text) { '[div=cc-2a][div=c-column]test[/div][/div]' }
-      it do
-        is_expected.to eq(
-          '<div class="cc-2a"><div class="c-column">test</div></div>'
-        )
-      end
+      let(:text) { '[div=zz]test[/div]' }
+      it { is_expected.to eq '<div class="zz">test</div>' }
     end
 
     describe '[hr]' do
@@ -500,6 +496,19 @@ describe BbCodeFormatter do
       context 'user_change' do
         let(:text) { 'test [user_change=93904]правка[/user_change] test' }
         it { is_expected.to eq 'test правка test' }
+      end
+    end
+
+    describe 'cleanup new lines' do
+      let(:text) do
+        "[quote]\n\n[quote]\n\ntest\n\n[/quote]\n\n[/quote]\n\n"\
+          "[div]\n\ntest\n\n[/div]"
+      end
+      it do
+        is_expected.to eq(
+          '<div class="b-quote"><br><div class="b-quote"><br>test<br></div><br></div><br>'\
+            '<div><br>test<br></div>'
+        )
       end
     end
   end
