@@ -6,10 +6,10 @@ class PollVariantSerializer < ActiveModel::Serializer
   end
 
   def vote_for_url
-    UrlGenerator.instance.votes_url vote: {
+    UrlGenerator.instance.votes_url(
       votable_id: object.id,
       votable_type: object.class.name,
       vote: 'yes'
-    }
+    )
   end
 end
