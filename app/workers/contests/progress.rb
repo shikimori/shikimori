@@ -1,5 +1,4 @@
-# TODO: specs
-class ProgressContests
+class Contests::Progress
   include Sidekiq::Worker
 
   sidekiq_options(
