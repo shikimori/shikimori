@@ -1,10 +1,10 @@
 class CharactersNamesService
   include Singleton
 
-  RussianReplacements = %w{
+  RussianReplacements = %w[
     а е ё и о у ы ю я ей ой ом ем ея еем ею эй ия ию ией
-  }
-  RussianCleaner = %r{(?:#{RussianReplacements.join('|')})$}
+  ]
+  RussianCleaner = /(?:#{RussianReplacements.join('|')})$/
 
   # замена имён персонажей с транскрипцией на [character] теги
   def process data, anime
@@ -12,7 +12,7 @@ class CharactersNamesService
     people = extract_people(anime)
 
     # может быть не строка, а SafeBuffer
-    text = (data.class == String ? data : String.new(data)).gsub(' ', ' ')
+    text = (data.class == String ? data : String.new(data)).tr(' ', ' ')
 
     # данные, по которым будет делаться замена
     matches = extract_transcribed_matches(text, characters, people)
@@ -25,21 +25,20 @@ class CharactersNamesService
   end
 
 private
+
   # выборка персонажей
   def extract_characters anime
-     anime.characters.inject({}) do |rez,v|
-      rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
-      rez[v.name.gsub(' ', '')] = v
-      rez
+    anime.characters.each_with_object({}) do |v, rez|
+     rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
+     rez[v.name.delete(' ')] = v
     end
   end
 
   # выборка людей
   def extract_people anime
-     anime.people.inject({}) do |rez,v|
-      rez[v.japanese.cleanup_japanese.gsub(' ', '')] = v if v.japanese.present?
-      rez[v.name.gsub(' ', '')] = v
-      rez
+    anime.people.each_with_object({}) do |v, rez|
+     rez[v.japanese.cleanup_japanese.delete(' ')] = v if v.japanese.present?
+     rez[v.name.delete(' ')] = v
     end
   end
 
@@ -49,38 +48,45 @@ private
       (?<name> (?: [А-ЯЁA-Z][А-ЯЁа-яё\w\.-]+(\s д[е'])? (?: \s (?=[А-ЯЁA-Z]) )? )+ )
       \s*
       (?: \( | \[ ) (?<japanese> .*? ) (?: \) | \] )
-    /x).map do |v|
-      name, japanese = $~[:name], $~[:japanese].cleanup_japanese.gsub(' ', '')
+    /x).map do |_v|
+      name = $LAST_MATCH_INFO[:name]
+      japanese = $LAST_MATCH_INFO[:japanese].cleanup_japanese.delete(' ')
 
       # отсечение частиц
-      fixed_name = name.split(' ').select {|v| !v.pretext? }.join(' ')
-      if fixed_name.present? && characters.include?(japanese)
+      fixed_name = name.split(' ').reject { |v| v.pretext? }.join(' ')
+      regexp = build_regexp(fixed_name)
+      next unless regexp
+
+      if characters.include?(japanese)
         {
           name: fixed_name,
-          regex: build_regexp(fixed_name),
+          regex: regexp,
           character: characters[japanese]
         }
-      elsif fixed_name.present? && people.include?(japanese)
+      elsif people.include?(japanese)
         {
           name: fixed_name,
-          regex: build_regexp(fixed_name),
+          regex: regexp,
           person: people[japanese]
         }
-      else
-        nil
       end
-    end.compact
+    end
+    .compact
   end
 
   # выборка имён, напрямую совпадающих с именами персонажей в тексте
   def extract_russian_matches matches, text, characters
-    characters.each do |japanese,character|
+    characters.each do |_japanese, character|
       next if character.russian.blank?
       next if matches.any? { |v| v[:name] == character.russian }
       next unless text.include? character.russian
+
+      regexp = build_regexp(character.russian)
+      next unless regexp
+
       matches << {
         name: character.russian,
-        regex: build_regexp(character.russian),
+        regex: regexp,
         character: character
       }
     end
@@ -90,34 +96,39 @@ private
 
   # регексп, по которому в тексте будет производиться финальная замена
   def build_regexp name
+    return unless name.present?
     %r{(?<![\[\]\(\)])\b#{name}\b(?! ?[\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
+  rescue RegexpError
+    nil
   end
 
   # разбивка имён по пробелам
-  def variate_matches matches, &variator
+  def variate_matches matches
     # карта существующих имён - нужна, чтобы не было конфликтов имён
-    counts_map = matches.map { |v| variator.(v[:name]) }
-                        .flatten
-                        .inject({}) { |rez,v| (rez[v] ||= 0) and rez[v] += 1 and rez }
+    counts_map = matches
+      .flat_map { |v| yield(v[:name]) }
+      .inject({}) { |rez, v| (rez[v] ||= 0) && (rez[v] += 1) && rez }
 
     # разбитие имён на части, если в них есть пробелы
-    matches.map do |data|
-      if data.include?(:person)
-        [data]
-      else
-        [data] + variator.(data[:name]).map do |name|
-          if name.present? && counts_map[name] == 1 && !name.pretext?
-            {
-              name: name,
-              regex: build_regexp(name),
-              character: data[:character]
-            }
-          else
-            nil
+    matches
+      .flat_map do |data|
+        if data.include?(:person)
+          [data]
+        else
+          [data] + yield(data[:name]).map do |name|
+            regexp = build_regexp(name)
+            if regexp && counts_map[name] == 1 && !name.pretext?
+              {
+                name: name,
+                regex: regexp,
+                character: data[:character]
+              }
+            end
           end
         end
       end
-    end.flatten.compact.uniq { |v| v[:name] }
+      .compact
+      .uniq { |v| v[:name] }
   end
 
   # замена в тексте имён
@@ -144,7 +155,10 @@ private
         )
       \[\/character\]
     /xi) do |v|
-      v.sub($~[:content], $~[:content].gsub(/\[\/?character(=\d+)?\]/, ''))
+      v.sub(
+        $LAST_MATCH_INFO[:content],
+        $LAST_MATCH_INFO[:content].gsub(/\[\/?character(=\d+)?\]/, '')
+      )
     end
   end
 
@@ -152,6 +166,6 @@ private
   def russian_variations word
     return [word] if word.size < 3 || word.include?(' ')
     cleaned_word = word.sub(RussianCleaner, '')
-    [word, cleaned_word] + RussianReplacements.map {|v| cleaned_word + v }
+    [word, cleaned_word] + RussianReplacements.map { |v| cleaned_word + v }
   end
 end

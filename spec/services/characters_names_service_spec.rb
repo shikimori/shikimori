@@ -119,7 +119,7 @@ describe CharactersNamesService do
       end
 
       it 'does nothing for non matched' do
-        expect(processor.process("test Вася [イリア]", anime)).to eq("test Вася [イリア]")
+        expect(processor.process('test Вася [イリア]', anime)).to eq('test Вася [イリア]')
       end
 
       it 'two times' do
@@ -162,7 +162,7 @@ describe CharactersNamesService do
     end
   end
 
-  describe "Person+Character" do
+  describe 'Person+Character' do
     it 'works' do
       expect(processor.process("test Вася [#{person1.japanese}] Мася [#{character1.japanese}]", anime)).to eq(
         "test [person=#{person1.id}]Вася[/person] [character=#{character1.id}]Мася[/character]"
