@@ -3,7 +3,7 @@
 
 /* цвет, становящийся ссылковым по наведению
 =link_color($color: $link)
-  //+transition(color 0.2s ease)
+  //transition: color 0.2s ease
   color: $color
 
   &:hover
@@ -29,9 +29,9 @@
 /* голубая ссылка аяксового действия
 //=ajax_link
   +link_color
-  +transition('color, border-bottom-color', 0.2s)
   border-bottom: 1px dotted $link
   cursor: pointer
+  transition: color,border-bottom-color 0.2s ease
 
   //&:hover
     border-bottom-color: $link-3

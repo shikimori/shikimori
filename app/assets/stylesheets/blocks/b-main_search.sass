@@ -18,12 +18,11 @@
 
   .popup
     li
-      +transition(backround-color, 0.3s)
-      +transition(color, 0.3s)
-      color: #f9f9f9
       background-color: transparent
+      color: #f9f9f9
       cursor: pointer
       height: 22px
+      transition: backround-color,color 0.3s ease
 
       &:hover
         background-color: #555
@@ -66,15 +65,15 @@
       margin-top: 6px
 
     ul.popup
-      +transition(height, 0.3s)
       background: #3F3F3F
-      border: 2px solid #363636
       border-top: none
+      border: 2px solid #363636
       height: 0
       margin-left: -2px
       margin-top: 0
       overflow: hidden
       position: absolute
+      transition: height 0.3s ease
       z-index: 1000
 
       &.disabled

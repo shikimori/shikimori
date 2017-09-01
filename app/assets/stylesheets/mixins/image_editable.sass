@@ -55,13 +55,13 @@
     display: none !important
 
   .delete, .confirm, .cancel, .move-left, .move-right, .mobile-edit//, .restore
-    +transition(background 0.25s ease)
     background: $link-3
     color: white
     cursor: pointer
     display: inline-block
-    padding: 0
     margin: 0 !important
+    padding: 0
+    transition: background 0.25s ease
     z-index: 999
 
     &:hover

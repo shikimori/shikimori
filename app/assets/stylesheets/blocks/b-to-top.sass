@@ -17,7 +17,6 @@
     visibility: visible
 
   .slide
-    +transition(opacity ease 0.25s)
     background: #f0f0f0
     cursor: pointer
     height: 100%
@@ -25,10 +24,8 @@
     opacity: 0
     position: fixed
     top: 0
+    transition: opacity ease 0.25s
     width: 60px
-
-  &:hover
-    //z-index: 10
 
     .slide
       opacity: 0.6

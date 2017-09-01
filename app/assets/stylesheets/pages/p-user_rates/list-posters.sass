@@ -25,7 +25,6 @@
         max-height: 100%
 
     &>.text
-      +transition(max-height 0.25s ease)
       background: rgba(0,0,0,0.55)
       bottom: 43px
       color: #fff
@@ -35,6 +34,7 @@
       overflow: hidden
       padding: 2px 5px
       position: absolute
+      transition: max-height 0.25s ease
       width: 100%
       z-index: 2
 
@@ -93,7 +93,7 @@
           background: transparent
 
       &:active
-        +transition(background 0.25s ease)
+        transition: background 0.25s ease
         background-color: $link-2
         &:before
           background: transparent

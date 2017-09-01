@@ -82,9 +82,9 @@
         // +tag
 
         // a
-          // +transition('color,background-color', 0.2s)
           // color: inherit
           // text-decoration: inherit
+          // transition: color,background-color' 0.2s ease
 
           // &:hover
             // color: inherit
@@ -135,12 +135,10 @@
           content: '/'
 
       .vote
-        +transition(opacity 0.2s ease, color 0.2s ease, border-bottom-color 0.2s ease)
         +js-link
-        // color: $gray-1
-        // cursor: pointer
         display: inline-block
         opacity: 0.9
+        transition: opacity,color,border-bottom-color 0.2s ease
 
         &:before
           +shikimori
@@ -168,8 +166,8 @@
             opacity: 1
 
   &>.b-comments
-    +transition(margin-left 0.25s ease)
     margin-top: 5px
+    transition: margin-left 0.25s ease
     width: 100% // без этого в .aside-expanded режиме не будет смещение контента влево
 
     .b-comment:first-child, .b-message:first-child

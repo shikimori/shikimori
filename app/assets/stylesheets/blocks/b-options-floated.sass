@@ -19,7 +19,6 @@
         color: $link-active
 
 .b-options-floated
-  //color: #acb1b4
   font-size: 11px
   line-height: 12px
   margin-top: 6px
@@ -31,10 +30,8 @@
 
   // страница персонажа - переключение типов
   a, .link
-    //+link_color(#acb1b4)
     +link
     +dash_separated
-    //color: inherit
     cursor: pointer
     display: inline
 
@@ -47,18 +44,15 @@
 
   // список пользователя
   .action
-    //+link_color(#123)
     +js-link
-    +transition(color, 0.2s)
     cursor: pointer
+    transition: color 0.2s ease
 
   .selected
     color: $link-hover
 
     &:hover
       color: $link-active
-      //cursor: default
-      //text-decoration: none
 
     &.always-active
       +link_color(#123)
