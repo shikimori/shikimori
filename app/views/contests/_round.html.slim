@@ -18,12 +18,6 @@
   .subheadline.m30
     = contest.displayed_round.title
 
-  - if user_signed_in? && contest.displayed_round.started?
-    p.warning
-      span.red-warning = t '.warning'
-      | &nbsp;
-      = t '.warning-text'
-
   .match-container.block.b-ajax
 
   - cache contest.displayed_round do

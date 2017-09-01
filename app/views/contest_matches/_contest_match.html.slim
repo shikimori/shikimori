@@ -3,6 +3,12 @@
     data-model="#{ContestMatchSerializer.new(contest_match).to_json}"
     data-page_url="#{round_match_contest_url contest_match.round.contest, round: contest_match.round, match_id: contest_match.id}"
   ]
+    - if contest_match.started?
+      p.warning
+        span.red-warning = t '.warning'
+        | &nbsp;
+        = t '.warning-text'
+
     .prev-match
     .next-match
     .current-match
