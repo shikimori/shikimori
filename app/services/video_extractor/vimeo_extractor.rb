@@ -6,6 +6,11 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
   }xi
 
   ID_PROPERTY = "meta[property='al:ios:url']"
+  ID_REGEXP = %r{
+    /videos/(?<id>\w+)
+    |
+    \A vimeo://(?<id>\w+) \Z
+  }mix
 
   def player_url
     return unless parsed_data.second
@@ -19,7 +24,9 @@ class VideoExtractor::VimeoExtractor < VideoExtractor::OpenGraphExtractor
     og_id = doc.css(ID_PROPERTY).first
 
     if og_image && og_id
-      [og_image[:content], og_id[:content].match(%r{/videos/(?<id>\w+)})[:id]]
+      if og_id[:content] =~ ID_REGEXP
+        [og_image[:content], $LAST_MATCH_INFO[:id]]
+      end
     end
   end
 end
