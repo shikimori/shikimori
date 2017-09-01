@@ -1,14 +1,14 @@
 describe AnimeOnline::BrokenVkVideosCleaner, vcr: { cassette_name: 'broken_vk_videos_cleaner' } do
   let(:worker) { AnimeOnline::BrokenVkVideosCleaner.new }
   let(:anime) { create :anime }
-  let!(:video) { }
-  let!(:report) { }
+  let!(:video) {}
+  let!(:report) {}
 
   describe '#perform' do
     before { worker.perform }
 
     context 'valid video' do
-      let!(:video) { create :anime_video, anime: anime, url: 'http://vk.com/video_ext.php?oid=-888489&id=139696321&hash=3d179e1451dffacc' }
+      let!(:video) { create :anime_video, anime: anime, url: 'https://vk.com/video-102087446_456241218' }
       it { expect(video.reload).to be_working }
     end
 
