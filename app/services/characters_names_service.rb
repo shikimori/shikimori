@@ -96,7 +96,8 @@ private
 
   # регексп, по которому в тексте будет производиться финальная замена
   def build_regexp name
-    return unless name.present?
+    return if name.blank?
+
     %r{(?<![\[\]\(\)])\b#{name}\b(?! ?[\[\]\(\)]\/?(?:character|person))(\s*(?:\(|\[).*?(?:\)|\]))?}
   rescue RegexpError
     nil
