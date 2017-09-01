@@ -3,11 +3,11 @@ class PollSerializer < ActiveModel::Serializer
   has_many :variants
 
   def vote_abstain_url
-    UrlGenerator.instance.votes_url vote: {
+    UrlGenerator.instance.votes_url(
       votable_id: object.id,
       votable_type: object.class.name,
       vote: 'yes'
-    }
+    )
   end
 
   def vote
