@@ -4,7 +4,9 @@ class ImageChecker
   end
 
   def valid?
-    first_check && second_check
+    # second_check отключен, т.к. удалён гем rmagic. и вообще, я не уверен, что
+    # эта проверка ещё нужна
+    first_check# && second_check
   end
 
   def self.valid? path
@@ -12,6 +14,7 @@ class ImageChecker
   end
 
 private
+
   def first_check
     system "djpeg -fast -grayscale -onepass #{@path} > /dev/null"
   end

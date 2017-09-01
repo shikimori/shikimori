@@ -8,7 +8,7 @@ class DbImport::ImagePolicy
   def need_import?
     return false if bad_image?
     return true if no_image?
-    return true unless ImageChecker.new(@target.image.path).valid?
+    return true unless ImageChecker.valid?(@target.image.path)
 
     file_expired?
   end
