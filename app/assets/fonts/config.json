@@ -555,20 +555,6 @@
       ]
     },
     {
-      "uid": "e847891cd6b1d14528603a17092d0b6d",
-      "css": "done_all",
-      "code": 59446,
-      "src": "custom_icons",
-      "selected": true,
-      "svg": {
-        "path": "M17.6 558.6L76.2 500 308.6 732.4 250 791ZM925.8 232.4L986.3 291 486.3 791 252 558.6 312.5 500 486.3 673.8ZM750 291L486.3 556.6 427.7 498 691.4 232.4Z",
-        "width": 1000
-      },
-      "search": [
-        "done_all"
-      ]
-    },
-    {
       "uid": "61bd809ee750d7781f146dab89d60594",
       "css": "close",
       "code": 59432,
@@ -608,6 +594,48 @@
       },
       "search": [
         "wb_sunny"
+      ]
+    },
+    {
+      "uid": "745d8e2d812709a76b1a95d8b3b95237",
+      "css": "add",
+      "code": 59448,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M791 541H541V791H459V541H209V459H459V209H541V459H791V541Z",
+        "width": 1000
+      },
+      "search": [
+        "add"
+      ]
+    },
+    {
+      "uid": "493202a9528b3309ba9e6cda184a0d66",
+      "css": "pause",
+      "code": 59446,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M584 209H750V791H584V209ZM250 791V209H416V791H250Z",
+        "width": 1000
+      },
+      "search": [
+        "pause"
+      ]
+    },
+    {
+      "uid": "e847891cd6b1d14528603a17092d0b6d",
+      "css": "done_all",
+      "code": 59446,
+      "src": "custom_icons",
+      "selected": false,
+      "svg": {
+        "path": "M17.6 558.6L76.2 500 308.6 732.4 250 791ZM925.8 232.4L986.3 291 486.3 791 252 558.6 312.5 500 486.3 673.8ZM750 291L486.3 556.6 427.7 498 691.4 232.4Z",
+        "width": 1000
+      },
+      "search": [
+        "done_all"
       ]
     },
     {
@@ -762,20 +790,6 @@
       },
       "search": [
         "adb"
-      ]
-    },
-    {
-      "uid": "745d8e2d812709a76b1a95d8b3b95237",
-      "css": "add",
-      "code": 97,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M791 541H541V791H459V541H209V459H459V209H541V459H791V541Z",
-        "width": 1000
-      },
-      "search": [
-        "add"
       ]
     },
     {
@@ -8829,20 +8843,6 @@
       ]
     },
     {
-      "uid": "493202a9528b3309ba9e6cda184a0d66",
-      "css": "pause",
-      "code": 112,
-      "src": "custom_icons",
-      "selected": false,
-      "svg": {
-        "path": "M584 209H750V791H584V209ZM250 791V209H416V791H250Z",
-        "width": 1000
-      },
-      "search": [
-        "pause"
-      ]
-    },
-    {
       "uid": "fb4d26a14330747eebab62b4be786257",
       "css": "pause_circle_filled",
       "code": 112,
@@ -9587,7 +9587,7 @@
     {
       "uid": "8a49f5eb551094ceb25cc704370039ab",
       "css": "playlist_add",
-      "code": 112,
+      "code": 59453,
       "src": "custom_icons",
       "selected": false,
       "svg": {

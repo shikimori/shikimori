@@ -146,56 +146,81 @@ $max_width: 167px
     .tooltip-details
       min-height: 100px
 
+  $background-size: 28px
+  $border-size: 2px
+  $foreground-size: $background-size + $border-size * 2
+
   &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
     .image-decor
       position: relative
 
+      &::before,
       &::after
-        +shikimori
-        //transition: opacity 0.5s ease
-        border-radius: 30px
-        border: 2px solid #fff
-        //display: none
-        font-size: 18px
-        height: 30px
-        line-height: 30px
         position: absolute
         right: 4px
-        text-align: center
         top: 4px
-        width: 30px
 
-  &.planned .image-decor::after
-    background: #fff
-    border-color: $link
-    color: $link
-    // background: $link
-    // color: #fff
-    content: '\e824'
+      &::before
+        border: $border-size solid #fff
+        border-radius: $background-size
+        height: $background-size
+        width: $background-size
+        line-height: $background-size
+        content: ''
+        z-index: 1
 
-  &.on_hold .image-decor::after
-    background: $gray-3
-    color: #fff
-    content: '\e833'
+      &::after
+        +shikimori
+        width: $foreground-size
+        line-height: $foreground-size
+        font-size: 20px
+        text-align: center
+        z-index: 2
 
-  &.watching .image-decor::after,
-    background: $link
-    color: #fff
-    content: '\e823'
-    font-size: 20px
+  &.planned .image-decor
+    &:before
+      background: #fff
+      border-color: $link
+    &:after
+      color: $link
+      content: $icon-planned
+      font-size: 24px
 
-  &.rewatching .image-decor::after
-    background: $link
-    color: #fff
-    content: '\e825'
+  &.on_hold .image-decor
+    &:before
+      background: $gray-3
+    &:after
+      color: #fff
+      content: $icon-on_hold
 
-  &.completed .image-decor::after
-    background: $released_tag
-    color: #fff
-    content: '\e836'
+  &.watching .image-decor
+    &:before
+      background: $link
+    &:after
+      color: #fff
+      content: $icon-watching
+      font-size: 21px
 
-  &.dropped .image-decor::after
-    background: $anons_tag
-    color: #fff
-    content: '\e828'
-    font-size: 20px
+  &.rewatching .image-decor
+    &:before
+      background: $link
+    &:after
+      color: #fff
+      content: $icon-rewatching
+      font-size: 17px
+
+  &.completed .image-decor
+    &:before
+      background: $released_tag
+    &:after
+      color: #fff
+      content: $icon-completed
+
+  &.dropped .image-decor
+    &:before
+      background: $anons_tag
+    &:after
+      color: #fff
+      content: $icon-dropped
+      width: $foreground-size - 1px
+      // line-height: $foreground-size - 1px

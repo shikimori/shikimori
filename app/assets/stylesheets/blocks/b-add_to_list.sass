@@ -37,6 +37,7 @@
     &:before
       line-height: inherit
 
+  $icon-size: 18px
   &.planned
     .trigger, .option
       background: #daf1ff
@@ -53,7 +54,7 @@
         color: $link-2
 
     .edit
-      +menu_icon('\e824')
+      +menu_icon($icon-planned, $icon-size + 2)
 
   &.on_hold
     .trigger, .option
@@ -65,7 +66,7 @@
       color: $gray-3
 
     .edit
-      +menu_icon('\e833')
+      +menu_icon($icon-on_hold, $icon-size)
       color: $gray-3
 
   &.watching,
@@ -78,7 +79,7 @@
       +link_color($gray-2)
 
     .edit
-      +menu_icon('\e823')
+      +menu_icon($icon-watching, $icon-size)
 
   &.rewatching
     .trigger, .option
@@ -90,7 +91,7 @@
       +link_color($gray-2)
 
     .edit
-      +menu_icon('\e825')
+      +menu_icon($icon-rewatching, $icon-size - 2)
 
   &.completed
     .trigger, .option
@@ -102,7 +103,7 @@
       color: $released_tag
 
     .edit
-      +menu_icon('\e836')
+      +menu_icon($icon-completed, $icon-size)
       color: $released_tag
 
   &.dropped
@@ -115,13 +116,12 @@
       color: #FC575E
 
     .edit
-      +menu_icon('\e828')
+      +menu_icon($icon-dropped, $icon-size - 2)
       color: #FC575E
 
   &.planned, &.watching, &.completed, &.rewatching, &.on_hold, &.dropped
     .edit:before
       line-height: inherit
-      font-size: 16px
       width: 25px
 
   &.expanded .trigger-arrow
