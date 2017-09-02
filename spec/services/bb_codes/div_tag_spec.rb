@@ -21,6 +21,13 @@ describe BbCodes::DivTag do
     end
   end
 
+  context 'cleanup classes' do
+    let(:text) do
+      "[div=aaa l-footer #{BbCodes::DivTag::FORBIDDEN_CLASSES.sample}]test[/div]"
+    end
+    it { is_expected.to eq '<div class="aaa">test</div>' }
+  end
+
   context 'unbalanced tags' do
     let(:text) { '[div=cc-2a][div=c-column]test[/div]' }
     it { is_expected.to eq text }

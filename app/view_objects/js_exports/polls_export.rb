@@ -1,7 +1,7 @@
 class JsExports::PollsExport < JsExports::ExportBase
 private
 
-  def fetch_entries user
+  def fetch_entries _user
     Poll
       .where(id: tracked_ids)
       .order(:id)
