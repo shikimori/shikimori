@@ -12,7 +12,7 @@ ru:
       shikimori: &shikimori
         community: Сообщество
         contests: Турниры
-        current_contest: Текущий опрос
+        current_contest: Текущий турнир
         currently_airing: Сейчас выходит
         development: Разработка сайта
         faq: FAQ - Часто задаваемые вопросы
