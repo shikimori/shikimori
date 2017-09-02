@@ -19,6 +19,9 @@ class BbCodes::DivTag
     b-comments
     b-feedback
     b-to-top
+    b-height_shortener
+    shade
+    expand
     menu-slide-outer
     menu-slide-inner
     menu-toggler
