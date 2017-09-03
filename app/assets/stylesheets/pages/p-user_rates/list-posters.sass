@@ -13,6 +13,10 @@
     height: $size
 
 .p-user_rates-index .list-posters
+  .b-catalog_entry .image-decor:before,
+  .b-catalog_entry .image-decor:after
+    display: none
+
   .user_rate
     &.b-ajax:after
       margin-top: -30px
@@ -49,9 +53,6 @@
       .b-link
         color: #fff
         text-decoration: underline
-
-    .image-decor:after
-      display: none
 
     .edit-user_rate
       background: rgba(0,0,0,0.8)
