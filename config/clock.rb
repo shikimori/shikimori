@@ -41,7 +41,7 @@ module Clockwork
 
   every 1.day, 'daily.stuff', at: '00:02' do
     ImportAnimeCalendars.perform_async
-    ProgressContests.perform_async
+    Contests::Progress.perform_async
   end
 
   every 1.day, 'daily.stuff', at: '00:30' do
