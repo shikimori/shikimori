@@ -80,8 +80,7 @@ class Styles.Edit extends View
     else if replacement
       @$css.val (fixed_replacement + css).trim()
 
-    @$css.trigger 'autosize:update'
-
+    @$css[0].dispatchEvent(new Event('autosize:update'))
     @_debounced_preview()
 
   _fetch_preview: (css, hash) ->

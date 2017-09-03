@@ -69,6 +69,8 @@ module.exports = class ShikiEditor extends ShikiView
       .on 'ajax:complete', @_unshade
       .on 'ajax:success', =>
         @_hide_preview()
+        delay().then =>
+          @$textarea[0].dispatchEvent(new Event('autosize:update'))
 
     # при клике на неselected кнопку, закрываем все остальные selected кнопки
     @$('.editor-controls span').on 'click', (e) =>
