@@ -20,6 +20,22 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     page_title @resource.name
     @back_url = moderations_anime_video_authors_url
     breadcrumb i18n_t('page_title'), @back_url
+
+    @scope = @resource.anime_videos
+      .order(:episode, :kind, :id)
+      .includes(:anime)
+  end
+
+  def none
+    page_title 'Видео без авторов'
+    @back_url = moderations_anime_video_authors_url
+    breadcrumb i18n_t('page_title'), @back_url
+
+    @scope = AnimeVideo
+      .where(anime_video_author_id: nil)
+      .order(:anime_id, :episode, :kind, :id)
+      .includes(:anime)
+      .limit(1000)
   end
 
   def edit

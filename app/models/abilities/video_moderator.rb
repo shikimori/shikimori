@@ -4,7 +4,7 @@ class Abilities::VideoModerator
 
   def initialize user
     can :manage, AnimeVideoReport
-    can [:new, :create, :edit, :update], AnimeVideo do |anime_video|
+    can %i[new create edit update], AnimeVideo do |anime_video|
       !user.banned? && !anime_video.banned? && !anime_video.copyrighted?
     end
     can :manage, Version do |version|
@@ -12,7 +12,7 @@ class Abilities::VideoModerator
     end
 
     if user.id == User::BAKSIII_ID
-      can [:index, :show, :edit, :update], AnimeVideoAuthor
+      can %i[index show none edit update], AnimeVideoAuthor
     end
   end
 end

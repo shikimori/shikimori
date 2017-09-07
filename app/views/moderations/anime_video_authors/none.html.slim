@@ -1,6 +1,7 @@
 header.head
   h1 = @page_title.last
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
+  .notice Отображены первые 1000 видео без авторов. Всего таких видео 300 000. Есть ли толк в этой странице?
 
 - cache @scope.cache_key do
   - @scope.group_by(&:anime).each do |anime, anime_videos|

@@ -1,10 +1,24 @@
 describe Moderations::AnimeVideoAuthorsController do
   include_context :authenticated, :video_moderator
 
-  let!(:anime_video) { create :anime_video, anime: create(:anime), author_name: 'test' }
+  let!(:anime_video) do
+    create :anime_video,
+      anime: create(:anime),
+      author_name: 'test'
+  end
 
   describe '#index' do
     before { get :index }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#show' do
+    before { get :show, params: { id: anime_video.anime_video_author_id } }
+    it { expect(response).to have_http_status :success }
+  end
+
+  describe '#none' do
+    before { get :none }
     it { expect(response).to have_http_status :success }
   end
 
