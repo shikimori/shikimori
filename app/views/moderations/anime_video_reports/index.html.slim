@@ -43,8 +43,8 @@ header.head
     li
       p Для просмотра удаленных вариантов видео на странице просмотра добавьте к адресу видео в конце /all;
 
-.anime_video_reports
-  h2.subheadline Очередь
+.block
+  .subheadline Очередь
   .block
     - if @pending.any?
       = render partial: 'moderations/anime_video_reports/anime_video_report',
@@ -52,7 +52,13 @@ header.head
     - else
       .b-nothing_here Очередь пуста
 
-  h2.subheadline История
+  input.subheadline-input.date-filter[
+    type="text"
+    data-name="created_on"
+    placeholder="#{t 'date_field'}"
+    value="#{params[:created_on]}"
+  ]
+  .subheadline История
   .block
     = render partial: 'moderations/anime_video_reports/anime_video_report',
       collection: @processed

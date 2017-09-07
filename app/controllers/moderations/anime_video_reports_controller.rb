@@ -75,7 +75,19 @@ private
 
   def processed_reports
     postload_paginate(params[:page], 20) do
-      AnimeVideoReport.includes(:user, anime_video: :author).processed
+      scope = AnimeVideoReport
+        .includes(:user, anime_video: :author)
+        .processed
+
+      if params[:created_on]
+        scope = scope.where(
+          "created_at between ? and ?",
+          Time.zone.parse(params[:created_on]).beginning_of_day,
+          Time.zone.parse(params[:created_on]).end_of_day,
+        )
+      end
+
+      scope
     end
   end
 
