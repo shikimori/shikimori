@@ -12,7 +12,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
           AnimeVideoAuthor.all
         end
 
-      scope.order(:name, :id).to_a
+      scope.order(:name, :id)
     end
   end
 
