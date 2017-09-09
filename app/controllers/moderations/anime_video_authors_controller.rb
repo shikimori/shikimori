@@ -92,7 +92,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 private
 
   def update_params
-    params.require(:anime_video_author).permit(:name, :is_verified)
+    params.require(:anime_video_author).permit(:name, :is_verified, :anime_id)
   end
 
   def filter_authors anime
