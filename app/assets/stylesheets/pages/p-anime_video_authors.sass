@@ -5,8 +5,15 @@
   .b-collection_search .clear
     display: block
 
+  .is-verified, .not-verified
+    cursor: pointer
+
+    &:hover
+      text-decoration: none
+
   .is-verified
     +shiki_check($green-check)
+
   .not-verified
     +shiki_check($red-check)
 

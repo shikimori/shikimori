@@ -32,13 +32,14 @@ describe Moderations::AnimeVideoAuthorsController do
       patch :update,
         params: {
           id: anime_video.anime_video_author_id,
-          anime_video_author: { name: 'zxcvbnm' }
+          anime_video_author: params
         }
     end
+    let(:params) { { name: 'zxcvbnm', is_verified: true } }
 
     it do
       expect(resource).to be_valid
-      expect(resource).to have_attributes name: 'zxcvbnm'
+      expect(resource).to have_attributes params
       expect(response).to redirect_to moderations_anime_video_authors_url
     end
   end

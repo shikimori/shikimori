@@ -1,6 +1,8 @@
 class Moderations::AnimeVideoAuthorsController < ModerationsController
   load_and_authorize_resource
 
+  # rubocop:disable MethodLength
+  # rubocop:disable AbcSize
   def index
     @anime = Anime.find_by id: params[:anime_id] if params[:anime_id]
 
@@ -17,12 +19,14 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       end
 
       if params[:search].present?
-        scope.where! "name ilike ?", '%' + params[:search] + '%'
+        scope.where! 'name ilike ?', '%' + params[:search] + '%'
       end
 
       scope.order(:name, :id)
     end
   end
+  # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
   def show
     page_title @resource.name
@@ -58,8 +62,13 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 
   def update
     @resource.update is_verified: update_params[:is_verified]
-    AnimeVideoAuthor::Rename.call @resource, update_params[:name]
-    redirect_to moderations_anime_video_authors_url
+
+    if update_params.key? :name
+      AnimeVideoAuthor::Rename.call @resource, update_params[:name]
+      redirect_to moderations_anime_video_authors_url
+    else
+      redirect_back fallback_location: moderations_anime_video_authors_url
+    end
   end
 
 private

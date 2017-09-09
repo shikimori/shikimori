@@ -6,8 +6,14 @@
   span = anime_video_author.name
   span
     - if anime_video_author.verified?
-      .is-verified ✓
+      a.is-verified[
+        href="#{moderations_anime_video_author_url anime_video_author, 'anime_video_author[is_verified]' => false}"
+        data-method="patch"
+      ] ✓
     - else
-      .not-verified ✕
+      a.not-verified[
+        href="#{moderations_anime_video_author_url anime_video_author, 'anime_video_author[is_verified]' => true}"
+        data-method="patch"
+      ] ✕
   span
     a.b-link href="#{moderations_anime_video_author_url anime_video_author}" ->
