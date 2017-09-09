@@ -14,3 +14,7 @@ header.head
       .buttons
         a.cancel href="#{@back_url}" = t 'actions.cancel'
         = f.button :magic_submit
+
+    - if @scope
+      .c-column
+        = render 'moderations/anime_video_authors/videos', scope: @scope

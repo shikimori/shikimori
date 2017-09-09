@@ -50,6 +50,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       .limit(1000)
   end
 
+  # rubocop:disable AbcSize
   def edit
     page_title "Редактирование автора ##{@resource.id}"
     page_title @resource.name
@@ -58,7 +59,14 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     breadcrumb @resource.name, moderations_anime_video_author_url(@resource)
 
     @back_url = moderations_anime_video_author_url(@resource)
+
+    if @resource.anime_videos.count < 100
+      @scope = @resource.anime_videos
+        .order(:episode, :kind, :id)
+        .includes(:anime)
+    end
   end
+  # rubocop:enable AbcSize
 
   def update
     @resource.update is_verified: update_params[:is_verified]
