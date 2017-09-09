@@ -60,7 +60,8 @@ ul.b-list.block
     .block
       - if @collection.any?
         = render partial: 'moderations/anime_video_authors/anime_video_author',
-          collection: @collection
+          collection: @collection,
+          locals: { anime: @anime }
 
         - if @add_postloader
           = render 'blocks/postloader',
