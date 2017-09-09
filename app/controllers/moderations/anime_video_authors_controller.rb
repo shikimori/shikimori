@@ -11,7 +11,9 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
         if @anime
           AnimeVideoAuthor.where(id: filter_authors(@anime))
         else
-          AnimeVideoAuthor.all
+          AnimeVideoAuthor.where(
+            id: AnimeVideo.available.select('distinct(anime_video_author_id)')
+          )
         end
 
       if params[:is_verified]
