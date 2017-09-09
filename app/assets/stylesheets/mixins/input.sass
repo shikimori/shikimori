@@ -7,6 +7,10 @@
   &[type=submit], &[type=text], &[type=password], &[type=email]
     -webkit-appearance: none
 
+  &[type=text],
+  &[type=url]
+    +ellipsis2
+
   &[type=file]
     background: transparent
     border: none
@@ -17,7 +21,7 @@
   color: #333
   line-height: $line-height
   margin: 0
-  padding: 1px 0 1px 5px
+  padding: 1px 5px 1px 5px
   max-width: 100%
 
   &[type=number]
