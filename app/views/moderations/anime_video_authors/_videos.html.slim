@@ -16,7 +16,9 @@
               span.episode-kinds = video.kind_text
               span.episode-hostings = video.hosting
 
-              span.video-quality = video.language_text
-              span.video-quality = video.quality_text
+              - unless video.language_unknown?
+                span.video-quality = video.language_text
+              - unless video.quality_unknown?
+                span.video-quality = video.quality_text
 
           .url = video.url
