@@ -2,7 +2,12 @@
 
 describe AnimeVideoAuthor::Rename do
   include_context :timecop
-  let!(:anime_video) { create :anime_video, author: author_1, updated_at: 1.day.ago }
+
+  let!(:anime_video) do
+    create :anime_video,
+      author: author_1,
+      updated_at: 1.day.ago
+  end
   let!(:author_1) { create :anime_video_author, name: 'zxc' }
   let!(:author_2) { create :anime_video_author, name: 'vbn' }
 

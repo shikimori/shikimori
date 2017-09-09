@@ -15,4 +15,11 @@ describe AnimeVideoAuthor do
       it { expect(author.name).to eq 'z' * 255 }
     end
   end
+
+  describe 'class methods' do
+    describe '.fix_name' do
+      let(:name) { 'z' * 300 }
+      it { expect(AnimeVideoAuthor.fix_name name).to eq 'z' * 255 }
+    end
+  end
 end
