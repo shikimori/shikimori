@@ -184,6 +184,7 @@ en:
         anime_video_author_id: Author
       anime_video_author:
         name: Name
+        is_verified: Verified
       video:
         url: Url
         kind: Type

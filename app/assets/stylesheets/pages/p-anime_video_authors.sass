@@ -1,0 +1,19 @@
+@import globals/variables
+@import mixins/shiki_check
+
+.p-anime_video_authors-index
+  .b-collection_search .clear
+    display: block
+
+  .is-verified
+    +shiki_check($green-check)
+  .not-verified
+    +shiki_check($red-check)
+
+.p-anime_video_authors-show
+  .anime_video_author
+    margin-bottom: 2px
+
+    .url
+      font-size: 11px
+      color: $gray-3

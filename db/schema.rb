@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170831143102) do
+ActiveRecord::Schema.define(version: 20170909123210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170831143102) do
     t.string "name", limit: 255
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_verified", default: false, null: false
     t.index ["name"], name: "index_anime_video_authors_on_name"
   end
 

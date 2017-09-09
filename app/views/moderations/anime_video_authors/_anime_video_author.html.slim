@@ -1,0 +1,13 @@
+.b-log_entry
+  span
+    a href="#{edit_moderations_anime_video_author_url anime_video_author}"
+      span.id-label #
+      = anime_video_author.id
+  span = anime_video_author.name
+  span
+    - if anime_video_author.verified?
+      .is-verified ✓
+    - else
+      .not-verified ✕
+  span
+    a.b-link href="#{moderations_anime_video_author_url anime_video_author}" ->

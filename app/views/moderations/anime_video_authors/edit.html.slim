@@ -9,6 +9,7 @@ header.head
   .cc-2
     .c-column
       = f.input :name, hint: 'При задании пустого имени автор будет удалён'
+      = f.input :is_verified
 
       .buttons
         a.cancel href="#{@back_url}" = t 'actions.cancel'

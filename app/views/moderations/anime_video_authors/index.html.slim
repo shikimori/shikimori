@@ -7,35 +7,63 @@ header.head
   - FixAnimeVideoAuthors::STUDIOS.sort.each do |studio|
     .b-tag = studio
 
-.block
-  a.b-link[
-    href="#{none_moderations_anime_video_authors_url}"
-  ] Видео без авторов
+.subheadline.m10 Навигация
+ul.b-list.block
+  li
+    a.b-link[
+      href="#{moderations_anime_video_authors_url}"
+    ] Все авторы
+  li
+    a.b-link[
+      href="#{moderations_anime_video_authors_url is_verified: true}"
+    ] Проверенные авторы
+  li
+    a.b-link[
+      href="#{moderations_anime_video_authors_url is_verified: false}"
+    ] Не проверенные авторы
+  li
+    a.b-link[
+      href="#{none_moderations_anime_video_authors_url}"
+    ] Видео без авторов
 
-.block
-  form
-    input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
-    input.anime-suggest.subheadline-input.downgrade_landscape[
-      data-autocomplete="#{autocomplete_animes_url}"
-      placeholder="#{t 'anime_title'}"
-      type="text"
-    ]
-  .subheadline.m10
-    - if @anime
-      ' Авторы аниме
-      a.b-link.bubbled href="#{anime_url @anime}"
-        = localization_span @anime
-      a.misc-link href="#{moderations_anime_video_authors_url}" без аниме
-    - else
-      | Все авторы
-  - cache @collection.cache_key do
+.b-collection_search
+  .field
+    form
+      input[
+        type="text"
+        placeholder="Имя автора"
+        value="#{params[:search]}"
+        name="search"
+      ]
+      - if params[:search].present?
+        a.clear[
+          href="#{url_for url_params.except(:search)}"
+        ]
+
+  .collection.block
+    form
+      input#anime_id name="anime_id" type="hidden" value="#{params[:anime_id]}"
+      input.anime-suggest.subheadline-input.downgrade_landscape[
+        data-autocomplete="#{autocomplete_animes_url}"
+        placeholder="#{t 'anime_title'}"
+        type="text"
+      ]
+    .subheadline.m10
+      - if @anime
+        ' Авторы аниме
+        a.b-link.bubbled href="#{anime_url @anime}"
+          = localization_span @anime
+        a.misc-link href="#{moderations_anime_video_authors_url}" без аниме
+      - else
+        | Все авторы
+
     .block
-      - @collection.each do |author|
-        .b-log_entry
-          span
-            a href="#{edit_moderations_anime_video_author_url author}"
-              span.id-label #
-              = author.id
-          span = author.name
-          span
-            a.b-link href="#{moderations_anime_video_author_url author}" ->
+      - if @collection.any?
+        = render partial: 'moderations/anime_video_authors/anime_video_author',
+          collection: @collection
+
+        - if @add_postloader
+          = render 'blocks/postloader',
+            next_url: moderations_anime_video_authors_url(page: @page+1, search: params[:search], is_verified: params[:is_verified])
+      - else
+        .b-nothing_here Нет авторов

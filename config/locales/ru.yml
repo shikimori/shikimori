@@ -184,6 +184,7 @@ ru:
         anime_video_author_id: Автор
       anime_video_author:
         name: Название
+        is_verified: Проверен
       video:
         url: Url
         kind: Тип

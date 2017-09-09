@@ -4,13 +4,21 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   def index
     @anime = Anime.find_by id: params[:anime_id] if params[:anime_id]
 
-    @collection = Rails.cache.fetch cache_key do
+    @collection = postload_paginate(params[:page], 100) do
       scope =
         if @anime
           AnimeVideoAuthor.where(id: filter_authors(@anime))
         else
           AnimeVideoAuthor.all
         end
+
+      if params[:is_verified]
+        scope.where! is_verified: params[:is_verified] == 'true'
+      end
+
+      if params[:search].present?
+        scope.where! "name ilike ?", '%' + params[:search] + '%'
+      end
 
       scope.order(:name, :id)
     end
@@ -40,11 +48,16 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 
   def edit
     page_title "Редактирование автора ##{@resource.id}"
-    @back_url = moderations_anime_video_authors_url
-    breadcrumb i18n_t('page_title'), @back_url
+    page_title @resource.name
+
+    breadcrumb i18n_t('page_title'), moderations_anime_video_authors_url
+    breadcrumb @resource.name, moderations_anime_video_author_url(@resource)
+
+    @back_url = moderations_anime_video_author_url(@resource)
   end
 
   def update
+    @resource.update is_verified: update_params[:is_verified]
     AnimeVideoAuthor::Rename.call @resource, update_params[:name]
     redirect_to moderations_anime_video_authors_url
   end
@@ -52,7 +65,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
 private
 
   def update_params
-    params.require(:anime_video_author).permit(:name)
+    params.require(:anime_video_author).permit(:name, :is_verified)
   end
 
   def filter_authors anime
