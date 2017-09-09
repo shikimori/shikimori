@@ -66,18 +66,28 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
         .includes(:anime)
     end
   end
-  # rubocop:enable AbcSize
 
+  # rubocop:disable MethodLength
   def update
     @resource.update is_verified: update_params[:is_verified]
 
     if update_params.key? :name
-      AnimeVideoAuthor::Rename.call @resource, update_params[:name]
+      if update_params[:anime_id]
+        AnimeVideoAuthor::SplitRename.call(
+          model: @resource,
+          new_name: update_params[:name],
+          anime_id: update_params[:anime_id]
+        )
+      else
+        AnimeVideoAuthor::Rename.call @resource, update_params[:name]
+      end
+
       redirect_to moderations_anime_video_authors_url
     else
       redirect_back fallback_location: moderations_anime_video_authors_url
     end
   end
+  # rubocop:enable AbcSize
 
 private
 
