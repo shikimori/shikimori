@@ -28,16 +28,6 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
   # rubocop:enable AbcSize
   # rubocop:enable MethodLength
 
-  def show
-    page_title @resource.name
-    @back_url = moderations_anime_video_authors_url
-    breadcrumb i18n_t('page_title'), @back_url
-
-    @scope = @resource.anime_videos
-      .order(:episode, :kind, :id)
-      .includes(:anime)
-  end
-
   def none
     page_title 'Видео без авторов'
     @back_url = moderations_anime_video_authors_url
@@ -50,46 +40,57 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
       .limit(1000)
   end
 
+  # rubocop:disable MethodLength
   # rubocop:disable AbcSize
   def edit
     page_title "Редактирование автора ##{@resource.id}"
     page_title @resource.name
+    @back_url = moderations_anime_video_authors_url
+    breadcrumb i18n_t('page_title'), @back_url
 
-    breadcrumb i18n_t('page_title'), moderations_anime_video_authors_url
-    breadcrumb @resource.name, moderations_anime_video_author_url(@resource)
+    @scope = @resource.anime_videos
+      .order(:episode, :kind, :id)
+      .includes(:anime)
 
-    @back_url = moderations_anime_video_author_url(@resource)
-
-    if @resource.anime_videos.count < 100
-      @scope = @resource.anime_videos
-        .order(:episode, :kind, :id)
-        .includes(:anime)
+    if params[:anime_id].present?
+      @anime = Anime.find params[:anime_id]
+      @scope.where! anime_id: params[:anime_id]
     end
   end
 
-  # rubocop:disable MethodLength
   def update
-    @resource.update is_verified: update_params[:is_verified]
+    if update_params.key? :is_verified
+      @resource.update is_verified: update_params[:is_verified]
+    end
 
     if update_params.key? :name
-      if update_params[:anime_id]
-        AnimeVideoAuthor::SplitRename.call(
-          model: @resource,
-          new_name: update_params[:name],
-          anime_id: update_params[:anime_id]
-        )
-      else
-        AnimeVideoAuthor::Rename.call @resource, update_params[:name]
-      end
+      rename_author
 
-      redirect_to moderations_anime_video_authors_url
+      if @resource.persisted?
+        redirect_to edit_moderations_anime_video_author_url(@resource)
+      else
+        redirect_to moderations_anime_video_authors_url
+      end
     else
       redirect_back fallback_location: moderations_anime_video_authors_url
     end
   end
   # rubocop:enable AbcSize
+  # rubocop:enable MethodLength
 
 private
+
+  def rename_author
+    if params[:anime_id].present?
+      AnimeVideoAuthor::SplitRename.call(
+        model: @resource,
+        new_name: update_params[:name],
+        anime_id: params[:anime_id]
+      )
+    else
+      AnimeVideoAuthor::Rename.call @resource, update_params[:name]
+    end
+  end
 
   def update_params
     params.require(:anime_video_author).permit(:name, :is_verified, :anime_id)

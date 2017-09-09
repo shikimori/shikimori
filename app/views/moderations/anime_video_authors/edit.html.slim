@@ -8,15 +8,29 @@ header.head
 = simple_form_for [:moderations, @resource] do |f|
   .cc-2
     .c-column
+      - if @anime
+        .b-input
+          input[
+            type="hidden"
+            name="anime_id"
+            value="#{@anime.id}"
+          ]
+          label = Anime.model_name.human
+          a.b-link.bubbled href="#{anime_url @anime}"
+            = localization_span @anime
+          a.clear-anime[
+            href="#{url_for url_params.except(:anime_id)}"
+          ] ✕
+
       = f.input :name, hint: 'При задании пустого имени автор будет удалён'
-      = f.input :is_verified
+      - unless @anime
+        = f.input :is_verified
 
       .buttons
         a.cancel href="#{@back_url}" = t 'actions.cancel'
         = f.button :magic_submit
 
     .c-column
-      - if @scope
-        = render 'moderations/anime_video_authors/videos', scope: @scope
-      - else
-        .b-nothing_here Слишком много видео
+      = render 'moderations/anime_video_authors/videos',
+        anime_video_author: @resource,
+        scope: @scope

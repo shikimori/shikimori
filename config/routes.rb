@@ -155,7 +155,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :anime_video_authors, only: %i[index edit update show] do
+    resources :anime_video_authors, only: %i[index edit update] do
       get :none, on: :collection
     end
   end

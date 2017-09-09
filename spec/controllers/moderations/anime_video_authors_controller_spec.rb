@@ -12,11 +12,6 @@ describe Moderations::AnimeVideoAuthorsController do
     it { expect(response).to have_http_status :success }
   end
 
-  describe '#show' do
-    before { get :show, params: { id: anime_video.anime_video_author_id } }
-    it { expect(response).to have_http_status :success }
-  end
-
   describe '#none' do
     before { get :none }
     it { expect(response).to have_http_status :success }
@@ -37,9 +32,11 @@ describe Moderations::AnimeVideoAuthorsController do
       patch :update,
         params: {
           id: anime_video.anime_video_author_id,
-          anime_video_author: params
+          anime_video_author: params,
+          anime_id: anime_id
         }
     end
+    let(:anime_id) { nil }
 
     context 'without name' do
       let(:params) { { is_verified: true } }
@@ -65,21 +62,22 @@ describe Moderations::AnimeVideoAuthorsController do
 
         expect(resource).to be_valid
         expect(resource).to be_verified
-        expect(response).to redirect_to moderations_anime_video_authors_url
+        expect(response).to redirect_to edit_moderations_anime_video_author_url(resource)
       end
 
       context 'with anime_id' do
-        let(:params) { { name: 'zxcvbnm', anime_id: '1', is_verified: true } }
+        let(:params) { { name: 'zxcvbnm', is_verified: true } }
+        let(:anime_id) { '1' }
 
         it do
           expect(AnimeVideoAuthor::Rename).to_not have_received :call
           expect(AnimeVideoAuthor::SplitRename)
             .to have_received(:call)
-            .with model: resource, new_name: params[:name], anime_id: params[:anime_id]
+            .with model: resource, new_name: params[:name], anime_id: anime_id
 
           expect(resource).to be_valid
           expect(resource).to be_verified
-          expect(response).to redirect_to moderations_anime_video_authors_url
+          expect(response).to redirect_to edit_moderations_anime_video_author_url(resource)
         end
       end
     end

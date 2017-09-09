@@ -1,13 +1,25 @@
 @import globals/variables
+@import mixins/icons
 @import mixins/shiki_check
 
-.p-anime_video_authors
+.p-anime_video_authors-edit
   .anime_video_author
     margin-bottom: 2px
 
     .url
-      font-size: 11px
       color: $gray-3
+      font-size: 11px
+      word-wrap: break-word
+
+  .item-edit
+    +icon_button('\e842')
+
+  .clear-anime
+    +shiki_check($red-check)
+    margin-left: 5px
+
+    &:hover
+      text-decoration: none
 
 .p-anime_video_authors-index
   .b-collection_search .clear

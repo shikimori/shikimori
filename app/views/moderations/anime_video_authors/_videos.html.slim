@@ -1,6 +1,9 @@
 - cache scope.cache_key do
   - scope.group_by(&:anime).each do |anime, anime_videos|
     .block
+      - unless params[:anime_id].present?
+        .subheadline-buttons
+          a.item-edit href="#{edit_moderations_anime_video_author_url anime_video_author, anime_id: anime.id}"
       .subheadline
         a.b-link.bubbled href="#{anime_url anime}"
           = localization_span anime
