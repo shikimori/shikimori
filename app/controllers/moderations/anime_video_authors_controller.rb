@@ -49,6 +49,7 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     breadcrumb i18n_t('page_title'), @back_url
 
     @scope = @resource.anime_videos
+      .available
       .order(:episode, :kind, :id)
       .includes(:anime)
 
@@ -98,6 +99,7 @@ private
 
   def filter_authors anime
     anime.anime_videos
+      .available
       .except(:order)
       .distinct
       .pluck(:anime_video_author_id)
