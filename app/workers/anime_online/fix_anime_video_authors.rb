@@ -1,5 +1,5 @@
 # rubocop:disable ClassLength
-class FixAnimeVideoAuthors
+class AnimeOnline::FixAnimeVideoAuthors
   include Sidekiq::Worker
   include ActionView::Helpers::TextHelper
 

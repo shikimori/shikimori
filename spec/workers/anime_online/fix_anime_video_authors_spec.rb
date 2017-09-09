@@ -1,5 +1,5 @@
-describe FixAnimeVideoAuthors do
-  let(:service) { FixAnimeVideoAuthors.new }
+describe AnimeOnline::FixAnimeVideoAuthors do
+  let(:service) { AnimeOnline::FixAnimeVideoAuthors.new }
   let!(:author_1) { create :anime_video_author, name: name, id: 555_555 }
   let!(:anime_video_1) { create :anime_video, author: author_1 }
 
