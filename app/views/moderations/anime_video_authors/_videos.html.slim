@@ -8,11 +8,15 @@
         a.b-link.bubbled href="#{anime_url anime}"
           = localization_span anime
 
-      - anime_videos.each do |anime_video|
+      - anime_videos.each do |video|
         .anime_video_author
-          .b-video_variant data-episode="#{anime_video.episode}"
-            a href="#{play_video_online_index_url anime, anime_video.episode, anime_video.id, subdomain: 'play'}"
-              span.episode-num ##{anime_video.episode}
-              span.episode-kinds = anime_video.kind_text
-              span.episode-hostings = anime_video.hosting
-          .url = anime_video.url
+          .b-video_variant data-episode="#{video.episode}"
+            a href="#{play_video_online_index_url anime, video.episode, video.id, subdomain: 'play'}"
+              span.episode-num ##{video.episode}
+              span.episode-kinds = video.kind_text
+              span.episode-hostings = video.hosting
+
+              span.video-quality = video.language_text
+              span.video-quality = video.quality_text
+
+          .url = video.url
