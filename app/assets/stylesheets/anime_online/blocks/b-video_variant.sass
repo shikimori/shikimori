@@ -1,7 +1,10 @@
 @import mixins/link
+@import mixins/retina
+
+$image-path: '/assets/blocks/b-video_variant'
 
 .b-video_variant
-  color: red
+  position: relative
 
   &.active a
     color: $link-4
@@ -61,7 +64,7 @@
       content: 'EN'
       font-family: sans-serif
       font-size: 10px
-      margin-left: -21px
+      left: -21px
       margin-top: 3px
       position: absolute
 
@@ -75,3 +78,18 @@
     &:after
       content: ')'
 
+
+  .video-quality
+    float: left
+    margin-top: 5px
+    margin-right: 4px
+
+    &.bd
+      +background-inline-retina('#{$image-path}/bd', 'png', 56px, 12px)
+      height: 12px
+      width: 56px
+
+    &.dvd
+      +background-inline-retina('#{$image-path}/dvd', 'png', 27px, 12px)
+      height: 12px
+      width: 27px

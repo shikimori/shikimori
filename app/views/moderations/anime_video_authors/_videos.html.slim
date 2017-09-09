@@ -16,15 +16,14 @@
               class="#{video.state}"
             ]
               span.episode-num ##{video.episode}
-              span.episode-kinds = video.kind_text
+              span.video-kind class="#{video.language}"
+                = video.kind_text.capitalize
               span.episode-hostings = video.hosting
 
-              - if video.language_english?
-                span.video-quality EN
-              - elsif video.language_english?
-                span.video-quality = video.language_text
+              - if video.quality_bd?
+                span.video-quality.bd
 
-              - unless video.quality_unknown?
-                span.video-quality = video.quality_text
+              - elsif video.quality_dvd?
+                span.video-quality.dvd
 
           .url = video.url
