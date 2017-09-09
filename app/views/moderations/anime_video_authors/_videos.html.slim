@@ -10,14 +10,20 @@
 
       - anime_videos.each do |video|
         .anime_video_author
-          .b-video_variant data-episode="#{video.episode}"
-            a href="#{play_video_online_index_url anime, video.episode, video.id, subdomain: 'play'}"
+          .b-video_variant
+            a[
+              href="#{play_video_online_index_url anime, video.episode, video.id, subdomain: 'play'}"
+              class="#{video.state}"
+            ]
               span.episode-num ##{video.episode}
               span.episode-kinds = video.kind_text
               span.episode-hostings = video.hosting
 
-              - unless video.language_unknown?
+              - if video.language_english?
+                span.video-quality EN
+              - elsif video.language_english?
                 span.video-quality = video.language_text
+
               - unless video.quality_unknown?
                 span.video-quality = video.quality_text
 

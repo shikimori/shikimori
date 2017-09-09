@@ -49,7 +49,6 @@ class Moderations::AnimeVideoAuthorsController < ModerationsController
     breadcrumb i18n_t('page_title'), @back_url
 
     @scope = @resource.anime_videos
-      .available
       .order(:episode, :kind, :id)
       .includes(:anime)
 
