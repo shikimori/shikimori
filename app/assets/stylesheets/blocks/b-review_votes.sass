@@ -1,5 +1,5 @@
 @import globals/variables
-@import mixins/brackets_surrounded
+@import mixins/shiki_check
 @import mixins/shikimori
 
 .b-review_votes
@@ -16,26 +16,18 @@
     padding-right: 5px
 
   .user-vote
+    .voted-for
+      +shiki_check($green-check)
+
+    .voted-against
+      +shiki_check($red-check)
+
     .voted-for, .voted-against
-      +brackets_surrounded
-      +shikimori
       display: none
 
       &.selected
         display: inline-block
         margin-left: 5px
-
-        &:before
-          padding-right: 2px
-
-        &:after
-          padding-left: 2px
-
-    .voted-for
-      color: #24a232
-
-    .voted-against
-      color: #c32017
 
   span
     color: $gray

@@ -1,0 +1,14 @@
+@import mixins/brackets_surrounded
+@import mixins/shikimori
+
+=shiki_check($check-color)
+  +brackets_surrounded
+  +shikimori
+  display: inline-block
+  color: $check-color
+
+  &:before
+    padding-right: 2px
+
+  &:after
+    padding-left: 2px
