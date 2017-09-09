@@ -5,11 +5,11 @@ class AnimeVideoAuthor::Rename < ServiceObjectBase
 
   # updated_at is touched because it is used as cache key animes_videos#index
   def call
-    new_author_name = AnimeVideoAuthor.fix_name @new_name
-    return if @model.name == new_author_name
+    @model.name = @new_name
+    return unless @model.changed?
 
-    unless rename @model, new_author_name
-      move_videos @model, new_author_name
+    unless rename @model, @model.name
+      move_videos @model, @model.name
       @model.destroy!
     end
   end
