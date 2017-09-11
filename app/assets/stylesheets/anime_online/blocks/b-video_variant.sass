@@ -78,18 +78,18 @@ $image-path: '/assets/blocks/b-video_variant'
     &:after
       content: ')'
 
-
-  .video-quality
+  .video-quality.bd,
+  .video-quality.dvd
     float: left
     margin-top: 5px
     margin-right: 4px
 
-    &.bd
-      +background-inline-retina('#{$image-path}/bd', 'png', 56px, 12px)
-      height: 12px
-      width: 56px
+  .video-quality.bd
+    +background-inline-retina('#{$image-path}/bd', 'png', 56px, 12px)
+    height: 12px
+    width: 56px
 
-    &.dvd
-      +background-inline-retina('#{$image-path}/dvd', 'png', 27px, 12px)
-      height: 12px
-      width: 27px
+  .video-quality.dvd
+    +background-inline-retina('#{$image-path}/dvd', 'png', 27px, 12px)
+    height: 12px
+    width: 27px
