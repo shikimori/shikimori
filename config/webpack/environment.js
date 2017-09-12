@@ -38,7 +38,7 @@ environment.plugins.set(
 
 environment.plugins.set(
   'ContextReplacement',
-  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/),
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ru/)
 )
 
 module.exports = environment
