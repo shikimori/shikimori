@@ -5,11 +5,15 @@ const { environment } = require('@rails/webpacker')
 environment.loaders.get('babel').exclude =
   /node_modules\/(?!delay|p-defer|get-js)/
 
+environment.loaders.get('vue').options.extractCSS = false
+
 environment.loaders.set('jade', {
   test: /\.(?:jade|pug)$/,
   loader: 'pug-loader',
   exclude: /node_modules/
 })
+
+environment.plugins.get('ExtractText').options.allChunks = true
 
 environment.plugins.set(
   'Provide',

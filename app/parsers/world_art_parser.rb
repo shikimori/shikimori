@@ -65,7 +65,6 @@
   #def fetch_anime(id)
     #content = get(AnimeUrl % id)
     #return nil unless content
-    #binding.pry
     #content = content.force_encoding('windows-1251').encode('utf-8') unless content =~ ContentRegexp
 
     #anime = {
