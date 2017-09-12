@@ -5,7 +5,7 @@ header.head
     = @description
 
 .block
-  = cache [:studios, :v4], expires_in: 1.day do
+  = cache [:studios, :v5], expires_in: 1.day do
     - @collection.select(&:real?).each do |studio|
       .studio
         - if studio.image.exists?

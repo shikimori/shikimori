@@ -91,6 +91,7 @@ class Studio < ApplicationRecord
     "daiwon media",
     "lerche",
     "project no.9",
+    "seven arcs pictures",
 
     # с википедии
     "a-1 pictures inc.",
