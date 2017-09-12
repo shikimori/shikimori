@@ -23,6 +23,7 @@ config/database.yml
 node_modules
 public/system
 public/packs
+/public/packs-test
 
 *.swp
 .powenv
@@ -32,5 +33,3 @@ public/packs
 app/assets/javascripts/i18n/translations.js
 public/javascripts/i18n.js
 spec/test_files/*
-/public/packs
-/node_modules

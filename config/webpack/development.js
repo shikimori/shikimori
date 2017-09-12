@@ -1,23 +1,7 @@
-// Note: You must restart bin/webpack-dev-server for changes to take effect
-
-const webpack = require('webpack')
-const merge = require('webpack-merge')
-const sharedConfig = require('./shared.js')
-const { join } = require('path')
+const environment = require('./environment')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 
-module.exports = merge(sharedConfig, {
-  devtool: 'sourcemap',
+const config = environment.toWebpackConfig()
+config.plugins.push(new FriendlyErrorsWebpackPlugin())
 
-  plugins: [
-    new FriendlyErrorsWebpackPlugin()
-  ],
-
-  stats: {
-    errorDetails: true
-  },
-
-  output: {
-    pathinfo: true
-  }
-})
+module.exports = config
