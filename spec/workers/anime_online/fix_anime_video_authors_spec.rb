@@ -9,9 +9,7 @@ describe AnimeOnline::FixAnimeVideoAuthors do
       let(:name) { 'test' }
       before { service.perform }
 
-      it do
-        expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound
-      end
+      it { expect { author_1.reload }.to raise_error ActiveRecord::RecordNotFound }
     end
 
     context 'quality change' do
@@ -189,6 +187,23 @@ describe AnimeOnline::FixAnimeVideoAuthors do
             context 'with minus' do
               let(:name) { 'SHIZA-Project' }
               it { expect(author_1.reload.name).to eq 'SHIZA Project' }
+            end
+          end
+
+          context 'AniMaunt' do
+            context 'animaunt.ru' do
+              let(:name) { 'animaunt.ru' }
+              it { expect(author_1.reload.name).to eq 'AniMaunt' }
+            end
+
+            context 'aanimaunt' do
+              let(:name) { 'aanimaunt' }
+              it { expect(author_1.reload.name).to eq 'AniMaunt' }
+            end
+
+            context 'аanimaunt' do
+              let(:name) { 'аanimaunt' }
+              it { expect(author_1.reload.name).to eq 'AniMaunt' }
             end
           end
         end

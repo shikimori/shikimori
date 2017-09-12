@@ -7,7 +7,7 @@ class AnimeOnline::FixAnimeVideoAuthors
   STUDIOS = %w(
     AniDUB AniStar AniLibria AnimeReactor AnimeVost AniPlay AniRecords
     AniUchi AniSound NekoProject AnimeJet FreeDub AniFame AniChaos RainDub
-    SovetRomantica
+    SovetRomantica AniMaunt
   ) + [
     'DeadLine Studio', 'Bastion Studio', 'Onibaku Group', 'SHIZA Project'
   ]
