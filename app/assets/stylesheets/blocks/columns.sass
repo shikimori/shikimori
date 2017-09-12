@@ -36,16 +36,16 @@
 
 .cc-3-flex
   +gte_ipad
-    +display(flex)
-    +flex-wrap(wrap)
+    display: flex
+    flex-wrap: wrap
     // +align-items(stretch)
     // +flex-direction(row)
     // +justify-content(flex-start)
 
   &>.c-column
     +gte_ipad
-      +flex-grow(1)
       +column_bm(3)
+      flex-grow: 1
 
     +iphone
       +column_bm(1)
