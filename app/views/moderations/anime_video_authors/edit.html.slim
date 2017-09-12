@@ -2,7 +2,7 @@ header.head
   h2
     a.back href="#{@back_url}" data-text="#{t 'back'}"
     = @page_title.last
-  .notice У автора #{@resource.anime_videos.count} видео
+  .notice У автора #{@resource.anime_videos.available.count} видео
   = render partial: 'blocks/breadcrumbs', object: @breadcrumbs
 
 = simple_form_for [:moderations, @resource] do |f|
@@ -20,7 +20,7 @@ header.head
             = localization_span @anime
           a.clear-anime[
             href="#{url_for url_params.except(:anime_id)}"
-          ] ✕
+          ] отменить
 
       = f.input :name, hint: 'При задании пустого имени автор будет удалён'
       - unless @anime
