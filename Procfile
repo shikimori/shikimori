@@ -3,4 +3,4 @@ faye: node faye.js
 sidekiq: bundle exec sidekiq -C config/sidekiq.yml
 # faye: RAILS_ENV=development rackup faye.ru -s thin -E production
 # clockwork: bundle exec clockwork config/clock.rb
-# webpack: bin/webpack
+webpack: bin/webpack-dev-server
