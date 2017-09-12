@@ -1,5 +1,5 @@
-#TODO : проверить необходимость метода allowed?
-#TODO : вынести методы относящиеся ко вью в декоратор.
+# TODO : проверить необходимость метода allowed?
+# TODO : вынести методы относящиеся ко вью в декоратор.
 class AnimeVideo < ApplicationRecord
   # для Versions
   SIGNIFICANT_FIELDS = []
@@ -11,15 +11,15 @@ class AnimeVideo < ApplicationRecord
   has_many :reports, class_name: AnimeVideoReport.name, dependent: :destroy
 
   enumerize :kind,
-    in: [:fandub, :unknown, :subtitles, :raw],
+    in: %i[fandub unknown subtitles raw],
     default: :unknown,
     predicates: true
   enumerize :language,
-    in: [:russian, :unknown, :original, :english],
+    in: %i[russian unknown original english],
     default: :unknown,
     predicates: { prefix: true }
   enumerize :quality,
-    in: [:bd, :dvd, :web, :tv, :unknown],
+    in: %i[bd dvd web tv unknown],
     default: :unknown,
     predicates: { prefix: true }
 

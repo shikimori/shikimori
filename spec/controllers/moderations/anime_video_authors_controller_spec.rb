@@ -33,10 +33,12 @@ describe Moderations::AnimeVideoAuthorsController do
         params: {
           id: anime_video.anime_video_author_id,
           anime_video_author: params,
-          anime_id: anime_id
+          anime_id: anime_id,
+          kind: kind
         }
     end
     let(:anime_id) { nil }
+    let(:kind) { nil }
 
     context 'without name' do
       let(:params) { { is_verified: true } }
@@ -73,11 +75,36 @@ describe Moderations::AnimeVideoAuthorsController do
           expect(AnimeVideoAuthor::Rename).to_not have_received :call
           expect(AnimeVideoAuthor::SplitRename)
             .to have_received(:call)
-            .with model: resource, new_name: params[:name], anime_id: anime_id
+            .with(
+              model: resource,
+              new_name: params[:name],
+              anime_id: anime_id,
+              kind: nil
+            )
 
           expect(resource).to be_valid
           expect(resource).to be_verified
           expect(response).to redirect_to edit_moderations_anime_video_author_url(resource)
+        end
+
+        context 'with kind' do
+          let(:kind) { 'zc' }
+
+          it do
+            expect(AnimeVideoAuthor::Rename).to_not have_received :call
+            expect(AnimeVideoAuthor::SplitRename)
+              .to have_received(:call)
+              .with(
+                model: resource,
+                new_name: params[:name],
+                anime_id: anime_id,
+                kind: kind
+              )
+
+            expect(resource).to be_valid
+            expect(resource).to be_verified
+            expect(response).to redirect_to edit_moderations_anime_video_author_url(resource)
+          end
         end
       end
     end
