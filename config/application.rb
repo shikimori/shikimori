@@ -27,7 +27,8 @@ module Site
   ALLOWED_DOMAINS = ShikimoriDomain::RU_HOSTS + AnimeOnlineDomain::HOSTS +
     ShikimoriDomain::EN_HOSTS
 
-  ALLOWED_PROTOCOL = Rails.env.production? ? 'https' : 'http'
+  LOCAL_RUN = ENV['LOGNAME'] == 'morr' && ENV['USER'] == 'morr'
+  ALLOWED_PROTOCOL = Rails.env.production? && !LOCAL_RUN ? 'https' : 'http'
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -53,7 +54,10 @@ module Site
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
-    config.middleware.use Redirecter if defined?(Redirecter) && Rails.env.production? # для clockwork он not defined
+    if defined?(Redirecter) && Rails.env.production? && !LOCAL_RUN
+      config.middleware.use Redirecter
+    end
+
     config.middleware.insert 0, Rack::UTF8Sanitizer
     config.middleware.insert 0, ProxyTest if defined?(ProxyTest) # для clockwork он not defined
 
