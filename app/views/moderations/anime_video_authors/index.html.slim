@@ -11,15 +11,15 @@ header.head
 ul.b-list.block
   li
     a.b-link[
-      href="#{moderations_anime_video_authors_url}"
+      href="#{request.fullpath == url_for(url_params(is_verified: nil)) ? moderations_anime_video_authors_url : url_for(url_params(is_verified: nil))}"
     ] Все авторы
   li
     a.b-link[
-      href="#{moderations_anime_video_authors_url is_verified: true}"
+      href="#{url_for url_params(is_verified: true)}"
     ] Проверенные авторы
   li
     a.b-link[
-      href="#{moderations_anime_video_authors_url is_verified: false}"
+      href="#{url_for url_params(is_verified: false)}"
     ] Не проверенные авторы
   li
     a.b-link[
