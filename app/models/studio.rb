@@ -92,6 +92,7 @@ class Studio < ApplicationRecord
     "lerche",
     "project no.9",
     "seven arcs pictures",
+    "japan home video",
 
     # с википедии
     "a-1 pictures inc.",
