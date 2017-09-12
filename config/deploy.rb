@@ -3,9 +3,6 @@ set :repo_name, 'shikimori'
 set :repo_url, "git@github.com:morr/#{fetch :repo_name}.git"
 set :rails_env, fetch(:stage)
 
-#set :bundle_without, [:test]
-set :branch, ->{ `git rev-parse --abbrev-ref HEAD`.chomp }
-
 set :user, 'devops'
 set :group, 'apps'
 set :unicorn_user, 'devops'
@@ -29,6 +26,14 @@ set :copy_files, %w[node_modules]
 set :keep_releases, 5
 set :log_level, :info
 set :format, :airbrussh
+
+Airbrussh.configure do |config|
+  config.truncate = false
+end
+
+def current_branch
+  ENV['BRANCH'] || `git rev-parse --abbrev-ref HEAD`.chomp
+end
 
 def shell_exec command
   execute "source /home/#{fetch :user}/.rvm/scripts/rvm && #{command}"

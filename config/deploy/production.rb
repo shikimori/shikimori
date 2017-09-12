@@ -1,5 +1,12 @@
 set :stage, :production
 set :deploy_to, "/home/apps/#{fetch :application}/#{fetch :stage}"
+set :branch, -> do
+  # if !ENV['CODESHIP'] && current_branch != 'master'
+    # puts "You can publish to production only the master branch!!!".red
+    # abort
+  # end
+  current_branch
+end
 
 set :site_domain, '136.243.135.217'
 
